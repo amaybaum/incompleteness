@@ -151,6 +151,7 @@ These are source-review referrals, **not** accepted textual corrections or indep
 | P1 | `papers/Medicine.md:35–39`, downstream biological predictions | Do not conflate conditional readback memory, measured P-indivisibility and verified natural biological realization of C1–C4. **A1 part corrected by #1341; Medicine:37 is #1342 R4** |
 | P1 | `book/appendix-c-objections.md:128–132` | Keep "QFT infinity is an artifact" expressly conditional on a physically supported finite underlying model. **Corrected by #1341 (§5.1)** |
 | — | `papers/Main.md:746–762` and downstream arrow / anti-BB claims | Not assessed in this pass and not counted as a candidate; deferred to A1-05 (#1332) |
+| P1 | `papers/Main.md:540`, mirror `papers/Main.tex:3444` (characterization theorem, root R2) | Fix what "the Poincaré recurrence time of any realizing substrate" refers to. If "any" is read as "every", no order is accessible and the theorem holds vacuously (§27.8). The proof at Main:634 does not use `t_R`. This is a wording defect. `book/` and FULL have no matching occurrence. **Corrected by #1418 (MAIN-TR-1, merge `c0a03d1d929763958a42601288ea7ee44aa4094c`). The two neighbouring `t_R` references, Main:644 and :739, are corrected by #1419 (MAIN-TR-2, merge `6757d6b1ee98f3799b5ccf5c34e04a9f505b41c6`).** |
 
 ### 5.1 Disposition after the first-pass review
 
@@ -176,11 +177,11 @@ Manuscript corrections must use the separately designated #1015/#1029 or other a
 
 **Current A1-C01 verdict: INCOMPLETE — UNCLASSIFIED**, not "all A1 claims classified". Specifically:
 - CENSUS-X1: resolved for claim coverage by batch 1 (§7).
-- CENSUS-X2: §§8–11 cover the original 53 name-flagged modules and five concrete-type modules. §14 adds the root Lean file, all six legacy modules and selected omitted signatures, including a finite-orbit step under `S` and a finite-stage step with no `[Finite S]` binder. §19 reconciles the file changes since batch 2. §§20–22 extend named source tracing to all 242 indexed bridge modules. §23.1 follows five selected chains through named prerequisites and consumers. §24 traces 132 authored declarations in ten priority files. §§25.2–25.7 trace 86 additional authored declarations in six files, and §25.8 follows selected paths in five further files. Corpus-wide declaration inspection and elaborated dependency closure remain open. The module counts through §21 record earlier checkpoints.
+- CENSUS-X2: §§8–11 cover the original 53 name-flagged modules and five concrete-type modules. §14 adds the root Lean file, all six legacy modules and selected omitted signatures, including a finite-orbit step under `S` and a finite-stage step with no `[Finite S]` binder. §19 reconciles the file changes since batch 2. §§20–22 extend named source tracing to all 242 indexed bridge modules. §23.1 follows five selected chains through named prerequisites and consumers. §24 traces 132 authored declarations in ten priority files. §§25.2–25.7 trace 86 additional authored declarations in six files, and §25.8 follows selected paths in five further files. §27 traces 120 authored declarations in the six files behind Main's R1–R3 kernel citations. Corpus-wide declaration inspection and elaborated dependency closure remain open. The module counts through §21 record earlier checkpoints.
 - CENSUS-X3: §12 resolves the mechanical source crosswalk at the new pin (124 families, 132 coverage entries and 20 unattached items). §13 records source scopes for all 20 unattached items. Proof scope and dependencies outside the specific backward traces remain open.
-- CENSUS-X4: §16 inventories the recursive verification and paper-supplement tree and runs a focused text search. §23.3 follows the named finite-shell and comb records and the mechanical-latch addition to `main`. §25.10 follows eight additional chains for records, finite factors and operational completion. Untraced evidence chains and archive or branch-only content are still **X**. Published `.tex` mirrors are resolved for claim content by batch 1 (§7). PDFs are not stamped and are not checked in this census.
-- CENSUS-X5: the original textual pass covers 12 primary papers and 29 chapter/back-matter Markdown files. §15 adds backward traces for selected observer, GR and SM statements. §17 assigns a first-pass input scope to each of the 132 registered paper statements. §18 visits major downstream transfers in the six papers outside that register. §§23.2 and 25.9 trace thirteen selected unnumbered claim chains with publication locators. Other implicit inheritance and untraced claims remain **X**.
-- CENSUS-X6: resolved for the six first-pass candidates (§5.1): five corrected on `main` by #1341, D09 withdrawn, D34b moved to #1342. Further candidates found in later batches need their own review and owner authorization.
+- CENSUS-X4: §16 inventories the recursive verification and paper-supplement tree and runs a focused text search. §23.3 follows the named finite-shell and comb records and the mechanical-latch addition to `main`. §25.10 follows eight additional chains for records, finite factors and operational completion. §26 reconciles the 106-path search queue and traces the landed recurrence proof at its newer source pin. Untraced evidence chains and archive or branch-only content are still **X**. Published `.tex` mirrors are resolved for claim content by batch 1 (§7). PDFs are not stamped and are not checked in this census.
+- CENSUS-X5: the original textual pass covers 12 primary papers and 29 chapter/back-matter Markdown files. §15 adds backward traces for selected observer, GR and SM statements. §17 assigns a first-pass input scope to each of the 132 registered paper statements. §18 visits major downstream transfers in the six papers outside that register. §§23.2 and 25.9 trace thirteen selected unnumbered claim chains with publication locators. §27.8 traces twelve Main sites to the §27 declarations. Other implicit inheritance and untraced claims remain **X**.
+- CENSUS-X6: resolved for the six first-pass candidates (§5.1): five corrected on `main` by #1341, D09 withdrawn, D34b moved to #1342. Further candidates found in later batches need their own review and owner authorization. §27.8 adds one such candidate, the `t_R` wording at `papers/Main.md:540` and its mirror `papers/Main.tex:3444`. It is corrected by #1418 (§5).
 
 To close A1-C01, obtain full text/source parity for X1–X4; review and classify every site and theorem in X2–X5, including implicit dependencies; resolve or explicitly narrow X6 by separately approved evidence; and reconcile against the existing closure register with a reviewed exact-head audit. Only an independent final G2/owner sign-off on reviewed manuscript propagation can change the foundational completion label.
 
@@ -1375,3 +1376,342 @@ These eight selected chains start at retained records and identify the proof or 
 ### 25.11 Disposition
 
 Across §§24–25, 218 authored declarations have individual source rows from the 16 fully rostered modules. This continuation adds 86 in six files, selected traces in five further files, eight unnumbered consumer chains and eight evidence chains. All 242 indexed bridge modules have a source trace. The other 226 indexed modules are outside the full-file declaration rosters. Remaining **X** entries include their untraced declarations, generated declarations and elaborated dependencies beyond the named imports, untraced manuscript claims, and untraced evidence from the §16 recursive inventory. The lexical declaration inventory is a search index. A1-C01 remains **INCOMPLETE**.
+
+## 26. Retained evidence at the A1-RIGID-1 source pin
+
+### 26.1 Source and preservation candidates
+
+This evidence continuation starts from independently reviewed `671355ebe64dfd4a2f2ce8f9fb033787d82c7609` on `research/a1-09-manuscript-traces-1334-20261119`. New source checks use `main` at `adf41d3f833692e33628008d3c82ce3779f343e0`, tree `a3614c9a65e12d2ba8695fdf66aca13f496b62a5`. Relative to §16's source pin, exactly two paths were added, the latch assessment in §23.3 and the A1-RIGID-1 paper below. Lean, manuscripts, registries and previously inspected evidence retain identical source content. [Source comparison](https://github.com/amaybaum/incompleteness/compare/baeb7723743e99b137ae3d0a1694e99ff97e2a73...adf41d3f833692e33628008d3c82ce3779f343e0)
+
+The `#1402` preservation candidate `307ccb10d09091c73d17bd45c1924c02e612f686` is based on this `main`. Its two changed files, `CENSUS.md` and `registry_index.py`, have blobs `7d1351c84b2f6b046dc9d2ed8efd52c845367de7` and `329a409059249afa08016a7b7a705839634ff2c6`, respectively, identical to the reviewed continuation. The exact candidate received 26 successful checks and one expected skip. The later evidence census is on the linked research branch and has a separate exact-commit review and CI scope. [Integration candidate](https://github.com/amaybaum/incompleteness/commit/307ccb10d09091c73d17bd45c1924c02e612f686) · [Hosted checks](https://github.com/amaybaum/incompleteness/actions/runs/44571983412) · [Source review](https://github.com/amaybaum/incompleteness/pull/1402#issuecomment-7015260041)
+
+### 26.2 The landed recurrence proof and its evidence
+
+`verification/audits/foundations/a1-rigid-visible-recurrence-20261119/A1-RIGID-1.md` is now on `main` through #1396. Its blob `2e253eafc0536628f83964573534997b6d04071a` equals the independently accepted paper at `a932a1f6398bdd3f9a1e46b3fecba2bf3145a344`, preserved through refreshed PR head `4494ac18acb654ccc174f075d5def643ceeaaa47`. The status line inside the unchanged paper describes the draft at writing. The review and merge records establish review and preservation, respectively. [Paper](https://github.com/amaybaum/incompleteness/blob/adf41d3f833692e33628008d3c82ce3779f343e0/verification/audits/foundations/a1-rigid-visible-recurrence-20261119/A1-RIGID-1.md) · [Independent paper review](https://github.com/amaybaum/incompleteness/pull/1396#pullrequestreview-5972282779) · [Preservation receipt](https://github.com/amaybaum/incompleteness/pull/1396#issuecomment-7016206642)
+
+| Proof path | Premises and consequence |
+|---|---|
+| A1-RIGID-1:10–53,57–91 → REC-1 Lemma 3.1 and Proposition 3.2 | The carrier can be infinite. Bimeasurable invertibility and the normalized invariant law give the Koopman isometry and equal masses of the cell and its preimage. The squared indicator distance is twice that cell's mass times its rooted diagonal deficit. The finite visible alphabet with positive masses gives a positive minimum cell mass. Relative compactness is required for the joint orbit of the selected indicators. A finite cover centered at orbit points of times $m_i$ gives a center within tolerance of the point at time $q+\max_i m_i$. The isometry gives a return at the difference of these two times, in $[q,q+\max_i m_i]$. **A** for this conditional result. The finite cover depends on the model and tolerance. |
+| A1-RIGID-1:93–120 → A1-10 F11 and REC-1 Proposition 3.4 → `CausalReadback.c4r_implies_pIndivisible:132–144` | A non-permutation square stochastic matrix on finite $V$ has two rows sharing a positive entry. Their earlier total variation is at most one minus that common mass. At a later return the sum of their two diagonal deficits is smaller than the common mass. The same roots then have strictly increased total variation, incompatible with a row-stochastic right divisor. The paper supplies the near-return input to the existing finite-matrix C4r implication. **A** under the probabilistic and dynamical premises. |
+| A1-RIGID-1:45–53,124–196,202–232 → Main §2.3 | Equality with Main's shared hidden-prior convention uses a measurable product identification and the invariant product law specified in the paper. A general measured partition supplies its own conditional rows. The irrational rotation with an independent invisible Bernoulli shift gives compact indicator orbits, a non-permutation first step and no positive exact identity time, while another $L^2$ orbit lacks compact closure. The Bernoulli-only readout has pointwise recurrence and P-divisible rooted matrices. The fixed-prior finite-order proof also covers finite models whose chosen shared prior gives no invariant product law with positive visible weights. Its exact cycle endpoint and all-time periodicity keep their original **F** support. |
+| A1-RIGID-1:235–275 → REC-1 Proposition 3.5 and 5.1, and NR-1 Proposition 2.3 | Observable compactness is sufficient for the return argument. The overlapping-cylinder control has revival without subsequential identity return, and the fixed-horizon controls rule out a uniform bound on the first witnessing horizon. In the stated nonnilpotent infinite-lattice Haar class with full two-slice windows, NR-1 bounds the diagonal by $1/2$ at positive times, excluding the compactness hypothesis there. Revival exclusions use NR-1's separate prime-field and shape premises. The native invariant law, compact indicator orbits, required overlap and accessible horizon for a physical application remain **W**. |
+
+A1-10 F11 and REC-1 left the recurrence premise as input. The landed paper discharges that mathematical step under joint indicator-orbit compactness. The existing Lean result cited in the paper concerns the matrix consequence. The compact-orbit and invariant-measure implications are at paper scope.
+
+The paper's 22 versioned source links at :280–301 all resolve to line ranges in seven retained paths. Comparing its source base `416f546d076299ab70d0c12df55808f930accddc` with the §26 pin finds no change to those seven files. They comprise the Main TeX source, the ladder, REC-1, `CausalReadback`, NR-1 and two scope assessments. The issue and coordination links at :278–279 point to the paper-only owner relay and the earlier planning context, respectively. [Pinned evidence comparison](https://github.com/amaybaum/incompleteness/compare/416f546d076299ab70d0c12df55808f930accddc...adf41d3f833692e33628008d3c82ce3779f343e0)
+
+### 26.3 Recursive evidence queue
+
+Reproducing §16's command at the §26 pin gives **3,271** tracked paths and the same **106** matching paths. The exact tree comparison and the search include both additional evidence records in the scanned subtree. Neither new record matches the expression, although A1-RIGID-1 supplies a replacement premise for the recurrence theorem. The latch evidence remains at the calibration and source gap recorded in §23.3. A cue-free path can therefore carry a material dependency.
+
+The row numbers in §§26.4–26.5 are the one-based path numbers from this command. They recover the precise file set even when several revisions have the same evidence role.
+
+```bash
+pin=adf41d3f833692e33628008d3c82ce3779f343e0
+cue='total (finiteness|configuration (space|set)|state space)|finite (total (state|carrier|configuration)|universe|substratum)|H-count|P12\(b\)|common (exact )?(period|return)'
+git grep -I -l -i -E "$cue" "$pin" -- verification papers/main_repro papers/oi_lattice_code \
+  | cut -d: -f2- | LC_ALL=C sort | nl -ba
+```
+
+With the same scope, `git grep -I -n -i -E` yields 628 matching source lines. Using the Git word-boundary expression `\bH-count\b` in place of `H-count` leaves **100** paths. The six removed paths are 74–75, which match “length-count,” and 96–99, which match `CP-SEARCH-COUNTER` variants. They remain in the raw queue with the false-match dispositions below. The word-boundary check explains those six matches. It gives no conclusion about other contents in those files.
+
+### 26.4 Foundations, manuscript evidence, registries and hydrodynamics
+
+These rows record the scope of the matching evidence or the claim that a status record refers to. A comparison receipt or a text guard records checking in its specified role. The proofs and constructions named in the last column carry the mathematical implications.
+
+| Queue paths | Evidence inspected | Dependency and support |
+|---|---|---|
+| 1 | `architecture_check.py:17–20,90–121,409–412` | The matches are scope-guard patterns, their failure text and exemplars. The represented continuous-time interpolation is the Hermitian logarithm of a discrete step; Main's finite-order recurrence uses the finite microscopic permutation. The guard checks wording across manuscript sources, chapters and README. |
+| 2 | `recurrence_entropy_probes.py:24–46,225–321` | The generalized entropy-budget argument uses a finite initial state distributed by the supplied prior. A deterministic visible word is its pushforward, so its block entropy is bounded by the initial entropy and hence by the log of the state count. The cyclic de Bruijn construction and ring-buffer cases are finite witnesses. **F** for the fixed finite-carrier bound and those controls. |
+| 3 | A1-05 `SOURCE-MATRIX.md:3,19–26,34–41` | P8-M's forward decay proof takes an invariant normalized law, its orthogonal projection and the (EM) bound for the iterated effective channel. A finite window or exponent bound on compressed iterates does not manufacture that law or make them the exact marginals of one reversible time evolution. **A** for controlled compression, **W** for the equilibrium state, accessible records and native selection in P8-S. |
+| 4–5, 13 | A1-06 `SOURCE-CHECK.md:3,7–24`, A1-07 `DECISION.md:3,7–19`, A1-free P7 coupled `DECISION.md:3,9–22` | The binary lattice source supplies a reference law and site readout and stops at the scalar field on that same readout for SM's projection. The four-site A4 example has an active boundary and a conserved modular quantity. The real conserved horizon energy and the normalized invariant, reversal-compatible shell family with selected relative weights across energies remain **W**. Counting on an already invariant finite shell has the scope in §24.5. |
+| 6 | A1-09 census at the source pin | Earlier audit dispositions and coverage limitations point back to the cited manuscripts and declarations. Retain them as provenance for the continuation. |
+| 7, 18, 24 | A1-10 `PREMISE-LADDER.md:35–59,83–105`, NR-1 `NR-1.md:165–203,293–329,392–406`, REC-1 `REC-1.md:226–322,454–475` | Keep the ladder's exact support-wide return, visible identity, one-time near-return and subsequential rigidity distinct. §26.2 follows the landed proof of the compact-orbit route. NR-1's negative and positive controls depend on its specified Haar law, full two-slice readout, coefficient and lattice premises. Its infinite-volume nonnilpotent bound excludes return on that class. The torus comparison has a prewrap window and a separate finite recurrence mechanism. |
+| 8 | A1-11 `FORWARD-ALGEBRA.md:9–25,108–119` | The six-link projection has a finite local module; the stabilizer and charged-action steps consume a supplied Hermitian single-copy carrier, scalar kinetic term, distinct eigenvalues and the specified quotient or action. **A** for the stated forward algebra. A4 plus its fixed finite alphabet yields a finite product configuration space for Theorem 23. Local covariance on arbitrary site types supplies no physical H-link, condensate or action. |
+| 9 | A1-DS `A1-DS.md:48–59,92–110,260–284,288–305` | The de Sitter screen distinguishes finite area and patch entropy from a finite complete configuration set and a closed update on it. On the full unrestricted product, for the unchanged nearest-neighbor rule and nonzero coefficient in the modular alphabet, two extensions can agree on both slices inside the patch and differ at an outside neighbor that the rule reads. The outputs inside differ, so direct restriction of both slices does not yield an autonomous patch at this scope. Near-return for a specified finite-dimensional unitary uses finitely many phase differences. It supplies no synchronized return for a de Sitter OI update. **W** for the physical patch, closed law and applications. |
+| 10, 14–17, 23 | Finiteness classes `CLASSIFICATION.md:11–42,87–97`, Main-roots `AUDIT.md:18–34,87–98`, A1-necessity assessment and review, recovery matrix, QA selection inventory | These comparison records distinguish declared finite locality, finite representatives, finite observed statistics and the physical A1 model class. For the indexed scientific uses, §§14–18 give the manuscript-to-proof anchors, §24 gives the finite return and stationary counting steps, §25.5 gives the all-time rooted iff, and §26.2 gives the new conditional recurrence route. The 29-row classification and recovery matrices are retained assessments at their own pins. Earlier physical or proof gaps retain their scope unless the new proof supplies their named premise. |
+| 11 | A1-free P12(b) `TRACE.md:9–25` | Main's per-window construction and the Lean joint-prior equivalence (§17) give distinct existential representations. Substratum's Theorem 23 calls for a single physical carrier and cut with the observer projection, continuum and lattice realization. SM's fixed-lag kernel is conditional on the stated scalar/projection data and its pole argument uses finite determinants. P6 reciprocity and P7 calibration have additional law, energy and transition premises. **W** remains at the common-carrier and source steps. |
+| 12, 20 | P6 lean `STATUS.md:17–33,46–49`, P6 paper `P6-RECIPROCITY.md:20–79,81–113` | The paper and `MeasuredReciprocity` measure paired fluxes using the bimeasurable dynamics, a partition-compatible reversing involution and the one normalized law invariant under both maps. Equal positive root masses give equality of transition probabilities (or the reversing-label form), while general root masses give weighted reciprocity. The finite uniform specialization recovers the earlier count statement. **A** for the measured implication and **F** for that specialization. Physical law and reversal selection remain **W**. |
+| 19 | P1 `P1-APPLICATION-r1.md:23–61,65–88` | A finite reversible representative with its supplied normalized hidden prior yields Kraus completeness by summing finite matrices with those weights. The diagonal population identity and conditional P-to-CP implication apply with their stated basis and channel hypotheses. This recovers the named application, with finite-representative scope. It supplies neither all CPTP families nor repeatable control for a physical carrier. |
+| 21–22 | P7-B `P7-BOUNDARY-COUNT.md:69–119,154–193,205–222`, shell `P7-SHELL-CALIBRATION.md:9–44,65–86` | The decoupled proofs take a fixed normalized deep law and boundary-only hidden energy. The raw product counting measure in the shell reference at :16–22 fixes relative masses across energies as well as the conditional cell weights. Separate per-shell normalization would fix only the latter. The physical density-of-states slope and matching detector slope remain additional inputs. P7-B supplies the arbitrary-cardinality deep construction and its slope controls. In the coupled case the conserved real energy, normalized shell family and cross-energy weights remain **W**. |
+| 25–26 | `REVIEW-RECORDS.json:78`, `sc42-integration-result.json:1555,3447,3455,6963` | MC-1 F-33 is a scope correction to a budget fraction fixed partly by definition and carries H-count and horizon qualifications. SC-42 checks chapter/FULL correspondence of the flagged H-count and A1 sentences. These receipts establish the checked scope and mirror assertions. GR §2.3's shell and thermal assumptions are the source for calibration. |
+| 27–31 | `CLOSURE-LEDGER.md:289`, `DEPENDENCY-AUDIT.md:161–194,256,321,337,449`, `HUNKS-BOOK-A.md:35` and `HUNKS-BOOK-C.md:26` and `OTHER-PAPERS-101-DISPOSITIONS.md:85–110` | The introduction ledger and hunk lists record dispositions of wording against earlier pins. The dependency audit's exact rotation on two real coordinates and finite single-cycle controls show that total cardinality alone does not supply a nonconstant conserved energy. The author traces of Substratum Theorem 24 go to its finite exactly decoupled witness and the separate record-fibre condition (§25.2 and §25.9). The A1/energy distinction survives. Older edit proposals and mirror locators preserve provenance for their own text. |
+| 32 | `hypercharge_recovery_v1.txt:90–118` | The finite algebraic charge calculation assumes the named chiral family, Higgs doublet and Yukawa invariance. A weak anomaly fixes one relation; gravitational or cubic anomaly cancellation fixes the Higgs charge relative to the shared fermion-charge parameter, with nonzero conditions for the intended normalized branch. **A** for that conditional algebra. The charged observer action and physical selection of the sector remain **W**. |
+| 33–34 | Coverage `MAIN:L-3` at :323–347 and Lean manuscript census :1669–1676 | `CanonicalMeasure.determinism_reversibility_selected_measure:276–288` takes a permutation of a finite representative. `invariance_does_not_select:242` separates invariant laws on disjoint nonempty invariant sets; maximum entropy selects counting for the stipulated finite model. The focused probe tests permutations within its finite bound. `RecursiveFiniteFactor`'s entry points to the arbitrary-carrier finite-prefix construction and the extra supplied exact observation period in §25.3. |
+| 35–36 | `CompositionOrder.lean:148–190,317–369`, `RecursiveFiniteFactor.lean:34–93` | The affine datum is reversible and is assumed to map each finite preparation stage into itself. `CompositionOrder.exists_return:148–168` uses repetition in that finite subtype and injectivity to produce a positive period for each point. A finite spanning set from the finite-dimensional chart furnishes finitely many periods. Multiplying them gives a common positive power fixing the entire chart body. **A** at that stated chart scope, with explicit finite stages and finite dimension. The recursive depth proof uses an already supplied period for the observation functions. Neither period is a claim about the unobserved total carrier. |
+| 37–38 | Hydrodynamics `PROGRAMME.md:176–182,202–224` and H-F `result.md:614–644,933–944,950–971` | These are conditional programme gates. Finite regular approximants would be inputs to a singularity-limit question after a compatible continuum map and convergence notion are supplied. H-F names the next design round at its base. It supplies no effective hydrodynamics or geometry theorem. The distinction between additive microscopic update and manuscript wave-linearity is explicit. |
+
+### 26.5 Reconstruction, physical-source and substratum records
+
+| Queue paths | Evidence inspected | Dependency and support |
+|---|---|---|
+| 39 | Apparatus-1 `DESIGN.md:330–347` | Exact recurrence of a finite bijection bounds the reading of terminality. Within the specified window, the stated protocol leaves the archive's edges unarmed, which supplies retention in the model. Readiness and an executing native archive remain separate inputs. |
+| 40 | TUNE-1 Step 1 `TUNE-1-STEP1.md:573–609,1058–1081` | The audit records which finite, recursive and quasilocal source models its target can use. Finite-stage factorization, passive congruence readout, setting-dependent control and continuum amplitude models have different proof endpoints (§25.3–25.4). A finite-accuracy virtual gate compared on one schema and its required ready configuration do not imply a gate on one source-selected carrier. **W** for native preparation and operations. |
+| 41–44, 54–57 | Unified ledger `COVERAGE-AUDIT-r1.md` through r4 and `QUEUE-PROPOSAL-r1.md` through r4 | The G-5/G-30 rows index H-count, H-balance, H-slope and the horizon assumptions; D5 identifies the GR temperature import. The proposals refer to the earlier wording at their own base. At this pin, GR:617–627 explicitly uses a finite model, puts the supplied first law and boundary count in (a), and assigns the identification with shell temperature to H-count. The formal normalization and the quantum calibration carry different hypotheses. |
+| 45–53 | Unified ledger `LEDGER-r1.md` through r9, with r9 at :109,218–238,355–356,554,654,722–743,772,846–850,930–933,964–976,1018 | The ledger revisions summarize proof obligations and their inherited premises. The proofs behind the listed uses include finite rooted recurrence and cycle averaging, the separate finite-representation obstruction, GR's finite uniform shell with H-count for the identified slope, and H-slope/horizon/frame requirements. The E7 selection filter uses that calibration branch. The ledger preserves the distinction between a class of arbitrarily large finite representatives and one common realized model. The historic dark-sector percentages and fixed-carrier wording refer to their stated comparison targets. |
+| 58–63 | Unified ledger `RESPONSE-r1.md` through r3 and `REVIEW-r1.md` through r3 | Review and response records carry provenance for the versioned ledger. They distinguish GR:58's one-way implication to W1 in its setting, identify D5's imported temperature, and restrict transfer from one fixed finite carrier. They point to the current source statements and the W1 proof and controls below. |
+| 64–67 | Geiger–Müller `DECISION.md:24–45`, two TUNE-1 sourcing support copies at :139–148, producer-2 `SOURCE-SCREEN.md:69–115,140–142` | The laboratory tube report supplies an external benchmark; the native trace stops at a mapped charge and field. In TC-A the finite fixed rule and translation are inputs, with the ready resource first missing. The producer screen establishes its bounded no-admission finding at the source of the joint preparation and request. **W** for those native inputs. These records give the reasons for their respective stops. |
+| 68–69 | Native-Y `native_route_v13/review/REPORT.md:48–73`, `transport_audit_v1/review/REPORT.md:44–57` | The periods come from finite eight-symbol permutations driven by a forcing with a specified period. A conditional inner ring repeats after a common multiple of the outer period and the small permutation orders; the review derives the bound by induction on the ordered finite front. **F** for those finite subsystems. The transport result separately needs initial source geometry to realize the abstract front. |
+| 70 | `O-ACC.md:176–182,274–298,365–379` | At a fixed setting the policy chooses a fixed-size address of distinct sites from the previous slice alone. Under the supplied independent slice laws, the probability of each next-value tuple given that slice and address is `q^(-k)`. The infinite-lattice proof integrates finite cylinders. The values add no recovery information beyond the address on that class. **A** with the supplied read policy and law. The native joint preparation, selector, held address and executing read remain **W**. |
+| 71–73 | OA-1 reports `OA-1-REPORT.md:347` and r2 :368–379, OA-2 delta review :549 | The configuration-level ceiling is a theorem about the specified nonnegative image or realization class. The quasilocal negative control in `QuasilocalCharacterization.lean` shows that the one-site phase is outside the stipulated reversible finite-range dynamics. The dimension obstruction concerns the specified exact preparation/effect interface at a fixed finite carrier. The delta review preserves the manuscript's A1 posit. These controls neither decide alternative readout carriers nor supply an escaping operation. |
+| 74–75 | Pseudoentropy `pe01/lc.py:1` and plan review :262 | False `H-count` matches from “length-count,” a finite-word linear-complexity formula. The plan review records an attribution limit for that formula. |
+| 76 | Pseudoentropy `review/REVIEW.md:237–243` | The referred all-horizon obstruction is to a fixed Hilbert-space representation of growing intervened combs. The finite classical state-count obstruction for the full qubit preparation/effect target is separate. This review corrects the evidence target by sending each claim to its own source. |
+| 77–78 | Two-mode drive :9–18, PC★ `PC-star.md:34–68,168–190` | Two-mode synthesis takes real coordinates, coupling and a controller in a fixed representation. Its conditional record control fails the stated density dictionary. The PC★ screen finds no admissible candidate among its named sources. Within a set-measured configuration update, the register read is an indicator on the joint carrier; contemplated alternatives remain source questions. These endpoints leave physical operation selection **W**. |
+| 79–82 | PSH-1 `LEDGER.md:21–22,55,79,103,185,489–490`, ranking and both reviews | The hypothesis ledger and ranking index already named conditions. A common same-time return and H-count's energy-dependent density profile stay distinct from normalized rows and a finite boundary count. Ranking review checks that the single-time row normalization does not consume a common hidden law. The recurrence role of the newly landed paper is scoped in §26.2. The rankings supply no invariant physical state, cross-window realization or matched detector. |
+| 83–84 | ORD-1 `preregistration.md:57`, `result.md:37` | The result points to the finite-stage and finite-chart spanning proof in row 35. Its stage-preservation hypothesis gives exact return in the represented chart. Available operations on an arbitrary physical carrier need their own source. |
+| 85–93 | `SYNTHESIS-r3.md:520–523`; W1 reviews, status and four report versions; final report r4 :288–309, status :9–14,42–83 | The synthesis refers to the GR counted-shell slope, not an OI→QM operation criterion. W1-r4 distinguishes a whole-shell slope from an empirical single-sector slope. The stated GR setting with H-count implies W1-0 and W1-min(L), while the cited construction at one energy satisfies these and violates the second-order H-count profile. The stipulated gap-and-collectivity route remains open for the finite symbolic model. `STATUS.md` identifies which report bytes were reviewed and `OBJECTS.md` records the one-line preservation substitution. Earlier reports and receipts describe their own checkpoints. Current support for the one-way conditional and its converse control is the retained written derivation. |
+| 94 | A6 instantiation `preregistration.md:680–701` | The preregistration distinguishes covariance of an additive representation on the complex carrier from fitting that carrier into the finite substratum interface. Its outcome and admissibility rules are programme evidence. Local covariance by itself supplies no finite global carrier. |
+| 95, 100–101 | Continuous-substates `README.md:93–133,184`, `observable-recurrence.md:10–56,102–137`, `wave_torus_probe.py:130–144` | For positive-mass visible cells, the finite union of off-diagonal intersections of one cell with the preimage of another is the set where the visible label changes, up to a null set. This identifies a common almost-everywhere visible return with an identity rooted matrix. The stochastic inverse test uses finite visible rows. Pointwise near-returns of the unipotent torus map can depend on the point. A finite p-adic reduction intertwines the specified compatible update and gives an exact factor return. The grid probe counts a finite subgroup and checks only its tested cases. |
+| 96–99 | Later-access preregistration, result JSON, result Markdown and probe | False `H-count` matches inside `CP-SEARCH-COUNTER`. The named control checks averaging a complete background, including the $Y=c\oplus d$ counterexample and rejection of an incomplete dependence set. Its conclusion concerns the specified later-access model and does not support horizon-shell counting. |
+| 102–105 | Recursive `ANALYSIS.md:10–54,111–132`, `README.md:35–42,184–186`, fixed-scale-skew `PREREGISTRATION.md:55–84`, `native-padic-bridge/REPORT.md:85–96` | The finite prefix, exact observable period and congruence-factor return are separate hypotheses and consequences (§25.3–25.4, §25.10). FIXED-SCALE-1 uses a fixed rule and finite readout with increasing required depth. Its finite cyclic controls have global periods; the primary infinite variant is scoped to classical history-versus-two-time memory. Observer operations on that hierarchy require additional evidence. |
+| 106 | Substratum `source-audit.md:55–66` | The stated monomial implementation class is closed under the listed composition, relabelling and spectator rules on finite represented carriers. This is a conditional realization and closure result. Elementarily drivable mixing and an admitted physical source remain separate obligations, as in §25.10's Route B trace. |
+
+### 26.6 Coverage disposition
+
+All 106 paths from §16's lexical queue have an evidence-role or false-match disposition, with scoped source paths for the claims and controls named here. This includes 100 remaining matches after the word-boundary check and six false matches. There are 3,165 paths outside that original queue. The two additions in §26.1 and examples in §§23.3 and 25.10 demonstrate direct source traces outside the queue. Paths and claims beyond the recorded traces remain **X**. This census inspected text, proof dependencies and retained controls. Scientific replay, complete recursive link and claim validation across all snapshots, and the remaining declaration and manuscript audit have separate open coverage. A1-C01 remains **INCOMPLETE**.
+
+## 27. Declaration rosters for the kernel modules Main cites at its root theorems
+
+### 27.1 Scope, source pin and roster
+
+**Writer:** the Claude Foundations thread of the coordinating Claude Code session, under the [owner activation](https://github.com/amaybaum/incompleteness/issues/1334#issuecomment-6918420877) and the [owner record naming the thread](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7019013461). This section is unreviewed author work. §26 is the pushed Codex Foundations head `170896401dee7842e571f937740227b4a14925c0`, carried forward unchanged by merge, and has no recorded review.
+
+**Source pin:** `main` at `0d02d8d3b6a53a43168eabead12e1ff675a4d048`. The six Lean files below and `papers/Main.md` are unchanged since the §§24–25 pin `baeb7723743e99b137ae3d0a1694e99ff97e2a73`: a `git log` over that range restricted to these seven paths lists no commit. M means `papers/Main.md` at the pin.
+
+**Selection.** Main names five bridge modules at the proofs of its R1–R3 roots (ROOTS.md R1–R3) that had no full declaration roster: `EquivalenceChain` (M137, M554), `RootedClassification` (M145, M644), `C3Necessity` (M518, M618, M620), `Equivalence` (M524, M554, M596) and `HiddenMemory` (M614). `grep -n 'OIBridge/<Module>.lean' papers/Main.md` gives these lines. `RootedClassificationT2` is added because it holds the cycle-iteration lemmas the M644 converse imports through `RootedClassificationAllTime` (§25.5). The selection does not cover Main's other kernel citations, which include `PhysicalC4Discharge`, `PhysicalC4StorageReadback`, `GeneralCarrier` and the R4–R6 modules.
+
+**Roster method.** Lean comments are blanked with newlines kept, including nested block comments. Authored top-level headers are then matched:
+
+```python
+import re, sys
+H = re.compile(r"^(?:@\[[^\]\n]*\]\s*)?(?:(?:noncomputable|private|protected)\s+)*"
+               r"(theorem|lemma|def|abbrev|structure|inductive|instance|class)\s+([^\s:({\[]+)", re.M)
+def strip(src):
+    out, i, depth, n = [], 0, 0, len(src)
+    while i < n:
+        if src.startswith("/-", i): depth += 1; i += 2; continue
+        if depth and src.startswith("-/", i): depth -= 1; i += 2; continue
+        if depth: out.append("\n" if src[i] == "\n" else " "); i += 1; continue
+        if src.startswith("--", i):
+            j = src.find("\n", i); j = n if j < 0 else j; out.append(" " * (j - i)); i = j; continue
+        out.append(src[i]); i += 1
+    return "".join(out)
+for p in sys.argv[1:]:
+    s = strip(open(p, encoding="utf-8").read())
+    print(p, [(s.count("\n", 0, m.start()) + 1, m[2]) for m in H.finditer(s)])
+```
+
+**Control.** Run on the 16 files rostered in §§24–25, the same script returns their recorded counts, 9, 11, 19, 23, 12, 31, 9, 4, 5, 9, 11, 7, 7, 16, 15 and 30, a total of 218. Its counts and names for the six files below are as follows. The rows give each name with its start and end lines. An end line is the last nonblank line before the next header, docstring or command.
+
+| Lean file | Authored declarations | Traced in §27 |
+|---|---:|---:|
+| `Equivalence` | 34 | 34 |
+| `EquivalenceChain` | 16 | 16 |
+| `RootedClassification` | 34 | 34 |
+| `RootedClassificationT2` | 9 | 9 |
+| `HiddenMemory` | 18 | 18 |
+| `C3Necessity` | 9 | 9 |
+| **Total** | **120** | **120** |
+
+**Row grammar.** Each row ends with **A** or **F** in the sense of §1, followed by one finiteness tag.
+
+- **F3** means only a finite visible alphabet, history alphabet, outcome alphabet or horizon is used.
+- **R-supplied** means finiteness of the whole state type of a representative is a hypothesis of the declaration.
+- **R-constructed** means the declaration builds a finite representative as the witness of an existential claim.
+
+Some declarations are generic over a finite type. Each such declaration is classified at the type where the traced chain instantiates it, and the row names that use. R is A1-FCLASS's total-configuration class applied to a mathematical representative. It is not a statement about nature. `grep -n -i -E '\bsite|lattice|cone|region|neighbo'` over the six files prints nothing, and no declaration uses a site set, local alphabet or causal support. F1, F2 and F4 therefore do not occur in this section.
+
+### 27.2 The finite-horizon equivalence in `Equivalence`
+
+The section variables at :141 make `V` finite with decidable equality. Every declaration after :141 takes a finite visible alphabet and a finite horizon `K`. Classes (D) and (Q_fb) carry their finite carrier as a structure field (:157–162, :190–196). Their membership predicates are therefore existential over finite representatives.
+
+| Declaration and source | Finiteness dependency |
+|---|---|
+| `exists_perm_extending:60–91` | The proof uses `[Fintype A]` three ways. It equates complement cardinalities with `card_compl`, matches the complements with `Fintype.equivOfCardEq`, and turns injectivity into bijectivity with `Finite.injective_iff_bijective` on all of `A`. **F**, R-supplied. Mathematically the conclusion also holds for infinite `A` when `s` is a finite set, because removing finitely many points leaves an infinite cardinal unchanged. That form is not in the kernel and is not used. |
+| `sum_chain:99–132` | Induction on the path length, splitting the last coordinate with `Fin.snocEquiv`. The sum ranges over all finite paths in the finite state type `S`. In the one call, at :249, `S` is the basis of the supplied (Q_fb) system. **F**, R-supplied. |
+| `Traj:144` | The type `Fin (K + 1) → V`. **A**, F3. |
+| `Stochastic:147–148` | Nonnegativity, with one sum over the finite trajectory type. **A**, F3. |
+| `RevReal:157–162` | Fields: a hidden type `Hid` with `Fintype` and `DecidableEq`, a bijection of `V × Hid` and an initial weight on `V × Hid`. The initial law may correlate the two coordinates (:150–156). **F**, R-supplied as a field of class (D). |
+| `RevReal.IsLaw:168–169` | Nonnegativity, with a sum over the finite type `V × Hid`. **F**, R-supplied. |
+| `RevReal.states:172–173` | Iterates the bijection for `k ≤ K` steps. The definition would make sense on any state type. **A**, F3. |
+| `RevReal.traj:176–177` | Projects each state to its visible coordinate. **A**, F3. |
+| `RevReal.law:180` | `FiniteEntropy.marg:130–131` sums the initial weights over each finite fibre of `V × Hid`. **F**, R-supplied. |
+| `RevRealizable:182–183` | Asks for some `RevReal` whose law is `P`. Class (D) therefore quantifies over finite hidden types only. **F**, R-supplied by the class definition. |
+| `QfbReal:190–196` | Fields: a finite basis type `Bas`, a complex matrix on it, initial weights and a readout to `V`. This class has no autonomous-generator clause (:28–34). **F**, R-supplied. |
+| `QfbReal.IsLaw:201–202` | Unitary group membership on the finite basis, and normalized weights. **F**, R-supplied. |
+| `QfbReal.born:205` | Squared modulus of one matrix entry. **A**. |
+| `QfbReal.chain:209–210` | Initial weight times a product of Born weights over `Fin K`. Only the horizon is finite. **A**, F3. |
+| `QfbReal.law:213–214` | Sums the chain weight over each fibre of the readout on the finite space of basis paths. **F**, R-supplied. |
+| `QfbRealizable:216–217` | Asks for some `QfbReal` whose law is `P`. **F**, R-supplied by the class definition. |
+| `QfbReal.born_nonneg:224–225` | `sq_nonneg`. **A**. |
+| `QfbReal.sum_born:227–239` | Reads one diagonal entry of `star U * U = 1` and rewrites each summand as a squared modulus. The column sum ranges over the finite basis. **F**, R-supplied. |
+| `QfbReal.chain_nonneg:241–243` | A product of nonnegative factors. **A**. |
+| `Qfb_imp_S:245–249` | The law is nonnegative by `marg_nonneg`. Its total mass is one by `sum_marg`, `sum_born` and `sum_chain`. The conclusion is a statement about the finite visible law. **F**, R-supplied: the finite basis is that of the given system. |
+| `marg_id:259–264` | The fibre of the identity map is a singleton. The lemma holds on any finite type, and is used at the trajectory type in `S_imp_D`. **A**, F3. |
+| `RevReal.states_iff:266–292` | Induction on the time index shows that a state path follows the bijection exactly when it is the generated orbit. No sum or cardinality is used. **A**. |
+| `D_imp_Qfb:294–342` | Takes the permutation matrix of `R.step.symm` on `V × Hid` and keeps the same initial weights and the visible readout. Born weights are indicators of the deterministic step, so the chain weight equals the orbit pushforward. Unitarity is `EquivalenceChain.permMatrix_mem_unitaryGroup`. The construction transfers the given finite carrier and adds no new finiteness. **F**, R-supplied. |
+| `Hid:365` | The hidden type `Fin (K + 1) × Traj V K`: a clock and a complete trajectory record. It is finite because `V` and `K` are finite. **A**, F3. It is the carrier of the witness built by `S_imp_D`. |
+| `emb:368` | Places the recorded value at the clock reading in the visible coordinate. **A**. |
+| `adv:372` | Advances the clock by one in `Fin (K + 1)` and keeps the record. Clock addition wraps from `K` to `0`. **A**. |
+| `coh:375–377` | Image of `emb` taken over `Finset.univ` of the finite hidden type. **F**, R-constructed. |
+| `mem_coh:379–381` | Membership of an image point. **A**. |
+| `adv_emb:383` | Holds by `rfl`. **A**. |
+| `injOn_adv:387–396` | Cancellation in `Fin (K + 1)` and equality of the records. No cardinality is used. **A**. |
+| `iterate_emb:399–406` | For a permutation `σ` that agrees with `adv` on the coherent set, induction gives `σ^[j] (emb (c, τ)) = emb (c + j, τ)` for every `j`, with the clock added in `Fin (K + 1)`. **A**. |
+| `clock_iterate:409–418` | Below the horizon, adding `j` to the clock starting from `0` reads `j`. **A**. |
+| `S_imp_D:422–446` | Calls `exists_perm_extending` on the finite type `V × Hid V K`. The initial law is the pushforward of `P` along `τ ↦ emb (0, τ)`. Reading the orbit returns `τ`, so the law is `P`. **F**, R-constructed. The witness depends on `P` and `K`. |
+| `finite_horizon_equivalence:462–468` | Composes the three constructions. The physical carrier never enters. The finiteness used is F3 on `V` and `K`, together with finite witness carriers inside (D) and (Q_fb). **F**, R-constructed. This agrees with ROOTS.md R1 and AUDIT.md R1, which mark the equivalence **A1-FREE**. |
+
+**A recurrence of the kernel witness.** The permutation `σ` equals `adv` on all of `coh`, clock value `K` included, and the clock wraps. By `iterate_emb:399–406`, `σ^[j] (emb (c, τ)) = emb (c + j, τ)`. `emb` is injective, so this state equals `emb (c, τ)` exactly when `j` is a multiple of `K + 1`. The initial law of `S_imp_D` is supported on coherent states `emb (0, τ)`. Every prior-supported microstate of the kernel's (D) witness for horizon `K` therefore first returns after exactly `K + 1` steps. This is a paper corollary of a kernel lemma, and no named theorem states it. It does not affect the equivalence, which reads only the first `K` steps. The paper construction at M524 assigns its clock-`K` and ill-formed states through the permutation completion, which the text leaves unspecified, so the text does not fix its recurrence time. §27.8 uses this corollary at M540.
+
+### 27.3 Stochastic inverse, permutation unitary and one-step dilation in `EquivalenceChain`
+
+The section variables at :67, :195 and :285 supply finite index types. In Main's uses at M131–137 and M554 the index of the stochastic-inverse lemma is `C_V`, and the unitary and partial-trace lemmas act on the full product `V × H`.
+
+| Declaration and source | Finiteness dependency |
+|---|---|
+| `row_eq_basis_of_mem_support:75–100` | An off-diagonal entry of `A * B = 1` is a finite sum of nonnegative terms. Every term vanishes, and the unit row sum puts the row of `B` on column `i`. **A**, F3 at its use on visible rows. |
+| `isPermMatrix_of_stochastic_inverse:110–169` | Three steps use the finite index. `mul_eq_one_comm` turns one-sided inverses into two-sided ones, which needs a finite square index. `det_mul` and `det_zero_of_row_eq` exclude repeated rows. `Finite.injective_iff_bijective` turns the occupied columns into a permutation. **A**, F3. In Main's rooted use the index is `C_V`, finite by Lemma 1, so this step uses no hidden or total finiteness. The one-sided form fails on `ℕ`. Let `A(i, i+1) = 1`, `B(0, 0) = 1` and `B(k, k−1) = 1` for `k ≥ 1`. Both are row-stochastic and `AB = I`, but column 0 of `A` is empty, so `A` is not a permutation. The finiteness of the visible index is therefore essential to the form of the lemma Main uses. |
+| `permMatrix_mem_unitaryGroup:179–185` | `conjTranspose_permMatrix` and permutation-matrix multiplication on the finite index `V × H`. **F**, R-supplied. Main's D→Q_fb step consumes it with the carrier of the given (D) witness. |
+| `IsDiag:198` | A pointwise predicate on any index type. **A**. |
+| `ptraceH:201–202` | Sums over the hidden index. **F**, R-supplied. |
+| `tensorH:205–206` | A pointwise product. **A**. |
+| `priorState:211` | `Matrix.diagonal` of the weights. It needs decidable equality only. **A**. |
+| `permMatrix_pow:215–220` | Induction with permutation-matrix multiplication on a generic finite index. No bridge declaration calls it (`grep -w permMatrix_pow` finds only its header and its `#print`). Its docstring ties it to writing `Phi` with `U ^ t` on `V × H`, and it is classified at that instantiation. **F**, R-supplied. |
+| `permMatrix_mul_inv:224–229` | Products of finite permutation matrices on a generic finite index. As with `permMatrix_pow`, no bridge declaration calls it, and its docstring ties it to `U⁻¹` in `Phi` on `V × H`. **F**, R-supplied at that instantiation. |
+| `permConj_apply:233–238` | Conjugation by a finite permutation matrix is relabelling, by the `PEquiv` matrix identities, on a generic finite index. In `isDiag_Phi` it is applied with index `V × H`. **F**, R-supplied at that use. |
+| `Phi:242–243` | The partial trace of the conjugated tensor on `V × H`. **F**, R-supplied. |
+| `isDiag_Phi:253–272` | Each summand of the partial trace vanishes by `permConj_apply` and injectivity of `φ ^ t`. The weights `μ` need not be normalized. **F**, R-supplied, through the finite representation. The diagonality argument itself is injectivity. |
+| `dilation:289–290` | A matrix with entries `√T(i, j)` on the diagonal ancilla copy. **A**, F3 at its use with `n = |C_V|`. |
+| `dilation_isometry:293–320` | Finite sums, `Real.mul_self_sqrt` and the unit row sums. **A**, F3. |
+| `dilation_marginal:323–331` | Sums over the ancilla index collapse to one term. **A**, F3. |
+| `dilation_extends:336–381` | `exists_orthonormalBasis_extension_of_card_eq` with `finrank_euclideanSpace` on `n × n`. A finite-dimensional extension. **A**, F3, with `n` the visible alphabet of M §3.1. |
+
+### 27.4 The periodic rooted class in `RootedClassification`
+
+The section variables at :24 make `V` finite. `RootedRealization` (`CausalReadback:178–186`, §24.6) requires `Fintype H`.
+
+| Declaration and source | Finiteness dependency |
+|---|---|
+| `PeriodicFamily:27–28` | A positive `M` with `Γ (t + M) = Γ t` for all `t`. **A**, F3. |
+| `PPer:32–33` | Root identity, row-stochasticity at every time and `PeriodicFamily`. A visible predicate. **A**, F3. |
+| `responseWeight:42–43` | A product over the coordinate type `I`. Its section variables at :39 make `I` finite. **A**, F3 at its use, where `I` is a set of visible roots and nonzero phases. |
+| `responseWeight_nonneg:46–49` | `Finset.prod_nonneg`. **A**, F3. |
+| `responseWeight_sum:54–58` | `Fintype.prod_sum` for the finite product of row sums. **A**, F3. |
+| `responseWeight_marginal:62–98` | Changes the weight at one coordinate, then uses `Fintype.prod_sum` and `Fintype.prod_eq_mul_prod_subtype_ne`. **A**, F3. |
+| `FiniteRootedRealizable:115–117` | There exist a type `H` in `V`'s universe with `Fintype H` and a `RootedRealization` whose rooted maps equal `Γ` at every `t`. The class quantifies over finite hidden carriers only. **F**, R-supplied by the class definition. |
+| `rootedMap_zero:123–130` | At time zero the sum of the prior over the finite `H` gives `1` on the diagonal. Off the diagonal it gives `0`. The identity uses normalization only. **F**, R-supplied, through the finite prior sum. |
+| `rootedMap_periodic:135–153` | Sets `M = Fintype.card (Equiv.Perm (V × H))`, which is positive by `Fintype.card_pos`. It uses `pow_card_eq_one` on that finite group and rewrites every iterate. This is where the finiteness of the whole carrier `V × H` enters the M644 forward direction and the periodicity clause of M145. **F**, R-supplied. The infinite-XOR record shows that the conclusion can fail for an infinite hidden carrier, through a reversible normalized root-shared realization with `Γ₀ = I` and `Γₜ = J` for all `t ≥ 1` (`verification/programmes/substratum/continuous-substates/infinite-xor-counterexample.md`, as used in AUDIT.md R1). |
+| `rootedMap_mem_PPer:159–161` | Pairs `rootedMap_zero`, `CausalReadback.rootedMap_isRowStochastic` and `rootedMap_periodic`. **F**, R-supplied. |
+| `NonzeroPhase:173` | The subtype of `Fin M` with nonzero value. **A**. |
+| `ResponseIndex:176` | `V × NonzeroPhase M`. **A**, F3. |
+| `ResponseTable:179` | Functions from `ResponseIndex V M` to `V`. The type is finite. **A**, F3. |
+| `PadIndex:182` | `ResponseTable × (V × NonzeroPhase M)`. **A**, F3. |
+| `ResponseHidden:185` | The sum of table states and padding states. It is the hidden carrier of the converse witness. **A**, F3. |
+| `CycleIndex:188` | `ResponseTable × (V × Fin M)`. **A**, F3. |
+| `cycleState:192–196` | Case split on the phase value. **A**. |
+| `cycleState_val_zero:199–202` | Unfolds the case at value zero. **A**. |
+| `cycleState_nonzero:205–209` | Unfolds the case at a nonzero value. **A**. |
+| `cycleState_injective:214–249` | Four cases, comparing the visible and hidden components. **A**. |
+| `cycleEmbedding:252–254` | Packages the injection. **A**. |
+| `cyclePerm:257–258` | `finRotate M` on the phase coordinate only. **A**. |
+| `cyclePerm_apply:260–261` | Holds by `rfl`. **A**. |
+| `responseStep:266–268` | `Equiv.Perm.viaFintypeEmbedding` extends the cycle permutation along the embedding and fixes the complement. The extension needs a finite source type, here `CycleIndex V M`, and decidable equality on `V × ResponseHidden V M`. **F**, R-constructed. |
+| `responseStep_cycle:271–277` | `viaFintypeEmbedding_apply_image`. **F**, R-constructed. |
+| `responseLocalWeight:282–283` | Reads one entry of `Γ`. **A**. |
+| `tableWeight:286–287` | `responseWeight` of the local weights over the finite table index. **A**, F3. |
+| `tableWeight_nonneg:290–295` | Nonnegativity of each row of `Γ`. **A**, F3. |
+| `tableWeight_sum:299–304` | Unit row sums and `responseWeight_sum`. **A**, F3. |
+| `responsePrior:307–309` | Table weight on the table states and zero on the padding states. **A**. |
+| `responsePrior_nonneg:312–318` | Case split. **A**. |
+| `responsePrior_sum:321–326` | `Fintype.sum_sum_type` over the finite hidden sum type. **F**, R-constructed. |
+| `responseRealization:330–335` | Assembles `responseStep` and `responsePrior` into a `RootedRealization` on the finite `ResponseHidden V M`. **F**, R-constructed. |
+| `pper_of_finiteRootedRealizable:339–344` | Unpacks the existential and applies `rootedMap_mem_PPer`. **F**, R-supplied. It is the M644 forward direction. |
+
+### 27.5 The cycle-iteration seam in `RootedClassificationT2`
+
+| Declaration and source | Finiteness dependency |
+|---|---|
+| `cyclePerm_iterate:21–28` | Induction. Only the phase rotates. **A**. |
+| `responseStep_iterate_cycle:32–39` | Induction with `responseStep_cycle`. **F**, R-constructed, inherited from `viaFintypeEmbedding`. |
+| `phaseZero:43` | `⟨0, hM⟩ : Fin M`. Positivity of the period is a premise. **A**. |
+| `phaseZero_val:45` | Holds by `rfl`. **A**. |
+| `cycleState_phaseZero:49–51` | `cycleState_val_zero`. **A**. |
+| `finRotate_iterate_phaseZero_of_lt:54–61` | `finCycle_eq_finRotate_iterate` for `t < M`. **A**. |
+| `cyclePerm_iterate_phaseZero_of_lt:64–68` | Composes the two preceding lemmas. **A**. |
+| `responseStep_iterate_phaseZero_of_lt:72–77` | Moves the phase-zero table state through the embedded cycle. **F**, R-constructed. |
+| `responseStep_visible_of_pos_lt:81–86` | Reads the table entry at a positive phase. **F**, R-constructed. |
+
+### 27.6 Hidden memory in `HiddenMemory`
+
+The section variables at :45–46 make `Hist`, `V` and `H` finite with decidable equality. `Realization:54–58` holds a bijection of `V × H` and a normalized weight on `Hist × V × H`. No field ties the weight to the bijection or to an earlier initial law. M614 states that this reading of a realization's time-`t` law is not formalized. The proof bodies use only the forward map of `step`. `grep -n -E 'symm|injective|Injective|bijective|surjective|⁻¹|\.invFun' HiddenMemory.lean C3Necessity.lean` prints nothing. The only uses of `step` are at `HiddenMemory:63` and `C3Necessity:61`.
+
+| Declaration and source | Finiteness dependency |
+|---|---|
+| `Realization:54–58` | The fields named above. **F**, R-supplied (`Fintype H`). `Fintype Hist` and `Fintype V` are F3. |
+| `nextVis:63` | The visible coordinate of `step (x, h)`. **A**. |
+| `histProb:66` | Sums the weight over the finite `H`. **F**, R-supplied. |
+| `post:69–70` | Pointwise quotient by `histProb`, a sum over the finite `H`. At zero-mass histories the quotient is `0` by Lean's division convention. **F**, R-supplied, through its denominator. |
+| `nextLaw:73–74` | Sums over the filter of `H` on which the next visible value is `v`. **F**, R-supplied. |
+| `pushforward_identity:83–87` | `Finset.sum_mul` on the finite fibre sums. **F**, R-supplied, through the finite-sum representation. The identity itself is pointwise algebra and does not use bijectivity. |
+| `tv:92–93` | Half the sum of absolute differences on any finite type. It is used on `V` (F3) and, in `distinguishability_floor`, on `H`. **F**, R-supplied at its use on `H`. |
+| `tv_marg_le:97–109` | Fibrewise triangle inequality and `Finset.sum_fiberwise_of_maps_to` on generic finite types. In `distinguishability_floor` it is applied with `α = H`. **F**, R-supplied at that use. |
+| `distinguishability_floor:114–117` | `pushforward_identity` twice, then `tv_marg_le` on the posteriors over `H`. **F**, R-supplied. The kernel has no counterpart for a non-finite hidden carrier, which would need a conditional law in place of `post`. |
+| `varHist:122` | Projection. **A**. |
+| `varNow:124` | Projection. **A**. |
+| `varHid:126` | Projection. **A**. |
+| `varNext:129` | `nextVis` of the current pair. **A**. |
+| `cmiBits:132–135` | `FiniteEntropy.cmi:352–353` divided by `log 2`. It takes finite types for all four variables. **F**, R-supplied at its uses with `H` in the sample space. |
+| `memory:138` | `cmiBits` of history, present and next value. The sample space `Hist × V × H` includes the finite `H`. **F**, R-supplied. |
+| `capacity_floor_of_fun:150–163` | The first inequality is `FiniteEntropy.cmi_le_of_deterministic:383` for any readout `d` of the pair. The second is `cmi_le_log_card:457–475`, which uses `entropy_le_log_card` on `H` and `Nonempty H`. **F**, R-supplied. The cardinality of `H` enters as the value of the bound. |
+| `capacity_floor:170–173` | `capacity_floor_of_fun` at the next visible value. **F**, R-supplied. |
+| `unavoidable_hidden_predictive_memory:185–193` | Bundles clauses (a)–(c). It quantifies over realizations with finite `H` and finite `Hist`. **F**, R-supplied. |
+
+### 27.7 C3 necessity in `C3Necessity`
+
+| Declaration and source | Finiteness dependency |
+|---|---|
+| `futureOf:60–61` | Iterates `step` forward `j + 1` times and projects. **A**. |
+| `varFuture:64–65` | `futureOf` of the current pair. **A**. |
+| `varFuture_zero:69–71` | `simp` identifies the first future entry with `varNext`. **A**. |
+| `c3_necessity:80–83` | `capacity_floor_of_fun` at the readout `futureOf R L`, valued in the finite type `Fin L → V`. **F**, R-supplied. |
+| `c3_necessity_via_hidden:88–92` | The same call, keeping the intermediate term. **F**, R-supplied. |
+| `Istar:103–105` | `Finset.sup'` over a finite nonempty index set of realizations. Each realization has its own `step` and weight, and all share the type `H`. They also share the history type `Hist`, although the docstring at :100–102 says that each slice carries its own history alphabet. The difference does not affect the bound, since a family of finite history alphabets embeds in their disjoint sum and zero-mass outcomes leave every entropy unchanged. **F**, R-supplied. |
+| `Istar_le_log_card:107–110` | `Finset.sup'_le` with `c3_necessity` on each slice. **F**, R-supplied. |
+| `card_hidden_ge_two_pow_Istar:117–125` | Monotonicity of `rpow` and `Real.rpow_logb`, with `Fintype.card H > 0` from `Nonempty H`. **F**, R-supplied. |
+| `c3_necessity_and_capacity:130–135` | Pairs the two preceding results. **F**, R-supplied. |
+
+Two extensions of these signatures follow on paper and are not kernel statements. M516 takes a supremum over all times. If every slice is bounded by `log₂ m`, so is the supremum, and a finite family is not needed. Separately, the proof bodies never use bijectivity, so the bounds hold for a deterministic map of `V × H` once `Realization.step` is generalized to a function. M620 describes the kernel statement as bijective and proves the non-injective step on paper, which agrees with the source. For an infinite hidden carrier the bound `log₂ |C_H|` places no constraint.
+
+### 27.8 Main sites that consume these declarations
+
+| Main site | Backward trace and finiteness scope |
+|---|---|
+| M111, M113–129 (§2.3 theorem) | The statement takes finite `C_V`, `C_H` and a bijection. Step 1 at M121 derives `φ^N = id` from a bijection on a finite set. M111 and M129 attribute finiteness of `C_H` to the total-finiteness posit. The total-finiteness step is explicit. **F**, R-supplied. The kernel counterparts are `RootedRecurrenceBridge` (§24.7) and `rootedMap_periodic` (§27.4). |
+| M131–133 (stochastic-inverse lemma) | `isPermMatrix_of_stochastic_inverse` (§27.3). The finiteness used is that of the square index. In M137 the index is `C_V`. **A**, F3. The countable shift in §27.3 shows that the F3 premise cannot be dropped from the one-sided form. |
+| M135–139 (readback and finite recurrence) | The statement takes a bijection of order `L`. The proof at M137 says that `φ` permutes a finite set. M137 notes that the steps from histories to a non-permutation and to overlapping rows, and the step `Γ_L = I`, are proved on paper. The lemma call is F3, and the return step is R-supplied and stated. **F**. |
+| M145 (routed readback, "so for some `n`") | The clause "for some `n`" uses `rootedMap_periodic` (R-supplied, period `|Perm(C_V × C_H)|`) and `rootedMap_zero` (finite prior sum). The clause "for every `n > s` with `Γ_n = I`" needs only the supplied return, through `RecurrenceHorizon` (§24.10). The rooted maps are those of M135, on finite `C_V × C_H`. **F** for the existential clause, explicit through M135. |
+| M508–518 (C3 and corollary) | `m = |C_H|` presupposes a finite hidden set. The kernel source is §27.7. The paper's supremum over `t` and its single realization are covered by the kernel's finite family with per-slice dynamics, after the paper step in §27.7. **F**, R-supplied. Bijectivity is named in the statement but not consumed. |
+| M520–524 (finite-horizon process dilation) | The theorem asserts that a finite `C_H` exists. The kernel citation `exists_perm_extending` uses the finiteness of the constructed product (R-constructed). The product-prior form of M522 is a paper construction (AUDIT.md R1). Physical total finiteness does not enter. **F**, R-constructed. |
+| M540–546 (characterization theorem) | The hypothesis restricts to timescales `t ≪ t_R`, where `t_R` is "the Poincaré recurrence time of any realizing substrate". Clause (iii) asks for a bijection at every finite accessible horizon `K`. By §27.2, the kernel's realization for horizon `K` returns every prior-supported state after exactly `K + 1` steps. Other per-horizon realizations need not do so. M524 leaves its permutation completion unspecified, and a padded carrier can have much longer orbits. Under the universal reading, "every realizing substrate", the kernel witness for horizon `k + 1` is one of the substrates, with recurrence time `k + 2`, so no order `k` is accessible. Then (ii) and (iii) both fail, and (ii) ⇔ (iii) holds vacuously. The proof at M634 uses a witness order and finite horizons, and never uses `t_R`. Reading `t_R` as the recurrence time of one separately given substrate is consistent with the proof. Under A1 that time is finite. Without a recurrence premise it can be infinite, and the window condition then places no restriction. **W**: the statement does not fix what `t_R` refers to, and the proof does not consume it. The site is listed as a §5 candidate with its mirror `papers/Main.tex:3444`. `book/` and FULL have no matching occurrence. |
+| M550–556 (S ⇔ D ⇔ Q_fb) | `finite_horizon_equivalence` (§27.2). (S) uses only F3. (D) and (Q_fb) include finite carriers in their definitions. The cited `permMatrix_mem_unitaryGroup` and `isDiag_Phi` act on the given finite product. `U_φ = e^{-iĤ}` at M556 is not formalized (Equivalence:28–34). **A** about physical A1, with R-supplied and R-constructed representatives. This agrees with AUDIT.md R1. |
+| M596 ("every faithful deterministic completion") | The universal phrase is the M608 theorem. There a realization is a bijection on `C_V × C_H`, and the kernel requires `Fintype H`. The quantifier therefore ranges over finite-hidden completions, which agrees with AUDIT.md R2 ("over class D"). **W** only if the phrase is read as covering completions with infinite hidden carriers. For those, clauses (a)–(b) would need conditional laws, and clause (c) places no constraint. Neither form is in the corpus traced here. |
+| M606–618 (universal memory theorem and biconditional) | Clauses (a)–(c) are kernel results for a finite joint law on `Hist × V × H` (§27.6). The time-`t` reading and the CMI vanishing criterion are disclosed as unformalized at M606 and M614. Bijectivity is not consumed. **F**, R-supplied. The converse cites `S_imp_D`, which is R-constructed. |
+| M620 (`c3_necessity_via_hidden`) | M620 describes the kernel statement as bijective and proves the non-injective form on paper. That agrees with the signature at §27.7. The proof body would also fit the non-injective form. **F**, R-supplied. |
+| M644 (all-time rooted classification) | The forward direction is `pper_of_finiteRootedRealizable`, whose finiteness enters at `rootedMap_periodic` (R-supplied). M644 states "from finiteness and bijectivity" and "a bijection on a finite set". The converse is R-constructed (§25.5, §27.4–27.5). M644 attributes the open physical form to A1 by name. **F**, explicit. |
+
+The table covers twelve Main sites. In each of them, every proof step that uses the finiteness of a whole hidden or total carrier is stated in the theorem, its proof or the §2.3 context M111 and M129. No silent use was found in this scope. The two **W** rows concern the referent of a quantifier. In each case the proof is unaffected. The `.tex`, book and FULL mirrors of these sites were not re-read in this section.
+
+### 27.9 Disposition
+
+Across §§24, 25 and 27, 338 authored declarations in 22 bridge modules have individual source rows (218 + 120). Among the 120 rows of §§27.2–27.7, 66 end in **A** and 54 in **F**. Of the 54 **F** rows, 44 are R-supplied and 10 are R-constructed. These figures apply the instantiation convention of §27.1, under which `HiddenMemory`'s `post`, `tv` and `tv_marg_le` are **F** rows. The tallies can be recounted from the committed file:
+
+```bash
+rows() { awk '/^## 27\./,/^### 27\.8/' verification/audits/foundations/a1-09-dependency-census/CENSUS.md \
+  | grep -E '^\| `[^|]+:[0-9]'; }
+rows | wc -l                                   # 120
+rows | grep -c '\*\*A\*\*'; rows | grep -c '\*\*F\*\*'
+rows | grep '\*\*F\*\*' | grep -c 'R-supplied'; rows | grep '\*\*F\*\*' | grep -c 'R-constructed'
+```
+
+The other 220 indexed bridge modules have module-level traces but no full roster. Main's remaining kernel citations, generated declarations, elaborated dependencies beyond the named imports, and the mirrors of the §27.8 sites remain **X**. A1-C01 remains **INCOMPLETE**. A1 remains OPEN / UNADOPTED, and physical measurement sourcing remains NOT PASSED.
