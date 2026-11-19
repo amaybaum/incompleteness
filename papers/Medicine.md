@@ -68,7 +68,7 @@ The memory hierarchy spans many decades of timescale. At the molecular level:
 | Chromatin marks | $\gamma$H2AX, methylation | Histone modification state | Hrs–days | C2 + C3 |
 | DNA methylation | Methyltransferase activity | CpG state | Months–generations | C2 + C3 |
 
-In multicellular tissues — particularly the nervous system — the same C1–C4 architecture extends upward through additional layers, each treating the layer below as its hidden sector:
+Additional candidate records in nervous tissue span synaptic to cortical scales. For each proposed partition, C4 requires histories with the same measured present and different next-step laws.
 
 | Memory layer | Substrate | $\tau_B$ |
 |---|---|---|
