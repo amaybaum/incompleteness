@@ -6,10 +6,11 @@ time-independent transition with inputs independent of the complete prior
 record and active-register history. Every observed word in the three-tick
 window has positive mass. Each outcome-labelled matrix nonetheless has zero
 columns. Strict matrix support is the first failed hypothesis for this
-register. For this schedule and gated readout, it fails for every finite
-register, of any encoding, whose tick-2 native inputs are independent of
-the register, the complete accessible past and the two frontier bits
-\((m_1,a_1)\): such a register determines the displayed label.
+register. For this schedule and gated readout, it is proved to fail only
+for finite registers of the P8 operation form that satisfy (N): the
+tick-2 native inputs are independent of the register, the complete
+accessible past and the two frontier bits \((m_1,a_1)\). Every such
+register determines the displayed label.
 
 **Scope and evidence.** Worker P, 2026-11-19. Paper-only proof for
 [Issue #1411][issue]. The [separate non-author mathematical
@@ -270,8 +271,10 @@ request \(m_2\). The hypothesis is
 
 **(N)** \(\xi_2\) is independent of \((Z_1,L_0,L_1,m_1,a_1)\).
 
-(N) holds whenever \(Z_1\) is a function of \((x_0,x_1)\) that does not
-read the five coordinates of \(\xi_2\). Indeed \(L_0,L_1,m_1,a_1\) are
+(N) holds whenever \(Z_1\) is measurable with respect to \(x_0\) and the
+coordinates of \(x_1\) other than the five coordinates of \(\xi_2\). A
+register written in coordinates of \(x_{-1}\) need not qualify: for
+example \(x_{-1}(3e)=g_{3e}(x_0)\oplus m_2\). Indeed \(L_0,L_1,m_1,a_1\) are
 \(\mathcal F_1\)-measurable by the freshness section, \(\mathcal F_1\)
 does not contain those five coordinates, and the pair law of
 \((x_0,x_1)\) is the product law. In particular (N) holds for every
@@ -340,10 +343,12 @@ Other read schedules and readouts are outside this test.
 
 ## Exact arithmetic check
 
-The following script recomputes \(K\) from the binary rule over all
-\(4\times32\) register and input values, the column \(\beta\), the two
-separations used in the proof, and the second- and third-label rows.
-It uses exact rational arithmetic.
+The following script recomputes \(K\) from the reduced register
+transition over all \(4\times32\) register and input values, the column
+\(\beta\), the two separations used in the proof, and the second- and
+third-label rows. It uses exact rational arithmetic. It checks the
+arithmetic from the reduced transition only. It is not an independent
+control of the reduction from the field.
 
 ```python
 from fractions import Fraction as Fr
