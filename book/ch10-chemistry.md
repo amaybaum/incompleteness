@@ -127,7 +127,7 @@ Chemistry is *stable but dynamic* in any universe where those three conditions o
 
 ## 10.6 Water as biological solvent
 
-Water occupies a distinguished position in biology that the framework's structural derivation can account for. Every known living system uses water as its primary solvent, and several of water's anomalous properties — its high heat capacity, its density maximum at 4°C, its hydrogen-bonding network, its capacity as both proton donor and acceptor — are load-bearing for biological function. The framework's content reads water's biological centrality as structurally predicted from element-8 chemistry rather than as contingent.
+Water is the primary solvent in known living systems. Its high heat capacity, density maximum near 4°C, hydrogen-bonding network and ability to donate and accept protons help explain its usefulness in those systems. Solvent suitability depends on the molecular interactions and the environment in which a liquid phase and the required reactions are possible.
 
 **Water's molecular geometry.** Oxygen has electronic configuration $1s^2\,2s^2\,2p^4$. Valence bonding and the two lone pairs help explain why water is bent. Its bond angle of about 104.5° and dipole moment of about 1.85 D are properties of the molecule measured or calculated with molecular inputs.
 

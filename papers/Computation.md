@@ -143,7 +143,7 @@ The characterization of §4.3 concerns scalable uniform families of finite imple
 
 **The box.** The program addresses four axes: width under the patch-budget, rate and simulation-cost assumptions (§4.5), depth via the residual dissipation considered here, and proposed rate and memory derivations related to the Margolus–Levitin and Bekenstein bounds. A Malament–Hogarth scheme would need a physical mechanism giving the observer access to an infinite computation in finite proper time. Neither a finite configuration space nor indefinite iteration provides that mechanism. Operational closure excludes an oracle from the §4 model.
 
-**Near-term tests.** [Complexity §8.2] proposes tests for memory-bearing device noise. A reported syndrome-level analysis found an aggregate temporal trend with no reliable detection for individual detectors and open carrier attribution. A controlled test of the reconstructed per-round channel is needed to assess P-indivisibility.
+**Near-term tests.** [Complexity §8.2] proposes tests for memory-bearing device noise. A reported syndrome-level analysis found an aggregate temporal trend. No individual-experiment detections survived multiple-comparison control, and carrier attribution remains open. A controlled test of the reconstructed per-round channel is needed to assess P-indivisibility.
 
 ---
 

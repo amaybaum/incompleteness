@@ -78,11 +78,11 @@ The ratio $E_{\text{nuclear}} / E_{\text{atomic}} \sim 10^6$ is parametric: the 
 
 ### 2.6 Water
 
-Element 8 (oxygen): configuration 1s² 2s² 2p⁴ — six valence electrons, two unpaired. The sp³-like hybridization in d = 3, distorted by two lone pairs, gives a bond angle of ~104.5°. This is the geometry of water (H₂O).
+Oxygen has ground-state configuration 1s² 2s² 2p⁴. Valence bonding and two lone pairs help explain the bent shape of water (H₂O). The bond angle of about 104.5° is a measured molecular property.
 
-Water's anomalous properties follow from this geometry. The bent structure creates a permanent dipole moment. The lone pairs enable hydrogen bonding — a secondary interaction (~0.2 eV) intermediate between covalent bonds (~3 eV) and thermal energy (~0.025 eV at 300K). Hydrogen bonding produces: high specific heat (thermal buffering for chemical reactions), density maximum near 4°C (ice floats, insulating liquid water below), and exceptional solvent capability (dissolving ionic and polar molecules for solution-phase chemistry).
+Water's bent geometry and bond polarity give it a permanent dipole. Its molecular interactions support a hydrogen-bonding network. Hydrogen bonding has a characteristic energy of order 0.2 eV, between typical covalent bond energies and the thermal energy of about 0.025 eV at 300 K. The network contributes to the liquid's high specific heat, its density maximum near 4°C and its ability to solvate ions and polar molecules.
 
-The *possibility* of a molecule with these properties is structural: element 8's electron configuration in d = 3 with the derived orbital algebra guarantees a bent dihydride with lone pairs capable of hydrogen bonding. The *existence* of a liquid phase at specific temperatures is parametric.
+The orbital algebra constrains possible bonding geometries. Water's geometry, dipole and hydrogen bonding require molecular inputs. Its liquid phase depends on temperature and pressure.
 
 ### 2.7 The thermal window
 
@@ -279,7 +279,7 @@ Once template replication is established, copying errors give heritable variatio
 
 ### 5.6 The origin of life: C1–C4 at the molecular scale
 
-The OI framework's characterization theorem is scale-independent: whenever a fast subsystem's hidden-sector coupling realizes non-trivial coupling, record persistence, sufficient capacity, and history readback (C1–C4), the subsystem's dynamics is — in the memory-bearing sector those conditions characterize — non-Markovian — history-dependent. At the cosmological scale, this produces the memory-bearing dynamics quantum mechanics represents. At the molecular scale, in a template replicator, it produces *heredity*: a chemical system whose future depends on its past through information stored in a persistent template. In a template replicator the four conditions take a hereditary form; satisfying them does not mark the transition to life, since non-replicating molecules such as single proteins also satisfy them (§7.2).
+At any scale, a C4 readback witness establishes conditional memory for the specified observable on the tested window [1, §2.3]. In a template replicator a persistent template can carry a hereditary record that affects later chemistry. Protein conformations are candidate records outside replication. The matched-present contrast for proteins is an experimental condition (§7.2).
 
 **Chemistry before replication.** A reaction model can be Markovian when its current state includes all variables needed to determine the next-step law. A concentration-only projection can omit conformations, intermediates or environmental variables and can exhibit history dependence.
 
@@ -497,17 +497,17 @@ Device applications require a measured or modeled C4 contrast for accessible mem
 
 **Quantum error correction: a structural correlation, not a quantified gain.** Standard surface codes assume independent (Markovian) errors. Correlated errors from a slow bath extend over $\sim \tau_B / \tau_S$ gates. A Markovian decoder sees these correlations as a higher effective error rate — it *underperforms*. A correlation-aware decoder exploits the predictability: correlated errors are easier to correct than random errors. For superconducting qubits with TLS baths ($\tau_S / \tau_B \sim 10^{-3}$, correlations over $\sim 10^3$ gates), a correlation-aware decoder could reduce the effective error rate at the same physical error rate. The size of that reduction, and hence any change in the physical-to-logical qubit overhead, is not quantified here: it requires a code, a decoder and a noise spectrum, none of which the framework supplies.
 
-**Coherence extension: a structural revival, not a quantified gain.** Standard coherence decays as $e^{-t/T_2}$. Where the engineered bath's return also revives distinguishability (information backflow), coherence partially revives at multiples of $\tau_B$. The revival amplitude per cycle is not fixed by $\tau_S / \tau_B$: it depends on the coupling and on how much of the stored record the bath returns, and it is not quantified here. Over multiple revival cycles before the bath relaxes, coherence persists longer than a Markovian estimate gives; the extension factor is not quantified.
+**Coherence extension.** An exponential decay $e^{-t/T_2}$ can serve as a coherence benchmark where applicable. A distinguishability revival diagnoses divisibility for the tested preparations and map family. Coherence recovery requires a revival in the relevant coherence-sensitive signal. Its timing and amplitude depend on the bath and coupling. A coherence-time gain requires comparison with a specified benchmark under matched controls and resources.
 
-**Quantum sensing: a structural information recovery, not a quantified gain.** Standard NV magnetometry sensitivity: $\delta B \sim 1 / (\gamma \sqrt{T_2 \cdot T_{\text{meas}}})$. Where the bath's return at $\tau_B$ also revives distinguishability (information backflow, a property C1–C4 do not by themselves supply), each measurement can recover information that Markovian protocols assume is lost. The size of the sensitivity gain is not quantified: it requires an NV-specific model of the bath, readout and control.
+**Quantum sensing.** A standard NV magnetometry estimate is $\delta B \sim 1 / (\gamma \sqrt{T_2 \cdot T_{\text{meas}}})$. A proposed sensitivity gain requires recovery of the field-sensitive signal and a comparison under specified bath dynamics, readout, control and measurement resources.
 
 **Quantum materials: qualitative regime change.** Where an engineered bath with $\tau_S / \tau_B \sim 10^{-1}$ couples strongly to the conduction electrons and reads its record back, non-Markovian corrections need not be perturbative; their strength is set by the coupling, while the ratio only confines the retention window to $\sim 10$ electronic events. Where the corrections are $\mathcal{O}(1)$, standard band theory gives qualitatively wrong predictions, and the material's electronic properties are determined by memory-bearing (non-Markovian) dynamics, not by Markovian approximations. This is not a percentage improvement — it is a new regime of matter. The heavy-fermion precedent (non-Fermi liquid transport, unconventional superconductivity, hidden order) suggests that qualitatively new phenomena emerge when the non-Markovian corrections become $\mathcal{O}(1)$.
 
 | Domain | $\tau_S / \tau_B$ | Estimated gain | Status |
 |--------|-------------------|---------------|--------|
 | Error correction | $10^{-3}$ | correlated errors over $\sim\tau_B/\tau_S$ gates; overhead gain not quantified (no code/decoder model) | Testable now with correlation-aware decoders |
-| Coherence extension | $10^{-1}$ (engineered) | coherence beyond the Markovian estimate; factor not quantified | Requires engineered spin chain coupling |
-| Quantum sensing | $10^{-6}$ | information recovered per measurement that Markovian protocols discard; sensitivity gain not quantified (no readout/control model) | Requires backflow-optimized protocols |
+| Coherence extension | $10^{-1}$ (engineered) | Open for the specified coherent signal | Requires a coherence-sensitive readout and benchmark |
+| Quantum sensing | $10^{-6}$ | Open for the field-sensitive signal | Requires a specified readout, control and resource comparison |
 | Quantum materials | $10^{-1}$ (engineered) | Qualitatively new regime at strong coupling | Requires metamaterial fabrication |
 
 ### 8.10 Existing experimental evidence

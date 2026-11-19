@@ -13,7 +13,7 @@ This chapter discusses proposed memory mechanisms and tests in pharmacology, neu
 
 The chapter has explicit two-half structure.
 
-The *first half* (§§16.2-16.8) develops the framework's content across six conventional pharmacology domains: cancer pharmacology (with checkpoint kinase inhibitors and the framework's account of why Chk1 inhibitor selectivity emerges), neurodegeneration (with CaMKII as the canonical molecular memory device and PTSD reconsolidation as $\tau_B$ pathology), antibiotic resistance (with persister cells as memory accumulation), immunotherapy (with T-cell exhaustion as TCR memory pathology), cardiac pharmacology (with use-dependent block as non-Markovian channel dynamics), and autoimmune disease (with partial JAK inhibition exploiting memory architecture). Each section identifies the C1–C4 architecture of the relevant biological system, develops the framework's structural prediction, and identifies distinguishing predictions where the framework gives different answers than standard pharmacology.
+The *first half* (§§16.2–16.8) discusses candidate records in checkpoint kinase regulation, CaMKII dynamics and reconsolidation, bacterial persistence, T-cell exhaustion, use-dependent cardiac channel block and JAK signaling. The proposed mechanisms depend on what persists and whether it affects later outcomes at the same measured present.
 
 Sections 16.9–16.12 compare measurable chromatin features with expression and function. The operator distinction of Chapter 6 motivates an analogy. The evidence concerns particular molecular observations and clinical endpoints.
 
@@ -23,21 +23,21 @@ Guy et al. (2007) observed neurological reversal after reactivating Mecp2 in sym
 
 ## 16.2 The enzyme as a read-write system
 
-Before developing specific disease domains, the chapter establishes the framework's structural account of enzymes as read-write systems. The account organizes the subsequent disease-by-disease content under a unified structural pattern: each disease involves a specific C1–C4 architecture, with pathology arising through alteration of the architecture's memory dynamics.
+Enzyme regulation supplies candidate mechanisms for writing, retaining and reading molecular records. The proposed role of a record in disease depends on the particular system and what its later activity reveals.
 
-**Molecular memory mechanisms.** The framework's prediction that enzyme activity history is physically encoded in the enzyme's structure and persists across multiple catalytic cycles is well-established in molecular biology through multiple mechanisms.
+**Molecular memory mechanisms.** The following mechanisms can create states that persist across catalytic cycles.
 
-*Multisite post-translational modification.* PTMs — phosphorylation, acetylation, ubiquitination, methylation — covalently alter specific residues, changing the protein's conformational landscape and activity. A protein with $N$ modifiable sites, each with $k$ possible states, has $k^N$ distinct modification patterns. For Chk1 with approximately ten regulatory phosphorylation sites, $2^{10} \approx 1{,}000$ distinct states constitute a physical memory register encoding the enzyme's recent history. Gunawardena (2012) explicitly describes this as "history-based encoding": the same cellular condition can produce different modification patterns depending on the prior history.
+*Multisite post-translational modification.* PTMs — phosphorylation, acetylation, ubiquitination, methylation — covalently alter specific residues, changing the protein's conformational landscape and activity. For $N$ sites with $k$ possible states each, $k^N$ is the count of possible patterns if every combination is available. Treating approximately ten Chk1 regulatory phosphorylation sites as binary gives about $2^{10} \approx 1{,}000$ nominal patterns. Gunawardena (2012) describes how the same cellular condition can produce different modification patterns depending on prior history.
 
 *Sequential phosphorylation.* Wilsker et al. (2008) found S317-dependent S345 phosphorylation in the DNA-damage response. They distinguished a mitotic mode of S345 phosphorylation independent of S317. The sequence is a biochemical result. A C4 test requires comparing histories at the same declared visible state.
 
-*Conformational hysteresis.* Proteins occupy multiple distinct conformational states, with transitions depending on the protein's history. For kinases, the autoinhibited vs. active conformation persists on timescales much longer than individual phosphorylation events. The Chk1-S splice variant acts as an endogenous repressor whose binding/unbinding is the slow process storing the history.
+*Conformational hysteresis.* Proteins can occupy conformations with different lifetimes. The binding and release of the endogenous Chk1 repressor Chk1-S is a candidate slow process.
 
-*Chromatin as long-term memory.* At the network level, the histone code provides the most dramatic example. DNA damage induces histone modifications ($\gamma$H2AX, H4K20me) that persist for hours to days — far longer than the kinase cascade that wrote them.
+*Persistent chromatin marks.* DNA damage induces histone modifications ($\gamma$H2AX, H4K20me) that can persist for hours to days.
 
-**The memory hierarchy.** The framework's content extends across many decades of biological timescale, with each scale satisfying C1–C4 with its own characteristic $\tau_B$.
+**The memory hierarchy.** These examples span different timescales and illustrate possible persistence and storage. C4 requires different next-step laws for histories that end at the same measured present.
 
-| Memory mechanism | Write operation | Storage medium | $\tau_B$ | C1–C4 role |
+| Memory mechanism | Write operation | Storage medium | $\tau_B$ | Candidate role |
 |---|---|---|---|---|
 | Conformational hysteresis | Ligand binding | Oligomeric/regulatory state | $\mu$s-ms | C2 |
 | Sequential phosphorylation | Ordered modification | Conformational accessibility | Minutes | C2 + C3 |
@@ -45,13 +45,11 @@ Before developing specific disease domains, the chapter establishes the framewor
 | Chromatin marks | $\gamma$H2AX, methylation | Histone modification state | Hrs-days | C2 + C3 |
 | DNA methylation | Methyltransferase activity | CpG state | Months-generations | C2 + C3 |
 
-In multicellular tissues — particularly the nervous system — the same C1–C4 architecture extends upward through additional layers, each treating the layer below as its hidden sector. Synaptic-layer LTP/LTD changes (hours to days), circuit-layer engram-cell ensembles (days to months), systems-layer hippocampal-cortical dialogue (months to years), and cortical-layer distributed semantic representation (years to decades) form a five-layer architecture nested above the molecular level.
+Additional candidate records in nervous tissue include synaptic LTP/LTD changes (hours to days), circuit engram-cell ensembles (days to months), hippocampal-cortical interactions (months to years) and distributed cortical representations (years to decades). A readback claim at any layer uses a specified partition and comparison.
 
-The hierarchical structure means that a perturbation at one layer (a drug, a disease process) can have effects propagating upward through layers with progressively longer $\tau_B$. The clinical time-course of memory-related diseases — and the schedule-dependence of memory-targeted drugs — reflects this layered architecture.
+A perturbation at one layer could affect a longer-lived state in another. Linking a clinical time course or treatment response to such a state requires evidence for the proposed links between layers.
 
-**The core therapeutic principle.** The framework identifies a specific therapeutic axis: *memory asymmetry*. When a disease process depends on non-Markovian signaling dynamics that the corresponding normal tissue does not depend on (or depends on differently), therapies can target the *memory structure* rather than the *catalytic function*. This is pharmacologically distinct from standard inhibition and predicts *wider therapeutic windows* because memory dependence is more disease-specific than catalytic activity.
-
-The memory-asymmetry principle organizes the chapter's content across the disease domains in §§16.3-16.12. Each disease's pharmacology is reframed in terms of the relevant C1–C4 architecture; each therapeutic intervention is reframed in terms of its effect on the architecture's memory dynamics; each distinguishing prediction follows from this reframing.
+**The core therapeutic principle.** *Memory asymmetry* is the proposal that an intervention can exploit differences in how diseased and normal tissue depend on a retained signaling state. A wider therapeutic window requires a selective effect on that state and a direct comparison with the relevant treatment baseline.
 
 ## 16.3 Cancer pharmacology
 
@@ -143,13 +141,13 @@ A history contrast would ask whether different prior exposures affect the next m
 
 ## 16.6 Immunotherapy and T-cell exhaustion
 
-T-cell exhaustion — the progressive loss of T-cell effector function during chronic antigen exposure — is the dominant clinical limitation of cancer immunotherapy. Checkpoint inhibitors (anti-PD-1, anti-CTLA-4) reverse exhaustion partially but only in a fraction of patients. The framework's reading: T-cell receptor (TCR) signaling is a C1–C4 system with the exhaustion state corresponding to a specific pathological memory configuration of the regulatory machinery.
+T-cell exhaustion is a loss of T-cell effector function during chronic antigen exposure. Checkpoint inhibition can partly restore function. Regulatory states in T-cell receptor (TCR) signaling are candidate records for studying how prior stimulation contributes to exhaustion.
 
-**TCR signaling as a C1–C4 system.** The T-cell receptor's signaling cascade involves multiple kinases (Lck, ZAP-70, LAT) with regulatory phosphorylation sites, all coupled to the downstream transcription factor network. C1 is satisfied through the regulatory phosphorylation network; C2 through the slow dynamics of transcription factor accumulation and dissipation; C3 through the combinatorial space of phosphorylation patterns across the cascade.
+**Candidate records in TCR signaling.** The cascade involves components including Lck, ZAP-70 and LAT, with regulatory phosphorylation and links to downstream transcription factors. Slow changes in regulator levels and modification patterns provide possible persistence and storage.
 
-The framework's prediction: TCR signaling is non-Markovian. Chronic antigen exposure progressively writes specific PTM patterns into the kinase cascade, driving the cell toward the "exhaustion" memory state characterized by upregulated inhibitory receptors (PD-1, TIM-3, LAG-3) and downregulated effector function. The exhaustion state is not an absorbing classical phenotype but a specific memory configuration that can in principle be rewritten.
+The proposed mechanism links retained PTM patterns to upregulated inhibitory receptors (PD-1, TIM-3, LAG-3) and reduced effector function. C4 requires differences in a subsequent signaling response after distinct stimulation histories at the same defined present. Attributing such a difference to the PTM patterns requires evidence for that mediator.
 
-**Therapeutic implication.** Standard checkpoint inhibition (blocking PD-1/PD-L1) acts on the *effector phase* of T-cell function. The framework predicts that targeting the *memory writers* (kinases that write the exhaustion PTM pattern) or the *memory erasers* (phosphatases that remove these patterns) should be pharmacologically distinct and synergistic with standard checkpoint inhibition.
+**Therapeutic implication.** Under the proposed mechanism, targeting kinases or phosphatases that control the relevant PTM pattern could complement PD-1/PD-L1 checkpoint inhibition. Synergy requires a comparison with the component interventions.
 
 *Specifically:* The serine/threonine kinases responsible for the exhaustion-specific phosphorylation patterns (likely candidates: PKC, MAPK, and downstream effectors) are framework-predicted to be the *upstream writers* of the exhaustion state. Inhibiting these writers should prevent exhaustion development; activating the corresponding erasers should reverse established exhaustion. This is a new therapeutic axis distinct from standard checkpoint blockade.
 
@@ -157,13 +155,13 @@ The framework's prediction: TCR signaling is non-Markovian. Chronic antigen expo
 
 ## 16.7 Cardiac pharmacology
 
-Cardiac antiarrhythmic drugs exhibit *use-dependent block*: the drug's binding to the sodium or calcium channel depends on the channel's activation history rather than just on instantaneous membrane voltage. The phenomenon is well-established empirically (Vaughan-Williams class I antiarrhythmics, lidocaine, propafenone, flecainide) but is treated as an empirical complication of channel pharmacology. The framework's reading: use-dependent block is non-Markovian channel dynamics, with the channel acting as a C1–C4 system whose conformational memory determines drug binding affinity.
+Some cardiac antiarrhythmics (including lidocaine, propafenone and flecainide) exhibit *use-dependent block*. Channel block can change across repeated activations. The observed dependence motivates testing whether slow channel conformations mediate a history effect beyond the declared present measurements.
 
-**Use-dependent block as non-Markovian channel dynamics.** Voltage-gated ion channels (Na$_V$, Ca$_V$, K$_V$) have multiple conformational states (closed, open, inactivated, slow-inactivated) with transitions on different timescales. The fast subsystem is the open/closed conformational equilibrium (microseconds); the slow subsystem is the inactivated-state dynamics (milliseconds to seconds). C1–C4 are satisfied with the standard $\tau_S/\tau_B \sim 10^{-3}$ regime characteristic of the framework's engineered partition examples.
+**Candidate history readback in use-dependent block.** Voltage-gated ion channels have closed, open and inactivated conformations with different transition times. Opening and closing on microsecond timescales and inactivation on longer timescales in some channels motivate a candidate partition. C4 requires that two activation histories giving the same recorded present lead to different next-step laws for the specified readout.
 
-The framework's prediction: drug binding to voltage-gated channels is non-Markovian. The drug's effective affinity depends on the channel's activation history through the slow-inactivated state's memory of recent activations. This produces the observed use-dependence: rapidly cycling channels (during tachyarrhythmias) accumulate more inactivated-state occupancy and bind drug more avidly; slowly cycling channels (during normal rhythm) accumulate less and bind less avidly.
+In a candidate mechanism, rapidly cycling channels accumulate occupancy of an inactivated state and bind a drug that favors that state more avidly. Testing that mechanism requires measuring the relevant conformations and drug response.
 
-**Therapeutic implication.** Use-dependent block produces *frequency-selective* antiarrhythmic effects: drugs preferentially affect rapidly firing pathological tissue (arrhythmic foci, reentry circuits) while sparing normally firing tissue. This is the framework's memory-asymmetry principle in cardiac pharmacology: the pathological tissue's high-frequency firing writes more memory into the channels, making them more susceptible to drug binding. The therapeutic window between antiarrhythmic effect and toxicity is determined by the difference in channel memory states between pathological and normal tissue.
+**Therapeutic implication.** Use-dependent block can favor action in rapidly firing tissue. A therapeutic-window benefit from the proposed inactivated state depends on its contribution to both efficacy and toxicity in the tissues being compared.
 
 **Distinguishing predictions.**
 
@@ -175,11 +173,11 @@ The framework's prediction: drug binding to voltage-gated channels is non-Markov
 
 ## 16.8 Autoimmune disease
 
-Autoimmune disease — rheumatoid arthritis, lupus, psoriasis, inflammatory bowel disease — involves chronic activation of cytokine signaling networks centered on the Janus kinase (JAK) family. Standard immunosuppression uses high-dose, often broad-spectrum agents (corticosteroids, methotrexate, anti-TNF) with substantial side effects. JAK inhibitors (tofacitinib, baricitinib, upadacitinib) provide more targeted intervention but with characteristic dose-response patterns that conventional pharmacology has difficulty explaining. The framework's reading: JAK signaling is a C1–C4 system, and partial JAK inhibition exploits the network's memory architecture for disproportionate clinical efficacy.
+Cytokine signaling involving Janus kinases (JAKs) is involved in several autoimmune diseases. JAK inhibitors include tofacitinib, baricitinib and upadacitinib. Persistent JAK–STAT regulation is a candidate mechanism for effects of prior cytokine exposure on later responses.
 
-**Disproportionate efficacy of partial JAK inhibition.** Clinical experience with JAK inhibitors shows that *partial* JAK inhibition (binding less than ~50% of available JAK kinases at clinically tolerable doses) produces substantial clinical efficacy in many autoimmune conditions. This is unexpected on standard Markovian models, which predict that the suppression of cytokine signaling should be roughly linear in the fraction of inhibited kinase.
+**Response to partial JAK inhibition.** Clinical responses can occur under partial inhibition. A nonlinear dose response can arise in models of the current state. Testing C4 requires a history contrast at the same measured present.
 
-The framework's account: JAK signaling is non-Markovian, with the cytokine response depending on the cumulative phosphorylation state of the JAK-STAT pathway over multiple signaling cycles. Partial inhibition produces disproportionate effects because it disrupts the memory accumulation that drives the chronic activation, even though instantaneous catalytic activity remains substantial.
+The proposed mechanism is that accumulated phosphorylation mediates a history effect and that partial inhibition can alter that state. Explaining a clinical response with this mechanism requires evidence for the history effect and its mediation.
 
 **Therapeutic implication.** The framework predicts that JAK inhibitor dose-response curves should show *threshold behavior* — clinical efficacy emerges above a specific dose threshold corresponding to disruption of memory accumulation, rather than linear with kinase inhibition. Below threshold: minimal efficacy regardless of partial inhibition. Above threshold: substantial efficacy from memory disruption. This pattern matches the clinical observation of "minimum effective dose" thresholds with rapid efficacy gains above threshold.
 
@@ -193,7 +191,7 @@ A second distinguishing prediction: combinations of JAK inhibitors with phosphat
 
 The second half examines chromatin features as candidate records and gene expression and phenotype as possible readouts. The relation motivates an analogy to the operator distinction from Chapter 6 §6.3.
 
-**The C1–C4 architecture of chromatin.** The transcriptional machinery — RNA polymerase II, transcription factors, mediator complex — is the visible sector. The chromatin state — DNA methylation patterns, histone modifications, chromatin compaction, three-dimensional architecture — is the hidden sector. The four conditions are satisfied with overwhelming margin.
+**A candidate chromatin partition.** Observations of transcriptional machinery define a possible visible sector. DNA methylation, histone modifications, chromatin compaction and three-dimensional architecture provide candidate hidden variables. C4 needs a matched-present history contrast in transcription or another declared readout.
 
 *C1 (coupling).* The transcriptional machinery and chromatin state are coupled through multiple mechanisms: direct physical coupling (nucleosome positioning controls promoter access, DNA methylation modulates transcription factor binding, histone tail modifications recruit reader proteins), writer-reader feedback (transcription recruits chromatin-modifying enzymes that alter the chromatin state, which modulates future transcription), and structural coupling (chromatin looping by CTCF and cohesin brings distal regulatory elements into proximity with promoters).
 
@@ -207,9 +205,9 @@ The second half examines chromatin features as candidate records and gene expres
 | Chromatin compaction | Cell generations | $\sim 10^{-6}$ |
 | CTCF/cohesin loops | Hours to cell generations | $\sim 10^{-3}$ to $10^{-6}$ |
 
-The framework predicts a *hierarchy of memory range*: genes regulated primarily by DNA methylation should show history-dependence reaching furthest back (the longest retention, of order $\tau_B/\tau_S$ transcriptional events), while genes regulated primarily by histone acetylation should show the shortest-range history-dependence (approaching Markovian behavior beyond a few events). The ratio orders retention, not the size of the effect at a given lag.
+These timescales give candidate retention windows. If persistence controls the available record, methylation can motivate tests at longer lags than acetylation. A history effect at a given lag also depends on how the record is read back.
 
-*C3 (capacity).* The chromatin memory register has astronomical capacity. Approximately $28 \times 10^6$ CpG sites in the human genome with binary methylation states give $\sim 2^{28 \times 10^6}$ possible CpG methylation patterns — vastly exceeding any conceivable transcriptional state space. C3 is satisfied by approximately seven million orders of magnitude.
+*C3 (capacity).* Treating about $28 \times 10^6$ human CpG sites as independent binary sites gives $2^{28 \times 10^6}$ nominal patterns. The distinguishable patterns available to the proposed mechanism determine its storage capacity.
 
 **Cancer as pathological epigenetic memory.** Cancer is, in the framework's language, a disease of the epigenetic hidden sector. The malignant transcriptional program is maintained not only by genetic mutations but by an aberrant epigenetic memory state — stable patterns of DNA methylation and histone modifications that lock the cell into a proliferative program. This memory is self-reinforcing: the malignant transcription writes further aberrant marks through recruited chromatin modifiers, which stabilize the malignant transcription.
 

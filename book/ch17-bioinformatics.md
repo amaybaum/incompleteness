@@ -177,7 +177,7 @@ A gamma mixture of Poisson rates can give negative-binomial overdispersion witho
 
 **Phylogenetic rate autocorrelation.** Correlation between inferred rates is a statistic of the fitted evolutionary model. Relating it to C4 requires a declared present observable and a conditional contrast.
 
-Tao et al. (2019, *Molecular Biology and Evolution*) applied CorrTest to large phylogenies across the tree of life and found "extensive rate autocorrelation in DNA and amino acid sequence evolution of mammals, birds, insects, metazoans, plants, fungi, parasitic protozoans, and prokaryotes." The autocorrelation parameter $1/\nu$ ranges from 1.2 to 40 across datasets, with both synonymous and nonsynonymous rates showing significant autocorrelation. This matches the non-Markovian (grade-ii) memory signature the framework's architecture predicts; per the scope note, it is consistent with --- but does not isolate --- grade-iii P-indivisibility, since classical gamma-distributed-rate (dynamic-disorder) models reproduce the same autocorrelation.
+Tao et al. (2019, *Molecular Biology and Evolution*) applied CorrTest to large phylogenies across the tree of life and found "extensive rate autocorrelation in DNA and amino acid sequence evolution of mammals, birds, insects, metazoans, plants, fungi, parasitic protozoans, and prokaryotes." The fitted autocorrelation parameter $1/\nu$ ranges from 1.2 to 40 across datasets, with both synonymous and nonsynonymous rates showing significant autocorrelation.
 
 Differences across substitution types can inform models of rate variation. The strength and explanation of the correlation depend on the phylogeny and fitted model.
 

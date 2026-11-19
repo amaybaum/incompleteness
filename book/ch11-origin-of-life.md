@@ -185,11 +185,11 @@ The simplest replicator would use *one molecular family* as both template and ca
 
 **Why DNA and proteins are not single-molecule replicators.** DNA is more chemically stable than RNA (improved C2 — half-lives of millions of years vs. hours for RNA), making it a better information storage medium. But DNA cannot easily catalyze reactions (catalytic DNA has been engineered in the laboratory but is much less common than catalytic RNA). DNA serves as a template but not as a catalyst in any natural system.
 
-Proteins are excellent catalysts (much more diverse catalytic repertoire than RNA), but proteins cannot easily template their own replication (a protein cannot directly serve as a template for synthesizing another protein of the same sequence — there is no protein-protein equivalent of Watson-Crick complementary pairing). Proteins satisfy C1–C4 as memory conditions — the conformational memory of Chapter 13 — but do not serve as templates.
+Proteins are excellent catalysts (much more diverse catalytic repertoire than RNA), but proteins cannot easily template their own replication (a protein cannot directly serve as a template for synthesizing another protein of the same sequence — there is no protein-protein equivalent of Watson-Crick complementary pairing). Protein conformations are candidate records. A matched-present readback test is needed to establish C4 for a chosen observable (Chapter 13).
 
 RNA is the natural polymer known to serve as both template and catalyst in a single molecular species. The RNA world hypothesis — that early life used RNA for both information storage and catalysis before the evolution of DNA and proteins — rests on that chemical evidence; it is an empirical hypothesis, not a consequence of C1–C4.
 
-**The RNA → DNA + protein transition.** Modern biology uses DNA for information storage and proteins for catalysis, with RNA serving intermediary functions (mRNA, tRNA, rRNA, regulatory RNAs). The transition from RNA-only chemistry to the DNA + protein system is structurally interpretable as an *optimization* of C1–C4.
+**The RNA → DNA + protein transition.** Modern biology uses DNA for information storage and proteins for catalysis, with RNA serving intermediary functions (mRNA, tRNA, rRNA, regulatory RNAs). The proposed transition separates storage and catalytic functions.
 
 *DNA optimizes C2.* DNA's chemical stability is much higher than RNA's, providing greater persistence for information storage. The improved C2 allows more stable inheritance over longer timescales — important for organisms with longer generation times.
 
@@ -197,7 +197,7 @@ RNA is the natural polymer known to serve as both template and catalyst in a sin
 
 The division between DNA storage, RNA intermediaries and protein catalysis illustrates a biological architecture with distinct persistence and reaction functions. Its evolution depends on the organism and environment.
 
-The structural content here connects the framework's account of the origin of life to the framework's account of evolution. On the RNA world hypothesis, the first life had RNA-like architecture; subsequent evolution optimized the C1–C4 components into the DNA + protein system. Both stages are within the framework's structural class — implementations of C1–C4 at the molecular scale — with the specific molecular details parametric.
+On the RNA-world hypothesis, early life used RNA-like architecture. The division of functions in the later DNA and protein system provides a separate molecular setting for studying persistence and readback. In either setting, C4 requires a specified partition and histories with different next-step laws at the same measured present.
 
 ## 11.8 What remains genuinely open
 
