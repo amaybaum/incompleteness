@@ -109,6 +109,12 @@ theorem sum_evolve (φ : Equiv.Perm S) (t : ℤ) (p : S → ℝ) :
     ∑ s, evolve φ t p s = ∑ s, p s :=
   Equiv.sum_comp ((φ ^ t)⁻¹) p
 
+/-- `τ (τ⁻¹ s) = s` for a permutation. -/
+theorem perm_apply_inv (τ : Equiv.Perm S) (s : S) : τ (τ⁻¹ s) = s := by
+  first
+    | rw [← Equiv.Perm.mul_apply, mul_inv_cancel, Equiv.Perm.one_apply]
+    | simp
+
 /-- Relative entropy to a `τ`-invariant reference is unchanged by pushing forward along `τ`. -/
 theorem relEnt_push (p μ : S → ℝ) (τ : Equiv.Perm S) (hμ : ∀ s, μ (τ s) = μ s) :
     relEnt (push τ p) μ = relEnt p μ := by
@@ -117,7 +123,7 @@ theorem relEnt_push (p μ : S → ℝ) (τ : Equiv.Perm S) (hμ : ∀ s, μ (τ 
       = p (τ⁻¹ s) * Real.log (p (τ⁻¹ s) / μ (τ⁻¹ s)) := by
     intro s
     have hs : μ (τ (τ⁻¹ s)) = μ (τ⁻¹ s) := hμ (τ⁻¹ s)
-    rw [Equiv.Perm.apply_inv_self] at hs
+    rw [perm_apply_inv] at hs
     rw [hs]
   rw [Finset.sum_congr rfl (fun s _ => h s)]
   exact Equiv.sum_comp (τ⁻¹) (fun x => p x * Real.log (p x / μ x))
@@ -134,7 +140,7 @@ theorem invariant_zpow (μ : S → ℝ) (φ : Equiv.Perm S) (hμ : ∀ s, μ (φ
     intro s
     rw [zpow_sub_one, Equiv.Perm.mul_apply, ih]
     have hs : μ (φ (φ⁻¹ s)) = μ (φ⁻¹ s) := hμ (φ⁻¹ s)
-    rw [Equiv.Perm.apply_inv_self] at hs
+    rw [perm_apply_inv] at hs
     exact hs.symm
 
 /-- **Record 2.1, conservation.** For a bijection `φ` of a finite set and a `φ`-invariant
@@ -366,12 +372,12 @@ theorem bsc_nonneg {e : ℝ} (h0 : 0 ≤ e) (h1 : e ≤ 1) (b c : Bool) : 0 ≤ 
   · exact h0
 
 theorem bsc_sum (e : ℝ) (b : Bool) : ∑ c, bsc e b c = 1 := by
-  cases b <;> simp [bsc, Fintype.sum_bool] <;> ring
+  cases b <;> simp [bsc]
 
 theorem bscProd_sum (ε : Fin N → ℝ) (x : Fin N → Bool) : ∑ y, bscProd ε x y = 1 := by
   unfold bscProd
   rw [← Fintype.prod_sum]
-  simp [bsc_sum]
+  simp only [bsc_sum, Finset.prod_const_one]
 
 theorem bscProd_nonneg {ε : Fin N → ℝ} (h0 : ∀ k, 0 ≤ ε k) (h1 : ∀ k, ε k ≤ 1)
     (x y : Fin N → Bool) : 0 ≤ bscProd ε x y :=
@@ -438,7 +444,7 @@ theorem held_predictability_budget (p : A × B → ℝ) (hp : ∀ s, 0 ≤ p s) 
     (fun x => bscProd_sum (mismatch p f g) x) (fun s hs => bscProd_pos p hp htot f g hs)
   rw [sum_mul_log_bscProd p hp htot f g] at h
   have hcard : Real.log (Fintype.card (Fin N → Bool)) = (N : ℝ) * Real.log 2 := by
-    simp [Fintype.card_fun, Real.log_pow]
+    simp [Real.log_pow]
   rw [hcard, Finset.sum_congr rfl (fun k _ => neg_binEntropy (mismatch p f g k)),
     Finset.sum_neg_distrib] at h
   linarith
