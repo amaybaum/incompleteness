@@ -1198,11 +1198,11 @@ This returns 10 source files. `ObservableFactorRecurrence` is in §24.8. `Record
 | `RecursiveFiniteFactor` | 7 | 7 |
 | `NativePadicReduction` | 7 | 7 |
 | `RootedClassificationAllTime` | 16 | 16 |
-| `CarrierGeneralOIPlus` | 15 | 0 |
-| `EmbeddedObservation` | 30 | 0 |
-| **Total** | **86** | **41** |
+| `CarrierGeneralOIPlus` | 15 | 15 |
+| `EmbeddedObservation` | 30 | 30 |
+| **Total** | **86** | **86** |
 
-The roster follows the line-preserving source method in §24 and counts authored top-level headers. This checkpoint covers four full files and selected imports. Exact names and source start lines can be compared with the rows. Remaining files in the roster, generated declarations and elaborated dependencies beyond the traced imports remain **X**.
+The roster follows the line-preserving source method in §24 and counts authored top-level headers. This checkpoint covers six full files and selected imports. Exact names and source start lines can be compared with the rows. Generated declarations and elaborated dependencies beyond the traced imports remain **X**.
 
 ### 25.2 Known-model records in `RecordFibreIdentification`
 
@@ -1222,7 +1222,7 @@ The roster follows the line-preserving source method in §24 and counts authored
 
 The file imports `ObservabilityQuotient`. The proof bodies use no named class-spanning or order-stabilization lemma from it. No finiteness instance on `S`, `V`, or `H` appears in the declarations. Substratum P24.5(i) supplies the probability and support premise for a recorded outcome. Its distinct refinement bound in P24.5(ii) uses the number of states in the finite realizing carrier, as recorded in §14.1.
 
-### 25.3 Finite stage indices in `RecursiveFiniteFactor`
+### 25.3 Uniform depth bounds in `RecursiveFiniteFactor`
 
 | Declaration and source | Dependency on a finite object or other input |
 |---|---|
@@ -1246,7 +1246,7 @@ The bound is on depth. Finiteness of the stage image and any theorem supplying a
 | `projectState:45–47` | Applies an additive homomorphism to the two slices pointwise. **A**. |
 | `neighborSum_map:49–53` | Moves the additive homomorphism through one finite sum over `D` using `map_sum`. **A**. |
 | `project_waveStep:56–63` | Uses `map_sum` and `map_sub` at each site and pointwise equality of the copied slice. **A**. |
-| `project_waveUnstep:66–74` | The same check on the backward formula and copied slice. The proof concerns commutation with the formula, while the inverse identity is a separate statement. **A**. |
+| `project_waveUnstep:66–73` | Checks commutation on the backward formula and copied slice. Inverse identities lie outside this module. **A**. |
 
 The declaration-level premises support a congruence-readout calculation on one fixed stencil. A physical sourcing claim also needs a native alphabet, admissible projection and preparation. The module does not supply those premises.
 
@@ -1271,4 +1271,61 @@ The declaration-level premises support a congruence-readout calculation on one f
 | `pdFamily_not_finiteRootedRealizable:239–241` | Necessity of periodicity for a complete finite realization contradicts the first control. **F** for the exclusion of that class. |
 | `peFamily_not_finiteRootedRealizable:245–247` | The same necessity argument with the other control. **F** for the all-time class. |
 
-The imported chain is explicit. `RootedClassification.rootedMap_periodic:135–153` chooses the positive cardinal of `Equiv.Perm (V × H)` and uses `pow_card_eq_one`. This is a group-cardinality witness, independent of the order-based proof in §24.7. The `responseRealization:330–335` construction uses a finite function type of visible responses on `V × NonzeroPhase M`. `responseWeight_sum:54–58` and `responseWeight_marginal:62–107` use finite products and sums over all tables. `responseStep:266–268` uses Mathlib's `viaFintypeEmbedding`, which assumes a finite source of the embedding and decidable equality on its target. The complement is fixed. `RootedClassificationT2.responseStep_iterate_cycle:32–39` propagates that embedding equality by induction. [Finite-group cardinality identity](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/GroupTheory/OrderOfElement.lean#L1185-L1192) · [Finite-domain permutation extension](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Logic/Equiv/Fintype.lean#L33-L86)
+The imported chain is explicit. `RootedClassification.rootedMap_periodic:135–153` chooses the positive cardinal of `Equiv.Perm (V × H)` and uses `pow_card_eq_one`. That proof uses Mathlib's order-divisibility result directly and has no call to the project's §24.7 proof. The `responseRealization:330–335` construction uses a finite function type of visible responses on `V × NonzeroPhase M`. `responseWeight_sum:54–58` and `responseWeight_marginal:62–98` use finite products and sums over all tables. `responseStep:266–268` uses Mathlib's `viaFintypeEmbedding`, which assumes a finite source of the embedding and decidable equality on its target. The complement is fixed. `RootedClassificationT2.responseStep_iterate_cycle:32–39` propagates that embedding equality by induction. [Finite-group cardinality identity](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/GroupTheory/OrderOfElement.lean#L1185-L1192) · [Finite-domain permutation extension](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Logic/Equiv/Fintype.lean#L33-L86)
+
+### 25.6 Operational equivalence in `CarrierGeneralOIPlus`
+
+The section opens with `[Fintype A] [DecidableEq A]` at line 64 and later adds `[Nonempty A]`. `OperationalAssembly.FiniteOperationalTheory:594–653` supplies availability on `A` and each `A × Fin n`, with finite outcome types. **F** in the next two tables is finiteness of the represented interfaces. The theorem in D31 is **A** with respect to total physical A1 at that scope. Identification of the abstract operational theory with a physical observation process retains D31's **W** status.
+
+| Declaration and source | Dependency on a finite object or other input |
+|---|---|
+| `ObservationalIndependence:73` | Unfolds to `ReferenceExtension.HasParallelReferenceExtension:447–452`, which quantifies over finite spectator types `R` and supplied reindexings of finite product carriers. **F**. |
+| `observationalIndependence_iff_inert:75–77` | Reverses the equivalence in `SpectatorBridge:233–243`. Its imported `isSpectatorExtension_iff:188–199` uses spanning by reindexed matrix units to force the form `withSpectator`. This spanning uses finite sums over the product matrix indices. **F**. |
+| `parallelPair:80–85` | Composes two spectator extensions on the common reindexed carrier, using `Equiv.prodComm` for the second extension. The matrix indices are finite and this definition accepts arbitrary branch-label types. **F**. |
+| `parallel_of_observationalIndependence:87–99` | Obtains both extended families through independence and applies `T.availExt_bind` to their finite product of outcome types. **F**. |
+| `ReversibleRichness:110–117` | Posits adjoint availability and a Hermitian drift with unitary controls at each finite composite. The real times and control-label type `G` can be infinite. `MonoidalCompletion.HControl:349–350` uses the generated control Lie algebra and `IsSpecialSkew`, whose trace is a finite matrix trace. **F**. |
+| `conjChannel_mul_general:119–124` | Uses conjugate transpose of a product and reassociation of finite square matrix products. **F**. |
+| `control_of_reversibleRichness:127–144` | Applies `OrbitReachability.universalReachability_of_lieRank_unconditional:631–643` to each finite composite. Availability is closed under unit-outcome composition and adjoint, with identity from the zero-time drift. The imported finite-dimensional Lie-rank proof supplies reachability. **F**. |
+| `reversibleRichness_of_control:148–171` | Trace preservation of an available single conjugation branch yields `Vᴴ * V = 1` via tests on matrix units in `DimensionalCountermodel.sum_conjTranspose_mul_eq_one_of_trace:456–468`. The finite-square identity `mul_eq_one_comm` then gives the adjoint isometry used by control. The zero level has empty matrices. For a positive level, nonemptiness supplies a basis index for a diagonal rank-one drift, and `CompletedOI.hControl_single_all:257` uses all unitaries as controls. **F**. |
+| `OIPlus:185–186` | Conjoins well-formedness, independence, richness and observer recursion on the finite operational interface. `GeneralCarrier.WellFormed:125–126` supplies composite validity and the system-to-level-one seam. **F**. |
+| `qm_of_oiPlus:191–195` | `GeneralCarrier.exactAll_iff_substantive:144–147` uses well-formedness and the imported spectator, unitary-control and closure conclusions. Observer recursion yields the needed closure by `CompletedOI.closure_of_observerRecursion:332`. **F**. |
+| `oiPlus_of_qm:198–204` | `PhysicalCharacterization.physical_of_exactAll:301` supplies well-formedness, inert spectators, control and closure. Uses the earlier equivalence and adjoint proof, then builds recursion from identity, relative readout and closure via `CompletedOI.observerRecursion_of_closure:392`. **F**. |
+| `oiPlus_iff_qm:207–208` | Combines the directions. `LevelOneSeam.ExactAllFiniteEndomorphicQuantumOps:186–188` covers the system and finite positive levels. **F**. |
+| `carrier_general_oiPlus:213–216` | Quantifies over nonempty finite `A` and its finite operational theory, with no fixed upper size. **F**. |
+| `oiPlus_qubit_iff:224–226` | Compares the two finite operational equivalences at the specific carrier `Fin 2`. **F**. |
+| `oiPlus_independence:230–239` | Reuses the three `Fin 2` witnesses from `OIHierarchy.oiPlus_independence`. Their sealed-core proof is discarded when packaging the conclusion. **F**. |
+
+### 25.7 Embedded families in `EmbeddedObservation`
+
+| Declaration and source | Dependency on a finite object or other input |
+|---|---|
+| `TheoryFamily:93–94` | Indexes a family by all finite carriers with decidable equality. Each member is a `FiniteOperationalTheory`. **F**. |
+| `RegroupingInvariant:98–102` | Identifies positive-level availability at `S` with system availability at `S × Fin m`. Each pair of carriers and the outcome type are finite. **F**. |
+| `RelabellingInvariant:106–109` | Transports a finite outcome family along a bijection between finite carriers. **F**. |
+| `IsAmbientMember:114–119` | Requires agreement with the member at `A` on the system and at every positive finite level. **F**. |
+| `EmbeddedObservation:123–124` | Requires a family satisfying all three interfaces above. **F**. |
+| `availExt_of_eq_zero:135–140` | Uses `availExt_zero` on the empty product carrier, for every finite outcome family. **F**. |
+| `availExt_iff_embedded:144–149` | Chains positive-level agreement with regrouping to obtain the system availability of the finite product member. **F**. |
+| `id_of_embedded:152–158` | Handles the empty level directly and uses the member's system identity at positive levels. **F**. |
+| `read_of_embedded:162–179` | Zero factors give the empty level. For positive factors, the finite member's `readout_avail` and `OperationalAssembly.readout_is_localLuders:658` supply the native finite readout of that abstract theory. Regrouping and the relabelling `shiftIdx` transfer it back. **F**. |
+| `closure_of_embedded:184–200` | Zero base level is immediate. For positive base level and ancilla size `m + 1`, uses the inverse of `shiftIdx` and regrouping to apply the finite member's `prepAvail_uniform` and `prepAvail_discard` fields. Positive-level agreement and regrouping give the output. **F**. |
+| `systemToLevelOne_of_embedded:203–209` | Uses the system clause of ambience and relabelling by the inverse of `levelOneIdx`, then passes back through the positive-level equivalence. **F**. |
+| `closure_of_embeddedObservation:211–214` | Extracts the supplied family and applies its closure proof. **F**. |
+| `observerRecursion_of_embeddedObservation:217–221` | Applies the imported recursion lemma to identity, relative readout and discard closure at finite registers. **F**. |
+| `systemToLevelOne_of_embeddedObservation:223–226` | Extracts the family and uses its one-register seam proof. **F**. |
+| `cpTheory:237–296` | Complete positivity of branches and trace preservation in aggregate define availability. Finite outcome reindexing and product sums establish coarse-graining and bind. Positive finite uniform attachment, CP composition, local Lüders readout and finite partial trace discharge preparation and discard. **F**. |
+| `cpFamily:299` | Builds that CP theory separately for each finite carrier. **F**. |
+| `cpFamily_regrouping:302–304` | Uses definitional equality of the finite CP tests at the regrouped carrier. **F**. |
+| `cpFamily_relabelling:307–311` | Uses transported CP and invariance of finite matrix trace under reindexing. **F**. |
+| `ambient_of_qm:317–324` | For the system, available finite exact families have a Kraus representation. The converse uses finite Choi PSD factorization on `A × A` via `BoundaryAudit.psdFactorization_discharged:100–102` and `DimensionalCountermodel.isKrausFamily_of_cp_of_factorization:473`, then finite-outcome packing via `PhysicalCharacterization.avail_of_krausFamily_fin:113`. The positive-level part uses the same finite argument on the composite via `PhysicalCharacterization.availExt_pos_iff:205–216`. **F**. |
+| `embeddedObservation_of_qm:327–329` | Supplies `cpFamily` and these three family properties as witnesses. **F**. |
+| `gap_not_embeddedObservation:338–339` | Embedded observation would give discard closure, contradicting `RankGapTheory.gap_not_iteratedAncillaClosure:654` on the finite rank-gap theory. **F**. |
+| `embeddedObservation_independent:343–349` | That qubit theory witnesses the sealed core, well-formedness, independence and richness while failing embedded observation. **F**. |
+| `core_not_embeddedObservation:351–353` | Uses the same finite witness for failure of implication from the core alone. **F**. |
+| `OIPlusEmbedded:366–368` | Requires composite validity, independence, richness and the finite embedded family. The family supplies the seam in the next theorem. **F**. |
+| `oiPlus_of_oiPlusEmbedded:370–372` | Restores well-formedness and recursion using the finite family's seam and recursion lemmas. **F**. |
+| `qm_of_oiPlusEmbedded:376–377` | Uses the restored `OIPlus` premises and §25.6's forward implication. **F**. |
+| `oiPlusEmbedded_of_qm:379–381` | Extracts composite validity, independence and richness from finite exactness and supplies the CP family for the last premise. **F**. |
+| `oiPlusEmbedded_iff_qm:384–385` | Pairs the two implications at each nonempty finite carrier. **F**. |
+| `oiPlusEmbedded_iff_oiPlus:388–389` | Uses the shared finite operational QM characterization. **F**. |
+| `carrier_general_oiPlusEmbedded:394–397` | Quantifies over nonempty finite `A`. The family assumptions compare finite products and finite bijective reindexings. A compatible passage to a single infinite carrier would require an additional construction. **F**. |
