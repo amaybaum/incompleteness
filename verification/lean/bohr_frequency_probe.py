@@ -9008,10 +9008,10 @@ check("F72", ok72,
       "structure supplies a non-monomial generator is left open in SUBSTRATUM-SOURCE-AUDIT.md; the "
       "frozen OI-plus statements are untouched.")
 
-# F73 -- ROUND 63: READ-WRITE CONTROLLABILITY -- the decisive escape route audited: bijective
-# read-write dynamics supplies only permutation (monomial) operators, so it does not supply the
-# off-diagonal generator; the memory-swap countercontrol shows read-write interaction is not
-# controllability (phase three, round sixty-three).
+# F73 -- ROUND 63: the restricted read-write operators, interpolation and memory-swap
+# controls are retained. KERNEL-VAC-1 withdraws the original empty source antecedent
+# as substantive evidence. These samples and declaration checks do not validate the new
+# kernel control/witness or a universal physical no-go.
 ok73 = True
 # --- (a) the read-write operator is a permutation, hence monomial: a bijective coupling of a
 # pair induces permMatrix(swap) or the identity, both monomial.
@@ -9024,8 +9024,8 @@ _g73 = [2, 1, 0, 3]                                                   # swap sta
 _P73 = _perm67(_g73, 4)
 ok73 &= _ismono72(_P73) and mmc17(dag17(_P73), _P73) == eye17(4)
 # --- (b) the tangent test fails: a strict interpolation between the identity and the swap is not
-# a permutation (two nonzero entries in a row), so no bijection realizes it -- the off-diagonal
-# derivative of a permutation-valued family is zero.
+# a permutation (two nonzero entries in a row), so no bijection realizes this interpolation.
+# No continuity assumption on every parameterized family is supplied by this sample.
 for _l in (Frac(1,4), Frac(1,2), Frac(3,4)):
     _M = add52(scale52(C17(Frac(1) - _l), _id73), scale52(C17(_l), _swap73))
     ok73 &= not _ismono72(_M)                                        # off-diagonal, not monomial
@@ -9049,35 +9049,26 @@ if os.path.exists(_rw73):
     ok73 &= 'sorry' not in _rw_txt73
     ok73 &= 'no control law is postulated' in _rw_txt73
 check("F73", ok73,
-      "ROUND 63: READ-WRITE CONTROLLABILITY -- THEOREM OR NO-GO (phase three, round sixty-three; "
-      "kernel: OIBridge/ReadWriteControl.lean, 9 results -- readWriteOperator_eq_perm, "
-      "readWriteOperator_monomial, offDiagonal_interp_not_monomial, readWriteSourced_monomialSource, "
-      "readWriteSourced_not_control, readWriteSourced_not_qm, memorySwap_nontrivial, "
-      "memorySwap_operator_monomial, readWriteControl_independent). THE PRIMITIVE, below the "
-      "quantum operator: a read-write family (ReadWriteFamily) is a selectable local coupling -- "
-      "for each external parameter value a bijection of the finite state set (A2 reversibility), "
-      "the reference at parameter zero, the modification local (states outside the coupled pair "
-      "fixed) -- naming states, bijections, a parameter, a reference and locality and none of the "
-      "quantum-control vocabulary. THE INDUCED OPERATOR: through the round-62 interface it is a "
-      "permutation matrix, hence monomial. THE TANGENT TEST FAILS: a strict interpolation between "
-      "the identity and the pair swap has two nonzero entries in a row and is not monomial, so no "
-      "bijection realizes it; a permutation-valued family is locally constant and its off-diagonal "
-      "derivative is zero. THE OUTCOME (C): a theory whose available composite conjugations are all "
-      "read-write (permutation) operators is a monomial source, hence has no composite unitary "
-      "control and is not finite operational QM; under the current axioms -- finite bijective "
-      "read-write dynamics -- read-write controllability does not supply elementary "
-      "controllability, and a continuously tunable off-diagonal coupling is an irreducible "
-      "empirical addition, with no control law introduced to force it. THE COUNTERCONTROL: the "
-      "memory-swap family is a genuine nontrivial reversible read-write dynamics (it exchanges two "
-      "states, moving information bidirectionally) yet its induced operators are all monomial, so "
-      "bidirectional hidden memory (C4/readback) is not off-diagonal controllability. Verified "
-      "exactly here: the pair swap and a local swap in a larger world as monomial unitaries, strict "
-      "interpolations between identity and swap as non-monomial and non-unitary with two nonzeros "
-      "in a row, the nontrivial monomial memory swap, and the kernel text read back. NOT CLAIMED, "
-      "lint-guarded: no off-diagonal generator derived, no matrix exponential computed, no control "
-      "law postulated; whether an extended substratum with a genuinely continuous coupling supplies "
-      "the generator is the irreducible empirical question left open in SUBSTRATUM-SOURCE-AUDIT.md; "
-      "the frozen OI-plus statements are untouched.")
+      "ROUND 63: RESTRICTED READ-WRITE OPERATOR CONTROLS, with KERNEL-VAC-1 scope correction. "
+      "The original nine declarations and their proof terms remain. ReadWriteFamily induces "
+      "permutation matrices; the chosen strict identity/swap interpolation is not monomial. "
+      "The memory-swap family is nontrivial and its induced operators are monomial. No "
+      "continuity premise is imposed on every parameterized family by these controls. "
+      "The original ReadWriteSourced antecedent is empty on Fin 2, as targeted by "
+      "ReadWriteNonvacuity.readWriteSourced_fin2_impossible; the retained "
+      "readWriteSourced_monomialSource, readWriteSourced_not_control and "
+      "readWriteSourced_not_qm are not substantive evidence on that carrier. "
+      "A theory whose available composite conjugations are all monomial has no "
+      "composite unitary control on Fin 2, because control would make the "
+      "non-monomial rot available. The existing monomialSource_not_qm corollary excludes "
+      "ExactAllFiniteEndomorphicQuantumOps for that same theory under that same hypothesis. "
+      "The sole new mathematical witness is permTheory_fin2_monomialSource, with every "
+      "extension level and matrix representative; it is not a physical source derivation. "
+      "Verified by these unchanged samples and guards: the pair/local swaps, the specified "
+      "strict interpolations, the nontrivial monomial memory swap, and declaration presence. "
+      "The new kernel proofs require the separate Mathlib/axiom gate and independent review. "
+      "No universal physical impossibility or uniquely necessary extra law is certified by "
+      "F73; no control law is postulated, and the frozen OI-plus statements are untouched.")
 
 # F74 -- ROUND 64: STRUCTURAL CLOSURE -- the four structural ingredients of a quantum architecture
 # close for the class the substratum supplies (the monomials of round 62, nothing added), and the

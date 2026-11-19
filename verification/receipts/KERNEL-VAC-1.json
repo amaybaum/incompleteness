@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "KERNEL-VAC-1",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "d4d0a07091926641dd3ee844807f41dae8a51d89",
+ "f": "0c706277ae7f65ca9c09b91978839003640b07d1",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-kernel-vac-1/preregistration.md",
+   "blob": "ca98ba0ab4bdaff1dd04e107f62c63fed92ec49a"
+  }
+ ],
+ "governed_paths_digest": "8840cd451443fe1d8b4923efb9f160431fadb8f3b441019f2e1ef4398097890d",
+ "e": "eac49ec3146dbea87f5818898e6d17708b3fe186",
+ "tree_e": "a4f69105807406696632775696cb583824a4353e",
+ "execution_delta_digest": "a4999cd547c4fd51ce7707bd12743798a964c1cd2eb4c4fc4667b930080df137",
+ "candidates": [],
+ "landing": {
+  "base": "d4d0a07091926641dd3ee844807f41dae8a51d89",
+  "object": "d79b9980c4637ad68e6d3ee2c12c6ed1263d4ddc",
+  "reconciliations": [
+   "d79b9980c4637ad68e6d3ee2c12c6ed1263d4ddc"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "2692e16ed39a5f3228dcee4764f86caa7f5ab005c2152ee06e922c968f058e27"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "0c706277ae7f65ca9c09b91978839003640b07d1",
+   "record": "https://github.com/amaybaum/incompleteness/pull/1359#issuecomment-6951338117"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "0c706277ae7f65ca9c09b91978839003640b07d1",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/44099752053/attempts/1"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "eac49ec3146dbea87f5818898e6d17708b3fe186",
+   "record": "https://github.com/amaybaum/incompleteness/pull/1359#issuecomment-6955354545"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "eac49ec3146dbea87f5818898e6d17708b3fe186",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/44127539627/attempts/1"
+  }
+ ]
+}

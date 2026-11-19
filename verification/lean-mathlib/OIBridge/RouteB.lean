@@ -7,11 +7,13 @@ import OIBridge.StructuralClosure
 
 `OIPlusMin := ImplementationLocality ∧ PhaseFreeRichness ∧ EmbeddedObservation` is equivalent to
 exact finite endomorphic operational quantum mechanics on every nonempty finite carrier
-(`MinimalRepertoire.carrier_general_oiPlusMin`). The concrete OI substratum supplies the
-structural part of that package and, under finite bijective read-write dynamics, not the
-continuously driven off-diagonal transition (`StructuralClosure.substratum_residual`,
-`ReadWriteControl.readWriteSourced_not_qm`). Route B asks whether the drive is independent of
-the kernel's consequence closure:
+(`MinimalRepertoire.carrier_general_oiPlusMin`). The specified monomial implementation class
+is structurally closed and does not drive the elementary transitions
+(`StructuralClosure.substratumClass_not_drivesElementary`); its specified generated theory
+has no composite unitary control on `Fin 2` (`StructuralClosure.substratumGen_not_control`).
+These class/theory results do not require the empty original `ReadWriteSourced` antecedent
+and do not establish a universal physical no-go for read/write interaction. Route B asks
+whether the drive is independent of the kernel's consequence closure:
 
 > Is there a finite operational theory satisfying every consequence the kernel derives from the
 > substratum and the OI core, and failing phase-free richness?

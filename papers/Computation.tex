@@ -198,26 +198,25 @@ of {[}2, §3.1--§3.2{]}, its cubic structure empirically anchored by the
 observed SU(3) --- starting from a single definition of embedded
 observation {[}1, 2{]} and traces the structural chain from
 \((S, \varphi)\) through chemistry to biological evolution {[}3{]}. This
-paper continues the chain from evolution through computation. The
-transition from evolved biological observers to artificial computational
-ones admits a uniform treatment in the framework's terms: an embedded
-observer with general intelligence can construct semiconductor-based
-universal computers via a structural chain (band theory, Group IV
-semiconductors, p-n junctions, NAND completeness), and the resulting
-artificial observers are subject to the same partition-level limits as
-their biological precursors. The Gödel-Turing-OI incompleteness family
-applies at every level of recursive self-improvement.
+paper continues the chain from evolution through computation. An
+embedded observer with general intelligence can construct universal
+computers given suitable semiconductor materials, controllable circuitry
+and scalable memory. At each observer's declared interface, a record
+identifies a target when its supported compatible states agree on the
+target. This criterion applies to biological and artificial observers.
 
 The framework's computational content is organized by a
 \emph{conditional BQP model theorem}, stated as the statement of record
 in §4 of this paper and developed at chapter length in {[}1, Ch. 14{]}:
-under an explicit computational model --- a uniform efficient encoding
-of substratum configurations into qubits; efficient state preparation
-and control; a clock model; efficient measurement; explicit precision
-accounting; noise assumptions under which fault tolerance applies with
-polynomial overhead; and operational closure --- all admissible
-operations available to the observer within the model are standard
-quantum instruments (CPTP maps for unconditioned evolution, CP
+under an explicit computational model --- a scalable, uniform family of
+finite implementations with efficient encoding into qubits; efficient
+state preparation and control; a clock model; efficient measurement;
+admissible evolutions with uniformly computable local descriptions,
+polynomial physical time and precision, and polynomial-overhead quantum
+circuit simulation; noise assumptions under which fault tolerance
+applies with polynomial overhead; and operational closure --- all
+admissible operations available to the observer within the model are
+standard quantum instruments (CPTP maps for unconditioned evolution, CP
 trace-nonincreasing branches for conditioned outcomes), with no
 additional nonlinear, post-quantum, oracle, or hidden-sector-access
 operation, and with conditioned branches and postselected preparations
@@ -232,52 +231,40 @@ claimed. Under a global-coverage premise --- every physically realizable
 computation implemented by a system whose admissible operations satisfy
 the same operational-closure and efficiency hypotheses --- the Extended
 Church-Turing Thesis holds in its quantum-modified form as a conditional
-result rather than an empirical conjecture. The conjectured BPP--BQP
-separation is reframed as the cost of marginal-statistics observation
-rather than as evidence of fundamental quantum-ness.
+result rather than an empirical conjecture. The paper interprets the
+conjectured BPP--BQP separation as the cost of marginal-statistics
+observation rather than as evidence of fundamental quantum-ness.
 
 On the P vs NP question the framework is \emph{structurally silent}. We
-develop this position in detail: the framework's empirical content (the
-BQP ceiling) is consistent with either answer; the silence is not a
-chosen agnosticism but a structural feature of the framework's axiom
-type; physical-substrate axioms about finite structures do not entail
+develop this position in detail: the model's conditional BQP ceiling is
+consistent with either answer; the silence is not a chosen agnosticism
+but a structural feature of the framework's axiom type;
+physical-substrate axioms about finite structures do not entail
 asymptotic statements about algorithmic complexity classes without a
 bridging premise that the candidate axioms cannot principled-ly supply.
-This silence fits a broader pattern across the Gödel-Turing-OI
-incompleteness family: each member establishes a structural boundary on
-access (provability, computability, embedded observability, explanation)
-and is silent on the internal organization of what falls within that
-boundary. P vs NP lies in the internal structure of the computable and
-is therefore outside the locus of contribution of any
-structural-incompleteness framework. The OI framework's position is
-stronger than Aaronson's NP-completeness physical-principle approach
-{[}4{]} at the BQP boundary (where the framework specifies the ceiling
-exactly) and weaker at the P vs NP boundary (where the framework
-declines to stipulate). We propose three condition-based research
-directions where the framework's specific substratum structure does
-provide content for complexity-theoretic refinements \emph{within} the
-BQP ceiling: geometric structure on the substratum lattice,
-task-specific quantum advantage and problem globality (with a refined
-conjecture that BQP advantage is maximized for problems whose hidden
-structure matches the framework's gauge group), and gauge equivalence as
-a possible physical account of polynomial-time reducibility. These are
-framework-relative conjectures inviting investigation, not framework
-predictions.
+Section 5.5 compares the distinct limits on proof, computation and
+inference from records. The OI framework's position is stronger than
+Aaronson's NP-completeness physical-principle approach {[}4{]} at the
+BQP boundary (where the model specifies a conditional ceiling) and
+weaker at the P vs NP boundary (where the framework declines to
+stipulate). We propose three condition-based research directions where
+the framework's specific substratum structure does provide content for
+complexity-theoretic refinements \emph{within} the BQP ceiling:
+geometric structure on the substratum lattice, task-specific quantum
+advantage and problem globality (with a refined conjecture that BQP
+advantage is maximized for problems whose hidden structure matches the
+framework's gauge group), and gauge equivalence as a possible physical
+account of polynomial-time reducibility. These are framework-relative
+conjectures inviting investigation, not framework predictions.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \begin{quote}
-\textbf{Status --- conjectural extension.} This paper applies the core
-framework to quantum computation and complexity, and is offered as a
-\emph{conjecture}, not an established result: the central claim --- that
-the framework's emergent dynamics realizes the complexity class BQP ---
-is a theoretical conjecture rather than a proven correspondence; it
-would be supported by a rigorous derivation from the finite substratum
-to BQP and undercut if that dynamics proves efficiently classically
-simulable or fails to reproduce known quantum-complexity separations. It
-carries no evidential weight for the core framework --- which stands or
-falls independently on its physics --- and should be read as a
-structural possibility to be tested, not as support for the framework.
+\textbf{Status --- conditional model and conjectural application.}
+Section 4 gives a BQP characterization under a scalable computational
+model with efficient quantum control and simulation. Whether OI dynamics
+supplies that model is open. The computational application depends on
+this additional physical bridge.
 \end{quote}
 
 \hypertarget{introduction}{%
@@ -297,16 +284,14 @@ biological evolution: from there, the next link (information processing
 qualitatively different kind of consequence, in the framework's
 \emph{informational-structural} mode.
 
-This paper develops that next link. The transition from evolved
-biological observers to artificial computational ones is itself a
-structural chain --- fitness pressure favors information-processing
-organisms, neural computation is materially possible given the
-framework's chemistry, and once general intelligence exists,
-semiconductor-based universal computation follows from the derived
-periodic table, given a material with a suitable gap at its operating
-temperature. AI is an embedded observer building another embedded
-observer, with the partition-level limits applying to both. The
-Gödel-Turing-OI incompleteness family operates at every level.
+This paper develops that next link. Selection can favor information
+processing when its fitness benefits exceed its costs. The conditional
+chemistry of {[}3{]} supplies candidate materials for neural signaling.
+Given suitable materials, techniques and resources, a generally
+intelligent observer can implement universal computation. An artificial
+observer embedded in the same substratum has its own observation and
+control interface. The supported states compatible with its records
+determine what it can infer from them.
 
 The framework's content on embedded computation is then organized by the
 conditional BQP model theorem stated in §4 below (with its extended
@@ -318,16 +303,12 @@ structure. On the internal structure --- including the P vs NP question
 --- the framework is silent in a precise sense developed here.
 
 The paper's structure: §2 carries the structural chain from evolution to
-general intelligence, identifying the one contingent step (general
-intelligence emergence) and the structural inevitability of universal
-computation given that step. §3 develops the self-referential loop of AI
-as embedded-observer construction, with the partition-level limits
-applying to the constructed observer. §4 states the BQP characterization
-theorem and its consequences for the Extended Church-Turing Thesis and
-the conjectured BPP--BQP separation. §5 develops the framework's
-position on the P vs NP question --- neutrality, structural silence, the
-unifying boundary-characterization pattern across the Gödel-Turing-OI
-incompleteness family, and the relationship to Aaronson's
+general intelligence, and gives conditions for realizing universal
+computation. §3 examines what an artificial observer's records identify.
+§4 states the BQP characterization theorem and its consequences for the
+Extended Church-Turing Thesis and the conjectured BPP--BQP separation.
+§5 considers P vs NP, compares the different limits on provability,
+computability and inference from records, and discusses Aaronson's
 physical-principle approach. §6 examines why no obvious bridging axiom
 is available. §7 proposes three condition-based research directions for
 complexity-theoretic refinements within the BQP ceiling. §8 summarizes
@@ -339,37 +320,27 @@ what the framework establishes and what it does not.
 \subsection{2. From Evolution to
 Intelligence}\label{from-evolution-to-intelligence}}
 
-\textbf{Information processing is generically fitness-enhancing.} In an
-environment with useful gradients and cycling --- further environmental
-conditions, which thermal fluctuations (\(kT > 0\)) do not by themselves
-establish {[}3, §2.7{]} --- organisms that respond to environmental
-information outcompete those that do not. A cell that detects a nutrient
-gradient and moves toward it outcompetes one that moves randomly. Given
-such an environment, it follows from the structure: fluctuating
-environments reward better internal models of external conditions.
-Selection generically favors information processing.
+\textbf{Information processing can improve fitness.} In an environment
+with useful gradients and cycling, selection can favor organisms whose
+responses improve net reproductive success. A cell that detects and
+follows a nutrient gradient can gain more resources if the gains offset
+the costs of sensing and movement. The gradients and costs are
+environmental and organismal inputs {[}3, §2.7{]}.
 
-\textbf{Neural computation is structurally possible.} Fast
-electrochemical signaling requires ions (Na⁺, K⁺, Ca²⁺ --- present in
-the derived periodic table) moving through channels in lipid membranes.
-Carbon chemistry in d = 3 provides amphiphilic molecules (hydrophilic
-head + hydrophobic tail from the orbital structure) that self-assemble
-into bilayer membranes. The scale hierarchy {[}3, §2.5{]} separates
-neural signaling energies (\textasciitilde meV) from chemical bond
-energies (\textasciitilde eV), so information processing does not
-destroy the substrate.
+\textbf{Neural computation is materially possible.} Known
+electrochemical signaling uses ions such as Na⁺, K⁺ and Ca²⁺ and
+channels in lipid membranes. Given the chemistry and molecular
+organization discussed in {[}3{]}, amphiphilic molecules can assemble
+into bilayers. The estimated scale separation {[}3, §2.5{]} permits
+signaling energies small compared with chemical bond energies in
+suitable systems.
 
-\textbf{General intelligence is structurally unconstrained but not
-guaranteed.} The selected structure \emph{permits} arbitrarily complex
-neural circuits (the orbital algebra provides materials, the scale
-hierarchy provides energetic separation), but whether evolution
-\emph{reaches} general-purpose reasoning --- abstraction, planning,
-language --- depends on the specific fitness landscape. On Earth,
-general intelligence arose once in \textasciitilde4 billion years.
-Whether this is evidence of rarity or inevitability the framework cannot
-determine. This is the one step in the chain where the structural
-argument is weakest: information processing is generically favored, but
-general intelligence is a much more specific capability.
+\textbf{General intelligence depends on evolutionary history.} The
+materials and energy regimes permit complex neural circuits. Whether
+evolution produces general-purpose reasoning depends on the fitness
+landscape, the costs of the required structures and the available
+heritable variation. The framework leaves the frequency of that outcome
+open.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -377,50 +348,36 @@ general intelligence is a much more specific capability.
 \subsection{3. From Intelligence to AI and the Self-Referential
 Limit}\label{from-intelligence-to-ai-and-the-self-referential-limit}}
 
-\textbf{The structural chain to universal computation.} If general
-intelligence exists --- for whatever contingent or structural reason ---
-then AI follows from the selected structure through a specific chain
-whose links are structural consequences, material-dependent inputs, or a
-mathematical theorem.
+\textbf{The structural chain to universal computation.} Given suitable
+materials, fabrication and control, a generally intelligent observer can
+build computers using the following physical and mathematical links.
 
-\emph{Band theory.} The framework's emergent quantum representation
-{[}1, Part I{]} applied to electrons in a periodic crystal potential
-(the sp³ diamond-cubic lattice of a Group IV element) gives Bloch's
-theorem: energy bands separated by gaps. The periodic potential is
-structural --- it follows from sp³ hybridization in d = 3. Band
-structure is a consequence of the framework's emergent quantum mechanics
-applied to derived crystal geometry.
+\emph{Band theory.} Standard quantum mechanics applied to electrons in a
+periodic crystal potential gives Bloch states and energy bands. The
+periodic diamond-cubic structure of silicon is a material input. Bloch's
+theorem permits gaps without guaranteeing a suitable one. Applying this
+description in OI uses the physical correspondence assumed in {[}2,
+3{]}.
 
-\emph{Semiconductors.} For Group IV elements (4 valence electrons per
-atom), the Pauli exclusion principle (derived --- spin-statistics from
-staggered fermions {[}2, §4.2{]}) exactly fills the valence band and
-leaves the conduction band empty. The band gap for silicon
-(\textasciitilde1.1 eV) sits in the thermal sweet spot:
-\(E_{\text{gap}} / kT \sim 40\) at room temperature. Large enough that
-thermal excitation doesn't flood the conduction band (the material isn't
-always conducting); small enough that a modest voltage promotes
-electrons across the gap (the material can be switched). Whether a
-material has a gap in that range at its operating temperature is a
-material-dependent input: the atomic energy scale
-(\(\alpha^2 m_e c^2 \approx 27\) eV, set by the coupling values and
-masses {[}3, §2.5{]}) sets the eV scale of electronic energies, while
-the gap of a particular material and the operating temperature are
-inputs.
+\emph{Semiconductors.} In the standard description of crystalline
+silicon, the valence band is filled and the conduction band is empty at
+zero temperature. Silicon's approximately 1.1 eV gap gives
+\(E_{\text{gap}} / kT \sim 40\) at room temperature and permits
+controlled conduction with suitable doping and device geometry. The gap
+and operating temperature are material and device inputs. The atomic
+scale \(\alpha^2 m_e c^2 \approx 27\) eV sets an electronic energy scale
+using the coupling and mass values {[}3, §2.5{]}.
 
-\emph{Doping.} Replacing a silicon atom (Group IV) with phosphorus
-(Group V, 5 valence electrons) adds one free electron --- n-type.
-Replacing with boron (Group III, 3 valence electrons) removes one ---
-p-type. Both dopant types exist in the derived periodic table. The
-ability to create n-type and p-type regions is a structural consequence
-of the periodic table architecture.
+\emph{Doping.} In silicon, substitutional phosphorus is a donor and
+boron is an acceptor. Controlled doping can produce n-type and p-type
+regions. These properties reflect the valence structure and the
+particular material.
 
-\emph{From transistors to universal computation.} A p-n junction
-rectifies current. A transistor (two p-n junctions) amplifies and
-switches. Transistors in combination implement logic gates. A NAND gate
-is functionally complete --- any Boolean function can be built from NAND
-gates alone. Sufficient NAND gates implement a universal Turing machine.
-Each step is either semiconductor physics applied to a material with a
-suitable gap or a mathematical theorem about computation.
+\emph{From transistors to universal computation.} A p-n junction can
+rectify current. Suitable transistor circuits can amplify, switch and
+implement logic gates. NAND is functionally complete for Boolean logic.
+With memory and resources that can scale with input size, circuits based
+on NAND can implement universal computation.
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2609}}
@@ -438,53 +395,60 @@ Status
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Band theory & QM + periodic crystal potential & Structural \\
-Band gap for Group IV & Exactly filled valence band (4 electrons +
-Pauli) & Structural \\
-Semiconductor behavior & Gap in thermal sweet spot
-(\(E_{\text{gap}} / kT \sim 40\)) & Material-dependent input (gap and
-operating temperature) \\
-Doping & Group III / V substitution & Structural (periodic table) \\
+Band theory & Standard QM with a supplied periodic crystal potential &
+Bloch theorem \\
+Band gap & Filled valence band and a gap in crystalline silicon &
+Material-specific band structure \\
+Semiconductor behavior & Suitable gap and carrier control at the
+operating temperature & Material and device inputs \\
+Doping & Donor and acceptor substitution in silicon & Material-specific
+mechanism \\
 p-n junctions & Interface between p-type and n-type & Structural
 consequence \\
 Transistors & Voltage-controlled p-n junctions & Structural \\
 Logic gates & Transistors in series / parallel & Structural \\
-Universal computation & NAND is functionally complete & Mathematical
-theorem \\
+Universal computation & NAND is functionally complete, with scalable
+memory for sequential computation & Mathematical realizability \\
 \end{longtable}
 
-The chain from (S, φ) to a universal computer is structural given a
-material with a suitable gap at its operating temperature --- and given
-someone to build it. That is the same contingent step (general
-intelligence) identified in §2. The reconstruction theorem {[}5, §3{]}
-implies that a sufficiently sophisticated observer can reconstruct the
-local lattice/gauge invariants fixed by Theorem 23; it does not identify
-a unique Bell-inclusive microphysical completion. An observer can
-nevertheless exploit the reconstructed local physics to build
-computational devices.
+The chain from the selected physics to a universal computer uses a
+suitable semiconductor at its operating temperature, usable fabrication
+and controls, and scalable memory. The reconstruction theorem {[}5,
+§3{]} identifies the local lattice/gauge invariants fixed by Theorem 23
+under its premises. Device design uses the relevant local physics and
+the material inputs of this section.
 
-\textbf{The self-referential loop.} AI is an embedded observer building
-another embedded observer within the same (S, φ). The characterization
-theorem {[}1, §3.4{]} applies to the new observer. It has the same
-memory-bearing architecture with its admitted quantum representation,
-and sees the same ℏ, the same SM, the same dark sector. Not because it
-is limited by human design, but because the physics is structural ---
-determined by the partition, not by the observer's complexity. A
-superintelligent AI has the same observational access as any other
-embedded observer: it reads the visible sector and writes to the hidden
-sector through the same coupling. It cannot determine the hidden degrees
-of freedom beyond causal reach. It cannot see past the cosmological
-horizon. It can build better instruments, but it cannot overcome the
-partition.
+\textbf{The self-referential loop.} An artificial observer constructed
+within \((S, \varphi)\) and its designers each have a declared
+observation and control interface. The exact fixed-basis representation
+in {[}Main §3.4{]} applies to a supplied observable law on a finite
+alphabet and horizon. Conditional memory requires a C4 readback witness
+with two positive-probability histories that share the current visible
+state and have different next-step laws. A shared record law requires an
+established correspondence between the admitted preparations and
+controls that preserves the probabilities of corresponding records.
+Applications to the action scale, the Standard Model and the
+gravitational and dark sectors use the separate physical premises in
+{[}1, Chs. 5--8{]} and {[}2{]}. Direct observation is bounded by the
+causal structure in a model with a cosmological causal horizon.
 
-The recursion --- AI building AI building AI --- produces ever more
-sophisticated embedded observers, each subject to the same structural
-limits. The Gödel-Turing-OI incompleteness family applies at every
-level: a formal system cannot prove its own consistency (Gödel), a
-computer cannot decide its own halting (Turing), an embedded observer
-cannot access the complete state (OI). No level of recursive
-self-improvement overcomes the partition. The limits are not
-technological --- they are mathematical.
+A record identifies a target when all supported states compatible with
+the record agree on its value. With known finite reversible dynamics and
+specified preparation support, even a proper observer can identify the
+current state or a future quantity on some passive records {[}5,
+Proposition 24.5{]}. Breuer's self-measurement bound concerns
+distinguishability when the system includes the observer's own records
+{[}13{]}. At each stage of recursive construction, the attainable
+inferences depend on the new observer's available records, preparations
+and controls.
+
+Gödel's incompleteness theorems concern sufficiently strong, consistent,
+effectively axiomatized theories under their respective hypotheses.
+Turing's undecidability result concerns the general family of programs
+and inputs. Given an explicit finite deterministic update and initial
+state, one can decide halting on that orbit by iterating until it halts
+or a state repeats. Observational identifiability concerns a target and
+the records at the declared interface.
 
 \textbf{What AI can and cannot do.}
 
@@ -503,25 +467,24 @@ Status
 \endlastfoot
 Reconstruct the local lattice/gauge invariants from observations &
 Structurally possible under Theorem 23's conditions \\
-Build better models of the visible sector & No structural limit \\
-Determine the complete state, its own records included & Provably
-impossible {[}13{]} \\
-Observe beyond the cosmological horizon & Provably impossible (causal
-partition) \\
-Build faster computers & Structurally possible (derived physics permits
-it) \\
+Build better models of the visible sector & Depends on available
+records, controls and resources \\
+Identify the complete state from retained records & In the passive
+finite reversible model, requires a single supported compatible state
+{[}5, Proposition 24.5{]} \\
+Receive a signal from beyond a cosmological causal horizon & Excluded by
+the assumed causal partition \\
+Build faster computers & Possible given suitable implementations and
+resources \\
 Replace a visible process with nonzero conditional memory by a faithful
 memoryless (Markov) model at the same horizon & Provably impossible
 ({[}Main §3.4{]}) \\
-Recursive self-improvement & Possible within the structural limits \\
+Recursive self-improvement & Depends on design and resources \\
 \end{longtable}
 
-The framework's prediction is precise: there is no ceiling on the
-complexity of the observer, but there is a permanent floor on what any
-observer can access. The ceiling is contingent --- it depends on the
-specific φ and the specific evolutionary and technological history. The
-floor is structural --- it is the same for all embedded observers,
-biological or artificial, at any level of sophistication.
+More computation on a fixed record leaves disagreement among its
+compatible states unresolved. New records and controls can change which
+states remain compatible.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -529,16 +492,18 @@ biological or artificial, at any level of sophistication.
 \subsection{4. A Conditional BQP Model
 Theorem}\label{a-conditional-bqp-model-theorem}}
 
-§3 establishes that embedded observers can construct universal computers
-from the framework's selected structure. The next question is whether
-there is a structural bound on the \emph{complexity} of computation
-those constructed devices can achieve. The conditional BQP model theorem
---- stated here as the statement of record, with its extended
-development in {[}1, Ch. 14{]} --- answers this \emph{relative to an
-explicit computational model}, whose hypotheses are: a uniform efficient
-encoding of substratum configurations into qubits; efficient state
-preparation and control; a clock model; efficient measurement; explicit
-precision accounting; noise assumptions under which fault tolerance
+Section 3 gives conditions under which embedded observers can construct
+universal computers. The next question is whether there is a structural
+bound on the \emph{complexity} of computation those constructed devices
+can achieve. The conditional BQP model theorem --- stated here as the
+statement of record, with its extended development in {[}1, Ch. 14{]}
+--- answers this \emph{relative to an explicit computational model},
+whose hypotheses are: a scalable, uniform family of finite
+implementations with efficient encoding into qubits; efficient state
+preparation and control; a clock model; efficient measurement;
+admissible evolutions with uniformly computable local descriptions,
+polynomial physical time and precision, and polynomial-overhead quantum
+circuit simulation; noise assumptions under which fault tolerance
 applies with polynomial overhead; and operational closure --- all
 admissible operations available to the observer within the model are
 standard quantum instruments (CPTP maps for unconditioned evolution, CP
@@ -585,27 +550,16 @@ in BQP.
 \hypertarget{the-upper-bound}{%
 \subsubsection{4.2 The upper bound}\label{the-upper-bound}}
 
-No physical process implementable on the substratum exceeds BQP, under
-the model's efficiency hypotheses. The framework's dynamics is
-finite-rate (bounded coupling degree, A3 of the reconstruction {[}5,
-§3{]}), the partition entropy is finite (E3 plus the holographic
-interpretation), and the dynamics is unitary in the visible-sector
-marginal (by construction) --- type-level facts that alone do not bound
-complexity; the load-bearing additions, matching {[}1, Ch. 14 §14.4{]},
-are that admissible evolutions are locally generated with uniformly
-computable descriptions, run for polynomial physical time at polynomial
-precision, and admit polynomial-overhead circuit simulation.
-Hypercomputation {[}6{]}, oracle access {[}7{]}, and other super-BQP
-capabilities would require either continuum precision (violating A1),
-unbounded coupling (violating A3), operations outside the
-operational-closure model (non-unitary CPTP evolution is ordinary
-open-system dynamics and stays inside; what is excluded is the
-nonlinear, post-quantum, oracle, or hidden-sector-access class), or
-violation of these efficiency hypotheses. The first falls outside the
-framework's class of admissible substrata; the operational-closure and
-efficiency violations fall outside the added computational model --- a
-device exhibiting them would falsify global coverage of that model, not
-the substratum class by itself.
+The upper bound applies to the model's efficient operations. Bounded
+coupling degree and a finite encoding describe the local system and
+available registers. The complexity bound uses the additional premise
+that admissible evolutions have uniformly computable local descriptions,
+run in polynomial physical time at polynomial precision, and admit
+polynomial-overhead circuit simulation. Operational closure excludes
+nonlinear, post-quantum, oracle and direct hidden-sector-access
+operations. A finite permutation can iterate indefinitely. Completing
+infinitely many steps in finite physical time would require a separate
+clock mechanism beyond the stated model.
 
 \hypertarget{the-combined-result}{%
 \subsubsection{4.3 The combined result}\label{the-combined-result}}
@@ -628,13 +582,9 @@ satisfying C1--C4, every computation the model can host lies in BQP
 bound, §4.1). CPTP representability of the visible dynamics implies none
 of the model hypotheses.}
 
-Within the stated model, BQP is the \emph{exact} ceiling --- the class
-characterized by the framework's structural commitments \emph{together
-with} the model hypotheses; outside the model the characterization is
-not claimed. This identifies the structural limit on embedded
-computation: there is no ceiling on the \emph{complexity of the
-observer}, but there is a permanent ceiling on the \emph{computational
-reach} of any embedded observer at BQP exactly.
+BQP is exact for the scalable model. A particular finite realization has
+a finite resource envelope and implements circuits that fit those
+resources.
 
 \hypertarget{the-quantum-bqp-form-extended-church-turing-thesis-as-conditional-theorem}{%
 \subsubsection{4.4 The quantum (BQP-form) Extended Church-Turing Thesis
@@ -676,48 +626,49 @@ the substratum's structure, not evidence against the framework.
 BQP's
 floor}\label{the-finite-substratum-refinement-a-ceiling-above-bqps-floor}}
 
-The characterization of §4.3 is exact in the idealized limit
-\(S \to \infty\). The total-finiteness posit ({[}Main{]} §1.2, §4.5), an
-open hypothesis, not adopted, would take \(S\) finite. The holographic
-bound constrains the observed patch under its stated assumptions; that
-it also caps the substratum resources available to any physical
-computation is a further hypothesis, the \emph{patch-budget hypothesis},
-posited here and not derived. This subsection states the finite-size
-consequence as a proposal conditional on that hypothesis and on the
-standard conjectures made explicit below; it is not entailed by Main.
+The characterization of §4.3 concerns scalable uniform families of
+finite implementations. For a fixed physical realization, the
+total-finiteness posit ({[}Main{]} §1.2, §4.5) remains open and
+unadopted. Extending the holographic bound on the observed patch to all
+computationally relevant resources is the additional \emph{patch-budget
+hypothesis}. The proposed width limit also needs a rate budget, a bridge
+from elementary substratum updates to classical sampling cost at the
+specified fidelity, and the hardness assumptions below.
 
 \textbf{The forced position.} Any interpretation with a finite classical
 substratum faces a standard trilemma {[}7{]}: either (I) quantum
 computation encounters a scale ceiling; or (II) the tasks exhibiting
 quantum advantage possess hidden classical algorithms; or (III) the
 substratum commands resources exponential in the number of emergent
-qubits. Under the patch-budget hypothesis, option (III) is excluded; the
-holographic bound alone does not exclude a computationally relevant deep
-hidden sector. The framework addresses (II) in one theorem-level
-respect: the substratum measure of a finite representative is the unique
-\(\varphi\)-invariant maximal-entropy measure ({[}Main{]}, Lemma 3 and
-posit (iv) of the posit ledger), which excludes a planted-measure escape
---- though absence of planted answers is not itself a classical lower
-bound: the hardness of the relevant sampling rests on standard
-complexity-theoretic evidence (random-circuit results are
-assumption-dependent, e.g.~non-collapse of the polynomial hierarchy), so
-(II) closes conditionally on those assumptions, while escape by
-conspiracy would additionally require a planted measure contradicting
-the uniqueness clause. What remains, granted the patch-budget hypothesis
-and the complexity assumptions below, is (I): the ceiling is a
-conditional consequence with its assumptions stated, not an
-unconditional entailment.
+qubits. Option (III) is excluded for the tasks under consideration only
+if the patch budget and the simulation-cost bridge impose a smaller
+resource bound than those tasks require. The framework addresses (II) in
+one theorem-level respect: the substratum measure of a finite
+representative is the unique \(\varphi\)-invariant maximal-entropy
+measure ({[}Main{]}, Lemma 3 and posit (iv) of the posit ledger), which
+excludes a planted-measure escape --- though absence of planted answers
+is not itself a classical lower bound: the hardness of the relevant
+sampling rests on standard complexity-theoretic evidence (random-circuit
+results are assumption-dependent, e.g.~non-collapse of the polynomial
+hierarchy), so (II) closes conditionally on those assumptions, while
+escape by conspiracy would additionally require a planted measure
+contradicting the uniqueness clause. What remains, granted the
+patch-budget and rate hypotheses, the simulation-cost bridge and the
+complexity assumptions below, is (I): the ceiling is a conditional
+consequence with its assumptions stated, not an unconditional
+entailment.
 
-\textbf{The scale.} Under the patch-budget hypothesis, the substratum
-budget for a computation of wall-time \(T\) is bounded by the
+\textbf{The scale.} With the patch-budget hypothesis and an assumed rate
+of at most one update per Planck time per degree of freedom, the
+substratum budget for a computation of wall-time \(T\) is bounded by the
 holographic patch: \(\mathrm{bits}(T) = \pi (cT)^2/l_p^2\) degrees of
-freedom updating at most once per \(t_p\) {[}10{]}. This gives
-\(\sim 10^{145}\) operations for a day-scale computation,
-\(\sim 10^{157}\) for thirty years, and \(\sim 2 \times 10^{183}\) at
-the absolute horizon scale. A computation whose output statistics
-require classical sampling resources exceeding the budget cannot have
-those statistics realized by the substratum. The ceiling therefore sits,
-under an explicit quantitative assumption ---
+freedom {[}10{]}. This gives \(\sim 10^{145}\) operations for a
+day-scale computation, \(\sim 10^{157}\) for thirty years, and
+\(\sim 2 \times 10^{183}\) at the absolute horizon scale. If each
+admissible substratum computation gives a classical sampling procedure
+within this operation budget, the same budget bounds the classical
+sampling resources it can realize. The ceiling therefore sits, under an
+explicit quantitative assumption ---
 \(C_{\mathrm{cl}}(n, \varepsilon) \geq 2^{\alpha n}\) for the chosen
 circuit ensemble and fidelity criterion, an assumption the cited
 hardness evidence supports but does not prove --- at
@@ -727,15 +678,16 @@ approximately 480 (day), 520 (decades), 610 (absolute)
 quantity being fidelity-weighted classical simulation cost, not qubit
 count.
 
-\textbf{What survives and what fails.} The binding variable is the
-classical cost of the specific task. Factoring is subexponential
-classically (RSA-2048 \(\sim 2^{117}\), RSA-4096 \(\sim 2^{156}\), both
-far inside budget): Shor's algorithm at all cryptographically relevant
-sizes is unaffected, with the crossover near \(\sim 86\)-kilobit keys.
-Clifford circuits are classically simulable and hence unconstrained at
-any scale. What the ceiling forbids is full-fidelity realization of
-genuinely exponential-cost tasks --- random-circuit sampling and generic
-highly entangled simulation --- beyond \(n^* \sim 500\)--\(600\).
+\textbf{What survives and what fails.} Under these premises the binding
+variable is the classical cost of the specific task. Factoring is
+subexponential classically (RSA-2048 \(\sim 2^{117}\), RSA-4096
+\(\sim 2^{156}\), both far inside budget): Shor's algorithm at all
+cryptographically relevant sizes is unaffected, with the crossover near
+\(\sim 86\)-kilobit keys. Efficient classical simulation of Clifford
+circuits gives no exponential-cost wall of this kind. What the ceiling
+forbids is full-fidelity realization of genuinely exponential-cost tasks
+--- random-circuit sampling and generic highly entangled simulation ---
+beyond \(n^* \sim 500\)--\(600\).
 
 \textbf{The signature.} The prediction is qualitatively unlike any
 conventional noise model: fidelity should track the classical simulation
@@ -770,12 +722,14 @@ strategies.
 
 \textbf{Conditions.} The statement is conditional on: the patch-budget
 hypothesis (that the holographic bound caps all computationally relevant
-substratum resources, not only the observed patch); standard complexity
-conjectures (no polynomial classical algorithms for the sampling tasks;
-non-collapse of the polynomial hierarchy); the declared posits (iv)--(v)
-of the ledger ({[}Main{]}), which are what certify the absence of
-planted structure; the budget arithmetic at order-of-magnitude precision
-(the exponent is robust; prefactors are not); and the full-fidelity
+substratum resources, not only the observed patch); the assumed
+update-rate budget and bridge from substratum resources to classical
+simulation cost at the target fidelity; standard complexity conjectures
+(no polynomial classical algorithms for the sampling tasks; non-collapse
+of the polynomial hierarchy); the declared posits (iv)--(v) of the
+ledger ({[}Main{]}), which are what certify the absence of planted
+structure; the budget arithmetic at order-of-magnitude precision (the
+exponent is robust; prefactors are not); and the full-fidelity
 qualification, since the constraint binds fidelity-weighted cost, so
 low-fidelity demonstrations do not approach it.
 
@@ -786,12 +740,12 @@ low-fidelity demonstrations do not approach it.
 fork, and the
 box}\label{the-depth-axis-residual-dissipation-the-correction-fork-and-the-box}}
 
-§4.5 bounded the width of physical computation; on the depth axis the
-framework supplies a residue but no derived bound. The residual
-dissipation \(\mathcal{D}\) ({[}Main{]}, §3.2 and the scope remarks of
-§3.5) is a deviation from exact unitarity sourced by the cosmological
-partition itself, registered in {[}Main{]} as the framework's
-falsifiable residue. It has two parts: a bath-motion term of order
+§4.5 proposed a conditional width limit; on the depth axis the framework
+supplies a residue but no derived bound. The residual dissipation
+\(\mathcal{D}\) ({[}Main{]}, §3.2 and the scope remarks of §3.5) is a
+deviation from exact unitarity sourced by the cosmological partition
+itself, registered in {[}Main{]} as the framework's falsifiable residue.
+It has two parts: a bath-motion term of order
 \((\tau_S/\tau_B)^2 \sim 10^{-64}\) at the horizon ratio, and a
 frozen-bath term set by the spread of the bath-conditioned Hamiltonians,
 of order \(\|V_{\text{int}}\|^2\) and independent of \(\tau_B\), whose
@@ -817,30 +771,22 @@ static coherent errors, and the bath-motion term lies some sixty orders
 below threshold, but no fault-tolerance verdict on \(\mathcal{D}\)
 follows without an error model for the frozen-bath term.
 
-\textbf{The box.} With this section the framework addresses all four
-axes of physical computation from one construction: width (holographic
-budget, §4.5), depth (residual dissipation, this section, with no bound
-derived), rate (the Margolus--Levitin bound, derivable from the tick
-structure --- derivation queued), and memory (the Bekenstein bound,
-derivable from the partition --- derivation queued). Hypercomputation
-through spacetime structure is closed as well: Malament--Hogarth
-constructions require unbounded blueshift and effectively infinite state
-space, unavailable on a finite lattice with \(e^{S}\) states. The
-account of physical computation is therefore a four-axis program: the
-energy and spacetime faces carry derived exclusions, the width face a
-proposal conditional on the patch-budget hypothesis and the complexity
-assumptions (§4.5), the depth face a residue without a derived bound
-(this section), and the rate and memory faces queued derivations from
-the same primitives --- a program, not a completed box.
+\textbf{The box.} The program addresses four axes: width under the
+patch-budget, rate and simulation-cost assumptions (§4.5), depth via the
+residual dissipation considered here, and proposed rate and memory
+derivations related to the Margolus--Levitin and Bekenstein bounds. A
+Malament--Hogarth scheme would need a physical mechanism giving the
+observer access to an infinite computation in finite proper time.
+Neither a finite configuration space nor indefinite iteration provides
+that mechanism. Operational closure excludes an oracle from the §4
+model.
 
-\textbf{Near-term texture.} The same partition machinery predicts
-memory-bearing device noise at the engineered-bath level ({[}Complexity
-§8.2{]}); its syndrome-level signature --- an exploitable temporal
-kernel in detection-event time series, retained after conditioning on
-drift --- is testable on already-public fault-tolerance datasets, with
-P-indivisibility of the reconstructed per-round channel a further
-property that a divisibility test certifies. The sharpened prediction is
-stated there.
+\textbf{Near-term tests.} {[}Complexity §8.2{]} proposes tests for
+memory-bearing device noise. A reported syndrome-level analysis found an
+aggregate temporal trend. No individual-experiment detections survived
+multiple-comparison control, and carrier attribution remains open. A
+controlled test of the reconstructed per-round channel is needed to
+assess P-indivisibility.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -860,18 +806,12 @@ BPP strictly, is unmodified by the framework's content.
 \subsubsection{5.1 The location of P vs NP within the
 framework}\label{the-location-of-p-vs-np-within-the-framework}}
 
-The framework's conditional BQP characterization places P inside BQP
-(\(\mathrm{P} \subseteq \mathrm{BPP} \subseteq \mathrm{BQP}\)); the
-relation of NP to BQP is UNKNOWN --- efficient witness verification puts
-the verification map, not the NP language, inside BQP, and
-\(\mathrm{NP} \subseteq \mathrm{BQP}\) is an open containment question.
-Consequently the framework's conditional ceiling neither settles P vs NP
-nor determines the NP--BQP relationship. The conventional inclusion
-chain is unmodified by the framework's content. The framework's
-contribution is at a different level: it identifies BQP as the
-\emph{outermost} class accessible to embedded observers, leaving the
-inclusion relationships among interior classes --- including P vs NP ---
-to standard complexity theory.
+The conventional inclusions
+\(\mathrm{P} \subseteq \mathrm{BPP} \subseteq \mathrm{BQP}\) place P
+inside BQP. Efficient witness verification for NP gives a computation in
+P for the supplied witness. Whether
+\(\mathrm{NP} \subseteq \mathrm{BQP}\) remains open. The conditional BQP
+ceiling leaves both this containment and P vs NP open.
 
 \hypertarget{the-neutrality-result}{%
 \subsubsection{5.2 The neutrality result}\label{the-neutrality-result}}
@@ -893,10 +833,9 @@ is unchanged: the new algorithm provides additional computational reach
 for embedded observers but does not exceed BQP. The framework would not
 be falsified by this discovery.
 
-Both cases sit inside the framework's BQP ceiling. The framework's
-empirical exposure on P vs NP is zero: no observation an embedded
-observer could make would distinguish the two cases at the level of the
-framework's commitments.
+The conditional ceiling is compatible with either answer to P vs NP. A
+proof of P = NP would put NP inside P and hence inside BQP, while a
+proof of P ≠ NP would leave NP's relation to BQP open.
 
 \hypertarget{relation-to-gauge-vs-computational-incompleteness}{%
 \subsubsection{5.3 Relation to gauge vs computational
@@ -925,15 +864,10 @@ framework's empirical predictions unchanged.
 \subsubsection{5.4 The silence is structural, not
 stipulative}\label{the-silence-is-structural-not-stipulative}}
 
-The neutrality result of §5.2 can be sharpened. The framework's two
-foundational axioms (tokened differentiation occurs; differentiation
-recurs) {[}8{]} and their structural commitments ---
-finiteness-per-moment, bijectivity, the proper-part decomposition
-\(V \subsetneq S\), the C1--C4 partition conditions --- deliver content
-of one specific type: they characterize the \emph{boundary structure}
-between substratum and embedded observer, and thereby characterize the
-computational ceiling at that boundary. They do not deliver content of
-the type required to bear on internal complexity-class structure.
+The foundations describe embedded observation, the partition and the
+boundary of observational access. The conditional computational ceiling
+additionally uses §4's asymptotic model. The resulting bound leaves the
+relation of P and NP open.
 
 P vs NP is a question about the existence of polynomial-time algorithms
 for NP-complete problem families, defined asymptotically over inputs of
@@ -976,80 +910,37 @@ framework's own complexity content might productively engage with
 complexity theory: in fine-grained / parameterized / resource-bounded
 complexity rather than at the asymptotic P vs NP boundary.
 
-\hypertarget{the-boundary-characterization-pattern-across-the-guxf6del-turing-oi-family}{%
-\subsubsection{5.5 The boundary-characterization pattern across the
-Gödel-Turing-OI
-family}\label{the-boundary-characterization-pattern-across-the-guxf6del-turing-oi-family}}
+\hypertarget{limits-on-proof-computation-and-observation}{%
+\subsubsection{5.5 Limits on proof, computation and
+observation}\label{limits-on-proof-computation-and-observation}}
 
-The framework's silence on P vs NP fits a broader pattern across the
-incompleteness family identified in {[}1, Ch. 12 §12.8{]}: Gödel's
-incompleteness, Turing's halting result, OI's hidden-sector
-inaccessibility, and Deutsch's universality-of-explanation are all
-\emph{boundary-characterization} results that share a common structural
-feature --- each establishes a structural limit on access from inside a
-system, and each is silent on the internal organization of what falls
-within the accessible domain.
-
-Concretely:
+The limits compared in {[}1, Ch. 12 §12.8{]} concern different
+questions.
 
 \begin{itemize}
 \item
-  \textbf{Gödel} sets a boundary at \emph{provability from within a
-  consistent recursively-axiomatizable formal system}. Gödel's
-  incompleteness statements are about what crosses that boundary (true
-  statements that do not). They are silent on the internal organization
-  of the provable: which provable statements are interesting, useful, or
-  important is not a question Gödel's theorems address.
+  \textbf{Gödel.} Under their respective hypotheses, the incompleteness
+  theorems establish undecidable arithmetic statements and limits on
+  proving consistency within sufficiently strong, consistent,
+  effectively axiomatized theories.
 \item
-  \textbf{Turing} sets a boundary at \emph{computability by a Turing
-  machine}. The halting problem statement is about what crosses that
-  boundary (instances whose halting cannot be decided). Turing's
-  theorems are silent on the internal organization of the computable:
-  which decidable problems are tractable, which are intractable, is not
-  a question Turing's theorems answer.
+  \textbf{Turing.} Undecidability concerns the general halting problem
+  over programs and inputs. An explicit finite deterministic orbit
+  admits the recurrence test in §3.
 \item
-  \textbf{OI} sets a boundary at \emph{embedded observability of the
-  substratum} (the complete state, the cosmological horizon, the
-  substratum representative). The OI incompleteness statements are about
-  what crosses that boundary. They are silent on the internal
-  organization of the observable: which physical phenomena have
-  particular structure within the framework's accessible domain is
-  content of a different kind, addressed by the framework's specific
-  structural commitments (gauge group, generations, etc.) rather than by
-  the incompleteness statement itself.
+  \textbf{OI.} Inference fails for a target when supported states
+  compatible with the same record disagree on that target. The record
+  and the support are relative to the admitted interface and preparation
+  (§3).
 \item
-  \textbf{Deutsch} sets a boundary at \emph{universal explanation} in
-  the constructor-theoretic sense. Deutsch's universality-of-explanation
-  is about what crosses that boundary (explanations attainable by
-  sufficient knowledge-creation). It is silent on which problems within
-  explanatory reach get solved in which order, by which methods.
+  \textbf{Deutsch.} The claim that explanatory knowledge can keep
+  growing is epistemological.
 \end{itemize}
 
-This shared structure --- establishing a boundary, then silence on the
-interior --- is not an accident of how the four results have been
-developed. It reflects a common feature of structural-incompleteness
-frameworks: each identifies a \emph{mode of access} (provability,
-computability, observability, explanation) and characterizes its limits.
-The internal structure of what falls within that mode of access is a
-different question, requiring tools internal to that domain.
-
-P vs NP lies in the internal structure of the computable (within
-Turing's domain) and in the internal structure of BQP (within OI's
-domain). It is therefore outside the locus of contribution of any of
-these incompleteness frameworks. This is a constraint on what
-structural-incompleteness frameworks can and cannot deliver: they
-characterize boundaries; they do not navigate interiors.
-Internal-complexity questions like P vs NP require complexity-theoretic
-tools (proof-system lower bounds, geometric complexity theory, circuit
-complexity, and similar), not incompleteness frameworks.
-
-The OI framework's silence on P vs NP is therefore \emph{not} an
-idiosyncrasy of OI --- it is the same kind of silence Gödel and Turing
-exhibit on the same question, for the same structural reason. The
-unifying observation: structural-incompleteness frameworks characterize
-the \emph{boundary} of a domain of access; the \emph{internal
-complexity} of what's accessible is a separate question requiring tools
-internal to the relevant complexity theory.
+P vs NP concerns the internal complexity of computable problems. Its
+relation to the model's BQP boundary depends on complexity-class
+containments outside the theorem, including the open question of whether
+NP is contained in BQP.
 
 \hypertarget{position-relative-to-aaronsons-physical-principle-approach}{%
 \subsubsection{5.6 Position relative to Aaronson's physical-principle
@@ -1064,10 +955,8 @@ different directions:
 
 \begin{itemize}
 \item
-  \textbf{Stronger:} the framework commits to BQP exactly as the
-  embedded-observer ceiling, where Aaronson's principle leaves the
-  ceiling between P and BQP underdetermined. The framework specifies the
-  boundary; Aaronson's principle does not.
+  \textbf{Computational ceiling:} §4 gives an exact BQP bound under its
+  control, efficiency and operational-closure model.
 \item
   \textbf{Weaker:} the framework declines to commit to
   \(\mathrm{P} \neq \mathrm{NP}\) itself, where Aaronson's principle
@@ -1123,11 +1012,10 @@ standard repertoire of physical axioms does not contain. Whether a
 principled bridging axiom exists --- one that is independently motivated
 rather than question-begging, and that does not collapse to a known open
 conjecture --- is itself an open methodological question. The
-framework's stance is that the BQP characterization is the legitimate
-physics-principled result within reach of physical-substrate axioms, and
-that internal complexity-class structure (including P vs NP) is the
-domain of mathematical complexity theory rather than of physical
-foundations.
+framework's stance is that the BQP characterization uses the explicit
+model's scalability and control hypotheses, and that internal
+complexity-class structure (including P vs NP) is the domain of
+mathematical complexity theory rather than of physical foundations.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1269,8 +1157,8 @@ This is the structural reading of the task-specific-advantage pattern
 that the framework's content suggests. It survives the survey against
 known BQP advantages (twelve cases, all in-scope cases consistent),
 accommodates the tractable / intractable boundary in nonabelian HSP, and
-is grounded in the framework's existing QM emergence theorem rather than
-being an external postulate. The conjecture is silent on sampling-style
+uses the admitted fixed-basis representation and the model-supplied
+control assumptions. The conjecture is silent on sampling-style
 advantages (boson sampling, random circuit sampling) by scope, not
 because the framework is inconsistent with them. The internal
 investigation supporting this refinement is recorded in the framework's
@@ -1290,9 +1178,8 @@ conjecture inviting complexity-theoretic investigation. The framework's
 contribution is to suggest a specific structural reason --- the
 \(\mathrm{SU}(2)\)-based, model-supplied toolkit construction --- behind
 the empirical concentration of BQP advantage on the specific group
-structures it concentrates on, with this contribution rooted in the
-framework's existing QM emergence theorem rather than introduced as new
-content.
+structures it concentrates on, given the representation and control
+assumptions.
 
 \hypertarget{gauge-equivalence-and-complexity-theoretic-reductions}{%
 \subsubsection{7.3 Gauge equivalence and complexity-theoretic
@@ -1305,15 +1192,12 @@ alphabet-size hypothesis; {[}5, §4, Theorem 24(ii){]}), and deep-sector
 enlargement. A natural question is whether \(\mathcal{G}_{\text{sub}}\)
 has an image in the space of polynomial-time reductions among
 NP-complete problems. If gauge equivalence at the substratum level
-corresponds (in some precise sense) to polynomial-time reducibility at
-the algorithm level, the framework's gauge structure would provide a
-\emph{physical} account of why NP-complete problems are reducible to
-each other. This is speculative --- the correspondence has not been made
-precise --- but the structural similarity is suggestive: gauge
-equivalence is ``no observable distinction'' at the substratum level,
-and polynomial-time reducibility is ``no complexity distinction'' at the
-algorithm level. Both are equivalence relations on otherwise distinct
-structures.
+corresponds (in some precise sense) to mutual polynomial-time many-one
+reducibility at the algorithm level, the framework's gauge structure
+would provide a \emph{physical} account of why NP-complete problems are
+reducible to each other. The proposed correspondence is open. One-way
+many-one reducibility is a preorder. Mutual reducibility gives an
+equivalence relation.
 
 \hypertarget{conditions-and-the-right-kind-of-research-question}{%
 \subsubsection{7.4 Conditions and the right kind of research
@@ -1360,13 +1244,17 @@ Summarizing the paper's content:
   --- not an empirical conjecture, not a bare consequence of C1--C4, and
   not of embeddedness.
 \item
-  The conjectured BPP--BQP separation is structural in the framework's
-  reading --- the cost of marginal-statistics observation rather than
-  evidence for fundamental quantum-ness.
+  The paper proposes an interpretation of the conjectured BPP--BQP
+  separation as the cost of restricting access to classical stochastic
+  computation. The query-model separations and conjectured unrelativized
+  separation have the distinct scopes discussed in §7.2.
 \item
-  The Gödel-Turing-OI incompleteness family operates at every level of
-  recursive self-improvement; no level of AI sophistication overcomes
-  the partition.
+  In a known finite reversible model with a specified preparation, a
+  passive record identifies a target when all supported states
+  compatible with the record agree on the target {[}5, Proposition
+  24.5{]}. Some records identify a current state or a future quantity
+  for a proper observer. Shared record laws require a record-preserving
+  correspondence between the admitted interfaces (§3).
 \end{itemize}
 
 \emph{The framework does not establish (silences):}
@@ -1374,8 +1262,8 @@ Summarizing the paper's content:
 \begin{itemize}
 \tightlist
 \item
-  The internal structure of complexity classes inside BQP. P vs NP, in
-  particular, is neither implied nor opposed by the framework's content.
+  P vs NP and whether NP is contained in BQP remain open under the
+  model.
 \item
   Universal complexity-theoretic claims that would require bridging
   finite-physical-structure axioms to asymptotic-algorithmic content.
@@ -1466,4 +1354,4 @@ self-measurements,'' \emph{Philosophy of Science} \textbf{62}, 197--214
 (1995).
 
 \end{document}
-% source-sha256: 932c9767af7cebcada0880e12b79bf1108c69b7d40e97b87962fa0b160ab6c93
+% source-sha256: 142c4e79bec73891371e5624df39eeb25d827c122c7383479bf0d4e0c775e8e8
