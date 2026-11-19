@@ -59,8 +59,8 @@ reading the corpus attaches (M:60, M:730 item (ii)), and the row says so. Eviden
 |---|---|---|---|---|---|---|
 | M1 | Lemma 3, selection clause: the counting measure is the maximal-entropy invariant measure (M:54; M:58) | A uniform probability exists only on a finite carrier, and Shannon entropy over invariant probabilities is taken relative to counting. On an infinite carrier there is no counting probability and the maximum is undefined. CENSUS §17 row M:54,84 (A/F); ROOTS R0 row 3 | (c) | None traced. M:58 already treats a structured hidden prior as a realization datum, which replaces selection by a supplied law; that is a posit, not a selection. Repair options in §2 R1 | No: a selection principle over laws on the whole carrier | 21e16c61 |
 | M2 | μ-G, μ-O, μ-R and posit (iv) (M:60 end; M:730 (iv); OA-1 r5:100–109; PREP 1.5(b), (b′)) | μ-G is M1. μ-O is "uniform on the orbit of the actual microstate", derived at OA-1 r5:101 from M:54/M:60, whose uniqueness statement is for a finite cycle; a countably infinite orbit carries no invariant probability (equal point masses cannot sum to one). μ-R is uniform on the finite union of record-compatible orbits (PREP 1.5(b′)). The static budgets log₂(\|S\|/ℓ) and log₂(\|S\|/\|U\|) are counting quantities | (c) | None traced. PREP 1.1–1.3 (stationarity, flux balance, no production in law) hold for any T-invariant probability on a measurable carrier [paper, W in PREP], so the exclusion of native autonomous history survives; the typing of which invariant laws are native does not. Repair: posit P-μ (§2 R1) for μ-G and μ-R; for μ-O, lemma L2 (an ergodic component of a declared invariant law as the orbit-level law, with its static budget) | No | 21e16c61 |
-| M3 | Baseline transition matrices under the uniform hidden prior; uniform-prior one-step theorem input; doubly stochastic corner (M:60 list; M:113; M:208; M:274; M:280; M:286) | T_ij = \|{h}\|/\|C_H\| counts a finite hidden set; ρ_H = I/m on finite H; "uniform-prior marginal of a bijection is doubly stochastic" | (b) | Rooted maps under any normalized hidden prior shared by roots: Γ_n(a,b) = ρ{h : X(Tⁿ(a,h)) = b} for an invariant product law ν⊗ρ on a measurable carrier (`ObservableRigidity.rootedFamily_productLaw`, Lean; RIGID "common hidden-prior convention", paper). M:135 and M:141 already allow an arbitrary shared μ_H. Double stochasticity: GLUE proves it for its gate class (paper); for a T-invariant law u_V⊗ρ the column sums are \|V\|·μ(T^{−n}C_b) = 1, a one-line consequence of invariance (noted in the review of `299aa760`). The residue in this row is therefore the posit P-μ with ν uniform (R1), not finiteness. Posited (the law) | Rooted matrices are observable given a root-independent hidden preparation; double stochasticity is checkable on visible data | 21e16c61 |
-| M4 | §2.3 one-step theorem: non-permutation T implies P-indivisibility (M:113–127) | Step 1 (M:121): a bijection of a finite set has finite order N, so T^(N) = I | (b) | Weakest traced hypotheses, in increasing strength: ladder F11, a single common near-return with margin 2ε < m after the non-permutation time (LADDER §3.4, paper; REC-1:535–537); REC-1 (RIG), subsequential rigidity μ(C_a △ T^{−n_k}C_a) → 0 (REC-1:68, Prop. 3.4, paper); RIGID's compact closure of the joint indicator orbit, which supplies (RIG) (RIGID proof; `ObservableRigidity.exists_pIndivisibleWithin_of_nonPermutation`:358, Lean). Each with a bimeasurable bijection T preserving a normalized μ and positive cell masses; Main's uniform prior is the case μ = u_V⊗ρ. Conclusion: some finite horizon {0,…,n} after the non-permutation time is P-indivisible (REC-1 U1, :545). Strictly weaker than finite S inside the invariant-law class (RIGID rotation × Bernoulli example). Posited (μ, the return condition, reversibility). Lost: the specific N and Γ_N = I | All three return conditions concern unboundedly late times; the sources give no finite-window test for them, and REC-1 Prop. 5.1 shows the first indivisible horizon has no uniform bound across models. Observable alternative for a given family: an observed C4r (row M6) | 21e16c61 |
+| M3 | Baseline transition matrices under the uniform hidden prior; uniform-prior one-step theorem input; doubly stochastic corner (M:60 list; M:113; M:208; M:274; M:280; M:286) | T_ij = \|{h}\|/\|C_H\| counts a finite hidden set; ρ_H = I/m on finite H; "uniform-prior marginal of a bijection is doubly stochastic" | (b) for the rooted family; (c) for the doubly stochastic corner | Rooted maps under any normalized hidden prior shared by roots: Γ_n(a,b) = ρ{h : X(Tⁿ(a,h)) = b} for an invariant product law ν⊗ρ on a measurable carrier (`ObservableRigidity.rootedFamily_productLaw`, Lean; RIGID "common hidden-prior convention", paper). M:135 and M:141 already allow an arbitrary shared μ_H. Double stochasticity: GLUE proves it for its gate class (paper); no general proof is on `main`: lemma L3. L3 appears to follow at once from invariance under P-μ with ν uniform (the review of `299aa760` gives the column-sum identity), so it is expected to be trivial; it is not proved here. Posited (the law) | Rooted matrices are observable given a root-independent hidden preparation; double stochasticity is checkable on visible data | 21e16c61 |
+| M4 | §2.3 one-step theorem: non-permutation T implies P-indivisibility (M:113–127) | Step 1 (M:121): a bijection of a finite set has finite order N, so T^(N) = I | (b) | Weakest traced hypotheses, in increasing strength: ladder F11, a single common near-return with margin 2ε < m after the non-permutation time (LADDER §3.4, paper; REC-1:535–537); REC-1 (RIG), subsequential rigidity μ(C_a △ T^{−n_k}C_a) → 0 (REC-1:68, Prop. 3.4, paper); RIGID's compact closure of the joint indicator orbit, which supplies (RIG) (RIGID proof; `ObservableRigidity.exists_pIndivisibleWithin_of_nonPermutation`:358, Lean). Each with a bimeasurable bijection T preserving a normalized μ and positive cell masses; Main's uniform prior is the case μ = u_V⊗ρ. Conclusion: some finite horizon {0,…,n} after the non-permutation time is P-indivisible (REC-1 U1, :545). Strictly weaker than finite S inside the invariant-law class (RIGID rotation × Bernoulli example). Posited (μ, the return condition, reversibility). Lost: the specific N and Γ_N = I | F11 at an accessible time n is a single-time condition on rooted rows, testable on that window statistically under a root-independent preparation; it then yields C4r, the observed-C4r route of row M6 and §3 item (1). F11 at an unspecified time, (RIG) and compactness concern unboundedly late times and have no finite-window test; REC-1 Prop. 5.1 shows the first indivisible horizon has no uniform bound across models | 21e16c61 |
 | M5 | History readback + finite recurrence (M:135–139) | Proof: φ of finite order L gives Γ_L = I and Γ_{t+L} = Γ_t; periodicity bounds s ≤ min(k, L−1) | (b) in the invariant-product-law class; (c) otherwise | Histories meeting at k ⇒ some Γ_s, 1 ≤ s ≤ k, non-permutation, with neither recurrence nor an invariant law (REC-1 Prop. 6.1, :505; RIGID scope bullet 2; paper); then M4's route under F11 or (RIG) (REC-1 U2, :546). Not covered: shared priors that give no invariant product law (RIGID scope bullet 1: register swap with prior δ₀), the bound s ≤ L−1 and the exact cycle endpoint (REC-1 U2: these need (RET) at L). Repair for the uncovered priors: lemma L4 or scope narrowing | As M4 | 21e16c61 |
 | M6 | Overlap-and-return theorem (M:141); C4r/C4e no-go | Γ_n = I is supplied; finiteness of C_V × C_H appears only in the setup | (a) | Matrix form needs only row-stochastic Γ_s on finite V (`RecurrenceHorizon.pIndivisible_of_identity_return_of_overlap`, `CausalReadback.c4r_implies_pIndivisible`:134, Lean). Near-return form F11 (LADDER §3.4, paper; `ObservableRigidity.tv_revives_of_nearReturn`:88, Lean) | C4r (a strict increase of rooted-row distance) can be supported by finite data, statistically, with a stated sampling error and a root-independent hidden preparation; C4e needs an exact equality that no finite sample verifies. An observed C4r gives P-indivisibility of the observed family only; it does not recover M4's implication from every non-permutation map | 21e16c61 |
 | M7 | Full-support equivalence (M:139 Scope; M:80 item (2)): (i) index-free form, a readback gap at some finite order ⇔ some Γ_s, s ≥ 1, non-permutation ⇔ not P-divisible on some {0,…,n}; (ii) L-indexed form, gap below L ⇔ non-permutation Γ_s with s < L ⇔ indivisible on {0,…,L} | (ii) uses the exact return Γ_L = I and stochastic-inverse rigidity; the index L is the finite order | (i) (b); (ii) (c) | (i) REC-1 Prop. 6.2 (REC-1:521–533, paper) under (V), (M), (I), (P), (RIG) and (FS), each direction proved separately; only (b)⇒(c) uses (RIG), and it holds equally with F11's single near-return (REC-1:535–537). (ii) REC-1 U2 (:546): the bound s ≤ L−1 and the horizon {0,…,L} need (RET) at L. Repair for (ii): scope narrowing to finite representatives | (i) As M4; (ii) No | 21e16c61 |
@@ -100,8 +100,8 @@ reading the corpus attaches (M:60, M:730 item (ii)), and the row says so. Eviden
 
 ## 2. Residue summary (class (c) items)
 
-**R1 — the canonical measure.** M1, M2, the coupled case of C1 (existence of an invariant shell
-law, P7B 6.3), and C4. *Reason.* A uniform probability exists only on a finite set, and "maximal
+**R1 — the canonical measure.** M1, M2, the doubly stochastic corner of M3, the coupled case of C1
+(existence of an invariant shell law, P7B 6.3), and C4. *Reason.* A uniform probability exists only on a finite set, and "maximal
 entropy among invariant measures" is defined relative to counting; μ-O is unique only on a finite
 orbit, μ-R only on a finite orbit union. Every A1-free replacement traced (RIGID, HIST, A1-05 P8-M,
 P7B, GLUE, GR Appendix B) takes a normalized invariant law, or a product law with a uniform finite
@@ -112,8 +112,9 @@ alternative needs lemma L1: a characterization of a distinguished invariant law 
 product uniform law as maximal entropy density among invariant laws) for the declared class of
 local reversible rules on a finite-alphabet site product. L2 (μ-O as an ergodic component of a
 declared invariant law) and L10 (measure-theoretic H-BD) are the smaller repairs inside this
-family. The doubly stochastic corner of M3 reduces to P-μ with ν uniform by a one-line invariance
-argument, so it carries no separate repair.
+family, together with L3 (double stochasticity under an invariant product law with uniform visible
+marginal), which appears to follow at once from invariance under P-μ with ν uniform and is expected
+to be trivial.
 
 **R2 — exact common return.** The exact endpoint Γ_L = I and the bound s ≤ min(k, L−1) in M5,
 the L-indexed form (ii) of M7, the physical reading of M10, μ-O and the orbit capacity of M13.
@@ -155,6 +156,7 @@ lemmas for M9, M16, M21.
 | P-μ | Posit | Declared normalized T-invariant law; product ν⊗ρ with ν(a) > 0 for the rooted convention | M1–M3, M18, C1 (coupled) |
 | L1 | Lemma | Characterization of a distinguished invariant law for the declared class of local reversible rules on a finite-alphabet site product | M1 |
 | L2 | Lemma | μ-O as an ergodic component of a declared invariant law, with its static budget | M2 |
+| L3 | Lemma | Invariant product law with uniform visible marginal gives doubly stochastic rooted maps (expected to be immediate from invariance) | M3 |
 | L4 | Lemma | Near-return route for shared hidden priors that give no invariant product law | M5 |
 | L6 | Lemma | Koopman dilation channel family on ℂ^V ⊗ L²(H,ρ); diagonal preservation | M9 |
 | L7 | Lemma | Physical-memory theorem on a measurable hidden space | M16 |
@@ -182,7 +184,7 @@ gives neither the recurrence-family conclusion nor any measure selection.
 | H-F4 | Site factorization (M:730 (viii)); each output reads a finite set of sites and each site is read by finitely many outputs (M:730 (xiii)); finite alphabets on the cone (GR (D4)); finite readout region (GR (D1)) | finite-site cone presentation | Posited | Finite propagation speed of the emergent description is tested; the ontic read sets are not |
 | H-REV | T is a bimeasurable bijection of a measurable carrier | M11 (R3) | Posited; printed alternative at M:730 (iii) | No more than A2 under A1 |
 | H-μ | A declared normalized T-invariant law μ; for Main's rooted convention μ = ν⊗ρ with ν(a) > 0 | M1–M3, M18, C1 coupled (R1) | Posited | No: a law on the whole carrier |
-| H-RIG | A return condition after the non-permutation time; weakest traced form ladder F11's single near-return with margin, then REC-1 (RIG), then RIGID's compact orbit closure (Lean); with (FS) it also gives M7 (i) | M4, M5, M7 (i), M8 | Posited | The sources give no finite-window test; each form concerns unboundedly late times |
+| H-RIG | A return condition after the non-permutation time; weakest traced form ladder F11's single near-return with margin, then REC-1 (RIG), then RIGID's compact orbit closure (Lean); with (FS) it also gives M7 (i) | M4, M5, M7 (i), M8 | Posited | F11 at an accessible time: testable on that window, statistically, under a root-independent preparation (it is then the observed-C4r route). F11 at an unspecified time, (RIG) and compactness: no finite-window test |
 | H-A4′ | A4 without the finite periodic lattice clause | C6, C7 (R4) | Requires O-A4 | — |
 | H-P7 | P7B H1–H14, including H2 and H4 | C1, C2 | Posited | Detector side only (H11, H12) |
 | H-IN | A stated condition on incoming boundary supply (§5) | none under A1 | Open | §5 |
@@ -190,12 +192,14 @@ gives neither the recurrence-family conclusion nor any measure selection.
 Existing posits unaffected by the change: (EM), the rate condition, uniform erosion, (iv)'s role
 as now narrowed, (v)–(xiv).
 
-**Relabelling test.** H-μ and H-RIG are as unobservable as A1: H-μ is a law on the whole carrier,
-and every traced form of H-RIG concerns unboundedly late times, for which the sources give no
-finite-window test (REC-1 Prop. 5.1: no uniform bound on the first indivisible horizon). The
+**Relabelling test.** H-μ and the all-time forms of H-RIG are as unobservable as A1: H-μ is a law
+on the whole carrier, and F11 at an unspecified time, (RIG) and compactness concern unboundedly
+late times, for which the sources give no finite-window test (REC-1 Prop. 5.1: no uniform bound on
+the first indivisible horizon). F11 at an accessible time is the exception: it is testable on that
+window, statistically, under a root-independent preparation, and is then item (1) below. The
 finite-window consequences of H-μ (every single-time block statistic constant in time, PREP 1.3)
 hold equally under A1's counting measure, so they do not discriminate the two. For the
-measure-family consumers (R1) and the recurrence family taken through RIGID, the replacement is
+measure-family consumers (R1) and the recurrence family taken through RIGID or (RIG), the replacement is
 therefore a relabelling in observability, although it is logically weaker: RIGID's rotation
 example and GLUE's aperiodic chains satisfy the replacement and violate A1. Two parts are not a
 relabelling. (1) For a given observed family, P-indivisibility can be obtained instead from an
@@ -277,10 +281,10 @@ other A1 consumers.
 2. Each (b) row's hypothesis against its source: F11, (RIG) and RIGID's compactness with the
    invariant product law (M4, M5, M7 (i), M8; REC-1 Prop. 6.2), A1-05's P8-M inputs and the
    operator-step scope (M18, M20), P7B's H1–H14 and the decoupled scope (C1), GR Appendix B's
-   (D1)–(D5) (C3, M21), and the invariance argument for M3's corner.
+   (D1)–(D5) (C3, M21).
 3. The A4 finding (R4): that Sub:98 with finite site alphabets re-implies A1, and that the
    kernel predicate `SubstratumInterfaceAudit.A4` has no finiteness clause.
 4. The relabelling test of §3, and that the C4r alternative is scoped to a root-independent
    preparation, statistical support and the observed family.
-5. That the named lemmas L1, L2, L4, L6–L10 and obligations O-A4, O-INFLOW are absent from the traced
+5. That the named lemmas L1–L4, L6–L10 and obligations O-A4, O-INFLOW are absent from the traced
    corpus, and that no row was resolved by a derivation made here.
