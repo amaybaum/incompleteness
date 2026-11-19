@@ -43,7 +43,7 @@ that file or any other file here; r4 is the accepted text.
 
   Emphasis is removed from the quotations.
 
-## What the record establishes
+## What the record supports, and at what strength
 
 - **Verdict: OPEN, narrowed.** These are paper-level research findings, not adopted, and the record
   changes no manuscript claim. They are hand derivations ([W], with [RW] steps) on manuscript
@@ -80,6 +80,36 @@ reviewer re-derived steps, partly on research records not independently establis
 kernel-checked or computed; not an impossibility result for
 `G_SM`; not adopted; no manuscript claim affected)."
 
+## Verification status and remediation (§A.46 item 4)
+
+The accountable Issue is #1169. The owner's ruling, #1169 comment 6865680499 (`amaybaum`,
+2026-11-13T21:44:54Z), states that "Model acceptance is evidence of review, not independent
+mathematical verification", and that "A remediation plan does not authorize new work. It may state
+that the obligation remains open." This plan authorizes no work. Each gap below remains open until
+the evidence or decision named for it is recorded on `main`.
+
+Here "partially verified" means reviewed by at least one separate AI-agent reviewer, or resting in
+part on kernel-checked statements, without independent mathematical verification of the result;
+"exploratory" means a result not reviewed by anyone but its writer, or a proposal that
+claims no result.
+
+- **Independently verified:** none of the record's own results.
+- **Known-invalid:** none stated.
+
+| Result | Status | Current evidence | Missing verification | Resolving evidence or decision |
+| --- | --- | --- | --- | --- |
+| Lemma OBS | partially verified | Hand derivation [W] with independent AI-agent reviews; not kernel-checked or computed | Independent mathematical verification | An independent mathematical verification recorded on `main` (for example a kernel formalization or a human review) |
+| Theorem S | partially verified; conditional on MP-0b history or (V-ii-H), heralds, a measurement stage of at least `2(L−2)` and (PT) | Hand derivation [W] with independent AI-agent reviews; not kernel-checked or computed; uses OA-2 Proposition B, [W]/[RW] | Independent mathematical verification, including the OA-2 Proposition B steps it uses | As for Lemma OBS |
+| Gate cancellation (N1) | partially verified; conditional on P1, P2 and H-PREP | Hand derivation [W] with independent AI-agent reviews; not kernel-checked or computed | Independent mathematical verification | As for Lemma OBS |
+| N4, Theorem E(b) with (V-ii-H) | partially verified; conditional on (H1), H-AR, (H3), (xiv) and (SP) | Hand derivation with [RW] steps re-derived by the OA-3 reviewer | Independent mathematical verification | As for Lemma OBS |
+| Edits supplied by the delta reviews (R1–R4 of `DELTA-REVIEW-OA-3-r4.md`; R1–R4, O1–O3 and O5 of `DELTA-REVIEW-OA-3-r3.md`) | exploratory; the reviewer's own text, not reviewed independently (r4:7–9, :16, :726–727) | Applied verbatim, as the delta reviews confirm | An independent review of that text | An independent review recorded on `main` |
+| Statements resting on [R] records (MECH-1, MECH-2, minacc-1, apparatus-1, obsmu, the L3b round, OA-1 r4, OA-2 r3 and r4) | partially verified | Research records not independently established | Independent validation of each [R] premise used (§A.46 item 7) | A recorded validation of that premise on `main`, or the statement narrowed to carry it as a named condition |
+| The three `G_SM` design amendments of §4 | exploratory | Proposals | Not applicable; nothing is claimed | Running anything needs owner authorization |
+
+Where a gap cannot be closed, the result is narrowed or withdrawn where it is stated (§A.46 item 5).
+
+The items listed as open are not results of the record; they remain under #1169.
+
 ## Dependencies
 
 | Reference | Classification |
@@ -88,6 +118,7 @@ kernel-checked or computed; not an impossibility result for
 | Records under `reconstruction/` (MECH-1, MECH-2, minacc-1, apparatus-1, obsmu) and the L3b round under `interface/` | Support on `main`, unchanged since `615cc119`. They are [R] records, so statements resting on them carry [R] (§A.46 item 7). |
 | OA-2 r3 at `815d6a8e` (`OA2:n`), its reviews (`Rv2`, `Rv2b`), OA-2 r4 at `4b087b1e` (`OA2r4:n`), OA-1 r4 at `815d6a8e` (`OA1:n`) | In this PR, at the same blobs apart from the substitutions `../oa-2-20261112/OBJECTS.md` records, which keep every line number and change no line OA-3 cites, and they land with this record. Theorem S uses OA-2 Proposition B, [W]/[RW]. OA-2 r4 changed some r3 lines OA-3 cites. `DELTA-REVIEW-OA-2-r3.md` §2.5 and §3.4 and `DELTA-REVIEW-OA-3-r4.md` cover the bearing of B(ii)(⇒) and of class N at `q = 2`; r4 carries (CVX) where (⇒) is used. The other changed lines it cites are r4's qualifiers at r3:150, :396, :401, :440, :785, :798 and :805; the package writer checked them against the citing sentences, outside any review. OA-1's r4 → r5 changes touch only r4:267–268 among the lines cited (inside :236–270, cited for the typing of measures). |
 | #1169 comments 6833027576, 6841795465, 6842225937 | Governance provenance, quoted above. The record cites c.6833027576 "as relayed by the coordinator; not re-fetched" (:21–22); its text is as quoted above. |
+| #1265 comment 6848447181 (merge record; quoted under Landing); #1169 comment 6865680499 (the ruling; quoted under Verification status and Landing) | Governance provenance. No scientific result uses either; the Basis line uses only the quoted words, which are on `main` in this note (§A.42 item 7). |
 | Literature [L] (Hedlund 1969; Schmid et al. 2021) | Context only. The record states that no verdict rests on it. |
 | Commits `469ecee9`, `a55f0588`, `b13cbe01`, `815d6a8e`, `4b087b1e` and `2d064a71` on this PR's branch, named in the reviews | Support on `main` once this PR lands by merge commit, which keeps them ancestors of `main`. |
 | Abbreviated working-copy ids in `DELTA-REVIEW-OA-3-r4.md` (`b6164dd6`, `b65e6d9c`) | Not objects in the repository; `b65e6d9c` is reproduced as stated above. They are abbreviated, so §A.42 item 3, which covers full ids, does not apply. |
@@ -118,8 +149,17 @@ kernel-checked or computed; not an impossibility result for
 - **Mode.** Merge commit (neither squash nor rebase), so that `2d064a71` and the other commits the
   reviews name remain ancestors of `main`. The branch commits carry "(WIP, not for merge)" in their
   messages; those were labels on the working checkpoints.
-- **Basis.** §A.46 item 2: the record supports the claim above, at the strength stated. No record on
-  `main` depends on it at `62bdc2cf`. The accountable Issue is #1169.
+- **Basis.** Landed by the owner's merge decision "Merge now (Recommended)", recorded in the merge
+  record #1265 comment 6848447181 (`amaybaum`, 2026-11-13T08:54:09Z, edited 09:07:32Z), which states
+  "What landed: OA-1 r5, OA-2 r4, OA-3 r4 and W1-1 r4, as research records on their stated scope. No
+  claim is promoted." The landing meets none of §A.46 item 2's conditions: no established claim
+  needs the record, it carries no computation, and no record on `main` depended on it at `62bdc2cf`.
+  The merge record names no owner exception. Under the owner's ruling, #1169 comment 6865680499
+  (`amaybaum`, 2026-11-13T21:44:54Z), until the §A.46 amendment it calls for is adopted, "a landing
+  that meets none of the existing conditions needs an explicit, recorded owner exception". The
+  record's landing basis is therefore open until that amendment is adopted or such an exception is
+  recorded. The record is preserved on `main`, not established (§A.46 item 1). Its removal is not
+  automatic and is governed by item 6. The accountable Issue is #1169.
 - **Owner record.** Landing package: #1265 comment 6846206075 (`amaybaum`, 2026-11-13T06:44:20Z):
   "Prepare after sequence (Recommended)"; the PR "then lands only after a separate owner merge
   decision, as a merge commit."
