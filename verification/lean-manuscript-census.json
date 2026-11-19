@@ -1713,6 +1713,15 @@
       "note": "Research-only mathematical bridge: arbitrary hidden carrier, event partition identity, measured conditional transition as off-diagonal joint-cell mass / positive finite initial-cell mass, identity rooted return iff zero measure of observable changes, and finite visible stochastic-inverse obstruction. Proof-level statuses depend on exact-head Mathlib build. Does not establish all-L Fourier result, complete operational QM, gauge action or physics. PR #1009, issue #1007."
     },
     {
+      "name": "A1-RIGID-1 measured observable recurrence and rooted P-indivisibility",
+      "modules": [
+        "ObservableRigidity"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Research formalization of the conditional paper proof preserved by #1396. A bimeasurable bijection preserving one probability, a finite positive-mass readout and compact closure of its joint L² indicator orbit give simultaneous near-returns with model- and tolerance-dependent bounded gaps. Earlier rooted overlap and the strict diagonal-deficit bound give total-variation revival and P-indivisibility on a later finite horizon. Includes the shared product-prior identity and matrix controls. Physical law selection and laboratory access to the witness horizon require separate evidence."
+    },
+    {
       "name": "SUBSTATE-1 pure-gradient gauge link negative control and two-slice inverse",
       "modules": [
         "GradientLinkFlatness"
