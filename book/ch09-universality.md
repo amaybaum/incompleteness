@@ -163,9 +163,9 @@ The empirical record at Tier 3 summarizes as follows.
 |-------------------|-----------------|----------------|
 | Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$ | $0.04\%$ | Ch 6 §6.5 |
 | Koide relation $Q = 2/3$ | $<0.001\%$ | Ch 6 §6.5 |
-| $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ | $0.07\sigma$ from post-JUNO global fit | Ch 8 §8.6 |
-| $\sin^2\theta_{13} = 4/(18\pi^2)$ | $1.01\sigma$ from NuFIT 6.0 | Ch 8 §8.6 |
-| $\sin^2\theta_{23} = 1/2 + 1/(2\pi^2)$ | $0.74\sigma$ from NuFIT 6.0 | Ch 8 §8.6 |
+| Leading $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ | $0.07\sigma$ from post-JUNO global fit | Ch 8 §8.6 |
+| Leading $\sin^2\theta_{13} = 4/(18\pi^2)$ | $1.01\sigma$ from NuFIT 6.0 | Ch 8 §8.6 |
+| Leading $\sin^2\theta_{23} = 1/2 + 1/(2\pi^2)$ | $0.74\sigma$ from NuFIT 6.0 | Ch 8 §8.6 |
 | Leading sum $2\sin^2\theta_{12}+\sin^2\theta_{23}=7/6+O(\lambda^3)$ on Condition 2 | Upper-octant combination, about $0.6\sigma$ | Ch 8 §8.6 |
 | Three gauge couplings at $M_Z$ | Fitted; zero residual by construction | Ch 6 §6.4 |
 | MOND interpolation "simple" function | Conditional comparison; transition kernel open | Ch 7 §7.9 |
