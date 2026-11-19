@@ -1,7 +1,9 @@
 # G3-HOM: the homogeneous sector of the native source
 
 **Standing.** Author record of a paper-only gem-finding unit (AGENTS.md §A.31, depth-first form).
-WIP / UNVERIFIED: no independent review yet. It adopts no premise and edits no manuscript, Lean
+WIP / UNVERIFIED. Independent non-author review: REVISE (text only) at `46056261`
+([#1430 c.7025180852](https://github.com/amaybaum/incompleteness/pull/1430#issuecomment-7025180852)).
+This revision answers F1–F7, F2b and the nits. It adopts no premise and edits no manuscript, Lean
 module or registry. Three small check scripts under `checks/` are controls and probes (§7).
 
 - **Authorization.** Owner `amaybaum`, P3 row of
@@ -33,21 +35,27 @@ Units ħ = c = k_B = 1 in the derivations unless stated.
 
 **Productivity verdict: (ii), a scoped obstruction.** The corpus fixes the horizon attribution only
 on exact de Sitter, where every candidate rule gives ρ = 3H²/(8πG) and w = −1 with coefficient 1
-(σ and ε cancel). Three completions agree on all exact-de-Sitter data, and so on every GR
-retrodiction. Off de Sitter they give respectively no dynamics, a w = 0 tracker, and a definite
-event-horizon law w = −1/3 − (2/3)√Ω_de. The irreducible missing physical input is therefore the
-**off-de-Sitter extension of the horizon energy functional**: the surface that carries it (event or
-apparent horizon) and its temperature on a non-Killing horizon, together with the exchange law
-between the attributed component and matter. A native conserved energy–momentum for the traced
-sector on a non-stationary cut would supply both. It is W1-0 with its stress, and it is not on
-`main`. No candidate is a native derivation, so (i) is not met.
+(σ and ε cancel). The candidate completions agree on all exact-de-Sitter data, and so on every GR
+retrodiction stated on the exact-de-Sitter calibration (3.3). They do not all agree on a₀ = cH/6
+evaluated today: under the record's own temperature link its z = 0 value moves by −0.06 to
+−0.11 dex (3.4). Off de Sitter the completions give respectively no dynamics (R1), a w = 0 tracker
+(R2) and a definite event-horizon law w = −1/3 − (2/3)√Ω_de (R3). The counterexample rests on R2
+against R3 (Node 4). Within the family ρ = λS·T/V spread uniformly over the volume, the missing
+physical input is therefore the **off-de-Sitter extension of the horizon energy functional**: the
+surface that carries it (event or apparent horizon) and its temperature on a non-Killing horizon,
+together with the exchange law between the attributed component and matter. The candidate upstream
+input is a native conserved energy–momentum for the traced sector on a non-stationary cut, which is
+W1-0 with its stress, together with a native choice of its density (1.3). It would replace the
+horizon attribution rather than supply its temperature, and it is not on `main`. No candidate is a
+native derivation, so (i) is not met.
 
 **W1-0 verdict: narrowed, not closed.** The traced corpus after A1-07 does not change A1-07's
 SOURCE GAP. This unit's exact probe finds that on the RD6 rule class (d = 1, q = 2, α = 1) the
 real-lift quadratic, evaluated as an integer on binary configurations, is exactly conserved. It is
-the sum of left- and right-mover counts. That supplies the conserved real quantity A1-07 left
-open at RD6. It does not supply the first-law identification, and on RD6 every bond carrying this
-energy crosses the cut. The integer conservation fails for q = 3 and for d = 2, 3.
+the sum of left- and right-mover counts. That supplies a conserved real quantity at RD6. It does
+not supply what A1-07 requires of it, a physical real energy: there is no first-law
+identification, and on RD6 every bond carrying this energy crosses the cut. The integer
+conservation fails for q = 3, and for d = 2, 3 at L ≥ 3.
 
 ## Node 1 — W1-0: a conserved real energy on the declared cut
 
@@ -84,7 +92,8 @@ E_h and D = (P_F − I)M. Ranks are exact, by Bareiss elimination of the integer
 number) at w = 2. Lattice translation conserves every additive quantity. A seeded random bijection
 of the same configuration set has none. F is a bijection on each probed ring.
 
-*Measured.* The counts are stable in L:
+*Measured.* The counts are stable in L over the ranges tested. (The reviewer's independent
+recomputation found that at w = 4 the count depends on L, from wrap-around at small L.)
 
 | q | w = 1 | w = 2 | w = 3 |
 |---|---|---|---|
@@ -93,7 +102,10 @@ of the same configuration set has none. F is a bijection on each probed ring.
 
 *Identification (derived, then checked).* In d = 1 with α = 1 the update is the discrete
 d'Alembert equation x(t+1, i) + x(t−1, i) = x(t, i−1) + x(t, i+1). Its solutions are
-x(t, i) = f(i+t) + g(i−t) over ℤ/q. Hence a_i = v_{i+1} − u_i is transported rigidly to the left
+x(t, i) = f(i+t) + g(i−t). Over 𝔽₂ this decomposition into two travelling-wave directions is
+already proved on `main` as Lemma 1 of
+`verification/audits/physical-realization/ct3-r2b-q2-period-and-cycles.md` (:32). Over ℤ/q the
+same substitution checks it directly. Hence a_i = v_{i+1} − u_i is transported rigidly to the left
 (a ↦ a shifted by one site per step), and b_i = u_{i+1} − v_i is transported to the right. Any
 additive function of the a-pattern or of the b-pattern is conserved. At q = 2, w = 2 these are
 N_L = Σ_i [u_i ⊕ v_{i+1}] and N_R = Σ_i [u_{i+1} ⊕ v_i]. They are independent, which accounts for
@@ -104,25 +116,33 @@ w = 2 the counts of a_i = 1, a_i = 2, b_i = 1 and b_i = 2 account for the 4. For
   2 E(u, v) = Σ_i [(u_i − v_{i+1})² + (u_{i+1} − v_i)²] = N_L + N_R,
 
 where E = u·u + v·v − u·Av is SM's quadratic, evaluated as an integer on the representatives 0, 1.
-`binary_energy_checks.py` verifies this identity and the separate conservation of N_L and N_R
+The first equality holds over ℤ for all integer u, v. Since the a- and b-patterns shift rigidly,
+the identity and the conservation hold for every L ≥ 3. `binary_energy_checks.py` verifies both
 exhaustively for L = 3–10. Reversal (u, v) ↦ (v, u) exchanges N_L and N_R. So E is the unique
 reversal-even additive conserved quantity at w = 2, up to affine change, while N_L − N_R is
 reversal-odd. At w ≥ 3 the reversal-even family grows.
 
 *Countercontrols.* E evaluated as an integer is not conserved for d = 1, q = 3 at L = 5. The
 witness is u = 0, v = (0,0,2,0,2), with E going 8 → 5. It is not conserved for d = 2, q = 2 at
-L = 3 (exhaustive) or for d = 3, q = 2 at L = 3, 4 (sparse search). Each step still conserves E
-modulo q, the internal check that SM:296 states.
+L = 3 (exhaustive) or for d = 3, q = 2 at L = 3, 4 (sparse search). These are statements about
+L ≥ 3: at L = 2, q = 2, Av ≡ 0 in any d, F is the swap, and E as an integer is conserved trivially.
+On every configuration visited, the script also checks conservation of E modulo q, which SM:296
+proves for symmetric A. That check is not vacuous: its countercontrol, the asymmetric coupling
+(Av)_i = v_{i+1} at d = 1, q = 2, L = 3, violates it, and the script must find that violation.
 
 Verdict 1.2: at RD6 a conserved, real, additive, reversal-even quantity exists. It is SM's real-lift
-quadratic restricted to binary configurations, which gives A1-07's missing "independent
-conservation statement for a real energy on the binary update" at that cut. The mechanism is
-special to d = 1: the rule is free transport of non-interacting movers. Its energy shells carry
+quadratic restricted to binary configurations. A1-07 asks for "a map or independent conservation
+statement for a physical real energy on the binary update". This supplies the conservation
+statement and the map (the inclusion of the representatives 0, 1). It does not establish that the
+quantity is physical energy. The mechanism is special to d = 1: the rule is free transport of
+non-interacting movers, whose structure is ct3 Lemma 1. Its energy shells carry
 extensively many further local invariants (the full a- and b-patterns up to translation), so the
 shell is not thermal in the sense H-count uses. The integer conservation does not extend to q = 3 or
 to d ≥ 2, so nothing here transfers to the d = 3 cosmological class. Whether that class has any
-real additive conserved quantity was not probed. NEW (at its scope). Finding for routing: SM:292's
-"only modulo q" fails for d = 1, q = 2, α = 1. SM's conclusion in that paragraph, that no required
+real additive conserved quantity was not probed. NEW, at its scope: the additive invariants N_L and
+N_R, the integer identity for E, and the uniqueness of the reversal-even quantity at w = 2. The
+mover structure itself is ct3 Lemma 1. Finding for routing: SM:292's "only modulo q" fails for
+d = 1, q = 2, α = 1 at every L ≥ 3. SM's conclusion in that paragraph, that no required
 real positive-definite energy is supplied, is unaffected: E is positive semidefinite there with null
 patterns, and the dynamics is integrable.
 
@@ -132,7 +152,8 @@ four bonds are (0,1) and (3,0) between V and B, and (1,2) and (2,3) between B an
 on cut-crossing bonds. An additive density is defined only up to a lattice divergence
 (h → h + g∘T − g), and a divergence moves energy between sites without changing the total. So the
 split of the conserved total into visible, boundary and deep energies is a choice that conservation
-does not fix. H-count's "negligible boundary interaction" (GR:58) fails maximally at this cut. This
+does not fix. H-count's "negligible boundary interaction" (GR:58) fails at this cut: none of the
+energy sits on bonds within one region. This
 is the lattice counterpart of G3-CF's flat-space ambiguity
 (∂_μ∂_ν − η_μν□)f, which changes the local tensor and not the integrated energy. NEW.
 
@@ -151,10 +172,10 @@ fit.
 | # | Rule | Source | Native / imported / posited | Implied w(z) | Λ_eff | ν |
 |---|---|---|---|---|---|---|
 | R1 | E = S·T on the apparent horizon R_A = 1/H with T = H/2π; ρ = E/V | GR §7.2 (GR:422–438) | First-law normalization imported (Gibbons–Hawking area law; Jacobson); count conditional on H-count; attribution posited (GR:438) | None: ρ = 3H²/(8πG) for every H(t) (2.1) | Not fixed | Read as vacuum, ν = 1 |
-| R2 | E = S·T_A on R_A with the Kodama–Hayward T_A = (H/2π)(1 + Ḣ/2H²) | GR:56 supplies T_A; the combination is this unit's variant | Posited | As total: none. As a separately conserved component: w = (1 − 4Ω)/(3Ω), tracking to Ω = 1/4, w = 0 in matter domination (2.2) | Not fixed | ν = 1 with an Ḣ term ½ |
+| R2 | E = S·T_A on R_A with the Kodama–Hayward T_A = (H/2π)\|1 + Ḣ/2H²\| | GR:56 supplies T_A; the combination is this unit's variant | Posited | As a derived function of the total (ρ, p): none. Equated with the total: forces Ḣ = 0. As a separately conserved component: w = (1 − 4Ω)/(3Ω), tracking to Ω = 1/4, w = 0 in matter domination (2.2) | Not fixed | ν = 1 with an Ḣ term ½ |
 | R3 | E = S·T on the event horizon R_E = a∫_t^∞dt′/a with T = 1/(2πR_E) | Li, Phys. Lett. B 603, 1 (2004), hep-th/0403127, with c = 1 | Imported; T at a non-Killing horizon posited; separate conservation posited | w = −1/3 − (2/3)√Ω_de(z) (2.3) | No constant; asymptotically de Sitter at a rate set by the solution | Not H-local; local slope ν_eff ≈ 0.20 at z = 0 |
 | R3′ | As R3 with E = ∫T dS = 2S·T, or Padmanabhan's ½N T with N = 4S | Padmanabhan, Rep. Prog. Phys. 73, 046901 (2010), arXiv:0911.5004 | Imported | Read as ρV: c² = 2, w0 = −0.725; fails the exact-de-Sitter control (3.3) | — | — |
-| R4 | Local Rindler δQ = T dS, with heat = matter flux T_ab k^a k^b | Jacobson, PRL 75, 1260 (1995), gr-qc/9504004, eq. (6) | Imported (gravity side) | The matter's own | Integration constant | Not defined |
+| R4 | Local Rindler δQ = T dS, with heat = matter flux T_ab k^a k^b | Jacobson, PRL 75, 1260 (1995), gr-qc/9504004: heat flux eq. (2), Λ as integration constant eq. (6) | Imported (gravity side) | The matter's own | Integration constant | Not defined |
 | R5 | Apparent-horizon first law −dE = T dS | Cai and Kim, JHEP 02 (2005) 050, hep-th/0501055; Akbar and Cai, PRD 75, 084003 (2007), hep-th/0609128 | Imported (gravity side) | The matter's own; R1 is its integrated form (2.1) | Integration constant | Not defined |
 | R6 | Holographic equipartition dV/dt = L_p²(N_sur − N_bulk), N_bulk = −2E_Komar/T | Padmanabhan, arXiv:1206.4916 | Imported (gravity side) | Expansion law for supplied (ρ, p); N_sur = N_bulk holds exactly in de Sitter | Any H_∞ | 0 |
 | R7 | Bound L³ρ ≲ L/G | Cohen, Kaplan and Nelson, PRL 82, 4971 (1999), hep-th/9803132 | Imported | An inequality; saturation with L = R_A gives R1 and with L = R_E gives R3 | — | — |
@@ -177,14 +198,19 @@ running-vacuum density it has ν = 1 (check A5). Read as a vacuum component besi
 Ω_tot = 1 + Ω_B > 1 in flat FLRW, which contradicts the supplied Ω_B > 0. R1 is therefore the
 total density restated, as GR §7.2 states it ("normalization").
 
-**2.2 R2, GR's own dynamical temperature, gives a matter-era tracker.** With T_A,
-ρ_A = S·T_A/V_A = 3(H² + Ḣ/2)/(8πG) = (ρ_tot − 3p_tot)/4 (check A6). Read as the total, this is an
-identity like R1. Read as a separately conserved component beside conserved matter,
+**2.2 R2, GR's own dynamical temperature, gives a matter-era tracker.** GR:56 gives
+T_A = (H/2π)|1 + Ḣ/(2H²)|. For w_tot ≤ 1/3 the bracket is non-negative, and on that domain
+ρ_A = S·T_A/V_A = 3(H² + Ḣ/2)/(8πG) = (ρ_tot − 3p_tot)/4 (check A6). Read as a derived function of
+the total (ρ, p), and not as a separately conserved component, it constrains no expansion history,
+so it has no dynamics. Equated with the total density instead, Friedmann forces Ḣ = 0: de Sitter
+only, which contradicts Ω_B > 0 as R1 read as a vacuum component does. Read as a separately
+conserved component beside conserved matter,
 Ω = (1 − 3wΩ)/4 gives w = (1 − 4Ω)/(3Ω) and dΩ/d ln a = (1 − Ω)(4Ω − 1) (check A7). Ω = 1/4 is the
 past attractor in matter domination, where w = 0. The component then becomes a smooth
 non-clustering dust making up a quarter of the density. This reproduces Hsu's w = 0 result for
 Hubble-scale holographic energy (Phys. Lett. B 594, 13 (2004), hep-th/0403052), which Hsu
-describes as strongly disfavoured. A quantitative confrontation of this variant was not performed.
+describes as strongly disfavoured. The new element is only that GR's own T_A, used in GR's §7.2
+rule, gives it. A quantitative confrontation of this variant was not performed.
 
 **2.3 R3, the event horizon, gives definite dynamics.** From Ṙ_E = HR_E − 1 and
 ρ = 3/(8πG R_E²), ρ̇ = −2ρ(H − 1/R_E). Conservation then gives w = −1/3 − 2/(3HR_E), and
@@ -226,9 +252,10 @@ violates the constraint, so R1 counts the total twice. R3 can serve as T^ref wit
 P-sep makes it separately conserved. That conservation is posited, not derived.
 
 **3.2 ρ = ρ_crit at every H.** R1 satisfies both Friedmann equations for an arbitrary history (2.1).
-Under the assignment's rule it is classified as **no dynamics**, and so is R2 read as the total.
+Under the assignment's rule it is classified as **no dynamics**. So is R2 read as a derived
+function of the total (ρ, p) (2.2).
 
-**3.3 GR's existing retrodictions, preserved and not refitted.** On exact de Sitter, Ḣ = 0 and
+**3.3 GR's retrodictions on the exact-de-Sitter calibration, preserved and not refitted.** On exact de Sitter, Ḣ = 0 and
 R_E = R_A = 1/H, so R1, R2 and R3 coincide (ρ = 3H²/(8πG), w = −1). For R3, Ω_de = 1 gives w = −1.
 The family E = λS·T with T = 1/(2πR) gives ρ = 3λ/(8πG R²). Exact de Sitter with the attributed
 component as the only one requires λ = 1. E = ∫T dS (= 2S·T for S ∝ R², T ∝ 1/R) and Padmanabhan's
@@ -240,8 +267,9 @@ an attribution. The following are all stated on the exact-de-Sitter calibration,
 - ρ_QFT/ρ_cl ~ S_dS (GR §6.3);
 - ρ_s/ρ_crit = 2/(d − 1) (GR:440).
 
-No parameter was refitted. The same fact means the retrodictions cannot discriminate between the
-candidates.
+No parameter was refitted. The same fact means these retrodictions cannot discriminate between the
+candidates. a₀ = cH/6 (GR §7.3) is not in this list: it is evaluated at today's H₀ off exact de
+Sitter, and 3.4 gives its offset under each candidate temperature.
 
 **3.4 Event horizon against Hubble horizon.** GR:56 separates the causal event horizon from the
 apparent horizon whose area the calibration uses. In flat ΛCDM with Ω_m = 0.31 (supplied
@@ -250,9 +278,20 @@ exact-de-Sitter normalization it separates no dynamics (R1) from definite dynami
 
 *Assumption-watch marker (cross-propagation).* §7.3's a_0 = cH/6 uses the de Sitter temperature
 H/2π. If the off-de-Sitter temperature belongs to the event horizon (P-T), the scaling becomes
-a_0 ∝ 1/R_E. In the same illustrative ΛCDM background the two scalings differ by +0.17 dex at z = 1
-and +0.31 dex at z = 2. The latter is comparable to G3-SCOPE's 0.48 dex sensitivity scale for
-BTFR-z (U2), whose preregistration would need to state which temperature it tests.
+a_0 ∝ 1/R_E. Its z = 0 value then moves as well:
+- by 1/(H_0R_E0) under P-T: −0.059 dex in the ΛCDM background, −0.081 dex in R3's own background
+  at Ω_de0 = 0.69;
+- by T_A/(H/2π) = 0.7675 under R2's temperature (ΛCDM, Ω_m = 0.31): −0.115 dex.
+
+The independent review notes that these offsets lie within a ±0.24 dex systematic on g†; this
+record has not checked that figure. The offsets do not affect the counterexample, which is stated
+off de Sitter. Normalized at z = 0, the Hubble and event-horizon scalings differ by +0.17 dex
+at z = 1 and +0.31 dex at z = 2 in the same ΛCDM background. The latter is comparable to
+G3-SCOPE's 0.48 dex sensitivity scale for BTFR-z (U2), whose preregistration would need to state
+which temperature it tests. Related unreviewed work: the BTFR-z record on draft PR #1429 (head
+`9b1d609f`, WIP / UNVERIFIED) reports the Hubble-horizon scaling a₀(z) ∝ H(z) in tension with the
+KMOS³D sample at its stated scope. Its amendment 1 scopes that test to the de Sitter temperature on
+the Hubble horizon. This record's conclusions do not depend on it.
 
 ## Node 4 — the obstruction
 
@@ -264,17 +303,27 @@ BTFR-z (U2), whose preregistration would need to state which temperature it test
 - the supplied Friedmann scale;
 - G3-CF's conditional field equation.
 
-For an attribution ρ = E[S, T]/V on a horizon surface, these inputs fix the coefficient on exact
-de Sitter (λ = 1) and nothing off it. R1, R2 and R3 each satisfy every listed input and every
-exact-de-Sitter consequence. Off de Sitter they give respectively an identity with no equation of
-state, a w = 0 matter-era tracker, and w = −1/3 − (2/3)√Ω_de. So w(z) and Λ_eff are not determined
-by the corpus. This is the counterexample category of G3-SCOPE's rule.
+For an attribution ρ = λS·T/V on a horizon surface, spread uniformly over the volume, these inputs
+fix the coefficient on exact de Sitter (λ = 1) and nothing off it. The counterexample rests on R2
+against R3. R2 uses GR:56's own apparent-horizon temperature T_A. R3 uses the event horizon, whose
+off-de-Sitter temperature GR:56 does not supply, so R3 contradicts no listed input. Both satisfy
+every listed input and every exact-de-Sitter consequence. Off de Sitter, R2 gives a w = 0
+matter-era tracker as a separate component and R3 gives w = −1/3 − (2/3)√Ω_de. So w(z) and Λ_eff
+are not determined by the corpus. This is the counterexample category of G3-SCOPE's rule. R1 is
+excluded from the pair: off de Sitter it puts T = H/2π on R_A, and GR:56 states that T_A, not H/2π,
+is the apparent-horizon temperature there.
 
-*Missing input.* Supplying the surface, its off-de-Sitter temperature and the exchange law fixes
-w(z) in each case above, and the triple shows that the remaining inputs do not fix them. Upstream,
-all three would follow from a native conserved energy–momentum of the traced sector on a
-non-stationary cut, that is W1-0 together with its stress. Node 1 shows that even where a native
-conserved real energy exists (RD6), conservation does not fix its regional attribution across the
+*Missing input.* Within the λS·T family with uniform spreading, supplying the surface, its
+off-de-Sitter temperature and the exchange law fixes w(z) in each case above. The pair shows that
+the remaining inputs do not fix them, so each of the three is needed. Sufficiency outside that
+family is not shown: the spreading (P-vol) and the functional form E[S, T] off the curve
+ST² = 1/(4πG) also vary, and R2's E[S, T] is already off that curve. "Irreducible" is claimed only
+within the family. The candidate upstream input is a native conserved energy–momentum of the traced
+sector on a non-stationary cut, that is W1-0 together with its stress. Such a stress would make the
+horizon attribution unnecessary rather than supply its temperature. By 1.3 it would itself need a
+native choice of density and current, because a conserved density is defined only up to a
+divergence (or, in the continuum, an improvement term). Node 1 shows this at RD6: a native
+conserved real energy exists, and conservation does not fix its regional attribution across the
 cut. The attribution input is thus needed at the micro level too, not only at the horizon. The
 smallest decisive next step is a native law for that energy's density and current on a cut, in a
 class (d = 3) where the energy is conserved.
@@ -292,16 +341,18 @@ was pressed on five points:
   at the measured level (§A.24), as in G3-SCOPE's U3.
 
 **Classification of findings (§A.31).**
-- NEW: 1.2 (an exact real conserved quantity at RD6, its mover structure and its failure for
-  q = 3 and d ≥ 2); 1.3 (all RD6 energy on cut-crossing bonds; attribution defined only up to a
-  divergence); 2.2 (GR:56's T_A in the §7.2 rule gives a w = 0 tracker); 3.3 (the exact-de-Sitter
-  control fixes λ = 1 and makes every retrodiction blind to the attribution); Node 4.
-- ELABORATING: 2.1 (R1 identified as the Misner–Sharp form of the Friedmann constraint); 2.3 (Li
-  with c = 1 and ν_eff); the a_0 marker.
+- NEW: 1.2 (the additive invariants N_L and N_R at RD6, the integer identity for E, the uniqueness
+  of the reversal-even quantity at w = 2, and its failure for q = 3 and for d ≥ 2 at L ≥ 3; the
+  mover structure is ct3 Lemma 1); 1.3 (all RD6 energy on cut-crossing bonds; attribution defined
+  only up to a divergence); 3.3 (the exact-de-Sitter control fixes λ = 1 and makes every
+  retrodiction stated on that calibration blind to the attribution); Node 4.
+- ELABORATING: 2.1 (R1 identified as the Misner–Sharp form of the Friedmann constraint); 2.2 (it
+  reproduces Hsu's w = 0; the only new element is that GR:56's T_A in the §7.2 rule gives it); 2.3
+  (Li with c = 1 and ν_eff); the a_0 marker and its z = 0 offsets.
 - CONFIRMING: 1.1.
 
 **Findings for routing (no edits made).**
-- SM:292, "conserves E below only modulo q", fails for d = 1, q = 2, α = 1 (1.2).
+- SM:292, "conserves E below only modulo q", fails for d = 1, q = 2, α = 1 at every L ≥ 3 (1.2).
 - GR:691 against GR:398–402: the only dynamical attribution found is not near-null (supports P4
   GR-PRED-1).
 - U2 BTFR-z should name the off-de-Sitter temperature it tests (3.4).
@@ -314,8 +365,8 @@ Python 3 with NumPy:
 | Command | Expected result |
 |---|---|
 | `python3 -I local_conservation_probe.py` | Exit 0; `CONTROLS GREEN`; RD6 has 70 cycles; the `MEASURED` lines give the counts of the table in 1.2 |
-| `python3 -I binary_energy_checks.py` | Exit 0; every check passes, including the d = 1, q = 3 witness u = 0, v = (0,0,2,0,2), E: 8 → 5 |
-| `python3 -I attribution_checks.py` | Exit 0; checks A1–A9 pass; event-horizon w(z) values, H_0R_E0 = 1.20386 by quadrature and closed form, ν_eff = 0.2008, and the ΛCDM horizon numbers of 3.4 |
+| `python3 -I binary_energy_checks.py` | Exit 0; every check passes, including the d = 1, q = 3 witness u = 0, v = (0,0,2,0,2), E: 8 → 5, the modulo-q conservation check on every visited configuration, and its asymmetric-coupling countercontrol, which must violate it |
+| `python3 -I attribution_checks.py` | Exit 0; checks A1–A9 pass; event-horizon w(z) values, H_0R_E0 = 1.20386 by quadrature and closed form, ν_eff = 0.2008, the ΛCDM horizon numbers of 3.4 and the z = 0 a₀ offsets −0.059, −0.081 and −0.115 dex |
 
 Check labels A1–A9 in the text refer to the nine exact-identity checks of `attribution_checks.py`,
 in order. The exact checks use integer or Fraction arithmetic, and Fraction checks evaluate each
@@ -330,4 +381,7 @@ illustrations at supplied Ω values.
 | #1169 c.7023834853; #873 c.7022640763 | Governance and planning provenance |
 | G3-CF, A1-07 and the node 1.1 records; GR, SM lines at the snapshot | Support on `main` at the snapshot |
 | #1379, #1328 | Provenance; their records are on `main` |
+| `verification/audits/physical-realization/ct3-r2b-q2-period-and-cycles.md` Lemma 1 | Support on `main` for the mover structure in 1.2 |
+| Review [#1430 c.7025180852](https://github.com/amaybaum/incompleteness/pull/1430#issuecomment-7025180852) | Provenance for the w = 4 observation and the a₀ offset figures, both recomputed here |
+| PR #1429 (BTFR-z, head `9b1d609f`, draft, off `main`) | Provenance only: related unreviewed work cited in 3.4; no conclusion here uses it |
 | External literature (Gibbons and Hawking, PRD 15, 2738 (1977); Jacobson; Cai–Kim; Akbar–Cai; Hayward; Misner–Sharp; Padmanabhan; Cohen–Kaplan–Nelson; Li; Hsu; Wang–Gong–Abdalla; Hattori–Takesue) | Cited for the forms of imported rules and their reported properties; each use is stated where it is made |

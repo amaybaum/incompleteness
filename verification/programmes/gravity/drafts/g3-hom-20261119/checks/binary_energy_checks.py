@@ -16,6 +16,9 @@ Checks (all exact integer arithmetic):
      search for a witness), for d=2, q=2 at L=3 (exhaustive) and for d=3, q=2 at
      L=3, 4 (exhaustive over u = 0 and v supported on at most three sites).
      Each reports the first witness found.
+  5. On every configuration visited in 4, E is conserved modulo q (SM:296, symmetric A).
+     Countercontrol: the asymmetric coupling (Av)_i = v_{i+1} at d=1, q=2, L=3 must violate
+     it (exhaustive), so the modular check is not vacuous.
 Run:  python3 -I binary_energy_checks.py   (exit status 0 iff every check holds)
 """
 
@@ -86,24 +89,41 @@ def main():
             for S in combinations(range(n), k):
                 yield tuple([0] * n) + tuple(1 if i in S else 0 for i in range(n))
 
-    def witness(L, d, q, exhaustive):
-        n, nbrs = torus(L, d)
-        gen = product(range(q), repeat=2 * n) if exhaustive else sparse(n)
+    def scan(n, nbrs, q, gen):
+        """Visit configurations; return (first integer witness, first modular violation).
+
+        The modular test runs on every visited configuration, before and independently of
+        the integer test, so a modular violation cannot be masked by an integer witness."""
+        int_w = mod_w = None
         for bits in gen:
             u, v = bits[:n], bits[n:]
             u2, v2 = step(u, v, nbrs, q)
             e1, e2 = E_int(u, v, nbrs), E_int(u2, v2, nbrs)
-            if e1 != e2:
-                return (u, v, e1, e2)
-            if (e1 - e2) % q:
-                return ("modular violation", u, v)
-        return None
+            if mod_w is None and (e1 - e2) % q:
+                mod_w = (u, v, e1, e2)
+            if int_w is None and e1 != e2:
+                int_w = (u, v, e1, e2)
+        return int_w, mod_w
 
     for (L, d, q, ex) in [(5, 1, 3, True), (3, 2, 2, True), (3, 3, 2, False), (4, 3, 2, False)]:
-        w = witness(L, d, q, ex)
-        print(f"d={d} q={q} L={L}: witness of non-conservation over Z = {w}")
+        n, nbrs = torus(L, d)
+        gen = product(range(q), repeat=2 * n) if ex else sparse(n)
+        int_w, mod_w = scan(n, nbrs, q, gen)
+        print(f"d={d} q={q} L={L}: witness of non-conservation over Z = {int_w}")
         check(f"countercontrol d={d}, q={q}, L={L}: E_int not conserved over Z (witness found)",
-              w is not None and w[0] != "modular violation")
+              int_w is not None)
+        check(f"d={d}, q={q}, L={L}: E conserved modulo q on every visited configuration (SM:296)",
+              mod_w is None)
+
+    # Countercontrol for the modular check: an asymmetric coupling (Av)_i = v_{i+1}, which is
+    # outside SM's symmetric-A hypothesis, must violate modular conservation somewhere.
+    L, q = 3, 2
+    nbrs_asym = [[(i + 1) % L] for i in range(L)]
+    _, mod_w = scan(L, nbrs_asym, q, product(range(q), repeat=2 * L))
+    print(f"asymmetric coupling d=1, q=2, L=3: modular violation = {mod_w}")
+    check("countercontrol: the modular check fires for an asymmetric coupling (d=1, q=2, L=3, exhaustive)",
+          mod_w is not None)
+
     ok = all(o for _, o in RESULTS)
     print("ALL CHECKS", "PASS" if ok else "FAIL")
     sys.exit(0 if ok else 1)

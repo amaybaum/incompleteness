@@ -163,6 +163,7 @@ def li_numerics():
             dlnH2 = -3 * (1 + w0 * Om0)
             nu_eff = Om0 + dOm / dlnH2
             print(f"Event-horizon rule c^2=1: local slope nu_eff = d(rho)/d(3H^2/8piG) at z=0 = {nu_eff:.4f}")
+            print(f"a0 offset at z=0 under P-T in the R3 background: log10(1/(H0 R_E0)) = {math.log10(1/num):+.4f} dex")
     return rows
 
 
@@ -183,6 +184,12 @@ def lcdm_horizons():
         return s * h
     RE0 = chiE(1.0)
     print(f"LCDM (Om=0.31): H0 R_E0 = {RE0:.4f} (apparent horizon H0 R_A = 1)")
+    # a0 = cH/6 at z=0 under the two off-de-Sitter temperatures (illustration):
+    #   event horizon (P-T): T ~ 1/(2 pi R_E) -> factor 1/(H0 R_E0);
+    #   Kodama-Hayward (R2): T_A/(H/2pi) = |1 + Hdot/(2H^2)| = |1 - (3/4) Om| for flat LCDM today.
+    kod = abs(1 - 0.75 * Om)
+    print(f"a0 offset at z=0 under P-T in LCDM: {math.log10(1/RE0):+.4f} dex; "
+          f"under T_A (factor {kod:.4f}): {math.log10(kod):+.4f} dex")
     for z in (1.0, 2.0):
         a = 1 / (1 + z)
         REz = a * chiE(a)
