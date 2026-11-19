@@ -8930,10 +8930,8 @@ check("F71", ok71,
       "manuscript change; the open redundancy of the inverse clause and the minimal repertoire "
       "are untouched.")
 
-# F72 -- ROUND 62: SUBSTRATUM/IMPLEMENTATION INTERFACE AND THE PERMUTATION-ONLY NO-GO -- the
-# observable operators of bijective and phase interventions are monomial; a monomial source has
-# no control and is not QM, because a genuine two-state rotation is not monomial (phase three,
-# round sixty-two).
+# F72 -- ROUND 62: monomial operators in the stated interface, and the rotation witness
+# for the conditional MonomialSource obstruction on Fin 2.
 ok72 = True
 def _ismono72(K):
     """One nonzero entry per row and per column."""
@@ -8964,7 +8962,7 @@ ok72 &= not _ismono72(_R72)                                          # first row
 # diagonal-preserving (monomial-generated) source can realize it.
 _c72 = conjby52(_R72, [[CO17, CZ17], [CZ17, CZ17]])
 ok72 &= _c72[0][1] != CZ17
-# --- (c) a monomial matrix, contrasted: permutation times diagonal has one nonzero per row.
+# --- (c) this permutation times a diagonal with nonzero weights has one nonzero per row and column.
 _PD72 = mmc17(_swap72, _phase72)
 ok72 &= _ismono72(_PD72)
 # --- (d) the kernel's claim discipline, read back.
@@ -8979,34 +8977,24 @@ if os.path.exists(_si72):
     ok72 &= 'sorry' not in _si_txt72
     ok72 &= 'does not compute a matrix exponential' in _si_txt72
 check("F72", ok72,
-      "ROUND 62: SUBSTRATUM/IMPLEMENTATION INTERFACE AND THE PERMUTATION-ONLY NO-GO (phase three, "
+      "ROUND 62: SUBSTRATUM/IMPLEMENTATION INTERFACE AND THE CONDITIONAL NO-GO (phase three, "
       "round sixty-two; kernel: OIBridge/SubstratumInterface.lean, 12 results -- monomial_permMatrix, "
       "monomial_diagonal, bijectiveOperator_monomial, phaseOperator_monomial, exchange_monomial, "
       "phase_monomial, monomial_entry, preservesDiag_conj_of_monomial, rot_not_monomial, "
-      "monomialSource_not_control, monomialSource_not_qm, elementary_split). THE INTERFACE: the "
-      "concrete substratum starts from finite states, bijective dynamics (A2) and a phase "
-      "structure; its two direct intervention kinds have observable operators that are a "
-      "permutation matrix (bijectiveOperator) and a diagonal phase (phaseOperator), both MONOMIAL "
-      "-- one nonzero per row and column, in the factored form permMatrix sigma times diagonal d. "
-      "The interface keeps this separate from admissibility: it records which operators the "
-      "interventions supply, not that every desired matrix has one. THE MONOMIAL INVARIANT: a "
-      "monomial conjugation preserves diagonal matrices (a permutation relabels the diagonal, a "
-      "phase fixes it), so a monomial-only source generates only diagonal-preserving conjugations. "
-      "THE NO-GO: the rational two-state rotation rot -- a value of the flow of a real off-diagonal "
-      "generator, every entry nonzero -- is not monomial, its first row already carrying two "
-      "nonzeros; hence a theory whose available composite conjugations are all monomial has no "
-      "composite unitary control and is not finite operational QM. So finite bijective dynamics "
-      "alone does not supply elementary drivability or operational QM: the exchanges (bijective) "
-      "and the phases (phase structure) are monomial and supplied, but the continuously driven "
-      "off-diagonal transition, whose flow values are not monomial, is not. Verified exactly here: "
-      "the exchange and phase as monomial unitaries, monomial conjugations keeping a diagonal "
-      "diagonal, the rotation as a unitary with every entry nonzero that is not monomial and "
-      "creates coherence from a basis projector, a permutation-times-diagonal as monomial, and the "
-      "kernel text read back. NOT CLAIMED, lint-guarded: no matrix exponential is computed (rot is "
-      "the concrete witness that a nontrivial flow of a real off-diagonal generator is not a "
-      "permutation); whether the continuous-time extension, read-write coupling or gauge/phase "
-      "structure supplies a non-monomial generator is left open in SUBSTRATUM-SOURCE-AUDIT.md; the "
-      "frozen OI-plus statements are untouched.")
+      "monomialSource_not_control, monomialSource_not_qm, elementary_split). The stated finite-model "
+      "interface assigns permutation matrices to bijective interventions and diagonal matrices to "
+      "declared phase interventions. Both are monomial. IsMonomial allows zero diagonal weights, "
+      "and monomial conjugation preserves diagonal matrices. On Fin 2, MonomialSource requires "
+      "every matrix representative of each available composite conjugation to be monomial at "
+      "every extension level. Composite unitary control would make rot available at level one, "
+      "and rot has two nonzero entries in its first row. Under MonomialSource, this excludes "
+      "composite unitary control (monomialSource_not_control) and the completeness property "
+      "ExactAllFiniteEndomorphicQuantumOps (monomialSource_not_qm). The mathematical instance "
+      "permTheory (Fin 2) satisfies MonomialSource (permTheory_fin2_monomialSource). Native physical "
+      "sourcing remains open. The probe checks the exchange, quarter phase, diagonal preservation "
+      "in the samples, the rational rotation and its coherence from a basis projector, a weighted "
+      "permutation sample, and declaration presence in the Lean source. It does not compute a "
+      "matrix exponential.")
 
 # F73 -- ROUND 63: the restricted read-write operators, interpolation and memory-swap
 # controls are retained. KERNEL-VAC-1 withdraws the original empty source antecedent
@@ -9070,9 +9058,8 @@ check("F73", ok73,
       "No universal physical impossibility or uniquely necessary extra law is certified by "
       "F73; no control law is postulated, and the frozen OI-plus statements are untouched.")
 
-# F74 -- ROUND 64: STRUCTURAL CLOSURE -- the four structural ingredients of a quantum architecture
-# close for the class the substratum supplies (the monomials of round 62, nothing added), and the
-# residual is exactly elementary drivability (phase three, round sixty-four).
+# F74 -- ROUND 64: structural closure for the stated monomial class. The class fails elementary
+# drivability, and its generated-theory obstruction is on Fin 2.
 ok74 = True
 def _issub74(K):
     """At most one nonzero entry per row and per column (the elementwise form)."""
@@ -9152,31 +9139,28 @@ check("F74", ok74,
       "substratumClass_daggerStable, substratumClass_structurallyClosed, bijectiveOperator_conjTranspose, "
       "phaseOperator_conjTranspose, substratumGen_not_qm, quantumArchitecture_iff_drives_of_closed, "
       "substratumClass_not_drivesElementary, substratum_residual, substratum_plus_control_qm, "
-      "qm_generated_by_substratum_extension). THE CLASS IS THE SUPPLIED CLASS: the substratum class "
-      "is exactly the round-62 predicate IsMonomial (a permutation of a diagonal, weights permitted "
-      "to vanish), so nothing is added to obtain closure. THE ELEMENTWISE FORM: monomial if and "
+      "qm_generated_by_substratum_extension). The specified class is exactly the round-62 predicate "
+      "IsMonomial (a permutation matrix times a diagonal whose weights may vanish). "
+      "THE ELEMENTWISE FORM: monomial if and "
       "only if at most one nonzero entry per row and per column, the converse extending the partial "
       "injection column -> row to a permutation by matching complements of equal cardinality. THE "
       "FOUR CLOSURES, each a theorem: (1) architecture closure -- identity, products, scalar "
       "multiples, readout projectors, ancilla blocks; (2) context stability -- 1_R (x) K; (3) label "
       "invariance -- reindexing; (4) dagger stability -- the adjoint exchanges the row and column "
-      "conditions, with A2 supplying the reversal of a bijective intervention (P^dag = P^{-1}) and "
-      "the phase structure the reversal of a phase (D^dag = conj D). THE RESIDUAL: for a "
-      "structurally closed class, quantum architecture is exactly elementary drivability; the "
-      "substratum class is closed but every monomial conjugation preserves the diagonal and the "
-      "rotation does not, so its generated theory is not QM, it does not drive the elementary "
-      "transitions, and it is not a quantum architecture. THE ENDPOINT: a structurally closed "
-      "extension of the substratum class is quantum exactly when it drives the elementary "
-      "transitions, generates finite operational QM on every nonempty carrier when it does, and QM "
-      "is generated by such an extension -- current OI substratum plus continuous off-diagonal "
-      "controllability is finite operational QM. Verified exactly here: closure of explicit "
+      "conditions, with inverse bijections (P^dag = P^{-1}) and conjugated phases (D^dag = conj D) "
+      "as the adjoints in the stated interface. A structurally closed class is a quantum "
+      "architecture exactly when it drives the elementary transitions. On Fin 2 the theory "
+      "generated by substratumClass lacks composite unitary control and fails "
+      "ExactAllFiniteEndomorphicQuantumOps. That obstruction rules out DrivesElementary for "
+      "the class. A structurally closed extension that drives the elementary transitions "
+      "generates a theory with exact finite endomorphic completeness on every nonempty finite "
+      "carrier. Every theory with that completeness is generated by such an extension. Native "
+      "physical sourcing of the required control remains open. Verified here: closure of explicit "
       "monomials (a 3-cycle with complex weights, a projector-weighted monomial) under products, "
       "scalars, ancilla blocks, spectator tensoring, reindexing and the adjoint; the A2 and phase "
       "reversals; the elementwise/permutation equivalence in both directions on a matrix with a "
       "zero row and column; the rotation as neither; diagonal preservation by a monomial "
-      "conjugation; and the kernel text read back. NOT CLAIMED, lint-guarded: the controllability "
-      "side of the endpoint is a hypothesis on an extension and not a property of the current "
-      "substratum; no control law is postulated; the frozen OI-plus statements are untouched.")
+      "conjugation; and the declaration checks in the Lean source.")
 
 # F75 -- LEVEL II, ROUND 1: THE TYPED FINITE OPERATIONAL INTERFACE AND THE DETERMINATION TEST --
 # the typed theory (maps between different carriers) is determined by its endomorphic shadow:

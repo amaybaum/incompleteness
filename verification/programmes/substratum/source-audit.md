@@ -59,22 +59,19 @@ decomposed as the collapse suggests:
 
 | Ingredient of the object | Physical question | Status |
 |---|---|---|
-| Architecture (closure under theory operations) | Are observable operations induced by finite substratum implementations closed under composition and coarse-graining? | Closed (round 64): the supplied class is closed under identity, products, scalars, readout projectors and ancilla blocks (`StructuralClosure.substratumClass_arch`) |
-| Context stability | Does bounded or local coupling make an implementation insensitive to an uncoupled spectator? | Closed (round 64): `1_R ⊗ K` stays in the supplied class (`substratumClass_contextStable`) |
-| Label invariance | Is admissibility a gauge/relabelling property of substratum labels? | Closed (round 64): relabelling permutes rows and columns together (`substratumClass_labelInvariant`) |
-| Dagger stability | Does the A2 bijective microscopic dynamics supply reversal of implementations? | Closed (round 64): the adjoint exchanges the row and column conditions (`substratumClass_daggerStable`); A2 supplies the inverse bijection and the phase structure the conjugate phase (`bijectiveOperator_conjTranspose`, `phaseOperator_conjTranspose`) |
+| Architecture (closure under theory operations) | Are observable operations induced by finite substratum implementations closed under composition and coarse-graining? | For the specified monomial class, closure holds for identity, products, scalars, readout projectors and ancilla blocks (`StructuralClosure.substratumClass_arch`). |
+| Context stability | Does bounded or local coupling make an implementation insensitive to an uncoupled spectator? | `1_R ⊗ K` stays in the monomial class (`substratumClass_contextStable`). |
+| Label invariance | Is admissibility a gauge/relabelling property of substratum labels? | Relabelling permutes rows and columns together in the monomial class (`substratumClass_labelInvariant`). |
+| Dagger stability | Does the A2 bijective microscopic dynamics supply reversal of implementations? | The adjoint exchanges the row and column conditions in the monomial class (`substratumClass_daggerStable`). For the stated interventions it takes a permutation to the inverse permutation and a phase operator to its conjugate (`bijectiveOperator_conjTranspose`, `phaseOperator_conjTranspose`). |
 | Elementary drivability | Does the OI/substratum dynamics supply one continuously controllable off-diagonal transition, the exchanges, and a phase (or a smaller repertoire that round 59 shows generates the rest)? | For the specified monomial implementation class, `substratumClass_not_drivesElementary` proves failure of elementary drivability. The original round-63 source antecedent is empty on `Fin 2`; it does not establish a general physical impossibility or a uniquely necessary empirical addition |
 
 ## Second entry: the interface and the permutation-only no-go
 
-Before asking whether the substratum drives the elementary transitions, the second entry
-fixes what an implementation operator supplied by the substratum is
-(`SubstratumInterface.lean`). The concrete substratum starts from finite states, bijective
-dynamics (A2), and a phase structure. Its two direct intervention kinds have observable
-operators that are a permutation matrix (`bijectiveOperator`) and a diagonal phase
-(`phaseOperator`), both **monomial** — at most one nonzero entry per row and per column
-(`IsMonomial`). The interface keeps this separate from admissibility: it records which
-operators the interventions supply, not that every desired matrix has one.
+The stated finite-model interface (`SubstratumInterface.lean`) assigns permutation matrices
+to bijective interventions (`bijectiveOperator`) and diagonal matrices to declared phase
+interventions (`phaseOperator`). Both are **monomial**, with at most one nonzero entry per
+row and per column (`IsMonomial`). This is a statement about the operator shapes of those
+interventions.
 
 A monomial conjugation preserves diagonal matrices
 (`preservesDiag_conj_of_monomial`). The rational two-state rotation `rot` is
@@ -149,51 +146,44 @@ additional physical law. No control law is introduced to force a result.
 
 ## Fourth entry: structural closure — all four close, one residual
 
-Round 64 audits the four structural ingredients of the object for the class the substratum
-actually supplies (`StructuralClosure.lean`). The class is not a hull: it is exactly the
-round-62 predicate `IsMonomial` — a permutation of a diagonal, the weights permitted to vanish,
-as the readout projectors require — so every operator in it is an intervention followed by a
-diagonal weighting, and no operator is added to obtain closure (`substratumClass`). Its
-elementwise form is "at most one nonzero entry per row and per column" (`IsSubmonomial`), and
-the two forms agree in both directions (`monomial_iff_submonomial`); the converse extends the
-partial injection "column ↦ row of its nonzero entry" to a permutation of the finite carrier by
-matching the complements, which have equal cardinality.
+Round 64 audits the four structural ingredients for the specified implementation class
+(`StructuralClosure.lean`). The class `substratumClass` is exactly the round-62 predicate
+`IsMonomial`, a permutation matrix times a diagonal whose weights may vanish. Its elementwise
+form is "at most one nonzero entry per row and per column" (`IsSubmonomial`). The two forms agree
+(`monomial_iff_submonomial`). The converse extends the partial injection "column ↦ row of its
+nonzero entry" to a permutation of the finite carrier by matching the complements, which have
+equal cardinality.
 
 | Ingredient | Result |
 |---|---|
 | Architecture closure | The identity is monomial; a nonzero entry of a product selects one nonzero entry of each factor, so products are monomial; scalar multiples, the readout projectors and every ancilla block are monomial (`substratumClass_arch`) |
 | Context stability | A nonzero entry of `1_R ⊗ K` has agreeing spectator indices and a nonzero entry of `K` (`substratumClass_contextStable`) |
 | Label invariance | Reindexing permutes rows and columns together (`substratumClass_labelInvariant`) |
-| Dagger stability | The adjoint exchanges the row and column conditions (`substratumClass_daggerStable`); physically, the reversal of a bijective intervention is the inverse bijection and the reversal of a phase is its conjugate (`bijectiveOperator_conjTranspose`, `phaseOperator_conjTranspose`), both supplied by A2 and the phase structure |
+| Dagger stability | The adjoint exchanges the row and column conditions (`substratumClass_daggerStable`). For the stated interventions it takes a permutation to the inverse permutation and a phase operator to its conjugate (`bijectiveOperator_conjTranspose`, `phaseOperator_conjTranspose`). |
 
 All four close (`substratumClass_structurallyClosed`). For a structurally closed class, being
 a quantum architecture is exactly driving the elementary transitions
-(`quantumArchitecture_iff_drives_of_closed`), so for the substratum the quantum-architecture
-question is exactly elementary drivability. The substratum class does not have it: every
-monomial conjugation preserves the diagonal and the rotation `rot` does not, so the generated
-theory has no composite unitary control and is not quantum mechanics (`substratumGen_not_qm`),
-the class does not drive the elementary transitions (`substratumClass_not_drivesElementary`),
-and it is not a quantum architecture (`substratum_residual`).
+(`quantumArchitecture_iff_drives_of_closed`). The theory generated by `substratumClass` on
+`Fin 2` lacks composite unitary control because its realized branches preserve diagonal
+matrices and the rotation `rot` violates that invariant. It consequently fails
+`ExactAllFiniteEndomorphicQuantumOps` (`substratumGen_not_qm`). The obstruction on `Fin 2`
+rules out elementary drivability of the class
+(`substratumClass_not_drivesElementary`, `substratum_residual`).
 
 **The endpoint.** A structurally closed extension of the substratum class is a quantum
 architecture exactly when it drives the elementary transitions
-(`substratum_extension_quantum_iff_drives`); such an extension generates finite operational
-quantum mechanics on every nonempty carrier (`substratum_plus_control_qm`); and finite
-operational quantum mechanics is generated by a quantum architecture extending the substratum
-class (`qm_generated_by_substratum_extension`). In one line:
-
-> current OI substratum + continuous off-diagonal controllability ⟺ finite operational
-> quantum mechanics.
-
-The controllability is a hypothesis on the extension, not a property of the current substratum
-— the current substratum does not have it, and no control law is postulated to obtain it.
+(`substratum_extension_quantum_iff_drives`). Such an extension generates a theory with exact
+finite endomorphic completeness on every nonempty finite carrier (`substratum_plus_control_qm`).
+Every theory satisfying that completeness property admits such a generating extension
+(`qm_generated_by_substratum_extension`). Native physical sourcing of the required control
+remains open, and no control law is postulated to obtain it.
 
 ## What is not claimed
 
 - No entry derives a quantum architecture from A1–A6 or from the read-write substratum
   dynamics. The first entry reduces the three principles to one object and names its decisive
-  property; the fourth entry shows the four structural ingredients are supplied and the
-  decisive one is not.
+  property. The fourth entry proves the structural closures and the failure of elementary
+  drivability for the specified class.
 - The endpoint's controllability side is a hypothesis on an extended substratum. Nothing here
   supplies it, and no control law is introduced to obtain it.
 - The canonical OI⁺ statements are frozen (`PRIMITIVE-SOURCE-AUDIT.md`, the manuscripts). This

@@ -1,51 +1,26 @@
 /-
   OIBridge/SubstratumInterface.lean — the substratum-source audit, second entry: the interface
-  between substratum interventions and implementation operators, and the permutation-only no-go.
+  between substratum interventions and implementation operators, and a conditional obstruction.
 
   ROUND SIXTY-TWO. Round 61 reduced "which conditions select quantum mechanics" to a single
   object — a stable, elementary-driving implementation architecture — and named elementary
-  drivability as its decisive property. Before asking whether the concrete OI physics drives
-  the elementary transitions, this file settles a type-level prerequisite: what an
-  implementation operator supplied by the substratum IS, and a baseline obstruction showing
-  that finite bijective dynamics alone does not supply the decisive operator.
+  drivability as its decisive property. The stated finite-model interface represents bijective
+  interventions by permutation matrices (`bijectiveOperator`) and declared phase interventions
+  by diagonal matrices (`phaseOperator`). Both have the form `permMatrix σ · diagonal d`,
+  with complex weights that may vanish. Conjugation by such a matrix preserves the diagonal
+  subspace (`preservesDiag_conj_of_monomial`).
 
-  THE INTERFACE. The concrete substratum starts from finite states and bijective dynamics
-  (axiom A2) together with a phase structure. Its directly selectable interventions are
-  therefore of two kinds: a bijective intervention, whose observable operator is a permutation
-  matrix (`bijectiveOperator`, from a permutation of the states), and a phase intervention,
-  whose observable operator is a diagonal phase (`phaseOperator`). Both kinds are MONOMIAL —
-  one nonzero entry per row and per column (`IsMonomial`, here in the factored form
-  `permMatrix σ · diagonal d`). The interface keeps these separate from admissibility: the
-  question is not whether a desired matrix has an intervention (that would assume the result),
-  but which operators the two kinds of intervention directly supply.
+  On `Fin 2`, `MonomialSource` requires every matrix representative of each available
+  composite conjugation to be monomial at every extension level. Composite unitary control
+  would make the rational rotation `rot` available at level one. Its first row has two
+  nonzero entries (`rot_not_monomial`), so the hypothesis excludes composite unitary control
+  (`monomialSource_not_control`) and exact completeness for finite endomorphic quantum
+  operations (`monomialSource_not_qm`).
 
-  THE MONOMIAL INVARIANT. A conjugation by a monomial operator preserves diagonal matrices
-  (`preservesDiag_conj_of_monomial`): a permutation relabels the diagonal and a phase leaves it
-  fixed. So a source that supplies only monomial operators generates only diagonal-preserving
-  conjugations, and it cannot create the coherence a genuine two-state rotation produces.
-
-  THE PERMUTATION-ONLY NO-GO. The rational two-state rotation `rot` — a value of the flow of a
-  real off-diagonal generator, with every entry nonzero — is not monomial
-  (`rot_not_monomial`): its first row already has two nonzero entries, which no permutation of
-  a diagonal allows. Hence a theory whose available composite conjugations are all monomial has
-  no composite unitary control (`monomialSource_not_control`) and is not finite operational
-  quantum mechanics (`monomialSource_not_qm`):
-
-      ┌──────────────────────────────────────────────────────────────────────────────┐
-      │  finite bijective dynamics alone ⇏ elementary drivability ⇏ operational QM.    │
-      └──────────────────────────────────────────────────────────────────────────────┘
-
-  This separates A2 reversibility from the missing physical controllability: bijective dynamics
-  supplies the state exchanges and the phase structure supplies the phases — two of the three
-  elementary operations (`exchange_monomial`, `phase_monomial`) — but neither supplies the
-  continuously driven off-diagonal transition, whose flow values are not monomial.
-
-  WHAT IS NOT CLAIMED. This does not compute a matrix exponential; it uses the concrete rational
-  rotation `rot` as the witness that a nontrivial flow of a real off-diagonal generator is not a
-  permutation. It does not decide whether the continuous-time extension, the read-write
-  coupling, or the gauge/phase structure supplies a non-monomial generator — those candidate
-  escape routes are recorded in `SUBSTRATUM-SOURCE-AUDIT.md` as open distinctions. Nothing here
-  modifies the frozen OI⁺ statements.
+  The rotation proof uses explicit matrix entries and does not compute a matrix exponential.
+  The mathematical instance `permTheory (Fin 2)` is established in `ReadWriteNonvacuity.lean`.
+  Whether a native physical observer interface satisfies the hypothesis remains open.
+  The physical sources of off-diagonal control are investigated in `SUBSTRATUM-SOURCE-AUDIT.md`.
 -/
 
 import OIBridge.SubstratumSource
@@ -70,8 +45,8 @@ section Interface
 
 variable {S : Type} [Fintype S] [DecidableEq S]
 
-/-- **A MONOMIAL OPERATOR**: a permutation of the states composed with a diagonal phase. This is
-the observable-operator shape of the substratum's two direct intervention kinds. -/
+/-- A monomial operator is a permutation matrix times a complex diagonal whose weights may
+vanish. The two stated intervention types have this form. -/
 def IsMonomial (K : Matrix S S ℂ) : Prop :=
   ∃ (σ : Equiv.Perm S) (d : S → ℂ), K = permMatrix σ * Matrix.diagonal d
 
@@ -94,15 +69,15 @@ theorem bijectiveOperator_monomial (σ : Equiv.Perm S) : IsMonomial (bijectiveOp
 theorem phaseOperator_monomial (d : S → ℂ) : IsMonomial (phaseOperator d) :=
   monomial_diagonal d
 
-/-- The state exchange is a bijective operator, hence monomial: A2 supplies it. -/
+/-- A state exchange is represented by a monomial permutation matrix. -/
 theorem exchange_monomial (a b : S) : IsMonomial (permMatrix (Equiv.swap a b)) :=
   monomial_permMatrix _
 
-/-- The quarter phase is a phase operator, hence monomial: the phase structure supplies it. -/
+/-- The quarter-phase operator of the stated phase intervention is monomial. -/
 theorem phase_monomial (a : S) : IsMonomial (LieRankSource.phaseGate a) :=
   monomial_diagonal _
 
-/-- The entry of `permMatrix σ · diagonal d`: a single nonzero per row. -/
+/-- A product `permMatrix σ · diagonal d` has at most one nonzero entry per row and column. -/
 theorem monomial_entry (σ : Equiv.Perm S) (d : S → ℂ) (i j : S) :
     (permMatrix σ * Matrix.diagonal d) i j = if σ j = i then d j else 0 := by
   rw [Matrix.mul_apply, Finset.sum_eq_single j]
@@ -121,8 +96,8 @@ section Invariant
 
 variable {S : Type} [Fintype S] [DecidableEq S]
 
-/-- **A MONOMIAL CONJUGATION PRESERVES THE DIAGONAL**: a permutation relabels it, a phase fixes
-it. -/
+/-- Conjugation by a monomial operator preserves the diagonal subspace. The diagonal weights
+rescale its entries and the permutation relabels them. -/
 theorem preservesDiag_conj_of_monomial {K : Matrix S S ℂ} (h : IsMonomial K) :
     PreservesDiag (conjChannel K) := by
   obtain ⟨σ, d, rfl⟩ := h
@@ -145,13 +120,12 @@ theorem preservesDiag_conj_of_monomial {K : Matrix S S ℂ} (h : IsMonomial K) :
 
 end Invariant
 
-/-! ### Section C — the permutation-only no-go -/
+/-! ### Section C — the conditional monomial-source obstruction on two states -/
 
 section NoGo
 
-/-- **THE RATIONAL TWO-STATE ROTATION IS NOT MONOMIAL**: its first row has two nonzero entries,
-which a permutation of a diagonal cannot produce. `rot` is a value of the flow of a real
-off-diagonal generator, so a nontrivial such flow is not a permutation. -/
+/-- The rational two-state rotation `rot` is nonmonomial because its first row has two
+nonzero entries. -/
 theorem rot_not_monomial : ¬ IsMonomial rot := by
   rintro ⟨σ, d, h⟩
   have e00 : rot (0, 0) (0, 0) = if σ (0, 0) = (0, 0) then d (0, 0) else 0 := by
@@ -176,27 +150,27 @@ theorem rot_not_monomial : ¬ IsMonomial rot := by
 
 variable {A : Type} [Fintype A] [DecidableEq A]
 
-/-- **A MONOMIAL SOURCE**: every available composite conjugation is monomial. -/
+/-- Every matrix representative of an available single-outcome composite conjugation is
+monomial, at every extension level. -/
 def MonomialSource (T : FiniteOperationalTheory A) : Prop :=
   ∀ (n : ℕ) (V : Matrix (A × Fin n) (A × Fin n) ℂ),
     T.availExt n Unit (fun _ => conjChannel V) → IsMonomial V
 
-/-- **THE PERMUTATION-ONLY NO-GO, CONTROL**: a monomial source has no composite unitary control,
-because control would make the non-monomial rotation `rot` available. -/
+/-- On `Fin 2`, `MonomialSource` rules out composite unitary control because such control
+would make the nonmonomial rotation `rot` available. -/
 theorem monomialSource_not_control (T : FiniteOperationalTheory (Fin 2)) (h : MonomialSource T) :
     ¬ HasCompositeUnitaryControl T := by
   intro hctrl
   exact rot_not_monomial (h 1 rot (hctrl 1 rot rot_isometry))
 
-/-- **THE PERMUTATION-ONLY NO-GO, QM**: a monomial source is not finite operational QM. -/
+/-- On `Fin 2`, `MonomialSource` rules out exact completeness for finite endomorphic
+quantum operations. -/
 theorem monomialSource_not_qm (T : FiniteOperationalTheory (Fin 2)) (h : MonomialSource T) :
     ¬ ExactAllFiniteEndomorphicQuantumOps T :=
   fun hqm => monomialSource_not_control T h (physical_of_exactAll T hqm).2.2.1
 
-/-- **THE FLOW IS THE MISSING OPERATOR.** Bijective dynamics supplies the state exchanges and the
-phase structure supplies the phases — both monomial — but the continuously driven transition,
-whose nontrivial flow values are not monomial (`rot` as witness), is the operation neither
-supplies. -/
+/-- State-exchange operators and the named phase operators are monomial. The concrete
+rotation `rot` is nonmonomial. -/
 theorem elementary_split :
     (∀ (S : Type) [Fintype S] [DecidableEq S] (a b : S), IsMonomial (permMatrix (Equiv.swap a b)))
       ∧ (∀ (S : Type) [Fintype S] [DecidableEq S] (a : S), IsMonomial (LieRankSource.phaseGate a))
