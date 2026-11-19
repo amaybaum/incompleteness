@@ -151,7 +151,7 @@ These are source-review referrals, **not** accepted textual corrections or indep
 | P1 | `papers/Medicine.md:35–39`, downstream biological predictions | Do not conflate conditional readback memory, measured P-indivisibility and verified natural biological realization of C1–C4. **A1 part corrected by #1341; Medicine:37 is #1342 R4** |
 | P1 | `book/appendix-c-objections.md:128–132` | Keep "QFT infinity is an artifact" expressly conditional on a physically supported finite underlying model. **Corrected by #1341 (§5.1)** |
 | — | `papers/Main.md:746–762` and downstream arrow / anti-BB claims | Not assessed in this pass and not counted as a candidate; deferred to A1-05 (#1332) |
-| P1 | `papers/Main.md:540`, mirror `papers/Main.tex:3444` (characterization theorem, root R2) | Fix what "the Poincaré recurrence time of any realizing substrate" refers to. If "any" is read as "every", no order is accessible and the theorem holds vacuously (§27.8). The proof at Main:634 does not use `t_R`. This is a wording defect, and no source edit is authorized. `book/` and FULL have no matching occurrence. |
+| P1 | `papers/Main.md:540`, mirror `papers/Main.tex:3444` (characterization theorem, root R2) | Fix what "the Poincaré recurrence time of any realizing substrate" refers to. If "any" is read as "every", no order is accessible and the theorem holds vacuously (§27.8). The proof at Main:634 does not use `t_R`. This is a wording defect. `book/` and FULL have no matching occurrence. **Corrected by #1418 (MAIN-TR-1, merge `c0a03d1d929763958a42601288ea7ee44aa4094c`). The two neighbouring `t_R` references, Main:644 and :739, are #1419 (MAIN-TR-2).** |
 
 ### 5.1 Disposition after the first-pass review
 
@@ -181,7 +181,7 @@ Manuscript corrections must use the separately designated #1015/#1029 or other a
 - CENSUS-X3: §12 resolves the mechanical source crosswalk at the new pin (124 families, 132 coverage entries and 20 unattached items). §13 records source scopes for all 20 unattached items. Proof scope and dependencies outside the specific backward traces remain open.
 - CENSUS-X4: §16 inventories the recursive verification and paper-supplement tree and runs a focused text search. §23.3 follows the named finite-shell and comb records and the mechanical-latch addition to `main`. §25.10 follows eight additional chains for records, finite factors and operational completion. §26 reconciles the 106-path search queue and traces the landed recurrence proof at its newer source pin. Untraced evidence chains and archive or branch-only content are still **X**. Published `.tex` mirrors are resolved for claim content by batch 1 (§7). PDFs are not stamped and are not checked in this census.
 - CENSUS-X5: the original textual pass covers 12 primary papers and 29 chapter/back-matter Markdown files. §15 adds backward traces for selected observer, GR and SM statements. §17 assigns a first-pass input scope to each of the 132 registered paper statements. §18 visits major downstream transfers in the six papers outside that register. §§23.2 and 25.9 trace thirteen selected unnumbered claim chains with publication locators. §27.8 traces twelve Main sites to the §27 declarations. Other implicit inheritance and untraced claims remain **X**.
-- CENSUS-X6: resolved for the six first-pass candidates (§5.1): five corrected on `main` by #1341, D09 withdrawn, D34b moved to #1342. Further candidates found in later batches need their own review and owner authorization. §27.8 adds one such candidate, the `t_R` wording at `papers/Main.md:540` and its mirror `papers/Main.tex:3444`. It is listed in §5 and is open.
+- CENSUS-X6: resolved for the six first-pass candidates (§5.1): five corrected on `main` by #1341, D09 withdrawn, D34b moved to #1342. Further candidates found in later batches need their own review and owner authorization. §27.8 adds one such candidate, the `t_R` wording at `papers/Main.md:540` and its mirror `papers/Main.tex:3444`. It is corrected by #1418 (§5).
 
 To close A1-C01, obtain full text/source parity for X1–X4; review and classify every site and theorem in X2–X5, including implicit dependencies; resolve or explicitly narrow X6 by separately approved evidence; and reconcile against the existing closure register with a reviewed exact-head audit. Only an independent final G2/owner sign-off on reviewed manuscript propagation can change the foundational completion label.
 
@@ -1707,10 +1707,11 @@ The table covers twelve Main sites. In each of them, every proof step that uses 
 Across §§24, 25 and 27, 338 authored declarations in 22 bridge modules have individual source rows (218 + 120). Among the 120 rows of §§27.2–27.7, 66 end in **A** and 54 in **F**. Of the 54 **F** rows, 44 are R-supplied and 10 are R-constructed. These figures apply the instantiation convention of §27.1, under which `HiddenMemory`'s `post`, `tv` and `tv_marg_le` are **F** rows. The tallies can be recounted from the committed file:
 
 ```bash
-awk '/^## 27\./,/^### 27\.8/' verification/audits/foundations/a1-09-dependency-census/CENSUS.md \
-  | grep -E '^\| `[^|]+:[0-9]' > /tmp/rows27   # 120 rows
-grep -c '\*\*A\*\*' /tmp/rows27; grep -c '\*\*F\*\*' /tmp/rows27
-grep '\*\*F\*\*' /tmp/rows27 | grep -c 'R-supplied'; grep '\*\*F\*\*' /tmp/rows27 | grep -c 'R-constructed'
+rows() { awk '/^## 27\./,/^### 27\.8/' verification/audits/foundations/a1-09-dependency-census/CENSUS.md \
+  | grep -E '^\| `[^|]+:[0-9]'; }
+rows | wc -l                                   # 120
+rows | grep -c '\*\*A\*\*'; rows | grep -c '\*\*F\*\*'
+rows | grep '\*\*F\*\*' | grep -c 'R-supplied'; rows | grep '\*\*F\*\*' | grep -c 'R-constructed'
 ```
 
 The other 220 indexed bridge modules have module-level traces but no full roster. Main's remaining kernel citations, generated declarations, elaborated dependencies beyond the named imports, and the mirrors of the §27.8 sites remain **X**. A1-C01 remains **INCOMPLETE**. A1 remains OPEN / UNADOPTED, and physical measurement sourcing remains NOT PASSED.
