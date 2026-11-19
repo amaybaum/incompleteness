@@ -1,0 +1,5 @@
+PASS H2a cnot(SWAP/2) has table (I + X(x)I + I(x)Z - X(x)Z)/4 :: {('0', '0'): 1, ('0', 'z'): 1, ('x', '0'): 1, ('x', 'z'): -1}
+PASS H2b cnot(SWAP/2) is negative on a Pauli product: value -1/2 on (-x) (x) (-z) :: {('x', -1, 'z', -1): -1/2}
+PASS H2c control: SWAP/2 itself is nonnegative on all 36 Pauli products
+
+3 checks, 0 failures

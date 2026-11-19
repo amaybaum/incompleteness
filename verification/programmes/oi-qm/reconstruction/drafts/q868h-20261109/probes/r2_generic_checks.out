@@ -1,0 +1,22 @@
+PASS R1a comparator: CNOT (H (x) I)|00> has table (I+XX-YY+ZZ)/4 (the Phi+ table) :: {('0', '0'): 1, ('x', 'x'): 1, ('y', 'y'): -1, ('z', 'z'): 1}
+PASS R1b the Phi+ table is PSD (eigenvalues 0,0,0,1) :: [0, 0, 0, 1]
+PASS R1c control: SWAP/2 = (I+XX+YY+ZZ)/4 has minimum eigenvalue -1/2
+PASS R1d SWAP = (II+XX+YY+ZZ)/2 is the swap, with eigenvalues -1,1,1,1; so every state has <XX>+<YY>+<ZZ> <= 1 :: [-1, 1, 1, 1]
+PASS R2a |0>(x)(cos(pi/8)|0>+sin(pi/8)|1>) is a quantum state: Hermitian, trace 1, eigenvalues 0,0,0,1
+PASS R2b its B Bloch vector is (1/sqrt2, 0, 1/sqrt2) :: (sqrt(2)/2, 0, sqrt(2)/2)
+PASS R2c that point is outside the octahedron: |x|+|y|+|z| = sqrt2 > 1
+PASS R2d every A Pauli read outcome of positive probability leaves B at the same point (no steering) :: 5
+PASS R2e control: (1/2, 0, 1/2) is inside the octahedron (|x|+|y|+|z| = 1)
+PASS R3a Bloch (1,0,1) is no qubit state: (I+X+Z)/2 has eigenvalue (1-sqrt2)/2 < 0 :: [1/2 - sqrt(2)/2, 1/2 + sqrt(2)/2]
+PASS R3b comparator: on Phi+, A reads X then Z (Lueders); B's conditional is +-e_x for every record pair :: [(1, 0, 0), (1, 0, 0), (-1, 0, 0), (-1, 0, 0)]
+PASS R4a the generated set has the 60 two-qubit stabilizer states :: 60
+PASS R4b every two-qubit stabilizer state with Pauli settings has |CHSH| <= 2 (max attained = 2) :: 2
+PASS R4c the Pauli-settings CHSH operator XX+XZ+ZX-ZZ has maximum eigenvalue 2*sqrt2 (non-stabilizer states exceed 2) :: [-2*sqrt(2), 0, 0, 2*sqrt(2)]
+PASS R5a cnot(SWAP/2) has table (I + X(x)I + I(x)Z - X(x)Z)/4 :: {('0', '0'): 1, ('0', 'z'): 1, ('x', '0'): 1, ('x', 'z'): -1}
+PASS R5b cnot(SWAP/2) takes -1/2 on the Pauli product effect (-x) (x) (-z) :: -1/2
+PASS R5c control: SWAP/2 itself is nonnegative on all 36 Pauli product effects
+PASS R6a CNOT conjugation maps each of the 15 Pauli products to one signed Pauli product
+PASS R6b XZ -> -YY, YY -> -XZ, XY -> +YZ, YZ -> +XY :: {('x', 'z'): ('y', 'y', -1), ('y', 'y'): ('x', 'z', -1), ('x', 'y'): ('y', 'z', 1), ('y', 'z'): ('x', 'y', 1)}
+PASS R6c every other Pauli product maps with sign +1
+
+20 checks, 0 failures

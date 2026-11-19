@@ -1,0 +1,12 @@
+PASS C2a H: <Z>out=<X>in, <X>out=<Z>in, <Y>out=-<Y>in (QP: f_z.H=f_x, f_x.H=f_z, f_y.H=f_y+1)
+PASS C2b S: <X>out=-<Y>in, <Y>out=<X>in, <Z>out=<Z>in (QP: f_x.S=f_y+1, f_y.S=f_x, f_z.S=f_z)
+PASS C2c path 1 comparator: CNOT (H x I)|00> = Phi+
+PASS C2d path 2 comparator: CNOT (HS x I)|00> = Phi+
+PASS C2e both comparator outputs have <YY> = -1, <XX> = <ZZ> = +1
+PASS C2f control: path-2 operator differs from path-1 operator (HS != H up to phase on the |1> input)
+PASS C2g CNOT: YY -> -XZ, XY -> +YZ, YZ -> +XY :: {('y', 'y'): (-1, 'x', 'z'), ('x', 'y'): (1, 'y', 'z'), ('y', 'z'): (1, 'x', 'y')}
+PASS C2h the only CNOT image with a minus sign among the 15 is YY (and its partner XZ -> -YY) :: [('x', 'z'), ('y', 'y')]
+PASS C2i with XX=ZZ=1 the singlet-direction eigenvalue is (-1-t)/4, so <YY>=u and <YY>=-u are both quantum only if u=-u=-1 (impossible)
+PASS C2j at <YY>=+1 min eigenvalue -1/2; at <YY>=0 min eigenvalue -1/4
+
+10 checks, 0 failures

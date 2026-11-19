@@ -1,0 +1,20 @@
+PASS G1a swap table pairVal = 2(1 + a.b) :: 2*a1*b1 + 2*a2*b2 + 2*a3*b3 + 2
+PASS G1b swap has eigenvalue -1 (not PSD) :: [-1, 1, 1, 1]
+PASS G2 CNOT image of the product (+,0) has PT eigenvalue -1/2 :: [-1/2, 1/2, 1/2, 1/2]
+PASS G3a transpose on one qubit acts as reflY = diag(1,-1,1)
+PASS G3b chain: product of sharp effects along -e1, -e3 = -1/2 (= pairVal/4; pairVal = -2) :: sharp value -1/2, pairVal -2
+PASS G3c control: det(+1) flip keeps the chain PSD and all Pauli product values >= 0 :: min eig 0, min pairVal 0
+PASS G4a node-10 table pairVal = 1 + a1 b1 + a3 b3 (>= 0 on the unit balls by Cauchy-Schwarz) :: a1*b1 + a3*b3 + 1
+PASS G4b node-10 table has eigenvalue -1/4 (not PSD, so outside Q3) :: [-1/4, 1/4, 1/4, 3/4]
+PASS G4c the quantum (table) CNOT image of (x+, z+) has <YY> = -1, not 0
+PASS G4d node-10 table is invariant under the one-copy reflection Y -> -Y
+PASS G4e all 36 signed Pauli product values on the node-10 table are >= 0 :: [0, 1, 2]
+PASS G5a complex: real span of products of Hermitian 2x2 has dimension 16 = dim Herm(4)
+PASS G5b real: span of products of real symmetric 2x2 has dimension 9 < 10 = dim Sym_4(R)
+PASS G5c Y(x)Y is real symmetric and HS-orthogonal to every real product, so (I +- e YY)/4 are distinct rebit states with identical real product statistics
+PASS G6a C^2 = 4I - [A0,A1](x)[B0,B1]
+PASS G6b max eigenvalue of C is 2 sqrt 2 :: [-2*sqrt(2), 0, 0, 2*sqrt(2)]
+PASS G7a every monomial Kraus operator (24 permutations, symbolic diagonal factor) keeps diagonal matrices diagonal
+PASS G7b control: a non-monomial operator produces an off-diagonal entry from a diagonal state
+
+checks: 18, failures: 0

@@ -1,0 +1,8 @@
+PASS T3a transposes: X^T=X, Z^T=Z, Y^T=-Y, I^T=I
+PASS T3b on a fully generic 16-entry symbolic table, PT on wing A = negation of every T_{y,b}
+PASS T3c control: PT on wing A is not the negation of the Y column (wing B)
+PASS T3d PT_A(|Phi+><Phi+|) = SWAP/2
+PASS T3e SWAP/2 has minimum eigenvalue -1/2
+PASS T3f control: PT_A of the product |00><00| is PSD (positive map on product inputs)
+
+6 checks, 0 failures
