@@ -24,6 +24,8 @@ import numpy as np
 q = 2 ** 16
 c = 2 ** 15
 RESULTS = []
+COMPUTED = {"Q_blocks": {}}   # inputs of the classifier (F2), filled by the checks themselves
+INV3 = pow(3, -1, q)          # the coupling 1/d for d = 3 exists in Z/2^16 (3 does not divide q)
 
 
 def check(name, ok, info=""):
@@ -47,6 +49,39 @@ def stepLIN(xp, x):
     return x, (nbsum(x) - xp) % q
 
 
+def additive_test(step, mod, seed, shape=(4, 4, 4), n=10):
+    """True iff step(a+b) == step(a)+step(b) (mod `mod`) on n random pairs of two-slice states."""
+    rng = np.random.RandomState(seed)
+    for _ in range(n):
+        a = [rng.randint(0, mod, shape).astype(np.int64) for _ in range(2)]
+        b = [rng.randint(0, mod, shape).astype(np.int64) for _ in range(2)]
+        sm = [(a[0] + b[0]) % mod, (a[1] + b[1]) % mod]
+        fa, fb, fs = step(*a), step(*b), step(*sm)
+        if not all(np.array_equal((fa[k] + fb[k]) % mod, fs[k] % mod) for k in (0, 1)):
+            return False
+    return True
+
+
+def poly_mul(f, g, mod):
+    h = {}
+    for e1, c1 in f.items():
+        for e2, c2 in g.items():
+            e = tuple(a + b for a, b in zip(e1, e2))
+            h[e] = (h.get(e, 0) + c1 * c2) % mod
+    return {e: v for e, v in h.items() if v}
+
+
+def poly_pow(f, n, mod):
+    r = {tuple(0 for _ in next(iter(f))): 1}
+    b = dict(f)
+    while n:
+        if n & 1:
+            r = poly_mul(r, b, mod)
+        b = poly_mul(b, b, mod)
+        n >>= 1
+    return r
+
+
 def runQ(xp, x, T):
     for _ in range(T):
         xp, x = stepQ(xp, x)
@@ -60,18 +95,35 @@ def checks_A():
     ok &= [((s + 1) // 3) % 2 for s in range(7)] == [0, 0, 1, 1, 1, 0, 0]
     check("A1 q=2 member equals U2", ok)
 
-    # A2: linear members are additive (pair-state map is a group endomorphism)
-    rng = np.random.RandomState(1)
+    # A2: linear members are additive (pair-state map is a group endomorphism): Main 3.2 (q=2),
+    # SM exact linear rule (q=2^16, coupling 1) and the coupling-1/3 member (q=2^16, alpha = 3^{-1} mod q)
+    lin2 = additive_test(lambda xp, x: (x, (nbsum(x) - xp) % 2), 2, 1)
+    linq = additive_test(lambda xp, x: (x, (nbsum(x) - xp) % q), q, 2)
+    lina = additive_test(lambda xp, x: (x, (INV3 * nbsum(x) - xp) % q), q, 3)
+    COMPUTED["LIN_additive"] = lin2 and linq and lina
+    check("A2 linear members additive (q=2; q=2^16 with alpha=1 and alpha=3^-1)", lin2 and linq and lina)
+
+    # L1: the Frobenius step of Theorem L: S = Q0^(p^(k-1)) satisfies S(X)^p = S(X^p) mod p^k (p = 2),
+    # for Q0 = 1 - alpha*A*T*prod(X) + T^2*prod(X)^2 after the light-cone substitution (d = 1 and d = 3)
+    def q0(d, alpha, mod):
+        f = {tuple([0] * (d + 1)): 1}
+        for j in range(d):
+            for sq in (2, 0):                      # alpha * (X_j^2 + 1) * prod_{k != j} X_k * T
+                e = [1] * d + [1]
+                e[j] = sq
+                f[tuple(e)] = (f.get(tuple(e), 0) - alpha) % mod
+        f[tuple([2] * d + [2])] = 1
+        return {e: v % mod for e, v in f.items() if v % mod}
     ok = True
-    for mod in (2, q):
-        for _ in range(10):
-            a = [rng.randint(0, mod, (4, 4, 4)).astype(np.int64) for _ in range(2)]
-            b = [rng.randint(0, mod, (4, 4, 4)).astype(np.int64) for _ in range(2)]
-            f = lambda z: (z[1], (nbsum(z[1]) - z[0]) % mod)
-            s = [(a[0] + b[0]) % mod, (a[1] + b[1]) % mod]
-            fa, fb, fs = f(a), f(b), f(s)
-            ok &= all(np.array_equal((fa[k] + fb[k]) % mod, fs[k]) for k in (0, 1))
-    check("A2 Main 3.2 (q=2) and SM exact linear rule (q=2^16) additive", ok)
+    for d, ks in ((1, (1, 2, 3, 4)), (3, (1, 2))):
+        for k in ks:
+            mod = 2 ** k
+            for alpha in (1, pow(3, -1, mod)):
+                S = poly_pow(q0(d, alpha, mod), 2 ** (k - 1), mod)
+                lhs = poly_mul(S, S, mod)
+                rhs = {tuple(2 * a for a in e): v for e, v in S.items()}
+                ok &= lhs == rhs
+    check("L1 Theorem L Frobenius step S(X)^2 = S(X^2) mod 2^k (d=1: k<=4; d=3: k<=2; alpha = 1, 3^-1)", ok)
 
     # A3: Q is not additive: F(z+z) != F(z)+F(z) for z = one unit at the origin (current slice)
     z = (np.zeros((4, 4, 4), np.int64), np.zeros((4, 4, 4), np.int64))
@@ -80,6 +132,8 @@ def checks_A():
     zz = (z[0], 2 * z[1])
     fzz = stepQ(*zz)
     ok = not np.array_equal((2 * fz[1]) % q, fzz[1])
+    COMPUTED["Q_additive"] = additive_test(stepQ, q, 4)
+    ok &= not COMPUTED["Q_additive"]
     check("A3 rounded rule violates additivity", ok, f"F(z)[nbr]={int(fz[1][1,0,0])}, F(2z)[nbr]={int(fzz[1][1,0,0])}")
 
     # A4: fixed points on the invariant subgroup V1 (period 4 along e1, constant along e2,e3,
@@ -213,6 +267,7 @@ def checks_E():
             d = t // 3
             ok &= np.array_equal(np.roll(x0p, d, 0), xp) and np.array_equal(np.roll(x0, d, 0), x)
     check("E1 W1 signal: translation +2 every 6 ticks for 60 ticks, off-line sites at c, |y|<=1", ok)
+    COMPUTED["Q_blocks"]["wire"] = ok
 
     # E1b countercontrol: the same pattern on the vacuum c=0 (values -1 -> q-1) does not translate
     xp, x = yp % q, y % q
@@ -242,6 +297,7 @@ def checks_E():
             sg = (-1) ** k
             ok &= np.array_equal((c + sg * np.roll(Yp, -k, 0)) % q, xp) and np.array_equal((c + sg * np.roll(Y, -k, 0)) % q, x)
     check("E2 W2 signal: shift -1 with negation every 3 ticks for 60 ticks", ok)
+    COMPUTED["Q_blocks"]["wire"] &= ok
 
     # E3: memory. An isolated site (a,b) in {-1,0,1}^2 runs (a,b)->(b,-a)->(-a,-b)->(-b,a)
     ok = True
@@ -274,26 +330,42 @@ def checks_E():
         ok &= bool((off == c).all())
     ok &= seen == [False, False, False, True, False, False, False, True]
     check("E3 memory: isolated trits period 4; frozen staggered line period 4", ok)
+    COMPUTED["Q_blocks"]["memory"] = ok
 
-    # E4: crossing in 3D: W1 along e1 at (.,0,0); W2 along e2 at (24,.,3); combined = sum of solo runs
-    Lx, Ly, nz = 60, 48, 6
-    A = wire_W1(Lx, 1)
-    Ap = np.zeros((Lx, Ly, nz), np.int64)
-    Ac = Ap.copy()
-    Ap[:, 0, 0] = A[0][:, 0, 0]
-    Ac[:, 0, 0] = A[1][:, 0, 0]
-    bp, bc = line_W2(Ly)
-    Bp = np.zeros((Lx, Ly, nz), np.int64)
-    Bc = Bp.copy()
-    Bp[24, :, 3] = bp
-    Bc[24, :, 3] = bc
-    sA, sB, sAB = (Ap, Ac), (Bp, Bc), (Ap + Bp, Ac + Bc)
-    ok = True
-    for _ in range(60):
-        sA, sB, sAB = stepZ(*sA), stepZ(*sB), stepZ(*sAB)
-        ok &= np.array_equal(sA[1] + sB[1], sAB[1])
-    # both signals passed the crossing column/row (W1 from x~32 to x~52; W2 from y~24 to y~4)
-    check("E4 crossing: wires at separation 3 evolve independently (60 ticks)", ok)
+    # E4: crossing in Q. W1 along e1 at (.,0,0), signal starting at x=8 (at x=38 by t=90);
+    # W2 along e2 at (24,.,z), signal starting at y=4 (moves -1 per 3 ticks, through y=0 and on).
+    # Separation z=3: the joint Q orbit is the superposition of the two solo orbits for 90 ticks.
+    # Countercontrol z=2: the site (24,0,1) neighbours both wires and superposition fails.
+    def crossing(zsep, T=90):
+        Lx, Ly, nz = 60, 48, 8
+        A = wire_W1(Lx, 1, o=8)
+        Ap = np.zeros((Lx, Ly, nz), np.int64)
+        Ac = Ap.copy()
+        Ap[:, 0, 0] = A[0][:, 0, 0]
+        Ac[:, 0, 0] = A[1][:, 0, 0]
+        bp, bc = line_W2(Ly, o=4)
+        Bp = np.zeros((Lx, Ly, nz), np.int64)
+        Bc = Bp.copy()
+        Bp[24, :, zsep] = bp
+        Bc[24, :, zsep] = bc
+        sA, sB, sAB = [((c + u) % q, (c + v) % q) for u, v in ((Ap, Ac), (Bp, Bc), (Ap + Bp, Ac + Bc))]
+        A0, B0 = (sA[0].copy(), sA[1].copy()), (sB[0].copy(), sB[1].copy())
+        first_fail = None
+        tern = True
+        for t in range(1, T + 1):
+            sA, sB, sAB = stepQ(*sA), stepQ(*sB), stepQ(*sAB)
+            tern &= bool((np.abs(sAB[1] - c) <= 1).all())
+            if first_fail is None and not np.array_equal(sA[1] + sB[1] - c, sAB[1]):
+                first_fail = t
+        moved = np.array_equal(np.roll(A0[1], 30, 0), sA[1]) and np.array_equal(np.roll(B0[1], -30, 1), sB[1])
+        return first_fail, tern, moved
+
+    f3, t3, m3 = crossing(3)
+    f2, _, _ = crossing(2)
+    ok = f3 is None and t3 and m3 and f2 is not None
+    check("E4 crossing in Q: separation 3 superposes for 90 ticks with both signals traversing the crossing; "
+          "separation 2 does not", ok, f"separation 2 first fails at t={f2}")
+    COMPUTED["Q_blocks"]["crossing"] = ok
 
     # E5: plain 90-degree corners on a rectangular loop (12+12+12+12), compared with the 1D ring
     def loop_mismatch(pv, cv, defect, T):
@@ -381,6 +453,7 @@ def checks_E():
     leak = [seg(a, True) for a in (8, 9, 10, 11)]
     check("E6 finite W2 segments frozen; a W2 signal at a segment end leaves the line sector",
           all(v is None for v in frozen) and all(v is not None for v in leak), f"leave times with signal: {leak}")
+    COMPUTED["Q_blocks"]["memory"] &= all(v is None for v in frozen)
 
 
 # ----------------------------------------------------------- F. countercontrols
@@ -465,7 +538,14 @@ def checks_F():
     gB[8, 21] = 1   # top-right of its block: moves (+1,-1); its path crosses A's at a different time
     hA, hB, hAB = bbm_run(gA, 20), bbm_run(gB, 20), bbm_run(gA + gB, 20)
     blocks["crossing"] = np.array_equal(hA + hB, hAB)
-    check("F1 countercontrol BBM: wire, turn, crossing, interaction gate, fan-out, memory all verified",
+    rng = np.random.RandomState(5)
+    add = True
+    for _ in range(10):
+        g1 = rng.randint(0, 2, (n, n)).astype(np.int64)
+        g2 = rng.randint(0, 2, (n, n)).astype(np.int64)
+        add &= np.array_equal((bbm_step(g1, 0) + bbm_step(g2, 0)) % 2, bbm_step((g1 + g2) % 2, 0))
+    COMPUTED["BBM_additive"] = bool(add)
+    check("F1 countercontrol BBM: wire, turn (by collision), crossing, interaction gate, fan-out, memory all verified",
           all(blocks.values()), f"{blocks}; gate table={table}; memory period={per}")
     return blocks
 
@@ -500,33 +580,47 @@ def search_S1():
         for _ in range(T):
             yp, y = y, np.floor_divide(np.roll(y, 1) + np.roll(y, -1) + 1, 3) - yp
             ref.append(y.copy())
+        bg_p = np.zeros(Lp, np.int64)
+        bg_c = np.zeros(Lp, np.int64)
+        bg_p[1::2] = np.tile(pv, Lp // P)
+        bg_c[0::2] = np.tile(cv, Lp // P)
+        ref_bg = []
+        yp, y = bg_p.copy(), bg_c.copy()
+        for _ in range(T):
+            yp, y = y, np.floor_divide(np.roll(y, 1) + np.roll(y, -1) + 1, 3) - yp
+            ref_bg.append(y.copy())
         C = path[K]
         gad = [(C[0] - 1, C[1] + 1, C[2]), (C[0] + 1, C[1], C[2]), (C[0], C[1] - 1, C[2])]
         far = np.array([abs(k - K) > 4 for k in range(Lp)])
         pi = np.array(path)
-        good = 0
-        for gv in itertools.product((-1, 0, 1), repeat=6):
+        def passes(gv, with_signal):
             Yp = np.zeros((K + 8, K + 8, 7), np.int64)
             Y = Yp.copy()
-            for k, s in enumerate(path):
-                Yp[s] = bp[k]
-                Y[s] = bc[k]
+            for k, s_ in enumerate(path):
+                Yp[s_] = bp[k] if with_signal else bg_p[k]
+                Y[s_] = bc[k] if with_signal else bg_c[k]
             for gs, (u, v) in zip(gad, zip(gv[0::2], gv[1::2])):
                 Yp[gs] = u
                 Y[gs] = v
-            fine = True
+            r = ref if with_signal else ref_bg
             for t in range(T):
                 Yp, Y = stepZ(Yp, Y)
-                if np.abs(Y).max() > 1 or not np.array_equal(Y[pi[:, 0], pi[:, 1], pi[:, 2]][far], ref[t][far]):
-                    fine = False
-                    break
-            good += fine
-        return good
+                if np.abs(Y).max() > 1 or not np.array_equal(Y[pi[:, 0], pi[:, 1], pi[:, 2]][far], r[t][far]):
+                    return False
+            return True
 
-    g1 = run([-1, 1], [-1, 1], [-1, -1, -1, 1, -1, -1, -1, 1], -1)
-    g2 = run([-1], [0], [-1, -1, 1, -1, 0, 0, -1, 1], 1)
-    check("S1 corner gadgets (729 per signal type): none passes the signal with the line sector intact",
-          g1 == 0 and g2 == 0, f"passing: W2={g1}, W1={g2}")
+        bg_ok = passes((0,) * 6, False)
+        plain = passes((0,) * 6, True)
+        good = sum(passes(gv, True) for gv in itertools.product((-1, 0, 1), repeat=6))
+        return bg_ok, plain, good
+
+    # W2 only: on this loop the W1 background alone leaves {-1,0,1} at the plain corners (E5), so a W1
+    # corner search would be vacuous. Pass criterion: the 1D-ring evolution reproduced, undelayed and
+    # unsigned, at every path site farther than 4 from the gadget corner, with all values in {-1,0,1}.
+    bg_ok, plain, good = run([-1, 1], [-1, 1], [-1, -1, -1, 1, -1, -1, -1, 1], -1)
+    COMPUTED["Q_blocks"]["turn"] = good > 0
+    check("S1 W2 corner gadgets (729): background control passes, plain corner fails, no gadget passes the signal",
+          bg_ok and not plain and good == 0, f"background control={bg_ok}, plain corner={plain}, passing={good}")
 
 
 def search_S2():
@@ -572,6 +666,7 @@ def search_S2():
                 continue
             dB = any(not np.array_equal(hr[1][:, 3, 0], hs[1][:, 3, 0]) for hr, hs in zip(hist_r, hist_s))
             out["signal reaches second wire" if dB else "no effect on second wire"] += 1
+    COMPUTED["Q_blocks"]["gate"] = out["signal reaches second wire"] > 0
     check("S2 bridge survey (4 positions x 81): no bridge moves a signal onto the second wire",
           out["signal reaches second wire"] == 0, str(dict(out)))
 
@@ -644,17 +739,19 @@ def main():
     checks_D()
     checks_E()
     bb = checks_F()
-    cl_lin = classify(True, {})
-    cl_bbm = classify(False, bb)
-    cl_q = classify(False, {"wire": True, "crossing": True, "memory": True})
-    check("F2 classifier: linear -> not universal; BBM -> universal; rounded Q -> undecided",
-          cl_lin.startswith("not universal") and cl_bbm.startswith("universal") and cl_q.startswith("undecided"),
-          f"LIN: {cl_lin} | BBM: {cl_bbm} | Q: {cl_q}")
     if "--search" in sys.argv:
         search_S1()
         search_S2()
         search_S3()
         search_S4()
+    # F2: every classifier input is a value computed above (additivity tests A2, A3, F1; block checks
+    # E1-E6, F1; S1, S2 with --search). Blocks never tested (fan-out in Q) count as not verified.
+    cl_lin = classify(COMPUTED["LIN_additive"], {})
+    cl_bbm = classify(COMPUTED["BBM_additive"], bb)
+    cl_q = classify(COMPUTED["Q_additive"], COMPUTED["Q_blocks"])
+    check("F2 classifier on computed inputs: linear -> not universal; BBM -> universal; rounded Q -> undecided",
+          cl_lin.startswith("not universal") and cl_bbm.startswith("universal") and cl_q.startswith("undecided"),
+          f"LIN: {cl_lin} | BBM: {cl_bbm} | Q: {cl_q} | Q blocks: {COMPUTED['Q_blocks']}")
     bad = [n for n, ok in RESULTS if not ok]
     print(f"{len(RESULTS) - len(bad)}/{len(RESULTS)} checks pass")
     sys.exit(1 if bad else 0)

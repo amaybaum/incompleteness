@@ -1,8 +1,10 @@
 # UNIV-1: computational universality of the published native update
 
 **Standing.** Author record of a paper-only gem-finding unit (AGENTS.md §A.31, depth-first form).
-No independent review yet; one is required by the authorization. The record adopts no premise and
-edits no manuscript, Lean module or registry. Small exact checks are included (§9).
+Independent non-author review: REVISE at `e4e6c997`
+([#1432 c.7025788384](https://github.com/amaybaum/incompleteness/pull/1432#issuecomment-7025788384)).
+This revision answers its required corrections 1–6. The record adopts no premise and edits no
+manuscript, Lean module or registry. Small exact checks and bounded searches are included (§10).
 
 - **Authorization.** Owner `amaybaum`,
   [#866 c.7023969813](https://github.com/amaybaum/incompleteness/issues/866#issuecomment-7023969813),
@@ -40,7 +42,7 @@ edits no manuscript, Lean module or registry. Small exact checks are included (�
 | [W] | derivation in this record; not independently reviewed; not kernel-checked |
 | [EC] | exact finite check in `checks/univ_checks.py` (integer arithmetic) |
 | [S] | bounded exhaustive search in the same file (`--search`); evidence about the searched set only |
-| [LIT2] | literature cited from memory, not re-read; marked where a result depends on it |
+| [LIT2] | literature cited from memory, not re-read; marked where a result depends on it, and given otherwise as background only |
 
 ***
 
@@ -50,41 +52,45 @@ edits no manuscript, Lean module or registry. Small exact checks are included (�
    `x(t+1) = F(x(t)) − x(t−1)` (Main ledger (xiii)). Its manuscript members are the linear rule of
    Main §3.2 (`q = 2`), the exact linear rule of SM §4.2 over `ℤ/q`, and the rounded rule of SM
    §4.2, `x(t+1) = ⌊(Σ_nn x(t) + 1)/3⌋ − x(t−1) mod q` on the representatives `0,…,q−1`, measured
-   at `q = 2^16`. The canonical member taken here is the rounded rule at `q = 2^16` on `ℤ³`,
-   called Q. U₂ is its `q = 2` member.
-2. **Node 1, invariants (§2).** Linear members with `q` a prime power (including Main §3.2 and the
-   exact linear rule at `q = 2^16`) are not Turing-universal in Definition U: every halting
-   predicate of the form "cell 0 ever shows `h`" is decidable (Theorem L [W, LIT2]). U₂ is not
+   at `q = 2^16`. Main's own selected model (linearity posit A5, coupling `α`, `α = 1/d` on the
+   normalized branch) is a linear member. The member taken here as canonical, by choice, is the
+   rounded rule at `q = 2^16` on `ℤ³`, called Q. U₂ is its `q = 2` member.
+2. **Node 1, invariants (§2).** Linear members with `q` a prime power and any coupling `α ∈ ℤ/q`
+   (including Main §3.2, the exact linear rule at `q = 2^16`, and Main's A5 model with
+   `α ≡ 3^{−1} mod 2^16`) are not Turing-universal in Definition U: every halting predicate of the
+   form "cell `i₀` ever shows `h`" is decidable (Theorem L [W], with a self-contained proof). U₂ is not
    Turing-universal on finite perturbations of its sixteen parity-uniform backgrounds (Corollary
    1.3, from DL1 Theorem 2.2). Q is nonlinear, and is not an affine cellular automaton under any
    relabelling of its pair alphabet into any abelian group (Proposition 1.4 [W, EC A4]: 196 606
    fixed points on an invariant subgroup). The linear-wave energy is not conserved [EC A5]; support
-   closure fails, and the vacuum is explosive (finite seeds grow at the speed of light [EC C1,
+   closure fails, and the vacuum is explosive (the seeds tested grow at the speed of light [EC C1,
    C2]). No obstruction is found for Q. That branch stays open.
 3. **Node 2, building blocks (§3).** On a uniform background `c = 2^15`, Q is exactly the integer
-   rule RZ, `y(t+1) = ⌊(Σ_nn y(t) + 1)/3⌋ − y(t−1)`, while `|y| < 2^15` (Lemma 2.1 [W, EC D1]).
-   In RZ, configurations on a straight line with values in `{−1,0,1}` stay on the line (Lemma 2.2).
+   rule RZ, `y(t+1) = ⌊(Σ_nn y(t) + 1)/3⌋ − y(t−1)`: every RZ orbit with `|y| < 2^15` gives the
+   Q orbit `c + y` (Lemma 2.1 [W, EC D1]; one direction only). In RZ, configurations on an
+   axis-parallel line with values in `{−1,0,1}` stay on the line (Lemma 2.2).
    Verified in Q: two signal types (W1, W2) that move along pre-laid lines at speed 1/3 in either
    direction [EC E1, E2]; crossing by separation in 3D [EC E4]; memory (isolated trits and finite
    frozen lines, period 4) [EC E3, E6]. Not found: a turn, a two-input gate, fan-out, or a clean
-   wire end. A plain corner is not transparent to a signal [EC E5]; corner gadgets (1458 cases)
-   and inter-wire bridges (324 cases) give no transfer [S1, S2]; a signal at a wire end leaves the
-   line sector [EC E6]. **Missing block:** a mechanism that moves a line signal off its line (onto
+   wire end. A plain corner is not transparent to a signal [EC E5]; corner gadgets for W2
+   (729 cases, over a passing background control) and inter-wire bridges (324 cases) give no
+   transfer [S1, S2]; a signal at a wire end leaves the line sector [EC E6]. Every verified block
+   is non-interacting: transport, storage, and a crossing that is automatic in 3D. **Missing block:** a mechanism that moves a line signal off its line (onto
    a line of another direction or a parallel line, or into a second signal's line), with the line
    sector restored. Turn, gate and fan-out each need it.
 4. **Node 3 (§4).** Not reached: universality is not established. Recording and re-arming would
    need the missing block.
-5. **Node 4 (§5).** For the blocks found: a designed pattern pinned on its light-cone base costs
-   `16(|B_T| + |B_{T−1}|)` bits of `D(p₀‖u)` for a read after `T` ticks
+5. **Node 4 (§5).** For the blocks found: the full sufficient pin of a designed pattern on the
+   light-cone base of one site at time `T` costs `16(|B_T| + |B_{T−1}|)` bits of `D(p₀‖u)`
    (`|B_r| = (2r+1)(2r²+2r+3)/3`). Its probability under the uniform i.i.d. law is
-   `2^{−16(|B_T|+|B_{T−1}|)}`. A noisy exterior erodes the background at about the light-cone
+   `2^{−16(|B_T|+|B_{T−1}|)}`; §5 gives the bound for other i.i.d. pair laws. A noisy exterior erodes the background at about the light-cone
    speed [EC C3].
 6. **Node 5 (§6).** Universality would at most source apparatus. It would not source amplitudes or
    the Born rule.
-7. **Productivity (§8).** Test (iii) is met: a verified partial set {signal on a wire, crossing,
-   memory} in Q, together with the missing block stated in item 3. Test (i) is met for the linear
-   members (conditional on the cited theorems) and for U₂ on finite perturbations. It is not met
-   for Q. Test (ii) is not met.
+7. **Productivity (§8).** Test (iii) is met, thinly: a verified partial set {signal on a wire,
+   crossing, memory} in Q, all of it non-interacting, together with the missing block stated in
+   item 3. Test (i) is met for the linear members (Theorem L) and for U₂ on finite perturbations.
+   It is not met for Q. Test (ii) is not met.
 
 ***
 
@@ -99,6 +105,7 @@ stated in manuscripts:
 |---|---|---|---|
 | L₂ | Main:292–294 | "`q = 2`, state `(u,v) ∈ 𝔽₂^Λ × 𝔽₂^Λ` and the reversible nearest-neighbour update `u'_x = Σ_{z∼x} u_z + v_x, v'_x = u_x`" | yes (over 𝔽₂) |
 | L_q | SM:298 | "The exact finite update `f = Σ_nn x − x(t−1)` over `ℤ/qℤ` is modular-linear" | yes (over `ℤ/q`) |
+| L_{q,α} | Main:730 (vii); `papers/Substratum.md:100`, `:159` | Main ledger (vii): "linearity of the substratum update (A5)"; Substratum:159: the selected dynamics "has the form `f = α(x_1 + x_2 + ⋯ + x_{2d}) mod q` with coupling coefficient `α`", which "on the observer-level normalized branch … equals `1/d`" | yes (over `ℤ/q`) |
 | R_q | SM:294 | "the rounded bijection `x(t+1) = ⌊(Σ_nn x(t)+1)/3⌋ − x(t−1) mod q`, evaluated on the representatives `0,…,q−1`", measured "at `L = 20`, `q = 2^{16}`" | no (§2.3) |
 
 SM:298 adds: "The floor in the rounded rule above is a different operation, evaluated on the chosen
@@ -114,7 +121,9 @@ with alphabet `q²`. #1408 calls R_q "the published rounded recurrence" and uses
 U₂ of DL1 [EC A1]. DL1 §2.4 calls `q = 2^16` "the published `q = 2^16`".
 
 **Canonical member.** The corpus defines a family, indexed by `F` and `q`. SM does not fix `q`
-(SM §2.7 states results "for every alphabet size `q ≥ 2`"). The member taken here is
+(SM §2.7 states results "for every alphabet size `q ≥ 2`"). Main's ledger designates no rounded
+member: the model it selects under posit A5 is the linear L_{q,α}, which Theorem L covers for
+prime-power `q` (§2.1). The member taken here as canonical is, by this record's choice,
 **Q := R_{2^16} on `ℤ³`**, for three reasons: it is the only nonlinear member stated in a paper,
 it is the member measured there, and DL1 leaves it open. The linear members and U₂ are treated
 because the assignment asks for their classification (§2.1, §2.2).
@@ -138,28 +147,59 @@ are reduced to this form by a product alphabet. When a class of initial configur
 
 ### 2.1 Linear members
 
-*Theorem L [W, LIT2].* Let `q = p^k` with `p` prime, and let `F` be L_q on `ℤ^d` (so L₂ when
-`q = 2`). For every ultimately periodic two-slice initial configuration `c`, every site `i₀` and
-every symbol `h`, the set `{t ≥ 0 : F^t(c)(i₀) = h}` is `p`-automatic, and an automaton for it can
-be computed from `c`. So emptiness is decidable, and `F` is not Turing-universal in Definition U.
+*Theorem L [W].* Let `q = p^k` with `p` prime, `α ∈ ℤ/q`, and let `F` be the linear member
+`x_{t+1}(i) = α Σ_{j∼i} x_t(j) − x_{t−1}(i) mod q` on `ℤ^d`. This covers L₂ (Main §3.2, `α = 1`,
+`q = 2`), L_q (SM:298, `α = 1`) and Main's A5 model with `α ≡ d^{−1}` (for `d = 3`, `q = 2^16`:
+`α ≡ 3^{−1}`). For every initial configuration in Definition U's class (a periodic two-slice
+configuration changed on a finite set), every site `i₀` and every symbol `h`, the set
+`{t ≥ 0 : F^t(c)(i₀) = h}` is the set of `t` whose base-`p` digits a finite automaton accepts, and
+that automaton is computable from `c`. Its emptiness is therefore decidable, and `F` is not
+Turing-universal in Definition U.
 
-*Proof.* (a) Finite perturbation of zero. Put `W(X,T) = Σ_{t≥0} Σ_i x_t(i) X^i T^t` with
-`A = Σ_j (X_j + X_j^{-1})`. The recurrence `x_{t+1} = A x_t − x_{t−1}` gives
-`(1 − AT + T²) W = x_0 + T(x_1 − A x_0)`. The support at time `t` lies within distance `t + R` of
-the origin, so substituting `T ↦ T·X_1⋯X_d` and multiplying by `(X_1⋯X_d)^R` gives a series with
-non-negative exponents. That series equals `P/Q₀`, with `P, Q₀` integer polynomials and
-`Q₀(0) = 1`. It is therefore algebraic over `ℤ_p`, and by Denef–Lipshitz [LIT2] its coefficients
-modulo `p^k` form a `p`-automatic `(d+1)`-dimensional array. (For `k = 1`, Christol–Salon [LIT2].)
-The set `{t : x_t(i₀) = h}` is first-order definable from that array in `(ℕ, +, V_p)`. Such sets
-are `p`-automatic, effectively (Bruyère–Hansel–Michaux–Villemaire [LIT2]). (b) Ultimately periodic
-`c`. Write `c = b + f`, with `b` periodic and `f` finitely supported (difference mod `q`).
-Linearity gives `F^t(c) = F^t(b) + F^t(f)`. The orbit of `b` lies in the finite set of
-configurations with `b`'s periods, so `t ↦ F^t(b)(i₀)` is eventually periodic. The sum of an
-eventually periodic sequence and a `p`-automatic sequence is `p`-automatic. ∎
+*Proof.* (a) *Rational series.* Let `f` be a finitely supported two-slice configuration, and lift
+`α` and its values to integers. Put `W(X,T) = Σ_{t≥0} Σ_i x_t(i) X^i T^t` and
+`A = Σ_j (X_j + X_j^{-1})`. The recurrence gives `(1 − αAT + T²) W = x_0 + T(x_1 − αA x_0)` over
+`ℤ/q`. The support at time `t` lies within ℓ∞-distance `t + R` of the origin. Substituting
+`T ↦ T·X_1⋯X_d` and multiplying by `(X_1⋯X_d)^R` moves the coefficient `x_t(i)` to the exponent
+`(i + (t+R)𝟙, t) ≥ 0`. The result is `P/Q₀` in `m = d+1` variables `Y = (X, T)`, with
+`P, Q₀ ∈ ℤ[Y]`, `Q₀ = 1 − α Σ_j (X_j² + 1) Π_{k≠j} X_k · T + (X_1⋯X_d)² T²` and `Q₀(0) = 1`.
 
-Scope: `q` a prime power. Composite `q` with two distinct prime factors is not covered. The checks
-confirm additivity of L₂ and L_{2^16} [EC A2]. The classifier of §7 uses Theorem L for any
-additive member.
+(b) *Frobenius step.* Over `ℤ`, `Q₀(Y)^p ≡ Q₀(Y^p) (mod p)`, and `a ≡ b (mod p^j)` implies
+`a^p ≡ b^p (mod p^{j+1})`. So `S := Q₀^{p^{k−1}}` satisfies `S(Y)^p ≡ S(Y^p) (mod p^k)` [EC L1
+checks this identity for the `Q₀` above with `p = 2`]. Hence
+`P/Q₀ = G(Y)/S(Y^p)` with `G = P · Q₀^{p^{k−1}−1} · S^{p−1}`.
+
+(c) *Finite kernel.* For `r ∈ {0,…,p−1}^m` let `Λ_r(Σ a_n Y^n) = Σ a_{pn+r} Y^n`. Then
+`Λ_r(U(Y) V(Y^p)) = Λ_r(U) · V(Y)`, so `Λ_r(G/S(Y^p)) = Λ_r(G)/S`, and for a polynomial `H`,
+`Λ_r(H/S) = Λ_r(H S^{p−1})/S`. If every partial degree of `H` is at most `D` and `D ≥ s`, the
+largest partial degree of `S`, then `Λ_r(H S^{p−1})` has partial degrees at most
+`(D + (p−1)s)/p ≤ D`. With `D ≥ max(s, deg G)` the finite set
+`𝒦 = {G/S(Y^p)} ∪ {H/S : partial degrees of H ≤ D}` (coefficients in `ℤ/q`) is closed under every
+`Λ_r`.
+
+(d) *Section.* `x_t(i₀)` is the coefficient of `Y^{t𝟙 + e}` with `𝟙 = (1,…,1) ∈ ℕ^m` and
+`e = (i₀ + R𝟙, 0) ≥ 0`. For a series `U` put `b_{U,e}(t) = [Y^{t𝟙+e}] U`. Writing
+`r + e_j = p e'_j + r'_j` with `0 ≤ r'_j < p` gives `b_{U,e}(pt + r) = b_{Λ_{r'} U, e'}(t)`. If every
+`e_j ≤ E` with `E ≥ 1`, then every `e'_j ≤ E`. So the pairs `(U, e)` with `U ∈ 𝒦` and `e ≤ E`
+form a finite, computable set of states, closed under these transitions. Reading the base-`p`
+digits of `t` from the least significant, the automaton ends in `(U, e)` and outputs
+`[Y^e] U = x_t(i₀)`. Leading zeros do not change the output, since `b_{U,e}(0) = b_{Λ_{r'}U,e'}(0)`
+for `r = 0`.
+
+(e) *Periodic background.* Write `c = b + f`, with `b` periodic and `f` finitely supported
+(difference mod `q`). Linearity gives `F^t(c) = F^t(b) + F^t(f)`. The orbit of `b` lies in the
+finite, computable set of configurations with `b`'s periods, so `t ↦ F^t(b)(i₀)` is eventually
+periodic with computable preperiod `N` and period `P`. Reading digits from the least significant,
+an automaton tracks `t mod P` and `min(t, N)`. The product with the automaton of (d) decides
+`F^t(c)(i₀) = h`, and emptiness is a reachability question. ∎
+
+Scope: Definition U's class (one periodic background plus a finite change). Configurations with
+different periodic patterns on different half-spaces, which some definitions of universality
+admit, are not covered here. Composite `q` with two distinct prime factors is not covered either.
+Background [LIT2]: automaticity of linear cellular automata over `ℤ/p^k` from finite configurations
+is known (Allouche–von Haeseler–Peitgen–Skordev 1996, in one dimension). The proof above does not
+use it. The checks confirm additivity of L₂, L_{2^16} and L_{2^16, 3^{−1}} [EC A2]. The classifier
+of §7 applies Theorem L to any member whose additivity test passes.
 
 ### 2.2 U₂ on parity-uniform backgrounds
 
@@ -202,13 +242,13 @@ backgrounds, where Theorem 2.2 does not apply. NATPREP-1 treats U₂'s preparati
   billiard-ball countercontrol conserves particle number and is classified universal (§7).
 - **(c) Support closure.** It fails. A symbol 2 in the vacuum reaches all six neighbours in one
   step [EC C1, as DL1 E8]. A seed `(0, 1)` at the origin has support radius `t − 2` for
-  `3 ≤ t ≤ 20` [EC C2]. The vacuum 0 is explosive: a value `−1` is represented as `q − 1`, and its
+  `3 ≤ t ≤ 20` [EC C2]. In the seeds tested the vacuum 0 is explosive: a value `−1` is represented as `q − 1`, and its
   neighbours receive `≈ q/3` (the boundary crossings of SM:294).
 - **(d) Light cone and permutation structure.** The rule is reversible, with radius 1 and the cubic
   symmetry. Neither property blocks universality: the countercontrol has both.
 
-**Verdict, node 1.** Linear members with `q` a prime power: obstruction (Theorem L), conditional on
-the cited automaticity theorems. U₂: obstruction on finite perturbations of parity-uniform
+**Verdict, node 1.** Linear members with `q` a prime power and any coupling: obstruction
+(Theorem L), with additivity as the invariant. U₂: obstruction on finite perturbations of parity-uniform
 backgrounds (Corollary 1.3), with the closure invariant. Q: no obstruction found. The branch stays
 open, and node 2 proceeds.
 
@@ -217,18 +257,20 @@ open, and node 2 proceeds.
 ## 3. Node 2: building blocks in Q
 
 **Lemma 2.1 (mid-alphabet embedding) [W, EC D1].** Let `c ∈ {0,…,q−1}`, and let `y_t` be integer
-configurations with `0 ≤ c + y_t(i) < q` for all `i` and all `t ∈ [−1, T]`. Then `x_t = c + y_t`
-is the Q-orbit on `[−1, T]` iff `y` is an RZ-orbit there.
+configurations with `0 ≤ c + y_t(i) < q` for all `i` and all `t ∈ [−1, T]`. If `y` is an RZ-orbit
+on `[−1, T]`, then `x_t = c + y_t` is the Q-orbit on `[−1, T]`. The converse fails: with all six
+neighbours at `y = 2^15 − 1` and `y_{t−1} = −2^15`, Q's next representative is `c + 32766`, inside
+the window, while RZ gives `98302` (from the review).
 *Proof.* On representatives `S = 6c + Σ y`, and `⌊(6c + Σy + 1)/3⌋ = 2c + ⌊(Σy + 1)/3⌋` since
-`3 | 6c`. So `x_{t+1} ≡ c + (⌊(Σ y_t + 1)/3⌋ − y_{t−1}) (mod q)`, and the representative equals
-`c + y_{t+1}` when that value lies in `[0, q)`. ∎ With `c = 2^15` the window is
+`3 | 6c`. So `x_{t+1} ≡ c + (⌊(Σ y_t + 1)/3⌋ − y_{t−1}) (mod q)`. When the RZ value `y_{t+1}`
+satisfies `c + y_{t+1} ∈ [0, q)`, that is the representative. ∎ Only this direction is used below. With `c = 2^15` the window is
 `|y| < 2^15`. All constructions below use `c = 2^15`. On the vacuum `c = 0` the same pattern leaves
 the line [EC E1b].
 
 **Properties of RZ.** `G(s) = ⌊(s+1)/3⌋` is the nearest integer to `s/3` and is odd. `G(s) = 0`
 iff `|s| ≤ 1`. A site whose neighbour sum stays in `{−1,0,1}` evolves as `y_{t+1} = −y_{t−1}`.
 
-**Lemma 2.2 (line sector) [W].** Let `ℓ` be a straight lattice line. If an RZ configuration is
+**Lemma 2.2 (line sector) [W].** Let `ℓ` be an axis-parallel lattice line. If an RZ configuration is
 zero off `ℓ` and takes values in `{−1,0,1}` on `ℓ` at times `t−1` and `t`, then at time `t+1` it is
 zero off `ℓ`. On `ℓ` it follows the one-dimensional rule
 `y_{t+1}(k) = ⌊(y_t(k−1) + y_t(k+1) + 1)/3⌋ − y_{t−1}(k)`.
@@ -238,12 +280,12 @@ values stay in `{−1,0,1}`. Each check below tests that condition at every tick
 
 | Block | Status | Evidence |
 |---|---|---|
-| **Signal on a wire, W1** | verified in Q | Line `ℓ = ℤe₁`. Background: previous slice `−1` on odd sites, current slice 0 on even sites (a uniform period-6 oscillation, `(a,b) ↦ (b, b−a)`). Signal: previous `+1` at `o+3`; current `−1` at `o+2`, `+1` at `o+4`. It shifts by +2 every 6 ticks; off-line sites stay at `c`; `|y| ≤ 1`; 60 ticks on a ring of 60 [EC E1]. The mirror image moves by −2. Because the state on the ring returns translated, the orbit is periodic, and by locality the same holds on the infinite line. Finite W1 segments leave the line sector [EC E6a], so W1 needs an unbounded line. |
+| **Signal on a wire, W1** | verified in Q | Line `ℓ = ℤe₁`. Background: previous slice `−1` on odd sites, current slice 0 on even sites (a uniform period-6 oscillation, `(a,b) ↦ (b, b−a)`). Signal: previous `+1` at `o+3`; current `−1` at `o+2`, `+1` at `o+4`. It shifts by +2 every 6 ticks; off-line sites stay at `c`; `|y| ≤ 1`; 60 ticks on a ring of 60 [EC E1]. The mirror image moves by −2. Because the state on the ring returns translated after 6 ticks, and the ring (60) is longer than the defect window plus the 6-tick light cone on both sides, the ring and the infinite line agree on every backward cone, and induction carries the translation to all times on the line. The review confirmed this on a non-periodic 400-site line in 3D (120 ticks). Finite W1 segments leave the line sector [EC E6a], so W1 needs an unbounded line. |
 | **Signal on a wire, W2** | verified in Q | Staggered background: both slices `(−1, 1, −1, 1, …)` on their parity sites. Every line site then has neighbour sum 0, and the background is frozen with period 4. Signal: the window `(−1,−1,−1,1 | −1,−1,−1,1)` (odd previous \| even current). It satisfies `y(t+3) = −shift_{−1} y(t)`, i.e. speed 1/3, for 60 ticks [EC E2]. Finite W2 segments are frozen [EC E6]. |
-| **Crossing** | verified (3D) | A W1 wire along `e₁` at `z = 0` and a W2 wire along `e₂` at `z = 3`, both carrying signals. The joint evolution equals the sum of the separate ones for 60 ticks [EC E4]. In general, lines with no common neighbour evolve independently: at every site at most one of the two contributes to the neighbour sum. |
+| **Crossing** | verified (3D) | A W1 wire along `e₁` at `z = 0` (signal from `x = 8` to `x = 38`) and a W2 wire along `e₂` at `x = 24`, `z = 3` (signal from `y = 4` through `y = 0`), so both signals traverse the crossing. In Q the joint evolution is the superposition of the two solo evolutions for 90 ticks, with values in `{c−1, c, c+1}`. Countercontrol: at separation `z = 2` the site `(24, 0, 1)` neighbours both wires and superposition fails at `t = 3` [EC E4]. In general, axis lines with no common neighbour evolve independently. |
 | **Memory** | verified in Q | An isolated site `(a, b) ∈ {−1,0,1}²` runs `(a,b) → (b,−a) → (−a,−b) → (−b,a)` and leaves its neighbours at `c`. A finite frozen line `(−1,1)/(0,0)`, or a finite W2 segment, stores one trit per site with period 4 [EC E3, E6]. |
-| **Turn** | not found | A plain 90° corner of a W2 loop is transparent to the background but not to the signal (first deviation from the 1D reference at `t = 16`). A plain corner of a W1 loop leaks at `t = 2` [EC E5]. Mechanism: the inner-corner site has the same two path neighbours as the corner site, so it is kicked whenever the corner is kicked. Gadgets of three sites (inner corner and two outer sites), with two-slice values in `{−1,0,1}`: 729 per signal type, none passes the signal with the line sector intact [S1]. |
-| **Two-input gate** | not found | Two parallel W2 wires at `y = 0` and `y = 3` (the second negated) and a two-site bridge at one of four positions, 81 value choices each [S2]. 308 bridges disturb the wires, 12 leave `{−1,0,1}` (not classified further), and 4 pass the signal without affecting the second wire. None transfers a signal. |
+| **Turn** | not found | A plain 90° corner of a W2 loop is transparent to the background but not to the signal (first deviation from the 1D reference at `t = 16`). A plain corner of a W1 loop leaks at `t = 2` from the background alone [EC E5], so W1 corners cannot be tested in a loop of plain corners and were not searched. Mechanism: the inner-corner site has the same two path neighbours as the corner site, so it is kicked whenever the corner is kicked. W2 gadgets of three sites (inner corner and two outer sites), two-slice values in `{−1,0,1}`, 729 cases. The background control (no gadget, no signal) passes; the plain corner with the signal fails; no gadget passes [S1]. "Passes" means: the undelayed, unsigned 1D-ring evolution is reproduced at every path site farther than 4 from the gadget corner for 90 ticks, with all values in `{−1,0,1}`. A turn that delays the signal or changes its sign or type would count as a failure. |
+| **Two-input gate** | not found | Two parallel W2 wires at `y = 0` and `y = 3` (the second negated) and a two-site bridge at one of four positions, 81 value choices each [S2]. 308 bridges disturb the wires, 12 leave `{−1,0,1}` (not classified further), and 4 have no effect on the second wire (what they do to the signal on the first wire is not checked). None transfers a signal. |
 | **Fan-out** | not found | Needs the missing transfer (below). |
 | **Wire end** | not clean | A W2 signal that reaches a segment end leaves the line sector (`t = 47–56` for four end positions) [EC E6]. |
 | **Free signals** | none found | RZ vacuum seeds in `2×1×1` and `3×1×1` boxes with values in `{−1,0,1}`: 520 oscillators, 288 growing, no glider at horizon 40 [S3]. The line sector on the zero line, windows of width 10: no moving localized pattern [S4]. |
@@ -253,10 +295,13 @@ interaction tried that moves it off the line either leaves the ternary sector or
 Turn, gate input coupling and fan-out all require a **controlled transfer of a line signal off its
 line, with the line sector restored**. No verified instance exists. Universality by the standard
 route needs this block, and the searches cover only the stated small sets (ternary values, gadgets
-of at most three sites, horizons of 72–90 ticks). Absence is not shown.
+of at most three sites, one bridge geometry; horizons 90 ticks in S1, 72 in S2, 40 in S3, 60 in
+S4). Absence is not shown. The missing block sits exactly where Lemma 2.2 stops applying: at any
+junction, some off-line site has two line neighbours.
 
 **Verdict, node 2.** Partial set verified in the published rule: signals on wires (two types),
-crossing, memory. Missing: off-line transfer, and with it turn, gate and fan-out. The positive
+crossing, memory. Every one of these blocks is non-interacting. Missing: off-line transfer, and
+with it turn, gate and fan-out. The positive
 branch is neither closed nor established.
 
 ***
@@ -286,14 +331,17 @@ would require is recorded here, with nothing claimed:
   `B_{T−1}`, where `B_r` is the ℓ¹-ball of radius `r`, `|B_r| = (2r+1)(2r²+2r+3)/3`. Pinning that
   base to the designed pattern is sufficient for an exact run.
 - **Cost [W].** A deterministic pin of `m` site-slices (each a symbol of `ℤ/2^16`) has
-  `D(p_{0,B} ‖ u_B) = 16m` bits, so reading one site after `T` ticks costs `16(|B_T| + |B_{T−1}|)` bits. For `T = 10` that
-  is `16·(1561 + 1159) = 43 520` bits. PR1 2.5–2.6 give the lower bound
-  `(N+1)(1 − h₂(ε))` bits in the cone base for `N` held records and a ready cell. The designed
-  pattern exceeds that bound by orders of magnitude, so the binding constraint here is the
-  probability of the pattern, not the budget.
-- **Probability.** Under the uniform i.i.d. law on two-slice site states, the pinned base has
-  probability `2^{−16(|B_T|+|B_{T−1}|)}` (`2^{−43 520}` at `T = 10`). Under an untuned i.i.d. law
-  with site marginal π, it is `∏ π(pattern) ≤ π_max^{|B_T|+|B_{T−1}|}`.
+  `D(p_{0,B} ‖ u_B) = 16m` bits. The full sufficient pin for one site at time `T` therefore costs
+  `16(|B_T| + |B_{T−1}|)` bits; for `T = 10`, `16·(1561 + 1159) = 43 520` bits. PR1 2.5–2.6 give
+  the lower bound `(N+1)(1 − h₂(ε))` bits in the cone base for `N` held records and a ready cell.
+  The sufficient pin exceeds that bound by orders of magnitude, so PR1's bound is far from tight
+  for these constructions.
+- **Probability.** The pin fixes both slices on `B_{T−1}` and the current slice alone on
+  `B_T ∖ B_{T−1}`. Under an i.i.d. law with pair marginal π on two-slice site states and current-slice
+  marginal π₀, its probability is
+  `∏_{i∈B_{T−1}} π(w_i) · ∏_{i∈B_T∖B_{T−1}} π₀(w_i) ≤ π_max^{|B_{T−1}|} · π₀,max^{|B_T|−|B_{T−1}|}`.
+  For the uniform law this equals `2^{−32|B_{T−1}| − 16(|B_T| − |B_{T−1}|)} = 2^{−D}` with
+  `D = 16(|B_T| + |B_{T−1}|)` (`2^{−43 520}` at `T = 10`).
 - **Is the pin needed? [EC C3, one instance].** A slab `|x₁ − 24| ≤ 12` held at `c` inside uniform
   noise first deviates on its centre plane at `t = 15`. That plane is 13 sites from the noise, and
   13 is the light-cone bound. In this instance, then, the noise reaches the interior within two
@@ -322,24 +370,28 @@ Unchanged, as recorded by the owner: physical measurement sourcing "NOT PASSED",
 | PR1 2.1–2.6, NSC-1..7 [R] | Used in §5 as bounds and in §4 as the exclusion list. No new bound is claimed. | unchanged |
 | #1408, #1412 (`q = 2`) [R] | Not used beyond A1 (U₂ is the `q = 2` member). | untouched |
 | SM:294 numerics [P] | Concern uniformly random states. §3's structures live on a designed background, where Lemma 2.1 removes boundary crossings. C3 shows that noise erodes that background. | consistent |
-| Countercontrol: linear rule | L₂ and L_{2^16} are additive [EC A2], with a power-of-2 fixed-point count [EC A4b]. The classifier returns "not universal (Theorem L)" [EC F2]. | passes |
-| Countercontrol: billiard-ball block rule | The Margolus partition rule (one particle moves to the opposite corner, a diagonal pair rotates, every other block is unchanged), implemented exactly. Verified: a diagonal glider; the interaction-gate truth table (A∧¬B, ¬A∧B, A∧B, A∧B at four output cells); fan-out with B = 1 (A, A, ¬A); a 90° turn by collision with a supplied constant particle, and 180° reflection at a wall; memory (a particle between two walls returns after 18 ticks); a timed crossing [EC F1]. The classifier returns "universal (all blocks verified)" [EC F2]. That this rule is Margolus's BBMCA, and that these blocks compose to universality (Fredkin–Toffoli conservative logic, Margolus 1984), is [LIT2]. | passes |
-| Q under the same classifier | Non-affine (A3, A4). Blocks: wire, crossing, memory. Returns "undecided; missing turn, gate, fanout". | as reported |
+| Countercontrol: linear rule | L₂, L_{2^16} and L_{2^16, 3^{−1}} pass the additivity test [EC A2], with a power-of-2 fixed-point count [EC A4b]. Given that computed result, the classifier returns "not universal (Theorem L)" [EC F2]. | passes |
+| Countercontrol: billiard-ball block rule | The Margolus partition rule (one particle moves to the opposite corner, a diagonal pair rotates, every other block is unchanged), implemented exactly. Verified: a diagonal glider; the interaction-gate truth table (A∧¬B, ¬A∧B, A∧B, A∧B at four output cells); fan-out with B = 1 (A, A, ¬A); a 90° turn by collision with a supplied constant particle, and 180° reflection at a wall. The turn used here is collision-based. It is not the fixed-mirror turn of the literature. A collision turn with a constant input is legitimate in conservative logic, and the same reading was applied to Q (S2); memory (a particle between two walls returns after 18 ticks); a timed crossing [EC F1]. The classifier returns "universal (all blocks verified)" [EC F2]. That this rule is Margolus's BBMCA, and that these blocks compose to universality (Fredkin–Toffoli conservative logic, Margolus 1984), is [LIT2]. | passes |
+| Q under the same classifier | Additivity test fails (A3); blocks computed from E1–E6 and, with `--search`, S1–S2: wire, crossing, memory. Fan-out has no test in Q and counts as not verified. Returns "undecided; missing turn, gate, fanout". | as reported |
 
 The classifier is: additive ⇒ "not universal (Theorem L)"; otherwise all of {wire, turn, crossing,
-gate, fan-out, memory} verified ⇒ "universal"; otherwise "undecided" with the missing list. Its
-"universal" branch rests on the composition theorem [LIT2]. Its "not universal" branch rests on
-Theorem L.
+gate, fan-out, memory} verified ⇒ "universal"; otherwise "undecided" with the missing list. Every
+input is a value computed by the checks: the additivity tests and the block checks. None is
+hard-coded. The "universal" branch rests on the composition theorem [LIT2]; the "not universal"
+branch rests on Theorem L.
 
 ***
 
 ## 8. Productivity verdict and classification
 
-- **Test (iii): met.** In Q (via Lemma 2.1), a verified partial set: signals on wires (W1, W2),
-  crossing, memory. The missing block is stated precisely: off-line transfer of a line signal with
-  the line sector restored, which turn, gate and fan-out all require.
-- **Test (i): met for the linear members** (Theorem L, conditional on the cited automaticity
-  theorems) **and for U₂ on finite perturbations of parity-uniform backgrounds** (Corollary 1.3).
+- **Test (iii): met, thinly.** In Q (via Lemma 2.1), a verified partial set: signals on wires (W1,
+  W2), crossing, memory. Every verified block is non-interacting: transport, storage, and a crossing
+  that is automatic in 3D. No verified block makes two signals act on each other. The missing block
+  is stated precisely: off-line transfer of a line signal with the line sector restored, which turn,
+  gate and fan-out all require. Its negative evidence rests on the W2 corners (S1, E5) and on the
+  bridges (S2).
+- **Test (i): met for the linear members** (Theorem L, any coupling, `q` a prime power, Definition U)
+  **and for U₂ on finite perturbations of parity-uniform backgrounds** (Corollary 1.3).
   Not met for Q.
 - **Test (ii): not met.**
 
@@ -359,7 +411,7 @@ Verdict: gem by (iii).
 |---|---|
 | Lemma 2.1 (mid-alphabet embedding); Lemma 2.2; W1, W2 signals in Q; finite W2 segments as memory | NEW at this scope (author; awaiting review) |
 | Proposition 1.4 (Q not affine under any relabelling) | NEW, minor |
-| Theorem L (linear members) | ELABORATING (application of literature [LIT2]) |
+| Theorem L (linear members, any coupling) | ELABORATING (known in the literature; self-contained proof here) |
 | Corollary 1.3 (U₂) | ELABORATING (DL1 Theorem 2.2) |
 | E5, E6, S1–S4 | record-only negative evidence |
 | Countercontrols F1, F2 | CONFIRMING (criteria calibrated) |
@@ -380,26 +432,27 @@ Verdict: gem by (iii).
 - Proposition 1.4: that `V₁` is invariant and is mapped to a subgroup by every sitewise bijection;
   that an affine map preserving a finite subgroup restricts to it; and the count 196 606 (A4
   enumerates `a` and solves for `b`; review may re-count by an independent method).
-- Theorem L: the reduction to rational generating functions, the use of Denef–Lipshitz for
-  `q = p^k`, and that definability in `(ℕ, +, V_p)` gives decidability. All literature is [LIT2].
-- Lemma 2.1 (the `3 | 6c` step and the window) and Lemma 2.2 (no off-line site has two line
-  neighbours).
-- E1/E2: that periodic return on a ring implies the same orbit on the infinite line. E4: that
-  separation 3 leaves no site adjacent to both wires.
+- Theorem L: the Frobenius step (b), the degree bound in (c), the offset bound in (d), and the
+  product automaton in (e).
+- Lemma 2.1 (the `3 | 6c` step; one direction) and Lemma 2.2 (no off-line site has two neighbours
+  on an axis line).
+- E1/E2: the ring-length condition. E4: the separation-3 superposition and the separation-2
+  countercontrol.
+- S1: the background control and the pass criterion (undelayed, unsigned).
 - The countercontrol: that the implemented block rule matches the cited model, and that "turn by
   collision with a supplied constant" is the right reading of a turn for that model. The same
   reading was applied to Q, where no collision-based transfer was found either (S2).
 - Not done: no Lean; no literature re-read; no search beyond the stated sets; no study of other
   backgrounds of U₂ (NATPREP-1) or of non-uniform backgrounds of Q.
 
-[LIT2] G. Christol, Theoret. Comput. Sci. 9 (1979) 141–145; O. Salon, C. R. Acad. Sci. Paris
-Sér. I 305 (1987) 501–504; J. Denef and L. Lipshitz, J. Number Theory 26 (1987) 46–67;
-V. Bruyère, G. Hansel, C. Michaux and R. Villemaire, Bull. Belg. Math. Soc. 1 (1994) 191–238;
-J.-P. Allouche, F. von Haeseler, H.-O. Peitgen and G. Skordev, Discrete Appl. Math. 66 (1996)
+[LIT2], background only, no result here depends on it: G. Christol, Theoret. Comput. Sci. 9
+(1979) 141–145; O. Salon, C. R. Acad. Sci. Paris Sér. I 305 (1987) 501–504; J. Denef and
+L. Lipshitz, J. Number Theory 26 (1987) 46–67; J.-P. Allouche, F. von Haeseler, H.-O. Peitgen and G. Skordev, Discrete Appl. Math. 66 (1996)
 1–22 (linear cellular automata and automaticity); B. Durand and Zs. Róka, in *Cellular Automata*
 (Kluwer, 1999), on definitions of universality; N. Ollinger, "Universalities in cellular
 automata", *Handbook of Natural Computing* (Springer, 2012); E. Fredkin and T. Toffoli, Int. J.
-Theor. Phys. 21 (1982) 219–253; N. Margolus, Physica D 10 (1984) 81–95; T. Toffoli and
+Theor. Phys. 21 (1982) 219–253 [the composition theorem used by the classifier's "universal" branch];
+N. Margolus, Physica D 10 (1984) 81–95; T. Toffoli and
 N. Margolus, *Cellular Automata Machines* (MIT Press, 1987).
 
 ***
@@ -413,18 +466,19 @@ or `python3 -I checks/univ_checks.py --search` to add S1–S4 (about 90 seconds)
 | Check | Statement tested |
 |---|---|
 | A1 | the `q = 2` member of R_q is U₂ |
-| A2 | L₂ and L_{2^16} are additive (20 random pairs on `4³`) |
-| A3 | Q violates additivity (one-site witness) |
+| A2 | L₂, L_{2^16} and L_{2^16, 3^{−1}} pass the additivity test (10 random pairs each on `4³`) |
+| L1 | Theorem L (b): `S(Y)² ≡ S(Y²) mod 2^k` for the `Q₀` of (a) (`d = 1`, `k ≤ 4`; `d = 3`, `k ≤ 2`; `α = 1, 3^{−1}`) |
+| A3 | Q violates additivity (one-site witness; random-pair test fails) |
 | A4, A4b | fixed points on `V₁`: Q 196 606; L_{2^16} 8 |
 | A5 | linear-wave energy 4 → 6 under RZ |
 | C1, C2 | vacuum: one-step reach of a symbol 2; light-cone growth of a seed `(0,1)` (`n = 48`) |
 | C3 | mid-background slab in uniform noise: centre plane first deviates at `t = 15` (one seeded instance) |
-| D1 | Lemma 2.1 on five random configurations, 30 ticks |
+| D1 | Lemma 2.1 (forward direction) on five random configurations, 30 ticks |
 | E1, E1b | W1 in Q (60 ticks); countercontrol on the vacuum 0 |
 | E2 | W2 in Q (60 ticks) |
 | E3 | memory: isolated trits; frozen staggered line |
-| E4 | crossing at separation 3 (60 ticks) |
+| E4 | crossing in Q with both signals traversing it: separation 3 superposes (90 ticks); separation 2 fails at `t = 3` |
 | E5 | plain corners: first deviation times (none, 2, 16) |
 | E6a, E6 | finite W1 segments leave the line sector; finite W2 segments frozen; W2 signal at an end leaves the sector |
-| F1, F2 | billiard-ball countercontrol blocks; classifier outcomes for the linear rule, the billiard-ball rule and Q |
-| S1–S4 (`--search`) | corner gadgets; bridges; RZ vacuum seeds; line sector on the zero line |
+| F1, F2 | billiard-ball countercontrol blocks and additivity; classifier outcomes for the linear rule, the billiard-ball rule and Q, on computed inputs |
+| S1–S4 (`--search`) | W2 corner gadgets with background control (90 ticks); bridges (72); RZ vacuum seeds (40); line sector on the zero line (60) |
