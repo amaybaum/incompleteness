@@ -214,14 +214,14 @@ Actions:
 
 | Action | Outside FULL | In FULL |
 |---|---|---|
-| Phase 1 edit | 19 | 7 |
-| Phase 1, no edit (N) | 58 | 31 |
+| Phase 1 edit | 20 | 7 |
+| Phase 1, no edit (N) | 57 | 31 |
 | Preserved (K) | 127 | 29 |
 | Phase 2 | 171 | 58 |
 | O-A4 | 46 | 16 |
 | False positive | 2 | 2 |
 
-Main has 86 sites: 12 edited, 27 N and 47 K.
+Main has 86 sites: 13 edited, 26 N and 47 K.
 
 ### 2.4 Main, sentence level
 
@@ -254,7 +254,7 @@ sentence. Structural sites (marked s) carry no lexical match.
 | M:208 | "Marginalizing a bijection under the uniform hidden prior yields a doubly stochastic one-step matrix …" | M3 | R1 | N |
 | M:214, 437, 484, 528, 540, 660 | finite visible configuration spaces; constructed finite sets | CEN17 Main 484/550 | FREE | K |
 | M:216, 352, 558, 566, 588, 604, 648, 658, 778, 780 | "on a finite carrier with complex matrix kinematics taken as given …" | FCLASS 26, C5 | FREE | K |
-| M:222 | "… with the total-finiteness posit (§1.2 Remark, §4.5) where a result also needs the hidden sector finite." | REM-s3 | DECL | N |
+| M:222 | "… with the total-finiteness posit (§1.2 Remark, §4.5) where a result also needs the hidden sector finite." | REM-s3 | DECL | E15 (additive) |
 | M:266 | "**Setup.** … $\mathcal C_H$ under the total-finiteness posit, §1.2, §4.5 …" | M12, REM-s3 | DECL | N |
 | M:274, 276 | reverse lemma and proof (uniform prior) | M3 | R1 | K |
 | M:278 | "*Remark.* This is the correspondence for a single step with a uniform hidden prior …" | M3 | R1 | E9 |
@@ -361,6 +361,8 @@ dispositions are given at the pin:
 
 ### 3.1 Main consumers
 
+Cells by mark: 9 weaker, 3 alternative (incomparable), 1 equivalent, 13 finite-model only (M2 μ-O and budgets, M5 index, M7(ii), M8 write clause, M9, M10 reading, M11 eventual-image prong, M13, M14 live `t_R` sites, M16, M18 finite parts, M19, M21 all-time).
+
 | Row | Under A1 | Sufficient condition stated in Phase 1 | Measure properties used | Mark | Source |
 |---|---|---|---|---|---|
 | M1 Lemma 3 selection | counting probability on the finite representative | finite representative (unchanged). Not carried into Main: (ED), the entropy-density selection on $A^{\mathbb Z^d}$ under rule and translation invariance | (ED): normalization; rule invariance; translation invariance; entropy density | counting form: **equivalent**. (ED): **alternative (incomparable)**. A1 does not give a full $A^{\mathbb Z^d}$ with translations, and R1-INF says P-ED "relocates the uniform posit rather than deriving it" | R1-INF Prop. 3, §7 |
@@ -435,7 +437,7 @@ Results of the runs on the revised head:
 | Self-test | PASS |
 | Base, working tree | CTL-1–13 PASS; decision rule unmet (no edit yet) |
 | `--dry-run` | CTL-1–8, 10, 12, 13 PASS; CTL-9 and CTL-11 N/A in memory; DR-1–3 all met |
-| Ledger written to a working copy | CTL-1–8 and CTL-10–13 PASS; CTL-9 FAIL until a rebuild |
+| Ledger written to a working copy | CTL-1–8 and CTL-10–13 PASS; CTL-9 FAIL until a rebuild (re-run with the 30-splice ledger) |
 | Same, plus one unlisted line in `glossary.md` | CTL-11 and CTL-13 FAIL |
 
 The working copy was reverted after each run.
@@ -467,7 +469,7 @@ sentences. These pointers are accurate as printed under the framing, so they wer
 
 ## 6. Phase 1 edit plan (exact text in `phase1_ledger.json`; not applied)
 
-The ledger is authoritative. It holds 29 splices: 15 in Main and 7 book units, each applied to its
+The ledger is authoritative. It holds 30 splices: 16 in Main and 7 book units, each applied to its
 chapter and to FULL. Every splice records its file, its exact old string and that string's SHA-256,
 its new text and that text's SHA-256, its rows and the finding it answers. Any later change is
 appended as a new reviewed entry.
@@ -477,11 +479,12 @@ appended as a new reviewed entry.
 | E1 | M:36 | "open physical posit" gains ", not adopted, and one sufficient condition among those each result names" |
 | E2 | M:44 | "the map acts on a finite $S$ under the total-finiteness posit" → "on the finite representative of the total-finiteness posit … the map acts on a finite $S$" |
 | E3a | M:60 | "is a premise of the results that use it" → "is one sufficient condition for the results that use it", adding that each result names its hypotheses and that a weaker sufficient condition, where its sufficiency is proved, is stated with the result (§2.3, §3.2, §4.6) |
-| E3b | M:60 | the use list adds: (NR) is an alternative sufficient condition for the P-indivisibility conclusion; the exact return and its index $L$ are statements about the finite representative |
+| E3b | M:60 | the use list adds: (NR) is a weaker sufficient condition for the P-indivisibility conclusion; the exact return and its index $L$ are statements about the finite representative |
 | E5 | after M:129 | new paragraph *Corollary (near-return)*. Hypotheses: finite $\mathcal C_V$; one probability $\rho$ on a measurable $H$ shared by every root; measurable $F$. If $\Gamma_s$ is not a permutation, some rows overlap (one-line reason: disjoint supports would partition the $\|\mathcal C_V\|$ columns into singletons). (NR) is assumed for such a pair, as a hypothesis of this result and not adopted. Conclusion: not P-divisible on $\{0,\ldots,n\}$. *Proof.* Total variation against the contraction stated at the start of the proof above (M:119), ending in $\square$. On a finite representative Step 1 supplies (NR) at every multiple of $N$ exceeding $s$ |
 | E6 | M:139 | index-free form under full support (FS), one direction at a time. (a)⇒(b): the first half of the proof with $\min(k,L-1)$ replaced by $k$, which uses no return. (b)⇒(c): the corollary under (NR) for an overlapping pair of rows of that $\Gamma_s$. (c)⇒(a): with no gap below $n$ the law is Markov with one-step matrices $Q_j$, and under (FS) each row of $\Gamma_t$ is a conditional law, so $\Gamma_t=\Gamma_s(Q_s\cdots Q_{t-1})$. The bound below $L$ and the horizon $\{0,\ldots,L\}$ stay finite-representative statements |
-| E7 | M:178 | adds "or from a non-permutation rooted map and the near-return condition (NR) of §2.3 without finiteness" |
-| E9 | M:278 | (IP), assumed as a hypothesis of this remark and not adopted: $\varphi$ preserves $\nu\otimes\rho$ with $\nu$ uniform. Rows sum to one; columns sum to one by invariance |
+| E7 | M:178 | adds "or from a non-permutation rooted map and the near-return condition (NR) of §2.3, assumed in its place, without finiteness" |
+| E9 | M:278 | (IP), assumed as a hypothesis of this remark and not adopted: $\varphi$ preserves $\nu\otimes\rho$ with $\nu$ uniform; for the rooted maps $\Gamma_t$ of the prior $\rho$, as in §2.3, rows sum to one and columns sum to one by invariance |
+| E15 | M:222 | additive: after "where a result also needs the hidden sector finite" appends "; the near-return corollary of §2.3 and the remark of §3.2 under the condition (IP) take a measurable hidden space", so that "runs on finite configuration spaces" reads as finite visible spaces (re-review 7031703263); passes CTL-12 |
 | E10 | M:706 | adds ", and one sufficient condition among those stated at each use" |
 | E11 | M:722 | adds ", or the near-return condition (NR) assumed in its place" |
 | E12 | M:724 | "whose finiteness is the total-finiteness posit" → "finite under the total-finiteness posit"; "not adopted" kept, adding "and one sufficient condition among those stated at each use" |
@@ -492,13 +495,13 @@ appended as a new reviewed entry.
 | B1 | ch00:95 | "remains open as a physical posit" gains ", not adopted, and is one sufficient condition among those the results name" |
 | B2 | ch01:28 | mirror of E2 |
 | B3 | after ch01:119 | the corollary (mirror of E5), referring to Step 1 of the chapter's proof |
-| B4 | ch01:177 | "Because the physical representative is, under A1, finite and reversible, it also recurs:" → "On a finite representative, which A1 supplies, … also recurs; without A1, the near-return condition of the corollary in §1.5 is the stated sufficient condition for the indivisibility conclusion:" |
-| B6 | appendix-b:46 | mirror of E9 |
+| B4 | ch01:177 | "Because the physical representative is, under A1, finite and reversible, it also recurs:" → "Under A1 the physical representative is finite and reversible, so it also recurs; without A1, the near-return condition of the corollary in §1.5 is the stated sufficient condition for the indivisibility conclusion:" |
+| B6 | appendix-b:46 | mirror of E9, with "as in Chapter 1 §1.5" |
 | B7 | appendix-c:104 | A1 is "one sufficient condition rather than a premise of the framework", and the route's conclusion also follows from the near-return condition of §1.5, "assumed in its place and not adopted" |
 | B8 | glossary:11 | "It is one sufficient condition for the results that use it, each of which names the hypotheses it consumes." |
 
 **Dropped from the reviewed draft:**
-- E4 and E8 (pointers at M:111, M:222, M:266): they failed CTL-12 and are accurate as printed.
+- E4 and E8 (pointers at M:111, M:222, M:266): they failed CTL-12. M:111 and M:266 are accurate as printed; M:222 receives the additive splice E15 instead.
 - B5 (ch19): the sentences are accurate as printed.
 - (ED) in item (iv) and the inflow sentence (review items 4–5).
 

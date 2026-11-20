@@ -43,7 +43,7 @@
    "unit": "E3b",
    "file": "papers/Main.md",
    "old": "The finite representative is used by the recurrence step of §2.3 and the results resting on it",
-   "new": "The finite representative is used by the recurrence step of §2.3 (for whose P-indivisibility conclusion the near-return condition (NR) of §2.3 is an alternative sufficient condition; the exact return and its index $L$ are statements about the finite representative) and the results resting on it",
+   "new": "The finite representative is used by the recurrence step of §2.3 (for whose P-indivisibility conclusion the near-return condition (NR) of §2.3 is a weaker sufficient condition; the exact return and its index $L$ are statements about the finite representative) and the results resting on it",
    "rows": [
     "M4",
     "M5",
@@ -51,7 +51,7 @@
    ],
    "reason": "use list names the alternative for M4",
    "old_sha256": "be86f60285c3fd8e7eba0df669d184a9615aa9adc01b251cbeb8a18f35f45d46",
-   "new_sha256": "d33a2217519b642b433ee72935b9b5706ab4ed52c22ee47b682af5c75967d302"
+   "new_sha256": "bfeeae5d0035200dc8b6d55eb7318f488e24b31e7b1d3d0de3cee231d6f60816"
   },
   {
    "unit": "E5",
@@ -83,26 +83,40 @@
    "unit": "E7",
    "file": "papers/Main.md",
    "old": "the former establishes P-indivisibility from a non-permutation one-step witness and finiteness alone, at the recurrence time",
-   "new": "the former establishes P-indivisibility from a non-permutation one-step witness and finiteness alone, at the recurrence time, or from a non-permutation rooted map and the near-return condition (NR) of §2.3 without finiteness",
+   "new": "the former establishes P-indivisibility from a non-permutation one-step witness and finiteness alone, at the recurrence time, or from a non-permutation rooted map and the near-return condition (NR) of §2.3, assumed in its place, without finiteness",
    "rows": [
     "M4"
    ],
    "reason": "summary names the alternative",
    "old_sha256": "7eb96055d76672f8ff58184fddf8ea31c5d657a38b82106bdcb77f0a08d4e23c",
-   "new_sha256": "d35daa563682c852f269a36580734dab50dffd3beb5be9a891095824fbdf9973"
+   "new_sha256": "20127b3b19ca1fdddfce33ef32e60f6abf5232cb8854c6f8e7cf913f178e0e2f"
+  },
+  {
+   "unit": "E15",
+   "file": "papers/Main.md",
+   "old": "where a result also needs the hidden sector finite.",
+   "new": "where a result also needs the hidden sector finite; the near-return corollary of §2.3 and the remark of §3.2 under the condition (IP) take a measurable hidden space.",
+   "rows": [
+    "REM-s3",
+    "M4",
+    "M3"
+   ],
+   "reason": "M:222 read as finite visible spaces (re-review 7031703263); additive, CTL-12",
+   "old_sha256": "1ac4d6661bd61b90d81bfc9fb37c7b4e5528fea4c55a32b689434aac1593e38b",
+   "new_sha256": "49a9c6ee46ac142d05c81140f885de867b9c326be6c5e5e88a4a2fb057a910a7"
   },
   {
    "unit": "E9",
    "file": "papers/Main.md",
    "old": "For the characterization theorem (§3.4), which is stated in terms of transition probabilities, this is the appropriate scope.",
-   "new": "For the characterization theorem (§3.4), which is stated in terms of transition probabilities, this is the appropriate scope. On a measurable carrier the conclusion holds at every step under the invariant-product condition (IP), assumed as a hypothesis of this remark and not adopted: $\\varphi$ preserves a probability $\\nu \\otimes \\rho$ on $\\mathcal{C}_V \\times H$ with $\\nu$ uniform. Rows sum to one because $\\rho$ is a probability, and $\\sum_a \\Gamma_t(a, b) = |\\mathcal{C}_V|\\,(\\nu \\otimes \\rho)(\\pi_V \\circ \\varphi^t = b) = |\\mathcal{C}_V|\\,\\nu(b) = 1$ by invariance.",
+   "new": "For the characterization theorem (§3.4), which is stated in terms of transition probabilities, this is the appropriate scope. On a measurable carrier the conclusion holds at every step under the invariant-product condition (IP), assumed as a hypothesis of this remark and not adopted: $\\varphi$ preserves a probability $\\nu \\otimes \\rho$ on $\\mathcal{C}_V \\times H$ with $\\nu$ uniform. For the rooted maps $\\Gamma_t$ of the prior $\\rho$, as in §2.3, rows sum to one because $\\rho$ is a probability, and $\\sum_a \\Gamma_t(a, b) = |\\mathcal{C}_V|\\,(\\nu \\otimes \\rho)(\\pi_V \\circ \\varphi^t = b) = |\\mathcal{C}_V|\\,\\nu(b) = 1$ by invariance.",
    "rows": [
     "M3",
     "F4"
    ],
    "reason": "doubly stochastic corner under (IP) (R1-INF Lemma 8)",
    "old_sha256": "c3617ad145818c07cb3d4dc95e0e31776612b35723a4f5c866aaeeeb34e142e6",
-   "new_sha256": "2d4c1ed0a0596ce2e42b0ee0b2c604ba07b4a43878a27bec178f870dab6739b9"
+   "new_sha256": "51ba1c85440410abb0fa916ddad4c832f5abe7a7b7ef2b947667795ba0dbf758"
   },
   {
    "unit": "E10",
@@ -270,51 +284,51 @@
    "unit": "B4",
    "file": "book/ch01-observation.md",
    "old": "Because the physical representative is, under A1, finite and reversible, it also recurs:",
-   "new": "On a finite representative, which A1 supplies, the representative is finite and reversible and also recurs; without A1, the near-return condition of the corollary in §1.5 is the stated sufficient condition for the indivisibility conclusion:",
+   "new": "Under A1 the physical representative is finite and reversible, so it also recurs; without A1, the near-return condition of the corollary in §1.5 is the stated sufficient condition for the indivisibility conclusion:",
    "rows": [
     "M10",
     "M4"
    ],
    "reason": "mirror of E3b/E6",
    "old_sha256": "f8670bcd63be2706b33dd9dbd72f2579b89b2c806bafd0daa69c0cb571108f83",
-   "new_sha256": "737aca2da8e2b7575cf31fe2e2f93703344478d2a8d8d35e54aa4a10535d7b18"
+   "new_sha256": "ffc3608537750d2594b274b2a16a23d31c9d1d0752ff2d4a8060e25bd8b6f265"
   },
   {
    "unit": "B4-FULL",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
    "old": "Because the physical representative is, under A1, finite and reversible, it also recurs:",
-   "new": "On a finite representative, which A1 supplies, the representative is finite and reversible and also recurs; without A1, the near-return condition of the corollary in §1.5 is the stated sufficient condition for the indivisibility conclusion:",
+   "new": "Under A1 the physical representative is finite and reversible, so it also recurs; without A1, the near-return condition of the corollary in §1.5 is the stated sufficient condition for the indivisibility conclusion:",
    "rows": [
     "M10",
     "M4"
    ],
    "reason": "FULL mirror of B4 (§A.14)",
    "old_sha256": "f8670bcd63be2706b33dd9dbd72f2579b89b2c806bafd0daa69c0cb571108f83",
-   "new_sha256": "737aca2da8e2b7575cf31fe2e2f93703344478d2a8d8d35e54aa4a10535d7b18"
+   "new_sha256": "ffc3608537750d2594b274b2a16a23d31c9d1d0752ff2d4a8060e25bd8b6f265"
   },
   {
    "unit": "B6",
    "file": "book/appendix-b-derivations.md",
    "old": "For the characterization theorem (Chapter 1 §1.8), which is stated in terms of transition probabilities, this is the appropriate scope.",
-   "new": "For the characterization theorem (Chapter 1 §1.8), which is stated in terms of transition probabilities, this is the appropriate scope. On a measurable carrier the conclusion holds at every step under the invariant-product condition (IP), assumed as a hypothesis of this remark and not adopted: $\\varphi$ preserves a probability $\\nu \\otimes \\rho$ on $\\mathcal{C}_V \\times H$ with $\\nu$ uniform. Rows sum to one because $\\rho$ is a probability, and $\\sum_a \\Gamma_t(a, b) = |\\mathcal{C}_V|\\,(\\nu \\otimes \\rho)(\\pi_V \\circ \\varphi^t = b) = |\\mathcal{C}_V|\\,\\nu(b) = 1$ by invariance.",
+   "new": "For the characterization theorem (Chapter 1 §1.8), which is stated in terms of transition probabilities, this is the appropriate scope. On a measurable carrier the conclusion holds at every step under the invariant-product condition (IP), assumed as a hypothesis of this remark and not adopted: $\\varphi$ preserves a probability $\\nu \\otimes \\rho$ on $\\mathcal{C}_V \\times H$ with $\\nu$ uniform. For the rooted maps $\\Gamma_t$ of the prior $\\rho$, as in Chapter 1 §1.5, rows sum to one because $\\rho$ is a probability, and $\\sum_a \\Gamma_t(a, b) = |\\mathcal{C}_V|\\,(\\nu \\otimes \\rho)(\\pi_V \\circ \\varphi^t = b) = |\\mathcal{C}_V|\\,\\nu(b) = 1$ by invariance.",
    "rows": [
     "M3"
    ],
    "reason": "mirror of E9",
    "old_sha256": "1a87ce99d4a65918572da4f3a139a9118b6497c61c15255286ef2af412026d62",
-   "new_sha256": "10dca98a5f0fde78c0c7b56d23ae0ccdac9421f51ff97f4d9996169a3700372f"
+   "new_sha256": "e9790bd0ab23537f768f54af4fa7952b3de9564160821455c0313de7c77cdf79"
   },
   {
    "unit": "B6-FULL",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
    "old": "For the characterization theorem (Chapter 1 §1.8), which is stated in terms of transition probabilities, this is the appropriate scope.",
-   "new": "For the characterization theorem (Chapter 1 §1.8), which is stated in terms of transition probabilities, this is the appropriate scope. On a measurable carrier the conclusion holds at every step under the invariant-product condition (IP), assumed as a hypothesis of this remark and not adopted: $\\varphi$ preserves a probability $\\nu \\otimes \\rho$ on $\\mathcal{C}_V \\times H$ with $\\nu$ uniform. Rows sum to one because $\\rho$ is a probability, and $\\sum_a \\Gamma_t(a, b) = |\\mathcal{C}_V|\\,(\\nu \\otimes \\rho)(\\pi_V \\circ \\varphi^t = b) = |\\mathcal{C}_V|\\,\\nu(b) = 1$ by invariance.",
+   "new": "For the characterization theorem (Chapter 1 §1.8), which is stated in terms of transition probabilities, this is the appropriate scope. On a measurable carrier the conclusion holds at every step under the invariant-product condition (IP), assumed as a hypothesis of this remark and not adopted: $\\varphi$ preserves a probability $\\nu \\otimes \\rho$ on $\\mathcal{C}_V \\times H$ with $\\nu$ uniform. For the rooted maps $\\Gamma_t$ of the prior $\\rho$, as in Chapter 1 §1.5, rows sum to one because $\\rho$ is a probability, and $\\sum_a \\Gamma_t(a, b) = |\\mathcal{C}_V|\\,(\\nu \\otimes \\rho)(\\pi_V \\circ \\varphi^t = b) = |\\mathcal{C}_V|\\,\\nu(b) = 1$ by invariance.",
    "rows": [
     "M3"
    ],
    "reason": "FULL mirror of B6 (§A.14)",
    "old_sha256": "1a87ce99d4a65918572da4f3a139a9118b6497c61c15255286ef2af412026d62",
-   "new_sha256": "10dca98a5f0fde78c0c7b56d23ae0ccdac9421f51ff97f4d9996169a3700372f"
+   "new_sha256": "e9790bd0ab23537f768f54af4fa7952b3de9564160821455c0313de7c77cdf79"
   },
   {
    "unit": "B7",
