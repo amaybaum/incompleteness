@@ -4,7 +4,7 @@
 statements (none built here) and exact finite computations (`checks/`, §9). No manuscript, Lean or
 registry edit; no premise adoption; no merge. A1 (Main posit ledger item (ii)) and A4
 (`papers/Substratum.md`:98) are unchanged, and nothing here is a premise of an established claim.
-Independent non-author review is required (§11). The preregistration is `PREREG.md`, pushed at
+Independent non-author review is recorded in §11. The preregistration is `PREREG.md`, pushed at
 `fb03820fd` before any classification; this record follows its rule and controls unchanged. This
 revision answers the round-1 review of `e52250a5` (REVISE, light); §13 maps each item to its change,
 and the supplementary census of §6a is a recorded deviation from the preregistered census.
@@ -440,8 +440,13 @@ Kernel modules cited ([L]) are on `main` at the pin: `verification/lean/OI_Stagg
 - **Review.** Round 1 at `e52250a5`: REVISE, light
   ([#1465 comment 7048101970](https://github.com/amaybaum/incompleteness/pull/1465#issuecomment-7048101970)).
   The reviewer confirmed the main result and the items listed there. This revision answers it (§13).
-- **Missing.** A delta review of this revision. The general classification of cubic
-  Bravais lattices beyond index 96 is cited, not checked, and nothing depends on it.
+  Rounds 2–3 at `aecb03e4` and `b96d0795`: ACCEPT-WITH-NITS, nits answered
+  ([#1465 comment 7048633281](https://github.com/amaybaum/incompleteness/pull/1465#issuecomment-7048633281)).
+  Landed by owner decision; acceptance recorded at
+  [#1169 comment 7049542030](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7049542030)
+  (`amaybaum`, 2026-11-20T20:11:42Z).
+- **Missing.** The general classification of cubic Bravais lattices beyond index 96 is cited, not
+  checked, and nothing depends on it.
 - **K6.** `git diff --stat 9db518844df62151979acf6aac1d487b59c44907` lists only files under
   `verification/audits/foundations/a1exit-q1-20261120/`.
 - **Accountable Issue.** #1454 (P2-Q1). **Resolution.** A review recorded on the guiding pull request.
