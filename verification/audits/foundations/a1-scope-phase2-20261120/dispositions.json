@@ -1,0 +1,2248 @@
+{
+ "schema": "a1-scope phase 2 site dispositions v1",
+ "base": "b9168ef0408b5f55b935a4df17cb0841877e221a",
+ "site_map": "verification/audits/foundations/a1-scope-phase0-20261120/sites.json (phase P2 or OA4, scope files; FULL mirrors keyed by their chapter line)",
+ "actions": {
+  "edit": "changed by the named ledger units",
+  "N": "no edit; reason given"
+ },
+ "dispositions": [
+  {
+   "site": "papers/GR.md:20",
+   "phase0_class": "DECL",
+   "phase0_rows": [
+    "REM-s3",
+    "M4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "companion summary of Main: the finite configuration space is the stated setting of the cited result"
+  },
+  {
+   "site": "papers/GR.md:58",
+   "phase0_class": "R1",
+   "phase0_rows": [
+    "C1"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "R1: H-count stays conditional on A1 (owner scope: GR:58 counting stays conditional); preserved by CTL-15"
+  },
+  {
+   "site": "papers/GR.md:88",
+   "phase0_class": "R1",
+   "phase0_rows": [
+    "C2"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "R1: calibration inherits H-count, which names A1"
+  },
+  {
+   "site": "papers/GR.md:112",
+   "phase0_class": "R1",
+   "phase0_rows": [
+    "C4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "measure condition stated (counting or uniform measure on a stated finite set, or a named hypothesis)"
+  },
+  {
+   "site": "papers/GR.md:122",
+   "phase0_class": "R1",
+   "phase0_rows": [
+    "C4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "measure condition stated (counting or uniform measure on a stated finite set, or a named hypothesis)"
+  },
+  {
+   "site": "papers/GR.md:124",
+   "phase0_class": "R1",
+   "phase0_rows": [
+    "C4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "measure condition stated (counting or uniform measure on a stated finite set, or a named hypothesis)"
+  },
+  {
+   "site": "papers/GR.md:126",
+   "phase0_class": "R1",
+   "phase0_rows": [
+    "C4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "measure condition stated (counting or uniform measure on a stated finite set, or a named hypothesis)"
+  },
+  {
+   "site": "papers/GR.md:128",
+   "phase0_class": "R1",
+   "phase0_rows": [
+    "C4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "measure condition stated (counting or uniform measure on a stated finite set, or a named hypothesis)"
+  },
+  {
+   "site": "papers/GR.md:138",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "C3",
+    "M4"
+   ],
+   "action": "edit",
+   "units": [
+    "G1"
+   ],
+   "reason": "the infinite-deep-sector case is the one Main §2.3 Corollary (near-return) covers (one prior on a measurable hidden space shared by every root); the sentence listed only the weaker property"
+  },
+  {
+   "site": "papers/GR.md:257",
+   "phase0_class": "DECL",
+   "phase0_rows": [
+    "C5"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "states A1, posit (ii) or \"finite under A1\" explicitly"
+  },
+  {
+   "site": "papers/GR.md:261",
+   "phase0_class": "DECL",
+   "phase0_rows": [
+    "C5"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "states A1, posit (ii) or \"finite under A1\" explicitly"
+  },
+  {
+   "site": "papers/GR.md:589",
+   "phase0_class": "R2",
+   "phase0_rows": [
+    "REC1-U15"
+   ],
+   "action": "edit",
+   "units": [
+    "G2"
+   ],
+   "reason": "A.25 propagation of Main E11 (M:724: \"or the near-return condition (NR) assumed in its place and not adopted\")"
+  },
+  {
+   "site": "papers/GR.md:591",
+   "phase0_class": "R2",
+   "phase0_rows": [
+    "REC1-U15"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "exact return stated on a finite representative or under A1"
+  },
+  {
+   "site": "papers/GR.md:609",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "REC1-U12",
+    "CEN17-GR-759/835"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/GR.md:719",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "CEN17-GR-729/753"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/SM.md:20",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7",
+    "CEN17-SM-210"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "abstract names \"a finite bijection on a d = 3 cubic lattice\" as the declared structural input"
+  },
+  {
+   "site": "papers/SM.md:22",
+   "phase0_class": "DECL",
+   "phase0_rows": [
+    "REM-s3"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "companion summary of Main: the finite configuration space is the stated setting of the cited result"
+  },
+  {
+   "site": "papers/SM.md:24",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "papers/SM.md:44",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M4"
+   ],
+   "action": "edit",
+   "units": [
+    "S1"
+   ],
+   "reason": "the recurrence-cycle result requires a finite set, but the P-indivisibility conclusion does not: Main §2.3 Corollary (near-return) gives it for a hidden space of any cardinality under (NR); additive sentence, the existing one unchanged"
+  },
+  {
+   "site": "papers/SM.md:112",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "papers/SM.md:158",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7",
+    "CEN17-SM-210"
+   ],
+   "action": "edit",
+   "units": [
+    "S2"
+   ],
+   "reason": "finiteness of the substratum phase space asserted without its condition"
+  },
+  {
+   "site": "papers/SM.md:202",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7",
+    "CEN17-SM-210"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "papers/SM.md:210",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7",
+    "CEN17-SM-210"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "papers/SM.md:222",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7",
+    "CEN17-SM-210"
+   ],
+   "action": "edit",
+   "units": [
+    "S3"
+   ],
+   "reason": "O-A4 §9a (SM:222 vs SM:242): the declared carrier Λ = ℤ^d is not finite, while the paragraph calls the bijection finite and Theorem 1a assumes S finite; the finite reading is stated with its conditions"
+  },
+  {
+   "site": "papers/SM.md:232",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7",
+    "CEN17-SM-210"
+   ],
+   "action": "edit",
+   "units": [
+    "S4"
+   ],
+   "reason": "finiteness of the fundamental object asserted without its condition"
+  },
+  {
+   "site": "papers/SM.md:236",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "papers/SM.md:240",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "O-A4 sec. 9: the ring countermodel is correct as stated (a finite countermodel remains one in any class that keeps finite models); its Z form is recorded, not edited"
+  },
+  {
+   "site": "papers/SM.md:242",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "CEN17-SM-224/278",
+    "C7"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "Theorem 1a keeps \"Let S be finite\" (an explicit hypothesis); the declared-carrier conflict is resolved at SM:222 (S3); dropping the unused hypothesis is open question Q2"
+  },
+  {
+   "site": "papers/SM.md:252",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M1",
+    "CEN17-SM-252"
+   ],
+   "action": "edit",
+   "units": [
+    "S7"
+   ],
+   "reason": "O-A4 §6.1 and row 11: the proof of (ii) uses determinants, so it covers finite-dimensional operators; the statement did not carry that condition, and (iii) uses it fibrewise; proof of (ii) aligned with the narrowed statement (S7); the infinite-carrier pole reading is stated as an open assumption"
+  },
+  {
+   "site": "papers/SM.md:292",
+   "phase0_class": "R1",
+   "phase0_rows": [
+    "M1",
+    "CEN17-SM-286/354"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "measure condition stated (counting or uniform measure on a stated finite set, or a named hypothesis)"
+  },
+  {
+   "site": "papers/SM.md:308",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "papers/SM.md:316",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7",
+    "CEN17-SM-210"
+   ],
+   "action": "edit",
+   "units": [
+    "S5"
+   ],
+   "reason": "finiteness of the fundamental object asserted without its condition"
+  },
+  {
+   "site": "papers/SM.md:334",
+   "phase0_class": "R1",
+   "phase0_rows": [
+    "M1",
+    "CEN17-SM-286/354"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "Proposition 4b states the counting measure; O-A4 row 15 (H-mu(sp), H-cont for the continued response) recorded"
+  },
+  {
+   "site": "papers/SM.md:336",
+   "phase0_class": "R1",
+   "phase0_rows": [
+    "M1",
+    "CEN17-SM-286/354"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "measure condition stated (counting or uniform measure on a stated finite set, or a named hypothesis)"
+  },
+  {
+   "site": "papers/SM.md:539",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7"
+   ],
+   "action": "edit",
+   "units": [
+    "S6"
+   ],
+   "reason": "O-A4 §7.2 and §9a: the bipartite claim fails on odd tori, which the finite periodic class of A4 admits"
+  },
+  {
+   "site": "papers/SM.md:641",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "CEN17-SM-641"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "Theorem 19 states the counting-measure prior; its H-mu(phi,Theta) form (O-A4 sec. 5) is recorded, not edited"
+  },
+  {
+   "site": "papers/SM.md:803",
+   "phase0_class": "R1",
+   "phase0_rows": [
+    "R1INF-s6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "measure condition stated (counting or uniform measure on a stated finite set, or a named hypothesis)"
+  },
+  {
+   "site": "papers/SM.md:809",
+   "phase0_class": "R1",
+   "phase0_rows": [
+    "R1INF-s6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "measure condition stated (counting or uniform measure on a stated finite set, or a named hypothesis)"
+  },
+  {
+   "site": "papers/SM.md:811",
+   "phase0_class": "R1",
+   "phase0_rows": [
+    "R1INF-s6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "measure condition stated (counting or uniform measure on a stated finite set, or a named hypothesis)"
+  },
+  {
+   "site": "papers/SM.md:1225",
+   "phase0_class": "R1",
+   "phase0_rows": [
+    "M1",
+    "CEN17-SM-286/354"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "measure condition stated (counting or uniform measure on a stated finite set, or a named hypothesis)"
+  },
+  {
+   "site": "papers/SM.md:1227",
+   "phase0_class": "R1",
+   "phase0_rows": [
+    "M1",
+    "CEN17-SM-286/354"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "measure condition stated (counting or uniform measure on a stated finite set, or a named hypothesis)"
+  },
+  {
+   "site": "papers/Structure.md:80",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:86",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:134",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:136",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:140",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:196",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:206",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:224",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "edit",
+   "units": [
+    "T1"
+   ],
+   "reason": "finiteness presented as a requirement of OI without naming the condition A1"
+  },
+  {
+   "site": "papers/Structure.md:230",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:256",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:258",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:260",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:264",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:266",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:270",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:272",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:280",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:314",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:316",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:320",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:327",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:331",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:339",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:351",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:359",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:375",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:560",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:646",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11",
+    "CEN17-Str-646"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:701",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:718",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "C10"
+   ],
+   "action": "edit",
+   "units": [
+    "T2"
+   ],
+   "reason": "recurrence time presupposes a finite carrier; the condition is stated"
+  },
+  {
+   "site": "papers/Structure.md:746",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:768",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "papers/Structure.md:866",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:1008",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:1010",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:1012",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:1014",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:1016",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:1018",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:1032",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:1068",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:1116",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "papers/Structure.md:1118",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "papers/Structure.md:1124",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "papers/Structure.md:1152",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "papers/Structure.md:1155",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "papers/Structure.md:1157",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "papers/Structure.md:1171",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "papers/Structure.md:1189",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "papers/Structure.md:1239",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Structure.md:1305",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Substratum.md:44",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C9",
+    "CEN23.2-Sub44"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Substratum.md:52",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C9",
+    "CEN23.2-Sub44"
+   ],
+   "action": "edit",
+   "units": [
+    "B3"
+   ],
+   "reason": "finiteness of the OI configuration asserted without its condition"
+  },
+  {
+   "site": "papers/Substratum.md:56",
+   "phase0_class": "INFLOW",
+   "phase0_rows": [
+    "C10",
+    "CEN23.2-Sub56"
+   ],
+   "action": "edit",
+   "units": [
+    "B4"
+   ],
+   "reason": "Phase 0 PREREG §3.2 row C10: each INFLOW site names the inflow question as open, with its own support"
+  },
+  {
+   "site": "papers/Substratum.md:92",
+   "phase0_class": "DECL",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "edit",
+   "units": [
+    "B1"
+   ],
+   "reason": "A.25 propagation of Main item (ii) (Phase 1 E3a/E13a: one sufficient condition, open, not adopted) and of E3b/E11 ((NR) for the P-indivisibility conclusion); the book mirror ch02:76 already states \"open hypothesis, not adopted\""
+  },
+  {
+   "site": "papers/Substratum.md:94",
+   "phase0_class": "R3",
+   "phase0_rows": [
+    "M11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "eventual-image argument stated for a finite set"
+  },
+  {
+   "site": "papers/Substratum.md:98",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6",
+    "C7"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A4 declaration; O-A4 sec. 7 period-lattice conditions are open question Q1"
+  },
+  {
+   "site": "papers/Substratum.md:104",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "papers/Substratum.md:123",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "papers/Substratum.md:125",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "papers/Substratum.md:127",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "papers/Substratum.md:129",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "papers/Substratum.md:131",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "papers/Substratum.md:133",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "papers/Substratum.md:137",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M4",
+    "M5"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "papers/Substratum.md:157",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6",
+    "C7"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "papers/Substratum.md:189",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "papers/Substratum.md:193",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "papers/Substratum.md:195",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "papers/Substratum.md:205",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6",
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "papers/Substratum.md:207",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6",
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "papers/Substratum.md:212",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6",
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "papers/Substratum.md:216",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6",
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "papers/Substratum.md:223",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6",
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "papers/Substratum.md:233",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6",
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "papers/Substratum.md:262",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C8",
+    "M21"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Substratum.md:268",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C8"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "papers/Substratum.md:288",
+   "phase0_class": "DECL",
+   "phase0_rows": [
+    "C9"
+   ],
+   "action": "edit",
+   "units": [
+    "B2"
+   ],
+   "reason": "finiteness of S asserted without its condition (Phase 0 note: stated without \"under A1\")"
+  },
+  {
+   "site": "papers/Substratum.md:389",
+   "phase0_class": "DECL",
+   "phase0_rows": [
+    "C9"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "states A1, posit (ii) or \"finite under A1\" explicitly"
+  },
+  {
+   "site": "papers/Substratum.md:401",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "C10"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "papers/Substratum.md:407",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "C10"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "book/ch02-substratum.md:14",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C9",
+    "CEN23.2-Sub44"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "book/ch02-substratum.md:16",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C9",
+    "CEN23.2-Sub44"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "book/ch02-substratum.md:18",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C9",
+    "CEN23.2-Sub44"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "book/ch02-substratum.md:32",
+   "phase0_class": "R2",
+   "phase0_rows": [
+    "C9",
+    "M5"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "exact return stated on a finite representative or under A1"
+  },
+  {
+   "site": "book/ch02-substratum.md:76",
+   "phase0_class": "DECL",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "edit",
+   "units": [
+    "K2"
+   ],
+   "reason": "mirror of B1 and of Phase 1 B1/B8 wording (one sufficient condition)"
+  },
+  {
+   "site": "book/ch02-substratum.md:78",
+   "phase0_class": "R3",
+   "phase0_rows": [
+    "M11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "eventual-image argument stated for a finite set"
+  },
+  {
+   "site": "book/ch02-substratum.md:82",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "book/ch02-substratum.md:88",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "book/ch02-substratum.md:90",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "book/ch02-substratum.md:96",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "book/ch02-substratum.md:118",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "book/ch02-substratum.md:122",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "book/ch02-substratum.md:136",
+   "phase0_class": "DECL",
+   "phase0_rows": [
+    "C9"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "states A1, posit (ii) or \"finite under A1\" explicitly"
+  },
+  {
+   "site": "book/ch02-substratum.md:144",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C8",
+    "M21"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "book/ch02-substratum.md:158",
+   "phase0_class": "DECL",
+   "phase0_rows": [
+    "C9"
+   ],
+   "action": "edit",
+   "units": [
+    "K1"
+   ],
+   "reason": "mirror of B2 (Substratum:288)"
+  },
+  {
+   "site": "book/ch02-substratum.md:192",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "C10"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "book/ch02-substratum.md:212",
+   "phase0_class": "DECL",
+   "phase0_rows": [
+    "C9"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "states A1, posit (ii) or \"finite under A1\" explicitly"
+  },
+  {
+   "site": "book/ch03-structural-realism.md:34",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "book/ch03-structural-realism.md:36",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "book/ch03-structural-realism.md:44",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "book/ch03-structural-realism.md:58",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "C10",
+    "M20"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "book/ch03-structural-realism.md:84",
+   "phase0_class": "DECL",
+   "phase0_rows": [
+    "C9"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "states A1, posit (ii) or \"finite under A1\" explicitly"
+  },
+  {
+   "site": "book/ch03-structural-realism.md:102",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "book/ch03-structural-realism.md:114",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "book/ch03-structural-realism.md:240",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "book/ch04-methodology.md:10",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6",
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "book/ch04-methodology.md:26",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6",
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "book/ch04-methodology.md:36",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "C10"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "book/ch05-gauge-structure.md:19",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "book/ch05-gauge-structure.md:23",
+   "phase0_class": "DECL",
+   "phase0_rows": [
+    "C9"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "states A1, posit (ii) or \"finite under A1\" explicitly"
+  },
+  {
+   "site": "book/ch05-gauge-structure.md:25",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "book/ch05-gauge-structure.md:65",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "book/ch05-gauge-structure.md:73",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "book/ch05-gauge-structure.md:77",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "book/ch05-gauge-structure.md:83",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7"
+   ],
+   "action": "edit",
+   "units": [
+    "K3"
+   ],
+   "reason": "mirror of S3/S5 (finiteness of the fundamental bijection stated with its condition)"
+  },
+  {
+   "site": "book/ch05-gauge-structure.md:89",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7"
+   ],
+   "action": "edit",
+   "units": [
+    "K4"
+   ],
+   "reason": "mirror of S5 (SM:316)"
+  },
+  {
+   "site": "book/ch05-gauge-structure.md:95",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "book/ch07-gravity.md:42",
+   "phase0_class": "R1",
+   "phase0_rows": [
+    "C1"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "measure condition stated (counting or uniform measure on a stated finite set, or a named hypothesis)"
+  },
+  {
+   "site": "book/ch07-gravity.md:118",
+   "phase0_class": "DECL",
+   "phase0_rows": [
+    "C9"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "states A1, posit (ii) or \"finite under A1\" explicitly"
+  },
+  {
+   "site": "book/ch09-universality.md:18",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "book/ch09-universality.md:36",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "book/ch09-universality.md:106",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "book/ch09-universality.md:183",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "book/ch09-universality.md:189",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "edit",
+   "units": [
+    "K5"
+   ],
+   "reason": "finiteness of the configuration space asserted without its condition (ch09:183 and :193 state A1)"
+  },
+  {
+   "site": "book/ch09-universality.md:193",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "book/glossary.md:13",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "FULL<-book/ch02-substratum.md:14",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C9",
+    "CEN23.2-Sub44"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch02-substratum.md:14: finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "FULL<-book/ch02-substratum.md:16",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C9",
+    "CEN23.2-Sub44"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch02-substratum.md:16: finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "FULL<-book/ch02-substratum.md:18",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C9",
+    "CEN23.2-Sub44"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch02-substratum.md:18: finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "FULL<-book/ch02-substratum.md:32",
+   "phase0_class": "R2",
+   "phase0_rows": [
+    "C9",
+    "M5"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch02-substratum.md:32: exact return stated on a finite representative or under A1"
+  },
+  {
+   "site": "FULL<-book/ch02-substratum.md:76",
+   "phase0_class": "DECL",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "edit",
+   "units": [
+    "K2-FULL"
+   ],
+   "reason": "FULL mirror of book/ch02-substratum.md:76: same splice"
+  },
+  {
+   "site": "FULL<-book/ch02-substratum.md:78",
+   "phase0_class": "R3",
+   "phase0_rows": [
+    "M11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch02-substratum.md:78: eventual-image argument stated for a finite set"
+  },
+  {
+   "site": "FULL<-book/ch02-substratum.md:82",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch02-substratum.md:82: A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "FULL<-book/ch02-substratum.md:88",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch02-substratum.md:88: A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "FULL<-book/ch02-substratum.md:90",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch02-substratum.md:90: A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "FULL<-book/ch02-substratum.md:96",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch02-substratum.md:96: A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "FULL<-book/ch02-substratum.md:118",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch02-substratum.md:118: A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "FULL<-book/ch02-substratum.md:122",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch02-substratum.md:122: A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "FULL<-book/ch02-substratum.md:136",
+   "phase0_class": "DECL",
+   "phase0_rows": [
+    "C9"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch02-substratum.md:136: states A1, posit (ii) or \"finite under A1\" explicitly"
+  },
+  {
+   "site": "FULL<-book/ch02-substratum.md:144",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C8",
+    "M21"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch02-substratum.md:144: finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "FULL<-book/ch02-substratum.md:158",
+   "phase0_class": "DECL",
+   "phase0_rows": [
+    "C9"
+   ],
+   "action": "edit",
+   "units": [
+    "K1-FULL"
+   ],
+   "reason": "FULL mirror of book/ch02-substratum.md:158: same splice"
+  },
+  {
+   "site": "FULL<-book/ch02-substratum.md:192",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "C10"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch02-substratum.md:192: sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "FULL<-book/ch02-substratum.md:212",
+   "phase0_class": "DECL",
+   "phase0_rows": [
+    "C9"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch02-substratum.md:212: states A1, posit (ii) or \"finite under A1\" explicitly"
+  },
+  {
+   "site": "FULL<-book/ch03-structural-realism.md:34",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch03-structural-realism.md:34: finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "FULL<-book/ch03-structural-realism.md:36",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch03-structural-realism.md:36: sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "FULL<-book/ch03-structural-realism.md:44",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch03-structural-realism.md:44: finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "FULL<-book/ch03-structural-realism.md:58",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "C10",
+    "M20"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch03-structural-realism.md:58: sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "FULL<-book/ch03-structural-realism.md:84",
+   "phase0_class": "DECL",
+   "phase0_rows": [
+    "C9"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch03-structural-realism.md:84: states A1, posit (ii) or \"finite under A1\" explicitly"
+  },
+  {
+   "site": "FULL<-book/ch03-structural-realism.md:102",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch03-structural-realism.md:102: sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "FULL<-book/ch03-structural-realism.md:114",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch03-structural-realism.md:114: sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "FULL<-book/ch03-structural-realism.md:240",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch03-structural-realism.md:240: sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "FULL<-book/ch04-methodology.md:10",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6",
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch04-methodology.md:10: A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "FULL<-book/ch04-methodology.md:26",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6",
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch04-methodology.md:26: A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "FULL<-book/ch04-methodology.md:36",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "C10"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch04-methodology.md:36: sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "FULL<-book/ch05-gauge-structure.md:19",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch05-gauge-structure.md:19: A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "FULL<-book/ch05-gauge-structure.md:23",
+   "phase0_class": "DECL",
+   "phase0_rows": [
+    "C9"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch05-gauge-structure.md:23: states A1, posit (ii) or \"finite under A1\" explicitly"
+  },
+  {
+   "site": "FULL<-book/ch05-gauge-structure.md:25",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch05-gauge-structure.md:25: A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "FULL<-book/ch05-gauge-structure.md:65",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch05-gauge-structure.md:65: A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "FULL<-book/ch05-gauge-structure.md:73",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch05-gauge-structure.md:73: A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "FULL<-book/ch05-gauge-structure.md:77",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch05-gauge-structure.md:77: A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "FULL<-book/ch05-gauge-structure.md:83",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7"
+   ],
+   "action": "edit",
+   "units": [
+    "K3-FULL"
+   ],
+   "reason": "FULL mirror of book/ch05-gauge-structure.md:83: same splice"
+  },
+  {
+   "site": "FULL<-book/ch05-gauge-structure.md:89",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C7"
+   ],
+   "action": "edit",
+   "units": [
+    "K4-FULL"
+   ],
+   "reason": "FULL mirror of book/ch05-gauge-structure.md:89: same splice"
+  },
+  {
+   "site": "FULL<-book/ch05-gauge-structure.md:95",
+   "phase0_class": "B",
+   "phase0_rows": [
+    "M4"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch05-gauge-structure.md:95: sufficient condition stated (finite representative, finite bijective model, finite recurrence or a named hypothesis)"
+  },
+  {
+   "site": "FULL<-book/ch07-gravity.md:42",
+   "phase0_class": "R1",
+   "phase0_rows": [
+    "C1"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch07-gravity.md:42: measure condition stated (counting or uniform measure on a stated finite set, or a named hypothesis)"
+  },
+  {
+   "site": "FULL<-book/ch07-gravity.md:118",
+   "phase0_class": "DECL",
+   "phase0_rows": [
+    "C9"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch07-gravity.md:118: states A1, posit (ii) or \"finite under A1\" explicitly"
+  },
+  {
+   "site": "FULL<-book/ch09-universality.md:18",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch09-universality.md:18: finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "FULL<-book/ch09-universality.md:36",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch09-universality.md:36: finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "FULL<-book/ch09-universality.md:106",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch09-universality.md:106: finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "FULL<-book/ch09-universality.md:183",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch09-universality.md:183: finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "FULL<-book/ch09-universality.md:189",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "edit",
+   "units": [
+    "K5-FULL"
+   ],
+   "reason": "FULL mirror of book/ch09-universality.md:189: same splice"
+  },
+  {
+   "site": "FULL<-book/ch09-universality.md:193",
+   "phase0_class": "R6",
+   "phase0_rows": [
+    "C11"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch09-universality.md:193: finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)"
+  },
+  {
+   "site": "FULL<-book/glossary.md:13",
+   "phase0_class": "R4",
+   "phase0_rows": [
+    "C6"
+   ],
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/glossary.md:13: A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  }
+ ]
+}
