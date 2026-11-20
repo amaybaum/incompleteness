@@ -138,12 +138,7 @@ constructed below only for purely atomic `ρ`.
 `F` injective on `V × H` with `H` countable, then on `ℓ²(V × H)` (separable) the operator
 `U|x,h⟩ = |F(x,h)⟩` is an isometry (a unitary when `F` is a bijection), `μ_H = Σ_h ρ(h)|h⟩⟨h|` is a
 normal diagonal state, and the computation of (1) gives `Tr_H[U^t(σ⊗μ_H)U^{*t}] = Φ_t(σ)`. Main's
-Hilbert-space form therefore holds verbatim on countably infinite hidden carriers. The same holds
-for a purely atomic `ρ` on an uncountable `H` (`F` injective): with `S` the countable support of `ρ`,
-put `H_0 = S` and `H_{n+1} = H_n ∪ π_H F(V × H_n)`; then `H_∞ = ∪_n H_n` is countable and
-`F(V × H_∞) ⊆ V × H_∞`, so `U` restricted to `ℓ²(V × H_∞)` (separable) is an isometry, `μ_H` is
-supported in `H_∞`, and every point `F^t(x,h)` with `h ∈ S` that the computation of (1) uses lies in
-`V × H_∞`. (Added after review round 2.)
+Hilbert-space form therefore holds verbatim on countably infinite hidden carriers. The same holds for a purely atomic `ρ` on an uncountable `H` (`F` injective): with `S` the countable support of `ρ`, put `H_0 = S` and `H_{n+1} = H_n ∪ π_H F(V × H_n) ∪ π_H F^{−1}(V × H_n)` (preimages where they exist; countable because `F` is injective); then `H_∞ = ∪_n H_n` is countable, `F(V × H_∞) ⊆ V × H_∞` and `F^{−1}(V × H_∞) ⊆ V × H_∞`, so `U` restricted to `ℓ²(V × H_∞)` (separable) is an isometry, and a permutation unitary when `F` is a bijection; `μ_H` is supported in `H_∞`, and every point `F^t(x,h)` with `h ∈ S` that the computation of (1) uses lies in `V × H_∞`. The channel identity, CPTP and diagonal preservation need only the isometry (with `U^{*t}` for `U^{−t}`). (Added after review round 2.)
 
 ### 3.3 T6-K: the Koopman form named in REMAINDER
 
@@ -336,8 +331,8 @@ sense"). This is an elaboration; it changes no consumer's class.
 ## 5. T9 — L9: decoupled factors of any cardinality
 
 **(a) Coherent form [W].** Hypotheses: a base given by Hilbert spaces `ℂ^V`, `K_H` (any), a normal
-state `ω_H`, a unitary `U` on `ℂ^V ⊗ K_H` — this includes Main's finite family and the countable
-form of §3.2; a factor Hilbert space `K_A` of any dimension (separable or not), a state `σ_A` with
+state `ω_H`, a unitary or isometry `U` on `ℂ^V ⊗ K_H` (with `U^{*t}` for `U^{−t}`) — this includes
+Main's finite family and the countable and purely atomic forms of §3.2; a factor Hilbert space `K_A` of any dimension (separable or not), a state `σ_A` with
 `σ_A(1) = 1`, and any unitary or isometry `W` on `K_A`. Claim: for every `t` and visible input `ρ_V`,
 `Tr_{HA}[(U⊗W)^t(ρ_V ⊗ ω_H ⊗ σ_A)(U⊗W)^{*t}] = Tr_H[U^t(ρ_V ⊗ ω_H)U^{*t}]` when `σ_A` is normal; in
 the Heisenberg form the same identity holds for every state `σ_A`. *Proof.* `(U⊗W)^t = U^t ⊗ W^t`;
@@ -531,7 +526,7 @@ Every proof, control and cited result used above is in this directory or on `mai
 | Nit 7 | Observation 7.2(ii) requires a support of more than one point |
 | Nit 8 | `8fb6b663` reclassified as support; landing by merge commit required (§10) |
 | Nit 9 | Trivial coincidence sets of K3a/K3b noted (§3.4) |
-| Round 2 | Prop. 6.9 labelled as added after review; §3.2 countable-carrier construction extended to purely atomic laws on uncountable `H` via the countable forward-invariant set `H_∞` |
+| Round 2 | Prop. 6.9 labelled as added after review; §3.2 countable-carrier construction extended to purely atomic laws on uncountable `H` via the countable set `H_∞` closed under `F` and `F^{−1}`; final-head check: the closure now includes preimages, so the restriction is a permutation unitary when `F` is a bijection, and the channel identity is stated to need only the isometry; T9(a) admits an isometric base `U` accordingly |
 
 No class confirmed by the review changed. `PREREG.md`, `r6_controls.py` and `r6_controls.json` are
 unchanged by this revision.
