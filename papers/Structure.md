@@ -176,7 +176,7 @@ The framework's empirical predictions live at specific intersections:
 
 - *Level G4 × Level C features.* Fixed-basis representation and finite unitary realizations have the supplied-law scope of [Main §3.4]. Accessible conditional memory needs the readback witness. Gauge-invariant observables use a specified symmetry action.
 - *Level G2 × Level D predictions.* On single-copy H-link and H-cust, the generic condensate has the $(3,2,1)$ stabilizer blocks. The local Standard Model algebra uses the specified charged action. The three candidate taste sectors have a physical reading under H-spin', H-χ' and light-spectrum selection. The hypercharges are fixed on the specified nonzero-$Y_Q$ branch.
-- *Level G3 × Level D predictions* — Cabibbo angle $1/(\pi\sqrt{2})$, Koide ratio $2/3$, dark-sector phenomenology. Distinguishes OI from other universality-class members; forced by OI's specific $\mathcal{G}_{\rm sub}$-equivalence class.
+- *Level G3 × Level D predictions* — Cabibbo angle $1/(\pi\sqrt{2})$, Koide ratio $2/3$. Distinguishes OI from other universality-class members; forced by OI's specific $\mathcal{G}_{\rm sub}$-equivalence class.
 - *Bekenstein-Hawking $A/4$* — holds for every substratum satisfying S1–S4 of [GR §8.5], conditional on H-slope, the further conditions of [GR §8.5(b)] and the symmetric detailed-balance rate ratio; it does not distinguish OI from other members of that class.
 
 The framework's most distinguishing predictions live at Level G3 × Level D — they are class-specific to OI. Level G2 × Level D predictions are shared with any SM-reproducing class. Level G4 × Level C predictions are essentially structural.
@@ -900,8 +900,6 @@ Level 2 confirmations are confirmations of the gauge-group-target level but do n
 |---|---|---|
 | Cubic-lattice-forced higher-dim operators | Indirect (via specific predictions below) | [SM §3.1] |
 | Type II RVM structural reading | Conserved matter and running $G$ in the stated model. The Bertini RG fit is consistent with zero. DESI DR2 separately compares evolving-$w$ models. | [Bertini2025, DESI_DR2_2025, GR §7] |
-| MOND scale $a_0 = cH/6$ | Tully-Fisher relation; ongoing tests | [GR §7.3] |
-| Holographic $A/4$ at cosmological horizon | Structural, conditional on H-slope and the further conditions of [GR §8.5(b)] (theory-level transport; no direct test) | [GR §5] |
 | Absence of the modeled GUT gauge channel on the single-copy physical gauge branch (§12.5) | Consistent with proton-decay bounds, including $\tau_p(p\to e^+\pi^0) > 2.4 \times 10^{34}$ yr | [SuperK2020_proton, SM §6.7, §8.7] |
 | No GUT-mechanism magnetic monopoles | GUT-scale monopoles undetected cosmologically; consistent with OI without inflation invocation | [MoEDAL2024, SM §6.7] |
 | No GUT-chain cosmic strings | NANOGrav 15-year data disfavors stable cosmic-string interpretation | [NANOGravStrings2023, SM §6.7] |
