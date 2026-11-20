@@ -2,7 +2,7 @@
  "unit": "POSIT-MIN",
  "source_pin": "b9168ef0408b5f55b935a4df17cb0841877e221a",
  "prereg_commit": "3f93b47e17aaf7126ab2e7417536d6ea85828381",
- "status": "writer record, revised after independent review REVISE at d8e3f1b7; mirrors AUDIT.md section 1, which governs",
+ "status": "writer record; independent review REVISE at d8e3f1b7, delta re-review ACCEPT WITH NITS at a4a1e5bb (PR #1451); mirrors AUDIT.md section 1, which governs",
  "items": [
   {
    "item": "i",

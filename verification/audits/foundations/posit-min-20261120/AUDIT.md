@@ -3,8 +3,8 @@
 **Status.** Writer's paper-only research record. Source reading and paper reasoning only: no
 computation, no Lean, no manuscript or registry edit, no premise adopted or dropped. The criterion,
 schema, decision rule and controls were fixed in `PREREG.md` (commit `3f93b47e`, pushed before this
-file). Independent non-author review at `d8e3f1b7` returned REVISE; this revision answers it (§10)
-and needs a delta review. Every verdict below is a proposal to the owner.
+file). Independent non-author review: REVISE at `d8e3f1b7`, answered in §10; delta re-review
+ACCEPT WITH NITS at `a4a1e5bb`, nits applied (§10). Every verdict below is a proposal to the owner.
 
 **Authorization and goal link.** As in `PREREG.md`: owner `amaybaum`,
 [#1169 c.7033247170](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7033247170),
@@ -172,7 +172,7 @@ alternative and its sufficiency; (e) standing; verdict (PREREG §3.4).
   exponentially many cycles" (`SM:294`), and the motivating rule `R_q` is non-linear, which
   `Main:732 (v)` states. These are statements about the fine-grained permutation and its energy
   shells; no corpus result derives the failure of (EM), which concerns the coarse-grained hidden
-  channel `PUP` (`Main:752`), from linearity. The conserved-energy question for the `d = 3` rule is
+  channel `𝒦_Σ := P_Σ 𝒰_φ P_Σ` (`Main:752`), from linearity. The conserved-energy question for the `d = 3` rule is
   G3-W1's and is not treated here.
 - **Verdict: KEEP-RES** (§4.6, C2-slow).
 
@@ -400,14 +400,13 @@ authorization record), with #1169.
 | T4 | (vii) with O4 and O3 at the configuration level | site factorization (viii) with settings, records and carriers as cell content (inclusion); for S-C1, a partition of `S` into a direct sum of region groups `S = ⊕_X S_X`; for S-L4 and AW-MR9, `Λ = ℤ^d` with nearest neighbours and injective coupling (scalar `M = μI` in AW-MR8's reading of Substratum A5) | MR★ S-L1, S-C1, S-L4, AW-MR8, AW-MR9; OA-1 D5 |
 | T5 | (vii) with observed accessible memory (C1/C4 anchors, `Main:72`, `Main:78`) | NR-1's (U), (Λ) `ℤ^d`, (Q) `q` prime and `α ≠ 0`, (Haar), (R) finite window readout, (LC) lattice-convex window, and (x) through (U)'s nearest-neighbour sum: the rooted family is P-divisible at every horizon, with no C4. Main's own escape is a structured hidden prior `μ_H` as a realization datum (`Main:58`) and the records-conditioned selection of (iv); observed memory is measured on prepared states, not under Haar. | NR-1 Theorem 3.3 (`NR-1.md:237–241`) |
 
-T2 and T3 of the earlier head are reclassified (review B4) and are not tensions in PREREG §2(e)'s
-sense; their identifiers are not reused.
-- *Former T2, SM's shell-sampling route.* SM §4.2 needs full-shell sampling for its measure
+Recorded, not counted as tensions in PREREG §2(e)'s sense:
+- *SM's shell-sampling route.* SM §4.2 needs full-shell sampling for its measure
   reduction and names two escapes from the exact linear rule's non-ergodicity: (i) non-linearity
   "from rounding rules in the bijection update", and (ii) the sub-torus reading, "Gaussian on the
   sub-torus actually sampled", which keeps linearity and modifies the covariance match (`SM:294`;
   `SM:1416`). It concerns a companion route, not an observation or an adopted branch of Main.
-- *Former T3, (v)'s motivation.* A motivation gap that `Main:732 (v)` discloses; no corpus result
+- *(v)'s motivation.* A motivation gap that `Main:732 (v)` discloses; no corpus result
   derives the failure of (EM) for the coarse-grained channel from linearity (row (v)).
 
 Related, recorded but not counted as a tension with an observation: H-A's linearity gate — under
@@ -473,9 +472,9 @@ the non-affinity clause (excluding affine rules from the selected class).
 (D1; within the other clauses `F` is any symmetric function of the `2d` neighbour values); the
 stabilizer computation of Stage 2(d) and Theorem 23's gauge-group output, unless lift-level
 linearity carries them (D3, D16; not traced); the kernel results that take A5 as hypothesis.
-**What it preserves.** Every Main theorem (A5-LA D8, D9), including Main §3.2's channel results for
-the displayed linear `𝔽₂` update (`Main:294–326`), which remain statements about an admissible
-realization; the continuous path (xiii); Theorem 19 on `ℤ^d` (O-A4 §5, non-degenerate only for
+**What it preserves.** Every Main theorem (A5-LA D8, D9); and, by this record's trace [W], Main
+§3.2's channel results for the displayed linear `𝔽₂` update (`Main:294–326`), which remain
+statements about an admissible realization; the continuous path (xiii); Theorem 19 on `ℤ^d` (O-A4 §5, non-degenerate only for
 non-linear rules); the A1-free records, which do not use A5.
 
 **What adopting the non-affinity clause costs in addition.** Every affine realization leaves the
@@ -511,9 +510,9 @@ statements about a class the criterion excludes.
   The operative condition is therefore that the coarse variables be site-additive (site-aligned
   and group-compatible). O4's exclusion of affine rules holds for such variables, under the
   inclusion reading; for coarse variables that are not site-additive it does not.
-- **K6.** Pressure statements are given in rows (i), (iii) and §3. The §3 pressure on T4 uses K5
-  in its corrected form: the escape is through coarse variables that are not site-additive, not
-  through spatial non-locality.
+- **K6.** Pressure statements are given in rows (i), (iii) and §3. The §3 pressure on T4 uses K5:
+  the escape is through coarse variables that are not site-additive, not through spatial
+  non-locality.
 
 ## 6. Owner decision points
 
@@ -570,15 +569,17 @@ statements about a class the criterion excludes.
 - #1049 c.6624263637 and #1169 c.7033247170: owner records, quoted as provenance for decisions; the
   claims they bear on rest on files on `main`.
 - Review comments cited inside the inputs: provenance for those inputs' standing.
-
 - #1432 comments c.7025788384, c.7025985363 and c.7026110454: provenance for UNIV-1's review
   standing; Theorem L's proof is on `main` in UNIV-1 §2.1.
 
 ## 9. Verification status and remediation (§A.46 item 4)
 
 Every row is [W] in this record over [P], [K] and [R] inputs at the standings they state. No row is
-established. Missing verification: an independent non-author review of this file against the pin.
-Accountable Issue: #1169. Resolving evidence: that review recorded on PR #1451.
+established. Independent non-author review is recorded on
+[PR #1451](https://github.com/amaybaum/incompleteness/pull/1451): REVISE at `d8e3f1b7`, then
+ACCEPT WITH NITS at `a4a1e5bb`, whose nits the following commit applies. A model review is evidence
+of review, not independent mathematical verification (§A.46 item 8); the rows keep their layers.
+Accountable Issue: #1169.
 
 ## 10. Deviations from PREREG and revision record
 
@@ -587,7 +588,10 @@ it is recorded here rather than by editing the criterion.
 
 - **DV-1 (row (xii)).** (xii) is typed `REP` on Main's statement that it "imposes no restriction on
   the rule" (`Main:732 (xii)`), not on PREREG §3.3's `REP` test. Nothing else depends on the typing:
-  as a clause that restricts no rule, it changes neither R_obs nor R_res.
+  as a clause that restricts no rule, it changes neither R_obs nor R_res. It carries row (xii)'s
+  marker (A5-LA D14, Q3): the formalized A6 types the link coupling `linkF : V →+ V`, which builds
+  additivity into the interface. That sits against DV-2's non-affinity clause; a selected class
+  with a non-affine update would need A6's formal interface checked for the additivity it types in.
 - **DV-2 (R_obs and site factorization).** PREREG §3.1 states O4's rule-level reading with
   "settings, records and carriers taken as cell content". That reading presupposes a site
   factorization, which §3.3's typing would otherwise place in `RES` (row (viii)). The non-affinity
@@ -600,3 +604,6 @@ B3 (row (vii)(b), §2 Q1, §4, D1), B4 (row (v), §3, §0, K3), B5 (row (iii), �
 (N1 row (vi); N2 row (vii)(b); N3 §2 Q3; N4 T1; N5 T5; N6 T4 and §2 Q3; N7 row (vii)(d) and T1;
 N8 row (iii), §0, §4; N9 row (i); N10 row (xii), DV-1). T2 and T3 are retired as identifiers and
 not reused.
+The delta re-review at `a4a1e5bb` (ACCEPT WITH NITS) gave six optional nits, applied in the next
+commit: §9 review record; timeless wording in §3 and K6; [W] attribution in §4; Main's notation in
+row (v); DV-1's cross-reference to row (xii)'s marker; §8 layout.
