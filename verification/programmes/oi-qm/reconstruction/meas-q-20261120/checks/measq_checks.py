@@ -1224,10 +1224,11 @@ def verdict(green, gem_i_hits, use_outside, node1_ok, a02):
         v.update(formal_icond_SBlong_DT_A=sm["dta"], SBlong_sample=sm["sample"],
                  SBlong_DT_s=sm["dts"], SBlong_DT_A_h=sm["dtah"], formal_icond_X1=nx1,
                  X1_examples=len(x1), ledger_audited=naud, ledger_audits_ok=audok)
-        parts.append(f"the criterion of PREREG §6 item 1 is met formally, in (i-cond) form, by "
+        parts.append(f"PREREG §6 item 1 in its formal (i-cond) form: DT_A on Q (re-run in Q) is met by "
                      f"{sm['dta']} of {sm['sample']} S-B-long configurations (A02; DT_s {sm['dts']}, "
-                     f"DT_A^h {sm['dtah']}) and by {nx1} of {len(x1)} X1 examples; full ledger audit on "
-                     f"{naud} ({'ok' if audok else 'failed'}), cost on 1 ({cost} bits)")
+                     f"DT_A^h {sm['dtah']}) and by {nx1} of {len(x1)} X1 examples; the audit clause was "
+                     f"checked on {naud} ({'ok' if audok else 'failed'}; it holds by construction for runs "
+                     f"built from the ledger) and the cost clause on 1 ({cost} bits)")
     else:
         parts.append("A02 and post hoc outputs not present: the formal (i-cond) count is not evaluated")
     if gii:
@@ -1391,7 +1392,9 @@ def main():
             w = sum(1 for i in range(B.n) if env.get((0, i), 0) or env.get((1, i), 0))
             t2 = a02["x2"]["rows"][0]["t2"]
             sites = [tuple(s_) + (0,) * (3 - len(s_)) for s_ in B.S]
-            RESULTS["searches"]["A02-cost"] = dict(hit=h, tau2=t2, **cost_of_fast(sites, w, t2 + 60))
+            # the record is read on A (l1-distance <= 8 from the box) up to tau2 + 60, so isolation
+            # needs the background on the backward cone of radius tau2 + 60 + 8 around the box
+            RESULTS["searches"]["A02-cost"] = dict(hit=h, tau2=t2, **cost_of_fast(sites, w, t2 + 60 + 8))
         RESULTS["verdict"] = verdict(green, gem_i, use_outside, node1_ok, a02)
         print("VERDICT:", RESULTS["verdict"]["text"])
     RESULTS["gem_i_candidates"] = gem_i[:20]

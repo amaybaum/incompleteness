@@ -294,9 +294,9 @@
  "mode": "search",
  "searches": {
   "A02-cost": {
-   "best_rho_kappa_ternary": "2/644801",
+   "best_rho_kappa_ternary": "2/862753",
    "box_sites": 3,
-   "cone": 644798,
+   "cone": 862750,
    "hit": {
     "dims": [
      3
@@ -334,11 +334,11 @@
     "mode": "c",
     "tb": 5
    },
-   "horizon": 77,
+   "horizon": 85,
    "pattern_sites": 2,
-   "selection_cost_bits_best_rho_kappa_ternary": 45.5,
-   "selection_cost_bits_rho_1/10000_kappa_ternary": 125.6,
-   "selection_cost_bits_rho_1/1000_kappa_ternary": 956.6,
+   "selection_cost_bits_best_rho_kappa_ternary": 46.3,
+   "selection_cost_bits_rho_1/10000_kappa_ternary": 157.1,
+   "selection_cost_bits_rho_1/1000_kappa_ternary": 1271.2,
    "tau2": 17
   },
   "S-A": {
@@ -1336,7 +1336,7 @@
   "ledger_audited": 5,
   "ledger_audits_ok": true,
   "n_gem_i_candidates": 0,
-  "text": "gem (i) not met in the preregistered searches, which did not evaluate DT_A outside the carrier's class (S-B horizon 28); the criterion of PREREG \u00a76 item 1 is met formally, in (i-cond) form, by 297 of 398 S-B-long configurations (A02; DT_s 297, DT_A^h 229) and by 7 of 10 X1 examples; full ledger audit on 5 (ok), cost on 1 (45.5 bits); gem (ii) checks hold (K1, K2, K2b green; use outside the carrier's class after a breach in at least 3003 S-B configurations); the obstruction itself rests on the written proof of Lemma MQ1 / Theorem MQ2 in RESULT.",
+  "text": "gem (i) not met in the preregistered searches, which did not evaluate DT_A outside the carrier's class (S-B horizon 28); PREREG \u00a76 item 1 in its formal (i-cond) form: DT_A on Q (re-run in Q) is met by 297 of 398 S-B-long configurations (A02; DT_s 297, DT_A^h 229) and by 7 of 10 X1 examples; the audit clause was checked on 5 (ok; it holds by construction for runs built from the ledger) and the cost clause on 1 (46.3 bits); gem (ii) checks hold (K1, K2, K2b green; use outside the carrier's class after a breach in at least 3003 S-B configurations); the obstruction itself rests on the written proof of Lemma MQ1 / Theorem MQ2 in RESULT.",
   "use_outside_class_SB": 3003
  }
 }

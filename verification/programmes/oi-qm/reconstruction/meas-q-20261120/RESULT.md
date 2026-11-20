@@ -8,12 +8,13 @@ registry.
   ([#1455 c.7037170075](https://github.com/amaybaum/incompleteness/pull/1455#issuecomment-7037170075)).
   It found the computations reproduced and MQ1–MQ2 correct, and required changes of wording and
   labels (B1–B6, N1–N10).
-- **Owner guidance.** Relayed by the coordinating session, 2026-11-20 (provenance; not a GitHub
-  comment): "keep the original decision rule, do not retroactively strengthen DT_A; report all
-  297/297/229 as formal successes; distinguish formal from physical success; bound negatives; the
-  stronger test is a separate future protocol."
-- **This revision.** It answers B1–B6 and N1–N10 in appended commits. `PREREG.md`, A01 and A02 are
-  unchanged.
+- **Owner guidance.** Paraphrase relayed by the coordinating session (owner `amaybaum`,
+  2026-11-20; provenance, not a GitHub comment). Keep the original decision rule, and do not
+  strengthen DT_A retroactively. Report all 297/297/229 as formal successes. Distinguish formal from
+  physical success. Bound the negatives. The stronger test is a separate future protocol.
+- **This revision.** It answers B1–B6 and N1–N10 in appended commits. A delta re-review at
+  `6ca6e3f7` returned ACCEPT-WITH-NITS, and its nits 1–5 are answered in later appended commits.
+  `PREREG.md`, A01 and A02 are unchanged.
 
 - **Authorization.** Owner `amaybaum`. Scope:
   [#1169 c.7032429839](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7032429839),
@@ -68,7 +69,13 @@ registry.
 ## 0. Summary
 
 1. **Verdict (generated from `results.json`, controls green, 20/20 checks).** The script prints:
-   "gem (i) not met in the preregistered searches, which did not evaluate DT_A outside the carrier's class (S-B horizon 28); the criterion of PREREG §6 item 1 is met formally, in (i-cond) form, by 297 of 398 S-B-long configurations (A02; DT_s 297, DT_A^h 229) and by 7 of 10 X1 examples; full ledger audit on 5 (ok), cost on 1 (45.5 bits); gem (ii) checks hold (K1, K2, K2b green; use outside the carrier's class after a breach in at least 3003 S-B configurations); the obstruction itself rests on the written proof of Lemma MQ1 / Theorem MQ2 in RESULT."
+   "gem (i) not met in the preregistered searches, which did not evaluate DT_A outside the
+   carrier's class (S-B horizon 28); PREREG §6 item 1 in its formal (i-cond) form: DT_A on Q
+   (re-run in Q) is met by 297 of 398 S-B-long configurations (A02; DT_s 297, DT_A^h 229) and by 7
+   of 10 X1 examples; the audit clause was checked on 5 (ok; it holds by construction for runs
+   built from the ledger) and the cost clause on 1 (46.3 bits); gem (ii) checks hold (K1, K2, K2b
+   green; use outside the carrier's class after a breach in at least 3003 S-B configurations); the
+   obstruction itself rests on the written proof of Lemma MQ1 / Theorem MQ2 in RESULT."
    - *Gem (i): formal (i-cond) successes under the preregistered criterion.* They are physically
      not deliveries to a re-armed apparatus (X2, §5). Each is conditional on its enumerated pattern
      and its priced background.
@@ -137,10 +144,13 @@ registry.
      No single site holds the record over the 60 ticks. `H` is passed early and is quiet over the
      hold window, then is reached again by the front: it is not ready at every tick through
      `t = 87` in any case.
-   - *Consequence.* The preregistered criterion for gem (i) (PREREG §6 item 1: DT_A on Q, re-run
-     in Q, ledger audit) stands. Under it, the 297 DT_A configurations of S-B-long (229 of them with
-     DT_A^h) and 7 of the 10 X1 examples are formal (i-cond) successes.
-     - The ledger audit was run on 5 of them, and the cost was computed for 1 (§5).
+   - *Consequence.* The preregistered criterion for gem (i), PREREG §6 item 1, stands. In its
+     formal (i-cond) form:
+     - DT_A on Q (re-run in Q) is met by 297 of 398 S-B-long configurations (229 of them with
+       DT_A^h) and by 7 of the 10 X1 examples;
+     - the audit clause was checked on 5; it holds by construction for runs built from the
+       ledger;
+     - the cost clause was checked on 1 (§5).
      - A02 preceded the S-B-long run but followed X1, which had already shown DT_A in 7 of 10
        examples. A02's clause not to count them is therefore a post hoc decision, and it is not
        applied.
@@ -377,7 +387,8 @@ cases. Requirements L1–L5 are those of PREREG §4: quiescence, no radiation, l
 As implemented, L3 and L4 are more lenient than PREREG's wording, which can only admit more
 candidates and so does not weaken the negative:
 - L3 accepts one window of at most 8 differing line sites anywhere outside `A`;
-- L4 accepts any `H ∈ A` with the largest admissible block (A01 item 1).
+- L4 does not force `τ₁ = 0`: it accepts any earlier ready instant of `H` with the same value
+  before the use.
 
 | Cell | Quiescent (L1) | Fail L2 (radiation) | Fail L3 | Fail L4 (no DT_A) | Pass |
 |---|---|---|---|---|---|
@@ -507,9 +518,11 @@ S-B's DT_s counts outside the carrier's class look favourable. They were pressed
 
    Cost of the first candidate (`results.json`, `A02-cost`):
    - the pattern has weight 2 on line 3, `τ₂ = 17`;
-   - isolation over the persistence window needs a cone of 644 798 sites at background;
-   - the selection cost under a ternary-concentrated `κ` is 45.5 bits at the best
-     `ρ ≈ 3·10⁻⁶`, and 957 bits at `ρ = 10⁻³`;
+   - the record is read on `A`, up to ℓ1-distance 8 from the box, until `τ₂ + 60`; isolation
+     therefore needs the backward cone of radius `τ₂ + 68 = 85` around the box at
+     background, which is 862 750 sites;
+   - the selection cost under a ternary-concentrated `κ` is 46.3 bits at the best
+     `ρ ≈ 2.3·10⁻⁶`, and 1271.2 bits at `ρ = 10⁻³`;
    - under a full-support `κ`, such a cone contains breaching symbols unless `ρ` is very small.
 
 **Reading.**
@@ -588,10 +601,12 @@ control list for `--search` runs (post-review N7).
 
 - **(i) Not met in the preregistered searches.** There is no DT_A delivery in S-A, S-C or S-D, and
   S-B did not evaluate DT_A outside the carrier's class (horizon 28).
-  - *Formal (i-cond) successes.* The criterion of PREREG §6 item 1 is met formally, in (i-cond)
-    form, by 297 of 398 S-B-long configurations (A02; 229 with DT_A^h) and by 7 of the 10 X1
-    examples. The full ledger audit was run on 5, and the cost computed for 1 (45.5 bits at the
-    best `ρ`, ternary-concentrated `κ`).
+  - *Formal (i-cond) successes.* Under PREREG §6 item 1 in its formal (i-cond) form:
+    - DT_A on Q (re-run in Q) is met by 297 of 398 S-B-long configurations (A02; 229 with DT_A^h)
+      and by 7 of the 10 X1 examples;
+    - the audit clause was checked on 5; it holds by construction for runs built from the ledger;
+    - the cost clause was checked on 1: 46.3 bits at the best `ρ`, ternary-concentrated `κ`,
+      over a cone of 862 750 sites.
   - *A02's clause.* A02 preceded S-B-long but followed X1, so its non-counting clause is a post
     hoc decision. The original criterion stands, and these configurations are reported under it.
   - *Physical reading.* The successes are not deliveries to a re-armed apparatus (X2, §5). Each is
@@ -668,9 +683,19 @@ control list for `--search` runs (post-review N7).
   - K5 was added to the control list for `--search` runs.
 
   `--search` was then re-run. Against `results.json` at `12a251b0`, every measured value is
-  unchanged. The differences are the verdict block, the label text of K2, the added check K2b and
-  the added `A02-cost` entry (20 checks against 19; no measured value, search output or other field differs; the default run likewise, 17 checks against 16). The template change follows the results, as the review
-  requested. The decision rule of PREREG §6 is unchanged.
+  unchanged. The differences are:
+  - the verdict block;
+  - the label text of K2;
+  - the added check K2b (20 checks against 19);
+  - the added `A02-cost` entry.
+
+  No measured value, search output or other field differs. The default run is likewise unchanged,
+  17 checks against 16. The template change follows the results, as the review requested. The
+  decision rule of PREREG §6 is unchanged.
+- **Post-re-review fix** (delta review at `6ca6e3f7`, nit 1). The cost cone radius was `τ₂ + 60`,
+  which omits `A`'s 8 sites of extent. It is `τ₂ + 68`: 862 750 sites, 46.3 bits at the best `ρ`.
+  The verdict wording for the formal criterion (nit 2) was also changed. `--search` was re-run; only
+  `A02-cost` and the verdict text differ from `6ca6e3f7`.
 
 ***
 
