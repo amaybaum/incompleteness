@@ -671,6 +671,24 @@ def node3():
           "and grows in some instance; after T the isolated evolution can differ (countercontrol)",
           ok2 and grew and horizon_matters)
 
+    # T2b: under nu_rho on a torus the closure of the initial data fills the whole torus, so
+    # N3.1 has one class there. Same sampling as T2 (each slice's perturbation bit independently
+    # 1 with probability rho); T2's own instances (n = 16, rho = 0.06, seeds 1..8) and seeds 1..3
+    # at (rho, n) = (0.02, 24), (0.01, 32). Countercontrol: a sparse instance does not fill.
+    def nu_closure_fraction(rho, n, seed):
+        rng = random.Random(seed)
+        prev = {s for s in product(range(n), repeat=3) if rng.random() < rho}
+        cur = {s for s in product(range(n), repeat=3) if rng.random() < rho}
+        return Fr(len(tor_closure(prev | cur, n)), n ** 3)
+    cases = [(0.06, 16, sd) for sd in range(1, 9)] + \
+            [(r_, n_, sd) for r_, n_ in ((0.02, 24), (0.01, 32)) for sd in (1, 2, 3)]
+    fr = {c_: nu_closure_fraction(*c_) for c_ in cases}
+    sparse = nu_closure_fraction(0.0005, 16, 1)
+    check(f"T2b closure of nu_rho data fills the torus: |cl2(A_0)|/n^3 = 1 in all {len(cases)} instances "
+          f"(T2's n = 16, rho = 0.06, seeds 1..8; (0.02, 24) and (0.01, 32), seeds 1..3); "
+          f"countercontrol rho = 0.0005, n = 16: fraction {sparse} < 1",
+          all(v == 1 for v in fr.values()) and sparse < 1)
+
     # T3: the plaquette's components depend on the carrier value.
     n = 8
     C_, H_, L_, E_ = (0, 0, 0), (0, 1, 0), (1, 0, 0), (1, 1, 0)
@@ -680,13 +698,13 @@ def node3():
           "containing H and the log (D*(H) is the square)",
           comp0 == {frozenset({E_})} and comp1 == {frozenset({C_, H_, L_, E_})})
 
-    # T4: the blocking property and its failures.
+    # T4: the property (P) behind the obstruction, and its failures.
     prop = g2(0) == g2(1) == 0 and g2(5) == g2(6) == 0
     gm = lambda s: 1 if s == 1 else g2(s)  # mutation: g(1) = 1
     p, c = set(), {(0, 0, 0)}
     p, c = tor_step(p, c, 8, gm)
     leaks = len(c - {(0, 0, 0)}) > 0
-    check("T4a blocking property (P): g(0) = g(1) = 0 and g(5) = g(6) = 0; mutation g(1) = 1 "
+    check("T4a property (P): g(0) = g(1) = 0 and g(5) = g(6) = 0; mutation g(1) = 1 "
           "lets a single excitation leave its site (countercontrol)", prop and leaks)
     okq = True
     radii = {}

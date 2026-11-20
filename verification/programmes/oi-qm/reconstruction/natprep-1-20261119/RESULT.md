@@ -1,9 +1,11 @@
 # NATPREP-1: native preparation of delivering components from an untuned source
 
 **Standing.** Author record of a paper-only gem-finding unit (AGENTS.md §A.31, depth-first form).
-Revised after an independent non-author review at `853e8047`, outcome REVISE
+Independent non-author review at `853e8047`, outcome REVISE
 ([#1433 c.7026376940](https://github.com/amaybaum/incompleteness/pull/1433#issuecomment-7026376940));
-not yet re-reviewed. It adopts no premise, edits no manuscript, Lean module or registry, and runs
+re-review at `73d488e6`, outcome ACCEPT WITH NITS
+([#1433 c.7027066631](https://github.com/amaybaum/incompleteness/pull/1433#issuecomment-7027066631)),
+whose nits this revision answers. It adopts no premise, edits no manuscript, Lean module or registry, and runs
 no simulation. Small exact checks are included as controls (§9).
 
 - **Authorization.** Owner `amaybaum`, row P1 of
@@ -33,7 +35,7 @@ no simulation. Small exact checks are included as controls (§9).
 |---|---|
 | [K] | Lean statement on `main`, cited by its record; nothing built here |
 | [R] | research record on `main`, not independently established |
-| [W] | derivation in this record; not kernel-checked; reviewed once at `853e8047` (#1433 c.7026376940), not re-reviewed since |
+| [W] | derivation in this record; not kernel-checked; reviewed at `853e8047` and `73d488e6` (#1433 c.7026376940, c.7027066631) |
 | [EC] | exact finite check in `checks/natprep_checks.py` (integer and rational arithmetic; entropies as exact `a + b·log₂3`) |
 | [LIT2] | literature cited from memory, not re-read; no theorem or check depends on it (AW-NP1-3 does, §8) |
 
@@ -85,8 +87,8 @@ keep their own numbers (DL1 Theorem 2.2, DL1 Lemma 2.3).
    - Corollary N3.2: U₂ never merges, splits or moves a class. The whole history of a block is a
      function of the initial content of its class: U₂ does no assembly across classes. This has
      content while the classes are small. Under `ν_ρ` on a torus the closure filled the whole
-     torus in every seeded instance checked (§3), giving one class, and N3.1–N3.2 exclude nothing
-     there.
+     torus in every seeded instance checked [EC T2b], giving one class, and N3.1–N3.2 exclude
+     nothing there.
    - Theorem N3.3: for arbitrary initial data on ℤ³, including i.i.d. noise, where `cl₂(A_0) = ℤ³`
      almost surely [LIT2], the history of a region R up to T is the isolated evolution of
      `D_T(R)`, the classes of `cl₂(A_0 ∩ B(R,T))` meeting R. `D_T(R)` grows with T only through the
@@ -355,9 +357,9 @@ T → ∞, `D_T(R)` grows through the closure of initial data alone. Whether the
 readiness or carrier information through such merged regions over long times is open.
 
 *Scope of N3.1–N3.3.* They constrain while the classes, or `D_T(R)`, stay small. Under `ν_ρ` on a
-torus the closure filled the whole torus in each of three seeded instances checked in the review
-of this record, (ρ, n) = (0.06, 16), (0.02, 24), (0.01, 32), the first being T2's setting
-(#1433 c.7026376940, B2). There N3.1 has one class and excludes nothing. On ℤ³, beyond the
+torus the closure filled the whole torus in each of 14 seeded instances: T2's eight
+(ρ, n) = (0.06, 16) and three each at (0.02, 24) and (0.01, 32) [EC T2b; a sparse instance at
+ρ = 0.0005 does not fill]. There N3.1 has one class and excludes nothing. On ℤ³, beyond the
 bootstrap length scale of ρ, `D_T(R)` is essentially the closure of all data in `B(R, T)`, and N3.3
 says no more than the light cone and nothing about the dynamics inside one large class.
 
@@ -448,8 +450,8 @@ but are corollaries of DL1 Theorem 2.2:
 - Proposition N2.2's two-excitation threshold is specific to DT_s.
 
 **Verdict: gem**, resting on two assumptions in DL1 that this record exposes (§A.31): AW-NP1-1, the
-retention-time gap in DL1's DT, and AW-NP1-3, that DL1's hypothesis (I) fails almost surely for
-every i.i.d. supply on ℤ³.
+retention-time gap in DL1's DT [EC S2e], and AW-NP1-3, that DL1's hypothesis (I) fails almost
+surely for every i.i.d. supply on ℤ³ [LIT2, checked at the secondary-source level].
 
 **Pressure test.**
 1. N3.1 and N3.2 follow from DL1 Theorem 2.2 and Lemma 2.3(c) in a few lines. Their content is that
@@ -468,7 +470,7 @@ every i.i.d. supply on ℤ³.
 |---|---|
 | Node 1: U1–U4; DT_s; N1-CC1, N1-CC2 | CONFIRMING (NSC-3, NSC-5, in this record's reading) |
 | Retention-time gap in DT (S2e); AW-NP1-1 | NEW (definitional) |
-| AW-NP1-3: DL1's (I) fails almost surely for every i.i.d. supply on ℤ³ | NEW (assumption-watch) |
+| AW-NP1-3: DL1's (I) fails almost surely for every i.i.d. supply on ℤ³ [LIT2, secondary-source level] | NEW (assumption-watch) |
 | Lemma N2.1 | ELABORATING (DL1 2.2) |
 | Proposition N2.2 | BORDERLINE (specific to DT_s) |
 | Enumeration §2.3; probability §2.4 | ELABORATING |
@@ -510,7 +512,7 @@ on a selection, not on the dynamics. (P), sufficient for the obstruction, fails 
 
 ## 8. Limits; what an independent reviewer must check; literature
 
-- U1–U4 and their derivation from NSC-3 and NSC-5. Check that they do not decide the answer:
+- U1–U4 as this record's reading of NSC-3 and NSC-5. Check that they do not decide the answer:
   every finite pattern has positive probability under U2.
 - DT_s's retention time, and the S2e countercontrol (the plaquette's log equals H at every time).
 - Lemma N2.1: the closedness of a singleton and the branch argument; the scope (closed carrier
@@ -559,13 +561,14 @@ check holds.
 | S4 | Lemma N2.3 on the isolated (f) segment; annealed readiness and record error |
 | T1 | Theorem N3.1 on random finite configurations |
 | T2 | Theorem N3.3 on noisy tori; countercontrol after the horizon |
+| T2b | under `ν_ρ` the closure fills the torus (T2's instances and two sparser settings); sparse countercontrol |
 | T3 | plaquette classes per carrier value |
 | T4a, T4b | the property (P) behind the obstruction; its mutation; q = 3 and q = 2^16 spreading |
 | A1 | Lemma N4.1(c) identity and (2.4) slack |
 | S2-full | (`--full`) §2.3 table, rows marked `--full` |
 
 Output of `python3 -I checks/natprep_checks.py --full` at this record's commit (exit status 0; the
-default run prints the first 20 lines and `19/19 checks hold`, exit status 0):
+default run prints the first 21 lines and `20/20 checks hold`, exit status 0):
 
 ```text
 CHECK N1-CC1 countercontrol: the designed (f) pattern has unequal site marginals (fails U1); its random-offset average is translation invariant but not a product law (fails U2): PASS
@@ -584,13 +587,14 @@ CHECK S3b (f) placement: delivering environments by weight {2: 1, 3: 4, 4: 6, 5:
 CHECK S4 dilution on the isolated (f) segment: rho=1/10: P(H ready at 0)=0.8100, at 5=0.7795, record error=0.4964 >= 0.2152; rho=1/100: P(H ready at 0)=0.9801, at 5=0.9753, record error=0.5000 >= 0.4614: PASS
 CHECK T1 component partition of cl2(A_0) is invariant and each class evolves alone (6 random finite configurations, 24 classes, n = 14, 30 ticks); classes are closed and pairwise at l1-distance >= 3 (Theorem N3.1): PASS
 CHECK T2 finite-horizon locality (noisy n = 16 torus, rho = 0.06, 8 seeds, T = 0..6): the history of the origin up to T equals the isolated evolution of D_T; D_T is non-decreasing and grows in some instance; after T the isolated evolution can differ (countercontrol): PASS
+CHECK T2b closure of nu_rho data fills the torus: |cl2(A_0)|/n^3 = 1 in all 14 instances (T2's n = 16, rho = 0.06, seeds 1..8; (0.02, 24) and (0.01, 32), seeds 1..3); countercontrol rho = 0.0005, n = 16: fraction 5/4096 < 1: PASS
 CHECK T3 plaquette: with c = 0 the only class is {E}; with c = 1 it is the 2x2 square containing H and the log (D*(H) is the square): PASS
-CHECK T4a blocking property (P): g(0) = g(1) = 0 and g(5) = g(6) = 0; mutation g(1) = 1 lets a single excitation leave its site (countercontrol): PASS
+CHECK T4a property (P): g(0) = g(1) = 0 and g(5) = g(6) = 0; mutation g(1) = 1 lets a single excitation leave its site (countercontrol): PASS
 CHECK T4b q = 3 and q = 2^16: G(2) = 1, and the two-slice support of a single symbol 2 in the vacuum reaches l1-radius 12 (q = 3) and 18 (q = 2^16) at t = 20 (n = 45 torus; radii by tick {3: [1, 2, 3, 3, 3, 4, 5, 6, 6, 6, 7, 8, 9, 9, 9, 10, 11, 12, 12, 12], 65536: [1, 2, 3, 3, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]}); no confinement: PASS
 CHECK A1 accounting identity m = log2(1/nu(z)) + log2(nu(z)/u(z)) and (2.4) slack: (f): m=9, selection cost 18 + -7*log2(3), supply term -9 + 7*log2(3), (2.4) needs 2; (i): m=10, selection cost 20 + -5*log2(3), supply term -10 + 5*log2(3), (2.4) needs 3: PASS
 CHECK S2-full 6 k=1 N=1: 19712 found, min weight 2: PASS
 CHECK S2-full 2x3 k=1 N=1: 56884 found, min weight 2: PASS
 CHECK S2-full 6 k=2 N=2: 664 found, min weight 5: PASS
 CHECK S2-full 2x3 k=2 N=2: 760 found, min weight 5: PASS
-23/23 checks hold
+24/24 checks hold
 ```
