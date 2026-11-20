@@ -1,6 +1,6 @@
 # R1-L8 Stage 0 — which observational conclusions need a selected probability law
 
-**Status.** Writer's paper-only requirements audit, WIP / UNVERIFIED. Classes, schema, controls and
+**Status.** Writer's paper-only requirements audit, WIP / UNVERIFIED; revised after the independent review of `8687a96b` (REVISE, PR #1456, round 1; answered in §9). Classes, schema, controls and
 decision rule were fixed in `PREREG.md` (commit `e87910a3`, pushed before this file). Existing
 evidence only: no new measure construction, no replacement law, no new physical assumption, no
 manuscript, Lean or registry edit. Independent non-author review is required before any use. A1
@@ -25,12 +25,15 @@ proved (R1-INF C1; P7B 6.3 (ii)).
 
 ## 1. Verdict (generated from the table in §2)
 
-**Counts.** 21 conclusion rows. Class (a): 2 (M2.a, M3.e). Class (b): 12. Class (c): **N_c = 7**. Of the seven (c)
-rows, 4 have a `RETRO` observational consequence (they reproduce known values: the horizon
-temperature, the ħ calibration, the Bekenstein–Hawking 1/4, the observed non-equilibrium phase),
-0 have an `ACC` consequence, and 3 have none (`NONE`/`REC`). Under the alternative reading R′ of
-PREREG §5, **N_c′ = 13** (adds M2.d, M3.a, M3.b, M3.c, C4.a, C4.b, whose weakest sufficient
-condition fixes one finite factor of the law to be uniform).
+**Counts.** 22 conclusion rows. Class (a): 2 (M2.a, M3.e). Class (b): 11. Class (c): **N_c = 8**.
+Undetermined between (b) and (c): 1 (C1.d; §9 D1). Of the eight (c) rows, 2 have a `RETRO`
+observational consequence (C1.e's ρ_s = ρ_crit against the supplied Friedmann density; M19.a's
+observed non-equilibrium phase), 0 have an `ACC` consequence, and 6 have none (`NONE`/`REC`); the
+values C1.a–c reproduce (T_GH, the ħ relation, the 1/4) are theoretical, and their observed
+counterparts are fixed by the KMS side at measured ħ. Under the alternative reading R′ of PREREG §5,
+**N_c′ = 15** (adds M1.b, M2.d, M3.a, M3.b, M3.c, C4.a, C4.b, whose weakest sufficient condition
+fixes one finite factor of the law to be uniform), with C1.d still undetermined (16 if it resolves
+to (c)).
 
 **Decision rule applied (PREREG §6, N_c > 0).** R1 remains open for the following rows, each of
 which obtains its claimed result only with a particular law or a selection principle:
@@ -43,11 +46,14 @@ which obtains its claimed result only with a particular law or a selection princ
 | C1.a | Equal weighting of the boundary-shell configurations (H-count; P7B H4) sets the slope β_E | Physical selection of the shell law (P7B 6.4; GR:88); coupled case: existence of a normalized invariant shell law (P7B 6.3, open Q1) |
 | C1.b | As C1.a, through a_* = τ_K/β_E | As C1.a |
 | C1.c | As C1.a, through the calibrated ε²/σ | As C1.a |
+| C1.e | As C1.a: the count S_dS = σA/ε² times T_cl gives ρ_s; a slope k·β_E gives ρ_crit/k | As C1.a; the d = 3 concordance (Substratum E7) inherits it |
 | M19.a | The typicality measure of canonical typicality (normalized unitarily invariant measure on a finite-dimensional energy shell) fixes "every local subsystem is in local equilibrium" | Lemma L8 or scope narrowing to a supplied local equilibrium (LE); physical source of the equilibrium state (A1-05 P8-S) |
 
-No `ACC`-type conclusion traced here requires a selected law. This does not mean any law it uses is
-physically justified: every (b) row carries property premises ((IP), (NR), Θ-invariance, equal
-root masses, H-blind, H-ν, H-BD with its fibrewise property, (D5)) for which the framework gives no
+Under PREREG §5, no `ACC` conclusion is shown to require a selected law; C1.d's dependence through an
+imported area-entropy normalization is not determined (§9 D1); under R′, four `ACC` rows (M2.d,
+M3.a–c) and M1.b require a uniform factor of the law. None of this means any law used is
+physically justified: every (b) row carries property premises ((IP), (NR), Θ-invariance, equal root
+masses, H-blind, H-ν, H-BD with its fibrewise property, (D5)) for which the framework gives no
 reason that nature realizes them (column "Physical justification"), and every (a) row still
 presupposes that nature's law is invariant at all. A1 remains open and unadopted.
 
@@ -58,22 +64,33 @@ presupposes that nature's law is invariant at all. A1 remains open and unadopted
   invariant under the update and under translations: under β_A, the law P-ED selects, the rooted
   family is P-divisible at every horizon (NR-1 Thm. 3.3); under the torus counting law μ_L on the
   periodic configurations (R1-INF Lemma 1 (a)) the update has finite order on the support, and
-  RIGID's kernel theorem gives P-indivisibility within a finite horizon [W]. The premise (NR) of
-  M:131 is therefore false under the one selected law available and true under laws that
-  reintroduce total finiteness under another name (NR-1 open question 3).
+  RIGID's kernel theorem gives P-indivisibility within a finite horizon [W]. The comparison uses
+  RIGID's rooted family, conditioned on the root under one invariant law, not M:131's root-shared
+  form (μ_L's hidden conditional depends on the root). The return premise is therefore false under
+  the one selected law available and true under laws that reintroduce total finiteness under
+  another name (NR-1 open question 3).
 - **F2 (C4).** The counting step of H-BD's proof (GR:126) uses a property the counting measure has
   for every injection: an injection does not increase the number of points mapped into a set. A
   measure-theoretic H-BD (L10) would need the corresponding fibrewise non-expansion of the deep law,
   not only its normalization [W]. GR:128's own example shows that visible data depend on the deep
   law when the deep sector couples [W].
-- **F3 (M19).** The global-to-local step fails for a law of maximal centred entropy density: for the
-  selected update in d ≥ 2, m_H is invariant with h̄(m_H) = log|A| and u(0) = 0 almost surely (R1-INF
-  Prop. 9 (b)), so the one-site marginal at the origin is not the equilibrium one [W, classical
-  substratum reading, not Main's quantum canonical typicality].
-- **F4 (C1.d).** The value a₀ = cH/6 and its companions in GR §7.3 contain no quantity fixed by the
-  counting law at measured ħ and H; the law enters only through ε²/σ, which a₀ does not contain [W].
-  GR:470 lists H-count among the inherited conditions; the trace finds only the existence of a
-  log-rate slope load-bearing for the value.
+- **F3 (M19).** For the selected update in d ≥ 2, m_H is invariant with h̄(m_H) = log|A| and
+  u(0) = 0 almost surely (R1-INF Prop. 9 (b)), so its one-site marginal at the origin differs from
+  β_A's uniform marginal: maximal centred entropy density does not fix the local marginal without
+  (G3) [W, classical substratum reading, not Main's quantum canonical typicality].
+- **F4 (C1.d).** (1) The displayed formula a₀ = cH/6 contains c, H and the imported factor
+  (d−3)/((d−2)(d−1)) only; (2) at measured ħ the calibration matches T_cl to T_dS whatever the slope,
+  so the Clausius step ΔS = M_Bc²/(k_BT_dS) does not depend on the law [W]. (3) The imported factor
+  is not law-free on `main`: in Verlinde's derivation (GR:478 cites [20], eq. 1.7) the volume-law
+  entropy is normalized by matching to the Bekenstein–Hawking entropy A/(4Għ) (arXiv:1611.02269,
+  eqs. 1.5 and 2.14, as read by the independent review; not re-read here), and in OI that area
+  entropy is the count σA/ε² (GR §5, §7.2), which depends on the law (C1.c). GR does not state
+  whether §7.3 uses the count or a Clausius entropy at T_dS. Whether a₀'s value depends on the law
+  is therefore not determined on `main` (§9 D1).
+- **F5 (C1.e).** GR §7.2 computes ρ_s = S_dS · k_BT_cl / V_H = ρ_crit from the count and T_cl; ε²
+  and σ cancel, but under a slope k·β_E the count is unchanged and T_cl is divided by k, so
+  ρ_s = ρ_crit/k and the d-dimensional concordance becomes 2/((d−1)k) [W]. The concordance is
+  Substratum's E7 input to the d = 3 selection (Sub:88, :157).
 
 ## 2. The table
 
@@ -84,11 +101,11 @@ in this audit).
 | Id | Conclusion and site | Obs. | Measure assumptions used in the proof | Weakest sufficient condition on `main` (layer) | Math. sufficiency | Physical justification | Class | Predictions vary? | Outstanding sourcing obligation | Stage 1 rec. |
 |---|---|---|---|---|---|---|---|---|---|---|
 | M1.a | Under the canonical law the emergent description is fixed by the partition alone (book ch01:79–83; M:84 "canonical choice"; M:58 default) | NONE | Lemma 3's selected law: counting on a finite carrier, maximal Shannon entropy among invariant laws (M:54; CM `counting_maximal_entropy`:227) | Finite: CM (K). Infinite full product: P-ED under (G1)–(G4), unique β_A (R1-INF Prop. 3, P); without (G3) unique only in d = 1 (Prop. 9) | Sufficient for the selection role in entropy-density form | None on `main`: R1-INF §7 "restates the uniform posit"; POSIT-MIN (iv) NOT FORCED | (c) c1 | Yes: M:58 (priors), P6 example 1 (invariant laws give different T) | Physical selection of the canonical law (R1) | None |
-| M1.b | Reciprocity of visible transitions T_ij = T_θj,θi; detailed balance for T-even cells (SM:641–643, Thm 19; consumed at GR:70, P7B 6.1, Sub Thm 23 Stage 2(f)) | ACC | Counting hidden prior on a finite carrier (SM:643) | Flux reciprocity: normalized law invariant under φ and Θ; unweighted equality: equal root masses (P6 §2–3, P; `MeasuredReciprocity.reciprocal_flux`:90, `transition_reciprocity_of_equal_roots`:128, K) | Sufficient | None on `main` (P6: "physical selection … open under Q6") | (b) | Yes: P6 examples 1–2 | Θ-invariance and equal root masses of the physical law | None |
+| M1.b | Reciprocity of visible transitions T_ij = T_θj,θi; detailed balance for T-even cells (SM:641–643, Thm 19; consumed at GR:70, P7B 6.1, Sub Thm 23 Stage 2(f)) | ACC | Counting hidden prior on a finite carrier (SM:643) | Flux reciprocity: normalized law invariant under φ and Θ; unweighted equality: equal root masses (P6 §2–3, P; `MeasuredReciprocity.reciprocal_flux`:90, `transition_reciprocity_of_equal_roots`:128, K) | Sufficient | None on `main` (P6: "physical selection … open under Q6") | (b); R′: (c), since equal root masses for every positive-flux pair of a communicating class with θ = id fix a uniform visible marginal on that class | Yes: P6 examples 1–2; FCLASS rows 16–17 | Θ-invariance and equal root masses of the physical law | None |
 | M1.c | Custodial scalarity at the symmetric point: one common cone for the massless T₁, E, A₁ blocks (SM:334–336, Prop. 4b) | ACC | Counting law invariant under signed permutations of the six components; product of identical factors | The proof's extension clause: law equivariant under signed permutations (H-blind) (SM:334, P) | Sufficient | None on `main`; H-blind is a named condition | (b) | Not determined on `main` | H-blind for the physical law | None |
 | M1.d | Canonical projection P_μ and the resummed kernel; dispersion cos ω = Â(k)/2 (SM:252–256, Lemma 1c) | ACC | (i): S_*μ = μ for the relabelling S; (iii): block form of U on the companion realization | Clause (i) for any μ preserved by S (SM:254, P); relation of (iii)'s coordinate projection to P_μ for a general invariant μ not traced | (i) sufficient; (iii) partly traced | None on `main` | (b) | Not determined on `main` | — | None |
 | M2.a | No native autonomous production of readiness or held predictability in a fixed block, in law (PREP 1.3–1.4; consumed by PREP §6, #866 contract) | ACC | Invariance only | Any T-invariant probability on a measurable carrier (PREP 1.1–1.3, P [W]) | Sufficient | Whether nature's law is invariant at all is open (PREP §6: boundary law NEQ-T alternative) | (a) | No: holds for every law in 𝒜(φ) | Source of any non-stationary supply (PREP §6) | None |
-| M2.b | μ-O: unique invariant law on the actual orbit; static budget log₂(\|S\|/ℓ); orbit capacity log₂ p (M:60; OA-1 r5:101; PREP 1.5(b)) | REC | Finite orbit; uniform law on it | Finite orbit only. Infinite: for unit α and β_A-typical points μ-O = μ-G, budget not supplied (R1-INF Prop. 7.1, P); on X_fin no invariant probability (R1-INF C1) | Sufficient on finite representatives only | None on `main` (PREP 1.5(b): "not a physically sourced preparation") | (c) c1 | Yes: finite orbit (positive budget) vs β_A (none) (PREP 1.5(b); R1-INF Prop. 7.1) | Decide whether #866's contract needs μ-O; L2 cannot supply the budget | Owner decision on scope narrowing (finite-representative statement); no construction |
+| M2.b | μ-O: unique invariant law on the actual orbit; static budget log₂(\|S\|/ℓ); orbit capacity log₂ p (M:60; OA-1 r5:101; PREP 1.5(b)) | REC | Finite orbit; uniform law on it | Finite orbit only. Infinite: for unit α and β_A-typical points μ-O = μ-G, budget not supplied (R1-INF Prop. 7.1, P); on X_fin no invariant probability (R1-INF C1) | Sufficient on finite representatives only | None on `main` (PREP 1.5(b): "not a physically sourced preparation") | (c) c1 | Yes, same carrier: on one finite S, μ-O on an orbit of length ℓ < \|S\| has D(μ-O‖u) = log₂(\|S\|/ℓ) > 0, while μ-G has D(μ-G‖u) = 0, both invariant (PREP 1.5(b), 1.3 scope); in infinite volume the budget is not supplied (R1-INF Prop. 7.1) | Decide whether #866's contract needs μ-O; L2 cannot supply the budget | Owner decision on scope narrowing (finite-representative statement); no construction |
 | M2.c | μ-R / posit (iv): maximal entropy compatible with records; budget log₂(\|S\|/\|U\|); "knowing native under μ-R" (M:732 (iv); OA-1 r5:106–108; PREP 1.5(b′)) | NONE | Uniform law on a finite union of record-compatible orbits | Finite only. Infinite: collapses to μ-G (R1-INF Prop. 7.2, P); with reference β_A it is conditioning, a preparation (Prop. 7.3, P) | Sufficient on finite representatives only | None on `main` (posit (iv), "not derived") | (c) c1 | Yes: finite orbit union vs β_A (records exclude nothing at orbit level) | As M2.b | As M2.b |
 | M2.d | Budget D(p₀,B‖ν_B) ≥ (N+1)(1 − h₂(ε)) for N held ε-predictable records (PREP 2.5–2.6, §6) | ACC | Reference u (finite) or ν invariant with ν_A = u_H ⊗ ν_{A∖H} (H-ν) | PREP 2.6 under H-ν and a finite cone (P [W]) | Sufficient | None on `main` (PREP 2.6: "a hypothesis to check for each model") | (b) | Not for the bound; its use to exclude an inflow endpoint needs a reference fixed in advance (REMAINDER §5) | H-ν source; O-INFLOW (REMAINDER §5, #866) | None here |
 | M3.a | Doubly stochastic one-step and rooted maps (M:276–280; M:528) | ACC | Uniform law on a finite product carrier | (IP): φ preserves ν⊗ρ with ν uniform (M:280, P); window readouts on a full product carrier under P-ED (R1-INF Lemma 8, P) | Sufficient | None on `main`; observed unistochastic statistics are doubly stochastic (M:60) and are consistent with (IP) without implying it | (b) | Yes: counting law on the eventual image E (M:60) gives a non-doubly-stochastic matrix; R1-INF §9 C (non-invariant control) | (IP) for the physical law; non-coordinate readouts (R1-INF Lemma 8 scope) | Optional: Lemma 8 for general coarse-grainings (a property, not a law) |
@@ -96,11 +113,12 @@ in this audit).
 | M3.c | Non-permutation witness: doubly stochastic T non-permutation ⇒ nondegenerate row ⇒ hidden influence (C1) (M:441–443) | ACC | Common uniform hidden prior on a finite carrier | (IP) for double stochasticity (M:280); the second sentence ("fails P-divisibility by the return") is M3.d | Sufficient | As M3.a | (b) | As M3.a | As M3.a | None |
 | M3.d | §2.3: non-permutation Γ_s ⇒ rooted family P-indivisible at recurrence scale (M:113–131) | REC (ACC only via an observed C4r) | Uniform prior on finite C_H; exact return Γ_N = I | (NR) with any normalized root-shared prior, no invariance (M:131, P); invariant μ with compact indicator-orbit closure (`ObservableRigidity.exists_pIndivisibleWithin_of_nonPermutation`:358, K) | Sufficient | None on `main`; under β_A for the selected update (NR) fails (NR-1 Prop. 2.3) | (b) | Yes, F1: β_A P-divisible at every horizon (NR-1 Thm. 3.3) vs μ_L P-indivisible [W] | A return source for the physical law (REMAINDER R2) | None from R1 |
 | M3.e | Born-form identity T_ij = Born probabilities of Φ (M:288) | NONE | ρ_H = I/m | Any diagonal hidden prior [W]; status ledger records the fixed-Ĥ form for uniform, slice and weighted priors (M:740) | Sufficient | Not needed (representation) | (a) | No [W] | — | None |
-| C1.a | Classical horizon temperature as a counting derivative: P(i) ∝ Ω(E − e_i), β = s′(E), T_cl (GR:58; GR:336) | RETRO | Uniform counting on a finite conserved shell (A1) | Decoupled: H4 law #⊗ν on the shell, any normalized deep ν, H5 proved (P7B Thm., 6.2–6.3, P). Coupled: none; no normalized invariant shell law for some coupled bijections (P7B 6.3 (ii), P) | Decoupled: sufficient with H1–H9. Coupled: not established | None on `main` (P7B 6.4; GR:88 "selection of the physical slope remains an additional condition") | (c) c1 | Yes: every real slope occurs under normalized invariant laws without H4 (P7B node 5) | Shell-law selection; coupled-case existence (P7B open Q1) | Recommended: scope the coupled existence question for the selected update (P7B Q1), noting conserved densities enter as free parameters (R1-INF Prop. 6) |
-| C1.b | ħ = c³ε²/(4Gσ), i.e. ε/√σ = 2l_p (GR:78–80, :88; GR:552; SM:1586; book appendix-b:169) | RETRO (ħ measured; ε, σ not) | As C1.a, through β_E | As C1.a, with H-slope, H-frame, H-Hawking (P7B Thm. item 4, P) | As C1.a | As C1.a | (c) c1 | Yes, through β_E: a_* = τ_K/β_E (GR:80) with node 5's slopes | As C1.a | As C1.a |
-| C1.c | Bekenstein–Hawking 1/4: σA/ε² = A/(4l_p²) (GR:316–318) | RETRO | As C1.b | As C1.b | As C1.a | As C1.a | (c) c1 | Yes [W]: a law with slope k·β_E gives ε² = 4kσl_p² and σA/ε² = A/(4k l_p²) | As C1.a | None beyond C1.a |
-| C1.d | Entropy-displacement chain: a₀ = cH/6, baryonic Tully–Fisher, crossover radius (GR:466–500; table GR:542–551) | ACC | Inherits "T_dS requires H-count" (GR:470) | A law under which the shell rates have a log-rate slope (positive paired flux, P7B H9; P6 reciprocity) plus the KMS side (H-spectrum) [W] | Sufficient for the value [W]; the factor 1/6 is imported (GR:478) | None on `main` | (b) | No for the value [W]: a₀ contains c, H and the imported factor only | Coupling-map and heat-input conditions of GR:470 (not measure items) | None |
-| C4.a | Boundary-only lemma (b) and gauge corollary under H-BD: Σ_j\|T_ij − T^(B)_ij\| ≤ 2t/τ_BD; \|C_D\| invisible at leading order (GR:114–138; book appendix-b:177–194, ch07:46, ch18:170; Meth:353) | GAUGE | Uniform hidden prior on finite C_H; H-BD's "fraction of d ∈ C_D" is counting; injectivity used to bound counts (GR:126) | H-BD part: none (L10; A1-05 P8-S: the counting proof "cannot simply be applied to an arbitrary exterior law"). Exact part within the cone: (D5) u_{B_n} ⊗ any normalized ν, no invariance (GR App. B, P) | Exact part sufficient; H-BD part only on finite carriers | None on `main`: τ_BD not fixed (GR:130); for the selected linear update H-BD with τ_BD > 2Δt fails at every cut with L ≠ 0 under counting (GR:128) | (b) | Yes, F2: GR:128's example, u_{V×B} ⊗ δ_d invariant [W], gives T(2Δt) = identity or bit flip; the uniform law gives every entry ½ | L10 with its fibrewise property (F2) | Low priority: GR:130 states no §8.5(b) result uses Steps 2–3 |
+| C1.a | Classical horizon temperature as a counting derivative: P(i) ∝ Ω(E − e_i), β = s′(E), T_cl (GR:58; GR:336) | NONE (the reproduced T_GH is theoretical; the observed horizon temperature is fixed by the KMS side at measured ħ; the law-dependent content is ε²/σ) | Uniform counting on a finite conserved shell (A1) | Decoupled: H4 law #⊗ν on the shell, any normalized deep ν, H5 proved (P7B Thm., 6.2–6.3, P). Coupled: none; no normalized invariant shell law for some coupled bijections (P7B 6.3 (ii), P) | Decoupled: sufficient with H1–H9. Coupled: not established | None on `main` (P7B 6.4; GR:88 "selection of the physical slope remains an additional condition") | (c) c1 | Yes: every real slope occurs under normalized invariant laws without H4 (P7B node 5) | Shell-law selection; coupled-case existence (P7B open Q1) | Lower priority than first recommended: the law dependence of C1.a–c sits in normalizations with no finite-window test (ε²/σ, the classical-side derivation). If scoped: the coupled existence question (P7B Q1), noting conserved densities enter as free parameters (R1-INF Prop. 6) |
+| C1.b | ħ = c³ε²/(4Gσ), i.e. ε/√σ = 2l_p (GR:78–80, :88; GR:552; SM:1586; book appendix-b:169) | NONE (ħ measured; the relation fixes the unobserved ε²/σ) | As C1.a, through β_E | As C1.a, with H-slope, H-frame, H-Hawking (P7B Thm. item 4, P) | As C1.a | As C1.a | (c) c1 | Yes, through β_E: a_* = τ_K/β_E (GR:80) with node 5's slopes | As C1.a | As C1.a |
+| C1.c | Bekenstein–Hawking 1/4: σA/ε² = A/(4l_p²) (GR:316–318) | NONE (the 1/4 is a theoretical value; GR:318's black-hole channel measures the KMS normalization) | As C1.b | As C1.b | As C1.a | As C1.a | (c) c1 | Yes [W]: a law with slope k·β_E gives ε² = 4kσl_p² and σA/ε² = A/(4k l_p²) | As C1.a | None beyond C1.a |
+| C1.d | Entropy-displacement chain: a₀ = cH/6, baryonic Tully–Fisher, crossover radius (GR:466–500; table GR:542–551) | ACC | Inherits "T_dS requires H-count" (GR:470); the imported factor (d−3)/((d−2)(d−1)) (GR:478, Verlinde [20]) is normalized by the area entropy, which in OI is the count σA/ε² (GR §5, §7.2) | Clausius step at T_dS: any law with a log-rate slope, the calibration supplying T_cl = T_dS [W] (F4 (1)–(2)). Imported factor: not determined, since GR does not state whether §7.3 uses the count or a Clausius entropy at T_dS (F4 (3)) | Not determined on `main` | None on `main` | Undetermined between (b) and (c) (§9 D1) | Not determined on `main`: law-independent under a Clausius entropy at T_dS; law-dependent, through the count (C1.c), if the imported normalization is the count | Coupling-map and heat-input conditions of GR:470; which horizon entropy the import uses | Candidate: decide which horizon entropy (count, or Clausius at T_dS) GR §7.2–7.3 and the imported Verlinde factor use |
+| C1.e | Boundary-density normalization ρ_s = S_dS k_BT_cl / V_H = ρ_crit (GR:422–428), "motivates" §7.3 (GR:468); d = 3 concordance ρ_s/ρ_crit = 2/(d−1) (SM:182–196; GR:440), Substratum's E7 input to the d = 3 selection (Sub:88, :157); mirrors book ch05:59–60, ch02:68, ch19:116, appendix-a:117 | RETRO (ρ_s against the supplied Friedmann ρ_crit) / NONE (concordance) | As C1.a: the count σA/ε² and T_cl from the counting slope | As C1.a | As C1.a | As C1.a; GR:420 "its use as a physical source is a separate question" | (c) c1 | Yes [W, F5]: a slope k·β_E leaves the count unchanged and divides T_cl by k, so ρ_s = ρ_crit/k and the concordance becomes 2/((d−1)k) | As C1.a; the native-source identification GR:420 leaves open | Same candidate as C1.d |
+| C4.a | Boundary-only lemma (b) and gauge corollary under H-BD: Σ_j\|T_ij − T^(B)_ij\| ≤ 2t/τ_BD; \|C_D\| invisible at leading order (GR:114–138; GR:144 Step 4, which states the matching does not use it; GR:589; GR App. B :873–907 for the exact part; Sub:262; book appendix-b:177–194, ch02:44, ch07:46, ch18:170; Meth:353) | GAUGE | Uniform hidden prior on finite C_H; H-BD's "fraction of d ∈ C_D" is counting; injectivity used to bound counts (GR:126) | H-BD part: none (L10; A1-05 P8-S: the counting proof "cannot simply be applied to an arbitrary exterior law"). Exact part within the cone: (D5) u_{B_n} ⊗ any normalized ν, no invariance (GR App. B, P) | Exact part sufficient; H-BD part only on finite carriers | None on `main`: τ_BD not fixed (GR:130); for the selected linear update H-BD with τ_BD > 2Δt fails at every cut with L ≠ 0 under counting (GR:128) | (b) | Yes, F2: GR:128's example, u_{V×B} ⊗ δ_d invariant [W], gives T(2Δt) = identity or bit flip; the uniform law gives every entry ½ | L10 with its fibrewise property (F2) | Low priority: GR:130 states no §8.5(b) result uses Steps 2–3 |
 | C4.b | Effective finiteness: E3 bounds the observationally relevant \|C_V × C_B\| ≤ e^{S∂} under H-BD; leading-order transfer across H-BD-coupled extensions (Sub:54, :92, :268 (i)–(ii)) | GAUGE | As C4.a | As C4.a | As C4.a | As C4.a; Sub:268 (i) calls the E3 reading "the interpretive premise of A1" | (b) | As C4.a | As C4.a | None |
 | M19.a | Equilibrium macrostate of (S,φ) ⇒ every local subsystem in local equilibrium (canonical typicality), hence observers only in the non-equilibrium phase (M:764; consumed at Sub:56 arrow of time, Sub:401, Str:718, ch04:178) | RETRO (observed non-equilibrium phase) | Normalized unitarily invariant measure on the unit sphere of a finite-dimensional energy subspace [31]; "typical" quantifier; finite (S,φ) (M:766) | None for the inference (L8 open). Narrowed form: local equilibrium (LE) supplied as a state per region (A1-05 P8-S). R1-INF §6: under P-ED, typicality only at substratum level (SLLN, ergodic theorem) | Not established beyond finite representatives | None on `main` (A1-05 P8-S: SOURCE GAP at the equilibrium state) | (c) c2 | Yes, F3: m_H (R1-INF Prop. 9 (b)) [W] | L8 or scope narrowing to (LE); physical source of the equilibrium state | Recommended: scope narrowing (separately authorized) before L8; F3 shows a homogeneity premise would be load-bearing for L8 |
 | M19.b | Theorem bound τ_B ≤ τ_mix + O(ε) and the anti-Boltzmann-brain corollary, with local equilibrium stipulated (M:754–762; Comp:212) | NONE | Finite S for the exact Koopman setup and O(ε); local equilibrium by definition, not via M19.a (REMAINDER M20) | (IL) normalized φ-invariant μ with (EM) on μ-centred observables for the decay estimate (M:766; A1-05 P8-M, P) | Sufficient for the forward decay step only; τ_B transfer is a source gap independent of A1 (REMAINDER M18) | None on `main` | (b) | Not determined on `main` | (IL), (EM), uniform erosion | None |
@@ -157,11 +175,17 @@ bijection of a countable shell with a single ℤ-orbit, on which no normalized i
 exists, and the selected update on an infinite carrier is not settled (P7B open Q1). R1-INF records
 that P-ED is the β = 0 law and supplies no shell (R1-INF §6 table). C1.c [W]: if the classical slope
 is k·β_E, GR:80 gives ħ = c³ε²/(4Gσk), so the calibration sets ε² = 4kσl_p² and σA/ε² = A/(4k l_p²).
-C1.d [W, F4]: GR:474–480 use T_dS = ħH/(2πk_B) with measured ħ and the imported factor
-(d−3)/((d−2)(d−1)); any law with a log-rate slope is calibrated to the same T_dS by the matching
-itself, so the value of a₀ does not depend on which such law; GR:470's inherited H-count is not
-contradicted, only found stronger than the value needs. This is a reading to be checked by the
-reviewer, not a result.
+C1.d [W, F4]: GR:474–480 use T_dS = ħH/(2πk_B) with measured ħ, and any law with a log-rate slope
+is calibrated to the same T_dS by the matching itself, so the Clausius step does not depend on
+which such law. The imported factor (d−3)/((d−2)(d−1)) is a different matter: in the cited
+derivation the volume-law entropy is normalized by matching to the Bekenstein–Hawking area entropy,
+and in OI the area entropy is the count σA/ε² of GR §5 and §7.2, which depends on the law (C1.c).
+GR does not state which horizon entropy §7.3 uses, so the row is undetermined (§9 D1).
+C1.e [W, F5]: GR:428 is ρ_s = (σA/ε²)·k_BT_cl/V_H; with T_cl = 1/(kβ_E) the count is unchanged and
+ρ_s = ρ_crit/k. GR:420 and SM:194 leave the identification with a native source open; GR §6.3
+reads S_dS as the ratio ρ_QFT/ρ_classical, a dimensional identity that does not use the count's
+law. FCLASS rows 18–19 record the P7 boundary count and the horizon slope as A1-free conditional
+with a physical source gap, which this row does not change.
 
 **C4 (H-BD), traced.** Consumers found: GR:116–118 (lemma (b)), GR:122 (H-BD), GR:130 (the
 emergent generator, as far as the data fix it, depends only on the local update; "Steps 2 and 3
@@ -197,12 +221,14 @@ stipulated state (REMAINDER M20) and need (IL) and (EM), not the global-to-local
 | K3 | No finding is worded as probability or maximal entropy being undefined; the two non-existence statements cited are for a countable carrier (R1-INF C1) and a coupled countable shell (P7B 6.3 (ii)). Passed |
 | K4 | M3.d records (NR) with root-shared normalized priors and no invariance. Passed |
 | K5 | C4 has a consumer trace (§3 C4) before its class. Passed |
-| K6 | Every (c) row names a witness: M1.a (M:58; P6 ex. 1), M2.b–c (R1-INF Prop. 7), C1.a–c (P7B node 5), M19.a (F3). Passed |
+| K6 | Every (c) row names a witness: M1.a (M:58; P6 ex. 1), M2.b (same-carrier budgets, PREP 1.5(b)), M2.c (R1-INF Prop. 7), C1.a–c and C1.e (P7B node 5; F5), M19.a (F3). Passed |
 | K7 | (a) rows: M2.a uses invariance only, so it holds for every law in 𝒜(φ); M3.e holds for every diagonal hidden prior [W]. Passed |
-| K8 | [W] items: F1–F4, M3.e, C1.c; each reads an existing proof or checks an example already on `main`. Passed |
+| K8 | [W] items: F1–F5, M3.e, C1.c; each reads an existing proof or checks an example already on `main`. Passed |
 
-**Counts by row.** (a): M2.a, M3.e — 2 rows. (b): M1.b, M1.c, M1.d, M2.d, M3.a, M3.b, M3.c, M3.d, C1.d,
-C4.a, C4.b, M19.b — 12 rows. (c): M1.a, M2.b, M2.c, C1.a, C1.b, C1.c, M19.a — 7 rows. Total 21.
+**Counts by row.** (a): M2.a, M3.e — 2 rows. (b): M1.b, M1.c, M1.d, M2.d, M3.a, M3.b, M3.c, M3.d,
+C4.a, C4.b, M19.b — 11 rows. (c): M1.a, M2.b, M2.c, C1.a, C1.b, C1.c, C1.e, M19.a — 8 rows.
+Undetermined between (b) and (c): C1.d — 1 row. Total 22. R′ adds M1.b, M2.d, M3.a, M3.b, M3.c,
+C4.a, C4.b to (c): 15, with C1.d undetermined.
 
 ## 5. Coverage (PREREG §3)
 
@@ -223,6 +249,16 @@ C4.a, C4.b, M19.b — 12 rows. (c): M1.a, M2.b, M2.c, C1.a, C1.b, C1.c, M19.a �
 | `canonical typicality` | 4 | 0 | 20 |
 | `local equilibrium` | 3 | 0 | 20 |
 | `(IP)` / `(NR)` / `(IL)` | 5 / 13 / 2 | 0 | 6 / 9 / 6 |
+| `T_{\text{cl}}` / `T_{\rm cl}` (added in revision) | 17 / 7 | — | — |
+| `\sigma A/\epsilon^2` / `S_{\text{dS}}` / `rho_s` (added in revision) | 9 / 39 / 21 | — | — |
+
+**Why the first search missed C1.e.** The patterns of PREREG §3 name C1's premise (`H-count`) and
+measure words, not its outputs. GR §7.2 and SM:180–196 consume C1 through the symbols T_cl and
+S_dS = σA/ε² and cite "§3.1", "§5" and "the horizon normalization" instead of H-count, so no
+fixed-string hit fell on them. The revision adds searches for those symbols (rows above); their
+hits outside GR §§3, 5, 7.2–7.3 and SM §3.3 are mirrors (book ch02, ch05, ch07, ch19, appendices
+a–c, glossary, `FULL.md`), Substratum's E7 (Sub:88, :157) and the Bekenstein–Hawking statements of
+Sub:529 and ch09:88, which carry C1.c's content.
 
 **Traced.** Every papers/book hit was opened and assigned to a row, merged as a mirror, or set aside
 as outside the six items (the uniform-prior consumers of REMAINDER rows M4–M9, M16, M18 and C3 other
@@ -248,9 +284,10 @@ states (paper unless a kernel declaration is named).
 ## 6. Verification status and remediation (§A.46 item 4)
 
 Evidence level: paper reading of existing records and manuscripts, with the [W] readings listed in
-K8. Missing: an independent non-author review of this record at its exact head. Accountable Issue:
+K8. Review: independent non-author review of `8687a96b`, REVISE (PR #1456, round 1), answered in §9.
+Missing: a delta review of the revised head. Accountable Issue:
 #1055 (with #1169 for the authorization and #1334 for the census). Resolution: a review recorded on
-the guiding PR. The [W] readings F1–F4 are not results until reviewed; none is used as a premise of
+the guiding PR. The [W] readings F1–F5 are not results until reviewed; none is used as a premise of
 another row's class except where the row says so (M3.d uses F1 only for "Predictions vary?").
 
 ## 7. Off-`main` references (§A.42 item 8)
@@ -276,10 +313,42 @@ another row's class except where the row says so (M3.d uses F1 only for "Predict
    example.
 6. F3 (M19.a): that m_H is a fair classical analogue for the global-to-local step, and that the
    row does not claim a statement about Main's quantum canonical typicality.
-7. F4 (C1.d) and the C1.c computation: that the calibration absorbs the slope into ε²/σ, and that
-   a₀ contains no law-dependent quantity at measured ħ and H.
+7. F4 (C1.d), F5 (C1.e) and the C1.c computation: that the calibration absorbs the slope into
+   ε²/σ, that the Clausius step is law-independent at measured ħ, that the imported factor's
+   area-entropy normalization makes C1.d undetermined, and that ρ_s = ρ_crit/k under a slope k·β_E.
 8. C4's consumer list, and GR:130's statement that no §8.5(b) result uses Steps 2–3.
 9. That no row is worded as probability or maximal entropy being undefined (K3), and that no row
    reports mathematical sufficiency as physical justification.
 10. That no row constructs a new law or proposes a replacement, and that no manuscript, Lean or
     registry file is changed.
+
+## 9. Answer to the independent review of `8687a96b` (round 1, REVISE)
+
+PREREG is unchanged. Each item and where it is answered:
+
+| Item | Change |
+|---|---|
+| B1 | F4 restated: steps (1)–(2) kept; step (3) adds the imported factor's Bekenstein–Hawking normalization, which in OI is the count σA/ε². C1.d's "Predictions vary?" is "not determined on `main`"; "stronger than the value needs" withdrawn; C1.d's class is undetermined (D1) |
+| B2 | New row C1.e (GR §7.2, SM:182–196, Substratum E7), class (c) by c1, with F5; coverage explains the miss and adds symbol searches for T_cl, σA/ε², S_dS and ρ_s |
+| B3 | Headline qualified (§1) |
+| N1 | M1.b counted under R′ (communicating-class argument in its class cell) |
+| N2 | C1.a–c typed NONE, with the reproduced values stated as theoretical |
+| N3 | F3 reworded |
+| N4 | C4.a consumer list extended (GR:144, GR:589, GR App. B :873–907, Sub:262, ch02:44); class unchanged |
+| N5 | FCLASS cited at M1.b (rows 16–17) and in the C1 notes (rows 18–19); rows 06, 13 and 23–24 are the classes NR-1 and A1-05 already carry for M3.d and M19, used through those records |
+| N6 | M2.b's witness is now the same-carrier comparison μ-O vs μ-G on one finite S |
+| F1 caveat | Stated in F1: the comparison uses RIGID's root-conditioned family, not M:131's root-shared form |
+
+**D1 (deviation from PREREG §5, recorded rather than resolved).** PREREG §5's tests assume the
+trace can identify the measure use of every link. For C1.d it cannot: GR does not say which
+horizon entropy enters the imported factor. Rather than assign a class by guess, the row is
+reported as undetermined between (b) and (c) and counted separately; under either resolution the
+other counts are unchanged.
+
+**Stage 1 recommendations after revision (recommendations only; nothing is authorized).**
+Endorsed by the review and kept: scope narrowing to a supplied local equilibrium before L8 (M19.a);
+an owner decision on treating μ-O and μ-R as finite-representative statements (M2.b–c); low
+priority for L10 (C4). Lowered: the C1 coupled-existence question, whose law dependence sits in
+normalizations with no finite-window test. Added candidate: decide which horizon entropy (the count
+σA/ε², or a Clausius entropy at T_dS) GR §7.2–7.3 and the imported Verlinde factor use; that
+decides C1.d's class and whether ρ_s, a₀ and the Tully–Fisher normalization need the selected law.
