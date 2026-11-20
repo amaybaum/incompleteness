@@ -2,7 +2,8 @@
 
 **Status.** Writer's paper-only audit, WIP / UNVERIFIED. Revised after the independent review of
 `a7eb5916` ([PR #1460 comment 7045557506](https://github.com/amaybaum/incompleteness/pull/1460#issuecomment-7045557506),
-round 1, REVISE; answered in §13). A delta review is required. Conditions, consumer list, decision
+round 1, REVISE; answered in §13) and after the delta review of `cdb7b07b` (round 2, REVISE;
+answered in §14). A further delta review is required. Conditions, consumer list, decision
 rule and controls were fixed in `PREREG.md` (commit `08f63c9d`, pushed before this file, unchanged
 since). Existing evidence only: no new measure construction, no replacement law, no manuscript,
 Lean or registry edit. The local-equilibrium conditions below are declared hypotheses; this audit
@@ -20,13 +21,14 @@ elementary reasoning; everything else is cited.
 
 ## 1. Verdict (generated from the table in §3)
 
-**44 rows.** They are the 21 preregistered consumers, with T7, T11, T17 and T20 split into
-separately worded claims (D1), plus 16 consumers added after review (†, D3).
+**49 rows.** The 21 preregistered consumers give 27 rows, with T7, T11, T17 and T20 split into
+separately worded claims (D1): 21 − 4 + 10. The 21 consumers added after review (†, D3) give 22
+rows, with T24 split into T24a–b (D1). 27 + 22 = 49.
 
 | Verdict | Count | Rows |
 |---|---|---|
-| **RETAINED** | 21 | T1, T4, T5, T7a, T10, T11a, T11d, T13, T17a, T19, T20a, T21, T24b, T30–T37 |
-| **RETAINED-WITH-(LE)** | 11 | T2, T3, T8, T9, T23, T24a, T25–T29 |
+| **RETAINED** | 32 | T1, T4, T5, T7a, T9, T10, T11a, T11d, T13, T17a, T19, T20a, T21, T24b, T25–T42 |
+| **RETAINED-WITH-(LE)** | 5 | T2, T3, T8, T23, T24a |
 | **NOT FOLLOWING** | 12 | T6, T7b, T11b, T11c, T12, T14, T15, T16, T17b, T18, T20b, T22 |
 | **UNDETERMINED** | 0 | — |
 
@@ -36,13 +38,14 @@ separately worded claims (D1), plus 16 consumers added after review (†, D3).
   - the rate-condition analysis;
   - the region-level exclusion of (C2-slow) ("No bounded-diameter partition supports (C2-slow) in
     that description"), with its companion and book restatements;
+  - the statements that the observer-selection rule "selects where observers can exist", read at the
+    region level (M:750, Sub:14, :26, :371, :407, :413, ch02:200); the phase wording these sentences
+    point to is classified at T22;
   - the time-symmetry statements.
 - **Retained with (LE).** Each holds with the condition named:
   - the thermal "in particular" clause, with (LE-T);
   - the proof's division of labour: (LE) supplies the state, (EM) the mixing;
-  - the scope lists (M:664, M:732, M:766);
-  - the statements that the observer-selection rule "selects where observers can exist" (M:750,
-    Sub:14, :26, :371, :407, :413).
+  - the scope lists (M:664, M:732, M:766).
 - **Not following as worded.** Every statement worded about the global equilibrium macrostate or
   phase of (S, φ):
   - the global-to-local step itself (T6);
@@ -61,7 +64,10 @@ separately worded claims (D1), plus 16 consumers added after review (†, D3).
   - in its (LE-ref) part, it is the state link that the existing transfer gap (REMAINDER M18) needs.
 - **G3 (review M1; NEW under §A.31) — the phase cannot be discriminated.** K_Σ = P_Σ U P_Σ depends
   only on (φ, μ, Σ). So in the iterated description the equilibrium/non-equilibrium distinction
-  cannot discriminate where observers are, and T6 does no logical work in T7's chain.
+  cannot discriminate where observers are. T6 does no logical work in the region-level exclusion
+  (T7a). The phase-worded rows do use T6: it carries the global-equilibrium premise into the domain
+  of the posit indexed by local equilibrium ("every relevant equilibrium region"). G3 shows that this
+  use yields no phase-discriminating content.
   Phase-discriminating content can exist only at the level of actual laws, which is the transfer
   gap. That gap is open with or without T6, L8, or A1 + [31].
 - **(LE) is weaker as a premise but has no source.**
@@ -115,7 +121,7 @@ typical set? (PREREG §4.)
 | T7a | M:764 | "By the theorem — under (EM) for each region's effective channel … — τ_B(V) is bounded by the local τ_mix for every bounded-diameter partition V. No bounded-diameter partition supports (C2-slow) in that description." | No: (EM) is stated per region and the rate condition outright; T6 does no logical work here (G3) | — | **RETAINED** | Unchanged: (EM) for each region with τ_mix ≪ τ_S, finite S or (IL). Its matching book sentence is T20a |
 | T7b | M:764 | "That every relevant equilibrium region satisfies (EM) at the required rate is itself a physical hypothesis … observers therefore exist only in the non-equilibrium phase of (S, φ)"; C1–C4 "not satisfiable in the coarse-grained description of the equilibrium phase" | Yes (via T6) | Yes | **NOT FOLLOWING** as worded | W* (§6). By G3, the phase restriction is not supported in the iterated description even with T6. Its content is T7a over every region for which the fast-(EM) posit holds, plus a label |
 | T8 | M:766 | Inputs include "the canonical-typicality result [31]"; "the canonical-typicality clause" is a finite-representative statement | Yes | No | **RETAINED-WITH-(LE)** | Input list with (LE-eq)/(LE-T) in place of [31]. The finite-representative restriction belonged to [31]'s finite shell; (LE-eq) is stated on region marginals and is satisfiable on an infinite carrier (§7). O(ε) and exact recurrence stay finite-representative. O1(b): "the theorem uses [31]", but T1's bound does not; only T2's clause and T6 do |
-| T9 | M:750 | "the rule" (the selection rule of the §4.6 heading, M:748) "on where in a finite bijective (S, φ) observers can exist … conditional on (EM) … and on the rate condition" | Yes (the rule is T5–T7) | No: "where … observers can exist" is met by W* | **RETAINED-WITH-(LE)** | Conditions: (EM), rate condition, (LE-eq) as the domain label. O1(b) (weak): the printed list omits [31]; by G3 the region-level exclusion needs only (EM) and the rate |
+| T9 | M:750 | "the rule" (the selection rule of the §4.6 heading, M:748) "on where in a finite bijective (S, φ) observers can exist … conditional on (EM) … and on the rate condition" | No, on the region-level reading chosen here: the sentence names only (EM) and the rate condition, which is W* = T7a, where T6 is not used (G3, D4). On the phase-rule reading (the heading M:748) the verdict would be NOT FOLLOWING; that phase wording is classified at T22 | — | **RETAINED** | Unchanged: (EM), rate condition. O1(b) (weak): the printed list omits [31]; by G3 the region-level exclusion needs only (EM) and the rate |
 | T10 | M:171 | The erasure lemma bounds the readback left by fast mixing "in the exclusion arguments below — the equilibrium phase, and the anti-Boltzmann-brain corollary" | No | — | **RETAINED** | The remark's content is the erasure lemma; its pointer to "the equilibrium phase" inherits T7a/T7b |
 | T11a | Sub:56 | "τ_B(V) is bounded by the local mixing time on equilibrium microstates, so C2 fails there in its timescale form, … wherever that mixing time is short compared with τ_S" | No: the rate condition is per region ("wherever …"), and T1's bound holds on every microstate (G2, G3); restricting to equilibrium microstates only weakens it (D4) | — | **RETAINED** | Unchanged: (EM) and the per-region rate condition |
 | T11b | Sub:56 | Observers "structurally restricted to the non-equilibrium phase of (S, φ)" | Yes | Yes | **NOT FOLLOWING** as worded | W*; G3 |
@@ -137,11 +143,11 @@ typical set? (PREREG §4.)
 | T23 † | M:664 | "canonical typicality [31], which the structural observer-selection theorem of §4.6 uses" | Yes | No | **RETAINED-WITH-(LE)** | As T8: (LE-eq)/(LE-T) in place of the import. O1(b): T1's bound does not use [31] |
 | T24a † | M:732 | Posit ledger: "the canonical-typicality step of §4.6 [is a statement] about finite representatives" | Yes | No | **RETAINED-WITH-(LE)** | As T8: the replacing (LE) clause is not finite-only (§7) |
 | T24b † | M:732 | Other §4.6 mentions in the ledger: (IL) "for the decay estimate of §4.6"; §4.6 "consumed" by the deep-sector enlargement; posits (viii), (ix) used by §4.6; the mixing hypothesis and "the typicality selection in (iv)" (the measure selection of posit (iv), not [31]) | No | — | **RETAINED** | Unchanged |
-| T25 † | Sub:14 | "a third projection that supplies a time-symmetric observer-selection rule" | Yes (the rule) | No | **RETAINED-WITH-(LE)** | As T9 |
-| T26 † | Sub:26 | "the C1–C4 observer-selection theorem of [Main, §4.6], which is time-symmetric and selects where observers can exist" | Yes | No | **RETAINED-WITH-(LE)** | As T9 |
-| T27 † | Sub:371 | The arrow-of-time projection "supplies the time-symmetric C1–C4 observer-selection theorem of [Main, §4.6]" | Yes | No | **RETAINED-WITH-(LE)** | As T9 |
-| T28 † | Sub:407 | "C1–C4 observer selection via Main §4.6 for a finite bijective (S,φ), conditional on its effective-mixing hypothesis …, which fixes where observers exist, not a direction" | Yes | No | **RETAINED-WITH-(LE)** | As T9; O1(b) |
-| T29 † | Sub:413 | "the observer selection on the effective-mixing hypothesis and the iterated-channel description" | Yes | No | **RETAINED-WITH-(LE)** | As T9; O1(b) |
+| T25 † | Sub:14 | "a third projection that supplies a time-symmetric observer-selection rule" | No, region-level reading (as T9) | — | **RETAINED** | As T9: the rule names no phase here; its phase wording is classified at T22 |
+| T26 † | Sub:26 | "the C1–C4 observer-selection theorem of [Main, §4.6], which is time-symmetric and selects where observers can exist" | No, region-level reading (as T9) | — | **RETAINED** | As T9: the rule names no phase here; its phase wording is classified at T22 |
+| T27 † | Sub:371 | The arrow-of-time projection "supplies the time-symmetric C1–C4 observer-selection theorem of [Main, §4.6]" | No, region-level reading (as T9) | — | **RETAINED** | As T9: the rule names no phase here; its phase wording is classified at T22 |
+| T28 † | Sub:407 | "C1–C4 observer selection via Main §4.6 for a finite bijective (S,φ), conditional on its effective-mixing hypothesis …, which fixes where observers exist, not a direction" | No: names only (EM) and the iterated description, i.e. region level | — | **RETAINED** | As T9; O1(b) |
+| T29 † | Sub:413 | "the observer selection on the effective-mixing hypothesis and the iterated-channel description" | No: names only (EM) and the iterated description, i.e. region level | — | **RETAINED** | As T9; O1(b) |
 | T30 † | Str:532 | Compactifications whose cosmological structure "mixes fast compared with τ_S in the coarse-grained description of [Main §4.6], fail C2's slow-bath route" | No | — | **RETAINED** | Unchanged (region-level, fast mixing) |
 | T31 † | Meth:162 | "effective mixing at the stated rate excludes C2-slow for the specified fast equilibria [Main §4.6]" | No | — | **RETAINED** | Unchanged |
 | T32 † | Meth:283 | "(EM) and the rate condition of [Main §4.6] exclude bounded-diameter partitions satisfying C2-slow in the fast-equilibrium coarse model" | No | — | **RETAINED** | Unchanged |
@@ -150,6 +156,11 @@ typical set? (PREREG §4.)
 | T35 † | ch02:194 = FULL:824 | Observer selection "conditional on the effective-mixing hypothesis … which excludes C2-slow for bounded-diameter partitions in sufficiently fast-mixing equilibria of that coarse model" | No | — | **RETAINED** | Unchanged |
 | T36 † | ch01:221 = FULL:554 | Under effective mixing and uniform erosion the iterated coarse dynamics suppresses the readback gap when τ_mix ≪ τ_S | No | — | **RETAINED** | Unchanged |
 | T37 † | ch03:26 = FULL:887 | "Even an exact short orbit can give a gapped compressed channel ([Main §4.6])" | No | — | **RETAINED** | Unchanged |
+| T38 † | M:60 | §4.6 listed among the results that consume the finite representative; "a weaker sufficient condition … is stated with the result (§2.3, §3.2, §4.6)" | No | — | **RETAINED** | As T24b |
+| T39 † | M:161 | The hidden sector's effective relaxation "(the coarse-grained channel's mixing; hypothesis (EM), §4.6)" | No | — | **RETAINED** | Unchanged (a pointer to (EM)) |
+| T40 † | M:626 | C1–C4 as a diagnostic checklist, since one cannot inspect "a cosmological horizon or a Boltzmann brain" for a realization | No | — | **RETAINED** | Unchanged (not a use of §4.6's step) |
+| T41 † | ch02:200 = FULL:830 | C1–C4 "produce the persistence-based observer selection for the horizon-clock projection" | No, region-level reading (as T9) | — | **RETAINED** | As T9 |
+| T42 † | ch03:62 = FULL:923 | The observer-admission boundary has "consequences for anthropic reasoning, Boltzmann brains, the arrow of time" | No | — | **RETAINED** | Unchanged (names topics, asserts no phase restriction) |
 
 ## 4. Findings
 
@@ -215,14 +226,18 @@ every phase-worded row.
    μ is translation invariant (the counting law on a torus, or β_A), translates of a region have
    conjugate K_Σ, with the same spectrum and decay.
 2. *Neither result can be phase-specific.* (EM) at a given rate on a region is therefore a property
-   of the region's shape, not of its phase. Consider T7a's chain, (EM) per region plus the rate
+   of the region as a site set, not of its phase; under item 1's translation condition, a property of
+   its shape. Consider T7a's chain, (EM) per region plus the rate
    condition. If that holds for the regions observers would occupy, it excludes (C2-slow) observers
    in the non-equilibrium phase as well. If it fails there, it fails for equilibrium regions of the
    same shape too.
 3. *What the phase statements reduce to.* Within the iterated description, the phase-worded
    statements (T7b, T11b, T12, T14–T16, T17b, T18, T20b, T22) reduce to T7a, i.e. W* over every region
    for which the fast-(EM) posit holds, plus a label that discriminates nothing. T6 does no logical
-   work in T7's chain.
+   work in the region-level exclusion (T7a). In the phase-worded rows T6 is used: it carries the
+   global-equilibrium premise into the domain of the posit indexed by local equilibrium ("every
+   relevant equilibrium region", M:764). G3 shows that this use yields no phase-discriminating
+   content. This keeps those rows' Q1 = yes consistent with D4.
 4. *Where phase content could come from.* Only from statements about actual laws: that the actual
    record law of an equilibrium region has decaying history contrasts, and an observer region's does
    not. That is G2 (iii), the transfer gap, which is open with or without T6.
@@ -265,10 +280,10 @@ This audit edits nothing; under §A.25 any correction would be propagated in its
 
 | Item | Needed by | Source on `main` |
 |---|---|---|
-| The equilibrium family 𝓔 and its states ω_Σ | (LE-eq), (LE-T); T2, T3, T8, T9, T23–T29, W* | **β = 0:** β_A, the zero-interaction DLR state (R1-INF Prop. 6 (a)), invariant under every injective CA (R1-INF Lemma 1 (c)). It is selected by P-ED, i.e. by the posited (G3) + (G4) (R1-INF Prop. 3), or by a declared law (H-μ). It is not derived (R1-INF §6.4). **β > 0:** none. (LE-T) needs a real-valued conserved local energy. SM:292 records that the exact linear rule conserves its quadratic energy only modulo q and that neither it nor the rounded rule supplies "the required real positive-definite conserved energy". R1-INF Prop. 6 leaves d ≥ 2 undetermined, and in d = 1, α² = 1 the conserved mover densities give a family with free parameters. A measured local temperature would enter as an explicit empirical input (class E), not a derivation |
+| The equilibrium family 𝓔 and its states ω_Σ | (LE-eq), (LE-T); T2, T3, T8, T23, T24a, W* | **β = 0:** β_A, the zero-interaction DLR state (R1-INF Prop. 6 (a)), invariant under every injective CA (R1-INF Lemma 1 (c)). It is selected by P-ED, i.e. by the posited (G3) + (G4) (R1-INF Prop. 3), or by a declared law (H-μ). It is not derived (R1-INF §6.4). **β > 0:** none. (LE-T) needs a real-valued conserved local energy. SM:292 records that the exact linear rule conserves its quadratic energy only modulo q and that neither it nor the rounded rule supplies "the required real positive-definite conserved energy". R1-INF Prop. 6 leaves d ≥ 2 undetermined, and in d = 1, α² = 1 the conserved mover densities give a family with free parameters. A measured local temperature would enter as an explicit empirical input (class E), not a derivation |
 | Reference compatibility μ\|_Σ = ω_Σ | (LE-eq); G2 (iii) | None: A1-05 P8-M first stop, "No existing source in the trace selects the normalized invariant probability for the physical readout" |
 | The actual-law link ‖ν\|_Σ − ω_Σ‖ ≤ δ_LE (a preparation or relaxation account) | (LE-eq); transfer to actual records; any phase-discriminating statement (G3) | None: A1-05 P8-S first stop, "no normalized equilibrium state for a specified encompassing region, selected by the physical update or preparation" |
-| (EM) on each region, at τ_mix + O(ε) ≪ τ_S | T1–T9, W* | None: an explicit physical hypothesis (M:752), established "model by model" (M:766). Still needed separately (I1). On the infinite full product, β_A is mixing of all orders for the selected update with α a unit (R1-INF Prop. 5). That is exact-dynamics mixing without a rate; it is not (EM) for K_Σ |
+| (EM) on each region, at τ_mix + O(ε) ≪ τ_S | T1–T9, T25–T29, W* | None: an explicit physical hypothesis (M:752), established "model by model" (M:766). Still needed separately (I1). On the infinite full product, β_A is mixing of all orders for the selected update with α a unit (R1-INF Prop. 5). That is exact-dynamics mixing without a rate; it is not (EM) for K_Σ |
 | The posit that the regions of 𝓡 mix fast | T7a, T7b and their restatements | Posited (M:764) |
 | Uniform erosion; O(ε); transfer of the τ_B bound | T4, T7a, readback suppression | Existing A1-independent gaps (REMAINDER M18, M20; A1-05), carried unchanged |
 
@@ -367,7 +382,7 @@ in local equilibrium; that scope is unchanged and not addressed here.
 
 ## 8. Theorem-recovery note (Code Review Rules)
 
-The twelve NOT FOLLOWING rows share two missing ingredients:
+The twelve NOT FOLLOWING rows, T6 itself among them, share two missing ingredients:
 
 1. the global-to-local step T6, at the level of laws or of typical configurations;
 2. by G3, a phase-discriminating statement about actual laws, the transfer G2 (iii). Without it, the
@@ -396,7 +411,7 @@ phase statements are read at the level of laws. The past-hypothesis rows add one
   law on an infinite carrier"). Decomposition [W]:
   - **L8-sel.** At the level of laws, the step is immediate once the global law is declared in 𝓔:
     ω_Σ is by definition its marginal (item (b)). The content is the selection of that law, which is
-    R1 and open. It is restored at β = 0 by P-ED with (G3) (R1-INF Prop. 3), and blocked without (G3)
+    R1 and open. At β = 0 it holds under the posited P-ED, (G3) + (G4) (R1-INF Prop. 3), and is blocked without (G3)
     by (c).
   - **L8-typ.** At the level of configurations, a single region carries no equilibrium content (G1).
     The meaningful forms are averages for typical configurations of an ergodic law in 𝓔: over
@@ -449,10 +464,12 @@ phase statements are read at the level of laws. The past-hypothesis rows add one
 
   The first version split ch04:178 (T20) but not Main's matching sentence in T7, which classified
   the same statement differently at its two sites. T7 is now split for consistency (review, round 1).
+  M:732 (T24) is split into T24a, the canonical-typicality clause, and T24b, the ledger's other §4.6
+  mentions.
 - **D2.** T15's first sentence does not use the step and is left unclassified (noted in the row).
 - **D3 (census extension).** The first version's claim that no consumer existed beyond the
-  preregistered list was false. Sixteen consumers are added (†, T22–T37), with the reason each was
-  missed:
+  preregistered list was false. Twenty-one consumers are added (†, T22–T42; 22 rows with T24a–b),
+  with the reason each was missed:
   - M:748: the heading's hyphenated "Equilibrium-Phase" escaped the search term "equilibrium phase".
   - M:664 and M:732: hits for "canonical typicality", "canonical-typicality" and "§4.6" that were
     not carried into the table.
@@ -461,6 +478,9 @@ phase statements are read at the level of laws. The past-hypothesis rows add one
   - Meth:162, :283, :441: `papers/Methodology.md` was outside PREREG's file abbreviations and was
     not searched.
   - ch03:26: found by the added search below.
+  - M:60, M:161, M:626, ch02:200 and ch03:62: named by the round-2 review. M:60 and M:161 carry "§4.6"
+    hits not carried into the table; M:626, ch02:200 and ch03:62 carry "Boltzmann" or
+    "observer selection" hits not carried into the table.
 
   The added search covered all of `papers/*.md`, using the preregistered terms plus citations of
   Main §4.6 in the forms "Main §4.6", "[Main, §4.6]", "[Main §§2.3, 4.6]" and "[1, §4.6]". It covered
@@ -475,7 +495,11 @@ phase statements are read at the level of laws. The past-hypothesis rows add one
   phrase appears in a premise, while the conclusion is per region ("wherever that mixing time is
   short compared with τ_S"), and T1's bound holds on every microstate. Q1 is therefore read as
   logical use, not as the presence of a phase word in a premise. On that reading T11a does not use
-  the step and is RETAINED, consistently with T5, T7a and T20a.
+  the step and is RETAINED, consistently with T5, T7a and T20a. The same reading is applied to the
+  sentences that name the observer-selection rule without a phase (T9, T25–T29, T41). Each is read at
+  the region level, where T6 is not used, so each is RETAINED. The alternative, phase-rule reading
+  would make T9 NOT FOLLOWING; the phase wording the rule carries is counted once, at the §4.6 heading
+  (T22) and the phase-worded rows (round 2, B′1).
 
 ## 11. Off-`main` references (§A.42 item 8)
 
@@ -489,9 +513,10 @@ phase statements are read at the level of laws. The past-hypothesis rows add one
 
 ## 12. What an independent reviewer must check (delta)
 
-1. The round-1 items, against §13.
-2. The 16 added rows (T22–T37) and their Q1/Q2 answers, and that D3's search and its non-consumer
-   list are complete.
+1. The round-1 and round-2 items, against §13 and §14.
+2. The 21 added consumers (T22–T42) and their Q1/Q2 answers, and that D3's search and its
+   non-consumer list are complete. In particular, the region-level reading of T9, T25–T29 and T41
+   (D4), and G3's narrowed statement about T6.
 3. The T7a/T7b split and D4's reading of Q1, and that the split leaves no site classified two ways.
 4. G3 as stated, in particular the claim about translates (φ commuting with translations, μ
    translation invariant) and its bearing on M:760.
@@ -520,4 +545,19 @@ PREREG is unchanged. Each item and where it is answered:
 | N4 | §7.3: full support stated for finite-range, finite-valued potentials |
 | N5 | §8 (b): "under the posited P-ED" |
 | N6 | T9: "the rule" refers to the §4.6 heading at M:748 |
-| N7 | Every count in this file re-checked: 44 rows; 21 / 11 / 12 / 0 |
+| N7 | Every count re-checked at the time: 44 rows; 21 / 11 / 12 / 0 (superseded in round 2, §14) |
+
+## 14. Answer to the delta review of `cdb7b07b` (round 2, REVISE)
+
+The review was relayed by the coordinator. PREREG is unchanged.
+
+| Item | Change |
+|---|---|
+| B′1 | T9 and T25–T29 are RETAINED on the region-level reading, stated per row: T9 names (EM) and the rate condition; T25–T27 name the rule without a phase; T28–T29 name only (EM). D4 records the reading and the alternative. The phase defect M:750 points to is counted at T22. §1 bullets, the §1 table and the §5 rows are updated |
+| B′2 | G3 is narrowed (§1 bullet and item 3). T6 does no work in T7a. In the phase-worded rows T6 is used, carrying the global-equilibrium premise into the domain of the posit "every relevant equilibrium region", and G3 shows that this use yields no phase-discriminating content |
+| N′1 | M:60, M:161, M:626, ch02:200 = FULL:830 and ch03:62 = FULL:923 are classified as T38–T42, all RETAINED; D3 records why they were missed |
+| N′2 | D1 records the T24a/T24b split; §1 gives the row arithmetic |
+| N′3 | L8-sel: "At β = 0 it holds under the posited P-ED" |
+| N′4 | G3 item 2: "a property of the region as a site set", and a property of its shape only under item 1's translation condition |
+| N′5 | §8: the twelve NOT FOLLOWING rows include T6 itself |
+| Counts | 49 rows: RETAINED 32, RETAINED-WITH-(LE) 5 (T2, T3, T8, T23, T24a), NOT FOLLOWING 12, UNDETERMINED 0. Without the five added rows T38–T42 the count is the review's 27 / 5 / 12 / 0 |
