@@ -7,7 +7,9 @@ checked by an independent reviewer; computations are exact (`fractions.Fraction`
 `r6_controls.py`, with outcomes in `r6_controls.json`. No manuscript, Lean, registry, book or mirror
 edit; no premise adoption. A1 (Main posit ledger item (ii)) remains open and unadopted. Independent
 non-author review is required before any use of this record, and Step 2 (manuscript propagation) is
-queued, not authorized.
+queued, not authorized. Revised after the independent review of `62a4332b`
+([PR #1467](https://github.com/amaybaum/incompleteness/pull/1467), round 1, REVISE, record only);
+the review is answered in §12. A delta review is required.
 
 **Authorization, goal link, source pin.** As `PREREG.md`: owner `amaybaum`,
 [#1169 comment 7047514209](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7047514209),
@@ -29,7 +31,9 @@ standard library only).
 |---|---|---|---|---|---|---|
 | T6 | (i)–(iv) | Hidden-prior mixture family `Φ_t = Σ_π ρ(E_t(π)) Ψ_π` on a measurable hidden space: equals Main's family on finite `H`; CPTP; diagonal-preserving with populations `Γ_t`; P-indivisibility of `Γ` ⇒ CP-indivisibility | proved [W], unreviewed; finite recovery exhaustive (K1) | paper + exact finite computation | passed (odometer, K3b) | **INF** |
 | T6 | P witness on infinite carriers | non-permutation `Γ_s` ⇒ P-indivisible | not by itself (K3a countermodel); under (NR) M:131 [paper, on `main`], under RIGID compactness [Lean, on `main`] | paper / Lean / exact | (NR) passed (K3b) | **WEAK** (named condition (NR) or (RIG)) |
-| T6-K | diagonal preservation | Koopman unitary on `ℂ^V ⊗ L²(H,ρ)` with a normal hidden state preserves diagonals | refuted for the constant-vector state: exact countermodel (swap), lifted to a diffuse carrier by T9(a); a diagonal normal state exists exactly when `ρ` is purely atomic (Prop. 6.7 and §3.2, countable carriers) | exact + paper | purely atomic `ρ` fails the preregistered diffuse-exhibit test (it is not A1: countably infinite atomic carriers qualify) | **FIN** under the preregistered rule: L6 as phrased in REMAINDER is not the right object on diffuse carriers |
+| T6-K (α) | diagonal preservation, constant-vector state | Koopman unitary on `ℂ^V ⊗ L²(H,ρ)` with the normal hidden state `\|ψ⟩⟨ψ\|`, `ψ` the normalized constant function, preserves diagonals | refuted on every carrier, finite ones included: exact countermodel (swap, `\|H\| = 2`, K2(i)), lifted to a diffuse carrier by T9(a) | exact + paper | — | **REFUTED** (outside the four preregistered classes; §12 D1) |
+| T6-K (β) | diagonal preservation, diagonal normal state | Single-unitary (permutation or isometry) dilation with a diagonal normal hidden state | proved for every purely atomic `ρ`, countably infinite ones included (§3.2, countable carriers); undefined on a carrier with a diffuse part, where no diagonal normal state exists (Prop. 6.7: non-existence, not a countermodel) | paper | purely atomic laws are not A1 (countably infinite carriers qualify) but fail the preregistered diffuse-exhibit test | **outside the four preregistered classes** (holds on purely atomic laws; undefined on diffuse ones; §12 D1) |
+| T6-K (γ) | diagonal preservation, other non-diagonal normal states | Finite `H`: some permutation breaks it for every non-diagonal `μ_H`; diffuse `ρ`: whether every normal state fails for some `F` | finite `H`: proved [W] (Prop. 6.9); diffuse: not shown | paper | — | finite: refuted for every non-diagonal state; diffuse: **OPEN** |
 | T6-K | CP theorem, `\|V\| = 2` | Koopman family with the constant vector, `F` preserving `c ⊗ ρ` | proved [W] (Lemma 6.8), consistent with K2 (0 countermodels in 244 728 decided pairs; 0 violations of the lemma's identity) | paper + exact | passed | **INF** (`\|V\| = 2`, under `c⊗ρ` invariance) |
 | T6-K | CP theorem, `\|V\| ≥ 3` | same | no countermodel among 1 104 decided pairs at `(3,2)`, 3 312 + 6 144 undecided | exact (partial) | — | **OPEN** (not consumed by M9) |
 | T7 | all | C2 quantitative theorem (M:459) and physical-memory theorem (M:473) on any measurable hidden space, any reference probability | proved [W], unreviewed | paper | passed (Bernoulli, K3a) | **INF** |
@@ -37,6 +41,7 @@ standard library only).
 | T9 | (b) | classical factor `(A, α)`, `α` a probability, any measurable map: mixture and rooted families unchanged | proved [W] | paper | passed | **INF** |
 | T9 | (c) | Theorem 24(i) relabelling on a measurable hidden carrier | proved [W] under ρ-preservation; countermodel without it (K4) | paper + exact | passed | **WEAK** (σ preserves ρ) |
 | T9 | (d) | Corollary (iii) exact transfer to such factors | proved [W] from (a), (b) | paper | passed | **INF** |
+| T9 | (e) | Hilbert-space factor adjoined to the mixture base on a diffuse carrier (added after review round 1) | proved [W], immediate | paper | passed | **INF** |
 
 Consumers (§2): **M9** — the implication "P witness ⇒ CP-indivisibility" holds on infinite carriers
 (INF); the full chain from a non-permutation rooted map holds under (NR) or (RIG) (WEAK); Main's
@@ -155,9 +160,26 @@ to `L^∞(H,ρ)` is `ρ`. For the swap `F(x,h) = (h,x)` at `|V| = |H| = 2`, `ρ`
 `Φ_1(|0⟩⟨0|) = [[1/2, 1/2], [1/2, 1/2]]` (K2(i), exact): not diagonal. The model lifts to a diffuse
 carrier by T9(a): `H' = H × [0,1)`, `ρ' = u_H ⊗ Leb`, `F' = F × id`, `ψ' = ψ ⊗ 1`; the factor
 `L²[0,1)` in the normal state `|1⟩⟨1|` is decoupled and normalized, so the channel is unchanged.
-The literal L6 ("Koopman dilation channel family on `ℂ^V ⊗ L²(H,ρ)` and its diagonal preservation")
-is therefore false; the object that generalizes Main's family is the mixture family of Theorem 6,
-which corresponds to the hidden "definite probabilities" reading already used at Intro:111.
+What is shown: the literal L6 ("Koopman dilation channel family on `ℂ^V ⊗ L²(H,ρ)` and its
+diagonal preservation") fails for its canonical normal state, on finite and diffuse carriers; on
+finite `H` it fails for every non-diagonal normal state (Prop. 6.9); on a carrier with a diffuse part
+no diagonal normal state exists (Prop. 6.7). Not shown: that every non-diagonal normal state on
+`L²(H,ρ)` with diffuse `ρ` fails for some `F` (plausible; OPEN). The object that generalizes Main's
+family on every carrier is the mixture family of Theorem 6, which corresponds to the hidden
+"definite probabilities" reading already used at Intro:111.
+
+**Prop. 6.9 [W] (finite `H`: diagonal preservation for every permutation forces a diagonal prior).**
+Let `H` be finite, `|V| ≥ 2`, and `μ_H` a density matrix on `ℂ^H` with `μ_H(h,h') ≠ 0` for some
+`h ≠ h'`. Then some bijection `F` of `V × H` has `Φ_1(|0⟩⟨0|) = Tr_H[U(|0⟩⟨0| ⊗ μ_H)U^*]` not
+diagonal. *Proof.* Fix `k ∈ H`; set `F(0,h) = (0,k)`, `F(0,h') = (1,k)`, and send the other points
+`(0,g)` to distinct points `(0,k_g)` with `k_g ≠ k` (there are `|H| − 2 ≤ |H| − 1` of them); extend to
+a bijection of `V × H`. Then
+`⟨0|Φ_1(|0⟩⟨0|)|1⟩ = Σ_{g,g'} μ_H(g,g') [F(0,g) = (0,m), F(0,g') = (1,m) for some m]`, and the only
+such pair is `(g,g') = (h,h')`, so the entry is `μ_H(h,h') ≠ 0`. ∎ With Main's lemma (M:328, a
+diagonal `μ_H` is preserved by every permutation) this gives both directions separately (§A.34): on
+finite `H`, every permutation dilation preserves diagonals exactly when `μ_H` is diagonal. (A scratch
+exact check of the construction at `|V| = 2`, `|H| = 3` returned the off-diagonal entry `μ_H(h,h')`;
+it is not a preregistered control and is not in `r6_controls.py`.)
 
 **Lemma 6.8 [W] (CP theorem for the Koopman form at `|V| = 2`).** Let `|V| = 2`, `F` a bimeasurable
 bijection preserving `c ⊗ ρ`, and `Φ^K_t(σ) = Tr_{L²}[U^t(σ ⊗ |1⟩⟨1|)U^{−t}]`. Then
@@ -180,7 +202,8 @@ preregistration and reported separately): 0 countermodels in 1 104 decided pairs
 
 ### 3.4 Disguised-A1 test and pathologies
 
-**Diffuse exhibit (K3b).** `H = {0,1}^ℕ` with the fair Bernoulli (Haar) law, `F(x,h) = (x ⊕ h_0, odo h)`,
+**Diffuse exhibit (K3b; added after the preregistration, which named only the Bernoulli model of
+K3a).** `H = {0,1}^ℕ` with the fair Bernoulli (Haar) law, `F(x,h) = (x ⊕ h_0, odo h)`,
 `odo` the dyadic odometer. `H` is uncountable, `ρ` non-atomic, `F` a bimeasurable bijection with no
 periodic point, so no finite order or exact return anywhere. Exact on cylinders, `t ≤ 8`: every
 `Φ_t` is CPTP and diagonal-preserving with populations `Γ_t`; `Γ_1 = [[1/2,1/2],[1/2,1/2]]`,
@@ -195,7 +218,14 @@ no hypothesis is a finiteness property renamed ((H6.3) holds on every standard B
 a non-permutation `Γ_1` on an infinite carrier does not by itself supply a P witness. The full
 M9 chain therefore needs (NR) (M:131, already on `main`, paper) or RIGID's compactness
 (`ObservableRigidity.exists_pIndivisibleWithin_of_nonPermutation`, Lean); K3b satisfies (NR) at
-`(s,n) = (1,4)` (`Γ_4 = I`, K3 `NR_at_s1_n4`). (NR) is not disguised A1: K3b satisfies it with no
+`(s,n) = (1,4)` (`Γ_4 = I`, K3 `NR_at_s1_n4`). Here **(RIG)** denotes RIGID's hypotheses as the
+kernel states them: a bimeasurable bijection `T` of a measurable carrier preserving a probability
+`μ` (for the product convention, `μ = ν ⊗ ρ`, `rootedFamily_productLaw`, ObservableRigidity.lean:388),
+a finite readout `X` with positive root masses and `|V| ≥ 2`, and compact closure in `L²(μ)^V` of the
+joint forward orbit of the cell indicators (`hcard`, `hcompact`, ObservableRigidity.lean:274–275);
+the conclusion used is `exists_pIndivisibleWithin_of_nonPermutation` (:358). This compactness
+supplies REC-1's subsequential rigidity, also written (RIG) in REMAINDER row M4.
+(NR) is not disguised A1: K3b satisfies it with no
 finite structure.
 
 **Pathologies.** P1 (non-normal states): Theorem 6 uses no hidden density operator; `ρ` enters only
@@ -205,11 +235,18 @@ finite-dimensional; `ℓ²(H)` for uncountable `H` is flagged and not used. P3 (
 (H6.3) is exactly what makes `E_t(·)` measurable; without a measurable diagonal (e.g. a set of
 cardinality above the continuum, or an uncountable set with the countable–cocountable σ-algebra)
 `C_t(x,y)` can fail to be measurable and `Φ_t` is undefined; standard Borel excludes this.
+In both diffuse exhibits (K3a, K3b) the hidden update does not read `x`, so every coincidence set is
+all of `H`: they exercise (H6.3) and (H6.4) only trivially. Non-trivial coincidence sets and fibre
+injectivity are exercised by K1 (finite carriers) and by the reviewer's independent check on
+fibre-injective non-bijective maps (§12).
 
-**Class.** T6 (i)–(iv): INF. P witness: WEAK, condition (NR) or (RIG). T6-K: diagonal preservation
-FIN under the preregistered rule (refuted for the constant-vector state on finite and diffuse
-carriers; a normal diagonal reference state exists exactly for purely atomic `ρ`, which includes
-countably infinite carriers but fails the preregistered diffuse-exhibit test); CP theorem INF at
+**Class.** T6 (i)–(iv): INF. P witness: WEAK, condition (NR) or (RIG). T6-K, diagonal
+preservation, split by the reference state: (α) the constant-vector state is REFUTED on every
+carrier, finite ones included; (β) a diagonal normal state gives a valid single-unitary form exactly
+for purely atomic `ρ`, countably infinite ones included, and is undefined (not refuted) on a carrier
+with a diffuse part (Prop. 6.7); (γ) on finite `H` every non-diagonal normal state fails for some
+permutation (Prop. 6.9), and on diffuse carriers the corresponding claim is OPEN. (α) and (β) fall
+outside the four preregistered classes (§12 D1). CP theorem for the constant-vector form: INF at
 `|V| = 2` under `c ⊗ ρ` invariance, OPEN at `|V| ≥ 3`. M9 is served by Theorem 6, not by T6-K.
 
 ## 4. T7 — L7: physical-memory theorem on a measurable hidden space
@@ -282,7 +319,9 @@ bimeasurable bijection `S` preserving `π_H`, then `TV(S_*μ, π_H) = TV(S_*μ, 
 (a bimeasurable bijection preserves `TV` between any two laws), on finite and infinite carriers alike: full-TV relaxation never occurs
 under exact reversible hidden dynamics. (ii) For `TV_𝒢` with `𝒢` generated by a finite partition and
 `S` mixing for `π_H`, `μ ≪ π_H` gives `TV_𝒢(S^n_*μ, π_H) → 0` (mixing applied to `dμ/dπ ∈ L¹` against
-the finitely many atoms). A permutation of a finite set with more than one point is never mixing.
+the finitely many atoms). A permutation of a finite set preserving `π_H` is mixing for `π_H` only if
+`π_H` is a point mass: if its support has more than one point, the permutation has finite order `N`
+and `S^N = id` precludes mixing.
 So the timescale (slow-bath) form of M:473 read through (f) has an exact mechanism on infinite
 carriers with mixing hidden dynamics and only an approximate one on finite representatives
 (consistent with M:451, "For a finite reversible realization there is no relaxation in the strict
@@ -297,8 +336,17 @@ form of §3.2; a factor Hilbert space `K_A` of any dimension (separable or not),
 `Tr_{HA}[(U⊗W)^t(ρ_V ⊗ ω_H ⊗ σ_A)(U⊗W)^{*t}] = Tr_H[U^t(ρ_V ⊗ ω_H)U^{*t}]` when `σ_A` is normal; in
 the Heisenberg form the same identity holds for every state `σ_A`. *Proof.* `(U⊗W)^t = U^t ⊗ W^t`;
 for trace-class `X` and `Y`, `Tr_A(X ⊗ Y) = X · Tr Y`, and `Tr(W^tσ_AW^{*t}) = Tr(σ_A W^{*t}W^t) = 1`.
-Heisenberg: `(U⊗W)^{*t}(Z ⊗ 1_H ⊗ 1_A)(U⊗W)^t = (U^{*t}(Z⊗1)U^t) ⊗ 1_A`, and the product functional
-`ω_H ⊗ σ_A` on this elementary tensor gives `ω_H`-slice of the base times `σ_A(1) = 1`. ∎
+Heisenberg: `(U⊗W)^{*t}(Z ⊗ 1_H ⊗ 1_A)(U⊗W)^t = (U^{*t}(Z⊗1)U^t) ⊗ 1_A`. For a non-normal `σ_A`
+the product functional `ω ⊗ σ_A` (with `ω` the normal state `ρ_V ⊗ ω_H` composed as in the base) is a
+state on the minimal C*-tensor product `B(ℂ^V ⊗ K_H) ⊗_min B(K_A)`; it extends to the von Neumann
+tensor product by Hahn–Banach, not uniquely, but every extension takes on `Y ⊗ 1_A` the value
+`ω(Y) σ_A(1) = ω(Y)`, which is all the identity uses. ∎
+
+**(e) Hybrid form [W].** A Hilbert-space factor adjoined to the mixture base of 𝒽6 on any (including
+diffuse) carrier: with `K_A`, a normal `σ_A` and a unitary or isometry `W` as in (a), define
+`Φ'_t(σ) = Tr_A Σ_π ρ(E_t(π)) (Ψ_π ⊗ Ad_{W^t})(σ ⊗ σ_A)`. Since `Tr_A Ad_{W^t}(σ_A) = 1`,
+`Φ'_t = Φ_t`. This is immediate from the definitions; it covers Step-2 #10–#13 for a quantum factor
+on a diffuse base.
 
 **(b) Classical form [W].** Hypotheses: base as 𝒽6; factor `(A, 𝒜, α)` with `α` a probability and
 `W : A → A` any measurable map (injectivity not needed). Claim: the mixture family and the rooted
@@ -333,7 +381,7 @@ Heisenberg form. P2: `K_A` may be non-separable; nothing in the proof uses separ
 normalization `σ_A(1) = 1` (resp. `α(A) = 1`) is used exactly once, as the factor `Tr σ_A`; for an
 unnormalizable "uniform" factor (`I` on infinite-dimensional `K_A`, counting measure on infinite
 `A`) that factor is `+∞` and the identity is undefined, so these are excluded by hypothesis.
-**Class: (a), (b), (d) INF; (c) WEAK.** Coupled infinite deep sectors are not covered (GR Appendix
+**Class: (a), (b), (d), (e) INF; (c) WEAK.** Coupled infinite deep sectors are not covered (GR Appendix
 B, finite windows; H-BD at leading order) and are not claimed.
 
 ## 6. Controls (from `r6_controls.json`, schema `a1exit-r6-controls/1`, `all_pass: true`)
@@ -350,34 +398,41 @@ the preregistered sizes, which Lemma 6.8 explains at `|V| = 2`; recorded, not us
 
 ## 7. Step-2 manuscript corrections (queued; not applied; each needs its own authorization)
 
-Mandatory if the classifications are accepted (sites that would otherwise state as unproved, or as
-finite-only, a result now proved): marked **M**. Precision fixes evidenced here: **P**. Optional
-generalizations, not needed by A1-EXIT unless Step 2 chooses them: **O**. Each needs §A.25
+Generalizations required for A1-EXIT if the classifications are accepted (sites that state as
+unproved, or as finite-only, a result now proved; true as written but stale for the objective):
+**G**. Precision defects in the current text, evidenced here: **P**. Consequential edits that become
+necessary only if a G item is applied: **G′**. Optional generalizations, not needed by A1-EXIT
+unless Step 2 chooses them: **O**. Each needs §A.25
 propagation to its mirrors.
 
 | # | Site | Kind | Correction |
 |---|---|---|---|
-| 1 | M:328 Lemma (diagonal preservation) | P | State that `μ_H` is the diagonal density matrix of a hidden probability; the lemma is false for a non-diagonal `μ_H` (K2(i)) |
-| 2 | M:328–334 | M | Add the measurable-carrier form: for a probability `ρ` on a measurable hidden space with measurable coincidence sets and a fibre-injective measurable `F`, the family `Φ_t(σ) = ∫ Ψ_{π_t(h)}(σ) ρ(dh)` (equal to the displayed family on finite `H`) is CPTP and diagonal-preserving with populations `Γ_t` of M:131, and the CP-indivisibility theorem holds for it with the P witness of the (NR) corollary (M:131); not for the Koopman unitary on `L²(H,ρ)` with a normal hidden state |
-| 3 | M:60 status Remark, list of results resting on the finite representative ("the CP-indivisibility theorem of §3.2") | M | The CP theorem uses the finite representative only through its P witness; under (NR) it holds on measurable carriers |
-| 4 | M:732 item (ii), "the CP-indivisibility theorem of §3.2, the physical-memory theorem of §3.4 … are statements about finite representatives" | M | Remove both from that list; add (NR) as the weaker condition for the CP theorem's P witness, as already done for §2.3 |
-| 5 | M:742 table row "CP-indivisibility of `{Φ_t}`" | M | "Proved for the hidden-prior (diagonal-preserving) channel family on finite or measurable hidden carriers; …" |
-| 6 | AppB:92 and FULL:5769 Theorem B.2.5 "(from a non-permutation rooted map and finiteness)" | M | "… and finiteness, or the near-return condition (NR)"; proof's "permutation dilations with uniform ancilla" extended as in #2 |
-| 7 | M:459 Theorem (C2 necessity, quantitative) "Model one coupling step as the uniform-prior bijection marginal" | M | A measurable coupling step on a measurable hidden space with reference probability `π_H` (uniform in the finite model), (M0) for the first step |
-| 8 | M:473 Theorem (physical memory) "given the whole visible past and `H_k = h`"; `K̄ := Σ_h π_H(h)K` | M (P for the conditioning) | State (M1) in integrated form; `K̄ = ∫ K π_H(dh)`; any measurable hidden space |
+| 1 | M:328 Lemma (diagonal preservation) | P | State that `μ_H` is the diagonal density matrix of a hidden probability; for every non-diagonal `μ_H` some permutation breaks the lemma (Prop. 6.9; K2(i) for the constant vector) |
+| 2 | M:328–334 | G | Add the measurable-carrier form: for a probability `ρ` on a measurable hidden space with measurable coincidence sets and a fibre-injective measurable `F`, the family `Φ_t(σ) = ∫ Ψ_{π_t(h)}(σ) ρ(dh)` (equal to the displayed family on finite `H`) is CPTP and diagonal-preserving with populations `Γ_t` of M:131, and the CP-indivisibility theorem holds for it with the P witness of the (NR) corollary (M:131). Any remark on the Koopman form states only what is shown: the constant-vector normal state fails, and no diagonal normal state exists on a diffuse part |
+| 3 | M:60 status Remark, list of results resting on the finite representative ("the CP-indivisibility theorem of §3.2") | G | The CP theorem uses the finite representative only through its P witness; under (NR) it holds on measurable carriers |
+| 4 | M:732 item (ii), "the CP-indivisibility theorem of §3.2, the physical-memory theorem of §3.4 … are statements about finite representatives" | G | Remove both from that list; add (NR) as the weaker condition for the CP theorem's P witness, as already done for §2.3 |
+| 5 | M:742 table row "CP-indivisibility of `{Φ_t}`" | G | "Proved for the hidden-prior (diagonal-preserving) channel family on finite or measurable hidden carriers; …" |
+| 6 | AppB:92 and FULL:5769 Theorem B.2.5 "(from a non-permutation rooted map and finiteness)" | G | "… and finiteness, or the near-return condition (NR)"; proof's "permutation dilations with uniform ancilla" extended as in #2 |
+| 7 | M:459 Theorem (C2 necessity, quantitative) "Model one coupling step as the uniform-prior bijection marginal" | G | A measurable coupling step on a measurable hidden space with reference probability `π_H` (uniform in the finite model), (M0) for the first step |
+| 8 | M:473 Theorem (physical memory) "given the whole visible past and `H_k = h`"; `K̄ := Σ_h π_H(h)K` | G + P (the conditioning on `H_k = h`) | State (M1) in integrated form; `K̄ = ∫ K π_H(dh)`; any measurable hidden space |
 | 9 | M:473 contrapositive | O | Persistence form for every reference probability (Theorem 7(d)); read-σ-algebra form (f) |
-| 10 | M:60 ("A finite factor adjoined …; … an infinite hidden sector, are outside that statement") | M | A factor of any cardinality, prepared independently in a normalized state or law and evolved by its own dynamics, leaves every visible channel unchanged; a coupled deep sector stays outside |
-| 11 | M:732 item (ii) ("when that sector is a finite factor … evolved by its own permutation"; "by such a finite decoupled enlargement") | M | As #10 |
-| 12 | Sub:257–262 Theorem 24(iii), with its proof at Sub:266, title and the sentence "This is a finite, fixed-interface result; an infinite extension requires its own normalized measure or trace-class state and a well-defined evolution, and is not established by finite uniform counting" | M | Statement for a factor Hilbert space of any dimension, normalized (normal) state, unitary or isometric dynamics; classical form; unnormalizable factors excluded |
-| 13 | Sub:268 Corollary (iii) "Infinite extensions need a separately specified normalized state or measure and dynamics before any such comparison can be made" | M | Transfer holds for normalized decoupled factors of any cardinality; add the T9(d) example only if wanted (O) |
-| 14 | Sub:92 (A1 entry: "Theorem 24(iii) gives an exact freedom to adjoin independently prepared finite decoupled factors … Infinite extensions require specified normalized measures or states and well-defined dynamics; the finite identity does not supply that construction") | M | As #12 |
-| 15 | ch02:144 and FULL:774 ("Infinite factors require a separately specified normalized state or measure and well-defined dynamics; finite uniform counting does not supply that extension") | M | As #12 |
+| 10 | M:60 ("A finite factor adjoined …; … an infinite hidden sector, are outside that statement") | G | A factor of any cardinality, prepared independently in a normalized state or law and evolved by its own dynamics, leaves every visible channel unchanged; a coupled deep sector stays outside |
+| 11 | M:732 item (ii) ("when that sector is a finite factor … evolved by its own permutation"; "by such a finite decoupled enlargement") | G | As #10 |
+| 12 | Sub:257–262 Theorem 24(iii), with its proof at Sub:266, title and the sentence "This is a finite, fixed-interface result; an infinite extension requires its own normalized measure or trace-class state and a well-defined evolution, and is not established by finite uniform counting" | G | Statement for a factor Hilbert space of any dimension, normalized (normal) state, unitary or isometric dynamics; classical form; unnormalizable factors excluded |
+| 13 | Sub:268 Corollary (iii) "Infinite extensions need a separately specified normalized state or measure and dynamics before any such comparison can be made" | G | Transfer holds for normalized decoupled factors of any cardinality; add the T9(d) example only if wanted (O) |
+| 14 | Sub:92 (A1 entry: "Theorem 24(iii) gives an exact freedom to adjoin independently prepared finite decoupled factors … Infinite extensions require specified normalized measures or states and well-defined dynamics; the finite identity does not supply that construction") | G | As #12 |
+| 15 | ch02:144 and FULL:774 ("Infinite factors require a separately specified normalized state or measure and well-defined dynamics; finite uniform counting does not supply that extension") | G | As #12 |
 | 16 | Sub:50, Sub:54, Sub:60, Sub:201; Str:154; Meth:467; Complexity:206; ch02:28, ch02:134, ch03:80, ch03:142, ch04:172, appendix-c:106 and their FULL mirrors (FULL:658, 764, 941, 1003, 1276, 6261) | O | Each says "finite" decoupled factor; true as written. Generalize only if Step 2 chooses to; otherwise no edit (§A.25 minimal change) |
 | 17 | Sub:253 Theorem 24(i) | O | Measurable form: relabellings preserving the hidden law |
+| 18 | M:336 Remark (scope: P-indivisibility is not quantum non-Markovianity), "the framework's channels are in that class" | G′ (with #2) | Include the measurable mixture family in "the framework's channels" |
+| 19 | Str:53 ("infinite or boundary-coupled extensions are not covered ([Substratum §4, Theorem 24(iii)])") | G′ (with #12) | Infinite normalized decoupled factors covered; boundary-coupled stay outside |
+| 20 | ch02:32 and FULL:662 ("An infinite extension requires its own normalized state or measure and well-defined dynamics"); ch02:44 and FULL:674 ("Infinite extensions require specified normalized states or measures and dynamics") | O | True as written (L9 needs a normalized state or law); may add that, once specified and decoupled, they leave the channel unchanged |
+| 21 | Meth:353, ch03:220 and FULL:1081 ("finite" decoupled factor) | O | True as written; as #16 |
 
 Sites checked and needing no change: Intro:111 ("whose hidden part starts with definite
-probabilities") already states the diagonal premise; GR:138 and ch18:192 concern coupled infinite
-deep sectors; Main:74, :97, :182, :636, :744, Sub:129, :137 and glossary:27, :39 cite the
+probabilities") already states the diagonal premise; GR:138 (recurrence-scale P-indivisibility
+for an infinite deep sector, via the readback lemma and (NR)) and ch18:192 (an infinite deep hidden
+sector needs its own normalized state or measure and dynamics) are true as written; Main:74, :97, :182, :636, :744, Sub:129, :137 and glossary:27, :39 cite the
 physical-memory theorem without a finiteness clause.
 
 ## 8. Gem-finding record (§A.31)
@@ -388,9 +443,11 @@ a hidden assumption.
 
 - **NEW — assumption-watch marker AW-R6-1 (definite hidden prior).** Main's diagonal lemma (M:328)
   depends on the hidden reference being diagonal ("definite probabilities", Intro:111). On a diffuse
-  hidden carrier no normal state has that property (Prop. 6.7), and the canonical normal choice breaks
-  diagonal preservation (K2(i)). A generalization of the §3.2 channel apparatus to infinite carriers
-  must be a classical mixture over hidden points, not a Koopman dilation with a normal state.
+  hidden carrier no normal state has that property (Prop. 6.7), the canonical normal choice breaks
+  diagonal preservation (K2(i)), and on finite `H` every non-diagonal normal state does (Prop. 6.9).
+  A generalization of the §3.2 channel apparatus that holds on every carrier is the classical mixture
+  over hidden points (Theorem 6); whether some non-diagonal normal state on a diffuse carrier preserves
+  diagonals for every `F` is open (expected not).
   Cross-propagation: any result that uses the unitary realization `(𝓗_H, U_φ, ρ_H)` with
   `ρ_H = I_m/m` (M:286; the uniqueness statements of [Structure] Props. 9.7a–9.7b that M:286 says
   depend on it) inherits this marker; R6 does not audit them.
@@ -405,7 +462,8 @@ a hidden assumption.
   only finiteness that remains in M9's chain is the P witness, already covered by (NR).
 
 Favorable branches were pressure-tested (§A.31): the T6 INF reading was checked against the literal
-L6 phrasing (found false, recorded as FIN for the Koopman form) and against the P-witness premise
+L6 phrasing (false for the constant-vector state; the diagonal-normal-state form holds only on
+purely atomic laws; §3.4 Class, §12 D1) and against the P-witness premise
 (K3a shows it is not free).
 
 ## 9. Lean candidacy (not built)
@@ -424,7 +482,7 @@ L6 phrasing (found false, recorded as FIN for the Koopman form) and against the 
 |---|---|---|
 | #1169 comment 7047514209 | authorization, goal link | provenance (owner record, quoted) |
 | #1454, #1169 (Issues) | accountable planning | provenance |
-| `8fb6b663` (PREREG commit on this branch) | that the rule preceded classification | provenance; lands with this record if merged |
+| `8fb6b663` (PREREG commit on this branch) | that the rule preceded classification | support, not provenance: the claim depends on commit order. It is on `main` only if the PR lands by a merge commit that keeps `8fb6b663` and `62a4332b` reachable; a squash or rebase landing would leave it unsupported |
 | this branch and its draft PR | tracking | provenance |
 
 Every proof, control and cited result used above is in this directory or on `main` at the pin
@@ -433,7 +491,8 @@ Every proof, control and cited result used above is in this directory or on `mai
 ## 11. What an independent reviewer must check
 
 1. That `PREREG.md` is unchanged since `8fb6b663` and preceded this file; that the extension at
-   `|V| = 3` and the gem-finding productivity test are labelled as added after it.
+   `|V| = 3`, the odometer exhibit K3b, Prop. 6.9 and the gem-finding productivity test are labelled
+   as added after it.
 2. Theorem 6: pattern-set measurability from (H6.3); fibre injectivity ⇒ injectivity of `f` on
    classes ⇒ TP; the CP step uses only positivity and trace preservation of `Λ`; `s ≥ 1`.
 3. That the mixture family is the correct generalization of Main's family (K1 and the computation
@@ -450,3 +509,22 @@ Every proof, control and cited result used above is in this directory or on `mai
    "finite factor", "finite decoupled", "decoupled finite", "Infinite extensions", "Infinite
    factors" across `papers/` and `book/` (including FULL); confirm M/P/O assignments.
 10. Re-run `r6_controls.py` and compare with `r6_controls.json`.
+
+## 12. Answer to the review of `62a4332b` (round 1, REVISE, record only)
+
+| Item | Answer |
+|---|---|
+| B1 | The T6-K row is split (§1, §3.4 Class): (α) constant-vector state REFUTED on every carrier; (β) diagonal normal state valid exactly for purely atomic laws and undefined on diffuse ones; (γ) other non-diagonal normal states refuted on finite `H` (Prop. 6.9), OPEN on diffuse carriers. **D1 (deviation from the preregistered rule):** the rule's four classes (INF, WEAK, FIN, OPEN) have no class for a target false on finite carriers ((α)) or for a target whose object does not exist on part of the infinite domain ((β)); both are recorded outside the classes rather than forced into FIN. The rule is not amended; the gap is recorded here |
+| B2 | Narrowed at §3.3, §8 (AW-R6-1) and Step-2 #1, #2 to what is shown; the finite-`H` proof is added as Prop. 6.9; the diffuse case is stated as open |
+| Nit 1 | K3b labelled as added after the preregistration (§3.4) |
+| Nit 2 | (RIG) defined with its kernel locations (§3.4) |
+| Nit 3 | Step-2 kinds re-marked: G (generalization required for A1-EXIT), P (#1 and the conditioning in #8), G′, O |
+| Nit 4 | Rows #18–#21 added; the reason for leaving GR:138 and ch18:192 unchanged corrected |
+| Nit 5 | Hybrid form T9(e) added |
+| Nit 6 | Non-normal Heisenberg form stated on the minimal C*-tensor product, with the non-unique extension (§5(a)) |
+| Nit 7 | Observation 7.2(ii) requires a support of more than one point |
+| Nit 8 | `8fb6b663` reclassified as support; landing by merge commit required (§10) |
+| Nit 9 | Trivial coincidence sets of K3a/K3b noted (§3.4) |
+
+No class confirmed by the review changed. `PREREG.md`, `r6_controls.py` and `r6_controls.json` are
+unchanged by this revision.
