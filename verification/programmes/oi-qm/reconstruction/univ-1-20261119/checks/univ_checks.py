@@ -124,6 +124,22 @@ def checks_A():
                 rhs = {tuple(2 * a for a in e): v for e, v in S.items()}
                 ok &= lhs == rhs
     check("L1 Theorem L Frobenius step S(X)^2 = S(X^2) mod 2^k (d=1: k<=4; d=3: k<=2; alpha = 1, 3^-1)", ok)
+    # L1b countercontrol: without the lift (S = Q0) the identity fails mod 2^k for every k >= 2 case,
+    # and the lifted S fails one level higher (mod 2^(k+1)), so L1 discriminates.
+    fails_nolift = []
+    fails_higher = []
+    for d, ks in ((1, (2, 3, 4)), (3, (2,))):
+        for k in ks:
+            mod = 2 ** k
+            for alpha in (1, pow(3, -1, mod)):
+                Q0 = q0(d, alpha, mod)
+                fails_nolift.append(poly_mul(Q0, Q0, mod) != {tuple(2 * a for a in e): v for e, v in Q0.items()})
+                mod2 = 2 ** (k + 1)
+                S2 = poly_pow(q0(d, alpha, mod2), 2 ** (k - 1), mod2)
+                fails_higher.append(poly_mul(S2, S2, mod2) != {tuple(2 * a for a in e): v for e, v in S2.items()})
+    check("L1b countercontrol: S = Q0 (no lift) fails mod 2^k (k>=2); lifted S fails mod 2^(k+1)",
+          all(fails_nolift) and all(fails_higher), f"no-lift failures {sum(fails_nolift)}/{len(fails_nolift)}, "
+          f"higher-modulus failures {sum(fails_higher)}/{len(fails_higher)}")
 
     # A3: Q is not additive: F(z+z) != F(z)+F(z) for z = one unit at the origin (current slice)
     z = (np.zeros((4, 4, 4), np.int64), np.zeros((4, 4, 4), np.int64))
@@ -297,6 +313,35 @@ def checks_E():
             sg = (-1) ** k
             ok &= np.array_equal((c + sg * np.roll(Yp, -k, 0)) % q, xp) and np.array_equal((c + sg * np.roll(Y, -k, 0)) % q, x)
     check("E2 W2 signal: shift -1 with negation every 3 ticks for 60 ticks", ok)
+    COMPUTED["Q_blocks"]["wire"] &= ok
+
+    # E2b: open (non-periodic) lines. The wire background occupies x in [100, 500) on a torus of
+    # length 640, zero elsewhere; after 120 ticks every site of x in [230, 370] (farther than 120
+    # from both segment ends) equals the translated initial state: W1 by +40, W2 by -40 (sign +1).
+    Lx, n5 = 640, 5
+    ok = True
+    for kind in ("W1", "W2"):
+        Yp = np.zeros((Lx, n5, n5), np.int64)
+        Y = Yp.copy()
+        if kind == "W1":
+            Yp[101:500:2, 0, 0] = -1
+            o = 300
+            Yp[o + 3, 0, 0] = 1
+            Y[o + 2, 0, 0] = -1
+            Y[o + 4, 0, 0] = 1
+            dsh = 40
+        else:
+            bp, bc = line_W2(400, o=200)
+            Yp[100:500, 0, 0] = bp
+            Y[100:500, 0, 0] = bc
+            dsh = -40
+        xp, x = (c + Yp) % q, (c + Y) % q
+        x0p, x0 = xp.copy(), x.copy()
+        for t in range(120):
+            xp, x = stepQ(xp, x)
+        win = slice(230, 371)
+        ok &= np.array_equal(np.roll(x0p, dsh, 0)[win], xp[win]) and np.array_equal(np.roll(x0, dsh, 0)[win], x[win])
+    check("E2b open lines (no periodic closure): W1 and W2 translations hold for 120 ticks in the interior", ok)
     COMPUTED["Q_blocks"]["wire"] &= ok
 
     # E3: memory. An isolated site (a,b) in {-1,0,1}^2 runs (a,b)->(b,-a)->(-a,-b)->(-b,a)
@@ -550,10 +595,19 @@ def checks_F():
     return blocks
 
 
-def classify(additive, blocks):
+def is_prime_power(n):
+    pr = [p for p in range(2, n + 1) if n % p == 0 and all(p % r for r in range(2, int(p ** 0.5) + 1))]
+    return len(pr) == 1
+
+
+def classify(additive, blocks, second_order_linear=False, modulus=None):
+    """Theorem L is applied only within its scope: a second-order rule x' = alpha*sum - x_prev mod q
+    (second_order_linear), q a prime power, and additivity confirmed by the sampled test."""
     need = ["wire", "turn", "crossing", "gate", "fanout", "memory"]
-    if additive:
+    if additive and second_order_linear and modulus is not None and is_prime_power(modulus):
         return "not universal (Theorem L)"
+    if additive:
+        return "additive outside the scope of Theorem L; not classified"
     missing = [b for b in need if not blocks.get(b)]
     return "universal (all blocks verified)" if not missing else "undecided; missing " + ",".join(missing)
 
@@ -746,7 +800,7 @@ def main():
         search_S4()
     # F2: every classifier input is a value computed above (additivity tests A2, A3, F1; block checks
     # E1-E6, F1; S1, S2 with --search). Blocks never tested (fan-out in Q) count as not verified.
-    cl_lin = classify(COMPUTED["LIN_additive"], {})
+    cl_lin = classify(COMPUTED["LIN_additive"], {}, second_order_linear=True, modulus=q)
     cl_bbm = classify(COMPUTED["BBM_additive"], bb)
     cl_q = classify(COMPUTED["Q_additive"], COMPUTED["Q_blocks"])
     check("F2 classifier on computed inputs: linear -> not universal; BBM -> universal; rounded Q -> undecided",

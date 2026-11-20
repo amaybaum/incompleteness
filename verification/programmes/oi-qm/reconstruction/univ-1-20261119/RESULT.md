@@ -184,22 +184,27 @@ largest partial degree of `S`, then `Λ_r(H S^{p−1})` has partial degrees at m
 form a finite, computable set of states, closed under these transitions. Reading the base-`p`
 digits of `t` from the least significant, the automaton ends in `(U, e)` and outputs
 `[Y^e] U = x_t(i₀)`. Leading zeros do not change the output, since `b_{U,e}(0) = b_{Λ_{r'}U,e'}(0)`
-for `r = 0`.
+for `r = 0`. Definition U's symbol `h` is a two-slice symbol `(x_{t−1}(i₀), x_t(i₀))`. For `t ≥ 1` this
+pair is `(b_e(t−1), b_{e+𝟙}(t−1))`, the output of the product of the automata for the offsets `e`
+and `e + 𝟙` read at `t − 1`. The case `t = 0` is read from `c` directly.
 
 (e) *Periodic background.* Write `c = b + f`, with `b` periodic and `f` finitely supported
 (difference mod `q`). Linearity gives `F^t(c) = F^t(b) + F^t(f)`. The orbit of `b` lies in the
 finite, computable set of configurations with `b`'s periods, so `t ↦ F^t(b)(i₀)` is eventually
 periodic with computable preperiod `N` and period `P`. Reading digits from the least significant,
 an automaton tracks `t mod P` and `min(t, N)`. The product with the automaton of (d) decides
-`F^t(c)(i₀) = h`, and emptiness is a reachability question. ∎
+`F^t(c)(i₀) = h` for a two-slice symbol `h` (each slice by (d), (e) and the product of (d)), and
+emptiness is a reachability question. ∎
 
 Scope: Definition U's class (one periodic background plus a finite change). Configurations with
 different periodic patterns on different half-spaces, which some definitions of universality
 admit, are not covered here. Composite `q` with two distinct prime factors is not covered either.
 Background [LIT2]: automaticity of linear cellular automata over `ℤ/p^k` from finite configurations
 is known (Allouche–von Haeseler–Peitgen–Skordev 1996, in one dimension). The proof above does not
-use it. The checks confirm additivity of L₂, L_{2^16} and L_{2^16, 3^{−1}} [EC A2]. The classifier
-of §7 applies Theorem L to any member whose additivity test passes.
+use it. The checks confirm additivity of L₂, L_{2^16} and L_{2^16, 3^{−1}} on sampled pairs
+[EC A2]; additivity of these members also holds by inspection of their update. The classifier of
+§7 applies Theorem L only within its scope: a rule of the second-order linear form above, `q` a
+prime power, and the sampled additivity test passing.
 
 ### 2.2 U₂ on parity-uniform backgrounds
 
@@ -280,7 +285,7 @@ values stay in `{−1,0,1}`. Each check below tests that condition at every tick
 
 | Block | Status | Evidence |
 |---|---|---|
-| **Signal on a wire, W1** | verified in Q | Line `ℓ = ℤe₁`. Background: previous slice `−1` on odd sites, current slice 0 on even sites (a uniform period-6 oscillation, `(a,b) ↦ (b, b−a)`). Signal: previous `+1` at `o+3`; current `−1` at `o+2`, `+1` at `o+4`. It shifts by +2 every 6 ticks; off-line sites stay at `c`; `|y| ≤ 1`; 60 ticks on a ring of 60 [EC E1]. The mirror image moves by −2. Because the state on the ring returns translated after 6 ticks, and the ring (60) is longer than the defect window plus the 6-tick light cone on both sides, the ring and the infinite line agree on every backward cone, and induction carries the translation to all times on the line. The review confirmed this on a non-periodic 400-site line in 3D (120 ticks). Finite W1 segments leave the line sector [EC E6a], so W1 needs an unbounded line. |
+| **Signal on a wire, W1** | verified in Q | Line `ℓ = ℤe₁`. Background: previous slice `−1` on odd sites, current slice 0 on even sites (a uniform period-6 oscillation, `(a,b) ↦ (b, b−a)`). Signal: previous `+1` at `o+3`; current `−1` at `o+2`, `+1` at `o+4`. It shifts by +2 every 6 ticks; off-line sites stay at `c`; `|y| ≤ 1`; 60 ticks on a ring of 60 [EC E1]. The mirror image moves by −2. Because the state on the ring returns translated after 6 ticks, and the ring (60) is longer than the defect window plus the 6-tick light cone on both sides, the ring and the infinite line agree on every backward cone, and induction carries the translation to all times on the line. On an open line (background on 400 sites, no periodic closure) the translation holds for 120 ticks at every site farther than 120 from the segment ends, for W1 and W2 [EC E2b]. Finite W1 segments leave the line sector [EC E6a], so W1 needs an unbounded line. |
 | **Signal on a wire, W2** | verified in Q | Staggered background: both slices `(−1, 1, −1, 1, …)` on their parity sites. Every line site then has neighbour sum 0, and the background is frozen with period 4. Signal: the window `(−1,−1,−1,1 | −1,−1,−1,1)` (odd previous \| even current). It satisfies `y(t+3) = −shift_{−1} y(t)`, i.e. speed 1/3, for 60 ticks [EC E2]. Finite W2 segments are frozen [EC E6]. |
 | **Crossing** | verified (3D) | A W1 wire along `e₁` at `z = 0` (signal from `x = 8` to `x = 38`) and a W2 wire along `e₂` at `x = 24`, `z = 3` (signal from `y = 4` through `y = 0`), so both signals traverse the crossing. In Q the joint evolution is the superposition of the two solo evolutions for 90 ticks, with values in `{c−1, c, c+1}`. Countercontrol: at separation `z = 2` the site `(24, 0, 1)` neighbours both wires and superposition fails at `t = 3` [EC E4]. In general, axis lines with no common neighbour evolve independently. |
 | **Memory** | verified in Q | An isolated site `(a, b) ∈ {−1,0,1}²` runs `(a,b) → (b,−a) → (−a,−b) → (−b,a)` and leaves its neighbours at `c`. A finite frozen line `(−1,1)/(0,0)`, or a finite W2 segment, stores one trit per site with period 4 [EC E3, E6]. |
@@ -291,7 +296,9 @@ values stay in `{−1,0,1}`. Each check below tests that condition at every tick
 | **Free signals** | none found | RZ vacuum seeds in `2×1×1` and `3×1×1` boxes with values in `{−1,0,1}`: 520 oscillators, 288 growing, no glider at horizon 40 [S3]. The line sector on the zero line, windows of width 10: no moving localized pattern [S4]. |
 
 **The missing block.** Every signal found moves along a pre-laid straight line, and every
-interaction tried that moves it off the line either leaves the ternary sector or does nothing.
+interaction tried that moves it off the line leaves the ternary sector, disturbs the line, or has
+no effect on a second line (S1: no W2 gadget passes; S2: 308 bridges disturb the wires, 12 leave the
+ternary sector, 4 have no effect on the second wire).
 Turn, gate input coupling and fan-out all require a **controlled transfer of a line signal off its
 line, with the line sector restored**. No verified instance exists. Universality by the standard
 route needs this block, and the searches cover only the stated small sets (ternary values, gadgets
@@ -374,8 +381,10 @@ Unchanged, as recorded by the owner: physical measurement sourcing "NOT PASSED",
 | Countercontrol: billiard-ball block rule | The Margolus partition rule (one particle moves to the opposite corner, a diagonal pair rotates, every other block is unchanged), implemented exactly. Verified: a diagonal glider; the interaction-gate truth table (A∧¬B, ¬A∧B, A∧B, A∧B at four output cells); fan-out with B = 1 (A, A, ¬A); a 90° turn by collision with a supplied constant particle, and 180° reflection at a wall. The turn used here is collision-based. It is not the fixed-mirror turn of the literature. A collision turn with a constant input is legitimate in conservative logic, and the same reading was applied to Q (S2); memory (a particle between two walls returns after 18 ticks); a timed crossing [EC F1]. The classifier returns "universal (all blocks verified)" [EC F2]. That this rule is Margolus's BBMCA, and that these blocks compose to universality (Fredkin–Toffoli conservative logic, Margolus 1984), is [LIT2]. | passes |
 | Q under the same classifier | Additivity test fails (A3); blocks computed from E1–E6 and, with `--search`, S1–S2: wire, crossing, memory. Fan-out has no test in Q and counts as not verified. Returns "undecided; missing turn, gate, fanout". | as reported |
 
-The classifier is: additive ⇒ "not universal (Theorem L)"; otherwise all of {wire, turn, crossing,
-gate, fan-out, memory} verified ⇒ "universal"; otherwise "undecided" with the missing list. Every
+The classifier is: additive, of the second-order linear form and with `q` a prime power ⇒
+"not universal (Theorem L)"; additive outside that scope ⇒ not classified; otherwise all of {wire,
+turn, crossing, gate, fan-out, memory} verified ⇒ "universal"; otherwise "undecided" with the
+missing list. Every
 input is a value computed by the checks: the additivity tests and the block checks. None is
 hard-coded. The "universal" branch rests on the composition theorem [LIT2]; the "not universal"
 branch rests on Theorem L.
@@ -467,7 +476,7 @@ or `python3 -I checks/univ_checks.py --search` to add S1–S4 (about 90 seconds)
 |---|---|
 | A1 | the `q = 2` member of R_q is U₂ |
 | A2 | L₂, L_{2^16} and L_{2^16, 3^{−1}} pass the additivity test (10 random pairs each on `4³`) |
-| L1 | Theorem L (b): `S(Y)² ≡ S(Y²) mod 2^k` for the `Q₀` of (a) (`d = 1`, `k ≤ 4`; `d = 3`, `k ≤ 2`; `α = 1, 3^{−1}`) |
+| L1, L1b | Theorem L (b): `S(Y)² ≡ S(Y²) mod 2^k` for the `Q₀` of (a) (`d = 1`, `k ≤ 4`; `d = 3`, `k ≤ 2`; `α = 1, 3^{−1}`); countercontrol: without the lift (`S = Q₀`) it fails mod `2^k` for `k ≥ 2`, and the lifted `S` fails mod `2^{k+1}` |
 | A3 | Q violates additivity (one-site witness; random-pair test fails) |
 | A4, A4b | fixed points on `V₁`: Q 196 606; L_{2^16} 8 |
 | A5 | linear-wave energy 4 → 6 under RZ |
@@ -475,7 +484,7 @@ or `python3 -I checks/univ_checks.py --search` to add S1–S4 (about 90 seconds)
 | C3 | mid-background slab in uniform noise: centre plane first deviates at `t = 15` (one seeded instance) |
 | D1 | Lemma 2.1 (forward direction) on five random configurations, 30 ticks |
 | E1, E1b | W1 in Q (60 ticks); countercontrol on the vacuum 0 |
-| E2 | W2 in Q (60 ticks) |
+| E2, E2b | W2 in Q (60 ticks); W1 and W2 on open lines (120 ticks, interior) |
 | E3 | memory: isolated trits; frozen staggered line |
 | E4 | crossing in Q with both signals traversing it: separation 3 superposes (90 ticks); separation 2 fails at `t = 3` |
 | E5 | plain corners: first deviation times (none, 2, 16) |
