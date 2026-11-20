@@ -1192,6 +1192,14 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: | 23 | MOND acceleration $a_0$ | $cH/6$ (factor imported) | ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Summary statistics.** Counts: 3 S + 7 C + 8 L + 1 M + 2 R ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **ᶠ** *Layer 2(b) (sin²θ_12, sin²θ_23, PMNS sum).* The $A_1$..."
     },
     {
@@ -1204,7 +1212,15 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: | G6 | MOND acceleration $a_0 = cH/6$ | $cH/6$ (factor impor..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: | G8 | Running-vacuum coefficient $\\nu_{\\text{OI}}$ | Struct..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: | G9 | Dark sector budget | $1-\\Omega_B \\sim 95\\%$ (supplied..."
     },
     {
       "ok": true,
@@ -1212,7 +1228,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: **Summary statistics.** Counts: 5 C + 2 L. Total: 7. G11, an..."
+      "predicate": "chapter line mirrored in FULL: **Summary statistics.** Counts: 4 C + 2 L + 1 E. Total: 7. G..."
     },
     {
       "ok": true,
@@ -2672,6 +2688,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Level G3 × Level D predictions are where OI's distinctive em..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework's most distinguishing empirical content lives ..."
     },
     {
@@ -3032,7 +3052,19 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Filter 3: Boundary-entropy concordance gives $d = 3$ exact..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: This ratio equals unity exactly at $d = 3$. At $d = 2$ the r..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: Within A4's assumed periodic-lattice class and the stated co..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The argument's structure is worth marking explicitly. The fr..."
     },
     {
       "ok": true,
@@ -3512,6 +3544,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The counting also sits at the intersection of an independent..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework's relation to Jacobson's original derivation d..."
     },
     {
@@ -3780,7 +3816,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: The acceleration scale, crossover and deep-MOND relation req..."
+      "predicate": "chapter line mirrored in FULL: The entropy-displacement account of the acceleration scale, ..."
     },
     {
       "ok": true,
@@ -4136,6 +4172,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Similarly, the entropy-displacement reading of the MOND acce..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: | Level G2 (substratum properties) | conditional local SM ga..."
     },
     {
@@ -4208,6 +4248,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: | Baryonic Tully-Fisher $v^4 = G M_B \\cdot cH/6$ | normaliza..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: | Normal mass ordering (heuristic, SM §8.4) | Preference in ..."
     },
     {
@@ -4265,6 +4309,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The two frameworks agree on an unusual number of conclusions..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The last axis of comparison is explanatory unification, and ..."
     },
     {
       "ok": true,

@@ -900,8 +900,6 @@ Level 2 confirmations are confirmations of the gauge-group-target level but do n
 |---|---|---|
 | Cubic-lattice-forced higher-dim operators | Indirect (via specific predictions below) | [SM §3.1] |
 | Type II RVM structural reading | Conserved matter and running $G$ in the stated model. The Bertini RG fit is consistent with zero. DESI DR2 separately compares evolving-$w$ models. | [Bertini2025, DESI_DR2_2025, GR §7] |
-| MOND scale $a_0 = cH/6$ | Tully-Fisher relation; ongoing tests | [GR §7.3] |
-| Holographic $A/4$ at cosmological horizon | Structural, conditional on H-slope and the further conditions of [GR §8.5(b)] (theory-level transport; no direct test) | [GR §5] |
 | Absence of the modeled GUT gauge channel on the single-copy physical gauge branch (§12.5) | Consistent with proton-decay bounds, including $\tau_p(p\to e^+\pi^0) > 2.4 \times 10^{34}$ yr | [SuperK2020_proton, SM §6.7, §8.7] |
 | No GUT-mechanism magnetic monopoles | GUT-scale monopoles undetected cosmologically; consistent with OI without inflation invocation | [MoEDAL2024, SM §6.7] |
 | No GUT-chain cosmic strings | NANOGrav 15-year data disfavors stable cosmic-string interpretation | [NANOGravStrings2023, SM §6.7] |
