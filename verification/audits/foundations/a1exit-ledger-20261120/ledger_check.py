@@ -164,9 +164,9 @@ def extended_unmapped(sm):
     return out
 
 
-def build():
+def build(rows=None):
     p0 = load(P0)
-    rows = load(ROWS)
+    rows = rows if rows is not None else load(ROWS)
     pats = compile_patterns(p0)
     files = corpus_files()
     hits = scan(pats, files)
@@ -260,6 +260,12 @@ def assign(rec, rows):
     ov = rows.get('site_overrides', {})
     if rec['p0_id'] in ov or key in ov:
         o = ov.get(rec['p0_id']) or ov.get(key)
+        anchor = o.get('anchor')
+        if anchor is not None and rec['line'] and anchor not in read_lines(rec['file'])[rec['line'] - 1]:
+            # the override's line moved: refuse to reassign a different line silently
+            rec.update({'row': None, 'code': None, 'owner': 'none',
+                        'reason': 'override anchor mismatch at %s (expected "%s")' % (key, anchor)})
+            return
         rec.update({k: o[k] for k in ('row', 'code', 'reason', 'owner') if k in o})
     else:
         cls = rec['p0_class']
@@ -354,6 +360,10 @@ def check(sm, rows, quiet=False):
                 errs.append('CK7 %s not owned by Q3' % site_key(s))
     if p3 != 77:
         errs.append('CK7 Phase-3 sites listed: %d, expected 77' % p3)
+    # CKa: override anchors (D13)
+    for s in sm['sites']:
+        if (s.get('reason') or '').startswith('override anchor mismatch'):
+            errs.append('CKa ' + s['reason'])
     # CK5
     for r in rows['rows']:
         if r['disposition'] not in ('J', 'F', 'O'):
@@ -466,6 +476,11 @@ def self_test():
             del bad3['sites'][i]
             break
     ok &= any(e.startswith('CK7') for e in check(bad3, rows, quiet=True))
+    # countercontrol 4: an override whose anchor no longer matches its line (a line moved) fails
+    r4 = json.loads(json.dumps(rows))
+    k4 = sorted(r4['site_overrides'])[0]
+    r4['site_overrides'][k4]['anchor'] = 'NO-SUCH-ANCHOR-a1exit'
+    ok &= any(e.startswith('CKa') for e in check(build(r4), r4, quiet=True))
     # control: the real data pass
     ok &= check(sm, rows, quiet=True) == []
     print('self-test', 'PASS' if ok else 'FAIL')
