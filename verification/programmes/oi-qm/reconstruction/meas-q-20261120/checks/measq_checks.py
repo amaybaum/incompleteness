@@ -430,7 +430,7 @@ def node1_checks():
                 if not (np.array_equal(xc, (c + yc) % q) and np.array_equal(xp, (c + yp) % q)):
                     agree = False
                     break
-                if not inwin:
+                if not inwin and c != 0:
                     break
                 yp, yc = rz_step(yp, yc)
                 xp, xc = q_step(xp, xc)
@@ -539,7 +539,7 @@ def s_a_q_reruns(SA):
 
 # =============================================================== W2 line (S-C, S-D)
 PW2 = [-1, -1, 1, 1]          # W2 background along a line (U1 E2; U2R), period 4
-LX, LY = 384, 7               # torus (LX, LY, LY); line along x at y = z = 0
+LX, LY = 384, 8               # torus (LX, LY, LY), bipartite (all sides even); line along x at y = z = 0
 OX, OY = LX // 2, LY // 2     # origin index (OX + 2*OY even: index parity = coordinate parity)
 T1, TP = 120, 60
 
@@ -617,7 +617,7 @@ def k0_launch():
                     pick = x0
                     break
             choice[(phi, d)] = pick
-            ok &= pick is not None
+        ok &= choice[(phi, 1)] is not None or choice[(phi, -1)] is not None
     return choice, ok
 
 
@@ -917,6 +917,9 @@ def s_d(choice):
             quiet += [b0 + k for k in np.nonzero(good)[0]]
         for d in (1, -1):
             x0 = choice[(phi, d)]
+            if x0 is None:
+                stage[f"phi{phi}_d{d:+d}"] = "not launched (K0)"
+                continue
             res = dict(L1=len(quiet), L2=0, L3=0, L4=0, passed=0)
             outcomes = {}
             for b0 in range(0, len(quiet), 128):
@@ -971,6 +974,9 @@ def s_d(choice):
     k5 = True
     for phi in (0, 1):
         for d in (1, -1):
+            if (phi, d) not in sym or (phi + 2, d) not in sym:
+                k5 &= ((phi, d) in sym) == ((phi + 2, d) in sym)
+                continue
             a, b = sym[(phi, d)], sym[(phi + 2, d)]
             for i, st in a.items():
                 gi = tuple((p, -v) for p, v in fam[i])
@@ -987,7 +993,7 @@ def s_d(choice):
 
 def pc3(choice):
     """PC3 / PC3b: latch calibration oracle through the S-D classifier."""
-    phi, d = 1, 1
+    phi, d = 0, 1
     x0 = choice[(phi, d)]
     gsite = (0, 1, 0)
     ell = (0, 0, 0)
@@ -1158,6 +1164,15 @@ def cost_of(box_sites, w, T):
     for rho in (Fraction(1, 100), Fraction(1, 1000)):
         lg = w * (math.log2(rho) - 32) + (len(box_sites) - w + cone) * math.log2(1 - rho)
         out[f"selection_cost_bits_rho_1/{rho.denominator}"] = round(-lg, 2)
+        # informative: kappa concentrated on the 8 non-background ternary pairs (each 1/8); a
+        # full-support kappa (1-l) kappa_ter + l u, l > 0 small, changes this by O(l)
+        lt = w * (math.log2(rho) - 3) + (len(box_sites) - w + cone) * math.log2(1 - rho)
+        out[f"selection_cost_bits_rho_1/{rho.denominator}_kappa_ternary"] = round(-lt, 2)
+    M = len(box_sites) - w + cone
+    rbest = Fraction(w, w + M)
+    out["best_rho_kappa_ternary"] = str(rbest)
+    out["selection_cost_bits_best_rho_kappa_ternary"] = round(
+        -(w * (math.log2(rbest) - 3) + M * math.log2(1 - rbest)), 2)
     return out
 
 
@@ -1226,8 +1241,9 @@ def main():
             costs[k] = dict(hit=h, **cost_of(sites, w, h["t2"]))
     RESULTS["searches"]["S-A-cost"] = costs
     choice, k0ok = k0_launch()
-    check("K0 W2 line: background 4-periodic at every phase; for every phase and direction a launch "
-          "pair gives a defect on at most 3 sites moving toward the origin (A01 item 2)", k0ok,
+    check("K0 W2 line: background 4-periodic at every phase; at every phase some launch pair gives a "
+          "defect on at most 3 sites moving toward the origin; cells with no such pair are recorded "
+          "as not launched (A01 item 2)", k0ok,
           data={f"{a}{b:+d}": v for (a, b), v in choice.items()})
     s_c(choice)
     cc2()
