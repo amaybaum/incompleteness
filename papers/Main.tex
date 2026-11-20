@@ -421,7 +421,7 @@ for \(t+s\). This semigroup law yields iteration of the one-tick map,
 example of compositional dynamics {[}44{]}. What distinguishes the
 present setting is not the existence of such a map but finiteness: the
 observer distinguishes finitely many visible configurations (Lemma 1),
-and on the finite representative of the total-finiteness posit (§1.2
+and on the bijective representative of the total-finiteness posit (§1.2
 Remark, §4.5 ledger) the map acts on a finite \(S\); finiteness of the
 visible sector (Lemma 1), not the dynamics, is the load-bearing
 commitment.
@@ -1013,8 +1013,8 @@ not increase the total variation distance between rows (the contraction
 stated at the start of the proof above), so none exists. \(\square\) On
 a finite representative Step 1 supplies the condition (NR) at every
 multiple of \(N\) exceeding \(s\). The condition (NR) needs no finite
-hidden space, invariant law or bijection, and it fixes neither \(N\) nor
-\(n\).
+hidden space, invariant law, bijection or period \(N\); \(n\) is any
+time after \(s\) at which its inequality holds.
 
 \textbf{Lemma (stochastic inverse).} \emph{If a finite square stochastic
 matrix has a stochastic left or right inverse, then it is a permutation
@@ -1107,18 +1107,20 @@ accessible order. What (C4) adds within accessible windows is the
 positive conditional memory of the readback lemma below. Without a
 finite representative the index-free form holds under full support of
 the visible prior, (FS), with the root drawn independently of the hidden
-prior, one direction at a time. (a) A readback gap at some finite order
-\(k\) gives (b) some \(\Gamma_s\), \(1 \leq s \leq k\), that is not a
-permutation, by the first half of the proof above with \(\min(k, L-1)\)
-replaced by \(k\), which uses no return. (b) gives (c), the family not
-P-divisible on \(\{0, \ldots, n\}\) for some \(n\), by the corollary
-(near-return), when the near-return condition (NR) holds for an
-overlapping pair of rows of that \(\Gamma_s\), assumed as a hypothesis
-of this implication and not adopted. (c) gives (a): if no order below
-\(n\) has a gap, the law on \(\{0, \ldots, n\}\) is Markov with one-step
-matrices \(Q_j\) (rows of zero-probability states chosen stochastic),
-every root has positive probability under full support (FS), so each row
-of \(\Gamma_t\) is a conditional law of that Markov process and
+prior, and, for the step from (b) to (c), the near-return condition
+(NR), both assumed as hypotheses of this form and not adopted, one
+direction at a time. (a) A readback gap at some finite order \(k\) gives
+(b) some \(\Gamma_s\), \(1 \leq s \leq k\), that is not a permutation,
+by the first half of the proof above with \(\min(k, L-1)\) replaced by
+\(k\), which uses no return. (b) gives (c), the family not P-divisible
+on \(\{0, \ldots, n\}\) for some \(n\), by the corollary (near-return),
+when the near-return condition (NR) holds for an overlapping pair of
+rows of that \(\Gamma_s\), assumed as a hypothesis of this implication
+and not adopted. (c) gives (a): if no order below \(n\) has a gap, the
+law on \(\{0, \ldots, n\}\) is Markov with one-step matrices \(Q_j\)
+(rows of zero-probability states chosen stochastic), every root has
+positive probability under full support (FS), so each row of
+\(\Gamma_t\) is a conditional law of that Markov process and
 \(\Gamma_t = \Gamma_s (Q_s \cdots Q_{t-1})\) for all \(s < t \leq n\),
 and the family is P-divisible on \(\{0, \ldots, n\}\). The bound below
 \(L\) and the horizon \(\{0, \ldots, L\}\) are statements about the
@@ -1367,12 +1369,13 @@ without readback, is noise.
 readback lemma are independent: the former establishes P-indivisibility
 from a non-permutation one-step witness and finiteness alone, at the
 recurrence time, or from a non-permutation rooted map and the
-near-return condition (NR) of §2.3, assumed in its place, without
-finiteness; the latter locates observable conditional memory inside
-accessible windows, which does not by itself make the rooted family
-P-indivisible there. (C2) keeps stored history alive between couplings;
-(C3) provides the room to store it; (C4) is the reading of it --- and
-only the reading produces memory an observer can measure.
+near-return condition (NR) of §2.3, assumed in its place and not
+adopted, without finiteness of the hidden sector; the latter locates
+observable conditional memory inside accessible windows, which does not
+by itself make the rooted family P-indivisible there. (C2) keeps stored
+history alive between couplings; (C3) provides the room to store it;
+(C4) is the reading of it --- and only the reading produces memory an
+observer can measure.
 
 \textbf{Weak-coupling and fast-bath regimes.} Known P-divisible systems
 with non-zero coupling are not counterexamples to the recurrence
@@ -1666,8 +1669,9 @@ the infinite-region completion (§3.2, §3.4), which is assembled from
 finite-region stages, runs on finite configuration spaces: Lemma 1 for
 the visible sector, with the total-finiteness posit (§1.2 Remark, §4.5)
 where a result also needs the hidden sector finite; the near-return
-corollary of §2.3 and the remark of §3.2 under the condition (IP) take a
-measurable hidden space.
+corollary of §2.3, the index-free form of §2.3 under (FS) and (NR), and
+the remark of §3.2 under the condition (IP) take a measurable hidden
+space.
 
 Three features are fixed at the representation level. When a continuous
 interpolation \(U(t) = e^{-i\hat{H}t}\) is chosen (§3.2), it is
@@ -5346,15 +5350,15 @@ compressed transition-statistics representation uses the separate
 translation hypothesis (T), and the phase-locking result uses
 (G1)--(G4). Recurrence-scale P-indivisibility uses finite order of the
 specified bijective representative, or the near-return condition (NR)
-assumed in its place, and a non-permutation rooted map under a common
-hidden preparation (§2.3). On accessible windows a witnessed readback
-gap gives a pair-dependent quantitative bound on conditional memory
-(§2.3).
+assumed in its place and not adopted, and a non-permutation rooted map
+under a common hidden preparation (§2.3). On accessible windows a
+witnessed readback gap gives a pair-dependent quantitative bound on
+conditional memory (§2.3).
 
 \textbf{Falsifiability.} The framework's structural claim is that
 \emph{the hidden sector is a classical substratum} --- a deterministic
 bijection on a set, finite under the total-finiteness posit (§1.2
-Remark, §4.5 ledger item (ii)), an open hypothesis, not adopted and one
+Remark, §4.5 ledger item (ii)), an open hypothesis, not adopted, and one
 sufficient condition among those stated at each use. Bäcker, Beyer, and
 Strunz {[}28{]} classify the memory of a two-step open-system process as
 classical when the second step can be written as a quantum instrument
@@ -6200,4 +6204,4 @@ of probabilities, probability on trajectories, and the
 stochastic-quantum correspondence,'' arXiv:2602.23491v1 (2026).
 
 \end{document}
-% source-sha256: 37ed4fd5cac03b48248cfe60fb89395429c528649900eab39a43a7b238efa1ec
+% source-sha256: 0f2fdf466033ec5839d0c7bd5234ed96e1cd59bd34f14b3af0fd06ee2accdb21
