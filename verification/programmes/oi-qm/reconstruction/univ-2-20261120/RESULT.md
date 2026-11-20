@@ -1,7 +1,10 @@
 # UNIV-2: the native controlled turn in the published rounded rule
 
 **Standing.** Author record of a paper-only unit (AGENTS.md §A.31, depth-first form). Independent
-non-author review at `aecc64ef`: REVISE (minor). This revision answers its items B1, B2 and N1–N7.
+non-author review at `aecc64ef`: REVISE (minor). The revision `8866cf4a` answers its items B1, B2
+and N1–N7. Re-review at `8866cf4a`: ACCEPT-WITH-NITS
+([#1444 c.7033699598](https://github.com/amaybaum/incompleteness/pull/1444#issuecomment-7033699598));
+its three text nits are fixed here.
 It adopts no premise and edits no manuscript, Lean module or
 registry. Small exact computations only (§7).
 
@@ -133,14 +136,15 @@ table, its total of 2 720 and the timing of the first escapes (X2, X3). `T₁ = 
 launched at distance 8.
 
 **Box margin (deviation from PREREG §3, "at least 2 sites").** The margin beyond lines ∪ `R⁺` is 1
-site in `z` (all geometries) and in `+x` for J2. It is 2 in `+x` for J1 and J3, 3 in `−x`, and 4
-in `y`. This is harmless, for three reasons:
+site in `z` (all geometries) and in `+x` for J2. It is 2 in `+x` for J1 and J3, 3 in `−x`, 2 in `−y`
+(the box starts at `y = −4`; `R⁺` reaches `y = −2`), and 4 in `+y` beyond B's far end. This is harmless, for three reasons:
 - A candidate fails at the first tick on which any value outside lines ∪ `R⁺` is nonzero.
 - Every neighbour of a site in lines ∪ `R⁺` lies inside the box without wrapping. Up to that
   tick, every nonzero value lies in lines ∪ `R⁺`, so the box update equals the `ℤ³` update.
 - A disturbance can reach a wrapped neighbour only by first appearing in the margin, and that
-  fails the candidate. The
-first escape is classified post hoc, which changes no verdict. It lies in the row beside A (signal
+  fails the candidate.
+
+The first escape is classified post hoc, which changes no verdict. It lies in the row beside A (signal
 scattered back along A's neighbours), in the row beside B, or off the lines; the split depends on
 family and phase (printed by the checks). Every first escape occurs after `t = 24`, when the signal
 (launched 8 sites away, speed 1/3) is within two sites of the junction. One instance [EC D1]: in the J1 plain corner at phase 1,
@@ -229,6 +233,7 @@ Under these conditions turns come in pairs. A3 forbids nothing in any case.
    turns only at another arrival phase would be missed.
 3. The cross-check sample was dominated by R1 failures. X1 closes that gap for the cases that
    matter: on every quiescent gadget, classifier and prefilter agree.
+4. A2's negative concerns one template; it says nothing about whether turning is possible.
 5. R4 and R8 are implemented more weakly than PREREG states.
    - R4 checks only the far-B glider and the restoration at `T₁ + 60`, without R2's 12-site
      window.
@@ -237,7 +242,6 @@ Under these conditions turns come in pairs. A3 forbids nothing in any case.
    - No Q candidate reached either test; only the oracle O1 reached R8, which rejected it.
 6. Far B is defined by `y ≥ 8`. For J2 the junction core contains `(1,1,0)`, so far B begins at
    distance 7 from the junction, not 8.
-4. A2's negative concerns one template; it says nothing about whether turning is possible.
 
 **Assumption-watch.**
 - *AW-UNIV-3 (junction radiation; a hypothesis from one instance).*
