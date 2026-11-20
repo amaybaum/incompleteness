@@ -1502,9 +1502,9 @@
       "line": 252,
       "kind": "Lemma",
       "label": "1c (canonical projection and the resummed kernel)",
-      "fingerprint": "c5ff80aab6d5c1f6",
+      "fingerprint": "4aa41b0aa132f70b",
       "area": "sm",
-      "assumptions": "the selected invariant measure",
+      "assumptions": "the selected invariant measure; (ii) on a finite configuration space, or fibrewise for translation-invariant U and P",
       "checks": [
         {
           "kind": "probe",

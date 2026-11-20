@@ -5,7 +5,7 @@
 
 ## 2.1 What this chapter constructs
 
-Chapter 1 established the exact finite observable-law equivalence between stochastic processes, finite reversible deterministic realizations, and fixed-basis unitary/Born representations. It also showed that genuine history readback forces hidden predictive memory in every faithful completion. This chapter now asks the inverse structural question: what is the finite reversible object $(S,\varphi)$ whose observer-level projection has that description?
+Chapter 1 established the exact finite observable-law equivalence between stochastic processes, finite reversible deterministic realizations, and fixed-basis unitary/Born representations. It also showed that genuine history readback forces hidden predictive memory in every faithful completion. This chapter now asks the inverse structural question: what is the reversible object $(S,\varphi)$, finite under A1, whose observer-level projection has that description?
 
 Three questions need separation. First, which **local propagating lattice/gauge residue** is fixed by the framework's empirical and structural inputs? Second, which changes of a representative leave that local observable content unchanged? Third, can the Bell-violating preparation/composite structure be embedded in the same deterministic ontology, and if so is it unique? The reconstruction theorem answers the first, the substratum gauge group addresses the second for the reconstructed dilation/local data, and H-Bell addresses only the existence/compatibility part of the third; Bell-inclusive uniqueness remains open.
 
@@ -73,7 +73,7 @@ The convergence has an external echo. A literature independent of this framework
 
 **Structural assumptions.** The reconstruction restricts attention to candidate substrates satisfying six properties:
 
-*(A1) Finiteness.* The configuration space $S$ is finite. Lemma 1 of Chapter 1 delivers finiteness of the observer's distinguishable states; the extension to all of $S$ is an open hypothesis, not adopted, read as the choice of the minimal finite representative and motivated by E3 (the holographic bound read as a dimension cutoff). Its scope, and which results use it, are stated in [Main §1.2], Remark (status of the early commitments).
+*(A1) Finiteness.* The configuration space $S$ is finite. Lemma 1 of Chapter 1 delivers finiteness of the observer's distinguishable states; the extension to all of $S$ is an open hypothesis, not adopted, read as the choice of the minimal finite representative and motivated by E3 (the holographic bound read as a dimension cutoff); it is one sufficient condition among those the results name. Its scope, and which results use it, are stated in [Main §1.2], Remark (status of the early commitments).
 
 *(A2) Determinism.* The dynamics $\varphi: S \to S$ is a bijection — deterministic and reversible. Its status is two-part (Chapter 1, Lemma 3): the bijective substratum is a representation choice — the minimal recurrent bijective representative of the hidden dynamics, which for a finite system is the dynamics restricted to its eventual image, the states lying on its cycles — and injectivity is anchored by a dilemma argument with one structural prong (finiteness, for registered states in the eventual image) and one empirical prong (the observed statistics).
 
@@ -155,7 +155,7 @@ Three candidate further generators are compared with the three already listed:
 
 *Hidden-sector dynamical reparametrization* beyond enlargement. Equality of the visible channel family does not force a hidden-sector unitary relating two dilations of equal hidden-sector dimension: two permutation systems on $\mathbb{Z}_2 \times \mathbb{Z}_3$ have equal visible channels at every time without being unitarily conjugate (Substratum §4). Whether such reparametrizations reduce to generator (i) is the open completeness question.
 
-*Visible-sector emergent global phase* ($U \to e^{i\theta} U$). At the substratum level, $S$ is a finite set with no complex structure; the emergent phase corresponds to no substratum-level transformation. It is the identity on $(S, \varphi)$.
+*Visible-sector emergent global phase* ($U \to e^{i\theta} U$). At the substratum level, $S$ is a set (finite under A1) with no complex structure; the emergent phase corresponds to no substratum-level transformation. It is the identity on $(S, \varphi)$.
 
 **The three-level gauge hierarchy.** The framework has three distinct gauge symmetries, each appearing at a different level of the derivation, with its own equivalence notion:
 

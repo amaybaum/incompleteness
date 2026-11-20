@@ -523,14 +523,15 @@ and their correspondence specified, remains open.
 
 \textbf{Relation to computation.} A Turing machine has storage, a
 read/write head and an update rule. These provide a vocabulary for the
-finite OI configuration, its visible access and its bijection. The exact
-OI recurrence argument uses finiteness of the total carrier, whereas the
-idealized Turing tape is unbounded. Reversible Turing machines provide
-lossless-update examples, but this comparison does not identify a finite
-hidden-state inference problem with the halting problem. An infinite OI
-extension requires a separately specified normalized state or measure
-and well-defined dynamics. The boundary-only dependence approximation
-alone does not supply such an extension.
+OI configuration (finite under A1), its visible access and its
+bijection. The exact OI recurrence argument uses finiteness of the total
+carrier, whereas the idealized Turing tape is unbounded. Reversible
+Turing machines provide lossless-update examples, but this comparison
+does not identify a finite hidden-state inference problem with the
+halting problem. An infinite OI extension requires a separately
+specified normalized state or measure and well-defined dynamics. The
+boundary-only dependence approximation alone does not supply such an
+extension.
 
 \textbf{Remark (effective finiteness and the computation comparison).}
 The finite visible sector and boundary layer can determine the
@@ -559,10 +560,14 @@ erasure lemma of {[}Main §2.3{]}. In that description, for a finite
 bijective \((S,\varphi)\), this replaces the low-entropy ``past
 hypothesis'', in its role of selecting observer-compatible
 configurations, with a structural observer-selection rule and excludes
-Boltzmann brains structurally rather than anthropically. The rule is
-time-symmetric: the direction in which coarse-grained entropy increases
-rests on a low-entropy or product boundary condition, not on the rule
-(§5.4).
+Boltzmann brains structurally rather than anthropically. Without A1 this
+replacement is open: on an infinite carrier an invariant law can carry a
+low-entropy stream entering from spatial infinity (the shift on
+\(\{0,1\}^{\mathbb Z}\) preserves every Bernoulli product law, including
+laws of low entropy per site), and whether such an incoming supply is
+excluded is not settled. The rule is time-symmetric: the direction in
+which coarse-grained entropy increases rests on a low-entropy or product
+boundary condition, not on the rule (§5.4).
 
 \textbf{The incompleteness family.} Gödel's incompleteness and Turing's
 undecidability results apply to their stated formal problem classes. In
@@ -681,8 +686,13 @@ interface. Infinite extensions require specified normalized measures or
 states and well-defined dynamics; the finite identity does not supply
 that construction. A deep sector coupled under H-BD changes the
 transition law by at most \(2t/\tau_{BD}\) ({[}GR §3.2{]}), so its
-comparison is only at leading order on accessible timescales. A1 remains
-the finite-carrier premise for the recurrence arguments.
+comparison is only at leading order on accessible timescales. A1 is an
+open hypothesis, not adopted ({[}Main §4.5{]}, item (ii)), and one
+sufficient condition among those each result names: it remains the
+finite-carrier premise for the recurrence arguments, and for their
+P-indivisibility conclusion the near-return condition (NR) of {[}Main
+§2.3{]}, assumed in its place and not adopted, is a weaker sufficient
+condition.
 
 (A2) \textbf{Determinism.} \(\varphi: S \to S\) is a bijection
 (deterministic, reversible dynamics). (Two-part status, per the dilemma
@@ -1749,8 +1759,8 @@ A further candidate family is explicitly subsumed:
 \tightlist
 \item
   \emph{Visible-sector emergent global phase} (\(U \to e^{i\theta}U\)):
-  at the substratum level \(S\) is a finite set with no complex
-  structure; the emergent phase is trivially the identity on
+  at the substratum level \(S\) is a set (finite under A1) with no
+  complex structure; the emergent phase is trivially the identity on
   \((S, \varphi)\).
 \end{itemize}
 
@@ -3216,4 +3226,4 @@ Running-Vacuum Form of Dark Energy from the Cosmological Horizon,''
 Universality Classes of Embedded Observers,'' (2026).
 
 \end{document}
-% source-sha256: 629b35d4b4d2fb76778c6d4b14033a145ffe299fbc98ee53207dac4b76409aa1
+% source-sha256: e8713f164dda5cd7fc6e30a4de1619d08c0ded3d193e76a49ce46996796560f5
