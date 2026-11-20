@@ -263,7 +263,7 @@ bipartite "as a property of the dynamics (range-1 coupling on a hypercubic graph
 on quotients with even-sum `Λ`, and fails on odd tori. Class (a) on (Z); class (b) on (F) with
 `Λ ⊂ 2ℤ^3`.
 
-## 8. Kernel reading (no build)
+## 8. Kernel reading
 
 - `SubstratumInterfaceAudit.A4` (:98) quantifies over translations by elements of the site group
   `𝒮.ι`, an arbitrary `AddCommGroup`, with the gauge group as a parameter. It has no finiteness
@@ -273,9 +273,13 @@ on quotients with even-sum `Λ`, and fails on odd tori. Class (a) on (Z); class 
   `waveSubstratum_A5` (:190–216) are stated for every `L : ℕ` with no `[NeZero L]` hypothesis, while
   `waveSubstratum_A1` (:185) requires `[NeZero L] [NeZero q]`. In Mathlib `ZMod 0` is `ℤ` by
   definition, so at `L = 0` these four theorems are statements about the wave rule on `ℤ^d`. The
-  kernel therefore already contains the (Z) instance of A2–A5, with A1 not claimed. This is a
-  reading of the statements; an elaborated `example` at `L = 0` would confirm it mechanically and is
-  not done here (no Lean implementation is authorized).
+  kernel therefore already contains the (Z) instance of A2–A5, with A1 not claimed.
+  `WaveSubstratumUnbounded` kernel-checks this reading: `waveZ_A2` (true of every `Substratum`),
+  `waveZ_A3` (degree `2d`), `waveZ_A4Exact`, `waveZ_A4` (trivial gauge) and `waveZ_A5` hold on sites
+  `Fin d → ℤ`, and the control `waveZ_not_A1` shows the configuration space is infinite for `d ≥ 1`
+  and a nontrivial alphabet. These are `SubstratumInterfaceAudit`'s predicates: its `A4` is A4's
+  translation clause (Sub:98) without the finite-lattice condition, not its no-self-input clause; A6,
+  the observer theory and Theorems 19 and 23 are not covered.
 - `CubicIsotropy` is stated on `Fin 3 → ℤ` (row 13). `Reciprocity.theorem_19` assumes `[Fintype H]`
   only; `MeasuredReciprocity` has the measured form (§5).
 
@@ -396,14 +400,15 @@ automata).
 ## 13. Verification status and remediation (§A.46 item 4)
 
 - **Evidence level.** Paper arguments (Lemma U, §5–§9), exact finite computations (§11), and reading
-  of cited Lean statements (§8). Kernel support exists only where cited: `MeasuredReciprocity` for the
-  measured reciprocity theorem. Lemma U, the `ℤ^3` stabilizer argument and the Bloch argument have no
-  kernel or independent check.
+  of cited Lean statements (§8), kernel-checked at `L = 0` by `WaveSubstratumUnbounded`. Kernel
+  support exists only where cited: `MeasuredReciprocity` for the measured reciprocity theorem and
+  `WaveSubstratumUnbounded` for §8's `L = 0` reading. Lemma U, the `ℤ^3` stabilizer argument and
+  the Bloch argument have no kernel or independent check.
 - **Review.** The review of `1c69ea84` (REVISE, #1441 comment 7031422625) verified Lemma U, §5,
-  §7 and the checks, and checked §8 as a reading of the Lean statements only (not built, so §8 remains
-  unverified mechanically), and required the narrowing of §6.1 made in this revision.
-- **Missing.** A delta review of this revision; mechanical confirmation of §8's `L = 0` reading;
-  H-cont for the Koopman compressions of the observer branch (open).
+  §7 and the checks, and checked §8 as a reading of the Lean statements only (not built), and required
+  the narrowing of §6.1 made in this revision.
+- **Missing.** A delta review of this revision; H-cont for the Koopman compressions of the observer
+  branch (open).
 - **Controls K1–K3.** `git diff --stat` against the source pin lists only files under
   `verification/audits/foundations/o-a4-20261120/`; no manuscript, Lean or registry file changes.
 - **Accountable Issue.** #1055. **Resolution.** A review recorded on the guiding pull request. A1-SCOPE
