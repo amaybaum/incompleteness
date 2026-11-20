@@ -206,7 +206,7 @@
    "units": [
     "S1"
    ],
-   "reason": "the recurrence-cycle result requires a finite set, but the P-indivisibility conclusion does not: Main §2.3 Corollary (near-return) gives it for a hidden space of any cardinality under (NR); additive sentence, the existing one unchanged; amendment 1 (review nit 9): the line's last sentence, \"The lattice is one way to implement determinism on a finite set; it is not the only way\", passes CTL-14 lexically (\"not\") and is kept on its merits: it states one implementation, not that S is finite; S1 keeps the verb \"requires\" of the existing sentence, which is true of the recurrence-cycle result, and adds the (NR) sentence (review nit 10 not adopted: changing the verb makes CTL-7 read the whole sentence, with \"bijectivity guarantees recurrence\", as added)"
+   "reason": "the recurrence-cycle result requires a finite set, but the P-indivisibility conclusion does not: Main §2.3 Corollary (near-return) gives it for a hidden space of any cardinality under (NR); additive sentence, the existing one unchanged; amendment 1 (review nit 9): the line's last sentence, \"The lattice is one way to implement determinism on a finite set; it is not the only way\", passes CTL-14 lexically (\"on a finite\") and is kept on its merits: it states one implementation, not that S is finite; S1 keeps the verb \"requires\" of the existing sentence, which is true of the recurrence-cycle result, and adds the (NR) sentence (review nit 10 not adopted: changing the verb makes CTL-7 read the whole sentence, with \"bijectivity guarantees recurrence\", as added)"
   },
   {
    "site": "papers/SM.md:112",

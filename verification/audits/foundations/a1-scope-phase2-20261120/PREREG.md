@@ -1,7 +1,7 @@
 # A1-SCOPE Phase 2 — companion papers and book mirrors: dispositions, edit ledger, controls and decision rule
 
 **Amended once (§12), after the independent review of `3b5c937c`. Where §12 differs from an earlier section, §12
-governs.**
+governs. Stage 2 was authorized and applied (§13); the "not done here" items below describe stage 1.**
 
 **Status.** Writer's paper-only preregistration (stage 1 of 2). It fixes, before any manuscript edit, which
 companion and book sentences change, their exact text, and the mechanical tests the edit must pass.
@@ -358,7 +358,7 @@ now holds 251 dispositions (214 sites, 31 census lines and 6 FULL copies of cens
 **Dispositions (nit 9).**
 
 - SM:44: its last sentence ("The lattice is one way to implement determinism on a finite set …") passes CTL-14 lexically,
-  through "not". It is kept on its merits, because it states one implementation and does not assert that S is finite.
+  through "on a finite". It is kept on its merits, because it states one implementation and does not assert that S is finite.
 - SM:20: it passes CTL-14 lexically, through "condition". It is kept as the declared structural input.
 - ch02:32 and its FULL copy: the reason now reads that finiteness is stated for "the exact OI model here".
 
@@ -399,3 +399,98 @@ lines and SM:254 changed".
 
 **Off-`main` reference.** The review of `3b5c937c` is cited as provenance. Each change it prompted is written out in
 the ledger and checked by the controls above.
+
+## 13. Stage 2: application (2026-11-20)
+
+**Reviews.** Round 1 at `3b5c937c` returned REVISE
+([#1450 comment 7033749956](https://github.com/amaybaum/incompleteness/pull/1450#issuecomment-7033749956)). Round 2 at
+`861e186f` returned ACCEPT-WITH-NITS
+([#1450 comment 7033827162](https://github.com/amaybaum/incompleteness/pull/1450#issuecomment-7033827162),
+2026-11-20T07:57:52Z). Its four nits are handled as follows:
+
+1. The SM:44 explanation named the wrong matching token. It is corrected in `dispositions.json` and §12: the token is
+   "on a finite", not "not". This is a record-only correction.
+2. The (NR) rule of CTL-7 is not covered by `--mutation-check`. It stays covered by countercontrols M12 and M13.
+3. "A-C2 would read more clearly." Not applied, because the owner froze the splice text.
+4. glossary:105 lags Main:724 ("or (NR)"). This is a Phase 1 site outside this unit's frozen scope, and it is left to the
+   Phase 3 census (Q3, #1454).
+
+**Authorization.** Owner `amaybaum`,
+[#1169 comment 7035888700](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7035888700),
+2026-11-20T09:31:01Z, item 1: "Stage 2 is **authorized**. It applies the 40 reviewed ledger splices at `861e186f`,
+rebuilds the manuscripts and book, passes all controls, and receives an independent exact-head review before any
+merge." The same record answers the owner questions:
+
+| Question | Owner answer (quoted) | Effect here |
+|---|---|---|
+| Q1 | "separate unit. A4 is not narrowed in this round." | No A4 edit. SM:539's spin–taste sentence and SM:1536 go to that unit (#1454). |
+| Q2 | "separate theorem-recovery correction removing Theorem 1a's unused finiteness assumption, after its proof and attribution wording are checked." | Theorem 1a is not edited here; CTL-15 keeps it fixed. |
+| Q3 | "separate Phase 3 census and correction unit. Phase 2's scope stays frozen." | The 77 out-of-scope sites and glossary:105 go to Phase 3 (#1454). |
+| Q4 | "no new companion-paper claims. The conditional alternatives stay in the audit." | None added. |
+| Q5 | "SM:22 and GR:20 are kept as written." | `N` (unchanged). |
+
+**Application.** The 40 splices were applied in ledger order to the base texts at `b9168ef0`. No manuscript file on
+`main` changed between `b9168ef0` and `bce3ab0b`. Eight files changed: `papers/SM.md`, `Substratum.md`, `GR.md` and
+`Structure.md`; `book/ch02-substratum.md`, `ch05-gauge-structure.md` and `ch09-universality.md`; and FULL. The splice
+text is exactly the reviewed text.
+
+**Controls on the edited working tree.** `python3 -I -B phase2_controls.py --root .` exits 0:
+
+- CTL-1 to CTL-16 all PASS, including CTL-9 (staleness after the rebuild) and CTL-11 (exactly the ledger).
+- DR-1 to DR-4 are all met (18 predicates).
+
+**Re-grep (§7 step 3).** The changed lines are exactly the 27 paper and chapter `edit` lines (26 dispositions and
+SM:254) and the 7 FULL `edit` lines. No other line changed, and every scope file keeps its line count. Token counts,
+base → head:
+
+| Token | Counts by file |
+|---|---|
+| "finite under A1" | SM 0→5, Substratum 2→4, Structure 0→1, ch02 2→4, ch05 0→2, ch09 1→2, FULL 8→13 |
+| "(NR)" | SM 0→1, Substratum 0→1, GR 0→2 |
+| "not adopted" | SM 1→2, Substratum 0→2, GR 0→2 |
+| "one sufficient condition" | Substratum 0→1, ch02 0→1, FULL 3→4 |
+
+**Rebuild (§7 step 4).** `sh ./build.sh SM Substratum GR Structure` and `sh ./build.sh --book` both report "build: OK"
+with no dropped glyphs.
+
+| Output | Pages | Characters per page |
+|---|---|---|
+| SM | 148 → 148 | 3123 → 3131 |
+| Substratum | 53 → 53 | 3165 → 3176 |
+| GR | 83 → 84 | 3159 → 3125 |
+| Structure | 94 → 94 | 2803 → 2803 |
+| book | 488 → 488 | 2888 → 2889 |
+
+Running pandoc on each base Markdown reproduces the committed base `.tex` exactly once the stamp is removed, and each
+head `.tex` stamp equals the SHA-256 of its source. The `.tex` diff therefore comes only from the splices and the stamp
+lines.
+
+**Derived records that quote edited lines.**
+
+- **SC-42.** `bell-operational-reconciliation-20261029/check_sc42_integration.py` (CI core B) now emits four more `ok`
+  "chapter line mirrored in FULL" predicates, for ch02:8, ch02:158, ch05:83 and ch09:189.
+  - Its result `sc42-integration-result.json` is regenerated, as in #1443 and #1446.
+  - The normal and `-O` runs agree, and the self-test controls are unchanged.
+- **Coverage.** The `verification/coverage/LEDGER.json` entry `SM:L-1c-canonical-projection-resummed-kernel` is
+  re-affirmed. Its fingerprint moves `c5ff80aa…` → `4aa41b0a…`, and its assumptions state the narrowed scope of (ii).
+  - The mapped probe, `observer_isotropy_probes.py`, checks the finite P/Q identity and passes 11/11.
+  - The level and the delta are unchanged.
+- **Other quotes.** A search for the removed old strings found them only in frozen or historical records:
+  `sites.json`, `post982-minimum-diff` hunks and the round-cc records. None is a CI checker, and none is edited.
+
+**Local checks.** The release gate passes:
+
+- toolchain, staleness, baseline-label, voice, voice-scope, ci-gate-presence, artifact-placement, manifest-drift;
+- claims, duplicate, mirror, citation, architecture, dependency-label, coverage, lean-manuscript and v3-self-test.
+
+Five gate steps cannot be decided locally and are left to CI:
+
+- lean-axioms needs `lake`;
+- legacy-records, v3-receipts and citation-roles need full history (the checkout is shallow);
+- v3-corpus also needs CI.
+
+Core probes B pass locally, except `gauge_certificates`, which needs `scipy`; CI installs it. The added-line scan for the
+§A.32 and §A.33 phrase families finds nothing, and CTL-8 PASS.
+
+**Next gate.** CI must be green on the exact head. An independent exact-head review follows before any merge, and the
+merge needs its own owner decision.
