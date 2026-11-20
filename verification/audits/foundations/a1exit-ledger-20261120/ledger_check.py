@@ -236,6 +236,8 @@ def s3(rec, rows):
         return 'not determined: Q3 census'
     if rec['code'] == 'ptr':
         return 'visible (names the hypothesis); rewritten at deletion'
+    if rec['code'] == 'unit':
+        return 'per unit ' + rec['owner']
     r = rows_by_id(rows).get(rec['row'])
     if r and r['owner'] in ('Q1', 'Q2', 'R6', 'Main:764', 'Step-2 phase') and r['status'] != 'done':
         return 'per unit ' + r['owner']
@@ -265,7 +267,9 @@ def assign(rec, rows):
             rule = None
             for r in rows['new_site_rules']:
                 if re.search(r['match'], rec['file'] + ':' + read_lines(rec['file'])[rec['line'] - 1]):
-                    rule = r
+                    # a rule records lines read by hand at the pin; a new matching line must be read again
+                    if key in r.get('read', [key]):
+                        rule = r
                     break
             if rule is None:
                 rec.update({'row': None, 'code': None, 'reason': 'unclassified new site'})
@@ -473,7 +477,7 @@ def main():
     if mode == 'build':
         sm = build()
         ext = extended_unmapped(sm)
-        print('extended criterion-5 scan (informational): %d unmapped lines' % len(ext))
+        print('extended criterion-5 scan: %d unmapped lines' % len(ext))
         for e in ext:
             print('  ' + e)
         with open(SITEMAP, 'w', encoding='utf-8') as f:
@@ -501,17 +505,22 @@ def main():
             new = {(x['file'], x['line'], x['row']) for x in rebuilt['sites']}
             print('PIN MISMATCH: the manuscripts differ from the tree the map was built from (pin %s, HEAD %s)'
                   % (sm.get('pin'), head_commit()))
-            for t in sorted(old - new):
-                print('  only in the committed map: %s:%s %s' % t)
-            for t in sorted(new - old):
-                print('  only in a rebuild here:    %s:%s %s' % t)
+            only_old, only_new = sorted(old - new), sorted(new - old)
+            print('  %d sites only in the committed map, %d only in a rebuild here (first 10 of each):'
+                  % (len(only_old), len(only_new)))
+            for t in only_old[:10]:
+                print('  - %s:%s %s' % t)
+            for t in only_new[:10]:
+                print('  + %s:%s %s' % t)
             return 1
         rebuilt = build()
         if rebuilt != sm:
             print('REBUILD differs from sitemap.json')
             return 1
         ext = extended_unmapped(sm)
-        print('extended criterion-5 scan (informational): %d unmapped lines' % len(ext))
+        print('extended criterion-5 scan: %d unmapped lines' % len(ext))
+        for e in ext[:20]:
+            print('  ' + e)
         blocks = render(sm, load(ROWS))
         with open(os.path.join(HERE, 'LEDGER.md'), encoding='utf-8') as f:
             text = f.read()
@@ -522,6 +531,9 @@ def main():
             print('LEDGER.md table or counts differ from the render')
             return 1
         errs = check(sm, load(ROWS))
+        if ext:
+            errs.append('CK4x: %d lines match the extended criterion-5 patterns and are not in the map' % len(ext))
+            print(errs[-1])
         print('CK1-CK8', 'PASS' if not errs else 'FAIL (%d)' % len(errs))
         return 1 if errs else 0
     if mode == 'self-test':

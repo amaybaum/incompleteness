@@ -1,6 +1,6 @@
 {
  "schema": "a1exit site map v2",
- "pin": "fbca1df98f630aa0dd334c6e7f9f9a193da64394",
+ "pin": "76a3c4cbe21ec30d9ef0748ffd417cc9855ae6be",
  "manuscript_digest": "6f34804b20a8e55f8ec51c78e660307f225d112fe50ba6ac87936e57133975c3",
  "pin_note": "line numbers are those of the manuscript tree whose digest is recorded; check fails on a different tree",
  "sites": [
@@ -515,7 +515,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit R1/R2 scoping"
   },
   {
    "p0_id": "FULL:494",
@@ -869,11 +869,11 @@
    "row": "X-40",
    "code": "unit",
    "reason": "A4 finite periodic lattice clause and its mirrors (O-A4 row 1; P2 §3.3)",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "FULL mirror of book/ch02-substratum.md:82: A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3",
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "FULL:716",
@@ -945,11 +945,11 @@
    "row": "X-41",
    "code": "unit",
    "reason": "P0 rows C7",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "FULL mirror of book/ch02-substratum.md:96: A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3",
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "FULL:746",
@@ -1572,7 +1572,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "FULL:1196",
@@ -1619,7 +1619,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "not determined"
   },
   {
    "p0_id": "FULL:1248",
@@ -1645,7 +1645,7 @@
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "FULL mirror of book/ch04-methodology.md:146: kept (keep list): fixed finite operational carrier (mirror of Substratum:533)",
-   "s3": "visible (P0/P1/P2 disposition)"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -1666,7 +1666,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "not determined"
   },
   {
    "p0_id": "extra",
@@ -1781,11 +1781,11 @@
    "row": "X-41",
    "code": "unit",
    "reason": "P0 rows C7",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "FULL mirror of book/ch05-gauge-structure.md:25: A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3",
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "FULL:1378",
@@ -1806,11 +1806,11 @@
    "row": "X-40",
    "code": "unit",
    "reason": "A4 finite periodic lattice clause and its mirrors (O-A4 row 1; P2 §3.3)",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "FULL mirror of book/ch05-gauge-structure.md:65: A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3",
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "FULL:1386",
@@ -1831,11 +1831,11 @@
    "row": "X-41",
    "code": "unit",
    "reason": "P0 rows C7",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "FULL mirror of book/ch05-gauge-structure.md:73: A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3",
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "FULL:1390",
@@ -1856,11 +1856,11 @@
    "row": "X-41",
    "code": "unit",
    "reason": "P0 rows C7",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "FULL mirror of book/ch05-gauge-structure.md:77: A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3",
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "FULL:1396",
@@ -1964,7 +1964,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "not determined"
   },
   {
    "p0_id": "extra",
@@ -1985,7 +1985,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "not determined"
   },
   {
    "p0_id": "extra",
@@ -2006,7 +2006,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -2027,7 +2027,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -2048,7 +2048,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "FULL:1905",
@@ -2535,7 +2535,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit R1/R2 scoping"
   },
   {
    "p0_id": "FULL:4750",
@@ -3088,7 +3088,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "not determined"
   },
   {
    "p0_id": "FULL:4972",
@@ -3217,7 +3217,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "not determined"
   },
   {
    "p0_id": "FULL:5195",
@@ -3266,7 +3266,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -3283,11 +3283,11 @@
    "row": "X-40",
    "code": "unit",
    "reason": "FULL mirror of book/ch19-open-problems.md:198: B1: \"On a finite lattice\" (speculative horizon/flatness remark); owner A4 formulation",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "FULL:5281",
@@ -3408,7 +3408,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -3429,7 +3429,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -3450,7 +3450,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "FULL:5708",
@@ -4250,7 +4250,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "FULL:6501",
@@ -4448,7 +4448,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -4469,7 +4469,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -4490,7 +4490,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "appendix-b-derivations:32",
@@ -5290,7 +5290,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "ch00-introduction:55",
@@ -5711,7 +5711,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit R1/R2 scoping"
   },
   {
    "p0_id": "ch01-observation:161",
@@ -6067,11 +6067,11 @@
    "row": "X-40",
    "code": "unit",
    "reason": "A4 finite periodic lattice clause and its mirrors (O-A4 row 1; P2 §3.3)",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3",
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "ch02-substratum:88",
@@ -6143,11 +6143,11 @@
    "row": "X-41",
    "code": "unit",
    "reason": "P0 rows C7",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3",
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "ch02-substratum:118",
@@ -6770,7 +6770,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "ch04-methodology:94",
@@ -6817,7 +6817,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "not determined"
   },
   {
    "p0_id": "ch04-methodology:146",
@@ -6843,7 +6843,7 @@
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "kept (keep list): fixed finite operational carrier (mirror of Substratum:533)",
-   "s3": "visible (P0/P1/P2 disposition)"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -6864,7 +6864,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "not determined"
   },
   {
    "p0_id": "extra",
@@ -6981,11 +6981,11 @@
    "row": "X-41",
    "code": "unit",
    "reason": "P0 rows C7",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3",
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "ch05-gauge-structure:65",
@@ -7006,11 +7006,11 @@
    "row": "X-40",
    "code": "unit",
    "reason": "A4 finite periodic lattice clause and its mirrors (O-A4 row 1; P2 §3.3)",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3",
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "ch05-gauge-structure:73",
@@ -7031,11 +7031,11 @@
    "row": "X-41",
    "code": "unit",
    "reason": "P0 rows C7",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3",
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "ch05-gauge-structure:77",
@@ -7056,11 +7056,11 @@
    "row": "X-41",
    "code": "unit",
    "reason": "P0 rows C7",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3",
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "ch05-gauge-structure:83",
@@ -7164,7 +7164,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "not determined"
   },
   {
    "p0_id": "extra",
@@ -7185,7 +7185,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "not determined"
   },
   {
    "p0_id": "extra",
@@ -7206,7 +7206,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -7227,7 +7227,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -7248,7 +7248,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "ch07-gravity:42",
@@ -7735,7 +7735,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit R1/R2 scoping"
   },
   {
    "p0_id": "ch18-beyond:20",
@@ -8288,7 +8288,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "not determined"
   },
   {
    "p0_id": "ch18-beyond:242",
@@ -8417,7 +8417,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "not determined"
   },
   {
    "p0_id": "ch19-open-problems:126",
@@ -8466,7 +8466,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -8483,11 +8483,11 @@
    "row": "X-40",
    "code": "unit",
    "reason": "B1: \"On a finite lattice\" (speculative horizon/flatness remark); owner A4 formulation",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "ch19-open-problems:212",
@@ -8929,7 +8929,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit R1/R2 scoping"
   },
   {
    "p0_id": "Computation:120",
@@ -10404,7 +10404,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "Main:18",
@@ -11022,7 +11022,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit R1/R2 scoping"
   },
   {
    "p0_id": "Main:163",
@@ -11454,7 +11454,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit R1/R2 scoping"
   },
   {
    "p0_id": "Main:356",
@@ -11480,7 +11480,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "visible (P0/P1/P2 disposition)"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "Main:362",
@@ -11970,7 +11970,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "Main:566",
@@ -11996,7 +11996,28 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "visible (P0/P1/P2 disposition)"
+   "s3": "per unit regression audit (#1468)"
+  },
+  {
+   "p0_id": "extra",
+   "file": "papers/Main.md",
+   "line": 586,
+   "relocation": "extra",
+   "splice_units": null,
+   "p0_class": null,
+   "p0_rows": [],
+   "p0_phase": null,
+   "p0_action": null,
+   "mirror_of": null,
+   "patterns_at_pin": [],
+   "row": "X-01",
+   "code": "ptr",
+   "reason": "round-2 nit 1: \"no property of the substratum beyond finiteness and reversibility\"; at deletion a property of the constructed finite realization",
+   "owner": "final deletion",
+   "p2_action": null,
+   "p2_units": null,
+   "p2_reason": null,
+   "s3": "visible (names the hypothesis); rewritten at deletion"
   },
   {
    "p0_id": "extra",
@@ -12017,7 +12038,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "Main:588",
@@ -12097,7 +12118,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "visible (P0/P1/P2 disposition)"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "Main:616",
@@ -12720,7 +12741,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "visible (P0/P1/P2 disposition)"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "Main:780",
@@ -13204,7 +13225,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "SM:20",
@@ -13226,11 +13247,11 @@
    "row": "X-41",
    "code": "unit",
    "reason": "P0 rows C7,CEN17-SM-210",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "abstract names \"a finite bijection on a d = 3 cubic lattice\" as the single declared structural input, \"conditionally on the named bridges\"; it passes CTL-14 lexically (\"condition\") and is kept on its merits as a declared input (amendment 1, review nit 9)",
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "SM:22",
@@ -13326,7 +13347,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "not determined"
   },
   {
    "p0_id": "SM:44",
@@ -13456,11 +13477,11 @@
    "row": "X-40",
    "code": "unit",
    "reason": "A4 finite periodic lattice clause and its mirrors (O-A4 row 1; P2 §3.3)",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3",
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "SM:210",
@@ -13482,11 +13503,11 @@
    "row": "X-41",
    "code": "unit",
    "reason": "P0 rows C7,CEN17-SM-210",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3",
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "SM:222",
@@ -13592,11 +13613,11 @@
    "row": "X-41",
    "code": "unit",
    "reason": "P0 rows C7",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "O-A4 sec. 9: the ring countermodel is correct as stated (a finite countermodel remains one in any class that keeps finite models); its Z form is recorded, not edited",
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "SM:242",
@@ -13667,11 +13688,11 @@
    "row": "X-43",
    "code": "unit",
    "reason": "fermion theorem statements (O-A4 row 18; owner Q1)",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "SM:292",
@@ -13714,11 +13735,11 @@
    "row": "X-43",
    "code": "unit",
    "reason": "fermion theorem statements (O-A4 row 18; owner Q1)",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "SM:308",
@@ -13842,11 +13863,11 @@
    "row": "X-43",
    "code": "unit",
    "reason": "fermion theorem statements (O-A4 row 18; owner Q1)",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "extra",
@@ -13863,11 +13884,11 @@
    "row": "X-43",
    "code": "unit",
    "reason": "fermion theorem statements (O-A4 row 18; owner Q1)",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "extra",
@@ -13884,11 +13905,11 @@
    "row": "X-43",
    "code": "unit",
    "reason": "fermion theorem statements (O-A4 row 18; owner Q1)",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "extra",
@@ -13905,11 +13926,11 @@
    "row": "X-43",
    "code": "unit",
    "reason": "fermion theorem statements (O-A4 row 18; owner Q1)",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "SM:539",
@@ -13928,13 +13949,13 @@
    "row": "X-42",
    "code": "unit",
    "reason": "period-lattice condition sites named by the A1-PHASE2 review (owner Q1)",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": "edit",
    "p2_units": [
     "S6"
    ],
    "p2_reason": "O-A4 §7.2 and §9a: the bipartite claim fails on odd tori, which the finite periodic class of A4 admits",
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "extra",
@@ -13951,11 +13972,11 @@
    "row": "X-43",
    "code": "unit",
    "reason": "fermion theorem statements (O-A4 row 18; owner Q1)",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "SM:641",
@@ -13980,7 +14001,7 @@
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "Theorem 19 states the counting-measure prior; its H-mu(phi,Theta) form (O-A4 sec. 5) is recorded, not edited",
-   "s3": "per unit Q1"
+   "s3": "visible (P0/P1/P2 disposition)"
   },
   {
    "p0_id": "extra",
@@ -14001,7 +14022,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -14022,7 +14043,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -14043,7 +14064,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -14064,7 +14085,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -14085,7 +14106,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -14106,7 +14127,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "SM:803",
@@ -14202,7 +14223,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -14223,7 +14244,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -14244,7 +14265,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -14265,7 +14286,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -14286,7 +14307,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "SM:1225",
@@ -14360,7 +14381,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -14381,7 +14402,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -14402,7 +14423,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -14423,7 +14444,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",
@@ -14444,7 +14465,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "not determined"
   },
   {
    "p0_id": "extra",
@@ -14461,11 +14482,11 @@
    "row": "X-42",
    "code": "unit",
    "reason": "period-lattice condition sites named by the A1-PHASE2 review (owner Q1)",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "extra",
@@ -14486,7 +14507,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "not determined"
   },
   {
    "p0_id": "extra",
@@ -14507,7 +14528,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "not determined"
   },
   {
    "p0_id": "SM:1648",
@@ -14553,7 +14574,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "Structure:80",
@@ -16038,7 +16059,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "not determined"
+   "s3": "per unit R1/R2 scoping"
   },
   {
    "p0_id": "Structure:1233",
@@ -16346,11 +16367,11 @@
    "row": "X-40",
    "code": "unit",
    "reason": "A4 finite periodic lattice clause and its mirrors (O-A4 row 1; P2 §3.3)",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "A4 declaration; O-A4 sec. 7 period-lattice conditions are open question Q1",
-   "s3": "per unit Q1"
+   "s3": "per unit Q1 corrections (Step 2)"
   },
   {
    "p0_id": "Substratum:104",
@@ -17247,7 +17268,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Q1"
+   "s3": "not determined"
   },
   {
    "p0_id": "Substratum:459",
@@ -17322,7 +17343,7 @@
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "kept (keep list): finite instrument nets and fixed finite operational carriers (C5 class), not the substratum",
-   "s3": "visible (P0/P1/P2 disposition)"
+   "s3": "per unit regression audit (#1468)"
   },
   {
    "p0_id": "extra",

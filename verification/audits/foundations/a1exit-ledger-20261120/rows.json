@@ -1,6 +1,6 @@
 {
  "schema": "a1exit ledger rows v1",
- "pin": "fbca1df98f630aa0dd334c6e7f9f9a193da64394",
+ "pin": "76a3c4cbe21ec30d9ef0748ffd417cc9855ae6be",
  "rows": [
   {
    "id": "X-00",
@@ -39,7 +39,7 @@
    "s1": "",
    "s1_reason": "",
    "exit": "Rewritten in the deletion edit (PREREG §6 item 4)",
-   "correction": "Each: replace the pointer by the scope it carries. M:36 \"Total finiteness remains an open physical posit, not adopted, and one sufficient condition among those each result names (...item (ii))\" → delete the sentence (the next sentences already state the per-result conditions). M:44, :111, :129, :224, :268 \"under the total-finiteness posit (§1.2 Remark, §4.5 ledger)\" → \"on a finite representative\". M:594 and ch01:163, ch19:126 \"in its finite model (ledger item (ii))\" → \"in its finite model\". M:646 \"(b) the physically operative form under A1\" → \"(b) the form for a finite substratum\". M:708: \"Finiteness of the hidden sector is, in the forward construction, item (ii) of the posit ledger (§4.5), an open hypothesis, not adopted, and one sufficient condition among those stated at each use, with the deep-sector scope stated there; it is not derived from Lemma 1\" → \"Finiteness of the hidden sector is not assumed in the forward construction: results that use a finite hidden sector are statements about finite representatives, each naming the hypotheses it consumes; it is not derived from Lemma 1\"; and \"compatible with the finiteness hypothesized here and are not premises of it\" → \"compatible with finite representatives and are not premises of them\". M:726 \"finite under the total-finiteness posit (§1.2 Remark, §4.5 ledger item (ii)), an open hypothesis\" → \"finite in the finite representative, which is not asserted of nature\" B1 pointers (readers-guide:79 = FULL:167, book/README.md:100, ch03:226 = FULL:1087, appC:110 = FULL:6265): \"finiteness posit\" → \"finite-representative scope\" (appC §C.6: the objection answered by that scope)",
+   "correction": "Each: replace the pointer by the scope it carries. M:36 \"Total finiteness remains an open physical posit, not adopted, and one sufficient condition among those each result names (...item (ii))\" → delete the sentence (the next sentences already state the per-result conditions). M:44, :111, :129, :224, :268 \"under the total-finiteness posit (§1.2 Remark, §4.5 ledger)\" → \"on a finite representative\". M:594 and ch01:163, ch19:126 \"in its finite model (ledger item (ii))\" → \"in its finite model\". M:646 \"(b) the physically operative form under A1\" → \"(b) the form for a finite substratum\". M:708: \"Finiteness of the hidden sector is, in the forward construction, item (ii) of the posit ledger (§4.5), an open hypothesis, not adopted, and one sufficient condition among those stated at each use, with the deep-sector scope stated there; it is not derived from Lemma 1\" → \"Finiteness of the hidden sector is not assumed in the forward construction: results that use a finite hidden sector are statements about finite representatives, each naming the hypotheses it consumes; it is not derived from Lemma 1\"; and \"compatible with the finiteness hypothesized here and are not premises of it\" → \"compatible with finite representatives and are not premises of them\". M:726 \"finite under the total-finiteness posit (§1.2 Remark, §4.5 ledger item (ii)), an open hypothesis\" → \"finite in the finite representative, which is not asserted of nature\" B1 pointers (readers-guide:79 = FULL:167, book/README.md:100, ch03:226 = FULL:1087, appC:110 = FULL:6265): \"finiteness posit\" → \"finite-representative scope\" (appC §C.6: the objection answered by that scope). M:586 (N1, round 2): \"the construction uses no property of the substratum beyond finiteness and reversibility\" → \"the construction uses no property of the constructed finite realization beyond its finiteness and reversibility\"",
    "owner": "final deletion",
    "status": "queued (Step 2; 4 Phase-3 sites via Q3)",
    "site_code": "ptr",
@@ -212,10 +212,10 @@
    "weaker": "",
    "s1": "",
    "s1_reason": "",
-   "exit": "Printed with \"the hidden prior be the counting measure\" (finite). An A1-free form exists in records (P6: Θ-invariant normalized law, equal root masses; `MeasuredReciprocity`, Lean) but owner Q4 (#1169 c.7035888700): \"no new companion-paper claims\"",
+   "exit": "Printed with \"the hidden prior be the counting measure\" (finite). An A1-free form exists in records (P6: Θ-invariant normalized law, equal root masses; `MeasuredReciprocity`, Lean) but owner Q4 (#1169 c.7035888700): \"no new companion-paper claims\". Q1 did not take it up; it is printed with the counting measure (finite) and stays F (D7)",
    "correction": "none",
-   "owner": "Q1",
-   "status": "in progress (Q1 may restate it on ℤ^d; the ℤ^d form for the selected linear update is degenerate, O-A4 §5)",
+   "owner": "none",
+   "status": "done",
    "site_code": "none",
    "note": ""
   },
@@ -280,9 +280,9 @@
    "disposition": "J",
    "weaker": "(NR): a single common near-return with margin after the non-permutation time, any normalized root-shared prior, no invariance (M:131)",
    "s1": "Relabel",
-   "s1_reason": "Logically weaker than A1: RIGID's rotation × Bernoulli example satisfies it with no finite order. At an unspecified time it has no finite-window test (REMAINDER §3). For the selected update on ℤ^d, (NR) fails under β_A (NR-1 Prop. 2.3; P-divisible at every horizon, NR-1 Thm 3.3); the torus counting law μ_L on periodic configurations is the only law on main under which a return is exhibited (STAGE0 F1, a [W] reading within RIGID's rooted family)",
+   "s1_reason": "Logically weaker than A1: RIGID's rotation × Bernoulli example satisfies it with no finite order. At an unspecified time it has no finite-window test (REMAINDER §3). For the selected update on ℤ^d, (NR) fails under β_A (NR-1 Prop. 2.3; P-divisible at every horizon, NR-1 Thm 3.3); no law not supported on periodic configurations is known to satisfy it (the torus counting law μ_L on periodic configurations gives a root-conditioned return) (STAGE0 F1, a [W] reading within RIGID's rooted family)",
    "exit": "Main §2.3 corollary (near-return), M:131, prints (NR) \"assumed ... not adopted\"; companions carry it (Phase 2 S1, G1, G2, B1). Deletion criterion 3 needs the Relabel qualification printed where (NR) is introduced",
-   "correction": "At M:131 (where (NR) is introduced), M:141 and M:224 (index-free form), M:180 and M:724 (restatements): add the Relabel qualification, e.g. \"(NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update on ℤ^d a law satisfying it is not identified (X-21)\". The same at the companion and book restatements carrying (NR) (Phase-2 units S1, G1, G2, B1). Exact wording by the scoping unit; Phase-3 restatements (Meth, ch18, FULL) and glossary:105 by Q3; Str:1224 and ch01:161 = FULL:494 (B1) qualified by the scoping unit",
+   "correction": "At M:131 (where (NR) is introduced), M:141 and M:224 (index-free form), M:180 and M:724 (restatements): add the Relabel qualification, e.g. \"(NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update on ℤ^d no law not supported on periodic configurations is known to satisfy it (X-21)\". The same at the companion and book restatements carrying (NR) (Phase-2 units S1, G1, G2, B1). Exact wording by the scoping unit; Phase-3 restatements (Meth, ch18, FULL) and glossary:105 by Q3; Str:1224 and ch01:161 = FULL:494 (B1) qualified by the scoping unit",
    "owner": "R1/R2 scoping",
    "status": "queued (Relabel qualification not printed; Q3 sites)",
    "site_code": "none",
@@ -582,14 +582,14 @@
     "O-A4"
    ],
    "how": "The printed class is finite; `SubstratumInterfaceAudit.a1_of_finite`:109",
-   "disposition": "O",
-   "weaker": "",
-   "s1": "",
-   "s1_reason": "",
-   "exit": "Q1, in progress, under the Owner A4 formulation (#1169 c.7048255658): ℤ^d is the standard construction wherever the proofs support it; finite periodic lattices are explicitly qualified cases with the wrapping conditions they need (Q1); finite lattices are not called approximations of ℤ^d unless an approximation or convergence result is established; the infinite discrete lattice and infinite continuous space are kept distinct. This replaces the (α)/(β) choice of the Q1 record. Kernel support for the standard construction: `A4`:98 on an arbitrary additive group; LEAN-2(i) A2–A5 at ZMod 0 = ℤ. Not marked J in advance (safeguard 2)",
-   "correction": "Per Q1: Sub:98 \"a finite periodic lattice, the quotient of a rank-d lattice by a finite-index sublattice\" → the coupling graph is ℤ^d (the standard construction) where Stage 2 is proved there, with finite periodic quotients admitted as qualified cases under their stated wrapping conditions (X-42); mirrors ch02:82, FULL:712, SM:202, ch05:65, FULL:1380",
-   "owner": "Q1",
-   "status": "in progress",
+   "disposition": "J",
+   "weaker": "A4 on ℤ^d as the standard construction (A4∞; kernel predicate `SubstratumInterfaceAudit.A4`:98 on an arbitrary additive site group; LEAN-2(i) A2–A5 at ZMod 0 = ℤ), with finite periodic quotients as qualified cases carrying Q1's wrapping conditions (owner A4 formulation, #1169 c.7048255658)",
+   "s1": "No",
+   "s1_reason": "ℤ^d with a nontrivial finite alphabet has an infinite configuration space (`WaveSubstratumUnbounded.waveZ_not_A1`); Q1 §4 (DA1–DA3) finds every wrapping condition satisfied by P = 0 and free of any size bound. The owner formulation states the result without fixing the size of the universe; it does not posit an infinite one",
+   "exit": "Q1 result: none of the Q1 consumers uses the finiteness of A4's quotient, and every one holds on ℤ^3 (Q1 record verification/audits/foundations/a1exit-q1-20261120/RESULT.md (on main; PR #1465 merged at head b96d0795, merge commit 76a3c4cb, 2026-11-20T19:47:10Z; independent review #1465 c.7048101970 round 1, c.7048633281 rounds 2–3, ACCEPT-WITH-NITS), §3, §7 \"A4 (Sub:98) and its restatements\"). A4's restatement in the owner's size-independent form is a Step-2 correction",
+   "correction": "Sub:98 \"a finite periodic lattice, the quotient of a rank-d lattice by a finite-index sublattice\" → the coupling graph is ℤ^d, the standard construction; a finite periodic quotient ℤ^d/P is admitted as a qualified case with the wrapping conditions of Q1 §2 (X-42). Mirrors: ch02:82 = FULL:712, SM:202, ch05:65 = FULL:1380, and the A4 restatements Q1 §6 lists (Sub:157, ch02:96, ch18:242 and FULL mirrors); ch19:198 = FULL:5268 \"On a finite lattice\" stated as a qualified case",
+   "owner": "Q1 corrections (Step 2)",
+   "status": "queued (Step 2; A4 restatement not applied)",
    "site_code": "unit",
    "note": ""
   },
@@ -605,14 +605,14 @@
     "OA4:12"
    ],
    "how": "Inherits A4's finite lattice",
-   "disposition": "O",
-   "weaker": "",
-   "s1": "",
-   "s1_reason": "",
-   "exit": "Q1, in progress: stated on ℤ^d where O-A4 verdict (i) and Q1 support it; otherwise a qualified finite-lattice case (owner A4 formulation, #1169 c.7048255658)",
-   "correction": "Per Q1 outcome",
-   "owner": "Q1",
-   "status": "in progress",
+   "disposition": "J",
+   "weaker": "O-A4 verdict (i): A4∞, LF, H-μ(φ,Θ), H-μ(sp), H-Bloch (uniform Bernoulli law on ℤ^d, O-A4 Lemma U); H-cont for the pole and continued-response statements (X-18)",
+   "s1": "No",
+   "s1_reason": "Each condition is satisfied on ℤ^d (O-A4 Lemma U; H-Bloch on the linear observer-level branch); none bounds the number of sites",
+   "exit": "O-A4 (on main) classifies these steps (a)/(b) on ℤ^d under the named conditions; Q1 §6 records them as already classified (S lines). Printed on ℤ^d by the A4 restatement (X-40)",
+   "correction": "Covered by X-40's A4 restatement; SM:210 reads verbatim on ℤ^d (O-A4 row 5)",
+   "owner": "Q1 corrections (Step 2)",
+   "status": "queued (Step 2)",
    "site_code": "unit",
    "note": ""
   },
@@ -625,21 +625,28 @@
     "OA4:18"
    ],
    "how": "Finite quotients that fail Stage-2 inputs (O-A4 §7)",
-   "disposition": "O",
+   "disposition": "F",
    "weaker": "",
    "s1": "",
    "s1_reason": "",
-   "exit": "Q1, in progress: each finite periodic lattice is a qualified case carrying its wrapping conditions (O_h-invariant Λ; even-sum periods for the checkerboard; Λ ⊂ 2ℤ³ for the eight corners) (owner A4 formulation, #1169 c.7048255658)",
-   "correction": "Per Q1 outcome (SM:539 already names the odd-torus failure; SM:1536 \"bipartite checkerboard structure\" unqualified)",
-   "owner": "Q1",
-   "status": "in progress",
+   "exit": "Q1 §2 (Q1 record verification/audits/foundations/a1exit-q1-20261120/RESULT.md (on main; PR #1465 merged at head b96d0795, merge commit 76a3c4cb, 2026-11-20T19:47:10Z; independent review #1465 c.7048101970 round 1, c.7048633281 rounds 2–3, ACCEPT-WITH-NITS)): on a finite quotient X_P the structures hold iff — staggered phases and Theorem 2's two-step identity: every period vector even off one axis; checkerboard: P ⊂ D_3 (even coordinate sums); all eight corners, blocking, Theorem 2 as printed (blocked lattice): P ⊂ 2ℤ^3; cubic action: P O-invariant. These are exact statements about each quotient, qualified cases under the owner A4 formulation; no convergence claim",
+   "correction": "Q1 §7 E1 (SM:222), E2 (SM:539), E3 (SM:1506, :1532, :1536), E4 (ch06:24 = FULL:1535), E6 (ch05:91 = FULL:1406); not applied",
+   "owner": "Q1 corrections (Step 2)",
+   "status": "queued (Step 2; Q1 E1–E4, E6 not applied)",
    "site_code": "unit",
    "note": "",
    "mirrors": [
     "ch05:160",
     "ch06:58",
     "FULL:1475",
-    "FULL:1569"
+    "FULL:1569",
+    "ch02:104",
+    "ch02:226",
+    "Sub:165",
+    "ch00:97",
+    "ch19:228",
+    "appB:380",
+    "appB:395"
    ]
   },
   {
@@ -650,14 +657,14 @@
     "OA4:18"
    ],
    "how": "Staggered phases, Brillouin corners, checkerboard",
-   "disposition": "O",
-   "weaker": "",
-   "s1": "",
-   "s1_reason": "",
-   "exit": "Q1, in progress: stated on ℤ^d where O-A4 verdict (i) and Q1 support it; otherwise a qualified finite-lattice case (owner A4 formulation, #1169 c.7048255658)",
-   "correction": "Per Q1 outcome",
-   "owner": "Q1",
-   "status": "in progress",
+   "disposition": "J",
+   "weaker": "None: each theorem holds on ℤ^3 (Q1 §3: Theorem 2 via `Staggered.factorization` on functions ℤ^3 → ℤ; Theorem 3 `ChiralCenterRecovery.scalar_center_chiral_iff` over an arbitrary type; Theorems 8, 8b, 10, 12, 13 as fibre and symbol statements, no limit of finite tori). On finite quotients each holds under the X-42 condition named for it",
+   "s1": "No",
+   "s1_reason": "Q1 §4: every class contains P = 0 (ℤ^3) and states only parity or symmetry conditions on P",
+   "exit": "Q1 §3 (Q1 record verification/audits/foundations/a1exit-q1-20261120/RESULT.md (on main; PR #1465 merged at head b96d0795, merge commit 76a3c4cb, 2026-11-20T19:47:10Z; independent review #1465 c.7048101970 round 1, c.7048633281 rounds 2–3, ACCEPT-WITH-NITS)): all nine consumers hold on ℤ^3; A4's finite clause is used by none",
+   "correction": "Q1 §7 E1 (SM:222) for the §§4.2–4.8 results, E5 (SM:446, optional), E6 (book); not applied",
+   "owner": "Q1 corrections (Step 2)",
+   "status": "queued (Step 2; Q1 E1, E5, E6 not applied)",
    "site_code": "unit",
    "note": "",
    "mirrors": [
@@ -668,7 +675,14 @@
     "FULL:1467",
     "FULL:1533",
     "FULL:1537",
-    "FULL:6055"
+    "FULL:6055",
+    "ch02:104",
+    "ch02:226",
+    "Sub:165",
+    "ch00:97",
+    "ch19:228",
+    "appB:380",
+    "appB:395"
    ]
   },
   {
@@ -824,7 +838,7 @@
    ],
    "how": "Finite decoupled factor; uniform ω_H",
    "disposition": "J",
-   "weaker": "(D1)–(D5), with (D5) μ_H = u_{B_n}⊗ν, ν any normalized law (GR:877–883); for Theorem 24(iii), a trace-class state σ_A and a unitary W on the adjoined factor, with the base channel on V × H already defined as a channel (O-A4 row 24)",
+   "weaker": "(D1)–(D5), with (D5) μ_H = u_{B_n}⊗ν, ν any normalized law (GR:877–883); for Theorem 24(iii), a trace-class state σ_A and a unitary W on the adjoined factor, with the base channel on V × H already defined as a channel (O-A4 row 24). On an infinite hidden carrier a defined base channel needs lemma L6 (R6, the Koopman dilation channel family on ℂ^V ⊗ L²(H,ρ)), in progress",
    "s1": "No",
    "s1_reason": "Finite cone and a uniform factor on a finite boundary window; the deep law is of any cardinality",
    "exit": "GR Appendix B printed for a site set of any cardinality under (D1)–(D5)",
@@ -1160,6 +1174,7 @@
    "site_code": "none",
    "note": "",
    "mirrors": [
+    "GR:70",
     "GR:78–88",
     "GR:316–318",
     "GR:422–440",
@@ -1435,110 +1450,135 @@
    "match": "(Main\\.md|ch01-observation\\.md|FULL\\.md):.*On a finite representative Step 1",
    "row": "X-20",
    "code": "none",
-   "reason": "none: the (NR) corollary inserted by Phase 1 (E5/B-units); states the weaker condition"
+   "reason": "none: the (NR) corollary inserted by Phase 1 (E5/B-units); states the weaker condition",
+   "read": [
+    "papers/Main.md:131",
+    "book/ch01-observation.md:121",
+    "book/The-Incompleteness-of-Observation-FULL.md:454"
+   ]
   },
   {
    "match": "finite under (the open hypothesis )?A1",
    "row": "X-02",
    "code": "ptr",
-   "reason": "Phase 2 amendment splice (A-C1..A-C6): \"finite under A1\" pointer"
+   "reason": "Phase 2 amendment splice (A-C1..A-C6): \"finite under A1\" pointer",
+   "read": [
+    "papers/SM.md:30",
+    "papers/SM.md:60",
+    "papers/Structure.md:730",
+    "papers/Structure.md:732",
+    "book/ch02-substratum.md:8",
+    "book/ch05-gauge-structure.md:15",
+    "book/The-Incompleteness-of-Observation-FULL.md:638",
+    "book/The-Incompleteness-of-Observation-FULL.md:1330"
+   ]
   },
   {
    "match": "under A1 they have all the formal features",
    "row": "X-02",
    "code": "ptr",
-   "reason": "Phase 2 amendment splice A-C4: pointer"
+   "reason": "Phase 2 amendment splice A-C4: pointer",
+   "read": [
+    "papers/SM.md:30",
+    "papers/SM.md:60",
+    "papers/Structure.md:730",
+    "papers/Structure.md:732",
+    "book/ch02-substratum.md:8",
+    "book/ch05-gauge-structure.md:15",
+    "book/The-Incompleteness-of-Observation-FULL.md:638",
+    "book/The-Incompleteness-of-Observation-FULL.md:1330"
+   ]
   }
  ],
  "site_overrides": {
   "papers/Substratum.md:98": {
    "row": "X-40",
    "code": "unit",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "reason": "A4 finite periodic lattice clause and its mirrors (O-A4 row 1; P2 §3.3)"
   },
   "book/ch02-substratum.md:82": {
    "row": "X-40",
    "code": "unit",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "reason": "A4 finite periodic lattice clause and its mirrors (O-A4 row 1; P2 §3.3)"
   },
   "book/The-Incompleteness-of-Observation-FULL.md:712": {
    "row": "X-40",
    "code": "unit",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "reason": "A4 finite periodic lattice clause and its mirrors (O-A4 row 1; P2 §3.3)"
   },
   "papers/SM.md:202": {
    "row": "X-40",
    "code": "unit",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "reason": "A4 finite periodic lattice clause and its mirrors (O-A4 row 1; P2 §3.3)"
   },
   "book/ch05-gauge-structure.md:65": {
    "row": "X-40",
    "code": "unit",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "reason": "A4 finite periodic lattice clause and its mirrors (O-A4 row 1; P2 §3.3)"
   },
   "book/The-Incompleteness-of-Observation-FULL.md:1380": {
    "row": "X-40",
    "code": "unit",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "reason": "A4 finite periodic lattice clause and its mirrors (O-A4 row 1; P2 §3.3)"
   },
   "papers/SM.md:539": {
    "row": "X-42",
    "code": "unit",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "reason": "period-lattice condition sites named by the A1-PHASE2 review (owner Q1)"
   },
   "papers/SM.md:1536": {
    "row": "X-42",
    "code": "unit",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "reason": "period-lattice condition sites named by the A1-PHASE2 review (owner Q1)"
   },
   "papers/SM.md:286": {
    "row": "X-43",
    "code": "unit",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "reason": "fermion theorem statements (O-A4 row 18; owner Q1)"
   },
   "papers/SM.md:302": {
    "row": "X-43",
    "code": "unit",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "reason": "fermion theorem statements (O-A4 row 18; owner Q1)"
   },
   "papers/SM.md:434": {
    "row": "X-43",
    "code": "unit",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "reason": "fermion theorem statements (O-A4 row 18; owner Q1)"
   },
   "papers/SM.md:440": {
    "row": "X-43",
    "code": "unit",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "reason": "fermion theorem statements (O-A4 row 18; owner Q1)"
   },
   "papers/SM.md:456": {
    "row": "X-43",
    "code": "unit",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "reason": "fermion theorem statements (O-A4 row 18; owner Q1)"
   },
   "papers/SM.md:535": {
    "row": "X-43",
    "code": "unit",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "reason": "fermion theorem statements (O-A4 row 18; owner Q1)"
   },
   "papers/SM.md:543": {
    "row": "X-43",
    "code": "unit",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "reason": "fermion theorem statements (O-A4 row 18; owner Q1)"
   },
   "papers/Main.md:748": {
@@ -1730,13 +1770,13 @@
   "book/ch19-open-problems.md:198": {
    "row": "X-40",
    "code": "unit",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "reason": "B1: \"On a finite lattice\" (speculative horizon/flatness remark); owner A4 formulation"
   },
   "book/The-Incompleteness-of-Observation-FULL.md:5268": {
    "row": "X-40",
    "code": "unit",
-   "owner": "Q1",
+   "owner": "Q1 corrections (Step 2)",
    "reason": "FULL mirror of book/ch19-open-problems.md:198: B1: \"On a finite lattice\" (speculative horizon/flatness remark); owner A4 formulation"
   },
   "papers/Main.md:358": {
@@ -2254,6 +2294,12 @@
    "code": "unit",
    "owner": "Q3 propagation",
    "reason": "extended scan (read by hand): Medicine (Phase-3 file): \"at the recurrence scale from a non-permutation rooted map and finiteness\""
+  },
+  "papers/Main.md:586": {
+   "row": "X-01",
+   "code": "ptr",
+   "owner": "final deletion",
+   "reason": "round-2 nit 1: \"no property of the substratum beyond finiteness and reversibility\"; at deletion a property of the constructed finite realization"
   }
  },
  "lean": [
