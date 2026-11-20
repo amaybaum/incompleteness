@@ -50,10 +50,11 @@ put("papers/SM.md", [535, 537], "P", "", "C12 Theorem 12 and proof")
 put("papers/SM.md", [539], "P", "E2", "C539 spin-taste sentence needs P in 2Z^3")
 put("papers/SM.md", [543, 545], "P", "", "C13 Theorem 13 and proof")
 put("papers/SM.md", [1506], "R", "E3", "same list as SM:1536")
+put("papers/SM.md", [1532], "R", "E3", "asserts 'the substratum's bipartite-lattice plus commutant structure'")
 put("papers/SM.md", [1536], "P", "E3", "C1536 bipartite checkerboard among exact symmetries")
 put("papers/SM.md", [290, 306, 308, 452, 483, 485, 513, 527, 529, 531, 553, 555, 557, 565, 569, 611, 629,
                      659, 765, 853, 867, 907, 911, 915, 954, 967, 1006, 1086, 1108, 1170, 1184, 1193, 1225,
-                     1233, 1241, 1253, 1320, 1446, 1452, 1512, 1532, 1568],
+                     1233, 1241, 1253, 1320, 1446, 1452, 1512, 1568],
     "I", "", "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1")
 put("papers/SM.md", [1554], "I", "E1", "presents a result of the 4.8 construction ('The staggered construction "
     "(4.8) gives ...'), so E1's scope covers it; E3 applies only where the structure is asserted of 'the "

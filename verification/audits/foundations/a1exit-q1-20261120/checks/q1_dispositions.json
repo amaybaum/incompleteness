@@ -896,9 +896,9 @@
   "families": [
    "G1-bipartite"
   ],
-  "code": "I",
-  "edit": "",
-  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+  "code": "R",
+  "edit": "E3",
+  "note": "asserts 'the substratum's bipartite-lattice plus commutant structure'"
  },
  {
   "file": "papers/SM.md",

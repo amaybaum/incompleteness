@@ -218,9 +218,9 @@ consumers' context is A4's finite clause, which none of them uses.
 
 `checks/q1_dispositions.py` assigns each of the 216 census lines one disposition (PREREG §2) and
 exits 0 only if the assignment is complete and every FULL line is an exact mirror of a disposed
-chapter line. Result: P 14, R 10, I 97, S 70, A4 11, N 14 (`checks/q1_dispositions.json`).
+chapter line. Result: P 14, R 11, I 96, S 70, A4 11, N 14 (`checks/q1_dispositions.json`).
 
-- **R lines with a proposed correction:** SM:222 (E1), SM:1506 (E3), ch06:22, ch06:24, ch06:30 and
+- **R lines with a proposed correction:** SM:222 (E1), SM:1506 and SM:1532 (E3), ch06:22, ch06:24, ch06:30 and
   their FULL mirrors 1533, 1535, 1541 (E4).
 - **R line without correction:** appendix-b:378 ("on a d = 3 simple cubic lattice" names the Bravais
   lattice `ℤ^3`; true as stated).
@@ -291,11 +291,14 @@ staggered-to-Dirac reconstruction identifies the two sublattices". Old: "For the
 checkerboard cut, the visible" New: "For the designated checkerboard cut on these lattices, the
 visible".
 
-**E3 — SM:1506 and SM:1536.** Old (each line): "bipartite checkerboard structure)". New: "bipartite
-checkerboard structure on $\Lambda$ and on quotients whose period vectors have even coordinate sum)".
-These two lines need their own edit because they assert the structure of "the substratum" itself,
-which under A1 and A4 is the quotient; they do not present it as a result of the §4 construction.
-SM:1554 presents the construction's result and is covered by E1. Structure:1058, which
+**E3 — SM:1506, SM:1532 and SM:1536.** Old (SM:1506 and SM:1536): "bipartite checkerboard
+structure)". New: "bipartite checkerboard structure on $\Lambda$ and on quotients whose period vectors
+have even coordinate sum)". Old (SM:1532): "the substratum's bipartite-lattice plus commutant
+structure". New: "the substratum's bipartite-lattice plus commutant structure (on $\Lambda$ and on
+quotients whose period vectors have even coordinate sum)". These three lines need their own edit
+because they assert the structure of "the substratum" itself, which under A1 and A4 may be a
+quotient; they do not present it as a result of the §4 construction. SM:1554 presents the
+construction's result and is covered by E1. Structure:1058, which
 summarizes the same mapping without asserting the structure's existence, is left unchanged.
 
 **E4 — book ch06:24 and FULL:1535** (covers ch06:22, :30 and FULL 1533, 1541). Old: "One singlet
@@ -321,12 +324,36 @@ parenthetical, and its Chapter 5 is set on A4's finite class (ch05:65).
 
 **A4 (Sub:98) and its restatements.** No Q1 edit is proposed; A4 is not narrowed here. Q1's finding
 for the A1-EXIT ledger: none of the Q1 consumers uses the finiteness of A4's quotient, and every one
-holds on `ℤ^3`. Two forms are compatible with these results. (α) A4's lattice is `ℤ^d`, with finite
-quotients admitted only as representatives under the conditions of E1. (β) A4 keeps the finite class,
-and E1–E4 and E6 carry the conditions. Under both, E1, E2, E4 and E6 are needed wherever a finite
-quotient is admitted, and E3 in either case. Under the minimal-substratum principle (§A.29), the
-conditions on `P` are needed by stated results only if finite quotients are retained. Choosing
-between (α) and (β) is A1-EXIT's and the owner's.
+holds on `ℤ^3`.
+
+**Owner decision on A4's formulation.** It was recorded after this record's first revision, by owner
+`amaybaum`,
+[#1169 comment 7048255658](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7048255658),
+2026-11-20T19:08:01Z, "A4: a size-independent formulation (owner's choice)":
+
+- "Use the infinite lattice ℤ^d as the standard mathematical construction wherever the proofs support
+  it."
+- "Finite periodic lattices are allowed as explicitly qualified cases, each with the wrapping
+  conditions it requires (Q1's period-lattice conditions)."
+- "Finite lattices are not called approximations of the infinite lattice unless the relevant
+  approximation or convergence result is established."
+- "An infinite discrete lattice and an infinite continuous space are kept explicitly distinct."
+- "This takes the place of the (α)/(β) choice in the Q1 record."
+
+It replaces the two forms this section offered earlier.
+
+The proposed texts E1–E6 are consistent with the decision:
+- **ℤ^d as the standard construction.** E1 and E2 state the results on `Λ = ℤ^d` and `ℤ^3`.
+- **Finite quotients as qualified cases.** E1, E2, E4 and E6 state a finite quotient's wrapping
+  conditions on `P`, and E3 states them for the checkerboard.
+- **No "approximation" or "representative".** None of E1–E6 uses either word for a finite quotient.
+  This record establishes no convergence result, and its quotient statements are exact statements
+  about each quotient, not limits.
+- **Discrete is not continuous.** Every `ℤ^d` statement here concerns the discrete lattice. The
+  "continuous Brillouin torus" of §3 is the dual group of `ℤ^3`, not continuous space.
+
+Under the decision, E1, E2, E4 and E6 are needed wherever a finite quotient is used, and E3 in any
+case.
 
 After any Step 2 edit: rebuild SM and the book (`sh ./build.sh SM --book`), and re-run
 `q1_census.py` and `q1_census_supp.py` to confirm that the text of E1–E4 and E6 is present and the
@@ -457,6 +484,18 @@ The round-1 review of `e52250a5` is
 | 9 (Theorem 10 on `4×4×6`) | §3 table and countermodel paragraph: the step fails; the corner modes stay degenerate (`σ = 1`) |
 | 10 (Theorem 13 Schur complement) | C13 states that the site-diagonal case is the free/onsite case, and that a taste-asymmetric hidden term needs bounded invertibility on `ℓ²` as a stated condition, not a finite-volume-only step |
 | 11 (K1, K5) | §1 notes that both are weak as evidence |
+
+**Delta review of `aecb03e4`: ACCEPT-WITH-NITS** (relayed by the coordinating session). Its three nits,
+and the owner decision recorded on #1169 after the first revision, are answered in one appended commit:
+
+| Item | Change |
+|---|---|
+| N1 (SM:1532 asserts "the substratum's bipartite-lattice plus commutant structure") | Added to E3: disposition R, with a proposed edit |
+| N2 (part B's block-locality test was joined with the closed form) | The brute-force test stands alone and is compared with the closed form on all test quotients |
+| N3 (part B label overstated) | Relabelled to what is tested, the diagonal candidate `χ_(1,1,1)`, with a pointer to §2 for the general statement |
+| Owner decision on A4's formulation (#1169 comment 7048255658) | Recorded in §7 in place of the (α)/(β) options; E1–E6 checked against it, no wording change needed |
+
+`q1_checks.py` exits 0 with 36 checks; census, supplementary census and dispositions reproduce.
 
 The scripts were re-run. `q1_checks.py` exits 0 with 35 checks. `q1_census.py` reproduces
 `q1_census.json`. `q1_census_supp.py` and `q1_dispositions.py` produce the committed JSON files.

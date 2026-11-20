@@ -431,15 +431,21 @@ def part_B():
     # the N-indexed Gens needs an involution anticommuting with all three shifts: on 4x4x3 the period
     # vector (0,0,3) has odd sum, and the diagonal candidate chi_(1,1,1) is not defined there
     Q = rect(4, 4, 3)
-    check("B 4x4x3: no diagonal +-1 function anticommutes with all three shifts (chi_(1,1,1) undefined), so "
-          "Staggered.Gens with unit shifts has no instance there", not corner_defined(Q, (1, 1, 1)))
+    check("B 4x4x3: the diagonal candidate chi_(1,1,1) for an involution anticommuting with t_0, t_1, t_2 is "
+          "undefined (the general no-instance statement is the paper argument of RESULT section 2)",
+          not corner_defined(Q, (1, 1, 1)))
     # blocked-lattice reading: the two-step shifts preserve the blocking label n mod 2 iff P in 2Z^3
+    # brute force, independent of the closed form: does every two-step shift keep the parity label of
+    # every representative?
     def block_local(Q):
         return all(tuple(x % 2 for x in reduce_(add(r, tuple(2 * x for x in e)), Q.B)) ==
-                   tuple(x % 2 for x in r) for r in Q.reps for e in E3) and cf_in_2Z3(Q.B)
+                   tuple(x % 2 for x in r) for r in Q.reps for e in E3)
     check("B blocked-lattice reading: on 4x4x3 the two-step stencil is not block-local (no blocked lattice "
           "2Z^3/P); on 4x4x4 and 6x6x6 it is", (not block_local(rect(4, 4, 3))) and block_local(rect(4, 4, 4))
           and block_local(rect(6, 6, 6)))
+    mism = [Q.name for Q in test_lattices() if block_local(Q) != cf_in_2Z3(Q.B)]
+    check("B two-step stencil block-local (brute force) iff P in 2Z^3 (closed form), on all test quotients",
+          not mism, f"{mism}")
 
 
 # ------------------------------------------------------------------ C

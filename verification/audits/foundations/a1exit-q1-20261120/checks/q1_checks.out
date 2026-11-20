@@ -20,8 +20,9 @@ PASS  B Z^3: (sum_i A_i)^2 delta_m = sum_i S_i^2 delta_m for all 8 classes m mod
 PASS  B countercontrol Z^3: without staggered phases (sum_i S_i)^2 != sum_i S_i^2
 PASS  B 4x4x3 torus (not bipartite): D_st^2 = two-step stencil on every basis vector
 PASS  B 3x3x4 torus: staggered phases defined for no axis ordering
-PASS  B 4x4x3: no diagonal +-1 function anticommutes with all three shifts (chi_(1,1,1) undefined), so Staggered.Gens with unit shifts has no instance there
+PASS  B 4x4x3: the diagonal candidate chi_(1,1,1) for an involution anticommuting with t_0, t_1, t_2 is undefined (the general no-instance statement is the paper argument of RESULT section 2)
 PASS  B blocked-lattice reading: on 4x4x3 the two-step stencil is not block-local (no blocked lattice 2Z^3/P); on 4x4x4 and 6x6x6 it is
+PASS  B two-step stencil block-local (brute force) iff P in 2Z^3 (closed form), on all test quotients: []
 == C. automorphisms of the carrier and the corner lines ==
 PASS  C cubic torus L=6: |Stab| = 48; corner span preserved; triplet lines one orbit; singlet lines fixed: orbits [[(0, 0, 0)], [(0, 0, 1), (0, 1, 0), (1, 0, 0)], [(0, 1, 1), (1, 0, 1), (1, 1, 0)], [(1, 1, 1)]]
 PASS  C cubic torus L=4 (Q_6): |Stab| = 720; the span of the eight corner characters is NOT invariant under the carrier's automorphisms
