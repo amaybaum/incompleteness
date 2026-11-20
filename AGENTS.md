@@ -33,6 +33,15 @@ confers no protection, and "the framework needs this to be true" is never an arg
   revision preserves (these become its controls); deliver at least one independent prediction
   or postdiction beyond the problem it was built to fix; reject any variant that can be
   adjusted to fit any outcome.
+- **The substratum follows the most basic rules consistent with observation, and no more.**
+  Every posit of the substratum model — the posit ledger of `papers/Main.md`, including total
+  finiteness (A1), linearity (A5), the lattice and its coupling range, the form of the update and
+  the measure selection — is a hypothesis that may be false, not a fixed part of the framework.
+  A posit is kept only where observation forces it or a stated result needs it; it records why it
+  was chosen, and a weaker alternative is sought wherever one may exist. What counts as "most
+  basic" is fixed by a criterion stated in advance, never chosen once the outcome is known. A
+  posit added because the framework needs it, rather than because observation requires it, is
+  judged by the Layer-0 test above. (Adopted 2026-11-20 by owner decision, `amaybaum`.)
 
 **OI's research target (a hypothesis, not a premise or a result).** OI tests whether quantum
 mechanics is the effective description an embedded observer obtains through finite measurements

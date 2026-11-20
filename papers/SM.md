@@ -1363,7 +1363,7 @@ The coincidence bound of §7.7 quantifies how concentrated the framework's *retr
 
 ## 8. Discussion
 
-The cosmological application — including the horizon calibration $\hbar = c^3\epsilon^2/(4G\sigma)$, the Bekenstein-Hawking area law, the conditional dissolution of the cosmological constant problem ([GR §6.2]), and the dynamical dark energy prediction — is developed in [GR]. The substratum-level reconstruction theorem and the proposed common $(S,\varphi)$ for the quantum and gravitational projections, with a third projection bearing on the arrow of time, are developed in [Substratum].
+The cosmological application — including the horizon calibration $\hbar = c^3\epsilon^2/(4G\sigma)$, the Bekenstein-Hawking area law, the conditional dissolution of the cosmological constant problem ([GR §6.2]), and the Type II running-vacuum structural reading of dark energy — is developed in [GR]. The substratum-level reconstruction theorem and the proposed common $(S,\varphi)$ for the quantum and gravitational projections, with a third projection bearing on the arrow of time, are developed in [Substratum].
 
 ### 8.1 Structural realism
 

@@ -186,6 +186,7 @@ import OIBridge.RouteB
 import OIBridge.ManuscriptAxioms
 import OIBridge.LiftAudit
 import OIBridge.SubstratumInterfaceAudit
+import OIBridge.WaveSubstratumUnbounded
 import OIBridge.BackgroundIndependence
 import OIBridge.A6Instantiation
 import OIBridge.ScalarClosure
