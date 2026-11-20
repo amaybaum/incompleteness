@@ -128,12 +128,20 @@
    "info": "",
    "ok": true
   },
-  "K2 windowed confinement and class isolation in Q (300 random two-box configurations, ternary, full-alphabet and mixed contents; c in {1, 2, 2^15, q-3, q-2}): while the inner boundary layer of D stays in [c-1, c+1], the support stays in D and D1 evolves as alone (Theorem MQ2)": {
+  "K2 windowed confinement and class isolation in Q (300 random two-box configurations, ternary, full-alphabet and mixed contents; c in {1, 2, 2^15, q-3, q-2}): while the inner boundary layer of D stays in [c-1, c+1], the support stays in D and D1 evolves as alone (Theorem MQ2; the instance-ticks tested carry in-range values throughout D, out-of-range interior and previous-slice values are exercised by K2b)": {
    "data": {
     "instance_ticks": 802,
     "nontrivial": 623
    },
    "info": "802 instance-ticks, 623 with t >= 3",
+   "ok": true
+  },
+  "K2b (post-review) Theorem MQ2 with the inner boundary layer in [c-1, c+1] and the interior current slice and the whole previous slice of D unrestricted (700 random two-box configurations; c in {0, 1, 2, 2^15, q-3, q-2, q-1}): at every instance-tick the support stays in D and D1 evolves as alone": {
+   "data": {
+    "exercised": 700,
+    "instance_ticks": 700
+   },
+   "info": "700 instance-ticks, 700 with out-of-range values",
    "ok": true
   },
   "K3 U1 Lemma 2.1 at c in {1, 2^15, q-2}: c + (RZ orbit) is the Q orbit while c + y stays in [0, q); countercontrol c = 0 (the residue of -1 is q-1) differs": {

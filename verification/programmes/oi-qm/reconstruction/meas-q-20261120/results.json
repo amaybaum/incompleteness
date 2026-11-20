@@ -128,12 +128,20 @@
    "info": "",
    "ok": true
   },
-  "K2 windowed confinement and class isolation in Q (300 random two-box configurations, ternary, full-alphabet and mixed contents; c in {1, 2, 2^15, q-3, q-2}): while the inner boundary layer of D stays in [c-1, c+1], the support stays in D and D1 evolves as alone (Theorem MQ2)": {
+  "K2 windowed confinement and class isolation in Q (300 random two-box configurations, ternary, full-alphabet and mixed contents; c in {1, 2, 2^15, q-3, q-2}): while the inner boundary layer of D stays in [c-1, c+1], the support stays in D and D1 evolves as alone (Theorem MQ2; the instance-ticks tested carry in-range values throughout D, out-of-range interior and previous-slice values are exercised by K2b)": {
    "data": {
     "instance_ticks": 802,
     "nontrivial": 623
    },
    "info": "802 instance-ticks, 623 with t >= 3",
+   "ok": true
+  },
+  "K2b (post-review) Theorem MQ2 with the inner boundary layer in [c-1, c+1] and the interior current slice and the whole previous slice of D unrestricted (700 random two-box configurations; c in {0, 1, 2, 2^15, q-3, q-2, q-1}): at every instance-tick the support stays in D and D1 evolves as alone": {
+   "data": {
+    "exercised": 700,
+    "instance_ticks": 700
+   },
+   "info": "700 instance-ticks, 700 with out-of-range values",
    "ok": true
   },
   "K3 U1 Lemma 2.1 at c in {1, 2^15, q-2}: c + (RZ orbit) is the Q orbit while c + y stays in [0, q); countercontrol c = 0 (the residue of -1 is q-1) differs": {
@@ -285,6 +293,54 @@
  "gem_i_candidates": [],
  "mode": "search",
  "searches": {
+  "A02-cost": {
+   "best_rho_kappa_ternary": "2/644801",
+   "box_sites": 3,
+   "cone": 644798,
+   "hit": {
+    "dims": [
+     3
+    ],
+    "env": [
+     0,
+     1,
+     1,
+     0,
+     1
+    ],
+    "eslots": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "j": 0,
+    "mode": "c",
+    "tb": 5
+   },
+   "horizon": 77,
+   "pattern_sites": 2,
+   "selection_cost_bits_best_rho_kappa_ternary": 45.5,
+   "selection_cost_bits_rho_1/10000_kappa_ternary": 125.6,
+   "selection_cost_bits_rho_1/1000_kappa_ternary": 956.6,
+   "tau2": 17
+  },
   "S-A": {
    "(2, 2)": {
     "breach_configs": 12912,
@@ -1268,10 +1324,19 @@
   }
  },
  "verdict": {
+  "SBlong_DT_A_h": 229,
+  "SBlong_DT_s": 297,
+  "SBlong_sample": 398,
+  "X1_examples": 10,
   "controls_green": true,
-  "gem_i": false,
+  "formal_icond_SBlong_DT_A": 297,
+  "formal_icond_X1": 7,
+  "gem_i_preregistered_searches": false,
   "gem_ii_checks": true,
+  "ledger_audited": 5,
+  "ledger_audits_ok": true,
   "n_gem_i_candidates": 0,
-  "text": "gem (i) not met: no DT_A delivery on Q within the searched sets; gem (ii) checks hold (K1, K2 green; contact across classes after a breach observed in S-B); the obstruction itself rests on the written proof of Lemma MQ1 / Theorem MQ2 in RESULT."
+  "text": "gem (i) not met in the preregistered searches, which did not evaluate DT_A outside the carrier's class (S-B horizon 28); the criterion of PREREG \u00a76 item 1 is met formally, in (i-cond) form, by 297 of 398 S-B-long configurations (A02; DT_s 297, DT_A^h 229) and by 7 of 10 X1 examples; full ledger audit on 5 (ok), cost on 1 (45.5 bits); gem (ii) checks hold (K1, K2, K2b green; use outside the carrier's class after a breach in at least 3003 S-B configurations); the obstruction itself rests on the written proof of Lemma MQ1 / Theorem MQ2 in RESULT.",
+  "use_outside_class_SB": 3003
  }
 }

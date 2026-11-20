@@ -396,8 +396,11 @@ def node1_checks():
     check("K2 windowed confinement and class isolation in Q (300 random two-box configurations, "
           "ternary, full-alphabet and mixed contents; c in {1, 2, 2^15, q-3, q-2}): while the inner "
           "boundary layer of D stays in [c-1, c+1], the support stays in D and D1 evolves as alone "
-          "(Theorem MQ2)", ok and nontriv > 50, f"{inst} instance-ticks, {nontriv} with t >= 3",
+          "(Theorem MQ2; the instance-ticks tested carry in-range values throughout D, out-of-range "
+          "interior and previous-slice values are exercised by K2b)", ok and nontriv > 50,
+          f"{inst} instance-ticks, {nontriv} with t >= 3",
           data=dict(instance_ticks=inst, nontrivial=int(nontriv)))
+    k2b()
 
     # CC5: sharpness. (a) value c+2 at a closed singleton; (b) vacuum c = 0 with the residue of -1.
     res = {}
@@ -457,6 +460,56 @@ def node1_checks():
                         ok = False
     check("D1 in Q every single-site perturbation with both slices in [c-1, c+1] stays on its site "
           "for 64 ticks (c in {1, 2^15, q-2}); the step behind NP1 Lemma N2.3 on Q", ok)
+
+
+def k2b():
+    """K2b (post-review, B3): Theorem MQ2 with the inner boundary layer in [c-1, c+1] and every other
+    value of D unrestricted (interior current slice and the whole previous slice over the full
+    alphabet), including the wrap backgrounds c in {0, q-1}. Counts the instance-ticks at which an
+    out-of-range interior or previous-slice value is present."""
+    rng = np.random.default_rng(20261121)
+    n = 20
+    inst, exer, ok = 0, 0, True
+    for c in (0, 1, 2, C, q - 3, q - 2, q - 1):
+        lo, hi = max(c - 1, 0), min(c + 1, q - 1)
+        for trial in range(100):
+            prev = np.full((n, n, n), c, np.int64)
+            cur = prev.copy()
+            D1 = tuple(slice(3, 3 + int(rng.integers(3, 6))) for _ in range(3))
+            D2 = (slice(12, 12 + int(rng.integers(1, 6))),) + \
+                tuple(slice(3, 3 + int(rng.integers(1, 6))) for _ in range(2))
+            Dmask = np.zeros((n, n, n), bool)
+            Dmask[D1] = True
+            Dmask[D2] = True
+            D1mask = np.zeros((n, n, n), bool)
+            D1mask[D1] = True
+            bd = Dmask & (nb((~Dmask).astype(np.int64)) > 0)
+            inner = Dmask & ~bd
+            prev[Dmask] = rng.integers(0, q, int(Dmask.sum()))
+            cur[inner] = rng.integers(0, q, int(inner.sum()))
+            cur[bd] = rng.integers(lo, hi + 1, int(bd.sum()))
+            sp, sc = prev.copy(), cur.copy()
+            sp[D2], sc[D2] = c, c
+            p_, c_ = prev, cur
+            for t in range(1, 40):
+                if not ((c_[bd] >= lo) & (c_[bd] <= hi)).all():
+                    break
+                outr = ((c_[inner] < lo) | (c_[inner] > hi)).any() or \
+                    ((p_[Dmask] < lo) | (p_[Dmask] > hi)).any()
+                p_, c_ = q_step(p_, c_)
+                sp, sc = q_step(sp, sc)
+                inst += 1
+                exer += bool(outr)
+                if (c_[~Dmask] != c).any() or (p_[~Dmask] != c).any():
+                    ok = False
+                if not (np.array_equal(c_[D1mask], sc[D1mask]) and np.array_equal(p_[D1mask], sp[D1mask])):
+                    ok = False
+    check("K2b (post-review) Theorem MQ2 with the inner boundary layer in [c-1, c+1] and the interior "
+          "current slice and the whole previous slice of D unrestricted (700 random two-box "
+          "configurations; c in {0, 1, 2, 2^15, q-3, q-2, q-1}): at every instance-tick the support "
+          "stays in D and D1 evolves as alone",
+          ok and exer >= 500 and exer * 2 >= inst, f"{inst} instance-ticks, {exer} with out-of-range values",
+          data=dict(instance_ticks=inst, exercised=exer))
 
 
 # =============================================================== S-A, PC1, PC2
@@ -1131,24 +1184,56 @@ def ball_count(sites, T):
 
 
 # =============================================================== verdict
-def verdict(green, gem_i_hits, boundary_matters, node1_ok):
+def a02_inputs():
+    """Structured outputs of the A02 run and the post hoc diagnostics, if present. They are produced
+    after --search; on a re-run they are read from the record directory (post-review, B1)."""
+    base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    out = {}
+    for key, fn in (("sbl", "results-sb-long.json"), ("x1", "posthoc-sb.json"), ("x2", "posthoc-x2.json")):
+        try:
+            with open(os.path.join(base, fn)) as f:
+                out[key] = json.load(f)
+        except OSError:
+            out[key] = None
+    return out
+
+
+def verdict(green, gem_i_hits, use_outside, node1_ok, a02):
     v = dict(controls_green=green)
     if not green:
         v["text"] = "VOID: a control failed; no verdict is rendered."
         return v
     gi = len(gem_i_hits) > 0
-    gii = bool(boundary_matters and node1_ok)
-    v.update(gem_i=gi, gem_ii_checks=gii, n_gem_i_candidates=len(gem_i_hits))
+    gii = bool(use_outside and node1_ok)
+    v.update(gem_i_preregistered_searches=gi, gem_ii_checks=gii, n_gem_i_candidates=len(gem_i_hits),
+             use_outside_class_SB=use_outside)
     parts = []
     if gi:
-        parts.append(f"gem (i): {len(gem_i_hits)} DT_A deliveries on Q re-run in Q and ledger-audited "
-                     "(designed supply: (i-cond))")
+        parts.append(f"gem (i) met in the preregistered searches: {len(gem_i_hits)} DT_A deliveries on Q "
+                     "re-run in Q and ledger-audited ((i-cond))")
     else:
-        parts.append("gem (i) not met: no DT_A delivery on Q within the searched sets")
+        parts.append("gem (i) not met in the preregistered searches, which did not evaluate DT_A "
+                     "outside the carrier's class (S-B horizon 28)")
+    sbl, x1, x2 = a02["sbl"], a02["x1"], a02["x2"]
+    if sbl and x1 and x2:
+        sm = sbl["summary"]
+        nx1 = sum(1 for r in x1 if r["dta_t2_le_27"])
+        naud = sum(1 for r in x2["rows"] if r["audit"])
+        audok = x2["summary"]["audits_ok"]
+        cost = RESULTS["searches"].get("A02-cost", {}).get("selection_cost_bits_best_rho_kappa_ternary")
+        v.update(formal_icond_SBlong_DT_A=sm["dta"], SBlong_sample=sm["sample"],
+                 SBlong_DT_s=sm["dts"], SBlong_DT_A_h=sm["dtah"], formal_icond_X1=nx1,
+                 X1_examples=len(x1), ledger_audited=naud, ledger_audits_ok=audok)
+        parts.append(f"the criterion of PREREG §6 item 1 is met formally, in (i-cond) form, by "
+                     f"{sm['dta']} of {sm['sample']} S-B-long configurations (A02; DT_s {sm['dts']}, "
+                     f"DT_A^h {sm['dtah']}) and by {nx1} of {len(x1)} X1 examples; full ledger audit on "
+                     f"{naud} ({'ok' if audok else 'failed'}), cost on 1 ({cost} bits)")
+    else:
+        parts.append("A02 and post hoc outputs not present: the formal (i-cond) count is not evaluated")
     if gii:
-        parts.append("gem (ii) checks hold (K1, K2 green; contact across classes after a breach "
-                     "observed in S-B); the obstruction itself rests on the written proof of "
-                     "Lemma MQ1 / Theorem MQ2 in RESULT")
+        parts.append(f"gem (ii) checks hold (K1, K2, K2b green; use outside the carrier's class after a "
+                     f"breach in at least {use_outside} S-B configurations); the obstruction itself rests "
+                     "on the written proof of Lemma MQ1 / Theorem MQ2 in RESULT")
     else:
         parts.append("gem (ii) checks do not hold")
     v["text"] = "; ".join(parts) + "."
@@ -1173,6 +1258,27 @@ def cost_of(box_sites, w, T):
     out["best_rho_kappa_ternary"] = str(rbest)
     out["selection_cost_bits_best_rho_kappa_ternary"] = round(
         -(w * (math.log2(rbest) - 3) + M * math.log2(1 - rbest)), 2)
+    return out
+
+
+def cost_of_fast(box_sites, w, T):
+    """Post-review: cost_of with the cone counted on a grid (for large T), kappa on the ternary pairs."""
+    pts = np.array(box_sites)
+    g = np.indices((2 * T + 8,) * 3).reshape(3, -1).T - (T + 2)
+    best = None
+    for p in pts:
+        d = np.abs(g - p).sum(axis=1)
+        best = d if best is None else np.minimum(best, d)
+    cone = int(((best >= 1) & (best <= T)).sum())
+    M = len(box_sites) - w + cone
+    out = dict(box_sites=len(box_sites), pattern_sites=w, cone=cone, horizon=T)
+    for rho in (Fraction(1, 1000), Fraction(1, 10000)):
+        lt = w * (math.log2(rho) - 3) + M * math.log2(1 - rho)
+        out[f"selection_cost_bits_rho_1/{rho.denominator}_kappa_ternary"] = round(-lt, 1)
+    rb = Fraction(w, w + M)
+    out["best_rho_kappa_ternary"] = str(rb)
+    out["selection_cost_bits_best_rho_kappa_ternary"] = round(
+        -(w * (math.log2(rb) - 3) + M * math.log2(1 - rb)), 1)
     return out
 
 
@@ -1252,10 +1358,10 @@ def main():
     k4(choice)
     gem_i = [dict(source="S-A", box=k, **x) for k, v in rep.items() for x in v
              if x["hit"]["dta"] and x["q"]["dta"] and x["audit"] == ["ok", "ok"]]
-    boundary = None
+    use_outside = 0
     if search:
         SB = s_b(SA)
-        boundary = SB["contact"] > 0
+        use_outside = SB["return_after_use"]
         hits = s_d(choice)
         l5 = []
         for h in hits:
@@ -1265,16 +1371,28 @@ def main():
                 gem_i.append(dict(source="S-D", **h, l5=info))
         RESULTS["searches"]["S-D"]["l5"] = l5[:20]
         s_e()
-    green = all(RESULTS["checks"][k]["ok"] for k in RESULTS["checks"] if k.split()[0] in CONTROLS)
-    missing = [k for k in CONTROLS if not any(c.split()[0] == k for c in RESULTS["checks"])]
+    ctl = CONTROLS + (["K5"] if search else [])         # K5 runs with --search (S-D)
+    green = all(RESULTS["checks"][k]["ok"] for k in RESULTS["checks"] if k.split()[0] in ctl)
+    missing = [k for k in ctl if not any(c.split()[0] == k for c in RESULTS["checks"])]
     if missing:
         green = False
         print("missing controls:", missing)
-    node1_ok = all(RESULTS["checks"][k]["ok"] for k in RESULTS["checks"] if k.split()[0] in ("K1", "K2"))
+    node1_ok = all(RESULTS["checks"][k]["ok"] for k in RESULTS["checks"]
+                   if k.split()[0] in ("K1", "K2", "K2b"))
     RESULTS["controls_green"] = green
     RESULTS["mode"] = "search" if search else "default"
     if search:
-        RESULTS["verdict"] = verdict(green, gem_i, boundary, node1_ok)
+        a02 = a02_inputs()
+        if a02["sbl"] and a02["x2"]:
+            rows = [r for r in a02["sbl"]["rows"] if r["dtah"]]
+            h = rows[0]["hit"]
+            B = Box(tuple(h["dims"]))
+            env = dict(zip(map(tuple, h["eslots"]), h["env"]))
+            w = sum(1 for i in range(B.n) if env.get((0, i), 0) or env.get((1, i), 0))
+            t2 = a02["x2"]["rows"][0]["t2"]
+            sites = [tuple(s_) + (0,) * (3 - len(s_)) for s_ in B.S]
+            RESULTS["searches"]["A02-cost"] = dict(hit=h, tau2=t2, **cost_of_fast(sites, w, t2 + 60))
+        RESULTS["verdict"] = verdict(green, gem_i, use_outside, node1_ok, a02)
         print("VERDICT:", RESULTS["verdict"]["text"])
     RESULTS["gem_i_candidates"] = gem_i[:20]
     allok = all(v["ok"] for v in RESULTS["checks"].values())
