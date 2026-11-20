@@ -12,6 +12,8 @@ only the working tree and the records named below; it classifies nothing new exc
 rows.json's `new_site_rules`.
 """
 import difflib
+import hashlib
+import subprocess
 import json
 import os
 import re
@@ -126,6 +128,42 @@ def relocate(site, lines_by_file, splices):
     return None, 'removed', units or None
 
 
+EXTENDED_PATTERNS = {
+    'X1': r'[Ff]initeness posit|posit A1|finite[- ]information',
+    'X2': r'(?<![A-Za-z])finite (periodic )?lattice|finite torus|periodic quotient',
+    'X3': r'[Rr]ecurrence (cycle|scale)|recurrence-cycle',
+    'X4': r'classical-dimension|N < \\infty|fixed finite carrier',
+    'X5': r'(?<![A-Za-z])finite (world|universe|model)\b',
+}
+
+
+def manuscript_digest():
+    h = hashlib.sha256()
+    for rel in corpus_files():
+        with open(os.path.join(ROOT, rel), 'rb') as f:
+            h.update(rel.encode() + b'\0' + f.read() + b'\0')
+    return h.hexdigest()
+
+
+def head_commit():
+    try:
+        return subprocess.run(['git', '-C', ROOT, 'rev-parse', 'HEAD'], capture_output=True, text=True,
+                              check=True).stdout.strip()
+    except Exception:
+        return 'unknown'
+
+
+def extended_unmapped(sm):
+    """Lines matching the extended criterion-5 patterns that the map does not hold (informational)."""
+    have = {(x['file'], x['line']) for x in sm['sites']}
+    pats = [(k, re.compile(v)) for k, v in EXTENDED_PATTERNS.items()]
+    out = []
+    for (rel, ln), m in sorted(scan(pats, corpus_files()).items()):
+        if (rel, ln) not in have:
+            out.append('%s:%d %s' % (rel, ln, ','.join(m)))
+    return out
+
+
 def build():
     p0 = load(P0)
     rows = load(ROWS)
@@ -184,7 +222,9 @@ def build():
         rec['p2_reason'] = d['reason'] if d else None
         rec['s3'] = s3(rec, rows)
     sites.sort(key=lambda x: (x['file'], x['line'] or 0))
-    return {'schema': 'a1exit site map v1', 'pin_note': 'line numbers at the working tree the map was built from',
+    return {'schema': 'a1exit site map v2', 'pin': rows.get('pin', ''),
+            'manuscript_digest': manuscript_digest(),
+            'pin_note': 'line numbers are those of the manuscript tree whose digest is recorded; check fails on a different tree',
             'sites': sites}
 
 
@@ -432,6 +472,10 @@ def main():
     mode = sys.argv[1] if len(sys.argv) > 1 else 'check'
     if mode == 'build':
         sm = build()
+        ext = extended_unmapped(sm)
+        print('extended criterion-5 scan (informational): %d unmapped lines' % len(ext))
+        for e in ext:
+            print('  ' + e)
         with open(SITEMAP, 'w', encoding='utf-8') as f:
             json.dump(sm, f, indent=1, ensure_ascii=False)
             f.write('\n')
@@ -451,10 +495,23 @@ def main():
         return 0
     if mode == 'check':
         sm = load(SITEMAP)
+        if sm.get('manuscript_digest') != manuscript_digest():
+            rebuilt = build()
+            old = {(x['file'], x['line'], x['row']) for x in sm['sites']}
+            new = {(x['file'], x['line'], x['row']) for x in rebuilt['sites']}
+            print('PIN MISMATCH: the manuscripts differ from the tree the map was built from (pin %s, HEAD %s)'
+                  % (sm.get('pin'), head_commit()))
+            for t in sorted(old - new):
+                print('  only in the committed map: %s:%s %s' % t)
+            for t in sorted(new - old):
+                print('  only in a rebuild here:    %s:%s %s' % t)
+            return 1
         rebuilt = build()
         if rebuilt != sm:
             print('REBUILD differs from sitemap.json')
             return 1
+        ext = extended_unmapped(sm)
+        print('extended criterion-5 scan (informational): %d unmapped lines' % len(ext))
         blocks = render(sm, load(ROWS))
         with open(os.path.join(HERE, 'LEDGER.md'), encoding='utf-8') as f:
             text = f.read()

@@ -1,6 +1,6 @@
 {
  "schema": "a1exit ledger rows v1",
- "pin": "9db518844",
+ "pin": "fbca1df98f630aa0dd334c6e7f9f9a193da64394",
  "rows": [
   {
    "id": "X-00",
@@ -20,7 +20,7 @@
    "s1": "",
    "s1_reason": "",
    "exit": "Deleted by the final-deletion unit once PREREG §6 holds; until then it stays printed as open and not adopted",
-   "correction": "M:732: delete item (ii) and renumber nothing (claim IDs are identifiers, §A.30): replace its text by the finite-only scope list it now carries, re-homed as a scope note — \"The counting-measure selection of Lemma 3, the exact return and its index L, the orbit capacity, the CP-indivisibility theorem of §3.2, the physical-memory theorem of §3.4 and the canonical-typicality step of §4.6 are statements about finite representatives.\" M:60: replace \"Total finiteness of that representative is one sufficient condition ... carried as item (ii) of the posit ledger (§4.5), the total-finiteness posit, an open hypothesis, not adopted;\" by \"The results that use a finite representative are statements about finite representatives;\" keeping the rest",
+   "correction": "M:732: delete item (ii)'s text; the ID (ii) is retired and not reused or annotated (§A.30). Its content moves to the status Remark M:60, which keeps (a) the per-result weaker sufficient conditions — (NR) for §2.3, (IP) for §3.2, (IL) for §4.6, (REV) for bijectivity, each \"assumed as a hypothesis of that result and not adopted\"; (b) the finite-representative list — the counting-measure selection of Lemma 3, the exact return and its index L, the orbit capacity, the CP-indivisibility theorem of §3.2, the physical-memory theorem of §3.4 and the canonical-typicality step of §4.6; (c) the deep-sector clauses as printed (gauge invariance of the cardinality of an independently prepared finite decoupled factor; coupled and infinite sectors outside that statement; the transfer across relabelling, finite decoupled enlargement and change of alphabet under the alphabet-size hypothesis, with its proof cited at its source). M:60: \"Total finiteness of that representative is one sufficient condition for the results that use it, carried as item (ii) of the posit ledger (§4.5), the total-finiteness posit, an open hypothesis, not adopted;\" → \"The results that use that representative are statements about finite representatives;\". M:60 (P8 hit): \"The physical reading of the characterization theorem — the identification of nature with a finite reversible substratum — is accordingly conditional on that representation choice\" → \"The characterization theorem is a statement about finite-horizon laws and their finite representatives; it does not identify nature with a finite reversible substratum\"",
    "owner": "final deletion",
    "status": "queued (Step 2; needs PREREG §6)",
    "site_code": "ptr",
@@ -39,7 +39,7 @@
    "s1": "",
    "s1_reason": "",
    "exit": "Rewritten in the deletion edit (PREREG §6 item 4)",
-   "correction": "Each: replace the pointer by the scope it carries. M:36 \"Total finiteness remains an open physical posit, not adopted, and one sufficient condition among those each result names (...item (ii))\" → delete the sentence (the next sentences already state the per-result conditions). M:44, :111, :129, :224, :268 \"under the total-finiteness posit (§1.2 Remark, §4.5 ledger)\" → \"on a finite representative\". M:594 and ch01:163, ch19:126 \"in its finite model (ledger item (ii))\" → \"in its finite model\". M:646 \"(b) the physically operative form under A1\" → \"(b) the form for a finite substratum\". M:708 \"item (ii) of the posit ledger (§4.5), an open hypothesis, not adopted, and one sufficient condition\" → \"a property of finite representatives, not derived from Lemma 1\". M:726 \"finite under the total-finiteness posit (§1.2 Remark, §4.5 ledger item (ii)), an open hypothesis\" → \"finite in the finite representative, which is not asserted of nature\"",
+   "correction": "Each: replace the pointer by the scope it carries. M:36 \"Total finiteness remains an open physical posit, not adopted, and one sufficient condition among those each result names (...item (ii))\" → delete the sentence (the next sentences already state the per-result conditions). M:44, :111, :129, :224, :268 \"under the total-finiteness posit (§1.2 Remark, §4.5 ledger)\" → \"on a finite representative\". M:594 and ch01:163, ch19:126 \"in its finite model (ledger item (ii))\" → \"in its finite model\". M:646 \"(b) the physically operative form under A1\" → \"(b) the form for a finite substratum\". M:708: \"Finiteness of the hidden sector is, in the forward construction, item (ii) of the posit ledger (§4.5), an open hypothesis, not adopted, and one sufficient condition among those stated at each use, with the deep-sector scope stated there; it is not derived from Lemma 1\" → \"Finiteness of the hidden sector is not assumed in the forward construction: results that use a finite hidden sector are statements about finite representatives, each naming the hypotheses it consumes; it is not derived from Lemma 1\"; and \"compatible with the finiteness hypothesized here and are not premises of it\" → \"compatible with finite representatives and are not premises of them\". M:726 \"finite under the total-finiteness posit (§1.2 Remark, §4.5 ledger item (ii)), an open hypothesis\" → \"finite in the finite representative, which is not asserted of nature\" B1 pointers (readers-guide:79 = FULL:167, book/README.md:100, ch03:226 = FULL:1087, appC:110 = FULL:6265): \"finiteness posit\" → \"finite-representative scope\" (appC §C.6: the objection answered by that scope)",
    "owner": "final deletion",
    "status": "queued (Step 2; 4 Phase-3 sites via Q3)",
    "site_code": "ptr",
@@ -280,11 +280,11 @@
    "disposition": "J",
    "weaker": "(NR): a single common near-return with margin after the non-permutation time, any normalized root-shared prior, no invariance (M:131)",
    "s1": "Relabel",
-   "s1_reason": "Logically weaker than A1 (RIGID rotation × Bernoulli satisfies it with no finite order). But at an unspecified time it has no finite-window test (REMAINDER §3), and for the selected update it fails under β_A (NR-1 Thm 3.3) and is known to hold only under the torus counting law μ_L on periodic configurations (STAGE0 F1) — finiteness under another name. Flag for the review",
-   "exit": "Main §2.3 corollary (near-return), M:131, prints (NR) \"assumed ... not adopted\"; companions carry it (Phase 2 S1, G1, G2, B1)",
-   "correction": "none in Main and Phase-2 files; Phase-3 restatements (Meth, ch18, FULL) by Q3",
-   "owner": "Q3 propagation",
-   "status": "queued (3 Phase-3 sites and glossary:105; done in Main and Phase-2 files)",
+   "s1_reason": "Logically weaker than A1: RIGID's rotation × Bernoulli example satisfies it with no finite order. At an unspecified time it has no finite-window test (REMAINDER §3). For the selected update on ℤ^d, (NR) fails under β_A (NR-1 Prop. 2.3; P-divisible at every horizon, NR-1 Thm 3.3); the torus counting law μ_L on periodic configurations is the only law on main under which a return is exhibited (STAGE0 F1, a [W] reading within RIGID's rooted family)",
+   "exit": "Main §2.3 corollary (near-return), M:131, prints (NR) \"assumed ... not adopted\"; companions carry it (Phase 2 S1, G1, G2, B1). Deletion criterion 3 needs the Relabel qualification printed where (NR) is introduced",
+   "correction": "At M:131 (where (NR) is introduced), M:141 and M:224 (index-free form), M:180 and M:724 (restatements): add the Relabel qualification, e.g. \"(NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update on ℤ^d a law satisfying it is not identified (X-21)\". The same at the companion and book restatements carrying (NR) (Phase-2 units S1, G1, G2, B1). Exact wording by the scoping unit; Phase-3 restatements (Meth, ch18, FULL) and glossary:105 by Q3; Str:1224 and ch01:161 = FULL:494 (B1) qualified by the scoping unit",
+   "owner": "R1/R2 scoping",
+   "status": "queued (Relabel qualification not printed; Q3 sites)",
    "site_code": "none",
    "note": ""
   },
@@ -345,9 +345,9 @@
    "s1": "Relabel",
    "s1_reason": "As X-20",
    "exit": "Printed among measurable-H results (Phase 1 E15, amendment A-E15)",
-   "correction": "none",
-   "owner": "none",
-   "status": "done",
+   "correction": "As X-20 at M:141 and M:224",
+   "owner": "R1/R2 scoping",
+   "status": "queued (Relabel qualification not printed)",
    "site_code": "none",
    "note": ""
   },
@@ -380,14 +380,14 @@
     "M8"
    ],
    "how": "`rootedMap_periodic` on finite carriers",
-   "disposition": "J",
-   "weaker": "Overlap at storage time; (NR)/(RIG) for revival",
-   "s1": "Relabel",
-   "s1_reason": "As X-20 for the revival clause; the write/store/read clauses are formalized only on finite carriers (paper transfer)",
-   "exit": "Only the storage-time overlap is used; later revival under (NR)/(RIG) (paper), RIGID compactness (Lean `ObservableRigidity.exists_reviving_return_of_overlap`)",
-   "correction": "none",
-   "owner": "none",
-   "status": "done",
+   "disposition": "F",
+   "weaker": "",
+   "s1": "",
+   "s1_reason": "",
+   "exit": "As printed, a statement about finite rooted maps (§2.3 setting; the write/store/read clauses are formalized on finite carriers only, `PhysicalC4Discharge`, `PhysicalC4StorageReadback`). A J form (revival under (NR)/(RIG); RIGID `exists_reviving_return_of_overlap`) exists in records and would need a printed correction",
+   "correction": "none for the finite statement; if the scoping unit adopts the J form, add at M:147 that the revival holds under (NR) with the Relabel qualification of X-20",
+   "owner": "R1/R2 scoping",
+   "status": "queued (decide F as printed or J with a printed correction)",
    "site_code": "none",
    "note": ""
   },
@@ -486,7 +486,7 @@
    "weaker": "(REV): φ a bimeasurable bijection of a measurable carrier (M:732 (iii))",
    "s1": "No",
    "s1_reason": "A posit, not a lemma; same observational status as A2 under A1 (REMAINDER §3); implies no cardinality",
-   "exit": "M:60 and M:732 (iii) print (REV) as the alternative; the finite argument stays as a finite statement (\"on a finite representative φ is a bijection\")",
+   "exit": "Bijectivity is posited as (REV) (M:732 (iii)), not recovered: the eventual-image and injectivity-to-surjectivity recovery stays a finite statement (\"on a finite representative φ is a bijection\", M:60)",
    "correction": "none in Main; Meth:146–148 by Q3",
    "owner": "Q3 propagation",
    "status": "queued (3 Phase-3 sites; done in Main)",
@@ -634,7 +634,13 @@
    "owner": "Q1",
    "status": "in progress",
    "site_code": "unit",
-   "note": ""
+   "note": "",
+   "mirrors": [
+    "ch05:160",
+    "ch06:58",
+    "FULL:1475",
+    "FULL:1569"
+   ]
   },
   {
    "id": "X-43",
@@ -653,7 +659,17 @@
    "owner": "Q1",
    "status": "in progress",
    "site_code": "unit",
-   "note": ""
+   "note": "",
+   "mirrors": [
+    "ch05:152",
+    "ch06:22",
+    "ch06:26",
+    "appB:378",
+    "FULL:1467",
+    "FULL:1533",
+    "FULL:1537",
+    "FULL:6055"
+   ]
   },
   {
    "id": "X-44",
@@ -668,8 +684,8 @@
    "weaker": "None: no hypothesis on S. The proof is ring algebra on the observable space (P + Q = I, linearity of U, commutation with R_g); the existing Lean MZ (verification/lean/OI_Structural_Core.lean) covers infinite S",
    "s1": "No",
    "s1_reason": "No condition replaces the deleted one; the theorem holds for any set S",
-   "exit": "RESOLVED by Q2 after the pin: PR #1464 merged at head eee291d9, merge commit fbca1df98f630aa0dd334c6e7f9f9a193da64394 (owner decision, amaybaum, 2026-11-20); recovery record verification/audits/foundations/a1exit-q2-20261120/RECOVERY.md (on main)",
-   "correction": "done on main at fbca1df9: SM:242 \"Let $S$ be finite,\" → \"Let $S$ be a set,\"; SM:250 attribution \"a deterministic bijection\". The pinned tree (9db51884) still carries the old text; the map is rebuilt at the next pin. Pre-existing stale coverage-ledger entry verification/coverage/LEDGER.json:1494–1495 is routed to #1462 as PF-6",
+   "exit": "RESOLVED by Q2: PR #1464 merged at head eee291d9, merge commit fbca1df98f630aa0dd334c6e7f9f9a193da64394; owner decision record #1169 c.7048183824 (amaybaum, 2026-11-20T19:04:33Z); recovery record verification/audits/foundations/a1exit-q2-20261120/RECOVERY.md (on main)",
+   "correction": "done on main at fbca1df9 (the ledger's pin): SM:242 \"Let $S$ be a set,\"; SM:250 attribution \"a deterministic bijection\". Pre-existing stale coverage-ledger entry verification/coverage/LEDGER.json:1494–1495 routed to #1462 as PF-6",
    "owner": "Q2",
    "status": "done (Q2 merged, fbca1df9)",
    "site_code": "unit",
@@ -690,7 +706,7 @@
    "s1": "",
    "s1_reason": "",
    "exit": "With A1 deleted and A4 in the owner's size-independent formulation: Stage 2 on ℤ^d where Q1 supports it, finite substrata as qualified cases. The theorem as a whole stays a statement about finite substrata satisfying A2–A6 until Stage 3 (X-70, X-71) and Stage 1 (X-29, X-21) have size-independent forms",
-   "correction": "Sub:104 and mirrors: \"under E1–E7 and A1–A6 jointly\" → \"for a finite substratum satisfying E1–E7 and A2–A6\"; \"the structural class A1–A6\" → \"the class of finite substrata satisfying A2–A6\"; ch02:122 \"(violating A1)\" → \"(outside the finite class)\"",
+   "correction": "Sub:104 and mirrors: \"under E1–E7 and A1–A6 jointly\" → \"for a finite substratum — A4's finite periodic lattice, a qualified case with Q1's wrapping conditions — satisfying E1–E7 and A2–A6\"; \"the structural class A1–A6\" → \"the class of such finite substrata\"; ch02:122 \"(violating A1)\" → \"(outside the finite class)\". Where Q1 establishes Stage 2 on ℤ^d, that stage is stated there as the standard construction",
    "owner": "final deletion",
    "status": "queued (Step 2; after Q1; 5 Phase-3 sites via Q3)",
    "site_code": "none",
@@ -709,7 +725,7 @@
    "s1": "",
    "s1_reason": "",
    "exit": "A definitional finite class; narrowing to A2–A6 plus the M4/M18 posits would be a definition change (REMAINDER C11) and is not proposed here",
-   "correction": "At deletion: \"OI-class substrata (satisfying A1–A6)\" → \"finite OI-class substrata (finite, satisfying A2–A6)\"",
+   "correction": "At deletion: \"OI-class substrata (satisfying A1–A6)\" → \"finite OI-class substrata (finite, A4 in its finite periodic qualified case with Q1's wrapping conditions, satisfying A2–A6)\"",
    "owner": "final deletion",
    "status": "queued (Step 2)",
    "site_code": "none",
@@ -717,20 +733,39 @@
   },
   {
    "id": "X-47",
-   "title": "Finite-lattice numerics presented as ℤ^d or physical values: finite-L Monte Carlo and L → ∞ extrapolations (Z_S, m_b/m_τ), universality \"inferred rather than demonstrated\"",
-   "home": "SM:801; SM:813; SM:1138–1144; SM:1267",
+   "title": "Finite-L lattice numerics and the A·B extrapolation family: finite-L Monte Carlo (L = 16–64), L → ∞ extrapolations (Z_S, m_b/m_τ), matching-scale checks; SM:801 a negative finite-L phase result; SM:645 = ch06:62 a finite-torus substratum check",
+   "home": "SM:14, :645, :711, :713, :751, :783, :801, :813, :817, :1138–1144, :1261, :1267, :1300, :1302, :1656; appA:30, :85, :217; ch06:62, :94, :208; ch19:152; ch04:48; appC:273; FULL mirrors",
    "sources": [
     "A4-OWNER"
    ],
-   "how": "Values computed on finite periodic lattices (L = 16–64) are compared with observation or extrapolated to L → ∞ numerically",
+   "how": "Values computed on finite periodic lattices are compared with observation or extrapolated to L → ∞ numerically. Except SM:645 = ch06:62, these are emergent lattice-gauge regulator lattices (Haar / staggered HMC, SM:813), distinct from A4's substratum lattice",
    "disposition": "O",
    "weaker": "",
    "s1": "",
    "s1_reason": "",
-   "exit": "Owner A4 formulation (#1169 c.7048255658): a finite lattice is not an approximation of ℤ^d unless an approximation or convergence result is established. A numerical extrapolation is numerical evidence, not that result. Q1 decides the wording, and the final regression audit checks that no prediction changes without stated justification",
-   "correction": "Per Q1 and the regression audit: state each value as a finite-L computation with its extrapolation as numerical evidence, unless a convergence result is cited. Cheap probe at the pin: no sentence in papers/ or book/ uses \"approximat…\" for a finite lattice relative to ℤ^d; the finite-L comparisons above are the candidate sites",
-   "owner": "Q1",
-   "status": "in progress",
+   "exit": "Not an A4 consumer: these lattices regulate the emergent gauge theory. The owner rule (#1169 c.7048255658) that a finite lattice is not an approximation of ℤ^d without an established convergence result is applied by analogy: a numerical L → ∞ extrapolation is numerical evidence, not such a result. SM:801 is a negative finite-L phase result (confinement of the purely induced theory). SM:645 = ch06:62 checks Theorem 19 on finite tori (X-16) and is stated with its L values. Input to the regression audit (#1468)",
+   "correction": "Per the regression audit: each value stated as a finite-L computation with its extrapolation as numerical evidence, unless a convergence result is cited. Cheap probe at the pin: no sentence in papers/ or book/ calls a finite lattice an approximation of ℤ^d",
+   "owner": "regression audit (#1468)",
+   "status": "queued (#1468)",
+   "site_code": "unit",
+   "note": ""
+  },
+  {
+   "id": "X-48",
+   "title": "Classical-dimension obstruction family: no fixed finite carrier (N < ∞ ontic configurations) reproduces the exact continuum operational theory of a qubit; the framework's reading that it \"does not require an ontically infinite carrier\"",
+   "home": "M:358; M:564 (Proposition); M:568; M:588; M:606; M:780; Sub:533; ch04:146 = FULL mirror; Intro:135",
+   "sources": [
+    "B1-CDO"
+   ],
+   "how": "The theorem is stated for one realization with N < ∞; the framework reading (M:780, Sub:533, ch04:146) places the continuum endpoint beyond every fixed finite carrier",
+   "disposition": "F",
+   "weaker": "",
+   "s1": "",
+   "s1_reason": "",
+   "exit": "The theorem is a true statement about finite carriers (Proposition M:564; [55]) and stays as such. Its framework reading depends on the carrier's size: on an infinite carrier the obstruction does not apply, so with A1 deleted the sentences that use it to describe OI (M:358, :568, :588, :780; Sub:533; ch04:146; Intro:135) must state that scope. Input to the regression audit (#1468)",
+   "correction": "Per the regression audit: keep the Proposition; at each framework-reading site state \"for a fixed finite carrier\" where the sentence speaks of OI's substratum, and do not convert the obstruction into a claim about an unspecified-size substratum",
+   "owner": "regression audit (#1468)",
+   "status": "queued (#1468)",
    "site_code": "unit",
    "note": ""
   },
@@ -789,7 +824,7 @@
    ],
    "how": "Finite decoupled factor; uniform ω_H",
    "disposition": "J",
-   "weaker": "(D1)–(D5), with (D5) μ_H = u_{B_n}⊗ν, ν any normalized law (GR:877–883); trace-class σ_A (O-A4 row 24)",
+   "weaker": "(D1)–(D5), with (D5) μ_H = u_{B_n}⊗ν, ν any normalized law (GR:877–883); for Theorem 24(iii), a trace-class state σ_A and a unitary W on the adjoined factor, with the base channel on V × H already defined as a channel (O-A4 row 24)",
    "s1": "No",
    "s1_reason": "Finite cone and a uniform factor on a finite boundary window; the deep law is of any cardinality",
    "exit": "GR Appendix B printed for a site set of any cardinality under (D1)–(D5)",
@@ -905,7 +940,7 @@
   },
   {
    "id": "X-60",
-   "title": "§4.6 theorem τ_B(V) ≤ τ_mix + O(ε) for the iterated compression (operator step)",
+   "title": "§4.6 theorem: the decay estimate for the iterated compression (operator step) under (IL)",
    "home": "M:752–760; M:766 (IL)",
    "sources": [
     "M18",
@@ -917,7 +952,7 @@
    "weaker": "(IL): normalized φ-invariant μ, P the μ-conditional expectation onto declared local observables of a finite readout support, (EM) on μ-centred L²(μ) observables",
    "s1": "No",
    "s1_reason": "A normalized law with a finite readout support; τ_B transfer is an A1-independent source gap (REMAINDER M18)",
-   "exit": "M:766 prints (IL) as a hypothesis of the decay estimate (Phase 1 E14); O(ε) and exact recurrence stay finite-representative statements",
+   "exit": "M:766 prints (IL) as a hypothesis of the decay estimate (Phase 1 E14). The O(ε) corrections and exact recurrence are X-65",
    "correction": "none",
    "owner": "none",
    "status": "done",
@@ -937,7 +972,7 @@
    "weaker": "As X-60",
    "s1": "No",
    "s1_reason": "As X-60",
-   "exit": "Operator step as X-60; local equilibrium enters as a definition",
+   "exit": "Operator step as X-60 (J); its O(ε) and finite-representative parts are X-65 (F); local equilibrium enters as a definition",
    "correction": "none",
    "owner": "none",
    "status": "done",
@@ -1033,6 +1068,32 @@
    ]
   },
   {
+   "id": "X-65",
+   "title": "§4.6 finite-representative parts: the O(ε) typical-set and finite-size corrections, and the exact recurrence of the Koopman operator of a finite permutation (Setup)",
+   "home": "M:752; M:758 (ε); M:766",
+   "sources": [
+    "M18",
+    "M20",
+    "S0:M19.b"
+   ],
+   "how": "Finite S in the Setup; ε defined on the finite representative",
+   "disposition": "F",
+   "weaker": "",
+   "s1": "",
+   "s1_reason": "",
+   "exit": "M:766 states these are \"statements about the finite representative\" (Phase 1 E14)",
+   "correction": "none",
+   "owner": "none",
+   "status": "done",
+   "site_code": "none",
+   "note": "",
+   "mirrors": [
+    "M:752",
+    "M:758",
+    "M:766 (lines mapped to X-60)"
+   ]
+  },
+  {
    "id": "X-70",
    "title": "H-count: classical horizon temperature as a counting derivative, decoupled case",
    "home": "GR:58; GR:88; ch07:42; Sub:175–185 (Stage 3)",
@@ -1097,7 +1158,22 @@
    "owner": "none",
    "status": "done (PROV-CORR, PROV-CORR-2)",
    "site_code": "none",
-   "note": ""
+   "note": "",
+   "mirrors": [
+    "GR:78–88",
+    "GR:316–318",
+    "GR:422–440",
+    "GR:466–500",
+    "SM:182–196",
+    "Sub:88",
+    "Sub:157",
+    "appB:169",
+    "ch05:59–60",
+    "ch02:68",
+    "ch19:116",
+    "appA:117",
+    "FULL mirrors of the chapter lines"
+   ]
   },
   {
    "id": "X-73",
@@ -1558,38 +1634,626 @@
   "papers/SM.md:801": {
    "row": "X-47",
    "code": "unit",
-   "owner": "Q1",
-   "reason": "finite-L numerics under the owner A4 formulation (no approximation claim without a convergence result)"
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
   },
   "papers/SM.md:813": {
    "row": "X-47",
    "code": "unit",
-   "owner": "Q1",
-   "reason": "finite-L numerics under the owner A4 formulation (no approximation claim without a convergence result)"
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
   },
   "papers/SM.md:1138": {
    "row": "X-47",
    "code": "unit",
-   "owner": "Q1",
-   "reason": "finite-L numerics under the owner A4 formulation (no approximation claim without a convergence result)"
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
   },
   "papers/SM.md:1140": {
    "row": "X-47",
    "code": "unit",
-   "owner": "Q1",
-   "reason": "finite-L numerics under the owner A4 formulation (no approximation claim without a convergence result)"
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
   },
   "papers/SM.md:1144": {
    "row": "X-47",
    "code": "unit",
-   "owner": "Q1",
-   "reason": "finite-L numerics under the owner A4 formulation (no approximation claim without a convergence result)"
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
   },
   "papers/SM.md:1267": {
    "row": "X-47",
    "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "papers/Structure.md:1224": {
+   "row": "X-20",
+   "code": "unit",
+   "owner": "R1/R2 scoping",
+   "reason": "B1: \"indivisible at recurrence scale\" in a comparison table, no finite-representative or (NR) qualification"
+  },
+  "book/ch01-observation.md:161": {
+   "row": "X-20",
+   "code": "unit",
+   "owner": "R1/R2 scoping",
+   "reason": "B1: \"indivisibility across the recurrence cycle ... present wherever a rooted visible map is not a permutation\", unqualified"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:494": {
+   "row": "X-20",
+   "code": "unit",
+   "owner": "R1/R2 scoping",
+   "reason": "FULL mirror of book/ch01-observation.md:161: B1: \"indivisibility across the recurrence cycle ... present wherever a rooted visible map is not a permutation\", unqualified"
+  },
+  "book/readers-guide.md:79": {
+   "row": "X-01",
+   "code": "ptr",
+   "owner": "final deletion",
+   "reason": "B1: \"finiteness posit\" pointer, outside the P0 pattern set"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:167": {
+   "row": "X-01",
+   "code": "ptr",
+   "owner": "final deletion",
+   "reason": "B1: FULL readers-guide \"finiteness posit\" pointer"
+  },
+  "book/README.md:100": {
+   "row": "X-01",
+   "code": "ptr",
+   "owner": "final deletion",
+   "reason": "B1: \"finiteness posit\" pointer, outside the P0 pattern set"
+  },
+  "book/ch03-structural-realism.md:226": {
+   "row": "X-01",
+   "code": "ptr",
+   "owner": "final deletion",
+   "reason": "B1: \"finiteness posit\" pointer, outside the P0 pattern set"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:1087": {
+   "row": "X-01",
+   "code": "ptr",
+   "owner": "final deletion",
+   "reason": "FULL mirror of book/ch03-structural-realism.md:226: B1: \"finiteness posit\" pointer, outside the P0 pattern set"
+  },
+  "book/appendix-c-objections.md:110": {
+   "row": "X-01",
+   "code": "ptr",
+   "owner": "final deletion",
+   "reason": "B1: \"finiteness posit\" pointer, outside the P0 pattern set"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:6265": {
+   "row": "X-01",
+   "code": "ptr",
+   "owner": "final deletion",
+   "reason": "FULL mirror of book/appendix-c-objections.md:110: B1: \"finiteness posit\" pointer, outside the P0 pattern set"
+  },
+  "book/ch19-open-problems.md:198": {
+   "row": "X-40",
+   "code": "unit",
    "owner": "Q1",
-   "reason": "finite-L numerics under the owner A4 formulation (no approximation claim without a convergence result)"
+   "reason": "B1: \"On a finite lattice\" (speculative horizon/flatness remark); owner A4 formulation"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:5268": {
+   "row": "X-40",
+   "code": "unit",
+   "owner": "Q1",
+   "reason": "FULL mirror of book/ch19-open-problems.md:198: B1: \"On a finite lattice\" (speculative horizon/flatness remark); owner A4 formulation"
+  },
+  "papers/Main.md:358": {
+   "row": "X-48",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B1: classical-dimension obstruction family"
+  },
+  "papers/Main.md:564": {
+   "row": "X-48",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B1: classical-dimension obstruction family"
+  },
+  "papers/Main.md:568": {
+   "row": "X-48",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B1: classical-dimension obstruction family"
+  },
+  "papers/Main.md:588": {
+   "row": "X-48",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B1: classical-dimension obstruction family"
+  },
+  "papers/Main.md:606": {
+   "row": "X-48",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B1: classical-dimension obstruction family"
+  },
+  "papers/Main.md:780": {
+   "row": "X-48",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B1: classical-dimension obstruction family"
+  },
+  "papers/Substratum.md:533": {
+   "row": "X-48",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B1: classical-dimension obstruction family"
+  },
+  "book/ch04-methodology.md:146": {
+   "row": "X-48",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B1: classical-dimension obstruction family"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:1250": {
+   "row": "X-48",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "FULL mirror of book/ch04-methodology.md:146: B1: classical-dimension obstruction family"
+  },
+  "papers/Introduction.md:135": {
+   "row": "X-48",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B1: classical-dimension obstruction family"
+  },
+  "papers/SM.md:14": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "papers/SM.md:645": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "papers/SM.md:711": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "papers/SM.md:713": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "papers/SM.md:751": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "papers/SM.md:783": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "papers/SM.md:817": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "papers/SM.md:1261": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "papers/SM.md:1300": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "papers/SM.md:1302": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "papers/SM.md:1656": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "book/appendix-a-prediction-status.md:30": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:5477": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "FULL mirror of book/appendix-a-prediction-status.md:30: B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "book/appendix-a-prediction-status.md:85": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:5532": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "FULL mirror of book/appendix-a-prediction-status.md:85: B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "book/appendix-a-prediction-status.md:217": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:5664": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "FULL mirror of book/appendix-a-prediction-status.md:217: B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "book/ch06-matter-content.md:62": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:1573": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "FULL mirror of book/ch06-matter-content.md:62: B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "book/ch06-matter-content.md:94": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:1605": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "FULL mirror of book/ch06-matter-content.md:94: B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "book/ch06-matter-content.md:208": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:1719": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "FULL mirror of book/ch06-matter-content.md:208: B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "book/ch19-open-problems.md:152": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:5222": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "FULL mirror of book/ch19-open-problems.md:152: B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "book/ch04-methodology.md:48": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:1152": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "FULL mirror of book/ch04-methodology.md:48: B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "book/appendix-c-objections.md:273": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:6428": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "regression audit (#1468)",
+   "reason": "FULL mirror of book/appendix-c-objections.md:273: B2: finite-L lattice numerics or the A·B extrapolation family"
+  },
+  "book/ch18-beyond.md:188": {
+   "row": "X-26",
+   "code": "unit",
+   "owner": "Q3 propagation",
+   "reason": "N13: \"A finite model is periodic with period N\" (ch18 §18.7)"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:4919": {
+   "row": "X-26",
+   "code": "unit",
+   "owner": "Q3 propagation",
+   "reason": "FULL mirror of book/ch18-beyond.md:188: N13: \"A finite model is periodic with period N\" (ch18 §18.7)"
+  },
+  "papers/SM.md:803": {
+   "row": "X-11",
+   "code": "none",
+   "owner": "none",
+   "reason": "N12: SM:803 states the pushforward of the uniform measure without qualification; its status (\"a load-bearing commitment\") is stated two paragraphs later at SM:809; review decides whether the paragraph-level qualification suffices"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:672": {
+   "row": "-",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): explicit finite model or finite torus statement, A1-free as stated"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:999": {
+   "row": "-",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): explicit finite model or finite torus statement, A1-free as stated"
+  },
+  "book/ch02-substratum.md:42": {
+   "row": "-",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): explicit finite model or finite torus statement, A1-free as stated"
+  },
+  "book/ch03-structural-realism.md:138": {
+   "row": "-",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): explicit finite model or finite torus statement, A1-free as stated"
+  },
+  "papers/Substratum.md:60": {
+   "row": "-",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): explicit finite model or finite torus statement, A1-free as stated"
+  },
+  "papers/Structure.md:1110": {
+   "row": "-",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): explicit finite model or finite torus statement, A1-free as stated"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:617": {
+   "row": "-",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): explicit finite model or finite torus statement, A1-free as stated"
+  },
+  "book/ch01-observation.md:284": {
+   "row": "-",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): explicit finite model or finite torus statement, A1-free as stated"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:1220": {
+   "row": "X-16",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): Theorem 19 reciprocity stated \"under the counting hidden prior of a finite model\" (finite-only, visible)"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:1270": {
+   "row": "X-16",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): Theorem 19 reciprocity stated \"under the counting hidden prior of a finite model\" (finite-only, visible)"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:1510": {
+   "row": "X-16",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): Theorem 19 reciprocity stated \"under the counting hidden prior of a finite model\" (finite-only, visible)"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:1521": {
+   "row": "X-16",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): Theorem 19 reciprocity stated \"under the counting hidden prior of a finite model\" (finite-only, visible)"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:4927": {
+   "row": "X-16",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): Theorem 19 reciprocity stated \"under the counting hidden prior of a finite model\" (finite-only, visible)"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:5150": {
+   "row": "X-16",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): Theorem 19 reciprocity stated \"under the counting hidden prior of a finite model\" (finite-only, visible)"
+  },
+  "book/ch04-methodology.md:116": {
+   "row": "X-16",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): Theorem 19 reciprocity stated \"under the counting hidden prior of a finite model\" (finite-only, visible)"
+  },
+  "book/ch04-methodology.md:166": {
+   "row": "X-16",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): Theorem 19 reciprocity stated \"under the counting hidden prior of a finite model\" (finite-only, visible)"
+  },
+  "book/ch05-gauge-structure.md:195": {
+   "row": "X-16",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): Theorem 19 reciprocity stated \"under the counting hidden prior of a finite model\" (finite-only, visible)"
+  },
+  "book/ch06-matter-content.md:10": {
+   "row": "X-16",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): Theorem 19 reciprocity stated \"under the counting hidden prior of a finite model\" (finite-only, visible)"
+  },
+  "book/ch18-beyond.md:196": {
+   "row": "X-16",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): Theorem 19 reciprocity stated \"under the counting hidden prior of a finite model\" (finite-only, visible)"
+  },
+  "book/ch19-open-problems.md:80": {
+   "row": "X-16",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): Theorem 19 reciprocity stated \"under the counting hidden prior of a finite model\" (finite-only, visible)"
+  },
+  "papers/SM.md:36": {
+   "row": "X-16",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): Theorem 19 reciprocity stated \"under the counting hidden prior of a finite model\" (finite-only, visible)"
+  },
+  "papers/SM.md:1520": {
+   "row": "X-16",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): Theorem 19 reciprocity stated \"under the counting hidden prior of a finite model\" (finite-only, visible)"
+  },
+  "papers/SM.md:1546": {
+   "row": "X-16",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): Theorem 19 reciprocity stated \"under the counting hidden prior of a finite model\" (finite-only, visible)"
+  },
+  "papers/SM.md:1582": {
+   "row": "X-16",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): Theorem 19 reciprocity stated \"under the counting hidden prior of a finite model\" (finite-only, visible)"
+  },
+  "papers/Substratum.md:415": {
+   "row": "X-16",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): Theorem 19 reciprocity stated \"under the counting hidden prior of a finite model\" (finite-only, visible)"
+  },
+  "papers/Complexity.md:374": {
+   "row": "X-26",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): recurrence of a closed or fixed finite model, stated as finite"
+  },
+  "papers/Introduction.md:67": {
+   "row": "X-26",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): recurrence of a closed or fixed finite model, stated as finite"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:436": {
+   "row": "X-24",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): finite-return criterion within the recurrence cycle (finite stated)"
+  },
+  "book/ch01-observation.md:103": {
+   "row": "X-24",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): finite-return criterion within the recurrence cycle (finite stated)"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:464": {
+   "row": "X-20",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): recurrence-scale P-indivisibility stated with a finite return, finite representative or finite configuration space"
+  },
+  "book/ch01-observation.md:131": {
+   "row": "X-20",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): recurrence-scale P-indivisibility stated with a finite return, finite representative or finite configuration space"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:6092": {
+   "row": "X-20",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): recurrence-scale P-indivisibility stated with a finite return, finite representative or finite configuration space"
+  },
+  "book/appendix-b-derivations.md:415": {
+   "row": "X-20",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): recurrence-scale P-indivisibility stated with a finite return, finite representative or finite configuration space"
+  },
+  "papers/Structure.md:1000": {
+   "row": "X-20",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): recurrence-scale P-indivisibility stated with a finite return, finite representative or finite configuration space"
+  },
+  "papers/Structure.md:1165": {
+   "row": "X-20",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): recurrence-scale P-indivisibility stated with a finite return, finite representative or finite configuration space"
+  },
+  "papers/GR.md:90": {
+   "row": "X-20",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): recurrence-scale P-indivisibility stated with a finite return, finite representative or finite configuration space"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:5769": {
+   "row": "X-50",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): CP-indivisibility from \"a non-permutation rooted map and finiteness\" (finite stated)"
+  },
+  "book/appendix-b-derivations.md:92": {
+   "row": "X-50",
+   "code": "none",
+   "owner": "none",
+   "reason": "extended scan (read by hand): CP-indivisibility from \"a non-permutation rooted map and finiteness\" (finite stated)"
+  },
+  "book/The-Incompleteness-of-Observation-FULL.md:3990": {
+   "row": "X-20",
+   "code": "unit",
+   "owner": "R1/R2 scoping",
+   "reason": "extended scan (read by hand): indivisibility \"across the recurrence cycle\" or \"at the recurrence scale\" without a finite-representative or (NR) qualifier in the sentence"
+  },
+  "book/ch15-quantum-engineering.md:113": {
+   "row": "X-20",
+   "code": "unit",
+   "owner": "R1/R2 scoping",
+   "reason": "extended scan (read by hand): indivisibility \"across the recurrence cycle\" or \"at the recurrence scale\" without a finite-representative or (NR) qualifier in the sentence"
+  },
+  "papers/Complexity.md:474": {
+   "row": "X-20",
+   "code": "unit",
+   "owner": "R1/R2 scoping",
+   "reason": "extended scan (read by hand): indivisibility \"across the recurrence cycle\" or \"at the recurrence scale\" without a finite-representative or (NR) qualifier in the sentence"
+  },
+  "papers/Main.md:159": {
+   "row": "X-20",
+   "code": "unit",
+   "owner": "R1/R2 scoping",
+   "reason": "extended scan (read by hand): indivisibility \"across the recurrence cycle\" or \"at the recurrence scale\" without a finite-representative or (NR) qualifier in the sentence"
+  },
+  "papers/Main.md:356": {
+   "row": "X-20",
+   "code": "unit",
+   "owner": "R1/R2 scoping",
+   "reason": "extended scan (read by hand): indivisibility \"across the recurrence cycle\" or \"at the recurrence scale\" without a finite-representative or (NR) qualifier in the sentence"
+  },
+  "papers/Medicine.md:35": {
+   "row": "X-20",
+   "code": "unit",
+   "owner": "Q3 propagation",
+   "reason": "extended scan (read by hand): Medicine (Phase-3 file): \"at the recurrence scale from a non-permutation rooted map and finiteness\""
   }
  },
  "lean": [
@@ -1626,10 +2290,6 @@
    "carrier": "measurable carrier, normalized invariant law (X-14, X-20, X-25)"
   },
   {
-   "decl": "CausalReadback.c4r_implies_pIndivisible (:134); RecurrenceHorizon.pIndivisible_of_identity_return_of_overlap",
-   "carrier": "no hidden cardinality (X-28)"
-  },
-  {
    "decl": "Equivalence.finite_horizon_equivalence (:462), Equivalence.S_imp_D",
    "carrier": "finite witnesses constructed per law (X-31)"
   },
@@ -1644,6 +2304,34 @@
   {
    "decl": "HexLatticeGas.hexSubstratum_A1 (:312); A6Instantiation (.A1 at :278, :515); ManuscriptAxioms.A1Realized (:76)",
    "carrier": "finite (X-81)"
+  },
+  {
+   "decl": "CausalReadback.c4r_implies_pIndivisible (:134); RecurrenceHorizon.pIndivisible_of_identity_return_of_overlap",
+   "carrier": "finite H of any finite size (RootedRealization needs Fintype H) (X-28)"
+  },
+  {
+   "decl": "RootedClassification.rootedMap_periodic (:135), rootedMap_zero (:123), pper_of_finiteRootedRealizable (:339)",
+   "carrier": "finite H (Fintype) (X-22, X-26)"
+  },
+  {
+   "decl": "RootedClassificationAllTime.finiteRootedRealizable_iff_pper (:192)",
+   "carrier": "finite realizations (X-26)"
+  },
+  {
+   "decl": "RecurrenceHorizon.pIndivisible_of_rooted_identity_return_of_overlap (:148)",
+   "carrier": "finite V, H (Fintype); exact return rootedMap R n = 1 (X-20, X-24)"
+  },
+  {
+   "decl": "EquivalenceChain.isPermMatrix_of_stochastic_inverse (:110)",
+   "carrier": "finite square matrices (X-24)"
+  },
+  {
+   "decl": "PhysicalC4StorageReadback.routedAtStorage_forces_return_indivisibility (:244), routedAtStorage_forces_indivisible_somewhere (:256)",
+   "carrier": "finite V, H (Fintype) (X-25)"
+  },
+  {
+   "decl": "PhysicalC4Discharge.cutRealization_rootedMap_periodic (:611)",
+   "carrier": "finite cut realization (X-25)"
   }
  ]
 }
