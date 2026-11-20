@@ -73,10 +73,18 @@ OC:323–326 (G1 relates to (SP) by analogy only) is lines 337–340 here. SR3 i
 - All reviews are model reviews: evidence of review, not independent mathematical verification.
   The carried results keep their support labels ([A], [X], [L]) and are paper-level research
   records, not established (§A.46 items 1 and 7).
-- `DEPENDENCIES.md` traces every off-`main` reference of `NEW-RESULTS.md`. Its open gaps are A1
-  (T5(a), (b), (d), carried as named hypotheses), D2 (L3, for N2's necessity), D3 (L2 with class
-  (a)3) and E2 (Bell-scope Theorem N); each is carried as a stated condition, and none is asserted
-  as proved. Remediation stays with #1169 (A1, D2, D3) and #868 (E2); this note authorizes no work.
+- `DEPENDENCIES.md` traces every off-`main` reference of `NEW-RESULTS.md` against `main` at
+  `c3b5f37a`. Rows A1 and A2 cite APPROX-UNIT1 r4a at `e41cf6137be165add39c7e557e97d3dddf110239`
+  (#1221), which is an ancestor of `main` through the #1221 merge `ef62afb4`. The file on `main`,
+  `verification/programmes/oi-qm/approximation/unit1/APPROX-UNIT1.md`, is r4b (blob `40f69592`,
+  not r4a's `2cbaab43`); the two ranges the rows cite, r4a:471–483 (C1–C3) and r4a:365–375 (§4.2,
+  NX-1 and the E_f classical class), are byte-identical there at lines 474–486 and 368–378. Rows A1
+  and A2 are therefore support on `main` at those lines, with that difference stated. The content
+  is a paper argument with exact generic checks, not kernel-checked, so `NEW-RESULTS.md` keeps
+  (T5a), (T5b) and (T5d) as named hypotheses and its T5(c) conditional, as written. The gaps that
+  remain are D2 (L3, for N2's necessity), D3 (L2 with class (a)3) and E2 (Bell-scope Theorem N);
+  each is carried as a stated condition, and none is asserted as proved. Remediation stays with
+  #1169 (D2, D3) and #868 (E2); this note authorizes no work.
 
 ## Not landed
 
@@ -84,4 +92,10 @@ OC:323–326 (G1 relates to (SP) by analogy only) is lines 337–340 here. SR3 i
 remain on #1274's branch. No record on `main` uses them; this note gives the standing of the files
 landed here. `STATUS.md` has a landing-basis section that review 5901837851 asks to be brought into
 line with the adopted §A.46 at integration, and it is not copied without that change and its review.
-References to these four files inside the landed review files are provenance.
+References to these four files inside the landed review files are provenance. `CHANGES.md`:52
+(row Δ30) cites `review/CONFIRM-STATUS.md` finding 1, with `review/NOTES-STATUS.md`, for the
+non-spanning frame on which the test separates (the tetrahedral frame plus a point of probability
+zero; Hadamard entry −1/2). That content is support on `main` through the landed
+`review/NOTES-STATUS.md`:82–122, which checks finding 1 independently, and
+`review/DELTA-REVIEW-1274.md`; `review/CONFIRM-STATUS.md` itself is provenance for where the finding
+was first raised.
