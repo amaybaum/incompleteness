@@ -302,6 +302,7 @@
   },
   "S-A-cost": {
    "(2, 2)": {
+    "best_rho_kappa_ternary": "1/364",
     "box_sites": 4,
     "cone": 360,
     "hit": {
@@ -358,10 +359,14 @@
     },
     "horizon": 5,
     "pattern_sites": 1,
+    "selection_cost_bits_best_rho_kappa_ternary": 12.95,
     "selection_cost_bits_rho_1/100": 43.91,
-    "selection_cost_bits_rho_1/1000": 42.49
+    "selection_cost_bits_rho_1/1000": 42.49,
+    "selection_cost_bits_rho_1/1000_kappa_ternary": 13.49,
+    "selection_cost_bits_rho_1/100_kappa_ternary": 14.91
    },
    "(5,)": {
+    "best_rho_kappa_ternary": "3/475",
     "box_sites": 5,
     "cone": 470,
     "hit": {
@@ -427,8 +432,11 @@
     },
     "horizon": 5,
     "pattern_sites": 3,
+    "selection_cost_bits_best_rho_kappa_ternary": 35.23,
     "selection_cost_bits_rho_1/100": 122.78,
-    "selection_cost_bits_rho_1/1000": 126.58
+    "selection_cost_bits_rho_1/1000": 126.58,
+    "selection_cost_bits_rho_1/1000_kappa_ternary": 39.58,
+    "selection_cost_bits_rho_1/100_kappa_ternary": 35.78
    }
   },
   "S-C": {
