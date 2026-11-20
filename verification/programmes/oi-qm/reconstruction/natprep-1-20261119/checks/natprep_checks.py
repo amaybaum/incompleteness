@@ -191,7 +191,7 @@ def determines(vals, cvs, kk):
     return not (v0 & v1)
 
 
-def delivery(B, cs, modes, env, H, ndel, strict=True, want=None):
+def delivery(B, cs, modes, env, H, ndel, strict=True, want=None, earliest=False):
     """DT+(R) with eps = 0 for a single-site block H (node 1 of RESULT.md).
     ndel = 1: tau1 < s < tau2, H = w* at tau1 and tau2 for every carrier value, the law of
               W_s(H) depends on c_k, a log block disjoint from carriers and H determines c_k
@@ -200,6 +200,7 @@ def delivery(B, cs, modes, env, H, ndel, strict=True, want=None):
               (tau2, tau3); both records held at the retention time, each meeting (R).
     strict: retention time = the last refresh time (records held while H is ready).
             Otherwise (literal reading) any later time.
+    earliest (ndel = 1, strict only): return the delivery with the smallest tau2 in the window.
     Returns a description of the first delivery found, or None."""
     br = branches(B, cs, modes, env)
     cvs = [cv for cv, _ in br]
@@ -236,6 +237,18 @@ def delivery(B, cs, modes, env, H, ndel, strict=True, want=None):
     def rec_at(kk, t):
         return [Lb for Lb, d in recs[kk] if (t % P) in d]
 
+    if ndel == 1 and strict and earliest:
+        for t2 in rt:
+            for kk in range(k):
+                Ls = rec_at(kk, t2) if recs[kk] else []
+                if not Ls:
+                    continue
+                for t1 in rt:
+                    if t1 >= t2:
+                        break
+                    if ready[t2] == ready[t1] and any(use[kk][t1 + 1:t2]):
+                        return dict(carrier=kk, taus=(t1, t2), T=t2, log=Ls[0], w=ready[t1], P=P)
+        return None
     if ndel == 1:
         for kk in range(k):
             if not recs[kk]:
@@ -469,22 +482,38 @@ def node2():
     b5, b16 = ball_count(5, 5), ball_count(6, 16)
     check(f"S3a |B(segment, T)| in Z^3: {b5} for (f) (5 sites, T = 5), {b16} for (i) (6 sites, T = 16)",
           b5 == ball_brute(5, 5) == 475 and b16 == ball_brute(6, 16) == 8742)
-    # delivering environments of the (f) placement (carrier 0 'c', H = 1, w* = (0,0)) by weight
-    byw = {}
+    # delivering environments of the (f) placement (carrier 0 'c', H = 1, w* = (0,0)) by weight,
+    # each with its earliest horizon tau2 (the record time). The empty-cone factor for horizon T
+    # isolates only deliveries with tau2 <= T, so the displayed sum (T = 5) is restricted to them.
+    byw, byw5, hor = {}, {}, {}
+    w2_tau2 = []
     for zz in range(1 << len(eb5)):
         env = {b: (zz >> j) & 1 for j, b in enumerate(eb5)}
-        if delivery(B5, (0,), ('c',), env, 1, 1, want=(0, 0)):
+        d = delivery(B5, (0,), ('c',), env, 1, 1, want=(0, 0), earliest=True)
+        assert bool(d) == bool(delivery(B5, (0,), ('c',), env, 1, 1, want=(0, 0)))
+        if d:
             w = bin(zz).count('1')
+            t2 = d['taus'][1]
             byw[w] = byw.get(w, 0) + 1
+            hor[t2] = hor.get(t2, 0) + 1
+            if t2 <= 5:
+                byw5[w] = byw5.get(w, 0) + 1
+            if w == 2:
+                w2_tau2.append(t2)
     m5 = len(eb5)
     iso = 2 * (b5 - 5)
     def pi_f(r):
-        return sum(c * r ** w * (1 - r) ** (m5 - w) for w, c in byw.items()) * (1 - r) ** iso
+        return sum(c * r ** w * (1 - r) ** (m5 - w) for w, c in byw5.items()) * (1 - r) ** iso
     vals = {r: pi_f(r) for r in (Fr(1, 10), Fr(1, 100), Fr(1, 1000))}
-    check(f"S3b (f) placement: delivering environments by weight {dict(sorted(byw.items()))}; "
-          f"pi(rho) >= sum_z rho^w (1-rho)^(9-w) * (1-rho)^{iso} > 0; at rho = 1/10, 1/100, 1/1000: "
+    floor = {r: r ** 2 * (1 - r) ** (iso + m5 - 2) for r in vals}
+    check(f"S3b (f) placement: delivering environments by weight {dict(sorted(byw.items()))}, "
+          f"by earliest tau2 {dict(sorted(hor.items()))}; with tau2 <= 5, by weight "
+          f"{dict(sorted(byw5.items()))}; the weight-2 environment has tau2 = {w2_tau2}; "
+          f"pi(rho) >= sum_(z: tau2 <= 5) rho^w (1-rho)^(9-w) * (1-rho)^{iso} >= rho^2 (1-rho)^{iso + m5 - 2} > 0; "
+          f"at rho = 1/10, 1/100, 1/1000: "
           f"{', '.join(f'{float(v):.3e}' for v in vals.values())}",
-          min(byw) == 2 and all(v > 0 for v in vals.values()))
+          min(byw5) == 2 and w2_tau2 == [5] and sum(byw.values()) == 20
+          and all(vals[r] >= floor[r] > 0 for r in vals))
 
     # S4: dilution. Isolated segment, environment nu_rho on the 9 environment bits, carrier fair.
     # Annealed record error of c from log {3} at t = 5 is >= (1/2)(1-rho)^8 (Lemma N2.3).
