@@ -867,6 +867,6 @@ a measured deviation from the dark-sector phenomenology would falsify OI's speci
 After:
 
 ```text
-a measured deviation from the dark-sector phenomenology would falsify the conditional entropy-displacement account of §7.2–§7.3 without necessarily refuting the universality class.
+a measured deviation from the dark-sector phenomenology would falsify the conditional dark-sector account of §§7.2–7.3 without necessarily refuting the universality class.
 ```
 

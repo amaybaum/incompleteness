@@ -680,7 +680,7 @@ The proof is the §3–§6 derivations themselves, with the observation that eac
 
 **Empirical implication.** The universality-class results have limited direct empirical content. GW250114 supports the classical area theorem through Kerr area inference (§5). The $1/4$ thermal coefficient has no direct measurement there. Conversely, the dark-sector concordance (§7.2), the MOND-like phenomenology (§7.3), and the rotation-curve crossover (§7.3) concern the specified branch, with the source map and heat input open and the dimensional factor imported (§§7.2–7.3).
 
-The stratification clarifies what would falsify what: a measured violation of the area theorem would challenge the classical horizon dynamics the framework presupposes; a direct empirical test of the $1/4$ coefficient, if one becomes available, would test the universality-class claim; a measured deviation from the dark-sector phenomenology would falsify the conditional entropy-displacement account of §7.2–§7.3 without necessarily refuting the universality class. The framework's empirical content thus operates at multiple hierarchy levels, with falsifiability stratified accordingly.
+The stratification clarifies what would falsify what: a measured violation of the area theorem would challenge the classical horizon dynamics the framework presupposes; a direct empirical test of the $1/4$ coefficient, if one becomes available, would test the universality-class claim; a measured deviation from the dark-sector phenomenology would falsify the conditional dark-sector account of §§7.2–7.3 without necessarily refuting the universality class. The framework's empirical content thus operates at multiple hierarchy levels, with falsifiability stratified accordingly.
 
 ***
 
