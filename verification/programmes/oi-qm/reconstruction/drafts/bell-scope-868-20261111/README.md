@@ -1,6 +1,7 @@
 # Bell-scope unit 1 r2: preservation note
 
-This note covers the three files listed below and no other file. `BELL-SCOPE-UNIT1.md` and
+This note covers the three files listed below and no other file. `../bell-ladder-20261113/OWNER-EXCEPTION.md`
+records the owner exception under which they land, including the status note for findings 1–3 below. `BELL-SCOPE-UNIT1.md` and
 `DISPOSITIONS-r2.md` are byte-identical copies from draft PR #1231 (branch
 `research/bell-scope-868-20261111`, head `e1534b08fa3f361e05416b3cc0c1dcd2f3b23918`), at the paths
 they have there. `REVIEW-BS-r2-NONAUTHOR.md` is a byte-identical copy of the non-author review of that
@@ -47,8 +48,8 @@ pin its bytes.
   inside NBA's domain; finding 2 (BS:72–74), that a failure of NBA with complete-history
   no-signalling does not by itself give (B); finding 3 (BS:381–385), that the Level-A disjunction
   omits failures of (D), (F), (Gen), (Rec), measurement independence and every-run accounting. The
-  review gives replacement text for each. The owner's choice between a status note that supersedes
-  those passages and an r3 of the record is open (ChatGPT review 5903029353 on #1285, at `8177c917`).
+  review gives replacement text for each. The owner chose a superseding status note (#1169 comment
+  7031779559); it is the section "Status note: BS findings 1–3" of `OWNER-EXCEPTION.md`.
 - The copy of `REVIEW-BS-r2-NONAUTHOR.md` landed here is the one at #1285's head. It differs from the
   reviewer's first commit of the file (blob `2bd5af8bdf3227d22dad1c905a402a2cf16ee889`, at `d712097f`)
   at lines 262–263, by a rewording that its own lines 350–351 disclose, and in those two added lines.
@@ -65,5 +66,6 @@ pin its bytes.
 `REVIEW-BS-r2-NONAUTHOR.md` (Check 4) reads its [X] checks as provenance only while the ratification
 of that run is open (#868 comment 6874036684, OQ-8). Theorem N and N′, which `main` uses, are paper
 derivations; the one [X] tag inside Theorem N's proof (G1, BS:178) checks a fact the same review
-finds immediate by hand (Check 1, step 4). Landing the probe, and any replay of it, awaits that owner
-decision. The r1 text is on #1231's branch at `7abf59d7` and is provenance.
+finds immediate by hand (Check 1, step 4). By the owner exception (`OWNER-EXCEPTION.md`, E3) the probe is
+provenance only, not independently reproduced support; landing it, and any replay of it, remain
+open under OQ-8. The r1 text is on #1231's branch at `7abf59d7` and is provenance.
