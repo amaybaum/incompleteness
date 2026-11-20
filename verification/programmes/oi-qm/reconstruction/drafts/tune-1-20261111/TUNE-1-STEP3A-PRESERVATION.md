@@ -25,7 +25,9 @@ Issue: #1236.
 `tune-published` copy, lines 83, 429 and 434, cite `drafts/tune-1-20261111/TUNE-1-STEP3A-r3.md`, blob
 `7bbec04d`. That path and blob are this directory's r3. The uses those rows classify as support off
 `main` (candidate A's name, the formulation of statement (i), and "no member is exhibited", 3A:896–905)
-are support on `main` at that path. The two copies are kept unedited, because `RETENTION.json` and
+are support on `main` at that path. `selection-discriminator-20261113/support/synthesis/SYNTHESIS-r3.md`,
+lines 141 and 735, also uses r3 through TS (MM-1a, through TC-A, "support off `main` through TS");
+that use resolves on `main` through the same path. The two TS r2 copies are kept unedited, because `RETENTION.json` and
 `ARTIFACTS.sha256` there pin their bytes; the trace is recorded in that directory's `RETENTION.md`.
 
 ## Review and status
@@ -33,6 +35,15 @@ are support on `main` at that path. The two copies are kept unedited, because `R
 - `TUNE-1-STEP3A-REVIEW.md` holds the internal review trail: review of r1, ACCEPT WITH CHANGES; recheck
   of r2, ACCEPT; review of r3 (§2A), ACCEPT WITH CHANGES; confirmation of r3, ACCEPT. Its reviewer is
   named only as "Independent internal review (same model family)" (REVIEW:6).
+- The internal review of r3 and its confirmation checked a session working copy, not the landed
+  file. The landed r3 differs from that copy only at line 1068, and the landed review file differs
+  from its reviewed copy only at lines 3, 396, 403, 508 and 527: on those lines the name of the
+  session's temporary working directory is replaced by the word `working`, and no other byte
+  differs. Restoring the directory name reproduces the reviewed copies, whose SHA-256 values are
+  `5f38206485a733049f288d7891dae23fa5f3b1e2f1116bfeb23abc6a0c6ea315` (r3) and
+  `28029777fabbb211e85b8374a6684bda38fd92a9356e9b948d8c5e2fcbe2ccd0` (review), as recorded in
+  `TUNE-1-STEP3A-OBJECTS.md` on #1267's branch. The ChatGPT review below covers the landed r3 blob
+  itself.
 - ChatGPT review 5887947616 on #1267 (posted under `amaybaum`, 2026-11-13T08:08:27Z) at `8228b3c2`,
   covering the committed r3 blob: "ACCEPT WITH SCOPE QUALIFICATIONS". It states that "no exhibited
   candidate includes a fully specified family, preparation and concrete readout interface, so none
