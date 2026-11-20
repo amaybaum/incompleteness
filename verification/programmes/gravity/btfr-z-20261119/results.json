@@ -4,6 +4,41 @@
   "p_hat": -0.6187527110005344,
   "sigma_p": 0.3899097960091674
  },
+ "U2_rule": {
+  "identity_T2_minus_dT1": 0.0,
+  "z0.9": {
+   "LCDM_halo": {
+    "verdict": "consistent",
+    "z": 1.8648180852363576
+   },
+   "MOND_const": {
+    "verdict": "excluded",
+    "z": 3.1883223062266692
+   },
+   "OI_asym": {
+    "verdict": "consistent",
+    "z": 1.8648180852363576
+   },
+   "O_slope4": -0.5372832735296438,
+   "sigma_O_T1": 0.16851598487403563
+  },
+  "z2.3": {
+   "LCDM_halo": {
+    "verdict": "consistent",
+    "z": 0.9086926256012132
+   },
+   "MOND_const": {
+    "verdict": "consistent",
+    "z": 1.8666193392878259
+   },
+   "OI_asym": {
+    "verdict": "consistent",
+    "z": 0.9086926256012132
+   },
+   "O_slope4": -0.3585927744871551,
+   "sigma_O_T1": 0.19210814274750285
+  }
+ },
  "anchor": {
   "Vf": {
    "b242": 11.114223248363162,
@@ -140,6 +175,10 @@
     "inj_T1_z2.3": 0.0,
     "inj_T2": 0.0,
     "pass": true,
+    "power_OI_asym_excluded_full_sigma": 0.302,
+    "power_OI_asym_excluded_full_sigma_gauss": 0.27169863526592314,
+    "power_OI_vmax_excluded_full_sigma": 0.008,
+    "power_OI_vmax_excluded_full_sigma_gauss": 0.009599168271781755,
     "power_OIasym_excluded_stat_only": 0.962,
     "rec_T1_z0.9": -0.002435975650695305,
     "rec_T1_z2.3": -0.0020863577651256088,
@@ -359,18 +398,6 @@
   }
  },
  "python": "3.13.18",
- "robustness_gas": {
-  "OI_asym": {
-   "gas_dex_z0.9": 0.5515765072050403,
-   "gas_dex_z2.3": -0.7829535292316319,
-   "required_shift_T2": 0.2623474971831923
-  },
-  "OI_vmax": {
-   "gas_dex_z0.9": 0.35789301013734554,
-   "gas_dex_z2.3": -0.33704283321904427,
-   "required_shift_T2": 0.15061604646679977
-  }
- },
  "seed": 20261119,
  "sensitivity": {
   "T1_z0.9:OI_asym|MOND_const": {
@@ -392,6 +419,76 @@
    "discriminating": false,
    "separation": 0.14199451556374854,
    "two_sigma_O": 0.23319183588410292
+  }
+ },
+ "sensitivity_review": {
+  "gas_allowance": {
+   "0.15 differential gas": {
+    "MOND_const_asym": 1.407591762297729,
+    "MOND_const_vmax": 1.846492638867879,
+    "OI_asym": 3.769447475299815,
+    "OI_vmax": 2.91768949614804,
+    "sigma_O": 0.1314496995201787
+   },
+   "0.15 gas + 0.10 epoch-dependent SED": {
+    "MOND_const_asym": 1.3187127621393657,
+    "MOND_const_vmax": 1.7299333066268365,
+    "OI_asym": 3.5315358080462174,
+    "OI_vmax": 2.7345213195831235,
+    "sigma_O": 0.1403091859829601
+   },
+   "0.15 per bin, independent": {
+    "MOND_const_asym": 1.3202861655549432,
+    "MOND_const_vmax": 1.7319967856646798,
+    "OI_asym": 3.5357476763667814,
+    "OI_vmax": 2.7377657390100687,
+    "sigma_O": 0.14014197757146418
+   },
+   "0.20 differential gas": {
+    "MOND_const_asym": 1.2352416741749077,
+    "MOND_const_vmax": 1.620460232048287,
+    "OI_asym": 3.3080820480451747,
+    "OI_vmax": 2.5623096428239074,
+    "sigma_O": 0.1497905374061366
+   },
+   "preregistered (0.10 differential gas)": {
+    "MOND_const_asym": 1.5869124534280399,
+    "MOND_const_vmax": 2.08163925511384,
+    "OI_asym": 4.249388272288695,
+    "OI_vmax": 3.2865620179757595,
+    "sigma_O": 0.11659591794205146
+   }
+  },
+  "margins": {
+   "OI_asym": {
+    "z2": {
+     "T2_shift": 0.2623474971831923,
+     "gas_dex_z2.3": -0.7829535292316319
+    },
+    "z3": {
+     "T2_shift": 0.1457169001381297,
+     "gas_dex_z2.3": -0.3233216634751137
+    }
+   },
+   "OI_vmax": {
+    "z2": {
+     "T2_shift": 0.15061604646679977,
+     "gas_dex_z2.3": -0.33704283321904427
+    },
+    "z3": {
+     "T2_shift": 0.033547421431704416,
+     "gas_dex_z2.3": -0.06395099553920724
+    }
+   }
+  },
+  "stellar_only": {
+   "T2_stellar": 0.019264676112367596,
+   "sigma_no_gas": 0.10162792773776454,
+   "stat": 0.06531356145290056,
+   "z_MOND_const_asym": 0.1895608475071653,
+   "z_MOND_const_vmax": 0.7574280869811746,
+   "z_OI_asym": 3.244352064115798,
+   "z_OI_vmax": 2.1433948378239958
   }
  },
  "verdicts": {

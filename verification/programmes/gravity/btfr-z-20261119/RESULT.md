@@ -11,7 +11,7 @@ Preregistration: `PREREG.md`, commit `7b51814046c351b0060eb9413dc4d985f08b91b1`,
 python3 -I verification/programmes/gravity/btfr-z-20261119/scripts/btfr_z.py
 ```
 
-Environment of the recorded run: Python 3.13.18, numpy 2.5.3; seed 20261119, 2000 bootstrap resamples, 500 mocks per injection. The run is deterministic: it rewrites `results.json` and this file byte for byte. Expected headline: **OI on T2: excluded**, with the values in the tables below. In the recorded environment two consecutive runs gave `results.json` SHA-256 `f4a51766a5b6c8c9eb94683b8bf5cae7e83b874f23e3c3fd29fce630e018b01e`; `results.json` records the Python and numpy versions, so its digest is specific to them.
+Environment of the recorded run: Python 3.13.18, numpy 2.5.3; seed 20261119, 2000 bootstrap resamples, 500 mocks per injection. The run is deterministic: it rewrites `results.json` and this file byte for byte. Expected headline: **OI on T2: excluded**, with the values in the tables below. In the recorded environment two consecutive runs gave `results.json` SHA-256 `d0c4eaa508c6ec16071f77a282eccb2c1b03084735954fc4ac6ae25c6fc4f6d2`; `results.json` records the Python and numpy versions, so its digest is specific to them.
 
 Amendment 1 adds `scripts/readings_posthoc.py` (post hoc, descriptive; reads `results.json`):
 
@@ -45,7 +45,7 @@ Data (checked by the script against PREREG §3 before anything is computed):
 | C5 E(1), E(2), E(3) | {1: 1.79, 2: 3.03, 3: 4.57} | 1.79, 3.03, 4.57 | True |
 | C6 forward-model limits | deep-MOND -0.4815 (vs -0.4818); Newtonian -0.0045; Bessel 4.1e-08 | ±0.01; ±0.01; ≤1e-6 | True |
 
-Power of T2 against OI (C3, constant-a₀ truth, statistical σ only): OI-asym is excluded in 96.2% of mocks.
+Power of T2 against OI, with constant a₀ as the truth. With the statistical σ only in the test (as PREREG specified), OI-asym is excluded in 96.2% of the C3 mocks. That figure overstates the power of the preregistered test, which uses the full σ_O. With the full σ_O in the test and statistical scatter about the truth (amendment 2), the probability of excluding OI-asym is 27% and of excluding the OI forward model 1% (Gaussian; the 500 C3 mocks give 30.2% and 0.8%). The mocks inject into the same linear model with Gaussian errors at the observed velocities. They do not model the sample selection, so C3 shows that the fitter is unbiased under that model, not that the bins are free of selection bias.
 
 ## Anchor and measurements
 
@@ -91,14 +91,31 @@ Sensitivity (PREREG §7):
 
 ## Verdict
 
+**Summary (T2, the preregistered headline statistic).** In strong tension with, and excluded under the preregistered error budget by, the KMOS³D T2 statistic (4.25σ asymptotic / 3.29σ forward-modelled); the forward-model exclusion is marginal to the gas-mass allowance, and the evidence rests on one sample with inferred masses throughout. This falls short of a robust exclusion.
+
+**Summary (the G3-SCOPE U2 planning statistic).** Under the planning rule's anchored zero-point offset at slope 4, OI-asym is consistent at z ~ 0.9 (z = 1.86) and consistent at z ~ 2.3 (z = 0.91), and constant-a₀ MOND is excluded at z ~ 0.9 (z = 3.19) and consistent at z ~ 2.3 (z = 1.87). The choice between the two statistics decides which model is disfavoured. T2 was chosen with the published zero-points known; it is kept as the headline because it is the only statistic in which the anchor-common systematics cancel (section below).
+
+The verdict labels below are those the preregistered rule computes. The summaries above, and the planning-rule and sensitivity sections that follow, were added at review (`amendments/AMENDMENT-2-20261119-review-disclosures.md`); they change no label.
+
 - **OI, headline (T2, less severe of its two predictions): excluded.** OI-asym excluded (z = 4.25); OI forward model excluded (z = 3.29).
 - Constant-a₀ MOND on T2: asymptotic consistent (z = 1.59); forward model in tension (z = 2.08).
-- ΛCDM analytic halo scaling on T2: excluded (z = 4.25); its prediction is identical to OI-asym, so this test does not separate them.
+- Naive analytic ΛCDM halo scaling on T2: excluded (z = 4.25). Its prediction is identical to OI-asym, so this test does not separate them. The comparison is asymmetric: OI is also scored with a baryon-dominance forward model, while the halo scaling gets none. This row is therefore not a test of ΛCDM galaxy formation.
 - T1 z0.9: OI-asym consistent, non-discriminating (z = 1.39); constant-a₀ MOND in tension (z = 2.71).
 - T1 z2.3: OI-asym consistent (z = 1.36); constant-a₀ MOND consistent (z = 1.41).
-- T1 and T2 verdicts for OI differ; both are stated and no single verdict is drawn from T1 (PREREG §7).
+- T2 ≡ T1(z~2.3) − T1(z~0.9) identically: same anchor, same slope; the residual is 0.0e+00 dex. OI's T1 residuals are -0.234 and +0.262 dex, of opposite sign. Each T1 is consistent because its σ_O carries the anchor-common terms (σ_vdef, IMF, distance, H₀), which cancel in the difference. T1 consistency is therefore not evidence against T2. Both are stated, and no single verdict is drawn from T1 (PREREG §7).
 - Favourable branch triggered: False.
 - R3 (retrodiction, not a test): fitting a₀ ∝ H(z)^p to T2 gives p = -0.62 ± 0.39 (p = 1 is OI, p = 0 constant a₀). R1 (free zero-points) and R2 (Übler's tuned toy model) fit these data by construction and are not scored.
+
+### The planning-rule statistic (G3-SCOPE U2), reported beside T2
+
+The G3-SCOPE U2 planning rule (#873 comment 7022640763, 21:25Z, before PREREG) specified an anchored zero-point offset at fixed velocity with slope 4. PREREG adopted T2 as its headline instead, chosen with the published zero-points known (amendment 2). The headline rests on a structural reason that holds whatever the outcome: T2 is the only statistic in which the anchor-common systematics cancel, including the V_f (z = 0) versus v_circ,max (high z) velocity mismatch, σ_vdef. The choice between the two statistics decides which model is disfavoured. Under the U2 rule, scored with the T1 σ_O and the PREREG §7 thresholds (not a preregistered verdict):
+
+| Bin | O, slope 4 (dex) | σ_O | OI-asym | constant-a₀ MOND | ΛCDM halo scaling |
+|---|---|---|---|---|---|
+| z0.9 | -0.537 | 0.169 | z = 1.86, consistent | z = 3.19, excluded | z = 1.86, consistent |
+| z2.3 | -0.359 | 0.192 | z = 0.91, consistent | z = 1.87, consistent | z = 0.91, consistent |
+
+Under U2, OI is consistent in both bins and constant-a₀ MOND is excluded at z ~ 0.9. Under T2, OI is excluded and constant-a₀ MOND is consistent (asymptotic) or in tension (forward model). The two statistics are not independent, since T2 is the difference of the two anchored offsets. They differ in what they are sensitive to. The anchored offsets are dominated by the z = 0 velocity-definition and mass-scale terms; T2 tests the evolution between z ~ 0.9 and z ~ 2.3 within one sample.
 
 Every verdict is conditional on the mass-inference chain of PREREG §3: the high-z baryonic masses use SED stellar masses and a molecular-gas scaling relation, not per-galaxy gas measurements, and the high-z velocities are model peak circular velocities with a pressure-support correction. One high-z sample (KMOS³D) carries the whole high-z evidence.
 
@@ -111,20 +128,35 @@ Scope (amendment 1, `amendments/AMENDMENT-1-20261119-temperature-reading.md`, wr
 - SPARC Table 1 is parsed as 19 whitespace-separated fields; the byte offsets in the file's header are shifted by one column relative to its rows.
 - The sensitivity flag (PREREG §7) is applied to the ΛCDM halo scaling together with OI-asym, whose prediction it shares.
 
-## Robustness beyond the rule (not part of any verdict)
+## Sensitivity of T2 to the mass systematics (amendment 2; not part of any verdict)
 
-Coherent change of one bin's gas masses (at its median gas fraction) that would bring an OI prediction to z = 2 on T2, all other inputs fixed:
+Margins. These are the coherent changes in the z ~ 2.3 gas masses, at that bin's median gas fraction, that would bring each OI prediction to the 'excluded' threshold (z = 3) or the 'consistent' threshold (z = 2), with the preregistered σ_O held fixed:
 
-- OI_asym: T2 must fall by 0.262 dex; z ~ 2.3 gas masses -0.78 dex, or z ~ 0.9 gas masses +0.55 dex.
-- OI_vmax: T2 must fall by 0.151 dex; z ~ 2.3 gas masses -0.34 dex, or z ~ 0.9 gas masses +0.36 dex.
+| OI prediction | T2 change to reach z = 3 | z ~ 2.3 gas change | T2 change to reach z = 2 | z ~ 2.3 gas change |
+|---|---|---|---|---|
+| OI_asym | -0.146 | -0.32 dex | -0.262 | -0.78 dex |
+| OI_vmax | -0.034 | -0.06 dex | -0.151 | -0.34 dex |
 
-The preregistered gas term for T2 allows 0.10 dex of differential calibration error in the z ~ 2.3 scaling-relation gas masses. A larger epoch-dependent bias of the Tacconi relation, a selection difference between the bins beyond Übler's alternatives, or a velocity-definition effect that differs between z ~ 0.9 and z ~ 2.3 would each act on T2 directly; these are the places review should press.
+Alternative gas and SED allowances, as z-scores for T2 under the PREREG §7 formula. Only the first row is preregistered:
+
+| Allowance | σ_O | OI-asym | OI forward model | MOND const (asym) | MOND const (forward) |
+|---|---|---|---|---|---|
+| preregistered (0.10 differential gas) | 0.117 | 4.25 | 3.29 | 1.59 | 2.08 |
+| 0.15 differential gas | 0.131 | 3.77 | 2.92 | 1.41 | 1.85 |
+| 0.15 per bin, independent | 0.140 | 3.54 | 2.74 | 1.32 | 1.73 |
+| 0.20 differential gas | 0.150 | 3.31 | 2.56 | 1.24 | 1.62 |
+| 0.15 gas + 0.10 epoch-dependent SED | 0.140 | 3.53 | 2.73 | 1.32 | 1.73 |
+
+Stellar-mass-only cross-check, using no gas recipe. A fixed-slope fit to log M★ gives stellar T2 = +0.019 ± 0.065 (statistical). With the T2 pressure-support, IMF/SED and selection terms, σ = 0.102. OI's stellar-mass shift is at least as negative as its baryonic one whenever the gas fraction does not fall from z ~ 0.9 to z ~ 2.3, and that fraction rises in the data (median 0.32 to 0.54). The z-scores against the baryonic OI predictions are therefore lower bounds: z ≥ 3.24 (asymptotic) and z ≥ 2.14 (forward model).
+
+Reading. The tension does not depend on the gas recipe. The forward-model exclusion does: it clears the z = 3 threshold by 0.034 dex in T2, a coherent -0.06 dex change in the z ~ 2.3 gas masses, and under the alternative allowances above its z falls to 2.56–2.92 ('in tension'). The 0.15 dex allowance is PREREG's own per-bin T1 value and lies within the literature range of CO-versus-dust and α_CO systematics. Neither the selection difference between the bins (z ~ 0.9 galaxies sit about 1.6× above the main sequence, z ~ 2.3 ones on it) nor any epoch-dependent bias of the scaling relation is modelled beyond the preregistered terms.
 
 ## Findings for routing (no manuscript edit in this unit)
 
-- Axis (§A.23): a₀(z) = cH(z)/6 is fixed by H₀, the imported 1/6 and a supplied background, and was not fitted to these data, so this is a correctness-axis confrontation. It is not externally replicated and has had no independent review.
+- Axis (§A.23): a₀(z) = cH(z)/6 is fixed by H₀, the imported 1/6 and a supplied background, and was not fitted to these data, so this is a correctness-axis confrontation. It is not externally replicated. The one non-author review (#1429 comment 7025329707) returned REVISE on the presentation and kept the numbers and the rule; amendment 2 records the response.
 - `papers/GR.md`:516 states that the BTFR-evolution tension "is not yet statistically quantified". This record quantifies it for one sample under stated systematics. Any change to GR §7.3, to `book/ch07-gravity.md` or to the FULL mirror needs independent review of this record and a separate owner decision (§A.25, §A.27).
 - Status-surface discrepancy found while tracing the claim: `book/ch09-universality.md`:150 (mirrored in `book/The-Incompleteness-of-Observation-FULL.md`:2563) lists "Baryonic Tully-Fisher v^4 = G M_B · cH/6" as "confirmed empirical relation", while `papers/GR.md`:547 and `book/ch07-gravity.md`:299 give its normalization comparison as open.
 - The #873 G3-SCOPE proposal (U2) classes v_flat and baryonic mass as raw-direct under §A.24. For the available high-z samples neither is: the velocities are model peak circular velocities with a pressure-support correction, and the gas masses come from a scaling relation (PREREG §3).
-- The analytic ΛCDM halo scaling M_h = V³/(10 G H(z)) at fixed disk mass fraction predicts the same −log₁₀ E(z) shift as OI's asymptotic law, so a BTFR zero-point confirmation of that size would not discriminate OI from it.
+- The naive analytic ΛCDM halo scaling M_h = V³/(10 G H(z)) at fixed disk mass fraction predicts the same −log₁₀ E(z) shift as OI's asymptotic law. A BTFR zero-point confirmation of that size would therefore not discriminate OI from it. Being excluded here does not test ΛCDM galaxy formation, which this unit does not forward-model.
+- G3-SCOPE U2's anchored slope-4 statistic and this unit's T2 point in opposite directions on these data (see the planning-rule section). A later unit that uses either should preregister both.
 

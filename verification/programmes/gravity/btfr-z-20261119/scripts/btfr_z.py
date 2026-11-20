@@ -25,7 +25,7 @@ NBOOT = 2000
 NMOCK = 500
 VREF = 242.0
 LOG_VREF = math.log10(VREF)
-EXPECTED_RESULTS_SHA = "f4a51766a5b6c8c9eb94683b8bf5cae7e83b874f23e3c3fd29fce630e018b01e"  # recorded run
+EXPECTED_RESULTS_SHA = "d0c4eaa508c6ec16071f77a282eccb2c1b03084735954fc4ac6ae25c6fc4f6d2"  # recorded run
 
 # PREREG §3 hashes: (file sha256 or None, content sha256 over lines not starting with '#')
 HASHES = {
@@ -395,6 +395,14 @@ def main():
         if inj == "const":
             P = preds["T2"]["OI_asym"][0]
             e["power_OIasym_excluded_stat_only"] = float(np.mean(np.abs(t2r - P) / sdT2 > 3))
+            # amendment 2 (review F3): the same mocks scored with the full preregistered sigma_O, and the
+            # Gaussian equivalent (T2 ~ N(0, statistical sigma) under constant a0; full sigma_O in the test)
+            Phi = (lambda u: 0.5 * (1.0 + math.erf(u / math.sqrt(2.0))))
+            for mdl in ("OI_asym", "OI_vmax"):
+                Pm, sPm = preds["T2"][mdl]
+                thr = 3.0 * math.sqrt(sO2 ** 2 + sPm ** 2)
+                e[f"power_{mdl}_excluded_full_sigma"] = float(np.mean(np.abs(t2r - Pm) > thr))
+                e[f"power_{mdl}_excluded_full_sigma_gauss"] = Phi((-Pm - thr) / sdT2) + Phi((Pm - thr) / sdT2)
         c3[inj] = e
     c3["pass"] = c3["const"]["pass"] and c3["OI"]["pass"]
     controls["C3"] = c3
@@ -440,19 +448,69 @@ def main():
     E1, E2 = float(om.E(zm1)), float(om.E(zm2))
     lg = math.log10(E2 / E1)
     res["R3_fitted_p"] = {"p_hat": -T2 / lg, "sigma_p": sO2 / lg}
-    # Robustness beyond the rule (not part of any verdict): the coherent change of the gas masses of
-    # one bin, at that bin's median gas fraction, that would bring each OI prediction to z = 2 on T2.
-    rob = {}
+    # ---------------- Amendment 2 analyses (added after the result, at review; not part of any verdict)
+    # (F1) identity T2 = T1(z~2.3) - T1(z~0.9), and the G3-SCOPE U2 planning statistic:
+    # anchored offset at slope 4 (anchor and high-z both fixed at s = 4), scored with the T1 sigma_O.
+    u2 = {"identity_T2_minus_dT1": T2 - (meas["T1_z2.3"]["O"] - meas["T1_z0.9"]["O"])}
+    for tag in ("z0.9", "z2.3"):
+        m = meas["T1_" + tag]
+        O4 = m["O_slope4"]
+        e = {"O_slope4": O4, "sigma_O_T1": m["sigma_O"]}
+        for mdl, (P, sP) in preds["T1_" + tag].items():
+            e[mdl] = verdict(O4, m["sigma_O"], P, sP)
+        u2[tag] = e
+    res["U2_rule"] = u2
+
+    # (F2) sensitivity of the T2 verdicts to the gas and SED allowances
+    f1g, f2g = meas["T1_z0.9"]["median_fgas"], meas["T1_z2.3"]["median_fgas"]
+    b2 = dict(budget2)
+
+    def sig_with(**kw):
+        bb = dict(b2)
+        bb.update(kw)
+        return math.sqrt(sum(v ** 2 for v in bb.values()))
+
+    variants = {
+        "preregistered (0.10 differential gas)": sig_with(),
+        "0.15 differential gas": sig_with(gas=math.hypot(0.15 * f2g, 0.02)),
+        "0.15 per bin, independent": sig_with(gas=math.hypot(0.15 * f1g, 0.15 * f2g, 0.02)),
+        "0.20 differential gas": sig_with(gas=math.hypot(0.20 * f2g, 0.02)),
+        "0.15 gas + 0.10 epoch-dependent SED": sig_with(
+            gas=math.hypot(0.15 * f2g, 0.02),
+            imf=math.hypot(0.10 * abs(f2 - f1), 0.10 * 0.5 * (f1 + f2))),
+    }
+    gsens = {}
+    for name, sO in variants.items():
+        gsens[name] = {"sigma_O": sO}
+        for mdl in ("OI_asym", "OI_vmax", "MOND_const_asym", "MOND_const_vmax"):
+            P, sP = preds["T2"][mdl]
+            gsens[name][mdl] = abs(T2 - P) / math.sqrt(sO ** 2 + sP ** 2)
+    margins = {}
     for mdl in ("OI_asym", "OI_vmax"):
         P2, sP2 = preds["T2"][mdl]
-        need = T2 - P2 - 2.0 * math.sqrt(sO2 ** 2 + sP2 ** 2)
-        e = {"required_shift_T2": need}
-        for tag, sign in (("z2.3", -1.0), ("z0.9", +1.0)):
-            fs_, fg_ = meas["T1_" + tag]["median_fstar"], meas["T1_" + tag]["median_fgas"]
-            arg = (10 ** (sign * need) - fs_) / fg_
-            e["gas_dex_" + tag] = math.log10(arg) if arg > 0 else None
-        rob[mdl] = e
-    res["robustness_gas"] = rob
+        e = {}
+        for zt in (3.0, 2.0):
+            need = T2 - P2 - zt * math.sqrt(sO2 ** 2 + sP2 ** 2)
+            arg = (10 ** (-need) - f2) / f2g
+            e[f"z{int(zt)}"] = {"T2_shift": need, "gas_dex_z2.3": math.log10(arg) if arg > 0 else None}
+        margins[mdl] = e
+    # stellar-mass-only T2 (no gas recipe): fixed slope s_f, sigma(log M*) = 0.15 dex
+    st = {}
+    for tag in ("z0.9", "z2.3"):
+        sel = bins[tag]
+        x = np.log10(vc[sel]) - LOG_VREF
+        sx = 20.0 / (vc[sel] * math.log(10))
+        sy = np.full(sel.sum(), 0.15)
+        bst, _ = fit_fixed(x, lms[sel], sx, sy, s_f)
+        st[tag] = (bst, boot_fixed(x, lms[sel], sx, sy, s_f, rng))
+    T2s = st["z2.3"][0] - st["z0.9"][0]
+    sts = math.hypot(st["z0.9"][1], st["z2.3"][1])
+    sig_s = math.sqrt(sts ** 2 + b2["ps"] ** 2 + b2["imf"] ** 2 + b2["sel"] ** 2)
+    stellar = {"T2_stellar": T2s, "stat": sts, "sigma_no_gas": sig_s}
+    for mdl in ("OI_asym", "OI_vmax", "MOND_const_asym", "MOND_const_vmax"):
+        P, sP = preds["T2"][mdl]
+        stellar["z_" + mdl] = abs(T2s - P) / math.sqrt(sig_s ** 2 + sP ** 2)
+    res["sensitivity_review"] = {"gas_allowance": gsens, "margins": margins, "stellar_only": stellar}
     res["favourable_branch"] = (verd["T2"]["OI_asym"]["verdict"].startswith("consistent")
                                 and verd["T2"]["MOND_const_asym"]["verdict"] == "excluded")
 
@@ -549,8 +607,17 @@ def write_result_md(r):
       f"Newtonian {lim['newton_shift']:+.4f}; Bessel {C['C6']['bessel_max_rel_err']:.1e} | ±0.01; ±0.01; ≤1e-6 | "
       f"{C['C6']['pass']} |")
     a("")
-    a(f"Power of T2 against OI (C3, constant-a₀ truth, statistical σ only): OI-asym is excluded in "
-      f"{100 * C['C3']['const']['power_OIasym_excluded_stat_only']:.1f}% of mocks.")
+    c3c = C["C3"]["const"]
+    a(f"Power of T2 against OI, with constant a₀ as the truth. With the statistical σ only in the test (as "
+      f"PREREG specified), OI-asym is excluded in {100 * c3c['power_OIasym_excluded_stat_only']:.1f}% of the C3 "
+      "mocks. That figure overstates the power of the preregistered test, which uses the full σ_O. With the "
+      "full σ_O in the test and statistical scatter about the truth (amendment 2), the probability of "
+      f"excluding OI-asym is {100 * c3c['power_OI_asym_excluded_full_sigma_gauss']:.0f}% and of excluding the "
+      f"OI forward model {100 * c3c['power_OI_vmax_excluded_full_sigma_gauss']:.0f}% (Gaussian; the "
+      f"{r['nmock']} C3 mocks give {100 * c3c['power_OI_asym_excluded_full_sigma']:.1f}% and "
+      f"{100 * c3c['power_OI_vmax_excluded_full_sigma']:.1f}%). The mocks inject into the same linear model "
+      "with Gaussian errors at the observed velocities. They do not model the sample selection, so C3 shows "
+      "that the fitter is unbiased under that model, not that the bins are free of selection bias.")
     a("")
     a("## Anchor and measurements")
     a("")
@@ -600,26 +667,75 @@ def write_result_md(r):
     a("## Verdict")
     a("")
     t2 = V["T2"]
+    u2 = r["U2_rule"]
+    a(f"**Summary (T2, the preregistered headline statistic).** In strong tension with, and excluded under the "
+      f"preregistered error budget by, the KMOS³D T2 statistic ({t2['OI_asym']['z']:.2f}σ asymptotic / "
+      f"{t2['OI_vmax']['z']:.2f}σ forward-modelled); the forward-model exclusion is marginal to the gas-mass "
+      "allowance, and the evidence rests on one sample with inferred masses throughout. This falls short of a "
+      "robust exclusion.")
+    a("")
+    a(f"**Summary (the G3-SCOPE U2 planning statistic).** Under the planning rule's anchored zero-point offset at "
+      f"slope 4, OI-asym is {u2['z0.9']['OI_asym']['verdict']} at z ~ 0.9 (z = {u2['z0.9']['OI_asym']['z']:.2f}) "
+      f"and {u2['z2.3']['OI_asym']['verdict']} at z ~ 2.3 (z = {u2['z2.3']['OI_asym']['z']:.2f}), and "
+      f"constant-a₀ MOND is {u2['z0.9']['MOND_const']['verdict']} at z ~ 0.9 "
+      f"(z = {u2['z0.9']['MOND_const']['z']:.2f}) and {u2['z2.3']['MOND_const']['verdict']} at z ~ 2.3 "
+      f"(z = {u2['z2.3']['MOND_const']['z']:.2f}). The choice between the two statistics decides which model "
+      "is disfavoured. T2 was chosen with the published zero-points known; it is kept as the headline because "
+      "it is the only statistic in which the anchor-common systematics cancel (section below).")
+    a("")
+    a("The verdict labels below are those the preregistered rule computes. The summaries above, and the "
+      "planning-rule and sensitivity sections that follow, were added at review "
+      "(`amendments/AMENDMENT-2-20261119-review-disclosures.md`); they change no label.")
+    a("")
     a(f"- **OI, headline (T2, less severe of its two predictions): {r['OI_headline']}.** "
       f"OI-asym {t2['OI_asym']['verdict']} (z = {t2['OI_asym']['z']:.2f}); OI forward model "
       f"{t2['OI_vmax']['verdict']} (z = {t2['OI_vmax']['z']:.2f}).")
     a(f"- Constant-a₀ MOND on T2: asymptotic {t2['MOND_const_asym']['verdict']} (z = "
       f"{t2['MOND_const_asym']['z']:.2f}); forward model {t2['MOND_const_vmax']['verdict']} "
       f"(z = {t2['MOND_const_vmax']['z']:.2f}).")
-    a(f"- ΛCDM analytic halo scaling on T2: {t2['LCDM_halo']['verdict']} (z = {t2['LCDM_halo']['z']:.2f}); "
-      "its prediction is identical to OI-asym, so this test does not separate them.")
+    a(f"- Naive analytic ΛCDM halo scaling on T2: {t2['LCDM_halo']['verdict']} (z = {t2['LCDM_halo']['z']:.2f}). "
+      "Its prediction is identical to OI-asym, so this test does not separate them. The comparison is "
+      "asymmetric: OI is also scored with a baryon-dominance forward model, while the halo scaling gets none. "
+      "This row is therefore not a test of ΛCDM galaxy formation.")
     for t in ("T1_z0.9", "T1_z2.3"):
         vv = V[t]
         a(f"- {t.replace('_', ' ')}: OI-asym {vv['OI_asym']['verdict']} (z = {vv['OI_asym']['z']:.2f}); "
           f"constant-a₀ MOND {vv['MOND_const']['verdict']} (z = {vv['MOND_const']['z']:.2f}).")
-    t1o = [V[t]["OI_asym"]["verdict"].split(",")[0] for t in ("T1_z0.9", "T1_z2.3")]
-    if len(set(t1o + [r["OI_headline"].split(",")[0]])) > 1:
-        a("- T1 and T2 verdicts for OI differ; both are stated and no single verdict is drawn from T1 (PREREG §7).")
+    a(f"- T2 ≡ T1(z~2.3) − T1(z~0.9) identically: same anchor, same slope; the residual is "
+      f"{u2['identity_T2_minus_dT1']:.1e} dex. OI's T1 residuals are {f(M['T1_z0.9']['O'] - P['T1_z0.9']['OI_asym']['P'])} "
+      f"and {f(M['T1_z2.3']['O'] - P['T1_z2.3']['OI_asym']['P'])} dex, of opposite sign. Each T1 is consistent "
+      "because its σ_O carries the anchor-common terms (σ_vdef, IMF, distance, H₀), which cancel in the "
+      "difference. T1 consistency is therefore not evidence against T2. Both are stated, and no single verdict "
+      "is drawn from T1 (PREREG §7).")
     a(f"- Favourable branch triggered: {r['favourable_branch']}.")
     p = r["R3_fitted_p"]
     a(f"- R3 (retrodiction, not a test): fitting a₀ ∝ H(z)^p to T2 gives p = {p['p_hat']:.2f} ± {p['sigma_p']:.2f} "
       "(p = 1 is OI, p = 0 constant a₀). R1 (free zero-points) and R2 (Übler's tuned toy model) fit these data by "
       "construction and are not scored.")
+    a("")
+    a("### The planning-rule statistic (G3-SCOPE U2), reported beside T2")
+    a("")
+    a("The G3-SCOPE U2 planning rule (#873 comment 7022640763, 21:25Z, before PREREG) specified an anchored "
+      "zero-point offset at fixed velocity with slope 4. PREREG adopted T2 as its headline instead, chosen with "
+      "the published zero-points known (amendment 2). The headline rests on a structural reason that holds "
+      "whatever the outcome: T2 is the only statistic in which the anchor-common systematics cancel, including "
+      "the V_f (z = 0) versus v_circ,max (high z) velocity mismatch, σ_vdef. The choice between the two "
+      "statistics decides which model is disfavoured. Under the U2 rule, scored with the T1 σ_O and the PREREG "
+      "§7 thresholds (not a preregistered verdict):")
+    a("")
+    a("| Bin | O, slope 4 (dex) | σ_O | OI-asym | constant-a₀ MOND | ΛCDM halo scaling |")
+    a("|---|---|---|---|---|---|")
+    for tag in ("z0.9", "z2.3"):
+        e = u2[tag]
+        cell = (lambda d: f"z = {d['z']:.2f}, {d['verdict']}")
+        a(f"| {tag} | {f(e['O_slope4'])} | {e['sigma_O_T1']:.3f} | {cell(e['OI_asym'])} | {cell(e['MOND_const'])} | "
+          f"{cell(e['LCDM_halo'])} |")
+    a("")
+    a("Under U2, OI is consistent in both bins and constant-a₀ MOND is excluded at z ~ 0.9. Under T2, OI is "
+      "excluded and constant-a₀ MOND is consistent (asymptotic) or in tension (forward model). The two "
+      "statistics are not independent, since T2 is the difference of the two anchored offsets. They differ in "
+      "what they are sensitive to. The anchored offsets are dominated by the z = 0 velocity-definition and "
+      "mass-scale terms; T2 tests the evolution between z ~ 0.9 and z ~ 2.3 within one sample.")
     a("")
     a("Every verdict is conditional on the mass-inference chain of PREREG §3: the high-z baryonic masses use "
       "SED stellar masses and a molecular-gas scaling relation, not per-galaxy gas measurements, and the high-z "
@@ -644,27 +760,53 @@ def write_result_md(r):
     a("- The sensitivity flag (PREREG §7) is applied to the ΛCDM halo scaling together with OI-asym, whose "
       "prediction it shares.")
     a("")
-    a("## Robustness beyond the rule (not part of any verdict)")
+    a("## Sensitivity of T2 to the mass systematics (amendment 2; not part of any verdict)")
     a("")
-    a("Coherent change of one bin's gas masses (at its median gas fraction) that would bring an OI prediction "
-      "to z = 2 on T2, all other inputs fixed:")
+    sr = r["sensitivity_review"]
+    a("Margins. These are the coherent changes in the z ~ 2.3 gas masses, at that bin's median gas fraction, "
+      "that would bring each OI prediction to the 'excluded' threshold (z = 3) or the 'consistent' threshold "
+      "(z = 2), with the preregistered σ_O held fixed:")
     a("")
-    for mdl, e in r["robustness_gas"].items():
-        g2 = "not reachable even with zero gas" if e["gas_dex_z2.3"] is None else f"{e['gas_dex_z2.3']:+.2f} dex"
-        g1 = "not reachable" if e["gas_dex_z0.9"] is None else f"{e['gas_dex_z0.9']:+.2f} dex"
-        a(f"- {mdl}: T2 must fall by {e['required_shift_T2']:.3f} dex; z ~ 2.3 gas masses {g2}, or z ~ 0.9 "
-          f"gas masses {g1}.")
+    a("| OI prediction | T2 change to reach z = 3 | z ~ 2.3 gas change | T2 change to reach z = 2 | z ~ 2.3 gas change |")
+    a("|---|---|---|---|---|")
+    for mdl, e in sr["margins"].items():
+        g = (lambda x: "not reachable with zero gas" if x is None else f"{x:+.2f} dex")
+        a(f"| {mdl} | {f(-e['z3']['T2_shift'])} | {g(e['z3']['gas_dex_z2.3'])} | {f(-e['z2']['T2_shift'])} | "
+          f"{g(e['z2']['gas_dex_z2.3'])} |")
     a("")
-    a("The preregistered gas term for T2 allows 0.10 dex of differential calibration error in the z ~ 2.3 "
-      "scaling-relation gas masses. A larger epoch-dependent bias of the Tacconi relation, a selection "
-      "difference between the bins beyond Übler's alternatives, or a velocity-definition effect that differs "
-      "between z ~ 0.9 and z ~ 2.3 would each act on T2 directly; these are the places review should press.")
+    a("Alternative gas and SED allowances, as z-scores for T2 under the PREREG §7 formula. Only the first row "
+      "is preregistered:")
+    a("")
+    a("| Allowance | σ_O | OI-asym | OI forward model | MOND const (asym) | MOND const (forward) |")
+    a("|---|---|---|---|---|---|")
+    for name, e in sr["gas_allowance"].items():
+        a(f"| {name} | {e['sigma_O']:.3f} | {e['OI_asym']:.2f} | {e['OI_vmax']:.2f} | {e['MOND_const_asym']:.2f} | "
+          f"{e['MOND_const_vmax']:.2f} |")
+    a("")
+    s = sr["stellar_only"]
+    a(f"Stellar-mass-only cross-check, using no gas recipe. A fixed-slope fit to log M★ gives stellar "
+      f"T2 = {f(s['T2_stellar'])} ± {s['stat']:.3f} (statistical). With the T2 pressure-support, IMF/SED and "
+      f"selection terms, σ = {s['sigma_no_gas']:.3f}. OI's stellar-mass shift is at least as negative as its "
+      "baryonic one whenever the gas fraction does not fall from z ~ 0.9 to z ~ 2.3, and that fraction rises "
+      f"in the data (median {M['T1_z0.9']['median_fgas']:.2f} to {M['T1_z2.3']['median_fgas']:.2f}). The z-scores against the baryonic OI predictions are therefore lower "
+      f"bounds: z ≥ {s['z_OI_asym']:.2f} (asymptotic) and z ≥ {s['z_OI_vmax']:.2f} (forward model).")
+    a("")
+    mv = sr["margins"]["OI_vmax"]["z3"]
+    alt = [e["OI_vmax"] for k, e in sr["gas_allowance"].items() if not k.startswith("preregistered")]
+    a("Reading. The tension does not depend on the gas recipe. The forward-model exclusion does: it clears the "
+      f"z = 3 threshold by {mv['T2_shift']:.3f} dex in T2, a coherent {mv['gas_dex_z2.3']:+.2f} dex change in "
+      f"the z ~ 2.3 gas masses, and under the alternative allowances above its z falls to "
+      f"{min(alt):.2f}–{max(alt):.2f} ('in tension'). The 0.15 dex allowance is PREREG's own per-bin T1 value "
+      "and lies within the literature range of CO-versus-dust and α_CO systematics. Neither the selection "
+      "difference between the bins (z ~ 0.9 galaxies sit about 1.6× above the main sequence, z ~ 2.3 ones on "
+      "it) nor any epoch-dependent bias of the scaling relation is modelled beyond the preregistered terms.")
     a("")
     a("## Findings for routing (no manuscript edit in this unit)")
     a("")
     a("- Axis (§A.23): a₀(z) = cH(z)/6 is fixed by H₀, the imported 1/6 and a supplied background, and was not "
-      "fitted to these data, so this is a correctness-axis confrontation. It is not externally replicated and "
-      "has had no independent review.")
+      "fitted to these data, so this is a correctness-axis confrontation. It is not externally replicated. The "
+      "one non-author review (#1429 comment 7025329707) returned REVISE on the presentation and kept the numbers "
+      "and the rule; amendment 2 records the response.")
     a("- `papers/GR.md`:516 states that the BTFR-evolution tension \"is not yet statistically quantified\". This "
       "record quantifies it for one sample under stated systematics. Any change to GR §7.3, to `book/ch07-gravity.md` "
       "or to the FULL mirror needs independent review of this record and a separate owner decision (§A.25, §A.27).")
@@ -675,9 +817,12 @@ def write_result_md(r):
     a("- The #873 G3-SCOPE proposal (U2) classes v_flat and baryonic mass as raw-direct under §A.24. For the "
       "available high-z samples neither is: the velocities are model peak circular velocities with a "
       "pressure-support correction, and the gas masses come from a scaling relation (PREREG §3).")
-    a("- The analytic ΛCDM halo scaling M_h = V³/(10 G H(z)) at fixed disk mass fraction predicts the same "
-      "−log₁₀ E(z) shift as OI's asymptotic law, so a BTFR zero-point confirmation of that size would not "
-      "discriminate OI from it.")
+    a("- The naive analytic ΛCDM halo scaling M_h = V³/(10 G H(z)) at fixed disk mass fraction predicts the same "
+      "−log₁₀ E(z) shift as OI's asymptotic law. A BTFR zero-point confirmation of that size would therefore not "
+      "discriminate OI from it. Being excluded here does not test ΛCDM galaxy formation, which this unit does "
+      "not forward-model.")
+    a("- G3-SCOPE U2's anchored slope-4 statistic and this unit's T2 point in opposite directions on these data "
+      "(see the planning-rule section). A later unit that uses either should preregister both.")
     a("")
     (UNIT / "RESULT.md").write_text("\n".join(L) + "\n")
 
