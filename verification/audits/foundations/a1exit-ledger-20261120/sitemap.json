@@ -12123,9 +12123,9 @@
     "core:P3"
    ],
    "row": "X-44",
-   "code": "unit",
-   "reason": "P0 rows CEN17-SM-224/278,C7",
-   "owner": "Q2",
+   "code": "none",
+   "reason": "Q2 resolved on main at fbca1df9 (Theorem 1a for any set S)",
+   "owner": "none",
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "Theorem 1a keeps \"Let S be finite\" (an explicit hypothesis); the declared-carrier conflict is resolved at SM:222 (S3); dropping the unused hypothesis is open question Q2",

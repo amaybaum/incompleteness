@@ -16,6 +16,12 @@ the results that still require finiteness."
 **Source pin.** `main` at `9db518844`. `File:n` is line `n` at the pin. Abbreviations are those of
 PREREG.
 
+**Update after the pin.** Q2 merged on 2026-11-20 (PR #1464, merge commit `fbca1df9`). SM Theorem 1a now holds
+for any set S. Row X-44 records this as resolved, independently justified with no hypothesis on S (owner decision,
+`amaybaum`, 2026-11-20). The site map stays at the pin. At the pin, SM:242 still reads "Let $S$ be finite,", so
+the site is placed by override with code `none`. A pre-existing stale coverage-ledger entry
+(`verification/coverage/LEDGER.json`:1494–1495) is routed to #1462 as PF-6.
+
 ## Files
 
 | File | Content |
@@ -34,18 +40,18 @@ The run at the pin is `python3 -I -B verification/audits/foundations/a1exit-ledg
 | Measure | Counts |
 |---|---|
 | Rows | 56 |
-| Disposition | F 26, J 17, O 13 |
-| S1 on J rows | No 14, Relabel 3 |
+| Disposition | F 26, J 18, O 12 |
+| S1 on J rows | No 15, Relabel 3 |
 | Row owner | Main:764 1, Q1 5, Q2 1, Q3 propagation 7, R1/R2 scoping 2, R6 3, Step-2 phase 2, final deletion 9, none 26 |
-| Row status | done 24, in progress 10, open 3, queued 19 |
+| Row status | done 25, in progress 9, open 3, queued 19 |
 | Sites in the map | 600 (465 mapped to a row; 135 FP, FREE or kept) |
-| Mapped sites by correction code | none 159, ptr 186, unit 120 |
-| Mapped sites by owner | Q1 26, Q2 1, Q3 propagation 78, Step-2 phase 15, final deletion 186, none 159 |
+| Mapped sites by correction code | none 160, ptr 186, unit 119 |
+| Mapped sites by owner | Q1 26, Q3 propagation 78, Step-2 phase 15, final deletion 186, none 160 |
 <!-- COUNTS:END -->
 
 **Reading the counts.**
 
-- **J (17).** Each J row is A1-free as stated, or proved under a weaker condition already printed
+- **J (18).** Each J row is A1-free as stated, or proved under a weaker condition already printed
   with the result. Three of them carry S1 = `Relabel`:
   - X-20, recurrence-scale P-indivisibility under (NR);
   - X-23, the index-free equivalence;
@@ -55,8 +61,8 @@ The run at the pin is `python3 -I -B verification/audits/foundations/a1exit-ledg
   it is known to hold only under a law supported on periodic configurations (§3.1).
 - **F (26).** Each F row is a true statement about finite systems or finite representatives. With A1
   deleted, it stays as a finite-only statement.
-- **O (13).** The O rows fall into four groups:
-  - **Q1 and Q2 rows, in progress (X-40–X-44).** These are not marked J in advance (safeguard 2).
+- **O (12).** The O rows fall into four groups:
+  - **Q1 rows, in progress (X-40–X-43).** These are not marked J in advance (safeguard 2).
   - **Rows with no proof and no unit (X-11 R1 justification, X-21 physical return, X-71 C1 coupled).**
     These stay open and are stated as open.
   - **Step-2 rows (X-63 global phase, X-82 inflow).**
@@ -117,7 +123,7 @@ Column definitions are in PREREG §3.
 | X-41 | Stage 2 chain under A4∞ (O-A4 verdict (i)): area-law lemma, Lemma 1c(i), (iii), Corollaries 1a, 1b, the d = 3 selection corollary SM:210 (SM:122, :202, :210, :252, :258, :270; Sub:157) | C7, OA4:5, OA4:6, OA4:10, OA4:12 | Inherits A4's finite lattice | O | — | n/a (not J) | Q1, in progress (O-A4 verdict (i): survives under A4∞, LF, H-μ(φ,Θ), H-μ(sp), H-Bloch) | Per Q1 outcome | 19 sites (per unit Q1 11, visible 8); codes ptr 8, unit 11. FULL:726, FULL:1340, FULL:1388, FULL:1392, FULL:1398, FULL:1404, ch02:96, ch05:25, ch05:73, ch05:77, ch05:83, ch05:89 … | Q1 | in progress |
 | X-42 | Period-lattice conditions on the printed finite class: O_h needs O_h-invariant Λ; checkerboard needs even-sum periods; eight corners need Λ ⊂ 2ℤ³; SM:539 spin–taste; SM:1536 (SM:539; SM:1536; SM:242–374 (O_h uses)) | OA4:16, OA4:18 | Finite quotients that fail Stage-2 inputs (O-A4 §7) | O | — | n/a (not J) | Q1, in progress | Per Q1 outcome (SM:539 already names the odd-torus failure; SM:1536 "bipartite checkerboard structure" unqualified) | 2 sites (per unit Q1 2); codes unit 2. SM:539, SM:1536 | Q1 | in progress |
 | X-43 | Fermion theorems on ℤ^d: Theorems 2, 3, 8, 8b, 10, 12, 13 (SM:286–302; SM:434–456; SM:535–547) | OA4:18 | Staggered phases, Brillouin corners, checkerboard | O | — | n/a (not J) | Q1, in progress ("(a) on (Z); (b) on (F)", O-A4 row 18) | Per Q1 outcome | 7 sites (per unit Q1 7); codes unit 7. SM:286, SM:302, SM:434, SM:440, SM:456, SM:535, SM:543 | Q1 | in progress |
-| X-44 | Theorem 1a "Let S be finite"; SM:222 carrier; SM:250 caps "FINITE" (SM:242; SM:222; SM:250) | OA4:9, P2-F5 | Hypothesis stated; O-A4 §9a: unused by the proof | O | — | n/a (not J) | Q2 (#1454 P2-Q2), in progress: J (hypothesis removed) if the proof check confirms O-A4 row 9; otherwise kept finite | Per Q2 outcome: SM:242 delete "Let S be finite," (and mirrors) | 1 sites (per unit Q2 1); codes unit 1. SM:242 | Q2 | in progress |
+| X-44 | Theorem 1a "Let S be finite" (RESOLVED); SM:222 carrier; SM:250 attribution (SM:242; SM:222; SM:250) | OA4:9, P2-F5 | Hypothesis stated; O-A4 §9a: unused by the proof | J | None: no hypothesis on S. The proof is ring algebra on the observable space (P + Q = I, linearity of U, commutation with R_g); the existing Lean MZ (verification/lean/OI_Structural_Core.lean) covers infinite S | No: No condition replaces the deleted one; the theorem holds for any set S | RESOLVED by Q2 after the pin: PR #1464 merged at head eee291d9, merge commit fbca1df98f630aa0dd334c6e7f9f9a193da64394 (owner decision, amaybaum, 2026-11-20); recovery record verification/audits/foundations/a1exit-q2-20261120/RECOVERY.md (on main) | done on main at fbca1df9: SM:242 "Let $S$ be finite," → "Let $S$ be a set,"; SM:250 attribution "a deterministic bijection". The pinned tree (9db51884) still carries the old text; the map is rebuilt at the next pin. Pre-existing stale coverage-ledger entry verification/coverage/LEDGER.json:1494–1495 is routed to #1462 as PF-6 | 1 sites (per unit Q2 1); codes none 1. SM:242 | Q2 | done (Q2 merged, fbca1df9) |
 | X-45 | Theorem 23 (reconstruction) under E1–E7 and A1–A6; its uniqueness "within the class A1–A6" (Sub:104–133; Sub:189–195; Sub:205–233; ch02:88–122; ch04:10–26; ch05:19; Str:768; gloss:13) | C6, OA4:26, R4 | A1 listed among the hypotheses; Stage 2 uses A4's finite lattice; Stage 3 H-count (X-70); Stage 1 exact return (X-29) | F | — | n/a (not J) | With A1 deleted, the theorem stands as a theorem about finite substrata satisfying A2–A6 (finite-only). Its infinite-lattice version is open pending Q1 (Stage 2), C1 (Stage 3, X-71) and X-21 (Stage 1) | Sub:104 and mirrors: "under E1–E7 and A1–A6 jointly" → "for a finite substratum satisfying E1–E7 and A2–A6"; "the structural class A1–A6" → "the class of finite substrata satisfying A2–A6"; ch02:122 "(violating A1)" → "(outside the finite class)" | 39 sites (not determined 5, visible 34); codes none 6, ptr 28, unit 5. FULL:718, FULL:720, FULL:748, FULL:752, FULL:1114, FULL:1130, FULL:1334, FULL:6504, ch02:88, ch02:90, ch02:118, ch02:122 … | final deletion | queued (Step 2; after Q1; 5 Phase-3 sites via Q3) |
 | X-46 | OI-class substrata "satisfying A1–A6" (Structure Definition 9.9, Proposition 9.5 and dependent statements) (Str:646 and the R6/C11 sites of Structure) | C11 | Class definition | F | — | n/a (not J) | A definitional finite class; narrowing to A2–A6 plus the M4/M18 posits would be a definition change (REMAINDER C11) and is not proposed here | At deletion: "OI-class substrata (satisfying A1–A6)" → "finite OI-class substrata (finite, satisfying A2–A6)" | 57 sites (visible 57); codes none 2, ptr 55. FULL:895, FULL:905, FULL:2433, FULL:2451, FULL:2521, FULL:2597, FULL:2603, FULL:2607, ch03:34, ch03:44, ch09:18, ch09:36 … | final deletion | queued (Step 2) |
 | X-50 | CP-indivisibility theorem (permutation-dilation family) (M:332–336) | M9, L6, R6 | Permutation unitary on finite H | F | — | n/a (not J) | Printed as a finite-representative statement (M:732 (ii) list). R6 lemma L6 (Koopman dilation on ℂ^V ⊗ L²(H,ρ)), in progress, may supply J or confirm the finite-only restriction | none at the pin; per R6 outcome | 2 sites (per unit R6 2); codes none 2. M:332, M:336 | R6 | in progress |
@@ -152,7 +158,7 @@ Every J row was checked to see whether its weaker condition implies total finite
 A1 under another name. None does: no J row has S1 = `Yes`. That is CK5, and the self-test shows
 that one `Yes` fails the check.
 
-- **`No` (14 rows).** The conditions are of these kinds:
+- **`No` (15 rows).** The conditions are of these kinds:
   - normalization of a law on a measurable carrier (X-14);
   - finite visible or finite cone data:
     - (IP) uniform on the finite visible factor (X-15);
@@ -163,7 +169,8 @@ that one `Yes` fails the check.
   - invariance properties of a normalized law (X-17);
   - (REV), a measurable bijection (X-30);
   - constructions per finite law (X-31);
-  - A1-free as stated (X-28, X-32, X-33, X-75).
+  - A1-free as stated (X-28, X-32, X-33, X-75);
+  - no condition at all: Theorem 1a for any set S (X-44, resolved by Q2 after the pin).
 
   For each, a model on an infinite carrier satisfies the condition, as cited in the row: β_A,
   Lemma U, GR Appendix B, or RIGID.
@@ -261,9 +268,8 @@ decision (owner safeguard 4; Step 2):
 1. **CK1–CK8 pass at that head.** At the pin: pass.
 2. **Every row is closed.** Its status is `done`, or it is an O or F row whose qualification is
    visible at every mapped site. At the pin these remain:
-   - **10 rows `in progress`:**
+   - **9 rows `in progress`:**
      - Q1: X-16, X-40–X-43;
-     - Q2: X-44;
      - R6: X-50, X-51, X-53;
      - Main:764: X-62.
    - **The `queued` rows:**
@@ -287,7 +293,7 @@ decision (owner safeguard 4; Step 2):
 **What may remain after deletion.** The F rows stay as finite-only theorems stated as such: X-10,
 X-12, X-16, X-18, X-22, X-24, X-26, X-27, X-29, X-45, X-46, X-50, X-51, X-53–X-57, X-62, X-64,
 X-70, X-72–X-74, X-80 and X-81. The O rows that are not removed stay as open claims stated as open:
-X-11, X-21, X-63, X-71, X-82, and whichever of X-40–X-44 Q1 and Q2 leave open.
+X-11, X-21, X-63, X-71, X-82, and whichever of X-40–X-43 Q1 leaves open.
 
 **What may not remain.** No claim may remain whose support is A1, presented as a property of nature or
 of the framework without its finite-only or open qualification. One example: Theorem 23 "under
@@ -303,7 +309,8 @@ infinite-lattice version open pending Q1, X-71 and X-21.
   - the Stage 1(ii) global-phase lines → X-63;
   - glossary:105 → Q3.
 
-  M:60, M:664, M:732 and Sub:56 are reassigned by override to X-00, X-64, X-00 and X-63. All of these
+  M:60, M:664, M:732, Sub:56 and SM:242 are reassigned by override to X-00, X-64, X-00, X-63 and X-44.
+  SM:242 is reassigned with code `none`, because Q2 resolved it on `main` after the pin. All of these
   lines carry rows that P0's first-row rule would have assigned elsewhere.
 - **D2 (shared lines).** CK5 accepts an F or O row whose sites are all primary to another row when the
   row lists them in an explicit `mirrors` field. These rows are X-11, X-12, X-18, X-21, X-29, X-56,
@@ -368,7 +375,9 @@ infinite-lattice version open pending Q1, X-71 and X-21.
 | #1169 comments 7041456852, 7035888700 | X-12 (μ-O/μ-R finite-only), X-16/X-70 (owner Q4) | Owner decisions quoted as dispositions; provenance for the decision, with no scientific claim resting on them |
 | #1454 | Phase-3 scope, Q1, Q2 | Provenance (planning) |
 | PR #1463 (Main:764 unit) | X-62 | Provenance: the correction is in progress. X-62's F disposition rests on [31] and STAGE1ii G1, both on `main` |
-| Q1, Q2 and R6 records (in progress, not on `main`) | X-16, X-40–X-44, X-50, X-51, X-53 | Provenance: these rows state the disposition at the pin, not those units' results |
+| PR #1464 (Q2), merge commit `fbca1df98f630aa0dd334c6e7f9f9a193da64394` | X-44 | Support on `main`: the corrected SM:242/:250 and `verification/audits/foundations/a1exit-q2-20261120/RECOVERY.md` are on `main` at `fbca1df9`. Owner decision (`amaybaum`, 2026-11-20, relayed by the coordinating session): record Theorem 1a as resolved, independently justified |
+| #1462 (PF-6) | X-44 note | Provenance: the stale coverage-ledger entry `verification/coverage/LEDGER.json`:1494–1495 that predates Q2 is routed there |
+| Q1 and R6 records (in progress, not on `main`) | X-16, X-40–X-43, X-50, X-51, X-53 | Provenance: these rows state the disposition at the pin, not those units' results |
 
 ## 11. Verification status (§A.46 item 4)
 

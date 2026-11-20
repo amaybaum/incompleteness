@@ -657,21 +657,21 @@
   },
   {
    "id": "X-44",
-   "title": "Theorem 1a \"Let S be finite\"; SM:222 carrier; SM:250 caps \"FINITE\"",
+   "title": "Theorem 1a \"Let S be finite\" (RESOLVED); SM:222 carrier; SM:250 attribution",
    "home": "SM:242; SM:222; SM:250",
    "sources": [
     "OA4:9",
     "P2-F5"
    ],
    "how": "Hypothesis stated; O-A4 §9a: unused by the proof",
-   "disposition": "O",
-   "weaker": "",
-   "s1": "",
-   "s1_reason": "",
-   "exit": "Q2 (#1454 P2-Q2), in progress: J (hypothesis removed) if the proof check confirms O-A4 row 9; otherwise kept finite",
-   "correction": "Per Q2 outcome: SM:242 delete \"Let S be finite,\" (and mirrors)",
+   "disposition": "J",
+   "weaker": "None: no hypothesis on S. The proof is ring algebra on the observable space (P + Q = I, linearity of U, commutation with R_g); the existing Lean MZ (verification/lean/OI_Structural_Core.lean) covers infinite S",
+   "s1": "No",
+   "s1_reason": "No condition replaces the deleted one; the theorem holds for any set S",
+   "exit": "RESOLVED by Q2 after the pin: PR #1464 merged at head eee291d9, merge commit fbca1df98f630aa0dd334c6e7f9f9a193da64394 (owner decision, amaybaum, 2026-11-20); recovery record verification/audits/foundations/a1exit-q2-20261120/RECOVERY.md (on main)",
+   "correction": "done on main at fbca1df9: SM:242 \"Let $S$ be finite,\" → \"Let $S$ be a set,\"; SM:250 attribution \"a deterministic bijection\". The pinned tree (9db51884) still carries the old text; the map is rebuilt at the next pin. Pre-existing stale coverage-ledger entry verification/coverage/LEDGER.json:1494–1495 is routed to #1462 as PF-6",
    "owner": "Q2",
-   "status": "in progress",
+   "status": "done (Q2 merged, fbca1df9)",
    "site_code": "unit",
    "note": ""
   },
@@ -1529,6 +1529,12 @@
    "code": "ptr",
    "owner": "final deletion",
    "reason": "item (ii) and the status Remark sentence carrying it"
+  },
+  "papers/SM.md:242": {
+   "row": "X-44",
+   "code": "none",
+   "owner": "none",
+   "reason": "Q2 resolved on main at fbca1df9 (Theorem 1a for any set S)"
   }
  },
  "lean": [
