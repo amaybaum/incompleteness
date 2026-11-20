@@ -482,7 +482,9 @@ linearity carries them (D3, D16; not traced); the kernel results that take A5 as
 
 ## 8. Off-`main` references (§A.42 item 8)
 
-- PR #1447, commit `7e52c8ad`: provenance (the principle's text); not used as support.
+- PR #1447, commit `7e52c8ad`: provenance (the principle's text); not used as support. #1447
+  merged into `main` at `bce3ab0b` after `PREREG.md` was written, so the principle is now on
+  `main`; that merge changes only `AGENTS.md`, and no line of `papers/` cited here moved.
 - #1049 c.6624263637 and #1169 c.7033247170: owner records, quoted as provenance for decisions; the
   claims they bear on rest on files on `main`.
 - Review comments cited inside the inputs: provenance for those inputs' standing.
