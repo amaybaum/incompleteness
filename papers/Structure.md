@@ -1349,7 +1349,7 @@ AI assistance in preparing this work is disclosed at\
 
 [DawidFranzmann2025] R. Dawid, G. Franzmann, "Realism and Ontology in Quantum Mechanics and String Theory" (December 2025). arXiv:2512.17124.
 
-[DESI_DR2_2025] DESI Collaboration, "Cosmology in Extended Parameter Space with DESI Data Release 2 Baryon Acoustic Oscillations: A 2σ+ Detection of Nonzero Neutrino Masses" (2025). arXiv:2504.15340.
+[DESI_DR2_2025] DESI Collaboration, "DESI DR2 Results II: Measurements of Baryon Acoustic Oscillations and Cosmological Constraints," *Phys. Rev. D* **112**, 083515 (2025). arXiv:2503.14738.
 
 [DowkerSurya2020] F. Dowker, S. Surya, "Quantum sequential growth in causal set theory", in *The Routledge Handbook of the Philosophy and Science of Causation*, Routledge (2020).
 
