@@ -41,17 +41,18 @@ changes no line count.
 > For $(S, \varphi)$ in its equilibrium macrostate, canonical typicality [31] implies every local
 > subsystem is also in its local equilibrium.
 
-**After:**
+**After** (review round 1 restatement, commit after `94876956`; the first version, at `94876956`, is
+in the PR history):
 
 > For $(S, \varphi)$ in its equilibrium macrostate, canonical typicality [31] implies that, for a
-> fixed local subsystem, the reduced state of a typical state of the equilibrium shell, typical for
-> the unitarily invariant measure on that shell, is close to the shell's marginal on the subsystem,
-> its local equilibrium. The reduced state of a configuration microstate $|s\rangle$ of
-> $(S, \varphi)$ on a subsystem $\Sigma$ is the pure state $|s_\Sigma\rangle\langle s_\Sigma|$, at
-> trace distance at least $1-\lambda_{\max}$ from the marginal, $\lambda_{\max}$ its largest
-> eigenvalue, so configuration microstates lie outside that typical set whenever the marginal is
-> spread over many configurations; for the uniform law on the shell the conclusion holds exactly,
-> the shell's marginal being that law's marginal, and needs no typicality.
+> fixed local subsystem and a shell of dimension large compared with the subsystem's, the reduced
+> state of a typical pure state of the equilibrium shell (typical for the unitarily invariant measure
+> on it) is close to the shell's marginal on the subsystem, its local equilibrium. A configuration
+> microstate $|s\rangle$ of $(S,\varphi)$ has on a subsystem $\Sigma$ the pure reduced state
+> $|s_\Sigma\rangle\langle s_\Sigma|$, at trace distance at least $1-\lambda_{\max}$ from that
+> marginal, $\lambda_{\max}$ its largest eigenvalue, so configuration microstates lie outside that
+> typical set whenever $\lambda_{\max}$ is small. For the uniform law on the shell the conclusion
+> holds exactly and needs no typicality: the shell's marginal is that law's marginal.
 
 ## Scope kept out
 
@@ -97,7 +98,7 @@ occurrences of "every local subsystem" in `papers/` and `book/`.
 - `sh ./build.sh Main`: ok, 106 pages (base 106), no dropped glyphs. `papers/Main.tex` and
   `papers/Main.pdf` regenerated.
 - `verification/coverage/LEDGER.json`, entry `MAIN:C-observer-selection-rule-rate-condition`:
-  fingerprint `99ffb12c63ad9c8a` → `cca8d157b7df0fbe`. Re-affirmed: kernel `GAP`, delta "not
+  fingerprint `99ffb12c63ad9c8a` → `cca8d157b7df0fbe` (at `94876956`) → `9830ad9513ecc4f8` (round 1). Re-affirmed: kernel `GAP`, delta "not
   formalized", assumptions unchanged and still accurate (the corrected sentence adds no
   assumption). `tools/coverage_check.py`: OK.
 - SC-42 (`check_sc42_integration.py`, normal and `--self-test`): output byte-identical to the
@@ -111,6 +112,44 @@ occurrences of "every local subsystem" in `papers/` and `book/`.
   emphasis or revision-history phrase.
 - `verification/audits/foundations/a1-scope-phase0-20261120/sites.json` quotes the base sentence;
   it is a frozen phase-0 record read by no CI step and is not edited.
+
+## Review round 1 (`94876956`, ACCEPT-WITH-NITS)
+
+The independent review, relayed by the coordinating session, found [31] to be Goldstein–Lebowitz–Tumulka–Zanghì,
+Phys. Rev. Lett. 96, 050403. It also found the G1 bound correct, Main independence clean, no mirrors, and
+build, SC-42 and CI clean. The nits are handled as follows:
+
+- **N1 (large-dimension condition), N2 (the λ_max wording), N5 (readability).** The reviewer's restatement
+  is applied verbatim (the After text above).
+  - *Check against [31]'s hypotheses.* In arXiv:cond-mat/0511091v2 the wave function is drawn from "the
+    uniform (surface area) measure on the unit sphere" of the energy-shell subspace, which is the unitarily
+    invariant measure. The system S is fixed. The conclusion is "≈" for "the overwhelming majority of wave
+    functions", argued asymptotically: the bath must be "sufficiently large", in the thermodynamic limit.
+    Weak coupling is needed only for the canonical form.
+  - The source gives no explicit dimension inequality; a quantitative bound in terms of the subsystem's
+    dimension and the shell's effective dimension is Popescu–Short–Winter's. "A shell of dimension large
+    compared with the subsystem's" is therefore the qualitative form of [31]'s large-bath condition, and it
+    does not claim a quantitative bound. "Close to the shell's marginal" matches the microcanonical-marginal
+    statement before weak coupling is used.
+- **N3 (accountable Issue for the phase statements).** The global-phase statements left in place after H1,
+  M:764's "observers therefore exist only in the non-equilibrium phase of $(S, \varphi)$" among them, are
+  tracked as follows:
+  - accountable Issue: #1169, the A1-exit objective, Step 2 (queued, not authorized);
+  - in the A1-EXIT ledger (PR #1466): row X-63 (the twelve global-phase rows T6, T7b, T11b, T11c, T12, T14,
+    T15, T16, T17b, T18, T20b, T22) and row X-62 (this step).
+- **N4 (vestigial lead-ins).** Left for Step 2, by instruction. The corollary's lead-ins are worded for the
+  global-phase conclusion: "Under $\tau_{\rm mix}\ll\tau_S$: For $(S, \varphi)$ in its equilibrium
+  macrostate". Their restatement belongs with X-63.
+
+The checks after round 1 are as follows:
+
+- `sh ./build.sh Main` runs ok: 106 pages, no dropped glyphs.
+- The coverage fingerprint is re-affirmed, and `tools/coverage_check.py` reports OK.
+- SC-42, normal and self-test, is byte-identical to the checked-in records.
+- staleness, voice, voice-scope, claims, duplicate, mirror, citation, architecture, dependency-label
+  `--strict`, artifact-placement, manifest-drift `--check` and the lean-manuscript census all exit 0.
+- The §A.32/§A.33 scan of the added text is clean.
+- Propagation is unchanged: there is still no mirror of the step in `papers/`, `book/` or FULL.
 
 ## Review checklist
 
