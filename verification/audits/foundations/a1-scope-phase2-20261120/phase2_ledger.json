@@ -430,6 +430,251 @@
    "reason": "FULL mirror of K5 (AGENTS.md A.14)",
    "sufficient_condition": "A1",
    "support": "Chapter 2 §2.4 (A1); ch09:193"
+  },
+  {
+   "unit": "A-G1",
+   "file": "papers/GR.md",
+   "site": "GR:138",
+   "old": "gives P-indivisibility from a non-permutation rooted map under its near-return condition (NR)",
+   "old_sha256": "d474dc766ece2dae7681651521b16043f3d9c2b5ed4ff18a2837540957e69ad2",
+   "new": "gives P-indivisibility for a measurable update from a non-permutation rooted map under its near-return condition (NR)",
+   "new_sha256": "950e3243c47ec5f06860668f7fefc336be9803e95580c83498f5c1fab780ed26",
+   "rows": [
+    "C3",
+    "M4"
+   ],
+   "reason": "review B1: Main's corollary assumes a measurable map F; GR (D5) allows any sigma-algebra and Appendix B gives measurability only for t <= n (Lemma B.3), while the (NR) time is typically beyond n",
+   "sufficient_condition": "A1 (finite S), or a measurable update with (NR)",
+   "support": "Main §2.3 Corollary (near-return), hypotheses: finite C_V, one probability on a measurable hidden space shared by every root (GR (D5) is such a prior), a measurable map F (stated in the splice), (NR)",
+   "amends": "G1",
+   "amendment": 1
+  },
+  {
+   "unit": "A-S7",
+   "file": "papers/SM.md",
+   "site": "SM:252",
+   "old": "(ii) On a finite carrier, and in each Fourier fibre of a translation-invariant $U$ with finite-dimensional cell data,",
+   "old_sha256": "4d18f36b400444ac11b1a9935cc76eff7f7b4e41b96ab4f34a5e308b0e9b0532",
+   "new": "(ii) On a finite configuration space, and in each Fourier fibre when $U$ and $P$ are translation invariant with finite-dimensional cell data,",
+   "new_sha256": "22eb28e646db023f500c75e7a822b9f61027eed452b254d2395556c7f3e86989",
+   "rows": [
+    "M1",
+    "O-A4 row 11"
+   ],
+   "reason": "review nits 3-4: \"carrier\" is SM's reserved gauge-carrier term; the fibrewise case needs P translation invariant as well as U (\"S\" is not used: Lemma 1c(i) names the relabelling S)",
+   "sufficient_condition": "finite configuration space, or U and P translation invariant with finite cell data",
+   "support": "SM Lemma 1c proof (ii); O-A4 §6.1, rows 11-12",
+   "amends": "S7",
+   "amendment": 1
+  },
+  {
+   "unit": "A-S8",
+   "file": "papers/SM.md",
+   "site": "SM:254",
+   "old": "; in the translation-invariant case the same argument runs in each fibre, where $U$, $D$ and $\\mathcal D(\\lambda)$ are finite matrices. On an infinite carrier without that structure",
+   "old_sha256": "bf88dd8d931f940c5cadb3b09685691166e5bfc35fe8a99a7063ba925030d7c8",
+   "new": "; when $U$ and $P$ are translation invariant the same argument runs in each fibre, where $U$, $D$ and $\\mathcal D(\\lambda)$ are finite matrices. On an infinite configuration space without that structure",
+   "new_sha256": "a7100e70125747a60e04079a1815def26e0ea6450562adb6c811b8cd8672ed2e",
+   "rows": [
+    "M1",
+    "O-A4 row 11"
+   ],
+   "reason": "review nits 3-4, as A-S7",
+   "sufficient_condition": "as A-S7",
+   "support": "as A-S7",
+   "amends": "S8",
+   "companion_of": "A-S7",
+   "amendment": 1
+  },
+  {
+   "unit": "A-S3",
+   "file": "papers/SM.md",
+   "site": "SM:222",
+   "old": "it acts on a finite periodic quotient of $\\Lambda$",
+   "old_sha256": "99e6512fb3d29652d994dc70066275632f8659a8117ff6e0c96b2e74e681cadd",
+   "new": "it acts on configurations over a finite periodic quotient of $\\Lambda$",
+   "new_sha256": "99b71a1dcf2494b20bf53bd7e026fd312bd67c215d87b9c14f786237ad8ea46a",
+   "rows": [
+    "C7",
+    "O-A4 §9a"
+   ],
+   "reason": "review nit 6: the bijection acts on configurations, not on the lattice; S3 makes the SM:222/242 conflict conditional, and the root fix is open question Q2",
+   "sufficient_condition": "A1 with A4",
+   "support": "Substratum §3.1 (A1, A4)",
+   "amends": "S3",
+   "amendment": 1
+  },
+  {
+   "unit": "A-K2",
+   "file": "book/ch02-substratum.md",
+   "site": "ch02-substratum:76",
+   "old": "not adopted, and one sufficient condition among those the results name, read as the choice of the minimal finite representative and motivated by E3 (the holographic bound read as a dimension cutoff).",
+   "old_sha256": "9957a01f2c376627664937b4653f78fdc4d9dc1694f3100e12ce325c1feabd43",
+   "new": "not adopted, read as the choice of the minimal finite representative and motivated by E3 (the holographic bound read as a dimension cutoff); it is one sufficient condition among those the results name.",
+   "new_sha256": "9f86db0d5d72742767c23919ff754d27844620e316f10fde71276b5019018db3",
+   "rows": [
+    "REM-s3",
+    "C6"
+   ],
+   "reason": "review nit 7: \"read as the choice of the minimal finite representative\" attached to \"those the results name\"; reordered",
+   "sufficient_condition": "A1",
+   "support": "Main §1.2 Remark, §4.5 item (ii)",
+   "amends": "K2",
+   "amendment": 1
+  },
+  {
+   "unit": "A-K2-FULL",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "site": "FULL mirror of ch02-substratum:76",
+   "old": "not adopted, and one sufficient condition among those the results name, read as the choice of the minimal finite representative and motivated by E3 (the holographic bound read as a dimension cutoff).",
+   "old_sha256": "9957a01f2c376627664937b4653f78fdc4d9dc1694f3100e12ce325c1feabd43",
+   "new": "not adopted, read as the choice of the minimal finite representative and motivated by E3 (the holographic bound read as a dimension cutoff); it is one sufficient condition among those the results name.",
+   "new_sha256": "9f86db0d5d72742767c23919ff754d27844620e316f10fde71276b5019018db3",
+   "rows": [
+    "REM-s3",
+    "C6"
+   ],
+   "reason": "FULL mirror of A-K2 (AGENTS.md A.14)",
+   "sufficient_condition": "A1",
+   "support": "Main §1.2 Remark, §4.5 item (ii)",
+   "amends": "K2-FULL",
+   "amendment": 1
+  },
+  {
+   "unit": "A-C1",
+   "file": "papers/SM.md",
+   "site": "SM:30",
+   "old": "The spatial construction uses a finite set with a deterministic bijection",
+   "old_sha256": "6a711be0be8091ad3392e728c5a8779ddb4436abea92413d5dfdd75ee8aac900",
+   "new": "The spatial construction uses a set (finite under A1) with a deterministic bijection",
+   "new_sha256": "4f6af3d9b45edd82c36d826324cfd518abeff31a68c44ed4c2c5b6a2699aeb62",
+   "rows": [
+    "REM-s3",
+    "census"
+   ],
+   "reason": "review B2: finiteness of the construction's set stated without its condition",
+   "sufficient_condition": "A1",
+   "support": "Substratum §3.1 (A1)",
+   "amendment": 1
+  },
+  {
+   "unit": "A-C2",
+   "file": "papers/SM.md",
+   "site": "SM:60",
+   "old": "specifies a finite set S, a bijection φ: S → S",
+   "old_sha256": "c49b2405319fb8ffeb56f55b04ae53bf1617ecf9cd2b36dc6d3585b398cb3923",
+   "new": "specifies a set S, finite under A1, a bijection φ: S → S",
+   "new_sha256": "46e5b30fffa8ac62eff7d4e09326079018075e43112d99f6600a1f165a281384",
+   "rows": [
+    "REM-s3",
+    "census"
+   ],
+   "reason": "review B2: the assumption list of SM §2.3 names A3-A6, not A1, and the triple is called finite",
+   "sufficient_condition": "A1",
+   "support": "Substratum §3.1 (A1)",
+   "amendment": 1
+  },
+  {
+   "unit": "A-C3",
+   "file": "papers/Structure.md",
+   "site": "Structure:730",
+   "old": "(finite sets with bijections)",
+   "old_sha256": "c8826c048c3c68497a84446d20e0fdd857f4a4f36b817e8c97940f24bbb32ddd",
+   "new": "(sets with bijections, finite under A1)",
+   "new_sha256": "42783d3fa8a430566514b211f0758643973cdb9355cb466f336f919391c2b636",
+   "rows": [
+    "C11",
+    "census"
+   ],
+   "reason": "census: Definition 9.9 does not make a substratum finite; the sentence did",
+   "sufficient_condition": "A1",
+   "support": "Structure Definition 9.9; Substratum §3.1 (A1)",
+   "amendment": 1
+  },
+  {
+   "unit": "A-C4",
+   "file": "papers/Structure.md",
+   "site": "Structure:732",
+   "old": "they have all the formal features of permutations on finite sets.",
+   "old_sha256": "f89b20d8251dcb92a92372d952a8fa06d677cf6917e0fdfd07cceb73e86ab7c8",
+   "new": "under A1 they have all the formal features of permutations on finite sets.",
+   "new_sha256": "aff283078834818d8b249a9ff27ceda31d53761eea941c67cfafc59b3fb094a5",
+   "rows": [
+    "C11",
+    "census"
+   ],
+   "reason": "census: as A-C3",
+   "sufficient_condition": "A1",
+   "support": "Structure Definition 9.9",
+   "amendment": 1
+  },
+  {
+   "unit": "A-C5",
+   "file": "book/ch02-substratum.md",
+   "site": "ch02-substratum:8",
+   "old": "what is the finite reversible object $(S,\\varphi)$ whose",
+   "old_sha256": "7a68684bce3fbecd2faddb98b667b09663a0ffb9712c27e1b27ad9b76255e70a",
+   "new": "what is the reversible object $(S,\\varphi)$, finite under A1, whose",
+   "new_sha256": "0bf2651a122380bf6a39e63dcdf642fc143e065d3a7a208c9ace674e97c266c5",
+   "rows": [
+    "REM-s3",
+    "census"
+   ],
+   "reason": "review B2 (borderline, decided edit): the chapter question asserts that the object is finite",
+   "sufficient_condition": "A1",
+   "support": "Chapter 2 §2.4 (A1)",
+   "amendment": 1
+  },
+  {
+   "unit": "A-C5-FULL",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "site": "FULL mirror of ch02-substratum:8",
+   "old": "what is the finite reversible object $(S,\\varphi)$ whose",
+   "old_sha256": "7a68684bce3fbecd2faddb98b667b09663a0ffb9712c27e1b27ad9b76255e70a",
+   "new": "what is the reversible object $(S,\\varphi)$, finite under A1, whose",
+   "new_sha256": "0bf2651a122380bf6a39e63dcdf642fc143e065d3a7a208c9ace674e97c266c5",
+   "rows": [
+    "REM-s3",
+    "census"
+   ],
+   "reason": "FULL mirror of A-C5 (AGENTS.md A.14)",
+   "sufficient_condition": "A1",
+   "support": "Chapter 2 §2.4 (A1)",
+   "amendment": 1
+  },
+  {
+   "unit": "A-C6",
+   "file": "book/ch05-gauge-structure.md",
+   "site": "ch05-gauge-structure:15",
+   "old": "the minimal mathematical object — a finite set with a deterministic bijection",
+   "old_sha256": "bf101ddbc4354bf83b971457aa74e472eff09c536dda24464bfe2f2c5e95fa90",
+   "new": "the minimal mathematical object — a set (finite under the open hypothesis A1) with a deterministic bijection",
+   "new_sha256": "a0d27df2848d33b29e036d161ac1ed99d0a341cdae6636f4c3e82fb578569710",
+   "rows": [
+    "REM-s3",
+    "census"
+   ],
+   "reason": "review B2: unconditioned, and inconsistent with ch05:23 (\"finite under the open hypothesis A1\")",
+   "sufficient_condition": "A1",
+   "support": "ch05:23; Chapter 2 §2.4 (A1)",
+   "amendment": 1
+  },
+  {
+   "unit": "A-C6-FULL",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "site": "FULL mirror of ch05-gauge-structure:15",
+   "old": "the minimal mathematical object — a finite set with a deterministic bijection",
+   "old_sha256": "bf101ddbc4354bf83b971457aa74e472eff09c536dda24464bfe2f2c5e95fa90",
+   "new": "the minimal mathematical object — a set (finite under the open hypothesis A1) with a deterministic bijection",
+   "new_sha256": "a0d27df2848d33b29e036d161ac1ed99d0a341cdae6636f4c3e82fb578569710",
+   "rows": [
+    "REM-s3",
+    "census"
+   ],
+   "reason": "FULL mirror of A-C6 (AGENTS.md A.14)",
+   "sufficient_condition": "A1",
+   "support": "ch05:23; Chapter 2 §2.4 (A1)",
+   "amendment": 1
   }
  ],
  "keep": [
@@ -546,7 +791,215 @@
    "sentence_sha256": "910bf5c5925171c0101769f84f4c8eb51f11091bb5011c5beeb4bcf9f7ee22c7",
    "sentence_opening": "This is load-bearing for the recurrence route specifically: the recurrence theorem (Chapter 18 §18.7",
    "reason": "the preceding sentence states A1 as an open hypothesis, not adopted; this sentence states that exact recurrence requires finiteness"
+  },
+  {
+   "site": "book/ch04-methodology.md:146",
+   "sentence_sha256": "7ada794a238e943ec6191eb540ebebb63b1fbcf4215ceb73b49be7fc3db7658f",
+   "sentence_opening": "The exact continuum theory at any fixed finite carrier is excluded by the classical-dimension obstru",
+   "reason": "fixed finite operational carrier (mirror of Substratum:533)",
+   "amendment": 1
+  },
+  {
+   "site": "book/ch04-methodology.md:94",
+   "sentence_sha256": "51822bd12cc1884ee7f7f7e461ac976e08489402b89503c35c22619b87f95ee8",
+   "sentence_opening": "**Common descriptions, separate premises.** A finite bijection and its trace-out supply the same sub",
+   "reason": "Phase 0 K (C5): the finite bijection is the common description of the no-go questions, with \"separate premises\" stated in the same paragraph",
+   "amendment": 1
+  },
+  {
+   "site": "book/ch07-gravity.md:126",
+   "sentence_sha256": "cb2801bae4f7db5a8a2d56864f3e8f51bcc047f95f66b165dbea539aa9b84ea5",
+   "sentence_opening": "Applying them to the substratum requires H-scramble: uniformity over classical microstates is not un",
+   "reason": "a quantifier over finite bijections (H-scramble scope), mirror of GR:609",
+   "amendment": 1
+  },
+  {
+   "site": "book/glossary.md:105",
+   "sentence_sha256": "962acf5d6b3c211c96be32202ee4b700f3bb3a6dd8cf1424f86f6adff3c97b87",
+   "sentence_opening": "Finite-alphabet and finite-horizon representability also holds for memoryless laws, and recurrence-s",
+   "reason": "names the hypotheses of the cited result (a non-permutation rooted map and a finite return)",
+   "amendment": 1
+  },
+  {
+   "site": "papers/GR.md:132",
+   "sentence_sha256": "ca4563e39d51e551e2a2dc3d0647782c914f8133c06898ac7c44ea7cfbc218c1",
+   "sentence_opening": "$V$ is a finite set of sites; the update is defined on every configuration, and each component's upd",
+   "reason": "GR Appendix B hypotheses (D1)-(D4): finite visible sites, finite read sets (finite local data, not total finiteness)",
+   "amendment": 1
+  },
+  {
+   "site": "papers/GR.md:213",
+   "sentence_sha256": "2cee83e198475a4518b6f978feea6d5c848aa2457702c1c3e156af56c20bc462",
+   "sentence_opening": "The OI⁺, primitive-source, substratum-source, layer-flow and typed forms below are stated over the s",
+   "reason": "finite operational carriers of the operational theory (C5, class (a))",
+   "amendment": 1
+  },
+  {
+   "site": "papers/GR.md:219",
+   "sentence_sha256": "bd8bcdc056a614236c8c0cbeddb4ee58d0dc8e19e91f6a577e455892b656bfe4",
+   "sentence_opening": "$$\\boxed{\\;\\text{bare finite OI} \\;\\not\\Rightarrow\\; \\mathrm{QM}\\;}$$",
+   "reason": "boxed no-go for the finite OI class (\"bare finite OI does not imply QM\"); a class statement",
+   "amendment": 1
+  },
+  {
+   "site": "papers/GR.md:225",
+   "sentence_sha256": "3d0f46387a2c84d7de7d2eaaee273ae4ef92f52a47ce00fa1b782d323b852549",
+   "sentence_opening": "Under its stated interventions, finite bijective read-write dynamics and the phase intervention, it ",
+   "reason": "the stated interventions of the finite bijective read-write class (kernel-stated scope)",
+   "amendment": 1
+  },
+  {
+   "site": "papers/GR.md:239",
+   "sentence_sha256": "42dcade98bb519cec49d0539847d49c77d6757d72d40a4ff1c788baabafb9554",
+   "sentence_opening": "on every nonempty finite carrier (kernel: `carrier_general_oiPlus`).",
+   "reason": "finite operational carriers (C5)",
+   "amendment": 1
+  },
+  {
+   "site": "papers/GR.md:249",
+   "sentence_sha256": "989aed439b0933195f7aca85106b0f2ae5dfe4e8d2e714d59b622f1718447471",
+   "sentence_opening": "*Embedded observation.* One relabelling- and regrouping-invariant family of finite operational theor",
+   "reason": "finite operational carriers (C5)",
+   "amendment": 1
+  },
+  {
+   "site": "papers/GR.md:255",
+   "sentence_sha256": "f824d7fd908a09d1d1462cea95ec8932b1e63c2e99944dded7a49e5606b456de",
+   "sentence_opening": "holds on every nonempty finite carrier.",
+   "reason": "finite operational carriers (C5)",
+   "amendment": 1
+  },
+  {
+   "site": "papers/GR.md:273",
+   "sentence_sha256": "ca28b0fbdff1aa523375ed6919e5ad59c2ee32e996ccb9115efb67bb5aad3600",
+   "sentence_opening": "**Typed form.** The statements above are endomorphic: every operation acts from a finite carrier bac",
+   "reason": "finite operational carriers (C5)",
+   "amendment": 1
+  },
+  {
+   "site": "papers/GR.md:761",
+   "sentence_sha256": "d762f8f49b2d04e237a5027a1e73f7eac0dfb8ce26178f3512f4352abf8b90cf",
+   "sentence_opening": "*Proof.* $\\varphi$ maps each fiber $\\mathcal{C}_V \\times \\mathcal{C}_B \\times \\{d\\}$ into itself and",
+   "reason": "proof inside GR Appendix A, whose setup assumes finite configuration spaces (GR:719)",
+   "amendment": 1
+  },
+  {
+   "site": "papers/GR.md:879",
+   "sentence_sha256": "093483525fca85f09830f37e7d675f89865496b3b6615e3ced39fe79bdfd43db",
+   "sentence_opening": "- (D1) $V$ is a finite set of sites.",
+   "reason": "GR Appendix B hypothesis (D1): finite visible site set",
+   "amendment": 1
+  },
+  {
+   "site": "papers/GR.md:880",
+   "sentence_sha256": "cff2f3da6dde11a09768308dc0a2c585f1e66ffd14a3ced99d723c3e5b2bcc0d",
+   "sentence_opening": "- (D2) $\\varphi$ is defined on every configuration, and each component's update is a function of fin",
+   "reason": "GR Appendix B hypothesis (D2): finite read sets",
+   "amendment": 1
+  },
+  {
+   "site": "papers/GR.md:895",
+   "sentence_sha256": "29bb7a48017f035ec75a8f729b0b586e300ebbed792b27292a4ba8da3632400b",
+   "sentence_opening": "*Proof.* (a) By Lemma B.1, each $\\varphi_i$ is a function of the components in the finite set $N_i$,",
+   "reason": "proof inside GR Appendix B: finite read set N_i",
+   "amendment": 1
+  },
+  {
+   "site": "papers/GR.md:901",
+   "sentence_sha256": "b138b829cd7910eef8610782ec9158bb6159a81116799c36c289295cbde8a57f",
+   "sentence_opening": "By (D3), (D4) and Lemma B.2 (a), $B_n$ and $W_n \\subseteq B_n$ are finite sets of sites with finite ",
+   "reason": "proof inside GR Appendix B: B_n finite by (D3), (D4)",
+   "amendment": 1
+  },
+  {
+   "site": "papers/Structure.md:1233",
+   "sentence_sha256": "8e43378b7218417c8a957ed239d37823fb9ea497ceb4dbd2935a461bd901187c",
+   "sentence_opening": "But in the uniform full-product finite reversible setting, the $T$-level form of (C1) is a non-permu",
+   "reason": "the first sentence states its setting (\"the uniform full-product finite reversible setting\"); the second is a statement about finite reversible substrata",
+   "amendment": 1
+  },
+  {
+   "site": "papers/Structure.md:1233",
+   "sentence_sha256": "8ed939acbab4405f8ca2a5a2daa300232d4ca55824599bb490962066b47dc194",
+   "sentence_opening": "The sharp form is worth stating on its own: the visible factor of a finite reversible substratum has",
+   "reason": "the first sentence states its setting (\"the uniform full-product finite reversible setting\"); the second is a statement about finite reversible substrata",
+   "amendment": 1
+  },
+  {
+   "site": "papers/Structure.md:734",
+   "sentence_sha256": "c217aaba9e904a0c2b072f91f7aac056275024f9475188fb0dd2f6b4a061fc95",
+   "sentence_opening": "Most arbitrary $(S, \\varphi)$ pairs do not admit observers — random permutations on finite sets typi",
+   "reason": "mathematical statement about random permutations on finite sets",
+   "amendment": 1
+  },
+  {
+   "site": "papers/Structure.md:800",
+   "sentence_sha256": "d58663a17e4310d46f633b016c4e42142ca546a7e0ddc8476511519bf858ad72",
+   "sentence_opening": "- *Step 1.* Establish a map from the finite OI pair to a specified physical observable algebra and c",
+   "reason": "\"the finite OI pair\" is the finite algebra-channel pair of Structure §10.4, not the substratum",
+   "amendment": 1
+  },
+  {
+   "site": "papers/Structure.md:821",
+   "sentence_sha256": "c45ed57fd363d804c7aadf2424ca19df9e48fe0ef0f4aed56ce96860edcc1742",
+   "sentence_opening": "Section 10.4 gives the finite OI pair as a starting point.",
+   "reason": "as Structure:800 (§10.4 finite algebra-channel pair)",
+   "amendment": 1
+  },
+  {
+   "site": "papers/Structure.md:972",
+   "sentence_sha256": "7947c870bb5101d48f59e77c973c0bfcff9167aabd70d189630ce818b9a6eb74",
+   "sentence_opening": "Section 10.4 supplies the finite OI pair.",
+   "reason": "as Structure:800 (§10.4 finite algebra-channel pair)",
+   "amendment": 1
+  },
+  {
+   "site": "papers/Substratum.md:333",
+   "sentence_sha256": "e097203903c9293e2a763db801922f8519fd545d87f655a4755a48a485821269",
+   "sentence_opening": "Since $P$ has a finite order, every negative power is also a nonnegative power, so the equivalence i",
+   "reason": "mathematical statement: a permutation of finite order",
+   "amendment": 1
+  },
+  {
+   "site": "papers/Substratum.md:344",
+   "sentence_sha256": "a586a79edf80c311f2b0364fd928692f7c47839861bbab317302aa4d5c8e696e",
+   "sentence_opening": "**Access and remaining gauge gap.** This is a predictive-quotient result for passive, nondisturbing ",
+   "reason": "scopes the result: \"a predictive-quotient result for passive, nondisturbing records from one fixed finite reversible carrier\" (the result's stated setting)",
+   "amendment": 1
+  },
+  {
+   "site": "papers/Substratum.md:533",
+   "sentence_sha256": "944af288242f8946ab55dc531679e725c41830f1c92f8af3f3ef40adea49f79f",
+   "sentence_opening": "A finite instrument net extends this coverage to arbitrary finite accuracy at fixed initial state, w",
+   "reason": "finite instrument nets and fixed finite operational carriers (C5 class), not the substratum",
+   "amendment": 1
   }
  ],
- "amendments": []
+ "amendments": [
+  {
+   "number": 1,
+   "date": "2026-11-20",
+   "units": [
+    "A-G1",
+    "A-S7",
+    "A-S8",
+    "A-S3",
+    "A-K2",
+    "A-K2-FULL",
+    "A-C1",
+    "A-C2",
+    "A-C3",
+    "A-C4",
+    "A-C5",
+    "A-C5-FULL",
+    "A-C6",
+    "A-C6-FULL"
+   ],
+   "keep_entries_added": 26,
+   "review": "independent non-author review of 3b5c937c, verdict REVISE, relayed by the coordinating session on 2026-11-20 (items B1, B2 and nits 3-11)",
+   "authorization": "PREREG section 6: an appended, reviewed ledger amendment made before the edit; no manuscript edit has been made",
+   "application": "appended after the original 26 splices; each old string occurs once in the text the earlier splices produce; units with \"amends\" act on text an earlier unit inserted",
+   "controls": "phase2_controls.py amended in the same commit: CTL-14 and DR-2 scan whole scope files; DR-1 covers census lines; CTL-7 requires \"not adopted\" in every added sentence with (NR); DR-3 rows; 4 countercontrols; --mutation-check"
+  }
+ ]
 }

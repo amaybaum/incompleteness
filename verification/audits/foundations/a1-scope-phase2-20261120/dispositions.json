@@ -97,9 +97,10 @@
    ],
    "action": "edit",
    "units": [
-    "G1"
+    "G1",
+    "A-G1"
    ],
-   "reason": "the infinite-deep-sector case is the one Main §2.3 Corollary (near-return) covers (one prior on a measurable hidden space shared by every root); the sentence listed only the weaker property"
+   "reason": "the infinite-deep-sector case is the one Main §2.3 Corollary (near-return) covers (one prior on a measurable hidden space shared by every root); the sentence listed only the weaker property; amendment 1: review B1: Main's corollary assumes a measurable map F; GR (D5) allows any sigma-algebra and Appendix B gives measurability only for t <= n (Lemma B.3), while the (NR) time is typically beyond n"
   },
   {
    "site": "papers/GR.md:257",
@@ -173,7 +174,7 @@
    ],
    "action": "N",
    "units": [],
-   "reason": "abstract names \"a finite bijection on a d = 3 cubic lattice\" as the declared structural input"
+   "reason": "abstract names \"a finite bijection on a d = 3 cubic lattice\" as the single declared structural input, \"conditionally on the named bridges\"; it passes CTL-14 lexically (\"condition\") and is kept on its merits as a declared input (amendment 1, review nit 9)"
   },
   {
    "site": "papers/SM.md:22",
@@ -205,7 +206,7 @@
    "units": [
     "S1"
    ],
-   "reason": "the recurrence-cycle result requires a finite set, but the P-indivisibility conclusion does not: Main §2.3 Corollary (near-return) gives it for a hidden space of any cardinality under (NR); additive sentence, the existing one unchanged"
+   "reason": "the recurrence-cycle result requires a finite set, but the P-indivisibility conclusion does not: Main §2.3 Corollary (near-return) gives it for a hidden space of any cardinality under (NR); additive sentence, the existing one unchanged; amendment 1 (review nit 9): the line's last sentence, \"The lattice is one way to implement determinism on a finite set; it is not the only way\", passes CTL-14 lexically (\"not\") and is kept on its merits: it states one implementation, not that S is finite; S1 keeps the verb \"requires\" of the existing sentence, which is true of the recurrence-cycle result, and adds the (NR) sentence (review nit 10 not adopted: changing the verb makes CTL-7 read the whole sentence, with \"bijectivity guarantees recurrence\", as added)"
   },
   {
    "site": "papers/SM.md:112",
@@ -261,9 +262,10 @@
    ],
    "action": "edit",
    "units": [
-    "S3"
+    "S3",
+    "A-S3"
    ],
-   "reason": "O-A4 §9a (SM:222 vs SM:242): the declared carrier Λ = ℤ^d is not finite, while the paragraph calls the bijection finite and Theorem 1a assumes S finite; the finite reading is stated with its conditions"
+   "reason": "O-A4 §9a (SM:222 vs SM:242): the declared carrier Λ = ℤ^d is not finite, while the paragraph calls the bijection finite and Theorem 1a assumes S finite; the finite reading is stated with its conditions; amendment 1: review nit 6: the bijection acts on configurations, not on the lattice; S3 makes the SM:222/242 conflict conditional, and the root fix is open question Q2"
   },
   {
    "site": "papers/SM.md:232",
@@ -318,9 +320,10 @@
    ],
    "action": "edit",
    "units": [
-    "S7"
+    "S7",
+    "A-S7"
    ],
-   "reason": "O-A4 §6.1 and row 11: the proof of (ii) uses determinants, so it covers finite-dimensional operators; the statement did not carry that condition, and (iii) uses it fibrewise; proof of (ii) aligned with the narrowed statement (S7); the infinite-carrier pole reading is stated as an open assumption"
+   "reason": "O-A4 §6.1 and row 11: the proof of (ii) uses determinants, so it covers finite-dimensional operators; the statement did not carry that condition, and (iii) uses it fibrewise; proof of (ii) aligned with the narrowed statement (S7); the infinite-carrier pole reading is stated as an open assumption; amendment 1: review nits 3-4: \"carrier\" is SM's reserved gauge-carrier term; the fibrewise case needs P translation invariant as well as U (\"S\" is not used: Lemma 1c(i) names the relabelling S)"
   },
   {
    "site": "papers/SM.md:292",
@@ -1330,7 +1333,7 @@
    ],
    "action": "N",
    "units": [],
-   "reason": "exact return stated on a finite representative or under A1"
+   "reason": "finiteness is stated for \"the exact OI model here\" (a model statement); the next sentence ties exact return to total-carrier finiteness, and the paragraph states that an infinite extension needs its own state and dynamics; mirror of Substratum:52, whose \"finite OI configuration\" is edited by B3 (amendment 1, review nit 9)"
   },
   {
    "site": "book/ch02-substratum.md:76",
@@ -1340,9 +1343,10 @@
    ],
    "action": "edit",
    "units": [
-    "K2"
+    "K2",
+    "A-K2"
    ],
-   "reason": "mirror of B1 and of Phase 1 B1/B8 wording (one sufficient condition)"
+   "reason": "mirror of B1 and of Phase 1 B1/B8 wording (one sufficient condition); amendment 1: review nit 7: \"read as the choice of the minimal finite representative\" attached to \"those the results name\"; reordered"
   },
   {
    "site": "book/ch02-substratum.md:78",
@@ -1808,7 +1812,7 @@
    ],
    "action": "N",
    "units": [],
-   "reason": "FULL mirror of book/ch02-substratum.md:32: exact return stated on a finite representative or under A1"
+   "reason": "FULL mirror of book/ch02-substratum.md:32: finiteness is stated for \"the exact OI model here\" (a model statement); the next sentence ties exact return to total-carrier finiteness, and the paragraph states that an infinite extension needs its own state and dynamics; mirror of Substratum:52, whose \"finite OI configuration\" is edited by B3 (amendment 1, review nit 9)"
   },
   {
    "site": "FULL<-book/ch02-substratum.md:76",
@@ -1818,9 +1822,10 @@
    ],
    "action": "edit",
    "units": [
-    "K2-FULL"
+    "K2-FULL",
+    "A-K2-FULL"
    ],
-   "reason": "FULL mirror of book/ch02-substratum.md:76: same splice"
+   "reason": "FULL mirror of book/ch02-substratum.md:76: same splice; amendment 1: FULL mirror of A-K2 (AGENTS.md A.14)"
   },
   {
    "site": "FULL<-book/ch02-substratum.md:78",
@@ -2243,6 +2248,356 @@
    "action": "N",
    "units": [],
    "reason": "FULL mirror of book/glossary.md:13: A1-A6 or A4 stated as hypotheses (R4); O-A4 classification recorded in PREREG sec. 3.3"
+  },
+  {
+   "site": "book/ch02-substratum.md:8",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "edit",
+   "units": [
+    "A-C5"
+   ],
+   "reason": "review B2 (borderline, decided edit): the chapter question asserts that the object is finite"
+  },
+  {
+   "site": "FULL<-book/ch02-substratum.md:8",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "edit",
+   "units": [
+    "A-C5-FULL"
+   ],
+   "reason": "FULL mirror of book/ch02-substratum.md:8: same splice"
+  },
+  {
+   "site": "book/ch04-methodology.md:146",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): fixed finite operational carrier (mirror of Substratum:533)"
+  },
+  {
+   "site": "FULL<-book/ch04-methodology.md:146",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch04-methodology.md:146: kept (keep list): fixed finite operational carrier (mirror of Substratum:533)"
+  },
+  {
+   "site": "book/ch04-methodology.md:94",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): Phase 0 K (C5): the finite bijection is the common description of the no-go questions, with \"separate premises\" stated in the same paragraph"
+  },
+  {
+   "site": "FULL<-book/ch04-methodology.md:94",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch04-methodology.md:94: kept (keep list): Phase 0 K (C5): the finite bijection is the common description of the no-go questions, with \"separate premises\" stated in the same paragraph"
+  },
+  {
+   "site": "book/ch05-gauge-structure.md:15",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "edit",
+   "units": [
+    "A-C6"
+   ],
+   "reason": "review B2: unconditioned, and inconsistent with ch05:23 (\"finite under the open hypothesis A1\")"
+  },
+  {
+   "site": "FULL<-book/ch05-gauge-structure.md:15",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "edit",
+   "units": [
+    "A-C6-FULL"
+   ],
+   "reason": "FULL mirror of book/ch05-gauge-structure.md:15: same splice"
+  },
+  {
+   "site": "book/ch07-gravity.md:126",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): a quantifier over finite bijections (H-scramble scope), mirror of GR:609"
+  },
+  {
+   "site": "FULL<-book/ch07-gravity.md:126",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/ch07-gravity.md:126: kept (keep list): a quantifier over finite bijections (H-scramble scope), mirror of GR:609"
+  },
+  {
+   "site": "book/glossary.md:105",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): names the hypotheses of the cited result (a non-permutation rooted map and a finite return)"
+  },
+  {
+   "site": "FULL<-book/glossary.md:105",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "FULL mirror of book/glossary.md:105: kept (keep list): names the hypotheses of the cited result (a non-permutation rooted map and a finite return)"
+  },
+  {
+   "site": "papers/GR.md:132",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): GR Appendix B hypotheses (D1)-(D4): finite visible sites, finite read sets (finite local data, not total finiteness)"
+  },
+  {
+   "site": "papers/GR.md:213",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): finite operational carriers of the operational theory (C5, class (a))"
+  },
+  {
+   "site": "papers/GR.md:219",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): boxed no-go for the finite OI class (\"bare finite OI does not imply QM\"); a class statement"
+  },
+  {
+   "site": "papers/GR.md:225",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): the stated interventions of the finite bijective read-write class (kernel-stated scope)"
+  },
+  {
+   "site": "papers/GR.md:239",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): finite operational carriers (C5)"
+  },
+  {
+   "site": "papers/GR.md:249",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): finite operational carriers (C5)"
+  },
+  {
+   "site": "papers/GR.md:255",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): finite operational carriers (C5)"
+  },
+  {
+   "site": "papers/GR.md:273",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): finite operational carriers (C5)"
+  },
+  {
+   "site": "papers/GR.md:761",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): proof inside GR Appendix A, whose setup assumes finite configuration spaces (GR:719)"
+  },
+  {
+   "site": "papers/GR.md:879",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): GR Appendix B hypothesis (D1): finite visible site set"
+  },
+  {
+   "site": "papers/GR.md:880",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): GR Appendix B hypothesis (D2): finite read sets"
+  },
+  {
+   "site": "papers/GR.md:895",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): proof inside GR Appendix B: finite read set N_i"
+  },
+  {
+   "site": "papers/GR.md:901",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): proof inside GR Appendix B: B_n finite by (D3), (D4)"
+  },
+  {
+   "site": "papers/SM.md:30",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "edit",
+   "units": [
+    "A-C1"
+   ],
+   "reason": "review B2: finiteness of the construction's set stated without its condition"
+  },
+  {
+   "site": "papers/SM.md:60",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "edit",
+   "units": [
+    "A-C2"
+   ],
+   "reason": "review B2: the assumption list of SM §2.3 names A3-A6, not A1, and the triple is called finite"
+  },
+  {
+   "site": "papers/Structure.md:1233",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): the first sentence states its setting (\"the uniform full-product finite reversible setting\"); the second is a statement about finite reversible substrata"
+  },
+  {
+   "site": "papers/Structure.md:730",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "edit",
+   "units": [
+    "A-C3"
+   ],
+   "reason": "census: Definition 9.9 does not make a substratum finite; the sentence did"
+  },
+  {
+   "site": "papers/Structure.md:732",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "edit",
+   "units": [
+    "A-C4"
+   ],
+   "reason": "census: as A-C3"
+  },
+  {
+   "site": "papers/Structure.md:734",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): mathematical statement about random permutations on finite sets"
+  },
+  {
+   "site": "papers/Structure.md:800",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): \"the finite OI pair\" is the finite algebra-channel pair of Structure §10.4, not the substratum"
+  },
+  {
+   "site": "papers/Structure.md:821",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): as Structure:800 (§10.4 finite algebra-channel pair)"
+  },
+  {
+   "site": "papers/Structure.md:972",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): as Structure:800 (§10.4 finite algebra-channel pair)"
+  },
+  {
+   "site": "papers/Substratum.md:333",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): mathematical statement: a permutation of finite order"
+  },
+  {
+   "site": "papers/Substratum.md:344",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): scopes the result: \"a predictive-quotient result for passive, nondisturbing records from one fixed finite reversible carrier\" (the result's stated setting)"
+  },
+  {
+   "site": "papers/Substratum.md:533",
+   "phase0_class": "census",
+   "phase0_rows": [],
+   "amendment": 1,
+   "action": "N",
+   "units": [],
+   "reason": "kept (keep list): finite instrument nets and fixed finite operational carriers (C5 class), not the substratum"
   }
- ]
+ ],
+ "census_extension": "amendment 1: lines of the scope papers and chapters outside the Phase 0 site map that carry an unconditioned finiteness sentence at the base (phase2_controls.census_lines), with the FULL copies of the chapter lines"
 }

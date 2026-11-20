@@ -1,5 +1,8 @@
 # A1-SCOPE Phase 2 — companion papers and book mirrors: dispositions, edit ledger, controls and decision rule
 
+**Amended once (§12), after the independent review of `3b5c937c`. Where §12 differs from an earlier section, §12
+governs.**
+
 **Status.** Writer's paper-only preregistration (stage 1 of 2). It fixes, before any manuscript edit, which
 companion and book sentences change, their exact text, and the mechanical tests the edit must pass.
 
@@ -294,3 +297,105 @@ reviewed ledger amendment made before the edit (or, as in Phase 1, under a recor
 Evidence level: paper reading of the cited sources and mechanical controls (§5). No proof is added beyond the one-line
 arguments inside S6, S8 and B4. Missing: independent non-author review of this record; the owner's decision on
 application and on Q1–Q5. Accountable Issue: #1055.
+
+## 12. Amendment 1 (2026-11-20, before any manuscript edit)
+
+**Trigger.** The independent non-author review of `3b5c937c` returned REVISE. It verified that the controls are live,
+that all 26 splice hashes match the base, that S6, S7–S8 and B4 are mathematically correct, and that all 19 keep
+entries are justified. It raised two blocking items and nine nits. The review was relayed by the coordinating session.
+This amendment is appended under §6 ("an appended, reviewed ledger amendment made before the edit"). The earlier
+splices, keep entries and commits are unchanged.
+
+**Ledger.** Fourteen splices are appended, marked `"amendment": 1`, for 40 in all. Units carrying `amends` act on text
+that an earlier unit inserted. Each old string occurs once in the text the earlier splices produce.
+
+| Review item | Unit(s) | Change |
+|---|---|---|
+| B1 (blocking): G1 omitted the measurability hypothesis of Main's corollary. GR (D5) allows any σ-algebra, and Appendix B gives measurability only for t ≤ n (Lemma B.3). | A-G1 | "gives P-indivisibility **for a measurable update** from a non-permutation rooted map under its near-return condition (NR)". The support line names every hypothesis of the corollary. |
+| B2 (blocking): the census read only Phase 0 site lines. | A-C1 SM:30; A-C2 SM:60; A-C3 Str:730; A-C4 Str:732; A-C5 ch02:8 (+FULL); A-C6 ch05:15 (+FULL) | Each names its condition ("finite under A1", or for ch05:15 "finite under the open hypothesis A1", as ch05:23 has it) |
+| Nits 3–4: "carrier" is SM's reserved gauge-carrier term. The fibrewise case needs P translation invariant as well as U. | A-S7, A-S8 | "On a finite configuration space, and in each Fourier fibre when $U$ and $P$ are translation invariant …"; "On an infinite configuration space …". The symbol S is avoided because Lemma 1c(i) names a relabelling S. |
+| Nit 6 | A-S3 | "it acts on configurations over a finite periodic quotient of Λ". S3 makes the SM:222/SM:242 conflict conditional; the root fix remains Q2. |
+| Nit 7 | A-K2 (+FULL) | reordered: "…not adopted, read as the choice of the minimal finite representative and motivated by E3 (…); it is one sufficient condition among those the results name." |
+| Nit 10 (optional) | not adopted | S1 keeps the existing sentence with "requires", which is true of the recurrence-cycle result. Changing the verb would make CTL-7 read the whole sentence as added, including "bijectivity guarantees recurrence". |
+
+**Census extension (B2).** CTL-14 and DR-2 now scan every line of the scope papers and chapters, plus the FULL copies of
+the Phase 0 site lines. A FULL copy of any other chapter line is covered by CTL-13 and CTL-11. At the base, the whole-file
+scan finds 31 lines outside the Phase 0 site map that carry an unconditioned finiteness sentence:
+
+- **6 lines edited:** SM:30, SM:60, Str:730, Str:732, ch02:8 and ch05:15.
+- **25 lines kept (26 sentences), each with a reason in the keep list:**
+  - mathematical statements: Sub:333, Str:734, Str:1233;
+  - a scoped result: Sub:344, which concerns records "from one fixed finite reversible carrier";
+  - finite operational carriers (C5): Sub:533, ch04:146, GR:213, :225, :239, :249, :255, :273;
+  - the boxed no-go for the finite OI class: GR:219;
+  - GR Appendix A and B hypotheses and proofs: GR:132, :761, :879, :880, :895, :901;
+  - the finite algebra-channel pair of Structure §10.4: Str:800, :821, :972;
+  - ch04:94, keyed K in Phase 0 (C5);
+  - a quantifier: ch07:126;
+  - a statement of hypotheses: glossary:105.
+
+The reviewer's borderline items are decided as follows: ch02:8 is edited; ch04:94 and Sub:344 are kept. `dispositions.json`
+now holds 251 dispositions (214 sites, 31 census lines and 6 FULL copies of census chapter lines). The keep list holds
+45 entries.
+
+**Controls.** These changes are made in `phase2_controls.py` (same commit):
+
+- CTL-14 and DR-2 cover the whole scope files (`scan_lines`).
+- DR-1 also requires a disposition for each census line (`census_lines`) and for the FULL copy of each census chapter line.
+- CTL-7 gains a rule (nit 8): every added sentence that contains "(NR)" also contains "not adopted". The Phase 0
+  status test is vacuous for that label, because "(NR)" sits beside "condition".
+- DR-3: the Lemma 1c(ii) row reads "On a finite configuration space" and "when $U$ and $P$ are translation invariant".
+  The GR row adds "for a measurable update". Four rows cover the census splices.
+- Four countercontrols are added:
+  - M12: "(NR) … which holds." (CTL-7);
+  - M13: "(NR), adopted here," (CTL-7);
+  - M14: census splice A-C6 reverted in the chapter and FULL (CTL-14);
+  - M15: "The substratum is a finite set." inserted on SM:30, a line outside the Phase 0 map (CTL-14).
+- A recipe for the mutation check of §5 (nit 11):
+  `python3 -I -B phase2_controls.py --root . --mutation-check` disables each check function in turn and exits 0 only if
+  the self-test then fails for every one.
+
+**Dispositions (nit 9).**
+
+- SM:44: its last sentence ("The lattice is one way to implement determinism on a finite set …") passes CTL-14 lexically,
+  through "not". It is kept on its merits, because it states one implementation and does not assert that S is finite.
+- SM:20: it passes CTL-14 lexically, through "condition". It is kept as the declared structural input.
+- ch02:32 and its FULL copy: the reason now reads that finiteness is stated for "the exact OI model here".
+
+**Q1, routed explicitly (nit 5).** Two more sentences belong to Q1:
+
+- SM:539's spin–taste sentence, which identifies the two sublattices with the grades of γ₅ ⊗ ξ₅. It uses the staggered
+  corners and so needs Λ ⊂ 2ℤ³ on a finite quotient.
+- SM:1536's unqualified "bipartite checkerboard structure" among the substratum's exact discrete symmetries.
+
+Both stay unedited pending the owner's decision on Q1. Q1–Q4 are not acted on.
+
+**Runs at the amended head.**
+
+| Run | Result |
+|---|---|
+| `--self-test` | PASS (Phase 0 functions PASS; 15 countercontrols FAIL as required) |
+| `--mutation-check` | PASS (each of 8 check functions disabled → the self-test fails) |
+| base working tree | CTL-1–13, 15, 16 PASS. CTL-14 FAILs on exactly the 15 paper and chapter sentences the ledger edits and on the FULL copies of ch02:158 and ch05:83. DR-2 and DR-3 are unmet. |
+| `--dry-run` | CTL-1–8, 10, 12–16 PASS; CTL-9 and CTL-11 N/A in memory; DR-1–DR-4 all met |
+
+**Counts that replace §3.2 and §4.**
+
+| File | Splices |
+|---|---|
+| SM | 13 |
+| Substratum | 4 |
+| GR | 3 |
+| Structure | 4 |
+| ch02 | 4 |
+| ch05 | 3 |
+| ch09 | 1 |
+| FULL | 8 |
+| **Total** | **40** |
+
+The `edit` dispositions now number 33: the original 25 and 8 census edits, 6 on paper or chapter lines and 2 on FULL
+copies. Each amended line keeps its original disposition with the amendment unit added. §7 step 3 reads "only the `edit`
+lines and SM:254 changed".
+
+**Off-`main` reference.** The review of `3b5c937c` is cited as provenance. Each change it prompted is written out in
+the ledger and checked by the controls above.

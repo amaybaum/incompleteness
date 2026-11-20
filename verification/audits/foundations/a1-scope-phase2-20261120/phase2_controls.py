@@ -7,6 +7,7 @@ control functions (../a1-scope-phase0-20261120/phase0_controls.py) for CTL-1 to 
     python3 -I phase2_controls.py --root <checkout> [--base <sha>] [--json <out>]
     python3 -I phase2_controls.py --root <checkout> --dry-run     # base + phase2_ledger.json, in memory
     python3 -I phase2_controls.py --root <checkout> --self-test   # countercontrols on the real base texts
+    python3 -I phase2_controls.py --root <checkout> --mutation-check  # each check disabled -> self-test must fail
 
 The base is read with `git show <base>:<path>`. The head is the working tree at --root or, with --dry-run, the
 base with every splice of phase2_ledger.json applied in memory (nothing is written). Exit status: 0 iff no control
@@ -70,15 +71,25 @@ REQUIRED = {
 # DR-3: change rows; every token must occur in sentences of the file that are absent from the base.
 DR3 = {
     'M4 (NR) propagation, SM:44': ('papers/SM.md', ['(NR)', 'not adopted', 'weaker sufficient condition']),
-    'M4 (NR) propagation, GR:138 and GR:589': ('papers/GR.md', ['(NR)', 'not adopted', 'near-return corollary']),
+    'M4 (NR) propagation, GR:138 and GR:589': ('papers/GR.md', ['(NR)', 'not adopted', 'near-return corollary',
+                                                               'for a measurable update']),
     'A1 status and (NR), Substratum (A1)': ('papers/Substratum.md',
                                            ['open hypothesis, not adopted', 'one sufficient condition', '(NR)']),
     'A1 status, ch02 mirror': ('book/ch02-substratum.md', ['one sufficient condition']),
     'O-A4 SM:222 carrier': ('papers/SM.md', ['finite periodic', 'quotient of $\\Lambda$']),
     'O-A4 SM:539 parity': ('papers/SM.md', ['even coordinate sum', 'odd side']),
-    'O-A4 Lemma 1c(ii) scope': ('papers/SM.md', ['On a finite carrier', 'Fourier fibre', 'not established']),
+    'O-A4 Lemma 1c(ii) scope': ('papers/SM.md', ['On a finite configuration space', 'Fourier fibre',
+                                                 'when $U$ and $P$ are translation invariant', 'not established']),
     'INFLOW Substratum:56': ('papers/Substratum.md', ['Without A1 this replacement is open']),
+    # Amendment 1: rows for the census extension to whole scope files
+    'census SM:30, SM:60': ('papers/SM.md', ['uses a set (finite under A1) with', 'a set S, finite under A1']),
+    'census Structure:730, :732': ('papers/Structure.md', ['sets with bijections, finite under A1',
+                                                           'under A1 they have all the formal features']),
+    'census ch02:8': ('book/ch02-substratum.md', ['the reversible object $(S,\\varphi)$, finite under A1']),
+    'census ch05:15': ('book/ch05-gauge-structure.md', ['a set (finite under the open hypothesis A1) with']),
 }
+# Amendment 1, CTL-7 addition: an added sentence that uses (NR) states that it is not adopted.
+NR_LABEL = '(NR)'
 
 
 def sents(t):
@@ -124,10 +135,28 @@ def site_lines(texts, sites, mirrors):
     return out
 
 
+def scan_lines(texts, sites, mirrors):
+    """Amendment 1: every line of the scope papers and chapters (key file:line), plus the FULL copies of the
+    Phase 0 site lines. A FULL line equal to a scope chapter line is covered by its chapter line; a FULL line that
+    differs from its chapter fails CTL-13 or CTL-11."""
+    out = []
+    for f in SCOPE_PAPERS + SCOPE_BOOK:
+        for i, line in enumerate(texts.get(f, '').split('\n'), 1):
+            out.append(('%s:%d' % (f, i), line))
+    return out + [x for x in site_lines(texts, sites, mirrors) if x[0].startswith('FULL<-')]
+
+
+def census_lines(base_texts, sites):
+    """Amendment 1: base lines of the scope papers and chapters outside the Phase 0 site map that carry an
+    unconditioned finiteness sentence. Each needs a disposition (DR-1), and so does each chapter line's FULL copy."""
+    keys = {'%s:%d' % (s['file'], s['line']) for s in sites}
+    return sorted(k for k, line in scan_lines(base_texts, [], []) if k not in keys and unconditioned(line))
+
+
 def check_conditioned(texts, sites, mirrors, keep):
-    """CTL-14. keep: {(site key or chapter key, sentence sha)}; FULL mirrors use their chapter key."""
+    """CTL-14. keep: {(line key or chapter key, sentence sha)}; FULL mirrors use their chapter key."""
     bad = []
-    for key, line in site_lines(texts, sites, mirrors):
+    for key, line in scan_lines(texts, sites, mirrors):
         k = key[6:] if key.startswith('FULL<-') else key
         for x in unconditioned(line):
             if (k, sha(x)) not in keep:
@@ -137,7 +166,7 @@ def check_conditioned(texts, sites, mirrors, keep):
 
 def check_keep_integrity(base_texts, sites, mirrors, keep):
     have = set()
-    for key, line in site_lines(base_texts, sites, mirrors):
+    for key, line in scan_lines(base_texts, sites, mirrors):
         k = key[6:] if key.startswith('FULL<-') else key
         for x in unconditioned(line):
             have.add((k, sha(x)))
@@ -181,7 +210,10 @@ def decision_rule(base_texts, head_texts, ledger, disp, sites, mirrors, keep):
     # DR-1: disposition completeness and consistency with the ledger
     keys = {'%s:%d' % (s['file'], s['line']) for s in sites} | {
         'FULL<-%s:%d' % chapter_id(m) for m in mirrors}
+    cen = census_lines(base_texts, sites)
+    keys |= set(cen) | {'FULL<-' + k for k in cen if k.startswith('book/')}
     dkeys = {d['site'] for d in disp['dispositions']}
+    applied = P0.apply_ledger(base_texts, ledger)
     units = {s['unit'] for s in ledger['splices']}
     used = {u for d in disp['dispositions'] for u in d.get('units', [])}
     lines_ok = True
@@ -194,16 +226,18 @@ def decision_rule(base_texts, head_texts, ledger, disp, sites, mirrors, keep):
             if d['site'].startswith('FULL<-'):
                 continue
             f, n = d['site'].rsplit(':', 1)
-            line = base_texts[f].split('\n')[int(n) - 1]
-            if sp[0]['old'] not in line:
+            if sp[0].get('amends'):  # an amendment splice acts on the text the earlier splices produce
+                if sp[0]['new'] not in applied[f].split('\n')[int(n) - 1]:
+                    lines_ok = False
+            elif sp[0]['old'] not in base_texts[f].split('\n')[int(n) - 1]:
                 lines_ok = False
     companion = {s['unit'] for s in ledger['splices'] if s.get('companion_of')}
-    dr['DR-1 every in-scope site has one disposition'] = keys == dkeys and len(dkeys) == len(disp['dispositions'])
+    dr['DR-1 every in-scope site and census line has one disposition'] = keys == dkeys and len(dkeys) == len(disp['dispositions'])
     dr['DR-1 every edit disposition names ledger units whose old text lies on that site line'] = lines_ok
     dr['DR-1 every ledger unit is used by a disposition or is a declared companion splice'] = (
         units == used | companion)
     # DR-2: CTL-14 at the head, with a keep list that is exactly the base residue not edited
-    dr['DR-2 no unconditioned finiteness on in-scope site lines outside the keep list'] = not check_conditioned(
+    dr['DR-2 no unconditioned finiteness in the scope files outside the keep list'] = not check_conditioned(
         head_texts, sites, mirrors, keep)
     dr['DR-2 keep list entries are base sentences'] = not check_keep_integrity(base_texts, sites, mirrors, keep)
     # DR-3: diff-based change rows
@@ -236,6 +270,10 @@ def controls(root, base, base_texts, head_texts, ledger, dry):
     pairs = [(p, base_texts.get(p, ''), head_texts.get(p, '')) for p in sorted(set(base_texts) | set(head_texts))
              if base_texts.get(p) != head_texts.get(p)]
     c7, c8 = P0.check_added(pairs)
+    for p, b, h in pairs:
+        for x in P0.added_sentences(b or '', h or ''):
+            if NR_LABEL in x and 'not adopted' not in x:
+                c7.append('%s: (NR) used without "not adopted": %s' % (p, x[:160]))
     put('CTL-7', c7)
     put('CTL-8', c8)
     bad6 = []
@@ -339,15 +377,16 @@ def self_test(root, base):
         if not v:
             fails.append('compliant head leaves %s unmet' % k)
     dr0 = decision_rule(bt, bt, ledger, disp, sites, mirrors, keep)
-    if dr0['DR-2 no unconditioned finiteness on in-scope site lines outside the keep list']:
+    if dr0['DR-2 no unconditioned finiteness in the scope files outside the keep list']:
         fails.append('DR-2 met at the base (the keep list would excuse the edited sentences)')
     # M1: strip a stated condition from a site that carries it (Substratum:389)
     expect_fail('M1 strip "(finite under A1)" at Substratum:389',
                 mutate(head, 'papers/Substratum.md', 'a set (finite under A1) with a deterministic bijection',
                        'a finite set with a deterministic bijection'), 'CTL-14')
-    # M2: revert unit S3 at the head
-    m2 = mutate(head, 'papers/SM.md', [s for s in ledger['splices'] if s['unit'] == 'S3'][0]['new'],
-                [s for s in ledger['splices'] if s['unit'] == 'S3'][0]['old'])
+    # M2: the head without unit S3 (and its amendment A-S3)
+    led2 = json.loads(json.dumps(ledger))
+    led2['splices'] = [s for s in led2['splices'] if s['unit'] not in ('S3', 'A-S3')]
+    m2 = P0.apply_ledger(bt, led2)
     expect_fail('M2 revert S3', m2, 'CTL-14')
     expect_fail('M2 revert S3', m2, 'CTL-11')
     # M3: GR:58 loses its A1 condition
@@ -359,8 +398,8 @@ def self_test(root, base):
                                                     'nature, so recurrence is derived.'), 'CTL-7')
     # M5: a status word removed in a book mirror
     expect_fail('M5 delete "not adopted" in ch02:76',
-                mutate(head, 'book/ch02-substratum.md', 'an open hypothesis, not adopted, and one sufficient',
-                       'an open hypothesis, and one sufficient'), 'CTL-12')
+                mutate(head, 'book/ch02-substratum.md', 'an open hypothesis, not adopted, read as',
+                       'an open hypothesis, read as'), 'CTL-12')
     # M6: chapter edit without its FULL mirror
     m6 = dict(head)
     k1 = [s for s in ledger['splices'] if s['unit'] == 'K1-FULL'][0]
@@ -389,10 +428,55 @@ def self_test(root, base):
     expect_fail('M11 Theorem 19 prior changed', mutate(head, 'papers/SM.md',
                                                        'and let the hidden prior be the counting measure',
                                                        'and let the hidden prior be invariant'), 'CTL-15')
-    print('Phase 2 self-test (11 countercontrols, compliant head, base residue):', 'PASS' if not fails else 'FAIL')
+    # Amendment 1 countercontrols
+    # M12, M13: (NR) used without "not adopted"
+    expect_fail('M12 "(NR) ... which holds."', mutate(head, 'papers/GR.md', 'For systems other than the cosmological',
+                                                      'The near-return condition (NR) is one which holds. For systems '
+                                                      'other than the cosmological'), 'CTL-7')
+    expect_fail('M13 "(NR), adopted here,"', mutate(head, 'papers/SM.md', 'is a weaker sufficient condition.',
+                                                    'is a weaker sufficient condition. The condition (NR), adopted '
+                                                    'here, is used below.'), 'CTL-7')
+    # M14: revert a census splice outside the Phase 0 site map (ch05:15, chapter and FULL)
+    a6 = [s for s in ledger['splices'] if s['unit'] == 'A-C6'][0]
+    m14 = mutate(head, 'book/ch05-gauge-structure.md', a6['new'], a6['old'])
+    m14[FULL] = m14[FULL].replace(a6['new'], a6['old'], 1)
+    expect_fail('M14 revert census splice A-C6', m14, 'CTL-14')
+    # M15: an unconditioned finiteness sentence on a line outside the Phase 0 site map (SM:30)
+    expect_fail('M15 inserted on SM:30', mutate(head, 'papers/SM.md', 'partitioned into visible and hidden sectors.',
+                                                'partitioned into visible and hidden sectors. The substratum is a '
+                                                'finite set.'), 'CTL-14')
+    print('Phase 2 self-test (15 countercontrols, compliant head, base residue):', 'PASS' if not fails else 'FAIL')
     for f in fails:
         print('  ', f)
     return 0 if not fails else 1
+
+
+def mutation_check(root, base):
+    """Amendment 1: disable each check function in turn; the self-test must then fail. Exit 0 iff it fails for every
+    one."""
+    import contextlib, io
+    g = globals()
+    names = ['check_conditioned', 'check_keep_integrity', 'check_preserved', 'check_lines', 'check_status']
+    p0names = ['check_added', 'check_full_parity', 'check_ledger_exact']
+    bad = []
+    for n in names + ['P0.' + x for x in p0names]:
+        if n.startswith('P0.'):
+            orig = getattr(P0, n[3:])
+            setattr(P0, n[3:], (lambda *a, **k: ([], [])) if n == 'P0.check_added' else (lambda *a, **k: []))
+        else:
+            orig = g[n]
+            g[n] = lambda *a, **k: []
+        with contextlib.redirect_stdout(io.StringIO()):
+            rc = self_test(root, base)
+        if n.startswith('P0.'):
+            setattr(P0, n[3:], orig)
+        else:
+            g[n] = orig
+        print('%-24s disabled -> self-test %s' % (n, 'FAIL (required)' if rc else 'PASS (insensitive)'))
+        if rc == 0:
+            bad.append(n)
+    print('mutation check:', 'PASS' if not bad else 'FAIL')
+    return 0 if not bad else 1
 
 
 def main():
@@ -402,8 +486,11 @@ def main():
     ap.add_argument('--json')
     ap.add_argument('--dry-run', action='store_true')
     ap.add_argument('--self-test', action='store_true')
+    ap.add_argument('--mutation-check', action='store_true')
     a = ap.parse_args()
     root = os.path.abspath(a.root)
+    if a.mutation_check:
+        sys.exit(mutation_check(root, a.base))
     if a.self_test:
         sys.exit(self_test(root, a.base))
     code, out = run(root, a.base, a.dry_run)
