@@ -131,7 +131,7 @@ class left uncertified would be retried mod `1048571` and its excess examined (r
 reconstruction, 200 fresh exact equations, a nontriviality witness search).
 
 **Deviations from PREREG.** (1) Amendment A01 (3D trivial space), committed after run D and before
-run D2; D's outcome is reported unchanged. (2) PREREG §7 names one output file; the script writes
+run D2; D's outcome is reported unchanged. D2 uses the same seeds and equation sequence as D, and stops at a prefix of it once certified. (2) PREREG §7 names one output file; the script writes
 one file per part (`results-A.json` … `results-D2.json`) and `--render` merges them into
 `results.json`, which carries the verdict and the controls P1, P2, C1–C3 and coverage. (3) After the
 preregistration `65e18750` and while the script was being tested, two single-class diagnostic runs

@@ -16,8 +16,8 @@ difference sums to zero on every periodic configuration and is conserved by ever
 not in the preregistered span. Such vectors lie in `ker E` and inflate the excess without being
 conserved quantities.
 
-**Change.** Run D2 repeats part D (the four 3D classes, same seeds and equation sequence, of which
-D2 uses a prefix since it stops once certified; same stopping rule; same controls P2 and C1, C3) with
+**Change.** Run D2 repeats part D (the four 3D classes, same seeds, same equations, same stopping
+rule, same controls P2 and C1, C3) with
 
   `T3' = span{ constant } + span{ m∘τ_a − m : m and m∘τ_a both monomials of the class, a ∈ ℤ³ }`,
 
