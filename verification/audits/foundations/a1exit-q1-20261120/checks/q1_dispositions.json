@@ -68,7 +68,7 @@
   ],
   "code": "I",
   "edit": "",
-  "note": "describes an open step; asserts no lattice property"
+  "note": "describes an open step; presupposes the lattice's bipartite partition (true on Z^3 and on even-sum quotients); asserts no new lattice property"
  },
  {
   "file": "papers/Main.md",
@@ -918,8 +918,8 @@
    "L-labels"
   ],
   "code": "I",
-  "edit": "",
-  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+  "edit": "E1",
+  "note": "presents a result of the 4.8 construction ('The staggered construction (4.8) gives ...'), so E1's scope covers it; E3 applies only where the structure is asserted of 'the substratum' itself (SM:1506, SM:1536)"
  },
  {
   "file": "papers/SM.md",

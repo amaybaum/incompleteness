@@ -14,10 +14,11 @@ Parts
   A   Brute-force (edge-consistency) well-definedness of every corner character, of the checkerboard
       and of the staggered phases of every axis ordering, on 125 rectangular tori and on skew and
       cubic-invariant quotients; compared with the closed-form conditions on P.
-  B   Theorem 2 on Z^3: every field of Staggered.Gens as an identity of finite-range operators, and
+  B   Theorem 2 on Z^3: the phase-shift fields of Staggered.Gens for axes 0-2 and the padding, and
       (sum_i A_i)^2 = sum_i S_i^2 applied to delta_m for the 8 classes m mod 2 (the operators commute
       with translations by 2Z^3, so this covers every m). The same identity on the non-bipartite
-      torus 4x4x3; failure of the phases on 3x3x4 for every axis ordering.
+      torus 4x4x3 (two-step-stencil reading); failure of the phases on 3x3x4 for every axis ordering;
+      no Gens instance on 4x4x3; the blocked-lattice reading needs P in 2Z^3.
   C   Graph automorphisms fixing a vertex, and their action on the corner characters: cubic torus
       L = 6 (triplet lines form one orbit), L = 4 (the corner span is not invariant), the
       non-cubic-invariant torus 4x4x6 (no automorphism maps the X_3 line to the X_1 line); taste-cell
@@ -399,8 +400,12 @@ def part_B():
             for n in win:
                 if (-1) ** dot(eta, add(n, E3[j])) != want * (-1) ** dot(eta, n):
                     ok = False
-    check("B Z^3: every Staggered.Gens field holds (phases commute with own and later shifts, "
-          "anticommute with earlier ones; involutions; shifts commute)", ok)
+    # padding for the N-indexed fields of Staggered.Gens: e_i = chi_(1,1,1), t_i = s_i = 0 for i >= 3;
+    # the only nontrivial padded fields say that chi_(1,1,1) anticommutes with t_0, t_1, t_2
+    pad = all((-1) ** dot((1, 1, 1), add(n, E3[j])) == -(-1) ** dot((1, 1, 1), n) for n in win for j in range(3))
+    check("B Z^3 window: the nine phase-shift relations of Staggered.Gens for axes 0-2 hold (phases commute "
+          "with own and later shifts, anticommute with earlier ones); padding e_i = chi_(1,1,1) (i >= 3) "
+          "anticommutes with t_0, t_1, t_2", ok and pad)
     # factorization on Z^3, delta_m for the 8 classes mod 2
     ok = True
     for m in CORNERS:
@@ -423,6 +428,18 @@ def part_B():
     Q = rect(3, 3, 4)
     check("B 3x3x4 torus: staggered phases defined for no axis ordering",
           not any(phases_defined(Q, o) for o in permutations(range(3))))
+    # the N-indexed Gens needs an involution anticommuting with all three shifts: on 4x4x3 the period
+    # vector (0,0,3) has odd sum, and the diagonal candidate chi_(1,1,1) is not defined there
+    Q = rect(4, 4, 3)
+    check("B 4x4x3: no diagonal +-1 function anticommutes with all three shifts (chi_(1,1,1) undefined), so "
+          "Staggered.Gens with unit shifts has no instance there", not corner_defined(Q, (1, 1, 1)))
+    # blocked-lattice reading: the two-step shifts preserve the blocking label n mod 2 iff P in 2Z^3
+    def block_local(Q):
+        return all(tuple(x % 2 for x in reduce_(add(r, tuple(2 * x for x in e)), Q.B)) ==
+                   tuple(x % 2 for x in r) for r in Q.reps for e in E3) and cf_in_2Z3(Q.B)
+    check("B blocked-lattice reading: on 4x4x3 the two-step stencil is not block-local (no blocked lattice "
+          "2Z^3/P); on 4x4x4 and 6x6x6 it is", (not block_local(rect(4, 4, 3))) and block_local(rect(4, 4, 4))
+          and block_local(rect(6, 6, 6)))
 
 
 # ------------------------------------------------------------------ C

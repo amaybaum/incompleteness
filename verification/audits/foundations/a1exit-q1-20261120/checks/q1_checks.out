@@ -15,11 +15,13 @@ PASS  A brute force = closed form on 134 quotients (corner characters, checkerbo
 PASS  A 4x4x3: staggered phases (ordering 1,2,3) defined; not bipartite; corners defined 4 of 8
 PASS  A skew even-sum quotient: bipartite, but staggered phases defined for no ordering
 == B. Theorem 2 (staggered square) on Z^3 and on quotients ==
-PASS  B Z^3: every Staggered.Gens field holds (phases commute with own and later shifts, anticommute with earlier ones; involutions; shifts commute)
+PASS  B Z^3 window: the nine phase-shift relations of Staggered.Gens for axes 0-2 hold (phases commute with own and later shifts, anticommute with earlier ones); padding e_i = chi_(1,1,1) (i >= 3) anticommutes with t_0, t_1, t_2
 PASS  B Z^3: (sum_i A_i)^2 delta_m = sum_i S_i^2 delta_m for all 8 classes m mod 2 (so for all m: the operators commute with translations by 2Z^3)
 PASS  B countercontrol Z^3: without staggered phases (sum_i S_i)^2 != sum_i S_i^2
 PASS  B 4x4x3 torus (not bipartite): D_st^2 = two-step stencil on every basis vector
 PASS  B 3x3x4 torus: staggered phases defined for no axis ordering
+PASS  B 4x4x3: no diagonal +-1 function anticommutes with all three shifts (chi_(1,1,1) undefined), so Staggered.Gens with unit shifts has no instance there
+PASS  B blocked-lattice reading: on 4x4x3 the two-step stencil is not block-local (no blocked lattice 2Z^3/P); on 4x4x4 and 6x6x6 it is
 == C. automorphisms of the carrier and the corner lines ==
 PASS  C cubic torus L=6: |Stab| = 48; corner span preserved; triplet lines one orbit; singlet lines fixed: orbits [[(0, 0, 0)], [(0, 0, 1), (0, 1, 0), (1, 0, 0)], [(0, 1, 1), (1, 0, 1), (1, 1, 0)], [(1, 1, 1)]]
 PASS  C cubic torus L=4 (Q_6): |Stab| = 720; the span of the eight corner characters is NOT invariant under the carrier's automorphisms

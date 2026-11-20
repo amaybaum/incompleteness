@@ -5,7 +5,9 @@ statements (none built here) and exact finite computations (`checks/`, §9). No 
 registry edit; no premise adoption; no merge. A1 (Main posit ledger item (ii)) and A4
 (`papers/Substratum.md`:98) are unchanged, and nothing here is a premise of an established claim.
 Independent non-author review is required (§11). The preregistration is `PREREG.md`, pushed at
-`fb03820fd` before any classification; this record follows its rule and controls unchanged.
+`fb03820fd` before any classification; this record follows its rule and controls unchanged. This
+revision answers the round-1 review of `e52250a5` (REVISE, light); §13 maps each item to its change,
+and the supplementary census of §6a is a recorded deviation from the preregistered census.
 
 **Authorization.** Owner `amaybaum`,
 [#1169 comment 7047514209](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7047514209),
@@ -28,11 +30,15 @@ All preregistered controls hold (`checks/q1_checks.out`; exit status 0).
 | ID | Result |
 |---|---|
 | K1 | On a window of `ℤ^3` nearest-neighbour hopping is odd-supported for the coordinate-sum parity, and both parities occur [E] |
-| K2 | Every field of `Staggered.Gens` holds on `ℤ^3`, and `(Σ_i A_i)^2 δ_m = Σ_i S_i^2 δ_m` for the 8 classes `m mod 2` [E]; a phase-free countercontrol fails |
+| K2 | On a window of `ℤ^3` the nine phase–shift relations of `Staggered.Gens` for axes 0–2 hold, and the padding `e_i = χ_(1,1,1)` (`i ≥ 3`) anticommutes with `t_0, t_1, t_2`; `(Σ_i A_i)^2 δ_m = Σ_i S_i^2 δ_m` for the 8 classes `m mod 2` [E]; a phase-free countercontrol fails |
 | K3 | O-A4's countermodels reproduce: `L = 3, 5` not bipartite with 1 corner of 8; `L = 4, 6` 8 corners; skew even-sum quotient bipartite with 4 corners; vertex stabilizers 720 (`L = 4`) and 48 (`L = 6`) [E] |
 | K4 | Odd cubic tori `L = 3, 5` carry the staggered phases for no axis ordering [E] |
 | K5 | The disguised-A1 test separates "`P ⊂ 2ℤ^3`" (contains `P = 0`) from "finite-index `P ⊂ 2ℤ^3`" (does not) [E] |
 | K6 | This record changes only files under its own directory (§11) |
+
+K1 and K5 are weak as evidence: K1 checks a parity condition that holds by construction, and K5 checks
+that the disguised-A1 predicate is not vacuous. They are controls on the test machinery, not support
+for the verdicts.
 
 **Check-design note.** The first run of part C bundled a second expectation into the `4×4×6` check
 ("the corner span is invariant under the carrier's automorphisms") and failed on it: on `4×4×6` the
@@ -59,12 +65,30 @@ Consequences [W, with E parts A and D]:
 | (d) hypercube blocking `n = 2y + η` | `P ⊂ 2ℤ^3` | skew even-sum quotient |
 | (e) the cubic group acts on `X_P` | `gP = P` for `g ∈ O` (equivalently `O_h`, since `−1` fixes every lattice) | `4×4×6` |
 
-*Proof of (c).* The fields of `Gens` (`verification/lean/OI_Staggered_Relations.lean`) realized by
-`±1` multiplication operators and unit shifts force `e_{a_k}(n + e_{a_j}) = −e_{a_k}(n)` for `j < k`
-and `= e_{a_k}(n)` otherwise, so by Lemma 1 `e_{a_k}` is, up to a constant, the character of the
-indicator of `{a_1, …, a_{k−1}}`. These descend iff `b_{a_1}` and `b_{a_1} + b_{a_2}` are even for
-every `b ∈ P`. In `3+1` dimensions with a non-periodic time axis the spatial condition is the same
-when time is not last in the ordering, and is `P ⊂ 2ℤ^3` when it is last. `□`
+*Proof of (c).* Only the relations among the three axes are used. For three phase operators `e_{a_k}`
+given by `±1` multiplication and the unit shifts `t_{a_j}`, the staggered relations require `e_{a_k}`
+to anticommute with `t_{a_j}` for `j < k` and to commute with it otherwise, i.e.
+`e_{a_k}(n + e_{a_j}) = −e_{a_k}(n)` for `j < k` and `= e_{a_k}(n)` otherwise. By Lemma 1, `e_{a_k}` is,
+up to a constant, the character of the indicator of `{a_1, …, a_{k−1}}`. These characters descend to
+`X_P` iff `b_{a_1}` and `b_{a_1} + b_{a_2}` are even for every `b ∈ P`. With them, the three summands
+`A_{a_k} = e_{a_k} S_{a_k}` satisfy `A_i^2 = S_i^2` and pairwise anticommute, so
+`(Σ_i A_i)^2 = Σ_i S_i^2` (the identity of Theorem 2 with the two-step stencil). Equivalently, by
+descent: the identity holds for the operators on all functions `ℤ^3 → ℤ` (C2 below), shifts preserve
+`P`-periodic functions, and multiplication by a sign character preserves them iff the character is
+`P`-periodic (apply it to the constant 1). So the identity restricts to `P`-periodic functions, which
+are the functions on `X_P`. In `3+1` dimensions with a non-periodic time axis the spatial condition is
+the same when time is not last in the ordering, and is `P ⊂ 2ℤ^3` when it is last. `□` [W]; part B
+checks the identity on `4×4×3` directly [E].
+
+*The kernel theorem on quotients.* `Staggered.Gens`
+(`verification/lean/OI_Staggered_Relations.lean`:123) has fields for every axis index in `ℕ`, so an
+instance needs, for each `i ≥ 3`, an involution `e_i` that anticommutes with `t_0, t_1, t_2`. On `X_P`
+the shift by a period vector `b` is the identity, and `e t_b = (−1)^{b_1+b_2+b_3} t_b e`. An odd-sum
+`b` therefore gives `e = −e`, so `2 = 2e^2 = 0`. Hence an instance with unit shifts exists on `X_P` only
+if `P ⊂ D_3`, and with the phases of (c) only if `P ⊂ 2ℤ^3`. `Staggered.factorization` thus supports
+(c) on `ℤ^3` and on quotients with `P ⊂ 2ℤ^3` only. The weaker class rests on the three-axis argument
+above, [W] + [E], not on the kernel. Part B confirms that `χ_(1,1,1)` is undefined on `4×4×3`, so no
+diagonal instance exists there.
 
 **Lemma 2 (cubic-invariant period lattices).** A nonzero `O`-invariant `P` has finite index. *Proof.*
 Take `b ∈ P` with `b_j ≠ 0`. The half-turn `R_j` about axis `j` is in `O`, and `b + R_j b = 2 b_j e_j ∈
@@ -74,8 +98,10 @@ enumeration of all 596 457 sublattices of index ≤ 96 finds exactly nine `O`-in
 `m` even [E, part E]. The general statement for every index is the classification of cubic Bravais
 lattices (sc, fcc, bcc); it is cited here, not proved, and nothing below depends on it.
 
-So the class "`P` cubic-invariant and `P ⊂ 2ℤ^3`" is `ℤ^3` itself together with the finite quotients
-by `2kℤ^3`, `2kD_3`, `2kB_3`: no cylinder or slab quotients occur.
+From Lemma 2 alone: the class "`P` cubic-invariant and `P ⊂ 2ℤ^3`" consists of `ℤ^3` itself together
+with finite quotients, so no cylinder or slab quotients occur. The explicit list of those finite
+quotients, by `2kℤ^3`, `2kD_3` and `2kB_3`, rests on the cited classification, checked here to index
+96.
 
 ## 3. Per-consumer classification
 
@@ -84,11 +110,11 @@ consumer holds. No consumer is (iii) or (iv).
 
 | ID | Consumer | On `ℤ^3` | On `X_P` (ii) | Layer of the `ℤ^3` proof |
 |---|---|---|---|---|
-| C2 | Theorem 2, `D_st^2 = −¼□_lat` | (i) | iff every period vector is even off one axis (put last in the phase ordering); weaker than `P ⊂ 2ℤ^3`, independent of bipartiteness | [L] `Staggered.factorization` + [W] instance + [E] B |
+| C2 | Theorem 2, `D_st^2 = −¼□_lat` | (i) | Two readings. (R-a) The identity with `□_lat` the two-step stencil: iff every period vector is even off one axis (put last in the phase ordering), which is weaker than `P ⊂ 2ℤ^3` and independent of bipartiteness. (R-b) As printed, "its associated blocked lattice operator", `□_lat` acts on the blocked lattice `2ℤ^3/P`, which exists iff `P ⊂ 2ℤ^3` (Lemma 1(d)). On `4×4×3` the two-step stencil along the period-3 axis is not block-local | On `ℤ^3`: [L] `Staggered.factorization` with the padding below, + [W] + [E] B. On quotients: [W] + [E] (R-a), [L] only within `P ⊂ 2ℤ^3` |
 | C3 | Theorem 3, onsite terms vanish ⟺ chiral symmetry | (i) | iff `P ⊂ D_3`; the theorem already states this as its hypothesis ("a lattice carrying both parity sectors", "opposite-parity hopping") | [L] `ChiralCenterRecovery.scalar_center_chiral_iff` over an arbitrary type + [E] K1 |
 | C8 | Theorem 8, `4 = 1 ⊕ 3` under `O` | (i) | iff `P ⊂ 2ℤ^3` and `P` `O`-invariant | [L] `TasteBranching.theorem_8` (lattice-free) + [W] reading on `ℤ^3` |
 | C8b | Theorem 8b, `μ(η) = σ(η)/3` | (i) | each value wherever `χ_η` is defined; the full statement iff `P ⊂ 2ℤ^3`. The printed proof's symmetry step needs `O`-invariance as well; with the arithmetic step (E5) it does not | [W] + [E] F |
-| C10 | Theorem 10, step (ii): triplet sectors related by cubic symmetry | (i) | `P ⊂ 2ℤ^3` and `P` `O`-invariant suffices; fails on `4×4×6`. `O`-invariance is not necessary for some carrier symmetry to relate the three sectors (cyclic example) | [L] `TasteBranching.axis_transitive` + [W] + [E] C |
+| C10 | Theorem 10, step (ii): triplet sectors related by cubic symmetry | (i) | `P ⊂ 2ℤ^3` and `P` `O`-invariant suffices. On `4×4×6` the step "related by cubic symmetry" fails, while the corner modes stay degenerate (`σ = 1` at each `X_j`, Theorem 8b). `O`-invariance is not necessary for some carrier symmetry to relate the three sectors (cyclic example) | [L] `TasteBranching.axis_transitive` + [W] + [E] C |
 | C12 | Theorem 12, checkerboard = ε-grading | (i) | iff `P ⊂ 2ℤ^3` | [W] + existing probe `chirality_grading_probes.py` P1–P4 (lattice-free algebra) |
 | C13 | Theorem 13, visible-sector grading identity, Schur complement | (i) | iff `P ⊂ 2ℤ^3` (through C12 and C3) | [W] + existing probes `chirality_grading_probes.py` P4, `hchi_selectivity_probes.py` (lattice-free) |
 | C539 | SM:539, bipartite sentence | (i) | iff `P ⊂ D_3`, as the remark already states | [W] + [E] A |
@@ -99,11 +125,16 @@ consumer holds. No consumer is (iii) or (iv).
 **Arguments for the `ℤ^3` verdicts.**
 
 - *C2.* `Staggered.factorization` is proved for any `Gens` over any ring satisfying the file's `Rng`
-  axioms. The ℤ-linear endomorphisms of the module of all functions `ℤ^d → ℤ` form such a ring; the
-  unit shifts and the multiplication operators by the characters of (c) satisfy every field
-  pointwise. Nothing is summed over infinitely many sites: each operator has finite range. [W]. Part
-  B verifies the fields on a window of `ℤ^3` and the identity on `δ_m` for the eight classes of `m`
-  mod 2; because the operators commute with translations by `2ℤ^3`, this covers every `m` [E].
+  axioms. The ℤ-linear endomorphisms of the module of all functions `ℤ^3 → ℤ` form such a ring. The
+  instance on `ℤ^3`: for `i < 3`, `t_i`, `s_i` are the unit shifts and their inverses, and `e_i` is the
+  phase character of (c); for `i ≥ 3`, `e_i = χ_(1,1,1)` and `t_i = s_i = 0`. Every field then holds
+  pointwise. The padded `e_i` are involutions that commute with each other, anticommute with
+  `t_0, t_1, t_2` because `ℤ^3` is bipartite, and meet only zero shifts otherwise. The three-axis sum is
+  `factorization 3`. Nothing is summed over infinitely many sites, since each operator has finite
+  range. [W]. Part B verifies on a window of `ℤ^3` the nine phase–shift relations for axes 0–2 and the
+  padding relation, and the identity on `δ_m` for the eight classes of `m` mod 2. Because the
+  operators commute with translations by `2ℤ^3`, this covers every `m` [E]. Both readings (R-a) and
+  (R-b) hold on `ℤ^3`.
 - *C3.* The kernel theorem quantifies over an arbitrary index type `X` with a parity map, an
   odd-supported hopping and both parities present; no finiteness of `X` is assumed. On `ℤ^d` with the
   coordinate-sum parity the hypotheses hold (K1).
@@ -130,18 +161,24 @@ consumer holds. No consumer is (iii) or (iv).
   complement needs no infinite-volume inversion: by (ii) the odd–odd block of the hopping vanishes,
   so the hidden block is site-diagonal (on the free substratum it is the time term `2 cos ω`,
   SM:569), and `G_oo` is its pointwise inverse wherever that is nonzero. No continuation hypothesis of
-  the O-A4 §6.1 kind (H-cont) enters. Steps (iv)–(v) are conditional on H-χ' and H-spin' as stated.
-  [W]
+  the O-A4 §6.1 kind (H-cont) enters. This covers the free and onsite case only. If the hidden block
+  carries an off-diagonal term, such as a taste-asymmetric structure of the kind H-χ' names, the
+  Schur complement on `ℤ^3` needs that block to be boundedly invertible on `ℓ²` of the odd
+  sublattice. That is a stated condition on the dressed operator, and it applies on finite quotients
+  as well; it is not a finite-volume-only step. Steps (iv)–(v) are conditional on H-χ' and H-spin' as
+  stated. [W]
 - *C539, C1536.* `ℤ^3` is bipartite and carries the blocking (Lemma 1, `P = 0`).
 
 **Countermodels for the quotient verdicts** [E]. Odd tori (C3 hypothesis, C539 bipartite, C1536,
 and every corner statement); the skew even-sum quotient `⟨(4,0,0),(0,4,0),(1,1,4)⟩` (bipartite,
 only the corners `{000, 001, 110, 111}`: one singlet pair and one axis pair, no triplet, no blocking,
-no staggered phases); the `4×4×3` torus (staggered phases and Theorem 2's identity hold, no
-checkerboard); the `4×4×6` torus (all eight corners; `P` not `O`-invariant; its vertex stabilizer has
-order 48 but orbits of sizes 4 and 2 on the six links, and every automorphism maps the `X_3` corner
-line to itself, so no carrier symmetry relates `X_3` to `X_1`; the taste-cell spectra of `σ` around
-`X_1` and `X_3` differ). The cyclic quotient `⟨(2,4,0),(0,2,4),(4,0,2)⟩` (index 72, inside `2ℤ^3`,
+no staggered phases); the `4×4×3` torus (staggered phases and Theorem 2's identity in reading (R-a)
+hold; no checkerboard, no blocked lattice, so reading (R-b) fails); the `4×4×6` torus (all eight
+corners; `P` not `O`-invariant; its vertex stabilizer has order 48 but orbits of sizes 4 and 2 on the
+six links, and every automorphism maps the `X_3` corner line to itself, so no carrier symmetry relates
+`X_3` to `X_1`). On `4×4×6` what fails is Theorem 10's step "related by cubic symmetry": the three
+corner modes keep the common value `σ = 1`, while the taste-cell spectra of `σ` around `X_1` and `X_3`
+differ. The cyclic quotient `⟨(2,4,0),(0,2,4),(4,0,2)⟩` (index 72, inside `2ℤ^3`,
 invariant under the 3-cycle of axes, not `O`-invariant) shows `O`-invariance is not necessary for C10.
 
 **Theorem recovery.** No consumer loses support on `ℤ^3`, and no unrefuted claim is narrowed. The
@@ -151,9 +188,9 @@ corrections of §7 state the lattice class on which each existing statement alre
 
 | Class `W` (condition `Q` on `P`) | DA1: `P = 0` satisfies `Q` | DA2: parity or symmetry only, no size bound | DA3: `Q` is the proof's condition |
 |---|---|---|---|
-| even off one axis (C2) | yes | yes | Lemma 1(c) |
+| even off one axis (C2, reading (R-a)) | yes | yes | Lemma 1(c) |
 | `P ⊂ D_3` (C3, C539 bipartite, C1536) | yes | yes | Lemma 1(a) |
-| `P ⊂ 2ℤ^3` (C8b, C12, C13, C539 spin–taste) | yes | yes | Lemma 1(b), (d) |
+| `P ⊂ 2ℤ^3` (C2 reading (R-b), C8b, C12, C13, C539 spin–taste) | yes | yes | Lemma 1(b), (d) |
 | `P ⊂ 2ℤ^3`, `P` `O`-invariant (C8, C10) | yes | yes; by Lemma 2 it is the disjunction "`P = 0`, or `P` of finite index", and the first alternative is infinite | Lemma 1(b), (e) |
 
 Every class contains `ℤ^3`, whose configuration space with a nontrivial finite alphabet is infinite
@@ -173,7 +210,7 @@ consumers' context is A4's finite clause, which none of them uses.
   axis order), and the 720-element stabilizer mixes them. Theorem 8 is stated "under the cubic group
   O" and holds there; the taste decomposition is not intrinsic to the full symmetry of that carrier.
   This refines O-A4 §7.1 and needs no correction, since no consumer claims the full automorphism group.
-- **Three distinct conditions.** Staggered phases (C2), checkerboard (C3) and blocking (C12) are
+- **Three distinct conditions.** Staggered phases (C2, reading (R-a)), checkerboard (C3) and blocking (C12, C2 reading (R-b)) are
   three different conditions on `P`. Neither of the first two implies the other (`4×4×3`; the skew
   even-sum quotient), and the third implies both.
 
@@ -188,26 +225,65 @@ chapter line. Result: P 14, R 10, I 97, S 70, A4 11, N 14 (`checks/q1_dispositio
 - **R line without correction:** appendix-b:378 ("on a d = 3 simple cubic lattice" names the Bravais
   lattice `ℤ^3`; true as stated).
 - **I lines** use a primary consumer's conclusion, or the corners and tastes of `Λ`; SM:134 and
-  SM:136 (the `O_h`-invariant checkerboard partition) are covered by E1. Main:218 describes an open
-  step and asserts no lattice property; Main is unaffected.
+  SM:136 (the `O_h`-invariant checkerboard partition) and SM:1554 are covered by E1 (§7, scope of E1
+  and E3). Main:218 describes an open step. It presupposes the lattice's bipartite partition, which
+  exists on `ℤ^3` and on even-sum quotients, and it asserts no new lattice property; Main is
+  unaffected.
 - **S lines** are the observer-level isotropy results already classified by O-A4 rows 13–17, point-group
   algebra, the stencil on `ℤ^3` (Main:674, :678), and Proposition 20's abstract bipartite `C_4` ring.
 - **A4 lines** (Sub:98, Sub:157, SM:202, ch02:82, ch02:96, ch05:65, ch18:242, FULL mirrors) restate A4's
   finite class. They need no Q1 condition; their disposition belongs to the A1-EXIT ledger.
+
+## 6a. Supplementary census (deviation from PREREG §2)
+
+The round-1 review found a consumer line that the preregistered families missed: book ch05:154, "one
+Dirac spinor component to each hypercube corner of the cubic lattice", with FULL:1469. The
+preregistered census is left as it was. A supplementary sweep, `checks/q1_census_supp.py`, lists every
+line not already in the census that matches one of three further families:
+- G5: blocking and sublattice vocabulary ("hypercube corner", "sublattice parity", "blocked",
+  "sublattice grading", "even/odd sublattice", "sublattices");
+- G6: "taste";
+- G7: "corner".
+
+It finds 235 lines. 80 of them are screened: they are in G5, or they put "taste" or "corner" beside a
+lattice-shape word. Every screened line outside FULL was read and has its own entry in
+`q1_dispositions.py`. The unscreened lines take the default I, tastes or corners used as labels of the
+cubic construction, unless an entry overrides it. `q1_dispositions.py` now also exits non-zero if a
+screened line has no entry.
+
+Result (`checks/q1_dispositions_supp.json`): R 8, I 216, S 3, N 8.
+- **R:** ch05:91, ch05:154, ch05:172, ch06:20 and their FULL mirrors 1406, 1469, 1487, 1531, all
+  covered by the new correction E6. Ch05:91 is the book's statement of Theorem 2. Ch05:172 and ch06:20
+  state its blocked-lattice reading (R-b). Ch05:154 states the hypercube corners.
+- **I:** SM:549 and SM:1237–1257 (the sublattice parity of the §4.8 construction) are covered by E1.
+- **N:** "blocked" or "corner" in another sense (Main:60, GR:194, GR:364, Methodology:519, ch07:195),
+  external simulations, bibliography.
 
 ## 7. Proposed Step 2 corrections (not applied)
 
 Each is the minimal text that makes a sentence true on the class the manuscripts admit (PREREG §6).
 Quoted old strings are exact at the pin.
 
-**E1 — SM:222** (covers SM §§4.2–4.8 and SM:134/136). Old: "(under A1 and A4 [Substratum §3.1] it
-acts on configurations over a finite periodic quotient of $\Lambda$)". New: "(under A1 and A4
-[Substratum §3.1] it acts on configurations over a finite periodic quotient $\Lambda/P$; the staggered
-and cubic results below are stated on $\Lambda$ and hold on such a quotient when $P$ admits them: the
-staggered phases require every vector of $P$ to be even off one axis, the checkerboard requires even
-coordinate sums, the eight Brillouin-zone corners and the staggered blocking require
-$P \subset 2\mathbb Z^d$, and the cubic group acts when it maps $P$ to itself)". Coordination: SM.md is
-being edited for Q2 at SM:242; E1 touches SM:222, a Phase 2 splice site, and needs a fresh base.
+**E1 — SM:222.** It covers every sentence that presents a result of the SM §§4.2–4.8 construction,
+including later restatements that cite it: SM:134/136, SM:549, SM:1237–1257 and SM:1554 ("The
+staggered construction (§4.8) gives …").
+
+Old: "(under A1 and A4 [Substratum §3.1] it acts on configurations over a finite periodic quotient of
+$\Lambda$)".
+
+New: "(under A1 and A4 [Substratum §3.1] it acts on configurations over a finite periodic quotient
+$\Lambda/P$; the staggered and cubic results below are stated on $\Lambda$ and hold on such a quotient
+when $P$ admits them: the staggered phases, and the identity of Theorem 2 with the two-step stencil,
+require every vector of $P$ to be even off one axis; the checkerboard requires even coordinate sums;
+the blocked lattice, the eight Brillouin-zone corners and the staggered blocking require
+$P \subset 2\mathbb Z^d$; and the cubic group acts when it maps $P$ to itself)".
+
+The clauses follow the classification exactly. Theorem 2 as printed ("its associated blocked lattice
+operator", reading (R-b)) falls under the $2\mathbb Z^d$ clause; the first clause covers only its
+two-step-stencil reading (R-a).
+
+Coordination: SM.md is being edited for Q2 at SM:242. E1 touches SM:222, a Phase 2 splice site, and
+needs a fresh base.
 
 **E2 — SM:539.** Old: "The staggered-to-Dirac reconstruction identifies the two sublattices". New:
 "On $\mathbb Z^3$, and on a quotient whose period vectors all lie in $2\mathbb Z^3$, the
@@ -216,7 +292,10 @@ checkerboard cut, the visible" New: "For the designated checkerboard cut on thes
 visible".
 
 **E3 — SM:1506 and SM:1536.** Old (each line): "bipartite checkerboard structure)". New: "bipartite
-checkerboard structure on $\Lambda$ and on the quotients that carry it, §4.7)". Structure:1058, which
+checkerboard structure on $\Lambda$ and on quotients whose period vectors have even coordinate sum)".
+These two lines need their own edit because they assert the structure of "the substratum" itself,
+which under A1 and A4 is the quotient; they do not present it as a result of the §4 construction.
+SM:1554 presents the construction's result and is covered by E1. Structure:1058, which
 summarizes the same mapping without asserting the structure's existence, is left unchanged.
 
 **E4 — book ch06:24 and FULL:1535** (covers ch06:22, :30 and FULL 1533, 1541). Old: "One singlet
@@ -230,17 +309,28 @@ invariance. Old: "The triplet members are related by cubic symmetry ($O$ permute
 hence identical." New: "The same computation gives $\sigma(X_j) = 1$ and $\sigma(M_j) = -1$ for each
 $j$, so the triplet members are identical."
 
+**E6 — book ch05:91 and FULL:1406** (covers ch05:154, :156, :162, :166, :172, ch06:20 and their
+FULL mirrors). Old: "Matching the blocked stencil and solution classes to the normalized
+nearest-neighbor observer wave above is a separate step." New: "Matching the blocked stencil and
+solution classes to the normalized nearest-neighbor observer wave above is a separate step. On a
+finite periodic quotient of $\mathbb Z^3$ (Chapter 2, A4), the staggered phases and this two-step
+identity require every period vector to be even off one axis; the blocked stencil, the hypercube
+corners and the spin–taste grading used below require the period vectors to lie in $2\mathbb Z^3$."
+This is the book counterpart of E1 and E2 (§A.14). The book has no counterpart of SM:222's
+parenthetical, and its Chapter 5 is set on A4's finite class (ch05:65).
+
 **A4 (Sub:98) and its restatements.** No Q1 edit is proposed; A4 is not narrowed here. Q1's finding
 for the A1-EXIT ledger: none of the Q1 consumers uses the finiteness of A4's quotient, and every one
 holds on `ℤ^3`. Two forms are compatible with these results. (α) A4's lattice is `ℤ^d`, with finite
 quotients admitted only as representatives under the conditions of E1. (β) A4 keeps the finite class,
-and E1–E4 carry the conditions. Under both, E1, E2 and E4 are needed wherever a finite quotient is
-admitted, and E3 in either case. Under the minimal-substratum principle (§A.29), the conditions on
-`P` are needed by stated results only if finite quotients are retained; no observation at accessible
-scales distinguishes them. Choosing between (α) and (β) is A1-EXIT's and the owner's.
+and E1–E4 and E6 carry the conditions. Under both, E1, E2, E4 and E6 are needed wherever a finite
+quotient is admitted, and E3 in either case. Under the minimal-substratum principle (§A.29), the
+conditions on `P` are needed by stated results only if finite quotients are retained. Choosing
+between (α) and (β) is A1-EXIT's and the owner's.
 
 After any Step 2 edit: rebuild SM and the book (`sh ./build.sh SM --book`), and re-run
-`q1_census.py` to confirm that E1–E4's text is present and the A4 lines are unchanged.
+`q1_census.py` and `q1_census_supp.py` to confirm that the text of E1–E4 and E6 is present and the
+A4 lines are unchanged.
 
 ## 8. Productivity verdict (§A.31) and pressure on the favourable branch
 
@@ -254,12 +344,16 @@ eigenvalue. (4) The `ℤ^3` verdicts were checked against `ℤ^3` itself, not in
 part B computes on `ℤ^3` and uses `2ℤ^3`-covariance for the remaining sites.
 
 **Verdict: gem.** The record yields conditions sharper than, or different from, O-A4 row 18's blanket
-condition, with proofs and countermodels: Theorem 2 needs only "even off one axis" and holds on a
-non-bipartite quotient; Theorem 3 needs only even sums and already states it; Theorem 8b needs
-`P ⊂ 2ℤ^3` without cubic invariance; Theorems 8 and 10 additionally need a cubic action on `X_P`
-(`4×4×6` countermodel), which is sufficient but not necessary for Theorem 10's step (ii).
+condition, with proofs and countermodels:
+- Theorem 3 needs only even sums, and already states it.
+- Theorem 8b needs `P ⊂ 2ℤ^3` without cubic invariance.
+- Theorems 8 and 10 additionally need a cubic action on `X_P` (`4×4×6` countermodel). For Theorem
+  10's step (ii) that action is sufficient but not necessary.
+- Theorem 2's identity, in its two-step-stencil reading (R-a) only, needs just "even off one axis" and
+  holds on a non-bipartite quotient. As printed, with the blocked lattice operator (R-b), Theorem 2
+  needs `P ⊂ 2ℤ^3`, which is O-A4's condition. The verdict does not rest on this item.
 
-**§A.31 classification.** NEW: the per-consumer conditions of §2–§3, the `4×4×6` countermodel, and
+**§A.31 classification.** NEW: the per-consumer conditions of §2–§3 (for Theorem 2, in reading (R-a)), the `4×4×6` countermodel, and
 "stabilizer order 48 does not certify a cubic action". POSITIVE: all nine named consumers hold on
 `ℤ^3`, and A4's finite clause is used by none of them. ELABORATING: the `L = 4` corner span; Theorem
 13's Schur complement is site-local on `ℤ^3`; Lemma 2. CONFIRMING: O-A4 §7's countermodels.
@@ -280,7 +374,8 @@ From the repository root, at the commit that lands this record (stdlib Python 3,
 |---|---|---|
 | `python3 -I verification/audits/foundations/a1exit-q1-20261120/checks/q1_checks.py` | exit 0; output equal to `checks/q1_checks.out`, last line `ALL CHECKS PASS` | about 10 s |
 | `python3 -I verification/audits/foundations/a1exit-q1-20261120/checks/q1_census.py verification/audits/foundations/a1exit-q1-20261120/checks/q1_census.json` | 216 lines; JSON unchanged at the pin's manuscript text | < 1 s |
-| `python3 -I verification/audits/foundations/a1exit-q1-20261120/checks/q1_dispositions.py` | exit 0, `COMPLETE`; `q1_dispositions.json` unchanged | < 1 s |
+| `python3 -I verification/audits/foundations/a1exit-q1-20261120/checks/q1_census_supp.py verification/audits/foundations/a1exit-q1-20261120/checks/q1_census_supp.json` | 235 lines (80 screened); JSON unchanged at the pin's manuscript text | < 1 s |
+| `python3 -I verification/audits/foundations/a1exit-q1-20261120/checks/q1_dispositions.py` | exit 0, `COMPLETE`; `q1_dispositions.json` and `q1_dispositions_supp.json` unchanged | < 1 s |
 
 The verdict of each script is its exit status; printed lines are diagnostics (§A.44). The census and
 dispositions read the manuscripts and therefore match only while the manuscript text is that of the
@@ -290,7 +385,7 @@ pin.
 |---|---|---|
 | K | Controls K1, K3, K4, K5 | §1 |
 | A | Lemma 1 by brute force on 134 quotients; `4×4×3` and skew witnesses | §2, C2, C3, C539, C1536 |
-| B | Theorem 2 on `ℤ^3` and on `4×4×3`; `3×3×4` | C2, K2 |
+| B | Theorem 2 on `ℤ^3` (phase–shift relations, padding, identity) and on `4×4×3` (reading (R-a)); `3×3×4`; no `Gens` instance on `4×4×3`; reading (R-b) needs `P ⊂ 2ℤ^3` | C2, K2, Lemma 1(c) |
 | C | Automorphisms and corner lines (`L = 4, 6`, `4×4×6`), link orbits, taste-cell spectra, cyclic quotient | C8, C10, §5 |
 | D | Blocking iff `P ⊂ 2ℤ^3` | C12, C13, C539 |
 | E | Cubic-invariant lattices to index 96 | Lemma 2 |
@@ -312,10 +407,13 @@ Kernel modules cited ([L]) are on `main` at the pin: `verification/lean/OI_Stagg
 ## 11. Verification status and remediation (§A.46 item 4)
 
 - **Evidence level.** Paper derivations (Lemmas 1–2, §3 arguments), exact computations (§9), and
-  reading of cited kernel statements. No new kernel theorem. Lemma 1(c)'s uniqueness argument,
-  Lemma 2, the `ℤ^3` instance of `Staggered.Gens`, and the C10, C12, C13 arguments have no kernel or
-  independent check yet.
-- **Missing.** An independent non-author review of this record. The general classification of cubic
+  reading of cited kernel statements. No new kernel theorem. Lemma 1(c)'s three-axis argument (the
+  support of the weaker quotient class), Lemma 2, the padded `ℤ^3` instance of `Staggered.Gens`, and
+  the C10, C12, C13 arguments have no kernel check.
+- **Review.** Round 1 at `e52250a5`: REVISE, light
+  ([#1465 comment 7048101970](https://github.com/amaybaum/incompleteness/pull/1465#issuecomment-7048101970)).
+  The reviewer confirmed the main result and the items listed there. This revision answers it (§13).
+- **Missing.** A delta review of this revision. The general classification of cubic
   Bravais lattices beyond index 96 is cited, not checked, and nothing depends on it.
 - **K6.** `git diff --stat 9db518844df62151979acf6aac1d487b59c44907` lists only files under
   `verification/audits/foundations/a1exit-q1-20261120/`.
@@ -326,8 +424,9 @@ Kernel modules cited ([L]) are on `main` at the pin: `verification/lean/OI_Stagg
 ## 12. Review checklist
 
 1. K1–K5 hold, and `q1_checks.py` reproduces `q1_checks.out` exactly.
-2. Lemma 1(c): the `Gens` fields force the stated characters, and the condition is "even off the last
-   axis" (try `4×4×3` and `3×3×4`).
+2. Lemma 1(c): the three-axis relations force the stated characters, and the condition is "even off
+   the last axis" (try `4×4×3` and `3×3×4`); the kernel `Gens` applies on quotients only within
+   `P ⊂ 2ℤ^3`; the two readings of Theorem 2 are kept apart.
 3. Lemma 2's half-turn argument, and that the class in row 4 of §4 is "`P = 0` or finite index".
 4. C13: the hidden block is site-diagonal given Theorem 13(ii), so no infinite-volume inverse is needed.
 5. C10: `4×4×6` is a genuine countermodel to "related by cubic symmetry" (every automorphism fixes the
@@ -338,3 +437,26 @@ Kernel modules cited ([L]) are on `main` at the pin: `verification/lean/OI_Stagg
 8. §7: each proposed text is minimal and true on the admitted class; E5 is needed only for 8b's
    weaker condition; no A4 edit is proposed.
 9. Voice: no §A.32/§A.33 phrase family in proposed manuscript text.
+
+## 13. Revision after review round 1
+
+The round-1 review of `e52250a5` is
+[#1465 comment 7048101970](https://github.com/amaybaum/incompleteness/pull/1465#issuecomment-7048101970)
+(REVISE, light). `PREREG.md` is unchanged.
+
+| Item | Change |
+|---|---|
+| B1 (`Gens` has `ℕ`-indexed fields; no instance on a non-bipartite quotient) | §2 proof of (c) rewritten from the three-axis relations and the descent argument. A new paragraph shows a `Gens` instance on `X_P` needs `P ⊂ D_3`, and `P ⊂ 2ℤ^3` with the phases of (c). The C2 layer is marked [W] + [E] for the weaker class, and [L] only on `ℤ^3` and within `P ⊂ 2ℤ^3`. The `ℤ^3` padding is stated in C2. The K2 label and part B are corrected, with new checks for the padding and for no instance on `4×4×3` |
+| B2 (Theorem 2's "blocked lattice operator") | C2 is split into readings (R-a) and (R-b). Reading (R-b), as printed, needs `P ⊂ 2ℤ^3`, and part B checks that the two-step stencil is not block-local on `4×4×3`. The gem verdict and the NEW item are restricted to (R-a), and E1 now has separate clauses for the two readings. The book wording (ch05:91, :172, ch06:20) is covered by E6 |
+| 3 (census gap, ch05:154) | §6a supplementary census with its dispositions; new book correction E6 |
+| 4 (SM:1554 versus E3) | §7 states E1's scope and why E3 applies only to SM:1506/1536; SM:1554 stays I under E1 |
+| 5 ((α)/(β) neutrality) | The unsourced sentence is removed |
+| 6 (Lemma 2) | The explicit list is labelled as resting on the cited classification; only "no cylinder or slab" follows from Lemma 2 |
+| 7 (E3 wording) | E3 now reads "quotients whose period vectors have even coordinate sum" |
+| 8 (Main:218 note) | The disposition note states the presupposed bipartite partition |
+| 9 (Theorem 10 on `4×4×6`) | §3 table and countermodel paragraph: the step fails; the corner modes stay degenerate (`σ = 1`) |
+| 10 (Theorem 13 Schur complement) | C13 states that the site-diagonal case is the free/onsite case, and that a taste-asymmetric hidden term needs bounded invertibility on `ℓ²` as a stated condition, not a finite-volume-only step |
+| 11 (K1, K5) | §1 notes that both are weak as evidence |
+
+The scripts were re-run. `q1_checks.py` exits 0 with 35 checks. `q1_census.py` reproduces
+`q1_census.json`. `q1_census_supp.py` and `q1_dispositions.py` produce the committed JSON files.
