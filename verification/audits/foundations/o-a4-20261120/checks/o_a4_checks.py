@@ -250,6 +250,22 @@ def part_A2():
             rank2 = bool(a) and bool(b) and not proportional(a, b)
             check(f"d={d} q={q} alpha={alpha} n={n}: hidden parts of x_0(n-1), x_0(n) independent, "
                   f"so T_ij(n) = 1/q^2 for all i, j", rank2)
+    print("-- countercontrol: alpha = 0 must fail the rank test and give a non-uniform T --")
+    for d, q, n in [(1, 3, 2), (2, 2, 3)]:
+        zero = tuple([0] * d)
+        fp, fc = linear_forms(n, d, q, 0)
+        roots = {("p", zero), ("c", zero)}
+        a = {k: v for k, v in fp.items() if k not in roots}
+        b = {k: v for k, v in fc.items() if k not in roots}
+        rank2 = bool(a) and bool(b)
+        if d == 1:
+            T = cone_transition_weights(n, d, q, F_linear(0))
+            distinct = len(set(T.values()))
+        else:
+            distinct = None
+        check(f"alpha=0 d={d} q={q} n={n}: rank test fails (detector live)",
+              (not rank2) and (distinct is None or distinct > 1),
+              f"hidden terms {len(a)}, {len(b)}" + ("" if distinct is None else f"; distinct T values {distinct}"))
     print("-- n = 1: T((p,c) -> (c,c')) = P(S = c' + p) = T((c',c) -> (c,p)) for every hidden product law --")
     wf = lambda a: Fraction(2, 3) if a == 0 else Fraction(1, 3)
     for d in [1, 2, 3]:

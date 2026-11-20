@@ -330,8 +330,10 @@ linear observer-level branch only.
   additionally needs H-cont. Lemma 1c(ii) for Koopman compressions needs H-cont (§6.1). On `ℤ^d` the uniform Bernoulli law satisfies the
   measure hypotheses for the second-order rule class. Theorem 23 in full does not follow, because
   Stage 3 (H-count) and the coherent form of Theorem 24(i) keep A1 uses that are not A4's.
-- (ii) Finite-model-only steps located, with reasons and countermodels: Theorem 24(i)'s coherent
-  prior (§6.2), and Stage 3's H-count and Stage 1's exact return, which are A1 uses outside A4 (§6.3).
+- (ii) Finite-model-only steps located, with reasons and countermodels. This unit's own findings are
+  Theorem 24(i)'s coherent prior (§6.2) and §7. The §6.3 items were found by other units and are
+  only located here: Stage 3's H-count by P7 and A1-REMAINDER R1, and Stage 1's exact return by
+  A1-REMAINDER R2 and R1-INF Lemma 4. Both are A1 uses outside A4.
   Lemma 1c(ii)'s determinant proof and its finite pole sets do not transfer to infinite volume
   (§6.1); the statement itself is class (b) under H-cont, not finite-only. Conversely, the printed finite class fails some
   Stage 2 inputs on part of its range. `O_h` equivariance needs an `O_h`-invariant `Λ`, and `L = 4`
@@ -363,7 +365,7 @@ lands this record. Expected: exit status 0 and the output in
 | Part | What it checks | Supports |
 |---|---|---|
 | A | Exact `T_ij(n)` on the hidden light cone of `ℤ^d` under the uniform product law (`d = 1`: `n ≤ 4` at `q = 2`, `n ≤ 3` at `q = 3`, linear `α = 1, 2` and a nonlinear rule; `d = 2`: `n ≤ 2` as a sanity check; `d = 3`: `n = 1`, structural). Ring comparison, and a non-invariant Bernoulli(1/3) countercontrol in `d = 1` and `d = 2` | §5 |
-| A2 | For the linear update (`q` prime, `α ≠ 0`; `d = 1, 2, 3`; `n = 2, 3`, and `n = 4` at `d = 1`), the hidden parts of `x_0(n−1)` and `x_0(n)` have rank 2 over `GF(q)`, so `T_ij(n) = 1/q^2`; at `n = 1` reciprocity holds under the non-invariant Bernoulli(1/3) law in `d = 1, 2, 3` | §5, degeneracy |
+| A2 | For the linear update (`q` prime, `α ≠ 0`; `d = 1, 2, 3`; `n = 2, 3`, and `n = 4` at `d = 1`), the hidden parts of `x_0(n−1)` and `x_0(n)` have rank 2 over `GF(q)`, so `T_ij(n) = 1/q^2`; countercontrol `α = 0` fails the rank test and gives a non-uniform `T`; at `n = 1` reciprocity holds under the non-invariant Bernoulli(1/3) law in `d = 1, 2, 3` | §5, degeneracy |
 | B | The image of the uniform law on a cylinder under φ is uniform (fibre sizes constant), for nonlinear, linear and random site-dependent `F`; the same for Θ | Lemma U |
 | C | Ring orders and visible autocorrelations (`L = 3..12`): within one period `m_n = 1` only at `n = 0`, so ring and `ℤ` values agree for `n < ord_L`; the cone-edge coefficient on `ℤ` for `n ≤ 40` | §6.1 |
 | D | Vertex stabilizers and their rank on the six links for `C_L^3` (`L = 3..6`), the radius-3 ball of `ℤ^3`, and a skew quotient; the Gray-code isomorphism `C_4^3 ≅ Q_6` | §7.1, row 4 |
@@ -398,7 +400,8 @@ automata).
   measured reciprocity theorem. Lemma U, the `ℤ^3` stabilizer argument and the Bloch argument have no
   kernel or independent check.
 - **Review.** The review of `1c69ea84` (REVISE, #1441 comment 7031422625) verified Lemma U, §5,
-  §7, §8's reading and the checks, and required the narrowing of §6.1 made in this revision.
+  §7 and the checks, and checked §8 as a reading of the Lean statements only (not built, so §8 remains
+  unverified mechanically), and required the narrowing of §6.1 made in this revision.
 - **Missing.** A delta review of this revision; mechanical confirmation of §8's `L = 0` reading;
   H-cont for the Koopman compressions of the observer branch (open).
 - **Controls K1–K3.** `git diff --stat` against the source pin lists only files under

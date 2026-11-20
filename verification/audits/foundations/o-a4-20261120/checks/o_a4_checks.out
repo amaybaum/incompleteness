@@ -50,6 +50,9 @@ PASS  d=3 q=2 alpha=1 n=2: hidden parts of x_0(n-1), x_0(n) independent, so T_ij
 PASS  d=3 q=2 alpha=1 n=3: hidden parts of x_0(n-1), x_0(n) independent, so T_ij(n) = 1/q^2 for all i, j
 PASS  d=3 q=3 alpha=1 n=2: hidden parts of x_0(n-1), x_0(n) independent, so T_ij(n) = 1/q^2 for all i, j
 PASS  d=3 q=3 alpha=1 n=3: hidden parts of x_0(n-1), x_0(n) independent, so T_ij(n) = 1/q^2 for all i, j
+-- countercontrol: alpha = 0 must fail the rank test and give a non-uniform T --
+PASS  alpha=0 d=1 q=3 n=2: rank test fails (detector live): hidden terms 0, 0; distinct T values 2
+PASS  alpha=0 d=2 q=2 n=3: rank test fails (detector live): hidden terms 0, 0
 -- n = 1: T((p,c) -> (c,c')) = P(S = c' + p) = T((c',c) -> (c,p)) for every hidden product law --
 PASS  d=1 q=2 n=1 under Bernoulli(1/3): reciprocity holds (n = 1 is structural)
 PASS  d=2 q=2 n=1 under Bernoulli(1/3): reciprocity holds (n = 1 is structural)
