@@ -4,12 +4,16 @@
 [PR #1467](https://github.com/amaybaum/incompleteness/pull/1467) (round 1 at `62a4332b`, REVISE,
 [comment 7048283597](https://github.com/amaybaum/incompleteness/pull/1467#issuecomment-7048283597); round 2 at
 `8ecb3b12`, ACCEPT-WITH-NITS,
-[comment 7048749116](https://github.com/amaybaum/incompleteness/pull/1467#issuecomment-7048749116); the
-final-head check of `1aae7562` recorded in §12) and landed by owner decision, recorded at
+[comment 7048749116](https://github.com/amaybaum/incompleteness/pull/1467#issuecomment-7048749116); a
+final-head check of `81718175`, relayed by the coordinating session and not posted, answered at
+`1aae7562` (§12)) and landed by owner decision, recorded at
 [#1169 comment 7049542030](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7049542030)
 (`amaybaum`, 2026-11-20T20:11:42Z). Targets, classification rule, disguised-A1 test and controls were
 fixed in `PREREG.md` (commit `8fb6b663`, pushed before this file and unchanged since). Every proof
-below is a [W] paper derivation by the writer, checked by that review and not kernel-checked;
+below is a [W] paper derivation by the writer, not kernel-checked, and checked by those reviews
+through `8ecb3b12` and the final-head check of `81718175`; the edits answering that check at
+`1aae7562` (§3.2 countable-carrier closure under `F^{−1}`, the isometry form of the channel identity,
+T9(a)'s isometric base) were not separately reviewed;
 computations are exact (`fractions.Fraction`), in `r6_controls.py`, with outcomes in
 `r6_controls.json`. No manuscript, Lean, registry, book or mirror edit; no premise adoption. A1 (Main
 posit ledger item (ii)) remains open and unadopted. Step 2 (manuscript propagation) is queued, not

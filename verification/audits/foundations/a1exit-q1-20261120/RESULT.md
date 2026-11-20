@@ -440,7 +440,7 @@ Kernel modules cited ([L]) are on `main` at the pin: `verification/lean/OI_Stagg
 - **Review.** Round 1 at `e52250a5`: REVISE, light
   ([#1465 comment 7048101970](https://github.com/amaybaum/incompleteness/pull/1465#issuecomment-7048101970)).
   The reviewer confirmed the main result and the items listed there. This revision answers it (§13).
-  Rounds 2–3 at `aecb03e4` and `b96d0795`: ACCEPT-WITH-NITS, nits answered
+  Round 2 at `aecb03e4`: ACCEPT-WITH-NITS; round 3 checked the nit commit `b96d0795` mechanically
   ([#1465 comment 7048633281](https://github.com/amaybaum/incompleteness/pull/1465#issuecomment-7048633281)).
   Landed by owner decision; acceptance recorded at
   [#1169 comment 7049542030](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7049542030)
