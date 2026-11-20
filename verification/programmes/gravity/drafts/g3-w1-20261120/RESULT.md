@@ -16,8 +16,8 @@ the runs they govern.
 - **Accountable Issues.** #873, #1169.
 - **Snapshot `D`.** `main` at `b9168ef0408b5f55b935a4df17cb0841877e221a`. `SM:n`, `Sub:n` are line
   `n` of `papers/SM.md`, `papers/Substratum.md` there.
-- **Inputs (§A.46 item 7).** UNIV-2 A2 (PR #1444, `aecc64ef`, under review) is used only to choose
-  classes that do not repeat it; no result below depends on it. UNIV-1 supplies the rule's
+- **Inputs (§A.46 item 7).** UNIV-2 A2 (PR #1444, branch head `aecc64ef`; merged on `main` at
+  `27187dc3`) is used only to choose classes that do not repeat it; no result below depends on it. UNIV-1 supplies the rule's
   definition; its background lemma is re-checked here (K1). G3-HOM is method provenance.
 
 | Label | Meaning |
@@ -51,14 +51,17 @@ In words, with the scope of §4:
 2. **Plane waves (preregistered runs A–C).** Every translation-invariant additive quantity of the
    3D rule conserved on all periodic configurations whose density restricts to plane waves along
    `(1,0,0)` or `(1,1,0)` inside one of 22 classes (polynomial up to degree 4; rounding-aware
-   degree ≤ 4 with residues mod 3; arbitrary functions of the values mod μ for μ ≤ 9; density
-   extent ≤ 5 cells along the wave vector, arbitrary transverse shape, values unbounded) is trivial
+   degree ≤ 4 with residues mod 3; arbitrary functions of the values mod μ, with μ ∈ {2,3,4,5,6,8,9}
+   at extent 2, μ ∈ {2,3,4} at extent 3, μ ∈ {2,3} at extent 4 and μ = 2 at extent 5; density
+   extent ≤ 5 cells along the wave vector as listed in §3, arbitrary transverse shape, values unbounded) is trivial
    on those plane waves. Uniform states are the period-1 plane waves, so each such quantity is
    constant on the homogeneous sector. [W + EC]
 3. **The preregistered 3D run D** left the 3D classes uncertified (excess 24, 96, 24) because its
-   trivial space omitted translation coboundaries (A01); every one of the 50 excess vectors
-   examined per class was exact and trivial (no witness), so D found no candidate either. D's
-   outcome stands as recorded; the 3D decision uses D2.
+   trivial space omitted translation coboundaries (A01). Its excess examination took the first 50
+   basis vectors of the mod-`p` kernel of `E` (kernel dimension 67, 199, 67, so these include
+   directions of `T`); each lifted exactly, and a sampled witness search found no nontriviality
+   witness for any of them. That search is not a proof. D's outcome stands as recorded; D2
+   supersedes it for the 3D decision.
 4. **No conserved real energy was found.** Decision (i) is not met.
 
 ***
@@ -108,7 +111,9 @@ zero over every period. For an integer matrix, `rank_p ≤ rank_ℚ`. Hence if
 `dim ker_ℚ E ≤ n − rank_p E = rank_p T ≤ rank_ℚ T ≤ dim ker_ℚ E`, so `ker_ℚ E = T`. Every conserved
 quantity of the class satisfies every equation used, so it lies in `T` and is trivial on all
 periodic configurations. Sampling equations only weakens `E`, so a certificate from a sample is a
-proof. Float64 arithmetic is exact mod `p < 2^20`: every partial sum is asserted below `2^53`.
+proof. Float64 arithmetic is exact mod `p < 2^20`: in `mod_matmul` the block length is chosen so that
+every partial sum stays below `2^53`, which is asserted; the other float64 operations (row scaling
+and rank-one updates) involve single products of residues, bounded by `p² < 2^40` by inspection.
 
 **Lemma 6 (transfer to Q) [W].** A certified class with recorded `max|value| = B` (§3) used only
 configurations with values in `[−B, B]` before and after one step. Let `h_Q` be a density of Q,
@@ -128,10 +133,13 @@ reconstruction, 200 fresh exact equations, a nontriviality witness search).
 **Deviations from PREREG.** (1) Amendment A01 (3D trivial space), committed after run D and before
 run D2; D's outcome is reported unchanged. (2) PREREG §7 names one output file; the script writes
 one file per part (`results-A.json` … `results-D2.json`) and `--render` merges them into
-`results.json`, which carries the verdict and the controls P1, P2, C1–C3 and coverage. (3) While
-the script was being tested, two single-class diagnostic runs on the rounded rule
-(`ax:Q(2,2,1)`, `fd:Q(3,2,1)`, with an earlier seed scheme) preceded the recorded runs; both
-certified, and the recorded runs replace them. (4) `xcheck_rational.py` and the replays are not
+`results.json`, which carries the verdict and the controls P1, P2, C1–C3 and coverage. (3) After the
+preregistration `65e18750` and while the script was being tested, two single-class diagnostic runs
+on the rounded rule (`ax:Q(2,2,1)`, `fd:Q(3,2,1)`, with an earlier seed scheme) preceded the
+recorded runs; both certified, and the recorded runs replace them. `checks/g3w1_checks.py` was
+first committed in `14c5ea2c`, after all runs, so the A01 code change (the `D2` part and
+`Class3D.tgen_full`) cannot be dated from git; parts A–C and D ran on the earlier code, and the
+replays of A and D2 on the committed code match them. (4) `xcheck_rational.py` and the replays are not
 preregistered. (5) C1 for D = 0 classes uses only the bd invariant, since the linear energy is not
 in a D = 0 class.
 
@@ -182,19 +190,24 @@ for the bd control, largest absolute value in any configuration used or its imag
 
 Direct 3D classes:
 
-| Class | n | rank T (D / D2) | rank E | excess D / D2 | max\|value\| |
+| Class | n | rank T (D / D2) | rank E | excess D / D2 | max\|value\| (run D) |
 |---|---|---|---|---|---|
 | 3D-LIN:P3(2) (control) | 120 | 43 / 67 | 37 | 40 / 16 | 42 |
 | 3D-RZ:P3(2) | 120 | 43 / 67 | 53 | 24 / 0 | 18 |
 | 3D-RZ:P3(3) | 680 | 103 / 199 | 481 | 96 / 0 | 18 |
 | 3D-RZ:P3r(2) | 1080 | 43 / 67 | 1013 | 24 / 0 | 18 |
 
+The last column is from run D; run D2, which stops at a prefix of the same equation sequence,
+recorded 42, 17, 17, 18.
+
 The bd excesses equal the counts of independent functions of the two transported fields
 `a_k = u_{k+1} − p_k` (moving left) and `b_k = p_{k+1} − u_k` (moving right) that each class
 contains; for D = 0 the excess is `2(μ − 1)`, the nonconstant indicators of `a_k` and of `b_k`
 mod μ. The bd rule is the published rule on body-diagonal plane waves (Lemma 2), so these are
 conserved quantities of the published rule on that invariant set. They are not restrictions of any
-3D quantity in P3(2), P3(3) or P3r(2), all of which are trivial.
+conserved 3D quantity in P3(2), P3(3) or P3r(2), all of which are trivial. (Non-conserved members
+of these classes do restrict to them: `(y_{n+e1} − p_n)²` lies in P3(2) and restricts to the bd
+invariant `(u_{k+1} − p_k)²`.)
 
 CPU per part (`results.json`): A 472 s, B 610 s, C 698 s, D 123 s, D2 19 s.
 
@@ -227,7 +240,8 @@ Not excluded:
 - Q-densities that do not agree with a class member on the value window `2^15 ± B` (Lemma 6), with
   `B ≤ 160` (1D) and `≤ 18` (3D).
 
-UNIV-2 A2 (unverified input) excluded zero-flux star-local densities on value windows; the classes
+UNIV-2 A2 reports excluding zero-flux star-local densities on value windows (UNIV-2 is merged on
+`main` at `27187dc3`, PR #1444; cited here as provenance only); the classes
 here allow flux, have unbounded values, and in the reductions have arbitrary transverse shape. They
 do not contain A2's arbitrary-function star densities on `{−2,…,2}` in 3D; A2 is not re-derived.
 
@@ -245,16 +259,17 @@ an obstruction for a stated class.
   pointwise. The drift is an invariant of the uniform sector only, not the restriction of a
   conserved additive quantity of these classes.
 - **Node 2. Direct 3D.** Branch: is the result an artefact of plane-wave restriction? Check: P3(2),
-  P3(3), P3r(2) directly on 3D tori with sides 1–4. Run D: uncertified, all examined excess vectors
-  trivial. Diagnosis: incomplete trivial space (A01). Run D2: certified. Verdict: trivial in all
+  P3(3), P3r(2) directly on 3D tori with sides 1–4. Run D: uncertified; no nontriviality witness was found
+  for the 50 kernel vectors examined per class (a sampled search, not a proof). Diagnosis: incomplete trivial space (A01). Run D2: certified. Verdict: trivial in all
   three [EC]. Pressure test of the result: P2 shows that the same template finds the 3D linear
   energy when it exists, C1 shows that the equations reject the linear-wave energy under rounding,
   and XC reproduces the 1D ranks over ℚ with independent code.
 - **Node 3. The body-diagonal sector.** On body-diagonal plane waves the rounding is exact and the
   published rule is the linear d'Alembert rule, with left- and right-moving fields whose additive
   functions are conserved (P1) [W, EC]. The rule therefore has invariant sectors with many
-  conserved additive quantities, and they do not extend to the 3D classes of Node 2. An energy
-  built from these sector invariants would distinguish lattice directions.
+  conserved additive quantities, and they do not extend to the 3D classes of Node 2. [W, not
+  checked] An energy built from these sector invariants alone would distinguish lattice directions,
+  since the ax and fd plane-wave sectors carry no nontrivial invariant in the classes run.
 
 **Classification.** NEW at this scope (author; awaiting review), negative: Nodes 1–2. ELABORATING:
 Node 3. Fixed point: one pass; not reached.
