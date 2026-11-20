@@ -1,7 +1,8 @@
 # PROV-CORR — provenance-correction coverage ledger
 
-**Status.** Writer's correction ledger for manuscript correction unit PROV-CORR; independent
-exact-head review pending, and merge is a separate owner decision. Paper corrections only: no
+**Status.** Writer's correction ledger for manuscript correction unit PROV-CORR. Independent
+exact-head review of `e2c04e8d`: REVISE (minor), answered in "Round 1 revision" below; review of the
+revised head pending, and merge is a separate owner decision. Paper corrections only: no
 physical premise is added, no conditional mechanism is promoted or dropped, R1 stays open, and no
 §A.23 correctness band moves (bands unchanged: this is consistency work).
 
@@ -27,21 +28,21 @@ unchanged.
 |---|---|---|---|---|
 | F-1 | ch09:63, FULL:2478 | GR:482 "taken over from Verlinde's analysis rather than rederived from the substratum" | 1/6 no longer attributed to cubic-lattice geometry; anchor wording used | F-1.1 |
 | F-2 | appA:92 (row 23), :108 (G6), :94; FULL:5539, :5555, :5541 | appA:48–50 layer definitions; GR:482 | Layer "0/1" → "—" in both rows; row 23 gains "(factor imported)"; summary clause states no substratum layer | F-2.1–2.3 |
-| F-3 | ch03:118, FULL:979; Str:903; Sub:375 (audit's related site) | GR:482; AUDIT §2.4 Test N | a₀ removed from the class-specific list and from Structure's Level 3 table; Sub:375 states the import as Sub:419 does | F-3.1–3.3 |
+| F-3 | ch03:118, FULL:979; Str:903; Sub:375 (audit's related site); round 1: Sub:451, Str:179, GR:683 | GR:482; AUDIT §2.4 Test N | a₀ removed from the class-specific list and from Structure's Level 3 table; Sub:375 states the import as Sub:419 does; dark-sector phenomenology no longer listed among OI's distinguishing predictions | F-3.1–3.6 |
 | F-4 | ch09:149, FULL:2564 | GR:547 "normalization comparison open" (ch07 summary table agrees) | "confirmed empirical relation" → "normalization comparison open" | F-4.1 |
 | F-5 | ch09:258, FULL:2673 | GR:318, :482; appA:117 | 1/4 and a₀ removed from the "substrate-computable record" | F-5.1 |
-| F-6 | ch05:59, :61, FULL:1374, :1376; Sub:88; ch02:120, FULL:750 | GR:420 "Its use as a physical source is a separate question"; GR:422, :430, :444 | Flatness no longer "structurally explained" or "a structural feature"; ρ_s = ρ_crit stated as the restated flat Friedmann density; Ω_total (inferred) separated from ρ_s; use as a filter conditional on the open source identification | F-6.1–6.4 |
+| F-6 | ch05:59, :61, FULL:1374, :1376; Sub:88; ch02:120, FULL:750 (round 1: ch05:59, :61 again) | GR:420 "Its use as a physical source is a separate question"; GR:422, :430, :444 | Flatness no longer "structurally explained" or "a structural feature"; ρ_s = ρ_crit stated as the restated flat Friedmann density; Ω_total (inferred) separated from ρ_s; use as a filter conditional on the open source identification | F-6.1–6.6 |
 | F-7 | SM:30 | GR:428–430, :440 (ε and σ cancel) | Wrong provenance ("through ε = 2√σ l_P") replaced by the inputs that survive; filter made conditional | F-7.1 |
 | F-8 | SM:180, :200, :1424; Sub:157; propagation SM:212, ch05:75, FULL:1390 | GR:430, :440, :444; AUDIT §2.3 | Anthropic rebuttal made conditional on the source identification; "passes exactly", "independently excludes", "framework-internal" removed; ratio attributed to first law, V/A and Friedmann | F-8.1–8.6 |
 | F-9 | SM:196 | GR:428–430, :440 | Over-conditioning removed: ε and σ cancel from ST, which uses no calibration | F-9.1 |
-| F-10 | GR:470, :510; ch07:260, :262, FULL:2125, :2127; propagation ch07:284, FULL:2149 | GR:478–488 (values contain c, H, G, M_B and the imported factor); AUDIT §2.4 | Conditions on T_dS attached to the entropy-displacement chain; the displayed values stated not to contain ΔS | F-10.1–10.5 |
+| F-10 | GR:470, :510; ch07:260, :262, FULL:2125, :2127; propagation ch07:284, FULL:2149 | GR:478–488 (values contain c, H, G, M_B and the imported factor); AUDIT §2.4 | Conditions on T_dS attached to the entropy-displacement chain; the displayed values stated not to contain ΔS | F-10.1–10.6 |
 | F-11 | ch07:262, FULL:2127 | GR:472–476 "the Clausius relation applied to the boundary reservoir" | "Bekenstein bound" → "Clausius relation at T_dS" | F-11.1 |
-| F-12 | GR:689 | GR:308, :318–320 | "quantitative consequences specific to it" → the calibration and the count's agreement with the Hawking-temperature 1/4, relations kept | F-12.1 |
-| F-13 | GR:108, :160; ch07:65, :61, FULL:1930, :1926 | GR:308 "self-consistency condition, not an independent determination"; Sub:179; appB:169 | "ħ is derived, not free" / "derives ħ from G and ε" → ħ fixed as a function of boundary quantities; the relation fixes ε/√σ from measured ħ | F-13.1–13.4 |
+| F-12 | GR:689 | GR:308, :318–320 | "quantitative consequences specific to it" → the calibration and the count's agreement with the Hawking-temperature 1/4, relations kept | F-12.1–12.2 |
+| F-13 | GR:108, :160; ch07:65, :61, FULL:1930, :1926; round 1: GR:32, ch07:12, FULL:1877, Sub:375 | GR:308 "self-consistency condition, not an independent determination"; Sub:179; appB:169 | "ħ is derived, not free" / "derives ħ from G and ε" → ħ fixed as a function of boundary quantities; the relation fixes ε/√σ from measured ħ | F-13.1–13.7 |
 | F-14 | Str:904 | GR:318–320; Str:882 (the 1/4 already at Level 1) | Row removed from the Level 3 (OI universality-class) table | F-14.1 |
-| F-15 | appA:110 (G9), :115; FULL:5557, :5562 | GR:454, :545 "uses the supplied baryon fraction" | G9 class C → E, formula shows the supplied Ω_B; count 5 C + 2 L → 4 C + 2 L + 1 E (total 7 unchanged) | F-15.1–15.2 |
+| F-15 | appA:110 (G9), :115; FULL:5557, :5562; round 1: Sub:375 | GR:454, :545 "uses the supplied baryon fraction" | G9 class C → E, formula shows the supplied Ω_B; count 5 C + 2 L → 4 C + 2 L + 1 E (total 7 unchanged); layer 1 → —; Sub:375's dark-sector clause states the supplied Ω_B and the proposed source identification | F-15.1–15.5 |
 | Z-1 | GR:689; ch09:258, FULL:2673; Str:904 | GR:158 "consequences of it, not independent checks of it"; GR:306–308 | Calibration and its rewrite no longer presented as substratum consequences or a substrate-computable record | via F-12.1, F-5.1, F-14.1 |
-| Z-2 | GR:108, GR:160 | GR:308; Sub:179 | ħ no longer presented as derived in value | via F-13.1, F-13.2 |
+| Z-2 | GR:108, GR:160; round 1: GR:32, ch07:12, Sub:375 | GR:308; Sub:179 | ħ no longer presented as derived in value | via F-13.1, F-13.2, F-13.5–13.7 |
 
 Retained by design: the relation ħ = c³ε²/(4Gσ), ε = 2√σ l_p as its calibration, the ratio
 2π/8π and the count's agreement with A/(4l_p²) under the named conditions (GR:308, :318–320, :356);
@@ -93,7 +94,7 @@ mirror-parity predicates naming the edited chapter lines; the controls file is u
    the T_dS conditions for the MOND formulas in the conservative direction and are on the audit's
    agreeing list; they are unchanged.
 4. **G9 class (F-15).** E (an explicit empirical input, Ω_B, enters the value) is the class whose
-   definition the row meets; its layer (1) was not a finding and is unchanged.
+   definition the row meets. Its layer is "—" from round 1 (N3), for the reason given for G6.
 
 ## Re-grep (after correction)
 
@@ -118,6 +119,8 @@ ratio; "normalization comparison open" 5 (2); "taken over from Verlinde" 3 (1); 
 | #1169 comment 7042723597 | Authorization and goal link | Provenance; quoted with author and time |
 | #1457 | The audit whose findings this ledger corrects | Provenance; the audit is on `main` (support on `main`) |
 | #873, #1448, #1449 | Accountability; adjacent open Issues | Provenance |
+| #1458 review record (round 1, owner account, 2026-11-20T15:40:38Z) | Round 1 revision | Provenance |
+| #1448 comment (round 1, N6) | Overlap note: Str:903 removed by F-3.2; Str:924 stays open there | Provenance |
 
 ## Before and after, per finding
 
@@ -642,5 +645,228 @@ After:
 
 ```text
 **Summary statistics.** Counts: 4 C + 2 L + 1 E. Total: 7.
+```
+
+## Round 1 revision (review of `e2c04e8d`, REVISE minor)
+
+The review found three paraphrases not propagated (B1–B3) and five nits (N1–N6, N8). Each is
+answered by a propagation row of the same finding; the blocks below quote the head `e2c04e8d` text
+and its replacement exactly.
+
+| Item | Rows |
+|---|---|
+| B1 (Z-2 / F-13): §3 or Section 7.3 "derives" ħ; Sub:375 "determines" ħ and ε "as the unique simultaneous solution" | F-13.5, F-13.6, F-13.7 |
+| B2 (F-15 / F-6): Sub:375 dark sector "as a structural feature" | F-15.3 |
+| B3 (F-3): Sub:451 lists dark-sector phenomenology among OI's distinguishing predictions | F-3.4; re-grep added Str:179 (F-3.5) and GR:683 (F-3.6) |
+| N1, N2 (F-6): ch05:59 comparison wording; ch05:61 "(deficit, requiring an unsourced gravitational contribution)" | F-6.5, F-6.6 |
+| N3 (F-15): G9 layer | F-15.4, F-15.5 |
+| N4 (F-10): ch07:260 omits G and Step 3's law | F-10.6 |
+| N5 (F-12): GR:689 equivalence to the calibration (GR:158) | F-12.2 |
+| N6: #1448 overlap | Comment posted on #1448; Str:924 "all consistent with current data" stays open there |
+| N7 | Judgments accepted; no change |
+| N8: ch03:120, Str:439, :451, :463, :497 | Outside this audit; follow-up candidates only, unchanged |
+
+**Hunks.** Against `e2c04e8d` the revision has 18 `.md` hunks (12 in source files, 6 in FULL), one
+per row-site below. Against the base `dca41f64` the unit's `.md` diff has 57 hunks: the 51 above
+plus 6 new lines (GR:32, GR:683, Str:179, Sub:451, ch07:12, FULL:1877); every other revision hunk
+falls on a line already in the 51. Rebuilt: GR, Structure, Substratum (pages 84, 94, 53) and the
+book (489), no dropped glyphs. The SC-42 integration result is unchanged by the revision (its
+mirror predicates quote line prefixes that did not change) and reproduces under `-O`; controls
+unchanged.
+
+**Re-grep after the revision.** "derives the emergent action scale" 0; "determines the emergent
+action scale" 0; "unique simultaneous solution" in `papers/*.md` and `book/*.md` 2 outside FULL, each mirrored there:
+ch07:12 ("Section 7.4 fixes … as the unique simultaneous solution of the action-scale relation and
+the definition of the Planck length": the Planck length carries the measured ħ, so the clause
+states the calibration) and ch02:112 (on the audit's agreeing list; the same sentence says it
+"fixes only the ratio $\epsilon/\sqrt{\sigma} = 2\,\ell_P$");
+"dark sector corollary as a structural feature" 0; "dark-sector phenomenology" survives at GR:28,
+:30 and :637 (tier assignment with its conditions and imported factor stated) and ch06:349 (a
+chapter preview naming the topic), none of which lists it as a distinguishing prediction.
+Surviving "derive(s) … ħ" wordings: ch07:36 (scope stated in the same sentence: the relation, not
+the value; the review accepted it), appC:222–241 (the circularity objection and its answer, which
+fix ħ "in terms of ε"), Sub:193, :195 ("fixes the relation"), GR:565 (negative), book/README.md:98
+(an appendix-B contents line naming the gap-equation relation).
+
+**F-13.5** — GR:32 (review B1; propagation of F-13 / Z-2)
+
+Before:
+
+```text
+§3 derives the emergent action scale $\hbar$ from the classical horizon temperature by thermal self-consistency, the calibration $\hbar=\tau_K/\beta_E$ of §2.3;
+```
+
+After:
+
+```text
+§3 obtains the relation of the emergent action scale $\hbar$ to the boundary quantities from the classical horizon temperature by thermal self-consistency, the calibration $\hbar=\tau_K/\beta_E$ of §2.3, which fixes $\epsilon/\sqrt{\sigma}$ from the measured $\hbar$;
+```
+
+**F-13.6** — ch07:12; FULL:1877 (review B1)
+
+Before:
+
+```text
+Section 7.3 derives the emergent action scale $\hbar = c^3 \epsilon^2 / (4G\sigma)$,
+```
+
+After:
+
+```text
+Section 7.3 obtains the action-scale relation $\hbar = c^3 \epsilon^2 / (4G\sigma)$,
+```
+
+**F-13.7** — Sub:375, first clause (review B1)
+
+Before:
+
+```text
+this projection determines the emergent action scale $\hbar = c^3 \epsilon^2 / (4G\sigma)$ from thermal self-consistency ([GR, §3]), fixes the discreteness scale $\epsilon = 2\sqrt{\sigma}\, l_p$, for an entropy $\sigma$ per boundary mode ($\epsilon = 2 l_p$ at one nat per mode), as the unique simultaneous solution ([GR, §4]),
+```
+
+After:
+
+```text
+this projection gives the action-scale relation $\hbar = c^3 \epsilon^2 / (4G\sigma)$ from thermal self-consistency ([GR, §3]), which, with the measured $\hbar$, fixes $\epsilon = 2\sqrt{\sigma}\, l_p$, for an entropy $\sigma$ per boundary mode ($\epsilon = 2 l_p$ at one nat per mode) ([GR, §4]),
+```
+
+**F-15.3** — Sub:375, dark-sector clause (review B2; propagation of F-15 and F-6)
+
+Before:
+
+```text
+a ~$95\%$ dark sector corollary as a structural feature rather than a new particle species;
+```
+
+After:
+
+```text
+a nonbaryonic fraction $1-\Omega_B\approx95\%$, using the supplied baryon fraction, on the proposed identification of the boundary energy as its source rather than a new particle species ([GR, §7.2]);
+```
+
+**F-3.4** — Sub:451 (review B3; propagation of F-3)
+
+Before:
+
+```text
+OI's specific predictions (Cabibbo angle $1/(\pi\sqrt{2})$, Koide ratio $2/3$, dark-sector phenomenology) are real at this level,
+```
+
+After:
+
+```text
+OI's specific predictions (Cabibbo angle $1/(\pi\sqrt{2})$, Koide ratio $2/3$) are real at this level,
+```
+
+**F-3.5** — Str:179 (re-grep under B3: the same list of distinguishing predictions)
+
+Before:
+
+```text
+- *Level G3 × Level D predictions* — Cabibbo angle $1/(\pi\sqrt{2})$, Koide ratio $2/3$, dark-sector phenomenology. Distinguishes OI
+```
+
+After:
+
+```text
+- *Level G3 × Level D predictions* — Cabibbo angle $1/(\pi\sqrt{2})$, Koide ratio $2/3$. Distinguishes OI
+```
+
+**F-6.5** — ch05:59; FULL:1374 (review N1)
+
+Before:
+
+```text
+inferred under the standard cosmological model — is compared in the framework's gravitational sector developed in Chapter 7 with the thermal energy of the horizon's boundary modes.
+```
+
+After:
+
+```text
+inferred under the standard cosmological model — enters the framework's gravitational sector developed in Chapter 7 through a comparison of the thermal energy of the horizon's boundary modes with the flat critical density.
+```
+
+**F-6.6** — ch05:61; FULL:1376 (review N2)
+
+Before:
+
+```text
+at $d = 4$ the ratio is $2/3$ (deficit, requiring an unsourced gravitational contribution).
+```
+
+After:
+
+```text
+at $d = 4$ the ratio is $2/3$ (deficit).
+```
+
+**F-15.4** — appA:110 (G9); FULL:5557 (review N3: layer)
+
+Before:
+
+```text
+| G9 | Dark sector budget | $1-\Omega_B \sim 95\%$ (supplied $\Omega_B$) | E | 1 | Partly definitional budget | Ch 7 §7.9 |
+```
+
+After:
+
+```text
+| G9 | Dark sector budget | $1-\Omega_B \sim 95\%$ (supplied $\Omega_B$) | E | — | Partly definitional budget | Ch 7 §7.9 |
+```
+
+**F-15.5** — appA:115; FULL:5562 (review N3: why G6 and G9 have no layer)
+
+Before:
+
+```text
+**Summary statistics.** Counts: 4 C + 2 L + 1 E. Total: 7. G11, an open research target, is not counted.
+```
+
+After:
+
+```text
+**Summary statistics.** Counts: 4 C + 2 L + 1 E. Total: 7. G11, an open research target, is not counted. G6 and G9 have no substratum layer: G6's factor is imported, and G9 uses the supplied baryon fraction.
+```
+
+**F-10.6** — ch07:260; FULL:2125 (review N4)
+
+Before:
+
+```text
+they are fixed by the imported factor and the measured $H$.
+```
+
+After:
+
+```text
+they are fixed by the imported factor, $G$ and the measured $H$, with Step 3's deep-regime law.
+```
+
+**F-12.2** — GR:689 (review N5, GR:158)
+
+Before:
+
+```text
+and the count's agreement with the $1/4$ coefficient fixed by the Hawking temperature and the first law, under the conditions of §8.5(b)).
+```
+
+After:
+
+```text
+and the count's agreement with the $1/4$ coefficient fixed by the Hawking temperature and the first law, which is equivalent to that calibration, under the conditions of §8.5(b)).
+```
+
+**F-3.6** — GR:683 (re-grep under B3: dark-sector phenomenology as falsifying OI's specific representative)
+
+Before:
+
+```text
+a measured deviation from the dark-sector phenomenology would falsify OI's specific representative without necessarily refuting the universality class.
+```
+
+After:
+
+```text
+a measured deviation from the dark-sector phenomenology would falsify the conditional entropy-displacement account of §7.2–§7.3 without necessarily refuting the universality class.
 ```
 

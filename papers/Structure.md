@@ -176,7 +176,7 @@ The framework's empirical predictions live at specific intersections:
 
 - *Level G4 × Level C features.* Fixed-basis representation and finite unitary realizations have the supplied-law scope of [Main §3.4]. Accessible conditional memory needs the readback witness. Gauge-invariant observables use a specified symmetry action.
 - *Level G2 × Level D predictions.* On single-copy H-link and H-cust, the generic condensate has the $(3,2,1)$ stabilizer blocks. The local Standard Model algebra uses the specified charged action. The three candidate taste sectors have a physical reading under H-spin', H-χ' and light-spectrum selection. The hypercharges are fixed on the specified nonzero-$Y_Q$ branch.
-- *Level G3 × Level D predictions* — Cabibbo angle $1/(\pi\sqrt{2})$, Koide ratio $2/3$, dark-sector phenomenology. Distinguishes OI from other universality-class members; forced by OI's specific $\mathcal{G}_{\rm sub}$-equivalence class.
+- *Level G3 × Level D predictions* — Cabibbo angle $1/(\pi\sqrt{2})$, Koide ratio $2/3$. Distinguishes OI from other universality-class members; forced by OI's specific $\mathcal{G}_{\rm sub}$-equivalence class.
 - *Bekenstein-Hawking $A/4$* — holds for every substratum satisfying S1–S4 of [GR §8.5], conditional on H-slope, the further conditions of [GR §8.5(b)] and the symmetric detailed-balance rate ratio; it does not distinguish OI from other members of that class.
 
 The framework's most distinguishing predictions live at Level G3 × Level D — they are class-specific to OI. Level G2 × Level D predictions are shared with any SM-reproducing class. Level G4 × Level C predictions are essentially structural.
