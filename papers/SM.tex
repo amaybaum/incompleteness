@@ -366,14 +366,15 @@ carrier must have \(K=6\).
 The status of these results admits a useful three-tier classification.
 
 \textbf{Tier 1 --- Structural foundations.} The spatial construction
-uses a finite set with a deterministic bijection of bounded coupling
-degree, partitioned into visible and hidden sectors. Within A4's assumed
-periodic-lattice class, E5--E7 select \(d=3\) on the continuum branch of
-§3.1--§3.2. Propagating gravity gives \(d\geq3\) and stable matter gives
-\(d\leq3\); their intersection already selects \(3\). Boundary-entropy
-concordance, \(\rho_s/\rho_{\text{crit}}=2/(d-1)\), is redundant for the
-selection once the first two hold, but not logically dependent on them:
-it independently excludes \(d\geq4\) (§3.2); its coefficient inherits
+uses a set (finite under A1) with a deterministic bijection of bounded
+coupling degree, partitioned into visible and hidden sectors. Within
+A4's assumed periodic-lattice class, E5--E7 select \(d=3\) on the
+continuum branch of §3.1--§3.2. Propagating gravity gives \(d\geq3\) and
+stable matter gives \(d\leq3\); their intersection already selects
+\(3\). Boundary-entropy concordance,
+\(\rho_s/\rho_{\text{crit}}=2/(d-1)\), is redundant for the selection
+once the first two hold, but not logically dependent on them: it
+independently excludes \(d\geq4\) (§3.2); its coefficient inherits
 H-count and the horizon conditions of {[}GR §2, §8.5{]} through
 \(\epsilon=2\sqrt{\sigma}\,l_P\). Renormalizability of the specified
 Yang--Mills coupling is a downstream consequence. The dimensional
@@ -438,8 +439,11 @@ developed in {[}Substratum{]}.
 below (see Prerequisites) requires a bijection on a finite set:
 bijectivity guarantees recurrence (φ\^{}N = id), and recurrence,
 together with a non-permutation rooted map, produces the non-monotonic
-distinguishability that witnesses P-indivisibility. The entire framework
-rests on the memory-bearing description --- with its admitted quantum
+distinguishability that witnesses P-indivisibility. For the
+P-indivisibility conclusion itself the near-return condition (NR) of
+{[}Main §2.3{]}, assumed in place of finiteness as a hypothesis and not
+adopted, is a weaker sufficient condition. The entire framework rests on
+the memory-bearing description --- with its admitted quantum
 representation --- emerging from marginalizing deterministic dynamics
 --- if the dynamics were already stochastic, there would be nothing to
 derive. Determinism is the core of the framework and cannot be weakened.
@@ -550,10 +554,10 @@ physical-carrier bridge H-link, with further hypotheses stated at each
 step. Its dimensional selection uses E5--E7 and the continuum conditions
 of §3.1--§3.2; its wave-equation form uses A4, A5 and nearest-neighbour
 range (§4.1), and alphabet dependence is scoped in §2.7. For this
-construction the triple (S, φ, V) specifies a finite set S, a bijection
-φ: S → S and a visible/hidden partition, together with the stated local
-factorization and coupling data. The Bell-inclusive completion
-separately requires H-Bell {[}Substratum §3.3{]}.
+construction the triple (S, φ, V) specifies a set S, finite under A1, a
+bijection φ: S → S and a visible/hidden partition, together with the
+stated local factorization and coupling data. The Bell-inclusive
+completion separately requires H-Bell {[}Substratum §3.3{]}.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1411,7 +1415,7 @@ curvature step (iv) supplied --- paralleling continuum GR where the
 Einstein equations are the equations of motion, not constraints on
 separate dynamics. The mathematical framework is unchanged: the full
 dynamics F(u, v) = (v, WE\_\{G(v)\}(v) − u) is a single bijection on the
-finite phase space. The ontological object is still (S, F, V).
+phase space, finite under A1. The ontological object is still (S, F, V).
 
 \textbf{Lattice corrections to Einstein's equations (conditional).}
 Jacobson's argument {[}5{]} uses four inputs on a smooth Lorentzian
@@ -1651,10 +1655,12 @@ The OI substratum is represented here by a \(d\)-dimensional hypercubic
 coupling graph \(\Lambda=\mathbb Z^d\) with microscopic spacing
 \(\epsilon_{\rm lat}=\sqrt{6\sigma}\,l_p\), \(\sqrt{3/2}\) times the
 boundary counting length \(\epsilon=2\sqrt{\sigma}\,l_p\) of {[}GR §3.1,
-§4{]}. The finite bijection is fundamental; a real/complex wave operator
-is an observer-level lift whose derivation must be stated separately.
-The following selection statement therefore classifies the \emph{form}
-of a nearest-neighbor center-free linear rule, while Theorem 1a and its
+§4{]}. The substratum bijection is fundamental (under A1 and A4
+{[}Substratum §3.1{]} it acts on configurations over a finite periodic
+quotient of \(\Lambda\)); a real/complex wave operator is an
+observer-level lift whose derivation must be stated separately. The
+following selection statement therefore classifies the \emph{form} of a
+nearest-neighbor center-free linear rule, while Theorem 1a and its
 corollaries determine what finite equivariant observation forces at low
 momentum.
 
@@ -1721,8 +1727,8 @@ body-diagonal directions alike (check 13). The normalised operator
 (\texttt{grr\_spectral\_measure.py}) uses.
 
 \textbf{Scope (which level \(\alpha=1/d\) belongs to, and what is not
-yet proved).} The fundamental object is the finite bijection
-\(\varphi\); {[}Main §3.2{]} states that a continuous one-parameter
+yet proved).} The fundamental object is the bijection \(\varphi\),
+finite under A1; {[}Main §3.2{]} states that a continuous one-parameter
 interpolation of a finite permutation is additional structure rather
 than something the permutation determines, and {[}Methodology Part V{]}
 warns specifically against demanding emergent objects at substratum
@@ -1832,7 +1838,9 @@ has the same canonical Markov part, \(P_\mu U'P_\mu=P_\mu UP_\mu\); the
 coordinate-block projection of Theorem 1a has no such invariance --- the
 shear \(S(x,y)=(x,\,y-Lx)\) conjugates the second-order rule to one
 whose block Markov part vanishes while the visible recurrence
-\(x_{t+2}=Lx_{t+1}-x_t\) is unchanged. (ii) The visible poles are the
+\(x_{t+2}=Lx_{t+1}-x_t\) is unchanged. (ii) On a finite configuration
+space, and in each Fourier fibre when \(U\) and \(P\) are translation
+invariant with finite-dimensional cell data, the visible poles are the
 poles of the reduced resolvent
 \(P(\lambda-U)^{-1}P=\mathcal D(\lambda)^{-1}\), with
 \(\mathcal D(\lambda)=\lambda-A-B(\lambda-D)^{-1}C\) the memory-resummed
@@ -1854,7 +1862,13 @@ computation. (ii) Block inversion of \(\lambda-U\) off the spectrum of
 \(D\), where \(\det(\lambda-U)=\det(\lambda-D)\det\mathcal D(\lambda)\);
 the identity extends as a polynomial identity after clearing
 denominators, and factors cancelling against \(\det(\lambda-D)\) are
-removable. (iii) Substitute \(D=0\), \(B=-I\), \(C=I\). \(\square\)
+removable; when \(U\) and \(P\) are translation invariant the same
+argument runs in each fibre, where \(U\), \(D\) and
+\(\mathcal D(\lambda)\) are finite matrices. On an infinite
+configuration space without that structure no determinant is available,
+and the pole reading assumes a meromorphic continuation of
+\(\mathcal D\) that is not established here. (iii) Substitute \(D=0\),
+\(B=-I\), \(C=I\). \(\square\)
 
 The statements below are made on the companion realization of (iii),
 where the Markov part and the resummed kernel coincide; away from it the
@@ -2208,7 +2222,8 @@ is convenient to factor the scalar normalization explicitly:
 
 Here \(M\in\mathrm{Mat}(K)\) parametrizes internal mixing relative to
 the normalized scalar branch. This equation is not identified with the
-fundamental finite bijection without the coarse-graining bridge of §4.1.
+fundamental bijection (finite under A1) without the coarse-graining
+bridge of §4.1.
 
 \textbf{Theorem 4 (conditional observer-level mass spectrum).} \emph{For
 the normalized matrix branch above with real-diagonalizable \(M\), each
@@ -3177,14 +3192,19 @@ decomposition are the same object. \(\square\)
 \textbf{Remark (the checkerboard is not a free choice).} The
 checkerboard partition is not selected by hand to produce chirality ---
 it is the bipartite structure of the lattice itself. The wave equation
-is nearest-neighbor, so the cubic lattice is bipartite: even sites
-couple only to odd sites and vice versa. This bipartite structure is a
-property of the dynamics (range-1 coupling on a hypercubic graph), not
-of the partition. The staggered-to-Dirac reconstruction identifies the
-two sublattices with the \(\pm 1\) eigenspaces of the product grading
-\(\gamma_5 \otimes \xi_5\) (spin chirality × taste chirality) --- the
-standard spin-taste result in lattice QFT {[}12, 17{]}, not an OI
-construction. For the designated checkerboard cut, the visible and
+is nearest-neighbor, and the cubic lattice \(\mathbb Z^3\) is bipartite,
+as is a periodic quotient of it whose period vectors all have even
+coordinate sum: even sites couple only to odd sites and vice versa (the
+parity of \(n_1+n_2+n_3\) is well defined on the quotient exactly then,
+and a period vector of odd coordinate sum closes a walk of odd length).
+A quotient with such a vector, for example a torus of odd side, carries
+no checkerboard. On the lattices that carry it, this bipartite structure
+is a property of the dynamics (range-1 coupling on a hypercubic graph),
+not of the partition. The staggered-to-Dirac reconstruction identifies
+the two sublattices with the \(\pm 1\) eigenspaces of the product
+grading \(\gamma_5 \otimes \xi_5\) (spin chirality × taste chirality)
+--- the standard spin-taste result in lattice QFT {[}12, 17{]}, not an
+OI construction. For the designated checkerboard cut, the visible and
 hidden halves are the two spin--taste grades of the staggered partition.
 The physical partition (the cosmological horizon) traces out a spatial
 region containing both sublattices; at scales large compared to
@@ -8968,4 +8988,4 @@ Compact Family Cycle,'' arXiv:2605.10245 (2026).
 \textbf{07}, 104 (2017); arXiv:1705.01853.
 
 \end{document}
-% source-sha256: a174bb21269e4df02a5064f7c0991b90cc719eeb85ad5fb770709cd13d71a2cb
+% source-sha256: c236a31ecb279d050363ab6208847c911b4a350bdec7330ef89feaad88ac5485

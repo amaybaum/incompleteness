@@ -185,7 +185,7 @@ The two programs are *not* operating at the same level. String theory is itself 
 
 The apparent overlap between the two programs — both predict the Standard Model gauge group from group-theoretic considerations, both have content about black hole entropy and quantum gravity — reflects *shared universality-class content* rather than substratum-level equivalence. String theory and the framework both occupy positions within broader classes of theoretical frameworks, with some structural results common to both classes.
 
-**The matrix-model bridge.** A potential bridge between the two programs runs through matrix models. The framework's bijection $\varphi$ acts on a finite configuration space, with the dynamics expressible in terms of matrix operations on finite-dimensional state spaces. String theory has matrix-model formulations (BFSS, BMN, IKKT, banks-fischler-shenker-susskind) where the dynamics is similarly expressible in matrix terms, with the continuum string theory emerging in specific limits.
+**The matrix-model bridge.** A potential bridge between the two programs runs through matrix models. The framework's bijection $\varphi$ acts on a configuration space finite under A1, with the dynamics expressible in terms of matrix operations on finite-dimensional state spaces. String theory has matrix-model formulations (BFSS, BMN, IKKT, banks-fischler-shenker-susskind) where the dynamics is similarly expressible in matrix terms, with the continuum string theory emerging in specific limits.
 
 The bridge would be: identify the framework's finite-bijection structure with a specific matrix model whose continuum limit produces a string-theoretic spacetime. Six structural axioms must be checked for compatibility under such a bridge.
 
