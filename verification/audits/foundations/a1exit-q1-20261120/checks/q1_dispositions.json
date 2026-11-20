@@ -1,0 +1,2190 @@
+[
+ {
+  "file": "papers/Complexity.md",
+  "line": 63,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "cites Theorem 13 with its conditions"
+ },
+ {
+  "file": "papers/Complexity.md",
+  "line": 168,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "cites Theorem 13 with its conditions"
+ },
+ {
+  "file": "papers/GR.md",
+  "line": 162,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "SM 3.1 rotational protection; O-A4 row 16"
+ },
+ {
+  "file": "papers/Juno.md",
+  "line": 77,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "abstract group O"
+ },
+ {
+  "file": "papers/Juno.md",
+  "line": 79,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "cites Theorem 10"
+ },
+ {
+  "file": "papers/Juno.md",
+  "line": 301,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "abstract group O"
+ },
+ {
+  "file": "papers/Main.md",
+  "line": 218,
+  "families": [
+   "G1-bipartite",
+   "G2-corners"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "describes an open step; asserts no lattice property"
+ },
+ {
+  "file": "papers/Main.md",
+  "line": 286,
+  "families": [
+   "L-labels"
+  ],
+  "code": "N",
+  "edit": "",
+  "note": "Nielsen-Chuang Theorem 8.1"
+ },
+ {
+  "file": "papers/Main.md",
+  "line": 674,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "step kernel on Z^3 with increments n +- e_i; lattice-shape free"
+ },
+ {
+  "file": "papers/Main.md",
+  "line": 678,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "step kernel on Z^3 with increments n +- e_i; lattice-shape free"
+ },
+ {
+  "file": "papers/Main.md",
+  "line": 893,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "N",
+  "edit": "",
+  "note": "bibliography"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 12,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "observer-level isotropy, point-group algebra or stencil symmetry; O-A4 rows 13-17"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 26,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "observer-level isotropy, point-group algebra or stencil symmetry; O-A4 rows 13-17"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 130,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "observer-level isotropy, point-group algebra or stencil symmetry; O-A4 rows 13-17"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 134,
+  "families": [
+   "G1-bipartite",
+   "G3-cubic"
+  ],
+  "code": "I",
+  "edit": "E1",
+  "note": "O_h-invariant checkerboard partition about the observer's centre; on a quotient needs P cubic-invariant and even-sum (E1)"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 136,
+  "families": [
+   "G1-bipartite",
+   "G3-cubic"
+  ],
+  "code": "I",
+  "edit": "E1",
+  "note": "O_h-invariant checkerboard partition about the observer's centre; on a quotient needs P cubic-invariant and even-sum (E1)"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 202,
+  "families": [
+   "G4-finite-class"
+  ],
+  "code": "A4",
+  "edit": "",
+  "note": "growth exponent under A4; O-A4 row 4"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 222,
+  "families": [
+   "G4-finite-class"
+  ],
+  "code": "R",
+  "edit": "E1",
+  "note": "introduces the finite quotient of Lambda without the conditions on P"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 258,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "observer-level isotropy, point-group algebra or stencil symmetry; O-A4 rows 13-17"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 264,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "observer-level isotropy, point-group algebra or stencil symmetry; O-A4 rows 13-17"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 266,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "observer-level isotropy, point-group algebra or stencil symmetry; O-A4 rows 13-17"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 268,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "observer-level isotropy, point-group algebra or stencil symmetry; O-A4 rows 13-17"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 270,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "observer-level isotropy, point-group algebra or stencil symmetry; O-A4 rows 13-17"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 286,
+  "families": [
+   "L-labels"
+  ],
+  "code": "P",
+  "edit": "",
+  "note": "C2 Theorem 2"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 290,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 302,
+  "families": [
+   "L-labels"
+  ],
+  "code": "P",
+  "edit": "",
+  "note": "C3 Theorem 3 (self-conditioned)"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 306,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 308,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 338,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "observer-level isotropy, point-group algebra or stencil symmetry; O-A4 rows 13-17"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 360,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "observer-level isotropy, point-group algebra or stencil symmetry; O-A4 rows 13-17"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 376,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "observer-level isotropy, point-group algebra or stencil symmetry; O-A4 rows 13-17"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 384,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "observer-level isotropy, point-group algebra or stencil symmetry; O-A4 rows 13-17"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 416,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "observer-level isotropy, point-group algebra or stencil symmetry; O-A4 rows 13-17"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 418,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "observer-level isotropy, point-group algebra or stencil symmetry; O-A4 rows 13-17"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 434,
+  "families": [
+   "G3-cubic",
+   "L-labels"
+  ],
+  "code": "P",
+  "edit": "",
+  "note": "C8 Theorem 8 and proof"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 436,
+  "families": [
+   "G2-corners"
+  ],
+  "code": "P",
+  "edit": "",
+  "note": "C8 Theorem 8 and proof"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 440,
+  "families": [
+   "G2-corners",
+   "L-labels"
+  ],
+  "code": "P",
+  "edit": "",
+  "note": "C8b Theorem 8b"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 446,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "P",
+  "edit": "E5",
+  "note": "C8b proof step 'related by cubic symmetry'; arithmetic suffices"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 452,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 456,
+  "families": [
+   "G3-cubic",
+   "L-labels"
+  ],
+  "code": "P",
+  "edit": "",
+  "note": "C10 Theorem 10 and proof"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 460,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "P",
+  "edit": "",
+  "note": "C10 Theorem 10 and proof"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 483,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 485,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 513,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 527,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 529,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 531,
+  "families": [
+   "G2-corners",
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 535,
+  "families": [
+   "G1-bipartite",
+   "L-labels"
+  ],
+  "code": "P",
+  "edit": "",
+  "note": "C12 Theorem 12 and proof"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 537,
+  "families": [
+   "G1-bipartite",
+   "G2-corners"
+  ],
+  "code": "P",
+  "edit": "",
+  "note": "C12 Theorem 12 and proof"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 539,
+  "families": [
+   "G4-finite-class",
+   "G1-bipartite",
+   "G2-corners",
+   "L-labels"
+  ],
+  "code": "P",
+  "edit": "E2",
+  "note": "C539 spin-taste sentence needs P in 2Z^3"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 543,
+  "families": [
+   "L-labels"
+  ],
+  "code": "P",
+  "edit": "",
+  "note": "C13 Theorem 13 and proof"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 545,
+  "families": [
+   "G2-corners",
+   "L-labels"
+  ],
+  "code": "P",
+  "edit": "",
+  "note": "C13 Theorem 13 and proof"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 553,
+  "families": [
+   "G2-corners",
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 555,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 557,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 565,
+  "families": [
+   "G1-bipartite",
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 569,
+  "families": [
+   "G1-bipartite",
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 611,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 629,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 647,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "Proposition 20's abstract bipartite C_4 ring / coupling graph"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 649,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "Proposition 20's abstract bipartite C_4 ring / coupling graph"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 659,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 661,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "Proposition 20's abstract bipartite C_4 ring / coupling graph"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 765,
+  "families": [
+   "G2-corners"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 853,
+  "families": [
+   "G2-corners"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 867,
+  "families": [
+   "G2-corners"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 907,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 911,
+  "families": [
+   "G2-corners"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 915,
+  "families": [
+   "G2-corners"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 944,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "observer-level isotropy, point-group algebra or stencil symmetry; O-A4 rows 13-17"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 954,
+  "families": [
+   "G3-cubic",
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 967,
+  "families": [
+   "G2-corners"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1006,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1086,
+  "families": [
+   "G2-corners",
+   "G3-cubic"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1108,
+  "families": [
+   "G3-cubic",
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1170,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1184,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1193,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1225,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1233,
+  "families": [
+   "G2-corners"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1241,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1253,
+  "families": [
+   "G2-corners",
+   "G3-cubic"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1320,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1446,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1452,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1506,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "R",
+  "edit": "E3",
+  "note": "same list as SM:1536"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1512,
+  "families": [
+   "G1-bipartite",
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1532,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1536,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "P",
+  "edit": "E3",
+  "note": "C1536 bipartite checkerboard among exact symmetries"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1554,
+  "families": [
+   "G1-bipartite",
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1568,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "uses a primary consumer's conclusion or the corners/tastes of Lambda; covered by E1"
+ },
+ {
+  "file": "papers/Structure.md",
+  "line": 1044,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "cites SM 4.7 / summarizes SM 8.7's mapping"
+ },
+ {
+  "file": "papers/Structure.md",
+  "line": 1058,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "cites SM 4.7 / summarizes SM 8.7's mapping"
+ },
+ {
+  "file": "papers/Substratum.md",
+  "line": 3,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "abstract: equivariant projection"
+ },
+ {
+  "file": "papers/Substratum.md",
+  "line": 98,
+  "families": [
+   "G4-finite-class"
+  ],
+  "code": "A4",
+  "edit": "",
+  "note": "CA4: A4's finite clause (no Q1 consumer uses it)"
+ },
+ {
+  "file": "papers/Substratum.md",
+  "line": 157,
+  "families": [
+   "G4-finite-class"
+  ],
+  "code": "A4",
+  "edit": "",
+  "note": "growth exponent under A4"
+ },
+ {
+  "file": "papers/Substratum.md",
+  "line": 165,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "checkerboard trace-out / Theorem 2 measure reduction"
+ },
+ {
+  "file": "papers/Substratum.md",
+  "line": 304,
+  "families": [
+   "L-labels"
+  ],
+  "code": "N",
+  "edit": "",
+  "note": "Theorem 2.4 of a cited monograph"
+ },
+ {
+  "file": "papers/Substratum.md",
+  "line": 505,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "checkerboard trace-out / Theorem 2 measure reduction"
+ },
+ {
+  "file": "papers/Substratum.md",
+  "line": 585,
+  "families": [
+   "L-labels"
+  ],
+  "code": "N",
+  "edit": "",
+  "note": "Theorem 2.4 of a cited monograph"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 322,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch00-introduction.md:97; checkerboard reduction under H-chi'"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 617,
+  "families": [
+   "L-labels"
+  ],
+  "code": "N",
+  "edit": "",
+  "note": "mirror of book/ch01-observation.md:284; NR-1 Theorem 3.3"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 712,
+  "families": [
+   "G4-finite-class"
+  ],
+  "code": "A4",
+  "edit": "",
+  "note": "mirror of book/ch02-substratum.md:82; A4 mirror / growth under A4"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 726,
+  "families": [
+   "G4-finite-class"
+  ],
+  "code": "A4",
+  "edit": "",
+  "note": "mirror of book/ch02-substratum.md:96; A4 mirror / growth under A4"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 734,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch02-substratum.md:104; checkerboard parity grading; chain summary"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 856,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch02-substratum.md:226; checkerboard parity grading; chain summary"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1232,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "mirror of book/ch04-methodology.md:128; rotational anisotropy, operator mixing"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1319,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "mirror of book/ch05-gauge-structure.md:4; observer-level isotropy; cubic rotation group on links"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1380,
+  "families": [
+   "G4-finite-class"
+  ],
+  "code": "A4",
+  "edit": "",
+  "note": "mirror of book/ch05-gauge-structure.md:65; growth exponent under A4"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1400,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "mirror of book/ch05-gauge-structure.md:85; observer-level isotropy; cubic rotation group on links"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1410,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch05-gauge-structure.md:95; Theorem 3; checkerboard branch"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1427,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "mirror of book/ch05-gauge-structure.md:112; observer-level isotropy; cubic rotation group on links"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1467,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch05-gauge-structure.md:152; Theorem 3; checkerboard branch"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1475,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch05-gauge-structure.md:160; already conditioned: 'for a cubic lattice with bipartite coupling'"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1506,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch05-gauge-structure.md:191; Theorem 3; checkerboard branch"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1519,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch06-matter-content.md:8; tastes / checkerboard of the cubic lattice"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1533,
+  "families": [
+   "G2-corners"
+  ],
+  "code": "R",
+  "edit": "E4",
+  "note": "mirror of book/ch06-matter-content.md:22; eight corners 'on a d = 3 lattice' under the book's A4"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1535,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "R",
+  "edit": "E4",
+  "note": "mirror of book/ch06-matter-content.md:24; triplet tastes related by cubic symmetry"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1537,
+  "families": [
+   "G2-corners"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch06-matter-content.md:26; tastes / checkerboard of the cubic lattice"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1541,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "R",
+  "edit": "E4",
+  "note": "mirror of book/ch06-matter-content.md:30; triplet tastes related by cubic symmetry"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1543,
+  "families": [
+   "G2-corners"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch06-matter-content.md:32; tastes / checkerboard of the cubic lattice"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1569,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch06-matter-content.md:58; tastes / checkerboard of the cubic lattice"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1575,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "mirror of book/ch06-matter-content.md:64; abstract C_4 example"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1679,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch06-matter-content.md:168; tastes / checkerboard of the cubic lattice"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1991,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "N",
+  "edit": "",
+  "note": "mirror of book/ch07-gravity.md:126; bipartite quantum system"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1993,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "N",
+  "edit": "",
+  "note": "mirror of book/ch07-gravity.md:128; bipartite quantum system"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 2223,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "mirror of book/ch08-juno.md:34; abstract group O"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 2225,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "mirror of book/ch08-juno.md:36; abstract group O"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 2368,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "mirror of book/ch08-juno.md:179; abstract group O"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 2570,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "mirror of book/ch09-universality.md:155; breaking of cubic symmetry by phi"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 4973,
+  "families": [
+   "G4-finite-class"
+  ],
+  "code": "A4",
+  "edit": "",
+  "note": "mirror of book/ch18-beyond.md:242; 'a compact identification can give a finite periodic lattice': true; no Q1 condition"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 5150,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "mirror of book/ch19-open-problems.md:80; abstract C_4 ring"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 5176,
+  "families": [
+   "G3-cubic",
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch19-open-problems.md:106; generations / Theorem 10 / Theorem 13"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 5178,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch19-open-problems.md:108; generations / Theorem 10 / Theorem 13"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 5220,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch19-open-problems.md:150; generations / Theorem 10 / Theorem 13"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 5230,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch19-open-problems.md:160; generations / Theorem 10 / Theorem 13"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 5298,
+  "families": [
+   "G1-bipartite",
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "mirror of book/ch19-open-problems.md:228; rotational protection (SM 3.1)"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 5302,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "mirror of book/ch19-open-problems.md:232; rotational protection (SM 3.1)"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 5316,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "mirror of book/ch19-open-problems.md:246; rotational protection (SM 3.1)"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 5322,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch19-open-problems.md:252; generations / Theorem 10 / Theorem 13"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 5501,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "mirror of book/appendix-a-prediction-status.md:54; classification vocabulary"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 5727,
+  "families": [
+   "L-labels"
+  ],
+  "code": "N",
+  "edit": "",
+  "note": "mirror of book/appendix-b-derivations.md:50; Nielsen-Chuang Theorem 8.1"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 5976,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "mirror of book/appendix-b-derivations.md:299; point-group algebra, Bravais comparison, verification recipe on abstract corners"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 5978,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "mirror of book/appendix-b-derivations.md:301; point-group algebra, Bravais comparison, verification recipe on abstract corners"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 5982,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "mirror of book/appendix-b-derivations.md:305; point-group algebra, Bravais comparison, verification recipe on abstract corners"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 6007,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/appendix-b-derivations.md:330; tastes of the simple cubic lattice"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 6021,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "mirror of book/appendix-b-derivations.md:344; point-group algebra, Bravais comparison, verification recipe on abstract corners"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 6023,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "mirror of book/appendix-b-derivations.md:346; point-group algebra, Bravais comparison, verification recipe on abstract corners"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 6041,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "mirror of book/appendix-b-derivations.md:364; point-group algebra, Bravais comparison, verification recipe on abstract corners"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 6051,
+  "families": [
+   "G2-corners"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/appendix-b-derivations.md:374; tastes of the simple cubic lattice"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 6055,
+  "families": [
+   "G2-corners",
+   "G3-cubic"
+  ],
+  "code": "R",
+  "edit": "",
+  "note": "mirror of book/appendix-b-derivations.md:378; 'on a d = 3 simple cubic lattice': the Bravais lattice Z^3, true as stated; no correction"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 6057,
+  "families": [
+   "G2-corners"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/appendix-b-derivations.md:380; tastes of the simple cubic lattice"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 6059,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/appendix-b-derivations.md:382; tastes of the simple cubic lattice"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 6066,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "mirror of book/appendix-b-derivations.md:389; point-group algebra, Bravais comparison, verification recipe on abstract corners"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 6072,
+  "families": [
+   "G2-corners"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "mirror of book/appendix-b-derivations.md:395; point-group algebra, Bravais comparison, verification recipe on abstract corners"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 6149,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "mirror of book/appendix-b-derivations.md:472; point-group algebra, Bravais comparison, verification recipe on abstract corners"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 6534,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/glossary.md:43; 'staggered bipartite structure on the cubic lattice'"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 6724,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "N",
+  "edit": "",
+  "note": "mirror of book/bibliography.md:71; bibliography"
+ },
+ {
+  "file": "book/appendix-a-prediction-status.md",
+  "line": 54,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "classification vocabulary"
+ },
+ {
+  "file": "book/appendix-b-derivations.md",
+  "line": 50,
+  "families": [
+   "L-labels"
+  ],
+  "code": "N",
+  "edit": "",
+  "note": "Nielsen-Chuang Theorem 8.1"
+ },
+ {
+  "file": "book/appendix-b-derivations.md",
+  "line": 299,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "point-group algebra, Bravais comparison, verification recipe on abstract corners"
+ },
+ {
+  "file": "book/appendix-b-derivations.md",
+  "line": 301,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "point-group algebra, Bravais comparison, verification recipe on abstract corners"
+ },
+ {
+  "file": "book/appendix-b-derivations.md",
+  "line": 305,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "point-group algebra, Bravais comparison, verification recipe on abstract corners"
+ },
+ {
+  "file": "book/appendix-b-derivations.md",
+  "line": 330,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "tastes of the simple cubic lattice"
+ },
+ {
+  "file": "book/appendix-b-derivations.md",
+  "line": 344,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "point-group algebra, Bravais comparison, verification recipe on abstract corners"
+ },
+ {
+  "file": "book/appendix-b-derivations.md",
+  "line": 346,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "point-group algebra, Bravais comparison, verification recipe on abstract corners"
+ },
+ {
+  "file": "book/appendix-b-derivations.md",
+  "line": 364,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "point-group algebra, Bravais comparison, verification recipe on abstract corners"
+ },
+ {
+  "file": "book/appendix-b-derivations.md",
+  "line": 374,
+  "families": [
+   "G2-corners"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "tastes of the simple cubic lattice"
+ },
+ {
+  "file": "book/appendix-b-derivations.md",
+  "line": 378,
+  "families": [
+   "G2-corners",
+   "G3-cubic"
+  ],
+  "code": "R",
+  "edit": "",
+  "note": "'on a d = 3 simple cubic lattice': the Bravais lattice Z^3, true as stated; no correction"
+ },
+ {
+  "file": "book/appendix-b-derivations.md",
+  "line": 380,
+  "families": [
+   "G2-corners"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "tastes of the simple cubic lattice"
+ },
+ {
+  "file": "book/appendix-b-derivations.md",
+  "line": 382,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "tastes of the simple cubic lattice"
+ },
+ {
+  "file": "book/appendix-b-derivations.md",
+  "line": 389,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "point-group algebra, Bravais comparison, verification recipe on abstract corners"
+ },
+ {
+  "file": "book/appendix-b-derivations.md",
+  "line": 395,
+  "families": [
+   "G2-corners"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "point-group algebra, Bravais comparison, verification recipe on abstract corners"
+ },
+ {
+  "file": "book/appendix-b-derivations.md",
+  "line": 472,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "point-group algebra, Bravais comparison, verification recipe on abstract corners"
+ },
+ {
+  "file": "book/bibliography.md",
+  "line": 71,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "N",
+  "edit": "",
+  "note": "bibliography"
+ },
+ {
+  "file": "book/ch00-introduction.md",
+  "line": 97,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "checkerboard reduction under H-chi'"
+ },
+ {
+  "file": "book/ch01-observation.md",
+  "line": 284,
+  "families": [
+   "L-labels"
+  ],
+  "code": "N",
+  "edit": "",
+  "note": "NR-1 Theorem 3.3"
+ },
+ {
+  "file": "book/ch02-substratum.md",
+  "line": 82,
+  "families": [
+   "G4-finite-class"
+  ],
+  "code": "A4",
+  "edit": "",
+  "note": "A4 mirror / growth under A4"
+ },
+ {
+  "file": "book/ch02-substratum.md",
+  "line": 96,
+  "families": [
+   "G4-finite-class"
+  ],
+  "code": "A4",
+  "edit": "",
+  "note": "A4 mirror / growth under A4"
+ },
+ {
+  "file": "book/ch02-substratum.md",
+  "line": 104,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "checkerboard parity grading; chain summary"
+ },
+ {
+  "file": "book/ch02-substratum.md",
+  "line": 226,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "checkerboard parity grading; chain summary"
+ },
+ {
+  "file": "book/ch04-methodology.md",
+  "line": 128,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "rotational anisotropy, operator mixing"
+ },
+ {
+  "file": "book/ch05-gauge-structure.md",
+  "line": 4,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "observer-level isotropy; cubic rotation group on links"
+ },
+ {
+  "file": "book/ch05-gauge-structure.md",
+  "line": 65,
+  "families": [
+   "G4-finite-class"
+  ],
+  "code": "A4",
+  "edit": "",
+  "note": "growth exponent under A4"
+ },
+ {
+  "file": "book/ch05-gauge-structure.md",
+  "line": 85,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "observer-level isotropy; cubic rotation group on links"
+ },
+ {
+  "file": "book/ch05-gauge-structure.md",
+  "line": 95,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "Theorem 3; checkerboard branch"
+ },
+ {
+  "file": "book/ch05-gauge-structure.md",
+  "line": 112,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "observer-level isotropy; cubic rotation group on links"
+ },
+ {
+  "file": "book/ch05-gauge-structure.md",
+  "line": 152,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "Theorem 3; checkerboard branch"
+ },
+ {
+  "file": "book/ch05-gauge-structure.md",
+  "line": 160,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "already conditioned: 'for a cubic lattice with bipartite coupling'"
+ },
+ {
+  "file": "book/ch05-gauge-structure.md",
+  "line": 191,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "Theorem 3; checkerboard branch"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 8,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "tastes / checkerboard of the cubic lattice"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 22,
+  "families": [
+   "G2-corners"
+  ],
+  "code": "R",
+  "edit": "E4",
+  "note": "eight corners 'on a d = 3 lattice' under the book's A4"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 24,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "R",
+  "edit": "E4",
+  "note": "triplet tastes related by cubic symmetry"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 26,
+  "families": [
+   "G2-corners"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "tastes / checkerboard of the cubic lattice"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 30,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "R",
+  "edit": "E4",
+  "note": "triplet tastes related by cubic symmetry"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 32,
+  "families": [
+   "G2-corners"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "tastes / checkerboard of the cubic lattice"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 58,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "tastes / checkerboard of the cubic lattice"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 64,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "abstract C_4 example"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 168,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "tastes / checkerboard of the cubic lattice"
+ },
+ {
+  "file": "book/ch07-gravity.md",
+  "line": 126,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "N",
+  "edit": "",
+  "note": "bipartite quantum system"
+ },
+ {
+  "file": "book/ch07-gravity.md",
+  "line": 128,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "N",
+  "edit": "",
+  "note": "bipartite quantum system"
+ },
+ {
+  "file": "book/ch08-juno.md",
+  "line": 34,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "abstract group O"
+ },
+ {
+  "file": "book/ch08-juno.md",
+  "line": 36,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "abstract group O"
+ },
+ {
+  "file": "book/ch08-juno.md",
+  "line": 179,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "abstract group O"
+ },
+ {
+  "file": "book/ch09-universality.md",
+  "line": 155,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "breaking of cubic symmetry by phi"
+ },
+ {
+  "file": "book/ch18-beyond.md",
+  "line": 242,
+  "families": [
+   "G4-finite-class"
+  ],
+  "code": "A4",
+  "edit": "",
+  "note": "'a compact identification can give a finite periodic lattice': true; no Q1 condition"
+ },
+ {
+  "file": "book/ch19-open-problems.md",
+  "line": 80,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "abstract C_4 ring"
+ },
+ {
+  "file": "book/ch19-open-problems.md",
+  "line": 106,
+  "families": [
+   "G3-cubic",
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "generations / Theorem 10 / Theorem 13"
+ },
+ {
+  "file": "book/ch19-open-problems.md",
+  "line": 108,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "generations / Theorem 10 / Theorem 13"
+ },
+ {
+  "file": "book/ch19-open-problems.md",
+  "line": 150,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "generations / Theorem 10 / Theorem 13"
+ },
+ {
+  "file": "book/ch19-open-problems.md",
+  "line": 160,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "generations / Theorem 10 / Theorem 13"
+ },
+ {
+  "file": "book/ch19-open-problems.md",
+  "line": 228,
+  "families": [
+   "G1-bipartite",
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "rotational protection (SM 3.1)"
+ },
+ {
+  "file": "book/ch19-open-problems.md",
+  "line": 232,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "rotational protection (SM 3.1)"
+ },
+ {
+  "file": "book/ch19-open-problems.md",
+  "line": 246,
+  "families": [
+   "G3-cubic"
+  ],
+  "code": "S",
+  "edit": "",
+  "note": "rotational protection (SM 3.1)"
+ },
+ {
+  "file": "book/ch19-open-problems.md",
+  "line": 252,
+  "families": [
+   "L-labels"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "generations / Theorem 10 / Theorem 13"
+ },
+ {
+  "file": "book/glossary.md",
+  "line": 43,
+  "families": [
+   "G1-bipartite"
+  ],
+  "code": "I",
+  "edit": "",
+  "note": "'staggered bipartite structure on the cubic lattice'"
+ }
+]

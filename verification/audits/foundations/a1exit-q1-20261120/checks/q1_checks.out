@@ -1,0 +1,41 @@
+== K. controls ==
+PASS  K1 Z^3 window: nearest-neighbour hopping is odd-supported for the coordinate-sum parity; both parities occur
+PASS  K3 L=3: (bipartite, corners) = (False, 1): O-A4 expects (False, 1)
+PASS  K3 L=4: (bipartite, corners) = (True, 8): O-A4 expects (True, 8)
+PASS  K3 L=5: (bipartite, corners) = (False, 1): O-A4 expects (False, 1)
+PASS  K3 L=6: (bipartite, corners) = (True, 8): O-A4 expects (True, 8)
+PASS  K3 skew even-sum <(4,0,0),(0,4,0),(1,1,4)>: (bipartite, corners) = (True, 4): O-A4 expects (True, 4)
+PASS  K3 cubic torus L=4: vertex stabilizer order 720: O-A4 expects 720
+PASS  K3 cubic torus L=6: vertex stabilizer order 48: O-A4 expects 48
+PASS  K4 cubic torus L=3: staggered phases defined for no axis ordering
+PASS  K4 cubic torus L=5: staggered phases defined for no axis ordering
+PASS  K5 disguised-A1 test: 'P in 2Z^3' contains P = 0; 'finite-index P in 2Z^3' does not
+== A. corner characters, checkerboard, staggered phases: brute force vs closed form ==
+PASS  A brute force = closed form on 134 quotients (corner characters, checkerboard, all eight corners iff P in 2Z^3, phases of some ordering iff P even off one axis): all eight corners on 32, bipartite on 34, phases on 87
+PASS  A 4x4x3: staggered phases (ordering 1,2,3) defined; not bipartite; corners defined 4 of 8
+PASS  A skew even-sum quotient: bipartite, but staggered phases defined for no ordering
+== B. Theorem 2 (staggered square) on Z^3 and on quotients ==
+PASS  B Z^3: every Staggered.Gens field holds (phases commute with own and later shifts, anticommute with earlier ones; involutions; shifts commute)
+PASS  B Z^3: (sum_i A_i)^2 delta_m = sum_i S_i^2 delta_m for all 8 classes m mod 2 (so for all m: the operators commute with translations by 2Z^3)
+PASS  B countercontrol Z^3: without staggered phases (sum_i S_i)^2 != sum_i S_i^2
+PASS  B 4x4x3 torus (not bipartite): D_st^2 = two-step stencil on every basis vector
+PASS  B 3x3x4 torus: staggered phases defined for no axis ordering
+== C. automorphisms of the carrier and the corner lines ==
+PASS  C cubic torus L=6: |Stab| = 48; corner span preserved; triplet lines one orbit; singlet lines fixed: orbits [[(0, 0, 0)], [(0, 0, 1), (0, 1, 0), (1, 0, 0)], [(0, 1, 1), (1, 0, 1), (1, 1, 0)], [(1, 1, 1)]]
+PASS  C cubic torus L=4 (Q_6): |Stab| = 720; the span of the eight corner characters is NOT invariant under the carrier's automorphisms
+PASS  C cubic torus L=4: eigenvalue sigma = 1 has multiplicity 15 (3 corners X_j and 12 momenta (+-pi/2, +-pi/2, 0) up to axis order): 15
+PASS  C torus 4x4x6 (P in 2Z^3, not O-invariant): |Stab| = 48 (order 48, but not O_h); every automorphism maps the X_3 line to itself, so none relates X_3 to X_1 or X_2: corner span preserved: False (the C_4 x C_4 factor is the 4-cube, as for L=4); orbits of corner lines mapped to corner lines [[(0, 0, 0)], [(0, 0, 1)], [(0, 1, 0), (1, 0, 0)], [(0, 1, 1), (1, 0, 1)], [(1, 1, 0)], [(1, 1, 1)]]
+PASS  C torus 4x4x6: the stabilizer's orbits on the six links have sizes 4 and 2 (it fixes the pair +-e_3), so it does not act as the cubic point group: orbit size per link [2, 2, 4, 4, 4, 4]
+PASS  C torus 4x4x6: P is not O-invariant; 6x6x6 is
+PASS  C illustration: taste-cell spectra of sigma differ between X_1 and X_3 on 4x4x6, agree on 6x6x6: 4x4x6: X_1 ['-1/2', '-1/2', '0', '1/2', '1/2', '1/2', '1/2', '1', '1', '3/2', '3/2', '2'] vs X_3 ['-1', '-1/2', '-1/2', '0', '0', '1/2', '1/2', '1/2', '1/2', '1', '3/2', '3/2']
+PASS  C Hermite basis spans the generators and has index |det|: det 72
+PASS  C cyclic <(2,4,0),(0,2,4),(4,0,2)> (index 72): inside 2Z^3, invariant under the 3-cycle of axes, not O-invariant; the 3-cycle is a carrier automorphism relating the three triplet lines: Hermite basis [[18, 0, 0], [10, 2, 0], [4, 0, 2]]
+== D. hypercube blocking n = 2y + eta ==
+PASS  D blocking eta(n) = n mod 2 is constant on P-classes iff P in 2Z^3 (all test quotients): []
+== E. O-invariant sublattices of Z^3 of index <= 96 (exhaustive Hermite enumeration) ==
+PASS  E 596457 sublattices enumerated; the 9 O-invariant ones are exactly m Z^3, m D_3, m B_3: 1Z^3, 1D_3, 1B_3, 2Z^3, 2D_3, 3Z^3, 2B_3, 3D_3, 4Z^3
+PASS  E O-invariant and inside 2Z^3 (index <= NMAX): exactly those with m even: 2Z^3, 2D_3, 2B_3, 4Z^3
+PASS  E every O-invariant lattice found is also invariant under a coordinate reflection (so O_h-invariant)
+== F. Theorem 8b: corner characters as eigenfunctions of the normalized neighbour average ==
+PASS  F on every test quotient, each defined corner character satisfies avg chi = (sigma/3) chi; values 1, 1/3, -1/3, -1: []
+ALL CHECKS PASS
