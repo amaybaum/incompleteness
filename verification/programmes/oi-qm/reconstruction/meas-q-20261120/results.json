@@ -1,0 +1,1277 @@
+{
+ "checks": {
+  "CC1 U2 countercontrol: with the carrier's class and H's class at distance >= 3, H's class never depends on the carrier (50 random designs, 60 ticks; DL1 2.3(c))": {
+   "data": null,
+   "info": "",
+   "ok": true
+  },
+  "CC2 an imported controller (H rewritten to w* by a write that Q does not produce) meets DT_s arithmetic; the audit reports an unaccounted controller, and accepts the run only when the write is declared": {
+   "data": {
+    "env": [
+     -1,
+     -1,
+     -1,
+     -1,
+     -1,
+     -1,
+     1
+    ],
+    "t2": 10
+   },
+   "info": "t2 = 10; unaccounted controller (tick 10 is not the rule's iterate)",
+   "ok": true
+  },
+  "CC3 an initial pattern outside the ledger is reported as an unaccounted prepared resource": {
+   "data": null,
+   "info": "unaccounted prepared resource (initial state differs from the ledger)",
+   "ok": true
+  },
+  "CC4 S-C in Q: the plain W2 line with a passing signal meets DT_s (H a line site within 2 of the origin; the log is the moved signal) and fails DT_A (no record persists in A); no off-line value; ledger audit ok": {
+   "data": {
+    "-1": {
+     "dta": false,
+     "dts": true,
+     "log": 252,
+     "smin": 25,
+     "t1": 1,
+     "t2": 33
+    },
+    "-2": {
+     "dta": false,
+     "dts": true,
+     "log": 227,
+     "smin": 22,
+     "t1": 2,
+     "t2": 30
+    },
+    "0": {
+     "dta": false,
+     "dts": true,
+     "log": 277,
+     "smin": 28,
+     "t1": 0,
+     "t2": 36
+    },
+    "1": {
+     "dta": false,
+     "dts": true,
+     "log": 302,
+     "smin": 31,
+     "t1": 3,
+     "t2": 39
+    },
+    "2": {
+     "dta": false,
+     "dts": true,
+     "log": 315,
+     "smin": 34,
+     "t1": 2,
+     "t2": 42
+    }
+   },
+   "info": "",
+   "ok": true
+  },
+  "CC5 countercontrol: a closed singleton whose value leaves [c-1, c+1] breaches at once (c = 2^15 with value c+2; vacuum c = 0 with q-1, the residue of -1): all six neighbours leave c": {
+   "data": {
+    "0": 6,
+    "32768": 6
+   },
+   "info": "",
+   "ok": true
+  },
+  "D1 in Q every single-site perturbation with both slices in [c-1, c+1] stays on its site for 64 ticks (c in {1, 2^15, q-2}); the step behind NP1 Lemma N2.3 on Q": {
+   "data": null,
+   "info": "",
+   "ok": true
+  },
+  "K0 W2 line: background 4-periodic at every phase; at every phase some launch pair gives a defect on at most 3 sites moving toward the origin; cells with no such pair are recorded as not launched (A01 item 2)": {
+   "data": {
+    "0+1": -11,
+    "0-1": null,
+    "1+1": null,
+    "1-1": 10,
+    "2+1": -11,
+    "2-1": null,
+    "3+1": null,
+    "3-1": 10
+   },
+   "info": "",
+   "ok": true
+  },
+  "K1 one-site test in Q (all 65 536 neighbour representatives r; c in {0, 1, 2^15, q-2, q-1}): a background site with one non-background neighbour stays at c iff r in [c-1, c+1] (Lemma MQ1, sharp)": {
+   "data": {
+    "0": [
+     0,
+     1
+    ],
+    "1": [
+     0,
+     1,
+     2
+    ],
+    "32768": [
+     32767,
+     32768,
+     32769
+    ],
+    "65534": [
+     65533,
+     65534,
+     65535
+    ],
+    "65535": [
+     65534,
+     65535
+    ]
+   },
+   "info": "",
+   "ok": true
+  },
+  "K2 windowed confinement and class isolation in Q (300 random two-box configurations, ternary, full-alphabet and mixed contents; c in {1, 2, 2^15, q-3, q-2}): while the inner boundary layer of D stays in [c-1, c+1], the support stays in D and D1 evolves as alone (Theorem MQ2)": {
+   "data": {
+    "instance_ticks": 802,
+    "nontrivial": 623
+   },
+   "info": "802 instance-ticks, 623 with t >= 3",
+   "ok": true
+  },
+  "K3 U1 Lemma 2.1 at c in {1, 2^15, q-2}: c + (RZ orbit) is the Q orbit while c + y stays in [0, q); countercontrol c = 0 (the residue of -1 is q-1) differs": {
+   "data": null,
+   "info": "",
+   "ok": true
+  },
+  "K4 component independence in Q on the S-D box: randomizing the other component leaves the signal component unchanged for 12 ticks": {
+   "data": null,
+   "info": "",
+   "ok": true
+  },
+  "K5 S-D phase symmetry: outcomes at phase phi+2 equal those at phase phi with every gadget value negated (RZ is odd), for both directions": {
+   "data": null,
+   "info": "",
+   "ok": true
+  },
+  "PC1 the S-A enumerator on U2 reproduces NP1 S2 (line 3, line 4, line 5, 2x2; one carrier, N = 1): 0, 184, 1904, 736": {
+   "data": {
+    "(2, 2)": 736,
+    "(3,)": 0,
+    "(4,)": 184,
+    "(5,)": 1904
+   },
+   "info": "",
+   "ok": true
+  },
+  "PC2 DL1 2.3(f) is found by the same enumerator on U2 (line 5, carrier at site 0 current slice, H = 1, environment (.,0,1,0,1)) with tau2 = 5": {
+   "data": {
+    "H": 1,
+    "P": 12,
+    "dims": [
+     5
+    ],
+    "dta": false,
+    "env": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     1
+    ],
+    "eslots": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      1,
+      4
+     ]
+    ],
+    "j": 0,
+    "mode": "c",
+    "t2": 5,
+    "weight": 2
+   },
+   "info": "",
+   "ok": true
+  },
+  "PC3 latch calibration oracle passes L1-L4 of the S-D classifier and is rejected by L5 (its run is not the Q run)": {
+   "data": null,
+   "info": "('pass', False)",
+   "ok": true
+  },
+  "PC3b the oracle with the increment set to 0 fails at L4 (no record)": {
+   "data": null,
+   "info": "('L4', True)",
+   "ok": true
+  },
+  "S-A re-run in Q: the minimum-weight DT_s delivery of every box (and every DT_A delivery, up to 50 per box) holds in Q itself and passes the ledger audit in both branches": {
+   "data": {
+    "(2, 2)": [
+     {
+      "audit": [
+       "ok",
+       "ok"
+      ],
+      "dta": false,
+      "q_dta": false,
+      "q_dts": true,
+      "t2": 5,
+      "weight": 1
+     }
+    ],
+    "(3,)": [],
+    "(4,)": [],
+    "(5,)": [
+     {
+      "audit": [
+       "ok",
+       "ok"
+      ],
+      "dta": false,
+      "q_dta": false,
+      "q_dts": true,
+      "t2": 5,
+      "weight": 3
+     }
+    ]
+   },
+   "info": "",
+   "ok": true
+  },
+  "S-B completeness: every selected breaching configuration was run (stride rule of PREREG \u00a74)": {
+   "data": null,
+   "info": "",
+   "ok": true
+  },
+  "S-D family size (1 + 4*24 + 16*C(24,2)) = 4513 per phase": {
+   "data": null,
+   "info": "",
+   "ok": true
+  }
+ },
+ "controls_green": true,
+ "gem_i_candidates": [],
+ "mode": "search",
+ "searches": {
+  "S-A": {
+   "(2, 2)": {
+    "breach_configs": 12912,
+    "configs_times_H": 61236,
+    "dta": 0,
+    "dts": 1112,
+    "min_weight": 1
+   },
+   "(3,)": {
+    "breach_configs": 782,
+    "configs_times_H": 3402,
+    "dta": 0,
+    "dts": 0,
+    "min_weight": null
+   },
+   "(4,)": {
+    "breach_configs": 14140,
+    "configs_times_H": 61236,
+    "dta": 0,
+    "dts": 0,
+    "min_weight": null
+   },
+   "(5,)": {
+    "breach_configs": 184581,
+    "configs_times_H": 918540,
+    "dta": 0,
+    "dts": 1610,
+    "min_weight": 3
+   }
+  },
+  "S-A-cost": {
+   "(2, 2)": {
+    "best_rho_kappa_ternary": "1/364",
+    "box_sites": 4,
+    "cone": 360,
+    "hit": {
+     "H": 1,
+     "P": 12,
+     "dims": [
+      2,
+      2
+     ],
+     "dta": false,
+     "env": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1
+     ],
+     "eslots": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     "j": 0,
+     "mode": "c",
+     "t2": 5,
+     "weight": 1
+    },
+    "horizon": 5,
+    "pattern_sites": 1,
+    "selection_cost_bits_best_rho_kappa_ternary": 12.95,
+    "selection_cost_bits_rho_1/100": 43.91,
+    "selection_cost_bits_rho_1/1000": 42.49,
+    "selection_cost_bits_rho_1/1000_kappa_ternary": 13.49,
+    "selection_cost_bits_rho_1/100_kappa_ternary": 14.91
+   },
+   "(5,)": {
+    "best_rho_kappa_ternary": "3/475",
+    "box_sites": 5,
+    "cone": 470,
+    "hit": {
+     "H": 2,
+     "P": 20,
+     "dims": [
+      5
+     ],
+     "dta": false,
+     "env": [
+      -1,
+      0,
+      0,
+      0,
+      -1,
+      0,
+      0,
+      1,
+      0
+     ],
+     "eslots": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       0,
+       4
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       1,
+       4
+      ]
+     ],
+     "j": 1,
+     "mode": "c",
+     "t2": 5,
+     "weight": 3
+    },
+    "horizon": 5,
+    "pattern_sites": 3,
+    "selection_cost_bits_best_rho_kappa_ternary": 35.23,
+    "selection_cost_bits_rho_1/100": 122.78,
+    "selection_cost_bits_rho_1/1000": 126.58,
+    "selection_cost_bits_rho_1/1000_kappa_ternary": 39.58,
+    "selection_cost_bits_rho_1/100_kappa_ternary": 35.78
+   }
+  },
+  "S-B": {
+   "breach_t": {
+    "max": 9,
+    "median": 2.0,
+    "min": 1
+   },
+   "contact": 3977,
+   "contact_by_d": {
+    "1": 3977,
+    "2": 3977,
+    "3": 3977,
+    "4": 3977,
+    "5": 3944,
+    "6": 3944,
+    "7": 3400,
+    "8": 2852
+   },
+   "dts": 3003,
+   "examples": [
+    {
+     "d": 6,
+     "dt": {
+      "dta": false,
+      "dts": true,
+      "log": 11,
+      "smin": 26,
+      "t1": 0,
+      "t2": 28
+     },
+     "hit": {
+      "dims": [
+       3
+      ],
+      "env": [
+       -1,
+       -1,
+       1,
+       1,
+       1
+      ],
+      "eslots": [
+       [
+        0,
+        0
+       ],
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "j": 0,
+      "mode": "c",
+      "tb": 1
+     },
+     "site": [
+      1,
+      1,
+      4
+     ]
+    },
+    {
+     "d": 5,
+     "dt": {
+      "dta": false,
+      "dts": true,
+      "log": 114,
+      "smin": 23,
+      "t1": 0,
+      "t2": 25
+     },
+     "hit": {
+      "dims": [
+       3
+      ],
+      "env": [
+       -1,
+       0,
+       1,
+       0,
+       1
+      ],
+      "eslots": [
+       [
+        0,
+        0
+       ],
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "j": 0,
+      "mode": "c",
+      "tb": 3
+     },
+     "site": [
+      2,
+      2,
+      3
+     ]
+    },
+    {
+     "d": 5,
+     "dt": {
+      "dta": false,
+      "dts": true,
+      "log": 114,
+      "smin": 25,
+      "t1": 0,
+      "t2": 27
+     },
+     "hit": {
+      "dims": [
+       3
+      ],
+      "env": [
+       -1,
+       1,
+       -1,
+       0,
+       1
+      ],
+      "eslots": [
+       [
+        0,
+        0
+       ],
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "j": 0,
+      "mode": "c",
+      "tb": 4
+     },
+     "site": [
+      2,
+      2,
+      3
+     ]
+    },
+    {
+     "d": 5,
+     "dt": {
+      "dta": false,
+      "dts": true,
+      "log": 114,
+      "smin": 25,
+      "t1": 0,
+      "t2": 27
+     },
+     "hit": {
+      "dims": [
+       3
+      ],
+      "env": [
+       -1,
+       1,
+       1,
+       -1,
+       1
+      ],
+      "eslots": [
+       [
+        0,
+        0
+       ],
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "j": 0,
+      "mode": "c",
+      "tb": 5
+     },
+     "site": [
+      2,
+      2,
+      3
+     ]
+    },
+    {
+     "d": 6,
+     "dt": {
+      "dta": false,
+      "dts": true,
+      "log": 11,
+      "smin": 26,
+      "t1": 0,
+      "t2": 28
+     },
+     "hit": {
+      "dims": [
+       3
+      ],
+      "env": [
+       0,
+       -1,
+       0,
+       0,
+       1
+      ],
+      "eslots": [
+       [
+        0,
+        0
+       ],
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "j": 0,
+      "mode": "c",
+      "tb": 1
+     },
+     "site": [
+      1,
+      1,
+      4
+     ]
+    },
+    {
+     "d": 5,
+     "dt": {
+      "dta": false,
+      "dts": true,
+      "log": 114,
+      "smin": 23,
+      "t1": 0,
+      "t2": 25
+     },
+     "hit": {
+      "dims": [
+       3
+      ],
+      "env": [
+       0,
+       0,
+       -1,
+       1,
+       1
+      ],
+      "eslots": [
+       [
+        0,
+        0
+       ],
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "j": 0,
+      "mode": "c",
+      "tb": 3
+     },
+     "site": [
+      2,
+      2,
+      3
+     ]
+    },
+    {
+     "d": 5,
+     "dt": {
+      "dta": false,
+      "dts": true,
+      "log": 114,
+      "smin": 25,
+      "t1": 0,
+      "t2": 27
+     },
+     "hit": {
+      "dims": [
+       3
+      ],
+      "env": [
+       0,
+       1,
+       -1,
+       -1,
+       1
+      ],
+      "eslots": [
+       [
+        0,
+        0
+       ],
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "j": 0,
+      "mode": "c",
+      "tb": 5
+     },
+     "site": [
+      2,
+      2,
+      3
+     ]
+    },
+    {
+     "d": 5,
+     "dt": {
+      "dta": false,
+      "dts": true,
+      "log": 114,
+      "smin": 25,
+      "t1": 0,
+      "t2": 27
+     },
+     "hit": {
+      "dims": [
+       3
+      ],
+      "env": [
+       0,
+       1,
+       1,
+       0,
+       1
+      ],
+      "eslots": [
+       [
+        0,
+        0
+       ],
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "j": 0,
+      "mode": "c",
+      "tb": 5
+     },
+     "site": [
+      2,
+      2,
+      3
+     ]
+    },
+    {
+     "d": 6,
+     "dt": {
+      "dta": false,
+      "dts": true,
+      "log": 11,
+      "smin": 26,
+      "t1": 0,
+      "t2": 28
+     },
+     "hit": {
+      "dims": [
+       3
+      ],
+      "env": [
+       1,
+       -1,
+       0,
+       1,
+       1
+      ],
+      "eslots": [
+       [
+        0,
+        0
+       ],
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "j": 0,
+      "mode": "c",
+      "tb": 1
+     },
+     "site": [
+      1,
+      1,
+      4
+     ]
+    },
+    {
+     "d": 5,
+     "dt": {
+      "dta": false,
+      "dts": true,
+      "log": 114,
+      "smin": 23,
+      "t1": 0,
+      "t2": 25
+     },
+     "hit": {
+      "dims": [
+       3
+      ],
+      "env": [
+       1,
+       0,
+       0,
+       0,
+       1
+      ],
+      "eslots": [
+       [
+        0,
+        0
+       ],
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        2
+       ]
+      ],
+      "j": 0,
+      "mode": "c",
+      "tb": 3
+     },
+     "site": [
+      2,
+      2,
+      3
+     ]
+    }
+   ],
+   "pool": 27834,
+   "return_after_use": 3003,
+   "run": 3977,
+   "stride": 7,
+   "support28": {
+    "max": 509,
+    "median": 196.0,
+    "min": 1
+   }
+  },
+  "S-C": {
+   "audit": [
+    "ok",
+    "ok"
+   ],
+   "bits": {
+    "background_bits": 780288,
+    "pattern_bits": 6144,
+    "pattern_slots": 384
+   },
+   "dta": false,
+   "dts": true,
+   "per_H": {
+    "-1": {
+     "dta": false,
+     "dts": true,
+     "log": 252,
+     "smin": 25,
+     "t1": 1,
+     "t2": 33
+    },
+    "-2": {
+     "dta": false,
+     "dts": true,
+     "log": 227,
+     "smin": 22,
+     "t1": 2,
+     "t2": 30
+    },
+    "0": {
+     "dta": false,
+     "dts": true,
+     "log": 277,
+     "smin": 28,
+     "t1": 0,
+     "t2": 36
+    },
+    "1": {
+     "dta": false,
+     "dts": true,
+     "log": 302,
+     "smin": 31,
+     "t1": 3,
+     "t2": 39
+    },
+    "2": {
+     "dta": false,
+     "dts": true,
+     "log": 315,
+     "smin": 34,
+     "t1": 2,
+     "t2": 42
+    }
+   }
+  },
+  "S-D": {
+   "hits": [],
+   "l5": [],
+   "n_hits": 0,
+   "stages": {
+    "phi0_d+1": {
+     "L1": 111,
+     "L2": 78,
+     "L3": 0,
+     "L4": 33,
+     "passed": 0
+    },
+    "phi0_d-1": "not launched (K0)",
+    "phi1_d+1": "not launched (K0)",
+    "phi1_d-1": {
+     "L1": 111,
+     "L2": 78,
+     "L3": 0,
+     "L4": 33,
+     "passed": 0
+    },
+    "phi2_d+1": {
+     "L1": 111,
+     "L2": 78,
+     "L3": 0,
+     "L4": 33,
+     "passed": 0
+    },
+    "phi2_d-1": "not launched (K0)",
+    "phi3_d+1": "not launched (K0)",
+    "phi3_d-1": {
+     "L1": 111,
+     "L2": 78,
+     "L3": 0,
+     "L4": 33,
+     "passed": 0
+    }
+   }
+  },
+  "S-E": {
+   "rho=0.001,kappa=full": [
+    {
+     "bg_t0": 0.998931884765625,
+     "bg_t10": 0.17706298828125,
+     "bg_t20": 0.0,
+     "bg_t40": 0.0,
+     "ever_out_of_ternary": 1.0,
+     "seed": 0
+    },
+    {
+     "bg_t0": 0.99920654296875,
+     "bg_t10": 0.317840576171875,
+     "bg_t20": 0.0,
+     "bg_t40": 0.0,
+     "ever_out_of_ternary": 1.0,
+     "seed": 1
+    },
+    {
+     "bg_t0": 0.999176025390625,
+     "bg_t10": 0.303985595703125,
+     "bg_t20": 0.0,
+     "bg_t40": 0.0,
+     "ever_out_of_ternary": 1.0,
+     "seed": 2
+    }
+   ],
+   "rho=0.001,kappa=ternary": [
+    {
+     "bg_t0": 0.998931884765625,
+     "bg_t10": 0.998931884765625,
+     "bg_t20": 0.998931884765625,
+     "bg_t40": 0.998931884765625,
+     "ever_out_of_ternary": 0.0,
+     "seed": 0
+    },
+    {
+     "bg_t0": 0.99920654296875,
+     "bg_t10": 0.99920654296875,
+     "bg_t20": 0.99920654296875,
+     "bg_t40": 0.99920654296875,
+     "ever_out_of_ternary": 0.0,
+     "seed": 1
+    },
+    {
+     "bg_t0": 0.999176025390625,
+     "bg_t10": 0.999176025390625,
+     "bg_t20": 0.999176025390625,
+     "bg_t40": 0.999176025390625,
+     "ever_out_of_ternary": 0.0,
+     "seed": 2
+    }
+   ],
+   "rho=0.01,kappa=full": [
+    {
+     "bg_t0": 0.989501953125,
+     "bg_t10": 0.0,
+     "bg_t20": 0.0,
+     "bg_t40": 0.0,
+     "ever_out_of_ternary": 1.0,
+     "seed": 0
+    },
+    {
+     "bg_t0": 0.989288330078125,
+     "bg_t10": 0.0,
+     "bg_t20": 0.0,
+     "bg_t40": 0.0,
+     "ever_out_of_ternary": 1.0,
+     "seed": 1
+    },
+    {
+     "bg_t0": 0.99102783203125,
+     "bg_t10": 0.0,
+     "bg_t20": 0.0,
+     "bg_t40": 0.0,
+     "ever_out_of_ternary": 1.0,
+     "seed": 2
+    }
+   ],
+   "rho=0.01,kappa=ternary": [
+    {
+     "bg_t0": 0.989501953125,
+     "bg_t10": 0.9849853515625,
+     "bg_t20": 0.98052978515625,
+     "bg_t40": 0.898834228515625,
+     "ever_out_of_ternary": 0.026580810546875,
+     "seed": 0
+    },
+    {
+     "bg_t0": 0.989288330078125,
+     "bg_t10": 0.982208251953125,
+     "bg_t20": 0.97589111328125,
+     "bg_t40": 0.850616455078125,
+     "ever_out_of_ternary": 0.045928955078125,
+     "seed": 1
+    },
+    {
+     "bg_t0": 0.99102783203125,
+     "bg_t10": 0.98712158203125,
+     "bg_t20": 0.9866943359375,
+     "bg_t40": 0.944091796875,
+     "ever_out_of_ternary": 0.01483154296875,
+     "seed": 2
+    }
+   ],
+   "rho=0.05,kappa=full": [
+    {
+     "bg_t0": 0.948638916015625,
+     "bg_t10": 0.0,
+     "bg_t20": 0.0,
+     "bg_t40": 0.0,
+     "ever_out_of_ternary": 1.0,
+     "seed": 0
+    },
+    {
+     "bg_t0": 0.9500732421875,
+     "bg_t10": 0.0,
+     "bg_t20": 0.0,
+     "bg_t40": 0.0,
+     "ever_out_of_ternary": 1.0,
+     "seed": 1
+    },
+    {
+     "bg_t0": 0.950592041015625,
+     "bg_t10": 0.0,
+     "bg_t20": 0.0,
+     "bg_t40": 0.0,
+     "ever_out_of_ternary": 1.0,
+     "seed": 2
+    }
+   ],
+   "rho=0.05,kappa=ternary": [
+    {
+     "bg_t0": 0.948638916015625,
+     "bg_t10": 0.818084716796875,
+     "bg_t20": 0.494842529296875,
+     "bg_t40": 0.114501953125,
+     "ever_out_of_ternary": 0.86920166015625,
+     "seed": 0
+    },
+    {
+     "bg_t0": 0.9500732421875,
+     "bg_t10": 0.83319091796875,
+     "bg_t20": 0.526397705078125,
+     "bg_t40": 0.115692138671875,
+     "ever_out_of_ternary": 0.85205078125,
+     "seed": 1
+    },
+    {
+     "bg_t0": 0.950592041015625,
+     "bg_t10": 0.8275146484375,
+     "bg_t20": 0.512969970703125,
+     "bg_t40": 0.112457275390625,
+     "ever_out_of_ternary": 0.869781494140625,
+     "seed": 2
+    }
+   ]
+  }
+ },
+ "verdict": {
+  "controls_green": true,
+  "gem_i": false,
+  "gem_ii_checks": true,
+  "n_gem_i_candidates": 0,
+  "text": "gem (i) not met: no DT_A delivery on Q within the searched sets; gem (ii) checks hold (K1, K2 green; contact across classes after a breach observed in S-B); the obstruction itself rests on the written proof of Lemma MQ1 / Theorem MQ2 in RESULT."
+ }
+}
