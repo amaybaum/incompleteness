@@ -21,14 +21,17 @@ for any set S. Row X-44 records this as resolved, independently justified with n
 `amaybaum`, 2026-11-20). The site map stays at the pin. At the pin, SM:242 still reads "Let $S$ be finite,", so
 the site is placed by override with code `none`. A pre-existing stale coverage-ledger entry
 (`verification/coverage/LEDGER.json`:1494–1495) is routed to #1462 as PF-6.
+Owner record #1169 c.7048255658 (2026-11-20T19:08:01Z) fixes A4's size-independent formulation, which
+rows X-40–X-43, X-45 and the new row X-47 apply. The same record adds deletion requirements, recorded in §6.1 and
+deviation D6.
 
 ## Files
 
 | File | Content |
 |---|---|
 | `PREREG.md` | Schema, sources, checks CK1–CK8, deletion criterion, decision rule |
-| `rows.json` | The 56 dependency rows and the site-assignment rules (P0 row map, class map, site overrides, rules for new sites, Lean entries) |
-| `sitemap.json` | 600 sites: the 566 Phase-0 sites relocated to the pin, 11 lines added since Phase 0, 11 Phase-2 census-extension sites and 12 sites placed by override. Each site carries its row, correction code, owner and S3 |
+| `rows.json` | The 57 dependency rows and the site-assignment rules (P0 row map, class map, site overrides, rules for new sites, Lean entries) |
+| `sitemap.json` | 606 sites: the 566 Phase-0 sites relocated to the pin, 11 lines added since Phase 0, 11 Phase-2 census-extension sites and 18 sites added by override. Each site carries its row, correction code, owner and S3 |
 | `ledger_check.py` | `build` regenerates `sitemap.json` from the working tree; `render` writes the generated blocks below; `check` re-runs the build, compares it with the committed map and the blocks, and runs CK1–CK8; `self-test` runs three countercontrols |
 
 The run at the pin is `python3 -I -B verification/audits/foundations/a1exit-ledger-20261120/ledger_check.py check`
@@ -39,14 +42,14 @@ The run at the pin is `python3 -I -B verification/audits/foundations/a1exit-ledg
 <!-- COUNTS:BEGIN -->
 | Measure | Counts |
 |---|---|
-| Rows | 56 |
-| Disposition | F 26, J 18, O 12 |
+| Rows | 57 |
+| Disposition | F 26, J 18, O 13 |
 | S1 on J rows | No 15, Relabel 3 |
-| Row owner | Main:764 1, Q1 5, Q2 1, Q3 propagation 7, R1/R2 scoping 2, R6 3, Step-2 phase 2, final deletion 9, none 26 |
-| Row status | done 25, in progress 9, open 3, queued 19 |
-| Sites in the map | 600 (465 mapped to a row; 135 FP, FREE or kept) |
-| Mapped sites by correction code | none 160, ptr 186, unit 119 |
-| Mapped sites by owner | Q1 26, Q3 propagation 78, Step-2 phase 15, final deletion 186, none 160 |
+| Row owner | Main:764 1, Q1 6, Q2 1, Q3 propagation 7, R1/R2 scoping 2, R6 3, Step-2 phase 2, final deletion 9, none 26 |
+| Row status | done 25, in progress 10, open 3, queued 19 |
+| Sites in the map | 606 (471 mapped to a row; 135 FP, FREE or kept) |
+| Mapped sites by correction code | none 160, ptr 186, unit 125 |
+| Mapped sites by owner | Q1 32, Q3 propagation 78, Step-2 phase 15, final deletion 186, none 160 |
 <!-- COUNTS:END -->
 
 **Reading the counts.**
@@ -61,8 +64,8 @@ The run at the pin is `python3 -I -B verification/audits/foundations/a1exit-ledg
   it is known to hold only under a law supported on periodic configurations (§3.1).
 - **F (26).** Each F row is a true statement about finite systems or finite representatives. With A1
   deleted, it stays as a finite-only statement.
-- **O (12).** The O rows fall into four groups:
-  - **Q1 rows, in progress (X-40–X-43).** These are not marked J in advance (safeguard 2).
+- **O (13).** The O rows fall into four groups:
+  - **Q1 rows, in progress (X-40–X-43, X-47).** These are not marked J in advance (safeguard 2).
   - **Rows with no proof and no unit (X-11 R1 justification, X-21 physical return, X-71 C1 coupled).**
     These stay open and are stated as open.
   - **Step-2 rows (X-63 global phase, X-82 inflow).**
@@ -119,13 +122,14 @@ Column definitions are in PREREG §3.
 | X-32 | Characterization window t ≪ t_R (M:542) | M14 | t_R of a realizing substrate | J | None | No: A1-free | Restriction removed (MAIN-TR-1); the proof never consumes t_R | none | no primary site | none | done |
 | X-33 | C3 capacity bound log₂\|C_H\| ≥ I* (M:518–520) | M15 | Counts the hidden states of a realization | J | None (finite realizations by definition) | No: A1-free as stated | Holds for every finite realization; class D is finite by definition | none | no primary site | none | done |
 | X-34 | Coupling-graph causal cone; Bell ceiling (M:364; M:416–418) | M17 | Finite V in the first step of the finite-site proof | J | Finite read sets (posit (xiii)) | No: Local finiteness only | Arbitrary-site form with finite read sets printed in the same paragraph | none | no primary site | none | done |
-| X-40 | A4's finite periodic lattice clause (finite quotient + finite alphabet ⇒ A1 via `a1_of_finite`) (Sub:98; ch02:82; SM:202; ch05:65; FULL mirrors) | C6, C7, R4, OA4:1, O-A4 | The printed class is finite; `SubstratumInterfaceAudit.a1_of_finite`:109 | O | — | n/a (not J) | Q1 (#1454 P2-Q1), in progress: possible outcomes J under A4∞ (kernel predicate `A4`:98 on an arbitrary additive group; LEAN-2(i) A2–A5 at ZMod 0 = ℤ), or a finite-only restriction kept. Not marked J in advance (safeguard 2) | Per Q1 outcome: Sub:98 "a finite periodic lattice, the quotient of a rank-d lattice by a finite-index sublattice" → A4∞ form with named conditions, or kept with "finite-only" stated | 6 sites (per unit Q1 6); codes unit 6. FULL:712, FULL:1380, ch02:82, ch05:65, SM:202, Sub:98 | Q1 | in progress |
-| X-41 | Stage 2 chain under A4∞ (O-A4 verdict (i)): area-law lemma, Lemma 1c(i), (iii), Corollaries 1a, 1b, the d = 3 selection corollary SM:210 (SM:122, :202, :210, :252, :258, :270; Sub:157) | C7, OA4:5, OA4:6, OA4:10, OA4:12 | Inherits A4's finite lattice | O | — | n/a (not J) | Q1, in progress (O-A4 verdict (i): survives under A4∞, LF, H-μ(φ,Θ), H-μ(sp), H-Bloch) | Per Q1 outcome | 19 sites (per unit Q1 11, visible 8); codes ptr 8, unit 11. FULL:726, FULL:1340, FULL:1388, FULL:1392, FULL:1398, FULL:1404, ch02:96, ch05:25, ch05:73, ch05:77, ch05:83, ch05:89 … | Q1 | in progress |
-| X-42 | Period-lattice conditions on the printed finite class: O_h needs O_h-invariant Λ; checkerboard needs even-sum periods; eight corners need Λ ⊂ 2ℤ³; SM:539 spin–taste; SM:1536 (SM:539; SM:1536; SM:242–374 (O_h uses)) | OA4:16, OA4:18 | Finite quotients that fail Stage-2 inputs (O-A4 §7) | O | — | n/a (not J) | Q1, in progress | Per Q1 outcome (SM:539 already names the odd-torus failure; SM:1536 "bipartite checkerboard structure" unqualified) | 2 sites (per unit Q1 2); codes unit 2. SM:539, SM:1536 | Q1 | in progress |
-| X-43 | Fermion theorems on ℤ^d: Theorems 2, 3, 8, 8b, 10, 12, 13 (SM:286–302; SM:434–456; SM:535–547) | OA4:18 | Staggered phases, Brillouin corners, checkerboard | O | — | n/a (not J) | Q1, in progress ("(a) on (Z); (b) on (F)", O-A4 row 18) | Per Q1 outcome | 7 sites (per unit Q1 7); codes unit 7. SM:286, SM:302, SM:434, SM:440, SM:456, SM:535, SM:543 | Q1 | in progress |
+| X-40 | A4's finite periodic lattice clause (finite quotient + finite alphabet ⇒ A1 via `a1_of_finite`) (Sub:98; ch02:82; SM:202; ch05:65; FULL mirrors) | C6, C7, R4, OA4:1, O-A4 | The printed class is finite; `SubstratumInterfaceAudit.a1_of_finite`:109 | O | — | n/a (not J) | Q1, in progress, under the Owner A4 formulation (#1169 c.7048255658): ℤ^d is the standard construction wherever the proofs support it; finite periodic lattices are explicitly qualified cases with the wrapping conditions they need (Q1); finite lattices are not called approximations of ℤ^d unless an approximation or convergence result is established; the infinite discrete lattice and infinite continuous space are kept distinct. This replaces the (α)/(β) choice of the Q1 record. Kernel support for the standard construction: `A4`:98 on an arbitrary additive group; LEAN-2(i) A2–A5 at ZMod 0 = ℤ. Not marked J in advance (safeguard 2) | Per Q1: Sub:98 "a finite periodic lattice, the quotient of a rank-d lattice by a finite-index sublattice" → the coupling graph is ℤ^d (the standard construction) where Stage 2 is proved there, with finite periodic quotients admitted as qualified cases under their stated wrapping conditions (X-42); mirrors ch02:82, FULL:712, SM:202, ch05:65, FULL:1380 | 6 sites (per unit Q1 6); codes unit 6. FULL:712, FULL:1380, ch02:82, ch05:65, SM:202, Sub:98 | Q1 | in progress |
+| X-41 | Stage 2 chain under A4∞ (O-A4 verdict (i)): area-law lemma, Lemma 1c(i), (iii), Corollaries 1a, 1b, the d = 3 selection corollary SM:210 (SM:122, :202, :210, :252, :258, :270; Sub:157) | C7, OA4:5, OA4:6, OA4:10, OA4:12 | Inherits A4's finite lattice | O | — | n/a (not J) | Q1, in progress: stated on ℤ^d where O-A4 verdict (i) and Q1 support it; otherwise a qualified finite-lattice case (owner A4 formulation, #1169 c.7048255658) | Per Q1 outcome | 19 sites (per unit Q1 11, visible 8); codes ptr 8, unit 11. FULL:726, FULL:1340, FULL:1388, FULL:1392, FULL:1398, FULL:1404, ch02:96, ch05:25, ch05:73, ch05:77, ch05:83, ch05:89 … | Q1 | in progress |
+| X-42 | Period-lattice conditions on the printed finite class: O_h needs O_h-invariant Λ; checkerboard needs even-sum periods; eight corners need Λ ⊂ 2ℤ³; SM:539 spin–taste; SM:1536 (SM:539; SM:1536; SM:242–374 (O_h uses)) | OA4:16, OA4:18 | Finite quotients that fail Stage-2 inputs (O-A4 §7) | O | — | n/a (not J) | Q1, in progress: each finite periodic lattice is a qualified case carrying its wrapping conditions (O_h-invariant Λ; even-sum periods for the checkerboard; Λ ⊂ 2ℤ³ for the eight corners) (owner A4 formulation, #1169 c.7048255658) | Per Q1 outcome (SM:539 already names the odd-torus failure; SM:1536 "bipartite checkerboard structure" unqualified) | 2 sites (per unit Q1 2); codes unit 2. SM:539, SM:1536 | Q1 | in progress |
+| X-43 | Fermion theorems on ℤ^d: Theorems 2, 3, 8, 8b, 10, 12, 13 (SM:286–302; SM:434–456; SM:535–547) | OA4:18 | Staggered phases, Brillouin corners, checkerboard | O | — | n/a (not J) | Q1, in progress: stated on ℤ^d where O-A4 verdict (i) and Q1 support it; otherwise a qualified finite-lattice case (owner A4 formulation, #1169 c.7048255658) | Per Q1 outcome | 7 sites (per unit Q1 7); codes unit 7. SM:286, SM:302, SM:434, SM:440, SM:456, SM:535, SM:543 | Q1 | in progress |
 | X-44 | Theorem 1a "Let S be finite" (RESOLVED); SM:222 carrier; SM:250 attribution (SM:242; SM:222; SM:250) | OA4:9, P2-F5 | Hypothesis stated; O-A4 §9a: unused by the proof | J | None: no hypothesis on S. The proof is ring algebra on the observable space (P + Q = I, linearity of U, commutation with R_g); the existing Lean MZ (verification/lean/OI_Structural_Core.lean) covers infinite S | No: No condition replaces the deleted one; the theorem holds for any set S | RESOLVED by Q2 after the pin: PR #1464 merged at head eee291d9, merge commit fbca1df98f630aa0dd334c6e7f9f9a193da64394 (owner decision, amaybaum, 2026-11-20); recovery record verification/audits/foundations/a1exit-q2-20261120/RECOVERY.md (on main) | done on main at fbca1df9: SM:242 "Let $S$ be finite," → "Let $S$ be a set,"; SM:250 attribution "a deterministic bijection". The pinned tree (9db51884) still carries the old text; the map is rebuilt at the next pin. Pre-existing stale coverage-ledger entry verification/coverage/LEDGER.json:1494–1495 is routed to #1462 as PF-6 | 1 sites (per unit Q2 1); codes none 1. SM:242 | Q2 | done (Q2 merged, fbca1df9) |
-| X-45 | Theorem 23 (reconstruction) under E1–E7 and A1–A6; its uniqueness "within the class A1–A6" (Sub:104–133; Sub:189–195; Sub:205–233; ch02:88–122; ch04:10–26; ch05:19; Str:768; gloss:13) | C6, OA4:26, R4 | A1 listed among the hypotheses; Stage 2 uses A4's finite lattice; Stage 3 H-count (X-70); Stage 1 exact return (X-29) | F | — | n/a (not J) | With A1 deleted, the theorem stands as a theorem about finite substrata satisfying A2–A6 (finite-only). Its infinite-lattice version is open pending Q1 (Stage 2), C1 (Stage 3, X-71) and X-21 (Stage 1) | Sub:104 and mirrors: "under E1–E7 and A1–A6 jointly" → "for a finite substratum satisfying E1–E7 and A2–A6"; "the structural class A1–A6" → "the class of finite substrata satisfying A2–A6"; ch02:122 "(violating A1)" → "(outside the finite class)" | 39 sites (not determined 5, visible 34); codes none 6, ptr 28, unit 5. FULL:718, FULL:720, FULL:748, FULL:752, FULL:1114, FULL:1130, FULL:1334, FULL:6504, ch02:88, ch02:90, ch02:118, ch02:122 … | final deletion | queued (Step 2; after Q1; 5 Phase-3 sites via Q3) |
+| X-45 | Theorem 23 (reconstruction) under E1–E7 and A1–A6; its uniqueness "within the class A1–A6" (Sub:104–133; Sub:189–195; Sub:205–233; ch02:88–122; ch04:10–26; ch05:19; Str:768; gloss:13) | C6, OA4:26, R4 | A1 listed among the hypotheses; Stage 2 uses A4's finite lattice; Stage 3 H-count (X-70); Stage 1 exact return (X-29) | F | — | n/a (not J) | With A1 deleted and A4 in the owner's size-independent formulation: Stage 2 on ℤ^d where Q1 supports it, finite substrata as qualified cases. The theorem as a whole stays a statement about finite substrata satisfying A2–A6 until Stage 3 (X-70, X-71) and Stage 1 (X-29, X-21) have size-independent forms | Sub:104 and mirrors: "under E1–E7 and A1–A6 jointly" → "for a finite substratum satisfying E1–E7 and A2–A6"; "the structural class A1–A6" → "the class of finite substrata satisfying A2–A6"; ch02:122 "(violating A1)" → "(outside the finite class)" | 39 sites (not determined 5, visible 34); codes none 6, ptr 28, unit 5. FULL:718, FULL:720, FULL:748, FULL:752, FULL:1114, FULL:1130, FULL:1334, FULL:6504, ch02:88, ch02:90, ch02:118, ch02:122 … | final deletion | queued (Step 2; after Q1; 5 Phase-3 sites via Q3) |
 | X-46 | OI-class substrata "satisfying A1–A6" (Structure Definition 9.9, Proposition 9.5 and dependent statements) (Str:646 and the R6/C11 sites of Structure) | C11 | Class definition | F | — | n/a (not J) | A definitional finite class; narrowing to A2–A6 plus the M4/M18 posits would be a definition change (REMAINDER C11) and is not proposed here | At deletion: "OI-class substrata (satisfying A1–A6)" → "finite OI-class substrata (finite, satisfying A2–A6)" | 57 sites (visible 57); codes none 2, ptr 55. FULL:895, FULL:905, FULL:2433, FULL:2451, FULL:2521, FULL:2597, FULL:2603, FULL:2607, ch03:34, ch03:44, ch09:18, ch09:36 … | final deletion | queued (Step 2) |
+| X-47 | Finite-lattice numerics presented as ℤ^d or physical values: finite-L Monte Carlo and L → ∞ extrapolations (Z_S, m_b/m_τ), universality "inferred rather than demonstrated" (SM:801; SM:813; SM:1138–1144; SM:1267) | A4-OWNER | Values computed on finite periodic lattices (L = 16–64) are compared with observation or extrapolated to L → ∞ numerically | O | — | n/a (not J) | Owner A4 formulation (#1169 c.7048255658): a finite lattice is not an approximation of ℤ^d unless an approximation or convergence result is established. A numerical extrapolation is numerical evidence, not that result. Q1 decides the wording, and the final regression audit checks that no prediction changes without stated justification | Per Q1 and the regression audit: state each value as a finite-L computation with its extrapolation as numerical evidence, unless a convergence result is cited. Cheap probe at the pin: no sentence in papers/ or book/ uses "approximat…" for a finite lattice relative to ℤ^d; the finite-L comparisons above are the candidate sites | 6 sites (per unit Q1 6); codes unit 6. SM:801, SM:813, SM:1138, SM:1140, SM:1144, SM:1267 | Q1 | in progress |
 | X-50 | CP-indivisibility theorem (permutation-dilation family) (M:332–336) | M9, L6, R6 | Permutation unitary on finite H | F | — | n/a (not J) | Printed as a finite-representative statement (M:732 (ii) list). R6 lemma L6 (Koopman dilation on ℂ^V ⊗ L²(H,ρ)), in progress, may supply J or confirm the finite-only restriction | none at the pin; per R6 outcome | 2 sites (per unit R6 2); codes none 2. M:332, M:336 | R6 | in progress |
 | X-51 | Physical-memory theorem and C2 quantitative form (M:459–475) | M16, L7 | Uniform-prior finite coupling model | F | — | n/a (not J) | Printed as a finite-representative statement (M:732 (ii) list). R6 lemma L7, in progress | none at the pin; per R6 outcome | 2 sites (per unit R6 2); codes none 2. M:459, M:473 | R6 | in progress |
 | X-52 | Deep-sector cardinality as gauge, finite windows; Theorem 24(i) population law, (ii), (iii) trace-class identity; GR Appendix B (GR:132–138; GR:871–905; Sub:251–264; M:732 (ii) transfer clause) | M21, C3, C8, OA4:23, OA4:24, OA4:25 | Finite decoupled factor; uniform ω_H | J | (D1)–(D5), with (D5) μ_H = u_{B_n}⊗ν, ν any normalized law (GR:877–883); trace-class σ_A (O-A4 row 24) | No: Finite cone and a uniform factor on a finite boundary window; the deep law is of any cardinality | GR Appendix B printed for a site set of any cardinality under (D1)–(D5) | none | 15 sites (visible 15); codes none 15. FULL:5867, FULL:5871, appb:190, appb:194, GR:132, GR:134, GR:136, GR:138, GR:875, GR:883, GR:885, GR:889 … | none | done |
@@ -268,8 +272,8 @@ decision (owner safeguard 4; Step 2):
 1. **CK1–CK8 pass at that head.** At the pin: pass.
 2. **Every row is closed.** Its status is `done`, or it is an O or F row whose qualification is
    visible at every mapped site. At the pin these remain:
-   - **9 rows `in progress`:**
-     - Q1: X-16, X-40–X-43;
+   - **10 rows `in progress`:**
+     - Q1: X-16, X-40–X-43, X-47;
      - R6: X-50, X-51, X-53;
      - Main:764: X-62.
    - **The `queued` rows:**
@@ -290,10 +294,37 @@ decision (owner safeguard 4; Step 2):
    relies on A1. A rerun of `ledger_check.py` at that head is part of the evidence. Its `check`
    mode fails if any line matching the P0 pattern set is unmapped.
 
+### 6.1 Owner deletion requirements (#1169 c.7048255658, `amaybaum`, 2026-11-20T19:08:01Z)
+
+The owner record adds the following requirements to the criterion above. Quoted:
+
+1. "Q1 and R6 have been independently reviewed and accepted."
+2. "The A1-EXIT ledger is complete, with every dependency classified."
+3. "All 77 remaining sites (Q3) are reconciled across the manuscripts, the book and the mirrors."
+4. "No finiteness assumption is hidden in definitions, probability measures or proof dependencies."
+5. "The integrated changes have had a final independent review."
+6. "**A final regression audit** shows that removing A1 has not weakened, strengthened or changed any
+   physical prediction without explicit justification."
+
+Also quoted: "The open questions on the probability law (R1) and on gravity (C1) may stay open, provided the
+papers name the missing premises and claim no unconditional results."
+
+How they map onto this ledger, and their state at the pin:
+
+| Requirement | Ledger rows or checks | State at the pin |
+|---|---|---|
+| 1 | Q1: X-16, X-40–X-43, X-47. R6: X-50, X-51, X-53 | In progress; not reviewed |
+| 2 | CK1–CK8 | This ledger passes. It is not yet reviewed, and the map certifies the pin's tree only |
+| 3 | The 78 Q3 sites (§4), including the FULL mirrors of ch14 and ch18 | Queued (Step 2) |
+| 4 | Lexical: CK4, CK6. Definitions: X-02, X-40, X-45, X-46. Measures: X-10–X-16, X-70. Proof dependencies: the J rows' S1 column | Partly: CK4 is lexical (§9). Review item 4 covers sentences that match no pattern. A4's finite lattice (X-40) is the known hidden-finiteness route |
+| 5 | Final review of the integrated head | Not started |
+| 6 | Regression audit. Candidate inputs: every row whose correction changes a printed statement (X-00–X-02, X-12, X-40–X-47, X-45, X-63, X-70, X-74), the physical-prediction rows (X-47 finite-L values; X-70–X-72 calibration; X-63 observer selection), and the P-indivisibility route (X-20) | No unit; to be authorized. Not part of this ledger |
+| R1, C1 | X-11, X-71 | M:732 (iv) names the selection as a posit, "not derived". GR:58 is stated for a finite total system with negligible boundary interaction, and no coupled-case result is claimed |
+
 **What may remain after deletion.** The F rows stay as finite-only theorems stated as such: X-10,
 X-12, X-16, X-18, X-22, X-24, X-26, X-27, X-29, X-45, X-46, X-50, X-51, X-53–X-57, X-62, X-64,
 X-70, X-72–X-74, X-80 and X-81. The O rows that are not removed stay as open claims stated as open:
-X-11, X-21, X-63, X-71, X-82, and whichever of X-40–X-43 Q1 leaves open.
+X-11, X-21, X-63, X-71, X-82, and whichever of X-40–X-43 and X-47 Q1 leaves open.
 
 **What may not remain.** No claim may remain whose support is A1, presented as a property of nature or
 of the framework without its finite-only or open qualification. One example: Theorem 23 "under
@@ -302,10 +333,11 @@ infinite-lattice version open pending Q1, X-71 and X-21.
 
 ## 7. Deviations from PREREG
 
-- **D1 (site placement).** Twelve sites are placed by override in `rows.json`:
+- **D1 (site placement).** Sites are placed by override in `rows.json`, 18 of them added to the map:
   - A4's clause and its mirrors → X-40;
   - SM:539 and SM:1536 → X-42;
   - the seven fermion theorem lines → X-43;
+  - the six finite-L numerics lines → X-47;
   - the Stage 1(ii) global-phase lines → X-63;
   - glossary:105 → Q3.
 
@@ -326,6 +358,10 @@ infinite-lattice version open pending Q1, X-71 and X-21.
   :895, :901; Str:734 before override, :800, :821, :972; Sub:333) are included with their Phase-2
   keep reasons, beyond CK3's P0 scope.
 - **D5 (status).** The vocabulary adds that `done` allows the pointer rewrites of the deletion edit.
+- **D6 (owner decision after the preregistration).** Owner record #1169 c.7048255658 (`amaybaum`,
+  2026-11-20T19:08:01Z) fixes the A4 formulation (rows X-40–X-43, X-45, new row X-47) and adds the
+  deletion requirements of §6.1. PREREG §6 is not edited. The owner's requirements are applied in
+  addition to it, and the stricter of the two governs.
 
 ## 8. Review checklist
 
@@ -350,7 +386,10 @@ infinite-lattice version open pending Q1, X-71 and X-21.
 5. **The corrections proposed for X-00, X-01, X-02, X-45, X-46, X-70, X-74 and X-75.** They are
    proposals for the deletion edit and are not applied. Check that each preserves the claim's proved
    scope and introduces no new claim.
-6. **The deletion criterion (§6).** Check that it is no weaker than owner safeguard 4.
+6. **The deletion criterion (§6, §6.1).** Check that it is no weaker than owner safeguard 4 and the owner
+   requirements of c.7048255658, and that the A4 rows follow the owner's size-independent formulation.
+   In particular, no finite lattice may be called an approximation of ℤ^d without a convergence result
+   (X-47).
 7. **`ledger_check.py check` and `self-test`.** Both pass at the head. The countercontrols must fail
    as stated (an unmapped site, a J row with S1 `Yes`, a dropped Phase-3 site).
 
@@ -377,7 +416,8 @@ infinite-lattice version open pending Q1, X-71 and X-21.
 | PR #1463 (Main:764 unit) | X-62 | Provenance: the correction is in progress. X-62's F disposition rests on [31] and STAGE1ii G1, both on `main` |
 | PR #1464 (Q2), merge commit `fbca1df98f630aa0dd334c6e7f9f9a193da64394` | X-44 | Support on `main`: the corrected SM:242/:250 and `verification/audits/foundations/a1exit-q2-20261120/RECOVERY.md` are on `main` at `fbca1df9`. Owner decision (`amaybaum`, 2026-11-20, relayed by the coordinating session): record Theorem 1a as resolved, independently justified |
 | #1462 (PF-6) | X-44 note | Provenance: the stale coverage-ledger entry `verification/coverage/LEDGER.json`:1494–1495 that predates Q2 is routed there |
-| Q1 and R6 records (in progress, not on `main`) | X-16, X-40–X-43, X-50, X-51, X-53 | Provenance: these rows state the disposition at the pin, not those units' results |
+| #1169 comment 7048255658 | X-40–X-43, X-45, X-47; §6.1 | Owner decision quoted with author and time; provenance for the formulation and the requirements |
+| Q1 and R6 records (in progress, not on `main`) | X-16, X-40–X-43, X-47, X-50, X-51, X-53 | Provenance: these rows state the disposition at the pin, not those units' results |
 
 ## 11. Verification status (§A.46 item 4)
 

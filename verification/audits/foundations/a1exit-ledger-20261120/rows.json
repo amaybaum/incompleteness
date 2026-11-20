@@ -586,8 +586,8 @@
    "weaker": "",
    "s1": "",
    "s1_reason": "",
-   "exit": "Q1 (#1454 P2-Q1), in progress: possible outcomes J under A4∞ (kernel predicate `A4`:98 on an arbitrary additive group; LEAN-2(i) A2–A5 at ZMod 0 = ℤ), or a finite-only restriction kept. Not marked J in advance (safeguard 2)",
-   "correction": "Per Q1 outcome: Sub:98 \"a finite periodic lattice, the quotient of a rank-d lattice by a finite-index sublattice\" → A4∞ form with named conditions, or kept with \"finite-only\" stated",
+   "exit": "Q1, in progress, under the Owner A4 formulation (#1169 c.7048255658): ℤ^d is the standard construction wherever the proofs support it; finite periodic lattices are explicitly qualified cases with the wrapping conditions they need (Q1); finite lattices are not called approximations of ℤ^d unless an approximation or convergence result is established; the infinite discrete lattice and infinite continuous space are kept distinct. This replaces the (α)/(β) choice of the Q1 record. Kernel support for the standard construction: `A4`:98 on an arbitrary additive group; LEAN-2(i) A2–A5 at ZMod 0 = ℤ. Not marked J in advance (safeguard 2)",
+   "correction": "Per Q1: Sub:98 \"a finite periodic lattice, the quotient of a rank-d lattice by a finite-index sublattice\" → the coupling graph is ℤ^d (the standard construction) where Stage 2 is proved there, with finite periodic quotients admitted as qualified cases under their stated wrapping conditions (X-42); mirrors ch02:82, FULL:712, SM:202, ch05:65, FULL:1380",
    "owner": "Q1",
    "status": "in progress",
    "site_code": "unit",
@@ -609,7 +609,7 @@
    "weaker": "",
    "s1": "",
    "s1_reason": "",
-   "exit": "Q1, in progress (O-A4 verdict (i): survives under A4∞, LF, H-μ(φ,Θ), H-μ(sp), H-Bloch)",
+   "exit": "Q1, in progress: stated on ℤ^d where O-A4 verdict (i) and Q1 support it; otherwise a qualified finite-lattice case (owner A4 formulation, #1169 c.7048255658)",
    "correction": "Per Q1 outcome",
    "owner": "Q1",
    "status": "in progress",
@@ -629,7 +629,7 @@
    "weaker": "",
    "s1": "",
    "s1_reason": "",
-   "exit": "Q1, in progress",
+   "exit": "Q1, in progress: each finite periodic lattice is a qualified case carrying its wrapping conditions (O_h-invariant Λ; even-sum periods for the checkerboard; Λ ⊂ 2ℤ³ for the eight corners) (owner A4 formulation, #1169 c.7048255658)",
    "correction": "Per Q1 outcome (SM:539 already names the odd-torus failure; SM:1536 \"bipartite checkerboard structure\" unqualified)",
    "owner": "Q1",
    "status": "in progress",
@@ -648,7 +648,7 @@
    "weaker": "",
    "s1": "",
    "s1_reason": "",
-   "exit": "Q1, in progress (\"(a) on (Z); (b) on (F)\", O-A4 row 18)",
+   "exit": "Q1, in progress: stated on ℤ^d where O-A4 verdict (i) and Q1 support it; otherwise a qualified finite-lattice case (owner A4 formulation, #1169 c.7048255658)",
    "correction": "Per Q1 outcome",
    "owner": "Q1",
    "status": "in progress",
@@ -689,7 +689,7 @@
    "weaker": "",
    "s1": "",
    "s1_reason": "",
-   "exit": "With A1 deleted, the theorem stands as a theorem about finite substrata satisfying A2–A6 (finite-only). Its infinite-lattice version is open pending Q1 (Stage 2), C1 (Stage 3, X-71) and X-21 (Stage 1)",
+   "exit": "With A1 deleted and A4 in the owner's size-independent formulation: Stage 2 on ℤ^d where Q1 supports it, finite substrata as qualified cases. The theorem as a whole stays a statement about finite substrata satisfying A2–A6 until Stage 3 (X-70, X-71) and Stage 1 (X-29, X-21) have size-independent forms",
    "correction": "Sub:104 and mirrors: \"under E1–E7 and A1–A6 jointly\" → \"for a finite substratum satisfying E1–E7 and A2–A6\"; \"the structural class A1–A6\" → \"the class of finite substrata satisfying A2–A6\"; ch02:122 \"(violating A1)\" → \"(outside the finite class)\"",
    "owner": "final deletion",
    "status": "queued (Step 2; after Q1; 5 Phase-3 sites via Q3)",
@@ -713,6 +713,25 @@
    "owner": "final deletion",
    "status": "queued (Step 2)",
    "site_code": "none",
+   "note": ""
+  },
+  {
+   "id": "X-47",
+   "title": "Finite-lattice numerics presented as ℤ^d or physical values: finite-L Monte Carlo and L → ∞ extrapolations (Z_S, m_b/m_τ), universality \"inferred rather than demonstrated\"",
+   "home": "SM:801; SM:813; SM:1138–1144; SM:1267",
+   "sources": [
+    "A4-OWNER"
+   ],
+   "how": "Values computed on finite periodic lattices (L = 16–64) are compared with observation or extrapolated to L → ∞ numerically",
+   "disposition": "O",
+   "weaker": "",
+   "s1": "",
+   "s1_reason": "",
+   "exit": "Owner A4 formulation (#1169 c.7048255658): a finite lattice is not an approximation of ℤ^d unless an approximation or convergence result is established. A numerical extrapolation is numerical evidence, not that result. Q1 decides the wording, and the final regression audit checks that no prediction changes without stated justification",
+   "correction": "Per Q1 and the regression audit: state each value as a finite-L computation with its extrapolation as numerical evidence, unless a convergence result is cited. Cheap probe at the pin: no sentence in papers/ or book/ uses \"approximat…\" for a finite lattice relative to ℤ^d; the finite-L comparisons above are the candidate sites",
+   "owner": "Q1",
+   "status": "in progress",
+   "site_code": "unit",
    "note": ""
   },
   {
@@ -1535,6 +1554,42 @@
    "code": "none",
    "owner": "none",
    "reason": "Q2 resolved on main at fbca1df9 (Theorem 1a for any set S)"
+  },
+  "papers/SM.md:801": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "Q1",
+   "reason": "finite-L numerics under the owner A4 formulation (no approximation claim without a convergence result)"
+  },
+  "papers/SM.md:813": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "Q1",
+   "reason": "finite-L numerics under the owner A4 formulation (no approximation claim without a convergence result)"
+  },
+  "papers/SM.md:1138": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "Q1",
+   "reason": "finite-L numerics under the owner A4 formulation (no approximation claim without a convergence result)"
+  },
+  "papers/SM.md:1140": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "Q1",
+   "reason": "finite-L numerics under the owner A4 formulation (no approximation claim without a convergence result)"
+  },
+  "papers/SM.md:1144": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "Q1",
+   "reason": "finite-L numerics under the owner A4 formulation (no approximation claim without a convergence result)"
+  },
+  "papers/SM.md:1267": {
+   "row": "X-47",
+   "code": "unit",
+   "owner": "Q1",
+   "reason": "finite-L numerics under the owner A4 formulation (no approximation claim without a convergence result)"
   }
  },
  "lean": [
