@@ -1,0 +1,384 @@
+{
+ "schema": "a1-scope phase 1 edit ledger v1",
+ "base": "d5735bedb3958394e3e095a4513d9fb5996d079d",
+ "rule": "Phase 1 head = base with exactly these splices applied (each old string occurs once in the base file); no other change to papers/*.md or book/*.md. Amendments are appended as new entries by a reviewed commit.",
+ "splices": [
+  {
+   "unit": "E1",
+   "file": "papers/Main.md",
+   "old": "Total finiteness remains an open physical posit (status Remark, §1.2 and ledger §4.5, item (ii)).",
+   "new": "Total finiteness remains an open physical posit, not adopted, and one sufficient condition among those each result names (status Remark, §1.2 and ledger §4.5, item (ii)).",
+   "rows": [
+    "REM-s3"
+   ],
+   "reason": "posit (ii) restated as one sufficient condition (owner decision 1)",
+   "old_sha256": "3c0f0969ccf5dcae926e025400e66d7ce247904f022871272083a483fa77d505",
+   "new_sha256": "ce7bb988bb31513f6fcb7fea3f22d9c21013e8ec23e205e64155c5ba2f630142"
+  },
+  {
+   "unit": "E2",
+   "file": "papers/Main.md",
+   "old": "and the map acts on a finite $S$ under the total-finiteness posit (§1.2 Remark, §4.5 ledger)",
+   "new": "and on the finite representative of the total-finiteness posit (§1.2 Remark, §4.5 ledger) the map acts on a finite $S$",
+   "rows": [
+    "REM-s3"
+   ],
+   "reason": "finiteness of S scoped to the finite representative",
+   "old_sha256": "a94ef21be6f6dfa63828e830650556b20bfc181a139a262a15d06fe2c6e31972",
+   "new_sha256": "893639e573b2b8a9dedffe492f4cfa3052de774c9b6522597402760a26d78437"
+  },
+  {
+   "unit": "E3a",
+   "file": "papers/Main.md",
+   "old": "Total finiteness of that representative is a premise of the results that use it, carried as item (ii) of the posit ledger (§4.5), the total-finiteness posit, an open hypothesis, not adopted;",
+   "new": "Total finiteness of that representative is one sufficient condition for the results that use it, carried as item (ii) of the posit ledger (§4.5), the total-finiteness posit, an open hypothesis, not adopted; each such result names the hypotheses it consumes, and a weaker sufficient condition, where its sufficiency is proved, is stated with the result (§2.3, §3.2, §4.6);",
+   "rows": [
+    "REM-s3"
+   ],
+   "reason": "status Remark: sufficiency (DR-2b)",
+   "old_sha256": "26ed0d8b732d864194eafee9494b55450a647b65b43894f72271ba9702244271",
+   "new_sha256": "bcc2be52b853cb73cfaa2078f31c89764570b6e8f6adec6f83e39cdf477e7e1a"
+  },
+  {
+   "unit": "E3b",
+   "file": "papers/Main.md",
+   "old": "The finite representative is used by the recurrence step of §2.3 and the results resting on it",
+   "new": "The finite representative is used by the recurrence step of §2.3 (for whose P-indivisibility conclusion the near-return condition (NR) of §2.3 is a weaker sufficient condition; the exact return and its index $L$ are statements about the finite representative) and the results resting on it",
+   "rows": [
+    "M4",
+    "M5",
+    "M7"
+   ],
+   "reason": "use list names the alternative for M4",
+   "old_sha256": "be86f60285c3fd8e7eba0df669d184a9615aa9adc01b251cbeb8a18f35f45d46",
+   "new_sha256": "bfeeae5d0035200dc8b6d55eb7318f488e24b31e7b1d3d0de3cee231d6f60816"
+  },
+  {
+   "unit": "E5",
+   "file": "papers/Main.md",
+   "old": "the hidden space is finite under the total-finiteness posit (§1.2, §4.5).",
+   "new": "the hidden space is finite under the total-finiteness posit (§1.2, §4.5).\n\n*Corollary (near-return).* *Let $\\mathcal{C}_V$ be finite with $|\\mathcal{C}_V| \\geq 2$, let $\\rho$ be a probability on a measurable space $H$, shared by every root, let $F$ be a measurable map of $\\mathcal{C}_V \\times H$, and let $\\Gamma_t(a, b) = \\rho\\{h : \\pi_V F^t(a, h) = b\\}$. If $\\Gamma_s$ is not a permutation matrix, some roots $a \\neq b$ and value $x$ have $m = \\min(\\Gamma_s(a, x), \\Gamma_s(b, x)) > 0$. Assume, as a hypothesis of this result and not adopted, the near-return condition (NR) for such a pair: some $n > s$ has $(1 - \\Gamma_n(a, a)) + (1 - \\Gamma_n(b, b)) < m$. Then the rooted family is not P-divisible on $\\{0, \\ldots, n\\}$.* *Proof.* Each $\\Gamma_t$ is row-stochastic because $\\rho$ is a probability. If the $|\\mathcal{C}_V|$ rows of $\\Gamma_s$ had pairwise disjoint supports, the supports would partition the $|\\mathcal{C}_V|$ columns into singletons and $\\Gamma_s$ would be a permutation matrix; so two rows $a \\neq b$ share a column $x$, and $m > 0$. Then $d(\\Gamma_s(a), \\Gamma_s(b)) \\leq 1 - m$, while testing the event $\\{a\\}$ gives $d(\\Gamma_n(a), \\Gamma_n(b)) \\geq \\Gamma_n(a, a) - \\Gamma_n(b, a) \\geq 1 - (1 - \\Gamma_n(a, a)) - (1 - \\Gamma_n(b, b)) > 1 - m$. A row-stochastic $\\Lambda$ with $\\Gamma_n = \\Gamma_s \\Lambda$ would not increase the total variation distance between rows (the contraction stated at the start of the proof above), so none exists. $\\square$ On a finite representative Step 1 supplies the condition (NR) at every multiple of $N$ exceeding $s$. The condition (NR) needs no finite hidden space, invariant law or bijection, and it fixes neither $N$ nor $n$.",
+   "rows": [
+    "M4",
+    "F2"
+   ],
+   "reason": "A1-free form of the one-step theorem under (NR) (LADDER §3.4)",
+   "old_sha256": "ff231ff7869e6c6f3b3f26467b2968467b302234ff1a1592536456570bcec974",
+   "new_sha256": "2a27eaf14c2bfb569dd2d92efcb46ae13f7c89fc7c86bb4e0c836006e6c21dad"
+  },
+  {
+   "unit": "E6",
+   "file": "papers/Main.md",
+   "old": "What (C4) adds within accessible windows is the positive conditional memory of the readback lemma below.",
+   "new": "What (C4) adds within accessible windows is the positive conditional memory of the readback lemma below. Without a finite representative the index-free form holds under full support of the visible prior, (FS), with the root drawn independently of the hidden prior, one direction at a time. (a) A readback gap at some finite order $k$ gives (b) some $\\Gamma_s$, $1 \\leq s \\leq k$, that is not a permutation, by the first half of the proof above with $\\min(k, L-1)$ replaced by $k$, which uses no return. (b) gives (c), the family not P-divisible on $\\{0, \\ldots, n\\}$ for some $n$, by the corollary (near-return), when the near-return condition (NR) holds for an overlapping pair of rows of that $\\Gamma_s$, assumed as a hypothesis of this implication and not adopted. (c) gives (a): if no order below $n$ has a gap, the law on $\\{0, \\ldots, n\\}$ is Markov with one-step matrices $Q_j$ (rows of zero-probability states chosen stochastic), every root has positive probability under full support (FS), so each row of $\\Gamma_t$ is a conditional law of that Markov process and $\\Gamma_t = \\Gamma_s (Q_s \\cdots Q_{t-1})$ for all $s < t \\leq n$, and the family is P-divisible on $\\{0, \\ldots, n\\}$. The bound below $L$ and the horizon $\\{0, \\ldots, L\\}$ are statements about the finite representative.",
+   "rows": [
+    "M5",
+    "M7"
+   ],
+   "reason": "index-free form (REC-1 Props 6.1, 6.2) one direction at a time, with (FS)",
+   "old_sha256": "f5fd9cb0aba0112d7125a72d0e0893daa0dc351b8c9a92931696f0e03a793b8e",
+   "new_sha256": "e26bdb4aa3dd453d1f5679dd1cfad5a35c39f77ca92b1968ba315349ec5d2492"
+  },
+  {
+   "unit": "E7",
+   "file": "papers/Main.md",
+   "old": "the former establishes P-indivisibility from a non-permutation one-step witness and finiteness alone, at the recurrence time",
+   "new": "the former establishes P-indivisibility from a non-permutation one-step witness and finiteness alone, at the recurrence time, or from a non-permutation rooted map and the near-return condition (NR) of §2.3, assumed in its place, without finiteness",
+   "rows": [
+    "M4"
+   ],
+   "reason": "summary names the alternative",
+   "old_sha256": "7eb96055d76672f8ff58184fddf8ea31c5d657a38b82106bdcb77f0a08d4e23c",
+   "new_sha256": "20127b3b19ca1fdddfce33ef32e60f6abf5232cb8854c6f8e7cf913f178e0e2f"
+  },
+  {
+   "unit": "E15",
+   "file": "papers/Main.md",
+   "old": "where a result also needs the hidden sector finite.",
+   "new": "where a result also needs the hidden sector finite; the near-return corollary of §2.3 and the remark of §3.2 under the condition (IP) take a measurable hidden space.",
+   "rows": [
+    "REM-s3",
+    "M4",
+    "M3"
+   ],
+   "reason": "M:222 read as finite visible spaces (re-review 7031703263); additive, CTL-12",
+   "old_sha256": "1ac4d6661bd61b90d81bfc9fb37c7b4e5528fea4c55a32b689434aac1593e38b",
+   "new_sha256": "49a9c6ee46ac142d05c81140f885de867b9c326be6c5e5e88a4a2fb057a910a7"
+  },
+  {
+   "unit": "E9",
+   "file": "papers/Main.md",
+   "old": "For the characterization theorem (§3.4), which is stated in terms of transition probabilities, this is the appropriate scope.",
+   "new": "For the characterization theorem (§3.4), which is stated in terms of transition probabilities, this is the appropriate scope. On a measurable carrier the conclusion holds at every step under the invariant-product condition (IP), assumed as a hypothesis of this remark and not adopted: $\\varphi$ preserves a probability $\\nu \\otimes \\rho$ on $\\mathcal{C}_V \\times H$ with $\\nu$ uniform. For the rooted maps $\\Gamma_t$ of the prior $\\rho$, as in §2.3, rows sum to one because $\\rho$ is a probability, and $\\sum_a \\Gamma_t(a, b) = |\\mathcal{C}_V|\\,(\\nu \\otimes \\rho)(\\pi_V \\circ \\varphi^t = b) = |\\mathcal{C}_V|\\,\\nu(b) = 1$ by invariance.",
+   "rows": [
+    "M3",
+    "F4"
+   ],
+   "reason": "doubly stochastic corner under (IP) (R1-INF Lemma 8)",
+   "old_sha256": "c3617ad145818c07cb3d4dc95e0e31776612b35723a4f5c866aaeeeb34e142e6",
+   "new_sha256": "51ba1c85440410abb0fa916ddad4c832f5abe7a7b7ef2b947667795ba0dbf758"
+  },
+  {
+   "unit": "E10",
+   "file": "papers/Main.md",
+   "old": "item (ii) of the posit ledger (§4.5), an open hypothesis, not adopted, with the deep-sector scope stated there",
+   "new": "item (ii) of the posit ledger (§4.5), an open hypothesis, not adopted, and one sufficient condition among those stated at each use, with the deep-sector scope stated there",
+   "rows": [
+    "REM-s3"
+   ],
+   "reason": "pointer",
+   "old_sha256": "eda69acb7b58aeb841b73bb605b295413f7d31141e16a0a122e0a561f396bb66",
+   "new_sha256": "de5dffe86b9a57bd61ad996696a959b989443daed6f687f0cacf0cba043f280e"
+  },
+  {
+   "unit": "E11",
+   "file": "papers/Main.md",
+   "old": "Recurrence-scale P-indivisibility uses finite order of the specified bijective representative and a non-permutation rooted map",
+   "new": "Recurrence-scale P-indivisibility uses finite order of the specified bijective representative, or the near-return condition (NR) assumed in its place, and a non-permutation rooted map",
+   "rows": [
+    "M4"
+   ],
+   "reason": "scope of results",
+   "old_sha256": "233ad7541a7e200c8ff302ada908a3ae21967ab957515ff3d8f673ed87dcf5e2",
+   "new_sha256": "10abd865db475850b84e889cf2bf1021f59812211a4bf2d51d2f964bd19317e7"
+  },
+  {
+   "unit": "E12",
+   "file": "papers/Main.md",
+   "old": "a deterministic bijection on a set whose finiteness is the total-finiteness posit (§1.2 Remark, §4.5 ledger item (ii)), an open hypothesis, not adopted.",
+   "new": "a deterministic bijection on a set, finite under the total-finiteness posit (§1.2 Remark, §4.5 ledger item (ii)), an open hypothesis, not adopted and one sufficient condition among those stated at each use.",
+   "rows": [
+    "REM-s3"
+   ],
+   "reason": "falsifiability statement",
+   "old_sha256": "22caf605bcf8e9004e22a295cc8d445202756f48da340b30615a457da8dbc680",
+   "new_sha256": "b90cb3f895f3da9bf17c856e71b2c0b98a09de84f289305bbaa7bd9e38efbc58"
+  },
+  {
+   "unit": "E13a",
+   "file": "papers/Main.md",
+   "old": "(ii) total finiteness of the bijective representative of the status Remark of §1.2 (an open hypothesis, not adopted) —",
+   "new": "(ii) total finiteness of the bijective representative of the status Remark of §1.2 (an open hypothesis, not adopted), carried as one sufficient condition and not as a premise of the framework: each result that uses it names the hypotheses it consumes, and a weaker sufficient condition, where its sufficiency is proved, is stated with the result — the near-return condition (NR) for the P-indivisibility conclusion of §2.3, the invariant-product condition (IP) for the doubly stochastic marginal of §3.2 and the invariant-law condition (IL) for the decay estimate of §4.6, each assumed as a hypothesis of that result and not adopted, and reversibility (REV), item (iii), an alternative sufficient condition for bijectivity — while the counting-measure selection of Lemma 3, the exact return and its index $L$, the orbit capacity, the CP-indivisibility theorem of §3.2, the physical-memory theorem of §3.4 and the canonical-typicality step of §4.6 are statements about finite representatives —",
+   "rows": [
+    "REM-s3",
+    "M1",
+    "M3",
+    "M4",
+    "M11",
+    "M18"
+   ],
+   "reason": "posit ledger item (ii) (DR-1)",
+   "old_sha256": "d9c08f572d2cd7d97d7db2924ef24f9f30a6e249c9bf65f1ca213fee7b4865ce",
+   "new_sha256": "9f9d1c3220437c728fcb4c6aaea40e056ebc0eb97bb14ae1b8c3600a39ec3492"
+  },
+  {
+   "unit": "E13b",
+   "file": "papers/Main.md",
+   "old": "(a reader who declines the recovery may instead adopt reversibility as the standard information-conservation postulate",
+   "new": "(a reader who declines the recovery may instead adopt reversibility (REV), $\\varphi$ a bimeasurable bijection of a measurable carrier, as the standard information-conservation postulate",
+   "rows": [
+    "M11"
+   ],
+   "reason": "label for the printed alternative",
+   "old_sha256": "257840cfb258ce5d407b7551513ecd7c6bf017b5b27ff671c307c93a80812a8b",
+   "new_sha256": "179cc3685a062c77f69ec646844ae3241570cd5fd21850020c3e7d16c7003fa6"
+  },
+  {
+   "unit": "E13c",
+   "file": "papers/Main.md",
+   "old": "the framework's claims are conditional on the full list.",
+   "new": "the framework's claims are conditional on the full list, item (ii) entering only as one of the sufficient conditions named at each use.",
+   "rows": [
+    "REM-s3"
+   ],
+   "reason": "closing sentence (DR-2)",
+   "old_sha256": "7ee038fb3cf12e5b3cf8b7f2051f62ee8fe6c0d110c8a9be8a848aa87623e691",
+   "new_sha256": "c00f4cb95a9728155c7f06198ac59f8cf59b950c2a7adac688c6d6ad1f89ca15"
+  },
+  {
+   "unit": "E14",
+   "file": "papers/Main.md",
+   "old": "it does not follow from isotropy or bounded-coupling regularity. Three scope notes.",
+   "new": "it does not follow from isotropy or bounded-coupling regularity. Of these inputs, the decay estimate for the iterated effective channel holds with finiteness of $S$ replaced by the invariant-law condition (IL), assumed as a hypothesis of this estimate and not adopted: a normalized $\\varphi$-invariant probability $\\mu$, $P$ the $\\mu$-conditional expectation onto the declared local observables of a finite readout support with a locally finite dependence cone, and (EM) stated for the $\\mu$-centred observables of $L^2(\\mu)$. The $O(\\varepsilon)$ typical-set and finite-size corrections, the canonical-typicality clause and the exact recurrence of the Koopman operator of a finite permutation (Setup) are statements about the finite representative. Three scope notes.",
+   "rows": [
+    "M18",
+    "M20"
+   ],
+   "reason": "narrowed operator-step form (P8-M)",
+   "old_sha256": "8c8ed78d744241a1ae61e7209527b05a8af44d6ba1641602231466df4c701b73",
+   "new_sha256": "32a1f098462c66d940981c8d955e1228e9010f62d67f3d55b94a6f99605d6a92"
+  },
+  {
+   "unit": "B1",
+   "file": "book/ch00-introduction.md",
+   "old": "Chapter 2 uses a finite bijective representative $(S,\\varphi)$ under A1, which remains open as a physical posit.",
+   "new": "Chapter 2 uses a finite bijective representative $(S,\\varphi)$ under A1, which remains open as a physical posit, not adopted, and is one sufficient condition among those the results name.",
+   "rows": [
+    "REM-s3"
+   ],
+   "reason": "mirror of E1/E13a",
+   "old_sha256": "d42d6df5bada8c946ebdadc16aeced69984addacd5d734187e872b8a4c31d6d2",
+   "new_sha256": "32de56084fc608462f511a35b5a2565c36ad58bf4a0887e17f0cbc7a50620e74"
+  },
+  {
+   "unit": "B1-FULL",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "old": "Chapter 2 uses a finite bijective representative $(S,\\varphi)$ under A1, which remains open as a physical posit.",
+   "new": "Chapter 2 uses a finite bijective representative $(S,\\varphi)$ under A1, which remains open as a physical posit, not adopted, and is one sufficient condition among those the results name.",
+   "rows": [
+    "REM-s3"
+   ],
+   "reason": "FULL mirror of B1 (§A.14)",
+   "old_sha256": "d42d6df5bada8c946ebdadc16aeced69984addacd5d734187e872b8a4c31d6d2",
+   "new_sha256": "32de56084fc608462f511a35b5a2565c36ad58bf4a0887e17f0cbc7a50620e74"
+  },
+  {
+   "unit": "B2",
+   "file": "book/ch01-observation.md",
+   "old": "and the map acts on a finite system under the finiteness posit A1 (Chapter 2 §2.4)",
+   "new": "and on the finite representative of the finiteness posit A1 (Chapter 2 §2.4) the map acts on a finite system",
+   "rows": [
+    "REM-s3"
+   ],
+   "reason": "mirror of E2",
+   "old_sha256": "4fc21aa863d77249faaf63e8e6c74d7cb903c3bbe876673107d91bf50ae0c41f",
+   "new_sha256": "939fde41b54bc48866c2478dc861496a05bfdd815daa5d3f567eeb6366ec07e4"
+  },
+  {
+   "unit": "B2-FULL",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "old": "and the map acts on a finite system under the finiteness posit A1 (Chapter 2 §2.4)",
+   "new": "and on the finite representative of the finiteness posit A1 (Chapter 2 §2.4) the map acts on a finite system",
+   "rows": [
+    "REM-s3"
+   ],
+   "reason": "FULL mirror of B2 (§A.14)",
+   "old_sha256": "4fc21aa863d77249faaf63e8e6c74d7cb903c3bbe876673107d91bf50ae0c41f",
+   "new_sha256": "939fde41b54bc48866c2478dc861496a05bfdd815daa5d3f567eeb6366ec07e4"
+  },
+  {
+   "unit": "B3",
+   "file": "book/ch01-observation.md",
+   "old": "The extension therefore holds for flows with such a common return and is open for general Hamiltonian flows ([Main §2.3]).",
+   "new": "The extension therefore holds for flows with such a common return and is open for general Hamiltonian flows ([Main §2.3]).\n\n*Corollary (near-return).* *Let $\\mathcal{C}_V$ be finite with $|\\mathcal{C}_V| \\geq 2$, let $\\rho$ be a probability on a measurable space $H$, shared by every root, let $F$ be a measurable map of $\\mathcal{C}_V \\times H$, and let $\\Gamma_t(a, b) = \\rho\\{h : \\pi_V F^t(a, h) = b\\}$. If $\\Gamma_s$ is not a permutation matrix, some roots $a \\neq b$ and value $x$ have $m = \\min(\\Gamma_s(a, x), \\Gamma_s(b, x)) > 0$. Assume, as a hypothesis of this result and not adopted, the near-return condition (NR) for such a pair: some $n > s$ has $(1 - \\Gamma_n(a, a)) + (1 - \\Gamma_n(b, b)) < m$. Then the rooted family is not P-divisible on $\\{0, \\ldots, n\\}$.* *Proof.* Each $\\Gamma_t$ is row-stochastic because $\\rho$ is a probability. If the $|\\mathcal{C}_V|$ rows of $\\Gamma_s$ had pairwise disjoint supports, the supports would partition the $|\\mathcal{C}_V|$ columns into singletons and $\\Gamma_s$ would be a permutation matrix; so two rows $a \\neq b$ share a column $x$, and $m > 0$. Then $d(\\Gamma_s(a), \\Gamma_s(b)) \\leq 1 - m$, while testing the event $\\{a\\}$ gives $d(\\Gamma_n(a), \\Gamma_n(b)) \\geq \\Gamma_n(a, a) - \\Gamma_n(b, a) \\geq 1 - (1 - \\Gamma_n(a, a)) - (1 - \\Gamma_n(b, b)) > 1 - m$. A row-stochastic $\\Lambda$ with $\\Gamma_n = \\Gamma_s \\Lambda$ would not increase the total variation distance between rows (every stochastic matrix contracts total variation), so none exists. $\\square$ On a finite representative Step 1 of the proof above supplies the condition (NR) at every multiple of $N$ exceeding $s$. The condition (NR) needs no finite hidden space, invariant law or bijection, and it fixes neither $N$ nor $n$.",
+   "rows": [
+    "M4"
+   ],
+   "reason": "mirror of E5",
+   "old_sha256": "8f1bf05e452b141c66ad58d42dfe6d3ac8770ada30e8739016894806dcdc8842",
+   "new_sha256": "af396aff8e8b81e423cac94abcdf54d3a7f86429de20779984e2919d28d04d19"
+  },
+  {
+   "unit": "B3-FULL",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "old": "The extension therefore holds for flows with such a common return and is open for general Hamiltonian flows ([Main §2.3]).",
+   "new": "The extension therefore holds for flows with such a common return and is open for general Hamiltonian flows ([Main §2.3]).\n\n*Corollary (near-return).* *Let $\\mathcal{C}_V$ be finite with $|\\mathcal{C}_V| \\geq 2$, let $\\rho$ be a probability on a measurable space $H$, shared by every root, let $F$ be a measurable map of $\\mathcal{C}_V \\times H$, and let $\\Gamma_t(a, b) = \\rho\\{h : \\pi_V F^t(a, h) = b\\}$. If $\\Gamma_s$ is not a permutation matrix, some roots $a \\neq b$ and value $x$ have $m = \\min(\\Gamma_s(a, x), \\Gamma_s(b, x)) > 0$. Assume, as a hypothesis of this result and not adopted, the near-return condition (NR) for such a pair: some $n > s$ has $(1 - \\Gamma_n(a, a)) + (1 - \\Gamma_n(b, b)) < m$. Then the rooted family is not P-divisible on $\\{0, \\ldots, n\\}$.* *Proof.* Each $\\Gamma_t$ is row-stochastic because $\\rho$ is a probability. If the $|\\mathcal{C}_V|$ rows of $\\Gamma_s$ had pairwise disjoint supports, the supports would partition the $|\\mathcal{C}_V|$ columns into singletons and $\\Gamma_s$ would be a permutation matrix; so two rows $a \\neq b$ share a column $x$, and $m > 0$. Then $d(\\Gamma_s(a), \\Gamma_s(b)) \\leq 1 - m$, while testing the event $\\{a\\}$ gives $d(\\Gamma_n(a), \\Gamma_n(b)) \\geq \\Gamma_n(a, a) - \\Gamma_n(b, a) \\geq 1 - (1 - \\Gamma_n(a, a)) - (1 - \\Gamma_n(b, b)) > 1 - m$. A row-stochastic $\\Lambda$ with $\\Gamma_n = \\Gamma_s \\Lambda$ would not increase the total variation distance between rows (every stochastic matrix contracts total variation), so none exists. $\\square$ On a finite representative Step 1 of the proof above supplies the condition (NR) at every multiple of $N$ exceeding $s$. The condition (NR) needs no finite hidden space, invariant law or bijection, and it fixes neither $N$ nor $n$.",
+   "rows": [
+    "M4"
+   ],
+   "reason": "FULL mirror of B3 (§A.14)",
+   "old_sha256": "8f1bf05e452b141c66ad58d42dfe6d3ac8770ada30e8739016894806dcdc8842",
+   "new_sha256": "af396aff8e8b81e423cac94abcdf54d3a7f86429de20779984e2919d28d04d19"
+  },
+  {
+   "unit": "B4",
+   "file": "book/ch01-observation.md",
+   "old": "Because the physical representative is, under A1, finite and reversible, it also recurs:",
+   "new": "Under A1 the physical representative is finite and reversible, so it also recurs; without A1, the near-return condition of the corollary in §1.5 is the stated sufficient condition for the indivisibility conclusion:",
+   "rows": [
+    "M10",
+    "M4"
+   ],
+   "reason": "mirror of E3b/E6",
+   "old_sha256": "f8670bcd63be2706b33dd9dbd72f2579b89b2c806bafd0daa69c0cb571108f83",
+   "new_sha256": "ffc3608537750d2594b274b2a16a23d31c9d1d0752ff2d4a8060e25bd8b6f265"
+  },
+  {
+   "unit": "B4-FULL",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "old": "Because the physical representative is, under A1, finite and reversible, it also recurs:",
+   "new": "Under A1 the physical representative is finite and reversible, so it also recurs; without A1, the near-return condition of the corollary in §1.5 is the stated sufficient condition for the indivisibility conclusion:",
+   "rows": [
+    "M10",
+    "M4"
+   ],
+   "reason": "FULL mirror of B4 (§A.14)",
+   "old_sha256": "f8670bcd63be2706b33dd9dbd72f2579b89b2c806bafd0daa69c0cb571108f83",
+   "new_sha256": "ffc3608537750d2594b274b2a16a23d31c9d1d0752ff2d4a8060e25bd8b6f265"
+  },
+  {
+   "unit": "B6",
+   "file": "book/appendix-b-derivations.md",
+   "old": "For the characterization theorem (Chapter 1 §1.8), which is stated in terms of transition probabilities, this is the appropriate scope.",
+   "new": "For the characterization theorem (Chapter 1 §1.8), which is stated in terms of transition probabilities, this is the appropriate scope. On a measurable carrier the conclusion holds at every step under the invariant-product condition (IP), assumed as a hypothesis of this remark and not adopted: $\\varphi$ preserves a probability $\\nu \\otimes \\rho$ on $\\mathcal{C}_V \\times H$ with $\\nu$ uniform. For the rooted maps $\\Gamma_t$ of the prior $\\rho$, as in Chapter 1 §1.5, rows sum to one because $\\rho$ is a probability, and $\\sum_a \\Gamma_t(a, b) = |\\mathcal{C}_V|\\,(\\nu \\otimes \\rho)(\\pi_V \\circ \\varphi^t = b) = |\\mathcal{C}_V|\\,\\nu(b) = 1$ by invariance.",
+   "rows": [
+    "M3"
+   ],
+   "reason": "mirror of E9",
+   "old_sha256": "1a87ce99d4a65918572da4f3a139a9118b6497c61c15255286ef2af412026d62",
+   "new_sha256": "e9790bd0ab23537f768f54af4fa7952b3de9564160821455c0313de7c77cdf79"
+  },
+  {
+   "unit": "B6-FULL",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "old": "For the characterization theorem (Chapter 1 §1.8), which is stated in terms of transition probabilities, this is the appropriate scope.",
+   "new": "For the characterization theorem (Chapter 1 §1.8), which is stated in terms of transition probabilities, this is the appropriate scope. On a measurable carrier the conclusion holds at every step under the invariant-product condition (IP), assumed as a hypothesis of this remark and not adopted: $\\varphi$ preserves a probability $\\nu \\otimes \\rho$ on $\\mathcal{C}_V \\times H$ with $\\nu$ uniform. For the rooted maps $\\Gamma_t$ of the prior $\\rho$, as in Chapter 1 §1.5, rows sum to one because $\\rho$ is a probability, and $\\sum_a \\Gamma_t(a, b) = |\\mathcal{C}_V|\\,(\\nu \\otimes \\rho)(\\pi_V \\circ \\varphi^t = b) = |\\mathcal{C}_V|\\,\\nu(b) = 1$ by invariance.",
+   "rows": [
+    "M3"
+   ],
+   "reason": "FULL mirror of B6 (§A.14)",
+   "old_sha256": "1a87ce99d4a65918572da4f3a139a9118b6497c61c15255286ef2af412026d62",
+   "new_sha256": "e9790bd0ab23537f768f54af4fa7952b3de9564160821455c0313de7c77cdf79"
+  },
+  {
+   "unit": "B7",
+   "file": "book/appendix-c-objections.md",
+   "old": "Posit A1 is a mathematical assumption of the results that use it, the recurrence route to P-indivisibility among them;",
+   "new": "Posit A1 is a mathematical assumption of the results that use it, the recurrence route to P-indivisibility among them, and one sufficient condition rather than a premise of the framework: the indivisibility conclusion of that route also follows from the near-return condition of Chapter 1 §1.5, assumed in its place and not adopted;",
+   "rows": [
+    "REM-s3",
+    "M4"
+   ],
+   "reason": "mirror of E13a in the C.6 response",
+   "old_sha256": "d60cc1e862aeaa20057b74d099afb82a7ae7baf428a61c451dcbcb3042a964ab",
+   "new_sha256": "c989cae095d9e1be757edfdb1b05bc8fe14d8b881e5267c221e76009e332fedb"
+  },
+  {
+   "unit": "B7-FULL",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "old": "Posit A1 is a mathematical assumption of the results that use it, the recurrence route to P-indivisibility among them;",
+   "new": "Posit A1 is a mathematical assumption of the results that use it, the recurrence route to P-indivisibility among them, and one sufficient condition rather than a premise of the framework: the indivisibility conclusion of that route also follows from the near-return condition of Chapter 1 §1.5, assumed in its place and not adopted;",
+   "rows": [
+    "REM-s3",
+    "M4"
+   ],
+   "reason": "FULL mirror of B7 (§A.14)",
+   "old_sha256": "d60cc1e862aeaa20057b74d099afb82a7ae7baf428a61c451dcbcb3042a964ab",
+   "new_sha256": "c989cae095d9e1be757edfdb1b05bc8fe14d8b881e5267c221e76009e332fedb"
+  },
+  {
+   "unit": "B8",
+   "file": "book/glossary.md",
+   "old": "Discussed in Chapter 2 §2.4, with defense in Appendix C §C.6.",
+   "new": "It is one sufficient condition for the results that use it, each of which names the hypotheses it consumes. Discussed in Chapter 2 §2.4, with defense in Appendix C §C.6.",
+   "rows": [
+    "REM-s3"
+   ],
+   "reason": "mirror of E13a",
+   "old_sha256": "18c9b6c50273b39185d4186593d9f65f17b666c46cf17a31e1fa232cb269a73e",
+   "new_sha256": "810aeb82ec4c4985c993e5b24a6501bb732d352d930568d445c1bf6d2c1eb3c5"
+  },
+  {
+   "unit": "B8-FULL",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "old": "Discussed in Chapter 2 §2.4, with defense in Appendix C §C.6.",
+   "new": "It is one sufficient condition for the results that use it, each of which names the hypotheses it consumes. Discussed in Chapter 2 §2.4, with defense in Appendix C §C.6.",
+   "rows": [
+    "REM-s3"
+   ],
+   "reason": "FULL mirror of B8 (§A.14)",
+   "old_sha256": "18c9b6c50273b39185d4186593d9f65f17b666c46cf17a31e1fa232cb269a73e",
+   "new_sha256": "810aeb82ec4c4985c993e5b24a6501bb732d352d930568d445c1bf6d2c1eb3c5"
+  }
+ ]
+}
