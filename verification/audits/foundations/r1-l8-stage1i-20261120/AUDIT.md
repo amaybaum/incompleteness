@@ -33,7 +33,7 @@ boundary count (§2.4).
 |---|---|---|---|---|
 | R1 a₀ = cH/6 | **X (i)** | Verlinde's factor (d−3)/((d−2)(d−1)), in whose derivation the area-entropy coefficient cancels; measured H | Displayed value: no, because it is imported. OI's own mechanism: not determined (U), since the factor is not derived in OI (§2.4) | consistency (retrodiction of an imported value) |
 | R2 v⁴ = GM_B·cH/6, r_M | **X (i)**; deep-regime law conditional on the proposed displacement law | as R1 | as R1 | consistency; normalization comparison open (GR:547) |
-| R2z a₀(z) = cH(z)/6 and its Tully–Fisher / r_M evolution | **X (i)**, with an extension that is OI-adopted, not derived (GR:56, :512) | as R1; the H(z) scaling is OI's extension beyond exact de Sitter | as R1 | **correctness** (OI-specific, not fitted; in tension, GR:514–516) |
+| R2z a₀(z) = cH(z)/6 and its Tully–Fisher / r_M evolution | **X (i)**, with an extension that is OI-adopted, not derived (GR:56, :512) | as R1; the H(z) scaling is OI's extension beyond exact de Sitter | as R1 | **correctness** (OI-adopted, not derived (GR:56); not fitted; in tension, GR:514–516) |
 | R3 ρ_s = ρ_crit | **X (a)** | none: σ, ε, the count and the law cancel; only the first-law prefactor, the area-law form and V_H remain | No | none (identity with a quantity computed from H) |
 | R4 ρ_s/ρ_crit = 2/(d−1); d = 3 filter | **X (a)**; its use as a filter is conditional on the open source identification | none (as R3, with the d-dimensional first law, V = AR/d and Friedmann) | No | consistency at most, against the inferred Ω_total (§A.24) |
 | R5 ħ = c³ε²/(4Gσ) | **X (m)**, Z; named conditions H-count, H-slope, H-frame, H-Hawking, local boost, symmetric rates | ε²/σ calibrated from measured ħ | Yes, in the unobserved ε²/σ (C1.b) | none (calibration) |
@@ -81,8 +81,8 @@ parameter from a measurement and then predicts that measurement. ρ_s = ρ_crit 
 case.
 
 **Correctness vs consistency (§A.23).** This audit is consistency work and moves no correctness
-band. Of the traced results only R2z (the redshift evolution a₀(z) = cH(z)/6, an OI-specific
-extension not in the imported source) is a correctness-axis confrontation; it is reported in tension
+band. Of the traced results only R2z (the redshift evolution a₀(z) = cH(z)/6, OI-adopted, not
+derived (GR:56), and not in the imported source) is a correctness-axis confrontation; it is reported in tension
 with three data sets (GR:514–516, :548–549). a₀ against g_† and the Tully–Fisher normalization are
 consistency-axis comparisons of an imported formula with a value known before the import.
 
@@ -231,10 +231,10 @@ Z = Test Z flag.
 |---|---|---|---|---|---|---|---|---|
 | R1 a₀ | cH/6 if the count is used on both sides of eq. 1.5; X (i) | cH/(6k) if the count is the volume-law entropy and Step 1's A2 value the displacement; X (i) | cH/6; X (i) | cH/6 (Verlinde as imported); X (i) | value: A3 inside the import; prose: the count as the displaced reservoir (GR:468–478), A2 for Step 1 | **X (i)** for the displayed value; OI's own mechanism U | value no (imported), mechanism undetermined / no / no | GR:470: T_dS conditions and Q = M_Bc² (not load-bearing for the value); C2 reading |
 | R2 Tully–Fisher, r_M | as R1 | as R1 | as R1 | as R1 | as R1 | **X (i)**; mechanism U | as R1 | as R1; the proposed displacement law supplying g_total = √(g_B a₀) (GR:486) |
-| R2z a₀(z) evolution | as R1 at each z | as R1 | as R1 | as R1 | as R1 plus H → H(z) | **X (i)**; the extension is OI-adopted, not derived | as R1 / yes (the H(z) choice) / no | as R1; extension beyond exact de Sitter (GR:56, :512) |
+| R2z a₀(z) evolution | as R1 at each z | as R1 | as R1 | as R1 | as R1 plus H → H(z) | **X (i)**; the extension is OI-adopted, not derived | as R1 / no (H(z) is not an OI quantity; the extension is OI-adopted, not derived) / no | as R1; extension beyond exact de Sitter (GR:56, :512) |
 | R3 ρ_s = ρ_crit | ρ_crit; X (a) | ρ_crit/k; X (a) | ρ_crit; X (a) | ρ_crit; X (a) | A1a (GR:426) | **X (a)** | no / no / no | first law; area-law form; source identification open (GR:420) |
 | R4 2/(d−1), d = 3 filter | 2/(d−1); X (a) | 2/((d−1)k); X (a) | 2/(d−1); X (a) | 2/(d−1); X (a) | A1a (GR:440; SM:196 "normalized as in [GR §§5, 7.2]") | **X (a)**; filter use conditional | no / no / no | d-dimensional first-law form; source identification open (GR:444, SM:194); inferred Ω_total (Sub:88) |
-| R5 ħ relation | c³ε²/(4Gσ); C form, X (m) value | c³ε²/(4Gσk); same | — (A2 takes ħ as input) | — | A1a = A1b under H-count (GR:78–80, :144) | **X (m)** | yes / yes / flagged (§5) | H-count, H-slope, H-frame, H-Hawking, local boost, symmetric rates (GR:88) |
+| R5 ħ relation | c³ε²/(4Gσ); X (m) | c³ε²/(4Gσk); same | — (A2 takes ħ as input) | — | A1a = A1b under H-count (GR:78–80, :144) | **X (m)** | yes / yes / flagged (§5) | H-count, H-slope, H-frame, H-Hawking, local boost, symmetric rates (GR:88) |
 | R6 ε, ε_lat | 2√σ l_p; X (m) | 2√(kσ) l_p; X (m) | — | — | calibration (GR:306) | **X (m)** (K3) | yes / yes / flagged (§5) | as R5; H-link single-link reading for ε_lat (GR:104) |
 | R7 1/4 | count = A/(4l_p²) at k = 1 | count = A/(4k l_p²) | A/(4l_p²) for every k; X (a) | A/(4l_p²) as input; X (i) | A2 coefficient transported to the count (GR:318, :320) | coefficient **X (a)**; count's equality **X (m)**, **Z** | count yes, coefficient no / no / flagged | as R5 |
 | R8 N_modes | A/(4σl_p²); X (m) | A/(4kσl_p²); X (m) | — | — | GR:316, :366 | **X (m)** | yes / yes / no | as R5 |
@@ -357,7 +357,7 @@ is not an exhaustive census.
 |---|---|---|
 | a₀ = cH/6 vs g_† = (1.20 ± 0.02 ± 0.24)×10⁻¹⁰ m/s² (GR:482) | consistency: the value is imported and the source presents it as reproducing Milgrom's scale (arXiv:1611.02269v2, after eq. 1.7) | radial-acceleration fit; depends on stellar mass-to-light (GR:482) |
 | v⁴ = GM_B·cH/6 | consistency; normalization comparison open (GR:547) | raw/direct (velocities, baryonic masses) |
-| a₀(z), BTFR and r_M evolution | **correctness**: OI-specific extension, not fitted; reported in tension (GR:514–516, :548–549) | raw/direct, with baryonic masses partly model-dependent (GR:516) |
+| a₀(z), BTFR and r_M evolution | **correctness**: extension OI-adopted, not derived (GR:56), not fitted; reported in tension (GR:514–516, :548–549) | raw/direct, with baryonic masses partly model-dependent (GR:516) |
 | ρ_s = ρ_crit | none: identity with ρ_crit computed from H | — |
 | 2/(d−1) | consistency at most, conditional on the source identification | inferred Ω_total ≈ 1 (Sub:88) |
 | ħ, ε, 1/4, N_modes | none (calibration and consistency relations; no direct test of the 1/4, GR:320) | — |
