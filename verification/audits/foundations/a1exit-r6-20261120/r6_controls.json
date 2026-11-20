@@ -1,0 +1,200 @@
+{
+ "all_pass": true,
+ "controls": {
+  "K1": {
+   "cases": [
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     2
+    ]
+   ],
+   "comparisons": 26352,
+   "first_mismatch": null,
+   "mismatches": 0,
+   "mixture_not_cptp": 0,
+   "mixture_not_diagonal_with_rooted_populations": 0,
+   "pass": true,
+   "priors_per_case": 3,
+   "t_max": 6
+  },
+  "K2": {
+   "diag_failure_example": {
+    "F": "swap (x,h)->(h,x), |V|=|H|=2",
+    "Phi_1(|0><0|)": [
+     [
+      "1/2",
+      "1/2"
+     ],
+     [
+      "1/2",
+      "1/2"
+     ]
+    ],
+    "off_diagonal_nonzero": true,
+    "psi": "constant, normalized"
+   },
+   "extension_v3": {
+    "countermodels": 0,
+    "decided_pairs": 1104,
+    "first_countermodel": null,
+    "p_indivisible_pairs": 4416,
+    "population_mismatch": 0,
+    "searched": [
+     {
+      "bijections": 720,
+      "nH": 2,
+      "nV": 3,
+      "t_max": 8
+     }
+    ],
+    "undecided_singular_channel": 3312,
+    "undecided_singular_gamma": 6144,
+    "v2_coherent_part_equal_violations": 0
+   },
+   "pass": true,
+   "prereg": {
+    "countermodels": 0,
+    "decided_pairs": 244728,
+    "first_countermodel": null,
+    "p_indivisible_pairs": 840640,
+    "population_mismatch": 0,
+    "searched": [
+     {
+      "bijections": 24,
+      "nH": 2,
+      "nV": 2,
+      "t_max": 12
+     },
+     {
+      "bijections": 720,
+      "nH": 3,
+      "nV": 2,
+      "t_max": 12
+     },
+     {
+      "bijections": 40320,
+      "nH": 4,
+      "nV": 2,
+      "t_max": 12
+     }
+    ],
+    "undecided_singular_channel": 595912,
+    "undecided_singular_gamma": 0,
+    "v2_coherent_part_equal_violations": 0
+   }
+  },
+  "K3": {
+   "K3a_bernoulli": {
+    "Gamma_1": [
+     [
+      "1/2",
+      "1/2"
+     ],
+     [
+      "1/2",
+      "1/2"
+     ]
+    ],
+    "Gamma_2": [
+     [
+      "1/2",
+      "1/2"
+     ],
+     [
+      "1/2",
+      "1/2"
+     ]
+    ],
+    "P_divisible_on_0_8": true,
+    "cptp_all_t": true,
+    "diag_rooted_all_t": true,
+    "first_failing_pair": null
+   },
+   "K3b_odometer": {
+    "Gamma_1": [
+     [
+      "1/2",
+      "1/2"
+     ],
+     [
+      "1/2",
+      "1/2"
+     ]
+    ],
+    "Gamma_2": [
+     [
+      "0",
+      "1"
+     ],
+     [
+      "1",
+      "0"
+     ]
+    ],
+    "Gamma_4": [
+     [
+      "1",
+      "0"
+     ],
+     [
+      "0",
+      "1"
+     ]
+    ],
+    "NR_at_s1_n4": true,
+    "P_divisible_on_0_8": false,
+    "cptp_all_t": true,
+    "diag_rooted_all_t": true,
+    "first_failing_pair": [
+     1,
+     2
+    ],
+    "mixture_divisibility_at_failing_pair": "no linear Lambda (S1 identifies two diagonal inputs that S2 separates)"
+   },
+   "note": "pass records CPTP and diagonal preservation; the P-divisibility and (NR) entries are reported outcomes",
+   "pass": true
+  },
+  "K4": {
+   "Gamma_1_after_h_squared": [
+    [
+     "3/4",
+     "1/4"
+    ],
+    [
+     "1/4",
+     "3/4"
+    ]
+   ],
+   "Gamma_1_after_reflection": [
+    [
+     "1/2",
+     "1/2"
+    ],
+    [
+     "1/2",
+     "1/2"
+    ]
+   ],
+   "Gamma_1_original": [
+    [
+     "1/2",
+     "1/2"
+    ],
+    [
+     "1/2",
+     "1/2"
+    ]
+   ],
+   "pass": true
+  }
+ },
+ "schema": "a1exit-r6-controls/1"
+}
