@@ -14,7 +14,7 @@ fractions). No floating-point value decides any statement.
 Run from the record directory:
   python3 -I checks/univ2_checks.py              controls, A1, A2 on {-1,0,1} (a few seconds)
   python3 -I checks/univ2_checks.py --search     also A2 on {-2..2}, the families F1-F3 and the post hoc
-                                                 check X1 (about 20 minutes)
+                                                 checks X1-X3 (about 11 minutes)
 Exit status 0 iff every check holds (a check is a control or a stated computed fact; a search
 family's verdict is printed and is a check only of its own completeness and cross-check).
 """
@@ -91,6 +91,33 @@ class LinRule(RZRule):
     @staticmethod
     def maxabs(s):
         return 0
+
+
+class PathOracle(RZRule):
+    """Oracle for the classifier (review B1): the 1D line rule run along given site paths, every
+    off-path site held at 0. Each path is a list of 3D sites; consecutive entries are path
+    neighbours, the ends have one path neighbour. Not Q: R8 (the re-run in Q) must reject it."""
+    name = "ORACLE"
+
+    def __init__(self, J, paths):
+        super().__init__()
+        self.paths = [np.array([J.idx(p) for p in path]).T for path in paths]
+
+    def _apply(self, prev, cur):
+        out = np.zeros_like(cur)
+        for ix in self.paths:
+            c_ = cur[tuple(ix)]
+            nb = np.zeros_like(c_)
+            nb[1:] += c_[:-1]
+            nb[:-1] += c_[1:]
+            out[tuple(ix)] = G(nb) - prev[tuple(ix)]
+        return out
+
+    def step(self, s):
+        return s[1], self._apply(s[0], s[1])
+
+    def back(self, s):
+        return self._apply(s[1], s[0]), s[0]
 
 
 # ================================================================ geometry of a W2 junction
@@ -682,6 +709,24 @@ def check_K0():
     check("K0b straight-ring reference: a W2 defect on B is an outgoing glider (p, s) = (6, 2)", g == (6, 2), f"{g}")
 
 
+def check_oracle():
+    """Review B1: a positive/negative pair through classify_rz itself. The oracle runs the line rule
+    along A -> corner -> B as one bent path (J1, B phase 1, which continues A's pattern round the
+    corner), so the signal is transferred onto B by construction; R1-R7 must pass and R8 must reject
+    it because it is not Q. With B cut off from the corner (A and B separate paths) the same
+    signal stops at A's end: R2 must report no output on B."""
+    J = Junction("J1", 1)
+    bent = PathOracle(J, [J.A + J.B])
+    ok_p, f_p, i_p = classify_rz(J, [], rule=bent)
+    check("O1 bent-line oracle through classify_rz: passes R1-R7, first failure R8 (not Q)",
+          (not ok_p) and f_p == "R8" and i_p.get("R2", {}).get("glider (p, s)") == (6, 2)
+          and i_p.get("R5", {}).get("glider (p, s)") == (6, 2), f"{f_p} {i_p}")
+    cut = PathOracle(J, [J.A, J.B])
+    ok_n, f_n, i_n = classify_rz(J, [], rule=cut)
+    check("O2 the same oracle with B cut off from the corner: first failure R2, no output on B",
+          (not ok_n) and f_n == "R2" and "no output on B" in i_n, f"{f_n} {i_n}")
+
+
 def check_controls():
     # N1 no input: J1 plain corner at every B phase; a phase passes R1 iff the corner is quiescent
     q1 = {}
@@ -853,6 +898,10 @@ def first_escape(J, gadget):
 
 
 posthoc = {}
+quiescent_table = {}
+escape_after_24 = []
+EXPECTED_QUIESCENT = {"F1": [0, 28, 12, 0], "F2": [102, 822, 369, 24], "F3-J2": [8, 450, 482, 8],
+                      "F3-J3": [0, 6, 403, 6]}
 
 
 def check_D1():
@@ -865,7 +914,10 @@ def check_D1():
     S = J.with_signal(N, SIG1)
     first_inner = None
     row = {}
+    nbvals = {}
     for t in range(1, 31):
+        if t == 28:   # values entering the inner corner's update at t = 28: the current slice at 27
+            nbvals = {p: (int(S[1][J.idx(p)]), int(N[1][J.idx(p)])) for p in ((-1, 0, 0), (0, 1, 0))}
         N, S = rule.step(N), rule.step(S)
         for y in (1, 2, 3):
             i = J.idx((-1, y, 0))
@@ -874,9 +926,13 @@ def check_D1():
         if first_inner is None and 1 in row:
             first_inner = row[1]
     t_esc, cls = first_escape(J, [])
-    check("D1 J1 plain corner, phase 1: inner corner kicked at t=28; disturbance along (-1,y,0) one site per "
-          "tick; first escape t=30 beside B", first_inner == 28 and row == {1: 28, 2: 29, 3: 30}
-          and t_esc == 30 and cls == ("beside B",), f"row first-change times {row}, escape {t_esc} {cls}")
+    sv = [v[0] for v in nbvals.values()]
+    nv = [v[1] for v in nbvals.values()]
+    equal = sv[0] == sv[1] != 0 and sum(nv) == 0
+    check("D1 J1 plain corner, phase 1: inner corner's two line neighbours equal and nonzero (sum 0 without "
+          "input); kicked at t=28; disturbance along (-1,y,0) one site per tick; first escape t=30 beside B",
+          equal and first_inner == 28 and row == {1: 28, 2: 29, 3: 30} and t_esc == 30 and cls == ("beside B",),
+          f"line neighbours (with, without signal) {nbvals}; row first-change times {row}, escape {t_esc} {cls}")
 
 
 def run_family(name, q1):
@@ -902,6 +958,8 @@ def run_family(name, q1):
             allq[fail or "pass"] += 1
             t, cls = first_escape(J, cands[k])
             esc[(t is not None and t > 24, cls)] += 1
+            escape_after_24.append(t is not None and t > 24)
+        quiescent_table.setdefault(name, []).append(len(quiet))
         print(f"  {name} phi={phi} post hoc: classifier on all {len(quiet)} quiescent gadgets {dict(allq)}; "
               f"first escape (after the signal's arrival window t > 24, site class): {dict(esc)}", flush=True)
         posthoc[name] = posthoc.get(name, Counter()) + allq
@@ -933,6 +991,7 @@ def main():
     q1 = check_controls()
     print(f"N1 J1 plain corner, no input: first failing requirement by B phase {q1} "
           f"(None = quiescent and passes R1)")
+    check_oracle()
     check_D1()
     check_A2("--search" in sys.argv)
     if "--search" in sys.argv:
@@ -942,6 +1001,12 @@ def main():
         tot = sum(posthoc.values(), Counter())
         check("X1 (post hoc) every quiescent gadget of F1-F3 fails the classifier first at R3 (radiation)",
               set(tot) == {"R3"}, f"{dict(tot)}")
+        total = sum(sum(v) for v in quiescent_table.values())
+        check("X2 quiescent (R1) counts per family and B phase equal the RESULT table; total 2720",
+              quiescent_table == EXPECTED_QUIESCENT and total == 2720 == sum(tot.values()),
+              f"{quiescent_table}, total {total}")
+        check("X3 every quiescent gadget's first escape occurs after t = 24",
+              len(escape_after_24) == 2720 and all(escape_after_24), f"{sum(escape_after_24)}/{len(escape_after_24)}")
     bad = [n for n, ok in RESULTS if not ok]
     print(f"{len(RESULTS) - len(bad)}/{len(RESULTS)} checks pass")
     sys.exit(1 if bad else 0)
