@@ -494,3 +494,60 @@ Core probes B pass locally, except `gauge_certificates`, which needs `scipy`; CI
 
 **Next gate.** CI must be green on the exact head. An independent exact-head review follows before any merge, and the
 merge needs its own owner decision.
+
+## 14. Reconciliation with `main` (2026-11-20)
+
+**Review and decision.** The independent Stage 2 review at `75b56977` returned ACCEPT-WITH-NITS
+([#1450 comment 7036633139](https://github.com/amaybaum/incompleteness/pull/1450#issuecomment-7036633139),
+2026-11-20T09:59:43Z). The owner then approved merging #1450 after reconciling it with updated `main` and rechecking
+the resulting head. The coordinating session relayed that decision on 2026-11-20 as: "Owner approved merging #1450
+… after reconciling with updated main, rechecking the resulting head and acceptance." No separate comment was found
+on #1450 or #1169 when this note was written.
+
+**What was merged.** Reconciliation merge `a65f71b6`, with first parent `75b56977` (the reviewed head) and second
+parent `main` at `ec2ff7deeaa17fcb2d91ad6d2a3188e2e018a994`.
+
+- **Main's changes.** Since `b9168ef0`, main brought #1446 (CLEAN-873), #1445, #1451, #1444, #1452 and #1453.
+  CLEAN-873 edits SM, Substratum, GR, Structure, ch09 and FULL, and their generated files and the SC-42 result.
+- **Resolution, by merits.**
+  - `.md`: auto-merged. Each merged `papers/*.md` and `book/*.md` equals `main@ec2ff7de` with the 40 splices
+    applied, byte for byte, across 42 files. Every splice's old string occurs once in `main`'s text, so every
+    CLEAN-873 edit is kept and nothing else changed.
+  - `.tex`/`.pdf`: neither side was taken. Both were rebuilt with `sh ./build.sh SM Substratum GR Structure` and
+    `--book`, with no dropped glyphs. Page counts: SM 148, Substratum 53, GR 84, Structure 94, book 488. Pandoc on
+    `main`'s Markdown reproduces `main`'s committed `.tex` minus the stamp, and each head stamp equals its source's
+    SHA-256.
+  - SC-42 result: the auto-merged file equals the checker's output on the merged tree. The `-O` output matches, and
+    the self-test controls are unchanged.
+  - Coverage `LEDGER.json`: fresh (`coverage_check` OK). The SM Lemma 1c assumptions line gains "with
+    finite-dimensional cell data" (Stage 2 review nit).
+
+**How CTL-11 was evaluated.** The ledger and the frozen base `b9168ef0` are not edited. The same script was run with
+the base set to `main`:
+
+`python3 -I -B phase2_controls.py --root . --base ec2ff7deeaa17fcb2d91ad6d2a3188e2e018a994`
+
+- **Result: exit 0.** CTL-1–16 PASS, including CTL-11, which confirms the text is exactly `main` plus the ledger.
+- **DR-2 to DR-4:** met.
+- **DR-1:** two of its three predicates are met. The third reads the dispositions' line keys, which were fixed at
+  `b9168ef0`. It is unmet only for ch09:189 (unit K5), whose splice text now sits on line 188: CLEAN-873 removed one
+  line above it, at ch09:125. The text is the reviewed text, and CTL-11 confirms its placement.
+- **Run at the frozen base `b9168ef0`, for the record.** CTL-6, 8, 11 and 16 FAIL. Each failure comes from `main`'s
+  changes, not from this unit:
+  - CTL-6: #1445's Lean module and registry update;
+  - CTL-8: the acronyms DESI and JUNO in CLEAN-873's added Structure sentences;
+  - CTL-11 and CTL-16: CLEAN-873's text and its ch09/FULL line removal.
+
+**Landing diff against the execution's own diff.** The landing diff runs from `main@ec2ff7de` to the merge; the
+execution diff runs from `b9168ef0` to `75b56977`. Both touch the same 24 files.
+
+- Identical `+`/`−` lines:
+  - all seven `.md` files;
+  - the four audit-record files;
+  - the SC-42 result.
+- Differences, each accounted for:
+  - **Five `.tex` files:** only the two `% source-sha256` stamp lines differ, because the sources include CLEAN-873.
+    Every other changed line is identical.
+  - **Five `.pdf` files:** regenerated binaries.
+  - **`verification/coverage/LEDGER.json`:** the review nit "with finite-dimensional cell data".
+- This §14 adds to `PREREG.md` after the merge.
