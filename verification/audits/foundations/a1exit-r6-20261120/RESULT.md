@@ -138,7 +138,12 @@ constructed below only for purely atomic `ρ`.
 `F` injective on `V × H` with `H` countable, then on `ℓ²(V × H)` (separable) the operator
 `U|x,h⟩ = |F(x,h)⟩` is an isometry (a unitary when `F` is a bijection), `μ_H = Σ_h ρ(h)|h⟩⟨h|` is a
 normal diagonal state, and the computation of (1) gives `Tr_H[U^t(σ⊗μ_H)U^{*t}] = Φ_t(σ)`. Main's
-Hilbert-space form therefore holds verbatim on countably infinite hidden carriers.
+Hilbert-space form therefore holds verbatim on countably infinite hidden carriers. The same holds
+for a purely atomic `ρ` on an uncountable `H` (`F` injective): with `S` the countable support of `ρ`,
+put `H_0 = S` and `H_{n+1} = H_n ∪ π_H F(V × H_n)`; then `H_∞ = ∪_n H_n` is countable and
+`F(V × H_∞) ⊆ V × H_∞`, so `U` restricted to `ℓ²(V × H_∞)` (separable) is an isometry, `μ_H` is
+supported in `H_∞`, and every point `F^t(x,h)` with `h ∈ S` that the computation of (1) uses lies in
+`V × H_∞`. (Added after review round 2.)
 
 ### 3.3 T6-K: the Koopman form named in REMAINDER
 
@@ -168,7 +173,8 @@ no diagonal normal state exists (Prop. 6.7). Not shown: that every non-diagonal 
 family on every carrier is the mixture family of Theorem 6, which corresponds to the hidden
 "definite probabilities" reading already used at Intro:111.
 
-**Prop. 6.9 [W] (finite `H`: diagonal preservation for every permutation forces a diagonal prior).**
+**Prop. 6.9 [W] (finite `H`: diagonal preservation for every permutation forces a diagonal prior;
+added after review round 1).**
 Let `H` be finite, `|V| ≥ 2`, and `μ_H` a density matrix on `ℂ^H` with `μ_H(h,h') ≠ 0` for some
 `h ≠ h'`. Then some bijection `F` of `V × H` has `Φ_1(|0⟩⟨0|) = Tr_H[U(|0⟩⟨0| ⊗ μ_H)U^*]` not
 diagonal. *Proof.* Fix `k ∈ H`; set `F(0,h) = (0,k)`, `F(0,h') = (1,k)`, and send the other points
@@ -525,6 +531,7 @@ Every proof, control and cited result used above is in this directory or on `mai
 | Nit 7 | Observation 7.2(ii) requires a support of more than one point |
 | Nit 8 | `8fb6b663` reclassified as support; landing by merge commit required (§10) |
 | Nit 9 | Trivial coincidence sets of K3a/K3b noted (§3.4) |
+| Round 2 | Prop. 6.9 labelled as added after review; §3.2 countable-carrier construction extended to purely atomic laws on uncountable `H` via the countable forward-invariant set `H_∞` |
 
 No class confirmed by the review changed. `PREREG.md`, `r6_controls.py` and `r6_controls.json` are
 unchanged by this revision.
