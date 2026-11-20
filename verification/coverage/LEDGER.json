@@ -1481,9 +1481,9 @@
       "line": 242,
       "kind": "Theorem",
       "label": "1a (equivariant finite projection preserves spatial symmetry)",
-      "fingerprint": "8e362ef0f004ec78",
+      "fingerprint": "f73b1c416fd4e3d7",
       "area": "sm",
-      "assumptions": "S finite; U the Koopman operator of a bijection; P an equivariant projection",
+      "assumptions": "S any set; U the Koopman operator of a bijection; P an equivariant projection",
       "checks": [
         {
           "kind": "probe",
