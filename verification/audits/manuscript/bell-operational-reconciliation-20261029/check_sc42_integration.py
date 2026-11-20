@@ -54,7 +54,11 @@ MUTATIONS.update({
 })
 # Must-fail: a secret-pattern line attributed to the exempted path while its blob is unchanged, so
 # the exception is in force, is still reported. Injected into the scan only (the blob cannot hold it).
-SCAN_INJECTIONS = {'exempt_blob_secret': (EXEMPT_PATH, 'token ghp_' + 'x' * 24, 'added-text scan: 1 hit(s)')}
+SCAN_INJECTIONS = {'exempt_blob_secret': (EXEMPT_PATH, 'token ghp_' + 'x' * 24, 'added-text scan: 1 hit(s)'),
+    # Must-fail, with the exception in force: no directory-level exemption (another file in the
+    # exempted file's directory) and no name-level exemption (a PACKAGE.md copy at another path).
+    'exempt_dir_other_file': (os.path.dirname(EXEMPT_PATH) + '/NOTES.md', '| S1B draft r5 (scratch' + 'pad, pre-`F`) |', 'added-text scan: 1 hit(s)'),
+    'exempt_name_other_path': (os.path.dirname(EXEMPT_README) + '/PACKAGE.md', '| S1B draft r5 (scratch' + 'pad, pre-`F`) |', 'added-text scan: 1 hit(s)')}
 
 def read(p, rev=None):
     text = original_read(p, rev)

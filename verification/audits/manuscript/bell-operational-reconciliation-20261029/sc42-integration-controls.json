@@ -1,5 +1,5 @@
 {
-  "checker_sha256": "664a74ed0922c42b137ae3400c0fa8c97963b44a759c942532f6f463c4b23a3d",
+  "checker_sha256": "8a1407ce77c8b0410ad33dedc660070c1eed5c6ac795768ede98e99b9f9d3f63",
   "controls": [
     {
       "control": "unchanged_source",
@@ -99,6 +99,24 @@
     },
     {
       "control": "exempt_blob_secret",
+      "exit_code": 1,
+      "expected_failed_predicate": "added-text scan: 1 hit(s)",
+      "failed_predicates": [
+        "added-text scan: 1 hit(s)"
+      ],
+      "passed": true
+    },
+    {
+      "control": "exempt_dir_other_file",
+      "exit_code": 1,
+      "expected_failed_predicate": "added-text scan: 1 hit(s)",
+      "failed_predicates": [
+        "added-text scan: 1 hit(s)"
+      ],
+      "passed": true
+    },
+    {
+      "control": "exempt_name_other_path",
       "exit_code": 1,
       "expected_failed_predicate": "added-text scan: 1 hit(s)",
       "failed_predicates": [
