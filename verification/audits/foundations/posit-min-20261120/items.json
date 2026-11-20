@@ -1,0 +1,212 @@
+{
+ "unit": "POSIT-MIN",
+ "source_pin": "b9168ef0408b5f55b935a4df17cb0841877e221a",
+ "prereg_commit": "3f93b47e17aaf7126ab2e7417536d6ea85828381",
+ "status": "writer record, unreviewed; mirrors AUDIT.md section 1, which governs",
+ "items": [
+  {
+   "item": "i",
+   "name": "Axiom 2 (differentiation recurs)",
+   "reason_type": "posit of the foundation",
+   "forced_by_observation": "PRESUPPOSED",
+   "weakest_alternative": "none traced",
+   "standing": "open (presupposed)",
+   "verdict": "KEEP (PRE)",
+   "evidence": [
+    "Main:36",
+    "Main:42"
+   ]
+  },
+  {
+   "item": "ii",
+   "name": "Total finiteness A1",
+   "reason_type": "EMP+RES",
+   "forced_by_observation": "NOT FORCED",
+   "weakest_alternative": "per-result conditions (A1-REMAINDER section 3): partial",
+   "standing": "open",
+   "verdict": "WEAKEN",
+   "evidence": [
+    "Main:60",
+    "Main:732 (ii)",
+    "Sub:92",
+    "REMAINDER.md:171"
+   ]
+  },
+  {
+   "item": "iii",
+   "name": "Bijectivity (REV alternative)",
+   "reason_type": "EMP+REP",
+   "forced_by_observation": "PARTLY (injectivity on registered content)",
+   "weakest_alternative": "REV: sufficient where used (A1-REMAINDER R3)",
+   "standing": "open",
+   "verdict": "KEEP (REP), REV form",
+   "evidence": [
+    "Main:36",
+    "Main:54",
+    "Main:80",
+    "Main:732 (iii)",
+    "Sub:94"
+   ]
+  },
+  {
+   "item": "iv",
+   "name": "Maximal-entropy measure selection",
+   "reason_type": "CONV+RES",
+   "forced_by_observation": "NOT FORCED",
+   "weakest_alternative": "H-mu (declared invariant law): partial",
+   "standing": "open",
+   "verdict": "WEAKEN to H-mu (RES)",
+   "evidence": [
+    "Main:54",
+    "Main:58",
+    "Main:732 (iv)"
+   ]
+  },
+  {
+   "item": "v",
+   "name": "Hidden-sector mixing (EM)",
+   "reason_type": "EMP (off-class)+RES",
+   "forced_by_observation": "NOT FORCED",
+   "weakest_alternative": "P8-M operator form: partial",
+   "standing": "in tension with (vii)",
+   "verdict": "KEEP-RES + FLAG",
+   "evidence": [
+    "Main:732 (v)",
+    "Main:750-764",
+    "SM:294",
+    "SM:1416"
+   ]
+  },
+  {
+   "item": "vi",
+   "name": "Spatial isotropy E4",
+   "reason_type": "EMP",
+   "forced_by_observation": "PARTLY (emergent isotropy)",
+   "weakest_alternative": "O_h invariance of the rule: the wave-form Lemma's hypothesis",
+   "standing": "forced (emergent statement); open (lattice clause)",
+   "verdict": "WEAKEN (name the O_h clause)",
+   "evidence": [
+    "Main:732 (vi)",
+    "Sub:82",
+    "SM:224",
+    "SM:230",
+    "SM:238"
+   ]
+  },
+  {
+   "item": "vii",
+   "name": "Linearity A5",
+   "reason_type": "CONV+RES",
+   "forced_by_observation": "NOT FORCED",
+   "weakest_alternative": "affine (escapes none of T1, T4); observer-level lift linearity (SM:224, SM:232), sufficiency for Theorem 23 not traced",
+   "standing": "in tension (T1-T5)",
+   "verdict": "FLAG",
+   "evidence": [
+    "Main:364",
+    "Main:420",
+    "Main:732 (vii)",
+    "Sub:100",
+    "SM:240",
+    "SM:294",
+    "SM:1416"
+   ]
+  },
+  {
+   "item": "viii",
+   "name": "Site factorization",
+   "reason_type": "RES",
+   "forced_by_observation": "NOT FORCED",
+   "weakest_alternative": "none traced",
+   "standing": "open",
+   "verdict": "KEEP-RES",
+   "evidence": [
+    "Main:732 (viii)",
+    "Main:364"
+   ]
+  },
+  {
+   "item": "ix",
+   "name": "Bounded coupling degree A3 (family form)",
+   "reason_type": "RES",
+   "forced_by_observation": "PARTLY (finite emergent speed)",
+   "weakest_alternative": "finite reading sets: the cone, not bounded growth",
+   "standing": "open",
+   "verdict": "KEEP-RES",
+   "evidence": [
+    "Main:732 (ix)",
+    "Sub:96",
+    "Main:364"
+   ]
+  },
+  {
+   "item": "x",
+   "name": "Nearest-neighbour reference range",
+   "reason_type": "CONV+RES",
+   "forced_by_observation": "NOT FORCED",
+   "weakest_alternative": "finite range with bounded degree: the cone only",
+   "standing": "open",
+   "verdict": "KEEP-RES (CONV)",
+   "evidence": [
+    "Main:732 (x)",
+    "SM:226",
+    "Main:416-420"
+   ]
+  },
+  {
+   "item": "xi",
+   "name": "Center independence A4",
+   "reason_type": "clause 1 EMP; clause 2 RES+CONV",
+   "forced_by_observation": "clause 1 PARTLY; clause 2 NOT FORCED",
+   "weakest_alternative": "clause 1 A4-infinity (O-A4 verdict (i)); clause 2 none traced",
+   "standing": "open",
+   "verdict": "WEAKEN clause 1; KEEP-RES (CONV) clause 2",
+   "evidence": [
+    "Main:732 (xi)",
+    "Sub:98",
+    "SM:228",
+    "SM:236"
+   ]
+  },
+  {
+   "item": "xii",
+   "name": "Background independence A6",
+   "reason_type": "REP (interface)",
+   "forced_by_observation": "not a restriction",
+   "weakest_alternative": "not applicable",
+   "standing": "open (marker: additive link type, A5-LA D14, Q3)",
+   "verdict": "KEEP (REP)",
+   "evidence": [
+    "Main:732 (xii)",
+    "Sub:102"
+   ]
+  },
+  {
+   "item": "xiii",
+   "name": "Second-order form",
+   "reason_type": "RES+CONV",
+   "forced_by_observation": "NOT FORCED",
+   "weakest_alternative": "none traced for the continuous path",
+   "standing": "open",
+   "verdict": "KEEP-RES, F general",
+   "evidence": [
+    "Main:732 (xiii)",
+    "Main:274",
+    "Main:594"
+   ]
+  },
+  {
+   "item": "xiv",
+   "name": "Measurement independence",
+   "reason_type": "CONV+RES",
+   "forced_by_observation": "NOT FORCED",
+   "weakest_alternative": "bounded measurement dependence (necessary bound only)",
+   "standing": "open (part of T1)",
+   "verdict": "KEEP-RES",
+   "evidence": [
+    "Main:403-412",
+    "Main:429",
+    "Main:732 (xiv)"
+   ]
+  }
+ ]
+}
