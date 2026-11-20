@@ -1278,7 +1278,8 @@ unitary give the exact representation, including for memoryless laws.
 The history-memory characterization concerns C1, C3 and C4, with the
 physical persistence hypothesis C2 separately stated. Chapter 2 uses a
 finite bijective representative \((S,\varphi)\) under A1, which remains
-open as a physical posit. Under the named empirical and structural
+open as a physical posit, not adopted, and is one sufficient condition
+among those the results name. Under the named empirical and structural
 inputs, M1-T, C2 mixing and the nearest-neighbor restriction, the
 reconstruction fixes the local propagating lattice/gauge residue with
 its carrier, charged-action, matter and horizon qualifications. M1-B and
@@ -1525,9 +1526,9 @@ Nagel, 2000). The phase flow of classical mechanics gives a
 continuous-time example of composition (Arnold, 1989). What \emph{is}
 distinctive here is not that such a map exists, but finiteness: the
 observer distinguishes finitely many visible configurations (Lemma 1),
-and the map acts on a finite system under the finiteness posit A1
-(Chapter 2 §2.4); finiteness of the visible sector (Lemma 1), not the
-dynamics, is the load-bearing commitment.
+and on the finite representative of the finiteness posit A1 (Chapter 2
+§2.4) the map acts on a finite system; finiteness of the visible sector
+(Lemma 1), not the dynamics, is the load-bearing commitment.
 
 \textbf{Lemma 1 (Finiteness).} \emph{The observer's finite capacity for
 distinguishable states makes \(\mathcal{C}_V\) finite.}
@@ -1918,6 +1919,33 @@ mixing flow never again returns a whole visible cell at once at late
 times. The extension therefore holds for flows with such a common return
 and is open for general Hamiltonian flows ({[}Main §2.3{]}).
 
+\emph{Corollary (near-return).} \emph{Let \(\mathcal{C}_V\) be finite
+with \(|\mathcal{C}_V| \geq 2\), let \(\rho\) be a probability on a
+measurable space \(H\), shared by every root, let \(F\) be a measurable
+map of \(\mathcal{C}_V \times H\), and let
+\(\Gamma_t(a, b) = \rho\{h : \pi_V F^t(a, h) = b\}\). If \(\Gamma_s\) is
+not a permutation matrix, some roots \(a \neq b\) and value \(x\) have
+\(m = \min(\Gamma_s(a, x), \Gamma_s(b, x)) > 0\). Assume, as a
+hypothesis of this result and not adopted, the near-return condition
+(NR) for such a pair: some \(n > s\) has
+\((1 - \Gamma_n(a, a)) + (1 - \Gamma_n(b, b)) < m\). Then the rooted
+family is not P-divisible on \(\{0, \ldots, n\}\).} \emph{Proof.} Each
+\(\Gamma_t\) is row-stochastic because \(\rho\) is a probability. If the
+\(|\mathcal{C}_V|\) rows of \(\Gamma_s\) had pairwise disjoint supports,
+the supports would partition the \(|\mathcal{C}_V|\) columns into
+singletons and \(\Gamma_s\) would be a permutation matrix; so two rows
+\(a \neq b\) share a column \(x\), and \(m > 0\). Then
+\(d(\Gamma_s(a), \Gamma_s(b)) \leq 1 - m\), while testing the event
+\(\{a\}\) gives
+\(d(\Gamma_n(a), \Gamma_n(b)) \geq \Gamma_n(a, a) - \Gamma_n(b, a) \geq 1 - (1 - \Gamma_n(a, a)) - (1 - \Gamma_n(b, b)) > 1 - m\).
+A row-stochastic \(\Lambda\) with \(\Gamma_n = \Gamma_s \Lambda\) would
+not increase the total variation distance between rows (every stochastic
+matrix contracts total variation), so none exists. \(\square\) On a
+finite representative Step 1 of the proof above supplies the condition
+(NR) at every multiple of \(N\) exceeding \(s\). The condition (NR)
+needs no finite hidden space, invariant law or bijection, and it fixes
+neither \(N\) nor \(n\).
+
 \textbf{The accessible-timescale lemma.} A potential objection to the
 proof as stated is that the recurrence time \(N\) can be astronomically
 large. \(N\) is the order of \(\varphi\) as a permutation of the
@@ -2215,17 +2243,19 @@ directions of the finite observable-law equivalence.
 memory-bearing. It forces different hidden posteriors for visible
 histories that share a current state but have different future laws, a
 persistence/readback requirement, and the capacity lower bound of C3.
-Because the physical representative is, under A1, finite and reversible,
-it also recurs: its rooted visible maps, defined for every root under
-one hidden prior, return to the identity, and a non-permutation
-stochastic matrix has no stochastic inverse, so any non-permutation
-rooted map makes the rooted law indivisible somewhere in the recurrence
-cycle. A C4 gap supplies such a map, and so does every non-deterministic
-visible step, including in laws that are Markov on every accessible
-window. With a full-support visible prior, that indivisibility is
-equivalent to memory at some order below the recurrence time; an
-observer sees the memory only when it appears at an accessible order,
-which is what C4 asserts.
+Under A1 the physical representative is finite and reversible, so it
+also recurs; without A1, the near-return condition of the corollary in
+§1.5 is the stated sufficient condition for the indivisibility
+conclusion: its rooted visible maps, defined for every root under one
+hidden prior, return to the identity, and a non-permutation stochastic
+matrix has no stochastic inverse, so any non-permutation rooted map
+makes the rooted law indivisible somewhere in the recurrence cycle. A C4
+gap supplies such a map, and so does every non-deterministic visible
+step, including in laws that are Markov on every accessible window. With
+a full-support visible prior, that indivisibility is equivalent to
+memory at some order below the recurrence time; an observer sees the
+memory only when it appears at an accessible order, which is what C4
+asserts.
 
 \textbf{Spatial extension.} The dependency graph supplies finite causal
 cones exactly for finite-range substrata. Bell adds a separate
@@ -22474,7 +22504,15 @@ It is \emph{not} a full CPTP-channel correspondence --- channels that
 create coherences from diagonal inputs have no permutation-unitary
 realization with uniform ancilla. For the characterization theorem
 (Chapter 1 §1.8), which is stated in terms of transition probabilities,
-this is the appropriate scope.
+this is the appropriate scope. On a measurable carrier the conclusion
+holds at every step under the invariant-product condition (IP), assumed
+as a hypothesis of this remark and not adopted: \(\varphi\) preserves a
+probability \(\nu \otimes \rho\) on \(\mathcal{C}_V \times H\) with
+\(\nu\) uniform. For the rooted maps \(\Gamma_t\) of the prior \(\rho\),
+as in Chapter 1 §1.5, rows sum to one because \(\rho\) is a probability,
+and
+\(\sum_a \Gamma_t(a, b) = |\mathcal{C}_V|\,(\nu \otimes \rho)(\pi_V \circ \varphi^t = b) = |\mathcal{C}_V|\,\nu(b) = 1\)
+by invariance.
 
 \textbf{The quantum channel.} The observer's ignorance of the hidden
 sector corresponds to the maximally mixed state \(\rho_H = I_m / m\).
@@ -24479,7 +24517,10 @@ supports for each role.
 
 \emph{In Chapter 1's foundational content.} Posit A1 is a mathematical
 assumption of the results that use it, the recurrence route to
-P-indivisibility among them; the exact representation takes a supplied
+P-indivisibility among them, and one sufficient condition rather than a
+premise of the framework: the indivisibility conclusion of that route
+also follows from the near-return condition of Chapter 1 §1.5, assumed
+in its place and not adopted; the exact representation takes a supplied
 law on a finite alphabet through a finite horizon and constructs its
 finite realization; whether the theorem's empirical applicability
 requires actual finiteness of the universe is a separate question.
@@ -25381,8 +25422,10 @@ assumed in the minimal finite representative. Motivated physically by
 the Bekenstein bound at the cosmological horizon (an entropy-based
 bound, under the physical assumptions of input E3, of at most
 \(e^{S_{\text{dS}}}\) effectively distinguishable states of the visible
-sector and boundary layer, \(S_{\text{dS}} \sim 10^{122}\)). Discussed
-in Chapter 2 §2.4, with defense in Appendix C §C.6.
+sector and boundary layer, \(S_{\text{dS}} \sim 10^{122}\)). It is one
+sufficient condition for the results that use it, each of which names
+the hypotheses it consumes. Discussed in Chapter 2 §2.4, with defense in
+Appendix C §C.6.
 
 \textbf{Background independence (A6).} The sixth of the framework's
 structural assumptions A1--A6: the substratum dynamics is covariant
@@ -26929,4 +26972,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 34e74bd61b625fd6665aa7c4a7b32af161c42acd26f342d96c089f11cb5b4150
+% source-sha256: 514aaa1e7c990be4b678cd96ca5164e2789f9e5943a68e420484f7986d96f5a4
