@@ -16,9 +16,10 @@ audits is redone. A1 (Main posit ledger item (ii)) remains open and unadopted.
 independent of the assumption that the whole universe is finite, while keeping honest limitations on the
 results that still require finiteness."
 
-**Source pin.** `main` at `76a3c4cbe21ec30d9ef0748ffd417cc9855ae6be` (merge of #1465, Q1). The branch merged
-`main` at `fbca1df9` (Q2) and then at `76a3c4cb`, and the site map was rebuilt there. Q1 changed no manuscript,
-so the manuscript digest is the same as at `fbca1df9`. `File:n` is line `n` at the pin.
+**Source pin.** `main` at `e837e3dbaa605efc867a213f3345cee14c36d8f5` (merge of #1467, R6; it includes #1463,
+Main:764, merged as `62e79442`, and #1465, Q1). The branch merged `main` at `fbca1df9` (Q2) and then at
+`e837e3db`, and the site map was rebuilt there. Main:764 changed `papers/Main.md`, so `check` reported a
+PIN MISMATCH before the rebuild, as designed. `File:n` is line `n` at the pin.
 Abbreviations are those of PREREG. The map records the pin and a digest of the manuscript tree. `check`
 fails with "PIN MISMATCH" and lists the differing sites on any other tree (D9).
 
@@ -36,6 +37,19 @@ fails with "PIN MISMATCH" and lists the differing sites on any other tree (D9).
   that none uses A4's finite clause. It also gives exact wrapping conditions for finite quotients and proposes
   Step-2 corrections E1–E6, which are not applied. Rows X-40, X-41 and X-43 are J, X-42 is F, and X-16 is done
   (D10).
+- **R6 merged** (PR #1467, merge commit `e837e3db`, after independent review: #1467 c.7048749116, round 2
+  ACCEPT-WITH-NITS, and a final-head check). Its record,
+  `verification/audits/foundations/a1exit-r6-20261120/RESULT.md`, proves the following:
+  - L6: the hidden-prior mixture family on a measurable hidden carrier is CPTP and diagonal-preserving,
+    and a P witness implies CP-indivisibility. The witness needs (NR) or (RIG).
+  - The Koopman form REMAINDER proposed for L6 is the wrong object.
+  - L7: the physical-memory and C2 quantitative theorems hold on any measurable hidden space.
+  - L9: decoupled normalized factors of any cardinality leave the channels unchanged.
+
+  Its Step-2 corrections (R6 §7) are not applied. Rows X-50, X-51 and X-53 are J, and X-52's base channel
+  rests on R6 (D10).
+- **Main:764 merged** (PR #1463, merge commit `62e79442`). M:764 states [31] at its proved scope (X-62,
+  done). STAGE1ii O1(a) is resolved, and the global-phase statements stay queued (X-63).
 
 ## Files
 
@@ -58,23 +72,26 @@ The run at the pin gives these results:
 | Measure | Counts |
 |---|---|
 | Rows | 59 |
-| Disposition | F 30, J 20, O 9 |
-| S1 on J rows | No 18, Relabel 2 |
-| Row owner | Main:764 1, Q1 corrections (Step 2) 4, Q2 1, Q3 propagation 6, R1/R2 scoping 5, R6 3, Step-2 phase 2, final deletion 9, none 26, regression audit (#1468) 2 |
-| Row status | done 25, in progress 4, open 3, queued 27 |
+| Disposition | F 27, J 23, O 9 |
+| S1 on J rows | No 20, Relabel 3 |
+| Row owner | Q1 corrections (Step 2) 4, Q2 1, Q3 propagation 6, R1/R2 scoping 5, R6 corrections (Step 2) 3, Step-2 phase 2, final deletion 9, none 27, regression audit (#1468) 2 |
+| Row status | done 26, open 3, queued 30 |
 | Sites in the map | 697 (561 mapped to a row; 136 FP, FREE or kept) |
-| Mapped sites by correction code | none 190, ptr 194, unit 177 |
-| Mapped sites by owner | Q1 corrections (Step 2) 28, Q3 propagation 81, R1/R2 scoping 8, Step-2 phase 15, final deletion 194, none 190, regression audit (#1468) 45 |
+| Mapped sites by correction code | none 181, ptr 194, unit 186 |
+| Mapped sites by owner | Q1 corrections (Step 2) 28, Q3 propagation 81, R1/R2 scoping 8, R6 corrections (Step 2) 9, Step-2 phase 15, final deletion 194, none 181, regression audit (#1468) 45 |
 <!-- COUNTS:END -->
 
 **Reading the counts.**
 
-- **J (20).** Each J row is A1-free as stated, or proved under a weaker condition on `main`. X-40, X-41 and
-  X-43 became J with Q1 and are queued for their printed Step-2 corrections. Two J rows carry
-  S1 = `Relabel`, and their qualification is not yet printed, so both are queued:
-  - X-20: recurrence-scale P-indivisibility under (NR);
-  - X-23: the index-free equivalence.
-- **F (30).** Each F row is a true statement about finite systems or finite representatives. With A1
+- **J (23).**
+  - Each J row is A1-free as stated, or proved under a weaker condition on `main`.
+  - X-40, X-41 and X-43 became J with Q1, and X-50, X-51 and X-53 with R6. All six are queued for their
+    printed Step-2 corrections.
+  - Three J rows carry S1 = `Relabel`. Their qualification is not yet printed, so they are queued:
+    - X-20: recurrence-scale P-indivisibility under (NR);
+    - X-23: the index-free equivalence;
+    - X-50: the CP theorem's P witness, which inherits (NR).
+- **F (27).** Each F row is a true statement about finite systems or finite representatives. With A1
   deleted, it stays as a finite-only statement.
 - **O (9).** The O rows fall into these groups:
   - **X-47 (finite-L numerics).** This row has no convergence result. It is an input to #1468.
@@ -139,17 +156,17 @@ Column definitions are in PREREG §3.
 | X-46 | OI-class substrata "satisfying A1–A6" (Structure Definition 9.9, Proposition 9.5 and dependent statements) (Str:646 and the R6/C11 sites of Structure) | C11 | Class definition | F | — | n/a (not J) | A definitional finite class; narrowing to A2–A6 plus the M4/M18 posits would be a definition change (REMAINDER C11) and is not proposed here | At deletion: "OI-class substrata (satisfying A1–A6)" → "finite OI-class substrata (finite, A4 in its finite periodic qualified case with Q1's wrapping conditions, satisfying A2–A6)" | 57 sites (visible 57); codes none 2, ptr 55. FULL:895, FULL:905, FULL:2433, FULL:2451, FULL:2521, FULL:2597, FULL:2603, FULL:2607, ch03:34, ch03:44, ch09:18, ch09:36 … | final deletion | queued (Step 2) |
 | X-47 | Finite-L lattice numerics and the A·B extrapolation family: finite-L Monte Carlo (L = 16–64), L → ∞ extrapolations (Z_S, m_b/m_τ), matching-scale checks; SM:801 a negative finite-L phase result; SM:645 = ch06:62 a finite-torus substratum check (SM:14, :645, :711, :713, :751, :783, :801, :813, :817, :1138–1144, :1261, :1267, :1300, :1302, :1656; appA:30, :85, :217; ch06:62, :94, :208; ch19:152; ch04:48; appC:273; FULL mirrors) | A4-OWNER | Values computed on finite periodic lattices are compared with observation or extrapolated to L → ∞ numerically. Except SM:645 = ch06:62, these are emergent lattice-gauge regulator lattices (Haar / staggered HMC, SM:813), distinct from A4's substratum lattice | O | — | n/a (not J) | Not an A4 consumer: these lattices regulate the emergent gauge theory. The owner rule (#1169 c.7048255658) that a finite lattice is not an approximation of ℤ^d without an established convergence result is applied by analogy: a numerical L → ∞ extrapolation is numerical evidence, not such a result. SM:801 is a negative finite-L phase result (confinement of the purely induced theory). SM:645 = ch06:62 checks Theorem 19 on finite tori (X-16) and is stated with its L values. Input to the regression audit (#1468) | Per the regression audit: each value stated as a finite-L computation with its extrapolation as numerical evidence, unless a convergence result is cited. Cheap probe at the pin: no sentence in papers/ or book/ calls a finite lattice an approximation of ℤ^d | 35 sites (per unit regression audit 35); codes unit 35. FULL:1152, FULL:1573, FULL:1605, FULL:1719, FULL:5222, FULL:5477, FULL:5532, FULL:5664, FULL:6428, appa:30, appa:85, appa:217 … | regression audit (#1468) | queued (#1468) |
 | X-48 | Classical-dimension obstruction family: no fixed finite carrier (N < ∞ ontic configurations) reproduces the exact continuum operational theory of a qubit; the framework's reading that it "does not require an ontically infinite carrier" (M:358; M:564 (Proposition); M:568; M:588; M:606; M:780; Sub:533; ch04:146 = FULL mirror; Intro:135) | B1-CDO | The theorem is stated for one realization with N < ∞; the framework reading (M:780, Sub:533, ch04:146) places the continuum endpoint beyond every fixed finite carrier | F | — | n/a (not J) | The theorem is a true statement about finite carriers (Proposition M:564; [55]) and stays as such. Its framework reading depends on the carrier's size: on an infinite carrier the obstruction does not apply, so with A1 deleted the sentences that use it to describe OI (M:358, :568, :588, :780; Sub:533; ch04:146; Intro:135) must state that scope. Input to the regression audit (#1468) | Per the regression audit: keep the Proposition; at each framework-reading site state "for a fixed finite carrier" where the sentence speaks of OI's substratum, and do not convert the obstruction into a claim about an unspecified-size substratum | 10 sites (per unit regression audit 10); codes unit 10. FULL:1250, ch04:146, Intro:135, M:358, M:564, M:568, M:588, M:606, M:780, Sub:533 | regression audit (#1468) | queued (#1468) |
-| X-50 | CP-indivisibility theorem (permutation-dilation family) (M:332–336) | M9, L6, R6 | Permutation unitary on finite H | F | — | n/a (not J) | Printed as a finite-representative statement (M:732 (ii) list). R6 lemma L6 (Koopman dilation on ℂ^V ⊗ L²(H,ρ)), in progress, may supply J or confirm the finite-only restriction | none at the pin; per R6 outcome | 4 sites (per unit R6 4); codes none 4. FULL:5769, appb:92, M:332, M:336 | R6 | in progress |
-| X-51 | Physical-memory theorem and C2 quantitative form (M:459–475) | M16, L7 | Uniform-prior finite coupling model | F | — | n/a (not J) | Printed as a finite-representative statement (M:732 (ii) list). R6 lemma L7, in progress | none at the pin; per R6 outcome | 2 sites (per unit R6 2); codes none 2. M:459, M:473 | R6 | in progress |
-| X-52 | Deep-sector cardinality as gauge, finite windows; Theorem 24(i) population law, (ii), (iii) trace-class identity; GR Appendix B (GR:132–138; GR:871–905; Sub:251–264; M:732 (ii) transfer clause) | M21, C3, C8, OA4:23, OA4:24, OA4:25 | Finite decoupled factor; uniform ω_H | J | (D1)–(D5), with (D5) μ_H = u_{B_n}⊗ν, ν any normalized law (GR:877–883); for Theorem 24(iii), a trace-class state σ_A and a unitary W on the adjoined factor, with the base channel on V × H already defined as a channel (O-A4 row 24). On an infinite hidden carrier a defined base channel needs lemma L6 (R6, the Koopman dilation channel family on ℂ^V ⊗ L²(H,ρ)), in progress | No: Finite cone and a uniform factor on a finite boundary window; the deep law is of any cardinality | GR Appendix B printed for a site set of any cardinality under (D1)–(D5) | none | 15 sites (visible 15); codes none 15. FULL:5867, FULL:5871, appb:190, appb:194, GR:132, GR:134, GR:136, GR:138, GR:875, GR:883, GR:885, GR:889 … | none | done |
-| X-53 | All-time coherent-channel invariance under an infinite normalized decoupled factor; transfer of recurrence-scale content (Theorem 24(i) coherent form, Corollary (iii)) (Sub:262; Sub:268 (iii); ch02:144) | M21, C8, L9, OA4:23 | Finite factor A; uniform ω_H | F | — | n/a (not J) | Printed finite ("This is a finite, fixed-interface result; an infinite extension ... is not established", Sub:262). R6 lemma L9, in progress | none at the pin; per R6 outcome | 4 sites (per unit R6 3, visible 1); codes none 3, ptr 1. FULL:774, ch02:144, Sub:262, Sub:268 | R6 | in progress |
+| X-50 | CP-indivisibility theorem (permutation-dilation family) (M:332–336) | M9, L6, R6 | Permutation unitary on finite H | J | R6 T6 (i)–(iv): the hidden-prior mixture family Φ_t = ∫ Ψ_{π_t(h)} ρ(dh) on a measurable hidden space (fibre-injective measurable F, measurable coincidence sets) is CPTP and diagonal-preserving with populations Γ_t, and a P witness implies CP-indivisibility (INF, [W] reviewed). The P witness from a non-permutation rooted map needs (NR) or (RIG) on infinite carriers (WEAK) | Relabel: The CP step is A1-free (INF). The witness inherits X-20's (NR)/(RIG), which is a Relabel. The Koopman form REMAINDER proposed for L6 is the wrong object: the constant-vector normal state fails diagonal preservation on every carrier (R6 T6-K (α), refuted), and no diagonal normal state exists on a diffuse carrier | R6 record verification/audits/foundations/a1exit-r6-20261120/RESULT.md (on main; PR #1467 merged as e837e3db after independent review, round 2 ACCEPT-WITH-NITS #1467 c.7048749116 and a final-head check), §1, §3. The finite theorem at M:332 stays true. The measurable-carrier form is a Step-2 correction (R6 §7 items 1–6, 18) | R6 §7: #1 (M:328, precision: μ_H diagonal), #2 (M:328–334 measurable-carrier form with the (NR) witness), #3 and #4 (M:60 and M:732 lists: remove the CP theorem from the finite-representative list; name (NR) for its witness), #5 (M:742 table row), #6 (appB:92 = FULL:5769), #18 (M:336); not applied | 4 sites (per unit R6 corrections 4); codes unit 4. FULL:5769, appb:92, M:332, M:336 | R6 corrections (Step 2) | queued (Step 2; R6 §7 corrections not applied) |
+| X-51 | Physical-memory theorem and C2 quantitative form (M:459–475) | M16, L7 | Uniform-prior finite coupling model | J | None beyond the theorem's own hypotheses: R6 T7 proves the C2 quantitative theorem (M:459) and the physical-memory theorem (M:473) on any measurable hidden space with any reference probability π_H (INF, [W] reviewed) | No: R6 §4.3: the disguised-A1 test passes on a Bernoulli carrier (control K3a) | R6 record verification/audits/foundations/a1exit-r6-20261120/RESULT.md (on main; PR #1467 merged as e837e3db after independent review, round 2 ACCEPT-WITH-NITS #1467 c.7048749116 and a final-head check), §1, §4 | R6 §7: #7 (M:459 measurable coupling step), #8 (M:473 integrated (M1), K̄ = ∫ K π_H(dh)), #4 (M:732 list), optional #9; not applied | 2 sites (per unit R6 corrections 2); codes unit 2. M:459, M:473 | R6 corrections (Step 2) | queued (Step 2; R6 §7 corrections not applied) |
+| X-52 | Deep-sector cardinality as gauge, finite windows; Theorem 24(i) population law, (ii), (iii) trace-class identity; GR Appendix B (GR:132–138; GR:871–905; Sub:251–264; M:732 (ii) transfer clause) | M21, C3, C8, OA4:23, OA4:24, OA4:25 | Finite decoupled factor; uniform ω_H | J | (D1)–(D5), with (D5) μ_H = u_{B_n}⊗ν, ν any normalized law (GR:877–883); for Theorem 24(iii), a trace-class state σ_A and a unitary W on the adjoined factor, with the base channel on V × H already defined as a channel (O-A4 row 24). On an infinite hidden carrier the base channel is R6's hidden-prior mixture family (T6, INF) and the adjoined Hilbert-space factor is R6 T9(a), (e) (INF); the Koopman form with the constant-vector state is refuted (R6 T6-K (α)) and is not used | No: Finite cone and a uniform factor on a finite boundary window; the deep law is of any cardinality | GR Appendix B printed for a site set of any cardinality under (D1)–(D5) | none | 15 sites (visible 15); codes none 15. FULL:5867, FULL:5871, appb:190, appb:194, GR:132, GR:134, GR:136, GR:138, GR:875, GR:883, GR:885, GR:889 … | none | done |
+| X-53 | All-time coherent-channel invariance under an infinite normalized decoupled factor; transfer of recurrence-scale content (Theorem 24(i) coherent form, Corollary (iii)) (Sub:262; Sub:268 (iii); ch02:144) | M21, C8, L9, OA4:23 | Finite factor A; uniform ω_H | J | R6 T9: (a) a decoupled factor on a Hilbert space of any dimension with a normalized state and unitary or isometric dynamics leaves the reduced channel family unchanged; (b) the classical form with a probability α and any measurable map; (d) Corollary (iii) exact transfer; (e) a Hilbert-space factor adjoined to the mixture base on a diffuse carrier (all INF); (c) Theorem 24(i) relabelling on a measurable carrier needs the relabelling to preserve ρ (WEAK; countermodel without it, K4) | No: Normalization of the adjoined state or law; any cardinality. Coupled infinite deep sectors stay outside (GR Appendix B for finite windows, H-BD at leading order); recurrence-scale content of the base inherits X-20/X-24 | R6 record verification/audits/foundations/a1exit-r6-20261120/RESULT.md (on main; PR #1467 merged as e837e3db after independent review, round 2 ACCEPT-WITH-NITS #1467 c.7048749116 and a final-head check), §1, §5 | R6 §7: #10 (M:60), #11 (M:732 item (ii) deep-sector clauses), #12 (Sub:257–262 Theorem 24(iii)), #13 (Sub:268), #14 (Sub:92), #15 (ch02:144 = FULL:774), #19 (Str:53); optional #16, #17, #20, #21; not applied | 4 sites (per unit R6 corrections 3, visible 1); codes ptr 1, unit 3. FULL:774, ch02:144, Sub:262, Sub:268 | R6 corrections (Step 2) | queued (Step 2; R6 §7 corrections not applied) |
 | X-54 | Storage and memory: "S finite capacity (under A1)" (Sub:44; ch02:14–18) | C9 | Explicit | F | — | n/a (not J) | Interpretive; no theorem rests on it (A1-09 §23.2) | At deletion: "finite capacity (under A1)" → "finite capacity in a finite representative" | 10 sites (visible 10); codes none 6, ptr 4. FULL:644, FULL:646, FULL:648, FULL:662, ch02:14, ch02:16, ch02:18, ch02:32, Sub:44, Sub:52 | final deletion | queued (Step 2) |
 | X-55 | Computation: finite-carrier capacity comparison; "the framework's finiteness hypothesis (A1)" (Comp:120, :122, :178, :182; ch14:160–272; FULL mirrors) | C12 | A1 by statement | F | — | n/a (not J) | Phase 3 (Q3): restate as conditional statements about finite substrata | Q3 per site; Comp:182 "The framework's finiteness hypothesis (A1)" → "A finite substratum" | 10 sites (not determined 10); codes unit 10. FULL:3760, FULL:3764, FULL:3784, FULL:3862, ch14:160, ch14:164, ch14:184, ch14:262, Comp:178, Comp:182 | Q3 propagation | queued (Step 2) |
 | X-56 | Exact linear rule shell splitting into cycles as motivation for (EM) (M:732 (v); M:766 (ii); SM §4.2) | C14 | Cycle counts on a finite lattice | F | — | n/a (not J) | M:766 states the cycle structure does not settle (EM) | none | no primary site; also M:732 (v), M:766 (ii) | none | done |
 | X-57 | Appendix A finite sectors; Page value as exact cycle average on a finite configuration space (GR:609; GR:719; GR Thm A.8) | REC1-U12, CEN17-GR-729/753, FCLASS-U1 | Finite configuration spaces | F | — | n/a (not J) | Printed as finite-model statements (Phase 2 N) | none | 2 sites (visible 2); codes none 2. GR:609, GR:719 | none | done |
 | X-60 | §4.6 theorem: the decay estimate for the iterated compression (operator step) under (IL) (M:752–760; M:766 (IL)) | M18, S0:M19.b, T1 | Counting inner product; finite S in the Setup | J | (IL): normalized φ-invariant μ, P the μ-conditional expectation onto declared local observables of a finite readout support, (EM) on μ-centred L²(μ) observables | No: A normalized law with a finite readout support; τ_B transfer is an A1-independent source gap (REMAINDER M18) | M:766 prints (IL) as a hypothesis of the decay estimate (Phase 1 E14). The O(ε) corrections and exact recurrence are X-65 | none | 5 sites (visible 5); codes none 5. M:750, M:752, M:758, M:760, M:766 | none | done |
 | X-61 | Anti-Boltzmann-brain corollary (M:762) | M20, S0:M19.b | Inherits M18's setting | J | As X-60 | No: As X-60 | Operator step as X-60 (J); its O(ε) and finite-representative parts are X-65 (F); local equilibrium enters as a definition | none | 2 sites (visible 2); codes none 2. M:165, M:762 | none | done |
-| X-62 | Typicality step: equilibrium macrostate ⇒ local equilibrium via canonical typicality [31] (M:764) | M19, R5, S0:M19.a, T6, O1(a) | [31] is a finite-dimensional shell theorem; M:764 dropped its typical-state quantifier | F | — | n/a (not J) | Main:764 unit (PR #1463, in progress): restores [31]'s typical-state and fixed-subsystem form and states G1 (configuration microstates outside the typical set; ensemble reading = the shell law's marginal). Then a finite-representative statement, listed as such at M:732 (ii) and M:766. The global-to-local inference for laws on an infinite carrier (L8-sel) needs R1: open, carried by X-63 | M:764: replace "canonical typicality [31] implies every local subsystem is also in its local equilibrium." by the typical-state, fixed-subsystem statement with G1 (exact text in PR #1463 LEDGER) | 1 sites (per unit Main:764 1); codes none 1. M:764 | Main:764 | in progress |
+| X-62 | Typicality step: equilibrium macrostate ⇒ local equilibrium via canonical typicality [31] (M:764) | M19, R5, S0:M19.a, T6, O1(a) | [31] is a finite-dimensional shell theorem; M:764 dropped its typical-state quantifier | F | — | n/a (not J) | Landed at 62e79442 (PR #1463, after independent review: ACCEPT-WITH-NITS at 94876956, nits applied at 1d21aed7). M:764 now states [31] at its proved scope: for a fixed local subsystem and a shell of dimension large compared with the subsystem's, a typical pure state of the shell (unitarily invariant measure) has reduced state close to the shell's marginal; configuration microstates lie outside that typical set whenever λ_max is small; for the uniform law on the shell the conclusion holds exactly and needs no typicality. This is a statement about a finite-dimensional shell, listed as finite-representative at M:732 (ii) and M:766. STAGE1ii O1(a) is resolved. The global-to-local inference for laws on an infinite carrier (L8-sel) needs R1 and stays open, carried by X-63 | done: M:764 at 62e79442 (verification/audits/manuscript/a1exit-main764-20261120/LEDGER.md on main). The phase sentence after it and the lead-ins (N4) are X-63, queued | 1 sites (visible 1); codes none 1. M:764 | none | done (PR #1463 merged as 62e79442) |
 | X-63 | The twelve global-phase claims: "observers exist only in the non-equilibrium phase of (S, φ)", the §4.6 heading, the past-hypothesis replacement and their restatements (M:748 (T22); M:764 (T6, T7b); Sub:56 (T11b, T11c); Sub:401 (T12); Sub:542 (T14); Str:718 (T15); Str:734 (T16); Comp:212 (T17b); ch02:192 = FULL:822 (T18); ch04:178 = FULL:1282 (T20b)) | T6, T7b, T11b, T11c, T12, T14, T15, T16, T17b, T18, T20b, T22, C10, R5 | Global-to-local step T6 (A1 + [31]); and, by G3, no phase-discriminating statement in the iterated description | O | — | n/a (not J) | Step 2 decision (queued, not authorized). Strongest result that does follow: the region-level form W* (STAGE1ii §6), J under fast (EM) on declared regions | Each site: restate as W* ("(C2-slow) observers occur only outside regions whose effective channel satisfies (EM) at τ_mix ≪ τ_S, in the iterated description") or mark the phase statement open; the past-hypothesis replacement (Sub:56, Comp:212) marked open (O-INFLOW, X-82). Exact wording is the Step-2 unit's | 17 sites (not determined 2, per unit Step-2 phase 15); codes unit 17. FULL:822, FULL:919, FULL:1140, FULL:1282, ch02:192, ch03:58, ch04:36, ch04:178, M:748, Meth:283, Meth:441, Str:718 …; also M:764 (T6, T7b; the line is mapped to X-62) | Step-2 phase | queued (Step 2) |
 | X-64 | RETAINED-WITH-(LE) rows: the thermal "in particular" clause, the proof's division of labour, the scope lists naming [31] (M:758 (T2); M:760 (T3); M:766 (T8); M:664 (T23); M:732 (T24a)) | T2, T3, T8, T23, T24a | [31] on the finite representative | F | — | n/a (not J) | As printed, statements about the finite representative (M:766 "the canonical-typicality clause ... are statements about the finite representative"). STAGE1ii: each also holds with a declared (LE) in place of [31]; that restatement is optional and Step-2 scoped | none required for A1 exit | 1 sites (visible 1); codes none 1. M:664; also M:664, M:732, M:758, M:760, M:766 | none | done |
 | X-65 | §4.6 finite-representative parts: the O(ε) typical-set and finite-size corrections, and the exact recurrence of the Koopman operator of a finite permutation (Setup) (M:752; M:758 (ε); M:766) | M18, M20, S0:M19.b | Finite S in the Setup; ε defined on the finite representative | F | — | n/a (not J) | M:766 states these are "statements about the finite representative" (Phase 1 E14) | none | no primary site; also M:752, M:758, M:766 (lines mapped to X-60) | none | done |
@@ -172,8 +189,10 @@ Every J row was checked to see whether its weaker condition implies total finite
 under another name. None does: no J row has S1 = `Yes` (CK5), and the self-test shows that one `Yes` fails
 the check.
 
-- **`No` (18 rows).** The conditions are of these kinds:
+- **`No` (20 rows).** The conditions are of these kinds:
   - normalization of a law on a measurable carrier (X-14);
+  - R6's measurable-carrier theorems: any reference probability (X-51), and decoupled normalized factors
+    of any cardinality (X-53);
   - finite visible or finite cone data:
     - (IP) uniform on the finite visible factor (X-15);
     - H-ν (X-13);
@@ -190,7 +209,7 @@ the check.
     Stage-2 chain uses it with O-A4's conditions (X-41). Every class contains ℤ^d (Q1 §4).
 
   For each, a model on an infinite carrier satisfies the condition, as cited in the row.
-- **`Relabel` (2 rows: X-20, X-23).** The condition is (NR), (RIG) or compact orbit closure.
+- **`Relabel` (3 rows: X-20, X-23, X-50; X-50 through its P witness).** The condition is (NR), (RIG) or compact orbit closure.
   - It is logically weaker than A1: RIGID's rotation × Bernoulli example satisfies it with no finite order.
   - At an unspecified time it has no finite-window test (REMAINDER §3).
   - For the selected update on ℤ^d, (NR) fails under β_A (NR-1 Prop. 2.3; P-divisible at every horizon,
@@ -217,7 +236,7 @@ The counts by state are in each row's site cell and in the summary.
   when the name is deleted.
 - **Not determined.** These are the 77 Phase-3 sites plus glossary:105, ch18:188 (with its FULL mirror) and Med:35 (81 sites), owned by Q3
   propagation (§4).
-- **Per unit.** The Q1 corrections (Step 2), R6, Main:764, the R1/R2 scoping unit, the Step-2 phase unit and the regression audit
+- **Per unit.** The Q1 and R6 corrections (Step 2), the R1/R2 scoping unit, the Step-2 phase unit and the regression audit
   (#1468) decide these sites.
 - **SM:803 (N12).** It states the pushforward of the uniform measure without qualification. Its status
   is printed two paragraphs later (SM:809, "a load-bearing commitment"). The review decides whether that
@@ -289,11 +308,10 @@ separate owner decision:
    At the pin: pass.
 2. **Every row is closed.** Its status is `done`, or it is an O or F row whose qualification is visible at
    every mapped site. At the pin these remain:
-   - **4 rows `in progress`:**
-     - R6: X-50, X-51, X-53;
-     - Main:764: X-62. Review round 1 was answered at `1d21aed7`, and CI is green.
-   - **27 rows `queued`:**
+   - **No rows are `in progress`.** Q1, Q2, R6 and Main:764 have landed.
+   - **30 rows `queued`:**
      - Q1 corrections (Step 2: A4 restatement and Q1 E1–E6): X-40, X-41, X-42, X-43;
+     - R6 corrections (Step 2: R6 §7): X-50, X-51, X-53;
      - Q3 propagation: X-10, X-24, X-26, X-30, X-55, X-80;
      - R1/R2 scoping: X-12, X-20, X-23, X-25;
      - Step-2 phase: X-63, X-82;
@@ -302,8 +320,11 @@ separate owner decision:
    - **The open rows** (X-11, X-21, X-71) are closed in this sense, since each is stated as open or has no
      manuscript claim.
 3. **No disguised A1.** No J row has S1 = `Yes` (holds at the pin). Each `Relabel` condition must be stated
-   as such where it is introduced. That means M:131, :141, :180, :224, :724 and the companion and book
-   restatements (X-20, X-23). Not yet met.
+   as such where it is introduced:
+   - M:131, :141, :180, :224, :724 and the companion and book restatements (X-20, X-23);
+   - the CP theorem's witness, when R6 §7 #2 is printed (X-50).
+
+   Not yet met.
 4. **Pointers rewritten.** All 194 `ptr` sites (§5) are rewritten in the deletion edit by their row's rule.
 5. **Independent review with a fresh scan.** A non-author review of that exact head records that no
    result silently relies on A1, and a rerun of `ledger_check.py` there is part of the evidence. The scan
@@ -334,7 +355,7 @@ the papers name the missing premises and claim no unconditional results."
 
 | Requirement | Ledger rows or checks | State at the pin |
 |---|---|---|
-| 1 | Q1: X-40–X-43 (and X-16). R6: X-50, X-51, X-53 | Q1 accepted: reviewed (ACCEPT-WITH-NITS) and merged at `76a3c4cb`. R6 (#1467) in progress |
+| 1 | Q1: X-40–X-43 (and X-16). R6: X-50, X-51, X-53 | Met: Q1 and R6 were independently reviewed and accepted, and merged at `76a3c4cb` and `e837e3db`. Their Step-2 corrections are queued |
 | 2 | CK1–CK8; the extended scan (CK4x) | Passing at the pin. Round 2 ACCEPT-WITH-NITS; nits answered (§13) |
 | 3 | The 81 Q3 sites (§4), including the FULL mirrors of ch14 and ch18 | Queued (Step 2) |
 | 4 | Lexical: CK4, CK6 and the extended scan. Definitions: X-02, X-40, X-45, X-46. Measures: X-10–X-16, X-70. Proof dependencies: the J rows' S1 column, CK8 kernel carriers | Partly. CK4 and the extended scan are lexical (§9). A4's finite lattice (X-40) is the known hidden-finiteness route |
@@ -345,7 +366,7 @@ the papers name the missing premises and claim no unconditional results."
 **What may remain after deletion.**
 
 - **The F rows,** stated as finite-only: X-10, X-12, X-16, X-18, X-22, X-24–X-27, X-29, X-42, X-45, X-46,
-  X-48, X-50, X-51, X-53–X-57, X-62, X-64, X-65, X-70, X-72–X-74, X-80, X-81. X-42's finite quotients are
+  X-48, X-54–X-57, X-62, X-64, X-65, X-70, X-72–X-74, X-80, X-81. X-42's finite quotients are
   qualified cases with Q1's wrapping conditions.
 - **The O rows that are not removed,** stated as open: X-11, X-21, X-47, X-63, X-71, X-82.
 
@@ -391,9 +412,16 @@ the framework without its finite-only or open qualification.
 - **D9 (pin).** The preregistration pinned `9db51884`. The ledger is re-pinned to `fbca1df9` by merging
   `main` (Q2). At that pin X-44 is J by owner record c.7048183824. `check` now fails on any tree whose
   manuscript digest differs from the recorded one, and lists the differing sites.
-- **D10 (re-pin to Q1).** The ledger is re-pinned to `76a3c4cb` by a second merge of `main`. Q1's accepted
-  record moves X-40, X-41 and X-43 from O (in progress) to J (queued for printed corrections), X-42 to F, and
-  X-16 to done. PREREG §7's rule is applied to Q1's result, not changed.
+- **D10 (re-pin to Q1, R6 and Main:764).** The ledger is re-pinned to `e837e3db` by a second merge of
+  `main`. The landed units move these rows; PREREG §7's rule is applied to the landed results, not changed.
+  - Q1's accepted record moves X-40, X-41 and X-43 from O (in progress) to J (queued for printed
+    corrections), X-42 to F, and X-16 to done.
+  - R6's accepted record moves X-50, X-51 and X-53 from F (in progress) to J (queued for R6 §7). X-52's
+    base channel rests on R6.
+  - Main:764 makes X-62 done.
+
+  Round 2 was answered with a WIP commit, the merge and a final commit. All are additive, with no amend and
+  no force-push.
 - **D11 (extended scan enforced).** An unmapped hit of the extended criterion-5 patterns now fails `check`
   (CK4x). PREREG CK4 named only P0's pattern set.
 - **D12 (rules read by hand).** Each `new_site_rules` entry carries the list of lines read by hand at the pin.
@@ -427,8 +455,8 @@ the framework without its finite-only or open qualification.
 - Rows inherit the classification of their source audits.
 - The map certifies one manuscript tree, the pin. At a later head `check` reports a pin mismatch until the
   map is rebuilt and re-reviewed.
-- R6 and Main:764 are in progress, so their rows record possible outcomes, not results. Q1's rows rest on
-  its merged record.
+- Q1, R6 and Main:764 have landed. Their rows rest on the merged records, at those records' evidence
+  levels (R6's proofs are [W] paper derivations, independently reviewed).
 
 ## 10. Off-`main` references (§A.42 item 8)
 
@@ -441,10 +469,10 @@ the framework without its finite-only or open qualification.
 | #1468 | X-47, X-48; §6.1 requirement 6 | Provenance (planning; regression audit) |
 | #1462 (PF-6) | X-44 note | Provenance |
 | #1454 | Phase-3 scope, Q1, Q2 | Provenance (planning) |
-| PR #1463 (Main:764) | X-62 | Provenance. X-62's F disposition rests on [31] and STAGE1ii G1, both on `main` |
+| PR #1463 (Main:764), merge commit `62e79442` | X-62 | Support on `main`: M:764 at the pin and `verification/audits/manuscript/a1exit-main764-20261120/LEDGER.md` |
 | PR #1466 comment 7048919956 | §12 | Provenance (review record) |
 | PR #1465 (Q1), merge commit `76a3c4cb`; review records #1465 c.7048101970, c.7048633281 | X-16, X-40–X-43 | Support on `main`: `verification/audits/foundations/a1exit-q1-20261120/RESULT.md` at the pin. The review records are provenance |
-| R6 record (in progress, not on `main`; #1467) | X-50, X-51, X-53 | Provenance: these rows state the disposition at the pin, not R6's result |
+| PR #1467 (R6), merge commit `e837e3db`; review record #1467 c.7048749116 | X-50–X-53 | Support on `main`: `verification/audits/foundations/a1exit-r6-20261120/RESULT.md` at the pin. The review record is provenance |
 | PR #1466 review round 2 (delta re-review at `834d48ef`) | §13 | Provenance (review record) |
 
 ## 11. Verification status (§A.46 item 4)
@@ -550,16 +578,19 @@ re-pinned to `fbca1df9`.
 
 1. **Main:586** is mapped to X-01 (`ptr`). At deletion it reads "the construction uses no property of the
    constructed finite realization beyond its finiteness and reversibility".
-2. **X-52 (iii).** The row now names lemma L6 (R6, in progress) as the condition for a defined base channel
-   on an infinite hidden carrier.
+2. **X-52 (iii).** On an infinite hidden carrier, the defined base channel is now R6's hidden-prior mixture
+   family (T6, landed). The adjoined Hilbert-space factor is R6 T9(a) and (e). The refuted Koopman
+   constant-vector form is not used.
 3. **X-72.** GR:70 is added to the mirror list.
 4. **X-42 and X-43.** ch02:104, ch02:226, Sub:165, ch00:97, ch19:228, appB:380 and appB:395 are added to the
    mirror lists.
 5. **Extended scan.** An unmapped hit now fails `check` (CK4x; D11). Verified by appending an unqualified
    line to `book/preface.md`: `check` fails, and passes again after the line is reverted.
 6. **Rule 2.** New "finite under A1" lines are no longer assigned silently (D12).
-7. **Q1 re-pin.** Re-pinned to `76a3c4cb` (D10). X-16 and X-40–X-43, §9, §10 and owner requirement 1
-   ("Q1 accepted") are updated. R6 (#1467) and Main:764 (#1463) are not merged, and their rows are unchanged.
+7. **Re-pin.** Re-pinned to `e837e3db`, which includes Q1, R6 and Main:764 (D10).
+   - Updated: X-16, X-40–X-43 (Q1); X-50–X-53 (R6, including X-52's base-channel dependency); X-62
+     (Main:764, at its proved scope); §9, §10 and owner requirement 1, which is now met.
+   - The Step-2 items remain queued. No manuscript was changed.
 8. **X-20's wording.** The S1 reason and the proposed correction now say "no law not supported on periodic
    configurations is known to satisfy it" (μ_L gives a root-conditioned return).
 9. **`PIN MISMATCH` output.** Now two counts and at most ten lines of each kind.

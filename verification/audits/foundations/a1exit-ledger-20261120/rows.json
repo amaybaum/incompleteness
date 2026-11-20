@@ -1,6 +1,6 @@
 {
  "schema": "a1exit ledger rows v1",
- "pin": "76a3c4cbe21ec30d9ef0748ffd417cc9855ae6be",
+ "pin": "e837e3dbaa605efc867a213f3345cee14c36d8f5",
  "rows": [
   {
    "id": "X-00",
@@ -793,15 +793,15 @@
     "R6"
    ],
    "how": "Permutation unitary on finite H",
-   "disposition": "F",
-   "weaker": "",
-   "s1": "",
-   "s1_reason": "",
-   "exit": "Printed as a finite-representative statement (M:732 (ii) list). R6 lemma L6 (Koopman dilation on ℂ^V ⊗ L²(H,ρ)), in progress, may supply J or confirm the finite-only restriction",
-   "correction": "none at the pin; per R6 outcome",
-   "owner": "R6",
-   "status": "in progress",
-   "site_code": "none",
+   "disposition": "J",
+   "weaker": "R6 T6 (i)–(iv): the hidden-prior mixture family Φ_t = ∫ Ψ_{π_t(h)} ρ(dh) on a measurable hidden space (fibre-injective measurable F, measurable coincidence sets) is CPTP and diagonal-preserving with populations Γ_t, and a P witness implies CP-indivisibility (INF, [W] reviewed). The P witness from a non-permutation rooted map needs (NR) or (RIG) on infinite carriers (WEAK)",
+   "s1": "Relabel",
+   "s1_reason": "The CP step is A1-free (INF). The witness inherits X-20's (NR)/(RIG), which is a Relabel. The Koopman form REMAINDER proposed for L6 is the wrong object: the constant-vector normal state fails diagonal preservation on every carrier (R6 T6-K (α), refuted), and no diagonal normal state exists on a diffuse carrier",
+   "exit": "R6 record verification/audits/foundations/a1exit-r6-20261120/RESULT.md (on main; PR #1467 merged as e837e3db after independent review, round 2 ACCEPT-WITH-NITS #1467 c.7048749116 and a final-head check), §1, §3. The finite theorem at M:332 stays true. The measurable-carrier form is a Step-2 correction (R6 §7 items 1–6, 18)",
+   "correction": "R6 §7: #1 (M:328, precision: μ_H diagonal), #2 (M:328–334 measurable-carrier form with the (NR) witness), #3 and #4 (M:60 and M:732 lists: remove the CP theorem from the finite-representative list; name (NR) for its witness), #5 (M:742 table row), #6 (appB:92 = FULL:5769), #18 (M:336); not applied",
+   "owner": "R6 corrections (Step 2)",
+   "status": "queued (Step 2; R6 §7 corrections not applied)",
+   "site_code": "unit",
    "note": ""
   },
   {
@@ -813,15 +813,15 @@
     "L7"
    ],
    "how": "Uniform-prior finite coupling model",
-   "disposition": "F",
-   "weaker": "",
-   "s1": "",
-   "s1_reason": "",
-   "exit": "Printed as a finite-representative statement (M:732 (ii) list). R6 lemma L7, in progress",
-   "correction": "none at the pin; per R6 outcome",
-   "owner": "R6",
-   "status": "in progress",
-   "site_code": "none",
+   "disposition": "J",
+   "weaker": "None beyond the theorem's own hypotheses: R6 T7 proves the C2 quantitative theorem (M:459) and the physical-memory theorem (M:473) on any measurable hidden space with any reference probability π_H (INF, [W] reviewed)",
+   "s1": "No",
+   "s1_reason": "R6 §4.3: the disguised-A1 test passes on a Bernoulli carrier (control K3a)",
+   "exit": "R6 record verification/audits/foundations/a1exit-r6-20261120/RESULT.md (on main; PR #1467 merged as e837e3db after independent review, round 2 ACCEPT-WITH-NITS #1467 c.7048749116 and a final-head check), §1, §4",
+   "correction": "R6 §7: #7 (M:459 measurable coupling step), #8 (M:473 integrated (M1), K̄ = ∫ K π_H(dh)), #4 (M:732 list), optional #9; not applied",
+   "owner": "R6 corrections (Step 2)",
+   "status": "queued (Step 2; R6 §7 corrections not applied)",
+   "site_code": "unit",
    "note": ""
   },
   {
@@ -838,7 +838,7 @@
    ],
    "how": "Finite decoupled factor; uniform ω_H",
    "disposition": "J",
-   "weaker": "(D1)–(D5), with (D5) μ_H = u_{B_n}⊗ν, ν any normalized law (GR:877–883); for Theorem 24(iii), a trace-class state σ_A and a unitary W on the adjoined factor, with the base channel on V × H already defined as a channel (O-A4 row 24). On an infinite hidden carrier a defined base channel needs lemma L6 (R6, the Koopman dilation channel family on ℂ^V ⊗ L²(H,ρ)), in progress",
+   "weaker": "(D1)–(D5), with (D5) μ_H = u_{B_n}⊗ν, ν any normalized law (GR:877–883); for Theorem 24(iii), a trace-class state σ_A and a unitary W on the adjoined factor, with the base channel on V × H already defined as a channel (O-A4 row 24). On an infinite hidden carrier the base channel is R6's hidden-prior mixture family (T6, INF) and the adjoined Hilbert-space factor is R6 T9(a), (e) (INF); the Koopman form with the constant-vector state is refuted (R6 T6-K (α)) and is not used",
    "s1": "No",
    "s1_reason": "Finite cone and a uniform factor on a finite boundary window; the deep law is of any cardinality",
    "exit": "GR Appendix B printed for a site set of any cardinality under (D1)–(D5)",
@@ -859,15 +859,15 @@
     "OA4:23"
    ],
    "how": "Finite factor A; uniform ω_H",
-   "disposition": "F",
-   "weaker": "",
-   "s1": "",
-   "s1_reason": "",
-   "exit": "Printed finite (\"This is a finite, fixed-interface result; an infinite extension ... is not established\", Sub:262). R6 lemma L9, in progress",
-   "correction": "none at the pin; per R6 outcome",
-   "owner": "R6",
-   "status": "in progress",
-   "site_code": "none",
+   "disposition": "J",
+   "weaker": "R6 T9: (a) a decoupled factor on a Hilbert space of any dimension with a normalized state and unitary or isometric dynamics leaves the reduced channel family unchanged; (b) the classical form with a probability α and any measurable map; (d) Corollary (iii) exact transfer; (e) a Hilbert-space factor adjoined to the mixture base on a diffuse carrier (all INF); (c) Theorem 24(i) relabelling on a measurable carrier needs the relabelling to preserve ρ (WEAK; countermodel without it, K4)",
+   "s1": "No",
+   "s1_reason": "Normalization of the adjoined state or law; any cardinality. Coupled infinite deep sectors stay outside (GR Appendix B for finite windows, H-BD at leading order); recurrence-scale content of the base inherits X-20/X-24",
+   "exit": "R6 record verification/audits/foundations/a1exit-r6-20261120/RESULT.md (on main; PR #1467 merged as e837e3db after independent review, round 2 ACCEPT-WITH-NITS #1467 c.7048749116 and a final-head check), §1, §5",
+   "correction": "R6 §7: #10 (M:60), #11 (M:732 item (ii) deep-sector clauses), #12 (Sub:257–262 Theorem 24(iii)), #13 (Sub:268), #14 (Sub:92), #15 (ch02:144 = FULL:774), #19 (Str:53); optional #16, #17, #20, #21; not applied",
+   "owner": "R6 corrections (Step 2)",
+   "status": "queued (Step 2; R6 §7 corrections not applied)",
+   "site_code": "unit",
    "note": ""
   },
   {
@@ -1009,10 +1009,10 @@
    "weaker": "",
    "s1": "",
    "s1_reason": "",
-   "exit": "Main:764 unit (PR #1463, in progress): restores [31]'s typical-state and fixed-subsystem form and states G1 (configuration microstates outside the typical set; ensemble reading = the shell law's marginal). Then a finite-representative statement, listed as such at M:732 (ii) and M:766. The global-to-local inference for laws on an infinite carrier (L8-sel) needs R1: open, carried by X-63",
-   "correction": "M:764: replace \"canonical typicality [31] implies every local subsystem is also in its local equilibrium.\" by the typical-state, fixed-subsystem statement with G1 (exact text in PR #1463 LEDGER)",
-   "owner": "Main:764",
-   "status": "in progress",
+   "exit": "Landed at 62e79442 (PR #1463, after independent review: ACCEPT-WITH-NITS at 94876956, nits applied at 1d21aed7). M:764 now states [31] at its proved scope: for a fixed local subsystem and a shell of dimension large compared with the subsystem's, a typical pure state of the shell (unitarily invariant measure) has reduced state close to the shell's marginal; configuration microstates lie outside that typical set whenever λ_max is small; for the uniform law on the shell the conclusion holds exactly and needs no typicality. This is a statement about a finite-dimensional shell, listed as finite-representative at M:732 (ii) and M:766. STAGE1ii O1(a) is resolved. The global-to-local inference for laws on an infinite carrier (L8-sel) needs R1 and stays open, carried by X-63",
+   "correction": "done: M:764 at 62e79442 (verification/audits/manuscript/a1exit-main764-20261120/LEDGER.md on main). The phase sentence after it and the lead-ins (N4) are X-63, queued",
+   "owner": "none",
+   "status": "done (PR #1463 merged as 62e79442)",
    "site_code": "none",
    "note": ""
   },
@@ -2249,14 +2249,14 @@
   },
   "book/The-Incompleteness-of-Observation-FULL.md:5769": {
    "row": "X-50",
-   "code": "none",
-   "owner": "none",
+   "code": "unit",
+   "owner": "R6 corrections (Step 2)",
    "reason": "extended scan (read by hand): CP-indivisibility from \"a non-permutation rooted map and finiteness\" (finite stated)"
   },
   "book/appendix-b-derivations.md:92": {
    "row": "X-50",
-   "code": "none",
-   "owner": "none",
+   "code": "unit",
+   "owner": "R6 corrections (Step 2)",
    "reason": "extended scan (read by hand): CP-indivisibility from \"a non-permutation rooted map and finiteness\" (finite stated)"
   },
   "book/The-Incompleteness-of-Observation-FULL.md:3990": {

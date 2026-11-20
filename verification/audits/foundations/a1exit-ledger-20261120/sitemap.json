@@ -1,7 +1,7 @@
 {
  "schema": "a1exit site map v2",
- "pin": "76a3c4cbe21ec30d9ef0748ffd417cc9855ae6be",
- "manuscript_digest": "6f34804b20a8e55f8ec51c78e660307f225d112fe50ba6ac87936e57133975c3",
+ "pin": "e837e3dbaa605efc867a213f3345cee14c36d8f5",
+ "manuscript_digest": "eee967f97df9c39d406ad7a36b44204d3dd8953d7eeb4054e0496ca96c7d1949",
  "pin_note": "line numbers are those of the manuscript tree whose digest is recorded; check fails on a different tree",
  "sites": [
   {
@@ -1044,13 +1044,13 @@
     "para:P7"
    ],
    "row": "X-53",
-   "code": "none",
+   "code": "unit",
    "reason": "P0 rows C8,M21",
-   "owner": "none",
+   "owner": "R6 corrections (Step 2)",
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "FULL mirror of book/ch02-substratum.md:144: finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)",
-   "s3": "per unit R6"
+   "s3": "per unit R6 corrections (Step 2)"
   },
   {
    "p0_id": "FULL:776",
@@ -3619,13 +3619,13 @@
    "mirror_of": null,
    "patterns_at_pin": [],
    "row": "X-50",
-   "code": "none",
+   "code": "unit",
    "reason": "extended scan (read by hand): CP-indivisibility from \"a non-permutation rooted map and finiteness\" (finite stated)",
-   "owner": "none",
+   "owner": "R6 corrections (Step 2)",
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit R6"
+   "s3": "per unit R6 corrections (Step 2)"
   },
   {
    "p0_id": "FULL:5839",
@@ -4659,13 +4659,13 @@
    "mirror_of": null,
    "patterns_at_pin": [],
    "row": "X-50",
-   "code": "none",
+   "code": "unit",
    "reason": "extended scan (read by hand): CP-indivisibility from \"a non-permutation rooted map and finiteness\" (finite stated)",
-   "owner": "none",
+   "owner": "R6 corrections (Step 2)",
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit R6"
+   "s3": "per unit R6 corrections (Step 2)"
   },
   {
    "p0_id": "appendix-b-derivations:163",
@@ -6242,13 +6242,13 @@
     "para:P7"
    ],
    "row": "X-53",
-   "code": "none",
+   "code": "unit",
    "reason": "P0 rows C8,M21",
-   "owner": "none",
+   "owner": "R6 corrections (Step 2)",
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)",
-   "s3": "per unit R6"
+   "s3": "per unit R6 corrections (Step 2)"
   },
   {
    "p0_id": "ch02-substratum:148",
@@ -11353,13 +11353,13 @@
    "mirror_of": null,
    "patterns_at_pin": [],
    "row": "X-50",
-   "code": "none",
+   "code": "unit",
    "reason": "P0 rows M9",
-   "owner": "none",
+   "owner": "R6 corrections (Step 2)",
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit R6"
+   "s3": "per unit R6 corrections (Step 2)"
   },
   {
    "p0_id": "Main:334",
@@ -11376,13 +11376,13 @@
    "mirror_of": null,
    "patterns_at_pin": [],
    "row": "X-50",
-   "code": "none",
+   "code": "unit",
    "reason": "P0 rows M9",
-   "owner": "none",
+   "owner": "R6 corrections (Step 2)",
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit R6"
+   "s3": "per unit R6 corrections (Step 2)"
   },
   {
    "p0_id": "Main:338",
@@ -11698,13 +11698,13 @@
     "core:P6"
    ],
    "row": "X-51",
-   "code": "none",
+   "code": "unit",
    "reason": "P0 rows M16",
-   "owner": "none",
+   "owner": "R6 corrections (Step 2)",
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit R6"
+   "s3": "per unit R6 corrections (Step 2)"
   },
   {
    "p0_id": "Main:471",
@@ -11721,13 +11721,13 @@
    "mirror_of": null,
    "patterns_at_pin": [],
    "row": "X-51",
-   "code": "none",
+   "code": "unit",
    "reason": "P0 rows M16",
-   "owner": "none",
+   "owner": "R6 corrections (Step 2)",
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit R6"
+   "s3": "per unit R6 corrections (Step 2)"
   },
   {
    "p0_id": "Main:484",
@@ -12669,7 +12669,7 @@
    "p0_id": "Main:762",
    "file": "papers/Main.md",
    "line": 764,
-   "relocation": "exact",
+   "relocation": "anchor",
    "splice_units": null,
    "p0_class": "R5",
    "p0_rows": [
@@ -12679,7 +12679,8 @@
    "p0_action": "N",
    "mirror_of": null,
    "patterns_at_pin": [
-    "para:P4"
+    "para:P4",
+    "para:P7"
    ],
    "row": "X-62",
    "code": "none",
@@ -12688,7 +12689,7 @@
    "p2_action": null,
    "p2_units": null,
    "p2_reason": null,
-   "s3": "per unit Main:764"
+   "s3": "visible (P0/P1/P2 disposition)"
   },
   {
    "p0_id": "Main:764",
@@ -16937,13 +16938,13 @@
     "para:P7"
    ],
    "row": "X-53",
-   "code": "none",
+   "code": "unit",
    "reason": "P0 rows C8,M21",
-   "owner": "none",
+   "owner": "R6 corrections (Step 2)",
    "p2_action": "N",
    "p2_units": [],
    "p2_reason": "finite-carrier or class statement with its condition stated (A1-A6 class, finite model or finite factor)",
-   "s3": "per unit R6"
+   "s3": "per unit R6 corrections (Step 2)"
   },
   {
    "p0_id": "Substratum:266",
