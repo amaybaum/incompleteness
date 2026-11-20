@@ -196,9 +196,9 @@
    "disposition": "J",
    "weaker": "(IP): φ preserves ν⊗ρ with ν uniform on the finite visible alphabet (M:280); window readouts under P-ED (R1-INF Lemma 8)",
    "s1": "Relabel",
-   "s1_reason": "Uniform only on the finite visible factor; β_A on an infinite product satisfies it (R1-INF Lemma 8). STAGE0 R′ counts the uniform factor as a selected law: recorded, not A1. Criterion 3 (PREREG §6 item 3: \"assumed, not adopted\" plus the observability qualification): partly met — \"assumed as a hypothesis of this remark and not adopted\" is printed at M:280 and M:732; the observability qualification is not. Queued (R1/R2 scoping): M:280, after the statement of (IP): \"(IP) is a condition on a law on the whole carrier, with no finite-window test\"",
+   "s1_reason": "Uniform only on the finite visible factor; β_A on an infinite product satisfies it (R1-INF Lemma 8). STAGE0 R′ counts the uniform factor as a selected law: recorded, not A1. Criterion 3 (PREREG §6 item 3: \"assumed, not adopted\" plus the observability qualification): partly met — \"assumed as a hypothesis of this remark and not adopted\" is printed at M:280 and M:732; the observability qualification is not. Queued (R1/R2 scoping): M:280, after the statement of (IP): \"(IP) is a condition on a law on the whole carrier; finite-window data can test some of its consequences but cannot establish it, and do not distinguish it from a finite carrier's counting law\". This stays true with (IP)'s finite-window refutation test (a non-doubly-stochastic rooted map refutes it; REMAINDER M3, STAGE0 M3.a): finite data can refute (IP) but not establish it",
    "exit": "Main §3.2 prints (IP) as a sufficient condition (M:280, Phase 1 E9; item (ii) list)",
-   "correction": "none for (IP) sites. M:441 \"for the finite bijective model of §3.2 with its common uniform hidden prior\" is a finite statement and stays; criterion 3: M:280, after the statement of (IP): \"(IP) is a condition on a law on the whole carrier, with no finite-window test\"",
+   "correction": "none for (IP) sites. M:441 \"for the finite bijective model of §3.2 with its common uniform hidden prior\" is a finite statement and stays; criterion 3: M:280, after the statement of (IP): \"(IP) is a condition on a law on the whole carrier; finite-window data can test some of its consequences but cannot establish it, and do not distinguish it from a finite carrier's counting law\". This stays true with (IP)'s finite-window refutation test (a non-doubly-stochastic rooted map refutes it; REMAINDER M3, STAGE0 M3.a): finite data can refute (IP) but not establish it",
    "owner": "R1/R2 scoping",
    "status": "queued (criterion 3: observability qualification)",
    "site_code": "none",
@@ -206,7 +206,7 @@
    "crit3": {
     "state": "partly met",
     "printed": "\"assumed as a hypothesis of this remark and not adopted\" is printed at M:280 and M:732; the observability qualification is not",
-    "queued_wording": "M:280, after the statement of (IP): \"(IP) is a condition on a law on the whole carrier, with no finite-window test\"",
+    "queued_wording": "M:280, after the statement of (IP): \"(IP) is a condition on a law on the whole carrier; finite-window data can test some of its consequences but cannot establish it, and do not distinguish it from a finite carrier's counting law\". This stays true with (IP)'s finite-window refutation test (a non-doubly-stochastic rooted map refutes it; REMAINDER M3, STAGE0 M3.a): finite data can refute (IP) but not establish it",
     "owner": "R1/R2 scoping"
    }
   },
@@ -243,17 +243,17 @@
    "disposition": "J",
    "weaker": "H-blind / H-μ(sp): a law invariant under signed permutations (uniform product law on ℤ^d satisfies it, O-A4 Lemma U)",
    "s1": "Relabel",
-   "s1_reason": "An invariance property of a normalized law; satisfied on an infinite carrier. Criterion 3 (PREREG §6 item 3: \"assumed, not adopted\" plus the observability qualification): queued — neither part is printed: H-blind is a named condition (SM:12, :32, :130), but the law-invariance condition H-μ(sp) of the ℤ^d form is not stated. Queued (R1/R2 scoping): where Proposition 4b (SM:334) is stated on ℤ^d (with X-40): \"for a normalized law invariant under signed permutations of the components, assumed as a hypothesis and not adopted; a law on the whole carrier, with no finite-window test\"",
+   "s1_reason": "An invariance property of a normalized law; satisfied on an infinite carrier. Criterion 3 (PREREG §6 item 3: \"assumed, not adopted\" plus the observability qualification): partly met — the condition is printed at SM:334: \"The same conclusion holds for extensions of the rule whose dynamics, measure and observer σ-algebra are equivariant under signed permutations of the six components (H-blind)\"; the \"assumed, not adopted\" wording and the observability qualification are not. Queued (R1/R2 scoping): SM:334, after \"(H-blind)\": \"assumed as a hypothesis of this extension and not adopted; the measure clause is a condition on a law on the whole carrier; finite-window data can test some of its consequences but cannot establish it, and do not distinguish it from a finite carrier's counting law\"",
    "exit": "SM:334 prints the extension clause (law equivariant under signed permutations)",
-   "correction": "criterion 3: where Proposition 4b (SM:334) is stated on ℤ^d (with X-40): \"for a normalized law invariant under signed permutations of the components, assumed as a hypothesis and not adopted; a law on the whole carrier, with no finite-window test\"",
+   "correction": "criterion 3: SM:334, after \"(H-blind)\": \"assumed as a hypothesis of this extension and not adopted; the measure clause is a condition on a law on the whole carrier; finite-window data can test some of its consequences but cannot establish it, and do not distinguish it from a finite carrier's counting law\"",
    "owner": "R1/R2 scoping",
    "status": "queued (criterion 3: observability qualification)",
    "site_code": "none",
    "note": "",
    "crit3": {
-    "state": "queued",
-    "printed": "neither part is printed: H-blind is a named condition (SM:12, :32, :130), but the law-invariance condition H-μ(sp) of the ℤ^d form is not stated",
-    "queued_wording": "where Proposition 4b (SM:334) is stated on ℤ^d (with X-40): \"for a normalized law invariant under signed permutations of the components, assumed as a hypothesis and not adopted; a law on the whole carrier, with no finite-window test\"",
+    "state": "partly met",
+    "printed": "the condition is printed at SM:334: \"The same conclusion holds for extensions of the rule whose dynamics, measure and observer σ-algebra are equivariant under signed permutations of the six components (H-blind)\"; the \"assumed, not adopted\" wording and the observability qualification are not",
+    "queued_wording": "SM:334, after \"(H-blind)\": \"assumed as a hypothesis of this extension and not adopted; the measure clause is a condition on a law on the whole carrier; finite-window data can test some of its consequences but cannot establish it, and do not distinguish it from a finite carrier's counting law\"",
     "owner": "R1/R2 scoping"
    }
   },
@@ -298,9 +298,9 @@
    "disposition": "J",
    "weaker": "(NR): a single common near-return with margin after the non-permutation time, any normalized root-shared prior, no invariance (M:131)",
    "s1": "Relabel",
-   "s1_reason": "Logically weaker than A1: RIGID's rotation × Bernoulli example satisfies it with no finite order. At an unspecified time it has no finite-window test (REMAINDER §3). For the selected update on ℤ^d, (NR) fails under β_A (NR-1 Prop. 2.3; P-divisible at every horizon, NR-1 Thm 3.3); no law not supported on periodic configurations is known to satisfy it (the torus counting law μ_L on periodic configurations gives a root-conditioned return) (STAGE0 F1, a [W] reading within RIGID's rooted family). Criterion 3 (PREREG §6 item 3: \"assumed, not adopted\" plus the observability qualification): partly met — \"assumed, as a hypothesis of this result and not adopted\" is printed at M:131, M:141 and M:732; the observability qualification is not. Queued (R1/R2 scoping): M:131 (and M:141, :180, :224, :724 and the companion and book restatements): \"(NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update on ℤ^d no law not supported on periodic configurations is known to satisfy it\"",
+   "s1_reason": "Logically weaker than A1: RIGID's rotation × Bernoulli example satisfies it with no finite order. At an unspecified time it has no finite-window test (REMAINDER §3). For the selected update on ℤ^d, (NR) fails under β_A (NR-1 Prop. 2.3; P-divisible at every horizon, NR-1 Thm 3.3); the only laws known to satisfy it are supported on periodic configurations (the torus counting law μ_L gives a root-conditioned return) (STAGE0 F1, a [W] reading within RIGID's rooted family). Criterion 3 (PREREG §6 item 3: \"assumed, not adopted\" plus the observability qualification): partly met — \"assumed, as a hypothesis of this result and not adopted\" is printed at M:131, M:141 and M:732; the observability qualification is not. Queued (R1/R2 scoping): M:131 (and M:141, :180, :224, :724 and the companion and book restatements): \"(NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update on ℤ^d the only laws known to satisfy it are supported on periodic configurations\"",
    "exit": "Main §2.3 corollary (near-return), M:131, prints (NR) \"assumed ... not adopted\"; companions carry it (Phase 2 S1, G1, G2, B1). Deletion criterion 3 needs the Relabel qualification printed where (NR) is introduced",
-   "correction": "At M:131 (where (NR) is introduced), M:141 and M:224 (index-free form), M:180 and M:724 (restatements): add the Relabel qualification, e.g. \"(NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update on ℤ^d no law not supported on periodic configurations is known to satisfy it (X-21)\". The same at the companion and book restatements carrying (NR) (Phase-2 units S1, G1, G2, B1). Exact wording by the scoping unit; Phase-3 restatements (Meth, ch18, FULL) and glossary:105 by Q3; Str:1224 and ch01:161 = FULL:494 (B1) qualified by the scoping unit",
+   "correction": "At M:131 (where (NR) is introduced), M:141 and M:224 (index-free form), M:180 and M:724 (restatements): add the Relabel qualification, e.g. \"(NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update on ℤ^d the only laws known to satisfy it are supported on periodic configurations (X-21)\". The same at the companion and book restatements carrying (NR) (Phase-2 units S1, G1, G2, B1). Exact wording by the scoping unit; Phase-3 restatements (Meth, ch18, FULL) and glossary:105 by Q3; Str:1224 and ch01:161 = FULL:494 (B1) qualified by the scoping unit",
    "owner": "R1/R2 scoping",
    "status": "queued (Relabel qualification not printed; Q3 sites)",
    "site_code": "none",
@@ -308,7 +308,7 @@
    "crit3": {
     "state": "partly met",
     "printed": "\"assumed, as a hypothesis of this result and not adopted\" is printed at M:131, M:141 and M:732; the observability qualification is not",
-    "queued_wording": "M:131 (and M:141, :180, :224, :724 and the companion and book restatements): \"(NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update on ℤ^d no law not supported on periodic configurations is known to satisfy it\"",
+    "queued_wording": "M:131 (and M:141, :180, :224, :724 and the companion and book restatements): \"(NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update on ℤ^d the only laws known to satisfy it are supported on periodic configurations\"",
     "owner": "R1/R2 scoping"
    }
   },
@@ -636,9 +636,9 @@
    ],
    "how": "Inherits A4's finite lattice",
    "disposition": "J",
-   "weaker": "O-A4 verdict (i): A4∞, LF, H-μ(φ,Θ), H-μ(sp), H-Bloch (uniform Bernoulli law on ℤ^d, O-A4 Lemma U); H-cont for the pole and continued-response statements (X-18)",
+   "weaker": "O-A4 verdict (i): A4∞ and LF throughout. The law condition H-μ(φ,Θ) is used only by the area-law lemma (SM:122, uniform state class) and by the application of Lemma 1c at SM:252 with the selected invariant measure; Lemma 1c clause (i) itself holds for every relabelling-invariant μ. H-Bloch for clause (iii); H-cont for pole and continued-response statements (X-18). SM:210, :258 and :270 need no law condition on ℤ^d (O-A4 rows 5, 13, 14). H-μ(sp) belongs to X-17 (SM:334)",
    "s1": "Relabel",
-   "s1_reason": "Each condition is satisfied on ℤ^d (O-A4 Lemma U; H-Bloch on the linear observer-level branch); none bounds the number of sites. Criterion 3 (PREREG §6 item 3: \"assumed, not adopted\" plus the observability qualification): queued — neither part is printed (O-A4 record only). Queued (R1/R2 scoping): where Stage 2 is stated on ℤ^d (SM:122, :252, :258, :270, :210, with X-40): name H-μ(φ,Θ) and H-μ(sp) \"assumed as hypotheses and not adopted; each a law on the whole carrier, with no finite-window test\"",
+   "s1_reason": "Each condition is satisfied on ℤ^d (O-A4 Lemma U; H-Bloch on the linear observer-level branch); none bounds the number of sites. Criterion 3 (PREREG §6 item 3: \"assumed, not adopted\" plus the observability qualification): queued — neither part is printed at the two sites that use the law condition. Queued (R1/R2 scoping): SM:122 (the area-law lemma in the uniform state class) and the application of Lemma 1c at SM:252 with the selected invariant measure: \"for a law invariant under the update and the reversal (H-μ(φ,Θ)), assumed as a hypothesis and not adopted; a condition on a law on the whole carrier; finite-window data can test some of its consequences but cannot establish it, and do not distinguish it from a finite carrier's counting law\"",
    "exit": "O-A4 (on main) classifies these steps (a)/(b) on ℤ^d under the named conditions; Q1 §6 records them as already classified (S lines). Printed on ℤ^d by the A4 restatement (X-40)",
    "correction": "Covered by X-40's A4 restatement; SM:210 reads verbatim on ℤ^d (O-A4 row 5)",
    "owner": "Q1 corrections (Step 2)",
@@ -647,8 +647,8 @@
    "note": "",
    "crit3": {
     "state": "queued",
-    "printed": "neither part is printed (O-A4 record only)",
-    "queued_wording": "where Stage 2 is stated on ℤ^d (SM:122, :252, :258, :270, :210, with X-40): name H-μ(φ,Θ) and H-μ(sp) \"assumed as hypotheses and not adopted; each a law on the whole carrier, with no finite-window test\"",
+    "printed": "neither part is printed at the two sites that use the law condition",
+    "queued_wording": "SM:122 (the area-law lemma in the uniform state class) and the application of Lemma 1c at SM:252 with the selected invariant measure: \"for a law invariant under the update and the reversal (H-μ(φ,Θ)), assumed as a hypothesis and not adopted; a condition on a law on the whole carrier; finite-window data can test some of its consequences but cannot establish it, and do not distinguish it from a finite carrier's counting law\"",
     "owner": "R1/R2 scoping"
    }
   },
@@ -832,7 +832,7 @@
    "disposition": "J",
    "weaker": "R6 T6 (i)–(iv): the hidden-prior mixture family Φ_t = ∫ Ψ_{π_t(h)} ρ(dh) on a measurable hidden space (fibre-injective measurable F, measurable coincidence sets) is CPTP and diagonal-preserving with populations Γ_t, and a P witness implies CP-indivisibility (INF, [W] reviewed). The P witness from a non-permutation rooted map needs (NR) or (RIG) on infinite carriers (WEAK)",
    "s1": "Relabel",
-   "s1_reason": "The CP step is A1-free (INF). The witness inherits X-20's (NR)/(RIG), which is a Relabel. The Koopman form REMAINDER proposed for L6 is the wrong object: the constant-vector normal state fails diagonal preservation on every carrier (R6 T6-K (α), refuted), and no diagonal normal state exists on a diffuse carrier. Criterion 3 (PREREG §6 item 3: \"assumed, not adopted\" plus the observability qualification): queued — neither part is printed (the measurable form, R6 §7 #2, is not printed). Queued (R1/R2 scoping): with R6 §7 #2 at M:328–334: \"under (NR), assumed as a hypothesis of this result and not adopted; (NR) concerns a time that need not be accessible and then has no finite-window test\"",
+   "s1_reason": "The CP step is A1-free (INF). The witness inherits X-20's (NR)/(RIG), which is a Relabel. The Koopman form REMAINDER proposed for L6 is the wrong object: the constant-vector normal state fails diagonal preservation on every carrier (R6 T6-K (α), refuted), and no diagonal normal state exists on a diffuse carrier. Criterion 3 (PREREG §6 item 3: \"assumed, not adopted\" plus the observability qualification): queued — neither part is printed (the measurable form, R6 §7 #2, is not printed). Queued (R1/R2 scoping): with R6 §7 #2 at M:328–334: \"under (NR), assumed as a hypothesis of this result and not adopted; (NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update on ℤ^d the only laws known to satisfy it are supported on periodic configurations\"",
    "exit": "R6 record verification/audits/foundations/a1exit-r6-20261120/RESULT.md (on main; PR #1467 merged as e837e3db after independent review, round 2 ACCEPT-WITH-NITS #1467 c.7048749116, and a final-head check; accepted per owner record #1169 c.7049542030), §1, §3. The finite theorem at M:332 stays true. The measurable-carrier form is a Step-2 correction (R6 §7 items 1–6, 18)",
    "correction": "R6 §7: #1 (M:328, precision: μ_H diagonal), #2 (M:328–334 measurable-carrier form with the (NR) witness), #3 and #4 (M:60 and M:732 lists: remove the CP theorem from the finite-representative list; name (NR) for its witness), #5 (M:742 table row), #6 (appB:92 = FULL:5769), #18 (M:336); not applied",
    "owner": "R6 corrections (Step 2)",
@@ -842,7 +842,7 @@
    "crit3": {
     "state": "queued",
     "printed": "neither part is printed (the measurable form, R6 §7 #2, is not printed)",
-    "queued_wording": "with R6 §7 #2 at M:328–334: \"under (NR), assumed as a hypothesis of this result and not adopted; (NR) concerns a time that need not be accessible and then has no finite-window test\"",
+    "queued_wording": "with R6 §7 #2 at M:328–334: \"under (NR), assumed as a hypothesis of this result and not adopted; (NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update on ℤ^d the only laws known to satisfy it are supported on periodic configurations\"",
     "owner": "R1/R2 scoping"
    }
   },
@@ -902,7 +902,7 @@
    ],
    "how": "Finite factor A; uniform ω_H",
    "disposition": "J",
-   "weaker": "R6 T9: (a) a decoupled factor on a Hilbert space of any dimension with a normalized state and unitary or isometric dynamics leaves the reduced channel family unchanged; (b) the classical form with a probability α and any measurable map; (d) Corollary (iii) exact transfer; (e) a Hilbert-space factor adjoined to the mixture base on a diffuse carrier (all INF); (c) Theorem 24(i) relabelling on a measurable carrier needs the relabelling to preserve ρ (WEAK; countermodel without it, K4)",
+   "weaker": "R6 T9: (a) a decoupled factor on a Hilbert space of any dimension with a normalized state and unitary or isometric dynamics leaves the reduced channel family unchanged; (b) the classical form with a probability α and any measurable map; (d) Corollary (iii) exact transfer; (e) a Hilbert-space factor adjoined to the mixture base on a diffuse carrier (all INF); (c) Theorem 24(i) relabelling on a measurable carrier needs the relabelling σ to preserve ρ, a condition on σ, not on the law (WEAK; countermodel without it, K4)",
    "s1": "No",
    "s1_reason": "R6 T9 holds for every normalized adjoined state or law of any cardinality; the adjoined state is a free parameter, not a declared law on the whole carrier",
    "exit": "R6 record verification/audits/foundations/a1exit-r6-20261120/RESULT.md (on main; PR #1467 merged as e837e3db after independent review, round 2 ACCEPT-WITH-NITS #1467 c.7048749116, and a final-head check; accepted per owner record #1169 c.7049542030), §1, §5",
@@ -1007,9 +1007,9 @@
    "disposition": "J",
    "weaker": "(IL): normalized φ-invariant μ, P the μ-conditional expectation onto declared local observables of a finite readout support, (EM) on μ-centred L²(μ) observables",
    "s1": "Relabel",
-   "s1_reason": "A normalized law with a finite readout support; τ_B transfer is an A1-independent source gap (REMAINDER M18). Criterion 3 (PREREG §6 item 3: \"assumed, not adopted\" plus the observability qualification): partly met — \"assumed as a hypothesis of this estimate and not adopted\" is printed at M:766 and M:732; the observability qualification is not. Queued (R1/R2 scoping): M:766, after the statement of (IL): \"(IL) is a condition on a law on the whole carrier, with no finite-window test\"",
+   "s1_reason": "A normalized law with a finite readout support; τ_B transfer is an A1-independent source gap (REMAINDER M18). Criterion 3 (PREREG §6 item 3: \"assumed, not adopted\" plus the observability qualification): partly met — \"assumed as a hypothesis of this estimate and not adopted\" is printed at M:766 and M:732; the observability qualification is not. Queued (R1/R2 scoping): M:766, after the statement of (IL): \"(IL) is a condition on a law on the whole carrier; finite-window data can test some of its consequences but cannot establish it, and do not distinguish it from a finite carrier's counting law\"",
    "exit": "M:766 prints (IL) as a hypothesis of the decay estimate (Phase 1 E14). The O(ε) corrections and exact recurrence are X-65",
-   "correction": "criterion 3: M:766, after the statement of (IL): \"(IL) is a condition on a law on the whole carrier, with no finite-window test\"",
+   "correction": "criterion 3: M:766, after the statement of (IL): \"(IL) is a condition on a law on the whole carrier; finite-window data can test some of its consequences but cannot establish it, and do not distinguish it from a finite carrier's counting law\"",
    "owner": "R1/R2 scoping",
    "status": "queued (criterion 3: observability qualification)",
    "site_code": "none",
@@ -1017,7 +1017,7 @@
    "crit3": {
     "state": "partly met",
     "printed": "\"assumed as a hypothesis of this estimate and not adopted\" is printed at M:766 and M:732; the observability qualification is not",
-    "queued_wording": "M:766, after the statement of (IL): \"(IL) is a condition on a law on the whole carrier, with no finite-window test\"",
+    "queued_wording": "M:766, after the statement of (IL): \"(IL) is a condition on a law on the whole carrier; finite-window data can test some of its consequences but cannot establish it, and do not distinguish it from a finite carrier's counting law\"",
     "owner": "R1/R2 scoping"
    }
   },
