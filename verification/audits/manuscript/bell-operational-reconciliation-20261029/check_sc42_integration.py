@@ -39,13 +39,33 @@ MUTATIONS = {
     'achieved_no_signaling': ('papers/Main.md', 'with operational no-signaling required.', 'with operational no-signaling established.', 'Bell summary requires rather than derives no-signaling'),
     'fr_partition_escape': ('papers/Methodology.md', "The Wigner's-friend construction is an observer-relative interpretation of a common underlying law; an unconditional Frauchiger–Renner resolution does not follow from it.", 'The Frauchiger–Renner theorem does not apply because the framework has multiple observer partitions.', 'FR scope requires the actual protocol rather than partition multiplicity'),
 }
+# Owner-authorized local-path exception (#1438 comment 7030785927, amaybaum, 2026-11-20): the
+# preserved EOI PACKAGE r3, whose SHA-256 a frozen preregistration cites, uses the bare word
+# "scratch" "pad" as a location label. Only the `local-path` category, only at this exact path, and
+# only while the file is this exact Git blob; every other category, secrets included, still applies.
+EXEMPT_PATH = 'verification/programmes/oi-qm/reconstruction/drafts/recovered-1169-20261113/eoi-package/eoi-audit/PACKAGE.md'
+EXEMPT_BLOB = '8e5808e559cf03fd22b1beb5293902741ba148e4'
+EXEMPT_README = 'verification/programmes/oi-qm/reconstruction/drafts/recovered-1169-20261113/eoi-package/README.md'
+MUTATIONS.update({
+    # Must-fail: a local path in an unrelated file, the exempted file's sibling, still fails.
+    'unrelated_local_path': (EXEMPT_README, None, '\nkept in a scratch' + 'pad directory\n', 'added-text scan: 1 hit(s)'),
+    # Must-fail: a modified copy at the exempted path has another blob and loses the exception.
+    'exempt_path_other_blob': (EXEMPT_PATH, None, '\nmodified copy\n', 'added-text scan: 2 hit(s)'),
+})
+# Must-fail: a secret-pattern line attributed to the exempted path while its blob is unchanged, so
+# the exception is in force, is still reported. Injected into the scan only (the blob cannot hold it).
+SCAN_INJECTIONS = {'exempt_blob_secret': (EXEMPT_PATH, 'token ghp_' + 'x' * 24, 'added-text scan: 1 hit(s)'),
+    # Must-fail, with the exception in force: no directory-level exemption (another file in the
+    # exempted file's directory) and no name-level exemption (a PACKAGE.md copy at another path).
+    'exempt_dir_other_file': (os.path.dirname(EXEMPT_PATH) + '/NOTES.md', '| S1B draft r5 (scratch' + 'pad, pre-`F`) |', 'added-text scan: 1 hit(s)'),
+    'exempt_name_other_path': (os.path.dirname(EXEMPT_README) + '/PACKAGE.md', '| S1B draft r5 (scratch' + 'pad, pre-`F`) |', 'added-text scan: 1 hit(s)')}
 
 def read(p, rev=None):
     text = original_read(p, rev)
     if rev is None and MUTANT:
-        if MUTANT not in MUTATIONS:
+        if MUTANT not in MUTATIONS and MUTANT not in SCAN_INJECTIONS:
             raise SystemExit('unknown mutation')
-        target, before, after, _ = MUTATIONS[MUTANT]
+        target, before, after, _ = MUTATIONS.get(MUTANT, (None, None, None, None))
         if p == target:
             if before is None:
                 changed = text + after
@@ -100,7 +120,7 @@ if '--self-test' in sys.argv:
         baseline = {}
     controls = [{'control': 'unchanged_source', 'exit_code': result.returncode,
                  'passed': result.returncode == 0 and baseline.get('verdict') == 'PASS'}]
-    for name, (_, _, _, expected) in MUTATIONS.items():
+    for name, expected in [(n, v[3]) for n, v in MUTATIONS.items()] + [(n, v[2]) for n, v in SCAN_INJECTIONS.items()]:
         run = subprocess.run(command + ['--mutant', name], cwd=ROOT, capture_output=True, text=True)
         try:
             data = json.loads(run.stdout)
@@ -293,12 +313,21 @@ for l in added:
 diagnostic('[5] added-text scan')
 diff = subprocess.run(['git', 'diff', '-U0', '--word-diff=porcelain', BASE, '--', '*.md', '*.py'],
                       capture_output=True, text=True, check=True).stdout
+if MUTANT in MUTATIONS:
+    read(MUTATIONS[MUTANT][0])  # register the mutation even when no earlier check reads its target
 if MUTANT:
     extra = []
     for path, (before, after) in MUTATED_READS.items():
         extra.append('+++ b/' + path)
         extra.extend('+' + line[2:] for line in difflib.ndiff(before.splitlines(), after.splitlines()) if line.startswith('+ '))
+    if MUTANT in SCAN_INJECTIONS:
+        extra.extend(['+++ b/' + SCAN_INJECTIONS[MUTANT][0], '+' + SCAN_INJECTIONS[MUTANT][1]])
     diff += '\n' + '\n'.join(extra)
+# Git blob id of the exempted file as scanned (the mutated text under a mutation), or None if absent.
+exempt_data = (MUTATED_READS[EXEMPT_PATH][1].encode('utf-8') if EXEMPT_PATH in MUTATED_READS
+               else Path(ROOT, EXEMPT_PATH).read_bytes() if Path(ROOT, EXEMPT_PATH).is_file() else None)
+exempt_live = exempt_data is not None and hashlib.sha1(b'blob %d\0' % len(exempt_data) + exempt_data).hexdigest() == EXEMPT_BLOB
+diagnostic(f'        local-path exception for {EXEMPT_PATH} at blob {EXEMPT_BLOB}: {"applies" if exempt_live else "does not apply"}')
 cur = None; hits = []; scanned = 0
 REGISTER = re.compile(r'should not be read|the reader should|reader should note|discipline|honest|'
                       r'temptation|stated in that register|neither borrows', re.I)
@@ -325,7 +354,7 @@ for l in diff.splitlines():
             hits.append((cur, 'caps', c))
     if SECRET.search(t):
         hits.append((cur, 'secret', SECRET.search(t).group(0)))
-    if LOCAL.search(t):
+    if LOCAL.search(t) and not (exempt_live and cur == EXEMPT_PATH):
         hits.append((cur, 'local-path', LOCAL.search(t).group(0)))
 diagnostic(f'        scanned {scanned} added text chunk(s)')
 for h in hits:
