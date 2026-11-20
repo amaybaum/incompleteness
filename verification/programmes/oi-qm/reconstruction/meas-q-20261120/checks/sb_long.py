@@ -23,6 +23,18 @@ C, q = M.C, M.q
 n, T, R, T2MAX, PERSIST, HOLD = 100, 87, 8, 27, 60, 8
 
 
+def q_step32(prev, cur):
+    s = cur.copy()
+    for ax in range(3):
+        s += np.roll(cur, 1, ax)
+        s += np.roll(cur, -1, ax)
+    s -= cur
+    nxt = (s + 1) // 3
+    nxt -= prev
+    nxt %= q
+    return cur, nxt
+
+
 def pool():
     out = []
     for d in [(3,), (4,), (2, 2)]:
@@ -84,11 +96,12 @@ def main():
         Y, supp, conf = [], [], []
         for cv in (0, 1):
             p, c_ = L.build(cv)
+            p, c_ = p.astype(np.int32), c_.astype(np.int32)   # exact: sums <= 6(q-1) < 2^31
             ys = []
             inbox = True
             for t in range(T + 1):
                 ys.append(np.stack([p.reshape(-1)[E], c_.reshape(-1)[E]]))
-                p, c_ = M.q_step(p, c_)
+                p, c_ = q_step32(p, c_)
             nz = ((p != C) | (c_ != C)).reshape(-1)
             supp.append(int(nz.sum()))
             conf.append(bool(not np.delete(nz, boxflat).any()))
