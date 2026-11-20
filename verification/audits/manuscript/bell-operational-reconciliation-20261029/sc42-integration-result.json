@@ -1420,6 +1420,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Remark.** Lemma B.2.2 is the bijection–doubly-stochastic-m..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: with $\\hat{H}_{\\text{eff}} = H_V + \\mathrm{Tr}_H[V_{\\text{in..."
     },
     {
@@ -2148,6 +2152,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Corollary (near-return).* *Let $\\mathcal{C}_V$ be finite wi..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **The accessible-timescale lemma.** A potential objection to..."
     },
     {
@@ -2165,6 +2173,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The witnessed readback gap gives conditional memory inside i..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
     },
     {
       "ok": true,

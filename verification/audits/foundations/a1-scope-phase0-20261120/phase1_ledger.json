@@ -379,6 +379,205 @@
    "reason": "FULL mirror of B8 (§A.14)",
    "old_sha256": "18c9b6c50273b39185d4186593d9f65f17b666c46cf17a31e1fa232cb269a73e",
    "new_sha256": "810aeb82ec4c4985c993e5b24a6501bb732d352d930568d445c1bf6d2c1eb3c5"
+  },
+  {
+   "unit": "A-E6",
+   "file": "papers/Main.md",
+   "old": "the index-free form holds under full support of the visible prior, (FS), with the root drawn independently of the hidden prior, one direction at a time.",
+   "new": "the index-free form holds under full support of the visible prior, (FS), with the root drawn independently of the hidden prior, and, for the step from (b) to (c), the near-return condition (NR), both assumed as hypotheses of this form and not adopted, one direction at a time.",
+   "rows": [
+    "M5",
+    "M7"
+   ],
+   "reason": "R1: the lead sentence names (NR) with (FS)",
+   "old_sha256": "386e1f1da9f8fb2b07581ace976fbd59ce31098841f5f293363fd0ff19d1f5ce",
+   "new_sha256": "50af4589b6f597ba1c55a49b83eeac9aceea3a507d32cf3d5eaf7f59aa5f2d58",
+   "amendment": "2026-11-20"
+  },
+  {
+   "unit": "A-E12",
+   "file": "papers/Main.md",
+   "old": "not adopted and one sufficient condition among those stated at each use.",
+   "new": "not adopted, and one sufficient condition among those stated at each use.",
+   "rows": [
+    "REM-s3"
+   ],
+   "reason": "nit: missing comma",
+   "old_sha256": "24fc85671e8a241ed946ef79e9e8643360a48d2f73fa5cfbcb6ace91a0e4bb72",
+   "new_sha256": "0a5c85124dda0d96968fb1c76506ffb88a8642703f1987929fc0f051cccf70fe",
+   "amendment": "2026-11-20"
+  },
+  {
+   "unit": "A-E7",
+   "file": "papers/Main.md",
+   "old": "assumed in its place, without finiteness;",
+   "new": "assumed in its place and not adopted, without finiteness of the hidden sector;",
+   "rows": [
+    "M4"
+   ],
+   "reason": "nits: \"not adopted\"; finiteness of the hidden sector",
+   "old_sha256": "a7ec8f1f31d3b8e8aa7c8c0e6e6dc1c5a1b58378f27c0a572695c5686b41906f",
+   "new_sha256": "1d3efdce898b7d750f867060e36e9ed19a9d193b59abf6ba79104121bc4a2c9d",
+   "amendment": "2026-11-20"
+  },
+  {
+   "unit": "A-E11",
+   "file": "papers/Main.md",
+   "old": "or the near-return condition (NR) assumed in its place, and a non-permutation rooted map",
+   "new": "or the near-return condition (NR) assumed in its place and not adopted, and a non-permutation rooted map",
+   "rows": [
+    "M4"
+   ],
+   "reason": "nit: \"not adopted\"",
+   "old_sha256": "36f0eb5b10e895f328d3cb09fe85b09b408e747f8d199531fab14a16ab206be6",
+   "new_sha256": "5e5507d978cca363ee86e8f7607ac0bdef35414ce1b47363c5bda1568c838463",
+   "amendment": "2026-11-20"
+  },
+  {
+   "unit": "A-E15",
+   "file": "papers/Main.md",
+   "old": "the near-return corollary of §2.3 and the remark of §3.2 under the condition (IP) take a measurable hidden space.",
+   "new": "the near-return corollary of §2.3, the index-free form of §2.3 under (FS) and (NR), and the remark of §3.2 under the condition (IP) take a measurable hidden space.",
+   "rows": [
+    "REM-s3",
+    "M4",
+    "M3",
+    "M7"
+   ],
+   "reason": "nit: E6's index-free form takes a measurable hidden space",
+   "old_sha256": "edf203819959499985bbc54e4a004448eca2466a2d2d2c81d109c58402dc82dc",
+   "new_sha256": "582ed750f5d98c049a100d9c8d45d63e7c1671575d41d864bc1c82e3a1f715f2",
+   "amendment": "2026-11-20"
+  },
+  {
+   "unit": "A-E2",
+   "file": "papers/Main.md",
+   "old": "and on the finite representative of the total-finiteness posit (§1.2 Remark, §4.5 ledger) the map acts on a finite $S$",
+   "new": "and on the bijective representative of the total-finiteness posit (§1.2 Remark, §4.5 ledger) the map acts on a finite $S$",
+   "rows": [
+    "REM-s3"
+   ],
+   "reason": "nit: removes the near-tautology \"finite representative ... finite S\"",
+   "old_sha256": "893639e573b2b8a9dedffe492f4cfa3052de774c9b6522597402760a26d78437",
+   "new_sha256": "a0d2cf5bdbf1b6fcb3177d456f57a55eaf46c5daa8b71f59e357ea2decc9a66b",
+   "amendment": "2026-11-20"
+  },
+  {
+   "unit": "A-E5",
+   "file": "papers/Main.md",
+   "old": "The condition (NR) needs no finite hidden space, invariant law or bijection, and it fixes neither $N$ nor $n$.",
+   "new": "The condition (NR) needs no finite hidden space, invariant law, bijection or period $N$; $n$ is any time after $s$ at which its inequality holds.",
+   "rows": [
+    "M4"
+   ],
+   "reason": "nit: clarifies \"fixes neither N nor n\"",
+   "old_sha256": "28768af198ecf9fbc35a0275e10036d672257075cfde885aad855b2cc580834c",
+   "new_sha256": "8899a566d899cd6f1d6fc1b15e43f34eb5f135beb4e3fe28d7fb9e7e3385b66f",
+   "amendment": "2026-11-20"
+  },
+  {
+   "unit": "A-B2",
+   "file": "book/ch01-observation.md",
+   "old": "and on the finite representative of the finiteness posit A1 (Chapter 2 §2.4) the map acts on a finite system",
+   "new": "and on the bijective representative of the finiteness posit A1 (Chapter 2 §2.4) the map acts on a finite system",
+   "rows": [
+    "REM-s3"
+   ],
+   "reason": "mirror of A-E2",
+   "old_sha256": "939fde41b54bc48866c2478dc861496a05bfdd815daa5d3f567eeb6366ec07e4",
+   "new_sha256": "103922f3a9652f4e29954b571fda5bf0887d29cbdb183dd7997fdbea218a10de",
+   "amendment": "2026-11-20"
+  },
+  {
+   "unit": "A-B2-FULL",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "old": "and on the finite representative of the finiteness posit A1 (Chapter 2 §2.4) the map acts on a finite system",
+   "new": "and on the bijective representative of the finiteness posit A1 (Chapter 2 §2.4) the map acts on a finite system",
+   "rows": [
+    "REM-s3"
+   ],
+   "reason": "FULL mirror of A-B2 (§A.14)",
+   "old_sha256": "939fde41b54bc48866c2478dc861496a05bfdd815daa5d3f567eeb6366ec07e4",
+   "new_sha256": "103922f3a9652f4e29954b571fda5bf0887d29cbdb183dd7997fdbea218a10de",
+   "amendment": "2026-11-20"
+  },
+  {
+   "unit": "A-B3",
+   "file": "book/ch01-observation.md",
+   "old": "The condition (NR) needs no finite hidden space, invariant law or bijection, and it fixes neither $N$ nor $n$.",
+   "new": "The condition (NR) needs no finite hidden space, invariant law, bijection or period $N$; $n$ is any time after $s$ at which its inequality holds.",
+   "rows": [
+    "M4"
+   ],
+   "reason": "mirror of A-E5",
+   "old_sha256": "28768af198ecf9fbc35a0275e10036d672257075cfde885aad855b2cc580834c",
+   "new_sha256": "8899a566d899cd6f1d6fc1b15e43f34eb5f135beb4e3fe28d7fb9e7e3385b66f",
+   "amendment": "2026-11-20"
+  },
+  {
+   "unit": "A-B3-FULL",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "old": "The condition (NR) needs no finite hidden space, invariant law or bijection, and it fixes neither $N$ nor $n$.",
+   "new": "The condition (NR) needs no finite hidden space, invariant law, bijection or period $N$; $n$ is any time after $s$ at which its inequality holds.",
+   "rows": [
+    "M4"
+   ],
+   "reason": "FULL mirror of A-B3 (§A.14)",
+   "old_sha256": "28768af198ecf9fbc35a0275e10036d672257075cfde885aad855b2cc580834c",
+   "new_sha256": "8899a566d899cd6f1d6fc1b15e43f34eb5f135beb4e3fe28d7fb9e7e3385b66f",
+   "amendment": "2026-11-20"
+  },
+  {
+   "unit": "A-B4",
+   "file": "book/ch01-observation.md",
+   "old": "Under A1 the physical representative is finite and reversible, so it also recurs; without A1, the near-return condition of the corollary in §1.5 is the stated sufficient condition for the indivisibility conclusion: its rooted visible maps,",
+   "new": "Without A1, the near-return condition of the corollary in §1.5 is the stated sufficient condition for the indivisibility conclusion. Under A1 the physical representative is finite and reversible, so it also recurs: its rooted visible maps,",
+   "rows": [
+    "M10",
+    "M4"
+   ],
+   "reason": "nit: the exact-return explanation attaches to A1, not to (NR)",
+   "old_sha256": "112d0023a5a5d04403f45e927834f31b0103d3e9e76162cbb83c489b850a089b",
+   "new_sha256": "e109897988420ec1228345c0e0210444f8ac4d4c5e854f8ca7db3134a1022663",
+   "amendment": "2026-11-20"
+  },
+  {
+   "unit": "A-B4-FULL",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "old": "Under A1 the physical representative is finite and reversible, so it also recurs; without A1, the near-return condition of the corollary in §1.5 is the stated sufficient condition for the indivisibility conclusion: its rooted visible maps,",
+   "new": "Without A1, the near-return condition of the corollary in §1.5 is the stated sufficient condition for the indivisibility conclusion. Under A1 the physical representative is finite and reversible, so it also recurs: its rooted visible maps,",
+   "rows": [
+    "M10",
+    "M4"
+   ],
+   "reason": "FULL mirror of A-B4 (§A.14)",
+   "old_sha256": "112d0023a5a5d04403f45e927834f31b0103d3e9e76162cbb83c489b850a089b",
+   "new_sha256": "e109897988420ec1228345c0e0210444f8ac4d4c5e854f8ca7db3134a1022663",
+   "amendment": "2026-11-20"
+  }
+ ],
+ "amendments": [
+  {
+   "date": "2026-11-20",
+   "units": [
+    "A-E6",
+    "A-E12",
+    "A-E7",
+    "A-E11",
+    "A-E15",
+    "A-E2",
+    "A-E5",
+    "A-B2",
+    "A-B2-FULL",
+    "A-B3",
+    "A-B3-FULL",
+    "A-B4",
+    "A-B4-FULL"
+   ],
+   "authorization": "owner amaybaum, https://github.com/amaybaum/incompleteness/pull/1443#issuecomment-7032083873, 2026-11-20T06:16:01Z, \"Owner decision: post-edit ledger amendment for R1 and the review nits\": \"yes, approve the amendment for R1 and the nits\"",
+   "exception": "post-edit amendment: PREREG section 7 makes ledger entries before the edit; the owner decision records the exception, limited to R1 and the nits of the review",
+   "review": "https://github.com/amaybaum/incompleteness/pull/1443#issuecomment-7032042320",
+   "application": "appended after the original 30 splices; each old string occurs once in the text those splices produce"
   }
  ]
 }
