@@ -2,8 +2,12 @@
 
 **Standing.** Author record of a paper-only gem-finding unit (AGENTS.md §A.31, depth-first form).
 Independent non-author review: REVISE at `e4e6c997`
-([#1432 c.7025788384](https://github.com/amaybaum/incompleteness/pull/1432#issuecomment-7025788384)).
-This revision answers its required corrections 1–6. The record adopts no premise and edits no
+([#1432 c.7025788384](https://github.com/amaybaum/incompleteness/pull/1432#issuecomment-7025788384));
+re-review ACCEPT WITH NITS at `74ab936a`
+([#1432 c.7025985363](https://github.com/amaybaum/incompleteness/pull/1432#issuecomment-7025985363));
+delta CONFIRMED at `ec0101ee`
+([#1432 c.7026110454](https://github.com/amaybaum/incompleteness/pull/1432#issuecomment-7026110454)).
+This revision answers the required corrections 1–6 of the first review. The record adopts no premise and edits no
 manuscript, Lean module or registry. Small exact checks and bounded searches are included (§10).
 
 - **Authorization.** Owner `amaybaum`,
