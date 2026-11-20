@@ -86,13 +86,19 @@ includes finiteness of $S$; the word was also an all-caps emphasis (§A.33).
 `verification/coverage/LEDGER.json`, entry `SM:T-1a-equivariant-finite-projection-preserves-spatial`: the
 fingerprint is moved to the new statement (`8e362ef0f004ec78` → `f73b1c416fd4e3d7`) and its assumptions
 read "S any set" in place of "S finite". Mapping (probe `observer_isotropy_probes.py`, basis `section`),
-level `P` and delta are re-affirmed unchanged.
+level `P` and delta "no Lean statement" are left unchanged.
+
+Finding (pre-existing, not changed here): that entry's `"kernel": "P"` and delta "no Lean statement"
+(LEDGER.json:1494–1495) are stale relative to §2 and §5 above and to `verification/README.md:154`, which
+records `OI_Structural_Core.lean` as Theorem 1a at operator level. Routed to #1462.
 
 Left unchanged by minimum change, each true after the correction: the title's "equivariant finite
-projection" (it names no hypothesis, and every finite-rank projection is covered); the summaries "finite
+projection", which is narrower than the theorem (the theorem also covers infinite-rank $P$) and is kept
+under minimum change and as the stem of the coverage-ledger identifier; the summaries "finite
 equivariant projection is classical and exact" (SM:12, Substratum:3, book ch05:4 and :13, FULL:1319 and
-:1328) and "exact finite-observer result" (SM:26), which describe the finite-observation reading and assert
-no requirement that $S$ be finite; SM:222's statement that under A1 and A4 the bijection acts on a finite
+:1328), "exact finite-observer result" (SM:26) and "the exact finite-observer isotropy theorem … forced by
+their stated finite/symmetry hypotheses" (book ch05:17, FULL:1332), which describe the finite-observation
+reading and assert no requirement that $S$ be finite; SM:222's statement that under A1 and A4 the bijection acts on a finite
 periodic quotient of $\Lambda$. Theorem 1a has no statement mirror in the book or FULL and is not cited in
 Main. No Lean statement and no entry of `verification/lean-manuscript-census.json` changes (§A.35).
 
