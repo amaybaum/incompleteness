@@ -375,8 +375,8 @@ the framework without its finite-only or open qualification.
 - **D8 (CK4 "by hand").** PREREG CK4 asks for lines with no P0 counterpart to be classified by hand.
   - The 11 such lines found by the P0 pattern set were each read. They are encoded as three
     `new_site_rules` regexes that record that reading, not a mechanical classification.
-  - The 44 lines found by the extended criterion-5 scan were each read and placed by override (patch
-    record in the commit message).
+  - The 44 lines found by the extended criterion-5 scan were each read and placed by override. Each
+    override in `rows.json` carries the reading as its `reason`.
 - **D9 (pin).** The preregistration pinned `9db51884`. The ledger is re-pinned to `fbca1df9` by merging
   `main` (Q2). At that pin X-44 is J by owner record c.7048183824. `check` now fails on any tree whose
   manuscript digest differs from the recorded one, and lists the differing sites.
