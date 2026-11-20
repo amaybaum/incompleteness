@@ -1,0 +1,2333 @@
+{
+ "part": "D",
+ "controls": [],
+ "classes": [
+  {
+   "rule": "LIN",
+   "label": "3D-LIN:P3(2)",
+   "n": 120,
+   "rank_E": 37,
+   "rank_T": 43,
+   "excess": 40,
+   "certified": false,
+   "equations": 1024,
+   "max_abs_value": 42,
+   "prime": 1048573,
+   "seconds": 0.6,
+   "c3_T_in_kerE": true,
+   "c3_exact_sample": 200,
+   "family": "P3",
+   "D": 2,
+   "p2": {
+    "in_kerE_exact": true,
+    "nontrivial": true,
+    "pass": true
+   }
+  },
+  {
+   "rule": "RZ",
+   "label": "3D-RZ:P3(2)",
+   "n": 120,
+   "rank_E": 53,
+   "rank_T": 43,
+   "excess": 24,
+   "certified": false,
+   "equations": 1024,
+   "max_abs_value": 18,
+   "prime": 1048573,
+   "seconds": 0.6,
+   "c3_T_in_kerE": true,
+   "c3_exact_sample": 200,
+   "family": "P3",
+   "D": 2,
+   "c1": {
+    "witnesses": {
+     "linear-wave energy 1/3": {
+      "shape": [
+       1,
+       1,
+       2
+      ],
+      "p": [
+       [
+        [
+         -4,
+         -4
+        ]
+       ]
+      ],
+      "y": [
+       [
+        [
+         -2,
+         -4
+        ]
+       ]
+      ],
+      "dPhi": "2/3"
+     }
+    },
+    "pass": true
+   },
+   "second_prime": {
+    "rank_E": 53,
+    "rank_T": 43,
+    "excess": 24,
+    "certified": false,
+    "prime": 1048571
+   },
+   "excess_examined": [
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      0
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      1,
+      3
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      2,
+      4
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      1,
+      5
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      2,
+      6
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      1,
+      7
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      2,
+      8
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      1,
+      9
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      2,
+      10
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      1,
+      11
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      2,
+      12
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      1,
+      13
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      2,
+      14
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      17,
+      19
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      21,
+      23
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      25,
+      27
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      20,
+      30
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      18,
+      32
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      31,
+      33
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      24,
+      34
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      22,
+      36
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      35,
+      37
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      28,
+      38
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      26,
+      40
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      39,
+      41
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      15,
+      42
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      16,
+      43
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      29,
+      54
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      15,
+      65
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      16,
+      66
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      48,
+      67
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      59,
+      68
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      46,
+      69
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      57,
+      70
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      52,
+      71
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      63,
+      72
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      50,
+      73
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      61,
+      74
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      29,
+      75
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      49,
+      76
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      60,
+      77
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      47,
+      78
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      58,
+      79
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      53,
+      80
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      64,
+      81
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      51,
+      82
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      62,
+      83
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      15,
+      84
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      16,
+      85
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      29,
+      92
+     ]
+    }
+   ]
+  },
+  {
+   "rule": "RZ",
+   "label": "3D-RZ:P3(3)",
+   "n": 680,
+   "rank_E": 481,
+   "rank_T": 103,
+   "excess": 96,
+   "certified": false,
+   "equations": 1280,
+   "max_abs_value": 18,
+   "prime": 1048573,
+   "seconds": 5.0,
+   "c3_T_in_kerE": true,
+   "c3_exact_sample": 200,
+   "family": "P3",
+   "D": 3,
+   "c1": {
+    "witnesses": {
+     "linear-wave energy 1/3": {
+      "shape": [
+       1,
+       1,
+       2
+      ],
+      "p": [
+       [
+        [
+         -1,
+         -4
+        ]
+       ]
+      ],
+      "y": [
+       [
+        [
+         -2,
+         5
+        ]
+       ]
+      ],
+      "dPhi": "-10/3"
+     }
+    },
+    "pass": true
+   },
+   "second_prime": {
+    "rank_E": 481,
+    "rank_T": 103,
+    "excess": 96,
+    "certified": false,
+    "prime": 1048571
+   },
+   "excess_examined": [
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      0
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      1,
+      3
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      2,
+      4
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      1,
+      5
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      2,
+      6
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      1,
+      7
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      2,
+      8
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      1,
+      9
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      2,
+      10
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      1,
+      11
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      2,
+      12
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      1,
+      13
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      2,
+      14
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      17,
+      19
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      21,
+      23
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      25,
+      27
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      20,
+      30
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      18,
+      32
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      31,
+      33
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      24,
+      34
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      22,
+      36
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      35,
+      37
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      28,
+      38
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      26,
+      40
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      39,
+      41
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      15,
+      42
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      16,
+      43
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      29,
+      54
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      15,
+      65
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      16,
+      66
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      48,
+      67
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      59,
+      68
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      46,
+      69
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      57,
+      70
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      52,
+      71
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      63,
+      72
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      50,
+      73
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      61,
+      74
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      29,
+      75
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      49,
+      76
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      60,
+      77
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      47,
+      78
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      58,
+      79
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      53,
+      80
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      64,
+      81
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      51,
+      82
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      62,
+      83
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      15,
+      84
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      16,
+      85
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      29,
+      92
+     ]
+    }
+   ]
+  },
+  {
+   "rule": "RZ",
+   "label": "3D-RZ:P3r(2)",
+   "n": 1080,
+   "rank_E": 1013,
+   "rank_T": 43,
+   "excess": 24,
+   "certified": false,
+   "equations": 1890,
+   "max_abs_value": 18,
+   "prime": 1048573,
+   "seconds": 5.0,
+   "c3_T_in_kerE": true,
+   "c3_exact_sample": 200,
+   "family": "P3r",
+   "D": 2,
+   "c1": {
+    "witnesses": {
+     "linear-wave energy 1/3": {
+      "shape": [
+       1,
+       1,
+       2
+      ],
+      "p": [
+       [
+        [
+         4,
+         -3
+        ]
+       ]
+      ],
+      "y": [
+       [
+        [
+         -5,
+         6
+        ]
+       ]
+      ],
+      "dPhi": "22/3"
+     }
+    },
+    "pass": true
+   },
+   "second_prime": {
+    "rank_E": 1013,
+    "rank_T": 43,
+    "excess": 24,
+    "certified": false,
+    "prime": 1048571
+   },
+   "excess_examined": [
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      0,
+      120,
+      240,
+      360,
+      480,
+      600,
+      720,
+      840,
+      960
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      1,
+      3,
+      121,
+      123,
+      241,
+      243,
+      361,
+      363,
+      481,
+      483,
+      601,
+      603,
+      721,
+      723,
+      841,
+      843,
+      961,
+      963
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      2,
+      4,
+      122,
+      124,
+      242,
+      244,
+      362,
+      364,
+      482,
+      484,
+      602,
+      604,
+      722,
+      724,
+      842,
+      844,
+      962,
+      964
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      1,
+      5,
+      121,
+      125,
+      241,
+      245,
+      361,
+      365,
+      481,
+      485,
+      601,
+      605,
+      721,
+      725,
+      841,
+      845,
+      961,
+      965
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      2,
+      6,
+      122,
+      126,
+      242,
+      246,
+      362,
+      366,
+      482,
+      486,
+      602,
+      606,
+      722,
+      726,
+      842,
+      846,
+      962,
+      966
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      1,
+      7,
+      121,
+      127,
+      241,
+      247,
+      361,
+      367,
+      481,
+      487,
+      601,
+      607,
+      721,
+      727,
+      841,
+      847,
+      961,
+      967
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      2,
+      8,
+      122,
+      128,
+      242,
+      248,
+      362,
+      368,
+      482,
+      488,
+      602,
+      608,
+      722,
+      728,
+      842,
+      848,
+      962,
+      968
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      1,
+      9,
+      121,
+      129,
+      241,
+      249,
+      361,
+      369,
+      481,
+      489,
+      601,
+      609,
+      721,
+      729,
+      841,
+      849,
+      961,
+      969
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      2,
+      10,
+      122,
+      130,
+      242,
+      250,
+      362,
+      370,
+      482,
+      490,
+      602,
+      610,
+      722,
+      730,
+      842,
+      850,
+      962,
+      970
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      1,
+      11,
+      121,
+      131,
+      241,
+      251,
+      361,
+      371,
+      481,
+      491,
+      601,
+      611,
+      721,
+      731,
+      841,
+      851,
+      961,
+      971
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      2,
+      12,
+      122,
+      132,
+      242,
+      252,
+      362,
+      372,
+      482,
+      492,
+      602,
+      612,
+      722,
+      732,
+      842,
+      852,
+      962,
+      972
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      1,
+      13,
+      121,
+      133,
+      241,
+      253,
+      361,
+      373,
+      481,
+      493,
+      601,
+      613,
+      721,
+      733,
+      841,
+      853,
+      961,
+      973
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      2,
+      14,
+      122,
+      134,
+      242,
+      254,
+      362,
+      374,
+      482,
+      494,
+      602,
+      614,
+      722,
+      734,
+      842,
+      854,
+      962,
+      974
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      17,
+      19,
+      137,
+      139,
+      257,
+      259,
+      377,
+      379,
+      497,
+      499,
+      617,
+      619,
+      737,
+      739,
+      857,
+      859,
+      977,
+      979
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      21,
+      23,
+      141,
+      143,
+      261,
+      263,
+      381,
+      383,
+      501,
+      503,
+      621,
+      623,
+      741,
+      743,
+      861,
+      863,
+      981,
+      983
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      25,
+      27,
+      145,
+      147,
+      265,
+      267,
+      385,
+      387,
+      505,
+      507,
+      625,
+      627,
+      745,
+      747,
+      865,
+      867,
+      985,
+      987
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      20,
+      30,
+      140,
+      150,
+      260,
+      270,
+      380,
+      390,
+      500,
+      510,
+      620,
+      630,
+      740,
+      750,
+      860,
+      870,
+      980,
+      990
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      18,
+      32,
+      138,
+      152,
+      258,
+      272,
+      378,
+      392,
+      498,
+      512,
+      618,
+      632,
+      738,
+      752,
+      858,
+      872,
+      978,
+      992
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      31,
+      33,
+      151,
+      153,
+      271,
+      273,
+      391,
+      393,
+      511,
+      513,
+      631,
+      633,
+      751,
+      753,
+      871,
+      873,
+      991,
+      993
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      24,
+      34,
+      144,
+      154,
+      264,
+      274,
+      384,
+      394,
+      504,
+      514,
+      624,
+      634,
+      744,
+      754,
+      864,
+      874,
+      984,
+      994
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      22,
+      36,
+      142,
+      156,
+      262,
+      276,
+      382,
+      396,
+      502,
+      516,
+      622,
+      636,
+      742,
+      756,
+      862,
+      876,
+      982,
+      996
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      35,
+      37,
+      155,
+      157,
+      275,
+      277,
+      395,
+      397,
+      515,
+      517,
+      635,
+      637,
+      755,
+      757,
+      875,
+      877,
+      995,
+      997
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      28,
+      38,
+      148,
+      158,
+      268,
+      278,
+      388,
+      398,
+      508,
+      518,
+      628,
+      638,
+      748,
+      758,
+      868,
+      878,
+      988,
+      998
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      26,
+      40,
+      146,
+      160,
+      266,
+      280,
+      386,
+      400,
+      506,
+      520,
+      626,
+      640,
+      746,
+      760,
+      866,
+      880,
+      986,
+      1000
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      39,
+      41,
+      159,
+      161,
+      279,
+      281,
+      399,
+      401,
+      519,
+      521,
+      639,
+      641,
+      759,
+      761,
+      879,
+      881,
+      999,
+      1001
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      15,
+      42,
+      135,
+      162,
+      255,
+      282,
+      375,
+      402,
+      495,
+      522,
+      615,
+      642,
+      735,
+      762,
+      855,
+      882,
+      975,
+      1002
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      16,
+      43,
+      136,
+      163,
+      256,
+      283,
+      376,
+      403,
+      496,
+      523,
+      616,
+      643,
+      736,
+      763,
+      856,
+      883,
+      976,
+      1003
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      29,
+      54,
+      149,
+      174,
+      269,
+      294,
+      389,
+      414,
+      509,
+      534,
+      629,
+      654,
+      749,
+      774,
+      869,
+      894,
+      989,
+      1014
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      15,
+      65,
+      135,
+      185,
+      255,
+      305,
+      375,
+      425,
+      495,
+      545,
+      615,
+      665,
+      735,
+      785,
+      855,
+      905,
+      975,
+      1025
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      16,
+      66,
+      136,
+      186,
+      256,
+      306,
+      376,
+      426,
+      496,
+      546,
+      616,
+      666,
+      736,
+      786,
+      856,
+      906,
+      976,
+      1026
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      48,
+      67,
+      168,
+      187,
+      288,
+      307,
+      408,
+      427,
+      528,
+      547,
+      648,
+      667,
+      768,
+      787,
+      888,
+      907,
+      1008,
+      1027
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      59,
+      68,
+      179,
+      188,
+      299,
+      308,
+      419,
+      428,
+      539,
+      548,
+      659,
+      668,
+      779,
+      788,
+      899,
+      908,
+      1019,
+      1028
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      46,
+      69,
+      166,
+      189,
+      286,
+      309,
+      406,
+      429,
+      526,
+      549,
+      646,
+      669,
+      766,
+      789,
+      886,
+      909,
+      1006,
+      1029
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      57,
+      70,
+      177,
+      190,
+      297,
+      310,
+      417,
+      430,
+      537,
+      550,
+      657,
+      670,
+      777,
+      790,
+      897,
+      910,
+      1017,
+      1030
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      52,
+      71,
+      172,
+      191,
+      292,
+      311,
+      412,
+      431,
+      532,
+      551,
+      652,
+      671,
+      772,
+      791,
+      892,
+      911,
+      1012,
+      1031
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      63,
+      72,
+      183,
+      192,
+      303,
+      312,
+      423,
+      432,
+      543,
+      552,
+      663,
+      672,
+      783,
+      792,
+      903,
+      912,
+      1023,
+      1032
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      50,
+      73,
+      170,
+      193,
+      290,
+      313,
+      410,
+      433,
+      530,
+      553,
+      650,
+      673,
+      770,
+      793,
+      890,
+      913,
+      1010,
+      1033
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      61,
+      74,
+      181,
+      194,
+      301,
+      314,
+      421,
+      434,
+      541,
+      554,
+      661,
+      674,
+      781,
+      794,
+      901,
+      914,
+      1021,
+      1034
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      29,
+      75,
+      149,
+      195,
+      269,
+      315,
+      389,
+      435,
+      509,
+      555,
+      629,
+      675,
+      749,
+      795,
+      869,
+      915,
+      989,
+      1035
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      49,
+      76,
+      169,
+      196,
+      289,
+      316,
+      409,
+      436,
+      529,
+      556,
+      649,
+      676,
+      769,
+      796,
+      889,
+      916,
+      1009,
+      1036
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      60,
+      77,
+      180,
+      197,
+      300,
+      317,
+      420,
+      437,
+      540,
+      557,
+      660,
+      677,
+      780,
+      797,
+      900,
+      917,
+      1020,
+      1037
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      47,
+      78,
+      167,
+      198,
+      287,
+      318,
+      407,
+      438,
+      527,
+      558,
+      647,
+      678,
+      767,
+      798,
+      887,
+      918,
+      1007,
+      1038
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      58,
+      79,
+      178,
+      199,
+      298,
+      319,
+      418,
+      439,
+      538,
+      559,
+      658,
+      679,
+      778,
+      799,
+      898,
+      919,
+      1018,
+      1039
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      53,
+      80,
+      173,
+      200,
+      293,
+      320,
+      413,
+      440,
+      533,
+      560,
+      653,
+      680,
+      773,
+      800,
+      893,
+      920,
+      1013,
+      1040
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      64,
+      81,
+      184,
+      201,
+      304,
+      321,
+      424,
+      441,
+      544,
+      561,
+      664,
+      681,
+      784,
+      801,
+      904,
+      921,
+      1024,
+      1041
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      51,
+      82,
+      171,
+      202,
+      291,
+      322,
+      411,
+      442,
+      531,
+      562,
+      651,
+      682,
+      771,
+      802,
+      891,
+      922,
+      1011,
+      1042
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      62,
+      83,
+      182,
+      203,
+      302,
+      323,
+      422,
+      443,
+      542,
+      563,
+      662,
+      683,
+      782,
+      803,
+      902,
+      923,
+      1022,
+      1043
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      15,
+      84,
+      135,
+      204,
+      255,
+      324,
+      375,
+      444,
+      495,
+      564,
+      615,
+      684,
+      735,
+      804,
+      855,
+      924,
+      975,
+      1044
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      16,
+      85,
+      136,
+      205,
+      256,
+      325,
+      376,
+      445,
+      496,
+      565,
+      616,
+      685,
+      736,
+      805,
+      856,
+      925,
+      976,
+      1045
+     ]
+    },
+    {
+     "lift": true,
+     "exact_on_fresh": true,
+     "nontrivial": false,
+     "support": [
+      29,
+      92,
+      149,
+      212,
+      269,
+      332,
+      389,
+      452,
+      509,
+      572,
+      629,
+      692,
+      749,
+      812,
+      869,
+      932,
+      989,
+      1052
+     ]
+    }
+   ]
+  }
+ ],
+ "cpu_seconds": 123.2
+}

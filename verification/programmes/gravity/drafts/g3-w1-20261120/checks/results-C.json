@@ -1,0 +1,643 @@
+{
+ "part": "C",
+ "controls": [],
+ "classes": [
+  {
+   "rule": "bd",
+   "label": "bd:Q(3,0,2)",
+   "n": 64,
+   "rank_E": 44,
+   "rank_T": 16,
+   "excess": 4,
+   "certified": false,
+   "equations": 1024,
+   "max_abs_value": 36,
+   "prime": 1048573,
+   "seconds": 0.1,
+   "c3_T_in_kerE": true,
+   "c3_exact_sample": 200,
+   "family": "G3",
+   "m": 3,
+   "D": 0,
+   "mu": 2,
+   "p1": {
+    "invariant": "sum [u_(k+1) - p_k = 1 mod 2]",
+    "in_kerE_exact": true,
+    "nontrivial": true,
+    "pass": true
+   },
+   "c2": {
+    "coboundary_trivial": true,
+    "invariant_plus_coboundary_nontrivial": true,
+    "pass": true
+   }
+  },
+  {
+   "rule": "ax",
+   "label": "ax:Q(3,0,2)",
+   "n": 64,
+   "rank_E": 48,
+   "rank_T": 16,
+   "excess": 0,
+   "certified": true,
+   "equations": 256,
+   "max_abs_value": 34,
+   "prime": 1048573,
+   "seconds": 0.0,
+   "c3_T_in_kerE": true,
+   "c3_exact_sample": 200,
+   "family": "G3",
+   "m": 3,
+   "D": 0,
+   "mu": 2,
+   "c1": {
+    "witnesses": {
+     "bd invariant": {
+      "shape": [
+       2
+      ],
+      "p": [
+       0,
+       12
+      ],
+      "y": [
+       -6,
+       -2
+      ],
+      "dPhi": "2"
+     }
+    },
+    "pass": true
+   }
+  },
+  {
+   "rule": "fd",
+   "label": "fd:Q(3,0,2)",
+   "n": 64,
+   "rank_E": 48,
+   "rank_T": 16,
+   "excess": 0,
+   "certified": true,
+   "equations": 256,
+   "max_abs_value": 35,
+   "prime": 1048573,
+   "seconds": 0.0,
+   "c3_T_in_kerE": true,
+   "c3_exact_sample": 200,
+   "family": "G3",
+   "m": 3,
+   "D": 0,
+   "mu": 2,
+   "c1": {
+    "witnesses": {
+     "bd invariant": {
+      "shape": [
+       2
+      ],
+      "p": [
+       -2,
+       11
+      ],
+      "y": [
+       12,
+       5
+      ],
+      "dPhi": "-2"
+     }
+    },
+    "pass": true
+   }
+  },
+  {
+   "rule": "bd",
+   "label": "bd:Q(3,0,3)",
+   "n": 729,
+   "rank_E": 636,
+   "rank_T": 81,
+   "excess": 12,
+   "certified": false,
+   "equations": 1536,
+   "max_abs_value": 54,
+   "prime": 1048573,
+   "seconds": 2.1,
+   "c3_T_in_kerE": true,
+   "c3_exact_sample": 200,
+   "family": "G3",
+   "m": 3,
+   "D": 0,
+   "mu": 3,
+   "p1": {
+    "invariant": "sum [u_(k+1) - p_k = 1 mod 3]",
+    "in_kerE_exact": true,
+    "nontrivial": true,
+    "pass": true
+   },
+   "c2": {
+    "coboundary_trivial": true,
+    "invariant_plus_coboundary_nontrivial": true,
+    "pass": true
+   }
+  },
+  {
+   "rule": "ax",
+   "label": "ax:Q(3,0,3)",
+   "n": 729,
+   "rank_E": 648,
+   "rank_T": 81,
+   "excess": 0,
+   "certified": true,
+   "equations": 768,
+   "max_abs_value": 51,
+   "prime": 1048573,
+   "seconds": 1.8,
+   "c3_T_in_kerE": true,
+   "c3_exact_sample": 200,
+   "family": "G3",
+   "m": 3,
+   "D": 0,
+   "mu": 3,
+   "c1": {
+    "witnesses": {
+     "bd invariant": {
+      "shape": [
+       2
+      ],
+      "p": [
+       -9,
+       11
+      ],
+      "y": [
+       -5,
+       12
+      ],
+      "dPhi": "2"
+     }
+    },
+    "pass": true
+   }
+  },
+  {
+   "rule": "fd",
+   "label": "fd:Q(3,0,3)",
+   "n": 729,
+   "rank_E": 648,
+   "rank_T": 81,
+   "excess": 0,
+   "certified": true,
+   "equations": 768,
+   "max_abs_value": 50,
+   "prime": 1048573,
+   "seconds": 1.8,
+   "c3_T_in_kerE": true,
+   "c3_exact_sample": 200,
+   "family": "G3",
+   "m": 3,
+   "D": 0,
+   "mu": 3,
+   "c1": {
+    "witnesses": {
+     "bd invariant": {
+      "shape": [
+       2
+      ],
+      "p": [
+       -16,
+       10
+      ],
+      "y": [
+       -17,
+       -11
+      ],
+      "dPhi": "2"
+     }
+    },
+    "pass": true
+   }
+  },
+  {
+   "rule": "bd",
+   "label": "bd:Q(3,0,4)",
+   "n": 4096,
+   "rank_E": 3816,
+   "rank_T": 256,
+   "excess": 24,
+   "certified": false,
+   "equations": 8192,
+   "max_abs_value": 72,
+   "prime": 1048573,
+   "seconds": 43.2,
+   "c3_T_in_kerE": true,
+   "c3_exact_sample": 200,
+   "family": "G3",
+   "m": 3,
+   "D": 0,
+   "mu": 4,
+   "p1": {
+    "invariant": "sum [u_(k+1) - p_k = 1 mod 4]",
+    "in_kerE_exact": true,
+    "nontrivial": true,
+    "pass": true
+   },
+   "c2": {
+    "coboundary_trivial": true,
+    "invariant_plus_coboundary_nontrivial": true,
+    "pass": true
+   }
+  },
+  {
+   "rule": "ax",
+   "label": "ax:Q(3,0,4)",
+   "n": 4096,
+   "rank_E": 3840,
+   "rank_T": 256,
+   "excess": 0,
+   "certified": true,
+   "equations": 5120,
+   "max_abs_value": 72,
+   "prime": 1048573,
+   "seconds": 36.7,
+   "c3_T_in_kerE": true,
+   "c3_exact_sample": 200,
+   "family": "G3",
+   "m": 3,
+   "D": 0,
+   "mu": 4,
+   "c1": {
+    "witnesses": {
+     "bd invariant": {
+      "shape": [
+       2
+      ],
+      "p": [
+       -15,
+       24
+      ],
+      "y": [
+       9,
+       -20
+      ],
+      "dPhi": "-1"
+     }
+    },
+    "pass": true
+   }
+  },
+  {
+   "rule": "fd",
+   "label": "fd:Q(3,0,4)",
+   "n": 4096,
+   "rank_E": 3840,
+   "rank_T": 256,
+   "excess": 0,
+   "certified": true,
+   "equations": 5120,
+   "max_abs_value": 72,
+   "prime": 1048573,
+   "seconds": 38.4,
+   "c3_T_in_kerE": true,
+   "c3_exact_sample": 200,
+   "family": "G3",
+   "m": 3,
+   "D": 0,
+   "mu": 4,
+   "c1": {
+    "witnesses": {
+     "bd invariant": {
+      "shape": [
+       2
+      ],
+      "p": [
+       8,
+       19
+      ],
+      "y": [
+       7,
+       -24
+      ],
+      "dPhi": "1"
+     }
+    },
+    "pass": true
+   }
+  },
+  {
+   "rule": "bd",
+   "label": "bd:Q(4,0,2)",
+   "n": 256,
+   "rank_E": 184,
+   "rank_T": 64,
+   "excess": 8,
+   "certified": false,
+   "equations": 1024,
+   "max_abs_value": 36,
+   "prime": 1048573,
+   "seconds": 0.4,
+   "c3_T_in_kerE": true,
+   "c3_exact_sample": 200,
+   "family": "G3",
+   "m": 4,
+   "D": 0,
+   "mu": 2,
+   "p1": {
+    "invariant": "sum [u_(k+1) - p_k = 1 mod 2]",
+    "in_kerE_exact": true,
+    "nontrivial": true,
+    "pass": true
+   },
+   "c2": {
+    "coboundary_trivial": true,
+    "invariant_plus_coboundary_nontrivial": true,
+    "pass": true
+   }
+  },
+  {
+   "rule": "ax",
+   "label": "ax:Q(4,0,2)",
+   "n": 256,
+   "rank_E": 192,
+   "rank_T": 64,
+   "excess": 0,
+   "certified": true,
+   "equations": 256,
+   "max_abs_value": 34,
+   "prime": 1048573,
+   "seconds": 0.2,
+   "c3_T_in_kerE": true,
+   "c3_exact_sample": 200,
+   "family": "G3",
+   "m": 4,
+   "D": 0,
+   "mu": 2,
+   "c1": {
+    "witnesses": {
+     "bd invariant": {
+      "shape": [
+       2
+      ],
+      "p": [
+       -9,
+       -8
+      ],
+      "y": [
+       -6,
+       1
+      ],
+      "dPhi": "2"
+     }
+    },
+    "pass": true
+   }
+  },
+  {
+   "rule": "fd",
+   "label": "fd:Q(4,0,2)",
+   "n": 256,
+   "rank_E": 192,
+   "rank_T": 64,
+   "excess": 0,
+   "certified": true,
+   "equations": 256,
+   "max_abs_value": 32,
+   "prime": 1048573,
+   "seconds": 0.3,
+   "c3_T_in_kerE": true,
+   "c3_exact_sample": 200,
+   "family": "G3",
+   "m": 4,
+   "D": 0,
+   "mu": 2,
+   "c1": {
+    "witnesses": {
+     "bd invariant": {
+      "shape": [
+       2
+      ],
+      "p": [
+       5,
+       6
+      ],
+      "y": [
+       12,
+       1
+      ],
+      "dPhi": "2"
+     }
+    },
+    "pass": true
+   }
+  },
+  {
+   "rule": "bd",
+   "label": "bd:Q(4,0,3)",
+   "n": 6561,
+   "rank_E": 5796,
+   "rank_T": 729,
+   "excess": 36,
+   "certified": false,
+   "equations": 13128,
+   "max_abs_value": 54,
+   "prime": 1048573,
+   "seconds": 129.0,
+   "c3_T_in_kerE": true,
+   "c3_exact_sample": 200,
+   "family": "G3",
+   "m": 4,
+   "D": 0,
+   "mu": 3,
+   "p1": {
+    "invariant": "sum [u_(k+1) - p_k = 1 mod 3]",
+    "in_kerE_exact": true,
+    "nontrivial": true,
+    "pass": true
+   },
+   "c2": {
+    "coboundary_trivial": true,
+    "invariant_plus_coboundary_nontrivial": true,
+    "pass": true
+   }
+  },
+  {
+   "rule": "ax",
+   "label": "ax:Q(4,0,3)",
+   "n": 6561,
+   "rank_E": 5832,
+   "rank_T": 729,
+   "excess": 0,
+   "certified": true,
+   "equations": 8205,
+   "max_abs_value": 54,
+   "prime": 1048573,
+   "seconds": 113.2,
+   "c3_T_in_kerE": true,
+   "c3_exact_sample": 200,
+   "family": "G3",
+   "m": 4,
+   "D": 0,
+   "mu": 3,
+   "c1": {
+    "witnesses": {
+     "bd invariant": {
+      "shape": [
+       2
+      ],
+      "p": [
+       -4,
+       11
+      ],
+      "y": [
+       10,
+       5
+      ],
+      "dPhi": "2"
+     }
+    },
+    "pass": true
+   }
+  },
+  {
+   "rule": "fd",
+   "label": "fd:Q(4,0,3)",
+   "n": 6561,
+   "rank_E": 5832,
+   "rank_T": 729,
+   "excess": 0,
+   "certified": true,
+   "equations": 8205,
+   "max_abs_value": 54,
+   "prime": 1048573,
+   "seconds": 109.4,
+   "c3_T_in_kerE": true,
+   "c3_exact_sample": 200,
+   "family": "G3",
+   "m": 4,
+   "D": 0,
+   "mu": 3,
+   "c1": {
+    "witnesses": {
+     "bd invariant": {
+      "shape": [
+       2
+      ],
+      "p": [
+       -13,
+       -6
+      ],
+      "y": [
+       -16,
+       12
+      ],
+      "dPhi": "-1"
+     }
+    },
+    "pass": true
+   }
+  },
+  {
+   "rule": "bd",
+   "label": "bd:Q(5,0,2)",
+   "n": 1024,
+   "rank_E": 752,
+   "rank_T": 256,
+   "excess": 16,
+   "certified": false,
+   "equations": 2048,
+   "max_abs_value": 35,
+   "prime": 1048573,
+   "seconds": 3.7,
+   "c3_T_in_kerE": true,
+   "c3_exact_sample": 200,
+   "family": "G3",
+   "m": 5,
+   "D": 0,
+   "mu": 2,
+   "p1": {
+    "invariant": "sum [u_(k+1) - p_k = 1 mod 2]",
+    "in_kerE_exact": true,
+    "nontrivial": true,
+    "pass": true
+   },
+   "c2": {
+    "coboundary_trivial": true,
+    "invariant_plus_coboundary_nontrivial": true,
+    "pass": true
+   }
+  },
+  {
+   "rule": "ax",
+   "label": "ax:Q(5,0,2)",
+   "n": 1024,
+   "rank_E": 768,
+   "rank_T": 256,
+   "excess": 0,
+   "certified": true,
+   "equations": 1280,
+   "max_abs_value": 36,
+   "prime": 1048573,
+   "seconds": 3.4,
+   "c3_T_in_kerE": true,
+   "c3_exact_sample": 200,
+   "family": "G3",
+   "m": 5,
+   "D": 0,
+   "mu": 2,
+   "c1": {
+    "witnesses": {
+     "bd invariant": {
+      "shape": [
+       2
+      ],
+      "p": [
+       -12,
+       -12
+      ],
+      "y": [
+       -1,
+       3
+      ],
+      "dPhi": "-2"
+     }
+    },
+    "pass": true
+   }
+  },
+  {
+   "rule": "fd",
+   "label": "fd:Q(5,0,2)",
+   "n": 1024,
+   "rank_E": 768,
+   "rank_T": 256,
+   "excess": 0,
+   "certified": true,
+   "equations": 1280,
+   "max_abs_value": 35,
+   "prime": 1048573,
+   "seconds": 3.6,
+   "c3_T_in_kerE": true,
+   "c3_exact_sample": 200,
+   "family": "G3",
+   "m": 5,
+   "D": 0,
+   "mu": 2,
+   "c1": {
+    "witnesses": {
+     "bd invariant": {
+      "shape": [
+       2
+      ],
+      "p": [
+       10,
+       2
+      ],
+      "y": [
+       -12,
+       -8
+      ],
+      "dPhi": "2"
+     }
+    },
+    "pass": true
+   }
+  }
+ ],
+ "cpu_seconds": 697.8
+}
