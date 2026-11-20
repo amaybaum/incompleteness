@@ -273,9 +273,18 @@ on quotients with even-sum `Λ`, and fails on odd tori. Class (a) on (Z); class 
   `waveSubstratum_A5` (:190–216) are stated for every `L : ℕ` with no `[NeZero L]` hypothesis, while
   `waveSubstratum_A1` (:185) requires `[NeZero L] [NeZero q]`. In Mathlib `ZMod 0` is `ℤ` by
   definition, so at `L = 0` these four theorems are statements about the wave rule on `ℤ^d`. The
-  kernel therefore already contains the (Z) instance of A2–A5, with A1 not claimed. This is a
-  reading of the statements; an elaborated `example` at `L = 0` would confirm it mechanically and is
-  not done here (no Lean implementation is authorized).
+  kernel therefore already contains the (Z) instance of A2–A5, with A1 not claimed. LEAN-2 (i)
+  (PR #1445) kernel-checks this reading in `WaveSubstratumUnbounded.lean`: `waveZ_sites` (the site
+  type at `L = 0` is `Fin d → ℤ`, by `rfl`), `waveZ_waveF` (the rule at `L = 0` computed in `ℤ^d`,
+  by `rfl`), `waveZ_A2`, `waveZ_A3` (degree `2d`), `waveZ_A4Exact`, `waveZ_A4` (trivial gauge),
+  `waveZ_A5` and `waveZ_A4Exact_int` (translations in the additive group of `Fin d → ℤ`), each with
+  axioms within `propext`, `Classical.choice`, `Quot.sound`. The control `waveZ_not_A1` proves that
+  A1 fails for `d ≥ 1` and a nontrivial alphabet: the configuration space is infinite. `waveZ_A2`
+  has no `ℤ^d`-specific content, since A2 holds for every `Substratum` (`a2_every_substratum`). The
+  predicates are those `SubstratumInterfaceAudit` defines: its `A4` and `A4Exact` represent the
+  translation-covariance clause of A4 (Sub:98) without that clause's finite-periodic-lattice
+  condition, and do not represent A4's no-self-input clause. A6, the observer theory and Theorems 19
+  and 23 are not covered.
 - `CubicIsotropy` is stated on `Fin 3 → ℤ` (row 13). `Reciprocity.theorem_19` assumes `[Fintype H]`
   only; `MeasuredReciprocity` has the measured form (§5).
 
@@ -402,8 +411,8 @@ automata).
 - **Review.** The review of `1c69ea84` (REVISE, #1441 comment 7031422625) verified Lemma U, §5,
   §7 and the checks, and checked §8 as a reading of the Lean statements only (not built, so §8 remains
   unverified mechanically), and required the narrowing of §6.1 made in this revision.
-- **Missing.** A delta review of this revision; mechanical confirmation of §8's `L = 0` reading;
-  H-cont for the Koopman compressions of the observer branch (open).
+- **Missing.** A delta review of this revision; H-cont for the Koopman compressions of the observer
+  branch (open). §8's `L = 0` reading is kernel-checked by LEAN-2 (i), at the scope stated in §8.
 - **Controls K1–K3.** `git diff --stat` against the source pin lists only files under
   `verification/audits/foundations/o-a4-20261120/`; no manuscript, Lean or registry file changes.
 - **Accountable Issue.** #1055. **Resolution.** A review recorded on the guiding pull request. A1-SCOPE
