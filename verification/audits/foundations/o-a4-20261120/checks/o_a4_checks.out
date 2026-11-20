@@ -33,22 +33,45 @@ PASS  some small ring differs from the Z value (finite-volume values are not the
 -- countercontrol: hidden Bernoulli(1/3) law (q = 2), not phi-invariant --
 PASS  Bernoulli(1/3) hidden law, d=1 q=2 linear a=1: reciprocity fails at some lag (detector live): violating ordered pairs at n=1,2,3: [0, 8, 0]
 PASS  Bernoulli(1/3) hidden law, d=1 q=2 nonlinear: reciprocity fails at some lag (detector live): violating ordered pairs at n=1,2,3: [0, 12, 12]
+PASS  Bernoulli(1/3) hidden law, d=2 q=2 linear a=1 n=2: reciprocity fails (detector live): violating ordered pairs: 8
+== A2. linear update, q prime, alpha != 0, n >= 2: T_ij(n) is exactly uniform on Z^d ==
+PASS  d=1 q=2 alpha=1 n=2: hidden parts of x_0(n-1), x_0(n) independent, so T_ij(n) = 1/q^2 for all i, j
+PASS  d=1 q=2 alpha=1 n=3: hidden parts of x_0(n-1), x_0(n) independent, so T_ij(n) = 1/q^2 for all i, j
+PASS  d=1 q=2 alpha=1 n=4: hidden parts of x_0(n-1), x_0(n) independent, so T_ij(n) = 1/q^2 for all i, j
+PASS  d=1 q=3 alpha=1 n=2: hidden parts of x_0(n-1), x_0(n) independent, so T_ij(n) = 1/q^2 for all i, j
+PASS  d=1 q=3 alpha=1 n=3: hidden parts of x_0(n-1), x_0(n) independent, so T_ij(n) = 1/q^2 for all i, j
+PASS  d=1 q=3 alpha=2 n=2: hidden parts of x_0(n-1), x_0(n) independent, so T_ij(n) = 1/q^2 for all i, j
+PASS  d=1 q=3 alpha=2 n=3: hidden parts of x_0(n-1), x_0(n) independent, so T_ij(n) = 1/q^2 for all i, j
+PASS  d=2 q=2 alpha=1 n=2: hidden parts of x_0(n-1), x_0(n) independent, so T_ij(n) = 1/q^2 for all i, j
+PASS  d=2 q=2 alpha=1 n=3: hidden parts of x_0(n-1), x_0(n) independent, so T_ij(n) = 1/q^2 for all i, j
+PASS  d=2 q=3 alpha=2 n=2: hidden parts of x_0(n-1), x_0(n) independent, so T_ij(n) = 1/q^2 for all i, j
+PASS  d=2 q=3 alpha=2 n=3: hidden parts of x_0(n-1), x_0(n) independent, so T_ij(n) = 1/q^2 for all i, j
+PASS  d=3 q=2 alpha=1 n=2: hidden parts of x_0(n-1), x_0(n) independent, so T_ij(n) = 1/q^2 for all i, j
+PASS  d=3 q=2 alpha=1 n=3: hidden parts of x_0(n-1), x_0(n) independent, so T_ij(n) = 1/q^2 for all i, j
+PASS  d=3 q=3 alpha=1 n=2: hidden parts of x_0(n-1), x_0(n) independent, so T_ij(n) = 1/q^2 for all i, j
+PASS  d=3 q=3 alpha=1 n=3: hidden parts of x_0(n-1), x_0(n) independent, so T_ij(n) = 1/q^2 for all i, j
+-- n = 1: T((p,c) -> (c,c')) = P(S = c' + p) = T((c',c) -> (c,p)) for every hidden product law --
+PASS  d=1 q=2 n=1 under Bernoulli(1/3): reciprocity holds (n = 1 is structural)
+PASS  d=2 q=2 n=1 under Bernoulli(1/3): reciprocity holds (n = 1 is structural)
+PASS  d=3 q=2 n=1 under Bernoulli(1/3): reciprocity holds (n = 1 is structural)
 == B. uniform product law preserved by phi and Theta on cylinders (d = 1) ==
 PASS  q=3 nonlinear: image of uniform (p on W, c on W+-1) under phi is uniform on W x W: 729 outputs, fibre sizes [9]
 PASS  q=3 linear a=2: image of uniform (p on W, c on W+-1) under phi is uniform on W x W: 729 outputs, fibre sizes [9]
 PASS  q=2 nonlinear: image of uniform (p on W, c on W+-1) under phi is uniform on W x W: 64 outputs, fibre sizes [4]
-PASS  Theta (site-wise swap) permutes cylinder coordinates, so preserves every product law: structural
+PASS  q=3 random site-dependent: image of uniform (p on W, c on W+-1) under phi is uniform on W x W: 729 outputs, fibre sizes [9]
+PASS  q=2: image of uniform (p, c on W) under Theta is uniform on W x W
+PASS  q=3: image of uniform (p, c on W) under Theta is uniform on W x W
 == C. Lemma 1c(ii): visible poles on rings versus Z (wave rule, q = 2, alpha = 1) ==
-PASS  ring L=3: phi has finite order 6; visible autocorrelation m_n = 1 at 1 of 6 lags; pole at lambda=1 with residue 1/6
-PASS  ring L=4: phi has finite order 4; visible autocorrelation m_n = 1 at 1 of 4 lags; pole at lambda=1 with residue 1/4
-PASS  ring L=5: phi has finite order 10; visible autocorrelation m_n = 1 at 1 of 10 lags; pole at lambda=1 with residue 1/10
-PASS  ring L=6: phi has finite order 6; visible autocorrelation m_n = 1 at 1 of 6 lags; pole at lambda=1 with residue 1/6
-PASS  ring L=7: phi has finite order 14; visible autocorrelation m_n = 1 at 1 of 14 lags; pole at lambda=1 with residue 1/14
-PASS  ring L=8: phi has finite order 8; visible autocorrelation m_n = 1 at 1 of 8 lags; pole at lambda=1 with residue 1/8
-PASS  ring L=9: phi has finite order 18; visible autocorrelation m_n = 1 at 1 of 18 lags; pole at lambda=1 with residue 1/18
-PASS  ring L=10: phi has finite order 10; visible autocorrelation m_n = 1 at 1 of 10 lags; pole at lambda=1 with residue 1/10
-PASS  ring L=11: phi has finite order 22; visible autocorrelation m_n = 1 at 1 of 22 lags; pole at lambda=1 with residue 1/22
-PASS  ring L=12: phi has finite order 12; visible autocorrelation m_n = 1 at 1 of 12 lags; pole at lambda=1 with residue 1/12
+PASS  ring L=3: phi has finite order 6; within one period m_n = 1 only at n = 0, so R_L = lambda^(ord-1)/(lambda^ord - 1), residue 1/6; m_n agrees with Z for 0 <= n < ord
+PASS  ring L=4: phi has finite order 4; within one period m_n = 1 only at n = 0, so R_L = lambda^(ord-1)/(lambda^ord - 1), residue 1/4; m_n agrees with Z for 0 <= n < ord
+PASS  ring L=5: phi has finite order 10; within one period m_n = 1 only at n = 0, so R_L = lambda^(ord-1)/(lambda^ord - 1), residue 1/10; m_n agrees with Z for 0 <= n < ord
+PASS  ring L=6: phi has finite order 6; within one period m_n = 1 only at n = 0, so R_L = lambda^(ord-1)/(lambda^ord - 1), residue 1/6; m_n agrees with Z for 0 <= n < ord
+PASS  ring L=7: phi has finite order 14; within one period m_n = 1 only at n = 0, so R_L = lambda^(ord-1)/(lambda^ord - 1), residue 1/14; m_n agrees with Z for 0 <= n < ord
+PASS  ring L=8: phi has finite order 8; within one period m_n = 1 only at n = 0, so R_L = lambda^(ord-1)/(lambda^ord - 1), residue 1/8; m_n agrees with Z for 0 <= n < ord
+PASS  ring L=9: phi has finite order 18; within one period m_n = 1 only at n = 0, so R_L = lambda^(ord-1)/(lambda^ord - 1), residue 1/18; m_n agrees with Z for 0 <= n < ord
+PASS  ring L=10: phi has finite order 10; within one period m_n = 1 only at n = 0, so R_L = lambda^(ord-1)/(lambda^ord - 1), residue 1/10; m_n agrees with Z for 0 <= n < ord
+PASS  ring L=11: phi has finite order 22; within one period m_n = 1 only at n = 0, so R_L = lambda^(ord-1)/(lambda^ord - 1), residue 1/22; m_n agrees with Z for 0 <= n < ord
+PASS  ring L=12: phi has finite order 12; within one period m_n = 1 only at n = 0, so R_L = lambda^(ord-1)/(lambda^ord - 1), residue 1/12; m_n agrees with Z for 0 <= n < ord
 PASS  Z: x_0(n) contains x_n(0) with coefficient 1 for 1 <= n <= 40, so m_n = 0 and the reduced resolvent on the visible mean-zero line is 1/lambda
 == D. vertex stabilizers: cubic quotients Z^3/Lambda versus Z^3 ==
 PASS  Z^3 control: automorphisms of the radius-3 ball fixing 0: order 48; rank on the 6 links 3 (O_h: 3 = 1+1+1 -> A1g+Eg+T1u)
@@ -64,7 +87,7 @@ PASS  L=4: bipartite True; well-defined corner characters 8 of 8
 PASS  L=5: bipartite False; well-defined corner characters 1 of 8
 PASS  L=6: bipartite True; well-defined corner characters 8 of 8
 PASS  skew even-sum <(4,0,0),(0,4,0),(1,1,4)>: bipartite True; well-defined corner characters 4 of 8
-PASS  Z^3: bipartite (parity of n1+n2+n3) and all 8 corner characters defined: structural
+PASS  Z^3 (radius-4 ball): the parity of n1+n2+n3 is a proper 2-colouring; corner characters (-1)^(eta.n) need no condition on Z^3
 == F. SM section 4.1 linearity countermodel: ring versus Z ==
 PASS  ring L=4, q=5, x(t+1)=x_{i-1}+x_{i+1}+1-x(t-1): no fixed point
 PASS  ring L=3..8, q=5: a fixed point exists iff q divides L: L=3:0, L=4:0, L=5:25, L=6:0, L=7:0, L=8:0

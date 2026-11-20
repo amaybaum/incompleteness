@@ -6,12 +6,17 @@ Second-order rule, phase form: state (p, c) = (x(t-1), x(t)),
 
 Parts
   A  SM Theorem 19 on Z^d under the uniform Bernoulli law, computed exactly on the hidden light
-     cone (d = 1, 2, 3; linear and nonlinear F); finite-torus counting comparison (ring, d = 1);
-     countercontrol: a non-invariant Bernoulli(1/3) hidden law breaks reciprocity.
-  B  Cylinder check that the uniform product law is preserved by phi and by Theta (d = 1, nonlinear F).
-  C  Lemma 1c(ii) pole transfer: visible autocorrelation of the wave rule (q = 2, alpha = 1) on rings
-     has a nonzero periodic tail (a pole at lambda = 1 with residue 1/ord-type weight); on Z it is
-     zero for every n >= 1 (cone-edge coefficient), so the reduced resolvent is 1/lambda.
+     cone (d = 1 with linear and nonlinear F; d = 2 sanity check; d = 3 at n = 1 only, structural);
+     finite-torus counting comparison (ring, d = 1); countercontrols: a non-invariant Bernoulli(1/3)
+     hidden law breaks reciprocity (d = 1, 2).
+  A2 Degeneracy for the linear update (q prime, alpha != 0): T_ij(n) is exactly uniform for n >= 2
+     (rank over GF(q), d = 1, 2, 3); at n = 1 reciprocity holds for any hidden product law.
+  B  Cylinder check that the uniform product law is preserved by phi and by Theta (d = 1; nonlinear,
+     linear and a random site-dependent F).
+  C  Lemma 1c(ii): visible autocorrelation of the wave rule (q = 2, alpha = 1) on rings is 1 exactly at
+     multiples of ord_L (poles at the ord_L-th roots of unity, residue 1/ord_L); on Z it is zero for
+     every n >= 1 (cone-edge coefficient), so the reduced resolvent is 1/lambda. The ring values agree
+     with the Z values for n < ord_L.
   D  Graph symmetry of finite cubic quotients Z^3/Lambda versus Z^3: vertex-stabilizer orders and
      the rank of the action on the six links; C_4^3 is the 6-cube Q_6; a skew quotient.
   E  Checkerboard (bipartite) and Brillouin-corner characters on finite quotients.
@@ -156,7 +161,7 @@ def part_A():
              (1, 2, "nonlinear", F_nonlinear, [1, 2, 3, 4]),
              (1, 3, "nonlinear", F_nonlinear, [1, 2, 3]),
              (2, 2, "linear a=1", F_linear(1), [1, 2]),
-             (3, 2, "linear a=1", F_linear(1), [1])]
+             (3, 2, "linear a=1", F_linear(1), [1])]  # d = 3, n = 1 is structural (see A2)
     for d, q, name, F, ns in cases:
         for n in ns:
             T = cone_transition_weights(n, d, q, F)
@@ -198,13 +203,74 @@ def part_A():
             viol.append(len(reciprocity_holds(T, 2)))
         check(f"Bernoulli(1/3) hidden law, d=1 q=2 {name}: reciprocity fails at some lag (detector live)",
               any(v > 0 for v in viol), f"violating ordered pairs at n=1,2,3: {viol}")
+    T = cone_transition_weights(2, 2, 2, F_linear(1), hidden_weight=wf)
+    v2 = len(reciprocity_holds(T, 2))
+    check("Bernoulli(1/3) hidden law, d=2 q=2 linear a=1 n=2: reciprocity fails (detector live)",
+          v2 > 0, f"violating ordered pairs: {v2}")
+
+
+def linear_forms(n, d, q, alpha):
+    """x_0(n) and x_0(n-1) of the linear rule on Z^d as coefficient dicts over Z/q."""
+    zero = tuple([0] * d)
+    cur = {i: {("c", i): 1} for i in ball(d, n)}
+    prev = {i: {("p", i): 1} for i in ball(d, n - 1)}
+    for t in range(n):
+        r = n - t - 1
+        nxt = {}
+        for i in ball(d, r):
+            f = {}
+            for e in unit_vectors(d):
+                for k, v in cur[add(i, e)].items():
+                    f[k] = (f.get(k, 0) + alpha * v) % q
+            for k, v in prev[i].items():
+                f[k] = (f.get(k, 0) - v) % q
+            nxt[i] = {k: v for k, v in f.items() if v}
+        prev, cur = {i: cur[i] for i in ball(d, r)}, nxt
+    return prev[zero], cur[zero]
+
+
+def part_A2():
+    print("== A2. linear update, q prime, alpha != 0, n >= 2: T_ij(n) is exactly uniform on Z^d ==")
+    zero = None
+    for d, q, alpha, ns in [(1, 2, 1, [2, 3, 4]), (1, 3, 1, [2, 3]), (1, 3, 2, [2, 3]),
+                            (2, 2, 1, [2, 3]), (2, 3, 2, [2, 3]), (3, 2, 1, [2, 3]), (3, 3, 1, [2, 3])]:
+        for n in ns:
+            zero = tuple([0] * d)
+            fp, fc = linear_forms(n, d, q, alpha)
+            roots = {("p", zero), ("c", zero)}
+            a = {k: v for k, v in fp.items() if k not in roots}
+            b = {k: v for k, v in fc.items() if k not in roots}
+            keys = set(a) | set(b)
+            # rank 2 over GF(q) iff both nonzero and not proportional
+            def proportional(u, w):
+                for lam in range(1, q):
+                    if all((lam * u.get(k, 0) - w.get(k, 0)) % q == 0 for k in keys):
+                        return True
+                return False
+            rank2 = bool(a) and bool(b) and not proportional(a, b)
+            check(f"d={d} q={q} alpha={alpha} n={n}: hidden parts of x_0(n-1), x_0(n) independent, "
+                  f"so T_ij(n) = 1/q^2 for all i, j", rank2)
+    print("-- n = 1: T((p,c) -> (c,c')) = P(S = c' + p) = T((c',c) -> (c,p)) for every hidden product law --")
+    wf = lambda a: Fraction(2, 3) if a == 0 else Fraction(1, 3)
+    for d in [1, 2, 3]:
+        T = cone_transition_weights(1, d, 2, F_linear(1), hidden_weight=wf)
+        check(f"d={d} q=2 n=1 under Bernoulli(1/3): reciprocity holds (n = 1 is structural)",
+              not reciprocity_holds(T, 2))
 
 
 # ---------------------------------------------------------------- B
 def part_B():
     print("== B. uniform product law preserved by phi and Theta on cylinders (d = 1) ==")
+    import random
+    rng = random.Random(4)
+    table = {cv: rng.randrange(3) for cv in product(range(3), repeat=5)}
+
+    def F_random(c, i, d, q):
+        # a site-dependent, non-translation-invariant map reading the whole extended window
+        key = tuple(c[(k,)] for k in range(-1, 4))
+        return (table[key] + i[0] * i[0]) % q
     for q, name, F in [(3, "nonlinear", F_nonlinear), (3, "linear a=2", F_linear(2)),
-                       (2, "nonlinear", F_nonlinear)]:
+                       (2, "nonlinear", F_nonlinear), (3, "random site-dependent", F_random)]:
         w = 3
         W = [(k,) for k in range(w)]
         Wplus = [(k,) for k in range(-1, w + 1)]
@@ -217,8 +283,15 @@ def part_B():
         uniform = len(counts) == q ** (2 * w) and len(set(counts.values())) == 1
         check(f"q={q} {name}: image of uniform (p on W, c on W+-1) under phi is uniform on W x W",
               uniform, f"{len(counts)} outputs, fibre sizes {sorted(set(counts.values()))}")
-    check("Theta (site-wise swap) permutes cylinder coordinates, so preserves every product law",
-          True, "structural")
+    for q in [2, 3]:
+        w = 3
+        counts = {}
+        for pv in product(range(q), repeat=w):
+            for cv in product(range(q), repeat=w):
+                out = cv + pv
+                counts[out] = counts.get(out, 0) + 1
+        check(f"q={q}: image of uniform (p, c on W) under Theta is uniform on W x W",
+              len(counts) == q ** (2 * w) and set(counts.values()) == {1})
 
 
 # ---------------------------------------------------------------- C
@@ -246,9 +319,9 @@ def part_C():
             if n > 10 ** 6:
                 break
         residue = Fraction(len(hits), order)
-        check(f"ring L={L}: phi has finite order {order}; visible autocorrelation m_n = 1 at "
-              f"{len(hits)} of {order} lags; pole at lambda=1 with residue {residue}",
-              order is not None and residue > 0)
+        check(f"ring L={L}: phi has finite order {order}; within one period m_n = 1 only at n = 0, so "
+              f"R_L = lambda^(ord-1)/(lambda^ord - 1), residue {residue}; m_n agrees with Z for 0 <= n < ord",
+              order is not None and hits == [0])
     # On Z: x_0(n) as a linear form contains x_{+n}(0) with coefficient alpha^n = 1, so
     # m_n = 0 for all n >= 1. Check the cone-edge coefficient exactly for n <= 40.
     ok = True
@@ -430,7 +503,11 @@ def part_E():
                       if all(sum(e * x for e, x in zip(eta, b)) % 2 == 0 for b in B))
         check(f"{name}: bipartite {bip}; well-defined corner characters {corners} of 8",
               simple and (bip, corners) == expect[name])
-    check("Z^3: bipartite (parity of n1+n2+n3) and all 8 corner characters defined", True, "structural")
+    vs, adj = ball_graph(4)
+    par = [sum(v) % 2 for v in vs]
+    ok = all(par[u] != par[w] for u in range(len(vs)) for w in adj[u])
+    check("Z^3 (radius-4 ball): the parity of n1+n2+n3 is a proper 2-colouring; corner characters "
+          "(-1)^(eta.n) need no condition on Z^3", ok)
 
 
 # ---------------------------------------------------------------- F
@@ -478,6 +555,7 @@ def part_F():
 
 if __name__ == "__main__":
     part_A()
+    part_A2()
     part_B()
     part_C()
     part_D()
