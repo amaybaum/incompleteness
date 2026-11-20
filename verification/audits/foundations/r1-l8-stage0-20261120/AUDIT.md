@@ -27,7 +27,8 @@ proved (R1-INF C1; P7B 6.3 (ii)).
 
 **Counts.** 22 conclusion rows. Class (a): 2 (M2.a, M3.e). Class (b): 11. Class (c): **N_c = 8**.
 Undetermined between (b) and (c): 1 (C1.d; §9 D1). Of the eight (c) rows, 2 have a `RETRO`
-observational consequence (C1.e's ρ_s = ρ_crit against the supplied Friedmann density; M19.a's
+observational consequence (C1.e: ρ_s = ρ_crit against the supplied Friedmann density, and the
+concordance against the inferred Ω_total ≈ 1, an inferred-quantity comparison under §A.24; M19.a's
 observed non-equilibrium phase), 0 have an `ACC` consequence, and 6 have none (`NONE`/`REC`); the
 values C1.a–c reproduce (T_GH, the ħ relation, the 1/4) are theoretical, and their observed
 counterparts are fixed by the KMS side at measured ħ. Under the alternative reading R′ of PREREG §5,
@@ -47,11 +48,12 @@ which obtains its claimed result only with a particular law or a selection princ
 | C1.b | As C1.a, through a_* = τ_K/β_E | As C1.a |
 | C1.c | As C1.a, through the calibrated ε²/σ | As C1.a |
 | C1.e | As C1.a: the count S_dS = σA/ε² times T_cl gives ρ_s; a slope k·β_E gives ρ_crit/k | As C1.a; the d = 3 concordance (Substratum E7) inherits it |
+| C1.d (pending, §9 D1) | Not a (c) row: undetermined between (b) and (c) until it is settled which horizon entropy the imported Verlinde factor's normalization uses | Decide whether GR §7.3 uses the count σA/ε² or a Clausius entropy at T_dS |
 | M19.a | The typicality measure of canonical typicality (normalized unitarily invariant measure on a finite-dimensional energy shell) fixes "every local subsystem is in local equilibrium" | Lemma L8 or scope narrowing to a supplied local equilibrium (LE); physical source of the equilibrium state (A1-05 P8-S) |
 
 Under PREREG §5, no `ACC` conclusion is shown to require a selected law; C1.d's dependence through an
-imported area-entropy normalization is not determined (§9 D1); under R′, four `ACC` rows (M2.d,
-M3.a–c) and M1.b require a uniform factor of the law. None of this means any law used is
+imported area-entropy normalization is not determined (§9 D1); under R′, five `ACC` rows (M1.b, M2.d,
+M3.a–c) require a uniform factor of the law. None of this means any law used is
 physically justified: every (b) row carries property premises ((IP), (NR), Θ-invariance, equal root
 masses, H-blind, H-ν, H-BD with its fibrewise property, (D5)) for which the framework gives no
 reason that nature realizes them (column "Physical justification"), and every (a) row still
@@ -82,15 +84,19 @@ presupposes that nature's law is invariant at all. A1 remains open and unadopted
   (d−3)/((d−2)(d−1)) only; (2) at measured ħ the calibration matches T_cl to T_dS whatever the slope,
   so the Clausius step ΔS = M_Bc²/(k_BT_dS) does not depend on the law [W]. (3) The imported factor
   is not law-free on `main`: in Verlinde's derivation (GR:478 cites [20], eq. 1.7) the volume-law
-  entropy is normalized by matching to the Bekenstein–Hawking entropy A/(4Għ) (arXiv:1611.02269,
-  eqs. 1.5 and 2.14, as read by the independent review; not re-read here), and in OI that area
+  entropy is normalized by matching to the Bekenstein–Hawking entropy A/(4Għ) (equations
+  checked by the independent review against arXiv:1611.02269v2, eqs. 1.5, 1.7, 2.12–2.15; the
+  1/(d−1) in the factor is the geometric V/A ratio entering through V₀, and the scale is set by the
+  Bekenstein–Hawking coefficient), and in OI that area
   entropy is the count σA/ε² (GR §5, §7.2), which depends on the law (C1.c). GR does not state
   whether §7.3 uses the count or a Clausius entropy at T_dS. Whether a₀'s value depends on the law
   is therefore not determined on `main` (§9 D1).
 - **F5 (C1.e).** GR §7.2 computes ρ_s = S_dS · k_BT_cl / V_H = ρ_crit from the count and T_cl; ε²
   and σ cancel, but under a slope k·β_E the count is unchanged and T_cl is divided by k, so
   ρ_s = ρ_crit/k and the d-dimensional concordance becomes 2/((d−1)k) [W]. The concordance is
-  Substratum's E7 input to the d = 3 selection (Sub:88, :157).
+  Substratum's E7 input to the d = 3 selection (Sub:88, :157). E7 is redundant for that selection:
+  propagating gravity and stable matter already give d = 3 (SM:200; GR:446), so the law dependence
+  reaches the concordance check only, not the selection of d.
 
 ## 2. The table
 
@@ -117,7 +123,7 @@ in this audit).
 | C1.b | ħ = c³ε²/(4Gσ), i.e. ε/√σ = 2l_p (GR:78–80, :88; GR:552; SM:1586; book appendix-b:169) | NONE (ħ measured; the relation fixes the unobserved ε²/σ) | As C1.a, through β_E | As C1.a, with H-slope, H-frame, H-Hawking (P7B Thm. item 4, P) | As C1.a | As C1.a | (c) c1 | Yes, through β_E: a_* = τ_K/β_E (GR:80) with node 5's slopes | As C1.a | As C1.a |
 | C1.c | Bekenstein–Hawking 1/4: σA/ε² = A/(4l_p²) (GR:316–318) | NONE (the 1/4 is a theoretical value; GR:318's black-hole channel measures the KMS normalization) | As C1.b | As C1.b | As C1.a | As C1.a | (c) c1 | Yes [W]: a law with slope k·β_E gives ε² = 4kσl_p² and σA/ε² = A/(4k l_p²) | As C1.a | None beyond C1.a |
 | C1.d | Entropy-displacement chain: a₀ = cH/6, baryonic Tully–Fisher, crossover radius (GR:466–500; table GR:542–551) | ACC | Inherits "T_dS requires H-count" (GR:470); the imported factor (d−3)/((d−2)(d−1)) (GR:478, Verlinde [20]) is normalized by the area entropy, which in OI is the count σA/ε² (GR §5, §7.2) | Clausius step at T_dS: any law with a log-rate slope, the calibration supplying T_cl = T_dS [W] (F4 (1)–(2)). Imported factor: not determined, since GR does not state whether §7.3 uses the count or a Clausius entropy at T_dS (F4 (3)) | Not determined on `main` | None on `main` | Undetermined between (b) and (c) (§9 D1) | Not determined on `main`: law-independent under a Clausius entropy at T_dS; law-dependent, through the count (C1.c), if the imported normalization is the count | Coupling-map and heat-input conditions of GR:470; which horizon entropy the import uses | Candidate: decide which horizon entropy (count, or Clausius at T_dS) GR §7.2–7.3 and the imported Verlinde factor use |
-| C1.e | Boundary-density normalization ρ_s = S_dS k_BT_cl / V_H = ρ_crit (GR:422–428), "motivates" §7.3 (GR:468); d = 3 concordance ρ_s/ρ_crit = 2/(d−1) (SM:182–196; GR:440), Substratum's E7 input to the d = 3 selection (Sub:88, :157); mirrors book ch05:59–60, ch02:68, ch19:116, appendix-a:117 | RETRO (ρ_s against the supplied Friedmann ρ_crit) / NONE (concordance) | As C1.a: the count σA/ε² and T_cl from the counting slope | As C1.a | As C1.a | As C1.a; GR:420 "its use as a physical source is a separate question" | (c) c1 | Yes [W, F5]: a slope k·β_E leaves the count unchanged and divides T_cl by k, so ρ_s = ρ_crit/k and the concordance becomes 2/((d−1)k) | As C1.a; the native-source identification GR:420 leaves open | Same candidate as C1.d |
+| C1.e | Boundary-density normalization ρ_s = S_dS k_BT_cl / V_H = ρ_crit (GR:422–428), "motivates" §7.3 (GR:468); d = 3 concordance ρ_s/ρ_crit = 2/(d−1) (SM:182–196; GR:440), Substratum's E7 input to the d = 3 selection (Sub:88, :157); mirrors book ch05:59–60, ch02:68, ch19:116, appendix-a:117 | RETRO (ρ_s against the supplied Friedmann ρ_crit; the concordance is an inferred-quantity RETRO under §A.24: E7 at Sub:88 compares with the inferred Ω_total ≈ 1) | As C1.a: the count σA/ε² and T_cl from the counting slope | As C1.a | As C1.a | As C1.a; GR:420 "its use as a physical source is a separate question" | (c) c1 | Yes [W, F5]: a slope k·β_E leaves the count unchanged and divides T_cl by k, so ρ_s = ρ_crit/k and the concordance becomes 2/((d−1)k) | As C1.a; the native-source identification GR:420 leaves open | Same candidate as C1.d |
 | C4.a | Boundary-only lemma (b) and gauge corollary under H-BD: Σ_j\|T_ij − T^(B)_ij\| ≤ 2t/τ_BD; \|C_D\| invisible at leading order (GR:114–138; GR:144 Step 4, which states the matching does not use it; GR:589; GR App. B :873–907 for the exact part; Sub:262; book appendix-b:177–194, ch02:44, ch07:46, ch18:170; Meth:353) | GAUGE | Uniform hidden prior on finite C_H; H-BD's "fraction of d ∈ C_D" is counting; injectivity used to bound counts (GR:126) | H-BD part: none (L10; A1-05 P8-S: the counting proof "cannot simply be applied to an arbitrary exterior law"). Exact part within the cone: (D5) u_{B_n} ⊗ any normalized ν, no invariance (GR App. B, P) | Exact part sufficient; H-BD part only on finite carriers | None on `main`: τ_BD not fixed (GR:130); for the selected linear update H-BD with τ_BD > 2Δt fails at every cut with L ≠ 0 under counting (GR:128) | (b) | Yes, F2: GR:128's example, u_{V×B} ⊗ δ_d invariant [W], gives T(2Δt) = identity or bit flip; the uniform law gives every entry ½ | L10 with its fibrewise property (F2) | Low priority: GR:130 states no §8.5(b) result uses Steps 2–3 |
 | C4.b | Effective finiteness: E3 bounds the observationally relevant \|C_V × C_B\| ≤ e^{S∂} under H-BD; leading-order transfer across H-BD-coupled extensions (Sub:54, :92, :268 (i)–(ii)) | GAUGE | As C4.a | As C4.a | As C4.a | As C4.a; Sub:268 (i) calls the E3 reading "the interpretive premise of A1" | (b) | As C4.a | As C4.a | None |
 | M19.a | Equilibrium macrostate of (S,φ) ⇒ every local subsystem in local equilibrium (canonical typicality), hence observers only in the non-equilibrium phase (M:764; consumed at Sub:56 arrow of time, Sub:401, Str:718, ch04:178) | RETRO (observed non-equilibrium phase) | Normalized unitarily invariant measure on the unit sphere of a finite-dimensional energy subspace [31]; "typical" quantifier; finite (S,φ) (M:766) | None for the inference (L8 open). Narrowed form: local equilibrium (LE) supplied as a state per region (A1-05 P8-S). R1-INF §6: under P-ED, typicality only at substratum level (SLLN, ergodic theorem) | Not established beyond finite representatives | None on `main` (A1-05 P8-S: SOURCE GAP at the equilibrium state) | (c) c2 | Yes, F3: m_H (R1-INF Prop. 9 (b)) [W] | L8 or scope narrowing to (LE); physical source of the equilibrium state | Recommended: scope narrowing (separately authorized) before L8; F3 shows a homogeneity premise would be load-bearing for L8 |
@@ -190,8 +196,10 @@ with a physical source gap, which this row does not change.
 **C4 (H-BD), traced.** Consumers found: GR:116–118 (lemma (b)), GR:122 (H-BD), GR:130 (the
 emergent generator, as far as the data fix it, depends only on the local update; "Steps 2 and 3
 are consistency checks … and no result of §8.5(b) uses them"), GR:132–138 (gauge corollary, H-BD
-part), Sub:54, Sub:92 (A1's E3 reading), Sub:268 (i)–(ii), Meth:353, and the book mirrors
-appendix-b:177–194, ch07:46, ch18:170 and their `FULL.md` copies. None of them reaches an `ACC`
+part), GR:144 (Step 4, which states the matching does not use Step 2), GR:589 (the theorem's
+appeal to the deep-sector corollary), GR App. B :873–907 (the exact, H-BD-free part), Sub:54,
+Sub:92 (A1's E3 reading), Sub:262 (the finite decoupled identity), Sub:268 (i)–(ii), Meth:353, and
+the book mirrors appendix-b:177–194, ch02:44, ch07:46, ch18:170 and their `FULL.md` copies. None of them reaches an `ACC`
 consequence; every one concerns the invisibility of the deep sector's cardinality. Measure use in
 the proof (GR:126) [W, F2]: elements of S_s have distinct deep components at step s by injectivity,
 and at most a fraction Δt/τ_BD of C_D is bad for the reference path, so at most that many leave;
@@ -206,8 +214,9 @@ need a stated deep-law property, not a selection.
 unitarily invariant measure on a finite-dimensional shell; "every local subsystem" holds for
 typical states with respect to that measure (A1-05 P8-S row "Local equilibrium/typicality").
 F3 [W]: m_H is invariant under the selected update, has full centred entropy density and
-u(0) = 0 almost surely, so maximal entropy in the entropy-density sense does not give an
-equilibrium one-site marginal at the origin without the homogeneity premise (G3). M19.b is kept as
+u(0) = 0 almost surely, so its one-site marginal at the origin differs from β_A's uniform
+marginal: maximal centred entropy density does not fix the local marginal without the homogeneity
+premise (G3). M19.b is kept as
 a control: the theorem's bound and the anti-Boltzmann-brain corollary use local equilibrium as a
 stipulated state (REMAINDER M20) and need (IL) and (EM), not the global-to-local inference, so the
 (c) of M19.a does not propagate to them; the arrow-of-time reading at Sub:56 does consume M19.a.
@@ -302,7 +311,7 @@ another row's class except where the row says so (M3.d uses F1 only for "Predict
 ## 8. What an independent reviewer must check
 
 1. The class tests of PREREG §5 against each row, in particular the boundary case: M3.a–c (b) and
-   C1.a–c (c), and that the R′ count (13) is computed correctly.
+   C1.a–c (c), and that the R′ count (15; 16 if C1.d resolves to (c)) is computed correctly.
 2. M1.a: that the "canonical choice" and the book's "determined by the partition alone" are the
    only consumers needing the selection, and that M:84's general form is measure-relative.
 3. M1.d: whether SM Lemma 1c (iii) uses a property of μ beyond (i); the row is marked partly traced.
@@ -352,3 +361,9 @@ priority for L10 (C4). Lowered: the C1 coupled-existence question, whose law dep
 normalizations with no finite-window test. Added candidate: decide which horizon entropy (the count
 σA/ε², or a Clausius entropy at T_dS) GR §7.2–7.3 and the imported Verlinde factor use; that
 decides C1.d's class and whether ρ_s, a₀ and the Tully–Fisher normalization need the selected law.
+
+**Delta re-review of `abd9c775` (ACCEPT WITH NITS).** Nits D1–D6 applied in one commit: the
+Verlinde citation note and the 1/(d−1) reading (F4), the R′ count in §8, "five `ACC` rows" in §1,
+C1.e's concordance typed as an inferred-quantity `RETRO` with E7's redundancy for the d = 3
+selection, the C4 and M19 notes aligned with N4 and F3, and the pending C1.d line in §1's decision
+table. Counts are unchanged.
