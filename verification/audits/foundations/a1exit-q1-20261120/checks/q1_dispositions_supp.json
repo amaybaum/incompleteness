@@ -1,0 +1,2608 @@
+[
+ {
+  "file": "papers/Complexity.md",
+  "line": 13,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "taste-breaking assumptions"
+ },
+ {
+  "file": "papers/Complexity.md",
+  "line": 65,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/Complexity.md",
+  "line": 99,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/GR.md",
+  "line": 194,
+  "families": [
+   "G7-corner"
+  ],
+  "screen": false,
+  "code": "N",
+  "edit": "",
+  "note": "Lean identifiers corner_form etc."
+ },
+ {
+  "file": "papers/GR.md",
+  "line": 364,
+  "families": [
+   "G5-blocking"
+  ],
+  "screen": true,
+  "code": "N",
+  "edit": "",
+  "note": "'blocked' in another sense"
+ },
+ {
+  "file": "papers/Juno.md",
+  "line": 109,
+  "families": [
+   "G7-corner"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "T_1 corners of the cubic Brillouin zone (Z^3)"
+ },
+ {
+  "file": "papers/Juno.md",
+  "line": 113,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "T_1 corners of the cubic Brillouin zone (Z^3)"
+ },
+ {
+  "file": "papers/Juno.md",
+  "line": 250,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/Juno.md",
+  "line": 372,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "T_1 corners of the cubic Brillouin zone (Z^3)"
+ },
+ {
+  "file": "papers/Main.md",
+  "line": 60,
+  "families": [
+   "G7-corner"
+  ],
+  "screen": true,
+  "code": "N",
+  "edit": "",
+  "note": "'corner-occupancy claim of 3.1': another sense of corner"
+ },
+ {
+  "file": "papers/Methodology.md",
+  "line": 339,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/Methodology.md",
+  "line": 519,
+  "families": [
+   "G5-blocking"
+  ],
+  "screen": true,
+  "code": "N",
+  "edit": "",
+  "note": "'blocked' in another sense"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 14,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "tastes as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 420,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 422,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 432,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 438,
+  "families": [
+   "G6-taste",
+   "G7-corner"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 444,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 448,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 462,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 464,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 466,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 468,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "tastes as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 470,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 476,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "tastes as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 479,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "tastes as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 497,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 499,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 503,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 517,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 549,
+  "families": [
+   "G5-blocking"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "E1",
+  "note": "sublattice parity of the 4.8 construction"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 613,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 617,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 859,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 861,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 865,
+  "families": [
+   "G6-taste",
+   "G7-corner"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "tastes as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 871,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 919,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 946,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "'the d=3 simple-cubic lattice': Z^3, true as stated"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 948,
+  "families": [
+   "G6-taste",
+   "G7-corner"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "'the d=3 simple-cubic lattice': Z^3, true as stated"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 950,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 956,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1116,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1124,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "N",
+  "edit": "",
+  "note": "external lattice simulations / bibliography"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1126,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1134,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1138,
+  "families": [
+   "G7-corner"
+  ],
+  "screen": true,
+  "code": "S",
+  "edit": "",
+  "note": "a numerical regulator on a computational lattice"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1148,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "tastes as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1152,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1154,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1156,
+  "families": [
+   "G6-taste",
+   "G7-corner"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1160,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1165,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1168,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1194,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1196,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1204,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1219,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1221,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1234,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1237,
+  "families": [
+   "G5-blocking"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "E1",
+  "note": "sublattice parity of the 4.8 construction"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1239,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1245,
+  "families": [
+   "G5-blocking"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "E1",
+  "note": "sublattice parity of the 4.8 construction"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1247,
+  "families": [
+   "G5-blocking"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "E1",
+  "note": "sublattice parity of the 4.8 construction"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1255,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1257,
+  "families": [
+   "G5-blocking"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "E1",
+  "note": "sublattice parity of the 4.8 construction"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1267,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "tastes as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1302,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "tastes as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1318,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1319,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1322,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1326,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "tastes as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1394,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1396,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1400,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1410,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1432,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1438,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1450,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1454,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1458,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1460,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "tastes as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1464,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1526,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1548,
+  "families": [
+   "G6-taste",
+   "G7-corner"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1552,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1584,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/SM.md",
+  "line": 1743,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "N",
+  "edit": "",
+  "note": "external lattice simulations / bibliography"
+ },
+ {
+  "file": "papers/Structure.md",
+  "line": 178,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/Structure.md",
+  "line": 431,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/Structure.md",
+  "line": 920,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/Structure.md",
+  "line": 950,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/Structure.md",
+  "line": 1046,
+  "families": [
+   "G7-corner"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/Structure.md",
+  "line": 1054,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "staggered-taste mass gap"
+ },
+ {
+  "file": "papers/Structure.md",
+  "line": 1056,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/Substratum.md",
+  "line": 16,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "tastes as labels"
+ },
+ {
+  "file": "papers/Substratum.md",
+  "line": 22,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "tastes as labels"
+ },
+ {
+  "file": "papers/Substratum.md",
+  "line": 151,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/Substratum.md",
+  "line": 152,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/Substratum.md",
+  "line": 373,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/Substratum.md",
+  "line": 479,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/Substratum.md",
+  "line": 480,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "papers/Substratum.md",
+  "line": 496,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/README.md",
+  "line": 60,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "spin-taste grading"
+ },
+ {
+  "file": "book/README.md",
+  "line": 62,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 730,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch02-substratum.md:100; tastes as labels"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1148,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch04-methodology.md:44; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1224,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch04-methodology.md:120; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1226,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch04-methodology.md:122; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1238,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch04-methodology.md:134; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1328,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch05-gauge-structure.md:13; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1330,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch05-gauge-structure.md:15; spin-taste grading / H-chi'"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1406,
+  "families": [
+   "G5-blocking"
+  ],
+  "screen": true,
+  "code": "R",
+  "edit": "E6",
+  "note": "mirror of book/ch05-gauge-structure.md:91; book mirror of SM Theorem 2: two-step identity and 'blocked stencil' on A4's finite class without conditions on P"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1408,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch05-gauge-structure.md:93; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1469,
+  "families": [
+   "G5-blocking",
+   "G6-taste",
+   "G7-corner"
+  ],
+  "screen": true,
+  "code": "R",
+  "edit": "E6",
+  "note": "mirror of book/ch05-gauge-structure.md:154; 'one Dirac spinor component to each hypercube corner of the cubic lattice': needs P in 2Z^3 on a quotient"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1471,
+  "families": [
+   "G5-blocking"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "E6",
+  "note": "mirror of book/ch05-gauge-structure.md:156; sublattice structure of the ch05 construction"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1477,
+  "families": [
+   "G5-blocking",
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "E6",
+  "note": "mirror of book/ch05-gauge-structure.md:162; sublattice structure of the ch05 construction"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1479,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch05-gauge-structure.md:164; spin-taste grading / H-chi'"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1481,
+  "families": [
+   "G5-blocking",
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "E6",
+  "note": "mirror of book/ch05-gauge-structure.md:166; sublattice structure of the ch05 construction"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1483,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch05-gauge-structure.md:168; spin-taste grading / H-chi'"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1487,
+  "families": [
+   "G5-blocking",
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "R",
+  "edit": "E6",
+  "note": "mirror of book/ch05-gauge-structure.md:172; 'operator identity on the blocked lattice': needs P in 2Z^3"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1491,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch05-gauge-structure.md:176; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1510,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch05-gauge-structure.md:195; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1521,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch06-matter-content.md:10; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1531,
+  "families": [
+   "G5-blocking",
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "R",
+  "edit": "E6",
+  "note": "mirror of book/ch06-matter-content.md:20; 'identity on the blocked stencil': needs P in 2Z^3"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1539,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch06-matter-content.md:28; tastes / inter-corner distances as labels"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1545,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch06-matter-content.md:34; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1553,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch06-matter-content.md:42; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1555,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch06-matter-content.md:44; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1557,
+  "families": [
+   "G7-corner"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch06-matter-content.md:46; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1623,
+  "families": [
+   "G6-taste",
+   "G7-corner"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch06-matter-content.md:112; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1634,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch06-matter-content.md:123; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1638,
+  "families": [
+   "G7-corner"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch06-matter-content.md:127; tastes / inter-corner distances as labels"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1651,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch06-matter-content.md:140; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1691,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch06-matter-content.md:180; tastes / inter-corner distances as labels"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1719,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch06-matter-content.md:208; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1787,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch06-matter-content.md:276; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1789,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch06-matter-content.md:278; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1850,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch06-matter-content.md:339; tastes / inter-corner distances as labels"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 1873,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch07-gravity.md:8; taste structure"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 2060,
+  "families": [
+   "G5-blocking"
+  ],
+  "screen": true,
+  "code": "N",
+  "edit": "",
+  "note": "mirror of book/ch07-gravity.md:195; 'blocked' in another sense"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 2199,
+  "families": [
+   "G7-corner"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch08-juno.md:10; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 2233,
+  "families": [
+   "G7-corner"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch08-juno.md:44; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 2238,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch08-juno.md:49; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 2451,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch09-universality.md:36; 'sublattice structure' among the structural properties"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 2552,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch09-universality.md:137; 'sublattice structure' among the structural properties"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 2554,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch09-universality.md:139; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 2633,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch09-universality.md:218; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 2667,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch09-universality.md:252; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 2836,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch10-chemistry.md:82; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 2912,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch10-chemistry.md:158; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 4985,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch18-beyond.md:254; staggered trace-out"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 5082,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch19-open-problems.md:12; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 5158,
+  "families": [
+   "G7-corner"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch19-open-problems.md:88; singlet corners / taste-breaking"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 5160,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch19-open-problems.md:90; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 5222,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch19-open-problems.md:152; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 5224,
+  "families": [
+   "G6-taste",
+   "G7-corner"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch19-open-problems.md:154; singlet corners / taste-breaking"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 5226,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch19-open-problems.md:156; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 5228,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch19-open-problems.md:158; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 5399,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch19-open-problems.md:329; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 5408,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/ch19-open-problems.md:338; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 5499,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/appendix-a-prediction-status.md:52; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 6009,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/appendix-b-derivations.md:332; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 6049,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/appendix-b-derivations.md:372; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 6065,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/appendix-b-derivations.md:388; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 6067,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "S",
+  "edit": "",
+  "note": "mirror of book/appendix-b-derivations.md:390; Bravais comparison"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 6076,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/appendix-b-derivations.md:399; simple cubic lattice chain"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 6568,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/glossary.md:77; staggered taste structure on the cubic lattice"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 6576,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/glossary.md:85; default I"
+ },
+ {
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "line": 6622,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "mirror of book/glossary.md:131; staggered taste structure on the cubic lattice"
+ },
+ {
+  "file": "book/appendix-a-prediction-status.md",
+  "line": 52,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/appendix-b-derivations.md",
+  "line": 332,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/appendix-b-derivations.md",
+  "line": 372,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/appendix-b-derivations.md",
+  "line": 388,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/appendix-b-derivations.md",
+  "line": 390,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "S",
+  "edit": "",
+  "note": "Bravais comparison"
+ },
+ {
+  "file": "book/appendix-b-derivations.md",
+  "line": 399,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "simple cubic lattice chain"
+ },
+ {
+  "file": "book/ch02-substratum.md",
+  "line": 100,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "tastes as labels"
+ },
+ {
+  "file": "book/ch04-methodology.md",
+  "line": 44,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch04-methodology.md",
+  "line": 120,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch04-methodology.md",
+  "line": 122,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch04-methodology.md",
+  "line": 134,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch05-gauge-structure.md",
+  "line": 13,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch05-gauge-structure.md",
+  "line": 15,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "spin-taste grading / H-chi'"
+ },
+ {
+  "file": "book/ch05-gauge-structure.md",
+  "line": 91,
+  "families": [
+   "G5-blocking"
+  ],
+  "screen": true,
+  "code": "R",
+  "edit": "E6",
+  "note": "book mirror of SM Theorem 2: two-step identity and 'blocked stencil' on A4's finite class without conditions on P"
+ },
+ {
+  "file": "book/ch05-gauge-structure.md",
+  "line": 93,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch05-gauge-structure.md",
+  "line": 154,
+  "families": [
+   "G5-blocking",
+   "G6-taste",
+   "G7-corner"
+  ],
+  "screen": true,
+  "code": "R",
+  "edit": "E6",
+  "note": "'one Dirac spinor component to each hypercube corner of the cubic lattice': needs P in 2Z^3 on a quotient"
+ },
+ {
+  "file": "book/ch05-gauge-structure.md",
+  "line": 156,
+  "families": [
+   "G5-blocking"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "E6",
+  "note": "sublattice structure of the ch05 construction"
+ },
+ {
+  "file": "book/ch05-gauge-structure.md",
+  "line": 162,
+  "families": [
+   "G5-blocking",
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "E6",
+  "note": "sublattice structure of the ch05 construction"
+ },
+ {
+  "file": "book/ch05-gauge-structure.md",
+  "line": 164,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "spin-taste grading / H-chi'"
+ },
+ {
+  "file": "book/ch05-gauge-structure.md",
+  "line": 166,
+  "families": [
+   "G5-blocking",
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "E6",
+  "note": "sublattice structure of the ch05 construction"
+ },
+ {
+  "file": "book/ch05-gauge-structure.md",
+  "line": 168,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "spin-taste grading / H-chi'"
+ },
+ {
+  "file": "book/ch05-gauge-structure.md",
+  "line": 172,
+  "families": [
+   "G5-blocking",
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "R",
+  "edit": "E6",
+  "note": "'operator identity on the blocked lattice': needs P in 2Z^3"
+ },
+ {
+  "file": "book/ch05-gauge-structure.md",
+  "line": 176,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch05-gauge-structure.md",
+  "line": 195,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 10,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 20,
+  "families": [
+   "G5-blocking",
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "R",
+  "edit": "E6",
+  "note": "'identity on the blocked stencil': needs P in 2Z^3"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 28,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "tastes / inter-corner distances as labels"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 34,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 42,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 44,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 46,
+  "families": [
+   "G7-corner"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 112,
+  "families": [
+   "G6-taste",
+   "G7-corner"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 123,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 127,
+  "families": [
+   "G7-corner"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "tastes / inter-corner distances as labels"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 140,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 180,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "tastes / inter-corner distances as labels"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 208,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 276,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 278,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch06-matter-content.md",
+  "line": 339,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "tastes / inter-corner distances as labels"
+ },
+ {
+  "file": "book/ch07-gravity.md",
+  "line": 8,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "taste structure"
+ },
+ {
+  "file": "book/ch07-gravity.md",
+  "line": 195,
+  "families": [
+   "G5-blocking"
+  ],
+  "screen": true,
+  "code": "N",
+  "edit": "",
+  "note": "'blocked' in another sense"
+ },
+ {
+  "file": "book/ch08-juno.md",
+  "line": 10,
+  "families": [
+   "G7-corner"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch08-juno.md",
+  "line": 44,
+  "families": [
+   "G7-corner"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch08-juno.md",
+  "line": 49,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch09-universality.md",
+  "line": 36,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "'sublattice structure' among the structural properties"
+ },
+ {
+  "file": "book/ch09-universality.md",
+  "line": 137,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "'sublattice structure' among the structural properties"
+ },
+ {
+  "file": "book/ch09-universality.md",
+  "line": 139,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch09-universality.md",
+  "line": 218,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch09-universality.md",
+  "line": 252,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch10-chemistry.md",
+  "line": 82,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch10-chemistry.md",
+  "line": 158,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch18-beyond.md",
+  "line": 254,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "staggered trace-out"
+ },
+ {
+  "file": "book/ch19-open-problems.md",
+  "line": 12,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch19-open-problems.md",
+  "line": 88,
+  "families": [
+   "G7-corner"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "singlet corners / taste-breaking"
+ },
+ {
+  "file": "book/ch19-open-problems.md",
+  "line": 90,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch19-open-problems.md",
+  "line": 152,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch19-open-problems.md",
+  "line": 154,
+  "families": [
+   "G6-taste",
+   "G7-corner"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "singlet corners / taste-breaking"
+ },
+ {
+  "file": "book/ch19-open-problems.md",
+  "line": 156,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch19-open-problems.md",
+  "line": 158,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch19-open-problems.md",
+  "line": 329,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/ch19-open-problems.md",
+  "line": 338,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/glossary.md",
+  "line": 77,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "staggered taste structure on the cubic lattice"
+ },
+ {
+  "file": "book/glossary.md",
+  "line": 85,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": false,
+  "code": "I",
+  "edit": "",
+  "note": "default I: tastes or corners as labels"
+ },
+ {
+  "file": "book/glossary.md",
+  "line": 131,
+  "families": [
+   "G6-taste"
+  ],
+  "screen": true,
+  "code": "I",
+  "edit": "",
+  "note": "staggered taste structure on the cubic lattice"
+ }
+]
