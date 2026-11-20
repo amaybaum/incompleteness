@@ -1,0 +1,75 @@
+== A. SM Theorem 19 on Z^d under the uniform Bernoulli law (exact, light cone) ==
+PASS  d=1 q=2 linear a=1 n=1: T_ij(n) = T_(theta j, theta i)(n): rows stochastic True; pairs with T_ij != T_ji: 8; distinct values 2
+PASS  d=1 q=2 linear a=1 n=2: T_ij(n) = T_(theta j, theta i)(n): rows stochastic True; pairs with T_ij != T_ji: 0; distinct values 1
+PASS  d=1 q=2 linear a=1 n=3: T_ij(n) = T_(theta j, theta i)(n): rows stochastic True; pairs with T_ij != T_ji: 0; distinct values 1
+PASS  d=1 q=2 linear a=1 n=4: T_ij(n) = T_(theta j, theta i)(n): rows stochastic True; pairs with T_ij != T_ji: 0; distinct values 1
+PASS  d=1 q=3 linear a=1 n=1: T_ij(n) = T_(theta j, theta i)(n): rows stochastic True; pairs with T_ij != T_ji: 36; distinct values 2
+PASS  d=1 q=3 linear a=1 n=2: T_ij(n) = T_(theta j, theta i)(n): rows stochastic True; pairs with T_ij != T_ji: 0; distinct values 1
+PASS  d=1 q=3 linear a=1 n=3: T_ij(n) = T_(theta j, theta i)(n): rows stochastic True; pairs with T_ij != T_ji: 0; distinct values 1
+PASS  d=1 q=3 linear a=2 n=1: T_ij(n) = T_(theta j, theta i)(n): rows stochastic True; pairs with T_ij != T_ji: 36; distinct values 2
+PASS  d=1 q=3 linear a=2 n=2: T_ij(n) = T_(theta j, theta i)(n): rows stochastic True; pairs with T_ij != T_ji: 0; distinct values 1
+PASS  d=1 q=3 linear a=2 n=3: T_ij(n) = T_(theta j, theta i)(n): rows stochastic True; pairs with T_ij != T_ji: 0; distinct values 1
+PASS  d=1 q=2 nonlinear n=1: T_ij(n) = T_(theta j, theta i)(n): rows stochastic True; pairs with T_ij != T_ji: 8; distinct values 3
+PASS  d=1 q=2 nonlinear n=2: T_ij(n) = T_(theta j, theta i)(n): rows stochastic True; pairs with T_ij != T_ji: 0; distinct values 3
+PASS  d=1 q=2 nonlinear n=3: T_ij(n) = T_(theta j, theta i)(n): rows stochastic True; pairs with T_ij != T_ji: 0; distinct values 3
+PASS  d=1 q=2 nonlinear n=4: T_ij(n) = T_(theta j, theta i)(n): rows stochastic True; pairs with T_ij != T_ji: 0; distinct values 3
+PASS  d=1 q=3 nonlinear n=1: T_ij(n) = T_(theta j, theta i)(n): rows stochastic True; pairs with T_ij != T_ji: 40; distinct values 3
+PASS  d=1 q=3 nonlinear n=2: T_ij(n) = T_(theta j, theta i)(n): rows stochastic True; pairs with T_ij != T_ji: 0; distinct values 3
+PASS  d=1 q=3 nonlinear n=3: T_ij(n) = T_(theta j, theta i)(n): rows stochastic True; pairs with T_ij != T_ji: 66; distinct values 12
+PASS  d=2 q=2 linear a=1 n=1: T_ij(n) = T_(theta j, theta i)(n): rows stochastic True; pairs with T_ij != T_ji: 8; distinct values 2
+PASS  d=2 q=2 linear a=1 n=2: T_ij(n) = T_(theta j, theta i)(n): rows stochastic True; pairs with T_ij != T_ji: 0; distinct values 1
+PASS  d=3 q=2 linear a=1 n=1: T_ij(n) = T_(theta j, theta i)(n): rows stochastic True; pairs with T_ij != T_ji: 8; distinct values 2
+-- ring comparison (d = 1, counting measure on Z/L) --
+PASS  q=2 linear a=1 n=2 ring L=3 (< 2n+1): reciprocity on the ring: equals the Z value: True (not required)
+PASS  q=2 linear a=1 n=2 ring L=5 (>= 2n+1): reciprocity on the ring; equals the Z value
+PASS  q=2 nonlinear n=2 ring L=3 (< 2n+1): reciprocity on the ring: equals the Z value: True (not required)
+PASS  q=2 nonlinear n=2 ring L=5 (>= 2n+1): reciprocity on the ring; equals the Z value
+PASS  q=2 linear a=1 n=3 ring L=3 (< 2n+1): reciprocity on the ring: equals the Z value: False (not required)
+PASS  q=2 linear a=1 n=3 ring L=4 (< 2n+1): reciprocity on the ring: equals the Z value: False (not required)
+PASS  q=2 linear a=1 n=3 ring L=7 (>= 2n+1): reciprocity on the ring; equals the Z value
+PASS  q=3 linear a=1 n=2 ring L=3 (< 2n+1): reciprocity on the ring: equals the Z value: True (not required)
+PASS  q=3 linear a=1 n=2 ring L=5 (>= 2n+1): reciprocity on the ring; equals the Z value
+PASS  some small ring differs from the Z value (finite-volume values are not the Z values)
+-- countercontrol: hidden Bernoulli(1/3) law (q = 2), not phi-invariant --
+PASS  Bernoulli(1/3) hidden law, d=1 q=2 linear a=1: reciprocity fails at some lag (detector live): violating ordered pairs at n=1,2,3: [0, 8, 0]
+PASS  Bernoulli(1/3) hidden law, d=1 q=2 nonlinear: reciprocity fails at some lag (detector live): violating ordered pairs at n=1,2,3: [0, 12, 12]
+== B. uniform product law preserved by phi and Theta on cylinders (d = 1) ==
+PASS  q=3 nonlinear: image of uniform (p on W, c on W+-1) under phi is uniform on W x W: 729 outputs, fibre sizes [9]
+PASS  q=3 linear a=2: image of uniform (p on W, c on W+-1) under phi is uniform on W x W: 729 outputs, fibre sizes [9]
+PASS  q=2 nonlinear: image of uniform (p on W, c on W+-1) under phi is uniform on W x W: 64 outputs, fibre sizes [4]
+PASS  Theta (site-wise swap) permutes cylinder coordinates, so preserves every product law: structural
+== C. Lemma 1c(ii): visible poles on rings versus Z (wave rule, q = 2, alpha = 1) ==
+PASS  ring L=3: phi has finite order 6; visible autocorrelation m_n = 1 at 1 of 6 lags; pole at lambda=1 with residue 1/6
+PASS  ring L=4: phi has finite order 4; visible autocorrelation m_n = 1 at 1 of 4 lags; pole at lambda=1 with residue 1/4
+PASS  ring L=5: phi has finite order 10; visible autocorrelation m_n = 1 at 1 of 10 lags; pole at lambda=1 with residue 1/10
+PASS  ring L=6: phi has finite order 6; visible autocorrelation m_n = 1 at 1 of 6 lags; pole at lambda=1 with residue 1/6
+PASS  ring L=7: phi has finite order 14; visible autocorrelation m_n = 1 at 1 of 14 lags; pole at lambda=1 with residue 1/14
+PASS  ring L=8: phi has finite order 8; visible autocorrelation m_n = 1 at 1 of 8 lags; pole at lambda=1 with residue 1/8
+PASS  ring L=9: phi has finite order 18; visible autocorrelation m_n = 1 at 1 of 18 lags; pole at lambda=1 with residue 1/18
+PASS  ring L=10: phi has finite order 10; visible autocorrelation m_n = 1 at 1 of 10 lags; pole at lambda=1 with residue 1/10
+PASS  ring L=11: phi has finite order 22; visible autocorrelation m_n = 1 at 1 of 22 lags; pole at lambda=1 with residue 1/22
+PASS  ring L=12: phi has finite order 12; visible autocorrelation m_n = 1 at 1 of 12 lags; pole at lambda=1 with residue 1/12
+PASS  Z: x_0(n) contains x_n(0) with coefficient 1 for 1 <= n <= 40, so m_n = 0 and the reduced resolvent on the visible mean-zero line is 1/lambda
+== D. vertex stabilizers: cubic quotients Z^3/Lambda versus Z^3 ==
+PASS  Z^3 control: automorphisms of the radius-3 ball fixing 0: order 48; rank on the 6 links 3 (O_h: 3 = 1+1+1 -> A1g+Eg+T1u)
+PASS  cubic torus L=3: simple 6-regular True; |Stab(0)| = 48; rank on links 3
+PASS  cubic torus L=4: simple 6-regular True; |Stab(0)| = 720; rank on links 2: rank 2 means the links decompose as 1+5 (2-transitive)
+PASS  cubic torus L=5: simple 6-regular True; |Stab(0)| = 48; rank on links 3
+PASS  cubic torus L=6: simple 6-regular True; |Stab(0)| = 48; rank on links 3
+PASS  C_4^3 (cubic torus L=4, presented with rank 3) is the 6-cube Q_6 (rank-6 presentation)
+PASS  skew quotient Lambda=<(5,0,0),(0,5,0),(1,2,5)>: simple True; |Stab(0)| = 2 < 48: rank on links 18
+== E. checkerboard and Brillouin-corner characters on finite quotients ==
+PASS  L=3: bipartite False; well-defined corner characters 1 of 8
+PASS  L=4: bipartite True; well-defined corner characters 8 of 8
+PASS  L=5: bipartite False; well-defined corner characters 1 of 8
+PASS  L=6: bipartite True; well-defined corner characters 8 of 8
+PASS  skew even-sum <(4,0,0),(0,4,0),(1,1,4)>: bipartite True; well-defined corner characters 4 of 8
+PASS  Z^3: bipartite (parity of n1+n2+n3) and all 8 corner characters defined: structural
+== F. SM section 4.1 linearity countermodel: ring versus Z ==
+PASS  ring L=4, q=5, x(t+1)=x_{i-1}+x_{i+1}+1-x(t-1): no fixed point
+PASS  ring L=3..8, q=5: a fixed point exists iff q divides L: L=3:0, L=4:0, L=5:25, L=6:0, L=7:0, L=8:0
+PASS  Z: c_i = -i(i-1)/2 mod 5 is a fixed point on [-59, 59]
+PASS  Z: the site-wise shift by c conjugates the affine rule to the linear rule (200 random windows)
+PASS  Z: no translation-invariant (constant) fixed point, so no translation-commuting conjugacy
+== SUMMARY ==
+ALL CHECKS PASS
