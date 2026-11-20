@@ -1,0 +1,120 @@
+# A1-EXIT Q2: theorem recovery for SM Theorem 1a without "S finite"
+
+Unit Q2 of the A1-exit objective (#1454 P2-Q2), authorized by owner decision #1169 comment 7047514209
+(`amaybaum`, 2026-11-20T18:31:48Z): "Q2: Theorem 1a (#1454 P2-Q2) | Verify the proof does not need S
+finite | Remove the unnecessary hypothesis if justified | Manuscript correction (SM and mirrors)". The
+finding is A1-PHASE2 (#1450) PREREG §8 Q2 and §13 row Q2, from O-A4 RESULT row 9
+(`verification/audits/foundations/o-a4-20261120/RESULT.md`).
+
+Goal link (§A.47): A1 removal (#1169 decision of 2026-11-20). This unit decides whether Theorem 1a depends
+on A1; it decides nothing about A1's other dependants.
+
+## 1. The statement as it stood (`papers/SM.md`, base `9db51884`, line 242)
+
+> **Theorem 1a (equivariant finite projection preserves spatial symmetry).** *Let $S$ be finite, let $U$
+> be the Koopman operator of a bijection $\varphi:S\to S$ on real observables, and let $P$ be a linear
+> observer projection with $Q=I-P$. For a spatial symmetry representation $R_g$, suppose
+> $[U,R_g]=[P,R_g]=0$ for every $g$ in the symmetry group. Define $A=PUP$, $B=PUQ$, $C=QUP$, and
+> $D=QUQ$. Then the exact projected evolution is
+> $p_{t+1}=A p_t+\sum_{s=0}^{t-1}BD^{t-1-s}C\,p_s+BD^tq_0$, and every memory kernel $K_m=BD^mC$
+> commutes with every $R_g$.*
+
+Proof (SM:248): the $P/Q$ decomposition gives $p_{t+1}=Ap_t+Bq_t$ and $q_{t+1}=Cp_t+Dq_t$; iterating the
+second gives $q_t=D^tq_0+\sum_{s=0}^{t-1}D^{t-1-s}Cp_s$; $Q=I-P$ commutes with $R_g$, so do $A,B,C,D$ and
+every $BD^mC$.
+
+## 2. What each step uses
+
+Setting: $V$ is the real vector space of observables on $S$ (all real functions of $S$, or any subspace
+that $U$, $P$ and every $R_g$ map into itself), $x_{t+1}=Ux_t$, $p_t=Px_t$, $q_t=Qx_t$. For infinite $S$,
+$V$ is infinite-dimensional.
+
+| Step | Operation | Uses | Kernel witness (`verification/lean/OI_Structural_Core.lean`, namespace `MZ`) |
+|---|---|---|---|
+| 0 | $U f=f\circ\varphi$ is a linear map $V\to V$; $P$ linear with $P^2=P$; $Q=I-P$ | composition with a map of sets; linearity. Not used: finiteness, bijectivity of $\varphi$, any topology or measure | `Qm`, `Am`–`Dm` (definitions in any ring) |
+| 1 | $p_{t+1}=PUx_t=PU(P+Q)x_t=PUP\,p_t+PUQ\,q_t$ | $P+Q=I$; $P^2=P$ and hence $Q^2=Q$, $PQ=0$; linearity of $PU$ | `P_add_Q`, `Q_idem`, `PQ_zero`, `absorb_P`, `absorb_Q`, `step_p` |
+| 2 | $q_{t+1}=QUP\,p_t+QUQ\,q_t$ | the same | `step_q` |
+| 3 | $q_t=D^tq_0+\sum_{s=0}^{t-1}D^{t-1-s}Cp_s$ | induction on $t\in\mathbb N$; a sum of $t$ vectors of $V$ (finitely many terms for each $t$, indexed by time, not by $S$); operator powers as iterated composition | `Kk` (the accumulator), `q_closed` |
+| 4 | substitute 3 into 1: the display | linearity of $B$ | `mz_identity` (hypothesis `P * P = P` only) |
+| 5 | $[Q,R_g]=0$, hence $[A,R_g]=\dots=[D,R_g]=0$ and $[BD^mC,R_g]=0$ | sums and products of operators commuting with $R_g$ commute with it; induction on $m$; each $g$ separately | `comm_add`, `comm_mul`, `comm_opow`, `kernel_equivariant` (no idempotence used) |
+
+Not used anywhere: finiteness or cardinality of $S$; a basis, dimension, dual space, trace, determinant or
+spectrum; norms, boundedness, continuity or convergence of any series (every sum is finite in time); a
+measure or measurability; locality, coupling range or bounded degree of $\varphi$; bijectivity of
+$\varphi$ or the Koopman form of $U$ (any linear $U$ suffices); finiteness of the symmetry group; finite
+rank of $P$.
+
+The Lean statements `MZ.mz_identity` and `MZ.kernel_equivariant` are proved for $U$, $P$, $R$ in an
+arbitrary associative unital ring (`class Rng`), with `P * P = P` as the only hypothesis of the first and
+the two commutations as the only hypotheses of the second. The endomorphism ring of any real vector space,
+of any dimension, is such a ring. The display of Theorem 1a is `mz_identity` applied to the initial state
+$x_0$: `P * opow U (t+1)` is $x_0\mapsto p_{t+1}$, `Kk U P t` applied to $x_0$ is
+$\sum_{s=0}^{t-1}D^{t-1-s}Cp_s$, and `opow (Dm U P) t * Qm P` applied to $x_0$ is $D^tq_0$. The module is
+checked with plain `lean` by the `Kernel check` step of `.github/workflows/verify.yml`.
+
+## 3. Weakest sufficient hypothesis, and the disguised-A1 check
+
+No hypothesis on $S$ is needed: the theorem holds for every set $S$, and more generally for any linear $U$
+and idempotent $P$ on any real vector space. Safeguard 1 of the authorizing decision ("no disguised A1"):
+"Let $S$ be a set" implies no finiteness, local finiteness, bounded degree, compactness or finite measure,
+and no step of §2 reintroduces one. The witness below runs the display on an infinite carrier with an
+infinite-rank projection and an infinite symmetry group.
+
+**Witness and controls.** `q2_infinite_carrier_check.py` (this directory; standard library, exact
+rationals, under a second) takes $S=\mathbb Z\times\{0,1\}$,
+$\varphi(n,0)=(n+1,1)$, $\varphi(n,1)=(n-1,0)$, the infinite dihedral symmetry group generated by
+translations and $\rho(n,b)=(-n,1-b)$, the infinite-rank equivariant projection
+$Pf(n,b)=\tfrac12(f(n,0)+f(n,1))$ and an unbounded, non-summable initial observable, and checks the
+display for $t\le6$ and the kernel commutation for $m\le6$ on the window $|n|\le6$. Countercontrols: the
+display without its memory sum fails, and the projection $P'f(n,b)=f(n,0)$ (idempotent, translation
+equivariant, not $\rho$-equivariant) satisfies the display but its kernels do not commute with $\rho$.
+
+    python3 -I verification/audits/foundations/a1exit-q2-20261120/q2_infinite_carrier_check.py
+    # expected: nine PASS lines and "q2_infinite_carrier_check: PASS", exit status 0
+
+This is a finite-window witness on one infinite carrier, not a proof; the proof is the ring identity of §2.
+
+## 4. Corrected statement and the necessary consequence
+
+SM:242: "*Let $S$ be finite, let $U$ …" becomes "*Let $S$ be a set, let $U$ …"; nothing else in the
+statement or proof changes.
+
+SM:250 (Attribution): "a FINITE deterministic bijection in place of a continuous flow" becomes "a
+deterministic bijection in place of a continuous flow". After the correction the specialization no longer
+includes finiteness of $S$; the word was also an all-caps emphasis (§A.33).
+
+`verification/coverage/LEDGER.json`, entry `SM:T-1a-equivariant-finite-projection-preserves-spatial`: the
+fingerprint is moved to the new statement (`8e362ef0f004ec78` → `f73b1c416fd4e3d7`) and its assumptions
+read "S any set" in place of "S finite". Mapping (probe `observer_isotropy_probes.py`, basis `section`),
+level `P` and delta "no Lean statement" are left unchanged.
+
+Finding (pre-existing, not changed here): that entry's `"kernel": "P"` and delta "no Lean statement"
+(LEDGER.json:1494–1495) are stale relative to §2 and §5 above and to `verification/README.md:154`, which
+records `OI_Structural_Core.lean` as Theorem 1a at operator level. Routed to #1462.
+
+Left unchanged by minimum change, each true after the correction: the title's "equivariant finite
+projection", which is narrower than the theorem (the theorem also covers infinite-rank $P$) and is kept
+under minimum change and as the stem of the coverage-ledger identifier; the summaries "finite
+equivariant projection is classical and exact" (SM:12, Substratum:3, book ch05:4 and :13, FULL:1319 and
+:1328), "exact finite-observer result" (SM:26) and "the exact finite-observer isotropy theorem … forced by
+their stated finite/symmetry hypotheses" (book ch05:17, FULL:1332), which describe the finite-observation
+reading and assert no requirement that $S$ be finite; SM:222's statement that under A1 and A4 the bijection acts on a finite
+periodic quotient of $\Lambda$. Theorem 1a has no statement mirror in the book or FULL and is not cited in
+Main. No Lean statement and no entry of `verification/lean-manuscript-census.json` changes (§A.35).
+
+What the correction does not do (safeguard 3): it removes A1 from Theorem 1a alone. Lemma 1c(ii) keeps its
+finite-configuration-space or fibrewise scope; Corollaries 1a and 1b and Theorem 1 keep their own
+hypotheses. That the symmetry hypotheses $[U,R_g]=[P,R_g]=0$ hold for the substratum's dynamics and the
+observer's projection is not part of Theorem 1a and is unchanged.
+
+## 5. Verification layer and remaining gap
+
+Layer: kernel-checked formal proof (`MZ.mz_identity`, `MZ.kernel_equivariant`, any ring) of the operator
+form, with the state-applied display by application to $x_0$ (exact algebra, §2); exact finite-window
+witness with countercontrols on an infinite carrier (§3). Remaining gap for Theorem 1a's statement as
+corrected: none.
+
+`verification/audits/foundations/a1-scope-phase2-20261120/phase2_controls.py` CTL-15 pins Theorem 1a's
+paragraph to the Phase 2 base `b9168ef0`; that control belongs to the Phase 2 record (PREREG §13: "Theorem
+1a is not edited here; CTL-15 keeps it fixed") and now reports this paragraph as changed, as designed. The
+record is not edited.
