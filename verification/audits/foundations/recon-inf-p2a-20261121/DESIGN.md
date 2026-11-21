@@ -4,7 +4,7 @@
 proof, no computation and no new result. It changes no manuscript, Lean file, ledger row, registry
 file, Theorem 23 text or #1477 file. Every relation marked ESTABLISHED below is cited from a record
 or a kernel statement already on `main`, with the hypotheses that source states. Revision answering
-the independent review of `193d162b` (REVISE, #1534 c.7068536611).
+the independent review of `193d162b` (REVISE, #1534 c.7068536611) and its delta review of `5638bf73` (REVISE, narrow).
 
 **Authorization.** Owner decision on #1169,
 [comment 7068325638](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7068325638)
@@ -155,9 +155,9 @@ class that contains it; each is stated for its class.
 | X5 | Every point periodic with unbounded periods ⇏ (R-d) | (N) | PREMISE-LADDER F7 (C−2) | Infinite normalized invariant example C−2 |
 | X6 | For the selected update (q prime, α ≠ 0, Haar prior, window readout): (NR), (RIG), (R-d) fail; with lattice-convex windows IC-H fails at every horizon | (N) | NR-1 Prop. 2.3; Thm 3.3 | That update, that prior, those windows; non-convex windows and composite `q` with unit components are open (NR-1 node table) |
 | X7 | On a finite carrier no accessible bound on the first identity time or the first IC-R witness | (N) | REC-1 Prop. 5.1 | Finite model, every `K` |
-| X8 | A finite visible alphabet and a finite observed window give no exact long-time or global recurrence | (N) | PREMISE-LADDER F9 (OBSTRUCTION) | C−1, finite visible alphabet with a non-periodic all-time rooted family |
-| X9 | (R-c) ⇏ IC-A | (N) | REC-1 Prop. 5.1: finite bijective model, uniform law, non-permutation `Γ_1`, P-divisible on `{0,…,K}` for every chosen `K` | Finite carriers; "accessible" read as any horizon `≤ K` |
-| X10 | IC-A ⇏ (R-c) | (N) | REC-1 Prop. 3.5: P-indivisible on `{0,1,2}` (C4e); the carrier is a bilateral shift, which has non-periodic points, so `φ^N ≠ id` for every `N` | That model; the horizon `{0,1,2}` taken as accessible |
+| X8 | A finite visible alphabet and a finite observed window ⇏ exact long-time or global recurrence | (N) | PREMISE-LADDER F9 (OBSTRUCTION) | C−1, finite visible alphabet with a non-periodic all-time rooted family |
+| X9 | (R-c) ⇏ IC-A | (N) | REC-1 Prop. 5.1: for each `K`, a finite bijective model, uniform law, non-permutation `Γ_1`, P-divisible on `{0,…,K}` (one model per `K`) | Finite carriers; "accessible" read as any horizon `≤ K` |
+| X10 | IC-A ⇏ (R-c) | (N) | REC-1 Prop. 3.5: P-indivisible on `{0,1,2}` (C4e); the carrier is conjugate to a bilateral shift, which has non-periodic points, so `φ^N ≠ id` for every `N` (this last step is an elementary addition made here; REC-1 does not state it) | That model; the horizon `{0,1,2}` taken as accessible |
 
 **ASSUMED** (hypotheses of the results above, not adopted by the corpus): (NR) (Main:131 "assumed
 … and not adopted"); (FS) (Main:141); (M), (I), (P) of REC-1 (its "contract", posited); (RIG) and
@@ -270,8 +270,9 @@ CP-indivisibility that Main:332 derives from P-indivisibility.
 - (d) The GR §8.4 requirement (GR:589) and GR:22: whether the theorem Stage 3 rests on (GR §8.5(b),
   GR:627; Sub:185) takes the P-indivisibility of GR:589 as a premise.
 - (e) The C2-mixing dependence: whether Sub:195's "C2-mixing condition", through Main:455–459 and
-  Main:479, uses (tR) as a premise or only as a scope label (REMAINDER M14 records `t_R` as never
-  consumed by the proof at Main:634; REC-1 U11 records that no common `t_R` exists without a finite
+  Main:479, uses (tR) as a premise or only as a scope label (REMAINDER M14, whose line numbers are at its
+  vintage `21e16c61`, records `t_R` as never consumed by the characterization theorem's proof, which
+  at the pin `df6da1c6` is Main:640; REC-1 U11 records that no common `t_R` exists without a finite
   carrier).
 
 ### N2 — Which object carries the return (algebra and reading)
@@ -309,9 +310,12 @@ tests whether IC-A, taken from observed data, transfers to every realization, an
    Record whether an empirical input does: Main:638's "P-indivisible dynamics are documented in
    open-system experiments", with the experimental literature of §3 item 5. Such a route is (I),
    importing those observations, and is not a consequence of Stage 1's other inputs.
-4. *Established bearing.* X8 (PREMISE-LADDER F9): a finite window yields no global recurrence, so a
-   (FO) route, if credited, replaces recurrence-scale conclusions with window-scale ones; it does
-   not recover IC-R.
+4. *Established bearing.* X8 (PREMISE-LADDER F9): a finite window ⇏ global recurrence. On a carrier
+   with no finite representative, a (FO) route, if credited, replaces recurrence-scale conclusions
+   with window-scale ones and does not recover IC-R. On a finite representative it does: IC-A makes
+   some `Γ_s` a non-permutation (a family of permutation matrices is P-divisible, Main:141, "if every
+   Γ_s is a permutation, Γ_s^{-1}Γ_t is a stochastic divisor"), and with `Γ_L = I` the
+   overlap-and-return theorem (Main:143; Main:137 final clause) then gives IC-R on `{0,…,L}`.
 
 **Decision rule.**
 - If the transfer holds under exactly (FS) and root independence: record "(FO) ⇒ IC-A for every
@@ -320,11 +324,22 @@ tests whether IC-A, taken from observed data, transfers to every realization, an
 - If it fails when the hidden prior is correlated with the root (Main:52, "a joint preparation may
   already correlate the two sectors"): record the countermodel and the hypothesis it shows to be
   load-bearing.
-- If item 3 finds an empirical source: record IC-A as available from observation, (I), naming the
-  import, and record that it is a different conclusion from IC-R and incomparable with (R-c).
+- If item 3 finds an empirical source, and it passes the pressure test below: record IC-A as
+  available from observation, (I), naming the import, and record that it is a different conclusion
+  from IC-R and incomparable with (R-c).
 - If item 3 finds none: record that IC-A has no source in Stage 1's inputs.
 - In every case, the record does not describe (FO) as a weaker sufficient hypothesis for IC-R or
   IC-H.
+
+**Pressure test (required before the empirical branch is recorded).** For each experiment cited:
+- (a) name the quantity measured: CP-divisibility, Breuer–Laine–Piilo (BLP) distinguishability
+  revival, or classical population (fixed-basis) P-divisibility;
+- (b) credit IC-A only where that quantity is population-level P-indivisibility or a C4r-type revival
+  of diagonal states. A CP-indivisibility or BLP result alone is recorded as not giving IC-A, because
+  Main:332 runs from population P-indivisibility to CP-indivisibility, not conversely (Main:340
+  gives the Hadamard boundary);
+- (c) classify each datum as raw/direct or inferred under §A.24, and compare an inferred datum only
+  at the level of what its pipeline measured.
 
 **Productivity guard.** (FO) ⇒ IC-A on the same window is close to the definition. The node counts
 toward §6 only through the transfer hypotheses it exposes and the supply question, not through the
@@ -350,7 +365,9 @@ claim that it is weaker than return.
 
 **Decision rule.**
 - If (RR) coincides with (C4r) at accessible times: record (RR) ⇒ (FO-r) ⇒ IC-A (E8), (N), and
-  record (RR) as a readback-type witness of IC-A, strictly stronger than (HR) under (FS) (item 2).
+  record (RR) as a readback-type witness of IC-A. Record it as strictly stronger than (HR) under
+  (FS) only if item 2's written proof of (RR) ⇒ (HR) passes review; otherwise record only
+  (HR) ⇏ (RR).
 - If a multi-time condition implying (RR) is found: record it with its proof layer and whether
   anything in Stage 1's inputs supplies it.
 - If an exact countermodel is found to every candidate condition tried: record the countermodels for
@@ -474,7 +491,7 @@ of Main:60 and Theorem 24 (iii), the rooted family is unchanged.
 | V10 | No (I) input recorded as (N) | Each relation row carries its label, and each (I) row names the import |
 | V11 | Productivity test applied as fixed | §6 is quoted unchanged in the result; each node's class is assigned against it and against the records named in §4 |
 | V12 | Bounded local work (§A.40) | N4 and N5 computations run only after authorization, with stated size bounds; any run beyond those bounds moves to CI or stops with the partial state published |
-| V13 | Independence from P2-B and P2-C | The result lists every file read, with path and commit; the list contains no path under a P2-B or P2-C directory or branch; reviewer check of the list against `git log` of those branches' directories |
+| V13 | Independence from P2-B and P2-C | The result lists every file read, with path and commit; the list contains no path under `verification/audits/foundations/recon-inf-p2b-20261121/` or `verification/audits/foundations/recon-inf-p2c-20261121/`, and no object read from branch `research/recon-inf-p2b-20261121` or `research/recon-inf-p2c-20261121`; reviewer check of the list against those directories and branches |
 | V14 | Literature step before any node verdict | The literature table (§3) is committed in a commit that is an ancestor of the first commit recording any node verdict; checked by `git merge-base --is-ancestor` |
 | V15 | Pressure test before each favourable verdict | Each verdict that N1 or N5 records under its first outcome is preceded, in the same or an earlier commit, by a subsection recording every item of that node's pressure test with its result; reviewer check per verdict |
 | V16 | N5 only after #1523's status is settled | The first commit touching N5 cites the comment or merge that settles #1523's status, by id and time; absent that citation, no N5 commit is admissible |
