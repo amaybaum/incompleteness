@@ -2356,19 +2356,20 @@ define \(\Phi_t(\sigma) = \int_H \Psi_{t,h}(\sigma)\,\rho(dh)\). Then:
 (a) for finite \(H\) and bijective \(F\), \(\Phi_t\) is the family of
 the Lemma, with \(U\) the permutation unitary of \(F\) and
 \(\mu_H = \sum_h \rho(h)\,|h\rangle\langle h|\); (b) each \(\Phi_t\) is
-CPTP, and
+completely positive and trace preserving, and
 \(\Phi_t(|x\rangle\langle x|) = \sum_b \Gamma_t(x, b)\,|b\rangle\langle b|\)
 with \(\Gamma_t(x, b) = \rho\{h : A_t(x, h) = b\}\), the rooted maps of
 the near-return corollary of §2.3; (c) if \((\Gamma_t)\) is not
 P-divisible on \(\{0, \ldots, r\}\), there are \(0 < t_1 < t_2 \leq r\)
-with no positive trace-preserving map, in particular no CPTP map,
-\(\Lambda\) satisfying \(\Phi_{t_2} = \Lambda \circ \Phi_{t_1}\). If
-some \(\Gamma_s\) with \(s \geq 1\) is not a permutation matrix, the
-hypothesis of (c) holds, with \(r = n\), under (NR) of that corollary,
-assumed as a hypothesis of this result and not adopted; (NR) concerns a
-time that need not be accessible and then has no finite-window test; for
-the selected update of §3.2 on \(\mathbb{Z}^d\) no law that is not
-supported on periodic configurations is known to satisfy it.}
+with no positive trace-preserving map, in particular no completely
+positive trace-preserving map, \(\Lambda\) satisfying
+\(\Phi_{t_2} = \Lambda \circ \Phi_{t_1}\). If some \(\Gamma_s\) with
+\(s \geq 1\) is not a permutation matrix, the hypothesis of (c) holds,
+with \(r = n\), under (NR) of that corollary, assumed as a hypothesis of
+this result and not adopted; (NR) concerns a time that need not be
+accessible and then has no finite-window test; for the selected update
+of §3.2 on \(\mathbb{Z}^d\) no law that is not supported on periodic
+configurations is known to satisfy it.}
 
 \emph{Proof.} \(\Psi_{t,h}\) depends on \(h\) only through the map
 \(A_t(\cdot, h)\) and the relation
@@ -2383,7 +2384,8 @@ weight by \(\rho(h)\) and sum. (b) If \(x \sim_h y\) and
 so \(A_t(\cdot, h)\) is injective on each class \(C\) of \(\sim_h\);
 with \(K_C = \sum_{x \in C} |A_t(x, h)\rangle\langle x|\),
 \(\Psi_{t,h}(\sigma) = \sum_C K_C\,\sigma\,K_C^\dagger\) and
-\(\sum_C K_C^\dagger K_C = I\), so \(\Psi_{t,h}\) is CPTP, and
+\(\sum_C K_C^\dagger K_C = I\), so \(\Psi_{t,h}\) is completely positive
+and trace preserving, and
 \(\Psi_{t,h}(|x\rangle\langle x|) = |A_t(x, h)\rangle\langle A_t(x, h)|\).
 (c) \(\Gamma_0 = I\), so a pair \((s, t)\) at which P-divisibility fails
 has \(s \geq 1\); put \(t_1 = s\), \(t_2 = t\). The proof of the Theorem
@@ -6302,4 +6304,4 @@ of probabilities, probability on trajectories, and the
 stochastic-quantum correspondence,'' arXiv:2602.23491v1 (2026).
 
 \end{document}
-% source-sha256: 2017dae0017edfa328d9f7ec75bf6a2aa7c2295b94e431a78021a68f41e2a861
+% source-sha256: be49228a814cb638d152b762abc7e011f0d891aa5a7634803ade8a99f3dca975
