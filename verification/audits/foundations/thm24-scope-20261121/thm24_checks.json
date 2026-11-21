@@ -194,6 +194,11 @@
  "C3b": {
   "a_HZH_eq_2X": true,
   "c_R3_rebase": true,
+  "c_cases": 1152,
+  "c_counter_cases": 1152,
+  "c_counter_failed": 864,
+  "c_full_state_equal": 1152,
+  "c_rebased_state_density": true,
   "cases": 1152,
   "counter_cases": 1152,
   "counter_failed": 384,

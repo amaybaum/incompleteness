@@ -411,7 +411,35 @@ def run_C3b():
                         out["counter_cases"] += 1
                         if not same(lhs, mul(mul(GI, rr), dag(GI))):
                             out["counter_failed"] += 1
+    # (c) full-state check for W = R3 C R3^T, rebased by R3 to the 3-cycle C (sigma_A of dimension 3)
+    out.update({"c_cases": 0, "c_full_state_equal": 0, "c_rebased_state_density": True,
+                "c_counter_cases": 0, "c_counter_failed": 0})
+    C = perm_matrix((1, 2, 0))
+    n3 = NV * NH * 3
+    L3 = kron(eye(NV * NH), NV * NH, dag(R3), 3)
+    for _, sig in sigma_cases(3):
+        sigr = mul(mul(dag(R3), sig), R3)
+        if not (trace(sigr, 3) == ONE and same(sigr, dag(sigr))):
+            out["c_rebased_state_density"] = False
+        for phi in BIJECTIONS:
+            U = perm_matrix(phi)
+            for t in range(1, TMAX + 1):
+                GW = power(kron(U, NV * NH, conj, 3), n3, t)
+                GC = power(kron(U, NV * NH, C, 3), n3, t)
+                GI = power(kron(U, NV * NH, eye(3), 3), n3, t)
+                for x in range(NV):
+                    for y in range(NV):
+                        rho = kron(kron(unit(x, y, NV), NV, UNIFORM_H, NH), NV * NH, sig, 3)
+                        lhs = mul(mul(L3, mul(mul(GW, rho), dag(GW))), dag(L3))
+                        rr = mul(mul(L3, rho), dag(L3))
+                        out["c_cases"] += 1
+                        if same(lhs, mul(mul(GC, rr), dag(GC))):
+                            out["c_full_state_equal"] += 1
+                        out["c_counter_cases"] += 1
+                        if not same(lhs, mul(mul(GI, rr), dag(GI))):
+                            out["c_counter_failed"] += 1
     return out
+
 
 def main():
     out_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "thm24_checks.json")
@@ -431,8 +459,9 @@ def main():
         "C3_spectral_classification_as_computed": all(c3[k]["similar_to_permutation"] == v for k, v in expected_c3.items())
                                                   and all(c3[k]["similar_to_permutation"] for k in c3 if k.startswith("perm")),
         "C3b_rebased_datum_full_state": c3b["a_HZH_eq_2X"] and c3b["c_R3_rebase"] and c3b["rebased_state_density"]
-                                        and c3b["full_state_equal"] == c3b["cases"],
-        "K5_C3b_countercontrol_identity_factor_fails": c3b["counter_failed"] > 0,
+                                        and c3b["full_state_equal"] == c3b["cases"]
+                                        and c3b["c_rebased_state_density"] and c3b["c_full_state_equal"] == c3b["c_cases"],
+        "K5_C3b_countercontrol_identity_factor_fails": c3b["counter_failed"] > 0 and c3b["c_counter_failed"] > 0,
         "K1_unnormalized_state_scales_channel_by_trace": k1["scaled_by_2"] == k1["cases"] and k1["unequal"] == k1["cases"],
         "K2_coupled_hilbert_factor_changes_channel": k2["changed"] > 0,
         "K2_visible_dependent_classical_factor_changes_family": k2c["changed"] > 0,
