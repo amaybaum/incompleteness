@@ -18,6 +18,8 @@ is built. It awaits an independent non-author review. The record is stacked on #
 | [W] | derivation in this record; not reviewed; not kernel-checked |
 | [M] | Mathlib `v4.33.0` declaration, checked by reading the source file at that tag |
 | [LIT2] | literature from memory, not re-located; background only |
+| [LIT-RV] | literature whose cited statement the independent review of #1498 read in the source |
+| (N) / (I) | owner standard (#1169 c.7064859041): (N) follows from OI's own premises; (I) is conditional on named imported assumptions. An (I) result is not a failure |
 
 ## 0. Summary
 
@@ -30,12 +32,15 @@ is built. It awaits an independent non-author review. The record is stacked on #
   bounded-error decision therefore lies in **BPP**.
 - **Consequences** (conditional, [W] with [LIT2]):
   - native hosting of BQP under H1–H5 with polynomial resources implies BQP ⊆ BPP;
-  - native hosting of IQP sampling to multiplicative error below √2 implies a collapse of the
-    polynomial hierarchy.
+  - native hosting of uniform IQP families to multiplicative error below √2 on every outcome
+    probability implies a collapse of the polynomial hierarchy to its third level.
+- **Labels.** BQ1, BQ1-D and BQ1-S are (I); B1 and B2 are (N); B4 is open. See §0.1.
 - **What BQ1 exposes.** It derives, rather than assumes, the "bridge from substratum resources
   to classical simulation cost" that Comp:124 and Comp:134 take as a premise of the §4.5
-  ceiling. That derivation consumes measurement independence, posit (xiv), beyond the Bell scope
-  in which Main:736 states it. Comp:134 does not list (xiv). This is assumption-watch marker AW-1.
+  ceiling. Comp:134 lists that bridge as an assumption, so no corpus statement consumes (xiv)
+  without listing it. Deriving the bridge by BQ1's route, however, needs measurement independence,
+  posit (xiv), beyond the scope Main:736 gives it ("(xiv) enters only the Bell analysis of §3"),
+  together with H2. This is assumption-watch marker AW-1, in that narrowed form.
 - **Lower limit: open.**
   - A native lower limit is a hosting theorem for the native rule, and it depends on native
     universality, which is unresolved (#1489, F4 open at `2572854b`). It is not assumed here.
@@ -50,6 +55,49 @@ is built. It awaits an independent non-author review. The record is stacked on #
   - L1's definitions are cheap. Every closure lemma needs composition of polynomial-time
     machines, which Mathlib states only as `proof_wanted TM2ComputableInPolyTime.comp`. That
     prerequisite dominates the cost of L1.
+
+## 0.1 Established / Assumed / Missing (owner standard, #1169 c.7064859041)
+
+**Established** (at the [W] standard; independent review of #1498 at `00e25140`,
+c.7064928103, confirmed the proof under H1–H5):
+- **BQ1 (I).** Under H1–H5 the joint output law of a native run is exactly samplable classically
+  in expected time poly(n).
+- **BQ1-D (I).** Native hosting of BQP under H1–H5 implies BQP ⊆ BPP. No conjecture is used.
+- **BQ1-S (I).** Native hosting of uniform IQP families to multiplicative error below √2 implies
+  a collapse of PH to its third level. This additionally imports Bremner–Jozsa–Shepherd and,
+  for the contrapositive, PH non-collapse.
+- **B1, B2 (N).** m ≥ 2^{I*} (Main:522) and the zero entropy rate of Structure:1231 are proved
+  resource bounds. They are not class bounds.
+- **Consistency with the kernel.**
+  - The QM ⇔ layer-flow endpoint `derivedOI_qm_iff_layerFlowExecutable'`
+    (`OIBridge/DerivedQ3.lean:222`) [K] assumes `DerivedOI`, with `PhasesAvailable` as an
+    explicit extra hypothesis. Under it, exact QM is equivalent to `LayerFlowExecutable T σ`.
+  - **The hypothesis separating BQ1 from that theorem:** the coherent fractional-time flow must
+    be an *available operation*, with available phases. No native step supplies one: H1 admits
+    only integer steps of the permutation rule.
+  - That matches `substratumTheory_not_layerFlowExecutable` (`OIBridge/LiftAudit.lean:200`) and
+    `substratumGen_not_control` (`OIBridge/StructuralClosure.lean:330`) [K], cited in #1491's
+    reviewed record at `88b21a32`.
+  - BQ1 is consistent with those results. It is their complexity-side counterpart; no formal map
+    between them is claimed.
+
+**Assumed**, each with where it enters:
+- H1: posit (xiii), the second-order form of a selected lattice model, plus polynomial-time F.
+  Enters step 3.
+- H2: an input-independent prior on D, samplable in polynomial time. Enters step 2. The corpus's
+  own priors are listed under B3(c); most are outside H2.
+- H3: posit (xiv) extended to computational inputs. Enters step 2.
+- H4: polynomial-time encoding and readout, and charged conditioning (the §4 model's own
+  hypothesis, Comp:106). Enters step 4.
+- Polynomial T(n), which enters H5. This is the AW-2 units choice.
+- H5 is native given the nearest-neighbour rule (Main:368, Main:420) and polynomial T. With
+  unbounded long edges (H-Bell), H5 is itself an import.
+- BQ1-S: Bremner–Jozsa–Shepherd [LIT-RV] and PH non-collapse.
+
+**Missing.** The earliest unsupported step is H2/H3 as native facts. That needs a physical
+mechanism: OI posits (iv) and (xiv) and does not derive them. The alternative missing step is
+polynomial T in native units, which is a modelling choice (AW-2). For B4, the missing step is
+native universality, which needs mathematics (#1489).
 
 ## 1. Productivity test (§A.31)
 
@@ -95,11 +143,13 @@ hypotheses:
 
 - **H1, rule.** The update is the second-order form of ledger item (xiii) (Main:736;
   `ruleDynamics`, `OIBridge/SecondOrderDrive.lean` [K]). The group is ℤ/q with q fixed, and each
-  `F_i` is computable in time polynomial in log q. The rounded rule `R_q` (SM:294) satisfies H1.
-- **H2, prior.** The pre-run law of the configuration on the dependency set D (H5) is uniform
-  (product Haar). On a finite representative this is the counting measure selected by Lemma 3
-  under posit (iv) (Main:54, Main:736). On an infinite lattice it is an added hypothesis, which
-  the corpus does not state.
+  `F_i` is computable in time polynomial in log q. The rounded rule `R_q` (formula at SM:294;
+  code at `papers/main_repro/lyapunov_v3.py:16–19`) satisfies H1.
+- **H2, prior.** The pre-run law of the configuration on the dependency set D (H5) is
+  independent of the input x and samplable in time poly(|D|). A product law with
+  polynomial-time-samplable marginals qualifies. One instance is the uniform (product Haar) law:
+  on a finite representative, the counting measure selected by Lemma 3 under posit (iv) (Main:54,
+  Main:736); on an infinite lattice, an added hypothesis the corpus does not state.
 - **H3, settings.** The input x is written into a region by an intervention whose pre-setting
   ensemble does not depend on x. This is posit (xiv), measurement independence (Main:736;
   Main:410–416), applied to computational inputs.
@@ -124,10 +174,11 @@ expected time poly(n). Hence:
 
 1. By H5 and the cone lemma, the output is a function of the initial configuration on D, which
    is finite and polynomial in size.
-2. By H2 and H3, that configuration, given input x, is uniform on D with the input region
-   overwritten by the encoding of x. It is samplable with |D|·log₂ q fair bits when q is a power
-   of two. Otherwise, rejection sampling gives an exact sampler in expected constant time per
-   site.
+2. By H2 and H3, that configuration, given input x, is the input-independent prior on D with
+   the input region overwritten by the encoding of x. It is samplable in time poly(|D|) by H2.
+   For the uniform instance that means |D|·log₂ q fair bits when q is a power of two, and
+   rejection sampling, exact in expected constant time per site, otherwise. Tracing out the
+   hidden sector is marginalization: the sampler ignores the hidden coordinates.
 3. By H1, T steps on D cost O(|D|·T·poly(log q)) operations.
 4. By H4, the readout is polynomial-time. Conditioning is simulated by rejection at an expected
    cost of poly(n).
@@ -141,9 +192,17 @@ expected time poly(n). Hence:
 **Corollary BQ1-D [W].** If a family satisfying H1–H5 decides every language in BQP, then
 BQP ⊆ BPP. This needs no conjecture.
 
-**Corollary BQ1-S [W, LIT2].** Suppose a family satisfying H1–H5 reproduces the output
-distributions of IQP circuits to multiplicative error below √2. Then PostBPP = PP, and the
-polynomial hierarchy collapses to its third level (Bremner–Jozsa–Shepherd 2011 [LIT2]).
+**Corollary BQ1-S [W, LIT-RV].** Suppose a family satisfying H1–H5 reproduces the output
+distributions of a *uniform* family of IQP circuits to multiplicative error below √2 *on every
+outcome probability*. Then PostBPP = PP, and the polynomial hierarchy collapses to its third
+level.
+
+The cited result is Bremner, Jozsa and Shepherd, Proc. R. Soc. A (2011),
+doi:10.1098/rspa.2010.0301, arXiv:1005.1407. As the independent review read it in the source:
+post-IQP = PP for uniform IQP families with postselection, and efficient classical sampling of
+uniform IQP output distributions "even up to 41% multiplicative error in the probabilities"
+collapses PH to its third level. A classical weak simulator gives
+PP = post-IQP ⊆ PostBPP ⊆ PP.
 
 Consequently, under non-collapse of PH, any native hosting of IQP sampling fails H1, H2, H3, H4
 or H5. For the nearest-neighbour graph, failing H5 means a native time T(n) superpolynomial in
@@ -161,13 +220,33 @@ Each check names its verdict.
   2^{−|x|}, which is free postselection, of PostBPP type. So H3 is the native counterpart of the
   §4 model's charged postselection (Comp:106). Main:410–416 retain (xiv) as a posit for the Bell
   analysis. Its use for computational inputs is an extension of that scope, not something the
-  corpus states. *Load-bearing: AW-1.*
+  corpus states. *Load-bearing for the derivation of the bridge: AW-1, narrowed form.*
 - **(c) Prior.** If the prior were a non-product invariant measure, such as uniform on one cycle,
   sampling it would require computing φ^t for t up to the cycle length. For reversible cellular
   automata that is not known to be efficient [LIT2]. H2 is therefore load-bearing too.
   #1477's edit D260 rewrites Main:54 to scope the counting-measure selection "on a finite
-  representative". BQ1 on an infinite lattice uses product Haar as its own hypothesis, not as a
-  corpus measure. *Dependency recorded.*
+  representative". BQ1 on an infinite lattice uses an H2 prior as its own hypothesis, not as a
+  corpus measure.
+  - **The corpus's other priors** are imports with respect to H2, or fail it:
+    - GR Appendix B (GR:883): u_{B_n} ⊗ ν with ν any normalized deep law;
+    - SM §4.2 (SM:292–296): energy-shell and sub-torus sampling, which is non-product;
+    - Main:744: uniform, slice and weighted priors.
+
+    Each lies within BQ1 only where it is input-independent and samplable in polynomial time.
+    That property is not established for any of them except the uniform law.
+
+  *Dependency recorded.*
+- **(h) The corpus's exact quantum realizations lie outside BQ1.**
+  - The ε-form realization theorem and its single-controlled-dynamics corollary (Main:574–590)
+    store "the unnormalized branch matrix (a density register)" in the hidden sector. They add
+    pre-loaded seeds and a read-only program register charged at up to
+    Θ(|𝒪_max|^K log|𝓕|) bits.
+  - For n qubits the register has 4ⁿ entries.
+  - Its initial state is the quantum data, not an input-independent efficiently samplable law,
+    so H2 fails.
+  - Each step multiplies matrices of that size, so the polynomial time of H1 and the polynomial
+    cone of H5 fail.
+  - This is the concrete reason BQ1 does not restrict the realization theorems. *Consistent.*
 - **(d) Locality.**
   - For Bell correlations the framework gives up locality through "preparation-indexed
     adjacency", bounded-degree long edges (Main:418; H-Bell, open), not (xiv).
@@ -195,9 +274,12 @@ Each check names its verdict.
 **B3 verdict.** Gem. Classification: ELABORATING (BQ1 sharpens horn (III) and derives the §4.5
 bridge), with assumption-watch markers:
 
-- **AW-1.** The §4.5 bridge consumes posit (xiv) outside its Bell scope, together with H2.
-  Comp:134 lists posits (iv) and (v) but not (xiv).
-- **AW-2.** The resource units of the §4 model's efficiency hypotheses are unfixed.
+- **AW-1 (narrowed).** Comp:134 assumes the §4.5 bridge outright, so no corpus statement
+  consumes (xiv) unlisted. Deriving the bridge by BQ1's route needs (xiv) beyond the Bell scope
+  stated at Main:736, together with H2.
+- **AW-2.** The resource units of the §4 model's efficiency hypotheses are unfixed. Comp:15,
+  94 and 106 say "efficient" without units, and neither `Comp` nor ch14 says "polynomial in" native
+  sites or steps. T2 holds through AW-2.
 
 Standing: [W], unreviewed.
 
@@ -227,11 +309,11 @@ Under the §A.31 fixed-point rule the walk stops at B3 for this record.
 
 | Dependency | Used by | Status |
 |---|---|---|
-| Lemma 3 counting-measure selection, posit (iv) | H2 | posit; Main:54 rewritten by #1477 D260 |
+| Input-independent prior samplable in polynomial time; uniform instance from Lemma 3 / posit (iv) | H2 | posit for the uniform instance; Main:54 rewritten by #1477 D260; other corpus priors per B3(c) |
 | Measurement independence, posit (xiv), extended to computational inputs | H3 | posit for §3.3 (Main:410–416); extension unstated in the corpus |
 | Ledger (xiii) second-order form; polynomial-time F | H1 | posit; R_q satisfies it |
 | Causal-cone lemma; its extension to infinite site sets for finite regions | H5 | Main:368 and Main:420, paper argument |
-| Bremner–Jozsa–Shepherd 2011 | BQ1-S | [LIT2] |
+| Bremner–Jozsa–Shepherd 2011 (uniform IQP, multiplicative error, PH to the third level) | BQ1-S | [LIT-RV] |
 | Native universality | B4 | open (#1489) |
 | Finite representative, total finiteness | not needed | BQ1 uses the cone instead; posit (ii) deleted by #1477 D224 |
 
@@ -282,9 +364,11 @@ import Mathlib.LinearAlgebra.Matrix.Permutation
 import Mathlib.LinearAlgebra.UnitaryGroup
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
 
-inductive Gate (n : ℕ) | had (i : Fin n) | toff (a b c : Fin n) (h : a ≠ b ∧ b ≠ c ∧ a ≠ c)
+inductive Gate (n : ℕ) | had (i : Fin n) | x (i : Fin n)
+  | toff (a b c : Fin n) (h : a ≠ b ∧ b ≠ c ∧ a ≠ c)
 
-/-- the real matrix of a gate on the basis `Fin n → Bool`; `toff` via `Equiv.Perm.permMatrix` -/
+/-- the real matrix of a gate on the basis `Fin n → Bool`; `x` and `toff` via
+`Equiv.Perm.permMatrix` -/
 noncomputable def Gate.mat {n} : Gate n → Matrix (Fin n → Bool) (Fin n → Bool) ℝ
 
 noncomputable def Circuit.mat {n} (c : List (Gate n)) : Matrix _ _ ℝ := (c.map Gate.mat).prod
@@ -313,11 +397,15 @@ def BQP : Set (List Bool → Prop)  -- languages L with a uniform family and a p
   - `Turing.idComputableInPolyTime`, the only polynomial-time machine Mathlib constructs.
 - **Gate set.** `GateCode` and `encodeGates` would be a small finite alphabet and a list
   encoding over it, which `TM2ComputableInPolyTime` needs as `αΓ`/`βΓ` with `[Fintype]`.
-  Hadamard + Toffoli is exact with real entries, so no Solovay–Kitaev is needed.
+  Hadamard + Toffoli is exact with real entries, so no Solovay–Kitaev is needed. `X` (NOT) is
+  included because with ancillas at `false` Toffoli fixes the all-zero string. Without it, the
+  classical-circuit lemma would cover only functions vanishing at 0ⁿ, and complement closure
+  would have no output flip. An equivalent alternative is one ancilla prepared `true`; `X` is
+  then the Toffoli with both controls on that ancilla.
 - **Sanity lemmas** in the design:
   - `Gate.mat` lies in `Matrix.orthogonalGroup`;
   - `accProb ∈ [0, 1]`;
-  - a lemma that any language decided by a uniform family of Toffoli-only circuits lies in `BQP`;
+  - a lemma that any language decided by a uniform family of X/Toffoli circuits lies in `BQP`;
   - closure of `BQP` under complement.
 - **Establishes.** A definition of BQP over an exact gate set, with uniformity carried by an
   actual polynomial-time machine rather than an abstract predicate.
