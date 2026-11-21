@@ -240,7 +240,7 @@ the restriction to bijective dynamics is necessary for membership and loses no f
 datum: no equivalence class $[(S,\varphi)]/\mathcal G_{\rm sub}$ is enlarged by admitting the wider
 class. Classification: POSITIVE. Layer: exact algebra.
 
-**Lean.** No Lean statement concerns $\mathcal G_{\rm sub}$ or Theorem 24. The nearest is
+**Lean.** No Lean module defines $\mathcal G_{\rm sub}$ or proves a membership claim. `OIBridge/SemigroupTransfer.lean` and `OIBridge/WordTraceSufficiency.lean` (Substratum Lemma 24.1/24.1A, cited at Substratum:276–282) concern Theorem 24's completeness question; `DEFINITION-CONSISTENCY.md` §2 uses them. For (iii) the nearest is
 `padData_rooted` (`OIBridge/OperationalSourcing.lean:476`, census family carried by Main:656). For
 a finite ancilla type, every unitary matrix $W$ on it and every real weight $w$ with
 $\sum_x w(x)=1$, the padded fixed-basis datum `padData Q Anc W w` (evolution $Q.U\otimes W$, initial
