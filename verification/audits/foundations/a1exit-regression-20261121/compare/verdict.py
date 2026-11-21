@@ -1048,15 +1048,8 @@ def file_exact_items(landed, base_corpus, after_corpus, explained_h, explained_r
             if tag == 'equal':
                 continue
             rep = [(f, j + 1) in explained_h for j in range(j1, j2)]
-            if i2 - i1 == j2 - j1:
-                ok = all(rep[k] or hl[j1 + k] == rl[i1 + k] for k in range(j2 - j1))
-            else:
-                has_rep = any(rep) and any(hl[j].strip() for j in range(j1, j2))
-                ok = all(rep) and all(
-                    (f, i + 1) in explained_r
-                    or (rl[i].strip() and (has_rep or (f, norm(normalize_text(rl[i], None, collapse=False)))
-                                           in explained_rtext))
-                    for i in range(i1, i2))
+            # a hunk whose line count changes is never accounted for (N10)
+            ok = i2 - i1 == j2 - j1 and all(rep[k] or hl[j1 + k] == rl[i1 + k] for k in range(j2 - j1))
             if ok:
                 continue
             near = sorted((abs(ln - (j1 + 1)), ln) for (g, ln) in explained_h if g == f and abs(ln - (j1 + 1)) <= 3)
@@ -1085,6 +1078,50 @@ def resolution_ok(resn, cls, needs_proof):
     return True, ''
 
 
+def line_sha(t):
+    return hashlib.sha256((t or '').encode('utf-8')).hexdigest()
+
+
+def binding_of(item, after_corpus, hafter=None, replayed=None):
+    """N9: the exact bytes an item covers. head: each H line it covers, in order, as [file, line,
+    SHA-256 of its raw bytes]; replayed_sha256: the SHA-256 of its replayed (approved) region, or of its
+    baseline text where no cited edit covers it."""
+    f = item.get('new_file') or item['file']
+    al = B.lines_of(after_corpus.get(f, ''))
+    head = []
+    if hafter is not None:
+        blk = hafter.split('\n')
+        at = (item.get('new_line') or item.get('line') or 1) - 1
+        j = _find_block(al, blk, at)
+        j = at if j is None else j
+        head = [[f, j + k + 1, line_sha(al[j + k])] for k in range(len(blk)) if j + k < len(al)]
+    elif 'file-exact' in item['kinds']:
+        n = len(item['after'].split('\n')) if item.get('after') else 0
+        head = [[f, item['line'] + k, line_sha(al[item['line'] - 1 + k])] for k in range(n) if item['line'] - 1 + k < len(al)]
+    elif item.get('new_line'):
+        head = [[f, item['new_line'], line_sha(al[item['new_line'] - 1])]]
+    elif 'unaccounted' in item['kinds']:
+        head = [[f, item['line'], line_sha(al[item['line'] - 1])]]
+    return {'head': head, 'replayed_sha256': line_sha(replayed if replayed is not None else item.get('before'))}
+
+
+def apply_resolution(c, cls, needs_proof, binding, notes):
+    """An R item's class after its resolution. A resolution whose binding is not the item's binding at the
+    run covers nothing, and the item is U (N9)."""
+    resn = c.get('resolution')
+    if not resn:
+        return 'R'
+    if resn.get('binding') != binding:
+        notes.append('resolution does not bind the bytes, lines and order of the item at this run')
+        return 'U'
+    good, why = resolution_ok(resn, cls, needs_proof)
+    if not good:
+        notes.append('resolution not accepted: ' + why)
+        return 'R'
+    notes.append('resolved by review %s' % resn['review'])
+    return 'R-justified' if resn['outcome'] == 'justified' else 'U'
+
+
 def classify(compare, edits, cls, rows, base_corpus, after_corpus, rules=RULES, landed=None):
     E = {e['key']: e for e in edits['edits']}
     res = {}
@@ -1093,18 +1130,13 @@ def classify(compare, edits, cls, rows, base_corpus, after_corpus, rules=RULES, 
     for key, item in sorted(mi.items()):
         c = cls.get('items', {}).get(key)
         klass, notes = 'U', ['a landed reviewed change is absent from H']
+        bnd = {'head': [], 'replayed_sha256': line_sha(item['replayed'])}
         if c is not None and c.get('class') == 'R':
-            klass = 'R'
-            good, why = resolution_ok(c.get('resolution'), cls, False)
-            if good:
-                klass = 'R-justified' if c['resolution']['outcome'] == 'justified' else 'U'
-                notes.append('resolved by review %s' % c['resolution']['review'])
-            elif c.get('resolution'):
-                notes.append('resolution not accepted: ' + why)
+            klass = apply_resolution(c, cls, False, bnd, notes)
         j10m = rules['j10'](item['before'] or '', item['replayed'])
         added, _ = rules['gain'](item['before'] or '', item['replayed'], [])
         res[key] = {'kinds': item['kinds'], 'class': klass, 'j10': j10m, 'notes': notes, 'gain_added': added[:20],
-                    'scientific_evaluation': True}
+                    'scientific_evaluation': True, 'binding': bnd}
     if landed is not None:
         eh = set()
         for k, it in allitems.items():
@@ -1121,15 +1153,11 @@ def classify(compare, edits, cls, rows, base_corpus, after_corpus, rules=RULES, 
             notes = ['file-level difference from the replayed state (%s)' % item['what']]
             if item['near']:
                 notes.append('attributed to the nearest reported item at %s' % item['near'])
+            bnd = binding_of(item, after_corpus)
             if c is not None and c.get('class') == 'R':
-                klass = 'R'
-                good, why = resolution_ok(c.get('resolution'), cls, False)
-                if good:
-                    klass = 'R-justified' if c['resolution']['outcome'] == 'justified' else 'U'
-                elif c.get('resolution'):
-                    notes.append('resolution not accepted: ' + why)
+                klass = apply_resolution(c, cls, False, bnd, notes)
             res[key] = {'kinds': item['kinds'], 'class': klass, 'j10': [], 'notes': notes,
-                        'scientific_evaluation': True}
+                        'scientific_evaluation': True, 'binding': bnd}
     for key, item in sorted(allitems.items()):
         c = cls.get('items', {}).get(key)
         notes, klass, j10, unsourced, seq_diff, inexact = [], 'U', [], [], False, False
@@ -1143,6 +1171,7 @@ def classify(compare, edits, cls, rows, base_corpus, after_corpus, rules=RULES, 
                 notes.append('J10: ' + '; '.join(j10))
             added, _ = rules['gain'](before, after, [], None, bf, af)
             seq_diff = rules['change'](before, after, bf, af)
+            bnd = binding_of(item, after_corpus)
         else:
             missing = [k for k in c.get('edits', []) if k not in E]
             if missing:
@@ -1186,14 +1215,10 @@ def classify(compare, edits, cls, rows, base_corpus, after_corpus, rules=RULES, 
             elif c.get('class') == 'R':
                 klass = 'R'
                 notes.append('no covering edit; R requires review')
+            bnd = binding_of(item, after_corpus, hafter if covered else None, after if covered else None)
             if klass == 'R':
-                good, why = resolution_ok(c.get('resolution'), cls, bool(j10 or unsourced or inexact))
-                if good:
-                    klass = 'R-justified' if c['resolution']['outcome'] == 'justified' else 'U'
-                    notes.append('resolved by review %s' % c['resolution']['review'])
-                elif c.get('resolution'):
-                    notes.append('resolution not accepted: ' + why)
-        res[key] = {'kinds': item['kinds'], 'class': klass, 'j10': j10, 'notes': notes,
+                klass = apply_resolution(c, cls, bool(j10 or unsourced or inexact), bnd, notes)
+        res[key] = {'kinds': item['kinds'], 'class': klass, 'j10': j10, 'notes': notes, 'binding': bnd,
                     'gain_added': added[:20], 'gain_unsourced': unsourced[:20],
                     'scientific_evaluation': sci_flag(item, before, after, j10) or seq_diff or bool(unsourced) or inexact,
                     'exact': not inexact}
@@ -1460,7 +1485,8 @@ def c9(rows, rules=RULES):
         if k == 'a':
             cl2 = copy.deepcopy(cl)
             cl2['items'][eid]['resolution'] = {'outcome': 'justified', 'review': REPO_URL + '/pull/1#issuecomment-1',
-                                               'reviewer': 'someone-else', 'proof': None}
+                                               'reviewer': 'someone-else', 'proof': None,
+                                               'binding': got['a'].get('binding')}
             got['a2'] = classify(cm, ed, cl2, rows, base, af, rules).get(eid, {})
 
     def flagged_r(x):
@@ -1813,10 +1839,12 @@ def self_test():
     # T7 R resolution: unresolved PENDING; justified with a valid review PASS; self-review or bad URL unresolved
     url = REPO_URL + '/pull/1#issuecomment-5'
 
+    b7 = classify(cmp_s, eds, cls_s, rows, pin, after_s)[k_s]['binding']
+
     def rcls(resn):
         c = copy.deepcopy(cls_s)
         c['items'][k_s]['class'] = 'R'
-        c['items'][k_s]['resolution'] = resn
+        c['items'][k_s]['resolution'] = dict(resn, binding=b7) if resn else None
         return counts_of(classify(cmp_s, eds, c, rows, pin, after_s))
     t7 = [verdict_of(rcls(None), True, True)[0],
           verdict_of(rcls({'outcome': 'justified', 'review': url, 'reviewer': 'reviewer'}), True, True)[0],
@@ -1955,9 +1983,9 @@ def self_test():
     c4 = dict(pin, **{g134['file']: pin[g134['file']] + '\n'})
     r13f = [rx_of(c) for c in (c1, c2, c3, c4) if c is not None]
     report('T13f blank line inserted, paragraphs joined, blank line removed, trailing newline: each RX, U, '
-           'flagged; a reported value change or deleted line is not counted twice',
+           'flagged; a reported value change is not counted twice; a deleted line is its own RX item',
            len(r13f) == 4 and all(len(x) == 1 and x[0][1] == 'U' and x[0][2] for x in r13f) and not rx_of(dict(pin))
-           and not rx_of(after_s) and not rx_of(dict(pin, **{g134['file']: '\n'.join(fl[:gi] + fl[gi + 1:])})),
+           and not rx_of(after_s) and bool(rx_of(dict(pin, **{g134['file']: '\n'.join(fl[:gi] + fl[gi + 1:])}))),
            str(r13f))
     # T13g N7: a structural change next to a line whose H text differs from the replay is not absorbed
     # into that line's item: each variant has an RX item, U and flagged, besides the line's own item
@@ -1999,6 +2027,55 @@ def self_test():
            % (len(r13h) - 1), len(r13h) == 13 and all(len(v) >= 1 and all(x[1] == 'U' and x[2] for x in v)
                                                      for v in r13h.values()),
            str({k: len(v) for k, v in r13h.items()}))
+    # T13i N9, N10: resolutions are bound to the exact bytes they assessed. GR:134 with a doubled space is
+    # R-resolved with its binding; each further change on or next to it leaves a U item
+    def resolve_all(c, keys):
+        cl = {'schema': 'a1exit-compare-classify/2', 'head': 'synthetic', 'classifier': 'writer', 'result_pr': 1,
+              'items': {k: {'class': 'R', 'edits': [], 'ledger_row': None, 'reason': 'synthetic', 'resolution': None}
+                        for k in keys}}
+        r = classify(B.compare(snap, c), empty_e, cl, rows, pin, c, landed=[])
+        for k in keys:
+            cl['items'][k]['resolution'] = {'outcome': 'justified', 'review': REPO_URL + '/pull/1#issuecomment-9',
+                                            'reviewer': 'reviewer', 'proof': 'p', 'binding': r[k]['binding']}
+        return cl
+
+    def counts_with(c, cl):
+        return counts_of(classify(B.compare(snap, c), empty_e, cl, rows, pin, c, landed=[]))
+    sdbl = dict(pin, **{g134['file']: '\n'.join(fl[:gi] + [dbl] + fl[gi + 1:])})
+    cl_r = resolve_all(sdbl, ['GR:134'])
+    base_ok = counts_with(sdbl, cl_r)['U'] == 0
+    r13i = {}
+    for name, new in (('CR', dbl + '\r'), ('ZWSP', dbl.replace(' ', ' \u200b', 1)), ('U+2028', dbl + '\u2028'),
+                      ('NBSP', dbl.replace(' ', '\u00a0', 1)), ('second edit', dbl.replace('takes the same value', 'takes one value', 1))):
+        r13i[name] = counts_with(dict(pin, **{g134['file']: '\n'.join(fl[:gi] + [new] + fl[gi + 1:])}), cl_r)['U']
+    # two adjacent changed lines, both R-resolved, then swapped, then joined
+    tf = 'book/appendix-a-prediction-status.md'
+    tl = B.lines_of(pin[tf])
+    sk = next(k for k in range(4, len(tl) - 1) if tl[k].startswith('| ') and tl[k + 1].startswith('| ')
+              and not tl[k].startswith('|---') and not tl[k + 1].startswith('|---') and tl[k] != tl[k + 1])
+    a2_, b2_ = tl[sk].replace(' ', '  ', 1), tl[sk + 1].replace(' ', '  ', 1)
+    two = dict(pin, **{tf: '\n'.join(tl[:sk] + [a2_, b2_] + tl[sk + 2:])})
+    r2 = classify(B.compare(snap, two), empty_e, {'items': {}}, rows, pin, two, landed=[])
+    keys2 = sorted(k for k in r2 if not k.startswith('RX:'))
+    cl2r = resolve_all(two, keys2)
+    base2_ok = counts_with(two, cl2r)['U'] == 0 and len(keys2) == 2
+    r13i['swap of two R lines'] = counts_with(dict(pin, **{tf: '\n'.join(tl[:sk] + [b2_, a2_] + tl[sk + 2:])}), cl2r)['U']
+    r13i['join of two R lines'] = counts_with(dict(pin, **{tf: '\n'.join(tl[:sk] + [a2_ + ' ' + b2_] + tl[sk + 2:])}), cl2r)['U']
+    # N10: a $$ delimiter deleted next to an R-resolved line
+    mf, mk = next((g, k) for g in sorted(pin) for k, x in enumerate(B.lines_of(pin[g]))
+                  if x.strip() == '$$' and 0 < k < len(B.lines_of(pin[g])) - 1 and B.lines_of(pin[g])[k + 1].strip()
+                  and B.lines_of(pin[g])[k + 1].strip() != '$$')
+    ml = B.lines_of(pin[mf])
+    mchg = ml[mk + 1] + '  '
+    mstate = dict(pin, **{mf: '\n'.join(ml[:mk + 1] + [mchg] + ml[mk + 2:])})
+    rm_ = classify(B.compare(snap, mstate), empty_e, {'items': {}}, rows, pin, mstate, landed=[])
+    mkeys = sorted(k for k in rm_ if not k.startswith('RX:'))
+    clm = resolve_all(mstate, mkeys)
+    basem_ok = counts_with(mstate, clm)['U'] == 0 and bool(mkeys)
+    r13i['$$ deleted next to an R line'] = counts_with(dict(pin, **{mf: '\n'.join(ml[:mk] + [mchg] + ml[mk + 2:])}), clm)['U']
+    report('T13i resolutions bound to bytes: CR, ZWSP, U+2028, NBSP, second edit, swap, join, $$ deletion: each U',
+           base_ok and base2_ok and basem_ok and len(r13i) == 8 and all(v >= 1 for v in r13i.values()),
+           '%s | bases %s %s %s' % (r13i, base_ok, base2_ok, basem_ok))
     # T13d exactness: H equals the replay except for one doubled space -> not J, flagged
     cm, ed, cl, af, e = gr134(', for every $S$')
     f134 = ent['GR:134']['file']
@@ -2067,7 +2144,8 @@ def self_test():
            '%s | survivors %s' % (g9['detail'], [k for k, v in m9.items() if v]))
     cm9, ed9, cl9, af9, e9 = c9_cases(rows)['a']
     cl9['items'][e9]['resolution'] = {'outcome': 'justified', 'review': REPO_URL + '/pull/1#issuecomment-7',
-                                      'reviewer': 'reviewer', 'proof': 'the proof covering the generality'}
+                                      'reviewer': 'reviewer', 'proof': 'the proof covering the generality',
+                                      'binding': classify(cm9, ed9, cl9, rows, pin, af9)[e9]['binding']}
     r9p = classify(cm9, ed9, cl9, rows, pin, af9).get(e9, {})
     cl9['items'][e9]['resolution']['reviewer'] = 'Writer'
     r9q = classify(cm9, ed9, cl9, rows, pin, af9).get(e9, {})
