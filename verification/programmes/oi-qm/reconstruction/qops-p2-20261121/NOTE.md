@@ -20,6 +20,10 @@ manuscript, Lean module or registry. The decisive computations are written as pr
 
   Computational experiments, CI dispatches, manuscript changes, merges and the adoption of new
   premises are not authorized.
+- **Revision.** Independent non-author review at `4aea2dd0`: REVISE (minor)
+  ([#1501 c.7064987170](https://github.com/amaybaum/incompleteness/pull/1501#issuecomment-7064987170)).
+  R1, R2 and n1–n6 are answered in appended commits. The changes to the frozen plan are in
+  `amendments/A01-t1a-pc-rules.md`, and `PREREG.md` itself is unchanged.
 - **Goal link (§A.47).** This record serves #1169's target, `QM ⊆ OI + E`. For O1 and O3 it
   decides which members of `E` the native dynamics derives, which it imports, and where the
   earliest unsupported link lies. It does not decide whether any physical mechanism holds.
@@ -69,10 +73,10 @@ choice. They are named so that every dependency is visible.
 | E2 | **Lemma P2.** For single transpositions whose graph is connected on `O`, the algebra on `ℂ^O` is all of `u(W_O)` | (I): KIN, FLOW | W |
 | E3 | **Corollary P3.** No transition drive `iX_ab` is in any such flow algebra. The phase is what supplies it in the kernel's exact route (`DerivedQ3.lean:81`) | (I): KIN, FLOW | W, with [K] cited |
 | E4 | **Lemma P4.** For U₂ on a frozen uniform boundary: a site's shear gate is trivial unless the site has at least two neighbours in the region, a site with a trivial shear gate conserves its local weight, and orbits have size at most `2^a 4^b`. The line of three gives `X, X, SWAP, CCX` on a 16-point orbit | (N), with FB. These are statements about permutations | W |
-| E5 | **Lemma P5.** Take a reversible map of register × environment from a product initial law. A uniform environment gives a doubly stochastic (unital) register map. The entropy removed from the register is at most `log|H| − S(σ)` | classical form (N), with PROD; coherent form (I): KIN, PROD | W |
-| E6 | **Proposition J1 (joint O1 ∧ O3).** Under FLOW, a register prepared in a configuration `x ∈ O` keeps the component `1_O/√|O|` under every flow word. Every state reachable from `x` has fidelity at most `1 − 1/|O|` with every unit vector of `W_O` | (I): KIN, FLOW | W |
+| E5 | **Lemma P5.** Take a reversible map of register × environment from a product initial law. A uniform environment gives a doubly stochastic (unital) register map. The entropy removed from the register is at most `log|H| − S(σ)`. Initial register–environment correlation is outside its scope | classical form (N), with PROD; coherent form (I): KIN, PROD | W |
+| E6 | **Proposition J1 (joint O1 ∧ O3).** Under FLOW, a register prepared in a configuration `x ∈ O` keeps the component `1_O/√|O|` under every flow word. Every state reachable from `x` has fidelity at most `1 − 1/|O|` with every unit vector of `W_O`. The bound depends on `|O|` itself, and is attained only where there is control on `W_O`. It concerns flow words on the register alone, not ancilla-assisted preparation | (I): KIN, FLOW | W |
 | E7 | **U3, reading for T3.** The corpus's effective channels are unital in both constructions stated with a uniform environment: the frozen-bath mixture of conditioned unitaries (`Main:346`), and the linear member's Weyl-mixture normal form (`Main:306–318`). The bath-motion correction's unitality is not stated | reading of (P) theorems; L₂'s normal form is (N) with PROD and μ-G-type uniform hidden law, at the representation level (KIN for coherent inputs) | P, W |
-| E8 | **U3, reading for T7.** No locality decomposition or per-location norm is stated for the frozen-bath term. For L₂ at one step, the noise acts only near the boundary of the region (`Main:300`, `Main:306–310`). It is the uniform mixture over the Weyl group `G`, so every Weyl direction in `G` is fully randomized. That is full strength in those directions, not weak noise | (N) for L₂ with PROD and a uniform hidden law; "absent" for Q and for the general term | P, W |
+| E8 | **U3, reading for T7.** No locality decomposition or per-location norm is stated for the frozen-bath term. The corpus states none for L₂ either, so under QS's T7 rule the decision is **absent** throughout. A candidate reading [W], inferred from `Main:300` and `Main:306–310` and not stated there, is recorded beside it. For L₂ at one step the noise acts only near the region's boundary, and the error distribution is uniform over the Weyl group `G`. That keeps every Weyl operator commuting with all of `G` and erases every other one. It is a full-strength error distribution, not weak noise | decision: absent. The candidate reading would be (N) for L₂ with PROD and a uniform hidden law | P, W |
 | E9 | **Composition.** The configuration carrier factorizes over sites, and causal cones are exact. COMP-1's laws hold given a pre-composite. Under FLOW, uncoupled regions compose encoded constituents by the tensor product | (N) for the site factorization and cones; (I) LT for COMP-1's composite; (I) KIN, FLOW for the encoded remark | P, K, W |
 
 ### 0.2 Assumed (where each import enters)
@@ -109,8 +113,11 @@ choice. They are named so that every dependency is visible.
   - Above it are READ, a supplied rule, and a localized, re-armable record: a **physical
     mechanism** on Q (MEAS-Q AW-MQ-2; QS H-QOPS-M).
 - **Joint.** One model needs FLOW, RES, READ and a latch on the same rule at once. E6 adds a
-  quantitative link: without PH, preparation fidelity from configurations is capped at
-  `1 − 1/|O|`. So O1's orbit scaling (T1a) decides whether O3's preparation can be made accurate.
+  quantitative link. Without PH, preparation fidelity from configurations, by flow words on the
+  register alone, is capped at `1 − 1/|O|`. The cap tends to 1 iff the absolute size of the
+  largest orbit grows with the region. The fraction `|O|/N` does not matter. So O1's absolute
+  orbit growth (T1a, as amended in A01) and control on `W_O` (T1b) decide whether O3's
+  preparation can be made accurate.
 
 **Scalability safeguard.** E1–E6 are stated for every finite region and every orbit, on one rule:
 the same `F` and the same gates at every size. E4 and T1 use FB, which is a per-region modelling
@@ -153,8 +160,10 @@ ordering of a spanning tree of `O`, adding one leaf at a time.
     `w₀ ≠ 0`: it is the projection of `e_b` onto `W`, and `|O'| ≥ 2`. Also `α ≠ 0`.
   - For Hermitian `H` on `W`, `[X_v, iH] = −[v v†, H]/2`. Its block between `u` and `W` is
     `−(α u (Hw₀)† − ᾱ (Hw₀) u†)/2`.
-  - Since `w₀ ≠ 0`, `{Hw₀ : H Hermitian on W}` is all of `W`. So these brackets give every
-    anti-Hermitian operator coupling `u` to `W`.
+  - Since `w₀ ≠ 0`, `{Hw₀ : H Hermitian on W}` is a real hyperplane of `W`, because
+    `⟨w₀, Hw₀⟩` is real. It contains `w₀` (take `H = 1_W`) but not `i·w₀`. The bracket with
+    `i·1_W ∈ u(W)` sends the block `x u† − u x†` to `(ix) u† − u (ix)†`, which supplies the missing
+    direction. So these brackets give every anti-Hermitian operator coupling `u` to `W`.
   - With `u(W)` they generate `su(W_{O'∪{c}}) ⊕ ℝ·i1_W`, which is `u(W_{O'∪{c}})`.
   - P1 gives `⊆`.
 
@@ -249,6 +258,13 @@ of `X × H` (a permutation unitary for the native step), and let the initial law
 2. The entropy removed from the register satisfies `S(ρ) − S(X_T) ≤ S(H_T) − S(σ) ≤ log|H| − S(σ)`,
    by conservation of joint entropy and subadditivity (Shannon or von Neumann).
 
+*Scope, including the excluded escape.* Initial correlation between register and environment is
+**outside P5's scope**. Without PROD the same argument gives `S(ρ) − S(X_T) ≤ log|H| − S(σ) + I(X:H)₀`,
+so initial mutual information is a third resource beside fresh supply and non-unital noise. Under
+the uniform counting law on a finite product configuration set, PROD holds automatically, because
+the uniform law on `X × H` is the product of the uniform laws. That strengthens the (N) reading
+there.
+
 The classical form is (N) with PROD; the coherent form is (I) with KIN and PROD.
 
 **Classification of entropy removal.** It is **not derivable from the native dynamics alone**.
@@ -282,18 +298,21 @@ escape. P5 refines PR1 Node 1 and AW-QOPS-2. Whatever RES may be, it is an input
   and no per-location norm are stated: **absent**, which agrees with `Comp:142`.
 - *L₂ at one step.* Lemma 1 (`Main:300`) factors the cross-blocks through boundary coordinates.
   The Weyl group `G` of Lemma 2 is generated by translations in `im(A^{-1}B)` and phases in
-  `im Cᵀ`. My reading [W] is that the noise acts only near the region's boundary: within one site
-  of the inner boundary, because `A^{-1}` is one-step local. On its support it is the uniform
-  mixture over `G`, so every Weyl direction in `G` is fully randomized. That is a locality
-  structure at full strength in those directions, not a weak-noise model.
+  `im Cᵀ`. The reading [W], inferred here and not stated in the corpus, is that the noise acts only
+  near the region's boundary: within one site of the inner boundary, because `A^{-1}` is one-step
+  local. `Φ_G` keeps every Weyl operator that commutes with all of `G`, including the elements of
+  `G` itself, and erases every one that does not. The error distribution is uniform over
+  `g ∈ G`, so it has full strength and is not a weak-noise model.
   - Corollary 2 (`Main:320`) gives a non-entanglement-breaking channel when the block has a bulk
     (side `ℓ ≥ 3` in `d = 3`, `Main:324`).
   - Multi-step behaviour is not derived here. Each step admits the environment one more layer,
     which suggests that an unshielded register shrinks at the light-cone speed. Without a reservoir
     this does not fit a fault-tolerance threshold model. This is a reading, (N) with PROD and a
     uniform hidden law for one step, and not shown beyond that.
-- *Decision under QS's T7 rule.* **Supplied for L₂ at one step, at full strength in the directions of `G`. Absent for Q
-  and for the general frozen-bath term.**
+- *Decision under QS's T7 rule* ("supplied if both are stated with a derivation"): **absent**, for
+  L₂, for Q and for the general frozen-bath term. The L₂ locality reading above is a [W] candidate
+  recorded beside the decision. It would become "supplied" only if a derivation of it were reviewed
+  and stated.
 
 ***
 
@@ -331,19 +350,28 @@ mathematics cannot supply it under the class of P5.
    **Proposition J1.** Every state reachable from `x ∈ O` by flow words has the component
    `⟨1_O/√|O|, ·⟩ = 1/√|O|`. Its fidelity with any unit vector of `W_O` is at most `1 − 1/|O|`.
 
-   *Proof.* Lemma P1 fixes the `1_O` component. The bound is attained when the `W_O` part points
-   along the target. ∎
+   *Proof.* Lemma P1 fixes the `1_O` component. ∎
 
-   So without PH, preparation accuracy is bounded by orbit size. M meets O3's preparation only if
-   the native gate orbits grow with the region, and that is P-A's T1a.
+   *Tightness and scope.*
+   - The bound is attained only if the `W_O` part can be steered onto the target. That needs
+     control on `W_O`, as P2 gives for transposition gate sets or T1b-S would give for native
+     gates.
+   - The bound concerns flow words acting on the register alone. With an ancilla, the relevant
+     orbit is the joint orbit, and the reduced register state is not covered.
+
+   So, without PH, the accuracy of preparation from configurations by flow words on the register
+   is bounded by `1 − 1/|O|`. The bound depends on the absolute orbit size, and tends to 1 iff the
+   largest orbit grows with the region. Whether native gate orbits grow is P-A's T1a, as amended
+   in A01.
 2. *Readout of an encoded result* uses flows followed by configuration readout (READ). The
    indicator component of J1 carries weight `1/|O|` in every reachable state. The trace distance
-   from the best encoded state is therefore at least `1/√|O|`, and for a target encoded state
-   along the `W_O` part it is exactly `1/√|O|`. That bounds the distortion of readout statistics in
-   total variation by `1/√|O|` for that target. It does not bound it for other targets.
+   from every encoded state is therefore at least `1/√|O|`. Given control on `W_O`, it is exactly
+   `1/√|O|` for the target along the `W_O` part, and that bounds the distortion of readout
+   statistics in total variation by `1/√|O|` for that target. It does not bound it for other
+   targets.
 3. *Fault tolerance in M* needs entropy removal at a positive rate. By P5 it draws on RES. By the
    T3 reading, the corpus's uniform-environment channels are unital, so the BGH escape needs RES as
-   well. By the T7 reading for L₂, environment noise at a region's boundary is at maximal strength.
+   well. On the [W] candidate reading for L₂, which T7 does not supply, the error distribution at a region's boundary is uniform over `G`, at full strength rather than weak.
 4. *Control*, meaning when gates, copies and reads happen, is NU's question for Q or a supplied
    program register (QS H-QOPS-C).
 
@@ -360,7 +388,7 @@ it is a question about Q, not a new input.
 
 | Item | Statement | Site | Class | Layer |
 |---|---|---|---|---|
-| CP1 | The configuration set is a product over sites, so its configuration space factorizes over sites | ledger (viii)–(xiii) (`Main:736` per QS); POSIT-MIN records site factorization as presupposed (`verification/audits/foundations/posit-min-20261120/AUDIT.md:28`) | (N), definitional, given site factorization | P |
+| CP1 | The configuration set is a product over sites, so its configuration space factorizes over sites | ledger (viii)–(xiii) (`Main:736` per QS); POSIT-MIN records site factorization as presupposed (`verification/audits/foundations/posit-min-20261120/AUDIT.md:27`) | (N), definitional, given site factorization | P |
 | CP2 | Exact causal cones | `Main:662` | (N) | P |
 | CP3 | Kinematic locality does not prove local tomography, statistical product structure after conditioning, or one common tensor-product instrument category | `Main:218`, `Main:662` | absent as a derivation | P |
 | CP4 | COMP-1: attachment, discard, joint reversible action, sharp readout and no-signalling on products, given a pre-composite; local tomography is a premise field | `CompositeInterface.lean:926` `comp1_core`; `RC/round-comp-1-composite-interface/result.md` | (I): LT, with the composite structure supplied | K, R |
@@ -401,8 +429,8 @@ it is a question about Q, not a new input.
 | P2, P3 | NEW (candidate) |
 | P4 | NEW, minor (a design input for T1) |
 | P5 | ELABORATING (refines PR1) |
-| J1 | NEW (candidate): it couples O1's orbit scaling to O3's preparation accuracy |
-| U3 readings | CONFIRMING (T3), ELABORATING (T7 for L₂) |
+| J1 | NEW (candidate): it couples O1's absolute orbit growth to O3's preparation accuracy |
+| U3 readings | CONFIRMING (T3); T7 absent, with an ELABORATING [W] candidate for L₂ |
 | §5 | CONFIRMING collation, plus CP11 |
 
 **Fixed point.** One pass. Not reached.
@@ -415,8 +443,8 @@ it is a question about Q, not a new input.
   `m_i ≥ 2` criterion), P5 and J1.
 - That P3's reading matches `DerivedQ3.lean:81`.
 - That the U3 readings quote `Main:300–328` and `Main:346` at their standing. The T7 reading for
-  L₂ (noise within one site of the boundary, uniform on its support) is my inference from Lemma 1
-  and Lemma 2, not a manuscript statement. So is "fully randomized in the directions of `G`".
+  L₂ (noise within one site of the boundary, with errors uniform over `G`) is an inference from
+  Lemma 1 and Lemma 2, not a manuscript statement. T7 is therefore decided as absent.
 - Each (N)/(I) label and its import list.
 - That the "not in the kernel" interfaces of §1.5 are absent from `OIBridge/`.
 - That `PREREG.md` contains rules only, with no outcomes.
