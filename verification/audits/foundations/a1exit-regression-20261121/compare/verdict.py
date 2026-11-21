@@ -1836,7 +1836,7 @@ def self_test():
     m13c = n_battery(rows, dict(RULES, change=set_changed), only={'N4a', 'N4b', 'N4c', 'N4d'})
     seq_ok = (changed('a b c', 'a c b') and changed('x.', 'x') and changed('a  b', 'a b')
               and not seq_changed('a  b', 'a b') and not set_changed('a b c', 'a c b')
-              and not changed('x.', 'x. ' + ALLOWLIST[1]['phrase']))
+              and changed('x.', 'x. ' + ALLOWLIST[1]['phrase']) and not j10_hits('x.', 'x. ' + ALLOWLIST[1]['phrase']))
     # T13d exactness: H equals the replay except for one doubled space -> not J, flagged
     cm, ed, cl, af, e = gr134(', for every $S$')
     f134 = ent['GR:134']['file']
