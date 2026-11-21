@@ -454,6 +454,15 @@ here (#1169 c.7064226074, item 1); the frozen edits are not amended without sepa
 | D364 | Substratum:262 (predicted) | N3 node: "not a bijection of configurations" is correct read basis-free; a fixed-basis reading misclassifies $\operatorname{diag}(1,-1)$ | P5 (optional disambiguation; optional "for any density matrix $\sigma_A$ on $\mathcal K_A$") |
 | D370–D373 | ch02:144 = FULL:774 | F5: the proof at ch02:148 = FULL:778 uses $\sigma_A$ and $W$, which the statement does not introduce | P6 |
 
+**Landing order.** The off-ledger correction PRs #1492, #1493 and #1494 (§16) land only after
+#1477's execution has landed, or after a separately authorized re-derivation of #1477's ledger.
+#1477's frozen `preserve_check.py` checks each ledgered file's base hash and its frozen splice spans.
+A correction landing first moves those spans: the independent review counted 60 failing splices on
+#1494's tree, 62–63 on #1492's and 25 on #1493's. Landing one first would invalidate #1477's frozen
+plan, T0 and its preserve check. The SC-42 result file is not a constraint of its own. With #1477's
+edits and P2 both applied, its change is exactly the union of the two (confirmed by review), and the
+later landing regenerates it on the merged tree.
+
 The off-ledger corrections (§10.2) are prepared as separate draft PRs, each awaiting independent
 review and owner merge approval. The candidate definition is in `DEFINITION-PROPOSAL.md`, a
 proposal kept apart from these results.
