@@ -1,0 +1,2078 @@
+{
+ "runs": [
+  {
+   "conclusion": "success",
+   "event": "workflow_dispatch",
+   "head_branch": "main",
+   "head_sha": "3a12f785278049c93a3bb50209582df4c492b0ad",
+   "jobs": [
+    {
+     "conclusion": "success",
+     "id": 136991274821,
+     "name": "verify",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Inputs are full commit ids; this is the first attempt",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "The checkout is exactly the trial commit, a single-parent child of the ledger base, and P is present",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Toolchain (pandoc 3.1.3, xelatex, poppler, numpy, scipy), versions recorded and checked",
+       "number": 6
+      },
+      {
+       "conclusion": "success",
+       "name": "Plan worktree; P's preserve_check.py --verify-pins and --verify-ledger",
+       "number": 7
+      },
+      {
+       "conclusion": "success",
+       "name": "Build the eight PDFs with build.sh on a copy of the trial commit; TeX equals the committed TeX",
+       "number": 8
+      },
+      {
+       "conclusion": "success",
+       "name": "P's preserve_check.py --commit, then --tree --mutants --pdf-compare",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "P's guards_check.py --mutants",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Write result.json",
+       "number": 11
+      },
+      {
+       "conclusion": "success",
+       "name": "Upload result.json, logs and the built PDFs",
+       "number": 12
+      },
+      {
+       "conclusion": "success",
+       "name": "Every required step succeeded (a skipped step fails)",
+       "number": 13
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+       "number": 25
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+       "number": 26
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 27
+      }
+     ]
+    }
+   ],
+   "path": ".github/workflows/a1exit-trial-verify.yml",
+   "run_attempt": 1,
+   "run_id": 44951832698,
+   "status": "completed"
+  },
+  {
+   "conclusion": "success",
+   "event": "workflow_dispatch",
+   "head_branch": "trial/a1exit-T1-55544cc3",
+   "head_sha": "c06259692ddf12f7d3dffe170ec3118dc97682fc",
+   "jobs": [
+    {
+     "conclusion": "success",
+     "id": 136996360603,
+     "name": "Lean kernel check",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Install Lean",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Report toolchain",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "Kernel check",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360490,
+     "name": "Mathlib bridge",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Install elan",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Restore the OIBridge build cache",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "Build",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Release gate",
+       "number": 6
+      },
+      {
+       "conclusion": "success",
+       "name": "KTOKEN-MAXCONE-1 check A3 (k = 2 statement identity and dependency walk, with mutations)",
+       "number": 7
+      },
+      {
+       "conclusion": "success",
+       "name": "PRESERVE-INDUCT-1 axiom reports",
+       "number": 8
+      },
+      {
+       "conclusion": "success",
+       "name": "KTRANS-SEP-2 build the imports of the module",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "KTRANS-SEP-2 elaborate the module",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "KTRANS-SEP-2 axiom reports within the three axioms",
+       "number": 11
+      },
+      {
+       "conclusion": "skipped",
+       "name": "KTRANS-SEP-2 marker complete reports with an axiom outside the three",
+       "number": 12
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Restore the OIBridge build cache",
+       "number": 23
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 24
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 25
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 137000031868,
+     "name": "Numerical probes",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Require every probe shard",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 3
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360434,
+     "name": "Numerical probes / A36 hierarchy",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install dependencies",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "A36 hierarchy probe",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360393,
+     "name": "Numerical probes / A38 escape",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install dependencies",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "A38 local-escape probe",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360528,
+     "name": "Numerical probes / A40 locus",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "A40 Dita-locus probe",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 7
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 8
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 9
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360389,
+     "name": "Numerical probes / A41 hulls",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install dependencies",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "A41 hull census",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360479,
+     "name": "Numerical probes / A41 independent",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "A41 index-map probe, the independent path",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 7
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 8
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 9
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360683,
+     "name": "Numerical probes / A41 production",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "A41 index-map probe, the production path",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 7
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 8
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 9
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360529,
+     "name": "Numerical probes / A42 census01",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install dependencies",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "A42 {0,1} census and the zero-row span lemma",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360470,
+     "name": "Numerical probes / A42 exclusion (cubes:0)",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install dependencies",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "A42 exclusion shard",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360703,
+     "name": "Numerical probes / A42 exclusion (cubes:1)",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install dependencies",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "A42 exclusion shard",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360635,
+     "name": "Numerical probes / A42 exclusion (cubes:2)",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install dependencies",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "A42 exclusion shard",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360438,
+     "name": "Numerical probes / A42 exclusion (dfs:0)",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install dependencies",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "A42 exclusion shard",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360726,
+     "name": "Numerical probes / A42 exclusion (dfs:1)",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install dependencies",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "A42 exclusion shard",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360706,
+     "name": "Numerical probes / A42 exclusion (dfs:2)",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install dependencies",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "A42 exclusion shard",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360496,
+     "name": "Numerical probes / A42 exclusion (dfs:3)",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install dependencies",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "A42 exclusion shard",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360468,
+     "name": "Numerical probes / A42 exclusion (dfs:4)",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install dependencies",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "A42 exclusion shard",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360513,
+     "name": "Numerical probes / A42 exclusion (dfs:5)",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install dependencies",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "A42 exclusion shard",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360772,
+     "name": "Numerical probes / A42 exclusion (n18:0)",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install dependencies",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "A42 exclusion shard",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360622,
+     "name": "Numerical probes / A42 exclusion (n18:1)",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install dependencies",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "A42 exclusion shard",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360838,
+     "name": "Numerical probes / A42 exclusion (n18:2)",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install dependencies",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "A42 exclusion shard",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360659,
+     "name": "Numerical probes / A42 exclusion (paths)",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install dependencies",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "A42 exclusion shard",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360670,
+     "name": "Numerical probes / A42 exclusion (r5)",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install dependencies",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "A42 exclusion shard",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360493,
+     "name": "Numerical probes / A42 exclusion (sathr)",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install dependencies",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "A42 exclusion shard",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360779,
+     "name": "Numerical probes / A42 witness",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install dependencies",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "A42 witness, class supports, controls, lemmas and case-split ingredients",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360474,
+     "name": "Numerical probes / A45 ancilla",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "A45 fixed-basis ancilla probe",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 7
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 8
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 9
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360921,
+     "name": "Numerical probes / ARP-1-MARC exact span check",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "ARP-1-MARC exact span check",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "ARP-1-MARC keep the measurements",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "ARP-1-MARC replay against the committed measurements",
+       "number": 6
+      },
+      {
+       "conclusion": "success",
+       "name": "ARP-1-MARC checker self-test",
+       "number": 7
+      },
+      {
+       "conclusion": "success",
+       "name": "ARP-1-MARC control mutation tests",
+       "number": 8
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 15
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 16
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 17
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360593,
+     "name": "Numerical probes / BG-2 premise orientation",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "BG-2 premise orientation probe",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "BG-2 control mutation tests",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360636,
+     "name": "Numerical probes / KINF-2 foundations",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install the exact-algebra dependency",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "KINF-2 foundations probe",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360743,
+     "name": "Numerical probes / KT4-PREM-1 premise audit",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install the exact-algebra dependency",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "KT4-PREM-1 premise audit probe",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "KT4-PREM-1 independent countermodel check",
+       "number": 6
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 11
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 12
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 13
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360446,
+     "name": "Numerical probes / KTOKEN-MAXCONE-1 k = 3 exact layer",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "k = 3 exact witnesses and probe mutations",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "Native control mutation tests",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360660,
+     "name": "Numerical probes / KTRANS-SEP-2 Omega4 counterexample",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install the exact-algebra dependency",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "KTRANS-SEP-2 exact probe",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "KTRANS-SEP-2 independent exact layer and countercontrols",
+       "number": 6
+      },
+      {
+       "conclusion": "success",
+       "name": "KTRANS-SEP-2 control mutation tests",
+       "number": 7
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 13
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 14
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 15
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360713,
+     "name": "Numerical probes / NB-1 native-gate ball",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "NB-1 native-gate ball probe",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 7
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 8
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 9
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360429,
+     "name": "Numerical probes / OI channel protocol",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Exact channel and cone controls",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "Audit control mutation tests",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360771,
+     "name": "Numerical probes / OI finite protocol",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Exact finite protocol controls",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "Adoption control mutation tests",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360829,
+     "name": "Numerical probes / OI pair maxCone",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Exact maxCone and cone controls",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "Native control mutation tests",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360791,
+     "name": "Numerical probes / PRESERVE-INDUCT-1 preservation induction",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install the exact-algebra dependency",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "PRESERVE-INDUCT-1 exact probe",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "PRESERVE-INDUCT-1 independent exact check",
+       "number": 6
+      },
+      {
+       "conclusion": "success",
+       "name": "PRESERVE-INDUCT-1 control mutation tests",
+       "number": 7
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 13
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 14
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 15
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360258,
+     "name": "Numerical probes / core A",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install dependencies",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "Core probes A",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360551,
+     "name": "Numerical probes / core B",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install dependencies",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "Core probes B",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Rounded separation to saturation and no-perturbation control",
+       "number": 6
+      },
+      {
+       "conclusion": "success",
+       "name": "SC-45 exact coherent-channel controls (normal / optimized)",
+       "number": 7
+      },
+      {
+       "conclusion": "success",
+       "name": "SC-42 integration source scope and must-fail controls",
+       "number": 8
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 15
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 16
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 17
+      }
+     ]
+    },
+    {
+     "conclusion": "success",
+     "id": 136996360472,
+     "name": "Numerical probes / foundations",
+     "steps": [
+      {
+       "conclusion": "success",
+       "name": "Set up job",
+       "number": 1
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/checkout@v4",
+       "number": 2
+      },
+      {
+       "conclusion": "success",
+       "name": "Run actions/setup-python@v5",
+       "number": 3
+      },
+      {
+       "conclusion": "success",
+       "name": "Install dependencies",
+       "number": 4
+      },
+      {
+       "conclusion": "success",
+       "name": "Foundations probes",
+       "number": 5
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/setup-python@v5",
+       "number": 9
+      },
+      {
+       "conclusion": "success",
+       "name": "Post Run actions/checkout@v4",
+       "number": 10
+      },
+      {
+       "conclusion": "success",
+       "name": "Complete job",
+       "number": 11
+      }
+     ]
+    }
+   ],
+   "path": ".github/workflows/verify.yml",
+   "run_attempt": 1,
+   "run_id": 44953482787,
+   "status": "completed"
+  }
+ ],
+ "schema": "a1exit-trial-ci-record-v1"
+}

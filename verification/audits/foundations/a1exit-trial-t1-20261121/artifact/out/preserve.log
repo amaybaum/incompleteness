@@ -1,0 +1,30 @@
+plan: 55544cc36dee5b7dd5b9079c0f03be24b74c137f; 6 record files; pin findings 0
+ledger: 371 splices in 40 files at 97070c986c28; sha256 41ac4fd9fbcf4485d34a9aa1c1b46899a86c9a88503b65208e785af2412ff0f6; 0 validation findings
+candidate: 0 findings; PDFs of ledgered sources rebuilt (checked by the CI build): 8
+  PDF book/The-Incompleteness-of-Observation-FULL.pdf
+  PDF papers/Computation.pdf
+  PDF papers/GR.pdf
+  PDF papers/Main.pdf
+  PDF papers/Methodology.pdf
+  PDF papers/SM.pdf
+  PDF papers/Structure.pdf
+  PDF papers/Substratum.pdf
+RESULT PASS
+plan: 55544cc36dee5b7dd5b9079c0f03be24b74c137f; 6 record files; pin findings 0
+ledger: 371 splices in 40 files at 97070c986c28; sha256 41ac4fd9fbcf4485d34a9aa1c1b46899a86c9a88503b65208e785af2412ff0f6; 0 validation findings
+candidate: 0 findings; PDFs of ledgered sources rebuilt (checked by the CI build): 8
+  PDF book/The-Incompleteness-of-Observation-FULL.pdf
+  PDF papers/Computation.pdf
+  PDF papers/GR.pdf
+  PDF papers/Main.pdf
+  PDF papers/Methodology.pdf
+  PDF papers/SM.pdf
+  PDF papers/Structure.pdf
+  PDF papers/Substratum.pdf
+pdf compare against the CI build: 0 findings
+  ok  tree mutant papers/GR.tex: fails with "differs from its rebuild"
+  ok  tree mutant verification/audits/manuscript/bell-operational-reconciliation-20261029/sc42-integration-result.json: fails with "differs from the SC-42 checker"
+  ok  tree mutant verification/audits/foundations/a1exit-deletion-20261121/ledger.json: fails with "record file differs from the plan"
+  ok  tree mutant verification/audits/foundations/a1exit-deletion-20261121/preserve_check.py: fails with "record file differs from the plan"
+  ok  tree mutant verification/coverage/LEDGER.json: fails with "verification/coverage/LEDGER.json"
+RESULT PASS

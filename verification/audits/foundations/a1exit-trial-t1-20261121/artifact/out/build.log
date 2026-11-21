@@ -1,0 +1,14 @@
+Preparing worktree (detached HEAD c06259692)
+HEAD is now at c06259692 Trial T1: T0 with the eight CI-built PDFs (PREREG §28.1 item 5, §29, §30)
+  Computation    ok  21 pages
+  GR             ok  84 pages
+  Main           ok  109 pages
+  Methodology    ok  53 pages
+  SM             ok  149 pages
+  Structure      ok  95 pages
+  Substratum     ok  54 pages
+
+build: OK
+  book           ok  490 pages
+
+build: OK
