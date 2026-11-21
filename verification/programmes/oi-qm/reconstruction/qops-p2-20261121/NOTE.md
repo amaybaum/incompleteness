@@ -404,8 +404,9 @@ it is a question about Q, not a new input.
 - *At the substratum level*, tensor structure and causal separation are (N) (CP1, CP2).
 - *For visible composites*, it is imported (LT, KIN) or absent (CP3, CP5, CP8).
 - *For encoded registers under FLOW*, it is derived for uncoupled regions (CP11). It is open
-  across a coupling gate, which may mix `V₁ ⊗ V₂` with indicator directions. That is
-  preregistered as P-C, a mathematics question.
+  across a coupling gate, which may mix `V₁ ⊗ V₂` with other constituents orthogonal to every
+  orbit indicator. It cannot mix them with indicator directions, by Lemma P1 applied to the
+  coupled group (A01 §4). That is preregistered as P-C, a mathematics question.
 - CP9 is the corpus's one native statement about a composite with a reference system:
   entanglement survives a single step for a region with a bulk.
 
