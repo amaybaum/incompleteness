@@ -3,8 +3,8 @@
 **Standing.** Writer's research record for Issue #1461, order step 1 (feasibility) only.
 Independent non-author review at `f87afd04`: REVISE
 ([#1489 c.7064054072](https://github.com/amaybaum/incompleteness/pull/1489#issuecomment-7064054072)),
-mathematics confirmed; its items R1–R3 and N1–N5 are answered in . Delta re-review at
-: CONFIRMED WITH NITS
+mathematics confirmed; its items R1–R3 and N1–N5 are answered in `8746e382`. Delta re-review at
+`8746e382`: CONFIRMED WITH NITS
 ([#1489 c.7064102580](https://github.com/amaybaum/incompleteness/pull/1489#issuecomment-7064102580));
 its nits n1–n3 are applied. No construction attempt (step 2 is not authorized), no manuscript, Lean or
 registry edit, no premise adoption. One small exact check (§3.1, §7), preregistered in `PREREG.md`
