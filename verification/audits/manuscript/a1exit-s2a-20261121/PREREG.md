@@ -150,3 +150,19 @@ Out of scope and untouched: SM:122 and SM:252 (X-41 law conditions, unit S2-C); 
 - Finding: as A4-Sub157 (book).
 - Old: `Under A4 the coupling graph is a finite periodic lattice of some integer dimension $d$`
 - New: `Under A4 the coupling graph is the lattice $\mathbb{Z}^d$ or, as a qualified case, a finite periodic quotient of it, of some integer dimension $d$`
+
+## Amendment 1 (2026-11-21): ch19:198 = FULL:5268
+
+Appended before the edit is applied. The coordinating session ruled that ch19:198 = FULL:5268 is in
+this unit's scope: it is in X-40's site column ("stated as a qualified case"), and the owner
+authorized S2-A to make X-40's A4 restatement (#1169 c.7056875845). The edit is one qualified-case
+clause, with no approximation wording. It is appended to `checks/s2a_edits.json` as `A4-ch19-198`,
+and RESULT records it as deviation D1. ch18:22 and ch18:226 (and their FULL mirrors) stay unchanged;
+they are Q3 sites and go to S2-E as a finding.
+
+### A4-ch19-198: ch19-open-problems:198 = FULL:5268
+
+- Row: X-40. Source: ledger X-40 site column; amendment 1.
+- Finding: X-40: the sentence speaks of "a finite lattice" without marking it as A4's qualified case.
+- Old: `On a finite lattice, the notion`
+- New: `On a finite periodic quotient of $\mathbb{Z}^3$, a qualified case of A4 (Chapter 2), the notion`

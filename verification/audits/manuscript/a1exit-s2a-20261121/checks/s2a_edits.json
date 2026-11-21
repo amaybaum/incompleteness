@@ -40,5 +40,6 @@
   "new": "whose lattice translations make the coupling graph the lattice $\\mathbb{Z}^d$ or, as a qualified case, a finite periodic quotient of it"},
  {"id": "A4-ch02-96", "file": "book/ch02-substratum.md", "line": 96, "mirror": ["book/The-Incompleteness-of-Observation-FULL.md", 726], "row": "X-41 (covered by X-40's A4 restatement)", "source": "ledger X-40 (A4 restatements of Q1 §6), X-41",
   "old": "Under A4 the coupling graph is a finite periodic lattice of some integer dimension $d$",
-  "new": "Under A4 the coupling graph is the lattice $\\mathbb{Z}^d$ or, as a qualified case, a finite periodic quotient of it, of some integer dimension $d$"}
+  "new": "Under A4 the coupling graph is the lattice $\\mathbb{Z}^d$ or, as a qualified case, a finite periodic quotient of it, of some integer dimension $d$"},
+ {"id": "A4-ch19-198", "file": "book/ch19-open-problems.md", "line": 198, "mirror": ["book/The-Incompleteness-of-Observation-FULL.md", 5268], "row": "X-40", "source": "ledger X-40 site column (\"stated as a qualified case\"); amendment 1 (D1)", "old": "On a finite lattice, the notion", "new": "On a finite periodic quotient of $\\mathbb{Z}^3$, a qualified case of A4 (Chapter 2), the notion"}
 ]
