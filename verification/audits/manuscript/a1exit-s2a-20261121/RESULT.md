@@ -3,7 +3,9 @@
 **Status.** Writer's manuscript-correction record. The edits of `PREREG.md` (pushed at `940dde6c1`
 before any manuscript edit) are applied verbatim in `e414d1c24`; amendment 1 (`66bae3100`, appended
 before its edit) is applied in `083e13db2` (deviation D1, §5); amendment 2 (`47812024a`, appended
-before its edits, answering the round-1 review) is applied in `8b77e78f5` (deviations D2, D3). No Lean, registry, ledger or Q1 record
+before its edits, answering the round-1 review) is applied in `8b77e78f5` (deviations D2, D3); amendment 3 (`a951e63d1`, pushed before its edits)
+is applied in `d87cdc2a5` (deviation D4), with the coverage-ledger fingerprint of SM:T-13 re-affirmed.
+The Status line's "no … registry edit" excepts that one coverage-ledger entry. No Lean, registry, ledger or Q1 record
 edit; no merge; no workflow dispatch. Round-1 independent review: REVISE (§7).
 
 **Authorization.** Owner `amaybaum`, #1169 comment 7056875845 (2026-11-21), unit S2-A. Q1's E5 is
@@ -22,7 +24,7 @@ unchanged by the edits (each is an in-line replacement), so every site keeps its
 ## 1. Edits as applied
 
 The exact old and new strings are in `PREREG.md` and `checks/s2a_edits.json`. `checks/s2a_check.py`
-exits 0 in default mode at `8b77e78f5` (15 base entries, 3 amending entries; amended texts checked): every new string occurs exactly once in its file and in its
+exits 0 in default mode at `d87cdc2a5` (17 base entries, 3 amending entries; amended texts checked): every new string occurs exactly once in its file and in its
 mirror, and no old string survives outside its own new string.
 
 | Id | Site (line after edit) | Ledger row | Source |
@@ -40,8 +42,10 @@ mirror, and no old string survives outside its own new string.
 | A4-Sub157 | Sub:157 | X-41 via X-40 | X-40's A4 restatements (Q1 §6); X-41 "covered by X-40's A4 restatement" |
 | A4-ch02-96 | ch02:96 = FULL:726 | X-41 via X-40 | as above (book) |
 | A4-ch19-198 | ch19:198 = FULL:5268 | X-40 | X-40 site column; PREREG amendment 1 (D1) |
+| C13-SM543 | SM:543 (Theorem 13 statement) | X-43 | Q1 §3 C13; PREREG amendment 3 (D4) |
+| C13-ch05-164 | ch05:164 = FULL:1479 | X-43 | book restatement of Theorem 13's Schur-complement step; amendment 3 (D4) |
 
-15 edits at 21 locations (6 book edits mirrored into FULL). A4 restatement: ℤ^d is printed as "the
+17 base edits at 24 locations (7 book edits mirrored into FULL), plus 3 amending edits. A4 restatement: ℤ^d is printed as "the
 discrete lattice … as the standard construction, distinct from a continuous space"; the finite
 periodic quotient ℤ^d/P is "admitted as a qualified case, under the conditions on P stated with each
 result that uses it" (Sub cites [SM §4.1], where E1 states them). No edited sentence calls a finite
@@ -50,12 +54,14 @@ second sense, the side-≥3 independence example (a finite example, true as stat
 untouched. One edited sentence states a consequence of Theorem 13: SM:1532 ('t Hooft anomaly matching
 from Theorems 13 and 15 under H-χ'). Its quotient qualification carries C13's period condition
 `P ⊂ 2ℤ^3` (D2). X-43's further C13 condition (bounded invertibility of an off-diagonal hidden block
-on ℓ²) is printed neither there nor at Theorem 13 (SM:543); see §3.
+on ℓ² of the odd sublattice; nothing extra in the site-diagonal free and onsite case) is stated in
+Theorem 13 at SM:543 and in the book's restatement at ch05:164 = FULL:1479 (D4); SM:1532 and ch19:252
+cite Theorem 13 and inherit it.
 
 **Ledger sites changed (for the post-Step-2 reconciliation).** X-40: Sub:98, ch02:82, FULL:712,
 SM:202, ch05:65, FULL:1380, ch19:198, FULL:5268. X-41 (lattice clause only): Sub:157, ch02:96, FULL:726. X-42: SM:539,
 SM:1506, SM:1532, SM:1536, ch06:24, FULL:1535, ch05:91, FULL:1406, SM:222. X-43: SM:222 (E1), E4
-and E6 sites. All at their base line numbers. Not changed: X-41's SM:122 and SM:252 (unit S2-C); X-43's SM:446 (E5, skipped).
+and E6 sites, SM:543, ch05:164, FULL:1479. All at their base line numbers. Not changed: X-41's SM:122 and SM:252 (unit S2-C); X-43's SM:446 (E5, skipped).
 
 ## 2. Propagation and re-grep
 
@@ -91,11 +97,6 @@ text is confirmed by `s2a_check.py`.
   even coordinate sum") contradicts Q1's own §3 row C13 (Theorem 13 on a quotient iff `P ⊂ 2ℤ^3`;
   the skew even-sum quotient is a countermodel). Applied here in the C13 form (D2); the Q1 record is
   unchanged and the coordinating session routes the discrepancy separately.
-- **SM:1532 and SM:543, C13's invertibility condition.** SM:1532 uses Theorem 13 under H-χ', whose
-  hidden block can carry an off-diagonal term. Q1 C13 and ledger X-43 state that on ℤ^3 the Schur
-  complement then needs that block boundedly invertible on ℓ² of the odd sublattice. Neither SM:1532
-  nor Theorem 13's statement prints this condition. Adding it is outside the round-1 instruction and
-  this unit's edit list; reported to the coordinator.
 - **"Finite representative"** (Main, GR, Sub, ch01–ch03, ch09, ch14, glossary, appendices) refers to
   A1's finite configuration space, not to a finite lattice representing ℤ^d. It is A1 vocabulary
   (ledger X-02, X-45) and out of scope; no site uses it for the lattice.
@@ -109,8 +110,8 @@ text is confirmed by `s2a_check.py`.
 |---|---|
 | `sh ./build.sh SM Substratum` | OK; SM 148 pages (base 148), Substratum 54 (base 53); no dropped glyphs (SM rebuilt after amendment 2, same figures) |
 | `sh ./build.sh --book` | OK; 489 pages (base 489); no dropped glyphs (also after amendments 1 and 2) |
-| median characters per page (pdftotext -layout) | SM 3130 (base 3153), Substratum 3189 (3240), FULL 2997 (2998); unchanged after amendments 1 and 2 |
-| `python3 tools/coverage_check.py` | OK (132 canonical statements); no fingerprint moved, LEDGER.json unchanged |
+| median characters per page (pdftotext -layout) | SM 3130 (base 3153), Substratum 3189 (3240), FULL 2997 (2998); after amendments 1–3: SM 3145, FULL 2991 |
+| `python3 tools/coverage_check.py` | OK (132 canonical statements). Amendment 3 moved SM:T-13's fingerprint (63d989dbd0f92597 → ac3b421cbb83947d); the entry was re-read and re-affirmed in `verification/coverage/LEDGER.json` (same checks, level P, delta "no Lean statement"; the condition added to its assumptions) |
 | `python3 tools/lean_manuscript_census.py` | OK |
 | `python3 tools/artifact_placement_check.py` | OK |
 | `python3 tools/legacy_records_check.py <head>` | UNDECIDABLE locally (shallow repository); no legacy record touched; CI decides |
@@ -138,6 +139,14 @@ text is confirmed by `s2a_check.py`.
   (E6), Q1's "even off one axis" becomes "even off one and the same axis", as Q1 Lemma 1(c) requires
   (a single axis common to all period vectors). An accuracy departure from Q1's verbatim text.
 
+- **D4 (amendment 3): C13's condition in Theorem 13.** The PREREG stated that no edited sentence
+  states Theorem 13's result, and amendment 2 recorded the missing condition as out of scope. The
+  coordinating session ruled it in scope: X-43 is an S2-A row, and with ℤ^d as the standard
+  construction Theorem 13's Schur-complement step needs Q1 C13's condition. It is added to Theorem 13's
+  statement at SM:543 and to the book's restatement of that step at ch05:164 = FULL:1479; SM:1532
+  and ch19:252 cite Theorem 13 and are not edited. Amendment 3 was pushed (`a951e63d1`) before the
+  edits (`d87cdc2a5`).
+
 Every other edit was applied as preregistered, at the preregistered line.
 
 ## 6. Off-`main` references (§A.42 item 8)
@@ -146,6 +155,7 @@ Every other edit was applied as preregistered, at the preregistered line.
 |---|---|---|
 | #1169 c.7056875845 | Authorization | Provenance |
 | Round-1 review of `88b70e0f` on #1470 | D2, D3 | Provenance; the support used (Q1 §3 row C13, Lemma 1(c)) is on `main` |
+| Coordinating-session ruling on the C13 condition (2026-11-21, session message) | D4 scope | Provenance; the condition's support (Q1 §3 C13, ledger X-43) is on `main` |
 | Coordinating-session ruling on ch19:198 (2026-11-21, session message) | D1 scope | Provenance; the authority it applies is #1169 c.7056875845 and ledger X-40 on `main` |
 | #1169 c.7048255658 | A4 wording rule | Provenance; the decision is quoted with author and time in Q1 RESULT §7 on `main` |
 | Guiding PR (#1470) | Tracking | Provenance |
@@ -159,6 +169,6 @@ at the base and is cited as it stands there.
   and owner-accepted, Q1 §11) and from the owner's A4 decision, with mechanical checks (§4). The
   mathematical content (Q1's per-consumer conditions) is Q1's, at Q1's evidence level; nothing here
   adds or strengthens a result.
-- **Review.** Round 1 at `88b70e0f`: REVISE (B1, N1), recorded on #1470 and answered by amendment 2. **Missing.** A delta review of amendment 2.
+- **Review.** Round 1 at `88b70e0f`: REVISE (B1, N1), recorded on #1470 and answered by amendment 2. **Missing.** A delta review of amendments 2 and 3.
 - **Accountable Issue.** #1169 (A1-exit). **Resolution.** A review recorded on the guiding PR, then a
   separate owner merge decision.
