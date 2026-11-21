@@ -14,6 +14,10 @@ The defects are those recorded in #1508's NOTE at `df520f3b`
 (`verification/programmes/oi-qm/reconstruction/i3-source-20261121/NOTE.md`, §9), as reviewed in
 #1508 c.7065957850 §3 and c.7066083871 §3. `GA:n` is line n of GA at `fd3cb064`.
 
+**Revision r2** answers the review at `63f06224` (#1510 c.7066238695): s_Λ is retyped against
+EP:79 (R1); ENC is folded into FE-ADM and the §2 definitions (R2); FE-ADM's non-exclusion of D-W is
+recorded; Lemma TC is relabelled. r2 is not yet re-reviewed.
+
 ## 1. The two defects
 
 - **T1 (mistyped relation).** GA:280 states "Both variants are strictly weaker than I★". For
@@ -35,18 +39,31 @@ The defects are those recorded in #1508's NOTE at `df520f3b`
 
 **T2 correction (indexing by a setting).** The single-time family is indexed by (A, Λ) through a
 setting. For every nonempty finite A and every target family Λ_A in GA's class, the encoding rule
-assigns, from the typed data of Λ_A and before any comparison (I-2★), a **setting** s_Λ: a state of
-the controller fields and hidden prior of M* loaded by ι under EP:79. The family of M* for Λ_A is
-then the visible family of X_A with s_Λ loaded:
+assigns, from the typed data of Λ_A and before any comparison (I-2★), a **setting** s_Λ. Two typings
+are consistent with EP (c.7066238695 R1); this record writes (b) and records (a) for T-D1:
 
-  Φ^{(A,Λ)}_t(ρ) = Tr_H[φ̂^t (enc_A(ρ) ⊗ ω_{s_Λ}) φ̂^{−t}], read back through enc_A, t ∈ ℕ.
+- **(b) controller-field setting (written here).** s_Λ is a configuration c_{s_Λ} of M*'s
+  controller fields C, loaded by ι; EP:79 permits a setting to load "only the specified controller
+  fields" and keeps the law of the uncontrolled variables U, and so the one hidden prior ω_H,
+  unchanged. The family is
+  Φ^{(A,Λ)}_t(ρ) = Tr_{C×H}[φ̂^t (enc_A(ρ) ⊗ |c_{s_Λ}⟩⟨c_{s_Λ}| ⊗ ω_H) φ̂^{−t}], read back through
+  enc_A, t ∈ ℕ. Assumption (c) of #1508's S1/S2 (one hidden state for every input) holds as before.
+- **(a) preparation setting.** (ρ, s_Λ) is the preparation; EP:75 lets μ_p depend on p, so the hidden
+  state ω_{s_Λ} may depend on s_Λ, but not on ρ. The family is
+  Tr_H[φ̂^t (enc_A(ρ) ⊗ ω_{s_Λ}) φ̂^{−t}]; it stays linear in ρ.
 
-The interface of `Sub:249` is kept as it stands (fixed visible/hidden interface, fixed prior per
-family, one time at a time, no interventions); only the target's indexing changes, from one prior
-per sector to one prior per (sector, setting). An alternative, one sector per (A, Λ), is recorded
-and not proposed: with one prior and countably many encodings a single model realizes at most
-countably many population families (#1508 NOTE Lemma R1, layer P), so a continuum of targets would
-need a continuum of sectors.
+A setting cannot change the hidden prior (EP:79); r1 of this record wrote it that way, and that
+typing is withdrawn. The interface of `Sub:249` is kept as it stands (fixed visible/hidden
+interface, one time at a time, no interventions): under (b) the prior of the uncontrolled hidden
+variables is fixed and only controller fields vary with the family; under (a) the hidden state is
+fixed per preparation. An alternative, one sector per (A, Λ), is recorded and not proposed: with
+one prior and countably many encodings a single model realizes at most countably many population
+families (#1508 NOTE Lemma R1, layer P), so a continuum of targets would need a continuum of
+sectors.
+
+**Encodings.** Every family above, and the operational family below, is read through enc_A and the
+label rule 𝓛_A of the I★ witness; this is part of the definitions, and FE-ADM (§3) names 𝓛_A
+explicitly. r1's separate assumption ENC is not an independent assumption and is folded in here.
 
 **The operational single-time family.** For M*, A, Λ and t, write
 p_{M*}(E | s_Λ, ρ, t) for the probability of the first outcome when ρ is prepared on X_A with s_Λ
@@ -64,9 +81,6 @@ Tr(E L_t(ρ)) for every density ρ and effect E, it is unique (Lemma TC below), 
 
 ## 3. Assumptions, stated separately
 
-- **ENC (encoding compatibility).** I★_st uses the same encoding enc_A = (X_A, β_A) and label rule
-  𝓛_A as the I★ witness; the visible sector of the single-time interface is X_A read through enc_A,
-  not the configuration basis fixed by another rule.
 - **PROT (protocol restriction).** For each A, Λ, t, density ρ and effect E, the protocol
   π(ρ, Λ_t, E): prepare ρ; apply the one-outcome instrument {Λ_t}; apply the two-outcome instrument
   with Kraus operators √E and √(1 − E); record the outcome, is a protocol of `J_exact(A)`. This holds
@@ -75,10 +89,15 @@ Tr(E L_t(ρ)) for every density ρ and effect E, it is unique (Lemma TC below), 
 - **FE-ADM (free evolution as an admissible protocol), an assumption.** For every A, Λ and t, the
   procedure "load s_Λ, prepare ρ, evolve freely under Φ for t steps" is M*'s label interpretation
   𝓛_A of "prepare ρ, apply Λ_t", and the readout {E, 1 − E} is 𝓛_A's interpretation of the readout
-  instrument. I★ does not entail FE-ADM: I★ lets 𝓛_A realize Λ_t by any admissible procedure,
+  instrument (this names 𝓛_A, and so the encoding enc_A, for both). I★ does not entail FE-ADM: I★ lets 𝓛_A realize Λ_t by any admissible procedure,
   interventions included. FE-ADM is a constraint on the witness's label rule, and it is what makes
   the native single-time observation a protocol of `J_exact(A)`. It is the identification named
-  ID-FE in #1508's NOTE.
+  ID-FE in #1508's NOTE. **FE-ADM does not exclude D-W** (c.7066238695): with s_Λ in the controller
+  fields, the stepwise D-W satisfies FE-ADM by loading the program "apply Λ₁ at each step", so its
+  "free evolution" is the autonomous Φ running a loaded program. That is consistent with the
+  owner's "genuine restriction" (the protocol is in `J_exact(A)`), but FE-ADM is then a
+  compatibility assumption, not a sourcing test; "free evolution" means "autonomous Φ with a loaded
+  setting".
 - **BF (Born-form agreement), an assumption, needed only for the Born-form variant.** For every A,
   Λ, t, density ρ and effect E, Tr(E Φ^{(A,Λ)}_t(ρ)) = p_{M*}(E | s_Λ, ρ, t): the corpus's
   Born-form representation of the visible sector gives the model's operational law on coherent
@@ -90,8 +109,7 @@ Tr(E L_t(ρ)) for every density ρ and effect E, it is unique (Lemma TC below), 
 
 ## 4. Proposition P-ST and its witness
 
-**Lemma TC (tomographic completeness; (N) in the narrow sense that it is linear algebra with no
-OI or physical assumption; layer X).** If L, L′ are linear maps on M_n(ℂ) with Tr(E L(ρ)) =
+**Lemma TC (tomographic completeness; mathematical/definitional, no OI assumption; layer X).** If L, L′ are linear maps on M_n(ℂ) with Tr(E L(ρ)) =
 Tr(E L′(ρ)) for every density ρ and every effect E (0 ≤ E ≤ 1), then L = L′.
 *Proof.* Put X = (L − L′)(ρ). Tr(E X) = 0 for every effect E; effects span the Hermitian matrices
 over ℝ (every Hermitian H is a real multiple of an effect plus a multiple of 1, and 1 is an
@@ -100,14 +118,14 @@ X = 0. Densities span M_n(ℂ) over ℂ by the same argument, so L − L′ vani
 is zero by linearity. ∎
 
 **Proposition P-ST.** Let M* be an I★ witness (GA §2), with the T2 indexing of §2. Then:
-1. under ENC and FE-ADM, M* satisfies **I★_st-coh^op** and **I★_st-pop^op**;
-2. under ENC, FE-ADM and BF, M* satisfies **I★_st-coh** and **I★_st-pop** as typed in §2 (the
+1. under FE-ADM, M* satisfies **I★_st-coh^op** and **I★_st-pop^op**;
+2. under FE-ADM and BF, M* satisfies **I★_st-coh** and **I★_st-pop** as typed in §2 (the
    Born-form variants, on the interface of `Sub:249` unchanged).
 
 **Witness for ⇒ (§A.34).**
 - *Step 1 (I-4 on a restricted protocol).* By PROT, π(ρ, Λ_t, E) ∈ `J_exact(A)`. I★'s clause I-4
   gives p_{M*}(1 | π(ρ, Λ_t, E), ρ) = Tr(√E Λ_t(ρ) √E) = Tr(E Λ_t(ρ)), under the label
-  interpretation 𝓛_A of I★ (ENC).
+  interpretation 𝓛_A of I★.
 - *Step 2 (FE-ADM).* FE-ADM identifies π(ρ, Λ_t, E) under 𝓛_A with "load s_Λ, prepare ρ, evolve
   freely t steps, read {E, 1 − E}", so p_{M*}(E | s_Λ, ρ, t) = Tr(E Λ_t(ρ)) for every ρ, E, t.
 - *Step 3 (TC).* Λ_t satisfies the defining identity of the operational channel, and by Lemma TC
@@ -119,11 +137,16 @@ is zero by linearity. ∎
 
 Step 1 uses one clause of I★ (I-4) on one family of protocols; I-1 (one label interpretation)
 makes 𝓛_A the same in every step; I-2★ makes s_Λ a setting fixed from typed data, not fitted.
+**Re-check under the retyped setting.** Steps 1–3 use only the operational law
+p_{M*}(E | s_Λ, ρ, t) and so hold under either typing (a) or (b). Step 4 uses BF with the family of
+§2: under (b) the Born-form family carries the controller configuration |c_{s_Λ}⟩⟨c_{s_Λ}| and the
+one prior ω_H, under (a) the state ω_{s_Λ}; in both it is linear in ρ, so Lemma TC applies as
+before. P-ST holds under either typing.
 
 **P-ST in the three questions.** Label **(I)**.
 - Established: P-ST, items 1 and 2, with Lemma TC, at layer X on paper; not yet independently
   reviewed.
-- Assumed: ENC (a definitional compatibility choice); FE-ADM (an operational assumption on the
+- Assumed: FE-ADM (which carries the encoding through 𝓛_A) (an operational assumption on the
   witness's label rule); for item 2, BF (KIN applied to M*); for the coherent variants, J-coh
   through the protocols with coherent ρ and arbitrary E; for the population variants, no J-coh.
   PROT is checked from EP:37–40, not assumed.
@@ -137,8 +160,8 @@ makes 𝓛_A the same in every step; I-2★ makes s_Λ a setting fixed from type
 |---|---|---|
 | T2 indexing (one prior per sector) | both GA variants unsatisfiable by every model for \|A\| ≥ 2 | §1 T2: one autonomous family per sector, two distinct targets |
 | FE-ADM | I★ ⇏ any I★_st variant: I★ constrains only the label interpretation of Λ_t, not the free evolution | the stepwise D-W (GA §2.2, sketch, layer P): its label for Λ_t is an interpreter step driven by program fields; with no instruction loaded, free evolution leaves the stored state unchanged, so its free family is the identity, not Λ_t, while it meets I★ at trivial E |
-| ENC | the implication holds only for the transported target: if the single-time interface reads the configuration basis while enc_A uses a logical basis U, P-ST gives Φ_t = Ad_U ∘ Λ_t ∘ Ad_{U†} in the configuration basis, not Λ_t | #1508 review c.7065957850 CM-2: under a logical-basis change, Ad_Z becomes the Hadamard target |
-| BF (item 2 only) | I★ ⇒ I★_st-coh^op still holds under ENC and FE-ADM, but not I★ ⇒ I★_st-coh in Born form | #1508 NOTE Lemma S1 ((I) on its (b)–(d); layer X): under its assumptions (a)–(e), the one-step Born-form channel of any bijection with a fixed countable hidden state is Ad of a monomial unitary, so a bijective M* whose operational channel is Ad_H has Born-form family ≠ Ad_H; BF then fails, and S1 shows BF and I-4 are jointly unsatisfiable for such models on non-monomial targets |
+| encoding mismatch (a failure of BF, not a separate assumption) | if the Born-form family is computed in the configuration basis while 𝓛_A uses a logical basis U, BF's equation compares two different bases and fails; item 1 is unaffected, and item 2 holds for the transported target Ad_U ∘ Λ_t ∘ Ad_{U†} only | #1508 review c.7065957850 CM-2: under a logical-basis change, Ad_Z becomes the Hadamard target |
+| BF (item 2 only) | I★ ⇒ I★_st-coh^op still holds under FE-ADM, but not I★ ⇒ I★_st-coh in Born form | #1508 NOTE Lemma S1 ((I) on its (b)–(d); layer X): under its assumptions (a)–(e), the one-step Born-form channel of any bijection with a fixed countable hidden state is Ad of a monomial unitary, so a bijective M* whose operational channel is Ad_H has Born-form family ≠ Ad_H; BF then fails, and S1 shows BF and I-4 are jointly unsatisfiable for such models on non-monomial targets |
 | J-coh | the coherent variants lose their content: on configuration inputs and fixed-basis readouts only the population variants are tested | — (scope statement) |
 
 **Consequence for the satisfiability of item 2.** For bijective models with a fixed countable hidden
@@ -153,14 +176,15 @@ For the owner and the reviewer; GA is not edited here.
 
 - Replace GA:260–261 ("the one model M* has a visible sector V_A encoded by enc_A, with its hidden
   prior, such that:") by: "the one model M* has a visible sector V_A encoded by enc_A and, from the
-  typed data of Λ_A and fixed before comparison, a setting s_Λ of its controller fields and hidden
-  prior loaded under EP:79, such that, with s_Λ loaded:".
+  typed data of Λ_A and fixed before comparison, a setting s_Λ of its controller fields loaded
+  under EP:79, with its one hidden prior, such that, with s_Λ loaded:" (typing (b); under typing
+  (a), "a preparation (ρ, s_Λ) whose hidden state may depend on s_Λ but not on ρ (EP:75)").
 - Add the operational variants I★_st-coh^op and I★_st-pop^op of §2 beside the two Born-form
   variants.
 - Replace GA:280–282 ("Both variants are strictly weaker than I★ ...") by: "I★ implies I★_st-coh^op
-  and I★_st-pop^op under ENC and the assumption FE-ADM that free evolution with a loaded setting is
+  and I★_st-pop^op under the assumption FE-ADM that free evolution with a loaded setting is
   the label interpretation of the requested channel; it implies the Born-form variants I★_st-coh and
-  I★_st-pop under ENC, FE-ADM and BF (Proposition P-ST of the T1/T2 record). Without FE-ADM, I★
+  I★_st-pop under FE-ADM and BF (Proposition P-ST of the T1/T2 record). Without FE-ADM, I★
   implies no single-time variant; without BF, it implies the operational but not the Born-form
   coherent variant. c.7064942473: 'Equivalence based on single-time observations is weaker than
   equivalence under arbitrary quantum experiments.'"
@@ -169,8 +193,9 @@ For the owner and the reviewer; GA is not edited here.
 
 ## 7. Owner decisions
 
-- **T-D1.** Adopt, amend or reject the T2 indexing by settings (§2), or the per-(A, Λ) sector
-  alternative.
+- **T-D1.** Adopt, amend or reject the T2 indexing by settings (§2), with typing (b), controller
+  fields with one hidden prior, as written, or typing (a), a preparation setting under EP:75; or the
+  per-(A, Λ) sector alternative.
 - **T-D2.** Whether Stage 1 (c.7065620072, D6) uses the Born-form variants with BF stated, the
   operational variants, or both. The interface of `Sub:249` is unchanged in either case; the
   operational variants change the comparison quantity, not the interface.
