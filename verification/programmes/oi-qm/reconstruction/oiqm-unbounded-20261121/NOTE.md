@@ -95,22 +95,23 @@ The test has four parts:
 
 **3A. The tower of periodic finite tori, under divisibility.**
 
-- *Embedding.* `ι_{L,L'}`, for `L | L'`, sends a configuration of the torus `(ℤ/L)^d` to its `L'`-periodic
+- *Embedding.* `ι_{ℓ,ℓ'}`, for `ℓ | ℓ'`, sends a configuration of the torus `(ℤ/ℓ)^d` to its `ℓ'`-periodic
   lift. The lift is injective.
 - *Dynamics, (T1)–(T2) pass.* The lift intertwines exactly with any translation-covariant finite-range
-  rule whose radius is below `L`. Periodic lifts are invariant under the rule's own update, so (T2) holds
+  rule whose radius is below `ℓ`. Periodic lifts are invariant under the rule's own update, so (T2) holds
   with equality: the dynamics restricts.
-- *Priors, (T4) holds only as conditioning.* The counting measure on `(ℤ/L')^d` (ledger item (iv))
-  assigns the image of `ι_{L,L'}` the weight `|Q|^{L^d − L'^d}`, which tends to 0 as `L'` grows. The
+- *Priors, (T4) holds only as conditioning.* The counting measure on `(ℤ/ℓ')^d` (ledger item (iv))
+  assigns the image of `ι_{ℓ,ℓ'}` the weight `|Q|^{ℓ^d − ℓ'^d}`, which tends to 0 as `ℓ'` grows. The
   image is invariant under the dynamics, and the conditional of the counting measure on it is the
   counting measure of the small torus. So priors are compatible, but only as conditionals on a sector of
   vanishing weight, which a generic configuration of the large torus does not occupy.
-- *Observables, (T3) fails at scale.* The induced algebra map `M_{C_L} → M_{C_{L'}}` is a non-unital
-  corner map. An observer region of diameter below `L` sees the same marginals in both models. A larger
+- *Observables, (T3) fails at scale.* The induced algebra map `M_{C_ℓ} → M_{C_{ℓ'}}` is a non-unital
+  corner map. An observer region of diameter below `ℓ` sees the same marginals in both models. A larger
   region sees correlations that periodicity forces and the large model's counting prior does not. So the
   observation interface commutes with the embeddings only for observers smaller than the smallest torus,
   which is uniformly false along a tower meant for arbitrarily large carriers.
-- *Recurrence.* The exact recurrence index `L` of Main:650 is not preserved along the tower.
+- *Recurrence.* The exact return index of Main:650 (written `L` there; distinct from the torus size `ℓ`)
+  is not preserved along the tower.
 - **Verdict 3A (paper, (N)).** Compatible in its dynamics. Compatible in its priors only by conditioning
   on vanishing-weight sectors. Incompatible in observation at scale. As a scalable construction it fails
   (T3), and is in effect a family of per-size models.
@@ -346,8 +347,9 @@ finite-range readouts on a site-factorized carrier, and to no wider class.
   on the region tower whose available operations are exact on every stage. It needs a **physical
   mechanism**, namely O1 (a sourced non-monomial coherent operation). Under (xiv), Proposition U says it also needs a
   readout mechanism whose cone grows with resolution: an amplification-type process of unbounded depth.
-  This agrees with BQ1 (#1498, reviewed at `3269772a`), whose H5 assumes a polynomial dependency cone.
-  Polynomial cones are unbounded, so the two do not conflict. It agrees with QOPS (#1501, under revision),
+  This agrees with BQ1 (#1498, confirmed with nits at `ee5267a7`, nits applied at `3269772a`), whose H5 assumes a polynomial dependency cone.
+  Polynomial cones are unbounded, so the two do not conflict. It agrees with QOPS (#1501, confirmed with nits
+  at `9db79bea`, nit applied at `cd3672fa`),
   which places O1's earliest links at KIN (imported), then FLOW. The readout requirement is O3-type and
   conditional on QOPS's RES.
 - **Mathematics still open:**
@@ -371,11 +373,13 @@ reached: one pass.
   function of `N`. Derive `K_min(N)` from `|B(V, K)|` with no fitting. The verdict is generated from the
   measurements.
 - *Controls.*
-  - Positive: matrices of known nonnegative rank, such as identity matrices and the regular `n`-gon slack
-    matrices, whose extension complexity is known to be `Θ(log n)`. The control fails if the bound
-    misreports any of them.
-  - Negative: a classical simplex model with `|Q|^{|R|}` states must reproduce its own behaviour at the
-    computed `K`.
+  - Positive (soundness): for each control matrix of known nonnegative rank `r`, the computed lower
+    bound `b` must satisfy `b ≤ r`. For the `n × n` identity it must give `b = n` exactly. Regular
+    `n`-gon slack matrices, whose nonnegative rank is `Θ(log n)`, enter only through the check `b ≤ r`,
+    using exact values where these are known. Any `b > r`, or `b ≠ n` on an identity, voids the run.
+  - Minimality (exact count): for each `N`, the cone sizes must satisfy
+    `|Q|^{|B(V, K_min)|} ≥ b > |Q|^{|B(V, K_min − 1)|}`, with `|B(V, K)|` counted exactly on the stated
+    lattice. A miscount voids the run.
 - *Scope.* It quantifies Proposition U. It does not decide O2.
 
 ## Sources (external)
