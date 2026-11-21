@@ -3422,18 +3422,20 @@ local states; some results hold for every \(q \geq 2\) and others carry
 \(q\) (Chapter 5). This family is parametrized by the integers
 \(q \geq 2\).
 
-\emph{(iii) Finite decoupled ancillary enlargement.} Adjoin a finite
-factor to the deep hidden sector, prepare it independently in a
+\emph{(iii) Decoupled ancillary enlargement.} Adjoin a factor of any
+dimension to the deep hidden sector, prepare it independently in a
 normalized density matrix, and keep its dynamics exactly decoupled from
-the original system. At the fixed visible/hidden interface, tracing out
-the factor preserves the full original coherent-channel family and
-therefore every rooted population law {[}Substratum Theorem 24(iii){]}.
-This is stronger than a population-only assertion. Infinite factors
-require a separately specified normalized state or measure and
-well-defined dynamics; finite uniform counting does not supply that
-extension. Enlargements coupled under the influence bound H-BD instead
-change the law by the correction stated in Chapter 7 and preserve only
-its leading-order accessible-time description.
+the original system, as any unitary or isometry of the factor. At the
+fixed visible/hidden interface, tracing out the factor preserves the
+full original coherent-channel family and therefore every rooted
+population law {[}Substratum Theorem 24(iii){]}. This is stronger than a
+population-only assertion. A classical factor with a probability law and
+any measurable dynamics likewise preserves every rooted population law.
+The identity uses the factor's normalization: an infinite factor under
+uniform counting has none and is not covered. Enlargements coupled under
+the influence bound H-BD instead change the law by the correction stated
+in Chapter 7 and preserve only its leading-order accessible-time
+description.
 
 \emph{(iv) Graph isomorphism (up to statistical isotropy), with a
 gauge-sector qualification.} Two coupling graphs \(G_\varphi\) and
@@ -22762,15 +22764,26 @@ channel is entanglement-breaking, as a two-state system with a two-state
 hidden register already shows.
 
 \textbf{Theorem B.2.5 (CP-indivisibility).} \emph{The P-indivisibility
-of the substratum dynamics across its recurrence cycle (from a
-non-permutation rooted map and finiteness) implies CP-indivisibility of
-\(\{\Phi_t\}\): there exist \(t_2 > t_1 > 0\) with no CPTP map
-\(\Lambda\) satisfying \(\Phi_{t_2} = \Lambda \circ \Phi_{t_1}\).}
+of the substratum dynamics (across its recurrence cycle, from a
+non-permutation rooted map and finiteness; or, on a measurable hidden
+carrier, from a non-permutation rooted map and the near-return condition
+(NR) {[}Main §2.3{]}, assumed as a hypothesis and not adopted, which
+concerns a time that need not be accessible and then has no
+finite-window test) implies CP-indivisibility of \(\{\Phi_t\}\): there
+exist \(t_2 > t_1 > 0\) with no CPTP map \(\Lambda\) satisfying
+\(\Phi_{t_2} = \Lambda \circ \Phi_{t_1}\).}
 
 \emph{Proof.} The framework's \(\Phi_t\) are permutation dilations with
-uniform ancilla, so they map computational-diagonal states to exactly
+uniform ancilla, or, on a measurable hidden carrier with a
+fibre-injective measurable map \(F^t = (A_t, K_t)\) whose coincidence
+sets are measurable, mixtures over the hidden points \(h\) of the
+channels
+\(|x\rangle\langle y| \mapsto [K_t(x,h) = K_t(y,h)]\,|A_t(x,h)\rangle\langle A_t(y,h)|\)
+{[}Main §3.2{]}, so they map computational-diagonal states to exactly
 diagonal states (a permutation unitary conjugates a diagonal state to a
-diagonal state; the partial trace preserves diagonality). If
+diagonal state; the partial trace preserves diagonality; each mixed
+channel sends \(|x\rangle\langle x|\) to
+\(|A_t(x,h)\rangle\langle A_t(x,h)|\)). If
 \(\Phi_{t_2} = \Lambda \circ \Phi_{t_1}\) with \(\Lambda\) CPTP, then
 \(M_{kj} := \langle j|\Lambda(|k\rangle\langle k|)|j\rangle\) is
 stochastic and, by the diagonality of
@@ -26991,4 +27004,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 71b8691cae60e2002f7225cc8653b0f2ed519a736894edd7328e9a3b250d7df2
+% source-sha256: a44922bebd79532359efc88406922ad9361cbe26c3a79caf40ce51f5264cb5dd

@@ -880,9 +880,9 @@
       "line": 322,
       "kind": "Lemma",
       "label": "(diagonal preservation)",
-      "fingerprint": "15be37eef5071735",
+      "fingerprint": "b2a12a7e085be817",
       "area": "equivalence-chain",
-      "assumptions": "U a permutation unitary",
+      "assumptions": "U a permutation unitary; μ_H the diagonal density matrix of a probability on C_H",
       "checks": [
         {
           "kind": "probe",
@@ -973,9 +973,9 @@
       "line": 449,
       "kind": "Theorem",
       "label": "(C2 necessity, quantitative mixing form)",
-      "fingerprint": "a2d568e0afd73b4e",
+      "fingerprint": "1f167567abfe42c2",
       "area": "memory-conditions",
-      "assumptions": "the uniform-prior bijection marginal of §3.2; the stated mixing hypothesis",
+      "assumptions": "a Markov coupling kernel K measurable in h on a measurable hidden space with reference probability π_H, T the π_H-average of K, the hidden conditional at the first coupling equal to π_H (the uniform-prior bijection marginal of §3.2 in the finite model); the stated mixing hypothesis",
       "checks": [
         {
           "kind": "probe",
@@ -994,9 +994,9 @@
       "line": 463,
       "kind": "Theorem",
       "label": "(physical memory: C2, process form)",
-      "fingerprint": "c5a8951201a17fcb",
+      "fingerprint": "093c9c6326a32f83",
       "area": "memory-conditions",
-      "assumptions": "the coupling-step model of §3.4 (given the whole visible past and H_k = h, X_{k+1} has law K(x_k, h; ·); any hidden map between couplings) with reference prior π_H; persistence form: ε the realized maximum distance of the hidden conditionals from π_H, no mixing hypothesis; timescale (slow-bath) form: the conditional-mixing hypothesis at coupling time",
+      "assumptions": "the coupling-step model of §3.4 ((M1) in integrated form on any measurable hidden space: P(X_{≤k} = x_{≤k}, H_k ∈ B, X_{k+1} = y) = ∫_B K(x_k, h; y) P(X_{≤k} = x_{≤k}, H_k ∈ dh); any hidden map between couplings) with reference probability π_H; persistence form: ε the realized maximum distance of the hidden conditionals from π_H, no mixing hypothesis; timescale (slow-bath) form: the conditional-mixing hypothesis at coupling time",
       "checks": [
         {
           "kind": "probe",
@@ -2590,7 +2590,7 @@
       "line": 263,
       "kind": "Corollary",
       "label": "(effective finiteness and gauge-class transfer)",
-      "fingerprint": "b03e59e9c0aef950",
+      "fingerprint": "6ce42388abe7eca2",
       "area": "reconstruction",
       "assumptions": "see the statement",
       "checks": [],
