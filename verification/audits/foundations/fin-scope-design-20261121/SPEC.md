@@ -736,7 +736,8 @@ elements:
 3. **Exact-head identification.** The record names the exact commit and the digests it reviewed. A
    later change voids it (V7).
 4. **Explicit conflict disclosure.** The reviewer states any shared inputs, shared reasoning or prior
-   involvement with the unit. An attestation without a disclosure, even "none", is invalid.
+   involvement with the unit. A disclosure is required, and it may be "none". An attestation with no
+   disclosure is invalid.
 
 **What this standard is.** Independence here is documented procedural separation. It is not a
 cryptographic or mathematical guarantee. Different model names alone do not establish it, particularly
@@ -1384,5 +1385,5 @@ a FIN-SCOPE pass is not evidence for either class.
 | 4 Propagation | §1.1 (R-b): prose citers anywhere; V34; TESTS P-P1 |
 | F1 (c.7065581514), exact means the whole canonical text | §2.5 exact; TESTS P-F6 |
 | O6 decided (#1169 c.7066602480, item 5) | §3.6 the adopted standard of auditable procedural separation, the earlier options kept as context, and the mechanisms that depend on it; §2.5 two classifiers; §12 O6; TESTS P-R1, P-R3 |
-| Nits C1-a, C2-a (c.7065581514) | §9 subscripted forms; §2.5 two classifiers verifiable only under (δ), (γ) with separate keys, or (β) with owner designation |
+| Nits C1-a, C2-a (c.7065581514) | §9 subscripted forms; §2.5 two classifiers, distinct under the O6 standard of §3.6 (documented procedural separation) |
 | 5 Semantic consistency | §2.5 fidelity for every copy; `different` blocking, with three resolution routes; the ch01-table finding recorded as found; V30; TESTS P-F5 |
