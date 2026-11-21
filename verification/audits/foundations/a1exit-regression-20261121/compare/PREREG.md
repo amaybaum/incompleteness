@@ -125,6 +125,35 @@ branch is not used as the checkout. `DIR` is a working directory outside the rep
 
 ## 3. Decision rule for each reported change
 
+**Two separate checks** (review c.7066078604, N11; owner #1169 c.7061485446, item 1). Item 1 requires
+an exact, character-for-character comparison against the frozen approved transformation, with no
+whitespace exemption, and a correction needs a reviewed amendment. Under it, a head byte that differs
+from the replay of the approved edits is an unapproved change, which no review can approve. The
+comparison therefore runs two checks that never mix.
+
+- **1. The byte gate.** The *replayed state* is the baseline at the pin with every landed approved
+  edit applied: the frozen Step-2 list, then the deletion list as pinned (§4). In every manuscript file
+  in scope, H must equal the replayed state byte for byte. Each differing hunk of raw lines yields U.
+  - A hunk is counted through the reported items whose own lines make it up. These are the H lines of
+    reported items, and the replayed lines that are a reported deleted or removed line or a
+    replay-missing item. A deletion is therefore counted once.
+  - Every other hunk is an item `BX:<file>:<line>`. This includes any blank-line or whitespace
+    difference, and any line not reported as an item.
+  - An item any of whose lines lies in a differing hunk is **U by the byte gate**. No J, no R, no
+    resolution and no binding can change that.
+- **2. The scientific classification** (J, R, J9, J10) applies only to items that pass the byte gate.
+  Such an item's H text equals the replayed text of the approved edits, so the classification
+  concerns the approved text itself, and an R resolution concerns approved text only. Because the byte
+  gate already guarantees that H equals the replay, an R resolution can never cover a head byte that
+  differs from it.
+- **3. The bytes, recorded.** For every U and every R item, `verdict.json` records the exact bytes
+  involved, H's lines and the replayed region. Each character outside printable ASCII is rendered
+  visibly as `<U+XXXX>`, and a tab or CR as `\t` or `\r`, so that a reviewer sees, for example, a
+  zero-width space, a CR or a line separator.
+
+Everything below about J, R, J9, J10 and resolutions applies within check 2. The file-level items and
+the resolution binding described below are superseded by the byte gate where the two differ.
+
 **Reported items.** Every entry whose status is not `unchanged`; every relocated entry; every
 `unaccounted` line; every `deleted` line. An entry moved within one file and otherwise unchanged is not
 reported (baseline amendment A1, R4).
@@ -425,7 +454,7 @@ All must pass, or the verdict is VOID.
 | C1 | `baseline.py check` | exit 0 (snapshot regenerates byte for byte from the pin) |
 | C2 | `baseline.py self-test` | exit 0 |
 | C3 | Baseline against itself: `baseline.py --compare 1c7eedc4…` | exit 0, a fresh `self-compare.json` with no change |
-| C4 | `verdict.py self-test` (T1–T21b, with T13b–T13i, T15b and T20d) | exit 0 |
+| C4 | `verdict.py self-test` (T1–T22, with T13b–T13i, T15b and T20d) | exit 0 |
 | C5 | Countercontrol for the comparator: H's corpus copied to a temporary directory, one unjustified value change injected (the first unchanged entry of a prediction table, the last digit of its first decimal token), compared with `--compare-tree`, classified with the same `classify.json` | a fresh `injected-compare.json` with `any_change` true reporting the entry `value changed`; the entry is U and the U count is the main U count plus one |
 | C6 | Edit inputs (§4) | (a) `compile-s2` from the records reproduces `edits-s2.json` exactly; (b) every edit is non-empty and not a no-op, of a listed unit with that unit's PR, every component from that unit's allowlisted sources; (c) the replay validation of §4 holds; (d) the landed `edits.json` blob has the approved, pinned digest `DEL_APPROVED_SHA256` (unset or different: VOID), `compile-del` reproduces `edits-del.json` exactly, the deletion commit is an ancestor of H, and the deletion edits applied to its first parent reproduce its manuscript files byte for byte. (d) is not applicable only when H is the pin |
 | C7 | Bad-citation countercontrol: in a copy of H's corpus, the first J item with an after line has one number token outside its cited edits' new strings changed (or, with none, " 0" appended), and the copy is compared and reclassified with the same edits and `classify.json` | that item becomes U, and the U count is the main U count plus one |
@@ -469,6 +498,7 @@ is refused (T20b); C0 rejects a commit that is not the pinned one (T20c).
 | Only the pinned frozen commit is accepted | C0; T20c |
 | Every reported item is classified | `items_of` coverage, unlisted means U; T2, T10 |
 | A landed reviewed change absent from H, or reverted in it, is not passed | replay-missing items; completeness; T21, T21b |
+| H equals the replay of the approved edits byte for byte, and no review can approve a difference | byte gate (U, unresolvable); T13i, T22 |
 | No difference from the replayed state anywhere in a file goes unreported, newlines included, and none is absorbed into an adjacent item | file-level exactness items (RX), root byte-identity rule; T13f, T13g, T13h; T21 |
 | The deletion edits are the approved list, independent of the head under test | `DEL_APPROVED_SHA256` in C6 (d); T15b |
 | A PASS does not settle requirement 6 | `requirement6_settled: false` and the verdict text (§6) |
@@ -514,8 +544,12 @@ checkout HEAD; a non-preparation C0 at this PR's head fails, as it must (T20c).
     (T13g);
   - a space, tab, CR, NBSP, em space or ideographic space in place of the blank line before or after
     such a line, and a swap of two adjacent lines, are each an RX item (T13h);
-  - on an R-resolved line, a CR, ZWSP, U+2028, NBSP or a second edit; a swap and a join of two
-    R-resolved lines; and a `$$` deleted next to an R-resolved line each give a U item (T13i);
+  - on a line produced by an approved edit, a CR, ZWSP, U+2028, NBSP or a second edit; a swap and a
+    join of two such lines; and a `$$` deleted next to one, each with R resolutions whose bindings are
+    copied from H, give U by the byte gate and a verdict that is not PASS (T13i);
+  - the 139 approved Step-2 edits replayed together onto the pin, each item citing its landed edits,
+    give no U (T22);
+  - an unapproved deletion of a reported line is counted once (T13f);
   - the approved-list pin: unset or altered gives VOID, approved passes (T15b);
   - the gain-rule mutant, which fails the battery on the bare footnote marker and the gain-only case
     (T13b);
