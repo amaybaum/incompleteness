@@ -2,8 +2,9 @@
 
 **Standing.** Design and preregistration of a paper investigation, authorized by owner decision
 [#1169 c.7064226074](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7064226074)
-item 3.4. The proof attempt itself is research work under that authorization. It runs no
-computation, and the small exact checks named in §4 run only once separately authorized. Object:
+item 3.4, which authorizes design, literature work and preregistration and lists P1–P3 execution as
+still gated. For this paper plan the proof attempt is its execution, so it needs separate owner
+authorization, as do the small exact checks named in §4. Object:
 Q = `R_{2^16}` on `ℤ³` at uniform backgrounds `c` (decision 3.2). Notation as in `P2-PREREG.md`.
 
 ## 1. Question
@@ -63,7 +64,7 @@ Any further lemma is stated and proved in the P3 record before it is used.
 | The scope is as stated (`q = 2^16`, `d = 3`, uniform `c`, finite perturbations) | the P3 record restates the scope on every theorem; the reviewer checks it |
 | Only the lemmas of §3 are imported | each step cites its lemma; the reviewer checks the list |
 | The countercontrol is met | the record names the step that fails for `F ≡ 2c` (P3-K1) |
-| No computation is run without authorization | P3-K4 runs only after a recorded authorization |
+| The proof attempt and any computation follow authorization | the first P3 derivation commit, and any P3-K4 run, cite a recorded owner authorization of P3 execution |
 
 ## 6. Cost class (§A.40)
 

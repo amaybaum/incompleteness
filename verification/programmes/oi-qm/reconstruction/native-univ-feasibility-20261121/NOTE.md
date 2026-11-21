@@ -174,7 +174,7 @@ configurations.
 | Toffoli–Margolus 1990, Physica D 45, 229–253, §5.4 [LIT-R] | second-order technique | eq. (15) `q_i^{t+1} = f q_{i+X}^t − q_i^{t−1}`; eq. (17) as an ordinary CA on `A × A` | any | from any CA one obtains an invertible second-order CA; the historical section recalls Toffoli's 1977 embedding theorem and Morita–Harao | confirms the form; no universality result for a restricted neighbourhood |
 | Toffoli 1977, JCSS 15, 213–231 [LIT-B, via the 1990 review] | reversible CAs | general (not second-order) | `d + 1` dimensions to embed a `d`-dimensional CA | proved: computation- and construction-universal reversible CAs exist (every universal `d`-dimensional CA embeds in a reversible `(d+1)`-dimensional one) | existence for reversible CAs in `d ≥ 2`; neighbourhood and form not OI's |
 | Morita–Harao 1989, Trans. IEICE E72(6), 758–762 [LIT-B] | one-dimensional reversible CAs | via 1-D partitioned CAs (PCA), in which local injectivity equals global reversibility | 3-neighbour (radius 1); the state set depends on the simulated reversible TM | proved: 1-D reversible CAs are computation-universal (answers Toffoli's question) | partitioned, not second-order; no fixed alphabet |
-| Morita–Ueno 1992, IEICE Trans. Inf. & Syst. E75-D(1), 141–147 [LIT-R] | 2-D reversible PCAs, `2RPCA(4)` | partitioned, first-order: Def. 2.1 (p. 142), `F_P(c)(i,j) = f_P(DOWN(c(i,j+1)), LEFT(c(i+1,j)), UP(c(i,j−1)), RIGHT(c(i−1,j)))` | 16 states, `U = R = D = L = {0, 1}` (p. 143); four neighbours, the facing part of each; no part of the cell's own state is read | construction: Fredkin gate realized (§4); Model 1 is "conservative, isotropic and symmetric", Model 2 "conservative and isotropic but not symmetric" (p. 141). In Model 1 a signal is two black parts, a mirror is two consecutive stable blocks, and an I-gate is "realized by colliding two signals at right angles" (p. 144) | nearest-neighbour and centre-free like the narrow class, but first-order and partitioned; Lemma 2.2 (p. 142) makes it a standard 4-neighbour CA. Comparison only; target of P1's paper task |
+| Morita–Ueno 1992, IEICE Trans. Inf. & Syst. E75-D(1), 141–147 [LIT-R] | 2-D reversible PCAs, `2RPCA(4)` | partitioned, first-order: Def. 2.1 (p. 142), `F_P(c)(i,j) = f_P(DOWN(c(i,j+1)), LEFT(c(i+1,j)), UP(c(i,j−1)), RIGHT(c(i−1,j)))` | 16 states, `U = R = D = L = {0, 1}` (p. 143); four neighbours, the facing part of each; no part of the cell's own state is read | construction: Fredkin gate realized (§4); Model 1 satisfies conservativity, isotropy and symmetry as well as reversibility, Model 2 "conservative and isotropic but not symmetric" (p. 141). In Model 1 a signal is two black parts, a mirror is two consecutive stable blocks, and an I-gate is "realized by colliding two signals at right angles" (p. 144) | nearest-neighbour and centre-free like the narrow class, but first-order and partitioned; Lemma 2.2 (p. 142) makes it a standard 4-neighbour CA. Comparison only; target of P1's paper task |
 | Morita 2007, J. Cellular Automata 2 [LIT-B] | 1-D reversible CAs | partitioned | 36 states (infinite configurations, cyclic tag systems); 98 states (finite configurations, with halting) | construction | same |
 | Durand-Lose 1997, STACS, LNCS 1200, 439–450 [LIT-B] | 1-D reversible CAs | partitioned | — | an intrinsically universal 1-D reversible CA | notion stronger than computation universality |
 | Kari 1996, Math. Systems Theory 29, 47–61; Durand-Lose 2001, DMTCS [LIT-B] | all reversible CAs | block permutations | — | every `d`-dimensional reversible CA is a composition of block permutations (`d + 1` of them in Durand-Lose 2001) | a possible route to a Goal-A comparison model: §3.1's half-steps are block permutations of a special kind (§5 P1) |
@@ -289,13 +289,18 @@ site is kicked and a disturbance leaves (U2 D1, AW-UNIV-3). Two consequences fol
 Every breach observed so far grows (MQ X2), but none of these observations is a proof. This is
 the decisive question for Q in §4.
 
-**Lemma NU2 (finite perturbations: periodic or unbounded) [W].** Let `c` be a uniform background
-(a fixed point of `R_q`) and let a two-slice configuration differ from `(c, c)` on a finite set.
+**Lemma NU2 (finite perturbations: periodic or unbounded) [W].** Hypotheses: a reversible
+(bijective) global map `Φ`, a finite alphabet, and a fixed-point background. For `R_q` all three
+hold: `Φ` is bijective (second-order form), the alphabet is `ℤ/q`, and every uniform `c` is a fixed
+point at `d = 3`, since `⌊(6c + 1)/3⌋ = 2c`. Let a two-slice configuration differ from `(c, c)` on
+a finite set.
 If the supports of `x_{t−1}, x_t` (the sites differing from `c`) stay inside one finite set `B` for
 all `t ≥ τ`, then the orbit is periodic, and the supports lie in `B` for every `t ∈ ℤ`.
 *Proof.* For `t ≥ τ` the state lies in the finite set of two-slice configurations equal to `c`
-off `B`, so `s_{τ+P} = s_{τ}` for some `P ≥ 1`. The global map `Φ` is a bijection, so
-`Φ^P(s_t) = s_t` for every `t`, including `t < τ`, and `s_t = s_{t+kP}` with `t + kP ≥ τ`. ∎
+off `B` (finite alphabet), so by pigeonhole `s_{τ+a} = s_{τ+b}` for some `0 ≤ a < b`. Since `Φ` is
+injective, cancelling `Φ^a` gives `s_{τ+P} = s_τ` with `P = b − a ≥ 1`. Then `Φ^P(s_t) = s_t` for
+every `t`, including `t < τ` (again by injectivity, `s_t = Φ^{t−τ} s_τ`), and `s_t = s_{t+kP}` with
+`t + kP ≥ τ`. Without injectivity only eventual periodicity follows. ∎
 This is the elementary fact that a finite orbit of a bijection is periodic, applied to a reversible
 CA with a fixed-point background [LIT2: standard]. MQ4 is its special case for confined classes.
 *Consequence for "healing" [W].* A finite configuration cannot breach and then stay confined in

@@ -2,7 +2,9 @@
 
 **Standing.** Design and preregistration only, authorized by owner decision
 [#1169 c.7064226074](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7064226074)
-item 3.4. Execution (the census) is not authorized. P1 concerns comparison models only: no rule
+item 3.4. Execution is not authorized: neither the census nor the P1-Q2 work beyond this design.
+Item 3(b) places a paper design in step 1. This file is that design, and carrying out P1-Q2 (working
+out the encoding and simulation argument) is P1 execution, gated with the census. P1 concerns comparison models only: no rule
 found here replaces OI's native rule, and a universal member found here would not establish
 universality of `R_q` (NOTE §4). A rule change would be a Layer-0 revision under §A.29.
 Definitions (narrow class, staggered involution rule, NU1) are those of `NOTE.md` §3.1.
@@ -17,8 +19,8 @@ different from the inputs? The search set is frozen in §2.
 
 **P1-Q2 (paper design).** Is there a finite `q`, a narrow-class `F` on `ℤ²`, and an explicit
 encoding under which the staggered rule simulates Morita–Ueno Model 1, the 16-state `2RPCA(4)`
-of Def. 2.1 (p. 142), step for step with a constant slowdown? Model 1 reads, for each cell, only
-the facing part of each of its four neighbours, as the narrow class does. It differs in being
+of Def. 2.1 (p. 142), step for step with a constant slowdown? Model 1 reads, for each cell, its
+four neighbours only (the facing part of each), as the narrow class reads its neighbours only. It differs in being
 first-order and partitioned (`NOTE.md` §2). The deliverable is a written design and a list of
 obstructions met. Building or testing the model needs step-2 authorization (decision 3(b)).
 

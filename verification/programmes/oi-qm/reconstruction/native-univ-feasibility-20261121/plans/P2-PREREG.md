@@ -10,8 +10,10 @@ MQ2); NU2 = `NOTE.md` §3.2.
 ## 1. Question
 
 Among the finite configurations of §2, are there orbits that are **periodic with an excursion**?
-Such an orbit has bounded support (so it is periodic, by NU2), and at some tick the instantaneous
-closed hull `cl₂(supp)` has a boundary-layer value outside `[c−1, c+1]`.
+Such an orbit has bounded support (so it is periodic, by NU2), and at some tick `t` the instantaneous
+closed hull `D_t = cl₂(supp(x_{t−1}) ∪ supp(x_t))` has a boundary-layer site whose *current-slice*
+value `x_t` lies outside `[c−1, c+1]`. This is MQ2's hypothesis, which restricts only the current
+slice; out-of-range previous-slice values alone are not an excursion.
 
 **Why it matters.** By NU2, a finite configuration cannot breach and then stay confined in a set it
 had escaped, so "bounded breach" for a finite gadget means exactly this. A periodic orbit with an
@@ -52,7 +54,7 @@ from the counts. If any control in §4 is not green, no verdict is printed.
 | P2-K1 | sharpness of the breach test | MQ1's converse re-run exhaustively (all `q` values of the one perturbed neighbour) at `c = 2^15` |
 | P2-K2 | known P without excursion | a ternary singleton `(a, b) ∈ {−1,0,1}² ∖ {(0,0)}` is P, period 4, no excursion (U1 E3, MQ5) |
 | P2-K3 | known breach | a singleton with current value `c + 2` (MQ CC5) has an excursion at tick 0, and is classified G or U, never P without the flag |
-| P2-K4 | countercontrol for G | the linear member `L_{2^16, 3^{−1}}` from the singleton seed `(0, 1)` is G (it spreads at once, U2 N4); this shows the G test fires |
+| P2-K4 | countercontrol for G | the linear member `L_{2^16, 3^{−1}}` from the singleton seed `(0, 1)` on the uniform background `0` (a fixed point of the linear rule) is G (it spreads at once, U2 N4); this shows the G test fires |
 | P2-K5 | countercontrol, background | the seed `(0, 1)` on the vacuum `c = 0` is G (U1 C2: support radius `t − 2` for `3 ≤ t ≤ 20`) |
 | P2-K6 | excursion detector | synthetic histories with and without an excursion are classified correctly. This calibrates the implementation only: no in-rule periodic orbit with an excursion is known in advance, so a zero P-exc count is calibrated only by K6 and K3 |
 | P2-K7 | no wrap-around | a seeded sample of 200 configurations, re-run on a torus four sites larger, gets the same class and the same first-event tick |
