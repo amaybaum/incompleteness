@@ -30,7 +30,9 @@ separately.
     in two cases, both for a **nonsingular** bijection with C_V finite:
     - Proposition D, for a normal hidden state;
     - Remark D′, which is Proposition D's setting with the normality of ω dropped. It allows a
-      single, possibly non-normal, hidden state, applied last, with all other appends normal.
+      single, possibly non-normal, hidden state ω. When ω is appended, the coexisting algebra is
+      ℓ^∞ of a countable set, so no diffuse hidden factor is present. Every appended state after
+      it is normal.
 
     Singular bijections are covered by neither and remain pending (Conjecture D″, which is
     independent of D′).
@@ -57,8 +59,10 @@ separately.
   "non-monomial" their meaning.
 - Countable carriers for A′, B and C. For Proposition D: a nonsingular measurable bijection on a
   standard measure space, a normal hidden state and C_V finite. For Remark D′: the same premises
-  with normality dropped, namely nonsingularity, C_V finite, and a single non-normal hidden state
-  applied last (later appends normal), with the algebraic lift of that state.
+  with normality dropped. That means nonsingularity, C_V finite, exactly one possibly non-normal
+  hidden state, and the algebraic lift of that state. When it is appended, the coexisting algebra
+  is ℓ^∞ of a countable set, with no diffuse hidden factor present. Every append after it is
+  normal.
 - For B and C, fixed coherent resource states (imported).
 - **R-READ** (an Assumed reading of READ, #1501): every native readout effect lies in the
   configuration algebra (ℓ^∞ or L^∞).
@@ -250,7 +254,7 @@ X; ELABORATING; proof due to the review sketch, written out here and pending rev
 4. **Appending ω.** The dual is the normal slice map id ⊗ ω. It sends M_f, with f ∈
    ℓ^∞(C_V) ⊗̄ L^∞(H), to the multiplication operator v ↦ ω(M_{f(v,·)}) in ℓ^∞(C_V). Normality
    is used for the slice on the von Neumann tensor product. With C_V finite it is not needed for a
-   single hidden state applied last (Remark D′).
+   single hidden state appended while no diffuse hidden factor is present (Remark D′).
 5. **Feedforward.** Feedforward on configuration records is a direct sum over 𝒜-projections.
 6. **Postselection.** Sub-instruments keep the property branchwise.
 7. **Conclusion.** Induction gives Φ*(|i⟩⟨i|) ∈ ℓ^∞(C_V), so Φ is DIO on the finite visible space.
@@ -271,13 +275,17 @@ readouts as in D; X; pending independent re-review).**
 
 Finiteness of intermediate visible ancillas is not used. Countability of the hidden index set is not
 used either: H is a measure space. ω is a **single** state on B(L²(H)) of the whole hidden carrier,
-not necessarily normal, appended at one point. Every other appended state, before or after it, is
-normal: a configuration state or a fixed normal ω′.
+not necessarily normal, and it is the only such state. **When ω is appended, the coexisting algebra
+is ℓ^∞ of a countable set:** visible configurations and ancillas, or configuration states on a
+countable hidden set. No diffuse hidden factor is present then. **Every appended state after it is
+normal:** a configuration state or a fixed normal ω′.
 
-The restriction to one non-normal state applied last in the Heisenberg composition is used. A
-second non-normal ω₂ appended while an infinite hidden factor H₁ is present would need
-id ⊗ ω₂ on L^∞(H₁) ⊗̄ L^∞(H₂), which is not defined for non-normal ω₂. A product of two non-normal
-states also has no canonical extension to B(L²(H₁) ⊗ L²(H₂)).
+The condition at the append is used. Suppose a diffuse hidden factor H₁ is present when ω is
+appended, whatever H₁'s state. Then σ_ω would have to act on L^∞(H₁) ⊗̄ L^∞(H), which is not
+defined for non-normal ω. For a discrete X, ℓ^∞(X) ⊗̄ L^∞(H) admits the pointwise slice
+x ↦ ω(f_x). Normal appends after ω are harmless: their slices act after σ_ω in time, which is
+before it in the Heisenberg order. A product of two non-normal states also has no canonical
+extension to B(L²(H₁) ⊗ L²(H₂)).
 
 *Definitions.*
 - For f ∈ ℓ^∞(C_V) ⊗̄ L^∞(H) = ⊕_v L^∞(H) (a finite direct sum, since C_V is finite), f_v ∈ L^∞(H)
@@ -289,24 +297,30 @@ states also has no canonical extension to B(L²(H₁) ⊗ L²(H₂)).
   state.
 
 *Proof (full induction).*
-1. **The hidden-state-free part.** Write the protocol's Heisenberg dual as Φ_eff* = σ_ω ∘ Ψ*, where:
-   - σ_ω is the slice by ω at the point where ω is appended;
-   - Ψ* is the dual of every other step: the steps after the append, and the normal appends and
-     steps before it, which compose on the visible-and-normal side.
-2. **Ψ* stays in the configuration algebras.** D's steps 1 (Koopman, by nonsingularity), 2
+1. **Factorization.** Split the protocol at the append of ω into Ψ_pre (the steps before it) and
+   Ψ_post (the steps after it). The Heisenberg dual is
+   **Φ_eff* = Ψ_pre* ∘ σ_ω ∘ Ψ_post***, where:
+   - Ψ_post* is the dual of the steps after the append;
+   - σ_ω is the slice by ω;
+   - Ψ_pre* is the dual of the steps before it.
+2. **Ψ_post* stays in the configuration algebras.** D's steps 1 (Koopman, by nonsingularity), 2
    (readouts on countable partitions), 3 (discard), 5 (feedforward) and 6 (postselection) use no
-   normality. D's step 4 with a normal state also maps configuration algebras into configuration
-   algebras. By induction over the steps, Ψ* maps ℓ^∞(C_V,out) into ℓ^∞(C_V,in) ⊗̄ L^∞(H) =
-   ⊕_v L^∞(H).
-   - The countable sums inside Ψ* converge as in D, since ω is applied only once, at the end of the
-     Heisenberg composition.
-3. **The non-normal slice.** σ_ω(f) := (ω(f_v))_v is defined on the finite direct sum for any
-   positive ω. It maps ⊕_v L^∞(H) into ℓ^∞(C_V) and is unital and positive. Since ℓ^∞(C_V) is
-   abelian, it is completely positive.
-4. **The effective map.** Φ_eff* = σ_ω ∘ Ψ* is a ucp map on finite matrices (C_V finite at both
-   ends). It sends |i⟩⟨i| to a diagonal matrix, for example Σ_v ω(M_{g_v})|v⟩⟨v| for one Koopman
+   normality. D's step 4 with the normal appends after ω also maps configuration algebras into
+   configuration algebras. By induction over these steps, Ψ_post* maps ℓ^∞(C_V,out) into
+   ℓ^∞(X) ⊗̄ L^∞(H), where X is the countable configuration set coexisting with ω at the append.
+   The countable sums converge as in D.
+3. **The non-normal slice.** σ_ω(f) := (ω(f_x))_x is the pointwise slice over the countable index
+   x ∈ X. X covers C_V × (ancilla configurations) when visible ancillas are present at the append.
+   It is defined for any positive ω, maps ℓ^∞(X) ⊗̄ L^∞(H) into ℓ^∞(X), and is unital and
+   positive. Its range is abelian, so it is completely positive.
+4. **The pre-append part.** Ψ_pre* involves no diffuse hidden factor and only configuration
+   operations, so it maps ℓ^∞(X) into ℓ^∞(C_V,in) and is ucp. "ω is applied only once" is then
+   exact: σ_ω is the unique non-normal slice, and it is followed in the Heisenberg order only by
+   Ψ_pre*.
+5. **The effective map.** Φ_eff* = Ψ_pre* ∘ σ_ω ∘ Ψ_post* is a ucp map on finite matrices (C_V
+   finite at both ends). It sends |i⟩⟨i| to a diagonal matrix, for example Σ_v ω(M_{g_v})|v⟩⟨v| for one Koopman
    step. So Φ_eff is a genuine DIO channel M_n → M_n, every state of which is normal.
-5. **Conclusion.** Theorem B(i) and (ii), and Theorem C(b), apply verbatim to Φ_eff, including the
+6. **Conclusion.** Theorem B(i) and (ii), and Theorem C(b), apply verbatim to Φ_eff, including the
    diamond-norm bound with W on ℂ^{C_V}. Only D's step 4 changes; the remaining steps are
    normality-free. ∎
 
@@ -421,10 +435,11 @@ shows the converse gap: coherent dynamics can be efficiently classically simulab
 D-W's sketch.
 
 **INCONCLUSIVE, with the missing premise named.**
-- **U1′ (narrowed, pending two reductions).** The detection half is settled in three cases:
+- **U1′ (narrowed; the cases listed).** The detection half is settled in three cases:
   - Proposition D: nonsingular measurable bijections with normal hidden states;
-  - Remark D′: Proposition D's setting (nonsingular bijection, C_V finite) with one possibly
-    non-normal hidden state applied last, other appends normal;
+  - Remark D′: Proposition D's setting (nonsingular bijection, C_V finite) with exactly one
+    possibly non-normal hidden state. No diffuse hidden factor may be present when it is appended,
+    and every append after it must be normal;
   - `Main:338`: classical laws.
 
   What remains INCONCLUSIVE:
@@ -433,8 +448,9 @@ D-W's sketch.
     established, suggests this is narrower than it looks. For countable C_V and normal visible ρ
     the joint state is defined for any ω, and it gives Σ_v ρ_vv ω(f_v). What can fail is that the
     output visible marginal is non-normal, which would need a state-space form of the bound;
-  - (iii) more than one non-normal hidden state, or a non-normal state followed by a coupling to
-    a further infinite hidden factor (outside D′);
+  - (iii) more than one non-normal hidden state, or a non-normal state appended while a diffuse
+    hidden factor is present (outside D′). A later normal diffuse factor coupled by a Koopman step
+    is covered by D′;
   - (iv) whatever fails in the reduction of (i).
 
   It is **not** claimed that the lift is undefined in these cases.
