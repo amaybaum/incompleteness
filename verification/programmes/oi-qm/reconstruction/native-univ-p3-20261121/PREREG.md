@@ -130,7 +130,7 @@ Notation: `N(t)` is the no-input orbit of a gadget `g` (period `P`); `S(t)` the 
 | K9 | signal-away | run for every T or T-STATEFUL case (R6) |
 | K10 | sector control (n3), informative | the K3 run is also classified against the closed hull `D`, and the first breach tick of `D`, if any, is reported beside K3's first LEAK tick. A LEAK earlier than any breach shows that in-sector ternary spreading is caught by LEAK and would be missed by a breach-only test of `cl₂`. K10 does not void the run |
 | K11 | line-end consistency | truncated W2 lines with no signal and no gadget stay exactly 4-periodic for `T_max` ticks |
-| K12 | countercontrol for the period test (R1′) | J1, empty gadget, with a W2 signal launched on A *away* from the junction, treated as a no-input orbit. `K_r` stays at 0 and the line phase returns at `t = 4`, so a test on (`K_r`, phase) alone would report period 4. The full-state test must not report a return; the required outcome is Q-EMIT |
+| K12 | countercontrol for the period test (R1′) | the collinear geometry of K1 (B continues A along `e₁`), `r = 2`, empty gadget, treated as a no-input orbit. The U2 K0 defect has its whole window on line sites at distances 1–4 from the core, inside `Z_2`, and is oriented to move away from the core. By U1 Lemma 2.2 the off-line sites, including all of `K_2`, stay at `c`; the line background returns in phase at `t = 4`; the defect has moved about one site and is still inside `Z_2`. Two requirements: (i) the reduced test on (`K_r` values, phase) alone reports a return, period 4, at `t = 4`, which shows the false period is real; (ii) the full-state test reports no return at any tick before the defect leaves `Z_2`, and then Q-EMIT. Failure of (ii) at `t = 4` is exactly the error R1′ targets |
 
 ## 5. Decision rule (fixed now; the verdict text is generated from the counts)
 
@@ -170,7 +170,9 @@ Notation: `N(t)` is the no-input orbit of a gadget `g` (period `P`); `S(t)` the 
   at the standing of an exact computation plus the written certificate. It is decision-relevant:
   it would be the first native transfer block.
 - **H0 for `𝒞`, which is narrow.** It means no leak-free controlled transfer among:
-  - planar ternary gadgets on `K_r` with `r ≤ 2`, at J1 (both radii) and J2 (radius 1);
+  - planar ternary gadgets on `K_r` with `r ≤ 2`, at J1 (both radii) and J2 (radius 1), whose
+    no-input orbit is leak-free, returns exactly on the full read-zone state, and does not emit
+    along a line (Q-LEAK and Q-EMIT gadgets are excluded);
   - W2 signals at a single launch distance, on the designed background `c = 2^15`;
   - every no-input period and every relative arrival phase.
 
