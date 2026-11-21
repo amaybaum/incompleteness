@@ -24,6 +24,14 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# A new push to a pull request's head branch supersedes the pull_request runs still queued or in
+# progress for that pull request, which are cancelled. Runs for other pull requests, pushes to main and
+# workflow_dispatch runs (the exact-head attestations of AGENTS.md §A.39) each get a group of their own
+# (keyed by run id) and are never cancelled by this block.
+concurrency:
+  group: ${{ github.event_name == 'pull_request' && format('verify-pr-{0}', github.event.pull_request.number) || format('verify-run-{0}', github.run_id) }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   kernel:
     name: Lean kernel check
