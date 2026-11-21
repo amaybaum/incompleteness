@@ -26,8 +26,10 @@ separately.
       depends on an off-diagonal entry of its input.
   - Control, feedforward, configuration readout, randomness, size and depth cannot replace either
     element.
-  - The bound holds on countable carriers, and on measurable carriers for the detection half
-    (Proposition D, under nonsingularity and normality).
+  - The bound holds on countable carriers. On measurable carriers it holds for the detection half
+    in two cases: Proposition D, for a nonsingular bijection and a normal hidden state; and
+    Remark D′, for **any** hidden state, normal or not, whenever the visible carriers are finite.
+    Singular bijections remain pending (Conjecture D″).
   - The pair is tight. One-bit teleportation (§4, CC-1) realizes Hadamard exactly with one creator
     (a |+⟩ ancilla) and one detector (a destructive ⟨±| readout). Everything else in it is native.
 - **Native status**, (N) as algebra and (I) on KIN, conditional on R-READ: OI's stated
@@ -41,7 +43,7 @@ separately.
     state and an infinite visible carrier. Two reductions are pending (§6).
 
 **Established.**
-- Lemma C; Theorems A′, B and C; Proposition D. All are layer X.
+- Lemma C; Theorems A′, B and C; Proposition D; Remark D′ (pending review). All are layer X.
 - Countercontrol CC-1 (X).
 - The route classification (X and P).
 - §5's native-membership check (P), with kernel citations at their finite scope.
@@ -50,7 +52,8 @@ separately.
 - **KIN**, the Born-form representation on configurations (decision 4). It gives "coherence" and
   "non-monomial" their meaning.
 - Countable carriers for A′, B and C. For Proposition D: a nonsingular measurable bijection on a
-  standard measure space and a normal hidden state.
+  standard measure space and a normal hidden state. For Remark D′: finite visible carriers and the
+  algebraic lift; normality is not needed.
 - For B and C, fixed coherent resource states (imported).
 - **R-READ** (an Assumed reading of READ, #1501): every native readout effect lies in the
   configuration algebra (ℓ^∞ or L^∞).
