@@ -1,12 +1,13 @@
 # A1-EXIT Step 2, unit S2-A (lattice qualifications): result
 
 **Status.** Writer's manuscript-correction record. The edits of `PREREG.md` (pushed at `940dde6c1`
-before any manuscript edit) are applied verbatim in `e414d1c24`; amendment 1 (`66bae3100`, appended
-before its edit) is applied in `083e13db2` (deviation D1, §5); amendment 2 (`47812024a`, appended
-before its edits, answering the round-1 review) is applied in `8b77e78f5` (deviations D2, D3); amendment 3 (`a951e63d1`, pushed before its edits)
-is applied in `d87cdc2a5` (deviation D4), with the coverage-ledger fingerprint of SM:T-13 re-affirmed.
-The Status line's "no … registry edit" excepts that one coverage-ledger entry. No Lean, registry, ledger or Q1 record
-edit; no merge; no workflow dispatch. Round-1 independent review: REVISE (§7).
+before any manuscript edit) are applied verbatim in `e414d1c24`. Amendments, each pushed before its
+edits: amendment 1 (`66bae3100`) applied in `083e13db2` (D1); amendment 2 (`47812024a`, round-1
+review) in `8b77e78f5` (D2, D3); amendment 3 (`a951e63d1`) in `d87cdc2a5` (D4); amendment 4
+(`3830adfa5`, round-2 review) in `dc058fd11` (D5). The PREREG body above the amendments is
+byte-identical to its text at `940dde6c1`. No Lean, census-registry or A1-EXIT-ledger edit apart from
+the SM:T-13 coverage-ledger re-affirmation; no Q1 record edit; no merge; no workflow dispatch. Review:
+round 1 REVISE, round 2 ACCEPT-WITH-NITS (§7).
 
 **Authorization.** Owner `amaybaum`, #1169 comment 7056875845 (2026-11-21), unit S2-A. Q1's E5 is
 skipped by the same decision. A1 and Main ledger item (ii) are untouched.
@@ -24,7 +25,7 @@ unchanged by the edits (each is an in-line replacement), so every site keeps its
 ## 1. Edits as applied
 
 The exact old and new strings are in `PREREG.md` and `checks/s2a_edits.json`. `checks/s2a_check.py`
-exits 0 in default mode at `d87cdc2a5` (17 base entries, 3 amending entries; amended texts checked): every new string occurs exactly once in its file and in its
+exits 0 in default mode at `dc058fd11` (17 base entries, 5 amending entries; amended texts checked): every new string occurs exactly once in its file and in its
 mirror, and no old string survives outside its own new string.
 
 | Id | Site (line after edit) | Ledger row | Source |
@@ -42,10 +43,10 @@ mirror, and no old string survives outside its own new string.
 | A4-Sub157 | Sub:157 | X-41 via X-40 | X-40's A4 restatements (Q1 §6); X-41 "covered by X-40's A4 restatement" |
 | A4-ch02-96 | ch02:96 = FULL:726 | X-41 via X-40 | as above (book) |
 | A4-ch19-198 | ch19:198 = FULL:5268 | X-40 | X-40 site column; PREREG amendment 1 (D1) |
-| C13-SM543 | SM:543 (Theorem 13 statement) | X-43 | Q1 §3 C13; PREREG amendment 3 (D4) |
-| C13-ch05-164 | ch05:164 = FULL:1479 | X-43 | book restatement of Theorem 13's Schur-complement step; amendment 3 (D4) |
+| C13-SM543 (+ C13-SM543-am4) | SM:543 (Theorem 13 statement) | X-43 | Q1 §3 C13; PREREG amendments 3 (D4) and 4 (D5) |
+| C13-ch05-164 (+ C13-ch05-164-am4) | ch05:164 = FULL:1479 | X-43 | book restatement of Theorem 13's Schur-complement step; amendments 3 (D4) and 4 (D5) |
 
-17 base edits at 24 locations (7 book edits mirrored into FULL), plus 3 amending edits. A4 restatement: ℤ^d is printed as "the
+17 base edits at 24 locations (7 book edits mirrored into FULL), plus 5 amending edits. A4 restatement: ℤ^d is printed as "the
 discrete lattice … as the standard construction, distinct from a continuous space"; the finite
 periodic quotient ℤ^d/P is "admitted as a qualified case, under the conditions on P stated with each
 result that uses it" (Sub cites [SM §4.1], where E1 states them). No edited sentence calls a finite
@@ -54,7 +55,7 @@ second sense, the side-≥3 independence example (a finite example, true as stat
 untouched. One edited sentence states a consequence of Theorem 13: SM:1532 ('t Hooft anomaly matching
 from Theorems 13 and 15 under H-χ'). Its quotient qualification carries C13's period condition
 `P ⊂ 2ℤ^3` (D2). X-43's further C13 condition (bounded invertibility of an off-diagonal hidden block
-on ℓ² of the odd sublattice; nothing extra in the site-diagonal free and onsite case) is stated in
+on ℓ² of the odd sublattice; in the site-diagonal free and onsite case, nonzero diagonal entries) is stated in
 Theorem 13 at SM:543 and in the book's restatement at ch05:164 = FULL:1479 (D4); SM:1532 and ch19:252
 cite Theorem 13 and inherit it.
 
@@ -110,14 +111,14 @@ text is confirmed by `s2a_check.py`.
 |---|---|
 | `sh ./build.sh SM Substratum` | OK; SM 148 pages (base 148), Substratum 54 (base 53); no dropped glyphs (SM rebuilt after amendment 2, same figures) |
 | `sh ./build.sh --book` | OK; 489 pages (base 489); no dropped glyphs (also after amendments 1 and 2) |
-| median characters per page (pdftotext -layout) | SM 3130 (base 3153), Substratum 3189 (3240), FULL 2997 (2998); after amendments 1–3: SM 3145, FULL 2991 |
-| `python3 tools/coverage_check.py` | OK (132 canonical statements). Amendment 3 moved SM:T-13's fingerprint (63d989dbd0f92597 → ac3b421cbb83947d); the entry was re-read and re-affirmed in `verification/coverage/LEDGER.json` (same checks, level P, delta "no Lean statement"; the condition added to its assumptions) |
+| median characters per page (pdftotext -layout) | SM 3130 (base 3153), Substratum 3189 (3240), FULL 2997 (2998); after amendments 1–4: SM 3145, FULL 2991 |
+| `python3 tools/coverage_check.py` | OK (132 canonical statements). Amendments 3 and 4 moved SM:T-13's fingerprint (63d989dbd0f92597 → ac3b421cbb83947d → 23e91a0f911eabb8); the entry was re-read and re-affirmed in `verification/coverage/LEDGER.json` (same checks, level P, delta "no Lean statement"; the conditions added to its assumptions) |
 | `python3 tools/lean_manuscript_census.py` | OK |
 | `python3 tools/artifact_placement_check.py` | OK |
 | `python3 tools/legacy_records_check.py <head>` | UNDECIDABLE locally (shallow repository); no legacy record touched; CI decides |
 | added-line register scan (§A.32, §A.33) | no history phrase, reader instruction or caps emphasis |
 | `checks/s2a_check.py` (default) | PASS |
-| `checks/s2a_check.py --apply` on the base files (`1c7eedc40`) | reproduces the head's seven manuscript files byte for byte |
+| `checks/s2a_check.py --apply` on the base files (`1c7eedc40`) | reproduces the head's seven manuscript files byte for byte (re-run after amendment 4) |
 
 ## 5. Deviations from PREREG
 
@@ -147,6 +148,13 @@ text is confirmed by `s2a_check.py`.
   and ch19:252 cite Theorem 13 and are not edited. Amendment 3 was pushed (`a951e63d1`) before the
   edits (`d87cdc2a5`).
 
+- **D5 (amendment 4, round-2 review N-a): the site-diagonal case.** Amendment 3 said the Schur
+  complement "needs no further condition" when the hidden block is site-diagonal. Q1 C13 takes
+  `G_oo` as the pointwise inverse "wherever that is nonzero", so SM:543 states that this case needs
+  nonzero diagonal entries (on the free substratum the time term `2 cos ω`, zero at `ω = π/2`). The
+  book's restatement at ch05:164 = FULL:1479 already named the pointwise inverse and gains the same
+  nonzero requirement, so the two agree.
+
 Every other edit was applied as preregistered, at the preregistered line.
 
 ## 6. Off-`main` references (§A.42 item 8)
@@ -169,6 +177,6 @@ at the base and is cited as it stands there.
   and owner-accepted, Q1 §11) and from the owner's A4 decision, with mechanical checks (§4). The
   mathematical content (Q1's per-consumer conditions) is Q1's, at Q1's evidence level; nothing here
   adds or strengthens a result.
-- **Review.** Round 1 at `88b70e0f`: REVISE (B1, N1), recorded on #1470 and answered by amendment 2. **Missing.** A delta review of amendments 2 and 3.
+- **Review.** Round 1 at `88b70e0f`: REVISE (B1, N1), recorded on #1470 and answered by amendment 2. Round 2 at `85ec61cc`: ACCEPT-WITH-NITS (N-a, N-b, N-c), answered by amendment 4, the restored PREREG rules line and the Status line. **Missing.** Confirmation of the round-2 nits.
 - **Accountable Issue.** #1169 (A1-exit). **Resolution.** A review recorded on the guiding PR, then a
   separate owner merge decision.
