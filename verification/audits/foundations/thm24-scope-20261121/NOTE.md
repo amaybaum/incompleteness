@@ -459,7 +459,9 @@ here (#1169 c.7064226074, item 1); the frozen edits are not amended without sepa
 #1477's frozen `preserve_check.py` checks each ledgered file's base hash and its frozen splice spans.
 A correction landing first moves those spans: the independent review counted 60 failing splices on
 #1494's tree, 62–63 on #1492's and 25 on #1493's. Landing one first would invalidate #1477's frozen
-plan, T0 and its preserve check. The SC-42 result file is not a constraint of its own. With #1477's
+plan, T0 and its preserve check. After #1477 lands, each correction is refreshed and revalidated against the
+resulting `main`; its current review does not authorize merging against the changed base, which
+needs separate owner approval. The SC-42 result file is not a constraint of its own. With #1477's
 edits and P2 both applied, its change is exactly the union of the two (confirmed by review), and the
 later landing regenerates it on the merged tree.
 
