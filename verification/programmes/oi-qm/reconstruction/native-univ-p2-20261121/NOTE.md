@@ -343,24 +343,31 @@ The native rule is not settled by NU8 or by any comparison model.
 
 ## 4a. (N)/(I) classification and Established / Assumed / Missing
 
-The standard is [#1169 c.7064859041](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7064859041) ("Governing standard: the (N)/(I) classification"). That post does not spell
-out the letters. This record reads them as follows; the owner may correct the reading.
-- **(N):** a statement about OI's native rule `R_q` (here Q), resting only on its published
-  definition and on results on `main`.
-- **(I):** a statement that imports an assumption, or concerns an object that is not the native
-  rule.
+**Definition** (owner, [#1169 c.7064843184](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7064843184) and [#1169 c.7064859041](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7064859041)). The label records the assumptions a result rests on, not
+where the result is stored.
+- **(N):** a theorem proved from OI's native assumptions.
+- **(I):** a conditional theorem that requires imported quantum or operational assumptions. Each
+  imported assumption is named.
 
-The labels apply to individual results.
+Review and `main` status are recorded separately in the Status column.
 
-| Result | Label | Established | Assumed (where it enters) | Missing (earliest unsupported step; kind) |
-|---|---|---|---|---|
-| NU3 | (N) | For finite perturbations of a uniform background of Q: periodic ⇔ bounded support over `t ≥ 0` ⇔ confined at every tick in one finite closed set with in-range boundary. Written proof, cycle (a)⇒(c)⇒(b)⇒(a) | MQ1's converse [R] in (a)⇒(c); F1 NU2 [W-rev] in (b)⇒(a); reversibility, the finite alphabet and the fixed-point background (NU2's hypotheses) | independent review of this record; none within the statement |
-| NU4, NU4′ | (N) | For any closed `D`, finite or infinite, with the complement at `c`: no breach at `t` ⇔ complement still at `c` at `t + 1` | MQ1 and its converse [R], at the closed set's boundary; current-slice breach as in MQ2 | review; none within the statement |
-| NU5 | (N) | Relative to the allowed closed region `D`, no breach heals without radiation; a radiation-free transit is exactly a never-breached `D` | NU4′ | it does not settle Q: whether a controlled transfer exists inside some never-breached `D = cl₂(lines ∪ R)` (mathematics) |
-| NU6 | (N) | In a confined transit, `∂D` stays in range and `|S| ≤ 7` on `∂D`; a planar confined transit is ternary at every tick | NU5; RZ inside U1 Lemma 2.1's window [R] for (a) | whether a planar ternary turn exists (mathematics; a search would be a gated computation) |
-| NU7 | (N) | For a single-site seed, the six axis tips of the light cone are 0 from `t = ⌈log₃|b|⌉ + 1` (from `t = 1` when `|b| ≤ 1`) | the light cone of a radius-1 second-order rule; `G`'s contraction | the rest of the light-cone surface (mathematics) |
-| S1 (P3 stage 1) | (N), open | reformulated by NU3; not proved or refuted | as NU3, NU7 | a sub-luminal growth mechanism, or an exact periodic counterexample (mathematics; P2 `k = 1` would test it, gated) |
-| NU8 | (I) | For every 16-state 2RPCA(4) `P`, a narrow-class rule `R_P` on `ℤ²`, `q = 8995`, with injective `E` and `Ψ⁶ ∘ E = E ∘ F_P`. Written proof by phase invariants | `f_P` bijective (Morita–Ueno Lemma 2.1) in phase 3; `f_P(0) = 0` for the ultimately-periodic remark; a designed periodic tag-and-clock background (part of `E`); a non-native rule (neither isotropic nor totalistic). For universality: Morita–Ueno's Fredkin-gate construction and Fredkin–Toffoli's gate universality [LIT-R, at the source's standing] | the transfer to U1's Definition U, including whether Morita–Ueno's universal configurations are ultimately periodic (mathematics). It bears on `R_q` not at all |
+Native assumptions used below:
+- the published rounded rule `R_q` (SM:294) at the working reference `q = 2^16` on `ℤ³`;
+- its second-order reversible form (Main ledger (xiii));
+- its finite alphabet.
+
+"Uniform background `c`" and "finite perturbation" are scope conditions on the configurations
+treated, not assumptions about nature.
+
+| Result | Label | Status | Established | Assumed (where it enters) | Missing (earliest unsupported step; kind) |
+|---|---|---|---|---|---|
+| NU3 | (N) | this record: confirmed in review at `ef25e3bf` (#1499), not on `main`. It depends on F1 NU2, which is reviewed on #1489 and not on `main` until #1489 lands, and on MQ1's converse, which is on `main` (MEAS-Q, reviewed) | For finite perturbations of a uniform background of Q: periodic ⇔ bounded support over `t ≥ 0` ⇔ confined at every tick in one finite closed set with in-range boundary. Written proof, cycle (a)⇒(c)⇒(b)⇒(a) | native only. MQ1's converse in (a)⇒(c); NU2 in (b)⇒(a), which uses reversibility, the finite alphabet and the fixed-point property of `c` | none within the statement |
+| NU4, NU4′ | (N) | this record: confirmed in review at `ef25e3bf`, not on `main`; depends on MQ1 (on `main`) | For any closed `D`, finite or infinite, with the complement at `c`: no breach at `t` ⇔ the complement is still at `c` at `t + 1` | native only. MQ1 and its converse at the closed set's boundary; current-slice breach as in MQ2 | none within the statement |
+| NU5 | (N) | as NU4 | Relative to the allowed closed region `D`, no breach heals without radiation; a radiation-free transit is exactly a never-breached `D` | native only (NU4′) | it does not settle Q: whether a controlled transfer exists inside some never-breached `D = cl₂(lines ∪ R)` (mathematics) |
+| NU6 | (N) | as NU4; (a) also uses U1 Lemma 2.1 (on `main`) | In a confined transit, `∂D` stays in range and `|S| ≤ 7` on `∂D`; a planar confined transit is ternary at every tick | native only (NU5; RZ inside Lemma 2.1's window for (a)) | whether a planar ternary turn exists (mathematics; a search would be a gated computation) |
+| NU7 | (N) | as NU4; no off-`main` dependency | For a single-site seed, the six axis tips of the light cone are 0 from `t = ⌈log₃|b|⌉ + 1` (from `t = 1` when `|b| ≤ 1`) | native only (radius-1 light cone; contraction of `G`) | the rest of the light-cone surface (mathematics) |
+| S1 (P3 stage 1) | (N) target, open | not established | reformulated by NU3; not proved or refuted | native only, as NU3 and NU7 | a sub-luminal growth mechanism, or an exact periodic counterexample (mathematics; P2 at `k = 1` would test it, gated) |
+| NU8 | not an (N)/(I) statement about OI | confirmed in review at `ef25e3bf` as a paper design, not on `main`; whether it counts as "constructing" under #1169 c.7064226074 item 3(b) is with the owner | For every 16-state 2RPCA(4) `P`, a narrow-class rule `R_P` on `ℤ²`, `q = 8995`, with injective `E` and `Ψ⁶ ∘ E = E ∘ F_P`. Written proof by phase invariants | no quantum or operational assumption. The object is a non-native comparison rule (neither isotropic nor totalistic, with a designed tag-and-clock background), so the result is not proved from OI's native assumptions and does not concern `R_q`. Within the proof: `f_P` bijective (Morita–Ueno Lemma 2.1) in phase 3, and `f_P(0) = 0` for the ultimately-periodic remark. Universality imports Morita–Ueno's Fredkin-gate construction and Fredkin–Toffoli's gate universality [LIT-R, at the source's standing] | the transfer to U1's Definition U, including whether Morita–Ueno's universal configurations are ultimately periodic (mathematics) |
 
 ***
 
