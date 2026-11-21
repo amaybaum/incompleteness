@@ -29,10 +29,18 @@ GATE-A r5 #1503 (D5 and D6 decided) and BQ1 #1498 are cross-references only.
 - **O1 is two separate obligations, non-MIO and non-DIO** (#1169 c.7066541026). The obligations keep
   them separate: no obligation infers one from the other.
 
-**Labels.** (N) means the statement is a theorem from OI's native assumptions, or is pure mathematics
-that uses no premise, whether native or imported. (I) means the statement is conditional on imported
-quantum or operational assumptions; each import is named, with the Lean hypothesis or structure field
-that carries it. E/A/M is the owner's Established / Assumed / Missing triple. "Established" here means
+**Labels: one convention, applied to the Lean statement of each obligation.**
+- **(N)** The statement's premises are native, or it has no premise at all. This includes pure
+  mathematics about a *definition*, such as lemmas about the comparator `qLaw`, because a definition
+  is not an assumption.
+- **(I)** The statement equates or constrains a native quantity using an imported quantum or
+  operational assumption. Each import is named, with the Lean hypothesis or structure field that
+  carries it.
+- **Where the comparator counts as an import.** It does so only where a statement identifies native
+  behaviour with `qLaw`: in `InclusionAt`, PO-10, PO-16 and PO-18. It does not when a statement is
+  about `qLaw` alone.
+- **Relation to the #1506 design labels.** This refines them. Those labelled each design by the OI
+  claim it serves, and they stand at design level. E/A/M is the owner's Established / Assumed / Missing triple. "Established" here means
 established in the cited paper or kernel record, never in Lean by this record.
 
 **Cost.** Every Lean build, kernel and Mathlib alike, runs in CI (§A.40). Difficulty is an estimate:
@@ -44,40 +52,40 @@ established in the cited paper or kernel record, never in Lean by this record.
 ## 0. Dependency graph
 
 ```text
-                      PO-01 vocabulary (Car, labels, Prot+setting, Hist, qLaw)
-                     /            |                 \
-     PO-02 NativeModel+schema   PO-05 Lemma TC     PO-13 O2-a encoding
-        |        \                 |
-        |         \            PO-09 P-ST ──(needs PO-02, PO-05)
-        |          \
-     PO-03 NativeSource/toTheory (O3 fields, sysAvail, swaps)
-        |     \            \
-        |   PO-07 plug A/B + controls      PO-08 LawBridge + record retention
-        |        |
-     PO-04 DIO-type + Lemma C closure ── PO-06 Theorem C exact (two conjuncts)
-        |                                     |
-        |                               PO-07e O1 split: source ⇒ non-MIO element, source ⇒ non-DIO element
-        |
-     PO-10 inclusion_of_source (needs PO-02, PO-03, PO-08)
-     PO-11 S1 (finite H) ── PO-12 S2 (spectral)
-     PO-14 D-I.4b (needs PO-02; nonnegative rank absent: R)
-     PO-15 O2-b stage compatibility ── PO-17 O2-c S-∞ (statement only; blocked) ── PO-18 O2-d assembly
-     PO-16 D-W stepwise ψ-complete witness (needs PO-01, PO-02; very high)
-     PO-19 Theorem C approximate forms (a), (b) (trace and diamond norms absent: R)
+Roots (no dependency on another obligation; can start in parallel): PO-01, PO-03, PO-04, PO-05, PO-11.
+
+PO-01 vocabulary ──► PO-02 NativeModel + schema ──► PO-14 D-I.4b
+   │                    ├──► PO-08 LawBridge + RecordRetention ◄── PO-03, PO-05
+   │                    ├──► PO-09 P-ST ◄── PO-05
+   │                    ├──► PO-15 O2-b (via the CoherentTower type)
+   │                    ├──► PO-16 D-W ◄── PO-09 (FE_ADM control)
+   │                    └──► PO-17 O2-c S-∞ (statement only)
+   └──► PO-13 O2-a encoding
+PO-03 NativeSource/toTheory ──► PO-07 plug points A/B, controls ◄── PO-06 (part e)
+PO-03, PO-02, PO-08 ──► PO-10 inclusion_of_source
+PO-04 DIO-type + missing closure lemmas ──► PO-06 Theorem C exact ──► PO-07e O1 split
+PO-04 ──► PO-19 Theorem C approximate; D; D′
+PO-11 S1 (finite H) ──► PO-12 S2
+PO-10, PO-13, PO-15, PO-17 ──► PO-18 O2-d assembly
 ```
+
+These edges are absent: PO-01 → PO-05, PO-02 → PO-03 and PO-03 → PO-04. Lemma TC uses Mathlib only,
+`NativeSource` does not use `NativeModel`, and the DIO predicate uses only kernel definitions.
 
 **Unblocking count**, the number of obligations depending on each, directly or transitively:
 
-| PO | 01 | 02 | 03 | 04 | 05 | 06 | 08 | 10 | 11 | 13 | 15 | 17 |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| obligations it unblocks | 14 | 7 | 6 | 3 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+| PO | 01 | 02 | 05 | 03 | 04 | 08 | 06 | 09 | 10 | 11 | 13 | 15 | 17 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| obligations it unblocks | 10 | 8 | 5 | 4 | 3 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
 
-All others unblock nothing further. The counts are approximate. The numbering below follows this order. It breaks ties by
-smaller cost first.
+**Recommended order**, by what each obligation unblocks:
+PO-01, PO-02, PO-05, PO-03, PO-04, PO-08, then the rest. The roots PO-01, PO-03, PO-04, PO-05 and PO-11
+can start in parallel. The PO numbers are identifiers, not ordinals (§A.30), so they are kept as
+first assigned.
 
 ## 1. The obligations
 
-### PO-01 Vocabulary of `J_exact(A)` and the comparator law. Difficulty M. Unblocks 14.
+### PO-01 Vocabulary of `J_exact(A)` and the comparator law. Difficulty M. Unblocks 10.
 
 - **Lean statement.** These are definitions from DESIGN §4.1, with the setting node required by
   schema clause (c), plus three lemmas:
@@ -116,16 +124,17 @@ theorem qLaw_prefix … -- the law of a prefix is the marginal of the law of eve
   - `Matrix.reindex` (LinearAlgebra/Matrix/Defs.lean:526).
 - **Hardest step.** `qLaw_sum`. Completeness `∑ Kᴴ K = 1` has to be pushed through each `inst`
   node, combined with the partial-trace identity at `discard`.
-- **Label.** (I). The import is the comparator itself: complex kinematics and the trace law, *as the
-  definition* of `qLaw` (EP:110). The three lemmas are pure mathematics about that definition.
+- **Label.** (N), under the convention above: the definitions and the three lemmas are pure
+  mathematics about the comparator `qLaw` (EP:110), with no premise. The comparator becomes an import
+  (I) only in the obligations that equate native behaviour with `qLaw`.
 - **E/A/M.**
   - E: the definitions are fixed by EP:33–41 and EP:110, and reviewed in #1506.
-  - A: the comparator.
+  - A: none for these lemmas. The comparator is a definition here.
   - M: the Lean text.
 - **§A.35.** New module `OIQMTarget`, in a new `kernel-only` family with `manuscript: []`. No
   supersession.
 
-### PO-02 Native model, measurability, admissibility schema and the target clauses. Difficulty M–H. Unblocks 7.
+### PO-02 Native model, measurability, admissibility schema and the target clauses. Difficulty M–H. Unblocks 8.
 
 - **Lean statement.** This is DESIGN §4.1–4.2 with the confirmed nits applied:
 
@@ -170,7 +179,7 @@ structure NaturalLoading (Ω) where                                   -- D-I.2 (
 - **Cardinality neutrality.** The statement is neutral. Every witness has infinite `Ω`.
 - **§A.35.** Module `OIQMTarget`, kernel-only.
 
-### PO-03 `NativeSource` and `toTheory`: the O3 obligations. Difficulty M–H. Unblocks 6.
+### PO-03 `NativeSource` and `toTheory`: the O3 obligations. Difficulty M–H. Unblocks 4.
 
 - **Lean statement.** This is DESIGN §2.1 and §3, with R1 and R4 applied:
 
@@ -225,39 +234,53 @@ theorem toTheory_pureSeed (src O3) n k₀ : (src.toTheory O3).prepAvail (n+1) (p
   SubstratumInterface and RouteB, and edits none of them. RouteB, SubstratumSource and FrozenSourcing
   docstrings are named in #1477's frozen, not yet executed plan and stay untouched.
 
-### PO-04 The DIO-type predicate and OPRES Lemma C (closure). Difficulty M. Unblocks 3.
+### PO-04 The DIO-type predicate and the missing half of OPRES Lemma C. Difficulty M. Unblocks 3.
+
+**The MIO-type half is already in the kernel; it is cited, not restated.** `PreservesDiag`
+(DiagonalTheory.lean:68) is OPRES's MIO-type predicate. Its closure lemmas exist:
+- `preservesDiag_comp` (:94), composition;
+- `preservesDiag_sum` (:84);
+- `preservesDiag_transport` (:106);
+- `preservesDiag_amplRef` (:132) and `preservesDiag_withSpectator` (:151), for ⊗ id and spectators;
+- `preservesDiag_localLuders` (:158);
+- `preservesDiag_relabel` (:184);
+- `preservesDiag_discardWith` (:229), for discard;
+- `preservesDiag_conj_of_monomial` (SubstratumInterface.lean:101).
+
+PO-04 covers only what is missing.
 
 - **Lean statement.**
 
 ```lean
 def diagPart (X : Matrix S S ℂ) : Matrix S S ℂ := Matrix.diagonal (Matrix.diag X)
-/-- MIO-type is the existing `PreservesDiag` (DiagonalTheory.lean:68). DIO-type is new. -/
+/-- DIO-type (new). -/
 def NoDetect (Φ : Matrix S S ℂ →ₗ[ℂ] Matrix S' S' ℂ) : Prop := ∀ X, diagPart (Φ X) = diagPart (Φ (diagPart X))
-theorem preservesDiag_comp, noDetect_comp            -- composition
-theorem preservesDiag_kron_id, noDetect_kron_id      -- ⊗ id
-theorem preservesDiag_ptrace, noDetect_ptrace        -- partial trace (ptraceAnc)
-theorem preservesDiag_feedforward, noDetect_feedforward  -- Σ_r |r⟩⟨r| ⊗ K_r on configuration records
+theorem noDetect_comp, noDetect_sum, noDetect_transport, noDetect_amplRef, noDetect_withSpectator,
+  noDetect_discardWith, noDetect_relabel                  -- the DIO counterparts of the kernel's MIO lemmas
 theorem noDetect_conj_of_monomial (h : IsMonomial K) : NoDetect (conjChannel K)
 theorem noDetect_append (ω : Matrix H H ℂ) : NoDetect (appendState ω)         -- any ω
+-- the two MIO-side cases not located in the kernel:
+theorem preservesDiag_feedforward, noDetect_feedforward  -- Σ_r |r⟩⟨r| ⊗ K_r on configuration records
 theorem preservesDiag_append_iff (ω) : PreservesDiag (appendState ω) ↔ ω = diagPart ω
 ```
 
-- **Kernel identifiers.** `PreservesDiag` (DiagonalTheory.lean:68), `preservesDiag_conj_of_monomial`
-  (SubstratumInterface.lean:101), `IsMonomial` (:50), `conjChannel`, `ptraceAnc`, `permMatrix`.
+- **Kernel identifiers.** The lemmas cited above, together with `IsMonomial` (SubstratumInterface.lean:50),
+  `conjChannel`, `ptraceAnc`, `discardWith` and `permMatrix`.
 - **Mathlib dependencies.** `Matrix.diagonal`, `Matrix.diag`, `Matrix.kroneckerMap`,
   `Matrix.posSemidef_diagonal_iff` (LinearAlgebra/Matrix/PosDef.lean:71), `Matrix.trace_kronecker`.
-- **Hardest step.** The feedforward and partial-trace cases under the kernel's `A × Fin n` indexing.
+- **Hardest step.** `noDetect_discardWith` and the two feedforward lemmas, under the kernel's
+  `A × Fin n` indexing.
 - **Label.** (N), as pure algebra, matching OPRES's Lemma C label. It makes no claim about OI's
   operations: which operations are native is R-READ and PO-06's business.
 - **E/A/M.**
-  - E: Lemma C, layer X, reviewed in #1511.
+  - E: Lemma C, layer X, reviewed in #1511. Its MIO half is in the kernel already (K).
   - A: none.
-  - M: the Lean text.
-- **§A.35.** New module `CoherenceResource`, kernel-only. It does *not* go into DiagonalTheory, whose
-  family "completion classification and the primitive-source chain" is `current` and
-  manuscript-carried. Adding there would invoke the same-commit registry contract.
+  - M: the DIO half and the two MIO-side cases, in Lean.
+- **§A.35.** New module `CoherenceResource`, kernel-only. It imports DiagonalTheory and does not
+  edit it, so the `current` family "completion classification and the primitive-source chain" is
+  untouched.
 
-### PO-05 Lemma TC (tomographic completeness). Difficulty S–M. Unblocks 2.
+### PO-05 Lemma TC (tomographic completeness). Difficulty S–M. Unblocks 5.
 
 - **Lean statement.**
 
@@ -322,8 +345,11 @@ theorem thmC_detector … : ∃ S _ _ (O ∈ 𝒪 S), ¬ NoDetect O      -- non-
 - **Mathlib dependencies.**
   - `Matrix.unitaryGroup` (LinearAlgebra/UnitaryGroup.lean:60) and `Matrix.mem_unitaryGroup_iff`
     (:72).
-  - `Matrix.posSemidef_diagonal_iff`, and `Matrix.rank_one` (LinearAlgebra/Matrix/Rank.lean:155) or a
-    direct rank-one argument.
+  - `Matrix.posSemidef_diagonal_iff`. For the rank-one step, `Matrix.rank_vecMulVec_le`
+    (LinearAlgebra/Matrix/Rank.lean:199) gives the upper bound for `W|x⟩⟨x|Wᴴ`. The step "a diagonal
+    rank-one PSD matrix is a multiple of one basis projector" is a direct entrywise argument, since
+    Mathlib has no lemma for it. (`Matrix.rank_one`, Rank.lean:155, is the rank of the identity
+    matrix and does not apply here.)
   - `Matrix.vecMulVec` (Data/Matrix/Mul.lean:616).
 - **R-READ.** Native readouts enter `𝒪` as whatever operations they are. If R-READ holds they are
   MIO and DIO, and the theorem then says the creator and the detector are not readouts. If R-READ
@@ -379,7 +405,7 @@ theorem coherentSourceA_needs_detector (h : CoherentSourceA src O3 σ) (hx …) 
     physical.
 - **§A.35.** Module `OIQMInterface`, kernel-only.
 
-### PO-08 Law bridge and record retention. Difficulty M. Unblocks 1.
+### PO-08 Law bridge and record retention. Difficulty M. Unblocks 2.
 
 - **Lean statement.**
 
@@ -402,7 +428,7 @@ def RecordRetention (M : NativeModel A) : Prop :=      -- D-I.R1: R on a prefix 
   - M: a native persistent record (MQ AW-MQ-2; M5 not passed). That is physical.
 - **§A.35.** Module `OIQMInterface`.
 
-### PO-09 Proposition P-ST (statement). Difficulty M, given PO-01, PO-02 and PO-05. Unblocks 0.
+### PO-09 Proposition P-ST (statement). Difficulty M, given PO-01, PO-02 and PO-05. Unblocks 1.
 
 - **Lean statement.** Two theorems, items 1 and 2 of P-ST. Directions: ⇒ only, which is the witness
   direction of §A.34.
@@ -488,8 +514,12 @@ theorem s1'_hadamard (φ) (ω) (hω hω1) : ¬ ∀ ρ, bornLift φ ω 1 ρ = had
   1. The spectral decomposition of ω:
      `Matrix.IsHermitian.spectral_theorem` (Analysis/Matrix/Spectrum.lean:141), or
      `Matrix.posSemidef_iff_eq_sum_vecMulVec` (Analysis/InnerProductSpace/Positive.lean:557).
-  2. **Purity splitting.** This replaces Choi's extremality theorem, which is absent from Mathlib: no
-     extreme-point theory of channels and no Stinespring theorem. A rank-one PSD matrix that is a sum
+  2. **Purity splitting.** This replaces Choi's extremality theorem. Mathlib has general extreme-point
+     theory (`Set.extremePoints`, Analysis/Convex/Extreme.lean:68) and completely positive maps
+     (`CompletelyPositiveMap`, Analysis/CStarAlgebra/CompletelyPositiveMap.lean:50, on C*-algebras,
+     which covers `Matrix n n ℂ` under the scoped `Matrix.instCStarAlgebra`). It does not have the
+     theorem that unitary channels are extreme, nor a Stinespring dilation theorem. Those two are the
+     real gaps. The route here avoids both. A rank-one PSD matrix that is a sum
      of PSD matrices has each summand a nonnegative multiple of it. Apply this to the pure outputs
      `W|v⟩⟨v|Wᴴ` and `W|v+v′⟩⟨v+v′|Wᴴ`. This gives, for each eigenvector χ of ω, an equation
      `P(|v⟩ ⊗ |χ⟩) = W|v⟩ ⊗ |e⟩` with one e for all v. This is the hardest step.
@@ -554,17 +584,31 @@ theorem s2_finiteOrder (φ ω hω hω1) {U W : Matrix V V ℂ} (hU : U ∈ Matri
 - **Lean statement.**
 
 ```lean
-def encInstr (V : Matrix B A ℂ) (hV : Vᴴ * V = 1) (L : InstrLabel A k m) (c : Fin (L.r+1) → ℂ)
-    (hc : ∑ i, ‖c i‖^2 = 1) : InstrLabel' B k m      -- K_i ↦ V K_i Vᴴ + c_i (1 − V Vᴴ)
-theorem encInstr_norm : ∑ i, (encK i)ᴴ * encK i = 1          -- cross terms vanish: Vᴴ (1 − V Vᴴ) = 0
-theorem qLaw_enc (V hV) (p π h) : qLaw_B (V * p.ρ * Vᴴ) (encProt V π) h = qLaw_A p.ρ π h
+/-- The level-k encoding: V on the system factor, identity on the ancilla factor of `Car _ k`. -/
+def encLevel (V : Matrix B A ℂ) (k : ℕ) : Matrix (Car B k) (Car A k) ℂ :=
+  Matrix.kroneckerMap (· * ·) V (1 : Matrix (Fin (k+1)) (Fin (k+1)) ℂ)
+theorem encLevel_iso (hV : Vᴴ * V = 1) (k) : (encLevel V k)ᴴ * encLevel V k = 1
+theorem encLevel_join (k m) :                 -- compatible with the fixed join reindexing of EP:33
+  reindex (joinEquiv B k m) (joinEquiv A k m) (kroneckerMap (· * ·) (encLevel V k) 1) = encLevel V (joinLevel k m)
+def encInstr (V : Matrix B A ℂ) (hV : Vᴴ * V = 1) {k m} (L : InstrLabel A k m) (c : Fin (L.r+1) → ℂ)
+    (hc : ∑ i, ‖c i‖^2 = 1) : InstrLabel B k m
+  -- K_i ↦ Vₖ K_i Vₖᴴ + c_i (1 − Vₖ Vₖᴴ), with Vₖ := encLevel V k; both sides live on Car B k
+theorem encInstr_norm : ∑ i, ((encInstr V hV L c hc).K i)ᴴ * (encInstr V hV L c hc).K i = 1
+  -- cross terms vanish: Vₖᴴ (1 − Vₖ Vₖᴴ) = 0 by encLevel_iso
+def encProt (V hV) : Prot A k → Prot B k     -- encInstr at inst; σ unchanged at attach; levels preserved
+theorem qLaw_enc (V hV) {k} (p : DensLabel (Car A k)) (π : Prot A k) (h : Hist π) :
+    qLaw (encLevel V k * p.ρ * (encLevel V k)ᴴ) (encProt V hV π) (encHist h) = qLaw p.ρ π h
 ```
 
 - **Kernel identifiers.** PO-01, `inclObs` (RegionTower.lean:123), and `Conf` (:86) for the region
   carriers.
 - **Mathlib dependencies.** `Matrix.trace_mul_comm`, `Matrix.mul_assoc`, `Matrix.conjTranspose_mul`,
-  `Matrix.PosSemidef.conjTranspose_mul_mul_same`.
-- **Label.** (N), pure mathematics about the comparator. It has no native content: #1506 called it
+  `Matrix.PosSemidef.conjTranspose_mul_mul_same`, `Matrix.kroneckerMap` and `Matrix.mul_kronecker_mul` (:382)
+  (LinearAlgebra/Matrix/Kronecker.lean), and `Matrix.reindex`.
+- **Hardest step.** `encLevel_join`, the commutation of the encoding with the join reindexing at
+  `attach` and `discard`. That is what fixes the level-k typing error of the previous statement.
+- **Label.** (N), under the same convention as PO-01: pure mathematics about the comparator, with no
+  premise. It has no native content: #1506 called it
   "the one part of D-O2 that is a statement of mathematics". It agrees with #1504's corner lemma at
   `31594967`.
 - **E/A/M.**
@@ -710,11 +754,23 @@ theorem thmC_approx_detector … (hd : diamondDist Φ (conjChannel W) < 2 * kapp
   Proposition D and Remark D′ concern measurable carriers in the Heisenberg form. They are listed as
   statements to be typed later, in von Neumann algebra form.
 - **Mathlib dependencies.**
-  - The trace norm, the Schatten norms and the diamond norm are **absent** at `v4.33.0`. Only
-    `Matrix.frobeniusNorm` and `Matrix.linftyOpNorm` (Analysis/Matrix/Normed.lean) exist.
-  - Proposition D needs normal states and the von Neumann tensor product, which are also absent as
-    such.
-  - These are research-grade library gaps.
+  - **Present.**
+    - The l2 operator norm on matrices: `Matrix.instCStarAlgebra` (Analysis/CStarAlgebra/Matrix.lean:294,
+      scoped in `Matrix.Norms.L2Operator` at :297), `Matrix.l2_opNorm_def` (:185) and
+      `l2_opNorm_conjTranspose_mul_self` (:199).
+    - `Matrix.frobeniusNorm` and `Matrix.linftyOpNorm` (Analysis/Matrix/Normed.lean).
+    - For Proposition D: `VonNeumannAlgebra` (Analysis/VonNeumannAlgebra/Basic.lean:67) and
+      `WStarAlgebra` (:45).
+  - **An intermediate obligation using what is present, PO-19a.** This is the operator-norm form of
+    Theorem A′'s bound:
+    `∀ σ diagonal, ‖ψψᴴ − σ‖ ≥ sup_{i≠j} |ψ_i ψ_j|` in the l2 operator norm, which is weaker by a factor
+    of 2 than the trace-norm bound. The operator-norm counterparts of (a) and (b) follow with
+    constant κ instead of 2κ, by the same argument. They are typable now.
+  - **Real gaps, carried as hypotheses only.** The trace norm and the diamond norm, which (a) and (b)
+    as stated need, are absent at `v4.33.0`.
+  - **Not located in this check.** Normal states and the von Neumann tensor product with its normal
+    slice maps. Their presence is to be checked at implementation. Remark D′, for finite visible
+    carriers, needs neither, and is typable with `CStarAlgebra` and finite-dimensional linear algebra.
 - **Label.** (I). The imports are KIN, for (a) and (b). For D they are KIN, nonsingularity and
   normality.
 - **E/A/M.**
@@ -747,9 +803,13 @@ theorem thmC_approx_detector … (hd : diamondDist Φ (conjChannel W) < 2 * kapp
   - The earliest unsupported step is still the realization map from native procedures to complex
     channels (PO-03's `branch`), which is physical. It is followed by the native law bridge and
     records (PO-08), and then by O1's two separate elements, non-MIO and non-DIO (PO-06, PO-07e).
-  - The mathematical gaps are the trace and diamond norms, nonnegative rank, extremality and
-    Stinespring theory (all absent from Mathlib), the reindexing lemma (PO-15) and S2-sub.
-- **No obligation is (N) except PO-04, PO-05 and PO-13**, which are pure mathematics.
+  - The mathematical gaps, carried as hypotheses only, are the trace and diamond norms, nonnegative
+    rank, Stinespring dilation and channel extremality, all absent at `v4.33.0`.
+  - Mathlib does supply the l2 operator norm, general extreme-point theory, CP maps on C*-algebras
+    and von Neumann algebras. These are used in PO-11 and PO-19 (with PO-19a).
+  - Other open mathematics: the reindexing lemma (PO-15) and S2-sub.
+- **The (N) obligations are PO-01's lemmas, PO-04, PO-05 and PO-13**, all pure mathematics under the
+  stated convention. Every other obligation is (I).
 - **Cardinality neutrality** is needed by PO-16 and PO-18. It is neutral or not needed for the rest.
 
 ## 3. Cross-references, not overlapped
