@@ -13,8 +13,10 @@ c.7065022754, verdict REVISE, blockers B1–B6 and nits). The reviewed text is t
 response to each finding is listed in §11. r5.2 additionally takes D-W in the corrected form of
 the #1506 review (c.7065065491 R5) and corrects two nodes of L-H (N2, N5) with a new node N6.
 r5.3 answers the delta review at `4649d047` (#1503 c.7065136670, R1–R6). r5.4 answers the
-delta review at `dada0c8c` (#1503 c.7065208959: one blocking item on D5, nits N1–N4). r5.4 is not
-yet re-reviewed.
+delta review at `dada0c8c` (#1503 c.7065208959: one blocking item on D5, nits N1–N4); r5.5 and
+r5.6 answer c.7065233367 and c.7065260286; r5.6 was reviewed at `fd3cb064` (c.7065281854). r5.7
+folds the T1/T2 corrections of §2.4 confirmed in #1510 (c.7066267563) under #1169 c.7067233614;
+r5.7 is not yet re-reviewed.
 
 Tracking: Issue #1502 (linked to #1169); draft PR #1503.
 
@@ -251,35 +253,96 @@ and no multi-time records. `Sub:249` distinguishes the coherent comparison (equa
 coherent reduced-channel family, written ∼) from population-only comparisons (the rooted
 transition probabilities T_ij(t)), stated separately. c.7064942473 retains this interface.
 
-**I★_st (two variants).** The comparator side below is a design choice of this proposal, put to
-the owner under D6: neither `Sub:249` nor `familyAt` fixes it. It takes time-homogeneous families
-with a finite environment; the corpus also treats time-inhomogeneous single-time families
-(`Main:652`, the U(t) = e^{−iσ_x t²} remark), which this choice leaves out. For every nonempty
-finite A and every quantum single-time family
-Λ_A = {Λ_t}_{t ∈ ℕ} on A of the form Λ_t(ρ) = Tr_K[W^t (ρ ⊗ σ_K) W^{−t}] with K finite, W unitary
-and σ_K a density matrix, the one model M* has a visible sector V_A encoded by enc_A, with its
-hidden prior, such that:
-- **I★_st-coh:** the model's visible family equals Λ_A at every t (the ∼ comparison of
-  `Sub:249`); or
-- **I★_st-pop:** the fixed-basis populations agree at every t, ⟨j|Φ_t(|i⟩⟨i|)|j⟩ =
-  ⟨j|Λ_t(|i⟩⟨i|)|j⟩ for all i, j ∈ A.
+**Source of this subsection's typing.** The T1 and T2 corrections below are folded in from the
+T1/T2 record (`verification/programmes/oi-qm/reconstruction/gate-a-r5-t1t2-20261121/PROPOSAL.md`,
+PR #1510 at `c45b82cf105386b86e12322de6169abac5a9ff22`, confirmed at #1510 c.7066267563), under the
+owner's approval in principle (#1169 c.7067233614). That record carries the proofs and the
+failure table in full; only the confirmed typing corrections are carried here, and no claim of
+GATE-A is broadened.
 
-Neither variant contains instruments, helper levels, adaptive protocols or retained records, so
-EP:38–41, J-coh, (scale), SG-1 to SG-4 and N5 do not apply. The other I★ clauses (one model, one
-E, enc_A, I-2★ without the ancilla clause, I-3) carry over.
+**I★_st (two variants, each in Born form and operational form).** The comparator side below is a
+design choice of this proposal, put to the owner under D6: neither `Sub:249` nor `familyAt` fixes
+it. It takes time-homogeneous families with a finite environment; the corpus also treats
+time-inhomogeneous single-time families (`Main:652`, the U(t) = e^{−iσ_x t²} remark), which this
+choice leaves out. For every nonempty finite A and every quantum single-time family
+Λ_A = {Λ_t}_{t ∈ ℕ} on A of the form Λ_t(ρ) = Tr_K[W^t (ρ ⊗ σ_K) W^{−t}] with K finite, W unitary
+and σ_K a density matrix, the one model M* has a visible sector V_A encoded by enc_A, its one
+hidden prior and, from the typed data of Λ_A and fixed before comparison, a setting s_Λ of its
+controller fields loaded under EP:79, such that, with s_Λ loaded, the conditions below hold
+(typing (b); under typing (a), s_Λ is part of a preparation (ρ, s_Λ) whose hidden state may depend
+on s_Λ but not on ρ, EP:75).
+
+- **Indexing (T2).** A sector indexed by A alone, with φ and the prior fixed, carries exactly one
+  autonomous family, so for |A| ≥ 2 it cannot meet two distinct targets (Λ_t = id and Λ_t = Ad_Z^t
+  differ at t = 1 on |+⟩⟨+|); the family is therefore indexed by (A, Λ) through s_Λ. A setting
+  cannot change the hidden prior (EP:79). Under typing (b) the family is
+  Φ^{(A,Λ)}_t(ρ) = Tr_{C×H}[φ̂^t (enc_A(ρ) ⊗ |c_{s_Λ}⟩⟨c_{s_Λ}| ⊗ ω_H) φ̂^{−t}], read back through
+  enc_A, with C the controller fields; under (a), Tr_H[φ̂^t (enc_A(ρ) ⊗ ω_{s_Λ}) φ̂^{−t}]. Both are
+  linear in ρ. The interface of `Sub:249` is unchanged.
+- **Encodings.** Every family is read through enc_A and the label rule 𝓛_A of the I★ witness; this
+  is part of the definitions and is named in FE-ADM below, not a separate assumption.
+- **Operational single-time channel.** p_{M*}(E | s_Λ, ρ, t) is the probability of the first
+  outcome when ρ is prepared on X_A with s_Λ loaded, the model evolves freely for t steps and the
+  readout {E, 1 − E} is applied and recorded; Λ̂^{M*,(A,Λ)}_t is the linear map L_t with
+  p_{M*}(E | s_Λ, ρ, t) = Tr(E L_t(ρ)) for every density ρ and effect E, unique when it exists
+  (Lemma TC of #1510, mathematical/definitional, no OI assumption).
+- **I★_st-coh:** Φ^{(A,Λ)}_t = Λ_t at every t (the ∼ comparison of `Sub:249`, Born form).
+  **I★_st-coh^op:** Λ̂^{M*,(A,Λ)}_t = Λ_t at every t.
+- **I★_st-pop:** ⟨j|Φ^{(A,Λ)}_t(|i⟩⟨i|)|j⟩ = ⟨j|Λ_t(|i⟩⟨i|)|j⟩ for all i, j ∈ A at every t.
+  **I★_st-pop^op:** the same with p_{M*}(|j⟩⟨j| | s_Λ, |i⟩⟨i|, t) in place of the Born-form value.
+
+None of the variants contains instruments, helper levels, adaptive protocols or retained records,
+so EP:38–41, (scale), SG-1 to SG-4 and N5 do not apply to them; the operational variants use the
+protocols π(ρ, Λ_t, E) (prepare ρ, apply Λ_t, read {E, 1 − E}), which lie in `J_exact(A)` by
+EP:37–40. The coherent variants use coherent inputs and arbitrary readouts, and so J-coh; the
+population variants do not. The other I★ clauses (one model, one E, enc_A, I-2★ without the
+ancilla clause, I-3) carry over.
+
+**Assumptions for the relation to I★ (named, not built into the definitions).**
+- **FE-ADM (free evolution as an admissible protocol).** For every A, Λ and t, "load s_Λ, prepare
+  ρ, evolve freely under Φ for t steps" is the witness's label interpretation 𝓛_A of "prepare ρ,
+  apply Λ_t", and the readout {E, 1 − E} is 𝓛_A's interpretation of the readout instrument. I★
+  does not entail it. **FE-ADM does not exclude D-W**: with s_Λ in the controller fields, the
+  stepwise D-W meets it by loading the program "apply Λ₁ at each step", so "free evolution" means
+  "autonomous Φ with a loaded setting", and FE-ADM is a compatibility assumption, not a sourcing
+  test.
+- **BF (Born-form agreement), for the Born-form variants only.** Tr(E Φ^{(A,Λ)}_t(ρ)) =
+  p_{M*}(E | s_Λ, ρ, t) for every ρ, E, t: the corpus's Born-form representation gives the model's
+  operational law (complex kinematics, decision 4, applied to M*).
+
+**Proposition P-ST (#1510; (I); layer X on paper).** Let M* be an I★ witness. (1) Under FE-ADM, M*
+satisfies I★_st-coh^op and I★_st-pop^op. (2) Under FE-ADM and BF, M* satisfies I★_st-coh and
+I★_st-pop. *Witness for ⇒ (§A.34):* I-4 on π(ρ, Λ_t, E) gives Tr(E Λ_t(ρ)); FE-ADM identifies that
+law with p_{M*}(E | s_Λ, ρ, t); Lemma TC gives Λ̂_t = Λ_t; under BF, Lemma TC again gives
+Φ^{(A,Λ)}_t = Λ_t. It holds under either typing of s_Λ. No converse is claimed. Imported: FE-ADM;
+BF for item 2; J-coh for the coherent variants.
+
+**What fails without each assumption (#1510 §5).**
+- Without the T2 indexing, both variants are unsatisfiable for |A| ≥ 2 by every model.
+- Without FE-ADM, I★ implies no single-time variant: the stepwise D-W, with no program loaded,
+  has the identity as its free family while it meets I★ at trivial E.
+- Without BF, I★ implies I★_st-coh^op but not I★_st-coh: by #1508's Lemma S1 ((I), under its
+  (a)–(e)), the Born-form channel of a bijection with a fixed countable hidden state is Ad of a
+  monomial unitary, so BF and I-4 are jointly unsatisfiable for such models on non-monomial
+  targets, and item 2 is vacuous for them.
+- An encoding mismatch (Born-form family in the configuration basis, 𝓛_A in a logical basis U) is
+  a failure of BF: item 1 is unaffected, and item 2 holds only for the transported target
+  Ad_U ∘ Λ_t ∘ Ad_{U†} (#1508 review c.7065957850 CM-2).
 
 **What follows, for the owner's comparison under D6.**
 - I★_st-pop compares classical distributions. An L-H′-type count applies with the time t in place
   of the protocol π: if a target population family takes infinitely many distinct values over t,
   a fixed preparation's U-law cannot be finitely supported; if it takes finitely many, finite-atom
   models are not excluded by the count (meeting the target is not shown). D-W-like models meet it.
-- I★_st-coh compares coherent channels and therefore presupposes the corpus's Born-form
-  representation of the visible sector (complex kinematics, decision 4). L-H and L-H′ as stated do
-  not apply, since they use instruments; the all-time periodicity obstruction of a fixed finite
-  bijection (Main:650) applies to every finite model at its own scope.
-- Both variants are strictly weaker than I★ (c.7064942473: "Equivalence based on single-time
-  observations is weaker than equivalence under arbitrary quantum experiments"). Whether either
-  is satisfiable by a sourced model is not examined here.
+- I★_st-coh compares coherent channels in the Born form and so presupposes the corpus's Born-form
+  representation of the visible sector (complex kinematics, decision 4); its relation to I★ needs
+  BF. L-H and L-H′ as stated do not apply, since they use instruments; the all-time periodicity
+  obstruction of a fixed finite bijection (Main:650) applies to every finite model at its own
+  scope.
+- The relation to I★ is P-ST, under FE-ADM and, for the Born-form variants, BF; without those
+  assumptions no implication from I★ is claimed. c.7064942473: "Equivalence based on single-time
+  observations is weaker than equivalence under arbitrary quantum experiments." Whether any
+  variant is satisfiable by a sourced model is not examined here.
 
 ## 3. Clause ledger with directional witnesses (§A.34)
 
@@ -566,7 +629,7 @@ finding about OI under the (N)/(I) scheme.
   a legitimate exact model, because none is known. Without a criterion, I★ is met at trivial E by
   D-W.
 - **D6.** The interface: I★ over `J_exact` with J-coh named; or one of the single-time variants
-  I★_st-coh, I★_st-pop defined in §2.4 from `Sub:249` and `familyAt`; or a single-time variant as
+  I★_st-coh, I★_st-pop (with their operational forms, related to I★ by P-ST, #1510) defined in §2.4 from `Sub:249` and `familyAt`; or a single-time variant as
   a stage before I★. §2.4 lists what each loses: no instruments, helper levels or records;
   I★_st-pop is a classical comparison that D-W-like models meet and that, for finitely valued
   targets, does not exclude finite-atom models by the count; the homogeneous finite-environment
@@ -599,6 +662,7 @@ not post on #1169.
 | B6 owner records | c.7064942473 cited (§1, §2 Interface, J-coh, D6); "r4 by reference only" flagged as a departure from answer 5 (§8, D4) |
 | Q_exact(A) single law | stated as assumed in I-4 and put to the owner in D1 |
 | #1506 review R5 (c.7065065491), r5.2 | D-W restated in the stepwise form; the precomputed form recorded as inadmissible; exclusion located in EP:75, EP:47/92 and EP:102 through a nontrivial E naming a procedure class; T-PROC added; finite-information tests noted as insufficient |
+| #1510 at `c45b82cf` (c.7066267563), folded under #1169 c.7067233614, r5.7 | §2.4: T1 repaired (P-ST under FE-ADM and BF replaces "strictly weaker"); T2 indexing by a setting typed per EP:79/EP:75; encodings in the definitions, the mismatch a BF failure; FE-ADM's non-exclusion of D-W; D6 cross-reference. No claim broadened; D1–D4 and D7 left open |
 | Review c.7065260286, r5.6 | "robustly" removed; the (iv) dilemma stated in §2.2 with both readings, their consequences and the PBR/PIP condition (labelled (I)); completion route noted; §2.2 Result, D5 option (a) and D6 restated; H worded as two hypotheses |
 | Final check c.7065233367, r5.5 | n1: H for the existing routes names `hd` and the construction of an EP-schema model; n2: "observer-access procedure" defined for T-SUB′, with the load-bearing clause (iv) and its open redescription question |
 | Delta review c.7065208959, r5.4 | blocking item: the D5 bar restated as unmeetable until a legitimate exact model is known; T-SUB′ presented as a live criterion consistent with decision 1, with its cost; §2.2 row and result, §3 I-3 row, §7 item 3 and D5 restated; nits N1–N4 (L-H′ review status, I★_st comparator as a design choice, finite-atom wording, Proposition U caveat in D7) |
