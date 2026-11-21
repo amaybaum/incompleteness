@@ -1,6 +1,8 @@
-# NATIVE-UNIV, round 4: a non-spreading excursion in Q (P3 stage S1 refuted)
+# NATIVE-UNIV, round 4: a non-spreading excursion in Q (P3 stage S1 refuted on paper)
 
-**Standing.** Writer's research record, paper only. Not independently reviewed. It follows
+**Standing.** Writer's research record, paper only. Independent non-author review at `fa054c24`:
+REVISE on status only ([#1523 c.7067371071](https://github.com/amaybaum/incompleteness/pull/1523#issuecomment-7067371071)). The reviewer re-derived all ten ticks by hand without using the
+symmetry, and NU9 holds. It follows
 `PLAN.md` (`05c24ddb`), committed first. No computation was run. Every orbit below is derived by
 hand, tick by tick.
 
@@ -26,9 +28,14 @@ statement about effects, instruments, accessible algebras or readouts.
 
    For Q = `R_q` on `ℤ³` this holds at every uniform background `c` with `2 ≤ c ≤ q − 3`, any
    `q ≥ 5`, by U1 Lemma 2.1. Hence:
-   - P3 stage S1 is **refuted**;
-   - Conjecture S(c) of F1 `plans/P3-PREREG.md` is false at every such `c`;
-   - non-spreading excursions ("bounded breaches", P2N NU3) exist in Q, for a single site.
+   - P3 stage S1: **refuted on paper; an independent hand re-derivation confirms it; the exact
+     re-run is pending.** P3's control P3-K5 requires an independent re-run before a refutation
+     counts, and NU9-CHECK (§5) has not been run. Whether to authorize it or to accept the hand
+     re-derivation is the owner's decision;
+   - Conjecture S(c) of F1 `plans/P3-PREREG.md` fails at every such `c`, at the same standing;
+   - non-spreading excursions ("bounded breaches", P2N NU3) exist in Q, for a single site. The
+     excursion reading uses NU4 (breach of a closed set is radiation), which is in P2N and not on
+     `main`. The orbit itself does not depend on it.
 
    The seeds `(0, −2)`, `(2, 0)` and `(−2, 0)` have the same property: their orbits are images of
    this one under negation and the shift by 9 ticks.
@@ -39,13 +46,15 @@ statement about effects, instruments, accessible algebras or readouts.
      to the centre with the opposite sign.
    - The only value outside `[c−1, c+1]` ever is at the cube's centre, which is its only interior
      site. This is as NU3 and NU6(b) require.
-3. **Consequence for the decisive question [W].** PT's class (planar, ternary by NU6(c)) excludes
+3. **Consequence for the decisive question [W; a design inference, not a theorem].** PT's class (planar, ternary by NU6(c)) excludes
    by construction the mechanism NU9 exhibits. NU9's mechanism is an out-of-range value at an
    interior site of a thick (non-planar) region, which shell-emits and reabsorbs without leaking.
    - A PT result of H0 would therefore not bear on gadgets built from breathers.
-   - The next decisive class is thick gadgets with interior excursions. This is a change of which
-     class a decisive test must cover (PLAN gem (iii)).
-4. **Productivity:** gem by (ii), since S1 is refuted by an explicit orbit, and by (iii).
+   - A decisive test should therefore also cover thick gadgets with interior excursions. This is a
+     design inference about test selection, not a theorem about Q (PLAN gem (iii)).
+4. **Productivity:** gem by (ii), at the paper standing stated in item 1, and by (iii), as a design
+   inference.
+5. **F1's P2-K3 needs amendment** (§6). NU9 contradicts its required outcome.
 
 ***
 
@@ -158,8 +167,8 @@ leak-free controlled transfer relative to a finite allowed region `lines ∪ R`.
     the native rule with encoding, dynamics and correctness would count as a construction. NU9 is
     not one.
 - **Reading for test selection, at the level established.** PT's expected H0 concerns planar
-  gadgets only, and NU9 shows that native bounded excursions live off the plane. So PT's H0 would
-  leave the most promising native mechanism untouched. A next decisive test should cover thick
+  gadgets only, and NU9 shows that native bounded excursions occur off the plane. So PT's H0 would
+  not test a mechanism of this kind, which may or may not prove useful. A next decisive test should cover thick
   gadgets: allowed regions with interior sites, values beyond ternary at interior sites, and
   breathers as candidate parts. This narrows the value of running PT stage 1. It does not by
   itself make PT stage 1 uninformative.
@@ -168,9 +177,9 @@ leak-free controlled transfer relative to a finite allowed region `lines ∪ R`.
 
 | Result | Label | Status | Established | Assumed (where it enters) | Missing |
 |---|---|---|---|---|---|
-| NU9: the period-10 orbit of the seed `(c, c+2)`, for `2 ≤ c ≤ q − 3`, `q ≥ 5`, on `ℤ³` | (N) | writer's hand derivation, unreviewed; no off-`main` dependency | the orbit, tick by tick to `t = 5`; the symmetry `y_s = −y_{8−s}`; exact period 10; the excursion at `t = 0` and `t = 8` | native only: `R_q`'s update and U1 Lemma 2.1 (on `main`) | an exact re-run (preregistered, gated) |
-| S1 refuted, and S(c) false | (N) | as NU9 | P3's decision rule for refutation (an explicit periodic orbit plus an excursion tick) is met on paper | as NU9; P3's definitions (F1, reviewed) | review |
-| §3 reading: PT's class excludes NU9's mechanism | (N) | writer's, unreviewed | NU6(c) (P2N, confirmed in review) applied to PT's planar class | NU6 (not on `main`) | whether breathers can couple to lines (mathematics; a construction question) |
+| NU9: the period-10 orbit of the seed `(c, c+2)`, for `2 ≤ c ≤ q − 3`, `q ≥ 5`, on `ℤ³` | (N) | writer's hand derivation, confirmed by the reviewer's independent hand re-derivation (#1523 c.7067371071); exact re-run pending; the orbit has no off-`main` dependency | the orbit, tick by tick to `t = 5`; the symmetry `y_s = −y_{8−s}`; exact period 10; the excursion at `t = 0` and `t = 8` | native only: `R_q`'s update and U1 Lemma 2.1 (on `main`) | an exact re-run (preregistered, gated) |
+| S1 refuted on paper, and S(c) fails | (N) | refuted on paper, confirmed by an independent hand re-derivation; the exact re-run P3-K5 requires is pending | P3's decision rule for refutation (an explicit periodic orbit plus an excursion tick) is met on paper | as NU9; P3's definitions (F1, reviewed); the excursion reading uses NU4 (P2N, not on `main`) | the exact re-run NU9-CHECK (gated), or an owner decision to accept the hand re-derivation |
+| §3 reading: PT's class excludes NU9's mechanism; the thick-gadget redirection | (N) for the exclusion; the redirection is a design inference, not a theorem | writer's | NU6(c) (P2N, confirmed in review) applied to PT's planar class | NU6 (not on `main`) | whether breathers can couple to lines (mathematics; a construction question) |
 
 ## 5. Preregistered check (not run)
 
@@ -192,3 +201,20 @@ wraps.
 
 **Would establish:** an exact run confirming NU9 on the sampled instances. **Would not:** anything
 beyond NU9.
+
+## 6. Proposed amendment to F1's P2-K3 (F1 is not edited)
+
+F1 `plans/P2-PREREG.md` §4, control P2-K3 (unrun), requires: "a singleton with current value
+`c + 2` (MQ CC5) has an excursion at tick 0, and is classified G or U, never P without the flag".
+By NU9, the singleton `(c, c + 2)` at `c = 2^15` is periodic with period 10 and has an excursion
+at `t = 0`. Its correct classification is **P-exc**, not G or U. As written, P2-K3 would fail on a
+correct implementation and void P2.
+
+*Proposed replacement*, to be recorded as an amendment in F1's `plans/amendments/` by whoever is
+authorized to amend F1 and before any P2 run:
+- "P2-K3: the singleton `(c, c + 2)` is classified P-exc with period 10 (NU9)";
+- a separate countercontrol for the G class, for example the linear member P2-K4, which already
+  exists.
+
+The singleton is then a *positive* control for the P-exc detector. That also answers P2-K6's
+stated gap ("no in-rule periodic orbit with an excursion is known in advance").
