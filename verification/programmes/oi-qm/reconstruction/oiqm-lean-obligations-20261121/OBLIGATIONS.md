@@ -354,13 +354,17 @@ theorem thmC_detector … : ∃ S _ _ (O ∈ 𝒪 S), ¬ NoDetect O      -- non-
 - **R-READ.** Native readouts enter `𝒪` as whatever operations they are. If R-READ holds they are
   MIO and DIO, and the theorem then says the creator and the detector are not readouts. If R-READ
   fails, a readout may be the detector. Both readings are covered, and neither is assumed.
-- **Label.** (I). The imports are:
-  - KIN: operations typed as complex channels.
-  - Finite carriers: a narrower scope than OPRES's countable carriers, stated as such.
+- **Label.** (N), under the stated convention. The statement is pure mathematics about an abstract set
+  `𝒪` of complex channels, and it has no native premise.
+  - It is restricted to finite carriers, a narrower scope than OPRES's countable carriers, stated as
+    such.
   - The approximate forms (a) and (b) are PO-19.
+  - OPRES's label (I) on KIN belongs to the *reading* of `𝒪` as OI's native operations. In this record
+    that reading is made in PO-07e, which is (I), where the native branches are typed as complex
+    channels through `NativeSource.branch`.
 - **E/A/M.**
   - E: Theorem C, layer X, in #1511, reviewed.
-  - A: KIN.
+  - A: none in the statement. KIN enters at PO-07e.
   - M: which native operations, if any, are the non-MIO and non-DIO elements. That is physical.
 - **§A.35.** Module `CoherenceResource`, kernel-only.
 
@@ -761,11 +765,7 @@ theorem thmC_approx_detector … (hd : diamondDist Φ (conjChannel W) < 2 * kapp
     - `Matrix.frobeniusNorm` and `Matrix.linftyOpNorm` (Analysis/Matrix/Normed.lean).
     - For Proposition D: `VonNeumannAlgebra` (Analysis/VonNeumannAlgebra/Basic.lean:67) and
       `WStarAlgebra` (:45).
-  - **An intermediate obligation using what is present, PO-19a.** This is the operator-norm form of
-    Theorem A′'s bound:
-    `∀ σ diagonal, ‖ψψᴴ − σ‖ ≥ sup_{i≠j} |ψ_i ψ_j|` in the l2 operator norm, which is weaker by a factor
-    of 2 than the trace-norm bound. The operator-norm counterparts of (a) and (b) follow with
-    constant κ instead of 2κ, by the same argument. They are typable now.
+  - The operator-norm variant is not part of PO-19. It is an unreviewed proposal, set apart in §4.
   - **Real gaps, carried as hypotheses only.** The trace norm and the diamond norm, which (a) and (b)
     as stated need, are absent at `v4.33.0`.
   - **Not located in this check.** Normal states and the von Neumann tensor product with its normal
@@ -806,7 +806,8 @@ theorem thmC_approx_detector … (hd : diamondDist Φ (conjChannel W) < 2 * kapp
   - The mathematical gaps, carried as hypotheses only, are the trace and diamond norms, nonnegative
     rank, Stinespring dilation and channel extremality, all absent at `v4.33.0`.
   - Mathlib does supply the l2 operator norm, general extreme-point theory, CP maps on C*-algebras
-    and von Neumann algebras. These are used in PO-11 and PO-19 (with PO-19a).
+    and von Neumann algebras. These are used in PO-11 and PO-19. The operator-norm proposal of §4 is
+    unreviewed and is not counted here.
   - Other open mathematics: the reindexing lemma (PO-15) and S2-sub.
 - **The (N) obligations are PO-01's lemmas, PO-04, PO-05 and PO-13**, all pure mathematics under the
   stated convention. Every other obligation is (I).
@@ -820,3 +821,17 @@ theorem thmC_approx_detector … (hd : diamondDist Φ (conjChannel W) < 2 * kapp
 - READOUT-ALG, which carries R-READ.
 
 None is used as a premise.
+
+## 4. Unreviewed proposal, outside the obligation list
+
+**UNREVIEWED PROPOSAL; not a reviewed obligation.** This item is a new claim: it is not part of
+OPRES #1511, and no review has checked it. It has no PO number and enters no count, graph edge or
+order above.
+
+- **Proposal P-19a, the operator-norm form of Theorem A′'s bound.** For every diagonal σ,
+  `‖ψψᴴ − σ‖ ≥ sup_{i≠j} |ψ_i ψ_j|` in the l2 operator norm (`Matrix.l2_opNorm_def`,
+  Analysis/CStarAlgebra/Matrix.lean:185).
+- **Proposed consequence.** The operator-norm counterparts of Theorem C (a) and (b), with constant κ in
+  place of 2κ.
+- **Status.** Conjectured by analogy with the trace-norm argument, and unproved. It needs independent
+  review before it could become an obligation.
