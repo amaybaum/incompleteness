@@ -1,7 +1,8 @@
 # OPRES: necessary resources for non-monomial transformations (research note)
 
 **WIP / UNVERIFIED. Paper research only.** Revision r2 answers the independent review of
-`35f0aa8a` (#1511 c.7066342291, verdict REVISE). r2 has not been re-reviewed. This note walks the
+`35f0aa8a` (#1511 c.7066342291, verdict REVISE). r3 answers the narrow review of `2138732b`
+(c.7066421069). r3 has not been re-reviewed. This note walks the
 nodes of `PLAN.md`, which was committed before the derivation at `1f926939`. It adopts no premise
 or criterion, edits no manuscript or reviewed record, runs no computation and changes no status.
 Physical source remains NOT PASSED.
@@ -36,8 +37,8 @@ separately.
   in sketch.
 - **INCONCLUSIVE.**
   - **U2** (physical): can OI's ontology host a coherence detector and a coherence source?
-  - **U1′** (narrow): measurable carriers whose bijection is singular, or whose hidden state is not
-    normal. There the Born-form lift itself is undefined (§6).
+  - **U1′** (narrow): measurable carriers with a singular bijection, or with a non-normal hidden
+    state and an infinite visible carrier. Two reductions are pending (§6).
 
 **Established.**
 - Lemma C; Theorems A′, B and C; Proposition D. All are layer X.
@@ -216,10 +217,21 @@ X; ELABORATING; proof due to the review sketch, written out here and pending rev
   C_V × H with measurable inverse, **nonsingular** for (counting × ν). ω is a **normal** state on
   B(L²(H)).
 - *Configuration algebras.* For each space, 𝒜 = ℓ^∞(C_V) ⊗̄ L^∞(H), acting by multiplication.
+- *Readouts.* Configuration readouts are instruments indexed by **countable** measurable
+  partitions, with projections in 𝒜, or more generally instruments whose duals preserve 𝒜. A
+  Lüders-type normal instrument for a continuous hidden PVM does not exist and is not included.
+- *DIO, Heisenberg form.* On measurable carriers, DIO-type means Φ*(𝒜_out) ⊆ 𝒜_in. A diffuse MASA
+  has no normal conditional expectation Δ, so the Schrödinger form is not used.
 - *Statement.* Every protocol built from Koopman unitaries U_T of such bijections, appending normal
-  states, configuration-algebra projections, feedforward on configuration records, discard and
-  postselection has a Heisenberg dual Φ* that maps 𝒜_out into 𝒜_in. Theorem B(i) and (ii) then
-  hold verbatim with C_V finite, and Theorem C(b) holds for such protocols.
+  states, the readouts above, feedforward on configuration records, discard and postselection has
+  a Heisenberg dual Φ* that maps 𝒜_out into 𝒜_in. Theorem B(i) and (ii) then hold verbatim with C_V
+  finite.
+- *Theorem C(b), measurable form.* If every O_k satisfies O_k*(𝒜) ⊆ 𝒜, then
+  ‖Φ − Ad_W‖_⋄ ≥ 2κ_row(W). So within that distance some O_k has a dual that leaves the
+  configuration algebra, that is, it detects coherence.
+- *Relation to r1's missing lemma.* D **supersedes** the direct-integral RM Kraus lemma that r1
+  named as missing, for the detection half: it makes that lemma unnecessary. It does not prove it.
+  The direct-integral Kraus statement itself remains unproved, and it is not needed.
 
 *Proof.* Each step is checked in the Heisenberg picture.
 1. **Koopman unitaries.** Let (U_T f)(z) = J(z)^{1/2} f(T⁻¹z), with J the Radon–Nikodym derivative
@@ -229,7 +241,8 @@ X; ELABORATING; proof due to the review sketch, written out here and pending rev
 3. **Discard.** The dual of the partial trace is X ↦ X ⊗ 1, which maps 𝒜 into 𝒜 ⊗̄ 𝒜.
 4. **Appending ω.** The dual is the normal slice map id ⊗ ω. It sends M_f, with f ∈
    ℓ^∞(C_V) ⊗̄ L^∞(H), to the multiplication operator v ↦ ω(M_{f(v,·)}) in ℓ^∞(C_V). Normality
-   is needed for the slice to be defined on the von Neumann tensor product.
+   is used for the slice on the von Neumann tensor product. With C_V and the visible ancillas
+   finite it is not needed (Remark D′).
 5. **Feedforward.** Feedforward on configuration records is a direct sum over 𝒜-projections.
 6. **Postselection.** Sub-instruments keep the property branchwise.
 7. **Conclusion.** Induction gives Φ*(|i⟩⟨i|) ∈ ℓ^∞(C_V), so Φ is DIO on the finite visible space.
@@ -238,6 +251,25 @@ X; ELABORATING; proof due to the review sketch, written out here and pending rev
    - (i) follows because Ad_W*(|i⟩⟨i|) = W†|i⟩⟨i|W is diagonal and rank one.
    - No Kraus decomposition and no extremality step is used. ∎
 
+**Remark D′ (finite visible carriers, any hidden state; (I) on the algebraic lift; X; pending
+review).** Let C_V and the visible ancillas be finite.
+- 𝒜 = ⊕_v L^∞(H) is then a finite direct sum, and the slice f ↦ (ω(f_v))_v is defined for **any**
+  state ω on B(L²(H)), normal or not.
+- The joint ρ ⊗ ω is a state on M_n(B(L²(H))), and its restriction to the visible algebra is always
+  defined.
+- The computation (ρ ⊗ ω)(Ad_U*(|i⟩⟨i| ⊗ 1)) = Σ_v ρ_vv ω(g_v) depends on diag ρ only.
+
+So the algebraic lift exists for non-normal ω, and the detection half holds there. It lies outside
+KIN's density-operator form, so the label is (I) on the algebraic lift.
+
+**Conjecture D″ (singular bijections; from the review sketch c.7066421069; not proved).** A singular
+measurable bijection T reduces to a nonsingular one by enlarging the reference measure. Set
+ν_{k+1} := the H-marginal of Σ_{g ∈ ⟨T⟩} c_g · g_*(counting × ν_k), with positive weights c_g
+summing to 1, and ν_∞ := Σ_k 2^{−k} ν_k. Then T would be nonsingular for counting × ν_∞, and L²(ν)
+would embed isometrically in L²(ν_∞), so Proposition D would apply on the enlarged space. Not
+checked here. The open points are the quasi-invariance of ν_∞, and whether the embedding
+intertwines the readouts and the hidden state.
+
 *Creation half on measurable carriers.* A classical hidden law on a measurable carrier is not a
 normal state on B(L²(H)) unless it is atomic. Its single-time case is `Main:338` (the
 measurable-hidden-carrier corollary). For protocols with classical laws, the process is a classical
@@ -245,8 +277,11 @@ stochastic process on configurations, so every output is a law over configuratio
 
 **Corollary C1 (interface placement; (I) on KIN; X).** Suppose the logical basis is U-rotated,
 while preparations and readouts stay native.
-- Logical preparation |U i⟩ creates coherence whenever U is not CM.
-- Logical readout ⟨U i| detects coherence whenever U is not RM.
+- Logical preparation |U i⟩ creates coherence whenever U is non-monomial.
+- Logical readout ⟨U i| detects coherence whenever U is non-monomial.
+
+For a unitary, CM ⇔ RM ⇔ monomial (C(c)). Strictly, the effect |U i⟩⟨U i| is non-diagonal iff
+column i of U has more than one nonzero entry.
 
 Changing the encoding relocates both elements to the interface; it does not remove them (compare
 #1508 CM-2).
@@ -280,7 +315,7 @@ are native here in the sense of (n1) and the kernel's supplied class (`phaseOper
 | Non-monomial step on the configuration span (FLOW; `gateFlow_not_monomial`, K) | yes | yes | **sufficient**; **not necessary** as such |
 | Destructive non-configuration readout (⟨±\|) | no | yes | a possible detector (CC-1) |
 | Coherent ancilla plus one non-configuration readout plus feedforward | yes | yes | **verified construction** (CC-1) |
-| Measurable carrier, singular bijection or non-normal hidden state | — | — | **INCONCLUSIVE (U1′)**: the Born-form lift is undefined (§6) |
+| Measurable carrier: singular bijection, or non-normal hidden state with infinite visible carrier | — | — | **INCONCLUSIVE (U1′)**, pending Conjecture D″ and the infinite-visible case (§6) |
 
 **What is necessary (proved, Theorem C):** a coherence creator and a coherence detector.
 **What is not necessary:** FLOW specifically.
@@ -331,11 +366,17 @@ shows the converse gap: coherent dynamics can be efficiently classically simulab
 D-W's sketch.
 
 **INCONCLUSIVE, with the missing premise named.**
-- **U1′ (narrowed).** Proposition D closes the detection half for nonsingular measurable
-  bijections and normal hidden states. `Main:338` covers classical laws. What remains is
-  measurable bijections that are not nonsingular, which have no unitary Koopman operator, and
-  non-normal hidden states. In both cases the Born-form lift Tr_H[U(ρ ⊗ ω)U†] is not defined, so
-  the missing premise is a representation of such carriers at all, not a lemma about them.
+- **U1′ (narrowed, pending two reductions).** The detection half is settled in three cases:
+  - Proposition D: nonsingular measurable bijections with normal hidden states;
+  - Remark D′: any hidden state, when the visible carriers are finite;
+  - `Main:338`: classical laws.
+
+  What remains INCONCLUSIVE:
+  - (i) singular bijections, pending Conjecture D″;
+  - (ii) non-normal hidden states with an infinite visible carrier;
+  - (iii) whatever fails in the reduction of (i).
+
+  It is **not** claimed that the lift is undefined in these cases.
 - **U2 (decisive; physical).** Can OI's ontology host a coherence detector, and a creator or
   coherent input? Within 𝒩 they cannot arise (A′, C). They require one of three things:
   - extending Φ beyond a bijection;
@@ -352,7 +393,9 @@ D-W's sketch.
 | Theorem A′ | (N) as algebra on 𝒩; reading (I) on KIN, conditional on R-READ | X | CONFIRMING (IO/SIO; `Main:328`) |
 | Theorem B | (I): KIN, fixed coherent resource states, countable carriers | X | ELABORATING (S1 extended) |
 | Theorem C | (I): KIN, countable carriers | X | NEW relative to the corpus; standard after Theurer et al. |
-| Proposition D | (I): KIN, nonsingularity, normality | X | ELABORATING (from the review sketch) |
+| Proposition D | (I): KIN, nonsingularity, normality | X | ELABORATING (from the review sketch); supersedes the r1 lemma for the detection half |
+| Remark D′ | (I): algebraic lift; finite visible carriers | X | ELABORATING, pending review |
+| Conjecture D″ | conjecture | P | open |
 | CC-1 | construction using one imported creator and one imported detector | X | POSITIVE (tightness) |
 | Corollary C1 | (I): KIN | X | ELABORATING |
 | §5 | (N) membership, conditional on R-READ | P, K | CONFIRMING |
@@ -368,12 +411,18 @@ not decisive and is not preregistered.
 ## 8. For owner decision (nothing adopted)
 
 - **R-READ, stated precisely.** Are all native readout effects in the configuration algebra (ℓ^∞,
-  or L^∞)? If not, a native readout can detect coherence. By CC-1, one such readout together with
-  a fixed |+⟩ already realizes H exactly. U2 would then move from "no detector" to "a detector is
-  present; a coherence source is still needed".
+  or L^∞)? If not, a native readout detects coherence, and U2 moves from "no detector" to "a
+  detector is present; a coherence source is still needed".
+  - If that readout includes a **sharp**, destructive, projective readout in a basis **unbiased**
+    with respect to the configurations, as in CC-1, then one such readout plus a fixed |+⟩, CZ and
+    an X correction realizes H exactly.
+  - An unsharp non-diagonal effect, for example diag(½, ½) + ε σ_x, detects coherence but does not
+    give exact H.
 - **O1 restatement (candidate).** Whether to restate O1 as the pair {a native operation that
   creates coherence (not MIO-type), a native operation that detects coherence (not DIO-type)},
-  in place of FLOW alone. The splitter/merger pair of r1 is not proposed, because it is
+  **possibly one element** (FLOW is both), in place of FLOW alone.
+  - The pair is necessary at the Born-form level, (I) on KIN.
+  - It is sufficient only together with native diagonal phases and permutations, as in CC-1. The splitter/merger pair of r1 is not proposed, because it is
   over-inclusive on the creation side.
 
 ## 9. What this note does not do
