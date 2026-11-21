@@ -78,7 +78,8 @@ INF = re.compile(r'(?:\b(?:is|are|be|being|been)\s+infinite\b(?!-))|\b(?:is|are)
                  r'|\bextending without end\b|\bnon-finite\b|\binfinitely extended\b|\b[Ff]initeness\b[^.;]{0,40}\bfails\b(?! to)'
                  r'|\b(?:every|any|all|arbitrary) infinite (?:system|substrat\w*|carrier|configuration space|lattice|model)s?\b'
                  r'|\b(?:holds?|works?|appl(?:y|ies)|valid) (?:for|to|on) (?:every|any|all|arbitrary) (?:configuration spaces?|carriers?|substrat\w*|cardinalit(?:y|ies))\b'
-                 r'|\bregardless of (?:its |the )?cardinality\b|\bwhatever (?:its|the) cardinality\b|\bindependently of (?:its |the )?cardinality\b')
+                 r'|\bregardless of (?:its |the )?cardinality\b|\bwhatever (?:its|the) cardinality\b|\bindependently of (?:its |the )?cardinality\b'
+                 r'|\b(?:extends?|extended|appl(?:y|ies)|carr(?:y|ies) over|generali[sz]es?) to infinite (?:substrat\w*|systems?|configuration spaces?|carriers?|lattices?|models?)\b')
 # The only exempt form: a symmetric "neither ... finite ... nor ... infinite" disclaimer, the match inside it.
 NEUTRAL = re.compile(r'\bneither (?:that )?(?:the substratum|the universe|it|\$S\$|S) (?:is|be) finite nor (?:that )?'
                      r'(?:the substratum|the universe|it|\$S\$|S) (?:is|be) infinite\b')
@@ -432,10 +433,12 @@ SIM_PRESERVE = {
                        'by the counting measure of Lemma 3', 'On a finite set, injectivity implies surjectivity'],
     'papers/Substratum.md': [CS_SENTENCE, '*finite capacity* when $S$ is finite', 'of finite capacity when $S$ is finite'],
     'book/ch01-observation.md': [CS_SENTENCE, 'makes $\\mathcal{C}_V$ finite', 'On each finite cycle of the reversible representative',
+                                 'On a finite representative, or under A2 (Chapter 2 §2.4), $\\varphi$ is a bijection on $S$.',
                                  'globally, on a finite representative, the counting measure is selected',
                                  'On a finite set, injectivity implies surjectivity'],
     'book/ch02-substratum.md': [CS_SENTENCE, 'the results stated for a finite substratum take it finite'],
     'book/The-Incompleteness-of-Observation-FULL.md': [CS_SENTENCE, 'globally, on a finite representative, the counting measure is selected',
+                                                        'On a finite representative, or under A2 (Chapter 2 §2.4), $\\varphi$ is a bijection on $S$.',
                                                         'the results stated for a finite substratum take it finite'],
 }
 CS_COUNT = {'papers/Main.md': 1, 'papers/Substratum.md': 1, 'book/ch01-observation.md': 1, 'book/ch02-substratum.md': 1,
@@ -737,9 +740,9 @@ EXPLAINED = [  # (path or prefix ending in '/', substring or None, class, reason
     ('verification/coverage/LEDGER.json', 'A1 = 1, A2 = sign', 'unrelated label', 'the A1 irrep'),
     # frozen sentences of round H-B, pinned byte-identical by the R7 guard (Z18, W21, the HB module check); they name
     # the kernel class of the predicates A1-A4 without A5 and are left to the governed change of #1482 (PREREG §24)
-    ('verification/programmes/hydrodynamics/PROGRAMME.md', 'H-B: one candidate executed in the A1–A4, ¬A5 class', 'frozen round sentence', 'round H-B frozen sentence (kernel class), guard-pinned'),
-    ('verification/lean-mathlib/OIBridge/HexLatticeGas.lean', '**a rigorous reversible fluid witness in the A1–A4, ¬A5 class**', 'frozen round sentence', 'round H-B module sentence (kernel class), guard-pinned'),
-    ('verification/lean-manuscript-census.json', "reads 'H-B: one candidate executed in the A1-A4, not-A5 class", 'frozen round sentence', 'quotation of the frozen H-B sentence'),
+    ('verification/programmes/hydrodynamics/PROGRAMME.md', 'H-B: one candidate executed in the A1–A4, ¬A5 class', 'pending #1482', 'round H-B frozen sentence (kernel class), guard-pinned (Z18, W21); deferred to #1482 with the guard amendment'),
+    ('verification/lean-mathlib/OIBridge/HexLatticeGas.lean', '**a rigorous reversible fluid witness in the A1–A4, ¬A5 class**', 'pending #1482', 'round H-B module sentence (kernel class), guard-pinned; deferred to #1482'),
+    ('verification/lean-manuscript-census.json', "reads 'H-B: one candidate executed in the A1-A4, not-A5 class", 'pending #1482', 'registry quotation of the frozen H-B sentence; deferred to #1482'),
     ('verification/programmes/black-hole-information/PROGRAMME.md', 'A1/A2 exact-QM targets', 'unrelated label', 'the programme targets A1/A2'),
     ('verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/README.md', 'A1 and A2', 'unrelated label', 'the programme targets A1 and A2'),
     ('verification/programmes/oi-qm/reconstruction/intervene-substate-results-20261113/README.md', None, 'unrelated label', 'rows A1, A2 of a results table'),
@@ -813,7 +816,7 @@ def repo_scan(data, src, simulate, quiet=False, final=False):
                 cls, why = classify(f, line)
                 area = f.split('/')[0] if '/' in f else f
                 tally[(cls, area)] = tally.get((cls, area), 0) + 1
-                if cls in ('unexplained', 'manuscript') or (final and cls.startswith('pending')):
+                if cls in ('unexplained', 'manuscript') or (final and cls.startswith('pending R-')):
                     unexpl.append('%s:%d [%s] %s' % (f, i, cls, line.strip()[:120]))
     say('repository-wide scan (%s): lines by class and area' % ('after the edits, in memory' if simulate else 'as is'))
     for (c, a), n in sorted(tally.items()):
@@ -964,7 +967,8 @@ def self_test():
            'the repository scan passes once the edit is applied in memory')
     # reconciliation countercontrols (owner safeguard; round 5)
     for s_ in ['so the theory works for every infinite system', 'the results hold for any configuration space',
-               'valid on arbitrary carriers', 'regardless of its cardinality']:
+               'valid on arbitrary carriers', 'regardless of its cardinality', 'the result extends to infinite substrata',
+               'the theorem applies to infinite configuration spaces']:
         expect(bool(static_new({'edits': [E('IS', 'a set (finite under A1)', s_)]})[0]), 'safeguard: flags "%s"' % s_)
     expect(classify('verification/programmes/hydrodynamics/PROGRAMME.md', 'from A1–A6 to Navier–Stokes')[0] == 'unexplained',
            'a live programme charter is active, not historical')

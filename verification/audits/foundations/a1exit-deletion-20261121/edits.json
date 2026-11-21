@@ -1720,8 +1720,7 @@
    "reason": "F row X-54: finite scope kept; the owner's configuration-space sentence opens the triple in place of D114's own neutrality wording, so the book has one wording (owner decision #1169 c.7058783437, book mirrors; review round 5).",
    "step2_note": null,
    "old": "The framework's central object is a triple. $S$ is the set of total configurations, finite in the representative specified under the open hypothesis A1 (§2.4).",
-   "new": "The framework's central object is a triple.\n\n**Configuration space.** The substratum has a configuration space $S$. No restriction is imposed on its cardinality; $S$ may be finite or infinite. $S$ is the set of total configurations; the results stated for a finite substratum take it finite.",
-   "revised": "round 1"
+   "new": "The framework's central object is a triple.\n\n**Configuration space.** The substratum has a configuration space $S$. No restriction is imposed on its cardinality; $S$ may be finite or infinite. $S$ is the set of total configurations; the results stated for a finite substratum take it finite."
   },
   {
    "id": "D115",
@@ -1736,8 +1735,7 @@
    "reason": "F row X-54: finite scope kept; the owner's configuration-space sentence opens the triple in place of D114's own neutrality wording, so the book has one wording (owner decision #1169 c.7058783437, book mirrors; review round 5).",
    "step2_note": null,
    "old": "The framework's central object is a triple. $S$ is the set of total configurations, finite in the representative specified under the open hypothesis A1 (§2.4).",
-   "new": "The framework's central object is a triple.\n\n**Configuration space.** The substratum has a configuration space $S$. No restriction is imposed on its cardinality; $S$ may be finite or infinite. $S$ is the set of total configurations; the results stated for a finite substratum take it finite.",
-   "revised": "round 1"
+   "new": "The framework's central object is a triple.\n\n**Configuration space.** The substratum has a configuration space $S$. No restriction is imposed on its cardinality; $S$ may be finite or infinite. $S$ is the set of total configurations; the results stated for a finite substratum take it finite."
   },
   {
    "id": "D116",
@@ -3702,8 +3700,7 @@
    "reason": "Hidden dependency H-2: S2-D (X-63/X-82) prints a pointer to A1 at Sub:56 on its branch; at deletion the pointer becomes the property it names. The S2-D content (open inflow question, conditional on an infinite carrier) is unchanged.",
    "step2_note": null,
    "old": "Without A1 the question also concerns an incoming supply:",
-   "new": "Without finiteness the question also concerns an incoming supply:",
-   "revised": "round 1"
+   "new": "Without finiteness the question also concerns an incoming supply:"
   },
   {
    "id": "D245",
@@ -3793,8 +3790,7 @@
    "reason": "Owner decision #1169 c.7058446475: the approved sentence, verbatim with Main's symbol $S$ for $\\mathcal S$ and the run-in bold of Main's paragraph heads, as a paragraph after the Definition and the paragraph that unpacks it (\"This definition formalizes ...\", review round 5 nit), before Lemma 1. No label, identifier or assumption. Nearby finite-only results keep their scope (Lemma 1, Lemma 3 by D260, the measure remark by D309, the status Remark M:60; preservation check).",
    "step2_note": null,
    "old": "\n\n**Lemma 1** (Finiteness). *The finite-capacity clause",
-   "new": "\n\n**Configuration space.** The substratum has a configuration space $S$. No restriction is imposed on its cardinality; $S$ may be finite or infinite.\n\n**Lemma 1** (Finiteness). *The finite-capacity clause",
-   "revised": "round 1"
+   "new": "\n\n**Configuration space.** The substratum has a configuration space $S$. No restriction is imposed on its cardinality; $S$ may be finite or infinite.\n\n**Lemma 1** (Finiteness). *The finite-capacity clause"
   },
   {
    "id": "D260",
@@ -3825,8 +3821,7 @@
    "reason": "Owner decision #1169 c.7058446475: the approved sentence, verbatim with Substratum's symbol $S$, as the opening paragraph of §2 (the setup of $(S, \\varphi)$). The next paragraph keeps its finite scope (\"*finite capacity* when $S$ is finite\", D013; preservation check).",
    "step2_note": null,
    "old": "## 2. The Physical Interpretation of (S, φ)\n\n**Storage and memory.**",
-   "new": "## 2. The Physical Interpretation of (S, φ)\n\n**Configuration space.** The substratum has a configuration space $S$. No restriction is imposed on its cardinality; $S$ may be finite or infinite.\n\n**Storage and memory.**",
-   "revised": "round 1"
+   "new": "## 2. The Physical Interpretation of (S, φ)\n\n**Configuration space.** The substratum has a configuration space $S$. No restriction is imposed on its cardinality; $S$ may be finite or infinite.\n\n**Storage and memory.**"
   },
   {
    "id": "D246",
@@ -3916,7 +3911,7 @@
    "row": "X-10",
    "disposition": "F",
    "cls": "semantic",
-   "reason": "F row X-10: book mirror of D260; the configuration-space sentence above admits an infinite $S$.",
+   "reason": "F row X-10: book mirror of D260; and the bijectivity clause takes its conditions, a finite representative (the eventual-image argument) or the posit A2 (review round 6): the configuration-space sentence above admits an infinite $S$.",
    "step2_note": null,
    "old": "globally the counting measure is selected among the invariant measures",
    "new": "globally, on a finite representative, the counting measure is selected among the invariant measures",
@@ -3932,10 +3927,42 @@
    "row": "X-10",
    "disposition": "F",
    "cls": "semantic",
-   "reason": "F row X-10: book mirror of D260; the configuration-space sentence above admits an infinite $S$.",
+   "reason": "F row X-10: book mirror of D260; and the bijectivity clause takes its conditions, a finite representative (the eventual-image argument) or the posit A2 (review round 6): the configuration-space sentence above admits an infinite $S$.",
    "step2_note": null,
    "old": "globally the counting measure is selected among the invariant measures",
    "new": "globally, on a finite representative, the counting measure is selected among the invariant measures",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D349",
+   "kind": "consistency",
+   "file": "book/ch01-observation.md",
+   "site": "book/ch01-observation.md:38",
+   "part": 2,
+   "mirror_of": null,
+   "row": "X-10",
+   "disposition": "F",
+   "cls": "semantic",
+   "reason": "F row X-10: book mirror of D260; and the bijectivity clause takes its conditions, a finite representative (the eventual-image argument) or the posit A2 (review round 6): the configuration-space sentence above admits an infinite $S$.",
+   "step2_note": null,
+   "old": "**Lemma 3 (Determinism and selected measure).** *$\\varphi$ is a bijection on $S$.",
+   "new": "**Lemma 3 (Determinism and selected measure).** *On a finite representative, or under A2 (Chapter 2 §2.4), $\\varphi$ is a bijection on $S$.",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D350",
+   "kind": "consistency",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "site": "book/ch01-observation.md:38",
+   "part": 2,
+   "mirror_of": "book/ch01-observation.md:38",
+   "row": "X-10",
+   "disposition": "F",
+   "cls": "semantic",
+   "reason": "F row X-10: book mirror of D260; and the bijectivity clause takes its conditions, a finite representative (the eventual-image argument) or the posit A2 (review round 6): the configuration-space sentence above admits an infinite $S$.",
+   "step2_note": null,
+   "old": "**Lemma 3 (Determinism and selected measure).** *$\\varphi$ is a bijection on $S$.",
+   "new": "**Lemma 3 (Determinism and selected measure).** *On a finite representative, or under A2 (Chapter 2 §2.4), $\\varphi$ is a bijection on $S$.",
    "revised": "new in round 1"
   },
   {
@@ -4042,8 +4069,7 @@
    "reason": "Replaces D259's pinned-commit form (superseded by owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly). Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
    "step2_note": null,
    "old": "the manuscripts' own structural assumptions are A1–A6 of\n`[Substratum §3.1]`: finiteness of the configuration space, bijectivity of the dynamics, bounded",
-   "new": "the manuscripts' conditions on a substratum are finiteness of the configuration space (the scope\nof the reconstruction theorem) and A2–A6 of `[Substratum §3.1]`: bijectivity of the dynamics, bounded",
-   "revised": "round 1"
+   "new": "the manuscripts' conditions on a substratum are finiteness of the configuration space (the scope\nof the reconstruction theorem) and A2–A6 of `[Substratum §3.1]`: bijectivity of the dynamics, bounded"
   },
   {
    "id": "D264",
@@ -4218,8 +4244,7 @@
    "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly; the kernel predicate `A1` is named as the finiteness predicate it is. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
    "step2_note": null,
    "old": "substratum carrying the manuscript substrate data, A1–A5 represented as stated",
-   "new": "substratum carrying the manuscript substrate data, the finiteness predicate `A1` and A2–A5 represented as stated",
-   "revised": "round 1"
+   "new": "substratum carrying the manuscript substrate data, the finiteness predicate `A1` and A2–A5 represented as stated"
   },
   {
    "id": "D275",
@@ -4234,8 +4259,7 @@
    "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly; the kernel predicate `A1` is named as the finiteness predicate it is. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
    "step2_note": null,
    "old": "`leapEquiv`, and lattice translations; A1, A2,\n  A5 are stated outright",
-   "new": "`leapEquiv`, and lattice translations; the finiteness predicate `A1`,\n  A2 and A5 are stated outright",
-   "revised": "round 1"
+   "new": "`leapEquiv`, and lattice translations; the finiteness predicate `A1`,\n  A2 and A5 are stated outright"
   },
   {
    "id": "D276",
@@ -4250,8 +4274,7 @@
    "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly; the kernel predicate `A1` is named as the finiteness predicate it is. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
    "step2_note": null,
    "old": "instance, `waveSubstratum`, and satisfies A1–A5 as stated.",
-   "new": "instance, `waveSubstratum`, and satisfies the finiteness predicate `A1` on a finite torus and A2–A5 as stated.",
-   "revised": "round 1"
+   "new": "instance, `waveSubstratum`, and satisfies the finiteness predicate `A1` on a finite torus and A2–A5 as stated."
   },
   {
    "id": "D277",
@@ -4618,8 +4641,7 @@
    "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly (mutable landing page, §A.27); kernel identifiers keep their names.",
    "step2_note": null,
    "old": "the manuscripts' own structural assumptions A1–A6 of the Substratum paper, each quoted verbatim\nand given a representability verdict",
-   "new": "the Substratum paper's conditions on a substratum, finiteness of the configuration space (the scope\nof the reconstruction theorem) and A2–A6, each given a representability verdict",
-   "revised": "round 1"
+   "new": "the Substratum paper's conditions on a substratum, finiteness of the configuration space (the scope\nof the reconstruction theorem) and A2–A6, each given a representability verdict"
   },
   {
    "id": "D289",
@@ -5050,8 +5072,8 @@
    "reason": "Live programme charter (review round 5, must-fix 3): reclassified active; owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly.",
    "step2_note": null,
    "old": "and background independence (A1–A6 of the substratum programme).",
-   "new": "and background independence (finiteness, the scope of the finite representative, and A2–A6 of the substratum programme).",
-   "revised": "new in round 1"
+   "new": "and background independence (finiteness of the representative and A2–A6 of the substratum programme).",
+   "revised": "round 1"
   },
   {
    "id": "D341",

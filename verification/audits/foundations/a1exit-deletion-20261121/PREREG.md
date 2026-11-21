@@ -181,7 +181,7 @@ queued X-20 wording (unpinned update, "the only laws known") is not used anywher
 
 | Measure | Count |
 |---|---|
-| Edit records in `edits.json` | 348 (ptr 240, consistency 21, handoff 5, lean-docstring 36, repo-active 34, guard-pin 12) |
+| Edit records in `edits.json` | 350 (ptr 240, consistency 23, handoff 5, lean-docstring 36, repo-active 34, guard-pin 12) |
 | Pointer sites with a drafted rewrite | 194 of 194 (140 primary sites and 54 byte-identical FULL mirrors) |
 | Pointer sites by class (a FULL mirror takes its chapter's class) | 194 sites: mechanical 121, semantic 61, needs scientific review 12 |
 | Consistency corrections outside the 194 sites | 21 sites: mechanical 4, semantic 17, needs scientific review 0 |
@@ -254,7 +254,7 @@ scope (named in the cell).
 
 | Row | Title | ptr sites | Edits here | Verdict |
 |---|---|---|---|---|
-| X-10 | Lemma 3 selection clause: the counting measure is the maximal-entropy invariant measure | 0 | 4 | 4 edits at 4 sites; finite scope printed in every rewritten site |
+| X-10 | Lemma 3 selection clause: the counting measure is the maximal-entropy invariant measure | 0 | 6 | 6 edits at 4 sites; finite scope printed in every rewritten site |
 | X-12 | μ-O and μ-R (uniform law on the actual orbit / on the record-compatible orbit union), thei | 0 | 0 | no edit; printed finite-only statement unchanged |
 | X-16 | Theorem 19 reciprocity T_ij = T_θj,θi and detailed balance; Theorem 21 | 0 | 0 | no edit; printed finite-only statement unchanged |
 | X-18 | Lemma 1c(ii) pole statement; Proposition 4b continued response; Theorem 5 kinetic H-cust c | 0 | 0 | no edit; printed finite-only statement unchanged |
@@ -3238,20 +3238,32 @@ New:
 **Lemma 1 (Finiteness).** *The observer's finite capacity
 ```
 
-**ch01:38** · row X-10 (F) · semantic · edits D312. Mirror: FULL:371, identical strings (D313).
+**ch01:38** · row X-10 (F) · semantic · edits D312, D349. Mirror: FULL:371, identical strings (D313, D350).
 
-Reason: F row X-10: book mirror of D260; the configuration-space sentence above admits an infinite $S$.
+Reason: F row X-10: book mirror of D260; and the bijectivity clause takes its conditions, a finite representative (the eventual-image argument) or the posit A2 (review round 6): the configuration-space sentence above admits an infinite $S$.
 
-Old:
+Old (part 1):
 
 ```text
 globally the counting measure is selected among the invariant measures
 ```
 
-New:
+New (part 1):
 
 ```text
 globally, on a finite representative, the counting measure is selected among the invariant measures
+```
+
+Old (part 2):
+
+```text
+**Lemma 3 (Determinism and selected measure).** *$\varphi$ is a bijection on $S$.
+```
+
+New (part 2):
+
+```text
+**Lemma 3 (Determinism and selected measure).** *On a finite representative, or under A2 (Chapter 2 §2.4), $\varphi$ is a bijection on $S$.
 ```
 
 ### 6.3 Sites deferred to the deletion edit by S2-E (outside the 194)
@@ -4253,7 +4265,7 @@ and background independence (A1–A6 of the substratum programme).
 New (part 1):
 
 ```text
-and background independence (finiteness, the scope of the finite representative, and A2–A6 of the substratum programme).
+and background independence (finiteness of the representative and A2–A6 of the substratum programme).
 ```
 
 Old (part 2):
@@ -4644,12 +4656,12 @@ before any execution is authorized:
 
 | Command | Tree | Result |
 |---|---|---|
-| `edits_check.py --self-test` | — | self-test PASS (91 countercontrols) |
+| `edits_check.py --self-test` | — | self-test PASS (93 countercontrols) |
 | `edits_check.py --pins --commit 97070c98` | merged `main` | pins check: 0 unresolved pins (literals of tracked checks that the edits would break); 0 updated pins not found in their targets |
 | `edits_check.py --repo-scan --simulate --final --commit 97070c98` | merged `main` | repository-wide scan: 0 unexplained lines; RESULT PASS |
 | `edits_check.py --static` | — | infinity-assertion scan (new and new_step2): 0 hits; register scan (added text, §A.32/§A.33, history phrases): 0 hits; new capitals (3+ letters): 0; identifier rule (new and new_step2): 0 findings; preservation check (required content in every replacement variant): 0 findings; mirror parity (every chapter edit byte-identical to its FULL mirror): 0 findings; sitemap cross-check: 194 ptr sites in the map, 194 with an edit; 0 findings; RESULT PASS |
-| `edits_check.py --commit 97070c98` | base | uniqueness: 348 edits, 0 fail; variants used {'old': 348}; RESULT PASS |
-| `edits_check.py --commit 97070c98 --simulate` | base | uniqueness: 348 edits, 0 fail; variants used {'old': 348}; simulation: residual pointer lines 5 (5 allowed as listed, 0 unqualified); simulation: criterion-5/paraphrase hits on changed lines without a scope in their sentence: 0; simulation: finite-scope and configuration-space preservation findings: 0; simulation: identifier and count findings: 0; RESULT PASS |
+| `edits_check.py --commit 97070c98` | base | uniqueness: 350 edits, 0 fail; variants used {'old': 350}; RESULT PASS |
+| `edits_check.py --commit 97070c98 --simulate` | base | uniqueness: 350 edits, 0 fail; variants used {'old': 350}; simulation: residual pointer lines 5 (5 allowed as listed, 0 unqualified); simulation: criterion-5/paraphrase hits on changed lines without a scope in their sentence: 0; simulation: finite-scope and configuration-space preservation findings: 0; simulation: identifier and count findings: 0; RESULT PASS |
 | `edits_check.py --tree <projection> --simulate` | projected integration (pre-merge) | (projection retired at reconciliation; see §24) |
 
 The residual lines at the base are the S2-E Q3 sites (Comp, Meth, ch14, ch18 and their FULL mirrors), which
@@ -4674,8 +4686,13 @@ At the execution head, all of the following, with outputs recorded in the execut
    interrogative, or a stated open statement.
 3. Build: `sh ./build.sh Main Substratum SM GR Structure Computation Methodology` and `sh ./build.sh --book`;
    no dropped glyphs; page count and median characters per page recorded against the pre-execution build.
-4. Coverage: `python3 tools/coverage_check.py`; changed fingerprints re-affirmed in
-   `verification/coverage/LEDGER.json` (H-6).
+4. Coverage: `python3 tools/coverage_check.py`; the edits make four entries of `verification/coverage/LEDGER.json`
+   stale, and each is re-affirmed in the execution commit: `MAIN:L-3` (Lemma 3: D260, and the measure remark D309),
+   `STRUCTURE:P-9.5` (Proposition 9.5 in the finite OI class), `SUBSTRATUM:C-effective-finiteness-gauge-class-transfer`
+   (the corollary at Sub:268, D029) and `SUBSTRATUM:T-23` (Theorem 23: D022). For `MAIN:L-3` and `SUBSTRATUM:T-23` the
+   entry's level and delta are re-read against the new statement (a finite-representative scope; the finite-substratum
+   scope with the wrapping conditions), not only the fingerprint; the other changed fingerprints are re-affirmed as
+   the Step-2 units did (H-6).
 5. Register scan of the diff's added lines (§A.32, §A.33): meta-commentary, reader instruction,
    revision-history words, capitals for emphasis: zero hits.
 6. Infinity-assertion scan of the diff's added lines: zero hits (owner decision, item 6).
@@ -4692,6 +4709,21 @@ At the execution head, all of the following, with outputs recorded in the execut
     line pending an owner decision.
 12. Pins: `edits_check.py --pins --commit <execution head's parent>` reports 0 unresolved pins and 0 updated pins
     missing from their targets; the R7 guard and `bohr_frequency_probe.py` pass in CI at the execution head.
+13. SC-42 integration result. The book edits change the mirror prefixes that
+    `verification/audits/manuscript/bell-operational-reconciliation-20261029/sc42-integration-result.json` stores
+    (measured on a scratch copy of `97070c98` with all edits applied: the checks go from 1,961 to 1,971, with 26
+    entries added and 16 removed, every one a "chapter line mirrored in FULL" prefix, every check `ok`, no failed
+    predicate and every other field of the result unchanged; the unedited copy, the control, reproduces the
+    checked-in result byte for byte; the acceptance review counted 21 and 15 before D349–D350 were added). The execution commit regenerates the file under the procedure and
+    safeguards of S2-D (#1169 comment 7057200720): with `R` that directory,
+    `python3 -I -B $R/check_sc42_integration.py > out.json` (exit 0) is copied to the result file;
+    `python3 -I -O -B $R/check_sc42_integration.py` is byte-identical to it; `--verbose`, normal and with `-O`, is
+    byte-identical to the regenerated file (the CI comparison); `--self-test`, normal and with `-O`, is
+    byte-identical to the unchanged `$R/sc42-integration-controls.json` (run in a full checkout: the scratch export
+    cannot decide it, its self-test differing from the controls even on the unedited control copy); every line of the diff is a stored mirror
+    prefix of a line the deletion's book edits change, with every check result unchanged; and an independent
+    verification of the regenerated file follows. The regeneration needs the owner's narrow approval as part of
+    the execution authorization.
 
 ## 12. Owner questions
 
@@ -4878,7 +4910,6 @@ Lines matching the scan patterns at current `main` (`97070c98`), as is and after
 
 | Class | Area | As is | After the edits |
 |---|---|---|---|
-| frozen round sentence | verification | 2 | 3 |
 | generated artifact | book | 63 | 63 |
 | generated artifact | papers | 105 | 105 |
 | guard pins | verification | 51 | 40 |
@@ -4887,6 +4918,7 @@ Lines matching the scan patterns at current `main` (`97070c98`), as is and after
 | kernel identifier | verification | 12 | 34 |
 | manuscript | book | 103 | 0 |
 | manuscript | papers | 85 | 0 |
+| pending #1482 | verification | 2 | 3 |
 | pending R-1 | verification | 8 | 0 |
 | registry identifier (kept) | verification | 1 | 1 |
 | unexplained | AGENTS.md | 1 | 0 |
@@ -5055,7 +5087,7 @@ and no record carries `old_step2`. Edit IDs are stable against `05f29f42`. Edits
 
 Every other `old` string is byte-identical at the merged head and on the projection. Replacements revised at reconciliation (their `old` unchanged): D261, D263, D274, D275, D276, D288.
 
-New edits: D309, D310, D311, D312, D313, D314, D315, D316, D317, D318, D319, D320, D321, D322, D323, D324, D325, D326, D327, D328, D329, D330, D331, D332, D333, D334, D335, D336, D337, D338, D339, D340, D341, D342, D343, D344, D345, D346, D347, D348. Removed: none.
+New edits: D309, D310, D311, D312, D313, D349, D350, D314, D315, D316, D317, D318, D319, D320, D321, D322, D323, D324, D325, D326, D327, D328, D329, D330, D331, D332, D333, D334, D335, D336, D337, D338, D339, D340, D341, D342, D343, D344, D345, D346, D347, D348. Removed: none.
 
 
 The three merged-text changes (D224, D232, D244) are exactly the `old_step2` strings the projection predicted.
@@ -5067,7 +5099,7 @@ resolved: on merged `main` the in-memory application leaves no residual pointer 
 
 | Check | Result |
 |---|---|
-| Uniqueness and simulation (`--commit 97070c98 --simulate`) | uniqueness: 348 edits, 0 fail; variants used {'old': 348}; simulation: residual pointer lines 5 (5 allowed as listed, 0 unqualified); simulation: criterion-5/paraphrase hits on changed lines without a scope in their sentence: 0; simulation: finite-scope and configuration-space preservation findings: 0; simulation: identifier and count findings: 0; RESULT PASS |
+| Uniqueness and simulation (`--commit 97070c98 --simulate`) | uniqueness: 350 edits, 0 fail; variants used {'old': 350}; simulation: residual pointer lines 5 (5 allowed as listed, 0 unqualified); simulation: criterion-5/paraphrase hits on changed lines without a scope in their sentence: 0; simulation: finite-scope and configuration-space preservation findings: 0; simulation: identifier and count findings: 0; RESULT PASS |
 | Static: infinity, register, identifiers, preservation, mirror parity, Lean docstring-only, sitemap | infinity-assertion scan (new and new_step2): 0 hits; register scan (added text, §A.32/§A.33, history phrases): 0 hits; new capitals (3+ letters): 0; identifier rule (new and new_step2): 0 findings; preservation check (required content in every replacement variant): 0 findings; mirror parity (every chapter edit byte-identical to its FULL mirror): 0 findings; sitemap cross-check: 194 ptr sites in the map, 194 with an edit; 0 findings; RESULT PASS |
 | Pins (`--pins --commit 97070c98`) | pins check: 0 unresolved pins (literals of tracked checks that the edits would break); 0 updated pins not found in their targets |
 | Repository-wide scan, after the edits, with pending lines rejected (`--repo-scan --simulate --final`) | repository-wide scan: 0 unexplained lines; RESULT PASS |
@@ -5107,12 +5139,27 @@ material, the Lean modules, the census registry (§A.35), the guards and the cov
 frozen and preserved records unchanged and records, in a mutable index on `main`, the successor of every old
 identifier they cite; and it is verified by the build, the kernel and every check that reads the identifiers. The
 frozen H-B sentence (below) and the prose that now says "the finiteness predicate `A1`" (D274–D276, D314–D339) are
-updated by that migration.
+updated by that migration, and so are the three lines classed "pending #1482", which carry round H-B's frozen
+sentence (below): `verification/programmes/hydrodynamics/PROGRAMME.md:231`, the module docstring of
+`OIBridge/HexLatticeGas.lean` (line 94) and the quotation in `verification/lean-manuscript-census.json` (line 993),
+together with the amendment of the R7 guard's checks Z18 and W21 and of its HB module check that pin them.
 
 **Frozen sentence of round H-B.** `hydrodynamics/PROGRAMME.md` line 231 and the module docstring of
 `HexLatticeGas.lean` carry the sentence "one candidate executed in the A1–A4, ¬A5 class", which the R7 guard
 pins byte for byte as round H-B's frozen wording (checks Z18 and W21, and the module check), and the registry
 quotes it. "A1–A4" there is the class of the Lean predicates `A1`–`A4`, `A1` being the finiteness predicate.
 Rewriting it would change a frozen round sentence and the guard that pins it; the plan leaves it, classified
-"frozen round sentence", for the governed change of #1482, which renames those predicates.
+"pending #1482", for the governed change of #1482, which renames those predicates. `--final` rejects the lines
+pending an owner decision on this plan ("pending R-…") and admits these three only because #1482 owns them.
+
+### 24.5 Acceptance review of `5e818088` (ACCEPT-WITH-NITS)
+
+| Item | Change |
+|---|---|
+| SC-42 | §11 item 13: regeneration under S2-D's safeguards (normal and `-O` runs and `--verbose` byte-identical, `--self-test` matching the unchanged controls, every diff line a mirror prefix of a book edit, independent verification), with the owner's narrow approval as part of the execution authorization |
+| ch01 Lemma 3 | "$\varphi$ is a bijection on $S$" takes its conditions: "On a finite representative, or under A2 (Chapter 2 §2.4)" (the book states reversibility as A2), with the FULL mirror; added to the preservation check |
+| §11 item 4 | Names `MAIN:L-3`, `STRUCTURE:P-9.5`, `SUBSTRATUM:C-effective-finiteness-gauge-class-transfer` and `SUBSTRATUM:T-23`, with the level and delta of L-3 and T-23 re-read |
+| D340 | "(finiteness of the representative and A2–A6 of the substratum programme)" |
+| Safeguard | "extends to infinite substrata", "applies to infinite configuration spaces" and their variants are rejected, with countercontrols |
+| H-B sentence | Class "pending #1482"; its three lines and the Z18/W21 amendment are in the #1482 hand-off (§24.4) |
 
