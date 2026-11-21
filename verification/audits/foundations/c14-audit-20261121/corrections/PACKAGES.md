@@ -60,7 +60,7 @@ The framework identifies four conditions on a substratum's bijection $\varphi$ t
 New:
 
 ```text
-The framework identifies four conditions on a partition of a substratum's dynamics that diagnose when an embedded observer's reduced description carries the memory-bearing sector [Main §1.3]. C1, C3 and C4 hold in every faithful realization of accessible non-Markovian visible statistics; C2 is a physical-regime premise [Main §3.4]:
+The framework identifies four conditions on a partition of a substratum's dynamics that diagnose when an embedded observer's reduced description carries the memory-bearing sector [Main §1.3]. C1, C3 and C4 hold in every faithful realization of accessible non-Markovian visible statistics, a faithful realization being a bijection on visible and hidden configurations with an initial law under which the visible trajectory has the given law; C2 is a physical-regime premise [Main §3.4]:
 ```
 
 ### P-F3-2 — `papers/Structure.md:734`
