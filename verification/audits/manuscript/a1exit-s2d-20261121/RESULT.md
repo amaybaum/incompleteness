@@ -154,6 +154,18 @@ committed with the source.
 - **§A.32/§A.33 scan of the added manuscript text.** No register, reader-instruction, self-assessment,
   revision-history or caps-emphasis hit.
 
+### SC-42 integration result (open item)
+
+- **What failed.** CI's "SC-42 integration source scope and must-fail controls" step failed at
+  `bb6a8e13`. The checker itself passes. What differs is its checked-in output,
+  `verification/audits/manuscript/bell-operational-reconciliation-20261029/sc42-integration-result.json`.
+- **Why.** That file records a truncated prefix of the ch04:178 line as a predicate
+  ("chapter line mirrored in FULL: *The equilibrium phase of …"). E17 changes that prefix to "*Fast-mixing
+  regions of …". This is line 3003, the only difference.
+- **Precedent.** The file was regenerated after earlier manuscript edits (`3a65b9ab`, `bb39f262`,
+  `0748b0be`, `e2c04e8d`). The file is not listed in `legacy-records.json`.
+- **Status.** The regeneration is held for an explicit decision and is not part of this commit.
+
 ## 7. Deviations from PREREG
 
 - **Manuscript.** None: every edit was applied as preregistered.
