@@ -37,6 +37,12 @@ It is regenerated from E1 by `sh ./build.sh SM`, together with `papers/SM.pdf`. 
 regenerated text carries `\emph{Philosophy of Physics} \textbf{3}(1), 8 (2025), DOI
 10.31389/pop.186; arXiv:2302.10778.`
 
+**E3 — `papers/SM.pdf`** (generated artifact; not hand-edited). Its reference list carries the same
+error; text extraction of the PDF at `df6da1c6` reads "[28] J. A. Barandes, “The Stochastic-Quantum
+Correspondence,” Foundations of Physics 53, 82 (2023); arXiv:2302.10778." It is regenerated
+from E1 by the same `sh ./build.sh SM` run as E2, and the regenerated PDF's text is re-checked for
+the corrected reference.
+
 The in-text citation `[28]` in SM is unchanged, since the reference number does not move.
 
 ## 3. Every occurrence of this citation in the corpus (at `df6da1c6`)
@@ -49,6 +55,7 @@ repository.
 |---|---|---|
 | `papers/SM.md:1735` | *Foundations of Physics* **53**, 82 (2023) | **Wrong** — E1 |
 | `papers/SM.tex:8969` | `\emph{Foundations of Physics} \textbf{53}, 82 (2023)` | **Wrong** — E2 (regenerated) |
+| `papers/SM.pdf` (reference [28]) | Foundations of Physics 53, 82 (2023) | **Wrong** — E3 (regenerated) |
 | `papers/GR.md:998` / `GR.tex:5023` | *Philosophy of Physics* **3**(1), 8 (2025), DOI 10.31389/pop.186 | Correct |
 | `papers/Main.md:827` | *Philosophy of Physics* **3**(1):8 (2025), no arXiv id | Correct |
 | `papers/Introduction.md:224` / `Introduction.tex:965` | *Philosophy of Physics* **3**, 8 (2025); arXiv:2302.10778v3 | Correct |
@@ -57,7 +64,7 @@ repository.
 | `book/bibliography.md:25` | arXiv only (2023) | Not wrong |
 | `book/The-Incompleteness-of-Observation-FULL.md:6678` / `.tex:26326` | arXiv only (2023) | Not wrong |
 
-The wrong volume and page appear only at E1 and E2. Under "minimal", the arXiv-only sites are left
+The wrong volume and page appear only at E1, E2 and E3. Under "minimal", the arXiv-only sites are left
 as they are. Adding the journal reference there would be a separate, optional harmonization and is
 not proposed here.
 
@@ -82,9 +89,9 @@ so the line number can shift after the retirement.
    remains.
 3. Re-run the §3 grep to confirm no new occurrence.
 4. Apply E1.
-5. Regenerate SM with `sh ./build.sh SM` (E2 and `SM.pdf`). Check that no glyphs were dropped, and
+5. Regenerate SM with `sh ./build.sh SM` (E2 `SM.tex` and E3 `SM.pdf`). Check that no glyphs were dropped, and
    that the page count and median characters per page are plausible (AGENTS.md build recipe).
-6. Re-grep: expect zero `53**, 82` and zero `\textbf{53}, 82` hits, with the correct sites in §3
+6. Re-grep: expect zero `53**, 82` and zero `\textbf{53}, 82` hits, and no "Foundations of Physics 53, 82" in the text extracted from the regenerated `SM.pdf`, with the correct sites in §3
    unchanged.
 
 Do this as its own commit and PR with independent review.
@@ -92,5 +99,5 @@ Do this as its own commit and PR with independent review.
 ## 5. Status
 
 - Classification: bibliographic error; no claim, status or numeric value changes.
-- The `.tex` and `.pdf` of SM must be regenerated in the same commit that applies E1 (§A.25 step 5).
+- Both generated artifacts, `papers/SM.tex` (E2) and `papers/SM.pdf` (E3), must be regenerated in the same commit that applies E1 (§A.25 step 5).
 - Not applied. Needs owner approval to apply after the retirement.
