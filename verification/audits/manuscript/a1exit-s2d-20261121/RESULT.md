@@ -215,6 +215,64 @@ committed with the source.
 - **ch02.** S2-B's scope names the whole of ch02. This unit edits only ch02:192 (an X-63 site in the
   ledger's sitemap) and its FULL mirror. S2-B should confirm that it does not edit ch02:192.
 
+## 8a. Catch-up with `main` (merge `a29e0f4f`)
+
+- **Merge.** Merge commit `a29e0f4f`: first parent `5efd856b` (this branch), second parent `0ba358cc`
+  (`main` after S2-A, #1476, S2-B and S2-C, the last merged as #1474). It is a merge commit, not a
+  rebase.
+- **Manuscript conflicts: none.** Git merged every `.md` file without a textual conflict. Between
+  `1c7eedc4` and `0ba358cc`, `main` changes the following lines in the files this unit edits.
+  - Main: :60, :131, :141, :159, :180, :224, :280, :328, :330, :336 (+4 lines), :459, :467, :469,
+    :473, :724, :732, :742, :766.
+  - Substratum: :92, :98, :157, :249, :257, :262, :266, :268.
+  - Structure: :53, :1224.
+  - ch02: :82, :96, :144.
+  - FULL: the mirrors of those chapters.
+
+  None of these lines is an S2-D site. M:171 is inside S2-C's range, but S2-C did not change it.
+- **Site lines after the merge.**
+  - Main: E19 at M:171 ("In the exclusion arguments below — fast-mixing regions, and the
+    anti-Boltzmann-brain corollary of §4.6 —"); E1 at M:752 ("### 4.6 Structural Exclusion of Observers
+    from Fast-Mixing Regions"); E2–E4 at M:768. S2-C's law-form Scope sentence is at M:770, the line
+    after E2–E4. Each is intact word for word.
+  - Every other site keeps its line: Sub:56, :401, :407, :542; Str:718, :734; ch02:192 = FULL:822;
+    ch04:178 = FULL:1282.
+- **Generated-artifact conflicts.** These were Main, Substratum, Structure and FULL (`.tex`/`.pdf`). I
+  resolved them by rebuilding from the merged sources (`sh ./build.sh Main Substratum Structure`,
+  `sh ./build.sh --book`): build OK, no dropped glyphs.
+
+  | Source | Pages (`main` → merged) | Median chars/page (`main` → merged) |
+  |---|---|---|
+  | Main | 109 → 109 | 3326 → 3326 |
+  | Substratum | 54 → 54 | 3196 → 3179 |
+  | Structure | 94 → 94 | 2914 → 2914 |
+  | FULL | 490 → 490 | 2980 → 2980 |
+- **Union check.** I ran a script from the scratchpad (not committed). It confirms three things, and
+  prints `UNION OK`:
+  - this branch's `.md` diff from `1c7eedc4` is exactly E1–E21;
+  - every `.md` in the merged tree equals `0ba358cc`'s version with E1–E21 applied, each old string
+    occurring exactly once in `main`'s version;
+  - every other `.md` equals `0ba358cc`'s version.
+
+  `main`'s own content since `1c7eedc4` is S2-A, #1476, S2-B and S2-C as landed.
+- **Coverage.** `tools/coverage_check.py` reports OK. The only fingerprint that differs from `main` is
+  this unit's entry, `MAIN:C-observer-selection-rule-rate-condition` (`375f3d287641e4a7`). It is
+  unchanged by the merge and stays re-affirmed (§5). No other fingerprint moved.
+- **SC-42, under the owner's safeguards** (#1169 comment 7057200720).
+  - The auto-merged `sc42-integration-result.json` is byte-identical to a fresh run on the merged tree.
+  - The normal run and the `-O` run are identical, and so is the `--verbose` run used by CI. No check
+    fails.
+  - `--self-test`, normal and with `-O`, matches `sc42-integration-controls.json`, which equals
+    `main`'s.
+  - Against `main`'s result file, the only difference is one line, line 3019: the ch04:178 prefix,
+    from E17. It is the same predicate as line 3003 before S2-C's additions shifted it. Nothing
+    unexpected appeared.
+- **Checks.** All exit 0: staleness, voice, voice-scope, placement, manifest-drift, claims, duplicate,
+  mirror, citation, architecture, dependency-label `--strict`, coverage, lean census, the
+  legacy-records self-test and the v3 self-test. The exception is `v3_verifier --corpus`, which is
+  undecidable in a shallow worktree. The merge adds no manuscript text of this unit's, so the
+  register scan has nothing new to check.
+
 ## 9. Off-`main` references (§A.42 item 8)
 
 | Reference | Attached to | Class |
