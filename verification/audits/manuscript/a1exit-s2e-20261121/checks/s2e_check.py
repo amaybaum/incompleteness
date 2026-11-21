@@ -81,13 +81,14 @@ def check_amend(applied):
     for a in AMEND:
         for f in targets(a):
             t = read(f)
-            want, gone = (a["new"], a["old"]) if applied else (a["old"], a["new"])
-            if t.count(want) != 1:
-                print(f"FAIL {a['id']} {f}: {'new' if applied else 'old'} occurs {t.count(want)}x"); bad += 1
-            if applied and t.replace(a["new"], "").count(a["old"]):
+            # The amended full new string of the base edit is checked by check_applied; an
+            # amendment's own new string may be a substring of other text (A1-R1a), so here
+            # only the old string is counted.
+            n = t.count(a["old"])
+            if applied and n:
                 print(f"FAIL {a['id']} {f}: old survives"); bad += 1
-            if not applied and gone in t:
-                print(f"FAIL {a['id']} {f}: new already present"); bad += 1
+            if not applied and n != 1:
+                print(f"FAIL {a['id']} {f}: old occurs {n}x"); bad += 1
     return bad
 
 

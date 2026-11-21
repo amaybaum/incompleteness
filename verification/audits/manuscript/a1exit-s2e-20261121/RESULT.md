@@ -8,14 +8,18 @@ bands unchanged.
 A1-exit objective, #1169).
 
 **Commits.** PREREG and checker `a0a6a81fb` (pushed before any manuscript edit; draft PR #1475 opened
-on it); edits with rebuilt `.tex`/`.pdf` `4fc9faef8`; this RESULT in the following commit. Base `main`
+on it); edits with rebuilt `.tex`/`.pdf` `4fc9faef8`; RESULT `8e52b2177`. After review round 1
+(REVISE, light; §8): amendment A1 `8caf2378d`, then its edits, the rebuilt book and this revision of
+the record. Base `main`
 at `1c7eedc40`. No edit adds or removes a line, so every site keeps its base (= ledger pin) line number.
 
 ## 1. Edits as applied
 
 All 45 edits of `PREREG.md` §5 were applied verbatim by `checks/s2e_check.py apply`, with no deviation.
+The five amending edits of `amendments/A1.md` (`checks/s2e_amend1.json`) were then applied verbatim by
+`apply-amend`; they change the new strings of B07, B17, B16b, B11c and B14c.
 `python3 -I -B verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_check.py` (mode `applied`)
-prints `applied check PASS (45 edits, 0 failure(s))`: each new string occurs exactly once in its file
+prints `applied check PASS (45 edits, 5 amending, 0 failure(s))`: each new string occurs exactly once in its file
 and, for a book edit, in FULL.md; no old string survives; each edited book line is byte-identical to
 its FULL line.
 
@@ -36,17 +40,17 @@ its FULL line.
 | B01–B04 | ch14:160, :164, :184, :262 = FULL:3760, :3764, :3784, :3862 | X-55 | finite substratum |
 | B05 | ch18:20 = FULL:4751 | X-26 | finite substratum |
 | B06 | ch18:22 = FULL:4753 | routed | $\mathbb{Z}^3$ distinct from $\mathbb{R}^3$; Klein-bottle-type not a translation quotient |
-| B07 | ch18:226 = FULL:4957 | routed | as B06, with A4's standard and qualified cases |
+| B07 (+ A1-R1a) | ch18:226 = FULL:4957 | routed | as B06, with A4's standard and qualified cases |
 | B08 | ch18:230 = FULL:4961 | routed | Klein-bottle quotient not a quotient by translations alone |
 | B09 | ch18:36 = FULL:4767 | X-10 | maximal-entropy measure "of a finite representative" |
 | B10 | ch18:162 = FULL:4893 | X-26 | finite substratum |
-| B11a–c | ch18:166 = FULL:4897 | X-26, X-20 | finite substratum; exact-return form; near-return condition with S2-C's book parenthesis |
+| B11a–c (+ A1-N2 on B11c) | ch18:166 = FULL:4897 | X-26, X-20 | finite substratum; exact-return form; near-return condition with S2-C's book parenthesis |
 | B12 | ch18:168 = FULL:4899 | X-26 | finite substratum |
 | B13a, B13b | ch18:170 = FULL:4901 | X-26, X-20 | exact-return form; scope to the named update and prior |
-| B14a–c | ch18:172 = FULL:4903 | X-26, X-20 | sufficient condition, exact-return form |
+| B14a–c (+ A1-N6 on B14c) | ch18:172 = FULL:4903 | X-26, X-20 | sufficient condition, exact-return form |
 | B15 | ch18:190 = FULL:4921 | X-26 | "of a finite model" |
-| B16a, B16b | ch18:192 = FULL:4923 | X-26, X-20 | exact-return form; near-return condition |
-| B17 | ch18:242 = FULL:4973 | X-80 | $\mathbb{Z}^3/P$ as A4's qualified case; Klein-bottle-type not admitted; finite substratum |
+| B16a, B16b (+ A1-N1 on B16b) | ch18:192 = FULL:4923 | X-26, X-20 | exact-return form; near-return condition |
+| B17 (+ A1-R1b) | ch18:242 = FULL:4973 | X-80 | $\mathbb{Z}^3/P$ as A4's qualified case; Klein-bottle-type not a translation quotient; finite substratum |
 | B18–B20 | ch18:244, :260, :288 = FULL:4975, :4991, :5019 | X-80 | finite substratum |
 | G01 | gloss:105 = FULL:6596 | X-20 | "or the near-return condition (NR), assumed as a hypothesis and not adopted" + S2-C parenthesis |
 
@@ -96,7 +100,8 @@ Re-grep of `papers/*.md` and `book/*.md` (FULL included) on this branch:
 ## 3. Build, coverage and checks
 
 - `sh ./build.sh Computation Complexity Medicine Methodology` and `sh ./build.sh --book`: `build: OK`,
-  no dropped glyphs. The regenerated `.tex`/`.pdf` are in `4fc9faef8`.
+  no dropped glyphs. The regenerated `.tex`/`.pdf` are in `4fc9faef8`; the book was rebuilt after
+  amendment A1 (`build: OK`, 490 pages).
 
   | Artifact | Pages (base → branch) | Median characters per page (base → branch) |
   |---|---|---|
@@ -104,7 +109,7 @@ Re-grep of `papers/*.md` and `book/*.md` (FULL included) on this branch:
   | Complexity | 31 → 31 | 2499 → 2499 |
   | Medicine | 28 → 28 | 2241 → 2241 |
   | Methodology | 53 → 53 | 3061 → 3066 |
-  | book (FULL) | 489 → 490 | 2936 → 2937 |
+  | book (FULL) | 489 → 490 | 2936 → 2936 (2937 before amendment A1) |
 
 - `python3 tools/coverage_check.py`: `coverage_check: OK (132 canonical statements, 20 unattached
   checkers)`, no stale fingerprint; `verification/coverage/LEDGER.json` unchanged.
@@ -124,18 +129,25 @@ FULL mirroring it checks. The edits change six stored prefixes (ch18:166, :172, 
 fail until the file is regenerated. S2-D regenerated the same file under a narrowly scoped owner
 approval (#1169 comment 7057200720). No regeneration is made here without the same approval; when
 given, the procedure is S2-D's (normal and `-O` runs byte-identical, the controls file unchanged), and
-the diff is the seven entries above.
+the diff is the seven entries above. After amendment A1 the diff is unchanged: the same six
+prefixes and one added entry (the amended text lies beyond each stored 60-character prefix).
 
 ## 4. Deviations from PREREG
 
-None. Every edit was applied as preregistered.
+- **Manuscript.** None outside amendment A1, whose five edits were preregistered in `amendments/A1.md`
+  (`8caf2378d`) before they were applied.
+- **Checker.** As pushed in `8caf2378d`, the amendment check required each amendment's own new string to
+  be absent before applying. A1-R1a's new string ("which is not a quotient by translations alone;") is a
+  substring of B06's ch18:22 text, so that clause failed. It was replaced, before any amending edit was
+  applied, by a count of the old string (once before, absent after); the full amended new string of each
+  base edit remains checked for uniqueness. Stated in `amendments/A1.md`.
 
 ## 5. Points for review
 
-- **ch18:226 (B07).** The paragraph keeps "that is not determined by the framework's structural
-  commitments" after listing a Klein-bottle-type identification, which B07 marks as not among the cases
-  A4 admits. The sentence is accurate for the cases A4 admits; whether the paragraph should also state
-  that A4 excludes the Klein-bottle-type option is left to review rather than added here.
+- **Nit 5 (for the reconciliation).** ch14:184 and Comp:180: the conclusion that the framework's
+  silence on P vs NP is "a feature" of what its axioms deliver stays unconditional, while its premise
+  (finite physical structures) is scoped to a finite substratum by B03b and E01. The text predates S2-E
+  and is not edited here.
 - **Med:35 (E04).** The finite-only scope was chosen over adding (NR) inside the parenthesis; the
   sentence is then a statement about a finite representative, as at Med:25.
 - **Meth:517 (E12).** Row X-01 site that is not a pointer: the type-level argument does not use
@@ -150,7 +162,7 @@ None. Every edit was applied as preregistered.
 |---|---|---|
 | PR #1474, branch `research/a1exit-s2c-20261121` at `cb6d1b87e` (S2-C RESULT §2) | source of the return-form parenthesis and finite-only scope (B11c, B16b, G01, E04) | provenance: the wording is reproduced in full in `checks/s2e_edits.json`; no claim here uses S2-C's edits |
 | PR #1472, branch `research/a1exit-s2d-20261121` at `c5aaeb73f` (S2-D RESULT §3) | source of E03a, E03b; no change at ch18:40, Meth:283, :441 | provenance: wording reproduced in full; the region-level reading rests on Main §4.6 on `main` |
-| PR #1470, branch `research/a1exit-s2a-20261121` at `dd95fcd0b` | A4 qualified-case wording (E07, B06, B07, B17) | provenance: the owner's A4 decision (#1169 c.7048255658) is the authority; wording reproduced in full |
+| PR #1470, branch `research/a1exit-s2a-20261121` at `dd95fcd0b` | A4 restatement and the conditions on $P$ stated with each result ([SM §4.1], S2-A's E1), used by Meth:339 (E07), ch18:226 (B07) and ch18:242 (B17) | **support off `main`** (review round 1 R2): these sentences cite A4 in S2-A's form and SM §4.1's stated conditions, which are on #1470's branch only. Closed by landing order: S2-E lands only after #1470 (it lands fifth, after S2-A to S2-D). ch18:22 (B06) uses only the owner's A4 decision (#1169 c.7048255658) |
 | #1169 comments 7056875845, 7048255658, 7035888700, 7057200720 | authorization; A4 decision; glossary:105 routing; SC-42 precedent | provenance (owner records) |
 | PR #1475 | this unit's guiding PR | provenance |
 
@@ -160,9 +172,22 @@ None. Every edit was applied as preregistered.
   cheap gate checks above. No mathematical claim is added or strengthened; the near-return condition,
   (REV) and the region-level form are taken from statements on `main` (Main §2.3 corollary, §4.5 item
   (iii), §4.6) and S2-C/S2-D wording.
-- **Missing.** Independent non-author review of the 45 edits; the SC-42 result regeneration (owner
+- **Missing.** Independent non-author review of the 45 edits and amendment A1; the landing of #1470
+  before this unit (support off `main`, §6); the SC-42 result regeneration (owner
   decision); the ledger reconciliation after Step 2 (not done here); the deletion edit for the three
   deferred sites and ch18:40's pointer.
 - **Accountable Issue.** #1169.
 - **Resolution.** A recorded review of this branch's head, and the owner's decision on the SC-42
   regeneration.
+
+## 8. Answer to review round 1 (REVISE, light, at `8e52b2177`)
+
+| Item | Answer |
+|---|---|
+| R1 (blocking) | Applied: A1-R1a, A1-R1b delete "not among the cases A4 admits" at ch18:226 and :242 (and FULL); the statement that the identification is not a quotient by translations alone is kept |
+| R2 (blocking) | Applied in §6 and the PR body: #1470 reclassified as support off `main` for Meth:339, ch18:226, ch18:242; S2-E lands only after #1470 |
+| Nit 1 | Applied: A1-N1, "rests, as a sufficient condition, on" |
+| Nit 2 | Applied: A1-N2, ", assumed as a hypothesis and not adopted," |
+| Nit 3, nit 4 | Skipped (coordinator instruction) |
+| Nit 5 | Recorded in §5 for the reconciliation |
+| Nit 6 | Applied: A1-N6 drops "For a finite substratum," |
