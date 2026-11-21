@@ -300,7 +300,7 @@ review. P-H11–P-H15 hold with their copies classified as copies.
 
 | ID | Before | Change | Why | Items | Route | Verdict |
 |---|---|---|---|---|---|---|
-| P-G1 | enrollment over a corpus fixture in which one name-led opener (the ch01:203 shape) is `pending` | enrollment attempts to publish `baseline.json` | Pending is a blocking state, and baseline tolerance never covers occurrences | enrollment failure | configuration | FAIL |
+| P-GV1 | enrollment over a corpus fixture in which one name-led opener (the ch01:203 shape) is `pending` | enrollment attempts to publish `baseline.json` | Pending is a blocking state, and baseline tolerance never covers occurrences | enrollment failure | configuration | FAIL |
 | P-A1m | a paragraph mentioning `C1` and `C2`, with an entry for `C1` only | — | Entries are per name, so the `C2` entry is missing | gate failure | configuration | FAIL |
 | P-A2m | in a GR:629-like file, a `C1` mention next to the `(C1$'$)` set, with an entry that does not say which set it belongs to | — | A mention that could belong to two mapped sets must be resolved to exactly one, with a reason | gate failure | configuration | FAIL |
 | P-A3m | an entry naming `(C5)` or an anchor that the map lacks | — | an incorrect mapping | gate failure | configuration | FAIL |
@@ -317,7 +317,7 @@ review step.
 
 | Blocking item | Regression tests |
 |---|---|
-| Corpus-wide named-condition dependencies, papers and book | P-G1 (pending blocks enrollment), P-A1m–P-A5m (ambiguous and incorrect mappings), P-S2, P-S3 (misclassification controls), P-P1 (a prose citer), P-F5 (the ch01-table finding), P-H20 (a heading unit), P-H21 (a list unit with a named lead-in), P-H22 (a confusable, normalized), P-F1–P-F4 and N34 (exact, equivalent and different copies), P-H16 (a plain list-item copy), P-H17 (an opening-paragraph copy), P-H18 (an unclassified new occurrence: the gate fails), P-H19 (a voided classification), P-H11 (an unparenthesised copy), P-H12 (a table row), P-H13 (a glossary copy with its FULL mirror), P-H14 (map drift, unparenthesised), P-H15 (a list item), P-H4 (a cross-file citer), P-H6 (a range), P-H7 (an inline node and an alias), P-H8 (a copy edit reaching every citer), P-H9, P-H10 (map drift), P-H5 (ambiguity outside the map) |
+| Corpus-wide named-condition dependencies, papers and book | P-GV1 (pending blocks enrollment), P-A1m–P-A5m (ambiguous and incorrect mappings), P-S2, P-S3 (misclassification controls), P-P1 (a prose citer), P-F5 (the ch01-table finding), P-H20 (a heading unit), P-H21 (a list unit with a named lead-in), P-H22 (a confusable, normalized), P-F1–P-F4 and N34 (exact, equivalent and different copies), P-H16 (a plain list-item copy), P-H17 (an opening-paragraph copy), P-H18 (an unclassified new occurrence: the gate fails), P-H19 (a voided classification), P-H11 (an unparenthesised copy), P-H12 (a table row), P-H13 (a glossary copy with its FULL mirror), P-H14 (map drift, unparenthesised), P-H15 (a list item), P-H4 (a cross-file citer), P-H6 (a range), P-H7 (an inline node and an alias), P-H8 (a copy edit reaching every citer), P-H9, P-H10 (map drift), P-H5 (ambiguity outside the map) |
 | Deleted theorems keep their scope obligations | P-L4b (a deleted scoped block), P-L4c (a deleted block with no scope wording at all), P-O1 (a deletion inside a batched PR) |
 | Individual review of transformations affecting finiteness, infinite-system assumptions, carriers or scope | P-R9 (a carrier rename), P-R10 (deleting `finite`), P-O2 (a mathematically equivalent rewrite), P-O5 (a substitution into a carrier) |
 | No reduction silently excludes a theorem | P-O3 (r4), P-O1 (r1), P-O4 (r2), P-R11 (r3) |
@@ -363,7 +363,7 @@ The tool's expected verdict is recorded, and the safeguard named.
 | membership and closure (§1.1) | P-S1, P-D2, P-D3, P-H1, P-H2 | N30, the non-member cases in the conventions | P-S1, P-D2, P-H1, P-H2 |
 | block extent with a proof (C2) | P-C2, P-C3 | N29 | P-C2, P-C3 |
 | batched records (r1), (r3) | P-R9, P-R10, P-R11 | N31 | P-R9 |
-| corpus-wide names, the canonical map and the occurrence register | P-H4–P-H22, P-F1–P-F5, P-G1, P-A1m–P-A5m, P-S2, P-S3, P-P1 | N32–N35 | P-H4, P-H6, P-H8, P-H11, P-H13, P-H16–P-H19 |
+| corpus-wide names, the canonical map and the occurrence register | P-H4–P-H22, P-F1–P-F5, P-GV1, P-A1m–P-A5m, P-S2, P-S3, P-P1 | N32–N35 | P-H4, P-H6, P-H8, P-H11, P-H13, P-H16–P-H19 |
 | reductions under O7 | P-O1–P-O5, P-R9–P-R11 | N31 | P-O3, P-O4 |
 | deleted blocks | P-L4b, P-L4c | — | P-L4c |
 | advisory backstop | P-G11, row 42 | N25 | N22, N25 (G5 made blocking) |

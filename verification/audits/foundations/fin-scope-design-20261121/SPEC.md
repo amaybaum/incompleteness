@@ -1081,7 +1081,7 @@ For the Code Review Rules, under *Claim/evidence boundary*:
 | V25 | every mapped name resolves to exactly one node group, and a change to any node of a group, in any form, reaches every citer of the group | P-H4, P-H6–P-H8, P-H11–P-H13, P-H15; the group-closure and form mutants |
 | V26 | every occurrence unit (paragraph, whole list, whole table, heading with its section) of a mapped name has a current recorded classification; an unclassified, new or changed occurrence, or an unresolved anchor, fails | P-H9, P-H10, P-H14, P-H18–P-H22 |
 | V30 | each copy's fidelity holds: exact copies stay identical (checked mechanically), equivalent copies carry a current attestation, and every different formulation blocks until it is resolved by one of the three routes | P-F1–P-F5, N34 |
-| V31 | pending blocks the gate and enrollment, and baseline tolerance never covers occurrences | P-G1 |
+| V31 | pending blocks the gate and enrollment, and baseline tolerance never covers occurrences | P-GV1 |
 | V32 | ambiguous and incorrectly mapped entries fail closed | P-A1m–P-A5m |
 | V33 | name-led citation or unrelated classes need two agreeing classifiers; other enrollment classes are sampled | P-S2, P-S3 |
 | V34 | a prose citer outside blocks is a member when its condition changes | P-P1 |
@@ -1346,7 +1346,7 @@ a FIN-SCOPE pass is not evidence for either class.
 | Criterion | Where addressed |
 |---|---|
 | 1 Coverage | §2.5 units (headings, whole lists and tables with a named lead-in or header), the matcher's input, the subscript exclusion with its reason |
-| 2 Governance | §2.5 the FIN-SCOPE classifier role; pending blocks the gate and enrollment; no baseline tolerance for occurrences; V31; TESTS P-G1 |
+| 2 Governance | §2.5 the FIN-SCOPE classifier role; pending blocks the gate and enrollment; no baseline tolerance for occurrences; V31; TESTS P-GV1 |
 | 3 Controls | §2.5 ambiguity and mapping checks, two classifiers for name-led citation or unrelated classes, the second-review sample; V32, V33; §9 limit; TESTS P-A1m–P-A5m, P-S2, P-S3 |
 | 4 Propagation | §1.1 (R-b): prose citers anywhere; V34; TESTS P-P1 |
 | 5 Semantic consistency | §2.5 fidelity for every copy; `different` blocking, with three resolution routes; the ch01-table finding recorded as found; V30; TESTS P-F5 |
