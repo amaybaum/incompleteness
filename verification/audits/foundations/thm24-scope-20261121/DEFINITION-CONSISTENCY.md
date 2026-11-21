@@ -1,6 +1,6 @@
 # THM24-DEF: the candidate definition of $\mathcal G_{\rm sub}$ against the corpus
 
-**Status: research, unreviewed (WIP / UNVERIFIED).** Authorized as the Theorem 24 supporting
+**Status: research (WIP); independent review c.7065005300, confirmed with nits.** Authorized as the Theorem 24 supporting
 thread at [#1169 c.7064767045](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7064767045).
 Stacked on #1486's reviewed head `8b478284`. Nothing here edits a manuscript or touches #1477,
 #1492, #1493 or #1494. No new computation was run; Lean results are cited at the strength their
@@ -56,7 +56,7 @@ ST4 as a single-step bound and says it does not settle completeness
 **Consequence 1 (exact from Lean).** $\varphi_C\approx_I\varphi_C'$, with $\iota=\mathrm{id}$ and
 $\omega_H$ uniform on both: (B) holds because both are permutations, and (I) is `pairC_family`.
 
-**Proposition A (paper-level proof sketch; mine; unreviewed).** No finite sequence of the
+**Proposition A (paper-level proof; reviewed, c.7064909915).** No finite sequence of the
 following moves carries $U_{\varphi_C}$ to $U_{\varphi_C'}$:
 
 - (M1) hidden unitary conjugation, which contains generator (i);
@@ -110,13 +110,10 @@ specified data. **On that stated reading, Proposition A refutes completeness for
 finite-factor (iii), with visible relabelling.** Substratum:276's "open" then survives only
 through (ii) and infinite or classical factors.
 
-**Earlier note on the definition, superseded by the three-branch statement above.** Lemma 24.1's preregistration describes the full block-word traces as
-"all multi-time correlation data, not only the family" (`…/preregistration.md:126, 281–285`), and
-`pairC_wordTraces` shows the pair differs on them. That reading is a dependency I have not
-verified. If it holds, then adding multi-time statistics with visible interventions to $I(D)$, the
-open point of `DEFINITION-PROPOSAL.md` §7, would likely separate $\varphi_C$ from $\varphi_C'$. The
-choice of interface therefore decides whether Proposition A refutes completeness or is vacuous.
-This is the main open decision for the definition.
+**Status of Proposition A and of the interface.** Proposition A is reviewed (c.7064909915). OI's
+interface is the single-time interface, retained by the owner (#1169 c.7064942473). On it, if the
+delta review confirms Proposition A, families (i) and finite (iii) do not constitute a complete
+classification. The interventional branch is a separate distinction (§7, R5).
 
 ## 3. Corpus uses under the proposal (papers and book)
 
@@ -220,7 +217,7 @@ against `edits.json` at `55544cc3`: **none of the Methodology lines below is und
   title lines plus :485, which asserts the classification without the title.
 - The full sweep below adds the classification claims that do not use the title.
 
-In total there are **30 classification uses on 26 lines** (the table's rows), plus the unrelated prediction-audit
+In total there are **31 classification uses on 26 lines** (the table's rows), plus the unrelated prediction-audit
 uses (:491, :521, :543, :545, :547, :549, :561), which are not about $\mathcal G_{\rm sub}$.
 
 | # | Site | Text (abridged) | Title? | Repeat of | Verdict |
@@ -250,6 +247,7 @@ uses (:491, :521, :543, :545, :547, :549, :561), which are not about $\mathcal G
 | 23 | :477 | "the structural form … the gauge-classification theorem identifies" | yes | — | H (title) |
 | 24 | :479a | "the gauge-classification theorem establishes that observation … cannot reach the substrate's gauge equivalence class" | yes | :473 | **F** |
 | 25 | :479b | "in a way the gauge-classification theorem makes precise" | yes | — | H (title) |
+| 25a | :447 | "with the primitives exposed and the gauge freedom classified" | no | :571 | **F** |
 | 26 | :485 | "given the substratum gauge group classified by Part II" | no | — | **F** |
 | 27 | :489a | "a foundational program with a constructively classified gauge group" | no | :485 | **F** |
 | 28 | :489b | "the gauge group classified by the gauge-classification theorem" | yes | :485 | **F** |
@@ -257,10 +255,12 @@ uses (:491, :521, :543, :545, :547, :549, :561), which are not about $\mathcal G
 | 30 | :571 | "the distinction between the equivalence class and the classified gauge freedom" | no | — | **F** (as :437b) |
 
 Rows 13, 18 and 20 name the classification question, and rows 2 and 15 are repeats or
-conditionals. All are counted among the 30.
+conditionals. All are counted among the 31. The remaining "classif" hits in Methodology are :7 (the journal
+classification field) and :365 ("H-Bell does not classify …"), neither about $\mathcal G_{\rm sub}$.
 
-**F sites in Methodology: :43, :371, :435, :437b, :473, :479a, :485, :489a, :489b, :571**, ten
-uses on nine lines, all off the ledger. :479a repeats :473, and :489a/:489b repeat :485. Outside
+**F sites in Methodology: :43, :371, :435, :437b, :447, :473, :479a, :485, :489a, :489b, :571**,
+eleven uses on ten lines, all off the ledger (:447 included, checked against `edits.json` at
+`55544cc3`). :479a repeats :473, :489a/:489b repeat :485, and :447 is the same use as :571. Outside
 Methodology the F class is Structure:347 (off the ledger) and Structure:375 (D074). Correcting
 these is a high-priority task after the retirement (owner decision c.7064942473), routed as
 §5 says.
@@ -403,11 +403,14 @@ infinite factors, is incomplete is not established.
     other form are not covered. Whether they reach pair C is open.
   - No kernel statement exists (§6 target 6).
 
-### R4 (N). The interface hinge (single-time, passive multi-time)
+### R4 (N). The interface hinge (single-time and passive multi-time data do not yield $w_0$)
 - **Established:** paper-level, confirmed by review. Neither the single-time family nor passive
   multi-time readouts (equal ket and bra paths) yield the word $w_0$, so neither separates pair C
   through it.
-- **Interface assumptions:** native readouts only.
+- **Interface assumptions:** the single-time half concerns the native interface. The passive
+  multi-time half is a negative statement about data **outside** the native single-time interface,
+  and it does not need that data to be admitted: it says only what such data, if admitted, would
+  not yield. The (N) label rests on that reading.
 - **Unproved:** whether some other passive multi-time datum separates pair C was not examined.
 
 ### R5 (I). Three-time coherent interventions separate pair C (a separate, scoped distinction)
@@ -435,7 +438,7 @@ infinite factors, is incomplete is not established.
 - **Established:** prose reading only.
   - Every corpus use of $\mathcal G_{\rm sub}$ and its synonyms gets T, H or F under $\approx_I$.
   - The F class:
-    - Methodology :43, :371, :435, :437b, :473, :479a, :485, :489a, :489b and :571 (off the ledger);
+    - Methodology :43, :371, :435, :437b, :447, :473, :479a, :485, :489a, :489b and :571 (off the ledger);
     - Structure:347 (off the ledger) and Structure:375 (D074);
     - ch09:258 = FULL:2673 (off the ledger).
 - **Interface assumptions:** native, with "observables" read as the single-time data wherever an
@@ -452,18 +455,17 @@ infinite factors, is incomplete is not established.
 - **Not missing:** the interface choice. Following the owner decision, the native single-time
   interface is the one in force, and R3 is stated on it.
 
-## 8. Summary of earlier findings, by layer
+## 8. Summary by layer
 
-
-- **Lean (cited, not re-run):** pair C is $\approx_I$-equivalent (`ST3_pairC`/`pairC_family`). The one-step bound is `ST4_pairC`.
-- **Paper-level (mine, unreviewed):** Proposition A, the chain invariance.
-- **Prose reading (mine, unreviewed):** the verdicts of §3 and §5, and the `PassiveQuotient` agreement.
-- **Replayed control:** K2 (classical) of #1486, as already recorded there. No new computation.
-- **Open:**
-  - family (ii) and infinite or classical factors in Proposition A;
-  - whether $I(D)$ should be multi-time;
-  - whether the corpus intends single-time data.
-- **Owner decisions:**
-  - the interface choice (§2);
-  - routing of §5's proposed corrections and of the ch03:84 ledger mirror;
-  - any Lean round.
+- **Lean (cited, not re-run):** pair C is $\approx_I$-equivalent (`ST3_pairC`/`pairC_family`); the
+  one-step bound is `ST4_pairC` (R1, R2).
+- **Paper-level, reviewed (c.7064909915):** Proposition A (R3); the interface hinge (R4, R5).
+- **Prose reading, reviewed with nits:** the verdicts of §§3, 3a, 3b and 5, and the
+  `PassiveQuotient` agreement (R6, R7).
+- **Replayed control:** K2 (classical) of #1486, as recorded there. No new computation.
+- **Interface:** the single-time interface, retained by the owner (#1169 c.7064942473). R3's
+  consequence holds on it if the delta review confirms Proposition A.
+- **Open:** family (ii) and infinite or classical factors in Proposition A; a kernel statement of
+  R3; whether coherent interventions (R5) are available natively.
+- **Owner decisions:** routing of the proposed corrections (§§3a, 5) and of the ledger mirrors
+  ch03:84 (D142) and FULL:945 (D143); any Lean round.
