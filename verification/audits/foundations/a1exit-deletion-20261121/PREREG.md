@@ -5462,3 +5462,105 @@ authorized.
 
 **Goal link (§A.47).** A1-EXIT (#1169): this section prepares the authorized predicted-tree CI trial; it decides no
 execution question.
+
+## 28. Amendment, preregistered: the A1-retirement scope fixes of the classification review, structured checker output, the corrected trial
+
+**Owner decision** (owner `amaybaum`, 2026-11-21, recorded at
+[#1169 comment 7062144714](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7062144714)), item 2 in
+part: "#1477 amendment, scope (a)", covering, for trial verification, "a corrected trial commit whose parent is the
+ledger base; PDFs built by the #1484 workflow; structured output from the checkers", and the two scientific fixes of
+the classification review (#1477 comment 7061693815): "'finite $C_H$' stated where Theorem 24(i) and the classical case
+of (iii) use the uniform prior; Theorem 24(iii) narrowed to factors with bijective dynamics (A2), together with its
+mirrors (Substratum, Structure, ch02, FULL) and the Substratum:54 sentence". Item 4: applying the A1-retirement edits
+remains unauthorized. #1484 is merged into `main` as `df6da1c6`.
+
+**Goal link (§A.47).** A1-EXIT (#1169): this amendment decides whether the plan states every finite-only use of
+Theorem 24 and only the membership the proof supports, and whether the trial evidence is complete; it does not decide
+execution.
+
+This section is committed before any change to `edits.json`, the ledger or the checkers (§28.6 records the order).
+
+### 28.1 Items
+
+1. **(i) The D232 scope.** With the (A1) entry removed (D232), Theorem 24(i) at Sub:253 and the classical case of
+   (iii) at Sub:262 use the uniform hidden prior $\mathbb{1}/|\mathcal{C}_H|$, which exists only for a finite
+   $\mathcal{C}_H$. Each states that scope (D361, D362).
+2. **(ii) Theorem 24(iii) narrowed to bijective dynamics (A2).** Membership in $\mathcal{G}_{\text{sub}}$ is stated for
+   a factor of any cardinality evolved by a bijection of its configurations, so that the enlarged pair has bijective
+   dynamics (A2); the channel identity for any unitary or isometry, or for a classical factor any measurable map, is
+   stated separately as a channel-preserving extension (D362–D364, D368, D370–D373). Sub:249, Sub:201 and Str:154 are
+   aligned in the same pass (D365, D366, D369).
+3. **(iii) Sub:54** takes the reviewer's fuller wording (D367).
+4. **(iv) Structured checker output.** `preserve_check.py` and `guards_check.py` write a result file: the checker, its
+   mode, the plan commit, the ledger digest, the candidate, and for each check its name, status (`pass` or `fail`) and
+   discrepancies, with the verdict. The path is `--result-json PATH`; when `RUNNER_TEMP/out` exists (the #1484 workflow
+   creates it and uploads it), the file is also written there as `<checker>-<mode>.json`, so the merged workflow
+   uploads it without change.
+5. **(v) The corrected trial.** Built from the plan commit `P2` that carries this amendment:
+   - `T0`: a single-parent child of the ledger base `97070c98` whose tree is `guards_check.py --predict` at `P2` (the
+     base PDFs). `a1exit-trial-verify.yml` is dispatched on `T0`. Preregistered expectation: every step passes except
+     `preserve`, whose only findings are `--pdf-compare` mismatches of the eight PDFs; the run uploads the eight
+     CI-built PDFs.
+   - `T1`: a single-parent child of `97070c98` whose tree is `T0`'s with the eight PDFs replaced by that artifact's.
+     `a1exit-trial-verify.yml` and `verify.yml` are dispatched on `T1`; every step and job must pass.
+   - Neither is built, pushed or dispatched before this amendment passes its independent delta review.
+
+### 28.2 New edits
+
+New IDs D361–D373; no retired or earlier ID is reused, and the ledger records each as a splice against `97070c98`.
+Items (ii) and (iii) change text that S2-B (#1473) put on `main`; that text is at the ledger base, so each is a new
+splice there.
+
+| Edit | Site (base line) | Class | Old → new |
+|---|---|---|---|
+| D361 | Sub:253 | needs scientific review | *(i) Hidden-sector relabeling.* For any bijection $\sigma: \mathcal{C}_H \to \mathcal{C}_H$, → *(i) Hidden-sector relabeling.* For finite $\mathcal{C}_H$ and any bijection $\sigma: \mathcal{C}_H \to \mathcal{C}_H$, |
+| D362 | Sub:262 | needs scientific review | evolved by any measurable map $w$, with product dynamics $\varphi\times w$ and the uniform hidden prior times $\alpha$ → evolved by a bimeasurable bijection $\psi$ of $A$, with product dynamics $\varphi\times\psi$ and the uniform hidden prior on a finite $\mathcal{C}_H$ times $\alpha$ |
+| D363 | Sub:257 | needs scientific review | Adjoin a factor Hilbert space $\mathcal K_A$ of any dimension, prepared independently in a density matrix $\sigma_A$ with $\operatorname{Tr}\sigma_A=1$, and evolve it by a unitary or isometry $W$ with product dynamics $U\otimes W$. → Adjoin a classical factor $A$ of any cardinality, with $\ell^2(A)$ prepared independently in a density matrix $\sigma_A$ with $\operatorname{Tr}\sigma_A=1$, and evolve it by the permutation unitary $W$ of a bijection $\psi$ of $A$, with product dynamics $U\otimes W$; the enlarged pair $(S\times A,\varphi\times\psi)$ has bijective dynamics (A2). |
+| D364 | Sub:262 | needs scientific review | such as the identity on an infinite-dimensional $\mathcal K_A$ or counting measure on an infinite $A$, is not covered. → such as the identity on an infinite-dimensional $\ell^2(A)$ or counting measure on an infinite $A$, is not covered. The identity, and its proof, hold unchanged for any unitary or isometry $W$ on a Hilbert space $\mathcal K_A$ of any dimension and, for a classical factor, any measurable map $w$; such enlargements are channel-preserving extensions, not members of $\mathcal{G}_{\text{sub}}$, when their dynamics is not a bijection of configurations. |
+| D365 | Sub:249 | semantic | (i) and the normalized Hilbert-space product form of (iii) preserve the coherent family → (i) and the normalized permutation product form of (iii) preserve the coherent family |
+| D366 | Sub:201 | semantic | finite decoupled deep-sector enlargement of arbitrary size → decoupled deep-sector enlargement by a normalized factor of any cardinality with bijective dynamics |
+| D367 | Sub:54 | semantic | The exact normalized-product-ancilla identity of Theorem 24(iii) concerns finite added factors. → The exact normalized-product-ancilla identity of Theorem 24(iii) concerns independently prepared, exactly decoupled added factors of any cardinality in a normalized state or law; an unnormalizable or coupled factor is outside it. |
+| D368 | Str:53 | needs scientific review | An independently prepared, normalized factor of any dimension with exactly decoupled unitary or isometric product dynamics may be adjoined → An independently prepared, normalized classical factor of any cardinality with exactly decoupled permutation product dynamics (the channel identity also holds for unitary or isometric factor dynamics, as a channel-preserving extension) may be adjoined |
+| D369 | Str:154 | semantic | independently prepared finite decoupled ancillary enlargement as exact invariances → independently prepared decoupled ancillary enlargement by a normalized factor of any cardinality with bijective dynamics as exact invariances |
+| D370 | ch02:144 | needs scientific review | Adjoin a factor of any dimension to the deep hidden sector, prepare it independently in a normalized density matrix, and keep its dynamics exactly decoupled from the original system, as any unitary or isometry of the factor. → Adjoin a classical factor of any cardinality to the deep hidden sector, prepare it independently in a normalized density matrix, and keep its dynamics exactly decoupled from the original system, as a permutation of the factor's configurations; the identity also holds for any unitary or isometry of the factor, which is a channel-preserving extension rather than a member of the group. |
+| D371 | FULL:774 (mirror of D370) | needs scientific review | Adjoin a factor of any dimension to the deep hidden sector, prepare it independently in a normalized density matrix, and keep its dynamics exactly decoupled from the original system, as any unitary or isometry of the factor. → Adjoin a classical factor of any cardinality to the deep hidden sector, prepare it independently in a normalized density matrix, and keep its dynamics exactly decoupled from the original system, as a permutation of the factor's configurations; the identity also holds for any unitary or isometry of the factor, which is a channel-preserving extension rather than a member of the group. |
+| D372 | ch02:144 | needs scientific review | A classical factor with a probability law and any measurable dynamics likewise preserves the channel family, read as the mixture over hidden points of [Main §3.2], and every rooted population law. → A classical factor with a probability law and a bimeasurable bijection as its dynamics likewise preserves the channel family, read as the mixture over hidden points of [Main §3.2], and every rooted population law; with any measurable dynamics the identity still holds, as a channel-preserving extension. |
+| D373 | FULL:774 (mirror of D372) | needs scientific review | A classical factor with a probability law and any measurable dynamics likewise preserves the channel family, read as the mixture over hidden points of [Main §3.2], and every rooted population law. → A classical factor with a probability law and a bimeasurable bijection as its dynamics likewise preserves the channel family, read as the mixture over hidden points of [Main §3.2], and every rooted population law; with any measurable dynamics the identity still holds, as a channel-preserving extension. |
+
+### 28.3 Finiteness terms removed by the new edits (classification as in #1477 c.7061693815)
+
+| Edit | Term removed | Class | Reason |
+|---|---|---|---|
+| D366 | "finite … of arbitrary size" | C | the identity needs normalization only (proof of Theorem 24(iii), Sub:266); the narrowed membership is stated |
+| D367 | "finite added factors" | C | as D366; the reviewer's wording keeps independent preparation, exact decoupling and normalization |
+| D369 | "finite decoupled" | C | as D366 |
+
+D361 and D362 add a finite scope; D363, D364, D368 and D370–D373 narrow membership; D365 removes no term.
+
+### 28.4 Preregistered checks and decision rule
+
+The amendment passes only if all of the following hold at `97070c98`, each from the checkers at `P2`:
+
+1. `edits_check.py --self-test`, `--static`, `--commit 97070c98 --simulate`, `--pins --commit 97070c98` and
+   `--repo-scan --simulate --final --commit 97070c98` pass, with uniqueness over every record.
+2. `preserve_check.py --verify-pins`, `--verify-ledger` and `--self-test` pass; the ledger is re-cut and its digest and
+   the pins re-frozen in §26.4.
+3. `guards_check.py --mutants` passes (the guards, the H-B checks R7-HYB and R7-HYE, the countercontrols, the
+   inventory and the pin, kernel-identifier and message-name mutants).
+4. `guards_check.py --predict`, then `preserve_check.py --tree <predicted> --mutants`, passes.
+5. The structured result files are written and parse, and a failing check is recorded as `fail` (a self-test control).
+6. The finiteness-term removals of the new edits are exactly those of §28.3.
+
+A failure of any item stops the amendment; it is not re-run with changed thresholds.
+
+### 28.5 Not changed
+
+The design is unchanged: A1 stays retired, no optional A1 hypothesis is introduced, D001–D360 keep their text, and
+the frozen H-B sentence stays.
+
+### 28.6 Order
+
+1. This section (preregistration).
+2. The edits of §28.2 in `edits.json`, the checkers' result output, the re-cut ledger and pins, and the results of
+   §28.4 (§28.7).
+3. The independent delta review, then the corrected trial of §28.1 item 5.
