@@ -49,7 +49,7 @@ separately.
     with C_V infinite, or several non-normal hidden states. The cases are listed in §6.
 
 **Established.**
-- Lemma C; Theorems A′, B and C; Proposition D; Remark D′ (pending review). All are layer X.
+- Lemma C; Theorems A′, B and C; Proposition D; Remark D′ (independently reviewed, c.7067531252). All are layer X.
 - Countercontrol CC-1 (X).
 - The route classification (X and P).
 - §5's native-membership check (P), with kernel citations at their finite scope.
@@ -265,7 +265,7 @@ X; ELABORATING; proof due to the review sketch, written out here and pending rev
 
 **Remark D′ (Proposition D without normality; (I): KIN on the visible carrier, the algebraic
 lift of the hidden state as a state on B(L²(H)), nonsingularity, C_V finite, and configuration
-readouts as in D; X; pending independent re-review).**
+readouts as in D; X; independently reviewed, CONFIRMED WITH NITS at c.7067531252).**
 
 *Hypotheses.* All of Proposition D's premises are kept except the normality of ω:
 - C_V is finite at input and output;
@@ -274,7 +274,7 @@ readouts as in D; X; pending independent re-review).**
 - readouts are as in D, on countable partitions.
 
 Finiteness of intermediate visible ancillas is not used. Countability of the hidden index set is not
-used either: H is a measure space. ω is a **single** state on B(L²(H)) of the whole hidden carrier,
+used either: H is a measure space. ω is a **single** state on B(L²(H)) of the diffuse hidden carrier,
 not necessarily normal, and it is the only such state. **When ω is appended, the coexisting algebra
 is ℓ^∞ of a countable set:** visible configurations and ancillas, or configuration states on a
 countable hidden set. No diffuse hidden factor is present then. **Every appended state after it is
@@ -289,7 +289,7 @@ extension to B(L²(H₁) ⊗ L²(H₂)).
 
 *Definitions.*
 - For f ∈ ℓ^∞(C_V) ⊗̄ L^∞(H) = ⊕_v L^∞(H) (a finite direct sum, since C_V is finite), f_v ∈ L^∞(H)
-  is its v-th section.
+  is its v-th section. This is the case X = C_V of the countable index X used in proof step 3.
 - For a single Koopman step, g_v is the v-th section of the indicator of T⁻¹({i} × H), so that
   U_T†(|i⟩⟨i| ⊗ 1)U_T = ⊕_v M_{g_v}.
 - The joint state is (ρ ⊗ ω)([X_ab]) := Σ_ab ρ_ba ω(X_ab) on M_n(B(L²(H))). This is ρ composed
@@ -313,13 +313,14 @@ extension to B(L²(H₁) ⊗ L²(H₂)).
    x ∈ X. X covers C_V × (ancilla configurations) when visible ancillas are present at the append.
    It is defined for any positive ω, maps ℓ^∞(X) ⊗̄ L^∞(H) into ℓ^∞(X), and is unital and
    positive. Its range is abelian, so it is completely positive.
-4. **The pre-append part.** Ψ_pre* involves no diffuse hidden factor and only configuration
-   operations, so it maps ℓ^∞(X) into ℓ^∞(C_V,in) and is ucp. "ω is applied only once" is then
+4. **The pre-append part.** No diffuse hidden factor is present at the append. A normal diffuse
+   factor appended and discarded before ω is covered by D's steps. So Ψ_pre* maps ℓ^∞(X) into
+   ℓ^∞(C_V,in) and is ucp. "ω is applied only once" is then
    exact: σ_ω is the unique non-normal slice, and it is followed in the Heisenberg order only by
    Ψ_pre*.
 5. **The effective map.** Φ_eff* = Ψ_pre* ∘ σ_ω ∘ Ψ_post* is a ucp map on finite matrices (C_V
-   finite at both ends). It sends |i⟩⟨i| to a diagonal matrix, for example Σ_v ω(M_{g_v})|v⟩⟨v| for one Koopman
-   step. So Φ_eff is a genuine DIO channel M_n → M_n, every state of which is normal.
+   finite at both ends). It sends |i⟩⟨i| to a diagonal matrix, for example
+   Σ_v ω(M_{g_v})|v⟩⟨v| for one Koopman step. So Φ_eff is a genuine DIO channel M_n → M_n, every state of which is normal.
 6. **Conclusion.** Theorem B(i) and (ii), and Theorem C(b), apply verbatim to Φ_eff, including the
    diamond-norm bound with W on ℂ^{C_V}. Only D's step 4 changes; the remaining steps are
    normality-free. ∎
@@ -471,7 +472,7 @@ D-W's sketch.
 | Theorem B | (I): KIN, fixed coherent resource states, countable carriers | X | ELABORATING (S1 extended) |
 | Theorem C | (I): KIN, countable carriers | X | NEW relative to the corpus; standard after Theurer et al. |
 | Proposition D | (I): KIN, nonsingularity, normality | X | ELABORATING (from the review sketch); supersedes the r1 lemma for the detection half |
-| Remark D′ | (I): KIN on the visible carrier; algebraic lift of the hidden state; nonsingularity; C_V finite; readouts as in D | X | ELABORATING, pending independent re-review |
+| Remark D′ | (I): KIN on the visible carrier; algebraic lift of the hidden state; nonsingularity; C_V finite; readouts as in D | X | ELABORATING; independently reviewed (c.7067531252) |
 | Conjecture D″ | conjecture | P | open |
 | CC-1 | construction using one imported creator and one imported detector | X | POSITIVE (tightness) |
 | Corollary C1 | (I): KIN | X | ELABORATING |
