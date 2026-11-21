@@ -375,6 +375,44 @@ def run_C3():
     return out
 
 
+
+# ---------- C3b rebased-datum control (NOTE.md section 14) ----------
+def run_C3b():
+    out = {"a_HZH_eq_2X": None, "cases": 0, "full_state_equal": 0, "rebased_state_density": True,
+           "c_R3_rebase": None, "counter_cases": 0, "counter_failed": 0}
+    Hp = mat([[1, 1], [1, -1]])
+    Z = mat([[1, 0], [0, -1]])
+    X = perm_matrix((1, 0))
+    out["a_HZH_eq_2X"] = same(mul(mul(Hp, Z), Hp), scale(X, Q(2)))
+    R3 = [w for n, d, w in W_cases() if n == "R3"][0]
+    conj = [w for n, d, w in W_cases() if n == "R3*cyc*R3^T"][0]
+    out["c_R3_rebase"] = same(mul(mul(dag(R3), conj), R3), perm_matrix((1, 2, 0)))
+    dimHA = NH * 2
+    n = NV * dimHA
+    L = kron(eye(NV * NH), NV * NH, Hp, 2)
+    for _, sig in sigma_cases(2):
+        sig2 = scale(mul(mul(Hp, sig), Hp), Q(Fr(1, 2)))
+        if not (trace(sig2, 2) == ONE and same(sig2, dag(sig2))):
+            out["rebased_state_density"] = False
+        for phi in BIJECTIONS:
+            U = perm_matrix(phi)
+            for t in range(1, TMAX + 1):
+                GZ = power(kron(U, NV * NH, Z, 2), n, t)
+                GX = power(kron(U, NV * NH, X, 2), n, t)
+                GI = power(kron(U, NV * NH, eye(2), 2), n, t)
+                for x in range(NV):
+                    for y in range(NV):
+                        rho = kron(kron(unit(x, y, NV), NV, UNIFORM_H, NH), NV * NH, sig, 2)
+                        lhs = mul(mul(L, mul(mul(GZ, rho), dag(GZ))), L)
+                        rr = mul(mul(L, rho), L)
+                        out["cases"] += 1
+                        if same(lhs, mul(mul(GX, rr), dag(GX))):
+                            out["full_state_equal"] += 1
+                        out["counter_cases"] += 1
+                        if not same(lhs, mul(mul(GI, rr), dag(GI))):
+                            out["counter_failed"] += 1
+    return out
+
 def main():
     out_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "thm24_checks.json")
     if "--out" in sys.argv:
@@ -383,6 +421,7 @@ def main():
     k3 = run_K3(base)
     c2, k4, k2c = run_C2(base)
     c3 = run_C3()
+    c3b = run_C3b()
     expected_c3 = {"rot_3/5_4/5": False, "diag(1,i)": False, "diag(1,-1)": True, "R3": False, "R3*cyc*R3^T": True}
     checks = {
         "C1_hilbert_identity_all_cases": c1["equal"] == c1["cases"] and all(c1["unitary_checks"].values()),
@@ -391,6 +430,9 @@ def main():
         "C2c_main336_family_unchanged_for_every_w": c2["equal"] == c2["cases"],
         "C3_spectral_classification_as_computed": all(c3[k]["similar_to_permutation"] == v for k, v in expected_c3.items())
                                                   and all(c3[k]["similar_to_permutation"] for k in c3 if k.startswith("perm")),
+        "C3b_rebased_datum_full_state": c3b["a_HZH_eq_2X"] and c3b["c_R3_rebase"] and c3b["rebased_state_density"]
+                                        and c3b["full_state_equal"] == c3b["cases"],
+        "K5_C3b_countercontrol_identity_factor_fails": c3b["counter_failed"] > 0,
         "K1_unnormalized_state_scales_channel_by_trace": k1["scaled_by_2"] == k1["cases"] and k1["unequal"] == k1["cases"],
         "K2_coupled_hilbert_factor_changes_channel": k2["changed"] > 0,
         "K2_visible_dependent_classical_factor_changes_family": k2c["changed"] > 0,
@@ -405,7 +447,7 @@ def main():
         "checks": checks,
         "verdict": verdict,
         "C1": c1, "K1": k1, "K2_hilbert": k2, "K3": k3,
-        "C2": c2, "K2_classical": k2c, "K4": k4, "C3": c3,
+        "C2": c2, "K2_classical": k2c, "K4": k4, "C3": c3, "C3b": c3b,
     }
     with open(out_path, "w") as f:
         json.dump(result, f, indent=1, sort_keys=True)

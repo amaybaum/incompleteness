@@ -191,6 +191,15 @@
    "similar_to_permutation": false
   }
  },
+ "C3b": {
+  "a_HZH_eq_2X": true,
+  "c_R3_rebase": true,
+  "cases": 1152,
+  "counter_cases": 1152,
+  "counter_failed": 384,
+  "full_state_equal": 1152,
+  "rebased_state_density": true
+ },
  "K1": {
   "cases": 480,
   "scaled_by_2": 480,
@@ -253,11 +262,13 @@
   "C2b_main336_hypothesis_holds_for_every_w": true,
   "C2c_main336_family_unchanged_for_every_w": true,
   "C3_spectral_classification_as_computed": true,
+  "C3b_rebased_datum_full_state": true,
   "K1_unnormalized_state_scales_channel_by_trace": true,
   "K2_coupled_hilbert_factor_changes_channel": true,
   "K2_visible_dependent_classical_factor_changes_family": true,
   "K3_uniform_relabelling_preserves_nonuniform_changes": true,
-  "K4_main336_family_equals_coherent_channel": true
+  "K4_main336_family_equals_coherent_channel": true,
+  "K5_C3b_countercontrol_identity_factor_fails": true
  },
  "script": "thm24_checks.py",
  "verdict": "pass"

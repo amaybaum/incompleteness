@@ -104,8 +104,8 @@ $|x\rangle\langle y|$ as input (linearity covers every $\rho_V$).
 
 ## 6. Check results
 
-`python3 -I thm24_checks.py` writes `thm24_checks.json` (sha256 `6754aadd…a1bb460` for script
-sha256 `ce81c8ae…6d279579`); a second run reproduces the file byte for byte. Every claim and every
+`python3 -I thm24_checks.py` writes `thm24_checks.json`. At `0dd84647` the output had sha256
+`6754aadd…a1bb460` for script sha256 `ce81c8ae…6d279579`; the current pair, with C3b added, is in §14; a second run reproduces the file byte for byte. Every claim and every
 control of §5 came out as preregistered: verdict `pass`.
 
 | Check | Result |
@@ -372,4 +372,13 @@ $H'\sigma_AH'/2$ is a density matrix (trace 1, Hermitian); (c) the same for $R_3
 rebased by $R_3$ to the 3-cycle $C$. Countercontrol: (b) fails when $X$ is replaced by the identity
 on the factor, for at least one case. Decision rule as §5: the claim holds iff every case passes
 and the countercontrol fails as stated.
+
+**C3b result.** Code added after the preregistration commit `1facf6b4`. Output sha256
+`4ffed895…49e78bd` for script sha256 `66817a26…54623f84`; a second run is byte-identical. Every
+earlier check is unchanged and passes. (a) $H'ZH'=2X$ exactly; (c) $R_3^{\mathsf T}(R_3CR_3^{\mathsf T})R_3=C$
+exactly; (b) 1152 / 1152 full evolved states agree, and every rebased factor state is a density
+matrix. Countercontrol K5: with the identity in place of $X$, 384 / 1152 cases differ (the odd
+times; $Z^2=X^2=1$). Verdict: the converse direction of N3's criterion is witnessed on the full
+unreduced datum, not only on the reduced channel, for the two named matrices. Layer: exact
+computation on a named case set.
 
