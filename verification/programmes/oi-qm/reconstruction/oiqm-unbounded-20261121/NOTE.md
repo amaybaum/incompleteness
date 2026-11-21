@@ -377,10 +377,20 @@ reached: one pass.
   - **Decision:** whether there exist real matrices `W ≥ 0` (`m × r`) and `H ≥ 0` (`r × n`) with
     `B = W H`, that is, whether `rank_+(B) ≤ r`. A classical model on `r` states is accepted exactly
     when the answer is yes.
-  - **Exact, not numeric:** the question is a sentence of the existential theory of the reals, decided by
-    an exact procedure (for example cylindrical algebraic decomposition).
-  - **Outputs:** a yes answer comes with an exact algebraic witness `(W, H)` and is confirmed by exact
-    multiplication `W H = B`. A no answer comes with the decision procedure's certificate.
+  - **Exact method, by certificates.** The check does not search the real factorization space. It returns
+    one of three recorded outcomes:
+    - **reject** (`rank_+(B) > r`): a combinatorial certificate is given and verified exactly on the
+      support of `B`. Admissible certificates are a fooling set of size `> r` (entries `(i_k, j_k)` with
+      `B_{i_k j_k} > 0` such that, for every pair `k ≠ l`, `B_{i_k j_l} B_{i_l j_k} = 0`) or a lower bound
+      `> r` on the rectangle-cover number of the support. The rectangle-cover bound must itself be exact,
+      for example an exhaustive cover enumeration on the stated support. Both bound the nonnegative rank
+      from below, so a certificate of size `> r` proves `rank_+(B) > r`;
+    - **accept** (`rank_+(B) ≤ r`): an explicit factorization `B = W H` with `W ∈ ℚ_{≥0}^{m×r}` and
+      `H ∈ ℚ_{≥0}^{r×n}` (or exact algebraic entries) is given and verified by exact multiplication;
+    - **undecided:** neither certificate is found. This is a recorded outcome in its own right. It is
+      never counted as accept or reject. Wherever it occurs, `K_min(N)` is reported as an interval
+      between the largest rejected and the smallest accepted cone size, together with the undecided
+      cases.
   - Floating-point nonnegative-matrix-factorization output is not admissible for either answer.
 - *Controls.*
   - Positive (soundness): for each control matrix of known nonnegative rank `r`, the computed lower
@@ -393,9 +403,11 @@ reached: one pass.
   - Negative (must fail, for a known reason): the exact factorization check used to accept a classical
     model is run on the 4 × 4 matrix with rows `(1,1,0,0)`, `(1,0,1,0)`, `(0,1,0,1)`, `(0,0,1,1)`. Its
     ordinary rank is 3 and its nonnegative rank is 4 (Cohen and Rothblum, Linear Algebra Appl. 190
-    (1993)). The check at inner dimension 3 must report that no exact nonnegative factorization exists,
-    and the check at inner dimension 4 must find one. A factorization accepted at dimension 3 shows the
-    check cannot separate nonnegative rank from rank, and voids the run.
+    (1993)). At inner dimension 3 the check must return reject. The expected certificate is the
+    fooling set `{(1,1), (2,3), (3,2), (4,4)}`, of size 4: for each of its six pairs, one cross entry is
+    zero. At inner dimension 4 it must return accept, with the witness `W = B`, `H = I`. If the check
+    returns accept or undecided at dimension 3, it cannot separate nonnegative rank from rank, and the run
+    is void.
 - *Scope.* It quantifies Proposition U. It does not decide O2.
 
 ## Sources (external)
