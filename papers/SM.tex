@@ -444,15 +444,18 @@ together with a non-permutation rooted map, produces the non-monotonic
 distinguishability that witnesses P-indivisibility. For the
 P-indivisibility conclusion itself the near-return condition (NR) of
 {[}Main §2.3{]}, assumed in place of finiteness as a hypothesis and not
-adopted, is a weaker sufficient condition. The entire framework rests on
-the memory-bearing description --- with its admitted quantum
-representation --- emerging from marginalizing deterministic dynamics
---- if the dynamics were already stochastic, there would be nothing to
-derive. Determinism is the core of the framework and cannot be weakened.
-However, determinism does not require a lattice. A continuous
-Hamiltonian system on a compact phase space is also deterministic and
-bijective (by Liouville's theorem). The lattice is one way to implement
-determinism on a finite set; it is not the only way.
+adopted, is a weaker sufficient condition. (NR) concerns a time that
+need not be accessible and then has no finite-window test; for the
+selected update of {[}Main §3.2{]} on \(\mathbb{Z}^d\) the only laws
+known to satisfy it are supported on periodic configurations. The entire
+framework rests on the memory-bearing description --- with its admitted
+quantum representation --- emerging from marginalizing deterministic
+dynamics --- if the dynamics were already stochastic, there would be
+nothing to derive. Determinism is the core of the framework and cannot
+be weakened. However, determinism does not require a lattice. A
+continuous Hamiltonian system on a compact phase space is also
+deterministic and bijective (by Liouville's theorem). The lattice is one
+way to implement determinism on a finite set; it is not the only way.
 
 \textbf{Finite boundary entropy.} The gap equation {[}GR, §3{]} requires
 a finite number of degrees of freedom across the partition boundary: S =
@@ -827,9 +830,13 @@ curvature step is open (Discrete Einstein equation, step (iv)).
 \textbf{Lemma} (Area law). \emph{For the linear wave equation over
 \(\mathbb{R}\), the entanglement entropy of a spatial region V scales as
 \(S(V) = \eta\,|\partial V|\) {[}3{]}. For the mod-q wave equation over
-\(\mathbb{Z}/q\mathbb{Z}\), in the uniform state class, the mutual
-information between V and its complement is bounded by the boundary:
-\(I(V;\,V^c) \le |\partial V| \log_2 q\).}
+\(\mathbb{Z}/q\mathbb{Z}\), in the uniform state class, for a law
+invariant under the update and the reversal (H-\(\mu(\varphi,\Theta)\)),
+assumed as a hypothesis and not adopted (a condition on a law on the
+whole carrier; finite-window data can test some of its consequences but
+cannot establish it, and do not distinguish it from a finite carrier's
+counting law), the mutual information between V and its complement is
+bounded by the boundary: \(I(V;\,V^c) \le |\partial V| \log_2 q\).}
 
 \emph{Proof.} Over \(\mathbb{R}\): the wave equation is a system of
 coupled harmonic oscillators with a quadratic Hamiltonian determined by
@@ -1835,7 +1842,12 @@ Theorem 1a is an exact projection result specialized to this setting.
 
 \textbf{Lemma 1c (canonical projection and the resummed kernel).}
 \emph{Let \(\mu\) be the selected invariant measure --- the counting
-measure of {[}Main{]} Lemma 3, or a stated structured prior --- and
+measure of {[}Main{]} Lemma 3, or a stated structured prior, or, on
+\(\mathbb{Z}^d\), a law invariant under the update and the reversal
+(H-\(\mu(\varphi,\Theta)\)), assumed as a hypothesis and not adopted (a
+condition on a law on the whole carrier; finite-window data can test
+some of its consequences but cannot establish it, and do not distinguish
+it from a finite carrier's counting law) --- and
 \(P_\mu=\mathbb E_\mu[\,\cdot\mid\sigma(X)]\). (i) For every
 measure-preserving visible-fixing relabelling \(S\) of the total system
 --- \(X\circ S=X\) and \(S_*\mu=\mu\) --- \(P_\mu\) commutes with the
@@ -2284,7 +2296,11 @@ the ratio of spatial to temporal quadratic coefficients is common to
 \(T_1\), \(E\) and \(A_1\) and the massless blocks share one cone. The
 same conclusion holds for extensions of the rule whose dynamics, measure
 and observer \(\sigma\)-algebra are equivariant under signed
-permutations of the six components (H-blind).}
+permutations of the six components (H-blind), assumed as a hypothesis of
+this extension and not adopted; the measure clause is a condition on a
+law on the whole carrier; finite-window data can test some of its
+consequences but cannot establish it, and do not distinguish it from a
+finite carrier's counting law.}
 
 \emph{Proof.} At \(M=\mu I_6\) no component's update depends on another
 component, so the dynamics is a product of six identical systems; the
@@ -8993,4 +9009,4 @@ Compact Family Cycle,'' arXiv:2605.10245 (2026).
 \textbf{07}, 104 (2017); arXiv:1705.01853.
 
 \end{document}
-% source-sha256: 3d0d000f52651d13e9fe31dd913cdba8a47e50ced0eac3cb6f707dec4dc87e8c
+% source-sha256: f51baa4e6ac71cd81b1f3285f6c76cfa5fd25d7bf6d57c448a2d0869077bdf0b
