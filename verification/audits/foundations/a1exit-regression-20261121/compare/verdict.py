@@ -83,10 +83,10 @@ OPEN_TERMS = re.compile(r'\b(open|conditional(?:ly)?|hypothes[ie]s|assumed|posit
                         r'not derived|conjectur\w*)\b', re.I)
 FINITE_TERMS = re.compile(r'\bfinite\b|for a finite|finite[- ]only|finite representative|finite substrat',
                           re.I)
-# J10, fail-closed: frozen vocabularies. A rise, from the before region to the after region, in the
-# count of any term below makes an item R and flagged, whatever the cited edit; so does a fall in the
-# count of FINITE_TERMS (a result losing its finiteness condition). Terms are matched broadly and
-# case-insensitively; the only text removed before counting is the exact ALLOWLIST.
+# J10, layer 2: frozen vocabularies, counted on normalized text. A rise in the count of any term below,
+# or a fall in the count of FINITE_TERMS, makes a covered item R and flagged. Layer 1, the structural
+# token-level gain rule, is `gain`. The only text removed before either layer is the exact ALLOWLIST,
+# matched as a whole sentence.
 PROMOTION_TERMS = [r'\bunconditional(?:ly)?\b', r'\bproved\b', r'\bproven\b', r'\bproofs?\b', r'\btheorem\b',
                    r'\bestablished\b', r'\bderived\b', r'\bshown\b', r'\bdemonstrated\b', r'\bin general\b',
                    r'\bgeneral(?:ly|ity)?\b', r'\buniversal(?:ly)?\b', r'\balways\b', r'\bwithout exception\b']
@@ -104,8 +104,8 @@ INFINITY_TERMS = [r'infinit\w*', r'\\infty', r'∞', r'\\aleph', r'ℵ', r'\b(?:
                   r'\bno (?:restriction|bound|limit)\b', r'\b(?:all|every) (?:sizes?|cardinalit\w*)\b',
                   r'\b(?:every|all|any|each)\s+\$']
 # The exact allowlist: the owner's configuration-space sentence (#1169 c.7058446475) verbatim, and its
-# rendering with $S$ in the deletion plan of #1477. An entry with a ledger row is admitted only if that
-# row's text in rows.json cites the stated proof. No other text is exempt.
+# rendering with $S$ in the deletion plan of #1477, each matched only as a whole sentence. No other text
+# is exempt.
 ALLOWLIST = [
     {'phrase': 'The substratum has a configuration space $\\mathcal S$. No restriction is imposed on its '
                'cardinality; $\\mathcal S$ may be finite or infinite.', 'row': None, 'proof': None,
@@ -828,14 +828,8 @@ def gain(before, after, cited_news, allow=None, before_file=None, after_file=Non
 
 
 def allowlist(rows=None):
-    """The allowlist entries in force: entries without a row, and entries whose row cites their proof."""
-    out = []
-    for a in ALLOWLIST:
-        if a['row'] is None:
-            out.append(a['phrase'])
-        elif rows and a.get('proof') and a['proof'] in json.dumps(rows.get(a['row'], {}), ensure_ascii=False):
-            out.append(a['phrase'])
-    return out
+    """The exact allowlist: the two sentences of ALLOWLIST, nothing else."""
+    return [a['phrase'] for a in ALLOWLIST]
 
 
 def j10_hits(before, after, promotion=None, infinity=None, allow=None):

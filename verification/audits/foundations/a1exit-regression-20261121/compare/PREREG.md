@@ -103,8 +103,11 @@ branch is not used as the checkout. `DIR` is a working directory outside the rep
      `controls.json` differs from the digest recorded there, if `controls.json`'s `head`,
      `compare.json`'s `other` and `classify.json`'s `head` are not all the resolved H, or if any entry
      of `controls.json` has a `pass` that contradicts its `exit`.
-   - No stored pass flag is trusted (§A.44). `verdict` re-runs C1, C2, C3 and C4 itself, re-checks the
-     comparison and C5 outputs from their files, and re-runs C0 and C6. A control passes only if its
+   - No stored pass flag is trusted (§A.44). `verdict` re-runs C1, C2, C3 and C4
+     itself, re-runs C0 and C6, and re-derives the comparison and C5's injected comparison from the
+     frozen inputs, requiring each stored file to equal its re-derivation as canonical JSON (`other`
+     aside for the injected tree); a file rewritten after `collect`, with its digest updated, fails
+     (T20d). A control passes only if its
      re-run or re-check passes and its recorded `exit` is the expected one; every control `collect`
      must record is required.
    - If any control fails, `verdict` classifies nothing and writes `verdict.json` with verdict VOID
@@ -183,41 +186,80 @@ comparing the before region with the after region:
 
 Otherwise R.
 
-**J10 (promotion, generality or cardinality), fail-closed: the regression check against new global
-infinity assumptions.** J10 is computed for every item. If, in the region, the count of any term of the
-frozen vocabularies rises from the before text to the after text, or the count of J9's finite-scope
-terms falls, the item is never J. It is R if marked or covered, U otherwise, and it is flagged
-`scientific_evaluation` whatever the cited edit and the item's ledger row. Terms are matched broadly and
-case-insensitively:
-- `PROMOTION_TERMS`: `unconditional(ly)`, `proved`, `proven`, `proof(s)`, `theorem`, `established`,
-  `derived`, `shown`, `demonstrated`, `in general`, `general`, `generally`, `generality`,
-  `universal(ly)`, `always`, `without exception`;
-- `INFINITY_TERMS`: any word beginning `infinit`; `\infty`, `∞`, `\aleph`, `ℵ`; `countabl*`,
-  `uncountabl*`; `cardinal*`; `arbitrar*`; `finiteness`; `finite or not`; `not necessarily finite`;
-  `for` or `over` followed by `all`, `every`, `any` or `each`; `of any` or `for any` followed by `size`,
-  `order` or `number`; `any number of`; `regardless`; `whatever`; `in either case`, `in both cases`,
-  `in all cases` and the like; `unbounded`; `unlimited`; `without` (optionally `any` or `a`) followed by a
-  word beginning `finit`, `bound` or `limit`, or by `restriction`; `no restriction`, `no bound`,
-  `no limit`; `all sizes`, `every cardinality`; `every`, `all`, `any` or `each` followed by a math
-  expression (`$`).
+**J10, the regression check against new global infinity assumptions.** J10 has two layers, computed
+for every item. Neither depends on recognizing a wording.
 
-**The exact allowlist** is the only text removed before counting:
+*Normalization.* Every text J10 reads is first normalized:
+- HTML entities are decoded;
+- `ℕ`, `ℤ`, `ℝ` and `ℵ` are spelled out;
+- NFKC is applied;
+- soft hyphens (U+00AD), zero-width characters and LaTeX discretionary hyphens (`\-`) are removed;
+- Cyrillic and Greek letters that render as ASCII letters are folded to them;
+- each footnote reference `[^id]` is expanded inline with its definition from the same file.
+
+Parenthetical content is already inline.
+
+*The exact allowlist.* Two sentences are removed before anything is compared, and only where each
+stands as a whole sentence, at the start or after a sentence or heading boundary and followed by
+whitespace or the end:
 - the owner's configuration-space sentence, verbatim (#1169 c.7058446475): "The substratum has a
   configuration space $\mathcal S$. No restriction is imposed on its cardinality; $\mathcal S$ may be
   finite or infinite.";
 - its rendering with $S$ in #1477's plan: "The substratum has a configuration space $S$. No restriction
-  is imposed on its cardinality; $S$ may be finite or infinite.";
-- any phrase entered by an amendment with a ledger row, admitted only if that row's text in
-  `rows.json` cites the proof the amendment names. There is none at present.
+  is imposed on its cardinality; $S$ may be finite or infinite."
 
-No other text is exempt. The earlier exemption of the clause "may be finite or infinite" is withdrawn:
-"$S$ may be finite or infinite; the result holds in either case" and every one of the 16 paraphrases of
-review c.7059976436 hit J10 (T13).
+No other text is exempt. The earlier exemption of the clause "may be finite or infinite" is withdrawn.
+
+*Layer 1, the token-level gain rule (structural).* The normalized regions are split into tokens (ASCII
+words, and every other non-space character singly).
+- An item whose after region contains a token that its before region lacks is flagged
+  `scientific_evaluation`, whatever its class.
+- An item whose after region contains a token that neither its before region nor the new text of a
+  cited edit carries is never J: it is R if marked or covered, U otherwise, and it is flagged.
+
+The allowlisted sentence followed by any further words therefore adds tokens, and is flagged.
+
+*Layer 2, the vocabulary (on the approved edits' texts).* For a covered item, the frozen vocabularies
+are counted, after normalization, in the before and after regions and in the old and new text of each
+cited edit. A rise in the count of any term, or a fall in the count of J9's finite-scope terms, makes
+the item never J: it is R if marked or covered, U otherwise, and it is flagged. An unclassified item is
+counted the same way, so that its notes say what it gains. Every landed edit whose own new text gains a
+term against its old text is listed in `verdict.json` (`flagged_edits`) and counted in the open
+scientific evaluation. The terms, matched case-insensitively:
+- `PROMOTION_TERMS`: `unconditional(ly)`, `proved`, `proven`, `proof(s)`, `theorem`, `established`,
+  `derived`, `shown`, `demonstrated`, `in general`, `general`, `generally`, `generality`,
+  `universal(ly)`, `always`, `without exception`;
+- `INFINITY_TERMS`, quantifier and cardinality vocabulary:
+  - any word beginning `infinit`; `\infty`, `∞`, `\aleph`; `countabl*`, `uncountabl*`; `cardinal*`;
+    `arbitrar*`;
+  - `finiteness`; `finite or not`; `not (necessarily) finite`; `non-finite`; `need not be finite`;
+    `unrestricted`; `irrespective`; `independent of`; `uniform(ly)`; `large or small`;
+    `no assumption`; `beyond the finite`; `transfinite`; `continuum`; `whatsoever`;
+  - `\omega`, `ω`, `\mathbb{N}`, `|S|`, `\kappa`, `κ`, `\to \infty`;
+  - `for` or `over` followed by `all`, `every`, `any` or `each`; `of any` or `for any` followed by
+    `size`, `order` or `number`; `any number of`; `regardless`; `whatever`; `in either case`,
+    `in both cases`, `in all cases` and the like;
+  - `unbounded*`; `unlimited`; `without` (optionally `any` or `a`) followed by a word beginning
+    `finit`, `bound` or `limit`, or by `restriction`; `no restriction`, `no bound`, `no limit`;
+  - `all sizes`, `every cardinality`; `every`, `all`, `any` or `each` followed by a math
+    expression (`$`).
+
+*What J10 guarantees, exactly.*
+- Every item whose normalized after region gains a token is flagged, so every added wording,
+  recognized or not, reaches the scientific evaluation.
+- No item can be J with a token that comes from neither its baseline region nor a cited approved
+  edit.
+- No item whose cited edits gain a vocabulary term, or lose a finite-scope term, can be J.
+
+A generality claim carried verbatim in an approved edit's new text and worded outside the vocabulary
+can be J, but it is flagged. The standing battery (T13) checks all three: the 16 paraphrases of review
+c.7059976436, the 28 wordings of review c.7060670839, the allowlisted sentence followed by an unlisted
+claim, and a gain-only case are each flagged. A mutant with the gain rule disabled fails the battery
+(T13b).
 
 Some results do hold for arbitrary S. J10 does not treat such a statement as false: it sends it to
 review, and the item clears only through a resolution whose review cites the proof that covers that
-generality (below). Every landed edit whose own new text gains a term against its old text is listed in
-`verdict.json` (`flagged_edits`) and counted in the open scientific evaluation.
+generality (below).
 
 A justification that is not mechanically checkable, such as a reviewer's argument with no covering
 edit, is R, never J.
@@ -237,6 +279,7 @@ of the result PR.
 **Scientific evaluation flag.** An item is flagged when any of the following holds:
 - it carries any of the categories C-TAB, C-PROSE, C-FINL, C-CDO, C-CAL, C-OBS or C-OPEN;
 - it carries a `value changed` kind, or a J10 hit (including a lost finite-scope term);
+- its normalized after region gains a token (J10, layer 1);
 - it is an unaccounted or deleted line flagged `numbers` or `marker`;
 - its before or after region contains a decimal, a number with a unit, a power of ten or a comparison
   marker.
@@ -303,7 +346,7 @@ All must pass, or the verdict is VOID.
 | C1 | `baseline.py check` | exit 0 (snapshot regenerates byte for byte from the pin) |
 | C2 | `baseline.py self-test` | exit 0 |
 | C3 | Baseline against itself: `baseline.py --compare 1c7eedc4…` | exit 0, a fresh `self-compare.json` with no change |
-| C4 | `verdict.py self-test` (T1–T21b) | exit 0 |
+| C4 | `verdict.py self-test` (T1–T21b, with T13b and T20d) | exit 0 |
 | C5 | Countercontrol for the comparator: H's corpus copied to a temporary directory, one unjustified value change injected (the first unchanged entry of a prediction table, the last digit of its first decimal token), compared with `--compare-tree`, classified with the same `classify.json` | a fresh `injected-compare.json` with `any_change` true reporting the entry `value changed`; the entry is U and the U count is the main U count plus one |
 | C6 | Edit inputs (§4) | (a) `compile-s2` from the records reproduces `edits-s2.json` exactly; (b) every edit is non-empty and not a no-op, of a listed unit with that unit's PR, every component from that unit's allowlisted sources; (c) the replay validation of §4 holds; (d) `compile-del` reproduces `edits-del.json` exactly, the deletion commit is an ancestor of H, and the deletion edits applied to its first parent reproduce its manuscript files byte for byte. (d) is not applicable only when H is the pin |
 | C7 | Bad-citation countercontrol: in a copy of H's corpus, the first J item with an after line has one number token outside its cited edits' new strings changed (or, with none, " 0" appended), and the copy is compared and reclassified with the same edits and `classify.json` | that item becomes U, and the U count is the main U count plus one |
@@ -333,14 +376,16 @@ is refused (T20b); C0 rejects a commit that is not the pinned one (T20c).
 | A crashed step is not a pass | file-written and exit-status checks; T20 |
 | The comparator detects an unjustified value change | C5 |
 | The classifier rejects a citation that does not reproduce the change | replay rule; C7; T4–T6, T12 |
-| No promotion, generality or cardinality term in added text enters as J, and none is unflagged | J10 (fail-closed, exact allowlist); C8; C9 (a), (c), (d); T12, T13 (the 16 paraphrases) |
+| Every added wording in an item's after region is flagged | J10 layer 1 (gain rule, after normalization); T13 battery; T13b mutant |
+| No item is J with a token from neither its baseline region nor a cited approved edit | J10 layer 1; T13 |
+| No item whose cited edits gain a vocabulary term is J | J10 layer 2; C8; C9 (a), (c), (d); T13 |
 | A result does not lose its finiteness condition as J | J10 finite-loss test; C9 (f) |
 | A lost open term on a J row is not J | J9; C9 (e) |
 | The owner's cardinality-neutral sentence, row-supported, is not blocked | exact allowlist; C9 (b) |
 | A generality claim clears only by an independent review citing its proof | resolution rule; C9 (a); T18b |
 | R is resolved only by a non-classifier review on the result PR | resolution rule; T7 |
 | The verdict is given only over green controls, and nothing is classified over failed ones | `verdict_of`; VOID without classification; T11 |
-| No stored pass flag is trusted | `verdict` re-runs and re-checks every control; T20b |
+| No stored pass flag is trusted, and no stored comparison | `verdict` re-runs every control and re-derives both comparison files; T20b, T20d |
 | Only the pinned frozen commit is accepted | C0; T20c |
 | Every reported item is classified | `items_of` coverage, unlisted means U; T2, T10 |
 | A landed reviewed change absent from H, or reverted in it, is not passed | replay-missing items; completeness; T21, T21b |
@@ -395,10 +440,11 @@ No deletion head was compared.
 
 - The replay rule shows that cited reviewed edits produced the change. It does not show that an edit is
   scientifically right; that is the job of the flag and of the separate evaluation.
-- J9 and J10 are lexical. J10 is fail-closed with broad vocabularies, so that the usual wordings of a
-  generality or cardinality claim hit it (T13). A claim phrased with none of its terms, and keeping every
-  finite-scope term, is not detected by it, and is caught only by the flag and the scientific
-  evaluation.
+- J9 and J10's second layer are lexical, and a lexical list is not complete. J10's guarantee is the
+  one stated in §3: every added token is flagged, and no item is J with a token from outside its
+  baseline region and its cited approved edits. A generality claim worded outside the vocabulary and
+  carried verbatim in an approved edit can be J; it is flagged, and it reaches the scientific
+  evaluation through the flag.
 - J10's vocabularies are deliberately wide: many reviewed changes will be R and will need a review, and
   a generality claim needs one that cites its proof.
 - The author of a resolution's review is checked against the host by the result PR's review, not by
