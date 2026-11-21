@@ -17,7 +17,7 @@ def nbsum(x):
     return sum(np.roll(x, s, a) for a in range(x.ndim) for s in (1, -1))
 
 
-def F_native(x, q):          # SM 4.2 rounded rule, on representatives 0..q-1
+def F_native(x, q):          # floor((sum_nn + 1)/3) on representatives 0..q-1; SM 4.2's R_q at d = 3, another narrow-class member at d = 1, 2
     return (nbsum(x) + 1) // 3
 
 
