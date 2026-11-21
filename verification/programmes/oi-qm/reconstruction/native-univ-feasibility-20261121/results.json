@@ -1,0 +1,61 @@
+{
+ "C1": {
+  "q=2,d=1": true,
+  "q=2,d=2": true,
+  "q=2,d=3": true,
+  "q=3,d=1": true,
+  "q=3,d=2": true,
+  "q=3,d=3": true,
+  "q=64,d=1": true,
+  "q=64,d=2": true,
+  "q=64,d=3": true,
+  "q=65536,d=1": true,
+  "q=65536,d=2": true,
+  "q=65536,d=3": true
+ },
+ "C2": {
+  "q=2,d=1": true,
+  "q=2,d=2": true,
+  "q=2,d=3": true,
+  "q=3,d=1": true,
+  "q=3,d=2": true,
+  "q=3,d=3": true,
+  "q=64,d=1": true,
+  "q=64,d=2": true,
+  "q=64,d=3": true,
+  "q=65536,d=1": true,
+  "q=65536,d=2": true,
+  "q=65536,d=3": true
+ },
+ "C3": {
+  "q=2,d=1 fails": true,
+  "q=2,d=2 fails": true,
+  "q=2,d=3 fails": true,
+  "q=3,d=1 fails": true,
+  "q=3,d=2 fails": true,
+  "q=3,d=3 fails": true,
+  "q=64,d=1 fails": true,
+  "q=64,d=2 fails": true,
+  "q=64,d=3 fails": true,
+  "q=65536,d=1 fails": true,
+  "q=65536,d=2 fails": true,
+  "q=65536,d=3 fails": true
+ },
+ "C4": {
+  "q=3,odd side 15 fails": true,
+  "q=65536,odd side 15 fails": true
+ },
+ "C5": {
+  "equals_indicator_2_3_4": true,
+  "table": [
+   0,
+   0,
+   1,
+   1,
+   1,
+   0,
+   0
+  ]
+ },
+ "verdict": "controls green; component lemma consistent with exact runs on the sampled instances (12 (q,d) pairs x 3 seeds, 24 ticks); every half-step is an involution on them; C5 q=2,d=3 table [0, 0, 1, 1, 1, 0, 0] equals the indicator of {2,3,4}"
+}
