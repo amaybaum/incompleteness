@@ -1502,9 +1502,9 @@
       "line": 252,
       "kind": "Lemma",
       "label": "1c (canonical projection and the resummed kernel)",
-      "fingerprint": "711478cf44840d32",
+      "fingerprint": "242ff16786e66342",
       "area": "sm",
-      "assumptions": "the selected invariant measure, or on Z^d a law invariant under the update and the reversal (H-mu(phi,Theta), assumed as a hypothesis and not adopted); (ii) on a finite configuration space, or fibrewise for translation-invariant U and P with finite-dimensional cell data",
+      "assumptions": "the selected counting measure or a stated structured prior, or on Z^d a law invariant under the update and the reversal (H-mu(phi,Theta), assumed as a hypothesis and not adopted); (ii) on a finite configuration space, or fibrewise for translation-invariant U and P with finite-dimensional cell data",
       "checks": [
         {
           "kind": "probe",

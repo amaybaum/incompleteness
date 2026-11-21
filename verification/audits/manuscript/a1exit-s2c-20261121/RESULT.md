@@ -6,8 +6,9 @@ separate owner decision. Bands unchanged (consistency work, §A.23).
 **Authorization and goal link.** As in `PREREG.md` (owner `amaybaum`, #1169 comment 7056875845,
 2026-11-21T03:51:25Z; goal: the A1-exit objective, #1169).
 
-**Commits.** PREREG `e9ebf3ab8`; edits, rebuilt artifacts and coverage ledger `5cf892c69`; this record
-after them. Base `main` at `1c7eedc4`. No edit adds or removes a line, so every site keeps its base line
+**Commits.** PREREG `e9ebf3ab8`; edits, rebuilt artifacts and coverage ledger `5cf892c69`; RESULT
+`05d2ab4f3`. After review round 1 (§8): amendment A1 `0d17087b2`, then its edits and this revision of
+the record. Base `main` at `1c7eedc4`. No edit adds or removes a line, so every site keeps its base line
 number on this branch.
 
 ## 1. Edits as applied
@@ -49,7 +50,7 @@ occurs exactly once in its file and each replaced old string is gone.
 | X-13 | no site | criterion 3 met (LEDGER §3.1) |
 | M:356 | no edit | it states the role of P-indivisibility, not that it holds |
 | Cx:474, ch15:113 = FULL:3990 | no edit | each sentence opens "On a fixed finite reversible representative" |
-| R1 (X-11) | check found nothing | No site in Main, SM, GR, Substratum or the book states a selected law on an infinite carrier unconditionally. Main's (iv) keeps "a standard but substantive epistemic postulate, not derived". M:58 calls the counting measure "the default, not a constraint on representations". Each A1-free result names its law hypothesis: ρ is any root-shared probability (M:131), (IP) (M:280), (IL) (M:766), H-μ(φ,Θ) and H-μ(sp) (SM:122, :252, :334) |
+| R1 (X-11) | check found nothing | No site in Main, SM, GR, Substratum or the book states a selected law on an infinite carrier unconditionally. Main's (iv) keeps "a standard but substantive epistemic postulate, not derived". M:58 calls the counting measure "the default, not a constraint on representations". Each A1-free result names its law hypothesis: ρ is any root-shared probability (M:131), (IP) (M:280), (IL) (M:766), H-μ(φ,Θ) and H-μ(sp) (SM:122, :252, :334). With (iv) scoped to a finite representative (X-12), R1 is named through these per-result law hypotheses: no result uses a selected law on an infinite carrier without naming its law condition as assumed and not adopted |
 | C1 (X-71) | check found nothing | GR:58 is stated "Under A1" for a finite total system with the boundary interaction negligible at the shell scale. No text in `papers/` or `book/` claims a normalized invariant shell law for coupled bijections |
 
 ## 2. Wording for S2-E (exact final text)
@@ -57,17 +58,18 @@ occurs exactly once in its file and each replaced old string is gone.
 **Return form, at a site that introduces (NR) or opens a sentence with it (Main):**
 
 > (NR) concerns a time that need not be accessible and then has no finite-window test; for the selected
-> update of §3.2 on $\mathbb{Z}^d$ the only laws known to satisfy it are supported on periodic configurations.
+> update of §3.2 on $\mathbb{Z}^d$ no law that is not supported on periodic configurations is known to
+> satisfy it.
 
 **Return form, as a parenthesis after "assumed … not adopted" at a restatement (Main):**
 
 > (it concerns a time that need not be accessible and then has no finite-window test; for the selected
-> update of §3.2 on $\mathbb{Z}^d$ the only laws known to satisfy it are supported on periodic configurations)
+> update of §3.2 on $\mathbb{Z}^d$ no law that is not supported on periodic configurations is known to
+> satisfy it)
 
 - In the companions write "of [Main §3.2]".
 - In the book write "of Main §3.2". The book's restatements, which say "the near-return condition of
-  Chapter 1 §1.5", take the parenthesis form (appC:104), or the clause form "; it concerns … periodic
-  configurations." (ch01:179).
+  Chapter 1 §1.5", take the parenthesis form (appC:104; ch01:179 after amendment A1).
 - Where "assumed … not adopted" is missing, it is added as ", assumed as a hypothesis and not adopted,"
   (ch01:179), or, for several conditions, "assumed as hypotheses and not adopted" (M:224).
 
@@ -79,6 +81,10 @@ occurs exactly once in its file and each replaced old string is gone.
 Inside a clause (SM:122, :252) the same text stands in parentheses after "assumed as a hypothesis and not
 adopted". For an extension with several clauses (SM:334) it reads "assumed as a hypothesis of this
 extension and not adopted; the measure clause is a condition on a law … counting law".
+
+At SM:252 the lemma opens "Let $\mu$ be the invariant measure — the selected counting measure of [Main]
+Lemma 3, or a stated structured prior, or, on $\mathbb{Z}^d$, a law …", so that the assumed law is not
+called "selected" (amendment A1-2).
 
 **Finite-only scope** of a recurrence-cycle statement: "on a finite representative" (C8, C17, C19).
 
@@ -121,7 +127,7 @@ Re-grep on this branch:
   `verification/coverage/LEDGER.json`:
   - the area-law lemma, `SM:L-unnamed-ff7b7d06` → `SM:L-unnamed-675607a6` (its id is derived from its
     fingerprint), fingerprint `675607a6c305eeb8`;
-  - Lemma 1c, fingerprint `711478cf44840d32`, with its assumptions field naming the H-μ(φ,Θ) law on
+  - Lemma 1c, fingerprint `242ff16786e66342` (after amendment A1-2), with its assumptions field naming the H-μ(φ,Θ) law on
     ℤ^d;
   - Proposition 4b, fingerprint `e7cb872ef111a22a`.
 
@@ -150,8 +156,12 @@ Re-grep on this branch:
     "of §3.2".
   - Its appB Theorem B.2.5 carries only the first clause of the return form.
 
-  Harmonizing these is for the coordinator. This unit adds the pointer because no Main text defines "the
-  selected update" (PREREG §1).
+  Harmonizing these is for the coordinator. The pointer "of §3.2" is needed for accuracy, not only for
+  grammar: under NR-1 Prop. 5.1, a nilpotent coupling coefficient α makes the Bernoulli law satisfy (NR),
+  so the sentence would be false for "the selected update on ℤ^d" without a pin. Main §3.2's instance
+  (q = 2, α = 1) is covered by NR-1 Prop. 2.3, where (NR) fails under the Haar product law. The ledger's
+  queued X-20 wordings carry the same unpinned phrase and the superseded "the only laws known …" clause;
+  both are for the reconciliation.
 
 ## 6. Off-`main` references (§A.42 item 8)
 
@@ -168,7 +178,47 @@ All support (the A1-EXIT ledger, O-A4, NR-1, Phase 2) is on `main` at the base.
   - The splices match the preregistration byte for byte.
   - The builds, coverage and census pass.
   - The mirrors are identical.
-- **Missing.** Independent non-author review of this exact head.
+- **Missing.** A delta review of the amendment A1 edits at this head.
 - **Accountable Issue.** #1169. The regression audit is #1468.
 - **What resolves it.** An accepting review on PR #1474, then the ledger reconciliation after Step 2,
   then a separate owner merge decision.
+
+## 8. Review round 1 (`05d2ab4f`, ACCEPT-WITH-NITS)
+
+The record is on #1474. As directed by the coordinator, this unit applied N1, N2, N3, N5 and N7 by
+amendment A1 (`amendments/A1.md`, pushed before the edits), skipped N4, N6 and N8, and records N6 and N8
+here.
+
+- **N1 (applied, A1-1).** Every one of the 15 return-form sites reads "no law that is not supported on
+  periodic configurations is known to satisfy it", and the superseded phrase has no occurrences. The
+  sites are:
+  - Main 5;
+  - SM 1, GR 2, Substratum 1;
+  - ch01 2, appC 1, FULL 3.
+
+  The wording rests on NR-1 Prop. 2.3. No law satisfying the root-shared (NR) is on record.
+- **N2 (applied).** The accuracy reason for "of §3.2" is in §5.
+- **N3 (applied).** The naming of R1 is in §1, in the R1 row.
+- **N4 (skipped).** M:224's "(IP)" stays a pointer to §3.2's remark.
+- **N5 (applied, A1-2).** At SM:252, "the invariant measure — the selected counting measure …".
+- **N6 (recorded for reconciliation).** SM:122 and SM:252 write H-$\mu(\varphi,\Theta)$, and Θ also
+  denotes time reversal at SM:647. The reconciliation, or a later unit, may rename the reversal symbol
+  in the hypothesis label.
+- **N7 (applied, A1-3).** At ch01:179 = FULL:512 the return form is in parentheses, as at appC:104.
+- **N8 (recorded for reconciliation).** SM:150 is a pointer to the area law. It is out of scope for
+  this unit.
+
+**After A1.**
+- **Builds.** All builds pass with no dropped glyphs:
+
+  | Artifact | Pages | Median characters per page |
+  |---|---|---|
+  | Main | 107 | 3317 |
+  | SM | 148 | 3144 |
+  | GR | 84 | 3185 |
+  | Substratum | 54 | 3190 |
+  | book | 489 | 2997 |
+
+- **Coverage.** `coverage_check` reports OK after the Lemma 1c fingerprint was re-affirmed
+  (`711478cf44840d32` → `242ff16786e66342`).
+- **Mirrors.** ch01:121/179 and appC:104 are byte-identical to FULL:454/512/6259.
