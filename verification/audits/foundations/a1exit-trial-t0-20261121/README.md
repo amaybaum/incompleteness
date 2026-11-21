@@ -49,8 +49,9 @@ is **derived** from git as its recipe states.
 - `result.json` is written;
 - the PDF upload is written.
 
-The run did all four. The other steps succeeded: inputs, the full-id and first-attempt check (`head`),
-checkout, Python setup, toolchain, plan, and the build, whose TeX equals the committed TeX
+The run did all four. The other steps succeeded: `inputs` (the inputs are full commit ids and the run is its
+first attempt), checkout, `head` (the checkout is exactly the trial commit, a single-parent child of the
+ledger base, with `P` present), Python setup, toolchain, plan, and the build, whose TeX equals the committed TeX
 (`tex_files_differing: []`). The final gate ("Every required step succeeded") failed, as §29 item 1 states it
 must, and the job concluded `failure`. The `--commit` check reported:
 
