@@ -1,12 +1,12 @@
 # FIN-SCOPE: adversarial test designs
 
-**Status.** Writer's test plan, revision 8, WIP / UNVERIFIED, for `SPEC.md` revision 8. These are
+**Status.** Writer's test plan, revision 9, WIP / UNVERIFIED, for `SPEC.md` revision 9. These are
 designs: no case has been run. Every "expected" entry is the verdict the rule as written in SPEC §3 must
 produce, fixed before any implementation exists, and the "why" column derives it from the counts.
 Revision 2 answered review c.7064941939, revision 3 the delta review
 c.7065126686, revision 4 c.7065227255, revision 5 c.7065296420, revision 6 c.7065333755,
-revision 7 c.7065410306, and revision 8 answers
-c.7065459234.
+revision 7 c.7065410306, revision 8 c.7065459234,
+and revision 9 answers c.7065519776 and owner criterion 5 of c.7065520418.
 
 **Conventions.**
 - Every case is synthetic text in a fixture file and never an edit of the manuscript. Where a case is
@@ -281,6 +281,35 @@ review. P-H11–P-H15 hold with their copies classified as copies.
 | P-H19 | a paragraph citing `(C2)`, classified as a citation | its text edited so that it now restates (C2) | Its digest changed, which voids the classification, so it blocks until it is reclassified. The reviewer reclassifies it as a copy, and it then joins the group | gate failure until reclassified | configuration | FAIL until reclassified |
 | N33 | GR:629-form `(C1$'$) *Emergent action scale.* …`, classified as unrelated with its reason | unchanged | It is classified, and nothing depends on it | ∅ | none | PASS |
 
+### 2.2c Units, normalization and fidelity (c.7065519776, c.7065520418)
+
+| ID | Before | Change | Why | Items | Route | Verdict |
+|---|---|---|---|---|---|---|
+| P-H20 | a heading `### C1 (coupling)` over a body that defines the condition without naming it, the heading unit classified as a copy | one body sentence edited | The heading unit spans its section, so the edit voids its classification. As a copy, its group and the citers are members | gate failure until reclassified | configuration, membership (group) | FAIL until reclassified |
+| P-H21 | the lead-in "The conditions C1–C4 are:" and four unnamed list items defining them, classified as one list unit with a class per item | the third item edited | The list is one unit, because its lead-in names the conditions. The edit voids the unit's classification, and the item's class (a copy of (C3)) makes (C3)'s group members | gate failure until reclassified | configuration, membership (group) | FAIL until reclassified |
+| P-H22 | — | a new paragraph `С1 requires …` with a Cyrillic `С` (U+0421), unclassified | After #1483's normalization it reads `C1`, so it is an occurrence, and it is unclassified | gate failure (V26) | configuration | FAIL. Under the unnormalized-matcher mutant it is not an occurrence |
+| N35 | — | a paragraph with `$C_1, \ldots, C_k$` and no other mention | Subscripted symbols are the stated exclusion, so this is not an occurrence | ∅ | none | PASS |
+| P-F1 | an exact copy (a mirror restatement identical to the canonical text after normalization) | the canonical text edited, and the copy not | The exact class is checked mechanically, and the identity now fails, so the class is void | gate failure until the copy is updated or reclassified | configuration, membership (group) | FAIL |
+| N34 | the exact copy of P-F1 | unchanged, with the canonical text unchanged | The identity holds, and no equivalence attestation is needed | ∅ | none | PASS |
+| P-F2 | an equivalent paraphrase (the Medicine:27 shape), attested against canonical digest d₀ | the canonical text edited, giving digest d₁ | The attestation names d₀, so it is void, and the copy blocks until it is re-attested against d₁ | gate failure until re-attested | configuration, membership (group) | FAIL |
+| P-F3 | — | a new restatement of (C2) reading "C2 (timescale separation): the hidden sector relaxes much faster than the visible sector", classified as different | A different formulation is a blocking finding, routed to reconciliation | gate failure until resolved by one of the three routes | configuration | FAIL |
+| P-F5 | the corpus finding, as found: the ch01-table row `\| C2 \| Timescale separation \| …` (ch01:252, FULL:585) against the canonical Main:74 "(C2) Memory persistence" | at enrollment, the classifier classes the row as `different` | A different formulation blocks enrollment and the gate until it is aligned, renamed as a distinct condition, or accepted by an owner decision naming the formulation its citers depend on. No baseline tolerance applies | enrollment failure | configuration | FAIL until resolved. If the classifier instead attests the row as an equivalent paraphrase, with a reason, it passes. That judgement is the classifier's, and this test fixes only the consequence of each class |
+| P-F4 | an occurrence classified as an exact copy whose text differs from the canonical text by one word | — | The mechanical identity check fails, so a paraphrase cannot be passed off as an exact copy | gate failure | configuration | FAIL until reclassified as equivalent (with an attestation) or different |
+
+### 2.2d Governance and controls (addendum c.7065535973)
+
+| ID | Before | Change | Why | Items | Route | Verdict |
+|---|---|---|---|---|---|---|
+| P-G1 | enrollment over a corpus fixture in which one name-led opener (the ch01:203 shape) is `pending` | enrollment attempts to publish `baseline.json` | Pending is a blocking state, and baseline tolerance never covers occurrences | enrollment failure | configuration | FAIL |
+| P-A1m | a paragraph mentioning `C1` and `C2`, with an entry for `C1` only | — | Entries are per name, so the `C2` entry is missing | gate failure | configuration | FAIL |
+| P-A2m | in a GR:629-like file, a `C1` mention next to the `(C1$'$)` set, with an entry that does not say which set it belongs to | — | A mention that could belong to two mapped sets must be resolved to exactly one, with a reason | gate failure | configuration | FAIL |
+| P-A3m | an entry naming `(C5)` or an anchor that the map lacks | — | an incorrect mapping | gate failure | configuration | FAIL |
+| P-A4m | a second `canonical` entry for `(C2)` | — | one canonical definition per name | gate failure | configuration | FAIL |
+| P-A5m | a unit mentioning only `C2`, filed as a copy of `(C3)` | — | the entry's name is not among the unit's mentions | gate failure | configuration | FAIL |
+| P-S2 | a name-led opening paragraph classified `citation` by one classifier | — | Name-led units classed as citation or unrelated need two agreeing classifiers, so the unit stays pending | gate failure | configuration | FAIL until a second classifier agrees, or the unit is reclassified |
+| P-S3 | a seeded 1-in-10 second-review sample that finds a mid-paragraph copy misclassified as a citation | — | The finding triggers a second review of every unit of the same name and class. The misclassified unit is reclassified as a copy and joins its group | second review triggered; the group's citers become members | configuration, membership | FAIL until the triggered second review completes |
+| P-P1 | a Methodology-like prose paragraph outside any block and outside a claim surface, classified as a citation of `(C1)` | (C1)'s canonical text edited | The prose citer is a member (R-b), reviewed against items 1, 2 and 4 | ∅ hits | membership (prose citer) | FAIL with no record; PASS with a record |
+
 ### 2.3 Regression tests for the owner's blocking items (O7, c.7065358283)
 
 Each blocking item has adversarial regression tests. Independent confirmation of each is a separate
@@ -288,7 +317,7 @@ review step.
 
 | Blocking item | Regression tests |
 |---|---|
-| Corpus-wide named-condition dependencies, papers and book | P-H16 (a plain list-item copy), P-H17 (an opening-paragraph copy), P-H18 (an unclassified new occurrence: the gate fails), P-H19 (a voided classification), P-H11 (an unparenthesised copy), P-H12 (a table row), P-H13 (a glossary copy with its FULL mirror), P-H14 (map drift, unparenthesised), P-H15 (a list item), P-H4 (a cross-file citer), P-H6 (a range), P-H7 (an inline node and an alias), P-H8 (a copy edit reaching every citer), P-H9, P-H10 (map drift), P-H5 (ambiguity outside the map) |
+| Corpus-wide named-condition dependencies, papers and book | P-G1 (pending blocks enrollment), P-A1m–P-A5m (ambiguous and incorrect mappings), P-S2, P-S3 (misclassification controls), P-P1 (a prose citer), P-F5 (the ch01-table finding), P-H20 (a heading unit), P-H21 (a list unit with a named lead-in), P-H22 (a confusable, normalized), P-F1–P-F4 and N34 (exact, equivalent and different copies), P-H16 (a plain list-item copy), P-H17 (an opening-paragraph copy), P-H18 (an unclassified new occurrence: the gate fails), P-H19 (a voided classification), P-H11 (an unparenthesised copy), P-H12 (a table row), P-H13 (a glossary copy with its FULL mirror), P-H14 (map drift, unparenthesised), P-H15 (a list item), P-H4 (a cross-file citer), P-H6 (a range), P-H7 (an inline node and an alias), P-H8 (a copy edit reaching every citer), P-H9, P-H10 (map drift), P-H5 (ambiguity outside the map) |
 | Deleted theorems keep their scope obligations | P-L4b (a deleted scoped block), P-L4c (a deleted block with no scope wording at all), P-O1 (a deletion inside a batched PR) |
 | Individual review of transformations affecting finiteness, infinite-system assumptions, carriers or scope | P-R9 (a carrier rename), P-R10 (deleting `finite`), P-O2 (a mathematically equivalent rewrite), P-O5 (a substitution into a carrier) |
 | No reduction silently excludes a theorem | P-O3 (r4), P-O1 (r1), P-O4 (r2), P-R11 (r3) |
@@ -334,7 +363,7 @@ The tool's expected verdict is recorded, and the safeguard named.
 | membership and closure (§1.1) | P-S1, P-D2, P-D3, P-H1, P-H2 | N30, the non-member cases in the conventions | P-S1, P-D2, P-H1, P-H2 |
 | block extent with a proof (C2) | P-C2, P-C3 | N29 | P-C2, P-C3 |
 | batched records (r1), (r3) | P-R9, P-R10, P-R11 | N31 | P-R9 |
-| corpus-wide names, the canonical map and the occurrence register | P-H4–P-H19 | N32, N33 | P-H4, P-H6, P-H8, P-H11, P-H13, P-H16–P-H19 |
+| corpus-wide names, the canonical map and the occurrence register | P-H4–P-H22, P-F1–P-F5, P-G1, P-A1m–P-A5m, P-S2, P-S3, P-P1 | N32–N35 | P-H4, P-H6, P-H8, P-H11, P-H13, P-H16–P-H19 |
 | reductions under O7 | P-O1–P-O5, P-R9–P-R11 | N31 | P-O3, P-O4 |
 | deleted blocks | P-L4b, P-L4c | — | P-L4c |
 | advisory backstop | P-G11, row 42 | N25 | N22, N25 (G5 made blocking) |

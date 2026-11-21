@@ -1,6 +1,6 @@
 # FIN-SCOPE: design specification
 
-**Status.** Writer's design, revision 8, WIP / UNVERIFIED. This is a plan only. No checker exists and
+**Status.** Writer's design, revision 9, WIP / UNVERIFIED. This is a plan only. No checker exists and
 nothing has been run, so no verdict below is a measurement. The corpus inventory in §2.3 is a read-only
 `grep` count. Independent non-author review is required before any implementation is proposed.
 Implementation, the governance change and any merge each need a separate owner decision. Revision 2
@@ -14,8 +14,21 @@ answered c.7065333755 with a frozen canonical-definition map (§2.5). Revision 7
 copies are recognized whatever their form, every book file that `FULL.md` mirrors is a surface, the
 worked groups are re-derived in full, and every deleted block is a member. Revision 8 answers
 c.7065459234: copy recognition no longer enumerates forms. Every occurrence of a mapped name is
-classified by a recorded review, and an unclassified occurrence fails the gate. The map from findings
-to sections is in §14.
+classified by a recorded review, and an unclassified occurrence fails the gate. Revision 9 applies
+the nits of c.7065519776 (CONFIRMED WITH NITS) and owner criterion 5 of c.7065520418:
+- headings, whole lists and whole tables are occurrence units;
+- the matcher's input is stated;
+- the upper group sizes are labelled as estimates;
+- copies are classed by fidelity as exact, equivalent or different.
+
+It also folds in the reviewer's addendum c.7065535973, which applies the owner's five criteria:
+- a designated classifier role;
+- pending as a blocking state;
+- controls for ambiguous, incorrectly mapped and misclassified occurrences;
+- prose citers;
+- a blocking rule for different formulations.
+
+The map from findings to sections is in §14.
 
 **Authority.**
 - #1169 c.7061660930, item 1, owner decision of 2026-11-21:
@@ -85,7 +98,11 @@ The **review set** of a pull request, computed against its merge base, is the un
 - **(R-e)** every new, changed or deleted *hypothesis node* (§2.5);
 - **(R-b)** every block in the *dependency closure* of (R-a) and (R-e): a block that cites, directly or
   through a chain of citations among parsed blocks and hypothesis nodes, a block of (R-a) whose
-  statement digest, `FS_A` or `IS` changed, or a hypothesis node of (R-e);
+  statement digest, `FS_A` or `IS` changed, or a hypothesis node of (R-e). This includes **every prose
+  unit classified as a citation** (§2.5) of a changed node group, wherever it stands: inside or outside
+  a block, and on or off a claim surface. An example is a Methodology paragraph that applies `(C1)`.
+  Such a unit is reviewed against checklist items 1, 2 and 4, for its reliance on the changed
+  condition;
 - **(R-c)** every changed paragraph that is a proof of, or the *post-block paragraph* (§2.2) of, any
   block, and the block it belongs to;
 - **(R-d)** every changed sentence or table row on a claim surface (§2.1).
@@ -320,22 +337,102 @@ the citing file. A file-local name cited from another file must name the definin
 Enumerating copy forms has failed twice on the real corpus: first unparenthesised and table forms, then
 plain list items (`book/ch18-beyond.md:67–70`) and paragraphs that open "C1 requires …". The design
 therefore stops deciding copies by form.
-- **Occurrences.** An *occurrence* is any paragraph, list item or table row that mentions a mapped
-  name in any position. A mention may be the name with or without parentheses, bold, italics or a list
-  marker; a sub-form; a member of an expanded range or list; or a frozen alias phrase.
-  - The mention matcher deliberately over-matches: a word-bounded `C1`–`C4` anywhere counts, primed
-    variants such as `C1$'$` included. Over-matching costs one classification. Under-matching would cost
-    an unreviewed dependency.
+- **Occurrences and their units.** An *occurrence* is a unit that mentions a mapped name in any
+  position. The units are:
+  - **a paragraph**, including a footnote definition and a display-math paragraph;
+  - **a whole list**: every item of the list, together with its lead-in paragraph (the paragraph directly
+    before the list, when it ends with `:`), whenever the name appears in the lead-in or in any item.
+    Each item still carries its own class within the unit, so items that define a condition without
+    naming it under a named lead-in ("The conditions C1–C4 are:") are classified;
+  - **a whole table**: header row and every row, whenever the name appears in the header or in any cell,
+    with a class per row;
+  - **a heading** that mentions a name, together with its section body up to the next heading of the
+    same or a higher level. A change anywhere in that section voids the heading unit's classification.
+    A body that defines a condition under `### C1 (coupling)` without naming it is therefore classified.
+    In the corpus there are 15 such headings, all range citations today (for example
+    `papers/Complexity.md:280`, `papers/Medicine.md:146`, `book/ch11-origin-of-life.md:142`), with their
+    FULL copies.
+- **A mention** may be the name with or without parentheses, bold, italics or a list marker; a sub-form;
+  a member of an expanded range or list; or a frozen alias phrase.
+- **The matcher's input.** The matcher runs on the unit's raw source after this normalization:
+  - #1483's `normalize_text`, with the file text, so that footnotes are expanded, confusable letters are
+    folded (Cyrillic `С1` becomes `C1`), NFKC applies (fullwidth `Ｃ１` becomes `C1`), and zero-width and
+    discretionary hyphens are removed;
+  - FIN-SCOPE's LaTeX pre-normalization (§3.1);
+  - an unwrapping of `\mathrm{…}`, `\text{…}` and `\textsf{…}`.
+
+  Code spans, inline and display math, HTML comments and image alt text are matched, not skipped.
+- **Over-matching.** The matcher deliberately over-matches: a word-bounded `C1`–`C4` anywhere counts,
+  including primed variants such as `C1$'$` and text such as "class C1". Over-matching costs one
+  classification. Under-matching would cost an unreviewed dependency.
+- **The one stated exclusion.** Subscripted and superscripted symbols, `C_1`, `C_{k}` and `C^1`, are not
+  mentions. The corpus uses them for other objects (GR:811, `$C_1, \ldots, C_k$`; GR:653,
+  `\Delta C_2`; smoothness classes). This exclusion is frozen with the matcher, and widening it is a
+  map change under §7.
 - **Classification.** Every occurrence has an entry in `occurrences.json`, keyed by file, the
   occurrence's digest and the name. Its class is one of:
   - **canonical**, exactly one per name;
-  - **copy**, with its kind (restatement, application or mirror). It joins the name's node group;
+  - **copy**, with its kind (restatement, application or mirror) and its **fidelity**. It joins the
+    name's node group. An occurrence count is not proof of semantic consistency (c.7065520418), so
+    each copy's fidelity is one of:
+    - **exact**: after the normalization above, masked and whitespace-collapsed, its text equals the
+      canonical text, or the corresponding span of it. This is checked mechanically at every run. A
+      change to either side that breaks equality voids the class, and the copy blocks until it is
+      updated or reclassified. No attestation of equivalence is needed, because identity is checked;
+    - **equivalent**: a paraphrase, or an application that is a faithful instance. A reviewer attests in
+      the record that it states the same condition as the canonical text, or a correct instance of it,
+      and the attestation names the canonical digest it was made against. A change to either side voids
+      the attestation, and the copy blocks until it is re-attested. Equivalence is a reviewer's
+      judgement, never a mechanical result (§1.1);
+    - **different**: a genuinely different formulation. It is a **blocking finding**, routed to
+      reconciliation. Its entry in the reconciliation list names both texts, the difference, and the
+      citers that resolve to it. This holds at enrollment too, and no baseline tolerance applies. It
+      blocks until it is resolved by one of three routes:
+      - the copy is aligned with the canonical text and reclassified as exact or equivalent;
+      - it is renamed as a distinct condition with its own map entry, as `(C1$'$)` is;
+      - an owner decision records that the variant is intended, and names which formulation its local
+        citers depend on.
+
+    Every copy carries one of these fidelity classes, with a reason. That covers restatements,
+    applications and mirrors alike, not only mirrors;
   - **citation**, a dependency edge to the group;
   - **unrelated**, with a reason: for example GR:629–633, whose `(C1$'$)`–`(C3$'$)` are a different
     condition set.
-- **Who classifies.** Each classification is a review record: a recorded human or reviewer decision with
-  an attestation under O6. A form-based suggestion from the screen may pre-fill a proposed class, but it
-  never classifies.
+- **Who classifies: the FIN-SCOPE classifier.** This role is an owner-designated reviewer who is not
+  the author of the unit classified, attested under O6. Each classification is a review record made by
+  someone in that role. A form-based suggestion from the screen may pre-fill a proposed class, but it
+  never classifies. Until O6 is decided, no classification can be attested.
+- **Pending is a blocking state, never a class.** An occurrence awaiting classification, such as each
+  pending opener of the worked examples, is `pending`.
+  - The gate cannot pass while any occurrence in scope is pending.
+  - Enrollment cannot complete, and cannot publish `baseline.json`, while any occurrence in the corpus
+    is pending or classified `different` and unresolved.
+  - The baseline tolerance of §6.3, which lets baseline items stand while their digests stand, never
+    covers occurrences.
+- **Second classification, against misclassification.** A real copy classified as a citation or as
+  unrelated, with its text unchanged, cannot be detected mechanically afterwards. The controls are:
+  - **two independent classifiers.** Two distinct people in the classifier role, each attested,
+    must agree for every `citation` or `unrelated` class given to these units: an opening paragraph led
+    by a name, a list item or table row led by a name, a heading unit, or a pending opener. A
+    disagreement keeps the unit pending;
+  - **a recorded second-review sample.** For all other enrollment classifications, a seeded random
+    sample of at least one in ten is reviewed again by a second classifier. The seed is frozen before
+    the sample is drawn, and the sample is recorded. A misclassification found in the sample triggers a
+    second review of every unit of the same name and class;
+  - **re-verification on change.** A changed unit voids its classification, so it is classified again
+    (above).
+
+  The remaining limit is stated in §9: an unsampled unit, misclassified with its text unchanged and
+  not led by a name, stays undetected until its text changes.
+- **Ambiguity and incorrect mapping inside the map fail closed.**
+  - Entries are keyed per name. A unit that mentions several names needs an entry for every name it
+    mentions, so a missing entry fails.
+  - Every entry's name must be among the unit's matched mentions, so a copy filed under a name the unit
+    does not mention fails.
+  - An entry that names a name or anchor absent from the map fails.
+  - A second `canonical` entry for one name fails.
+  - A mention that could belong to two mapped sets, for example `C1` beside the `(C1$'$)` set, must be
+    resolved in its entry to exactly one of them, with a reason. An entry that leaves it open fails.
 - **Fail closed.**
   - An occurrence with no classification fails the gate (V26).
   - A new occurrence blocks the gate until it is classified.
@@ -346,7 +443,8 @@ therefore stops deciding copies by form.
     an edge.
 - **What follows from a class.**
   - A copy is a node of the group, so its change makes the group and every citer members (R-e, R-b).
-  - A citation makes its block, or its paragraph if it is not in a block, a citer.
+  - A citation makes its unit a citer: its block, or the unit itself if it is not in a block. A change
+    to the group makes it a member (R-b).
   - An unrelated occurrence carries no dependency.
 - **Limit.** The matcher is lexical, so a paraphrase that never names the condition ("the coupling
   condition"), and is not a frozen alias, is not an occurrence (§9). Adding an alias is a map change
@@ -381,9 +479,21 @@ are listed as pairs, `chapter/FULL`.
 | `H-BD` | GR:122 | appendix-b:177/FULL:5854 | none |
 | `(EM)` | Main:756 (inline run-in) | none | none |
 
+**Recorded as found.** The ch01 definition table (`book/ch01-observation.md:252`, mirrored at
+`FULL.md:585`) names C2 "Timescale separation", while the canonical `papers/Main.md:74` reads "(C2)
+Memory persistence". Likewise the ch01 table names C3 "Capacity hierarchy" (`:253`/`:586`), against
+Main:76's "Sufficient memory capacity". And ch13:52 has "C2: conformational timescale separation". These
+are recorded as found, and no correction is made or implied here. Whether each is an equivalent
+paraphrase, an application or a different formulation is the classifier's decision at enrollment.
+Under §2.5 a `different` class is a blocking finding until it is resolved.
+
 **Group sizes, counting the canonical definition and every copy, with mirrors as two nodes.**
 
-| Name | Proposed copies only | If every pending opener is a copy |
+The upper figures are estimates under one assumption: every pending opener is a copy. They are not
+maxima, since enrollment review may class any of the roughly 800 other occurrences as a copy, a
+mid-paragraph restatement for example.
+
+| Name | Proposed copies only | Estimate if every pending opener is a copy (not a maximum) |
 |---|---|---|
 | `(C1)` | 26 | 29 |
 | `(C2)` | 26 | 32 |
@@ -824,6 +934,12 @@ Each run checks four configuration controls:
   | copies decided by form instead of by the register | P-H16, P-H17 |
   | unclassified occurrences ignored | P-H18 |
   | classification not voided by a change | P-H19 |
+  | headings not occurrence units | P-H20 |
+  | lists classified item by item without their lead-in | P-H21 |
+  | the matcher run on unnormalized text | P-H22 |
+  | the exact-copy identity check off | P-F1, P-F4 |
+  | equivalence attestation not voided by a canonical change | P-F2 |
+  | a new different formulation not blocking | P-F3 |
   | the glossary not a surface | P-H13 |
   | deleted-block membership filtered by `FS_L + IS > 0` | P-L4c |
   | range citations not expanded | P-H6 |
@@ -889,6 +1005,9 @@ Each class is a place where the guarantee holds only through ordinary pull-reque
 - **Symbols and carriers.** A carrier outside the list and undeclared in the local hypotheses, such as a
   lattice configuration set written `$Q^\Lambda$` with no declaration, escapes `FS_A` and the carrier
   quantifier (R5, X-8).
+- **Misclassification with unchanged text.** A real copy classified as a citation or as unrelated, not
+  led by a name, outside the second-review sample, and unchanged, stays undetected until its text
+  changes (§2.5).
 - **Unnamed references to a mapped condition.** A paragraph that relies on a condition without naming
   it, by label or by a frozen alias, is not an occurrence, so it is outside the register (§2.5). An
   example is "the coupling condition". Adding the phrase as an alias brings it in.
@@ -960,7 +1079,12 @@ For the Code Review Rules, under *Claim/evidence boundary*:
 | V23 | every deleted block is a member, unconditionally, with its scope obligations carried into its record | P-L4b, P-L4c, P-O1; the deleted-member mutant |
 | V24 | a reduced (r3) record answers items 1, 2 and 4 | P-R11 (if r3 is adopted) |
 | V25 | every mapped name resolves to exactly one node group, and a change to any node of a group, in any form, reaches every citer of the group | P-H4, P-H6–P-H8, P-H11–P-H13, P-H15; the group-closure and form mutants |
-| V26 | every occurrence of a mapped name has a current recorded classification; an unclassified, new or changed occurrence, or an unresolved anchor, fails | P-H9, P-H10, P-H14, P-H18, P-H19 |
+| V26 | every occurrence unit (paragraph, whole list, whole table, heading with its section) of a mapped name has a current recorded classification; an unclassified, new or changed occurrence, or an unresolved anchor, fails | P-H9, P-H10, P-H14, P-H18–P-H22 |
+| V30 | each copy's fidelity holds: exact copies stay identical (checked mechanically), equivalent copies carry a current attestation, and every different formulation blocks until it is resolved by one of the three routes | P-F1–P-F5, N34 |
+| V31 | pending blocks the gate and enrollment, and baseline tolerance never covers occurrences | P-G1 |
+| V32 | ambiguous and incorrectly mapped entries fail closed | P-A1m–P-A5m |
+| V33 | name-led citation or unrelated classes need two agreeing classifiers; other enrollment classes are sampled | P-S2, P-S3 |
+| V34 | a prose citer outside blocks is a member when its condition changes | P-P1 |
 | V27 | no reduction silently excludes a theorem: the union of covered keys equals the review set | P-O1, P-O3; the coverage mutant |
 | V28 | a mathematically equivalent but not mechanically identical change is never batched | P-O2, P-O5 |
 | V29 | (r2) needs identical text, hypothesis digests and resolved targets | P-O4 |
@@ -989,6 +1113,10 @@ For the Code Review Rules, under *Claim/evidence boundary*:
   signed commits with separately held keys, (δ) a separate reviewer account, or a combination. The
   reviewer's assessment of what each verifies is recorded in §3.6, and the writer proposes no choice.
   Until O6 is decided, no record can be attested.
+- **O8.** The owner's longer-term recommendation (c.7065520418): after the A1 retirement, establish one
+  canonical definition for each foundational condition, with other locations referring to it wherever
+  practical. FIN-SCOPE's reconciliation list (§2.5) is the input to that work. This design does not
+  schedule it.
 - **O7. Decided by the owner (#1169 c.7065358283).**
   - About 130–250 review items a week is approved *provisionally*, as a design target. It is not a
     guarantee about staffing or throughput.
@@ -1199,3 +1327,26 @@ a FIN-SCOPE pass is not evidence for either class.
 | Groups re-derived | §2.5: proposed groups (C1) 26–29, (C2) 26–32, (C3) 26–30, (C4) 15–18, H-BD 3, (EM) 1, including ch18:67–70/FULL:4798–4801 |
 | FULL segmentation | §3.4 |
 | TESTS | P-H16–P-H19, N33 |
+
+**Review c.7065519776 (CONFIRMED WITH NITS) and owner criterion 5 (c.7065520418).**
+
+| Point | Where addressed |
+|---|---|
+| Nit 1, headings (the condition on owner item 1) | §2.5 units: a heading with its section; V26; TESTS P-H20 |
+| Nit 2, whole lists and tables | §2.5 units; TESTS P-H21 |
+| Nit 3, matcher input and exclusion | §2.5 matcher's input (#1483 normalization, LaTeX pre-normalization, unwrapping); the subscript exclusion with its reason; TESTS P-H22, N35 |
+| Nit 4, upper ends | §2.5: estimates, not maxima |
+| O6 dependency of enrollment | §2.5 who classifies |
+| Owner criterion 5: exact, equivalent, different | §2.5 fidelity; V30; TESTS P-F1–P-F4, N34 |
+| Designated reviewer for pending openers | §2.5 who classifies |
+| Longer-term recommendation (one canonical definition, others referring) | recorded in §12, O8 |
+
+**Addendum c.7065535973 (the owner's five criteria).**
+
+| Criterion | Where addressed |
+|---|---|
+| 1 Coverage | §2.5 units (headings, whole lists and tables with a named lead-in or header), the matcher's input, the subscript exclusion with its reason |
+| 2 Governance | §2.5 the FIN-SCOPE classifier role; pending blocks the gate and enrollment; no baseline tolerance for occurrences; V31; TESTS P-G1 |
+| 3 Controls | §2.5 ambiguity and mapping checks, two classifiers for name-led citation or unrelated classes, the second-review sample; V32, V33; §9 limit; TESTS P-A1m–P-A5m, P-S2, P-S3 |
+| 4 Propagation | §1.1 (R-b): prose citers anywhere; V34; TESTS P-P1 |
+| 5 Semantic consistency | §2.5 fidelity for every copy; `different` blocking, with three resolution routes; the ch01-table finding recorded as found; V30; TESTS P-F5 |
