@@ -508,21 +508,21 @@ independently in a normalized state or law and evolved by its own
 dynamics --- a Hilbert space of any dimension with a normal state and a
 unitary or isometry, or a measurable space with a probability and a
 measurable map --- with product dynamics, leaves every visible
-transition probability unchanged, because the visible coordinate of the
-product map does not depend on the added coordinate and the added state
-or law has total mass one; the cardinality of such a deep sector is
-unobservable at the fixed visible/hidden interface. A deep sector that
-the dynamics couples to the remaining degrees of freedom is outside that
-statement, and this Remark makes no claim about the observability of its
-cardinality. Of the two finiteness statements, the following results use
-only that of Lemma 1: the stochastic-inverse lemma and the readback
-lemma (accessible conditional memory) of §2.3, and the equivalence of
-§3.4 with its process and intervention dilations, in which a finite
-hidden space is constructed, not assumed. The finite representative is
-used by the recurrence step of §2.3 (for whose P-indivisibility
-conclusion the near-return condition (NR) of §2.3 is a weaker sufficient
-condition; the exact return and its index \(L\) are statements about the
-finite representative) and the results resting on it (recurrence-scale
+transition probability unchanged, because the product dynamics
+factorizes and the added state or law keeps total mass one; the
+cardinality of such a deep sector is unobservable at the fixed
+visible/hidden interface. A deep sector that the dynamics couples to the
+remaining degrees of freedom is outside that statement, and this Remark
+makes no claim about the observability of its cardinality. Of the two
+finiteness statements, the following results use only that of Lemma 1:
+the stochastic-inverse lemma and the readback lemma (accessible
+conditional memory) of §2.3, and the equivalence of §3.4 with its
+process and intervention dilations, in which a finite hidden space is
+constructed, not assumed. The finite representative is used by the
+recurrence step of §2.3 (for whose P-indivisibility conclusion the
+near-return condition (NR) of §2.3 is a weaker sufficient condition; the
+exact return and its index \(L\) are statements about the finite
+representative) and the results resting on it (recurrence-scale
 P-indivisibility; the CP-indivisibility theorem of §3.2, only through
 that P-indivisibility, which its measurable-carrier corollary takes from
 (NR); the all-time periodicity of a fixed realization in §3.4), by the
@@ -1672,9 +1672,11 @@ the infinite-region completion (§3.2, §3.4), which is assembled from
 finite-region stages, runs on finite configuration spaces: Lemma 1 for
 the visible sector, with the total-finiteness posit (§1.2 Remark, §4.5)
 where a result also needs the hidden sector finite; the near-return
-corollary of §2.3, the index-free form of §2.3 under (FS) and (NR), and
-the remark of §3.2 under the condition (IP) take a measurable hidden
-space.
+corollary of §2.3, the index-free form of §2.3 under (FS) and (NR), the
+remark of §3.2 under the condition (IP), the measurable-carrier
+corollary of §3.2 and the two coupling-step theorems of §3.4 (the
+quantitative C2 theorem and the physical-memory theorem) take a
+measurable hidden space.
 
 Three features are fixed at the representation level. When a continuous
 interpolation \(U(t) = e^{-i\hat{H}t}\) is chosen (§3.2), it is
@@ -2343,7 +2345,8 @@ the result. \(\square\)
 \emph{Corollary (measurable hidden carrier).} \emph{Let
 \(\mathcal{C}_V\) be finite with \(|\mathcal{C}_V| \geq 2\), let
 \(\rho\) be a probability on a measurable space \((H, \mathcal{H})\),
-and let \(F\) be a measurable map of \(\mathcal{C}_V \times H\),
+and let \(F\) be a map of \(\mathcal{C}_V \times H\), measurable for
+\(2^{\mathcal{C}_V} \otimes \mathcal{H}\),
 \(F^t(x, h) = (A_t(x, h), K_t(x, h))\), such that for every \(t \geq 1\)
 and every \(h\) the map \(x \mapsto F^t(x, h)\) is injective and every
 coincidence set \(\{h : K_t(x, h) = K_t(y, h)\}\) lies in
@@ -2360,11 +2363,12 @@ the near-return corollary of §2.3; (c) if \((\Gamma_t)\) is not
 P-divisible on \(\{0, \ldots, r\}\), there are \(0 < t_1 < t_2 \leq r\)
 with no positive trace-preserving map, in particular no CPTP map,
 \(\Lambda\) satisfying \(\Phi_{t_2} = \Lambda \circ \Phi_{t_1}\). If
-\(\Gamma_s\) is not a permutation matrix, the hypothesis of (c) holds
-under (NR), assumed as a hypothesis of this result and not adopted; (NR)
-concerns a time that need not be accessible and then has no
-finite-window test; for the selected update on \(\mathbb{Z}^d\) the only
-laws known to satisfy it are supported on periodic configurations.}
+some \(\Gamma_s\) with \(s \geq 1\) is not a permutation matrix, the
+hypothesis of (c) holds, with \(r = n\), under (NR) of that corollary,
+assumed as a hypothesis of this result and not adopted; (NR) concerns a
+time that need not be accessible and then has no finite-window test; for
+the selected update of §3.2 on \(\mathbb{Z}^d\) the only laws known to
+satisfy it are supported on periodic configurations.}
 
 \emph{Proof.} \(\Psi_{t,h}\) depends on \(h\) only through the map
 \(A_t(\cdot, h)\) and the relation
@@ -6298,4 +6302,4 @@ of probabilities, probability on trajectories, and the
 stochastic-quantum correspondence,'' arXiv:2602.23491v1 (2026).
 
 \end{document}
-% source-sha256: f2841cf47778d51c0b46e1d342a77be14ff9ce9adb839d9b1ce4d2707cd6aa66
+% source-sha256: 269e7cc77c8311ef57564ec1ae4737ba2b8bd720958bc3f0ad7db7c7eb18fd88

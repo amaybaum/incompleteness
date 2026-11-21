@@ -1592,19 +1592,21 @@ equals the original one: \[\begin{aligned}
 \Phi'_t(\rho_V)&=\operatorname{Tr}_{H A}\!\left[(U^t\otimes W^t)(\rho_V\otimes\omega_H\otimes\sigma_A)(U^{\dagger t}\otimes W^{\dagger t})\right]\\
 &=\operatorname{Tr}_{H}\!\left[U^t(\rho_V\otimes\omega_H)U^{\dagger t}\right]=\Phi_t(\rho_V).
 \end{aligned}\] Consequently every rooted population law \(T_{ij}(t)\)
-is unchanged. The rooted population laws are likewise unchanged for a
-classical factor: a measurable space \(A\) with a probability
-\(\alpha\), prepared independently and evolved by any measurable map
-\(w\), with product dynamics \(\varphi\times w\) and the uniform hidden
-prior times \(\alpha\). Removing the independently prepared decoupled
-factor reverses this comparison. This is a fixed-interface result for a
-factor of any cardinality; it uses the normalization
-\(\operatorname{Tr}\sigma_A=1\) (respectively \(\alpha(A)=1\)), and an
-unnormalizable factor, such as the identity on an infinite-dimensional
-\(\mathcal K_A\) or counting measure on an infinite \(A\), is not
-covered. An enlargement coupled to the boundary layer, even slowly,
-falls outside this identity: {[}GR §3.2{]} supplies only
-\(T_{ij}(t)=T_{ij}^{(B)}(t)+\mathcal O(t/\tau_{BD})\) under its
+is unchanged. The rooted population laws, and the hidden-prior channel
+family of {[}Main §3.2{]} (Corollary, measurable hidden carrier), are
+likewise unchanged for a classical factor: a measurable space \(A\) with
+a probability \(\alpha\), prepared independently and evolved by any
+measurable map \(w\), with product dynamics \(\varphi\times w\) and the
+uniform hidden prior times \(\alpha\); on the original carrier that
+family is the coherent family \(\Phi_t\). Removing the independently
+prepared decoupled factor reverses this comparison. This is a
+fixed-interface result for a factor of any cardinality; it uses the
+normalization \(\operatorname{Tr}\sigma_A=1\) (respectively
+\(\alpha(A)=1\)), and an unnormalizable factor, such as the identity on
+an infinite-dimensional \(\mathcal K_A\) or counting measure on an
+infinite \(A\), is not covered. An enlargement coupled to the boundary
+layer, even slowly, falls outside this identity: {[}GR §3.2{]} supplies
+only \(T_{ij}(t)=T_{ij}^{(B)}(t)+\mathcal O(t/\tau_{BD})\) under its
 deep-sector influence bound H-BD.
 
 \emph{(iv) Graph isomorphism (up to statistical isotropy), with a
@@ -1651,10 +1653,14 @@ preserved without it. (iii): the evolved state factors as
 Partial trace over \(H A\) is the original reduced state multiplied by
 \(\operatorname{Tr}(W^t\sigma_AW^{\dagger t})=\operatorname{Tr}(\sigma_AW^{\dagger t}W^t)=\operatorname{Tr}\sigma_A=1\),
 using \(W^\dagger W=1\). This proves the coherent-channel identity and
-hence its population restriction. For a classical factor the visible
-coordinate of \((\varphi\times w)^t\) does not depend on the factor's
-coordinate, so each rooted event is its \(\mathcal C_H\)-section times
-\(A\), of weight \(\alpha(A)=1\) times the original. It preserves the
+hence its population restriction. For a classical factor
+\((\varphi\times w)^t(v,(h,a))=(\varphi^t(v,h),w^t a)\), so the visible
+coordinate and the hidden coincidences of the original coordinates do
+not depend on \(a\); each rooted event, and each set of hidden points on
+which that family's integrand is constant, is its
+\(\mathcal C_H\)-section times \(A\), of weight \(\alpha(A)=1\) times
+the original, which proves both identities; on the original carrier the
+family is \(\Phi_t\) by part (a) of that Corollary. It preserves the
 fixed observed data, not measurements that access \(A\) or an extension
 that later couples to \(V\times H\). (iv): the finite-law representation
 {[}Main §3.4{]} holds for any finite bijection and the growth exponent
@@ -1680,19 +1686,20 @@ boundary data; without H-BD, the law after \(n\) update steps uses
 exactly the visible data and the hidden sites within \(n\) steps of them
 ({[}GR §3.2{]}). \emph{(iii) Exact transfer.} For the independently
 prepared decoupled extension of Theorem 24(iii), of any cardinality, the
-full fixed-interface channel family (for a classical factor, its
-\(T_{ij}(t)\) restriction), and hence every statement expressible solely
-through that family or its \(T_{ij}(t)\) restriction, transfers exactly
-at every time. This includes a recurrence-scale property of the observed
-law when that property is established on a finite representative; it
-does not imply recurrence of every unobserved sector. An unnormalizable
-extension is outside Theorem 24(iii) and this transfer. Across
-extensions coupled under H-BD, only statements insensitive to the
-\(\mathcal O(t/\tau_{BD})\) correction transfer. For example,
-\(T_{ij}=0\) does not transfer to \(T_{ij}=\varepsilon>0\) merely
-because \(\varepsilon=\mathcal O(t/\tau_{BD})\). Finite-carrier
-recurrence, and the accessible-window conditional-memory conclusion of
-{[}Main §2.3{]}, remain distinct claims. \(\square\)
+full fixed-interface channel family (for a classical factor, read as the
+hidden-prior channel family of {[}Main §3.2{]}), and hence every
+statement expressible solely through that family or its \(T_{ij}(t)\)
+restriction, transfers exactly at every time. This includes a
+recurrence-scale property of the observed law when that property is
+established on a finite representative; it does not imply recurrence of
+every unobserved sector. An unnormalizable extension is outside Theorem
+24(iii) and this transfer. Across extensions coupled under H-BD, only
+statements insensitive to the \(\mathcal O(t/\tau_{BD})\) correction
+transfer. For example, \(T_{ij}=0\) does not transfer to
+\(T_{ij}=\varepsilon>0\) merely because
+\(\varepsilon=\mathcal O(t/\tau_{BD})\). Finite-carrier recurrence, and
+the accessible-window conditional-memory conclusion of {[}Main §2.3{]},
+remain distinct claims. \(\square\)
 
 \textbf{Remark (amplitude-scale gauge).} The proposed fixed-alphabet
 relabellings are affine maps \(\phi\mapsto\lambda\phi+c\), with
@@ -3244,4 +3251,4 @@ Running-Vacuum Form of Dark Energy from the Cosmological Horizon,''
 Universality Classes of Embedded Observers,'' (2026).
 
 \end{document}
-% source-sha256: 6e1e14917ba8973c0a62478a3a3c3f52640b86ee8d1be934b3a812bef0b90af6
+% source-sha256: 5e30e5dd4e2bc3a16a19b5e59b082e7c1a27d8efc93f20ccd0f1a7d542fff0df

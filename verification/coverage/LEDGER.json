@@ -985,7 +985,7 @@
         }
       ],
       "kernel": "P",
-      "delta": "no Lean statement",
+      "delta": "no Lean statement; measurable form: paper proof only",
       "note": "Preregistered probe (b49): rule, ensemble, seed and grid fixed before the run."
     },
     {
@@ -1006,7 +1006,7 @@
         }
       ],
       "kernel": "P",
-      "delta": "no Lean statement",
+      "delta": "no Lean statement; measurable form: paper proof only",
       "note": ""
     },
     {
@@ -2590,7 +2590,7 @@
       "line": 263,
       "kind": "Corollary",
       "label": "(effective finiteness and gauge-class transfer)",
-      "fingerprint": "6ce42388abe7eca2",
+      "fingerprint": "edbaacbce9d41da0",
       "area": "reconstruction",
       "assumptions": "see the statement",
       "checks": [],
