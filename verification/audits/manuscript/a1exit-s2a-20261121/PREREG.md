@@ -35,7 +35,6 @@ occurs exactly once in its file and mirror and no old string survives outside it
 - Only the lattice clause changes. The second sense of A4 (no self-copy), the independence example on
   "a periodic cubic lattice of side at least 3" (a finite example, true as stated), and A1 are untouched.
 - No edited sentence states Theorem 13's Schur-complement result, so X-43's C13 condition has no site here.
-  (Wrong for SM:1532; corrected by amendment 2.)
 
 ## Mirrors (§A.14, §A.25)
 
@@ -222,3 +221,22 @@ D4. Both entries are base entries in `checks/s2a_edits.json`.
 - Row: X-43. Source: book restatement of Theorem 13's Schur-complement step.
 - Old: `where $G_{oo}$ is the hidden-sector propagator.`
 - New: `where $G_{oo}$ is the hidden-sector propagator: the pointwise inverse of the hidden block when that block is site-diagonal (the free and onsite case); when a taste-asymmetric structure of the H-χ' kind makes the block off-diagonal, the step requires it to be boundedly invertible on $\ell^2$ of the odd sublattice.`
+
+## Amendment 4 (2026-11-21): round-2 review N-a
+
+Appended and pushed before its edits, in answer to the round-2 delta review of `85ec61cc` on #1470
+(ACCEPT-WITH-NITS). In the site-diagonal case the Schur complement is not condition-free: `G_oo` is
+the pointwise inverse of the hidden block and needs its diagonal entries nonzero (Q1 §3 C13, "wherever
+that is nonzero"; on the free substratum the entry is the time term `2 cos ω`, zero at `ω = π/2`).
+The book's restatement already says "pointwise inverse"; it gains the same nonzero requirement so that
+the two statements agree. RESULT records this as D5. Both entries amend amendment 3's entries.
+
+### C13-SM543-am4: SM:543 (amends C13-SM543)
+
+- Old: `needs no further condition when the hidden block is site-diagonal (the free and onsite case); when such`
+- New: `needs, when the hidden block is site-diagonal (the free and onsite case), only that its diagonal entries be nonzero, $G_{oo}$ being their pointwise inverse (on the free substratum the entry is the time term $2\cos\omega$, which vanishes at $\omega = \pi/2$); when such`
+
+### C13-ch05-164-am4: ch05:164 = FULL:1479 (amends C13-ch05-164)
+
+- Old: `the pointwise inverse of the hidden block when that block is site-diagonal (the free and onsite case);`
+- New: `the pointwise inverse of the hidden block when that block is site-diagonal (the free and onsite case), which requires its diagonal entries to be nonzero;`
