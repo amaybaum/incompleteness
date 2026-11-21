@@ -189,8 +189,7 @@
    "reason": "Ledger X-01 (\"finite in the finite representative, which is not asserted of nature\"), written in the cardinality-neutral form of the owner decision.",
    "step2_note": null,
    "old": "a deterministic bijection on a set, finite under the total-finiteness posit (§1.2 Remark, §4.5 ledger item (ii)), an open hypothesis, not adopted, and one sufficient condition among those stated at each use.",
-   "new": "a deterministic bijection on a set whose cardinality is left open; results that need a finite set are stated for a finite representative (§1.2 Remark).",
-   "revised": "round 1"
+   "new": "a deterministic bijection on a set whose cardinality is left open; results that need a finite set are stated for a finite representative (§1.2 Remark)."
   },
   {
    "id": "D013",
@@ -205,8 +204,7 @@
    "reason": "F row X-54: finite-only scope stated as a condition on $S$ (review round 1, F6: the ledger wording \"in a finite representative\" restated its own label).",
    "step2_note": null,
    "old": "*finite capacity* (under A1).",
-   "new": "*finite capacity* when $S$ is finite.",
-   "revised": "round 1"
+   "new": "*finite capacity* when $S$ is finite."
   },
   {
    "id": "D014",
@@ -221,8 +219,7 @@
    "reason": "F row X-54: finite-only scope stated as a condition on $S$ (review round 1, F6: the ledger wording \"in a finite representative\" restated its own label).",
    "step2_note": null,
    "old": "a lossless memory, finite under A1.",
-   "new": "a lossless memory, of finite capacity when $S$ is finite.",
-   "revised": "round 1"
+   "new": "a lossless memory, of finite capacity when $S$ is finite."
   },
   {
    "id": "D015",
@@ -237,8 +234,7 @@
    "reason": "X-02 rule: the parenthesis is deleted; the next sentence states where finiteness of the total carrier is used.",
    "step2_note": null,
    "old": "the OI configuration (finite under A1)",
-   "new": "the OI configuration",
-   "revised": "round 1"
+   "new": "the OI configuration"
   },
   {
    "id": "D016",
@@ -313,8 +309,7 @@
    "reason": "A1 is dropped without a replacement scope (review round 1, F2): C4 comes from the hidden-memory theorem and C1 from the accessible history gap, and the readback route constructs a finite hidden space rather than assuming one (M:60, \"a finite hidden space is constructed, not assumed\"); the recurrence-cycle P-indivisibility, which does use a finite representative, is scoped separately at Sub:137 (D245).",
    "step2_note": null,
    "old": "derived from E1–E3, A1–A2 together with **M1-T**",
-   "new": "derived from E1–E3 and A2 together with **M1-T**",
-   "revised": "round 1"
+   "new": "derived from E1–E3 and A2 together with **M1-T**"
   },
   {
    "id": "D021",
@@ -344,8 +339,7 @@
    "reason": "Theorem 23 takes the finite-substratum scope with the wrapping conditions on P that X-45 and X-42 require (review round 1, F1); paper and book read the same. The ledger's further instruction to state Stage 2 on Z^d where Q1 supports it goes beyond the smallest correction and is routed to §5.4 for review, with Issue #1479 as its accountable home. Review: that Stages 1 and 3 need exactly this scope (X-29, X-70, X-71).",
    "step2_note": null,
    "old": "*Let E1–E7, M1-T, M1-B, A1–A6, the Stage-2",
-   "new": "*Let $(S,\\varphi)$ be a finite substratum, with A4 applying in its finite periodic case under the wrapping conditions on $P$ of Stage 2 [SM §4.1], and let E1–E7, M1-T, M1-B, A2–A6, the Stage-2",
-   "revised": "round 1"
+   "new": "*Let $(S,\\varphi)$ be a finite substratum, with A4 applying in its finite periodic case under the wrapping conditions on $P$ of Stage 2 [SM §4.1], and let E1–E7, M1-T, M1-B, A2–A6, the Stage-2"
   },
   {
    "id": "D023",
@@ -705,8 +699,7 @@
    "reason": "F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); \"A1\" is replaced by \"finiteness\" as the class scope, A2–A6 keep their identifiers.",
    "step2_note": null,
    "old": "OI's structural conditions A1 (finiteness), A2 (deterministic bijection)",
-   "new": "the finite OI class's structural conditions finiteness, A2 (deterministic bijection)",
-   "revised": "round 1"
+   "new": "the finite OI class's structural conditions finiteness, A2 (deterministic bijection)"
   },
   {
    "id": "D047",
@@ -811,8 +804,7 @@
    "reason": "F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); \"A1\" is replaced by \"finiteness\" as the class scope, A2–A6 keep their identifiers.",
    "step2_note": null,
    "old": "; A1–A6 are conditions for membership in *OI's specific* universality class",
-   "new": "; finiteness and A2–A6 are conditions for membership in the finite OI class, the finite subclass of *OI's specific* universality class",
-   "revised": "round 1"
+   "new": "; finiteness and A2–A6 are conditions for membership in the finite OI class, the finite subclass of *OI's specific* universality class"
   },
   {
    "id": "D054",
@@ -872,8 +864,7 @@
    "reason": "F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); \"A1\" is replaced by \"finiteness\" as the class scope, A2–A6 keep their identifiers.",
    "step2_note": null,
    "old": "in the sense of OI's structural condition A1, $|S| < \\infty$.",
-   "new": "in the sense of the finiteness condition $|S| < \\infty$ of the finite OI class.",
-   "revised": "round 1"
+   "new": "in the sense of the finiteness condition $|S| < \\infty$ of the finite OI class."
   },
   {
    "id": "D058",
@@ -918,8 +909,7 @@
    "reason": "F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); \"A1\" is replaced by \"finiteness\" as the class scope, A2–A6 keep their identifiers. Finiteness is worded as scope, not a membership condition (review round 1, F8).",
    "step2_note": null,
    "old": "OI's structural conditions A1–A6.",
-   "new": "OI's structural conditions A2–A6, within the finite scope of the reconstruction theorem.",
-   "revised": "round 1"
+   "new": "OI's structural conditions A2–A6, within the finite scope of the reconstruction theorem."
   },
   {
    "id": "D061",
@@ -949,8 +939,7 @@
    "reason": "F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); \"A1\" is replaced by \"finiteness\" as the class scope, A2–A6 keep their identifiers.",
    "step2_note": null,
    "old": "A6 (background independence). They are assumptions",
-   "new": "A6 (background independence); the reconstruction theorem is stated for a finite $S$. They are assumptions",
-   "revised": "round 1"
+   "new": "A6 (background independence); the reconstruction theorem is stated for a finite $S$. They are assumptions"
   },
   {
    "id": "D063",
@@ -1100,8 +1089,7 @@
    "reason": "F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); \"A1\" is replaced by \"finiteness\" as the class scope, A2–A6 keep their identifiers.",
    "step2_note": null,
    "old": "do not satisfy OI's structural conditions A1–A6 in their standard formulation. The failures",
-   "new": "do not satisfy the conditions of the finite OI class (finiteness and A2–A6) in their standard formulation. The failures",
-   "revised": "round 1"
+   "new": "do not satisfy the conditions of the finite OI class (finiteness and A2–A6) in their standard formulation. The failures"
   },
   {
    "id": "D073",
@@ -1116,8 +1104,7 @@
    "reason": "F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); \"A1\" is replaced by \"finiteness\" as the class scope, A2–A6 keep their identifiers.",
    "step2_note": null,
    "old": "do not satisfy OI's structural conditions A1–A6 in their standard formulation, with the failures",
-   "new": "do not satisfy the conditions of the finite OI class (finiteness and A2–A6) in their standard formulation, with the failures",
-   "revised": "round 1"
+   "new": "do not satisfy the conditions of the finite OI class (finiteness and A2–A6) in their standard formulation, with the failures"
   },
   {
    "id": "D074",
@@ -1147,8 +1134,7 @@
    "reason": "F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); \"A1\" is replaced by \"finiteness\" as the class scope, A2–A6 keep their identifiers.",
    "step2_note": null,
    "old": "supplies structural conditions A1–A6 for its local reconstruction",
-   "new": "supplies structural conditions A2–A6, with a finite scope, for its local reconstruction",
-   "revised": "round 1"
+   "new": "supplies structural conditions A2–A6, with a finite scope, for its local reconstruction"
   },
   {
    "id": "D076",
@@ -1223,8 +1209,7 @@
    "reason": "F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); \"A1\" is replaced by \"finiteness\" as the class scope, A2–A6 keep their identifiers.",
    "step2_note": null,
    "old": "all three fail OI's A1–A6 (so are outside OI's specific class)",
-   "new": "all three fail the conditions of the finite OI class, finiteness and A2–A6 (so are outside it)",
-   "revised": "round 1"
+   "new": "all three fail the conditions of the finite OI class, finiteness and A2–A6 (so are outside it)"
   },
   {
    "id": "D081",
@@ -1404,8 +1389,7 @@
    "reason": "F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); \"A1\" is replaced by \"finiteness\" as the class scope, A2–A6 keep their identifiers.",
    "step2_note": null,
    "old": "in OI's specific universality class as that class is delimited by A1–A6.",
-   "new": "in the finite OI class, delimited by finiteness and A2–A6.",
-   "revised": "round 1"
+   "new": "in the finite OI class, delimited by finiteness and A2–A6."
   },
   {
    "id": "D093",
@@ -1420,8 +1404,7 @@
    "reason": "F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); \"A1\" is replaced by \"finiteness\" as the class scope, A2–A6 keep their identifiers.",
    "step2_note": null,
    "old": "are in OI's specific universality class (per A1–A6 failure)",
-   "new": "are in the finite OI class (per failure of its conditions, finiteness and A2–A6)",
-   "revised": "round 1"
+   "new": "are in the finite OI class (per failure of its conditions, finiteness and A2–A6)"
   },
   {
    "id": "D094",
@@ -1451,8 +1434,7 @@
    "reason": "F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); \"A1\" is replaced by \"finiteness\" as the class scope, A2–A6 keep their identifiers.",
    "step2_note": null,
    "old": "all four fail OI's A1–A6 and are therefore outside OI's specific class",
-   "new": "all four fail the conditions of the finite OI class, finiteness and A2–A6, and are therefore outside it",
-   "revised": "round 1"
+   "new": "all four fail the conditions of the finite OI class, finiteness and A2–A6, and are therefore outside it"
   },
   {
    "id": "D096",
@@ -1737,8 +1719,7 @@
    "reason": "F row X-54: finite scope; cardinality-neutral wording (owner decision).",
    "step2_note": null,
    "old": "$S$ is the set of total configurations, finite in the representative specified under the open hypothesis A1 (§2.4).",
-   "new": "$S$ is the set of total configurations; its cardinality is not fixed, and the results stated for a finite substratum take it finite.",
-   "revised": "round 1"
+   "new": "$S$ is the set of total configurations; its cardinality is not fixed, and the results stated for a finite substratum take it finite."
   },
   {
    "id": "D115",
@@ -1753,8 +1734,7 @@
    "reason": "F row X-54: finite scope; cardinality-neutral wording (owner decision).",
    "step2_note": null,
    "old": "$S$ is the set of total configurations, finite in the representative specified under the open hypothesis A1 (§2.4).",
-   "new": "$S$ is the set of total configurations; its cardinality is not fixed, and the results stated for a finite substratum take it finite.",
-   "revised": "round 1"
+   "new": "$S$ is the set of total configurations; its cardinality is not fixed, and the results stated for a finite substratum take it finite."
   },
   {
    "id": "D116",
@@ -1829,8 +1809,7 @@
    "reason": "Book statement of Theorem 23, the same wording as Sub:193 (D022) in the book's citation style; reviewed together with it.",
    "step2_note": null,
    "old": "*Let E1–E7, M1-T and M1-B, and A1–A6 hold,",
-   "new": "*Let $(S,\\varphi)$ be a finite substratum, with A4 applying in its finite periodic case under the wrapping conditions on $P$ of Stage 2 (SM §4.1), and let E1–E7, M1-T and M1-B, and A2–A6 hold,",
-   "revised": "round 1"
+   "new": "*Let $(S,\\varphi)$ be a finite substratum, with A4 applying in its finite periodic case under the wrapping conditions on $P$ of Stage 2 (SM §4.1), and let E1–E7, M1-T and M1-B, and A2–A6 hold,"
   },
   {
    "id": "D121",
@@ -1845,8 +1824,7 @@
    "reason": "Book statement of Theorem 23, the same wording as Sub:193 (D022) in the book's citation style; reviewed together with it.",
    "step2_note": null,
    "old": "*Let E1–E7, M1-T and M1-B, and A1–A6 hold,",
-   "new": "*Let $(S,\\varphi)$ be a finite substratum, with A4 applying in its finite periodic case under the wrapping conditions on $P$ of Stage 2 (SM §4.1), and let E1–E7, M1-T and M1-B, and A2–A6 hold,",
-   "revised": "round 1"
+   "new": "*Let $(S,\\varphi)$ be a finite substratum, with A4 applying in its finite periodic case under the wrapping conditions on $P$ of Stage 2 (SM §4.1), and let E1–E7, M1-T and M1-B, and A2–A6 hold,"
   },
   {
    "id": "D122",
@@ -2101,8 +2079,7 @@
    "reason": "F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); \"A1\" is replaced by \"finiteness\" as the class scope, A2–A6 keep their identifiers.",
    "step2_note": null,
    "old": "; A1–A6 are conditions for membership in OI's *specific* universality class",
-   "new": "; finiteness and A2–A6 are conditions for membership in the finite OI class, the finite subclass of OI's *specific* universality class",
-   "revised": "round 1"
+   "new": "; finiteness and A2–A6 are conditions for membership in the finite OI class, the finite subclass of OI's *specific* universality class"
   },
   {
    "id": "D139",
@@ -2117,8 +2094,7 @@
    "reason": "F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); \"A1\" is replaced by \"finiteness\" as the class scope, A2–A6 keep their identifiers.",
    "step2_note": null,
    "old": "; A1–A6 are conditions for membership in OI's *specific* universality class",
-   "new": "; finiteness and A2–A6 are conditions for membership in the finite OI class, the finite subclass of OI's *specific* universality class",
-   "revised": "round 1"
+   "new": "; finiteness and A2–A6 are conditions for membership in the finite OI class, the finite subclass of OI's *specific* universality class"
   },
   {
    "id": "D140",
@@ -2673,8 +2649,7 @@
    "reason": "X-02 rule; the matrix-model comparison that follows uses finite dimension.",
    "step2_note": null,
    "old": "acts on a configuration space finite under A1, with",
-   "new": "acts on a configuration space, finite where the framework's finite-only results apply, with",
-   "revised": "round 1"
+   "new": "acts on a configuration space, finite where the framework's finite-only results apply, with"
   },
   {
    "id": "D177",
@@ -2689,8 +2664,7 @@
    "reason": "X-02 rule; the matrix-model comparison that follows uses finite dimension.",
    "step2_note": null,
    "old": "acts on a configuration space finite under A1, with",
-   "new": "acts on a configuration space, finite where the framework's finite-only results apply, with",
-   "revised": "round 1"
+   "new": "acts on a configuration space, finite where the framework's finite-only results apply, with"
   },
   {
    "id": "D178",
@@ -3185,8 +3159,7 @@
    "reason": "The condensed-matter analogy is restated for discreteness; review the analogy.",
    "step2_note": null,
    "old": "finite at the substratum level under A1 but *appearing* infinite-dimensional",
-   "new": "discrete at the substratum level but *appearing* infinite-dimensional",
-   "revised": "round 1"
+   "new": "discrete at the substratum level but *appearing* infinite-dimensional"
   },
   {
    "id": "D211",
@@ -3201,8 +3174,7 @@
    "reason": "The condensed-matter analogy is restated for discreteness; review the analogy.",
    "step2_note": null,
    "old": "finite at the substratum level under A1 but *appearing* infinite-dimensional",
-   "new": "discrete at the substratum level but *appearing* infinite-dimensional",
-   "revised": "round 1"
+   "new": "discrete at the substratum level but *appearing* infinite-dimensional"
   },
   {
    "id": "D212",
@@ -3307,8 +3279,7 @@
    "reason": "Finite scope attached to the computability claim (review round 1, F5); see H-3 and D246.",
    "step2_note": null,
    "old": "that $\\varphi$ is a bijection on a finite set (under A1), which is trivially computable:",
-   "new": "that on a finite representative $\\varphi$ is a bijection on a finite set, which is trivially computable:",
-   "revised": "round 1"
+   "new": "that on a finite representative $\\varphi$ is a bijection on a finite set, which is trivially computable:"
   },
   {
    "id": "D219",
@@ -3323,8 +3294,7 @@
    "reason": "Finite scope attached to the computability claim (review round 1, F5); see H-3 and D246.",
    "step2_note": null,
    "old": "that $\\varphi$ is a bijection on a finite set (under A1), which is trivially computable:",
-   "new": "that on a finite representative $\\varphi$ is a bijection on a finite set, which is trivially computable:",
-   "revised": "round 1"
+   "new": "that on a finite representative $\\varphi$ is a bijection on a finite set, which is trivially computable:"
   },
   {
    "id": "D220",
@@ -3369,8 +3339,7 @@
    "reason": "Cardinality-neutral restatement.",
    "step2_note": null,
    "old": "Its total configuration space is finite in the representative specified under the open posit A1.",
-   "new": "The cardinality of its total configuration space is left open; results stated for a finite representative take it finite.",
-   "revised": "round 1"
+   "new": "The cardinality of its total configuration space is left open; results stated for a finite representative take it finite."
   },
   {
    "id": "D223",
@@ -3385,8 +3354,7 @@
    "reason": "Cardinality-neutral restatement.",
    "step2_note": null,
    "old": "Its total configuration space is finite in the representative specified under the open posit A1.",
-   "new": "The cardinality of its total configuration space is left open; results stated for a finite representative take it finite.",
-   "revised": "round 1"
+   "new": "The cardinality of its total configuration space is left open; results stated for a finite representative take it finite."
   },
   {
    "id": "D224",
@@ -3478,8 +3446,7 @@
    "reason": "X-00: item (ii) is deleted and its identifier retired, not reused and not annotated (§A.30; owner decision items 1, 2, 5: (iii)-(xiv) keep their numbers). Its content moves to the status Remark M:60 (weaker conditions, transfer clause); the finite-representative list and the deep-sector clause are already printed there (S2-B). The count becomes thirteen, and the completeness sentence states that finite-representative results carry their scope where stated (D253; review round 1, F4). Review: the posit count and that no result loses its stated conditions.",
    "step2_note": "S2-B and S2-C edit inside item (ii); old_step2 is item (ii) on the projected integration",
    "old": "as these texts stand in the same revision of the repository. It does not enumerate every physical assumption",
-   "new": "as these texts stand in the same revision of the repository; the results that use a finite representative (the recurrence step of §2.3, the counting measure of Lemma 3 and §4.6 among them) carry that finite scope where they are stated (§1.2 Remark) rather than as a listed premise. It does not enumerate every physical assumption",
-   "revised": "new in round 1"
+   "new": "as these texts stand in the same revision of the repository; the results that use a finite representative (the recurrence step of §2.3, the counting measure of Lemma 3 and §4.6 among them) carry that finite scope where they are stated (§1.2 Remark) rather than as a listed premise. It does not enumerate every physical assumption"
   },
   {
    "id": "D229",
@@ -3494,8 +3461,7 @@
    "reason": "X-00: the posit sentence becomes the finite-representative scope and receives item (ii)'s weaker-condition list (with S2-B's CP clause) and its transfer clause, verbatim apart from the connective; the P8 sentence takes ledger X-00 wording. After the deletion M:60 is Main's first mention of (NR), (IP) and (IL), so S2-C's return- and law-form qualifications are printed there and at the later (NR) mention (review round 1, F3). Review: that the transfer clause is not stronger than the companion proof.",
    "step2_note": "S2-B wording (\"and for the P-indivisibility input of the CP-indivisibility theorem\") is presupposed",
    "old": "Total finiteness of that representative is one sufficient condition for the results that use it, carried as item (ii) of the posit ledger (§4.5), the total-finiteness posit, an open hypothesis, not adopted; each such result names the hypotheses it consumes, and a weaker sufficient condition, where its sufficiency is proved, is stated with the result (§2.3, §3.2, §4.6);",
-   "new": "The results that use that representative are statements about finite representatives; each such result names the hypotheses it consumes, and a weaker sufficient condition, where its sufficiency is proved, is stated with the result — the near-return condition (NR) for the P-indivisibility conclusion of §2.3 and for the P-indivisibility input of the CP-indivisibility theorem of §3.2 on a measurable hidden carrier, the invariant-product condition (IP) for the doubly stochastic marginal of §3.2 and the invariant-law condition (IL) for the decay estimate of §4.6, each assumed as a hypothesis of that result and not adopted ((NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update of §3.2 on $\\mathbb{Z}^d$ no law that is not supported on periodic configurations is known to satisfy it; (IP) and (IL) are conditions on a law on the whole carrier; finite-window data can test some of their consequences but cannot establish them, and do not distinguish them from a finite carrier's counting law), and reversibility (REV), item (iii) of the posit ledger (§4.5), an alternative sufficient condition for bijectivity;",
-   "revised": "round 1"
+   "new": "The results that use that representative are statements about finite representatives; each such result names the hypotheses it consumes, and a weaker sufficient condition, where its sufficiency is proved, is stated with the result — the near-return condition (NR) for the P-indivisibility conclusion of §2.3 and for the P-indivisibility input of the CP-indivisibility theorem of §3.2 on a measurable hidden carrier, the invariant-product condition (IP) for the doubly stochastic marginal of §3.2 and the invariant-law condition (IL) for the decay estimate of §4.6, each assumed as a hypothesis of that result and not adopted ((NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update of §3.2 on $\\mathbb{Z}^d$ no law that is not supported on periodic configurations is known to satisfy it; (IP) and (IL) are conditions on a law on the whole carrier; finite-window data can test some of their consequences but cannot establish them, and do not distinguish them from a finite carrier's counting law), and reversibility (REV), item (iii) of the posit ledger (§4.5), an alternative sufficient condition for bijectivity;"
   },
   {
    "id": "D230",
@@ -3525,8 +3491,7 @@
    "reason": "X-00: the posit sentence becomes the finite-representative scope and receives item (ii)'s weaker-condition list (with S2-B's CP clause) and its transfer clause, verbatim apart from the connective; the P8 sentence takes ledger X-00 wording. After the deletion M:60 is Main's first mention of (NR), (IP) and (IL), so S2-C's return- and law-form qualifications are printed there and at the later (NR) mention (review round 1, F3). Review: that the transfer clause is not stronger than the companion proof.",
    "step2_note": "S2-B wording (\"and for the P-indivisibility input of the CP-indivisibility theorem\") is presupposed",
    "old": "(for whose P-indivisibility conclusion the near-return condition (NR) of §2.3 is a weaker sufficient condition;",
-   "new": "(for whose P-indivisibility conclusion the near-return condition (NR) of §2.3, assumed as a hypothesis and not adopted, is a weaker sufficient condition (it concerns a time that need not be accessible and then has no finite-window test; for the selected update of §3.2 on $\\mathbb{Z}^d$ no law that is not supported on periodic configurations is known to satisfy it);",
-   "revised": "new in round 1"
+   "new": "(for whose P-indivisibility conclusion the near-return condition (NR) of §2.3, assumed as a hypothesis and not adopted, is a weaker sufficient condition (it concerns a time that need not be accessible and then has no finite-window test; for the selected update of §3.2 on $\\mathbb{Z}^d$ no law that is not supported on periodic configurations is known to satisfy it);"
   },
   {
    "id": "D231",
@@ -3633,8 +3598,7 @@
    "reason": "Ledger X-02: the A1 entry is replaced by a finite-representative entry, inserted at its alphabetical place.",
    "step2_note": null,
    "old": "**Frauchiger-Renner theorem.**",
-   "new": "**Finite representative.** The minimal finite bijective representative $(S, \\varphi)$ of a finite hidden dynamics, on which the results stated for a finite substratum hold — among them the exact return and its index, the counting measure and the reconstruction theorem of Chapter 2. These results are finite-only; the framework assumes neither that the substratum is finite nor that it is infinite. Lemma 1 delivers finiteness of the observer's distinguishable states. Discussed in Chapter 1 and Appendix C §C.6.\n\n**Frauchiger-Renner theorem.**",
-   "revised": "round 1"
+   "new": "**Finite representative.** The minimal finite bijective representative $(S, \\varphi)$ of a finite hidden dynamics, on which the results stated for a finite substratum hold — among them the exact return and its index, the counting measure and the reconstruction theorem of Chapter 2. These results are finite-only; the framework assumes neither that the substratum is finite nor that it is infinite. Lemma 1 delivers finiteness of the observer's distinguishable states. Discussed in Chapter 1 and Appendix C §C.6.\n\n**Frauchiger-Renner theorem.**"
   },
   {
    "id": "D238",
@@ -3649,8 +3613,7 @@
    "reason": "Ledger X-02: the A1 entry is replaced by a finite-representative entry, inserted at its alphabetical place.",
    "step2_note": null,
    "old": "**Frauchiger-Renner theorem.**",
-   "new": "**Finite representative.** The minimal finite bijective representative $(S, \\varphi)$ of a finite hidden dynamics, on which the results stated for a finite substratum hold — among them the exact return and its index, the counting measure and the reconstruction theorem of Chapter 2. These results are finite-only; the framework assumes neither that the substratum is finite nor that it is infinite. Lemma 1 delivers finiteness of the observer's distinguishable states. Discussed in Chapter 1 and Appendix C §C.6.\n\n**Frauchiger-Renner theorem.**",
-   "revised": "round 1"
+   "new": "**Finite representative.** The minimal finite bijective representative $(S, \\varphi)$ of a finite hidden dynamics, on which the results stated for a finite substratum hold — among them the exact return and its index, the counting measure and the reconstruction theorem of Chapter 2. These results are finite-only; the framework assumes neither that the substratum is finite nor that it is infinite. Lemma 1 delivers finiteness of the observer's distinguishable states. Discussed in Chapter 1 and Appendix C §C.6.\n\n**Frauchiger-Renner theorem.**"
   },
   {
    "id": "D239",
@@ -3665,8 +3628,7 @@
    "reason": "Count follows the deletion of the (A1) entry (§A.30 count rule); A2–A6 keep their identifiers.",
    "step2_note": null,
    "old": "The reconstruction restricts attention to candidate substrates satisfying six properties:",
-   "new": "The reconstruction restricts attention to finite candidate substrates satisfying five properties:",
-   "revised": "round 1"
+   "new": "The reconstruction restricts attention to finite candidate substrates satisfying five properties:"
   },
   {
    "id": "D240",
@@ -3681,8 +3643,7 @@
    "reason": "Count follows the deletion of the (A1) entry (§A.30 count rule); A2–A6 keep their identifiers.",
    "step2_note": null,
    "old": "The reconstruction restricts attention to candidate substrates satisfying six properties:",
-   "new": "The reconstruction restricts attention to finite candidate substrates satisfying five properties:",
-   "revised": "round 1"
+   "new": "The reconstruction restricts attention to finite candidate substrates satisfying five properties:"
   },
   {
    "id": "D241",
@@ -3774,8 +3735,7 @@
    "reason": "Count and wording: finiteness (ch09:106) is the scope of the finite class, not a sixth membership property (review round 1, F8); A2–A6 keep their identifiers.",
    "step2_note": null,
    "old": "are six structural properties of the substratum, organized as follows.",
-   "new": "are, for the finite OI class, five structural properties of the substratum; finiteness, stated first, is that class's scope. They are organized as follows.",
-   "revised": "new in round 1"
+   "new": "are, for the finite OI class, five structural properties of the substratum; finiteness, stated first, is that class's scope. They are organized as follows."
   },
   {
    "id": "D256",
@@ -3790,8 +3750,7 @@
    "reason": "Count and wording: finiteness (ch09:106) is the scope of the finite class, not a sixth membership property (review round 1, F8); A2–A6 keep their identifiers.",
    "step2_note": null,
    "old": "are six structural properties of the substratum, organized as follows.",
-   "new": "are, for the finite OI class, five structural properties of the substratum; finiteness, stated first, is that class's scope. They are organized as follows.",
-   "revised": "new in round 1"
+   "new": "are, for the finite OI class, five structural properties of the substratum; finiteness, stated first, is that class's scope. They are organized as follows."
   },
   {
    "id": "D257",
@@ -3806,8 +3765,7 @@
    "reason": "Count and wording as ch09:104 (review round 1, F8).",
    "step2_note": null,
    "old": "Six structural axioms must be checked for compatibility under such a bridge.",
-   "new": "The finite scope and five structural axioms must be checked for compatibility under such a bridge.",
-   "revised": "new in round 1"
+   "new": "The finite scope and five structural axioms must be checked for compatibility under such a bridge."
   },
   {
    "id": "D258",
@@ -3822,7 +3780,54 @@
    "reason": "Count and wording as ch09:104 (review round 1, F8).",
    "step2_note": null,
    "old": "Six structural axioms must be checked for compatibility under such a bridge.",
-   "new": "The finite scope and five structural axioms must be checked for compatibility under such a bridge.",
+   "new": "The finite scope and five structural axioms must be checked for compatibility under such a bridge."
+  },
+  {
+   "id": "D259",
+   "kind": "consistency",
+   "file": "papers/Main.md",
+   "site": "papers/Main.md:42",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "semantic",
+   "reason": "Owner decision #1169 c.7058446475: the approved sentence, verbatim with Main's symbol $S$ for $\\mathcal S$ (the Definition calls the total system $S$), as its own paragraph after the Definition. No label, identifier or assumption. Finite-only results near it keep their scope: Lemma 1 (visible finiteness), Lemma 3 (D-Lemma 3, scoped to a finite representative), and the status Remark M:60 (preservation check).",
+   "step2_note": null,
+   "old": "a proper subsystem with finitely many distinguishable internal states, coupled to the complement $H = S \\setminus V$ through $\\varphi$.",
+   "new": "a proper subsystem with finitely many distinguishable internal states, coupled to the complement $H = S \\setminus V$ through $\\varphi$.\n\nConfiguration space. The substratum has a configuration space $S$. No restriction is imposed on its cardinality; $S$ may be finite or infinite.",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D260",
+   "kind": "consistency",
+   "file": "papers/Main.md",
+   "site": "papers/Main.md:54",
+   "part": 1,
+   "mirror_of": null,
+   "row": "X-10",
+   "disposition": "F",
+   "cls": "semantic",
+   "reason": "F row X-10: the counting-measure selection is a statement about finite representatives; its scope was carried by M:732 item (ii)'s list, which D224 deletes, and the configuration-space sentence two paragraphs above admits an infinite $S$, so the scope is printed in the lemma (owner condition: no finite-only result read as applying to arbitrary configuration spaces).",
+   "step2_note": null,
+   "old": "globally, the counting measure is selected among invariant measures as the maximal-entropy one",
+   "new": "globally, on a finite representative, the counting measure is selected among invariant measures as the maximal-entropy one",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D261",
+   "kind": "consistency",
+   "file": "papers/Substratum.md",
+   "site": "papers/Substratum.md:42",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "semantic",
+   "reason": "Owner decision #1169 c.7058446475: the approved sentence, verbatim with Substratum's symbol $S$, as the opening paragraph of §2 (the setup of $(S, \\varphi)$). The next paragraph keeps its finite scope (\"*finite capacity* when $S$ is finite\", D013; preservation check).",
+   "step2_note": null,
+   "old": "## 2. The Physical Interpretation of (S, φ)\n\n**Storage and memory.**",
+   "new": "## 2. The Physical Interpretation of (S, φ)\n\nConfiguration space. The substratum has a configuration space $S$. No restriction is imposed on its cardinality; $S$ may be finite or infinite.\n\n**Storage and memory.**",
    "revised": "new in round 1"
   },
   {
@@ -3838,8 +3843,7 @@
    "reason": "Hidden dependency H-3: the computability claim uses finiteness (a lookup table); the finite scope is kept and the evaluative clause is dropped with the narrowing (review round 1, F5). A size-independent form would need uniformity of the rule as a named hypothesis and is not drafted.",
    "step2_note": null,
    "old": "But the bijection is in-principle computable, which is the relevant claim for foundational physics.",
-   "new": "But on a finite representative the bijection is in-principle computable.",
-   "revised": "round 1"
+   "new": "But on a finite representative the bijection is in-principle computable."
   },
   {
    "id": "D247",
@@ -3854,8 +3858,7 @@
    "reason": "Hidden dependency H-3: the computability claim uses finiteness (a lookup table); the finite scope is kept and the evaluative clause is dropped with the narrowing (review round 1, F5). A size-independent form would need uniformity of the rule as a named hypothesis and is not drafted.",
    "step2_note": null,
    "old": "But the bijection is in-principle computable, which is the relevant claim for foundational physics.",
-   "new": "But on a finite representative the bijection is in-principle computable.",
-   "revised": "round 1"
+   "new": "But on a finite representative the bijection is in-principle computable."
   },
   {
    "id": "D248",
@@ -3900,8 +3903,7 @@
    "reason": "X-01 site deferred to the deletion edit by S2-E (its PREREG §3); J row X-30 names (REV).",
    "step2_note": "deferred to the deletion edit by S2-E",
    "old": "together with finiteness of the total space, which is A1.",
-   "new": "together with finiteness of the representative; on a carrier of unspecified cardinality bijectivity rests on the posit (REV) ([Main §4.5], item (iii)).",
-   "revised": "round 1"
+   "new": "together with finiteness of the representative; on a carrier of unspecified cardinality bijectivity rests on the posit (REV) ([Main §4.5], item (iii))."
   },
   {
    "id": "D251",
@@ -3916,8 +3918,7 @@
    "reason": "Pointer left for the deletion edit by S2-E (its PREREG §3). Pointer-only rewrite approved by owner ruling #1169 c.7057674976: \"under A1\" is dropped because \"finite reversible\" already states the condition; the physical content, its conditional scope and the X-82 no-change decision on the inflow content are kept.",
    "step2_note": "deferred to the deletion edit by S2-E",
    "old": "the finite reversible substratum dynamics, which is recurrent under A1 (§18.7);",
-   "new": "the finite reversible substratum dynamics, which is recurrent (§18.7);",
-   "revised": "round 1"
+   "new": "the finite reversible substratum dynamics, which is recurrent (§18.7);"
   },
   {
    "id": "D252",
@@ -3932,8 +3933,759 @@
    "reason": "Pointer left for the deletion edit by S2-E (its PREREG §3). Pointer-only rewrite approved by owner ruling #1169 c.7057674976: \"under A1\" is dropped because \"finite reversible\" already states the condition; the physical content, its conditional scope and the X-82 no-change decision on the inflow content are kept.",
    "step2_note": "deferred to the deletion edit by S2-E",
    "old": "the finite reversible substratum dynamics, which is recurrent under A1 (§18.7);",
-   "new": "the finite reversible substratum dynamics, which is recurrent (§18.7);",
-   "revised": "round 1"
+   "new": "the finite reversible substratum dynamics, which is recurrent (§18.7);"
+  },
+  {
+   "id": "D262",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean",
+   "site": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean:4",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "Module heading: the substratum conditions are finiteness of the configuration space and A2–A6; owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "# The manuscript-axiom audit — A1–A6 against the substratum witness",
+   "new": "# The manuscript-axiom audit — the substratum conditions against the substratum witness",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D263",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean",
+   "site": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean:8",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "Replaces D259's pinned-commit form (superseded by owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly). Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "the manuscripts' own structural assumptions are A1–A6 of\n`[Substratum §3.1]`: finiteness of the configuration space, bijectivity of the dynamics, bounded",
+   "new": "the manuscripts' conditions on a substratum are finiteness of the configuration space, the scope\nof the reconstruction theorem, and A2–A6 of `[Substratum §3.1]`: bijectivity of the dynamics, bounded",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D264",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean",
+   "site": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean:17",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "Every one of A1–A6 is a condition on a substratum",
+   "new": "Each of these conditions is a condition on a substratum",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D265",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean",
+   "site": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean:21",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "manuscript-level conjunct of A1–A6 is presently a faithful predicate of the bare theory. A1 and\nA2 have exact",
+   "new": "manuscript-level conjunct of these conditions is presently a faithful predicate of the bare theory.\nFiniteness and A2 have exact",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D266",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean",
+   "site": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean:21",
+   "part": 2,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "A1's holds for every theory by the",
+   "new": "the finiteness image holds for every theory by the",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D267",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean",
+   "site": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean:21",
+   "part": 3,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "at the substratum level A1 and A2 are",
+   "new": "at the substratum level finiteness and A2 are",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D268",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean",
+   "site": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean:68",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "### Section A — the realized-core images of A1 and A2",
+   "new": "### Section A — the realized-core images of finiteness and A2",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D269",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean",
+   "site": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean:68",
+   "part": 2,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "**THE REALIZED-CORE IMAGE OF A1**: the configuration space",
+   "new": "**THE REALIZED-CORE IMAGE OF FINITENESS**: the configuration space",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D270",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean",
+   "site": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean:68",
+   "part": 3,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "It is an image\nof A1, not A1: nothing identifies",
+   "new": "It is an image\nof finiteness, not finiteness of `S`: nothing identifies",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D271",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean",
+   "site": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean:68",
+   "part": 4,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "conjunct of A1–A6 has a faithful form in this interface.",
+   "new": "conjunct of the substratum conditions has a faithful form in this interface.",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D272",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean",
+   "site": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean:68",
+   "part": 5,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "**THE A1 IMAGE HOLDS FOR EVERY THEORY**",
+   "new": "**THE FINITENESS IMAGE HOLDS FOR EVERY THEORY**",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D273",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean",
+   "site": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean:68",
+   "part": 6,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "**THE A1 IMAGE HOLDS FOR THE WITNESS.**",
+   "new": "**THE FINITENESS IMAGE HOLDS FOR THE WITNESS.**",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D274",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean",
+   "site": "verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:7",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly; the kernel predicate `A1` is named as the finiteness predicate it is. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "substratum carrying the manuscript substrate data, A1–A5 represented as stated",
+   "new": "substratum carrying the manuscript substrate data, finiteness (`A1`) and A2–A5 represented as stated",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D275",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean",
+   "site": "verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:7",
+   "part": 2,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly; the kernel predicate `A1` is named as the finiteness predicate it is. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "`leapEquiv`, and lattice translations; A1, A2,\n  A5 are stated outright",
+   "new": "`leapEquiv`, and lattice translations; finiteness\n  (`A1`), A2 and A5 are stated outright",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D276",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean",
+   "site": "verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:7",
+   "part": 3,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly; the kernel predicate `A1` is named as the finiteness predicate it is. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "instance, `waveSubstratum`, and satisfies A1–A5 as stated.",
+   "new": "instance, `waveSubstratum`, and on a finite torus satisfies finiteness (`A1`) and A2–A5 as stated.",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D277",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean",
+   "site": "verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:83",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly; each docstring states the finiteness condition its declaration carries. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "**(A1) FINITENESS**: the configuration space is finite.",
+   "new": "**FINITENESS**: the configuration space is finite.",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D278",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean",
+   "site": "verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:83",
+   "part": 2,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly; each docstring states the finiteness condition its declaration carries. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "**A1 HOLDS UNDER FINITENESS OF THE SITES AND THE ALPHABET.**",
+   "new": "**FINITENESS HOLDS FOR FINITELY MANY SITES AND A FINITE ALPHABET.**",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D279",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean",
+   "site": "verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:83",
+   "part": 3,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly; each docstring states the finiteness condition its declaration carries. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "**THE WAVE SUBSTRATUM SATISFIES A1** for a finite torus and alphabet.",
+   "new": "**THE WAVE SUBSTRATUM HAS A FINITE CONFIGURATION SPACE** for a finite torus and alphabet.",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D280",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean",
+   "site": "verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:83",
+   "part": 4,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly; each docstring states the finiteness condition its declaration carries. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "under the finiteness A1 supplies.",
+   "new": "for finitely many sites and a finite alphabet.",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D281",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean",
+   "site": "verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:83",
+   "part": 5,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly; each docstring states the finiteness condition its declaration carries. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "**A1 FOR THE OBSERVER THEORY'S SUBSTRATUM.**",
+   "new": "**FINITENESS FOR THE OBSERVER THEORY'S SUBSTRATUM.**",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D282",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/FrozenSourcing.lean",
+   "site": "verification/lean-mathlib/OIBridge/FrozenSourcing.lean:83",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly; the condition is the declaration's own `[Fintype 𝒮.ι] [Fintype 𝒮.V]`. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "satisfying the finiteness A1 supplies.",
+   "new": "with finitely many sites and a finite alphabet.",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D283",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/HexLatticeGas.lean",
+   "site": "verification/lean-mathlib/OIBridge/HexLatticeGas.lean:106",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "**Nothing here changes A1–A6 or their status**",
+   "new": "**Nothing here changes the substratum conditions or their status**",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D284",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/HydroSourceAudit.lean",
+   "site": "verification/lean-mathlib/OIBridge/HydroSourceAudit.lean:88",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "**Nothing here changes A1–A6**",
+   "new": "**Nothing here changes the substratum conditions**",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D285",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/RouteB.lean",
+   "site": "verification/lean-mathlib/OIBridge/RouteB.lean:108",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "whose A1–A6 are not `DerivedOI`",
+   "new": "whose substratum conditions are not `DerivedOI`",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D286",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/SubstratumSource.lean",
+   "site": "verification/lean-mathlib/OIBridge/SubstratumSource.lean:48",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "step2_note": null,
+   "old": "derive a quantum architecture from A1-A6 or from the",
+   "new": "derive a quantum architecture from the substratum conditions or from the",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D287",
+   "kind": "repo-active",
+   "file": "verification/README.md",
+   "site": "verification/README.md:917",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly (mutable landing page, §A.27).",
+   "step2_note": null,
+   "old": "whose A1–A6 are not `DerivedOI`;",
+   "new": "whose substratum conditions are not `DerivedOI`;",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D288",
+   "kind": "repo-active",
+   "file": "verification/README.md",
+   "site": "verification/README.md:923",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly (mutable landing page, §A.27); kernel identifiers keep their names.",
+   "step2_note": null,
+   "old": "the manuscripts' own structural assumptions A1–A6 of the Substratum paper, each quoted verbatim\nand given a representability verdict",
+   "new": "the Substratum paper's conditions on a substratum, finiteness of the configuration space and A2–A6,\neach given a representability verdict",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D289",
+   "kind": "repo-active",
+   "file": "verification/README.md",
+   "site": "verification/README.md:923",
+   "part": 2,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly (mutable landing page, §A.27); kernel identifiers keep their names.",
+   "step2_note": null,
+   "old": "So no manuscript-level\nA1–A6 conjunct is presently a faithful predicate of the bare theory. A1 and A2 have exact",
+   "new": "So no manuscript-level\nconjunct of these conditions is presently a faithful predicate of the bare theory. Finiteness and A2 have exact",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D290",
+   "kind": "repo-active",
+   "file": "verification/README.md",
+   "site": "verification/README.md:923",
+   "part": 3,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly (mutable landing page, §A.27); kernel identifiers keep their names.",
+   "step2_note": null,
+   "old": "two; at the substratum level A1 and A2 are formalization gaps",
+   "new": "two; at the substratum level finiteness and A2 are formalization gaps",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D291",
+   "kind": "repo-active",
+   "file": "verification/README.md",
+   "site": "verification/README.md:923",
+   "part": 4,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly (mutable landing page, §A.27); kernel identifiers keep their names.",
+   "step2_note": null,
+   "old": "whether the witness satisfies any of\nA1–A6 in the manuscript sense",
+   "new": "whether the witness satisfies any of\nthese conditions in the manuscript sense",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D292",
+   "kind": "repo-active",
+   "file": "verification/lean-manuscript-census.json",
+   "site": "verification/lean-manuscript-census.json:485",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "Registry note quotes GR:261, which D044 rewrites; §A.25 step 5, §A.35.",
+   "step2_note": null,
+   "old": "the controllability resource is not entailed by A1-A6 is consistent with it",
+   "new": "the controllability resource is not entailed by finiteness or by A2-A6 is consistent with it",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D293",
+   "kind": "repo-active",
+   "file": "verification/lean-manuscript-census.json",
+   "site": "verification/lean-manuscript-census.json:494",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "Registry note of the family \"manuscript axioms A1-A6\" (family name kept; rename proposal R-C in PREREG §22); owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly.",
+   "step2_note": null,
+   "old": "no manuscript-level A1-A6 conjunct of Substratum 3.1 is presently a faithful predicate of the bare theory, which has no distinguished underlying substratum; A1 and A2 have exact realized-core images",
+   "new": "no manuscript-level conjunct of the Substratum 3.1 conditions (finiteness and A2-A6) is presently a faithful predicate of the bare theory, which has no distinguished underlying substratum; finiteness and A2 have exact realized-core images",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D294",
+   "kind": "repo-active",
+   "file": "verification/lean-manuscript-census.json",
+   "site": "verification/lean-manuscript-census.json:494",
+   "part": 2,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "Registry note of the family \"manuscript axioms A1-A6\" (family name kept; rename proposal R-C in PREREG §22); owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly.",
+   "step2_note": null,
+   "old": "consistent with the manuscripts' statement that the resource is not entailed by A1-A6 and with SM 4.1's open lift; asserts nothing about whether the witness satisfies any of A1-A6 in the manuscript sense",
+   "new": "consistent with the manuscripts' statement that the resource is not entailed by finiteness or by A2-A6 and with SM 4.1's open lift; asserts nothing about whether the witness satisfies any of these conditions in the manuscript sense",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D295",
+   "kind": "repo-active",
+   "file": "verification/coverage/LEDGER.json",
+   "site": "verification/coverage/LEDGER.json:330",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "Coverage-ledger assumptions field; owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. The entry's fingerprint is unaffected (it fingerprints manuscript text).",
+   "step2_note": null,
+   "old": " Physical total finiteness (A1) remains open and unadopted.",
+   "new": " Finiteness of the total configuration space is not assumed.",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D296",
+   "kind": "repo-active",
+   "file": "AGENTS.md",
+   "site": "AGENTS.md:38",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "needs scientific review",
+   "reason": "The rules document lists the retired posit among the posits of Main's ledger. AGENTS.md is the owner's rules document: this edit needs a separate owner approval (§A.45 rule 3, maintenance clause), recorded before execution.",
+   "step2_note": null,
+   "old": "including total\n  finiteness (A1), linearity (A5),",
+   "new": "including\n  linearity (A5),",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D297",
+   "kind": "repo-active",
+   "file": "verification/lean-manuscript-census.json",
+   "site": "verification/lean-manuscript-census.json:984",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "Registry note: \"A1-A6\" here means the manuscripts' structural assumptions and their status; owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly.",
+   "step2_note": null,
+   "old": "none fixed by the manuscripts or by A1-A6;",
+   "new": "none fixed by the manuscripts or by the substratum conditions;",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D298",
+   "kind": "repo-active",
+   "file": "verification/lean-manuscript-census.json",
+   "site": "verification/lean-manuscript-census.json:984",
+   "part": 2,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "Registry note: \"A1-A6\" here means the manuscripts' structural assumptions and their status; owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly.",
+   "step2_note": null,
+   "old": "nothing changes A1-A6 or their status,",
+   "new": "nothing changes the substratum conditions or their status,",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D299",
+   "kind": "repo-active",
+   "file": "verification/lean-manuscript-census.json",
+   "site": "verification/lean-manuscript-census.json:993",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "Registry note; owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly.",
+   "step2_note": null,
+   "old": "A1-A6 unchanged;",
+   "new": "the substratum conditions unchanged;",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D300",
+   "kind": "guard-pin",
+   "file": "verification/lean/edge_rigidity_probe.py",
+   "site": "verification/lean/edge_rigidity_probe.py:1916",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "Pins OIBridge/SubstratumSource.lean line 48, which the Lean docstring edit rewrites. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).",
+   "step2_note": null,
+   "old": "ok6 &= 'does not derive a quantum architecture from A1-A6' in _subflat",
+   "new": "ok6 &= 'does not derive a quantum architecture from the substratum conditions' in _subflat",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D301",
+   "kind": "guard-pin",
+   "file": "verification/lean/bohr_frequency_probe.py",
+   "site": "verification/lean/bohr_frequency_probe.py:8903",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "Pins OIBridge/SubstratumSource.lean line 48. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).",
+   "step2_note": null,
+   "old": "ok71 &= 'does not derive a quantum architecture from A1-A6' in _ss_txt71",
+   "new": "ok71 &= 'does not derive a quantum architecture from the substratum conditions' in _ss_txt71",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D302",
+   "kind": "guard-pin",
+   "file": "verification/lean/edge_rigidity_probe.py",
+   "site": "verification/lean/edge_rigidity_probe.py:3357",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "Pins verification/README.md line 917. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).",
+   "step2_note": null,
+   "old": "'whose A1–A6 are not `DerivedOI`', 'which is a propagation round of its own'):",
+   "new": "'whose substratum conditions are not `DerivedOI`', 'which is a propagation round of its own'):",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D303",
+   "kind": "guard-pin",
+   "file": "verification/lean/edge_rigidity_probe.py",
+   "site": "verification/lean/edge_rigidity_probe.py:3470",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "Pins the census note of the family \"manuscript axioms A1-A6\". Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).",
+   "step2_note": null,
+   "old": "'asserts nothing about whether the witness satisfies any of A1-A6 in the manuscript sense' in _ma_fam[0]['note']",
+   "new": "'asserts nothing about whether the witness satisfies any of these conditions in the manuscript sense' in _ma_fam[0]['note']",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D304",
+   "kind": "guard-pin",
+   "file": "verification/lean/edge_rigidity_probe.py",
+   "site": "verification/lean/edge_rigidity_probe.py:3478",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "Pins verification/README.md lines 928 and 951. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).",
+   "step2_note": null,
+   "old": "'no manuscript-level A1–A6 conjunct is presently a faithful predicate of the bare theory',",
+   "new": "'no manuscript-level conjunct of these conditions is presently a faithful predicate of the bare theory',",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D305",
+   "kind": "guard-pin",
+   "file": "verification/lean/edge_rigidity_probe.py",
+   "site": "verification/lean/edge_rigidity_probe.py:3478",
+   "part": 2,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "Pins verification/README.md lines 928 and 951. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).",
+   "step2_note": null,
+   "old": "'asserts nothing about whether the witness satisfies any of A1–A6 in the manuscript sense'):",
+   "new": "'asserts nothing about whether the witness satisfies any of these conditions in the manuscript sense'):",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D306",
+   "kind": "guard-pin",
+   "file": "verification/lean/edge_rigidity_probe.py",
+   "site": "verification/lean/edge_rigidity_probe.py:9733",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "Pins the glossary entry gloss:13 = FULL:6504, which D220/D221 rewrite. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).",
+   "step2_note": null,
+   "old": "The sixth of the framework's structural assumptions \"\n                   'A1–A6: the substratum dynamics",
+   "new": "The structural assumption A6 of the \"\n                   'reconstruction theorem (A2–A6): the substratum dynamics",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D307",
+   "kind": "guard-pin",
+   "file": "verification/lean/bohr_frequency_probe.py",
+   "site": "verification/lean/bohr_frequency_probe.py:8928",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "Message of check F71, which states the pinned SubstratumSource.lean sentence. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).",
+   "step2_note": null,
+   "old": "\"A1-A6 or the read-write substratum dynamics -- the round reduces the three principles to \"",
+   "new": "\"the substratum conditions or the read-write substratum dynamics -- the round reduces the three principles to \"",
+   "revised": "new in round 1"
+  },
+  {
+   "id": "D308",
+   "kind": "guard-pin",
+   "file": "verification/lean/edge_rigidity_probe.py",
+   "site": "verification/lean/edge_rigidity_probe.py:1908",
+   "part": 1,
+   "mirror_of": null,
+   "row": "-",
+   "disposition": "-",
+   "cls": "mechanical",
+   "reason": "Comment describing the SubstratumSource.lean pin at line 1916. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).",
+   "step2_note": null,
+   "old": "# with the diagonal countermodel; no derivation from A1-A6 claimed.",
+   "new": "# with the diagonal countermodel; no derivation from the substratum conditions claimed.",
+   "revised": "new in round 1"
   }
  ]
 }

@@ -8,7 +8,7 @@ until a separate owner authorization of the execution.
 **Revision.** Revised by additive commits after the early independent review of `36a73526` (round 1,
 REVISE; record on #1477) and the owner rulings of #1169 comment 7057674976, and after the round-2 delta
 review of `67736e55` (ACCEPT-WITH-NITS) the round-3 delta review of `a58cf594` (ACCEPT-WITH-NITS) and the round-4 check of `f18c8677` (ACCEPT, one
-non-blocking nit). §17–§20 answer the reviews finding by finding. Edit IDs are stable: an ID reviewed at `36a73526` names the same edit here (its
+non-blocking nit). §17–§20 answer the reviews finding by finding; §21–§23 record the amendments for H-11, repository-wide consistency and the configuration-space sentence. Edit IDs are stable: an ID reviewed at `36a73526` names the same edit here (its
 `revised` field marks a changed replacement), and new edits take new IDs (D253–D258).
 
 ## 0. Authority, decision and goal link
@@ -177,11 +177,14 @@ queued X-20 wording (unpinned update, "the only laws known") is not used anywher
 
 | Measure | Count |
 |---|---|
-| Edit records in `edits.json` | 258 (ptr 240, consistency 13, handoff 5) |
+| Edit records in `edits.json` | 308 (ptr 240, consistency 16, handoff 5, lean-docstring 25, repo-active 13, guard-pin 9) |
 | Pointer sites with a drafted rewrite | 194 of 194 (140 primary sites and 54 byte-identical FULL mirrors) |
 | Pointer sites by class (a FULL mirror takes its chapter's class) | 194 sites: mechanical 121, semantic 61, needs scientific review 12 |
-| Consistency corrections outside the 194 sites | 13 sites: mechanical 4, semantic 9, needs scientific review 0 |
+| Consistency corrections outside the 194 sites | 16 sites: mechanical 4, semantic 12, needs scientific review 0 |
 | S2-E deferrals drafted (outside the 194) | 5 sites: mechanical 3, semantic 2, needs scientific review 0 |
+| Lean docstring edits (outside the 194) | 12 sites: mechanical 12, semantic 0, needs scientific review 0 |
+| Other active repository files (outside the 194) | 8 sites: mechanical 7, semantic 0, needs scientific review 1 |
+| Guard pins updated with the text they pin (outside the 194) | 8 sites: mechanical 8, semantic 0, needs scientific review 0 |
 | Retained unchanged (names no posit; finite scope already printed) | 2 (SM:22, GR:20) |
 | Edits whose `old` string lies on a line a Step-2 unit changes | 22 (§8) |
 | Edits that need `old_step2` on the projection | 3 (D224 item (ii), D232 Sub:92, D244 Sub:56) |
@@ -247,7 +250,7 @@ scope (named in the cell).
 
 | Row | Title | ptr sites | Edits here | Verdict |
 |---|---|---|---|---|
-| X-10 | Lemma 3 selection clause: the counting measure is the maximal-entropy invariant measure | 0 | 0 | no edit; printed finite-only statement unchanged |
+| X-10 | Lemma 3 selection clause: the counting measure is the maximal-entropy invariant measure | 0 | 1 | 1 edits at 1 sites; finite scope printed in every rewritten site |
 | X-12 | μ-O and μ-R (uniform law on the actual orbit / on the record-compatible orbit union), thei | 0 | 0 | no edit; printed finite-only statement unchanged |
 | X-16 | Theorem 19 reciprocity T_ij = T_θj,θi and detailed balance; Theorem 21 | 0 | 0 | no edit; printed finite-only statement unchanged |
 | X-18 | Lemma 1c(ii) pole statement; Proposition 4b continued response; Theorem 5 kinetic H-cust c | 0 | 0 | no edit; printed finite-only statement unchanged |
@@ -325,6 +328,7 @@ qualification, at Sub:137 (D245).
 - **appendix-c-objections.md:112** (D210, D212, mirror D211, D213; row X-01): The condensed-matter analogy is restated for discreteness; review the analogy.
 - **Main.md:732** (D224, D225, D226, D227, D228, D253; row X-00): X-00: item (ii) is deleted and its identifier retired, not reused and not annotated (§A.30; owner decision items 1, 2, 5: (iii)-(xiv) keep their numbers). Its content moves to the status Remark M:60 (weaker conditions, transfer clause); the finite-representative list and the deep-sector clause are already printed there (S2-B). The count becomes thirteen, and the completeness sentence states that finite-representative results carry their scope where stated (D253; review round 1, F4). Review: the posit count and that no result loses its stated conditions.
 - **Main.md:60** (D229, D230, D254, D231; row X-00): X-00: the posit sentence becomes the finite-representative scope and receives item (ii)'s weaker-condition list (with S2-B's CP clause) and its transfer clause, verbatim apart from the connective; the P8 sentence takes ledger X-00 wording. After the deletion M:60 is Main's first mention of (NR), (IP) and (IL), so S2-C's return- and law-form qualifications are printed there and at the later (NR) mention (review round 1, F3). Review: that the transfer clause is not stronger than the companion proof.
+- **AGENTS.md:38** (D296; row -): The rules document lists the retired posit among the posits of Main's ledger. AGENTS.md is the owner's rules document: this edit needs a separate owner approval (§A.45 rule 3, maintenance clause), recorded before execution.
 - **Stage 2 of Theorem 23 on $\mathbb{Z}^d$ (not drafted).** Ledger X-45 also asks that, where Q1
   establishes Stage 2 on $\mathbb{Z}^d$, that stage be stated there as the standard construction. That is a
   restatement of a proof stage beyond the smallest correction the deletion needs (the finite scope with the
@@ -403,7 +407,7 @@ New:
 the theorem takes the hidden space finite, as on a finite representative (§1.2 Remark), and the corollary below takes the near-return condition (NR) in its place.
 ```
 
-**M:224** · row X-01 (O) · mechanical · edits D005. Step-2 units changing this line: S2-B, S2-C.
+**M:224** · row X-01 (O) · mechanical · edits D005. Step-2 units changing this line: S2-B, S2-C, S2-D, S2-E.
 
 Reason: Ledger X-01 pointer rule; the S2-B and S2-C insertions later in the line are untouched.
 
@@ -771,7 +775,7 @@ New:
 \text{Finite substratum, structural assumptions (A2–A6)}
 ```
 
-**Sub:268** · row X-53 (J) · mechanical · edits D029. Step-2 units changing this line: S2-B.
+**Sub:268** · row X-53 (J) · mechanical · edits D029. Step-2 units changing this line: S2-B, S2-C, S2-D, S2-E.
 
 Reason: Ledger X-74: the sentence is deleted; the E3 bound under H-BD survives as stated.
 
@@ -883,7 +887,7 @@ New:
 a single bijection on the phase space.
 ```
 
-**SM:222** · row X-41 (J) · semantic · edits D036. Step-2 units changing this line: S2-A.
+**SM:222** · row X-41 (J) · semantic · edits D036. Step-2 units changing this line: S2-A, S2-B, S2-C, S2-D, S2-E.
 
 Reason: J row X-41: A4 on the lattice as the standard construction, the finite quotient a qualified case (owner A4 decision); consistent with S2-A's wording that follows.
 
@@ -1023,7 +1027,7 @@ New:
 The controllability resource is not entailed by finiteness or by A2–A6;
 ```
 
-**GR:589** · row X-20 (J) · mechanical · edits D045. Step-2 units changing this line: S2-C.
+**GR:589** · row X-20 (J) · mechanical · edits D045. Step-2 units changing this line: S2-C, S2-D, S2-E.
 
 Reason: J row X-20: the weaker condition (NR) is already named in the same sentence with its S2-C qualification.
 
@@ -1923,7 +1927,7 @@ New:
 the concrete OI substratum, in its finite model, supplies the structural architecture — closure under composition and coarse-graining, stability under an uncoupled spectator, relabelling invariance, reversibility, the exchanges of distinguishable states, and, as a stated intervention principle rather than a consequence of its finite states and bijective dynamics, the phases — but, under finite bijective read-write dynamics,
 ```
 
-**ch01:179** · row X-26 (F) · semantic · edits D108, D110. Mirror: FULL:512, identical strings (D109, D111). Step-2 units changing this line: S2-C.
+**ch01:179** · row X-26 (F) · semantic · edits D108, D110. Mirror: FULL:512, identical strings (D109, D111). Step-2 units changing this line: S2-C, S2-D, S2-E.
 
 Reason: F row X-26: the recurrence clause keeps its finite scope; the (NR) sentence and its S2-C qualification are untouched.
 
@@ -2627,7 +2631,7 @@ New:
 **The framework's response.** The framework assumes neither that the substratum is finite nor that it is infinite. Finiteness enters as the scope of the results stated for a finite representative, and it plays different roles in different parts of the framework's content.
 ```
 
-**appC:104** · row X-01 (O) · semantic · edits D200. Mirror: FULL:6259, identical strings (D201). Step-2 units changing this line: S2-C.
+**appC:104** · row X-01 (O) · semantic · edits D200. Mirror: FULL:6259, identical strings (D201). Step-2 units changing this line: S2-C, S2-D, S2-E.
 
 Reason: Ledger X-02; the (NR) clause and its S2-C qualification are untouched.
 
@@ -2811,7 +2815,7 @@ New:
 The cardinality of its total configuration space is left open; results stated for a finite representative take it finite.
 ```
 
-**M:732** · row X-00 (O) · needs scientific review · edits D224, D225, D226, D227, D228, D253. Step-2 units changing this line: S2-B, S2-C.
+**M:732** · row X-00 (O) · needs scientific review · edits D224, D225, D226, D227, D228, D253. Step-2 units changing this line: S2-B, S2-C, S2-D, S2-E.
 
 Reason: X-00: item (ii) is deleted and its identifier retired, not reused and not annotated (§A.30; owner decision items 1, 2, 5: (iii)-(xiv) keep their numbers). Its content moves to the status Remark M:60 (weaker conditions, transfer clause); the finite-representative list and the deep-sector clause are already printed there (S2-B). The count becomes thirteen, and the completeness sentence states that finite-representative results carry their scope where stated (D253; review round 1, F4). Review: the posit count and that no result loses its stated conditions.
 
@@ -2893,7 +2897,7 @@ New (part 6):
 as these texts stand in the same revision of the repository; the results that use a finite representative (the recurrence step of §2.3, the counting measure of Lemma 3 and §4.6 among them) carry that finite scope where they are stated (§1.2 Remark) rather than as a listed premise. It does not enumerate every physical assumption
 ```
 
-**M:60** · row X-00 (O) · needs scientific review · edits D229, D230, D254, D231. Step-2 units changing this line: S2-B.
+**M:60** · row X-00 (O) · needs scientific review · edits D229, D230, D254, D231. Step-2 units changing this line: S2-B, S2-C, S2-D, S2-E.
 
 Reason: X-00: the posit sentence becomes the finite-representative scope and receives item (ii)'s weaker-condition list (with S2-B's CP clause) and its transfer clause, verbatim apart from the connective; the P8 sentence takes ledger X-00 wording. After the deletion M:60 is Main's first mention of (NR), (IP) and (IL), so S2-C's return- and law-form qualifications are printed there and at the later (NR) mention (review round 1, F3). Review: that the transfer clause is not stronger than the companion proof.
 
@@ -2945,7 +2949,7 @@ New (part 4):
 The transfer of the conclusions of the recurrence step of §2.3 and of §4.6, where expressible through the transition probabilities, from a finite representative to every representative reached from it by relabelling the hidden states, by a decoupled enlargement of the kind just stated or, under the alphabet-size hypothesis that systems with the same coupling structure and dynamics class differing only in alphabet size have the same emergent transition probabilities, by a change of alphabet that keeps the coupling structure and dynamics class is stated and proved in the companion substratum construction; the recurrence-scale conclusion of §2.3 is a statement about finite representatives. Of the two finiteness statements, the following results use only
 ```
 
-**Sub:92** · row X-02 (O) · semantic · edits D232. Step-2 units changing this line: S2-B, S2-C.
+**Sub:92** · row X-02 (O) · semantic · edits D232. Step-2 units changing this line: S2-B, S2-C, S2-D, S2-E.
 
 Reason: X-02: the (A1) entry is deleted; Theorem 23 states finiteness as its scope (X-45). The E3/H-BD reading survives at Sub:268 (i), the factor freedom at Theorem 24(iii) and (NR) at Main §2.3 and Sub:137. With the entry gone, A4's Z^d standard construction is no longer excluded by the assumption list (S2-A review finding).
 
@@ -3063,7 +3067,7 @@ New:
 OI's full structural conditions (finiteness and A2–A6) except at S3: finiteness makes the number of configurations finite but supplies
 ```
 
-**Sub:56** · row X-63 (O) · mechanical · edits D244. Step-2 units changing this line: S2-D.
+**Sub:56** · row X-63 (O) · mechanical · edits D244. Step-2 units changing this line: S2-D, S2-E.
 
 Reason: Hidden dependency H-2: S2-D (X-63/X-82) prints a pointer to A1 at Sub:56 on its branch; at deletion the pointer becomes the property it names. The S2-D content (open inflow question, conditional on an infinite carrier) is unchanged.
 
@@ -3131,6 +3135,62 @@ New:
 
 ```text
 The finite scope and five structural axioms must be checked for compatibility under such a bridge.
+```
+
+**M:42** · row - (-) · semantic · edits D259.
+
+Reason: Owner decision #1169 c.7058446475: the approved sentence, verbatim with Main's symbol $S$ for $\mathcal S$ (the Definition calls the total system $S$), as its own paragraph after the Definition. No label, identifier or assumption. Finite-only results near it keep their scope: Lemma 1 (visible finiteness), Lemma 3 (D-Lemma 3, scoped to a finite representative), and the status Remark M:60 (preservation check).
+
+Old:
+
+```text
+a proper subsystem with finitely many distinguishable internal states, coupled to the complement $H = S \setminus V$ through $\varphi$.
+```
+
+New:
+
+```text
+a proper subsystem with finitely many distinguishable internal states, coupled to the complement $H = S \setminus V$ through $\varphi$.
+
+Configuration space. The substratum has a configuration space $S$. No restriction is imposed on its cardinality; $S$ may be finite or infinite.
+```
+
+**M:54** · row X-10 (F) · semantic · edits D260.
+
+Reason: F row X-10: the counting-measure selection is a statement about finite representatives; its scope was carried by M:732 item (ii)'s list, which D224 deletes, and the configuration-space sentence two paragraphs above admits an infinite $S$, so the scope is printed in the lemma (owner condition: no finite-only result read as applying to arbitrary configuration spaces).
+
+Old:
+
+```text
+globally, the counting measure is selected among invariant measures as the maximal-entropy one
+```
+
+New:
+
+```text
+globally, on a finite representative, the counting measure is selected among invariant measures as the maximal-entropy one
+```
+
+**Sub:42** · row - (-) · semantic · edits D261.
+
+Reason: Owner decision #1169 c.7058446475: the approved sentence, verbatim with Substratum's symbol $S$, as the opening paragraph of §2 (the setup of $(S, \varphi)$). The next paragraph keeps its finite scope ("*finite capacity* when $S$ is finite", D013; preservation check).
+
+Old:
+
+```text
+## 2. The Physical Interpretation of (S, φ)
+
+**Storage and memory.**
+```
+
+New:
+
+```text
+## 2. The Physical Interpretation of (S, φ)
+
+Configuration space. The substratum has a configuration space $S$. No restriction is imposed on its cardinality; $S$ may be finite or infinite.
+
+**Storage and memory.**
 ```
 
 **appC:138** · row - (-) · semantic · edits D246. Mirror: FULL:6293, identical strings (D247).
@@ -3215,6 +3275,706 @@ New:
 the finite reversible substratum dynamics, which is recurrent (§18.7);
 ```
 
+### 6.4 Lean docstring edits (H-11 and the repository-wide consistency decision; outside the 194)
+
+**Manu:4** · row - (-) · mechanical · edits D262.
+
+Reason: Module heading: the substratum conditions are finiteness of the configuration space and A2–A6; owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
+
+Old:
+
+```text
+# The manuscript-axiom audit — A1–A6 against the substratum witness
+```
+
+New:
+
+```text
+# The manuscript-axiom audit — the substratum conditions against the substratum witness
+```
+
+**Manu:8** · row - (-) · mechanical · edits D263.
+
+Reason: Replaces D259's pinned-commit form (superseded by owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly). Docstring only; identifiers keep their names (rename proposals in PREREG §22).
+
+Old:
+
+```text
+the manuscripts' own structural assumptions are A1–A6 of
+`[Substratum §3.1]`: finiteness of the configuration space, bijectivity of the dynamics, bounded
+```
+
+New:
+
+```text
+the manuscripts' conditions on a substratum are finiteness of the configuration space, the scope
+of the reconstruction theorem, and A2–A6 of `[Substratum §3.1]`: bijectivity of the dynamics, bounded
+```
+
+**Manu:17** · row - (-) · mechanical · edits D264.
+
+Reason: owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
+
+Old:
+
+```text
+Every one of A1–A6 is a condition on a substratum
+```
+
+New:
+
+```text
+Each of these conditions is a condition on a substratum
+```
+
+**Manu:21** · row - (-) · mechanical · edits D265, D266, D267.
+
+Reason: owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
+
+Old (part 1):
+
+```text
+manuscript-level conjunct of A1–A6 is presently a faithful predicate of the bare theory. A1 and
+A2 have exact
+```
+
+New (part 1):
+
+```text
+manuscript-level conjunct of these conditions is presently a faithful predicate of the bare theory.
+Finiteness and A2 have exact
+```
+
+Old (part 2):
+
+```text
+A1's holds for every theory by the
+```
+
+New (part 2):
+
+```text
+the finiteness image holds for every theory by the
+```
+
+Old (part 3):
+
+```text
+at the substratum level A1 and A2 are
+```
+
+New (part 3):
+
+```text
+at the substratum level finiteness and A2 are
+```
+
+**Manu:68** · row - (-) · mechanical · edits D268, D269, D270, D271, D272, D273.
+
+Reason: owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
+
+Old (part 1):
+
+```text
+### Section A — the realized-core images of A1 and A2
+```
+
+New (part 1):
+
+```text
+### Section A — the realized-core images of finiteness and A2
+```
+
+Old (part 2):
+
+```text
+**THE REALIZED-CORE IMAGE OF A1**: the configuration space
+```
+
+New (part 2):
+
+```text
+**THE REALIZED-CORE IMAGE OF FINITENESS**: the configuration space
+```
+
+Old (part 3):
+
+```text
+It is an image
+of A1, not A1: nothing identifies
+```
+
+New (part 3):
+
+```text
+It is an image
+of finiteness, not finiteness of `S`: nothing identifies
+```
+
+Old (part 4):
+
+```text
+conjunct of A1–A6 has a faithful form in this interface.
+```
+
+New (part 4):
+
+```text
+conjunct of the substratum conditions has a faithful form in this interface.
+```
+
+Old (part 5):
+
+```text
+**THE A1 IMAGE HOLDS FOR EVERY THEORY**
+```
+
+New (part 5):
+
+```text
+**THE FINITENESS IMAGE HOLDS FOR EVERY THEORY**
+```
+
+Old (part 6):
+
+```text
+**THE A1 IMAGE HOLDS FOR THE WITNESS.**
+```
+
+New (part 6):
+
+```text
+**THE FINITENESS IMAGE HOLDS FOR THE WITNESS.**
+```
+
+**Subs:7** · row - (-) · mechanical · edits D274, D275, D276.
+
+Reason: owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly; the kernel predicate `A1` is named as the finiteness predicate it is. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
+
+Old (part 1):
+
+```text
+substratum carrying the manuscript substrate data, A1–A5 represented as stated
+```
+
+New (part 1):
+
+```text
+substratum carrying the manuscript substrate data, finiteness (`A1`) and A2–A5 represented as stated
+```
+
+Old (part 2):
+
+```text
+`leapEquiv`, and lattice translations; A1, A2,
+  A5 are stated outright
+```
+
+New (part 2):
+
+```text
+`leapEquiv`, and lattice translations; finiteness
+  (`A1`), A2 and A5 are stated outright
+```
+
+Old (part 3):
+
+```text
+instance, `waveSubstratum`, and satisfies A1–A5 as stated.
+```
+
+New (part 3):
+
+```text
+instance, `waveSubstratum`, and on a finite torus satisfies finiteness (`A1`) and A2–A5 as stated.
+```
+
+**Subs:83** · row - (-) · mechanical · edits D277, D278, D279, D280, D281.
+
+Reason: owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly; each docstring states the finiteness condition its declaration carries. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
+
+Old (part 1):
+
+```text
+**(A1) FINITENESS**: the configuration space is finite.
+```
+
+New (part 1):
+
+```text
+**FINITENESS**: the configuration space is finite.
+```
+
+Old (part 2):
+
+```text
+**A1 HOLDS UNDER FINITENESS OF THE SITES AND THE ALPHABET.**
+```
+
+New (part 2):
+
+```text
+**FINITENESS HOLDS FOR FINITELY MANY SITES AND A FINITE ALPHABET.**
+```
+
+Old (part 3):
+
+```text
+**THE WAVE SUBSTRATUM SATISFIES A1** for a finite torus and alphabet.
+```
+
+New (part 3):
+
+```text
+**THE WAVE SUBSTRATUM HAS A FINITE CONFIGURATION SPACE** for a finite torus and alphabet.
+```
+
+Old (part 4):
+
+```text
+under the finiteness A1 supplies.
+```
+
+New (part 4):
+
+```text
+for finitely many sites and a finite alphabet.
+```
+
+Old (part 5):
+
+```text
+**A1 FOR THE OBSERVER THEORY'S SUBSTRATUM.**
+```
+
+New (part 5):
+
+```text
+**FINITENESS FOR THE OBSERVER THEORY'S SUBSTRATUM.**
+```
+
+**Froz:83** · row - (-) · mechanical · edits D282.
+
+Reason: owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly; the condition is the declaration's own `[Fintype 𝒮.ι] [Fintype 𝒮.V]`. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
+
+Old:
+
+```text
+satisfying the finiteness A1 supplies.
+```
+
+New:
+
+```text
+with finitely many sites and a finite alphabet.
+```
+
+**HexL:106** · row - (-) · mechanical · edits D283.
+
+Reason: owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
+
+Old:
+
+```text
+**Nothing here changes A1–A6 or their status**
+```
+
+New:
+
+```text
+**Nothing here changes the substratum conditions or their status**
+```
+
+**Hydr:88** · row - (-) · mechanical · edits D284.
+
+Reason: owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
+
+Old:
+
+```text
+**Nothing here changes A1–A6**
+```
+
+New:
+
+```text
+**Nothing here changes the substratum conditions**
+```
+
+**Rout:108** · row - (-) · mechanical · edits D285.
+
+Reason: owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
+
+Old:
+
+```text
+whose A1–A6 are not `DerivedOI`
+```
+
+New:
+
+```text
+whose substratum conditions are not `DerivedOI`
+```
+
+**Subs:48** · row - (-) · mechanical · edits D286.
+
+Reason: owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
+
+Old:
+
+```text
+derive a quantum architecture from A1-A6 or from the
+```
+
+New:
+
+```text
+derive a quantum architecture from the substratum conditions or from the
+```
+
+### 6.5 Other active repository files (repository-wide consistency decision; outside the 194)
+
+**READ:917** · row - (-) · mechanical · edits D287.
+
+Reason: owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly (mutable landing page, §A.27).
+
+Old:
+
+```text
+whose A1–A6 are not `DerivedOI`;
+```
+
+New:
+
+```text
+whose substratum conditions are not `DerivedOI`;
+```
+
+**READ:923** · row - (-) · mechanical · edits D288, D289, D290, D291.
+
+Reason: owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly (mutable landing page, §A.27); kernel identifiers keep their names.
+
+Old (part 1):
+
+```text
+the manuscripts' own structural assumptions A1–A6 of the Substratum paper, each quoted verbatim
+and given a representability verdict
+```
+
+New (part 1):
+
+```text
+the Substratum paper's conditions on a substratum, finiteness of the configuration space and A2–A6,
+each given a representability verdict
+```
+
+Old (part 2):
+
+```text
+So no manuscript-level
+A1–A6 conjunct is presently a faithful predicate of the bare theory. A1 and A2 have exact
+```
+
+New (part 2):
+
+```text
+So no manuscript-level
+conjunct of these conditions is presently a faithful predicate of the bare theory. Finiteness and A2 have exact
+```
+
+Old (part 3):
+
+```text
+two; at the substratum level A1 and A2 are formalization gaps
+```
+
+New (part 3):
+
+```text
+two; at the substratum level finiteness and A2 are formalization gaps
+```
+
+Old (part 4):
+
+```text
+whether the witness satisfies any of
+A1–A6 in the manuscript sense
+```
+
+New (part 4):
+
+```text
+whether the witness satisfies any of
+these conditions in the manuscript sense
+```
+
+**lean:485** · row - (-) · mechanical · edits D292.
+
+Reason: Registry note quotes GR:261, which D044 rewrites; §A.25 step 5, §A.35.
+
+Old:
+
+```text
+the controllability resource is not entailed by A1-A6 is consistent with it
+```
+
+New:
+
+```text
+the controllability resource is not entailed by finiteness or by A2-A6 is consistent with it
+```
+
+**lean:494** · row - (-) · mechanical · edits D293, D294.
+
+Reason: Registry note of the family "manuscript axioms A1-A6" (family name kept; rename proposal R-C in PREREG §22); owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly.
+
+Old (part 1):
+
+```text
+no manuscript-level A1-A6 conjunct of Substratum 3.1 is presently a faithful predicate of the bare theory, which has no distinguished underlying substratum; A1 and A2 have exact realized-core images
+```
+
+New (part 1):
+
+```text
+no manuscript-level conjunct of the Substratum 3.1 conditions (finiteness and A2-A6) is presently a faithful predicate of the bare theory, which has no distinguished underlying substratum; finiteness and A2 have exact realized-core images
+```
+
+Old (part 2):
+
+```text
+consistent with the manuscripts' statement that the resource is not entailed by A1-A6 and with SM 4.1's open lift; asserts nothing about whether the witness satisfies any of A1-A6 in the manuscript sense
+```
+
+New (part 2):
+
+```text
+consistent with the manuscripts' statement that the resource is not entailed by finiteness or by A2-A6 and with SM 4.1's open lift; asserts nothing about whether the witness satisfies any of these conditions in the manuscript sense
+```
+
+**LEDG:330** · row - (-) · mechanical · edits D295.
+
+Reason: Coverage-ledger assumptions field; owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. The entry's fingerprint is unaffected (it fingerprints manuscript text).
+
+Old:
+
+```text
+ Physical total finiteness (A1) remains open and unadopted.
+```
+
+New:
+
+```text
+ Finiteness of the total configuration space is not assumed.
+```
+
+**AGEN:38** · row - (-) · needs scientific review · edits D296.
+
+Reason: The rules document lists the retired posit among the posits of Main's ledger. AGENTS.md is the owner's rules document: this edit needs a separate owner approval (§A.45 rule 3, maintenance clause), recorded before execution.
+
+Old:
+
+```text
+including total
+  finiteness (A1), linearity (A5),
+```
+
+New:
+
+```text
+including
+  linearity (A5),
+```
+
+**lean:984** · row - (-) · mechanical · edits D297, D298.
+
+Reason: Registry note: "A1-A6" here means the manuscripts' structural assumptions and their status; owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly.
+
+Old (part 1):
+
+```text
+none fixed by the manuscripts or by A1-A6;
+```
+
+New (part 1):
+
+```text
+none fixed by the manuscripts or by the substratum conditions;
+```
+
+Old (part 2):
+
+```text
+nothing changes A1-A6 or their status,
+```
+
+New (part 2):
+
+```text
+nothing changes the substratum conditions or their status,
+```
+
+**lean:993** · row - (-) · mechanical · edits D299.
+
+Reason: Registry note; owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly.
+
+Old:
+
+```text
+A1-A6 unchanged;
+```
+
+New:
+
+```text
+the substratum conditions unchanged;
+```
+
+### 6.6 Guard pins updated with the text they pin (outside the 194)
+
+**edge:1916** · row - (-) · mechanical · edits D300.
+
+Reason: Pins OIBridge/SubstratumSource.lean line 48, which the Lean docstring edit rewrites. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).
+
+Old:
+
+```text
+ok6 &= 'does not derive a quantum architecture from A1-A6' in _subflat
+```
+
+New:
+
+```text
+ok6 &= 'does not derive a quantum architecture from the substratum conditions' in _subflat
+```
+
+**bohr:8903** · row - (-) · mechanical · edits D301.
+
+Reason: Pins OIBridge/SubstratumSource.lean line 48. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).
+
+Old:
+
+```text
+ok71 &= 'does not derive a quantum architecture from A1-A6' in _ss_txt71
+```
+
+New:
+
+```text
+ok71 &= 'does not derive a quantum architecture from the substratum conditions' in _ss_txt71
+```
+
+**edge:3357** · row - (-) · mechanical · edits D302.
+
+Reason: Pins verification/README.md line 917. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).
+
+Old:
+
+```text
+'whose A1–A6 are not `DerivedOI`', 'which is a propagation round of its own'):
+```
+
+New:
+
+```text
+'whose substratum conditions are not `DerivedOI`', 'which is a propagation round of its own'):
+```
+
+**edge:3470** · row - (-) · mechanical · edits D303.
+
+Reason: Pins the census note of the family "manuscript axioms A1-A6". Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).
+
+Old:
+
+```text
+'asserts nothing about whether the witness satisfies any of A1-A6 in the manuscript sense' in _ma_fam[0]['note']
+```
+
+New:
+
+```text
+'asserts nothing about whether the witness satisfies any of these conditions in the manuscript sense' in _ma_fam[0]['note']
+```
+
+**edge:3478** · row - (-) · mechanical · edits D304, D305.
+
+Reason: Pins verification/README.md lines 928 and 951. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).
+
+Old (part 1):
+
+```text
+'no manuscript-level A1–A6 conjunct is presently a faithful predicate of the bare theory',
+```
+
+New (part 1):
+
+```text
+'no manuscript-level conjunct of these conditions is presently a faithful predicate of the bare theory',
+```
+
+Old (part 2):
+
+```text
+'asserts nothing about whether the witness satisfies any of A1–A6 in the manuscript sense'):
+```
+
+New (part 2):
+
+```text
+'asserts nothing about whether the witness satisfies any of these conditions in the manuscript sense'):
+```
+
+**edge:9733** · row - (-) · mechanical · edits D306.
+
+Reason: Pins the glossary entry gloss:13 = FULL:6504, which D220/D221 rewrite. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).
+
+Old:
+
+```text
+The sixth of the framework's structural assumptions "
+                   'A1–A6: the substratum dynamics
+```
+
+New:
+
+```text
+The structural assumption A6 of the "
+                   'reconstruction theorem (A2–A6): the substratum dynamics
+```
+
+**bohr:8928** · row - (-) · mechanical · edits D307.
+
+Reason: Message of check F71, which states the pinned SubstratumSource.lean sentence. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).
+
+Old:
+
+```text
+"A1-A6 or the read-write substratum dynamics -- the round reduces the three principles to "
+```
+
+New:
+
+```text
+"the substratum conditions or the read-write substratum dynamics -- the round reduces the three principles to "
+```
+
+**edge:1908** · row - (-) · mechanical · edits D308.
+
+Reason: Comment describing the SubstratumSource.lean pin at line 1916. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).
+
+Old:
+
+```text
+# with the diagonal countermodel; no derivation from A1-A6 claimed.
+```
+
+New:
+
+```text
+# with the diagonal countermodel; no derivation from the substratum conditions claimed.
+```
+
 
 ## 7. Hidden dependencies found
 
@@ -3248,18 +4008,14 @@ the finite reversible substratum dynamics, which is recurrent (§18.7);
 - **H-9, the finite OI class (X-46).** Resolved by owner ruling (#1169 c.7057674976): the class stays a finite
   subclass, named "finite OI class" where necessary; the X-46 rewrites word finiteness as its scope; the
   cardinality-neutral class is Issue #1478.
-- **H-10, `verification/README.md`.** Lines 917–951 (the manuscript-axiom audit), 1003–1007 and 2289–2476
-  quote or describe "A1–A6" of the Substratum paper. Disposition: corrected in place in the execution commit
-  (a mutable landing page, §A.27): sentences that say the manuscripts state A1 ("the manuscripts' own
-  structural assumptions A1–A6 of the Substratum paper, each quoted verbatim", line 923; "A1–A6 in the
-  manuscript sense", line 951) are scoped to the commit at which the audit quoted them, taken from the
-  audit's own record at execution; sentences naming the kernel predicates `A1`, `waveSubstratum_A1`,
-  `hexSubstratum_A1` stay, these being Lean identifiers for the finite predicate.
-- **H-11, docstrings of `OIBridge/ManuscriptAxioms.lean`.** Lines 4–10 and 89 quote "A1–A6 of
-  `[Substratum §3.1]`" as the manuscripts' structural assumptions. Two dispositions are possible: (a) edit
-  the docstrings to scope the quotation to the pinned commit of the audit (no theorem changes; the Lean build
-  runs in CI); (b) leave the Lean file unchanged and record that scope in `verification/README.md` (H-10).
-  The draft proposes (b), which touches no kernel file; the choice is an owner question (§12).
+- **H-10, `verification/README.md`, and H-11, the Lean docstrings.** Superseded by the repository-wide
+  consistency decision (§22): the active text describes the current theory directly, without pinned-commit
+  scoping. The README, registry, coverage-ledger, Lean-docstring and guard edits are in §6.4–§6.6.
+- **H-12, guard pins.** `verification/lean/edge_rigidity_probe.py` (the R7 guard, run in the required
+  Numerical probes check) and `bohr_frequency_probe.py` pin exact strings of the glossary A6 entry, of
+  `verification/README.md`, of the registry and of `OIBridge/SubstratumSource.lean`. Eight such pins break
+  under the edit list; each is updated by a guard-pin edit (§6.6). `edits_check.py --pins` finds them by
+  comparing the string literals of every tracked Python check with the edited files (0 unresolved).
 
 ## 8. Dependency and conflict map against the Step-2 PRs
 
@@ -3276,28 +4032,28 @@ Step-2 text):
 
 | Edit | Site | Step-2 units changing the line | Variant used on the projection | What the edit presupposes |
 |---|---|---|---|---|
-| D005 | M:224 | S2-B, S2-C | old | S2-B, S2-C change later words of the line |
-| D029 | Sub:268 | S2-B | old | S2-B changes later words of the line |
-| D036 | SM:222 | S2-A | old | S2-A changes the words after the old string |
-| D045 | GR:589 | S2-C | old | S2-C appends a sentence |
-| D108 | ch01:179 | S2-C | old | S2-C inserts between the two old strings |
-| D109 | ch01:179 (FULL) | S2-C | old | S2-C inserts between the two old strings |
-| D110 | ch01:179 | S2-C | old | S2-C inserts between the two old strings |
-| D111 | ch01:179 (FULL) | S2-C | old | S2-C inserts between the two old strings |
-| D200 | appC:104 | S2-C | old | S2-C changes later words of the line |
-| D201 | appC:104 (FULL) | S2-C | old | S2-C changes later words of the line |
-| D224 | M:732 | S2-B, S2-C | old_step2 | S2-B and S2-C edit inside item (ii); old_step2 is item (ii) on the projected integration |
-| D225 | M:732 | S2-B, S2-C | old | S2-B and S2-C edit inside item (ii); old_step2 is item (ii) on the projected integration |
-| D226 | M:732 | S2-B, S2-C | old | S2-B and S2-C edit inside item (ii); old_step2 is item (ii) on the projected integration |
-| D227 | M:732 | S2-B, S2-C | old | S2-B and S2-C edit inside item (ii); old_step2 is item (ii) on the projected integration |
-| D228 | M:732 | S2-B, S2-C | old | S2-B and S2-C edit inside item (ii); old_step2 is item (ii) on the projected integration |
-| D253 | M:732 | S2-B, S2-C | old | S2-B and S2-C edit inside item (ii); old_step2 is item (ii) on the projected integration |
-| D229 | M:60 | S2-B | old | S2-B wording ("and for the P-indivisibility input of the CP-indivisibility theorem") is presupposed |
-| D230 | M:60 | S2-B | old | S2-B wording ("and for the P-indivisibility input of the CP-indivisibility theorem") is presupposed |
-| D254 | M:60 | S2-B | old | S2-B wording ("and for the P-indivisibility input of the CP-indivisibility theorem") is presupposed |
-| D231 | M:60 | S2-B | old | S2-B wording ("and for the P-indivisibility input of the CP-indivisibility theorem") is presupposed |
-| D232 | Sub:92 | S2-B, S2-C | old_step2 | S2-B and S2-C edit inside the entry; old_step2 is the projected entry |
-| D244 | Sub:56 | S2-D | old_step2 | — |
+| D005 | M:224 | S2-B, S2-C, S2-D, S2-E | old | S2-B, S2-C change later words of the line |
+| D029 | Sub:268 | S2-B, S2-C, S2-D, S2-E | old | S2-B changes later words of the line |
+| D036 | SM:222 | S2-A, S2-B, S2-C, S2-D, S2-E | old | S2-A changes the words after the old string |
+| D045 | GR:589 | S2-C, S2-D, S2-E | old | S2-C appends a sentence |
+| D108 | ch01:179 | S2-C, S2-D, S2-E | old | S2-C inserts between the two old strings |
+| D109 | ch01:179 (FULL) | S2-C, S2-D, S2-E | old | S2-C inserts between the two old strings |
+| D110 | ch01:179 | S2-C, S2-D, S2-E | old | S2-C inserts between the two old strings |
+| D111 | ch01:179 (FULL) | S2-C, S2-D, S2-E | old | S2-C inserts between the two old strings |
+| D200 | appC:104 | S2-C, S2-D, S2-E | old | S2-C changes later words of the line |
+| D201 | appC:104 (FULL) | S2-C, S2-D, S2-E | old | S2-C changes later words of the line |
+| D224 | M:732 | S2-B, S2-C, S2-D, S2-E | old_step2 | S2-B and S2-C edit inside item (ii); old_step2 is item (ii) on the projected integration |
+| D225 | M:732 | S2-B, S2-C, S2-D, S2-E | old | S2-B and S2-C edit inside item (ii); old_step2 is item (ii) on the projected integration |
+| D226 | M:732 | S2-B, S2-C, S2-D, S2-E | old | S2-B and S2-C edit inside item (ii); old_step2 is item (ii) on the projected integration |
+| D227 | M:732 | S2-B, S2-C, S2-D, S2-E | old | S2-B and S2-C edit inside item (ii); old_step2 is item (ii) on the projected integration |
+| D228 | M:732 | S2-B, S2-C, S2-D, S2-E | old | S2-B and S2-C edit inside item (ii); old_step2 is item (ii) on the projected integration |
+| D253 | M:732 | S2-B, S2-C, S2-D, S2-E | old | S2-B and S2-C edit inside item (ii); old_step2 is item (ii) on the projected integration |
+| D229 | M:60 | S2-B, S2-C, S2-D, S2-E | old | S2-B wording ("and for the P-indivisibility input of the CP-indivisibility theorem") is presupposed |
+| D230 | M:60 | S2-B, S2-C, S2-D, S2-E | old | S2-B wording ("and for the P-indivisibility input of the CP-indivisibility theorem") is presupposed |
+| D254 | M:60 | S2-B, S2-C, S2-D, S2-E | old | S2-B wording ("and for the P-indivisibility input of the CP-indivisibility theorem") is presupposed |
+| D231 | M:60 | S2-B, S2-C, S2-D, S2-E | old | S2-B wording ("and for the P-indivisibility input of the CP-indivisibility theorem") is presupposed |
+| D232 | Sub:92 | S2-B, S2-C, S2-D, S2-E | old_step2 | S2-B and S2-C edit inside the entry; old_step2 is the projected entry |
+| D244 | Sub:56 | S2-D, S2-E | old_step2 | — |
 | D248 | Comp:120 | — | old | deferred to the deletion edit by S2-E |
 | D249 | Meth:156 | — | old | deferred to the deletion edit by S2-E |
 | D250 | Meth:158 | — | old | deferred to the deletion edit by S2-E |
@@ -3324,7 +4080,9 @@ before any execution is authorized:
 4. Rebuild the ledger site map at `H` (`ledger_check.py build`) and re-pin: every ptr site of the rebuilt
    map must have an edit, and every edit must map to a site or to §6.2/§6.3; new pointer sites found by the
    rebuild are drafted by the same rules before execution.
-5. `edits_check.py --static`: infinity-assertion scan 0 hits, register scan 0 hits, identifier rule 0
+5. `edits_check.py --pins --commit H` (0 unresolved pins) and `edits_check.py --repo-scan --simulate --commit H`
+   (0 unexplained lines; lines pending an owner decision listed) are mandatory.
+6. `edits_check.py --static`: infinity-assertion scan 0 hits, register scan 0 hits, identifier rule 0
    findings, sitemap cross-check complete (194 ptr sites, or the re-pinned count with the difference
    explained), and, mandatory before execution: the **mirror-parity check** (every chapter edit byte-identical
    to its FULL mirror in `old`, `new` and their Step-2 variants, and every chapter edit mirrored) and the
@@ -3333,20 +4091,20 @@ before any execution is authorized:
    (REV)"; D254 and D245 keep the (NR) qualification; D253 keeps the completeness clause), each with 0
    findings. The `--simulate` run of step 2 also checks that item (iii) of Main's posit ledger keeps "(REV)".
    A redraft under step 3 that fails either check is not executed.
-6. Owner questions in §12 are answered and recorded.
-7. The reconciled list, with its checker output at `H`, goes to independent review before the execution is
+7. Owner questions in §12 are answered and recorded.
+8. The reconciled list, with its checker output at `H`, goes to independent review before the execution is
    authorized.
 
 ## 10. Checks run at drafting
 
 | Command | Tree | Result |
 |---|---|---|
-| `edits_check.py --self-test` | — | self-test PASS (62 countercontrols) |
-| `edits_check.py --tree <projection with S2-E 8e52b217> --simulate` | first-draft projection | uniqueness: 258 edits, 0 fail; variants used {'old': 255, 'old_step2': 3}; simulation: residual pointer lines 5 (5 allowed as listed, 0 unqualified); simulation: criterion-5/paraphrase hits on changed lines without a scope in their sentence: 0; simulation: identifier and count findings: 0; RESULT PASS |
+| `edits_check.py --self-test` | — | self-test PASS (79 countercontrols) |
+| `edits_check.py --tree <projection with S2-E 8e52b217> --simulate` | first-draft projection |  |
 | `edits_check.py --static` | — | infinity-assertion scan (new and new_step2): 0 hits; register scan (added text, §A.32/§A.33, history phrases): 0 hits; new capitals (3+ letters): 0; identifier rule (new and new_step2): 0 findings; preservation check (required content in every replacement variant): 0 findings; mirror parity (every chapter edit byte-identical to its FULL mirror): 0 findings; sitemap cross-check: 194 ptr sites in the map, 194 with an edit; 0 findings; RESULT PASS |
-| `edits_check.py --commit 1c7eedc4` | base | uniqueness: 258 edits, 0 fail; variants used {'old': 258}; RESULT PASS |
-| `edits_check.py --commit 1c7eedc4 --simulate` | base | uniqueness: 258 edits, 0 fail; variants used {'old': 258}; simulation: residual pointer lines 42 (5 allowed as listed, 37 unqualified); simulation: criterion-5/paraphrase hits on changed lines without a scope in their sentence: 0; simulation: identifier and count findings: 1; RESULT FAIL |
-| `edits_check.py --tree <projection> --simulate` | projected integration of the five heads | uniqueness: 258 edits, 0 fail; variants used {'old': 255, 'old_step2': 3}; simulation: residual pointer lines 5 (5 allowed as listed, 0 unqualified); simulation: criterion-5/paraphrase hits on changed lines without a scope in their sentence: 0; simulation: identifier and count findings: 0; RESULT PASS |
+| `edits_check.py --commit 1c7eedc4` | base | uniqueness: 308 edits, 0 fail; variants used {'old': 308}; RESULT PASS |
+| `edits_check.py --commit 1c7eedc4 --simulate` | base | uniqueness: 308 edits, 0 fail; variants used {'old': 308}; simulation: residual pointer lines 42 (5 allowed as listed, 37 unqualified); simulation: criterion-5/paraphrase hits on changed lines without a scope in their sentence: 0; simulation: finite-scope and configuration-space preservation findings: 0; simulation: identifier and count findings: 1; RESULT FAIL |
+| `edits_check.py --tree <projection> --simulate` | projected integration of the five heads |  |
 
 The residual lines at the base are the S2-E Q3 sites (Comp, Meth, ch14, ch18 and their FULL mirrors), which
 S2-E's branch rewrites, and the one identifier finding at the base is the "A1–A6" range in Methodology (an
@@ -3379,6 +4137,14 @@ At the execution head, all of the following, with outputs recorded in the execut
    ledger's false positives remain; grep of posit counts ("Fourteen", "six structural", "sixth of"): zero.
 8. Mirrors: each chapter edit and its FULL mirror byte-identical.
 9. The census registry notes (H-5) updated in the same commit.
+10. Lean: the docstring-only check of `edits_check.py --static` passes for every Lean docstring edit (the
+    edited file equals the original outside comments), and the Lean kernel build, the Mathlib build and the
+    existing CI pass at the execution head.
+11. Repository-wide audit (§22): `edits_check.py --repo-scan --final --commit <execution head>` reports zero
+    unexplained lines over all tracked active files, with the exclusions it lists (historical records,
+    generated artifacts, unrelated labels, guard pins, kernel identifiers kept by an owner decision), and no
+    line pending an owner decision.
+12. Pins: `edits_check.py --pins --commit <execution head's parent>` reports 0 unresolved pins.
 
 ## 12. Owner questions
 
@@ -3390,11 +4156,20 @@ Answered (#1169 comment 7057674976):
 2. **The finite OI class.** Kept as a finite subclass, "finite OI class"; finiteness worded as its scope
    (review F8); cardinality-neutral class in Issue #1478.
 
+3. **H-11.** Decided (a) (#1169 comment 7058343268), then superseded by the repository-wide consistency
+   decision (#1169 comment 7058374016): the Lean docstrings describe the current theory directly (§22).
+
 Open:
 
-3. **H-11.** For the docstrings of `OIBridge/ManuscriptAxioms.lean`: (a) scope them to the audit's pinned
-   commit by a docstring-only edit, or (b) leave the kernel file unchanged and record the scope in
-   `verification/README.md` (drafted default).
+4. **R-1 and R-2, Lean identifiers containing `A1`** (§22.4): rename with deprecated aliases, or keep with the
+   prose written as "the finiteness predicate `A1`". Either way the twelve lines classed "pending R-1" are
+   resolved before execution.
+5. **R-C, the registry family name "manuscript axioms A1-A6"** (§22.4): keep (recommended) or rename.
+6. **AGENTS.md line 38** (D-AGENTS, §6.5): the rules document lists "total finiteness (A1)" among the posits
+   of Main's ledger; removing it changes the owner's rules document and needs a recorded owner approval.
+7. **Book mirrors of the configuration-space sentence** (§23): the decision names Main and Substratum; whether
+   the book's parallel passages (ch01's Definition, ch02's opening of the substratum triple) carry the same
+   sentence under §A.14 is for the owner.
 
 ## 13. Off-`main` references (§A.42 item 8)
 
@@ -3402,7 +4177,7 @@ Open:
 |---|---|---|
 | Step-2 branch heads (§1) | The `old_step2` strings and §8 dependencies | provenance: the strings are re-pinned against merged `main` before execution (§9); nothing here is established from them |
 | PR #1470, #1472, #1473, #1474 | Unit identities | provenance |
-| #1169 comments 7057236079, 7057297534, 7057200720, 7057674976 | Authorization, design decision, landing order, rulings on §12 | provenance (owner records) |
+| #1169 comments 7057236079, 7057297534, 7057200720, 7057674976, 7058343268 | Authorization, design decision, landing order, rulings on §12 | provenance (owner records) |
 | Issue #1478 | The cardinality-neutral OI class, outside this edit | provenance (planning) |
 | Issue #1479 | Stage 2 of Theorem 23 on $\mathbb{Z}^d$, deferred | provenance (planning; accountable home of the deferred item) |
 | #1477 round-1 review record | The findings answered in §17 | provenance |
@@ -3486,3 +4261,213 @@ are the ledger's.
 | Item | Change |
 |---|---|
 | Bare "on a finite" / "for a finite" scopes | Each is tied to an object: `(?:on\|for) a (?:fixed )?finite (?:\w+ )?(?:representative\|substrat\w*\|model\|set\|system\|realization)`, with "for a finite $S$" and "when $S$ is finite" kept. Countercontrol: "a deterministic bijection on a finite configuration space, an open matter for physics" is caught. The tightening exposed one unchanged sentence on a changed line, Str:339, which describes causal dynamical triangulations "with manifestly finite configuration space"; it is about another programme, not the OI substratum, and is listed in the checker's criterion-5 allow list with that reason |
+
+## 21. Amendment: H-11
+
+H-11 was decided (a), correct the Lean docstrings in place (owner `amaybaum`, 2026-11-21,
+[#1169 comment 7058343268](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7058343268),
+2026-11-21T06:03:01Z). Its instruction to scope the quotation to a pinned commit is superseded by the
+repository-wide consistency decision (§22), which the owner recorded as replacing it: the docstrings
+describe the current theory directly. The draft Lean edits are D262–D286 (§6.4), docstring only.
+
+## 22. Amendment: repository-wide consistency after A1 is retired
+
+**Owner decision** (owner `amaybaum`, 2026-11-21, recorded at
+[#1169 comment 7058374016](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7058374016),
+2026-11-21T06:05:53Z, "Owner decision record: repository-wide consistency after A1 is retired"), quoted in
+part:
+
+> **This supersedes the H-11 guidance** in #1169 comment 7058343268, which scoped the Lean docstring
+> quotation to a pinned commit. After A1 is removed, the current theory must be internally consistent. No
+> outdated statement or comment may suggest that A1 is still an assumption. Earlier guidance to keep old
+> wording in active documentation is withdrawn as too conservative.
+>
+> - **Manuscripts and book.** Remove or rewrite every reference that treats A1 as an active assumption.
+> - **Comments and documentation.** Describe the new theory directly. They do not explain that they refer
+>   to an older version.
+> - **Mathematical claims.** Every result that actually needs finiteness states that condition explicitly.
+> - **Lean.** Update the documentation, and review every identifier that contains `A1`. Rename misleading
+>   identifiers where that is safe, and verify the proofs after renaming.
+> - **Cross-references.** Update assumption counts, ranges, tables and references consistently.
+> - **Final audit.** Search the whole active repository for obsolete A1 references, not only the 194
+>   manuscript pointers already identified.
+>
+> - **Historical research records and Git history are preserved.** They document how the results were
+>   established. They must not be mistaken for descriptions of the current theory.
+> - **Valid finite-only results are kept.** They are not deleted because they originally relied on A1. Each
+>   states its actual conditions.
+>
+> ### Completion criterion
+> > A reader encountering the current OI theory should find no outdated assertion that A1 is an active
+> > assumption, no unexplained dependency on A1, and no misleading references to the retired assumption.
+> > All surviving finiteness requirements must be stated explicitly where needed.
+
+### 22.1 Scan and classes
+
+`edits_check.py --repo-scan` scans every tracked file of a commit for `\bA1\b`, "total finiteness",
+"finiteness posit", "posit (ii)" and "A1–A6", and classifies each line:
+
+| Class | Rule | Disposition |
+|---|---|---|
+| historical record | under `verification/audits/`, `verification/programmes/`, `verification/infrastructure/`, `verification/receipts/`, `verification/seals/`, `verification/certificates/`, `evidence/`; or `verification/ROADMAP.md` (frozen), `verification/MIGRATION-MANIFEST.md`, `verification/migration-manifest.json` (grandfather list) | preserved; a mutable index presenting a record as current theory is corrected instead (the README and registry edits) |
+| generated artifact | `papers/*.tex`, `papers/*.pdf`, `book/*.tex`, `book/*.pdf` | regenerated by `build.sh` |
+| manuscript | `papers/*.md`, `book/*.md` | the edit list (§6.1–§6.3) |
+| unrelated label | listed files or substrings: the A1 irrep, local variables, roadmap item A1, amendment or finding labels, the appB anomaly condition (A1) | kept; the reason is recorded per entry in the checker |
+| guard pins | `edge_rigidity_probe.py`, `bohr_frequency_probe.py` | kept as pins of records and kernel identifiers; the pins the edits break are updated (§6.6; `--pins` 0) |
+| kernel identifier | every A1 on the line is a Lean declaration name (`A1Realized`, `waveSubstratum_A1`, `` `A1` ``, …) or the programme label `A1-RIGID-1` | kept pending §22.4 |
+| pending R-1 / R-C | listed lines of kernel-predicate prose and the registry family name | resolved by the owner decisions of §12 (questions 4, 5); `--final` rejects them |
+| unexplained | anything else | must be rewritten: zero is required at execution |
+
+### 22.2 Inventory
+
+Lines matching the scan patterns at current `main` (`4de2eabd`), as is and after the in-memory application of the edit list:
+
+| Class | Area | As is | After the edits |
+|---|---|---|---|
+| generated artifact | book | 81 | 81 |
+| generated artifact | papers | 114 | 114 |
+| guard pins | verification | 51 | 42 |
+| historical record | verification | 3893 | 3893 |
+| kernel identifier | papers | 1 | 0 |
+| kernel identifier | verification | 21 | 24 |
+| manuscript | book | 133 | 30 |
+| manuscript | papers | 91 | 7 |
+| pending R-1 | verification | 12 | 12 |
+| pending R-C | verification | 1 | 1 |
+| unexplained | AGENTS.md | 1 | 0 |
+| unexplained | verification | 34 | 0 |
+| unrelated label | .github | 5 | 5 |
+| unrelated label | book | 4 | 4 |
+| unrelated label | papers | 14 | 14 |
+| unrelated label | tools | 1 | 1 |
+| unrelated label | verification | 68 | 68 |
+| **unexplained (total)** | | **259** | **37** |
+
+The unexplained lines that remain after the in-memory application at current `main` are the S2-E sites
+(Comp, Meth, ch14, ch18 and their FULL mirrors), which S2-E's branch rewrites; at the merged head after S2-E
+the requirement is zero (§9 step 5, §11 item 11).
+
+**Active non-manuscript rewrites drafted (§6.4–§6.6).**
+
+- Lean docstrings (D262–D286): `ManuscriptAxioms.lean` (the module heading, the description of the
+  conditions, the realized-core image docstrings), `SubstratumInterfaceAudit.lean` (the module description
+  and five docstrings, each now stating the finiteness condition its declaration carries),
+  `FrozenSourcing.lean`, `HexLatticeGas.lean`, `HydroSourceAudit.lean`, `RouteB.lean`, `SubstratumSource.lean`.
+  Docstring only; `--static`'s docstring-only check confirms that each edited file equals the original
+  outside comments.
+- `verification/README.md` (D287–D291): the Route B and manuscript-axiom paragraphs.
+- `verification/lean-manuscript-census.json` (D292–D294, D297–D299): registry notes quoting the manuscripts'
+  A1–A6 statements.
+- `verification/coverage/LEDGER.json` (D295): an assumptions field saying "Physical total finiteness (A1)
+  remains open and unadopted".
+- `AGENTS.md` (D296): owner approval needed (§12, question 6).
+- Guard pins (D300–D308).
+
+**Cross-references (item 4).** No posit count, "six structural" or "item (ii)" occurs outside the
+manuscripts in the active tree (grep at `0ba358cc`). The README's "Every one of the six is a condition on a
+substratum" counts the six conditions (finiteness and A2–A6) its rewritten sentence lists, and stays.
+
+### 22.3 Valid finite-only results
+
+Every result that needs finiteness keeps it explicit: in the manuscripts by the F-row rewrites (§5.1) and the
+preservation checks (§23); in Lean by the declarations' own hypotheses (`[Finite 𝒮.ι] [Finite 𝒮.V]`,
+`[NeZero L] [NeZero q]`), which the docstring edits now name (D278–D282).
+
+### 22.4 Lean identifiers containing `A1`
+
+References counted at `0ba358cc` (Lean sources, the census registry, the R7 guard, the README, frozen
+records). Manuscripts cite none of them.
+
+| Identifier | Denotes | Lean | Registry | Guard | README | Records |
+|---|---|---|---|---|---|---|
+| `Substratum.A1` (`def A1 : Prop := Finite 𝒮.Conf`) | finiteness of the configuration space | 8 (`.A1`) | 0 | 2 (exact definition text) | 0 | 10 |
+| `Substratum.a1_of_finite` | finiteness from finite sites and alphabet | 3 | 0 | 1 | 0 | 34 |
+| `waveSubstratum_A1` | the wave substratum on a finite torus is finite | 3 | 0 | 1 | 1 | 22 |
+| `obs_a1` | finiteness of the observer theory's substratum | 2 | 0 | 0 | 0 | 2 |
+| `WaveUnbounded.waveZ_not_A1` | control: not finite on ℤ^d | 3 | 1 (anchor) | 0 | 0 | 8 |
+| `HexLatticeGas.hexSubstratum_A1` | the hex gas on a finite torus is finite | 3 | 1 | 0 | 1 | 5 |
+| `A6Instantiation.pk3a_A1` | the packaged carrier is finite | 3 | 1 | 2 | 0 | 9 |
+| `A6Instantiation.cx3b_complex_not_A1` | the complex carrier is not finite | 3 | 1 | 5 | 0 | 15 |
+| `ManuscriptAxioms.A1Realized` | the realized core is finite | 5 | 1 | 5 (incl. "exactly four definitions") | 1 | 10 |
+| `ManuscriptAxioms.A1A2Realized` | conjunction of the two images | 3 | 0 | 2 | 0 | 7 |
+| `ManuscriptAxioms.a1_every_theory` | the finiteness image holds for every theory | 4 | 1 | 1 | 1 | 2 |
+| `ManuscriptAxioms.substratumTheory_A1`, `substratumTheory_A1A2` | the images hold for the witness | 6, 2 | 1, 0 | 1, 1 | 1, 0 | 5, 2 |
+| registry family "manuscript axioms A1-A6" | the census family of the audit | — | 1 (name) | 2 (name, rendered row) | 0 | rendered census record |
+| programme label `A1-RIGID-1` | a landed research programme | 2 (module doc) | 1 (family name) | 0 | 0 | many |
+
+Each name denotes a true finite-only statement or a control; none asserts that the substratum is finite.
+
+**Proposals (each needs kernel review and an owner decision; none is drafted as a Lean diff here).**
+
+- **R-1, the finiteness predicate family** (`Substratum.A1` and the seven theorems about it): rename to
+  `Substratum.FiniteConf`, `finiteConf_of_finite`, `waveSubstratum_finiteConf`, `obs_finiteConf`,
+  `waveZ_not_finiteConf`, `hexSubstratum_finiteConf`, `pk3a_finiteConf`, `cx3b_complex_not_finiteConf`.
+  Safety: frozen records and receipts cite the old names (34, 22, 15, … references) and are not edited, so
+  each old name stays resolvable as a `@[deprecated]` alias; the registry anchors (`waveZ_not_A1`,
+  `hexSubstratum_A1`, `pk3a_A1`, `cx3b_complex_not_A1`) take §A.35 supersession entries in the same commit;
+  the R7 guard pins the exact definition text and name lists and is updated with it; the Lean kernel and
+  Mathlib builds run in CI. Judged misleading (a declaration named after a retired assumption) and safe only
+  with the aliases, the supersession entries and the guard update together. If the owner keeps the names,
+  the twelve "pending R-1" lines are rewritten to say "the finiteness predicate `A1`".
+- **R-2, the realized-core images** (`A1Realized`, `A1A2Realized`, `a1_every_theory`, `substratumTheory_A1`,
+  `substratumTheory_A1A2`): rename to `FiniteRealized`, `FiniteBijRealized`, `finiteRealized_every_theory`,
+  `substratumTheory_finiteRealized`, `substratumTheory_finiteBijRealized`. Riskier than R-1: the R7 guard
+  asserts that the module defines exactly four named definitions and prints exactly eleven axiom lines, so
+  aliases change those counts and the guard's preregistered pins must be amended; recommended only together
+  with R-1, otherwise keep.
+- **R-C, the registry family name "manuscript axioms A1-A6"**: keep. The guard and the rendered census
+  record under `verification/audits/manuscript/` pin it, and a family name is a §A.35 registry identifier; the
+  family's note is rewritten (D293–D294) so the registry describes the current theory.
+- **`A1-RIGID-1`**: keep; it names a landed research programme and its records, not an assumption.
+
+## 23. Amendment: the configuration-space sentence
+
+**Owner decision** (owner `amaybaum`, 2026-11-21, recorded at
+[#1169 comment 7058446475](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7058446475),
+2026-11-21T06:12:34Z, "Owner decision record: A1 stays retired; unlabelled configuration-space definition"),
+quoted:
+
+> The decision to retire A1 permanently stands (#1169 c.7057297534). A1 is not redefined.
+>
+> ### Approved wording
+> > Configuration space. The substratum has a configuration space $\mathcal S$. No restriction is imposed
+> > on its cardinality; $\mathcal S$ may be finite or infinite.
+>
+> This sentence goes into the foundational setup of Main and Substratum, at the point where it fits
+> naturally. It adds no new assumption or identifier.
+>
+> ### Conditions
+> - A1 is retired and its identifier is reserved permanently.
+> - A2–A6 keep their existing meanings.
+> - No assumption that the universe is infinite is introduced.
+> - Finiteness stays explicit wherever an individual theorem requires it.
+> - The new definition does not imply that results established only for finite systems apply to arbitrary
+>   configuration spaces.
+> - These additions are part of the preregistration and independent review of #1477.
+>
+> This decision updates the deletion plan. It does not authorize executing the deletion.
+
+**Symbol.** Both papers already use $S$ for the configuration space (Main's Definition: "a total system $S$";
+Substratum: "$(S, \varphi)$"), so the sentence is inserted with $S$ for $\mathcal S$, otherwise verbatim.
+
+**Sites.**
+
+- **Main (D259).** A paragraph of its own after the Definition of an observation (M:42), the point where
+  $S$ is introduced.
+- **Substratum (D261).** The opening paragraph of §2, "The Physical Interpretation of (S, φ)", before
+  "Storage and memory".
+
+**Finite-only results near the sentence, checked.**
+
+| Paper | Result | Finite scope after the edits | Preservation |
+|---|---|---|---|
+| Main | Lemma 1 | "makes the visible configuration space $\mathcal{C}_V$ finite" (finite-capacity clause) | checked |
+| Main | Lemma 3, uniform measure on cycles | "On each finite cycle of the reversible representative" | checked |
+| Main | Lemma 3, counting-measure selection | had no printed scope once item (ii)'s list is deleted; D260 adds "on a finite representative" (F row X-10) | checked |
+| Main | Status Remark M:60 | "defined here for a finite system only", "no construction is given for an infinite $S$", the finite-representative list, "On a finite set, injectivity implies surjectivity" | checked |
+| Substratum | Storage and memory | "*finite capacity* when $S$ is finite", "of finite capacity when $S$ is finite" (D013) | checked |
+
+`edits_check.py --simulate` checks each phrase in the simulated papers, and that each paper carries the
+sentence exactly once. The infinity scan does not flag the sentence and still flags "S is infinite" beside it
+(countercontrols). The sentence adds no label, identifier or assumption (identifier rule: 0).
+

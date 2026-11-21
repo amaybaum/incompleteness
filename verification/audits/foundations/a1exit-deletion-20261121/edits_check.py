@@ -21,7 +21,7 @@ Usage (from the repository root):
               cross-checks the edit sites against the ledger site map (every ptr site has an edit, every
               ptr edit is at a mapped ptr site), reading the map's pin with git.
 """
-import argparse, json, os, re, subprocess, sys
+import argparse, ast, json, os, re, subprocess, sys
 from collections import Counter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -103,12 +103,24 @@ class Source:
         if self.fn:
             return self.fn(path)
         if self.tree:
-            with open(os.path.join(self.tree, path), encoding='utf-8') as f:
+            fp = os.path.join(self.tree, path)
+            if not os.path.exists(fp) and path.startswith('verification/') and getattr(self, 'fallback', None):
+                return git_show(self.fallback, path)
+            with open(fp, encoding='utf-8') as f:
                 return f.read()
         r = subprocess.run(['git', '-C', ROOT, 'show', '%s:%s' % (self.commit, path)], capture_output=True)
         if r.returncode:
             raise SystemExit('cannot read %s at %s' % (path, self.commit))
         return r.stdout.decode('utf-8')
+
+    def all_files(self):
+        if self.tree:
+            out = []
+            for dp, _, fs in os.walk(self.tree):
+                out += [os.path.relpath(os.path.join(dp, n), self.tree) for n in fs]
+            return sorted(out)
+        r = subprocess.run(['git', '-C', ROOT, 'ls-tree', '-r', '--name-only', self.commit], capture_output=True, text=True)
+        return [x for x in r.stdout.split() if not x.endswith(('.pdf', '.png', '.jpg', '.olean', '.gz', '.zip'))]
 
     def files(self):
         """papers/*.md and book/*.md of the commit or tree under test (not of the working checkout)."""
@@ -124,6 +136,73 @@ class Source:
         r = subprocess.run(['git', '-C', ROOT, 'ls-tree', '--name-only', self.commit, 'papers/', 'book/'],
                            capture_output=True, text=True)
         return [x for x in r.stdout.split() if x.endswith('.md') and x.count('/') == 1]
+
+
+def git_show(rev, path):
+    r = subprocess.run(['git', '-C', ROOT, 'show', '%s:%s' % (rev, path)], capture_output=True)
+    if r.returncode:
+        raise SystemExit('cannot read %s at %s' % (path, rev))
+    return r.stdout.decode('utf-8')
+
+
+def lean_strip(text):
+    """Lean source with block comments (doc comments included, nesting respected) and line comments removed."""
+    out, i, depth, n = [], 0, 0, len(text)
+    while i < n:
+        if text.startswith('/-', i):
+            depth += 1; i += 2; continue
+        if depth and text.startswith('-/', i):
+            depth -= 1; i += 2; continue
+        if depth:
+            i += 1; continue
+        if text.startswith('--', i):
+            j = text.find('\n', i)
+            i = n if j < 0 else j
+            continue
+        out.append(text[i]); i += 1
+    return ''.join(out)
+
+
+def in_comment(text, start, end):
+    """True when text[start:end] lies inside one block comment."""
+    i, depth, opened = 0, 0, None
+    while i < start:
+        if text.startswith('/-', i):
+            depth += 1; i += 2; continue
+        if depth and text.startswith('-/', i):
+            depth -= 1; i += 2; continue
+        i += 1
+    if depth == 0:
+        return False
+    seg = text[start:end]
+    return '-/' not in seg and '/-' not in seg
+
+
+def lean_docstring_only(original, edited):
+    return lean_strip(original) == lean_strip(edited)
+
+
+def lean_check(data, read):
+    out = []
+    by_file = {}
+    for e in data['edits']:
+        if e['kind'] == 'lean-docstring':
+            by_file.setdefault(e['file'], []).append(e)
+    for f, es in by_file.items():
+        orig = read(f)
+        cur = orig
+        for e in es:
+            if cur.count(e['old']) != 1:
+                out.append('%s: old string not unique in %s' % (e['id'], f)); continue
+            i = cur.index(e['old'])
+            if not in_comment(cur, i, i + len(e['old'])):
+                out.append('%s: old string is not inside a comment' % e['id'])
+            if '-/' in e['new'] or '/-' in e['new']:
+                out.append('%s: replacement opens or closes a comment' % e['id'])
+            cur = cur.replace(e['old'], e['new'], 1)
+        if not lean_docstring_only(orig, cur):
+            out.append('%s: the edited file differs from the original outside comments' % f)
+    return out
 
 
 def variant(e, text):
@@ -169,8 +248,9 @@ def check(data, src, simulate, quiet=False):
         sim[e['file']] = sim[e['file']].replace(o, n, 1)
     # residual pointer scan over the whole corpus under test
     res = []
-    for path in sorted(set(src.files()) | set(sim)):
-        t = sim[path] if path in sim else src.read(path)
+    man = {k: v for k, v in sim.items() if not k.startswith('verification/')}  # manuscripts only; the Lean file is checked by --static
+    for path in sorted(set(src.files()) | set(man)):
+        t = man[path] if path in man else src.read(path)
         for i, line in enumerate(t.split('\n'), 1):
             m = PTR.search(line)
             if m:
@@ -185,7 +265,7 @@ def check(data, src, simulate, quiet=False):
         fails.append('residual pointer lines remain')
     # criterion-5 and paraphrase hits on changed lines must be scoped in their sentence
     unq = []
-    for path, t in sim.items():
+    for path, t in man.items():
         before = set(texts[path].split('\n'))
         for i, line in enumerate(t.split('\n'), 1):
             if line in before:
@@ -203,7 +283,13 @@ def check(data, src, simulate, quiet=False):
     if unq:
         fails.append('unscoped criterion-5 hits')
     # identifiers and counts in the simulated corpus
-    idf = identifier_sim(sim)
+    sp = sim_preservation(man)
+    say('simulation: finite-scope and configuration-space preservation findings: %d' % len(sp))
+    for x in sp:
+        say('  KEEP ' + x)
+    if sp:
+        fails.append('simulated preservation findings')
+    idf = identifier_sim(man)
     say('simulation: identifier and count findings: %d' % len(idf))
     for x in idf:
         say('  ID ' + x)
@@ -284,8 +370,10 @@ def static_new(data):
                     inf.append((e['id'], g, sent[:120]))
             for tok in set(x.lower() for x in REG.findall(new)) - set(x.lower() for x in REG.findall(old)):
                 reg.append((e['id'], tok))
-            for tok in set(CAPS.findall(new)) - set(CAPS.findall(old)) - CAPS_OK:
+            for tok in (set(CAPS.findall(new)) - set(CAPS.findall(old)) - CAPS_OK) if e.get('kind') in ('ptr', 'consistency', 'handoff') else ():
                 caps.append((e['id'], tok))
+            if e.get('kind') == 'lean-docstring':
+                continue  # historical Lean identifiers and the scoped quotation keep A1 by design (owner ruling on H-11)
             if re.search(r'\bA1\b', new):
                 ids.append((e['id'], 'A1 printed in a replacement'))
             if re.search(r'\bA1\s*[–-]\s*A[2-6]\b', new):
@@ -299,6 +387,8 @@ def static_new(data):
             if re.search(r'[–-]\(xiii\)', new) and '(xiv)' in old:
                 ids.append((e['id'], 'range renumbered to (xiii)'))
             for a in ('A2', 'A3', 'A4', 'A5', 'A6'):
+                if e.get('kind') not in ('ptr', 'consistency', 'handoff'):
+                    break
                 if old.count(a) and not new.count(a) and new.strip():
                     ids.append((e['id'], '%s dropped from a non-empty replacement' % a))
     return inf, reg, caps, ids
@@ -319,6 +409,36 @@ PRESERVE = {
     'D245': ['assumed in its place and not adopted', RET_FORM, RET_TAIL],
     'D253': ['carry that finite scope where they are stated'],
 }
+
+
+CS_SENTENCE = ('Configuration space. The substratum has a configuration space $S$. No restriction is imposed on its '
+               'cardinality; $S$ may be finite or infinite.')
+PRESERVE.update({'D259': [CS_SENTENCE], 'D261': [CS_SENTENCE], 'D260': ['on a finite representative, the counting measure is selected']})
+# Text that must be present in the simulated manuscript: the approved sentence, and the finite scope of every
+# finite-only result stated near it (owner decision #1169 c.7058446475).
+SIM_PRESERVE = {
+    'papers/Main.md': [CS_SENTENCE, 'makes the visible configuration space $\\mathcal{C}_V$ finite',
+                       'On each finite cycle of the reversible representative',
+                       'globally, on a finite representative, the counting measure is selected',
+                       'defined here for a finite system only', 'no construction is given for an infinite $S$',
+                       'The finite representative is used by the recurrence step of §2.3',
+                       'by the counting measure of Lemma 3', 'On a finite set, injectivity implies surjectivity'],
+    'papers/Substratum.md': [CS_SENTENCE, '*finite capacity* when $S$ is finite', 'of finite capacity when $S$ is finite'],
+}
+
+
+def sim_preservation(man):
+    out = []
+    for f, subs in SIM_PRESERVE.items():
+        if f not in man:
+            continue
+        for sub in subs:
+            if sub not in man[f]:
+                out.append('%s lacks %r after the edits' % (f, sub[:70]))
+    for f in SIM_PRESERVE:
+        if f in man and man[f].count(CS_SENTENCE) != 1:
+            out.append('%s carries the configuration-space sentence %d times' % (f, man[f].count(CS_SENTENCE)))
+    return out
 
 
 def preservation(data):
@@ -422,11 +542,177 @@ def static(data, quiet=False, read_pin=None):
     say('mirror parity (every chapter edit byte-identical to its FULL mirror): %d findings' % len(mir))
     for x in mir:
         say('  MIRROR ' + x)
+    lean = lean_check(data, lambda pth: git_show(data.get('drafting_base', 'HEAD'), pth)) if 'drafting_base' in data else []
+    say('Lean docstring-only check (edited file equals the original outside comments): %d findings' % len(lean))
+    for x in lean:
+        say('  LEAN ' + x)
     n, ok_n, bad = sitemap_check(data, read_pin)
     say('sitemap cross-check: %d ptr sites in the map, %d with an edit; %d findings' % (n, ok_n, len(bad)))
     for x in bad:
         say('  MAP ' + x)
-    return not inf and not reg and not caps and not ids and not bad and n == ok_n and not pres and not mir
+    return not inf and not reg and not caps and not ids and not bad and n == ok_n and not pres and not mir and not lean
+
+
+MIN_PIN = 20
+PIN_SKIP = ('verification/audits/', 'verification/infrastructure/', 'verification/receipts/')
+# Pin candidates the pins check reports that the probe does not read from the edited file (recorded reasons).
+PIN_OK = [
+    ('verification/lean/edge_rigidity_probe.py', 'A1–A6 are not `DerivedOI`',
+     'the loop at line 3346 reads ROUTE-B-AUDIT.md, a frozen record that keeps the phrase'),
+    ('verification/lean/edge_rigidity_probe.py', 'realized-core images of A1 and A2',
+     'line 3475 reads verification/audits/manuscript/lean-manuscript-census.md, a record that keeps the phrase'),
+]
+
+
+def py_literals(src):
+    try:
+        tree = ast.parse(src)
+    except SyntaxError:
+        return []
+    return [(n.lineno, ' '.join(n.value.split())) for n in ast.walk(tree)
+            if isinstance(n, ast.Constant) and isinstance(n.value, str) and len(n.value) >= MIN_PIN]
+
+
+def apply_edits(data, read, kinds=None):
+    out = {}
+    for e in data['edits']:
+        if kinds and e['kind'] not in kinds:
+            continue
+        if e['file'] not in out:
+            out[e['file']] = read(e['file'])
+        o, n, _ = variant(e, out[e['file']])
+        if o is not None:
+            out[e['file']] = out[e['file']].replace(o, n, 1)
+    return out
+
+
+def pins_check(data, rev, quiet=False):
+    """String literals of tracked Python checks that pin text the edits remove; each must be updated by a
+    guard-pin edit in the same commit or carry a recorded reason (PIN_OK)."""
+    say = (lambda *a: None) if quiet else print
+    read = lambda pth: git_show(rev, pth)
+    before = {f: ' '.join(read(f).split()) for f in {e['file'] for e in data['edits']} if not f.endswith('.py')}
+    after_t = apply_edits(data, read)
+    after = {f: ' '.join(after_t[f].split()) for f in before}
+    pyfiles = [x for x in subprocess.run(['git', '-C', ROOT, 'ls-tree', '-r', '--name-only', rev], capture_output=True,
+                                         text=True).stdout.split() if x.endswith('.py') and not x.startswith(PIN_SKIP)]
+    broken = []
+    for pf in pyfiles:
+        src = read(pf)
+        lits = py_literals(src)
+        if not lits:
+            continue
+        new_src = after_t.get(pf, src)
+        new_lits = {l for _, l in py_literals(new_src)} if pf in after_t else None
+        for ln, lit in lits:
+            for f in before:
+                if lit in before[f] and lit not in after[f]:
+                    if new_lits is not None and lit not in new_lits:
+                        continue  # updated by a guard-pin edit
+                    if any(pf == a and lit.startswith(b) for a, b, _ in PIN_OK):
+                        continue
+                    broken.append('%s:%d pins %r in %s' % (pf, ln, lit[:80], f))
+    say('pins check: %d unresolved pins (literals of tracked checks that the edits would break)' % len(broken))
+    for x in broken:
+        say('  PIN ' + x)
+    return not broken
+
+
+# Repository-wide scan (owner decision #1169 c.7058374016): every tracked active file.
+REPO_PAT = re.compile(r'\bA1\b|[Tt]otal[- ]finiteness|[Ff]initeness posit|posit \(ii\)|\bA1\s*[–-]\s*A6\b')
+HISTORICAL_PREFIX = ('verification/audits/', 'verification/programmes/', 'verification/infrastructure/',
+                     'verification/receipts/', 'verification/seals/', 'verification/certificates/', 'evidence/')
+HISTORICAL_FILE = ('verification/ROADMAP.md', 'verification/MIGRATION-MANIFEST.md', 'verification/migration-manifest.json')
+IDENT = re.compile(r'`[^`\n]*A1[^`\n]*`|\b\w+_A1\w*\b|\bA1Realized\b|\bA1A2Realized\b|\ba1_\w+|\.A1\b|\bdef A1\b|\bA1-RIGID-1\b')
+EXPLAINED = [  # (path or prefix ending in '/', substring or None, class, reason)
+    ('.github/workflows/pe01-bounded-tests.yml', None, 'unrelated label', 'amendment A1 of the pe01 plan'),
+    ('tools/citation_roles_check.py', None, 'unrelated label', 'a phrase list entry "In (A1), "'),
+    ('tools/build_migration_manifest.py', 'the A1-A6 audit', 'historical record label', 'names the frozen manuscript-axiom audit record in the grandfather manifest'),
+    ('papers/oi_lattice_code/', None, 'unrelated label', 'the A1 irrep (Higgs, O_h, S3) and task labels of the lattice code'),
+    ('verification/audit-census.json', None, 'unrelated label', 'finding identifiers A1-* of an audit census'),
+    ('verification/lean/link_decomposition_probe.py', None, 'unrelated label', 'the A1 irrep'),
+    ('verification/lean/representation_bridge_probe.py', None, 'unrelated label', 'the A1 irrep'),
+    ('verification/lean/taste_branching_probe.py', None, 'unrelated label', 'the A1 irrep'),
+    ('verification/lean/gauge_certificates_probe.py', None, 'unrelated label', 'the A1 irrep'),
+    ('verification/lean/idempotent_trace_probe.py', None, 'unrelated label', 'the A1 irrep'),
+    ('verification/lean/cubic_isotropy_probe.py', None, 'unrelated label', 'check identifier A1 of the probe'),
+    ('verification/lean/kinf2_foundations_probe.py', None, 'unrelated label', 'a local variable'),
+    ('verification/lean/dita_index_map_probe.py', None, 'unrelated label', 'a local variable'),
+    ('verification/lean/dita_torus_locus_probe.py', None, 'unrelated label', 'a local variable'),
+    ('verification/lean/gap_correspondence_probe.py', None, 'unrelated label', 'a local variable'),
+    ('verification/lean/partition_coupling_probe.py', None, 'unrelated label', 'finding A1 of Audit A'),
+    ('verification/lean/OI_Structural_Core.lean', None, 'unrelated label', 'a bound variable of susskind3'),
+    ('verification/lean/ROADMAP.md', None, 'unrelated label', 'item A1 of the Lean roadmap'),
+    ('verification/lean/OI_Regulator_Symmetry.lean', None, 'unrelated label', 'item A1 of the Lean roadmap'),
+    ('verification/lean-mathlib/OIBridge/Averaging.lean', None, 'unrelated label', 'item A1 of the Lean roadmap'),
+    ('verification/lean-mathlib/OIBridge.lean', None, 'unrelated label', 'items A1/A5 of the Lean roadmap'),
+    ('verification/coverage/LEDGER.json', 'A1 = 1, A2 = sign', 'unrelated label', 'the A1 irrep'),
+    ('verification/coverage/LEDGER.json', 'T1 + E + A1', 'unrelated label', 'the A1 irrep'),
+    ('verification/coverage/LEDGER.json', 'the A1 inside A1 + E', 'unrelated label', 'the A1 irrep'),
+    ('book/appendix-b-derivations.md', '(A1) $\\mathrm{SU}(3)^3$ anomaly', 'unrelated label', 'anomaly condition (A1) (ledger false positive)'),
+    ('book/appendix-b-derivations.md', '(A1) is automatically satisfied', 'unrelated label', 'anomaly condition (A1) (ledger false positive)'),
+    ('book/The-Incompleteness-of-Observation-FULL.md', '(A1) $\\mathrm{SU}(3)^3$ anomaly', 'unrelated label', 'FULL mirror of the appB anomaly condition'),
+    ('book/The-Incompleteness-of-Observation-FULL.md', '(A1) is automatically satisfied', 'unrelated label', 'FULL mirror of the appB anomaly condition'),
+    ('verification/lean/edge_rigidity_probe.py', None, 'guard pins', 'R7 guard: pins of frozen records\' text, of kernel identifiers and of forbidden phrases; every pin the edits break is updated by a guard-pin edit (pins check)'),
+    ('verification/lean/bohr_frequency_probe.py', None, 'guard pins', 'guard F71: pins and messages; updated by guard-pin edits (pins check)'),
+    # kernel-predicate prose: the Lean predicate named A1 (finiteness of the configuration space); resolved by the
+    # owner's rename decision R-1 (renamed, or written "the finiteness predicate `A1`"); --final rejects this class
+    ('verification/README.md', 'A1, A2 and A5 are stated', 'pending R-1', 'kernel predicates A1, A2, A5 of `Substratum`'),
+    ('verification/README.md', 'satisfies A1–A5 as stated', 'pending R-1', 'kernel predicates of `waveSubstratum`'),
+    ('verification/README.md', '`HB0`: A1, A2, A3 with', 'pending R-1', 'kernel predicates of `hexSubstratum`'),
+    ('verification/README.md', 'A1–A4, ¬A5 class', 'pending R-1', 'the kernel class of predicates A1–A4 without A5'),
+    ('verification/lean-manuscript-census.json', 'with A1, A2, A5 stated', 'pending R-1', 'kernel predicates (note of the substratum-interface family)'),
+    ('verification/lean-manuscript-census.json', 'A1 fails at L = 0', 'pending R-1', 'kernel predicate in the waveZ_not_A1 control'),
+    ('verification/lean-manuscript-census.json', 'HB0: A1, A2, A3', 'pending R-1', 'kernel predicates of hexSubstratum'),
+    ('verification/lean-manuscript-census.json', 'put the carrier against A1-A5', 'pending R-1', 'kernel predicates of the packaged carrier'),
+    ('verification/lean-manuscript-census.json', '"name": "manuscript axioms A1-A6"', 'pending R-C', 'registry family name (§A.35 identifier)'),
+    ('verification/lean-mathlib/OIBridge/A6Instantiation.lean', '**`PK3-a` — A1**', 'pending R-1', 'docstring heading of pk3a_A1'),
+    ('verification/lean-mathlib/OIBridge/A6Instantiation.lean', 'NOT A SUBSTRATUM SATISFYING A1', 'pending R-1', 'docstring of cx3b_complex_not_A1'),
+    ('verification/lean-mathlib/OIBridge/HexLatticeGas.lean', 'A1–A4, ¬A5 class', 'pending R-1', 'the kernel class A1–A4 without A5 (pinned by the R7 guard)'),
+    ('verification/lean-mathlib/OIBridge/HexLatticeGas.lean', '**`HB0-a` — A1**', 'pending R-1', 'docstring heading of hexSubstratum_A1'),
+]
+
+
+def classify(path, line):
+    if path.startswith(HISTORICAL_PREFIX) or path in HISTORICAL_FILE:
+        return 'historical record', 'preserved (frozen or landed record; Git history)'
+    if (path.startswith('papers/') or path.startswith('book/')) and path.endswith(('.tex', '.pdf')):
+        return 'generated artifact', 'regenerated by build.sh from the edited sources'
+    for pth, sub, cls, why in EXPLAINED:
+        if (path == pth or (pth.endswith('/') and path.startswith(pth))) and (sub is None or sub in line):
+            return cls, why
+    rest = IDENT.sub('', line)
+    if not REPO_PAT.search(rest):
+        return 'kernel identifier', 'names a Lean declaration for the finiteness predicate or a programme; kept pending the rename decision (PREREG §22)'
+    if path.startswith('papers/') or path.startswith('book/'):
+        return 'manuscript', 'rewritten by the edit list'
+    return 'unexplained', ''
+
+
+def repo_scan(data, src, simulate, quiet=False, final=False):
+    say = (lambda *a: None) if quiet else print
+    files = src.all_files()
+    edited = apply_edits(data, src.read) if simulate else {}
+    tally, unexpl = {}, []
+    for f in files:
+        try:
+            t = edited[f] if f in edited else src.read(f)
+        except (SystemExit, UnicodeDecodeError):
+            continue
+        for i, line in enumerate(t.split('\n'), 1):
+            if REPO_PAT.search(line):
+                cls, why = classify(f, line)
+                area = f.split('/')[0] if '/' in f else f
+                tally[(cls, area)] = tally.get((cls, area), 0) + 1
+                if cls in ('unexplained', 'manuscript') or (final and cls.startswith('pending')):
+                    unexpl.append('%s:%d [%s] %s' % (f, i, cls, line.strip()[:120]))
+    say('repository-wide scan (%s): lines by class and area' % ('after the edits, in memory' if simulate else 'as is'))
+    for (c, a), n in sorted(tally.items()):
+        say('  %-20s %-14s %d' % (c, a, n))
+    say('repository-wide scan: %d unexplained lines' % len(unexpl))
+    for x in unexpl:
+        say('  UNEXPLAINED ' + x)
+    return not unexpl, tally
 
 
 def self_test():
@@ -532,6 +818,40 @@ def self_test():
         d6 = {'edits': [E('W3', 'a set (finite under A1).', s_)]}
         expect(not check(d6, Source(fn=lambda p: 'a set (finite under A1).', files=['x']), True, True),
                'a weak marker does not exempt: %s' % s_)
+    # H-11 countercontrols: docstring-only edits of a Lean file
+    lean_src = '/-! Module doc: assumptions A1–A6 of the paper. -/\n/-- Doc of A1Realized. -/\ndef A1Realized : Prop := True -- note\n'
+    ok_e = {'edits': [dict(id='L1', kind='lean-docstring', file='m.lean', old='assumptions A1–A6 of the paper',
+                           new='assumptions A1–A6 of the paper at commit X')]}
+    expect(not lean_check(ok_e, lambda p: lean_src), 'a Lean edit inside a doc comment passes the docstring-only check')
+    bad_e = {'edits': [dict(id='L2', kind='lean-docstring', file='m.lean', old='def A1Realized : Prop := True',
+                            new='def A1Realized : Prop := False')]}
+    expect(bool(lean_check(bad_e, lambda p: lean_src)), 'a Lean edit to a definition is caught')
+    ren_e = {'edits': [dict(id='L3', kind='lean-docstring', file='m.lean', old='def A1Realized', new='def FinRealized')]}
+    expect(bool(lean_check(ren_e, lambda p: lean_src)), 'renaming a Lean identifier is caught')
+    esc_e = {'edits': [dict(id='L4', kind='lean-docstring', file='m.lean', old='of the paper.', new='of the paper. -/ def x := 1 /-')]}
+    expect(bool(lean_check(esc_e, lambda p: lean_src)), 'a replacement that closes the comment is caught')
+    # configuration-space sentence and repository-wide scan countercontrols
+    expect(not static_new({'edits': [E('CS', 'x', CS_SENTENCE)]})[0], 'the approved configuration-space sentence is not an infinity assertion')
+    expect(bool(static_new({'edits': [E('CS2', 'x', CS_SENTENCE + ' Here S is infinite.')]})[0]), '"S is infinite" is still flagged next to it')
+    expect(bool(sim_preservation({'papers/Main.md': 'no sentence', 'papers/Substratum.md': CS_SENTENCE})), 'a missing sentence or finite scope is caught')
+    expect(bool(sim_preservation({'papers/Main.md': CS_SENTENCE * 2})), 'a duplicated sentence is caught')
+    expect(classify('verification/README.md', 'whose A1–A6 are not `DerivedOI`')[0] == 'unexplained', 'an active prose A1 hit is unexplained')
+    expect(classify('verification/audits/x/RESULT.md', 'A1 is open')[0] == 'historical record', 'a record hit is historical')
+    expect(classify('verification/README.md', 'proved by `waveSubstratum_A1`')[0] == 'kernel identifier', 'an identifier-only hit is a kernel identifier')
+    expect(classify('AGENTS.md', 'including total finiteness (A1)')[0] == 'unexplained', 'the rules document is not exempt')
+    expect(classify('papers/Main.tex', 'A1')[0] == 'generated artifact', 'generated TeX is regenerated')
+    expect(classify('verification/README.md', 'the A1–A4, ¬A5 class')[0] == 'pending R-1', 'kernel-predicate prose is pending the rename decision')
+    rs3 = Source(fn=lambda pth: 'the A1–A4, ¬A5 class', files=['verification/README.md'])
+    rs3.all_files = lambda: ['verification/README.md']
+    expect(repo_scan({'edits': []}, rs3, False, True)[0] and not repo_scan({'edits': []}, rs3, False, True, final=True)[0],
+           '--final rejects lines pending an owner decision')
+    rs = Source(fn=lambda pth: {'a.md': 'Total finiteness is assumed.', 'verification/audits/r.md': 'A1 open'}[pth], files=['a.md'])
+    rs.all_files = lambda: ['a.md', 'verification/audits/r.md']
+    expect(not repo_scan({'edits': []}, rs, False, True)[0], 'the repository scan reports an unexplained active hit')
+    rs2 = Source(fn=lambda pth: {'a.md': 'Total finiteness is assumed.', 'verification/audits/r.md': 'A1 open'}[pth], files=['a.md'])
+    rs2.all_files = lambda: ['a.md', 'verification/audits/r.md']
+    expect(repo_scan({'edits': [dict(id='Z', kind='repo-active', file='a.md', site='a.md:1', part=1, mirror_of=None, old='Total finiteness is assumed.', new='Nothing.')]}, rs2, True, True)[0],
+           'the repository scan passes once the edit is applied in memory')
     # round-4 countercontrol: a bare "on a finite" does not scope a sentence
     s_ = 'a deterministic bijection on a finite configuration space, an open matter for physics.'
     d7 = {'edits': [E('W4', 'a set (finite under A1).', s_)]}
@@ -548,6 +868,9 @@ def main():
     ap.add_argument('--simulate', action='store_true')
     ap.add_argument('--static', action='store_true')
     ap.add_argument('--self-test', action='store_true')
+    ap.add_argument('--pins', action='store_true', help='check pins of tracked checks at --commit (or the drafting base)')
+    ap.add_argument('--repo-scan', action='store_true', help='repository-wide scan of --commit (with --simulate: after the edits)')
+    ap.add_argument('--final', action='store_true', help='with --repo-scan: lines pending an owner decision count as unexplained')
     a = ap.parse_args()
     if a.self_test:
         sys.exit(0 if self_test() else 1)
@@ -555,8 +878,16 @@ def main():
     ok = True
     if a.static:
         ok = static(data) and ok
-    if a.commit or a.tree:
-        ok = check(data, Source(commit=a.commit, tree=a.tree), a.simulate) and ok
+    if a.pins:
+        ok = pins_check(data, a.commit or data['drafting_base']) and ok
+    if a.repo_scan:
+        src = Source(commit=a.commit or data['drafting_base'], tree=a.tree)
+        src.fallback = data.get('drafting_base')
+        ok = repo_scan(data, src, a.simulate, final=a.final)[0] and ok
+    elif a.commit or a.tree:
+        src = Source(commit=a.commit, tree=a.tree)
+        src.fallback = data.get('drafting_base')
+        ok = check(data, src, a.simulate) and ok
     print('RESULT ' + ('PASS' if ok else 'FAIL'))
     sys.exit(0 if ok else 1)
 
