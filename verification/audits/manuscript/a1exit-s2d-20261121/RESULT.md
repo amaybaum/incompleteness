@@ -84,7 +84,7 @@ I re-grepped `papers/*.md` and `book/*.md` (FULL included) after the edits:
 | "Equilibrium-Phase", "non-equilibrium-phase", "perpetual equilibrium", "confinement to", "restricts observers", "in its equilibrium macrostate" | 0 | — |
 | "past hypothesis" | 2 | Sub:56 (E6, stated open); Cx:212 (S2-E) |
 | "observer-free" | 1 | Sub:542 (E8, region form) |
-| "fast-mixing regions" (any case) | 4 | M:748, Sub:542, ch04:178, FULL:1282 (new) |
+| "fast-mixing regions" (any case) | 5 | M:171 (E19), M:748, Sub:542, ch04:178, FULL:1282 (new) |
 
 - **Book mirrors.** ch02:192 ↔ FULL:822 and ch04:178 ↔ FULL:1282 are byte-identical after the edits.
 - **Other books, appendices and glossary.** The Main, Substratum and Structure sites have no restatement
@@ -121,7 +121,7 @@ is recurrent under A1 (§18.7)") concerns recurrence versus effective relaxation
 finiteness to exclude an incoming stream.
 
 **Meth:283, Meth:441 (X-63 Q3 sites).** Both state the region-level exclusion without a phase
-conclusion. The same holds for ch03:58, ch04:36 and Sub:407. No change is proposed.
+conclusion. The same holds for ch03:58 and ch04:36. No change is proposed for any of these. At Sub:407 only the region-level clause is kept as it stands; E20 edits its last sentence.
 
 ## 4. Builds
 
@@ -170,7 +170,7 @@ committed with the source.
 - **Precedent.** The file was regenerated after earlier manuscript edits (`3a65b9ab`, `bb39f262`,
   `0748b0be`, `e2c04e8d`). The file is not listed in `legacy-records.json`.
 - **Authorization.** The owner approved the regeneration as a narrowly scoped CI repair (`amaybaum`,
-  2026-11-21, recorded on #1169, relayed by the coordinating session). The approval requires a
+  2026-11-21, #1169 comment 7057200720, https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7057200720). The approval requires a
   deterministic regeneration from the updated book source, the checker run normally and with `-O`, a
   diff at line 3003 only, and an unchanged controls file.
 - **Commands.** Run from the repository root, with
