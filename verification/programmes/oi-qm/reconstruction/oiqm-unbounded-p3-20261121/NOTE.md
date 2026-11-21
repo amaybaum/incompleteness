@@ -24,26 +24,27 @@ before any derivation at `7b99fff5`. Issue #1500. PR #1521, stacked on #1516 at 
 
 | Question | Outcome | Layer tags |
 |---|---|---|
-| Operational completeness of C-T with bounded readout duration, across the tower | **OBSTRUCTION**, (I) on (xiv) (Proposition B) | ont, op, E |
-| Operational soundness of a native realization | **OBSTRUCTION** to every selector from the listed structural premises (Proposition S). The premise it cannot do without is a quantum-correlation selector, and none is native. | ont, op, E |
-| Operational completeness under A5 with linear readout functions, at any delay | **OBSTRUCTION**, (I) on (xiv) (Lemma L, X). The premise it cannot do without is a nonlinear readout function or nonlinear dynamics. | ont, op, E |
-| D-W against C-T | **PASS in sketch, (I)**, at the price of an imported trace rule and readout delay that grows with separation (§4) | ont, op, In |
+| Operational completeness of C-T with one fixed readout duration, across the tower, on a fixed locally finite coupling graph | **OBSTRUCTION**, (I) on (xiv) (Proposition B). The delay is measured in coupling-graph distance, and only one wing must wait. | ont, op, E |
+| Operational soundness from the listed structural premises | **OBSTRUCTION, sketch** (Proposition S; CONFIRMING Main:366/:437 and Toner–Bacon). Those premises admit PR laws, so a quantum-correlation selector is needed. None is identified here. | ont, op, E |
+| Operational completeness under A5 (`q = 2`) with linear readouts and linear setting interventions, at any delay | **OBSTRUCTION**, (I) on (xiv) (Lemma L, X). It is escaped by a nonlinear readout function, nonlinear dynamics, a nonlinear setting intervention, or dropping (xiv). | ont, op, E |
+| D-W against C-T | **PASS in sketch, (I), conditional on lattice D-W, which #1516 §5.3 leaves INCONCLUSIVE.** It imports the trace rule, and one wing's delay must reach the graph distance (§4). | ont, op, In |
 | A native operationally sound and complete realization | **INCONCLUSIVE** | — |
 
 **Main finding.** Scaling, not size, creates the operational difficulty. The tower contains region pairs
 at every separation, and C-T carries Tsirelson correlations at every separation. On a finite-range
 ontic layer under (xiv):
 
-- reproducing them forces readout delay at least of the order of the separation (B);
+- on a fixed locally finite coupling graph, reproducing them leaves no fixed duration serving every
+  pair (B). Only one wing waits, and the delay is measured in graph distance, not lattice separation;
 - the freedom that permits the delay also realizes laws outside C-T (S).
 
 Operational soundness and completeness at scale therefore need a premise that bounds correlations at the
-quantum set. Finite range, determinism, (xiv) and operational no-signalling do not supply it. D-W
-supplies it only by computing the trace rule.
+quantum set. Finite range, determinism, (xiv) and operational no-signalling do not supply it, as Main
+already states (Main:366, :437). D-W supplies it, in sketch, only by computing the trace rule.
 
 ## 1. N1: C-T at every separation (Born; ty; In; X; (I) as C-T)
 
-Fix sites `a, b` at graph distance `D` on the binary tower. Within one C-T family on a stage that
+Fix sites `a, b` at lattice distance `D` on the binary tower. Within one C-T family on a stage that
 contains `a`, `b` and a path between them:
 
 1. Prepare `|Φ⁺⟩` on adjacent sites. This uses H by CC-1 and then CNOT.
@@ -69,13 +70,24 @@ Durations enter only at the ontic layer (§2).
   `k_A` (`k_B`) updates after the setting;
 - (iv) (xiv), `p(Ω | x, y) = p(Ω)`.
 
+The distance `d` below is the coupling-graph distance.
+
 **Claim.** Suppose the realization reproduces C-T's wing laws for the family of §1 exactly, or with
 CHSH above 2. Then
 
     k_A ≥ d(B, R_A)   or   k_B ≥ d(A, R_B).
 
-Since `R_A` is the wing-`a` readout, `d(B, R_A) ≥ D − diam(A ∪ R_A)`. **Over the tower `D` is unbounded,
-so the readout delay is unbounded.** No fixed readout duration serves every size.
+Here `d` is the distance in the coupling graph `G_φ` of the actual dynamics (Main §3.3), not lattice
+separation. **Only one wing must wait.** The adopted branch (Main §3.3(a), Main:418) admits
+bounded-degree long edges and preparation-indexed adjacency. So the delay is not forced to grow
+linearly in lattice separation. What survives is the following.
+
+- **For a fixed locally finite coupling graph,** a fixed wing region `A` lies within graph distance
+  `k` of only finitely many sites. As `B` ranges over the tower, a single readout duration `k` therefore
+  serves only finitely many pairs. **No fixed duration serves every pair.**
+- **Under preparation-indexed adjacency,** a Bell preparation may itself supply a long edge between `A`
+  and `B`. In that case B places no growth requirement on the duration. It constrains only the graph
+  distance that the preparation must bridge.
 
 **Proof.** Suppose instead that `k_A < d(B, R_A)` and `k_B < d(A, R_B)`.
 
@@ -92,13 +104,13 @@ so the readout delay is unbounded.** No fixed readout duration serves every size
   realizes even the PR box.
 
 **Relation to V.** V (countable `ι`, (xiv)) forces configuration-dependent single-system readouts over a
-continuum of settings. B forces delay linear in separation for two-region laws. B uses no countability.
+continuum of settings. B forces one wing's delay to reach the coupling-graph distance, for two-region laws. B uses no countability.
 The two are independent obstructions with a common premise, (xiv).
 
 **Classification.** ELABORATING: Main's Bell ceiling applied along the tower. Gem under PLAN (b), since it
 is scaling-specific and each premise is shown load-bearing.
 
-## 3. N3: Proposition S, soundness at scale (ont; op; E; P, sketch; (I) on the rule)
+## 3. N3: Proposition S, soundness at scale (ont; op; E; P, sketch; (I) on the rule; CONFIRMING)
 
 **Claim.** Some realization satisfies all of the following, together with the delay `k_A ≥ D` that B
 requires, and still produces a record law outside C-T's laws (the PR box, CHSH = 4):
@@ -124,8 +136,11 @@ The record law satisfies:
 - `a ⊕ b = x·y`;
 - both marginals are uniform for every setting pair, so operational no-signalling holds.
 
-This is Main §3.3's remark that coupled setting-dependent dynamics realizes PR boxes, made local by
-the delay that B forces.
+Main already states this: global setting-dependent dynamics realizes PR boxes (Main:366), and so does
+the finite response construction under ontic parameter dependence (Main:418, :437). The construction is
+the standard one-bit-of-communication simulation of a PR box. The one bit `y` travels from B to A (cf.
+Toner and Bacon, PRL 91, 187904 (2003), for one-bit simulation of singlet correlations). The note adds
+only the placement on the tower, with the delay of B.
 
 *What the sketch needs.*
 - A finite-range bijection that carries `y` to A.
@@ -157,8 +172,15 @@ the delay that B forces.
 *Consequences.*
 - Under A5 with linear readout functions, neither PR laws nor Tsirelson laws arise at any delay. So
   operational completeness of C-T's two-region laws fails whatever the readout time.
-- The premise that cannot be dropped is a **nonlinear readout function** (or nonlinear dynamics). S's
-  A5 route is the countermodel.
+- *Scope.* The lemma is for `q = 2` only: binary outcomes, GF(2)-linear update.
+- Each of the following escapes the lemma, so each can be dropped to escape it:
+  - a nonlinear readout function (S's A5 route is the countermodel);
+  - nonlinear dynamics;
+  - a nonlinear setting intervention, one writing a nonlinear function of `x` and the local
+    configuration;
+  - dropping (xiv) (the countermodel of B).
+
+  The lemma needs all four to be absent.
 - This settles, for linear readouts, the question of whether linearity excludes PR laws.
 - Whether nonlinear readouts under A5 reach exactly the Tsirelson set, and not beyond it, is open.
 
@@ -166,13 +188,13 @@ the delay that B forces.
 `{finite range, determinism, (xiv), no-signalling, local settings}` that restricts correlations to the
 quantum set.
 
-- No such native premise is identified.
+- No such premise is identified in this note. Whether OI supplies one natively is not decided here.
 - Known information-theoretic candidates do not recover the quantum set exactly in general:
   - information causality (Pawłowski et al., Nature 461, 1101 (2009));
   - macroscopic locality (Navascués and Wunderlich, Proc. R. Soc. A 466, 881 (2010)).
 - That no-signalling alone admits PR boxes is Popescu and Rohrlich, Found. Phys. 24, 379 (1994).
 
-**Classification.** ELABORATING, as a corollary of Main §3.3 combined with B. Gem under PLAN (d): it exposes
+**Classification.** CONFIRMING: Main:366/:437 and Toner–Bacon, placed on the tower. Under PLAN (d) it exposes
 that operational soundness at scale is a separate obligation from completeness. Bounded-duration
 locality gives soundness without completeness, and the delay needed for completeness removes the
 locality that gave soundness.
@@ -198,16 +220,20 @@ finite-range channels.
 | V's readout | met in sketch | The seeds are non-atomic and are read configuration-dependently (#1516 §5.3, INCONCLUSIVE). |
 | (xiv) | holds | The seed law is independent of the program, by EP:79 isolation (GA §2.2). |
 
-**Verdict.** PASS in sketch, (I).
+**Verdict.** PASS in sketch, (I), **conditional on lattice D-W**: its universal reversible rule and its
+readout reach, both of which #1516 §5.3 leaves INCONCLUSIVE.
 
 - **Imports:**
   - TR: the register stores the density matrix and applies the trace rule. This is the quantum set
     supplied by hand, and it is exactly S's missing selector.
   - A universal reversible finite-range rule, which conflicts with A5.
   - INF.
-- **D-W is a countermodel to "C-T cannot scale operationally".** What is obstructed is only bounded
-  duration (B) and soundness without a selector (S).
-- **D-W meets C-T's operational clauses without any coherence pair at the Born layer** (#1516 §4: D-W
+- **Conditional countermodel.** If lattice D-W exists as sketched, it is a countermodel to "C-T
+  cannot scale operationally", and what is obstructed is only fixed duration on a fixed graph (B) and
+  soundness without a selector (S). Until lattice D-W is settled, it is a candidate, not a
+  countermodel.
+- **D-W would meet C-T's operational clauses, in sketch and conditionally, without any coherence pair
+  at the Born layer** (#1516 §4: D-W
   fails the Born-layer pair). The operational and Born layers therefore come apart at scale exactly as
   they do at fixed size.
 
@@ -219,9 +245,9 @@ finite-range channels.
 |---|---|---|---|
 | N1: Tsirelson at every separation | Born, ty, In | (I) as C-T | X |
 | Proposition B, with its two countermodels | ont, op, E | (I) on (xiv); native finite range | P |
-| Proposition S | ont, op, E | (I) on a nonlinear rule or a nonlinear readout function | P, sketch |
+| Proposition S | ont, op, E | (I) on a nonlinear rule or a nonlinear readout function | P, sketch; CONFIRMING |
 | Lemma L | ont, op, E | (I) on (xiv); A5 native | X |
-| D-W test | ont, op, In | (I) on TR, rule, INF | P, sketch |
+| D-W test | ont, op, In | (I) on TR, rule, INF; conditional on lattice D-W | P, sketch |
 
 **Assumed** (where each enters):
 
@@ -243,8 +269,12 @@ matrix algebra.
 - **Mathematics:** whether nonlinear readout functions under A5 reach exactly the Tsirelson set.
   Lattice D-W's rule and reach. Whether the selected rule has a nonzero `D`-step coefficient (S, A5
   route).
-- **Owner:** whether the ontic Bell branch with parameter dependence (Main §3.2–3.3, the adopted branch)
-  is to be paired with a stated selector, or left as an open obligation. Recurrence stays routed (#1504
+- **Owner, relative to H-Bell** (ROADMAP:77, open). The adopted branch is ontic parameter dependence,
+  Main §3.3(a), Main:418. It realizes the response dependence through preparation-indexed adjacency
+  (bounded-degree long edges). Main:437 already records its operational no-signalling as an open H-Bell
+  obligation. The question is whether H-Bell should also carry, as a named obligation, a selector
+  confining that branch's record laws to the quantum set: S shows the branch admits PR laws without
+  one. Recurrence stays routed (#1504
   AW-U3).
 
 **Productivity verdict.** Gem under (b), for B and for Lemma L with its countermodel; (c), for the D-W
