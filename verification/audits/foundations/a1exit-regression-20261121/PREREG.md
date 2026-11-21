@@ -122,7 +122,7 @@ not detectable without a new site map; that limit is stated in RESULT.
   removed table row (`removed`), an added table row (new), a wording change in a prose site that
   touches no number or term (`text changed`), and an added scope qualifier in a prose site
   (`label changed`).
-- **Scratch-copy test.** A copy of the pin corpus in the scratchpad with a synthetic edit is compared
+- **Scratch-copy test.** A copy of the pin corpus in a temporary directory outside the repository, with a synthetic edit, is compared
   with `--compare-tree`; its report must show exactly the synthetic changes.
 
 There is no decision rule over manuscript content: this unit records a state and renders no verdict.
