@@ -1440,6 +1440,14 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Theorem B.2.5 (CP-indivisibility).** *The P-indivisibility..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Proof.* The framework's $\\Phi_t$ are permutation dilations ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: with $\\hat{H}_{\\text{eff}} = H_V + \\mathrm{Tr}_H[V_{\\text{in..."
     },
     {
@@ -2232,6 +2240,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The second route is the stochastic–quantum correspondence of..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The Born rule in the fixed-basis representation is therefore..."
     },
     {
@@ -2432,6 +2444,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *(A4) Center independence.* The dynamics does not depend on ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *(A5) Linearity.* The wave equation governing $\\varphi$ is l..."
     },
     {
@@ -2488,7 +2504,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: *(iii) Finite decoupled ancillary enlargement.* Adjoin a fin..."
+      "predicate": "chapter line mirrored in FULL: *(iii) Decoupled ancillary enlargement.* Adjoin a factor of ..."
     },
     {
       "ok": true,
@@ -3000,7 +3016,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: *The equilibrium phase of $(S, \\varphi)$.* Under effective m..."
+      "predicate": "chapter line mirrored in FULL: *Fast-mixing regions of $(S, \\varphi)$.* Under effective mix..."
     },
     {
       "ok": true,
@@ -3061,6 +3077,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: Within A4's assumed periodic-lattice class and the stated co..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Integer dimension.** The self-consistency argument assumes..."
     },
     {
       "ok": true,
@@ -3160,6 +3180,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: where $G_{oo}$ is the hidden-sector propagator: the pointwis..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: On the stated taste-blind color embedding, $\\mathrm{SU}(3)$ ..."
     },
     {
@@ -3229,6 +3253,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: Chapter 5 states the staggered squared-operator identity on ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: One singlet taste; three triplet tastes related by cubic sym..."
     },
     {
       "ok": true,
@@ -7329,6 +7357,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: *The Higgs as inflaton.* The framework accommodates an input..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *No inflation needed.* The framework's lattice structure may..."
     },
     {
       "ok": true,

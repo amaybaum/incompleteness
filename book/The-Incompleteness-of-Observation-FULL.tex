@@ -1944,7 +1944,11 @@ matrix contracts total variation), so none exists. \(\square\) On a
 finite representative Step 1 of the proof above supplies the condition
 (NR) at every multiple of \(N\) exceeding \(s\). The condition (NR)
 needs no finite hidden space, invariant law, bijection or period \(N\);
-\(n\) is any time after \(s\) at which its inequality holds.
+\(n\) is any time after \(s\) at which its inequality holds. (NR)
+concerns a time that need not be accessible and then has no
+finite-window test; for the selected update of Main §3.2 on
+\(\mathbb{Z}^d\) no law that is not supported on periodic configurations
+is known to satisfy it.
 
 \textbf{The accessible-timescale lemma.} A potential objection to the
 proof as stated is that the recurrence time \(N\) can be astronomically
@@ -2081,8 +2085,8 @@ important logical point is that the existence of a Hilbert/unitary/Born
 representation does not require P-indivisibility --- every finite
 stochastic law has such a representation. Accessible conditional memory
 instead identifies the memory-bearing sector; indivisibility across the
-recurrence cycle is a separate property, present wherever a rooted
-visible map is not a permutation.
+recurrence cycle is a separate property, present on a finite
+representative wherever a rooted visible map is not a permutation.
 
 The Born rule in the fixed-basis representation is therefore part of the
 representation dictionary, not a selector derived uniquely from C1--C4.
@@ -2243,18 +2247,22 @@ directions of the finite observable-law equivalence.
 memory-bearing. It forces different hidden posteriors for visible
 histories that share a current state but have different future laws, a
 persistence/readback requirement, and the capacity lower bound of C3.
-Without A1, the near-return condition of the corollary in §1.5 is the
-stated sufficient condition for the indivisibility conclusion. Under A1
-the physical representative is finite and reversible, so it also recurs:
-its rooted visible maps, defined for every root under one hidden prior,
-return to the identity, and a non-permutation stochastic matrix has no
-stochastic inverse, so any non-permutation rooted map makes the rooted
-law indivisible somewhere in the recurrence cycle. A C4 gap supplies
-such a map, and so does every non-deterministic visible step, including
-in laws that are Markov on every accessible window. With a full-support
-visible prior, that indivisibility is equivalent to memory at some order
-below the recurrence time; an observer sees the memory only when it
-appears at an accessible order, which is what C4 asserts.
+Without A1, the near-return condition of the corollary in §1.5, assumed
+as a hypothesis and not adopted, is the stated sufficient condition for
+the indivisibility conclusion (it concerns a time that need not be
+accessible and then has no finite-window test; for the selected update
+of Main §3.2 on \(\mathbb{Z}^d\) no law that is not supported on
+periodic configurations is known to satisfy it). Under A1 the physical
+representative is finite and reversible, so it also recurs: its rooted
+visible maps, defined for every root under one hidden prior, return to
+the identity, and a non-permutation stochastic matrix has no stochastic
+inverse, so any non-permutation rooted map makes the rooted law
+indivisible somewhere in the recurrence cycle. A C4 gap supplies such a
+map, and so does every non-deterministic visible step, including in laws
+that are Markov on every accessible window. With a full-support visible
+prior, that indivisibility is equivalent to memory at some order below
+the recurrence time; an observer sees the memory only when it appears at
+an accessible order, which is what C4 asserts.
 
 \textbf{Spatial extension.} The dependency graph supplies finite causal
 cones exactly for finite-range substrata. Bell adds a separate
@@ -3135,12 +3143,14 @@ description.
 
 \emph{(A4) Center independence.} The dynamics does not depend on a
 choice of preferred site or origin: \(\varphi\) commutes with lattice
-translations up to gauge (the coupling graph is a finite periodic
-lattice, the quotient of a rank-\(d\) lattice by a finite-index
-sublattice, \(d\) being its dimension), and the update at a site
-contains no explicit copy of that site's present value. The second
-property is what the derivation of the wave equation in Stage 2 below
-uses.
+translations up to gauge (the coupling graph is the discrete lattice
+\(\mathbb{Z}^d\), \(d\) being its dimension, as the standard
+construction, distinct from a continuous space; a finite periodic
+quotient \(\mathbb{Z}^d/P\) by a finite-index sublattice \(P\) is
+admitted as a qualified case, under the conditions on \(P\) stated with
+each result that uses it), and the update at a site contains no explicit
+copy of that site's present value. The second property is what the
+derivation of the wave equation in Stage 2 below uses.
 
 \emph{(A5) Linearity.} The wave equation governing \(\varphi\) is
 linear. The affine characterization uses the stipulated
@@ -3218,11 +3228,12 @@ symmetries have their further hypotheses stated at the corresponding
 steps.
 
 The dimension argument follows the three-filter convergence described
-above. Under A4 the coupling graph is a finite periodic lattice of some
-integer dimension \(d\), an input of the assumption; statistical
-isotropy (E4) alone would not supply it. The filters E5--E7 then select
-\(d = 3\) on the stated continuum branch; they do not supply the
-integer-rank lattice assumption itself.
+above. Under A4 the coupling graph is the lattice \(\mathbb{Z}^d\) or,
+as a qualified case, a finite periodic quotient of it, of some integer
+dimension \(d\), an input of the assumption; statistical isotropy (E4)
+alone would not supply it. The filters E5--E7 then select \(d = 3\) on
+the stated continuum branch; they do not supply the integer-rank lattice
+assumption itself.
 
 The wave equation follows from center independence (A4), isotropy (E4),
 and linearity (A5), together with the nearest-neighbor restriction (an
@@ -3422,18 +3433,21 @@ local states; some results hold for every \(q \geq 2\) and others carry
 \(q\) (Chapter 5). This family is parametrized by the integers
 \(q \geq 2\).
 
-\emph{(iii) Finite decoupled ancillary enlargement.} Adjoin a finite
-factor to the deep hidden sector, prepare it independently in a
+\emph{(iii) Decoupled ancillary enlargement.} Adjoin a factor of any
+dimension to the deep hidden sector, prepare it independently in a
 normalized density matrix, and keep its dynamics exactly decoupled from
-the original system. At the fixed visible/hidden interface, tracing out
-the factor preserves the full original coherent-channel family and
-therefore every rooted population law {[}Substratum Theorem 24(iii){]}.
-This is stronger than a population-only assertion. Infinite factors
-require a separately specified normalized state or measure and
-well-defined dynamics; finite uniform counting does not supply that
-extension. Enlargements coupled under the influence bound H-BD instead
-change the law by the correction stated in Chapter 7 and preserve only
-its leading-order accessible-time description.
+the original system, as any unitary or isometry of the factor. At the
+fixed visible/hidden interface, tracing out the factor preserves the
+full original coherent-channel family and therefore every rooted
+population law {[}Substratum Theorem 24(iii){]}. This is stronger than a
+population-only assertion. A classical factor with a probability law and
+any measurable dynamics likewise preserves the channel family, read as
+the mixture over hidden points of {[}Main §3.2{]}, and every rooted
+population law. The identity uses the factor's normalization: an
+infinite factor under uniform counting has none and is not covered.
+Enlargements coupled under the influence bound H-BD instead change the
+law by the correction stated in Chapter 7 and preserve only its
+leading-order accessible-time description.
 
 \emph{(iv) Graph isomorphism (up to statistical isotropy), with a
 gauge-sector qualification.} Two coupling graphs \(G_\varphi\) and
@@ -3680,17 +3694,18 @@ theorem developed in Chapter 1's appendix material for a finite
 bijective model --- under the effective-mixing hypothesis, for
 sufficiently fast-mixing equilibria (\(\tau_{\rm mix} \ll \tau_S\)), and
 in the coarse-grained description generated by iterating the one-step
-effective channel ({[}Main §4.6{]}) --- restricts observers satisfying
+effective channel ({[}Main §4.6{]}) --- excludes observers satisfying
 C1--C4, with C2 read in its timescale form (record persistence and
-readback there being suppressed, not excluded), to the non-equilibrium
-phase of \((S, \varphi)\); the restriction is time-symmetric and selects
-where observers can exist, not a direction. On an expanding cosmological
-background satisfying the null energy condition --- inputs, not derived
---- the area \(A(t)\) of the apparent horizon, and the horizon entropy
-\(S_{\text{dS}}(t) = A(t)/(4\ell_P^2)\) assigned to it at the de Sitter
-calibration, is non-decreasing, strictly increasing while
-\(\rho + p/c^2 > 0\) and constant in exact de Sitter. That the selected
-non-equilibrium phase is ordered by this growth is not established.
+readback there being suppressed, not excluded), from regions whose
+effective channel mixes that fast; the exclusion is time-symmetric and
+selects where observers can exist, not a direction. On an expanding
+cosmological background satisfying the null energy condition --- inputs,
+not derived --- the area \(A(t)\) of the apparent horizon, and the
+horizon entropy \(S_{\text{dS}}(t) = A(t)/(4\ell_P^2)\) assigned to it
+at the de Sitter calibration, is non-decreasing, strictly increasing
+while \(\rho + p/c^2 > 0\) and constant in exact de Sitter. That the
+regions where observers can exist are ordered by this growth is not
+established.
 
 The apparent-horizon area provides a structural clock on that
 background. Every comoving observer of an expanding homogeneous
@@ -6226,7 +6241,7 @@ inputs. The cosmological application proposes a retention time
 before a stable partition forms would require a model of the relevant
 preparation, channel and readout.
 
-\emph{The equilibrium phase of \((S, \varphi)\).} Under effective mixing
+\emph{Fast-mixing regions of \((S, \varphi)\).} Under effective mixing
 and \(\tau_{\rm mix}\ll\tau_S\), bounded-diameter partitions fail
 C2-slow in the coarse-grained description generated by iterating the
 one-step channel. Under uniform erosion the same model gives exponential
@@ -6773,9 +6788,10 @@ bounded-degree graph need not have one: besides exponential growth
 integer-polynomial growth (\(|B(r)| \sim r^d\) for some integer \(d\)),
 there are graphs of intermediate growth (Grigorchuk) and graphs with no
 single growth exponent. Under A4 (Chapter 2) the integer is an input:
-the coupling graph is a finite periodic lattice, the quotient of a
-rank-\(d\) lattice by a finite-index sublattice, so \(|B(r)| \sim r^d\)
-below the system size and none of the other classes arises.
+the coupling graph is the discrete lattice \(\mathbb Z^d\) or, as a
+qualified case, a finite periodic quotient \(\mathbb Z^d/P\) by a
+finite-index sublattice \(P\), so \(|B(r)| \sim r^d\) (on a quotient,
+below the system size) and none of the other classes arises.
 Independently, self-consistency excludes the first two classes.
 
 Exponential growth fails because the wave equation on
@@ -6861,7 +6877,11 @@ the squared operator gives the associated two-step lattice operator,
 §4.2. Solutions of \(D_{\text{st}}\chi=0\) therefore satisfy
 \(\Box_{\text{lat}}\chi=0\). Matching the blocked stencil and solution
 classes to the normalized nearest-neighbor observer wave above is a
-separate step.
+separate step. On a finite periodic quotient of \(\mathbb Z^3\) (Chapter
+2, A4), the staggered phases and this two-step identity require every
+period vector to be even off one and the same axis; the blocked stencil,
+the hypercube corners and the spin--taste grading used below require the
+period vectors to lie in \(2\mathbb Z^3\).
 
 The spin--taste algebra on the stated staggered branch is used in
 Chapter 6. The physical fermion identification and the map from the
@@ -7124,10 +7144,14 @@ procedure in lattice quantum field theory --- produces an effective
 action whose external legs lie in the visible half of the spin⊗taste
 space, where spin- and taste-chirality coincide:
 \[\mathcal{L}_{\text{eff}} = \bar\psi_+\,(D_{eo}\,G_{oo}\,D_{oe})\,\psi_+ + \cdots,\]
-where \(G_{oo}\) is the hidden-sector propagator. The hidden-grade
-components appear only as internal lines; the observable external states
-carry both spin chiralities, graded so that spin chirality equals taste
-chirality.
+where \(G_{oo}\) is the hidden-sector propagator: the pointwise inverse
+of the hidden block when that block is site-diagonal (the free and
+onsite case), which requires its diagonal entries to be nonzero; when a
+taste-asymmetric structure of the H-χ' kind makes the block
+off-diagonal, the step requires it to be boundedly invertible on
+\(\ell^2\) of the odd sublattice. The hidden-grade components appear
+only as internal lines; the observable external states carry both spin
+chiralities, graded so that spin chirality equals taste chirality.
 
 The two gauge factors couple differently to this graded effective
 theory. The \(\mathrm{SU}(3)\) factor acts on internal \(T_1\)
@@ -7397,7 +7421,11 @@ signed vector action of the spin-taste matrices \(\gamma^j\); the
 unsigned pair labels alone transform only as \(A_1 \oplus E\), since
 sign flips act trivially on the corner components. The decomposition is
 exact: \[4 = \mathbf{1} \oplus \mathbf{3}.\] One singlet taste; three
-triplet tastes related by cubic symmetry.
+triplet tastes related by cubic symmetry. These are the corners and the
+cubic action of \(\mathbb Z^3\); a finite periodic quotient of it
+(Chapter 2, A4) carries all eight corners when its period vectors lie in
+\(2\mathbb Z^3\), and the cubic group acts on it when it maps the period
+lattice to itself.
 
 \textbf{Spin-statistics from the lattice.} The singlet taste produces a
 spin-0 field; the triplet tastes produce spin-\(1/2\) fields --- the
@@ -20705,13 +20733,14 @@ bijection-specific calculation.
 
 \emph{No inflation needed.} The framework's lattice structure may
 resolve the horizon and flatness problems differently. On a finite
-lattice, the notion of ``causally disconnected regions'' is modified ---
-the lattice's coupling graph determines causal structure, and if the
-initial state of \(\varphi\) is statistically isotropic (one of the
-framework's six structural properties of the bijection), isotropy is
-built in rather than requiring inflation to produce it. This is
-speculative and would require a detailed analysis of the lattice's
-causal structure at early times.
+periodic quotient of \(\mathbb{Z}^3\), a qualified case of A4 (Chapter
+2), the notion of ``causally disconnected regions'' is modified --- the
+lattice's coupling graph determines causal structure, and if the initial
+state of \(\varphi\) is statistically isotropic (one of the framework's
+six structural properties of the bijection), isotropy is built in rather
+than requiring inflation to produce it. This is speculative and would
+require a detailed analysis of the lattice's causal structure at early
+times.
 
 \emph{Initial conditions as gauge.} The deep hidden sector's cardinality
 is gauge in the framework in the cases Chapter 2 §2.3 states. If the
@@ -22548,9 +22577,11 @@ this is the appropriate scope. On a measurable carrier the conclusion
 holds at every step under the invariant-product condition (IP), assumed
 as a hypothesis of this remark and not adopted: \(\varphi\) preserves a
 probability \(\nu \otimes \rho\) on \(\mathcal{C}_V \times H\) with
-\(\nu\) uniform. For the rooted maps \(\Gamma_t\) of the prior \(\rho\),
-as in Chapter 1 §1.5, rows sum to one because \(\rho\) is a probability,
-and
+\(\nu\) uniform. (IP) is a condition on a law on the whole carrier;
+finite-window data can test some of its consequences but cannot
+establish it, and do not distinguish it from a finite carrier's counting
+law. For the rooted maps \(\Gamma_t\) of the prior \(\rho\), as in
+Chapter 1 §1.5, rows sum to one because \(\rho\) is a probability, and
 \(\sum_a \Gamma_t(a, b) = |\mathcal{C}_V|\,(\nu \otimes \rho)(\pi_V \circ \varphi^t = b) = |\mathcal{C}_V|\,\nu(b) = 1\)
 by invariance.
 
@@ -22783,15 +22814,28 @@ channel is entanglement-breaking, as a two-state system with a two-state
 hidden register already shows.
 
 \textbf{Theorem B.2.5 (CP-indivisibility).} \emph{The P-indivisibility
-of the substratum dynamics across its recurrence cycle (from a
-non-permutation rooted map and finiteness) implies CP-indivisibility of
-\(\{\Phi_t\}\): there exist \(t_2 > t_1 > 0\) with no CPTP map
-\(\Lambda\) satisfying \(\Phi_{t_2} = \Lambda \circ \Phi_{t_1}\).}
+of the substratum dynamics (across its recurrence cycle, from a
+non-permutation rooted map and finiteness; or, on a measurable hidden
+carrier, from a non-permutation rooted map and the near-return condition
+(NR) {[}Main §2.3{]}, assumed as a hypothesis and not adopted; (NR)
+concerns a time that need not be accessible and then has no
+finite-window test; for the selected update of Main §3.2 on
+\(\mathbb{Z}^d\) no law that is not supported on periodic configurations
+is known to satisfy it) implies CP-indivisibility of \(\{\Phi_t\}\):
+there exist \(t_2 > t_1 > 0\) with no CPTP map \(\Lambda\) satisfying
+\(\Phi_{t_2} = \Lambda \circ \Phi_{t_1}\).}
 
 \emph{Proof.} The framework's \(\Phi_t\) are permutation dilations with
-uniform ancilla, so they map computational-diagonal states to exactly
+uniform ancilla, or, on a measurable hidden carrier with a
+fibre-injective measurable map \(F^t = (A_t, K_t)\) whose coincidence
+sets are measurable, mixtures over the hidden points \(h\) of the
+channels
+\(|x\rangle\langle y| \mapsto [K_t(x,h) = K_t(y,h)]\,|A_t(x,h)\rangle\langle A_t(y,h)|\)
+{[}Main §3.2{]}, so they map computational-diagonal states to exactly
 diagonal states (a permutation unitary conjugates a diagonal state to a
-diagonal state; the partial trace preserves diagonality). If
+diagonal state; the partial trace preserves diagonality; each mixed
+channel sends \(|x\rangle\langle x|\) to
+\(|A_t(x,h)\rangle\langle A_t(x,h)|\)). If
 \(\Phi_{t_2} = \Lambda \circ \Phi_{t_1}\) with \(\Lambda\) CPTP, then
 \(M_{kj} := \langle j|\Lambda(|k\rangle\langle k|)|j\rangle\) is
 stochastic and, by the diagonality of
@@ -24560,10 +24604,14 @@ assumption of the results that use it, the recurrence route to
 P-indivisibility among them, and one sufficient condition rather than a
 premise of the framework: the indivisibility conclusion of that route
 also follows from the near-return condition of Chapter 1 §1.5, assumed
-in its place and not adopted; the exact representation takes a supplied
-law on a finite alphabet through a finite horizon and constructs its
-finite realization; whether the theorem's empirical applicability
-requires actual finiteness of the universe is a separate question.
+in its place and not adopted (it concerns a time that need not be
+accessible and then has no finite-window test; for the selected update
+of Main §3.2 on \(\mathbb{Z}^d\) no law that is not supported on
+periodic configurations is known to satisfy it); the exact
+representation takes a supplied law on a finite alphabet through a
+finite horizon and constructs its finite realization; whether the
+theorem's empirical applicability requires actual finiteness of the
+universe is a separate question.
 
 \emph{In Chapter 7's gravitational content.} The cosmological horizon's
 finite area bounds what is observationally accessible: the Bekenstein
@@ -27017,4 +27065,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 8350323265ee97e0b4383366fac0234ca96b0349576f01d2941c4d01adf6dd95
+% source-sha256: 2afc3c73a9847270fd92a525f49944c1683a1b3947aee47886773252607de74b
