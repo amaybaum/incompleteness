@@ -35,6 +35,7 @@ occurs exactly once in its file and mirror and no old string survives outside it
 - Only the lattice clause changes. The second sense of A4 (no self-copy), the independence example on
   "a periodic cubic lattice of side at least 3" (a finite example, true as stated), and A1 are untouched.
 - No edited sentence states Theorem 13's Schur-complement result, so X-43's C13 condition has no site here.
+  (Wrong for SM:1532; corrected by amendment 2.)
 
 ## Mirrors (§A.14, §A.25)
 
@@ -166,3 +167,35 @@ they are Q3 sites and go to S2-E as a finding.
 - Finding: X-40: the sentence speaks of "a finite lattice" without marking it as A4's qualified case.
 - Old: `On a finite lattice, the notion`
 - New: `On a finite periodic quotient of $\mathbb{Z}^3$, a qualified case of A4 (Chapter 2), the notion`
+
+## Amendment 2 (2026-11-21): round-1 review B1 and N1
+
+Appended before its edits, in answer to the round-1 review of `88b70e0f` on #1470 (REVISE). Both
+items deviate from Q1's verbatim §7 text and are recorded in RESULT as D2 and D3. Each entry below
+amends the new text of an earlier entry; it is appended to `checks/s2a_edits.json` with an `amends`
+field naming that entry, and `checks/s2a_check.py` checks the amended text.
+
+**Correction to the rules above.** The rules line "No edited sentence states Theorem 13's
+Schur-complement result" is wrong for SM:1532 (E3b): that sentence states a consequence of Theorems
+13 and 15 ('t Hooft anomaly matching). Q1 §3 row C13 classifies Theorem 13 on a quotient as holding
+iff `P ⊂ 2ℤ^3`, and Q1's skew even-sum quotient (even coordinate sums, not in `2ℤ^3`) is a
+countermodel. E3's "even coordinate sum" is therefore too weak at SM:1532. SM:1506 and SM:1536
+assert only the checkerboard and keep E3's text.
+
+### E3b-am2: SM:1532 (amends E3b; D2)
+
+- Finding: B1 (round-1 review); Q1 §3 row C13 against Q1 §7 E3.
+- Old: `commutant structure (on $\Lambda$ and on quotients whose period vectors have even coordinate sum)`
+- New: `commutant structure (on $\Lambda$ and on quotients whose period vectors lie in $2\mathbb Z^3$)`
+
+### E1-am2: SM:222 (amends E1; D3)
+
+- Finding: N1 (round-1 review); Q1 Lemma 1(c) requires one common axis for all period vectors.
+- Old: `require every vector of $P$ to be even off one axis`
+- New: `require every vector of $P$ to be even off one and the same axis`
+
+### E6-am2: ch05:91 = FULL:1406 (amends E6; D3)
+
+- Finding: as E1-am2.
+- Old: `require every period vector to be even off one axis`
+- New: `require every period vector to be even off one and the same axis`
