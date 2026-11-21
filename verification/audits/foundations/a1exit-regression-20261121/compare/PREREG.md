@@ -149,6 +149,12 @@ comparison is after normalization, with whitespace kept, blank lines and a final
   replay-missing item's line, is replaced by those reported H lines, or is the text of a reported
   deleted line or removed entry of that file. A reported change is therefore not counted twice (C5;
   T13f).
+- That account holds only when the hunk's blank-line and line-boundary structure is unchanged (review
+  #1483 c.7063250049, N7). Either neither side of the hunk has a blank line, or both sides have the
+  same number of lines with blank lines in the same positions. Otherwise the hunk is an RX item, even
+  when its non-blank lines are reported. So a blank line inserted before or after a reported line, a
+  paragraph join or a blank-line removal next to it, and an end-of-file change next to it are each an
+  RX item, U and flagged. They are not absorbed into the adjacent reported item (T13g).
 - A hunk of blank lines alone is always an item.
 - An RX item is U unless marked R and resolved, never J, and always flagged.
 - Its notes attribute it to the nearest reported item within three lines, if there is one.
@@ -395,7 +401,7 @@ All must pass, or the verdict is VOID.
 | C1 | `baseline.py check` | exit 0 (snapshot regenerates byte for byte from the pin) |
 | C2 | `baseline.py self-test` | exit 0 |
 | C3 | Baseline against itself: `baseline.py --compare 1c7eedc4…` | exit 0, a fresh `self-compare.json` with no change |
-| C4 | `verdict.py self-test` (T1–T21b, with T13b–T13f, T15b and T20d) | exit 0 |
+| C4 | `verdict.py self-test` (T1–T21b, with T13b–T13g, T15b and T20d) | exit 0 |
 | C5 | Countercontrol for the comparator: H's corpus copied to a temporary directory, one unjustified value change injected (the first unchanged entry of a prediction table, the last digit of its first decimal token), compared with `--compare-tree`, classified with the same `classify.json` | a fresh `injected-compare.json` with `any_change` true reporting the entry `value changed`; the entry is U and the U count is the main U count plus one |
 | C6 | Edit inputs (§4) | (a) `compile-s2` from the records reproduces `edits-s2.json` exactly; (b) every edit is non-empty and not a no-op, of a listed unit with that unit's PR, every component from that unit's allowlisted sources; (c) the replay validation of §4 holds; (d) the landed `edits.json` blob has the approved, pinned digest `DEL_APPROVED_SHA256` (unset or different: VOID), `compile-del` reproduces `edits-del.json` exactly, the deletion commit is an ancestor of H, and the deletion edits applied to its first parent reproduce its manuscript files byte for byte. (d) is not applicable only when H is the pin |
 | C7 | Bad-citation countercontrol: in a copy of H's corpus, the first J item with an after line has one number token outside its cited edits' new strings changed (or, with none, " 0" appended), and the copy is compared and reclassified with the same edits and `classify.json` | that item becomes U, and the U count is the main U count plus one |
@@ -439,7 +445,7 @@ is refused (T20b); C0 rejects a commit that is not the pinned one (T20c).
 | Only the pinned frozen commit is accepted | C0; T20c |
 | Every reported item is classified | `items_of` coverage, unlisted means U; T2, T10 |
 | A landed reviewed change absent from H, or reverted in it, is not passed | replay-missing items; completeness; T21, T21b |
-| No difference from the replayed state anywhere in a file goes unreported, newlines included | file-level exactness items (RX); T13f; T21 |
+| No difference from the replayed state anywhere in a file goes unreported, newlines included, and none is absorbed into an adjacent item | file-level exactness items (RX), unchanged-structure condition; T13f, T13g; T21 |
 | The deletion edits are the approved list, independent of the head under test | `DEL_APPROVED_SHA256` in C6 (d); T15b |
 | A PASS does not settle requirement 6 | `requirement6_settled: false` and the verdict text (§6) |
 
@@ -479,6 +485,9 @@ checkout HEAD; a non-preparation C0 at this PR's head fails, as it must (T20c).
     seven of them (T13e);
   - an inserted blank line, joined paragraphs, a removed blank line and a trailing newline are each
     an RX item, U and flagged, and the unchanged corpus has none (T13f);
+  - the same structural changes next to a line whose H text differs from the replay, including the
+    review's example (GR:134 with a doubled space and an adjacent paragraph join), are each an RX item
+    (T13g);
   - the approved-list pin: unset or altered gives VOID, approved passes (T15b);
   - the gain-rule mutant, which fails the battery on the bare footnote marker and the gain-only case
     (T13b);
