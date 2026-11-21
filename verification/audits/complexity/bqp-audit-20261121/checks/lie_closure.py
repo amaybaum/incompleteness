@@ -2,9 +2,14 @@
 # involutions} inside u(N), N = 2^n. Every generator annihilates the uniform vector, so the closure
 # lies in u(N-1) acting on its orthogonal complement, of real dimension (N-1)^2.
 # Arithmetic: Gaussian rationals with fractions.Fraction; rank by exact Gaussian elimination.
-# Expected output (observed, then recorded; not preregistered): 2, 9, 49.
+# Expected output: 2, 9, 49 (observed, then recorded; not preregistered), then 4 and 49.
 #   control: two commuting NOTs give a two-dimensional abelian algebra;
 #   2 bits, NOT/CNOT/SWAP: 9 = (4-1)^2; 3 bits, NOT/CNOT/Toffoli: 49 = (8-1)^2.
+# Countercontrol (expected values taken from the review of #1488 before this run): CNOT_01 and
+#   CNOT_10 at N = 4 are non-abelian and also fix e_0 = |00>, so the closure lies in u(N-2) on the
+#   complement of span{uniform, e_0}; expected 4 = (4-2)^2, i.e. the loop detects a second invariant
+#   and does not saturate. Sensitivity: NOT and CNOT alone at N = 8, without Toffoli, expected 49,
+#   so saturation does not track classical universality of the gate set.
 # A finite witness for N = 4 and N = 8 only. It says nothing about gate cost or efficiency.
 import itertools
 from fractions import Fraction as Fr
@@ -66,5 +71,11 @@ for c,t in itertools.permutations(range(3),2): fs.append(lambda x,c=c,t=t: x^(1<
 fs.append(lambda x: x^4 if (x&3)==3 else x)
 c3=closure([bp(3,f) for f in fs])
 print("3-bit NOT,CNOT,Toffoli: dim",c3,"of u(8)=64; (N-1)^2 = 49")
-assert (c0,c2,c3)==(2,9,49), (c0,c2,c3)
+cc=closure([bp(2,f) for f in [C01,C10]])
+print("countercontrol, CNOT_01 and CNOT_10 only: dim",cc,"; (N-2)^2 = 4")
+c3n=closure([bp(3,f) for f in fs[:-1]])
+print("sensitivity, 3-bit NOT,CNOT without Toffoli: dim",c3n)
+def fixed(perms,v): return all(sum(v[x] for x in range(len(v)) if p[x]==y)==v[y] for p in perms for y in range(len(v)))
+assert fixed([bp(2,f) for f in [C01,C10]],[1,0,0,0]) and not fixed([bp(2,f) for f in [X0]],[1,0,0,0])
+assert (c0,c2,c3,cc,c3n)==(2,9,49,4,49), (c0,c2,c3,cc,c3n)
 print("OK")
