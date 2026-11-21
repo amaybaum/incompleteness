@@ -17,7 +17,7 @@ plan with a preregistration sketch, and none has been run.
   which are absent. For each gap it names the smallest candidate mechanism and the cheapest test
   that would decide it. It does not decide whether any mechanism holds. Unchanged: A1
   OPEN/UNADOPTED; physical measurement sourcing NOT PASSED.
-- **Accountable Issue.** The QOPS Issue, which links this record's guiding draft PR. Related:
+- **Accountable Issue.** #1490, which links this record's guiding draft PR. Related:
   NATIVE-UNIV #1461 (record on draft #1489), BQP-AUDIT #1487 (record on draft #1488), and the
   native preparation source #866.
 - **Snapshot `D`.** `main` at `df6da1c6101e811acdc7952d5748aff57028e8ed`. `Main:n`, `SM:n`,
