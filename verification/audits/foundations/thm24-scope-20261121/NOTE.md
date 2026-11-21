@@ -355,9 +355,10 @@ needs a separate decision and renewed verification of the affected controls) or 
   prior". Lowest priority.
 - **P4a (F4, Substratum:300).** "defined by the condition that the specified fixed-interface
   observation data are preserved (§4)".
-- **P4c (F4 mirrors, Substratum:276 and Structure:606).** Substratum:276: "*every* transformation
-  preserving the specified fixed-interface data of §4"; Structure:606: "characterized by
-  transformations preserving this pair at the fixed interface of [Substratum §4]". P4a–P4c and P4b
+- **P4c (F4 mirrors, Substratum:276 and Structure:606).**
+  - Substratum:276: "*every* transformation preserving the specified fixed-interface data of §4".
+  - Structure:606, as applied in #1493: "and families (i) and (iii) of $\mathcal{G}_{\rm sub}$ ([Substratum §4]), with family (ii) under the alphabet-size hypothesis, relate substrata with bijective dynamics whose pairs agree at a fixed visible/hidden interface".
+  - This replaces the wording first proposed here, "characterized by transformations preserving this pair at the fixed interface". "Characterized" overclaims while completeness is open (Substratum:276). That wording also left family (ii)'s hypothesis unstated (#1493 review, c.7064407011). P4a–P4c and P4b
   are one §A.25 propagation unit split across the two groups.
 
 ## 11. Assumption-watch markers (cross-propagation, §A.31)
@@ -463,8 +464,9 @@ Each is a draft PR off `main` at `df6da1c6`, awaiting independent review and own
 
 | PR | Branch | Head | Corrections |
 |---|---|---|---|
-| #1492 | `research/thm24-fix-prior-20261121` | `9da64a36` | P1 (Methodology:353), P3a (ch02:134 = FULL:764); P2 held (§10.2) |
-| #1493 | `research/thm24-fix-interface-20261121` | `7eb1ac59` | P4a (Substratum:300), P4c (Substratum:276, Structure:606) |
+| #1492 | `research/thm24-fix-prior-20261121` | `74627b77` | P1 (Methodology:353), P3a (ch02:134 = FULL:764), and ch03:142 = FULL:1003 (review nit c.7064406783): "A fibre-independent hidden relabelling under the uniform hidden prior, or …" |
+| #1494 | `research/thm24-fix-prior-p2-20261121` | `98e55009` | P2 (ch02:140 = FULL:770), with the SC-42 integration result regenerated under #1169 c.7064362680: one added entry |
+| #1493 | `research/thm24-fix-interface-20261121` | `902c1c83` | P4a (Substratum:300), P4c (Substratum:276, Structure:606 as recorded in §10.2) |
 
 At each head: no edited line lies in a #1477 ledger splice and every ledger old text occurs as at
 the base (`edits.json` at `55544cc3`); voice, duplicate, claims, coverage, staleness and census
