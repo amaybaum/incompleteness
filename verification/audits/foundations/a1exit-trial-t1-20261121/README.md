@@ -44,7 +44,7 @@ Accordingly:
 CI-built PDFs of T0's verification run, and parent exactly `97070c98`. `git diff-tree T0 T1` lists exactly those eight
 paths. Their sha256 digests are the `build/` member digests in `../a1exit-trial-t0-20261121/expected.json`, which
 `check.py` compares. The PDFs were extracted with that directory's `check.py --extract`, which verifies before it
-writes. The commit has fixed author and committer dates (2026-11-21T21:30:00Z, `Claude <noreply@anthropic.com>`), so
+writes. The commit has fixed author and committer dates (2026-11-21T21:30:00Z, author and committer `Claude`), so
 rebuilding it reproduces the id.
 
 ## Owner decisions
