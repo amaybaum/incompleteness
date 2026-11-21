@@ -8,7 +8,7 @@ this record does not edit, replace or reinterpret. It proves no clause of the ta
 extension E, no sector condition C and no physical premise, and changes no scientific status.
 Physical source remains NOT PASSED. No independent review has been made yet.
 
-Tracking: Issue #1502 (linked to #1169); draft PR #PR.
+Tracking: Issue #1502 (linked to #1169); draft PR #1503.
 
 ## 1. Pins, sources and authority
 
@@ -276,7 +276,7 @@ remainder of part 1.
 
   Proposed replacement for its open-work note: "GATE-A. The four owner questions were answered at
   #1169 c.6876591512, and soundness was amended at c.6891338304. The answers are folded into the
-  r5 proposal (Issue #1502, PR #PR), which awaits owner adoption. The contract
+  r5 proposal (Issue #1502, PR #1503), which awaits owner adoption. The contract
   `oi-qm-ext-1/endpoints.md` on `main` is unchanged."
 
 ## 9. Owner decisions needed
