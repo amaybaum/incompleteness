@@ -194,3 +194,16 @@ Effect on the snapshot: the same 3105 entries with the same text. 59 entries gai
 
 With `--compare-tree`, the JSON report records the tree as `tree:<basename>`, never a local path.
 Compare reports are working files and are not committed.
+
+## Addition after the round-3 review at `fe25954d` (ACCEPT, one optional nit)
+
+### R7. Display math
+
+R5's math test counted single `$` signs, so a one-line `$$…$$` display formula read as outside math
+and its subtraction digits were dropped. An example is GR:480, the a₀ formula (X-72),
+`\frac{(d-3)}{(d-2)(d-1)}`. A `$$` pair now opens and closes display math, a single `$` opens and
+closes inline math, and a position inside either counts as math.
+
+Effect on the snapshot: the same 3105 entries with the same text. 10 entries gain number tokens, and
+the total goes from 12042 to 12057. A countercontrol requires GR:480 `(d-3)` → `(d-4)` to be
+`value changed`.

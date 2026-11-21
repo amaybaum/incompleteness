@@ -220,16 +220,20 @@ def role_of(col):
 
 
 def in_math(t, pos):
-    """True when position pos lies inside inline math: an odd number of unescaped $ before it."""
-    n, i = 0, 0
+    """True when position pos lies inside math: inline $...$ or (amendment A1, R7) display $$...$$."""
+    inline, display, i = False, False, 0
     while i < pos:
         if t[i] == '\\':
             i += 2
             continue
+        if t.startswith('$$', i):
+            display = not display
+            i += 2
+            continue
         if t[i] == '$':
-            n += 1
+            inline = not inline
         i += 1
-    return n % 2 == 1
+    return inline or display
 
 
 def parse_numbers(text):
@@ -952,6 +956,12 @@ def self_test(snap):
         check=lambda res: res['summary']['relocated_from_main'] == 1 and any(
             r['id'] == 'M:780' and r.get('relocated_from_main') and r['new_file'] == subf
             for r in res['entries']))
+
+    # amendment A1, R7: a subtraction inside a one-line $$...$$ display keeps its digit
+    g480 = ids['GR:480']
+    run('countercontrol: GR:480 (d-3) -> (d-4) in $$ display',
+        lambda c: setline(c, 'papers/GR.md', 480, g480['text'].replace('(d-3)', '(d-4)', 1)),
+        {'GR:480': ('value changed',)})
 
     # amendment A1, R5: a subtraction keeps its digit
     sub = [e for e in snap['entries'] if 'd−1' in e['text'] and e['kind'] == 'prose'][0]

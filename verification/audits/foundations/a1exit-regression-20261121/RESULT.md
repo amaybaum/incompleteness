@@ -6,8 +6,8 @@ the later before/after comparison can be run mechanically. Whether removing A1 w
 or changed any physical prediction is not assessed here.
 
 **Status.** Writer's paper-only record, WIP / UNVERIFIED. Independent review on #1471: round 1 at
-`c2001d82` returned REVISE (light), and round 2 at `ee96218d` returned ACCEPT-WITH-NITS. Both are answered
-through amendment A1. No
+`c2001d82` returned REVISE (light), round 2 at `ee96218d` returned ACCEPT-WITH-NITS, and round 3 at
+`fe25954d` returned ACCEPT with one optional nit. All three are answered through amendment A1. No
 manuscript, Lean, registry or ledger file is edited.
 
 **Authorization.**
@@ -36,8 +36,8 @@ the 42 `papers/*.md` and `book/*.md` files at the pin:
 | File | Content |
 |---|---|
 | `PREREG.md` | The inventory rule, entry schema, compare semantics and controls, pushed before extraction (`43eff402`). Frozen except for the D6 wording change |
-| `amendments/A1-prose-and-lexical.md` | Owner-approved coverage additions P1/P1w, P2 (D1), P3 (D2), P4 and P5, and the review changes R1–R6. R1–R3 were pushed before the re-extraction that uses them (`8c43c6cf`,
-`6f7da1f1`). R4–R6 land in the same commit as the regenerated snapshot |
+| `amendments/A1-prose-and-lexical.md` | Owner-approved coverage additions P1/P1w, P2 (D1), P3 (D2), P4 and P5, and the review changes R1–R7. R1–R3 were pushed before the re-extraction that uses them (`8c43c6cf`,
+`6f7da1f1`). R4–R6, and then R7, each landed in the same commit as its regenerated snapshot |
 | `baseline.py` | The extractor: `build`, `check`, `self-test`, `--compare <commit>`, `--compare-tree <dir>`, `--json <path>`. Standard library only; reads Git objects at the pin |
 | `snapshot.json` | The baseline: one compact JSON line per entry, plus the pin, corpus digest, ledger blob ids and counts (3.8 MB) |
 
@@ -54,7 +54,7 @@ python3 -I -B verification/audits/foundations/a1exit-regression-20261121/baselin
 
 Expected:
 - `check PASS: snapshot.json regenerates byte for byte from 1c7eedc402eafd2bac654484fa790874a33f444d
-  (sha256 7312f77e26c23ff1a11b378b0665c4424ff545ddd4541e2ceb17e83d57847654)`;
+  (sha256 2db7832d7cb95b0ba77b42afad965696390d4ad67a6835b2c45f045bd04f88c8)`;
 - `self-test PASS`, with every line above it `PASS`;
 - `summary: {"deleted": 0, "deleted_flagged": 0, "moved": 0, "relocated": 0, "relocated_from_main": 0,
   "unaccounted": 0, "unaccounted_flagged": 0, "unchanged": 3105}; any change: False`, with exit status 0.
@@ -88,7 +88,7 @@ The later audit must read every `text changed` entry and every flagged `unaccoun
 
 ## 3. Coverage
 
-3105 entries (709 table rows, 2396 prose lines), with 12042 numeric tokens. An entry can carry several
+3105 entries (709 table rows, 2396 prose lines), with 12057 numeric tokens. An entry can carry several
 categories.
 
 | Category | Entries | Ledger rows | Selected by |
@@ -224,6 +224,7 @@ All passed at the commit that adds this revision.
 | Passage moved out of Main: M:780 moved to Substratum; one `relocated` entry, flagged from Main; `any_change` true | PASS |
 | Subtraction: Juno:238 `d−1` → `d−2`, reported `value changed` | PASS |
 | Subtraction digits: `d−1`, `N−1`, `$2/(d-1)$` give tokens `1`, `1`, `2`, `1` | PASS |
+| Display math: GR:480 `(d-3)` → `(d-4)` inside `$$…$$`, reported `value changed` | PASS |
 | `--compare` against the pin: 3105 unchanged, nothing unaccounted or deleted, exit 0 | PASS |
 
 **Scratch-copy test.** The pin corpus was copied to a temporary directory outside the repository and
@@ -267,6 +268,8 @@ Recorded in full in amendment A1. In brief:
 - **R5.** Subtraction digits (`d−1`, `$2/(d-1)$`) are kept. This changes number tokens in 59 entries;
   the entry set and texts are unchanged.
 - **R6.** `--compare-tree` reports record the tree's basename only.
+- **R7.** A one-line `$$…$$` display counts as math for R5. This changes number tokens in 10 entries;
+  the entry set and texts are unchanged.
 
 The unchanged earlier deviations:
 - **D3.** Abbreviations `README`, `appb` and `appc` from the ledger cells were added. `Bio` and `Juno`
@@ -299,8 +302,8 @@ approved, and D1 and D2 are accepted as coverage additions. No owner decision is
 - **Evidence level.** A deterministic extraction from the Git objects at the pin. `check` regenerates
   it byte for byte, and the controls of §5 pass. It certifies only what the snapshot records about the
   pinned text, and makes no claim about the physics.
-- **Missing.** A delta check of the round-2 answers R4–R6 and the regenerated snapshot. Round 2 at
-  `ee96218d` returned ACCEPT-WITH-NITS.
+- **Missing.** A delta check of R7 (display math) and the regenerated snapshot. Round 3 at
+  `fe25954d` returned ACCEPT.
 - **Accountable Issue.** #1468.
 - **Landing.** By merge commit only, so that the commits cited as support in §8 are reachable from
   `main`.
