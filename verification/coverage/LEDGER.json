@@ -880,9 +880,9 @@
       "line": 322,
       "kind": "Lemma",
       "label": "(diagonal preservation)",
-      "fingerprint": "15be37eef5071735",
+      "fingerprint": "b2a12a7e085be817",
       "area": "equivalence-chain",
-      "assumptions": "U a permutation unitary",
+      "assumptions": "U a permutation unitary; μ_H the diagonal density matrix of a probability on C_H",
       "checks": [
         {
           "kind": "probe",
@@ -973,9 +973,9 @@
       "line": 449,
       "kind": "Theorem",
       "label": "(C2 necessity, quantitative mixing form)",
-      "fingerprint": "a2d568e0afd73b4e",
+      "fingerprint": "1f167567abfe42c2",
       "area": "memory-conditions",
-      "assumptions": "the uniform-prior bijection marginal of §3.2; the stated mixing hypothesis",
+      "assumptions": "a Markov coupling kernel K measurable in h on a measurable hidden space with reference probability π_H, T the π_H-average of K, the hidden conditional at the first coupling equal to π_H (the uniform-prior bijection marginal of §3.2 in the finite model); the stated mixing hypothesis",
       "checks": [
         {
           "kind": "probe",
@@ -985,7 +985,7 @@
         }
       ],
       "kernel": "P",
-      "delta": "no Lean statement",
+      "delta": "no Lean statement; measurable form: paper proof only",
       "note": "Preregistered probe (b49): rule, ensemble, seed and grid fixed before the run."
     },
     {
@@ -994,9 +994,9 @@
       "line": 463,
       "kind": "Theorem",
       "label": "(physical memory: C2, process form)",
-      "fingerprint": "c5a8951201a17fcb",
+      "fingerprint": "093c9c6326a32f83",
       "area": "memory-conditions",
-      "assumptions": "the coupling-step model of §3.4 (given the whole visible past and H_k = h, X_{k+1} has law K(x_k, h; ·); any hidden map between couplings) with reference prior π_H; persistence form: ε the realized maximum distance of the hidden conditionals from π_H, no mixing hypothesis; timescale (slow-bath) form: the conditional-mixing hypothesis at coupling time",
+      "assumptions": "the coupling-step model of §3.4 ((M1) in integrated form on any measurable hidden space: P(X_{≤k} = x_{≤k}, H_k ∈ B, X_{k+1} = y) = ∫_B K(x_k, h; y) P(X_{≤k} = x_{≤k}, H_k ∈ dh); any hidden map between couplings) with reference probability π_H; persistence form: ε the realized maximum distance of the hidden conditionals from π_H, no mixing hypothesis; timescale (slow-bath) form: the conditional-mixing hypothesis at coupling time",
       "checks": [
         {
           "kind": "probe",
@@ -1006,7 +1006,7 @@
         }
       ],
       "kernel": "P",
-      "delta": "no Lean statement",
+      "delta": "no Lean statement; measurable form: paper proof only",
       "note": ""
     },
     {
@@ -1406,12 +1406,12 @@
       "note": ""
     },
     {
-      "id": "SM:L-unnamed-ff7b7d06",
+      "id": "SM:L-unnamed-675607a6",
       "paper": "papers/SM.md",
       "line": 122,
       "kind": "Lemma",
       "label": "",
-      "fingerprint": "ff7b7d068e326e1f",
+      "fingerprint": "675607a6c305eeb8",
       "area": "sm",
       "assumptions": "see the statement",
       "checks": [],
@@ -1502,9 +1502,9 @@
       "line": 252,
       "kind": "Lemma",
       "label": "1c (canonical projection and the resummed kernel)",
-      "fingerprint": "4aa41b0aa132f70b",
+      "fingerprint": "242ff16786e66342",
       "area": "sm",
-      "assumptions": "the selected invariant measure; (ii) on a finite configuration space, or fibrewise for translation-invariant U and P with finite-dimensional cell data",
+      "assumptions": "the selected counting measure or a stated structured prior, or on Z^d a law invariant under the update and the reversal (H-mu(phi,Theta), assumed as a hypothesis and not adopted); (ii) on a finite configuration space, or fibrewise for translation-invariant U and P with finite-dimensional cell data",
       "checks": [
         {
           "kind": "probe",
@@ -1710,7 +1710,7 @@
       "line": 332,
       "kind": "Proposition",
       "label": "4b (symmetric-point custodial scalarity for a component-complete site observer)",
-      "fingerprint": "179be8cffbf610f3",
+      "fingerprint": "e7cb872ef111a22a",
       "area": "sm",
       "assumptions": "see the statement",
       "checks": [],
@@ -2035,9 +2035,9 @@
       "line": 541,
       "kind": "Theorem",
       "label": "13",
-      "fingerprint": "63d989dbd0f92597",
+      "fingerprint": "23e91a0f911eabb8",
       "area": "sm",
-      "assumptions": "CONDITIONAL identification; the minimal embedding is certified VECTOR-LIKE; H-chi' sharpened and OPEN",
+      "assumptions": "CONDITIONAL identification; the minimal embedding is certified VECTOR-LIKE; H-chi' sharpened and OPEN; an off-diagonal hidden block (H-chi' kind) must be boundedly invertible on l2 of the odd sublattice, and a site-diagonal one needs nonzero diagonal entries (stated conditions)",
       "checks": [
         {
           "kind": "probe",
@@ -2590,7 +2590,7 @@
       "line": 263,
       "kind": "Corollary",
       "label": "(effective finiteness and gauge-class transfer)",
-      "fingerprint": "b03e59e9c0aef950",
+      "fingerprint": "edbaacbce9d41da0",
       "area": "reconstruction",
       "assumptions": "see the statement",
       "checks": [],
