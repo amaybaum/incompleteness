@@ -65,7 +65,7 @@ Nothing here assumes PM-D5 (#1454), which stays paused, or any other unresolved 
      is confined forever in a finite closed set.
    - *Stopped at* a sub-luminal growth mechanism. Stage S2 is not started (P3's stage order).
      F1's P2 (k = 1 shapes) is the preregistered computation that would test S1. It stays gated.
-3. **P1-Q2: a complete paper design [W].**
+3. **P1-Q2: a proposed comparison construction, on paper only [W]. Not a construction under the native rule (§3, Classification).**
    - *Theorem NU8.* For every 16-state 2-D reversible partitioned CA `P` (Morita–Ueno Def. 2.1)
      there is a narrow-class rule `R_P`. Its update is `x(t+1) = F(x(t)) − x(t−1) mod 8995` on `ℤ²`,
      and `F` reads only the four nearest neighbours: no self-term, translation-commuting.
@@ -76,7 +76,7 @@ Nothing here assumes PM-D5 (#1454), which stays paused, or any other unresolved 
    - *What the comparison rule is not.* It is neither isotropic nor totalistic, and it needs a
      designed periodic background of role tags and clocks. It is a comparison model only and does
      not bear on `R_q`.
-4. **Productivity (PLAN test).** Met by (iii): NU8. Not counted toward (i): NU4 and NU5 correct
+4. **Productivity (PLAN test).** Met by (iii), whose wording, fixed in PLAN, is "a complete paper design": NU8. That is a productivity criterion only. Under the owner's construction standard (§3, Classification) NU8 is not a completed construction. Not counted toward (i): NU4 and NU5 correct
    F1 §4's framing, but they apply MQ1's converse at a closed set's boundary and are ELABORATING
    (§5). They do not settle Q, because the region `D` is still free and excursions inside a
    never-breached `D` remain possible. Not met by (ii): S1 is open.
@@ -312,6 +312,24 @@ computation.
   simple-cubic graph on the reference class. A variant whose `F` reads the `±z` neighbours is not
   treated here: NU8 is not extended until the owner rules on §6 item 1.
 
+**Classification under the owner's construction standard.** [#1169 c.7066602480](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7066602480) item 4: "A universal
+computational capability, an existence theorem or a simulation design does not by itself constitute a
+construction. A construction requires an explicit admissible implementation under the native rule,
+with its encoding, dynamics and correctness established." NU8 is a simulation design for a rule that
+is not the native rule. It is therefore **not a construction under the native rule**. It is classed
+as a **proposed comparison construction** (conditional), not a completed one.
+- *Established on paper [W, confirmed in review at `ef25e3bf`]:*
+  - the rule `R_P` (alphabet, role table, six-phase `F`) and the encoding `E`;
+  - the narrow-class membership;
+  - the written correctness proof of `Ψ⁶ ∘ E = E ∘ F_P` for every 16-state 2RPCA(4) `P`.
+- *At Morita–Ueno's standing only [LIT-R]:* the universality of Model 1, and hence of
+  `R_{Model 1}`, in their sense.
+- *Not established:*
+  - any execution: NU8-CHECK is preregistered with amendment A01 and has not been run;
+  - the transfer to U1's Definition U;
+  - anything about `R_q`, OI's native rule, at any `q`;
+  - any implementation under the native rule.
+
 **Skepticism (the favourable branch, §A.31).**
 1. *It is a comparison model.* `F` depends on neighbour positions (not isotropic), on whole values
    (not totalistic) and on a designed periodic background of tags and clocks. `R_q` is totalistic,
@@ -333,7 +351,7 @@ computation.
 | Question | Before (F1 §4) | Now |
 |---|---|---|
 | Goal A, broad class | answered at sketch level (Margolus 1984, App. A) | unchanged |
-| Goal A, narrow class | open | answered positively at [W] design level, for a non-isotropic, non-totalistic rule at `q = 8995` (NU8, via Morita–Ueno Model 1); open for isotropic or totalistic members |
+| Goal A, narrow class | open | a proposed comparison construction on paper (NU8, [W]; universality at Morita–Ueno's standing) for a non-isotropic, non-totalistic rule at `q = 8995`; not executed; not a construction under the native rule; open for isotropic or totalistic members |
 | Goal B, Q | open; decisive question "bounded breach or growth" | open; decisive question restated as a controlled transfer confined in a closed region `D = cl₂(lines ∪ R)` (NU5). A healing breach relative to `D` is excluded (NU4). Planar confined transits are ternary at every tick (NU6) |
 | P3 S1 | preregistered | open; axis tips die (NU7); reformulated by NU3 |
 
@@ -367,7 +385,7 @@ treated, not assumptions about nature.
 | NU6 | (N) | as NU4; (a) also uses U1 Lemma 2.1 (on `main`) | In a confined transit, `∂D` stays in range and `|S| ≤ 7` on `∂D`; a planar confined transit is ternary at every tick | native only (NU5; RZ inside Lemma 2.1's window for (a)) | whether a planar ternary turn exists (mathematics; a search would be a gated computation) |
 | NU7 | (N) | as NU4; no off-`main` dependency | For a single-site seed, the six axis tips of the light cone are 0 from `t = ⌈log₃|b|⌉ + 1` (from `t = 1` when `|b| ≤ 1`) | native only (radius-1 light cone; contraction of `G`) | the rest of the light-cone surface (mathematics) |
 | S1 (P3 stage 1) | (N) target, open | not established | reformulated by NU3; not proved or refuted | native only, as NU3 and NU7 | a sub-luminal growth mechanism, or an exact periodic counterexample (mathematics; P2 at `k = 1` would test it, gated) |
-| NU8 | not an (N)/(I) statement about OI | confirmed in review at `ef25e3bf` as a paper design, not on `main`; whether it counts as "constructing" under #1169 c.7064226074 item 3(b) is with the owner | For every 16-state 2RPCA(4) `P`, a narrow-class rule `R_P` on `ℤ²`, `q = 8995`, with injective `E` and `Ψ⁶ ∘ E = E ∘ F_P`. Written proof by phase invariants | no quantum or operational assumption. The object is a non-native comparison rule (neither isotropic nor totalistic, with a designed tag-and-clock background), so the result is not proved from OI's native assumptions and does not concern `R_q`. Within the proof: `f_P` bijective (Morita–Ueno Lemma 2.1) in phase 3, and `f_P(0) = 0` for the ultimately-periodic remark. Universality imports Morita–Ueno's Fredkin-gate construction and Fredkin–Toffoli's gate universality [LIT-R, at the source's standing] | the transfer to U1's Definition U, including whether Morita–Ueno's universal configurations are ultimately periodic (mathematics) |
+| NU8 | not an (N)/(I) statement about OI | confirmed in review at `ef25e3bf` as a paper design, not on `main`; classed as a proposed comparison construction, not a construction under the native rule (#1169 c.7066602480 item 4); not executed | For every 16-state 2RPCA(4) `P`, a narrow-class rule `R_P` on `ℤ²`, `q = 8995`, with injective `E` and `Ψ⁶ ∘ E = E ∘ F_P`. Written proof by phase invariants | no quantum or operational assumption. The object is a non-native comparison rule (neither isotropic nor totalistic, with a designed tag-and-clock background), so the result is not proved from OI's native assumptions and does not concern `R_q`. Within the proof: `f_P` bijective (Morita–Ueno Lemma 2.1) in phase 3, and `f_P(0) = 0` for the ultimately-periodic remark. Universality imports Morita–Ueno's Fredkin-gate construction and Fredkin–Toffoli's gate universality [LIT-R, at the source's standing] | the transfer to U1's Definition U, including whether Morita–Ueno's universal configurations are ultimately periodic (mathematics) |
 
 ***
 
@@ -379,7 +397,7 @@ treated, not assumptions about nature.
 | NU3: periodic ⇔ bounded ⇔ confined in a finite closed set at all ticks | ELABORATING (NU2, MQ2) |
 | NU6(c): planar confined transits are ternary at every tick | NEW, minor |
 | NU7: axis tips die | NEW, minor (closes one proof route for S1) |
-| NU8: narrow-class simulation of every 16-state 2RPCA(4) | NEW at design level (comparison model only) |
+| NU8: narrow-class simulation design for every 16-state 2RPCA(4) | NEW at design level; a proposed comparison construction, not a construction under the native rule (owner standard, #1169 c.7066602480 item 4) |
 | S1 | open |
 
 **AW-NU-2 (healing versus confinement).** For Q on a uniform background, statements of the form
@@ -397,12 +415,11 @@ isotropy, totalisticity and the absence of such a background, not the neighbourh
 
 ## 6. Owner decision points
 
-1. **NU8 and item 3(b).** NU8 is a paper design with a correctness argument. Does it count as
-   "constructing a new universal model" under
-   [#1169 c.7064226074](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7064226074)
-   item 3(b)? It was carried out as proof exploration under
-   [c.7064767045](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7064767045).
-   It has not been tested or run.
+1. **NU8 and item 3(b): ruled.** [#1169 c.7066602480](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7066602480) item 4 sets the standard quoted in §3. Under it, NU8 is a
+   proposed comparison construction and not a construction under the native rule. It was carried
+   out as proof exploration under
+   [c.7064767045](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7064767045),
+   and has not been tested or run. NU8 is not extended further.
 2. **The NU8 check** (`plans/NU8-CHECK-PREREG.md`, with amendment
    `plans/amendments/A01-NU8-CHECK-six-ticks.md`): a bounded exact comparison of `Ψ⁶ ∘ E` with
    `E ∘ F_P`, preregistered and not run. It needs authorization.
