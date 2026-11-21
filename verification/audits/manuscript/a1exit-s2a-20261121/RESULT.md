@@ -1,8 +1,9 @@
 # A1-EXIT Step 2, unit S2-A (lattice qualifications): result
 
 **Status.** Writer's manuscript-correction record. The edits of `PREREG.md` (pushed at `940dde6c1`
-before any manuscript edit) are applied verbatim in `e414d1c24`. No Lean, registry, ledger or Q1
-record edit; no merge; no workflow dispatch. Not yet independently reviewed (§5).
+before any manuscript edit) are applied verbatim in `e414d1c24`; amendment 1 (`66bae3100`, appended
+before its edit) is applied in `083e13db2` (deviation D1, §5). No Lean, registry, ledger or Q1 record
+edit; no merge; no workflow dispatch. Not yet independently reviewed (§7).
 
 **Authorization.** Owner `amaybaum`, #1169 comment 7056875845 (2026-11-21), unit S2-A. Q1's E5 is
 skipped by the same decision. A1 and Main ledger item (ii) are untouched.
@@ -20,7 +21,7 @@ unchanged by the edits (each is an in-line replacement), so every site keeps its
 ## 1. Edits as applied
 
 The exact old and new strings are in `PREREG.md` and `checks/s2a_edits.json`. `checks/s2a_check.py`
-exits 0 in default mode at `e414d1c24`: every new string occurs exactly once in its file and in its
+exits 0 in default mode at `083e13db2` (15 entries): every new string occurs exactly once in its file and in its
 mirror, and no old string survives outside its own new string.
 
 | Id | Site (line after edit) | Ledger row | Source |
@@ -36,8 +37,9 @@ mirror, and no old string survives outside its own new string.
 | A4-ch05-65 | ch05:65 = FULL:1380 | X-40 | as above (book mirror) |
 | A4-Sub157 | Sub:157 | X-41 via X-40 | X-40's A4 restatements (Q1 §6); X-41 "covered by X-40's A4 restatement" |
 | A4-ch02-96 | ch02:96 = FULL:726 | X-41 via X-40 | as above (book) |
+| A4-ch19-198 | ch19:198 = FULL:5268 | X-40 | X-40 site column; PREREG amendment 1 (D1) |
 
-14 edits at 19 locations (5 book edits mirrored into FULL). A4 restatement: ℤ^d is printed as "the
+15 edits at 21 locations (6 book edits mirrored into FULL). A4 restatement: ℤ^d is printed as "the
 discrete lattice … as the standard construction, distinct from a continuous space"; the finite
 periodic quotient ℤ^d/P is "admitted as a qualified case, under the conditions on P stated with each
 result that uses it" (Sub cites [SM §4.1], where E1 states them). No edited sentence calls a finite
@@ -46,10 +48,9 @@ second sense, the side-≥3 independence example (a finite example, true as stat
 untouched. No edited sentence states Theorem 13's result, so X-43's C13 condition has no site here.
 
 **Ledger sites changed (for the post-Step-2 reconciliation).** X-40: Sub:98, ch02:82, FULL:712,
-SM:202, ch05:65, FULL:1380. X-41 (lattice clause only): Sub:157, ch02:96, FULL:726. X-42: SM:539,
+SM:202, ch05:65, FULL:1380, ch19:198, FULL:5268. X-41 (lattice clause only): Sub:157, ch02:96, FULL:726. X-42: SM:539,
 SM:1506, SM:1532, SM:1536, ch06:24, FULL:1535, ch05:91, FULL:1406, SM:222. X-43: SM:222 (E1), E4
-and E6 sites. All at their base line numbers. Not changed: X-40's ch19:198 = FULL:5268 (§3);
-X-41's SM:122 and SM:252 (unit S2-C); X-43's SM:446 (E5, skipped).
+and E6 sites. All at their base line numbers. Not changed: X-41's SM:122 and SM:252 (unit S2-C); X-43's SM:446 (E5, skipped).
 
 ## 2. Propagation and re-grep
 
@@ -79,11 +80,8 @@ text is confirmed by `s2a_check.py`.
   $\mathbb{R}^3$, identifies as a 3-torus, has a Klein-bottle quotient" and "whether the universe is
   topologically trivial $\mathbb{R}^3$, a 3-torus …" put the discrete lattice's global form beside the
   continuous space ℝ^3. Under the owner's A4 decision the infinite discrete lattice (ℤ^3) and the
-  continuous space are kept distinct; the lattice counterpart of ℝ^3 is ℤ^3. Not in this unit's sites.
-- **ch19:198 = FULL:5268** ("On a finite lattice, the notion of 'causally disconnected regions' is
-  modified"). Listed in X-40's site column ("stated as a qualified case") but not among this unit's
-  authorized sites; left unchanged. It does not call a finite lattice an approximation; it is a
-  speculative finite-lattice sentence without the qualified-case marking.
+  continuous space are kept distinct; the lattice counterpart of ℝ^3 is ℤ^3. Not in this unit's sites:
+  the coordinating session classifies them as Q3 sites and routes them to unit S2-E as a finding.
 - **"Finite representative"** (Main, GR, Sub, ch01–ch03, ch09, ch14, glossary, appendices) refers to
   A1's finite configuration space, not to a finite lattice representing ℤ^d. It is A1 vocabulary
   (ledger X-02, X-45) and out of scope; no site uses it for the lattice.
@@ -96,8 +94,8 @@ text is confirmed by `s2a_check.py`.
 | Check | Result |
 |---|---|
 | `sh ./build.sh SM Substratum` | OK; SM 148 pages (base 148), Substratum 54 (base 53); no dropped glyphs |
-| `sh ./build.sh --book` | OK; 489 pages (base 489); no dropped glyphs |
-| median characters per page (pdftotext -layout) | SM 3130 (base 3153), Substratum 3189 (3240), FULL 2997 (2998) |
+| `sh ./build.sh --book` | OK; 489 pages (base 489); no dropped glyphs (also after amendment 1) |
+| median characters per page (pdftotext -layout) | SM 3130 (base 3153), Substratum 3189 (3240), FULL 2997 (2998; same after amendment 1) |
 | `python3 tools/coverage_check.py` | OK (132 canonical statements); no fingerprint moved, LEDGER.json unchanged |
 | `python3 tools/lean_manuscript_census.py` | OK |
 | `python3 tools/artifact_placement_check.py` | OK |
@@ -107,13 +105,22 @@ text is confirmed by `s2a_check.py`.
 
 ## 5. Deviations from PREREG
 
-None. Every edit was applied as preregistered, at the preregistered line.
+- **D1 (amendment 1): ch19:198 = FULL:5268 added.** The PREREG listed it as outside the unit's
+  authorized sites. The coordinating session ruled (2026-11-21) that it is in scope: it is in X-40's
+  site column ("stated as a qualified case"), and the owner authorized S2-A to make X-40's A4
+  restatement (#1169 c.7056875845). The amendment was appended to PREREG and pushed (`66bae3100`)
+  before the edit, which is applied in `083e13db2`. Old: "On a finite lattice, the notion". New: "On a
+  finite periodic quotient of $\mathbb{Z}^3$, a qualified case of A4 (Chapter 2), the notion". One
+  qualified-case clause, no approximation wording.
+
+Every other edit was applied as preregistered, at the preregistered line.
 
 ## 6. Off-`main` references (§A.42 item 8)
 
 | Reference | Attached to | Classification |
 |---|---|---|
 | #1169 c.7056875845 | Authorization | Provenance |
+| Coordinating-session ruling on ch19:198 (2026-11-21, session message) | D1 scope | Provenance; the authority it applies is #1169 c.7056875845 and ledger X-40 on `main` |
 | #1169 c.7048255658 | A4 wording rule | Provenance; the decision is quoted with author and time in Q1 RESULT §7 on `main` |
 | Guiding PR (#1470) | Tracking | Provenance |
 
