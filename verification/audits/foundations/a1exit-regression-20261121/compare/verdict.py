@@ -75,6 +75,10 @@ DEL_EDITS = 'verification/audits/foundations/a1exit-deletion-20261121/edits.json
 EDITS_S2 = os.path.join(HERE, 'inputs', 'edits-s2.json')
 FINITENESS_CASES = os.path.join(HERE, 'inputs', 'finiteness-cases.json')   # test fixture (T13e)
 DELETION_UNIT = 'DEL'
+# N6: the SHA-256 of the APPROVED deletion edits.json, the blob named by #1477's independent acceptance and
+# the owner's execution decision. Required: it is filled in only by a reviewed amendment after #1477 is
+# accepted. While it is None, and whenever the landed blob differs from it, C6 (d) fails and the run is VOID.
+DEL_APPROVED_SHA256 = None
 REPO_URL = 'https://github.com/amaybaum/incompleteness'
 EXIT = {'PASS': 0, 'FAIL': 5, 'PENDING': 3, 'VOID': 4}
 SCI_CATEGORIES = {'C-TAB', 'C-PROSE', 'C-FINL', 'C-CDO', 'C-CAL', 'C-OBS', 'C-OPEN'}
@@ -561,6 +565,16 @@ def structural(lst, unit_set):
     return bad
 
 
+def del_pin_ok(blob, pin=None):
+    """N6: the landed deletion edits.json blob has the approved, pinned digest."""
+    pin = DEL_APPROVED_SHA256 if pin is None else pin
+    if not pin:
+        return False, '(d) no approved edits.json digest is pinned (DEL_APPROVED_SHA256 is unset)'
+    if blob is None or sha256_bytes(blob) != pin:
+        return False, '(d) the landed edits.json does not have the approved, pinned digest'
+    return True, ''
+
+
 def c6(edits_s2, edits_del, del_commit, head):
     """C6, the edit inputs: (a) the frozen Step-2 list is reproduced exactly by compile-s2 from the
     records; (b) every edit is non-empty, not a no-op, of a listed unit and PR, with every component
@@ -591,6 +605,9 @@ def c6(edits_s2, edits_del, del_commit, head):
         try:
             if compile_del(del_commit) != edits_del:
                 bad.append('(d) the deletion list differs from its compilation from %s' % del_commit)
+            okp, whyp = del_pin_ok(git_try('show', '%s:%s' % (resolve(del_commit), DEL_EDITS)))
+            if not okp:
+                bad.append(whyp)
             if git_try('merge-base', '--is-ancestor', resolve(del_commit), head) is None:
                 bad.append('(d) the deletion commit is not an ancestor of H')
             bad += ['(b) ' + x for x in structural(edits_del, {DELETION_UNIT})]
@@ -1003,6 +1020,42 @@ def missing_items(landed, base_corpus, after_corpus):
     return out
 
 
+def file_exact_items(landed, base_corpus, after_corpus, explained_h, explained_r):
+    """N5, file-level exactness: every manuscript file of H is compared, line by line after normalization
+    with whitespace kept (blank lines and a final newline included), with the replayed state (every landed
+    edit applied to the baseline). A differing hunk not wholly made of lines already reported as items
+    (explained_h: H lines of reported items; explained_r: replayed-state lines of replay-missing items)
+    is an item RX:<file>:<H line>, attributed in its notes to the nearest reported item within three
+    lines."""
+    cur = dict(base_corpus)
+    for e in sorted(landed, key=lambda x: x['seq']):
+        for f in e['files']:
+            if cur.get(f, '').count(e['old']) == 1:
+                cur[f] = cur[f].replace(e['old'], e['new'])
+    out = {}
+    for f in sorted(set(cur) | set(after_corpus)):
+        rl = [normalize_text(x, None, collapse=False) for x in B.lines_of(cur.get(f, ''))]
+        hl = [normalize_text(x, None, collapse=False) for x in B.lines_of(after_corpus.get(f, ''))]
+        if rl == hl:
+            continue
+        sm = difflib.SequenceMatcher(None, rl, hl, autojunk=False)
+        for tag, i1, i2, j1, j2 in sm.get_opcodes():
+            if tag == 'equal':
+                continue
+            h_ok = all((f, j + 1) in explained_h for j in range(j1, j2) if hl[j].strip())
+            r_ok = all((f, i + 1) in explained_r for i in range(i1, i2) if rl[i].strip())
+            blank_only = not any(hl[j].strip() for j in range(j1, j2)) and not any(rl[i].strip() for i in range(i1, i2))
+            if h_ok and r_ok and not blank_only:
+                continue
+            near = sorted((abs(ln - (j1 + 1)), ln) for (g, ln) in explained_h if g == f and abs(ln - (j1 + 1)) <= 3)
+            out['RX:%s:%d' % (f, j1 + 1)] = {
+                'kinds': ['file-exact'], 'file': f, 'line': j1 + 1, 'before': '\n'.join(cur.get(f, '').split('\n')[i1:i2]),
+                'after': '\n'.join(after_corpus.get(f, '').split('\n')[j1:j2]), 'replayed': '',
+                'near': ('%s:%d' % (f, near[0][1])) if near else None,
+                'what': '%s: replayed lines %d-%d vs H lines %d-%d' % (tag, i1 + 1, i2, j1 + 1, j2)}
+    return out
+
+
 REVIEW_URL = re.compile(r'^%s/pull/(\d+)#(?:issuecomment-|pullrequestreview-|discussion_r)\d+$' % re.escape(REPO_URL))
 
 
@@ -1024,7 +1077,8 @@ def classify(compare, edits, cls, rows, base_corpus, after_corpus, rules=RULES, 
     E = {e['key']: e for e in edits['edits']}
     res = {}
     allitems = items_of(compare, after_corpus)
-    for key, item in sorted(missing_items(landed or [], base_corpus, after_corpus).items()):
+    mi = missing_items(landed or [], base_corpus, after_corpus)
+    for key, item in sorted(mi.items()):
         c = cls.get('items', {}).get(key)
         klass, notes = 'U', ['a landed reviewed change is absent from H']
         if c is not None and c.get('class') == 'R':
@@ -1039,6 +1093,29 @@ def classify(compare, edits, cls, rows, base_corpus, after_corpus, rules=RULES, 
         added, _ = rules['gain'](item['before'] or '', item['replayed'], [])
         res[key] = {'kinds': item['kinds'], 'class': klass, 'j10': j10m, 'notes': notes, 'gain_added': added[:20],
                     'scientific_evaluation': True}
+    if landed is not None:
+        eh = set()
+        for k, it in allitems.items():
+            if it.get('new_line'):
+                eh.add((it['new_file'], it['new_line']))
+            elif k.startswith('U:'):
+                eh.add((it['file'], it['line']))
+        er = {(it['file'], it['line']) for it in mi.values() if it.get('line')}
+        for key, item in sorted(file_exact_items(landed, base_corpus, after_corpus, eh, er).items()):
+            c = cls.get('items', {}).get(key)
+            klass = 'U'
+            notes = ['file-level difference from the replayed state (%s)' % item['what']]
+            if item['near']:
+                notes.append('attributed to the nearest reported item at %s' % item['near'])
+            if c is not None and c.get('class') == 'R':
+                klass = 'R'
+                good, why = resolution_ok(c.get('resolution'), cls, False)
+                if good:
+                    klass = 'R-justified' if c['resolution']['outcome'] == 'justified' else 'U'
+                elif c.get('resolution'):
+                    notes.append('resolution not accepted: ' + why)
+            res[key] = {'kinds': item['kinds'], 'class': klass, 'j10': [], 'notes': notes,
+                        'scientific_evaluation': True}
     for key, item in sorted(allitems.items()):
         c = cls.get('items', {}).get(key)
         notes, klass, j10, unsourced, seq_diff, inexact = [], 'U', [], [], False, False
@@ -1848,6 +1925,24 @@ def self_test():
     missed = [r['id'] for r in fx if not j10_hits(r['old'], r['new'], finite=narrow)]
     report('T13e the 9 "finiteness" removals each lose a finite-scope term; the narrow-list mutant misses >= 7',
            len(fx) == 9 and len(lost) == 9 and len(missed) >= 7, 'lost %d; narrow list misses %s' % (len(lost), missed))
+    # T13f file-level exactness (N5): an inserted blank line, joined paragraphs, a removed blank line and a
+    # trailing newline are each an RX item, U and flagged; the unchanged corpus has none
+    g134 = ent['GR:134']
+    fl = B.lines_of(pin[g134['file']])
+    gi = g134['line'] - 1
+
+    def rx_of(c):
+        r = classify(B.compare(snap, c), empty_e, empty_c, rows, pin, c, landed=[])
+        return [(k, v['class'], v['scientific_evaluation']) for k, v in r.items() if k.startswith('RX:')]
+    c1 = dict(pin, **{g134['file']: '\n'.join(fl[:gi + 1] + [''] + fl[gi + 1:])})
+    c2 = dict(pin, **{g134['file']: '\n'.join(fl[:gi + 1] + fl[gi + 2:])}) if fl[gi + 1] == '' else None
+    dg = next((g for g in sorted(pin) if '\n\n\n' in pin[g]), None)
+    c3 = dict(pin, **{dg: pin[dg].replace('\n\n\n', '\n\n', 1)}) if dg else None
+    c4 = dict(pin, **{g134['file']: pin[g134['file']] + '\n'})
+    r13f = [rx_of(c) for c in (c1, c2, c3, c4) if c is not None]
+    report('T13f blank line inserted, paragraphs joined, blank line removed, trailing newline: each RX, U, flagged',
+           len(r13f) == 4 and all(len(x) == 1 and x[0][1] == 'U' and x[0][2] for x in r13f) and not rx_of(dict(pin)),
+           str(r13f))
     # T13d exactness: H equals the replay except for one doubled space -> not J, flagged
     cm, ed, cl, af, e = gr134(', for every $S$')
     f134 = ent['GR:134']['file']
@@ -1883,6 +1978,14 @@ def self_test():
     muts.append(('one frozen edit altered', m))
     caught = [(n, not c6(mm, None, None, B.PIN)[0]) for n, mm in muts]
     report('T15 C6 mutants: each is caught', all(c for _, c in caught), str(caught))
+    # T15b N6: the deletion edits.json must have the approved, pinned digest. Unset pin -> fail; a blob
+    # with one altered new string against the pin of the original -> fail; the original -> pass.
+    orig = json.dumps({'edits': [{'id': 'D1', 'file': 'papers/Main.md', 'old': 'a', 'new': 'b'}]}).encode()
+    alt = json.dumps({'edits': [{'id': 'D1', 'file': 'papers/Main.md', 'old': 'a', 'new': 'c'}]}).encode()
+    pinx = sha256_bytes(orig)
+    t15b = (not del_pin_ok(orig, '')[0] and not del_pin_ok(alt, pinx)[0] and del_pin_ok(orig, pinx)[0]
+            and DEL_APPROVED_SHA256 is None and not del_pin_ok(orig)[0])
+    report('T15b approved edits.json pin: unset -> VOID, altered -> VOID, approved -> pass', t15b)
     # T16 C7 and C8 on the synthetic items pass; C8's precondition (J with J10 off) holds there
     syn = (cmp_s, eds, cls_s, after_s, k_s)
     cc = countercontrols(cmp_s, {}, eds, cls_s, rows, pin, after_s, synthetic=syn)
@@ -1958,8 +2061,10 @@ def self_test():
     m_full = missing_items(s2a, pin, full)
     r21 = classify(B.compare(snap, part), empty_e, empty_c, rows, pin, part, landed=s2a)
     rm = [k for k in r21 if k.startswith('RM:')]
-    report('T21 replay-missing: S2-A landed in full -> none; first edit reverted -> U',
-           not m_full and rm and all(r21[k]['class'] == 'U' for k in rm), '%d / %s' % (len(m_full), rm[:3]))
+    rx_full = file_exact_items(s2a, pin, full, set(), set())
+    report('T21 replay-missing: S2-A landed in full -> no RM and no RX; first edit reverted -> U',
+           not m_full and not rx_full and rm and all(r21[k]['class'] == 'U' for k in rm),
+           '%d / %d / %s' % (len(m_full), len(rx_full), rm[:3]))
     # T21b completeness: one of two reviewed edits on one line reverted in H -> U (ch02:144, ch02:192)
     res21b = []
     for eid, rev in (('ch02:144', 'S2-B:E15b'), ('ch02:192', 'S2-D:E14')):
