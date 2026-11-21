@@ -59,19 +59,22 @@ and the ontic carrier (L2, Main:650). Every other use is scope.
   factor, is condition (iii) `InertSpectatorCompositionality` (SpectatorBridge.lean:223). Using a level as
   the base of a larger experiment is condition (v) `IteratedAncillaClosure` (AncillaClosure.lean:247). So
   at the operational layer, the owner's compatibility test is exactly two of the five conditions. Both are
-  proved necessary for exactness (`physical_of_exactAll`), and for each of them a witness theory satisfies
-  the other four conditions without it (`five_way_minimality`).
+  proved necessary for exactness (`physical_of_exactAll`), and on the qubit each of them has a witness theory
+  satisfying the other four conditions without it (`five_way_minimality`, qubit-scoped).
 - **Imported.** Complex matrix kinematics, as Main:572 states. Under `qm_of_oiPlus` the conditions are
   supplied by the OI⁺ principles, so they are posited, not derived.
 
 **Skepticism at this node (the branch is favourable).**
 
-- (i) **The witness covers only multiples of |A|.** The only witness on `main` is `fullQuantum` on `Fin 2`
-  (ReferenceSufficiency.lean:681, `fullQuantum_exactAll` IsometryExtension.lean:231), so it reaches
-  carriers of even dimension `2(k+1)` and no others. A witness on `Fin 1`, which would reach every size, is
-  not in the kernel. Joint satisfiability is proved only on `Fin 2` (`main_result` clause (ii)). This is a
-  small gap, and it is mathematical. Whether it is an exposed hidden assumption depends on whether a record
-  reads `main_result` (ii) as carrier-general. None was found in the A-QM row.
+- (i) **Witnesses on every carrier.** The kernel has an exact theory on every nonempty finite `A`,
+  `Fin 1` included. `fullClass_quantumArchitecture` (SubstratumSource.lean:151) with
+  `genTheory_qm_of_quantumArchitecture` (SubstratumSource.lean:136) gives `ExactAllFiniteEndomorphicQuantumOps`
+  of `genTheory fullClass _ A`. `substratum_plus_control_qm` (StructuralClosure.lean:397) is a second route.
+  Composed with `physical_of_exactAll`, either gives joint satisfiability of the five conditions on every
+  carrier. On `Fin 1` this is one theory exact at every finite size. Its exactness comes from the full class
+  of operations, so it is (I). Only the witness instantiated inside `main_result` (ii) (`fullQuantum`) and
+  `five_way_minimality` are qubit-scoped. The witnesses `fullQuantum`, `pairFlowTheory` and `mixTheory` are
+  qubit-only. One caveat on compatibility: inert spectators reach only levels `m` with `|R|·n = m`.
 - (ii) **The object is not a model.** `FiniteOperationalTheory` is a family of availability predicates. It
   has no ontic carrier, no dynamics and no probability `p_M`. Target I needs a substratum–observer
   realization with law equality, and the only link to OI (`RealizesSealedOICore`, OIRealization.lean:234)
@@ -144,12 +147,14 @@ algebras).
 - **Unital encodings.** A unital `*`-homomorphism `M_d → M_m` exists iff `d | m`, since the multiplicity
   must be an integer. A carrier of dimension `d` therefore embeds unitally into some stage, compatibly with
   the tower inclusions `X ↦ X ⊗ 1`, iff every prime factor of `d` divides `|Q|`. The quasilocal algebra is
-  the UHF algebra of supernatural number `|Q|^∞`.
+  the UHF algebra of supernatural number `|Q|^∞` when `ι` is countably infinite. An uncountable `ι` gives
+  a non-separable algebra.
 - **Corner encodings.** For the `q = 2` model of Main §3.2, a carrier of dimension 3 has no unital encoding
   on any region. It enters only as a corner `p M_{2^k} p`.
 - **Corner lemma (paper; (I), since it assumes stage exactness).** If the stage theory is exact QM, then
   the corner theory is exact QM. For soundness, an instrument on the stage that preserves the corner
-  compresses to a valid instrument. For completeness, `K ↦ K ⊕ (1 − p)` is a valid stage Kraus family.
+  compresses to a valid instrument. For completeness, `K_1 ⊕ (1 − p)` together with `K_i ⊕ 0` for `i > 1`
+  is a normalized stage Kraus family.
 - So the restriction to powers of `|Q|` costs nothing once the stages are exact. The price is that every
   such carrier comes with a **stated encoding** (the projection `p`), and its operations must be
   leakage-free, which is answer (c)3's "stated encodings".
@@ -163,8 +168,8 @@ Maximum skepticism goes here.
 **4.1. Measurable structure gives no obstruction (remark; sketch; (I)).** For countably infinite `ι` and
 `|Q| ≥ 2`, `(Q^ι, product σ-algebra)` is an uncountable standard Borel space. By Kuratowski's theorem it is
 Borel-isomorphic to every other uncountable standard Borel space, among them the ontic spaces of
-ψ-complete ontological models of `d`-level QM (Beltrametti–Bugajski; the Kochen–Specker qubit model;
-Harrigan–Spekkens' classification) and their disjoint union over `d`.
+ψ-ontic ontological models of `d`-level QM (the ψ-complete Beltrametti–Bugajski model; the Kochen–Specker
+qubit model, which is ψ-supplemented, not ψ-complete, in Harrigan–Spekkens' classification) and their disjoint union over `d`.
 
 - *Import.* This uses the Hilbert-space state itself as the ontic variable.
 - *Named gap.* Making such a model *deterministic and reversible* with collapse needs an infinite padding
@@ -174,8 +179,8 @@ Harrigan–Spekkens' classification) and their disjoint union over `d`.
   lattice must use structure beyond the measurable: site factorization (ledger (viii)), finite range ((ix),
   A3) or native operations. The relabelling destroys all three.
 
-**4.2. Proposition U (unbounded readout cone; paper proof; label (N), with an imported mathematical
-theorem).**
+**4.2. Proposition U (unbounded readout cone; paper proof; label (I): it imports preparation–setting
+independence, ledger item (xiv), beyond its stated Bell scope, and the mathematical theorem [55]).**
 
 *Setting.* The ontic space is `Ω = Q^ι`, site-factorized (viii). A *native measurement* consists of:
 
@@ -198,6 +203,10 @@ is unbounded over the measurement set.
 
 *Proof.*
 
+- **Where (xiv) enters.** The preparation law `μ` is taken to be the same whichever measurement in `𝓜`
+  follows it, so `B(p, m) = ∫ ξ_m dμ_p`. On a native substratum the setting is itself a configuration, so
+  this is setting independence, ledger item (xiv). Main:736 scopes (xiv) to the Bell analysis of §3.3. It
+  is the "ordinary preparation → ontic system → measurement" interface that Main:568 names as assumed.
 - The probability of outcome `o` is `μ(f_o ∘ π_R) = (π_R μ)(f_o)`. The response depends on `x` only through
   `x|_R`, so `B = Ξ_R · (π_R M)`, with `Ξ_R` having entries in `[0,1]` and `π_R M` column-stochastic over
   `Q^R`.
@@ -210,9 +219,12 @@ is unbounded over the measurement set.
 *Classification.*
 
 - **Native premises used:** (viii), the `ReversibleDynamics` finite-range structure, (ix)/A3 for the depth
-  form, and Lemma 1's finite visible region.
-- **Imported:** the mathematical theorem [55] only. The quantum behaviour is the comparison target, not a
-  premise. Hence (N).
+  form, and Lemma 1's finite visible region. Item (xiv) is not native in this
+  scope; see Imported.
+- **Imported:** preparation–setting independence, (xiv), used outside the Bell scope that Main:736 gives
+  it. This is an operational premise, so the label is (I). The theorem [55] is imported mathematics. The
+  quantum behaviour is the comparison target, not a premise. The same use of (xiv) outside its scope is
+  flagged by BQ1's AW-1 (#1498).
 - **Layer:** paper (P). Not in the kernel.
 
 *Skepticism, loophole by loophole.*
@@ -229,21 +241,24 @@ is unbounded over the measurement set.
 
 *Is it stronger than the restatement?*
 
-- **Yes.** L2 says the ontic carrier is infinite. Proposition U says that even on an infinite carrier a
-  native exact qubit cannot be read within any fixed finite region of the substratum.
+- **Only as a corollary.** Mathematically, U is L2 applied to the pushforward `π_R μ`, a one-step
+  corollary. As a necessary condition it is not provably stronger than L2, so criterion (a) is borderline.
+  What it adds is its reading on an infinite carrier: a native exact qubit cannot be read within any fixed
+  finite region of the substratum.
 - **Consequence for 3B (exposed hidden assumption).** In 3B a carrier is a *finite-region stage*, and its
   sharp effects are elements of that stage. By Proposition U, a native realization of the stage's sharp
   effects cannot have finite-region ontic response.
 - So the identification "finite carrier ↔ finite region" holds in the quantum completion and **fails at
-  the ontic level** for every native exact realization. The region tower's (T3) therefore cannot be
+  the ontic level** for every native exact realization that satisfies (xiv). The region tower's (T3) therefore cannot be
   realized natively with exact laws by region-local readouts. Any native O2 construction must use readout
   cones that grow with the resolution demanded.
 - *Assumption-watch AW-U2:* "the carrier lives on a finite region" is exact only in OI_Q (I). Ontically it
   is at best quasilocal, as a limit over growing cones.
 
-**Classification of the node.** NEW (candidate), pending independent review. It is the decisive branch:
-it fixes what a native single model must do (unbounded readout cones), and it rules out every
-bounded-readout scalable construction. Negative scope: it applies to the class stated, native
+**Classification of the node.** ELABORATING, as a corollary of L2. Its gem content is AW-U2, under
+criterion (c). Under (xiv) it fixes what a native single model must do (unbounded readout cones), and it
+rules out every bounded-readout scalable construction. Its preparations are arbitrary measures, more
+generous than O3's native preparation, so it is a necessary condition only. Negative scope: it applies to the class stated, native
 finite-range readouts on a site-factorized carrier, and to no wider class.
 
 ## 5. Node 5: infinite carriers and the inequivalence issue (literature, Step 4)
@@ -259,8 +274,10 @@ finite-range readouts on a site-factorized carrier, and to no wider class.
 - *Classical counterpart on the ontic side.* Product measures on `Q^ι` whose site marginals differ at
   infinitely many sites, enough to violate Kakutani's criterion, are mutually singular (Kakutani 1948).
 - *Bearing on O2.* None, for finite carriers. A finite carrier lives on a finite stage, `M_n` has one
-  irreducible representation, and a finite-support operation changes a measure only on a cylinder. So it
-  stays absolutely continuous and in the same sector. This matches GR:292 and `state_selection_audit`: no
+  irreducible representation, and a finite-support quantum operation stays in the same sector. On the
+  ontic side, a finite-support bijection keeps a product measure with full-support site marginals, such
+  as uniform Bernoulli, absolutely continuous. Without full support this fails: a point mass with one
+  site flipped is singular to the original. This matches GR:292 and `state_selection_audit`: no
   representation is selected, and a sector is an initial-condition input.
 - *Bearing on an infinite carrier* (an infinite subsystem as the working system): one model cannot connect
   states in different sectors by any finite-support operation, and `q3_countermodel` shows that
@@ -268,19 +285,26 @@ finite-range readouts on a site-factorized carrier, and to no wider class.
   carrier" is sector-relative in principle:** at most one sector per initial condition.
 - **Verdict:** ELABORATING. The literature confirms the kernel's scope and adds the sector restriction as
   standard.
-- **Recurrence on an infinite carrier.** A bijective cellular automaton on `Q^{ℤ^d}` preserves the uniform
-  Bernoulli measure (Hedlund 1969 for `d = 1`; surjective CA preserve it in general). So Poincaré
-  recurrence holds almost everywhere, while exact return with a finite index (Main:650) fails generically.
-  Axiom 2 in its exact form is therefore not available on 3B. Only almost-everywhere recurrence is.
-  *Assumption-watch AW-U3:* any result that consumes the exact recurrence index (Main:736 item (ii) uses)
-  does not transfer to 3B.
+- **Recurrence on an infinite carrier (a question for the owner, not a result).** Axiom 2 (Main:36) says
+  that differentiation recurs. It is not exact orbit return. The exact finite-index return and its index
+  (Main:650) are finite-representative statements under ledger item (ii) (Main:736). Known mathematics
+  bears on that return on 3B:
+  - with countable `ι`, a surjective CA preserves the uniform Bernoulli measure (Hedlund 1969 for `d = 1`),
+    so Poincaré recurrence holds almost everywhere;
+  - a CA with `Φ^n = id` (finite order) returns exactly everywhere;
+  - spatially periodic configurations return exactly, but they form a null set.
+
+  So exact finite-index return is not guaranteed on 3B unless `Φ` has finite order.
+  *Question for the owner:* which form of return, if any, a statement about 3B must keep.
+  *Assumption-watch AW-U3:* a result that consumes the exact finite-index return of Main:650 (item (ii)
+  uses) transfers to 3B only for finite-order `Φ`, or in an almost-everywhere form.
 
 ## 6. The A1 dependency, step by step
 
 | Step | Needs the A1 retirement? |
 |---|---|
-| Nodes 1–2, 3A, 3C, Proposition U as a no-go | No. They are mathematics about stated classes. Proposition U is a no-go over the infinite class and asserts no OI model exists. |
-| Asserting that the OI substratum *is* 3B (an infinite `Q^{ℤ^d}` with uniform Bernoulli prior) | Yes, and more besides. The retirement would remove the finiteness posit. It would not supply the following, and none of them is assumed: Axiom 2 on 3B (only a.e. recurrence, AW-U3); Lemma 3's injectivity recovery, which closes its margin on a finite representative (Main:736 (iii)); and the counting-measure selection (iv), replaced by the Bernoulli family, which needs its own justification. |
+| Nodes 1–2, 3A, 3C, Proposition U as a no-go | No. They are mathematics about stated classes. Proposition U is a no-go over the stated infinite class and asserts the existence of no OI model. |
+| Asserting that the OI substratum *is* 3B (an infinite `Q^{ℤ^d}` with uniform Bernoulli prior) | Yes, and more besides. The retirement would remove the finiteness posit. It would not supply the following, and none of them is assumed: exact finite-index return on 3B (Main:650; not guaranteed unless `Φ` has finite order, AW-U3); Lemma 3's injectivity recovery, which closes its margin on a finite representative (Main:736 (iii)); and the counting-measure selection (iv), replaced by the Bernoulli family, which needs its own justification. |
 | Any manuscript or registry statement of the above | Yes, and it is frozen material (Main:590, :650, :712, :730; ledger item (ii)). None is proposed. |
 
 ## 7. The owner's three questions
@@ -288,15 +312,17 @@ finite-range readouts on a site-factorized carrier, and to no wider class.
 **Established.**
 
 1. *(Kernel, (I).)* One operational object exact on every finite level `A × Fin (k+1)`. The compatibility
-   test at that layer is conditions (iii) and (v). The witness on `main` covers even dimensions only
-   (Node 2).
+   test at that layer is conditions (iii) and (v). Witnesses exist on every nonempty finite carrier,
+   `Fin 1` included (`fullClass_quantumArchitecture`, `genTheory_qm_of_quantumArchitecture`). Only
+   `main_result` (ii) and `five_way_minimality` are qubit-scoped (Node 2).
 2. *(Kernel, algebra and dynamics (N) as mathematics; operational reading (I).)* The region tower passes
    (T1)–(T4), with (T2) in causal-cone form. Its uniqueness theorem is not an equivalence (§A.34) (Node 3B).
 3. *(Paper, (N).)* The periodic-torus tower is dynamically compatible, meets the prior test only by
    conditioning on vanishing-weight sectors, and fails the observation test at scale (3A).
 4. *(Standard mathematics.)* Unital encoding iff the prime factors of `d` divide `|Q|`, otherwise a corner
    encoding. *(Paper, (I).)* The corner lemma (3C).
-5. *(Paper, (N), imported mathematical theorem [55].)* **Proposition U:** a native exact qubit on a
+5. *(Paper, (I): imports preparation–setting independence (xiv) beyond its Bell scope; mathematical
+   theorem [55].)* **Proposition U**, a corollary of L2: a native exact qubit on a
    site-factorized finite-range substratum needs readout cones that lie in no finite region. Hence the
    finite-region carrier of 3B is not natively realizable with exact laws by bounded readouts (Node 4.2).
 
@@ -310,23 +336,28 @@ finite-range readouts on a site-factorized carrier, and to no wider class.
 - Inert spectators and iterated closure as the operational compatibility rules: Node 2. In Lean:
   `InertSpectatorCompositionality`, `IteratedAncillaClosure`.
 - An infinite site set: 3B, Node 4. In Lean: `[Infinite ι]` in `q3_countermodel`. It is not adopted.
+- Preparation–setting independence, ledger (xiv), beyond its Bell scope: Proposition U, at the
+  factorization `B(p, m) = ∫ ξ_m dμ_p` (Node 4.2).
 - Imported mathematics: [55] (Proposition U), and Kuratowski, Glimm, Kakutani and Hedlund (remarks).
 
 **Missing.**
 
 - **The earliest unsupported step is (T3) on the scalable candidate 3B:** a *native* observation interface
   on the region tower whose available operations are exact on every stage. It needs a **physical
-  mechanism**, namely O1 (a sourced non-monomial coherent operation). By Proposition U it also needs a
+  mechanism**, namely O1 (a sourced non-monomial coherent operation). Under (xiv), Proposition U says it also needs a
   readout mechanism whose cone grows with resolution: an amplification-type process of unbounded depth.
+  This agrees with BQ1 (#1498, reviewed at `3269772a`), whose H5 assumes a polynomial dependency cone.
+  Polynomial cones are unbounded, so the two do not conflict. It agrees with QOPS (#1501, under revision),
+  which places O1's earliest links at KIN (imported), then FLOW. The readout requirement is O3-type and
+  conditional on QOPS's RES.
 - **Mathematics still open:**
   - the infinite padding step of 4.1;
-  - a carrier-general joint-satisfiability witness, on `Fin 1`;
-  - H-∞ (ROADMAP:86);
-  - the standing of Axiom 2 on 3B (AW-U3), which is a physics and owner decision that rests on mathematics
-    already known.
+  - H-∞ (ROADMAP:81);
+  - which form of return a statement about 3B keeps (AW-U3). This is a question for the owner; the
+    relevant mathematics is known.
 
-**Productivity verdict.** Gem under criteria (a) and (c): Proposition U and AW-U2. Node 4.2 is
-classified NEW (candidate), Node 2 CONFIRMING, 3A, 3C and Node 5 ELABORATING. The fixed point is not
+**Productivity verdict.** Gem under criterion (c) only: AW-U2, under (xiv). Criterion (a) is borderline,
+because Proposition U is an L2 corollary. Node 4.2 is classified ELABORATING, Node 2 CONFIRMING, 3A, 3C and Node 5 ELABORATING. The fixed point is not
 reached: one pass.
 
 ## 8. Preregistration (not run; computation is not authorized)
@@ -353,5 +384,5 @@ Heinosaari, Kerppo, Leppäjärvi, Plávala, Phys. Rev. A 109, 032627 (2024) (Mai
 ontological excess baggage", Stud. Hist. Phil. Mod. Phys. 35 (2004); Montina, Phys. Rev. A 77, 022104
 (2008), and arXiv:1002.3139 (its bound needs Markovian dynamics on a manifold and is not invariant under
 Borel isomorphism, which is why it is not used here); Glimm, Trans. AMS 95 (1960); Bratteli, Trans. AMS
-171 (1972); Powers, Ann. Math. 86 (1967); Araki and Woods, Publ. RIMS 4 (1968); Kakutani, Ann. Math. 49 (1948); Hedlund, Math. Systems Theory 3
+171 (1972); von Neumann, Compositio Math. 6 (1939); Powers, Ann. Math. 86 (1967); Araki and Woods, Publ. RIMS 4 (1968); Kakutani, Ann. Math. 49 (1948); Hedlund, Math. Systems Theory 3
 (1969); Beltrametti and Bugajski, J. Phys. A 28 (1995); Harrigan and Spekkens, Found. Phys. 40 (2010).
