@@ -2504,6 +2504,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *(i) Hidden-state relabeling.* For a finite set of hidden co..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *(iii) Decoupled ancillary enlargement.* Adjoin a factor of ..."
     },
     {
