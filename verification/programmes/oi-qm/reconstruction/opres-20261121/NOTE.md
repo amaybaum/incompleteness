@@ -1,310 +1,380 @@
 # OPRES: necessary resources for non-monomial transformations (research note)
 
-**WIP / UNVERIFIED. Paper research only; not reviewed.** This note walks the nodes of `PLAN.md`
-(committed before the derivation, at `1f926939`). It adopts no premise or criterion, edits no
-manuscript or reviewed record, runs no computation and changes no status. Physical source remains
-NOT PASSED.
+**WIP / UNVERIFIED. Paper research only.** Revision r2 answers the independent review of
+`35f0aa8a` (#1511 c.7066342291, verdict REVISE). r2 has not been re-reviewed. This note walks the
+nodes of `PLAN.md`, which was committed before the derivation at `1f926939`. It adopts no premise
+or criterion, edits no manuscript or reviewed record, runs no computation and changes no status.
+Physical source remains NOT PASSED.
 
-Tracking: Issue #1509; draft PR #1511 (stacked on #1508 at `df520f3b`). Base for corpus citations:
-`main` at `df6da1c6`. Layers: X exact algebra on paper; P paper argument; K kernel theorem on `main`,
-cited and not duplicated.
+Tracking: Issue #1509; draft PR #1511 (stacked on #1508 at `df520f3b`). Corpus citations are
+against `main` at `df6da1c6`. Layers: X exact algebra on paper; P paper argument; K kernel theorem
+on `main`, cited and not duplicated.
 
 ## 0. Outcome and the three questions
 
-**Outcome (PLAN §4).**
-- **Representational scope** (Born form on the configuration basis, countable carriers):
-  **OBSTRUCTION.** Theorem C proves that every protocol realizing a non-monomial unitary
-  transformation, exactly or within an explicit distance, contains two kinds of element: a
-  **splitter**, an operation with no column-monomial Kraus decomposition, and a **merger**, an
-  operation with no row-monomial Kraus decomposition. They may be the same element. Control,
-  feedforward, configuration readout, randomness, size and depth cannot replace either.
-- **Native status:** OI's stated operations supply neither (Theorem A′, §5). The unavoidable
-  additional premise, for this class, is a native physical operation that merges distinct
-  configurations coherently, together with a coherence source. That is a physical premise.
-  Theorem C shows that mathematics inside the class cannot supply it.
+**Outcome (PLAN §4), reported per scope.** The note reports a scoped OBSTRUCTION with two
+INCONCLUSIVE extensions. PLAN §4 asks for exactly one outcome; it is applied here to each scope
+separately.
+
+- **Representational scope** (the Born form on the configuration basis): **OBSTRUCTION.**
+  - Theorem C proves that every protocol realizing a non-monomial unitary transformation, exactly
+    or within an explicit distance, contains two elements, possibly the same one:
+    - an operation that **creates coherence**: it is not MIO-type, so it maps some diagonal input
+      to a non-diagonal output;
+    - an operation that **detects coherence**: it is not DIO-type, so the diagonal of its output
+      depends on an off-diagonal entry of its input.
+  - Control, feedforward, configuration readout, randomness, size and depth cannot replace either
+    element.
+  - The bound holds on countable carriers, and on measurable carriers for the detection half
+    (Proposition D, under nonsingularity and normality).
+  - The pair is tight. One-bit teleportation (§4, CC-1) realizes Hadamard exactly with one creator
+    (a |+⟩ ancilla) and one detector (a destructive ⟨±| readout). Everything else in it is native.
+- **Native status**, (N) as algebra and (I) on KIN, conditional on R-READ: OI's stated
+  operations supply neither element (§5).
 - **Operational scope** (record laws): **no non-classical resource is shown to be necessary.** The
-  necessary operational resources established are classical: non-atomic uncontrolled variables,
-  unbounded records, ready cells and unbounded readout cones. Exact laws are met classically by D-W,
+  necessary operational resources established are all classical. D-W meets exact laws classically,
   in sketch.
-- **INCONCLUSIVE** on two points, each with its missing premise named in §6: uncountable hidden
-  carriers, and whether OI's ontology can host a merger.
+- **INCONCLUSIVE.**
+  - **U2** (physical): can OI's ontology host a coherence detector and a coherence source?
+  - **U1′** (narrow): measurable carriers whose bijection is singular, or whose hidden state is not
+    normal. There the Born-form lift itself is undefined (§6).
 
 **Established.**
-- Lemma C, Theorems A′, B and C, and Corollary C1. All are exact algebra on paper (X), with
-  explicit approximation bounds.
-- The route classification of §4: necessary, merely possible, or insufficient (X and P).
-- §5's native-membership check (P, with K citations).
+- Lemma C; Theorems A′, B and C; Proposition D. All are layer X.
+- Countercontrol CC-1 (X).
+- The route classification (X and P).
+- §5's native-membership check (P), with kernel citations at their finite scope.
 
 **Assumed.**
-- **KIN:** the Born-form representation on configurations (decision 4). It is what gives
-  "non-monomial" its meaning.
-- **(e):** countable carriers.
-- For B and C only, the imported **fixed coherent resource states**, product with the input.
-- **R-READ:** native readouts are configuration-basis. This is a reading of READ (#1501), not
-  stated there in these words.
-- Operational results: the EP-schema clauses EP:77, EP:79 and EP:97, (xiv) beyond its Bell scope
-  (Proposition U), H1–H5 (BQ1), and D-W's sketch status.
+- **KIN**, the Born-form representation on configurations (decision 4). It gives "coherence" and
+  "non-monomial" their meaning.
+- Countable carriers for A′, B and C. For Proposition D: a nonsingular measurable bijection on a
+  standard measure space and a normal hidden state.
+- For B and C, fixed coherent resource states (imported).
+- **R-READ** (an Assumed reading of READ, #1501): every native readout effect lies in the
+  configuration algebra (ℓ^∞ or L^∞).
+- For the operational results: EP:77, EP:79 and EP:97; (xiv) beyond its Bell scope
+  (Proposition U); H1–H5 (BQ1); and D-W's sketch status.
 
-**Missing.**
-- The earliest unsupported step is a **physical mechanism**: a native merger, plus a splitter or a
-  native coherence source. A non-monomial step (FLOW) is one possible route that supplies both. It
-  is not necessary as such.
-- **Mathematics:** the uncountable-carrier extension of Lemma C (§6).
+**Missing.** The earliest unsupported step is a **physical mechanism**, of two kinds:
+- a native coherence-detecting operation: one whose Heisenberg dual takes a configuration effect
+  outside the configuration algebra;
+- a native coherence source, or coherent input.
+
+A non-monomial step (FLOW) is one possible route, and it supplies both. It is not necessary as such.
 
 ## 1. Literature (searched first)
 
 | Topic | Source | Relation |
 |---|---|---|
-| Coherence resource theory; incoherent operations | T. Baumgratz, M. Cramer, M. B. Plenio, PRL 113, 140401 (2014); A. Winter, D. Yang, PRL 116, 120404 (2016); review: A. Streltsov, G. Adesso, M. B. Plenio, Rev. Mod. Phys. 89, 041003 (2017) | Theorem A′ is the native-class instance of "free operations cannot create coherence" |
-| Physically incoherent operations (PIO) | E. Chitambar, G. Gour, PRL 117, 030401 (2016) and PRA 94, 052336 (2016) | 𝒩 is PIO-like: permutations, incoherent ancillas, incoherent measurements, classical processing |
-| Speakable and unspeakable coherence | I. Marvian, R. W. Spekkens, PRA 94, 052324 (2016) | the basis is fixed physically (configurations), assumption (a) |
-| Creation against detection of coherence | T. Theurer, D. Egloff, L. Zhang, M. B. Plenio, PRL 122, 190405 (2019), arXiv:1806.07332; follow-up arXiv:2102.04863 | Theorem C's splitter and merger are Kraus-level sufficient conditions for leaving their creation-free (MIO-type) and detection-free (DIO-type) classes. Row-monomial implies Δ∘Φ = Δ∘Φ∘Δ. No formal equivalence is claimed |
-| Measurement-based computation | R. Raussendorf, H. J. Briegel, PRL 86, 5188 (2001) | a possible route: coherent resource plus non-configuration readouts plus feedforward (§4) |
-| Gate teleportation | X. Zhou, D. W. Leung, I. L. Chuang, PRA 62, 052316 (2000) | possible routes using readouts in rotated bases |
-| Trace-distance and fidelity bounds | M. A. Nielsen, I. L. Chuang, *Quantum Computation and Quantum Information* (2000), §9.2 | standard norms used in the bounds |
+| Coherence resource theory | T. Baumgratz, M. Cramer, M. B. Plenio, PRL 113, 140401 (2014); A. Winter, D. Yang, PRL 116, 120404 (2016); review: A. Streltsov, G. Adesso, M. B. Plenio, Rev. Mod. Phys. 89, 041003 (2017) | Theorem A′ is the native-class instance of "free operations create no coherence"; 𝒩 lies in SIO (monomial Kraus) |
+| PIO, and MIO ⊋ IO | E. Chitambar, G. Gour, PRL 117, 030401 (2016); PRA 94, 052336 (2016) | MIO contains operations whose Kraus operators are not all CM; used in §3 to show the creator condition is strictly sharper |
+| Speakable and unspeakable coherence | I. Marvian, R. W. Spekkens, PRA 94, 052324 (2016) | the basis is fixed physically (configurations) |
+| Creating and detecting coherence | T. Theurer, D. Egloff, L. Zhang, M. B. Plenio, PRL 122, 190405 (2019), arXiv:1806.07332; follow-up arXiv:2102.04863 | Direction: CM-decomposable ⇒ IO ⊆ MIO, and RM-decomposable ⇒ DIO. So **leaving MIO implies a non-CM element**, and **leaving DIO implies a non-RM element**. The converse fails for MIO, since MIO ⊋ IO. Theorem C is stated with MIO and DIO. Its mathematics is standard after Theurer et al.; its novelty is relative to the corpus |
+| Unitaries from IO plus coherent resources | K. Ben Dana, M. García Díaz, M. Mejatty, A. Winter, PRA 95, 062327 (2017) | IO plus a maximally coherent resource implements arbitrary unitaries. No conflict with B: IO Kraus operators may be non-RM and detect coherence, whereas 𝒩⁺ lies inside DIO (§3, B Scope) |
+| Gate teleportation; MBQC | X. Zhou, D. W. Leung, I. L. Chuang, PRA 62, 052316 (2000); R. Raussendorf, H. J. Briegel, PRL 86, 5188 (2001) | CC-1 is one-bit teleportation |
+| Classical simulability despite coherence | D. Gottesman, arXiv:quant-ph/9807006 (1998); S. Aaronson, D. Gottesman, PRA 70, 052328 (2004) | the operational layer (§6): coherent dynamics can still be efficiently simulable, so representational and operational necessity differ |
+| Norms | M. A. Nielsen, I. L. Chuang, *Quantum Computation and Quantum Information* (2000), §9.2 | trace and diamond norms |
 
 **Corpus.**
-- `Main:328` and `:338` (diagonal preservation, finite and measurable).
-- `substratumClass_monomial` (`OIBridge/CoherentContinuumSource.lean`:212, K).
-- `gateFlow_not_monomial` (same file, :74, K): the fractional-time flow is non-monomial.
-- `substratumGen_not_control` (`StructuralClosure.lean`:330, K).
-- `substratumTheory_not_layerFlowExecutable` (`LiftAudit.lean`:200, K).
-- `preservesDiag_conjChannel_of_colMonomial` (`SubstantiveCensus.lean`:654, K).
-- `preservesDiag_sum` (`DiagonalTheory.lean`:84, K).
+- `Main:328` and `:338` (diagonal preservation; the measurable-hidden-carrier corollary).
+- `substratumClass_monomial` (`OIBridge/CoherentContinuumSource.lean`:212, K) and
+  `gateFlow_not_monomial` (same file, :74, K).
+- `substratumGen_not_control` (`StructuralClosure.lean`:330, K) and
+  `substratumTheory_not_layerFlowExecutable` (`LiftAudit.lean`:200, K). Both are finite-carrier,
+  Kraus-sum, exact no-gos.
+- `preservesDiag_conjChannel_of_colMonomial` (`SubstantiveCensus.lean`:654, K) and
+  `preservesDiag_sum` (`DiagonalTheory.lean`:84, K). These carry `Fintype`/`Finset`, so their use
+  here for countable carriers and countable Kraus families is X, not K.
 
 ## 2. Definitions (N1 setup)
 
-Configuration spaces X, Y are countable, and ℓ²(X) has its point basis (assumption (a): the
-configuration basis is fixed). For a bounded linear map K : ℓ²(X) → ℓ²(Y):
+Configuration spaces are countable unless stated otherwise. Δ is the conditional expectation onto
+the configuration (diagonal) algebra, and (a) fixes the configuration basis. For a bounded
+K : ℓ²(X) → ℓ²(Y):
+- **CM**: each column K|x⟩ has at most one nonzero entry.
+- **RM**: each row ⟨y|K has at most one nonzero entry, equivalently the columns have pairwise
+  disjoint supports.
+- **Monomial**: both CM and RM.
 
-- K is **column-monomial (CM, splitter-free)** iff each column K|x⟩ has at most one nonzero entry.
-- K is **row-monomial (RM, merger-free)** iff each row ⟨y|K has at most one nonzero entry.
-  Equivalently, the columns have pairwise disjoint supports.
-- K is **monomial** iff it is both.
+For a CP, trace-nonincreasing map Φ:
+- **Non-creating (MIO-type)** iff Φ∘Δ = Δ∘Φ∘Δ, that is, diagonal inputs give diagonal outputs. Φ
+  **creates coherence** iff it is not MIO-type.
+- **Non-detecting (DIO-type)** iff Δ∘Φ = Δ∘Φ∘Δ, that is, the output diagonal depends on the input
+  only through its diagonal. In the Heisenberg picture: Φ* maps the configuration algebra into the
+  configuration algebra. Φ **detects coherence** iff it is not DIO-type.
+- **Decomposability.** CM-decomposable implies MIO-type, and RM-decomposable implies DIO-type (for
+  RM K, ⟨y|KρK†|y⟩ = |K_{yx}|²ρ_{xx} for the unique x). The first implication is strict
+  (MIO ⊋ IO); whether the second is strict is not settled here.
 
-A CP map, or an instrument branch, is **CM-decomposable** (respectively **RM-decomposable**) iff it
-has a Kraus decomposition, finite or countable, all of whose operators are CM (respectively RM).
+**Classes.**
+- **𝒩** consists of:
+  - (n1) permutation unitaries of configuration bijections, and diagonal phases;
+  - (n2) appending configuration states, or diagonal mixtures of them;
+  - (n3) configuration-basis Lüders measurement of any subsystem;
+  - (n4) classical feedforward on records;
+  - (n5) discard;
+  - (n6) postselection on records.
 
-**Operation classes.**
-- **𝒩 (native, in Born form).** Generated by:
-  - (n1) the permutation unitary of a bijection of a configuration set, and diagonal phases;
-  - (n2) appending a system in a configuration state |x⟩, or in a classical (diagonal) mixture of
-    them (ready cells, hidden priors);
-  - (n3) configuration-basis Lüders measurement of any subsystem, with recording;
-  - (n4) classical feedforward on recorded outcomes;
-  - (n5) discard (partial trace);
-  - (n6) postselection on recorded outcomes.
-
-  𝒩 is taken with any finite depth and any countable size.
-- **𝒩⁺.** 𝒩 plus (n2⁺): appending a system in a **fixed** density operator ω of any coherence, the
-  same for every input (product).
+  It allows any finite depth and any countable size.
+- **𝒩⁺** is 𝒩 plus (n2⁺): appending a fixed density operator ω of any coherence, the same for every
+  input.
 
 ## 3. Results
 
 **Lemma C (closure; (N) as algebra; X).**
-1. CM maps are closed under composition, tensoring with the identity, and restriction to
-   sub-families.
-2. RM maps are closed under the same three operations.
-3. Every Kraus operator of (n1), (n3) and (n5) is monomial: a permutation or phase, a basis
-   projection, or ⟨a| on a factor.
-4. Appending |x⟩ is monomial. Appending a fixed pure |χ⟩, the isometry |v⟩ ↦ |v⟩ ⊗ |χ⟩, is RM. It
-   is CM only if χ is a basis vector up to a phase.
-5. Mixed ancillas decompose into pure ones. Feedforward and postselection produce Kraus operators
-   that are products of the elements' Kraus operators, or sub-families of them.
-6. Hence every branch of an 𝒩-protocol is CM- and RM-decomposable, and every branch of an
-   𝒩⁺-protocol is RM-decomposable.
+- CM, RM, MIO-type and DIO-type maps are each closed under composition, under ⊗ id, under partial
+  trace, under feedforward of the form Σ_r |r⟩⟨r| ⊗ K_r on configuration records, and under
+  restriction to sub-instruments (postselection).
+- Every element of (n1), (n3) and (n5) is monomial, so it is both MIO and DIO.
+- Appending |x⟩ or a diagonal mixture is MIO and DIO.
+- Appending any fixed ω is DIO, since Δ(ρ ⊗ ω) = Δρ ⊗ Δω. It is MIO iff ω is diagonal.
+- So 𝒩 ⊆ MIO ∩ DIO, with monomial Kraus operators (SIO), and 𝒩⁺ ⊆ DIO.
 
 *Proof.*
-- CM: (AB)|x⟩ = Σ_z B_{zx} A|z⟩. If B|x⟩ has its only nonzero entry at z₀ and A|z₀⟩ has at most one
-  nonzero entry, then (AB)|x⟩ has at most one.
-- RM: apply the same argument to rows, by transposition.
-- Tensoring: (A ⊗ 1)|x, w⟩ = A|x⟩ ⊗ |w⟩, and likewise for rows.
-- The isometry |v⟩ ↦ |v⟩ ⊗ |χ⟩ has row (v, h) equal to χ_h⟨v|, a single nonzero.
-- Items 5 and 6 then follow by induction on the protocol. ∎
+- **CM and RM.**
+  - Composition: (AB)|x⟩ = Σ_z B_{zx}A|z⟩, so (AB)|x⟩ has at most one nonzero entry. RM follows
+    by transposition.
+  - Tensoring: (A ⊗ 1)|x, w⟩ = A|x⟩ ⊗ |w⟩.
+  - The isometry |v⟩ ↦ |v⟩ ⊗ |χ⟩ has row (v, h) equal to χ_h⟨v|.
+- **MIO.**
+  - Diagonal joint states are mixtures of |x⟩⟨x| ⊗ |y⟩⟨y|.
+  - The partial trace of a diagonal state is diagonal.
+  - Feedforward on a configuration record acts blockwise on a diagonal record.
+- **DIO.**
+  - Composition: if ΔΦ₁ = ΔΦ₁Δ and ΔΦ₂ = ΔΦ₂Δ, then ΔΦ₂Φ₁ = ΔΦ₂ΔΦ₁ = ΔΦ₂ΔΦ₁Δ = ΔΦ₂Φ₁Δ.
+  - Tensoring: Δ_{XY} = Δ_X ⊗ Δ_Y.
+  - Partial trace: Tr_Y ∘ Δ_{XY} = Δ_X ∘ Tr_Y.
+- Sub-instruments keep each property branchwise. ∎
 
-**Theorem A′ (native class; (N); X; CONFIRMING).** Let any joint initial state of all systems be
-diagonal in the configuration basis, with arbitrary correlations between the visible preparation
-and hidden or ancilla systems, so no preparation independence is assumed. Then every branch output
-of every 𝒩-protocol is diagonal.
+**Theorem A′ (native class; (N) as algebra on 𝒩, X; its reading "OI's native operations create
+no coherence" is (I) on KIN, conditional on R-READ; CONFIRMING).**
+- *Statement.* Start from any diagonal joint initial state. It may have arbitrary correlations
+  between the visible preparation and the hidden or ancilla systems, so no preparation
+  independence is assumed. Then every branch output of every 𝒩-protocol is diagonal.
+- *Bound.* For every pure target ψ and every branch output σ,
+  ½‖ψψ† − σ‖₁ ≥ sup_{i≠j} |ψ_i ψ_j|. The bound is tight for |+⟩, giving ½. It holds for
+  subnormalized branches and is uniform in size, depth and control.
+- *Proof.* Lemma C gives MIO. For the bound, take X = e^{iα}|i⟩⟨j| + h.c. with ‖X‖ = 1. Since σ
+  has no off-diagonal entries, ‖ψψ† − σ‖₁ ≥ |tr((ψψ† − σ)X)| = 2|ψ_iψ_j|. ∎
+- *Grade.* This is the IO/SIO no-creation result, for OI's native class.
 
-For every pure target ψ and every branch output σ, ½‖ψψ† − σ‖₁ ≥ max_{i≠j} |ψ_i ψ_j|. For |+⟩
-the bound is ½. It is uniform in carrier size, depth and control.
-
-*Proof.*
-- Each Kraus operator is CM (Lemma C), so conjugation preserves diagonality
-  (`preservesDiag_conjChannel_of_colMonomial`, K). Sums preserve it too (`preservesDiag_sum`, K).
-  Partial trace of a diagonal state is diagonal.
-- For the bound: let M = ψψ† − σ. Take X = e^{iα}|i⟩⟨j| + h.c., with ‖X‖ = 1, so
-  ‖M‖₁ ≥ |tr(MX)| = 2|ψ_i ψ_j̄|. ∎
-
-*Grade.* This is the coherence resource theory's "free operations create no coherence", in OI's
-native class (CONFIRMING; `Main:328`). Its content for OI is in §5: native states are laws over
-configurations, so native operations alone never produce Born-form coherence. Coherence in the
-`Sub:249` family enters only through representational coherent inputs ρ_V.
-
-**Theorem B (coherent resources without a merger; (I) on KIN, fixed resource states, (e); X;
-ELABORATING on S1).**
-- (i) No branch of any 𝒩⁺-protocol on ℂ^{C_V} equals p·Ad_W, with p > 0 and W a non-monomial
-  unitary. This holds at any depth, with measurement, feedforward, discard and postselection.
-- (ii) For every trace-preserving 𝒩⁺-protocol channel Φ,
-  ‖Φ − Ad_W‖_⋄ ≥ 2 κ_row(W), where κ_row(W) := max_i max_{v≠v′} |W_{iv} W_{iv′}|.
-  For W = H, κ_row = ½, so ‖Φ − Ad_H‖_⋄ ≥ 1.
-
-*Proof.*
-- (i) The branch p·Ad_W has Kraus rank one, so every Kraus decomposition of it consists of
-  multiples of W. By Lemma C one decomposition is RM. So W is RM. A unitary with single-entry rows
-  is monomial, which is a contradiction.
-- (ii) An RM Kraus operator K gives ⟨i|KρK†|i⟩ = |K_{iv}|² ρ_{vv} for the unique v. So the
-  diagonal of Φ(ρ) depends on the diagonal of ρ only.
-  - Pick i, v, v′ attaining κ_row. Let φ_± = (|v⟩ ± e^{iβ}|v′⟩)/√2, with β chosen so that
-    |W_{iv} + e^{iβ}W_{iv′}|² − |W_{iv} − e^{iβ}W_{iv′}|² = 4|W_{iv}W_{iv′}|.
-  - Then ⟨i|Ad_W(φ_+) − Ad_W(φ_−)|i⟩ = 2κ_row, while ⟨i|Φ(φ_+) − Φ(φ_−)|i⟩ = 0.
-  - For a traceless Hermitian M, |⟨i|M|i⟩| ≤ ½‖M‖₁. Hence
-    2κ_row ≤ ½‖(Ad_W − Φ)(φ_+)‖₁ + ½‖(Ad_W − Φ)(φ_−)‖₁ ≤ ‖Ad_W − Φ‖_⋄. ∎
-
-*Scope.* S1 is the one-step, no-measurement case of (i). B adds protocols, measurement,
-feedforward, postselection and approximation. CM-3 of #1508 lies in 𝒩⁺ preceded by a
-configuration read: its Kraus operators have a single nonzero column, hence are RM. So it is
-covered, and it cannot give Ad_H on coherent inputs.
-
-**Theorem C (necessity; (I) on KIN and (e); X; NEW relative to the corpus).** Let a
-trace-preserving protocol be any finite composition, with feedforward and discard, of operations
-O_1, …, O_n on countable configuration spaces in Born form. Let W be a unitary on ℂ^{C_V}, and put
-κ_col(W) := max_x max_{i≠j} |W_{ix} W_{jx}|.
-- (a) If ‖Φ − Ad_W‖_⋄ < 2κ_col(W), some O_k has no CM decomposition: it is a splitter.
-- (b) If ‖Φ − Ad_W‖_⋄ < 2κ_row(W), some O_k has no RM decomposition: it is a merger.
-- (c) For W non-monomial, κ_col and κ_row are both positive. A unitary with single-entry columns,
-  or with single-entry rows, is monomial.
-
-So any exact realization, and any realization better than the stated distances, contains a
-splitter **and** a merger, possibly the same element. For postselected branches, the exact form is
-the same: no branch p·Ad_W unless W is both CM and RM (B(i) and its column analogue).
+**Theorem B (coherent resources without a detector; (I) on KIN, fixed coherent resource states,
+countable carriers; X; ELABORATING on S1).** Let Φ be any 𝒩⁺-protocol.
+- **(i) Exact.** No branch of Φ on ℂ^{C_V} equals p·Ad_W with p > 0 and W a non-monomial
+  unitary.
+- **(ii) Approximate.** For every trace-preserving Φ, ‖Φ − Ad_W‖_⋄ ≥ 2κ_row(W), where
+  κ_row(W) := sup_i sup_{v≠v′} |W_{iv}W_{iv′}|. For H the bound is 1, out of a maximum of 2.
 
 *Proof.*
-- (b) If every O_k is RM-decomposable, so is Φ (Lemma C), and B(ii) gives the bound.
-- (a) If every O_k is CM-decomposable, Φ preserves diagonality. Pick x, i, j attaining κ_col.
-  Then ‖Φ(|x⟩⟨x|) − W|x⟩⟨x|W†‖₁ ≥ 2|W_{ix}W_{jx}|, by the bound of A′ applied to ψ = W|x⟩. That
-  quantity is at most ‖Φ − Ad_W‖_⋄.
-- (c) A unitary's columns are nonzero. If every column has one entry, W is monomial. Rows likewise.
-  ∎
+- **(i)** The branch is DIO by Lemma C. So p·W†|i⟩⟨i|W is diagonal for each i. A diagonal rank-one
+  PSD operator is a multiple of a basis projector, so row i of W has a single nonzero entry. A
+  unitary with single-entry rows is monomial. This step is also valid in countable dimension, by
+  surjectivity.
+- **(ii)** Take ε > 0, and choose i, v, v′ with |W_{iv}W_{iv′}| > κ_row − ε.
+  - Let φ_± = (|v⟩ ± e^{iβ}|v′⟩)/√2, with β chosen so that
+    ⟨i|Ad_W(φ_+) − Ad_W(φ_−)|i⟩ = 2|W_{iv}W_{iv′}|.
+  - DIO gives ⟨i|Φ(φ_+) − Φ(φ_−)|i⟩ = 0.
+  - For a traceless Hermitian M, |⟨i|M|i⟩| ≤ ½‖M‖₁. So 2(κ_row − ε) < ‖Φ − Ad_W‖_⋄.
+  - Let ε → 0. ∎
 
-**Corollary C1 (interface placement; (I) on KIN; X).** Suppose the logical basis is rotated by a
-unitary U, dropping (a) at the logical level, while preparations and readouts stay native
-configuration operations. Logical preparation |U i⟩ from a configuration is then a splitter
-whenever U is not CM. Logical readout ⟨U i| is a merger whenever U is not RM. Changing the encoding
-moves the two elements to the interface; it does not remove them. The equivalence of the swap X
-with H (#1508 CM-2) shows this placement explicitly.
+*Scope.*
+- **S1** is the one-step, no-measurement case of (i).
+- **CM-3 of #1508.** The coherent controlled append Σ_v |v⟩⟨v| ⊗ |χ_v⟩ is itself RM, hence DIO,
+  so B covers CM-3 without any preceding read. A hidden state assigned as a function of the
+  preparation, nonlinearly in a coherent ρ, lies outside every linear (CP) class treated here. The
+  route table's "insufficient" holds for the linear model only.
+- **Ben Dana et al. (2017).** There is no contradiction. IO plus a maximally coherent resource
+  implements arbitrary unitaries because IO Kraus operators may be non-RM, that is, they may detect
+  coherence. 𝒩⁺ only ever detects configurations: under any DIO map the diagonal of ρ ⊗ ω depends
+  on ρ only through diag ρ, so no resource ω helps.
 
-## 4. N3: routes classified
+**Theorem C (necessity, sharp form; (I) on KIN and countable carriers; X; NEW relative to the
+corpus).** Let Φ be a trace-preserving protocol, any finite composition with feedforward and
+discard of operations O_1, …, O_n. Let W be a unitary on ℂ^{C_V}, and define
+κ_col(W) := sup_x sup_{i≠j} |W_{ix}W_{jx}|.
+- **(a)** If ‖Φ − Ad_W‖_⋄ < 2κ_col(W), some O_k **creates coherence** (is not MIO-type).
+- **(b)** If ‖Φ − Ad_W‖_⋄ < 2κ_row(W), some O_k **detects coherence** (is not DIO-type).
+- **(c)** For non-monomial W, κ_col and κ_row are both positive.
+- **(d) Exact form, including postselected branches.** A branch p·Ad_W needs a creator and a
+  detector unless W is monomial.
+- **Corollary.** Every creator is a splitter (non-CM-decomposable), and every detector is a merger
+  (non-RM-decomposable). The splitter/merger pair of r1 is therefore implied, but it is strictly
+  coarser on the creation side, so the sharp pair is the one stated.
 
-| Route | Splitter? | Merger? | Status |
+*Proof.*
+- **(b)** If no O_k detects coherence, then Φ is DIO (Lemma C), and B(ii)'s argument applies.
+- **(a)** If no O_k creates coherence, then Φ is MIO. Take ε > 0, choose x, i, j with
+  |W_{ix}W_{jx}| > κ_col − ε, and apply A′'s bound to ψ = W|x⟩:
+  ‖Φ(|x⟩⟨x|) − W|x⟩⟨x|W†‖₁ ≥ 2(κ_col − ε). This is at most ‖Φ − Ad_W‖_⋄.
+- **(c)** A unitary with single-entry columns, or single-entry rows, is monomial.
+- **(d)** Apply the MIO and DIO arguments to the branch. ∎
+
+**Proposition D (detection half on measurable carriers; (I) on KIN, nonsingularity, normality;
+X; ELABORATING; proof due to the review sketch, written out here and pending review).**
+- *Setting.* C_V is finite. (H, ν) is a standard measure space. T is a measurable bijection of
+  C_V × H with measurable inverse, **nonsingular** for (counting × ν). ω is a **normal** state on
+  B(L²(H)).
+- *Configuration algebras.* For each space, 𝒜 = ℓ^∞(C_V) ⊗̄ L^∞(H), acting by multiplication.
+- *Statement.* Every protocol built from Koopman unitaries U_T of such bijections, appending normal
+  states, configuration-algebra projections, feedforward on configuration records, discard and
+  postselection has a Heisenberg dual Φ* that maps 𝒜_out into 𝒜_in. Theorem B(i) and (ii) then
+  hold verbatim with C_V finite, and Theorem C(b) holds for such protocols.
+
+*Proof.* Each step is checked in the Heisenberg picture.
+1. **Koopman unitaries.** Let (U_T f)(z) = J(z)^{1/2} f(T⁻¹z), with J the Radon–Nikodym derivative
+   of the image measure; it exists by nonsingularity. U_T is unitary, and U_T M_g U_T† = M_{g∘T⁻¹}.
+   So conjugation maps 𝒜 onto 𝒜. Spectral type plays no role.
+2. **Configuration readouts.** These are projections in 𝒜, and their duals multiply within 𝒜.
+3. **Discard.** The dual of the partial trace is X ↦ X ⊗ 1, which maps 𝒜 into 𝒜 ⊗̄ 𝒜.
+4. **Appending ω.** The dual is the normal slice map id ⊗ ω. It sends M_f, with f ∈
+   ℓ^∞(C_V) ⊗̄ L^∞(H), to the multiplication operator v ↦ ω(M_{f(v,·)}) in ℓ^∞(C_V). Normality
+   is needed for the slice to be defined on the von Neumann tensor product.
+5. **Feedforward.** Feedforward on configuration records is a direct sum over 𝒜-projections.
+6. **Postselection.** Sub-instruments keep the property branchwise.
+7. **Conclusion.** Induction gives Φ*(|i⟩⟨i|) ∈ ℓ^∞(C_V), so Φ is DIO on the finite visible space.
+   - (ii) follows as in Theorem B: tr(Φ(φ_±)|i⟩⟨i|) = ⟨φ_±|Φ*(|i⟩⟨i|)|φ_±⟩, and this is equal for
+     φ_+ and φ_−.
+   - (i) follows because Ad_W*(|i⟩⟨i|) = W†|i⟩⟨i|W is diagonal and rank one.
+   - No Kraus decomposition and no extremality step is used. ∎
+
+*Creation half on measurable carriers.* A classical hidden law on a measurable carrier is not a
+normal state on B(L²(H)) unless it is atomic. Its single-time case is `Main:338` (the
+measurable-hidden-carrier corollary). For protocols with classical laws, the process is a classical
+stochastic process on configurations, so every output is a law over configurations (P, CONFIRMING).
+
+**Corollary C1 (interface placement; (I) on KIN; X).** Suppose the logical basis is U-rotated,
+while preparations and readouts stay native.
+- Logical preparation |U i⟩ creates coherence whenever U is not CM.
+- Logical readout ⟨U i| detects coherence whenever U is not RM.
+
+Changing the encoding relocates both elements to the interface; it does not remove them (compare
+#1508 CM-2).
+
+## 4. N3: routes classified, and the tightness countercontrol
+
+**CC-1 (one-bit teleportation; layer X, checked by hand and by the reviewer numerically to
+1e-15; possible route, and tightness of C).** The steps:
+1. Append |+⟩. This is the only creator (n2⁺).
+2. Apply CZ, a diagonal phase (n1).
+3. Read the input destructively with ⟨±|. This is the only detector. It is MIO, since its output
+   space is one-dimensional, and it is not DIO.
+4. Apply X^m by feedforward, a native permutation.
+
+For ψ = a|0⟩ + b|1⟩: CZ(ψ ⊗ |+⟩) = a|0⟩|+⟩ + b|1⟩|−⟩.
+- Outcome +: ⟨+|_S gives (1/√2)(a|+⟩ + b|−⟩) = (1/√2)Hψ.
+- Outcome −: ⟨−|_S gives (1/√2)(a|+⟩ − b|−⟩) = (1/√2)XHψ, and X corrects it.
+
+Both branches yield Hψ exactly, each with p = ½. So one creator and one detector suffice, with
+everything else in 𝒩. Theorem C is tight in the number of non-native elements. Diagonal phases
+are native here in the sense of (n1) and the kernel's supplied class (`phaseOperator_supplied`).
+
+| Route | Creates coherence? | Detects coherence? | Status |
 |---|---|---|---|
-| Control, feedforward, classical randomness, larger carriers, greater depth (inside 𝒩) | no | no | **insufficient** (A′) |
-| Fixed coherent resource or hidden states (𝒩⁺) | yes | no | **insufficient alone** (B); a possible splitter |
-| Preparation-dependent coherent hidden states (#1508 CM-3) | yes, on configuration inputs only | no | **insufficient** for coherent inputs (B, Scope) |
+| Control, feedforward, randomness, larger carriers, greater depth (inside 𝒩) | no | no | **insufficient** (A′) |
+| Fixed coherent resource or hidden states (𝒩⁺) | yes | no | **insufficient alone** (B, D) |
+| Coherent controlled append Σ_v \|v⟩⟨v\| ⊗ \|χ_v⟩ (#1508 CM-3) | yes | no (RM) | **insufficient** in the linear model (B, Scope) |
 | Preparation-dependent classical hidden laws (PIP dropped) | no | no | **insufficient** (A′ assumes no PIP) |
-| Change of logical basis | moved to preparation | moved to readout | **relocates** both elements (C1) |
+| Change of logical basis | at preparation | at readout | **relocates** both (C1) |
 | Diagonal phases (`PhasesAvailable`) | no | no | **insufficient**: phases are monomial |
-| Non-monomial step on the configuration span (FLOW; `gateFlow_not_monomial`, K) | yes | yes | **sufficient** (trivially); **not necessary** as such |
-| Destructive readout in a non-configuration basis (⟨±\| on an ancilla) | no | yes | a possible merger |
-| Retained Lüders readout onto a superposition (\|+⟩⟨+\|) | yes | yes | a possible splitter and merger |
-| Coherent resource plus non-configuration readouts plus feedforward (MBQC) | yes | yes | **possible route** (literature; not checked here) |
-| Uncountable hidden carrier with a non-classical state | — | — | **INCONCLUSIVE** (§6) |
+| Non-monomial step on the configuration span (FLOW; `gateFlow_not_monomial`, K) | yes | yes | **sufficient**; **not necessary** as such |
+| Destructive non-configuration readout (⟨±\|) | no | yes | a possible detector (CC-1) |
+| Coherent ancilla plus one non-configuration readout plus feedforward | yes | yes | **verified construction** (CC-1) |
+| Measurable carrier, singular bijection or non-normal hidden state | — | — | **INCONCLUSIVE (U1′)**: the Born-form lift is undefined (§6) |
 
-**What is necessary (proved, Theorem C):** a splitter and a merger. **What is not necessary:** FLOW
-specifically. A coherent resource state combined with a non-configuration readout is an alternative
-(possible route).
+**What is necessary (proved, Theorem C):** a coherence creator and a coherence detector.
+**What is not necessary:** FLOW specifically.
 
-**Skepticism.** Is the necessity trivial by definition? Monomiality of the target is defined
-entrywise, but two parts of C are not definitional:
+**Skepticism.** The necessity is not definitional, for three reasons:
 - closure under measurement, feedforward, postselection and discard;
-- distance bounds that hold uniformly over size and depth, at any carrier.
+- distance bounds that hold uniformly over size and depth;
+- the extension of the detection half to measurable carriers.
 
-The independence of the two ingredients is shown by B (splitter without merger) and by the
-column analogue (merger without splitter). Neither alone suffices.
+Each ingredient alone fails: B and D show that a creator without a detector fails, and the MIO
+analogue shows that a detector without a creator fails. CC-1 shows that the pair suffices.
 
-## 5. N5: native status
+## 5. N5: native status (conditional on R-READ)
 
-- **Dynamics.** The substratum update is a bijection, type (n1). `substratumClass_monomial` (K)
-  records that the substratum operator class is monomial.
-- **Preparations, priors and ready cells.** These are configurations or probability laws over them
-  (posit (iv); RES, #1501). Their Born form is diagonal, type (n2).
-- **Readout and records.** READ reads visible configurations, and records are configurations
-  (R-READ), type (n3).
-- **Control.** Controller fields are configurations loaded by programs (EP:75–79), giving
-  classical feedforward, type (n4).
-- **Verdict ((N) membership, P with K citations).** OI's stated operations lie in 𝒩. By
-  Theorem A′, they generate no Born-form coherence, exactly or within the stated bound, at any size.
-  By Theorem C, any extension realizing a non-monomial unitary needs a **native merger and a native
-  splitter**. The kernel no-gos are the generated-theory counterparts: `substratumGen_not_control`
-  and `substratumTheory_not_layerFlowExecutable` (K), with `derivedOI_qm_iff_layerFlowExecutable'`
-  (DerivedQ3.lean:222) taking the flow as a hypothesis. No formal map between them and Theorem C
-  is claimed.
-- **Relation to O1 and the earliest links.** In QOPS (#1501), KIN is the earliest import and FLOW
-  the earliest unsupported physical step. OPRES sharpens FLOW into the pair {splitter, merger}.
-  FLOW supplies both at once. A coherence source together with a non-configuration readout is the
-  other kind of route.
+- **Dynamics.** Substratum update by a bijection, (n1) (`substratumClass_monomial`, K, finite).
+- **Preparations, priors, ready cells.** Configurations or laws over them (posit (iv); RES, #1501),
+  (n2).
+- **Readout and records.** Under R-READ, all native readout effects lie in the configuration
+  algebra, (n3).
+- **Control.** Configuration controller fields (EP:75–79), (n4).
+
+**Verdict.** **Conditional on R-READ**, OI's stated operations lie in 𝒩. The verdict has three
+parts:
+- By A′ ((I) on KIN as a reading), they create no Born-form coherence at any size.
+- By C, an extension that realizes a non-monomial unitary needs a native coherence creator and a
+  native coherence detector.
+- The generated-theory counterparts are `substratumGen_not_control` and
+  `substratumTheory_not_layerFlowExecutable` (K, finite carriers), with
+  `derivedOI_qm_iff_layerFlowExecutable'` (DerivedQ3.lean:222) taking the flow as a hypothesis.
+  No formal map is claimed.
+
+**Relation to O1.** QOPS (#1501) records KIN as the earliest import and FLOW as the earliest
+unsupported step. OPRES sharpens FLOW into the pair {coherence-creating operation,
+coherence-detecting operation}.
 
 ## 6. N4: the operational layer, and what stays INCONCLUSIVE
 
-**Operational necessity, all classical ((I) as named; P).** For exact operational laws on
-`J_exact`:
-- the law of U is non-atomic (L-H′, GA §4: EP:77, EP:79, EP:97);
-- record capacity is unbounded (GA §4 N5);
-- ready cells are a physical input under a uniform law (P5 and PR1, #1501);
-- on a site-factorized finite-range substratum, readout cones are unbounded (Proposition U, #1504,
-  (I) via (xiv));
-- for efficient hosting of BQP, one of H1–H5 must fail (contrapositive of BQ1-D, #1498, (I)).
+**Operational necessity: all classical ((I) as named; P).**
+- Non-atomic uncontrolled variables (L-H′, GA §4).
+- Unbounded records (GA §4 N5).
+- Ready cells (P5, PR1, #1501).
+- Unbounded readout cones (Proposition U, #1504, (I) via (xiv)).
+- For efficient hosting of BQP, the failure of one of H1–H5 (BQ1-D, #1498, (I)).
 
-D-W at trivial E (#1506 §4.3; GA §2.2, sketch) meets the exact operational laws with classical
-resources only. So **no non-classical resource is shown to be operationally necessary**, conditional
-on that sketch. Interference is necessary for the representational target, not for record laws.
-This keeps the D-W distinction of #1508 explicit: D-W and I-ε (`Main:574–610`) approximate or match
-record laws, not Born-form channels, so they do not conflict with Theorems B and C.
+D-W at trivial E (#1506 §4.3, sketch) meets the exact operational laws classically. Gottesman–Knill
+shows the converse gap: coherent dynamics can be efficiently classically simulable. So
+**representational necessity (C) does not imply operational necessity.** This is conditional on
+D-W's sketch.
 
 **INCONCLUSIVE, with the missing premise named.**
-- **(U1) Uncountable hidden carriers.** The missing lemma is a direct-integral form of Lemma C.
-  Composition operators of measurable bijections on L²(V × H, ν), with partial trace taken in
-  pointwise Kraus fields, would have to be shown RM, and the extremality step of B(i) carried to
-  integral decompositions. Plausible, not proved. A Koopman representation of an ergodic map can
-  have continuous spectrum, so the countable argument does not transfer verbatim.
-- **(U2) Whether OI's ontology can host a merger.** This is the decisive open premise, and it is
-  physical, not mathematical. Within 𝒩 it cannot arise (A′, C). It requires extending Φ beyond a
-  bijection on configurations (a non-monomial step), or extending readout beyond configurations
-  (a non-configuration measurement, against R-READ), or a representation in which configurations
-  are not the basis (against (a) and KIN as read here). No native derivation of any of these is
-  known.
+- **U1′ (narrowed).** Proposition D closes the detection half for nonsingular measurable
+  bijections and normal hidden states. `Main:338` covers classical laws. What remains is
+  measurable bijections that are not nonsingular, which have no unitary Koopman operator, and
+  non-normal hidden states. In both cases the Born-form lift Tr_H[U(ρ ⊗ ω)U†] is not defined, so
+  the missing premise is a representation of such carriers at all, not a lemma about them.
+- **U2 (decisive; physical).** Can OI's ontology host a coherence detector, and a creator or
+  coherent input? Within 𝒩 they cannot arise (A′, C). They require one of three things:
+  - extending Φ beyond a bijection;
+  - a native readout effect outside the configuration algebra, against R-READ;
+  - a representation in which configurations are not the basis, against (a) and KIN as read here.
+
+  No native derivation of any of these is known.
 
 ## 7. Classification (§A.31) and productivity
 
 | Item | Label | Layer | Class |
 |---|---|---|---|
-| Lemma C | (N), algebra | X | ELABORATING |
-| Theorem A′ | (N) | X, K | CONFIRMING (`Main:328`; coherence resource theory) |
-| Theorem B | (I): KIN, fixed coherent resource states, (e) | X | ELABORATING (S1 extended to protocols, with a bound) |
-| Theorem C | (I): KIN, (e) | X | NEW relative to the corpus |
-| Corollary C1 | (I): KIN | X | ELABORATING (#1508 CM-2) |
-| Route table | as per row | X, P | — |
-| §5 native membership | (N), reading R-READ | P, K | CONFIRMING |
+| Lemma C | (N) as algebra | X | ELABORATING |
+| Theorem A′ | (N) as algebra on 𝒩; reading (I) on KIN, conditional on R-READ | X | CONFIRMING (IO/SIO; `Main:328`) |
+| Theorem B | (I): KIN, fixed coherent resource states, countable carriers | X | ELABORATING (S1 extended) |
+| Theorem C | (I): KIN, countable carriers | X | NEW relative to the corpus; standard after Theurer et al. |
+| Proposition D | (I): KIN, nonsingularity, normality | X | ELABORATING (from the review sketch) |
+| CC-1 | construction using one imported creator and one imported detector | X | POSITIVE (tightness) |
+| Corollary C1 | (I): KIN | X | ELABORATING |
+| §5 | (N) membership, conditional on R-READ | P, K | CONFIRMING |
 | §6 operational | (I): EP, (xiv), H1–H5, D-W sketch | P | CONFIRMING |
 
 **Productivity test (PLAN §4).** Met. The result covers protocols and approximation, and it names
-the necessary element more sharply than FLOW: a splitter and a merger, either possibly being FLOW.
-The outcome is OBSTRUCTION at the representational scope for countable carriers. It is
-INCONCLUSIVE on U1 and U2. The fixed point is not reached, and review is needed before further
-nodes.
+the necessary elements more sharply than FLOW. The outcome is a scoped OBSTRUCTION with
+INCONCLUSIVE extensions U1′ and U2.
 
-**Decisive computation.** None is needed. The bounds are explicit. An optimal distance from Ad_H
-over RM channels could be computed by a semidefinite program; it is not decisive and is not
-preregistered.
+**Decisive computation.** None is needed. An optimal distance over DIO channels is an SDP; it is
+not decisive and is not preregistered.
 
 ## 8. For owner decision (nothing adopted)
 
-- Whether R-READ (native readouts are configuration-basis) is the intended reading of READ. If a
-  native readout could project onto superpositions of configurations, it would be a merger, and U2
-  would change.
-- Whether the O1 obligation should be restated as the pair {native splitter, native merger} rather
-  than FLOW alone.
+- **R-READ, stated precisely.** Are all native readout effects in the configuration algebra (ℓ^∞,
+  or L^∞)? If not, a native readout can detect coherence. By CC-1, one such readout together with
+  a fixed |+⟩ already realizes H exactly. U2 would then move from "no detector" to "a detector is
+  present; a coherence source is still needed".
+- **O1 restatement (candidate).** Whether to restate O1 as the pair {a native operation that
+  creates coherence (not MIO-type), a native operation that detects coherence (not DIO-type)},
+  in place of FLOW alone. The splitter/merger pair of r1 is not proposed, because it is
+  over-inclusive on the creation side.
 
 ## 9. What this note does not do
 
