@@ -50,9 +50,10 @@ Nothing here assumes PM-D5 (#1454), which stays paused, or any other unresolved 
      tick, in one finite closed set with in-range boundary. Every excursion of a periodic orbit
      lies inside its own permanently confined closed hull.
    - *Consequence: the decisive question for Q, restated.* Does Q admit a controlled transfer
-     whose whole transit is confined in one closed region `D = cl₂(lines ∪ R)`, with `R` finite?
-     That means `∂D` in range at every tick; values outside `[c−1, c+1]` are allowed only at
-     interior sites of `D`.
+     that is leak-free relative to a finite allowed region `lines ∪ R`, meaning no site outside it
+     ever leaves `c`? For bent junctions the closed hull `cl₂(lines ∪ R)` fills an infinite planar
+     sector, so confinement in that hull is a weaker requirement (§1). A leak-free transit never
+     breaches the hull.
    - *Corollary NU6.* If `D` lies in one lattice plane, every site of `D` is a boundary site.
      A planar radiation-free transit is then ternary at every tick.
    - This corrects F1 §4's framing: F1 listed a healing breach as a possibility distinct from
@@ -142,11 +143,21 @@ What remains possible:
 - (ii) Radiation outside `D` that later returns. This is confinement relative to a larger region,
   and U2's R3 counts it as a failure.
 
-*The decisive question for Q, restated.* Is there a closed `D = cl₂(L ∪ R)`, with `R` finite, and
-an initial pattern such that a W-type signal enters along one line and leaves along another? The
-transit must be confined in `D` throughout, with no breach of `∂D` at any tick, and the line
-sector must be restored. By NU5 this subsumes F1 §4's "bounded breach" alternative. The breach
-mechanism of U2 D1 (AW-UNIV-3) is exactly a breach of `∂D` for `D` the junction's closed set.
+*The decisive question for Q, restated.* For two non-collinear coplanar lines, `cl₂(L ∪ R)` is not
+a finite neighbourhood of the junction, even for finite `R`. It fills the planar sector between
+the lines: for J1 the inner-corner site `(−1,1,0)` has two line neighbours, then `(−2,1,0)` has
+`(−2,0,0)` and `(−1,1,0)`, and so on through the quadrant `{x ≤ −1, y ≥ 1, z = 0}`. Confinement in
+`cl₂(L ∪ R)` therefore allows ternary disturbance throughout that sector. The criterion for a
+controlled transfer at a bent junction is *leak-freeness* relative to the finite, non-closed
+allowed region `L ∪ R` (U2's R3 form).
+- The question is: is there a finite `R` and an initial pattern such that a W-type signal enters
+  along one line and leaves along another, no site outside `L ∪ R` ever leaves `c`, and the line
+  sector is restored?
+- A leak-free transit stays in `L ∪ R ⊂ cl₂(L ∪ R)`, so the closed hull is never breached. By NU5
+  this subsumes F1 §4's "bounded breach" alternative.
+- The disturbance of U2 D1 (AW-UNIV-3) is a leak out of `L ∪ R⁺`. Its inner-corner kick puts a
+  ternary value at `(−1,1,0)`, inside the sector `cl₂(L ∪ R)`. It is not a breach of that closed
+  set's boundary. Whether it later breaches the closed set is not established.
 
 **Corollary NU6 (necessary conditions on a confined transit) [W].** In a transit confined in `D`:
 - (a) every `j ∈ ∂D` has `x_t(j) ∈ [c−1, c+1]` at every tick. For `j ∈ ∂D`, `G(S_t(j)) − y_{t−1}(j)`
@@ -352,7 +363,7 @@ as a **proposed comparison construction** (conditional), not a completed one.
 |---|---|---|
 | Goal A, broad class | answered at sketch level (Margolus 1984, App. A) | unchanged |
 | Goal A, narrow class | open | a proposed comparison construction on paper (NU8, [W]; universality at Morita–Ueno's standing) for a non-isotropic, non-totalistic rule at `q = 8995`; not executed; not a construction under the native rule; open for isotropic or totalistic members |
-| Goal B, Q | open; decisive question "bounded breach or growth" | open; decisive question restated as a controlled transfer confined in a closed region `D = cl₂(lines ∪ R)` (NU5). A healing breach relative to `D` is excluded (NU4). Planar confined transits are ternary at every tick (NU6) |
+| Goal B, Q | open; decisive question "bounded breach or growth" | open; decisive question restated as a controlled transfer that is leak-free relative to a finite allowed region `lines ∪ R`. For bent junctions `cl₂(lines ∪ R)` is an infinite sector (§1). A healing breach relative to a closed region is excluded (NU4). Planar confined transits are ternary at every tick (NU6) |
 | P3 S1 | preregistered | open; axis tips die (NU7); reformulated by NU3 |
 
 The native rule is not settled by NU8 or by any comparison model.
