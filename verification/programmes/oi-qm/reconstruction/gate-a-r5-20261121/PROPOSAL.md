@@ -12,7 +12,8 @@ Physical source remains NOT PASSED.
 c.7065022754, verdict REVISE, blockers B1–B6 and nits). The reviewed text is that commit; the
 response to each finding is listed in §11. r5.2 additionally takes D-W in the corrected form of
 the #1506 review (c.7065065491 R5) and corrects two nodes of L-H (N2, N5) with a new node N6.
-Neither revision is yet re-reviewed.
+r5.3 answers the delta review at `4649d047` (#1503 c.7065136670, R1–R6). r5.3 is not yet
+re-reviewed.
 
 Tracking: Issue #1502 (linked to #1169); draft PR #1503.
 
@@ -79,11 +80,14 @@ line or record directory of #1477 or #1483.
 > and every finite adaptive multi-time protocol. That goes beyond the corpus's single-time
 > observation interface (c.7064942473): I★ relies on coherent intervention operations beyond the
 > native interface, named here as the imported operational assumption **J-coh**. A weaker
-> single-time form, I★_st, restricts the comparison to the single-time interface; it is listed as
-> an owner option (D6), not proposed in place of I★.
+> single-time form, I★_st, is defined in §2.4 from the corpus's own single-time interface; it is
+> listed as an owner option (D6), not proposed in place of I★.
 >
-> **Cardinality.** I★ quantifies only over finite A and imposes no cardinality on Ω. Lemma L-H
-> (§4) derives a necessary condition from exactness; it is a consequence, not an assumption.
+> **Cardinality.** I★ quantifies only over finite A and imposes no cardinality on Ω. Lemmas L-H
+> and L-H′ (§4) derive necessary conditions from exactness: by L-H′, every exact witness has U
+> taking infinitely many values, so Ω is infinite. That is a consequence, not an assumption, and
+> it conflicts with nothing on `main`, where A1 is not adopted (Sub:92) and the cardinality of the
+> total configuration space is left open (Main:60).
 > Finiteness of A, of each finite adaptive history and of each finite resource used is a local
 > hypothesis of the clause that uses it.
 >
@@ -112,7 +116,11 @@ no satisfiability content over r4's I at the singleton carrier: `J_exact(A)` alr
 level B_n = A × Fin n with no upper bound (EP:33, EP:41), so any single witness at one carrier
 already realizes every finite carrier size in one model, and L-T transports it to every A.
 (scale), I-2★ and the single label rule therefore express the safeguard, but they do not
-strengthen the target. Options that would make it substantive, for the owner (D7), none chosen:
+strengthen the target. The options below were offered at r5.1. None of them adds a constraint
+inside `J_exact(A)`: D-W meets SG-1, SG-2 and SG-4 at trivial E (its register handles tensor
+products, restriction and inert complements), and SG-1 to SG-3 are typing beyond `J_exact`
+(joint, nested and system-changing interfaces). They are therefore scope decisions that widen the
+interface, not sharpenings of I★, and their force against D-W again comes only from E and I-3:
 
 - **SG-1, coexistence.** For A, A′ the model carries X_A and X_{A′} at once as separately
   addressable subsystems with a typed joint interface, so that `J_exact(A × A′)` is realized on
@@ -124,9 +132,21 @@ strengthen the target. Options that would make it substantive, for the owner (D7
 - **SG-3, typed system-changing maps.** Isometric embeddings and partial traces between different
   carriers are typed and realized by the same dynamics (EP:41, EP:110 require an explicit
   implementation argument).
-- **SG-4, stated resource scaling.** The resource policy gives an explicit bound on records,
-  controller and ancilla resources as a function of |A|, the protocol depth and the number of
-  outcomes, fixed before comparison.
+- **SG-4, stated resource scaling.** As worded at r5.1 it has no units. By L-H′ every witness
+  has infinitely many configurations, so a bound "on records, controller and ancilla resources" is
+  vacuous unless counted in native units. A precise form is **SG-4′**: Ω is declared
+  site-factorized with a finite local alphabet and finite-range dynamics, and the number of sites
+  whose configuration the realization of any protocol of depth K with at most m outcomes per step
+  on carrier A reads or writes is at most f(|A|, K, m), for a function f fixed before comparison.
+  SG-4′ is a real constraint, but it presupposes a declared site structure (E-content), and #1504's
+  Proposition U (on a site-factorized Ω with finite-range dynamics, a native exact qubit needs
+  readout cones that lie in no finite region, as reported in the #1506 review c.7065065491 R8; not read here) would make it unsatisfiable for any
+  finite f. It is recorded, not recommended.
+
+**Verdict on scalability.** No constraint is stated here that is both precise inside `J_exact` and
+known to be satisfiable by some exact model; a substantive scalability safeguard is an **open
+question** for the owner (D7), with SG-1 to SG-3 available as interface widenings and SG-4′ as a
+precise but probably unsatisfiable resource form.
 
 ### 2.2 Where the content of I★ lies: E and I-3
 
@@ -166,15 +186,31 @@ pass/fail test.
 **Candidate pass/fail tests for I-3, as owner options (D5); none is chosen here.** Each must be
 stated without reference to `Q_exact(A)` (EP:102, r4 C-1). Given the corrected D-W, a test
 excludes it only by constraining the admissible procedure class of ι and μ_p, or the content of
-E, not by a finite-information bound on ι.
+E, not by a finite-information bound on ι. r5.2's table is corrected below (c.7065136670 R2–R3).
+For each option the question is whether a repaired form excludes the stepwise D-W without
+excluding legitimate exact OI models. No legitimate exact OI model is known (I-3 NOT PASSED), so
+the second half can be checked only against the corpus's own routes: the completion route (a quasilocal
+C*-system over finite-region matrix algebras, whose finite-region states are density matrices,
+GR:279–284, H-∞) and the extension
+characterizations (L3–L5 of §3).
 
-| Option | Test | Excludes D-W? | Cost or conflict |
-|---|---|---|---|
-| T-PROC, admissible procedure class | E names, before comparison, a class of admissible preparation and loading procedures for ι and μ_p, defined without reference to the numeric entries of preparation or instrument labels (for example, procedures generated from a fixed finite repertoire of native operations, with labels entering only through which operations are applied) | yes, by construction, if the class bars writing label entries into a register or a seed law | the class is E-content; whether any faithful model survives it is the open question; a finite-information bound on ι alone is not such a class (μ_p can carry the label) |
-| T-SUB, substratum derivation | Φ is the substratum's dynamics, or its extension by E, and ι, R, τ are procedures of embedded observers on the substratum's visible sector ("one common substratum–observer realization", c.6875548603); no register of M* is defined by its content in a quantum state space | yes, if a register defined as "holds a density matrix" is barred | needs a precise notion of "derived from the substratum"; currently no candidate passes (I-3 NOT PASSED) |
-| T-HTV, hard to vary (§A.29) | E states in advance the results it preserves, delivers at least one independent prediction or postdiction beyond the inclusion, and is rejected if adjustable to fit any outcome | yes: D-W's E predicts nothing beyond the comparator | judged per E; not mechanical |
-| T-NOQ, no quantum primitive | E's statement contains no complex-matrix, CP-map or trace-rule primitive | yes | conflicts with decision 4 (complex matrices allowed as conditional input) unless the result is then labelled I★[K] |
-| T-ACC, native access | every label is realized by procedures available to an embedded observer meeting C1–C4 through the native observation interface, with any reliance on coherent intervention named (c.7064942473) | not by itself: D-W's controller is an admissible loading under EP:75–79 | depends on D6 |
+| Option | Test, as offered and as repaired | Excludes the stepwise D-W? | Excludes legitimate exact models? | Verdict |
+|---|---|---|---|---|
+| T-PROC, admissible procedure class | As offered: procedures generated from a fixed finite repertoire, labels entering only through which operations are applied. Repair attempted: continuous parameters admitted only as durations or strengths of a fixed finite set of native generators fixed in E | as offered, yes; repaired, **no**: a stepwise simulator reads the durations from its program fields and computes the corresponding map on its stored matrix, so any computable label-to-procedure rule is emulated | as offered, **yes, every exact model**: countably many procedures cannot realize a continuum of preparation labels exactly unless the seed law μ_p carries the label, which re-admits D-W | **fails** (dilemma: discrete classes exclude all exact models; continuous classes are emulated) |
+| T-SUB, substratum derivation | As offered: Φ is the substratum's dynamics or its extension by E; no register defined by quantum-state content. Repair attempted (T-SUB′): Φ is exactly the substratum's own update, X_A a sector of the substratum configuration, and E adds only observer-access procedures | as offered, evadable by redescription (a register of real amplitudes, or of integers encoding them, is "not defined in a quantum state space"); T-SUB′, yes (D-W's Φ is not the substratum update) | as offered, yes: it bars the corpus's completion route, whose finite-region states are density matrices (GR:279–284); T-SUB′ is the native form, which decision 1 of c.6875046763 makes the sourcing programme rather than the formal target, and the kernel no-gos `substratumGen_not_control`, `substratumTheory_not_layerFlowExecutable` exclude its specified monomial class | **fails as offered**; T-SUB′ is crisp but abandons the extension form, so it is a different target, not an I-3 test |
+| T-HTV, hard to vary (§A.29) | Repaired (T-HTV′): at least one independent prediction or postdiction of the raw-direct kind (§A.24) derived from the same clauses of E and M* that the inclusion proof uses (no bolt-on clause), and rejection if the model class can be adjusted to fit any outcome | yes: D-W's clauses yield exactly the comparator's laws and nothing else, and its class reproduces any operational theory by swapping its branch rule | not checkable: no legitimate exact model exists to test; "derived from the same clauses" needs a dependency notion not yet stated | **survives conditionally**, as a judgment criterion, not a decision procedure |
+| T-NOQ, no quantum primitive | As offered: E's statement contains no complex-matrix, CP-map or trace-rule primitive. Repair attempted: the condition ranges over M*'s data (Ω, Φ, ι), not only E | as offered, **no** (c.7065136670 R3): D-W's E is trivial and its quantum content sits in Φ and the register; repaired, evadable by redescription as for T-SUB | repaired, yes: conflicts with decision 4 and bars the completion route | **fails** |
+| T-ACC, native access | Every label realized by procedures of an embedded observer meeting C1–C4 through the native interface, reliance on coherent intervention named | not by itself: D-W's controller is an admissible loading under EP:75–79 | no | **fails as an exclusion test**; useful only with D6 |
+
+**Result for D5.** No option, as offered or repaired here, both excludes the stepwise D-W in a
+form that resists redescription and is known not to exclude legitimate exact OI models. The
+structural reason (paper argument, not a theorem): a test stated on the label or procedure
+interface is defeated by universal emulation, because a stepwise reversible simulator can execute
+any computable procedure rule on a stored state; a test stated on the ontic representation is
+defeated by redescription, unless it is tied to the substratum's fixed dynamics, which is the
+native form rather than the extension form. T-HTV′ is the only candidate that survives, and only as
+a judgment. **The I-3 pass/fail criterion is therefore an open research problem, not a ready
+choice**; D5 asks the owner how to proceed with it, not which test to adopt.
 
 ### 2.3 The other parts, carried from r4 with the owner records folded in
 
@@ -191,6 +227,44 @@ E, not by a finite-information bound on ι.
 | G (gravity) | r4 §5.3 G-1 to G-3, on the same M* | required | c.6875548603 |
 | Part 4, joint satisfiability | outside Gate A: Gate A is necessary for the unified endpoint and insufficient for Part 4 | required, not a Gate A clause | c.6877420015 |
 
+### 2.4 The single-time form I★_st, defined from the corpus's single-time interface
+
+**The corpus's interface.** The single-time observation interface is fixed in `Sub:249` and in
+`familyAt` (`verification/lean-mathlib/OIBridge/SemigroupTransfer.lean`:93): a fixed visible/hidden
+interface V × H, a fixed hidden prior ω_H (uniform in `familyAt`), admissible preparations ρ_V on
+the visible sector, and the one-time visible channel family
+Φ_t(ρ_V) = Tr_H[φ̂^t (ρ_V ⊗ ω_H) φ̂^{−t}], t ∈ ℕ, with φ̂ the permutation unitary of the
+substratum bijection. Each time is compared separately; there are no interventions between times
+and no multi-time records. `Sub:249` distinguishes the coherent comparison (equality of the
+coherent reduced-channel family, written ∼) from population-only comparisons (the rooted
+transition probabilities T_ij(t)), stated separately. c.7064942473 retains this interface.
+
+**I★_st (two variants).** For every nonempty finite A and every quantum single-time family
+Λ_A = {Λ_t}_{t ∈ ℕ} on A of the form Λ_t(ρ) = Tr_K[W^t (ρ ⊗ σ_K) W^{−t}] with K finite, W unitary
+and σ_K a density matrix, the one model M* has a visible sector V_A encoded by enc_A, with its
+hidden prior, such that:
+- **I★_st-coh:** the model's visible family equals Λ_A at every t (the ∼ comparison of
+  `Sub:249`); or
+- **I★_st-pop:** the fixed-basis populations agree at every t, ⟨j|Φ_t(|i⟩⟨i|)|j⟩ =
+  ⟨j|Λ_t(|i⟩⟨i|)|j⟩ for all i, j ∈ A.
+
+Neither variant contains instruments, helper levels, adaptive protocols or retained records, so
+EP:38–41, J-coh, (scale), SG-1 to SG-4 and N5 do not apply. The other I★ clauses (one model, one
+E, enc_A, I-2★ without the ancilla clause, I-3) carry over.
+
+**What follows, for the owner's comparison under D6.**
+- I★_st-pop compares classical distributions. An L-H′-type count applies with the time t in place
+  of the protocol π: if a target population family takes infinitely many distinct values over t,
+  a fixed preparation's U-law cannot be finitely supported; if it takes finitely many, finite-atom
+  models can meet it. D-W-like models meet it.
+- I★_st-coh compares coherent channels and therefore presupposes the corpus's Born-form
+  representation of the visible sector (complex kinematics, decision 4). L-H and L-H′ as stated do
+  not apply, since they use instruments; the all-time periodicity obstruction of a fixed finite
+  bijection (Main:650) applies to every finite model at its own scope.
+- Both variants are strictly weaker than I★ (c.7064942473: "Equivalence based on single-time
+  observations is weaker than equivalence under arbitrary quantum experiments"). Whether either
+  is satisfiable by a sourced model is not examined here.
+
 ## 3. Clause ledger with directional witnesses (§A.34)
 
 For a clause of a target, the two directions are kept apart: **sufficient** = what discharges the
@@ -201,12 +275,12 @@ R research record.
 
 | Clause | Kind | Status | Sufficient direction | Necessary direction | Dependencies |
 |---|---|---|---|---|---|
-| I★ as a whole | mathematical statement; physical content only through E and I-3 | open | none under a non-trivial E. At trivial E, D-W (§2.2, P, sketch) meets the mathematical clauses. Interface-level route: `substratum_plus_control_qm` (StructuralClosure.lean:397, K) gives exact finite endomorphic QM for the generated theory, assuming `ExtendsSubstratum`, `StructurallyClosed`, `DrivesElementary`; that is a theory, not a model of the EP:73 schema. (I): imports complex matrix kinematics (decision 4), elementary drivability, J-coh | L-H (§4); Main:568 (P, unboundedness imported [55]); the record-capacity node N5 (§4); L-T (§5) | E; I-3 test (D5); J-coh (D6); H-∞ (`verification/ROADMAP.md`:81) for any completion route |
+| I★ as a whole | mathematical statement; physical content only through E and I-3 | open | none under a non-trivial E. At trivial E, D-W (§2.2, P, sketch) meets the mathematical clauses. Interface-level route: `substratum_plus_control_qm` (StructuralClosure.lean:397, K) gives exact finite endomorphic QM for the generated theory, assuming `ExtendsSubstratum`, `StructurallyClosed`, `DrivesElementary`; that is a theory, not a model of the EP:73 schema. (I): imports complex matrix kinematics (decision 4), elementary drivability, J-coh | L-H and L-H′ (§4); Main:568 (P, unboundedness imported [55]); the record-capacity node N5 (§4); L-T (§5) | E; I-3 criterion, open (D5); J-coh (D6); H-∞ (`verification/ROADMAP.md`:81) for any completion route |
 | (scale) | mathematical (interface typing) | proposed | holds once one model at one carrier is given (EP:33, EP:41; L-T) | none beyond I-1 | EP:33, EP:41, EP:106 |
 | I-1 coherence | mathematical | open | D-W at trivial E | EP:67, EP:104, EP:112 | encoding rule |
 | I-2★ one construction | mathematical + resource accounting | open | D-W at trivial E | a per-size family fails it by definition; by L-T the per-size loophole is already closed by I-1 at one carrier, so I-2★ adds no satisfiability content on this scope (§2.1) | resource policy (EP:106) |
-| I-3 physical sourcing | physical/operational | open; NOT PASSED; no pass/fail test stated (D5) | none. Earliest assumed mechanism: elementary drivability (continuously tunable state mixing) in a structurally closed class (Main:598; `substratum_plus_control_qm` hypothesis `hd`); native preparation, readout and records (`verification/programmes/oi-qm/reconstruction/prep-regress-1-20261119/RESULT.md`:21 and `verification/programmes/oi-qm/reconstruction/meas-q-20261120/RESULT.md`:33 record physical sourcing NOT PASSED) | the monomial class lacks composite control: `substratumGen_not_control` (StructuralClosure.lean:330, K; two-state carrier), `substratumTheory_not_layerFlowExecutable` (LiftAudit.lean:200, K). (N)-type no-gos for the specified monomial implementation class only | E; native coherent operation; native preparation, readout and records |
-| I-4 exactness | mathematical | open | D-W at trivial E; none under a non-trivial E. I-ε (Main:574–610, P) is an approximation with supplied quantum data and does not discharge I-4 | L-H; Main:568; N5; the all-time periodicity obstruction of a fixed finite bijection with a fixed prior (Main:650, P) at its own autonomous multi-time scope | isolation EP:79, EP:81–90; H-PI; J-coh |
+| I-3 physical sourcing | physical/operational | open; NOT PASSED; no pass/fail criterion exists, and none of the options of §2.2 survives as a decision procedure (D5) | none. Earliest assumed mechanism: elementary drivability (continuously tunable state mixing) in a structurally closed class (Main:598; `substratum_plus_control_qm` hypothesis `hd`); native preparation, readout and records (`verification/programmes/oi-qm/reconstruction/prep-regress-1-20261119/RESULT.md`:21 and `verification/programmes/oi-qm/reconstruction/meas-q-20261120/RESULT.md`:33 record physical sourcing NOT PASSED) | the monomial class lacks composite control: `substratumGen_not_control` (StructuralClosure.lean:330, K; two-state carrier), `substratumTheory_not_layerFlowExecutable` (LiftAudit.lean:200, K). (N)-type no-gos for the specified monomial implementation class only | E; native coherent operation; native preparation, readout and records |
+| I-4 exactness | mathematical | open | D-W at trivial E; none under a non-trivial E. I-ε (Main:574–610, P) is an approximation with supplied quantum data and does not discharge I-4 | L-H′ (infinite U on every exact witness, any carrier, no qubit needed); L-H (with H-PI and J-coh, preparation-independent response classes); Main:568; N5; the all-time periodicity obstruction of a fixed finite bijection with a fixed prior (Main:650, P) at its own autonomous multi-time scope | U-completeness EP:77, isolation EP:79, EP:81–90; H-PI and J-coh only for L-H |
 | ⇐ of `qm_generated_by_substratum_extension` (StructuralClosure.lean:406) | assumption-watch marker | K | — | its witness is `fullClass`, for which `ExtendsSubstratum` holds by `trivial` (`fullClass_extendsSubstratum`); this direction carries no substratum content and is not evidence for I-3 | — |
 
 ## 4. Lemma L-H: a necessary condition for exactness (paper; depth-first, §A.31)
@@ -296,33 +370,44 @@ uses no nonnegative-rank import.
   reversible). By U-completeness (EP:77) every uncontrolled variable relevant to later outcomes is
   in U; the controller fields are set by the program. So the outcome of a single-shot protocol is a
   function of (u, p, π), and p_M(o | π, p) = ν_p(A_{o,p,π}) for a measurable A_{o,p,π} ⊆ U, with ν_p
-  independent of π by H-ISO. **L-H′:** under EP:77, EP:79, EP:97 and I-4, for every pure state ψ
-  of a qubit level, ν_ψ is not finitely supported. *Proof.* If ν_ψ had N atoms and no other mass,
-  the values ν_ψ(A) would lie in a set of at most 2^N numbers; by I-4 the values p_M(k⊥ | π_k, ψ) =
-  |⟨ψ_k⊥|ψ⟩|² are infinitely many distinct numbers for a suitable sequence ψ_k in the span. ∎
-  Verdict: H-PI is dispensable inside EP's deterministic schema; L-H′ needs no H-PI and only one
-  preparation. L-H (Hardy form, with H-PI) remains valid at its own hypotheses and gives a
+  independent of π by H-ISO. **L-H′:** under EP:77, EP:79, EP:97 and I-4, at every carrier
+  (including Fin 1) and for every preparation p, ν_p is not finitely supported. *Proof.*
+  `J_exact` contains, on any object, the classical-noise instrument {t·id, (1 − t)·id}: it is CP,
+  its branches sum to a trace-preserving map, and it gives the first outcome with probability t
+  for every t ∈ [0, 1]. If ν_p had N atoms and no other mass, the values ν_p(A) would lie in a set
+  of at most 2^N numbers, while I-4 demands every t ∈ [0, 1]. ∎ No qubit, no pure state and no
+  coherent intervention is used (c.7065136670 R1). H-ISO is needed: without it each ν_{(p,π)}
+  could be a different finite measure. Consequence: every exact witness has U taking infinitely
+  many values, so Ω is infinite; with A1 not adopted on `main` this conflicts with nothing. It does
+  not discriminate D-W, whose seed tape is non-atomic. Verdict: H-PI is dispensable **for the
+  conclusion that U and Ω are infinite**; it is not dispensable for L-H's preparation-independent
+  response classes, which are undefined without it. L-H (Hardy form, with H-PI) remains valid at its own hypotheses and gives a
   preparation-independent family of response classes, which L-H′ does not; it is the right form for
   a generalized schema with stochastic responses.
 
-**Outcome.** Gem by the test fixed before the attempt (N1, N5, N6). Classification: ELABORATING
-for the cardinality content, CONFIRMING for N3, NEW for N5's separation of record-capacity
-infinity from the condition on U, and for N6 (H-PI dispensable inside EP's deterministic schema;
-the load-bearing hypotheses are U-completeness and isolation, AW-R5-1). The r5.1 claim that H-PI
-is load-bearing is withdrawn.
+**Outcome.** Gem by the test fixed before the attempt through N1 only: under H-PI, L-H constrains
+the observer interface (a preparation-independent infinite family of response classes on a qubit
+level), which "Ω is infinite" does not. Classification: CONFIRMING for the infinitude content of
+L-H′ (Main:568, EP:123, #1506 review R6), for N3 and for N5 (EP:41 and EP:106 already force
+unbounded resources); ELABORATING for N6's observation that H-PI is unnecessary for infinitude;
+the load-bearing hypotheses of every exactness obstruction on the schema are U-completeness and
+isolation (AW-R5-1). The r5.1 claim that H-PI is load-bearing for infinitude is withdrawn; it
+remains load-bearing for L-H.
 
-**L-H and L-H′ in the three questions.** Label **(I)** for both.
+**L-H and L-H′ in the three questions.** Label **(I)** for both: L-H′ rests on the EP-schema
+clauses EP:77, EP:79, EP:97 and exactness only, with no quantum or coherent-intervention content;
+L-H adds H-PI and J-coh.
 - Established: L-H and L-H′ as stated, at layer P, in this record. The review of `95073878` found
   L-H's proof correct under its hypotheses; L-H′ (r5.2) is unreviewed.
 - Assumed: for L-H, H-ISO (EP:79), H-PI (a reading of EP:75, EP:79, EP:90), the exact comparator
   law at exact zeros (EP:110) and J-coh (projective measurements in countably many bases). For
-  L-H′, U-completeness (EP:77), H-ISO (EP:79), the deterministic history map of the schema (EP:97),
-  the exact comparator law and J-coh; no H-PI. No quantum assumption on
+  L-H′, U-completeness (EP:77), H-ISO (EP:79), the deterministic history map of the schema (EP:97)
+  and the exact comparator law; no H-PI and no J-coh. No quantum assumption on
   the OI side. No Lean statement of it exists on `main`; `classical_exposed_ncard_le`
   (KInfFoundations.lean:947) is a different bound (exposed points of a body in the N-simplex under
   a facet hypothesis) and is not duplicated.
-- Missing: whether the measurements used lie in the native interface (D6), a decision about the
-  target, not mathematics; and whether the typed schema states U-completeness and isolation
+- Missing: for L-H, whether the measurements used lie in the native interface (D6), a decision
+  about the target, not mathematics; for both, whether the typed schema states U-completeness and isolation
   formally (c.7065065491 R5 records that the typed `SchemaAdmissible` of #1506 does not yet).
 
 ## 5. Lemma L-T: the single-model form at one carrier (paper)
@@ -379,7 +464,7 @@ finding about OI under the (N)/(I) scheme.
   (InstrumentAvailability.lean:335) shows the frozen structure does not supply infinite-support
   coherent operations.
 - **Kinematics.** Every sufficient route cited imports complex matrix kinematics (decision 4).
-- **Interface.** I★ and L-H rely on J-coh (c.7064942473; D6).
+- **Interface.** I★ and L-H rely on J-coh (c.7064942473; D6); L-H′ does not.
 - **Soundness and Bell.** S⇒, S-A and B⇒ follow c.6891338304 by default (§2.3, D2).
 
 ## 7. The three questions, for the record as a whole
@@ -389,13 +474,14 @@ finding about OI under the (N)/(I) scheme.
    and isolation) shows that I★'s mathematical clauses are jointly satisfiable at trivial E. No clause of
    I★ is discharged under a non-trivial E.
 2. **Assumed.** For L-H: H-ISO, H-PI, the exact comparator law, J-coh. For L-H′: U-completeness,
-   H-ISO, the deterministic history map, the exact comparator law, J-coh. For every sufficient route
+   H-ISO, the deterministic history map, the exact comparator law. For every sufficient route
    cited: complex matrix kinematics; elementary drivability (`DrivesElementary`, hypothesis `hd` of
    `substratum_plus_control_qm`); structural closure (`StructurallyClosed`); finiteness of the
    carrier (`[Fintype A]`).
 3. **Missing.** The earliest missing step is a decision followed by a physical mechanism. The
-   decision is a pass/fail test for I-3 and E that is independent of the comparator (D5): without
-   it, D-W meets the mathematical clauses and I★ has no content beyond them. The mechanism is a
+   decision is a pass/fail criterion for I-3 and E that is independent of the comparator (D5);
+   §2.2 finds no ready candidate, so the criterion is itself an open research problem. Without it,
+   D-W meets the mathematical clauses and I★ has no content beyond them. The mechanism is a
    native, physically sourced operation of elementary drivability acting on an observer-accessible
    sector, inside one model, together with native preparation, readout and records (I-3). Existence
    of an exact single model over all finite carriers is not the open mathematical question it was
@@ -442,17 +528,29 @@ finding about OI under the (N)/(I) scheme.
   c.7064859041's "The 14 November decisions are authoritative inputs" meant to restore answers 2
   and 4 as they stood before c.6891338304?
 - **D3.** Whether H-PI ("the controller fields loaded for an instrument do not depend on the
-  preparation") is to be a contract requirement. r5.2 finds it dispensable inside EP's
-  deterministic schema (N6); it matters only if the schema is generalized to stochastic responses.
+  preparation") is to be a contract requirement. It is dispensable for the conclusion that every
+  exact witness has infinite U and Ω (L-H′, N6), and not dispensable for L-H's
+  preparation-independent response classes, nor for a schema generalized to stochastic responses.
   The load-bearing contract clauses are U-completeness (EP:77) and isolation (EP:79), which the
   owner may wish to keep as explicit preconditions of every exactness and readout result.
 - **D4.** The r4 preservation route (answer 5, or by reference as proposed in §8), the landing of
   r5 after independent review, and the #1428 correction.
-- **D5.** The pass/fail test for I-3 and E: one of T-SUB, T-HTV, T-NOQ, T-ACC, a combination, or
-  another (§2.2). Without one, I★ is met at trivial E by D-W.
-- **D6.** The interface: I★ over `J_exact` with J-coh named, or the weaker single-time form I★_st
-  (c.7064942473), or both as stages.
-- **D7.** Whether to make the scalability safeguard substantive through SG-1 to SG-4 (§2.1).
+- **D5.** The I-3 criterion. §2.2 assesses T-PROC, T-SUB, T-HTV, T-NOQ and T-ACC: T-PROC, T-NOQ
+  and T-ACC fail; T-SUB fails as offered, and its crisp repair T-SUB′ is the native form, a
+  different target; T-HTV′ survives only as a judgment. No ready choice exists. The owner is asked
+  whether to open the I-3 criterion as a research unit, to accept T-HTV′ as a provisional judgment
+  standard, or to move the formal target toward the native form. Without a criterion, I★ is met at
+  trivial E by D-W.
+- **D6.** The interface: I★ over `J_exact` with J-coh named; or one of the single-time variants
+  I★_st-coh, I★_st-pop defined in §2.4 from `Sub:249` and `familyAt`; or a single-time variant as
+  a stage before I★. §2.4 lists what each loses: no instruments, helper levels or records;
+  I★_st-pop is a classical comparison that D-W-like and, for finitely valued targets, finite-atom
+  models meet.
+- **D7.** Scalability. Inside `J_exact` the safeguard is nominal (§2.1). SG-1 to SG-3 widen the
+  interface (a scope decision, with force against D-W only through E and I-3); SG-4′ is precise but
+  presupposes a site structure and is probably unsatisfiable by #1504's Proposition U. No
+  substantive constraint is proposed; the owner is asked whether to record it as open or to widen
+  the interface.
 
 ## 10. What this record does not do
 
@@ -472,5 +570,9 @@ not post on #1169.
 | B6 owner records | c.7064942473 cited (§1, §2 Interface, J-coh, D6); "r4 by reference only" flagged as a departure from answer 5 (§8, D4) |
 | Q_exact(A) single law | stated as assumed in I-4 and put to the owner in D1 |
 | #1506 review R5 (c.7065065491), r5.2 | D-W restated in the stepwise form; the precomputed form recorded as inadmissible; exclusion located in EP:75, EP:47/92 and EP:102 through a nontrivial E naming a procedure class; T-PROC added; finite-information tests noted as insufficient |
+| Delta review c.7065136670 R1, r5.3 | L-H′ restated with the noise instrument (any carrier, no qubit, no J-coh); label (I) on EP:77, EP:79, EP:97 and exactness; CONFIRMING; infinite Ω stated as a consequence that conflicts with nothing on `main`; D3 scoped; §3 I-4 row and necessary cells corrected |
+| R2–R4, r5.3 | §2.2 table rebuilt: each option assessed as offered and as repaired; T-PROC's dilemma, T-SUB's redescription and completion-route conflict, T-NOQ's failure stated; the I-3 criterion recorded as an open research problem; T-PROC added to D5 |
+| R5, r5.3 | §2.1: SG-1 to SG-3 recorded as interface widenings; SG-4 given native units as SG-4′, recorded with its #1504 conflict; substantive scalability recorded as open |
+| R6, r5.3 | §2.4 defines I★_st-coh and I★_st-pop from `Sub:249` and `familyAt`, with what each loses |
 | Self-correction, r5.2 | N2's H-PI-dropped countermodel violates U-completeness; N5 corrected; N6 adds L-H′ (no H-PI); D3 restated |
 | Nits | L-T labelled definitional; per-result three-question lines for L-H and L-T; "preregistered" replaced by "fixed before the attempt"; "observer-resolvable" replaced by an instrument-family condition compatible with finite access per instrument; H-PI reworded to the controller-field form |
