@@ -152,10 +152,9 @@ to the nearest reported item within three lines.
   byte-identical to its corresponding replayed line, blank lines included.
 - **Where both sides have the same number of lines,** line k of H corresponds to line k of the
   replayed state.
-- **Where the line counts differ,** no H line has a counterpart. Every H line must then be a reported
-  item's own line, and every replayed line must be accounted for. A replayed line is accounted for when
-  it is a replay-missing item's line, or a non-blank line that the hunk's reported H lines replace, or
-  the text of a reported deleted line or removed entry of that file.
+- **Where the line counts differ,** the hunk is never accounted for: it is an RX item (review
+  c.7065119625, N10). The earlier clause that let reported items account for an unequal hunk is
+  removed. A deleted line, even a reported one, is therefore also an RX item.
 - **What follows.** A blank replayed line is never accounted for by an adjacent item. So any byte
   difference on a line that is not a reported item's own line is an RX item. That includes a space,
   tab, CR, NBSP or other whitespace standing in for a blank line. A line-boundary change (a join, a
@@ -164,8 +163,9 @@ to the nearest reported item within three lines.
 - **What it subsumes.** This rule contains the clause proposed in review c.7064135477, "each blank H
   line identical, character for character, to its replayed counterpart", and the structure condition
   of the previous amendment.
-- **No double counting.** A reported change is still not counted twice. A value change on a reported
-  line, or the deletion of a reported line, is accounted for by its item (C5; T13f).
+- **No double counting** holds for equal-count hunks. A value change on a reported line is accounted for
+  by its item, so C5 still counts its injection once (T13f). A hunk whose line count changes is always
+  its own RX item.
 
 An inserted blank line, joined paragraphs, a removed blank line and a changed trailing newline are each
 an RX item (T13f). A head that is exactly the approved plan has none (T21).
@@ -318,11 +318,27 @@ A justification that is not mechanically checkable, such as a reviewer's argumen
 edit, is R, never J.
 
 **R resolution.** An R item is resolved only by a review recorded on the result PR. The resolution is
-`{"outcome": "justified"|"unjustified", "review": <URL>, "reviewer": <login>, "proof": <citation>}`:
+`{"outcome": "justified"|"unjustified", "review": <URL>, "reviewer": <login>, "proof": <citation>,
+"binding": <binding>}`:
 - `review` is the URL of a comment or review on the result PR (`result_pr`);
 - `reviewer` is not `classifier`, compared case-insensitively;
 - for an item with a J10 hit, a justified outcome also needs `proof`, the citation of the proof that
-  covers the generality the after text states.
+  covers the generality the after text states;
+- **`binding` names the exact bytes the review assessed** (review c.7065119625, N9; owner
+  c.7061485446, item 1):
+  - for each H line the item covers, in order, its file, its line number and the SHA-256 of its raw
+    bytes;
+  - the SHA-256 of the replayed (approved) text of the item's region, or of its baseline text where no
+    cited edit covers it.
+
+  `verdict.py` computes this binding for every item and lists it in `verdict.json`, so that the review
+  copies it. A resolution applies only when the item's binding at the run equals the recorded one
+  exactly: the same files, lines, order, line count and digests. With any other byte, line, order or
+  count difference, the resolution covers nothing, and the item is U.
+
+So a resolution can never approve bytes that differ from the approved transformation unless it names
+those exact bytes. A CR, a zero-width character, a line separator, an NBSP or a second edit on an
+R-resolved line makes the item U. So does a swap or a join of R-resolved lines (T13i).
 
 A resolution that fails any of these leaves the item unresolved. An unjustified outcome counts as U.
 `verdict.json` lists every resolution with its URL. `verdict.py` checks the form offline; that the
@@ -409,7 +425,7 @@ All must pass, or the verdict is VOID.
 | C1 | `baseline.py check` | exit 0 (snapshot regenerates byte for byte from the pin) |
 | C2 | `baseline.py self-test` | exit 0 |
 | C3 | Baseline against itself: `baseline.py --compare 1c7eedc4…` | exit 0, a fresh `self-compare.json` with no change |
-| C4 | `verdict.py self-test` (T1–T21b, with T13b–T13h, T15b and T20d) | exit 0 |
+| C4 | `verdict.py self-test` (T1–T21b, with T13b–T13i, T15b and T20d) | exit 0 |
 | C5 | Countercontrol for the comparator: H's corpus copied to a temporary directory, one unjustified value change injected (the first unchanged entry of a prediction table, the last digit of its first decimal token), compared with `--compare-tree`, classified with the same `classify.json` | a fresh `injected-compare.json` with `any_change` true reporting the entry `value changed`; the entry is U and the U count is the main U count plus one |
 | C6 | Edit inputs (§4) | (a) `compile-s2` from the records reproduces `edits-s2.json` exactly; (b) every edit is non-empty and not a no-op, of a listed unit with that unit's PR, every component from that unit's allowlisted sources; (c) the replay validation of §4 holds; (d) the landed `edits.json` blob has the approved, pinned digest `DEL_APPROVED_SHA256` (unset or different: VOID), `compile-del` reproduces `edits-del.json` exactly, the deletion commit is an ancestor of H, and the deletion edits applied to its first parent reproduce its manuscript files byte for byte. (d) is not applicable only when H is the pin |
 | C7 | Bad-citation countercontrol: in a copy of H's corpus, the first J item with an after line has one number token outside its cited edits' new strings changed (or, with none, " 0" appended), and the copy is compared and reclassified with the same edits and `classify.json` | that item becomes U, and the U count is the main U count plus one |
@@ -447,7 +463,7 @@ is refused (T20b); C0 rejects a commit that is not the pinned one (T20c).
 | A lost open term on a J row is not J | J9; C9 (e) |
 | The owner's cardinality-neutral sentence, row-supported, is not blocked | exact allowlist; C9 (b) |
 | A generality claim clears only by an independent review citing its proof | resolution rule; C9 (a); T18b |
-| R is resolved only by a non-classifier review on the result PR | resolution rule; T7 |
+| R is resolved only by a non-classifier review on the result PR, bound to the exact bytes it assessed | resolution rule with `binding`; T7, T13i |
 | The verdict is given only over green controls, and nothing is classified over failed ones | `verdict_of`; VOID without classification; T11 |
 | No stored pass flag is trusted, and no stored comparison | `verdict` re-runs every control and re-derives both comparison files; T20b, T20d |
 | Only the pinned frozen commit is accepted | C0; T20c |
@@ -498,6 +514,8 @@ checkout HEAD; a non-preparation C0 at this PR's head fails, as it must (T20c).
     (T13g);
   - a space, tab, CR, NBSP, em space or ideographic space in place of the blank line before or after
     such a line, and a swap of two adjacent lines, are each an RX item (T13h);
+  - on an R-resolved line, a CR, ZWSP, U+2028, NBSP or a second edit; a swap and a join of two
+    R-resolved lines; and a `$$` deleted next to an R-resolved line each give a U item (T13i);
   - the approved-list pin: unset or altered gives VOID, approved passes (T15b);
   - the gain-rule mutant, which fails the battery on the bare footnote marker and the gain-only case
     (T13b);
