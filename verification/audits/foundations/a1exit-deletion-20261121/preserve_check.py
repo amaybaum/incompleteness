@@ -21,6 +21,9 @@ Usage (from the repository root):
              its files must still match the pins of PREREG §26.4.
 --base REV   compare against REV (a later main) instead of the ledger base; refused unless every ledgered file is
              byte-identical at REV and at the ledger base.
+--pdf-compare BUILT
+             with --tree: every committed PDF of a ledgered source has the page count and the pdftotext text of the PDF
+             the CI build (build.sh) made from the same tree under BUILT.
 --mutants    with --tree: mutates the candidate in place, one change at a time, restores it, and requires each mutation
              to fail (a hand-edited TeX file, SC-42 result, ledger, checker, coverage fingerprint, record file).
 
@@ -308,6 +311,29 @@ def structural(f, old, new):
     return True
 
 
+def pdf_facts(path):
+    """(page count, extracted text) of a PDF; its bytes carry build dates, so they are not compared."""
+    info = subprocess.run(['pdfinfo', path], capture_output=True, text=True, check=True).stdout
+    pages = int(re.search(r'^Pages:\s+(\d+)', info, re.M).group(1))
+    text = subprocess.run(['pdftotext', '-enc', 'UTF-8', path, '-'], capture_output=True, check=True).stdout
+    return pages, text
+
+
+def pdf_compare(cand_dir, built_dir, paths):
+    """Each committed PDF has the page count and the extracted text of the PDF the CI build made from the same tree."""
+    bad = []
+    for p in sorted(paths):
+        a, b = os.path.join(cand_dir, p), os.path.join(built_dir, p)
+        if not os.path.isfile(a) or not os.path.isfile(b):
+            bad.append('%s: missing in the candidate or in the CI build' % p); continue
+        (pa, ta), (pb, tb) = pdf_facts(a), pdf_facts(b)
+        if pa != pb:
+            bad.append('%s: %d pages committed, %d built' % (p, pa, pb))
+        if ta != tb:
+            bad.append('%s: extracted text differs from the CI-built PDF' % p)
+    return bad
+
+
 def set_fingerprints(b, values):
     """The coverage ledger with the fingerprint of each named entry set to the given value."""
     t = b.decode('utf-8')
@@ -484,6 +510,20 @@ def self_test(led, base_files, plan):
     c = dict(good); c['papers/GR.pdf'] = b'rebuilt'
     b, p = compare(led, base_files, c, plan, reg)
     expect(not b and p == ['papers/GR.pdf'], 'a rebuilt PDF of a ledgered source is left to the CI build')
+    if shutil.which('pdftotext') and shutil.which('pdfinfo'):
+        d1, d2 = tempfile.mkdtemp(prefix='a1exit-pdf-'), tempfile.mkdtemp(prefix='a1exit-pdf-')
+        try:
+            for d, src in ((d1, 'papers/GR.pdf'), (d2, 'papers/GR.pdf')):
+                os.makedirs(os.path.join(d, 'papers')); open(os.path.join(d, 'papers/GR.pdf'), 'wb').write(base_files[src])
+            expect(not pdf_compare(d1, d2, ['papers/GR.pdf']), 'pdf compare: a PDF equal in pages and text to the built one passes')
+            open(os.path.join(d2, 'papers/GR.pdf'), 'wb').write(base_files['papers/Main.pdf'])
+            expect(bool(pdf_compare(d1, d2, ['papers/GR.pdf'])), 'pdf compare: a committed PDF that is not the built one fails')
+            os.remove(os.path.join(d2, 'papers/GR.pdf'))
+            expect(bool(pdf_compare(d1, d2, ['papers/GR.pdf'])), 'pdf compare: a PDF the CI build did not make fails')
+        finally:
+            shutil.rmtree(d1, ignore_errors=True); shutil.rmtree(d2, ignore_errors=True)
+    else:
+        expect(False, 'pdf compare: pdftotext and pdfinfo are required')
     t = json.loads(json.dumps(led)); t['splices'][0]['old_sha256'] = '0' * 64
     expect(bool(validate_ledger(t, base_files)), 'a ledger whose old-text hash does not match the base is rejected')
     t = json.loads(json.dumps(led)); t['splices'][1]['start'] = t['splices'][0]['start']
@@ -536,6 +576,8 @@ def main():
     ap.add_argument('--plan')
     ap.add_argument('--base')
     ap.add_argument('--mutants', action='store_true')
+    ap.add_argument('--pdf-compare', metavar='BUILT', help='with --tree: compare the committed PDFs of the ledgered sources '
+                    'with those the CI build wrote under BUILT (page count and pdftotext text)')
     a = ap.parse_args()
     if a.build_ledger:
         eb = open(os.path.join(ROOT, EDITS), 'rb').read()
@@ -586,6 +628,12 @@ def main():
             for x in pdfs:
                 print('  PDF ' + x)
             ok = ok and not fails
+            if a.pdf_compare and a.tree:
+                pb = pdf_compare(a.tree, a.pdf_compare, {t[:-4] + '.pdf' for t in TEX})
+                print('pdf compare against the CI build: %d findings' % len(pb))
+                for x in pb:
+                    print('  FAIL ' + x)
+                ok = ok and not pb
             if a.mutants and a.tree:
                 ok = tree_mutants(a.tree, led, base, plan) and ok
         finally:

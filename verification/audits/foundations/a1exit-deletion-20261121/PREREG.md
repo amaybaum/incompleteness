@@ -5346,14 +5346,14 @@ the owner's execution decision; it does not decide that question.
 | 9 | ID provenance | §26.6 records the map | — | recorded |
 | 10 | P12 detected by an abort, not a named failure | the mutant run names an abort by the guard line it stopped on, and a pin's mutant counts only when it fails a named check or aborts within five lines of the pin; P12 aborts at line 3470, the family lookup it pins | `guards_check.py --mutants` | §26.7 |
 | 11 | PR body stale | refreshed to this plan | — | done |
-| 12 | Notation: the owner's sentence has $\mathcal S$, the plan prints $S$ | owner question (§26.8) | — | open |
+| 12 | Notation: the owner's sentence has $\mathcal S$, the plan prints $S$ | owner question (§26.8), answered (§27) | — | plain $S$ (owner, c.7061062574) |
 
 ### 26.2 Regenerated artifacts
 
 | Path | Rebuilt by | Compared |
 |---|---|---|
 | `papers/{Computation,GR,Main,Methodology,SM,Structure,Substratum}.tex`, `book/The-Incompleteness-of-Observation-FULL.tex` | `build.sh`'s TeX recipe (pandoc 3.1.3 `-s --pdf-engine=xelatex --include-in-header=tools/unicode-fix.tex`, `--toc --metadata=toc:false` for the book, then the `% source-sha256:` stamp) | byte for byte with the candidate's file, after a base control that reproduces the base TeX |
-| the eight PDFs of the same sources | `sh ./build.sh Computation GR Main Methodology SM Structure Substratum` and `sh ./build.sh --book` in CI | no `Missing character`, `build: OK`, page counts recorded against the base build |
+| the eight PDFs of the same sources | `sh ./build.sh Computation GR Main Methodology SM Structure Substratum` and `sh ./build.sh --book` in CI | no `Missing character`, `build: OK`, page counts recorded against the base build; each committed PDF equal to the CI-built one in page count and `pdftotext` text (`--pdf-compare`) |
 | `verification/audits/manuscript/bell-operational-reconciliation-20261029/sc42-integration-result.json` | the SC-42 checker on the candidate (§11 item 13) | byte for byte, plain and `-O`; self-test equal to the unchanged controls |
 | the fingerprints of the four stale coverage entries | `tools/proof_census.py --json` on the candidate | value for value; the rest of `verification/coverage/LEDGER.json` byte for byte |
 
@@ -5369,10 +5369,13 @@ In this order, and only with owner approval for the branch push and the dispatch
 2. **Predicted tree.** `guards_check.py --predict <dir>` from `P` writes the tree the ledger predicts. The CI branch
    head is a single-parent child of the ledger base whose tree is that tree with the eight PDFs rebuilt by `build.sh`
    on the canonical toolchain, less the execution result note.
-3. **Checks on that exact head.** `git show P:…/preserve_check.py` run as `--commit <head> --plan P` passes; the job
-   also runs `sh ./build.sh Computation GR Main Methodology SM Structure Substratum` and `sh ./build.sh --book` on the
-   head and requires every regenerated `.tex` byte-identical to the committed one and every PDF built with no
-   `Missing character`, page counts recorded; `verify.yml` is dispatched on the head (`workflow_dispatch`) and every job
+3. **Checks on that exact head.** `preserve_check.py`, run from its own path in a worktree of `P` (or of the head,
+   whose record copy must equal `P`'s), as `--commit <head> --plan P`, passes; the job also runs
+   `sh ./build.sh Computation GR Main Methodology SM Structure Substratum` and `sh ./build.sh --book` on a copy of the
+   head and requires every regenerated `.tex` byte-identical to the committed one, every PDF built with no
+   `Missing character` and page counts recorded, and the committed PDFs to be the ones that job builds:
+   `preserve_check.py --tree <head checkout> --pdf-compare <build copy>` requires each committed PDF's page count and
+   `pdftotext` text to equal the built one's (the PDF bytes carry build dates and are not compared); `verify.yml` is dispatched on the head (`workflow_dispatch`) and every job
    is green, its SC-42 step (`cmp` of the regenerated result) included.
 4. **Designation.** The owner designates `P` only after step 3 is green on the tree predicted at `P`. Any later change
    to a pinned file of §26.4 voids that run.
@@ -5388,7 +5391,7 @@ the plan commit under `--plan`.
 | `ledger.json` | `9dc77029f890523082ea8b1fb67893967ee328c3662b99cc19756cce8fcc1ccd` |
 | `edits_check.py` | `1bde14e41603d6bcbf209d4b497df49dad4cbb20122a79ad183712c212cd8339` |
 | `guards_check.py` | `ea0f9b28104e0f55e279a4da70653f5ac4392ee1e05efc42910a6a03161cd733` |
-| `preserve_check.py` | `2caae847ff7f8f872b9a6e061a6c399448d3f67f652cbc2a8bfb5480e289482a` |
+| `preserve_check.py` | `91e8dcb4fc444ca8db1d50201a68544b218b73569cc6de314d2767484b3e03de` |
 
 ### 26.5 Kernel identifiers in the guard's code literals
 
@@ -5428,7 +5431,7 @@ new text. The new edits of this section are D359–D360.
 | `edits_check.py --pins --commit 97070c98` | 0 unresolved, 0 updated pins missing from their targets; PASS |
 | `edits_check.py --repo-scan --simulate --final --commit 97070c98` | 0 unexplained; PASS |
 | `preserve_check.py --verify-pins`, `--verify-ledger` | pin findings 0; ledger (358 splices in 40 files, 2 retained-site records) re-derived identically; PASS |
-| `preserve_check.py --self-test` | four positive controls pass (the recipe reproduces the base TeX of all eight sources; base plus ledger, rebuilt artifacts and the plan's record; an execution record under `execution/`; a rebuilt PDF); 28 mutants (23 tree mutations, 2 ledger tamperings, 3 pin tamperings) each fail as named; PASS |
+| `preserve_check.py --self-test` | five positive controls pass (the recipe reproduces the base TeX of all eight sources; base plus ledger, rebuilt artifacts and the plan's record; an execution record under `execution/`; a rebuilt PDF; a PDF equal in pages and text to the built one); 30 mutants (23 tree mutations, 2 ledger tamperings, 3 pin tamperings, 2 PDF mismatches) each fail as named; PASS |
 | `guards_check.py --mutants` | on the simulated tree: the R7 guard, `bohr_frequency_probe.py` and the 12 other checks pass; CC-1–CC-4 fail as named; inventory 0 unlisted (30 pins, 2 messages naming declarations, 12 kernel identifiers in code literals); P01–P30 each fail under mutation, P12 by an abort at line 3470; the 12 kernel identifiers and the 3 message names each fail their guard under mutation; PASS |
 | `guards_check.py --predict`, then `preserve_check.py --tree <predicted> --mutants` | predicted tree: 40 files edited, 8 TeX rebuilt, 4 fingerprints re-affirmed, record directory copied, SC-42 result regenerated (it differs from the checked-in result); `verify.yml`'s SC-42 comparisons pass on it; `preserve_check.py`: 0 findings; tree mutants (GR.tex, the SC-42 result, `ledger.json`, `preserve_check.py`, a coverage fingerprint) each fail; PASS |
 
@@ -5437,9 +5440,25 @@ on the predicted tree, and the rest of `verify.yml`; they are the CI step of §2
 
 ### 26.8 Owner questions
 
-1. **Kernel identifiers in code literals (§26.5).** Whether the twelve occurrences may stay, as checks of kernel
-   declarations, until #1482 renames those declarations, on the conditions of #1169 comment 7059632884; the plan's
-   default is that they stay and are on #1482's list. No exception is assumed.
-2. **Notation.** The approved sentence uses $\mathcal S$; Main, Substratum and the book use $S$ for the configuration
-   space, and the plan prints the sentence with $S$ (§23). Whether the owner confirms $S$, or the sentence is printed
-   with $\mathcal S$.
+Answered by the owner at #1169 comment 7061062574 (§27): the kernel identifiers of §26.5 and the two declaration names
+are retained temporarily and #1482 migrates every one; the sentence is printed with plain $S$, as recorded.
+
+## 27. Amendment: owner decisions of #1169 comment 7061062574, and the delta-check nits
+
+**Owner decision** (owner `amaybaum`, 2026-11-21, recorded at
+[#1169 comment 7061062574](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7061062574)), in part:
+the existing `A1` kernel identifiers stay unchanged during the deletion, the two declaration names and the twelve
+identifiers of §26.5 included, and #1482 must migrate every inventoried name, with no permanent exception; notation
+(a), the recorded sentence with plain `S`; the non-native safeguards route is approved for #1477; the predicted-tree CI
+trial is authorized as a preparation run, after the two delta-check nits are fixed; applying the edits is still not
+authorized.
+
+**Delta-check nits** (#1477 comment 7060370712).
+
+| Nit | Fix |
+|---|---|
+| A. §26.3's "`git show P:…/preserve_check.py` run" does not run: the script derives its root and record directory from its own path | §26.3 step 3 runs it from its own path in a worktree of `P`, or of the head whose record copy equals `P`'s |
+| B. The PDFs are not compared with the CI build | `preserve_check.py --tree <head checkout> --pdf-compare <build copy>`: each committed PDF of a ledgered source must have the page count (`pdfinfo`) and the `pdftotext` text of the PDF the CI build makes from the same tree; the bytes carry build dates and are not compared. Self-test: equal PDFs pass, a different PDF fails, a missing built PDF fails |
+
+**Goal link (§A.47).** A1-EXIT (#1169): this section prepares the authorized predicted-tree CI trial; it decides no
+execution question.
