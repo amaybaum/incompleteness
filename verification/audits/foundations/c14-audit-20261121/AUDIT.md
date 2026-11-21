@@ -26,10 +26,17 @@ conditions. It matches a word-bounded `C1`–`C4`, Cyrillic `С` included, in ev
 parenthesized `(C1)`, bold run-ins `**(C1)**` and `**C1 (…)**`, italic run-ins, table rows, list
 items, headings, ranges (`C1–C4`, `(C1)–(C3)`), slashed lists (`C1/C3/C4`), sub-forms (`C2-slow`,
 `C2-structural`, `C2-mixing`), and Lean identifiers (`c3_necessity`, `CoreC1C4`). It writes one row
-per match to `register.tsv`: file, line, column, condition, class, a #1477-ledger flag, the chapter
-source of each `FULL.md` row, a note, and an exact excerpt of the line around the match.
-`python3 -I verification/audits/foundations/c14-audit-20261121/build_register.py --check` regenerates
-the register and fails on any drift.
+per match, giving file, line, column, condition, class, a #1477-ledger flag, the chapter source of
+each `FULL.md` row, a note, and an exact excerpt of the line around the match.
+
+- **What is kept.** Under §A.28, `register.tsv` keeps only the 542 hand-classified rows, the
+  rows the findings rest on.
+- **What is not kept.** The 1,553 rule-classified `reference` rows and the 101 `unrelated` rows
+  are not needed by any finding, and are not committed.
+- **Regenerating.** `--full` prints the whole scan to stdout, so those rows stay reproducible from
+  the script without a committed copy.
+- **Drift.** `python3 -I verification/audits/foundations/c14-audit-20261121/build_register.py
+  --check` regenerates the kept rows and fails on any drift.
 
 - **Counts.** 2,196 matches. Of these, 1,553 are inline references, 101 are unrelated labels, and
   542 carry a reviewed class. One guard-string line, `papers/oi_lattice_code/architecture_check.py:1086`, was added at review.
@@ -49,7 +56,10 @@ the register and fails on any drift.
 
 ## 2. Canonical definitions
 
-The canonical definitions are clear. They are `papers/Main.md` §1.3: `:72` **(C1) Non-zero coupling**,
+The canonical definitions are clear for definitional purposes, but the canonical file is not
+uniform: Main itself departs from §1.3's typing at :326 (F2b), and §3.4's heading at Main:439
+reads "The Characterization Theorem: Necessity of the Conditions" (see F3). With that
+qualification, they are `papers/Main.md` §1.3: `:72` **(C1) Non-zero coupling**,
 `:74` **(C2) Memory persistence**, `:76` **(C3) Sufficient memory capacity** and `:78` **(C4) History
 readback**. Every other restatement cites `[Main §1.3]` or `[Main §3]`, and only these four
 paragraphs carry each condition's status, dependency and realization clauses.
@@ -122,6 +132,12 @@ below. F6 is withdrawn with no replacement.
   existence. It treats C2-slow as one sufficient mechanism, not a necessary one: in the fast
   shift-register bath of Main:74, C4 holds while C2-slow fails. Structure:110 also places the
   conditions on $\varphi$, where Main and SM place them on the partition and its realization.
+- *Canonical heading.* The canonical paper's own heading for §3.4, Main:439, reads "The
+  Characterization Theorem: Necessity of the Conditions". The body under it proves necessity only
+  within the memory-bearing sector: C4 coincides with non-Markovianity in a faithful realization,
+  C1 and C3 follow from it, and C2 is deliberately absent from (iii) (Main:546). A citer reading
+  the heading alone could take it as necessity for an observer. The heading is a plausible source
+  of F3's wording, but it does not license that wording.
 - *Assessment.* A necessary-versus-diagnostic overstatement.
 
 ### 2. F5 — C4 stated as a causal write-then-read
@@ -235,8 +251,19 @@ below. F6 is withdrawn with no replacement.
   - So the row's outcome needs the uniform-erosion hypothesis, and the complete-erasure limit,
     which the table does not state.
 
-**F6 — withdrawn** (see the correction at the head of §4). ch01:253's "Capacity hierarchy" is a
-failure-mode cell, consistent with the zero-capacity limit model of ch01:229.
+**F6 — the ch01 C3 table row (naming finding withdrawn; outcome gap recorded).**
+
+- *Row.* ch01:253 (FULL:586) reads `| C3 | Capacity hierarchy | No observation | Coextensive with
+  system |`. As the correction above says, "Capacity hierarchy" is a failure-mode cell, not a name.
+- *The gap.* It has the same kind of gap as the C2 row (F1), for its own condition.
+  - The outcomes "No observation" and "Coextensive with system" hold only in the extreme limit of
+    ch01:229, "a trivial hidden configuration space, where the visible sector $V$ covers the total
+    system $S$".
+  - A capacity shortfall short of that limit gives no such outcome. ch01:229 says "A capacity
+    shortfall caps the amount of memory that can be represented". The sentence after the table
+    says "A hidden-sector capacity shortfall bounds accessible memory", and Main:76 states the
+    bound $M_k \leq \log_2|\mathcal{C}_H|$.
+  - So the row's outcome needs the zero-capacity limit, which the row does not state.
 
 **F8 — SM Theorem 22's C1 is the coupling-graph form.**
 
@@ -279,6 +306,14 @@ failure-mode cell, consistent with the zero-capacity limit model of ch01:229.
   and C3 verified with enormous margins, C4 open".
 - *Current text.* GR:46 says the constraint correlations "alone do not establish" C1. GR:48
   takes C2's timescale as a "physical input".
+- *History caveat.* The README passage describes the state an earlier audit (Audit B, under
+  `verification/audits/physical-realization/concrete-cut/`) repaired the corpus to at
+  that time. It is accurate as a record of that repair. It is stale only as a description of the
+  current text, because GR §2.2 has since moved.
+  - Any correction is forward only: the mutable README's present-tense summary could be updated
+    (§A.27).
+  - The earlier audit's own records keep their wording. They are not rewritten to agree with the
+    later text (§A.42 item 4).
 
 **F14 — Lean `CoreC1C4`: the C2 and C3 clauses are not Main's conditions.**
 
@@ -362,7 +397,8 @@ therefore lower bounds for the occurrences that define or gloss a condition.
 The ledger was read only, at `55544cc3`:
 `verification/audits/foundations/a1exit-deletion-20261121/edits.json`, 373 edits, drafting base
 `97070c98`. Nothing in that branch, record or ledger was changed. The `ledger` column of
-`register.tsv` marks 82 matches on lines that the ledger edits.
+full scan (`--full`) marks 82 matches on lines that the ledger edits; the kept register carries the
+flag on its hand-classified rows.
 
 - **Ledger edits that change C-text.** Two edits change text that itself names a condition:
   - D052, Structure:140: "A1–A6 are not the same as observer-admission C1–C4;" becomes
@@ -405,7 +441,7 @@ meant to carry exactly Main's content.
 ## 9. Open and out of scope
 
 - No finding has been independently reviewed.
-- The 1,553 rule-classified inline references were not read one by one. A reference that
+- The 1,553 rule-classified inline references (regenerable with `--full`) were not read one by one. A reference that
   restates a condition without naming it as a definition could carry a difference that this
   audit does not record.
 - Whether the characterization theorem needs time-homogeneity (F10), and whether SM Theorem 22

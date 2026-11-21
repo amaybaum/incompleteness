@@ -2,7 +2,8 @@
 """C14-AUDIT occurrence register for the foundational conditions C1-C4.
 
 Read-only. Scans the manuscripts, the book (chapters and FULL.md), the glossary, the README files
-and the Lean modules that name the conditions, and writes one row per match to register.tsv:
+and the Lean modules that name the conditions. register.tsv keeps one row per hand-classified match
+(every class except `reference` and `unrelated`); --full prints every match to stdout instead:
 
     file  line  col  cond  class  ledger  mirror  note  text
 
@@ -12,8 +13,9 @@ one), or `unrelated` for labels that name a different object. FULL.md rows inher
 chapter line they mirror byte for byte. `ledger` marks lines that #1477's frozen edit ledger
 (edits.json at 55544cc3) edits. The ledger is read from git and is not modified.
 
-Usage (from the repository root):  python3 -I <this file> [--check]
+Usage (from the repository root):  python3 -I <this file> [--check | --full]
 --check regenerates the register in memory and fails if it differs from the committed file.
+--full prints the whole scan, rule-classified rows included, without writing anything.
 """
 import glob, json, os, re, subprocess, sys
 
@@ -268,7 +270,11 @@ def render(rs):
     return "\n".join("\t".join(r) for r in [head] + rs) + "\n"
 
 if __name__ == "__main__":
-    text = render(rows())
+    allrows = rows()
+    if "--full" in sys.argv:
+        sys.stdout.write(render(allrows))
+        sys.exit(0)
+    text = render([r for r in allrows if r[4] not in ("reference", U)])
     if "--check" in sys.argv:
         ok = open(OUT, encoding="utf8").read() == text
         print("register matches" if ok else "register DRIFT")
