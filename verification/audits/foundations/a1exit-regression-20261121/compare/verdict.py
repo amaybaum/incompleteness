@@ -4,12 +4,13 @@
 Standard library only; run with `python3 -I -B` from a checkout of `main` that contains this record. The
 procedure and decision rules are PREREG.md in this directory. Modes:
 
-  collect --head <rev> --out <dir> --frozen-ref <rev> [--del-commit <rev>]
+  collect --head <rev> --out <dir> --frozen-ref <rev> [--del-commit <rev>] [--prep]
       Refuses a non-empty <dir>. Resolves the head H to a full commit id. Runs C0 (frozen tools, inputs
       and ledger, read against FROZEN.json at --frozen-ref), C4 (this tool's self-test), C1-C3 (the
       baseline's check, self-test and self-compare), the comparison `baseline.py --compare <H> --json
       <dir>/compare.json` and the countercontrol C5. With --del-commit, compiles the deletion unit's
-      edits from the edits.json landed at that commit into <dir>/edits-del.json. Writes
+      edits from the edits.json landed at that commit into <dir>/edits-del.json. --prep marks a
+      preparation run, allowed only with the pin as head, whose frozen ref is the checkout HEAD. Writes
       <dir>/controls.json. Exit 0 when every control passes, 4 otherwise.
   verdict --dir <dir> --classify <classify.json>
       Checks that every input is this run's and names H, runs C0 again, the edit-input control C6, the
@@ -80,20 +81,40 @@ OPEN_TERMS = re.compile(r'\b(open|conditional(?:ly)?|hypothes[ie]s|assumed|posit
                         r'not derived|conjectur\w*)\b', re.I)
 FINITE_TERMS = re.compile(r'\bfinite\b|for a finite|finite[- ]only|finite representative|finite substrat',
                           re.I)
-# J10: frozen lists. A gained occurrence makes an item R and flagged, whatever the cited edit.
-PROMOTION_TERMS = [r'\bunconditional(?:ly)?\b', r'\bproved\b', r'\bproven\b', r'\btheorem\b',
-                   r'\bestablished\b', r'\bderived\b', r'\bholds in general\b']
-_NOUN = r'(?:system|lattice|substrat\w*|configuration\w*|universe|carrier|space)s?'
-INFINITY_TERMS = [r'\binfinite(?:ly many)?\b(?:\W+\w+){0,6}?\W+' + _NOUN + r'\b',
-                  r'\b' + _NOUN + r'(?:\W+\w+){0,6}?\W+infinite(?:ly many)?\b',
-                  r'\bfor (?:every|all|any)\b(?:\W+\w+){0,4}?\W+infinite\b',
-                  r'\barbitrary\b(?:\W+\w+){0,6}?\W+' + _NOUN + r'\b',
-                  r'\b(?:any|every|arbitrary) cardinality\b',
-                  r'\bfinite or (?:countably )?infinite\b']
-# The one stated exemption: the cardinality-neutral clause "may (or can) be finite or infinite" states
-# that no cardinality is assumed; it is removed before the infinity terms are counted. Nothing else is.
-NEUTRAL = re.compile(r'\b(?:may|can) be finite or (?:countably )?infinite\b', re.I)
-J10_SENTENCE = ' This holds unconditionally for every infinite system.'
+# J10, fail-closed: frozen vocabularies. A rise, from the before region to the after region, in the
+# count of any term below makes an item R and flagged, whatever the cited edit; so does a fall in the
+# count of FINITE_TERMS (a result losing its finiteness condition). Terms are matched broadly and
+# case-insensitively; the only text removed before counting is the exact ALLOWLIST.
+PROMOTION_TERMS = [r'\bunconditional(?:ly)?\b', r'\bproved\b', r'\bproven\b', r'\bproofs?\b', r'\btheorem\b',
+                   r'\bestablished\b', r'\bderived\b', r'\bshown\b', r'\bdemonstrated\b', r'\bin general\b',
+                   r'\bgeneral(?:ly|ity)?\b', r'\buniversal(?:ly)?\b', r'\balways\b', r'\bwithout exception\b']
+INFINITY_TERMS = [r'infinit\w*', r'\\infty', r'∞', r'\\aleph', r'ℵ', r'\b(?:un)?countabl\w*', r'\bcardinal\w*',
+                  r'\barbitrar\w*', r'\bfiniteness\b', r'\bfinite or not\b', r'\bnot necessarily finite\b',
+                  r'\b(?:for|over) (?:all|every|any|each)\b', r'\b(?:of|for) any (?:size|order|number)\b',
+                  r'\bany number of\b', r'\bregardless\b', r'\bwhatever\b',
+                  r'\bin (?:either|both|all|every|any) cases?\b', r'\bunbounded\b', r'\bunlimited\b',
+                  r'\bwithout (?:any |a )?(?:finit\w*|bound\w*|restriction|limit\w*)\b',
+                  r'\bno (?:restriction|bound|limit)\b', r'\b(?:all|every) (?:sizes?|cardinalit\w*)\b',
+                  r'\b(?:every|all|any|each)\s+\$']
+# The exact allowlist: the owner's configuration-space sentence (#1169 c.7058446475) verbatim, and its
+# rendering with $S$ in the deletion plan of #1477. An entry with a ledger row is admitted only if that
+# row's text in rows.json cites the stated proof. No other text is exempt.
+ALLOWLIST = [
+    {'phrase': 'The substratum has a configuration space $\\mathcal S$. No restriction is imposed on its '
+               'cardinality; $\\mathcal S$ may be finite or infinite.', 'row': None, 'proof': None,
+     'authority': '#1169 c.7058446475'},
+    {'phrase': 'The substratum has a configuration space $S$. No restriction is imposed on its cardinality; '
+               '$S$ may be finite or infinite.', 'row': None, 'proof': None,
+     'authority': '#1169 c.7058446475, as rendered in #1477'},
+]
+J10_SENTENCE = ' The same identity extends to every infinite system.'
+PARAPHRASES = [  # review c.7059976436 finding 1: each must hit J10
+    'for arbitrary $S$', 'regardless of cardinality', 'in the infinite case', 'for infinite $S$',
+    'when $|S| = \\infty$', 'for $S$ of any size', 'for countable or uncountable $S$', 'for every $S$, finite or not',
+    'without any finiteness assumption', 'whatever the cardinality of $S$', 'including the infinite case',
+    'for all $S$', 'also for infinite $S$', 'regardless of the cardinality of the configuration space',
+    'and $S$ may be finite or infinite; the result holds in either case',
+    'the configuration space $S$ may be finite or infinite, and the statement holds in both cases']
 
 DEC_RE = re.compile(r'(?<![\w.])\d+\.\d+')
 UNIT_AFTER_NUM = re.compile(r'\d\s*\$?\s*(?:\\,|\\;|~)?\s*(?:\\%|%|\\text\{\s*[kMGT]?eV\s*\}|[kMGTm]?eV\b|'
@@ -159,12 +180,36 @@ def digests():
     return out
 
 
-def c0(frozen_ref):
-    """C0: the files in use equal the digests of FROZEN.json read from the Git object at frozen_ref, and
-    PREREG.md at that ref states every digest in full. The working-tree FROZEN.json is never read."""
+def main_ref():
+    """The checkout's main: origin/main where it resolves, else main."""
+    return next((r for r in ('origin/main', 'main') if resolve(r)), None)
+
+
+def pinned_frozen_commit():
+    """The commit on main's first-parent chain that last changed FROZEN.json: this record's merge, or the
+    merge of its latest amendment."""
+    m = main_ref()
+    out = git_try('log', '--first-parent', '-1', '--format=%H', m, '--', REC_REL + '/compare/FROZEN.json') if m else None
+    return out.decode().strip() or None if out else None
+
+
+def c0(frozen_ref, prep=False):
+    """C0: the frozen ref is the pinned commit (the commit on main's first-parent chain that last changed
+    FROZEN.json); the files in use equal the digests of FROZEN.json read from the Git object at that ref;
+    the frozen blobs at that ref have those digests; and PREREG.md at that ref states each digest in full.
+    The working-tree FROZEN.json is never read. In a preparation run (prep, only at the pin) the ref is the
+    checkout's HEAD instead, and the result says so."""
     ref = resolve(frozen_ref) if frozen_ref else None
     if not ref:
         return False, 'frozen ref %r does not resolve' % frozen_ref
+    if prep:
+        if ref != resolve('HEAD'):
+            return False, 'preparation run: the frozen ref must be the checkout HEAD'
+    else:
+        pinned = pinned_frozen_commit()
+        fp = git_try('rev-list', '--first-parent', main_ref()) if main_ref() else None
+        if not pinned or ref != pinned or not fp or ref not in fp.decode().split():
+            return False, 'frozen ref %s is not the pinned commit %s on the first-parent chain of main' % (ref, pinned)
     try:
         want = json.loads(show(ref, REC_REL + '/compare/FROZEN.json'))['sha256']
         prereg = show(ref, REC_REL + '/compare/PREREG.md')
@@ -172,10 +217,15 @@ def c0(frozen_ref):
         return False, 'FROZEN.json or PREREG.md missing at %s' % ref
     got = digests()
     bad = sorted(k for k in set(want) | set(got) if want.get(k) != got.get(k))
+    for k in FROZEN_FILES:
+        blob = git_try('show', '%s:%s/%s' % (ref, REC_REL, k))
+        if blob is None or sha256_bytes(blob) != want.get(k):
+            bad.append('blob at ref: ' + k)
     unstated = sorted(k for k, v in want.items() if v not in prereg)
     if bad or unstated:
         return False, 'mismatch %s; not stated in PREREG.md %s' % (bad, unstated)
-    return True, 'frozen ref %s' % ref
+    return True, ('preparation run, frozen ref the checkout HEAD %s (not a pinned commit)' % ref) if prep \
+        else 'frozen ref %s, the pinned commit' % ref
 
 
 # =========================================================================== edit inputs
@@ -574,10 +624,35 @@ def _find_block(after_lines, block, at=None):
     return next((j for j in starts if na[j:j + n] == nb), None)
 
 
-def cover(item, cited, base_corpus, after_corpus):
-    """The replay rule. Returns (covered, notes, before_text, after_text, touching edit keys)."""
+def cover(item, cited, base_corpus, after_corpus, landed=None):
+    """The replay rule. Returns (covered, notes, before_text, after_text, touching edit keys). With the
+    landed edits given (every run against a real H), completeness holds as well: every cited edit is
+    landed, every landed edit that touches the item's region is cited, and the region replayed from the
+    cited edits equals the region of the replayed state (all landed edits)."""
     notes, before, after, touch, ok = [], item['before'] or '', item['after'] or '', set(), True
     cited = [e for e in cited if e['old'] != e['new']]
+    ckeys = {e['key'] for e in cited}
+    if landed is not None:
+        lkeys = {e['key'] for e in landed}
+        stray = sorted(ckeys - lkeys)
+        if stray:
+            return False, ['cited edits not landed at H: %s' % ', '.join(stray)], before, after, touch
+
+    def complete_anchored(f, a, b, blk):
+        if landed is None:
+            return ''
+        text = base_corpus.get(f, '')
+        rt2, sp2, err = replay(text, [e for e in landed if f in e['files']], (a, b))
+        if err:
+            return 'replayed state: ' + err
+        s2 = next(s for s in sp2 if 'anchor' in s[4])
+        k2 = {t[5:] for t in s2[4] if t.startswith('edit:')}
+        miss = sorted(k2 - ckeys)
+        if miss:
+            return 'landed edits touching the region are not cited: %s' % ', '.join(miss)
+        if [norm(x) for x in _region(rt2, s2[0], s2[1])[0]] != [norm(x) for x in blk]:
+            return 'the cited replay differs from the replayed state in this region'
+        return ''
 
     def anchored(f, line, at_file, at_line):
         text = base_corpus.get(f, '')
@@ -595,6 +670,9 @@ def cover(item, cited, base_corpus, after_corpus):
         j = _find_block(B.lines_of(after_corpus.get(at_file, '')), blk, at_line)
         if j is None:
             return False, 'the replayed region of %s:%d is not the after text' % (f, line), None, None, keys
+        why = complete_anchored(f, a, a + len(ls[line - 1]), blk)
+        if why:
+            return False, why, None, None, keys
         return True, '', '\n'.join(bblk), '\n'.join(blk), keys
 
     def at_after(g, line):
@@ -610,7 +688,20 @@ def cover(item, cited, base_corpus, after_corpus):
             j = _find_block(al, blk, line - 1)
             if j is not None:
                 bblk, _ = _region(text, sp[2], sp[3]) if sp[3] > sp[2] else ([], 0)
-                return True, '', '\n'.join(bblk), '\n'.join(blk), {t[5:] for t in sp[4] if t.startswith('edit:')}
+                keys = {t[5:] for t in sp[4] if t.startswith('edit:')}
+                if landed is not None:
+                    rt2, sp2, err = replay(text, [e for e in landed if g in e['files']])
+                    if err:
+                        return False, 'replayed state: ' + err, None, None, keys
+                    hit = [s2 for s2 in sp2 or [] if s2[1] > s2[0]
+                           and _find_block(al, _region(rt2, s2[0], s2[1])[0], line - 1) is not None]
+                    if not hit:
+                        return False, 'the replayed state does not yield %s:%d' % (g, line), None, None, keys
+                    k2 = {t[5:] for t in hit[0][4] if t.startswith('edit:')}
+                    if k2 - ckeys:
+                        return False, 'landed edits producing the line are not cited: %s' % ', '.join(
+                            sorted(k2 - ckeys)), None, None, keys
+                return True, '', '\n'.join(bblk), '\n'.join(blk), keys
         return False, 'no replayed new text yields %s:%d' % (g, line), None, None, set()
 
     kinds = item['kinds']
@@ -638,7 +729,7 @@ def cover(item, cited, base_corpus, after_corpus):
     return ok, notes, before, after, touch
 
 
-def legacy_cover(item, cited, base_corpus, after_corpus):
+def legacy_cover(item, cited, base_corpus, after_corpus, landed=None):
     """Mutant for the self-test only: the containment rule J1 of the earlier draft (old in before, new in
     after), which accepts partial coverage. C7 must fail when it replaces the replay rule."""
     b, a = norm(item['before'] or ''), norm(item['after'] or '')
@@ -649,16 +740,36 @@ def legacy_cover(item, cited, base_corpus, after_corpus):
 
 # =========================================================================== J9, J10, flag
 
-def j10_hits(before, after, neutral=True):
-    """Terms of the frozen lists whose count rises from the before region to the after region."""
+def allowlist(rows=None):
+    """The allowlist entries in force: entries without a row, and entries whose row cites their proof."""
+    out = []
+    for a in ALLOWLIST:
+        if a['row'] is None:
+            out.append(a['phrase'])
+        elif rows and a.get('proof') and a['proof'] in json.dumps(rows.get(a['row'], {}), ensure_ascii=False):
+            out.append(a['phrase'])
+    return out
+
+
+def j10_hits(before, after, promotion=None, infinity=None, allow=None):
+    """J10: terms whose count rises from the before region to the after region, after the exact allowlist
+    is removed from both; and a fall in the count of finite-scope terms."""
+    allow = allowlist() if allow is None else allow
+
     def strip(t):
-        return NEUTRAL.sub(' ', t) if neutral else t
-    b, a = strip(before or ''), strip(after or '')
+        t = norm(t or '')
+        for ph in allow:
+            t = t.replace(norm(ph), ' ')
+        return t
+    b, a = strip(before), strip(after)
     hits = []
-    for name, pats in (('promotion', PROMOTION_TERMS), ('infinity', INFINITY_TERMS)):
+    for name, pats in (('promotion', PROMOTION_TERMS if promotion is None else promotion),
+                       ('infinity', INFINITY_TERMS if infinity is None else infinity)):
         for p in pats:
             if len(re.findall(p, a, re.I)) > len(re.findall(p, b, re.I)):
                 hits.append('%s %s' % (name, p))
+    if len(FINITE_TERMS.findall(a)) < len(FINITE_TERMS.findall(b)):
+        hits.append('finite-scope term lost')
     return hits
 
 
@@ -773,8 +884,8 @@ def resolution_ok(resn, cls, needs_proof):
     m = REVIEW_URL.match(resn.get('review') or '')
     if not m or int(m.group(1)) != cls.get('result_pr'):
         return False, 'resolution review is not a comment URL on the result PR'
-    who = (resn.get('reviewer') or '').strip()
-    if not who or who == (cls.get('classifier') or '').strip():
+    who = (resn.get('reviewer') or '').strip().casefold()
+    if not who or who == (cls.get('classifier') or '').strip().casefold():
         return False, 'resolution reviewer is missing or is the classifier'
     if needs_proof and resn.get('outcome') == 'justified' and not (resn.get('proof') or '').strip():
         return False, 'J10 item resolved without citing the proof that covers the generality'
@@ -796,20 +907,24 @@ def classify(compare, edits, cls, rows, base_corpus, after_corpus, rules=RULES, 
                 notes.append('resolved by review %s' % c['resolution']['review'])
             elif c.get('resolution'):
                 notes.append('resolution not accepted: ' + why)
-        res[key] = {'kinds': item['kinds'], 'class': klass, 'j10': [], 'notes': notes,
-                    'scientific_evaluation': sci_flag(item, item['before'] or '', item['replayed'], [])}
+        j10m = rules['j10'](item['before'] or '', item['replayed'])
+        res[key] = {'kinds': item['kinds'], 'class': klass, 'j10': j10m, 'notes': notes,
+                    'scientific_evaluation': sci_flag(item, item['before'] or '', item['replayed'], j10m)}
     for key, item in sorted(allitems.items()):
         c = cls.get('items', {}).get(key)
         notes, klass, j10 = [], 'U', []
         before, after = item['before'] or '', item['after'] or ''
         if c is None:
             notes.append('unclassified')
+            j10 = rules['j10'](before, after)
+            if j10:
+                notes.append('J10: ' + '; '.join(j10))
         else:
             missing = [k for k in c.get('edits', []) if k not in E]
             if missing:
                 notes.append('cited edits not in the compiled lists: %s' % ', '.join(missing))
             cited = [E[k] for k in c.get('edits', []) if k in E]
-            covered, cn, before, after, touch = rules['cover'](item, cited, base_corpus, after_corpus)
+            covered, cn, before, after, touch = rules['cover'](item, cited, base_corpus, after_corpus, landed)
             notes += cn
             j10 = rules['j10'](before, after)
             j9_ok = True
@@ -850,7 +965,7 @@ def counts_of(res):
     return c
 
 
-def verdict_of(counts, controls_ok, cc_ok):
+def verdict_of(counts, controls_ok, cc_ok, prep=False, flagged_edits=0):
     if not controls_ok or not cc_ok:
         v = 'VOID'
     elif counts['U'] > 0:
@@ -863,9 +978,10 @@ def verdict_of(counts, controls_ok, cc_ok):
             '%d flagged for scientific evaluation; controls %s; countercontrols %s.'
             % (v, counts['items'], counts['J'], counts['R-justified'], counts['R-unresolved'], counts['U'],
                counts['scientific_evaluation'], 'pass' if controls_ok else 'FAIL', 'pass' if cc_ok else 'FAIL'))
-    if counts['scientific_evaluation'] > 0:
-        text += (' Scientific evaluation is open for %d items; owner requirement 6 is not settled by this '
-                 'verdict.' % counts['scientific_evaluation'])
+    text += (' Owner requirement 6 is settled only by the separate scientific evaluation; scientific evaluation '
+             'is open for %d items and %d landed edits.' % (counts['scientific_evaluation'], flagged_edits))
+    if prep:
+        text = 'PREPARATION RUN at the pin, not a regression verdict. ' + text
     return v, text
 
 
@@ -910,54 +1026,73 @@ def _setline(corpus, f, ln, t):
     return c
 
 
-def countercontrols(compare, res, edits, cls, rows, base, after, rules=RULES, synthetic=None, landed=None):
-    """C7 (bad citation) and C8 (promotion) on the first J item with an after line, or on the synthetic
-    item when the main run has none. Returns {name: {pass, detail}}."""
-    snap = load_snapshot()
-    src = 'main run'
-    items = items_of(compare, after)
-    pick = next((k for k in sorted(res) if res[k]['class'] == 'J' and k in items and _after_loc(items[k])), None)
-    if pick is None:
-        if synthetic is None:
-            synthetic = synthetic_case()
-        compare, edits, cls, after, pick = synthetic
-        landed = None
-        items = items_of(compare, after)
-        res = classify(compare, edits, cls, rows, base, after, rules)
-        src = 'synthetic item (no J item in the main run)'
-        if res[pick]['class'] != 'J':
-            return {'C7': {'pass': False, 'detail': 'synthetic item not J'},
-                    'C8': {'pass': False, 'detail': 'synthetic item not J'}}
-    u0 = counts_of(res)['U']
+def _c8_try(pick, items, edits, cls, rows, base, after, rules, landed, snap):
     f, ln = _after_loc(items[pick])
     line = B.lines_of(after[f])[ln - 1]
+    c = cls['items'][pick]
     E = {e['key']: e for e in edits['edits']}
-    news = [E[k]['new'] for k in cls['items'][pick]['edits'] if k in E]
-    m = _num_outside(line, news)
-    if m:
-        tok = m.group(0)
-        line7 = line[:m.end() - 1] + str((int(tok[-1]) + 1) % 10) + line[m.end():]
-    else:
-        line7 = line + ' 0'
-    a7 = _setline(after, f, ln, line7)
-    r7 = classify(B.compare(snap, a7), edits, cls, rows, base, a7, rules, landed)
-    k7 = pick if pick in r7 else 'U:%s:%d' % (f, ln)
-    c7 = r7.get(k7, {}).get('class') == 'U' and counts_of(r7)['U'] == u0 + 1
-    # C8: the J10 sentence appended to the line, carried by a synthetic edit that the replay accepts,
-    # so that only J10 can keep the item from J.
-    a8 = _setline(after, f, ln, line + J10_SENTENCE)
+    ce = E[c['edits'][0]]
+    syn = {'key': 'C8:X', 'unit': ce['unit'], 'pr': ce['pr'], 'id': 'X', 'seq': 10 ** 9, 'files': [f],
+           'old': line, 'new': line + J10_SENTENCE,
+           'rows': sorted(set(ce['rows']) | ({c['ledger_row']} if c.get('ledger_row') else set())),
+           'components': []}
     e8 = copy.deepcopy(edits)
-    ce = E[cls['items'][pick]['edits'][0]]
-    e8['edits'].append({'key': 'C8:X', 'unit': ce['unit'], 'pr': ce['pr'], 'id': 'X', 'seq': 10 ** 9,
-                        'files': [f], 'old': line, 'new': line + J10_SENTENCE, 'rows': ce['rows'],
-                        'components': []})
+    e8['edits'].append(syn)
     cls8 = copy.deepcopy(cls)
-    cls8['items'][pick]['edits'] = list(cls8['items'][pick]['edits']) + ['C8:X']
-    r8 = classify(B.compare(snap, a8), e8, cls8, rows, base, a8, rules, landed)
-    c8 = r8.get(pick, {}).get('class') == 'R' and bool(r8[pick]['j10']) and r8[pick]['scientific_evaluation']
-    return {'C7': {'pass': c7, 'detail': '%s %s: %s -> %s' % (src, pick, 'token' if m else 'appended',
-                                                                    r7.get(k7, {}).get('class'))},
-            'C8': {'pass': c8, 'detail': '%s %s: J10 sentence -> %s' % (src, pick, r8.get(pick, {}).get('class'))}}
+    cls8['items'][pick]['edits'] = list(c['edits']) + ['C8:X']
+    l8 = landed + [syn] if landed is not None else None
+    a8 = _setline(after, f, ln, line + J10_SENTENCE)
+    cm8 = B.compare(snap, a8)
+    pre = classify(cm8, e8, cls8, rows, base, a8, dict(rules, j10=lambda b, a: []), l8).get(pick, {})
+    got = classify(cm8, e8, cls8, rows, base, a8, rules, l8).get(pick, {})
+    return pre.get('class'), got
+
+
+def countercontrols(compare, res, edits, cls, rows, base, after, rules=RULES, synthetic=None, landed=None):
+    """C7 (bad citation) on the first J item with an after line, or on T3's synthetic item when the main
+    run has none. C8 (J10 isolated) on the first J item whose C8 copy is J with J10 disabled (its
+    precondition), or on C9 (b)'s item when no main-run item meets it. Returns {name: {pass, detail}}."""
+    snap = load_snapshot()
+    items = items_of(compare, after)
+    js = [k for k in sorted(res) if res[k]['class'] == 'J' and k in items and _after_loc(items[k])]
+    out = {}
+    # C7
+    if js:
+        pick, src, cm7, ed7, cl7, af7, l7, r0 = js[0], 'main run', compare, edits, cls, after, landed, res
+    else:
+        cm7, ed7, cl7, af7, pick = synthetic or synthetic_case()
+        src, l7 = 'synthetic item (no J item in the main run)', None
+        r0 = classify(cm7, ed7, cl7, rows, base, af7, rules)
+    if r0.get(pick, {}).get('class') != 'J':
+        out['C7'] = {'pass': False, 'detail': 'C7 item not J'}
+    else:
+        it7 = items_of(cm7, af7)
+        f, ln = _after_loc(it7[pick])
+        line = B.lines_of(af7[f])[ln - 1]
+        E = {e['key']: e for e in ed7['edits']}
+        m = _num_outside(line, [E[k]['new'] for k in cl7['items'][pick]['edits'] if k in E])
+        line7 = line[:m.end() - 1] + str((int(m.group(0)[-1]) + 1) % 10) + line[m.end():] if m else line + ' 0'
+        a7 = _setline(af7, f, ln, line7)
+        r7 = classify(B.compare(snap, a7), ed7, cl7, rows, base, a7, rules, l7)
+        k7 = pick if pick in r7 else 'U:%s:%d' % (f, ln)
+        out['C7'] = {'pass': r7.get(k7, {}).get('class') == 'U' and counts_of(r7)['U'] == counts_of(r0)['U'] + 1,
+                     'detail': '%s %s: %s -> %s' % (src, pick, 'token' if m else 'appended', r7.get(k7, {}).get('class'))}
+    # C8
+    done = None
+    for k in js[:5]:
+        pre, got = _c8_try(k, items, edits, cls, rows, base, after, rules, landed, snap)
+        if pre == 'J':
+            done = ('main run', k, pre, got)
+            break
+    if done is None:
+        cm, ed, cl, af, eid = c9_cases(rows)['b']
+        pre, got = _c8_try(eid, items_of(cm, af), ed, cl, rows, base, af, rules, None, snap)
+        done = ('C9 (b) item (no main-run item meets the precondition)', eid, pre, got)
+    src, k, pre, got = done
+    out['C8'] = {'pass': pre == 'J' and got.get('class') == 'R' and bool(got.get('j10'))
+                 and bool(got.get('scientific_evaluation')),
+                 'detail': '%s %s: with J10 off %s, with J10 %s' % (src, k, pre, got.get('class'))}
+    return out
 
 
 def synthetic_case():
@@ -976,49 +1111,84 @@ def synthetic_case():
     return B.compare(snap, after), ed, cj, after, 'appA:85'
 
 
-def c9_cases():
-    """The two cases of the decisive control C9, on the pinned corpus:
-    (a) unsupported strengthening: ch01:179's "Without A1," rewritten as "For every infinite system,"
-        (ledger row X-26), cited to an edit whose strings reproduce it exactly;
-    (b) faithful cardinality-neutral edit: GR:134 (row X-52, disposition J) gains "the configuration
-        space $S$ may be finite or infinite", cited to an edit that lists X-52."""
+def edit_case(eid, old, new, row, tag):
+    """A synthetic case on the pinned corpus: entry eid's text with old replaced by new, cited J to one
+    edit carrying exactly that replacement and listing row."""
     snap = load_snapshot()
     pin = dict(B.PIN_CORPUS())
-    ent = {e['id']: e for e in snap['entries']}
-    a, b = ent['ch01:179'], ent['GR:134']
-    oa, na = 'Without A1, the near-return condition', 'For every infinite system, the near-return condition'
-    ob = 'takes the same value on all its members. $\\square$'
-    nb = 'takes the same value on all its members; the configuration space $S$ may be finite or infinite. $\\square$'
-    after = _setline(pin, a['file'], a['line'], a['text'].replace(oa, na, 1))
-    after = _setline(after, b['file'], b['line'], b['text'].replace(ob, nb, 1))
+    e = next(x for x in snap['entries'] if x['id'] == eid)
+    if e['text'].count(old) != 1 or pin[e['file']].count(old) != 1:
+        raise CompileError('case %s: old string not unique' % tag)
+    after = _setline(pin, e['file'], e['line'], e['text'].replace(old, new, 1))
+    key = 'S2-E:%s' % tag
     ed = {'schema': 'a1exit-compare-edits/2', 'edits': [
-        {'key': 'S2-E:C9a', 'unit': 'S2-E', 'pr': 1475, 'id': 'C9a', 'seq': 1, 'files': [a['file']],
-         'old': oa, 'new': na, 'rows': ['X-26'], 'components': []},
-        {'key': 'S2-E:C9b', 'unit': 'S2-E', 'pr': 1475, 'id': 'C9b', 'seq': 2, 'files': [b['file']],
-         'old': ob, 'new': nb, 'rows': ['X-52'], 'components': []}]}
+        {'key': key, 'unit': 'S2-E', 'pr': 1475, 'id': tag, 'seq': 1, 'files': [e['file']], 'old': old,
+         'new': new, 'rows': [row] if row else [], 'components': []}]}
     cl = {'schema': 'a1exit-compare-classify/2', 'head': 'synthetic', 'classifier': 'writer', 'result_pr': 1,
-          'items': {'ch01:179': {'class': 'J', 'edits': ['S2-E:C9a'], 'ledger_row': 'X-26', 'reason': 'synthetic',
-                                 'resolution': None},
-                    'GR:134': {'class': 'J', 'edits': ['S2-E:C9b'], 'ledger_row': 'X-52', 'reason': 'synthetic',
-                               'resolution': None}}}
-    return B.compare(snap, after), ed, cl, after
+          'items': {eid: {'class': 'J', 'edits': [key], 'ledger_row': row, 'reason': 'synthetic',
+                          'resolution': None}}}
+    return B.compare(snap, after), ed, cl, after, eid
+
+
+GR134_END = 'takes the same value on all its members. $\\square$'
+
+
+def gr134(insert):
+    return edit_case('GR:134', GR134_END, GR134_END.replace('members.', 'members' + insert + '.'), 'X-52', 'GR')
+
+
+_C9_CACHE = {}
+
+
+def c9_cases(rows=None):
+    """The cases of the decisive control C9, on the pinned corpus:
+    (a) ch01:179's "Without A1," rewritten as "For every infinite system," (row X-26);
+    (b) GR:134 (row X-52, disposition J) gains the owner's configuration-space sentence, as allowlisted;
+    (c) GR:134 gains ", for arbitrary $S$"; (d) GR:134 gains ", and this is proved";
+    (e) a J-row entry loses its one open, conditional or hypothesis term;
+    (f) appB:42 (row X-15, disposition J) loses "finite" from "a finite configuration space".
+    Each is cited J to an edit that reproduces it exactly and lists the row."""
+    if 'cases' in _C9_CACHE:
+        return copy.deepcopy(_C9_CACHE['cases'])
+    rows = rows or load_rows()
+    snap = load_snapshot()
+    pin = dict(B.PIN_CORPUS())
+    cases = {'a': edit_case('ch01:179', 'Without A1, the near-return condition',
+                            'For every infinite system, the near-return condition', 'X-26', 'C9a'),
+             'b': edit_case('GR:134', GR134_END, GR134_END.replace('$\\square$', ALLOWLIST[1]['phrase'] + ' $\\square$'),
+                            'X-52', 'C9b'),
+             'c': gr134(', for arbitrary $S$'), 'd': gr134(', and this is proved')}
+    e5 = next(e for e in snap['entries'] if e['kind'] == 'prose' and e['file'] != FULL
+              and any(rows.get(r, {}).get('disposition') == 'J' for r in e['ledger_rows'])
+              and len(OPEN_TERMS.findall(e['text'])) == 1 and pin[e['file']].count(e['text']) == 1)
+    w = OPEN_TERMS.search(e5['text'])
+    seg = e5['text'][max(0, w.start() - 30):w.end() + 10]
+    r5 = next(r for r in e5['ledger_rows'] if rows.get(r, {}).get('disposition') == 'J')
+    cases['e'] = edit_case(e5['id'], seg, seg.replace(w.group(0), 'stated', 1), r5, 'C9e')
+    cases['f'] = edit_case('appB:42', 'one-step doubly stochastic matrix on a finite configuration space',
+                           'one-step doubly stochastic matrix on a configuration space', 'X-15', 'C9f')
+    _C9_CACHE['cases'] = copy.deepcopy(cases)
+    return cases
 
 
 def c9(rows, rules=RULES):
-    """C9 passes iff (a) is R, flagged and J10-hit, and stays unresolved under a review that cites no
-    proof, while (b) is J."""
-    cmp9, ed, cl, after = c9_cases()
+    """C9 passes iff (a) is R, flagged, J10-hit, and stays R under a review that cites no proof; (b) is J;
+    (c), (d) and (f) are R, flagged and J10-hit; (e) is R."""
     base = dict(B.PIN_CORPUS())
-    r = classify(cmp9, ed, cl, rows, base, after, rules)
-    a, b = r.get('ch01:179', {}), r.get('GR:134', {})
-    cl2 = copy.deepcopy(cl)
-    cl2['items']['ch01:179']['resolution'] = {'outcome': 'justified', 'review': REPO_URL + '/pull/1#issuecomment-1',
-                                              'reviewer': 'someone-else', 'proof': None}
-    a2 = classify(cmp9, ed, cl2, rows, base, after, rules).get('ch01:179', {})
-    ok = (a.get('class') == 'R' and a.get('scientific_evaluation') and bool(a.get('j10'))
-          and a2.get('class') == 'R' and b.get('class') == 'J')
-    return {'pass': bool(ok), 'detail': '(a) %s, without proof %s; (b) %s'
-            % (a.get('class'), a2.get('class'), b.get('class'))}
+    got = {}
+    for k, (cm, ed, cl, af, eid) in sorted(c9_cases(rows).items()):
+        got[k] = classify(cm, ed, cl, rows, base, af, rules).get(eid, {})
+        if k == 'a':
+            cl2 = copy.deepcopy(cl)
+            cl2['items'][eid]['resolution'] = {'outcome': 'justified', 'review': REPO_URL + '/pull/1#issuecomment-1',
+                                               'reviewer': 'someone-else', 'proof': None}
+            got['a2'] = classify(cm, ed, cl2, rows, base, af, rules).get(eid, {})
+
+    def flagged_r(x):
+        return x.get('class') == 'R' and bool(x.get('j10')) and x.get('scientific_evaluation')
+    ok = (flagged_r(got['a']) and got['a2'].get('class') == 'R' and got['b'].get('class') == 'J'
+          and flagged_r(got['c']) and flagged_r(got['d']) and got['e'].get('class') == 'R' and flagged_r(got['f']))
+    return {'pass': bool(ok), 'detail': '; '.join('(%s) %s' % (k, got[k].get('class')) for k in sorted(got))}
 
 
 # =========================================================================== collect
@@ -1060,7 +1230,7 @@ def _result_ok(path, other, pin_expected=True):
     return r, ''
 
 
-def collect(head, out, frozen_ref, del_commit):
+def collect(head, out, frozen_ref, del_commit, prep=False):
     if os.path.exists(out) and os.listdir(out):
         print('collect: refused, %s is not empty' % out)
         return 2
@@ -1072,7 +1242,9 @@ def collect(head, out, frozen_ref, del_commit):
     def put(name, code, good, detail=''):
         ctl[name] = {'exit': code, 'pass': bool(good), 'detail': detail}
     put('H-resolves', 0 if H else 1, bool(H), H or 'does not resolve: %s' % head)
-    ok0, d0 = c0(frozen_ref)
+    if prep and H != B.PIN:
+        put('preparation-only-at-pin', 1, False, 'a preparation run is allowed only with the pin as head')
+    ok0, d0 = c0(frozen_ref, prep)
     put('C0-frozen', 0 if ok0 else 1, ok0, d0)
     code = run([sys.executable, '-I', '-B', os.path.abspath(__file__), 'self-test'])
     put('C4-verdict-self-test', code, code == 0)
@@ -1119,14 +1291,67 @@ def collect(head, out, frozen_ref, del_commit):
     for n in sorted(os.listdir(out)):
         if n.endswith('.json'):
             files[n] = sha256_file(os.path.join(out, n))
+    del_sha = sha256_bytes(B.git('show', '%s:%s' % (dc, DEL_EDITS))) if dc and ctl.get('deletion-list-compiled', {}).get('pass') else None
     rec = {'schema': 'a1exit-compare-controls/2', 'head': H, 'frozen_ref': resolve(frozen_ref) if frozen_ref else None,
-           'del_commit': dc, 'controls': ctl, 'injection': inj, 'files': files}
+           'del_commit': dc, 'del_edits_sha256': del_sha, 'preparation': bool(prep), 'controls': ctl,
+           'injection': inj, 'files': files}
     write_json(os.path.join(out, 'controls.json'), rec)
     print(json.dumps({k: v['pass'] for k, v in ctl.items()}, sort_keys=True))
     return 0 if all(c['pass'] for c in ctl.values()) else 4
 
 
 # =========================================================================== verdict
+
+CONTROL_EXIT = {'H-resolves': (0,), 'C0-frozen': (0,), 'C1-check': (0,), 'C2-self-test': (0,),
+                'C3-self-compare': (0,), 'C4-verdict-self-test': (0,), 'compare': (0, 1), 'C5-injected': (1,),
+                'deletion-list-compiled': (0,), 'preparation-only-at-pin': ()}
+REQUIRED_CONTROLS = ['H-resolves', 'C0-frozen', 'C1-check', 'C2-self-test', 'C3-self-compare',
+                     'C4-verdict-self-test', 'compare', 'C5-injected']
+
+
+def recheck_controls(ctl, d, H):
+    """No stored pass flag is trusted (§A.44). A stored entry whose pass contradicts its exit status is a
+    refusal. Every control is then re-derived: C1, C2, C3 and C4 are re-run, and the comparison and C5
+    outputs are re-checked from their files."""
+    for n, c in ctl.get('controls', {}).items():
+        if n not in CONTROL_EXIT or c.get('pass') is not (c.get('exit') in CONTROL_EXIT[n]):
+            return None, 'controls.json entry %s: pass %r contradicts exit %r' % (n, c.get('pass'), c.get('exit'))
+    out = {}
+    py = [sys.executable, '-I', '-B', os.path.join(RECORD, 'baseline.py')]
+    for n, argv in (('C1-check', py + ['check']), ('C2-self-test', py + ['self-test']),
+                    ('C4-verdict-self-test', [sys.executable, '-I', '-B', os.path.abspath(__file__), 'self-test'])):
+        code = run(argv)
+        out[n] = {'exit': code, 'pass': code == 0 and ctl['controls'].get(n, {}).get('exit') == 0, 'detail': 're-run'}
+    td = tempfile.mkdtemp(prefix='a1exit-c3-')
+    try:
+        p3 = os.path.join(td, 'self-compare.json')
+        code = run(py + ['--compare', B.PIN, '--json', p3])
+        r3, why = _result_ok(p3, B.PIN)
+        out['C3-self-compare'] = {'exit': code, 'pass': code == 0 and r3 is not None and not r3['any_change'],
+                                  'detail': 're-run ' + why}
+    finally:
+        shutil.rmtree(td, ignore_errors=True)
+    r, why = _result_ok(os.path.join(d, 'compare.json'), H)
+    ce = ctl['controls'].get('compare', {}).get('exit')
+    out['compare'] = {'exit': ce, 'pass': r is not None and ce == (1 if r['any_change'] else 0),
+                      'detail': 're-checked ' + why}
+    ri, why = _result_ok(os.path.join(d, 'injected-compare.json'), None)
+    inj = ctl.get('injection')
+    st = next((x['status'] for x in ri['entries'] if inj and x['id'] == inj['key']), []) if ri else []
+    out['C5-injected'] = {'exit': ctl['controls'].get('C5-injected', {}).get('exit'),
+                          'pass': bool(inj) and ri is not None and ri['any_change'] and 'value changed' in st
+                          and ctl['controls'].get('C5-injected', {}).get('exit') == 1, 'detail': 're-checked'}
+    out['H-resolves'] = {'exit': 0 if resolve(H) == H else 1, 'pass': resolve(H) == H, 'detail': 're-checked'}
+    for n in REQUIRED_CONTROLS:
+        if n not in ctl['controls']:
+            out[n] = {'exit': None, 'pass': False, 'detail': 'missing from controls.json'}
+    if ctl.get('del_commit'):
+        dc = ctl['controls'].get('deletion-list-compiled', {})
+        out['deletion-list-compiled'] = {'exit': dc.get('exit'), 'pass': dc.get('exit') == 0, 'detail': 're-checked by C6'}
+    if 'preparation-only-at-pin' in ctl['controls']:
+        out['preparation-only-at-pin'] = {'exit': 1, 'pass': False, 'detail': 'preparation run not at the pin'}
+    return out, ''
+
 
 def verdict(d, cls_path):
     vpath = os.path.join(d, 'verdict.json')
@@ -1136,6 +1361,7 @@ def verdict(d, cls_path):
     ctl = read_json(os.path.join(d, 'controls.json'))
     cls = read_json(cls_path)
     H = ctl.get('head')
+    prep = bool(ctl.get('preparation'))
     refuse = []
     for n, sha in sorted(ctl.get('files', {}).items()):
         if not os.path.isfile(os.path.join(d, n)) or sha256_file(os.path.join(d, n)) != sha:
@@ -1145,14 +1371,40 @@ def verdict(d, cls_path):
         refuse.append('heads differ: controls %s, compare %s, classify %s' % (H, compare.get('other'), cls.get('head')))
     if cls.get('schema') != 'a1exit-compare-classify/2' or not cls.get('classifier') or not cls.get('result_pr'):
         refuse.append('classify.json lacks schema, classifier or result_pr')
+    if prep and H != B.PIN:
+        refuse.append('a preparation run is allowed only with the pin as head')
+    controls, why = recheck_controls(ctl, d, H) if not refuse else (None, '')
+    if why:
+        refuse.append(why)
     if refuse:
         print('verdict: refused: ' + '; '.join(refuse))
         return 2
-    ok0, d0 = c0(ctl.get('frozen_ref'))
+    ok0, d0 = c0(ctl.get('frozen_ref'), prep)
     edits_s2 = read_json(EDITS_S2)
     dpath = os.path.join(d, 'edits-del.json')
     edits_del = read_json(dpath) if ctl.get('del_commit') and os.path.isfile(dpath) else None
     ok6, bad6, note6 = c6(edits_s2, edits_del, ctl.get('del_commit'), H)
+    if edits_del is not None:
+        blob = git_try('show', '%s:%s' % (ctl['del_commit'], DEL_EDITS))
+        if blob is None or sha256_bytes(blob) != ctl.get('del_edits_sha256'):
+            ok6, bad6 = False, bad6 + ['(d) the landed edits.json digest differs from the one collect recorded']
+    controls['C0-frozen-at-verdict'] = {'exit': 0 if ok0 else 1, 'pass': ok0, 'detail': d0}
+    controls['C6-edit-inputs'] = {'exit': 0 if ok6 else 1, 'pass': ok6, 'detail': '; '.join(bad6[:20]) or note6}
+    controls_ok = all(c['pass'] for c in controls.values())
+    inputs = {n: sha256_file(os.path.join(d, n)) for n in sorted(os.listdir(d)) if n.endswith('.json')}
+    inputs['classify'] = sha256_file(cls_path)
+    inputs.update({'frozen:' + k: v2 for k, v2 in digests().items()})
+    base_out = {'schema': 'a1exit-compare-verdict/2', 'head': H, 'preparation': prep, 'controls': controls,
+                'inputs': inputs, 'requirement6_settled': False}
+    if not controls_ok:
+        # review c.7059580868 finding 3: nothing is classified over failed controls
+        counts = {'items': 0, 'J': 0, 'R-justified': 0, 'R-unresolved': 0, 'U': 0, 'scientific_evaluation': 0}
+        v, text = verdict_of(counts, False, False, prep)
+        text = text.replace('VERDICT VOID: 0 reported changes', 'VERDICT VOID: not classified, a control failed') \
+            .replace('countercontrols FAIL', 'countercontrols not run')
+        write_json(vpath, dict(base_out, verdict=v, counts=None, items=None, countercontrols=None, text=text))
+        print(text)
+        return EXIT[v]
     edits = {'edits': edits_s2['edits'] + (edits_del['edits'] if edits_del else [])}
     rows = load_rows()
     base = dict(B.PIN_CORPUS())
@@ -1160,6 +1412,7 @@ def verdict(d, cls_path):
     landed = [e for e in edits_s2['edits']
               if git_try('merge-base', '--is-ancestor', edits_s2['units'][e['unit']]['merge'], H) is not None]
     landed += edits_del['edits'] if edits_del else []
+    flagged_edits = sorted(e['key'] for e in landed if j10_hits(e['old'], e['new']))
     res = classify(compare, edits, cls, rows, base, after, landed=landed)
     counts = counts_of(res)
     inj_c = read_json(os.path.join(d, 'injected-compare.json'))
@@ -1169,20 +1422,13 @@ def verdict(d, cls_path):
     cc = countercontrols(compare, res, edits, cls, rows, base, after, landed=landed)
     cc['C5'] = {'pass': c5, 'detail': 'injected %s -> %s' % (inj and inj['key'], ires.get(inj['key'], {}).get('class') if inj else None)}
     cc['C9'] = c9(rows)
-    controls = dict(ctl['controls'])
-    controls['C0-frozen-at-verdict'] = {'exit': 0 if ok0 else 1, 'pass': ok0, 'detail': d0}
-    controls['C6-edit-inputs'] = {'exit': 0 if ok6 else 1, 'pass': ok6, 'detail': '; '.join(bad6[:20]) or note6}
-    controls_ok = all(c['pass'] for c in controls.values())
     cc_ok = all(c['pass'] for c in cc.values())
-    v, text = verdict_of(counts, controls_ok, cc_ok)
-    inputs = {n: sha256_file(os.path.join(d, n)) for n in sorted(os.listdir(d)) if n.endswith('.json')}
-    inputs['classify'] = sha256_file(cls_path)
-    inputs.update({'frozen:' + k: v2 for k, v2 in digests().items()})
+    v, text = verdict_of(counts, controls_ok, cc_ok, prep, len(flagged_edits))
     resolutions = {k: cls['items'][k]['resolution'] for k in sorted(cls.get('items', {}))
                    if cls['items'][k].get('resolution')}
-    out = {'schema': 'a1exit-compare-verdict/2', 'head': H, 'verdict': v, 'counts': counts, 'items': res,
-           'controls': controls, 'countercontrols': cc, 'resolutions': resolutions, 'inputs': inputs,
-           'landed_units': sorted({e['unit'] for e in landed}), 'requirement6_settled': False, 'text': text}
+    out = dict(base_out, verdict=v, counts=counts, items=res if cc_ok else None, countercontrols=cc,
+               resolutions=resolutions, landed_units=sorted({e['unit'] for e in landed}),
+               flagged_edits=flagged_edits, text=text)
     write_json(vpath, out)
     print(text)
     return EXIT[v]
@@ -1347,12 +1593,21 @@ def self_test():
     del m780t
     report('T12 gaming probes: none is J', all(p[1].get('class') != 'J' for p in probes),
            '; '.join('%s=%s' % (n, p.get('class')) for n, p in probes if p.get('class') == 'J') or '%d probes' % len(probes))
-    # T13 J10 lists
-    report('T13 J10: promotion and infinity terms gained, neutral clause exempt, pre-existing terms not counted',
-           bool(j10_hits('a', 'holds for every infinite system')) and bool(j10_hits('', 'on arbitrary configuration spaces'))
-           and bool(j10_hits('', 'factors of any cardinality')) and not j10_hits('', 'the configuration space $S$ may be finite or infinite')
-           and bool(j10_hits('', 'it holds for finite or infinite S')) and bool(j10_hits('', 'on an infinite lattice'))
-           and not j10_hits('Theorem 2 is proved.', 'Theorem 2 is proved here.'))
+    # T13 J10, fail-closed: the 16 paraphrases of review c.7059976436 each hit, are not J and are flagged;
+    # the exact allowlisted sentence does not hit; the same words outside the allowlist do
+    para = []
+    for ph in PARAPHRASES:
+        cm, ed, cl, af, eid = gr134(', ' + ph)
+        x = classify(cm, ed, cl, rows, pin, af).get(eid, {})
+        para.append((ph, x.get('class'), bool(x.get('j10')), x.get('scientific_evaluation')))
+    bad13 = [p_ for p_ in para if p_[1] == 'J' or not p_[2] or not p_[3]]
+    basic = (not j10_hits('', ALLOWLIST[0]['phrase']) and not j10_hits('', ALLOWLIST[1]['phrase'])
+             and bool(j10_hits('', 'the configuration space $S$ may be finite or infinite'))
+             and bool(j10_hits('', 'it holds for finite or infinite S')) and bool(j10_hits('', ', and this is proved'))
+             and bool(j10_hits('on a finite configuration space', 'on a configuration space'))
+             and not j10_hits('Theorem 2 is proved.', 'Theorem 2 is proved here.'))
+    report('T13 J10: 16 paraphrases each R/U, J10-hit, flagged; exact allowlist only; finite loss hits',
+           not bad13 and basic, str(bad13) if bad13 else '%d paraphrases' % len(para))
     # T14 C6 on the frozen inputs, and its mutants (review c.7059220314 finding 4, and an altered edit)
     s2 = read_json(EDITS_S2)
     g6, b6, _ = c6(s2, None, None, B.PIN)
@@ -1374,27 +1629,37 @@ def self_test():
     muts.append(('one frozen edit altered', m))
     caught = [(n, not c6(mm, None, None, B.PIN)[0]) for n, mm in muts]
     report('T15 C6 mutants: each is caught', all(c for _, c in caught), str(caught))
-    # T16 C7 and C8 on the synthetic item pass; their mutants fail
-    cc = countercontrols(cmp_s, r3, eds, cls_s, rows, pin, after_s, synthetic=(cmp_s, eds, cls_s, after_s, k_s))
-    report('T16 C7 and C8 on the synthetic item pass', cc['C7']['pass'] and cc['C8']['pass'], str(cc))
-    mut7 = dict(RULES, cover=legacy_cover)
-    mut8 = dict(RULES, j10=lambda b, a: [])
-    cc7 = countercontrols(cmp_s, r3, eds, cls_s, rows, pin, after_s, mut7, (cmp_s, eds, cls_s, after_s, k_s))
-    cc8 = countercontrols(cmp_s, r3, eds, cls_s, rows, pin, after_s, mut8, (cmp_s, eds, cls_s, after_s, k_s))
-    report('T17 C7 fails under the containment-rule mutant; C8 fails with J10 off',
-           not cc7['C7']['pass'] and not cc8['C8']['pass'], '%s / %s' % (cc7['C7']['detail'], cc8['C8']['detail']))
-    # T18 C9, and its mutants in both directions
+    # T16 C7 and C8 on the synthetic items pass; C8's precondition (J with J10 off) holds there
+    syn = (cmp_s, eds, cls_s, after_s, k_s)
+    cc = countercontrols(cmp_s, {}, eds, cls_s, rows, pin, after_s, synthetic=syn)
+    report('T16 C7 and C8 on the synthetic items pass', cc['C7']['pass'] and cc['C8']['pass'], str(cc))
+    # T17 mutants: C7 fails under the earlier containment rule; C8 fails with J10 off and with INFINITY_TERMS empty
+    cc7 = countercontrols(cmp_s, {}, eds, cls_s, rows, pin, after_s, dict(RULES, cover=legacy_cover), syn)
+    cc8 = countercontrols(cmp_s, {}, eds, cls_s, rows, pin, after_s, dict(RULES, j10=lambda b, a: []), syn)
+    cc8i = countercontrols(cmp_s, {}, eds, cls_s, rows, pin, after_s,
+                           dict(RULES, j10=lambda b, a: j10_hits(b, a, infinity=[])), syn)
+    report('T17 mutants: C7 containment rule; C8 J10 off; C8 INFINITY_TERMS empty',
+           not cc7['C7']['pass'] and not cc8['C8']['pass'] and not cc8i['C8']['pass'],
+           '%s / %s / %s' % (cc7['C7']['detail'], cc8['C8']['detail'], cc8i['C8']['detail']))
+    # T18 C9 passes; each mutant fails it
     g9 = c9(rows)
-    n9 = c9(rows, dict(RULES, j10=lambda b, a: []))
-    w9 = c9(rows, dict(RULES, j10=lambda b, a: j10_hits(b, a, neutral=False)))
-    report('T18 C9 passes; fails with J10 off and with the neutral clause not exempt',
-           g9['pass'] and not n9['pass'] and not w9['pass'], '%s | %s | %s' % (g9['detail'], n9['detail'], w9['detail']))
-    cmp9, ed9, cl9, af9 = c9_cases()
-    cl9['items']['ch01:179']['resolution'] = {'outcome': 'justified', 'review': REPO_URL + '/pull/1#issuecomment-7',
-                                              'reviewer': 'reviewer', 'proof': 'the proof covering the generality'}
-    r9p = classify(cmp9, ed9, cl9, rows, pin, af9).get('ch01:179', {})
-    report('T18b a J10 item resolves only with a review that cites a proof', r9p.get('class') == 'R-justified',
-           str(r9p.get('class')))
+    mut9 = {'J10 off': dict(RULES, j10=lambda b, a: []),
+            'PROMOTION_TERMS empty': dict(RULES, j10=lambda b, a: j10_hits(b, a, promotion=[])),
+            'INFINITY_TERMS empty': dict(RULES, j10=lambda b, a: j10_hits(b, a, infinity=[])),
+            'finite loss ignored': dict(RULES, j10=lambda b, a: [h for h in j10_hits(b, a) if h != 'finite-scope term lost']),
+            'allowlist removed': dict(RULES, j10=lambda b, a: j10_hits(b, a, allow=[])),
+            'J9 always passes': dict(RULES, j9=lambda *x: (True, ''))}
+    m9 = {k: c9(rows, r)['pass'] for k, r in mut9.items()}
+    report('T18 C9 passes; fails under each mutant', g9['pass'] and not any(m9.values()),
+           '%s | survivors %s' % (g9['detail'], [k for k, v in m9.items() if v]))
+    cm9, ed9, cl9, af9, e9 = c9_cases(rows)['a']
+    cl9['items'][e9]['resolution'] = {'outcome': 'justified', 'review': REPO_URL + '/pull/1#issuecomment-7',
+                                      'reviewer': 'reviewer', 'proof': 'the proof covering the generality'}
+    r9p = classify(cm9, ed9, cl9, rows, pin, af9).get(e9, {})
+    cl9['items'][e9]['resolution']['reviewer'] = 'Writer'
+    r9q = classify(cm9, ed9, cl9, rows, pin, af9).get(e9, {})
+    report('T18b J10 item: resolved with a proof-citing review; a self-review in other case stays R',
+           r9p.get('class') == 'R-justified' and r9q.get('class') == 'R', '%s / %s' % (r9p.get('class'), r9q.get('class')))
     # T19 the flag: no category exempt; a table of class other with a value change is flagged
     oth = next(e for e in snap['entries'] if e['categories'] == ['C-TAB'] and e.get('table', {}).get('class') == 'other')
     report('T19 flag: a C-TAB entry of an "other" table is flagged',
@@ -1411,6 +1676,14 @@ def self_test():
     finally:
         shutil.rmtree(td, ignore_errors=True)
     report('T20 non-empty DIR refused; crashed comparison is not a pass', refused and crash_fails)
+    # T20b a controls.json whose pass contradicts its exit is refused (review c.7059976436 finding 3)
+    forged = {'controls': {'C1-check': {'exit': 1, 'pass': True}}}
+    fr = recheck_controls(forged, '.', B.PIN)
+    # T20c C0 accepts only the pinned commit on main's first-parent chain (finding 4)
+    head = resolve('HEAD')
+    c0ok = (not c0(PIN_S2)[0] and not c0('deadbeef')[0]
+            and c0(head)[0] == (head == pinned_frozen_commit()) and not c0(PIN_S2, prep=True)[0])
+    report('T20b forged controls.json refused; T20c C0 rejects a non-pinned ref', fr[0] is None and c0ok, fr[1])
     # T21 replay-missing: a landed reviewed edit reverted in H is U; the full landing gives no such item
     s2a = [e for e in s2['edits'] if e['unit'] == 'S2-A']
     full, _ = apply_unit(pin, s2a)
@@ -1420,6 +1693,23 @@ def self_test():
     rm = [k for k in r21 if k.startswith('RM:')]
     report('T21 replay-missing: S2-A landed in full -> none; first edit reverted -> U',
            not m_full and rm and all(r21[k]['class'] == 'U' for k in rm), '%d / %s' % (len(m_full), rm[:3]))
+    # T21b completeness: one of two reviewed edits on one line reverted in H -> U (ch02:144, ch02:192)
+    res21b = []
+    for eid, rev in (('ch02:144', 'S2-B:E15b'), ('ch02:192', 'S2-D:E14')):
+        en = ent[eid]
+        hcorp, _ = apply_unit(pin, [e for e in s2['edits'] if e['key'] != rev])
+        txt = pin[en['file']]
+        a_ = sum(len(x) + 1 for x in B.lines_of(txt)[:en['line'] - 1])
+        _, sp, _ = replay(txt, [e for e in s2['edits'] if en['file'] in e['files']], (a_, a_ + len(en['text'])))
+        touching = sorted(t[5:] for t in next(x for x in sp if 'anchor' in x[4])[4] if t.startswith('edit:'))
+        cited = [k for k in touching if k != rev]
+        cl = {'schema': 'a1exit-compare-classify/2', 'head': 'synthetic', 'classifier': 'writer', 'result_pr': 1,
+              'items': {eid: {'class': 'J', 'edits': cited, 'ledger_row': (en['ledger_rows'] or [None])[0],
+                              'reason': 'synthetic', 'resolution': None}}}
+        x = classify(B.compare(snap, hcorp), s2, cl, rows, pin, hcorp, landed=s2['edits']).get(eid, {})
+        res21b.append((eid, rev in touching, x.get('class')))
+    report('T21b one of two same-line reviewed edits reverted -> U', all(t and c == 'U' for _, t, c in res21b),
+           str(res21b))
     print('self-test ' + ('PASS' if ok else 'FAIL'))
     return 0 if ok else 1
 
@@ -1437,7 +1727,7 @@ def main(argv):
                          indent=1, sort_keys=True))
         return 0
     if argv[0] == 'collect' and opt('--head') and opt('--out') and opt('--frozen-ref'):
-        return collect(opt('--head'), opt('--out'), opt('--frozen-ref'), opt('--del-commit'))
+        return collect(opt('--head'), opt('--out'), opt('--frozen-ref'), opt('--del-commit'), '--prep' in argv)
     if argv[0] == 'verdict' and opt('--dir') and opt('--classify'):
         return verdict(opt('--dir'), opt('--classify'))
     if argv[0] == 'compile-s2':

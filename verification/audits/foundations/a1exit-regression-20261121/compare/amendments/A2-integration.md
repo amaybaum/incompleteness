@@ -6,6 +6,10 @@ place in answer to both review rounds (c.7059099956, c.7059220314). The other is
 answers round 1 by amendment A1 (`amendments/A1-replay.md`, blob `505d0329`), a compiled list
 `edits/S2.json` (blob `3d242ed2`) and its own `verdict.py` (blob `ef9b7970`). The two were joined by the
 merge commit `1bb6c2cc`, under the owner's writer designation (#1169 c.7059632884, c.7059633249).
+`1bb6c2cc` records ancestry only: its tree equals `09673477`'s, so it adopts nothing itself. What is
+adopted enters in the commits after it, as stated row by row below. `43122ff6` was reviewed in
+#1483 c.7059580868 (ACCEPT-WITH-NITS for preparation); that review's findings are dispositioned in the
+second table.
 
 **Rule.** Where `43122ff6` and the revised `PREREG.md` differ, the more complete fix for each finding
 is kept, and each superseded item is named below. `PREREG.md` as revised, with this amendment,
@@ -14,7 +18,7 @@ Nothing of them is adopted silently.
 
 | `43122ff6` item | Disposition | Reason |
 |---|---|---|
-| Replayed state R: every compiled edit applied to the pin, and H compared with R line by line; no hand citation can make J | **superseded** by the per-item replay rule (PREREG §3) | Both require the after text to be reproduced exactly. The per-item rule keeps citations, so a J names the edits that produced it, J9 can check the row a cited edit lists, and C7 and C8 can perturb a cited item. The global comparison with R is kept as the replay-missing check (next row) |
+| Replayed state R: every compiled edit applied to the pin, and H compared with R line by line; no hand citation can make J | **kept as a J precondition** (PREREG §3, completeness), with per-item citations | A J needs its region replayed from the cited edits to equal the same region of R, with every landed edit that touches the region cited. Without this, a reviewed change that H reverts on a line keeping another reviewed change was J (review c.7059976436, finding 2); it is now U (T21b). Citations are kept so that a J names its edits, J9 can check the row a cited edit lists, and C7 and C8 can perturb a cited item |
 | Replay-missing items: a reviewed change absent from H is U | **adopted**, PREREG §3 and T21 | The comparison with the baseline cannot see a reviewed change that H lacks or reverts, because its line then equals the baseline. The landed edits are those of every unit whose merge is an ancestor of H, plus DEL |
 | `replace`, with old strings matched with whitespace runs as `\s+` | **superseded** by exact strings | The exact strings replay every unit to its merge byte for byte (C6 (c)), so no tolerance is needed, and an exact match admits fewer accidental matches |
 | `replace-each` for multi-site records (S2-C A1-1) | **superseded** by composition into each parent edit, checked against the 15 sites the record states | A composed edit replays at each site in one step, and the site count is a compile-time check |
@@ -34,5 +38,14 @@ Nothing of them is adopted silently.
 | Self-test cases G1–G7, S1/S1b, M1, Markdown parsers on fixed samples | G1–G7 **kept** (T12); M1 **adopted** (T21); S1/S1b **superseded** with the FULL-span rule; parser samples **superseded** by C6 (a) and (c) on the real records | Parsing is checked on the records it will read, against their merges |
 | Commands `compile --units`, `check-edits --edits --units --commit` | **superseded** by `compile-s2`, `compile-del --commit` and `check-edits` | No edit list is passed by hand |
 
-No check of `43122ff6` that bears on a finding is weakened here: each one is kept, or replaced by a
-check that is at least as strict on the same case.
+**Review of `43122ff6` (c.7059580868).**
+
+| Finding | Disposition | Where |
+|---|---|---|
+| 1. Run the S2 replay against `7f28886f` before the deletion | **adopted in substance** | C6 (c) replays the five units from the pin through each merge, `7f28886f` the last, and reproduces every manuscript file byte for byte. No comparison against a Step-2 head is run |
+| 2. `resolve` is loose | **superseded** | `resolve` is not used; `S2-C:C4-resolved` is exact (table above) |
+| 3. `verdict` classifies over VOID controls | **adopted** | With any control failed, `verdict` classifies nothing and writes VOID with no item classes. The labelled preparation mode (`collect --prep`, allowed only at the pin) gives the pin self-run without a pinned commit |
+| 4. Record the deletion list's digest at the designated head | **adopted** | `controls.json` records the SHA-256 of the landed `edits.json` blob; `verdict` checks it in C6 (d) |
+
+With the completeness precondition, each check of `43122ff6` that bears on a finding is kept, or is
+replaced by one at least as strict on the same case.
