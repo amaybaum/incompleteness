@@ -1,0 +1,65 @@
+{
+ "note": "Test fixture only: the old and new strings of nine planned deletion records that remove only the word \"finiteness\" (classifier finding on #1483). Copied verbatim from the #1477 plan; not a justification source.",
+ "records": [
+  {
+   "file": "papers/Main.md",
+   "id": "D001",
+   "new": "",
+   "old": " Total finiteness remains an open physical posit, not adopted, and one sufficient condition among those each result names (status Remark, §1.2 and ledger §4.5, item (ii))."
+  },
+  {
+   "file": "papers/Structure.md",
+   "id": "D061",
+   "new": "are: A2 (determinism / bijection),",
+   "old": "are: A1 (finiteness), A2 (determinism / bijection),"
+  },
+  {
+   "file": "book/ch09-universality.md",
+   "id": "D180",
+   "new": "The cardinality of the total configuration space is left open.",
+   "old": "Total configuration finiteness remains an open physical hypothesis (Chapter 2)."
+  },
+  {
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "id": "D181",
+   "new": "The cardinality of the total configuration space is left open.",
+   "old": "Total configuration finiteness remains an open physical hypothesis (Chapter 2)."
+  },
+  {
+   "file": "book/ch19-open-problems.md",
+   "id": "D184",
+   "new": "classical probability — constrain the class.",
+   "old": "classical probability — together with the open hypothesis A1 of finiteness constrain the class."
+  },
+  {
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "id": "D185",
+   "new": "classical probability — constrain the class.",
+   "old": "classical probability — together with the open hypothesis A1 of finiteness constrain the class."
+  },
+  {
+   "file": "book/ch19-open-problems.md",
+   "id": "D190",
+   "new": "",
+   "old": " Whether the finiteness hypothesis A1 has implications for mathematical foundations (constructivism, finitism, ultrafinitism) is not addressed."
+  },
+  {
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "id": "D191",
+   "new": "",
+   "old": " Whether the finiteness hypothesis A1 has implications for mathematical foundations (constructivism, finitism, ultrafinitism) is not addressed."
+  },
+  {
+   "file": "papers/Main.md",
+   "id": "D227",
+   "new": "items (iv)–(xiv) lie outside the layer it treats",
+   "old": "the total finiteness of item (ii) and items (iv)–(xiv) lie outside the layer it treats"
+  }
+ ],
+ "schema": "a1exit-compare-fixture/1",
+ "source": {
+  "blob": "4e6ae3f62048ada973efde7981b4af1e93528e34",
+  "commit": "e924e583847f2e8b98b06c8f447d069e2d909a22",
+  "path": "verification/audits/foundations/a1exit-deletion-20261121/edits.json"
+ }
+}
