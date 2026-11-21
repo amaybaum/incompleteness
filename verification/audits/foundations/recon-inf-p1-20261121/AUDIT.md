@@ -41,7 +41,7 @@ same lines in both baselines; T0 changes docstrings only.
 | REMAINDER | `a1-remainder-20261119/REMAINDER.md` | Consumer table at pin `21e16c61` |
 | P7-B | `p7-boundary-count-20261116/P7-BOUNDARY-COUNT.md` | Review ACCEPT WITH CHANGES; delta CONFIRMED WITH NITS |
 | NR-1 | `nr1-near-return-20261116/NR-1.md` | Review ACCEPT WITH CHANGES; delta CONFIRMED WITH NITS |
-| R1-INF | `r1-inf-20261119/RESULT.md` | Revised after REVISE; the record says a delta review is required. Cited only for Lemma 4, Prop. 5 and countermodel C4 (i), as O-A4 rows 3 and 23 cite them. Every citation below carries "(delta review outstanding)" |
+| R1-INF | `r1-inf-20261119/RESULT.md` | Revised after REVISE; the record says a delta review is required. Cited only for Lemma 4, Prop. 5 and countermodel C4 (i), as O-A4 row 3 cites them. Every citation below carries "(delta review outstanding)" |
 | LEDGER | `a1exit-ledger-20261120/LEDGER.md`, `rows.json` | The A1-EXIT ledger rows X-nn |
 | Q1, R6 | `a1exit-q1-20261120/RESULT.md`, `a1exit-r6-20261120/RESULT.md` | Accepted, per LEDGER X-42 and X-53 |
 
@@ -108,7 +108,7 @@ corpus is a reversible finite-range CA on `(A×A)^{ℤ³}`.
 | 18 | Representation (S ⇒ D, finite-horizon dilation) | Sub:137; Main §3.4 | A finite S is **constructed** per finite context, alphabet and horizon ("constructed, not assumed", Main:60 / 62). It is not assumed of nature | FR; TC (constructed) | On `A^{ℤ³}` a finite window's finite-horizon law is again a finite law (O-A4 row 2) | P, Lean: `Equivalence.finite_horizon_equivalence`:462. O-A4 row 2 adds: "The Stage 1 → Stage 2 identification of that finite dilation with the lattice carrier is open on both classes … finiteness does not change it" (row 53) |
 | 19 | Reverse-direction lemma | Main:276 / 278 | Finite `C_V`; a uniform prior on the constructed finite `C_H`; exact for rational entries | FR; TC (constructed) | — | F as a construction; nature's carrier is not involved |
 | 20 | C3 capacity bound | Main:76 / 78, :522 / 524 | Counts hidden states. It holds for every finite realization and does not bind on an infinite one (REMAINDER M15) | NN | — | P (trivially) |
-| 21 | **Recurrence-cycle P-indivisibility** | Sub:137; Main:121 / 123 (Step 1) | "On a finite representative, a non-permutation rooted map and finite return also give recurrence-cycle P-indivisibility". Step 1: "φ bijective on a finite set ⇒ ∃N: φ^N = id". What the step consumes is a **rooted (visible) exact return** `Γ_n = I` at some `n > s` after a non-permutation `Γ_s`, property (R-d) of §3. Global return (R-c) supplies it on a finite representative; (R-d) does not need (R-c) | TC as printed (Step 1); NN for the consumed hypothesis (R-d) | (R-d), or (NR) in its place (Main:131 / 133, "assumed … not adopted"). B1 states (NR) in the (A1) entry (Sub:92); B2 moves it to Sub:137 (D245) | (R-d) route: P, Lean, carrier-independent (`ObservableFactorRecurrence.pIndivisible_of_visible_identity_return_nonperm`:68; `ObservableMeasureReturn.measuredGamma_eq_one_iff`:83: `Γ = I` iff the visible label returns almost everywhere). (NR) route: P, paper (Main:131 / 133), with Lean steps `ObservableRigidity.tv_revives_of_nearReturn`:88 (the total-variation revival) and `CausalReadback.c4r_implies_pIndivisible`:134 (the P-indivisibility conclusion). What is missing is a source for either hypothesis: for the selected update with α non-nilpotent, Haar prior and window readout, `Γ_t(c,c) ≤ 1/2` for every `t ≥ 1` (NR-1 Prop. 2.3), so both (R-d) and (NR) fail; for `q` prime, `α ≠ 0` and lattice-convex windows the rooted family is P-divisible at every horizon (NR-1 Thm 3.3). A physical source of a return condition is LEDGER X-21, status O |
+| 21 | **Recurrence-cycle P-indivisibility** | Sub:137; Main:121 / 123 (Step 1) | "On a finite representative, a non-permutation rooted map and finite return also give recurrence-cycle P-indivisibility". Step 1: "φ bijective on a finite set ⇒ ∃N: φ^N = id". What the step consumes is a **rooted (visible) exact return** `Γ_n = I` at some `n > s` after a non-permutation `Γ_s`, property (R-d) of §3. Global return (R-c) supplies it on a finite representative; (R-d) does not need (R-c) | TC as printed (Step 1); NN for the consumed hypothesis (R-d) | (R-d), or (NR) in its place (Main:131 / 133, "assumed … not adopted"). B1 states (NR) in the (A1) entry (Sub:92); B2 moves it to Sub:137 (D245) | (R-d) route: P, Lean, carrier-independent (`ObservableFactorRecurrence.pIndivisible_of_visible_identity_return_nonperm`:68; `ObservableMeasureReturn.measuredGamma_eq_one_iff`:83: `Γ = I` iff the visible label returns almost everywhere, for the ENNReal ratio-of-cell-masses matrix with positive, finite visible cells; the modules do not compose this with a measurable rooted law). (NR) route: P, paper (Main:131 / 133), with Lean steps `ObservableRigidity.tv_revives_of_nearReturn`:88 (the total-variation revival) and `CausalReadback.c4r_implies_pIndivisible`:134 (the P-indivisibility conclusion). What is missing is a source for either hypothesis: for the selected update with α non-nilpotent, Haar prior and window readout, `Γ_t(c,c) ≤ 1/2` for every `t ≥ 1` (NR-1 Prop. 2.3), so both (R-d) and (NR) fail; for `q` prime, `α ≠ 0` and lattice-convex windows the rooted family is P-divisible at every horizon (NR-1 Thm 3.3). A physical source of a return condition is LEDGER X-21, status O |
 | 22 | C2 persistence form | Sub:129; Main:477 / 479 | — (a measurable hidden space) | NL | — | P (paper) |
 | 23 | Forward channel; CP-indivisibility input | Main:282 / 284; Main:336 / 338 | `ρ_H = I_m/m` needs a finite hidden factor. The measurable-carrier corollary gives the P-indivisibility input under (NR). The Koopman channel family on `ℂ^V ⊗ L²(H,ρ)` is not defined in the corpus (REMAINDER L6) | TC (hidden) for the maximally mixed state; NL+(NR) for the corollary | L6 | P (corollary); O (L6) |
 | 24 | Stage-1 gauge statement | Sub:139 | "the finite channel/dilation datum actually used". Its relabelling direction is Theorem 24(i), whose coherent form uses `𝟙/|C_H|` (row 45); its enlargement direction is Theorem 24(iii), whose base prior is finite in B2 (row 46) | TC (constructed hidden) | — | F |
@@ -137,7 +137,7 @@ corpus is a reversible finite-range CA on `(A×A)^{ℤ³}`.
 
 | # | Item | B1 / B2 | Where finiteness enters | Codes | Conditions needed on `A^{ℤ³}` | Status |
 |---|---|---|---|---|---|---|
-| 38 | **H-count** | GR:58, :88 | B1: "Under A1, restrict the finite total system to a conserved energy shell … that the total system is finite (A1)". B2: "For a finite total system … that the total system is finite" (LEDGER X-70) | TC | §2.2 | F as printed; C (P7-B, decoupled product dynamics, H2, H4, H6); coupled dynamics: fails for some bijections, holds for others (P7-B 6.3), general case O (LEDGER X-71) |
+| 38 | **H-count** | GR:58, :88 | B1: "Under A1, restrict the finite total system to a conserved energy shell … that the total system is finite (A1)". B2: "For a finite total system … that the total system is finite" (LEDGER X-70) | TC | §2.2 | F as printed; C (P7-B, decoupled product dynamics, H2, H4, H6); coupled dynamics: the replacement theorem is not proved; P7-B 6.3 shows only that for some coupled bijections no normalized invariant shell law exists and for others an invariant product law exists; general case O (LEDGER X-71) |
 | 39 | Boundary count `s_H = σA/ε²`; the `ε` identification | GR:58, :98–104, :156 | The density-of-states clause is a posit (P7-B H6). It is not supplied by counting, finite or infinite (P7-B node 3). S3 is independent of Lemma 1 (P7-B node 4) | FR (boundary layer) | H6 and S3 posited | Posit in both settings |
 | 40 | Gap equation; uniqueness | Sub:181–183; GR:78, :108, :144–154 | The algebra `a_* = τ_K/β_E`, given β_E from H-count and τ_K from H-slope | NN beyond row 38 | — | Inherits row 38 |
 | 41 | H-slope; GR §8.5(b) | Sub:181, :185; GR:74, :627 | H-slope is a detector-side condition. §8.5(b) assumes "H-count holds for the hidden sector" | NN (H-slope); TC through H-count (§8.5(b)) | — | Inherits row 38 |
@@ -174,7 +174,7 @@ same in B1 and B2.
 | `ObservableRigidity.exists_pIndivisibleWithin_of_nonPermutation`:358, `rootedFamily_productLaw`:388 | P-indivisibility from a non-permutation rooted map under the compactness hypothesis `hcompact` (:275), not (NR); rooted family of a product law; on a measurable carrier | Any cardinality, normalized | 21 |
 | `CausalReadback.c4r_implies_pIndivisible`:134 | A strict increase of rooted-row distance (C4r) gives P-indivisibility | Finite `V` | 21 |
 | `ObservableFactorRecurrence.pIndivisible_of_visible_identity_return_nonperm`:68 | An exact rooted identity return after an earlier non-permutation rooted map gives P-indivisibility; no carrier or cardinality assumption (its docstring: "the measurable realization that gives rise to Gamma is NOT constructed") | Carrier-independent; finite `V` | 21, §3 (R-d) |
-| `ObservableMeasureReturn.measuredGamma_eq_one_iff`:83 | The measured rooted matrix equals the identity iff the visible observation returns almost surely after the iterate | Any measure | 21, §3 (R-d) |
+| `ObservableMeasureReturn.measuredGamma_eq_one_iff`:83 | The measured rooted matrix — the ENNReal matrix of ratios of joint visible-cell masses — equals the identity iff the visible observation returns almost surely after the iterate. It assumes positive, finite visible-cell masses, and neither it nor `ObservableFactorRecurrence` composes it with a measurable rooted law (its docstring) | Any measure; positive finite cells | 21, §3 (R-d) |
 | `RecurrenceHorizon.pIndivisible_of_rooted_identity_return_of_overlap`:148 | Takes an exact return `Γ_n = I` as a hypothesis | Finite hidden (`[Fintype H]`, :134; `CausalReadback.RootedRealization`:178) | 21 |
 | `RootedClassification.pper_of_finiteRootedRealizable`:339 | A finite realization has a periodic rooted family | Finite | §3 (R-c) |
 | `Equivalence.finite_horizon_equivalence`:462 | A finite visible law on a finite horizon gives finite witnesses | FR | 18 |
@@ -282,7 +282,8 @@ there, and whether it would fix the weights, is not determined by any record.
 
 **(R-d) Rooted (observable) exact return `Γ_n = I`.**
 - *What it is.* The rooted visible maps return to the identity at some `n`: equivalently, the visible
-  label returns almost surely after `n` steps (`ObservableMeasureReturn.measuredGamma_eq_one_iff`:83).
+  label returns almost surely after `n` steps (`ObservableMeasureReturn.measuredGamma_eq_one_iff`:83)
+  (limits: the lemma concerns the ENNReal matrix of ratios of joint cell masses, `measuredGamma`, and assumes positive, finite visible-cell masses; neither module composes it with a measurable rooted law).
 - *What it gives.* With an earlier non-permutation `Γ_s`, P-indivisibility at that horizon, with no
   carrier or cardinality assumption (`ObservableFactorRecurrence.pIndivisible_of_visible_identity_return_nonperm`:68).
   This is the hypothesis Stage 1's recurrence step consumes (row 21).
@@ -294,7 +295,7 @@ there, and whether it would fix the weights, is not determined by any record.
 - it makes every point return exactly, which gives (R-a) for any invariant law, and (R-d) at `n = N`
   for any prior.
 
-No converse and no implication among (R-a), (R-b) and (R-d) is asserted; Sub:268 (iii) shows that
+No converse and no implication among (R-a), (R-b) and (R-d) is asserted; Sub:268 (iii) states, without a witness, that
 (R-d) for the observed law does not give (R-c). Stage 1's recurrence step (row 21) needs (R-d), or
 (NR) in its place. (R-c) is sufficient for (R-d), not necessary. Neither (R-a) nor (R-b) supplies
 (R-d) or (NR).
@@ -378,7 +379,9 @@ in §4.2 are the SM:66 definition and the seam, from the review's finding 5.
 them is a reconstruction of Theorem 23 on an infinite lattice.
 - *Lean:*
   - P-indivisibility from rooted exact return, on any carrier (`ObservableFactorRecurrence`), and
-    the equivalence of rooted return with almost-sure visible return (`ObservableMeasureReturn`);
+    the equivalence of rooted return with almost-sure visible return for the measured ratio matrix
+    with positive, finite visible cells (`ObservableMeasureReturn`; the two modules are not composed
+    with a measurable rooted law);
   - A2–A5 for the wave rule on `ℤ^d` (`WaveSubstratumUnbounded`);
   - A4 on an arbitrary site group (`SubstratumInterfaceAudit.A4`);
   - Corollary 1a on `ℤ³` (`CubicIsotropy`);
@@ -393,7 +396,8 @@ them is a reconstruction of Theorem 23 on an infinite lattice.
   - the Bell cap for any cardinality with finite regions (Main:420 / 422);
   - the C2 theorems on a measurable H (Main:463 / 465, :477 / 479);
   - the deep-sector corollary for any cardinality without H-BD (GR Appendix B);
-  - Theorem 24 (iii) for normalized factors of any cardinality (R6).
+  - Theorem 24 (iii) for normalized adjoined factors of any cardinality (R6); its base prior is
+    finite in B2 (Sub:262, D362) or needs L6 (row 46).
 - *Negative results:*
   - for the selected update on `ℤ^d` with α non-nilpotent, Haar prior and window readout, (NR) and
     rooted return fail (NR-1 Prop. 2.3); for `q` prime, `α ≠ 0` and lattice-convex windows, the
