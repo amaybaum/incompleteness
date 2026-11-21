@@ -1477,9 +1477,9 @@ Adopted 2026-11-15 by owner decision (owner `amaybaum`, 2026-11-15).
 ## §A.48 Canonical clarity over historical compatibility
 
 The active material presents the clearest scientifically justified version of OI. Active material
-is `papers/`, `book/`, the READMEs, AGENTS.md, code comments, and the Lean formalization's names
-and docstrings. It excludes verification records and every record that §A.39, §A.42 or §A.46
-governs. Historical identifiers, terminology and structures are kept in active material only while
+is `papers/`, `book/`, the READMEs, AGENTS.md (except its record sections, such as §A.37 and the
+provenance paragraphs of §A.42), code comments, and the Lean formalization's names and docstrings.
+It excludes verification records and every record that §A.39, §A.42 or §A.46 governs. Historical identifiers, terminology and structures are kept in active material only while
 they remain useful; traceability lives in Git history and in the preserved research records, not
 in the presentation of the current theory.
 
@@ -1495,8 +1495,9 @@ in the presentation of the current theory.
    ID, or a kernel identifier that the manuscripts, the census or a record cites) may be renamed or
    renumbered only by an explicit migration that the owner approves in advance and an independent
    non-author review accepts. The migration:
-   - states the clarity gain it delivers;
-   - maps every old identifier to its successor, and reuses no ID;
+   - states and demonstrates the clarity gain it delivers;
+   - maps every old identifier to its successor, and reuses no ID: no identifier takes a meaning
+     different from the one any record has given it;
    - traces every reference across the active material, the Lean modules, the census registry
      (§A.35), the guards and the coverage ledger, and updates each in the same change;
    - leaves frozen and preserved records unchanged, and records, in a mutable index on `main`, the
