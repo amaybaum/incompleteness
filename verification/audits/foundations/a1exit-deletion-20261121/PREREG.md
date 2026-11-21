@@ -7,7 +7,8 @@ until a separate owner authorization of the execution.
 
 **Revision.** Revised by additive commits after the early independent review of `36a73526` (round 1,
 REVISE; record on #1477) and the owner rulings of #1169 comment 7057674976, and after the round-2 delta
-review of `67736e55` (ACCEPT-WITH-NITS). §17 and §18 answer the reviews finding by finding. Edit IDs are stable: an ID reviewed at `36a73526` names the same edit here (its
+review of `67736e55` (ACCEPT-WITH-NITS) and the round-3 delta review of `a58cf594` (ACCEPT-WITH-NITS). §17–§19
+answer the reviews finding by finding. Edit IDs are stable: an ID reviewed at `36a73526` names the same edit here (its
 `revised` field marks a changed replacement), and new edits take new IDs (D253–D258).
 
 ## 0. Authority, decision and goal link
@@ -3340,7 +3341,7 @@ before any execution is authorized:
 
 | Command | Tree | Result |
 |---|---|---|
-| `edits_check.py --self-test` | — | self-test PASS (54 countercontrols) |
+| `edits_check.py --self-test` | — | self-test PASS (61 countercontrols) |
 | `edits_check.py --tree <projection with S2-E 8e52b217> --simulate` | first-draft projection | uniqueness: 258 edits, 0 fail; variants used {'old': 255, 'old_step2': 3}; simulation: residual pointer lines 5 (5 allowed as listed, 0 unqualified); simulation: criterion-5/paraphrase hits on changed lines without a scope in their sentence: 0; simulation: identifier and count findings: 0; RESULT PASS |
 | `edits_check.py --static` | — | infinity-assertion scan (new and new_step2): 0 hits; register scan (added text, §A.32/§A.33, history phrases): 0 hits; new capitals (3+ letters): 0; identifier rule (new and new_step2): 0 findings; preservation check (required content in every replacement variant): 0 findings; mirror parity (every chapter edit byte-identical to its FULL mirror): 0 findings; sitemap cross-check: 194 ptr sites in the map, 194 with an edit; 0 findings; RESULT PASS |
 | `edits_check.py --commit 1c7eedc4` | base | uniqueness: 258 edits, 0 fail; variants used {'old': 258}; RESULT PASS |
@@ -3471,3 +3472,11 @@ are the ledger's.
 | Nit: history phrases | Added "Earlier versions", "originally (a posit)", "at one time", "hitherto" |
 | Nit: SCOPED | Split into strong scopes and weak markers ("?", "whether", "open", disclaimers); a weak marker no longer exempts a sentence that asserts finiteness of the universe, nature, the substratum or $S$, and such assertions on changed lines are scanned |
 | Nit: "item ii" | The identifier rule catches "item ii" and "posit ii" without parentheses |
+
+## 19. Answer to the delta review of `a58cf594` (round 3, ACCEPT-WITH-NITS)
+
+| Item | Change |
+|---|---|
+| Infinity comparison by content | The scan compares the multiset of normalized matched assertions in `new` against `old` (A1 read as finiteness), not their counts; "finiteness … fails" is anchored so that "fails to" does not match. Countercontrols: D065 rewritten to "The substratum is infinite for continuum BFSS" is flagged; the kept per-program "finiteness fails" sentences pass |
+| `$S$` boundary | ASSERTS_FINITE uses `(?<!\w)` before its subject; countercontrol: "$S$ is finite" under a weak marker is caught |
+| "finite configuration space … open matter" | A hit on "finite configuration space" or "finite cardinality" is exempted only by a strong scope, never by a weak marker; countercontrol added |

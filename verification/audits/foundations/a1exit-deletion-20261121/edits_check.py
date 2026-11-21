@@ -22,6 +22,7 @@ Usage (from the repository root):
               ptr edit is at a mapped ptr site), reading the map's pin with git.
 """
 import argparse, json, os, re, subprocess, sys
+from collections import Counter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..'))
@@ -55,8 +56,10 @@ SCOPED = re.compile(r'finite (?:\w+ )?representative|finite substrat|finite mode
 # Weak markers (a question, "whether", "open", a disclaimer) exempt a criterion-5 hit only when the sentence does not
 # also assert finiteness of the universe, nature, the substratum or S.
 WEAK = re.compile(r'\?|\bwhether\b|\bopen\b|not asserted|left open|not fixed|does not identify|unspecified cardinality')
-ASSERTS_FINITE = re.compile(r'\b(?:the universe|nature|the substratum|the world|\$S\$|S|the total configuration space)'
+ASSERTS_FINITE = re.compile(r'(?<!\w)(?:the universe|nature|the substratum|the world|\$S\$|S|the total configuration space)'
                             r' (?:is|are|be) (?:a )?finite\b|\b(?:is|are) a finite (?:universe|world|substratum)\b', re.I)
+# Hits that a weak marker never exempts: they state a property of the configuration space itself.
+STRONG_ONLY = re.compile(r'finite configuration space|finite cardinality', re.I)
 CRIT5_ALLOW = [
     ('book/ch02-substratum.md', 'The output of Stage 1 is a triple $(S, \\varphi, V)$ with $S$ finite',
      'Stage 1 constructs a finite realization per law (ledger X-31), inside Theorem 23\'s finite scope'),
@@ -69,7 +72,7 @@ INF = re.compile(r'(?:\b(?:is|are|be|being|been)\s+infinite\b(?!-))|\b(?:is|are)
                  r'|\|S\|\s*=\s*(?:\\infty|∞)|\bS\s+is\s+infinite\b|\binfinite in (?:extent|size|cardinality)\b'
                  r'|\bthermodynamic limit\b|\bunbounded (?:size|number of (?:sites|configurations|states))\b'
                  r'|\bwithout bound in size\b|\bof infinite cardinality\b|\bno finite bound\b|\bof infinite extent\b'
-                 r'|\bextending without end\b|\bnon-finite\b|\binfinitely extended\b|\b[Ff]initeness\b[^.;]{0,40}\bfails\b')
+                 r'|\bextending without end\b|\bnon-finite\b|\binfinitely extended\b|\b[Ff]initeness\b[^.;]{0,40}\bfails\b(?! to)')
 # The only exempt form: a symmetric "neither ... finite ... nor ... infinite" disclaimer, the match inside it.
 NEUTRAL = re.compile(r'\bneither (?:that )?(?:the substratum|the universe|it|\$S\$|S) (?:is|be) finite nor (?:that )?'
                      r'(?:the substratum|the universe|it|\$S\$|S) (?:is|be) infinite\b')
@@ -188,7 +191,8 @@ def check(data, src, simulate, quiet=False):
                 if any(f_ == path and a_ in s for f_, a_, _ in CRIT5_ALLOW):
                     continue
                 for m in list(CRIT5.finditer(s)) + list(ASSERTS_FINITE.finditer(s)):
-                    if not (SCOPED.search(s) or (WEAK.search(s) and not ASSERTS_FINITE.search(s))):
+                    weak_ok = WEAK.search(s) and not ASSERTS_FINITE.search(s) and not STRONG_ONLY.search(m.group(0))
+                    if not (SCOPED.search(s) or weak_ok):
                         unq.append('%s:%d [%s] %s' % (path, i, m.group(0), s[:110]))
     say('simulation: criterion-5/paraphrase hits on changed lines without a scope in their sentence: %d' % len(unq))
     for x in unq:
@@ -243,6 +247,14 @@ def identifier_sim(sim):
     return out
 
 
+def inf_key(g):
+    """Normalize a matched infinity assertion for the content-based comparison."""
+    k = re.sub(r'[\s*_]+', ' ', g.lower()).strip()
+    if re.search(r'finiteness\b.*\bfails', k):
+        return 'finiteness fails'
+    return k
+
+
 def static_new(data):
     inf, reg, caps, ids = [], [], [], []
     for e in data['edits']:
@@ -257,10 +269,15 @@ def static_new(data):
                     out += [(m.group(0), sent) for m in INF.finditer(sent)
                             if not any(a <= m.start() and m.end() <= b for a, b in spans)]
                 return out
-            # the rewrite rule maps a statement about A1 to one about finiteness, so old is read with A1 as finiteness
-            a_new, a_old = assertions(new), assertions(re.sub(r'\bA1\b(?: \(finiteness\))?', 'finiteness', old))
-            if len(a_new) > len(a_old):
-                for g, sent in a_new[len(a_old):] if a_old else a_new:
+            # Content-based: the multiset of normalized assertions in new must not exceed that of old. The rewrite
+            # rule maps a statement about A1 to one about finiteness, so old is read with A1 as finiteness.
+            a_new = assertions(new)
+            a_old = assertions(re.sub(r'\bA1\b(?: \(finiteness\))?', 'finiteness', old))
+            extra = Counter(inf_key(g) for g, _ in a_new) - Counter(inf_key(g) for g, _ in a_old)
+            for g, sent in a_new:
+                k = inf_key(g)
+                if extra.get(k, 0) > 0:
+                    extra[k] -= 1
                     inf.append((e['id'], g, sent[:120]))
             for tok in set(x.lower() for x in REG.findall(new)) - set(x.lower() for x in REG.findall(old)):
                 reg.append((e['id'], tok))
@@ -499,6 +516,19 @@ def self_test():
     expect(not mirror_parity(mp), 'mirror parity passes for identical strings')
     bad_led = good.replace('(iii) (REV) x;', '(iii) y;')
     expect(bool(identifier_sim({'papers/Main.md': bad_led})), 'a posit ledger item (iii) without (REV) is caught')
+    # round-3 countercontrols
+    d065 = 'The substratum is infinite for continuum BFSS'
+    expect(bool(static_new({'edits': [E('D065x', '**Status.** A1 fails for continuum BFSS', d065)]})[0]),
+           'content-based infinity scan flags a swapped assertion of equal count (D065 rewritten to "%s")' % d065)
+    for o_, n_ in [('**Status.** A1 fails for continuum BFSS', '**Status.** Finiteness fails for continuum BFSS'),
+                   ('Per-condition: A1 (finiteness) **fails** in the full theory', 'Per-condition: finiteness **fails** in the full theory'),
+                   ('A1 fails in the limit,', 'finiteness fails in the limit,')]:
+        expect(not static_new({'edits': [E('F', o_, n_)]})[0], 'kept per-program "finiteness fails" passes: %s' % n_[:40])
+    expect(not static_new({'edits': [E('F2', 'x', 'finiteness fails to determine the bound')]})[0], '"fails to" is not an infinity assertion')
+    for s_ in ['Whether it matters is left aside; $S$ is finite.', 'The finite configuration space is an open matter.']:
+        d6 = {'edits': [E('W3', 'a set (finite under A1).', s_)]}
+        expect(not check(d6, Source(fn=lambda p: 'a set (finite under A1).', files=['x']), True, True),
+               'a weak marker does not exempt: %s' % s_)
     print('self-test %s' % ('PASS' if ok else 'FAIL'))
     return ok
 
