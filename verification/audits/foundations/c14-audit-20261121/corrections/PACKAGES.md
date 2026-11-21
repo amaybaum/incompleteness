@@ -9,6 +9,8 @@
 
 **What is authoritative.** `packages.json` is authoritative for the exact old and new texts. The texts are reproduced below for review.
 
+**Term.** A *faithful realization* of a visible process is a deterministic realization of it: a bijection $\varphi$ on $\mathcal{C}_V \times \mathcal{C}_H$ with an initial law under which the visible trajectory has the process's law. This is Main:614, the hypothesis of the theorem on unavoidable hidden predictive memory. The packages' necessity wordings ("C1, C3 and C4 hold in every faithful realization") are stated relative to that notion. C2's persistence form is stated for bijective realizations (Main:74).
+
 **Canonical source.** Every package follows `papers/Main.md` §1.3 (Main:72 C1, :74 C2, :76 C3, :78 C4) or the theorem named in its row.
 
 **Ledger.**
@@ -17,7 +19,7 @@
 - **ch02:88 / FULL:718 is excluded.** Its F9 "C2-mixing" is routed to #1477's final scientific review (#1169 c.7067233614).
 
 **Drafting-base check (`022d750e`).** `python3 -I verification/audits/foundations/c14-audit-20261121/corrections/check_packages.py 022d750e` reports:
-- 51 packages, 0 failing: verdict READY;
+- 53 packages, 0 failing: verdict READY;
 - every old text unique in its file;
 - every book package's old text also unique in `FULL.md`;
 - no ledger line or overlap.
@@ -68,7 +70,7 @@ The framework identifies four conditions on a partition of a substratum's dynami
 - **Preserve:** the paragraph's structural-anthropic reading that follows; the observer-admitting/observer-lacking distinction of Structure:518 and :711.
 - **#1477 ledger:** not on a ledger line.
 - **Mirror:** none.
-- **Note:** Beyond the confirmed F3 site: the removed typicality clause also conflicts with Main:153, where random bijections generically satisfy C1. This is a new observation, not reviewed.
+- **Note:** The removed typicality clause also conflicts with Main:153, where bijections failing C1 are an exponentially vanishing fraction as n_H grows. This conflict was confirmed in review (#1529, c.7067421634).
 
 Old:
 
@@ -1086,6 +1088,46 @@ a C2 slot (the visible stream carries structural memory; not [Main]'s hidden
 persistence), a C3 slot (a fibre count, exactly saturated here; no law or `I*` is stated)
 ```
 
+### P-F14-7 — `verification/lean/bohr_frequency_probe.py:4094`
+
+- **Kind:** wording.
+- **Canonical source:** Main:74.
+- **Preserve:** comment only: no executed statement changes; the probe's checks and printed output are unchanged.
+- **#1477 ledger:** not on a ledger line.
+- **Mirror:** none.
+
+Old:
+
+```text
+# C2: the visible stream carries a genuine one-bit memory, v_{t+2} = v_t
+```
+
+New:
+
+```text
+# C2 slot (a visible-stream consequence, not [Main]'s hidden persistence): v_{t+2} = v_t
+```
+
+### P-F14-8 — `verification/lean/bohr_frequency_probe.py:4108`
+
+- **Kind:** wording.
+- **Canonical source:** Main:76.
+- **Preserve:** comment only: no executed statement changes; the probe's checks and printed output are unchanged.
+- **#1477 ledger:** not on a ledger line.
+- **Mirror:** none.
+
+Old:
+
+```text
+# C3 -- sufficient hidden memory capacity: every visible readout is carried by two states,
+```
+
+New:
+
+```text
+# C3 slot (a fibre count; no law or I* is stated): every visible readout is carried by two states,
+```
+
 ## F15 — kernel scope of C3 necessity at Main:524
 
 ### P-F15-1 — `papers/Main.md:524`
@@ -1116,4 +1158,5 @@ New:
   - F9: whether the reconstruction itself uses the mixing hypothesis.
   - F10: whether the characterization theorem needs time-homogeneity.
   - In both cases the packages keep the more conditional wording.
-- **One new observation, not reviewed (P-F3-2).** Structure:734's typicality clause conflicts with Main:153.
+- **Confirmed in review (#1529, c.7067421634; P-F3-2).** Structure:734's typicality clause, "random permutations on finite sets typically lack the coupled-dynamics … features", conflicts with Main:153, where bijections failing C1 are an exponentially vanishing fraction as $n_H$ grows. P-F3-2 removes the clause.
+- **Noted, not packaged: `verification/lean/bohr_frequency_probe.py:4307–4308`.** This is a printed message string: "C2 is structural (v_{t+2} = v_t, a genuine one-bit memory), C3 is sufficient hidden memory capacity …". It repeats the old Lean labels in the probe's output. Changing it changes the probe's printed output, which may be compared or retained elsewhere, so it is left to the F14 application round to change together with any consumer of that output. The probe's comment labels are packaged as P-F14-7 and P-F14-8.

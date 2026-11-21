@@ -33,7 +33,7 @@
    "canonical": "Main:70 (diagnostics, not hypotheses); Main:546-552 (characterization theorem: (iii) lists C1, C3, C4; C2 absent); Main:74 (C2-structural by reversibility in bijective realizations; C2-slow one sufficient mechanism); Main:153 (bijections failing C1 are an exponentially vanishing fraction as n_H grows)",
    "preserve": "the paragraph's structural-anthropic reading that follows; the observer-admitting/observer-lacking distinction of Structure:518 and :711",
    "kind": "overclaim-narrowing",
-   "note": "Beyond the confirmed F3 site: the removed typicality clause also conflicts with Main:153, where random bijections generically satisfy C1. This is a new observation, not reviewed."
+   "note": "The removed typicality clause also conflicts with Main:153, where bijections failing C1 are an exponentially vanishing fraction as n_H grows. This conflict was confirmed in review (#1529, c.7067421634)."
   },
   {
    "id": "P-F3-3",
@@ -656,6 +656,32 @@
    "mirror_in_FULL": false,
    "canonical": "Main:74, Main:76",
    "preserve": "edge_rigidity_probe.py:1180-1189 canonical C-numbering guard: the docstring before core_capacity_saturates keeps '**C3 ', before core_history_readback keeps '**C4 ', and the file keeps 'C3 (sufficient hidden memory capacity)' and 'C4 (history readback)'; docstring/comment only: no theorem statement, definition or proof changes; #print axioms output unchanged; Lean-manuscript census registry unaffected (no cited identifier changes)",
+   "kind": "wording",
+   "note": ""
+  },
+  {
+   "id": "P-F14-7",
+   "finding": "F14",
+   "rank": 7,
+   "file": "verification/lean/bohr_frequency_probe.py",
+   "old": "# C2: the visible stream carries a genuine one-bit memory, v_{t+2} = v_t",
+   "new": "# C2 slot (a visible-stream consequence, not [Main]'s hidden persistence): v_{t+2} = v_t",
+   "mirror_in_FULL": false,
+   "canonical": "Main:74",
+   "preserve": "comment only: no executed statement changes; the probe's checks and printed output are unchanged",
+   "kind": "wording",
+   "note": ""
+  },
+  {
+   "id": "P-F14-8",
+   "finding": "F14",
+   "rank": 7,
+   "file": "verification/lean/bohr_frequency_probe.py",
+   "old": "# C3 -- sufficient hidden memory capacity: every visible readout is carried by two states,",
+   "new": "# C3 slot (a fibre count; no law or I* is stated): every visible readout is carried by two states,",
+   "mirror_in_FULL": false,
+   "canonical": "Main:76",
+   "preserve": "comment only: no executed statement changes; the probe's checks and printed output are unchanged",
    "kind": "wording",
    "note": ""
   },

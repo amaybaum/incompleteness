@@ -8,6 +8,10 @@ For each package, at a given commit (default HEAD), it checks:
   (c) the old text lies on no line that #1477's ledger (edits.json at 55544cc3) edits, and
       overlaps no ledger edit's old text;
   (d) the package names a canonical source and its dependencies.
+Assumption about the ledger's FULL.md entries, checked and failed closed: every ledger edit whose
+file is FULL.md is a mirror entry whose `site` names its chapter line (site == mirror_of), so a
+chapter-line check in (c) also covers the FULL.md mirror. At 55544cc3 this holds for all 77
+FULL.md entries. A FULL.md-only ledger edit would not be covered, so the checker stops if one exists.
 It also reports guard pins: any guard, census or check source containing a 30-character span of
 an old text. Pins are reported, not failed: the owning check must be updated with the package.
 
@@ -49,6 +53,9 @@ def main():
     commit = sys.argv[1] if len(sys.argv) > 1 else "HEAD"
     pk = json.load(open(os.path.join(HERE, "packages.json"), encoding="utf8"))["packages"]
     led = json.loads(show(*LEDGER))["edits"]
+    full_entries = [e for e in led if e["file"] == FULL]
+    if any(e.get("mirror_of") != e["site"] for e in full_entries):
+        sys.exit("ledger has a FULL.md entry that is not a chapter mirror; check (c) would not cover it")
     led_lines = {(e["site"].rsplit(":", 1)[0], int(e["site"].rsplit(":", 1)[1])) for e in led}
     led_old = [(e["site"].rsplit(":", 1)[0], e.get("old") or "") for e in led]
     pin_files = [p for p in ls(commit) if p.startswith(PIN_SOURCES) and p.endswith((".py", ".json", ".lean"))]
