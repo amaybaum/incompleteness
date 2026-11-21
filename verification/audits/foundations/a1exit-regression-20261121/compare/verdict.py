@@ -406,21 +406,27 @@ def compile_s2(rev=PIN_S2):
 
 
 def compile_del(commit):
-    """The deletion unit's edits, JSON to JSON from the edits.json landed at commit (manuscript files)."""
+    """The deletion unit's edits, JSON to JSON from the edits.json landed at commit (manuscript files).
+    A record whose old string equals its new string (a site retained unchanged) is not an edit; its ID
+    is listed under `retained_unchanged`."""
     c = resolve(commit)
     data = json.loads(show(c, DEL_EDITS))
     blob = B.git('rev-parse', '%s:%s' % (c, DEL_EDITS)).decode().strip()
-    edits = []
+    edits, retained = [], []
     for idx, o in enumerate(data['edits']):
         f = o['file']
         if not (f.endswith('.md') and f.split('/')[0] in ('papers', 'book') and f.count('/') == 1):
+            continue
+        if o['old'] == o['new']:
+            retained.append(o['id'])   # a site recorded as retained unchanged: no edit, covers nothing
             continue
         edits.append({'key': '%s:%s' % (DELETION_UNIT, o['id']), 'unit': DELETION_UNIT, 'pr': None,
                       'id': o['id'], 'seq': 100000 + idx, 'files': [f], 'old': o['old'], 'new': o['new'],
                       'rows': XROW.findall(o.get('row') or ''),
                       'components': [{'id': o['id'], 'source_path': DEL_EDITS, 'index': idx}]})
     return {'schema': 'a1exit-compare-edits/2', 'pin': c,
-            'units': {DELETION_UNIT: {'pr': None, 'merge': c, 'sources': {DEL_EDITS: blob}}}, 'edits': edits}
+            'units': {DELETION_UNIT: {'pr': None, 'merge': c, 'sources': {DEL_EDITS: blob}}}, 'edits': edits,
+            'retained_unchanged': retained}
 
 
 def apply_unit(corpus, edits):

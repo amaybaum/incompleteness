@@ -35,7 +35,7 @@ manuscript changed on `main` between it and `97070c98`.
 |---|---|
 | `baseline.py` | `e0749fb926ce9da0ee52bad0ea9e0e80e4fa9f4edeb22c8009a303bf1af23ad9` |
 | `snapshot.json` | `2db7832d7cb95b0ba77b42afad965696390d4ad67a6835b2c45f045bd04f88c8` |
-| `compare/verdict.py` | `a5a1882885fde55c9e66680bbad4c24c0a734fdd63fc1817b3e3fe463d74d9e3` |
+| `compare/verdict.py` | `b6e82f57c73e4831052ba4981335bb64b94b279833515e387fef73ff3fbc4087` |
 | `compare/inputs/edits-s2.json` | `f43086e43663ea5becabee3b0439d338dca78da3170f6a1d951a5ec713583a4c` |
 | the ledger's `rows.json`, read from the Git object at `PIN_S2` | `39e51d0cfd8d6855f17ef3d7253a43d372fae608a9dcae083fbeb52471b512a0` |
 
@@ -231,7 +231,9 @@ whole manuscript change and nothing more.
 **Deletion unit.** `DEL` edits are taken only from the deletion's `edits.json` as landed
 (`verification/audits/foundations/a1exit-deletion-20261121/edits.json`), by `verdict.py compile-del
 --commit <deletion commit>`, JSON to JSON, keeping the `papers/` and `book/` Markdown edits in list
-order. They replay after the Step-2 edits.
+order. They replay after the Step-2 edits. A record whose `old` equals its `new` (a site recorded as
+retained unchanged) is not an edit: it covers nothing, is left out of the list, and its ID is listed
+under `retained_unchanged`.
 
 **What is not a source.**
 - #1476 changed CI only, and #1471 is the baseline itself.
