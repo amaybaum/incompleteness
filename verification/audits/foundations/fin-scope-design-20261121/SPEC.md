@@ -403,7 +403,7 @@ therefore stops deciding copies by form.
 - **Who classifies: the FIN-SCOPE classifier.** This role is an owner-designated reviewer who is not
   the author of the unit classified, attested under O6. Each classification is a review record made by
   someone in that role. A form-based suggestion from the screen may pre-fill a proposed class, but it
-  never classifies. Until O6 is decided, no classification can be attested.
+  never classifies. Attestation follows the O6 standard of §3.6.
 - **Pending is a blocking state, never a class.** An occurrence awaiting classification, such as each
   pending opener of the worked examples, is `pending`.
   - The gate cannot pass while any occurrence in scope is pending.
@@ -413,11 +413,11 @@ therefore stops deciding copies by form.
     covers occurrences.
 - **Second classification, against misclassification.** A real copy classified as a citation or as
   unrelated, with its text unchanged, cannot be detected mechanically afterwards. The controls are:
-  - **two independent classifiers.** Two distinct people in the classifier role, each attested,
-    must agree. That two classifiers are distinct people can be verified only under an O6 option that
-    proves distinct identities: (δ), a separate reviewer account; (γ), with separately held keys; or
-    (β), where the owner personally designates both people. Under (α) alone, two sessions are not two
-    people, and this control is unverified. They must agree for every `citation` or `unrelated` class given to these units: an opening paragraph led
+  - **two independent classifiers.** Two distinct classifiers, each attested under the O6 standard
+    (§3.6), must agree. They are distinct when their records document different roles, separate
+    evidence and their own conflict disclosures, and neither discloses shared inputs or reasoning with
+    the other. This is documented procedural separation, not a proof of distinct identities (§3.6). They
+    must agree for every `citation` or `unrelated` class given to these units: an opening paragraph led
     by a name, a list item or table row led by a name, a heading unit, or a pending opener. A
     disagreement keeps the unit pending;
   - **a recorded second-review sample.** For all other enrollment classifications, a seeded random
@@ -724,24 +724,48 @@ Every review-set member is cleared only by an entry in the review registry (§7)
 - A `rejected` outcome leaves the member open.
 - A record decides scope only. It does not accept the result scientifically.
 
-### 3.6 Who may review: the attestation (owner decision O6)
+### 3.6 Who may review: the attestation (O6, decided)
 
-Every commit, pull request and comment in this repository is made under one login, so a check that the
-reviewer's login differs from the author's can never pass. The reviewer of c.7065126686 assessed what
-each candidate attestation can actually verify. The assessment is recorded here for owner decision O6
-(§12). The writer makes no choice.
+**The resolution.** The owner decided O6 on 2026-11-21 (#1169 c.7066602480, item 5). The adopted
+standard is **auditable procedural separation**. An attestation is valid when it documents four
+elements:
+1. **Different roles.** The reviewer or classifier holds a role distinct from the writer of the unit
+   reviewed. The record names both roles, and the writer of the unit does not act as its reviewer.
+2. **Separate review evidence.** The review is recorded as its own artifact, a review comment or record
+   that is distinct from the writer's commits and notes, and it states what was checked.
+3. **Exact-head identification.** The record names the exact commit and the digests it reviewed. A
+   later change voids it (V7).
+4. **Explicit conflict disclosure.** The reviewer states any shared inputs, shared reasoning or prior
+   involvement with the unit. An attestation without a disclosure, even "none", is invalid.
 
-| Option | What the attestation is | What can be verified | Assessment (c.7065126686) |
-|---|---|---|---|
-| **(α) Session trailer** | the record's commit carries a `Claude-Session` trailer that differs from every author commit's trailer on the member's file | only that two strings differ | Self-asserted. The session that writes the commit writes the trailer, and CI cannot resolve it. A second writer on the author's branch also conflicts with one-writer-per-branch (c.7064767045). On its own, it is resolution by assertion |
-| **(β) Owner clearance** | an owner decision record names the member's digests and the record's commit | that the comment exists and names the digests; not who wrote it | Procedural. Owner records are posted from the same login, often relayed by agents. Its strength is the owner's personal confirmation. It is the only listed option that routes through the person |
-| **(γ) Signed commits** | the record's commit is signed with a key from a reviewer keyring that only an owner decision changes | the key identity, cryptographically | Verifiable only if custody is separate, for example an owner-held hardware key that author sessions cannot reach. With keys on a shared agent disk it proves no more than (α). An owner-held key is (β) made cryptographic |
-| **(δ) Separate reviewer account** | the review is made from a distinct GitHub account (a machine user or an app), optionally with required reviews | a distinct identity, by the host itself | The fix the reviewer proposes. It is the only option the host verifies directly. It needs a new account and its credential custody |
+**What this standard is.** Independence here is documented procedural separation. It is not a
+cryptographic or mathematical guarantee. Different model names alone do not establish it, particularly
+when reviewers share inputs or reasoning. The gate checks the form of the four elements offline.
+Pull-request review checks the record against the host, as for every review record.
 
-The reviewer's further view, recorded and not adopted: (α) alone should not suffice; (β), or (γ) with an
-owner-held key, should be required for every record until (δ) exists. Whatever the owner chooses, the
-check is invariant V9 (§11) with its own checkpoint. Until O6 is decided, no record can be attested, and
-every pull request with a non-empty review set fails the gate.
+**The context: what each candidate could verify.** The reviewer of c.7065126686 assessed the candidates
+before the decision. That assessment is kept as context. None of these options was adopted as such:
+
+| Option | What can be verified | Assessment (c.7065126686) |
+|---|---|---|
+| (α) session trailer | only that two strings differ | self-asserted |
+| (β) owner clearance | that the record exists and names the digests | procedural; routes through the person |
+| (γ) signed commits | the key identity | verifiable only with separately held keys |
+| (δ) a separate reviewer account | a distinct identity, by the host | the only option the host verifies directly |
+
+**Mechanisms that depend on this standard**, each of which inherits its procedural, not mathematical,
+strength:
+- every review record of §3.5, and therefore the guarantee of §1.1 (V14);
+- invariant V9, that a record carries a valid attestation;
+- every occurrence classification by the FIN-SCOPE classifier (§2.5);
+- the **two distinct classifiers** of §2.5 (V33). Two classifiers count as distinct when their records
+  document different roles, separate evidence and their own conflict disclosures. A disclosure of
+  shared inputs or reasoning between them makes them not distinct, and the unit stays pending;
+- the second-review sample (§2.5);
+- the independent verification of scope neutrality under reduction (r1) (§12.1);
+- the owner attestation of reduction (r4), which still names an explicit, individually reviewable set
+  of findings;
+- the review record required for every `canonical.json` change (§7).
 
 ### 3.7 Verdict
 
@@ -1119,10 +1143,10 @@ For the Code Review Rules, under *Claim/evidence boundary*:
   review set (§6.2).
 - **O4.** Whether baseline items may stand indefinitely or must be cleared, and by what process.
 - **O5.** Whether rule K is in the first implementation or follows #1482.
-- **O6.** The attestation for review records (§3.6): (α) session trailer, (β) owner clearance, (γ)
-  signed commits with separately held keys, (δ) a separate reviewer account, or a combination. The
-  reviewer's assessment of what each verifies is recorded in §3.6, and the writer proposes no choice.
-  Until O6 is decided, no record can be attested.
+- **O6. Decided by the owner (#1169 c.7066602480, item 5).** The standard is auditable procedural
+  separation: different roles, separate review evidence, exact-head identification and explicit conflict
+  disclosure (§3.6). It is documented procedural separation, not a cryptographic or mathematical
+  guarantee.
 - **O8.** The owner's longer-term recommendation (c.7065520418): after the A1 retirement, establish one
   canonical definition for each foundational condition, with other locations referring to it wherever
   practical. FIN-SCOPE's reconciliation list (§2.5) is the input to that work. This design does not
@@ -1170,8 +1194,7 @@ the A1-EXIT propagation period, busier than usual, and the counts are re-measure
 - **Per PR:** a typical PR has a handful. One PR in five has 10–20. A propagation sweep or a renaming
   like #1482's has about 60–130.
 
-Each member needs a record with sentence answers and an attestation: an owner clearance per member or
-per batch under (β), or a separate reviewer identity under (δ).
+Each member needs a record with sentence answers and an attestation under the O6 standard (§3.6).
 
 **Reductions, under the owner's O7 conditions (c.7065358283).** Every reduction is bound by one
 coverage rule: **no reduction may silently exclude a theorem from review**. Each reduced record lists
@@ -1208,7 +1231,7 @@ reduced or not, equals the review set. A member that no record names fails (V27)
 
   Item 2 is needed because a cited lemma narrowed to infinite systems changes what its dependents rely
   on.
-- **(r4) One owner attestation per PR under (β), covering an explicit, individually reviewable set of
+- **(r4) One owner attestation per PR, covering an explicit, individually reviewable set of
   findings.**
   - The attestation names every member's key, digests and record, and every blocking hit with its
     answer.
@@ -1360,5 +1383,6 @@ a FIN-SCOPE pass is not evidence for either class.
 | 3 Controls | §2.5 ambiguity and mapping checks, two classifiers for name-led citation or unrelated classes, the second-review sample; V32, V33; §9 limit; TESTS P-A1m–P-A5m, P-S2, P-S3 |
 | 4 Propagation | §1.1 (R-b): prose citers anywhere; V34; TESTS P-P1 |
 | F1 (c.7065581514), exact means the whole canonical text | §2.5 exact; TESTS P-F6 |
+| O6 decided (#1169 c.7066602480, item 5) | §3.6 the adopted standard of auditable procedural separation, the earlier options kept as context, and the mechanisms that depend on it; §2.5 two classifiers; §12 O6; TESTS P-R1, P-R3 |
 | Nits C1-a, C2-a (c.7065581514) | §9 subscripted forms; §2.5 two classifiers verifiable only under (δ), (γ) with separate keys, or (β) with owner designation |
 | 5 Semantic consistency | §2.5 fidelity for every copy; `different` blocking, with three resolution routes; the ch01-table finding recorded as found; V30; TESTS P-F5 |

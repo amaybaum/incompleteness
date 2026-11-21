@@ -160,9 +160,9 @@ item 3 covers it.
 
 | ID | Case | Expected |
 |---|---|---|
-| P-R1 | P-A1 with a resolution whose attestation fails the O6 check: under (α), the session equals an author commit's session; under (β), there is no owner record | unresolved, {A}, FAIL |
+| P-R1 | P-A1 with a record whose attestation fails the O6 standard (SPEC §3.6): the reviewer's role is the writer's role, or the conflict disclosure is missing | unresolved, {A}, FAIL |
 | P-R2 | P-A1 resolved, then one proof token edited | the digest no longer matches; unresolved, FAIL |
-| P-R3 | under (β), the owner record names a different digest | the offline form check fails; FAIL. A record that names the right digest on a different PR is caught by PR review against the host |
+| P-R3 | a record whose exact-head identification names a different commit or digest than the member's current ones | the offline form check fails; FAIL. A record on a different PR, or evidence not separate from the writer's, is caught by PR review against the host |
 | P-R4 | a commit adds an allowlist entry to FIN-SCOPE's own configuration | FAIL (FIN-SCOPE has no allowlist of its own) |
 | P-R5 | a commit deletes `pigeonhole` from FU, with no case and no owner decision | FAIL |
 | P-R6 | a commit raises a block's recorded FS_L in `baseline.json` and lowers it in the manuscript | the recomputation from the merge base differs; FAIL |
