@@ -141,6 +141,18 @@ These items are U unless marked R and resolved; they are never J. A difference w
 a change is already a reported item and is not counted twice (T21); that item is held to the replay
 state by the completeness condition below.
 
+**File-level exactness items** (review c.7062140466, N5). The baseline comparison does not report blank
+lines. So every manuscript file of H is also compared, line by line, with the replayed state. The
+comparison is after normalization, with whitespace kept, blank lines and a final newline included.
+- A differing hunk is an item `RX:<file>:<line>` unless it is wholly made of lines already reported:
+  the H lines of reported items, and the replayed-state lines of replay-missing items.
+- A hunk of blank lines alone is always an item.
+- An RX item is U unless marked R and resolved, never J, and always flagged.
+- Its notes attribute it to the nearest reported item within three lines, if there is one.
+
+An inserted blank line, joined paragraphs, a removed blank line and a changed trailing newline are each
+an RX item (T13f). A head that is exactly the approved plan has none (T21).
+
 **Classes.**
 - **J, justified by a landed Step-2 unit or by the deletion edit.** Accepted only when the replay rule
   holds and neither J9 nor J10 sends the item to R.
@@ -214,7 +226,8 @@ No other text is exempt. The earlier exemption of the clause "may be finite or i
 *Layer 1, the exact expected text (structural, no vocabulary).* The *expected text* of an item's region
 is what replaying its cited approved edits onto the baseline at the pin produces. It is derived only
 from independently frozen inputs: the pinned corpus, `inputs/edits-s2.json` (C0, C6 (a)–(c)) and the
-deletion edits compiled from the landed `edits.json` (C6 (d)). It is never derived from H, from
+deletion edits compiled from the landed `edits.json`, accepted only when that blob has the approved,
+pinned digest (§4, C6 (d)). It is never derived from H, from
 `compare.json`'s texts, or from an earlier verdict. Both texts are normalized as above, and whitespace is
 kept character for character.
 - **Exactness (non-J).** A covered item is never J unless H's region equals its expected text
@@ -354,6 +367,16 @@ order. They replay after the Step-2 edits. A record whose `old` equals its `new`
 retained unchanged) is not an edit: it covers nothing, is left out of the list, and its ID is listed
 under `retained_unchanged`.
 
+**Approved deletion list, pinned** (review c.7062140466, N6). The deletion edits are read from the history
+of the head under test, so they are independent only if their source is pinned.
+- `verdict.py` carries `DEL_APPROVED_SHA256`, the SHA-256 of the *approved* `edits.json`: the blob named
+  by #1477's independent acceptance and by the owner's decision to execute the A1 retirement. It is
+  frozen with `verdict.py` by C0.
+- It is a required field, unset in this record, because #1477 is still being amended. A reviewed
+  amendment made after #1477 is accepted, and before the comparison is run, fills it in.
+- C6 (d) passes only if the landed `edits.json` blob has exactly that digest. If the pin is unset, or
+  the blob differs from it, the run is VOID (T15b).
+
 **What is not a source.**
 - #1476 changed CI only, and #1471 is the baseline itself.
 - Any manuscript change that reaches H from a PR not listed here has no source, so its items are U
@@ -369,9 +392,9 @@ All must pass, or the verdict is VOID.
 | C1 | `baseline.py check` | exit 0 (snapshot regenerates byte for byte from the pin) |
 | C2 | `baseline.py self-test` | exit 0 |
 | C3 | Baseline against itself: `baseline.py --compare 1c7eedc4…` | exit 0, a fresh `self-compare.json` with no change |
-| C4 | `verdict.py self-test` (T1–T21b, with T13b–T13e and T20d) | exit 0 |
+| C4 | `verdict.py self-test` (T1–T21b, with T13b–T13f, T15b and T20d) | exit 0 |
 | C5 | Countercontrol for the comparator: H's corpus copied to a temporary directory, one unjustified value change injected (the first unchanged entry of a prediction table, the last digit of its first decimal token), compared with `--compare-tree`, classified with the same `classify.json` | a fresh `injected-compare.json` with `any_change` true reporting the entry `value changed`; the entry is U and the U count is the main U count plus one |
-| C6 | Edit inputs (§4) | (a) `compile-s2` from the records reproduces `edits-s2.json` exactly; (b) every edit is non-empty and not a no-op, of a listed unit with that unit's PR, every component from that unit's allowlisted sources; (c) the replay validation of §4 holds; (d) `compile-del` reproduces `edits-del.json` exactly, the deletion commit is an ancestor of H, and the deletion edits applied to its first parent reproduce its manuscript files byte for byte. (d) is not applicable only when H is the pin |
+| C6 | Edit inputs (§4) | (a) `compile-s2` from the records reproduces `edits-s2.json` exactly; (b) every edit is non-empty and not a no-op, of a listed unit with that unit's PR, every component from that unit's allowlisted sources; (c) the replay validation of §4 holds; (d) the landed `edits.json` blob has the approved, pinned digest `DEL_APPROVED_SHA256` (unset or different: VOID), `compile-del` reproduces `edits-del.json` exactly, the deletion commit is an ancestor of H, and the deletion edits applied to its first parent reproduce its manuscript files byte for byte. (d) is not applicable only when H is the pin |
 | C7 | Bad-citation countercontrol: in a copy of H's corpus, the first J item with an after line has one number token outside its cited edits' new strings changed (or, with none, " 0" appended), and the copy is compared and reclassified with the same edits and `classify.json` | that item becomes U, and the U count is the main U count plus one |
 | C8 | J10 countercontrol: the sentence " The same identity extends to every infinite system." is appended to a J item's line, with a synthetic edit carrying exactly that change and listing the item's ledger row, so that the replay holds. **Precondition:** the copy is J with J10 disabled, so that only J10 can stop J; the first J item that meets it is used (up to five tried), else C9 (b)'s item | the precondition holds, and with J10 the item is R, with a J10 hit, and flagged |
 | C9 | Decisive control on the pinned corpus, each case cited J to an edit that reproduces it and lists the row: (a) ch01:179's "Without A1, the near-return condition" rewritten as "For every infinite system, the near-return condition" (row X-26); (b) GR:134 (row X-52, disposition J) gains the allowlisted configuration-space sentence; (c) GR:134 gains ", for arbitrary $S$"; (d) GR:134 gains ", and this is proved"; (e) the first J-row prose entry with one open, conditional or hypothesis term loses it; (f) appB:42 (row X-15, disposition J) loses "finite" from "on a finite configuration space"; (g) appB:194 (row X-52, disposition J) loses "finitely many" | (a) is R, flagged, J10-hit, and stays R under a review that cites no proof; (b) is J; (c), (d), (f) and (g) are R, flagged and J10-hit; (e) is R |
@@ -413,6 +436,8 @@ is refused (T20b); C0 rejects a commit that is not the pinned one (T20c).
 | Only the pinned frozen commit is accepted | C0; T20c |
 | Every reported item is classified | `items_of` coverage, unlisted means U; T2, T10 |
 | A landed reviewed change absent from H, or reverted in it, is not passed | replay-missing items; completeness; T21, T21b |
+| No difference from the replayed state anywhere in a file goes unreported, newlines included | file-level exactness items (RX); T13f; T21 |
+| The deletion edits are the approved list, independent of the head under test | `DEL_APPROVED_SHA256` in C6 (d); T15b |
 | A PASS does not settle requirement 6 | `requirement6_settled: false` and the verdict text (§6) |
 
 ## 6. Verdict rule (owner requirement 6)
@@ -449,6 +474,9 @@ checkout HEAD; a non-preparation C0 at this PR's head fails, as it must (T20c).
   - the nine planned deletion records that remove only the word "finiteness" (D001, D061, D180, D181,
     D184, D185, D190, D191, D227) each lose a finite-scope term, while the earlier narrow list misses
     seven of them (T13e);
+  - an inserted blank line, joined paragraphs, a removed blank line and a trailing newline are each
+    an RX item, U and flagged, and the unchanged corpus has none (T13f);
+  - the approved-list pin: unset or altered gives VOID, approved passes (T15b);
   - the gain-rule mutant, which fails the battery on the bare footnote marker and the gain-only case
     (T13b);
   - the mutants of C6–C9 (T15, T17, T18);
