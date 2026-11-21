@@ -263,16 +263,19 @@ Node 4 is the owner's question Q (J2); Node 5 is the stronger reading Q⁺ (J3);
   maps, preparation class, target class, setting (F) or (Z), and exactness (ex) or (ε).
 - **Pressure test for every favourable outcome.** A verdict favourable to J2, J3, J4 or J5(R₁), or to
   a reduction that enables one, is accepted only after its pressure-test table is filled. The table
-  always contains the **specificity question**: is the same target realizable by any rule in
+  always contains the **specificity question**: is the same target realizable by any J1 member of
   Node 2's frozen reference rule set (none of which is in the `Φ_{q,α}` family), with readout and
   preparation free to vary within the same classes and the same budget (window, `m` range, horizon,
-  exactness)? The positive is recorded as **generic** if at least one reference rule realizes the
-  target, shown by an exact primal witness; it is then not specific to the Stage 2 dynamics and does
-  not count as an identification of the stages under the productivity test (§5, (a)). It is
-  credited as **specific** to Stage 2 only if every J1 member of the reference set is excluded,
-  each by its own exact dual or Farkas certificate covering the same listed readout maps, preparation classes, `m` range, window and horizon as the positive under test (a thinner list does not count), as in Nodes 4a–4b. If
-  neither holds, the question is unanswered and the positive is not accepted. Node-specific
-  questions are added below.
+  exactness)? The positive is recorded as **generic** if at least one J1 member of the reference rule
+  set realizes the target, shown by an exact primal witness; it is then not specific to the Stage 2
+  dynamics and does not count as an identification of the stages under the productivity test
+  (§5, (a)). It is credited as **specific** to Stage 2 only if every J1 member of the reference rule
+  set is excluded, each by its own exact dual or Farkas certificate covering the same listed readout
+  maps, preparation classes, `m` range, window and horizon as the positive under test (a thinner
+  list does not count), as in Nodes 4a–4b. A positive realized only by the range-0 rule (a J1⁰
+  member, Node 2) is recorded as generic over J1⁰ and is decided by the J1 members as above; no
+  certificate is required for the range-0 rule. If neither holds, the question is unanswered and the
+  positive is not accepted. Node-specific questions are added below.
 
 ### Node 1 — Freeze the relations against the corpus (reading)
 
@@ -308,8 +311,8 @@ Node 4 is the owner's question Q (J2); Node 5 is the stronger reading Q⁺ (J3);
   inclusion; Node 2's universal construction is included wherever Node 2 finds one. If the range-0
   rule is kept in the set, it is listed as a J1⁰ member outside this criterion, because it violates
   A4's no-self-input clause. A positive realized only by the range-0 rule is recorded as generic over
-  J1⁰; it is credited as specific only if every J1 member of the set is excluded, each with its own
-  certificate as in §4's common rule.
+  J1⁰ and is decided by the J1 members: it is credited as specific only if every J1 member of the
+  reference rule set is excluded, each with its own certificate as in §4's common rule.
 - **Countercontrol.** The range-0 construction is the vacuity witness: any identification criterion
   that it satisfies is too weak to answer Q and is not used. Applied at freeze to J5(T), which it
   satisfies (§2.4).
@@ -456,12 +459,15 @@ Opened after Node 4 closes, whatever its outcome. Reported separately from Q. Al
   minimum stays above a stated `ε₀` for every window up to the computed size, record only that
   finite fact; it is not extrapolated.
 - **Pressure test with preregistered consequences.**
-  - (i) Specificity: the common specificity question, with the same budget. If at least one rule in
-    Node 2's frozen reference rule set (ε)-realizes the target, readout and preparation free within
-    the same classes, shown by an exact primal witness, the positive is recorded as generic and does
-    not count as an identification of the stages under §5 (a). It is credited as specific only if
-    every J1 member of the reference set is excluded, each by its own exact dual or Farkas certificate covering the same listed readout maps, preparation classes, `m` range, window and horizon as the positive under test (a thinner list does not count); otherwise the positive is not
-    accepted.
+  - (i) Specificity: the common specificity question, with the same budget. If at least one J1
+    member of Node 2's frozen reference rule set (ε)-realizes the target, readout and preparation
+    free within the same classes, shown by an exact primal witness, the positive is recorded as
+    generic and does not count as an identification of the stages under §5 (a). It is credited as
+    specific only if every J1 member of the reference rule set is excluded, each by its own exact
+    dual or Farkas certificate covering the same listed readout maps, preparation classes, `m` range,
+    window and horizon as the positive under test (a thinner list does not count). A positive
+    realized only by the range-0 rule is generic over J1⁰ and is decided by the J1 members.
+    Otherwise the positive is not accepted.
   - (ii) Readout carries the law: if `g` and the conditioning event `E` together encode the target, in
     the sense of Node 4b's test (ii′), the positive is recorded as carried by the readout and J3 is
     not credited.
@@ -640,7 +646,7 @@ generic normalized invariant law leaves the Stage 3 slope undetermined (P1-AUDIT
 | I10 | Repository-text constraints | A grep of the added lines for the excluded vocabulary and for local paths returns nothing |
 | I11 | Every displayed equivalence has a witness per direction | §2.5 lists each direction separately with its witness or "Missing"; no new equivalence is displayed |
 | I12 | Every identification criterion passes the vacuity countercontrol | Before a relation is used to answer Q or Q⁺, the record shows it is not satisfied by Node 2's range-0 witness; J5(T) is recorded as failing this check at freeze. The check adds content only for J1⁰, J1 and J5(T); J2–J4 and J5(R₁) fix the dynamics or the target system and are not satisfied by the range-0 witness by construction |
-| I13 | Every favourable verdict is pressure-tested before acceptance | In each node record, a filled pressure-test table, including the specificity question against Node 2's frozen reference rule set (readout and preparation free within the same classes and budget) with its recorded consequence: for "generic", one reference rule and its exact primal witness; for "specific", an exact dual or Farkas certificate for every reference rule, precedes each favourable verdict line; a favourable verdict without one is void |
+| I13 | Every favourable verdict is pressure-tested before acceptance | In each node record, a filled pressure-test table, including the specificity question against Node 2's frozen reference rule set (readout and preparation free within the same classes and budget) with its recorded consequence: for "generic", one J1 member of the reference rule set and its exact primal witness; for "specific", an exact dual or Farkas certificate for every J1 member of the reference rule set, each covering the same listed readout maps, preparation classes, `m` range, window and horizon as the positive under test; a positive realized only by the range-0 rule recorded as generic over J1⁰ and decided by the J1 members, precedes each favourable verdict line; a favourable verdict without one is void |
 | I14 | Q and Q⁺ are reported separately | Every verdict line names J2 or J3; the final report has separate J2 and J3 sections |
 
 ## 8. Out of scope
