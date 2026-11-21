@@ -97,8 +97,11 @@ theorem remarkD'_B_i (Φdual) (hΦ : GenByDualD ν Φdual) {W : Matrix V V ℂ} 
     (Algebra/Star/Subalgebra.lean:26).
   - `Matrix.unitaryGroup` (LinearAlgebra/UnitaryGroup.lean:60) and `Matrix.single`
     (Data/Matrix/Basis.lean:34).
-  - The multiplication-operator embedding of `L^∞` into `B(L²)` was not located by name in this check.
-    It is part of the obligation.
+  - **Present:** L^∞ multiplication on L² comes from Hölder, `MeasureTheory.Lp.holderₗ`
+    (MeasureTheory/Function/Holder.lean:116), with its continuous form `holderL` (:125), taken with
+    exponents (∞, 2, 2).
+  - **Missing, and part of the obligation:** packaging that map as a star-algebra embedding
+    `L^∞(H) → B(L²(H))`, that is, `mulAlg` as a `StarSubalgebra`.
 - **Hardest step.** Defining `visibleDual`, the reduction of the dual to the finite visible matrices,
   and `GenByDualD`, without Kraus forms. OPRES uses none.
 - **Label.** (N) as a Lean statement: an abstract `GenByDualD` with the hypothesis `KoopmanPreserves`.
@@ -153,13 +156,13 @@ theorem propD_B_i … : ¬ (∀ i, visibleDual Φdual (Matrix.single i i 1) = (p
     or diamond norm, which is a real gap. Each would be a separate obligation with that norm as a
     hypothesis.
   - The continuous-PVM Lüders instrument, which OPRES excludes.
-- **Label.** (I). Imported:
-  - KIN, the Born-form lift on L²;
-  - nonsingularity, in the field `qmp`;
-  - normality, through the `NormalSlice` field.
+- **Label.** (N) as a Lean statement, by the same rule as the other five obligations. Its premises,
+  the fields `qmp` and `NormalSlice`, are hypotheses on abstract measure-theoretic objects.
+  - **OI reading (I):** KIN, the Born-form lift on L², together with nonsingularity and normality
+    when the bijection and the state are read as native.
 - **E/A/M.**
   - E: Proposition D, layer X (#1511).
-  - A: KIN, nonsingularity and normality.
+  - A: `qmp` and `NormalSlice` in the statement. In the OI reading: KIN, nonsingularity and normality.
   - M: the nonsingular (Radon–Nikodym) Koopman case and the normal slice theory, both mathematics.
 - **§A.35.** Module `CoherenceResourceDual`, kernel-only.
 
