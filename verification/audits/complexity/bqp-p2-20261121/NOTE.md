@@ -39,7 +39,7 @@ is built. It awaits an independent non-author review. The record is stacked on #
   to classical simulation cost" that Comp:124 and Comp:134 take as a premise of the §4.5
   ceiling. Comp:134 lists that bridge as an assumption, so no corpus statement consumes (xiv)
   without listing it. Deriving the bridge by BQ1's route, however, needs measurement independence,
-  posit (xiv), beyond the scope Main:736 gives it ("(xiv) enters only the Bell analysis of §3"),
+  posit (xiv), beyond the scope Main:736 gives it ("(xiv) enters only the Bell analysis of §3.3"),
   together with H2. This is assumption-watch marker AW-1, in that narrowed form.
 - **Lower limit: open.**
   - A native lower limit is a hosting theorem for the native rule, and it depends on native
@@ -400,8 +400,9 @@ def BQP : Set (List Bool → Prop)  -- languages L with a uniform family and a p
   Hadamard + Toffoli is exact with real entries, so no Solovay–Kitaev is needed. `X` (NOT) is
   included because with ancillas at `false` Toffoli fixes the all-zero string. Without it, the
   classical-circuit lemma would cover only functions vanishing at 0ⁿ, and complement closure
-  would have no output flip. An equivalent alternative is one ancilla prepared `true`; `X` is
-  then the Toffoli with both controls on that ancilla.
+  would have no output flip. The design uses the explicit `X` gate. A gate-free alternative needs two ancillas prepared
+  `true`, since `toff` requires distinct controls: `X` on qubit c is then the Toffoli with
+  controls on the two ancillas and target c.
 - **Sanity lemmas** in the design:
   - `Gate.mat` lies in `Matrix.orthogonalGroup`;
   - `accProb ∈ [0, 1]`;
