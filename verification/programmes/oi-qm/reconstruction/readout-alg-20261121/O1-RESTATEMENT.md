@@ -111,8 +111,10 @@ another.
   lie in 𝒜 (RA-1). This is Proved on countable carriers. On measurable carriers it holds only within
   the scope of `Main:336` and `EP:100`. No such readout discharges O1-D through its effects.
 - **Instruments.** The full branch maps, including the state update, are DIO for items 2, 3
-  (non-selective) and 5–10 (RA-1′). For items 1, 4, 11, 12 and 22 the corpus gives no update rule.
-  Whether they discharge O1-D is therefore **Open**. Diagonal effects do not imply a DIO update. Whether
+  (non-selective) and 5–10 (RA-1′). Items 11 and 12 have no update rule in the corpus. Items 1, 4 and 22
+  have the `Main:664` update for the diagonal sector only, and that passage assigns coherent inputs
+  to the completion and the bridge, both imports. Whether these items discharge O1-D is therefore
+  **Open**. Diagonal effects do not imply a DIO update. Whether
   all native instruments are DIO is Open.
 - **Operationally accessible observable algebras.** `Str:742`, `Str:788`, `Main:722` and `GR:366`
   state that the observable algebra is the full matrix algebra. Their operational meaning, and their

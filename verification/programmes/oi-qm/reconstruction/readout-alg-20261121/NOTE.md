@@ -6,8 +6,10 @@ manuscript or reviewed record, adopts no premise and changes no status.
 Revision r2 answers the independent review of `0ba83cff` (#1513 c.7066721761, verdict REVISE) and
 its addendum (c.7066739331). It also takes in the owner recommendations at #1169 c.7066723717 and
 the owner's framing decision on #1169 (three levels kept separate; native non-DIO not declared
-impossible; the smallest classifying premise named for each open instrument and site). r2
-has not been re-reviewed.
+impossible; a sufficient classifying premise named for each open instrument and site). r2
+has not been re-reviewed. r3 answers review c.7066821806 (the `Main:664` update for items 1, 4 and 22;
+item 24's cause; the item count; premises sufficient in one direction only). r3 has not been
+re-reviewed.
 
 - **Authority.** Owner decision #1169 c.7066541026, Decision 1. It asks for a corpus-grounded
   verification of R-READ, "not a new assumption", with every readout classified Proved,
@@ -38,7 +40,7 @@ has not been re-reviewed.
 | Level | What is established | Status |
 |---|---|---|
 | **Observable effects** E_o = Φ_o*(1) | For every readout procedure the corpus defines, under R1 and R2, the effects lie in 𝒜 (RA-1). This holds on countable carriers, and on measurable carriers within the scope of `Main:336` and `EP:100` only | Proved / Conditional |
-| **Complete measurement instruments**, with their state updates | DIO for items 2, 3 (non-selective) and 5–10, where the corpus fixes monomial, diagonal or block-scalar Kraus operators (RA-1′). For items 1, 4, 11, 12 and 22 the corpus gives no update rule. Whether **all** native instruments are DIO is not established | DIO for the listed items; **Open** in general |
+| **Complete measurement instruments**, with their state updates | DIO for items 2, 3 (non-selective) and 5–10, where the corpus fixes monomial, diagonal or block-scalar Kraus operators (RA-1′). Items 11 and 12 have no update rule in the corpus. Items 1, 4 and 22 have one only for the diagonal sector (`Main:664`); for coherent inputs the update is assigned to imports. Whether **all** native instruments are DIO is not established | DIO for the listed items; **Open** in general |
 | **Operationally accessible observable algebras** | The corpus *states* that the observable algebra is the full matrix algebra (`Str:742`, `Str:788`, `Main:722`, `GR:366`). It gives no implementable measurement for any non-diagonal element. A mathematically available observable algebra is not the same thing as a set of physically implementable measurements. What the sites mean operationally, and whether they are compatible with R-READ, is unresolved | **Open** |
 
 **Whether bare OI supplies a non-DIO operation is Open.** This record does not declare native non-DIO
@@ -67,7 +69,7 @@ impossible. It finds no native readout in the corpus that supplies one.
      they are Open as to physical implementability.
    - The corpus defines no instrument for any of them, and `Str:788` allows a smaller preserved
      algebra. So the corpus alone does not settle R-READ. Owner question 3 (§7) asks which reading
-     holds, and §3.1 names the smallest premise that would decide each site.
+     holds, and §3.1 names a sufficient premise for deciding each site.
 3. **Interface and represented readouts (R3, R4).** Every **instrument** effect outside 𝒜 that a
    corpus structure defines through branch maps enters through a named import: a non-monomial step
    before a configuration readout, or supplied data (Proposition RA-2). None of these is a native
@@ -77,7 +79,8 @@ impossible. It finds no native readout in the corpus that supplies one.
    only.
 
 **Established.**
-- The inventory of §2: 32 items, each classified under every reading of §1 that applies to it.
+- The inventory of §2: 26 numbered items, plus four further kernel definitions checked in the
+  bullets of §2.2, each classified under every reading of §1 that applies to it.
 - **Theorem RA-1 (effects).** Under R1 and R2, every defined readout's outcome event is a set of
   configurations reached by the native dynamics. This statement is (N) about configuration
   functions. As an operator statement it is (I) on KIN, and its effects lie in 𝒜.
@@ -103,7 +106,9 @@ impossible. It finds no native readout in the corpus that supplies one.
     (items 24, 25).
   - It does not say whether the supplied-datum readouts (items 13, 19) satisfy `Main:42`, which
     defines an observation, not a readout.
-  - It gives no update rule for items 1, 4, 11, 12 and 22.
+  - It gives no update rule for items 11 and 12. For items 1, 4 and 22 it gives one for the
+    diagonal sector only (`Main:664`), and assigns coherent inputs to the completion and the bridge,
+    both imports.
   - The GPT track (item 17) has no configuration algebra.
 - **Physical mechanism.** A native coherence detector is the earliest missing mechanism.
   - Under R1 and R2 the defined native readouts supply none at the effect level.
@@ -112,7 +117,7 @@ impossible. It finds no native readout in the corpus that supplies one.
   - Under R5a, the declared algebra would supply one only if a readout procedure for its
     non-diagonal elements were defined. No such procedure is defined.
   - Native non-DIO is not shown impossible. Whether bare OI supplies it is Open. §3.1 names the
-    smallest premise that would decide each open instrument and site.
+    sufficient premise for deciding each open instrument and site, in one direction only.
 
 ## 1. What is checked, and the readings
 
@@ -172,10 +177,10 @@ DIO.
 
 | # | Item | Source | Effect | Class (effects) | Instrument | Label |
 |---|---|---|---|---|---|---|
-| 1 | Observation of the visible sector | `Main:42` (Definition: "finitely many distinguishable internal states"), `:46` (Lemma 1: C_V finite). Reading R1 takes the outcome to be the visible configuration; `Main:42` does not say this in those words | E_x = 1_{x} ⊗ 1 | **Proved** (R1) | no update rule stated: **Open for O1-D** | (N) as a configuration function; (I) KIN as an operator |
+| 1 | Observation of the visible sector | `Main:42` (Definition: "finitely many distinguishable internal states"), `:46` (Lemma 1: C_V finite). Reading R1 takes the outcome to be the visible configuration; `Main:42` does not say this in those words | E_x = 1_{x} ⊗ 1 | **Proved** (R1) | `Main:664` gives an update only for the diagonal sector: the Lüders rule "transcribes Bayesian updating on the classical substratum (Lemma 3) for the represented diagonal sector". The general update for noncommuting interventions is assigned there to the instrument algebra under the operational completion conditions, and "its extension to arbitrary coherent density matrices belongs to the operational bridge". Both are imports. On coherent inputs the native update is not given: **Open for O1-D** | (N) as a configuration function; (I) KIN as an operator |
 | 2 | Visible history and passive record words | `RecordFibreIdentification.record` (:21), `recordFibre` (:25); `Main:560`; `Sub:331` (Proposition 24.4) | E_w = indicator of {s : r(φ^j s) = w_j for all j} | **Proved** (R1, R2) | the process is the permutation channel, DIO (X; `isDiag_Phi`, `EquivalenceChain.lean`:253, K) | (N); (I) KIN |
 | 3 | History readout on a measurable hidden carrier | `Main:336–338` | E_{t,b} = indicator of {(x, h) : A_t(x, h) = b}, a genuine measurable set | **Conditional** on the corollary's measurability hypothesis | non-selective: Kraus K_C = Σ_{x∈C} \|A_t(x,h)⟩⟨x\| is row-monomial, since A_t(·, h) is injective on C, so DIO (X from `Main:338`) | (I) KIN; measurable setting |
-| 4 | Bell outcome | `Main:376`, `:390` | indicator of a configuration set on a finite site set | **Proved** (R1) | no update rule: **Open for O1-D** | (N); (I) KIN |
+| 4 | Bell outcome | `Main:376`, `:390` | indicator of a configuration set on a finite site set | **Proved** (R1) | as item 1: an update for the diagonal sector only (`Main:664`), with coherent inputs assigned to imports: **Open for O1-D** | (N); (I) KIN |
 | 5 | Classical intervention dilation | `Main:490`, `:494` | outcomes are visible configurations | **Proved** (R2) | bijections, monomial, DIO (X) | (N) |
 | 6 | Native ancilla readout of `FiniteOperationalTheory` | field `readout` (`OperationalAssembly.lean`:594); `readout_is_localLuders` (:658); `localLuders` (:191) | E_k = 1 ⊗ \|k⟩⟨k\| | **Proved** for the kernel field; native status **Conditional** on `EP:25` (the field's native interpretation is an open obligation) | Kraus 1 ⊗ \|k⟩⟨k\|, diagonal, DIO (X) | (I): KIN and READ, a structure field (QOPS #1501) |
 | 7 | Register readout in implementation locality | `InstAvail.readout` (`ImplementationLocality.lean`:268), `readProj` (:256); `CoherentLift.readProj` (`CoherentLift.lean`:133) | a reindexed diagonal projector | **Proved** (R1) | conjugation by a diagonal projector, DIO (X) | (I) KIN |
@@ -195,7 +200,7 @@ DIO.
 | 19 | "Efficient measurement" in the conditional BQP model | `Comp:106` | **Open** (R3) | The basis is not stated. Operational closure is imported |
 | 20 | The wave-operator lift (L3) | F2-1 A★ N8 (`A-star.md`:338–340) | **Open** | The lift "fails on the readout and on the native carrier" |
 | 21 | PC-1 candidate coupling | `verification/programmes/oi-qm/reconstruction/physical-coupling-pc1/preregistration.md`:125–135 | **Open** | A preregistered candidate extension. Nothing was run |
-| 22 | The book's fixed-basis readout | `book/glossary.md`:21; `book/ch01-observation.md`:159 | **Proved** (R1) at the effect level; **Open for O1-D** | It mirrors items 1 and 2 |
+| 22 | The book's fixed-basis readout | `book/glossary.md`:21; `book/ch01-observation.md`:159 | **Proved** (R1) at the effect level; **Open for O1-D** | It mirrors items 1 and 2, including item 1's diagonal-sector limitation of the update |
 
 **Item 14 without a control hypothesis** is the sixth Open item (§2.3).
 
@@ -223,7 +228,7 @@ DIO.
 | # | Item | Source | R5a (operational) | R5b (declarative) | Import |
 |---|---|---|---|---|---|
 | 23 | Definition 9.1, embedded observer | `Str:624–628`: 𝒜_V ⊆ B(𝓗_V) a declared von Neumann algebra of "visible-sector observables", with Φ†(𝒜_V) ⊆ 𝒜_V | **Open**: the algebra is arbitrary | **Open** | none |
-| 24 | OI's finite algebra-channel pair | `Str:788` ("the full finite observable algebra is 𝒜_V^fin = B(𝓗_V^fin) … A smaller specified algebra can be used when it is preserved by the Heisenberg adjoint"); `Str:742` ("may be taken to be the full finite matrix algebra") | **Counterexample if R5a holds** (R5a is unresolved). For \|C_V\| ≥ 2, the projector onto (\|x⟩ + \|y⟩)/√2 lies in B(ℓ²(C_V)) and not in ℓ^∞(C_V) | **Open**. No instrument is defined. `Str:788` permits a smaller preserved algebra, and ℓ^∞(C_V) is preserved by Φ^fin† when ρ_H is diagonal (X: the dual of `Main:328`) | **none**: the bare permutation realization with a supplied ρ_H |
+| 24 | OI's finite algebra-channel pair | `Str:788` ("the full finite observable algebra is 𝒜_V^fin = B(𝓗_V^fin) … A smaller specified algebra can be used when it is preserved by the Heisenberg adjoint"); `Str:742` ("may be taken to be the full finite matrix algebra") | **Counterexample if R5a holds** (R5a is unresolved). For \|C_V\| ≥ 2, the projector onto (\|x⟩ + \|y⟩)/√2 lies in B(ℓ²(C_V)) and not in ℓ^∞(C_V) | **Open**. No instrument is defined. `Str:788` permits a smaller preserved algebra, and ℓ^∞(C_V) is preserved by Φ^fin† for any ρ_H, because the permutation-unitary channel is DIO (X) | **none**: the bare permutation realization with a supplied ρ_H |
 | 25 | Finite-region observable algebra, stated in the framework's voice | `Main:722`, `GR:366` ("Its observable algebra on each finite region is the full matrix algebra on the region's configuration space"); `book/ch07-gravity.md`:199 and `book/The-Incompleteness-of-Observation-FULL.md`:2064 (mirrors) | **Counterexample if R5a holds** (R5a is unresolved) | **Open** | none in the sentences themselves. Their cross-references (`Main:722` to §3.4, `GR:366` to §3.3) lead to the completion statements at `Main:598` (in the OI⁺ paragraph) and at `GR:279`, which `GR:286` qualifies as OI_Q. The corpus leaves open which reading is intended. Both are kept |
 
 **Corpus tension.** `book/ch03-structural-realism.md`:168 places the noncommuting observable algebra
@@ -249,8 +254,9 @@ governs.
 - **DIO.** For items 2, 3 (non-selective), 5–10, and 26 with a monomial U, the full branch maps are
   DIO. In each, the Kraus operators that the corpus fixes are monomial, row-monomial, diagonal, or
   scalar on configuration blocks.
-- **Open for O1-D.** Items 1, 4, 11, 12 and 22 are established at the effect level only. The corpus
-  states no update rule for them, so RA-1 does not decide whether they are DIO.
+- **Open for O1-D.** Items 1, 4, 11, 12 and 22 are established at the effect level only. Items 11
+  and 12 have no update rule. Items 1, 4 and 22 have the `Main:664` update for the diagonal sector
+  only, and DIO concerns coherent inputs. So RA-1 does not decide whether they are DIO.
 
 **Proposition RA-2 (narrowed; K, X).**
 - **Statement.** Wherever a corpus structure defines an instrument, through branch maps, whose
@@ -262,14 +268,15 @@ governs.
   RA-2 does not cover it.
 - No formal map between these structures is claimed.
 
-### 3.1 The smallest additional premise that would classify each open instrument or site
+### 3.1 A sufficient additional premise for classifying each open instrument or site
 
-Each premise is named, not adopted. "Smallest" means that the classification follows from it by
-the cited algebra, and that nothing weaker in the corpus does the same.
+Each premise is named, not adopted. Each is **sufficient in one direction only**: the stated
+classification follows from it by the cited algebra. No minimality is claimed, and the premise's
+failure is not shown to give the opposite classification.
 
-| Item | Open question | Smallest additional premise | What it would give |
+| Item | Open question | Sufficient additional premise | What it would give |
 |---|---|---|---|
-| 1 (observation, `Main:42`) | the state update | **UPD-C**: the observation's update is the substratum bijection followed by conditioning on the observed visible configuration, i.e. Kraus operators P_x U_φ with configuration projectors P_x. `Main:664` reads the Lüders rule this way "for the represented diagonal sector" | DIO (X): permutation and diagonal-projector Kraus operators |
+| 1 (observation, `Main:42`) | the state update | **UPD-C**: the observation's update is the substratum bijection followed by conditioning on the observed visible configuration, i.e. Kraus operators P_x U_φ with configuration projectors P_x, **on coherent inputs as well**. `Main:664` gives this form "for the represented diagonal sector" only, and assigns the extension "to arbitrary coherent density matrices" to the operational bridge, an import. UPD-C's clause on coherent inputs is therefore a premise that `Main:664` declines to supply, not one it supports | DIO (X): permutation and diagonal-projector Kraus operators |
 | 4 (Bell outcome, `Main:376`) | the update of the readout region | **UPD-C** applied to the readout region R_A | DIO (X) |
 | 11 (EP-schema record law) | the represented update of a model's maps | **REP-EP**: each deterministic map of the schema (ι, Φ, R) is represented by the channel with single-entry Kraus operators \|f(λ)⟩⟨λ\| on ℓ²(Ω) | DIO (X), whether or not the map is injective |
 | 12 (A★2 records) | the represented update of the recording coupling | **REP-K**: the coupling on Reg × K is represented by its permutation lift, with K classical | DIO (X) |
