@@ -490,7 +490,8 @@
    "reason": "Retained unchanged: the site names no posit and states Main's result on a finite configuration space, its proved scope.",
    "step2_note": null,
    "old": "an observer embedded in a deterministic bijection on a finite configuration space,",
-   "new": "an observer embedded in a deterministic bijection on a finite configuration space,"
+   "new": "an observer embedded in a deterministic bijection on a finite configuration space,",
+   "retained": true
   },
   {
    "id": "D033",
@@ -595,7 +596,8 @@
    "reason": "Retained unchanged: names no posit; Main's result on a finite configuration space at its proved scope.",
    "step2_note": null,
    "old": "an observer embedded in a deterministic bijection on a finite configuration space,",
-   "new": "an observer embedded in a deterministic bijection on a finite configuration space,"
+   "new": "an observer embedded in a deterministic bijection on a finite configuration space,",
+   "retained": true
   },
   {
    "id": "D040",
@@ -3157,10 +3159,11 @@
    "row": "X-01",
    "disposition": "O",
    "cls": "needs scientific review",
-   "reason": "The condensed-matter analogy is restated for discreteness; review the analogy.",
+   "reason": "The condensed-matter analogy is restated for discreteness; review the analogy. The finite-dimensionality is scoped to a finite representative: a discrete substratum on an infinite lattice has an infinite-dimensional state space (acceptance review, finding 6).",
    "step2_note": null,
    "old": "finite at the substratum level under A1 but *appearing* infinite-dimensional",
-   "new": "discrete at the substratum level but *appearing* infinite-dimensional"
+   "new": "discrete at the substratum level, and finite-dimensional on a finite representative, but *appearing* infinite-dimensional",
+   "revised": "revised at the acceptance-review answer (§26)"
   },
   {
    "id": "D211",
@@ -3172,10 +3175,11 @@
    "row": "X-01",
    "disposition": "O",
    "cls": "needs scientific review",
-   "reason": "The condensed-matter analogy is restated for discreteness; review the analogy.",
+   "reason": "The condensed-matter analogy is restated for discreteness; review the analogy. The finite-dimensionality is scoped to a finite representative: a discrete substratum on an infinite lattice has an infinite-dimensional state space (acceptance review, finding 6).",
    "step2_note": null,
    "old": "finite at the substratum level under A1 but *appearing* infinite-dimensional",
-   "new": "discrete at the substratum level but *appearing* infinite-dimensional"
+   "new": "discrete at the substratum level, and finite-dimensional on a finite representative, but *appearing* infinite-dimensional",
+   "revised": "revised at the acceptance-review answer (§26)"
   },
   {
    "id": "D212",
@@ -5521,6 +5525,38 @@
    "old": "OI-compatibility of the class open (`round-h-b-reversible-fluid-substratum/result.md`).",
    "new": "OI-compatibility of the class open (`round-h-b-reversible-fluid-substratum/result.md`). That class is the class of substrata with a finite configuration space satisfying A2–A4 as the kernel states them, with A5 failing.",
    "revised": "new at the round-5 closure (§25)"
+  },
+  {
+   "id": "D359",
+   "kind": "ptr",
+   "file": "book/ch09-universality.md",
+   "site": "book/ch09-universality.md:192",
+   "part": 3,
+   "mirror_of": null,
+   "row": "X-46",
+   "disposition": "F",
+   "cls": "semantic",
+   "reason": "F row X-46: with the posit gone, the sentence names the finite scope the matrix-model limit leaves, not an assumption it violates (acceptance review, finding 8).",
+   "step2_note": null,
+   "old": "Matrix models with $N \\to \\infty$ limits violate this strictly",
+   "new": "Matrix models with $N \\to \\infty$ limits lie outside that finite scope",
+   "revised": "new at the acceptance-review answer (§26)"
+  },
+  {
+   "id": "D360",
+   "kind": "ptr",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "site": "book/ch09-universality.md:192",
+   "part": 3,
+   "mirror_of": "book/ch09-universality.md:192",
+   "row": "X-46",
+   "disposition": "F",
+   "cls": "semantic",
+   "reason": "F row X-46: with the posit gone, the sentence names the finite scope the matrix-model limit leaves, not an assumption it violates (acceptance review, finding 8).",
+   "step2_note": null,
+   "old": "Matrix models with $N \\to \\infty$ limits violate this strictly",
+   "new": "Matrix models with $N \\to \\infty$ limits lie outside that finite scope",
+   "revised": "new at the acceptance-review answer (§26)"
   }
  ]
 }

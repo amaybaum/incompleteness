@@ -122,7 +122,28 @@ DECL_NAMES = [(3485, 'A1Realized, A2Realized, A1A2Realized', 'verification/lean-
 
 
 A1PAT = re.compile(r'\bA1\b|[Tt]otal[- ]finiteness|[Ff]initeness posit|posit \(ii\)|\bA1\s*[–-]\s*A6\b')
-DECL = re.compile(r'\b\w*A1\w+|\b\w+_A1\b')
+DECL = re.compile(r'\b\w*[a-z_]A1(?![0-9])\w*|\bA1[A-Za-z_]\w*|\ba1_\w+')
+MA = 'verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean'
+SIAL = 'verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean'
+A6I = 'verification/lean-mathlib/OIBridge/A6Instantiation.lean'
+# Kernel identifiers containing A1 in code literals of the R7 guard (not messages): checks of kernel declarations that
+# #1482's renames must update. They are outside the owner's two-message ruling (#1169 c.7059632884) and are put to the
+# owner as a question, not taken as an exception (PREREG §26). (guard line, name, target, polarity, literal tested)
+KERNEL_IDS = [
+    (3380, 'a1_every_theory', MA, '+', 'a1_every_theory'),
+    (3380, 'substratumTheory_A1', MA, '+', 'substratumTheory_A1'),
+    (3380, 'substratumTheory_A1A2', MA, '+', 'substratumTheory_A1A2'),
+    (3389, 'A1Realized', MA, '+', 'A1Realized'),
+    (3389, 'A1A2Realized', MA, '+', 'A1A2Realized'),
+    (3392, 'A1Realized', MA, '+', 'def A1Realized'),
+    (3467, 'A1Realized', 'papers/Main.md', '-', 'A1Realized'),
+    (3476, 'A1Realized', 'verification/README.md', '+', 'A1Realized'),
+    (3667, 'a1_of_finite', SIAL, '+', 'a1_of_finite'),
+    (3667, 'waveSubstratum_A1', SIAL, '+', 'waveSubstratum_A1'),
+    (10978, 'cx3b_complex_not_A1', A6I, '+', 'theorem cx3b_complex_not_A1 (d L : ℕ)'),
+    (11216, 'cx3b_complex_not_A1', 'verification/programmes/substratum/a6-instantiation/result.md', '+',
+     '| `cx3b_complex_not_A1` | `[propext, Classical.choice, Quot.sound]` |'),
+]
 
 
 def resolve(dest):
@@ -148,7 +169,7 @@ def inventory(dest):
             warnings.simplefilter('ignore')
             tree = ast.parse(src)
         for n in ast.walk(tree):
-            if not (isinstance(n, ast.Constant) and isinstance(n.value, str) and A1PAT.search(n.value)):
+            if not (isinstance(n, ast.Constant) and isinstance(n.value, str) and (A1PAT.search(n.value) or DECL.search(n.value))):
                 continue
             pinned = [p for p in resolve(dest) if g == R7 and n.lineno - 2 <= p[1] <= n.end_lineno + 2 and p[2] in n.value]
             rest = n.value
@@ -156,7 +177,10 @@ def inventory(dest):
                 rest = rest.replace(p[2], ' ')
             if any(g == R7 and n.lineno - 2 <= x[0] <= n.end_lineno + 2 for x in DECL_NAMES):
                 rest = DECL.sub(' ', rest)
-            if A1PAT.search(rest):
+            for k in KERNEL_IDS:
+                if g == R7 and n.lineno - 1 <= k[0] <= n.end_lineno + 1:
+                    rest = re.sub(r'\b%s\b' % k[1], ' ', rest)
+            if A1PAT.search(rest) or DECL.search(rest):
                 out.append('%s:%d: A1 string neither a listed pin nor a listed declaration name: %r' % (g, n.lineno, rest[:90]))
         for t in tokenize.generate_tokens(io.StringIO(src).readline):
             if t.type == tokenize.COMMENT and A1PAT.search(t.string):
@@ -202,6 +226,10 @@ def apply(data, dest, rev, omit=()):
 def run(dest, cwd, argv, timeout=900):
     r = subprocess.run([sys.executable, '-B'] + argv, cwd=os.path.join(dest, cwd), capture_output=True, text=True, timeout=timeout)
     fails = sorted(set(re.findall(r'^\s*FAIL\s+([A-Za-z0-9_.-]+)', r.stdout, re.M)))
+    if r.returncode and not fails:
+        at = re.findall(r'File "[^"]*%s", line (\d+)' % re.escape(argv[0]), r.stderr)
+        if at:
+            fails = ['abort@%s' % at[-1]]
     return r.returncode, fails, (r.stdout + r.stderr).strip().split('\n')[-1][:160]
 
 
@@ -224,14 +252,62 @@ def mutate(dest, target, lit, pol):
     return t, t + extra
 
 
+def predict(data, rev, dest):
+    """The predicted execution tree, less its result note, as a git worktree of the ledger base: the edits applied, the
+    TeX of the edited sources rebuilt by build.sh's recipe, the four stale coverage fingerprints re-affirmed from the
+    census, the plan's record directory copied in, and the SC-42 result regenerated. PDFs are left to the CI build."""
+    import hashlib, json as _json
+    subprocess.run(['git', '-C', ROOT, 'worktree', 'add', '--detach', dest, rev], check=True, capture_output=True)
+    after = apply(data, dest, rev)
+    srcs = [f for f in after if re.match(r'^papers/[^/]+\.md$', f)] + [f for f in after if f == ec.FULL]
+    for md in srcs:
+        book = md == ec.FULL
+        cmd = ['pandoc', md, '-s'] + (['--toc', '--metadata=toc:false'] if book else []) + \
+              ['--pdf-engine=xelatex', '--include-in-header=tools/unicode-fix.tex', '-o', md[:-3] + '.tex']
+        subprocess.run(cmd, cwd=dest, check=True, capture_output=True)
+        with open(os.path.join(dest, md), 'rb') as f:
+            stamp = '%% source-sha256: %s\n' % hashlib.sha256(f.read()).hexdigest()
+        with open(os.path.join(dest, md[:-3] + '.tex'), 'a', encoding='utf-8') as f:
+            f.write(stamp)
+    cen = {c['id']: c['fingerprint'] for c in _json.loads(subprocess.run([sys.executable, '-I', '-B', 'tools/proof_census.py', '--json'],
+                                                                          cwd=dest, capture_output=True, text=True, check=True).stdout)}
+    cov = os.path.join(dest, 'verification/coverage/LEDGER.json')
+    t = open(cov, encoding='utf-8').read()
+    stale = ['MAIN:L-3', 'STRUCTURE:P-9.5', 'SUBSTRATUM:C-effective-finiteness-gauge-class-transfer', 'SUBSTRATUM:T-23']
+    for i in stale:
+        m = re.search(r'"id": "%s",.*?"fingerprint": "([0-9a-f]*)"' % re.escape(i), t, re.S)
+        t = t[:m.start(1)] + cen[i] + t[m.end(1):]
+    open(cov, 'w', encoding='utf-8').write(t)
+    rec = os.path.relpath(HERE, ROOT)
+    os.makedirs(os.path.join(dest, rec), exist_ok=True)
+    for n in sorted(os.listdir(HERE)):
+        if os.path.isfile(os.path.join(HERE, n)) and not n.startswith('.'):
+            shutil.copy2(os.path.join(HERE, n), os.path.join(dest, rec, n))
+    r = 'verification/audits/manuscript/bell-operational-reconciliation-20261029/'
+    out = subprocess.run([sys.executable, '-I', '-B', r + 'check_sc42_integration.py', '--verbose'], cwd=dest, capture_output=True, check=True).stdout
+    open(os.path.join(dest, r + 'sc42-integration-result.json'), 'wb').write(out)
+    # verify.yml's SC-42 step, on the predicted tree
+    runs = [subprocess.run([sys.executable, '-I'] + o + ['-B', r + 'check_sc42_integration.py'] + a, cwd=dest, capture_output=True)
+            for a, o in ((['--verbose'], []), ([], ['-O']), (['--self-test'], []), (['--self-test'], ['-O']))]
+    ctrl = open(os.path.join(dest, r + 'sc42-integration-controls.json'), 'rb').read()
+    step = (all(x.returncode == 0 for x in runs) and runs[0].stdout == out == runs[1].stdout and runs[2].stdout == ctrl and runs[3].stdout == ctrl)
+    print('predicted tree at %s: %d files edited, %d TeX rebuilt, %d fingerprints re-affirmed, record directory copied, '
+          'SC-42 result regenerated; verify.yml SC-42 comparisons on it: %s' % (dest, len(after), len(srcs), len(stale),
+                                                                                  'PASS' if step else 'FAIL'))
+    return step
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--rev')
     ap.add_argument('--mutants', action='store_true')
     ap.add_argument('--keep')
+    ap.add_argument('--predict', help='write the predicted execution tree as a git worktree at this new path, and exit')
     a = ap.parse_args()
     data = ec.load()
     rev = a.rev or data['drafting_base']
+    if a.predict:
+        sys.exit(0 if predict(data, rev, a.predict) else 1)
     dest = a.keep or tempfile.mkdtemp(prefix='a1exit-sim-')
     ok = True
     try:
@@ -289,10 +365,23 @@ def main():
                 open(tgt, 'w', encoding='utf-8').write(new)
                 rc, fails, _ = run(dest, 'verification/lean', ['edge_rigidity_probe.py'])
                 open(tgt, 'w', encoding='utf-8').write(orig)
-                good = present and rc != 0
+                named = any(not f.startswith('abort@') or abs(int(f[6:]) - line) <= 5 for f in fails)
+                good = present and rc != 0 and named
                 ok &= good
                 print('  %s %s %s %s -> %s: mutation fails %s' % ('ok ' if good else 'BAD', pid, pol, lit[:48], target,
-                                                                  ','.join(fails) or 'the guard (exit %d, aborted)' % rc))
+                                                                  ','.join(fails) or 'nothing named (exit %d)' % rc))
+            print('kernel identifiers in code literals (owner question, #1482 updates them), each tested against its target:')
+            for line, nm, target, pol, lit in KERNEL_IDS:
+                tgt = os.path.join(dest, target)
+                orig, new = mutate(dest, target, lit, pol)
+                if orig is None:
+                    print('  BAD line %d %s: literal absent from %s' % (line, nm, target)); ok = False; continue
+                open(tgt, 'w', encoding='utf-8').write(new)
+                rc, fails, _ = run(dest, 'verification/lean', ['edge_rigidity_probe.py'])
+                open(tgt, 'w', encoding='utf-8').write(orig)
+                good = rc != 0 and bool(fails)
+                ok &= good
+                print('  %s line %d %s %s -> %s: mutation fails %s' % ('ok ' if good else 'BAD', line, pol, nm, target, ','.join(fails) or '-'))
             print('declaration names in check messages (technical pins pending #1482), each renamed in its target:')
             for line, text, target, names in DECL_NAMES:
                 tgt = os.path.join(dest, target)

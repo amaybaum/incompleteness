@@ -1,7 +1,11 @@
 {
- "schema": "a1exit deletion exact-edit ledger v1",
+ "schema": "a1exit deletion exact-edit ledger v2",
  "base": "97070c986c28f7ff8a443cbda5890c1694dd76dd",
- "edits_sha256": "3c9bcaadbc0071e2cd5737498b78c772eef4e38ce5082b21281bd67c08f453cc",
+ "edits_sha256": "215fa9af9b084b3e73a7635f11fd6284c65349a8096b25111573dcd900115287",
+ "retained_unchanged": [
+  "D032",
+  "D039"
+ ],
  "splices": [
   {
    "id": "D296",
@@ -504,6 +508,16 @@
    "reason": "F row; the paraphrase of the posit is replaced by the cardinality-neutral statement."
   },
   {
+   "id": "D360",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "start": 629043,
+   "end": 629105,
+   "old_sha256": "75e391ae486b678a69cfbd971ed323d1a0b69f0a6788f9071178a51f634ed2ed",
+   "new": "Matrix models with $N \\to \\infty$ limits lie outside that finite scope",
+   "new_sha256": "b72218addaa7573e2315855afdae302e736546ec10c3f3274c1a28501cce658c",
+   "reason": "F row X-46: with the posit gone, the sentence names the finite scope the matrix-model limit leaves, not an assumption it violates (acceptance review, finding 8)."
+  },
+  {
    "id": "D181",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
    "start": 629353,
@@ -669,9 +683,9 @@
    "start": 1290560,
    "end": 1290636,
    "old_sha256": "fea92cd60257181ff04ed2091f8a273c2b6b98d139374e55cabe454c18131e8a",
-   "new": "discrete at the substratum level but *appearing* infinite-dimensional",
-   "new_sha256": "ec08b33065206c7068c5e8c7d45e65a4ad60ad08804bd8486daa92e2ce261332",
-   "reason": "The condensed-matter analogy is restated for discreteness; review the analogy."
+   "new": "discrete at the substratum level, and finite-dimensional on a finite representative, but *appearing* infinite-dimensional",
+   "new_sha256": "6f6c89002c2a8ffda8d74deea9051ec8adfcabc707f8b234cd7119c927cc5afa",
+   "reason": "The condensed-matter analogy is restated for discreteness; review the analogy. The finite-dimensionality is scoped to a finite representative: a discrete substratum on an infinite lattice has an infinite-dimensional state space (acceptance review, finding 6)."
   },
   {
    "id": "D213",
@@ -859,9 +873,9 @@
    "start": 23628,
    "end": 23704,
    "old_sha256": "fea92cd60257181ff04ed2091f8a273c2b6b98d139374e55cabe454c18131e8a",
-   "new": "discrete at the substratum level but *appearing* infinite-dimensional",
-   "new_sha256": "ec08b33065206c7068c5e8c7d45e65a4ad60ad08804bd8486daa92e2ce261332",
-   "reason": "The condensed-matter analogy is restated for discreteness; review the analogy."
+   "new": "discrete at the substratum level, and finite-dimensional on a finite representative, but *appearing* infinite-dimensional",
+   "new_sha256": "6f6c89002c2a8ffda8d74deea9051ec8adfcabc707f8b234cd7119c927cc5afa",
+   "reason": "The condensed-matter analogy is restated for discreteness; review the analogy. The finite-dimensionality is scoped to a finite representative: a discrete substratum on an infinite lattice has an infinite-dimensional state space (acceptance review, finding 6)."
   },
   {
    "id": "D212",
@@ -1384,6 +1398,16 @@
    "reason": "F row; the paraphrase of the posit is replaced by the cardinality-neutral statement."
   },
   {
+   "id": "D359",
+   "file": "book/ch09-universality.md",
+   "start": 34191,
+   "end": 34253,
+   "old_sha256": "75e391ae486b678a69cfbd971ed323d1a0b69f0a6788f9071178a51f634ed2ed",
+   "new": "Matrix models with $N \\to \\infty$ limits lie outside that finite scope",
+   "new_sha256": "b72218addaa7573e2315855afdae302e736546ec10c3f3274c1a28501cce658c",
+   "reason": "F row X-46: with the posit gone, the sentence names the finite scope the matrix-model limit leaves, not an assumption it violates (acceptance review, finding 8)."
+  },
+  {
    "id": "D180",
    "file": "book/ch09-universality.md",
    "start": 34501,
@@ -1512,16 +1536,6 @@
    "new": "For a fixed physical realization, finiteness of the total configuration space is not assumed ([Main] §1.2).",
    "new_sha256": "f846f7aa65ab57180b84e3a2612f34006aa906ecebafea7eae684571dc63125f",
    "reason": "X-01 site deferred to the deletion edit by S2-E (its PREREG §3)."
-  },
-  {
-   "id": "D039",
-   "file": "papers/GR.md",
-   "start": 2689,
-   "end": 2771,
-   "old_sha256": "ba55d5e711f423a89d81ace41df8a07c330b6bdbb7aa3962289a046cb3f725e6",
-   "new": "an observer embedded in a deterministic bijection on a finite configuration space,",
-   "new_sha256": "ba55d5e711f423a89d81ace41df8a07c330b6bdbb7aa3962289a046cb3f725e6",
-   "reason": "Retained unchanged: names no posit; Main's result on a finite configuration space at its proved scope."
   },
   {
    "id": "D040",
@@ -1862,16 +1876,6 @@
    "new": "together with finiteness of the representative; on a carrier of unspecified cardinality bijectivity rests on the posit (REV) ([Main §4.5], item (iii)).",
    "new_sha256": "e96a21f7abc16228778697034d3a1f926a1412c80e5e2fc5692b43d1a24adbdb",
    "reason": "X-01 site deferred to the deletion edit by S2-E (its PREREG §3); J row X-30 names (REV)."
-  },
-  {
-   "id": "D032",
-   "file": "papers/SM.md",
-   "start": 8654,
-   "end": 8736,
-   "old_sha256": "ba55d5e711f423a89d81ace41df8a07c330b6bdbb7aa3962289a046cb3f725e6",
-   "new": "an observer embedded in a deterministic bijection on a finite configuration space,",
-   "new_sha256": "ba55d5e711f423a89d81ace41df8a07c330b6bdbb7aa3962289a046cb3f725e6",
-   "reason": "Retained unchanged: the site names no posit and states Main's result on a finite configuration space, its proved scope."
   },
   {
    "id": "D033",
@@ -3595,11 +3599,11 @@
   },
   "book/The-Incompleteness-of-Observation-FULL.md": {
    "base_sha256": "2afc3c73a9847270fd92a525f49944c1683a1b3947aee47886773252607de74b",
-   "expected_sha256": "fd920f1e0e3b9f03d91ae9b54899b1dfaa404143d43d22703caff52bceeda120"
+   "expected_sha256": "7a713ba75e1322f63aa9d78a5a70afc8f702bf9bfece3920c3684203a127b646"
   },
   "book/appendix-c-objections.md": {
    "base_sha256": "bba97f5ff2e06c5ddecc7ac8e221d46aa39240321c73aeadfac08e23038841a7",
-   "expected_sha256": "a87a5775b5a13438f90a4d427924c35fec893be3ced83c3a6e1636bb84364e8c"
+   "expected_sha256": "6f6d970e03574f472c99d8fbc8d658466b14da69984459edbbda05eb41be4e5c"
   },
   "book/ch00-introduction.md": {
    "base_sha256": "3e8944f79c55d80271e3de39ade605e8f337e54e25aabb5e33f41bdc345d0491",
@@ -3631,7 +3635,7 @@
   },
   "book/ch09-universality.md": {
    "base_sha256": "21bdcd8c979401d6f7142655653e2a3985413841f6b7e8c876720b58bed94f83",
-   "expected_sha256": "2068ace03d4f755041ab6264478963bff60bc9373577c398433df3cc77c5ee11"
+   "expected_sha256": "613fc1027fc3e882fddd1a685afceda256bea82f473cdd1a3ecf5ced0d2925c0"
   },
   "book/ch18-beyond.md": {
    "base_sha256": "3c03ba8a0083a014cfb4b7d54c2fddc49eeb078fc15ce02e82f46c8c26033d1e",

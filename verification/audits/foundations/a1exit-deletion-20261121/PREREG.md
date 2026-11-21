@@ -181,7 +181,7 @@ queued X-20 wording (unpinned update, "the only laws known") is not used anywher
 
 | Measure | Count |
 |---|---|
-| Edit records in `edits.json` | 358 (ptr 240, consistency 23, handoff 5, lean-docstring 36, repo-active 35, guard-pin 19) |
+| Edit records in `edits.json` | 360 (ptr 242, consistency 23, handoff 5, lean-docstring 36, repo-active 35, guard-pin 19); 358 change text, and D032, D039 retain theirs |
 | Pointer sites with a drafted rewrite | 194 of 194 (140 primary sites and 54 byte-identical FULL mirrors) |
 | Pointer sites by class (a FULL mirror takes its chapter's class) | 194 sites: mechanical 121, semantic 61, needs scientific review 12 |
 | Consistency corrections outside the 194 sites | 21 sites: mechanical 4, semantic 17, needs scientific review 0 |
@@ -2349,7 +2349,7 @@ New:
 acts on a configuration space, finite where the framework's finite-only results apply, with
 ```
 
-**ch09:192** · row X-46 (F) · semantic · edits D178, D180. Mirror: FULL:2607, identical strings (D179, D181).
+**ch09:192** · row X-46 (F) · semantic · edits D178, D180, D359. Mirror: FULL:2607, identical strings (D179, D181, D360).
 Reason: F row; the paraphrase of the posit is replaced by the cardinality-neutral statement.
 
 Old (part 1):
@@ -2374,6 +2374,18 @@ New (part 2):
 
 ```text
 The cardinality of the total configuration space is left open.
+```
+
+Old (part 3):
+
+```text
+Matrix models with $N \to \infty$ limits violate this strictly
+```
+
+New (part 3):
+
+```text
+Matrix models with $N \to \infty$ limits lie outside that finite scope
 ```
 
 **ch19:126** · row X-01 (O) · mechanical · edits D182. Mirror: FULL:5196, identical strings (D183).
@@ -2595,7 +2607,7 @@ finite at the substratum level under A1 but *appearing* infinite-dimensional
 New (part 1):
 
 ```text
-discrete at the substratum level but *appearing* infinite-dimensional
+discrete at the substratum level, and finite-dimensional on a finite representative, but *appearing* infinite-dimensional
 ```
 
 Old (part 2):
@@ -4578,8 +4590,8 @@ before any execution is authorized:
 | `edits_check.py --pins --commit 97070c98` | merged `main` | pins check: 0 unresolved pins (literals of tracked checks that the edits would break); 0 updated pins not found in their targets |
 | `edits_check.py --repo-scan --simulate --final --commit 97070c98` | merged `main` | repository-wide scan: 0 unexplained lines; RESULT PASS |
 | `edits_check.py --static` | — | infinity-assertion scan (new and new_step2): 0 hits; register scan (added text, §A.32/§A.33, history phrases): 0 hits; new capitals (3+ letters): 0; identifier rule (new and new_step2): 0 findings; preservation check (required content in every replacement variant): 0 findings; mirror parity (every chapter edit byte-identical to its FULL mirror): 0 findings; sitemap cross-check: 194 ptr sites in the map, 194 with an edit; 0 findings; RESULT PASS |
-| `edits_check.py --commit 97070c98` | base | uniqueness: 358 edits, 0 fail; variants used {'old': 358}; RESULT PASS |
-| `edits_check.py --commit 97070c98 --simulate` | base | uniqueness: 358 edits, 0 fail; variants used {'old': 358}; simulation: residual pointer lines 5 (5 allowed as listed, 0 unqualified); simulation: criterion-5/paraphrase hits on changed lines without a scope in their sentence: 0; simulation: finite-scope and configuration-space preservation findings: 0; simulation: identifier and count findings: 0; RESULT PASS |
+| `edits_check.py --commit 97070c98` | base | uniqueness: 360 edits, 0 fail; variants used {'old': 360}; RESULT PASS |
+| `edits_check.py --commit 97070c98 --simulate` | base | uniqueness: 360 edits, 0 fail; variants used {'old': 360}; simulation: residual pointer lines 5 (5 allowed as listed, 0 unqualified); simulation: criterion-5/paraphrase hits on changed lines without a scope in their sentence: 0; simulation: finite-scope and configuration-space preservation findings: 0; simulation: identifier and count findings: 0; RESULT PASS |
 | `edits_check.py --tree <projection> --simulate` | projected integration (pre-merge) | (projection retired at reconciliation; see §24) |
 | `guards_check.py --mutants` | simulated post-deletion tree of merged `main` | §25.6: the guards and readers pass; CC-1–CC-4 fail as named; pins P01–P30 and the three declaration names each fail under mutation; RESULT PASS |
 | `preserve_check.py --verify-ledger`, `--self-test`, `--tree <simulated tree>` | ledger base `97070c98` | §25.6: RESULT PASS each |
@@ -5119,7 +5131,7 @@ gate the owner's decision whether to authorize execution; it does not decide tha
 
 ### 25.1 Round-5 closure table
 
-Results at merged `main` `97070c98`, on the simulated post-deletion tree (the tree of `97070c98` with all 358 edits
+Results at merged `main` `97070c98`, on the simulated post-deletion tree (the tree of `97070c98` with all 360 edit records
 applied, written outside the repository by `guards_check.py`).
 
 | # | Round-5 finding (#1477 c.7058814130) | Edits | Test | Result |
@@ -5141,7 +5153,7 @@ destructive transformations, which decision 3 names as its minimum, as frozen pr
 **Why this is permitted.** Decision 3 allows either route provided the equivalent safeguards are named. A native
 round's protocol record (one `v3-round` control plane, owner-designated `F` and `E` with exact-head `check-run`
 attestations, a receipt `Q` that `tools/v3_verifier.py --verify-round` must hold) certifies the chronology of a
-governed computation. The deletion is a text change: 358 literal splices of manuscript, README, registry, coverage,
+governed computation. The deletion is a text change: 358 literal splices (360 edit records, of which D032 and D039 retain their text) of manuscript, README, registry, coverage,
 AGENTS.md, Lean-comment and guard-literal text, with no computational verdict, no kernel statement changed (every Lean
 file is code-identical outside comments). No edited file is listed in `verification/infrastructure/legacy-records.json`, lies in one of its closed namespaces or in a receipt's record directory; the programme files it edits are live charters, active material under §A.48. What §A.39 protects
 against in a destructive change (a deletion the plan did not authorize, a retained statement silently removed, a
@@ -5157,15 +5169,15 @@ by owner decision, and in the guard pins of §25.4.
 
 | Safeguard | Component | State |
 |---|---|---|
-| Frozen exact-edit ledger | `ledger.json`: 358 splices in 40 files at `97070c98`; each splice records its file, the byte span of the old text at the base, the SHA-256 of the old text, the new text, its SHA-256 and the reason; the SHA-256 of `edits.json` it was built from. Ledger SHA-256 `94da4b4bf57186f407bb0df867d10933bd30b8bec96d74561dac1e42b939f2e6`. `preserve_check.py --verify-ledger` re-derives it from `edits.json` and the base and compares | exists; frozen at the commit the owner designates when authorizing execution. A later `edits.json` change, or a base at which a ledgered file differs, needs a new ledger, a new digest and a new acceptance |
+| Frozen exact-edit ledger | `ledger.json`: 358 splices in 40 files at `97070c98`, and the two retained-site records D032, D039 listed apart; each splice records its file, the byte span of the old text at the base, the SHA-256 of the old text, the new text, its SHA-256 and the reason; the SHA-256 of `edits.json` it was built from. Ledger SHA-256: §26.4. `preserve_check.py --verify-ledger` re-derives it from `edits.json` and the base and compares | exists; frozen at the commit the owner designates when authorizing execution. A later `edits.json` change, or a base at which a ledgered file differs, needs a new ledger, a new digest and a new acceptance |
 | No deletion without a ledger entry | every deletion is a splice with its literal old text and reason; nothing is inferred | exists |
-| Preservation checker independent of the transformation | `preserve_check.py` imports nothing from `edits_check.py`, `guards_check.py` or any applying script; it reads the base from the object store, rebuilds every ledgered file from the base and the ledger alone, and compares every tracked file byte for byte: a ledgered file must equal the rebuilt one, any other file the base, except the derived TeX/PDF paths (regenerated by `build.sh`), re-affirmed coverage fingerprints and new files under this record directory. Structural checks: a Python file changes only in string constants and comments (AST with strings blanked), a Lean file only inside comments, a JSON file only in string values. `--base REV` compares against a later `main`, and is refused unless every ledgered file is byte-identical there | exists |
+| Preservation checker independent of the transformation | `preserve_check.py` imports nothing from `edits_check.py`, `guards_check.py` or any applying script; it reads the base from the object store, rebuilds every ledgered file from the base and the ledger alone, and compares every tracked file byte for byte: a ledgered file must equal the rebuilt one, any other file the base, except the regenerated artifacts of §26.2, each compared with its rebuild on the candidate; the record directory must equal the plan's (§26.4). Structural checks: a Python file changes only in string constants and comments (AST with strings blanked), a Lean file only inside comments, a JSON file only in string values. `--base REV` compares against a later `main`, and is refused unless every ledgered file is byte-identical there | exists |
 | Agreement of two implementations | the tree built by `edits_check.py`'s in-memory application (`guards_check.py`) passes `preserve_check.py --tree`; the unedited base fails it, with one finding in each of the 40 ledgered files | checked (§25.6) |
 | Mutation tests, missing changes | `preserve_check.py --self-test`: MT-missing-D224, MT-missing-D121, MT-missing-D302, MT-missing-D262 (each one ledgered change not made, so retired text restored) and MT-altered-D229 each fail, naming the splice | exists, PASS |
 | Mutation tests, unauthorized changes | MT-extra-in-ledgered-file (a word outside every splice of Main.md), MT-extra-in-untouched-file (`tools/release_gate.py`), MT-guard-code (an operator of the R7 guard), MT-lean-code (a Lean definition), MT-added-file, MT-deleted-file, MT-record-edited (a record file present at the base), MT-coverage-beyond-fingerprints, and two ledger tamperings (old-text hash, span) each fail; a new execution record, a derived path and a re-affirmed fingerprint pass | exists, PASS |
 | Mutation tests at the guard level | `guards_check.py` CC-1–CC-4 (§25.1 row 1) and the 30 pin mutants P01–P30 (§25.4) | exists, PASS |
-| CI on the exact proposed post-deletion tree, before the merge | a disposable branch whose head is a single-parent child of the ledger base carrying exactly the predicted execution tree less its result note: the base, the 356 splices, the TeX/PDF regenerated by `sh ./build.sh` on the canonical toolchain and the re-affirmed coverage fingerprints. `preserve_check.py --commit <head>` must pass on it; `verify.yml` is dispatched on that exact head (`workflow_dispatch`; a pull-request run tests a synthetic merge) and every job, the Lean kernel and Mathlib builds and the release gate included, must be green | specified, not run: pushing that branch and dispatching need owner approval (§A.43 item 4). Required pre-execution item |
-| Landing | the execution commit equals the CI-tested tree plus its result note; before merge `preserve_check.py --commit <execution head>` passes, and, if `main` has moved, `--base <current main>` passes or the ledger is re-cut; after merge the landing diff against its first parent is exactly the execution's own diff | specified; required at execution |
+| CI on the exact proposed post-deletion tree, before the merge | §26.3: a disposable branch carrying the predicted execution tree less its result note (the base, the 358 ledgered splices, the regenerated SC-42 result, the TeX/PDF regenerated by `sh ./build.sh` on the canonical toolchain, the re-affirmed fingerprints of the four entries of §11 item 4, the plan's record directory); `preserve_check.py` run from the plan commit passes on it, and `verify.yml` dispatched on that exact head is green | specified, not run: pushing that branch and dispatching need owner approval (§A.43 item 4). Required pre-execution item |
+| Landing | the execution commit equals the CI-tested tree plus its result note under `execution/`; before merge `preserve_check.py`, run from the designated plan commit (`git show <plan>:…/preserve_check.py`, never the candidate's copy), passes `--commit <execution head> --plan <plan>`, and, if `main` has moved, `--base <current main>` passes or the ledger is re-cut; after merge the landing diff against its first parent is exactly the execution's own diff | specified; required at execution |
 | Evidence (§A.42) | the exact-head CI run, the outputs of `preserve_check.py`, `guards_check.py` and `edits_check.py` at the tested head, recorded as expected results in this record directory | required at execution |
 | Independent review of the executed diff | §0 boundary ("an independent review of the resulting changes") | required at execution |
 
@@ -5273,7 +5285,7 @@ R7-MAX message (`edge_rigidity_probe.py:3485`) and the name `cx3b_complex_not_A1
 | D358 | PROGRAMME.md:231 | new: the class stated beside the frozen sentence |
 | D261 | Sub:42 | anchor narrowed to "**Storage and memory.**" (unique at the base); the spliced text is unchanged |
 
-All are mechanical. Edit records: 358 (ptr 240, consistency 23, handoff 5, lean-docstring 36, repo-active 35,
+All are mechanical. Edit records: 360 (ptr 242, consistency 23, handoff 5, lean-docstring 36, repo-active 35,
 guard-pin 19).
 
 ### 25.6 Checks at `97070c98`
@@ -5282,7 +5294,7 @@ guard-pin 19).
 |---|---|
 | `edits_check.py --self-test` | PASS (93 countercontrols) |
 | `edits_check.py --static` | infinity 0, register 0, capitals 0, identifier 0, preservation 0, mirror parity 0, Lean docstring-only 0, sitemap 194/194; PASS |
-| `edits_check.py --commit 97070c98 --simulate` | uniqueness 358/358; residual 5 (all allowed), unscoped 0, preservation 0, identifier 0; PASS |
+| `edits_check.py --commit 97070c98 --simulate` | uniqueness 360/360; residual 5 (all allowed), unscoped 0, preservation 0, identifier 0; PASS |
 | `edits_check.py --pins --commit 97070c98` | 0 unresolved, 0 updated pins missing from their targets; PASS |
 | `edits_check.py --repo-scan --simulate --final --commit 97070c98` | 0 unexplained; PASS |
 | `guards_check.py --mutants` | on the simulated tree: R7 guard, `bohr_frequency_probe.py`, `repertoire_lie`, `wave_period`, `gap_correspondence`, `stinespring_scope`, `canonical_measure`, `structural_chain`, `structural_core`, `cubic_isotropy` probes, `tools/lean_manuscript_census.py`, `mirror_check.py`, `citation_check.py`, `tools/dependency_label_check.py --strict` all pass; CC-1–CC-4 fail as named; inventory complete (30 pins, 2 messages naming declarations, 0 unlisted); P01–P30 each fail under mutation, and so does renaming each of the three declaration names in its target; PASS |
@@ -5298,10 +5310,136 @@ rebuilt), `staggered_relations_probe.py`, `kinf2_foundations_probe.py` and the r
 
 ### 25.7 Required before execution
 
-1. Owner approval to push the disposable branch of §25.2 and dispatch `verify.yml` on its exact head; the run green.
-2. The derived artifacts (TeX/PDF) built on the canonical toolchain and the coverage fingerprints re-affirmed (H-6),
-   both on that branch.
+1. The order of §26.3: the exact-tree CI run on the tree the ledger predicts at the plan commit, then the owner's
+   designation of that plan commit. Pushing the disposable branch and dispatching need owner approval.
+2. The derived artifacts (TeX/PDF, the SC-42 result, the four coverage fingerprints) regenerated on that branch as
+   §26.2 states.
 3. Independent acceptance of this reconciled plan, including decisions 2 and 3, and the owner's decision whether to
    authorize execution (decision 6).
 4. The two declaration-name pins of §25.4 stay machine-facing and are on #1482's list of items to remove or update
    (owner ruling, #1169 comment 7059632884). A1 stays retired: no optional A1 hypothesis is introduced.
+
+## 26. Amendment: answer to the acceptance review of `2b45ee72` (ACCEPT WITH CHANGES)
+
+The independent acceptance review is recorded on #1477 (comment 7059814445). The owner's rulings of
+[#1169 comment 7059632884](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7059632884) apply. They
+name the sole writer of #1477. They let the two Lean declaration names in check messages stay as technical pins until
+#1482, provided they are strictly machine-facing references, do not appear as active scientific assumptions and are
+listed as items #1482 must remove or update; no broader exception is authorized. A1 stays retired, no optional A1
+hypothesis is introduced, and the plan's design is unchanged.
+
+**Goal link (§A.47).** A1-EXIT (#1169): this section decides whether the plan meets the review's findings, which gate
+the owner's execution decision; it does not decide that question.
+
+### 26.1 Findings and fixes
+
+| # | Finding | Fix | Test | Result |
+|---|---|---|---|---|
+| 1 | The specified CI tree cannot pass both the checker and `verify.yml`: the regenerated SC-42 result is neither ledgered nor derived | `preserve_check.py` classes `sc42-integration-result.json` as a regenerated artifact: the candidate's file must be byte-identical to the SC-42 checker's `--verbose` output on the candidate, and to its `-O` output; its `--self-test`, plain and with `-O`, must equal the unchanged controls file; a candidate that is not a git checkout cannot pass. `guards_check.py --predict` builds the predicted tree with the regenerated result, and runs `verify.yml`'s four SC-42 comparisons on it | self-test MT-sc42-hand-edit, MT-sc42-not-regenerated; tree mutant on the predicted tree; `verify.yml` comparisons on the predicted tree | §26.7 |
+| 2 | Derived TeX/PDF not checked; a hand-edited `papers/GR.tex` passed | TeX outputs are derived only for the ledgered sources (Computation, GR, Main, Methodology, SM, Structure, Substratum and FULL); each must be byte-identical to its rebuild from the candidate's source by `build.sh`'s recipe. A base control rebuilds the base sources first and must reproduce the base TeX (it does, with pandoc 3.1.3, for all eight). Every other TeX file must equal the base. A PDF of a ledgered source may differ and is checked by the CI build (§26.3) | self-test MT-tex-hand-edit (GR.tex), MT-tex-untouched (Juno.tex); tree mutant (GR.tex) | §26.7 |
+| 3 | The record directory is unpinned: replacing `ledger.json` or `preserve_check.py` passed, and the checker read its ledger from its own checkout | `--plan REV` reads the ledger, the pin table and the record directory from REV's objects; the candidate's record directory must equal the plan's, adding files only under `execution/`; the checker's own bytes must equal the plan's `preserve_check.py`; every file of §26.4 must match its pinned digest | self-test MT-ledger-replaced, MT-checker-replaced, MT-record-added, and three pin tamperings (ledger digest, own bytes, `edits.json`); tree mutants (ledger.json, preserve_check.py) | §26.7 |
+| 4 | Every coverage fingerprint could change | only the fingerprints of `MAIN:L-3`, `STRUCTURE:P-9.5`, `SUBSTRATUM:C-effective-finiteness-gauge-class-transfer` and `SUBSTRATUM:T-23` may change, each to the value `tools/proof_census.py` computes on the candidate; every other byte of the coverage ledger is base plus D295 | self-test MT-coverage-unnamed-fingerprint, MT-coverage-named-wrong, MT-coverage-field; tree mutant | §26.7 |
+| 5 | The guard inventory missed A1 inside kernel identifiers | `guards_check.py`'s inventory also matches names with A1 embedded (`\w*[a-z_]A1…`, `A1[A-Za-z_]…`, `a1_…`); the twelve occurrences in code literals are listed with target, polarity and a mutation test (§26.5) and go to the owner as a question | inventory: 0 unlisted; each of the twelve fails its guard under mutation | §26.7 |
+| 6 | D210/D211 implied the infinite-dimensionality is only apparent for every discrete substratum | "discrete at the substratum level, and finite-dimensional on a finite representative, but *appearing* infinite-dimensional" | `--static`, `--simulate` | §26.7 |
+| 7 | No-op splices D032, D039 (SM:22, GR:20); 356 against 358 | the two stay in `edits.json` as retained-site records and leave the ledger (`retained_unchanged`); counts read 360 edit records, 358 splices, of which none is a no-op | `--verify-ledger`; count grep | §26.7 |
+| 8 | D178: "violate this strictly" had no assumption left to violate | D359 (mirror D360): "Matrix models with $N \to \infty$ limits lie outside that finite scope" | `--static`, mirror parity | §26.7 |
+| 9 | ID provenance | §26.6 records the map | — | recorded |
+| 10 | P12 detected by an abort, not a named failure | the mutant run names an abort by the guard line it stopped on, and a pin's mutant counts only when it fails a named check or aborts within five lines of the pin; P12 aborts at line 3470, the family lookup it pins | `guards_check.py --mutants` | §26.7 |
+| 11 | PR body stale | refreshed to this plan | — | done |
+| 12 | Notation: the owner's sentence has $\mathcal S$, the plan prints $S$ | owner question (§26.8) | — | open |
+
+### 26.2 Regenerated artifacts
+
+| Path | Rebuilt by | Compared |
+|---|---|---|
+| `papers/{Computation,GR,Main,Methodology,SM,Structure,Substratum}.tex`, `book/The-Incompleteness-of-Observation-FULL.tex` | `build.sh`'s TeX recipe (pandoc 3.1.3 `-s --pdf-engine=xelatex --include-in-header=tools/unicode-fix.tex`, `--toc --metadata=toc:false` for the book, then the `% source-sha256:` stamp) | byte for byte with the candidate's file, after a base control that reproduces the base TeX |
+| the eight PDFs of the same sources | `sh ./build.sh Computation GR Main Methodology SM Structure Substratum` and `sh ./build.sh --book` in CI | no `Missing character`, `build: OK`, page counts recorded against the base build |
+| `verification/audits/manuscript/bell-operational-reconciliation-20261029/sc42-integration-result.json` | the SC-42 checker on the candidate (§11 item 13) | byte for byte, plain and `-O`; self-test equal to the unchanged controls |
+| the fingerprints of the four stale coverage entries | `tools/proof_census.py --json` on the candidate | value for value; the rest of `verification/coverage/LEDGER.json` byte for byte |
+
+A change to the level or delta of `MAIN:L-3` or `SUBSTRATUM:T-23` on re-reading (§11 item 4) is not in this list; it
+needs a ledger re-cut and a new acceptance.
+
+### 26.3 CI on the exact post-deletion tree
+
+In this order, and only with owner approval for the branch push and the dispatch (§A.43 item 4); nothing here is run:
+
+1. **Plan commit.** A commit `P` on this branch is proposed for designation; `preserve_check.py --verify-pins` and
+   `--verify-ledger` pass at `P`.
+2. **Predicted tree.** `guards_check.py --predict <dir>` from `P` writes the tree the ledger predicts. The CI branch
+   head is a single-parent child of the ledger base whose tree is that tree with the eight PDFs rebuilt by `build.sh`
+   on the canonical toolchain, less the execution result note.
+3. **Checks on that exact head.** `git show P:…/preserve_check.py` run as `--commit <head> --plan P` passes; the job
+   also runs `sh ./build.sh Computation GR Main Methodology SM Structure Substratum` and `sh ./build.sh --book` on the
+   head and requires every regenerated `.tex` byte-identical to the committed one and every PDF built with no
+   `Missing character`, page counts recorded; `verify.yml` is dispatched on the head (`workflow_dispatch`) and every job
+   is green, its SC-42 step (`cmp` of the regenerated result) included.
+4. **Designation.** The owner designates `P` only after step 3 is green on the tree predicted at `P`. Any later change
+   to a pinned file of §26.4 voids that run.
+
+### 26.4 Record pins
+
+The digests below pin the record files at this commit. `preserve_check.py` verifies them before use, reading them from
+the plan commit under `--plan`.
+
+| File | SHA-256 |
+|---|---|
+| `edits.json` | `215fa9af9b084b3e73a7635f11fd6284c65349a8096b25111573dcd900115287` |
+| `ledger.json` | `9dc77029f890523082ea8b1fb67893967ee328c3662b99cc19756cce8fcc1ccd` |
+| `edits_check.py` | `1bde14e41603d6bcbf209d4b497df49dad4cbb20122a79ad183712c212cd8339` |
+| `guards_check.py` | `ea0f9b28104e0f55e279a4da70653f5ac4392ee1e05efc42910a6a03161cd733` |
+| `preserve_check.py` | `2caae847ff7f8f872b9a6e061a6c399448d3f67f652cbc2a8bfb5480e289482a` |
+
+### 26.5 Kernel identifiers in the guard's code literals
+
+These name kernel declarations whose names contain A1. They sit in code literals of the R7 guard, not in check
+messages, so the owner's ruling on the two messages does not cover them. They are listed here, with the test each
+passes, and are put to the owner (§26.8); #1482's renames must update every one.
+
+| Guard line | Identifier | Target | Polarity | Test (mutation fails) |
+|---|---|---|---|---|
+| 3380 | `a1_every_theory` | `OIBridge/ManuscriptAxioms.lean` | + | `a1_every_theory` renamed in the target |
+| 3380 | `substratumTheory_A1` | `OIBridge/ManuscriptAxioms.lean` | + | `substratumTheory_A1` renamed in the target |
+| 3380 | `substratumTheory_A1A2` | `OIBridge/ManuscriptAxioms.lean` | + | `substratumTheory_A1A2` renamed in the target |
+| 3389 | `A1Realized` | `OIBridge/ManuscriptAxioms.lean` | + | `A1Realized` renamed in the target |
+| 3389 | `A1A2Realized` | `OIBridge/ManuscriptAxioms.lean` | + | `A1A2Realized` renamed in the target |
+| 3392 | `A1Realized` | `OIBridge/ManuscriptAxioms.lean` | + | `def A1Realized` altered in the target |
+| 3467 | `A1Realized` | `papers/Main.md` | − | the name inserted into the target |
+| 3476 | `A1Realized` | `verification/README.md` | + | `A1Realized` renamed in the target |
+| 3667 | `a1_of_finite` | `OIBridge/SubstratumInterfaceAudit.lean` | + | `a1_of_finite` renamed in the target |
+| 3667 | `waveSubstratum_A1` | `OIBridge/SubstratumInterfaceAudit.lean` | + | `waveSubstratum_A1` renamed in the target |
+| 10978 | `cx3b_complex_not_A1` | `OIBridge/A6Instantiation.lean` | + | `theorem cx3b_complex_not_A1 (d L : ℕ)` altered in the target |
+| 11216 | `cx3b_complex_not_A1` | `verification/programmes/substratum/a6-instantiation/result.md` | + | `\| `cx3b_complex_not_A1` \| `[propext, Classical.choice, Quot.sound]` \|` altered in the target |
+
+### 26.6 Edit-ID map of the preserved work
+
+The work kept at `preserve/w1477-565965f1` (parent `5e818088`) numbered its new edits D349–D356. They entered this
+branch as single-parent commit `2b45ee72`, renumbered by +2 because `6946c967` had used D349–D350: there D349 → D351,
+D350 → D352, D351 → D353, D352 → D354, D353 → D355, D354 → D356, D355 → D357, D356 → D358, with the same file, old and
+new text. The new edits of this section are D359–D360.
+
+### 26.7 Checks at `97070c98`
+
+| Command | Result |
+|---|---|
+| `edits_check.py --self-test` | PASS (93 countercontrols) |
+| `edits_check.py --static` | infinity 0, register 0, capitals 0, identifier 0, preservation 0, mirror parity 0, Lean docstring-only 0, sitemap 194/194; PASS |
+| `edits_check.py --commit 97070c98 --simulate` | uniqueness 360/360; residual 5 (all allowed), unscoped 0, preservation 0, identifier 0; PASS |
+| `edits_check.py --pins --commit 97070c98` | 0 unresolved, 0 updated pins missing from their targets; PASS |
+| `edits_check.py --repo-scan --simulate --final --commit 97070c98` | 0 unexplained; PASS |
+| `preserve_check.py --verify-pins`, `--verify-ledger` | pin findings 0; ledger (358 splices in 40 files, 2 retained-site records) re-derived identically; PASS |
+| `preserve_check.py --self-test` | four positive controls pass (the recipe reproduces the base TeX of all eight sources; base plus ledger, rebuilt artifacts and the plan's record; an execution record under `execution/`; a rebuilt PDF); 28 mutants (23 tree mutations, 2 ledger tamperings, 3 pin tamperings) each fail as named; PASS |
+| `guards_check.py --mutants` | on the simulated tree: the R7 guard, `bohr_frequency_probe.py` and the 12 other checks pass; CC-1–CC-4 fail as named; inventory 0 unlisted (30 pins, 2 messages naming declarations, 12 kernel identifiers in code literals); P01–P30 each fail under mutation, P12 by an abort at line 3470; the 12 kernel identifiers and the 3 message names each fail their guard under mutation; PASS |
+| `guards_check.py --predict`, then `preserve_check.py --tree <predicted> --mutants` | predicted tree: 40 files edited, 8 TeX rebuilt, 4 fingerprints re-affirmed, record directory copied, SC-42 result regenerated (it differs from the checked-in result); `verify.yml`'s SC-42 comparisons pass on it; `preserve_check.py`: 0 findings; tree mutants (GR.tex, the SC-42 result, `ledger.json`, `preserve_check.py`, a coverage fingerprint) each fail; PASS |
+
+Not run here: the PDF build (no `xelatex` in this environment), the Lean kernel and Mathlib builds, the release gate
+on the predicted tree, and the rest of `verify.yml`; they are the CI step of §26.3.
+
+### 26.8 Owner questions
+
+1. **Kernel identifiers in code literals (§26.5).** Whether the twelve occurrences may stay, as checks of kernel
+   declarations, until #1482 renames those declarations, on the conditions of #1169 comment 7059632884; the plan's
+   default is that they stay and are on #1482's list. No exception is assumed.
+2. **Notation.** The approved sentence uses $\mathcal S$; Main, Substratum and the book use $S$ for the configuration
+   space, and the plan prints the sentence with $S$ (§23). Whether the owner confirms $S$, or the sentence is printed
+   with $\mathcal S$.
