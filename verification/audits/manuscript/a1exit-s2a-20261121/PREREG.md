@@ -199,3 +199,26 @@ assert only the checkerboard and keep E3's text.
 - Finding: as E1-am2.
 - Old: `require every period vector to be even off one axis`
 - New: `require every period vector to be even off one and the same axis`
+
+## Amendment 3 (2026-11-21): C13's condition in Theorem 13 (X-43)
+
+Appended and pushed before its edits. The coordinating session ruled that the C13 condition is in
+scope: X-43 is an S2-A row, and with ℤ^d as the standard construction Theorem 13's Schur-complement
+step needs it (Q1 §3 C13: site-diagonal hidden block, the free and onsite case, needs nothing; an
+off-diagonal hidden block of the H-χ' kind must be boundedly invertible on ℓ² of the odd sublattice).
+The condition goes into Theorem 13's statement at SM:543 only; SM:1532 cites Theorem 13 and inherits
+it. The book restates Theorem 13's Schur-complement step at ch05:164 = FULL:1479 (ch05:162–164), so
+the condition is mirrored there; ch19:252 cites Theorem 13 and is not edited. RESULT records this as
+D4. Both entries are base entries in `checks/s2a_edits.json`.
+
+### C13-SM543: SM:543 (Theorem 13 statement)
+
+- Row: X-43. Source: Q1 §3 C13; ledger X-43.
+- Old: `which is the sharpened content of the named hypothesis H-χ'. H-χ' in this sharpened form`
+- New: `which is the sharpened content of the named hypothesis H-χ'. The Schur complement over the hidden sublattice needs no further condition when the hidden block is site-diagonal (the free and onsite case); when such a taste-asymmetric structure makes the hidden block off-diagonal, it requires that block to be boundedly invertible on $\ell^2$ of the odd sublattice, a stated condition on the dressed operator. H-χ' in this sharpened form`
+
+### C13-ch05-164: ch05:164 = FULL:1479
+
+- Row: X-43. Source: book restatement of Theorem 13's Schur-complement step.
+- Old: `where $G_{oo}$ is the hidden-sector propagator.`
+- New: `where $G_{oo}$ is the hidden-sector propagator: the pointwise inverse of the hidden block when that block is site-diagonal (the free and onsite case); when a taste-asymmetric structure of the H-χ' kind makes the block off-diagonal, the step requires it to be boundedly invertible on $\ell^2$ of the odd sublattice.`
