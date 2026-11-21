@@ -796,7 +796,7 @@ FOOTNOTE_DEF = re.compile(r'^\[\^([^\]]+)\]:\s*(.*)$', re.M)
 FOOTNOTE_REF = re.compile(r'\[\^([^\]]+)\](?!:)')
 
 
-def normalize_text(t, file_text=None):
+def normalize_text(t, file_text=None, collapse=True):
     """HTML entities decoded; ℕ-type symbols spelled out; NFKC; soft hyphens, zero-width characters and
     LaTeX discretionary hyphens removed; confusable letters folded to ASCII; footnote references
     expanded inline from the file's definitions (parenthetical content is already inline)."""
@@ -808,12 +808,13 @@ def normalize_text(t, file_text=None):
         defs = {m.group(1): m.group(2) for m in FOOTNOTE_DEF.finditer(file_text)}
         t = FOOTNOTE_REF.sub(lambda m: ' %s (%s) ' % (m.group(0), defs[m.group(1)]) if m.group(1) in defs
                              else m.group(0), t)
-    return norm(t)
+    return norm(t) if collapse else t
 
 
-def strip_allowlisted(t, allow):
+def strip_allowlisted(t, allow, collapse=True):
     """Remove each allowlisted phrase where it stands as a whole sentence: at the start or after a
-    sentence or heading boundary, and followed by whitespace or the end."""
+    sentence or heading boundary, and followed by whitespace or the end. With collapse False the text's
+    whitespace is otherwise kept exactly."""
     for ph in allow:
         ph = norm(ph)
         k = t.find(ph)
@@ -821,11 +822,9 @@ def strip_allowlisted(t, allow):
             pre = t[:k].rstrip()
             post = t[k + len(ph):k + len(ph) + 1]
             if (not pre or pre[-1] in '.!?*:>') and (not post or post.isspace()):
-                t = t[:k] + ' ' + t[k + len(ph):]
-                k = t.find(ph, k + 1)
-            else:
-                k = t.find(ph, k + 1)
-    return norm(t)
+                t = t[:k] + t[k + len(ph):]
+            k = t.find(ph, k + 1)
+    return norm(t) if collapse else t
 
 
 TOKEN_RE = re.compile(r'[A-Za-z0-9]+|[^\sA-Za-z0-9]')
@@ -855,8 +854,20 @@ def token_seq(t, file_text=None, allow=None):
     return TOKEN_RE.findall(strip_allowlisted(normalize_text(t, file_text), allow))
 
 
+def exact_text(t, file_text=None, allow=None):
+    """The exact comparison form: the same normalization, whitespace kept character for character."""
+    allow = allowlist() if allow is None else allow
+    return strip_allowlisted(normalize_text(t, file_text, collapse=False), allow, collapse=False)
+
+
 def changed(before, after, before_file=None, after_file=None):
-    """Layer 1, change flag: the normalized token sequences of the two regions differ."""
+    """Layer 1, change flag (owner refinement): the exact normalized texts of the two regions differ,
+    whitespace included."""
+    return exact_text(before, before_file) != exact_text(after, after_file)
+
+
+def seq_changed(before, after, before_file=None, after_file=None):
+    """Diagnostic: the normalized token sequences differ (whitespace is not a token)."""
     return token_seq(before, before_file) != token_seq(after, after_file)
 
 
@@ -1027,7 +1038,7 @@ def classify(compare, edits, cls, rows, base_corpus, after_corpus, rules=RULES, 
                     'scientific_evaluation': True}
     for key, item in sorted(allitems.items()):
         c = cls.get('items', {}).get(key)
-        notes, klass, j10, unsourced, seq_diff = [], 'U', [], [], False
+        notes, klass, j10, unsourced, seq_diff, inexact = [], 'U', [], [], False, False
         before, after = item['before'] or '', item['after'] or ''
         bf = base_corpus.get(item['file'])
         af = after_corpus.get(item.get('new_file') or item['file'])
@@ -1052,8 +1063,14 @@ def classify(compare, edits, cls, rows, base_corpus, after_corpus, rules=RULES, 
                     j10 += ['approved edit %s: %s' % (k, h) for h in rules['j10'](E[k]['old'], E[k]['new'])]
             added, unsourced = rules['gain'](before, after, [e['new'] for e in cited], None, bf, af)
             seq_diff = rules['change'](before, after, bf, af)
-            if covered and hafter is not None and token_seq(hafter, af) != token_seq(after, af):
-                unsourced = unsourced + ['(the token sequence of H differs from the replayed region)']
+            if seq_diff:
+                notes.append('changed: %s' % ('token sequence' if seq_changed(before, after, bf, af)
+                                              else 'whitespace only'))
+            if covered and hafter is not None and exact_text(hafter, af, []) != exact_text(after, af, []):
+                why = ('token sequence differs' if token_seq(hafter, af, []) != token_seq(after, af, [])
+                       else 'whitespace only')
+                notes.append('not exact: H differs from the replayed expected text (%s)' % why)
+                inexact = True
             if unsourced:
                 notes.append('gain rule: tokens in neither the baseline region nor a cited new text: %s'
                              % ' '.join(unsourced[:20]))
@@ -1068,7 +1085,7 @@ def classify(compare, edits, cls, rows, base_corpus, after_corpus, rules=RULES, 
             to_r = 'relocated_from_main' in item['kinds']
             if to_r:
                 notes.append('relocation out of Main: review of Main independence required')
-            if c.get('class') == 'J' and covered and j9_ok and not j10 and not unsourced and not to_r:
+            if c.get('class') == 'J' and covered and j9_ok and not j10 and not unsourced and not inexact and not to_r:
                 klass = 'J'
             elif c.get('class') in ('J', 'R') and covered:
                 klass = 'R'
@@ -1076,7 +1093,7 @@ def classify(compare, edits, cls, rows, base_corpus, after_corpus, rules=RULES, 
                 klass = 'R'
                 notes.append('no covering edit; R requires review')
             if klass == 'R':
-                good, why = resolution_ok(c.get('resolution'), cls, bool(j10 or unsourced))
+                good, why = resolution_ok(c.get('resolution'), cls, bool(j10 or unsourced or inexact))
                 if good:
                     klass = 'R-justified' if c['resolution']['outcome'] == 'justified' else 'U'
                     notes.append('resolved by review %s' % c['resolution']['review'])
@@ -1084,7 +1101,8 @@ def classify(compare, edits, cls, rows, base_corpus, after_corpus, rules=RULES, 
                     notes.append('resolution not accepted: ' + why)
         res[key] = {'kinds': item['kinds'], 'class': klass, 'j10': j10, 'notes': notes,
                     'gain_added': added[:20], 'gain_unsourced': unsourced[:20],
-                    'scientific_evaluation': sci_flag(item, before, after, j10) or seq_diff or bool(unsourced)}
+                    'scientific_evaluation': sci_flag(item, before, after, j10) or seq_diff or bool(unsourced) or inexact,
+                    'exact': not inexact}
     return res
 
 
@@ -1816,8 +1834,21 @@ def self_test():
     # T13c the sequence battery (N3, N4): all flagged; the set-comparison mutant fails it
     bad13c = n_battery(rows)
     m13c = n_battery(rows, dict(RULES, change=set_changed), only={'N4a', 'N4b', 'N4c', 'N4d'})
-    seq_ok = (changed('a b c', 'a c b') and changed('x.', 'x') and not changed('a  b', 'a b')
-              and not set_changed('a b c', 'a c b'))
+    seq_ok = (changed('a b c', 'a c b') and changed('x.', 'x') and changed('a  b', 'a b')
+              and not seq_changed('a  b', 'a b') and not set_changed('a b c', 'a c b')
+              and not changed('x.', 'x. ' + ALLOWLIST[1]['phrase']))
+    # T13d exactness: H equals the replay except for one doubled space -> not J, flagged
+    cm, ed, cl, af, e = gr134(', for every $S$')
+    f134 = ent['GR:134']['file']
+    af2 = dict(af, **{f134: af[f134].replace('all its members, for', 'all its  members, for', 1)})
+    x13d = classify(B.compare(snap, af2), ed, cl, rows, pin, af2).get(e, {})
+    cm, ed, cl, af, e = edit_case('GR:134', 'on all its members. $\\square$', 'on all its members; QED. $\\square$',
+                                  'X-52', 'T13d')
+    af3 = dict(af, **{f134: af[f134].replace('members; QED.', 'members;  QED.', 1)})
+    y13d = classify(B.compare(snap, af3), ed, cl, rows, pin, af3).get(e, {})
+    report('T13d exact expected text: a whitespace-only difference from the replay is not J and is flagged',
+           y13d.get('class') != 'J' and y13d.get('scientific_evaluation') and x13d.get('scientific_evaluation'),
+           '%s / %s' % (y13d.get('class'), y13d.get('notes')))
     report('T13c sequence battery: all %d cases flagged; set-comparison mutant fails it' % len(NCASES),
            not bad13c and bool(m13c) and seq_ok, '%s | mutant unflagged %s' % (bad13c, m13c))
     # T14 C6 on the frozen inputs, and its mutants (review c.7059220314 finding 4, and an altered edit)

@@ -210,18 +210,23 @@ whitespace or the end:
 
 No other text is exempt. The earlier exemption of the clause "may be finite or infinite" is withdrawn.
 
-*Layer 1, the token-level gain rule (structural).* The normalized regions are split into tokens (ASCII
-words, and every other non-space character singly).
-- An item whose after region contains a token that its before region lacks is flagged
-  `scientific_evaluation`, whatever its class.
-- An item whose after region contains a token that neither its before region nor the new text of a
-  cited edit carries is never J: it is R if marked or covered, U otherwise, and it is flagged.
+*Layer 1, structural (no vocabulary).* The normalized regions are read as token *sequences*: ASCII
+words, and every other non-space character singly, in order and with case kept. Whitespace is not a
+token, so a difference in whitespace alone is not seen; in Markdown prose it is inert.
+- **Change flag.** An item whose normalized after region differs from its normalized before region as a
+  token sequence is flagged `scientific_evaluation`, whatever its class. This covers insertions,
+  deletions, reorderings, swapped operands, flipped operators and punctuation.
+- **Non-J.** A covered item is never J if either of the following holds. It is R if marked or covered,
+  U otherwise, and it is flagged.
+  - The normalized token sequence of H's region differs from the sequence that replaying the cited
+    approved edits onto the baseline produces.
+  - H's region carries a token that neither the before region nor the new text of a cited edit carries.
 
-The allowlisted sentence followed by any further words therefore adds tokens, and is flagged.
+The allowlisted sentence followed by any further words changes the sequence, and is flagged.
 
 *Layer 2, the vocabulary (on the approved edits' texts).* For a covered item, the frozen vocabularies
 are counted, after normalization, in the before and after regions and in the old and new text of each
-cited edit. A rise in the count of any term, or a fall in the count of J9's finite-scope terms, makes
+cited edit. A rise in the count of any term, or a fall in the count of the finite-scope terms, makes
 the item never J: it is R if marked or covered, U otherwise, and it is flagged. An unclassified item is
 counted the same way, so that its notes say what it gains. Every landed edit whose own new text gains a
 term against its old text is listed in `verdict.json` (`flagged_edits`) and counted in the open
@@ -243,19 +248,28 @@ scientific evaluation. The terms, matched case-insensitively:
     `finit`, `bound` or `limit`, or by `restriction`; `no restriction`, `no bound`, `no limit`;
   - `all sizes`, `every cardinality`; `every`, `all`, `any` or `each` followed by a math
     expression (`$`).
+- the finite-scope terms (stems and forms; review c.7061319560, N3), whose loss is a hit: any word
+  beginning `finit` (finite, finitely, finiteness, finitary), `< \infty` in any form (`N < \infty`,
+  `|S| < \infty`, `\lt \infty`, `< ∞`), `bounded`, `compact`. J9 uses the same terms.
 
 *What J10 guarantees, exactly.*
-- Every item whose normalized after region gains a token is flagged, so every added wording,
-  recognized or not, reaches the scientific evaluation.
-- No item can be J with a token that comes from neither its baseline region nor a cited approved
-  edit.
+- Every item whose normalized after region differs from its before region as a token sequence is
+  flagged, so every change other than in whitespace reaches the scientific evaluation. That includes
+  added, deleted and reordered wording, operators and punctuation, recognized or not.
+- No item can be J unless H's region equals, as a normalized token sequence, the region that
+  replaying its cited approved edits onto the baseline produces, and carries no token from outside
+  that baseline region and those edits' new texts.
 - No item whose cited edits gain a vocabulary term, or lose a finite-scope term, can be J.
 
-A generality claim carried verbatim in an approved edit's new text and worded outside the vocabulary
-can be J, but it is flagged. The standing battery (T13) checks all three: the 16 paraphrases of review
-c.7059976436, the 28 wordings of review c.7060670839, the allowlisted sentence followed by an unlisted
-claim, and a gain-only case are each flagged. A mutant with the gain rule disabled fails the battery
-(T13b).
+A change made by an approved edit and worded outside the vocabulary can be J, but it is flagged.
+
+The standing batteries check this:
+- T13 flags the 16 paraphrases of review c.7059976436, the 28 wordings of review c.7060670839, the
+  allowlisted sentence followed by an unlisted claim, and a gain-only case.
+- T13c flags the 11 deletion, reordering, operator and punctuation cases of review c.7061319560.
+
+The mutants must fail: layer 1 disabled fails T13 (T13b), and the set comparison of the earlier rule
+fails T13c.
 
 Some results do hold for arbitrary S. J10 does not treat such a statement as false: it sends it to
 review, and the item clears only through a resolution whose review cites the proof that covers that
@@ -279,7 +293,7 @@ of the result PR.
 **Scientific evaluation flag.** An item is flagged when any of the following holds:
 - it carries any of the categories C-TAB, C-PROSE, C-FINL, C-CDO, C-CAL, C-OBS or C-OPEN;
 - it carries a `value changed` kind, or a J10 hit (including a lost finite-scope term);
-- its normalized after region gains a token (J10, layer 1);
+- its normalized after region differs from its before region as a token sequence (J10, layer 1);
 - it is an unaccounted or deleted line flagged `numbers` or `marker`;
 - its before or after region contains a decimal, a number with a unit, a power of ten or a comparison
   marker.
@@ -346,12 +360,12 @@ All must pass, or the verdict is VOID.
 | C1 | `baseline.py check` | exit 0 (snapshot regenerates byte for byte from the pin) |
 | C2 | `baseline.py self-test` | exit 0 |
 | C3 | Baseline against itself: `baseline.py --compare 1c7eedc4…` | exit 0, a fresh `self-compare.json` with no change |
-| C4 | `verdict.py self-test` (T1–T21b, with T13b and T20d) | exit 0 |
+| C4 | `verdict.py self-test` (T1–T21b, with T13b, T13c and T20d) | exit 0 |
 | C5 | Countercontrol for the comparator: H's corpus copied to a temporary directory, one unjustified value change injected (the first unchanged entry of a prediction table, the last digit of its first decimal token), compared with `--compare-tree`, classified with the same `classify.json` | a fresh `injected-compare.json` with `any_change` true reporting the entry `value changed`; the entry is U and the U count is the main U count plus one |
 | C6 | Edit inputs (§4) | (a) `compile-s2` from the records reproduces `edits-s2.json` exactly; (b) every edit is non-empty and not a no-op, of a listed unit with that unit's PR, every component from that unit's allowlisted sources; (c) the replay validation of §4 holds; (d) `compile-del` reproduces `edits-del.json` exactly, the deletion commit is an ancestor of H, and the deletion edits applied to its first parent reproduce its manuscript files byte for byte. (d) is not applicable only when H is the pin |
 | C7 | Bad-citation countercontrol: in a copy of H's corpus, the first J item with an after line has one number token outside its cited edits' new strings changed (or, with none, " 0" appended), and the copy is compared and reclassified with the same edits and `classify.json` | that item becomes U, and the U count is the main U count plus one |
 | C8 | J10 countercontrol: the sentence " The same identity extends to every infinite system." is appended to a J item's line, with a synthetic edit carrying exactly that change and listing the item's ledger row, so that the replay holds. **Precondition:** the copy is J with J10 disabled, so that only J10 can stop J; the first J item that meets it is used (up to five tried), else C9 (b)'s item | the precondition holds, and with J10 the item is R, with a J10 hit, and flagged |
-| C9 | Decisive control on the pinned corpus, each case cited J to an edit that reproduces it and lists the row: (a) ch01:179's "Without A1, the near-return condition" rewritten as "For every infinite system, the near-return condition" (row X-26); (b) GR:134 (row X-52, disposition J) gains the allowlisted configuration-space sentence; (c) GR:134 gains ", for arbitrary $S$"; (d) GR:134 gains ", and this is proved"; (e) the first J-row prose entry with one open, conditional or hypothesis term loses it; (f) appB:42 (row X-15, disposition J) loses "finite" from "on a finite configuration space" | (a) is R, flagged, J10-hit, and stays R under a review that cites no proof; (b) is J; (c), (d) and (f) are R, flagged and J10-hit; (e) is R |
+| C9 | Decisive control on the pinned corpus, each case cited J to an edit that reproduces it and lists the row: (a) ch01:179's "Without A1, the near-return condition" rewritten as "For every infinite system, the near-return condition" (row X-26); (b) GR:134 (row X-52, disposition J) gains the allowlisted configuration-space sentence; (c) GR:134 gains ", for arbitrary $S$"; (d) GR:134 gains ", and this is proved"; (e) the first J-row prose entry with one open, conditional or hypothesis term loses it; (f) appB:42 (row X-15, disposition J) loses "finite" from "on a finite configuration space"; (g) appB:194 (row X-52, disposition J) loses "finitely many" | (a) is R, flagged, J10-hit, and stays R under a review that cites no proof; (b) is J; (c), (d), (f) and (g) are R, flagged and J10-hit; (e) is R |
 
 If the main run has no J item with an after line, C7 runs on T3's synthetic item and C8 on C9 (b)'s
 item, and `verdict.json` records that they did.
@@ -376,10 +390,10 @@ is refused (T20b); C0 rejects a commit that is not the pinned one (T20c).
 | A crashed step is not a pass | file-written and exit-status checks; T20 |
 | The comparator detects an unjustified value change | C5 |
 | The classifier rejects a citation that does not reproduce the change | replay rule; C7; T4–T6, T12 |
-| Every added wording in an item's after region is flagged | J10 layer 1 (gain rule, after normalization); T13 battery; T13b mutant |
-| No item is J with a token from neither its baseline region nor a cited approved edit | J10 layer 1; T13 |
+| Every change in an item's region other than whitespace is flagged | J10 layer 1 (token-sequence change flag, after normalization); T13, T13c; T13b and the set-comparison mutant |
+| No item is J unless H's region equals the replay of its cited approved edits as a token sequence, with no token from outside them | J10 layer 1; T13, T13c |
 | No item whose cited edits gain a vocabulary term is J | J10 layer 2; C8; C9 (a), (c), (d); T13 |
-| A result does not lose its finiteness condition as J | J10 finite-loss test; C9 (f) |
+| A result does not lose its finiteness condition as J | J10 finite-loss test on the widened finite-scope terms; C9 (f), (g); T13c |
 | A lost open term on a J row is not J | J9; C9 (e) |
 | The owner's cardinality-neutral sentence, row-supported, is not blocked | exact allowlist; C9 (b) |
 | A generality claim clears only by an independent review citing its proof | resolution rule; C9 (a); T18b |
@@ -447,10 +461,11 @@ No deletion head was compared.
 - The replay rule shows that cited reviewed edits produced the change. It does not show that an edit is
   scientifically right; that is the job of the flag and of the separate evaluation.
 - J9 and J10's second layer are lexical, and a lexical list is not complete. J10's guarantee is the
-  one stated in §3: every added token is flagged, and no item is J with a token from outside its
-  baseline region and its cited approved edits. A generality claim worded outside the vocabulary and
-  carried verbatim in an approved edit can be J; it is flagged, and it reaches the scientific
-  evaluation through the flag.
+  one stated in §3. Every change other than in whitespace is flagged. No item is J unless H's region is
+  the replay of its cited approved edits, token for token. A change made by an approved edit and worded
+  outside the vocabulary can be J; it is flagged, and it reaches the scientific evaluation through the
+  flag. Under the change flag, every J item whose region changes goes to the scientific evaluation;
+  the flag does not block a PASS.
 - J10's vocabularies are deliberately wide: many reviewed changes will be R and will need a review, and
   a generality claim needs one that cites its proof.
 - The author of a resolution's review is checked against the host by the result PR's review, not by
