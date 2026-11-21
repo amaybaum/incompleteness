@@ -1021,14 +1021,17 @@ def missing_items(landed, base_corpus, after_corpus):
 
 
 def file_exact_items(landed, base_corpus, after_corpus, explained_h, explained_r, explained_rtext=frozenset()):
-    """N5, file-level exactness: every manuscript file of H is compared, line by line after normalization
-    with whitespace kept (blank lines and a final newline included), with the replayed state (every landed
-    edit applied to the baseline). A differing hunk is already reported, and is skipped, when every
-    non-blank H line in it is the H line of a reported item (explained_h), and every non-blank replayed
-    line in it is accounted for: it is a replay-missing item's line (explained_r), or the hunk replaces
-    it by reported H lines, or it is the text of a reported deleted line or removed entry of that file
-    (explained_rtext). Any other hunk, and any hunk of blank lines alone, is an item RX:<file>:<H line>,
-    attributed in its notes to the nearest reported item within three lines."""
+    """File-level exactness (N5; root-cause rule after N7 and N8): every manuscript file of H is compared
+    with the replayed state (every landed edit applied to the baseline), line by line on the raw bytes,
+    blank lines and a final newline included. A differing hunk is accounted for by reported items only
+    when every line of it that is not a reported item's own H line (explained_h) is byte-identical to its
+    corresponding replayed line. With equal line counts, line k corresponds to line k. With different
+    counts no H line has a counterpart, so every H line must be a reported item's own line and every
+    replayed line must be accounted for: a replay-missing item's line (explained_r), a non-blank line
+    replaced by the hunk's reported H lines, or the text of a reported deleted line or removed entry
+    (explained_rtext). A blank replayed line is never accounted for by an adjacent item. Every other hunk
+    is an item RX:<file>:<H line>, attributed in its notes to the nearest reported item within three
+    lines."""
     cur = dict(base_corpus)
     for e in sorted(landed, key=lambda x: x['seq']):
         for f in e['files']:
@@ -1036,29 +1039,30 @@ def file_exact_items(landed, base_corpus, after_corpus, explained_h, explained_r
                 cur[f] = cur[f].replace(e['old'], e['new'])
     out = {}
     for f in sorted(set(cur) | set(after_corpus)):
-        rl = [normalize_text(x, None, collapse=False) for x in B.lines_of(cur.get(f, ''))]
-        hl = [normalize_text(x, None, collapse=False) for x in B.lines_of(after_corpus.get(f, ''))]
+        rl = B.lines_of(cur.get(f, ''))
+        hl = B.lines_of(after_corpus.get(f, ''))
         if rl == hl:
             continue
         sm = difflib.SequenceMatcher(None, rl, hl, autojunk=False)
         for tag, i1, i2, j1, j2 in sm.get_opcodes():
             if tag == 'equal':
                 continue
-            h_nb = [j for j in range(j1, j2) if hl[j].strip()]
-            h_ok = all((f, j + 1) in explained_h for j in h_nb)
-            r_ok = all((f, i + 1) in explained_r or bool(h_nb) or (f, norm(rl[i])) in explained_rtext
-                       for i in range(i1, i2) if rl[i].strip())
-            blank_only = not any(hl[j].strip() for j in range(j1, j2)) and not any(rl[i].strip() for i in range(i1, i2))
-            # N7: the account holds only if the hunk's blank-line and line-boundary structure is unchanged
-            rb = [not rl[i].strip() for i in range(i1, i2)]
-            hb = [not hl[j].strip() for j in range(j1, j2)]
-            same_structure = (not any(rb) and not any(hb)) or rb == hb
-            if h_ok and r_ok and not blank_only and same_structure:
+            rep = [(f, j + 1) in explained_h for j in range(j1, j2)]
+            if i2 - i1 == j2 - j1:
+                ok = all(rep[k] or hl[j1 + k] == rl[i1 + k] for k in range(j2 - j1))
+            else:
+                has_rep = any(rep) and any(hl[j].strip() for j in range(j1, j2))
+                ok = all(rep) and all(
+                    (f, i + 1) in explained_r
+                    or (rl[i].strip() and (has_rep or (f, norm(normalize_text(rl[i], None, collapse=False)))
+                                           in explained_rtext))
+                    for i in range(i1, i2))
+            if ok:
                 continue
             near = sorted((abs(ln - (j1 + 1)), ln) for (g, ln) in explained_h if g == f and abs(ln - (j1 + 1)) <= 3)
             out['RX:%s:%d' % (f, j1 + 1)] = {
-                'kinds': ['file-exact'], 'file': f, 'line': j1 + 1, 'before': '\n'.join(cur.get(f, '').split('\n')[i1:i2]),
-                'after': '\n'.join(after_corpus.get(f, '').split('\n')[j1:j2]), 'replayed': '',
+                'kinds': ['file-exact'], 'file': f, 'line': j1 + 1, 'before': '\n'.join(rl[i1:i2]),
+                'after': '\n'.join(hl[j1:j2]), 'replayed': '',
                 'near': ('%s:%d' % (f, near[0][1])) if near else None,
                 'what': '%s: replayed lines %d-%d vs H lines %d-%d' % (tag, i1 + 1, i2, j1 + 1, j2)}
     return out
@@ -1977,6 +1981,24 @@ def self_test():
                                                for v in r13g.values()) and 'removal of one of two blank lines' in r13g,
            str({k: len(v) for k, v in r13g.items()}))
     del gtxt
+    # T13h N8 and the root rule: whitespace standing in for the blank line before or after a line whose H
+    # text differs from the replay, and a swap of two adjacent lines, are each an RX item
+    r13h = {}
+    for name, ch in (('space', ' '), ('tab', '\t'), ('CR', '\r'), ('NBSP', '\u00a0'), ('em space', '\u2003'),
+                     ('ideographic space', '\u3000')):
+        if fl[gi + 1] == '':
+            r13h[name + ' after'] = rx_of(dict(pin, **{g134['file']: '\n'.join(fl[:gi] + [dbl, ch] + fl[gi + 2:])}))
+        if fl[gi - 1] == '':
+            r13h[name + ' before'] = rx_of(dict(pin, **{g134['file']: '\n'.join(fl[:gi - 1] + [ch, dbl] + fl[gi + 1:])}))
+    tf = 'book/appendix-a-prediction-status.md'
+    tl = B.lines_of(pin[tf])
+    sk = next(k for k in range(len(tl) - 1) if tl[k].startswith('| ') and tl[k + 1].startswith('| ')
+              and tl[k] != tl[k + 1] and not tl[k].startswith('|---') and not tl[k + 1].startswith('|---') and k > 3)
+    r13h['swap of two adjacent lines'] = rx_of(dict(pin, **{tf: '\n'.join(tl[:sk] + [tl[sk + 1], tl[sk]] + tl[sk + 2:])}))
+    report('T13h whitespace in place of a blank line next to a differing line (%d cases), and a swap: each RX'
+           % (len(r13h) - 1), len(r13h) == 13 and all(len(v) >= 1 and all(x[1] == 'U' and x[2] for x in v)
+                                                     for v in r13h.values()),
+           str({k: len(v) for k, v in r13h.items()}))
     # T13d exactness: H equals the replay except for one doubled space -> not J, flagged
     cm, ed, cl, af, e = gr134(', for every $S$')
     f134 = ent['GR:134']['file']
