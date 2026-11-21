@@ -12,7 +12,7 @@ applied (§24). Execution is not authorized.
 **Revision.** Revised by additive commits after the early independent review of `36a73526` (round 1,
 REVISE; record on #1477) and the owner rulings of #1169 comment 7057674976, and after the round-2 delta
 review of `67736e55` (ACCEPT-WITH-NITS) the round-3 delta review of `a58cf594` (ACCEPT-WITH-NITS) and the round-4 check of `f18c8677` (ACCEPT, one
-non-blocking nit). §17–§20 answer the reviews finding by finding; §21–§23 record the amendments for H-11, repository-wide consistency and the configuration-space sentence. Edit IDs are stable: an ID reviewed at `36a73526` names the same edit here (its
+non-blocking nit). §17–§20 answer the reviews finding by finding; §21–§23 record the amendments for H-11, repository-wide consistency and the configuration-space sentence; §24 the reconciliation; §25 the round-5 closure table and the owner's decisions 2–5 of #1169 comment 7059136165 (safeguards for the destructive change, the frozen H-B sentence, the guard pins). Edit IDs are stable: an ID reviewed at `36a73526` names the same edit here (its
 `revised` field marks a changed replacement), and new edits take new IDs (D253–D258).
 
 ## 0. Authority, decision and goal link
@@ -181,14 +181,14 @@ queued X-20 wording (unpinned update, "the only laws known") is not used anywher
 
 | Measure | Count |
 |---|---|
-| Edit records in `edits.json` | 348 (ptr 240, consistency 21, handoff 5, lean-docstring 36, repo-active 34, guard-pin 12) |
+| Edit records in `edits.json` | 356 (ptr 240, consistency 21, handoff 5, lean-docstring 36, repo-active 35, guard-pin 19) |
 | Pointer sites with a drafted rewrite | 194 of 194 (140 primary sites and 54 byte-identical FULL mirrors) |
 | Pointer sites by class (a FULL mirror takes its chapter's class) | 194 sites: mechanical 121, semantic 61, needs scientific review 12 |
 | Consistency corrections outside the 194 sites | 21 sites: mechanical 4, semantic 17, needs scientific review 0 |
 | S2-E deferrals drafted (outside the 194) | 5 sites: mechanical 3, semantic 2, needs scientific review 0 |
 | Lean docstring edits (outside the 194) | 16 sites: mechanical 16, semantic 0, needs scientific review 0 |
-| Other active repository files (outside the 194) | 17 sites: mechanical 17, semantic 0, needs scientific review 0 |
-| Guard pins updated with the text they pin (outside the 194) | 11 sites: mechanical 11, semantic 0, needs scientific review 0 |
+| Other active repository files (outside the 194) | 18 sites: mechanical 18, semantic 0, needs scientific review 0 |
+| Guard pins, comments and messages updated (outside the 194) | 18 sites: mechanical 18, semantic 0, needs scientific review 0 |
 | Retained unchanged (names no posit; finite scope already printed) | 2 (SM:22, GR:20) |
 | Edits whose `old` string lay on a line a Step-2 unit changed (pre-merge map, §8) | 22 |
 | Edits whose `old` string changed between the projection and merged `main` | 3 (D224 item (ii), D232 Sub:92, D244 Sub:56; §24) |
@@ -347,7 +347,6 @@ chapter and in FULL.
 ### 6.1 Pointer sites (the 194 `ptr` sites of LEDGER §5)
 
 **M:36** · row X-01 (O) · mechanical · edits D001.
-
 Reason: Ledger X-01: the sentence is deleted; the per-result conditions are stated in the status Remark of §1.2 (M:60, D229) and at each result.
 
 Old:
@@ -363,7 +362,6 @@ New:
 ```
 
 **M:44** · row X-01 (O) · mechanical · edits D002.
-
 Reason: Ledger X-01 pointer rule.
 
 Old:
@@ -379,7 +377,6 @@ on a finite representative (§1.2 Remark) the map acts on a finite $S$
 ```
 
 **M:111** · row X-01 (O) · mechanical · edits D003.
-
 Reason: Ledger X-01 pointer rule.
 
 Old:
@@ -395,7 +392,6 @@ on a finite representative (§1.2 Remark) the hidden sector is also finite
 ```
 
 **M:129** · row X-20 (J) · semantic · edits D004.
-
 Reason: J row: the pointer becomes the weaker condition (NR), which the corollary at M:131 introduces with its S2-C qualification.
 
 Old:
@@ -411,7 +407,6 @@ the theorem takes the hidden space finite, as on a finite representative (§1.2 
 ```
 
 **M:224** · row X-01 (O) · mechanical · edits D005.
-
 Reason: Ledger X-01 pointer rule; the S2-B and S2-C insertions later in the line are untouched.
 
 Old:
@@ -427,7 +422,6 @@ with a finite representative (§1.2 Remark) where a result also needs the hidden
 ```
 
 **M:268** · row X-01 (O) · mechanical · edits D006.
-
 Reason: Ledger X-01 pointer rule (X-31: finite hidden spaces are constructed per law).
 
 Old:
@@ -443,7 +437,6 @@ $\mathcal{C}_H$ on a finite representative, §1.2)
 ```
 
 **M:586** · row X-01 (O) · semantic · edits D007.
-
 Reason: Ledger X-01 (N1) wording: the finiteness belongs to the constructed realization, not to the substratum.
 
 Old:
@@ -459,7 +452,6 @@ the construction uses no property of the constructed finite realization beyond i
 ```
 
 **M:594** · row X-01 (O) · mechanical · edits D008.
-
 Reason: Ledger X-01 pointer rule.
 
 Old:
@@ -475,7 +467,6 @@ the concrete OI substratum, in its finite model, supplies
 ```
 
 **M:646** · row X-26 (F) · mechanical · edits D009.
-
 Reason: F row: ledger X-01/X-26 wording, finite-only scope.
 
 Old:
@@ -491,7 +482,6 @@ New:
 ```
 
 **M:708** · row X-01 (O) · semantic · edits D010, D011.
-
 Reason: Ledger X-01 wording; the deep-sector scope clause is carried by M:60 (S2-B) and the transfer clause added there (X-00).
 
 Old (part 1):
@@ -519,7 +509,6 @@ compatible with finite representatives and are not premises of them.
 ```
 
 **M:726** · row X-01 (O) · semantic · edits D012.
-
 Reason: Ledger X-01 ("finite in the finite representative, which is not asserted of nature"), written in the cardinality-neutral form of the owner decision.
 
 Old:
@@ -535,7 +524,6 @@ a deterministic bijection on a set whose cardinality is left open; results that 
 ```
 
 **Sub:44** · row X-54 (F) · semantic · edits D013, D014.
-
 Reason: F row X-54: finite-only scope stated as a condition on $S$ (review round 1, F6: the ledger wording "in a finite representative" restated its own label).
 
 Old (part 1):
@@ -563,7 +551,6 @@ a lossless memory, of finite capacity when $S$ is finite.
 ```
 
 **Sub:52** · row X-54 (F) · mechanical · edits D015.
-
 Reason: X-02 rule: the parenthesis is deleted; the next sentence states where finiteness of the total carrier is used.
 
 Old:
@@ -579,7 +566,6 @@ the OI configuration
 ```
 
 **Sub:104** · row X-45 (F) · semantic · edits D016, D017, D018.
-
 Reason: F row X-45: Theorem 23 is a statement about finite substrata satisfying A2–A6; no identifier is renumbered.
 
 Old (part 1):
@@ -619,7 +605,6 @@ sufficiency of A2–A6 and E1–E7 on a finite substratum
 ```
 
 **Sub:123** · row X-45 (F) · semantic · edits D019.
-
 Reason: F row X-45: the Stage 1 input becomes the theorem's finite scope.
 
 Old:
@@ -635,7 +620,6 @@ finiteness of $S$ (the scope of Theorem 23), A2 (determinism)
 ```
 
 **Sub:129** · row X-45 (F) · mechanical · edits D020.
-
 Reason: A1 is dropped without a replacement scope (review round 1, F2): C4 comes from the hidden-memory theorem and C1 from the accessible history gap, and the readback route constructs a finite hidden space rather than assuming one (M:60, "a finite hidden space is constructed, not assumed"); the recurrence-cycle P-indivisibility, which does use a finite representative, is scoped separately at Sub:137 (D245).
 
 Old:
@@ -651,7 +635,6 @@ derived from E1–E3 and A2 together with **M1-T**
 ```
 
 **Sub:133** · row X-45 (F) · mechanical · edits D021.
-
 Reason: Range rewrite; no claim changes.
 
 Old:
@@ -667,7 +650,6 @@ not a consequence of finiteness, of A2–A6 or of the nearest-neighbor wave equa
 ```
 
 **Sub:193** · row X-45 (F) · needs scientific review · edits D022.
-
 Reason: Theorem 23 takes the finite-substratum scope with the wrapping conditions on P that X-45 and X-42 require (review round 1, F1); paper and book read the same. The ledger's further instruction to state Stage 2 on Z^d where Q1 supports it goes beyond the smallest correction and is routed to §5.4 for review, with Issue #1479 as its accountable home. Review: that Stages 1 and 3 need exactly this scope (X-29, X-70, X-71).
 
 Old:
@@ -683,7 +665,6 @@ New:
 ```
 
 **Sub:205** · row X-45 (F) · mechanical · edits D023.
-
 Reason: Range rewrite with the theorem's scope.
 
 Old:
@@ -699,7 +680,6 @@ The finite-substratum scope and the structural assumptions A2–A6 exclude sever
 ```
 
 **Sub:207** · row X-45 (F) · mechanical · edits D024.
-
 Reason: Ledger X-45 rule "(violating A1)" -> "(outside the finite class)".
 
 Old:
@@ -715,7 +695,6 @@ New:
 ```
 
 **Sub:212** · row X-45 (F) · semantic · edits D025.
-
 Reason: Finiteness is a scope, not a defended assumption (owner decision: cardinality neutrality).
 
 Old:
@@ -731,7 +710,6 @@ The framework's defense of A2–A6 (in [SM §2]
 ```
 
 **Sub:216** · row X-45 (F) · needs scientific review · edits D026.
-
 Reason: The bullet is rewritten from a motivation of A1 to the reason for the finite scope (X-45: Stage 1 X-29, Stage 3 X-70). Review that no other stage uses finiteness.
 
 Old:
@@ -747,7 +725,6 @@ New:
 ```
 
 **Sub:223** · row X-45 (F) · mechanical · edits D027.
-
 Reason: Range rewrite with the theorem's scope.
 
 Old:
@@ -763,7 +740,6 @@ E1–E7 + A2–A6 on a finite substratum is a consistent set
 ```
 
 **Sub:233** · row X-45 (F) · mechanical · edits D028.
-
 Reason: Range rewrite with the theorem's scope.
 
 Old:
@@ -779,7 +755,6 @@ New:
 ```
 
 **Sub:268** · row X-53 (J) · mechanical · edits D029.
-
 Reason: Ledger X-74: the sentence is deleted; the E3 bound under H-BD survives as stated.
 
 Old:
@@ -795,7 +770,6 @@ New:
 ```
 
 **Sub:288** · row X-02 (O) · mechanical · edits D030.
-
 Reason: X-02 rule: the parenthesis is deleted where finiteness is not used.
 
 Old:
@@ -811,7 +785,6 @@ $S$ is a set with no complex structure
 ```
 
 **Sub:389** · row X-02 (O) · mechanical · edits D031.
-
 Reason: X-02 rule: the parenthesis is deleted where finiteness is not used.
 
 Old:
@@ -827,7 +800,6 @@ a set with a deterministic bijection
 ```
 
 **SM:22** · row X-01 (O) · mechanical · edits D032.
-
 Reason: Retained unchanged: the site names no posit and states Main's result on a finite configuration space, its proved scope.
 
 Old:
@@ -843,7 +815,6 @@ an observer embedded in a deterministic bijection on a finite configuration spac
 ```
 
 **SM:30** · row X-02 (O) · mechanical · edits D033.
-
 Reason: X-02 rule.
 
 Old:
@@ -859,7 +830,6 @@ uses a set with a deterministic bijection of bounded coupling degree
 ```
 
 **SM:60** · row X-02 (O) · mechanical · edits D034.
-
 Reason: X-02 rule.
 
 Old:
@@ -875,7 +845,6 @@ specifies a set S, a bijection
 ```
 
 **SM:158** · row X-41 (J) · mechanical · edits D035.
-
 Reason: J row X-41: no finiteness is used in the sentence.
 
 Old:
@@ -891,7 +860,6 @@ a single bijection on the phase space.
 ```
 
 **SM:222** · row X-41 (J) · semantic · edits D036.
-
 Reason: J row X-41: A4 on the lattice as the standard construction, the finite quotient a qualified case (owner A4 decision); consistent with S2-A's wording that follows.
 
 Old:
@@ -907,7 +875,6 @@ New:
 ```
 
 **SM:232** · row X-41 (J) · semantic · edits D037.
-
 Reason: The next clause cites [Main §3.2] for finite permutations; the finite scope is kept explicit.
 
 Old:
@@ -923,7 +890,6 @@ The fundamental object is the bijection $\varphi$, a finite permutation on a fin
 ```
 
 **SM:316** · row X-41 (J) · mechanical · edits D038.
-
 Reason: X-02 rule.
 
 Old:
@@ -939,7 +905,6 @@ the fundamental bijection without
 ```
 
 **GR:20** · row X-01 (O) · mechanical · edits D039.
-
 Reason: Retained unchanged: names no posit; Main's result on a finite configuration space at its proved scope.
 
 Old:
@@ -955,7 +920,6 @@ an observer embedded in a deterministic bijection on a finite configuration spac
 ```
 
 **GR:58** · row X-70 (F) · mechanical · edits D040, D041.
-
 Reason: Ledger X-70 wording.
 
 Old (part 1):
@@ -983,7 +947,6 @@ that the total system is finite and
 ```
 
 **GR:88** · row X-72 (F) · mechanical · edits D042.
-
 Reason: F row: X-70 pointer rewrite carried to the calibration.
 
 Old:
@@ -999,7 +962,6 @@ requires H-count, including finiteness of the total system and the conserved ene
 ```
 
 **GR:257** · row X-01 (O) · mechanical · edits D043.
-
 Reason: Ledger X-75 wording.
 
 Old:
@@ -1015,7 +977,6 @@ The concrete OI substratum in its finite model — finite states
 ```
 
 **GR:261** · row X-01 (O) · mechanical · edits D044.
-
 Reason: Range rewrite; the claim is unchanged.
 
 Old:
@@ -1031,7 +992,6 @@ The controllability resource is not entailed by finiteness or by A2–A6;
 ```
 
 **GR:589** · row X-20 (J) · mechanical · edits D045.
-
 Reason: J row X-20: the weaker condition (NR) is already named in the same sentence with its S2-C qualification.
 
 Old:
@@ -1047,7 +1007,6 @@ uses a finite representative ([Main §1.2]) via the recurrence argument
 ```
 
 **Str:80** · row X-46 (F) · mechanical · edits D046, D047, D048.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old (part 1):
@@ -1087,7 +1046,6 @@ Whether matrix models satisfy finiteness and A2-A6 is not obvious
 ```
 
 **Str:86** · row X-46 (F) · mechanical · edits D049.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1103,7 +1061,6 @@ finite substrata satisfying A2-A6; exhaustive
 ```
 
 **Str:134** · row X-46 (F) · mechanical · edits D050.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1119,7 +1076,6 @@ by restricting to finite substrata and adding structural conditions A2–A6 [Sub
 ```
 
 **Str:136** · row X-46 (F) · mechanical · edits D051.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers. The retired identifier is not printed.
 
 Old:
@@ -1135,7 +1091,6 @@ Finiteness of $S$; (A2) Determinism
 ```
 
 **Str:140** · row X-46 (F) · mechanical · edits D052, D053, D054.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old (part 1):
@@ -1175,7 +1130,6 @@ Some relations: finiteness is related to but distinct from C3
 ```
 
 **Str:196** · row X-46 (F) · mechanical · edits D055.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1191,7 +1145,6 @@ plus finiteness, A2–A6 + E1–E7
 ```
 
 **Str:206** · row X-46 (F) · mechanical · edits D056.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1207,7 +1160,6 @@ satisfying finiteness and A2-A6 (which §6 establishes
 ```
 
 **Str:224** · row X-46 (F) · mechanical · edits D057.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1223,7 +1175,6 @@ in the sense of the finiteness condition $|S| < \infty$ of the finite OI class.
 ```
 
 **Str:230** · row X-46 (F) · mechanical · edits D058.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1239,7 +1190,6 @@ finiteness would hold for a separately specified representation
 ```
 
 **Str:256** · row X-46 (F) · mechanical · edits D059.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1255,7 +1205,6 @@ New:
 ```
 
 **Str:258** · row X-46 (F) · semantic · edits D060.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers. Finiteness is worded as scope, not a membership condition (review round 1, F8).
 
 Old:
@@ -1271,7 +1220,6 @@ OI's structural conditions A2–A6, within the finite scope of the reconstructio
 ```
 
 **Str:260** · row X-46 (F) · semantic · edits D061, D062.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old (part 1):
@@ -1299,7 +1247,6 @@ A6 (background independence); the reconstruction theorem is stated for a finite 
 ```
 
 **Str:264** · row X-46 (F) · mechanical · edits D063.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers. Section number unchanged.
 
 Old:
@@ -1315,7 +1262,6 @@ New:
 ```
 
 **Str:270** · row X-46 (F) · mechanical · edits D064.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1331,7 +1277,6 @@ Achieving finiteness would require
 ```
 
 **Str:272** · row X-46 (F) · mechanical · edits D065.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1347,7 +1292,6 @@ New:
 ```
 
 **Str:314** · row X-46 (F) · mechanical · edits D066.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1363,7 +1307,6 @@ New:
 ```
 
 **Str:316** · row X-46 (F) · mechanical · edits D067.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1379,7 +1322,6 @@ The tally across finiteness and A2–A6:
 ```
 
 **Str:320** · row X-46 (F) · mechanical · edits D068.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1395,7 +1337,6 @@ New:
 ```
 
 **Str:327** · row X-46 (F) · mechanical · edits D069.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1411,7 +1352,6 @@ Finiteness fails without a separate finite-value regulator.
 ```
 
 **Str:331** · row X-46 (F) · mechanical · edits D070.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1427,7 +1367,6 @@ they must satisfy the same finiteness and A2–A6 that OI's reconstruction requi
 ```
 
 **Str:339** · row X-46 (F) · mechanical · edits D071.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1443,7 +1382,6 @@ independent investigation of compatibility with finiteness and A2–A6
 ```
 
 **Str:351** · row X-46 (F) · mechanical · edits D072.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1459,7 +1397,6 @@ do not satisfy the conditions of the finite OI class (finiteness and A2–A6) in
 ```
 
 **Str:359** · row X-46 (F) · mechanical · edits D073.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1475,7 +1412,6 @@ do not satisfy the conditions of the finite OI class (finiteness and A2–A6) in
 ```
 
 **Str:375** · row X-46 (F) · mechanical · edits D074.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1491,7 +1427,6 @@ among finite substrata satisfying OI's A2–A6, which
 ```
 
 **Str:560** · row X-46 (F) · mechanical · edits D075.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1507,7 +1442,6 @@ supplies structural conditions A2–A6, with a finite scope, for its local recon
 ```
 
 **Str:646** · row X-46 (F) · semantic · edits D076.
-
 Reason: Ledger X-46 deletion wording, with the internal audit reference replaced by the manuscript reference [Substratum §3.1] (§A.27 manuscript voice).
 
 Old:
@@ -1523,7 +1457,6 @@ be finite OI-class substrata (finite substrata satisfying A2-A6, with A4 in its 
 ```
 
 **Str:701** · row X-46 (F) · mechanical · edits D077.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1539,7 +1472,6 @@ structural conditions such as finiteness and A2–A6.
 ```
 
 **Str:730** · row X-02 (O) · mechanical · edits D078.
-
 Reason: X-02 rule.
 
 Old:
@@ -1555,7 +1487,6 @@ New:
 ```
 
 **Str:732** · row X-02 (O) · mechanical · edits D079.
-
 Reason: X-02 rule.
 
 Old:
@@ -1571,7 +1502,6 @@ in a finite representative they have all the formal features of permutations on 
 ```
 
 **Str:746** · row X-46 (F) · mechanical · edits D080.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1587,7 +1517,6 @@ all three fail the conditions of the finite OI class, finiteness and A2–A6 (so
 ```
 
 **Str:768** · row X-45 (F) · mechanical · edits D081.
-
 Reason: F row X-45: range rewrite.
 
 Old:
@@ -1603,7 +1532,6 @@ plus finiteness, A2-A6 and the nearest-neighbour range
 ```
 
 **Str:866** · row X-46 (F) · mechanical · edits D082.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1619,7 +1547,6 @@ The structural conditions (finiteness and A2-A6) are then
 ```
 
 **Str:1006** · row X-46 (F) · mechanical · edits D083.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1635,7 +1562,6 @@ The per-condition analysis (finiteness and A2–A6) applied
 ```
 
 **Str:1008** · row X-46 (F) · mechanical · edits D084, D085, D086.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old (part 1):
@@ -1675,7 +1601,6 @@ mismatches at finiteness and A2 being deeper
 ```
 
 **Str:1010** · row X-46 (F) · mechanical · edits D087, D088.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old (part 1):
@@ -1703,7 +1628,6 @@ finiteness fails in the limit,
 ```
 
 **Str:1012** · row X-46 (F) · mechanical · edits D089, D090.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old (part 1):
@@ -1731,7 +1655,6 @@ A2, A5 and finiteness fail;
 ```
 
 **Str:1014** · row X-46 (F) · mechanical · edits D091, D092.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old (part 1):
@@ -1759,7 +1682,6 @@ in the finite OI class, delimited by finiteness and A2–A6.
 ```
 
 **Str:1016** · row X-46 (F) · semantic · edits D093.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1775,7 +1697,6 @@ are in the finite OI class (per failure of its conditions, finiteness and A2–A
 ```
 
 **Str:1030** · row X-46 (F) · mechanical · edits D094.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1791,7 +1712,6 @@ the finite OI class (A2–A6) narrower
 ```
 
 **Str:1066** · row X-46 (F) · mechanical · edits D095.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1807,7 +1727,6 @@ all four fail the conditions of the finite OI class, finiteness and A2–A6, and
 ```
 
 **Str:1237** · row X-46 (F) · mechanical · edits D096, D097.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old (part 1):
@@ -1835,7 +1754,6 @@ from finiteness, A3, A4, A6 plus the SM target
 ```
 
 **Str:1303** · row X-46 (F) · mechanical · edits D098.
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -1851,7 +1769,6 @@ New:
 ```
 
 **README:100** · row X-01 (O) · mechanical · edits D099.
-
 Reason: Ledger X-01 B1 rule.
 
 Old:
@@ -1867,7 +1784,6 @@ the finite-representative scope;
 ```
 
 **readers:79** · row X-01 (O) · mechanical · edits D100. Mirror: FULL:167, identical strings (D101).
-
 Reason: Ledger X-01 B1 rule.
 
 Old:
@@ -1883,7 +1799,6 @@ the finite-representative scope,
 ```
 
 **ch00:95** · row X-01 (O) · semantic · edits D102. Mirror: FULL:320, identical strings (D103).
-
 Reason: X-01 pointer rule; the posit sentence becomes the finite-representative scope.
 
 Old:
@@ -1899,7 +1814,6 @@ Chapter 2 uses a finite bijective representative $(S,\varphi)$ for the results s
 ```
 
 **ch01:28** · row X-01 (O) · mechanical · edits D104. Mirror: FULL:361, identical strings (D105).
-
 Reason: X-01 pointer rule (mirror of M:44).
 
 Old:
@@ -1915,7 +1829,6 @@ on a finite bijective representative (Chapter 2 §2.4) the map acts on a finite 
 ```
 
 **ch01:163** · row X-01 (O) · mechanical · edits D106. Mirror: FULL:496, identical strings (D107).
-
 Reason: X-01 pointer rule (mirror of M:594).
 
 Old:
@@ -1931,7 +1844,6 @@ the concrete OI substratum, in its finite model, supplies the structural archite
 ```
 
 **ch01:179** · row X-26 (F) · semantic · edits D108, D110. Mirror: FULL:512, identical strings (D109, D111).
-
 Reason: F row X-26: the recurrence clause keeps its finite scope; the (NR) sentence and its S2-C qualification are untouched.
 
 Old (part 1):
@@ -1959,7 +1871,6 @@ A finite reversible representative also recurs:
 ```
 
 **ch02:8** · row X-02 (O) · mechanical · edits D112. Mirror: FULL:638, identical strings (D113).
-
 Reason: X-02 rule.
 
 Old:
@@ -1975,7 +1886,6 @@ the reversible object $(S,\varphi)$ whose
 ```
 
 **ch02:16** · row X-54 (F) · semantic · edits D114. Mirror: FULL:646, identical strings (D115).
-
 Reason: F row X-54: finite scope kept; the owner's configuration-space sentence opens the triple in place of D114's own neutrality wording, so the book has one wording (owner decision #1169 c.7058783437, book mirrors; review round 5).
 
 Old:
@@ -1993,7 +1903,6 @@ The framework's central object is a triple.
 ```
 
 **ch02:88** · row X-45 (F) · mechanical · edits D116. Mirror: FULL:718, identical strings (D117).
-
 Reason: F row X-45.
 
 Old:
@@ -2009,7 +1918,6 @@ for a finite substratum under E1–E7 and A2–A6 with M1-T
 ```
 
 **ch02:90** · row X-45 (F) · mechanical · edits D118. Mirror: FULL:720, identical strings (D119).
-
 Reason: F row X-45.
 
 Old:
@@ -2025,7 +1933,6 @@ the finite-substratum scope and the determinism assumption A2,
 ```
 
 **ch02:118** · row X-45 (F) · needs scientific review · edits D120. Mirror: FULL:748, identical strings (D121).
-
 Reason: Book statement of Theorem 23, the same wording as Sub:193 (D022) in the book's citation style; reviewed together with it.
 
 Old:
@@ -2041,7 +1948,6 @@ New:
 ```
 
 **ch02:122** · row X-45 (F) · mechanical · edits D122, D124, D126. Mirror: FULL:752, identical strings (D123, D125, D127).
-
 Reason: Ledger X-45 wording.
 
 Old (part 1):
@@ -2081,7 +1987,6 @@ The framework's defense of A2–A6 is t
 ```
 
 **ch02:136** · row X-02 (O) · mechanical · edits D128. Mirror: FULL:766, identical strings (D129).
-
 Reason: X-02 rule.
 
 Old:
@@ -2097,7 +2002,6 @@ the substratum is a set with a bijection on it. $\mathcal{G}
 ```
 
 **ch02:158** · row X-02 (O) · mechanical · edits D130. Mirror: FULL:788, identical strings (D131).
-
 Reason: X-02 rule.
 
 Old:
@@ -2113,7 +2017,6 @@ $S$ is a set with no complex structure
 ```
 
 **ch02:212** · row X-02 (O) · mechanical · edits D132. Mirror: FULL:842, identical strings (D133).
-
 Reason: X-02 rule.
 
 Old:
@@ -2129,7 +2032,6 @@ a set with a deterministic bijection on it
 ```
 
 **ch03:34** · row X-46 (F) · mechanical · edits D134. Mirror: FULL:895, identical strings (D135).
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
@@ -2145,7 +2047,6 @@ finite substrata satisfying A2–A6 of the reconstruction theorem
 ```
 
 **ch03:44** · row X-46 (F) · semantic · edits D136, D138, D140. Mirror: FULL:905, identical strings (D137, D139, D141).
-
 Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old (part 1):
@@ -2185,7 +2086,6 @@ Some of these conditions relate to but are distinct from C's: finiteness of the 
 ```
 
 **ch03:84** · row X-02 (O) · mechanical · edits D142. Mirror: FULL:945, identical strings (D143).
-
 Reason: X-02 rule.
 
 Old:
@@ -2201,7 +2101,6 @@ the substratum is a set with a bijection on it, governed
 ```
 
 **ch03:226** · row X-01 (O) · semantic · edits D144. Mirror: FULL:1087, identical strings (D145).
-
 Reason: Ledger X-01 B1 rule ("finiteness posit" -> finite-representative scope).
 
 Old:
@@ -2217,7 +2116,6 @@ Recurrence and the other assumptions retain the statuses given in the technical 
 ```
 
 **ch04:10** · row X-45 (F) · mechanical · edits D146. Mirror: FULL:1114, identical strings (D147).
-
 Reason: F row X-45.
 
 Old:
@@ -2233,7 +2131,6 @@ including the structural assumptions A2–A6 with the finite-substratum scope of
 ```
 
 **ch04:26** · row X-45 (F) · semantic · edits D148, D150, D152. Mirror: FULL:1130, identical strings (D149, D151, D153).
-
 Reason: F row X-45; the motivation of A1 is removed with the identifier (owner decision items 1, 3).
 
 Old (part 1):
@@ -2273,7 +2170,6 @@ The framework's defense of A2–A6 is an argument from the empirical inputs of p
 ```
 
 **ch05:15** · row X-02 (O) · mechanical · edits D154. Mirror: FULL:1330, identical strings (D155).
-
 Reason: X-02 rule.
 
 Old:
@@ -2289,7 +2185,6 @@ a set with a deterministic bijection
 ```
 
 **ch05:19** · row X-45 (F) · mechanical · edits D156. Mirror: FULL:1334, identical strings (D157).
-
 Reason: F row X-45.
 
 Old:
@@ -2305,7 +2200,6 @@ provides the finite-substratum scope, the structural assumptions A2–A6 and the
 ```
 
 **ch05:23** · row X-02 (O) · mechanical · edits D158. Mirror: FULL:1338, identical strings (D159).
-
 Reason: X-02 rule.
 
 Old:
@@ -2321,7 +2215,6 @@ a set $S$, a deterministic
 ```
 
 **ch05:83** · row X-41 (J) · mechanical · edits D160. Mirror: FULL:1398, identical strings (D161).
-
 Reason: X-02 rule (J row X-41).
 
 Old:
@@ -2337,7 +2230,6 @@ the substratum bijection is governed
 ```
 
 **ch05:89** · row X-41 (J) · mechanical · edits D162. Mirror: FULL:1404, identical strings (D163).
-
 Reason: X-02 rule (J row X-41).
 
 Old:
@@ -2353,7 +2245,6 @@ not the fundamental bijection itself
 ```
 
 **ch07:42** · row X-70 (F) · mechanical · edits D164. Mirror: FULL:1907, identical strings (D165).
-
 Reason: Ledger X-70 wording.
 
 Old:
@@ -2369,7 +2260,6 @@ Under H-count the total system is finite, and
 ```
 
 **ch07:118** · row X-02 (O) · mechanical · edits D166. Mirror: FULL:1983, identical strings (D167).
-
 Reason: X-02 rule.
 
 Old:
@@ -2385,7 +2275,6 @@ acting on a configuration space $S$.
 ```
 
 **ch09:18** · row X-46 (F) · mechanical · edits D168. Mirror: FULL:2433, identical strings (D169).
-
 Reason: X-02 rule.
 
 Old:
@@ -2401,7 +2290,6 @@ a deterministic bijection are not equivalent
 ```
 
 **ch09:36** · row X-46 (F) · mechanical · edits D170. Mirror: FULL:2451, identical strings (D171).
-
 Reason: X-01/X-02 rule: the posit is removed from the level list.
 
 Old:
@@ -2417,7 +2305,6 @@ New:
 ```
 
 **ch09:106** · row X-46 (F) · semantic · edits D172. Mirror: FULL:2521, identical strings (D173).
-
 Reason: F scope; cardinality-neutral wording.
 
 Old:
@@ -2433,7 +2320,6 @@ New:
 ```
 
 **ch09:182** · row X-46 (F) · semantic · edits D174. Mirror: FULL:2597, identical strings (D175).
-
 Reason: Cardinality-neutral description of the programme.
 
 Old:
@@ -2449,7 +2335,6 @@ The framework is a deterministic-substratum program: it takes a configuration sp
 ```
 
 **ch09:188** · row X-46 (F) · semantic · edits D176. Mirror: FULL:2603, identical strings (D177).
-
 Reason: X-02 rule; the matrix-model comparison that follows uses finite dimension.
 
 Old:
@@ -2465,7 +2350,6 @@ acts on a configuration space, finite where the framework's finite-only results 
 ```
 
 **ch09:192** · row X-46 (F) · semantic · edits D178, D180. Mirror: FULL:2607, identical strings (D179, D181).
-
 Reason: F row; the paraphrase of the posit is replaced by the cardinality-neutral statement.
 
 Old (part 1):
@@ -2493,7 +2377,6 @@ The cardinality of the total configuration space is left open.
 ```
 
 **ch19:126** · row X-01 (O) · mechanical · edits D182. Mirror: FULL:5196, identical strings (D183).
-
 Reason: X-01 pointer rule (mirror of M:594).
 
 Old:
@@ -2509,7 +2392,6 @@ the concrete OI substratum, in its finite model, supplies the structural archite
 ```
 
 **ch19:212** · row X-01 (O) · mechanical · edits D184. Mirror: FULL:5282, identical strings (D185).
-
 Reason: X-01 rule.
 
 Old:
@@ -2525,7 +2407,6 @@ classical probability — constrain the class.
 ```
 
 **ch19:214** · row X-01 (O) · mechanical · edits D186. Mirror: FULL:5284, identical strings (D187).
-
 Reason: X-02 rule.
 
 Old:
@@ -2541,7 +2422,6 @@ deterministic bijection structure is not
 ```
 
 **ch19:216** · row X-01 (O) · semantic · edits D188. Mirror: FULL:5286, identical strings (D189).
-
 Reason: Cardinality-neutral restatement.
 
 Old:
@@ -2557,7 +2437,6 @@ New:
 ```
 
 **ch19:360** · row X-01 (O) · semantic · edits D190. Mirror: FULL:5430, identical strings (D191).
-
 Reason: The question presupposes the retired hypothesis; it is removed with it.
 
 Old:
@@ -2573,7 +2452,6 @@ New:
 ```
 
 **appC:16** · row X-01 (O) · mechanical · edits D192. Mirror: FULL:6171, identical strings (D193).
-
 Reason: X-01 rule; follows the §C.6 heading.
 
 Old:
@@ -2589,7 +2467,6 @@ and finiteness (whether the framework assumes a finite universe).
 ```
 
 **appC:96** · row X-01 (O) · semantic · edits D194. Mirror: FULL:6251, identical strings (D195).
-
 Reason: Ledger X-02: the objection is answered by the finite-only scope.
 
 Old:
@@ -2605,7 +2482,6 @@ New:
 ```
 
 **appC:98** · row X-01 (O) · semantic · edits D196. Mirror: FULL:6253, identical strings (D197).
-
 Reason: Ledger X-02 rule for §C.6.
 
 Old:
@@ -2621,7 +2497,6 @@ concerns finiteness: several of the framework's results are stated for a finite 
 ```
 
 **appC:102** · row X-01 (O) · needs scientific review · edits D198. Mirror: FULL:6257, identical strings (D199).
-
 Reason: States the owner's cardinality-neutral principle in the book; review that every result named in §C.6 matches its finite or size-independent source statement.
 
 Old:
@@ -2637,7 +2512,6 @@ New:
 ```
 
 **appC:104** · row X-01 (O) · semantic · edits D200. Mirror: FULL:6259, identical strings (D201).
-
 Reason: Ledger X-02; the (NR) clause and its S2-C qualification are untouched.
 
 Old:
@@ -2653,7 +2527,6 @@ Finiteness of the representative is a mathematical hypothesis of the results sta
 ```
 
 **appC:106** · row X-01 (O) · semantic · edits D202. Mirror: FULL:6261, identical strings (D203).
-
 Reason: Ledger X-02; the deep-sector clause that follows is kept.
 
 Old:
@@ -2669,7 +2542,6 @@ It does not establish finiteness of the total configuration space $S$, and the f
 ```
 
 **appC:108** · row X-01 (O) · semantic · edits D204, D206. Mirror: FULL:6263, identical strings (D205, D207).
-
 Reason: Ledger X-02 rule for §C.6.
 
 Old (part 1):
@@ -2697,7 +2569,6 @@ does not establish finiteness of the whole of $S$. The framework's finite-only r
 ```
 
 **appC:110** · row X-01 (O) · needs scientific review · edits D208. Mirror: FULL:6265, identical strings (D209).
-
 Reason: The rebuttal rests on discreteness, not finiteness; review that the boundary count N that follows is stated for the horizon and not for the whole lattice.
 
 Old:
@@ -2713,7 +2584,6 @@ At the substratum level, the framework posits a discrete lattice (Chapter 2 §2.
 ```
 
 **appC:112** · row X-01 (O) · needs scientific review · edits D210, D212. Mirror: FULL:6267, identical strings (D211, D213).
-
 Reason: The condensed-matter analogy is restated for discreteness; review the analogy.
 
 Old (part 1):
@@ -2741,7 +2611,6 @@ the underlying physics is discrete, but the long-wavelength
 ```
 
 **appC:114** · row X-01 (O) · semantic · edits D214. Mirror: FULL:6269, identical strings (D215).
-
 Reason: Ledger X-02 rule for §C.6.
 
 Old:
@@ -2757,7 +2626,6 @@ The discrete substratum is therefore *compatible with* the standard QFT descript
 ```
 
 **appC:116** · row X-01 (O) · semantic · edits D216. Mirror: FULL:6271, identical strings (D217).
-
 Reason: Ledger X-02 rule for §C.6; cardinality-neutral.
 
 Old:
@@ -2773,7 +2641,6 @@ Finiteness is therefore the stated scope of specific results, not a premise abou
 ```
 
 **appC:136** · row X-01 (O) · semantic · edits D218. Mirror: FULL:6291, identical strings (D219).
-
 Reason: Finite scope attached to the computability claim (review round 1, F5); see H-3 and D246.
 
 Old:
@@ -2789,7 +2656,6 @@ that on a finite representative $\varphi$ is a bijection on a finite set, which 
 ```
 
 **gloss:13** · row X-45 (F) · mechanical · edits D220. Mirror: FULL:6504, identical strings (D221).
-
 Reason: Range and count rewrite; A6 keeps its identifier (owner decision item 5).
 
 Old:
@@ -2805,7 +2671,6 @@ The structural assumption A6 of the reconstruction theorem (A2–A6):
 ```
 
 **gloss:137** · row X-01 (O) · semantic · edits D222. Mirror: FULL:6628, identical strings (D223).
-
 Reason: Cardinality-neutral restatement.
 
 Old:
@@ -2821,7 +2686,6 @@ The cardinality of its total configuration space is left open; results stated fo
 ```
 
 **M:732** · row X-00 (O) · needs scientific review · edits D224, D225, D226, D227, D228, D253.
-
 Reason: X-00: item (ii) is deleted and its identifier retired, not reused and not annotated (§A.30; owner decision items 1, 2, 5: (iii)-(xiv) keep their numbers). Its content moves to the status Remark M:60 (weaker conditions, transfer clause); the finite-representative list and the deep-sector clause are already printed there (S2-B). The count becomes thirteen, and the completeness sentence states that finite-representative results carry their scope where stated (D253; review round 1, F4). Review: the posit count and that no result loses its stated conditions.
 
 Old (part 1):
@@ -2897,7 +2761,6 @@ as these texts stand in the same revision of the repository; the results that us
 ```
 
 **M:60** · row X-00 (O) · needs scientific review · edits D229, D230, D254, D231.
-
 Reason: X-00: the posit sentence becomes the finite-representative scope and receives item (ii)'s weaker-condition list (with S2-B's CP clause) and its transfer clause, verbatim apart from the connective; the P8 sentence takes ledger X-00 wording. After the deletion M:60 is Main's first mention of (NR), (IP) and (IL), so S2-C's return- and law-form qualifications are printed there and at the later (NR) mention (review round 1, F3). Review: that the transfer clause is not stronger than the companion proof.
 
 Old (part 1):
@@ -2949,7 +2812,6 @@ The transfer of the conclusions of the recurrence step of §2.3 and of §4.6, wh
 ```
 
 **Sub:92** · row X-02 (O) · semantic · edits D232.
-
 Reason: X-02: the (A1) entry is deleted; Theorem 23 states finiteness as its scope (X-45). The E3/H-BD reading survives at Sub:268 (i), the factor freedom at Theorem 24(iii) and (NR) at Main §2.3 and Sub:137. With the entry gone, A4's Z^d standard construction is no longer excluded by the assumption list (S2-A review finding).
 
 Old:
@@ -2965,7 +2827,6 @@ New:
 ```
 
 **ch02:76** · row X-02 (O) · semantic · edits D233. Mirror: FULL:706, identical strings (D234).
-
 Reason: X-02: the (A1) entry is deleted (book mirror of Sub:92).
 
 Old:
@@ -2981,7 +2842,6 @@ New:
 ```
 
 **gloss:11** · row X-01 (O) · semantic · edits D235, D237. Mirror: FULL:6502, 6562, identical strings (D236, D238).
-
 Reason: Ledger X-02: the A1 entry is replaced by a finite-representative entry, inserted at its alphabetical place.
 
 Old (part 1):
@@ -3013,7 +2873,6 @@ New (part 2):
 ### 6.2 Consistency corrections outside the 194 sites
 
 **ch02:74** · row X-45 (F) · semantic · edits D239. Mirror: FULL:704, identical strings (D240).
-
 Reason: Count follows the deletion of the (A1) entry (§A.30 count rule); A2–A6 keep their identifiers.
 
 Old:
@@ -3029,7 +2888,6 @@ The reconstruction restricts attention to finite candidate substrates satisfying
 ```
 
 **ch02:120** · row X-45 (F) · mechanical · edits D241. Mirror: FULL:750, identical strings (D242).
-
 Reason: Count follows the deletion of A1; the theorem's finite scope is stated (X-45).
 
 Old:
@@ -3045,7 +2903,6 @@ together with five structural assumptions on a finite substratum and the nearest
 ```
 
 **GR:673** · row - (-) · mechanical · edits D243.
-
 Reason: Hidden dependency H-1: the line names A1 but the ledger classifies it FREE (P0 class), so it is not among the 194 ptr sites. Range and label rewrite; no claim changes.
 
 Old:
@@ -3061,7 +2918,6 @@ OI's full structural conditions (finiteness and A2–A6) except at S3: finitenes
 ```
 
 **Sub:56** · row X-63 (O) · mechanical · edits D244.
-
 Reason: Hidden dependency H-2: S2-D (X-63/X-82) prints a pointer to A1 at Sub:56 on its branch; at deletion the pointer becomes the property it names. The S2-D content (open inflow question, conditional on an infinite carrier) is unchanged.
 
 Old:
@@ -3077,7 +2933,6 @@ Without finiteness the question also concerns an incoming supply:
 ```
 
 **Sub:137** · row X-20 (J) · semantic · edits D245.
-
 Reason: Hidden dependency H-4: Sub:92 is the only Substratum site that states (NR) and its S2-C qualification; deleting the (A1) entry would drop the weaker condition silently. The clause is relocated, verbatim apart from the connective, to the Stage 1 recurrence sentence it qualifies (J row X-20; deletion criterion 3).
 
 Old:
@@ -3093,7 +2948,6 @@ also give recurrence-cycle P-indivisibility [Main §2.3]; the near-return condit
 ```
 
 **ch09:104** · row X-46 (F) · semantic · edits D255. Mirror: FULL:2519, identical strings (D256).
-
 Reason: Count and wording: finiteness (ch09:106) is the scope of the finite class, not a sixth membership property (review round 1, F8); A2–A6 keep their identifiers.
 
 Old:
@@ -3109,7 +2963,6 @@ are, for the finite OI class, five structural properties of the substratum; fini
 ```
 
 **ch09:190** · row X-46 (F) · semantic · edits D257. Mirror: FULL:2605, identical strings (D258).
-
 Reason: Count and wording as ch09:104 (review round 1, F8).
 
 Old:
@@ -3125,7 +2978,6 @@ The finite scope and five structural axioms must be checked for compatibility un
 ```
 
 **M:42** · row - (-) · semantic · edits D259.
-
 Reason: Owner decision #1169 c.7058446475: the approved sentence, verbatim with Main's symbol $S$ for $\mathcal S$ and the run-in bold of Main's paragraph heads, as a paragraph after the Definition and the paragraph that unpacks it ("This definition formalizes ...", review round 5 nit), before Lemma 1. No label, identifier or assumption. Nearby finite-only results keep their scope (Lemma 1, Lemma 3 by D260, the measure remark by D309, the status Remark M:60; preservation check).
 
 Old:
@@ -3147,7 +2999,6 @@ New:
 ```
 
 **M:54** · row X-10 (F) · semantic · edits D260.
-
 Reason: F row X-10: the counting-measure selection is a statement about finite representatives; its scope was carried by M:732 item (ii)'s list, which D224 deletes, and the configuration-space sentence two paragraphs above admits an infinite $S$, so the scope is printed in the lemma (owner condition: no finite-only result read as applying to arbitrary configuration spaces).
 
 Old:
@@ -3163,29 +3014,23 @@ globally, on a finite representative, the counting measure is selected among inv
 ```
 
 **Sub:42** · row - (-) · semantic · edits D261.
-
 Reason: Owner decision #1169 c.7058446475: the approved sentence, verbatim with Substratum's symbol $S$, as the opening paragraph of §2 (the setup of $(S, \varphi)$). The next paragraph keeps its finite scope ("*finite capacity* when $S$ is finite", D013; preservation check).
 
 Old:
 
 ```text
-## 2. The Physical Interpretation of (S, φ)
-
 **Storage and memory.**
 ```
 
 New:
 
 ```text
-## 2. The Physical Interpretation of (S, φ)
-
 **Configuration space.** The substratum has a configuration space $S$. No restriction is imposed on its cardinality; $S$ may be finite or infinite.
 
 **Storage and memory.**
 ```
 
 **appC:138** · row - (-) · semantic · edits D246. Mirror: FULL:6293, identical strings (D247).
-
 Reason: Hidden dependency H-3: the computability claim uses finiteness (a lookup table); the finite scope is kept and the evaluative clause is dropped with the narrowing (review round 1, F5). A size-independent form would need uniformity of the rule as a named hypothesis and is not drafted.
 
 Old:
@@ -3201,7 +3046,6 @@ But on a finite representative the bijection is in-principle computable.
 ```
 
 **M:58** · row X-10 (F) · semantic · edits D309.
-
 Reason: F row X-10: the uniform probability and the uniform conditional law on $\mathcal{C}_H$ need a finite carrier; scoped as D260 scopes Lemma 3 (review round 5, must-fix 2).
 
 Old:
@@ -3217,7 +3061,6 @@ On the selected bijective carrier $\mathcal{C}_V \times \mathcal{C}_H$ of a fini
 ```
 
 **ch01:26** · row - (-) · semantic · edits D310. Mirror: FULL:361, identical strings (D311).
-
 Reason: Owner decision #1169 c.7058783437 (book mirrors): the approved sentence after ch01's Definition and the paragraph that follows it, as in Main (D259).
 
 Old:
@@ -3239,7 +3082,6 @@ New:
 ```
 
 **ch01:38** · row X-10 (F) · semantic · edits D312. Mirror: FULL:371, identical strings (D313).
-
 Reason: F row X-10: book mirror of D260; the configuration-space sentence above admits an infinite $S$.
 
 Old:
@@ -3257,7 +3099,6 @@ globally, on a finite representative, the counting measure is selected among the
 ### 6.3 Sites deferred to the deletion edit by S2-E (outside the 194)
 
 **Comp:120** · row X-01 (O) · mechanical · edits D248.
-
 Reason: X-01 site deferred to the deletion edit by S2-E (its PREREG §3).
 
 Old:
@@ -3273,7 +3114,6 @@ For a fixed physical realization, finiteness of the total configuration space is
 ```
 
 **Meth:156** · row X-01 (O) · semantic · edits D249.
-
 Reason: X-01 site deferred to the deletion edit by S2-E (its PREREG §3); the steps keep their finite scope.
 
 Old:
@@ -3289,7 +3129,6 @@ that extension is not supplied by the clause, and those steps are statements abo
 ```
 
 **Meth:158** · row X-30 (J) · semantic · edits D250.
-
 Reason: X-01 site deferred to the deletion edit by S2-E (its PREREG §3); J row X-30 names (REV).
 
 Old:
@@ -3305,7 +3144,6 @@ together with finiteness of the representative; on a carrier of unspecified card
 ```
 
 **ch18:40** · row X-82 (O) · mechanical · edits D251. Mirror: FULL:4771, identical strings (D252).
-
 Reason: Pointer left for the deletion edit by S2-E (its PREREG §3). Pointer-only rewrite approved by owner ruling #1169 c.7057674976: "under A1" is dropped because "finite reversible" already states the condition; the physical content, its conditional scope and the X-82 no-change decision on the inflow content are kept.
 
 Old:
@@ -3323,7 +3161,6 @@ the finite reversible substratum dynamics, which is recurrent (§18.7);
 ### 6.4 Lean docstring edits (H-11 and the repository-wide consistency decision; outside the 194)
 
 **Manu:4** · row - (-) · mechanical · edits D262.
-
 Reason: Module heading: the substratum conditions are finiteness of the configuration space and A2–A6; owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
 
 Old:
@@ -3339,7 +3176,6 @@ New:
 ```
 
 **Manu:8** · row - (-) · mechanical · edits D263.
-
 Reason: Replaces D259's pinned-commit form (superseded by owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly). Docstring only; identifiers keep their names (rename proposals in PREREG §22).
 
 Old:
@@ -3357,7 +3193,6 @@ of the reconstruction theorem) and A2–A6 of `[Substratum §3.1]`: bijectivity 
 ```
 
 **Manu:17** · row - (-) · mechanical · edits D264.
-
 Reason: owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
 
 Old:
@@ -3373,7 +3208,6 @@ Each of these conditions is a condition on a substratum
 ```
 
 **Manu:21** · row - (-) · mechanical · edits D265, D266, D267.
-
 Reason: owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
 
 Old (part 1):
@@ -3415,7 +3249,6 @@ at the substratum level finiteness and A2 are
 ```
 
 **Manu:68** · row - (-) · mechanical · edits D268, D269, D270, D271, D272, D273.
-
 Reason: owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
 
 Old (part 1):
@@ -3493,7 +3326,6 @@ New (part 6):
 ```
 
 **Subs:7** · row - (-) · mechanical · edits D274, D275, D276.
-
 Reason: owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly; the kernel predicate `A1` is named as the finiteness predicate it is. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
 
 Old (part 1):
@@ -3535,7 +3367,6 @@ instance, `waveSubstratum`, and satisfies the finiteness predicate `A1` on a fin
 ```
 
 **Subs:83** · row - (-) · mechanical · edits D277, D278, D279, D280, D281.
-
 Reason: owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly; each docstring states the finiteness condition its declaration carries. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
 
 Old (part 1):
@@ -3599,7 +3430,6 @@ New (part 5):
 ```
 
 **Froz:83** · row - (-) · mechanical · edits D282.
-
 Reason: owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly; the condition is the declaration's own `[Fintype 𝒮.ι] [Fintype 𝒮.V]`. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
 
 Old:
@@ -3615,7 +3445,6 @@ with finitely many sites and a finite alphabet.
 ```
 
 **HexL:106** · row - (-) · mechanical · edits D283.
-
 Reason: owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
 
 Old:
@@ -3631,7 +3460,6 @@ New:
 ```
 
 **Hydr:88** · row - (-) · mechanical · edits D284.
-
 Reason: owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
 
 Old:
@@ -3647,7 +3475,6 @@ New:
 ```
 
 **Rout:108** · row - (-) · mechanical · edits D285.
-
 Reason: owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
 
 Old:
@@ -3663,7 +3490,6 @@ whose substratum conditions are not `DerivedOI`
 ```
 
 **Subs:48** · row - (-) · mechanical · edits D286.
-
 Reason: owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
 
 Old:
@@ -3679,7 +3505,6 @@ derive a quantum architecture from the substratum conditions or from the
 ```
 
 **A6In:43** · row - (-) · mechanical · edits D314, D315.
-
 Reason: R-1/R-2 are a separate PR (#1482, owner decision #1169 c.7058783437); the prose names the kernel predicate as the finiteness predicate `A1`, accurate with or without the rename, and does not present A1 as an assumption. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
 
 Old (part 1):
@@ -3707,7 +3532,6 @@ state or cubic group action enters, the finiteness predicate `A1` is not weakene
 ```
 
 **A6In:274** · row - (-) · mechanical · edits D316, D317, D318, D319, D320.
-
 Reason: R-1/R-2 are a separate PR (#1482, owner decision #1169 c.7058783437); the prose names the kernel predicate as the finiteness predicate `A1`, accurate with or without the rename, and does not present A1 as an assumption. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
 
 Old (part 1):
@@ -3777,7 +3601,6 @@ the finiteness predicate `A1`.
 ```
 
 **HexL:37** · row - (-) · mechanical · edits D321, D322.
-
 Reason: R-1/R-2 are a separate PR (#1482, owner decision #1169 c.7058783437); the prose names the kernel predicate as the finiteness predicate `A1`, accurate with or without the rename, and does not present A1 as an assumption. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
 
 Old (part 1):
@@ -3805,7 +3628,6 @@ New (part 2):
 ```
 
 **Wave:21** · row - (-) · mechanical · edits D323, D324.
-
 Reason: R-1/R-2 are a separate PR (#1482, owner decision #1169 c.7058783437); the prose names the kernel predicate as the finiteness predicate `A1`, accurate with or without the rename, and does not present A1 as an assumption. Docstring only; identifiers keep their names (rename proposals in PREREG §22).
 
 Old (part 1):
@@ -3835,7 +3657,6 @@ Control: for `d ≥ 1` and a nontrivial alphabet, the finiteness predicate `A1` 
 ### 6.5 Other active repository files (repository-wide consistency decision; outside the 194)
 
 **READ:917** · row - (-) · mechanical · edits D287.
-
 Reason: owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly (mutable landing page, §A.27).
 
 Old:
@@ -3851,7 +3672,6 @@ whose substratum conditions are not `DerivedOI`;
 ```
 
 **READ:923** · row - (-) · mechanical · edits D288, D289, D290, D291.
-
 Reason: owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly (mutable landing page, §A.27); kernel identifiers keep their names.
 
 Old (part 1):
@@ -3909,7 +3729,6 @@ these conditions in the manuscript sense
 ```
 
 **lean:485** · row - (-) · mechanical · edits D292.
-
 Reason: Registry note quotes GR:261, which D044 rewrites; §A.25 step 5, §A.35.
 
 Old:
@@ -3925,7 +3744,6 @@ the controllability resource is not entailed by finiteness or by A2-A6 is consis
 ```
 
 **lean:494** · row - (-) · mechanical · edits D293, D294.
-
 Reason: Registry note of the family "manuscript axioms A1-A6" (family name kept; rename proposal R-C in PREREG §22); owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly.
 
 Old (part 1):
@@ -3953,7 +3771,6 @@ consistent with the manuscripts' statement that the resource is not entailed by 
 ```
 
 **LEDG:330** · row - (-) · mechanical · edits D295.
-
 Reason: Coverage-ledger assumptions field; owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly. The entry's fingerprint is unaffected (it fingerprints manuscript text).
 
 Old:
@@ -3969,7 +3786,6 @@ New:
 ```
 
 **AGEN:38** · row - (-) · mechanical · edits D296.
-
 Reason: Approved by owner decision #1169 c.7058783437 ("correct the obsolete A1 reference. Keep the scientific principle that the substratum uses only assumptions justified by evidence or necessary for stated results, and remove A1 from its list of posits"): only the retired posit leaves the list; nothing else in the rule changes.
 
 Old:
@@ -3987,7 +3803,6 @@ including
 ```
 
 **lean:984** · row - (-) · mechanical · edits D297, D298.
-
 Reason: Registry note: "A1-A6" here means the manuscripts' structural assumptions and their status; owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly.
 
 Old (part 1):
@@ -4015,7 +3830,6 @@ nothing changes the substratum conditions or their status,
 ```
 
 **lean:993** · row - (-) · mechanical · edits D299, D334, D335.
-
 Reason: Registry note; owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly.
 
 Old (part 1):
@@ -4051,11 +3865,10 @@ A RIGOROUS REVERSIBLE FLUID WITNESS IN THE A1-A4, NOT-A5 CLASS
 New (part 2):
 
 ```text
-A RIGOROUS REVERSIBLE FLUID WITNESS IN THE CLASS OF THE FINITENESS PREDICATE `A1` AND A2-A4, NOT A5
+A RIGOROUS REVERSIBLE FLUID WITNESS IN THE CLASS OF A FINITE CONFIGURATION SPACE WITH A2-A4, NOT A5
 ```
 
 **READ:1003** · row - (-) · mechanical · edits D325, D326.
-
 Reason: R-1/R-2 are a separate PR (#1482, owner decision #1169 c.7058783437); the prose names the kernel predicate as the finiteness predicate `A1`, accurate with or without the rename, and does not present A1 as an assumption.
 
 Old (part 1):
@@ -4085,7 +3898,6 @@ satisfies the finiteness predicate `A1` and A2–A5 as stated (`waveSubstratum_A
 ```
 
 **READ:2289** · row - (-) · mechanical · edits D327, D328.
-
 Reason: R-1/R-2 are a separate PR (#1482, owner decision #1169 c.7058783437); the prose names the kernel predicate as the finiteness predicate `A1`, accurate with or without the rename, and does not present A1 as an assumption.
 
 Old (part 1):
@@ -4113,11 +3925,10 @@ New (part 2):
 
 ```text
 reversible fluid witness in the
-class of the finiteness predicate `A1` and A2–A4 without A5,
+class of substrata with a finite configuration space satisfying A2–A4 and not A5,
 ```
 
 **READ:2465** · row - (-) · mechanical · edits D329, D330.
-
 Reason: R-1/R-2 are a separate PR (#1482, owner decision #1169 c.7058783437); the prose names the kernel predicate as the finiteness predicate `A1`, accurate with or without the rename, and does not present A1 as an assumption.
 
 Old (part 1):
@@ -4145,7 +3956,6 @@ proved **not** to be a `Substratum` satisfying the finiteness predicate `A1`, an
 ```
 
 **lean:525** · row - (-) · mechanical · edits D331, D332.
-
 Reason: R-1/R-2 are a separate PR (#1482, owner decision #1169 c.7058783437); the prose names the kernel predicate as the finiteness predicate `A1`, accurate with or without the rename, and does not present A1 as an assumption.
 
 Old (part 1):
@@ -4173,7 +3983,6 @@ an instance satisfying the finiteness predicate `A1` and A2-A5 (Q1)
 ```
 
 **lean:534** · row - (-) · mechanical · edits D333.
-
 Reason: R-1/R-2 are a separate PR (#1482, owner decision #1169 c.7058783437); the prose names the kernel predicate as the finiteness predicate `A1`, accurate with or without the rename, and does not present A1 as an assumption.
 
 Old:
@@ -4189,7 +3998,6 @@ a nontrivial alphabet the finiteness predicate `A1` fails at L = 0
 ```
 
 **lean:1050** · row - (-) · mechanical · edits D336, D337, D338, D339.
-
 Reason: R-1/R-2 are a separate PR (#1482, owner decision #1169 c.7058783437); the prose names the kernel predicate as the finiteness predicate `A1`, accurate with or without the rename, and does not present A1 as an assumption.
 
 Old (part 1):
@@ -4241,7 +4049,6 @@ of the manuscripts or of the lift; the finiteness predicate `A1` is NOT weakened
 ```
 
 **PROG:35** · row - (-) · mechanical · edits D340, D341, D342.
-
 Reason: Live programme charter (review round 5, must-fix 3): reclassified active; owner decision #1169 c.7058374016 (repository-wide consistency): the text describes the current theory directly.
 
 Old (part 1):
@@ -4281,7 +4088,6 @@ The programme should not jump directly from finiteness and A2–A6 to Navier–S
 ```
 
 **READ:58** · row - (-) · mechanical · edits D343.
-
 Reason: Live programme README (review round 5, must-fix 3); the programme's own target labels A1, A2 (lines 17, 56) are unrelated labels and stay.
 
 Old:
@@ -4297,7 +4103,6 @@ from the manuscripts' structural conditions on a substratum.
 ```
 
 **READ:125** · row - (-) · mechanical · edits D344, D345.
-
 Reason: Live research README corrected on main (review round 5, must-fix 3); the finite-only condition is named.
 
 Old (part 1):
@@ -4326,10 +4131,24 @@ New (part 2):
 is one mechanism satisfying the condition. Finiteness of the configuration space is another.
 ```
 
+**PROG:231** · row - (-) · mechanical · edits D356.
+Reason: Owner decision 4 (#1169 c.7059136165): the frozen H-B sentence stays byte-identical, and the live one-line state that carries it states the class by its mathematical condition beside it, so that the class name does not present A1 as a premise (PREREG §25.3).
+
+Old:
+
+```text
+OI-compatibility of the class open (`round-h-b-reversible-fluid-substratum/result.md`).
+```
+
+New:
+
+```text
+OI-compatibility of the class open (`round-h-b-reversible-fluid-substratum/result.md`). That class is the class of substrata with a finite configuration space satisfying A2–A4 as the kernel states them, with A5 failing.
+```
+
 ### 6.6 Guard pins updated with the text they pin (outside the 194)
 
 **edge:1916** · row - (-) · mechanical · edits D300.
-
 Reason: Pins OIBridge/SubstratumSource.lean line 48, which the Lean docstring edit rewrites. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).
 
 Old:
@@ -4345,7 +4164,6 @@ ok6 &= 'does not derive a quantum architecture from the substratum conditions' i
 ```
 
 **bohr:8903** · row - (-) · mechanical · edits D301.
-
 Reason: Pins OIBridge/SubstratumSource.lean line 48. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).
 
 Old:
@@ -4361,7 +4179,6 @@ ok71 &= 'does not derive a quantum architecture from the substratum conditions' 
 ```
 
 **edge:3357** · row - (-) · mechanical · edits D302.
-
 Reason: Pins verification/README.md line 917. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).
 
 Old:
@@ -4377,7 +4194,6 @@ New:
 ```
 
 **edge:3470** · row - (-) · mechanical · edits D303.
-
 Reason: Pins the census note of the family "manuscript axioms A1-A6". Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).
 
 Old:
@@ -4393,7 +4209,6 @@ New:
 ```
 
 **edge:3478** · row - (-) · mechanical · edits D304, D305.
-
 Reason: Pins verification/README.md lines 928 and 951. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).
 
 Old (part 1):
@@ -4421,7 +4236,6 @@ New (part 2):
 ```
 
 **edge:9733** · row - (-) · mechanical · edits D306.
-
 Reason: Pins the glossary entry gloss:13 = FULL:6504, which D220/D221 rewrite. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).
 
 Old:
@@ -4439,7 +4253,6 @@ The structural assumption A6 of the "
 ```
 
 **bohr:8928** · row - (-) · mechanical · edits D307.
-
 Reason: Message of check F71, which states the pinned SubstratumSource.lean sentence. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).
 
 Old:
@@ -4455,7 +4268,6 @@ New:
 ```
 
 **edge:1908** · row - (-) · mechanical · edits D308.
-
 Reason: Comment describing the SubstratumSource.lean pin at line 1916. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).
 
 Old:
@@ -4471,7 +4283,6 @@ New:
 ```
 
 **edge:3369** · row - (-) · mechanical · edits D346.
-
 Reason: Code comment, active material under AGENTS.md §A.48: states the current wording of what the guard checks. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).
 
 Old:
@@ -4489,8 +4300,7 @@ New:
 ```
 
 **edge:9456** · row - (-) · mechanical · edits D347.
-
-Reason: Code comment, active material under AGENTS.md §A.48: states the current wording of what the guard checks. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).
+Reason: Owner decision 5 (#1169 c.7059136165): a guard keeps an A1 string only as a technical pin with a named target, a stated purpose and a passing test against that target; a code comment is documentation, not a pin, so it states the condition by name (PREREG §25.4). Here: the R7-HYB header comment names the class.
 
 Old:
 
@@ -4501,12 +4311,11 @@ Old:
 New:
 
 ```text
-# witness in the class of the finiteness predicate `A1` and A2-A4, not A5,
+# witness in the class of a finite configuration space with A2-A4, not A5,
 ```
 
 **edge:10903** · row - (-) · mechanical · edits D348.
-
-Reason: Code comment, active material under AGENTS.md §A.48: states the current wording of what the guard checks. Guard pin updated in the execution commit with the text it pins (the probe runs in the required Numerical probes check).
+Reason: Owner decision 5 (#1169 c.7059136165): a guard keeps an A1 string only as a technical pin with a named target, a stated purpose and a passing test against that target; a code comment is documentation, not a pin, so it states the condition by name (PREREG §25.4). Here: the R7-A6I header comment lists the readings the guard rejects.
 
 Old:
 
@@ -4517,9 +4326,118 @@ Old:
 New:
 
 ```text
-# gauge-group derivation; the finiteness predicate `A1` weakened so that the complex carrier fits;
+# gauge-group derivation; the finiteness condition weakened so that the complex carrier fits;
 ```
 
+
+**edge:3489** · row - (-) · mechanical · edits D349.
+Reason: Owner decision 5 (#1169 c.7059136165): a guard keeps an A1 string only as a technical pin with a named target, a stated purpose and a passing test against that target; a check message is documentation, not a pin, so it states the condition by name (PREREG §25.4). Here: the R7-MAX message describes the record's realized-core images.
+
+Old:
+
+```text
+'with the preregistration commit named, records the A1 and A2 realized-core images as holding '
+```
+
+New:
+
+```text
+'with the preregistration commit named, records the realized-core images of finiteness and A2 as holding '
+```
+
+**edge:3493** · row - (-) · mechanical · edits D350.
+Reason: Owner decision 5 (#1169 c.7059136165): a guard keeps an A1 string only as a technical pin with a named target, a stated purpose and a passing test against that target; a check message is documentation, not a pin, so it states the condition by name (PREREG §25.4). Here: the R7-MAX message describes the record's non-claim.
+
+Old:
+
+```text
+'refuted, and asserts nothing about the witness against A1–A6 in the manuscript sense or about '
+```
+
+New:
+
+```text
+'refuted, and asserts nothing about the witness against the substratum conditions in the manuscript sense or about '
+```
+
+**edge:3756** · row - (-) · mechanical · edits D351.
+Reason: Owner decision 5 (#1169 c.7059136165): a guard keeps an A1 string only as a technical pin with a named target, a stated purpose and a passing test against that target; a check message is documentation, not a pin, so it states the condition by name (PREREG §25.4). Here: the R7-SUB message lists the kernel predicates the module defines.
+
+Old:
+
+```text
+it defines A1, A2, A3, A3Family, A4Exact, A4 and A5 verbatim as pinned
+```
+
+New:
+
+```text
+it defines the finiteness predicate, A2, A3, A3Family, A4Exact, A4 and A5 verbatim as pinned
+```
+
+**edge:9599** · row - (-) · mechanical · edits D352.
+Reason: Owner decision 5 (#1169 c.7059136165): a guard keeps an A1 string only as a technical pin with a named target, a stated purpose and a passing test against that target; a check message is documentation, not a pin, so it states the condition by name (PREREG §25.4). Here: the R7-HYB message names the class.
+
+Old:
+
+```text
+'witness named in the A1-A4, not-A5 class, the admissibility of that class recorded OPEN -- '
+```
+
+New:
+
+```text
+'witness named in the class of a finite configuration space with A2-A4, not A5, the admissibility of that class recorded OPEN -- '
+```
+
+**edge:10967** · row - (-) · mechanical · edits D353.
+Reason: Owner decision 5 (#1169 c.7059136165): a guard keeps an A1 string only as a technical pin with a named target, a stated purpose and a passing test against that target; a check docstring is documentation, not a pin, so it states the condition by name (PREREG §25.4). Here: the docstring of check I17 describes cx3b_complex_not_A1.
+
+Old:
+
+```text
+the PROVED FAILURE of
+    A1 on the complex carrier."""
+```
+
+New:
+
+```text
+the PROVED FAILURE of
+    finiteness on the complex carrier."""
+```
+
+**edge:11019** · row - (-) · mechanical · edits D354.
+Reason: Owner decision 5 (#1169 c.7059136165): a guard keeps an A1 string only as a technical pin with a named target, a stated purpose and a passing test against that target; a check docstring is documentation, not a pin, so it states the condition by name (PREREG §25.4). Here: the docstring of check I22 describes the ROADMAP section.
+
+Old:
+
+```text
+the carrier staying outside, A1
+    not weakened,
+```
+
+New:
+
+```text
+the carrier staying outside, the finiteness
+    predicate not weakened,
+```
+
+**edge:11266** · row - (-) · mechanical · edits D355.
+Reason: Owner decision 5 (#1169 c.7059136165): a guard keeps an A1 string only as a technical pin with a named target, a stated purpose and a passing test against that target; a check message is documentation, not a pin, so it states the condition by name (PREREG §25.4). Here: the R7-A6I message describes cx3b_complex_not_A1.
+
+Old:
+
+```text
+'A1 at the complex carrier. The four readings are checked never identified.
+```
+
+New:
+
+```text
+'finiteness at the complex carrier. The four readings are checked never identified.
+```
 
 ## 7. Hidden dependencies found
 
@@ -4648,9 +4566,11 @@ before any execution is authorized:
 | `edits_check.py --pins --commit 97070c98` | merged `main` | pins check: 0 unresolved pins (literals of tracked checks that the edits would break); 0 updated pins not found in their targets |
 | `edits_check.py --repo-scan --simulate --final --commit 97070c98` | merged `main` | repository-wide scan: 0 unexplained lines; RESULT PASS |
 | `edits_check.py --static` | — | infinity-assertion scan (new and new_step2): 0 hits; register scan (added text, §A.32/§A.33, history phrases): 0 hits; new capitals (3+ letters): 0; identifier rule (new and new_step2): 0 findings; preservation check (required content in every replacement variant): 0 findings; mirror parity (every chapter edit byte-identical to its FULL mirror): 0 findings; sitemap cross-check: 194 ptr sites in the map, 194 with an edit; 0 findings; RESULT PASS |
-| `edits_check.py --commit 97070c98` | base | uniqueness: 348 edits, 0 fail; variants used {'old': 348}; RESULT PASS |
-| `edits_check.py --commit 97070c98 --simulate` | base | uniqueness: 348 edits, 0 fail; variants used {'old': 348}; simulation: residual pointer lines 5 (5 allowed as listed, 0 unqualified); simulation: criterion-5/paraphrase hits on changed lines without a scope in their sentence: 0; simulation: finite-scope and configuration-space preservation findings: 0; simulation: identifier and count findings: 0; RESULT PASS |
+| `edits_check.py --commit 97070c98` | base | uniqueness: 356 edits, 0 fail; variants used {'old': 356}; RESULT PASS |
+| `edits_check.py --commit 97070c98 --simulate` | base | uniqueness: 356 edits, 0 fail; variants used {'old': 356}; simulation: residual pointer lines 5 (5 allowed as listed, 0 unqualified); simulation: criterion-5/paraphrase hits on changed lines without a scope in their sentence: 0; simulation: finite-scope and configuration-space preservation findings: 0; simulation: identifier and count findings: 0; RESULT PASS |
 | `edits_check.py --tree <projection> --simulate` | projected integration (pre-merge) | (projection retired at reconciliation; see §24) |
+| `guards_check.py --mutants` | simulated post-deletion tree of merged `main` | §25.6: the guards and readers pass; CC-1–CC-4 fail as named; pins P01–P30 each fail under mutation; RESULT PASS |
+| `preserve_check.py --verify-ledger`, `--self-test`, `--tree <simulated tree>` | ledger base `97070c98` | §25.6: RESULT PASS each |
 
 The residual lines at the base are the S2-E Q3 sites (Comp, Meth, ch14, ch18 and their FULL mirrors), which
 S2-E's branch rewrites, and the one identifier finding at the base is the "A1–A6" range in Methodology (an
@@ -4691,7 +4611,10 @@ At the execution head, all of the following, with outputs recorded in the execut
     generated artifacts, unrelated labels, guard pins, kernel identifiers kept by an owner decision), and no
     line pending an owner decision.
 12. Pins: `edits_check.py --pins --commit <execution head's parent>` reports 0 unresolved pins and 0 updated pins
-    missing from their targets; the R7 guard and `bohr_frequency_probe.py` pass in CI at the execution head.
+    missing from their targets; `guards_check.py --mutants` passes on the simulated tree; the R7 guard and
+    `bohr_frequency_probe.py` pass in CI at the execution head.
+13. Preservation: `preserve_check.py --commit <execution head>` (with `--base <main>` if `main` has moved) reports 0
+    findings, and the safeguards of §25.2 are met.
 
 ## 12. Owner questions
 
@@ -4716,7 +4639,7 @@ Answered (#1169 comment 7058783437):
 7. **Book mirrors.** Included: ch01 (D310–D311) and ch02 (D114–D115, the owner's sentence in place of D114's
    own wording), with FULL mirrors; ch01's Lemma 3 takes the finite scope (D312–D313).
 
-No owner question is open. The frozen H-B sentence (§24) stays with the governed change of #1482.
+One owner question is open (§25.7 item 4). The frozen H-B sentence stays unchanged (§25.3).
 
 ## 13. Off-`main` references (§A.42 item 8)
 
@@ -4728,6 +4651,8 @@ No owner question is open. The frozen H-B sentence (§24) stays with the governe
 | Issue #1478 | The cardinality-neutral OI class, outside this edit | provenance (planning) |
 | Issue #1482 | The Lean identifier renames R-1/R-2, outside this edit | provenance (planning) |
 | #1169 comment 7058783437 | The five decisions and the reconciliation gate | provenance (owner record) |
+| #1169 comment 7059136165 | Decisions 2–5 answered in §25 | provenance (owner record) |
+| #1477 round-5 review record (c.7058814130) | The findings closed in §25.1 | provenance |
 | Issue #1479 | Stage 2 of Theorem 23 on $\mathbb{Z}^d$, deferred | provenance (planning; accountable home of the deferred item) |
 | #1477 round-1 review record | The findings answered in §17 | provenance |
 | Projected integration (scratch) | Uniqueness on the projection | provenance: reproducible from the heads by §14 |
@@ -4738,6 +4663,9 @@ No owner question is open. The frozen H-B sentence (§24) stays with the governe
   manuscript.
 - Base checks: `python3 -I -B verification/audits/foundations/a1exit-deletion-20261121/edits_check.py --self-test`,
   `--static`, `--commit 97070c98 --simulate`.
+- Simulated post-deletion tree: `python3 -I -B .../guards_check.py --mutants` (needs `numpy` and `scipy`; about six
+  minutes). Ledger and preservation: `python3 -I -B .../preserve_check.py --verify-ledger`, `--self-test`,
+  `--tree <dir>` or `--commit <rev>`.
 - Projection: for each `.md` file under `papers/` and `book/` that a Step-2 head changes, merge the head into
   `main`'s file with `git merge-file` (base: the merge base), in the order S2-A, S2-B, S2-C, S2-D, S2-E;
   resolve the three line-level conflicts by taking both units' word edits; write the result with the
@@ -4763,8 +4691,9 @@ are the ledger's.
 
 `--pins` reads the string literals of tracked Python checks only: a pin built at run time (formatted strings,
 regular expressions, text assembled from parts) or a "must not contain" check is not modelled, and the guards
-themselves run only in CI. The R7 guard (`edge_rigidity_probe.py`) and `bohr_frequency_probe.py` are therefore
-run on the execution head in CI (§11), and their pass is a precondition of landing.
+themselves are run by `guards_check.py` on the simulated post-deletion tree (§25), with the bounded checks that
+read an edited file; the checks it does not run (§25.6) run in CI on the exact tree of §25.2, and the guards' pass at
+the execution head is a precondition of landing.
 
 ## 17. Answer to the early review of `36a73526` (round 1, REVISE)
 
@@ -4881,10 +4810,10 @@ Lines matching the scan patterns at current `main` (`97070c98`), as is and after
 | frozen round sentence | verification | 2 | 3 |
 | generated artifact | book | 63 | 63 |
 | generated artifact | papers | 105 | 105 |
-| guard pins | verification | 51 | 40 |
+| guard pins | verification | 51 | 31 |
 | historical record | verification | 4015 | 4015 |
 | historical record label | tools | 1 | 1 |
-| kernel identifier | verification | 12 | 34 |
+| kernel identifier | verification | 12 | 33 |
 | manuscript | book | 103 | 0 |
 | manuscript | papers | 85 | 0 |
 | pending R-1 | verification | 8 | 0 |
@@ -5106,13 +5035,220 @@ every old identifier to its successor and reuses none; it traces and updates eve
 material, the Lean modules, the census registry (§A.35), the guards and the coverage ledger in one change; it leaves
 frozen and preserved records unchanged and records, in a mutable index on `main`, the successor of every old
 identifier they cite; and it is verified by the build, the kernel and every check that reads the identifiers. The
-frozen H-B sentence (below) and the prose that now says "the finiteness predicate `A1`" (D274–D276, D314–D339) are
-updated by that migration.
+prose that now says "the finiteness predicate `A1`" (D274–D276, D314–D339) is updated by that migration; the frozen
+H-B sentence is not (§25.3).
 
 **Frozen sentence of round H-B.** `hydrodynamics/PROGRAMME.md` line 231 and the module docstring of
 `HexLatticeGas.lean` carry the sentence "one candidate executed in the A1–A4, ¬A5 class", which the R7 guard
 pins byte for byte as round H-B's frozen wording (checks Z18 and W21, and the module check), and the registry
 quotes it. "A1–A4" there is the class of the Lean predicates `A1`–`A4`, `A1` being the finiteness predicate.
-Rewriting it would change a frozen round sentence and the guard that pins it; the plan leaves it, classified
-"frozen round sentence", for the governed change of #1482, which renames those predicates.
+Rewriting it would change a frozen round sentence and the guard that pins it; it stays unchanged, classified
+"frozen round sentence", and the active text that relies on it states the class by its condition (§25.3).
 
+
+## 25. Amendment: round-5 closure, safeguards for the destructive change, the frozen H-B sentence and the guard pins
+
+**Owner decision** (owner `amaybaum`, 2026-11-21, recorded at
+[#1169 comment 7059136165](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7059136165),
+2026-11-21T07:15:31Z, "Owner decision record: A1-EXIT handoff follow-up, six decisions"), decisions 2–5 quoted in
+part:
+
+> 2. **Round-5 closure on #1477.** Before acceptance, #1477 carries a closure table with one row for each of the six
+>    round-5 findings (c.7058814130). Each row gives the edit IDs, the test and the verification result. The `--pins`
+>    check must run against the simulated post-deletion tree, not only against the edit plan.
+> 3. **Safeguards for the destructive change, before execution.** The deletion plan states whether it runs as a native
+>    round under §A.39. [...] If it does not, it names the equivalent safeguards it adopts and why that is permitted.
+>    At minimum these are: a frozen exact-edit ledger; a preservation checker implemented independently of the
+>    deletion; mutation tests showing that both missing changes and unauthorized changes are detected; CI on the exact
+>    proposed post-deletion tree before the merge.
+> 4. **The frozen H-B sentence is preserved.** The sentence "A1–A4, ¬A5 class" stays unchanged as historical evidence.
+>    Every active index, summary or claim that relies on it states the actual mathematical condition, without
+>    presenting A1 as a current premise. #1482 may address related identifier clarity, but it does not change this
+>    sentence.
+> 5. **Guard strings are technical pins, under a narrow exception.** A retained A1 string inside a guard is a technical
+>    pin only if all of these hold: it names its target; it states its purpose; it passes a test against that target.
+>    A string that serves as user-facing documentation does not qualify.
+
+Decision 6 leaves the deletion unauthorized; nothing in this section applies an edit.
+
+**Goal link (§A.47).** A1-EXIT (#1169): this section decides whether the executable plan meets decisions 2–5, which
+gate the owner's decision whether to authorize execution; it does not decide that question.
+
+### 25.1 Round-5 closure table
+
+Results at merged `main` `97070c98`, on the simulated post-deletion tree (the tree of `97070c98` with all 356 edits
+applied, written outside the repository by `guards_check.py`).
+
+| # | Round-5 finding (#1477 c.7058814130) | Edits | Test | Result |
+|---|---|---|---|---|
+| 1 | `--pins` does not show that the guards pass after execution; three mismatch injections passed | guard pins D300–D306 and their target edits (each record's `targets`: D220–D221 for D306, D287 for D302); guard comments and messages D307, D308, D346–D355 | (a) `edits_check.py --pins`: every literal a guard-pin edit introduces must occur in the simulated text of each named target; the reviewer's three injections are self-test countercontrols. (b) `guards_check.py`: the R7 guard (`edge_rigidity_probe.py`) and `bohr_frequency_probe.py` run on the simulated post-deletion tree, with four countercontrols: CC-1 D302 omitted, CC-2 D302's literal removed from its target `verification/README.md`, CC-3 the glossary edit D220/D221 omitted while D306 is applied, CC-4 D301 omitted | (a) 0 unresolved pins, 0 updated pins missing from their targets; the three injections fail. (b) R7 guard and `bohr_frequency_probe.py` pass on the simulated tree; CC-1 fails `R7-RB1`, CC-2 fails `R7-RB1`, CC-3 fails `R7-A6P`, CC-4 fails `F71`. Closed |
+| 2 | M:60 measure remark: "the uniform probability, with the uniform conditional law on 𝒞_H" needs a finite 𝒞_H | D309 | `--static` preservation (D309 keeps "of a finite representative (Lemma 2) it is the uniform probability"); the simulated Main.md read at the remark | 0 preservation findings; the simulated remark reads "On the selected bijective carrier $\mathcal{C}_V \times \mathcal{C}_H$ of a finite representative (Lemma 2) it is the uniform probability, with the uniform conditional law on $\mathcal{C}_H$ in each visible fibre". Closed |
+| 3 | Live programme charters classed as historical (`hydrodynamics/PROGRAMME.md` 35, 37, 57; `native-y-continuation-20261024/README.md` 58; `continuous-substates/README.md` 125, 131) | D340–D345 | `classify()` treats `PROGRAMME.md` and `README.md` under `verification/programmes/` as active (self-test countercontrol "a live programme charter is active"); `--repo-scan --simulate --final`; the six lines read in the simulated tree | 0 unexplained lines; none of the six lines carries A1 after the edits. Closed |
+| 4 | Backticked prose about the predicate (README 2476; `A6Instantiation.lean` 43, 74, 499, 509, 564; `HexLatticeGas.lean` 37) classed as a kernel identifier, so `--final` did not cover it | D274–D276, D314–D339 | the identifier form accepts only full declaration names and "the finiteness predicate `A1`" (self-test countercontrols "backticked prose `A1` is not an identifier form", "the finiteness predicate `A1` is an identifier form"); `--repo-scan --simulate --final`; the seven lines read in the simulated tree | 0 unexplained, 0 pending; each of the seven lines names "the finiteness predicate `A1`" (the kernel name is #1482's). Closed |
+| 5 | Book mirrors: the owner's configuration-space sentence in the ch01 Definition and in ch02 in place of D114's own sentence | D310–D311 (ch01, FULL), D114–D115 (ch02, FULL), D312–D313 (ch01 Lemma 3) | `--simulate` preservation: the sentence exactly once in Main, Substratum, ch01 and ch02 and twice in FULL; ch01's Lemma 3 scope; `--static` mirror parity; `mirror_check.py` on the simulated tree | 0 preservation and 0 mirror-parity findings; `mirror_check`: 0 chapter lines absent from FULL. Closed |
+| 6 | Nits: D259 placement and run-in; D276 scope; one wording for D263 and D288; `SyntaxWarning` from `--pins` | D259, D276, D263, D288 | the simulated Main.md read at D259; the D276, D263, D288 strings compared; `--pins` standard error | D259 stands after the "This definition formalizes …" paragraph as `**Configuration space.**`; D276 reads "satisfies the finiteness predicate `A1` on a finite torus and A2–A5 as stated"; D263 and D288 both read "finiteness of the configuration space (the scope of the reconstruction theorem) and A2–A6"; 0 `SyntaxWarning` lines. Closed |
+
+Round 5's must-fix 5 (§9 at the merged head) is §24.2, re-run in §25.6. No round-5 finding is open.
+
+### 25.2 The deletion and AGENTS.md §A.39
+
+**Decision.** The deletion does not run as a native V3 round. It adopts the safeguards of §A.39's rule for
+destructive transformations, which decision 3 names as its minimum, as frozen preconditions of execution.
+
+**Why this is permitted.** Decision 3 allows either route provided the equivalent safeguards are named. A native
+round's protocol record (one `v3-round` control plane, owner-designated `F` and `E` with exact-head `check-run`
+attestations, a receipt `Q` that `tools/v3_verifier.py --verify-round` must hold) certifies the chronology of a
+governed computation. The deletion is a text change: 356 literal splices of manuscript, README, registry, coverage,
+AGENTS.md, Lean-comment and guard-literal text, with no computational verdict, no kernel statement changed (every Lean
+file is code-identical outside comments). No edited file is listed in `verification/infrastructure/legacy-records.json`, lies in one of its closed namespaces or in a receipt's record directory; the programme files it edits are live charters, active material under §A.48. What §A.39 protects
+against in a destructive change (a deletion the plan did not authorize, a retained statement silently removed, a
+generated tree never exercised) is covered component by component below. The owner decides whether this
+substitution is accepted (decision 6).
+
+**Retirement, stated separately (§A.39).** *Authority*: A1 is retired as an assumption (#1169 c.7057297534), and no
+active text presents it as one. *Reachability*: after the edits no manuscript, README, AGENTS.md line, Lean docstring,
+guard comment or guard message names A1 as a premise (`--repo-scan --simulate --final`: 0 unexplained). *Physical
+presence*: the identifier survives in frozen and historical records, in the Lean names `Substratum.A1` and its
+theorems (renamed only by the migration of #1482), in prose naming that predicate, in the registry family name kept
+by owner decision, and in the guard pins of §25.4.
+
+| Safeguard | Component | State |
+|---|---|---|
+| Frozen exact-edit ledger | `ledger.json`: 356 splices in 40 files at `97070c98`; each splice records its file, the byte span of the old text at the base, the SHA-256 of the old text, the new text, its SHA-256 and the reason; the SHA-256 of `edits.json` it was built from. Ledger SHA-256 `4cd369bd62da16e9924ce99eebdf2f9dd8c9e7c88983313c96857e5e914257da`. `preserve_check.py --verify-ledger` re-derives it from `edits.json` and the base and compares | exists; frozen at the commit the owner designates when authorizing execution. A later `edits.json` change, or a base at which a ledgered file differs, needs a new ledger, a new digest and a new acceptance |
+| No deletion without a ledger entry | every deletion is a splice with its literal old text and reason; nothing is inferred | exists |
+| Preservation checker independent of the transformation | `preserve_check.py` imports nothing from `edits_check.py`, `guards_check.py` or any applying script; it reads the base from the object store, rebuilds every ledgered file from the base and the ledger alone, and compares every tracked file byte for byte: a ledgered file must equal the rebuilt one, any other file the base, except the derived TeX/PDF paths (regenerated by `build.sh`), re-affirmed coverage fingerprints and new files under this record directory. Structural checks: a Python file changes only in string constants and comments (AST with strings blanked), a Lean file only inside comments, a JSON file only in string values. `--base REV` compares against a later `main`, and is refused unless every ledgered file is byte-identical there | exists |
+| Agreement of two implementations | the tree built by `edits_check.py`'s in-memory application (`guards_check.py`) passes `preserve_check.py --tree`; the unedited base fails it, with one finding in each of the 40 ledgered files | checked (§25.6) |
+| Mutation tests, missing changes | `preserve_check.py --self-test`: MT-missing-D224, MT-missing-D121, MT-missing-D302, MT-missing-D262 (each one ledgered change not made, so retired text restored) and MT-altered-D229 each fail, naming the splice | exists, PASS |
+| Mutation tests, unauthorized changes | MT-extra-in-ledgered-file (a word outside every splice of Main.md), MT-extra-in-untouched-file (`tools/release_gate.py`), MT-guard-code (an operator of the R7 guard), MT-lean-code (a Lean definition), MT-added-file, MT-deleted-file, MT-record-edited (a record file present at the base), MT-coverage-beyond-fingerprints, and two ledger tamperings (old-text hash, span) each fail; a new execution record, a derived path and a re-affirmed fingerprint pass | exists, PASS |
+| Mutation tests at the guard level | `guards_check.py` CC-1–CC-4 (§25.1 row 1) and the 30 pin mutants P01–P30 (§25.4) | exists, PASS |
+| CI on the exact proposed post-deletion tree, before the merge | a disposable branch whose head is a single-parent child of the ledger base carrying exactly the predicted execution tree less its result note: the base, the 356 splices, the TeX/PDF regenerated by `sh ./build.sh` on the canonical toolchain and the re-affirmed coverage fingerprints. `preserve_check.py --commit <head>` must pass on it; `verify.yml` is dispatched on that exact head (`workflow_dispatch`; a pull-request run tests a synthetic merge) and every job, the Lean kernel and Mathlib builds and the release gate included, must be green | specified, not run: pushing that branch and dispatching need owner approval (§A.43 item 4). Required pre-execution item |
+| Landing | the execution commit equals the CI-tested tree plus its result note; before merge `preserve_check.py --commit <execution head>` passes, and, if `main` has moved, `--base <current main>` passes or the ledger is re-cut; after merge the landing diff against its first parent is exactly the execution's own diff | specified; required at execution |
+| Evidence (§A.42) | the exact-head CI run, the outputs of `preserve_check.py`, `guards_check.py` and `edits_check.py` at the tested head, recorded as expected results in this record directory | required at execution |
+| Independent review of the executed diff | §0 boundary ("an independent review of the resulting changes") | required at execution |
+
+### 25.3 The frozen H-B sentence
+
+The sentence "H-B: one candidate executed in the A1–A4, ¬A5 class; OI-compatibility of the class open
+(`round-h-b-reversible-fluid-substratum/result.md`)." at `verification/programmes/hydrodynamics/PROGRAMME.md:231`,
+and its source wording "**a rigorous reversible fluid witness in the A1–A4, ¬A5 class**" in the module docstring of
+`OIBridge/HexLatticeGas.lean` (line 94), stay byte-identical. No edit of this plan touches either string (the R7
+guard's checks Z17, Z18 and W21 confirm it on the simulated tree, §25.4 P22–P24, P30), and #1482 does not change them.
+In that class name "A1" is the kernel predicate `Substratum.A1`, `Finite 𝒮.Conf`; the class is that of substrata with
+a finite configuration space satisfying A2–A4 as the kernel states them, with A5 failing.
+
+Active material that relies on the sentence, with its wording after the edits:
+
+| Site | Kind | After the edits |
+|---|---|---|
+| `verification/programmes/hydrodynamics/PROGRAMME.md:231` (§8, the live one-line state) | live charter; carries the frozen sentence | the sentence unchanged, followed by D356: "That class is the class of substrata with a finite configuration space satisfying A2–A4 as the kernel states them, with A5 failing." (Z18 and W21 pass with it) |
+| `verification/lean-mathlib/OIBridge/HexLatticeGas.lean:91–96` ("The post-round status") | Lean module docstring; carries the source wording | unchanged: the same paragraph states the condition, "The candidate is finite, deterministic, reversible, translation-covariant and of bounded degree, inside the kernel's `Substratum` interface", and "the class obtained by dropping A5's amplitude-scale gauge principle" |
+| `verification/README.md:2312–2313` (round H-B paragraph) | README summary | D328: "the execution establishes a reversible fluid witness in the class of substrata with a finite configuration space satisfying A2–A4 and not A5, and whether that class is admissible as OI physics is recorded as open" |
+| `verification/lean-manuscript-census.json:993` (family "hydrodynamics round H-B") | registry note | D335: "A RIGOROUS REVERSIBLE FLUID WITNESS IN THE CLASS OF A FINITE CONFIGURATION SPACE WITH A2-A4, NOT A5"; the note's quotation "PROGRAMME.md section 8 reads 'H-B: one candidate executed in the A1-A4, not-A5 class; …'" stays, as the quotation of the frozen sentence |
+| `verification/lean/edge_rigidity_probe.py:9456` (R7-HYB header comment) | guard comment | D347: "witness in the class of a finite configuration space with A2-A4, not A5" |
+| `verification/lean/edge_rigidity_probe.py:9599` (R7-HYB message) | guard message | D352: "witness named in the class of a finite configuration space with A2-A4, not A5" |
+| `verification/lean/edge_rigidity_probe.py:9523, 9536, 9590, 11348` | guard pins of the frozen wording | kept as technical pins P22, P23, P24, P30 (§25.4) |
+
+Six active sites rely on the sentence; four are reworded (D328, D335, D347, D352), one gains a gloss beside it (D356)
+and one already states the condition; the four guard literals are pins. The frozen records that also carry it
+(`verification/ROADMAP.md:1329, 1339`, the round records under `verification/programmes/hydrodynamics/round-h-*/`,
+`verification/infrastructure/round-v3-1[34]-retirement/`) are not edited. §24.4's hand-off of this sentence to #1482
+is replaced by this subsection.
+
+### 25.4 Guard A1 strings
+
+After the edits the two guards keep 30 string literals that contain A1, all in the R7 guard; `bohr_frequency_probe.py`
+keeps none. Comments, docstrings and messages that named A1 in prose are rewritten (D307, D308, D346–D355), so none of
+them keeps A1 as documentation. `guards_check.py` checks that the inventory is complete (every A1 string of both
+simulated guards is a listed pin or one of the two listed declaration names; no comment keeps one) and, with
+`--mutants`, tests each pin against its target: the guard passes on the simulated tree, and fails when a positive
+pin's literal is removed from its target or a negative pin's literal is inserted into it.
+
+| Pin | Guard line | Literal | Target | Polarity | Purpose | Mutation fails |
+|---|---|---|---|---|---|---|
+| P01 | 3346 | `A1–A6 are not` \`DerivedOI\` | `programmes/substratum/route-b-audit.md` | + | the Route B record's outcome wording | R7-RB1 |
+| P02 | 3410 | `**(A1) Finiteness.** The configuration space $S$ is finite.` | `programmes/substratum/manuscript-axiom-audit.md` | + | the audit record quotes the six axioms verbatim | R7-MAX |
+| P03 | 3414 | `\| A1 finiteness \| **yes**` | the same record | + | the preregistered verdict row | R7-MAX |
+| P04 | 3419 | `Status: pass complete, … No manuscript-level A1–A6 conjunct …` | the same record | + | the record's status line | R7-MAX |
+| P05 | 3421 | `A1 and A2 are realized-core images, …` | the same record | + | the scope repair recorded at review | R7-MAX |
+| P06 | 3425 | `\| A1 finiteness \| realized-core image holds …` | the same record | + | the outcome row | R7-MAX |
+| P07 | 3453 | `A1 and A2 hold for the witness` | `OIBridge/ManuscriptAxioms.lean` | − | a superseded reading is absent from the module | R7-MAX |
+| P08 | 3453 | `A1 AND A2 HOLD FOR THE WITNESS` | `OIBridge/ManuscriptAxioms.lean` | − | the same reading, capitalized | R7-MAX |
+| P09 | 3456 | `A1–A6 hold for the witness` | `manuscript-axiom-audit.md` | − | an overclaim is not asserted in the record | R7-MAX |
+| P10 | 3457 | `satisfies A1–A6` | `manuscript-axiom-audit.md` | − | an overclaim is not asserted | R7-MAX |
+| P11 | 3461 | `A1 and A2 hold for the witness` | `manuscript-axiom-audit.md` | − | a superseded reading is not asserted | R7-MAX |
+| P12 | 3468 | `manuscript axioms A1-A6` | `verification/lean-manuscript-census.json` | + | the registry family name kept by owner decision (#1169 c.7058783437) | the guard aborts (exit 1): the family lookup is empty |
+| P13 | 3475 | `\| manuscript axioms A1–A6 \| 1 \| kernel-only \|` | `audits/manuscript/lean-manuscript-census.md` | + | the census record's row for the family | R7-MAX |
+| P14 | 3475 | `realized-core images of A1 and A2` | the same census record | + | the census record's wording | R7-MAX |
+| P15 | 3641 | `def A1 : Prop := Finite 𝒮.Conf` | `OIBridge/SubstratumInterfaceAudit.lean` | + | the kernel definition, verbatim (renamed only by #1482) | R7-SUB |
+| P16 | 3703 | `Status: pass complete. Q1: A1, A2 and A5 are stated on the structure` | `programmes/substratum/interface-audit.md` | + | the interface-audit record's status line | R7-SUB |
+| P17 | 3711 | `satisfies A1–A6` | `interface-audit.md` | − | an overclaim is not asserted | R7-SUB |
+| P18 | 3711 | `satisfies the manuscripts' A1–A6` | `interface-audit.md` | − | an overclaim is not asserted | R7-SUB |
+| P19 | 3736 | `A1–A6 as predicates of it` | `verification/README.md` | − | a superseded reading is absent from the README | R7-SUB |
+| P20 | 6267 | `A1` (a `def` of that name) | `OIBridge/FrozenSourcing.lean` | − | the module defines no predicate named A1 | R7-FSS |
+| P21 | 6432 | `A1` (a `def` of that name) | `OIBridge/StochasticInterface.lean` | − | the module defines no predicate named A1 | R7-SOI |
+| P22 | 9523 | `**a rigorous reversible fluid witness in the A1–A4, ¬A5 class**` | `OIBridge/HexLatticeGas.lean` | + | Z17: the module keeps the frozen H-B wording | R7-HYB |
+| P23 | 9536 | the frozen H-B sentence with its citation | `programmes/hydrodynamics/PROGRAMME.md` | + | Z18: §8 carries exactly the frozen sentence | R7-HYB, R7-HYE |
+| P24 | 9590 | the frozen H-B sentence without its citation | the same | + | mutation control m25 is built from it | R7-HYB, R7-HYE |
+| P25 | 9748 | the whole ROADMAP row P1 — A6 (it names `A1`–`A5`, `A1` and the A1–A6 package) | `verification/ROADMAP.md` | + | R7-A6P: the row byte-identical in the frozen ROADMAP | R7-A6D, R7-A6P |
+| P26 | 10672 | the same row | `verification/ROADMAP.md` | + | R7-A6D A18: the same row | R7-A6D, R7-A6P |
+| P27 | 10980 | `¬ (linkSubstratum … ).A1` | `OIBridge/A6Instantiation.lean` | + | I17: the kernel statement of `cx3b_complex_not_A1` | R7-A6I |
+| P28 | 11031 | `` `A1` is not weakened to make it fit `` | `verification/ROADMAP.md` | + | I22: the instantiation round's ROADMAP section | R7-A6I |
+| P29 | 11050 | `` `A1` is not weakened `` | `verification/README.md` | + | I23: the README paragraph, which reads "the finiteness predicate `A1` is not weakened" | R7-A6I |
+| P30 | 11348 | the frozen H-B sentence with its citation | `programmes/hydrodynamics/PROGRAMME.md` | + | W21: H-B's sentence byte-identical beside H-E's | R7-HYB, R7-HYE |
+
+Every pin names its target, states its purpose and passes its test against that target. Each targets a frozen record,
+a kernel definition or statement, the frozen ROADMAP, the registry family name or a phrase that must stay absent; none
+is user-facing documentation.
+
+Two messages keep Lean declaration names that contain A1: R7-MAX (line 3485, `A1Realized`, `A2Realized`,
+`A1A2Realized`) and R7-A6I (line 11265, `cx3b_complex_not_A1`). They are names of kernel declarations, which the
+census resolves and #1482 may rename; the prose around them names no A1 premise. They are not pins. Whether a
+declaration name in a check message falls under decision 5 is an owner question (§25.7).
+
+### 25.5 Edits added or revised in this amendment
+
+| Edit | Site | Change |
+|---|---|---|
+| D328 | README:2313 | revised: the class by its condition (§25.3) |
+| D335 | census:993 | revised: the class by its condition (§25.3) |
+| D347, D348 | R7 guard 9456, 10903 | revised: comments state the condition by name, without A1 |
+| D349, D350 | R7-MAX message (3489, 3493) | new: "the realized-core images of finiteness and A2"; "against the substratum conditions" |
+| D351 | R7-SUB message (3756) | new: "it defines the finiteness predicate, A2, A3, …" |
+| D352 | R7-HYB message (9599) | new: §25.3 |
+| D353, D354 | R7 docstrings of I17 and I22 (10968, 11019) | new: "finiteness on the complex carrier"; "the finiteness predicate not weakened" |
+| D355 | R7-A6I message (11266) | new: "finiteness at the complex carrier" |
+| D356 | PROGRAMME.md:231 | new: the class stated beside the frozen sentence |
+| D261 | Sub:42 | anchor narrowed to "**Storage and memory.**" (unique at the base); the spliced text is unchanged |
+
+All are mechanical. Edit records: 356 (ptr 240, consistency 21, handoff 5, lean-docstring 36, repo-active 35,
+guard-pin 19).
+
+### 25.6 Checks at `97070c98`
+
+| Command | Result |
+|---|---|
+| `edits_check.py --self-test` | PASS (91 countercontrols) |
+| `edits_check.py --static` | infinity 0, register 0, capitals 0, identifier 0, preservation 0, mirror parity 0, Lean docstring-only 0, sitemap 194/194; PASS |
+| `edits_check.py --commit 97070c98 --simulate` | uniqueness 356/356; residual 5 (all allowed), unscoped 0, preservation 0, identifier 0; PASS |
+| `edits_check.py --pins --commit 97070c98` | 0 unresolved, 0 updated pins missing from their targets; PASS |
+| `edits_check.py --repo-scan --simulate --final --commit 97070c98` | 0 unexplained; PASS |
+| `guards_check.py --mutants` | on the simulated tree: R7 guard, `bohr_frequency_probe.py`, `repertoire_lie`, `wave_period`, `gap_correspondence`, `stinespring_scope`, `canonical_measure`, `structural_chain`, `structural_core`, `cubic_isotropy` probes, `tools/lean_manuscript_census.py`, `mirror_check.py`, `citation_check.py`, `tools/dependency_label_check.py --strict` all pass; CC-1–CC-4 fail as named; inventory complete (30 pins, 2 declaration names, 0 unlisted); P01–P30 each fail under mutation; PASS |
+| `preserve_check.py --verify-ledger` | ledger re-derived identically; PASS |
+| `preserve_check.py --self-test` | positive control and every named mutant as stated in §25.2; PASS |
+| `preserve_check.py --tree <simulated tree>` | 0 findings; PASS. On the unedited base: FAIL, one finding in each of the 40 ledgered files |
+
+Checks that read the edited files and are not run here, because they need the Lean toolchain, repository history, a
+fresh build or many minutes, run in CI on the exact tree of §25.2: the Lean kernel and Mathlib builds, the release
+gate (`coverage` fails until the changed fingerprints are re-affirmed, H-6; `staleness` until the TeX/PDF are
+rebuilt), `staggered_relations_probe.py`, `kinf2_foundations_probe.py` and the round controls under
+`verification/programmes/` that read an edited file.
+
+### 25.7 Required before execution, and open owner question
+
+1. Owner approval to push the disposable branch of §25.2 and dispatch `verify.yml` on its exact head; the run green.
+2. The derived artifacts (TeX/PDF) built on the canonical toolchain and the coverage fingerprints re-affirmed (H-6),
+   both on that branch.
+3. Independent acceptance of this reconciled plan, including decisions 2 and 3, and the owner's decision whether to
+   authorize execution (decision 6).
+4. **Owner question.** Whether the two Lean declaration names in check messages (§25.4) may stay until #1482, or are
+   to be rewritten in the deletion.
