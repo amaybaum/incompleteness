@@ -179,9 +179,14 @@ and no Lean module defines $\mathcal G_{\rm sub}$ (no identifier for it under
   Hilbert space $\mathcal K_A$ given without configurations, the clause is correct only when read as
   "in no orthonormal basis". Read relative to a given basis, it misclassifies
   $W=\operatorname{diag}(1,-1)$, which is the swap in the Hadamard basis.
-- Verdict: **gem** under §3. It is stronger than the obvious restatement and constrains D364's
-  wording. Classification: **NEW**, small. The corpus treats "permutation unitary" as given with a
-  basis, while for the added factor the basis is unobservable. Pressure test: the favorable reading
+- Verdict: ELABORATING. The criterion is standard linear algebra, and its bearing on D364 is a
+  wording disambiguation: read without a fixed basis ("in no configuration basis"), D364 is correct,
+  and $\operatorname{diag}(1,-1)$ is a member ($HZH=X$). Only a fixed-basis reading misclassifies
+  it, so D364 understates nothing in substance. C3 applies the criterion to named matrices; it does
+  not independently witness the converse direction (see the C3b control, §14). The conjugation
+  $1_{VH}\otimes V$ fixes the configuration basis of $V\times H$, $\omega_H$, the visible
+  preparations and the readouts, so it preserves the fixed interface of Substratum:249; it does not
+  preserve data that access $A$, which Theorem 24 already excludes (Substratum:266). Pressure test: the favorable reading
   widens membership, so it was checked against D-mem. The rebased datum is a pair
   $(S\times A,\varphi\times\psi)$ with bijective dynamics, and the isomorphism $1\otimes V$ acts on
   the traced factor alone. The finite-dimensional criterion is exact algebra. For an
@@ -223,9 +228,9 @@ there routes only through #1477 or after it lands.
 
 | # | Site | Ledger | Finding | Class |
 |---|---|---|---|---|
-| F1 | Methodology:353 | none | "*State relabeling* — conjugating the bijection by a permutation of the hidden states applied uniformly in every visible fibre, which preserves every channel". The uniform (or $\sigma$-invariant) hidden prior is omitted. Under $\omega_H=\operatorname{diag}(2/3,1/3)$ the swap changes channels and populations (K3; the R6 pass's K4 countermodel, `a1exit-r6-20261120/RESULT.md:49`, is the diffuse-carrier analogue) | overstatement: omitted hypothesis |
-| F2 | ch02:140 = FULL:770 | none | The statement of (i) gives no prior. "produces the same emergent physics" is stronger than the fixed-interface coherent data of Substratum:249/253. "The transition probabilities depend on … not on which labels are attached to which hidden states" fails under a non-uniform prior (K3). The prior appears only in the proof (ch02:148) | overstatement: omitted hypothesis, unscoped "emergent physics" |
-| F3 | ch02:134 = FULL:764; Structure:154 | Str:154 D369 | "uniform hidden-coordinate relabelling … preserve[s] the coherent family" with no prior. "uniform" here means fibre-uniform (the next sentence contrasts fibre-dependent relabelling), so the prior is unstated | omitted hypothesis, milder (summary of a scoped theorem) |
+| F1 | Methodology:353 | none | "*State relabeling* — conjugating the bijection by a permutation of the hidden states applied uniformly in every visible fibre, which preserves every channel". The uniform (or $\sigma$-invariant) hidden prior is omitted. Under $\omega_H=\operatorname{diag}(2/3,1/3)$ the swap changes channels and populations (K3; the R6 pass's K4 countermodel, `a1exit-r6-20261120/RESULT.md:49`, is the diffuse-carrier analogue) | mathematical scope issue: omitted hypothesis |
+| F2 | ch02:140 = FULL:770 | none | The statement of (i) gives no prior. "produces the same emergent physics" is stronger than the fixed-interface coherent data of Substratum:249/253. "The transition probabilities depend on … not on which labels are attached to which hidden states" fails under a non-uniform prior (K3). The prior appears only in the proof (ch02:148) | mathematical scope issue: omitted hypothesis, unscoped "emergent physics" |
+| F3 | ch02:134 = FULL:764; Structure:154 | Str:154 D369 | "uniform hidden-coordinate relabelling … preserve[s] the coherent family" with no prior. "uniform" here means fibre-uniform (the next sentence contrasts fibre-dependent relabelling), so the prior is unstated | mathematical scope issue, lowest priority: the hypothesis is supplied by reference ("the particular data stated in Substratum Theorem 24"; "[Substratum §4, Theorem 24] states") |
 | F4 | Substratum:300 | none | $\mathcal G_{\rm sub}$ "is a symmetry of the *equivalence class of substrata*, defined by the condition that all observables are preserved". Theorem 24's own scope (Substratum:249, and the proof's "It preserves the fixed observed data, not measurements that access $A$", :266) is the specified fixed-interface data | definitional overstatement relative to §4's own definition |
 | F5 | ch02:148 = FULL:778 | none | The proof of (iii) uses $\sigma_A$ and $W$, which the book's statement (ch02:144, and D370's text) never introduces | cosmetic notation |
 | F6 | Structure:683 | none | "where the earlier formulation named only the first and third": revision-history voice in paper prose (§A.33). Outside Theorem 24's scope, recorded in passing | editorial |
@@ -260,7 +265,7 @@ FULL:774) carry the class-D cases. After §28 their only residue is N3's wording
   Lean definitions; no kernel theorem states it.
 - Verdict: cosmetic. Optional precision for D364: "for any density matrix $\sigma_A$ on $\mathcal K_A$ and any unitary or isometry $W$".
 
-**N4: cosmetic where a uniform prior is named; substantive where no prior is named.**
+**N4: cosmetic where a uniform prior is named; a mathematical scope issue where no prior is named.**
 - *Where a uniform prior is named* (ch02:172 = FULL:802, ch03:80 = FULL:941, ch03:136 = FULL:997):
   a uniform probability on $\mathcal C_H$ exists only for finite $\mathcal C_H$. A countably
   infinite set has none, and an uncountable one needs a reference measure. So "uniform hidden prior"
@@ -273,30 +278,45 @@ FULL:774) carry the class-D cases. After §28 their only residue is N3's wording
   measurable-carrier form. The uniform prior is the framework's baseline (Main:268). The minimal
   correction names it.
 
-## 10. Proposed corrections (record only; routing is an owner decision)
+## 10. Proposed corrections (proposal only; routing is an owner decision)
 
-None is applied. Lines under the #1477 ledger (Structure:154, and D364's text) can change only
-through #1477 or after it lands.
+None is applied, and no manuscript is edited. Per the owner's routing (#1169 c.7064066427), the
+corrections fall into two groups. Each narrows, scopes or disambiguates a statement; none
+strengthens one (§A.22). Bands unchanged: consistency work only (§A.23).
+
+### 10.1 Under #1477's frozen ledger: for #1477's final scientific review
+
+These lines carry #1477 edits and can change only through #1477 (any amendment to the frozen plan
+needs a separate decision and renewed verification of the affected controls) or after it lands.
+
+- **P3b (F3, Structure:154; D369).** "fibre-independent hidden relabelling under the uniform hidden
+  prior". Lowest priority (F3). Also settles N4 there.
+- **P4b (F4 mirror, ch02:136 = FULL:766; D128/D129).** "… defined by the condition that the
+  specified fixed-interface observation data are preserved".
+- **P5 (N3 node, D364).** Optional disambiguation: either "…not members of
+  $\mathcal{G}_{\text{sub}}$ unless a unitary on the factor carries $W$ to the permutation unitary of
+  a bijection", or keep D364 and read "bijection of configurations" basis-free. Optionally add "for
+  any density matrix $\sigma_A$ on $\mathcal K_A$" (N3).
+- **P6 (F5, with D370/D371).** Introduce $\sigma_A$ and $W$ in the book's statement of (iii) when
+  ch02:144 = FULL:774's D370/D371 text lands; the proof line ch02:148 = FULL:778 is itself
+  off-ledger.
+
+### 10.2 Outside the ledger: each a minimal, separately reviewed correction
 
 - **P1 (F1, Methodology:353).** "… applied uniformly in every visible fibre, which preserves every
-  channel under the uniform hidden prior (a fibre-dependent …".
+  channel under the uniform hidden prior (a fibre-dependent …". Priority: high (owner item 4).
 - **P2 (F2, ch02:140 = FULL:770).** "For a finite hidden configuration set $\mathcal{C}_H$ with the
   uniform hidden prior and any bijection $\sigma$ …, the substratum $(S, \pi \circ \varphi \circ
   \pi^{-1})$ has the same coherent visible channels as $(S, \varphi)$ at the fixed interface. Under
-  that prior the transition probabilities depend on …". Mirror both files (§A.14).
-- **P3 (F3, ch02:134 = FULL:764; Structure:154 after #1477).** "uniform hidden-coordinate
-  relabelling with the uniform hidden prior". This also settles N4 at these sites.
-- **P4 (F4, Substratum:300).** "defined by the condition that the specified fixed-interface
+  that prior the transition probabilities depend on …". Mirror both files (§A.14). Priority: high.
+- **P3a (F3, ch02:134 = FULL:764).** "fibre-independent hidden relabelling under the uniform hidden
+  prior". Lowest priority.
+- **P4a (F4, Substratum:300).** "defined by the condition that the specified fixed-interface
   observation data are preserved (§4)".
-- **P5 (N3 node, D364; for #1477's final scientific review).** Either "…not members of
-  $\mathcal{G}_{\text{sub}}$ unless a unitary on the factor carries $W$ to the permutation unitary of
-  a bijection", or leave D364 as is and read "bijection of configurations" basis-free. Add "for any
-  density matrix $\sigma_A$ on $\mathcal K_A$" (N3, optional).
-- **P6 (F5).** Introduce $\sigma_A$ and $W$ in the book's statement of (iii) when ch02:144's D370
-  text lands.
-
-Each correction narrows or scopes a statement; none strengthens one (§A.22). Bands unchanged:
-consistency work only (§A.23).
+- **P4c (F4 mirrors, Substratum:276 and Structure:606).** Substratum:276: "*every* transformation
+  preserving the specified fixed-interface data of §4"; Structure:606: "characterized by
+  transformations preserving this pair at the fixed interface of [Substratum §4]". P4a–P4c and P4b
+  are one §A.25 propagation unit split across the two groups.
 
 ## 11. Assumption-watch markers (cross-propagation, §A.31)
 
@@ -309,10 +329,47 @@ consistency work only (§A.23).
 
 ## 12. Fixed point
 
-Passes over the branches: N2 (CONFIRMING), N3 (NEW), N4 (POSITIVE), the N5 site sweep (F1–F4 new
+Passes over the branches: N2 (CONFIRMING), N3 (ELABORATING, after review), N4 (POSITIVE), the N5 site sweep (F1–F4 new
 site findings, ELABORATING the R6 pass's relabelling scope to the summaries), N6 (CONFIRMING for N3,
 ELABORATING for N4). A further pass over the Lean census families mentioning ancillas and
 relabelling (`OperationalSourcing`, `DiagonalTheory.preservesDiag_relabel`,
-`DilationChoice.readback_relabel`) found no $\mathcal G_{\rm sub}$ statement: the first is diagonal preservation of a relabelled correlation extension, the second the name-independence of a dilation readback. The §A.31 fixed point
-of 3–4 passes without a NEW finding is not claimed: one pass after the NEW finding came back empty.
-Independent review is pending.
+`DilationChoice.readback_relabel`) found no $\mathcal G_{\rm sub}$ statement: the first is diagonal preservation of a relabelled correlation extension, the second the name-independence of a dilation readback. No pass has produced a NEW finding;
+the §A.31 fixed point of 3–4 consecutive passes is not formally claimed.
+
+## 13. Classes of the findings (owner criterion 6)
+
+*Admitted* means the class OI's substratum axioms admit: A2-bijective dynamics, with a finite
+$\mathcal C_H$ and the uniform prior for (i). *Larger* means a mathematically valid larger class:
+unitary or isometric $W$, measurable $w$, a non-uniform prior. A result for the larger class does
+not extend the theory to it.
+
+| Finding | Class |
+|---|---|
+| N2 channel identity (C2c) | larger |
+| N2 non-membership of the counterexample | admitted (A2 clause) |
+| N3 unitaries | larger; the cycle-type subset is admitted only up to a factor basis; non-unitary isometries need infinite dimension and are never admitted |
+| N4 | larger → admitted, through the eventual-image restriction |
+| F1–F3 | admitted dynamics with a larger prior class, which the corpus uses elsewhere (Main:280, §3.4; Main:540) |
+| F4 | interface scope |
+| N3 normalization (Q3) | larger (any isometry; the scaling $\Phi'_t=\operatorname{Tr}\sigma_A\,\Phi_t$) |
+| Lean `padData_rooted` | larger: arbitrary finite unitary pad, populations only, no membership claim |
+
+## 14. Revision after review, and the C3b control (preregistered here)
+
+The independent review at `0dd84647` (#1486 c.7064081266, verdict REVISE, mathematics holds)
+required six revisions, applied in this commit: the prose definitions in §2 and N1; the C1 count
+(14 unitaries); N3 graded ELABORATING; the commit order in §6 and C3 marked as not exhaustive; P4
+propagated to ch02:136, Substratum:276 and Structure:606; P3's wording. §§10 and 13 add the
+owner's routing split and the class labels.
+
+**C3b (rebased-datum control), preregistered before its code exists.** For $W=Z=\operatorname{diag}(1,-1)$
+and $H'=\begin{psmallmatrix}1&1\\1&-1\end{psmallmatrix}$ ($H'^2=2$, so $H=H'/\sqrt2$): (a)
+$H'ZH'=2X$ exactly; (b) for every $\varphi$, $t\le4$, matrix unit $\rho_V$ and the three $\sigma_A$
+of C1, the full (unreduced) evolved states satisfy
+$(1\otimes H')\,G_Z^t(\rho_V\otimes\omega_H\otimes\sigma_A)G_Z^{\dagger t}\,(1\otimes H')
+=G_X^t(\rho_V\otimes\omega_H\otimes H'\sigma_AH')G_X^{\dagger t}$, with $G_W=U\otimes W$, and
+$H'\sigma_AH'/2$ is a density matrix (trace 1, Hermitian); (c) the same for $R_3CR_3^{\mathsf T}$
+rebased by $R_3$ to the 3-cycle $C$. Countercontrol: (b) fails when $X$ is replaced by the identity
+on the factor, for at least one case. Decision rule as §5: the claim holds iff every case passes
+and the countercontrol fails as stated.
+
