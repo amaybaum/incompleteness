@@ -1,11 +1,12 @@
 # FIN-SCOPE: adversarial test designs
 
-**Status.** Writer's test plan, revision 7, WIP / UNVERIFIED, for `SPEC.md` revision 7. These are
+**Status.** Writer's test plan, revision 8, WIP / UNVERIFIED, for `SPEC.md` revision 8. These are
 designs: no case has been run. Every "expected" entry is the verdict the rule as written in SPEC §3 must
 produce, fixed before any implementation exists, and the "why" column derives it from the counts.
 Revision 2 answered review c.7064941939, revision 3 the delta review
 c.7065126686, revision 4 c.7065227255, revision 5 c.7065296420, revision 6 c.7065333755,
-and revision 7 answers c.7065410306.
+revision 7 c.7065410306, and revision 8 answers
+c.7065459234.
 
 **Conventions.**
 - Every case is synthetic text in a fixture file and never an edit of the manuscript. Where a case is
@@ -267,6 +268,19 @@ These cases use fixtures in the corpus's real shapes. The canonical definition i
 | P-H14 | the P-H11 fixture | a new paragraph `**C2 (Memory).** …` added to a new paper, with `canonical.json` unchanged | An unparenthesised copy of a mapped name, not in the map (V26) | gate failure | configuration | FAIL until the same PR adds it to the map as a copy, with its kind and a review record |
 | P-H15 | a Medicine-like list `- **C1:** The kinase domain is coupled …` | the list item edited | The list-item form is a node form, so the item is an application copy, and its edit makes the group and its citers members | ∅ hits | membership (group) | FAIL with no record |
 
+### 2.2b The occurrence register (c.7065459234)
+
+Under revision 8, every occurrence of a mapped name is classified in `occurrences.json` by a recorded
+review. P-H11–P-H15 hold with their copies classified as copies.
+
+| ID | Before | Change | Why | Items | Route | Verdict |
+|---|---|---|---|---|---|---|
+| P-H16 | a ch18-form plain list item `- C1 (coupling): the subsystem must interact non-trivially …`, classified as a copy (restatement), with its FULL mirror; a block in a GR-like file citing `(C1)` | the chapter's list item edited | The edited item is a copy of (C1), as the register records, so the group and every citer in any file are members. Its digest changed, so its classification is voided and must be renewed. The FULL mirror now differs, which raises M | {M} | membership (group), screen (M) | FAIL with no records; PASS once the item is reclassified, the mirror is updated or answered, and the members have records |
+| P-H17 | a ch01-form opening paragraph `C1 requires non-trivial coupling between visible and hidden …`, classified as a copy (restatement) | its text edited | The same as P-H16: the register, not the form, makes it a node. The group and its citers are members, and it needs reclassification | ∅ hits | membership (group) | FAIL with no records |
+| P-H18 | the P-H16 fixture | a new paragraph `C1 requires that the subsystem be finite …` added to a new paper, with no `occurrences.json` entry | An unclassified occurrence of a mapped name | gate failure (V26) | configuration | FAIL until it is classified by a recorded review. As a copy, its group and citers are then members |
+| P-H19 | a paragraph citing `(C2)`, classified as a citation | its text edited so that it now restates (C2) | Its digest changed, which voids the classification, so it blocks until it is reclassified. The reviewer reclassifies it as a copy, and it then joins the group | gate failure until reclassified | configuration | FAIL until reclassified |
+| N33 | GR:629-form `(C1$'$) *Emergent action scale.* …`, classified as unrelated with its reason | unchanged | It is classified, and nothing depends on it | ∅ | none | PASS |
+
 ### 2.3 Regression tests for the owner's blocking items (O7, c.7065358283)
 
 Each blocking item has adversarial regression tests. Independent confirmation of each is a separate
@@ -274,7 +288,7 @@ review step.
 
 | Blocking item | Regression tests |
 |---|---|
-| Corpus-wide named-condition dependencies, papers and book | P-H11 (an unparenthesised copy), P-H12 (a table row), P-H13 (a glossary copy with its FULL mirror), P-H14 (map drift, unparenthesised), P-H15 (a list item), P-H4 (a cross-file citer), P-H6 (a range), P-H7 (an inline node and an alias), P-H8 (a copy edit reaching every citer), P-H9, P-H10 (map drift), P-H5 (ambiguity outside the map) |
+| Corpus-wide named-condition dependencies, papers and book | P-H16 (a plain list-item copy), P-H17 (an opening-paragraph copy), P-H18 (an unclassified new occurrence: the gate fails), P-H19 (a voided classification), P-H11 (an unparenthesised copy), P-H12 (a table row), P-H13 (a glossary copy with its FULL mirror), P-H14 (map drift, unparenthesised), P-H15 (a list item), P-H4 (a cross-file citer), P-H6 (a range), P-H7 (an inline node and an alias), P-H8 (a copy edit reaching every citer), P-H9, P-H10 (map drift), P-H5 (ambiguity outside the map) |
 | Deleted theorems keep their scope obligations | P-L4b (a deleted scoped block), P-L4c (a deleted block with no scope wording at all), P-O1 (a deletion inside a batched PR) |
 | Individual review of transformations affecting finiteness, infinite-system assumptions, carriers or scope | P-R9 (a carrier rename), P-R10 (deleting `finite`), P-O2 (a mathematically equivalent rewrite), P-O5 (a substitution into a carrier) |
 | No reduction silently excludes a theorem | P-O3 (r4), P-O1 (r1), P-O4 (r2), P-R11 (r3) |
@@ -320,7 +334,7 @@ The tool's expected verdict is recorded, and the safeguard named.
 | membership and closure (§1.1) | P-S1, P-D2, P-D3, P-H1, P-H2 | N30, the non-member cases in the conventions | P-S1, P-D2, P-H1, P-H2 |
 | block extent with a proof (C2) | P-C2, P-C3 | N29 | P-C2, P-C3 |
 | batched records (r1), (r3) | P-R9, P-R10, P-R11 | N31 | P-R9 |
-| corpus-wide names and the canonical map | P-H4–P-H15 | N32 | P-H4, P-H6, P-H8, P-H11, P-H13 |
+| corpus-wide names, the canonical map and the occurrence register | P-H4–P-H19 | N32, N33 | P-H4, P-H6, P-H8, P-H11, P-H13, P-H16–P-H19 |
 | reductions under O7 | P-O1–P-O5, P-R9–P-R11 | N31 | P-O3, P-O4 |
 | deleted blocks | P-L4b, P-L4c | — | P-L4c |
 | advisory backstop | P-G11, row 42 | N25 | N22, N25 (G5 made blocking) |

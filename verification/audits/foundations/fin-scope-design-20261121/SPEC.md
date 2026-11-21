@@ -1,6 +1,6 @@
 # FIN-SCOPE: design specification
 
-**Status.** Writer's design, revision 7, WIP / UNVERIFIED. This is a plan only. No checker exists and
+**Status.** Writer's design, revision 8, WIP / UNVERIFIED. This is a plan only. No checker exists and
 nothing has been run, so no verdict below is a measurement. The corpus inventory in §2.3 is a read-only
 `grep` count. Independent non-author review is required before any implementation is proposed.
 Implementation, the governance change and any merge each need a separate owner decision. Revision 2
@@ -12,8 +12,10 @@ O7 is costed. Revision 5 answers c.7065296420: named conditions resolve corpus-w
 blocks are members, the cost is reconciled, and reductions (r1) and (r3) are limited. Revision 6
 answered c.7065333755 with a frozen canonical-definition map (§2.5). Revision 7 answers c.7065410306:
 copies are recognized whatever their form, every book file that `FULL.md` mirrors is a surface, the
-worked groups are re-derived in full, and every deleted block is a member. The map from findings to
-sections is in §14.
+worked groups are re-derived in full, and every deleted block is a member. Revision 8 answers
+c.7065459234: copy recognition no longer enumerates forms. Every occurrence of a mapped name is
+classified by a recorded review, and an unclassified occurrence fails the gate. The map from findings
+to sections is in §14.
 
 **Authority.**
 - #1169 c.7061660930, item 1, owner decision of 2026-11-21:
@@ -264,16 +266,9 @@ a standing scope. Each is a node of the dependency graph, with key `(file, name)
 normalized text. The node forms are:
 - a paragraph that opens by defining a parenthesised label, `(F): …`, `(H2) …`, `**(C1)** …`, or a named
   condition such as `(EM)` or `H-χ`;
-- for a name in the canonical map (below), **any** form that opens a definition of it, with or without
-  parentheses or bold:
-  - `**(C1) Title.**`, `**(C1)**`, `(C1) **Title.**`;
-  - `**C1 (Title).**`, `**C1:**`, `**C1: title.**`;
-  - a list item opening with `**C1**`, `**C1:**` or `**(C1)**`;
-  - a table row whose first cell is the name, with or without parentheses or bold (`| C1 | Coupling | …`);
-  - a run-in bold label containing the name inside a paragraph (`**Effective-mixing hypothesis (EM).**`).
-
-  Recognition is keyed to the name, not to a typographic form. Whitelisted names and every mapped name
-  are matched this way;
+- for a name in the canonical map (below), any paragraph, list item or table row that the occurrence
+  register (below) classifies as its canonical definition or as a copy. No typographic form decides
+  this: the register does;
 - `**Definition …**`, `**Setting …**`, `**Assumption …**` and `**Hypothesis …**` paragraphs;
 - a *standing scope sentence*: a sentence opening with `Throughout this (section|chapter|paper|appendix)`
   or `In this (section|chapter), … (is|are) assumed`. Every block in its scope cites it implicitly, so
@@ -319,9 +314,43 @@ the citing file. A file-local name cited from another file must name the definin
 - A name outside the map that resolves to two non-mirror definitions fails the inventory (V12), and so
   does a citation that resolves to none.
 - A whitelisted name absent from the map fails it.
-- A new paragraph with the node form for a mapped name that the map does not list fails the gate until
-  the same PR adds it to the map as a copy, with its kind. Adding it is a `canonical.json` change under
-  §7, and the new copy is a member.
+- For mapped names, the occurrence register below replaces any form-based recognition.
+
+**The occurrence register: fail-closed classification of every mention (c.7065459234).**
+Enumerating copy forms has failed twice on the real corpus: first unparenthesised and table forms, then
+plain list items (`book/ch18-beyond.md:67–70`) and paragraphs that open "C1 requires …". The design
+therefore stops deciding copies by form.
+- **Occurrences.** An *occurrence* is any paragraph, list item or table row that mentions a mapped
+  name in any position. A mention may be the name with or without parentheses, bold, italics or a list
+  marker; a sub-form; a member of an expanded range or list; or a frozen alias phrase.
+  - The mention matcher deliberately over-matches: a word-bounded `C1`–`C4` anywhere counts, primed
+    variants such as `C1$'$` included. Over-matching costs one classification. Under-matching would cost
+    an unreviewed dependency.
+- **Classification.** Every occurrence has an entry in `occurrences.json`, keyed by file, the
+  occurrence's digest and the name. Its class is one of:
+  - **canonical**, exactly one per name;
+  - **copy**, with its kind (restatement, application or mirror). It joins the name's node group;
+  - **citation**, a dependency edge to the group;
+  - **unrelated**, with a reason: for example GR:629–633, whose `(C1$'$)`–`(C3$'$)` are a different
+    condition set.
+- **Who classifies.** Each classification is a review record: a recorded human or reviewer decision with
+  an attestation under O6. A form-based suggestion from the screen may pre-fill a proposed class, but it
+  never classifies.
+- **Fail closed.**
+  - An occurrence with no classification fails the gate (V26).
+  - A new occurrence blocks the gate until it is classified.
+  - A changed occurrence voids its classification, because the digest changed, and it blocks until it
+    is reclassified.
+  - A classification of a deleted occurrence is retired in the same PR.
+  - A reclassification from copy or citation to unrelated is itself reviewed, since it removes a node or
+    an edge.
+- **What follows from a class.**
+  - A copy is a node of the group, so its change makes the group and every citer members (R-e, R-b).
+  - A citation makes its block, or its paragraph if it is not in a block, a citer.
+  - An unrelated occurrence carries no dependency.
+- **Limit.** The matcher is lexical, so a paraphrase that never names the condition ("the coupling
+  condition"), and is not a frozen alias, is not an occurrence (§9). Adding an alias is a map change
+  under §7.
 
 **Citation forms recognized.**
 - the parenthesised name, `(C1)`, and its sub-forms, `(C2-structural)`;
@@ -333,79 +362,48 @@ the citing file. A file-local name cited from another file must name the definin
   `$C^1$` is not a citation;
 - inline forms such as "conditional on (EM)" and "under (EM)", and the map's alias phrases.
 
-**Worked examples: the full copy groups.** These come from a read-only, form-independent `grep` of
-`papers/*.md` and `book/*.md` on `main` at `df6da1c6` (the manuscripts are unchanged since). It searched
-for every form listed above, and for the alias phrases. Line numbers are for orientation only: the map
-anchors by label text and digest. Each group is one node group, and every citer of any member cites the
-whole group. "app" marks an application copy, "rest" a restatement and "mir" a mirror.
+**Worked examples: the groups re-derived (c.7065459234).** These come from a read-only `grep` of
+`papers/*.md` and `book/*.md` on `main` at `df6da1c6`, which the manuscripts are unchanged since. It
+lists every paragraph, list item or table row whose first token, after any marker, bold, italics or
+parenthesis, is `C1`–`C4`, `H-BD` or `(EM)`, and every bold run-in containing one. Line numbers are for
+orientation only.
 
-**`(C1)`, a group of 14 nodes.** The canonical definition is `papers/Main.md:72`, `**(C1) Non-zero
-coupling.**`. Its copies:
+The classes below are the **writer's proposed classification**. Enrollment review fixes the actual
+classes. Rows marked *pending* are prose openers, which could be restatements or discussion. Mirrors
+are listed as pairs, `chapter/FULL`.
 
-| Site | Form | Kind |
+| Name | Canonical | Copies (proposed) | Pending openers |
+|---|---|---|---|
+| `(C1)` | Main:72 | GR:46; Structure:112; Complexity:364; Medicine:27, :150; ch01:251/FULL:584; ch07:24/1889; ch09:112/2527; ch11:152/3115; ch12:42/3228; ch13:50/3471; ch15:59/3936; ch16:196/4341; ch18:67/4798; glossary:25/6516 | ch01:203/FULL:536 ("C1 requires …"); Methodology:162 ("C1 is …") |
+| `(C2)` | Main:74 | GR:48; Structure:114; Complexity:366; Medicine:29, :151; ch01:252/585; ch07:26/1891; ch09:114/2529; ch11:154/3117; ch12:44/3230; ch13:52/3473; ch15:61/3938; ch16:198/4343; ch18:68/4799; glossary:27/6518 | ch01:215/548; Methodology:162; SM:1380 ("C2 is *not* established …"); ch15:203/FULL:4080 (`*C2 test.*`) |
+| `(C3)` | Main:76 | GR:50; Structure:116; Complexity:368; Medicine:31, :152; ch01:253/586; ch07:28/1893; ch09:116/2531; ch11:156/3119; ch12:46/3232; ch13:54/3475; ch15:63/3940; ch16:210/4355; ch18:69/4800; glossary:29/6520 | ch01:229/562; Methodology:162; SM:1382 ("C3: …") |
+| `(C4)` | Main:78 | GR:52; Structure:118; Complexity:370; Medicine:33; ch11:158/3121; ch12:48/3234; ch15:65/3942; ch18:70/4801; glossary:31/6522 | Methodology:162; ch17:168/FULL:4660 ("C4 gives …") |
+| `H-BD` | GR:122 | appendix-b:177/FULL:5854 | none |
+| `(EM)` | Main:756 (inline run-in) | none | none |
+
+**Group sizes, counting the canonical definition and every copy, with mirrors as two nodes.**
+
+| Name | Proposed copies only | If every pending opener is a copy |
 |---|---|---|
-| `papers/GR.md:46` | `**(C1)**` | app |
-| `papers/Structure.md:112` | `(C1) **Coupling.**` | rest |
-| `papers/Complexity.md:364` | `**C1 (coupling).**` | app |
-| `papers/Medicine.md:27` | `**C1 (Coupling).**` | rest |
-| `papers/Medicine.md:150` | list item `- **C1:**` | app |
-| `book/ch01-observation.md:251` | table row `\| C1 \| Coupling \|` | rest |
-| `FULL.md:584` | the same row | mir of ch01:251 |
-| `book/ch07-gravity.md:24` | `**C1 (coupling).**` | app |
-| `FULL.md:1889` | the same | mir of ch07:24 |
-| `book/ch13-quantum-biology.md:50` | `**C1: catalytic-conformational coupling.**` | app |
-| `FULL.md:3471` | the same | mir of ch13:50 |
-| `book/glossary.md:25` | `**C1 (Coupling).**` | rest |
-| `FULL.md:6516` | the same | mir of glossary:25 |
+| `(C1)` | 26 | 29 |
+| `(C2)` | 26 | 32 |
+| `(C3)` | 26 | 30 |
+| `(C4)` | 15 | 18 |
+| `H-BD` | 3 | 3 |
+| `(EM)` | 1 | 1 |
 
-**`(C2)`, a group of 14 nodes.** The canonical definition is `papers/Main.md:74`, `**(C2) Memory
-persistence.**`, with the sub-forms `C2-structural` and `C2-slow` defined there. Its copies are at the
-corresponding sites:
+**Other name-opening candidates**, proposed as citations or as unrelated:
+- range or summary openers, proposed as citations: ch09:84/FULL:2499 ("C1–C4 specify …"), ch18:286/FULL:5017,
+  Medicine:88 ("C1–C4 do not …"), and Main:180 (`**Role of (C2)–(C4).**`);
+- `(C1$'$)`–`(C3$'$)` at GR:629–633, proposed as unrelated.
 
-| Site | Form | Kind |
-|---|---|---|
-| `papers/GR.md:48` | `**(C2)**` | app |
-| `papers/Structure.md:114` | `(C2) **Record persistence.**` | rest |
-| `papers/Complexity.md:366` | `**C2 (memory persistence).**` | app |
-| `papers/Medicine.md:29` | `**C2 (Memory persistence).**` | rest |
-| `papers/Medicine.md:151` | list item `- **C2:**` | app |
-| `book/ch01-observation.md:252` | table row `\| C2 \| Timescale separation \|` | rest |
-| `FULL.md:585` | the same row | mir |
-| `book/ch07-gravity.md:26` | `**C2 (memory persistence).**` | app |
-| `FULL.md:1891` | the same | mir |
-| `book/ch13-quantum-biology.md:52` | `**C2: conformational timescale separation.**` | app |
-| `FULL.md:3473` | the same | mir |
-| `book/glossary.md:27` | `**C2 (Memory persistence).**` | rest |
-| `FULL.md:6518` | the same | mir |
+**The enrollment workload.** Lines mentioning any of the six names in any position number about 811,
+counted approximately with an over-matching `grep`. That is the one-time classification workload.
+Afterwards a PR classifies only its new or changed occurrences.
 
-**`(C3)` (14 nodes) and `(C4)` (9 nodes).** These have the same shape.
-- `(C3)`: canonical `papers/Main.md:76`. Copies at GR:50, Structure:116, Complexity:368, Medicine:31,
-  Medicine:152, ch01:253 with FULL:586, ch07:28 with FULL:1893, ch13:54 with FULL:3475, and glossary:29
-  with FULL:6520.
-- `(C4)`: canonical `papers/Main.md:78`. Copies at GR:52, Structure:118, Complexity:370, Medicine:33,
-  ch12:48 with FULL:3234, and glossary:31 with FULL:6522. The ch01 table and ch13 have no C4 row.
-
-**`H-BD`, a group of 3 nodes.** The canonical definition is `papers/GR.md:122`, `**H-BD** (deep-sector
-influence bound; posited).`. Its copies are `book/appendix-b-derivations.md:177` (rest) and
-`FULL.md:5854` (mir of appendix-b:177). The form-independent search found no other copy.
-
-**`(EM)`, a group of 1 node.** The canonical definition is `papers/Main.md:756`, the run-in
-`**Effective-mixing hypothesis (EM).**` and the italic statement it governs, inside `**Setup.**`. The
-form-independent search found no copy. The alias "effective-mixing hypothesis" occurs at Main:758 and
-:770 as a citation.
-
-**Citing files.** These are any citation form, from the same reads:
-- `(C1)`: 11 files;
-- `(C2)`: 10;
-- `H-BD`: 9;
-- `(EM)`: 4;
-- the range `C1–C4`: 29–30 files, by two counts.
-
-Each of the six names resolves to exactly one group. The groups are larger than the earlier listing
-because most copies are unparenthesised or are table rows. The ch01 table's C1–C3 rows name the
-conditions differently from the canonical texts ("Timescale separation" for C2, "Capacity hierarchy"
-for C3). Whether each copy agrees with its canonical definition is the enrollment review's question, and
-this record does not answer it.
+The reviewer's lower bound of 16/16/16/11 (c.7065459234) is contained in these figures. The further
+copies found here are the italic run-in forms with their FULL mirrors: 10 for each of C1–C3 (ch09, ch11,
+ch12, ch15 and ch16) and 4 for C4 (ch11 and ch15). No form list would have been complete, which is why the register decides.
 
 **Maintenance when a definition moves.**
 - A moved node whose digest is unchanged pairs with its old site by digest, as blocks do (§2.4). It is
@@ -576,7 +574,9 @@ hypotheses therefore pass, whichever cardinality they state.
 
 ### 3.4 Mirrors (rule M)
 
-`FULL.md` is segmented at its top-level headings. Segment `# Chapter N` is paired with
+`FULL.md` is segmented at its top-level headings. A `# Chapter N` or `# Appendix X` heading followed
+directly by a separate `# <title>` heading (for example lines 334–335) opens one segment, not two. A
+top-level heading with no file, such as `# Copyright`, is reported. Segment `# Chapter N` is paired with
 `book/chNN-*.md`, `# Appendix X` with `book/appendix-x-*.md`, and `# Introduction`, `# Preface`,
 `# Reader's Guide`, `# Acknowledgments`, `# Glossary` and `# Bibliography` with `ch00-introduction.md`,
 `preface.md`, `readers-guide.md`, `acknowledgments.md`, `glossary.md` and `bibliography.md`. The pairing table
@@ -821,6 +821,9 @@ Each run checks four configuration controls:
   | the (r1) map limit off | P-R9 |
   | a change to a copy reaching only that copy's own citers | P-H8 |
   | copy recognition limited to the parenthesised form | P-H11, P-H12, P-H15 |
+  | copies decided by form instead of by the register | P-H16, P-H17 |
+  | unclassified occurrences ignored | P-H18 |
+  | classification not voided by a change | P-H19 |
   | the glossary not a surface | P-H13 |
   | deleted-block membership filtered by `FS_L + IS > 0` | P-L4c |
   | range citations not expanded | P-H6 |
@@ -886,6 +889,9 @@ Each class is a place where the guarantee holds only through ordinary pull-reque
 - **Symbols and carriers.** A carrier outside the list and undeclared in the local hypotheses, such as a
   lattice configuration set written `$Q^\Lambda$` with no declaration, escapes `FS_A` and the carrier
   quantifier (R5, X-8).
+- **Unnamed references to a mapped condition.** A paragraph that relies on a condition without naming
+  it, by label or by a frozen alias, is not an occurrence, so it is outside the register (§2.5). An
+  example is "the coupling condition". Adding the phrase as an alias brings it in.
 - **Wording.** A finite use worded without a listed term escapes rule A, for example "each
   configuration is visited before any repeats" (X-2).
 - **Wrong object.** A positive predication about one declared carrier satisfies `FS_A` while the finite
@@ -954,7 +960,7 @@ For the Code Review Rules, under *Claim/evidence boundary*:
 | V23 | every deleted block is a member, unconditionally, with its scope obligations carried into its record | P-L4b, P-L4c, P-O1; the deleted-member mutant |
 | V24 | a reduced (r3) record answers items 1, 2 and 4 | P-R11 (if r3 is adopted) |
 | V25 | every mapped name resolves to exactly one node group, and a change to any node of a group, in any form, reaches every citer of the group | P-H4, P-H6–P-H8, P-H11–P-H13, P-H15; the group-closure and form mutants |
-| V26 | the map stays in step with the corpus: an unlisted copy in any form (parenthesised, unparenthesised, list item, table row, run-in), or an unresolved anchor, fails | P-H9, P-H14, P-H10 |
+| V26 | every occurrence of a mapped name has a current recorded classification; an unclassified, new or changed occurrence, or an unresolved anchor, fails | P-H9, P-H10, P-H14, P-H18, P-H19 |
 | V27 | no reduction silently excludes a theorem: the union of covered keys equals the review set | P-O1, P-O3; the coverage mutant |
 | V28 | a mathematically equivalent but not mechanically identical change is never batched | P-O2, P-O5 |
 | V29 | (r2) needs identical text, hypothesis digests and resolved targets | P-O4 |
@@ -1184,3 +1190,12 @@ a FIN-SCOPE pass is not evidence for either class.
 | Full copy groups | §2.5 worked groups: (C1) 14, (C2) 14, (C3) 14, (C4) 9, H-BD 3, (EM) 1, with file:line |
 | Deleted theorems | §1.1 (R-a): every deleted block is a member, with its scope obligations carried; V23 |
 | TESTS | P-H11–P-H15, P-L4c |
+
+**Delta review c.7065459234.**
+
+| Finding | Where addressed |
+|---|---|
+| Plain list items and prose openers | §2.5 occurrence register: every mention classified (canonical, copy, citation, unrelated) by a recorded review; unclassified, new or changed occurrences fail (V26) |
+| Groups re-derived | §2.5: proposed groups (C1) 26–29, (C2) 26–32, (C3) 26–30, (C4) 15–18, H-BD 3, (EM) 1, including ch18:67–70/FULL:4798–4801 |
+| FULL segmentation | §3.4 |
+| TESTS | P-H16–P-H19, N33 |
