@@ -220,3 +220,79 @@ satisfies (NR).
 After the rebuild, Main has 108 pages (median 3322 characters per page) and the book has 489 pages
 (median 2991). `coverage_check` reports OK with no fingerprint change. The grep count is unchanged
 at 64.
+
+## 10. Catch-up merge for landing
+
+**Merge.** The catch-up is `cbdfa82a5`, made with `git merge origin/main` (no rebase). Its parents are
+`5c6cdfea7` and `main` `f1c8c6b18`, which includes #1470 (S2-A) and #1476.
+
+**Conflicts.** There were conflicts only in generated artifacts: FULL `.tex`/`.pdf` and Substratum
+`.tex`/`.pdf`. They were resolved by rebuilding from the merged sources. Every manuscript `.md`
+auto-merged.
+
+**Union check.** A script compared each changed source file with the base `1c7eedc40` plus both sides'
+change sets, applied by line difference. In all six files (Main, Substratum, Structure, ch02,
+appendix-b and FULL) the merged text equals that union, and no S2-B change overlaps an S2-A change.
+
+| File | S2-B hunks | S2-A hunks |
+|---|---|---|
+| Main | 11 | 0 |
+| Substratum | 6 | 2 |
+| Structure | 1 | 0 |
+| ch02 | 1 | 2 |
+| appendix-b | 2 | 0 |
+| FULL | 3 | 7 |
+
+**Rebuilds.** All builds report OK with no dropped glyphs.
+
+| Artifact | Pages | Median characters per page |
+|---|---|---|
+| Main | 108 | — |
+| Substratum | 54 | 3215 |
+| Structure | 94 | — |
+| book | 489 | 2986 |
+
+The Main and Structure `.tex` files regenerated unchanged, and their rebuilt `.pdf` files differed only
+in bytes, so the committed ones were kept. `coverage_check` reported OK and no fingerprint moved.
+
+**Amendment A3 (CPTP register fix).** At the merge, the SC-42 checker's added-text scan reported three
+caps hits, `('papers/Main.md', 'caps', 'CPTP')`, all in E2's corollary. Its verdict was FAIL, and
+`--self-test` exited 1. Following the coordinator's approval:
+
+- `amendments/A3-cptp-register.md` was pushed at `8e18157ed`.
+- The three replacements were applied at `3e859bce2`: "completely positive and trace preserving" twice
+  (M:336 (b) and M:338), and "completely positive trace-preserving map" once (M:336 (c)). The wording
+  changed and the meaning did not.
+- Main was rebuilt (108 pages), and `coverage_check` still reports OK.
+- The checker was left untouched.
+
+**SC-42.** The result file was regenerated under the owner's authorization (#1169 comment
+7057674976). From the repository root, with
+`R=verification/audits/manuscript/bell-operational-reconciliation-20261029`:
+
+    python3 -I -B $R/check_sc42_integration.py --verbose > $R/sc42-integration-result.json
+
+| Check | Result |
+|---|---|
+| exit status, normal and `-O` | 0 and 0; verdict PASS; the two stdout outputs are byte-identical |
+| `ok: false` entries | none |
+| `--self-test`, normal and `-O` | exit 0; output byte-identical to the committed `sc42-integration-controls.json`, which is unchanged |
+| diff of the result file | +9/−1 lines |
+
+The diff is attributable to S2-B's book edits:
+
+- two added `ok: true` mirror entries, for Theorem B.2.5 (AppB:92 = FULL:5769) and its proof
+  (AppB:94 = FULL:5771);
+- one changed predicate prefix for ch02:144 = FULL:774, which now reads "*(iii) Decoupled ancillary
+  enlargement.* Adjoin a factor of …" and is still `ok: true`.
+
+**Other checks at the new head.**
+
+- **R6 §11 item 9 grep:** 64 hits, unchanged from §8.
+- **Register scan of the words added against `main`:** no history phrases or reader instructions.
+  SC-42's added-text scan finds 0 hits.
+- **Duplicate check:** no non-empty line in the six changed source files occurs more often than it
+  does on `main`.
+
+**Scope.** No scientific text changed beyond the edits accepted in rounds 0–1, amendment A2 and the A3
+register fix.
