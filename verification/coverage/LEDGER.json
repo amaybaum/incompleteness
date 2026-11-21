@@ -2035,9 +2035,9 @@
       "line": 541,
       "kind": "Theorem",
       "label": "13",
-      "fingerprint": "ac3b421cbb83947d",
+      "fingerprint": "23e91a0f911eabb8",
       "area": "sm",
-      "assumptions": "CONDITIONAL identification; the minimal embedding is certified VECTOR-LIKE; H-chi' sharpened and OPEN; an off-diagonal hidden block (H-chi' kind) must be boundedly invertible on l2 of the odd sublattice (stated condition)",
+      "assumptions": "CONDITIONAL identification; the minimal embedding is certified VECTOR-LIKE; H-chi' sharpened and OPEN; an off-diagonal hidden block (H-chi' kind) must be boundedly invertible on l2 of the odd sublattice, and a site-diagonal one needs nonzero diagonal entries (stated conditions)",
       "checks": [
         {
           "kind": "probe",
