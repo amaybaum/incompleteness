@@ -1,7 +1,8 @@
 # GATE-A r6: premise reconciliation and exact decision wording (research note)
 
 **WIP / UNVERIFIED. Design and paper research only.** This note walks `PLAN.md`, which was
-committed before it at `02b1f040`. It adopts nothing and edits no reviewed record. It runs no
+committed before it at `02b1f040`. Revision r2 answers the review at `a1d5bbc0` (#1522
+c.7067367430; the reviewer's O6 disclosure is recorded there); r2 is not yet re-reviewed. It adopts nothing and edits no reviewed record. It runs no
 computation, edits no manuscript and posts nothing on #1169. Physical source remains NOT PASSED.
 
 **Base and citations.** GA = GATE-A r5.8 (`verification/programmes/oi-qm/reconstruction/gate-a-r5-20261121/PROPOSAL.md`
@@ -35,19 +36,18 @@ of them with I-3 (§3, Q4).
 
 ### 2.1 Q3: P-ST item 2 entails the O1 pair (Proposition R6-1)
 
-**Proposition R6-1 ((I) on KIN, countable carriers and FE-ADM; layer X; Born-form, instrument
-level).** Suppose:
+**Proposition R6-1 ((I) on KIN and countable carriers; layer X; Born-form, instrument level;
+CONFIRMING).** Suppose:
 - M* has a countable configuration space;
 - M* meets I★_st-coh (Born form, GA §2.4) for a unitary target Λ_t = Ad_{W^t}, with W
   non-monomial at t = 1;
 - the family is typed (b) of GA §2.4, with one hidden prior ω_H and a controller configuration
   c_{s_Λ}.
 
-Then the one-step Born-form family is not realizable from the operations of the GA §2.4 family
-alone. Exactness would need a coherence-detecting element, which the family's operations do not
-contain. So under BF no model meeting these hypotheses exists. Equivalently: any I★ witness
-meeting FE-ADM and BF on such a target must have a Born-form description containing a non-DIO
-element, and also a non-MIO element.
+Then no such model exists: within GA's typing, the conclusion is non-existence. (A statement that
+a witness "contains a non-DIO element" would need a Born-form family beyond permutation dilations,
+which GA §2.4 does not define; it is not made here.) The same holds under typing (a), since ω_{s_Λ}
+is a fixed append for each s.
 
 *Proof.*
 - The GA §2.4 family at t = 1 is the composition Φ_1 = O_3 ∘ O_2 ∘ O_1 of three operations:
@@ -62,20 +62,23 @@ element, and also a non-MIO element.
   - O_1 gives the output diagonal diag(ρ) ⊗ diag(|c⟩⟨c| ⊗ ω_H), whatever ω_H is.
 - By OPRES Lemma C, Φ_1 is then DIO. Theorem C(b) requires ‖Φ_1 − Ad_W‖_⋄ ≥ 2κ_row(W), which is
   positive for non-monomial W (C(c)). So Φ_1 ≠ Ad_W.
-- Under BF together with FE-ADM and I-4, P-ST item 2 gives Φ_1 = Λ_1 = Ad_W. This is a
-  contradiction, so the hypotheses cannot all hold.
+- I★_st-coh in Born form is itself the statement Φ_1 = Ad_W, so the hypotheses cannot all hold.
+  FE-ADM and BF are not used; with them, the statement is P-ST item 2 composed with this
+  non-existence.
 - For the creation half: O_1 is MIO exactly when ω_H is diagonal, and O_2 and O_3 are MIO. So with
   a diagonal prior, Theorem C(a) also excludes Φ_1 = Ad_W. With a coherent ω_H, O_1 is a creator
   but there is still no detector. ∎
 
 **Scope and grade.**
 - This is a second route, through OPRES's MIO/DIO theorems, to I3S's Lemma S1 at the scope where
-  the two overlap. S1 uses a spectral argument under its (a)–(e); R6-1 uses Theorem C on countable
+  the two overlap. GA §2.4 already records the consequence ("by #1508's Lemma S1 … BF and I-4 are
+  jointly unsatisfiable for such models on non-monomial targets"). S1 uses a spectral argument under its (a)–(e); R6-1 uses Theorem C on countable
   carriers with one prior, which is S1's (c).
 - On measurable carriers the detection half follows from OPRES Proposition D for a nonsingular
   bijection and a normal ω_H, or from Remark D′ when the visible carriers are finite. The singular
   case is OPRES's open Conjecture D″.
-- Grade: CONFIRMING of S1, and ELABORATING in that it ties P-ST item 2 to the O1 pair.
+- Grade: **CONFIRMING** of S1 and of GA §2.4. It is not an implication between premises, and it does
+  not count toward the productivity test (§2.5).
 - **Layer.** The result holds at the Born-form, instrument level. It says nothing at the operational
   layer: P-ST item 1, which needs no BF, needs no O1 element. D-W meets item 1 classically
   (sketch), and OPRES's operational scope shows no non-classical resource to be necessary. Nor does
@@ -87,9 +90,9 @@ element, and also a non-MIO element.
 | Pair | Independent? | Separating example | Layer, label |
 |---|---|---|---|
 | O1-C, O1-D | yes | OPRES CC-1: one-bit teleportation realizes Hadamard with a \|+⟩ ancilla, a creator that is DIO-type by the O_1 computation in §2.1, and a destructive ⟨±\| readout, a detector that outputs a classical record and so maps diagonal inputs to diagonal outputs (MIO-type) | Born-form, instrument; X; (I) on KIN |
-| FE-ADM, J-coh | yes, by typing | I★_st-pop^op uses FE-ADM without J-coh; I★ over `J_exact` uses J-coh without FE-ADM | typing; definitional |
-| FE-ADM, BF: BF without FE-ADM | yes (sketch) | a model whose ontic state space is the target's own dilation (A ⊗ K, W, σ_K), with labels realized by interventions and trivial free evolution: its Born form is its operational law (BF), and its free family is the identity (FE-ADM fails) | operational vs Born-form; P; this needs BF's family extended from permutation unitaries to the model's unitary dynamics, which GA §2.4 does not define |
-| FE-ADM, BF: FE-ADM without BF | **INCONCLUSIVE** | the stepwise D-W meets FE-ADM by a loaded program (T12). It fails BF for non-monomial targets if its Born-form lift satisfies the hypotheses of OPRES Proposition D (a nonsingular measurable bijection and a normal state); that is not checked for D-W's seed tape and register | missing premise: nonsingularity of D-W's reversible step for its seed and register measures |
+| FE-ADM, J-coh | not an independence question: the two are of different types (FE-ADM constrains a witness's label rule; J-coh is an assumption about the interface) | — | typing |
+| FE-ADM, BF: BF without FE-ADM | yes | a GA-typed model: a bijective M* with identity free dynamics, a **monomial** target Λ_t = Ad_X^t on a qubit level, and labels realized by interventions. BF holds, since the Born-form family and the free operational law are both the identity; FE-ADM fails, since free evolution is not the label interpretation of Ad_X | Born-form vs operational; P; this example is from the review c.7067367430 |
+| FE-ADM, BF: FE-ADM without BF | yes, for non-monomial targets, on the reading that BF holds only when its family is defined; conditional on Remark D′ (pending review) and on D-W meeting FE-ADM (sketch) | the stepwise D-W meets FE-ADM by a loaded program (T12). Its visible carrier X_A is finite, so normality is not needed (OPRES Remark D′). The remaining premise is nonsingularity of its reversible step with respect to the reference measure ν = (counting measure on X_A × program fields × records) ⊗ (the seed tape's product law) ⊗ (Lebesgue measure on the register's real coordinates). If the step is ν-nonsingular, Remark D′ makes the Born-form family DIO, so it is not Ad_W and BF fails; if it is ν-singular, the Koopman operator φ̂ is not unitary on L²(ν), the Born-form family is undefined, and BF is not met. A countable-seed variant (alphabet weights 2^{−k}, whose subset sums give every t ∈ [0, 1]) would allow ℓ² with counting measure, where S1 and Lemma C apply directly, if the register's content can also be carried on a countable alphabet; that is not checked | Born-form vs operational; P |
 | E, I-3 | not independent | I-3 is a test on E and M* | typing |
 
 ### 2.3 Q4: O1 and I-3
@@ -101,8 +104,10 @@ No formal map between O1 and I-3 is established, and none is claimed (bridge rul
 - **I-3 does not require O1 in general.** Under a criterion stated at the operational layer, P-ST
   item 1 needs no O1 element.
 - **The conditional relation.** If the I-3 criterion is representational, requiring BF, then by
-  R6-1 any passing model must supply O1-C and O1-D in its Born-form description, and natively if
-  the criterion also requires substratum dynamics (as T-SUB′ would). This is a conditional
+  R6-1 no bijective model with the GA §2.4 family passes on a non-monomial unitary target; a
+  passing model would need Born-form dynamics outside permutation dilations, which GA does not yet
+  type, and under OPRES Theorem C such dynamics would contain a creator and a detector (O1-C and
+  O1-D), natively if the criterion also requires substratum dynamics (as T-SUB′ would). This is a conditional
   relation, not an identification.
 
 ### 2.4 Layer check of the existing records
@@ -116,27 +121,27 @@ GA, T12 or I3S relies on it.
 
 ### 2.5 Outcome (PLAN §1)
 
-**Gem by the fixed test:**
-- R6-1 is an implication under stated hypotheses;
-- §2.2 gives two independences with separating examples, and one by typing.
-
-No layer error was found in the existing records. One question is **INCONCLUSIVE**: FE-ADM without
-BF, for D-W. Its missing premise is named in §2.2.
+**Gem by the fixed test, on §2.2 alone:** three independences with separating examples (O1-C
+and O1-D; BF without FE-ADM; FE-ADM without BF, conditional as stated). R6-1 is CONFIRMING and
+does not count. FE-ADM and J-coh are of different types, so no independence is claimed for them. No
+layer error was found in the existing records. The r1 INCONCLUSIVE item is closed conditionally in
+§2.2.
 
 ### 2.6 The three questions (R6-1)
 
-1. **Established.** R6-1 at layer X, Born-form, instrument level, on countable carriers, with its
-   measurable extensions conditional on OPRES D and D′. It is not yet reviewed.
+1. **Established.** R6-1 (CONFIRMING) at layer X, Born-form, instrument level, on countable
+   carriers, under either typing of s_Λ, with its measurable extensions conditional on OPRES D and
+   D′; the review of `a1d5bbc0` found its proof correct.
 2. **Assumed.**
-   - KIN, through BF;
-   - FE-ADM;
+   - KIN (the Born form);
    - countable carriers, or OPRES D's or D′'s hypotheses;
    - a unitary target;
    - typing (b);
    - J-coh, through the coherent inputs of I★_st-coh.
 3. **Missing.** A physical mechanism that supplies a coherence detector and a coherence creator
    inside one model. This is OPRES's U2, and OPRES records the physical question as INCONCLUSIVE.
-   Without that mechanism, P-ST item 2 has no satisfiable instance with bijective dynamics.
+   Without that mechanism, P-ST item 2 has no satisfiable instance with bijective dynamics on
+   non-monomial targets.
 
 ## 3. Task 2: exact decision wording for D1–D4 and D7
 
@@ -152,23 +157,35 @@ choice changes. No option is recommended or adopted. `GA §n` refers to GA at `1
   by this adoption."
   - *Changes:* I★ becomes the adopted target of part 1. `endpoints.md`:51–69 on `main` is unchanged
     until a landing (D4). The single-law reading becomes binding, and D1-C is closed.
-- **D1-B (adopt without the design choices).** "I adopt I★ as stated in GATE-A r5.8 §2, with
-  clause I-2★ replaced by r4's clause I-2 (one architecture, dependence on A only through a
-  parameter map fixed in advance and never computed from p_T). The single-label-rule and
-  single-resource-policy choices are not adopted."
-  - *Changes:* the target admits a parameter map per carrier. By GA §5 (L-T), this does not change
-    satisfiability inside `J_exact`, but the resource policy is no longer required to be one rule.
-- **D1-C (adopt with the family reading of `Q_exact(A)`).** "I adopt I★ as stated in GATE-A r5.8
-  §2, except that clause I-4 is read with `Q_exact(A)` as a family: for every T in `Q_exact(A)`,
-  the A-subsystem of M* reproduces p_T exactly under its label interpretation."
-  - *Changes:* I-4 quantifies over every member of `Q_exact(A)`. If `Q_exact(A)` has one member,
-    as EP:43 and EP:110 suggest, D1-C coincides with D1-A. Otherwise it is stronger, and it needs a
-    typing of the members.
+- **D1-B (one model, without the two design choices).** "I adopt I★ as stated in GATE-A r5.8 §2,
+  with one model throughout (Φ, Λ, μ, ι, R and τ independent of A), except that the single label
+  rule and the single resource policy are not required: the label rule and the resource policy may
+  depend on A through enc_A, each fixed before comparison and never computed from p_T."
+  - *Changes:* the target keeps answer 3's single model. By GA §5 (L-T), satisfiability inside
+    `J_exact` is unchanged, and the resource policy is no longer required to be one rule.
+- **D1-B′ (the architecture form).** "I adopt the architecture form: GATE-A r5.8 §2 with clause
+  I-2★ replaced by r4's clause I-2 (one architecture 𝔄, one instance per (A, T), dependence on A or
+  T only through a parameter map fixed in advance and never computed from p_T), as the target of
+  part 1."
+  - *Changes:* this departs from answer 3 of c.6876591512, which makes the single model the
+    ultimate target and the architecture an intermediate milestone, unless that answer is amended.
+    On the scope of `J_exact`, L-T (GA §5) makes the two forms coincide.
+- **D1-C (adopt with the family reading of `Q_exact(A)`, indexed by T).** "I adopt I★ as stated in
+  GATE-A r5.8 §2, except that clause I-4 is read with `Q_exact(A)` as a family: for every T in
+  `Q_exact(A)` there is a setting s_T, fixed from the typed data of T before comparison and loaded
+  as in GATE-A r5.8 §2.4, such that the A-subsystem of M* with s_T loaded reproduces p_T exactly
+  under its label interpretation."
+  - *Changes:* I-4 quantifies over every member of `Q_exact(A)`. Without the index s_T, one model
+    with one label interpretation cannot reproduce two distinct laws on the same (p, π, h), so the
+    unindexed family reading is unsatisfiable whenever `Q_exact(A)` has two or more distinct laws.
+    If `Q_exact(A)` has one member, as EP:43 and EP:110 suggest, D1-C coincides with D1-A.
 - **D1-D (defer).** "I defer the adoption of I★. GATE-A r5.8 §2 remains a reviewed proposal."
   - *Changes:* nothing is adopted. Stage 1 and Stage 2 (c.7065620072) proceed against the proposal
     as a working target.
 
 ### D2. Soundness, access closure and B⇒
+
+There is no separate "defer" option: GA's default, absent a decision, is D2-A (GA §9).
 
 - **D2-A (the 15 November amendment governs).** "#1169 c.6891338304 governs:
   - soundness (S⇒) is an open question, reported as a finding and subject to agreement with
@@ -185,9 +202,9 @@ choice changes. No option is recommended or adopted. `GA §n` refers to GA at `1
   stood: soundness (S⇒), access closure (S-A) including the exclusion of stronger-than-quantum
   experiments within C, and B⇒ are required. The amendment of soundness at c.6891338304 is
   withdrawn."
-  - *Changes:* GA §2.3's rows for S⇒, S-A and B are restored to required. The C/Q framing of
-    c.6891338304, in which C may intersect stronger-than-quantum behaviour as a testable
-    prediction, no longer holds.
+  - *Changes:* GA §2.3's rows for S⇒, S-A and B are restored to required. The C/Q definitions of
+    c.6891338304 stand, including C's independence from quantum outcomes and the noncircularity
+    requirement; only the openness of C ⊆ Q is withdrawn.
 - **D2-C (soundness open, Bell exclusion required).** "#1169 c.6891338304 governs soundness (S⇒)
   and access closure (S-A). B⇒ ('exclude supraquantum ones', decision 3 of #914 c.6875046763) is
   required."
@@ -216,11 +233,16 @@ choice changes. No option is recommended or adopted. `GA §n` refers to GA at `1
   GATE-A r5.8 lands afterwards, after independent review, as a forward amendment in its own record
   directory. The #1428 GATE-A row is corrected to the text of D4-row below."
   - *Changes:* two landings, with r4's 34 files reaching `main` first. `endpoints.md` is unchanged.
+    r5.8 cites off-`main` reviewed records (#1506, #1508, #1510, #1511) and relies on them for D-W,
+    S1, P-ST and Theorem C; its landing needs that content restated in r5.8 or retained on `main`
+    under §A.42 items 1–3 and 8, or the landed record cites content not on `main`.
 - **D4-B (r4 by reference; departure from answer 5 approved).** "r4 stays on its branch and is cited
   by reference. GATE-A r5.8 restates every clause it uses. This departure from answer 5 of #1169
   c.6876591512 is approved. GATE-A r5.8 lands after independent review as a forward amendment in its
   own record directory. The #1428 GATE-A row is corrected to the text of D4-row below."
-  - *Changes:* one landing. r4's text stays off `main`, and is provenance under §A.42 item 8.
+  - *Changes:* one landing. r4's text stays off `main`, and is provenance under §A.42 item 8. The
+    same off-`main` dependency of r5.8 as in D4-A (#1506, #1508, #1510, #1511) must be restated or
+    retained under §A.42 items 1–3 and 8 before the landing.
 - **D4-C (no landing yet).** "Neither r4 nor r5.8 lands now. The #1428 GATE-A row is corrected to
   the text of D4-row below."
   - *Changes:* only the tracker is corrected.
@@ -230,11 +252,13 @@ the T1/T2 fold).**
 
 | ID | Item | Tier | Prerequisites | Readiness | Authorization |
 |---|---|---|---|---|---|
-| GATE-A | Gate A forward amendment for the superset target: r4 and status note r6 (#1289), consolidated as GATE-A r5.8 (#1503 at `109b9590`) | supporting (provisional) | owner answers at #1169 c.6876591512; soundness amended at c.6891338304; D5 and D6 decided at c.7065620072; T1/T2 folded under c.7067233614; owner decisions D1–D4 and D7 | r5.8 reviewed (c.7067277470); decision wording prepared (GATE-A r6) | preparation and review authorized; adoption, landing and merge not authorized |
+| GATE-A | Gate A forward amendment for the superset target: r4 and r4's status note r6 (#1289), consolidated as GATE-A r5.8 (#1503 at `109b9590`) | supporting (provisional) | owner answers at #1169 c.6876591512; soundness amended at c.6891338304; D5 and D6 decided at c.7065620072; T1/T2 folded under c.7067233614; owner decisions D1–D4 and D7 | r5.8 reviewed (c.7067277470); decision wording prepared (GATE-A r6) | preparation and review authorized; adoption, landing and merge not authorized |
 
 Proposed open-work note: "GATE-A. The four owner questions were answered at #1169 c.6876591512. Soundness was amended at c.6891338304, and D5 and D6 were decided at c.7065620072. GATE-A r5.8 (#1503) carries the target and awaits decisions D1–D4 and D7, whose exact wording is in GATE-A r6. The contract `oi-qm-ext-1/endpoints.md` on `main` is unchanged."
 
 ### D7. Scalability
+
+D7-B, D7-C and D7-D can be combined (D7-C contains D7-B); D7-A excludes the others.
 
 - **D7-A (record as open).** "Inside `J_exact` the scalability safeguard of #1169 c.7064859041 is
   recorded as nominal (GATE-A r5.8 §2.1). A substantive scalability constraint is an open question.
