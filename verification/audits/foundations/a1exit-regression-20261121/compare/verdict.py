@@ -51,6 +51,7 @@ Schemas (JSON, UTF-8):
 import copy
 import difflib
 import hashlib
+import html
 import json
 import os
 import re
@@ -58,6 +59,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import unicodedata
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RECORD = os.path.dirname(HERE)
@@ -91,8 +93,13 @@ PROMOTION_TERMS = [r'\bunconditional(?:ly)?\b', r'\bproved\b', r'\bproven\b', r'
 INFINITY_TERMS = [r'infinit\w*', r'\\infty', r'∞', r'\\aleph', r'ℵ', r'\b(?:un)?countabl\w*', r'\bcardinal\w*',
                   r'\barbitrar\w*', r'\bfiniteness\b', r'\bfinite or not\b', r'\bnot necessarily finite\b',
                   r'\b(?:for|over) (?:all|every|any|each)\b', r'\b(?:of|for) any (?:size|order|number)\b',
-                  r'\bany number of\b', r'\bregardless\b', r'\bwhatever\b',
-                  r'\bin (?:either|both|all|every|any) cases?\b', r'\bunbounded\b', r'\bunlimited\b',
+                  r'\bany number of\b', r'\bregardless\b', r'\bwhatever\b', r'\bwhatsoever\b',
+                  r'\bnon-?\s*finite\b', r'\bnot\s+(?:necessarily\s+)?finite\b', r'\bneed not be finite\b',
+                  r'\bunrestricted\b', r'\birrespective\b', r'\bindependent of\b', r'\buniform(?:ly)?\b',
+                  r'\blarge or small\b', r'\bno assumption\b', r'\bbeyond the finite\b', r'\btransfinite\b',
+                  r'\bcontinuum\b', r'\\omega', r'ω', r'\\mathbb\s*\{?\s*N\b', r'\|\s*\\?(?:mathcal\s*\{?\s*)?S\s*\}?\s*\|',
+                  r'\\kappa', r'κ', r'\\to\s*\\infty',
+                  r'\bin (?:either|both|all|every|any) cases?\b', r'\bunbounded\w*', r'\bunlimited\b',
                   r'\bwithout (?:any |a )?(?:finit\w*|bound\w*|restriction|limit\w*)\b',
                   r'\bno (?:restriction|bound|limit)\b', r'\b(?:all|every) (?:sizes?|cardinalit\w*)\b',
                   r'\b(?:every|all|any|each)\s+\$']
@@ -115,6 +122,21 @@ PARAPHRASES = [  # review c.7059976436 finding 1: each must hit J10
     'for all $S$', 'also for infinite $S$', 'regardless of the cardinality of the configuration space',
     'and $S$ may be finite or infinite; the result holds in either case',
     'the configuration space $S$ may be finite or infinite, and the statement holds in both cases']
+# Review c.7060670839 (N1): 28 further wordings, inserted after "members" in GR:134, each with a covering
+# edit; with the 16 above and the allowlist-plus-claim cases, each must come out flagged.
+EVASIONS = [
+    ', for unrestricted $S$', ', for non-finite $S$', ', for $S$ not finite', '; $S$ need not be finite',
+    ' (also when $S$ is not finite)', ' (including non-finite $S$)', ', for unboundedly large $S$',
+    ', irrespective of $|S|$', ', for $S$ large or small', '; no assumption on $|S|$ is made',
+    ', holding uniformly in $S$', '. This extends beyond the finite setting', ', for $|S|\\geq\\omega$',
+    ', for $S$ of continuum size', ', in the transfinite case', ', for $\\mathbb{N}$-indexed configuration sets',
+    ', for in\\-finite $S$', ', for in­finite $S$', ', for infіnite $S$', '[^gen]',
+    ', for $|S| = 2^{\\aleph_0}$', ', for every size of $S$', ', for every one of the possible $S$',
+    ', for any $S$ whatsoever', ', for $|S|=\\aleph_0$', ', as $N\\to\\infty$', ', for $\\kappa$ any cardinal',
+    ', for $S$ countable or not']
+ALLOW_PLUS = ['This identity is independent of $|S|$', 'It holds for each such $S$']
+GAIN_ONLY = ', as noted in the companion paper'   # no vocabulary term: only the gain rule flags it
+
 
 DEC_RE = re.compile(r'(?<![\w.])\d+\.\d+')
 UNIT_AFTER_NUM = re.compile(r'\d\s*\$?\s*(?:\\,|\\;|~)?\s*(?:\\%|%|\\text\{\s*[kMGT]?eV\s*\}|[kMGTm]?eV\b|'
@@ -740,6 +762,71 @@ def legacy_cover(item, cited, base_corpus, after_corpus, landed=None):
 
 # =========================================================================== J9, J10, flag
 
+# Normalization (round-4 review c.7060670839): applied to every text J10 and the gain rule read.
+PRE_NFKC = {'ℕ': '\\mathbb{N}', 'ℵ': '\\aleph', 'ℤ': '\\mathbb{Z}', 'ℝ': '\\mathbb{R}'}
+ZERO_WIDTH = dict.fromkeys(map(ord, '\u00ad\u200b\u200c\u200d\u2060\ufeff\u180e'), None)
+CONFUSABLES = str.maketrans({  # Cyrillic and Greek letters that render as ASCII letters
+    'а': 'a', 'е': 'e', 'о': 'o', 'р': 'p', 'с': 'c', 'у': 'y', 'х': 'x', 'і': 'i', 'ј': 'j', 'ѕ': 's',
+    'ԁ': 'd', 'һ': 'h', 'ӏ': 'l', 'ɡ': 'g', 'А': 'A', 'В': 'B', 'Е': 'E', 'К': 'K', 'М': 'M', 'Н': 'H',
+    'О': 'O', 'Р': 'P', 'С': 'C', 'Т': 'T', 'Х': 'X', 'І': 'I', 'Ј': 'J', 'Ѕ': 'S',
+    'ο': 'o', 'Ο': 'O', 'ι': 'i', 'Ι': 'I', 'Α': 'A', 'Β': 'B', 'Ε': 'E', 'Ζ': 'Z', 'Η': 'H', 'Κ': 'K',
+    'Μ': 'M', 'Ν': 'N', 'Ρ': 'P', 'Τ': 'T', 'Υ': 'Y', 'Χ': 'X'})
+FOOTNOTE_DEF = re.compile(r'^\[\^([^\]]+)\]:\s*(.*)$', re.M)
+FOOTNOTE_REF = re.compile(r'\[\^([^\]]+)\](?!:)')
+
+
+def normalize_text(t, file_text=None):
+    """HTML entities decoded; ℕ-type symbols spelled out; NFKC; soft hyphens, zero-width characters and
+    LaTeX discretionary hyphens removed; confusable letters folded to ASCII; footnote references
+    expanded inline from the file's definitions (parenthetical content is already inline)."""
+    t = html.unescape(t or '')
+    for k, v in PRE_NFKC.items():
+        t = t.replace(k, v)
+    t = unicodedata.normalize('NFKC', t).translate(ZERO_WIDTH).replace('\\-', '').translate(CONFUSABLES)
+    if file_text:
+        defs = {m.group(1): m.group(2) for m in FOOTNOTE_DEF.finditer(file_text)}
+        t = FOOTNOTE_REF.sub(lambda m: ' %s (%s) ' % (m.group(0), defs[m.group(1)]) if m.group(1) in defs
+                             else m.group(0), t)
+    return norm(t)
+
+
+def strip_allowlisted(t, allow):
+    """Remove each allowlisted phrase where it stands as a whole sentence: at the start or after a
+    sentence or heading boundary, and followed by whitespace or the end."""
+    for ph in allow:
+        ph = norm(ph)
+        k = t.find(ph)
+        while k >= 0:
+            pre = t[:k].rstrip()
+            post = t[k + len(ph):k + len(ph) + 1]
+            if (not pre or pre[-1] in '.!?*:>') and (not post or post.isspace()):
+                t = t[:k] + ' ' + t[k + len(ph):]
+                k = t.find(ph, k + 1)
+            else:
+                k = t.find(ph, k + 1)
+    return norm(t)
+
+
+TOKEN_RE = re.compile(r'[A-Za-z0-9]+|[^\sA-Za-z0-9]')
+
+
+def tokens_of(t):
+    return {x.lower() for x in TOKEN_RE.findall(t or '')}
+
+
+def gain(before, after, cited_news, allow=None, before_file=None, after_file=None):
+    """The token-level gain rule. Returns (added, unsourced): the tokens of the normalized after region,
+    allowlisted sentences removed, that the before region lacks (these flag the item), and those that
+    neither the before region nor the new text of a cited edit carries (these make the item non-J)."""
+    allow = allowlist() if allow is None else allow
+    a = tokens_of(strip_allowlisted(normalize_text(after, after_file), allow))
+    b = tokens_of(strip_allowlisted(normalize_text(before, before_file), allow))
+    src = set(b)
+    for n in cited_news:
+        src |= tokens_of(normalize_text(n, after_file))
+    return sorted(a - b), sorted(a - src)
+
+
 def allowlist(rows=None):
     """The allowlist entries in force: entries without a row, and entries whose row cites their proof."""
     out = []
@@ -752,16 +839,11 @@ def allowlist(rows=None):
 
 
 def j10_hits(before, after, promotion=None, infinity=None, allow=None):
-    """J10: terms whose count rises from the before region to the after region, after the exact allowlist
-    is removed from both; and a fall in the count of finite-scope terms."""
+    """The vocabulary layer of J10: terms whose count rises from the before text to the after text, both
+    normalized and with allowlisted whole sentences removed; and a fall in finite-scope terms."""
     allow = allowlist() if allow is None else allow
-
-    def strip(t):
-        t = norm(t or '')
-        for ph in allow:
-            t = t.replace(norm(ph), ' ')
-        return t
-    b, a = strip(before), strip(after)
+    b = strip_allowlisted(normalize_text(before), allow)
+    a = strip_allowlisted(normalize_text(after), allow)
     hits = []
     for name, pats in (('promotion', PROMOTION_TERMS if promotion is None else promotion),
                        ('infinity', INFINITY_TERMS if infinity is None else infinity)):
@@ -811,7 +893,7 @@ def sci_flag(item, before, after, j10):
     return bool(DEC_RE.search(t) or UNIT_AFTER_NUM.search(t) or POW10_RE.search(t) or B.PROSE_MARK_W.search(t))
 
 
-RULES = {'cover': cover, 'j10': j10_hits, 'j9': j9}
+RULES = {'cover': cover, 'j10': j10_hits, 'j9': j9, 'gain': gain}
 
 
 # =========================================================================== items and classification
@@ -908,17 +990,21 @@ def classify(compare, edits, cls, rows, base_corpus, after_corpus, rules=RULES, 
             elif c.get('resolution'):
                 notes.append('resolution not accepted: ' + why)
         j10m = rules['j10'](item['before'] or '', item['replayed'])
-        res[key] = {'kinds': item['kinds'], 'class': klass, 'j10': j10m, 'notes': notes,
-                    'scientific_evaluation': sci_flag(item, item['before'] or '', item['replayed'], j10m)}
+        added, _ = rules['gain'](item['before'] or '', item['replayed'], [])
+        res[key] = {'kinds': item['kinds'], 'class': klass, 'j10': j10m, 'notes': notes, 'gain_added': added[:20],
+                    'scientific_evaluation': sci_flag(item, item['before'] or '', item['replayed'], j10m) or bool(added)}
     for key, item in sorted(allitems.items()):
         c = cls.get('items', {}).get(key)
-        notes, klass, j10 = [], 'U', []
+        notes, klass, j10, unsourced = [], 'U', [], []
         before, after = item['before'] or '', item['after'] or ''
+        bf = base_corpus.get(item['file'])
+        af = after_corpus.get(item.get('new_file') or item['file'])
         if c is None:
             notes.append('unclassified')
             j10 = rules['j10'](before, after)
             if j10:
                 notes.append('J10: ' + '; '.join(j10))
+            added, _ = rules['gain'](before, after, [], None, bf, af)
         else:
             missing = [k for k in c.get('edits', []) if k not in E]
             if missing:
@@ -927,6 +1013,13 @@ def classify(compare, edits, cls, rows, base_corpus, after_corpus, rules=RULES, 
             covered, cn, before, after, touch = rules['cover'](item, cited, base_corpus, after_corpus, landed)
             notes += cn
             j10 = rules['j10'](before, after)
+            for k in sorted(touch):  # the vocabulary layer on the approved edits' own texts
+                if k in E:
+                    j10 += ['approved edit %s: %s' % (k, h) for h in rules['j10'](E[k]['old'], E[k]['new'])]
+            added, unsourced = rules['gain'](before, after, [e['new'] for e in cited], None, bf, af)
+            if unsourced:
+                notes.append('gain rule: tokens in neither the baseline region nor a cited new text: %s'
+                             % ' '.join(unsourced[:20]))
             j9_ok = True
             if covered and set(item['kinds']) & {'label changed', 'text changed'}:
                 j9_ok, n9 = rules['j9'](item, c.get('ledger_row'), [E[k] for k in touch if k in E], rows,
@@ -938,7 +1031,7 @@ def classify(compare, edits, cls, rows, base_corpus, after_corpus, rules=RULES, 
             to_r = 'relocated_from_main' in item['kinds']
             if to_r:
                 notes.append('relocation out of Main: review of Main independence required')
-            if c.get('class') == 'J' and covered and j9_ok and not j10 and not to_r:
+            if c.get('class') == 'J' and covered and j9_ok and not j10 and not unsourced and not to_r:
                 klass = 'J'
             elif c.get('class') in ('J', 'R') and covered:
                 klass = 'R'
@@ -946,14 +1039,15 @@ def classify(compare, edits, cls, rows, base_corpus, after_corpus, rules=RULES, 
                 klass = 'R'
                 notes.append('no covering edit; R requires review')
             if klass == 'R':
-                good, why = resolution_ok(c.get('resolution'), cls, bool(j10))
+                good, why = resolution_ok(c.get('resolution'), cls, bool(j10 or unsourced))
                 if good:
                     klass = 'R-justified' if c['resolution']['outcome'] == 'justified' else 'U'
                     notes.append('resolved by review %s' % c['resolution']['review'])
                 elif c.get('resolution'):
                     notes.append('resolution not accepted: ' + why)
         res[key] = {'kinds': item['kinds'], 'class': klass, 'j10': j10, 'notes': notes,
-                    'scientific_evaluation': sci_flag(item, before, after, j10)}
+                    'gain_added': added[:20], 'gain_unsourced': unsourced[:20],
+                    'scientific_evaluation': sci_flag(item, before, after, j10) or bool(added) or bool(unsourced)}
     return res
 
 
@@ -1171,6 +1265,26 @@ def c9_cases(rows=None):
     return cases
 
 
+def evasion_battery(rows, rules=RULES, only=None):
+    """The standing J10 battery on GR:134 (row X-52, disposition J), each insertion cited J to an edit
+    that reproduces it: the 16 paraphrases, the 28 evasions, the allowlisted sentence followed by an
+    unlisted claim, and the gain-only case. Each must be flagged. Returns the cases that are not."""
+    base = dict(B.PIN_CORPUS())
+    cases = (['p:' + x for x in PARAPHRASES] + ['e:' + x for x in EVASIONS]
+             + ['a:' + x for x in ALLOW_PLUS] + ['g:' + GAIN_ONLY])
+    bad = []
+    for c in cases:
+        if only is not None and c not in only:
+            continue
+        kind, x = c[:1], c[2:]
+        ins = ', ' + x if kind == 'p' else ('. ' + ALLOWLIST[1]['phrase'] + ' ' + x if kind == 'a' else x)
+        cm, ed, cl, af, eid = gr134(ins)
+        r = classify(cm, ed, cl, rows, base, af, rules).get(eid, {})
+        if not r.get('scientific_evaluation'):
+            bad.append((c, r.get('class')))
+    return bad
+
+
 def c9(rows, rules=RULES):
     """C9 passes iff (a) is R, flagged, J10-hit, and stays R under a review that cites no proof; (b) is J;
     (c), (d) and (f) are R, flagged and J10-hit; (e) is R."""
@@ -1309,6 +1423,36 @@ REQUIRED_CONTROLS = ['H-resolves', 'C0-frozen', 'C1-check', 'C2-self-test', 'C3-
                      'C4-verdict-self-test', 'compare', 'C5-injected']
 
 
+def rederive_compare(path, H, inj=None):
+    """N2: re-run the comparison from the frozen inputs (for C5, on H's corpus with the recorded
+    injection) and require the stored file to equal it as canonical JSON (`other` aside for a tree)."""
+    if not os.path.isfile(path):
+        return False, 'missing'
+    py = [sys.executable, '-I', '-B', os.path.join(RECORD, 'baseline.py')]
+    td = tempfile.mkdtemp(prefix='a1exit-rd-')
+    try:
+        out = os.path.join(td, 'r.json')
+        if inj is None:
+            run(py + ['--compare', H, '--json', out])
+        else:
+            tree = os.path.join(td, 'tree')
+            for f, text in injected(B.corpus_at_commit(H), inj).items():
+                os.makedirs(os.path.join(tree, os.path.dirname(f)), exist_ok=True)
+                with open(os.path.join(tree, f), 'w', encoding='utf-8', newline='') as fh:
+                    fh.write(text)
+            run(py + ['--compare-tree', tree, '--json', out])
+        if not os.path.isfile(out):
+            return False, 're-derivation wrote nothing'
+        a, b = read_json(path), read_json(out)
+        if inj is not None:
+            a.pop('other', None)
+            b.pop('other', None)
+        same = json.dumps(a, sort_keys=True) == json.dumps(b, sort_keys=True)
+        return same, '' if same else 'the stored file differs from its re-derivation'
+    finally:
+        shutil.rmtree(td, ignore_errors=True)
+
+
 def recheck_controls(ctl, d, H):
     """No stored pass flag is trusted (§A.44). A stored entry whose pass contradicts its exit status is a
     refusal. Every control is then re-derived: C1, C2, C3 and C4 are re-run, and the comparison and C5
@@ -1333,14 +1477,17 @@ def recheck_controls(ctl, d, H):
         shutil.rmtree(td, ignore_errors=True)
     r, why = _result_ok(os.path.join(d, 'compare.json'), H)
     ce = ctl['controls'].get('compare', {}).get('exit')
-    out['compare'] = {'exit': ce, 'pass': r is not None and ce == (1 if r['any_change'] else 0),
-                      'detail': 're-checked ' + why}
+    same, why2 = rederive_compare(os.path.join(d, 'compare.json'), H)
+    out['compare'] = {'exit': ce, 'pass': r is not None and ce == (1 if r['any_change'] else 0) and same,
+                      'detail': 're-checked and re-derived ' + why + why2}
     ri, why = _result_ok(os.path.join(d, 'injected-compare.json'), None)
     inj = ctl.get('injection')
     st = next((x['status'] for x in ri['entries'] if inj and x['id'] == inj['key']), []) if ri else []
+    isame, iwhy = rederive_compare(os.path.join(d, 'injected-compare.json'), H, inj) if inj else (False, 'no injection')
     out['C5-injected'] = {'exit': ctl['controls'].get('C5-injected', {}).get('exit'),
                           'pass': bool(inj) and ri is not None and ri['any_change'] and 'value changed' in st
-                          and ctl['controls'].get('C5-injected', {}).get('exit') == 1, 'detail': 're-checked'}
+                          and ctl['controls'].get('C5-injected', {}).get('exit') == 1 and isame,
+                          'detail': 're-checked and re-derived ' + iwhy}
     out['H-resolves'] = {'exit': 0 if resolve(H) == H else 1, 'pass': resolve(H) == H, 'detail': 're-checked'}
     for n in REQUIRED_CONTROLS:
         if n not in ctl['controls']:
@@ -1593,21 +1740,24 @@ def self_test():
     del m780t
     report('T12 gaming probes: none is J', all(p[1].get('class') != 'J' for p in probes),
            '; '.join('%s=%s' % (n, p.get('class')) for n, p in probes if p.get('class') == 'J') or '%d probes' % len(probes))
-    # T13 J10, fail-closed: the 16 paraphrases of review c.7059976436 each hit, are not J and are flagged;
-    # the exact allowlisted sentence does not hit; the same words outside the allowlist do
-    para = []
-    for ph in PARAPHRASES:
-        cm, ed, cl, af, eid = gr134(', ' + ph)
-        x = classify(cm, ed, cl, rows, pin, af).get(eid, {})
-        para.append((ph, x.get('class'), bool(x.get('j10')), x.get('scientific_evaluation')))
-    bad13 = [p_ for p_ in para if p_[1] == 'J' or not p_[2] or not p_[3]]
+    # T13 the standing J10 battery: 16 paraphrases, 28 evasions, allowlist plus claim, gain-only; all flagged
+    bad13 = evasion_battery(rows)
     basic = (not j10_hits('', ALLOWLIST[0]['phrase']) and not j10_hits('', ALLOWLIST[1]['phrase'])
              and bool(j10_hits('', 'the configuration space $S$ may be finite or infinite'))
-             and bool(j10_hits('', 'it holds for finite or infinite S')) and bool(j10_hits('', ', and this is proved'))
+             and bool(j10_hits('', ', and this is proved'))
              and bool(j10_hits('on a finite configuration space', 'on a configuration space'))
+             and bool(j10_hits('', 'for in\u00adf\u0456n\\-ite $S$'))
              and not j10_hits('Theorem 2 is proved.', 'Theorem 2 is proved here.'))
-    report('T13 J10: 16 paraphrases each R/U, J10-hit, flagged; exact allowlist only; finite loss hits',
-           not bad13 and basic, str(bad13) if bad13 else '%d paraphrases' % len(para))
+    g1 = gain('a b', 'a b c d', ['c'])
+    g2 = gain('x.', 'x. ' + ALLOWLIST[1]['phrase'], [])
+    g3 = gain('x.', 'x ' + ALLOWLIST[1]['phrase'] + 'y', [])
+    g4 = gain('a', 'a [^n]', [], None, None, 'a [^n]\n[^n]: holds for every S')
+    report('T13 J10 battery: all %d cases flagged; normalization; gain rule; allowlist whole sentence only'
+           % (len(PARAPHRASES) + len(EVASIONS) + len(ALLOW_PLUS) + 1),
+           not bad13 and basic and g1 == (['c', 'd'], ['d']) and g2 == ([], []) and g3[0] and 'every' in g4[0],
+           str(bad13) if bad13 else '')
+    m13 = evasion_battery(rows, dict(RULES, gain=lambda *x, **k: ([], [])), only={'e:[^gen]', 'g:' + GAIN_ONLY})
+    report('T13b mutant: with the gain rule disabled the battery fails', bool(m13), str(m13))
     # T14 C6 on the frozen inputs, and its mutants (review c.7059220314 finding 4, and an altered edit)
     s2 = read_json(EDITS_S2)
     g6, b6, _ = c6(s2, None, None, B.PIN)
@@ -1684,6 +1834,19 @@ def self_test():
     c0ok = (not c0(PIN_S2)[0] and not c0('deadbeef')[0]
             and c0(head)[0] == (head == pinned_frozen_commit()) and not c0(PIN_S2, prep=True)[0])
     report('T20b forged controls.json refused; T20c C0 rejects a non-pinned ref', fr[0] is None and c0ok, fr[1])
+    # T20d a compare.json rewritten after collect (digest updated alongside) fails its re-derivation (N2)
+    td = tempfile.mkdtemp(prefix='a1exit-n2-')
+    try:
+        p = os.path.join(td, 'compare.json')
+        run([sys.executable, '-I', '-B', os.path.join(RECORD, 'baseline.py'), '--compare', B.PIN, '--json', p])
+        good_rd = rederive_compare(p, B.PIN)[0]
+        doc = read_json(p)
+        doc['entries'] = doc['entries'][1:]
+        write_json(p, doc)
+        bad_rd = rederive_compare(p, B.PIN)[0]
+    finally:
+        shutil.rmtree(td, ignore_errors=True)
+    report('T20d compare.json re-derived: the true file passes, a rewritten one fails', good_rd and not bad_rd)
     # T21 replay-missing: a landed reviewed edit reverted in H is U; the full landing gives no such item
     s2a = [e for e in s2['edits'] if e['unit'] == 'S2-A']
     full, _ = apply_unit(pin, s2a)
