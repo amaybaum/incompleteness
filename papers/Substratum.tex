@@ -729,16 +729,19 @@ continuum-curvature step requires its own conditions {[}SM §3.1{]}.)
 (A4) \textbf{Center independence.} The dynamics \(\varphi\) does not
 depend on a choice of ``center'' site, in two senses used below:
 \(\varphi\) commutes with lattice translations up to gauge (the coupling
-graph is a finite periodic lattice, the quotient of a rank-\(d\) lattice
-by a finite-index sublattice, \(d\) being its dimension), and the update
-at a site contains no explicit copy of that site's present value ({[}SM
-§4.1{]}). The two senses are logically independent for rules of the
-second-order form \(x(t+1) = F(x(t)) - x(t-1)\) over \(\mathbb{Z}_q\) on
-a periodic cubic lattice of side at least \(3\), with gauge acting by
-site-wise bijections of each site's (previous, current) pair. Such a
-gauge preserves which sites each update reads, so a rule that commutes
-with translations up to gauge reads its sites in a translation-invariant
-pattern. The rule
+graph is the discrete lattice \(\mathbb{Z}^d\), \(d\) being its
+dimension, as the standard construction, distinct from a continuous
+space; a finite periodic quotient \(\mathbb{Z}^d/P\) by a finite-index
+sublattice \(P\) is admitted as a qualified case, under the conditions
+on \(P\) stated with each result that uses it {[}SM §4.1{]}), and the
+update at a site contains no explicit copy of that site's present value
+({[}SM §4.1{]}). The two senses are logically independent for rules of
+the second-order form \(x(t+1) = F(x(t)) - x(t-1)\) over
+\(\mathbb{Z}_q\) on a periodic cubic lattice of side at least \(3\),
+with gauge acting by site-wise bijections of each site's (previous,
+current) pair. Such a gauge preserves which sites each update reads, so
+a rule that commutes with translations up to gauge reads its sites in a
+translation-invariant pattern. The rule
 \(x_i(t+1) = x_i(t) + \sum_{j\sim i} x_j(t) - x_i(t-1)\) commutes with
 translations exactly and reads \(x_i(t)\); the same rule with the
 \(x_i(t)\) term dropped and one neighbour omitted from the sum at a
@@ -1084,9 +1087,10 @@ physical branch has the following conditions.
   fractal growth (the cubic-lattice symmetry needed for the cubic-group
   decomposition in step (d) below is absent), but not intermediate or
   irregular growth. The integer degree is an input through A4, whose
-  lattice translations make the coupling graph a finite periodic lattice
-  of rank \(d\); Gromov's theorem, which concerns finitely generated
-  groups, and statistical isotropy (E4) do not supply it for a general
+  lattice translations make the coupling graph the lattice
+  \(\mathbb{Z}^d\) or, as a qualified case, a finite periodic quotient
+  of it; Gromov's theorem, which concerns finitely generated groups, and
+  statistical isotropy (E4) do not supply it for a general
   bounded-degree graph. Applied to the continuum description,
   conditional on the continuum step of {[}SM §3.1{]}, the three filters
   then select \(d = 3\). ({[}SM §3.2{]} presents this argument in full;
@@ -3251,4 +3255,4 @@ Running-Vacuum Form of Dark Energy from the Cosmological Horizon,''
 Universality Classes of Embedded Observers,'' (2026).
 
 \end{document}
-% source-sha256: 5e30e5dd4e2bc3a16a19b5e59b082e7c1a27d8efc93f20ccd0f1a7d542fff0df
+% source-sha256: af5cb7375291fbadd3a8d3cc044cb1f40fa1b62e50c089fabf16a1a1280d24fe
