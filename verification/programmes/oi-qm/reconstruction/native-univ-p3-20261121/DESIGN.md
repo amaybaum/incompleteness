@@ -12,9 +12,10 @@ only: nothing is run. Base and notation are as in `PLAN.md`. Cited records:
 
 For Q at a uniform background `c = 2^15`, with W2 signals on designed axis lines (U1 §3):
 - **H1:** some gadget realizes a *controlled transfer*: a signal entering on line A leaves as a
-  signal on a non-parallel line B, while the transit stays confined in a closed region `D` (no
-  breach of `∂D` at any tick; equivalently, by NU4/NU5, no radiation outside `D`) and the line
-  sector is restored;
+  signal on a non-parallel line B, the line sector is restored, and the transit is *leak-free*: no
+  site outside `lines ∪ K_r` ever leaves `c`. That is U2's region, with `R⁺` replaced by `K_r`.
+  The closed hull of a bent junction fills an infinite planar sector (§6), so confinement in that
+  hull would be a much weaker requirement. It is not used;
 - **H0 (for a stated class):** no gadget in the class does.
 
 Why this is the decisive pair: U1 identifies off-line transfer as the missing block that turn,
@@ -30,16 +31,18 @@ item 6.
 |---|---|---|---|---|
 | (a) Bounded breach: F1 P2, periodic finite orbits with excursions | whether small finite configurations have non-spreading excursions | No. By NU3 and NU5 such an orbit is a transient inside a confined set, not a transfer; at most it supplies a candidate ingredient | CI | P2-K1–K7 (F1 `plans/P2-PREREG.md`) |
 | (b) P3 stage S1: spreading of single-site seeds (paper) | whether every excursion of a single-site seed grows without bound | No. A transfer uses infinite lines inside a confined region, so S1 bears on neither hypothesis directly | local, paper | P3-K1–K5 (F1 `plans/P3-PREREG.md`) |
-| (c) Controlled interaction in a Q gadget: **PLANAR-TURN** (chosen) | H1 with an exact certificate, or H0 exactly for the class "planar confined junctions of stated radius at J1/J2, W2 signal, every arrival phase" | Yes: an exact positive certificate; an exact negative per gadget (breach); undetermined cases are reported as INCONCLUSIVE | first stage bounded local; full search CI | positive control on Q itself (collinear transfer) and the bent-line oracle; plain-corner, dead-end, linear-rule and signal-away countercontrols; an NU4 consistency check (`PREREG.md` §4) |
+| (c) Controlled interaction in a Q gadget: **PLANAR-TURN** (chosen) | H1 with an exact certificate, or H0 exactly for the narrow class "leak-free planar ternary gadgets of radius ≤ 2 at J1/J2, W2 signal, every no-input period and arrival phase" (PREREG §8) | Yes: an exact positive certificate; an exact negative per gadget (breach); undetermined cases are reported as INCONCLUSIVE | first stage bounded local; full search CI | positive control on Q itself (collinear transfer) and the bent-line oracle; plain-corner, dead-end, linear-rule and signal-away countercontrols; an NU4 consistency check (`PREREG.md` §4) |
 
 ## 3. Why (c), in planar form
 
-1. **Ternary is a theorem, not a restriction.** By NU6(c), in a transit confined in a planar
-   closed region every value is in `{−1, 0, 1}` (relative to `c`) at every tick. Enumerating
-   ternary gadgets on a planar core therefore covers *every* planar confined junction of that size.
-   It is not a value cut-off like U2's `{±1, ±2}`.
+1. **Ternary is a theorem, not a restriction.** A leak-free run stays in `lines ∪ K_r`, which lies
+   inside its planar closed hull `D`. So `D` is never breached, and by NU6(c) every value is in
+   `{−1, 0, 1}` (relative to `c`) at every tick. Enumerating ternary gadgets on a planar `K_r`
+   therefore covers every leak-free planar junction of that size. It is not a value cut-off like
+   U2's `{±1, ±2}`.
 2. **Exact outcomes.**
-   - A breach of `∂D` is an exact failure: it is radiation, by NU4.
+   - A leak is detected exactly at its tick. Only `lines ∪ K_r` and its neighbourhood are
+     simulated, and lines are long enough that no line end reaches a checked site (PREREG §3).
    - A turn is certified exactly at a finite tick. The configuration then equals the post-transit
      reference everywhere except a W2 glider on far B, moving away. The future is that
      superposition for all time: by MQ2(a), and U1's induction for the glider on an infinite line.
@@ -70,3 +73,30 @@ item 6.
 - **No BQP claim.** A positive PLANAR-TURN result would be one block toward native Turing
   universality. As the owner states (#1169 c.7066630306), native Turing universality would not
   by itself prove BQP capability.
+
+## 6. Effect on #1499's NU5 (read-only check at `92cb2350`; #1499 not edited)
+
+The review of #1515 (c.7066725317, R1) points out that `cl₂` of a bent junction is infinite. The
+check against `P2N` NOTE at `92cb2350`:
+- **The theorems stand.** NU4, NU4′, NU5(a) and NU5(b) are stated for any closed `D`, finite or
+  infinite, and are unaffected. NU6(c) is also unaffected: the closure of a planar set is planar.
+- **The reading "finite junction region" is wrong for bent junctions.** NU5 and §0 item 1 restate
+  the decisive question as a transit confined in `D = cl₂(L ∪ R)`, "with `R` finite". `R` is finite,
+  but `D` is not a finite neighbourhood of the junction. For J1 it contains the planar quadrant
+  `{x ≤ −1, y ≥ 1, z = 0}`, and for any two non-collinear coplanar lines it contains the sector
+  between them. "Confined in `D`" therefore allows ternary disturbance throughout that sector, a
+  weaker requirement than U2's R3.
+- **One sentence is incorrect as stated.** P2N NOTE line 149 reads: "The breach mechanism of U2 D1
+  (AW-UNIV-3) is exactly a breach of `∂D` for `D` the junction's closed set." U2 D1's
+  inner-corner kick puts a ternary value at `(−1,1,0)`, which lies *inside* the sector `D`. It is a
+  leak out of U2's non-closed region `lines ∪ R⁺`, not a breach of `∂D`. Whether that disturbance
+  later breaches `D` is not established.
+- **Consequence for the decisive question.** "Confined in `cl₂(lines ∪ R)`" is not the right
+  criterion for a controlled transfer at a bent junction. The criterion is leak-freeness relative
+  to a finite, non-closed allowed region, as U2 used and PLANAR-TURN now uses. NU5 still shows
+  that a breach of the closed hull is radiation out of that hull, but that hull is a sector.
+- **AW-NU-4 (assumption-watch).** In Q, closure under `cl₂` of a set containing two non-collinear
+  lines is infinite. Any statement that uses `cl₂(lines ∪ R)` as a junction region must say so.
+- **Flagged for the owner.** Correcting the P2N wording (NOTE §0 item 1, §1 "decisive question,
+  restated" and line 149) would be a change to #1499, which stays as reviewed. It is left to a
+  separate, authorized correction.
