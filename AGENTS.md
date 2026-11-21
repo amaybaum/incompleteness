@@ -1514,5 +1514,6 @@ in the presentation of the current theory.
 This section authorizes no work (§A.45 rule 3); cleanup under it is housekeeping under §A.47
 item 2.
 
-Adopted <merge date> by owner decision (`amaybaum`, <merge-decision record>), implementing the
-principle recorded at #1169 comment 7058521984.
+Adopted 2026-11-21 by owner decision (`amaybaum`, #1169 comment 7058897767), implementing the
+principle recorded at #1169 comment 7058521984, within the drafting scope of #1169 comment
+7058574403 and the strict reading of identifier reuse confirmed at #1169 comment 7058783437.
