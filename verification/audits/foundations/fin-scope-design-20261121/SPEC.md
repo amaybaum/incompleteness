@@ -1,10 +1,13 @@
 # FIN-SCOPE: design specification
 
-**Status.** Writer's design, revision 2, WIP / UNVERIFIED. This is a plan only. No checker exists and
+**Status.** Writer's design, revision 3, WIP / UNVERIFIED. This is a plan only. No checker exists and
 nothing has been run, so no verdict below is a measurement. The corpus inventory in §2.3 is a read-only
 `grep` count. Independent non-author review is required before any implementation is proposed.
 Implementation, the governance change and any merge each need a separate owner decision. Revision 2
-answers review c.7064941939 (B1–B7, N-a–N-j). The map from findings to sections is in §14.
+answered review c.7064941939 (B1–B7, N-a–N-j). Revision 3 answers the delta review c.7065126686 (R1–R5,
+and generality moved into proofs and post-proof prose). It makes the guarantee structural (§1.1), and
+the lexical rules of §3 become a screen that prioritises review. The map from findings to sections is in
+§14.
 
 **Authority.**
 - #1169 c.7061660930, item 1, owner decision of 2026-11-21:
@@ -51,7 +54,47 @@ local hypotheses state. It guards against two failures:
   for systems of every cardinality, without a proof that covers that scope.
 
 The rules are symmetric between finite and infinite scope (§9). FIN-SCOPE decides nothing about
-sufficiency. Every item it raises goes to a review, and only a review clears it (§3.5).
+sufficiency.
+
+### 1.1 The guarantee is structural; the lexical rules are a screen
+
+No lexical rule can be complete here. Negation, paraphrase, notation and the placement of a claim
+are open-ended, and each review of this design has found a new escape class (§9). FIN-SCOPE's guarantee
+therefore does not rest on the lexical rules. It is this:
+
+> **Every member of a pull request's review set carries a current review record by a reviewer other
+> than its author, answering the fixed checklist. The gate fails otherwise.**
+
+The **review set** of a pull request, computed against its merge base, is the union of:
+- **(R-a)** every new or revised statement block (§2.4), including a block whose resolved citation
+  targets changed while its masked digest did not (§2.4);
+- **(R-b)** every block in the *dependency closure* of (R-a): a block that cites, directly or through
+  a chain of citations among parsed blocks, a block of (R-a) whose statement digest, `FS_A` or `IS`
+  changed;
+- **(R-c)** every changed paragraph that is a proof of, or the *post-block paragraph* (§2.2) of, any
+  block, and the block it belongs to;
+- **(R-d)** every changed sentence or table row on a claim surface (§2.1).
+
+The **checklist** is fixed, and each answer is recorded:
+1. *Finite hypotheses used.* Does the proof, or any result it cites, use finiteness of a configuration
+   space or of another object? If so, is that finiteness stated in the statement or its cited local
+   hypotheses?
+2. *Infinite hypotheses used.* The same question for infiniteness, a limit or a measure structure.
+3. *Generality claimed.* Does the statement, its proof, or the post-block paragraph claim validity for
+   infinite systems, or for systems of every cardinality? If so, which proof covers that scope?
+4. *Lost scope.* Did the change remove or weaken a finite or infinite hypothesis? If so, which proof
+   establishes the result without it?
+5. *Screen hits.* Each blocking screen hit (§3.3) on this member is answered: justified, with a basis
+   and, for G and L hits, a proof citation; or the member is narrowed.
+
+**The screen** is the set of lexical rules of §3. Its role is to prioritise:
+- it orders the review set (members with blocking hits first);
+- it names, in each hit, the span the reviewer must look at;
+- a *blocking* hit adds checklist item 5 for that member;
+- an *advisory* hit (G5, `scope-unclear`; §3.3) is listed, and needs no answer.
+
+A member with no screen hit still needs its review record. A screen pass is never evidence that a
+statement's scope is right, and a screen hit is never evidence that it is wrong.
 
 ## 2. Scope and block recognition
 
@@ -72,8 +115,7 @@ The following are out of scope:
 
 ### 2.2 Block grammar
 
-A *statement block* starts at a *label* and ends at the next label, at a heading of the same or a higher
-level, or at the end of its proof, whichever comes first. A label is any of:
+A *statement block* starts at a *label*. Its extent is defined below. A label is any of:
 
 - a bold opener at the start of a paragraph: `**K[ ID][ (TITLE)][.|:]**`, where:
   - `K` is one of `Theorem`, `Lemma`, `Proposition`, `Corollary`, `Claim`, `Remark` or `Prediction`;
@@ -83,18 +125,26 @@ level, or at the end of its proof, whichever comes first. A label is any of:
 - `**Theorem statement.**`;
 - a heading `#{2,4} K[ ID][ (TITLE)]`, with `K` and `ID` as above.
 
-A block has three parts:
-- **Statement.** From the label to the proof opener, or to the block's end if it has no proof.
+A block has three parts, and its extent ends with the last of them:
+- **Statement.** The label's paragraph, continued across directly following *continuation paragraphs*:
+  list items (lines opening with `-`, `*`, `+` or `N.`), display math (`$$`, `\[`, an `equation` or
+  `align` environment) and block quotes. It stops at the first other paragraph, at the next label, or
+  at a heading. A block with no proof ends there. Remarks and Predictions always end there. Prose after
+  a proofless block is therefore never part of it, and cannot supply or hide scope.
 - **Local hypotheses.** The statement, together with the text of each hypothesis or setting label the
   statement cites, for example `(F)`, `(H2)` or `Setting 3`, defined in the same file. A label defined in
   another file counts only when the statement cites it with its file.
-- **Proof.** It opens with `*Proof*`, or with `*Proof` followed by any words or a parenthetical and then
-  `.*`; this covers *Proof sketch.*, *Proof outline.*, *Proof structure.*, *Proof setup.*, *Proof of X.*
-  and *Proof (construction).*. It closes at the first `$\square$`, `∎`, `\qed` or `$\blacksquare$`.
-  A proof that reaches the block's end without a closer is closed there, and the run records a *parse
-  note* (§3.3, rule P).
+- **Proof.** It opens, in the first paragraph after the statement, with `*Proof*` or `**Proof**`,
+  either followed by any words or a parenthetical and then `.` and the closing emphasis. This covers
+  *Proof.*, *Proof sketch.*, *Proof outline.*, *Proof structure.*, *Proof setup.*, *Proof of X.*,
+  *Proof (construction).*, and the bold `**Proof.**` (4 in the corpus) and `**Proof outline.**` (2).
+  It closes at the first `$\square$`, `∎`, `\qed` or `$\blacksquare$`. A proof that reaches the next
+  label or heading without a closer is closed there, and the run records a parse note (§3.3, rule P).
+- **Post-block paragraph.** This is not part of the block. It is the first ordinary paragraph after
+  the block's extent, before the next label or heading. The screen reads it for generality (rule E),
+  and the review set includes it when it changes (§1.1, R-c).
 
-Remarks and Predictions have no proof part. The rules read only their statement.
+Remarks and Predictions have no proof part.
 
 **Footnotes.** Normalization (§4) always receives the block's file text, so every `[^id]` reference is
 expanded inline. A reference with no definition in its file raises rule P.
@@ -143,12 +193,17 @@ the local-hypothesis citation of §2.2.
 The *masked text* of a block is its normalized text (§4), with these masks applied:
 - its own `ID` is replaced by `#`;
 - every cross-reference of the form `(Theorem|Lemma|Proposition|Corollary|Claim|Remark|Prediction|
-  Definition|§|Eq\.?|Equation|Section|Chapter|Appendix) ID` is replaced by `K #`;
+  Definition|§|Eq\.?|Equation|Section|Chapter|Appendix) ID` is replaced by the token `#ref`. The
+  kind word is removed too, so that no vocabulary reads it;
 - whitespace is collapsed.
 
 The *digest* of a block is the SHA-256 of its masked text. Renumbering a block, or retargeting one of its
-cross-references, therefore leaves its digest unchanged. Citation targets are still read for rule A's
-transitive clause (§3.2), which uses the actual labels.
+cross-references, therefore leaves its digest unchanged.
+
+The reference record (§6.1) also keeps each block's *resolved citation targets*: the keys of the parsed
+blocks its citations resolve to, after renumbering is undone by the pairing below. A change in that set
+makes the block revised for the review set (R-a) and for the screen, although its digest is unchanged.
+The transitive clauses (§3.1) and the dependency closure (R-b) use these resolved targets.
 
 Blocks of the before-version and the after-version of a file are paired in three ordered steps:
 1. **By digest.** Equal digests pair. If several blocks share a digest, they pair by order of occurrence,
@@ -175,16 +230,32 @@ sentences neither trigger an item nor supply scope.
 - the symbols `S`, `\mathcal S`, `\mathcal C_{\ast}`, `\mathcal C`, `\Omega` and `Conf` (as a math
   expression or a Lean term);
 - the nouns `configuration space`, `configuration set`, `configurations`, `substratum`, `substrata`,
-  `state space`, `system` and `systems`.
+  `state space`, `system` and `systems`;
+- for one block only, every symbol its local hypotheses *declare* as a set, space, group, alphabet or
+  carrier (`Let $X$ be a … set`, `$\mathcal H$ a Hilbert space`, `$G$ a group`, `$X \subseteq …$`).
+
+A fixed list cannot name every carrier (R5, §9). A symbol outside the list and undeclared is an
+escape class of the screen, and review covers it.
 
 The classes below are counted on the local hypotheses, except `FU` and `IU`, which are also counted on
 the proof.
 
-- **`FS_A`, carrier finiteness.** Either of:
-  - a `FINITE_TERMS` match (#1483), other than `bounded` and `compact` and other than a match inside a
-    `NEG_FINITE` form, standing in a sentence that also names a carrier;
-  - a Lean finiteness binder, that is `Fintype`, `Finite`, `Set.Finite`, `FiniteConf`, `Substratum.A1`
-    or `Fin n`.
+- **`FS_A`, carrier finiteness, counted only on positive predications.** The frozen forms, where `X`
+  is a carrier:
+  - `$X$ is finite`, `$X$ be finite` (as in `Let $X$ be finite`), with `X` immediately before the verb,
+    and the same with `finite-dimensional`;
+  - `finite $X$`, `a finite <carrier noun>`, and `a finite(-dimensional)? [<one word>]
+    (set|space|group|alphabet)` naming a declared carrier, as in `a finite-dimensional Hilbert space`;
+  - `$|X| < \infty$` in any form of `FINITE_TERMS`;
+  - `finitely many <carrier noun>`;
+  - a Lean finiteness binder: `Fintype`, `Finite`, `Set.Finite`, `FiniteConf`, `Substratum.A1` or
+    `Fin n`.
+
+  Any other `finit\w*` occurrence in a sentence that names a carrier does not count. Unless it lies
+  inside a `NEG_FINITE` or `GEN` match, it raises the advisory hit `scope-unclear`, which fails closed on the scope side: "Without assuming finiteness of
+  $S$", "$S$ is not assumed to be finite" and "finiteness of $S$ is not required" give `FS_A = 0`, so a
+  finite-use proof then raises A (R1). The forms are a screen. A negation inside a positive form,
+  such as "Let $S$ be finite, though this is not needed", is an escape covered by review (§9).
 - **`FS_L`, any finite-scope term.** All `FINITE_TERMS` matches, `bounded` and `compact` included,
   minus those inside a `NEG_FINITE` form. Rule L uses it.
 - **`NEG_FINITE`, negated or disjunctive finiteness.** The forms are:
@@ -196,16 +267,19 @@ the proof.
 - **`IS`, infinite scope.** The terms are:
   - `infinit\w*` outside a `NEG_FINITE` form;
   - `countably infinite`, `uncountabl\w*`, `\aleph`, `\omega` and `of continuum size`;
-  - `transfinite`, `\mathbb N`-indexed and `|S| = \infty`;
+  - `transfinite` and `|S| = \infty`;
+  - `\mathbb N` only where it indexes a carrier: `$X = A^{\mathbb N}$`, `\mathbb N`-indexed
+    configurations, `$|X| = |\mathbb N|`. A quantifier `for every $n \in \mathbb N$` is not IS;
   - `\to\infty` applied to a carrier count (`|S|`, `|\mathcal S|`, `N` where `N` is declared in the
     block as the number of configurations), and the Lean terms `Infinite` and `Set.Infinite`.
 - **`GEN`, cardinality generality.** Any of:
   - a `NEG_FINITE` form;
   - a *carrier quantifier*: `(for|over|on) (all|every|any|each|arbitrary|unrestricted|unboundedly
-    large)` followed, within three words, by a carrier as the quantified object. "Quantified object"
-    means the first math expression after the quantifier is exactly a carrier symbol, or the first noun
-    is a carrier noun. So `for every $S$`, `for any $S$ whatsoever` and `for every one of the possible
-    $S$` are carrier quantifiers, and `for every $s \in S$` and `for all $n$` are not;
+    large)` whose quantified object is a carrier. The quantified object is the first math expression
+    after the quantifier in the same clause, or, if a noun comes first, that noun. So `for every $S$`,
+    `for any $S$ whatsoever`, `for every one of the possible $S$` (first math expression `$S$`) and
+    `for every infinite system` (first noun `system`) are carrier quantifiers, and `for every $s \in S$`
+    and `for all $n$` are not;
   - a *cardinality phrase*: `of any (size|cardinality|order)`, `(every|all) (size|cardinalit\w*)`,
     `any cardinal`, `regardless of`, `irrespective of`, `independent of`, `whatever` or `no assumption
     on`, where the next words name a carrier or one of `cardinality`, `size`, `finiteness` or `|S|`;
@@ -234,27 +308,32 @@ the proof.
   ultrafilters, general `\lim`, horizon limits `K \to \infty` and compactness arguments are not in IU,
   because they are cardinality-neutral as such (§9).
 
-**The reuse of J10's vocabularies.** J10's `INFINITY_TERMS` and `PROMOTION_TERMS` serve as the recall
-set.
+**The reuse of J10's vocabularies, as an advisory backstop.** J10's `INFINITY_TERMS` and
+`PROMOTION_TERMS` serve as a recall set. Its hits are advisory only (R4): they are listed for the
+reviewer and never block, so they cannot fail a correct statement.
 - Every J10 match in a block's local hypotheses must fall inside a match of one of the classes `IS`,
   `GEN`, `PROMO`, `FS_A`, `FS_L` or `FU`, or inside one of the frozen *neutral* contexts. The neutral
   contexts are:
   - a quantifier whose object is not a carrier;
   - `uniformly continuous`, `independent of the basis`, `universal property` and `in general position`;
   - `\to\infty` applied to a symbol the block declares as a horizon, time, length or index (for
-    example `for horizon $K$ … as $K \to \infty$`).
-- A J10 match outside all of these raises rule G with the note `unclassified`. So the class lists can
-  narrow J10's hits only by naming a neutral context, and they fail closed when they do not.
+    example `for horizon $K$ … as $K \to \infty$`);
+  - on new blocks, the promotion words that `PROMO` omits there (`proved`, `shown`, `derived`,
+    `established`, `always`), and `cardinality` used as a noun with a number (`of cardinality $N$`).
+- A J10 match outside all of these raises the advisory hit G5 with the note `unclassified`. Since
+  every member is reviewed anyway, the backstop's only effect is to point the reviewer at the span.
 
 ### 3.2 Per-block counts
 
 For a block `b`, each class name stands for its count in `b`. For a revised block, `b⁻` is its paired
 before-version (§2.4), or its reference entry (§6.1) when the reference is newer.
 
-### 3.3 Rules and items
+### 3.3 Screen rules and hits
 
-Each rule that fires produces an item `(rule, key, digest)`. A rule is evaluated on new and revised
-blocks. Rule L is also evaluated on disappeared blocks, and rule P on every block that is parsed.
+Each screen rule that fires produces a *hit* `(rule, key, digest)`. The screen runs on every member of
+the review set (§1.1), and so on the dependency closure as well as the changed blocks. Rule L also
+runs on disappeared blocks, and rule P on every parsed block. Hits are *blocking*: each adds
+checklist item 5 for its member. The exceptions are G5 and `scope-unclear`, which are *advisory*.
 
 | Rule | Fires when | Guards |
 |---|---|---|
@@ -264,16 +343,19 @@ blocks. Rule L is also evaluated on disappeared blocks, and rule P on every bloc
 | **G**, generality | see the G-rule below | (b) |
 | **M**, mirror | a chapter block and its FULL mirror (§3.4) have different `FS_A`, `FS_L`, `IS` or `GEN` | (a), (b) |
 | **K**, kernel scope | the census resolves, in the block's paragraph, a declaration whose type has a finiteness binder (§5.3), and `FS_A(b) = 0` or `GEN(b) > 0` | (a), (b) |
-| **P**, parse | a proof closes at the block's end without a closer; or a footnote reference has no definition | recognition |
+| **E**, escaped generality | in the block's proof or its post-block paragraph, the `GEN` count, or the `IS` count while `FS_A(b) > 0`, rises against `b⁻`; for a new block, is positive. `PROMO` is not read there | (b) |
+| **P**, parse | a proof closes at the next label or heading without a closer; or a footnote reference has no definition | recognition |
+| `scope-unclear` (advisory) | a `finit\w*` occurrence in a carrier sentence that is not a positive predication and not inside a `NEG_FINITE` or `GEN` match (§3.1) | (a) |
 
-**The G-rule.** It reads only the local hypotheses, never the proof. A promotion word in a proof, such as
-"By Theorem 3, shown above", therefore raises nothing. Its clauses are:
+**The G-rule.** It reads only the local hypotheses. Generality in the proof or the post-block paragraph
+is rule E's, which reads `GEN` and `IS` only. A promotion word in a proof, such as "By Theorem 3, shown
+above", therefore raises nothing. The G clauses are:
 - **(G1)** a new block with `GEN > 0` or `PROMO > 0`, using the new-block `PROMO` list;
 - **(G2)** a new block with both `FS_A > 0` and `IS > 0`: it claims both scopes;
 - **(G3)** a revised block whose `GEN` or `PROMO` count rises;
 - **(G4)** a revised block whose `IS` count rises while `FS_A(b) > 0`: an infinite scope has been added
   to a finite one;
-- **(G5)** any `unclassified` J10 match (§3.1).
+- **(G5)** any `unclassified` J10 match (§3.1). This clause is advisory.
 
 A rise in `IS` on a block whose `FS_A` is 0 restricts the block to infinite systems. Such a narrowing
 raises no G item. Neither does a rise in `FS_A`, `FS_L` or `FU`, nor any NEUTRAL match. Added
@@ -287,66 +369,60 @@ is frozen at enrollment, and a segment with no chapter file is reported. Inside 
 by the three steps of §2.4, applied across the two files. A block that has no mirror in a chapter that
 has one raises M.
 
-### 3.5 Resolutions
+### 3.5 Review records
 
-An item is resolved only by an entry in the resolution registry (§7):
+Every review-set member is cleared only by an entry in the review registry (§7):
 
 ```
-{"rule": ..., "key": [file, kind, digest-at-introduction], "digest": <current digest>,
- "outcome": "justified"|"unjustified", "basis": <text>, "proof": <citation or null>,
- "attestation": <per §3.6>}
+{"member": [file, kind, digest-at-introduction], "digests": {<statement>, <proof>, <post-block>},
+ "targets": [<resolved citation keys>],
+ "checklist": {"finite_used": ..., "infinite_used": ..., "generality": ..., "lost_scope": ...},
+ "hits": [{"rule": ..., "outcome": "justified"|"narrowed", "basis": <text>,
+           "proof": <citation or null>}],
+ "outcome": "accepted"|"rejected", "attestation": <per §3.6>}
 ```
 
-- The `digest` must equal the block's current digest, so a later material edit voids the resolution.
-- Rules G and L need a `proof`. For G, the cited proof must cover the scope the statement states. For L,
-  it must establish the result without the removed hypothesis. This is J10's R-resolution requirement
-  carried over.
-- Rules A and I are resolved either by narrowing the statement, which makes the item disappear, or by a
-  `basis` showing that the use is not load-bearing. An example is a compactness argument on a compact
-  space that has a maximum.
-- Rule K needs a `basis` naming the clause of the statement that carries the binder's content, and an
-  attestation from a reviewer who has checked the kernel statement.
-- An `unjustified` outcome leaves the item open.
-- A resolution decides scope only. It does not accept the result scientifically.
+- The digests and targets must equal the member's current ones, so a later material edit, or a retarget,
+  voids the record.
+- Each checklist answer is a sentence, not a flag. An empty answer is invalid.
+- Every blocking hit on the member appears in `hits`. Hits of rules G, L and E need a `proof`: for G and
+  E, one covering the claimed scope; for L, one establishing the result without the removed hypothesis.
+  This is J10's R-resolution requirement carried over. Hits of A and I need a `basis` showing that the
+  use is stated or not load-bearing, or they are answered by narrowing the statement. Hits of K need a
+  `basis` naming the clause that carries the binder's content.
+- Advisory hits need no entry.
+- A `rejected` outcome leaves the member open.
+- A record decides scope only. It does not accept the result scientifically.
 
-### 3.6 Who may resolve: the attestation
+### 3.6 Who may review: the attestation (owner decision O6)
 
-Every commit, pull request and comment in this repository is made under a single login. A check that the
-reviewer's login differs from the author's would therefore always fail, and a self-declared reviewer
-string would be resolution by assertion alone. Owner decision O6 (§12) chooses the attestation. The
-options, from weakest to strongest:
+Every commit, pull request and comment in this repository is made under one login, so a check that the
+reviewer's login differs from the author's can never pass. The reviewer of c.7065126686 assessed what
+each candidate attestation can actually verify. The assessment is recorded here for owner decision O6
+(§12). The writer makes no choice.
 
-- **(α) Session-bound.** The attestation is `{session, commit}`.
-  - `commit` is a commit that adds the resolution and changes nothing else.
-  - `session` is that commit's `Claude-Session` trailer.
-  - The tool checks offline that the trailer differs from the `Claude-Session` trailer of every commit
-    since the merge base that touched the block's file.
-  - Weakness: the trailer is written by its writer, so this is evidence of separation and not proof of
-    it.
-- **(β) Owner clearance.** The attestation is `{owner_record, commit}`. `owner_record` is the URL of an
-  owner decision record that names the item's digest and the resolution commit.
-  - The tool checks the form.
-  - Pull-request review checks the record against the host.
-  - This matches how owner decisions are recorded on #1169 today.
-- **(γ) Signed.** The resolution commit is signed with a key listed in a reviewer keyring file. That
-  file is changed only by owner decision.
-  - The tool runs `git verify-commit` and checks that the signing key is not the key of any commit
-    touching the block's file.
-  - This needs key infrastructure the repository does not have.
+| Option | What the attestation is | What can be verified | Assessment (c.7065126686) |
+|---|---|---|---|
+| **(α) Session trailer** | the record's commit carries a `Claude-Session` trailer that differs from every author commit's trailer on the member's file | only that two strings differ | Self-asserted. The session that writes the commit writes the trailer, and CI cannot resolve it. A second writer on the author's branch also conflicts with one-writer-per-branch (c.7064767045). On its own, it is resolution by assertion |
+| **(β) Owner clearance** | an owner decision record names the member's digests and the record's commit | that the comment exists and names the digests; not who wrote it | Procedural. Owner records are posted from the same login, often relayed by agents. Its strength is the owner's personal confirmation. It is the only listed option that routes through the person |
+| **(γ) Signed commits** | the record's commit is signed with a key from a reviewer keyring that only an owner decision changes | the key identity, cryptographically | Verifiable only if custody is separate, for example an owner-held hardware key that author sessions cannot reach. With keys on a shared agent disk it proves no more than (α). An owner-held key is (β) made cryptographic |
+| **(δ) Separate reviewer account** | the review is made from a distinct GitHub account (a machine user or an app), optionally with required reviews | a distinct identity, by the host itself | The fix the reviewer proposes. It is the only option the host verifies directly. It needs a new account and its credential custody |
 
-The writer's recommendation is (α) for every item, and (β) in addition for items of rules G, L and K.
-Whatever the choice, the check is invariant V9 (§11) with its own checkpoint.
+The reviewer's further view, recorded and not adopted: (α) alone should not suffice; (β), or (γ) with an
+owner-held key, should be required for every record until (δ) exists. Whatever the owner chooses, the
+check is invariant V9 (§11) with its own checkpoint. Until O6 is decided, no record can be attested, and
+every pull request with a non-empty review set fails the gate.
 
 ### 3.7 Verdict
 
-- **PASS.** Every in-scope item is resolved, every configuration control (§7) holds, and the controls of
-  §8 pass.
-- **FAIL.** An item is unresolved, or a control fails, or `vocab.json` or `resolutions.json` changed
-  outside §7.
+- **PASS.** Every review-set member has a valid, attested, current review record; every configuration
+  control (§7) holds; the controls of §8 pass.
+- **FAIL.** A member lacks a valid record; or a blocking hit on a member is unanswered; or a control
+  fails; or `vocab.json` or a registry changed outside §7.
 - **VOID.** A pinned #1483 blob or commit object is missing or has the wrong digest (§4). A VOID run
-  prints no item verdicts.
+  prints no verdicts on members.
 
-The verdict text is generated from the counts.
+Advisory hits never change the verdict. The verdict text is generated from the counts.
 
 ## 4. Reuse of #1483: what, how, and its side effects
 
@@ -397,8 +473,9 @@ exact-head `check-run` attestation (§A.39, §A.40).
 
 ### 5.2 PR review
 
-The tool prints each item with its rule, key, the counts that fired it, and the matched spans.
-Reviewers add the resolutions with the attestations of §3.6. A checklist line (§10) asks whether the
+The tool prints the review set in screen-priority order: each member with its blocking and advisory
+hits, the counts that fired them, and the matched spans. Reviewers add the review records (§3.5) with
+the attestations of §3.6. A checklist line (§10) asks whether the
 statement's scope matches what the proof uses, which no lexical rule can settle.
 
 ### 5.3 Lean layer (rule K)
@@ -434,16 +511,20 @@ On claim surfaces (§2.1), a sentence or table row is paired with its before-ver
   same table;
 - a sentence with no partner is new.
 
-Rules G (G1–G5, read as for blocks) and L (`FS_L` and `IS` loss) apply to the paired sentences and are
-gating. The same rules on other prose are advisory unless owner decision O3 makes them gating.
+A changed sentence or row on a claim surface is a review-set member (R-d). The screen runs rules G
+(read as for blocks) and L (`FS_L` and `IS` loss) on it, and their hits are blocking. Changed prose
+elsewhere that is neither a proof nor a post-block paragraph is outside the review set. The screen
+lists its G and L hits as advisory, unless owner decision O3 brings such prose into the review set.
 
 ### 6.3 Baseline enrollment
 
 After D1 and D2, one enrollment commit evaluates every block and claim surface on `main`. It records each
 digest and its counts in `baseline.json`, and each item that fires in a published list of *baseline
 items*.
-- A baseline item does not fail the gate while its digest stands.
-- Enrollment records a baseline item. It does not resolve or accept it.
+- Unchanged blocks are not in any review set, so a baseline item does not fail the gate while its
+  digest and targets stand. When its block next changes, the block joins a review set and the hit
+  becomes blocking.
+- Enrollment records a baseline item. It does not review or accept it.
 - How long a baseline item may stand is owner decision O4.
 
 ## 7. Files and configuration control
@@ -452,7 +533,7 @@ The proposed home is `verification/infrastructure/fin-scope/` (§A.36). It holds
 - `fin_scope.py`, the checker, with `--self-test`;
 - `vocab.json`: the classes of §3.1, the carrier and neutral lists, the 0.6 threshold and the #1483 pin;
 - `baseline.json`;
-- `resolutions.json`.
+- `reviews.json`, the review registry of §3.5.
 
 Each run checks four configuration controls:
 - **The allowlist.** It is #1483's, read from the pinned blob, and FIN-SCOPE has none of its own. A new
@@ -461,7 +542,7 @@ Each run checks four configuration controls:
 - **Narrowing `vocab.json`.** A commit that removes or narrows a pattern, or adds a neutral context,
   fails. It passes only when the same commit adds a case showing that the removed pattern's TESTS cases
   are still caught, or cites an owner decision.
-- **Append-only registries.** `resolutions.json` and `baseline.json` are append-only, apart from the
+- **Append-only registries.** `reviews.json` and `baseline.json` are append-only, apart from the
   reference replacement of §6.1. The gate compares each with its blob at the merge base.
 - **The fixture inventory.** The `TESTS.md` case list is pinned by digest. A changed expected verdict
   is a reviewed revision made before the run.
@@ -480,7 +561,8 @@ Each run checks four configuration controls:
   The inputs cover a soft hyphen, `\-`, a Cyrillic letter, `ℵ`, an HTML entity, a footnote expanded
   with file text, `\mathcal{S}` and `\lvert S\rvert`. Any mismatch fails the run.
 - **C-R4, independent recall control.** Every `PARAPHRASES`, `EVASIONS` and `ALLOW_PLUS` case, inserted
-  into FIN-SCOPE's own finite-scoped fixture block (`TESTS.md` §1.3, F1), must raise G. The expected
+  into FIN-SCOPE's own finite-scoped fixture block (`TESTS.md` §1.3, F1), must raise the screen hit its
+  `TESTS.md` §1.4 row states: a blocking G for every row but one, and the advisory G5 for row 42. The expected
   verdicts are FIN-SCOPE's own and are stated per case. The footnote case `[^gen]` carries its
   definition in the fixture file.
 - **Mutants.** Each mutant must make the self-test fail on its named target case, and it counts as
@@ -499,16 +581,24 @@ Each run checks four configuration controls:
   | digest-first matching off | N16 (renumbering) |
   | G1 off | P-G1 |
   | G4 off | P-G2 |
-  | G5 off | P-G11 |
+  | G5 output off (advisory list empty) | P-G11 |
   | the NEUTRAL context check off | N14e, N15 |
   | rule I off | P-I1 |
   | rule M off | P-M1 |
-  | the resolution digest check off | P-R2 |
+  | the record digest check off | P-R2 |
+  | the review-set membership check off (screen-clean members pass without a record) | P-S1 |
+  | the dependency closure off | P-D2 |
+  | the resolved-target comparison off | P-D1 |
+  | the proofless extent widened to the next label | P-B3 |
+  | rule E off in proofs | P-E1 |
+  | rule E off in post-block paragraphs | P-E2 |
+  | G5 made blocking | N22, N25 |
   | the attestation check off | P-R1 |
   | the reference-count recomputation off | P-R6 |
 
   Mutants run only in CI (§A.40), after the live controls and every unmodified check have passed.
-- **Negative controls.** Every N-case of `TESTS.md` must PASS, with the item counts stated there.
+- **Negative controls.** Every N-case of `TESTS.md` must produce no blocking hit, and must PASS with a
+  plain review record (TESTS conventions).
 
 ## 9. How it avoids requiring finiteness
 
@@ -525,24 +615,41 @@ Each run checks four configuration controls:
   covering proof. It is not presumed false.
 - **The allowlist.** It is removed before every count, so the owner's sentence neither triggers an item
   nor supplies finite scope (P-A7, N5–N5d).
-- **The burden that remains.** Rule I and the `maximum`/`compact` part of rule A raise items on some
-  correct results, for example a maximum on a compact space. These are a review burden, not a
-  finiteness requirement: each is cleared by a `basis` (§3.5).
+- **The burden that remains.** Rule I and the `maximum`/`compact` part of rule A raise blocking hits on
+  some correct results, for example a maximum on a compact space. These are a review burden, not a
+  finiteness requirement: each is answered by a `basis` (§3.5). The J10 backstop is advisory, so it
+  cannot fail a correct statement (R4).
 
-### Known limits, each routed to review
+### The screen's limits
 
-- **Lexical classes.** The guarantee holds relative to the classes. A finiteness use worded without a
-  listed term escapes rule A, for example "each configuration is visited before any repeats" (X-2).
-- **Carrier sentences.** A finiteness term about another object passes `FS_A` when it stands in a
-  sentence that also names a carrier, for example "for a finite time $t$ and every $s \in S$" (X-1).
-- **Bounded and compact.** They count for `FS_L` and not for `FS_A`. A compact-space theorem whose proof
-  takes a maximum raises A, and a review clears it (X-5).
-- **Citation chains.** The transitive clauses follow citations only within the parsed corpus. A
-  finite-only result cited from outside it, or by an unparsed wording, is not followed (X-6).
-- **Unlabelled theorems.** A theorem stated in unlabelled prose outside the claim surfaces is seen only by
-  the advisory PR layer (X-3).
-- **Sufficiency.** FIN-SCOPE never decides whether a hypothesis suffices. Under c.7061660930 that is the
-  task of independent mathematical review, and the checklist line of §10 carries it.
+The screen is lexical and cannot be complete. Its known escape classes are listed here. None of them
+weakens the guarantee of §1.1, because every member is reviewed whether or not the screen fires. They
+weaken only the prioritisation and the pointing.
+
+- **Negation.** `FS_A` counts only positive predications, which fails closed for most negations (R1).
+  A negation outside the form still escapes. Examples are "Let $S$ be finite, though this is not
+  needed" and a hypothesis withdrawn in a later sentence of the statement (X-9).
+- **Proofs and prose.** Rule E reads `GEN` and `IS` in the proof and the post-block paragraph. It does
+  not read `PROMO` there, nor any paragraph after the first. A generality claim made two paragraphs
+  later, or in an unlabelled section, is covered only when it sits on a claim surface or in a review-set
+  member (X-3, X-10).
+- **Symbols and carriers.** A carrier outside the list and undeclared in the local hypotheses, such as a
+  lattice configuration set written `$Q^\Lambda$` with no declaration, escapes `FS_A` and the carrier
+  quantifier (R5, X-8).
+- **Wording.** A finite use worded without a listed term escapes rule A, for example "each
+  configuration is visited before any repeats" (X-2).
+- **Wrong object.** A positive predication about one declared carrier satisfies `FS_A` while the finite
+  use ranges over another. An example is "Let $T$ be a finite set of times", with pigeonhole on $S$
+  (X-1).
+- **Admitted false positives.** These are blocking hits on correct results, answered by a `basis`:
+  - `bounded` and `compact` are not in `FS_A`, so a maximum on a compact space raises A (X-5);
+  - an `FU` term that ranges over an object whose finiteness is stated outside the local hypotheses
+    raises A, for example a trace on a Hilbert space declared finite-dimensional in an earlier
+    Setting that the statement does not cite (X-7).
+- **Citation chains.** The dependency closure and the transitive clauses follow only parsed blocks. A
+  finite-only result cited from outside the corpus is not followed (X-6).
+- **Sufficiency.** FIN-SCOPE never decides whether a hypothesis suffices. Under c.7061660930 that is
+  the task of independent mathematical review, which checklist items 1–4 carry.
 
 ## 10. Proposed governance text
 
@@ -554,10 +661,12 @@ section, numbered at landing:
 > result claimed for infinite systems, or for systems of every cardinality, cites a proof that covers
 > that scope. Neither finiteness nor infiniteness is assumed globally, and adding a hypothesis of either
 > kind is always permitted. The release gate's `fin-scope` step checks new and revised statement blocks
-> and claim surfaces against these requirements. An item it raises is resolved only by narrowing the
-> statement or by a resolution carrying the attestation the owner has fixed; a generality or lost-scope
-> resolution cites the covering proof. Whether a stated hypothesis suffices is decided by independent
-> mathematical review, not by the step. The vocabularies and the allowlist change only under the step's
+> and claim surfaces against these requirements. Every new or revised statement block, every block
+> citing one whose scope changed, and every changed proof or post-block paragraph is reviewed against a
+> fixed checklist by a reviewer other than its author, attested as the owner has fixed. The step's
+> lexical screen prioritises that review and never replaces it. A generality or lost-scope hit is
+> answered with the covering proof. Whether a stated hypothesis suffices is decided by that review,
+> not by the screen. The vocabularies and the allowlist change only under the step's
 > configuration controls.
 
 For the Code Review Rules, under *Claim/evidence boundary*:
@@ -576,13 +685,18 @@ For the Code Review Rules, under *Claim/evidence boundary*:
 | V4 | the allowlist neither triggers an item nor supplies scope | P-A7, N5–N5d; the strip-after-count mutant |
 | V5 | no rule fires on absence alone | N3, N4, N6; rule A's definition requires `FU > 0` |
 | V6 | adding a hypothesis of either cardinality raises no G | N14a–e; the NEUTRAL-check mutant |
-| V7 | a later material edit voids a resolution | P-R2; the digest-check mutant |
+| V7 | a later material edit, or a retarget, voids a review record | P-R2, P-D1; the digest-check and target mutants |
 | V8 | the reference counts cannot be rewritten | P-R6; the recomputation mutant |
-| V9 | a resolution carries the attestation fixed by O6 | P-R1, P-R3; the attestation-check mutant |
+| V9 | a review record carries the attestation fixed by O6 | P-R1, P-R3; the attestation-check mutant |
 | V10 | the registries are append-only | P-R8 (merge-base blob comparison) |
 | V11 | renumbering raises no item | N16; the digest-first mutant |
 | V12 | every corpus label form is recognized | the enrollment inventory check (§2.3); P-B1 |
 | V13 | J10's recall set is not narrowed silently | G5; P-G11; the `vocab.json` control (§7) |
+| V14 | every review-set member has a current, attested record, whatever the screen says | P-S1; the membership mutant |
+| V15 | a change of a cited block's scope puts its dependents in the review set | P-D2; the closure mutant |
+| V16 | a proofless block is its label paragraph and its continuation paragraphs only | P-B3, N28; the extent mutant |
+| V17 | the J10 backstop never blocks | N22, N25; the G5-blocking mutant |
+| V18 | generality in a proof or post-block paragraph is screened and reviewed | P-E1, P-E2; the rule-E mutants |
 
 ## 12. Owner decisions needed
 
@@ -597,11 +711,16 @@ For the Code Review Rules, under *Claim/evidence boundary*:
 
   The writer's view is that FIN-SCOPE should wait for D2, and that O2 arises only if #1483 is
   withdrawn.
-- **O3.** Whether advisory prose items outside the claim surfaces (§6.2) become gating.
+- **O3.** Whether changed prose outside the claim surfaces, proofs and post-block paragraphs joins the
+  review set (§6.2).
 - **O4.** Whether baseline items may stand indefinitely or must be cleared, and by what process.
 - **O5.** Whether rule K is in the first implementation or follows #1482.
-- **O6.** The attestation for resolutions (§3.6): (α), (β), (γ) or a combination. Without O6, no item
-  can be resolved except by narrowing.
+- **O6.** The attestation for review records (§3.6): (α) session trailer, (β) owner clearance, (γ)
+  signed commits with separately held keys, (δ) a separate reviewer account, or a combination. The
+  reviewer's assessment of what each verifies is recorded in §3.6, and the writer proposes no choice.
+  Until O6 is decided, no record can be attested.
+- **O7.** Whether the review load of §1.1 is accepted: every new or revised statement block, its
+  dependents and its changed proof or post-block paragraph are reviewed on every pull request.
 
 ## 13. Result classification
 
@@ -631,3 +750,17 @@ a FIN-SCOPE pass is not evidence for either class.
 | N-h | §11 |
 | N-i | §3.1 LaTeX pre-normalization; TESTS N5d |
 | N-j | `'` in the grammar's `ID`; TESTS P-L4 |
+
+**Delta review c.7065126686.**
+
+| Finding | Where addressed |
+|---|---|
+| Structure | §1.1: the guarantee is mandatory, attested review of the review set; the lexical rules are a screen |
+| R1 | §3.1 `FS_A` counts positive predications only, with the advisory `scope-unclear`; §9 limit; TESTS P-N1–P-N4, X-9 |
+| R2 | §2.2 statement extent (label paragraph plus continuation paragraphs), post-block paragraph, bold proof openers; TESTS P-B3, N28 |
+| R3 | §2.4 resolved citation targets; §1.1 (R-b) dependency closure; §3.3 screen runs on the closure; TESTS P-D1, P-D2 |
+| R4 | §3.1 the J10 backstop is advisory; `#ref` masking without the kind word; new-block promotion words and `cardinality` with a number are neutral; `\mathbb N` is IS only where it indexes a carrier; TESTS N22–N25 |
+| R5 | §3.1 declared-symbol carriers and `finite-dimensional`; §9 admitted classes; TESTS N26, N27, X-7, X-8 |
+| Proof and post-proof escapes | §3.3 rule E; §1.1 (R-c); TESTS P-E1, P-E2 |
+| O6 | §3.6 options (α)–(δ) with the reviewer's assessment; §12 O6 |
+| TESTS | row 39 by the first-math-expression definition; row 43 G3 with an advisory G5; N7 rewritten with correct hypotheses |

@@ -1,18 +1,28 @@
 # FIN-SCOPE: adversarial test designs
 
-**Status.** Writer's test plan, revision 2, WIP / UNVERIFIED, for `SPEC.md` revision 2. These are
+**Status.** Writer's test plan, revision 3, WIP / UNVERIFIED, for `SPEC.md` revision 3. These are
 designs: no case has been run. Every "expected" entry is the verdict the rule as written in SPEC §3 must
 produce, fixed before any implementation exists, and the "why" column derives it from the counts.
-Revision 2 answers review c.7064941939.
+Revision 2 answered review c.7064941939, and revision 3 answers the delta
+review c.7065126686.
 
 **Conventions.**
 - Every case is synthetic text in a fixture file and never an edit of the manuscript. Where a case is
   modelled on a real site or review finding, the source is named for provenance only. The case makes no
   claim about the current text of that site.
 - "Before" is the paired before-version (SPEC §2.4). "(new)" means there is no before-version.
-- "Items" is the exact set of items the case must produce. An extra item fails the case as surely as a
-  missing one.
-- "Verdict" is the gate verdict with no resolutions, unless the case states a resolution.
+- "Items" is the exact set of *blocking* screen hits (SPEC §3.3) the case must produce. An extra hit
+  fails the case as surely as a missing one. Advisory hits (G5, `scope-unclear`) are listed separately
+  where a case produces them. Otherwise it produces none.
+- Every case's block is a review-set member (SPEC §1.1) unless the case says otherwise. With no review
+  record, every member FAILS; P-S1 tests this. "Verdict" is therefore the gate verdict with a *plain
+  record*: an attested, current record that answers checklist items 1–4 and answers no screen hit. A
+  positive FAILS with a plain record, because a blocking hit is unanswered. A negative PASSES with one.
+  A case that states a fuller record gives the verdict for that record.
+- The cases not in any review set are N5–N5d (setup and definition paragraphs that are neither blocks,
+  claim surfaces, nor post-block paragraphs), N9 (digest unchanged), N11 (unchanged), and the
+  renumbered blocks of N16. These PASS with no record.
+- Wherever an older row says "resolution", read "review record" (SPEC §3.5).
 - Proofs end with `$\square$` unless stated. Counts use SPEC §3.1's names, with `FS` meaning `FS_A`
   unless written `FS_L`.
 
@@ -69,7 +79,7 @@ Its counts are FS=1, FS_L=1 and IS=GEN=PROMO=FU=IU=0.
 | P-G8 | P-G1, with a resolution: `justified`, `proof: null`, valid attestation | unchanged | A G resolution needs `proof` | {G} | FAIL |
 | P-G9 | (new) | *For every substratum, conserved quantities are orbit-constant.*, with the census resolving an anchor whose type has `FiniteConf` | GEN=1 (G1). The anchor binder with GEN>0 gives K | {G, K} | FAIL |
 | P-G10 | (claim surface: abstract) | the added sentence "OI's conservation laws hold for configuration spaces of any size." | a new sentence with `of any size` (G1); the abstract is gating | {G} | FAIL |
-| P-G11 | (new) | *The visible law converges as $N \to \infty$.*, where the block does not declare $N$ | J10's `\to\infty` matches, falls in no class and in no neutral context (G5) | {G} | FAIL |
+| P-G11 | (new) | *The visible law converges as $N \to \infty$.*, where the block does not declare $N$ | J10's `\to\infty` matches, falls in no class and in no neutral context. G5 is advisory | ∅; advisory {G5} | PASS with a plain record. It is a positive for the advisory output only: the G5-output mutant must fail it |
 
 ### 1.4 The #1483 battery on F1 (control C-R4)
 
@@ -116,17 +126,19 @@ while FS>0, and G5 an unclassified J10 match.
 | 36 | [^gen], where the fixture file defines `[^gen]: The identity holds for every infinite system.` | G3, G4 (after footnote expansion with file text) |
 | 37 | , for $|S| = 2^{\aleph_0}$ | G4 |
 | 38 | , for every size of $S$ | G3 |
-| 39 | , for every one of the possible $S$ | G3 |
+| 39 | , for every one of the possible $S$ | G3 (the first math expression after "every" is `$S$`) |
 | 40 | , for any $S$ whatsoever | G3 |
 | 41 | , for $|S|=\aleph_0$ | G4 |
-| 42 | , as $N\to\infty$ | G5 (F1 does not declare $N$) |
-| 43 | , for $\kappa$ any cardinal | G3 |
+| 42 | , as $N\to\infty$ | none blocking; advisory G5 (F1 does not declare $N$) |
+| 43 | , for $\kappa$ any cardinal | G3, with an advisory G5 for `\kappa` |
 | 44 | , for $S$ countable or not | G3 |
 | 45 | the allowlisted sentence + "This identity is independent of $|S|$" (ALLOW_PLUS) | G3 |
 | 46 | the allowlisted sentence + "It holds for each such $S$" (ALLOW_PLUS) | G3 |
 
-Every row must produce exactly {G}, and in particular no L: no row removes a finite-scope term,
-because NEG_FINITE matches are excluded from FS_L both before and after.
+Every row except 42 must produce exactly {G} as its blocking hits, and in particular no L: no row
+removes a finite-scope term, because NEG_FINITE matches are excluded from FS_L both before and after.
+Row 42 produces no blocking hit and the advisory G5. It remains in the review set, where checklist
+item 3 covers it.
 
 ### 1.5 Silent infiniteness, mirrors, kernel, parsing (rules I, M, K, P)
 
@@ -170,14 +182,14 @@ because NEG_FINITE matches are excluded from FS_L both before and after.
 | N5d | — | the sentence written `$\mathcal{S}$`, with braces | pre-normalization maps it to `\mathcal S` before allowlist stripping | ∅ | PASS |
 | N5e | (new) | the allowlisted sentence, then *Let $S$ be finite. Every orbit is periodic.* / Pigeonhole. | stripping leaves FS=1, FU=1 and GEN=0 | ∅ | PASS |
 | N6 | (new) | *Let $S$ be countably infinite. Then $S$ admits a bijection $\pi$ with $\pi^n(s) \neq s$ for every $s \in S$ and every $n \geq 1$.* / Identify $S$ with $\mathbb Z$ and set $\pi(n) = n + 1$. | IS=1, FS=0 (so no G2), GEN=0 (the quantifiers' objects are $s \in S$ and $n$, not carriers), FU=IU=0 | ∅ | PASS; the symmetric counterpart of N1 |
-| N7 | (new) | *Let $S$ be uncountable and $(\mu_K)$ a projective family on $S$. It has a unique extension.* / Kolmogorov extension. | IU=1 and IS=1, so no I | ∅ | PASS |
+| N7 | (new) | *Let $A$ be a countable alphabet and $S = A^{\mathbb N}$. Every consistent family of laws on the finite products $A^{\{1,\dots,K\}}$ extends uniquely to a law on $S$.* / Kolmogorov extension, $A$ being standard Borel. | IU=1; IS=1 (`\mathbb N` indexes the carrier $S$), so no I. "the finite products" stands in a sentence with the carrier $S$, but it is not a positive predication about a carrier, so FS_A=0 and no G2. That occurrence raises `scope-unclear` | ∅; advisory {scope-unclear} | PASS |
 | N8 | P-G1 | a resolution: `justified`, `proof` citing a proof that covers arbitrary $S$, an attestation valid under the O6 option, current digest | the right form | {G}, resolved | PASS |
 | N9 | N1 | whitespace reflowed only | the digest is unchanged | ∅ | PASS |
 | N10 | N1 | `and $\pi$ a bijection of $S$` → `and $\pi$ an involution of $S$` | revised; FS_L kept; no rise in GEN, PROMO or IS | ∅ | PASS |
 | N11 | a baseline block containing "for all $S$" | unchanged | its digest is in the baseline, so it is a baseline item | ∅ open; one baseline item | PASS |
 | N12 | the ch02 block and its FULL mirror, both: *Let $S$ be finite. Every orbit of $\pi$ is periodic.* / Pigeonhole. | both changed identically to *Let $S$ be finite and $\pi$ a bijection of $S$. Every orbit of $\pi$ is periodic.* | each is revised with FS_L kept and FS=1, FU=1; the mirror counts are equal | ∅ | PASS |
 | N13 | (new) | *Let $\mathcal C_H$ be finite. The horizon-$K$ visible law is the push-forward of the uniform prior on $\mathcal C_H$.* / Counting preimages. | FS=1 ("finite" with the carrier $\mathcal C_H$); FU=2 | ∅ | PASS |
-| N14a | N1 | `Let $S$ be finite` → `Let $S$ be finite (the finiteness hypothesis)` | FS and FS_L rise. J10's `finiteness` match falls in FS_L, so it is classified. No G | ∅ | PASS |
+| N14a | N1 | `Let $S$ be finite` → `Let $S$ be finite (the finiteness hypothesis)` | FS_L rises. J10's `finiteness` match falls in FS_L, so it is classified. No G. "finiteness" is not a positive predication, so it raises `scope-unclear` | ∅; advisory {scope-unclear} | PASS |
 | N14b | N3 | `Let $S$ be countably infinite.` prepended | IS 0→1 with FS=0: a narrowing, so no G4. GEN=0 | ∅ | PASS |
 | N14c | N1 | `under the uniform prior` added to the statement | FU rises with FS=1. J10's `uniform` match falls in FU | ∅ | PASS |
 | N14d | N1 | `with weight $1/|S|$` added | the same, for `|S|` | ∅ | PASS |
@@ -190,30 +202,63 @@ because NEG_FINITE matches are excluded from FS_L both before and after.
 | N20 | (new) | *Let $X$ be a compact metric space and $f$ continuous on $X$. Then $f$ is bounded.* / The finite subcover of the preimages of open intervals. | FU=0, so no A. Compact and bounded count only for FS_L | ∅ | PASS |
 | N21 | (new) | *For horizon $K$, the visible laws $\mu_K$ converge as $K \to \infty$.* | `\to\infty` applies to a declared horizon, which is a neutral context; no IS, no IU | ∅ | PASS |
 
+### 2.1 Cases added in revision 3 (delta review c.7065126686)
+
+"Route" says how the case reaches review: through a blocking screen hit, through an advisory hit, or
+through review-set membership alone.
+
+| ID | Before | After (statement / proof, or change) | Why | Items | Route | Verdict |
+|---|---|---|---|---|---|---|
+| P-S1 | (new) | N3's block, with no review record | It is a review-set member (R-a) with no record, although the screen is clean | ∅ | membership | FAIL with no record; PASS with a plain record |
+| P-N1 | (new) | *Without assuming finiteness of $S$, every bijection of $S$ has a periodic orbit.* / Pigeonhole. (R1) | "finiteness of $S$" is not a positive predication, so FS_A=0; FU=1. GEN=0. J10's `finiteness` falls in FS_L | {A}; advisory {scope-unclear} | screen | FAIL |
+| P-N2 | (new) | *$S$ is not assumed finite. Every bijection of $S$ has a periodic orbit.* / Pigeonhole. (R1) | `$S$ is finite` does not match; FS_A=0 | {A}; advisory {scope-unclear} | screen | FAIL |
+| P-N3 | (new) | *$S$ is not assumed to be finite. …* as P-N2 (R1) | `be finite` is not preceded directly by `$S$`; FS_A=0 | {A}; advisory {scope-unclear} | screen | FAIL |
+| P-N4 | (new) | *Finiteness of $S$ is not required. …* as P-N2 (R1) | FS_A=0 | {A}; advisory {scope-unclear} | screen | FAIL |
+| P-B3 | (new) | `**Proposition 2.**` *The equilibrium weight of each configuration is $1/|S|$.* (no proof), followed by the ordinary paragraph "Here $S$ is finite." (R2) | The extent is the label paragraph, so the next paragraph supplies nothing: FS_A=0, FU=2. The next paragraph is the post-block paragraph, with GEN=IS=0, so no E | {A} | screen | FAIL |
+| P-B4 | (new) | *Every orbit of $\pi$ on $S$ is periodic.* / `**Proof.**` Pigeonhole. $\square$ | The bold opener is recognized, so the proof's FU=1 counts; FS_A=0 | {A} | screen | FAIL |
+| P-D1 | the block *Every orbit of $\pi$ on $S$ is periodic.* / By Lemma 3. (Lemma 3 is N3, neutral) | the citation retargeted to Lemma 7 (Lemma 7 is N1, FS_A=1) (R3) | The masked digest is unchanged, but the resolved targets changed, so the block is revised. The transitive clause gives FU=1; FS_A=0 | {A} | screen | FAIL |
+| P-D2 | Lemma 12 is N3 (neutral), and block C reads *Every orbit of $\pi$ on $S$ is periodic.* / By Lemma 12. | Lemma 12 narrowed to N1's form, *Let $S$ be finite. …*; C unchanged (R3) | Lemma 12's change is free (N10-type, no hit), but its FS_A changed, so C joins the review set by closure (R-b). On C, the transitive clause gives FU=1; FS_A=0 | {A} on C | screen (on a dependent) | FAIL |
+| P-E1 | (new) | N1, with the proof "Pigeonhole; hence the identity holds for every $S$, finite or infinite." | Rule E: GEN=2 in the proof (carrier quantifier, NEG_FINITE). The statement keeps FS_A=1 and FU=1 | {E} | screen | FAIL |
+| P-E2 | N1, unchanged | the post-block paragraph "It follows that the result holds for all $S$." added after N1's proof | The changed post-block paragraph puts N1 in the review set (R-c). Rule E: GEN=1 there | {E} on N1 | screen | FAIL |
+| N22 | (new) | *Under the hypotheses of Theorem 3, let $S$ be finite. Every orbit of $\pi$ is periodic.* / Pigeonhole. (R4) | The citation masks to `#ref`, so no `theorem` reaches J10. FS_A=1, FU=1 | ∅ | membership | PASS |
+| N23 | (new) | *Let $S$ be finite. The orbit decomposition derived in §2 is unique.* / Neutral. (R4) | On a new block, `derived` is a neutral context | ∅ | membership | PASS |
+| N24 | (new) | *Let $S$ be finite. For every $n \in \mathbb N$, $\pi^{n\,|S|!} = \mathrm{id}$.* / Orbit lengths divide $|S|!$. (R4) | `\mathbb N` does not index a carrier, so IS=0 and there is no G2. FS_A=1, FU=1 (`|S|` as a number) | ∅ | membership | PASS |
+| N25 | (new) | *Let $S$ be finite, of cardinality $N$. The bound holds uniformly in $t$, is independent of the initial state, holds in general, and the horizon is unlimited.* (R4) | `of cardinality $N$` is neutral. The rest are unclassified J10 matches, which are advisory only. GEN=0 | ∅; advisory {G5 ×4} | membership | PASS |
+| N26 | (new) | *Let $X$ be a finite set and $\pi$ a bijection of $X$. Every orbit of $\pi$ is periodic.* / Pigeonhole. (R5) | $X$ is declared, so it is a carrier for this block, and `a finite set` is a positive predication: FS_A=1 | ∅ | membership | PASS |
+| N27 | (new) | *Let $\mathcal H$ be a finite-dimensional Hilbert space and $\rho$ a density operator on $\mathcal H$. Then $\mathrm{tr}\,\rho^2 \le 1$.* / The eigenvalues of $\rho$ lie in $[0,1]$ and sum to 1. (R5) | `a finite-dimensional Hilbert space` is a positive predication about a declared carrier: FS_A=1; FU=1 (`\mathrm{tr}`) | ∅ | membership | PASS |
+| N28 | (new) | `**Proposition 3.**` *Let $S$ be finite. Every orbit of $\pi$ is periodic.* (no proof), followed by the paragraph "The next section treats the gauge group." (R2) | The extent is the label paragraph. FU=0. The post-block paragraph has no GEN or IS | ∅ | membership | PASS |
+
 ## 3. Documented limits (X-cases)
 
 The tool's expected verdict is recorded, and the safeguard named.
 
 | ID | Case | Tool's expected verdict | Why, and what catches it |
 |---|---|---|---|
-| X-1 | *For a finite time $t$ and every $s \in S$, the orbit of $s$ is periodic.* / Pigeonhole. | PASS (escape) | "finite" stands in a sentence with a carrier, so FS=1. Caught by the checklist line (SPEC §10) |
-| X-2 | finite use with no listed term ("each configuration is visited before any repeats, so the walk closes") | PASS (escape) | Lexical classes. Caught by review; the wording is then added to FU under SPEC §7, with its own case |
+| X-1 | *Let $T$ be a finite set of times. For every $t \in T$, every orbit of $\pi$ on $S$ is periodic.* / Pigeonhole on $S$. | no blocking hit (screen escape) | `a finite set` is a positive predication about the declared carrier $T$, so FS_A=1, although the pigeonhole step needs $S$ finite. Caught by checklist item 1. (Revision 2's "for a finite time $t$" now raises A: it is not a positive predication about a carrier.) |
+| X-2 | finite use with no listed term ("each configuration is visited before any repeats, so the walk closes") | no blocking hit (screen escape); caught by checklist item 1 | Lexical classes. Caught by review; the wording is then added to FU under SPEC §7, with its own case |
 | X-3 | a theorem in unlabelled prose outside the claim surfaces | advisory item only | Caught by the advisory PR layer and owner decision O3 |
 | X-4 | a non-cardinality change: an operator flip or a dropped qualifier such as "on the visible sector" (the other NCASES) | not FIN-SCOPE's object | Caught by general claim review; #1483 covers the A1 transformation itself |
 | X-5 | *Let $X$ be compact and $f$ continuous. Then $f$ attains its maximum on $X$.* / The image is compact. | {A}, FAIL until resolved (false positive) | FU=2 and FS=0 (compact is not in FS_A). Cleared by a resolution with a `basis` |
-| X-6 | *Every orbit of $\pi$ on $S$ is periodic.* / By [external reference, Thm 2]. | PASS (escape) | The transitive clause follows only parsed blocks. Caught by the checklist line |
+| X-6 | *Every orbit of $\pi$ on $S$ is periodic.* / By [external reference, Thm 2]. | no blocking hit (screen escape) | The transitive clause follows only parsed blocks. Caught by checklist item 1, since the block is a member |
+| X-7 | *For every density operator $\rho$ on $\mathcal H$, $\mathrm{tr}\,\rho^2 \le 1$.*, where $\mathcal H$ is declared finite-dimensional in an earlier Setting that the statement does not cite | {A}, an admitted false positive | FU=1; the finiteness lies outside the local hypotheses. Answered by a `basis`, or by citing the Setting |
+| X-8 | *For every lattice $\Lambda$, the conserved quantities of a bijection of $Q^\Lambda$ are orbit-constant.* | no blocking hit (screen escape) | "lattice" is not a carrier noun, and `$Q^\Lambda$` is undeclared. The generality over infinite lattices is caught by checklist item 3 (R5) |
+| X-9 | *Let $S$ be finite, though this is not needed. Every bijection of $S$ has a periodic orbit.* / Pigeonhole. | no blocking hit (screen escape) | The positive predication satisfies FS_A. Caught by checklist items 1 and 3 (R1) |
+| X-10 | "The same holds for all $S$." two paragraphs after a block, outside a claim surface | not in the review set (screen escape) | Beyond the post-block paragraph. Advisory only, unless owner decision O3 brings such prose in |
 
 ## 4. Coverage
 
 | Rule or control | Positives | Negatives | Mutant targets |
 |---|---|---|---|
-| A | P-A1–P-A5, P-A7, P-A9–P-A13 | N1, N2, N2b, N2c, N5e, N13, N15, N20 | P-A1, P-A2, P-A7, P-A9, P-A10, P-A12 |
+| A | P-A1–P-A5, P-A7, P-A9–P-A13, P-N1–P-N4, P-B3, P-B4, P-D1, P-D2 | N1, N2, N2b, N2c, N5e, N13, N15, N20, N22–N24, N26–N28 | P-A1, P-A2, P-A7, P-A9, P-A10, P-A12, P-B3, P-D1, P-D2 |
 | L | P-L1–P-L9, P-G7, P-M1 | N9, N10, N12, N14a | P-L1, P-L4b |
 | G (G1–G5) | P-A12, P-G1–P-G11, the 46 rows of §1.4 | N3, N5–N5e, N6, N8, N11, N14a–e, N15, N21 | P-G1, P-G2, P-G11, N14e, N15 |
 | I | P-I1, P-I2 | N6, N7, N19, N21 | P-I1 |
 | M | P-M1, P-M2 | N12 | P-M1 |
 | K | P-G9, P-K1, P-K2 | N2b | defined with the Lean layer (O5) |
-| P and grammar | P-B1, P-B2 | N16, N17, N18 | N16 |
+| P and grammar | P-B1–P-B4 | N16, N17, N18, N28 | N16, P-B3 |
+| E | P-E1, P-E2 | N28 | P-E1, P-E2 |
+| membership and closure (§1.1) | P-S1, P-D2 | the non-member cases in the conventions | P-S1, P-D2 |
+| advisory backstop | P-G11, row 42 | N25 | N22, N25 (G5 made blocking) |
 | resolutions and configuration | P-L8, P-G8, P-R1–P-R8 | N8, P-L9 | P-R1, P-R2, P-R6 |
 | #1483 reuse | §1.4 (C-R4), P-R7 | N5–N5d | C-R1, C-R2 |
 
