@@ -80,7 +80,7 @@ theorem permTheory_nonnegBounded : NonnegBounded (permTheory A) :=
   nonnegBounded_of_bijectionLevel permClass_arch permClass_bijectionLevel
 
 /-- **THE OBSERVER THEORY OF ANY SUBSTRATUM IS NONNEGATIVITY-BOUNDED**, at every substratum
-satisfying the finiteness A1 supplies. -/
+with finitely many sites and a finite alphabet. -/
 theorem obsTheory_nonnegBounded (𝒮 : Substratum) [Fintype 𝒮.ι] [Fintype 𝒮.V] [DecidableEq 𝒮.V] :
     NonnegBounded (obsTheory 𝒮) :=
   permTheory_nonnegBounded

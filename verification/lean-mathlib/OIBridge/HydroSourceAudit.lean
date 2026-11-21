@@ -85,7 +85,7 @@ re-proved.
 **Nothing here says OI cannot support fluid hydrodynamics.** The findings are about one
 representative rule, one stencil, one class of coarse variables, and one candidate conserved field;
 round H-B's construction question is untouched and alive. **Nothing here is a continuum
-statement**: no limit is taken and no PDE is asserted or denied. **Nothing here changes A1–A6**;
+statement**: no limit is taken and no PDE is asserted or denied. **Nothing here changes the substratum conditions**;
 A5 is consumed as proved. **Nothing here bears on the OI → QM chain, on Track B, on Bell, or on
 gravity.** The `q`-gauge principle is consumed as the manuscripts state it, not tested. No
 manuscript is edited.
