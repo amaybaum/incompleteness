@@ -35,7 +35,7 @@ manuscript changed on `main` between it and `97070c98`.
 |---|---|
 | `baseline.py` | `e0749fb926ce9da0ee52bad0ea9e0e80e4fa9f4edeb22c8009a303bf1af23ad9` |
 | `snapshot.json` | `2db7832d7cb95b0ba77b42afad965696390d4ad67a6835b2c45f045bd04f88c8` |
-| `compare/verdict.py` | `23ea3f9a39738237fc111064ee65fa4c957a21fd4809b3ba659382d13faea02d` |
+| `compare/verdict.py` | `6430a218bc833df426066ecf8243a3ca6acfa93f62163f4d41340d47211ca6c4` |
 | `compare/inputs/edits-s2.json` | `f43086e43663ea5becabee3b0439d338dca78da3170f6a1d951a5ec713583a4c` |
 | the ledger's `rows.json`, read from the Git object at `PIN_S2` | `39e51d0cfd8d6855f17ef3d7253a43d372fae608a9dcae083fbeb52471b512a0` |
 
@@ -442,6 +442,9 @@ record's head. The pin self-run is a preparation run (`collect --prep`), whose f
 checkout HEAD; a non-preparation C0 at this PR's head fails, as it must (T20c).
 - `verdict.py self-test`: T1–T21b PASS. These include:
   - the standing J10 battery, with all 47 cases flagged (T13);
+  - the sequence battery: the 11 deletion, reordering, operator and punctuation cases are all flagged,
+    and the set-comparison mutant fails it (T13c);
+  - a whitespace-only difference from the expected text is not J and is flagged (T13d);
   - the gain-rule mutant, which fails the battery on the bare footnote marker and the gain-only case
     (T13b);
   - the mutants of C6–C9 (T15, T17, T18);
@@ -458,7 +461,7 @@ checkout HEAD; a non-preparation C0 at this PR's head fails, as it must (T20c).
   and the text began "PREPARATION RUN at the pin, not a regression verdict. VERDICT PASS: 0 reported
   changes; …; controls pass; countercontrols pass." Exit 0, `requirement6_settled: false`. C7 ran on
   T3's synthetic item and C8 on C9 (b)'s item. C9 gave (a) R, staying R without a proof; (b) J; (c), (d),
-  (e) and (f) R.
+  (e), (f) and (g) R.
 - A second `verdict` into the same directory was refused (exit 2).
 - `compile-del` on #1477's plan, as a format check only: 264 manuscript edits; D032 and D039, recorded
   there as retained unchanged, are set aside.
