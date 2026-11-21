@@ -7,9 +7,13 @@ Standard library only; run with `python3 -I -B`. The inventory rule is PREREG.md
   check                   regenerate the snapshot from PIN and compare bytes with snapshot.json
   self-test               controls and countercontrols of the compare mode on in-memory edits
   --compare <commit>      report each baseline entry at <commit> (unchanged / text / value / label
-                          changed / removed) and new entries
+                          changed / removed, with moves), every unaccounted changed or inserted line and
+                          every deleted non-entry line; exit 1 if anything changed, 0 if nothing did
   --compare-tree <dir>    the same against a directory holding papers/ and book/
-  --json                  with --compare*, print the report as JSON
+  --json <path>           with --compare*, also write the report to <path> (schema
+                          a1exit-regression-compare/1: schema, pin, other, any_change, summary,
+                          entries[id,file,line,categories,status[],new_file,new_line,moved,new_text],
+                          unaccounted[file,line,kind,flags[],text], deleted[file,line,flags[],text])
 """
 import difflib
 import hashlib
@@ -42,7 +46,8 @@ ABBREV_FIXED = {
     'M': 'papers/Main.md', 'SM': 'papers/SM.md', 'GR': 'papers/GR.md',
     'Sub': 'papers/Substratum.md', 'Str': 'papers/Structure.md', 'Meth': 'papers/Methodology.md',
     'Comp': 'papers/Computation.md', 'Cx': 'papers/Complexity.md', 'Intro': 'papers/Introduction.md',
-    'Med': 'papers/Medicine.md', 'appA': 'book/appendix-a-prediction-status.md',
+    'Med': 'papers/Medicine.md', 'Bio': 'papers/Bioinformatics.md', 'Juno': 'papers/Juno.md',
+    'appA': 'book/appendix-a-prediction-status.md',
     'appa': 'book/appendix-a-prediction-status.md', 'appB': 'book/appendix-b-derivations.md',
     'appb': 'book/appendix-b-derivations.md', 'appC': 'book/appendix-c-objections.md',
     'appc': 'book/appendix-c-objections.md', 'README': 'book/README.md', 'gloss': 'book/glossary.md', 'FULL': FULL,
@@ -50,6 +55,15 @@ ABBREV_FIXED = {
 SITE_RE = re.compile(r'(?<![A-Za-z0-9.])(?:([A-Za-z][A-Za-z0-9]*)?):(\d+)(?:\s*[–-]\s*(\d+))?')
 
 X4_RE = re.compile(r'classical-dimension|N < \\infty|fixed finite carrier')  # ledger_check.py 'X4'
+PROSE_CMP_RE = re.compile(r'(\\pm|±|\\sigma|σ|\bPDG\b|CODATA|observed|measured|measurement|experimental)',
+                          re.I)  # amendment A1, P1 (the 890-line rule; kept for its count)
+PROSE_DEC_RE = re.compile(r'(?<![\w.])\d+\.\d+')  # amendment A1, P1
+# amendment A1, P1w (review round 1): widened markers and number forms; this is the selection rule
+PROSE_MARK_W = re.compile(r'\\pm|±|\\sigma|σ|\bPDG\b|CODATA|observed|measured|measurement|experimental|'
+                          r'observation|match|agree|coincid|%|discrepanc|predict', re.I)
+PROSE_NUM_W = re.compile(r'(?<![\w.])\d+\.\d+|10\s*\^\s*\{?\s*[-−]?\d+|(?<![\w./])\d+\s*/\s*\d+(?![\w/.])|'
+                         r'\\[dt]?frac\s*\{\s*\d+\s*\}\s*\{\s*\d+\s*\}|\d+(?:\.\d+)?\s*\\?%')
+PROSE_MARK_FLAG = PROSE_MARK_W  # also used to flag unaccounted lines in compare mode
 FINL_RE = re.compile(r'[Ee]xtrapolat|[NL] *\\to *\\infty|[NL] *→ *∞|finite-[LN]\b|finite lattice')
 TABLE_DELIM = re.compile(r'^\|[\s:|-]+\|\s*$')
 CLASS_PRED = re.compile(r'Predict|Observ|Match|Empirical|Measure|Deviation|Discrepanc|σ|\\sigma|'
@@ -76,6 +90,7 @@ SCOPE_TERMS = re.compile(
     r'\bcarriers?\b|\bextrapolat\w*|\bconverg\w*|\bapproximat\w*|L\s*(?:→|\\to|\\rightarrow)\s*\\?infty|'
     r'L\s*→\s*∞|ℤ|\\mathbb\s*\{?Z\}?|N\s*<\s*\\infty|for a fixed finite)', re.I)
 
+NEG_TERMS = re.compile(r"\b(not|no|never|cannot|can't|none|neither|nor|without|fails?|failed)\b", re.I)
 UNIT_RE = re.compile(
     r'\s*\$?\s*(?:\\,|\\;|~)?\s*'
     r'(\\%|%|\\sigma|σ|\\text\{\s*(?:GeV|MeV|keV|TeV|eV|meV)\s*\}|\\mathrm\{\s*(?:GeV|MeV|keV|TeV|eV)\s*\}|'
@@ -215,6 +230,11 @@ def parse_numbers(text):
         end = m.end()
         it = IDENT_TAIL.search(t[max(0, m.start() - 40):m.start()]) if not m.group(1) else None
         in_ident = bool(it) and not it.group(1)
+        # amendment A1, R3: a hyphen after a letter is part of an identifier (X-48, G-2, spin-0)
+        if m.group(1) and m.start() > 0 and t[m.start() - 1].isalpha():
+            hit = IDENT_TAIL.search(t[max(0, m.start() - 40):m.start()])
+            if not (hit and hit.group(1)):
+                in_ident = True
         if in_ident or EXCL_PREFIX.search(pre) or (m.start() > 0 and t[m.start() - 1] in '-' and
                                                    re.search(r'[A-Za-z]-$', pre)):
             pos = end
@@ -270,7 +290,8 @@ def all_numbers(rec):
 
 
 def number_key(nums):
-    return [(n['tok'], n.get('paren_unc'), tuple(n.get('unc', ())), n.get('exp10')) for n in nums]
+    return [(n['tok'], n.get('paren_unc'), tuple(n.get('unc', ())), n.get('exp10'), n.get('unit'))
+            for n in nums]
 
 
 def strip_numbers(text):
@@ -283,7 +304,8 @@ def labels_of(text):
     for m in CLASS_MARK.finditer(text):
         marks.append(m.group(1) if m.group(1) else '%s %s' % (m.group(2), m.group(3)))
     sc = [' '.join(m.group(0).lower().split()) for m in SCOPE_TERMS.finditer(text)]
-    return {'status_terms': st, 'class_marks': marks, 'scope_terms': sc}
+    neg = [m.group(0).lower() for m in NEG_TERMS.finditer(text)]
+    return {'status_terms': st, 'class_marks': marks, 'scope_terms': sc, 'negations': neg}
 
 
 def describe_line(lines, idx, tables_by_row):
@@ -317,7 +339,7 @@ def describe_line(lines, idx, tables_by_row):
 def label_key(rec):
     lab = rec['labels']
     return (tuple(lab['status_terms']), tuple(lab['class_marks']), tuple(lab['scope_terms']),
-            tuple(tuple(x) for x in lab.get('label_cells', ())))
+            tuple(lab.get('negations', ())), tuple(tuple(x) for x in lab.get('label_cells', ())))
 
 
 def tables_index(lines):
@@ -442,12 +464,14 @@ def build_snapshot():
                     if not t.strip() or TABLE_DELIM.match(t):
                         continue
                     add(f, n, cat, row, via)
-    # deviation D1 (RESULT): C-CDO also takes every line matching the ledger's extended pattern X4
+    # amendment A1, P5: M:566 belongs to the X-48 argument (review round 1)
+    add('papers/Main.md', 566, 'C-CDO', 'X-48', 'explicit-A1-P5')
+    # amendment A1, P2 (was D1): C-CDO also takes every line matching the ledger's extended pattern X4
     for f in sorted(corpus):
         for i, t in enumerate(cache[f]):
             if X4_RE.search(t):
                 add(f, i + 1, 'C-CDO', None, 'lexical-X4')
-            # deviation D2 (RESULT): C-FINL also takes every line matching FINL_RE
+            # amendment A1, P3 (was D2): C-FINL also takes every line matching FINL_RE
             if FINL_RE.search(t):
                 add(f, i + 1, 'C-FINL', None, 'lexical-FINL')
     # mirrors of ledger-selected entries
@@ -474,6 +498,17 @@ def build_snapshot():
                     changed = True
         if not changed:
             break
+    # amendment A1, P1: prose comparison lines; added after the mirror closure, so no mirror search
+    # and no propagation of this category
+    for f in sorted(corpus):
+        for i, t in enumerate(cache[f]):
+            if not t.startswith('|') and PROSE_MARK_W.search(t) and PROSE_NUM_W.search(t):
+                add(f, i + 1, 'C-PROSE', None, 'prose-comparison')
+    # amendment A1, P4: every site of the ledger's site map (all rows, FP and FREE included); added
+    # after the mirror closure (the map lists its own FULL sites)
+    for s in sitemap['sites']:
+        row = s['row'] if s['row'] and s['row'] != '-' else None
+        add(s['file'], s['line'], 'C-SITEMAP', row, 'sitemap-all')
     entries = []
     for (f, n) in sorted(sel):
         e = sel[(f, n)]
@@ -488,8 +523,12 @@ def build_snapshot():
         rec.update(describe_line(cache[f], n - 1, tidx[f]))
         entries.append(rec)
     counts = {}
-    for cat, _ in [('C-TAB', None)] + CATEGORIES:
+    for cat, _ in [('C-TAB', None)] + CATEGORIES + [('C-PROSE', None), ('C-SITEMAP', None)]:
         counts[cat] = sum(1 for x in entries if cat in x['categories'])
+    counts['C-PROSE-narrow-rule'] = sum(
+        1 for x in entries if 'C-PROSE' in x['categories'] and PROSE_CMP_RE.search(x['text'])
+        and PROSE_DEC_RE.search(x['text']))
+    counts['C-PROSE-only'] = sum(1 for x in entries if x['categories'] == ['C-PROSE'])
     counts['entries'] = len(entries)
     counts['table_rows_by_class'] = {}
     for x in entries:
@@ -526,83 +565,145 @@ def dump(snap):
 
 
 # --------------------------------------------------------------------------- compare
+#
+# Amendment A1, R1 (review round 1). Lines are paired by content, not by position:
+#   stage 0  lines inside difflib `equal` blocks of the same file keep their pairing;
+#   stage 1  a baseline entry whose line is outside an equal block takes an unclaimed after-state line
+#            with identical text (same file first, nearest line; then any file, so moves across files
+#            are paired);
+#   stage 2  remaining entries take the most similar unclaimed changed line, greedily by ratio
+#            (threshold 0.6 in the same file, 0.8 across files);
+# an entry with no partner is `removed`. Every changed or inserted after-state line that is not the
+# image of an entry is reported as `unaccounted`, in every file including new ones, and every deleted
+# pin line that is not an entry is reported as `deleted`; both are flagged for numbers, comparison
+# markers, status/scope/negation terms and table rows.
 
-def line_map(old, new):
-    """Map old line index -> new index or None; and the set of unpaired new indices with the
-    old indices they are adjacent to."""
-    sm = difflib.SequenceMatcher(None, old, new, autojunk=False)
-    mp, unpaired = {}, []
-    for tag, i1, i2, j1, j2 in sm.get_opcodes():
-        if tag == 'equal':
-            for k in range(i2 - i1):
-                mp[i1 + k] = j1 + k
-        elif tag == 'replace':
-            m = min(i2 - i1, j2 - j1)
-            for k in range(m):
-                mp[i1 + k] = j1 + k
-            for k in range(m, i2 - i1):
-                mp[i1 + k] = None
-            for k in range(m, j2 - j1):
-                unpaired.append((j1 + k, list(range(max(0, i1 - 1), i2 + 1))))
-        elif tag == 'delete':
-            for k in range(i1, i2):
-                mp[k] = None
-        elif tag == 'insert':
-            for k in range(j1, j2):
-                unpaired.append((k, [i1 - 1, i1]))
-    return mp, unpaired
+COMPARE_SCHEMA = 'a1exit-regression-compare/1'
+SAME_FILE_RATIO = 0.6
+CROSS_FILE_RATIO = 0.8
+
+
+def line_flags(f, text, new_file=False):
+    lab = labels_of(text)
+    flags = []
+    if parse_numbers(text):
+        flags.append('numbers')
+    if PROSE_MARK_FLAG.search(text):
+        flags.append('marker')
+    if lab['status_terms'] or lab['class_marks'] or lab['scope_terms'] or lab['negations']:
+        flags.append('terms')
+    if text.startswith('|'):
+        flags.append('table')
+    if new_file:
+        flags.append('new-file')
+    return flags
 
 
 def compare(snap, other):
-    base_corpus_files = snap['corpus_files']
-    by_file = {}
-    for e in snap['entries']:
-        by_file.setdefault(e['file'], []).append(e)
-    # reconstruct pin texts from Git only for files with entries
-    report, new = [], []
-    pin_cache = {}
-    for f in sorted(set(base_corpus_files) | set(other)):
-        old = pin_cache[f] = lines_of(PIN_CORPUS()[f]) if f in base_corpus_files else []
-        newl = lines_of(other[f]) if f in other else []
-        tidx_new = tables_index(newl)
-        mp, unpaired = line_map(old, newl) if f in other else ({}, [])
-        images = set()
-        ent_lines = set()
-        for e in by_file.get(f, []):
-            i = e['line'] - 1
-            ent_lines.add(i)
-            j = mp.get(i) if f in other else None
-            r = {'id': e['id'], 'file': f, 'line': e['line'], 'categories': e['categories']}
-            if j is None:
-                r['status'] = ['removed']
-                report.append(r)
+    pin = PIN_CORPUS()
+    ent_at = {(e['file'], e['line'] - 1): e for e in snap['entries']}
+    files = sorted(set(pin) | set(other))
+    old = {f: lines_of(pin[f]) if f in pin else [] for f in files}
+    new = {f: lines_of(other[f]) if f in other else [] for f in files}
+    eqmap, changed_new, changed_old = {}, {}, {}
+    for f in files:
+        sm = difflib.SequenceMatcher(None, old[f], new[f], autojunk=False)
+        cn, co = set(range(len(new[f]))), set(range(len(old[f])))
+        for tag, i1, i2, j1, j2 in sm.get_opcodes():
+            if tag == 'equal':
+                for k in range(i2 - i1):
+                    eqmap[(f, i1 + k)] = j1 + k
+                    cn.discard(j1 + k)
+                    co.discard(i1 + k)
+        changed_new[f], changed_old[f] = cn, co
+    image, claimed = {}, set()
+    for key in sorted(ent_at):                                   # stage 0
+        if key in eqmap:
+            image[key] = (key[0], eqmap[key])
+            claimed.add(image[key])
+    by_text = {}
+    for f in files:
+        for j in sorted(changed_new[f]):
+            by_text.setdefault(new[f][j], []).append((f, j))
+    for key in sorted(k for k in ent_at if k not in image):     # stage 1
+        cands = [c for c in by_text.get(ent_at[key]['text'], []) if c not in claimed]
+        if cands:
+            same = [c for c in cands if c[0] == key[0]]
+            pick = min(same, key=lambda c: (abs(c[1] - key[1]), c[1])) if same else cands[0]
+            image[key] = pick
+            claimed.add(pick)
+    rem = [k for k in sorted(ent_at) if k not in image]          # stage 2
+    pool = [(f, j) for f in files for j in sorted(changed_new[f])
+            if (f, j) not in claimed and new[f][j].strip()]
+    pairs = []
+    for k in rem:
+        t = ent_at[k]['text']
+        for c in pool:
+            thr = SAME_FILE_RATIO if c[0] == k[0] else CROSS_FILE_RATIO
+            sm = difflib.SequenceMatcher(None, t, new[c[0]][c[1]], autojunk=False)
+            if sm.real_quick_ratio() < thr or sm.quick_ratio() < thr:
                 continue
-            images.add(j)
-            ne = describe_line(newl, j, tidx_new)
-            r['new_line'] = j + 1
-            if ne['text'] == e['text']:
-                r['status'] = ['unchanged']
-            else:
-                st = []
-                if number_key(all_numbers(ne)) != number_key(all_numbers(e)):
-                    st.append('value changed')
-                if label_key(ne) != label_key(e):
-                    st.append('label changed')
-                if not st:
-                    st.append('text changed')
-                r['status'] = st
-                r['new_text'] = ne['text']
-            report.append(r)
-        prose_lines = {e['line'] - 1 for e in by_file.get(f, []) if e['kind'] == 'prose'}
-        for j in sorted(tidx_new):
-            if j not in images:
-                new.append({'file': f, 'new_line': j + 1, 'kind': 'table', 'text': newl[j]})
-        for j, adj in unpaired:
-            if j in tidx_new or not newl[j].strip():
+            r = sm.ratio()
+            if r >= thr:
+                pairs.append((-r, 0 if c[0] == k[0] else 1, k, c))
+    pairs.sort()
+    for _, _, k, c in pairs:
+        if k not in image and c not in claimed:
+            image[k] = c
+            claimed.add(c)
+    tidx = {f: tables_index(new[f]) for f in files}
+    entries = []
+    for key in sorted(ent_at):
+        e = ent_at[key]
+        r = {'id': e['id'], 'file': e['file'], 'line': e['line'], 'categories': e['categories']}
+        if key not in image:
+            r['status'] = ['removed']
+            entries.append(r)
+            continue
+        f2, j = image[key]
+        ne = describe_line(new[f2], j, tidx[f2])
+        r['new_file'], r['new_line'] = f2, j + 1
+        r['moved'] = (f2, j + 1) != (e['file'], e['line'])
+        if ne['text'] == e['text']:
+            r['status'] = ['unchanged']
+        else:
+            st = []
+            if number_key(all_numbers(ne)) != number_key(all_numbers(e)):
+                st.append('value changed')
+            if label_key(ne) != label_key(e):
+                st.append('label changed')
+            r['status'] = st or ['text changed']
+            r['new_text'] = ne['text']
+        entries.append(r)
+    unaccounted, deleted = [], []
+    pin_texts = {t for f in pin for t in old[f]}
+    claimed_texts = {new[f][j] for (f, j) in claimed}
+    for f in files:
+        for j in sorted(changed_new[f]):
+            t = new[f][j]
+            if (f, j) in claimed or not t.strip():
                 continue
-            if any(a in prose_lines for a in adj):
-                new.append({'file': f, 'new_line': j + 1, 'kind': 'prose-adjacent', 'text': newl[j]})
-    return report, new
+            unaccounted.append({'file': f, 'line': j + 1, 'text': t,
+                                'kind': 'identical-to-a-pin-line' if t in pin_texts else 'new-or-changed',
+                                'flags': line_flags(f, t, f not in pin)})
+        new_texts = {new[f2][j] for f2 in files for j in changed_new[f2]}
+        for i in sorted(changed_old[f]):
+            t = old[f][i]
+            if (f, i) in ent_at or not t.strip() or t in new_texts or t in claimed_texts:
+                continue
+            deleted.append({'file': f, 'line': i + 1, 'text': t, 'flags': line_flags(f, t)})
+    summary = {}
+    for r in entries:
+        k = '+'.join(r['status'])
+        summary[k] = summary.get(k, 0) + 1
+    summary['moved'] = sum(1 for r in entries if r.get('moved'))
+    summary['unaccounted'] = len(unaccounted)
+    summary['unaccounted_flagged'] = sum(1 for u in unaccounted if u['flags'])
+    summary['deleted'] = len(deleted)
+    summary['deleted_flagged'] = sum(1 for d in deleted if d['flags'])
+    changed = (any(r['status'] != ['unchanged'] for r in entries) or bool(unaccounted) or bool(deleted))
+    return {'schema': COMPARE_SCHEMA, 'pin': PIN, 'any_change': changed, 'summary': summary,
+            'entries': entries, 'unaccounted': unaccounted, 'deleted': deleted}
 
 
 _PIN_CORPUS = {}
@@ -614,28 +715,18 @@ def PIN_CORPUS():
     return _PIN_CORPUS
 
 
-def summarize(report, new):
-    out = {}
-    for r in report:
-        k = '+'.join(r['status'])
-        out[k] = out.get(k, 0) + 1
-    return out, len(new)
-
-
-def print_report(report, new, as_json):
-    summ, nnew = summarize(report, new)
-    if as_json:
-        print(json.dumps({'summary': summ, 'new': new,
-                          'changed': [r for r in report if r['status'] != ['unchanged']]},
-                         ensure_ascii=False, indent=1, sort_keys=True))
-        return
-    for r in report:
-        if r['status'] != ['unchanged'] or r.get('new_line', r['line']) != r['line']:
-            print('%-12s %s -> %s  %s' % (r['id'], ', '.join(r['status']),
-                                          r.get('new_line', '-'), ','.join(r['categories'])))
-    for n in new:
-        print('NEW          %s:%d  %s  %s' % (n['file'], n['new_line'], n['kind'], n['text'][:100]))
-    print('summary: %s; new entries: %d' % (json.dumps(summ, sort_keys=True), nnew))
+def print_report(res):
+    for r in res['entries']:
+        if r['status'] != ['unchanged'] or r.get('moved'):
+            where = '-' if 'new_line' not in r else '%s:%d' % (r['new_file'], r['new_line'])
+            print('%-12s %-28s -> %s  %s' % (r['id'], ', '.join(r['status']) + (' (moved)' if r.get('moved') else ''),
+                                             where, ','.join(r['categories'])))
+    for u in res['unaccounted']:
+        print('UNACCOUNTED  %s:%d  %s [%s]  %s' % (u['file'], u['line'], u['kind'], ','.join(u['flags']),
+                                                  u['text'][:100]))
+    for d in res['deleted']:
+        print('DELETED      %s:%d  [%s]  %s' % (d['file'], d['line'], ','.join(d['flags']), d['text'][:100]))
+    print('summary: %s; any change: %s' % (json.dumps(res['summary'], sort_keys=True), res['any_change']))
 
 
 # --------------------------------------------------------------------------- self-test
@@ -643,17 +734,30 @@ def print_report(report, new, as_json):
 def self_test(snap):
     pin = dict(PIN_CORPUS())
     ok = True
+    ids = {e['id']: e for e in snap['entries']}
+    at = {(e['file'], e['line']): e for e in snap['entries']}
 
-    def run(name, mutate, expect, expect_new):
+    def run(name, mutate, expect, n_unacc=0, n_del=0, check=None, flags=None):
         nonlocal ok
         c = dict(pin)
         mutate(c)
-        rep, new = compare(snap, c)
-        got = {r['id']: tuple(r['status']) for r in rep if r['status'] != ['unchanged']}
-        good = got == expect and len(new) == expect_new
-        print('%-44s %s  (changed %s, new %d)' % (name, 'PASS' if good else 'FAIL', got, len(new)))
+        res = compare(snap, c)
+        got = {r['id']: tuple(r['status']) for r in res['entries'] if r['status'] != ['unchanged']}
+        good = (got == expect and len(res['unaccounted']) == n_unacc and len(res['deleted']) == n_del
+                and res['any_change'] == bool(expect or n_unacc or n_del))
+        if flags is not None:
+            good = good and all(set(flags) <= set(u['flags']) for u in res['unaccounted'])
+        if check is not None:
+            good = good and check(res)
+        print('%-46s %s  (changed %s, unaccounted %d, deleted %d)' % (
+            name, 'PASS' if good else 'FAIL', got, len(res['unaccounted']), len(res['deleted'])))
         ok = ok and good
-        return rep
+        return res
+
+    def setline(c, f, i, text):
+        ls = lines_of(c[f])
+        ls[i - 1] = text
+        c[f] = '\n'.join(ls)
 
     def edit_line(c, f, needle, old, newstr):
         ls = lines_of(c[f])
@@ -662,57 +766,155 @@ def self_test(snap):
             raise SystemExit('self-test target not unique: %s %r' % (f, needle))
         ls[hits[0]] = ls[hits[0]].replace(old, newstr, 1)
         c[f] = '\n'.join(ls)
-        return hits[0] + 1
+
+    def moved(res, *wanted):
+        m = {r['id'] for r in res['entries'] if r.get('moved') and r['status'] == ['unchanged']}
+        return set(wanted) <= m
 
     appA = 'book/appendix-a-prediction-status.md'
-    line16 = [i for i, l in enumerate(lines_of(pin[appA])) if l.startswith('| 16 |')][0] + 1
-    line3 = [i for i, l in enumerate(lines_of(pin[appA])) if l.startswith('| 3 |')][0] + 1
-    id16, id3 = 'appA:%d' % line16, 'appA:%d' % line3
+    A = lines_of(pin[appA])
+    row = {k: [i for i, l in enumerate(A) if l.startswith('| %s |' % k)][0] + 1 for k in ('3', '4', '16')}
+    aid = {k: 'appA:%d' % v for k, v in row.items()}
 
-    run('identity control', lambda c: None, {}, 0)
-    rep = run('shift control (lines inserted above)',
-              lambda c: c.__setitem__(appA, 'Inserted paragraph.\n\nAnother.\n' + c[appA]), {}, 0)
-    moved = [r for r in rep if r['file'] == appA and r.get('new_line') != r['line']]
-    good = len(moved) > 0 and all(r['new_line'] == r['line'] + 3 for r in moved)
-    print('%-44s %s  (%d moved by 3)' % ('shift control moves entries', 'PASS' if good else 'FAIL', len(moved)))
-    ok = ok and good
+    run('identity control', lambda c: None, {})
+    run('shift control (2 lines inserted above)',
+        lambda c: c.__setitem__(appA, 'Inserted paragraph.\n\nAnother.\n' + c[appA]), {}, n_unacc=2,
+        check=lambda res: sum(1 for r in res['entries'] if r['file'] == appA and r.get('moved')
+                              and r['new_line'] == r['line'] + 3) > 0)
     run('countercontrol: changed value',
-        lambda c: edit_line(c, appA, '| 16 |', '2.361', '2.362'), {id16: ('value changed',)}, 0)
+        lambda c: edit_line(c, appA, '| 16 |', '2.361', '2.362'), {aid['16']: ('value changed',)})
     run('countercontrol: changed label',
-        lambda c: edit_line(c, appA, '| 16 |', '| L | 2(a) |', '| C | 2(a) |'), {id16: ('label changed',)}, 0)
+        lambda c: edit_line(c, appA, '| 16 |', '| L | 2(a) |', '| C | 2(a) |'), {aid['16']: ('label changed',)})
 
     def rm(c):
         ls = lines_of(c[appA])
-        del ls[line3 - 1]
+        del ls[row['3'] - 1]
         c[appA] = '\n'.join(ls)
-    run('countercontrol: removed row', rm, {id3: ('removed',)}, 0)
+    run('countercontrol: removed row', rm, {aid['3']: ('removed',)})
 
     def addrow(c):
         ls = lines_of(c[appA])
-        ls.insert(line3, '| 3b | synthetic row | 1.00 | C | 0 | none | Ch 6 |')
+        ls.insert(row['3'], '| 3b | synthetic row | 1.00 | C | 0 | none | Ch 6 |')
         c[appA] = '\n'.join(ls)
-    run('countercontrol: added row', addrow, {}, 1)
+    run('countercontrol: added row', addrow, {}, n_unacc=1, flags=['table', 'numbers'])
+
+    def swap(c):
+        ls = lines_of(c[appA])
+        ls[row['3'] - 1], ls[row['4'] - 1] = ls[row['4'] - 1], ls[row['3'] - 1]
+        c[appA] = '\n'.join(ls)
+    run('countercontrol: row swap (both moved, unchanged)', swap, {},
+        check=lambda res: moved(res, aid['3'], aid['4']))
+
+    def move_edit(c):
+        ls = lines_of(c[appA])
+        r3 = ls[row['3'] - 1]
+        ls[row['4'] - 1] = ls[row['4'] - 1].replace('29.57', '29.58', 1)
+        ls.insert(row['16'], r3)
+        del ls[row['3'] - 1]
+        c[appA] = '\n'.join(ls)
+    run('countercontrol: move plus adjacent edit', move_edit, {aid['4']: ('value changed',)},
+        check=lambda res: moved(res, aid['3']))
 
     intro = 'papers/Introduction.md'
-    ln = 135
-    t = lines_of(pin[intro])[ln - 1]
-    w = [x for x in re.findall(r'\b[a-z]{5,}\b', t)
-         if not STATUS_TERMS.fullmatch(x) and not SCOPE_TERMS.fullmatch(x)][0]
+    t135 = lines_of(pin[intro])[134]
+    w = [x for x in re.findall(r'\b[a-z]{5,}\b', t135)
+         if not STATUS_TERMS.fullmatch(x) and not SCOPE_TERMS.fullmatch(x) and not NEG_TERMS.fullmatch(x)][0]
 
     def wording(c):
-        ls = lines_of(c[intro])
-        ls[ln - 1] = ls[ln - 1].replace(w, w + 'x', 1)
-        c[intro] = '\n'.join(ls)
-    run('countercontrol: prose wording only', wording, {'Intro:135': ('text changed',)}, 0)
+        setline(c, intro, 135, t135.replace(w, w + 'x', 1))
+    run('countercontrol: prose wording only', wording, {'Intro:135': ('text changed',)})
+    run('countercontrol: prose scope qualifier',
+        lambda c: setline(c, intro, 135, t135 + ' This holds for a fixed finite carrier.'),
+        {'Intro:135': ('label changed',)})
 
-    def scope(c):
+    def rewrite_insert(c):
         ls = lines_of(c[intro])
-        ls[ln - 1] = ls[ln - 1] + ' This holds for a fixed finite carrier.'
+        ls[134] = t135.replace(w, w + 'x', 1)
+        ls.insert(135, 'The predicted value is 1.234 MeV against an observed 1.230 MeV.')
         c[intro] = '\n'.join(ls)
-    run('countercontrol: prose scope qualifier', scope, {'Intro:135': ('label changed',)}, 0)
+    run('countercontrol: insertion inside a rewritten block', rewrite_insert,
+        {'Intro:135': ('text changed',)}, n_unacc=1, flags=['numbers', 'marker'])
+
+    mev = [e for e in snap['entries'] if e['kind'] == 'table' and e['file'].startswith('papers/')
+           and any(n.get('unit') == 'MeV' for n in all_numbers(e)) and e['text'].count('MeV') >= 1][0]
+    run('countercontrol: unit change (MeV -> GeV)',
+        lambda c: setline(c, mev['file'], mev['line'], mev['text'].replace('MeV', 'GeV', 1)),
+        {mev['id']: ('value changed',)})
+
+    neg = [e for e in snap['entries'] if 'C-CDO' in e['categories'] and ' is ' in e['text']][0]
+    run('countercontrol: negation',
+        lambda c: setline(c, neg['file'], neg['line'], neg['text'].replace(' is ', ' is not ', 1)),
+        {neg['id']: ('label changed',)})
+
+    comp = 'papers/Computation.md'
+    run('countercontrol: new paragraph away from entries',
+        lambda c: c.__setitem__(comp, 'Synthetic: the mass is predicted at 1.234 MeV against an observed '
+                                      '1.230 MeV.\n\n' + c[comp]),
+        {}, n_unacc=1, flags=['numbers', 'marker'])
+    run('countercontrol: new file',
+        lambda c: c.__setitem__('papers/Synthetic.md', '# Synthetic\n\nPredicted 2.5 \\pm 0.1 GeV.\n'),
+        {}, n_unacc=2, flags=['new-file'])
+
+    non = None
+    for f in sorted(pin):
+        if not f.startswith('papers/'):
+            continue
+        for i, t in enumerate(lines_of(pin[f])):
+            if (f, i + 1) in at or t.startswith('|') or not t.strip():
+                continue
+            m = PROSE_DEC_RE.search(t)
+            if m and any(n['tok'] == m.group(0) for n in parse_numbers(t)):
+                non = (f, i + 1, t, m)
+                break
+        if non:
+            break
+    if non is None:
+        print('non-entry value countercontrol target         FAIL  (none found)')
+        ok = False
+    else:
+        nf, nl, nt, nm = non
+        d = nt[nm.end() - 1]
+        run('countercontrol: value change on a non-entry line',
+            lambda c: setline(c, nf, nl, nt[:nm.end() - 1] + str((int(d) + 1) % 10) + nt[nm.end():]),
+            {}, n_unacc=1, n_del=1, flags=['numbers'])
+
+    # amendment A1: countercontrols on one prose-comparison line
+    pe, pm = None, None
+    for e in snap['entries']:
+        if not (e['file'].startswith('papers/') and e['categories'] == ['C-PROSE']
+                and e['labels']['status_terms']):
+            continue
+        toks = {n['tok'].lstrip('-') for n in e['numbers']}
+        pm = next((m for m in PROSE_DEC_RE.finditer(e['text']) if m.group(0) in toks), None)
+        if pm:
+            pe = e
+            break
+    if pe is None:
+        print('prose-comparison countercontrol target        FAIL  (none found)')
+        ok = False
+    else:
+        pf, pl, pid, pt = pe['file'], pe['line'], pe['id'], pe['text']
+        print('%-46s %s' % ('prose-comparison target', pid))
+        dd = pt[pm.end() - 1]
+        run('countercontrol: prose-comparison value',
+            lambda c: setline(c, pf, pl, pt[:pm.end() - 1] + str((int(dd) + 1) % 10) + pt[pm.end():]),
+            {pid: ('value changed',)})
+        run('countercontrol: prose-comparison label',
+            lambda c: setline(c, pf, pl, pt + ' This estimate is conditional.'), {pid: ('label changed',)})
+
+        def premove(c):
+            ls = lines_of(c[pf])
+            del ls[pl - 1]
+            c[pf] = '\n'.join(ls)
+        run('countercontrol: prose-comparison removed', premove, {pid: ('removed',)})
+
+    tok = [n['tok'] for n in parse_numbers('X-48, G-2, spin-0 and 10-20 with -0.5')]
+    good = tok == ['10', '20', '-0.5']
+    print('%-46s %s  (%s)' % ('identifier digits are not numbers', 'PASS' if good else 'FAIL', tok))
+    ok = ok and good
     s2 = build_snapshot()
     good = dump(s2) == dump(snap)
-    print('%-44s %s' % ('determinism (two builds identical)', 'PASS' if good else 'FAIL'))
+    print('%-46s %s' % ('determinism (two builds identical)', 'PASS' if good else 'FAIL'))
     ok = ok and good
     print('self-test ' + ('PASS' if ok else 'FAIL'))
     return ok
@@ -721,8 +923,14 @@ def self_test(snap):
 # --------------------------------------------------------------------------- main
 
 def main(argv):
-    as_json = '--json' in argv
-    argv = [a for a in argv if a != '--json']
+    json_path = None
+    if '--json' in argv:
+        k = argv.index('--json')
+        if k + 1 >= len(argv):
+            print(__doc__)
+            return 2
+        json_path = argv[k + 1]
+        argv = argv[:k] + argv[k + 2:]
     if not argv:
         print(__doc__)
         return 2
@@ -750,9 +958,13 @@ def main(argv):
         with open(SNAPSHOT, encoding='utf-8') as fh:
             snap = json.load(fh)
         other = corpus_at_commit(argv[1]) if argv[0] == '--compare' else corpus_at_dir(argv[1])
-        rep, new = compare(snap, other)
-        print_report(rep, new, as_json)
-        return 0
+        res = compare(snap, other)
+        res['other'] = argv[1]
+        print_report(res)
+        if json_path:
+            with open(json_path, 'w', encoding='utf-8', newline='\n') as fh:
+                fh.write(json.dumps(res, ensure_ascii=False, indent=1, sort_keys=True) + '\n')
+        return 1 if res['any_change'] else 0
     print(__doc__)
     return 2
 
