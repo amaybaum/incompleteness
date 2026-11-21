@@ -52,7 +52,7 @@ a bijection of $S'$, and preserves $\sim$ at the fixed interface. D-mem is the p
 with its two terms fixed: "substrata" gives the bijectivity clause (A2, Substratum:94), and
 "observables" is read as Substratum:249's fixed-interface coherent data, the reading under which
 Theorem 24 is proved. Q1's verdicts hold relative to that reading. Under Substratum:300's "all
-observables" no member of (iii) would qualify, since the proof at Substratum:266 excludes
+observables" a member of (iii) is not shown to qualify, since the proof at Substratum:266 excludes
 measurements that access $A$. Under a channel-only reading (Structure:606, or the universality
 class of Structure §9) the non-bijective enlargements would qualify, but that is Structure's
 larger equivalence, not $\mathcal G_{\rm sub}$ as Theorem 24 uses it.
@@ -335,7 +335,7 @@ needs a separate decision and renewed verification of the affected controls) or 
   a bijection", or keep D364 and read "bijection of configurations" basis-free. Optionally add "for
   any density matrix $\sigma_A$ on $\mathcal K_A$" (N3).
 - **P6 (F5, with D370–D373).** Introduce $\sigma_A$ and $W$ in the book's statement of (iii) when
-  ch02:144 = FULL:774's D370–D373 text lands (D372/D373 carry the classical-factor sentence, whose measurable map the proof also uses); the proof line ch02:148 = FULL:778 is itself
+  ch02:144 = FULL:774's D370–D373 text lands (D372/D373 carry the classical-factor sentence); the proof line ch02:148 = FULL:778 is itself
   off-ledger.
 
 ### 10.2 Outside the ledger: each a minimal, separately reviewed correction
