@@ -3,12 +3,13 @@
 
   python3 -I -B check.py                 integrity checks (standard library only)
   python3 -I -B check.py --self-test     the same checks on mutated copies; each must fail
-  python3 -I -B check.py --github        also compare the artifact digest the host reports (needs gh)
-  python3 -I -B check.py --extract DIR   write the artifact's members to DIR, byte for byte
+  python3 -I -B check.py --github        also compare the artifact digest, the run's event, workflow and head,
+                                         and the job conclusion with what the host reports (needs gh)
+  python3 -I -B check.py --extract DIR   after the checks pass, write the artifact's members to DIR, byte for byte
   python3 -I -B check.py --structure     Structure.pdf: committed (main) against CI-built (needs git, pdftotext)
 
 The integrity checks: artifact.zip has the recorded sha256 and size; its members are exactly the
-recorded ones, each with the recorded sha256; every file under artifact/ is byte-identical to the
+recorded ones, each with the recorded sha256; the Structure.md patch has the recorded sha256; every file under artifact/ is byte-identical to the
 member of the same name, and every out/ member is present there; the job log has the recorded
 sha256; result.json inside the artifact carries the recorded trial, plan, workflow and run ids,
 step outcomes, preserve findings, page counts and verdict.
@@ -29,9 +30,11 @@ def sha(b):
     return hashlib.sha256(b).hexdigest()
 
 
-def check(zip_bytes, retained, log_bytes, exp):
+def check(zip_bytes, retained, log_bytes, exp, patch_bytes):
     """Return a list of findings; empty means the evidence matches expected.json."""
     f = []
+    if sha(patch_bytes) != exp["structure_patch"]["sha256"]:
+        f.append("Structure.md patch sha256 differs from the recorded digest")
     a = exp["artifact"]
     if sha(zip_bytes) != a["sha256"]:
         f.append("artifact.zip sha256 differs from the recorded digest")
@@ -84,13 +87,14 @@ def load():
     exp = json.load(open(os.path.join(HERE, "expected.json")))
     zb = open(os.path.join(HERE, "artifact.zip"), "rb").read()
     lb = open(os.path.join(HERE, exp["job_log"]["file"]), "rb").read()
+    pb = open(os.path.join(HERE, exp["structure_patch"]["file"]), "rb").read()
     retained = {}
     root = os.path.join(HERE, "artifact")
     for dp, _, fs in os.walk(root):
         for n in fs:
             p = os.path.join(dp, n)
             retained[os.path.relpath(p, root).replace(os.sep, "/")] = open(p, "rb").read()
-    return zb, retained, lb, exp
+    return zb, retained, lb, exp, pb
 
 
 def rezip(zb, edit):
@@ -106,8 +110,9 @@ def rezip(zb, edit):
 
 
 def self_test():
-    zb, ret, lb, exp = load()
-    if check(zb, ret, lb, exp):
+    """Each mutant must be caught by the check it targets: its expected finding must be reported."""
+    zb, ret, lb, exp, pb = load()
+    if check(zb, ret, lb, exp, pb):
         print("self-test: the unmodified evidence does not pass; mutants not run")
         return 1
     def flip(b):
@@ -122,7 +127,7 @@ def self_test():
             z = zipfile.ZipFile(io.BytesIO(zb2))
             e["artifact"]["members"] = {i.filename: sha(z.read(i)) for i in z.infolist()}
             r2 = {k: z.read(k) for k in ret if k in z.namelist()}
-        return zb2, r2, lb, e
+        return zb2, r2, lb, e, pb
     def res(edit):
         r = json.loads(zipfile.ZipFile(io.BytesIO(zb)).read("out/result.json"))
         edit(r)
@@ -130,27 +135,41 @@ def self_test():
     def slog(edit):
         return forge(rezip(zb, lambda n, b: edit(b) if n == "out/preserve.log" else b), True)
     finding = exp["preserve_findings"][6].encode()
+    base = (zb, ret, lb, exp, pb)
+    def with_(i, v):
+        t = list(base)
+        t[i] = v
+        return tuple(t)
     mutants = {
-        "one byte of the zip": (flip(zb), ret, lb, exp),
-        "one byte of a retained log": (zb, {**ret, "out/preserve.log": flip(ret["out/preserve.log"])}, lb, exp),
-        "a retained file missing": (zb, {k: v for k, v in ret.items() if k != "out/result.json"}, lb, exp),
-        "an extra retained file": (zb, {**ret, "out/extra.txt": b"x"}, lb, exp),
-        "one byte of the job log": (zb, ret, flip(lb), exp),
-        "a PDF member dropped (digest forged)": forge(rezip(zb, lambda n, b: None if n.endswith("Structure.pdf") else b), False),
-        "a PDF member altered (digest forged)": forge(rezip(zb, lambda n, b: flip(b) if n.endswith("SM.pdf") else b), False),
-        "a finding dropped from result.json": res(lambda r: r["steps"]["preserve"]["log_lines_flagged"].pop(6)),
-        "a finding dropped from preserve.log": slog(lambda b: b.replace(finding, b"")),
-        "guards outcome changed": res(lambda r: r["steps"]["guards"].update(outcome="success")),
-        "a TeX difference": res(lambda r: r.update(tex_files_differing=["papers/GR.tex"])),
-        "a page count changed": res(lambda r: r["pdf_pages"].update({"papers/Structure.pdf": 94})),
-        "wrong trial sha": res(lambda r: r.update(trial_sha="0" * 40)),
+        "one byte of the zip": (with_(0, flip(zb)), "artifact.zip sha256 differs"),
+        "one byte of a retained log": (with_(1, {**ret, "out/preserve.log": flip(ret["out/preserve.log"])}),
+                                       "artifact/out/preserve.log: not byte-identical"),
+        "a retained file missing": (with_(1, {k: v for k, v in ret.items() if k != "out/result.json"}),
+                                    "artifact/out/result.json: missing"),
+        "an extra retained file": (with_(1, {**ret, "out/extra.txt": b"x"}), "artifact/out/extra.txt: not byte-identical"),
+        "one byte of the job log": (with_(2, flip(lb)), "job log sha256 differs"),
+        "one byte of the Structure.md patch": (with_(4, flip(pb)), "Structure.md patch sha256 differs"),
+        "a PDF member dropped (digest forged)":
+            (forge(rezip(zb, lambda n, b: None if n.endswith("Structure.pdf") else b), False), "artifact members differ"),
+        "a PDF member altered (digest forged)":
+            (forge(rezip(zb, lambda n, b: flip(b) if n.endswith("SM.pdf") else b), False), "member build/papers/SM.pdf: sha256 differs"),
+        "a finding dropped from result.json":
+            (res(lambda r: r["steps"]["preserve"]["log_lines_flagged"].pop(6)), "result.json preserve findings differ"),
+        "a finding dropped from preserve.log": (slog(lambda b: b.replace(finding, b"")), "preserve.log lacks"),
+        "guards outcome changed": (res(lambda r: r["steps"]["guards"].update(outcome="success")), "step outcomes differ"),
+        "a TeX difference": (res(lambda r: r.update(tex_files_differing=["papers/GR.tex"])), "tex_files_differing"),
+        "a page count changed": (res(lambda r: r["pdf_pages"].update({"papers/Structure.pdf": 94})), "result.json pdf_pages"),
+        "wrong trial sha": (res(lambda r: r.update(trial_sha="0" * 40)), "result.json trial_sha"),
     }
     bad = 0
-    for name, args in mutants.items():
+    for name, (args, want) in mutants.items():
         f = check(*args)
-        print(f"  {'ok  ' if f else 'MISS'} mutant {name}: {f[0] if f else 'not caught'}")
-        bad += not f
-    print(f"self-test: {len(mutants) - bad}/{len(mutants)} mutants caught; RESULT {'PASS' if not bad else 'FAIL'}")
+        hit = any(want in x for x in f)
+        print(f"  {'ok  ' if hit else 'MISS'} mutant {name}: "
+              f"{next((x for x in f if want in x), 'expected finding not reported: ' + want)}")
+        bad += not hit
+    print(f"self-test: {len(mutants) - bad}/{len(mutants)} mutants caught by their target check; "
+          f"RESULT {'PASS' if not bad else 'FAIL'}")
     return 1 if bad else 0
 
 
@@ -163,11 +182,23 @@ def pages(pdf_bytes):
     return [x for x in ps if x.strip()]
 
 
+def git(*a):
+    return subprocess.run(["git", "-C", HERE, *a], capture_output=True, check=True).stdout
+
+
 def structure():
-    zb, _, _, exp = load()
+    """Committed papers/Structure.pdf (the main blob) against the CI-built one, and the attribution of
+    their text differences to the papers/Structure.md edits. The edited source is rebuilt from the
+    main blob and the retained patch, and checked against T0's blob id; no T0 objects are needed."""
+    import re
+    from collections import Counter
+    zb, _, _, exp, pb = load()
+    sp = exp["structure_patch"]
+    if sha(pb) != sp["sha256"]:
+        print("Structure.md patch sha256 differs from the recorded digest; RESULT FAIL")
+        return 1
     built = zipfile.ZipFile(io.BytesIO(zb)).read("build/papers/Structure.pdf")
-    committed = subprocess.run(["git", "-C", HERE, "show", f"{exp['workflow_sha']}:papers/Structure.pdf"],
-                               capture_output=True, check=True).stdout
+    committed = git("show", f"{exp['workflow_sha']}:papers/Structure.pdf")
     c, b = pages(committed), pages(built)
     first = next((i for i, (x, y) in enumerate(zip(c, b)) if x != y), None)
     lines = lambda p: [l.strip() for l in p.splitlines() if l.strip()]
@@ -177,15 +208,24 @@ def structure():
     print(f"CI-built page {len(b)}, in full:")
     for l in lines(b[-1]):
         print(f"  | {l}")
-    # Attribution: compare the net word changes between the two PDFs with the net word changes of
-    # papers/Structure.md between main and the trial commit (multisets, so reflow and reordering
-    # cancel). Needs the trial commit's objects (branch trial/a1exit-T0-55544cc3).
-    t = exp["trial_sha"]
-    if subprocess.run(["git", "-C", HERE, "cat-file", "-e", t + "^{commit}"], capture_output=True).returncode:
-        print(f"attribution: trial commit {t[:8]} not present; fetch it to run this part")
-        return 0
-    import re
-    from collections import Counter
+    with tempfile.TemporaryDirectory() as d:
+        os.makedirs(os.path.join(d, "papers"))
+        src = os.path.join(d, "papers", "Structure.md")
+        open(src, "wb").write(git("show", f"{exp['workflow_sha']}:papers/Structure.md"))
+        old = os.path.join(d, "old.md")
+        open(old, "wb").write(open(src, "rb").read())
+        subprocess.run(["git", "apply", "--unsafe-paths", "--directory=.", os.path.join(HERE, sp["file"])],
+                       cwd=d, capture_output=True, check=True)
+        blob = subprocess.run(["git", "hash-object", src], capture_output=True, check=True, text=True).stdout.strip()
+        if blob != sp["T0_blob"]:
+            print(f"rebuilt Structure.md blob {blob} is not T0's {sp['T0_blob']}; RESULT FAIL")
+            return 1
+        print(f"Structure.md at T0 rebuilt from main and the patch: blob {blob}, equal to T0's")
+        wd = subprocess.run(["git", "diff", "--no-index", "--word-diff=porcelain", "--word-diff-regex=[^[:space:]]+",
+                             old, src], capture_output=True).stdout.decode()
+    # Word multisets, so reflow and reordering cancel. Tokens are lower-cased with punctuation,
+    # symbols and hyphens removed, and tokens of one to three digits (page numbers) are dropped:
+    # the comparison does not resolve differences in symbols or short numbers.
     def norm(w):
         return re.sub(r"[^\w]", "", w.replace("-", "").replace("\u2013", "").replace("\u2014", "")).lower()
     def pdfwords(pdf):
@@ -195,17 +235,15 @@ def structure():
             txt = subprocess.run(["pdftotext", q, "-"], capture_output=True, check=True).stdout.decode()
         txt = re.sub(r"-\n", "", txt).replace("\f", " ")
         return Counter(n for n in map(norm, txt.split()) if n and not re.fullmatch(r"\d{1,3}", n))
-    wd = subprocess.run(["git", "-C", HERE, "diff", "--word-diff=porcelain", "--word-diff-regex=[^[:space:]]+",
-                         exp["workflow_sha"], t, "--", ":/papers/Structure.md"],
-                        capture_output=True, check=True).stdout.decode()
     add, rem = Counter(), Counter()
     for l in wd.splitlines():
         if l.startswith("+") and not l.startswith("+++"):
             add.update(n for n in map(norm, l[1:].split()) if n)
         elif l.startswith("-") and not l.startswith("---"):
             rem.update(n for n in map(norm, l[1:].split()) if n)
-    pc, pb = pdfwords(committed), pdfwords(built)
-    md_add, md_rem, pdf_add, pdf_rem = add - rem, rem - add, pb - pc, pc - pb
+    pc, pbw = pdfwords(committed), pdfwords(built)
+    md_add, md_rem, pdf_add, pdf_rem = add - rem, rem - add, pbw - pc, pc - pbw
+    print(f"PDF words (normalized tokens): committed {sum(pc.values())}, CI-built {sum(pbw.values())}")
     print(f"attribution: source net words +{sum(md_add.values())} -{sum(md_rem.values())}; "
           f"PDF net words +{sum(pdf_add.values())} -{sum(pdf_rem.values())}")
     print(f"  source additions absent from the PDF additions: {dict(md_add - pdf_add)}")
@@ -220,25 +258,44 @@ def main(argv):
         return self_test()
     if "--structure" in argv:
         return structure()
-    zb, ret, lb, exp = load()
-    if "--extract" in argv:
-        d = argv[argv.index("--extract") + 1]
-        z = zipfile.ZipFile(io.BytesIO(zb))
-        for i in z.infolist():
-            p = os.path.join(d, i.filename)
-            os.makedirs(os.path.dirname(p), exist_ok=True)
-            open(p, "wb").write(z.read(i))
-        print(f"extracted {len(z.infolist())} members to {d}")
-    f = check(zb, ret, lb, exp)
+    zb, ret, lb, exp, pb = load()
+    f = check(zb, ret, lb, exp, pb)
     if "--github" in argv:
         a = exp["artifact"]
-        q = subprocess.run(["gh", "api", f"repos/amaybaum/incompleteness/actions/artifacts/{a['id']}",
-                            "--jq", ".digest"], capture_output=True, text=True)
-        host = q.stdout.strip()
-        if host != "sha256:" + a["sha256"]:
-            f.append(f"host artifact digest {host or q.stderr.strip()!r} differs from the recorded digest")
+        def api(path, jq):
+            q = subprocess.run(["gh", "api", f"repos/amaybaum/incompleteness/{path}", "--jq", jq],
+                               capture_output=True, text=True)
+            return q.stdout.strip() or q.stderr.strip()
+        host = {
+            "artifact digest": (api(f"actions/artifacts/{a['id']}", ".digest"), "sha256:" + a["sha256"]),
+            "run event": (api(f"actions/runs/{exp['run_id']}", ".event"), exp["event"]),
+            "run workflow path": (api(f"actions/runs/{exp['run_id']}", ".path"), exp["workflow"]),
+            "run head sha": (api(f"actions/runs/{exp['run_id']}", ".head_sha"), exp["workflow_sha"]),
+            "job conclusion": (api(f"actions/jobs/{exp['job_id']}", ".conclusion"), exp["job_conclusion"]),
+        }
+        for k, (got, want) in host.items():
+            if got != want:
+                f.append(f"host {k} {got!r} differs from the recorded {want!r}")
+            else:
+                print(f"host {k} matches the record")
+    if "--extract" in argv:
+        d = argv[argv.index("--extract") + 1]
+        if f:
+            f.append("--extract refused: the evidence does not match expected.json")
         else:
-            print("host artifact digest matches the recorded digest")
+            z = zipfile.ZipFile(io.BytesIO(zb))
+            root = os.path.realpath(d)
+            for i in z.infolist():
+                p = os.path.realpath(os.path.join(root, i.filename))
+                if i.filename.startswith("/") or ".." in i.filename.split("/") or not p.startswith(root + os.sep):
+                    f.append(f"--extract refused: unsafe member name {i.filename!r}")
+                    break
+            else:
+                for i in z.infolist():
+                    p = os.path.join(root, i.filename)
+                    os.makedirs(os.path.dirname(p), exist_ok=True)
+                    open(p, "wb").write(z.read(i))
+                print(f"extracted {len(z.infolist())} members to {d}")
     for x in f:
         print("  FAIL", x)
     print(f"T0 evidence: {len(exp['artifact']['members'])} artifact members, "

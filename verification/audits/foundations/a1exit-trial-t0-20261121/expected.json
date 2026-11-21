@@ -78,6 +78,13 @@
   "python": "success",
   "toolchain": "success"
  },
+ "structure_patch": {
+  "T0_blob": "b82fc3be12db665ca2ef5acf1d7618cb554af95d",
+  "file": "structure-md-main-to-T0.patch",
+  "main_blob": "80b7d277ec651a2fd0c1bad23851664a95b9e410",
+  "recipe": "git diff --binary --full-index df6da1c6101e811acdc7952d5748aff57028e8ed 5b6d48b58f45d3032bc33560aa5047c4b400f35a -- papers/Structure.md",
+  "sha256": "b58bcad22333dec6da4b9b85aeba0c6aa682aed2b06081246ace8389cff855f9"
+ },
  "tex_files_differing": [],
  "trial_sha": "5b6d48b58f45d3032bc33560aa5047c4b400f35a",
  "verdict": "fail",

@@ -20,8 +20,10 @@ Neither `T0` nor `P*` is reachable from `main`. Both commits are identified here
 
 ## Files
 
-The files are kept in the **complete** form: each is byte-identical to what the host served, and nothing
-has been regenerated or redacted.
+The files retained from the host are kept in the **complete** form: `artifact.zip`, `artifact/out/` and the
+job log are byte-identical to what the host served, and nothing has been regenerated or redacted. The other
+files are written for this record: `expected.json`, `check.py`, this README, and the Structure.md patch, which
+is **derived** from git as its recipe states.
 
 - `artifact.zip` is the artifact as downloaded. It holds `result.json`, the step logs and exit codes, the
   `preserve_check.py` reports, the toolchain record and the eight CI-built PDFs (`build/`).
@@ -31,6 +33,11 @@ has been regenerated or redacted.
   Before commit it was scanned for tokens, keys, signed URLs, IP addresses and e-mail addresses, with no hits.
 - `expected.json` is the expected result. It records the commits, the run and artifact ids, the digest of
   every artifact member, the step outcomes, the nine preserve findings, the page counts and the verdict.
+- `structure-md-main-to-T0.patch` is the change to `papers/Structure.md` from `main` (`df6da1c6`, blob
+  `80b7d277`) to `T0` (blob `b82fc3be`), made by
+  `git diff --binary --full-index df6da1c6 5b6d48b5 -- papers/Structure.md`. Applied to the `main` blob it
+  rebuilds `T0`'s blob exactly. `expected.json` records its digest and both blob ids. It lets the Structure.pdf
+  attribution below be checked from `main` alone, since `T0` is not on `main`.
 - `check.py` checks the files above against `expected.json`.
 
 ## Result against §29 item 1
@@ -42,8 +49,10 @@ has been regenerated or redacted.
 - `result.json` is written;
 - the PDF upload is written.
 
-The run did all four. The other steps succeeded: inputs, checkout, toolchain, plan, and the build, whose TeX equals
-the committed TeX (`tex_files_differing: []`). The `--commit` check reported:
+The run did all four. The other steps succeeded: inputs, the full-id and first-attempt check (`head`),
+checkout, Python setup, toolchain, plan, and the build, whose TeX equals the committed TeX
+(`tex_files_differing: []`). The final gate ("Every required step succeeded") failed, as §29 item 1 states it
+must, and the job concluded `failure`. The `--commit` check reported:
 
 - 0 pin findings;
 - 0 ledger validation findings (371 splices, ledger sha256 `41ac4fd9…`);
@@ -85,12 +94,16 @@ PDF's last change is the same commit as the last change to `papers/Structure.md`
     - table headings that repeat where a table crosses a page break. The committed PDF repeats them for the
       table in §7.7.4 ("Emerges from OI?") and the §14.10 cross-program table. The CI-built PDF repeats them for
       the §14.5 table ("Transports?") and the §12.4 empirical-status tables.
-- **Net change.** The source edits add a net 134 words (+209, −75). The CI-built PDF has 35509 words of
-  extracted text against the committed PDF's 35385.
+- **Net change.** The source edits add a net 134 words (+209, −75). In normalized tokens the CI-built PDF has
+  33942 against the committed PDF's 33818.
+- **Resolution.** Tokens are compared lower-cased, with punctuation, symbols and hyphens removed, and tokens of
+  one to three digits are dropped as page numbers. The comparison does not resolve differences in symbols,
+  punctuation or short numbers.
 
 Within this comparison, the extra page is the reference list's last lines moving to a new page under the
-longer text, and no text other than the ledgered edits differs. The attribution step needs the `T0` objects
-(fetch `trial/a1exit-T0-55544cc3`); without them `--structure` reports the page comparison alone.
+longer text, and no word other than those of the ledgered edits differs. `--structure` rebuilds `T0`'s
+`papers/Structure.md` from the `main` blob and the retained patch, checks it against `T0`'s blob id, and needs
+no `T0` objects.
 
 ## Reproduction
 
@@ -98,9 +111,9 @@ From the repository root:
 
 ```sh
 python3 -I -B verification/audits/foundations/a1exit-trial-t0-20261121/check.py              # integrity; RESULT PASS
-python3 -I -B verification/audits/foundations/a1exit-trial-t0-20261121/check.py --self-test  # 13 mutants, each caught by the check it targets
-python3 -I -B verification/audits/foundations/a1exit-trial-t0-20261121/check.py --github     # host digest, while the artifact is retained (until 2027-02-19)
-python3 -I -B verification/audits/foundations/a1exit-trial-t0-20261121/check.py --structure  # needs pdftotext; attribution needs the T0 objects
+python3 -I -B verification/audits/foundations/a1exit-trial-t0-20261121/check.py --self-test  # 14 mutants, each required to report its target finding
+python3 -I -B verification/audits/foundations/a1exit-trial-t0-20261121/check.py --github     # host digest, run event, workflow, head and job conclusion; while the artifact is retained (until 2027-02-19)
+python3 -I -B verification/audits/foundations/a1exit-trial-t0-20261121/check.py --structure  # needs git and pdftotext
 ```
 
 To compare against a fresh download from the host, while the artifact is retained, download it with
