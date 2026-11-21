@@ -247,7 +247,7 @@ committed with the source.
   | Substratum | 54 → 54 | 3196 → 3179 |
   | Structure | 94 → 94 | 2914 → 2914 |
   | FULL | 490 → 490 | 2980 → 2980 |
-- **Union check.** I ran a script from the scratchpad (not committed). It confirms three things, and
+- **Union check.** I ran an uncommitted local script. It confirms three things, and
   prints `UNION OK`:
   - this branch's `.md` diff from `1c7eedc4` is exactly E1–E21;
   - every `.md` in the merged tree equals `0ba358cc`'s version with E1–E21 applied, each old string
