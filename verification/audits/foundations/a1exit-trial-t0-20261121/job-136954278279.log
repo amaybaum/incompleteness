@@ -1,0 +1,1326 @@
+﻿2026-11-21T19:13:48.7684396Z Current runner version: '2.338.2'
+2026-11-21T19:13:48.7703230Z ##[group]Runner Image Provisioner
+2026-11-21T19:13:48.7703886Z Hosted Compute Agent
+2026-11-21T19:13:48.7704413Z Version: 20261111.635
+2026-11-21T19:13:48.7704919Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-21T19:13:48.7705789Z Build Date: 2026-11-11T01:49:01Z
+2026-11-21T19:13:48.7706307Z Worker ID: {6df310c2-3d81-49ec-9f16-1e60eec67a12}
+2026-11-21T19:13:48.7706856Z Region: us-east-1
+2026-11-21T19:13:48.7707291Z Cloud: AWS
+2026-11-21T19:13:48.7707681Z ##[endgroup]
+2026-11-21T19:13:48.7708841Z ##[group]Operating System
+2026-11-21T19:13:48.7709324Z Ubuntu
+2026-11-21T19:13:48.7709706Z 24.04.5
+2026-11-21T19:13:48.7710104Z LTS
+2026-11-21T19:13:48.7710501Z ##[endgroup]
+2026-11-21T19:13:48.7710909Z ##[group]Runner Image
+2026-11-21T19:13:48.7711342Z Image: ubuntu-24.04
+2026-11-21T19:13:48.7711761Z Version: 20261116.133.1
+2026-11-21T19:13:48.7712881Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261116.133/images/ubuntu/Ubuntu2404-Readme.md
+2026-11-21T19:13:48.7714128Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261116.133
+2026-11-21T19:13:48.7714877Z ##[endgroup]
+2026-11-21T19:13:48.7715884Z ##[group]GITHUB_TOKEN Permissions
+2026-11-21T19:13:48.7717598Z Contents: read
+2026-11-21T19:13:48.7718037Z Metadata: read
+2026-11-21T19:13:48.7718433Z ##[endgroup]
+2026-11-21T19:13:48.7719970Z Secret source: Actions
+2026-11-21T19:13:48.7720669Z Cache mode: write
+2026-11-21T19:13:48.7721243Z Prepare workflow directory
+2026-11-21T19:13:48.8061085Z Prepare all required actions
+2026-11-21T19:13:48.8098032Z Getting action download info
+2026-11-21T19:13:48.9986506Z Download action repository 'actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683' (SHA:11bd71901bbe5b1630ceea73d27597364c9af683)
+2026-11-21T19:13:49.9605359Z Download action repository 'actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-11-21T19:13:50.0951413Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-21T19:13:50.2805634Z Complete job name: verify
+2026-11-21T19:13:50.3348751Z ##[group]Run mkdir -p "$RUNNER_TEMP/out"
+2026-11-21T19:13:50.3349523Z [36;1mmkdir -p "$RUNNER_TEMP/out"[0m
+2026-11-21T19:13:50.3350054Z [36;1mset +e[0m
+2026-11-21T19:13:50.3350469Z [36;1m([0m
+2026-11-21T19:13:50.3351176Z [36;1m  test "$GITHUB_RUN_ATTEMPT" = 1 || { echo "re-runs are refused; dispatch afresh"; exit 1; }[0m
+2026-11-21T19:13:50.3352161Z [36;1m  [[ "$TRIAL" =~ ^[0-9a-f]{40}$ ]] || { echo "trial_sha is not a full commit id"; exit 1; }[0m
+2026-11-21T19:13:50.3353086Z [36;1m  [[ "$PLAN" =~ ^[0-9a-f]{40}$ ]] || { echo "plan_sha is not a full commit id"; exit 1; }[0m
+2026-11-21T19:13:50.3354007Z [36;1m  echo "inputs are full commit ids; run attempt $GITHUB_RUN_ATTEMPT"[0m
+2026-11-21T19:13:50.3354862Z [36;1m) > "$RUNNER_TEMP/out/inputs.log" 2>&1[0m
+2026-11-21T19:13:50.3355949Z [36;1mrc=$?; cat "$RUNNER_TEMP/out/inputs.log"; echo "$rc" > "$RUNNER_TEMP/out/inputs.rc"; exit "$rc"[0m
+2026-11-21T19:13:50.3895843Z shell: /usr/bin/bash -e {0}
+2026-11-21T19:13:50.3896754Z env:
+2026-11-21T19:13:50.3897317Z   TRIAL: 5b6d48b58f45d3032bc33560aa5047c4b400f35a
+2026-11-21T19:13:50.3897953Z   PLAN: 55544cc36dee5b7dd5b9079c0f03be24b74c137f
+2026-11-21T19:13:50.3898655Z   REC: verification/audits/foundations/a1exit-deletion-20261121
+2026-11-21T19:13:50.3899586Z   PANDOC_DEB: https://github.com/jgm/pandoc/releases/download/3.1.3/pandoc-3.1.3-1-amd64.deb
+2026-11-21T19:13:50.3900622Z   PANDOC_SHA256: caa7e0410f9e2cb1da2eb8db13cc97b5548fe455985e2c944e3929d22f99bcdc
+2026-11-21T19:13:50.3901415Z ##[endgroup]
+2026-11-21T19:13:50.4027123Z inputs are full commit ids; run attempt 1
+2026-11-21T19:13:50.4203845Z ##[group]Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+2026-11-21T19:13:50.4204666Z with:
+2026-11-21T19:13:50.4205333Z   ref: 5b6d48b58f45d3032bc33560aa5047c4b400f35a
+2026-11-21T19:13:50.4206149Z   fetch-depth: 0
+2026-11-21T19:13:50.4206610Z   persist-credentials: false
+2026-11-21T19:13:50.4207115Z   repository: amaybaum/incompleteness
+2026-11-21T19:13:50.4210810Z   token: ***
+2026-11-21T19:13:50.4211261Z   ssh-strict: true
+2026-11-21T19:13:50.4211704Z   ssh-user: git
+2026-11-21T19:13:50.4212116Z   clean: true
+2026-11-21T19:13:50.4212540Z   sparse-checkout-cone-mode: true
+2026-11-21T19:13:50.4213146Z   fetch-tags: false
+2026-11-21T19:13:50.4213629Z   show-progress: true
+2026-11-21T19:13:50.4214194Z   lfs: false
+2026-11-21T19:13:50.4214602Z   submodules: false
+2026-11-21T19:13:50.4215093Z   set-safe-directory: true
+2026-11-21T19:13:50.4215767Z env:
+2026-11-21T19:13:50.4216246Z   TRIAL: 5b6d48b58f45d3032bc33560aa5047c4b400f35a
+2026-11-21T19:13:50.4216926Z   PLAN: 55544cc36dee5b7dd5b9079c0f03be24b74c137f
+2026-11-21T19:13:50.4217632Z   REC: verification/audits/foundations/a1exit-deletion-20261121
+2026-11-21T19:13:50.4218548Z   PANDOC_DEB: https://github.com/jgm/pandoc/releases/download/3.1.3/pandoc-3.1.3-1-amd64.deb
+2026-11-21T19:13:50.4219580Z   PANDOC_SHA256: caa7e0410f9e2cb1da2eb8db13cc97b5548fe455985e2c944e3929d22f99bcdc
+2026-11-21T19:13:50.4220401Z ##[endgroup]
+2026-11-21T19:13:53.3617867Z Syncing repository: amaybaum/incompleteness
+2026-11-21T19:13:53.3619172Z ##[group]Getting Git version info
+2026-11-21T19:13:53.3619617Z Working directory is '/home/runner/work/incompleteness/incompleteness'
+2026-11-21T19:13:53.3620258Z [command]/usr/bin/git version
+2026-11-21T19:13:53.6467774Z git version 2.56.1
+2026-11-21T19:13:53.6481403Z ##[endgroup]
+2026-11-21T19:13:53.6492382Z Temporarily overriding HOME='/home/runner/work/_temp/209654e6-d982-40c7-8842-2ef6245dd3e7' before making global git config changes
+2026-11-21T19:13:53.6493640Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-21T19:13:53.6497484Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/incompleteness/incompleteness
+2026-11-21T19:13:53.6541105Z Deleting the contents of '/home/runner/work/incompleteness/incompleteness'
+2026-11-21T19:13:53.6543791Z ##[group]Initializing the repository
+2026-11-21T19:13:53.6546410Z [command]/usr/bin/git init /home/runner/work/incompleteness/incompleteness
+2026-11-21T19:13:53.7015317Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-21T19:13:53.7015911Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-21T19:13:53.7016428Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-21T19:13:53.7016877Z hint: call:
+2026-11-21T19:13:53.7017139Z hint:
+2026-11-21T19:13:53.7017490Z hint: 	git config --global init.defaultBranch <name>
+2026-11-21T19:13:53.7017830Z hint:
+2026-11-21T19:13:53.7018234Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-21T19:13:53.7018743Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-21T19:13:53.7019154Z hint:
+2026-11-21T19:13:53.7019788Z hint: 	git branch -m <name>
+2026-11-21T19:13:53.7020090Z hint:
+2026-11-21T19:13:53.7020482Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-21T19:13:53.7026892Z Initialized empty Git repository in /home/runner/work/incompleteness/incompleteness/.git/
+2026-11-21T19:13:53.7033649Z [command]/usr/bin/git remote add origin https://github.com/amaybaum/incompleteness
+2026-11-21T19:13:53.7074014Z ##[endgroup]
+2026-11-21T19:13:53.7077674Z ##[group]Disabling automatic garbage collection
+2026-11-21T19:13:53.7078271Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-21T19:13:53.7100617Z ##[endgroup]
+2026-11-21T19:13:53.7101378Z ##[group]Setting up auth
+2026-11-21T19:13:53.7105655Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-21T19:13:53.7131223Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-21T19:13:54.0365999Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-21T19:13:54.0390535Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-21T19:13:54.0538829Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-21T19:13:54.0566690Z ##[endgroup]
+2026-11-21T19:13:54.0576024Z ##[group]Fetching the repository
+2026-11-21T19:13:54.0576921Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+2026-11-21T19:14:13.7187253Z From https://github.com/amaybaum/incompleteness
+2026-11-21T19:14:13.7188108Z  * [new branch]          archive/k1-rdy-1-q1-20261105 -> origin/archive/k1-rdy-1-q1-20261105
+2026-11-21T19:14:13.7188760Z  * [new branch]          archive/policy-a46-1283-bef57cbf -> origin/archive/policy-a46-1283-bef57cbf
+2026-11-21T19:14:13.7189558Z  * [new branch]          archive/r1-evidence-retention-drafting-20261016 -> origin/archive/r1-evidence-retention-drafting-20261016
+2026-11-21T19:14:13.7190378Z  * [new branch]          audit/intro-corpus-20261026 -> origin/audit/intro-corpus-20261026
+2026-11-21T19:14:13.7191116Z  * [new branch]          audit/retention-minimality-20261019 -> origin/audit/retention-minimality-20261019
+2026-11-21T19:14:13.7191848Z  * [new branch]          build/pr839-artifacts-20261018 -> origin/build/pr839-artifacts-20261018
+2026-11-21T19:14:13.7192573Z  * [new branch]          build/pr839-artifacts2-20261018 -> origin/build/pr839-artifacts2-20261018
+2026-11-21T19:14:13.7193293Z  * [new branch]          build/pr839-artifacts3-20261018 -> origin/build/pr839-artifacts3-20261018
+2026-11-21T19:14:13.7194012Z  * [new branch]          build/pr839-artifacts4-20261018 -> origin/build/pr839-artifacts4-20261018
+2026-11-21T19:14:13.7194643Z  * [new branch]          build/pr839-artifacts5-20261018 -> origin/build/pr839-artifacts5-20261018
+2026-11-21T19:14:13.7195496Z  * [new branch]          build/pr839-book-20261018 -> origin/build/pr839-book-20261018
+2026-11-21T19:14:13.7196183Z  * [new branch]          build/pr839-book2-20261018 -> origin/build/pr839-book2-20261018
+2026-11-21T19:14:13.7196800Z  * [new branch]          build/pr839-book3-20261018 -> origin/build/pr839-book3-20261018
+2026-11-21T19:14:13.7197392Z  * [new branch]          build/pr839-book4-20261018 -> origin/build/pr839-book4-20261018
+2026-11-21T19:14:13.7198096Z  * [new branch]          build/pr839-book5-20261018 -> origin/build/pr839-book5-20261018
+2026-11-21T19:14:13.7216713Z  * [new branch]          build/pr850-artifacts-20261016 -> origin/build/pr850-artifacts-20261016
+2026-11-21T19:14:13.7217669Z  * [new branch]          build/pr850-pdfs-20261016 -> origin/build/pr850-pdfs-20261016
+2026-11-21T19:14:13.7218300Z  * [new branch]          build/pr851-artifacts-20261016 -> origin/build/pr851-artifacts-20261016
+2026-11-21T19:14:13.7219047Z  * [new branch]          build/pr851-pdfs-20261016 -> origin/build/pr851-pdfs-20261016
+2026-11-21T19:14:13.7219620Z  * [new branch]          ccr-125a6837-onj1f8     -> origin/ccr-125a6837-onj1f8
+2026-11-21T19:14:13.7220201Z  * [new branch]          ccr-9c2ecca4-vkb666     -> origin/ccr-9c2ecca4-vkb666
+2026-11-21T19:14:13.7220838Z  * [new branch]          ci/ret-mutants-20261018 -> origin/ci/ret-mutants-20261018
+2026-11-21T19:14:13.7221466Z  * [new branch]          ci/ret-tests-20261018   -> origin/ci/ret-tests-20261018
+2026-11-21T19:14:13.7222141Z  * [new branch]          claude/a41-census-research -> origin/claude/a41-census-research
+2026-11-21T19:14:13.7223047Z  * [new branch]          claude/a42-support-research -> origin/claude/a42-support-research
+2026-11-21T19:14:13.7223798Z  * [new branch]          claude/a43-family-generalization-research -> origin/claude/a43-family-generalization-research
+2026-11-21T19:14:13.7224651Z  * [new branch]          claude/a44-operational-bridge-research -> origin/claude/a44-operational-bridge-research
+2026-11-21T19:14:13.7225994Z  * [new branch]          claude/a45-full-equivalence-closure-research -> origin/claude/a45-full-equivalence-closure-research
+2026-11-21T19:14:13.7235789Z  * [new branch]          claude/ci-receipts-1-dev -> origin/claude/ci-receipts-1-dev
+2026-11-21T19:14:13.7236394Z  * [new branch]          claude/cmp1-controls    -> origin/claude/cmp1-controls
+2026-11-21T19:14:13.7237052Z  * [new branch]          claude/cmp1-dev         -> origin/claude/cmp1-dev
+2026-11-21T19:14:13.7237658Z  * [new branch]          claude/cmp1-predicted   -> origin/claude/cmp1-predicted
+2026-11-21T19:14:13.7238229Z  * [new branch]          claude/comp1-dev        -> origin/claude/comp1-dev
+2026-11-21T19:14:13.7238797Z  * [new branch]          claude/comp1-dev3       -> origin/claude/comp1-dev3
+2026-11-21T19:14:13.7239277Z  * [new branch]          claude/comp1-predicted  -> origin/claude/comp1-predicted
+2026-11-21T19:14:13.7239711Z  * [new branch]          claude/consc2-predicted -> origin/claude/consc2-predicted
+2026-11-21T19:14:13.7240124Z  * [new branch]          claude/dim1-dev         -> origin/claude/dim1-dev
+2026-11-21T19:14:13.7240524Z  * [new branch]          claude/dim1-dev2        -> origin/claude/dim1-dev2
+2026-11-21T19:14:13.7240909Z  * [new branch]          claude/dim1-dev3        -> origin/claude/dim1-dev3
+2026-11-21T19:14:13.7241280Z  * [new branch]          claude/dim1-predicted   -> origin/claude/dim1-predicted
+2026-11-21T19:14:13.7241654Z  * [new branch]          claude/eff1-dev         -> origin/claude/eff1-dev
+2026-11-21T19:14:13.7242042Z  * [new branch]          claude/eff1-dev2        -> origin/claude/eff1-dev2
+2026-11-21T19:14:13.7242423Z  * [new branch]          claude/eff1-gen-dev     -> origin/claude/eff1-gen-dev
+2026-11-21T19:14:13.7242838Z  * [new branch]          claude/eff1-predicted   -> origin/claude/eff1-predicted
+2026-11-21T19:14:13.7243343Z  * [new branch]          claude/equiv-dependency-frontier -> origin/claude/equiv-dependency-frontier
+2026-11-21T19:14:13.7243800Z  * [new branch]          claude/iip1-controls    -> origin/claude/iip1-controls
+2026-11-21T19:14:13.7244203Z  * [new branch]          claude/iip1-dev         -> origin/claude/iip1-dev
+2026-11-21T19:14:13.7244578Z  * [new branch]          claude/iip1-predicted   -> origin/claude/iip1-predicted
+2026-11-21T19:14:13.7244975Z  * [new branch]          claude/k1b-dev          -> origin/claude/k1b-dev
+2026-11-21T19:14:13.7245556Z  * [new branch]          claude/k1b-predicted    -> origin/claude/k1b-predicted
+2026-11-21T19:14:13.7245997Z  * [new branch]          claude/k1st-dev         -> origin/claude/k1st-dev
+2026-11-21T19:14:13.7246461Z  * [new branch]          claude/k1st-predicted   -> origin/claude/k1st-predicted
+2026-11-21T19:14:13.7246867Z  * [new branch]          claude/k2g-dev          -> origin/claude/k2g-dev
+2026-11-21T19:14:13.7247260Z  * [new branch]          claude/k2g-predicted    -> origin/claude/k2g-predicted
+2026-11-21T19:14:13.7247733Z  * [new branch]          claude/kdense-dev       -> origin/claude/kdense-dev
+2026-11-21T19:14:13.7248103Z  * [new branch]          claude/kinf1-dev        -> origin/claude/kinf1-dev
+2026-11-21T19:14:13.7248562Z  * [new branch]          claude/kinf1-predicted  -> origin/claude/kinf1-predicted
+2026-11-21T19:14:13.7249024Z  * [new branch]          claude/kinf2-dev        -> origin/claude/kinf2-dev
+2026-11-21T19:14:13.7249447Z  * [new branch]          claude/kinf2-predicted  -> origin/claude/kinf2-predicted
+2026-11-21T19:14:13.7249912Z  * [new branch]          claude/kt4-prem-1-predicted -> origin/claude/kt4-prem-1-predicted
+2026-11-21T19:14:13.7250363Z  * [new branch]          claude/ktd-predicted    -> origin/claude/ktd-predicted
+2026-11-21T19:14:13.7250970Z  * [new branch]          claude/l-orbitgen-design -> origin/claude/l-orbitgen-design
+2026-11-21T19:14:13.7251518Z  * [new branch]          claude/network-tool-access-8jtdhm -> origin/claude/network-tool-access-8jtdhm
+2026-11-21T19:14:13.7252041Z  * [new branch]          claude/oddchar-dev      -> origin/claude/oddchar-dev
+2026-11-21T19:14:13.7252552Z  * [new branch]          claude/oddchar-predicted -> origin/claude/oddchar-predicted
+2026-11-21T19:14:13.7253211Z  * [new branch]          claude/og1-dev          -> origin/claude/og1-dev
+2026-11-21T19:14:13.7253649Z  * [new branch]          claude/og1-predicted    -> origin/claude/og1-predicted
+2026-11-21T19:14:13.7254120Z  * [new branch]          claude/opact1-controls  -> origin/claude/opact1-controls
+2026-11-21T19:14:13.7254508Z  * [new branch]          claude/opact1-dev       -> origin/claude/opact1-dev
+2026-11-21T19:14:13.7254933Z  * [new branch]          claude/opact1-predicted -> origin/claude/opact1-predicted
+2026-11-21T19:14:13.7255528Z  * [new branch]          claude/ord1-dev         -> origin/claude/ord1-dev
+2026-11-21T19:14:13.7255931Z  * [new branch]          claude/ord1-dev2        -> origin/claude/ord1-dev2
+2026-11-21T19:14:13.7256333Z  * [new branch]          claude/ord1-predicted   -> origin/claude/ord1-predicted
+2026-11-21T19:14:13.7256758Z  * [new branch]          claude/pnot-dev         -> origin/claude/pnot-dev
+2026-11-21T19:14:13.7257167Z  * [new branch]          claude/pnot-predicted   -> origin/claude/pnot-predicted
+2026-11-21T19:14:13.7257576Z  * [new branch]          claude/relc-select-dev  -> origin/claude/relc-select-dev
+2026-11-21T19:14:13.7258025Z  * [new branch]          claude/relc-select-predicted -> origin/claude/relc-select-predicted
+2026-11-21T19:14:13.7258503Z  * [new branch]          claude/trb1-dev         -> origin/claude/trb1-dev
+2026-11-21T19:14:13.7258875Z  * [new branch]          claude/trb1-predicted   -> origin/claude/trb1-predicted
+2026-11-21T19:14:13.7259403Z  * [new branch]          claude/twole-design     -> origin/claude/twole-design
+2026-11-21T19:14:13.7260080Z  * [new branch]          codex/e-native-operation-source-20261118 -> origin/codex/e-native-operation-source-20261118
+2026-11-21T19:14:13.7260782Z  * [new branch]          codex/oi-3.1.7-w1-foundations -> origin/codex/oi-3.1.7-w1-foundations
+2026-11-21T19:14:13.7261342Z  * [new branch]          codex/oi-3.1.7-w2-quantum-sm -> origin/codex/oi-3.1.7-w2-quantum-sm
+2026-11-21T19:14:13.7261862Z  * [new branch]          codex/oi-3.1.7-w3-gravity-juno -> origin/codex/oi-3.1.7-w3-gravity-juno
+2026-11-21T19:14:13.7262391Z  * [new branch]          codex/oi-3.1.7-w4-applications -> origin/codex/oi-3.1.7-w4-applications
+2026-11-21T19:14:13.7262852Z  * [new branch]          corpus/sc17-explainer-bell -> origin/corpus/sc17-explainer-bell
+2026-11-21T19:14:13.7263340Z  * [new branch]          corpus/sc22-n-regime    -> origin/corpus/sc22-n-regime
+2026-11-21T19:14:13.7263874Z  * [new branch]          corpus/sc28-assumption-scope -> origin/corpus/sc28-assumption-scope
+2026-11-21T19:14:13.7264334Z  * [new branch]          corpus/sc29-kernel-scope -> origin/corpus/sc29-kernel-scope
+2026-11-21T19:14:13.7264816Z  * [new branch]          corpus/sc31-period-growth -> origin/corpus/sc31-period-growth
+2026-11-21T19:14:13.7265495Z  * [new branch]          corpus/sc32-sm-theorem3 -> origin/corpus/sc32-sm-theorem3
+2026-11-21T19:14:13.7265962Z  * [new branch]          corpus/sc33-bell-main-book -> origin/corpus/sc33-bell-main-book
+2026-11-21T19:14:13.7266467Z  * [new branch]          corpus/sc34-cycle-ergodicity -> origin/corpus/sc34-cycle-ergodicity
+2026-11-21T19:14:13.7266963Z  * [new branch]          corpus/sc35-kernel-anchors -> origin/corpus/sc35-kernel-anchors
+2026-11-21T19:14:13.7267434Z  * [new branch]          corpus/sc36-page-curve-scope -> origin/corpus/sc36-page-curve-scope
+2026-11-21T19:14:13.7267924Z  * [new branch]          corpus/sc37-g3-conditional -> origin/corpus/sc37-g3-conditional
+2026-11-21T19:14:13.7268526Z  * [new branch]          corpus/sc38-probe-evidence -> origin/corpus/sc38-probe-evidence
+2026-11-21T19:14:13.7269009Z  * [new branch]          corpus/sc39-card-bell   -> origin/corpus/sc39-card-bell
+2026-11-21T19:14:13.7269472Z  * [new branch]          corpus/sc40-c2-c3-statements -> origin/corpus/sc40-c2-c3-statements
+2026-11-21T19:14:13.7270022Z  * [new branch]          corpus/sc41-pauli-twirl -> origin/corpus/sc41-pauli-twirl
+2026-11-21T19:14:13.7270539Z  * [new branch]          corpus/sc42-operational-kinematics -> origin/corpus/sc42-operational-kinematics
+2026-11-21T19:14:13.7271045Z  * [new branch]          corpus/sc43-turtles-scope -> origin/corpus/sc43-turtles-scope
+2026-11-21T19:14:13.7271631Z  * [new branch]          corpus/sc45-generator-soundness -> origin/corpus/sc45-generator-soundness
+2026-11-21T19:14:13.7272253Z  * [new branch]          correction/finite-substratum-scope-20261029 -> origin/correction/finite-substratum-scope-20261029
+2026-11-21T19:14:13.7272908Z  * [new branch]          correction/mi1-s1-posit-ledger-20261102 -> origin/correction/mi1-s1-posit-ledger-20261102
+2026-11-21T19:14:13.7273554Z  * [new branch]          correction/mi1-s2-conditional-claims-20261102 -> origin/correction/mi1-s2-conditional-claims-20261102
+2026-11-21T19:14:13.7274222Z  * [new branch]          design/oi-finite-protocol-1-20261012 -> origin/design/oi-finite-protocol-1-20261012
+2026-11-21T19:14:13.7274804Z  * [new branch]          design/sub-241c-span-controls -> origin/design/sub-241c-span-controls
+2026-11-21T19:14:13.7275553Z  * [new branch]          dev-bridge/b11-lemma    -> origin/dev-bridge/b11-lemma
+2026-11-21T19:14:13.7276031Z  * [new branch]          dev-bridge/r3-dict      -> origin/dev-bridge/r3-dict
+2026-11-21T19:14:13.7276432Z  * [new branch]          dev-bridge/r3-reach     -> origin/dev-bridge/r3-reach
+2026-11-21T19:14:13.7276795Z  * [new branch]          dev-bridge/r4-avail     -> origin/dev-bridge/r4-avail
+2026-11-21T19:14:13.7277190Z  * [new branch]          dev-bridge/r4-conv      -> origin/dev-bridge/r4-conv
+2026-11-21T19:14:13.7277571Z  * [new branch]          dev-bridge/r4-final     -> origin/dev-bridge/r4-final
+2026-11-21T19:14:13.7277981Z  * [new branch]          dev-bridge/r5-bridge    -> origin/dev-bridge/r5-bridge
+2026-11-21T19:14:13.7278386Z  * [new branch]          dev-bridge/r5-bridge2   -> origin/dev-bridge/r5-bridge2
+2026-11-21T19:14:13.7278816Z  * [new branch]          dev-bridge/r6-channel-transfer -> origin/dev-bridge/r6-channel-transfer
+2026-11-21T19:14:13.7279663Z  * [new branch]          dev-bridge/r7-channel-transfer-repair -> origin/dev-bridge/r7-channel-transfer-repair
+2026-11-21T19:14:13.7280181Z  * [new branch]          dev-bridge/r8-finite-protocol -> origin/dev-bridge/r8-finite-protocol
+2026-11-21T19:14:13.7280650Z  * [new branch]          dev-countermodels/c17-sprime -> origin/dev-countermodels/c17-sprime
+2026-11-21T19:14:13.7281142Z  * [new branch]          dev-countermodels/c22-compact -> origin/dev-countermodels/c22-compact
+2026-11-21T19:14:13.7281596Z  * [new branch]          dev-equivalence/k2-schema -> origin/dev-equivalence/k2-schema
+2026-11-21T19:14:13.7282035Z  * [new branch]          dev-equivalence/kinf-seams -> origin/dev-equivalence/kinf-seams
+2026-11-21T19:14:13.7282484Z  * [new branch]          dev-equivalence/kn-desc -> origin/dev-equivalence/kn-desc
+2026-11-21T19:14:13.7282909Z  * [new branch]          dev-equivalence/kt4-at-l -> origin/dev-equivalence/kt4-at-l
+2026-11-21T19:14:13.7283385Z  * [new branch]          dev-equivalence/ktoken-maxcone -> origin/dev-equivalence/ktoken-maxcone
+2026-11-21T19:14:13.7283887Z  * [new branch]          dev-equivalence/ktoken-maxcone-r2 -> origin/dev-equivalence/ktoken-maxcone-r2
+2026-11-21T19:14:13.7284399Z  * [new branch]          dev-equivalence/maxcone-20261012 -> origin/dev-equivalence/maxcone-20261012
+2026-11-21T19:14:13.7284848Z  * [new branch]          dev-equivalence/omega4  -> origin/dev-equivalence/omega4
+2026-11-21T19:14:13.7285423Z  * [new branch]          dev-equivalence/r4-design -> origin/dev-equivalence/r4-design
+2026-11-21T19:14:13.7285974Z  * [new branch]          dev-equivalence/r5-design -> origin/dev-equivalence/r5-design
+2026-11-21T19:14:13.7286415Z  * [new branch]          dev-equivalence/split-l3 -> origin/dev-equivalence/split-l3
+2026-11-21T19:14:13.7287159Z  * [new branch]          dev-origin/angle        -> origin/dev-origin/angle
+2026-11-21T19:14:13.7287601Z  * [new branch]          dev-origin/drive        -> origin/dev-origin/drive
+2026-11-21T19:14:13.7288008Z  * [new branch]          dev-origin/envelope     -> origin/dev-origin/envelope
+2026-11-21T19:14:13.7288393Z  * [new branch]          dev-origin/exclusive    -> origin/dev-origin/exclusive
+2026-11-21T19:14:13.7288802Z  * [new branch]          dev-origin/passive      -> origin/dev-origin/passive
+2026-11-21T19:14:13.7289200Z  * [new branch]          dev-origin/token-order  -> origin/dev-origin/token-order
+2026-11-21T19:14:13.7289715Z  * [new branch]          docs/main-proof-independence-20261102 -> origin/docs/main-proof-independence-20261102
+2026-11-21T19:14:13.7290214Z  * [new branch]          draft/arp1-marc-dev     -> origin/draft/arp1-marc-dev
+2026-11-21T19:14:13.7290730Z  * [new branch]          draft/corpus-readability-program-20261027 -> origin/draft/corpus-readability-program-20261027
+2026-11-21T19:14:13.7291213Z  * [new branch]          draft/geom-odd-1        -> origin/draft/geom-odd-1
+2026-11-21T19:14:13.7291613Z  * [new branch]          draft/kinf-copy-1       -> origin/draft/kinf-copy-1
+2026-11-21T19:14:13.7292026Z  * [new branch]          draft/kinf-seed-1       -> origin/draft/kinf-seed-1
+2026-11-21T19:14:13.7292397Z  * [new branch]          draft/kn-desc-1         -> origin/draft/kn-desc-1
+2026-11-21T19:14:13.7292888Z  * [new branch]          draft/ktoken-maxcone-1-f -> origin/draft/ktoken-maxcone-1-f
+2026-11-21T19:14:13.7293321Z  * [new branch]          draft/ktoken-maxcone-1-f2 -> origin/draft/ktoken-maxcone-1-f2
+2026-11-21T19:14:13.7293836Z  * [new branch]          draft/ktrans-sep-2-predicted-tree -> origin/draft/ktrans-sep-2-predicted-tree
+2026-11-21T19:14:13.7294423Z  * [new branch]          draft/ktrans-sep-2-predicted-tree-r10 -> origin/draft/ktrans-sep-2-predicted-tree-r10
+2026-11-21T19:14:13.7295035Z  * [new branch]          draft/ktrans-sep-2-predicted-tree-r11 -> origin/draft/ktrans-sep-2-predicted-tree-r11
+2026-11-21T19:14:13.7295776Z  * [new branch]          draft/ktrans-sep-2-predicted-tree-r12 -> origin/draft/ktrans-sep-2-predicted-tree-r12
+2026-11-21T19:14:13.7296342Z  * [new branch]          draft/ktrans-sep-2-predicted-tree-r13 -> origin/draft/ktrans-sep-2-predicted-tree-r13
+2026-11-21T19:14:13.7296937Z  * [new branch]          draft/ktrans-sep-2-predicted-tree-r9 -> origin/draft/ktrans-sep-2-predicted-tree-r9
+2026-11-21T19:14:13.7297524Z  * [new branch]          draft/ktrans-sep-2-staging-controls -> origin/draft/ktrans-sep-2-staging-controls
+2026-11-21T19:14:13.7297985Z  * [new branch]          draft/l3-conv-1         -> origin/draft/l3-conv-1
+2026-11-21T19:14:13.7298559Z  * [new branch]          draft/loc-1-identification-dependence-20261016 -> origin/draft/loc-1-identification-dependence-20261016
+2026-11-21T19:14:13.7299173Z  * [new branch]          draft/oi-composition-access-20261024 -> origin/draft/oi-composition-access-20261024
+2026-11-21T19:14:13.7299755Z  * [new branch]          draft/oi-introductory-paper-20261025 -> origin/draft/oi-introductory-paper-20261025
+2026-11-21T19:14:13.7300359Z  * [new branch]          draft/oi-state-operation-source-1 -> origin/draft/oi-state-operation-source-1
+2026-11-21T19:14:13.7300837Z  * [new branch]          draft/preserve-induct-1 -> origin/draft/preserve-induct-1
+2026-11-21T19:14:13.7301253Z  * [new branch]          draft/pt-stage-1        -> origin/draft/pt-stage-1
+2026-11-21T19:14:13.7301764Z  * [new branch]          draft/sm-theorem3-direction-audit-20261027 -> origin/draft/sm-theorem3-direction-audit-20261027
+2026-11-21T19:14:13.7302424Z  * [new branch]          draft/sm-theorem3-source-repair-20261027 -> origin/draft/sm-theorem3-source-repair-20261027
+2026-11-21T19:14:13.7302986Z  * [new branch]          draft/wt2-1             -> origin/draft/wt2-1
+2026-11-21T19:14:13.7303443Z  * [new branch]          evidence/k1-rdy-pref-proofs-20261105 -> origin/evidence/k1-rdy-pref-proofs-20261105
+2026-11-21T19:14:13.7304034Z  * [new branch]          governance/a46-research-records-20261104 -> origin/governance/a46-research-records-20261104
+2026-11-21T19:14:13.7304747Z  * [new branch]          infra/k1-pers-1-workflow-stub-20261101 -> origin/infra/k1-pers-1-workflow-stub-20261101
+2026-11-21T19:14:13.7305520Z  * [new branch]          launcher/oret-phasea-workflow-20261104 -> origin/launcher/oret-phasea-workflow-20261104
+2026-11-21T19:14:13.7306110Z  * [new branch]          lean/1188-ancilla-docstring-20261115 -> origin/lean/1188-ancilla-docstring-20261115
+2026-11-21T19:14:13.7306555Z  * [new branch]          main                    -> origin/main
+2026-11-21T19:14:13.7307019Z  * [new branch]          paper/1255-corrections-20261115 -> origin/paper/1255-corrections-20261115
+2026-11-21T19:14:13.7307544Z  * [new branch]          plan/a1-free-codex-sessions-20261116 -> origin/plan/a1-free-codex-sessions-20261116
+2026-11-21T19:14:13.7308080Z  * [new branch]          plan/affine-respect-20261013 -> origin/plan/affine-respect-20261013
+2026-11-21T19:14:13.7308708Z  * [new branch]          plan/compatibility-source-20261013 -> origin/plan/compatibility-source-20261013
+2026-11-21T19:14:13.7309280Z  * [new branch]          plan/continuum-completion-20261013 -> origin/plan/continuum-completion-20261013
+2026-11-21T19:14:13.7309777Z  * [new branch]          plan/drive-source-20261013 -> origin/plan/drive-source-20261013
+2026-11-21T19:14:13.7310291Z  * [new branch]          plan/f2-target-extension-scope-20261017 -> origin/plan/f2-target-extension-scope-20261017
+2026-11-21T19:14:13.7310892Z  * [new branch]          plan/four-copy-certification-20261013 -> origin/plan/four-copy-certification-20261013
+2026-11-21T19:14:13.7311421Z  * [new branch]          plan/four-copy-source-20261013 -> origin/plan/four-copy-source-20261013
+2026-11-21T19:14:13.7311951Z  * [new branch]          plan/geometry-source-20261013 -> origin/plan/geometry-source-20261013
+2026-11-21T19:14:13.7312546Z  * [new branch]          plan/joint-tests-source-20261013 -> origin/plan/joint-tests-source-20261013
+2026-11-21T19:14:13.7313189Z  * [new branch]          plan/mannheim-gravity-comparison-20261015 -> origin/plan/mannheim-gravity-comparison-20261015
+2026-11-21T19:14:13.7313795Z  * [new branch]          plan/oi-master-session-map-20261116 -> origin/plan/oi-master-session-map-20261116
+2026-11-21T19:14:13.7314328Z  * [new branch]          plan/p0-evolution-source-20261013 -> origin/plan/p0-evolution-source-20261013
+2026-11-21T19:14:13.7314876Z  * [new branch]          plan/pair-interface-integration-20261017 -> origin/plan/pair-interface-integration-20261017
+2026-11-21T19:14:13.7315596Z  * [new branch]          policy/a46-amendment-oq10-20261113 -> origin/policy/a46-amendment-oq10-20261113
+2026-11-21T19:14:13.7316153Z  * [new branch]          policy/ci-attestation-pr-runs-20261012 -> origin/policy/ci-attestation-pr-runs-20261012
+2026-11-21T19:14:13.7316826Z  * [new branch]          preserve/862-merge-pr807-run38162504147-5224b777 -> origin/preserve/862-merge-pr807-run38162504147-5224b777
+2026-11-21T19:14:13.7317484Z  * [new branch]          preserve/862-merge-pr809-run38205087980-09b3293c -> origin/preserve/862-merge-pr809-run38205087980-09b3293c
+2026-11-21T19:14:13.7318118Z  * [new branch]          preserve/862-merge-pr809-run38205760341-d8568158 -> origin/preserve/862-merge-pr809-run38205760341-d8568158
+2026-11-21T19:14:13.7318778Z  * [new branch]          preserve/862-merge-pr809-run38208044012-ae475ccc -> origin/preserve/862-merge-pr809-run38208044012-ae475ccc
+2026-11-21T19:14:13.7319355Z  * [new branch]          preserve/a1-free-evidence-20261116 -> origin/preserve/a1-free-evidence-20261116
+2026-11-21T19:14:13.7319978Z  * [new branch]          preserve/extractor-superseded-11671ccd -> origin/preserve/extractor-superseded-11671ccd
+2026-11-21T19:14:13.7320635Z  * [new branch]          preserve/extractor-superseded-851f4c23 -> origin/preserve/extractor-superseded-851f4c23
+2026-11-21T19:14:13.7321206Z  * [new branch]          preserve/extractor-superseded-e144291f -> origin/preserve/extractor-superseded-e144291f
+2026-11-21T19:14:13.7321865Z  * [new branch]          preserve/extractor-superseded-f9cb0d59 -> origin/preserve/extractor-superseded-f9cb0d59
+2026-11-21T19:14:13.7322480Z  * [new branch]          preserve/int861-harness-H-rebuilt-bdf34de3 -> origin/preserve/int861-harness-H-rebuilt-bdf34de3
+2026-11-21T19:14:13.7323114Z  * [new branch]          preserve/int861-harness-H2-rebuilt-f7545ff6 -> origin/preserve/int861-harness-H2-rebuilt-f7545ff6
+2026-11-21T19:14:13.7323679Z  * [new branch]          preserve/int861-harness-H3-318fc737 -> origin/preserve/int861-harness-H3-318fc737
+2026-11-21T19:14:13.7324190Z  * [new branch]          preserve/ktoken-maxcone-1-625f853f -> origin/preserve/ktoken-maxcone-1-625f853f
+2026-11-21T19:14:13.7324734Z  * [new branch]          preserve/ktoken-maxcone-1-7ce49dd1 -> origin/preserve/ktoken-maxcone-1-7ce49dd1
+2026-11-21T19:14:13.7325470Z  * [new branch]          preserve/ktrans-sep-2-candidate-6de98451 -> origin/preserve/ktrans-sep-2-candidate-6de98451
+2026-11-21T19:14:13.7326117Z  * [new branch]          preserve/ktrans-sep-824-design-195dfbee -> origin/preserve/ktrans-sep-824-design-195dfbee
+2026-11-21T19:14:13.7326703Z  * [new branch]          preserve/ktrans-sep-824-design-95beab2b -> origin/preserve/ktrans-sep-824-design-95beab2b
+2026-11-21T19:14:13.7327261Z  * [new branch]          preserve/ktrans-sep-824-draft-72db07ca -> origin/preserve/ktrans-sep-824-draft-72db07ca
+2026-11-21T19:14:13.7327867Z  * [new branch]          preserve/ktrans-sep-824-predicted-bd579bf8 -> origin/preserve/ktrans-sep-824-predicted-bd579bf8
+2026-11-21T19:14:13.7328515Z  * [new branch]          preserve/preserve-induct-831-design-895d984b -> origin/preserve/preserve-induct-831-design-895d984b
+2026-11-21T19:14:13.7329067Z  * [new branch]          preserve/w1477-565965f1 -> origin/preserve/w1477-565965f1
+2026-11-21T19:14:13.7329466Z  * [new branch]          preserve/w1483-09673477 -> origin/preserve/w1483-09673477
+2026-11-21T19:14:13.7329945Z  * [new branch]          preserve/w1483-r10-wip  -> origin/preserve/w1483-r10-wip
+2026-11-21T19:14:13.7330368Z  * [new branch]          preserve/w1483-r3-wip   -> origin/preserve/w1483-r3-wip
+2026-11-21T19:14:13.7330805Z  * [new branch]          preserve/w1483-r4-wip   -> origin/preserve/w1483-r4-wip
+2026-11-21T19:14:13.7331191Z  * [new branch]          preserve/w1483-r5-wip   -> origin/preserve/w1483-r5-wip
+2026-11-21T19:14:13.7331580Z  * [new branch]          preserve/w1483-r6-wip   -> origin/preserve/w1483-r6-wip
+2026-11-21T19:14:13.7331975Z  * [new branch]          preserve/w1483-r7-wip   -> origin/preserve/w1483-r7-wip
+2026-11-21T19:14:13.7332474Z  * [new branch]          preserve/w1483-r8-wip   -> origin/preserve/w1483-r8-wip
+2026-11-21T19:14:13.7333074Z  * [new branch]          preserve/w1483-r9-wip   -> origin/preserve/w1483-r9-wip
+2026-11-21T19:14:13.7333604Z  * [new branch]          records/bell-landing-plan-868-20261114 -> origin/records/bell-landing-plan-868-20261114
+2026-11-21T19:14:13.7334338Z  * [new branch]          records/reconcile-1265-oq10-20261113 -> origin/records/reconcile-1265-oq10-20261113
+2026-11-21T19:14:13.7334906Z  * [new branch]          records/synthesis-1221-reclass-20261115 -> origin/records/synthesis-1221-reclass-20261115
+2026-11-21T19:14:13.7335691Z  * [new branch]          records/target-theorem-914-20261114 -> origin/records/target-theorem-914-20261114
+2026-11-21T19:14:13.7336299Z  * [new branch]          records/target-triage-914-20261114 -> origin/records/target-triage-914-20261114
+2026-11-21T19:14:13.7336934Z  * [new branch]          records/tune1-landing-plan-1236-20261114 -> origin/records/tune1-landing-plan-1236-20261114
+2026-11-21T19:14:13.7337571Z  * [new branch]          release/3.1.7-publication-fixes -> origin/release/3.1.7-publication-fixes
+2026-11-21T19:14:13.7338377Z  * [new branch]          research/a1-04-finite-infinite-discrimination-1169-20261116 -> origin/research/a1-04-finite-infinite-discrimination-1169-20261116
+2026-11-21T19:14:13.7339362Z  * [new branch]          research/a1-09-manuscript-traces-1334-20261119 -> origin/research/a1-09-manuscript-traces-1334-20261119
+2026-11-21T19:14:13.7340256Z  * [new branch]          research/a1-foundations-1169-20261115 -> origin/research/a1-foundations-1169-20261115
+2026-11-21T19:14:13.7341072Z  * [new branch]          research/a1-recovery-plan-1169-20261116 -> origin/research/a1-recovery-plan-1169-20261116
+2026-11-21T19:14:13.7341845Z  * [new branch]          research/a1exit-deletion-20261121 -> origin/research/a1exit-deletion-20261121
+2026-11-21T19:14:13.7342583Z  * [new branch]          research/a1exit-regression-compare-20261121 -> origin/research/a1exit-regression-compare-20261121
+2026-11-21T19:14:13.7343327Z  * [new branch]          research/a5-reassessment-r5-1049-20261110 -> origin/research/a5-reassessment-r5-1049-20261110
+2026-11-21T19:14:13.7343841Z  * [new branch]          research/archive        -> origin/research/archive
+2026-11-21T19:14:13.7344319Z  * [new branch]          research/arp2-qc21-prep-20261109 -> origin/research/arp2-qc21-prep-20261109
+2026-11-21T19:14:13.7344813Z  * [new branch]          research/bell-ladder-868-20261113 -> origin/research/bell-ladder-868-20261113
+2026-11-21T19:14:13.7345484Z  * [new branch]          research/bell-scope-868-20261111 -> origin/research/bell-scope-868-20261111
+2026-11-21T19:14:13.7346060Z  * [new branch]          research/born-sel-b-measure-20261104 -> origin/research/born-sel-b-measure-20261104
+2026-11-21T19:14:13.7346558Z  * [new branch]          research/bqp-audit-20261121 -> origin/research/bqp-audit-20261121
+2026-11-21T19:14:13.7346998Z  * [new branch]          research/bqp-p2-20261121 -> origin/research/bqp-p2-20261121
+2026-11-21T19:14:13.7347463Z  * [new branch]          research/bqp-p3-20261121 -> origin/research/bqp-p3-20261121
+2026-11-21T19:14:13.7347908Z  * [new branch]          research/bqp-p4-20261121 -> origin/research/bqp-p4-20261121
+2026-11-21T19:14:13.7348326Z  * [new branch]          research/bridge         -> origin/research/bridge
+2026-11-21T19:14:13.7348766Z  * [new branch]          research/bridge-finite-protocol -> origin/research/bridge-finite-protocol
+2026-11-21T19:14:13.7349249Z  * [new branch]          research/bsel2-b3-b5-20261104 -> origin/research/bsel2-b3-b5-20261104
+2026-11-21T19:14:13.7349725Z  * [new branch]          research/bsel2-q2a-oeg-20261105 -> origin/research/bsel2-q2a-oeg-20261105
+2026-11-21T19:14:13.7350182Z  * [new branch]          research/btfr-z-20261119 -> origin/research/btfr-z-20261119
+2026-11-21T19:14:13.7350641Z  * [new branch]          research/c14-audit-20261121 -> origin/research/c14-audit-20261121
+2026-11-21T19:14:13.7351112Z  * [new branch]          research/c14-corrections-20261121 -> origin/research/c14-corrections-20261121
+2026-11-21T19:14:13.7351627Z  * [new branch]          research/c3-rlin-xiii-1169-20261113 -> origin/research/c3-rlin-xiii-1169-20261113
+2026-11-21T19:14:13.7352185Z  * [new branch]          research/codex-older-evidence-20261113 -> origin/research/codex-older-evidence-20261113
+2026-11-21T19:14:13.7352796Z  * [new branch]          research/codex-preserved-evidence-20261114 -> origin/research/codex-preserved-evidence-20261114
+2026-11-21T19:14:13.7353448Z  * [new branch]          research/codex-selection-publication-20261113 -> origin/research/codex-selection-publication-20261113
+2026-11-21T19:14:13.7354070Z  * [new branch]          research/conscious-observation-loop -> origin/research/conscious-observation-loop
+2026-11-21T19:14:13.7354553Z  * [new branch]          research/countermodels  -> origin/research/countermodels
+2026-11-21T19:14:13.7355033Z  * [new branch]          research/e-sm-mixer-readout-20261119 -> origin/research/e-sm-mixer-readout-20261119
+2026-11-21T19:14:13.7355683Z  * [new branch]          research/equivalence    -> origin/research/equivalence
+2026-11-21T19:14:13.7356281Z  * [new branch]          research/f2-extension-candidates-20261014 -> origin/research/f2-extension-candidates-20261014
+2026-11-21T19:14:13.7356854Z  * [new branch]          research/fhesel1-p-control-20261108 -> origin/research/fhesel1-p-control-20261108
+2026-11-21T19:14:13.7357351Z  * [new branch]          research/fhesel1-p-mix-20261108 -> origin/research/fhesel1-p-mix-20261108
+2026-11-21T19:14:13.7358017Z  * [new branch]          research/fhesel1-p-obs-20261108 -> origin/research/fhesel1-p-obs-20261108
+2026-11-21T19:14:13.7358535Z  * [new branch]          research/fin-scope-design-20261121 -> origin/research/fin-scope-design-20261121
+2026-11-21T19:14:13.7359176Z  * [new branch]          research/finite-reconstruction-design-20261013 -> origin/research/finite-reconstruction-design-20261013
+2026-11-21T19:14:13.7359763Z  * [new branch]          research/g3-offset-873-20261113 -> origin/research/g3-offset-873-20261113
+2026-11-21T19:14:13.7360336Z  * [new branch]          research/gate-a-amendment-1169-20261114 -> origin/research/gate-a-amendment-1169-20261114
+2026-11-21T19:14:13.7360990Z  * [new branch]          research/gate-a-r5-20261121 -> origin/research/gate-a-r5-20261121
+2026-11-21T19:14:13.7361513Z  * [new branch]          research/gate-a-r5-t1t2-20261121 -> origin/research/gate-a-r5-t1t2-20261121
+2026-11-21T19:14:13.7362005Z  * [new branch]          research/gate-a-r6-20261121 -> origin/research/gate-a-r6-20261121
+2026-11-21T19:14:13.7362457Z  * [new branch]          research/i3-source-20261121 -> origin/research/i3-source-20261121
+2026-11-21T19:14:13.7362933Z  * [new branch]          research/ic2-native-1169-20261116 -> origin/research/ic2-native-1169-20261116
+2026-11-21T19:14:13.7363515Z  * [new branch]          research/integration-assess-20261113 -> origin/research/integration-assess-20261113
+2026-11-21T19:14:13.7364044Z  * [new branch]          research/intervene-1-20261111 -> origin/research/intervene-1-20261111
+2026-11-21T19:14:13.7364669Z  * [new branch]          research/introduction-r32-integration-20261028 -> origin/research/introduction-r32-integration-20261028
+2026-11-21T19:14:13.7365476Z  * [new branch]          research/introduction-recovery-r32-20261028 -> origin/research/introduction-recovery-r32-20261028
+2026-11-21T19:14:13.7366101Z  * [new branch]          research/k1-rdy-reconstruction-20261105 -> origin/research/k1-rdy-reconstruction-20261105
+2026-11-21T19:14:13.7366788Z  * [new branch]          research/lane-b-status-provenance-20261101 -> origin/research/lane-b-status-provenance-20261101
+2026-11-21T19:14:13.7367449Z  * [new branch]          research/lane-c-native-action-prereg-20261101 -> origin/research/lane-c-native-action-prereg-20261101
+2026-11-21T19:14:13.7368065Z  * [new branch]          research/loc-1-arith-20261018 -> origin/research/loc-1-arith-20261018
+2026-11-21T19:14:13.7368664Z  * [new branch]          research/measurement-record-formation-20261031 -> origin/research/measurement-record-formation-20261031
+2026-11-21T19:14:13.7369234Z  * [new branch]          research/missing-component-20261020 -> origin/research/missing-component-20261020
+2026-11-21T19:14:13.7369894Z  * [new branch]          research/mixed-path-868-20261111 -> origin/research/mixed-path-868-20261111
+2026-11-21T19:14:13.7370411Z  * [new branch]          research/native-univ-20261121 -> origin/research/native-univ-20261121
+2026-11-21T19:14:13.7370929Z  * [new branch]          research/native-univ-p2-20261121 -> origin/research/native-univ-p2-20261121
+2026-11-21T19:14:13.7371432Z  * [new branch]          research/native-univ-p3-20261121 -> origin/research/native-univ-p3-20261121
+2026-11-21T19:14:13.7371930Z  * [new branch]          research/native-univ-p4-20261121 -> origin/research/native-univ-p4-20261121
+2026-11-21T19:14:13.7372462Z  * [new branch]          research/novelty-ledger-20261121 -> origin/research/novelty-ledger-20261121
+2026-11-21T19:14:13.7373084Z  * [new branch]          research/np-avg-1-plan-20261026 -> origin/research/np-avg-1-plan-20261026
+2026-11-21T19:14:13.7373611Z  * [new branch]          research/o-ret-phasea-tool-20261104 -> origin/research/o-ret-phasea-tool-20261104
+2026-11-21T19:14:13.7374245Z  * [new branch]          research/o-ret-phaseb-design-20261105 -> origin/research/o-ret-phaseb-design-20261105
+2026-11-21T19:14:13.7374994Z  * [new branch]          research/o-ret-routes-20261103 -> origin/research/o-ret-routes-20261103
+2026-11-21T19:14:13.7375873Z  * [new branch]          research/oi-constructive-qcd-bridge-20261029 -> origin/research/oi-constructive-qcd-bridge-20261029
+2026-11-21T19:14:13.7376555Z  * [new branch]          research/oi-deutschian-carrier-framing-20261030 -> origin/research/oi-deutschian-carrier-framing-20261030
+2026-11-21T19:14:13.7377161Z  * [new branch]          research/oi-pseudoentropy-20261025 -> origin/research/oi-pseudoentropy-20261025
+2026-11-21T19:14:13.7377699Z  * [new branch]          research/oi-qm-chatgpt-wip-20261110 -> origin/research/oi-qm-chatgpt-wip-20261110
+2026-11-21T19:14:13.7378341Z  * [new branch]          research/oi-qm-composition-source-20261107 -> origin/research/oi-qm-composition-source-20261107
+2026-11-21T19:14:13.7379007Z  * [new branch]          research/oi-qm-preparation-loading-20261107 -> origin/research/oi-qm-preparation-loading-20261107
+2026-11-21T19:14:13.7379674Z  * [new branch]          research/oi-qm-probability-assessment-20261107 -> origin/research/oi-qm-probability-assessment-20261107
+2026-11-21T19:14:13.7380262Z  * [new branch]          research/oi-qm-sel-access-20261110 -> origin/research/oi-qm-sel-access-20261110
+2026-11-21T19:14:13.7380777Z  * [new branch]          research/oicore1-record-20261109 -> origin/research/oicore1-record-20261109
+2026-11-21T19:14:13.7381299Z  * [new branch]          research/oiqm-lean-design-20261121 -> origin/research/oiqm-lean-design-20261121
+2026-11-21T19:14:13.7381847Z  * [new branch]          research/oiqm-lean-design-p2-20261121 -> origin/research/oiqm-lean-design-p2-20261121
+2026-11-21T19:14:13.7382403Z  * [new branch]          research/oiqm-lean-design-p3-20261121 -> origin/research/oiqm-lean-design-p3-20261121
+2026-11-21T19:14:13.7382956Z  * [new branch]          research/oiqm-sel-excl1-20261110 -> origin/research/oiqm-sel-excl1-20261110
+2026-11-21T19:14:13.7383457Z  * [new branch]          research/oiqm-unbounded-20261121 -> origin/research/oiqm-unbounded-20261121
+2026-11-21T19:14:13.7383994Z  * [new branch]          research/oiqm-unbounded-p2-20261121 -> origin/research/oiqm-unbounded-p2-20261121
+2026-11-21T19:14:13.7384530Z  * [new branch]          research/oiqm-unbounded-p3-20261121 -> origin/research/oiqm-unbounded-p3-20261121
+2026-11-21T19:14:13.7385003Z  * [new branch]          research/opres-20261121 -> origin/research/opres-20261121
+2026-11-21T19:14:13.7385647Z  * [new branch]          research/optc-1230-1232-20261113 -> origin/research/optc-1230-1232-20261113
+2026-11-21T19:14:13.7386097Z  * [new branch]          research/origin         -> origin/research/origin
+2026-11-21T19:14:13.7386518Z  * [new branch]          research/overview       -> origin/research/overview
+2026-11-21T19:14:13.7386995Z  * [new branch]          research/p2-locality-sources-20261015 -> origin/research/p2-locality-sources-20261015
+2026-11-21T19:14:13.7387584Z  * [new branch]          research/p8-p12-neighbor-response-20261119 -> origin/research/p8-p12-neighbor-response-20261119
+2026-11-21T19:14:13.7388174Z  * [new branch]          research/page-coherent-entropy-20261028 -> origin/research/page-coherent-entropy-20261028
+2026-11-21T19:14:13.7388830Z  * [new branch]          research/pair-interface-design-20261014 -> origin/research/pair-interface-design-20261014
+2026-11-21T19:14:13.7389454Z  * [new branch]          research/physical-coupling-pc1-20261031 -> origin/research/physical-coupling-pc1-20261031
+2026-11-21T19:14:13.7390151Z  * [new branch]          research/preservation-induction-design-20261013 -> origin/research/preservation-induction-design-20261013
+2026-11-21T19:14:13.7390725Z  * [new branch]          research/q868h-868-20261113 -> origin/research/q868h-868-20261113
+2026-11-21T19:14:13.7391147Z  * [new branch]          research/qops-20261121  -> origin/research/qops-20261121
+2026-11-21T19:14:13.7391686Z  * [new branch]          research/qops-p2-20261121 -> origin/research/qops-p2-20261121
+2026-11-21T19:14:13.7392136Z  * [new branch]          research/qops-p3-20261121 -> origin/research/qops-p3-20261121
+2026-11-21T19:14:13.7392616Z  * [new branch]          research/qops-p4-20261121 -> origin/research/qops-p4-20261121
+2026-11-21T19:14:13.7393241Z  * [new branch]          research/qphen-acceptance-protocol-1210-20261119 -> origin/research/qphen-acceptance-protocol-1210-20261119
+2026-11-21T19:14:13.7393867Z  * [new branch]          research/qphen-phase1-frozen-20261109 -> origin/research/qphen-phase1-frozen-20261109
+2026-11-21T19:14:13.7394488Z  * [new branch]          research/r23-selector-gauge-recovery -> origin/research/r23-selector-gauge-recovery
+2026-11-21T19:14:13.7395261Z  * [new branch]          research/r32-source-regress-reconciliation-20261028 -> origin/research/r32-source-regress-reconciliation-20261028
+2026-11-21T19:14:13.7395912Z  * [new branch]          research/readout-alg-20261121 -> origin/research/readout-alg-20261121
+2026-11-21T19:14:13.7396454Z  * [new branch]          research/ready-resource-rr1-20261101 -> origin/research/ready-resource-rr1-20261101
+2026-11-21T19:14:13.7396992Z  * [new branch]          research/rec-1-1169-20261113 -> origin/research/rec-1-1169-20261113
+2026-11-21T19:14:13.7397550Z  * [new branch]          research/reconcile-1230-1232-20261113 -> origin/research/reconcile-1230-1232-20261113
+2026-11-21T19:14:13.7398084Z  * [new branch]          research/recovered-1169-20261113 -> origin/research/recovered-1169-20261113
+2026-11-21T19:14:13.7398629Z  * [new branch]          research/recovered-qc21-local-d87547a4 -> origin/research/recovered-qc21-local-d87547a4
+2026-11-21T19:14:13.7399244Z  * [new branch]          research/ro1-sector-c-1169-20261114 -> origin/research/ro1-sector-c-1169-20261114
+2026-11-21T19:14:13.7399818Z  * [new branch]          research/ro3-carrier-inventory-1055-20261114 -> origin/research/ro3-carrier-inventory-1055-20261114
+2026-11-21T19:14:13.7400452Z  * [new branch]          research/round6-transfer-sourcing -> origin/research/round6-transfer-sourcing
+2026-11-21T19:14:13.7400959Z  * [new branch]          research/sm1735-citation-20261121 -> origin/research/sm1735-citation-20261121
+2026-11-21T19:14:13.7401495Z  * [new branch]          research/sq4-cpm-effects-audit-20261113 -> origin/research/sq4-cpm-effects-audit-20261113
+2026-11-21T19:14:13.7402131Z  * [new branch]          research/state-operation-source-design-20261013 -> origin/research/state-operation-source-design-20261013
+2026-11-21T19:14:13.7402687Z  * [new branch]          research/substate-1     -> origin/research/substate-1
+2026-11-21T19:14:13.7403170Z  * [new branch]          research/substate-2-recursive-20261030 -> origin/research/substate-2-recursive-20261030
+2026-11-21T19:14:13.7403715Z  * [new branch]          research/substate-bridge-1-20261111 -> origin/research/substate-bridge-1-20261111
+2026-11-21T19:14:13.7404251Z  * [new branch]          research/synthesis-1169-20261113 -> origin/research/synthesis-1169-20261113
+2026-11-21T19:14:13.7404725Z  * [new branch]          research/thm24-def-20261121 -> origin/research/thm24-def-20261121
+2026-11-21T19:14:13.7405347Z  * [new branch]          research/thm24-fix-interface-20261121 -> origin/research/thm24-fix-interface-20261121
+2026-11-21T19:14:13.7405908Z  * [new branch]          research/thm24-fix-prior-20261121 -> origin/research/thm24-fix-prior-20261121
+2026-11-21T19:14:13.7406430Z  * [new branch]          research/thm24-fix-prior-p2-20261121 -> origin/research/thm24-fix-prior-p2-20261121
+2026-11-21T19:14:13.7406920Z  * [new branch]          research/thm24-scope-20261121 -> origin/research/thm24-scope-20261121
+2026-11-21T19:14:13.7407489Z  * [new branch]          research/tune1-paper-units-1236-20261114 -> origin/research/tune1-paper-units-1236-20261114
+2026-11-21T19:14:13.7408076Z  * [new branch]          research/tune1-sourcing-1236-20261113 -> origin/research/tune1-sourcing-1236-20261113
+2026-11-21T19:14:13.7408669Z  * [new branch]          research/tune1-step3a-1236-20261113 -> origin/research/tune1-step3a-1236-20261113
+2026-11-21T19:14:13.7409146Z  * [new branch]          research/wip-checkpoints -> origin/research/wip-checkpoints
+2026-11-21T19:14:13.7409602Z  * [new branch]          research/x-screen-20261018 -> origin/research/x-screen-20261018
+2026-11-21T19:14:13.7410112Z  * [new branch]          round/k1-p1-1-20261105  -> origin/round/k1-p1-1-20261105
+2026-11-21T19:14:13.7410630Z  * [new branch]          round/mathcon1-s1b-1-20261108 -> origin/round/mathcon1-s1b-1-20261108
+2026-11-21T19:14:13.7411131Z  * [new branch]          scratch/ktoken-f-sim-20261018 -> origin/scratch/ktoken-f-sim-20261018
+2026-11-21T19:14:13.7411617Z  * [new branch]          scratch/ktoken-f2-sim-20261018 -> origin/scratch/ktoken-f2-sim-20261018
+2026-11-21T19:14:13.7412123Z  * [new branch]          scratch/ktoken-f3-cc-merge-20261018 -> origin/scratch/ktoken-f3-cc-merge-20261018
+2026-11-21T19:14:13.7412766Z  * [new branch]          scratch/ktoken-f3-sim-20261018 -> origin/scratch/ktoken-f3-sim-20261018
+2026-11-21T19:14:13.7413266Z  * [new branch]          staging/831-recut6-20261019 -> origin/staging/831-recut6-20261019
+2026-11-21T19:14:13.7413752Z  * [new branch]          staging/act37-pr1-v1-20261019 -> origin/staging/act37-pr1-v1-20261019
+2026-11-21T19:14:13.7414282Z  * [new branch]          staging/act37-pr2-v1-20261019 -> origin/staging/act37-pr2-v1-20261019
+2026-11-21T19:14:13.7414755Z  * [new branch]          staging/act37-pr2-v2-20261019 -> origin/staging/act37-pr2-v2-20261019
+2026-11-21T19:14:13.7415460Z  * [new branch]          staging/carrier-descent-823-20261018 -> origin/staging/carrier-descent-823-20261018
+2026-11-21T19:14:13.7416067Z  * [new branch]          staging/carrier-descent-823-c0-20261018 -> origin/staging/carrier-descent-823-c0-20261018
+2026-11-21T19:14:13.7416644Z  * [new branch]          staging/copy-covariance-822-20261018 -> origin/staging/copy-covariance-822-20261018
+2026-11-21T19:14:13.7417218Z  * [new branch]          staging/ev864-corrections-20261019 -> origin/staging/ev864-corrections-20261019
+2026-11-21T19:14:13.7417749Z  * [new branch]          staging/geom-odd-830-20261018 -> origin/staging/geom-odd-830-20261018
+2026-11-21T19:14:13.7418335Z  * [new branch]          staging/geom-odd-830-controls-20261018 -> origin/staging/geom-odd-830-controls-20261018
+2026-11-21T19:14:13.7418898Z  * [new branch]          staging/int861-I3-mutants-20261020 -> origin/staging/int861-I3-mutants-20261020
+2026-11-21T19:14:13.7419427Z  * [new branch]          staging/int861-I3p-mutants-20261020 -> origin/staging/int861-I3p-mutants-20261020
+2026-11-21T19:14:13.7420051Z  * [new branch]          staging/introduction-repro-ext-20261027 -> origin/staging/introduction-repro-ext-20261027
+2026-11-21T19:14:13.7420608Z  * [new branch]          staging/k1-p1-1-controls-20261106 -> origin/staging/k1-p1-1-controls-20261106
+2026-11-21T19:14:13.7421204Z  * [new branch]          staging/k1-p1-1-draft-patches-20261108 -> origin/staging/k1-p1-1-draft-patches-20261108
+2026-11-21T19:14:13.7421731Z  * [new branch]          staging/k1-p1-1-impl-a-20261106 -> origin/staging/k1-p1-1-impl-a-20261106
+2026-11-21T19:14:13.7422205Z  * [new branch]          staging/k1-p1-1-impl-b-20261106 -> origin/staging/k1-p1-1-impl-b-20261106
+2026-11-21T19:14:13.7422717Z  * [new branch]          staging/k1-p1-1-integration-20261108 -> origin/staging/k1-p1-1-integration-20261108
+2026-11-21T19:14:13.7423315Z  * [new branch]          staging/k1-p1-1-integration-provenance-20261108 -> origin/staging/k1-p1-1-integration-provenance-20261108
+2026-11-21T19:14:13.7423927Z  * [new branch]          staging/ktoken-829-stage3-20261020 -> origin/staging/ktoken-829-stage3-20261020
+2026-11-21T19:14:13.7424454Z  * [new branch]          staging/ktoken-829-stages-20261018 -> origin/staging/ktoken-829-stages-20261018
+2026-11-21T19:14:13.7425002Z  * [new branch]          staging/ktoken-829-stages-recut-20261019 -> origin/staging/ktoken-829-stages-recut-20261019
+2026-11-21T19:14:13.7425827Z  * [new branch]          staging/ktoken-829-stages-recut2-20261019 -> origin/staging/ktoken-829-stages-recut2-20261019
+2026-11-21T19:14:13.7426416Z  * [new branch]          staging/ktrans-sep-824-candF-20261018 -> origin/staging/ktrans-sep-824-candF-20261018
+2026-11-21T19:14:13.7427066Z  * [new branch]          staging/ktrans-sep-824-evidence-20261019 -> origin/staging/ktrans-sep-824-evidence-20261019
+2026-11-21T19:14:13.7427652Z  * [new branch]          staging/ktrans-sep-824-predicted-20261018 -> origin/staging/ktrans-sep-824-predicted-20261018
+2026-11-21T19:14:13.7428289Z  * [new branch]          staging/ktrans-sep-824-predicted-r2-20261018 -> origin/staging/ktrans-sep-824-predicted-r2-20261018
+2026-11-21T19:14:13.7428889Z  * [new branch]          staging/ktrans-sep-824-recut-20261018 -> origin/staging/ktrans-sep-824-recut-20261018
+2026-11-21T19:14:13.7429466Z  * [new branch]          staging/ktrans-sep-824-recut-r2-20261018 -> origin/staging/ktrans-sep-824-recut-r2-20261018
+2026-11-21T19:14:13.7429989Z  * [new branch]          staging/l3-conv-825-20261018 -> origin/staging/l3-conv-825-20261018
+2026-11-21T19:14:13.7430476Z  * [new branch]          staging/pre-f-853-20261018 -> origin/staging/pre-f-853-20261018
+2026-11-21T19:14:13.7430947Z  * [new branch]          staging/premise-memo-864-20261018 -> origin/staging/premise-memo-864-20261018
+2026-11-21T19:14:13.7431575Z  * [new branch]          staging/premise-memo-864-package-ec36234c -> origin/staging/premise-memo-864-package-ec36234c
+2026-11-21T19:14:13.7432219Z  * [new branch]          staging/preserve-induct-831-recut-20261019 -> origin/staging/preserve-induct-831-recut-20261019
+2026-11-21T19:14:13.7432862Z  * [new branch]          staging/preserve-induct-831-recut2-20261019 -> origin/staging/preserve-induct-831-recut2-20261019
+2026-11-21T19:14:13.7433500Z  * [new branch]          staging/preserve-induct-831-recut3-20261019 -> origin/staging/preserve-induct-831-recut3-20261019
+2026-11-21T19:14:13.7434126Z  * [new branch]          staging/preserve-induct-831-recut4-20261019 -> origin/staging/preserve-induct-831-recut4-20261019
+2026-11-21T19:14:13.7434785Z  * [new branch]          staging/preserve-induct-831-recut5-20261019 -> origin/staging/preserve-induct-831-recut5-20261019
+2026-11-21T19:14:13.7435584Z  * [new branch]          staging/preserve-induct-831-recut7-20261019 -> origin/staging/preserve-induct-831-recut7-20261019
+2026-11-21T19:14:13.7436170Z  * [new branch]          staging/pt-stage-827-20261018 -> origin/staging/pt-stage-827-20261018
+2026-11-21T19:14:13.7436673Z  * [new branch]          staging/r13-scenario-864-20261019 -> origin/staging/r13-scenario-864-20261019
+2026-11-21T19:14:13.7437178Z  * [new branch]          staging/r13-verbatim-fix-20261019 -> origin/staging/r13-verbatim-fix-20261019
+2026-11-21T19:14:13.7437743Z  * [new branch]          staging/retention-825-design-20261019 -> origin/staging/retention-825-design-20261019
+2026-11-21T19:14:13.7438366Z  * [new branch]          staging/retention-ktrans-sep-824-20261019 -> origin/staging/retention-ktrans-sep-824-20261019
+2026-11-21T19:14:13.7438977Z  * [new branch]          staging/sharp-seed-821-20261018 -> origin/staging/sharp-seed-821-20261018
+2026-11-21T19:14:13.7439449Z  * [new branch]          staging/wt2-828-20261018 -> origin/staging/wt2-828-20261018
+2026-11-21T19:14:13.7439909Z  * [new branch]          tmp/artifact-validate-20261017 -> origin/tmp/artifact-validate-20261017
+2026-11-21T19:14:13.7440421Z  * [new branch]          tmp/bg2-predicted-20261015 -> origin/tmp/bg2-predicted-20261015
+2026-11-21T19:14:13.7440900Z  * [new branch]          tmp/bg3-predicted-20261015 -> origin/tmp/bg3-predicted-20261015
+2026-11-21T19:14:13.7441398Z  * [new branch]          tmp/bg3-predicted-reduced-20261015 -> origin/tmp/bg3-predicted-reduced-20261015
+2026-11-21T19:14:13.7441998Z  * [new branch]          tmp/bg3-predicted-reduced2-20261016 -> origin/tmp/bg3-predicted-reduced2-20261016
+2026-11-21T19:14:13.7442544Z  * [new branch]          tmp/geom-odd-830-dispatch-cf9ddc11 -> origin/tmp/geom-odd-830-dispatch-cf9ddc11
+2026-11-21T19:14:13.7443157Z  * [new branch]          tmp/ktoken-evidence-20261017 -> origin/tmp/ktoken-evidence-20261017
+2026-11-21T19:14:13.7443660Z  * [new branch]          tmp/ktoken-f-evidence-20261020 -> origin/tmp/ktoken-f-evidence-20261020
+2026-11-21T19:14:13.7444227Z  * [new branch]          tmp/loc1-working-material-20261017 -> origin/tmp/loc1-working-material-20261017
+2026-11-21T19:14:13.7444729Z  * [new branch]          tmp/log-archive-20261017 -> origin/tmp/log-archive-20261017
+2026-11-21T19:14:13.7445260Z  * [new branch]          tmp/mc7-k10-n4-20261021 -> origin/tmp/mc7-k10-n4-20261021
+2026-11-21T19:14:13.7445884Z  * [new branch]          tmp/preserve-induct-1-e-evidence-20261023 -> origin/tmp/preserve-induct-1-e-evidence-20261023
+2026-11-21T19:14:13.7446461Z  * [new branch]          tmp/r1-reproduce-proof-20261016 -> origin/tmp/r1-reproduce-proof-20261016
+2026-11-21T19:14:13.7446989Z  * [new branch]          tmp/r1-reproduce-proof-20261016-2 -> origin/tmp/r1-reproduce-proof-20261016-2
+2026-11-21T19:14:13.7447543Z  * [new branch]          tmp/r1-reproduce-proof-20261016-3 -> origin/tmp/r1-reproduce-proof-20261016-3
+2026-11-21T19:14:13.7448088Z  * [new branch]          tmp/r1-reproduce-proof-20261016-4 -> origin/tmp/r1-reproduce-proof-20261016-4
+2026-11-21T19:14:13.7448641Z  * [new branch]          tmp/r1-reproduce-proof-20261016-5 -> origin/tmp/r1-reproduce-proof-20261016-5
+2026-11-21T19:14:13.7449252Z  * [new branch]          tmp/reproduce-evidence-nc-before-20261021 -> origin/tmp/reproduce-evidence-nc-before-20261021
+2026-11-21T19:14:13.7449883Z  * [new branch]          tmp/reproduce-evidence-nc-mutant-20261021 -> origin/tmp/reproduce-evidence-nc-mutant-20261021
+2026-11-21T19:14:13.7450447Z  * [new branch]          tmp/session-handoff-20261017 -> origin/tmp/session-handoff-20261017
+2026-11-21T19:14:13.7450910Z  * [new branch]          trial/a1exit-T0-55544cc3 -> origin/trial/a1exit-T0-55544cc3
+2026-11-21T19:14:13.7451449Z  * [new branch]          trial/a1exit-predicted-53068179 -> origin/trial/a1exit-predicted-53068179
+2026-11-21T19:14:13.7451881Z  * [new branch]          v3/sub-241b-obs         -> origin/v3/sub-241b-obs
+2026-11-21T19:14:13.7452282Z  * [new branch]          v3/sub-241c-span        -> origin/v3/sub-241c-span
+2026-11-21T19:14:13.7452857Z  * [new branch]          wip/batch-collector-impl-halted-20261018 -> origin/wip/batch-collector-impl-halted-20261018
+2026-11-21T19:14:13.7453450Z  * [new branch]          wip/batch-extract-design-20261018 -> origin/wip/batch-extract-design-20261018
+2026-11-21T19:14:13.7454004Z  * [new branch]          wip/batch-extract-pr-20261018 -> origin/wip/batch-extract-pr-20261018
+2026-11-21T19:14:13.7454459Z  * [new branch]          wip/kinf-copy-1-relative -> origin/wip/kinf-copy-1-relative
+2026-11-21T19:14:13.7454976Z  * [new branch]          wip/ktoken-controls-ancestry-20261018 -> origin/wip/ktoken-controls-ancestry-20261018
+2026-11-21T19:14:13.7455698Z  * [new branch]          wip/ktoken-fixture-fix-20261017 -> origin/wip/ktoken-fixture-fix-20261017
+2026-11-21T19:14:13.7456248Z  * [new branch]          wip/ktoken-maxcone-run2-draft -> origin/wip/ktoken-maxcone-run2-draft
+2026-11-21T19:14:13.7456765Z  * [new branch]          wip/preserve-induct-1-controls -> origin/wip/preserve-induct-1-controls
+2026-11-21T19:14:13.7457181Z  * [new tag]             1.0.0                   -> 1.0.0
+2026-11-21T19:14:13.7457481Z  * [new tag]             1.0.1                   -> 1.0.1
+2026-11-21T19:14:13.7457799Z  * [new tag]             1.0.2                   -> 1.0.2
+2026-11-21T19:14:13.7458087Z  * [new tag]             1.0.3                   -> 1.0.3
+2026-11-21T19:14:13.7458397Z  * [new tag]             1.0.4                   -> 1.0.4
+2026-11-21T19:14:13.7458728Z  * [new tag]             1.0.5                   -> 1.0.5
+2026-11-21T19:14:13.7458994Z  * [new tag]             1.0.6                   -> 1.0.6
+2026-11-21T19:14:13.7459376Z  * [new tag]             1.0.7                   -> 1.0.7
+2026-11-21T19:14:13.7459691Z  * [new tag]             1.0.8                   -> 1.0.8
+2026-11-21T19:14:13.7460049Z  * [new tag]             1.0.9                   -> 1.0.9
+2026-11-21T19:14:13.7460682Z  * [new tag]             1.1.0                   -> 1.1.0
+2026-11-21T19:14:13.7460975Z  * [new tag]             1.1.1                   -> 1.1.1
+2026-11-21T19:14:13.7461322Z  * [new tag]             1.1.2                   -> 1.1.2
+2026-11-21T19:14:13.7461662Z  * [new tag]             1.1.3                   -> 1.1.3
+2026-11-21T19:14:13.7461952Z  * [new tag]             1.1.4                   -> 1.1.4
+2026-11-21T19:14:13.7462299Z  * [new tag]             1.1.5                   -> 1.1.5
+2026-11-21T19:14:13.7462576Z  * [new tag]             1.1.6                   -> 1.1.6
+2026-11-21T19:14:13.7462904Z  * [new tag]             1.1.7                   -> 1.1.7
+2026-11-21T19:14:13.7463193Z  * [new tag]             1.1.8                   -> 1.1.8
+2026-11-21T19:14:13.7463482Z  * [new tag]             1.1.9                   -> 1.1.9
+2026-11-21T19:14:13.7463782Z  * [new tag]             1.2.0                   -> 1.2.0
+2026-11-21T19:14:13.7464085Z  * [new tag]             1.2.1                   -> 1.2.1
+2026-11-21T19:14:13.7464415Z  * [new tag]             1.2.2                   -> 1.2.2
+2026-11-21T19:14:13.7464703Z  * [new tag]             1.2.3                   -> 1.2.3
+2026-11-21T19:14:13.7464992Z  * [new tag]             1.2.4                   -> 1.2.4
+2026-11-21T19:14:13.7465468Z  * [new tag]             1.2.5                   -> 1.2.5
+2026-11-21T19:14:13.7465757Z  * [new tag]             1.2.6                   -> 1.2.6
+2026-11-21T19:14:13.7466077Z  * [new tag]             1.2.7                   -> 1.2.7
+2026-11-21T19:14:13.7466395Z  * [new tag]             1.2.8                   -> 1.2.8
+2026-11-21T19:14:13.7466682Z  * [new tag]             1.2.9                   -> 1.2.9
+2026-11-21T19:14:13.7466983Z  * [new tag]             1.3.0                   -> 1.3.0
+2026-11-21T19:14:13.7467273Z  * [new tag]             1.3.1                   -> 1.3.1
+2026-11-21T19:14:13.7467589Z  * [new tag]             1.3.2                   -> 1.3.2
+2026-11-21T19:14:13.7467880Z  * [new tag]             1.3.3                   -> 1.3.3
+2026-11-21T19:14:13.7468157Z  * [new tag]             1.3.4                   -> 1.3.4
+2026-11-21T19:14:13.7468469Z  * [new tag]             1.3.5                   -> 1.3.5
+2026-11-21T19:14:13.7468784Z  * [new tag]             1.3.6                   -> 1.3.6
+2026-11-21T19:14:13.7469096Z  * [new tag]             1.3.7                   -> 1.3.7
+2026-11-21T19:14:13.7469387Z  * [new tag]             1.3.8                   -> 1.3.8
+2026-11-21T19:14:13.7469660Z  * [new tag]             1.3.9                   -> 1.3.9
+2026-11-21T19:14:13.7469965Z  * [new tag]             1.4.0                   -> 1.4.0
+2026-11-21T19:14:13.7470250Z  * [new tag]             1.4.1                   -> 1.4.1
+2026-11-21T19:14:13.7470552Z  * [new tag]             1.4.2                   -> 1.4.2
+2026-11-21T19:14:13.7470850Z  * [new tag]             1.4.3                   -> 1.4.3
+2026-11-21T19:14:13.7471162Z  * [new tag]             1.4.4                   -> 1.4.4
+2026-11-21T19:14:13.7471467Z  * [new tag]             1.4.5                   -> 1.4.5
+2026-11-21T19:14:13.7471758Z  * [new tag]             1.4.6                   -> 1.4.6
+2026-11-21T19:14:13.7472126Z  * [new tag]             1.4.7                   -> 1.4.7
+2026-11-21T19:14:13.7472424Z  * [new tag]             1.4.8                   -> 1.4.8
+2026-11-21T19:14:13.7472722Z  * [new tag]             1.4.9                   -> 1.4.9
+2026-11-21T19:14:13.7473032Z  * [new tag]             1.5.0                   -> 1.5.0
+2026-11-21T19:14:13.7473319Z  * [new tag]             1.5.1                   -> 1.5.1
+2026-11-21T19:14:13.7473648Z  * [new tag]             1.5.2                   -> 1.5.2
+2026-11-21T19:14:13.7473944Z  * [new tag]             1.5.3                   -> 1.5.3
+2026-11-21T19:14:13.7474226Z  * [new tag]             1.5.4                   -> 1.5.4
+2026-11-21T19:14:13.7474520Z  * [new tag]             1.5.5                   -> 1.5.5
+2026-11-21T19:14:13.7474860Z  * [new tag]             1.5.6                   -> 1.5.6
+2026-11-21T19:14:13.7475266Z  * [new tag]             1.5.7                   -> 1.5.7
+2026-11-21T19:14:13.7475598Z  * [new tag]             1.5.8                   -> 1.5.8
+2026-11-21T19:14:13.7475938Z  * [new tag]             1.5.9                   -> 1.5.9
+2026-11-21T19:14:13.7476254Z  * [new tag]             1.6.0                   -> 1.6.0
+2026-11-21T19:14:13.7476554Z  * [new tag]             1.6.1                   -> 1.6.1
+2026-11-21T19:14:13.7476823Z  * [new tag]             1.6.2                   -> 1.6.2
+2026-11-21T19:14:13.7477128Z  * [new tag]             1.6.3                   -> 1.6.3
+2026-11-21T19:14:13.7477412Z  * [new tag]             1.6.4                   -> 1.6.4
+2026-11-21T19:14:13.7477693Z  * [new tag]             1.6.5                   -> 1.6.5
+2026-11-21T19:14:13.7478003Z  * [new tag]             1.6.6                   -> 1.6.6
+2026-11-21T19:14:13.7478286Z  * [new tag]             1.6.7                   -> 1.6.7
+2026-11-21T19:14:13.7478606Z  * [new tag]             1.6.8                   -> 1.6.8
+2026-11-21T19:14:13.7478889Z  * [new tag]             1.6.9                   -> 1.6.9
+2026-11-21T19:14:13.7479173Z  * [new tag]             1.7.0                   -> 1.7.0
+2026-11-21T19:14:13.7479487Z  * [new tag]             1.7.1                   -> 1.7.1
+2026-11-21T19:14:13.7479771Z  * [new tag]             1.7.2                   -> 1.7.2
+2026-11-21T19:14:13.7480063Z  * [new tag]             1.7.3                   -> 1.7.3
+2026-11-21T19:14:13.7480342Z  * [new tag]             1.7.4                   -> 1.7.4
+2026-11-21T19:14:13.7480650Z  * [new tag]             1.7.5                   -> 1.7.5
+2026-11-21T19:14:13.7480964Z  * [new tag]             1.7.6                   -> 1.7.6
+2026-11-21T19:14:13.7481248Z  * [new tag]             1.7.7                   -> 1.7.7
+2026-11-21T19:14:13.7481544Z  * [new tag]             1.7.8                   -> 1.7.8
+2026-11-21T19:14:13.7481829Z  * [new tag]             1.7.9                   -> 1.7.9
+2026-11-21T19:14:13.7482100Z  * [new tag]             1.8.0                   -> 1.8.0
+2026-11-21T19:14:13.7482472Z  * [new tag]             1.8.1                   -> 1.8.1
+2026-11-21T19:14:13.7482821Z  * [new tag]             1.8.2                   -> 1.8.2
+2026-11-21T19:14:13.7483230Z  * [new tag]             1.8.3                   -> 1.8.3
+2026-11-21T19:14:13.7483555Z  * [new tag]             1.8.4                   -> 1.8.4
+2026-11-21T19:14:13.7483832Z  * [new tag]             1.8.5                   -> 1.8.5
+2026-11-21T19:14:13.7484156Z  * [new tag]             1.8.6                   -> 1.8.6
+2026-11-21T19:14:13.7484437Z  * [new tag]             1.8.7                   -> 1.8.7
+2026-11-21T19:14:13.7484724Z  * [new tag]             1.8.8                   -> 1.8.8
+2026-11-21T19:14:13.7485018Z  * [new tag]             1.8.9                   -> 1.8.9
+2026-11-21T19:14:13.7485417Z  * [new tag]             1.9.0                   -> 1.9.0
+2026-11-21T19:14:13.7485766Z  * [new tag]             1.9.1                   -> 1.9.1
+2026-11-21T19:14:13.7486052Z  * [new tag]             1.9.2                   -> 1.9.2
+2026-11-21T19:14:13.7486338Z  * [new tag]             1.9.3                   -> 1.9.3
+2026-11-21T19:14:13.7486640Z  * [new tag]             1.9.4                   -> 1.9.4
+2026-11-21T19:14:13.7486928Z  * [new tag]             1.9.5                   -> 1.9.5
+2026-11-21T19:14:13.7487238Z  * [new tag]             1.9.6                   -> 1.9.6
+2026-11-21T19:14:13.7487522Z  * [new tag]             1.9.7                   -> 1.9.7
+2026-11-21T19:14:13.7487795Z  * [new tag]             1.9.8                   -> 1.9.8
+2026-11-21T19:14:13.7488124Z  * [new tag]             1.9.9                   -> 1.9.9
+2026-11-21T19:14:13.7488405Z  * [new tag]             2.0.0                   -> 2.0.0
+2026-11-21T19:14:13.7488717Z  * [new tag]             2.0.1                   -> 2.0.1
+2026-11-21T19:14:13.7489001Z  * [new tag]             2.0.2                   -> 2.0.2
+2026-11-21T19:14:13.7489345Z  * [new tag]             2.0.3                   -> 2.0.3
+2026-11-21T19:14:13.7489651Z  * [new tag]             2.0.4                   -> 2.0.4
+2026-11-21T19:14:13.7489938Z  * [new tag]             2.0.5                   -> 2.0.5
+2026-11-21T19:14:13.7490299Z  * [new tag]             2.0.6                   -> 2.0.6
+2026-11-21T19:14:13.7490619Z  * [new tag]             2.0.7                   -> 2.0.7
+2026-11-21T19:14:13.7490897Z  * [new tag]             2.0.8                   -> 2.0.8
+2026-11-21T19:14:13.7491201Z  * [new tag]             2.0.9                   -> 2.0.9
+2026-11-21T19:14:13.7491501Z  * [new tag]             2.1.0                   -> 2.1.0
+2026-11-21T19:14:13.7491782Z  * [new tag]             2.1.1                   -> 2.1.1
+2026-11-21T19:14:13.7492072Z  * [new tag]             2.1.2                   -> 2.1.2
+2026-11-21T19:14:13.7492355Z  * [new tag]             2.1.3                   -> 2.1.3
+2026-11-21T19:14:13.7492720Z  * [new tag]             2.1.4                   -> 2.1.4
+2026-11-21T19:14:13.7493082Z  * [new tag]             2.1.5                   -> 2.1.5
+2026-11-21T19:14:13.7493380Z  * [new tag]             2.1.6                   -> 2.1.6
+2026-11-21T19:14:13.7493689Z  * [new tag]             2.1.7                   -> 2.1.7
+2026-11-21T19:14:13.7493986Z  * [new tag]             2.1.8                   -> 2.1.8
+2026-11-21T19:14:13.7494291Z  * [new tag]             2.1.9                   -> 2.1.9
+2026-11-21T19:14:13.7494600Z  * [new tag]             2.2.0                   -> 2.2.0
+2026-11-21T19:14:13.7494878Z  * [new tag]             2.2.1                   -> 2.2.1
+2026-11-21T19:14:13.7495293Z  * [new tag]             2.2.2                   -> 2.2.2
+2026-11-21T19:14:13.7495619Z  * [new tag]             2.2.3                   -> 2.2.3
+2026-11-21T19:14:13.7495937Z  * [new tag]             2.2.4                   -> 2.2.4
+2026-11-21T19:14:13.7496243Z  * [new tag]             2.2.5                   -> 2.2.5
+2026-11-21T19:14:13.7496518Z  * [new tag]             2.2.6                   -> 2.2.6
+2026-11-21T19:14:13.7496826Z  * [new tag]             2.2.7                   -> 2.2.7
+2026-11-21T19:14:13.7497109Z  * [new tag]             2.2.8                   -> 2.2.8
+2026-11-21T19:14:13.7497394Z  * [new tag]             2.2.9                   -> 2.2.9
+2026-11-21T19:14:13.7497707Z  * [new tag]             2.3.0                   -> 2.3.0
+2026-11-21T19:14:13.7498004Z  * [new tag]             2.3.1                   -> 2.3.1
+2026-11-21T19:14:13.7498300Z  * [new tag]             2.3.2                   -> 2.3.2
+2026-11-21T19:14:13.7498581Z  * [new tag]             2.3.3                   -> 2.3.3
+2026-11-21T19:14:13.7498862Z  * [new tag]             2.3.4                   -> 2.3.4
+2026-11-21T19:14:13.7499169Z  * [new tag]             2.3.5                   -> 2.3.5
+2026-11-21T19:14:13.7499450Z  * [new tag]             2.3.6                   -> 2.3.6
+2026-11-21T19:14:13.7499738Z  * [new tag]             2.3.7                   -> 2.3.7
+2026-11-21T19:14:13.7500049Z  * [new tag]             2.3.8                   -> 2.3.8
+2026-11-21T19:14:13.7500332Z  * [new tag]             2.3.9                   -> 2.3.9
+2026-11-21T19:14:13.7500642Z  * [new tag]             2.4.0                   -> 2.4.0
+2026-11-21T19:14:13.7500931Z  * [new tag]             2.4.1                   -> 2.4.1
+2026-11-21T19:14:13.7501220Z  * [new tag]             2.4.2                   -> 2.4.2
+2026-11-21T19:14:13.7501502Z  * [new tag]             2.4.3                   -> 2.4.3
+2026-11-21T19:14:13.7501768Z  * [new tag]             2.4.4                   -> 2.4.4
+2026-11-21T19:14:13.7502091Z  * [new tag]             2.4.5                   -> 2.4.5
+2026-11-21T19:14:13.7502403Z  * [new tag]             2.4.6                   -> 2.4.6
+2026-11-21T19:14:13.7502694Z  * [new tag]             2.4.7                   -> 2.4.7
+2026-11-21T19:14:13.7502973Z  * [new tag]             2.4.8                   -> 2.4.8
+2026-11-21T19:14:13.7503246Z  * [new tag]             2.4.9                   -> 2.4.9
+2026-11-21T19:14:13.7503642Z  * [new tag]             2.5.0                   -> 2.5.0
+2026-11-21T19:14:13.7503926Z  * [new tag]             2.5.1                   -> 2.5.1
+2026-11-21T19:14:13.7504207Z  * [new tag]             2.5.2                   -> 2.5.2
+2026-11-21T19:14:13.7504546Z  * [new tag]             2.5.3                   -> 2.5.3
+2026-11-21T19:14:13.7504864Z  * [new tag]             2.5.4                   -> 2.5.4
+2026-11-21T19:14:13.7505311Z  * [new tag]             2.5.5                   -> 2.5.5
+2026-11-21T19:14:13.7505628Z  * [new tag]             2.5.6                   -> 2.5.6
+2026-11-21T19:14:13.7505920Z  * [new tag]             2.5.7                   -> 2.5.7
+2026-11-21T19:14:13.7506211Z  * [new tag]             2.5.8                   -> 2.5.8
+2026-11-21T19:14:13.7506516Z  * [new tag]             2.5.9                   -> 2.5.9
+2026-11-21T19:14:13.7506818Z  * [new tag]             2.6.0                   -> 2.6.0
+2026-11-21T19:14:13.7507104Z  * [new tag]             2.6.1                   -> 2.6.1
+2026-11-21T19:14:13.7507417Z  * [new tag]             2.6.2                   -> 2.6.2
+2026-11-21T19:14:13.7507713Z  * [new tag]             2.6.3                   -> 2.6.3
+2026-11-21T19:14:13.7508014Z  * [new tag]             2.6.4                   -> 2.6.4
+2026-11-21T19:14:13.7508310Z  * [new tag]             2.6.5                   -> 2.6.5
+2026-11-21T19:14:13.7508642Z  * [new tag]             2.6.6                   -> 2.6.6
+2026-11-21T19:14:13.7508917Z  * [new tag]             2.6.7                   -> 2.6.7
+2026-11-21T19:14:13.7509225Z  * [new tag]             2.6.8                   -> 2.6.8
+2026-11-21T19:14:13.7509533Z  * [new tag]             2.6.9                   -> 2.6.9
+2026-11-21T19:14:13.7509919Z  * [new tag]             2.7.0                   -> 2.7.0
+2026-11-21T19:14:13.7510203Z  * [new tag]             2.7.1                   -> 2.7.1
+2026-11-21T19:14:13.7510474Z  * [new tag]             2.7.2                   -> 2.7.2
+2026-11-21T19:14:13.7510778Z  * [new tag]             2.7.3                   -> 2.7.3
+2026-11-21T19:14:13.7511082Z  * [new tag]             2.7.4                   -> 2.7.4
+2026-11-21T19:14:13.7511365Z  * [new tag]             2.7.5                   -> 2.7.5
+2026-11-21T19:14:13.7511652Z  * [new tag]             2.7.6                   -> 2.7.6
+2026-11-21T19:14:13.7511937Z  * [new tag]             2.7.7                   -> 2.7.7
+2026-11-21T19:14:13.7512253Z  * [new tag]             2.7.8                   -> 2.7.8
+2026-11-21T19:14:13.7512555Z  * [new tag]             2.7.9                   -> 2.7.9
+2026-11-21T19:14:13.7512837Z  * [new tag]             2.8.0                   -> 2.8.0
+2026-11-21T19:14:13.7513124Z  * [new tag]             2.8.1                   -> 2.8.1
+2026-11-21T19:14:13.7513405Z  * [new tag]             2.8.2                   -> 2.8.2
+2026-11-21T19:14:13.7513693Z  * [new tag]             2.8.3                   -> 2.8.3
+2026-11-21T19:14:13.7513993Z  * [new tag]             2.8.4                   -> 2.8.4
+2026-11-21T19:14:13.7514310Z  * [new tag]             2.8.5                   -> 2.8.5
+2026-11-21T19:14:13.7514599Z  * [new tag]             2.8.6                   -> 2.8.6
+2026-11-21T19:14:13.7514882Z  * [new tag]             2.8.7                   -> 2.8.7
+2026-11-21T19:14:13.7515286Z  * [new tag]             2.8.8                   -> 2.8.8
+2026-11-21T19:14:13.7515602Z  * [new tag]             2.8.9                   -> 2.8.9
+2026-11-21T19:14:13.7515876Z  * [new tag]             2.9.0                   -> 2.9.0
+2026-11-21T19:14:13.7516188Z  * [new tag]             2.9.1                   -> 2.9.1
+2026-11-21T19:14:13.7516467Z  * [new tag]             2.9.2                   -> 2.9.2
+2026-11-21T19:14:13.7516792Z  * [new tag]             2.9.3                   -> 2.9.3
+2026-11-21T19:14:13.7517092Z  * [new tag]             2.9.4                   -> 2.9.4
+2026-11-21T19:14:13.7517361Z  * [new tag]             2.9.5                   -> 2.9.5
+2026-11-21T19:14:13.7517660Z  * [new tag]             2.9.6                   -> 2.9.6
+2026-11-21T19:14:13.7518009Z  * [new tag]             2.9.7                   -> 2.9.7
+2026-11-21T19:14:13.7518318Z  * [new tag]             2.9.8                   -> 2.9.8
+2026-11-21T19:14:13.7518643Z  * [new tag]             2.9.9                   -> 2.9.9
+2026-11-21T19:14:13.7518966Z  * [new tag]             3.0.0                   -> 3.0.0
+2026-11-21T19:14:13.7519285Z  * [new tag]             3.0.1                   -> 3.0.1
+2026-11-21T19:14:13.7519570Z  * [new tag]             3.0.2                   -> 3.0.2
+2026-11-21T19:14:13.7519866Z  * [new tag]             3.0.3                   -> 3.0.3
+2026-11-21T19:14:13.7520154Z  * [new tag]             3.0.4                   -> 3.0.4
+2026-11-21T19:14:13.7520431Z  * [new tag]             3.0.5                   -> 3.0.5
+2026-11-21T19:14:13.7520722Z  * [new tag]             3.0.6                   -> 3.0.6
+2026-11-21T19:14:13.7521003Z  * [new tag]             3.0.7                   -> 3.0.7
+2026-11-21T19:14:13.7521292Z  * [new tag]             3.0.8                   -> 3.0.8
+2026-11-21T19:14:13.7521622Z  * [new tag]             3.0.9                   -> 3.0.9
+2026-11-21T19:14:13.7521906Z  * [new tag]             3.1.0                   -> 3.1.0
+2026-11-21T19:14:13.7522197Z  * [new tag]             3.1.1                   -> 3.1.1
+2026-11-21T19:14:13.7522480Z  * [new tag]             3.1.2                   -> 3.1.2
+2026-11-21T19:14:13.7522769Z  * [new tag]             3.1.3                   -> 3.1.3
+2026-11-21T19:14:13.7523073Z  * [new tag]             3.1.4                   -> 3.1.4
+2026-11-21T19:14:13.7523353Z  * [new tag]             3.1.5                   -> 3.1.5
+2026-11-21T19:14:13.7523636Z  * [new tag]             3.1.6                   -> 3.1.6
+2026-11-21T19:14:13.7523953Z  * [new tag]             3.1.7                   -> 3.1.7
+2026-11-21T19:14:13.7524835Z [command]/usr/bin/git rev-parse --verify --quiet 5b6d48b58f45d3032bc33560aa5047c4b400f35a^{object}
+2026-11-21T19:14:13.7525387Z 5b6d48b58f45d3032bc33560aa5047c4b400f35a
+2026-11-21T19:14:13.7526191Z ##[endgroup]
+2026-11-21T19:14:13.7526563Z ##[group]Determining the checkout info
+2026-11-21T19:14:13.7526955Z ##[endgroup]
+2026-11-21T19:14:13.7527199Z [command]/usr/bin/git sparse-checkout disable
+2026-11-21T19:14:13.7527943Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-21T19:14:13.7528703Z ##[group]Checking out the ref
+2026-11-21T19:14:13.7529074Z [command]/usr/bin/git checkout --progress --force 5b6d48b58f45d3032bc33560aa5047c4b400f35a
+2026-11-21T19:14:14.1606772Z Note: switching to '5b6d48b58f45d3032bc33560aa5047c4b400f35a'.
+2026-11-21T19:14:14.1607212Z 
+2026-11-21T19:14:14.1607446Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-11-21T19:14:14.1607904Z changes and commit them, and you can discard any commits you make in this
+2026-11-21T19:14:14.1608353Z state without impacting any branches by switching back to a branch.
+2026-11-21T19:14:14.1608604Z 
+2026-11-21T19:14:14.1608762Z If you want to create a new branch to retain commits you create, you may
+2026-11-21T19:14:14.1609441Z do so (now or later) by using -c with the switch command. Example:
+2026-11-21T19:14:14.1609765Z 
+2026-11-21T19:14:14.1609945Z   git switch -c <new-branch-name>
+2026-11-21T19:14:14.1610152Z 
+2026-11-21T19:14:14.1610352Z Or undo this operation with:
+2026-11-21T19:14:14.1610545Z 
+2026-11-21T19:14:14.1610679Z   git switch -
+2026-11-21T19:14:14.1610817Z 
+2026-11-21T19:14:14.1611060Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-11-21T19:14:14.1611396Z 
+2026-11-21T19:14:14.1612144Z HEAD is now at 5b6d48b58 Trial T0: predicted A1-retirement tree from plan P* 55544cc3 (PREREG §28-§30)
+2026-11-21T19:14:14.1638266Z ##[endgroup]
+2026-11-21T19:14:14.1678988Z [command]/usr/bin/git log -1 --format=%H
+2026-11-21T19:14:14.1698664Z 5b6d48b58f45d3032bc33560aa5047c4b400f35a
+2026-11-21T19:14:14.1707345Z ##[group]Removing auth
+2026-11-21T19:14:14.1707834Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-21T19:14:14.1735551Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-21T19:14:14.1889736Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-21T19:14:14.1915603Z http.https://github.com/.extraheader
+2026-11-21T19:14:14.1917459Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-21T19:14:14.1941570Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-21T19:14:14.2091066Z ##[endgroup]
+2026-11-21T19:14:14.2204165Z ##[group]Run set +e
+2026-11-21T19:14:14.2204462Z [36;1mset +e[0m
+2026-11-21T19:14:14.2204710Z [36;1m([0m
+2026-11-21T19:14:14.2204934Z [36;1m  set -e[0m
+2026-11-21T19:14:14.2205336Z [36;1m  test "$(git rev-parse HEAD)" = "$TRIAL"[0m
+2026-11-21T19:14:14.2205681Z [36;1m  test -z "$(git status --porcelain --ignored)"[0m
+2026-11-21T19:14:14.2206014Z [36;1m  git cat-file -e "$PLAN^{commit}"[0m
+2026-11-21T19:14:14.2206519Z [36;1m  base=$(git show "$PLAN:$REC/ledger.json" | python3 -I -c 'import json, sys; print(json.load(sys.stdin)["base"])')[0m
+2026-11-21T19:14:14.2207046Z [36;1m  [[ "$base" =~ ^[0-9a-f]{40}$ ]][0m
+2026-11-21T19:14:14.2207677Z [36;1m  test "$(git rev-list --parents -n 1 "$TRIAL")" = "$TRIAL $base"[0m
+2026-11-21T19:14:14.2208093Z [36;1m  echo "trial $TRIAL; parent $base (ledger base, read from P)"[0m
+2026-11-21T19:14:14.2208468Z [36;1m) > "$RUNNER_TEMP/out/head.log" 2>&1[0m
+2026-11-21T19:14:14.2208975Z [36;1mrc=$?; cat "$RUNNER_TEMP/out/head.log"; echo "$rc" > "$RUNNER_TEMP/out/head.rc"; exit "$rc"[0m
+2026-11-21T19:14:14.2235889Z shell: /usr/bin/bash -e {0}
+2026-11-21T19:14:14.2236168Z env:
+2026-11-21T19:14:14.2236430Z   TRIAL: 5b6d48b58f45d3032bc33560aa5047c4b400f35a
+2026-11-21T19:14:14.2236794Z   PLAN: 55544cc36dee5b7dd5b9079c0f03be24b74c137f
+2026-11-21T19:14:14.2237178Z   REC: verification/audits/foundations/a1exit-deletion-20261121
+2026-11-21T19:14:14.2237672Z   PANDOC_DEB: https://github.com/jgm/pandoc/releases/download/3.1.3/pandoc-3.1.3-1-amd64.deb
+2026-11-21T19:14:14.2238194Z   PANDOC_SHA256: caa7e0410f9e2cb1da2eb8db13cc97b5548fe455985e2c944e3929d22f99bcdc
+2026-11-21T19:14:14.2238562Z ##[endgroup]
+2026-11-21T19:14:14.3636324Z trial 5b6d48b58f45d3032bc33560aa5047c4b400f35a; parent 97070c986c28f7ff8a443cbda5890c1694dd76dd (ledger base, read from P)
+2026-11-21T19:14:14.3715919Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-21T19:14:14.3716278Z with:
+2026-11-21T19:14:14.3716605Z   python-version: 3.11
+2026-11-21T19:14:14.3716883Z   check-latest: false
+2026-11-21T19:14:14.3718675Z   token: ***
+2026-11-21T19:14:14.3718899Z   update-environment: true
+2026-11-21T19:14:14.3719141Z   allow-prereleases: false
+2026-11-21T19:14:14.3719376Z   freethreaded: false
+2026-11-21T19:14:14.3719640Z env:
+2026-11-21T19:14:14.3719863Z   TRIAL: 5b6d48b58f45d3032bc33560aa5047c4b400f35a
+2026-11-21T19:14:14.3720170Z   PLAN: 55544cc36dee5b7dd5b9079c0f03be24b74c137f
+2026-11-21T19:14:14.3720507Z   REC: verification/audits/foundations/a1exit-deletion-20261121
+2026-11-21T19:14:14.3720961Z   PANDOC_DEB: https://github.com/jgm/pandoc/releases/download/3.1.3/pandoc-3.1.3-1-amd64.deb
+2026-11-21T19:14:14.3721461Z   PANDOC_SHA256: caa7e0410f9e2cb1da2eb8db13cc97b5548fe455985e2c944e3929d22f99bcdc
+2026-11-21T19:14:14.3721809Z ##[endgroup]
+2026-11-21T19:14:14.4757099Z ##[group]Installed versions
+2026-11-21T19:14:14.6910155Z (node:2294) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-21T19:14:14.6910729Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-21T19:14:14.6946437Z Successfully set up CPython (3.11.18)
+2026-11-21T19:14:14.6947691Z ##[endgroup]
+2026-11-21T19:14:14.7058466Z ##[group]Run set +e
+2026-11-21T19:14:14.7058904Z [36;1mset +e[0m
+2026-11-21T19:14:14.7059209Z [36;1m([0m
+2026-11-21T19:14:14.7059490Z [36;1m  set -e[0m
+2026-11-21T19:14:14.7059799Z [36;1m  sudo apt-get update[0m
+2026-11-21T19:14:14.7060398Z [36;1m  sudo apt-get install -y --no-install-recommends texlive-xetex texlive-latex-recommended \[0m
+2026-11-21T19:14:14.7061335Z [36;1m    texlive-latex-extra texlive-fonts-recommended lmodern poppler-utils[0m
+2026-11-21T19:14:14.7061964Z [36;1m  curl -fsSL -o "$RUNNER_TEMP/pandoc.deb" "$PANDOC_DEB"[0m
+2026-11-21T19:14:14.7062555Z [36;1m  echo "$PANDOC_SHA256  $RUNNER_TEMP/pandoc.deb" | sha256sum -c -[0m
+2026-11-21T19:14:14.7063075Z [36;1m  sudo dpkg -i "$RUNNER_TEMP/pandoc.deb"[0m
+2026-11-21T19:14:14.7063513Z [36;1m  python3 -I -m pip install numpy scipy[0m
+2026-11-21T19:14:14.7063908Z [36;1m  {[0m
+2026-11-21T19:14:14.7064250Z [36;1m    echo "image $ImageOS $ImageVersion"[0m
+2026-11-21T19:14:14.7064794Z [36;1m    pandoc --version | head -1[0m
+2026-11-21T19:14:14.7065384Z [36;1m    xelatex --version | head -1[0m
+2026-11-21T19:14:14.7065767Z [36;1m    pdftotext -v 2>&1 | head -1[0m
+2026-11-21T19:14:14.7066179Z [36;1m    python3 --version[0m
+2026-11-21T19:14:14.7066554Z [36;1m    python3 -I -m pip --version[0m
+2026-11-21T19:14:14.7067260Z [36;1m    dpkg-query -W -f '${Package} ${Version}\n' texlive-xetex texlive-latex-recommended texlive-latex-extra \[0m
+2026-11-21T19:14:14.7067984Z [36;1m      texlive-fonts-recommended lmodern poppler-utils[0m
+2026-11-21T19:14:14.7068444Z [36;1m    python3 -I -m pip freeze --all[0m
+2026-11-21T19:14:14.7068941Z [36;1m  } > "$RUNNER_TEMP/out/toolchain-versions.txt"[0m
+2026-11-21T19:14:14.7069414Z [36;1m  cat "$RUNNER_TEMP/out/toolchain-versions.txt"[0m
+2026-11-21T19:14:14.7070030Z [36;1m  # expected majors on ubuntu-24.04: TeX Live 2023, poppler 24, Python 3.11, pandoc 3.1.3[0m
+2026-11-21T19:14:14.7070609Z [36;1m  test "$ImageOS" = ubuntu24[0m
+2026-11-21T19:14:14.7071070Z [36;1m  test "$(pandoc --version | head -1)" = "pandoc 3.1.3"[0m
+2026-11-21T19:14:14.7071682Z [36;1m  [[ "$(dpkg-query -W -f '${Version}' texlive-xetex)" == 2023.* ]][0m
+2026-11-21T19:14:14.7072256Z [36;1m  [[ "$(dpkg-query -W -f '${Version}' poppler-utils)" == 24.* ]][0m
+2026-11-21T19:14:14.7072814Z [36;1m  [[ "$(python3 --version)" == "Python 3.11."* ]][0m
+2026-11-21T19:14:14.7073270Z [36;1m) > "$RUNNER_TEMP/out/toolchain.log" 2>&1[0m
+2026-11-21T19:14:14.7073937Z [36;1mrc=$?; tail -60 "$RUNNER_TEMP/out/toolchain.log"; echo "$rc" > "$RUNNER_TEMP/out/toolchain.rc"; exit "$rc"[0m
+2026-11-21T19:14:14.7449075Z shell: /usr/bin/bash -e {0}
+2026-11-21T19:14:14.7449440Z env:
+2026-11-21T19:14:14.7449696Z   TRIAL: 5b6d48b58f45d3032bc33560aa5047c4b400f35a
+2026-11-21T19:14:14.7450033Z   PLAN: 55544cc36dee5b7dd5b9079c0f03be24b74c137f
+2026-11-21T19:14:14.7450408Z   REC: verification/audits/foundations/a1exit-deletion-20261121
+2026-11-21T19:14:14.7450876Z   PANDOC_DEB: https://github.com/jgm/pandoc/releases/download/3.1.3/pandoc-3.1.3-1-amd64.deb
+2026-11-21T19:14:14.7451362Z   PANDOC_SHA256: caa7e0410f9e2cb1da2eb8db13cc97b5548fe455985e2c944e3929d22f99bcdc
+2026-11-21T19:14:14.7451779Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:14:14.7452194Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-21T19:14:14.7452591Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:14:14.7453033Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:14:14.7453396Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:14:14.7453756Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-21T19:14:14.7454076Z ##[endgroup]
+2026-11-21T19:15:35.2122508Z Setting up texlive-fonts-recommended (2023.20240207-1) ...
+2026-11-21T19:15:35.2122868Z Setting up tipa (2:1.3-21) ...
+2026-11-21T19:15:35.2123226Z Setting up texlive-latex-extra (2023.20240207-1) ...
+2026-11-21T19:15:35.2125358Z Setting up texlive-xetex (2023.20240207-1) ...
+2026-11-21T19:15:35.2125823Z Processing triggers for fontconfig (2.15.0-1.1ubuntu2) ...
+2026-11-21T19:15:35.2126199Z Processing triggers for libc-bin (2.39-0ubuntu8.12) ...
+2026-11-21T19:15:35.2126601Z Processing triggers for man-db (2.12.0-4build2) ...
+2026-11-21T19:15:35.2127126Z Not building database; man-db/auto-update is not 'true'.
+2026-11-21T19:15:35.2127542Z Processing triggers for tex-common (6.18) ...
+2026-11-21T19:15:35.2127998Z Running mktexlsr. This may take some time... done.
+2026-11-21T19:15:35.2128366Z Running updmap-sys. This may take some time... done.
+2026-11-21T19:15:35.2128739Z Running mktexlsr /var/lib/texmf ... done.
+2026-11-21T19:15:35.2129123Z Building format(s) --all.
+2026-11-21T19:15:35.2129426Z 	This may take some time... done.
+2026-11-21T19:15:35.2129822Z Processing triggers for install-info (7.1-3build2) ...
+2026-11-21T19:15:35.2130098Z 
+2026-11-21T19:15:35.2130222Z Running kernel seems to be up-to-date.
+2026-11-21T19:15:35.2130427Z 
+2026-11-21T19:15:35.2130578Z No services need to be restarted.
+2026-11-21T19:15:35.2130759Z 
+2026-11-21T19:15:35.2130913Z No containers need to be restarted.
+2026-11-21T19:15:35.2131109Z 
+2026-11-21T19:15:35.2131305Z No user sessions are running outdated binaries.
+2026-11-21T19:15:35.2131550Z 
+2026-11-21T19:15:35.2131801Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+2026-11-21T19:15:35.2132263Z /home/runner/work/_temp/pandoc.deb: OK
+2026-11-21T19:15:35.2132740Z Selecting previously unselected package pandoc.
+2026-11-21T19:15:35.2133236Z (Reading database ... 240471 files and directories currently installed.)
+2026-11-21T19:15:35.2133778Z Preparing to unpack .../runner/work/_temp/pandoc.deb ...
+2026-11-21T19:15:35.2134190Z Unpacking pandoc (3.1.3-1) ...
+2026-11-21T19:15:35.2134533Z Setting up pandoc (3.1.3-1) ...
+2026-11-21T19:15:35.2134899Z Processing triggers for man-db (2.12.0-4build2) ...
+2026-11-21T19:15:35.2135544Z Not building database; man-db/auto-update is not 'true'.
+2026-11-21T19:15:35.2135880Z Collecting numpy
+2026-11-21T19:15:35.2136379Z   Downloading numpy-2.4.6-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-11-21T19:15:35.2136853Z Collecting scipy
+2026-11-21T19:15:35.2137361Z   Downloading scipy-1.17.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+2026-11-21T19:15:35.2138064Z Downloading numpy-2.4.6-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.9 MB)
+2026-11-21T19:15:35.2138966Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.9/16.9 MB 117.5 MB/s  0:00:00
+2026-11-21T19:15:35.2139585Z Downloading scipy-1.17.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)
+2026-11-21T19:15:35.2140163Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.3/35.3 MB 91.0 MB/s  0:00:00
+2026-11-21T19:15:35.2140489Z Installing collected packages: numpy, scipy
+2026-11-21T19:15:35.2140677Z 
+2026-11-21T19:15:35.2140788Z Successfully installed numpy-2.4.6 scipy-1.17.1
+2026-11-21T19:15:35.2141104Z image ubuntu24 20261116.133.1
+2026-11-21T19:15:35.2141347Z pandoc 3.1.3
+2026-11-21T19:15:35.2141571Z XeTeX 3.141592653-2.6-0.999995 (TeX Live 2023/Debian)
+2026-11-21T19:15:35.2141840Z pdftotext version 24.02.0
+2026-11-21T19:15:35.2142062Z Python 3.11.18
+2026-11-21T19:15:35.2142425Z pip 26.3 from /opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/pip (python 3.11)
+2026-11-21T19:15:35.2142818Z lmodern 2.005-1
+2026-11-21T19:15:35.2143025Z poppler-utils 24.02.0-1ubuntu9.11
+2026-11-21T19:15:35.2143263Z texlive-fonts-recommended 2023.20240207-1
+2026-11-21T19:15:35.2143565Z texlive-latex-extra 2023.20240207-1
+2026-11-21T19:15:35.2143830Z texlive-latex-recommended 2023.20240207-1
+2026-11-21T19:15:35.2144088Z texlive-xetex 2023.20240207-1
+2026-11-21T19:15:35.2144301Z numpy==2.4.6
+2026-11-21T19:15:35.2144483Z pip==26.3
+2026-11-21T19:15:35.2144683Z scipy==1.17.1
+2026-11-21T19:15:35.2144896Z setuptools==79.0.1
+2026-11-21T19:15:35.2170658Z ##[group]Run set +e
+2026-11-21T19:15:35.2170927Z [36;1mset +e[0m
+2026-11-21T19:15:35.2171155Z [36;1m([0m
+2026-11-21T19:15:35.2171351Z [36;1m  set -e[0m
+2026-11-21T19:15:35.2171620Z [36;1m  git worktree add --detach "$RUNNER_TEMP/plan" "$PLAN"[0m
+2026-11-21T19:15:35.2172052Z [36;1m  python3 -I -B "$RUNNER_TEMP/plan/$REC/preserve_check.py" --verify-pins --plan "$PLAN"[0m
+2026-11-21T19:15:35.2172689Z [36;1m  python3 -I -B "$RUNNER_TEMP/plan/$REC/preserve_check.py" --verify-ledger --plan "$PLAN"[0m
+2026-11-21T19:15:35.2173112Z [36;1m) > "$RUNNER_TEMP/out/plan.log" 2>&1[0m
+2026-11-21T19:15:35.2173484Z [36;1mrc=$?; cat "$RUNNER_TEMP/out/plan.log"; echo "$rc" > "$RUNNER_TEMP/out/plan.rc"; exit "$rc"[0m
+2026-11-21T19:15:35.2201975Z shell: /usr/bin/bash -e {0}
+2026-11-21T19:15:35.2202368Z env:
+2026-11-21T19:15:35.2202647Z   TRIAL: 5b6d48b58f45d3032bc33560aa5047c4b400f35a
+2026-11-21T19:15:35.2202977Z   PLAN: 55544cc36dee5b7dd5b9079c0f03be24b74c137f
+2026-11-21T19:15:35.2203422Z   REC: verification/audits/foundations/a1exit-deletion-20261121
+2026-11-21T19:15:35.2203883Z   PANDOC_DEB: https://github.com/jgm/pandoc/releases/download/3.1.3/pandoc-3.1.3-1-amd64.deb
+2026-11-21T19:15:35.2204371Z   PANDOC_SHA256: caa7e0410f9e2cb1da2eb8db13cc97b5548fe455985e2c944e3929d22f99bcdc
+2026-11-21T19:15:35.2204811Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:15:35.2205326Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-21T19:15:35.2205737Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:15:35.2206087Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:15:35.2206440Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:15:35.2206795Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-21T19:15:35.2207094Z ##[endgroup]
+2026-11-21T19:15:37.6673294Z Preparing worktree (detached HEAD 55544cc36)
+2026-11-21T19:15:37.6674805Z HEAD is now at 55544cc36 A1-EXIT retirement: PREREG §30, one plan commit P* for the trial (#1169)
+2026-11-21T19:15:37.6675515Z plan: 55544cc36dee5b7dd5b9079c0f03be24b74c137f; 6 record files; pin findings 0
+2026-11-21T19:15:37.6676107Z ledger: 371 splices in 40 files at 97070c986c28; sha256 41ac4fd9fbcf4485d34a9aa1c1b46899a86c9a88503b65208e785af2412ff0f6; 0 validation findings
+2026-11-21T19:15:37.6676785Z RESULT PASS
+2026-11-21T19:15:37.6677112Z plan: 55544cc36dee5b7dd5b9079c0f03be24b74c137f; 6 record files; pin findings 0
+2026-11-21T19:15:37.6677741Z ledger: 371 splices in 40 files at 97070c986c28; sha256 41ac4fd9fbcf4485d34a9aa1c1b46899a86c9a88503b65208e785af2412ff0f6; 0 validation findings
+2026-11-21T19:15:37.6678246Z ledger re-derived from edits.json: identical
+2026-11-21T19:15:37.6678496Z RESULT PASS
+2026-11-21T19:15:37.6706831Z ##[group]Run set +e
+2026-11-21T19:15:37.6707135Z [36;1mset +e[0m
+2026-11-21T19:15:37.6707327Z [36;1m([0m
+2026-11-21T19:15:37.6707556Z [36;1m  set -e[0m
+2026-11-21T19:15:37.6707855Z [36;1m  git worktree add --detach "$RUNNER_TEMP/build" "$TRIAL"[0m
+2026-11-21T19:15:37.6708190Z [36;1m  cd "$RUNNER_TEMP/build"[0m
+2026-11-21T19:15:37.6708542Z [36;1m  sh ./build.sh Computation GR Main Methodology SM Structure Substratum[0m
+2026-11-21T19:15:37.6708880Z [36;1m  sh ./build.sh --book[0m
+2026-11-21T19:15:37.6709315Z [36;1m  git diff --name-only -- papers/Computation.tex papers/GR.tex papers/Main.tex papers/Methodology.tex \[0m
+2026-11-21T19:15:37.6709942Z [36;1m    papers/SM.tex papers/Structure.tex papers/Substratum.tex book/The-Incompleteness-of-Observation-FULL.tex \[0m
+2026-11-21T19:15:37.6710509Z [36;1m    > "$RUNNER_TEMP/out/tex-diff.txt"[0m
+2026-11-21T19:15:37.6710806Z [36;1m  test ! -s "$RUNNER_TEMP/out/tex-diff.txt"[0m
+2026-11-21T19:15:37.6711318Z [36;1m  : > "$RUNNER_TEMP/out/pdf-pages.tsv"[0m
+2026-11-21T19:15:37.6711832Z [36;1m  for f in papers/Computation.pdf papers/GR.pdf papers/Main.pdf papers/Methodology.pdf papers/SM.pdf \[0m
+2026-11-21T19:15:37.6712419Z [36;1m           papers/Structure.pdf papers/Substratum.pdf book/The-Incompleteness-of-Observation-FULL.pdf; do[0m
+2026-11-21T19:15:37.6712929Z [36;1m    n=$(pdfinfo "$f" | awk '/^Pages/{print $2}')[0m
+2026-11-21T19:15:37.6713220Z [36;1m    [[ "$n" =~ ^[0-9]+$ ]][0m
+2026-11-21T19:15:37.6713529Z [36;1m    printf '%s\t%s\n' "$f" "$n" >> "$RUNNER_TEMP/out/pdf-pages.tsv"[0m
+2026-11-21T19:15:37.6713842Z [36;1m  done[0m
+2026-11-21T19:15:37.6714197Z [36;1m) > "$RUNNER_TEMP/out/build.log" 2>&1[0m
+2026-11-21T19:15:37.6714625Z [36;1mrc=$?; cat "$RUNNER_TEMP/out/build.log"; echo "$rc" > "$RUNNER_TEMP/out/build.rc"; exit "$rc"[0m
+2026-11-21T19:15:37.6742406Z shell: /usr/bin/bash -e {0}
+2026-11-21T19:15:37.6742686Z env:
+2026-11-21T19:15:37.6742951Z   TRIAL: 5b6d48b58f45d3032bc33560aa5047c4b400f35a
+2026-11-21T19:15:37.6743309Z   PLAN: 55544cc36dee5b7dd5b9079c0f03be24b74c137f
+2026-11-21T19:15:37.6743655Z   REC: verification/audits/foundations/a1exit-deletion-20261121
+2026-11-21T19:15:37.6744153Z   PANDOC_DEB: https://github.com/jgm/pandoc/releases/download/3.1.3/pandoc-3.1.3-1-amd64.deb
+2026-11-21T19:15:37.6744640Z   PANDOC_SHA256: caa7e0410f9e2cb1da2eb8db13cc97b5548fe455985e2c944e3929d22f99bcdc
+2026-11-21T19:15:37.6745052Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:15:37.6745593Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-21T19:15:37.6745975Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:15:37.6746323Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:15:37.6746665Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:15:37.6747040Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-21T19:15:37.6747362Z   ALLOW_MISSING_GLYPHS: 0
+2026-11-21T19:15:37.6747594Z ##[endgroup]
+2026-11-21T19:16:12.6992824Z Preparing worktree (detached HEAD 5b6d48b58)
+2026-11-21T19:16:12.6993742Z HEAD is now at 5b6d48b58 Trial T0: predicted A1-retirement tree from plan P* 55544cc3 (PREREG §28-§30)
+2026-11-21T19:16:12.6994348Z   Computation    ok  21 pages
+2026-11-21T19:16:12.6994691Z   GR             ok  84 pages
+2026-11-21T19:16:12.6995017Z   Main           ok  109 pages
+2026-11-21T19:16:12.6995514Z   Methodology    ok  53 pages
+2026-11-21T19:16:12.6995824Z   SM             ok  149 pages
+2026-11-21T19:16:12.6996178Z   Structure      ok  95 pages
+2026-11-21T19:16:12.6996485Z   Substratum     ok  54 pages
+2026-11-21T19:16:12.6996640Z 
+2026-11-21T19:16:12.6996749Z build: OK
+2026-11-21T19:16:12.6996971Z   book           ok  490 pages
+2026-11-21T19:16:12.6997131Z 
+2026-11-21T19:16:12.6997210Z build: OK
+2026-11-21T19:16:12.7023039Z ##[group]Run set +e
+2026-11-21T19:16:12.7023335Z [36;1mset +e[0m
+2026-11-21T19:16:12.7023541Z [36;1m([0m
+2026-11-21T19:16:12.7023845Z [36;1m  set -e[0m
+2026-11-21T19:16:12.7024204Z [36;1m  python3 -I -B "$RUNNER_TEMP/plan/$REC/preserve_check.py" --commit "$TRIAL" --plan "$PLAN"[0m
+2026-11-21T19:16:12.7024749Z [36;1m  python3 -I -B "$RUNNER_TEMP/plan/$REC/preserve_check.py" --tree "$GITHUB_WORKSPACE" --plan "$PLAN" \[0m
+2026-11-21T19:16:12.7025465Z [36;1m    --mutants --pdf-compare "$RUNNER_TEMP/build"[0m
+2026-11-21T19:16:12.7025815Z [36;1m) > "$RUNNER_TEMP/out/preserve.log" 2>&1[0m
+2026-11-21T19:16:12.7026247Z [36;1mrc=$?; cat "$RUNNER_TEMP/out/preserve.log"; echo "$rc" > "$RUNNER_TEMP/out/preserve.rc"; exit "$rc"[0m
+2026-11-21T19:16:12.7054737Z shell: /usr/bin/bash -e {0}
+2026-11-21T19:16:12.7055043Z env:
+2026-11-21T19:16:12.7055523Z   TRIAL: 5b6d48b58f45d3032bc33560aa5047c4b400f35a
+2026-11-21T19:16:12.7055917Z   PLAN: 55544cc36dee5b7dd5b9079c0f03be24b74c137f
+2026-11-21T19:16:12.7056360Z   REC: verification/audits/foundations/a1exit-deletion-20261121
+2026-11-21T19:16:12.7056851Z   PANDOC_DEB: https://github.com/jgm/pandoc/releases/download/3.1.3/pandoc-3.1.3-1-amd64.deb
+2026-11-21T19:16:12.7057363Z   PANDOC_SHA256: caa7e0410f9e2cb1da2eb8db13cc97b5548fe455985e2c944e3929d22f99bcdc
+2026-11-21T19:16:12.7057766Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:16:12.7058165Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-21T19:16:12.7058563Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:16:12.7058918Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:16:12.7059276Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:16:12.7059614Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-21T19:16:12.7060035Z ##[endgroup]
+2026-11-21T19:26:30.3692137Z plan: 55544cc36dee5b7dd5b9079c0f03be24b74c137f; 6 record files; pin findings 0
+2026-11-21T19:26:30.3693347Z ledger: 371 splices in 40 files at 97070c986c28; sha256 41ac4fd9fbcf4485d34a9aa1c1b46899a86c9a88503b65208e785af2412ff0f6; 0 validation findings
+2026-11-21T19:26:30.3694177Z candidate: 0 findings; PDFs of ledgered sources rebuilt (checked by the CI build): 0
+2026-11-21T19:26:30.3694700Z RESULT PASS
+2026-11-21T19:26:30.3695291Z plan: 55544cc36dee5b7dd5b9079c0f03be24b74c137f; 6 record files; pin findings 0
+2026-11-21T19:26:30.3696119Z ledger: 371 splices in 40 files at 97070c986c28; sha256 41ac4fd9fbcf4485d34a9aa1c1b46899a86c9a88503b65208e785af2412ff0f6; 0 validation findings
+2026-11-21T19:26:30.3696803Z candidate: 0 findings; PDFs of ledgered sources rebuilt (checked by the CI build): 0
+2026-11-21T19:26:30.3697241Z pdf compare against the CI build: 9 findings
+2026-11-21T19:26:30.3697800Z   FAIL book/The-Incompleteness-of-Observation-FULL.pdf: extracted text differs from the CI-built PDF
+2026-11-21T19:26:30.3698349Z   FAIL papers/Computation.pdf: extracted text differs from the CI-built PDF
+2026-11-21T19:26:30.3698808Z   FAIL papers/GR.pdf: extracted text differs from the CI-built PDF
+2026-11-21T19:26:30.3699169Z   FAIL papers/Main.pdf: extracted text differs from the CI-built PDF
+2026-11-21T19:26:30.3699619Z   FAIL papers/Methodology.pdf: extracted text differs from the CI-built PDF
+2026-11-21T19:26:30.3700038Z   FAIL papers/SM.pdf: extracted text differs from the CI-built PDF
+2026-11-21T19:26:30.3700405Z   FAIL papers/Structure.pdf: 94 pages committed, 95 built
+2026-11-21T19:26:30.3700774Z   FAIL papers/Structure.pdf: extracted text differs from the CI-built PDF
+2026-11-21T19:26:30.3701166Z   FAIL papers/Substratum.pdf: extracted text differs from the CI-built PDF
+2026-11-21T19:26:30.3701589Z   ok  tree mutant papers/GR.tex: fails with "differs from its rebuild"
+2026-11-21T19:26:30.3702267Z   ok  tree mutant verification/audits/manuscript/bell-operational-reconciliation-20261029/sc42-integration-result.json: fails with "differs from the SC-42 checker"
+2026-11-21T19:26:30.3703248Z   ok  tree mutant verification/audits/foundations/a1exit-deletion-20261121/ledger.json: fails with "record file differs from the plan"
+2026-11-21T19:26:30.3703968Z   ok  tree mutant verification/audits/foundations/a1exit-deletion-20261121/preserve_check.py: fails with "record file differs from the plan"
+2026-11-21T19:26:30.3704580Z   ok  tree mutant verification/coverage/LEDGER.json: fails with "verification/coverage/LEDGER.json"
+2026-11-21T19:26:30.3705008Z RESULT FAIL
+2026-11-21T19:26:30.3715595Z ##[error]Process completed with exit code 1.
+2026-11-21T19:26:30.3774361Z ##[group]Run mkdir -p "$RUNNER_TEMP/out"
+2026-11-21T19:26:30.3774733Z [36;1mmkdir -p "$RUNNER_TEMP/out"[0m
+2026-11-21T19:26:30.3775003Z [36;1mpython3 -I -B - <<'PY'[0m
+2026-11-21T19:26:30.3775848Z [36;1mimport json, os, re[0m
+2026-11-21T19:26:30.3776165Z [36;1mout = os.path.join(os.environ['RUNNER_TEMP'], 'out')[0m
+2026-11-21T19:26:30.3776482Z [36;1m[0m
+2026-11-21T19:26:30.3776690Z [36;1mdef read(name):[0m
+2026-11-21T19:26:30.3776963Z [36;1m    p = os.path.join(out, name)[0m
+2026-11-21T19:26:30.3777382Z [36;1m    return open(p, encoding='utf-8', errors='replace').read() if os.path.exists(p) else None[0m
+2026-11-21T19:26:30.3777806Z [36;1moutcomes = json.loads(os.environ['OUTCOMES'])[0m
+2026-11-21T19:26:30.3778107Z [36;1msteps = {}[0m
+2026-11-21T19:26:30.3778355Z [36;1mfor name, outcome in outcomes.items():[0m
+2026-11-21T19:26:30.3778620Z [36;1m    rc = read(name + '.rc')[0m
+2026-11-21T19:26:30.3778920Z [36;1m    log = read(name + '.log') or ''[0m
+2026-11-21T19:26:30.3779390Z [36;1m    steps[name] = {'outcome': outcome, 'exit_status': int(rc.strip()) if rc is not None else None,[0m
+2026-11-21T19:26:30.3779874Z [36;1m                   'log_lines_flagged': [l.strip() for l in log.splitlines()[0m
+2026-11-21T19:26:30.3780354Z [36;1m                                         if re.match(r'\s*(FAIL|BAD|PIN|LEDGER|TEX FAILED|PDF FAILED|ERROR)\b', l)]}[0m
+2026-11-21T19:26:30.3780873Z [36;1mpages = {}[0m
+2026-11-21T19:26:30.3781149Z [36;1mfor l in (read('pdf-pages.tsv') or '').splitlines():[0m
+2026-11-21T19:26:30.3781448Z [36;1m    f, n = l.split('\t')[0m
+2026-11-21T19:26:30.3781725Z [36;1m    pages[f] = int(n)[0m
+2026-11-21T19:26:30.3781980Z [36;1mtex_diff = read('tex-diff.txt')[0m
+2026-11-21T19:26:30.3782431Z [36;1mresult = {'schema': 'a1exit-trial-verify-v2', 'trial_sha': os.environ['TRIAL'], 'plan_sha': os.environ['PLAN'],[0m
+2026-11-21T19:26:30.3783013Z [36;1m          'run_id': os.environ['GITHUB_RUN_ID'], 'run_attempt': os.environ['GITHUB_RUN_ATTEMPT'],[0m
+2026-11-21T19:26:30.3783523Z [36;1m          'workflow_sha': os.environ['GITHUB_WORKFLOW_SHA'], 'workflow_ref': os.environ['GITHUB_WORKFLOW_REF'],[0m
+2026-11-21T19:26:30.3784087Z [36;1m          'ref': os.environ['GITHUB_REF'], 'ref_sha': os.environ['GITHUB_SHA'],[0m
+2026-11-21T19:26:30.3784467Z [36;1m          'steps': steps, 'pdf_pages': pages,[0m
+2026-11-21T19:26:30.3784842Z [36;1m          'tex_files_differing': None if tex_diff is None else tex_diff.split(),[0m
+2026-11-21T19:26:30.3785459Z [36;1m          'toolchain_versions': (read('toolchain-versions.txt') or '').splitlines(),[0m
+2026-11-21T19:26:30.3785979Z [36;1m          'note': 'log_lines_flagged is diagnostic only; the verdict is the step outcomes, and the job '[0m
+2026-11-21T19:26:30.3786452Z [36;1m                  'conclusion is read from the run and jobs API',[0m
+2026-11-21T19:26:30.3786885Z [36;1m          'verdict': 'pass' if all(s['outcome'] == 'success' for s in steps.values()) else 'fail'}[0m
+2026-11-21T19:26:30.3787379Z [36;1mjson.dump(result, open(os.path.join(out, 'result.json'), 'w'), indent=1, sort_keys=True)[0m
+2026-11-21T19:26:30.3787811Z [36;1mprint(json.dumps(result, indent=1, sort_keys=True))[0m
+2026-11-21T19:26:30.3788105Z [36;1mPY[0m
+2026-11-21T19:26:30.3817506Z shell: /usr/bin/bash -e {0}
+2026-11-21T19:26:30.3817860Z env:
+2026-11-21T19:26:30.3818104Z   TRIAL: 5b6d48b58f45d3032bc33560aa5047c4b400f35a
+2026-11-21T19:26:30.3818436Z   PLAN: 55544cc36dee5b7dd5b9079c0f03be24b74c137f
+2026-11-21T19:26:30.3818796Z   REC: verification/audits/foundations/a1exit-deletion-20261121
+2026-11-21T19:26:30.3819256Z   PANDOC_DEB: https://github.com/jgm/pandoc/releases/download/3.1.3/pandoc-3.1.3-1-amd64.deb
+2026-11-21T19:26:30.3819765Z   PANDOC_SHA256: caa7e0410f9e2cb1da2eb8db13cc97b5548fe455985e2c944e3929d22f99bcdc
+2026-11-21T19:26:30.3820207Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:26:30.3820603Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-21T19:26:30.3821099Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:26:30.3821457Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:26:30.3821810Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:26:30.3822152Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-21T19:26:30.3822830Z   OUTCOMES: {"inputs": "success", "checkout": "success",
+ "head": "success", "python": "success",
+ "toolchain": "success", "plan": "success",
+ "build": "success", "preserve": "failure",
+ "guards": "skipped"}
+2026-11-21T19:26:30.3823407Z ##[endgroup]
+2026-11-21T19:26:30.4007537Z {
+2026-11-21T19:26:30.4008414Z  "note": "log_lines_flagged is diagnostic only; the verdict is the step outcomes, and the job conclusion is read from the run and jobs API",
+2026-11-21T19:26:30.4009306Z  "pdf_pages": {
+2026-11-21T19:26:30.4009713Z   "book/The-Incompleteness-of-Observation-FULL.pdf": 490,
+2026-11-21T19:26:30.4010187Z   "papers/Computation.pdf": 21,
+2026-11-21T19:26:30.4010621Z   "papers/GR.pdf": 84,
+2026-11-21T19:26:30.4010970Z   "papers/Main.pdf": 109,
+2026-11-21T19:26:30.4011381Z   "papers/Methodology.pdf": 53,
+2026-11-21T19:26:30.4011829Z   "papers/SM.pdf": 149,
+2026-11-21T19:26:30.4012187Z   "papers/Structure.pdf": 95,
+2026-11-21T19:26:30.4012994Z   "papers/Substratum.pdf": 54
+2026-11-21T19:26:30.4013382Z  },
+2026-11-21T19:26:30.4013751Z  "plan_sha": "55544cc36dee5b7dd5b9079c0f03be24b74c137f",
+2026-11-21T19:26:30.4014184Z  "ref": "refs/heads/main",
+2026-11-21T19:26:30.4014556Z  "ref_sha": "df6da1c6101e811acdc7952d5748aff57028e8ed",
+2026-11-21T19:26:30.4015012Z  "run_attempt": "1",
+2026-11-21T19:26:30.4015544Z  "run_id": "44939798305",
+2026-11-21T19:26:30.4015944Z  "schema": "a1exit-trial-verify-v2",
+2026-11-21T19:26:30.4016333Z  "steps": {
+2026-11-21T19:26:30.4016605Z   "build": {
+2026-11-21T19:26:30.4016997Z    "exit_status": 0,
+2026-11-21T19:26:30.4017380Z    "log_lines_flagged": [],
+2026-11-21T19:26:30.4017769Z    "outcome": "success"
+2026-11-21T19:26:30.4018145Z   },
+2026-11-21T19:26:30.4018408Z   "checkout": {
+2026-11-21T19:26:30.4018735Z    "exit_status": null,
+2026-11-21T19:26:30.4019079Z    "log_lines_flagged": [],
+2026-11-21T19:26:30.4019427Z    "outcome": "success"
+2026-11-21T19:26:30.4019753Z   },
+2026-11-21T19:26:30.4020028Z   "guards": {
+2026-11-21T19:26:30.4020339Z    "exit_status": null,
+2026-11-21T19:26:30.4020670Z    "log_lines_flagged": [],
+2026-11-21T19:26:30.4020996Z    "outcome": "skipped"
+2026-11-21T19:26:30.4021305Z   },
+2026-11-21T19:26:30.4021567Z   "head": {
+2026-11-21T19:26:30.4021834Z    "exit_status": 0,
+2026-11-21T19:26:30.4022200Z    "log_lines_flagged": [],
+2026-11-21T19:26:30.4022560Z    "outcome": "success"
+2026-11-21T19:26:30.4022873Z   },
+2026-11-21T19:26:30.4023116Z   "inputs": {
+2026-11-21T19:26:30.4023420Z    "exit_status": 0,
+2026-11-21T19:26:30.4023830Z    "log_lines_flagged": [],
+2026-11-21T19:26:30.4024161Z    "outcome": "success"
+2026-11-21T19:26:30.4024454Z   },
+2026-11-21T19:26:30.4024732Z   "plan": {
+2026-11-21T19:26:30.4025053Z    "exit_status": 0,
+2026-11-21T19:26:30.4025722Z    "log_lines_flagged": [],
+2026-11-21T19:26:30.4026114Z    "outcome": "success"
+2026-11-21T19:26:30.4026421Z   },
+2026-11-21T19:26:30.4026713Z   "preserve": {
+2026-11-21T19:26:30.4027032Z    "exit_status": 1,
+2026-11-21T19:26:30.4027376Z    "log_lines_flagged": [
+2026-11-21T19:26:30.4028001Z     "FAIL book/The-Incompleteness-of-Observation-FULL.pdf: extracted text differs from the CI-built PDF",
+2026-11-21T19:26:30.4028870Z     "FAIL papers/Computation.pdf: extracted text differs from the CI-built PDF",
+2026-11-21T19:26:30.4029548Z     "FAIL papers/GR.pdf: extracted text differs from the CI-built PDF",
+2026-11-21T19:26:30.4030172Z     "FAIL papers/Main.pdf: extracted text differs from the CI-built PDF",
+2026-11-21T19:26:30.4030859Z     "FAIL papers/Methodology.pdf: extracted text differs from the CI-built PDF",
+2026-11-21T19:26:30.4031491Z     "FAIL papers/SM.pdf: extracted text differs from the CI-built PDF",
+2026-11-21T19:26:30.4032224Z     "FAIL papers/Structure.pdf: 94 pages committed, 95 built",
+2026-11-21T19:26:30.4032849Z     "FAIL papers/Structure.pdf: extracted text differs from the CI-built PDF",
+2026-11-21T19:26:30.4033447Z     "FAIL papers/Substratum.pdf: extracted text differs from the CI-built PDF"
+2026-11-21T19:26:30.4033882Z    ],
+2026-11-21T19:26:30.4034145Z    "outcome": "failure"
+2026-11-21T19:26:30.4034413Z   },
+2026-11-21T19:26:30.4034695Z   "python": {
+2026-11-21T19:26:30.4034974Z    "exit_status": null,
+2026-11-21T19:26:30.4035461Z    "log_lines_flagged": [],
+2026-11-21T19:26:30.4035762Z    "outcome": "success"
+2026-11-21T19:26:30.4036019Z   },
+2026-11-21T19:26:30.4036264Z   "toolchain": {
+2026-11-21T19:26:30.4036552Z    "exit_status": 0,
+2026-11-21T19:26:30.4036827Z    "log_lines_flagged": [],
+2026-11-21T19:26:30.4037166Z    "outcome": "success"
+2026-11-21T19:26:30.4037456Z   }
+2026-11-21T19:26:30.4037757Z  },
+2026-11-21T19:26:30.4038018Z  "tex_files_differing": [],
+2026-11-21T19:26:30.4038290Z  "toolchain_versions": [
+2026-11-21T19:26:30.4038585Z   "image ubuntu24 20261116.133.1",
+2026-11-21T19:26:30.4038838Z   "pandoc 3.1.3",
+2026-11-21T19:26:30.4039101Z   "XeTeX 3.141592653-2.6-0.999995 (TeX Live 2023/Debian)",
+2026-11-21T19:26:30.4039430Z   "pdftotext version 24.02.0",
+2026-11-21T19:26:30.4039673Z   "Python 3.11.18",
+2026-11-21T19:26:30.4040452Z   "pip 26.3 from /opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/pip (python 3.11)",
+2026-11-21T19:26:30.4041217Z   "lmodern 2.005-1",
+2026-11-21T19:26:30.4144601Z   "poppler-utils 24.02.0-1ubuntu9.11",
+2026-11-21T19:26:30.4144876Z   "texlive-fonts-recommended 2023.20240207-1",
+2026-11-21T19:26:30.4145099Z   "texlive-latex-extra 2023.20240207-1",
+2026-11-21T19:26:30.4145565Z   "texlive-latex-recommended 2023.20240207-1",
+2026-11-21T19:26:30.4145805Z   "texlive-xetex 2023.20240207-1",
+2026-11-21T19:26:30.4145981Z   "numpy==2.4.6",
+2026-11-21T19:26:30.4146132Z   "pip==26.3",
+2026-11-21T19:26:30.4146271Z   "scipy==1.17.1",
+2026-11-21T19:26:30.4146448Z   "setuptools==79.0.1"
+2026-11-21T19:26:30.4146597Z  ],
+2026-11-21T19:26:30.4146778Z  "trial_sha": "5b6d48b58f45d3032bc33560aa5047c4b400f35a",
+2026-11-21T19:26:30.4146999Z  "verdict": "fail",
+2026-11-21T19:26:30.4147303Z  "workflow_ref": "amaybaum/incompleteness/.github/workflows/a1exit-trial-verify.yml@refs/heads/main",
+2026-11-21T19:26:30.4147740Z  "workflow_sha": "df6da1c6101e811acdc7952d5748aff57028e8ed"
+2026-11-21T19:26:30.4147962Z }
+2026-11-21T19:26:30.4192224Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-11-21T19:26:30.4192514Z with:
+2026-11-21T19:26:30.4192742Z   name: a1exit-trial-verify-5b6d48b58f45d3032bc33560aa5047c4b400f35a
+2026-11-21T19:26:30.4193996Z   path: /home/runner/work/_temp/out/
+/home/runner/work/_temp/build/papers/Computation.pdf
+/home/runner/work/_temp/build/papers/GR.pdf
+/home/runner/work/_temp/build/papers/Main.pdf
+/home/runner/work/_temp/build/papers/Methodology.pdf
+/home/runner/work/_temp/build/papers/SM.pdf
+/home/runner/work/_temp/build/papers/Structure.pdf
+/home/runner/work/_temp/build/papers/Substratum.pdf
+/home/runner/work/_temp/build/book/The-Incompleteness-of-Observation-FULL.pdf
+
+2026-11-21T19:26:30.4195354Z   if-no-files-found: error
+2026-11-21T19:26:30.4195542Z   compression-level: 6
+2026-11-21T19:26:30.4195735Z   overwrite: false
+2026-11-21T19:26:30.4195920Z   include-hidden-files: false
+2026-11-21T19:26:30.4196089Z env:
+2026-11-21T19:26:30.4196298Z   TRIAL: 5b6d48b58f45d3032bc33560aa5047c4b400f35a
+2026-11-21T19:26:30.4196542Z   PLAN: 55544cc36dee5b7dd5b9079c0f03be24b74c137f
+2026-11-21T19:26:30.4196814Z   REC: verification/audits/foundations/a1exit-deletion-20261121
+2026-11-21T19:26:30.4197201Z   PANDOC_DEB: https://github.com/jgm/pandoc/releases/download/3.1.3/pandoc-3.1.3-1-amd64.deb
+2026-11-21T19:26:30.4197615Z   PANDOC_SHA256: caa7e0410f9e2cb1da2eb8db13cc97b5548fe455985e2c944e3929d22f99bcdc
+2026-11-21T19:26:30.4197968Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:26:30.4198280Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-21T19:26:30.4198591Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:26:30.4198871Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:26:30.4199146Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:26:30.4199428Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-21T19:26:30.4199663Z ##[endgroup]
+2026-11-21T19:26:30.5466884Z (node:17653) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-21T19:26:30.5467561Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-21T19:26:30.5564869Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-11-21T19:26:30.5567302Z The least common ancestor is /home/runner/work/_temp. This will be the root directory of the artifact
+2026-11-21T19:26:30.5567921Z With the provided path, there will be 28 files uploaded
+2026-11-21T19:26:30.5571340Z Artifact name is valid!
+2026-11-21T19:26:30.5571785Z Root directory input is valid!
+2026-11-21T19:26:30.7602619Z Beginning upload of artifact content to blob storage
+2026-11-21T19:26:31.0514420Z (node:17653) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-21T19:26:31.1617726Z Uploaded bytes 4468904
+2026-11-21T19:26:31.1808377Z Finished uploading artifact content to blob storage!
+2026-11-21T19:26:31.1808979Z SHA256 digest of uploaded artifact zip is 3627368ab0285f7f927f6279942aaa64e030b98f23c847289426af23565d524c
+2026-11-21T19:26:31.1809549Z Finalizing artifact upload
+2026-11-21T19:26:31.4948749Z Artifact a1exit-trial-verify-5b6d48b58f45d3032bc33560aa5047c4b400f35a.zip successfully finalized. Artifact ID 14721572058
+2026-11-21T19:26:31.4949566Z Artifact a1exit-trial-verify-5b6d48b58f45d3032bc33560aa5047c4b400f35a has been successfully uploaded! Final size is 4468904 bytes. Artifact ID is 14721572058
+2026-11-21T19:26:31.4954312Z Artifact download URL: https://github.com/amaybaum/incompleteness/actions/runs/44939798305/artifacts/14721572058
+2026-11-21T19:26:31.5082864Z ##[group]Run for o in "$O_INPUTS" "$O_CHECKOUT" "$O_HEAD" "$O_PYTHON" "$O_TOOLCHAIN" "$O_PLAN" "$O_BUILD" \
+2026-11-21T19:26:31.5083565Z [36;1mfor o in "$O_INPUTS" "$O_CHECKOUT" "$O_HEAD" "$O_PYTHON" "$O_TOOLCHAIN" "$O_PLAN" "$O_BUILD" \[0m
+2026-11-21T19:26:31.5084069Z [36;1m         "$O_PRESERVE" "$O_GUARDS" "$O_RESULT" "$O_UPLOAD"; do[0m
+2026-11-21T19:26:31.5084541Z [36;1m  test "$o" = success || { echo "a required step is ${o:-missing}"; exit 1; }[0m
+2026-11-21T19:26:31.5084899Z [36;1mdone[0m
+2026-11-21T19:26:31.5086100Z [36;1mecho "every required step succeeded"[0m
+2026-11-21T19:26:31.5127504Z shell: /usr/bin/bash -e {0}
+2026-11-21T19:26:31.5127797Z env:
+2026-11-21T19:26:31.5128048Z   TRIAL: 5b6d48b58f45d3032bc33560aa5047c4b400f35a
+2026-11-21T19:26:31.5128408Z   PLAN: 55544cc36dee5b7dd5b9079c0f03be24b74c137f
+2026-11-21T19:26:31.5128809Z   REC: verification/audits/foundations/a1exit-deletion-20261121
+2026-11-21T19:26:31.5129445Z   PANDOC_DEB: https://github.com/jgm/pandoc/releases/download/3.1.3/pandoc-3.1.3-1-amd64.deb
+2026-11-21T19:26:31.5130089Z   PANDOC_SHA256: caa7e0410f9e2cb1da2eb8db13cc97b5548fe455985e2c944e3929d22f99bcdc
+2026-11-21T19:26:31.5130614Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:26:31.5131076Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-21T19:26:31.5131560Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:26:31.5131984Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:26:31.5132418Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-21T19:26:31.5132955Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-21T19:26:31.5133340Z   O_INPUTS: success
+2026-11-21T19:26:31.5133570Z   O_CHECKOUT: success
+2026-11-21T19:26:31.5133799Z   O_HEAD: success
+2026-11-21T19:26:31.5134023Z   O_PYTHON: success
+2026-11-21T19:26:31.5134265Z   O_TOOLCHAIN: success
+2026-11-21T19:26:31.5134493Z   O_PLAN: success
+2026-11-21T19:26:31.5134724Z   O_BUILD: success
+2026-11-21T19:26:31.5134937Z   O_PRESERVE: failure
+2026-11-21T19:26:31.5135374Z   O_GUARDS: skipped
+2026-11-21T19:26:31.5135580Z   O_RESULT: success
+2026-11-21T19:26:31.5135774Z   O_UPLOAD: success
+2026-11-21T19:26:31.5135969Z ##[endgroup]
+2026-11-21T19:26:31.5197536Z a required step is failure
+2026-11-21T19:26:31.5200135Z ##[error]Process completed with exit code 1.
+2026-11-21T19:26:31.5268860Z Post job cleanup.
+2026-11-21T19:26:31.5922647Z [command]/usr/bin/git version
+2026-11-21T19:26:31.5946339Z git version 2.56.1
+2026-11-21T19:26:31.5972995Z Temporarily overriding HOME='/home/runner/work/_temp/851f6531-57e2-439a-b829-c0eef7376855' before making global git config changes
+2026-11-21T19:26:31.5973925Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-21T19:26:31.5977677Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/incompleteness/incompleteness
+2026-11-21T19:26:31.6015358Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-21T19:26:31.6041023Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-21T19:26:31.6213667Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-21T19:26:31.6239606Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-21T19:26:31.6574454Z Cleaning up orphan processes
+2026-11-21T19:26:31.6815112Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683, actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

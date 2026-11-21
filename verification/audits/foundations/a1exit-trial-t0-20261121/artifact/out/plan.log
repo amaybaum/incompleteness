@@ -1,0 +1,9 @@
+Preparing worktree (detached HEAD 55544cc36)
+HEAD is now at 55544cc36 A1-EXIT retirement: PREREG §30, one plan commit P* for the trial (#1169)
+plan: 55544cc36dee5b7dd5b9079c0f03be24b74c137f; 6 record files; pin findings 0
+ledger: 371 splices in 40 files at 97070c986c28; sha256 41ac4fd9fbcf4485d34a9aa1c1b46899a86c9a88503b65208e785af2412ff0f6; 0 validation findings
+RESULT PASS
+plan: 55544cc36dee5b7dd5b9079c0f03be24b74c137f; 6 record files; pin findings 0
+ledger: 371 splices in 40 files at 97070c986c28; sha256 41ac4fd9fbcf4485d34a9aa1c1b46899a86c9a88503b65208e785af2412ff0f6; 0 validation findings
+ledger re-derived from edits.json: identical
+RESULT PASS
