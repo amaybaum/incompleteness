@@ -63,3 +63,97 @@ token and has at least one status term. Each countercontrol must be detected at 
 - **removal:** the line is deleted, and the entry must be reported as `removed`.
 
 Every control of PREREG §5 is kept.
+
+## Additions after the round-1 review at `c2001d82` (REVISE, light)
+
+These additions answer the independent review of `c2001d82` recorded on #1471. They are appended
+before the snapshot is re-extracted. The pin stays `1c7eedc4`, and PREREG keeps its frozen text.
+P1w, P4 and P5 are coverage additions under the owner record quoted above (#1169 c.7057674976). R1
+and R2 change the compare mode, which PREREG §4 specifies, and the self-test that §5 specifies. R3
+changes the number tokenizer.
+
+### P1w. Prose rule, widened (supersedes the selection clause of P1)
+
+A `C-PROSE` entry is every corpus line that satisfies all three conditions:
+1. it does not begin with `|`;
+2. it matches, case-insensitively, the marker rule
+   `\\pm|±|\\sigma|σ|\bPDG\b|CODATA|observed|measured|measurement|experimental|observation|match|agree|coincid|%|discrepanc|predict`;
+3. it matches the number rule
+   `(?<![\w.])\d+\.\d+|10\s*\^\s*\{?\s*[-−]?\d+|(?<![\w./])\d+\s*/\s*\d+(?![\w/.])|\\[dt]?frac\s*\{\s*\d+\s*\}\s*\{\s*\d+\s*\}|\d+(?:\.\d+)?\s*\\?%`.
+   It takes decimals, powers of ten (`10^{n}`, `\sim 10^n`), exact fractions (`2/3`, `\frac{2}{3}`)
+   and percentages.
+
+The extractor holds these as `PROSE_MARK_W` and `PROSE_NUM_W`, and `build` applies them. The P1
+rule's 890 lines are a subset of what this rule selects; the snapshot counts them as
+`C-PROSE-narrow-rule`. The bare stems `observ` and `measur` are not used, because they select
+"observer" and "probability measure" throughout the corpus. The rest of P1 is unchanged: no mirror
+search, and no propagation.
+
+### P4. Every site of the ledger's site map
+
+An entry with category `C-SITEMAP` is added for every one of the 697 sites in the ledger's
+`sitemap.json`, of every row, FP and FREE included. Its ledger row is recorded where the site map
+names one. These entries are added after the mirror closure, because the map lists its own FULL
+sites. This captures Step-2 edit targets outside the row-6 input list, for example X-10, X-15, X-26,
+X-30, X-50, X-55, X-60 and X-82.
+
+### P5. M:566 in the X-48 family
+
+M:566 (the Remark "why the geometry alone cannot do it") is added to C-CDO with ledger row X-48.
+
+### R1. Compare mode: content pairing and unaccounted lines (replaces PREREG §4's pairing)
+
+- **Pairing.** Lines are paired by content in three stages:
+  1. lines inside `difflib` equal blocks of the same file keep their pairing;
+  2. an entry outside an equal block takes an unclaimed after-state line with identical text, in the
+     same file first (nearest line), then in any file;
+  3. the remaining entries take the most similar unclaimed changed line, greedily by
+     `SequenceMatcher` ratio: at least 0.6 in the same file, at least 0.8 across files.
+
+  An entry with no partner is `removed`. Entries are reported with their new file and line and a
+  `moved` flag.
+- **Unaccounted and deleted lines.** Every changed or inserted non-blank after-state line that is
+  not the image of an entry is reported as `unaccounted`, in every file including new files. Every
+  deleted non-blank pin line that is not an entry and does not reappear is reported as `deleted`.
+  Both carry flags: `numbers`, `marker` (the P1w marker rule), `terms` (status, class-mark, scope or
+  negation terms), `table`, and `new-file`.
+- **Value key.** The value key includes the unit, so a change of unit is `value changed`.
+- **Label signature.** The label signature includes negation terms
+  (`not|no|never|cannot|can't|none|neither|nor|without|fails?|failed`), so a negation is
+  `label changed`.
+- **Output and exit status (§A.44).** `--json <path>` writes the report in schema
+  `a1exit-regression-compare/1`, with keys `schema`, `pin`, `other`, `any_change`, `summary`,
+  `entries`, `unaccounted` and `deleted`. Compare exits 1 when anything changed and 0 when nothing
+  did.
+
+### R2. Added self-test countercontrols
+
+Each countercontrol must report exactly the stated outcome: the entry results, the number of
+unaccounted lines, the number of deleted lines and `any_change`. The cases are:
+- a row swap: both rows are moved and unchanged;
+- a row moved together with an edit to the adjacent row: the moved row is unchanged, and the edited
+  row is `value changed`;
+- a line inserted inside a rewritten paragraph: the paragraph is `text changed`, and one unaccounted
+  line is flagged `numbers` and `marker`;
+- a unit change from MeV to GeV: `value changed`;
+- a negation: `label changed`;
+- a new paragraph away from every entry: one unaccounted line, flagged;
+- a new file: two unaccounted lines, flagged `new-file`;
+- a value change on a line that is not an entry: one unaccounted line and one deleted line, flagged
+  `numbers`.
+
+The earlier controls are kept, with their expected unaccounted counts stated.
+
+### R3. Identifier digits
+
+A minus sign directly after a letter is a hyphen inside an identifier, so `X-48`, `G-2` and `spin-0`
+give no number token. A range such as `10-20` and a signed value such as `-0.5` are unaffected. A
+self-test line checks all of these. Separately, the ids of Bioinformatics and Juno lines use the
+abbreviations `Bio` and `Juno`, which changes ids only.
+
+### Note on D6
+
+D6 changed PREREG in place, at `c2001d82`. In §5, the location of the scratch copy became "in a
+temporary directory outside the repository". The change was made because the CI added-text scan
+flagged the earlier word as a local path. It changes wording only. PREREG has not been edited since, and corrections are recorded
+in this amendment.
