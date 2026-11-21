@@ -5,6 +5,7 @@
   python3 -I -B check.py --self-test     the same checks on mutated copies; each must report its target finding
   python3 -I -B check.py --github        also compare both runs and the artifact with what the host reports (needs gh)
   python3 -I -B check.py --extract DIR   after the checks pass, write the artifact's members to DIR, byte for byte
+  python3 -I -B check.py --trial-commit  also check the trial commit's tree, parent and PDF blobs (needs the commit)
 
 The checks:
 - artifact.zip (dispatch 1) has the recorded sha256 and size, and exactly the recorded members, each
@@ -20,8 +21,10 @@ The checks:
   recorded sha256: dispatch 1 has one job, conclusion `success`; dispatch 2 ran on the trial branch at
   the trial commit, concluded `success`, and its 41 jobs all concluded `success`, with no step other
   than the recorded marker step concluding anything but `success`;
-- the eight PDFs the trial commit carries have the sha256 of the CI-built PDFs retained for T0 in
-  ../a1exit-trial-t0-20261121/expected.json.
+- the recorded digests of the trial commit's eight PDFs equal the CI-built PDFs retained for T0 in
+  ../a1exit-trial-t0-20261121/expected.json. From main this compares two records; the trial commit is off
+  main. `--trial-commit`, where the commit is present locally, checks the commit itself: its tree, its single
+  parent, and the sha256 of its eight PDF blobs against those digests.
 """
 import hashlib
 import io
@@ -282,11 +285,36 @@ def github(exp):
     return f
 
 
+def trial_commit(exp):
+    def git(*a):
+        return subprocess.run(["git", "-C", HERE, *a], capture_output=True)
+    t = exp["trial_sha"]
+    if git("cat-file", "-e", t + "^{commit}").returncode:
+        return [f"--trial-commit: {t[:8]} not present; fetch {exp['trial_branch']}"]
+    f = []
+    obj = git("cat-file", "-p", t).stdout.decode().splitlines()
+    tree = [l.split()[1] for l in obj if l.startswith("tree ")]
+    parents = [l.split()[1] for l in obj if l.startswith("parent ")]
+    if tree != [exp["trial_tree"]]:
+        f.append(f"trial commit tree {tree}, expected {exp['trial_tree']}")
+    if parents != [exp["trial_parent"]]:
+        f.append(f"trial commit parents {parents}, expected [{exp['trial_parent']}]")
+    for path, digest in sorted(exp["trial_pdfs_sha256"].items()):
+        b = git("cat-file", "blob", f"{t}:{path}").stdout
+        if sha(b) != digest:
+            f.append(f"trial commit {path}: sha256 differs from the recorded digest")
+    if not f:
+        print(f"trial commit {t[:8]}: tree, single parent and eight PDF blobs match the record")
+    return f
+
+
 def main(argv):
     if "--self-test" in argv:
         return self_test()
     zb, ret, ci, exp, t0 = load()
     f = check(zb, ret, ci, exp, t0)
+    if "--trial-commit" in argv:
+        f += trial_commit(exp)
     if "--github" in argv:
         g = github(exp)
         f += g
@@ -300,8 +328,10 @@ def main(argv):
             z = zipfile.ZipFile(io.BytesIO(zb))
             root = os.path.realpath(d)
             names = [i.filename for i in z.infolist()]
-            if any(n.startswith("/") or ".." in n.split("/") for n in names):
-                f.append("--extract refused: unsafe member name")
+            unsafe = [n for n in names if n.startswith("/") or ".." in n.split("/")
+                      or not os.path.realpath(os.path.join(root, n)).startswith(root + os.sep)]
+            if unsafe:
+                f.append(f"--extract refused: unsafe member name {unsafe[0]!r}")
             else:
                 for i in z.infolist():
                     p = os.path.join(root, i.filename)

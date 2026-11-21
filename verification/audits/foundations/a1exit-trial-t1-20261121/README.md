@@ -1,8 +1,8 @@
 # A1-EXIT trial T1: retained run evidence
 
 This directory retains the evidence of the two verification runs of the A1-EXIT trial commit `T1`. It carries no
-manuscript claim. The trial and its expected outcome are preregistered in the retirement plan (#1477, §28.1 item 5,
-§29 item 2 and §30, quoted below). The T0 evidence it builds on is retained in `../a1exit-trial-t0-20261121/`.
+manuscript claim. The trial and its expected outcome are preregistered in the retirement plan (#1477): §28.1 item 5's
+`T1` clause, §29 item 2 and §30 items 1–3, each quoted below. The T0 evidence it builds on is retained in `../a1exit-trial-t0-20261121/`.
 
 ## Status of this record: an owner exception to §A.42
 
@@ -44,8 +44,8 @@ Accordingly:
 CI-built PDFs of T0's verification run, and parent exactly `97070c98`. `git diff-tree T0 T1` lists exactly those eight
 paths. Their sha256 digests are the `build/` member digests in `../a1exit-trial-t0-20261121/expected.json`, which
 `check.py` compares. The PDFs were extracted with that directory's `check.py --extract`, which verifies before it
-writes. The commit has fixed author and committer dates (2026-11-21T21:30:00Z, author and committer `Claude`), so
-rebuilding it reproduces the id.
+writes. The commit has fixed author and committer dates (2026-11-21T21:30:00Z); rebuilding it with the author and
+committer identity recorded in `git cat-file -p c06259692ddf12f7d3dffe170ec3118dc97682fc` reproduces the id.
 
 ## Owner decisions
 
@@ -68,6 +68,27 @@ All are #1169 comments posted under the owner's account (`amaybaum`) as the reco
 
 >    - `T1`: a single-parent child of `97070c98` whose tree is `T0`'s with the eight PDFs replaced by that artifact's.
 >      `a1exit-trial-verify.yml` and `verify.yml` are dispatched on `T1`; every step and job must pass.
+
+§29 item 2 (line 5597 of the same blob), verbatim, fixes the dispatch refs:
+
+> 2. **N2: the dispatch refs.** `a1exit-trial-verify.yml` entered `main` at `df6da1c6`; `97070c98` does not contain it.
+>    - `T0` and `T1` are each verified by dispatching `a1exit-trial-verify.yml` from `main` (`df6da1c6` or later) with
+>      `trial_sha` set to that trial commit and `plan_sha` set to the plan head.
+>    - `verify.yml` on `T1` is dispatched on a branch whose head is exactly `T1`.
+
+§30 items 1–3 (lines 5617–5626), verbatim, fix the plan commit `P*` and its freeze:
+
+> 1. **One plan commit.** `T0` and `T1` are both predicted from the same plan commit `P*`: `guards_check.py --predict`
+>    runs at `P*`, the trial trees carry `P*`'s record directory, and `P*` is passed as `plan_sha` to every
+>    `a1exit-trial-verify.yml` dispatch of `T0` and `T1`.
+> 2. **How `P*` is fixed.** `P*` is the head of `research/a1exit-deletion-20261121` at the moment `T0` is built, and it
+>    is recorded with `T0`. This section moves the head, so `P*` is the commit carrying §30, or a later one if a review
+>    asks for more; it is never `453917f1` or `1cde4d8f`.
+> 3. **No movement in between.** The plan branch does not move between building `T0` and the last dispatch on `T1`
+>    (`a1exit-trial-verify.yml` and `verify.yml`). If it moves, `T0` and `T1` are rebuilt from the new head, which
+>    becomes `P*`, and the dispatches are repeated against it.
+
+`P*` stayed at `55544cc3` from T0's build through both T1 dispatches.
 
 The owner's authorization states the expectations: for dispatch 1, every required step passes, with zero
 PDF-comparison findings, `guards --mutants` succeeding and `result.json` reporting `verdict: pass`; for dispatch 2,
@@ -103,7 +124,9 @@ host served. The other files are written for this record.
 - `ci-record.json`: both runs' identity and their job and step conclusions, read from the host's API (§A.44). Raw logs
   are not retained; the host's logs for the two runs are their provenance.
 - `expected.json`: the expected result.
-- `check.py`: checks the files above against `expected.json`.
+- `check.py`: checks the files above against `expected.json`. From `main` it compares the recorded digests of the
+  trial commit's PDFs with T0's retained ones. `--trial-commit`, run where `c0625969` is present, also checks the
+  commit itself: its tree, its single parent and the sha256 of its eight PDF blobs.
 
 Before commit, the retained files were scanned for tokens, keys, signed URLs, IP addresses and e-mail addresses, with
 no hits.
@@ -116,4 +139,5 @@ From the repository root:
 python3 -I -B verification/audits/foundations/a1exit-trial-t1-20261121/check.py              # integrity and outcomes; RESULT PASS
 python3 -I -B verification/audits/foundations/a1exit-trial-t1-20261121/check.py --self-test  # 14 mutants, each required to report its target finding
 python3 -I -B verification/audits/foundations/a1exit-trial-t1-20261121/check.py --github     # host artifact digest and both runs' job and step conclusions
+python3 -I -B verification/audits/foundations/a1exit-trial-t1-20261121/check.py --trial-commit  # needs c0625969 (fetch trial/a1exit-T1-55544cc3)
 ```
