@@ -35,7 +35,7 @@ manuscript changed on `main` between it and `97070c98`.
 |---|---|
 | `baseline.py` | `e0749fb926ce9da0ee52bad0ea9e0e80e4fa9f4edeb22c8009a303bf1af23ad9` |
 | `snapshot.json` | `2db7832d7cb95b0ba77b42afad965696390d4ad67a6835b2c45f045bd04f88c8` |
-| `compare/verdict.py` | `420286ed422cdeaa02be110d0dcfe214d609f3747a103a9daf7922c97c3253a5` |
+| `compare/verdict.py` | `eb3f4fbf76bce9f67ad334cc457ed43495ede0a329f60c3f19d9f032a26b9219` |
 | `compare/inputs/edits-s2.json` | `f43086e43663ea5becabee3b0439d338dca78da3170f6a1d951a5ec713583a4c` |
 | `compare/inputs/finiteness-cases.json` (test fixture for T13e) | `9a516d196c2927e9872d6f60111bdd8bd23330c96ae3cd30d0dd7e2604909699` |
 | the ledger's `rows.json`, read from the Git object at `PIN_S2` | `39e51d0cfd8d6855f17ef3d7253a43d372fae608a9dcae083fbeb52471b512a0` |
@@ -141,6 +141,12 @@ comparison therefore runs two checks that never mix.
     difference, and any line not reported as an item.
   - An item any of whose lines lies in a differing hunk is **U by the byte gate**. No J, no R, no
     resolution and no binding can change that.
+  - **Scope.** The byte gate covers the manuscript files `papers/*.md` and `book/*.md` only, and the
+    gate is not widened beyond them. Everything else the A1 retirement edits rests on #1477's own checks
+    (`edits_check`, `preserve_check` and its TeX/PDF comparison), not on this gate. In #1477's plan at
+    `55544cc3`, that is 90 of its 373 edits: `AGENTS.md`, verification records, and Lean and Python
+    files. The generated `.tex` and `.pdf` files are also outside the gate. The verdict text states this
+    scope.
 - **2. The scientific classification** (J, R, J9, J10) applies only to items that pass the byte gate.
   Such an item's H text equals the replayed text of the approved edits, so the classification
   concerns the approved text itself, and an R resolution concerns approved text only. Because the byte

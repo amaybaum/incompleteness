@@ -1101,6 +1101,7 @@ def byte_gate(res, allitems, mi, landed, base_corpus, after_corpus, cls):
         if hit:
             v['class'] = 'U'
             v['gate'] = 'H differs from the replay of the approved edits'
+            v['notes'] = [n for n in v['notes'] if not n.startswith('resolved by review')]
             v['notes'].append('byte gate: H differs from the replay of the approved edits; no review can approve it')
             v['scientific_evaluation'] = True
     for h in hunks:
@@ -1279,6 +1280,8 @@ def verdict_of(counts, controls_ok, cc_ok, prep=False, flagged_edits=0):
                counts['scientific_evaluation'], 'pass' if controls_ok else 'FAIL', 'pass' if cc_ok else 'FAIL'))
     text += (' Owner requirement 6 is settled only by the separate scientific evaluation; scientific evaluation '
              'is open for %d items and %d landed edits.' % (counts['scientific_evaluation'], flagged_edits))
+    text += (' Byte-gate scope: papers/*.md and book/*.md only; files outside it (AGENTS.md, verification records, '
+             'Lean and Python files, generated .tex/.pdf) rest on the deletion unit\'s own checks.')
     if prep:
         text = 'PREPARATION RUN at the pin, not a regression verdict. ' + text
     return v, text
