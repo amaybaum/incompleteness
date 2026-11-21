@@ -1,0 +1,14 @@
+Preparing worktree (detached HEAD 5b6d48b58)
+HEAD is now at 5b6d48b58 Trial T0: predicted A1-retirement tree from plan P* 55544cc3 (PREREG §28-§30)
+  Computation    ok  21 pages
+  GR             ok  84 pages
+  Main           ok  109 pages
+  Methodology    ok  53 pages
+  SM             ok  149 pages
+  Structure      ok  95 pages
+  Substratum     ok  54 pages
+
+build: OK
+  book           ok  490 pages
+
+build: OK
