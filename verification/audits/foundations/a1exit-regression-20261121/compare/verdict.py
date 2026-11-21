@@ -1049,7 +1049,11 @@ def file_exact_items(landed, base_corpus, after_corpus, explained_h, explained_r
             r_ok = all((f, i + 1) in explained_r or bool(h_nb) or (f, norm(rl[i])) in explained_rtext
                        for i in range(i1, i2) if rl[i].strip())
             blank_only = not any(hl[j].strip() for j in range(j1, j2)) and not any(rl[i].strip() for i in range(i1, i2))
-            if h_ok and r_ok and not blank_only:
+            # N7: the account holds only if the hunk's blank-line and line-boundary structure is unchanged
+            rb = [not rl[i].strip() for i in range(i1, i2)]
+            hb = [not hl[j].strip() for j in range(j1, j2)]
+            same_structure = (not any(rb) and not any(hb)) or rb == hb
+            if h_ok and r_ok and not blank_only and same_structure:
                 continue
             near = sorted((abs(ln - (j1 + 1)), ln) for (g, ln) in explained_h if g == f and abs(ln - (j1 + 1)) <= 3)
             out['RX:%s:%d' % (f, j1 + 1)] = {
@@ -1951,6 +1955,28 @@ def self_test():
            len(r13f) == 4 and all(len(x) == 1 and x[0][1] == 'U' and x[0][2] for x in r13f) and not rx_of(dict(pin))
            and not rx_of(after_s) and not rx_of(dict(pin, **{g134['file']: '\n'.join(fl[:gi] + fl[gi + 1:])})),
            str(r13f))
+    # T13g N7: a structural change next to a line whose H text differs from the replay is not absorbed
+    # into that line's item: each variant has an RX item, U and flagged, besides the line's own item
+    gtxt = g134['text']
+    dbl = g134['text'].replace(' ', '  ', 1)
+    t13g = {}
+    t13g['example: doubled space + join'] = fl[:gi] + [dbl] + fl[gi + 2:]
+    t13g['insertion before'] = fl[:gi] + ['', dbl] + fl[gi + 1:]
+    t13g['insertion after'] = fl[:gi] + [dbl, ''] + fl[gi + 1:]
+    lk = max(k for k in range(len(fl)) if fl[k].strip())
+    t13g['end of file'] = fl[:lk] + [fl[lk] + ' x'] + fl[lk + 1:] + ['']
+    r13g = {}
+    for name, lines in t13g.items():
+        r13g[name] = rx_of(dict(pin, **{g134['file']: '\n'.join(lines)}))
+    if dg:  # a file with a double blank line: change the line before it and remove one of the two
+        dl_ = B.lines_of(pin[dg])
+        dk = next(k for k in range(len(dl_) - 2) if dl_[k].strip() and not dl_[k + 1].strip() and not dl_[k + 2].strip())
+        r13g['removal of one of two blank lines'] = rx_of(dict(pin, **{dg: '\n'.join(dl_[:dk] + [dl_[dk] + ' x'] + dl_[dk + 2:])}))
+    report('T13g structural change next to a differing line: RX in each of %d variants (review example included)'
+           % len(r13g), len(r13g) >= 4 and all(len(v) >= 1 and all(x[1] == 'U' and x[2] for x in v)
+                                               for v in r13g.values()) and 'removal of one of two blank lines' in r13g,
+           str({k: len(v) for k, v in r13g.items()}))
+    del gtxt
     # T13d exactness: H equals the replay except for one doubled space -> not J, flagged
     cm, ed, cl, af, e = gr134(', for every $S$')
     f134 = ent['GR:134']['file']
