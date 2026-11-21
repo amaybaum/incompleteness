@@ -139,7 +139,7 @@ The connection becomes precise once the observations are specified. A uniform hi
 
 These comparisons distinguish different questions:
 
-*Gauge incompleteness* is redundancy relative to specified observations. A uniform hidden-coordinate relabelling, or an independently prepared, normalized, exactly decoupled finite ancillary factor, can leave a fixed observed channel unchanged. This does not make every inaccessible state or every deeper physical implementation gauge. The preparations, readouts and dynamics included in an observational comparison determine what its equivalence relation identifies.
+*Gauge incompleteness* is redundancy relative to specified observations. A fibre-independent hidden relabelling under the uniform hidden prior, or an independently prepared, normalized, exactly decoupled finite ancillary factor, can leave a fixed observed channel unchanged. This does not make every inaccessible state or every deeper physical implementation gauge. The preparations, readouts and dynamics included in an observational comparison determine what its equivalence relation identifies.
 
 *Computational limitations* concern the resources needed to evaluate a quantity from an available description. A lower bound on those resources requires its own model and argument. The record-fibre criterion above is an information limit: it distinguishes an unresolved fact from a redundancy between descriptions, without asserting a universal computational no-go for finite embedded observers.
 
