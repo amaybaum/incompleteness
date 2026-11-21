@@ -380,6 +380,12 @@ reached: one pass.
   - Minimality (exact count): for each `N`, the cone sizes must satisfy
     `|Q|^{|B(V, K_min)|} ≥ b > |Q|^{|B(V, K_min − 1)|}`, with `|B(V, K)|` counted exactly on the stated
     lattice. A miscount voids the run.
+  - Negative (must fail, for a known reason): the exact factorization check used to accept a classical
+    model is run on the 4 × 4 matrix with rows `(1,1,0,0)`, `(1,0,1,0)`, `(0,1,0,1)`, `(0,0,1,1)`. Its
+    ordinary rank is 3 and its nonnegative rank is 4 (Cohen and Rothblum, Linear Algebra Appl. 190
+    (1993)). The check at inner dimension 3 must report that no exact nonnegative factorization exists,
+    and the check at inner dimension 4 must find one. A factorization accepted at dimension 3 shows the
+    check cannot separate nonnegative rank from rank, and voids the run.
 - *Scope.* It quantifies Proposition U. It does not decide O2.
 
 ## Sources (external)
