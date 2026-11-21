@@ -10,11 +10,15 @@ This record writes Lean statements to be proved:
 **Conventions.**
 - **Pins.** Base `origin/main` is `df6da1c6`. Kernel paths are under `verification/lean-mathlib/OIBridge/`.
   Mathlib is `v4.33.0` (`db584cd6`), and every Mathlib name was checked there.
-- **Labels.** They follow #1517's convention:
-  - **(N):** the statement's premises are native, or it has none, which covers pure mathematics about a
-    definition.
+- **Labels.** One rule, #1517's convention, is applied uniformly to all six obligations. **Each
+  obligation is labelled by its Lean statement.**
+  - **(N):** the statement's premises are native, or it has none. This includes pure mathematics about a
+    definition, a defined inductive, or abstract objects with hypotheses on those objects.
   - **(I):** the statement equates or constrains a native quantity using imports, each written as a
     hypothesis or field.
+  - **OI reading.** Where an (N) statement is read as a claim about OI's native operations, that
+    reading carries imports, such as KIN or IS. The reading is noted beside the label, as in #1517's
+    PO-06 and PO-07e.
 - **Obligation IDs** continue #1517's sequence from PO-20. IDs are identifiers, not ordinals.
 - **Layer tags** follow the round-4 layer rule. Each obligation names its layer and stays at it:
   - Eff / In / Acc: effect, instrument or accessible algebra;
@@ -41,47 +45,68 @@ This record writes Lean statements to be proved:
 - PO-19a, an unreviewed proposal.
 - The r5.8 failure item "without FE-ADM … (sketch)", which is marked as a sketch in its source.
 
-**Caution on deltas.** The heads used differ from their confirmed pins by nit commits, which have not
-been re-reviewed. The obligations below use only content present at the confirmed pins.
+**Caution on deltas.** The heads used differ from their confirmed pins by nit commits.
+- Most obligations use only content present at the confirmed pins.
+- **PO-25 is the exception.** It uses content of #1516's nit commit `e1715cdd`: the fresh-ancilla rule
+  within each family, and the destructive `⟨±|` site re-appended. The independent review of this record
+  verified that nit diff (c.7067400922).
+- **Remark D′ (PO-20)** carries "pending review" at OPRES's confirmed pin `5a6b2a80`. PO-20 therefore
+  depends on a claim not yet independently confirmed; see its status line.
 
 ## 1. Obligations
 
 ### PO-20 Remark D′: finite visible carriers and any hidden state, in Heisenberg form. Layers: In, Born (algebraic lift), Typ. Difficulty M–H.
 
-- **Lean statement.**
+**Status: depends on a claim not yet independently confirmed.** At OPRES's confirmed pin `5a6b2a80`,
+Remark D′ is "pending review"; the confirming review placed it but did not confirm its proof. PO-20
+is a statement design only, and must not be promoted until D′ is confirmed.
+
+- **Lean statement, in D′'s own setting.** The visible carrier V is finite, and the hidden space is
+  `L²(H, ν)` for a measure space `(H, ν)`. The hidden configuration algebra is the multiplication
+  operators `L^∞(H)` inside `B(L²(H))`. The configuration algebra is `𝒜 = ⊕_v L^∞(H)`, a finite direct
+  sum. ω is **any** state on `B(L²(H))`. The dynamics' duals are Koopman conjugations which, as in
+  Proposition D's step 1, map `𝒜` onto `𝒜`. That is an explicit hypothesis here.
 
 ```lean
-/-- The hidden algebra is any unital C*-algebra 𝒜_H containing an abstract commutative
-"configuration" subalgebra 𝒞_H; a state is a positive unital functional. Finite visible carrier V. -/
-structure HiddenSide where
-  B : Type; [inst : CStarAlgebra B]
-  C : StarSubalgebra ℂ B                          -- the hidden configuration algebra (abstract L^∞)
-  comm : ∀ x ∈ C, ∀ y ∈ C, x * y = y * x
-/-- The Heisenberg dual of appending ω on the hidden side, read on the visible configuration algebra. -/
-def appendDual (ω : hs.B →L[ℂ] ℂ) : (V → hs.B) → (V → ℂ) := fun f v => ω (f v)
-theorem appendDual_config (ω) (hω : IsState ω) (f : V → hs.B) (hf : ∀ v, f v ∈ hs.C) :
-    ∃ g : V → ℂ, appendDual ω f = g                -- lands in ℓ^∞(V) = (V → ℂ): no normality used
-theorem dualDIO_closed : -- Koopman (finite-support bijection) conjugation, readouts with projections
-    -- in V → hs.C, feedforward, discard, postselection each map (V → hs.C) into (V → hs.C) or (V → ℂ)
-    …
-theorem remarkD'_B_i (Φ) (hΦ : GenByDual Φ) {W : Matrix V V ℂ} (hW : W ∈ Matrix.unitaryGroup V ℂ)
-    (hnm : ¬ IsMonomial W) {p : ℝ} (hp : 0 < p) : ¬ (∀ i, Φdual (single i i 1) = (p : ℂ) • (Wᴴ * single i i 1 * W))
+variable {V : Type} [Fintype V] [DecidableEq V] {H : Type} [MeasurableSpace H] (ν : Measure H)
+abbrev L2H := MeasureTheory.Lp ℂ 2 ν
+abbrev BH := L2H ν →L[ℂ] L2H ν                          -- B(L²(H)), a CStarAlgebra
+def mulAlg : StarSubalgebra ℂ (BH ν) := …               -- multiplication operators by L^∞(H, ν)
+/-- 𝒜 = ⊕_v L^∞(H) as V-indexed families of multiplication operators. -/
+def configAlgD : Set (V → BH ν) := {f | ∀ v, f v ∈ mulAlg ν}
+/-- The dual of appending ω, read on 𝒜: the slice f ↦ (ω (f v))_v, defined for ANY state ω (no normality). -/
+def appendDual (ω : BH ν →L[ℂ] ℂ) : (V → BH ν) → (V → ℂ) := fun f v => ω (f v)
+theorem appendDual_config (ω) (hω : IsState ω) (f) (hf : f ∈ configAlgD ν) : ∃ g : V → ℂ, appendDual ω f = g
+/-- Hypothesis carried explicitly: each dynamics step's dual maps 𝒜 onto 𝒜 (Prop. D step 1). -/
+def KoopmanPreserves (α : (V → BH ν) → (V → BH ν)) : Prop := α '' configAlgD ν = configAlgD ν
+theorem remarkD'_dual_preserves (Φdual) (hΦ : GenByDualD ν Φdual) -- generators: steps with KoopmanPreserves,
+    -- readouts with projections in 𝒜, feedforward on configuration records, discard, appendDual ω
+    : ∀ i : V, ∃ g : V → ℂ, Φdual (indicatorAt i) = g        -- Φ*(|i⟩⟨i|) ∈ ℓ^∞(V)
+theorem remarkD'_B_i (Φdual) (hΦ : GenByDualD ν Φdual) {W : Matrix V V ℂ} (hW : W ∈ Matrix.unitaryGroup V ℂ)
+    (hnm : ¬ IsMonomial W) {p : ℝ} (hp : 0 < p) :
+    ¬ (∀ i, visibleDual Φdual (Matrix.single i i 1) = (p : ℂ) • (Wᴴ * Matrix.single i i 1 * W))
 ```
 
-- **Kernel identifiers.** `IsMonomial` (SubstratumInterface.lean:50), `IsState` (QuasilocalCharacterization.lean:196), and #1517's PO-04 (`NoDetect`)
-  for the finite case.
+  An abstract form, with an arbitrary `CStarAlgebra B` and a commutative `StarSubalgebra C`, would be a
+  **generalization** of D′. It is not designed here.
+- **Kernel identifiers.** `IsMonomial` (SubstratumInterface.lean:50), `IsState`
+  (QuasilocalCharacterization.lean:196), and #1517's PO-04 (`NoDetect`) for the finite case.
 - **Mathlib.**
-  - `CStarAlgebra` (Analysis/CStarAlgebra/Classes.lean:38).
-  - `StarSubalgebra` (Algebra/Star/Subalgebra.lean:26).
-  - `Matrix.unitaryGroup` (LinearAlgebra/UnitaryGroup.lean:60).
-  - `Matrix.instCStarAlgebra`, scoped L2Operator (Analysis/CStarAlgebra/Matrix.lean:294, :297).
-- **Hardest step.** Stating the Heisenberg dual of a protocol without Kraus forms. OPRES uses none.
-- **Label.** (I). The algebraic lift is a hypothesis: the protocol is given by its dual on
-  `V → hs.B`. Normality is not needed, which is D′'s point.
+  - `MeasureTheory.Lp` (MeasureTheory/Function/LpSpace/Basic.lean:89).
+  - `CStarAlgebra` (Analysis/CStarAlgebra/Classes.lean:38) and `StarSubalgebra`
+    (Algebra/Star/Subalgebra.lean:26).
+  - `Matrix.unitaryGroup` (LinearAlgebra/UnitaryGroup.lean:60) and `Matrix.single`
+    (Data/Matrix/Basis.lean:34).
+  - The multiplication-operator embedding of `L^∞` into `B(L²)` was not located by name in this check.
+    It is part of the obligation.
+- **Hardest step.** Defining `visibleDual`, the reduction of the dual to the finite visible matrices,
+  and `GenByDualD`, without Kraus forms. OPRES uses none.
+- **Label.** (N) as a Lean statement: an abstract `GenByDualD` with the hypothesis `KoopmanPreserves`.
+  **OI reading (I):** the algebraic lift (KIN), when the generators are read as OI's native operations.
 - **E/A/M.**
-  - E: Remark D′, layer X (#1511).
-  - A: the algebraic lift (KIN).
-  - M: the Lean text.
+  - E: Remark D′, layer X (#1511), still pending review.
+  - A: `KoopmanPreserves` as a hypothesis, and KIN in the reading.
+  - M: D′'s independent confirmation, then the Lean text.
 - **§A.35.** New module `CoherenceResourceDual`, kernel-only.
 
 ### PO-21 Proposition D: measurable carriers, the detection half (exact part). Layers: In, Born, Typ. Difficulty R.
@@ -105,7 +130,8 @@ structure NormalSlice (ω) where
   slice_mul : … ; slice_unit : …
 theorem propD_dual_preserves (Φ) (hΦ : GenByMeasurable ν Φ) (σ : NormalSlice ω) :
     ∀ i : V, ∃ f : V → ℂ, Φdual (indicator i) = mulOp f        -- Φ*(|i⟩⟨i|) ∈ ℓ^∞(V)
-theorem propD_B_i … : ¬ (Φ = p • conjChannel W) for non-monomial W         -- B(i), V finite
+theorem propD_B_i … : ¬ (∀ i, visibleDual Φdual (Matrix.single i i 1) = (p : ℂ) • (Wᴴ * Matrix.single i i 1 * W))
+  -- B(i), V finite; the L²-level protocol is reduced explicitly to the visible matrices by `visibleDual`
 ```
 
 - **Kernel identifiers.** None directly. `ReversibleDynamics` (QuasilocalAlgebra.lean:956) is the
@@ -118,8 +144,10 @@ theorem propD_B_i … : ¬ (Φ = p • conjChannel W) for non-monomial W        
   - `ContinuousLinearMap.adjoint` (Analysis/InnerProductSpace/Adjoint.lean:114).
   - `VonNeumannAlgebra` (Analysis/VonNeumannAlgebra/Basic.lean:67), for 𝒜 as a double commutant if
     used.
-  - The Koopman unitary with a Radon–Nikodym factor on `Lp 2` was **not located**, and is part of the
-    obligation.
+  - **Present:** the measure-preserving Koopman operator `MeasureTheory.Lp.compMeasurePreservingₗᵢ`
+    (MeasureTheory/Function/LpSpace/Basic.lean:632). It covers every `T` that preserves `count.prod ν`.
+  - **Missing, and part of the obligation:** only the nonsingular case, with the Radon–Nikodym factor
+    `J^{1/2}`.
 - **Not included.**
   - Proposition D's approximate part (ii), and Theorem C(b) in measurable form. Both need the trace
     or diamond norm, which is a real gap. Each would be a separate obligation with that norm as a
@@ -132,7 +160,7 @@ theorem propD_B_i … : ¬ (Φ = p • conjChannel W) for non-monomial W        
 - **E/A/M.**
   - E: Proposition D, layer X (#1511).
   - A: KIN, nonsingularity and normality.
-  - M: the Koopman construction and the slice theory in Mathlib, both mathematics.
+  - M: the nonsingular (Radon–Nikodym) Koopman case and the normal slice theory, both mathematics.
 - **§A.35.** Module `CoherenceResourceDual`, kernel-only.
 
 ### PO-22 RA-1′: instrument-level DIO for the corpus readouts, items 2, 3 and 5–10. Layers: In (complete instruments with state update), Born. Not Eff, not Acc. Difficulty M.
@@ -144,19 +172,21 @@ theorem propD_B_i … : ¬ (Φ = p • conjChannel W) for non-monomial W        
 theorem noDetect_of_rowMonomial {K : Fin n → Matrix S S ℂ} (h : ∀ k, IsRowMonomial (K k)) :
     NoDetect (∑ k, conjChannel (K k))
 -- item 2: the permutation channel of the visible history (EquivalenceChain.lean:242, `Phi`)
-theorem noDetect_Phi (φ : Equiv.Perm (V × H)) (μ : H → ℂ) (t : ℕ) : NoDetect (Phi φ μ t)   -- (MIO side: `isDiag_Phi`, :253)
--- item 3, finite form only (H finite): K_C = Σ_{x∈C} |A_t(x,h)⟩⟨x| row-monomial
+def PhiL (φ μ t) : Matrix V V ℂ →ₗ[ℂ] Matrix V V ℂ := ⟨⟨Phi φ μ t, …⟩, …⟩   -- linear wrapper; `Phi` is a plain function
+theorem noDetect_Phi (φ : Equiv.Perm (V × H)) (μ : H → ℂ) (t : ℕ) : NoDetect (PhiL φ μ t)   -- (MIO side: `isDiag_Phi`, :253)
+-- item 3, NON-SELECTIVE, finite form only (H finite): K_C = Σ_{x∈C} |A_t(x,h)⟩⟨x| row-monomial
+--   (row-monomiality from injectivity of A_t(·, h) on C, as RA-1′ gives)
 theorem noDetect_historyReadout_fin … : NoDetect (historyInstr A_t C)
 -- item 5: classical intervention dilation = conjugation by a permutation: PO-04 `noDetect_conj_of_monomial`
 -- item 6: the native ancilla readout field
 theorem noDetect_readout (T : FiniteOperationalTheory A) (n) (k : Fin n) : NoDetect (T.readout n k)
   -- via `readout_is_localLuders` (OperationalAssembly.lean:658) and `localLuders` (:191)
--- item 7: `InstAvail.readout` (ImplementationLocality.lean:268): conjugation by a diagonal projector
+-- item 7: `InstAvail.readout` (ImplementationLocality.lean:273): conjugation by a diagonal projector
 --          `readProj` (:256) is monomial ⇒ PO-04
 -- item 8: the recorder
 theorem noDetect_recordInstr (a : A) : NoDetect (recordInstr a)       -- InternalObserver.lean:249, :252
 -- item 9: block-passive and passive instruments
-theorem noDetect_of_blockPassive (hF : IsBlockPassiveInstrument F) (a) : NoDetect (F a)
+theorem noDetect_of_blockPassive (blk) (hF : IsBlockPassiveInstrument blk F) (a) : NoDetect (F a)   -- `blk` explicit
   -- via `central_classification` (CentralObservation.lean:433), `branch_scalar_on_block` (:392)
 theorem noDetect_of_passive (hF : IsPassiveInstrument F) (a) : NoDetect (F a)   -- PassiveObservation.lean:203, :215
 -- item 10: composites of the above: PO-04's closure lemmas
@@ -167,6 +197,8 @@ theorem noDetect_of_passive (hF : IsPassiveInstrument F) (a) : NoDetect (F a)   
     updates. They are not effect-level statements, which READOUT-ALG's RA-1 already covers, and they
     say nothing about the **accessible algebra**, which is Open (Str:742, Str:788, Main:722, GR:366).
   - Items 1, 4, 11, 12 and 22 have no obligation here. RA-1′ leaves them Open for DIO.
+  - RA-1′ also covers item 26 when its step U is monomial. Item 26 is outside the coordinator's
+    scope (items 2, 3 and 5–10) and is not designed here.
   - R-READ stays UNRESOLVED.
 - **Mathlib.**
   - `Matrix.diagonal` and `Matrix.diag`.
@@ -176,13 +208,15 @@ theorem noDetect_of_passive (hF : IsPassiveInstrument F) (a) : NoDetect (F a)   
   `central_classification`.
 - **Labels.**
   - `noDetect_of_rowMonomial` is (N), pure algebra.
-  - The item instances are (I). KIN enters as the Born-form typing of each corpus readout as a complex
-    channel.
-  - Item 6 adds READ: the native interpretation of the `readout` field, an open obligation (EP:25).
+  - The item theorems (`noDetect_Phi`, `noDetect_historyReadout_fin`, `noDetect_readout` over an
+    arbitrary `T`, `noDetect_recordInstr` and the passive cases) are also **(N) as Lean statements**.
+    They are theorems about defined kernel objects.
+  - **OI reading (I):** KIN, when each corpus readout is read as a native complex channel. Item 6 adds
+    READ, the native interpretation of the `readout` field, an open obligation (EP:25).
   - Item 3 is stated only for finite H. The measurable form is PO-21's setting.
 - **E/A/M.**
   - E: RA-1′, layer X from K (#1513).
-  - A: KIN, plus READ for item 6.
+  - A: none in the statements. In the OI reading: KIN, plus READ for item 6.
   - M: whether all native instruments are DIO, which is Open and physical.
 - **§A.35.** Module `CoherenceResource`, kernel-only. It imports EquivalenceChain, CentralObservation,
   InternalObserver and PassiveObservation, which are in `current` families, and edits none of them.
@@ -234,14 +268,15 @@ theorem noDetect_conjMono_iff … : NoDetect (…) ↔ NoDetect Φ
 -- (iii) Heisenberg: the substratum automorphism maps the configuration subalgebra onto itself
 theorem heisQ_configAlg (Φ : ReversibleDynamics ι Q) : heisQ Φ '' configAlg ι Q = configAlg ι Q
 -- Corollary P, two directions stated separately
-theorem pair_of_stage_sub (h : Λ₀ ⊆ Λ) : HasPair 𝓘 Λ₀ → HasPair 𝓘 Λ       -- needs 𝓘 closed under inclObsMap
-theorem pair_of_stage_sub_rev (h : Λ₀ ⊆ Λ) : HasPair 𝓘 Λ → HasPair 𝓘 Λ₀   -- the (←) direction, as stated in #1516
+-- (→) needs both closures #1516 assumes: inert-spectator extension AND transport by the dynamics
+theorem pair_of_stage (hext : ClosedUnderExt 𝓘) (htrans : ClosedUnderTransport 𝓘 Φ) :
+    HasPair 𝓘 Λ₀ → ∀ Λ, (Λ₀ ⊆ Λ ∨ ∃ k, transportStage Φ k Λ₀ ⊆ Λ) → HasPair 𝓘 Λ
+-- (←) as reviewed: over every stage containing Λ₀, Λ₀ included; trivial, no hypothesis
+theorem pair_of_stage_rev : (∀ Λ, Λ₀ ⊆ Λ → HasPair 𝓘 Λ) → HasPair 𝓘 Λ₀ := fun h => h Λ₀ subset_rfl
 ```
 
-- **Caution on the (←) direction.** #1516 calls it trivial. Read literally, it requires `𝓘` to be
-  closed under restriction, which #1516's Corollary P assumes: "those stages carry a pair" implies
-  "Λ₀ does". The design keeps it as a separate obligation, with that closure as an explicit
-  hypothesis (`hrestr`), and does not call it trivial in Lean.
+- **The (←) direction** is stated as reviewed in #1516. It quantifies over every stage containing Λ₀,
+  Λ₀ included, so it is trivial and needs no hypothesis.
 - **Kernel identifiers.**
   - `inclObs` (RegionTower.lean:123), `inclObs_trans` (:152).
   - `heisQ` (QuasilocalAlgebra.lean:1264), `heis_iterate_emb` (:1330), `stage_inclObs` (:700).
@@ -251,12 +286,16 @@ theorem pair_of_stage_sub_rev (h : Λ₀ ⊆ Λ) : HasPair 𝓘 Λ → HasPair �
   - `InertSpectatorCompositionality` (SpectatorBridge.lean:223).
 - **Mathlib.** `Matrix.kroneckerMap`, `Matrix.reindex`, `Equiv.piEquivPiSubtypeProd`
   (Logic/Equiv/Prod.lean:468), `StarSubalgebra`.
-- **Label.** (N): pure algebra on definitions under #1517's convention. KIN gives "coherence" its
-  physical reading only when the maps are read as native operations, and that reading is not in
-  these statements.
+- **Label.** (N) as Lean statements. (i)–(iii) and (←) have no premise. (→) has the hypotheses `hext` and
+  `htrans`, which are about an abstract interface `𝓘`.
+  - **OI reading (I):** IS, closure under inert-spectator extension (`InertSpectatorCompositionality`),
+    and transport by the dynamics, when `𝓘` is read as the native interface. KIN gives "coherence" its
+    physical meaning.
+  - This is the same rule as PO-25, where IS is a constructor: (N) as a statement, an import in the
+    reading.
 - **E/A/M.**
   - E: Lemma P and Corollary P, X (#1516).
-  - A: none in the statements. `hrestr` is a hypothesis of the (←) corollary.
+  - A: `hext` and `htrans` for (→). In the OI reading: IS, transport closure and KIN.
   - M: the Lean text.
 - **§A.35.** Module `CoherentTower`, kernel-only.
 
@@ -292,9 +331,12 @@ theorem ct_exact … : CTAvail ι Λ m F ↔ IsFiniteEndomorphicKrausInstrument 
        elementary 2×2 algebra; no Mathlib Euler-angle lemma was located.
     3. Two-level special unitaries generate SU: `su_mem_closure_twoLevel`
        (DiscreteCompletion.lean:1372), `su_mem_closure_of_suppOn` (:1232), `twoLevel` (:960).
-    4. Each two-level unitary comes from single-qubit unitaries and finite-support permutations. This
-       needs controlled-U from single-qubit unitaries plus CNOT, the Barenco et al. 1995 lemma, which
-       is in neither the kernel nor Mathlib. **This is the hardest step.**
+    4. Each two-level unitary comes from single-qubit unitaries and finite-support permutations.
+       - CNOT is available: kernel `cnotMat` (BridgeDictionary.lean:66), and it is a permutation
+         matrix.
+       - What is missing is the decomposition lemma for controlled-U, `A·CNOT·B·CNOT·C` with
+         `ABC = 1` up to phase (Barenco et al. 1995, Lemma 5.1). It is in neither the kernel nor
+         Mathlib. **This is the hardest step.**
     5. Instruments come from unitaries plus readout: `fullInstruments_of_control`
        (StinespringAssembly.lean:197) and `finiteInstrument_of_ancillaControl`
        (InstrumentDilation.lean:139).
@@ -305,13 +347,15 @@ theorem ct_exact … : CTAvail ι Λ m F ↔ IsFiniteEndomorphicKrausInstrument 
   - The compatibility clauses T1 to T4 of #1516: `inclObs_trans` (RegionTower.lean:152),
     `heis_iterate_emb` (QuasilocalAlgebra.lean:1330, in cone form) and `quasiState_unique` (:879).
 - **Mathlib.** `Matrix.unitaryGroup`, `Matrix.det`, `Submonoid.closure`, `Matrix.kroneckerMap`.
-- **Label.** (I). The imports are carried as follows:
-  - **KIN:** the channel types.
-  - **CR:** constructor `plus`, which is not MIO.
-  - **DET:** constructor `det`, which is not DIO.
-  - **IS:** constructor `ext`, which is `InertSpectatorCompositionality` at the stage level.
-  - **INF:** a hypothesis `[Infinite ι]`, only where the tower is used. `ct_exact` itself holds for each
-    finite Λ.
+- **Label.** (N) as a Lean statement. `ct_exact` is a theorem about a *defined* inductive, with no
+  premise.
+  - **OI reading (I):** the imports sit in the definition's constructors and are imports only when the
+    constructors are read as native operations.
+    - **KIN:** the channel types.
+    - **CR:** constructor `plus`, which is not MIO.
+    - **DET:** constructor `det`, which is not DIO.
+    - **IS:** constructor `ext`, which is `InertSpectatorCompositionality` at the stage level.
+    - **INF:** `[Infinite ι]`, only where the tower is used. `ct_exact` holds for each finite Λ.
 - **Layer discipline.**
   - `ct_exact` is a **typing-layer** statement about an availability family.
   - It does not state that any generator is physically implementable. That would be soundness of a
@@ -321,8 +365,8 @@ theorem ct_exact … : CTAvail ι Λ m F ↔ IsFiniteEndomorphicKrausInstrument 
   - It does not meet I-2 or I-3.
 - **E/A/M.**
   - E: C-T, X/P, at the typing layer (#1516).
-  - A: KIN, CR, DET, IS and INF.
-  - M: the Barenco step in Lean, which is mathematics. Physical implementability of CR and DET is
+  - A: none in the statement. In the OI reading: KIN, CR, DET, IS and INF.
+  - M: the controlled-U decomposition lemma in Lean, which is mathematics. Physical implementability of CR and DET is
     physical.
 - **§A.35.** Module `CoherentTower`, kernel-only. It imports DiscreteCompletion and
   StinespringAssembly and edits neither.
@@ -332,7 +376,7 @@ theorem ct_exact … : CTAvail ι Λ m F ↔ IsFiniteEndomorphicKrausInstrument 
 **Criterion 1 holds.** PO-20 to PO-25 are new obligations for accepted claims. None of them is stated
 in #1517.
 
-**Criterion 2 holds.** Four obligations had to be placed at a layer below the naive one:
+**Criterion 2 holds.** Three obligations had to be placed at a layer below the naive one:
 1. **PO-22 is instrument-level, not effect- or algebra-level.** RA-1′ is typed on the full branch maps.
    The Lean statements leave the accessible algebra, Open, and items 1, 4, 11, 12 and 22, which are
    effect-level only, untouched.
@@ -342,31 +386,35 @@ in #1517.
 3. **PO-20 and PO-21 are Heisenberg-dual and Born-form.** They state DIO as `Φ*(𝒜) ⊆ 𝒜` without Kraus
    forms. A Schrödinger-form typing would need a conditional expectation that does not exist on a
    diffuse MASA.
-4. **PO-24 exposes an implicit hypothesis.** The (←) direction of Corollary P needs closure under
-   restriction, which becomes an explicit hypothesis.
 
 **Outcome: PRODUCTIVE.** This is pending review. Every obligation is a design and nothing is proved.
 
 ## 3. Three questions
 
 - **Established.** Nothing in Lean. Each obligation restates a confirmed result at its own layer:
-  - Proposition D and Remark D′: X.
+  - Proposition D: X.
+  - Remark D′: X, still pending review at its confirmed pin.
   - RA-1′: X from K.
   - P-ST and the S1 combination: X.
   - Lemma P: X.
   - C-T: X/P at the typing layer.
-- **Assumed.** All written as hypotheses or fields:
-  - KIN;
-  - nonsingularity and normality (PO-21);
-  - the algebraic lift (PO-20);
-  - READ (PO-22, item 6);
-  - FE-ADM, BF and S1's (b)–(d) (PO-23);
-  - CR, DET, IS and INF (PO-25);
-  - restriction closure (PO-24, the (←) direction).
+- **Assumed.**
+  - **In the statements:**
+    - nonsingularity and normality (PO-21);
+    - FE-ADM, BF and S1's (b)–(d) (PO-23);
+    - `KoopmanPreserves` (PO-20);
+    - `hext` and `htrans` (PO-24).
+  - **In the OI readings of the (N) statements:**
+    - KIN;
+    - READ (PO-22, item 6);
+    - IS and transport closure (PO-24);
+    - CR, DET, IS and INF (PO-25).
 - **Missing.**
   - Mathematics:
-    - the Koopman unitary with a Radon–Nikodym factor, and normal slices (PO-21);
-    - the Barenco controlled-U lemma (PO-25);
+    - the nonsingular Koopman case with its Radon–Nikodym factor (the measure-preserving case is in
+      Mathlib), and normal slices (PO-21);
+    - the controlled-U decomposition lemma (PO-25), with CNOT already in the kernel as `cnotMat`;
+    - independent confirmation of Remark D′ (PO-20);
     - the trace and diamond norms, for the approximate parts, which are excluded here.
   - Physical:
     - whether all native instruments are DIO;
