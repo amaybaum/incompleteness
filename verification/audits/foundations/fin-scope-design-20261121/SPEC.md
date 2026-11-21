@@ -1,6 +1,6 @@
 # FIN-SCOPE: design specification
 
-**Status.** Writer's design, revision 5, WIP / UNVERIFIED. This is a plan only. No checker exists and
+**Status.** Writer's design, revision 6, WIP / UNVERIFIED. This is a plan only. No checker exists and
 nothing has been run, so no verdict below is a measurement. The corpus inventory in §2.3 is a read-only
 `grep` count. Independent non-author review is required before any implementation is proposed.
 Implementation, the governance change and any merge each need a separate owner decision. Revision 2
@@ -9,8 +9,9 @@ and generality moved into proofs and post-proof prose). It makes the guarantee s
 the lexical rules of §3 become a screen that prioritises review. Revision 4 answers review c.7065227255
 (C1–C3): hypothesis nodes join the dependency graph, multi-paragraph statements keep their proofs, and
 O7 is costed. Revision 5 answers c.7065296420: named conditions resolve corpus-wide, deleted scoped
-blocks are members, the cost is reconciled, and reductions (r1) and (r3) are limited. The map from
-findings to sections is in §14.
+blocks are members, the cost is reconciled, and reductions (r1) and (r3) are limited. Revision 6
+answers c.7065333755 with a frozen canonical-definition map (§2.5). The map from findings to sections is
+in §14.
 
 **Authority.**
 - #1169 c.7061660930, item 1, owner decision of 2026-11-21:
@@ -101,6 +102,16 @@ The **checklist** is fixed, and each answer is recorded:
 
 A member with no screen hit still needs its review record. A screen pass is never evidence that a
 statement's scope is right, and a screen hit is never evidence that it is wrong.
+
+Two safeguards from the owner's O7 decision (#1169 c.7065358283) bind the whole design:
+- **A clean lexical result never substitutes for mathematical review.** The screen finds potential
+  problems. Whether a member's scope is right is decided only by its review record.
+- **Mechanically identical is not mathematically equivalent.** A *mechanically identical* change is the
+  same token substitution at every site, which the tool can check. A *mathematically equivalent* change
+  is one that leaves the mathematics unchanged, which only a reviewer can judge. Examples are rewriting
+  "$S$ is finite" as "$|S| < \infty$", or reordering hypotheses. Mechanical identity licenses batching
+  only together with an independent verification of scope neutrality ((r1), §12.1). A claimed
+  mathematical equivalence never licenses batching: each such site has its own record.
 
 ## 2. Scope and block recognition
 
@@ -256,21 +267,82 @@ A block cites a node when its statement names the node's label, or the node is a
 sentence over it.
 
 **One corpus-wide dependency index.** Citations are resolved across all surfaces, `papers/*.md`, the
-book chapters and `FULL.md`, through a single index built at every run:
-- **Corpus-unique names** resolve by name alone, from any file. These are the conditions and hypotheses
-  of the AGENTS.md whitelist ((C1)–(C4), (EM), H-χ, H-spin), together with H-BD and every other name
-  the enrollment inventory finds defined exactly once in the corpus apart from mirrors. For example,
-  `(C1)` is defined at Main:72 and cited by name in ten other files, and `H-BD` is defined at GR:55
-  and cited in eight. Editing either makes every citer, in any file, a member.
-- **File-local names**, such as `(F)` or `(H2)` defined in more than one file, resolve to the
-  definition in the citing file. A file-local name cited from a file that does not define it must name
-  the defining file.
-- **Mirror nodes.** A node defined in a chapter and again in `FULL.md` is one node with two copies.
-  Rule M applies to the pair, and a change to either copy makes both copies, and every citer of
-  either, members.
-- **Ambiguity fails closed.** The enrollment inventory lists every citation by bare name. A bare name
-  that resolves to two non-mirror definitions fails the inventory (V12), and so does a citation that
-  resolves to none.
+book chapters and `FULL.md`, through a single index built at every run. It has two parts.
+
+**(i) The canonical-definition map.** This is a frozen file, `canonical.json` (§7). For every
+*corpus-wide name* it assigns exactly one *canonical definition*, and it lists every other paragraph or
+span that has the node form for that name as a *copy*. Corpus-wide names are the AGENTS.md whitelist
+((C1)–(C4), (EM), H-χ, H-spin), H-BD, and every further name the enrollment inventory finds cited from
+more than one file. Each entry records:
+- `name`, with its sub-forms (for example `C2-structural` and `C2-slow` under `(C2)`) and its frozen
+  alias phrases (for example "effective-mixing hypothesis" for `(EM)`);
+- `canonical`: the file, an *anchor* (the label text that opens it), and the digest of its normalized
+  text. For an inline-defined name, the node is the defining span: the run-in bold label and the text it
+  governs, up to the next run-in label or the end of its paragraph;
+- `copies`: for each copy, its file, anchor, digest and kind. A *mirror* is a chapter↔FULL copy,
+  expected to be byte-identical after masking. A *restatement* restates the condition, for example a
+  book appendix restating a paper's hypothesis. An *application* uses the label to apply the condition
+  in a paper's own setting.
+
+All copies of a name, together with its canonical definition, form one *node group*.
+- A citation of the name, in any file, cites the group.
+- A change to the canonical definition, or to any copy, makes every member of the group, and every
+  citer of any of them, review-set members (R-e, R-b).
+- The reviewer answers, for each restatement and application, whether it still agrees with the
+  canonical text. This is how a restatement that diverges from the canonical text goes to review.
+- At enrollment, every restatement and application is reviewed once against the canonical text, and
+  its digest pair is recorded. Afterwards, a change to either digest of a pair is a divergence, and the
+  pair goes to review.
+- A mirror whose masked text differs from its partner raises rule M.
+
+**(ii) File-local names.** A name outside the map, such as `(F)` or `(H2)`, resolves to the definition in
+the citing file. A file-local name cited from another file must name the defining file.
+
+**Ambiguity fails closed, for names outside the map.**
+- The enrollment inventory lists every citation by bare name.
+- A name outside the map that resolves to two non-mirror definitions fails the inventory (V12), and so
+  does a citation that resolves to none.
+- A whitelisted name absent from the map fails it.
+- A new paragraph with the node form for a mapped name that the map does not list fails the gate until
+  the same PR adds it to the map as a copy, with its kind. Adding it is a `canonical.json` change under
+  §7, and the new copy is a member.
+
+**Citation forms recognized.**
+- the parenthesised name, `(C1)`, and its sub-forms, `(C2-structural)`;
+- ranges, `(C1)–(C4)`, `(C1)-(C4)`, `C1–C4` and `C1--C4`. A range expands to every name between its ends,
+  in the order the map records;
+- lists, `(C1), (C3)` and `(C1)/(C2)`;
+- a bare whitelisted name without parentheses (`C1`, `C2-slow`), counted only inside a range or within
+  three words after `condition` or `conditions`, as in "conditions C1–C4 of §1.3". So `class C1` or
+  `$C^1$` is not a citation;
+- inline forms such as "conditional on (EM)" and "under (EM)", and the map's alias phrases.
+
+**Worked examples.** These are read-only `grep` reads of `main` at `df6da1c6`, with line numbers given for
+orientation only. The map anchors by label text and digest, not by line.
+
+| Name | Canonical (proposed) | Copies, with kind | Citing files (any form) | Resolves? |
+|---|---|---|---|---|
+| `(C1)` | `papers/Main.md:72`, `**(C1) Non-zero coupling.**` | `papers/GR.md:46` `**(C1)** The Hamiltonian and momentum constraints …` (application); `papers/Structure.md:112` `(C1) **Coupling.**` (restatement) | `(C1)` in 11 files: Main, GR, Structure, Complexity, Medicine, SM, FULL, appendix-b, appendix-c, ch01, ch11. `C1–C4` in 29 files. `(C1)–(C4)` at Main:754 and in FULL and appendix-b | yes: one group of 3 nodes; every citer cites the group |
+| `(C2)` | `papers/Main.md:74`, `**(C2) Memory persistence.**`, with sub-forms `C2-structural` and `C2-slow` defined there | `papers/GR.md:48` `**(C2)** The slow-bath example …` (application); `papers/Structure.md:114` `(C2) **Record persistence.**` (restatement) | 10 files: Main, GR, Structure, Substratum, Complexity, Medicine, SM, FULL, ch01, ch15 | yes: one group of 3 |
+| `H-BD` | `papers/GR.md:122`, `**H-BD** (deep-sector influence bound; posited).` | `book/appendix-b-derivations.md:177` (restatement); `book/The-Incompleteness-of-Observation-FULL.md:5854` (mirror of appendix-b:177) | 9 files: GR, Methodology, Substratum, FULL, appendix-b, ch02, ch03, ch07, ch18 | yes: one group of 3. The appendix-b/FULL pair is also under rule M |
+| `(EM)` | `papers/Main.md:756`, inline: the run-in `**Effective-mixing hypothesis (EM).**` and the italic statement it governs, inside the `**Setup.**` paragraph | none found in the node form | 4 files: Main (754, 756, 758, 764, 766, 770), Methodology, FULL, ch04; the alias "effective-mixing hypothesis" at Main:758 | yes: a group of 1, the inline span |
+
+Two corrections to revision 5 follow from this. `(C1)` and `(C2)` have node-form paragraphs in Main, GR
+and Structure, so they are not "defined exactly once". H-BD's canonical site is GR:122, not GR:55. Under
+the map, each of the four resolves to exactly one group.
+
+**Maintenance when a definition moves.**
+- A moved node whose digest is unchanged pairs with its old site by digest, as blocks do (§2.4). It is
+  not a content change, and the PR must update the map's anchor in the same commit. If it does not, the
+  anchor no longer resolves and the gate fails.
+- The map update is a `canonical.json` change under §7. It needs its own review record, which states
+  that the anchor moved and the text did not.
+- If the canonical definition is deleted while copies remain, or edited into what is now a restatement
+  of another site, the same PR must designate a new canonical definition. Until it does, the gate fails.
+  The designation is a reviewed map change, and the whole group and its citers are members.
+- A copy that is deleted is removed from the map in the same PR. It is a member as a deleted node, and
+  its citers in its own file are members.
+- Line numbers in the map are informational, and are refreshed at each map change.
 
 When a node is new, changed or deleted, the node itself is a review-set member (R-e), and every block
 citing it joins the review set by closure (R-b), since its hypothesis digest changed. For example,
@@ -598,7 +670,8 @@ The proposed home is `verification/infrastructure/fin-scope/` (§A.36). It holds
 - `fin_scope.py`, the checker, with `--self-test`;
 - `vocab.json`: the classes of §3.1, the carrier and neutral lists, the 0.6 threshold and the #1483 pin;
 - `baseline.json`;
-- `reviews.json`, the review registry of §3.5.
+- `reviews.json`, the review registry of §3.5;
+- `canonical.json`, the canonical-definition map of §2.5.
 
 Each run checks four configuration controls:
 - **The allowlist.** It is #1483's, read from the pinned blob, and FIN-SCOPE has none of its own. A new
@@ -607,6 +680,9 @@ Each run checks four configuration controls:
 - **Narrowing `vocab.json`.** A commit that removes or narrows a pattern, or adds a neutral context,
   fails. It passes only when the same commit adds a case showing that the removed pattern's TESTS cases
   are still caught, or cites an owner decision.
+- **The canonical-definition map.** A change to `canonical.json` (a new name, a new copy, a moved anchor
+  or a new canonical designation) needs its own review record. A change that leaves a whitelisted name
+  without a canonical definition fails.
 - **Append-only registries.** `reviews.json` and `baseline.json` are append-only, apart from the
   reference replacement of §6.1. The gate compares each with its blob at the merge base.
 - **The fixture inventory.** The `TESTS.md` case list is pinned by digest. A changed expected verdict
@@ -665,6 +741,10 @@ Each run checks four configuration controls:
   | cross-file names resolved only within the citing file | P-H4 |
   | deleted scoped blocks not members | P-L4b |
   | the (r1) map limit off | P-R9 |
+  | a change to a copy reaching only that copy's own citers | P-H8 |
+  | range citations not expanded | P-H6 |
+  | the coverage check (V27) off | P-O3 |
+  | the (r2) resolved-target equality off | P-O4 |
   | the attestation check off | P-R1 |
   | the reference-count recomputation off | P-R6 |
 
@@ -792,6 +872,11 @@ For the Code Review Rules, under *Claim/evidence boundary*:
 | V22 | named conditions resolve corpus-wide, and ambiguity fails closed | P-H4, P-H5; the cross-file-resolution mutant |
 | V23 | a deleted scoped block is a member and its L hit can fail the gate | P-L4b; the deleted-member mutant |
 | V24 | a reduced (r3) record answers items 1, 2 and 4 | P-R11 (if r3 is adopted) |
+| V25 | every mapped name resolves to exactly one node group, and a change to any node of a group reaches every citer of the group | P-H4, P-H6–P-H8; the group-closure mutant |
+| V26 | the map stays in step with the corpus: an unlisted node-form paragraph or an unresolved anchor fails | P-H9, P-H10 |
+| V27 | no reduction silently excludes a theorem: the union of covered keys equals the review set | P-O1, P-O3; the coverage mutant |
+| V28 | a mathematically equivalent but not mechanically identical change is never batched | P-O2, P-O5 |
+| V29 | (r2) needs identical text, hypothesis digests and resolved targets | P-O4 |
 
 ## 12. Owner decisions needed
 
@@ -817,8 +902,20 @@ For the Code Review Rules, under *Claim/evidence boundary*:
   signed commits with separately held keys, (δ) a separate reviewer account, or a combination. The
   reviewer's assessment of what each verifies is recorded in §3.6, and the writer proposes no choice.
   Until O6 is decided, no record can be attested.
-- **O7.** Whether the review load of §1.1 is accepted, and with which reductions. The costing is in
-  §12.1.
+- **O7. Decided by the owner (#1169 c.7065358283).**
+  - About 130–250 review items a week is approved *provisionally*, as a design target. It is not a
+    guarantee about staffing or throughput.
+  - The actual cost is reviewed after deployment.
+  - The reductions are approved only under the owner's conditions, which §12.1 carries.
+  - No reduction may silently exclude a theorem from review.
+  - Three items are blocking before acceptance, each with adversarial regression tests (TESTS §2.4) and
+    independent confirmation:
+    - corpus-wide named-condition dependencies (§2.5);
+    - deleted theorems keeping their scope obligations (§1.1, R-a);
+    - individual review of any transformation that affects finiteness, infinite-system assumptions,
+      mathematical carriers or theorem scope (§12.1, r1).
+  - The checker is not implemented, `AGENTS.md` is not modified, and FIN-SCOPE is not merged, until the
+    A1 retirement is complete.
 
 ### 12.1 The cost of O7
 
@@ -851,29 +948,50 @@ the A1-EXIT propagation period, busier than usual, and the counts are re-measure
 Each member needs a record with sentence answers and an attestation: an owner clearance per member or
 per batch under (β), or a separate reviewer identity under (δ).
 
-**Reductions that keep the guarantee, each with its limit and its control.**
-- **(r1) Batched records for scope-neutral substitutions.**
+**Reductions, under the owner's O7 conditions (c.7065358283).** Every reduction is bound by one
+coverage rule: **no reduction may silently exclude a theorem from review**. Each reduced record lists
+every member it covers by key and digest. The gate checks that the union of the keys covered by records,
+reduced or not, equals the review set. A member that no record names fails (V27).
+
+- **(r1) Batched records, only for substitutions that are mechanically identical and independently
+  verified not to change mathematical scope.**
   - The PR declares a frozen substitution map. The tool checks that each member's diff is exactly an
-    instance of the map, token for token.
+    instance of the map, token for token. This is mechanical identity.
   - **Limit.** Neither side of any map entry may contain a token of a screen class (`FINITE_TERMS`,
     `FS_A` forms, `NEG_FINITE`, `IS`, `GEN`, `PROMO`, `FU`, `IU`, J10's vocabularies), a carrier symbol
-    or a carrier noun. No member's screen counts or hypothesis digest may change under the map.
-  - A map that fails the limit is refused for batching, and every member then needs its own record.
-    So a map that deletes "finite" at 40 sites, or renames a carrier, cannot pass under one answer.
-  - One record then answers the checklist for the map, and covers every instance. A member whose diff
-    is not an exact instance falls back to its own record.
-- **(r2) One record per mirror pair.** This needs byte-identical masked texts and equal hypothesis
-  digests after the change, since `FULL.md` and the chapter may resolve different nodes. The control is
-  equality of both digests. Otherwise two records are needed.
-- **(r3) A reduced checklist for closure members whose own text is unchanged.** Items 1, 2 and 4 are
-  answered, against the changed lemma or node: does this block rely on the finiteness or the
-  infiniteness that changed, or on a removed hypothesis? Item 2 is needed because a cited lemma narrowed
-  to infinite systems changes what its dependents rely on.
-- **(r4) One owner attestation per PR under (β)**, listing every member's digests.
-  - This reduces the owner's actions from one per member to one per PR, and leaves the number of records
-    unchanged.
-  - Its risk is stated plainly: a single action over a hundred digests invites approval without reading.
-    It keeps the guarantee formally, and only as well as the owner reads.
+    or a carrier noun. No member's screen counts, hypothesis digest or resolved targets may change under
+    the map. A map that fails the limit is refused for batching, and every member needs its own record.
+    So any transformation that touches finiteness, infinite-system assumptions, carriers or theorem scope
+    is reviewed member by member.
+  - **Independent verification of scope neutrality.** The batched record is a review record by a
+    non-author, with an attestation under O6. It answers one question for the map itself: can this
+    substitution change the mathematical scope of any statement at any of its sites? The answer is
+    recorded per map entry. The mechanical checks of the limit are necessary for batching, and this
+    record is required as well.
+  - The record lists every covered member. A member whose diff is not an exact instance falls back to its
+    own record.
+- **(r2) One record per mirror pair, only when the text and the resolved hypothesis dependencies are both
+  identical.** The masked texts must be byte-identical. The hypothesis digests and the resolved citation
+  targets must be equal, since `FULL.md` and the chapter may resolve different nodes. The control is
+  equality of all three. Otherwise two records are needed.
+- **(r3) A reduced checklist for closure members whose own text is unchanged**, only if it still checks
+  three things, against the changed lemma or node:
+  - finite assumptions: item 1;
+  - infinite assumptions: item 2;
+  - the effect of the changed dependency: whether this block relies on what changed, and whether its own
+    scope is lost, widened or narrowed by it. This is item 4, extended for dependents.
+
+  Item 2 is needed because a cited lemma narrowed to infinite systems changes what its dependents rely
+  on.
+- **(r4) One owner attestation per PR under (β), covering an explicit, individually reviewable set of
+  findings.**
+  - The attestation names every member's key, digests and record, and every blocking hit with its
+    answer.
+  - It attests records that already exist and that each answer their checklist. It replaces none of
+    them, and it is never automatic acceptance.
+  - A member, record or finding that the attestation omits is not attested, and the gate fails on it.
+  - Its risk is stated plainly: a single action over a hundred findings invites approval without
+    reading. It keeps the guarantee only as well as the owner reads.
 
 **Reductions that would weaken the guarantee.** These are listed for completeness and not proposed:
 - exempting screen-clean members;
@@ -884,8 +1002,9 @@ per batch under (β), or a separate reviewer identity under (δ).
 **Trade-off.** The guarantee costs one attested review record per member, about 130–250 a week on the
 measured window. With (r1)–(r4), a typical PR needs a handful of records. A sweep needs one per member
 whose change carries scope, plus one per scope-neutral map. Making it cheaper still means reviewing
-less, which reopens the escapes R1–R5 for the unreviewed changes. Choosing the reductions and accepting
-the load is the owner's decision.
+less, which reopens the escapes R1–R5 for the unreviewed changes. The owner has accepted the load
+provisionally, with the reductions under the conditions above, and the actual cost is to be reviewed
+after deployment (O7).
 
 ## 13. Result classification
 
@@ -954,3 +1073,23 @@ a FIN-SCOPE pass is not evidence for either class.
 | (r2) hypothesis digests | §12.1 |
 | (r3) item 2 | §12.1; V24; TESTS P-R11 |
 | (r4) risk | §12.1 |
+
+**Delta review c.7065333755.**
+
+| Finding | Where addressed |
+|---|---|
+| Canonical-definition map | §2.5 (i): one canonical definition per name; copies (mirror, restatement, application) form one node group; divergence goes to review |
+| Range and inline citations | §2.5, citation forms |
+| Worked examples | §2.5 table: (C1), (C2), H-BD and (EM), with file:line, read-only at `df6da1c6`; each resolves to one group |
+| Maintenance | §2.5, maintenance when a definition moves; §7 map control; V26 |
+| TESTS | P-H4 rebased; P-H6–P-H10 and N32 added; P-H5 kept for names outside the map |
+
+**Owner decision O7 (c.7065358283).**
+
+| Point | Where carried |
+|---|---|
+| Provisional load, cost reviewed after deployment | §12 O7; §12.1 trade-off |
+| r1–r4 conditions | §12.1 |
+| No silent exclusion | §12.1 coverage rule; V27 |
+| Blocking items with adversarial tests | §12 O7; TESTS §2.4 |
+| Clean lexical result is not review; mechanical identity is not equivalence | §1.1 |

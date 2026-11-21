@@ -1,10 +1,11 @@
 # FIN-SCOPE: adversarial test designs
 
-**Status.** Writer's test plan, revision 5, WIP / UNVERIFIED, for `SPEC.md` revision 5. These are
+**Status.** Writer's test plan, revision 6, WIP / UNVERIFIED, for `SPEC.md` revision 6. These are
 designs: no case has been run. Every "expected" entry is the verdict the rule as written in SPEC §3 must
 produce, fixed before any implementation exists, and the "why" column derives it from the counts.
 Revision 2 answered review c.7064941939, revision 3 the delta review
-c.7065126686, revision 4 c.7065227255, and revision 5 answers c.7065296420.
+c.7065126686, revision 4 c.7065227255, revision 5 c.7065296420, and revision 6 answers
+c.7065333755.
 
 **Conventions.**
 - Every case is synthetic text in a fixture file and never an edit of the manuscript. Where a case is
@@ -243,8 +244,34 @@ through review-set membership alone.
 | P-R10 | a map deleting the word `finite` at 40 sites, under one batched record | — | `finite` is a `FINITE_TERMS` token, so the map is refused for batching. Every member needs its own record, and each raises L | refused batch; {L} on each of 40 | membership, plus the screen | FAIL with only the batched record |
 | N31 | a map renaming the non-carrier symbol `$\tau$` to `$\sigma_1$` in 12 blocks, under one batched record | — | Neither side holds a screen token or a carrier, and no member's counts or hypothesis digest change. All 12 diffs are exact instances | ∅ | membership (one batched record) | PASS with the batched record |
 | P-R11 | Lemma M is N3; block D cites M and is unchanged | M narrowed with "Let $S$ be countably infinite." D's reduced (r3) record answers items 1 and 4 only | M's IS changed, so D joins by closure. A reduced record must answer items 1, 2 and 4, and this one lacks item 2 | ∅ hits on D | membership (closure) | FAIL; PASS once item 2 is answered |
-| P-H4 | `(C1)` defined in `papers/Main.md`; a block in `papers/GR.md` cites `(C1)` by bare name, with a pigeonhole proof and FS_A drawn from (C1)'s text "the configuration space is finite" | (C1) in Main edited to drop "is finite" (C1, cross-file) | `(C1)` is corpus-unique, so it resolves corpus-wide. The GR block's hypothesis digest changed, so it is a member. FS_A=0 and FU=1 | {A} on the GR block | screen, on a cross-file dependent | FAIL. Under the mutant that resolves names only within the citing file, the GR block is not a member and the case gives ∅ |
-| P-H5 | `(F)` defined in both `papers/SM.md` and `papers/GR.md`, not as mirrors; a block in `papers/Structure.md` cites `(F)` by bare name | — | the name is ambiguous, so the enrollment inventory fails (V12, V22) | inventory failure | inventory | FAIL |
+| P-H4 | a fixture in the corpus's shape: the canonical `**(C1) Non-zero coupling.** … the configuration space is finite …` in a Main-like file; a restatement copy `(C1) **Coupling.** …` in a Structure-like file; and a block in a GR-like file citing `(C1)` by bare name, with a pigeonhole proof and FS_A drawn from (C1)'s text | "is finite" dropped from the canonical definition (C1, cross-file) | (C1) is mapped, so the GR citer resolves to its group. The canonical definition changed, so the group (canonical and restatement) and every citer are members. On the GR block, FS_A=0 and FU=1. The restatement's agreement with the canonical text is a checklist answer on it | {A} on the GR block; ∅ on the group's nodes | screen, on a cross-file dependent; membership for the group | FAIL. Under the mutant that resolves names only within the citing file, the GR block is not a member and the case gives ∅ |
+| P-H6 | the P-H4 fixture with (C3) mapped, and a block citing `(C1)–(C4)` | (C3)'s canonical text edited | The range expands to (C1), (C2), (C3) and (C4), so the block cites (C3)'s group and is a member | ∅ hits unless its counts change | membership (range) | FAIL with no record; PASS with a plain record. Under the no-expansion mutant the block is not a member |
+| P-H7 | `(EM)` canonical as an inline run-in span inside a `**Setup.**` paragraph (the Main:756 shape); one block citing "conditional on (EM)"; one using the alias "the effective-mixing hypothesis" | the italic statement inside the run-in span edited | The inline span is the node, so it is a member. Both citers are members, the second through the alias | ∅ hits unless counts change | membership (inline node, alias) | FAIL with no record; PASS with plain records |
+| P-H8 | the P-H4 fixture | only the restatement copy in the Structure-like file edited | A change to any node of the group makes the canonical definition, every copy and every citer, in every file, members. The reviewer answers whether the restatement still agrees with the canonical text | ∅ hits | membership (group) | FAIL with no record. Under the mutant where a copy change reaches only the copy's own citers, the GR citer and the canonical definition are missed |
+| P-H9 | the P-H4 fixture | a new paragraph `**(C1)** In the lattice setting …` added to a fourth file, with `canonical.json` unchanged | A node-form paragraph for a mapped name that the map does not list | gate failure (V26) | configuration | FAIL until the same PR adds it to the map as a copy, with its kind and a review record |
+| P-H10 | the P-H4 fixture | the canonical paragraph moved unchanged to another section of its file, with `canonical.json` unchanged | It pairs by digest, so its content is unchanged, but the map's anchor no longer resolves at its recorded site | gate failure (V26) | configuration | FAIL. PASS when the same PR updates the anchor with a review record stating that the anchor moved and the text did not |
+| N32 | (new) | *Let $f$ be of class C1 on a compact interval.* | A bare `C1` counts as a citation only inside a range or after `condition(s)`, so this is not a citation of (C1) | ∅ | membership (new block) | PASS |
+| P-H5 | (a name outside the canonical map) `(F)` defined in both `papers/SM.md` and `papers/GR.md`, not as mirrors; a block in `papers/Structure.md` cites `(F)` by bare name | — | the name is ambiguous, so the enrollment inventory fails (V12, V22) | inventory failure | inventory | FAIL |
+
+### 2.4 Regression tests for the owner's blocking items (O7, c.7065358283)
+
+Each blocking item has adversarial regression tests. Independent confirmation of each is a separate
+review step.
+
+| Blocking item | Regression tests |
+|---|---|
+| Corpus-wide named-condition dependencies, papers and book | P-H4 (a cross-file citer), P-H6 (a range), P-H7 (an inline node and an alias), P-H8 (a copy edit reaching every citer), P-H9, P-H10 (map drift), P-H5 (ambiguity outside the map) |
+| Deleted theorems keep their scope obligations | P-L4b (a deleted scoped block is a member), P-O1 (a deletion inside a batched PR) |
+| Individual review of transformations affecting finiteness, infinite-system assumptions, carriers or scope | P-R9 (a carrier rename), P-R10 (deleting `finite`), P-O2 (a mathematically equivalent rewrite), P-O5 (a substitution into a carrier) |
+| No reduction silently excludes a theorem | P-O3 (r4), P-O1 (r1), P-O4 (r2), P-R11 (r3) |
+
+| ID | Before | Change | Why | Items | Route | Verdict |
+|---|---|---|---|---|---|---|
+| P-O1 | 20 blocks; Lemma 9 (FS_L=1) among them | a PR applies N31's scope-neutral rename at 19 sites under one batched record, and deletes Lemma 9 | The rename members are covered by the batch. The deleted Lemma 9 is a member (R-a) that the batch does not name, so it needs its own record answering its L hit | {L} on Lemma 9 | membership, plus the screen | FAIL with only the batched record |
+| P-O2 | 10 blocks with "Let $S$ be finite" | rewritten everywhere as "Let $|S| < \infty$", declared as one map | Mechanically identical, but both sides carry `FINITE_TERMS`/`FS_A` tokens, so the map is refused for batching. A claimed mathematical equivalence does not license batching | refused batch; each of 10 needs its own record | membership | FAIL with only the batched record; PASS with 10 records |
+| P-O3 | a PR with 10 members, each with its record | one (r4) owner attestation listing 9 of them | The 10th member is not attested, and the coverage check finds it uncovered | coverage failure (V27) | configuration | FAIL |
+| P-O4 | a chapter block and its FULL mirror, byte-identical, both citing `(F)`; the chapter's `(F)` and FULL's `(F)` are file-local nodes with different texts | both edited identically, under one (r2) record | The texts are identical, but the resolved hypothesis dependencies differ, so (r2) does not apply | two records required | membership | FAIL with one record |
+| P-O5 | 12 blocks using `$\tau$` | a map renaming `$\tau$` to `$S$` | The right side is a carrier symbol, so the map fails the (r1) limit, and each member's FS_A, carriers and quantifier objects may change | refused batch | membership | FAIL with only the batched record |
 
 ## 3. Documented limits (X-cases)
 
@@ -279,7 +306,8 @@ The tool's expected verdict is recorded, and the safeguard named.
 | membership and closure (§1.1) | P-S1, P-D2, P-D3, P-H1, P-H2 | N30, the non-member cases in the conventions | P-S1, P-D2, P-H1, P-H2 |
 | block extent with a proof (C2) | P-C2, P-C3 | N29 | P-C2, P-C3 |
 | batched records (r1), (r3) | P-R9, P-R10, P-R11 | N31 | P-R9 |
-| corpus-wide names (C1) | P-H4, P-H5 | — | P-H4 |
+| corpus-wide names and the canonical map | P-H4–P-H10 | N32 | P-H4, P-H6, P-H8 |
+| reductions under O7 | P-O1–P-O5, P-R9–P-R11 | N31 | P-O3, P-O4 |
 | deleted scoped blocks | P-L4b | — | P-L4b |
 | advisory backstop | P-G11, row 42 | N25 | N22, N25 (G5 made blocking) |
 | resolutions and configuration | P-L8, P-G8, P-R1–P-R8 | N8, P-L9 | P-R1, P-R2, P-R6 |
