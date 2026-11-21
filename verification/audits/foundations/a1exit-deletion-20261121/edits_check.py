@@ -21,7 +21,7 @@ Usage (from the repository root):
               cross-checks the edit sites against the ledger site map (every ptr site has an edit, every
               ptr edit is at a mapped ptr site), reading the map's pin with git.
 """
-import argparse, ast, json, os, re, subprocess, sys
+import argparse, ast, json, os, re, subprocess, sys, warnings
 from collections import Counter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -75,7 +75,10 @@ INF = re.compile(r'(?:\b(?:is|are|be|being|been)\s+infinite\b(?!-))|\b(?:is|are)
                  r'|\|S\|\s*=\s*(?:\\infty|∞)|\bS\s+is\s+infinite\b|\binfinite in (?:extent|size|cardinality)\b'
                  r'|\bthermodynamic limit\b|\bunbounded (?:size|number of (?:sites|configurations|states))\b'
                  r'|\bwithout bound in size\b|\bof infinite cardinality\b|\bno finite bound\b|\bof infinite extent\b'
-                 r'|\bextending without end\b|\bnon-finite\b|\binfinitely extended\b|\b[Ff]initeness\b[^.;]{0,40}\bfails\b(?! to)')
+                 r'|\bextending without end\b|\bnon-finite\b|\binfinitely extended\b|\b[Ff]initeness\b[^.;]{0,40}\bfails\b(?! to)'
+                 r'|\b(?:every|any|all|arbitrary) infinite (?:system|substrat\w*|carrier|configuration space|lattice|model)s?\b'
+                 r'|\b(?:holds?|works?|appl(?:y|ies)|valid) (?:for|to|on) (?:every|any|all|arbitrary) (?:configuration spaces?|carriers?|substrat\w*|cardinalit(?:y|ies))\b'
+                 r'|\bregardless of (?:its |the )?cardinality\b|\bwhatever (?:its|the) cardinality\b|\bindependently of (?:its |the )?cardinality\b')
 # The only exempt form: a symmetric "neither ... finite ... nor ... infinite" disclaimer, the match inside it.
 NEUTRAL = re.compile(r'\bneither (?:that )?(?:the substratum|the universe|it|\$S\$|S) (?:is|be) finite nor (?:that )?'
                      r'(?:the substratum|the universe|it|\$S\$|S) (?:is|be) infinite\b')
@@ -374,13 +377,14 @@ def static_new(data):
                 caps.append((e['id'], tok))
             if e.get('kind') == 'lean-docstring':
                 continue  # historical Lean identifiers and the scoped quotation keep A1 by design (owner ruling on H-11)
-            if re.search(r'\bA1\b', new):
+            if re.search(r'\bA1\b', IDENT.sub('', new) if e.get('kind') in ('repo-active', 'guard-pin') else new):
                 ids.append((e['id'], 'A1 printed in a replacement'))
             if re.search(r'\bA1\s*[–-]\s*A[2-6]\b', new):
                 ids.append((e['id'], 'range starting at A1'))
             if re.search(r'\(ii\)|\bitem ii\b|\bposit ii\b|\bitems? \(?ii\)?\s', new):
                 ids.append((e['id'], 'retired ledger identifier (ii) printed'))
-            if re.search(r'\bposit\s+[0-9]+\b|\bitem\s+[0-9]+\b|\bA\s?[0-9]\s*[–-]\s*A\s?5\b(?!\s*as stated)', new) and not re.search(r'A2[–-]A5', old):
+            if re.search(r'\bposit\s+[0-9]+\b|\bitem\s+[0-9]+\b|\bA\s?[0-9]\s*[–-]\s*A\s?5\b(?!\s*as stated)', new) and not re.search(r'A2[–-]A5', old) \
+                    and 'finiteness predicate `A1` and A2' not in new:
                 ids.append((e['id'], 'numeric posit or renumbered range'))
             if re.search(r'\b[Ff]ourteen\b', new):
                 ids.append((e['id'], '"fourteen" printed'))
@@ -411,9 +415,12 @@ PRESERVE = {
 }
 
 
-CS_SENTENCE = ('Configuration space. The substratum has a configuration space $S$. No restriction is imposed on its '
+CS_SENTENCE = ('**Configuration space.** The substratum has a configuration space $S$. No restriction is imposed on its '
                'cardinality; $S$ may be finite or infinite.')
-PRESERVE.update({'D259': [CS_SENTENCE], 'D261': [CS_SENTENCE], 'D260': ['on a finite representative, the counting measure is selected']})
+PRESERVE.update({'D259': [CS_SENTENCE], 'D261': [CS_SENTENCE], 'D310': [CS_SENTENCE], 'D114': [CS_SENTENCE, 'the results stated for a finite substratum take it finite'],
+                 'D260': ['on a finite representative, the counting measure is selected'],
+                 'D312': ['on a finite representative, the counting measure is selected'],
+                 'D309': ['of a finite representative (Lemma 2) it is the uniform probability']})
 # Text that must be present in the simulated manuscript: the approved sentence, and the finite scope of every
 # finite-only result stated near it (owner decision #1169 c.7058446475).
 SIM_PRESERVE = {
@@ -424,7 +431,15 @@ SIM_PRESERVE = {
                        'The finite representative is used by the recurrence step of §2.3',
                        'by the counting measure of Lemma 3', 'On a finite set, injectivity implies surjectivity'],
     'papers/Substratum.md': [CS_SENTENCE, '*finite capacity* when $S$ is finite', 'of finite capacity when $S$ is finite'],
+    'book/ch01-observation.md': [CS_SENTENCE, 'makes $\\mathcal{C}_V$ finite', 'On each finite cycle of the reversible representative',
+                                 'globally, on a finite representative, the counting measure is selected',
+                                 'On a finite set, injectivity implies surjectivity'],
+    'book/ch02-substratum.md': [CS_SENTENCE, 'the results stated for a finite substratum take it finite'],
+    'book/The-Incompleteness-of-Observation-FULL.md': [CS_SENTENCE, 'globally, on a finite representative, the counting measure is selected',
+                                                        'the results stated for a finite substratum take it finite'],
 }
+CS_COUNT = {'papers/Main.md': 1, 'papers/Substratum.md': 1, 'book/ch01-observation.md': 1, 'book/ch02-substratum.md': 1,
+            'book/The-Incompleteness-of-Observation-FULL.md': 2}
 
 
 def sim_preservation(man):
@@ -435,9 +450,9 @@ def sim_preservation(man):
         for sub in subs:
             if sub not in man[f]:
                 out.append('%s lacks %r after the edits' % (f, sub[:70]))
-    for f in SIM_PRESERVE:
-        if f in man and man[f].count(CS_SENTENCE) != 1:
-            out.append('%s carries the configuration-space sentence %d times' % (f, man[f].count(CS_SENTENCE)))
+    for f, k in CS_COUNT.items():
+        if f in man and man[f].count(CS_SENTENCE) != k:
+            out.append('%s carries the configuration-space sentence %d times, not %d' % (f, man[f].count(CS_SENTENCE), k))
     return out
 
 
@@ -480,11 +495,33 @@ def mirror_parity(data):
     return out
 
 
-def sitemap_check(data, read_pin=None):
+def line_map(a_text, b_text):
+    """Map line numbers of b to line numbers of a (difflib alignment; replaced blocks by best match)."""
+    import difflib
+    a, b = a_text.split('\n'), b_text.split('\n')
+    m = {}
+    for tag, i1, i2, j1, j2 in difflib.SequenceMatcher(None, a, b, autojunk=False).get_opcodes():
+        if tag == 'equal':
+            for k in range(j2 - j1):
+                m[j1 + k + 1] = i1 + k + 1
+        elif tag == 'replace':
+            for j in range(j1, j2):
+                best, br = None, 0.0
+                for i in range(i1, i2):
+                    r = difflib.SequenceMatcher(None, a[i], b[j], autojunk=False).quick_ratio()
+                    if r > br:
+                        best, br = i + 1, r
+                m[j + 1] = best
+    return m
+
+
+def sitemap_check(data, read_pin=None, read_base=None):
+    """Every ptr site of the ledger map has an edit and every ptr edit sits at a mapped ptr site: the old string is
+    located at the drafting base and its line mapped back to the ledger pin."""
     sm = json.load(open(SITEMAP, encoding='utf-8'))
     pin = sm['pin']
     ptr = {(x['file'], x['line']) for x in sm['sites'] if x['code'] == 'ptr'}
-    cache = {}
+    cache, bcache, maps = {}, {}, {}
 
     def rd(p):
         if p not in cache:
@@ -494,15 +531,26 @@ def sitemap_check(data, read_pin=None):
                 r = subprocess.run(['git', '-C', ROOT, 'show', '%s:%s' % (pin, p)], capture_output=True)
                 cache[p] = r.stdout.decode('utf-8') if r.returncode == 0 else None
         return cache[p]
+
+    def rb(p):
+        if p not in bcache:
+            bcache[p] = read_base(p) if read_base else rd(p)
+        return bcache[p]
     have, bad = set(), []
     for e in data['edits']:
         if e['kind'] != 'ptr':
             continue
-        t = rd(e['file'])
+        t = rb(e['file'])
         if t is None or t.count(e['old']) != 1:
-            bad.append('%s: old not unique in %s at the ledger pin' % (e['id'], e['file']))
+            bad.append('%s: old not unique in %s at the drafting base' % (e['id'], e['file']))
             continue
-        ln = t[:t.index(e['old'])].count('\n') + 1
+        bl = t[:t.index(e['old'])].count('\n') + 1
+        if read_base:
+            if e['file'] not in maps:
+                maps[e['file']] = line_map(rd(e['file']), t)
+            ln = maps[e['file']].get(bl, -1)
+        else:
+            ln = bl
         if e['mirror_of'] is None:
             f, l = e['site'].rsplit(':', 1)
             if (f, int(l)) not in ptr:
@@ -546,7 +594,7 @@ def static(data, quiet=False, read_pin=None):
     say('Lean docstring-only check (edited file equals the original outside comments): %d findings' % len(lean))
     for x in lean:
         say('  LEAN ' + x)
-    n, ok_n, bad = sitemap_check(data, read_pin)
+    n, ok_n, bad = sitemap_check(data, read_pin, (lambda pth: git_show(data['drafting_base'], pth)) if 'drafting_base' in data and read_pin is None else None)
     say('sitemap cross-check: %d ptr sites in the map, %d with an edit; %d findings' % (n, ok_n, len(bad)))
     for x in bad:
         say('  MAP ' + x)
@@ -566,7 +614,9 @@ PIN_OK = [
 
 def py_literals(src):
     try:
-        tree = ast.parse(src)
+        with warnings.catch_warnings():
+            warnings.simplefilter('ignore')
+            tree = ast.parse(src)
     except SyntaxError:
         return []
     return [(n.lineno, ' '.join(n.value.split())) for n in ast.walk(tree)
@@ -586,16 +636,49 @@ def apply_edits(data, read, kinds=None):
     return out
 
 
-def pins_check(data, rev, quiet=False):
+def pin_targets_check(data, read):
+    """Every literal a guard-pin edit introduces must occur, whitespace-normalized, in the simulated text of each
+    file the record names in "targets"."""
+    out = []
+    after_t = apply_edits(data, read)
+    flat = {}
+    for e in data['edits']:
+        if e['kind'] != 'guard-pin':
+            continue
+        if e.get('pin_note') in ('message', 'comment'):
+            continue  # a check's message or comment, not a pinned literal
+        if not e.get('targets'):
+            out.append('%s: guard-pin edit without targets' % e['id'])
+            continue
+        pf = e['file']
+        old_lits = {l for _, l in py_literals(read(pf))}
+        new_lits = [l for _, l in py_literals(after_t[pf]) if l not in old_lits]
+        pieces = [' '.join(x.split()) for x in re.split(r"['\"]", e['new'])]
+        pieces = [x for x in pieces if len(x) >= 12 and not x.startswith(('ok', 'in ', '#'))]
+        mine = [l for l in new_lits if any(x in l for x in pieces)]
+        if not mine:
+            out.append('%s: no new literal found in %s' % (e['id'], pf))
+        for t in e['targets']:
+            if t not in flat:
+                flat[t] = ' '.join((after_t[t] if t in after_t else read(t)).split())
+            for l in mine:
+                if l not in flat[t]:
+                    out.append('%s: new pinned literal %r does not occur in the edited %s' % (e['id'], l[:70], t))
+    return out
+
+
+def pins_check(data, rev, quiet=False, read=None, pyfiles=None):
     """String literals of tracked Python checks that pin text the edits remove; each must be updated by a
-    guard-pin edit in the same commit or carry a recorded reason (PIN_OK)."""
+    guard-pin edit in the same commit or carry a recorded reason (PIN_OK); and every updated pin must occur in its
+    target after the edits."""
     say = (lambda *a: None) if quiet else print
-    read = lambda pth: git_show(rev, pth)
+    read = read or (lambda pth: git_show(rev, pth))
     before = {f: ' '.join(read(f).split()) for f in {e['file'] for e in data['edits']} if not f.endswith('.py')}
     after_t = apply_edits(data, read)
     after = {f: ' '.join(after_t[f].split()) for f in before}
-    pyfiles = [x for x in subprocess.run(['git', '-C', ROOT, 'ls-tree', '-r', '--name-only', rev], capture_output=True,
-                                         text=True).stdout.split() if x.endswith('.py') and not x.startswith(PIN_SKIP)]
+    if pyfiles is None:
+        pyfiles = [x for x in subprocess.run(['git', '-C', ROOT, 'ls-tree', '-r', '--name-only', rev], capture_output=True,
+                                             text=True).stdout.split() if x.endswith('.py') and not x.startswith(PIN_SKIP)]
     broken = []
     for pf in pyfiles:
         src = read(pf)
@@ -612,10 +695,12 @@ def pins_check(data, rev, quiet=False):
                     if any(pf == a and lit.startswith(b) for a, b, _ in PIN_OK):
                         continue
                     broken.append('%s:%d pins %r in %s' % (pf, ln, lit[:80], f))
-    say('pins check: %d unresolved pins (literals of tracked checks that the edits would break)' % len(broken))
-    for x in broken:
+    tgt = pin_targets_check(data, read)
+    say('pins check: %d unresolved pins (literals of tracked checks that the edits would break); %d updated pins not found in their targets'
+        % (len(broken), len(tgt)))
+    for x in broken + tgt:
         say('  PIN ' + x)
-    return not broken
+    return not broken and not tgt
 
 
 # Repository-wide scan (owner decision #1169 c.7058374016): every tracked active file.
@@ -623,7 +708,10 @@ REPO_PAT = re.compile(r'\bA1\b|[Tt]otal[- ]finiteness|[Ff]initeness posit|posit 
 HISTORICAL_PREFIX = ('verification/audits/', 'verification/programmes/', 'verification/infrastructure/',
                      'verification/receipts/', 'verification/seals/', 'verification/certificates/', 'evidence/')
 HISTORICAL_FILE = ('verification/ROADMAP.md', 'verification/MIGRATION-MANIFEST.md', 'verification/migration-manifest.json')
-IDENT = re.compile(r'`[^`\n]*A1[^`\n]*`|\b\w+_A1\w*\b|\bA1Realized\b|\bA1A2Realized\b|\ba1_\w+|\.A1\b|\bdef A1\b|\bA1-RIGID-1\b')
+# Identifier forms that are not prose about A1: full Lean declaration names, and the predicate written as the
+# finiteness predicate (round 5: a bare `A1` in prose is pending unless named the finiteness predicate).
+IDENT = re.compile(r'[Ff]initeness predicate `[\w.]*A1`|`[^`\n]*[A-Za-z_.]A1[^`\n]*`|`A1[A-Za-z_][^`\n]*`|\b\w+_A1\w*\b'
+                   r'|\bA1Realized\b|\bA1A2Realized\b|\ba1_\w+|\.A1\b|\bdef A1\b|\bA1-RIGID-1\b|\bFINITENESS PREDICATE `A1`')
 EXPLAINED = [  # (path or prefix ending in '/', substring or None, class, reason)
     ('.github/workflows/pe01-bounded-tests.yml', None, 'unrelated label', 'amendment A1 of the pe01 plan'),
     ('tools/citation_roles_check.py', None, 'unrelated label', 'a phrase list entry "In (A1), "'),
@@ -647,6 +735,16 @@ EXPLAINED = [  # (path or prefix ending in '/', substring or None, class, reason
     ('verification/lean-mathlib/OIBridge/Averaging.lean', None, 'unrelated label', 'item A1 of the Lean roadmap'),
     ('verification/lean-mathlib/OIBridge.lean', None, 'unrelated label', 'items A1/A5 of the Lean roadmap'),
     ('verification/coverage/LEDGER.json', 'A1 = 1, A2 = sign', 'unrelated label', 'the A1 irrep'),
+    # frozen sentences of round H-B, pinned byte-identical by the R7 guard (Z18, W21, the HB module check); they name
+    # the kernel class of the predicates A1-A4 without A5 and are left to the governed change of #1482 (PREREG §24)
+    ('verification/programmes/hydrodynamics/PROGRAMME.md', 'H-B: one candidate executed in the A1–A4, ¬A5 class', 'frozen round sentence', 'round H-B frozen sentence (kernel class), guard-pinned'),
+    ('verification/lean-mathlib/OIBridge/HexLatticeGas.lean', '**a rigorous reversible fluid witness in the A1–A4, ¬A5 class**', 'frozen round sentence', 'round H-B module sentence (kernel class), guard-pinned'),
+    ('verification/lean-manuscript-census.json', "reads 'H-B: one candidate executed in the A1-A4, not-A5 class", 'frozen round sentence', 'quotation of the frozen H-B sentence'),
+    ('verification/programmes/black-hole-information/PROGRAMME.md', 'A1/A2 exact-QM targets', 'unrelated label', 'the programme targets A1/A2'),
+    ('verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/README.md', 'A1 and A2', 'unrelated label', 'the programme targets A1 and A2'),
+    ('verification/programmes/oi-qm/reconstruction/intervene-substate-results-20261113/README.md', None, 'unrelated label', 'rows A1, A2 of a results table'),
+    ('verification/programmes/oi-qm/reconstruction/k1-rdy-20261105/README.md', None, 'unrelated label', 'amendment A1 of the round'),
+    ('verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/', None, 'unrelated label', 'amendment A1 of the PE-01 plan'),
     ('verification/coverage/LEDGER.json', 'T1 + E + A1', 'unrelated label', 'the A1 irrep'),
     ('verification/coverage/LEDGER.json', 'the A1 inside A1 + E', 'unrelated label', 'the A1 irrep'),
     ('book/appendix-b-derivations.md', '(A1) $\\mathrm{SU}(3)^3$ anomaly', 'unrelated label', 'anomaly condition (A1) (ledger false positive)'),
@@ -665,7 +763,7 @@ EXPLAINED = [  # (path or prefix ending in '/', substring or None, class, reason
     ('verification/lean-manuscript-census.json', 'A1 fails at L = 0', 'pending R-1', 'kernel predicate in the waveZ_not_A1 control'),
     ('verification/lean-manuscript-census.json', 'HB0: A1, A2, A3', 'pending R-1', 'kernel predicates of hexSubstratum'),
     ('verification/lean-manuscript-census.json', 'put the carrier against A1-A5', 'pending R-1', 'kernel predicates of the packaged carrier'),
-    ('verification/lean-manuscript-census.json', '"name": "manuscript axioms A1-A6"', 'pending R-C', 'registry family name (§A.35 identifier)'),
+    ('verification/lean-manuscript-census.json', '"name": "manuscript axioms A1-A6"', 'registry identifier (kept)', 'registry family name, kept by owner decision #1169 c.7058783437 (§A.35 identifier); its note is rewritten'),
     ('verification/lean-mathlib/OIBridge/A6Instantiation.lean', '**`PK3-a` — A1**', 'pending R-1', 'docstring heading of pk3a_A1'),
     ('verification/lean-mathlib/OIBridge/A6Instantiation.lean', 'NOT A SUBSTRATUM SATISFYING A1', 'pending R-1', 'docstring of cx3b_complex_not_A1'),
     ('verification/lean-mathlib/OIBridge/HexLatticeGas.lean', 'A1–A4, ¬A5 class', 'pending R-1', 'the kernel class A1–A4 without A5 (pinned by the R7 guard)'),
@@ -673,15 +771,26 @@ EXPLAINED = [  # (path or prefix ending in '/', substring or None, class, reason
 ]
 
 
+ACTIVE_IN_RECORDS = re.compile(r'^verification/programmes/(?:.*/)?(?:PROGRAMME|README)\.md$')
+
+
 def classify(path, line):
-    if path.startswith(HISTORICAL_PREFIX) or path in HISTORICAL_FILE:
+    if (path.startswith(HISTORICAL_PREFIX) and not ACTIVE_IN_RECORDS.match(path)) or path in HISTORICAL_FILE:
         return 'historical record', 'preserved (frozen or landed record; Git history)'
     if (path.startswith('papers/') or path.startswith('book/')) and path.endswith(('.tex', '.pdf')):
         return 'generated artifact', 'regenerated by build.sh from the edited sources'
+    rest = line
+    found = None
     for pth, sub, cls, why in EXPLAINED:
-        if (path == pth or (pth.endswith('/') and path.startswith(pth))) and (sub is None or sub in line):
-            return cls, why
-    rest = IDENT.sub('', line)
+        if path == pth or (pth.endswith('/') and path.startswith(pth)):
+            if sub is None:
+                return cls, why
+            if sub in rest:
+                rest = rest.replace(sub, ' ')
+                found = found or (cls, why)
+    if found and not REPO_PAT.search(IDENT.sub('', rest)):
+        return found
+    rest = IDENT.sub('', rest)
     if not REPO_PAT.search(rest):
         return 'kernel identifier', 'names a Lean declaration for the finiteness predicate or a programme; kept pending the rename decision (PREREG §22)'
     if path.startswith('papers/') or path.startswith('book/'):
@@ -832,6 +941,7 @@ def self_test():
     expect(bool(lean_check(esc_e, lambda p: lean_src)), 'a replacement that closes the comment is caught')
     # configuration-space sentence and repository-wide scan countercontrols
     expect(not static_new({'edits': [E('CS', 'x', CS_SENTENCE)]})[0], 'the approved configuration-space sentence is not an infinity assertion')
+    expect(bool(sim_preservation({'book/The-Incompleteness-of-Observation-FULL.md': CS_SENTENCE})), 'FULL must carry the sentence twice (ch01, ch02)')
     expect(bool(static_new({'edits': [E('CS2', 'x', CS_SENTENCE + ' Here S is infinite.')]})[0]), '"S is infinite" is still flagged next to it')
     expect(bool(sim_preservation({'papers/Main.md': 'no sentence', 'papers/Substratum.md': CS_SENTENCE})), 'a missing sentence or finite scope is caught')
     expect(bool(sim_preservation({'papers/Main.md': CS_SENTENCE * 2})), 'a duplicated sentence is caught')
@@ -852,6 +962,36 @@ def self_test():
     rs2.all_files = lambda: ['a.md', 'verification/audits/r.md']
     expect(repo_scan({'edits': [dict(id='Z', kind='repo-active', file='a.md', site='a.md:1', part=1, mirror_of=None, old='Total finiteness is assumed.', new='Nothing.')]}, rs2, True, True)[0],
            'the repository scan passes once the edit is applied in memory')
+    # reconciliation countercontrols (owner safeguard; round 5)
+    for s_ in ['so the theory works for every infinite system', 'the results hold for any configuration space',
+               'valid on arbitrary carriers', 'regardless of its cardinality']:
+        expect(bool(static_new({'edits': [E('IS', 'a set (finite under A1)', s_)]})[0]), 'safeguard: flags "%s"' % s_)
+    expect(classify('verification/programmes/hydrodynamics/PROGRAMME.md', 'from A1–A6 to Navier–Stokes')[0] == 'unexplained',
+           'a live programme charter is active, not historical')
+    expect(classify('verification/README.md', 'satisfying `A1`, since `A1` is finiteness')[0] == 'unexplained',
+           'backticked prose `A1` is not an identifier form')
+    expect(classify('verification/README.md', 'satisfying the finiteness predicate `A1`')[0] == 'kernel identifier',
+           'the finiteness predicate `A1` is an identifier form')
+    # pins: the reviewer's three mismatch injections
+    gl = {'g.md': "**Background independence (A6).** The structural assumption A6 of the reconstruction theorem (A2–A6): the substratum dynamics is covariant",
+          'probe.py': "X = ('**Background independence (A6).** The sixth of the framework\'s structural assumptions '\n     'A1–A6: the substratum dynamics is covariant')\n",
+          's.lean': '/-! does not derive a quantum architecture from A1-A6 or from the dynamics -/',
+          'p2.py': "ok &= 'does not derive a quantum architecture from A1-A6' in t\n"}
+    rd = lambda pth: gl[pth]
+    good = {'edits': [dict(id='G1', kind='guard-pin', file='probe.py', site='probe.py:1', part=1, mirror_of=None, targets=['g.md'],
+                           old="The sixth of the framework\'s structural assumptions '\n     'A1–A6: the substratum dynamics",
+                           new="The structural assumption A6 of the '\n     'reconstruction theorem (A2–A6): the substratum dynamics")]}
+    expect(not pin_targets_check(good, rd), 'pins: an updated pin that matches its target passes')
+    bad1 = json.loads(json.dumps(good)); bad1['edits'][0]['new'] = "The structural assumption A6 of the '\n     'reconstruction theorem: the substratum dynamics"
+    expect(bool(pin_targets_check(bad1, rd)), 'pins: D306-style pin that does not match the glossary is caught')
+    bad2 = json.loads(json.dumps(good)); bad2['edits'].append(dict(id='G2', kind='consistency', file='g.md', site='g.md:1', part=1, mirror_of=None,
+                                                                   old='(A2–A6): the substratum', new='(A2 to A6): the substratum'))
+    expect(bool(pin_targets_check(bad2, rd)), 'pins: a glossary edit (D220/D221-style) that diverges from the updated pin is caught')
+    bad3 = {'edits': [dict(id='L', kind='lean-docstring', file='s.lean', site='s.lean:1', part=1, mirror_of=None,
+                           old='from A1-A6 or from', new='from the conditions or from'),
+                      dict(id='G3', kind='guard-pin', file='p2.py', site='p2.py:1', part=1, mirror_of=None, targets=['s.lean'],
+                           old="'does not derive a quantum architecture from A1-A6'", new="'does not derive a quantum architecture from the substratum conditions'")]}
+    expect(bool(pin_targets_check(bad3, rd)), 'pins: a Lean docstring (D286-style) that diverges from its updated pins (D300/D301) is caught')
     # round-4 countercontrol: a bare "on a finite" does not scope a sentence
     s_ = 'a deterministic bijection on a finite configuration space, an open matter for physics.'
     d7 = {'edits': [E('W4', 'a set (finite under A1).', s_)]}
