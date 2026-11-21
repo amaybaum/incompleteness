@@ -434,3 +434,20 @@ and the C3b preregistration; its edits to §2, N1, the C1 count, the commit-orde
 "exhaustive" wording and the N2 scope statement were not written to the file, although this
 section said they were. They are applied in the commit after `79017141`, together with C3b (c),
 the P6 and F6 nits, and this paragraph (delta review #1486 c.7064144807).
+
+## 15. For #1477's final scientific review
+
+These findings were confirmed by the independent review of #1486 (c.7064186457, at `26b811be`,
+nits applied at `19019459`). They concern lines under #1477's frozen ledger, which are not edited
+here (#1169 c.7064226074, item 1); the frozen edits are not amended without separate authorization.
+
+| Edit | Site | Finding | Proposed change (§10.1) |
+|---|---|---|---|
+| D369 | Structure:154 | F3: relabelling stated without its prior; lowest priority (hypothesis supplied by reference) | P3b: "fibre-independent hidden relabelling under the uniform hidden prior" |
+| D128/D129 | ch02:136 = FULL:766 | F4 mirror: "defined by the observability condition" names no interface | P4b: "defined by the condition that the specified fixed-interface observation data are preserved" |
+| D364 | Substratum:262 (predicted) | N3 node: "not a bijection of configurations" is correct read basis-free; a fixed-basis reading misclassifies $\operatorname{diag}(1,-1)$ | P5 (optional disambiguation; optional "for any density matrix $\sigma_A$ on $\mathcal K_A$") |
+| D370–D373 | ch02:144 = FULL:774 | F5: the proof at ch02:148 = FULL:778 uses $\sigma_A$ and $W$, which the statement does not introduce | P6 |
+
+The off-ledger corrections (§10.2) are prepared as separate draft PRs, each awaiting independent
+review and owner merge approval. The candidate definition is in `DEFINITION-PROPOSAL.md`, a
+proposal kept apart from these results.
