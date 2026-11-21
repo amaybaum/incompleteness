@@ -100,7 +100,7 @@ linearly in lattice separation. What survives is the following.
 
 - **Drop (xiv).** Let the setting generators correlate with `Ω`. A response table conditioned on
   `(x, y)` is then exact at `k = 0`. This is Main §3.3's "operational setting screening" remark.
-- **Drop the delay bound.** Allow `k_A ≥ D`. Wing A's outcome may then depend on B's setting, and §3
+- **Drop the delay bound.** Allow `k_A ≥ d(B, R_A)`, the coupling-graph distance. Wing A's outcome may then depend on B's setting, and §3
   realizes even the PR box.
 
 **Relation to V.** V (countable `ι`, (xiv)) forces configuration-dependent single-system readouts over a
@@ -112,7 +112,7 @@ is scaling-specific and each premise is shown load-bearing.
 
 ## 3. N3: Proposition S, soundness at scale (ont; op; E; P, sketch; (I) on the rule; CONFIRMING)
 
-**Claim.** Some realization satisfies all of the following, together with the delay `k_A ≥ D` that B
+**Claim.** Some realization satisfies all of the following, together with the delay `k_A ≥ d(B, R_A)` (coupling-graph distance) that B
 requires, and still produces a record law outside C-T's laws (the PR box, CHSH = 4):
 
 - finite range;
@@ -128,8 +128,8 @@ Hence none of these premises, alone or together, gives operational soundness.
 1. Before the settings, a uniform bit `λ` is copied to both wings. This is shared local randomness, so
    (xiv) holds.
 2. Wing B outputs `b = λ` immediately.
-3. A finite-range signal channel carries `y` from B to A in `D` steps.
-4. Wing A outputs `a = λ ⊕ x·y` at `k_A = D`.
+3. A finite-range signal channel carries `y` from B to A in `d(B, R_A)` steps, the coupling-graph distance.
+4. Wing A outputs `a = λ ⊕ x·y` at `k_A = d(B, R_A)`.
 
 The record law satisfies:
 
@@ -147,10 +147,12 @@ only the placement on the tower, with the delay of B.
 - A gate `a ← λ ⊕ x·y`, which is nonlinear. The nonlinearity can sit in the dynamics, as in a reversible
   universal rule, or in the **readout function**, the observer's function of the visible configuration.
 - Under A5 (a linear update, ledger (vii)), one route remains. Take a deterministic known background and
-  a nonzero `D`-step coefficient from `B` to `R_A`. The linear dynamics then delivers `y` (plus a known
+  a nonzero `d(B, R_A)`-step coefficient from `B` to `R_A`, where `d` is the coupling-graph distance. The linear dynamics then delivers `y` (plus a known
   constant) to `R_A`, and the readout function computes `λ ⊕ x·y`. So S also holds under A5, provided
-  readout functions may be nonlinear. That `D`-step coefficient is nonzero for some pair `(B, R_A)` on
-  the selected rule is asserted here and not checked.
+  readout functions may be nonlinear. That coefficient is nonzero for some pair `(B, R_A)` on
+  the selected rule is asserted here and not checked. Also unchecked: that `x` and `λ` can be decoded at
+  `R_A` (from the local setting write and the shared-bit copy) against the known background, so that the
+  readout function has `x`, `λ` and `y` all available.
 
 **Lemma L (linear readouts; ont; op; E; X; (I) on (xiv); q = 2).**
 
@@ -194,8 +196,8 @@ quantum set.
   - macroscopic locality (Navascués and Wunderlich, Proc. R. Soc. A 466, 881 (2010)).
 - That no-signalling alone admits PR boxes is Popescu and Rohrlich, Found. Phys. 24, 379 (1994).
 
-**Classification.** CONFIRMING: Main:366/:437 and Toner–Bacon, placed on the tower. Under PLAN (d) it exposes
-that operational soundness at scale is a separate obligation from completeness. Bounded-duration
+**Classification.** CONFIRMING: Main:366/:437 and Toner–Bacon, placed on the tower. It is not credited as a
+gem. It records that operational soundness at scale is a separate obligation from completeness. Bounded-duration
 locality gives soundness without completeness, and the delay needed for completeness removes the
 locality that gave soundness.
 
@@ -267,7 +269,7 @@ matrix algebra.
   record correlations to the quantum set at scale. The quantum-correlation selector is one obligation.
   The coherence pair is a separate one (O1's two obligations, #1169 c.7066541026).
 - **Mathematics:** whether nonlinear readout functions under A5 reach exactly the Tsirelson set.
-  Lattice D-W's rule and reach. Whether the selected rule has a nonzero `D`-step coefficient (S, A5
+  Lattice D-W's rule and reach. Whether the selected rule has a nonzero coupling-graph-distance coefficient, with `x` and `λ` decodable, (S, A5
   route).
 - **Owner, relative to H-Bell** (ROADMAP:77, open). The adopted branch is ontic parameter dependence,
   Main §3.3(a), Main:418. It realizes the response dependence through preparation-indexed adjacency
@@ -278,7 +280,7 @@ matrix algebra.
   AW-U3).
 
 **Productivity verdict.** Gem under (b), for B and for Lemma L with its countermodel; (c), for the D-W
-test; and (d), for S. No (a): operational
+test. S is CONFIRMING and is not credited. No (a): operational
 soundness is not proved natively. The fixed point is not reached.
 
 ## 6. Preregistration
