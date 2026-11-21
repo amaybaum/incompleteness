@@ -82,8 +82,10 @@ line or record directory of #1477 or #1483.
 > **Interface.** I★ is stated over `J_exact(A)`, which contains every finite-outcome CP instrument
 > and every finite adaptive multi-time protocol. That goes beyond the corpus's single-time
 > observation interface (c.7064942473): I★ relies on coherent intervention operations beyond the
-> native interface, named here as the imported operational assumption **J-coh**. A weaker
-> single-time form, I★_st, is defined in §2.4 from the corpus's own single-time interface; it is
+> native interface, named here as the imported operational assumption **J-coh**. A
+> single-time form, I★_st, is defined in §2.4 from the corpus's own single-time interface; I★
+> implies its variants only under the named assumptions FE-ADM and, for the Born-form variants, BF
+> (Proposition P-ST, §2.4), so the two are not related simply as stronger and weaker. It is
 > listed as an owner option (D6), not proposed in place of I★.
 >
 > **Cardinality.** I★ quantifies only over finite A and imposes no cardinality on Ω. Lemmas L-H
@@ -320,7 +322,7 @@ BF for item 2; J-coh for the coherent variants.
 **What fails without each assumption (#1510 §5).**
 - Without the T2 indexing, both variants are unsatisfiable for |A| ≥ 2 by every model.
 - Without FE-ADM, I★ implies no single-time variant: the stepwise D-W, with no program loaded,
-  has the identity as its free family while it meets I★ at trivial E.
+  has the identity as its free family while it meets I★ at trivial E (sketch).
 - Without BF, I★ implies I★_st-coh^op but not I★_st-coh: by #1508's Lemma S1 ((I), under its
   (a)–(e)), the Born-form channel of a bijection with a fixed countable hidden state is Ad of a
   monomial unitary, so BF and I-4 are jointly unsatisfiable for such models on non-monomial
@@ -662,6 +664,7 @@ not post on #1169.
 | B6 owner records | c.7064942473 cited (§1, §2 Interface, J-coh, D6); "r4 by reference only" flagged as a departure from answer 5 (§8, D4) |
 | Q_exact(A) single law | stated as assumed in I-4 and put to the owner in D1 |
 | #1506 review R5 (c.7065065491), r5.2 | D-W restated in the stepwise form; the precomputed form recorded as inadmissible; exclusion located in EP:75, EP:47/92 and EP:102 through a nontrivial E naming a procedure class; T-PROC added; finite-information tests noted as insufficient |
+| Review c.7067264772, r5.8 | §2 cross-reference to I★_st made consistent with P-ST (no bare "weaker"); "(sketch)" added to D-W meeting I★ in §2.4 |
 | #1510 at `c45b82cf` (c.7066267563), folded under #1169 c.7067233614, r5.7 | §2.4: T1 repaired (P-ST under FE-ADM and BF replaces "strictly weaker"); T2 indexing by a setting typed per EP:79/EP:75; encodings in the definitions, the mismatch a BF failure; FE-ADM's non-exclusion of D-W; D6 cross-reference. No claim broadened; D1–D4 and D7 left open |
 | Review c.7065260286, r5.6 | "robustly" removed; the (iv) dilemma stated in §2.2 with both readings, their consequences and the PBR/PIP condition (labelled (I)); completion route noted; §2.2 Result, D5 option (a) and D6 restated; H worded as two hypotheses |
 | Final check c.7065233367, r5.5 | n1: H for the existing routes names `hd` and the construction of an EP-schema model; n2: "observer-access procedure" defined for T-SUB′, with the load-bearing clause (iv) and its open redescription question |
