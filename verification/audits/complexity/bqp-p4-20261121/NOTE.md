@@ -249,8 +249,17 @@ The decision rule is fixed now:
     from the environment's entangling history. It must constrain the connectivity of the ambient
     long-edge graph, not only its density.
 
-  OBSTRUCTION needs both (M1) excluding generation, or bounding it polynomially, and (M2).
-  Failure of either is an ESCAPE route.
+  - **(M3) Edge-selection locality for prepared edges.** The configuration values that select a
+    preparation-indexed long edge lie within bounded reference range r_s of its endpoints
+    (§2.1). Constraint (i) of SM:108 gives this in the reference class only.
+  - **(M4) Bounded remote reading.** Each update reads a uniformly bounded number of remote
+    sites. This excludes the unbounded "equivalent nonlocal response map" case of §2.3 item 3;
+    ledger (xiii) requires only finite reading.
+
+  **Complete missing premise.** (M1) generation excluded or polynomially bounded, (M2)
+  isolation, (M3) edge-selection locality for prepared edges, and (M4) bounded remote reading.
+  OBSTRUCTION needs all four. Failure of any one is an ESCAPE route, or a re-examination of
+  Lemma LE's hypotheses for (M3) and (M4).
 
 ### 2.4 Preregistered computation (design only; not run; needs its own authorization)
 
@@ -290,9 +299,13 @@ The decision rule is fixed now:
   - **edge-selection locality** (§2.1), which is (I) for preparation-indexed edges;
   - **isolation (M2)**, a bound on reachable long edges with ambient edges included, which BQ2
     would need and the corpus does not state.
-- **Missing.** The earliest unsupported step is the pair of clauses (M1) edge generation and
-  (M2) isolation of reachable long edges, ambient edges included (§2.3).
-  - Both need a specification of the physical mechanism, H-Bell option (a), not mathematics.
+- **Missing.** The earliest unsupported step is the complete premise (M1)–(M4) of §2.3:
+  - (M1) edge generation;
+  - (M2) isolation of reachable long edges, ambient edges included;
+  - (M3) edge-selection locality for prepared edges;
+  - (M4) bounded remote reading.
+
+  All four need a specification of the physical mechanism, H-Bell option (a), not mathematics.
   - Given them, BQ2 is a short derivation.
 
 ## 4. What this record does not claim
