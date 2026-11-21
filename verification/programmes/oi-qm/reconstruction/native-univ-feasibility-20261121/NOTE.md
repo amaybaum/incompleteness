@@ -6,7 +6,9 @@ Independent non-author review at `f87afd04`: REVISE
 mathematics confirmed; its items R1–R3 and N1–N5 are answered in `8746e382`. Delta re-review at
 `8746e382`: CONFIRMED WITH NITS
 ([#1489 c.7064102580](https://github.com/amaybaum/incompleteness/pull/1489#issuecomment-7064102580));
-its nits n1–n3 are applied. No construction attempt (step 2 is not authorized), no manuscript, Lean or
+its nits n1–n3 are applied. Owner decisions of
+[#1169 c.7064226074](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7064226074)
+are recorded in §6, and plans P1–P3 are preregistered in `plans/` (not executed). No construction attempt (step 2 is not authorized), no manuscript, Lean or
 registry edit, no premise adoption. One small exact check (§3.1, §7), preregistered in `PREREG.md`
 before the script was written.
 
@@ -21,9 +23,12 @@ before the script was written.
   [#1461 c.7047109654](https://github.com/amaybaum/incompleteness/issues/1461#issuecomment-7047109654)
   (Goals A, B, C kept distinct; the literature checks on Margolus and Morita–Harao; a known
   universal rule is a comparison model only).
-- **Open prerequisite question (for the owner).** #1461's planning table lists the PM-D5
-  feasibility study (#1454) as a prerequisite, and PM-D5 is paused. This record does not resolve
-  that; it proceeds with order step 1 only, as instructed, and records the question in §6.
+- **Owner decisions on this record.** [#1169 c.7064226074](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7064226074), item 3, 2026-11-21 (posted by `amaybaum`; the post
+  marks some symbols as reconstructed in brackets, and the owner may correct that reading). They
+  are recorded in §6. In brief: PM-D5 stays paused and does not block read-only feasibility work;
+  the published three-dimensional family is the object, with `q = 2^16` as working reference; Goal A
+  keeps the broad class; plans P1–P3 are authorized as design, literature and preregistration
+  only.
 - **Snapshot.** `main` at `df6da1c6101e811acdc7952d5748aff57028e8ed`. `Main:n`, `SM:n`, `Sub:n`
   are line `n` of `papers/Main.md`, `papers/SM.md`, `papers/Substratum.md` at that commit.
   Predecessors on `main`, under `verification/programmes/oi-qm/reconstruction/`: UNIV-1
@@ -52,8 +57,10 @@ before the script was written.
    the rounded rule `R_q`: `x(t+1) = ⌊(Σ_nn x(t) + 1)/3⌋ − x(t−1) mod q` on representatives
    `0,…,q−1`, on `ℤ³` (SM:294). The corpus does not fix `q`: SM measures `R_q` at `q = 2^16`, the
    published reproduction code also runs `q = 64` and `q = 256`, and SM's cycle censuses use
-   `q = 2, 3`. U1's canonical member Q = `R_{2^16}` on `ℤ³` is a choice of that record. Which
-   `(q, d)` is "the actual published rule and its fixed alphabet" is an owner decision (§6).
+   `q = 2, 3`. By owner decision (§6 item 2) the object of analysis is the published
+   three-dimensional family `R_q`, with Q = `R_{2^16}` on `ℤ³` as the working reference
+   implementation and `q = 64`, `256` and other values as comparisons. `q = 2^16` is not thereby a
+   proven unique physical alphabet.
 2. **F2, literature.** Universality *is* known for rules of the exact second-order form
    `c(t+1) = f(c(t)) − c(t−1) mod q`: Margolus (1984), Appendix A, gives a two-dimensional,
    three-state, second-order rule that he states is computation-universal [LIT-R]. That rule's `f`
@@ -142,8 +149,9 @@ the same `step_round` at `q = 64`. The code calls it "a rounded candidate map" (
   operation" from the modular-linear update).
 - *Not fixed:* `q`. The manuscripts state no single alphabet for the native rule. `q = 2^16` is
   the measured value of SM:294, and U1 took Q = `R_{2^16}` on `ℤ³` as canonical "by this record's
-  choice" (U1 §1). This record keeps U1's choice for Goal B and treats U₂ = `R_2` where the
-  predecessors did. The owner decision in §6 item 2 asks which is meant.
+  choice" (U1 §1). The owner decision of §6 item 2 makes the published three-dimensional family the
+  object of analysis, with Q as the working reference implementation and `q = 64`, `256` and other
+  values as comparisons. U₂ = `R_2` is treated where the predecessors did, as a comparison.
 - *Main's selected model is linear.* Main's own selected model under A5 is a linear member, which
   Theorem L covers for prime-power `q` (U1 §2.1). PM recommends FLAG for A5 and places `R_q` in
   its class R_res (PM §0 item 4). Neither changes the rule.
@@ -166,7 +174,7 @@ configurations.
 | Toffoli–Margolus 1990, Physica D 45, 229–253, §5.4 [LIT-R] | second-order technique | eq. (15) `q_i^{t+1} = f q_{i+X}^t − q_i^{t−1}`; eq. (17) as an ordinary CA on `A × A` | any | from any CA one obtains an invertible second-order CA; the historical section recalls Toffoli's 1977 embedding theorem and Morita–Harao | confirms the form; no universality result for a restricted neighbourhood |
 | Toffoli 1977, JCSS 15, 213–231 [LIT-B, via the 1990 review] | reversible CAs | general (not second-order) | `d + 1` dimensions to embed a `d`-dimensional CA | proved: computation- and construction-universal reversible CAs exist (every universal `d`-dimensional CA embeds in a reversible `(d+1)`-dimensional one) | existence for reversible CAs in `d ≥ 2`; neighbourhood and form not OI's |
 | Morita–Harao 1989, Trans. IEICE E72(6), 758–762 [LIT-B] | one-dimensional reversible CAs | via 1-D partitioned CAs (PCA), in which local injectivity equals global reversibility | 3-neighbour (radius 1); the state set depends on the simulated reversible TM | proved: 1-D reversible CAs are computation-universal (answers Toffoli's question) | partitioned, not second-order; no fixed alphabet |
-| Morita–Ueno 1992, IEICE Trans. Inf. & Syst. E75-D(1), 141–147 [LIT-B] | 2-D reversible PCAs | partitioned | 16 states | construction: Fredkin gate realized, hence universal | partitioned; comparison only |
+| Morita–Ueno 1992, IEICE Trans. Inf. & Syst. E75-D(1), 141–147 [LIT-R] | 2-D reversible PCAs, `2RPCA(4)` | partitioned, first-order: Def. 2.1 (p. 142), `F_P(c)(i,j) = f_P(DOWN(c(i,j+1)), LEFT(c(i+1,j)), UP(c(i,j−1)), RIGHT(c(i−1,j)))` | 16 states, `U = R = D = L = {0, 1}` (p. 143); four neighbours, the facing part of each; no part of the cell's own state is read | construction: Fredkin gate realized (§4); Model 1 is "conservative, isotropic and symmetric", Model 2 "conservative and isotropic but not symmetric" (p. 141). In Model 1 a signal is two black parts, a mirror is two consecutive stable blocks, and an I-gate is "realized by colliding two signals at right angles" (p. 144) | nearest-neighbour and centre-free like the narrow class, but first-order and partitioned; Lemma 2.2 (p. 142) makes it a standard 4-neighbour CA. Comparison only; target of P1's paper task |
 | Morita 2007, J. Cellular Automata 2 [LIT-B] | 1-D reversible CAs | partitioned | 36 states (infinite configurations, cyclic tag systems); 98 states (finite configurations, with halting) | construction | same |
 | Durand-Lose 1997, STACS, LNCS 1200, 439–450 [LIT-B] | 1-D reversible CAs | partitioned | — | an intrinsically universal 1-D reversible CA | notion stronger than computation universality |
 | Kari 1996, Math. Systems Theory 29, 47–61; Durand-Lose 2001, DMTCS [LIT-B] | all reversible CAs | block permutations | — | every `d`-dimensional reversible CA is a composition of block permutations (`d + 1` of them in Durand-Lose 2001) | a possible route to a Goal-A comparison model: §3.1's half-steps are block permutations of a special kind (§5 P1) |
@@ -281,6 +289,22 @@ site is kicked and a disturbance leaves (U2 D1, AW-UNIV-3). Two consequences fol
 Every breach observed so far grows (MQ X2), but none of these observations is a proof. This is
 the decisive question for Q in §4.
 
+**Lemma NU2 (finite perturbations: periodic or unbounded) [W].** Let `c` be a uniform background
+(a fixed point of `R_q`) and let a two-slice configuration differ from `(c, c)` on a finite set.
+If the supports of `x_{t−1}, x_t` (the sites differing from `c`) stay inside one finite set `B` for
+all `t ≥ τ`, then the orbit is periodic, and the supports lie in `B` for every `t ∈ ℤ`.
+*Proof.* For `t ≥ τ` the state lies in the finite set of two-slice configurations equal to `c`
+off `B`, so `s_{τ+P} = s_{τ}` for some `P ≥ 1`. The global map `Φ` is a bijection, so
+`Φ^P(s_t) = s_t` for every `t`, including `t < τ`, and `s_t = s_{t+kP}` with `t + kP ≥ τ`. ∎
+This is the elementary fact that a finite orbit of a bijection is periodic, applied to a reversible
+CA with a fixed-point background [LIT2: standard]. MQ4 is its special case for confined classes.
+*Consequence for "healing" [W].* A finite configuration cannot breach and then stay confined in
+a finite set thereafter unless it was inside that set at all times. For finite configurations,
+a "bounded breach" therefore means a *periodic orbit with excursions*: an orbit whose instantaneous
+closed hull at some tick has a boundary-layer value outside `[c−1, c+1]`, while its support stays
+bounded. Healing after a genuine escape is possible only with infinite components, such as
+signals on unbounded lines. P2 and P3 (§5) are stated in these terms.
+
 **The missing controlled turn.** In MQ terms, U1's missing block is a controlled transfer whose
 closed class has a non-breaching boundary, or whose breach stays bounded. No construction and no
 obstruction is known.
@@ -290,7 +314,7 @@ obstruction is known.
 | Sub-question | Decidable by bounded computation? | Why |
 |---|---|---|
 | NU1 on given instances | yes, per instance (done: C1–C4) | finite runs; the lemma itself is proved on paper |
-| Whether a finite closed gadget on a uniform background ever breaches | yes, exactly, per gadget and initial value | isolated finite class is a bijection on a finite set (MQ4), so the orbit is periodic and one period decides it |
+| Whether a finite configuration on a uniform background ever breaches, and whether its orbit is periodic | yes, exactly, when the orbit returns to its initial state within the run; otherwise undetermined | bounded support makes the orbit periodic (NU2, MQ4); a return certifies it. The period can be large at `q = 2^16`, so a cap leaves cases undetermined (P2) |
 | Whether a given junction with semi-infinite lines turns a signal | not in general; yes for a fixed finite horizon | infinite configuration; a horizon test is evidence only (U2's method) |
 | Linearity, affinity or a fixed-point count of a member | yes (U1 A2–A4) | finite tests on invariant subgroups |
 | Goal-A census: all `F` in the narrow class at small `q`, `d` (e.g. `q = 2`, `d = 2`: 2^16 neighbour functions, 2^5 totalistic) for linear/affine members, gliders and collision tables | yes for each screen at a fixed size and horizon | a screen finds candidates; universality still needs an encoding, construction and correctness argument |
@@ -321,69 +345,63 @@ Stated only at the level established, for each goal of c.7047109654.
   - *Open* for Q = `R_{2^16}` on `ℤ³`. Its partial set (signals, crossing, memory) is
     non-interacting. MQ2(b) and MQ3 force every interaction between closed classes at ℓ1-distance
     at least 3 through a breach.
-  - *Decisive question for Q.* Does a bounded breach exist: a finite closed gadget on a uniform
-    background whose boundary layer leaves `[c−1, c+1]` only transiently, heals without
-    radiation, and moves a signal? Or does every breach of the isolated dynamics grow without
-    bound, which would be an obstruction on uniform backgrounds?
+  - *Decisive question for Q.* Does a bounded breach exist? For a finite gadget alone this means
+    a periodic orbit with excursions (Lemma NU2). In a junction with signals on unbounded lines it
+    means a breach that returns to `[c−1, c+1]` without radiation and moves a signal. Or does every
+    breach grow without bound, which would be an obstruction on uniform backgrounds?
   - *Not the alphabet.* At `q = 2^16` the pair alphabet has 2^32 symbols, so the minimal-alphabet
     literature does not bear on Q. What has to be shown concerns this particular rounded `F`.
 - **Goal C (physical emergence)** is not addressed (#866, AW-MQ-2).
 - **For the narrow class and for Q: not feasible-in-principle, not obstructed.** Neither stronger
-  verdict is supported for them. A
-  universal rule in the second-order form exists. That does not show that the narrow class admits
-  one, and it says nothing about Q.
+  verdict is supported for them. A universal rule in the second-order form exists. That does not
+  show that the narrow class admits one.
+- **The native rule is not settled by any comparison model.** A universal rule that shares OI's
+  update form, such as Margolus's, does not establish universality of OI's native rule `R_q`, at
+  `q = 2^16` or at any other `q`. Nor would a universal member of the narrow class found by P1.
 
 ***
 
-## 5. Proposed next steps (plans only; nothing here is run)
+## 5. Plans P1–P3 (designs and preregistrations; nothing here is run)
 
-Each plan needs owner authorization before it starts. Each is preregistered before it runs. Any
-heavy part runs in CI under an approved workflow (§A.40, §A.43 item 4).
+The owner authorized research design, literature work and preregistration for P1–P3 ([#1169 c.7064226074](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7064226074), item 3.4).
+Censuses, exhaustive searches, new construction runs and CI dispatches are not authorized. Each plan
+is written out in `plans/`, with its question, decision rule, controls and countercontrols,
+invariant→checkpoint table (§A.41), cost class (§A.40), and what it would and would not establish.
+A plan's execution needs a separate authorization. Before it runs, its preregistration is frozen
+by a commit that precedes any execution commit.
 
-- **P1 (Goal A, comparison only).** A census of the narrow class at `q = 2`, `d = 2`: the 2^16
-  neighbour functions, or the 2^5 totalistic and 2^6 symmetric ones first.
-  - Exclude affine members (Theorem L).
-  - Screen each remaining rule for moving localized patterns on uniform and period-2 backgrounds,
-    then catalogue the two-signal collisions.
-  - Output: candidates only. Any candidate is a comparison model, never a replacement for the
-    native rule. A rule change would be a Layer-0 revision under §A.29.
-  - Paper task beside it: whether a staggered involution rule can realize a block permutation of
-    a Kari / Durand-Lose decomposition at enlarged `q`.
-  - The closest located construction for that task is Morita–Ueno's 16-state two-dimensional
-    partitioned CA (1992) [LIT-B for the bibliographic record and the 16-state count; LIT2 for the
-    neighbourhood description]. The reviewer recalls each new cell state as reading only the
-    facing parts of the four neighbours, which is nearest-neighbour and centre-free but first-order
-    and partitioned; this record has not re-read it. It is a candidate comparison model only, and
-    nothing here simulates it.
-- **P2 (Goal B, Q).** An exhaustive bounded-breach search on `c = 2^15`.
-  - For every closed set `D` of at most `k` sites (`k` fixed in advance) and every initial
-    content in a fixed value range, decide exactly, by the period of the isolated orbit (MQ4),
-    whether a breach occurs, and whether it heals.
-  - Healing is checked on the infinite background by the light-cone argument at a stated
-    horizon. Results are evidence about the searched set only.
-  - A healed breach would be a candidate ingredient for a turn. That is a step-2 construction,
-    not part of this plan.
-- **P3 (paper).** Try to prove the complementary statement: on a uniform background, any breach
-  in R_q's RZ window spreads at a positive speed. U2 D1 and MQ X2 suggest the mechanism. A proof
-  would be an obstruction for Q on uniform backgrounds, stated only for that class.
+| Plan | File | Goal | Kind | Cost class |
+|---|---|---|---|---|
+| P1 | `plans/P1-PREREG.md` | A, narrow class (comparison only) | census at `q = 2`, `d = 2`, plus a paper design against Morita–Ueno Model 1 | first stage local-bounded; full census CI |
+| P2 | `plans/P2-PREREG.md` | B, Q | exact classification of small finite configurations on `c = 2^15`: periodic with excursions / growing / undetermined | CI |
+| P3 | `plans/P3-PREREG.md` | B, Q | paper: prove or refute that every breach of a finite configuration grows without bound | local (paper) |
+
+None of P1–P3 can establish universality of the native rule. P1 concerns comparison models only.
+P2 and P3 bear on the missing block of U1 in Q.
 
 ***
 
-## 6. Owner decision points
+## 6. Owner decisions recorded
 
-1. **The PM-D5 prerequisite.** #1461's table lists PM-D5 (#1454) as a prerequisite; PM-D5 is
-   paused. This record went ahead with order step 1 only, as instructed. Does the prerequisite
-   stand for step 2 and for P1–P3, or is it waived for feasibility work?
-2. **Which member is "the actual published rule and its fixed alphabet".** The corpus fixes the
-   form and, for `R_q`, `d = 3` and `F`, but not `q` (§1). U1 chose `q = 2^16`. Should NATIVE-UNIV
-   take Q, U₂, or the family `R_q`? If Main's linear A5 model is meant, Theorem L already decides it
-   for prime-power `q`.
-3. **Goal A's class.** (a) Does Goal A mean the architecture of c.7047109654 (local,
-   translation-commuting coupling), which Margolus 1984 answers at sketch level, or should it
-   carry ledger (x) at every state and (xi)'s no-self-term clause (the narrow class)?
-   (b) Does a comparison-model construction in the narrow class (P1's paper task) count as step 1,
-   where c.7047109654 places Goal A, or is it a construction that needs step-2 authorization?
-4. **Authorization for P1–P3** and any CI dispatch.
+From [#1169 c.7064226074](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7064226074), item 3 (2026-11-21). The post marks some symbols as reconstructed in brackets; the
+bracketed readings are reproduced here as given.
+1. **PM-D5.** It stays paused. It does not block read-only feasibility research, and it remains a
+   prerequisite for dependent implementation or rule-selection work.
+2. **Rule.** The published three-dimensional family is the object of mathematical analysis.
+   "[q = 2^16]" is the working reference implementation, not a proven unique physical alphabet;
+   "[q = 64, 256]" and other values are kept as comparisons.
+3. **Goal A's class and comparison construction.**
+   - (a) Goal A keeps the originally authorized broad class: finite alphabet, second-order form,
+     local translation-commuting coupling. The Margolus comparison result is recorded at its
+     sketch-level standing (§4). The narrow nearest-neighbour, centre-free class is tracked
+     separately.
+   - (b) A literature assessment and a paper design belong to step 1. Constructing or testing a
+     new universal model needs separate step-2 authorization.
+4. **P1–P3.** Research design, literature work and preregistration are authorized. Computational
+   censuses, exhaustive searches, new construction runs and CI dispatches are not.
+
+The same post states: "A universal rule that shares OI's mathematical update form does not
+establish universality of OI's actual native rule." §4 carries that distinction.
 
 ***
 
@@ -409,6 +427,7 @@ obstructed for a stated class, or open with the decisive next question. It gives
 |---|---|
 | Margolus 1984 App. A is a universal rule in the exact second-order form, answering Goal A as posed at sketch level, with a neighbourhood outside the narrow class | NEW for the corpus (the literature check c.7047109654 asked for) |
 | NU1 for the narrow class (decoupling credited to Margolus 1984, p. 84); staggered-involution form; `q = 2` members are the Q2R class, U₂ = flip on `{2,3,4}` | ELABORATING (U2 A1, generalized) |
+| NU2 (finite perturbations periodic or unbounded) and its reading of "bounded breach" | ELABORATING (elementary; MQ4 generalized). It removes "heal after escape" for finite configurations, and P2 and P3 are stated against it |
 | MQ2(b)/MQ3's bearing: interaction between classes at ℓ1-distance ≥ 3 needs a breach, a turn inside one class does not; the bounded-breach question | ELABORATING (MQ, U2 AW-UNIV-3) |
 | Verdict: Goal A as posed answered at sketch level; "open" for the narrow class and for Q | CONFIRMING (no new obstruction or construction) |
 
