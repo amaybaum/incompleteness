@@ -1440,6 +1440,14 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Theorem B.2.5 (CP-indivisibility).** *The P-indivisibility..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Proof.* The framework's $\\Phi_t$ are permutation dilations ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: with $\\hat{H}_{\\text{eff}} = H_V + \\mathrm{Tr}_H[V_{\\text{in..."
     },
     {
@@ -2492,7 +2500,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: *(iii) Finite decoupled ancillary enlargement.* Adjoin a fin..."
+      "predicate": "chapter line mirrored in FULL: *(iii) Decoupled ancillary enlargement.* Adjoin a factor of ..."
     },
     {
       "ok": true,

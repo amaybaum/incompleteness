@@ -686,18 +686,17 @@ bounds the observationally relevant visible sector and boundary layer
 \(\mathcal C_V\times\mathcal C_B\) under the deep-sector influence bound
 H-BD of {[}GR §3.2{]}. This bound alone does not establish finiteness of
 every underlying sector. Theorem 24(iii) gives an exact freedom to
-adjoin independently prepared finite decoupled factors at a fixed
-interface. Infinite extensions require specified normalized measures or
-states and well-defined dynamics; the finite identity does not supply
-that construction. A deep sector coupled under H-BD changes the
-transition law by at most \(2t/\tau_{BD}\) ({[}GR §3.2{]}), so its
-comparison is only at leading order on accessible timescales. A1 is an
-open hypothesis, not adopted ({[}Main §4.5{]}, item (ii)), and one
-sufficient condition among those each result names: it remains the
-finite-carrier premise for the recurrence arguments, and for their
-P-indivisibility conclusion the near-return condition (NR) of {[}Main
-§2.3{]}, assumed in its place and not adopted, is a weaker sufficient
-condition.
+adjoin independently prepared decoupled factors of any cardinality at a
+fixed interface, each in a normalized state or law with its own unitary,
+isometric or measurable dynamics; an unnormalizable factor is not
+covered. A deep sector coupled under H-BD changes the transition law by
+at most \(2t/\tau_{BD}\) ({[}GR §3.2{]}), so its comparison is only at
+leading order on accessible timescales. A1 is an open hypothesis, not
+adopted ({[}Main §4.5{]}, item (ii)), and one sufficient condition among
+those each result names: it remains the finite-carrier premise for the
+recurrence arguments, and for their P-indivisibility conclusion the
+near-return condition (NR) of {[}Main §2.3{]}, assumed in its place and
+not adopted, is a weaker sufficient condition.
 
 (A2) \textbf{Determinism.} \(\varphi: S \to S\) is a bijection
 (deterministic, reversible dynamics). (Two-part status, per the dilemma
@@ -1553,7 +1552,7 @@ equality of the rooted population transition probabilities
 coherent-channel data at that fixed interface; population-only
 comparisons are stated separately. The representative freedoms denoted
 by \(\mathcal{G}_{\text{sub}}\) below are compared on their stated data:
-(i) and the finite normalized-product form of (iii) preserve the
+(i) and the normalized Hilbert-space product form of (iii) preserve the
 coherent family, while (ii) retains the alphabet-size hypothesis. These
 results do not classify equivalence over all observer partitions or
 reconstruct every physical implementation.
@@ -1585,25 +1584,33 @@ the alphabet-size hypothesis of {[}SM, §2.7{]} holds; {[}SM, §2.7{]}
 lists the results proved for every \(q \geq 2\) and those that carry
 \(q\). This family is parametrized by all integers \(q \geq 2\).
 
-\emph{(iii) Finite decoupled ancillary enlargement.} Fix the
-visible/hidden interface \(V\times H\), the normalized hidden density
-matrix \(\omega_H\), and the permutation unitary \(U\) induced by
-\(\varphi\). Adjoin a finite factor \(A\), prepared independently in a
-density matrix \(\sigma_A\) with \(\operatorname{Tr}\sigma_A=1\), and
-evolve it by a permutation unitary \(W\) with product dynamics
-\(U\otimes W\). Then, for every visible input \(\rho_V\) and discrete
-time \(t\), the enlarged reduced channel equals the original one:
-\[\begin{aligned}
+\emph{(iii) Decoupled ancillary enlargement.} Fix the visible/hidden
+interface \(V\times H\), the normalized hidden density matrix
+\(\omega_H\), and the permutation unitary \(U\) induced by \(\varphi\).
+Adjoin a factor Hilbert space \(\mathcal K_A\) of any dimension,
+prepared independently in a density matrix \(\sigma_A\) with
+\(\operatorname{Tr}\sigma_A=1\), and evolve it by a unitary or isometry
+\(W\) with product dynamics \(U\otimes W\). Then, for every visible
+input \(\rho_V\) and discrete time \(t\), the enlarged reduced channel
+equals the original one: \[\begin{aligned}
 \Phi'_t(\rho_V)&=\operatorname{Tr}_{H A}\!\left[(U^t\otimes W^t)(\rho_V\otimes\omega_H\otimes\sigma_A)(U^{\dagger t}\otimes W^{\dagger t})\right]\\
 &=\operatorname{Tr}_{H}\!\left[U^t(\rho_V\otimes\omega_H)U^{\dagger t}\right]=\Phi_t(\rho_V).
 \end{aligned}\] Consequently every rooted population law \(T_{ij}(t)\)
-is unchanged. Removing the independently prepared decoupled factor
-reverses this comparison. This is a finite, fixed-interface result; an
-infinite extension requires its own normalized measure or trace-class
-state and a well-defined evolution, and is not established by finite
-uniform counting. An enlargement coupled to the boundary layer, even
-slowly, falls outside this identity: {[}GR §3.2{]} supplies only
-\(T_{ij}(t)=T_{ij}^{(B)}(t)+\mathcal O(t/\tau_{BD})\) under its
+is unchanged. The rooted population laws, and the hidden-prior channel
+family of {[}Main §3.2{]} (Corollary, measurable hidden carrier), are
+likewise unchanged for a classical factor: a measurable space \(A\) with
+a probability \(\alpha\), prepared independently and evolved by any
+measurable map \(w\), with product dynamics \(\varphi\times w\) and the
+uniform hidden prior times \(\alpha\); on the original carrier that
+family is the coherent family \(\Phi_t\). Removing the independently
+prepared decoupled factor reverses this comparison. This is a
+fixed-interface result for a factor of any cardinality; it uses the
+normalization \(\operatorname{Tr}\sigma_A=1\) (respectively
+\(\alpha(A)=1\)), and an unnormalizable factor, such as the identity on
+an infinite-dimensional \(\mathcal K_A\) or counting measure on an
+infinite \(A\), is not covered. An enlargement coupled to the boundary
+layer, even slowly, falls outside this identity: {[}GR §3.2{]} supplies
+only \(T_{ij}(t)=T_{ij}^{(B)}(t)+\mathcal O(t/\tau_{BD})\) under its
 deep-sector influence bound H-BD.
 
 \emph{(iv) Graph isomorphism (up to statistical isotropy), with a
@@ -1648,19 +1655,27 @@ is stated; the results {[}SM, §2.7{]} proves for every \(q \geq 2\) are
 preserved without it. (iii): the evolved state factors as
 \(U^t(\rho_V\otimes\omega_H)U^{\dagger t}\otimes W^t\sigma_AW^{\dagger t}\).
 Partial trace over \(H A\) is the original reduced state multiplied by
-\(\operatorname{Tr}(W^t\sigma_AW^{\dagger t})=\operatorname{Tr}\sigma_A=1\).
-This proves the coherent-channel identity and hence its population
-restriction. It preserves the fixed observed data, not measurements that
-access \(A\) or an extension that later couples to \(V\times H\). (iv):
-the finite-law representation {[}Main §3.4{]} holds for any finite
-bijection and the growth exponent is shared by hypothesis, while
-\(T_{ij}(t)\) depends on the specific graph and the continuum-curvature
-step {[}SM §3.1{]} has its own conditions; the gauge-group derivation of
-Stage 2(d) additionally uses the octahedral point-group action on the
-six link directions, which the simple-cubic representative supplies and
-a generic isotropic graph does not, so for that content (iv) is
-restricted to the orientation- and octahedral-structure-preserving
-isomorphisms (see the qualification in the statement). \(\square\)
+\(\operatorname{Tr}(W^t\sigma_AW^{\dagger t})=\operatorname{Tr}(\sigma_AW^{\dagger t}W^t)=\operatorname{Tr}\sigma_A=1\),
+using \(W^\dagger W=1\). This proves the coherent-channel identity and
+hence its population restriction. For a classical factor
+\((\varphi\times w)^t(v,(h,a))=(\varphi^t(v,h),w^t a)\), so the visible
+coordinate and the hidden coincidences of the original coordinates do
+not depend on \(a\); each rooted event, and each set of hidden points on
+which that family's integrand is constant, is its
+\(\mathcal C_H\)-section times \(A\), of weight \(\alpha(A)=1\) times
+the original, which proves both identities; on the original carrier the
+family is \(\Phi_t\) by part (a) of that Corollary. It preserves the
+fixed observed data, not measurements that access \(A\) or an extension
+that later couples to \(V\times H\). (iv): the finite-law representation
+{[}Main §3.4{]} holds for any finite bijection and the growth exponent
+is shared by hypothesis, while \(T_{ij}(t)\) depends on the specific
+graph and the continuum-curvature step {[}SM §3.1{]} has its own
+conditions; the gauge-group derivation of Stage 2(d) additionally uses
+the octahedral point-group action on the six link directions, which the
+simple-cubic representative supplies and a generic isotropic graph does
+not, so for that content (iv) is restricted to the orientation- and
+octahedral-structure-preserving isomorphisms (see the qualification in
+the statement). \(\square\)
 
 \textbf{Corollary (effective finiteness and gauge-class transfer).}
 \emph{(i) The bound.} E3, read as a Hilbert-space dimension cutoff,
@@ -1674,20 +1689,21 @@ leading-order description for \(t\ll\tau_{BD}\) uses only visible and
 boundary data; without H-BD, the law after \(n\) update steps uses
 exactly the visible data and the hidden sites within \(n\) steps of them
 ({[}GR §3.2{]}). \emph{(iii) Exact transfer.} For the independently
-prepared finite decoupled extension of Theorem 24(iii), the full
-fixed-interface channel family, and hence every statement expressible
-solely through that family or its \(T_{ij}(t)\) restriction, transfers
-exactly at every time. This includes a recurrence-scale property of the
-observed law when that property is established on a finite
-representative; it does not imply recurrence of every unobserved sector.
-Infinite extensions need a separately specified normalized state or
-measure and dynamics before any such comparison can be made. Across
-extensions coupled under H-BD, only statements insensitive to the
-\(\mathcal O(t/\tau_{BD})\) correction transfer. For example,
-\(T_{ij}=0\) does not transfer to \(T_{ij}=\varepsilon>0\) merely
-because \(\varepsilon=\mathcal O(t/\tau_{BD})\). Finite-carrier
-recurrence, and the accessible-window conditional-memory conclusion of
-{[}Main §2.3{]}, remain distinct claims. \(\square\)
+prepared decoupled extension of Theorem 24(iii), of any cardinality, the
+full fixed-interface channel family (for a classical factor, read as the
+hidden-prior channel family of {[}Main §3.2{]}), and hence every
+statement expressible solely through that family or its \(T_{ij}(t)\)
+restriction, transfers exactly at every time. This includes a
+recurrence-scale property of the observed law when that property is
+established on a finite representative; it does not imply recurrence of
+every unobserved sector. An unnormalizable extension is outside Theorem
+24(iii) and this transfer. Across extensions coupled under H-BD, only
+statements insensitive to the \(\mathcal O(t/\tau_{BD})\) correction
+transfer. For example, \(T_{ij}=0\) does not transfer to
+\(T_{ij}=\varepsilon>0\) merely because
+\(\varepsilon=\mathcal O(t/\tau_{BD})\). Finite-carrier recurrence, and
+the accessible-window conditional-memory conclusion of {[}Main §2.3{]},
+remain distinct claims. \(\square\)
 
 \textbf{Remark (amplitude-scale gauge).} The proposed fixed-alphabet
 relabellings are affine maps \(\phi\mapsto\lambda\phi+c\), with
@@ -3239,4 +3255,4 @@ Running-Vacuum Form of Dark Energy from the Cosmological Horizon,''
 Universality Classes of Embedded Observers,'' (2026).
 
 \end{document}
-% source-sha256: 106688d1ac4bd64ac4af3832142c1f13a1c264b6249be08a93ff3c7902f2a692
+% source-sha256: af5cb7375291fbadd3a8d3cc044cb1f40fa1b62e50c089fabf16a1a1280d24fe
