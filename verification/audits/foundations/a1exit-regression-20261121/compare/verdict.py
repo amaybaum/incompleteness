@@ -42,9 +42,13 @@ Schemas (JSON, UTF-8):
   controls.json   a1exit-compare-controls/2: {"schema", "head", "frozen_ref", "del_commit",
                   "controls": {<name>: {"exit", "pass", "detail"}}, "injection", "files": {<name>: sha256}}
   verdict.json    a1exit-compare-verdict/2: {"schema", "head", "verdict", "counts", "items", "controls",
-                  "countercontrols", "resolutions", "inputs", "requirement6_settled", "text"}
+                  "countercontrols", "resolutions", "inputs", "landed_units", "requirement6_settled",
+                  "text"}
+                  Replay-missing items are keyed "RM:<file>:<line of the replayed state>" or
+                  "RM:edit:<edit key>:<file>"; they are U unless marked R and resolved.
 """
 import copy
+import difflib
 import hashlib
 import json
 import os
@@ -727,6 +731,39 @@ def items_of(compare, after_corpus):
     return out
 
 
+def missing_items(landed, base_corpus, after_corpus):
+    """Replay-missing items (adopted from 43122ff6, amendment A2): the landed edits are applied in
+    order to the baseline giving the replayed state R. A line of R carrying reviewed new text (not a
+    baseline line of its file) is an item when H lacks it and H's aligned lines there are all baseline
+    lines, or there are none: the reviewed change is absent from H or reverted in it. A landed edit that
+    does not apply is an item too. A difference whose H side is itself a change is already a reported
+    item of the comparison and is not counted twice."""
+    out, cur = {}, dict(base_corpus)
+    for e in sorted(landed, key=lambda x: x['seq']):
+        for f in e['files']:
+            if cur.get(f, '').count(e['old']) != 1:
+                out['RM:edit:%s:%s' % (e['key'], f)] = {'kinds': ['replay-missing'], 'file': f, 'line': None,
+                                                         'before': e['old'], 'after': None, 'replayed': e['new']}
+                continue
+            cur[f] = cur[f].replace(e['old'], e['new'])
+    for f in sorted(cur):
+        if cur[f] == base_corpus.get(f):
+            continue
+        rl = [norm(x) for x in B.lines_of(cur[f])]
+        hl = [norm(x) for x in B.lines_of(after_corpus.get(f, ''))]
+        bset = {norm(x) for x in B.lines_of(base_corpus.get(f, ''))}
+        sm = difflib.SequenceMatcher(None, rl, hl, autojunk=False)
+        for tag, i1, i2, j1, j2 in sm.get_opcodes():
+            if tag == 'equal' or not all(x in bset for x in hl[j1:j2]):
+                continue
+            for i in range(i1, i2):
+                if rl[i] and rl[i] not in bset:
+                    out['RM:%s:%d' % (f, i + 1)] = {'kinds': ['replay-missing'], 'file': f, 'line': i + 1,
+                                                    'before': None, 'after': None,
+                                                    'replayed': B.lines_of(cur[f])[i]}
+    return out
+
+
 REVIEW_URL = re.compile(r'^%s/pull/(\d+)#(?:issuecomment-|pullrequestreview-|discussion_r)\d+$' % re.escape(REPO_URL))
 
 
@@ -744,10 +781,24 @@ def resolution_ok(resn, cls, needs_proof):
     return True, ''
 
 
-def classify(compare, edits, cls, rows, base_corpus, after_corpus, rules=RULES):
+def classify(compare, edits, cls, rows, base_corpus, after_corpus, rules=RULES, landed=None):
     E = {e['key']: e for e in edits['edits']}
     res = {}
-    for key, item in sorted(items_of(compare, after_corpus).items()):
+    allitems = items_of(compare, after_corpus)
+    for key, item in sorted(missing_items(landed or [], base_corpus, after_corpus).items()):
+        c = cls.get('items', {}).get(key)
+        klass, notes = 'U', ['a landed reviewed change is absent from H']
+        if c is not None and c.get('class') == 'R':
+            klass = 'R'
+            good, why = resolution_ok(c.get('resolution'), cls, False)
+            if good:
+                klass = 'R-justified' if c['resolution']['outcome'] == 'justified' else 'U'
+                notes.append('resolved by review %s' % c['resolution']['review'])
+            elif c.get('resolution'):
+                notes.append('resolution not accepted: ' + why)
+        res[key] = {'kinds': item['kinds'], 'class': klass, 'j10': [], 'notes': notes,
+                    'scientific_evaluation': sci_flag(item, item['before'] or '', item['replayed'], [])}
+    for key, item in sorted(allitems.items()):
         c = cls.get('items', {}).get(key)
         notes, klass, j10 = [], 'U', []
         before, after = item['before'] or '', item['after'] or ''
@@ -859,17 +910,18 @@ def _setline(corpus, f, ln, t):
     return c
 
 
-def countercontrols(compare, res, edits, cls, rows, base, after, rules=RULES, synthetic=None):
+def countercontrols(compare, res, edits, cls, rows, base, after, rules=RULES, synthetic=None, landed=None):
     """C7 (bad citation) and C8 (promotion) on the first J item with an after line, or on the synthetic
     item when the main run has none. Returns {name: {pass, detail}}."""
     snap = load_snapshot()
     src = 'main run'
     items = items_of(compare, after)
-    pick = next((k for k in sorted(res) if res[k]['class'] == 'J' and _after_loc(items[k])), None)
+    pick = next((k for k in sorted(res) if res[k]['class'] == 'J' and k in items and _after_loc(items[k])), None)
     if pick is None:
         if synthetic is None:
             synthetic = synthetic_case()
         compare, edits, cls, after, pick = synthetic
+        landed = None
         items = items_of(compare, after)
         res = classify(compare, edits, cls, rows, base, after, rules)
         src = 'synthetic item (no J item in the main run)'
@@ -888,7 +940,7 @@ def countercontrols(compare, res, edits, cls, rows, base, after, rules=RULES, sy
     else:
         line7 = line + ' 0'
     a7 = _setline(after, f, ln, line7)
-    r7 = classify(B.compare(snap, a7), edits, cls, rows, base, a7, rules)
+    r7 = classify(B.compare(snap, a7), edits, cls, rows, base, a7, rules, landed)
     k7 = pick if pick in r7 else 'U:%s:%d' % (f, ln)
     c7 = r7.get(k7, {}).get('class') == 'U' and counts_of(r7)['U'] == u0 + 1
     # C8: the J10 sentence appended to the line, carried by a synthetic edit that the replay accepts,
@@ -901,7 +953,7 @@ def countercontrols(compare, res, edits, cls, rows, base, after, rules=RULES, sy
                         'components': []})
     cls8 = copy.deepcopy(cls)
     cls8['items'][pick]['edits'] = list(cls8['items'][pick]['edits']) + ['C8:X']
-    r8 = classify(B.compare(snap, a8), e8, cls8, rows, base, a8, rules)
+    r8 = classify(B.compare(snap, a8), e8, cls8, rows, base, a8, rules, landed)
     c8 = r8.get(pick, {}).get('class') == 'R' and bool(r8[pick]['j10']) and r8[pick]['scientific_evaluation']
     return {'C7': {'pass': c7, 'detail': '%s %s: %s -> %s' % (src, pick, 'token' if m else 'appended',
                                                                     r7.get(k7, {}).get('class'))},
@@ -1105,13 +1157,16 @@ def verdict(d, cls_path):
     rows = load_rows()
     base = dict(B.PIN_CORPUS())
     after = B.corpus_at_commit(H)
-    res = classify(compare, edits, cls, rows, base, after)
+    landed = [e for e in edits_s2['edits']
+              if git_try('merge-base', '--is-ancestor', edits_s2['units'][e['unit']]['merge'], H) is not None]
+    landed += edits_del['edits'] if edits_del else []
+    res = classify(compare, edits, cls, rows, base, after, landed=landed)
     counts = counts_of(res)
     inj_c = read_json(os.path.join(d, 'injected-compare.json'))
     inj = ctl.get('injection')
-    ires = classify(inj_c, edits, cls, rows, base, injected(after, inj)) if inj else {}
+    ires = classify(inj_c, edits, cls, rows, base, injected(after, inj), landed=landed) if inj else {}
     c5 = bool(inj) and ires.get(inj['key'], {}).get('class') == 'U' and counts_of(ires)['U'] == counts['U'] + 1
-    cc = countercontrols(compare, res, edits, cls, rows, base, after)
+    cc = countercontrols(compare, res, edits, cls, rows, base, after, landed=landed)
     cc['C5'] = {'pass': c5, 'detail': 'injected %s -> %s' % (inj and inj['key'], ires.get(inj['key'], {}).get('class') if inj else None)}
     cc['C9'] = c9(rows)
     controls = dict(ctl['controls'])
@@ -1127,7 +1182,7 @@ def verdict(d, cls_path):
                    if cls['items'][k].get('resolution')}
     out = {'schema': 'a1exit-compare-verdict/2', 'head': H, 'verdict': v, 'counts': counts, 'items': res,
            'controls': controls, 'countercontrols': cc, 'resolutions': resolutions, 'inputs': inputs,
-           'requirement6_settled': False, 'text': text}
+           'landed_units': sorted({e['unit'] for e in landed}), 'requirement6_settled': False, 'text': text}
     write_json(vpath, out)
     print(text)
     return EXIT[v]
@@ -1356,6 +1411,15 @@ def self_test():
     finally:
         shutil.rmtree(td, ignore_errors=True)
     report('T20 non-empty DIR refused; crashed comparison is not a pass', refused and crash_fails)
+    # T21 replay-missing: a landed reviewed edit reverted in H is U; the full landing gives no such item
+    s2a = [e for e in s2['edits'] if e['unit'] == 'S2-A']
+    full, _ = apply_unit(pin, s2a)
+    part, _ = apply_unit(pin, s2a[1:])
+    m_full = missing_items(s2a, pin, full)
+    r21 = classify(B.compare(snap, part), empty_e, empty_c, rows, pin, part, landed=s2a)
+    rm = [k for k in r21 if k.startswith('RM:')]
+    report('T21 replay-missing: S2-A landed in full -> none; first edit reverted -> U',
+           not m_full and rm and all(r21[k]['class'] == 'U' for k in rm), '%d / %s' % (len(m_full), rm[:3]))
     print('self-test ' + ('PASS' if ok else 'FAIL'))
     return 0 if ok else 1
 

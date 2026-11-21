@@ -35,7 +35,7 @@ manuscript changed on `main` between it and `97070c98`.
 |---|---|
 | `baseline.py` | `e0749fb926ce9da0ee52bad0ea9e0e80e4fa9f4edeb22c8009a303bf1af23ad9` |
 | `snapshot.json` | `2db7832d7cb95b0ba77b42afad965696390d4ad67a6835b2c45f045bd04f88c8` |
-| `compare/verdict.py` | `b6e82f57c73e4831052ba4981335bb64b94b279833515e387fef73ff3fbc4087` |
+| `compare/verdict.py` | `4513fbf0ee45735f0093f0b7636ce1fdf4c5527331bbc794ffaac66b3a87f5b2` |
 | `compare/inputs/edits-s2.json` | `f43086e43663ea5becabee3b0439d338dca78da3170f6a1d951a5ec713583a4c` |
 | the ledger's `rows.json`, read from the Git object at `PIN_S2` | `39e51d0cfd8d6855f17ef3d7253a43d372fae608a9dcae083fbeb52471b512a0` |
 
@@ -48,7 +48,8 @@ the Git object at `PIN_S2` whose digest C0 checks. The term lists of J9 and J10 
 `verdict.py`, frozen with it.
 
 None of these files changes after this record's review except by an amendment in `compare/amendments/`
-made before the comparison is run. If the deletion reconciles the ledger, an amendment states before
+made before the comparison is run. Amendment A2 (`amendments/A2-integration.md`) records the integration
+of the concurrent revision `43122ff6`: what is adopted from it and what is superseded. If the deletion reconciles the ledger, an amendment states before
 the run which ledger state J9 reads.
 
 ## 2. Procedure
@@ -107,6 +108,17 @@ branch is not used as the checkout. `DIR` is a working directory outside the rep
 **Reported items.** Every entry whose status is not `unchanged`; every relocated entry; every
 `unaccounted` line; every `deleted` line. An entry moved within one file and otherwise unchanged is not
 reported (baseline amendment A1, R4).
+
+**Replay-missing items** (amendment A2). The comparison with the baseline cannot see a reviewed change
+that H lacks or reverts, because the line then equals the baseline. The *landed edits* are the frozen
+edits of every unit whose merge is an ancestor of H, then the deletion edits. They are applied in order
+to the baseline, giving the replayed state. Each of the following is also an item:
+- a line of the replayed state that carries reviewed new text (it is not a baseline line of its file),
+  where H lacks it and H's aligned lines there are all baseline lines, or there are none;
+- a landed edit that does not apply.
+
+These items are U unless marked R and resolved; they are never J. A difference whose H side is itself
+a change is already a reported item and is not counted twice (T21).
 
 **Classes.**
 - **J, justified by a landed Step-2 unit or by the deletion edit.** Accepted only when the replay rule
@@ -250,7 +262,7 @@ All must pass, or the verdict is VOID.
 | C1 | `baseline.py check` | exit 0 (snapshot regenerates byte for byte from the pin) |
 | C2 | `baseline.py self-test` | exit 0 |
 | C3 | Baseline against itself: `baseline.py --compare 1c7eedc4…` | exit 0, a fresh `self-compare.json` with no change |
-| C4 | `verdict.py self-test` (T1–T20) | exit 0 |
+| C4 | `verdict.py self-test` (T1–T21) | exit 0 |
 | C5 | Countercontrol for the comparator: H's corpus copied to a temporary directory, one unjustified value change injected (the first unchanged entry of a prediction table, the last digit of its first decimal token), compared with `--compare-tree`, classified with the same `classify.json` | a fresh `injected-compare.json` with `any_change` true reporting the entry `value changed`; the entry is U and the U count is the main U count plus one |
 | C6 | Edit inputs (§4) | (a) `compile-s2` from the records reproduces `edits-s2.json` exactly; (b) every edit is non-empty and not a no-op, of a listed unit with that unit's PR, every component from that unit's allowlisted sources; (c) the replay validation of §4 holds; (d) `compile-del` reproduces `edits-del.json` exactly, the deletion commit is an ancestor of H, and the deletion edits applied to its first parent reproduce its manuscript files byte for byte. (d) is not applicable only when H is the pin |
 | C7 | Bad-citation countercontrol: in a copy of H's corpus, the first J item with an after line has one number token outside its cited edits' new strings changed (or, with none, " 0" appended), and the copy is compared and reclassified with the same edits and `classify.json` | that item becomes U, and the U count is the main U count plus one |
@@ -284,6 +296,7 @@ clause is not exempt (T18).
 | R is resolved only by a non-classifier review on the result PR | resolution rule; T7 |
 | The verdict is given only over green controls | `verdict_of`; T11 |
 | Every reported item is classified | `items_of` coverage, unlisted means U; T2, T10 |
+| A landed reviewed change absent from H, or reverted in it, is not passed | replay-missing items; T21 |
 | A PASS does not settle requirement 6 | `requirement6_settled: false` and the verdict text (§6) |
 
 ## 6. Verdict rule (owner requirement 6)
@@ -307,7 +320,21 @@ any result holds for infinite systems; each result keeps its own conditions.
 
 ## 7. Preparation runs
 
-The preparation runs are recorded at the next commit of this record.
+All runs were made on the pin, on the Step-2 records and on synthetic data only, from the tree of this
+record's head, with the frozen ref the commit that adds this text's digests:
+- `verdict.py self-test`: T1–T21 PASS, including the mutants of C6–C9 (T15, T17, T18).
+- `verdict.py check-edits`: PASS. The frozen Step-2 list equals its compilation from the records, and
+  replaying the five units from the pin reproduces every manuscript file at each unit's merge byte for
+  byte; the deletion list is not applicable at the pin.
+- `collect --head 1c7eedc4`, the baseline against itself, into a fresh directory: C0–C5 pass; C5
+  injected FULL:1642 `0.3183` → `0.3184`.
+- `verdict` on that directory with an empty classification: `VERDICT PASS: 0 reported changes; …;
+  controls pass; countercontrols pass.`, exit 0, `requirement6_settled: false`. C7 and C8 ran on T3's
+  synthetic item (no J item), and C9 gave (a) R, staying R without a proof, and (b) J.
+- A second `verdict` into the same directory was refused (exit 2); a classification naming another head
+  was refused (exit 2); `collect` with a head that does not resolve exited 4.
+- `compile-del` on #1477's current plan, as a format check only: 264 manuscript edits; D032 and D039,
+  recorded there as retained unchanged, are set aside.
 
 No deletion head was compared.
 
