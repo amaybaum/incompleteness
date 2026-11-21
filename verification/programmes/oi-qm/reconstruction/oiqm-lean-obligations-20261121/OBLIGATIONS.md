@@ -809,8 +809,8 @@ theorem thmC_approx_detector … (hd : diamondDist Φ (conjChannel W) < 2 * kapp
     and von Neumann algebras. These are used in PO-11 and PO-19. The operator-norm proposal of §4 is
     unreviewed and is not counted here.
   - Other open mathematics: the reindexing lemma (PO-15) and S2-sub.
-- **The (N) obligations are PO-01's lemmas, PO-04, PO-05 and PO-13**, all pure mathematics under the
-  stated convention. Every other obligation is (I).
+- **The (N) obligations are PO-01's lemmas, PO-04, PO-05, PO-06 and PO-13**, all pure mathematics
+  under the stated convention. Every other obligation is (I).
 - **Cardinality neutrality** is needed by PO-16 and PO-18. It is neutral or not needed for the rest.
 
 ## 3. Cross-references, not overlapped
