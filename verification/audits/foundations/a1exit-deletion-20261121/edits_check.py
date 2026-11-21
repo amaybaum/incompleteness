@@ -49,8 +49,9 @@ CRIT5 = re.compile(r'[Ff]initeness posit|posit A1|finite[- ]information|(?<![A-Z
                    r'|(?<![A-Za-z])finite cardinality|\$S\$ (is )?finite')
 # Phrases that name a finite object (finite representative, substratum, bijection, model, carrier) are finite-scope
 # statements by themselves and are not CRIT5 hits; a CRIT5 hit needs one of these scopes in its sentence.
-SCOPED = re.compile(r'finite (?:\w+ )?representative|finite substrat|finite model|finite OI|finite class|finite-only|for a finite'
-                    r'|on a finite|on a fixed finite|when \$S\$ is finite|finite (?:total )?system|finite set|finite scope'
+SCOPED = re.compile(r'finite (?:\w+ )?representative|finite substrat|finite model|finite OI|finite class|finite-only'
+                    r'|(?:on|for) a (?:fixed )?finite (?:\w+ )?(?:representative|substrat\w*|model|set|system|realization)'
+                    r'|for a finite \$S\$|when \$S\$ is finite|finite (?:total )?system|finite set|finite scope'
                     r'|finite candidate|finite periodic case|finite hidden dynamics|finite realization|qualified case'
                     r'|\bneither\b')
 # Weak markers (a question, "whether", "open", a disclaimer) exempt a criterion-5 hit only when the sentence does not
@@ -64,6 +65,8 @@ CRIT5_ALLOW = [
     ('book/ch02-substratum.md', 'The output of Stage 1 is a triple $(S, \\varphi, V)$ with $S$ finite',
      'Stage 1 constructs a finite realization per law (ledger X-31), inside Theorem 23\'s finite scope'),
     (FULL, 'The output of Stage 1 is a triple $(S, \\varphi, V)$ with $S$ finite', 'FULL mirror of ch02:88'),
+    ('papers/Structure.md', 'a discretization scheme for quantum gravity with manifestly finite configuration space',
+     'Str:339 describes causal dynamical triangulations, another programme; no claim about the OI substratum (unchanged sentence on a changed line)'),
 ]
 # Infinity assertions that no replacement string may introduce (owner decision: cardinality neutrality).
 INF = re.compile(r'(?:\b(?:is|are|be|being|been)\s+infinite\b(?!-))|\b(?:is|are)\s+not\s+finite\b|\binfinitely many\b'
@@ -529,6 +532,11 @@ def self_test():
         d6 = {'edits': [E('W3', 'a set (finite under A1).', s_)]}
         expect(not check(d6, Source(fn=lambda p: 'a set (finite under A1).', files=['x']), True, True),
                'a weak marker does not exempt: %s' % s_)
+    # round-4 countercontrol: a bare "on a finite" does not scope a sentence
+    s_ = 'a deterministic bijection on a finite configuration space, an open matter for physics.'
+    d7 = {'edits': [E('W4', 'a set (finite under A1).', s_)]}
+    expect(not check(d7, Source(fn=lambda p: 'a set (finite under A1).', files=['x']), True, True),
+           'a bare "on a finite" is not a scope: %s' % s_)
     print('self-test %s' % ('PASS' if ok else 'FAIL'))
     return ok
 
