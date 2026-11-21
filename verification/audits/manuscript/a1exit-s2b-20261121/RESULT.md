@@ -167,3 +167,41 @@ on `main`) and on proofs printed in the edited text itself. No support off `main
   R6 Theorem 7 (the role of (M0) and (M1)); E12–E16 against R6 T9.
 - **Accountable Issue.** #1169 (A1-exit).
 - **Resolution.** A review recorded on PR #1473, then an owner merge decision.
+
+## 8. Round 1 (review of `91e1052d3`, REVISE; answered by amendment A1)
+
+The review confirmed the mathematics and raised B1, B2 and nits N1–N6. The coordinator's instructions
+were to fix B1, B2, N1, N2, N3 and N6, skip N4 and N5, and align the return form with S2-C (#1474).
+Amendment `amendments/A1-round1.md` was pushed at `7f2e94c8e` before any edit. Its edits were applied
+verbatim at `00b1ca1a6`.
+
+| Item | Edit | Site after | Answer |
+|---|---|---|---|
+| B1 | R1 | M:224 | The measurable-carrier corollary of §3.2 and the two coupling-step theorems of §3.4 join the list of results that take a measurable hidden space |
+| B2 | R2a, R2b | Sub:262, Sub:266 | Theorem 24(iii)'s classical sentence states the hidden-prior channel family identity of [Main §3.2], with its proof line (R6 T9(b)). This supports Main item (ii) (E6a), which is kept as written |
+| B2 | R2c | Sub:268 | Corollary (iii): for a classical factor, the channel family read as the hidden-prior family |
+| B2 | R2d | ch02:144, FULL:774 | Mirror of R2a. Str:53 does not restate the classical case and is unchanged |
+| N1 | R3 | M:60 | "because the product dynamics factorizes and the added state or law keeps total mass one" |
+| N2 | R4 | M:336 | F measurable for 2^{C_V} ⊗ 𝓗 |
+| N3 | R5 | M:336 | "If some Γ_s with s ≥ 1 is not a permutation matrix … with r = n, under (NR) of that corollary" |
+| S2-C alignment | R5 | M:336 | "for the selected update of §3.2 on ℤ^d …" |
+| S2-C alignment | R6 | AppB:92, FULL:5769 | Full return form, both clauses, "of Main §3.2" |
+| N6 | — | LEDGER.json | Both §3.4 entries: delta "no Lean statement; measurable form: paper proof only" |
+| N4 | — | — | Skipped (acceptable per the review) |
+| N5 | — | — | Out of scope. M:74, M:748 and glossary:27 paraphrase the coupling step as deterministic; this predates the PR and carries no A1 content (see §3) |
+
+**Effects on the X-50 criterion-3 wording.** It stays printed at M:336, with "of §3.2" added, which is
+S2-C's form. **Possible overlap:** R1 edits the final clause of M:224, inside S2-C's range
+(:131–:224), as the coordinator assigned. A merge conflict at that line is possible.
+
+**Grep (R6 §11 item 9).** 63 → 64 hits: R1 adds a "physical-memory" citation at M:224. It has no
+finiteness clause.
+
+**Build and coverage.** Main has 108 pages, median 3322 characters per page. Substratum has 54 pages,
+median 3230. The book has 489 pages, median 2991. No dropped glyphs. `coverage_check` reported one
+stale fingerprint, SUBSTRATUM:C-effective-finiteness-gauge-class-transfer (R2c); it was re-affirmed,
+level GAP unchanged, and the check then reported `OK (132 canonical statements, 20 unattached checkers)`.
+
+**Deviation.** The amendment's preamble says "Ten manuscript edits". The amendment actually
+preregisters nine edits (R1, R2a–R2d, R3, R4, R5, R6) at 11 file sites. The edits themselves are as
+preregistered.
