@@ -275,15 +275,19 @@ Node 4 is the owner's question Q (J2); Node 5 is the stronger reading Q⁺ (J3);
   productivity test (§5, (a)). It is credited as **specific** to Stage 2 only if every J1 member of
   the reference rule set is excluded, each by its own exact dual or Farkas certificate matching the
   positive result's full domain: the same target, the same exactness or ε-tolerance, the same
-  measurement settings (time map `m` range and setting (F) or (Z)), the same torus conditions (side
-  and wrapping conditions on `P`), the same readout classes and the same preparations, as given by
-  the readout and preparation lists frozen for that rule in Node 2, and the same window and the same
-  horizon (a thinner domain does not count), as in Nodes 4a–4b. The comparison set must contain at
-  least one genuine J1 member, including Node 2's tape construction; a reference rule set containing
-  only the range-0 rule cannot establish J1 specificity. A positive realized only by the range-0
-  rule (a J1⁰ member, Node 2) is recorded as generic over J1⁰ and is decided by the J1 members as
-  above; no certificate is required for the range-0 rule. If neither holds, the question is
-  unanswered and the positive is not accepted. Node-specific questions are added below.
+  measurement settings (Stage 1's experimental context, that is the fixed basis and the unitary
+  between readings, which the same-target clause already fixes; and the time map `m` range and
+  setting (F) or (Z)), the same torus conditions (side and wrapping conditions on `P`), the same
+  readout classes and the same preparations, as given by the readout and preparation lists frozen
+  for that rule in Node 2, and the same window and the same horizon (a thinner domain does not
+  count), as in Nodes 4a–4b. The comparison set must contain at least one genuine J1 member,
+  including Node 2's tape construction; a reference rule set containing only the range-0 rule cannot
+  establish J1 specificity. A positive realized only by the range-0 rule (a J1⁰ member, Node 2) is
+  recorded as generic over J1⁰ and is decided by the J1 members as above; no certificate is required
+  for the range-0 rule. The `Φ_{q,α}` readout-map lists are frozen with the reference set in Node
+  2's amendment; a positive using a readout map added later has no frozen counterpart and cannot be
+  credited as specific. If neither holds, the question is unanswered and the positive is not
+  accepted. Node-specific questions are added below.
 
 ### Node 1 — Freeze the relations against the corpus (reading)
 
@@ -323,18 +327,22 @@ Node 4 is the owner's question Q (J2); Node 5 is the stronger reading Q⁺ (J3);
   freezing amendment fixes, for each reference rule, the readout-map and preparation lists that
   correspond to those of each positive that may be tested against it: the same readout and
   preparation classes, the same window size and the same number of readout values, with the explicit
-  correspondence of maps where the site alphabet differs from `ℤ_q × ℤ_q`. These lists are frozen
-  before any outcome is evaluated; a different site alphabet does not allow the comparison to be
-  changed after the fact. If the range-0 rule is kept in the set, it is listed as a J1⁰ member
-  outside the membership criterion, because it violates A4's no-self-input clause. A positive
-  realized only by the range-0 rule is recorded as generic over J1⁰ and is decided by the J1
-  members: it is credited as specific only if every J1 member of the reference rule set is excluded,
-  each by its own exact dual or Farkas certificate matching the positive result's full domain: the
-  same target, the same exactness or ε-tolerance, the same measurement settings (time map `m` range
-  and setting (F) or (Z)), the same torus conditions (side and wrapping conditions on `P`), the same
-  readout classes and the same preparations, as given by the readout and preparation lists frozen
-  for that rule in Node 2, and the same window and the same horizon (a thinner domain does not
-  count), as in §4's common rule.
+  correspondence of maps where the site alphabet differs from `ℤ_q × ℤ_q`. The readout-map lists for
+  `Φ_{q,α}` (Nodes 4–5) are frozen in the same amendment, together with the reference set and these
+  lists, before any outcome is evaluated; a readout map added later has no frozen counterpart, so a
+  positive that uses it cannot be credited as specific. These lists are frozen before any outcome is
+  evaluated; a different site alphabet does not allow the comparison to be changed after the fact.
+  If the range-0 rule is kept in the set, it is listed as a J1⁰ member outside the membership
+  criterion, because it violates A4's no-self-input clause. A positive realized only by the range-0
+  rule is recorded as generic over J1⁰ and is decided by the J1 members: it is credited as specific
+  only if every J1 member of the reference rule set is excluded, each by its own exact dual or
+  Farkas certificate matching the positive result's full domain: the same target, the same exactness
+  or ε-tolerance, the same measurement settings (Stage 1's experimental context, that is the fixed
+  basis and the unitary between readings, which the same-target clause already fixes; and the time
+  map `m` range and setting (F) or (Z)), the same torus conditions (side and wrapping conditions on
+  `P`), the same readout classes and the same preparations, as given by the readout and preparation
+  lists frozen for that rule in Node 2, and the same window and the same horizon (a thinner domain
+  does not count), as in §4's common rule.
 - **Countercontrol.** The range-0 construction is the vacuity witness: any identification criterion
   that it satisfies is too weak to answer Q and is not used. Applied at freeze to J5(T), which it
   satisfies (§2.4).
@@ -489,14 +497,17 @@ Opened after Node 4 closes, whatever its outcome. Reported separately from Q. Al
     as an identification of the stages under §5 (a). It is credited as specific only if every J1
     member of the reference rule set is excluded, each by its own exact dual or Farkas certificate
     matching the positive result's full domain: the same target, the same exactness or ε-tolerance,
-    the same measurement settings (time map `m` range and setting (F) or (Z)), the same torus
-    conditions (side and wrapping conditions on `P`), the same readout classes and the same
-    preparations, as given by the readout and preparation lists frozen for that rule in Node 2, and
-    the same window and the same horizon (a thinner domain does not count). The comparison set must
-    contain at least one genuine J1 member, including Node 2's tape construction; a reference rule
-    set containing only the range-0 rule cannot establish J1 specificity. A positive realized only
-    by the range-0 rule is generic over J1⁰ and is decided by the J1 members. Otherwise the positive
-    is not accepted.
+    the same measurement settings (Stage 1's experimental context, that is the fixed basis and the
+    unitary between readings, which the same-target clause already fixes; and the time map `m` range
+    and setting (F) or (Z)), the same torus conditions (side and wrapping conditions on `P`), the
+    same readout classes and the same preparations, as given by the readout and preparation lists
+    frozen for that rule in Node 2, and the same window and the same horizon (a thinner domain does
+    not count). The comparison set must contain at least one genuine J1 member, including Node 2's
+    tape construction; a reference rule set containing only the range-0 rule cannot establish J1
+    specificity. A positive realized only by the range-0 rule is generic over J1⁰ and is decided by
+    the J1 members. The `Φ_{q,α}` readout-map lists are frozen with the reference set in Node 2's
+    amendment; a positive using a readout map added later has no frozen counterpart and cannot be
+    credited as specific. Otherwise the positive is not accepted.
   - (ii) Readout carries the law: if `g` and the conditioning event `E` together encode the target, in
     the sense of Node 4b's test (ii′), the positive is recorded as carried by the readout and J3 is
     not credited.
@@ -667,7 +678,7 @@ generic normalized invariant law leaves the Stage 3 slope undetermined (P1-AUDIT
 | I2 | No proof executed and no computation run in this design | The commits add one Markdown file and no code or data file; checked with the diff above |
 | I3 | Every corpus citation reads as cited at the pin | Each `file:line` re-read at `df6da1c6` before commit; the reviewer re-reads a sample of them |
 | I4 | No relation carries a status stronger than its source | §2.4 and §2.5 status cells checked against P1-AUDIT, O-A4, NR-1 and Main:632 by the reviewer |
-| I5 | Decision rules are fixed before any node runs | Nodes run only from a reviewed head of this file; any change, including the per-node lists (`m_max`, readout maps, targets, countercontrol instances), is an additive amendment committed before the run, with the reviewed SHA cited in the node's record |
+| I5 | Decision rules are fixed before any node runs | Nodes run only from a reviewed head of this file; any change, including the per-node lists (`m_max`, readout maps, targets, countercontrol instances) and Node 2's reference rule set with its per-rule readout and preparation lists and the `Φ_{q,α}` readout-map lists (one amendment, before any outcome is evaluated), is an additive amendment committed before the run; a readout map added after that amendment has no frozen counterpart and a positive using it is not credited as specific, with the reviewed SHA cited in the node's record |
 | I6 | Computational verdicts print only over green controls | Each node's result record prints the control table before the verdict; a verdict line without a preceding green control table is void |
 | I7 | Exact claims are certified exactly | Each exact verdict names its certificate (rational primal point, dual or Farkas vector, exact count) and the replay that reproduced it |
 | I8 | Negative results carry their full scope | Each negative verdict line names the scope fields of §4's common rules; the reviewer checks each |
@@ -675,7 +686,7 @@ generic normalized invariant law leaves the Stage 3 slope undetermined (P1-AUDIT
 | I10 | Repository-text constraints | A grep of the added lines for the excluded vocabulary and for local paths returns nothing |
 | I11 | Every displayed equivalence has a witness per direction | §2.5 lists each direction separately with its witness or "Missing"; no new equivalence is displayed |
 | I12 | Every identification criterion passes the vacuity countercontrol | Before a relation is used to answer Q or Q⁺, the record shows it is not satisfied by Node 2's range-0 witness; J5(T) is recorded as failing this check at freeze. The check adds content only for J1⁰, J1 and J5(T); J2–J4 and J5(R₁) fix the dynamics or the target system and are not satisfied by the range-0 witness by construction |
-| I13 | Every favourable verdict is pressure-tested before acceptance | In each node record, a filled pressure-test table, including the specificity question against Node 2's frozen reference rule set (readout and preparation free within the readout and preparation lists frozen for each rule in Node 2 before any outcome is evaluated, same budget) with its recorded consequence: for "generic", one J1 member of the reference rule set and its exact primal witness; for "specific", an exact dual or Farkas certificate for every J1 member of the reference rule set, each matching the positive result's full domain: the same target, the same exactness or ε-tolerance, the same measurement settings (time map `m` range and setting (F) or (Z)), the same torus conditions (side and wrapping conditions on `P`), the same readout classes and the same preparations, as given by the readout and preparation lists frozen for that rule in Node 2, and the same window and the same horizon (a thinner domain does not count); a reference rule set containing only the range-0 rule establishing no J1 specificity (the set must contain at least one genuine J1 member, including Node 2's tape construction); the readout and preparation lists for each rule frozen in Node 2 before any outcome is evaluated (a different site alphabet does not allow the comparison to be changed after the fact); a positive realized only by the range-0 rule recorded as generic over J1⁰ and decided by the J1 members, precedes each favourable verdict line; a favourable verdict without one is void |
+| I13 | Every favourable verdict is pressure-tested before acceptance | In each node record, a filled pressure-test table, including the specificity question against Node 2's frozen reference rule set (readout and preparation free within the readout and preparation lists frozen for each rule in Node 2 before any outcome is evaluated, same budget) with its recorded consequence: for "generic", one J1 member of the reference rule set and its exact primal witness; for "specific", an exact dual or Farkas certificate for every J1 member of the reference rule set, each matching the positive result's full domain: the same target, the same exactness or ε-tolerance, the same measurement settings (Stage 1's experimental context, that is the fixed basis and the unitary between readings, which the same-target clause already fixes; and the time map `m` range and setting (F) or (Z)), the same torus conditions (side and wrapping conditions on `P`), the same readout classes and the same preparations, as given by the readout and preparation lists frozen for that rule in Node 2, and the same window and the same horizon (a thinner domain does not count); a reference rule set containing only the range-0 rule establishing no J1 specificity (the set must contain at least one genuine J1 member, including Node 2's tape construction); the readout and preparation lists for each rule frozen in Node 2 before any outcome is evaluated (a different site alphabet does not allow the comparison to be changed after the fact); a positive realized only by the range-0 rule recorded as generic over J1⁰ and decided by the J1 members; the `Φ_{q,α}` readout-map lists frozen with the reference set in Node 2's amendment, a positive using a readout map added later credited as not specific, precedes each favourable verdict line; a favourable verdict without one is void |
 | I14 | Q and Q⁺ are reported separately | Every verdict line names J2 or J3; the final report has separate J2 and J3 sections |
 
 ## 8. Out of scope
