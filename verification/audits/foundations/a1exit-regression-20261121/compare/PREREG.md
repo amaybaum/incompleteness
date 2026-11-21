@@ -35,7 +35,7 @@ manuscript changed on `main` between it and `97070c98`.
 |---|---|
 | `baseline.py` | `e0749fb926ce9da0ee52bad0ea9e0e80e4fa9f4edeb22c8009a303bf1af23ad9` |
 | `snapshot.json` | `2db7832d7cb95b0ba77b42afad965696390d4ad67a6835b2c45f045bd04f88c8` |
-| `compare/verdict.py` | `b3f488c9065bada7a70c807c2236a27d2b2cf9574c5438702af2bf52d6601be5` |
+| `compare/verdict.py` | `edf24fcc75d13df4f0170598415445aec6b47a8e5869a00f78efde525ce2ee4d` |
 | `compare/inputs/edits-s2.json` | `f43086e43663ea5becabee3b0439d338dca78da3170f6a1d951a5ec713583a4c` |
 | `compare/inputs/finiteness-cases.json` (test fixture for T13e) | `9a516d196c2927e9872d6f60111bdd8bd23330c96ae3cd30d0dd7e2604909699` |
 | the ledger's `rows.json`, read from the Git object at `PIN_S2` | `39e51d0cfd8d6855f17ef3d7253a43d372fae608a9dcae083fbeb52471b512a0` |
