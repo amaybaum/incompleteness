@@ -2,16 +2,23 @@
 
 **Status.** Writer's research design, WIP / UNVERIFIED. It plans an investigation and executes
 none of it: no proof is attempted, no computation is run, and no manuscript, Lean, registry, ledger
-or #1477 file is changed. Independent review of this design is required before any node is
-authorized.
+or #1477 file is changed. Revision answering the independent review of `b44cebe6` (REVISE, #1536)
+and the owner's required resolutions (#1169 c.7068602936); an exact-head delta review is required.
+No node is authorized; execution needs an accepted design and separate owner authorization.
 
 **Authorization.** Owner `amaybaum`, [#1169 comment 7068325638](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7068325638),
 2026-11-21T19:51:15Z: "RECON-INF Phase 2 | Research planning authorized | Plan Stage 1, Stage 3 and
-the cross-stage bridge separately; no proof execution yet". The P2-B item reads: "**P2-B (Stage 3).**
-Can normalized measures on infinite configuration spaces carry the entropy and boundary
-calculations? Invariant product measures for special coupled rules stay distinct from a measure
-justified for the selected native dynamics." Order item 5: "Phase 2 investigations, only after
-their plans are reviewed". Phase 3 is not authorized.
+the cross-stage bridge separately; no proof execution yet". Order item 5: "Phase 2 investigations,
+only after their plans are reviewed". Phase 3 is not authorized.
+
+**Scope, verbatim.** Owner `amaybaum`, [#1169 comment 7068447675](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7068447675),
+2026-11-21T20:01:28Z: "**P2-B — Stage 3: Replace counting.** Test whether normalized measures on
+infinite configuration spaces can support the required entropy and boundary calculations.
+Distinguish invariant product measures for special coupled rules from a measure justified for the
+selected native dynamics." The earlier comment's summary of the same item, for context: "Can
+normalized measures on infinite configuration spaces carry the entropy and boundary calculations?
+Invariant product measures for special coupled rules stay distinct from a measure justified for the
+selected native dynamics."
 
 **Goal link.** Issue #1531 (RECON-INF) and thread #1169. Phase 1 (draft PR #1532, head
 `0bc9628ab3ee4e6955df8980815ecead869578ee`, `verification/audits/foundations/recon-inf-p1-20261121/AUDIT.md`,
@@ -29,7 +36,8 @@ the pin. Records are under `verification/audits/foundations/`:
 | P1 | `recon-inf-p1-20261121/AUDIT.md` at `0bc9628a` (#1532, not on `main`) | Confirmed (c.7068298957) |
 | P7-B | `p7-boundary-count-20261116/P7-BOUNDARY-COUNT.md` | ACCEPT WITH CHANGES; delta CONFIRMED WITH NITS |
 | R1-INF | `r1-inf-20261119/RESULT.md` | Revised after REVISE; delta review outstanding. Every use below carries "(delta review outstanding)" |
-| O-A4 | `o-a4-20261120/RESULT.md` | Merged in #1441; owner-accepted |
+| O-A4 | `o-a4-20261120/RESULT.md` | The record's own status section (:407–411) names REVISE on `1c69ea84` and a missing delta review; the merge commit `68d5759c` (#1441) records ACCEPT WITH NITS (c.7031523612) and CONFIRMED (c.7031576598), and the owner decision #1169 c.7031779559, item 1, as a preservation merge |
+| REMAINDER | `a1-remainder-20261119/REMAINDER.md` | Consumer table at pin `21e16c61` (as in P1) |
 | NR-1 | `nr1-near-return-20261116/NR-1.md` | ACCEPT WITH CHANGES; delta CONFIRMED WITH NITS |
 | A1-03 | `a1-free-p7-coupled/DECISION.md` | SOURCE GAP at normalized invariant coupled-shell states |
 | A1-07 | `a1-07-p7-energy-state/DECISION.md` | SOURCE GAP at the energy check (RD6 cut) |
@@ -40,9 +48,16 @@ the pin. Records are under `verification/audits/foundations/`:
 **Setting.** The native carrier is `Ω = (A×A)^{ℤ³}` with `A = ℤ_q`. The **selected native dynamics**
 `F_sel` is the second-order form of Main:736 item (xiii) with the centre-free isotropic linear rule
 of SM:224, `x_i(t+1) = α Σ_{j∼i} x_j(t) − x_i(t−1) (mod q)`, in phase-space form
-`(u, v) ↦ (αSu − v, u)` (R1-INF §2), with reversal `Θ` the slice swap. `main` fixes neither `q` nor `α`
-(NR-1:101, row (Q)), so every statement below is indexed by `(q, α)`. The rounded rule of SM:292 is a
-second candidate native rule; it is named where a node covers it and is otherwise outside the grid.
+`(u, v) ↦ (αSu − v, u)` (R1-INF §2, delta review outstanding), with reversal `Θ` the slice swap.
+`main` fixes neither `q` nor `α` (NR-1:101, row (Q)), so every statement below is indexed by
+`(q, α)`. The rounded rule of SM:294 is a second candidate native rule; it is named where a node
+covers it and is otherwise outside the grid.
+
+**Observer partition.** Wherever a node uses the observer partition, it is the finite visible window
+`V ⊂ ℤ³` with window (coordinate) readout `π = x|_V`, the hidden boundary layer `B` within the
+interaction range of `V` (GR:116) and the deep remainder `D`, as in GR:112–122. The visible cells are
+either the window configurations themselves (fine cells) or the classes of a stated energy function on
+window configurations (coarse cells); every verdict states which.
 
 **Question Q.** Is there a normalized Borel probability law `μ` on an infinite configuration space
 such that
@@ -63,14 +78,19 @@ to a higher tier without a node check of its own.
 | Tier | Meaning |
 |---|---|
 | T-spec | Exists for some coupled rule in a stated class that is not `F_sel` on `Ω` |
-| T-nat-ex | Exists for `F_sel` on `Ω`, for stated `(q, α)`; nothing about selection |
+| T-fin | A law on a finite restriction of `F_sel` (a finite shell, a torus `Per_L`, a finite invariant truncation); not a law on `Ω` |
+| T-nat-ex | A law on `Ω` invariant under `F_sel` and `Θ`, for stated `(q, α)`, only after a written construction of the law on `Ω` and a proof of its invariance; nothing about selection |
 | T-nat-pos | Selected for `F_sel` only under named posits added to the corpus (for example R1-INF (G3)+(G4), delta review outstanding) |
-| T-nat-dyn | Selected by `F_sel`, `Θ` and the observer partition among a class of laws defined without posits beyond the corpus, with no free continuous parameter |
+| T-nat-dyn | Unique, with no free continuous parameter, among the `F_sel`-,`Θ`-invariant laws of one of the admissible classes K0–K4 frozen in N7 before any outcome is examined, all of whose restrictions are corpus inputs; the class uses the observer partition above where it names a readout |
+
+A T-fin result is never cited as T-nat-ex; promotion needs a construction on `Ω` as its own node.
 
 **Outcome set, fixed in advance.** (Y-dyn) Q holds at T-nat-dyn; (Y-pos) Q holds only at T-nat-pos;
-(Y-spec) Q holds only at T-spec; (N-scoped) Q fails for a stated construction class, with a
-countermodel or proof scoped to that class; (U) undetermined, parked at a named node. The design does
-not favour any of these.
+(Y-ex) the calculations of Q items 1–2 go through for an `F_sel`-invariant law on `Ω` that is only
+T-nat-ex, so Q item 3 (values fixed by `μ` and the dynamics) is not met; recorded as (Y-ex) and parked
+at N7 for selection; (Y-spec) Q holds only at T-spec or T-fin; (N-scoped) Q fails for a stated
+construction class, with a countermodel or proof scoped to that class; (U) undetermined, parked at a
+named node. The design does not favour any of these.
 
 ## 2. What Stage 3 needs from a measure
 
@@ -92,7 +112,7 @@ it uses:
 | B1 | Mode count `N_modes = A/ε²`; crossing-link count, `κ_m = 3/2` on the spherical horizon | GR:98; GR:104; GR:156 | None (geometry under the single-link reading of H-link) | Exact link count (GR:104) |
 | B2 | Entropy per mode `σ ≤ ln q` | Sub:191; GR:98; GR:102; GR:156 | The entropy of one mode's marginal under the law | Counting bound |
 | B3 | Absolute boundary entropy `S = σA/ε² = ηA` | GR:98–104; GR:623 (U2) | An absolute entropy of the boundary layer | Count of boundary configurations |
-| B4 | Finite boundary configuration set | P7-B H2 (posited); GR:132 (D4) | Finiteness of `C_B` only | Posit |
+| B4 | Finite boundary configuration set | P7-B H2 (posited); GR:882 (D4) | Finiteness of `C_B` only | Posit |
 | B5 | Boundary-only dependence; deep-cardinality gauge | GR:112–138; GR:871–905, (D5) at GR:883 | A product prior `u_{B_n} ⊗ ν` (Appendix B) or a measure form of H-BD (open, REMAINDER L10). GR:144 states that the matching does not use it | Uniform prior on finite `C_H` |
 
 ### 2.2 Candidate measures
@@ -103,9 +123,9 @@ it uses:
 | M1 | Uniform Bernoulli product law `β_A` (Haar for linear rules) | Invariant for every second-order rule over a finite abelian group (O-A4 Lemma U, :69) |
 | M2 | Non-uniform product laws, including product Gibbs laws `∝ ∏_z e^{−βφ(x_z)}` | Invariance depends on the rule; fails for `F_sel` with `q = 2, α = 1` under `Bern(1/4)` (R1-INF C7 (i), delta review outstanding) |
 | M3 | P7-B's H4 product: counting on a finite boundary shell times a normalized deep law `ν` | Decoupled dynamics (P7-B 6.3, proved); some coupled bijections with a `φ`-adapted `ν` (P7-B 6.3 (i)) |
-| M4 | Translation-invariant Gibbs/DLR laws of an interaction with summable variations | Invariant under a surjective CA iff the CA conserves the interaction (Kari–Taati 2015, Thm. 41, as cited in R1-INF Prop. 6 (c), delta review outstanding; to be verified at L1) |
-| M5 | Laws maximizing entropy density at fixed densities of conserved quantities | Exist when conserved quantities exist (Kari–Taati Thm. 42, same citation) |
-| M6 | P-ED: maximal entropy density among `F`- and translation-invariant laws | Selects `β_A` for every surjective CA under (G1)–(G4) (R1-INF Prop. 3, :114, delta review outstanding) |
+| M4 | Translation-invariant Gibbs/DLR laws of an interaction with summable variations | Set level, as quoted in R1-INF Prop. 6 (c), :222–226 (delta review outstanding; to be verified at L1): a surjective CA conserves the interaction iff it maps the set of shift-invariant Gibbs laws of that interaction onto itself, iff it maps one such law into that set (Kari–Taati 2015, Thm. 41). Law by law only one direction follows: an invariant Gibbs law implies conservation. Conservation does not make each Gibbs law invariant when several exist; an invariant law inside the set is an L1 item |
+| M5 | Laws maximizing entropy density at fixed densities of conserved quantities | The set of such laws at a fixed density is mapped onto itself under conservation (Kari–Taati Thm. 42, one direction, same citation, delta review outstanding) |
+| M6 | P-ED: maximal entropy density among `F`- and translation-invariant laws | Selects `β_A` for every injective CA on a full site product under (G1)–(G4) (R1-INF Prop. 3, :114–122, delta review outstanding) |
 | M7 | Laws that are not translation invariant: Haar on a closed invariant subgroup, periodic-orbit measures, laws inhomogeneous across the cut | `m_H` of R1-INF Prop. 9 (b), :280, delta review outstanding; NU9 periodic orbits (P1 §3 (R-b), status C) |
 
 ### 2.3 Relations, labelled
@@ -168,8 +188,10 @@ identities, ranks and zeros are decided by exact arithmetic (integers, rationals
 cyclotomic integers); floating point is not used as evidence for any of them.
 
 **Order and branching.** N0 → N1 → N2. N2's outcome selects the next branch: a native conserved
-quantity sends N3 and N4 to `F_sel`; none sends N3 and N4 to the T-spec models only, and the native
-verdict is generated at N7. N5 and N6 run in either case. N8 closes.
+quantity sends N3 and N4 to `F_sel`; none within N2's range grid sends N3 and N4 to the T-spec models
+only, pending N2.3, and the native verdict is generated at N7 conditional on N2's range bound. This is
+a resource choice: a range-bounded "none" is not a statement that `F_sel` has no conserved energy. N5
+and N6 run in either case. N8 closes.
 
 ### N0. Literature and corpus step
 
@@ -202,8 +224,9 @@ is re-examined before the list is accepted.
 additive conserved quantity of finite range exist, for each `(q, α)` in the grid? "Nontrivial" means
 not a constant plus a translation coboundary. Additivity is required by GR:58's split
 `E_tot = e_i + E_H`. This is prior to every shell calculation: without such a quantity S1 has no
-content for `F_sel`, and by L1 no translation-invariant Gibbs law of a nonzero finite-range
-interaction is `F_sel`-invariant.
+content for `F_sel`, and by the law-level direction of L1 (an invariant Gibbs law implies
+conservation) no translation-invariant Gibbs law of a finite-range interaction not physically
+equivalent to zero is `F_sel`-invariant.
 
 **Method A (character orbits; linear rules).** A real range-`W` potential is a combination of
 characters of `A^W` and their conjugates. For a linear rule, composition with `F` maps characters to
@@ -214,14 +237,63 @@ supported in `W`. **N2.0** proves this reduction in writing before any use; unti
 not evidence.
 
 **Method B (direct linear algebra).** The conservation condition on range-`W` potentials, as a
-linear system over `ℚ` (by L2's criterion where available, otherwise torus equations), solved by exact
-fraction-free elimination.
+linear system over `ℚ`, solved by exact fraction-free elimination. Two forms, recorded per cell:
+**B-exact**, by an L2 criterion valid on `ℤ^d` (only if N0 finds one); **B-torus**, by torus
+equations. B-torus is one-sided: at a size `L` that passes the injectivity check below it bounds the
+`ℤ^d` conserved space from above (R1-INF :540–541, delta review outstanding, states this direction;
+L2 is to confirm it), and it never bounds it from below. A zero on finite tori is never taken, by
+itself, as absence on `ℤ^d`.
 
-**Grid (preregistered).** `d ∈ {1, 2, 3}`; `q ∈ {2, 3, 5}`; every `α ∈ ℤ_q`, with `α = 0` as a
-countercontrol (`F^4 = id`); `W` the cubes of side 1 and 2, and side 3 for `d ≤ 2`. A cell whose
-dual space exceeds `2^{24}` elements runs in CI only (§A.40), which needs owner approval; it is not
-run locally. The rounded rule of SM:292 is outside method A; method B covers it in `d = 1, 2` cells
-that fit the bound.
+**Algorithm for method A (preregistered).** Enumerate the nonzero translation classes of characters
+supported in `W`; build the functional graph sending a class to the class of its `F^*`-image when that
+image has a translate supported in `W`, and to an absorbing "out" node otherwise; the conserved range-`W`
+quantities are spanned by the class sums over the cycles of this graph. Cost is one image computation
+per class plus linear-time cycle detection.
+
+**Torus sizes and injectivity (B-torus).** For a window of side `s` and update radius 1, the torus
+sizes are `L ∈ {2s+3, 2s+4, 2s+5, 2s+6}`, fixed here; the set contains both parities and, for each
+`q ∈ {2, 3, 5}`, sizes divisible and not divisible by `q` where the range allows, since period
+properties of the exact rule depend on divisibility (SM:296). For each `L`:
+- an exact rank check that range-`W` potentials modulo the `ℤ^d`-trivial ones (constants and
+  translation coboundaries of range `W`) inject into torus functions modulo the torus-trivial ones;
+- the trivial-part dimension is computed for each `L` by a routine separate from the solver.
+
+A cell with a failed injectivity check at some `L` gives no B-torus value at that `L`. The B-torus
+excess is reported as a function of `L`; it is called stable only if it is the same at every
+preregistered `L` that passes the injectivity check, with at least two such `L`. A stable B-torus value
+is a certified upper bound when L2 confirms the upper-bound direction for the check used; otherwise it
+is recorded as an uncertified torus observation.
+
+**Grid and cost (preregistered, §A.40).** `d ∈ {1, 2, 3}`; `q ∈ {2, 3, 5}`; every `α ∈ ℤ_q`, with
+`α = 0` as a countercontrol (`F^4 = id`); `W` the cubes of side `s ∈ {1, 2}`, and `s = 3` for `d ≤ 2`.
+Write `N = q^{2s^d}` for the number of characters supported in `W`. Method A costs about
+`N·s^d·(2d+1)` finite-field operations per `α`; method B has `N` unknowns, and B-torus has
+`q^{2L^d}` equations at each preregistered `L`. B-torus runs in a cell only if `N·q^{2L}` is below
+the local budget at every preregistered `L` of that cell (so only in `d = 1`); the `L` set is not
+reduced to fit. In `d = 2` and `d = 3`, `L ≥ 5` gives at least `q^{50}` equations, and B-torus is not
+run. Classification of each cell by total cost over all `α`:
+
+| `d` | `s` | `N` at `q = 2, 3, 5` | Method A | Method B |
+|---|---|---|---|---|
+| 1 | 1, 2, 3 | `q^{2s}`: at most `5^6 = 15 625` | local | B-torus where `N·q^{2L}` fits the local budget at every `L ∈ {2s+3, …, 2s+6}`: `q = 2` for `s = 1, 2, 3` (at most `2^6·2^{24}`, about `10^9`) and `q = 3`, `s = 1` (`9·3^{16}`, about `4·10^8`); otherwise not run |
+| 2 | 1 | 4, 9, 25 | local | not run (B-exact only, if N0 supplies a criterion) |
+| 2 | 2 | 256, 6 561, 390 625 | local | not run (B-exact only, if N0 supplies a criterion) |
+| 2 | 3 | 262 144; 3.9·10⁸; 3.8·10¹² | `q = 2` local; `q = 3` CI; `q = 5` not run | not run |
+| 3 | 1 | 4, 9, 25 | local | not run (B-exact only) |
+| 3 | 2 | 65 536; 4.3·10⁷; 1.5·10¹¹ | `q = 2` local; `q = 3` CI; `q = 5` not run | not run (B-exact only) |
+
+"Local" means an estimated total below about `10^9` operations and `10^8` stored classes. "CI" marks
+the cells whose estimated cost exceeds the local budget. P2-B CI computations are not authorized (#1169
+c.7068602936): a CI cell runs only after this preregistration is accepted and the owner separately
+approves that cell's cost (§A.40, §A.43 item 4). No CI cell is run locally. "Not run" cells are
+reported as not computed, with no verdict. Before any cell runs, the estimate is re-measured on the
+smallest instance and the table is amended (in `amendments/`, before that cell) if the measurement
+moves a cell across a class. The `d = 3` verdicts rest on method A after N2.0, and
+on B-exact only if N0 supplies an `ℤ^d` criterion with its own cost estimate; B-torus is not used in
+`d = 3`. Productivity item 1 (§5) can be met by local `d = 3` cells (`s = 1` for every `q`, `s = 2` at
+`q = 2`); the `s = 2`, `q = 3` cells are CI cells, and so need an accepted preregistration and the
+owner's separate approval of their cost, which P2-B does not have. The rounded rule of SM:294
+is outside method A; method B covers it only in the `d = 1` cells above.
 
 **N2.3 (written, all ranges; later authorization).** For prime `q`: is there a nonzero finitely
 supported `ξ`, `n ≥ 1`, a translation `g` and `c ∈ ℤ_q^×` with `F^{*n} ξ = c·τ_g ξ`? This is a
@@ -229,14 +301,24 @@ statement about eigenvalues of the companion matrix `[[αS, −1], [1, 0]]` over
 `ℤ_q[x_1^{±1}, …, x_d^{±1}]`, `S = Σ_j (x_j + x_j^{−1})`. A comparison of Newton polytopes is one
 candidate method; it is not carried out here, and the node is open in both directions.
 
-**Decision rule.**
-- Methods A and B disagree on any cell where both run → halt; the node's verdict is void.
-- A cell with excess dimension 0 by an upper-bound method (B on tori, or A after N2.0) → "no
-  nontrivial real additive conserved quantity of range `W` for `F_sel` at `(d, q, α)`". The statement
-  is scoped to that `W` and those parameters.
-- A cell with excess dimension `k > 0` → record a basis; a lower bound needs an explicit conserved
-  quantity checked exactly on `ℤ^d` (by the L2 criterion or a written proof). Only then is the
-  quantity a native candidate for S1.
+**Decision rule.** Comparison of the methods, by what each measures:
+- A (after N2.0) and B-exact both run → any difference in the excess dimension halts the node; its
+  verdict is void.
+- A (after N2.0) and a certified stable B-torus both run → the compatible relation is
+  `B-torus ≥ A`; only `B-torus < A` halts the node, since that pair of certified results is
+  incompatible. A gap `B-torus > A` is not a conflict: it is recorded, and the cell's value is A's,
+  scoped to N2.0's theorem.
+- Uncertified results (A before N2.0, B-torus without L2's confirmation or without stability) never
+  halt the node and never yield a verdict; they are recorded as observations.
+- Only B-torus runs (A not yet licensed by N2.0) → no `ℤ^d` verdict in either direction. A stable
+  certified B-torus excess 0 is recorded as "torus upper bound 0 at the preregistered `L`", and an
+  absence verdict on `ℤ^d` waits for A after N2.0 or for B-exact.
+
+Verdicts:
+- Excess 0 by A after N2.0, or by B-exact → "no nontrivial real additive conserved quantity of range
+  `W` for `F_sel` at `(d, q, α)`, pending N2.3". Scoped to that `W` and those parameters.
+- Excess `k > 0` by A after N2.0 or by B-exact → record a basis; each basis element is checked exactly
+  on `ℤ^d` (by the L2 criterion or a written proof) before it is a native candidate for S1.
 - N2.3 proved → the scoped statement extends to all finite ranges for that `(d, q)` and every
   `α ≠ 0`. N2.3 refuted by an explicit `ξ` → native candidate. Neither within the authorized budget →
   parked at N2.3, named gap.
@@ -244,41 +326,63 @@ candidate method; it is not carried out here, and the node is open in both direc
   horizon first-law energy remains R22 (M), and no node here supplies it.
 
 **Controls.**
-- *Positive control:* `d = 1`, `α² ≡ 1 (mod q)`: both methods must find the movers of R1-INF Prop. 6,
-  and the excess dimensions must equal R1-INF §9 E's reported values (2, 4, 2 for `(q, α) = (2,1),
-  (3,1), (3,2)` at range 2). R1-INF is under delta review, so agreement of the two methods with each
-  other is the control; agreement with R1-INF is a cross-check.
+- *Positive control:* `d = 1`, `α² ≡ 1 (mod q)`: both methods must find the movers of
+  R1-INF Prop. 6 (delta review outstanding), and the excess dimensions are compared with
+  R1-INF §9 E's values (delta review outstanding): 2, 4, 2 for `(q, α) = (2,1), (3,1), (3,2)` at
+  range 2. Agreement of the two methods under the comparison rule above is the control; agreement
+  with R1-INF (delta review outstanding) is a cross-check.
 - *Exactness control:* the identity CA and the shift CA (every potential conserved): the computed
   dimension must equal the full dimension minus the trivial part, by a count computed independently.
-- *Symmetry control:* the conserved space must be invariant under `Θ` and the cubic point group acting
-  on supports; its dimension must equal a sum of orbit sizes of that action.
+- *Symmetry control:* the action of `Θ` and of each generator of the cubic point group on supports
+  must map the computed basis into its span, checked exactly; and the dimension of each isotypic
+  component of the conserved space under the point group must equal the value given by a character
+  computation independent of the solver (the permutation character on the cycles of method A's graph,
+  obtained by counting, for each group element, the cycle classes it fixes, by a direct test of
+  `F^{*n}ξ = τ_g ξ` that does not use the solver's basis). `Θ`-invariance of the conserved space
+  follows from `ΘFΘ = F^{−1}` and is a necessary property, not a discriminating one.
 - *Countercontrols:* (i) an injected non-conserved potential (a single-site value of `u`) must be
-  rejected and an injected mover (`d = 1`) accepted by the checker; (ii) `α = 0` must report the
-  conserved quantities of a finite-order map, which differ from the `α ≠ 0` cells.
+  rejected and an injected mover (`d = 1`) accepted by the checker; (ii) `α = 0`: here `F` acts site
+  by site with `F^4 = id`, so every character supported in `W` has a finite orbit and stays supported
+  in `W`; the computed excess must equal the value from a Burnside count of `⟨F^*⟩`-orbits on the
+  nonzero translation classes supported in `W`, under the trivial-part convention written down before
+  the run.
 - *Replay:* each run is deterministic and its output must replay byte for byte (§A.26 item 3).
 
 ### N3. Gibbs laws of a conserved quantity: does anything fix the slope?
 
 Runs on N2's native candidates if any; otherwise on T-spec models only: (a) `F_sel` in `d = 1` with
 `α² ≡ 1` (a different dynamics from `F_sel` on `ℤ³`, hence T-spec), (b) P7-B's decoupled models,
-(c) a rule built with a site-additive conserved energy, chosen before the check and recorded.
+(c) a rule built with a site-additive conserved energy, chosen before the check and recorded; (d) the
+real lift of the linear rule, whose quadratic is positive definite for `|α| < 1/d` (SM:292), a
+different carrier from `Ω` and hence T-spec. Every N3 verdict carries a tier column.
 
-**N3.1 Existence.** For a conserved interaction `Φ`, the translation-invariant Gibbs laws `μ_β` that
-are `F`-invariant (L1), and their `Θ`-invariance (which needs `Φ∘Θ` equivalent to `Φ`).
-**Decision rule:** existence is recorded per `β` only with L1's hypotheses verified for `Φ`; otherwise
-"not established for `Φ`".
+**N3.1 Existence.** For a conserved interaction `Φ`: the set of translation-invariant Gibbs laws of
+`βΦ` is mapped onto itself (L1, set level); an `F`-invariant law inside that set (L1 item: a fixed
+point of the affine continuous map `F_*` on a compact convex set); and its `Θ`-invariance (which needs
+`Φ∘Θ` physically equivalent to `Φ`). **Decision rule:** existence of an invariant Gibbs law is recorded
+per `β` only with L1's hypotheses verified for `Φ` and the fixed-point step written out; where the Gibbs
+set at `β` has one element, that element is invariant; otherwise the record says which law is
+invariant, or "not established for `Φ`".
 
 **N3.2 Visible weights.** Under the DLR conditional, compare the visible cell masses `p_i` with
-`e^{−βe_i}` normalized. **Decision rule:** equality holds exactly, or the deviation is a stated
-function of the visible–boundary interaction (the H-shell condition of GR:60). Computed in the models
-with partition functions as integer polynomials in `x = e^{−β}`.
+`e^{−βe_i}` normalized. Computed in the models with partition functions as integer polynomials in
+`x = e^{−β}`. **Decision rule:** "equality" iff `p_i Σ_j x^{e_j} = x^{e_i}` holds as an identity of
+integer polynomials (after clearing denominators) for every `i`; otherwise "deviation", with the
+deviation factor `p_i/(x^{e_i}/Σ_j x^{e_j})` recorded exactly as a rational function of `x`, and its
+dependence on the visible–boundary interaction (the H-shell condition of GR:60) stated.
 
 **N3.3 Selection of `β`.** Candidates: P-ED (gives `β = 0`), maximal entropy at fixed conserved
 density (M5), torus microcanonical limits at fixed density (M0 with L5), ergodic decomposition.
-**Decision rule:** if every candidate leaves `β`, or the conserved density, as a free continuous
-parameter, the verdict is "the Gibbs route supplies S2's form without counting; the slope is carried
-by the choice of `β`, a parameter of the law"; if one candidate fixes `β` from the dynamics and the
-partition with no target input, the verdict is provisional favourable and goes to N8.
+**Decision rule (conditional on N3.2, with tier):**
+- every candidate leaves `β`, or the conserved density, as a free continuous parameter, and N3.2
+  recorded "equality" → "for `Φ` at tier T, the Gibbs route gives S2's form without counting; the
+  slope is carried by the choice of `β`, a parameter of the law";
+- the same, with N3.2 "deviation" → "for `Φ` at tier T, the Gibbs route gives S2's form only up to
+  the recorded deviation factor; the slope is carried by `β`";
+- one candidate fixes `β` from the dynamics and the partition with no target input → provisional
+  favourable at tier T, sent to N8;
+- T is the tier of `Φ` and of its rule (T-spec for models (a)–(d)); a T-spec verdict is never
+  restated for `F_sel`.
 
 **N3.4 Bulk `β` and horizon `β_E`.** Is the Gibbs parameter of a bulk conserved density related to
 H6's `β_E = 8πGσ/(c²κε²)` by anything other than a posit? **Decision rule:** "Assumed (I)" unless a
@@ -293,7 +397,8 @@ certificate of it.
 ### N4. The deep clause and the reservoir
 
 **Question.** S6 requires the deep sector to contribute no energy-dependent multiplicity and no
-energy. Under coupled dynamics (GR:128: `L ≠ 0` at every cut of the displayed update):
+energy. Under coupled dynamics (GR:128: the update displayed in Main §3.2 has `L ≠ 0` "at every cut
+where a boundary site has a deep neighbour"):
 
 - **N4.1** Is there a translation-invariant law, invariant under `F` and `Θ`, for which S6 holds in
   law form and the visible weights are energy-resolved?
@@ -308,9 +413,12 @@ the search.
 
 **Decision rule.** N4.1 answered "no" by a proof → "for translation-invariant laws S6 and energy
 resolution are incompatible", scoped to translation-invariant laws and the stated conserved
-quantities. N4.1 "yes" → record the law and send it to N8. N4.2: an explicit invariant law → T-spec
-(or T-nat-ex if for `F_sel`); none found in the models → no statement beyond those models. N4.3 →
-record which quantity the visible weights depend on, from N3.2's formula.
+quantities. N4.1 "yes" → record the law and send it to N8. N4.2: an explicit invariant law found on
+a finite model is T-spec, or T-fin if the model is a finite restriction of `F_sel`; it is never
+T-nat-ex. Promotion to T-nat-ex needs its own node: a written construction of a law on `Ω` (for
+example a cylinder limit) with a proof of its invariance under `F_sel` and `Θ`. None found in the
+models → no statement beyond those models. N4.3 → record which quantity the visible weights depend
+on, from N3.2's formula.
 
 **Controls.** Positive: P7-B's decoupled H4 model, where S6 holds by construction, must be reported
 compatible. Countercontrol: P7-B 6.3 (ii), where no normalized invariant shell law exists, must be
@@ -342,14 +450,17 @@ reported as having none.
 
 **Control for N5.2 and N5.3.** Entropies are compared through exact counts and rational masses; a
 logarithm appears only symbolically. Countercontrol: under the non-invariant product law
-`Unif(V) ⊗ δ_0` (R1-INF §9 C), any equality claimed for invariant laws must fail.
+`Unif(V) ⊗ δ_0` (R1-INF §9 C, delta review outstanding), any equality claimed for invariant laws
+must fail.
 
 ### N6. Special coupled rules (T-spec classification)
 
 **Question.** For which coupled rules does an invariant product law exist, and does it resolve
 energy?
 
-- `β_A` for every second-order rule (O-A4 Lemma U): T-nat-ex for `F_sel`; uniform weights.
+- `β_A` for every second-order rule (O-A4 Lemma U, a construction on `Ω` with its invariance proof):
+  T-nat-ex for `F_sel`. Its fine-cell window marginal is uniform because it is a product law; its
+  coarse-cell weights are derived at N7.
 - P7-B 6.3 (i): a coupled bijection with a `φ`-adapted `ν`: T-spec.
 - Product Gibbs laws `∝ ∏_z e^{−βφ(x_z)}`: by L1, invariant iff the rule conserves the single-site
   potential `φ`, which is N2's cell `W` = one site. For `F_sel` this node reads N2's result and adds
@@ -361,23 +472,52 @@ every later sentence.
 
 ### N7. Justification for the selected native dynamics
 
-**Question.** Among laws found invariant for `F_sel` (T-nat-ex), which, if any, are selected at
-T-nat-dyn, and which only at T-nat-pos?
+**Question.** Among laws on `Ω` established as T-nat-ex (a construction on `Ω` and a proof of
+invariance under `F_sel` and `Θ`), which, if any, are unique within an admissible class, and is that
+class T-nat-dyn or T-nat-pos? The verdict is conditional on N2's range bound and on N2.3's status.
 
-**Check.** R1-INF Props. 3 and 9 (delta review outstanding) and L6's rigidity results, each with
-its hypotheses listed and classified as a corpus input or an added posit.
+**Admissible classes (frozen here, before any outcome is examined).** Each is the set of Borel
+probability laws on `Ω` invariant under `F_sel` and `Θ`, further restricted as follows:
 
-**Decision rule.** T-nat-dyn requires uniqueness among all `F_sel`-,`Θ`-invariant laws of a class
-defined without translation invariance or entropy conditions beyond the corpus, with no free
-continuous parameter. A uniqueness that needs translation invariance, ergodicity under shifts or a
-positive-entropy condition not in the corpus is T-nat-pos, with the condition named. If the selected
-law is `β_A`, the verdict on Stage 3 is generated from R15–R16 and P7-B 6.1: uniform visible
-marginal on windows, unit paired rate ratio, `β_E = 0` for any additive energy. That verdict is
-recorded for `β_A` only.
+| Class | Restriction added | Classification of the restriction |
+|---|---|---|
+| K0 | none | corpus input (the update and reversal only) |
+| K1 | K0 and full support (every cylinder has positive mass) | added posit, unless N7.0 finds it stated for infinite carriers |
+| K2 | K1 and product form `u_V ⊗ ν` at the visible window of the observer partition (§1) | added posit: H-μ(φ,Θ), a named hypothesis not adopted (O-A4 :64) |
+| K3 | K2 and translation invariance | added posit (R1-INF (G3), delta review outstanding) |
+| K4 | K3 and maximal entropy density | added posit (R1-INF (G4), delta review outstanding) |
 
-**Positive control.** The `β_A` verdict must reproduce R1-INF:385. **Countercontrol.** The identity CA
-and a lattice translation, for which every translation-invariant law is invariant, must come out with
-no selection at T-nat-dyn.
+**N7.0 (corpus step, before any uniqueness check).** Search the corpus at the pin (L9) for each
+restriction of K1–K4 stated for infinite carriers. A restriction found so stated is reclassified as a
+corpus input, with its file:line. Ledger item (iv) (Main:736) is stated "on a finite representative"
+and so does not count. The table is then frozen and is not changed after any uniqueness result.
+
+**Decision rule.** Uniqueness is tested within K0–K4 only. A law unique within a class all of whose
+restrictions are corpus inputs is T-nat-dyn; unique within a class needing an added posit is
+T-nat-pos, with the posits named; non-unique in every class → no selection, outcome (Y-ex) or (U) at
+N7. No other class is admissible for these tiers.
+
+**Stage 3 under the selected law, if any (outcome-neutral).** For each law at T-nat-dyn or T-nat-pos,
+and for `β_A` as the T-nat-ex law of N6, derive at execution, exactly, for each readout of §1 (fine
+window cells; coarse cells of each energy function supplied by N2 or stated in advance):
+- the visible masses `p_i`;
+- the paired fluxes `J_ij` and the rate ratios `T_ij/T_ji`;
+- the divided-difference slope where an energy is defined.
+
+The verdict text is generated from those values, scoped to the readout and to the law, and carries
+"delta review outstanding" wherever an R1-INF result enters.
+
+**Controls (independent of the verdict's sources).**
+- *Positive control:* on a small torus restriction, exact rational masses and fluxes under the uniform
+  law, computed by brute force over the hidden light cone (the method of O-A4 §11 part A, :161), must
+  satisfy `J_ij = J_{θj,θi}` exactly (P6; Lean `MeasuredReciprocity.reciprocal_flux`:90), for both
+  fine and coarse cells.
+- *Countercontrol:* an invariant law with non-uniform cell masses, the `d = 1` generalized Gibbs family
+  of R1-INF Prop. 6 (b) (delta review outstanding), must produce a rate ratio different from 1 at some
+  parameter value by the same procedure; if it does not, the procedure cannot detect a slope and the
+  node's verdict is void.
+- *Class countercontrol:* the identity CA and a lattice translation, for which every
+  translation-invariant law is invariant, must come out non-unique in K3.
 
 ### N8. Pressure on favourable branches; fixed point
 
@@ -389,35 +529,36 @@ Review Rules). Passes continue until three consecutive passes give no NEW findin
 ## 5. Productivity test (fixed before N0)
 
 The investigation is a gem iff it gives a statement strictly stronger than "Stage 3 needs a selected
-law, the slope is H6, and the coupled case is open" (P7-B; R1-INF; LEDGER X-71), and in addition at
+law, the slope is H6, and the coupled case is open" (P7-B; R1-INF, delta review outstanding; LEDGER
+X-71), and in addition at
 least one of:
 
 1. a decision of N2 for `d = 3` at some `(q, α)` and range, in either direction, beyond what any
-   record states (R1-INF leaves `d ≥ 2` undetermined);
+   record states (R1-INF, delta review outstanding, leaves `d ≥ 2` undetermined);
 2. a proof or a countermodel for N4.1 or N4.2;
 3. a native selection fixing `β` (N3.3), surviving N8;
 4. an assumption of Stage 3 not recorded at GR:58–104, P7-B H1–H14, P1 rows 38–43 or LEDGER
    X-70–X-72.
 
 Otherwise the outcome is recorded as a relabelling. Findings are classified NEW, POSITIVE,
-ELABORATING, CONFIRMING or BORDERLINE (§A.31). N1, N5.1 and the `β_A` verdict of N7 are expected to
-be CONFIRMING or ELABORATING and do not count toward the test.
+ELABORATING, CONFIRMING or BORDERLINE (§A.31). N1, N5.1 and the N7 derivation for `β_A` do not count
+toward the test.
 
 ## 6. Invariant→checkpoint table (§A.41)
 
 | # | Invariant asserted of the execution | Checkpoint |
 |---|---|---|
-| I1 | This unit adds only `DESIGN.md` in this directory | `git diff --stat origin/main` at the head lists one file |
+| I1 | This unit adds only `DESIGN.md` in this directory | the diff stat against the pin `df6da1c6101e811acdc7952d5748aff57028e8ed` at the head lists one file |
 | I2 | No manuscript, Lean, registry, ledger or #1477 file changes in any P2-B commit | Same diff at every pushed head; the reviewer re-runs it |
 | I3 | Decision rules precede results | The commit of this design is an ancestor of every execution commit; any rule change is an amendment in `amendments/` with a reason, made before the node it affects is run |
 | I4 | Tiers are never promoted | Each node's verdict table has a tier column; the N8 pass checks every T-spec item against every later sentence |
 | I5 | Exact arithmetic for exact claims | Every computational script asserts that its numeric types are integers, `Fraction`s or finite-field elements, and fails on a float; the reviewer greps the script for float literals and float division |
 | I6 | Verdicts only over green controls | Each script runs its controls first and prints no verdict line if any control fails; the output file records the control lines |
-| I7 | Two methods agree in N2 | The script prints both dimensions per cell and halts on disagreement |
+| I7 | N2's methods are compatible | The script prints both values per cell with their certification status; it halts only when A and B-exact differ, or a certified stable B-torus value is below A's |
 | I8 | Deterministic replay | A second run's output is byte-identical; its digest is recorded beside the expected result (§A.42 item 1) |
 | I9 | Citations of R1-INF carry its review standing | Grep of the execution records for "R1-INF" lines without "delta review outstanding" returns none |
 | I10 | Negative results are scoped | Each negative verdict names its rule, `(d, q, α)`, range and law class; the N8 pass checks each |
-| I11 | Local cost bound (§A.40) | Cells over `2^{24}` dual elements are listed for CI and not run locally |
+| I11 | Cost classes (§A.40) | Each cell's estimated cost and class are recorded in the N2 table before it runs; "CI" cells are not run without an accepted preregistration and the owner's separate approval of their cost; "not run" cells report no verdict |
 | I12 | Repository text constraints | A grep of every added file for the excluded vocabulary and for local paths returns none |
 
 ## 7. Stop conditions and scope of negative results
@@ -426,9 +567,12 @@ be CONFIRMING or ELABORATING and do not count toward the test.
 - Any control fails or is vacuous: the node halts and its verdict is void.
 - A provenance anomaly (§A.26): sweep, then halt.
 - A node needs a posit adopted, or a manuscript or ledger change: halt and refer to the owner.
-- A local computation exceeds the I11 bound: stop, publish the partial state and a CI plan.
-- N2 returns "none" for `d = 3` at every grid cell: the native Gibbs branch (N3, N4 for `F_sel`) is not
-  run; N5–N7 still run, and the native verdict is generated at N7 from the T-nat-ex laws available.
+- A local computation exceeds its estimate class: stop and publish the partial state and a CI plan;
+  the CI plan runs only after an accepted preregistration and the owner's separate approval of each
+  cell's cost.
+- N2 returns "none" for `d = 3` at every certified grid cell: the native Gibbs branch (N3, N4 for
+  `F_sel`) is not run, pending N2.3; N5–N7 still run, and the native verdict is generated at N7 from
+  the T-nat-ex laws available, stated as conditional on N2's range bound.
 - The fixed point of N8 is reached, or the authorized budget is spent: the open nodes are parked with
   named gaps.
 
@@ -441,7 +585,9 @@ observer-level extension.
 
 ## 8. Out of scope
 
-- No proof is executed and no computation is run in this unit; every node above is a plan.
+- No proof is executed and no computation is run in this unit; every node above is a plan. Execution
+  is not authorized (#1169 c.7068602936). P2-B CI computations in particular are not authorized: each
+  needs an accepted preregistration and the owner's separate approval of that case's cost.
 - No change to any manuscript (`papers/`, `book/`), to Theorem 23 or its scope, to the #1477
   retirement plan or its files, to LEDGER rows, to the Lean bridge, or to any registry.
 - No adoption of any posit, including (G3), (G4), H2, H4, H6, H6′ or a selected law.
@@ -457,3 +603,6 @@ observer-level extension.
 | #1532 at `0bc9628a`, `recon-inf-p1-20261121/AUDIT.md` | Phase 1 findings for Stage 3 | Provenance; confirmed draft, not on `main` |
 | #1532 c.7068213461, c.7068281368, c.7068298957 | Review standing of Phase 1 | Provenance |
 | #1169 c.7068325638 | Authorization | Quoted with author and time |
+| #1169 c.7068447675 | Verbatim P2-B scope | Quoted with author and time |
+| #1169 c.7068602936 | Owner's required resolutions of the review; CI not authorized | Provenance |
+| #1536 review of `b44cebe6` (REVISE) | Findings answered by this revision | Provenance |
