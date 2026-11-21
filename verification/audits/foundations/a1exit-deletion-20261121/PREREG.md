@@ -5,6 +5,11 @@ manuscript, generated artifact, ledger or registry file is changed by this recor
 list has been applied. A1 (Main posit ledger item (ii)) remains printed as an open hypothesis, not adopted,
 until a separate owner authorization of the execution.
 
+**Revision.** Revised by additive commits after the early independent review of `36a73526` (round 1,
+REVISE; record on #1477) and the owner rulings of #1169 comment 7057674976. §17 answers the review
+finding by finding. Edit IDs are stable: an ID reviewed at `36a73526` names the same edit here (its
+`revised` field marks a changed replacement), and new edits take new IDs (D253–D258).
+
 ## 0. Authority, decision and goal link
 
 **Authorization** (owner `amaybaum`, 2026-11-21, recorded at
@@ -63,6 +68,28 @@ until a separate owner authorization of the execution.
 by the decision above): "The goal is not to establish that the universe is infinite. It is to show that OI
 does not need to assume whether the universe is finite or infinite."
 
+**Owner rulings on the two §12 questions** (owner `amaybaum`, 2026-11-21, recorded at
+[#1169 comment 7057674976](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7057674976),
+2026-11-21T05:05:42Z), quoted:
+
+> | Rewrite the A1 pointer at ch18:40 | Approved, narrowly scoped |
+> | Keep Structure's finite OI class | Approved, as a finite subclass |
+>
+> **ch18:40.** The pointer is replaced with the precise finite-recurrence condition. The statement's
+> physical content and its conditional scope are preserved. The earlier no-change ruling concerned the
+> inflow content.
+>
+> **Structure's finite OI class**
+> - The class keeps its existing results and is named "finite OI class" where necessary.
+> - Nothing implies that an OI-compatible substratum must be finite.
+> - Its results are not extended to infinite systems without further proof.
+> - A separate research Issue is opened for a cardinality-neutral OI class.
+>
+> **Deletion preregistration (#1477).** The review findings of round 1 (REVISE) must be resolved before
+> execution is authorized. Deleting A1 remains unauthorized.
+
+The cardinality-neutral OI class is tracked in Issue #1478.
+
 **Goal link (§A.47).** The A1-exit objective (#1169), the owner's goal for Step 1 row A1-EXIT: "Make OI's
 foundational formulation independent of the assumption that the whole universe is finite, while keeping
 honest limitations on the results that still require finiteness." This record decides, for each of the 194
@@ -79,7 +106,7 @@ whether that replacement needs scientific review; it does not decide whether the
 | S2-B head (#1473) | `5c6cdfea775313d8475b6e929bb7f48a071b525e` | `old_step2` strings; projected integration |
 | S2-C head (#1474) | `cb6d1b87e7e001ea1a4bdd6d260ca4b616d7b135` | `old_step2` strings; projected integration |
 | S2-D head (#1472) | `5efd856b3509d767e6ef84226f01b66680137c75` | `old_step2` strings; projected integration |
-| S2-E head (PR pending) | `8e52b217730692e73e65fc5003f3c859f867c726` | `old_step2` strings; projected integration |
+| S2-E head (#1475) | `7ed84339c48bb55aa374fce1a894e988501e4e06` | `old_step2` strings; projected integration |
 
 **Projected integration.** The Step-2 sources were merged in scratch only, in the owner's landing order
 (S2-A, S2-B, S2-C, S2-D; S2-E independent), by a three-way merge of each changed `.md` file against `main`.
@@ -89,6 +116,11 @@ this is the combined wording the owner's landing decision (#1169 c.7057200720, "
 catch-up review to confirm. Every `old` string of the edit list was checked unique both at the base and on
 this projection (`old_step2` where the text differs; §8). The projection is a planning aid, not the
 manuscript the execution will edit (§9).
+
+**S2-E head move.** S2-E moved from `8e52b217` (the head of the first draft) to `7ed84339` (the head used
+here; PR #1475). The move changes no edit: on projections with either head all 258 edits are unique, and the
+in-memory application leaves the same result (residual 0 unqualified, criterion-5 0, identifiers 0). The two
+projections differ only in `book/ch18-beyond.md` and its FULL mirror, at lines no edit's string touches.
 
 **Sources read.** `verification/audits/foundations/a1exit-ledger-20261120/` (LEDGER.md §2, §3, §5, §6; rows.json
 correction cells of X-00, X-01, X-02, X-45, X-46, X-54, X-70, X-74, X-75; sitemap.json); each Step-2 unit's
@@ -107,6 +139,15 @@ records.
    wording: $\mathbb{Z}^d$ the standard construction, a finite periodic quotient a qualified case).
 5. No normalized uniform measure on an infinite space is assumed. Every law on an infinite carrier stays an
    explicit hypothesis (the S2-B/S2-C conditions are not touched).
+
+**No self-restating scope.** "Finite in a finite representative" restates its own label (§A.33) and is not
+used; a finite-only statement names its condition ("when $S$ is finite", "for a finite substratum") or the
+results that use it.
+
+**The finite OI class (owner ruling).** Structure's class stays a finite subclass, "the finite OI class";
+finiteness is worded as the class's scope, never as a condition every OI-compatible substratum must meet,
+and no result of the class is extended to infinite systems. A cardinality-neutral class is Issue #1478,
+outside this edit.
 
 **Identifiers (owner decision items 1, 2, 5; §A.30).** "A1" and Main ledger "(ii)" are not printed by any
 replacement and are not reused or annotated. A2–A6 and Main ledger items (i), (iii)–(xiv) keep their
@@ -135,13 +176,13 @@ queued X-20 wording (unpinned update, "the only laws known") is not used anywher
 
 | Measure | Count |
 |---|---|
-| Edit records in `edits.json` | 252 (ptr 238, consistency 9, handoff 5) |
+| Edit records in `edits.json` | 258 (ptr 240, consistency 13, handoff 5) |
 | Pointer sites with a drafted rewrite | 194 of 194 (140 primary sites and 54 byte-identical FULL mirrors) |
-| Pointer sites by class (a FULL mirror takes its chapter's class) | 194 sites: mechanical 125, semantic 56, needs scientific review 13 |
-| Consistency corrections outside the 194 sites | 9 sites: mechanical 6, semantic 1, needs scientific review 2 |
+| Pointer sites by class (a FULL mirror takes its chapter's class) | 194 sites: mechanical 121, semantic 61, needs scientific review 12 |
+| Consistency corrections outside the 194 sites | 13 sites: mechanical 4, semantic 9, needs scientific review 0 |
 | S2-E deferrals drafted (outside the 194) | 5 sites: mechanical 3, semantic 2, needs scientific review 0 |
 | Retained unchanged (names no posit; finite scope already printed) | 2 (SM:22, GR:20) |
-| Edits whose `old` string lies on a line a Step-2 unit changes | 20 (§8) |
+| Edits whose `old` string lies on a line a Step-2 unit changes | 22 (§8) |
 | Edits that need `old_step2` on the projection | 3 (D224 item (ii), D232 Sub:92, D244 Sub:56) |
 
 Checker results at the drafting base and on the projection are in §10.
@@ -158,6 +199,10 @@ Checker results at the drafting base and on the projection are in §10.
   a posit count (`fourteen|14 (items|posits)` over `papers/*.md`, `book/*.md`) finds only this site.
 - D227 and D228 remove the two closing references to item (ii) ("the total finiteness of item (ii) and
   items (iv)–(xiv)"; "or, for item (ii), hypothesized … named at each use").
+- D253 corrects the ledger's completeness sentence, which inventories "the explicit premises that the
+  derivations of this paper consume": the results that use a finite representative (the recurrence step of
+  §2.3, the counting measure of Lemma 3 and §4.6 among them) carry that finite scope where they are stated,
+  rather than as a listed premise (review round 1, F4).
 
 **What item (ii) carried, and where it goes (ledger X-00 (a)–(c)).**
 
@@ -169,9 +214,12 @@ Checker results at the drafting base and on the projection are in §10.
 | (c) transfer clause (relabelling, decoupled enlargement, change of alphabet under the alphabet-size hypothesis, proved in the companion construction) | Moved to M:60 before "Of the two finiteness statements" (D231) |
 | "the extension to the whole representative is A1 of the companion substratum construction" | Deleted with A1 (Sub:92 is deleted, D232) |
 
-**M:60 (status Remark), edits D229–D231.** D229 replaces the posit sentence by the finite-representative
-scope and the moved list; D230 replaces the P8 sentence by ledger X-00's wording; D231 inserts the transfer
-clause. The second sentence of M:60 already states that "the two axioms and the Definition leave the
+**M:60 (status Remark), edits D229–D231 and D254.** D229 replaces the posit sentence by the
+finite-representative scope and the moved list, with S2-C's return-form qualification for (NR) and its
+law-form qualification for (IP) and (IL): after the deletion this is Main's first mention of the three
+conditions (review round 1, F3). D230 replaces the P8 sentence by ledger X-00's wording; D231 inserts the
+transfer clause; D254 adds "assumed as a hypothesis and not adopted" and the return-form qualification to the
+later (NR) mention in M:60. The second sentence of M:60 already states that "the two axioms and the Definition leave the
 cardinality of the total configuration space open"; no further neutrality sentence is added.
 
 **Declarations of A1.** Sub:92 (D232) and ch02:76 = FULL:706 (D233–D234) delete the (A1) entries;
@@ -182,7 +230,8 @@ S2-A review finding on ch02:74 and Sub:90); Sub:90 itself names no assumption an
 
 **Counts and ranges elsewhere.** ch02:74 = FULL:704 "six properties" → "five properties" (D239–D240);
 ch02:120 = FULL:750 "six structural assumptions" → "five structural assumptions on a finite substratum"
-(D241–D242); gloss:13 "The sixth of the framework's structural assumptions A1–A6" → "The structural
+(D241–D242; ch02:74 also takes "finite candidate substrates", review F8); ch09:104 = FULL and ch09:190 = FULL
+"six structural properties/axioms" → five, with finiteness worded as the finite class's scope (D255–D258); gloss:13 "The sixth of the framework's structural assumptions A1–A6" → "The structural
 assumption A6 of the reconstruction theorem (A2–A6)". Every "A1–A6" / "A1-A6" range at the base is a ptr
 site or GR:673 (§7 H-1) and is rewritten; no "A2–A6" range is renumbered (checker `--static`, identifier
 rule: 0 findings).
@@ -208,10 +257,10 @@ scope (named in the cell).
 | X-27 | Orbit capacity log₂ p; genericity count P_perm over bijections of a finite set | 0 | 0 | no edit; printed finite-only statement unchanged |
 | X-29 | Substratum Stage 1 recurrence-cycle P-indivisibility on a finite representative | 0 | 0 | no edit; printed finite-only statement unchanged |
 | X-42 | Period-lattice conditions on the printed finite class: O_h needs O_h-invariant Λ; checkerb | 0 | 0 | no edit; printed finite-only statement unchanged |
-| X-45 | Theorem 23 (reconstruction) under E1–E7 and A1–A6; its uniqueness "within the class A1–A6" | 28 | 42 | 42 edits at 32 sites; finite scope printed; no finite qualifier is added where the sentence does not use finiteness or where the theorem statement it refers to carries the finite scope: Sub:212, ch02:74, ch02:74 (FULL), gloss:13, gloss:13 (FULL) |
-| X-46 | OI-class substrata "satisfying A1–A6" (Structure Definition 9.9, Proposition 9.5 and depen | 55 | 72 | 72 edits at 55 sites; finite scope printed; no finite qualifier is added where the sentence does not use finiteness or where the theorem statement it refers to carries the finite scope: ch09:18, ch09:18 (FULL), ch09:36, ch09:36 (FULL) |
+| X-45 | Theorem 23 (reconstruction) under E1–E7 and A1–A6; its uniqueness "within the class A1–A6" | 28 | 42 | 42 edits at 32 sites; finite scope printed; no finite qualifier is added where the sentence does not use finiteness or where the theorem statement it refers to carries the finite scope: Sub:129, Sub:212, gloss:13, gloss:13 (FULL) |
+| X-46 | OI-class substrata "satisfying A1–A6" (Structure Definition 9.9, Proposition 9.5 and depen | 55 | 76 | 76 edits at 59 sites; finite scope printed; no finite qualifier is added where the sentence does not use finiteness or where the theorem statement it refers to carries the finite scope: ch09:18, ch09:18 (FULL), ch09:36, ch09:36 (FULL) |
 | X-48 | Classical-dimension obstruction family: no fixed finite carrier (N < ∞ ontic configuration | 0 | 0 | no edit; printed finite-only statement unchanged |
-| X-54 | Storage and memory: "S finite capacity (under A1)" | 4 | 5 | 5 edits at 4 sites; finite scope printed in every rewritten site |
+| X-54 | Storage and memory: "S finite capacity (under A1)" | 4 | 5 | 5 edits at 4 sites; finite scope printed; no finite qualifier is added where the sentence does not use finiteness or where the theorem statement it refers to carries the finite scope: Sub:52 |
 | X-55 | Computation: finite-carrier capacity comparison; "the framework's finiteness hypothesis (A | 0 | 0 | no edit; printed finite-only statement unchanged |
 | X-56 | Exact linear rule shell splitting into cycles as motivation for (EM) | 0 | 0 | no edit; printed finite-only statement unchanged |
 | X-57 | Appendix A finite sectors; Page value as exact cycle average on a finite configuration spa | 0 | 0 | no edit; printed finite-only statement unchanged |
@@ -229,7 +278,7 @@ scope (named in the cell).
 
 | Row | Title | ptr sites | Edits here | State after the deletion edit |
 |---|---|---|---|---|
-| X-00 | Main posit ledger item (ii), total finiteness of the bijective representative, and the sta | 2 | 8 | Removed: item (ii) deleted, identifier retired (D224–D228); content re-homed at M:60 (D229–D231) |
+| X-00 | Main posit ledger item (ii), total finiteness of the bijective representative, and the sta | 2 | 10 | Removed: item (ii) deleted, identifier retired (D224–D228); content re-homed at M:60 (D229–D231) |
 | X-01 | Pointers to the posit: item (ii), "the total-finiteness posit", "posit A1", "(ledger item  | 62 | 71 | Removed: every pointer rewritten to the scope it carries (62 ptr sites; of the 4 unit sites, Comp:120, Meth:156 and Meth:158 are drafted in §6.3 as S2-E deferrals and Meth:517 is edited by S2-E) |
 | X-02 | Declarations of A1 in companion papers, book and glossary (Substratum (A1), "finite under  | 25 | 25 | Removed: every declaration rewritten or deleted (Sub:92, ch02:76 entries deleted; gloss:11 replaced) |
 | X-11 | R1: physical justification of a selected law (posit (iv), μ-G; the canonical law's physica | 0 | 0 | Stays open: no edit; M:732 (iv) keeps "not derived" |
@@ -258,22 +307,28 @@ qualification phrases present in `old` and absent from `new`.
 | X-61 | (IL) | none | none | qualified as Step 2 prints it; no qualification removed |
 
 No edit removes a qualification of a surviving condition. The qualification phrases that edits do remove
-belong to A1 itself ("an open hypothesis, not adopted") and leave with it; the (NR)/(IP)/(IL) phrases removed
-with item (ii) (D224) reappear at M:60 (D229), and the (NR) clause removed with Sub:92 (D232) reappears at
-Sub:137 (D245).
+belong to A1 itself ("an open hypothesis, not adopted") and leave with it. Two edits outside these rows
+carry the Relabel conditions and are listed here explicitly: D224 removes (NR), (IP) and (IL) with item (ii)
+(rows X-20, X-15, X-60/X-61), and D229 prints them at M:60 with "assumed as a hypothesis of that result and not
+adopted", S2-C's return-form qualification for (NR) and its law-form qualification for (IP) and (IL); D254
+qualifies the later (NR) mention in M:60. The (NR) clause removed with Sub:92 (D232) reappears, with its
+qualification, at Sub:137 (D245).
 
 ### 5.4 Items that need scientific review
 
-- **Substratum.md:129** (D020; row X-45): Which part of the C1/C4 derivation uses finiteness (the hidden-memory theorem or only the recurrence step) is not traced in the ledger; the finite scope is the safe statement, and a size-independent form needs review.
-- **Substratum.md:193** (D022; row X-45): Theorem 23 statement takes the finite-substratum scope (X-45). Review: that Stages 1 and 3 need exactly this scope (X-29, X-70, X-71) and that S2-A's Z^d standard construction at Stage 2 is not contradicted.
+- **Substratum.md:193** (D022; row X-45): Theorem 23 takes the finite-substratum scope with the wrapping conditions on P that X-45 and X-42 require (review round 1, F1); paper and book read the same. The ledger's further instruction to state Stage 2 on Z^d where Q1 supports it goes beyond the smallest correction and is routed to §5.4 for review. Review: that Stages 1 and 3 need exactly this scope (X-29, X-70, X-71).
 - **Substratum.md:216** (D026; row X-45): The bullet is rewritten from a motivation of A1 to the reason for the finite scope (X-45: Stage 1 X-29, Stage 3 X-70). Review that no other stage uses finiteness.
-- **ch02-substratum.md:118** (D120, mirror D121; row X-45): Book statement of Theorem 23 with the finite-substratum scope; reviewed together with Sub:193.
+- **ch02-substratum.md:118** (D120, mirror D121; row X-45): Book statement of Theorem 23, the same wording as Sub:193 (D022) in the book's citation style; reviewed together with it.
 - **appendix-c-objections.md:102** (D198, mirror D199; row X-01): States the owner's cardinality-neutral principle in the book; review that every result named in §C.6 matches its finite or size-independent source statement.
 - **appendix-c-objections.md:110** (D208, mirror D209; row X-01): The rebuttal rests on discreteness, not finiteness; review that the boundary count N that follows is stated for the horizon and not for the whole lattice.
 - **appendix-c-objections.md:112** (D210, D212, mirror D211, D213; row X-01): The condensed-matter analogy is restated for discreteness; review the analogy.
-- **Main.md:732** (D224, D225, D226, D227, D228; row X-00): X-00: item (ii) is deleted and its identifier retired, not reused and not annotated (§A.30; owner decision items 1, 2, 5: (iii)-(xiv) keep their numbers). Its content moves to the status Remark M:60 (weaker conditions, transfer clause); the finite-representative list and the deep-sector clause are already printed there (S2-B). The count becomes thirteen. Review: the posit count and that no result loses its stated conditions.
-- **Main.md:60** (D229, D230, D231; row X-00): X-00: the posit sentence becomes the finite-representative scope and receives item (ii)'s weaker-condition list (with S2-B's CP clause) and its transfer clause, verbatim apart from the connective; the P8 sentence takes ledger X-00 wording. Review: whether the restated (NR)/(IP)/(IL) list needs the observability qualifications at this restatement (S2-C printed none at M:732), and that the transfer clause is not stronger than the companion proof.
-- **appendix-c-objections.md:138** (D246, mirror D247; row -): Hidden dependency H-3: the computability claim uses finiteness (lookup table). Review whether a size-independent form (a local rule with finite read sets is computable on finite windows) should be stated instead.
+- **Main.md:732** (D224, D225, D226, D227, D228, D253; row X-00): X-00: item (ii) is deleted and its identifier retired, not reused and not annotated (§A.30; owner decision items 1, 2, 5: (iii)-(xiv) keep their numbers). Its content moves to the status Remark M:60 (weaker conditions, transfer clause); the finite-representative list and the deep-sector clause are already printed there (S2-B). The count becomes thirteen, and the completeness sentence states that finite-representative results carry their scope where stated (D253; review round 1, F4). Review: the posit count and that no result loses its stated conditions.
+- **Main.md:60** (D229, D230, D254, D231; row X-00): X-00: the posit sentence becomes the finite-representative scope and receives item (ii)'s weaker-condition list (with S2-B's CP clause) and its transfer clause, verbatim apart from the connective; the P8 sentence takes ledger X-00 wording. After the deletion M:60 is Main's first mention of (NR), (IP) and (IL), so S2-C's return- and law-form qualifications are printed there and at the later (NR) mention (review round 1, F3). Review: that the transfer clause is not stronger than the companion proof.
+- **Stage 2 of Theorem 23 on $\mathbb{Z}^d$ (not drafted).** Ledger X-45 also asks that, where Q1
+  establishes Stage 2 on $\mathbb{Z}^d$, that stage be stated there as the standard construction. That is a
+  restatement of a proof stage beyond the smallest correction the deletion needs (the finite scope with the
+  wrapping conditions on $P$, D022/D120); it is recorded here for review and is not part of this edit
+  (review round 1, F1).
 
 ## 6. Edit table
 
@@ -285,7 +340,7 @@ chapter and in FULL.
 
 **M:36** · row X-01 (O) · mechanical · edits D001.
 
-Reason: Ledger X-01: the sentence is deleted; the following sentences state the per-result conditions.
+Reason: Ledger X-01: the sentence is deleted; the per-result conditions are stated in the status Remark of §1.2 (M:60, D229) and at each result.
 
 Old:
 
@@ -468,12 +523,12 @@ a deterministic bijection on a set, finite under the total-finiteness posit (§1
 New:
 
 ```text
-a deterministic bijection on a set, finite in a finite representative (§1.2 Remark), the cardinality of the set itself being left open.
+a deterministic bijection on a set whose cardinality is left open; results that need a finite set are stated for a finite representative (§1.2 Remark).
 ```
 
-**Sub:44** · row X-54 (F) · mechanical · edits D013, D014.
+**Sub:44** · row X-54 (F) · semantic · edits D013, D014.
 
-Reason: Ledger X-54 wording.
+Reason: F row X-54: finite-only scope stated as a condition on $S$ (review round 1, F6: the ledger wording "in a finite representative" restated its own label).
 
 Old (part 1):
 
@@ -484,7 +539,7 @@ Old (part 1):
 New (part 1):
 
 ```text
-*finite capacity* in a finite representative.
+*finite capacity* when $S$ is finite.
 ```
 
 Old (part 2):
@@ -496,12 +551,12 @@ a lossless memory, finite under A1.
 New (part 2):
 
 ```text
-a lossless memory, finite in a finite representative.
+a lossless memory, of finite capacity when $S$ is finite.
 ```
 
 **Sub:52** · row X-54 (F) · mechanical · edits D015.
 
-Reason: Ledger X-54 wording.
+Reason: X-02 rule: the parenthesis is deleted; the next sentence states where finiteness of the total carrier is used.
 
 Old:
 
@@ -512,7 +567,7 @@ the OI configuration (finite under A1)
 New:
 
 ```text
-the OI configuration (finite in a finite representative)
+the OI configuration
 ```
 
 **Sub:104** · row X-45 (F) · semantic · edits D016, D017, D018.
@@ -571,9 +626,9 @@ New:
 finiteness of $S$ (the scope of Theorem 23), A2 (determinism)
 ```
 
-**Sub:129** · row X-45 (F) · needs scientific review · edits D020.
+**Sub:129** · row X-45 (F) · mechanical · edits D020.
 
-Reason: Which part of the C1/C4 derivation uses finiteness (the hidden-memory theorem or only the recurrence step) is not traced in the ledger; the finite scope is the safe statement, and a size-independent form needs review.
+Reason: A1 is dropped without a replacement scope (review round 1, F2): C4 comes from the hidden-memory theorem and C1 from the accessible history gap, and the readback route constructs a finite hidden space rather than assuming one (M:60, "a finite hidden space is constructed, not assumed"); the recurrence-cycle P-indivisibility, which does use a finite representative, is scoped separately at Sub:137 (D245).
 
 Old:
 
@@ -584,7 +639,7 @@ derived from E1–E3, A1–A2 together with **M1-T**
 New:
 
 ```text
-derived from E1–E3 and A2 on a finite substratum (the scope of Theorem 23) together with **M1-T**
+derived from E1–E3 and A2 together with **M1-T**
 ```
 
 **Sub:133** · row X-45 (F) · mechanical · edits D021.
@@ -605,7 +660,7 @@ not a consequence of finiteness, of A2–A6 or of the nearest-neighbor wave equa
 
 **Sub:193** · row X-45 (F) · needs scientific review · edits D022.
 
-Reason: Theorem 23 statement takes the finite-substratum scope (X-45). Review: that Stages 1 and 3 need exactly this scope (X-29, X-70, X-71) and that S2-A's Z^d standard construction at Stage 2 is not contradicted.
+Reason: Theorem 23 takes the finite-substratum scope with the wrapping conditions on P that X-45 and X-42 require (review round 1, F1); paper and book read the same. The ledger's further instruction to state Stage 2 on Z^d where Q1 supports it goes beyond the smallest correction and is routed to §5.4 for review. Review: that Stages 1 and 3 need exactly this scope (X-29, X-70, X-71).
 
 Old:
 
@@ -616,7 +671,7 @@ Old:
 New:
 
 ```text
-*Let $(S,\varphi)$ be a finite substratum (so that A4 holds in its finite periodic case), and let E1–E7, M1-T, M1-B, A2–A6, the Stage-2
+*Let $(S,\varphi)$ be a finite substratum, with A4 applying in its finite periodic case under the wrapping conditions on $P$ of Stage 2 [SM §4.1], and let E1–E7, M1-T, M1-B, A2–A6, the Stage-2
 ```
 
 **Sub:205** · row X-45 (F) · mechanical · edits D023.
@@ -985,7 +1040,7 @@ uses a finite representative ([Main §1.2]) via the recurrence argument
 
 **Str:80** · row X-46 (F) · mechanical · edits D046, D047, D048.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old (part 1):
 
@@ -996,7 +1051,7 @@ OI's structural conditions A1 (finiteness), A2 (deterministic bijection)
 New (part 1):
 
 ```text
-OI's structural conditions finiteness, A2 (deterministic bijection)
+the finite OI class's structural conditions finiteness, A2 (deterministic bijection)
 ```
 
 Old (part 2):
@@ -1025,7 +1080,7 @@ Whether matrix models satisfy finiteness and A2-A6 is not obvious
 
 **Str:86** · row X-46 (F) · mechanical · edits D049.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1041,7 +1096,7 @@ finite substrata satisfying A2-A6; exhaustive
 
 **Str:134** · row X-46 (F) · mechanical · edits D050.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1057,7 +1112,7 @@ by restricting to finite substrata and adding structural conditions A2–A6 [Sub
 
 **Str:136** · row X-46 (F) · mechanical · edits D051.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers. The retired identifier is not printed.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers. The retired identifier is not printed.
 
 Old:
 
@@ -1073,7 +1128,7 @@ Finiteness of $S$; (A2) Determinism
 
 **Str:140** · row X-46 (F) · mechanical · edits D052, D053, D054.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old (part 1):
 
@@ -1090,13 +1145,13 @@ Finiteness and A2–A6 are not the same as observer-admission C1–C4;
 Old (part 2):
 
 ```text
-; A1–A6 are conditions for membership
+; A1–A6 are conditions for membership in *OI's specific* universality class
 ```
 
 New (part 2):
 
 ```text
-; finiteness and A2–A6 are conditions for membership
+; finiteness and A2–A6 are conditions for membership in the finite OI class, the finite subclass of *OI's specific* universality class
 ```
 
 Old (part 3):
@@ -1113,7 +1168,7 @@ Some relations: finiteness is related to but distinct from C3
 
 **Str:196** · row X-46 (F) · mechanical · edits D055.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1129,7 +1184,7 @@ plus finiteness, A2–A6 + E1–E7
 
 **Str:206** · row X-46 (F) · mechanical · edits D056.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1145,7 +1200,7 @@ satisfying finiteness and A2-A6 (which §6 establishes
 
 **Str:224** · row X-46 (F) · mechanical · edits D057.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1156,12 +1211,12 @@ in the sense of OI's structural condition A1, $|S| < \infty$.
 New:
 
 ```text
-in the sense of the finiteness condition $|S| < \infty$ of OI's finite class.
+in the sense of the finiteness condition $|S| < \infty$ of the finite OI class.
 ```
 
 **Str:230** · row X-46 (F) · mechanical · edits D058.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1177,7 +1232,7 @@ finiteness would hold for a separately specified representation
 
 **Str:256** · row X-46 (F) · mechanical · edits D059.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1191,9 +1246,9 @@ New:
 ## 6. Structural compatibility: finiteness and A2–A6 under matrix-model bridges
 ```
 
-**Str:258** · row X-46 (F) · mechanical · edits D060.
+**Str:258** · row X-46 (F) · semantic · edits D060.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers. Finiteness is worded as scope, not a membership condition (review round 1, F8).
 
 Old:
 
@@ -1204,12 +1259,12 @@ OI's structural conditions A1–A6.
 New:
 
 ```text
-OI's structural conditions (finiteness and A2–A6).
+OI's structural conditions A2–A6, within the finite scope of the reconstruction theorem.
 ```
 
 **Str:260** · row X-46 (F) · semantic · edits D061, D062.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old (part 1):
 
@@ -1232,12 +1287,12 @@ A6 (background independence). They are assumptions
 New (part 2):
 
 ```text
-A6 (background independence); the reconstruction theorem adds finiteness of $S$ as its scope. They are assumptions
+A6 (background independence); the reconstruction theorem is stated for a finite $S$. They are assumptions
 ```
 
 **Str:264** · row X-46 (F) · mechanical · edits D063.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers. Section number unchanged.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers. Section number unchanged.
 
 Old:
 
@@ -1253,7 +1308,7 @@ New:
 
 **Str:270** · row X-46 (F) · mechanical · edits D064.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1269,7 +1324,7 @@ Achieving finiteness would require
 
 **Str:272** · row X-46 (F) · mechanical · edits D065.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1285,7 +1340,7 @@ New:
 
 **Str:314** · row X-46 (F) · mechanical · edits D066.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1301,7 +1356,7 @@ New:
 
 **Str:316** · row X-46 (F) · mechanical · edits D067.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1317,7 +1372,7 @@ The tally across finiteness and A2–A6:
 
 **Str:320** · row X-46 (F) · mechanical · edits D068.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1333,7 +1388,7 @@ New:
 
 **Str:327** · row X-46 (F) · mechanical · edits D069.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1349,7 +1404,7 @@ Finiteness fails without a separate finite-value regulator.
 
 **Str:331** · row X-46 (F) · mechanical · edits D070.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1365,7 +1420,7 @@ they must satisfy the same finiteness and A2–A6 that OI's reconstruction requi
 
 **Str:339** · row X-46 (F) · mechanical · edits D071.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1381,7 +1436,7 @@ independent investigation of compatibility with finiteness and A2–A6
 
 **Str:351** · row X-46 (F) · mechanical · edits D072.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1392,12 +1447,12 @@ do not satisfy OI's structural conditions A1–A6 in their standard formulation.
 New:
 
 ```text
-do not satisfy OI's structural conditions (finiteness and A2–A6) in their standard formulation. The failures
+do not satisfy the conditions of the finite OI class (finiteness and A2–A6) in their standard formulation. The failures
 ```
 
 **Str:359** · row X-46 (F) · mechanical · edits D073.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1408,12 +1463,12 @@ do not satisfy OI's structural conditions A1–A6 in their standard formulation,
 New:
 
 ```text
-do not satisfy OI's structural conditions (finiteness and A2–A6) in their standard formulation, with the failures
+do not satisfy the conditions of the finite OI class (finiteness and A2–A6) in their standard formulation, with the failures
 ```
 
 **Str:375** · row X-46 (F) · mechanical · edits D074.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1429,7 +1484,7 @@ among finite substrata satisfying OI's A2–A6, which
 
 **Str:560** · row X-46 (F) · mechanical · edits D075.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1440,7 +1495,7 @@ supplies structural conditions A1–A6 for its local reconstruction
 New:
 
 ```text
-supplies structural conditions (finiteness and A2–A6) for its local reconstruction
+supplies structural conditions A2–A6, with a finite scope, for its local reconstruction
 ```
 
 **Str:646** · row X-46 (F) · semantic · edits D076.
@@ -1461,7 +1516,7 @@ be finite OI-class substrata (finite substrata satisfying A2-A6, with A4 in its 
 
 **Str:701** · row X-46 (F) · mechanical · edits D077.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1509,7 +1564,7 @@ in a finite representative they have all the formal features of permutations on 
 
 **Str:746** · row X-46 (F) · mechanical · edits D080.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1520,7 +1575,7 @@ all three fail OI's A1–A6 (so are outside OI's specific class)
 New:
 
 ```text
-all three fail OI's finiteness and A2–A6 conditions (so are outside OI's specific finite class)
+all three fail the conditions of the finite OI class, finiteness and A2–A6 (so are outside it)
 ```
 
 **Str:768** · row X-45 (F) · mechanical · edits D081.
@@ -1541,7 +1596,7 @@ plus finiteness, A2-A6 and the nearest-neighbour range
 
 **Str:866** · row X-46 (F) · mechanical · edits D082.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1557,7 +1612,7 @@ The structural conditions (finiteness and A2-A6) are then
 
 **Str:1006** · row X-46 (F) · mechanical · edits D083.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1573,7 +1628,7 @@ The per-condition analysis (finiteness and A2–A6) applied
 
 **Str:1008** · row X-46 (F) · mechanical · edits D084, D085, D086.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old (part 1):
 
@@ -1613,7 +1668,7 @@ mismatches at finiteness and A2 being deeper
 
 **Str:1010** · row X-46 (F) · mechanical · edits D087, D088.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old (part 1):
 
@@ -1641,7 +1696,7 @@ finiteness fails in the limit,
 
 **Str:1012** · row X-46 (F) · mechanical · edits D089, D090.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old (part 1):
 
@@ -1669,7 +1724,7 @@ A2, A5 and finiteness fail;
 
 **Str:1014** · row X-46 (F) · mechanical · edits D091, D092.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old (part 1):
 
@@ -1686,34 +1741,34 @@ All three fail finiteness in their standard formulation
 Old (part 2):
 
 ```text
-as that class is delimited by A1–A6.
+in OI's specific universality class as that class is delimited by A1–A6.
 ```
 
 New (part 2):
 
 ```text
-as that class is delimited by finiteness and A2–A6.
+in the finite OI class, delimited by finiteness and A2–A6.
 ```
 
-**Str:1016** · row X-46 (F) · mechanical · edits D093.
+**Str:1016** · row X-46 (F) · semantic · edits D093.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
 ```text
-(per A1–A6 failure)
+are in OI's specific universality class (per A1–A6 failure)
 ```
 
 New:
 
 ```text
-(per failure of finiteness and A2–A6)
+are in the finite OI class (per failure of its conditions, finiteness and A2–A6)
 ```
 
 **Str:1030** · row X-46 (F) · mechanical · edits D094.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1729,7 +1784,7 @@ the finite OI class (A2–A6) narrower
 
 **Str:1066** · row X-46 (F) · mechanical · edits D095.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1740,12 +1795,12 @@ all four fail OI's A1–A6 and are therefore outside OI's specific class
 New:
 
 ```text
-all four fail OI's finiteness and A2–A6 conditions and are therefore outside OI's specific finite class
+all four fail the conditions of the finite OI class, finiteness and A2–A6, and are therefore outside it
 ```
 
 **Str:1237** · row X-46 (F) · mechanical · edits D096, D097.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old (part 1):
 
@@ -1773,7 +1828,7 @@ from finiteness, A3, A4, A6 plus the SM target
 
 **Str:1303** · row X-46 (F) · mechanical · edits D098.
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -1924,7 +1979,7 @@ $S$ is the set of total configurations, finite in the representative specified u
 New:
 
 ```text
-$S$ is the set of total configurations, finite in a finite representative and otherwise of unspecified cardinality.
+$S$ is the set of total configurations; its cardinality is not fixed, and the results stated for a finite substratum take it finite.
 ```
 
 **ch02:88** · row X-45 (F) · mechanical · edits D116. Mirror: FULL:718, identical strings (D117).
@@ -1961,7 +2016,7 @@ the finite-substratum scope and the determinism assumption A2,
 
 **ch02:118** · row X-45 (F) · needs scientific review · edits D120. Mirror: FULL:748, identical strings (D121).
 
-Reason: Book statement of Theorem 23 with the finite-substratum scope; reviewed together with Sub:193.
+Reason: Book statement of Theorem 23, the same wording as Sub:193 (D022) in the book's citation style; reviewed together with it.
 
 Old:
 
@@ -1972,7 +2027,7 @@ Old:
 New:
 
 ```text
-*Let $(S,\varphi)$ be a finite substratum, and let E1–E7, M1-T and M1-B, and A2–A6 hold,
+*Let $(S,\varphi)$ be a finite substratum, with A4 applying in its finite periodic case under the wrapping conditions on $P$ of Stage 2 (SM §4.1), and let E1–E7, M1-T and M1-B, and A2–A6 hold,
 ```
 
 **ch02:122** · row X-45 (F) · mechanical · edits D122, D124, D126. Mirror: FULL:752, identical strings (D123, D125, D127).
@@ -2065,7 +2120,7 @@ a set with a deterministic bijection on it
 
 **ch03:34** · row X-46 (F) · mechanical · edits D134. Mirror: FULL:895, identical strings (D135).
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old:
 
@@ -2081,7 +2136,7 @@ finite substrata satisfying A2–A6 of the reconstruction theorem
 
 **ch03:44** · row X-46 (F) · semantic · edits D136, D138, D140. Mirror: FULL:905, identical strings (D137, D139, D141).
 
-Reason: F row X-46: the OI class stays a definitional finite class; "A1" is replaced by "finiteness", A2–A6 keep their identifiers.
+Reason: F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); "A1" is replaced by "finiteness" as the class scope, A2–A6 keep their identifiers.
 
 Old (part 1):
 
@@ -2098,13 +2153,13 @@ The finite scope and the structural conditions A2–A6 that define Level D
 Old (part 2):
 
 ```text
-; A1–A6 are conditions for membership
+; A1–A6 are conditions for membership in OI's *specific* universality class
 ```
 
 New (part 2):
 
 ```text
-; finiteness and A2–A6 are conditions for membership
+; finiteness and A2–A6 are conditions for membership in the finite OI class, the finite subclass of OI's *specific* universality class
 ```
 
 Old (part 3):
@@ -2383,9 +2438,9 @@ New:
 The framework is a deterministic-substratum program: it takes a configuration space with a deterministic bijection, finite in the representatives on which its finite-only results are stated,
 ```
 
-**ch09:188** · row X-46 (F) · mechanical · edits D176. Mirror: FULL:2603, identical strings (D177).
+**ch09:188** · row X-46 (F) · semantic · edits D176. Mirror: FULL:2603, identical strings (D177).
 
-Reason: X-02 rule.
+Reason: X-02 rule; the matrix-model comparison that follows uses finite dimension.
 
 Old:
 
@@ -2396,7 +2451,7 @@ acts on a configuration space finite under A1, with
 New:
 
 ```text
-acts on a configuration space, finite in a finite representative, with
+acts on a configuration space, finite where the framework's finite-only results apply, with
 ```
 
 **ch09:192** · row X-46 (F) · semantic · edits D178, D180. Mirror: FULL:2607, identical strings (D179, D181).
@@ -2660,7 +2715,7 @@ finite at the substratum level under A1 but *appearing* infinite-dimensional
 New (part 1):
 
 ```text
-discrete at the substratum level, and finite in a finite representative, but *appearing* infinite-dimensional
+discrete at the substratum level but *appearing* infinite-dimensional
 ```
 
 Old (part 2):
@@ -2709,18 +2764,18 @@ Finiteness is therefore the stated scope of specific results, not a premise abou
 
 **appC:136** · row X-01 (O) · semantic · edits D218. Mirror: FULL:6291, identical strings (D219).
 
-Reason: Finite scope; see hidden dependency H-3 for the next paragraph.
+Reason: Finite scope attached to the computability claim (review round 1, F5); see H-3 and D246.
 
 Old:
 
 ```text
-is a bijection on a finite set (under A1), which is trivially computable:
+that $\varphi$ is a bijection on a finite set (under A1), which is trivially computable:
 ```
 
 New:
 
 ```text
-is a bijection, on a finite representative a bijection on a finite set, which is trivially computable:
+that on a finite representative $\varphi$ is a bijection on a finite set, which is trivially computable:
 ```
 
 **gloss:13** · row X-45 (F) · mechanical · edits D220. Mirror: FULL:6504, identical strings (D221).
@@ -2752,12 +2807,12 @@ Its total configuration space is finite in the representative specified under th
 New:
 
 ```text
-Its total configuration space is finite in a finite representative and otherwise of unspecified cardinality.
+The cardinality of its total configuration space is left open; results stated for a finite representative take it finite.
 ```
 
-**M:732** · row X-00 (O) · needs scientific review · edits D224, D225, D226, D227, D228. Step-2 units changing this line: S2-B, S2-C.
+**M:732** · row X-00 (O) · needs scientific review · edits D224, D225, D226, D227, D228, D253. Step-2 units changing this line: S2-B, S2-C.
 
-Reason: X-00: item (ii) is deleted and its identifier retired, not reused and not annotated (§A.30; owner decision items 1, 2, 5: (iii)-(xiv) keep their numbers). Its content moves to the status Remark M:60 (weaker conditions, transfer clause); the finite-representative list and the deep-sector clause are already printed there (S2-B). The count becomes thirteen. Review: the posit count and that no result loses its stated conditions.
+Reason: X-00: item (ii) is deleted and its identifier retired, not reused and not annotated (§A.30; owner decision items 1, 2, 5: (iii)-(xiv) keep their numbers). Its content moves to the status Remark M:60 (weaker conditions, transfer clause); the finite-representative list and the deep-sector clause are already printed there (S2-B). The count becomes thirteen, and the completeness sentence states that finite-representative results carry their scope where stated (D253; review round 1, F4). Review: the posit count and that no result loses its stated conditions.
 
 Old at the drafting base (part 1):
 
@@ -2825,9 +2880,21 @@ New (part 5):
 this ledger states what is *assumed*, and the framework's claims are conditional on the full list.
 ```
 
-**M:60** · row X-00 (O) · needs scientific review · edits D229, D230, D231. Step-2 units changing this line: S2-B.
+Old (part 6):
 
-Reason: X-00: the posit sentence becomes the finite-representative scope and receives item (ii)'s weaker-condition list (with S2-B's CP clause) and its transfer clause, verbatim apart from the connective; the P8 sentence takes ledger X-00 wording. Review: whether the restated (NR)/(IP)/(IL) list needs the observability qualifications at this restatement (S2-C printed none at M:732), and that the transfer clause is not stronger than the companion proof.
+```text
+as these texts stand in the same revision of the repository. It does not enumerate every physical assumption
+```
+
+New (part 6):
+
+```text
+as these texts stand in the same revision of the repository; the results that use a finite representative (the recurrence step of §2.3, the counting measure of Lemma 3 and §4.6 among them) carry that finite scope where they are stated (§1.2 Remark) rather than as a listed premise. It does not enumerate every physical assumption
+```
+
+**M:60** · row X-00 (O) · needs scientific review · edits D229, D230, D254, D231. Step-2 units changing this line: S2-B.
+
+Reason: X-00: the posit sentence becomes the finite-representative scope and receives item (ii)'s weaker-condition list (with S2-B's CP clause) and its transfer clause, verbatim apart from the connective; the P8 sentence takes ledger X-00 wording. After the deletion M:60 is Main's first mention of (NR), (IP) and (IL), so S2-C's return- and law-form qualifications are printed there and at the later (NR) mention (review round 1, F3). Review: that the transfer clause is not stronger than the companion proof.
 
 Old (part 1):
 
@@ -2838,7 +2905,7 @@ Total finiteness of that representative is one sufficient condition for the resu
 New (part 1):
 
 ```text
-The results that use that representative are statements about finite representatives; each such result names the hypotheses it consumes, and a weaker sufficient condition, where its sufficiency is proved, is stated with the result — the near-return condition (NR) for the P-indivisibility conclusion of §2.3 and for the P-indivisibility input of the CP-indivisibility theorem of §3.2 on a measurable hidden carrier, the invariant-product condition (IP) for the doubly stochastic marginal of §3.2 and the invariant-law condition (IL) for the decay estimate of §4.6, each assumed as a hypothesis of that result and not adopted, and reversibility (REV), item (iii) of the posit ledger (§4.5), an alternative sufficient condition for bijectivity;
+The results that use that representative are statements about finite representatives; each such result names the hypotheses it consumes, and a weaker sufficient condition, where its sufficiency is proved, is stated with the result — the near-return condition (NR) for the P-indivisibility conclusion of §2.3 and for the P-indivisibility input of the CP-indivisibility theorem of §3.2 on a measurable hidden carrier, the invariant-product condition (IP) for the doubly stochastic marginal of §3.2 and the invariant-law condition (IL) for the decay estimate of §4.6, each assumed as a hypothesis of that result and not adopted ((NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update of §3.2 on $\mathbb{Z}^d$ no law that is not supported on periodic configurations is known to satisfy it; (IP) and (IL) are conditions on a law on the whole carrier; finite-window data can test some of their consequences but cannot establish them, and do not distinguish them from a finite carrier's counting law), and reversibility (REV), item (iii) of the posit ledger (§4.5), an alternative sufficient condition for bijectivity;
 ```
 
 Old (part 2):
@@ -2856,10 +2923,22 @@ The characterization theorem is a statement about finite-horizon laws and their 
 Old (part 3):
 
 ```text
-Of the two finiteness statements, the following results use only
+(for whose P-indivisibility conclusion the near-return condition (NR) of §2.3 is a weaker sufficient condition;
 ```
 
 New (part 3):
+
+```text
+(for whose P-indivisibility conclusion the near-return condition (NR) of §2.3, assumed as a hypothesis and not adopted, is a weaker sufficient condition (it concerns a time that need not be accessible and then has no finite-window test; for the selected update of §3.2 on $\mathbb{Z}^d$ no law that is not supported on periodic configurations is known to satisfy it);
+```
+
+Old (part 4):
+
+```text
+Of the two finiteness statements, the following results use only
+```
+
+New (part 4):
 
 ```text
 The transfer of the conclusions of the recurrence step of §2.3 and of §4.6, where expressible through the transition probabilities, from a finite representative to every representative reached from it by relabelling the hidden states, by a decoupled enlargement of the kind just stated or, under the alphabet-size hypothesis that systems with the same coupling structure and dynamics class differing only in alphabet size have the same emergent transition probabilities, by a change of alphabet that keeps the coupling structure and dynamics class is stated and proved in the companion substratum construction; the recurrence-scale conclusion of §2.3 is a statement about finite representatives. Of the two finiteness statements, the following results use only
@@ -2928,14 +3007,14 @@ Old (part 2):
 New (part 2):
 
 ```text
-**Finite representative.** The minimal finite bijective representative $(S, \varphi)$ of the hidden dynamics, on which the results stated for a finite substratum hold — among them the exact return and its index, the counting measure and the reconstruction theorem of Chapter 2. These results are finite-only; the framework assumes neither that the substratum is finite nor that it is infinite. Lemma 1 delivers finiteness of the observer's distinguishable states. Discussed in Chapter 1 and Appendix C §C.6.
+**Finite representative.** The minimal finite bijective representative $(S, \varphi)$ of a finite hidden dynamics, on which the results stated for a finite substratum hold — among them the exact return and its index, the counting measure and the reconstruction theorem of Chapter 2. These results are finite-only; the framework assumes neither that the substratum is finite nor that it is infinite. Lemma 1 delivers finiteness of the observer's distinguishable states. Discussed in Chapter 1 and Appendix C §C.6.
 
 **Frauchiger-Renner theorem.**
 ```
 
 ### 6.2 Consistency corrections outside the 194 sites
 
-**ch02:74** · row X-45 (F) · mechanical · edits D239. Mirror: FULL:704, identical strings (D240).
+**ch02:74** · row X-45 (F) · semantic · edits D239. Mirror: FULL:704, identical strings (D240).
 
 Reason: Count follows the deletion of the (A1) entry (§A.30 count rule); A2–A6 keep their identifiers.
 
@@ -2948,7 +3027,7 @@ The reconstruction restricts attention to candidate substrates satisfying six pr
 New:
 
 ```text
-The reconstruction restricts attention to candidate substrates satisfying five properties:
+The reconstruction restricts attention to finite candidate substrates satisfying five properties:
 ```
 
 **ch02:120** · row X-45 (F) · mechanical · edits D241. Mirror: FULL:750, identical strings (D242).
@@ -3021,20 +3100,52 @@ New:
 also give recurrence-cycle P-indivisibility [Main §2.3]; the near-return condition (NR) of [Main §2.3], assumed in its place and not adopted, is a weaker sufficient condition for that P-indivisibility conclusion. (NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update of [Main §3.2] on $\mathbb{Z}^d$ no law that is not supported on periodic configurations is known to satisfy it.
 ```
 
-**appC:138** · row - (-) · needs scientific review · edits D246. Mirror: FULL:6293, identical strings (D247).
+**ch09:104** · row X-46 (F) · semantic · edits D255. Mirror: FULL:2519, identical strings (D256).
 
-Reason: Hidden dependency H-3: the computability claim uses finiteness (lookup table). Review whether a size-independent form (a local rule with finite read sets is computable on finite windows) should be stated instead.
+Reason: Count and wording: finiteness (ch09:106) is the scope of the finite class, not a sixth membership property (review round 1, F8); A2–A6 keep their identifiers.
 
 Old:
 
 ```text
-But the bijection is in-principle computable, which is the relevant claim
+are six structural properties of the substratum, organized as follows.
 ```
 
 New:
 
 ```text
-But on a finite representative the bijection is in-principle computable, which is the relevant claim
+are five structural properties of the substratum, for the finite class whose scope is stated first, organized as follows.
+```
+
+**ch09:190** · row X-46 (F) · semantic · edits D257. Mirror: FULL:2605, identical strings (D258).
+
+Reason: Count and wording as ch09:104 (review round 1, F8).
+
+Old:
+
+```text
+Six structural axioms must be checked for compatibility under such a bridge.
+```
+
+New:
+
+```text
+The finite scope and five structural axioms must be checked for compatibility under such a bridge.
+```
+
+**appC:138** · row - (-) · semantic · edits D246. Mirror: FULL:6293, identical strings (D247).
+
+Reason: Hidden dependency H-3: the computability claim uses finiteness (a lookup table); the finite scope is kept and the evaluative clause is dropped with the narrowing (review round 1, F5). A size-independent form would need uniformity of the rule as a named hypothesis and is not drafted.
+
+Old:
+
+```text
+But the bijection is in-principle computable, which is the relevant claim for foundational physics.
+```
+
+New:
+
+```text
+But on a finite representative the bijection is in-principle computable.
 ```
 
 ### 6.3 Sites deferred to the deletion edit by S2-E (outside the 194)
@@ -3084,12 +3195,12 @@ together with finiteness of the total space, which is A1.
 New:
 
 ```text
-together with finiteness of the representative; on a carrier of unspecified cardinality bijectivity is the posit (REV) ([Main §4.5], item (iii)).
+together with finiteness of the representative; on a carrier of unspecified cardinality bijectivity rests on the posit (REV) ([Main §4.5], item (iii)).
 ```
 
 **ch18:40** · row X-82 (O) · mechanical · edits D251. Mirror: FULL:4771, identical strings (D252).
 
-Reason: Pointer left for the deletion edit by S2-E (its PREREG §3). The X-82 no-change decision for ch18:40 (S2-D review N5: no inflow statement) is kept; only the A1 pointer is rewritten. Owner to confirm that this pointer rewrite is compatible with keeping ch18:40 unchanged.
+Reason: Pointer left for the deletion edit by S2-E (its PREREG §3). Pointer-only rewrite approved by owner ruling #1169 c.7057674976: "under A1" is dropped because "finite reversible" already states the condition; the physical content, its conditional scope and the X-82 no-change decision on the inflow content are kept.
 
 Old:
 
@@ -3100,7 +3211,7 @@ the finite reversible substratum dynamics, which is recurrent under A1 (§18.7);
 New:
 
 ```text
-the finite reversible substratum dynamics, which is recurrent on a finite representative (§18.7);
+the finite reversible substratum dynamics, which is recurrent (§18.7);
 ```
 
 
@@ -3112,10 +3223,10 @@ the finite reversible substratum dynamics, which is recurrent on a finite repres
 - **H-2, Sub:56 on S2-D's branch.** S2-D prints "Without A1 the question also concerns an incoming supply"
   (X-63/X-82). At deletion the pointer becomes the property it names (D244, "Without finiteness"); S2-D's
   content is unchanged.
-- **H-3, appC:138 = FULL:6293.** "But the bijection is in-principle computable" follows a sentence that
-  D218 scopes to a finite representative; the claim uses finiteness (a lookup table). Drafted as D246–D247
-  with the finite scope; whether a size-independent form (a local rule with finite read sets is computable on
-  finite windows) should be printed instead needs review.
+- **H-3, appC:136/138 = FULL:6289/6293.** "Trivially computable" and "in-principle computable" use
+  finiteness (a lookup table). D218 attaches the finite scope to the computability sentence and D246 keeps
+  it at :138, dropping "which is the relevant claim for foundational physics" with the narrowing. A
+  size-independent form would need uniformity of the rule as a named hypothesis and is not drafted.
 - **H-4, Sub:92 is Substratum's only statement of (NR).** Deleting the (A1) entry would drop the weaker
   condition and its S2-C qualification from Substratum silently. D245 relocates the clause verbatim to the
   Stage 1 recurrence sentence at Sub:137 (J row X-20; deletion criterion 3).
@@ -3131,13 +3242,23 @@ the finite reversible substratum dynamics, which is recurrent on a finite repres
 - **H-7, Theorem 23's finite scope versus S2-A.** S2-A prints A4 with $\mathbb{Z}^d$ as the standard
   construction; Theorem 23 keeps a finite-substratum scope (X-45: Stage 1 exact return, Stage 3 count). A
   finite substratum satisfying A4 is necessarily a finite periodic quotient, which D022 states; review item.
-- **H-8, the posit list at M:60.** S2-C printed no observability qualification inside M:732 item (ii); the
-  moved list (D229) is a restatement whose conditions are introduced, with S2-C's qualifications, at M:131,
-  M:141, M:224, M:280, M:336 and M:766. Review item.
-- **H-9, the finite OI class (X-46).** Structure's OI class stays a definitional finite class ("finite OI-class
-  substrata"), as the ledger records; narrowing it to A2–A6 would be a definition change (REMAINDER C11). Under
-  the cardinality-neutral design this is a scope, not a premise about nature; whether the class should be
-  redefined is an owner question outside this edit.
+- **H-8, the posit list at M:60.** After the deletion M:60 is Main's first mention of (NR), (IP) and (IL);
+  D229 and D254 print S2-C's qualifications there (resolved in round 1, F3).
+- **H-9, the finite OI class (X-46).** Resolved by owner ruling (#1169 c.7057674976): the class stays a finite
+  subclass, named "finite OI class" where necessary; the X-46 rewrites word finiteness as its scope; the
+  cardinality-neutral class is Issue #1478.
+- **H-10, `verification/README.md`.** Lines 917–951 (the manuscript-axiom audit), 1003–1007 and 2289–2476
+  quote or describe "A1–A6" of the Substratum paper. Disposition: corrected in place in the execution commit
+  (a mutable landing page, §A.27): sentences that say the manuscripts state A1 ("the manuscripts' own
+  structural assumptions A1–A6 of the Substratum paper, each quoted verbatim", line 923; "A1–A6 in the
+  manuscript sense", line 951) are scoped to the commit at which the audit quoted them, taken from the
+  audit's own record at execution; sentences naming the kernel predicates `A1`, `waveSubstratum_A1`,
+  `hexSubstratum_A1` stay, these being Lean identifiers for the finite predicate.
+- **H-11, docstrings of `OIBridge/ManuscriptAxioms.lean`.** Lines 4–10 and 89 quote "A1–A6 of
+  `[Substratum §3.1]`" as the manuscripts' structural assumptions. Two dispositions are possible: (a) edit
+  the docstrings to scope the quotation to the pinned commit of the audit (no theorem changes; the Lean build
+  runs in CI); (b) leave the Lean file unchanged and record that scope in `verification/README.md` (H-10).
+  The draft proposes (b), which touches no kernel file; the choice is an owner question (§12).
 
 ## 8. Dependency and conflict map against the Step-2 PRs
 
@@ -3147,7 +3268,7 @@ the finite reversible substratum dynamics, which is recurrent on a finite repres
 | S2-B | #1473 | `5c6cdfea` | D224 (item (ii) text on the branch), D229 (moved list includes S2-B's CP clause), D231 (transfer clause follows S2-B's deep-sector sentence), D232 (Sub:92 text), D005, D029 |
 | S2-C | #1474 | `cb6d1b87` | D224, D232 (text on the branch), D245 (relocated S2-C wording), D004 (M:131 qualification), D045, D108–D111, D200–D201 |
 | S2-D | #1472 | `5efd856b` | D244 (Sub:56 wording on the branch); D251–D252 keep S2-D's ch18:40 decision |
-| S2-E | (pending) | `8e52b217` | D248–D252 (sites S2-E defers to the deletion edit); the 35 Phase-3 residual pointer lines at the base are removed by S2-E's edits, which leave zero on the projection |
+| S2-E | #1475 | `7ed84339` | D248–D252 (sites S2-E defers to the deletion edit); the 35 Phase-3 residual pointer lines at the base are removed by S2-E's edits, which leave zero on the projection |
 
 Line-level dependencies (an `old` string on a line a Step-2 unit changes, or a replacement presupposing
 Step-2 text):
@@ -3169,8 +3290,10 @@ Step-2 text):
 | D226 | M:732 | S2-B, S2-C | old | S2-B and S2-C edit inside item (ii); old_step2 is item (ii) on the projected integration |
 | D227 | M:732 | S2-B, S2-C | old | S2-B and S2-C edit inside item (ii); old_step2 is item (ii) on the projected integration |
 | D228 | M:732 | S2-B, S2-C | old | S2-B and S2-C edit inside item (ii); old_step2 is item (ii) on the projected integration |
+| D253 | M:732 | S2-B, S2-C | old | S2-B and S2-C edit inside item (ii); old_step2 is item (ii) on the projected integration |
 | D229 | M:60 | S2-B | old | S2-B wording ("and for the P-indivisibility input of the CP-indivisibility theorem") is presupposed |
 | D230 | M:60 | S2-B | old | S2-B wording ("and for the P-indivisibility input of the CP-indivisibility theorem") is presupposed |
+| D254 | M:60 | S2-B | old | S2-B wording ("and for the P-indivisibility input of the CP-indivisibility theorem") is presupposed |
 | D231 | M:60 | S2-B | old | S2-B wording ("and for the P-indivisibility input of the CP-indivisibility theorem") is presupposed |
 | D232 | Sub:92 | S2-B, S2-C | old_step2 | S2-B and S2-C edit inside the entry; old_step2 is the projected entry |
 | D244 | Sub:56 | S2-D | old_step2 | — |
@@ -3210,14 +3333,16 @@ before any execution is authorized:
 
 | Command | Tree | Result |
 |---|---|---|
-| `edits_check.py --self-test` | — | self-test PASS |
-| `edits_check.py --static` | — | infinity-assertion scan: 0 hits; register scan (added text, §A.32/§A.33): 0 hits, new capitals 0; identifier rule: 0 findings; ptr sites with a drafted rewrite (chapter site and FULL mirror counted separately): 194; RESULT PASS |
-| `edits_check.py --commit 1c7eedc4` | base | uniqueness: 252 edits, 0 fail; variants used {'old': 252}; RESULT PASS |
-| `edits_check.py --commit 1c7eedc4 --simulate` | base | uniqueness: 252 edits, 0 fail; variants used {'old': 252}; simulation: residual pointer lines 42 (7 allowed as listed, 35 unqualified); RESULT FAIL |
-| `edits_check.py --tree <projection> --simulate` | projected integration of the five heads | uniqueness: 252 edits, 0 fail; variants used {'old': 249, 'old_step2': 3}; simulation: residual pointer lines 5 (5 allowed as listed, 0 unqualified); RESULT PASS |
+| `edits_check.py --self-test` | — | self-test PASS (34 countercontrols) |
+| `edits_check.py --tree <projection with S2-E 8e52b217> --simulate` | first-draft projection | uniqueness: 258 edits, 0 fail; variants used {'old': 255, 'old_step2': 3}; simulation: residual pointer lines 5 (5 allowed as listed, 0 unqualified); simulation: criterion-5/paraphrase hits on changed lines without a scope in their sentence: 0; simulation: identifier and count findings: 0; RESULT PASS |
+| `edits_check.py --static` | — | infinity-assertion scan (new and new_step2): 0 hits; register scan (added text, §A.32/§A.33, history phrases): 0 hits; new capitals (3+ letters): 0; identifier rule (new and new_step2): 0 findings; sitemap cross-check: 194 ptr sites in the map, 194 with an edit; 0 findings; RESULT PASS |
+| `edits_check.py --commit 1c7eedc4` | base | uniqueness: 258 edits, 0 fail; variants used {'old': 258}; RESULT PASS |
+| `edits_check.py --commit 1c7eedc4 --simulate` | base | uniqueness: 258 edits, 0 fail; variants used {'old': 258}; simulation: residual pointer lines 42 (5 allowed as listed, 37 unqualified); simulation: criterion-5/paraphrase hits on changed lines without a scope in their sentence: 0; simulation: identifier and count findings: 1; RESULT FAIL |
+| `edits_check.py --tree <projection> --simulate` | projected integration of the five heads | uniqueness: 258 edits, 0 fail; variants used {'old': 255, 'old_step2': 3}; simulation: residual pointer lines 5 (5 allowed as listed, 0 unqualified); simulation: criterion-5/paraphrase hits on changed lines without a scope in their sentence: 0; simulation: identifier and count findings: 0; RESULT PASS |
 
 The residual lines at the base are the S2-E Q3 sites (Comp, Meth, ch14, ch18 and their FULL mirrors), which
-S2-E's branch rewrites; on the projection, after the edit list, the residual is zero apart from the ledger's
+S2-E's branch rewrites, and the one identifier finding at the base is the "A1–A6" range in Methodology (an
+S2-E site); on the projection, after the edit list, the residual is zero apart from the ledger's
 false positives (the appB anomaly conditions "(A1)" and their FULL mirror) and GR:58's finite-scope wording
 "For a finite total system", which the P2 pattern matches.
 
@@ -3249,11 +3374,19 @@ At the execution head, all of the following, with outputs recorded in the execut
 
 ## 12. Owner questions
 
-1. **ch18:40.** S2-E leaves the pointer "recurrent under A1 (§18.7)" at ch18:40 = FULL:4771 to the deletion
-   edit; D251–D252 rewrite only that pointer and keep the X-82 no-change decision (no inflow statement). Is
-   that compatible with the instruction to keep ch18:40 unchanged?
-2. **The finite OI class (H-9).** Keep Structure's OI class finite by definition, as drafted, or open a
-   separate definition-change unit?
+Answered (#1169 comment 7057674976):
+
+1. **ch18:40.** Pointer-only rewrite approved, narrowly scoped. D251–D252 replace "which is recurrent under
+   A1 (§18.7)" by "which is recurrent (§18.7)": the sentence already says "the finite reversible substratum
+   dynamics", which is the finite-recurrence condition; physical content and conditional scope unchanged.
+2. **The finite OI class.** Kept as a finite subclass, "finite OI class"; finiteness worded as its scope
+   (review F8); cardinality-neutral class in Issue #1478.
+
+Open:
+
+3. **H-11.** For the docstrings of `OIBridge/ManuscriptAxioms.lean`: (a) scope them to the audit's pinned
+   commit by a docstring-only edit, or (b) leave the kernel file unchanged and record the scope in
+   `verification/README.md` (drafted default).
 
 ## 13. Off-`main` references (§A.42 item 8)
 
@@ -3261,7 +3394,9 @@ At the execution head, all of the following, with outputs recorded in the execut
 |---|---|---|
 | Step-2 branch heads (§1) | The `old_step2` strings and §8 dependencies | provenance: the strings are re-pinned against merged `main` before execution (§9); nothing here is established from them |
 | PR #1470, #1472, #1473, #1474 | Unit identities | provenance |
-| #1169 comments 7057236079, 7057297534, 7057200720 | Authorization, design decision, landing order | provenance (owner records) |
+| #1169 comments 7057236079, 7057297534, 7057200720, 7057674976 | Authorization, design decision, landing order, rulings on §12 | provenance (owner records) |
+| Issue #1478 | The cardinality-neutral OI class, outside this edit | provenance (planning) |
+| #1477 round-1 review record | The findings answered in §17 | provenance |
 | Projected integration (scratch) | Uniqueness on the projection | provenance: reproducible from the heads by §14 |
 
 ## 14. Reproducibility
@@ -3292,3 +3427,25 @@ The edit list covers the 194 pointer sites, item (ii) and the consistency correc
 scan. It does not re-audit any ledger row, change any Step-2 conclusion, or decide the regression audit
 (#1468). A lexical scan cannot find a finiteness dependency that no word names; the J/F/O classifications
 are the ledger's.
+
+## 17. Answer to the early review of `36a73526` (round 1, REVISE)
+
+| Finding | Change |
+|---|---|
+| F1 Theorem 23 parenthesis, wrapping conditions, paper/book parity, Stage 2 on $\mathbb{Z}^d$ | D022 and D120 read "with A4 applying in its finite periodic case under the wrapping conditions on $P$ of Stage 2 [SM §4.1]" (book: "(SM §4.1)", its citation style); the $\mathbb{Z}^d$ restatement of Stage 2 is a §5.4 review item, not part of this edit, being beyond the smallest correction |
+| F2 Sub:129 scope | D020 drops A1 with no replacement scope (C4 from the hidden-memory theorem, C1 from the history gap; the readback route constructs a finite hidden space, M:60); class mechanical |
+| F3 M:60 qualifications | D229 prints S2-C's return- and law-form qualifications; D254 qualifies the later (NR) mention; §5.3 lists D224 and D229 |
+| F4 completeness sentence | D253 |
+| F5 appC:136/138 | D218 attaches the finite scope to the computability sentence; D246 keeps it and drops "the relevant claim for foundational physics" |
+| F6 "finite in a finite representative" | Replaced at D012, D014, D015 (Sub:52 parenthesis deleted), D114, D176, D210, D222; none remains in any `new` string |
+| F7 README and Lean docstrings | H-10 (README corrected in place at execution), H-11 (owner question 3) |
+| F8 finiteness as membership | Str:258 (D060), Str:260 (D062), ch02:74 (D239), ch09:104 (D255), ch09:190 (D257); Structure's class wording follows the owner ruling (D046, D053, D057, D072, D073, D075, D080, D092, D093, D095; ch03:44 D138) |
+| F9 glossary entry | D237: "of a finite hidden dynamics" |
+| F10 reasons | D001's reason corrected; D250 reads "rests on the posit (REV)" |
+| Checker: infinity scan | Adds "is not finite", "\|S\| = ∞/\infty", "thermodynamic limit", "unbounded size"; the exemption is only the symmetric "neither … is finite nor … is infinite" form |
+| Checker: register scan | Adds the history-phrase family and capitals of three or more letters (with an acronym list) |
+| Checker: identifier rule | `--simulate` checks that Main's posit ledger keeps (i) and (iii)–(xiv), prints no (ii) and says "Thirteen items … thirteen", and that the six/five counts read five; `--static` flags "Fourteen", ranges renumbered to (xiii), numeric posits and A1-ranges |
+| Checker: residual scan | Adds the paraphrase pointers (e.g. "configuration finiteness … open physical hypothesis"); criterion-5 and finiteness-paraphrase hits on changed lines must be scoped in their sentence; files are listed from the commit or tree under test |
+| Checker: static mode | Scans `new` and `new_step2` |
+| Checker: sitemap | `--static` cross-checks every ptr edit against `sitemap.json` at its pin (declared site, part-1 line, mirror line; every ptr site covered) |
+| Checker: self-test | Every fault injection of the review is a countercontrol (§10) |

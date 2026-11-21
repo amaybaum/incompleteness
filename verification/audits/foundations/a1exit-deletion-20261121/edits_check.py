@@ -10,37 +10,72 @@ Usage (from the repository root):
 --commit REV  reads each target file as `git show REV:path` and checks that every edit's old string ("old",
               or "old_step2" where given) occurs exactly once in its file. Exit status 1 on any failure.
 --tree DIR    the same on a directory holding papers/ and book/ (for example a projected integration).
---simulate    additionally applies the edits in memory only (nothing is written) and reports the residual
-              A1-pointer scan of the result, which must be empty apart from the listed false positives.
---static      checks the replacement strings alone: the infinity-assertion scan (zero hits required), the
-              register scan of §A.32/§A.33 on added text (zero hits required), the identifier rule (no
-              surviving identifier renumbered, no "A1" printed) and the count of ptr sites (194).
+--simulate    additionally applies the edits in memory only (nothing is written) and checks the result:
+              the residual scan (A1 pointers and their paraphrases, over every papers/*.md and book/*.md
+              file of the commit or tree under test) must be empty apart from the listed false positives;
+              every criterion-5 or finiteness-paraphrase hit on a changed line must be finite-scoped,
+              interrogative or open in its sentence; Main's posit ledger must keep items (i) and (iii)-(xiv),
+              print no item (ii) and say "Thirteen items"; the reconstruction counts must read five.
+--static      checks the replacement strings ("new" and "new_step2") alone: infinity-assertion scan,
+              register scan of §A.32/§A.33 on added text and identifier rule (zero hits each); and
+              cross-checks the edit sites against the ledger site map (every ptr site has an edit, every
+              ptr edit is at a mapped ptr site), reading the map's pin with git.
 """
 import argparse, json, os, re, subprocess, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..'))
 EDITS = os.path.join(HERE, 'edits.json')
+SITEMAP = os.path.join(ROOT, 'verification', 'audits', 'foundations', 'a1exit-ledger-20261120', 'sitemap.json')
+FULL = 'book/The-Incompleteness-of-Observation-FULL.md'
 
-# Residual pointer scan: ledger P0 core patterns P1, P2, P5 and the B1 "finiteness posit" pattern.
+# Residual pointer scan: ledger P0 core patterns P1, P2, P5, the B1 "finiteness posit" pattern, and the
+# paraphrases of the posit found by the round-1 review.
 PTR = re.compile(r'\bA1\b|[Tt]otal[- ]finiteness|totally finite|(?<![A-Za-z])finite total (system|configuration|state)'
-                 r'|posit \(ii\)|ledger item \(ii\)|item \(ii\) of the posit|ledger \(ii\)|posit-\(ii\)|[Ff]initeness posit')
-# Lines the ledger classifies as false positives or as owned by other units (S2-E / #1468), by file and a
-# distinctive substring that survives line moves.
+                 r'|posit \(ii\)|ledger item \(ii\)|item \(ii\) of the posit|ledger \(ii\)|posit-\(ii\)|[Ff]initeness posit'
+                 r'|[Ff]initeness hypothesis|configuration finiteness|hypothesis of finite information'
+                 r'|open (?:physical )?(?:hypothesis|posit|premise)[^.;]{0,60}finit|finit[^.;]{0,80}open (?:physical )?(?:hypothesis|posit|premise)')
 RESIDUAL_ALLOW = [
     ('book/appendix-b-derivations.md', '(A1)', 'ledger FP: anomaly condition (A1), appB:235/246'),
-    ('book/The-Incompleteness-of-Observation-FULL.md', '(A1)', 'ledger FP: FULL mirror of the appB anomaly conditions'),
+    (FULL, '(A1)', 'ledger FP: FULL mirror of the appB anomaly conditions'),
     ('papers/GR.md', 'For a finite total system, restrict it', 'finite-scope wording of ledger X-70 (P2 matches "finite total system")'),
 ]
-# Infinity assertions that no replacement string may introduce (owner decision, cardinality neutrality).
-INF = re.compile(r'(?:\b(?:is|are|be|being|been)\s+infinite\b(?!-))|\binfinitely many\b|\bcountably infinite\b'
-                 r'|\buncountably infinite\b|\binfinite (?:substratum|universe|configuration space|carrier|set|number)\b'
-                 r'|\|S\|\s*=\s*\\infty|\bS\s+is\s+infinite\b|\binfinite in (?:extent|size|cardinality)\b')
-NEUTRAL = re.compile(r'\bneither\b[^.]*\bnor\b')
-# §A.32/§A.33 register families on added text.
-REG = re.compile(r'\b(now|no longer|formerly|corrected|is not listed|withdrawn from|retired|in its current form'
-                 r'|as redefined|is now settled|should not be read|the reader should note|honest(?:ly)?)\b', re.I)
-CAPS = re.compile(r'(?<![A-Za-z\\])[A-Z]{4,}(?![A-Za-z])')
+# Ledger criterion-5 patterns (ledger_check.EXTENDED_PATTERNS) and P0 finiteness paraphrases (P0 core P3, P4,
+# P8; paraphrase P6, P10), applied to lines the edit list changes.
+CRIT5 = re.compile(r'[Ff]initeness posit|posit A1|finite[- ]information|(?<![A-Za-z])finite (periodic )?lattice(?! spacing)'
+                   r'|finite torus|periodic quotient|[Rr]ecurrence (cycle|scale)|recurrence-cycle|classical-dimension'
+                   r'|N < \\infty|fixed finite carrier|(?<![A-Za-z])finite (world|universe)\b|(?<![A-Za-z])finite configuration space'
+                   r'|(?<![A-Za-z])finite cardinality|\$S\$ (is )?finite')
+# Phrases that name a finite object (finite representative, substratum, bijection, model, carrier) are finite-scope
+# statements by themselves and are not CRIT5 hits; a CRIT5 hit needs one of these scopes in its sentence.
+SCOPED = re.compile(r'finite (?:\w+ )?representative|finite substrat|finite model|finite OI|finite class|finite-only|for a finite'
+                    r'|on a finite|on a fixed finite|when \$S\$ is finite|finite (?:total )?system|finite set|finite scope'
+                    r'|finite candidate|finite periodic case|finite hidden dynamics|finite realization|qualified case'
+                    r'|\?|\bwhether\b|\bopen\b|not asserted|left open|not fixed|does not identify|unspecified cardinality'
+                    r'|\bneither\b')
+CRIT5_ALLOW = [
+    ('book/ch02-substratum.md', 'The output of Stage 1 is a triple $(S, \\varphi, V)$ with $S$ finite',
+     'Stage 1 constructs a finite realization per law (ledger X-31), inside Theorem 23\'s finite scope'),
+    (FULL, 'The output of Stage 1 is a triple $(S, \\varphi, V)$ with $S$ finite', 'FULL mirror of ch02:88'),
+]
+# Infinity assertions that no replacement string may introduce (owner decision: cardinality neutrality).
+INF = re.compile(r'(?:\b(?:is|are|be|being|been)\s+infinite\b(?!-))|\b(?:is|are)\s+not\s+finite\b|\binfinitely many\b'
+                 r'|\bcountably infinite\b|\buncountably infinite\b'
+                 r'|\binfinite (?:substratum|universe|configuration space|carrier|set|number|lattice|system)\b'
+                 r'|\|S\|\s*=\s*(?:\\infty|∞)|\bS\s+is\s+infinite\b|\binfinite in (?:extent|size|cardinality)\b'
+                 r'|\bthermodynamic limit\b|\bunbounded (?:size|number of (?:sites|configurations|states))\b'
+                 r'|\bwithout bound in size\b|\bof infinite cardinality\b')
+# The only exempt form: a symmetric "neither ... finite ... nor ... infinite" disclaimer, the match inside it.
+NEUTRAL = re.compile(r'\bneither (?:that )?(?:the substratum|the universe|it|\$S\$|S) (?:is|be) finite nor (?:that )?'
+                     r'(?:the substratum|the universe|it|\$S\$|S) (?:is|be) infinite\b')
+# §A.32/§A.33 register families and the history-phrase family on added text.
+REG = re.compile(r'\b(now|no longer|formerly|previously|corrected|correction|is not listed|withdrawn|retired|superseded'
+                 r'|in its current form|the corrected form|as redefined|is now settled|earlier revision\w*|has been removed'
+                 r'|was removed|used to|should not be read|the reader should note|honest(?:ly)?|discipline maintained)\b', re.I)
+CAPS = re.compile(r'(?<![A-Za-z\\])[A-Z]{3,}(?![A-Za-z])')
+CAPS_OK = {'REV', 'OIQ', 'QFT', 'LQG', 'BFSS', 'BMN', 'IKKT', 'ETH', 'BQP', 'CPTP', 'GR', 'SM', 'QM', 'CP', 'MWI', 'PBR',
+           'RIG', 'ZFC', 'LHC', 'UV', 'IR', 'CKM', 'PMNS', 'JUNO', 'CSG'}
+ROMAN = ['i', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x', 'xi', 'xii', 'xiii', 'xiv']
 
 
 def load():
@@ -48,20 +83,38 @@ def load():
         return json.load(f)
 
 
-def reader(commit, tree):
-    def read(path):
-        if tree:
-            with open(os.path.join(tree, path), encoding='utf-8') as f:
+class Source:
+    def __init__(self, commit=None, tree=None, fn=None, files=None):
+        self.commit, self.tree, self.fn, self._files = commit, tree, fn, files
+
+    def read(self, path):
+        if self.fn:
+            return self.fn(path)
+        if self.tree:
+            with open(os.path.join(self.tree, path), encoding='utf-8') as f:
                 return f.read()
-        r = subprocess.run(['git', '-C', ROOT, 'show', '%s:%s' % (commit, path)], capture_output=True)
+        r = subprocess.run(['git', '-C', ROOT, 'show', '%s:%s' % (self.commit, path)], capture_output=True)
         if r.returncode:
-            raise SystemExit('cannot read %s at %s' % (path, commit))
+            raise SystemExit('cannot read %s at %s' % (path, self.commit))
         return r.stdout.decode('utf-8')
-    return read
+
+    def files(self):
+        """papers/*.md and book/*.md of the commit or tree under test (not of the working checkout)."""
+        if self._files is not None:
+            return list(self._files)
+        out = []
+        if self.tree:
+            for d in ('papers', 'book'):
+                p = os.path.join(self.tree, d)
+                if os.path.isdir(p):
+                    out += ['%s/%s' % (d, n) for n in sorted(os.listdir(p)) if n.endswith('.md')]
+            return out
+        r = subprocess.run(['git', '-C', ROOT, 'ls-tree', '--name-only', self.commit, 'papers/', 'book/'],
+                           capture_output=True, text=True)
+        return [x for x in r.stdout.split() if x.endswith('.md') and x.count('/') == 1]
 
 
 def variant(e, text):
-    """Return (old, new, label) for the variant whose old occurs exactly once, else (None, None, counts)."""
     cands = [('old', e['old'], e['new'])]
     if 'old_step2' in e:
         cands.append(('old_step2', e['old_step2'], e['new_step2']))
@@ -74,116 +127,269 @@ def variant(e, text):
     return None, None, ','.join(counts)
 
 
-def check(data, read, simulate):
+def sentences(t):
+    return re.split(r'(?<=[.;:?])\s+', t)
+
+
+def check(data, src, simulate, quiet=False):
+    say = (lambda *a: None) if quiet else print
     texts, fails, used = {}, [], {}
     for e in data['edits']:
         if e['file'] not in texts:
-            texts[e['file']] = read(e['file'])
+            texts[e['file']] = src.read(e['file'])
     for e in data['edits']:
         o, n, label = variant(e, texts[e['file']])
         if o is None:
             fails.append('%s %s (%s part %d): old string not unique (%s)' % (e['id'], e['file'], e['site'], e['part'], label))
         else:
             used[label] = used.get(label, 0) + 1
-    print('uniqueness: %d edits, %d fail; variants used %s' % (len(data['edits']), len(fails), used))
+    say('uniqueness: %d edits, %d fail; variants used %s' % (len(data['edits']), len(fails), used))
     for x in fails:
-        print('  FAIL ' + x)
-    if simulate and not fails:
-        sim = dict(texts)
-        for e in data['edits']:
-            o, n, _ = variant(e, sim[e['file']])
-            if o is None:
-                fails.append('%s: old string lost during in-memory application' % e['id'])
+        say('  FAIL ' + x)
+    if not simulate or fails:
+        return not fails
+    sim = dict(texts)
+    for e in data['edits']:
+        o, n, _ = variant(e, sim[e['file']])
+        if o is None:
+            fails.append('%s: old string lost during in-memory application' % e['id'])
+            continue
+        sim[e['file']] = sim[e['file']].replace(o, n, 1)
+    # residual pointer scan over the whole corpus under test
+    res = []
+    for path in sorted(set(src.files()) | set(sim)):
+        t = sim[path] if path in sim else src.read(path)
+        for i, line in enumerate(t.split('\n'), 1):
+            m = PTR.search(line)
+            if m:
+                why = [w for f_, s_, w in RESIDUAL_ALLOW if f_ == path and s_ in line
+                       and not PTR.search(line.replace('(A1)', '').replace('For a finite total system', ''))]
+                res.append((path, i, why[0] if why else None, m.group(0)))
+    bad = [r for r in res if r[2] is None]
+    say('simulation: residual pointer lines %d (%d allowed as listed, %d unqualified)' % (len(res), len(res) - len(bad), len(bad)))
+    for p, i, w, m in res:
+        say('  %s %s:%d [%s]%s' % ('allow' if w else 'RESIDUAL', p, i, m, (' ' + w) if w else ''))
+    if bad:
+        fails.append('residual pointer lines remain')
+    # criterion-5 and paraphrase hits on changed lines must be scoped in their sentence
+    unq = []
+    for path, t in sim.items():
+        before = set(texts[path].split('\n'))
+        for i, line in enumerate(t.split('\n'), 1):
+            if line in before:
                 continue
-            sim[e['file']] = sim[e['file']].replace(o, n, 1)
-        res = []
-        for path in sorted(set(corpus(read)) | set(sim)):
-            t = sim.get(path) or read(path)
-            for i, line in enumerate(t.split('\n'), 1):
-                if PTR.search(line):
-                    why = [w for f_, s_, w in RESIDUAL_ALLOW if f_ == path and s_ in line and not
-                           re.search(r'\bA1\b(?!\))', line.replace('(A1)', ''))]
-                    res.append((path, i, why[0] if why else None, PTR.search(line).group(0)))
-        bad = [r for r in res if r[2] is None]
-        print('simulation: residual pointer lines %d (%d allowed as listed, %d unqualified)' % (len(res), len(res) - len(bad), len(bad)))
-        for p, i, w, m in res:
-            print('  %s %s:%d [%s]%s' % ('allow' if w else 'RESIDUAL', p, i, m, (' ' + w) if w else ''))
-        if bad:
-            fails.append('residual pointer lines remain')
+            for s in re.split(r'(?<=[.?])\s+', line):
+                if any(f_ == path and a_ in s for f_, a_, _ in CRIT5_ALLOW):
+                    continue
+                for m in CRIT5.finditer(s):
+                    if not SCOPED.search(s):
+                        unq.append('%s:%d [%s] %s' % (path, i, m.group(0), s[:110]))
+    say('simulation: criterion-5/paraphrase hits on changed lines without a scope in their sentence: %d' % len(unq))
+    for x in unq:
+        say('  UNSCOPED ' + x)
+    if unq:
+        fails.append('unscoped criterion-5 hits')
+    # identifiers and counts in the simulated corpus
+    idf = identifier_sim(sim)
+    say('simulation: identifier and count findings: %d' % len(idf))
+    for x in idf:
+        say('  ID ' + x)
+    if idf:
+        fails.append('identifier/count findings')
     return not fails
 
 
-def corpus(read):
-    try:
-        out = subprocess.run(['git', '-C', ROOT, 'ls-files', 'papers/*.md', 'book/*.md'], capture_output=True, text=True).stdout.split()
-    except Exception:
-        out = []
+def identifier_sim(sim):
+    out = []
+    m = sim.get('papers/Main.md')
+    if m is not None:
+        led = [l for l in m.split('\n') if l.startswith('**The posit ledger.**')]
+        if len(led) != 1:
+            out.append('Main posit ledger paragraph not found exactly once')
+        else:
+            L = led[0]
+            for r in ROMAN:
+                if not re.search(r'\(%s\) ' % r, L):
+                    out.append('Main posit ledger lacks item (%s)' % r)
+            if re.search(r'\(ii\) ', L):
+                out.append('Main posit ledger prints item (ii)')
+            if 'Thirteen items, of unequal weight, and not thirteen independent' not in L:
+                out.append('Main posit ledger count is not "Thirteen items ... thirteen"')
+            if re.search(r'\b[Ff]ourteen\b', L):
+                out.append('Main posit ledger still says fourteen')
+            if re.search(r'\((?:iii|iv)\)[–-]\(xiii\)', L) and '(xiv)' not in L:
+                out.append('posit ledger range renumbered to end at (xiii)')
+    for path, t in sim.items():
+        for pat, msg in ((r'satisfying six properties', 'reconstruction properties still "six"'),
+                         (r'six structural assumptions', '"six structural assumptions" survives'),
+                         (r'sixth of the framework\'s structural assumptions', '"sixth of the ... assumptions" survives'),
+                         (r'are six structural properties of the substratum', 'ch09 "six structural properties" survives'),
+                         (r'Six structural axioms must be checked', 'ch09 "Six structural axioms" survives'),
+                         (r'\bA1\s*[–-]\s*A6\b', 'A1–A6 range survives')):
+            if re.search(pat, t):
+                out.append('%s: %s' % (path, msg))
+    ch = sim.get('book/ch02-substratum.md')
+    if ch is not None and 'satisfying five properties' not in ch:
+        out.append('ch02: reconstruction properties count is not "five"')
     return out
 
 
-def static(data):
-    ok = True
+def static_new(data):
     inf, reg, caps, ids = [], [], [], []
     for e in data['edits']:
-        new = e.get('new_step2') or e['new']
-        old = e.get('old_step2') or e['old']
-        for sent in re.split(r'(?<=[.;:])\s+', new):
-            for m in INF.finditer(sent):
-                if not NEUTRAL.search(sent):
-                    inf.append((e['id'], m.group(0), sent[:120]))
-        added = new
-        for tok in set(REG.findall(added)) - set(REG.findall(old)):
-            reg.append((e['id'], tok))
-        for tok in set(CAPS.findall(added)) - set(CAPS.findall(old)):
-            caps.append((e['id'], tok))
-        if re.search(r'\bA1\b', new):
-            ids.append((e['id'], 'A1 printed in a replacement'))
-        for a in ('A2', 'A3', 'A4', 'A5', 'A6'):
-            if old.count(a) and not new.count(a) and a not in ('A1',) and e['row'] not in ('X-00',):
-                # a surviving identifier must not disappear from a range rewrite unless the clause is deleted
-                if new.strip():
+        pairs = [(e['old'], e['new'])]
+        if 'new_step2' in e:
+            pairs.append((e['old_step2'], e['new_step2']))
+        for old, new in pairs:
+            for sent in sentences(new):
+                spans = [m.span() for m in NEUTRAL.finditer(sent)]
+                for m in INF.finditer(sent):
+                    if not any(a <= m.start() and m.end() <= b for a, b in spans):
+                        inf.append((e['id'], m.group(0), sent[:120]))
+            for tok in set(x.lower() for x in REG.findall(new)) - set(x.lower() for x in REG.findall(old)):
+                reg.append((e['id'], tok))
+            for tok in set(CAPS.findall(new)) - set(CAPS.findall(old)) - CAPS_OK:
+                caps.append((e['id'], tok))
+            if re.search(r'\bA1\b', new):
+                ids.append((e['id'], 'A1 printed in a replacement'))
+            if re.search(r'\bA1\s*[–-]\s*A[2-6]\b', new):
+                ids.append((e['id'], 'range starting at A1'))
+            if re.search(r'\(ii\)', new):
+                ids.append((e['id'], 'retired ledger identifier (ii) printed'))
+            if re.search(r'\bposit\s+[0-9]+\b|\bitem\s+[0-9]+\b|\bA\s?[0-9]\s*[–-]\s*A\s?5\b(?!\s*as stated)', new) and not re.search(r'A2[–-]A5', old):
+                ids.append((e['id'], 'numeric posit or renumbered range'))
+            if re.search(r'\b[Ff]ourteen\b', new):
+                ids.append((e['id'], '"fourteen" printed'))
+            if re.search(r'[–-]\(xiii\)', new) and '(xiv)' in old:
+                ids.append((e['id'], 'range renumbered to (xiii)'))
+            for a in ('A2', 'A3', 'A4', 'A5', 'A6'):
+                if old.count(a) and not new.count(a) and new.strip():
                     ids.append((e['id'], '%s dropped from a non-empty replacement' % a))
-        if re.search(r'\bA[1-6]\s*[–-]\s*A[1-6]\b', new):
-            for m in re.finditer(r'\bA([1-6])\s*[–-]\s*A([1-6])\b', new):
-                if m.group(1) == '1':
-                    ids.append((e['id'], 'range starting at A1'))
-        for m in re.finditer(r'\((ii)\)', new):
-            ids.append((e['id'], 'retired ledger identifier (ii) printed'))
-    print('infinity-assertion scan: %d hits' % len(inf))
+    return inf, reg, caps, ids
+
+
+def sitemap_check(data, read_pin=None):
+    sm = json.load(open(SITEMAP, encoding='utf-8'))
+    pin = sm['pin']
+    ptr = {(x['file'], x['line']) for x in sm['sites'] if x['code'] == 'ptr'}
+    cache = {}
+
+    def rd(p):
+        if p not in cache:
+            if read_pin:
+                cache[p] = read_pin(p)
+            else:
+                r = subprocess.run(['git', '-C', ROOT, 'show', '%s:%s' % (pin, p)], capture_output=True)
+                cache[p] = r.stdout.decode('utf-8') if r.returncode == 0 else None
+        return cache[p]
+    have, bad = set(), []
+    for e in data['edits']:
+        if e['kind'] != 'ptr':
+            continue
+        t = rd(e['file'])
+        if t is None or t.count(e['old']) != 1:
+            bad.append('%s: old not unique in %s at the ledger pin' % (e['id'], e['file']))
+            continue
+        ln = t[:t.index(e['old'])].count('\n') + 1
+        if e['mirror_of'] is None:
+            f, l = e['site'].rsplit(':', 1)
+            if (f, int(l)) not in ptr:
+                bad.append('%s: declared site %s is not a ptr site of the map' % (e['id'], e['site']))
+            if e['part'] == 1 and ln != int(l):
+                bad.append('%s: old string is on line %d, not on its declared site line %s' % (e['id'], ln, l))
+            have.add((f, int(l)))
+        elif e['part'] == 1:
+            if (e['file'], ln) not in ptr:
+                bad.append('%s: mirror line %s:%d is not a ptr site of the map' % (e['id'], e['file'], ln))
+            have.add((e['file'], ln))
+    missing = sorted(ptr - have)
+    for f, l in missing:
+        bad.append('ptr site %s:%d has no edit' % (f, l))
+    return len(ptr), len(have & ptr), bad
+
+
+def static(data, quiet=False, read_pin=None):
+    say = (lambda *a: None) if quiet else print
+    inf, reg, caps, ids = static_new(data)
+    say('infinity-assertion scan (new and new_step2): %d hits' % len(inf))
     for x in inf:
-        print('  HIT %s %r in: %s' % x)
-    print('register scan (added text, §A.32/§A.33): %d hits, new capitals %d' % (len(reg), len(caps)))
+        say('  HIT %s %r in: %s' % x)
+    say('register scan (added text, §A.32/§A.33, history phrases): %d hits; new capitals (3+ letters): %d' % (len(reg), len(caps)))
     for x in reg:
-        print('  REG %s %r' % x)
+        say('  REG %s %r' % x)
     for x in caps:
-        print('  CAPS %s %r' % x)
-    print('identifier rule: %d findings' % len(ids))
+        say('  CAPS %s %r' % x)
+    say('identifier rule (new and new_step2): %d findings' % len(ids))
     for x in ids:
-        print('  ID %s %s' % x)
-    ptr_sites = {(e['site'] if not e['mirror_of'] else e['file'] + '@' + e['site']) for e in data['edits'] if e['kind'] == 'ptr'}
-    print('ptr sites with a drafted rewrite (chapter site and FULL mirror counted separately): %d' % len(ptr_sites))
-    ok = not inf and not reg and not caps and not ids and len(ptr_sites) == 194
-    return ok
+        say('  ID %s %s' % x)
+    n, ok_n, bad = sitemap_check(data, read_pin)
+    say('sitemap cross-check: %d ptr sites in the map, %d with an edit; %d findings' % (n, ok_n, len(bad)))
+    for x in bad:
+        say('  MAP ' + x)
+    return not inf and not reg and not caps and not ids and not bad and n == ok_n
 
 
 def self_test():
-    data = {'edits': [{'id': 'T1', 'file': 'x', 'site': 'x:1', 'part': 1, 'old': 'abc', 'new': 'abd'},
-                      {'id': 'T2', 'file': 'x', 'site': 'x:1', 'part': 2, 'old': 'zz', 'new': '', 'old_step2': 'qq', 'new_step2': ''}]}
-    rd = lambda p: 'abc qq'
-    assert check(data, rd, False), 'unique strings must pass'
-    rd2 = lambda p: 'abc abc qq'
-    assert not check(data, rd2, False), 'a duplicated old string must fail'
-    rd3 = lambda p: 'abc'
-    assert not check(data, rd3, False), 'a missing old string must fail'
-    bad = {'edits': [{'id': 'T3', 'kind': 'x', 'row': 'X-01', 'site': 's', 'file': 'f', 'mirror_of': None,
-                      'old': 'a set (finite under A1)', 'new': 'a set, and the substratum is infinite'}]}
-    assert INF.search(bad['edits'][0]['new']), 'infinity assertion must be detected'
-    assert not INF.search('neither finite nor infinite-dimensional'), 'infinite-dimensional is not an assertion'
-    s = 'the framework assumes neither that the substratum is finite nor that it is infinite'
-    assert INF.search(s) and NEUTRAL.search(s), 'neutral statement is matched and exempted'
-    assert REG.search('the claim is now settled'), 'register family must be detected'
-    print('self-test PASS')
-    return True
+    ok = True
+
+    def expect(cond, msg):
+        nonlocal ok
+        print('  %s %s' % ('ok ' if cond else 'BAD', msg))
+        ok = ok and cond
+
+    E = lambda i, old, new, **k: dict(dict(id=i, kind='consistency', file='x', site='x:1', part=1, row='X-01', mirror_of=None, old=old, new=new), **k)
+    rd = lambda t: Source(fn=lambda p: t, files=['x'])
+    # uniqueness
+    d1 = {'edits': [E('T1', 'abc', 'abd'), E('T2', 'zz', '', old_step2='qq', new_step2='')]}
+    expect(check(d1, rd('abc qq'), False, True), 'unique old strings pass')
+    expect(not check(d1, rd('abc abc qq'), False, True), 'a duplicated old string fails')
+    expect(not check(d1, rd('abc'), False, True), 'a missing old string fails')
+    # infinity scan, each injected form
+    for s in ['the substratum is infinite', 'S is not finite', 'with $|S| = \\infty$', 'with |S| = ∞',
+              'in the thermodynamic limit', 'a lattice of unbounded size', 'infinitely many configurations',
+              'the framework assumes neither that the substratum is finite nor that it is small, and the substratum is infinite']:
+        inf = static_new({'edits': [E('I', 'a set (finite under A1)', s)]})[0]
+        expect(bool(inf), 'infinity scan catches: %s' % s[:60])
+    neutral = 'the framework assumes neither that the substratum is finite nor that it is infinite'
+    expect(not static_new({'edits': [E('N', 'x', neutral)]})[0], 'the symmetric neither/nor disclaimer is exempt')
+    expect(not static_new({'edits': [E('N2', 'x', 'appearing infinite-dimensional in the continuum limit')]})[0], '"infinite-dimensional" is not an assertion')
+    # plumbing: new_step2 is scanned too
+    st = static_new({'edits': [E('P', 'a', 'b', old_step2='c', new_step2='the substratum is infinite')]})[0]
+    expect(bool(st), 'static scan reads new_step2')
+    # register scan
+    for s in ['the claim is now settled', 'the posit is no longer used', 'the earlier revision stated', 'A1 was removed', 'it does NOT hold']:
+        _, reg, caps, _ = static_new({'edits': [E('R', 'x', s)]})
+        expect(bool(reg or caps), 'register scan catches: %s' % s)
+    # identifier rule in replacement strings
+    for old, new in [('Fourteen items', 'Fourteen items'), ('(iii)–(xiv)', '(iii)–(xiii)'), ('item (ii)', 'posit 2'),
+                     ('A1–A6', 'A1–A6 jointly'), ('(ii) total', '(ii) total finiteness'), ('A2–A6', 'A1–A5')]:
+        ids = static_new({'edits': [E('D', old, new)]})[3]
+        expect(bool(ids), 'identifier rule catches %r -> %r' % (old, new))
+    # simulated identifier/count checks
+    good = ('**The posit ledger.** (i) a; ' + ' '.join('(%s) x;' % r for r in ROMAN[1:]) +
+            ' Thirteen items, of unequal weight, and not thirteen independent physical assumptions:')
+    expect(not identifier_sim({'papers/Main.md': good}), 'a well-formed thirteen-item ledger passes')
+    expect(bool(identifier_sim({'papers/Main.md': good.replace('(xiv) x;', '')})), 'a missing item (xiv) is caught')
+    expect(bool(identifier_sim({'papers/Main.md': good.replace('(iii) x;', '(ii) x; (iii) x;')})), 'a surviving item (ii) is caught')
+    expect(bool(identifier_sim({'papers/Main.md': good.replace('Thirteen items', 'Fourteen items')})), '"Fourteen" is caught')
+    expect(bool(identifier_sim({'book/ch02-substratum.md': 'satisfying six properties:'})), 'a six/five count is caught')
+    # residual scan catches a paraphrased pointer and reads the files of the source under test
+    d2 = {'edits': [E('S', 'a set (finite under A1)', 'a set')]}
+    corpus = {'x': 'a set (finite under A1). ', 'y': 'Total configuration finiteness remains an open physical hypothesis.'}
+    src = Source(fn=lambda p: corpus[p], files=['x', 'y'])
+    expect(not check(d2, src, True, True), 'residual scan catches a paraphrased pointer in another file of the source')
+    corpus['y'] = 'Nothing here.'
+    expect(check(d2, src, True, True), 'residual scan passes once the paraphrase is gone')
+    d3 = {'edits': [E('U', 'a set (finite under A1).', 'the universe is a finite universe.')]}
+    expect(not check(d3, Source(fn=lambda p: 'a set (finite under A1).', files=['x']), True, True), 'an unscoped criterion-5 hit on a changed line is caught')
+    # sitemap cross-check: a ptr edit at an unmapped site is caught
+    sm = json.load(open(SITEMAP, encoding='utf-8'))
+    s0 = [x for x in sm['sites'] if x['code'] == 'ptr'][0]
+    fake = {'edits': [dict(id='M1', kind='ptr', file='papers/Fake.md', site='papers/Fake.md:3', part=1, mirror_of=None, old='zzz', new='')]}
+    n, k, bad = sitemap_check(fake, read_pin=lambda p: 'a\nb\nzzz\n')
+    expect(bool(bad) and k == 0, 'sitemap cross-check reports an unmapped site and the %d missing ptr sites' % n)
+    print('self-test %s' % ('PASS' if ok else 'FAIL'))
+    return ok
 
 
 def main():
@@ -201,7 +407,7 @@ def main():
     if a.static:
         ok = static(data) and ok
     if a.commit or a.tree:
-        ok = check(data, reader(a.commit, a.tree), a.simulate) and ok
+        ok = check(data, Source(commit=a.commit, tree=a.tree), a.simulate) and ok
     print('RESULT ' + ('PASS' if ok else 'FAIL'))
     sys.exit(0 if ok else 1)
 
