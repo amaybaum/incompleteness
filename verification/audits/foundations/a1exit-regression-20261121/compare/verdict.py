@@ -81,8 +81,9 @@ SCI_CATEGORIES = {'C-TAB', 'C-PROSE', 'C-FINL', 'C-CDO', 'C-CAL', 'C-OBS', 'C-OP
 # Status and scope terms of J9 (counted, not merely detected).
 OPEN_TERMS = re.compile(r'\b(open|conditional(?:ly)?|hypothes[ie]s|assumed|posit(?:ed)?|not established|'
                         r'not derived|conjectur\w*)\b', re.I)
-FINITE_TERMS = re.compile(r'\bfinite\b|for a finite|finite[- ]only|finite representative|finite substrat',
-                          re.I)
+# Finite-scope terms (stems and forms; review c.7061319560, N3): finite, finitely, finiteness,
+# finitary and the like, "< \\infty" in any form, bounded, compact. A fall in their count is a J10 hit.
+FINITE_TERMS = re.compile(r'\bfinit\w*|<\s*\\infty|\\lt\s*\\infty|<\s*∞|\bbounded\b|\bcompact\b', re.I)
 # J10, layer 2: frozen vocabularies, counted on normalized text. A rise in the count of any term below,
 # or a fall in the count of FINITE_TERMS, makes a covered item R and flagged. Layer 1, the structural
 # token-level gain rule, is `gain`. The only text removed before either layer is the exact ALLOWLIST,
@@ -136,6 +137,22 @@ EVASIONS = [
     ', for $S$ countable or not']
 ALLOW_PLUS = ['This identity is independent of $|S|$', 'It holds for each such $S$']
 GAIN_ONLY = ', as noted in the companion paper'   # no vocabulary term: only the gain rule flags it
+# Review c.7061319560 (N3, N4): changes made of deletions, reorderings, operator flips and punctuation,
+# each cited to an edit that reproduces it exactly; each must be flagged.
+NCASES = [
+    ('appB:194', 'a function of finitely many components', 'a function of components', 'X-52', 'N3'),
+    ('ch01:121', '\\Gamma_s(b)) \\leq 1 - m$', '\\Gamma_s(b)) \\geq 1 - m$', 'X-20', 'N4a'),
+    ('ch01:121', '$d(\\Gamma_s(a), \\Gamma_s(b)) \\leq 1 - m$', '$1 - m \\leq d(\\Gamma_s(a), \\Gamma_s(b))$', 'X-20', 'N4b'),
+    ('ch01:95', 'Let $\\mathcal{C}_V$ and $\\mathcal{C}_H$ be finite sets with',
+     'Let $\\mathcal{C}_V$ be finite sets and $\\mathcal{C}_H$ with', 'X-20', 'N4c'),
+    ('GR:134', 'on all its members. $\\square$', 'on all its members $\\square$', 'X-52', 'N4d'),
+    ('appA:30', 'alone does not verify that relation.', 'alone does verify that relation.', 'X-47', 'N4e'),
+    ('appB:46', 'invariant-product condition (IP), assumed', 'invariant-product condition, assumed', 'X-15', 'N4f'),
+    ('appB:169', '\\epsilon^2/(4G\\sigma)$ between', '\\epsilon^4/(4G\\sigma)$ between', 'X-72', 'N4g'),
+    ('GR:134', 'on all its members. $\\square$', 'on all its members. on all its members. $\\square$', 'X-52', 'N4h'),
+    ('M:564', 'a substratum of $N < \\infty$ ontic configurations', 'a substratum of ontic configurations', 'X-48', 'N4i'),
+    ('ch01:119', 'for a Hamiltonian flow on compact energy surfaces', 'for a Hamiltonian flow on energy surfaces',
+     'X-20', 'N4j')]
 
 
 DEC_RE = re.compile(r'(?<![\w.])\d+\.\d+')
@@ -647,7 +664,8 @@ def _find_block(after_lines, block, at=None):
 
 
 def cover(item, cited, base_corpus, after_corpus, landed=None):
-    """The replay rule. Returns (covered, notes, before_text, after_text, touching edit keys). With the
+    """The replay rule. Returns (covered, notes, before region, replayed region, touching edit keys, the
+    H text of that region). With the
     landed edits given (every run against a real H), completeness holds as well: every cited edit is
     landed, every landed edit that touches the item's region is cited, and the region replayed from the
     cited edits equals the region of the replayed state (all landed edits)."""
@@ -682,26 +700,27 @@ def cover(item, cited, base_corpus, after_corpus, landed=None):
         a = sum(len(x) + 1 for x in ls[:line - 1])
         rt, spans, err = replay(text, [e for e in cited if f in e['files']], (a, a + len(ls[line - 1])))
         if err:
-            return False, err, None, None, set()
+            return False, err, None, None, set(), None
         sp = next(s for s in spans if 'anchor' in s[4])
         keys = {t[5:] for t in sp[4] if t.startswith('edit:')}
         if not keys:
-            return False, 'no cited edit touches %s:%d' % (f, line), None, None, set()
+            return False, 'no cited edit touches %s:%d' % (f, line), None, None, set(), None
         blk, _ = _region(rt, sp[0], sp[1])
         bblk, _ = _region(text, sp[2], sp[3])
         j = _find_block(B.lines_of(after_corpus.get(at_file, '')), blk, at_line)
         if j is None:
-            return False, 'the replayed region of %s:%d is not the after text' % (f, line), None, None, keys
+            return False, 'the replayed region of %s:%d is not the after text' % (f, line), None, None, keys, None
         why = complete_anchored(f, a, a + len(ls[line - 1]), blk)
         if why:
-            return False, why, None, None, keys
-        return True, '', '\n'.join(bblk), '\n'.join(blk), keys
+            return False, why, None, None, keys, None
+        hb = B.lines_of(after_corpus.get(at_file, ''))[j:j + len(blk)]
+        return True, '', '\n'.join(bblk), '\n'.join(blk), keys, '\n'.join(hb)
 
     def at_after(g, line):
         text = base_corpus.get(g, '')
         rt, spans, err = replay(text, [e for e in cited if g in e['files']])
         if err:
-            return False, err, None, None, set()
+            return False, err, None, None, set(), None
         al = B.lines_of(after_corpus.get(g, ''))
         for sp in spans or []:
             if sp[1] <= sp[0]:
@@ -714,21 +733,21 @@ def cover(item, cited, base_corpus, after_corpus, landed=None):
                 if landed is not None:
                     rt2, sp2, err = replay(text, [e for e in landed if g in e['files']])
                     if err:
-                        return False, 'replayed state: ' + err, None, None, keys
+                        return False, 'replayed state: ' + err, None, None, keys, None
                     hit = [s2 for s2 in sp2 or [] if s2[1] > s2[0]
                            and _find_block(al, _region(rt2, s2[0], s2[1])[0], line - 1) is not None]
                     if not hit:
-                        return False, 'the replayed state does not yield %s:%d' % (g, line), None, None, keys
+                        return False, 'the replayed state does not yield %s:%d' % (g, line), None, None, keys, None
                     k2 = {t[5:] for t in hit[0][4] if t.startswith('edit:')}
                     if k2 - ckeys:
                         return False, 'landed edits producing the line are not cited: %s' % ', '.join(
-                            sorted(k2 - ckeys)), None, None, keys
-                return True, '', '\n'.join(bblk), '\n'.join(blk), keys
-        return False, 'no replayed new text yields %s:%d' % (g, line), None, None, set()
+                            sorted(k2 - ckeys)), None, None, keys, None
+                return True, '', '\n'.join(bblk), '\n'.join(blk), keys, '\n'.join(al[j:j + len(blk)])
+        return False, 'no replayed new text yields %s:%d' % (g, line), None, None, set(), None
 
     kinds = item['kinds']
     if not cited:
-        return False, ['no cited edit'], before, after, touch
+        return False, ['no cited edit'], before, after, touch, None
     checks = []
     if 'unaccounted' in kinds:
         checks.append(at_after(item['file'], item['line']))
@@ -741,14 +760,16 @@ def cover(item, cited, base_corpus, after_corpus, landed=None):
         checks.append(at_after(item['new_file'], item['new_line']))
     else:
         checks.append(anchored(item['file'], item['line'], item['new_file'], item['new_line'] - 1))
-    for good, note, bt, at, keys in checks:
+    hafter = None
+    for good, note, bt, at, keys, ht in checks:
         touch |= keys
         if not good:
             ok = False
             notes.append(note)
         else:
             before, after = (bt if bt is not None else before), (at if at is not None else after)
-    return ok, notes, before, after, touch
+            hafter = ht if ht is not None else hafter
+    return ok, notes, before, after, touch, hafter
 
 
 def legacy_cover(item, cited, base_corpus, after_corpus, landed=None):
@@ -757,7 +778,7 @@ def legacy_cover(item, cited, base_corpus, after_corpus, landed=None):
     b, a = norm(item['before'] or ''), norm(item['after'] or '')
     ok = any(norm(e['old']) and norm(e['old']) in b and norm(e['new']) in a for e in cited)
     return ok, [] if ok else ['legacy: not contained'], item['before'] or '', item['after'] or '', \
-        {e['key'] for e in cited}
+        {e['key'] for e in cited}, item['after']
 
 
 # =========================================================================== J9, J10, flag
@@ -827,6 +848,23 @@ def gain(before, after, cited_news, allow=None, before_file=None, after_file=Non
     return sorted(a - b), sorted(a - src)
 
 
+def token_seq(t, file_text=None, allow=None):
+    """The normalized token sequence: ASCII words and every other non-space character, in order and with
+    case kept; whitespace is not a token, so whitespace-only differences are not seen."""
+    allow = allowlist() if allow is None else allow
+    return TOKEN_RE.findall(strip_allowlisted(normalize_text(t, file_text), allow))
+
+
+def changed(before, after, before_file=None, after_file=None):
+    """Layer 1, change flag: the normalized token sequences of the two regions differ."""
+    return token_seq(before, before_file) != token_seq(after, after_file)
+
+
+def set_changed(before, after, before_file=None, after_file=None):
+    """Mutant for the self-test only: the earlier set comparison (tokens gained)."""
+    return bool(gain(before, after, [], None, before_file, after_file)[0])
+
+
 def allowlist(rows=None):
     """The exact allowlist: the two sentences of ALLOWLIST, nothing else."""
     return [a['phrase'] for a in ALLOWLIST]
@@ -887,7 +925,7 @@ def sci_flag(item, before, after, j10):
     return bool(DEC_RE.search(t) or UNIT_AFTER_NUM.search(t) or POW10_RE.search(t) or B.PROSE_MARK_W.search(t))
 
 
-RULES = {'cover': cover, 'j10': j10_hits, 'j9': j9, 'gain': gain}
+RULES = {'cover': cover, 'j10': j10_hits, 'j9': j9, 'gain': gain, 'change': changed}
 
 
 # =========================================================================== items and classification
@@ -986,10 +1024,10 @@ def classify(compare, edits, cls, rows, base_corpus, after_corpus, rules=RULES, 
         j10m = rules['j10'](item['before'] or '', item['replayed'])
         added, _ = rules['gain'](item['before'] or '', item['replayed'], [])
         res[key] = {'kinds': item['kinds'], 'class': klass, 'j10': j10m, 'notes': notes, 'gain_added': added[:20],
-                    'scientific_evaluation': sci_flag(item, item['before'] or '', item['replayed'], j10m) or bool(added)}
+                    'scientific_evaluation': True}
     for key, item in sorted(allitems.items()):
         c = cls.get('items', {}).get(key)
-        notes, klass, j10, unsourced = [], 'U', [], []
+        notes, klass, j10, unsourced, seq_diff = [], 'U', [], [], False
         before, after = item['before'] or '', item['after'] or ''
         bf = base_corpus.get(item['file'])
         af = after_corpus.get(item.get('new_file') or item['file'])
@@ -999,18 +1037,23 @@ def classify(compare, edits, cls, rows, base_corpus, after_corpus, rules=RULES, 
             if j10:
                 notes.append('J10: ' + '; '.join(j10))
             added, _ = rules['gain'](before, after, [], None, bf, af)
+            seq_diff = rules['change'](before, after, bf, af)
         else:
             missing = [k for k in c.get('edits', []) if k not in E]
             if missing:
                 notes.append('cited edits not in the compiled lists: %s' % ', '.join(missing))
             cited = [E[k] for k in c.get('edits', []) if k in E]
-            covered, cn, before, after, touch = rules['cover'](item, cited, base_corpus, after_corpus, landed)
+            covered, cn, before, after, touch, hafter = rules['cover'](item, cited, base_corpus, after_corpus,
+                                                                       landed)
             notes += cn
             j10 = rules['j10'](before, after)
             for k in sorted(touch):  # the vocabulary layer on the approved edits' own texts
                 if k in E:
                     j10 += ['approved edit %s: %s' % (k, h) for h in rules['j10'](E[k]['old'], E[k]['new'])]
             added, unsourced = rules['gain'](before, after, [e['new'] for e in cited], None, bf, af)
+            seq_diff = rules['change'](before, after, bf, af)
+            if covered and hafter is not None and token_seq(hafter, af) != token_seq(after, af):
+                unsourced = unsourced + ['(the token sequence of H differs from the replayed region)']
             if unsourced:
                 notes.append('gain rule: tokens in neither the baseline region nor a cited new text: %s'
                              % ' '.join(unsourced[:20]))
@@ -1041,7 +1084,7 @@ def classify(compare, edits, cls, rows, base_corpus, after_corpus, rules=RULES, 
                     notes.append('resolution not accepted: ' + why)
         res[key] = {'kinds': item['kinds'], 'class': klass, 'j10': j10, 'notes': notes,
                     'gain_added': added[:20], 'gain_unsourced': unsourced[:20],
-                    'scientific_evaluation': sci_flag(item, before, after, j10) or bool(added) or bool(unsourced)}
+                    'scientific_evaluation': sci_flag(item, before, after, j10) or seq_diff or bool(unsourced)}
     return res
 
 
@@ -1253,6 +1296,8 @@ def c9_cases(rows=None):
     seg = e5['text'][max(0, w.start() - 30):w.end() + 10]
     r5 = next(r for r in e5['ledger_rows'] if rows.get(r, {}).get('disposition') == 'J')
     cases['e'] = edit_case(e5['id'], seg, seg.replace(w.group(0), 'stated', 1), r5, 'C9e')
+    cases['g'] = edit_case('appB:194', 'a function of finitely many components', 'a function of components',
+                           'X-52', 'C9g')
     cases['f'] = edit_case('appB:42', 'one-step doubly stochastic matrix on a finite configuration space',
                            'one-step doubly stochastic matrix on a configuration space', 'X-15', 'C9f')
     _C9_CACHE['cases'] = copy.deepcopy(cases)
@@ -1279,9 +1324,23 @@ def evasion_battery(rows, rules=RULES, only=None):
     return bad
 
 
+def n_battery(rows, rules=RULES, only=None):
+    """The standing sequence battery: every case of NCASES must be flagged. Returns those that are not."""
+    base = dict(B.PIN_CORPUS())
+    bad = []
+    for eid, old, new, row, tag in NCASES:
+        if only is not None and tag not in only:
+            continue
+        cm, ed, cl, af, e = edit_case(eid, old, new, row, tag)
+        r = classify(cm, ed, cl, rows, base, af, rules).get(e, {})
+        if not r.get('scientific_evaluation'):
+            bad.append((tag, r.get('class')))
+    return bad
+
+
 def c9(rows, rules=RULES):
     """C9 passes iff (a) is R, flagged, J10-hit, and stays R under a review that cites no proof; (b) is J;
-    (c), (d) and (f) are R, flagged and J10-hit; (e) is R."""
+    (c), (d), (f) and (g) are R, flagged and J10-hit; (e) is R."""
     base = dict(B.PIN_CORPUS())
     got = {}
     for k, (cm, ed, cl, af, eid) in sorted(c9_cases(rows).items()):
@@ -1295,7 +1354,8 @@ def c9(rows, rules=RULES):
     def flagged_r(x):
         return x.get('class') == 'R' and bool(x.get('j10')) and x.get('scientific_evaluation')
     ok = (flagged_r(got['a']) and got['a2'].get('class') == 'R' and got['b'].get('class') == 'J'
-          and flagged_r(got['c']) and flagged_r(got['d']) and got['e'].get('class') == 'R' and flagged_r(got['f']))
+          and flagged_r(got['c']) and flagged_r(got['d']) and got['e'].get('class') == 'R' and flagged_r(got['f'])
+          and flagged_r(got['g']))
     return {'pass': bool(ok), 'detail': '; '.join('(%s) %s' % (k, got[k].get('class')) for k in sorted(got))}
 
 
@@ -1750,8 +1810,16 @@ def self_test():
            % (len(PARAPHRASES) + len(EVASIONS) + len(ALLOW_PLUS) + 1),
            not bad13 and basic and g1 == (['c', 'd'], ['d']) and g2 == ([], []) and g3[0] and 'every' in g4[0],
            str(bad13) if bad13 else '')
-    m13 = evasion_battery(rows, dict(RULES, gain=lambda *x, **k: ([], [])), only={'e:[^gen]', 'g:' + GAIN_ONLY})
-    report('T13b mutant: with the gain rule disabled the battery fails', bool(m13), str(m13))
+    m13 = evasion_battery(rows, dict(RULES, gain=lambda *x, **k: ([], []), change=lambda *x, **k: False),
+                          only={'e:[^gen]', 'g:' + GAIN_ONLY})
+    report('T13b mutant: with layer 1 disabled the battery fails', bool(m13), str(m13))
+    # T13c the sequence battery (N3, N4): all flagged; the set-comparison mutant fails it
+    bad13c = n_battery(rows)
+    m13c = n_battery(rows, dict(RULES, change=set_changed), only={'N4a', 'N4b', 'N4c', 'N4d'})
+    seq_ok = (changed('a b c', 'a c b') and changed('x.', 'x') and not changed('a  b', 'a b')
+              and not set_changed('a b c', 'a c b'))
+    report('T13c sequence battery: all %d cases flagged; set-comparison mutant fails it' % len(NCASES),
+           not bad13c and bool(m13c) and seq_ok, '%s | mutant unflagged %s' % (bad13c, m13c))
     # T14 C6 on the frozen inputs, and its mutants (review c.7059220314 finding 4, and an altered edit)
     s2 = read_json(EDITS_S2)
     g6, b6, _ = c6(s2, None, None, B.PIN)
