@@ -372,6 +372,16 @@ reached: one pass.
 - *Decision rule.* Report the exact combinatorial lower bound (fooling-set or rectangle-covering) as a
   function of `N`. Derive `K_min(N)` from `|B(V, K)|` with no fitting. The verdict is generated from the
   measurements.
+- *The factorization check.*
+  - **Input:** a nonnegative matrix `B ∈ ℚ_{≥0}^{m×n}` with exact rational entries, and an integer `r ≥ 1`.
+  - **Decision:** whether there exist real matrices `W ≥ 0` (`m × r`) and `H ≥ 0` (`r × n`) with
+    `B = W H`, that is, whether `rank_+(B) ≤ r`. A classical model on `r` states is accepted exactly
+    when the answer is yes.
+  - **Exact, not numeric:** the question is a sentence of the existential theory of the reals, decided by
+    an exact procedure (for example cylindrical algebraic decomposition).
+  - **Outputs:** a yes answer comes with an exact algebraic witness `(W, H)` and is confirmed by exact
+    multiplication `W H = B`. A no answer comes with the decision procedure's certificate.
+  - Floating-point nonnegative-matrix-factorization output is not admissible for either answer.
 - *Controls.*
   - Positive (soundness): for each control matrix of known nonnegative rank `r`, the computed lower
     bound `b` must satisfy `b ≤ r`. For the `n × n` identity it must give `b = n` exactly. Regular
