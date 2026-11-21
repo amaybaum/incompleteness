@@ -341,7 +341,7 @@
    "row": "X-45",
    "disposition": "F",
    "cls": "needs scientific review",
-   "reason": "Theorem 23 takes the finite-substratum scope with the wrapping conditions on P that X-45 and X-42 require (review round 1, F1); paper and book read the same. The ledger's further instruction to state Stage 2 on Z^d where Q1 supports it goes beyond the smallest correction and is routed to §5.4 for review. Review: that Stages 1 and 3 need exactly this scope (X-29, X-70, X-71).",
+   "reason": "Theorem 23 takes the finite-substratum scope with the wrapping conditions on P that X-45 and X-42 require (review round 1, F1); paper and book read the same. The ledger's further instruction to state Stage 2 on Z^d where Q1 supports it goes beyond the smallest correction and is routed to §5.4 for review, with Issue #1479 as its accountable home. Review: that Stages 1 and 3 need exactly this scope (X-29, X-70, X-71).",
    "step2_note": null,
    "old": "*Let E1–E7, M1-T, M1-B, A1–A6, the Stage-2",
    "new": "*Let $(S,\\varphi)$ be a finite substratum, with A4 applying in its finite periodic case under the wrapping conditions on $P$ of Stage 2 [SM §4.1], and let E1–E7, M1-T, M1-B, A2–A6, the Stage-2",
@@ -3774,7 +3774,7 @@
    "reason": "Count and wording: finiteness (ch09:106) is the scope of the finite class, not a sixth membership property (review round 1, F8); A2–A6 keep their identifiers.",
    "step2_note": null,
    "old": "are six structural properties of the substratum, organized as follows.",
-   "new": "are five structural properties of the substratum, for the finite class whose scope is stated first, organized as follows.",
+   "new": "are, for the finite OI class, five structural properties of the substratum; finiteness, stated first, is that class's scope. They are organized as follows.",
    "revised": "new in round 1"
   },
   {
@@ -3790,7 +3790,7 @@
    "reason": "Count and wording: finiteness (ch09:106) is the scope of the finite class, not a sixth membership property (review round 1, F8); A2–A6 keep their identifiers.",
    "step2_note": null,
    "old": "are six structural properties of the substratum, organized as follows.",
-   "new": "are five structural properties of the substratum, for the finite class whose scope is stated first, organized as follows.",
+   "new": "are, for the finite OI class, five structural properties of the substratum; finiteness, stated first, is that class's scope. They are organized as follows.",
    "revised": "new in round 1"
   },
   {

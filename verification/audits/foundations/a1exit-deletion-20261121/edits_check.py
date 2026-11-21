@@ -51,8 +51,12 @@ CRIT5 = re.compile(r'[Ff]initeness posit|posit A1|finite[- ]information|(?<![A-Z
 SCOPED = re.compile(r'finite (?:\w+ )?representative|finite substrat|finite model|finite OI|finite class|finite-only|for a finite'
                     r'|on a finite|on a fixed finite|when \$S\$ is finite|finite (?:total )?system|finite set|finite scope'
                     r'|finite candidate|finite periodic case|finite hidden dynamics|finite realization|qualified case'
-                    r'|\?|\bwhether\b|\bopen\b|not asserted|left open|not fixed|does not identify|unspecified cardinality'
                     r'|\bneither\b')
+# Weak markers (a question, "whether", "open", a disclaimer) exempt a criterion-5 hit only when the sentence does not
+# also assert finiteness of the universe, nature, the substratum or S.
+WEAK = re.compile(r'\?|\bwhether\b|\bopen\b|not asserted|left open|not fixed|does not identify|unspecified cardinality')
+ASSERTS_FINITE = re.compile(r'\b(?:the universe|nature|the substratum|the world|\$S\$|S|the total configuration space)'
+                            r' (?:is|are|be) (?:a )?finite\b|\b(?:is|are) a finite (?:universe|world|substratum)\b', re.I)
 CRIT5_ALLOW = [
     ('book/ch02-substratum.md', 'The output of Stage 1 is a triple $(S, \\varphi, V)$ with $S$ finite',
      'Stage 1 constructs a finite realization per law (ledger X-31), inside Theorem 23\'s finite scope'),
@@ -64,14 +68,16 @@ INF = re.compile(r'(?:\b(?:is|are|be|being|been)\s+infinite\b(?!-))|\b(?:is|are)
                  r'|\binfinite (?:substratum|universe|configuration space|carrier|set|number|lattice|system)\b'
                  r'|\|S\|\s*=\s*(?:\\infty|∞)|\bS\s+is\s+infinite\b|\binfinite in (?:extent|size|cardinality)\b'
                  r'|\bthermodynamic limit\b|\bunbounded (?:size|number of (?:sites|configurations|states))\b'
-                 r'|\bwithout bound in size\b|\bof infinite cardinality\b')
+                 r'|\bwithout bound in size\b|\bof infinite cardinality\b|\bno finite bound\b|\bof infinite extent\b'
+                 r'|\bextending without end\b|\bnon-finite\b|\binfinitely extended\b|\b[Ff]initeness\b[^.;]{0,40}\bfails\b')
 # The only exempt form: a symmetric "neither ... finite ... nor ... infinite" disclaimer, the match inside it.
 NEUTRAL = re.compile(r'\bneither (?:that )?(?:the substratum|the universe|it|\$S\$|S) (?:is|be) finite nor (?:that )?'
                      r'(?:the substratum|the universe|it|\$S\$|S) (?:is|be) infinite\b')
 # §A.32/§A.33 register families and the history-phrase family on added text.
 REG = re.compile(r'\b(now|no longer|formerly|previously|corrected|correction|is not listed|withdrawn|retired|superseded'
                  r'|in its current form|the corrected form|as redefined|is now settled|earlier revision\w*|has been removed'
-                 r'|was removed|used to|should not be read|the reader should note|honest(?:ly)?|discipline maintained)\b', re.I)
+                 r'|was removed|used to|should not be read|the reader should note|honest(?:ly)?|discipline maintained'
+                 r'|earlier versions?|originally(?: a posit)?|at one time|hitherto)\b', re.I)
 CAPS = re.compile(r'(?<![A-Za-z\\])[A-Z]{3,}(?![A-Za-z])')
 CAPS_OK = {'REV', 'OIQ', 'QFT', 'LQG', 'BFSS', 'BMN', 'IKKT', 'ETH', 'BQP', 'CPTP', 'GR', 'SM', 'QM', 'CP', 'MWI', 'PBR',
            'RIG', 'ZFC', 'LHC', 'UV', 'IR', 'CKM', 'PMNS', 'JUNO', 'CSG'}
@@ -181,8 +187,8 @@ def check(data, src, simulate, quiet=False):
             for s in re.split(r'(?<=[.?])\s+', line):
                 if any(f_ == path and a_ in s for f_, a_, _ in CRIT5_ALLOW):
                     continue
-                for m in CRIT5.finditer(s):
-                    if not SCOPED.search(s):
+                for m in list(CRIT5.finditer(s)) + list(ASSERTS_FINITE.finditer(s)):
+                    if not (SCOPED.search(s) or (WEAK.search(s) and not ASSERTS_FINITE.search(s))):
                         unq.append('%s:%d [%s] %s' % (path, i, m.group(0), s[:110]))
     say('simulation: criterion-5/paraphrase hits on changed lines without a scope in their sentence: %d' % len(unq))
     for x in unq:
@@ -211,6 +217,9 @@ def identifier_sim(sim):
             for r in ROMAN:
                 if not re.search(r'\(%s\) ' % r, L):
                     out.append('Main posit ledger lacks item (%s)' % r)
+            m3 = re.search(r'\(iii\) (.*?)\(iv\) ', L)
+            if not m3 or '(REV)' not in m3.group(1):
+                out.append('Main posit ledger item (iii) lacks (REV)')
             if re.search(r'\(ii\) ', L):
                 out.append('Main posit ledger prints item (ii)')
             if 'Thirteen items, of unequal weight, and not thirteen independent' not in L:
@@ -241,11 +250,18 @@ def static_new(data):
         if 'new_step2' in e:
             pairs.append((e['old_step2'], e['new_step2']))
         for old, new in pairs:
-            for sent in sentences(new):
-                spans = [m.span() for m in NEUTRAL.finditer(sent)]
-                for m in INF.finditer(sent):
-                    if not any(a <= m.start() and m.end() <= b for a, b in spans):
-                        inf.append((e['id'], m.group(0), sent[:120]))
+            def assertions(text):
+                out = []
+                for sent in sentences(text):
+                    spans = [m.span() for m in NEUTRAL.finditer(sent)]
+                    out += [(m.group(0), sent) for m in INF.finditer(sent)
+                            if not any(a <= m.start() and m.end() <= b for a, b in spans)]
+                return out
+            # the rewrite rule maps a statement about A1 to one about finiteness, so old is read with A1 as finiteness
+            a_new, a_old = assertions(new), assertions(re.sub(r'\bA1\b(?: \(finiteness\))?', 'finiteness', old))
+            if len(a_new) > len(a_old):
+                for g, sent in a_new[len(a_old):] if a_old else a_new:
+                    inf.append((e['id'], g, sent[:120]))
             for tok in set(x.lower() for x in REG.findall(new)) - set(x.lower() for x in REG.findall(old)):
                 reg.append((e['id'], tok))
             for tok in set(CAPS.findall(new)) - set(CAPS.findall(old)) - CAPS_OK:
@@ -254,7 +270,7 @@ def static_new(data):
                 ids.append((e['id'], 'A1 printed in a replacement'))
             if re.search(r'\bA1\s*[–-]\s*A[2-6]\b', new):
                 ids.append((e['id'], 'range starting at A1'))
-            if re.search(r'\(ii\)', new):
+            if re.search(r'\(ii\)|\bitem ii\b|\bposit ii\b|\bitems? \(?ii\)?\s', new):
                 ids.append((e['id'], 'retired ledger identifier (ii) printed'))
             if re.search(r'\bposit\s+[0-9]+\b|\bitem\s+[0-9]+\b|\bA\s?[0-9]\s*[–-]\s*A\s?5\b(?!\s*as stated)', new) and not re.search(r'A2[–-]A5', old):
                 ids.append((e['id'], 'numeric posit or renumbered range'))
@@ -266,6 +282,62 @@ def static_new(data):
                 if old.count(a) and not new.count(a) and new.strip():
                     ids.append((e['id'], '%s dropped from a non-empty replacement' % a))
     return inf, reg, caps, ids
+
+
+# Content a replacement must keep (it carries a scope, a qualification or relocated text); checked in every
+# variant of the replacement, so a redraft at reconciliation cannot drop it.
+RET_FORM = 'concerns a time that need not be accessible and then has no finite-window test'
+RET_TAIL = 'no law that is not supported on periodic configurations is known to satisfy it'
+PRESERVE = {
+    'D022': ['finite substratum', 'A4 applying in its finite periodic case under the wrapping conditions on $P$ of Stage 2'],
+    'D120': ['finite substratum', 'A4 applying in its finite periodic case under the wrapping conditions on $P$ of Stage 2'],
+    'D121': ['finite substratum', 'A4 applying in its finite periodic case under the wrapping conditions on $P$ of Stage 2'],
+    'D229': ['each assumed as a hypothesis of that result and not adopted', RET_FORM, RET_TAIL,
+             'conditions on a law on the whole carrier; finite-window data can test some of their consequences but cannot establish them',
+             "do not distinguish them from a finite carrier's counting law", 'reversibility (REV)'],
+    'D254': ['assumed as a hypothesis and not adopted', RET_FORM, RET_TAIL],
+    'D245': ['assumed in its place and not adopted', RET_FORM, RET_TAIL],
+    'D253': ['carry that finite scope where they are stated'],
+}
+
+
+def preservation(data):
+    out = []
+    ids = {e['id']: e for e in data['edits']}
+    for i, subs in PRESERVE.items():
+        e = ids.get(i)
+        if e is None:
+            out.append('%s: edit missing' % i)
+            continue
+        for v in [e['new']] + ([e['new_step2']] if 'new_step2' in e else []):
+            for sub in subs:
+                if sub not in v:
+                    out.append('%s: replacement lacks %r' % (i, sub[:60]))
+    return out
+
+
+def mirror_parity(data):
+    out = []
+    prim = {(e['site'], e['part']): e for e in data['edits'] if e['mirror_of'] is None}
+    mirrored = set()
+    for e in data['edits']:
+        if e['mirror_of'] is None:
+            continue
+        p = prim.get((e['mirror_of'], e['part']))
+        if p is None:
+            out.append('%s: mirror without a chapter edit' % e['id'])
+            continue
+        for k in ('old', 'new', 'old_step2', 'new_step2'):
+            if p.get(k) != e.get(k):
+                out.append('%s: %s differs from chapter edit %s' % (e['id'], k, p['id']))
+        if e['file'] != FULL:
+            out.append('%s: mirror is not in FULL' % e['id'])
+        mirrored.add((e['mirror_of'], e['part']))
+    for (site, part), p in prim.items():
+        f = site.rsplit(':', 1)[0]
+        if f.startswith('book/') and f not in (FULL, 'book/README.md') and (site, part) not in mirrored:
+            out.append('%s: chapter edit at %s has no FULL mirror' % (p['id'], site))
+    return out
 
 
 def sitemap_check(data, read_pin=None):
@@ -322,11 +394,19 @@ def static(data, quiet=False, read_pin=None):
     say('identifier rule (new and new_step2): %d findings' % len(ids))
     for x in ids:
         say('  ID %s %s' % x)
+    pres = preservation(data)
+    say('preservation check (required content in every replacement variant): %d findings' % len(pres))
+    for x in pres:
+        say('  KEEP ' + x)
+    mir = mirror_parity(data)
+    say('mirror parity (every chapter edit byte-identical to its FULL mirror): %d findings' % len(mir))
+    for x in mir:
+        say('  MIRROR ' + x)
     n, ok_n, bad = sitemap_check(data, read_pin)
     say('sitemap cross-check: %d ptr sites in the map, %d with an edit; %d findings' % (n, ok_n, len(bad)))
     for x in bad:
         say('  MAP ' + x)
-    return not inf and not reg and not caps and not ids and not bad and n == ok_n
+    return not inf and not reg and not caps and not ids and not bad and n == ok_n and not pres and not mir
 
 
 def self_test():
@@ -366,11 +446,11 @@ def self_test():
         ids = static_new({'edits': [E('D', old, new)]})[3]
         expect(bool(ids), 'identifier rule catches %r -> %r' % (old, new))
     # simulated identifier/count checks
-    good = ('**The posit ledger.** (i) a; ' + ' '.join('(%s) x;' % r for r in ROMAN[1:]) +
+    good = ('**The posit ledger.** (i) a; (iii) (REV) x; ' + ' '.join('(%s) x;' % r for r in ROMAN[2:]) +
             ' Thirteen items, of unequal weight, and not thirteen independent physical assumptions:')
     expect(not identifier_sim({'papers/Main.md': good}), 'a well-formed thirteen-item ledger passes')
     expect(bool(identifier_sim({'papers/Main.md': good.replace('(xiv) x;', '')})), 'a missing item (xiv) is caught')
-    expect(bool(identifier_sim({'papers/Main.md': good.replace('(iii) x;', '(ii) x; (iii) x;')})), 'a surviving item (ii) is caught')
+    expect(bool(identifier_sim({'papers/Main.md': good.replace('(iii) (REV) x;', '(ii) x; (iii) (REV) x;')})), 'a surviving item (ii) is caught')
     expect(bool(identifier_sim({'papers/Main.md': good.replace('Thirteen items', 'Fourteen items')})), '"Fourteen" is caught')
     expect(bool(identifier_sim({'book/ch02-substratum.md': 'satisfying six properties:'})), 'a six/five count is caught')
     # residual scan catches a paraphrased pointer and reads the files of the source under test
@@ -388,6 +468,37 @@ def self_test():
     fake = {'edits': [dict(id='M1', kind='ptr', file='papers/Fake.md', site='papers/Fake.md:3', part=1, mirror_of=None, old='zzz', new='')]}
     n, k, bad = sitemap_check(fake, read_pin=lambda p: 'a\nb\nzzz\n')
     expect(bool(bad) and k == 0, 'sitemap cross-check reports an unmapped site and the %d missing ptr sites' % n)
+    # round-2 countercontrols
+    for s_ in ['a substratum with no finite bound', 'a lattice of infinite extent', 'a chain extending without end',
+               'a non-finite carrier', 'an infinitely extended lattice', 'Finiteness of the substratum fails']:
+        expect(bool(static_new({'edits': [E('I2', 'a set (finite under A1)', s_)]})[0]), 'infinity scan catches: %s' % s_)
+    expect(not static_new({'edits': [E('I3', 'A1 (finiteness) fails for BFSS', 'finiteness fails for BFSS')]})[0],
+           'a per-program "finiteness fails" kept from the old string is not an introduced assertion')
+    for s_ in ['Earlier versions stated the posit', 'it was originally a posit']:
+        expect(bool(static_new({'edits': [E('R2', 'x', s_)]})[1]), 'register scan catches: %s' % s_)
+    expect(bool(static_new({'edits': [E('D2', 'item (ii)', 'item ii')]})[3]), 'identifier rule catches "item ii"')
+    for s_ in ['Whether this matters is left aside; the universe is finite.', 'The question is open, and the substratum is finite.',
+               'Is the universe a finite universe? The universe is finite.']:
+        d4 = {'edits': [E('W', 'a set (finite under A1).', s_)]}
+        expect(not check(d4, Source(fn=lambda p: 'a set (finite under A1).', files=['x']), True, True),
+               'a weak marker does not exempt a finiteness assertion: %s' % s_[:50])
+    d5 = {'edits': [E('W2', 'a set (finite under A1).', 'whether the framework assumes a finite universe.')]}
+    expect(check(d5, Source(fn=lambda p: 'a set (finite under A1).', files=['x']), True, True), 'an interrogative mention still passes')
+    good_p = {'edits': [E('D022', 'o', 'a finite substratum, with A4 applying in its finite periodic case under the wrapping conditions on $P$ of Stage 2 [SM §4.1]')]}
+    expect(not [x for x in preservation(good_p) if x.startswith('D022')], 'preservation passes when the wrapping clause is present')
+    bad_p = {'edits': [E('D022', 'o', 'a finite substratum'), E('D229', 'o', 'x', old_step2='o2', new_step2='x')]}
+    pres = preservation(bad_p)
+    expect(any(x.startswith('D022') for x in pres) and any(x.startswith('D229') for x in pres) and any('D245: edit missing' == x for x in pres),
+           'preservation catches a dropped clause, a dropped qualification and a missing edit')
+    mp = {'edits': [dict(id='C1', kind='ptr', file='book/ch09-x.md', site='book/ch09-x.md:3', part=1, mirror_of=None, old='a', new='b'),
+                    dict(id='C2', kind='ptr', file=FULL, site='book/ch09-x.md:3', part=1, mirror_of='book/ch09-x.md:3', old='a', new='c')]}
+    expect(bool(mirror_parity(mp)), 'mirror parity catches a FULL mirror that differs from its chapter edit')
+    mp['edits'] = mp['edits'][:1]
+    expect(bool(mirror_parity(mp)), 'mirror parity catches a chapter edit without a FULL mirror')
+    mp['edits'].append(dict(id='C3', kind='ptr', file=FULL, site='book/ch09-x.md:3', part=1, mirror_of='book/ch09-x.md:3', old='a', new='b'))
+    expect(not mirror_parity(mp), 'mirror parity passes for identical strings')
+    bad_led = good.replace('(iii) (REV) x;', '(iii) y;')
+    expect(bool(identifier_sim({'papers/Main.md': bad_led})), 'a posit ledger item (iii) without (REV) is caught')
     print('self-test %s' % ('PASS' if ok else 'FAIL'))
     return ok
 

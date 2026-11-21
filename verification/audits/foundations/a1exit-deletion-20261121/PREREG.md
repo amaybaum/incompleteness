@@ -6,8 +6,8 @@ list has been applied. A1 (Main posit ledger item (ii)) remains printed as an op
 until a separate owner authorization of the execution.
 
 **Revision.** Revised by additive commits after the early independent review of `36a73526` (round 1,
-REVISE; record on #1477) and the owner rulings of #1169 comment 7057674976. §17 answers the review
-finding by finding. Edit IDs are stable: an ID reviewed at `36a73526` names the same edit here (its
+REVISE; record on #1477) and the owner rulings of #1169 comment 7057674976, and after the round-2 delta
+review of `67736e55` (ACCEPT-WITH-NITS). §17 and §18 answer the reviews finding by finding. Edit IDs are stable: an ID reviewed at `36a73526` names the same edit here (its
 `revised` field marks a changed replacement), and new edits take new IDs (D253–D258).
 
 ## 0. Authority, decision and goal link
@@ -316,7 +316,7 @@ qualification, at Sub:137 (D245).
 
 ### 5.4 Items that need scientific review
 
-- **Substratum.md:193** (D022; row X-45): Theorem 23 takes the finite-substratum scope with the wrapping conditions on P that X-45 and X-42 require (review round 1, F1); paper and book read the same. The ledger's further instruction to state Stage 2 on Z^d where Q1 supports it goes beyond the smallest correction and is routed to §5.4 for review. Review: that Stages 1 and 3 need exactly this scope (X-29, X-70, X-71).
+- **Substratum.md:193** (D022; row X-45): Theorem 23 takes the finite-substratum scope with the wrapping conditions on P that X-45 and X-42 require (review round 1, F1); paper and book read the same. The ledger's further instruction to state Stage 2 on Z^d where Q1 supports it goes beyond the smallest correction and is routed to §5.4 for review, with Issue #1479 as its accountable home. Review: that Stages 1 and 3 need exactly this scope (X-29, X-70, X-71).
 - **Substratum.md:216** (D026; row X-45): The bullet is rewritten from a motivation of A1 to the reason for the finite scope (X-45: Stage 1 X-29, Stage 3 X-70). Review that no other stage uses finiteness.
 - **ch02-substratum.md:118** (D120, mirror D121; row X-45): Book statement of Theorem 23, the same wording as Sub:193 (D022) in the book's citation style; reviewed together with it.
 - **appendix-c-objections.md:102** (D198, mirror D199; row X-01): States the owner's cardinality-neutral principle in the book; review that every result named in §C.6 matches its finite or size-independent source statement.
@@ -328,7 +328,7 @@ qualification, at Sub:137 (D245).
   establishes Stage 2 on $\mathbb{Z}^d$, that stage be stated there as the standard construction. That is a
   restatement of a proof stage beyond the smallest correction the deletion needs (the finite scope with the
   wrapping conditions on $P$, D022/D120); it is recorded here for review and is not part of this edit
-  (review round 1, F1).
+  (review round 1, F1). Its accountable home is Issue #1479 (§A.45 rule 6).
 
 ## 6. Edit table
 
@@ -660,7 +660,7 @@ not a consequence of finiteness, of A2–A6 or of the nearest-neighbor wave equa
 
 **Sub:193** · row X-45 (F) · needs scientific review · edits D022.
 
-Reason: Theorem 23 takes the finite-substratum scope with the wrapping conditions on P that X-45 and X-42 require (review round 1, F1); paper and book read the same. The ledger's further instruction to state Stage 2 on Z^d where Q1 supports it goes beyond the smallest correction and is routed to §5.4 for review. Review: that Stages 1 and 3 need exactly this scope (X-29, X-70, X-71).
+Reason: Theorem 23 takes the finite-substratum scope with the wrapping conditions on P that X-45 and X-42 require (review round 1, F1); paper and book read the same. The ledger's further instruction to state Stage 2 on Z^d where Q1 supports it goes beyond the smallest correction and is routed to §5.4 for review, with Issue #1479 as its accountable home. Review: that Stages 1 and 3 need exactly this scope (X-29, X-70, X-71).
 
 Old:
 
@@ -3113,7 +3113,7 @@ are six structural properties of the substratum, organized as follows.
 New:
 
 ```text
-are five structural properties of the substratum, for the finite class whose scope is stated first, organized as follows.
+are, for the finite OI class, five structural properties of the substratum; finiteness, stated first, is that class's scope. They are organized as follows.
 ```
 
 **ch09:190** · row X-46 (F) · semantic · edits D257. Mirror: FULL:2605, identical strings (D258).
@@ -3324,7 +3324,14 @@ before any execution is authorized:
    map must have an edit, and every edit must map to a site or to §6.2/§6.3; new pointer sites found by the
    rebuild are drafted by the same rules before execution.
 5. `edits_check.py --static`: infinity-assertion scan 0 hits, register scan 0 hits, identifier rule 0
-   findings, 194 ptr sites (or the re-pinned count, with the difference explained).
+   findings, sitemap cross-check complete (194 ptr sites, or the re-pinned count with the difference
+   explained), and, mandatory before execution: the **mirror-parity check** (every chapter edit byte-identical
+   to its FULL mirror in `old`, `new` and their Step-2 variants, and every chapter edit mirrored) and the
+   **preservation check** (D022/D120/D121 keep the finite scope and the wrapping-conditions clause; D229 keeps
+   "each assumed as a hypothesis of that result and not adopted", S2-C's return and law forms and "reversibility
+   (REV)"; D254 and D245 keep the (NR) qualification; D253 keeps the completeness clause), each with 0
+   findings. The `--simulate` run of step 2 also checks that item (iii) of Main's posit ledger keeps "(REV)".
+   A redraft under step 3 that fails either check is not executed.
 6. Owner questions in §12 are answered and recorded.
 7. The reconciled list, with its checker output at `H`, goes to independent review before the execution is
    authorized.
@@ -3333,9 +3340,9 @@ before any execution is authorized:
 
 | Command | Tree | Result |
 |---|---|---|
-| `edits_check.py --self-test` | — | self-test PASS (34 countercontrols) |
+| `edits_check.py --self-test` | — | self-test PASS (54 countercontrols) |
 | `edits_check.py --tree <projection with S2-E 8e52b217> --simulate` | first-draft projection | uniqueness: 258 edits, 0 fail; variants used {'old': 255, 'old_step2': 3}; simulation: residual pointer lines 5 (5 allowed as listed, 0 unqualified); simulation: criterion-5/paraphrase hits on changed lines without a scope in their sentence: 0; simulation: identifier and count findings: 0; RESULT PASS |
-| `edits_check.py --static` | — | infinity-assertion scan (new and new_step2): 0 hits; register scan (added text, §A.32/§A.33, history phrases): 0 hits; new capitals (3+ letters): 0; identifier rule (new and new_step2): 0 findings; sitemap cross-check: 194 ptr sites in the map, 194 with an edit; 0 findings; RESULT PASS |
+| `edits_check.py --static` | — | infinity-assertion scan (new and new_step2): 0 hits; register scan (added text, §A.32/§A.33, history phrases): 0 hits; new capitals (3+ letters): 0; identifier rule (new and new_step2): 0 findings; preservation check (required content in every replacement variant): 0 findings; mirror parity (every chapter edit byte-identical to its FULL mirror): 0 findings; sitemap cross-check: 194 ptr sites in the map, 194 with an edit; 0 findings; RESULT PASS |
 | `edits_check.py --commit 1c7eedc4` | base | uniqueness: 258 edits, 0 fail; variants used {'old': 258}; RESULT PASS |
 | `edits_check.py --commit 1c7eedc4 --simulate` | base | uniqueness: 258 edits, 0 fail; variants used {'old': 258}; simulation: residual pointer lines 42 (5 allowed as listed, 37 unqualified); simulation: criterion-5/paraphrase hits on changed lines without a scope in their sentence: 0; simulation: identifier and count findings: 1; RESULT FAIL |
 | `edits_check.py --tree <projection> --simulate` | projected integration of the five heads | uniqueness: 258 edits, 0 fail; variants used {'old': 255, 'old_step2': 3}; simulation: residual pointer lines 5 (5 allowed as listed, 0 unqualified); simulation: criterion-5/paraphrase hits on changed lines without a scope in their sentence: 0; simulation: identifier and count findings: 0; RESULT PASS |
@@ -3396,6 +3403,7 @@ Open:
 | PR #1470, #1472, #1473, #1474 | Unit identities | provenance |
 | #1169 comments 7057236079, 7057297534, 7057200720, 7057674976 | Authorization, design decision, landing order, rulings on §12 | provenance (owner records) |
 | Issue #1478 | The cardinality-neutral OI class, outside this edit | provenance (planning) |
+| Issue #1479 | Stage 2 of Theorem 23 on $\mathbb{Z}^d$, deferred | provenance (planning; accountable home of the deferred item) |
 | #1477 round-1 review record | The findings answered in §17 | provenance |
 | Projected integration (scratch) | Uniqueness on the projection | provenance: reproducible from the heads by §14 |
 
@@ -3449,3 +3457,17 @@ are the ledger's.
 | Checker: static mode | Scans `new` and `new_step2` |
 | Checker: sitemap | `--static` cross-checks every ptr edit against `sitemap.json` at its pin (declared site, part-1 line, mirror line; every ptr site covered) |
 | Checker: self-test | Every fault injection of the review is a countercontrol (§10) |
+
+## 18. Answer to the delta review of `67736e55` (round 2, ACCEPT-WITH-NITS)
+
+| Item | Change |
+|---|---|
+| Must-fix 1: accountable home for Stage 2 on $\mathbb{Z}^d$ | Issue #1479, cited in §5.4 and in D022's reason |
+| Must-fix 2: H-11 | Open; put to the owner (§12, question 3). If (a) is chosen, the docstring edit of `OIBridge/ManuscriptAxioms.lean` is drafted as a further amendment |
+| Must-fix 3: mirror parity and preservation | Both checks added to `--static` with countercontrols, and made mandatory in §9 step 5; the posit-ledger simulation also checks that item (iii) keeps "(REV)" |
+| Must-fix 4: §9 at the merged head | Unchanged: it runs after the Step-2 landings |
+| Nit: ch09:104 | D255/D256: "are, for the finite OI class, five structural properties of the substratum; finiteness, stated first, is that class's scope. They are organized as follows." |
+| Nit: infinity paraphrases | Added "no finite bound", "of infinite extent", "extending without end", "non-finite", "infinitely extended" and "Finiteness … fails"; the scan counts assertions a replacement introduces, reading A1 in the old string as finiteness, so the per-program statements of Structure §6 and §13.1.4 ("Finiteness fails for continuum BFSS") are not new assertions |
+| Nit: history phrases | Added "Earlier versions", "originally (a posit)", "at one time", "hitherto" |
+| Nit: SCOPED | Split into strong scopes and weak markers ("?", "whether", "open", disclaimers); a weak marker no longer exempts a sentence that asserts finiteness of the universe, nature, the substratum or $S$, and such assertions on changed lines are scanned |
+| Nit: "item ii" | The identifier rule catches "item ii" and "posit ii" without parentheses |
