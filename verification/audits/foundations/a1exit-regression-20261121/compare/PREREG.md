@@ -35,7 +35,7 @@ manuscript changed on `main` between it and `97070c98`.
 |---|---|
 | `baseline.py` | `e0749fb926ce9da0ee52bad0ea9e0e80e4fa9f4edeb22c8009a303bf1af23ad9` |
 | `snapshot.json` | `2db7832d7cb95b0ba77b42afad965696390d4ad67a6835b2c45f045bd04f88c8` |
-| `compare/verdict.py` | `afa3c91d334bae3a302160725d2e4cb5330f535bc314ab99de16587915648047` |
+| `compare/verdict.py` | `23ea3f9a39738237fc111064ee65fa4c957a21fd4809b3ba659382d13faea02d` |
 | `compare/inputs/edits-s2.json` | `f43086e43663ea5becabee3b0439d338dca78da3170f6a1d951a5ec713583a4c` |
 | the ledger's `rows.json`, read from the Git object at `PIN_S2` | `39e51d0cfd8d6855f17ef3d7253a43d372fae608a9dcae083fbeb52471b512a0` |
 
@@ -417,15 +417,21 @@ any result holds for infinite systems; each result keeps its own conditions.
 All runs were made on the pin, on the Step-2 records and on synthetic data only, from the tree of this
 record's head. The pin self-run is a preparation run (`collect --prep`), whose frozen ref is the
 checkout HEAD; a non-preparation C0 at this PR's head fails, as it must (T20c).
-- `verdict.py self-test`: T1–T21b PASS. These include the 16 paraphrases (T13), the mutants of C6–C9
-  (T15, T17, T18), the forged `controls.json` (T20b), C0 at a non-pinned ref (T20c) and the same-line
-  reverts at ch02:144 and ch02:192 (T21b).
+- `verdict.py self-test`: T1–T21b PASS. These include:
+  - the standing J10 battery, with all 47 cases flagged (T13);
+  - the gain-rule mutant, which fails the battery on the bare footnote marker and the gain-only case
+    (T13b);
+  - the mutants of C6–C9 (T15, T17, T18);
+  - the forged `controls.json` (T20b) and C0 at a non-pinned ref (T20c);
+  - a rewritten `compare.json`, which fails its re-derivation (T20d);
+  - the same-line reverts at ch02:144 and ch02:192 (T21b).
 - `verdict.py check-edits`: PASS. The frozen Step-2 list equals its compilation from the records, and
   replaying the five units from the pin reproduces every manuscript file at each unit's merge byte for
   byte; the deletion list is not applicable at the pin.
 - `collect --prep --head 1c7eedc4`, the baseline against itself, into a fresh directory: C0 (preparation)
   to C5 pass; C5 injected FULL:1642 `0.3183` → `0.3184`.
-- `verdict` on that directory with an empty classification: the controls were re-run and re-checked,
+- `verdict` on that directory with an empty classification: the controls were re-run, both comparison
+  files were re-derived,
   and the text began "PREPARATION RUN at the pin, not a regression verdict. VERDICT PASS: 0 reported
   changes; …; controls pass; countercontrols pass." Exit 0, `requirement6_settled: false`. C7 ran on
   T3's synthetic item and C8 on C9 (b)'s item. C9 gave (a) R, staying R without a proof; (b) J; (c), (d),
