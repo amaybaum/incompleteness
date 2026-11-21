@@ -1,10 +1,10 @@
 # FIN-SCOPE: adversarial test designs
 
-**Status.** Writer's test plan, revision 3, WIP / UNVERIFIED, for `SPEC.md` revision 3. These are
+**Status.** Writer's test plan, revision 4, WIP / UNVERIFIED, for `SPEC.md` revision 4. These are
 designs: no case has been run. Every "expected" entry is the verdict the rule as written in SPEC §3 must
 produce, fixed before any implementation exists, and the "why" column derives it from the counts.
-Revision 2 answered review c.7064941939, and revision 3 answers the delta
-review c.7065126686.
+Revision 2 answered review c.7064941939, revision 3 the delta review
+c.7065126686, and revision 4 answers c.7065227255.
 
 **Conventions.**
 - Every case is synthetic text in a fixture file and never an edit of the manuscript. Where a case is
@@ -222,11 +222,24 @@ through review-set membership alone.
 | P-E2 | N1, unchanged | the post-block paragraph "It follows that the result holds for all $S$." added after N1's proof | The changed post-block paragraph puts N1 in the review set (R-c). Rule E: GEN=1 there | {E} on N1 | screen | FAIL |
 | N22 | (new) | *Under the hypotheses of Theorem 3, let $S$ be finite. Every orbit of $\pi$ is periodic.* / Pigeonhole. (R4) | The citation masks to `#ref`, so no `theorem` reaches J10. FS_A=1, FU=1 | ∅ | membership | PASS |
 | N23 | (new) | *Let $S$ be finite. The orbit decomposition derived in §2 is unique.* / Neutral. (R4) | On a new block, `derived` is a neutral context | ∅ | membership | PASS |
-| N24 | (new) | *Let $S$ be finite. For every $n \in \mathbb N$, $\pi^{n\,|S|!} = \mathrm{id}$.* / Orbit lengths divide $|S|!$. (R4) | `\mathbb N` does not index a carrier, so IS=0 and there is no G2. FS_A=1, FU=1 (`|S|` as a number) | ∅ | membership | PASS |
-| N25 | (new) | *Let $S$ be finite, of cardinality $N$. The bound holds uniformly in $t$, is independent of the initial state, holds in general, and the horizon is unlimited.* (R4) | `of cardinality $N$` is neutral. The rest are unclassified J10 matches, which are advisory only. GEN=0 | ∅; advisory {G5 ×4} | membership | PASS |
+| N24 | (new) | *Let $S$ be finite. For every $n \in \mathbb N$, $\pi^{n\,|S|!} = \mathrm{id}$.* / Orbit lengths divide $|S|!$. (R4) | `\mathbb N` does not index a carrier, so IS=0 and there is no G2. `for every $n \in \mathbb N$` is one neutral quantifier span (SPEC §3.1), so J10's `for every`, `every $` and `\mathbb N` matches inside it are classified, and no G5 is raised. FS_A=1, FU=1 (`|S|` as a number) | ∅ | membership | PASS |
+| N25 | (new) | *Let $S$ be finite, of cardinality $N$. The bound holds uniformly in $t$, is independent of the initial state, holds in general, and the horizon is unlimited.* (R4) | `of cardinality $N$` is neutral. The rest are unclassified J10 matches, which are advisory only, counted per merged span (SPEC §3.1): `uniformly`, `independent of`, `in general` (one span, although two J10 patterns match it) and `unlimited`. GEN=0 | ∅; advisory {G5 ×4 spans} | membership | PASS |
 | N26 | (new) | *Let $X$ be a finite set and $\pi$ a bijection of $X$. Every orbit of $\pi$ is periodic.* / Pigeonhole. (R5) | $X$ is declared, so it is a carrier for this block, and `a finite set` is a positive predication: FS_A=1 | ∅ | membership | PASS |
 | N27 | (new) | *Let $\mathcal H$ be a finite-dimensional Hilbert space and $\rho$ a density operator on $\mathcal H$. Then $\mathrm{tr}\,\rho^2 \le 1$.* / The eigenvalues of $\rho$ lie in $[0,1]$ and sum to 1. (R5) | `a finite-dimensional Hilbert space` is a positive predication about a declared carrier: FS_A=1; FU=1 (`\mathrm{tr}`) | ∅ | membership | PASS |
 | N28 | (new) | `**Proposition 3.**` *Let $S$ be finite. Every orbit of $\pi$ is periodic.* (no proof), followed by the paragraph "The next section treats the gauge group." (R2) | The extent is the label paragraph. FU=0. The post-block paragraph has no GEN or IS | ∅ | membership | PASS |
+
+### 2.2 Cases added in revision 4 (c.7065227255)
+
+| ID | Before | After (statement / proof, or change) | Why | Items | Route | Verdict |
+|---|---|---|---|---|---|---|
+| P-H1 | the node "(F): $S$ is finite." and block N2, which cites (F) and has a uniform-prior proof | (F) edited to "(F): $S$ is a set." N2 unchanged (C1) | (F) is a changed node, so it is a member (R-e). N2's hypothesis digest changed, so N2 is a member (R-a, R-b). On N2, FS_A=0 and FU=1 | {A} on N2; ∅ on (F) | screen, on a dependent of a node | FAIL |
+| P-H2 | the standing sentence "Throughout this section, $S$ is finite." and, in that section, P-A1's block | the standing sentence deleted (C1) | The node is a deleted member. The block cites it implicitly, so its hypothesis digest changed. FS_A=0 and FU=1 | {A} on the block | screen, on a dependent of a node | FAIL |
+| N30 | the node "(H3): $\pi$ is an involution." with no citing block | reworded to "(H3): $\pi^2 = \mathrm{id}$." | The node is a member, with no dependents and no hits | ∅ | membership | PASS |
+| P-C2 | (new) | the label paragraph `**Theorem B.9.** *Let $\pi$ be a bijection of $S$. Then:*`, then `*(i) every orbit is periodic;*`, `*(ii) …*`, `$$\pi^{N} = \mathrm{id}$$`, `*so that …*`, then `*Proof.* Pigeonhole. $\square$` (modelled on appendix B's Theorem B.3.2 form) (C2) | A proof opener occurs before the next label, so the statement runs to it and the proof is recognized. FU=1; FS_A=0 | {A} | screen | FAIL. Under the first-paragraph-only mutant the proof is missed, FU=0, and the case gives ∅ |
+| P-C3 | (new) | as P-C2, with an interposed ordinary paragraph "For finite $S$ this is classical." between the clauses and the proof (C2) | Interposed prose is not local hypotheses, so FS_A=0. FU=1 | {A} | screen | FAIL. Under the interposed-prose mutant it would give ∅ |
+| N29 | (new) | P-C2 with clause `*(i)*` reading `*(i) if $S$ is finite, every orbit is periodic;*` | `$S$ is finite` is a positive predication in a statement paragraph: FS_A=1; FU=1 | ∅ | membership | PASS |
+| P-D3 | Lemma L is N3 (neutral). B1–B5 cite L; C1–C4 cite B1; D1–D3 cite C1. None of B, C, D states finiteness; B1–B5 have neutral proofs | L narrowed to N1's form; nothing else changes | The review set is L plus its transitive dependents: 1 + 5 + 4 + 3 = 13 members, or 26 if all are book blocks with FULL mirrors. The transitive clause gives FU=1 on B1–B5, whose cited L now has FS_A=1. C and D cite blocks with FS_A=0, so they get no transitive FU | {A} on each of B1–B5; ∅ on L, C1–C4 and D1–D3 | screen on 5; membership on 8 | FAIL; the expected review-set size is 13 |
+| P-R9 | a PR renaming `$\mathcal C_H$` to `$\mathcal H_c$` in 20 blocks under one batched record (r1), one of which also deletes `finite` | — | 19 members are exact instances of the map and are covered. The 20th is not an instance, so it needs its own record (V21) | {L} on the 20th | membership, plus the screen on the 20th | FAIL with only the batched record |
 
 ## 3. Documented limits (X-cases)
 
@@ -257,7 +270,9 @@ The tool's expected verdict is recorded, and the safeguard named.
 | K | P-G9, P-K1, P-K2 | N2b | defined with the Lean layer (O5) |
 | P and grammar | P-B1–P-B4 | N16, N17, N18, N28 | N16, P-B3 |
 | E | P-E1, P-E2 | N28 | P-E1, P-E2 |
-| membership and closure (§1.1) | P-S1, P-D2 | the non-member cases in the conventions | P-S1, P-D2 |
+| membership and closure (§1.1) | P-S1, P-D2, P-D3, P-H1, P-H2 | N30, the non-member cases in the conventions | P-S1, P-D2, P-H1, P-H2 |
+| block extent with a proof (C2) | P-C2, P-C3 | N29 | P-C2, P-C3 |
+| batched records (r1) | P-R9 | — | P-R9 |
 | advisory backstop | P-G11, row 42 | N25 | N22, N25 (G5 made blocking) |
 | resolutions and configuration | P-L8, P-G8, P-R1–P-R8 | N8, P-L9 | P-R1, P-R2, P-R6 |
 | #1483 reuse | §1.4 (C-R4), P-R7 | N5–N5d | C-R1, C-R2 |

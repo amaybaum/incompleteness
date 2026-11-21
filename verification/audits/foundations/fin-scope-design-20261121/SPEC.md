@@ -1,13 +1,14 @@
 # FIN-SCOPE: design specification
 
-**Status.** Writer's design, revision 3, WIP / UNVERIFIED. This is a plan only. No checker exists and
+**Status.** Writer's design, revision 4, WIP / UNVERIFIED. This is a plan only. No checker exists and
 nothing has been run, so no verdict below is a measurement. The corpus inventory in §2.3 is a read-only
 `grep` count. Independent non-author review is required before any implementation is proposed.
 Implementation, the governance change and any merge each need a separate owner decision. Revision 2
 answered review c.7064941939 (B1–B7, N-a–N-j). Revision 3 answers the delta review c.7065126686 (R1–R5,
 and generality moved into proofs and post-proof prose). It makes the guarantee structural (§1.1), and
-the lexical rules of §3 become a screen that prioritises review. The map from findings to sections is in
-§14.
+the lexical rules of §3 become a screen that prioritises review. Revision 4 answers review c.7065227255
+(C1–C3): hypothesis nodes join the dependency graph, multi-paragraph statements keep their proofs, and
+O7 is costed. The map from findings to sections is in §14.
 
 **Authority.**
 - #1169 c.7061660930, item 1, owner decision of 2026-11-21:
@@ -67,10 +68,11 @@ therefore does not rest on the lexical rules. It is this:
 
 The **review set** of a pull request, computed against its merge base, is the union of:
 - **(R-a)** every new or revised statement block (§2.4), including a block whose resolved citation
-  targets changed while its masked digest did not (§2.4);
-- **(R-b)** every block in the *dependency closure* of (R-a): a block that cites, directly or through
-  a chain of citations among parsed blocks, a block of (R-a) whose statement digest, `FS_A` or `IS`
-  changed;
+  targets, or whose *hypothesis digest*, changed while its masked digest did not (§2.4);
+- **(R-e)** every new, changed or deleted *hypothesis node* (§2.5);
+- **(R-b)** every block in the *dependency closure* of (R-a) and (R-e): a block that cites, directly or
+  through a chain of citations among parsed blocks and hypothesis nodes, a block of (R-a) whose
+  statement digest, `FS_A` or `IS` changed, or a hypothesis node of (R-e);
 - **(R-c)** every changed paragraph that is a proof of, or the *post-block paragraph* (§2.2) of, any
   block, and the block it belongs to;
 - **(R-d)** every changed sentence or table row on a claim surface (§2.1).
@@ -125,16 +127,28 @@ A *statement block* starts at a *label*. Its extent is defined below. A label is
 - `**Theorem statement.**`;
 - a heading `#{2,4} K[ ID][ (TITLE)]`, with `K` and `ID` as above.
 
-A block has three parts, and its extent ends with the last of them:
-- **Statement.** The label's paragraph, continued across directly following *continuation paragraphs*:
-  list items (lines opening with `-`, `*`, `+` or `N.`), display math (`$$`, `\[`, an `equation` or
-  `align` environment) and block quotes. It stops at the first other paragraph, at the next label, or
-  at a heading. A block with no proof ends there. Remarks and Predictions always end there. Prose after
-  a proofless block is therefore never part of it, and cannot supply or hide scope.
+A block has three parts, and its extent ends with the last of them. Its extent depends on whether a
+proof opener (below) occurs before the next label or heading:
+- **Statement, block with a proof.** From the label to the proof opener, across every paragraph between
+  them. This is how multi-paragraph statements keep their proofs, for example a theorem with clauses
+  `*(i) …*` to `*(iv) …*`, or a lemma continued by `$$…$$` and `*so that …*` (C2). Paragraphs between
+  them are of two kinds:
+  - *statement paragraphs*: italic paragraphs, continuation paragraphs (below) and the label's own
+    paragraph. They form the local hypotheses;
+  - *interposed prose*: any other paragraph. It belongs to the block's extent for review membership
+    (R-a, R-c), and the screen reads its `GEN` and `IS` (rule E). It is not part of the local
+    hypotheses, so it can neither supply `FS_A` nor hide scope.
+- **Statement, block with no proof.** The label's paragraph, continued across directly following
+  *continuation paragraphs*: list items (lines opening with `-`, `*`, `+` or `N.`), display math (`$$`,
+  `\[`, an `equation` or `align` environment), block quotes, and italic paragraphs that open with a
+  clause marker `*(i)`, `*(a)` or `*(1)`. It stops at the first other paragraph, at the next label, or
+  at a heading. Remarks and Predictions always take this form. Prose after a proofless block is
+  therefore never part of it, and cannot supply or hide scope.
 - **Local hypotheses.** The statement, together with the text of each hypothesis or setting label the
   statement cites, for example `(F)`, `(H2)` or `Setting 3`, defined in the same file. A label defined in
   another file counts only when the statement cites it with its file.
-- **Proof.** It opens, in the first paragraph after the statement, with `*Proof*` or `**Proof**`,
+- **Proof.** It opens at the first paragraph before the next label or heading that begins with
+  `*Proof*` or `**Proof**`,
   either followed by any words or a parenthetical and then `.` and the closing emphasis. This covers
   *Proof.*, *Proof sketch.*, *Proof outline.*, *Proof structure.*, *Proof setup.*, *Proof of X.*,
   *Proof (construction).*, and the bold `**Proof.**` (4 in the corpus) and `**Proof outline.**` (2).
@@ -200,10 +214,15 @@ The *masked text* of a block is its normalized text (§4), with these masks appl
 The *digest* of a block is the SHA-256 of its masked text. Renumbering a block, or retargeting one of its
 cross-references, therefore leaves its digest unchanged.
 
-The reference record (§6.1) also keeps each block's *resolved citation targets*: the keys of the parsed
-blocks its citations resolve to, after renumbering is undone by the pairing below. A change in that set
-makes the block revised for the review set (R-a) and for the screen, although its digest is unchanged.
-The transitive clauses (§3.1) and the dependency closure (R-b) use these resolved targets.
+The reference record (§6.1) also keeps, for each block:
+- its *resolved citation targets*: the keys of the parsed blocks and hypothesis nodes (§2.5) its
+  citations resolve to, after renumbering is undone by the pairing below;
+- its *hypothesis digest*: the SHA-256 of the normalized text of every hypothesis node in its local
+  hypotheses, in citation order.
+
+A change in either makes the block revised for the review set (R-a) and for the screen, although its
+digest is unchanged. The transitive clauses (§3.1) and the dependency closure (R-b) use the resolved
+targets.
 
 Blocks of the before-version and the after-version of a file are paired in three ordered steps:
 1. **By digest.** Equal digests pair. If several blocks share a digest, they pair by order of occurrence,
@@ -216,6 +235,27 @@ Blocks of the before-version and the after-version of a file are paired in three
 
 "Materially revised" (c.7061660930) means that the digest changes. A whitespace-only change does not
 change the digest. Neither does renumbering, nor retargeting a cross-reference.
+
+### 2.5 Hypothesis nodes (C1)
+
+A *hypothesis node* is a paragraph that defines a named hypothesis, condition or setting, or that states
+a standing scope. Each is a node of the dependency graph, with key `(file, name)` and a digest of its
+normalized text. The node forms are:
+- a paragraph that opens by defining a parenthesised label, `(F): …`, `(H2) …`, `**(C1)** …`, or a named
+  condition such as `(EM)` or `H-χ`;
+- `**Definition …**`, `**Setting …**`, `**Assumption …**` and `**Hypothesis …**` paragraphs;
+- a *standing scope sentence*: a sentence opening with `Throughout this (section|chapter|paper|appendix)`
+  or `In this (section|chapter), … (is|are) assumed`. Every block in its scope cites it implicitly, so
+  it is part of each such block's local hypotheses.
+
+A block cites a node when its statement names the node's label, or the node is a standing scope
+sentence over it. A node cited from another file counts only when the citation names that file.
+
+When a node is new, changed or deleted, the node itself is a review-set member (R-e), and every block
+citing it joins the review set by closure (R-b), since its hypothesis digest changed. For example,
+editing "(F): $S$ is finite" to "(F): $S$ is a set" makes (F) a member, and every block citing (F) a
+member. The screen then recomputes `FS_A` on those blocks, so a finite-use proof raises A. A deleted
+node that is still cited also raises rule P on each citing block.
 
 ## 3. The decision rule
 
@@ -314,13 +354,17 @@ reviewer and never block, so they cannot fail a correct statement.
 - Every J10 match in a block's local hypotheses must fall inside a match of one of the classes `IS`,
   `GEN`, `PROMO`, `FS_A`, `FS_L` or `FU`, or inside one of the frozen *neutral* contexts. The neutral
   contexts are:
-  - a quantifier whose object is not a carrier;
+  - a quantifier whose object is not a carrier. Its span runs from the quantifier word to the end of
+    its quantified object, so `for every $n \in \mathbb N$` is one neutral span, and the J10 matches
+    inside it (`for every`, `every $`, `\mathbb N`) are all classified;
   - `uniformly continuous`, `independent of the basis`, `universal property` and `in general position`;
   - `\to\infty` applied to a symbol the block declares as a horizon, time, length or index (for
     example `for horizon $K$ … as $K \to \infty$`);
   - on new blocks, the promotion words that `PROMO` omits there (`proved`, `shown`, `derived`,
     `established`, `always`), and `cardinality` used as a noun with a number (`of cardinality $N$`).
-- A J10 match outside all of these raises the advisory hit G5 with the note `unclassified`. Since
+- A J10 match outside all of these raises the advisory hit G5 with the note `unclassified`.
+  Overlapping J10 matches are merged, and G5 hits are counted per merged span: "in general" is one hit,
+  although it matches both `\bin general\b` and `\bgeneral\b`. Since
   every member is reviewed anyway, the backstop's only effect is to point the reviewer at the span.
 
 ### 3.2 Per-block counts
@@ -593,6 +637,10 @@ Each run checks four configuration controls:
   | rule E off in proofs | P-E1 |
   | rule E off in post-block paragraphs | P-E2 |
   | G5 made blocking | N22, N25 |
+  | the hypothesis digest off | P-H1 |
+  | standing scope sentences not cited implicitly | P-H2 |
+  | the proof-opener search limited to the first paragraph | P-C2 |
+  | interposed prose counted in the local hypotheses | P-C3 |
   | the attestation check off | P-R1 |
   | the reference-count recomputation off | P-R6 |
 
@@ -622,9 +670,24 @@ Each run checks four configuration controls:
 
 ### The screen's limits
 
-The screen is lexical and cannot be complete. Its known escape classes are listed here. None of them
-weakens the guarantee of §1.1, because every member is reviewed whether or not the screen fires. They
-weaken only the prioritisation and the pointing.
+The screen is lexical and cannot be complete. Its known escape classes are listed here. For a change
+inside the review set, they do not weaken the guarantee of §1.1, because every member is reviewed
+whether or not the screen fires; they weaken only the prioritisation and the pointing.
+
+**Changes outside the review set do weaken the guarantee.** Such a change alters what a reviewed
+statement means, or adds a claim, without any record. The known classes are:
+- prose beyond the first post-block paragraph, outside the claim surfaces (X-10), and theorems stated in
+  unlabelled prose there (X-3). A generality claim can be made there with no reviewer;
+- scope fixed by text that is neither a block, a hypothesis node (§2.5) nor a standing scope sentence,
+  for example a notation convention in another chapter ("$S$ denotes a finite set") that statements rely
+  on without citing it. Changing that text changes their scope with no reviewer;
+- external sources cited by a proof (X-6). A finite-only result outside the corpus is not a node;
+- Lean declarations that the census does not resolve beside a block (§5.3). A changed binder there
+  reaches no reviewer through FIN-SCOPE;
+- a block the grammar fails to recognize, until the enrollment inventory check (V12) reports its form;
+- baseline items whose blocks never change (§6.3). They stay unreviewed.
+
+Each class is a place where the guarantee holds only through ordinary pull-request review.
 
 - **Negation.** `FS_A` counts only positive predications, which fails closed for most negations (R1).
   A negation outside the form still escapes. Examples are "Let $S$ be finite, though this is not
@@ -697,10 +760,16 @@ For the Code Review Rules, under *Claim/evidence boundary*:
 | V16 | a proofless block is its label paragraph and its continuation paragraphs only | P-B3, N28; the extent mutant |
 | V17 | the J10 backstop never blocks | N22, N25; the G5-blocking mutant |
 | V18 | generality in a proof or post-block paragraph is screened and reviewed | P-E1, P-E2; the rule-E mutants |
+| V19 | a changed hypothesis node puts itself and every citing block in the review set | P-H1, P-H2; the hypothesis-digest mutant |
+| V20 | a proof after a multi-paragraph statement is recognized, and interposed prose supplies no scope | P-C2, P-C3, N29; the opener-search and interposed-prose mutants; the enrollment inventory re-derives the 29 cases of c.7065227255 |
+| V21 | a batched record (r1) covers only exact instances of its map | P-R9; the instance-check mutant (if r1 is adopted) |
 
 ## 12. Owner decisions needed
 
-- **O1.** Approve this design for independent re-review, and the proposed home (§7).
+- **O1.** Approve this design for independent re-review, and the proposed home (§7). Confirm the
+  reading of c.7061660930's "the relevant #1483 checks are reused as a standing release gate": the gate
+  is the mandatory review requirement of §1.1, with #1483's normalization and vocabularies reused in the
+  screen, and its J10 rule advisory rather than blocking.
 - **O2.** What happens if #1483 does not land on `main`. Neither branch has accepted review status for
   the reused code, so both branches need FIN-SCOPE's own review of that code.
   - (i) *Pin the last reviewed #1483 head.* That commit is not on `main`. Under §A.42 item 8 it would
@@ -719,8 +788,64 @@ For the Code Review Rules, under *Claim/evidence boundary*:
   signed commits with separately held keys, (δ) a separate reviewer account, or a combination. The
   reviewer's assessment of what each verifies is recorded in §3.6, and the writer proposes no choice.
   Until O6 is decided, no record can be attested.
-- **O7.** Whether the review load of §1.1 is accepted: every new or revised statement block, its
-  dependents and its changed proof or post-block paragraph are reviewed on every pull request.
+- **O7.** Whether the review load of §1.1 is accepted, and with which reductions. The costing is in
+  §12.1.
+
+### 12.1 The cost of O7
+
+**Measurements.** Both are approximate counts of changed labelled blocks (R-a only) in the first-parent
+history of `main` touching `papers/` or `book/`, from 2026-11-11 to 2026-11-21. Each was made with an
+ad hoc paragraph parser that approximates §2.2, and neither is a FIN-SCOPE measurement.
+
+| Count | Reviewer (c.7065227255) | Writer (re-measured, read-only) |
+|---|---|---|
+| commits touching the manuscripts | 47 | 46 |
+| of which changed a block | 28 | 33 |
+| block changes in total | about 170 | 242 |
+| median per changing commit | about 4 | 4 |
+| tail | 8, 10, 12, 15 | 9, 10, 11, 11, 12, 15, 15, 19 |
+| largest (a propagation sweep) | 63 | 77 |
+
+The two parsers differ in what they call a block, which explains most of the gap.
+
+**Expected load.** This is an estimate, extrapolated from those counts.
+- **R-a alone:** about 120–170 members a week. A typical PR has about 4. One PR in five has 10–20, and a
+  §A.25 propagation sweep or a renaming like #1482's has 60–80.
+- **Mirrors.** These multiply the book's share by about 2.
+- **The dependency closure (R-b) and hypothesis nodes (R-e).** These add little to a typical PR. A change
+  to a widely cited foundational lemma or hypothesis adds all of its transitive dependents, which can be
+  tens of blocks.
+- **Proofs, post-block paragraphs and claim-surface rows (R-c, R-d).** These add members mostly in PRs
+  that already have block changes.
+- **Overall.** About 200–350 members a week. A typical PR has about 5–10. A sweep has 100–200.
+
+Each member needs a record with sentence answers and an attestation. Under (β) that is an owner
+clearance per member or per batch. Under (δ) it is a separate reviewer identity.
+
+**Reductions that keep the guarantee.** Each one comes with its own control.
+- **(r1) Batched records for mechanically identical changes.**
+  - The PR declares a frozen substitution map, for example a symbol rename.
+  - The tool checks that each member's diff is exactly an instance of the map, token for token.
+  - One record answers the checklist for the map, and covers every instance.
+  - A member whose diff is not an exact instance falls back to its own record.
+- **(r2) One record per mirror pair** whose masked texts are byte-identical after the change. The control
+  is equality of the two digests. A pair whose texts differ needs two records.
+- **(r3) A reduced checklist for closure members whose own text is unchanged.** Only item 1 and item 4
+  are answered, against the changed lemma or node: does this block rely on what changed?
+- **(r4) One attestation per PR under (β)**, listing every member's digests. This reduces the owner's
+  actions from one per member to one per PR, and the number of records is unchanged.
+
+**Reductions that would weaken the guarantee.** These are listed for completeness, and the writer does
+not propose them:
+- exempting screen-clean members;
+- sampling members;
+- exempting punctuation-only or "editorial" changes. A deleted qualifier or a flipped operator is a
+  scope change (#1483 NCASES).
+
+**Trade-off.** The guarantee costs one attested review record per member. With (r1)–(r4), a typical PR
+needs a handful of records and a sweep needs a few. Without them, a sweep needs a hundred or more. The
+only way to make it cheaper still is to review less, which reopens the escapes R1–R5 for the
+unreviewed changes. Choosing the reductions, and accepting the load, is the owner's decision.
 
 ## 13. Result classification
 
@@ -739,7 +864,7 @@ a FIN-SCOPE pass is not evidence for either class.
 | B4 | `NEG_FINITE` (§3.1) excluded from FS and counted in GEN; carrier quantifier replaces bare quantifiers; TESTS P-A12, N15 |
 | B5 | `FU` widened, transitive clause, `FS_A` without bounded/compact and with the carrier-sentence condition; §9 Known limits; TESTS P-A9–P-A11, X-1, X-5, X-6 |
 | B6 | §2.2 grammar, §2.3 inventory, §2.4 masked digests and content matching; TESTS P-B1, N16–N18 |
-| B7 | §3.6 options (α)–(γ), O6, V9 |
+| B7 | §3.6 options (α)–(δ), O6, V9 |
 | N-a | IU narrowed (§3.1); TESTS N19–N21 |
 | N-b | §9 |
 | N-c | §4 subprocess, side-effect read, `fetch-depth: 0` precondition; V2 |
@@ -764,3 +889,15 @@ a FIN-SCOPE pass is not evidence for either class.
 | Proof and post-proof escapes | §3.3 rule E; §1.1 (R-c); TESTS P-E1, P-E2 |
 | O6 | §3.6 options (α)–(δ) with the reviewer's assessment; §12 O6 |
 | TESTS | row 39 by the first-math-expression definition; row 43 G3 with an advisory G5; N7 rewritten with correct hypotheses |
+
+**Delta review c.7065227255.**
+
+| Finding | Where addressed |
+|---|---|
+| C1 | §2.5 hypothesis nodes; §2.4 hypothesis digest; §1.1 (R-e) and (R-b); TESTS P-H1–P-H3 |
+| C2 | §2.2 extent for blocks with a proof, interposed prose, clause-marker continuations; V20; TESTS P-C2, P-C3, N29 |
+| C3 | §12.1 measurements, expected load, reductions (r1)–(r4), the trade-off; TESTS P-D3, P-R9 |
+| §9 overstatement | §9 "Changes outside the review set do weaken the guarantee" |
+| O1 reading | §12 O1 |
+| §14 nit | B7 row |
+| TESTS nits | N24 (neutral span, §3.1), N25 (merged spans, §3.1) |
