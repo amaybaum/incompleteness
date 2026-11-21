@@ -1,16 +1,19 @@
 # A1-EXIT regression comparison (#1468): preregistration of the before/after comparison
 
 **Status.** Writer's preregistration, WIP / UNVERIFIED. It is frozen before any after-state exists:
-the A1 deletion has not been executed. Nothing here has been run against a Step-2 head or a deletion
-head. The only runs were the baseline against itself and synthetic edits of the pinned corpus (§6).
-Independent non-author review is required before use.
+the A1 deletion has not been executed. Nothing here has been run against a deletion head. The only runs
+were the baseline against itself, the Step-2 records replayed against their own merges, and synthetic
+edits of the pinned corpus (§7). Independent non-author review is required before use.
 
 **Authorization.** Owner `amaybaum`, #1169 comment 7058783437, 2026-11-21T06:42:54Z: "**Regression
 comparison: approved for preparation now.** The before/after comparison against the preserved baseline
 is conditionally authorized once the deletion has been executed and independently reviewed. Its verdict
 requires separate scientific evaluation." The same record: "Removing the global finiteness assumption
 must not be presented as proof that the theory works for every infinite system. Each result keeps its
-own mathematical conditions."
+own mathematical conditions." The design decision, #1169 comment 7057297534 (2026-11-21T04:30:15Z),
+adds "a regression check against new global infinity assumptions". #1169 comment 7059136165
+(2026-11-21T07:15:31Z), decision 6: the decision on executing the deletion comes after "an
+independently recorded review of #1483".
 
 This record authorizes nothing further. Running §2 requires the condition quoted above: the deletion
 executed and independently reviewed.
@@ -21,146 +24,217 @@ prediction without explicit justification." This preregistration fixes the proce
 rules that will decide that. It does not decide the outcome.
 
 **Baseline.** The read-only before-baseline of #1471, landed on `main` (merge `0adc410c`) in
-`verification/audits/foundations/a1exit-regression-20261121/`. It is pinned at
-`1c7eedc402eafd2bac654484fa790874a33f444d`, with snapshot sha256
-`2db7832d7cb95b0ba77b42afad965696390d4ad67a6835b2c45f045bd04f88c8`. Drafting base for this record:
-`main` at `7f28886f4cc96fbfa7407af1fdc37de2f0e562e5`, where all five Step-2 units have landed.
+`verification/audits/foundations/a1exit-regression-20261121/`, pinned at
+`1c7eedc402eafd2bac654484fa790874a33f444d`. Drafting base for this record: `main` at
+`7f28886f4cc96fbfa7407af1fdc37de2f0e562e5` (`PIN_S2`), where all five Step-2 units have landed; no
+manuscript changed on `main` between it and `97070c98`.
 
-## 1. Frozen tools
+## 1. Frozen tools and inputs
 
-`FROZEN.json` records the SHA-256 of three files:
-- `baseline.py`: `e0749fb9…`;
-- `snapshot.json`: `2db7832d…`;
-- `compare/verdict.py`, the collection, classification and verdict tool.
+| File | SHA-256 |
+|---|---|
+| `baseline.py` | `e0749fb926ce9da0ee52bad0ea9e0e80e4fa9f4edeb22c8009a303bf1af23ad9` |
+| `snapshot.json` | `2db7832d7cb95b0ba77b42afad965696390d4ad67a6835b2c45f045bd04f88c8` |
+| `compare/verdict.py` | `a5a1882885fde55c9e66680bbad4c24c0a734fdd63fc1817b3e3fe463d74d9e3` |
+| `compare/inputs/edits-s2.json` | `f43086e43663ea5becabee3b0439d338dca78da3170f6a1d951a5ec713583a4c` |
+| the ledger's `rows.json`, read from the Git object at `PIN_S2` | `39e51d0cfd8d6855f17ef3d7253a43d372fae608a9dcae083fbeb52471b512a0` |
 
-Control C0 refuses a run in which any of the three differs. None of the three changes after this
-record's review except by an amendment in `compare/amendments/` made before the comparison is run.
+`FROZEN.json` records the same five digests. **C0** reads `FROZEN.json` and this file from the Git
+objects at the frozen ref, never from the working tree. It passes only if every digest of the files in
+use equals `FROZEN.json` at that ref and this file at that ref states each digest in full. The frozen
+ref is this record's merge commit on `main`, or the merge of its latest amendment; `collect` records it
+in `controls.json`, and the result PR's review checks that it is that commit. J9 reads `rows.json` from
+the Git object at `PIN_S2` whose digest C0 checks. The term lists of J9 and J10 are constants of
+`verdict.py`, frozen with it.
+
+None of these files changes after this record's review except by an amendment in `compare/amendments/`
+made before the comparison is run. If the deletion reconciles the ledger, an amendment states before
+the run which ledger state J9 reads.
 
 ## 2. Procedure
 
 **H.** The execution head is the commit the owner designates as the executed A1 deletion, after its
-independent review.
+independent review. **Deletion commit.** The commit that lands the deletion's `edits.json`; it must be
+an ancestor of H (C6).
 
 **Checkout.** The tools are run from a checkout of `main` that contains this record. The deletion
-branch is not used as the checkout. `verdict.py` writes into a working directory `DIR` outside the
-repository.
+branch is not used as the checkout. `DIR` is a working directory outside the repository.
 
-1. **Collect.** Run
-
-   ```
-   python3 -I -B verification/audits/foundations/a1exit-regression-20261121/compare/verdict.py collect --head <H> --out <DIR>
-   ```
-
-   It runs, and records as exit statuses in `DIR/controls.json`:
-   - C0, the frozen-tools check;
-   - C4, `verdict.py self-test`;
-   - C1, `baseline.py check`;
-   - C2, `baseline.py self-test`;
-   - C3, `baseline.py --compare 1c7eedc4…`, the baseline against itself;
-   - the comparison itself, `baseline.py --compare <H> --json <DIR>/compare.json`;
-   - the countercontrol C5 (§5).
-
-   The comparison command and the schema of `compare.json` (`a1exit-regression-compare/1`) are those of
-   `baseline.py` as frozen, specified in the baseline's amendment A1 (R1, R4, R6).
-2. **Compile the justification sources** into `DIR/edits.json` (schema `a1exit-compare-edits/1`, §4).
-   Then run `verdict.py check-edits --edits <DIR>/edits.json --commit <main commit>`. It must report
-   0 edits not found in their source.
-3. **Classify.** Every reported item of `compare.json` (§3) is entered in `DIR/classify.json`
-   (schema `a1exit-compare-classify/1`) as J or R, with its cited edits and ledger row, or is left out,
-   in which case it counts as U.
-4. **Verdict.** Run
+1. **Collect.**
 
    ```
-   python3 -I -B verification/audits/foundations/a1exit-regression-20261121/compare/verdict.py verdict --dir <DIR> --edits <DIR>/edits.json --classify <DIR>/classify.json
+   python3 -I -B verification/audits/foundations/a1exit-regression-20261121/compare/verdict.py collect --head <H> --out <DIR> --frozen-ref <merge of this record> --del-commit <deletion commit>
    ```
 
-   It checks every J and R claim against the rules of §3, classifies the countercontrol run with the
-   same files, and writes `DIR/verdict.json` (schema `a1exit-compare-verdict/1`). It prints the
-   verdict text, which is generated from the counts. Exit status: 0 PASS, 1 FAIL, 3 PENDING, 4 VOID.
-   The verdict is read from `verdict.json` and the exit status, never from log text (§A.44).
-5. **Record.** `compare.json`, `controls.json`, `edits.json`, `classify.json` and `verdict.json` land
-   in this directory under a result note. `--compare-tree` reports are not committed, because they
-   name only a temporary tree.
+   - `collect` refuses a non-empty `DIR`. It resolves H with `git rev-parse --verify H^{commit}` and
+     records the full commit id; a head that does not resolve fails.
+   - It runs C0, C4, C1, C2 and C3, the comparison `baseline.py --compare <H> --json DIR/compare.json`,
+     and C5 (§5).
+   - The comparison step passes only if `compare.json` was written by this run, has schema
+     `a1exit-regression-compare/1`, `pin` equal to the baseline pin and `other` equal to the resolved H,
+     and the exit status is 1 exactly when `any_change` is true. A crashed comparison, which also exits
+     1, writes no `compare.json` into the fresh `DIR` and so fails.
+   - It compiles the deletion unit's edits from the `edits.json` landed at the deletion commit into
+     `DIR/edits-del.json` (§4), JSON to JSON, with no hand step.
+   - It writes `DIR/controls.json` (schema `a1exit-compare-controls/2`) with the SHA-256 of every file it
+     wrote. Exit 0 when every control passes, 4 otherwise.
+2. **Classify.** Every reported item of `compare.json` (§3) is entered in `DIR/classify.json` (schema
+   `a1exit-compare-classify/2`) as J or R, with its cited edit keys and ledger row, or is left out, in
+   which case it is U. The file names its `head` (the resolved H), its author (`classifier`, a GitHub
+   login) and the result PR (`result_pr`). The cited edits are keys of the frozen lists only; there is
+   no hand-compiled edit list.
+3. **Verdict.**
 
-The schemas are stated in the usage text of `verdict.py` and of `baseline.py`.
+   ```
+   python3 -I -B verification/audits/foundations/a1exit-regression-20261121/compare/verdict.py verdict --dir <DIR> --classify <DIR>/classify.json
+   ```
 
-## 3. Decision rule for each reported change class
+   - It refuses to run (exit 2, no `verdict.json`) if `verdict.json` exists, if any file listed in
+     `controls.json` differs from the digest recorded there, or if `controls.json`'s `head`,
+     `compare.json`'s `other` and `classify.json`'s `head` are not all the resolved H.
+   - It runs C0 again, C6, C7, C8 and C9 and the classification of C5's injected run, checks every J
+     and R claim against §3, and writes `DIR/verdict.json` (schema `a1exit-compare-verdict/2`) with the
+     SHA-256 of every input.
+   - Exit status: 0 PASS, 5 FAIL, 3 PENDING, 4 VOID. Status 2 is a refusal and any other status (1 is
+     an uncaught exception) is no verdict. The verdict is read from `verdict.json` together with the
+     exit status, never from printed text (§A.44); if the two disagree there is no verdict.
+4. **Record.** `compare.json`, `controls.json`, `edits-del.json`, `classify.json` and `verdict.json` land
+   in this directory under a result note. `--compare-tree` reports are not committed, because they name
+   only a temporary tree.
 
-**Reported items.** The reported items are:
-- every entry whose status is not `unchanged`;
-- every entry that is `relocated`;
-- every `unaccounted` line;
-- every `deleted` line.
+## 3. Decision rule for each reported change
 
-An entry moved within one file and otherwise unchanged is not reported (baseline amendment A1, R4).
+**Reported items.** Every entry whose status is not `unchanged`; every relocated entry; every
+`unaccounted` line; every `deleted` line. An entry moved within one file and otherwise unchanged is not
+reported (baseline amendment A1, R4).
 
-**Classes.** Each reported item takes exactly one class:
-- **J, justified by a landed Step-2 unit or by the deletion edit.** The citation names the unit's PR,
-  the edit ID and the ledger row. `verdict.py` accepts J only when the citation passes the mechanical
-  rule for every change kind the item carries (J1–J9 below).
-- **R, needs scientific review.** The writer may mark any item R. An item whose J citation passes the
-  string rule but fails J9, or that is relocated out of Main (J7), is R automatically. An R item is
-  resolved only by an independent review recorded on the result PR. The resolution is entered as
-  `{"outcome": "justified"|"unjustified", "review": <link>}`, and an unjustified outcome counts as U.
-- **U, unjustified.** Every item that is not J or R. In particular, an item that is not classified,
-  or whose citation fails J1–J8, is U.
+**Classes.**
+- **J, justified by a landed Step-2 unit or by the deletion edit.** Accepted only when the replay rule
+  holds and neither J9 nor J10 sends the item to R.
+- **R, needs scientific review.** The writer may mark any item R. An item whose replay holds but which
+  fails J9, hits J10, or is relocated out of Main is R automatically.
+- **U, unjustified.** Every item that is not J or R. In particular, an item that is not classified, or
+  whose cited edits do not reproduce its after text and that the writer did not mark R, is U.
 
-**What counts as justification.** Let `e` be a cited edit with old string `o` and new string `n`, and
-compare whitespace-normalized texts. `e` must come from §4's sources: one of the five Step-2 PRs or
-the deletion edit. Its file must be the item's file. A chapter edit also covers that chapter's FULL
-mirror.
+**Replay rule (J1–J8).** The cited edits are applied to the baseline file of the item, in the frozen
+replay order (§4), each as an exact `old`→`new` replacement whose `old` occurs exactly once in the
+current text; an edit applies to a file only if the file is in its `files`. An edit whose `old` is empty
+or equals its `new` covers nothing. The *region* is the replayed text spanned by the item's baseline
+line together with every replacement that touches it, extended to whole lines (for an unaccounted
+line: a replacement's new text, extended to whole lines). Lines are compared whitespace-normalized.
+- **Entry (text, value or label changed).** At least one cited edit touches the baseline line, and the
+  replayed region equals the lines of the after file that contain the item's after line.
+- **Removed entry, deleted line.** At least one cited edit touches the baseline line, and the replayed
+  region occurs in the after file.
+- **Unaccounted line.** The line lies in the region of a cited edit's new text, and that region equals
+  the after file's lines around it.
+- **Relocated.** Both of the above: the source region is replayed in the source file, and the
+  destination line is reproduced in the destination file. A relocation out of Main is never plain J,
+  because Main must stay independent of downstream papers (AGENTS.md, Code Review Rules).
 
-| Rule | Change class | `e` justifies the item only if |
-|---|---|---|
-| J1 | text changed | `o` occurs in the baseline text and `n` occurs in the after text |
-| J2 | value changed | J1, and every number token removed from the line occurs in `o`, and every number token added occurs in `n`: the reviewed edit changed exactly that value |
-| J3 | label changed | J1, and J9 |
-| J4 | removed | the baseline text lies within `o`, or `o` lies within the baseline text (a rewrite beyond the pairing threshold) |
-| J5 | unaccounted | `n` lies within the line, or the line lies within `n` |
-| J6 | deleted | `o` lies within the line, or the line lies within `o` |
-| J7 | relocated | `o` contains the text in the source file, or `n` contains it in the destination file. Relocated from Main: never plain J, always R, because Main must stay independent of downstream papers (AGENTS.md, Code Review Rules) |
-| J8 | several kinds | every kind the item carries is covered by a cited edit |
-| J9 | label or scope | the cited ledger row is a row of the cited edit, and the after text matches the row's accepted disposition in the A1-EXIT ledger (`rows.json`): an F row keeps a finite-scope term; an O row carries an open, conditional or hypothesis term; a J row does not lose an open, conditional or hypothesis term that the baseline text had (no silent promotion). Otherwise R |
+Any residual difference in the region makes the item U, or R if the writer so marks it. Partial
+coverage, a substring citation, a unit or a swapped value outside the reproduced text, and a no-op edit
+therefore cannot produce J (self-test T4–T6, T12).
+
+**J9 (label or text changed).** For an item whose kinds include `label changed` or `text changed`,
+comparing the before region with the after region:
+- no open, conditional or hypothesis term is lost (count not decreased), and no term of J10's lists is
+  gained;
+- if the entry has its own `ledger_rows` in `snapshot.json`: the cited ledger row is one of them and is
+  listed on a cited edit that touches the region; for an F row a finite-scope term is present after the
+  change and not lost by it; for an O row an open, conditional or hypothesis term is present after the
+  change and not lost by it; a J row needs only the first condition;
+- if the entry has no ledger row: a label change is R; a text change needs no finite-scope term lost.
+
+Otherwise R.
+
+**J10 (promotion or infinity), the regression check against new global infinity assumptions.** If, in
+the region, the count of any term of the frozen lists rises from the before text to the after text, the
+item is never J. It is R and flagged `scientific_evaluation`, whatever the cited edit. Terms are counted
+case-insensitively:
+- `PROMOTION_TERMS`: `unconditional(ly)`, `proved`, `proven`, `theorem`, `established`, `derived`,
+  `holds in general`;
+- `INFINITY_TERMS`: `infinite` or `infinitely many` within six words of `system`, `lattice`, `substrat*`,
+  `configuration*`, `universe`, `carrier` or `space`; `for every`, `for all` or `for any` followed within
+  four words by `infinite`; `arbitrary` within six words of one of those nouns; `any cardinality`,
+  `every cardinality`, `arbitrary cardinality`; `finite or infinite`, `finite or countably infinite`.
+
+Some results do hold for arbitrary S. J10 does not treat such a statement as false: it sends it to
+review, and the item clears only through a resolution whose review cites the proof that covers that
+generality (below). The one exemption: the clause "may be finite or infinite" (also with "can" for "may", or "countably
+infinite" for "infinite"), which states that no cardinality is assumed, is removed before the infinity
+terms are counted. "It holds for finite or infinite S", and any other result stated for infinite
+systems, is not exempt and is counted (T13). No other exemption exists.
 
 A justification that is not mechanically checkable, such as a reviewer's argument with no covering
 edit, is R, never J.
 
-**Scientific evaluation flag.** An item is flagged `scientific_evaluation` when it changes a physical
-prediction or an empirical comparison. That means:
-- its categories include C-TAB (prediction or status tables), C-PROSE, C-FINL, C-CDO, C-CAL, C-OBS or
-  C-OPEN;
-- or, for an unaccounted or deleted line, it carries the flag `numbers` or `marker`.
+**R resolution.** An R item is resolved only by a review recorded on the result PR. The resolution is
+`{"outcome": "justified"|"unjustified", "review": <URL>, "reviewer": <login>, "proof": <citation>}`:
+- `review` is the URL of a comment or review on the result PR (`result_pr`);
+- `reviewer` is not `classifier`;
+- for an item with a J10 hit, a justified outcome also needs `proof`, the citation of the proof that
+  covers the generality the after text states.
 
-The flag is set whatever the class. A J item that is flagged is still listed for the separate
-scientific evaluation that the owner record requires.
+A resolution that fails any of these leaves the item unresolved. An unjustified outcome counts as U.
+`verdict.json` lists every resolution with its URL. `verdict.py` checks the form offline; that the
+URL's author is the named reviewer, and not the classifier, is checked against the host by the review
+of the result PR.
 
-## 4. Justification sources (inputs)
+**Scientific evaluation flag.** An item is flagged when any of the following holds:
+- it carries any of the categories C-TAB, C-PROSE, C-FINL, C-CDO, C-CAL, C-OBS or C-OPEN;
+- it carries a `value changed` kind, or a J10 hit;
+- it is an unaccounted or deleted line flagged `numbers` or `marker`;
+- its before or after region contains a decimal, a number with a unit, a power of ten or a comparison
+  marker.
 
-All are on `main` at the drafting base, except the deletion edit list, which lands with the deletion.
+No category is exempt. The flag is set whatever the class.
 
-| Unit | PR (merge) | Record | Edit strings |
+## 4. Justification sources (frozen inputs)
+
+**Step-2 units.** `compare/inputs/edits-s2.json` (schema `a1exit-compare-edits/2`) holds every edit of
+S2-A to S2-E, 139 in all, amendments composed. It is generated by `verdict.py compile-s2` from the Git
+objects at `PIN_S2` and frozen by C0. Each edit carries its key (`<unit>:<id>`), PR, `files` (with the
+FULL mirror where the record names one), `old`, `new`, ledger `rows`, its replay order `seq`, and
+`components`: the source record file and the JSON index or the 1-based line span of each Old and New
+block it was compiled from. The unit table carries each unit's merge commit and the blob id of every
+allowlisted source at `PIN_S2`.
+
+| Unit | PR (merge) | Allowlisted sources (in composition order) | Edits |
 |---|---|---|---|
-| S2-A | #1470 (`0cd5d5bf`) | `verification/audits/manuscript/a1exit-s2a-20261121/` | `checks/s2a_edits.json` (base and amending entries) |
-| S2-B | #1473 (`a1f38284`) | `verification/audits/manuscript/a1exit-s2b-20261121/` | `PREREG.md`, `amendments/A1-round1.md`, `A2-return-form.md`, `A3-cptp-register.md` |
-| S2-C | #1474 (`0ba358cc`) | `verification/audits/manuscript/a1exit-s2c-20261121/` | `PREREG.md` §5, `amendments/A1.md`, and RESULT §9.1 (resolved catch-up lines) |
-| S2-D | #1472 (`4de2eabd`) | `verification/audits/manuscript/a1exit-s2d-20261121/` | `PREREG.md`, `amendments/A1.md`, and RESULT §8a (catch-up) |
-| S2-E | #1475 (`7f28886f`) | `verification/audits/manuscript/a1exit-s2e-20261121/` | `checks/s2e_edits.json`, `checks/s2e_amend1.json`, and RESULT §9 (catch-up) |
-| Deletion | the executed deletion PR, from the plan of #1477 | `verification/audits/foundations/a1exit-deletion-20261121/` as landed | `edits.json` as landed with the executed deletion, unit `DEL` |
+| S2-A | #1470 (`0cd5d5bf`) | `checks/s2a_edits.json` | 17 |
+| S2-B | #1473 (`a1f38284`) | `PREREG.md`, `amendments/A1-round1.md`, `A2-return-form.md`, `A3-cptp-register.md` | 29 |
+| S2-C | #1474 (`0ba358cc`) | `PREREG.md` §5, `amendments/A1.md`, `RESULT.md` §9.1 | 28 |
+| S2-D | #1472 (`4de2eabd`) | `PREREG.md`, `amendments/A1.md` | 20 |
+| S2-E | #1475 (`7f28886f`) | `checks/s2e_edits.json`, `checks/s2e_amend1.json` | 45 |
 
-**Compiling the sources.** Each compiled edit records:
-- `key` (`<unit>:<id>`), `unit`, `pr`, `id`;
-- `file` and `files` (with the FULL mirror where the record names one);
-- `old`, `new`, `rows`;
-- `source_path`, the record file that holds its strings.
+Record directories: `verification/audits/manuscript/a1exit-s2{a,b,c,d,e}-20261121/`.
 
-`check-edits` verifies each compiled edit against its source:
-- **JSON source:** an object in the source file has the same `old` and `new`;
-- **Markdown source:** both strings occur verbatim in the file.
+**Compilation rules.**
+- JSON sources: each object, with `mirror` or `full_mirror` giving the FULL file.
+- Markdown sources: paired `Old ...:` / `New:` fenced text blocks under a `### <ID> —` heading, with the
+  sites from the heading or its `Sites:` line and the ledger rows from the heading; S2-D's "identical to
+  <ID>" FULL entries copy that edit's strings; S2-C §5 and S2-B A3 are tables (`\|` unescaped); S2-C A1
+  is `- old:` / `- new:` bullets, wrapped lines joined by one space, applied in the order the amendment
+  states, with A1-1 checked against the 15 sites the amendment names.
+- Composition: an amendment with an `amends` field composes into that edit; any other amendment composes
+  into every edit of its unit, in its files, whose new string contains its old string exactly once;
+  with no such edit it stands alone.
+- S2-C's catch-up resolution of C4 (RESULT §9 and §9.1: the only splice resolved by hand) is the edit
+  `S2-C:C4-resolved`: old the line Main:224 at the merge's first parent, new the resolved line quoted in
+  §9.1. It replaces C4.
 
-An edit that fails this check cannot justify anything. Its items are U or R.
+**Replay validation.** Applying the five units in landing order, from the pin, reproduces every
+manuscript file at each unit's merge byte for byte (C6 (c)). The frozen list is therefore each unit's
+whole manuscript change and nothing more.
+
+**Deletion unit.** `DEL` edits are taken only from the deletion's `edits.json` as landed
+(`verification/audits/foundations/a1exit-deletion-20261121/edits.json`), by `verdict.py compile-del
+--commit <deletion commit>`, JSON to JSON, keeping the `papers/` and `book/` Markdown edits in list
+order. They replay after the Step-2 edits.
 
 **What is not a source.**
-- #1476 changed CI only and is not a source.
+- #1476 changed CI only, and #1471 is the baseline itself.
 - Any manuscript change that reaches H from a PR not listed here has no source, so its items are U
   unless reviewed as R.
 
@@ -170,63 +244,105 @@ All must pass, or the verdict is VOID.
 
 | Control | What | Pass condition |
 |---|---|---|
-| C0 | Frozen tools and baseline (`FROZEN.json`) | all three digests equal |
-| C1 | `baseline.py check` at the run | exit 0 (snapshot regenerates byte for byte from the pin) |
+| C0 | Frozen tools, inputs and ledger (§1), at `collect` and again at `verdict` | every digest equals `FROZEN.json` at the frozen ref, and this file at that ref states each |
+| C1 | `baseline.py check` | exit 0 (snapshot regenerates byte for byte from the pin) |
 | C2 | `baseline.py self-test` | exit 0 |
-| C3 | Baseline against itself: `baseline.py --compare 1c7eedc4…` | exit 0, no change reported |
-| C4 | `verdict.py self-test` (T1–T11 on synthetic data) | exit 0 |
-| C5 | Countercontrol: H's corpus copied to a temporary directory, one unjustified value change injected (the first unchanged entry of a prediction table, the last digit of its first decimal token), compared with `--compare-tree`, and classified with the same `edits.json` and `classify.json` | the injected entry is U, and the U count is exactly the main run's U count plus one |
+| C3 | Baseline against itself: `baseline.py --compare 1c7eedc4…` | exit 0, a fresh `self-compare.json` with no change |
+| C4 | `verdict.py self-test` (T1–T20) | exit 0 |
+| C5 | Countercontrol for the comparator: H's corpus copied to a temporary directory, one unjustified value change injected (the first unchanged entry of a prediction table, the last digit of its first decimal token), compared with `--compare-tree`, classified with the same `classify.json` | a fresh `injected-compare.json` with `any_change` true reporting the entry `value changed`; the entry is U and the U count is the main U count plus one |
+| C6 | Edit inputs (§4) | (a) `compile-s2` from the records reproduces `edits-s2.json` exactly; (b) every edit is non-empty and not a no-op, of a listed unit with that unit's PR, every component from that unit's allowlisted sources; (c) the replay validation of §4 holds; (d) `compile-del` reproduces `edits-del.json` exactly, the deletion commit is an ancestor of H, and the deletion edits applied to its first parent reproduce its manuscript files byte for byte. (d) is not applicable only when H is the pin |
+| C7 | Bad-citation countercontrol: in a copy of H's corpus, the first J item with an after line has one number token outside its cited edits' new strings changed (or, with none, " 0" appended), and the copy is compared and reclassified with the same edits and `classify.json` | that item becomes U, and the U count is the main U count plus one |
+| C8 | Promotion countercontrol: the sentence " This holds unconditionally for every infinite system." is appended to that item's line, together with a synthetic edit carrying exactly that change, so that the replay holds and only J10 can stop J | that item is R, with a J10 hit, and flagged |
+| C9 | Decisive control on the pinned corpus: (a) ch01:179's "Without A1, the near-return condition" rewritten as "For every infinite system, the near-return condition" (row X-26), cited to an edit that reproduces it; (b) GR:134 (row X-52, disposition J) gains "the configuration space $S$ may be finite or infinite", cited to an edit listing X-52 | (a) is R, flagged, with a J10 hit, and stays R under a resolution whose review cites no proof; (b) is J |
+
+If the main run has no J item with an after line, C7 and C8 run on T3's synthetic item, and
+`verdict.json` records that they did.
+
+**Mutants (self-test).** Each of C6–C9 fails when the rule it guards is broken: C6 catches a fabricated
+S2-B edit (`old` "conditional", `new` "finite"), an empty edit, an S2-E edit sourced to the S2-C record
+and one altered frozen edit (T15); C7 fails when the replay rule is replaced by the earlier containment
+rule J1 (T17); C8 fails with J10 disabled (T17); C9 fails with J10 disabled and also when the neutral
+clause is not exempt (T18).
+
+## 5a. Invariants and checkpoints (§A.41)
+
+| Invariant | Checkpoint |
+|---|---|
+| Tools, inputs and ledger are as frozen | C0 at `collect` and at `verdict`, against `FROZEN.json` at the frozen ref |
+| The frozen Step-2 list is what the records state and what the units landed | C6 (a), (c) |
+| Every edit is a non-empty, non-trivial edit of its own unit's allowlisted sources | C6 (b); T15 |
+| The deletion edits are the landed list and the deletion's whole manuscript change | C6 (d) |
+| Outputs are this run's, for H | fresh-`DIR` refusal; `other`, `pin` and schema checks; recorded digests and head checks at `verdict`; T20 |
+| A crashed step is not a pass | file-written and exit-status checks; T20 |
+| The comparator detects an unjustified value change | C5 |
+| The classifier rejects a citation that does not reproduce the change | replay rule; C7; T4–T6, T12 |
+| No promotion or infinity term enters as J | J10; C8; C9 (a); T12, T13 |
+| A cardinality-neutral, row-supported edit is not blocked | C9 (b) |
+| A generality claim clears only by an independent review citing its proof | resolution rule; C9 (a); T18b |
+| R is resolved only by a non-classifier review on the result PR | resolution rule; T7 |
+| The verdict is given only over green controls | `verdict_of`; T11 |
+| Every reported item is classified | `items_of` coverage, unlisted means U; T2, T10 |
+| A PASS does not settle requirement 6 | `requirement6_settled: false` and the verdict text (§6) |
 
 ## 6. Verdict rule (owner requirement 6)
 
 | Verdict | Condition |
 |---|---|
-| **VOID** | any control fails |
+| **VOID** | any control or countercontrol fails |
 | **FAIL** | there is at least one U item |
 | **PENDING** | there is no U, and at least one R item is unresolved |
 | **PASS** | there is no U item, and every R item is resolved as justified by an independent review |
 
-The verdict text is generated by `verdict.py` from the counts, in the form:
+The verdict text is generated by `verdict.py` from the counts:
 `VERDICT <v>: <n> reported changes; J <a>, R resolved as justified <b>, R unresolved <c>, U <d>;
-<k> flagged for scientific evaluation; controls <pass|FAIL>; countercontrol <pass|FAIL>.`
+<k> flagged for scientific evaluation; controls <pass|FAIL>; countercontrols <pass|FAIL>.` When
+`k > 0` it is followed by: "Scientific evaluation is open for k items; owner requirement 6 is not
+settled by this verdict." `verdict.json` carries `requirement6_settled: false` in every case.
 
-**What PASS does not settle.** A PASS does not settle the flagged items. Every item flagged
-`scientific_evaluation`, J or not, goes to the separate scientific evaluation the owner record
-requires. A PASS is not presented as showing that any result holds for infinite systems; each result
-keeps its own conditions.
+**What PASS does not settle.** Only the separate scientific evaluation, recorded on the result PR,
+settles requirement 6. Every flagged item, J or not, goes to it. A PASS is not presented as showing that
+any result holds for infinite systems; each result keeps its own conditions.
 
-**Preparation runs.** These were run in preparation, on the pin and on synthetic data only:
-- `verdict.py self-test`: T1–T11 PASS;
-- `verdict.py collect --head 1c7eedc4…`, that is, the baseline against itself: every control passed,
-  C5 injected FULL:1642 `0.3183` → `0.3184`, and the verdict was `VERDICT PASS: 0 reported changes; …;
-  countercontrol pass`;
-- `check-edits` on a three-edit test list: it found the one altered edit.
+## 7. Preparation runs
 
-No Step-2 head or deletion head was compared.
+The preparation runs are recorded at the next commit of this record.
 
-## 7. Limits
+No deletion head was compared.
 
-- The J rules are string rules. They show that a cited reviewed edit produced the change. They do not
-  show that the edit is scientifically right; that is the job of the flag and of the separate
-  evaluation.
-- J9 checks scope and status terms against the ledger disposition lexically. Anything finer goes to R.
+## 8. Limits
+
+- The replay rule shows that cited reviewed edits produced the change. It does not show that an edit is
+  scientifically right; that is the job of the flag and of the separate evaluation.
+- J9 and J10 are lexical. They count terms; a promotion or generality expressed in other words is not
+  detected by them, and is caught only by the flag and the scientific evaluation. Anything finer goes
+  to R.
+- J10's lists are deliberately wide: many reviewed Step-2 changes that state a result for factors of any
+  cardinality will be R and will need a review that cites the proof.
+- The author of a resolution's review is checked against the host by the result PR's review, not by
+  `verdict.py`.
+- The compilation rules of §4 are fitted to the five records as they stand; C6 (a) and (c) show that
+  they reproduce those records and their merges exactly, and a changed record fails C6.
 - The comparison inherits the baseline's limits (baseline RESULT §4). A prediction stated without a
-  marker or number form is not an entry, but a change to it is still reported as a flagged
-  `unaccounted` or `deleted` line.
+  marker or number form is not an entry, but a change to it is still reported as an `unaccounted` or
+  `deleted` line.
 
-## 8. Off-`main` references (§A.42 item 8)
+## 9. Off-`main` references (§A.42 item 8)
 
 | Reference | Claim | Classification |
 |---|---|---|
-| #1169 c.7058783437, c.7048255658 | Authorization, requirement 6 | provenance, quoted with author and time |
+| #1169 c.7058783437, c.7057297534, c.7059136165, c.7048255658 | Authorization, safeguard, infinity-regression check, requirement 6 | provenance, quoted with author and time |
 | #1477 and its branch | The deletion plan whose landed `edits.json` becomes a source | provenance now. Its edit list is used only as landed with the executed deletion; until then it is not a source |
-| The preparation runs (§6) | The tool works on the pin and on synthetic data | provenance; the claim rests on `verdict.py self-test`, reproducible from `main` once this record lands |
-| PR records #1470–#1475 | Justification sources | support on `main` (merges listed in §4) |
+| #1477's `--static` infinity scan | Checks the deletion's own edit strings | provenance; not a substitute for J10, which reads the integrated after-state |
+| The preparation runs (§7) | The tool works on the pin, on the Step-2 records and on synthetic data | provenance; the claim rests on `verdict.py self-test` and `check-edits`, reproducible from `main` once this record lands |
+| PR records #1470–#1475 | Justification sources | support on `main` (merges and blobs in `edits-s2.json`) |
 
-## 9. Verification status (§A.46 item 4)
+## 10. Verification status (§A.46 item 4)
 
 - **Evidence level:** a preregistration with a tested tool. There is no result yet.
-- **Missing:** independent review of this preregistration and of `verdict.py`.
+- **Missing:** independent review of this preregistration, of `verdict.py` and of the compiled
+  `edits-s2.json`.
+- No CI workflow runs `baseline.py` or `verdict.py`; their evidence is the local self-test, `check-edits`
+  and the pin self-run, reproducible from `main` once this record lands.
 - **Accountable Issue:** #1468.
 - **Remaining gate:** the comparison runs only after the A1 deletion is executed and independently
   reviewed (owner record above). The verdict's flagged items need a separate scientific evaluation.
