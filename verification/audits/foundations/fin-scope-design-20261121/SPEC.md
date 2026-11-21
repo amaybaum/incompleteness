@@ -376,7 +376,9 @@ therefore stops deciding copies by form.
     name's node group. An occurrence count is not proof of semantic consistency (c.7065520418), so
     each copy's fidelity is one of:
     - **exact**: after the normalization above, masked and whitespace-collapsed, its text equals the
-      canonical text, or the corresponding span of it. This is checked mechanically at every run. A
+      **whole** canonical text. A copy equal only to a span of it is never exact. It is `equivalent` only
+      under an attestation that the omitted part is not relied on by that copy's citers, and `different`
+      otherwise (F1, c.7065581514). This is checked mechanically at every run. A
       change to either side that breaks equality voids the class, and the copy blocks until it is
       updated or reclassified. No attestation of equivalence is needed, because identity is checked;
     - **equivalent**: a paraphrase, or an application that is a faithful instance. A reviewer attests in
@@ -412,7 +414,10 @@ therefore stops deciding copies by form.
 - **Second classification, against misclassification.** A real copy classified as a citation or as
   unrelated, with its text unchanged, cannot be detected mechanically afterwards. The controls are:
   - **two independent classifiers.** Two distinct people in the classifier role, each attested,
-    must agree for every `citation` or `unrelated` class given to these units: an opening paragraph led
+    must agree. That two classifiers are distinct people can be verified only under an O6 option that
+    proves distinct identities: (δ), a separate reviewer account; (γ), with separately held keys; or
+    (β), where the owner personally designates both people. Under (α) alone, two sessions are not two
+    people, and this control is unverified. They must agree for every `citation` or `unrelated` class given to these units: an opening paragraph led
     by a name, a list item or table row led by a name, a heading unit, or a pending opener. A
     disagreement keeps the unit pending;
   - **a recorded second-review sample.** For all other enrollment classifications, a seeded random
@@ -1005,6 +1010,11 @@ Each class is a place where the guarantee holds only through ordinary pull-reque
 - **Symbols and carriers.** A carrier outside the list and undeclared in the local hypotheses, such as a
   lattice configuration set written `$Q^\Lambda$` with no declaration, escapes `FS_A` and the carrier
   quantifier (R5, X-8).
+- **Subscripted forms of a condition.** The frozen exclusion of `C_1`, `C_{k}` and `C^1` is right for the
+  corpus as read: those symbols are the quadratic Casimir `C_2` and the cyclic group `C_4`. A future
+  author who writes a condition as `$C_1$` would escape the register. The screen reports a subscripted
+  `C_1`–`C_4` that stands within the same sentence as a condition word (coupling, persistence, capacity,
+  readback) as an advisory hit, which only points a reviewer at it.
 - **Misclassification with unchanged text.** A real copy classified as a citation or as unrelated, not
   led by a name, outside the second-review sample, and unchanged, stays undetected until its text
   changes (§2.5).
@@ -1349,4 +1359,6 @@ a FIN-SCOPE pass is not evidence for either class.
 | 2 Governance | §2.5 the FIN-SCOPE classifier role; pending blocks the gate and enrollment; no baseline tolerance for occurrences; V31; TESTS P-GV1 |
 | 3 Controls | §2.5 ambiguity and mapping checks, two classifiers for name-led citation or unrelated classes, the second-review sample; V32, V33; §9 limit; TESTS P-A1m–P-A5m, P-S2, P-S3 |
 | 4 Propagation | §1.1 (R-b): prose citers anywhere; V34; TESTS P-P1 |
+| F1 (c.7065581514), exact means the whole canonical text | §2.5 exact; TESTS P-F6 |
+| Nits C1-a, C2-a (c.7065581514) | §9 subscripted forms; §2.5 two classifiers verifiable only under (δ), (γ) with separate keys, or (β) with owner designation |
 | 5 Semantic consistency | §2.5 fidelity for every copy; `different` blocking, with three resolution routes; the ch01-table finding recorded as found; V30; TESTS P-F5 |
