@@ -34,7 +34,7 @@ execution commit; any later change is made by a recorded amendment. This revisio
 - **Ternarity a fortiori.** If a run is leak-free, the support stays in `A_r ⊂ D := cl₂(A_r)`. So
   `D` is never breached (NU4′, ⇒), `D` is planar, `∂D = D`, and every value is ternary at every
   tick (NU6(c)). Ternary gadget values therefore lose nothing in this class.
-- **Class `𝒞`.**
+- **Class `𝒞`** (no-input orbits that emit along a line, Q-EMIT, are excluded; §3).
   - Stage 1: J1, `r = 1` (6 sites).
   - Stage 2: J2, `r = 1` (10 sites).
   - Stage 3: J1, `r = 2` (20 sites).
@@ -77,11 +77,19 @@ Notation: `N(t)` is the no-input orbit of a gadget `g` (period `P`); `S(t)` the 
 
 ## 3. Procedure, box and line ends (changed, R2)
 
-- **No-input orbits (all stages).** For each gadget, run `N` until the joint state (`K_r` values,
-  line phase) returns exactly to its initial state, or a leak occurs, or `4 · 3^{|K_r|}` ticks have
-  passed. Return gives the exact period `P`; leak gives Q-LEAK; the cap gives U and counts toward
-  INCONCLUSIVE.
-  - The state space is finite: leak-free implies ternary on `K_r`, and the lines are 4-periodic.
+- **No-input orbits (all stages; changed, R1′).** Let `Z_r` be the line sites within distance
+  `r + 2` of the core (the near-line zone). For each gadget, run `N` and stop at the first of:
+  - (a) **return:** the *full* simulated state equals its initial state at every site within the
+    read zone (distance `L − t`), on `K_r` and on all line sites. This gives the exact period `P`;
+  - (b) **Q-LEAK:** a site outside `A_r` leaves `c`;
+  - (c) **Q-EMIT:** a line site outside `Z_r` differs from the background, so the no-input orbit
+    emits along a line. This is exact and excluded from `𝒞`: R1 requires no output without input;
+  - (d) **U:** the cap of `4 · 3^{|K_r| + |Z_r|}` ticks.
+
+  Before (b) or (c), every value is ternary (NU6(c)), and the line sites outside `Z_r` are at the
+  background. The state that can vary is the `K_r ∪ Z_r` values plus the line phase, a finite set,
+  so the cap bounds the period of any orbit that reaches neither (b) nor (c). A return of the
+  `K_r` values and phase alone is never used as a period.
   - Stage 3 enumerates the leak-free gadgets by backtracking over `K_2` (pruning on a leak in the
     one-tick neighbourhood of an assigned block), cross-checked by K6.
 - **Arrival phases.** For a gadget of period `P`, start it at `N(s)` for every `s ∈ {0,…,P−1}`,
@@ -122,6 +130,7 @@ Notation: `N(t)` is the no-input orbit of a gadget `g` (period `P`); `S(t)` the 
 | K9 | signal-away | run for every T or T-STATEFUL case (R6) |
 | K10 | sector control (n3), informative | the K3 run is also classified against the closed hull `D`, and the first breach tick of `D`, if any, is reported beside K3's first LEAK tick. A LEAK earlier than any breach shows that in-sector ternary spreading is caught by LEAK and would be missed by a breach-only test of `cl₂`. K10 does not void the run |
 | K11 | line-end consistency | truncated W2 lines with no signal and no gadget stay exactly 4-periodic for `T_max` ticks |
+| K12 | countercontrol for the period test (R1′) | J1, empty gadget, with a W2 signal launched on A *away* from the junction, treated as a no-input orbit. `K_r` stays at 0 and the line phase returns at `t = 4`, so a test on (`K_r`, phase) alone would report period 4. The full-state test must not report a return; the required outcome is Q-EMIT |
 
 ## 5. Decision rule (fixed now; the verdict text is generated from the counts)
 
@@ -139,13 +148,14 @@ Notation: `N(t)` is the no-input orbit of a gadget `g` (period `P`); `S(t)` the 
 | Preregistration before the run | this file's commit is an ancestor of the first execution commit; execution adds result files only |
 | Enumeration complete | stage 1: `3^6`; stage 2: `3^10`; stage 3: K6 |
 | Every no-input period included | the period is found by exact return; capped orbits are counted as U and enter the decision rule |
-| The simulated set is exact on `ℤ³` | outside `A_r` and its neighbourhood every value is asserted `c` at every tick up to the first LEAK |
+| The simulated set is exact on `ℤ³` | within the read zone (distance `L − t`), every value outside `A_r` and its neighbourhood is asserted `c` at every tick up to the first LEAK |
 | Line ends cannot affect any checked site | `L = 2 T_max + 16` asserted; every check reads only sites within `L − t` of the core |
 | Exact arithmetic | integer arrays; `|y| < 2^15` asserted; positives re-run in Q mod `2^16` |
 | The T certificate is exact | separation `> 6 + w` asserted; ring-certified glider; K1, K2 |
 | Breach implies radiation | K7 |
+| No false no-input period | a period is accepted only on return of the full read-zone state, lines included; K12 |
 | Determinism | a replay is byte-identical |
-| Controls precede the verdict | the verdict is printed only after K1–K9 and K11 hold (K10 is informative) |
+| Controls precede the verdict | the verdict is printed only after K1–K9, K11 and K12 hold (K10 is informative) |
 
 ## 7. Cost class (§A.40; n1)
 
