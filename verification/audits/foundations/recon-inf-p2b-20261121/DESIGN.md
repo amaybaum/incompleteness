@@ -77,20 +77,21 @@ to a higher tier without a node check of its own.
 
 | Tier | Meaning |
 |---|---|
-| T-spec | Exists for some coupled rule in a stated class that is not `F_sel` on `Ω` |
-| T-fin | A law on a finite restriction of `F_sel` (a finite shell, a torus `Per_L`, a finite invariant truncation); not a law on `Ω` |
+| T-spec | A law on an infinite carrier, invariant for some coupled rule in a stated class that is not `F_sel` on `Ω` |
+| T-fin | A law on a finite model or a finite restriction (a finite shell, a torus `Per_L`, a finite invariant truncation), of `F_sel` or of another rule; a finite illustration, outside the Q outcomes |
 | T-nat-ex | A law on `Ω` invariant under `F_sel` and `Θ`, for stated `(q, α)`, only after a written construction of the law on `Ω` and a proof of its invariance; nothing about selection |
 | T-nat-pos | Selected for `F_sel` only under named posits added to the corpus (for example R1-INF (G3)+(G4), delta review outstanding) |
-| T-nat-dyn | Unique, with no free continuous parameter, among the `F_sel`-,`Θ`-invariant laws of one of the admissible classes K0–K4 frozen in N7 before any outcome is examined, all of whose restrictions are corpus inputs; the class uses the observer partition above where it names a readout |
+| T-nat-dyn | Unique, with no free continuous parameter, among the `F_sel`-,`Θ`-invariant laws of one of the admissible classes K0–K4 frozen in N7, with N7.0 run before N2, all of whose restrictions are manuscript premises in the sense of N7.0; "unique" means the class is a singleton (N7); the class uses the observer partition above where it names a readout |
 
 A T-fin result is never cited as T-nat-ex; promotion needs a construction on `Ω` as its own node.
 
 **Outcome set, fixed in advance.** (Y-dyn) Q holds at T-nat-dyn; (Y-pos) Q holds only at T-nat-pos;
 (Y-ex) the calculations of Q items 1–2 go through for an `F_sel`-invariant law on `Ω` that is only
 T-nat-ex, so Q item 3 (values fixed by `μ` and the dynamics) is not met; recorded as (Y-ex) and parked
-at N7 for selection; (Y-spec) Q holds only at T-spec or T-fin; (N-scoped) Q fails for a stated
+at N7 for selection; (Y-spec) Q holds only at T-spec, for a law on an infinite carrier; (N-scoped) Q fails for a stated
 construction class, with a countermodel or proof scoped to that class; (U) undetermined, parked at a
-named node. The design does not favour any of these.
+named node. T-fin findings are recorded as finite illustrations and are not Q outcomes. The design
+does not favour any of these.
 
 ## 2. What Stage 3 needs from a measure
 
@@ -187,7 +188,10 @@ recorded outcome by the rule; a verdict over a failed or vacuous control is void
 identities, ranks and zeros are decided by exact arithmetic (integers, rationals, finite fields,
 cyclotomic integers); floating point is not used as evidence for any of them.
 
-**Order and branching.** N0 → N1 → N2. N2's outcome selects the next branch: a native conserved
+**Order and branching.** N0 (with N7.0) → N1 → N2.0 → N2. N7.0 is documentary, runs inside N0, and
+its outcome is committed as an amendment before N2 starts; K0–K4 are frozen from that commit. Method A
+is evidence only after N2.0, so productivity item 1 and N2's branch both depend on N2.0. N2's outcome
+selects the next branch: a native conserved
 quantity sends N3 and N4 to `F_sel`; none within N2's range grid sends N3 and N4 to the T-spec models
 only, pending N2.3, and the native verdict is generated at N7 conditional on N2's range bound. This is
 a resource choice: a range-bounded "none" is not a statement that `F_sel` has no conserved energy. N5
@@ -258,24 +262,27 @@ properties of the exact rule depend on divisibility (SM:296). For each `L`:
   translation coboundaries of range `W`) inject into torus functions modulo the torus-trivial ones;
 - the trivial-part dimension is computed for each `L` by a routine separate from the solver.
 
-A cell with a failed injectivity check at some `L` gives no B-torus value at that `L`. The B-torus
-excess is reported as a function of `L`; it is called stable only if it is the same at every
-preregistered `L` that passes the injectivity check, with at least two such `L`. A stable B-torus value
-is a certified upper bound when L2 confirms the upper-bound direction for the check used; otherwise it
-is recorded as an uncertified torus observation.
+A cell with a failed injectivity check at some `L` gives no B-torus value at that `L`. Once L2
+confirms the upper-bound direction for the check used, the value `B_L` at each single `L` that passes
+the injectivity check is a certified upper bound by itself. The B-torus excess is reported as a
+function of `L`; it is called stable only if it is the same at every preregistered `L` that passes the
+injectivity check, with at least two such `L`, and stability is the condition for reporting "torus
+upper bound `k`". Without L2's confirmation every B-torus value is an uncertified torus observation.
 
 **Grid and cost (preregistered, §A.40).** `d ∈ {1, 2, 3}`; `q ∈ {2, 3, 5}`; every `α ∈ ℤ_q`, with
 `α = 0` as a countercontrol (`F^4 = id`); `W` the cubes of side `s ∈ {1, 2}`, and `s = 3` for `d ≤ 2`.
 Write `N = q^{2s^d}` for the number of characters supported in `W`. Method A costs about
 `N·s^d·(2d+1)` finite-field operations per `α`; method B has `N` unknowns, and B-torus has
-`q^{2L^d}` equations at each preregistered `L`. B-torus runs in a cell only if `N·q^{2L}` is below
-the local budget at every preregistered `L` of that cell (so only in `d = 1`); the `L` set is not
-reduced to fit. In `d = 2` and `d = 3`, `L ≥ 5` gives at least `q^{50}` equations, and B-torus is not
-run. Classification of each cell by total cost over all `α`:
+`E_L = q^{2L^d}` equations at each preregistered `L`. Exact elimination costs about
+`E_L · N · rank ≤ E_L · N²` operations per `L` and per `α`; the B-torus estimate of a cell is that
+bound summed over its preregistered `L` and over `α`. B-torus runs in a cell only if that total is
+within the local budget; the `L` set is not reduced to fit. In `d = 2` and `d = 3`, `L ≥ 5` gives at
+least `q^{50}` equations, and B-torus is not run. Classification of each cell by total cost over all
+`α`:
 
 | `d` | `s` | `N` at `q = 2, 3, 5` | Method A | Method B |
 |---|---|---|---|---|
-| 1 | 1, 2, 3 | `q^{2s}`: at most `5^6 = 15 625` | local | B-torus where `N·q^{2L}` fits the local budget at every `L ∈ {2s+3, …, 2s+6}`: `q = 2` for `s = 1, 2, 3` (at most `2^6·2^{24}`, about `10^9`) and `q = 3`, `s = 1` (`9·3^{16}`, about `4·10^8`); otherwise not run |
+| 1 | 1, 2, 3 | `q^{2s}`: at most `5^6 = 15 625` | local | B-torus local only at `q = 2`, `s = 1` (`2^{16}·4²` at `L = 8`, about `10^6`) and `q = 2`, `s = 2` (`2^{20}·16²` at `L = 10`, about `3·10^8`; under `10^9` summed over `L` and `α`). Above the budget, not run: `q = 2`, `s = 3` (`2^{24}·64²`, about `7·10^{10}`); `q = 3`, `s = 1` (`3^{16}·9²`, about `3.5·10^9`); every other `q = 3` and `q = 5` cell |
 | 2 | 1 | 4, 9, 25 | local | not run (B-exact only, if N0 supplies a criterion) |
 | 2 | 2 | 256, 6 561, 390 625 | local | not run (B-exact only, if N0 supplies a criterion) |
 | 2 | 3 | 262 144; 3.9·10⁸; 3.8·10¹² | `q = 2` local; `q = 3` CI; `q = 5` not run | not run |
@@ -288,15 +295,24 @@ c.7068602936): a CI cell runs only after this preregistration is accepted and th
 approves that cell's cost (§A.40, §A.43 item 4). No CI cell is run locally. "Not run" cells are
 reported as not computed, with no verdict. Before any cell runs, the estimate is re-measured on the
 smallest instance and the table is amended (in `amendments/`, before that cell) if the measurement
-moves a cell across a class. The `d = 3` verdicts rest on method A after N2.0, and
-on B-exact only if N0 supplies an `ℤ^d` criterion with its own cost estimate; B-torus is not used in
-`d = 3`. Productivity item 1 (§5) can be met by local `d = 3` cells (`s = 1` for every `q`, `s = 2` at
-`q = 2`); the `s = 2`, `q = 3` cells are CI cells, and so need an accepted preregistration and the
-owner's separate approval of their cost, which P2-B does not have. The rounded rule of SM:294
-is outside method A; method B covers it only in the `d = 1` cells above.
+moves a cell across a class. A cell's class changes only by such an amendment made before that cell
+runs, and no cell runs, locally or in CI, without the owner's authorization of execution. The `d = 3`
+verdicts rest on method A after N2.0, and on B-exact only if N0 supplies an `ℤ^d` criterion with its
+own cost estimate; B-torus is not used in `d = 3`.
+
+**Single-site cells are not decisive.** For `s = 1` and `α ≠ 0` (every grid `q` is prime, so `α` is a
+unit), no cycle exists, in any `d`, by a support argument. The dual map is
+`F^*(a, b) = (αSa + b, −a)`, from `(a·(αSu − v) + b·u)` with `S` symmetric. A single-site character
+with `a ≠ 0` has `u`-part `αSa + b`, which is nonzero on the `2d` neighbours, so its image has no
+translate supported on one site. A single-site character with `a = 0`, `b ≠ 0` maps to `(b, 0)`, which
+then maps out of `W` by the same argument. So the `s = 1`, `α ≠ 0` cells serve as checks of the code,
+not as findings. The one local `d = 3` cell with content is `s = 2`, `q = 2`, `α = 1`, and it is
+evidence only after N2.0. The `s = 2`, `q = 3` cells are CI cells, and so need an accepted
+preregistration and the owner's separate approval of their cost, which P2-B does not have. The rounded
+rule of SM:294 is outside method A; method B covers it only in the local `d = 1` B-torus cells above.
 
 **N2.3 (written, all ranges; later authorization).** For prime `q`: is there a nonzero finitely
-supported `ξ`, `n ≥ 1`, a translation `g` and `c ∈ ℤ_q^×` with `F^{*n} ξ = c·τ_g ξ`? This is a
+supported `ξ`, `n ≥ 1`, a translation `τ_t` and `c ∈ ℤ_q^×` with `F^{*n} ξ = c·τ_t ξ`? This is a
 statement about eigenvalues of the companion matrix `[[αS, −1], [1, 0]]` over the Laurent ring
 `ℤ_q[x_1^{±1}, …, x_d^{±1}]`, `S = Σ_j (x_j + x_j^{−1})`. A comparison of Newton polytopes is one
 candidate method; it is not carried out here, and the node is open in both directions.
@@ -304,10 +320,10 @@ candidate method; it is not carried out here, and the node is open in both direc
 **Decision rule.** Comparison of the methods, by what each measures:
 - A (after N2.0) and B-exact both run → any difference in the excess dimension halts the node; its
   verdict is void.
-- A (after N2.0) and a certified stable B-torus both run → the compatible relation is
-  `B-torus ≥ A`; only `B-torus < A` halts the node, since that pair of certified results is
-  incompatible. A gap `B-torus > A` is not a conflict: it is recorded, and the cell's value is A's,
-  scoped to N2.0's theorem.
+- A (after N2.0) and certified B-torus values both run → the compatible relation is `B_L ≥ A` at
+  every certified `L`; `B_L < A` at any single certified injective `L` halts the node and voids the
+  cell, since that pair of certified results is incompatible. A gap `B_L > A` is not a conflict: it is
+  recorded, and the cell's value is A's, scoped to N2.0's theorem.
 - Uncertified results (A before N2.0, B-torus without L2's confirmation or without stability) never
   halt the node and never yield a verdict; they are recorded as observations.
 - Only B-torus runs (A not yet licensed by N2.0) → no `ℤ^d` verdict in either direction. A stable
@@ -326,20 +342,27 @@ Verdicts:
   horizon first-law energy remains R22 (M), and no node here supplies it.
 
 **Controls.**
-- *Positive control:* `d = 1`, `α² ≡ 1 (mod q)`: both methods must find the movers of
-  R1-INF Prop. 6 (delta review outstanding), and the excess dimensions are compared with
-  R1-INF §9 E's values (delta review outstanding): 2, 4, 2 for `(q, α) = (2,1), (3,1), (3,2)` at
-  range 2. Agreement of the two methods under the comparison rule above is the control; agreement
-  with R1-INF (delta review outstanding) is a cross-check.
+- *Positive control, two methods:* runs only where both methods run under the cost table, which is
+  `d = 1`, `(q, α) = (2, 1)`, range 2 (`s = 2`). Both values must satisfy the comparison rule above.
+- *Positive control, independent recount:* for every `d = 1` cell with `α² ≡ 1 (mod q)` and `s = 2`,
+  a routine separate from the functional-graph code builds the mover characters
+  `c·a_0` and `c·b_0`, `c ∈ ℤ_q∖{0}`, with `a_z = u_z − αv_{z+1}` and `b_z = u_{z+1} − αv_z`; it checks
+  by direct evaluation of `ξ∘F` on configurations (not by the dual formula) that each maps to a
+  translate of `cα·a_0` or `cα·b_0`, and counts the resulting cycles, which is `2·#(ℤ_q^×/⟨α⟩)`
+  computed by that routine. Method A's excess must be at least this count (the movers are a lower
+  bound); A below it voids the cell. Equality, and agreement with
+  R1-INF §9 E (delta review outstanding), are recorded as cross-checks.
 - *Exactness control:* the identity CA and the shift CA (every potential conserved): the computed
   dimension must equal the full dimension minus the trivial part, by a count computed independently.
-- *Symmetry control:* the action of `Θ` and of each generator of the cubic point group on supports
-  must map the computed basis into its span, checked exactly; and the dimension of each isotypic
-  component of the conserved space under the point group must equal the value given by a character
-  computation independent of the solver (the permutation character on the cycles of method A's graph,
-  obtained by counting, for each group element, the cycle classes it fixes, by a direct test of
-  `F^{*n}ξ = τ_g ξ` that does not use the solver's basis). `Θ`-invariance of the conserved space
-  follows from `ΘFΘ = F^{−1}` and is a necessary property, not a discriminating one.
+- *Symmetry control:* the action of `Θ` and of each generator `h` of the cubic point group on
+  supports must map the computed basis into its span, checked exactly; this tests equivariance. The
+  dimension of each isotypic component is compared as follows. Where method B runs, B's solution space
+  is decomposed and compared with A's. In cells where only A runs, the permutation character of the
+  point group on the cycles is computed by a routine independent of the functional-graph code: its own
+  canonicalization of translation classes, and its own orbit enumeration by direct evaluation of
+  `F^{*n}ξ = τ_t ξ` (`τ_t` a translation, `h` a point-group element, `χ(h)` the number of cycles with
+  `h·C = C`); the isotypic dimensions from that character must equal A's. `Θ`-invariance of the
+  conserved space follows from `ΘFΘ = F^{−1}` and is a necessary property, not a discriminating one.
 - *Countercontrols:* (i) an injected non-conserved potential (a single-site value of `u`) must be
   rejected and an injected mover (`d = 1`) accepted by the checker; (ii) `α = 0`: here `F` acts site
   by site with `F^4 = id`, so every character supported in `W` has a finite orbit and stays supported
@@ -414,8 +437,8 @@ the search.
 **Decision rule.** N4.1 answered "no" by a proof → "for translation-invariant laws S6 and energy
 resolution are incompatible", scoped to translation-invariant laws and the stated conserved
 quantities. N4.1 "yes" → record the law and send it to N8. N4.2: an explicit invariant law found on
-a finite model is T-spec, or T-fin if the model is a finite restriction of `F_sel`; it is never
-T-nat-ex. Promotion to T-nat-ex needs its own node: a written construction of a law on `Ω` (for
+a finite model, of `F_sel` or of another rule, is T-fin; it is never T-spec or T-nat-ex, since both
+need a law on an infinite carrier. Promotion to T-nat-ex needs its own node: a written construction of a law on `Ω` (for
 example a cylinder limit) with a proof of its invariance under `F_sel` and `Θ`. None found in the
 models → no statement beyond those models. N4.3 → record which quantity the visible weights depend
 on, from N3.2's formula.
@@ -481,25 +504,38 @@ probability laws on `Ω` invariant under `F_sel` and `Θ`, further restricted as
 
 | Class | Restriction added | Classification of the restriction |
 |---|---|---|
-| K0 | none | corpus input (the update and reversal only) |
-| K1 | K0 and full support (every cylinder has positive mass) | added posit, unless N7.0 finds it stated for infinite carriers |
+| K0 | none | manuscript premise (the update and reversal only) |
+| K1 | K0 and full support (every cylinder has positive mass) | added posit, unless N7.0 finds it adopted as a manuscript premise for infinite carriers |
 | K2 | K1 and product form `u_V ⊗ ν` at the visible window of the observer partition (§1) | added posit: H-μ(φ,Θ), a named hypothesis not adopted (O-A4 :64) |
 | K3 | K2 and translation invariance | added posit (R1-INF (G3), delta review outstanding) |
 | K4 | K3 and maximal entropy density | added posit (R1-INF (G4), delta review outstanding) |
 
-**N7.0 (corpus step, before any uniqueness check).** Search the corpus at the pin (L9) for each
-restriction of K1–K4 stated for infinite carriers. A restriction found so stated is reclassified as a
-corpus input, with its file:line. Ledger item (iv) (Main:736) is stated "on a finite representative"
-and so does not count. The table is then frozen and is not changed after any uniqueness result.
+**Ergodic variants (frozen here).** For each `Kj`, `Kj^erg` is the set of laws in `Kj` that are
+ergodic for the group generated by `F_sel` and `Θ`, and also by the translations for `j ≥ 3`.
+Ergodicity is an added posit, so uniqueness within a `Kj^erg` is at most T-nat-pos.
 
-**Decision rule.** Uniqueness is tested within K0–K4 only. A law unique within a class all of whose
-restrictions are corpus inputs is T-nat-dyn; unique within a class needing an added posit is
-T-nat-pos, with the posits named; non-unique in every class → no selection, outcome (Y-ex) or (U) at
-N7. No other class is admissible for these tiers.
+**N7.0 (documentary; runs in N0, before N2).** For each restriction of K1–K4, search `papers/` and
+`book/` (chapters and FULL) at the pin. A restriction counts as a manuscript premise only if a
+manuscript adopts it as a premise for infinite carriers: an axiom, or a posit-ledger item not stated
+"on a finite representative". Named hypotheses (for example H-μ(φ,Θ)), hypotheses of records under
+`verification/` (for example R1-INF (G3), (G4), delta review outstanding) and statements about
+examples do not count. Ledger item (iv) (Main:736) is stated "on a finite representative" and does
+not count. The search terms and the per-row result are committed as an amendment in `amendments/`
+before N2 starts; K0–K4 and their `Kj^erg` variants are frozen from that commit and are not changed
+afterwards.
+
+**Decision rule.** Uniqueness is tested within K0–K4 and `K0^erg`–`K4^erg` only. The classes `Kj` are
+convex, so "unique" in `Kj` means `Kj` is a singleton `{μ}`; in `Kj^erg` it means exactly one ergodic
+law. A singleton class all of whose restrictions are manuscript premises gives T-nat-dyn; a singleton
+class, or a unique ergodic law, needing an added posit gives T-nat-pos, with the posits named; no
+uniqueness in any class → no selection, outcome (Y-ex) or (U) at N7. No other class is admissible for
+these tiers.
 
 **Stage 3 under the selected law, if any (outcome-neutral).** For each law at T-nat-dyn or T-nat-pos,
 and for `β_A` as the T-nat-ex law of N6, derive at execution, exactly, for each readout of §1 (fine
-window cells; coarse cells of each energy function supplied by N2 or stated in advance):
+window cells; coarse cells of each energy function supplied by N2 or stated in advance, each such
+function required to be `Θ`-even, `E∘Θ = E` on window configurations, so that `θ` maps each coarse
+cell to itself; a function that is not `Θ`-even is not used for coarse cells):
 - the visible masses `p_i`;
 - the paired fluxes `J_ij` and the rate ratios `T_ij/T_ji`;
 - the divided-difference slope where an energy is defined.
@@ -512,10 +548,15 @@ The verdict text is generated from those values, scoped to the readout and to th
   law, computed by brute force over the hidden light cone (the method of O-A4 §11 part A, :161), must
   satisfy `J_ij = J_{θj,θi}` exactly (P6; Lean `MeasuredReciprocity.reciprocal_flux`:90), for both
   fine and coarse cells.
-- *Countercontrol:* an invariant law with non-uniform cell masses, the `d = 1` generalized Gibbs family
-  of R1-INF Prop. 6 (b) (delta review outstanding), must produce a rate ratio different from 1 at some
-  parameter value by the same procedure; if it does not, the procedure cannot detect a slope and the
-  node's verdict is void.
+- *Countercontrol (preregistered):* `d = 1`, `q = 2`, `α = 1`; the law `μ_c` obtained from
+  `λ = π^{⊗ℤ} ⊗ π^{⊗ℤ}` on the mover coordinates `(a, b)`, with `π = (3/4, 1/4)` on `ℤ_2`, lifted by the
+  uniform law on the fibres (the construction of R1-INF Prop. 6 (b), delta review outstanding, used
+  only as a definition); readout `a_0 = u_0 − v_1`; cell pair `(0, 1)`; one step. The control first
+  verifies exactly, with rational cylinder masses computed from the definition, that
+  `μ_c(F^{−1}C) = μ_c(C)` and `μ_c(Θ^{−1}C) = μ_c(C)` for every cylinder `C` on the window `[−2, 3]`. If
+  either check fails, the countercontrol is void and so is the node's verdict. If both pass, the same
+  procedure as the verdict must report `T_01/T_10 ≠ 1`; if it does not, the procedure cannot detect a
+  slope and the node's verdict is void.
 - *Class countercontrol:* the identity CA and a lattice translation, for which every
   translation-invariant law is invariant, must come out non-unique in K3.
 
@@ -533,7 +574,8 @@ law, the slope is H6, and the coupled case is open" (P7-B; R1-INF, delta review 
 X-71), and in addition at
 least one of:
 
-1. a decision of N2 for `d = 3` at some `(q, α)` and range, in either direction, beyond what any
+1. a decision of N2 for `d = 3` at some `(q, α)` and a window of side `s ≥ 2` (the `s = 1` cells are
+   settled by the support argument in N2), in either direction, beyond what any
    record states (R1-INF, delta review outstanding, leaves `d ≥ 2` undetermined);
 2. a proof or a countermodel for N4.1 or N4.2;
 3. a native selection fixing `β` (N3.3), surviving N8;
@@ -550,15 +592,15 @@ toward the test.
 |---|---|---|
 | I1 | This unit adds only `DESIGN.md` in this directory | the diff stat against the pin `df6da1c6101e811acdc7952d5748aff57028e8ed` at the head lists one file |
 | I2 | No manuscript, Lean, registry, ledger or #1477 file changes in any P2-B commit | Same diff at every pushed head; the reviewer re-runs it |
-| I3 | Decision rules precede results | The commit of this design is an ancestor of every execution commit; any rule change is an amendment in `amendments/` with a reason, made before the node it affects is run |
+| I3 | Decision rules precede results; K0–K4 frozen before N2 | The commit of this design is an ancestor of every execution commit; any rule change is an amendment in `amendments/` with a reason, made before the node it affects is run; the N7.0 amendment is an ancestor of every N2 commit |
 | I4 | Tiers are never promoted | Each node's verdict table has a tier column; the N8 pass checks every T-spec item against every later sentence |
 | I5 | Exact arithmetic for exact claims | Every computational script asserts that its numeric types are integers, `Fraction`s or finite-field elements, and fails on a float; the reviewer greps the script for float literals and float division |
 | I6 | Verdicts only over green controls | Each script runs its controls first and prints no verdict line if any control fails; the output file records the control lines |
-| I7 | N2's methods are compatible | The script prints both values per cell with their certification status; it halts only when A and B-exact differ, or a certified stable B-torus value is below A's |
+| I7 | N2's methods are compatible | The script prints both values per cell with their certification status; it halts only when A and B-exact differ, or a certified B-torus value at any single injective `L` is below A's |
 | I8 | Deterministic replay | A second run's output is byte-identical; its digest is recorded beside the expected result (§A.42 item 1) |
 | I9 | Citations of R1-INF carry its review standing | Grep of the execution records for "R1-INF" lines without "delta review outstanding" returns none |
 | I10 | Negative results are scoped | Each negative verdict names its rule, `(d, q, α)`, range and law class; the N8 pass checks each |
-| I11 | Cost classes (§A.40) | Each cell's estimated cost and class are recorded in the N2 table before it runs; "CI" cells are not run without an accepted preregistration and the owner's separate approval of their cost; "not run" cells report no verdict |
+| I11 | Cost classes (§A.40) | Each cell's estimated cost and class are recorded in the N2 table; a class changes only by an amendment made before that cell runs; no cell runs, locally or in CI, without the owner's authorization of execution; "CI" cells also need an accepted preregistration and the owner's separate approval of their cost; "not run" cells report no verdict |
 | I12 | Repository text constraints | A grep of every added file for the excluded vocabulary and for local paths returns none |
 
 ## 7. Stop conditions and scope of negative results
