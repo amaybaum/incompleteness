@@ -26,7 +26,10 @@ checks that each old string occurs exactly once, on the preregistered line, befo
 | E7 | Sub:401 | X-63 | T12 | W* |
 | E8, E9 | Sub:542 (two clauses) | X-63 | T14 | W* |
 | E10 | Str:718 | X-63 | T15 | W* (observer-relevant regions at every time) |
-| E11 | Str:718, bullet label | X-63 | T16 (consequence) | label follows E12 |
+| E11 | Str:718, bullet label | X-63 | T16 (consequence) | label follows E12 ("*Local mixing rate:*"; set to "*Slow local mixing:*" by E21) |
+| E19 | M:171 | X-63 (propagation; amendment A1) | review r1 B1; T10 | pointer follows §4.6: "fast-mixing regions" |
+| E20 | Sub:407, last sentence | X-63 (propagation; amendment A1) | review r1 B2; T11c | open |
+| E21 | Str:718, bullet label | X-63 (amendment A1) | review r1 N2; T16 | label matches Str:734 |
 | E12 | Str:734 | X-63 | T16 | W* (necessary condition on the observer's region) |
 | E13, E14 | ch02:192 | X-63 | T18 | W* |
 | E15, E16 | FULL:822 | X-63 | T18 mirror | W* |
@@ -56,10 +59,16 @@ The old and new strings are in `PREREG.md`.
     of the open question on an infinite carrier, so the sentence no longer relies on finiteness to
     settle the replacement (X-82).
 - **E11/E12.**
-  - The audit does not trace the claim at Str:734 that random permutations "typically lack" these
-    features, and it is unchanged.
-  - The label of the bullet at Str:718 is the feature name that Str:734 cites. It is renamed so that
-    the reference still resolves. The first sentence of Str:718 (D2, not classified) is unchanged.
+  - At Str:734, E12 changes the content of the "typically lack" claim, not only its wording: the
+    claim now concerns slow local mixing rather than a non-equilibrium phase. The audit does not trace
+    that claim in either form, and it remains untraced.
+  - The label of the bullet at Str:718 is the feature name that Str:734 cites. E21 sets it to "*Slow
+    local mixing:*" to match Str:734. The first sentence of Str:718 (D2, not classified) is unchanged.
+- **E19/E20 (amendment A1).**
+  - M:171's pointer "the equilibrium phase" named an exclusion argument that §4.6 states in region
+    form (E1, E4).
+  - Sub:407's last sentence asserted the initial-condition replacement that E6 states as open. It is
+    stated open in the same terms.
 - **Main independence.** E1–E4 use only Main's own theorem, (EM), the rate condition and [31]'s
   finite-shell scope (M:732). No downstream reference is added.
 
@@ -70,7 +79,8 @@ I re-grepped `papers/*.md` and `book/*.md` (FULL included) after the edits:
 | Phrase | Remaining | Where |
 |---|---|---|
 | "non-equilibrium phase" | 1 | Cx:212 (S2-E) |
-| "equilibrium phase" | 3 | Cx:212 ×2 (S2-E); M:171 (T10, RETAINED pointer) |
+| "equilibrium phase" | 2 | Cx:212 ×2 (S2-E) |
+| "initial-condition axiom" | 1 | Sub:407 (E20, stated open) |
 | "Equilibrium-Phase", "non-equilibrium-phase", "perpetual equilibrium", "confinement to", "restricts observers", "in its equilibrium macrostate" | 0 | — |
 | "past hypothesis" | 2 | Sub:56 (E6, stated open); Cx:212 (S2-E) |
 | "observer-free" | 1 | Sub:542 (E8, region form) |
@@ -106,14 +116,9 @@ mixing time on equilibrium microstates" (T11a-type, RETAINED) need no change.
 
 **ch18:40 = FULL:4771 (X-82).**
 
-- **Reliance on finiteness.** The sentence ("… follows from the finite reversible substratum dynamics,
-  which is recurrent under A1 (§18.7)") concerns recurrence versus effective relaxation. It does not
-  use finiteness to exclude an incoming stream. Whether X-82's correction applies to it is S2-E's
-  call.
-- **Suggested insertion, if it applies.** After `which is recurrent under A1 (§18.7);` insert `on an
-  infinite carrier an invariant law can carry a low-entropy stream entering from spatial infinity,
-  and whether such an incoming supply is excluded is open;`
-- **Uniqueness.** The anchor string is unique in each of the two files.
+No change is proposed. The sentence ("… follows from the finite reversible substratum dynamics, which
+is recurrent under A1 (§18.7)") concerns recurrence versus effective relaxation and does not use
+finiteness to exclude an incoming stream.
 
 **Meth:283, Meth:441 (X-63 Q3 sites).** Both state the region-level exclusion without a phase
 conclusion. The same holds for ch03:58, ch04:36 and Sub:407. No change is proposed.
@@ -186,14 +191,27 @@ committed with the source.
 
 ## 7. Deviations from PREREG
 
-- **Manuscript.** None: every edit was applied as preregistered.
+- **Manuscript.** None: every edit was applied as preregistered. E19–E21 were preregistered in
+  `amendments/A1.md` (commit `879d2ede`) before they were applied.
 - **PREREG.** After `fdcca6ea`, PREREG's mirror entries E15, E16 and E18 were re-rendered as "identical
   to E13/E14/E17", because `tools/duplicate_check.py` rejects repeated paragraphs within a file. No old
   or new string changed.
 
+## 7a. Review round 1 (`4d401bd8`, REVISE)
+
+- **Ruling.** B1 and B2 were ruled in scope as X-63 propagation and are applied as E19 and E20. N1, N2,
+  N5 and N6 are applied. N3 and N4 are skipped, by instruction.
+- **Builds after E19–E21.** `sh ./build.sh Main Substratum Structure`: OK. Main 106 pages, Substratum
+  54, Structure 94. Median characters per page are unchanged (3338, 3189, 2908), and no glyphs were
+  dropped.
+- **Checks.** `tools/coverage_check.py`: OK, with no further stale entry. `tools/duplicate_check.py`:
+  OK. The SC-42 normal run is byte-identical to the regenerated result file. The other §A.40 checks
+  exit 0, except `v3_verifier --corpus`, which is undecidable in a shallow worktree.
+
 ## 8. Overlaps
 
-- **Other units.** No edited line lies in another unit's listed scope.
+- **Other units.** E19 (M:171) lies in S2-C's listed range (M:131–224). The coordinating session
+  assigned it to this unit. No other edited line lies in another unit's listed scope.
 - **ch02.** S2-B's scope names the whole of ch02. This unit edits only ch02:192 (an X-63 site in the
   ledger's sitemap) and its FULL mirror. S2-B should confirm that it does not edit ch02:192.
 
