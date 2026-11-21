@@ -445,7 +445,8 @@ revision record.
 - **Fix the root cause, not the label.**
 - **Claim IDs are identifiers, not ordinals** (e.g. appendix-a `G`-rows): never renumber
   successors, never reuse a retired ID, never annotate the gap. And a removed claim can hide in
-  a **count** — after any inventory change, grep the totals corpus-wide (§A.25).
+  a **count** — after any inventory change, grep the totals corpus-wide (§A.25). The one
+  exception is an identifier migration under §A.48; nothing else renumbers or reuses an ID.
 
 ---
 
@@ -590,7 +591,10 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
 - **§A.28 Repo minimalism.** The repo is public and permanent; the burden of proof is on adding,
   not omitting. Before committing a file: it must be needed by a reader of the manuscripts or the
   code, be maintained, and not leak process. Process artifacts are cheap to add and expensive to
-  retire.
+  retire. The standard is symmetric for active material: obsolete text, terminology or structure
+  is not kept merely because it exists. Removing a premise, proof condition or dependency still
+  requires evidence that every surviving claim remains valid (§A.48); evidence on `main` is removed
+  only under §A.46 item 6.
 - **§A.40 Where verification runs; CI-first resource discipline.** Run bounded, deterministic
   smoke checks locally before a push: one tool self-test, the V3 verifier's self-test and corpus,
   `legacy_records_check.py`, cheap round controls, and Python compilation/static checks.
@@ -1467,3 +1471,37 @@ has ranked highest under §A.45; a provisional tier is not such a ranking.
    (§A.45 rule 6).
 
 Adopted 2026-11-15 by owner decision (owner `amaybaum`, 2026-11-15).
+
+***
+
+## §A.48 Canonical clarity over historical compatibility
+
+The active manuscripts, documentation, code comments and formalization present the clearest
+scientifically justified version of OI. Historical identifiers, terminology and structures are kept
+in active material only while they remain useful; traceability lives in Git history and in the
+preserved research records, not in the presentation of the current theory.
+
+1. **Active material states the current theory.** Obsolete terminology, retired premises and
+   superseded structures are removed or rewritten where they appear (§A.27, §A.30), not kept for
+   compatibility and not explained by historical notes.
+2. **Evidence stays trustworthy.** Frozen records, receipts, legacy records and preserved research
+   records are not edited for clarity (§A.39, §A.42 item 6, §A.46). Clarity never licenses a
+   changed conclusion, a weakened claim, a broken proof dependency or a hidden premise; a result
+   that needs a condition states it.
+3. **Identifier migration.** An identifier may be renamed, renumbered or reorganized only by an
+   explicit migration that the owner approves in advance and an independent non-author review
+   accepts. The migration:
+   - states the clarity gain it delivers;
+   - maps every old identifier to its successor and never gives a retired identifier a new meaning;
+   - traces every reference across the active corpus, the Lean modules, the census registry
+     (§A.35), the guards and the coverage ledger, and updates each in the same change;
+   - leaves frozen and preserved records unchanged, and names in a mutable index where their old
+     identifiers resolve;
+   - is verified by the build, the kernel and every check that reads the identifiers.
+
+   Outside such a migration, §A.30's prohibition on renumbering and reuse is unchanged.
+4. **Additions and removals carry the same burden** (§A.28). Removing obsolete active material
+   needs no reason beyond its obsolescence; removing a scientifically meaningful premise, proof
+   condition or dependency needs evidence that the surviving claims remain valid.
+
+Adopted 2026-11-21 by owner decision (`amaybaum`, #1169 comment 7058521984).
