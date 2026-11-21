@@ -1,6 +1,6 @@
 # O1 restated as two obligations: coherence creation and coherence detection
 
-**WIP / UNVERIFIED. Wording record only.** It edits no manuscript, reviewed record or Issue body. It
+**WIP / UNVERIFIED. Wording record only.** Revision r2 answers the review of `0ba83cff` (#1513 c.7066721761 and c.7066739331). It edits no manuscript, reviewed record or Issue body. It
 proves nothing new and changes no status. It has not been reviewed.
 
 - **Authority.** Owner decision #1169 c.7066541026, Decision 2. That decision approves restating O1 as
@@ -92,7 +92,7 @@ states a necessary condition only.
     from Ad_W.
   - **Non-DIO without non-MIO.** The destructive readout ⟨±| detects coherence and is MIO-type,
     because its output space is one-dimensional (OPRES CC-1, step 3). So a native coherence-detecting
-    readout alone discharges O1-D and leaves O1-C open. By OPRES Theorem A′'s bound, a protocol
+    readout alone discharges O1-D and leaves O1-C open. By OPRES Theorem C(a), a protocol
     without a creator stays at diamond distance at least 2κ_col(W) from Ad_W.
 - **One element may meet both.** A non-monomial unitary step (FLOW; `gateFlow_not_monomial`,
   `OIBridge/CoherentContinuumSource.lean`:74, K) is both non-MIO and non-DIO. Its unitary has a
@@ -104,20 +104,34 @@ states a necessary condition only.
 
 ## 4. How Task A bears on O1-D
 
-Task A (`NOTE.md`, Theorem RA-1 and Proposition RA-2) finds the following:
-- Under readings R1 and R2, every native readout definition in the searched corpus has its effects
-  in 𝒜. This is Proved on countable carriers, and Conditional on measurability on measurable carriers.
-- So no native readout so defined discharges O1-D.
-- In the corpus, every non-configuration effect enters through a non-monomial step or through
-  supplied data. It never enters through the readout primitive.
+Task A (`NOTE.md` §0, §3) keeps three levels separate. It does not extend a result from one level to
+another.
 
-**If R-READ fails.** Suppose some native readout has an effect outside 𝒜, for example through one of
-the open items of `NOTE.md` §2.2.
-- That readout discharges O1-D. It does not thereby discharge O1-C: a destructive readout is MIO-type.
+- **Effects.** For every readout procedure the corpus defines, under readings R1 and R2, the effects
+  lie in 𝒜 (RA-1). This is Proved on countable carriers. On measurable carriers it holds only within
+  the scope of `Main:336` and `EP:100`. No such readout discharges O1-D through its effects.
+- **Instruments.** The full branch maps, including the state update, are DIO for items 2, 3
+  (non-selective) and 5–10 (RA-1′). For items 1, 4, 11, 12 and 22 the corpus gives no update rule.
+  Whether they discharge O1-D is therefore **Open**. Diagonal effects do not imply a DIO update. Whether
+  all native instruments are DIO is Open.
+- **Operationally accessible observable algebras.** `Str:742`, `Str:788`, `Main:722` and `GR:366`
+  state that the observable algebra is the full matrix algebra. Their operational meaning, and their
+  compatibility with R-READ, are unresolved. A mathematically available observable algebra is not a
+  set of implementable measurements. If a native instrument realizing a non-diagonal effect were
+  established (premise IMPL-R5, `NOTE.md` §3.1), it would discharge O1-D.
+- **Whether bare OI supplies non-DIO is Open.** This record does not declare it impossible.
+
+**If R-READ fails.** Suppose some native readout has an effect outside 𝒜, through an open item, an
+effect-only instrument or the declared full algebra.
+- That readout discharges O1-D. An effect outside 𝒜 already makes the instrument non-DIO.
+- It does not thereby discharge O1-C: a destructive readout is MIO-type.
 - If it is a sharp, destructive, projective readout in a basis unbiased with respect to the
   configurations, then together with a coherent source |+⟩ (O1-C), CZ and an X correction it
   realizes H exactly (OPRES §8, CC-1).
 - An unsharp non-diagonal effect discharges O1-D without giving exact H (OPRES §8).
+
+**If R-READ holds at the effect level.** A non-DIO update with diagonal effects would still
+discharge O1-D. For items 1, 4, 11, 12 and 22 this is not excluded.
 
 ## 5. What this record does not do
 
