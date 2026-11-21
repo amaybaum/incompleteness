@@ -25,9 +25,11 @@ on:
   workflow_dispatch:
 
 # A new push to a pull request's head branch supersedes the pull_request runs still queued or in
-# progress for that pull request, which are cancelled. Runs for other pull requests, pushes to main and
-# workflow_dispatch runs (the exact-head attestations of AGENTS.md §A.39) each get a group of their own
-# (keyed by run id) and are never cancelled by this block.
+# progress for that pull request, which are cancelled. Other pull requests have their own group, keyed
+# by pull request number. Pushes to main and workflow_dispatch runs (the exact-head attestations of
+# AGENTS.md §A.39) get a group keyed by run id and are never cancelled by this block. A manual re-run
+# of a superseded head's run, or a reopen, rejoins its pull request's group and cancels the run in
+# progress for the current head, which must then be re-run.
 concurrency:
   group: ${{ github.event_name == 'pull_request' && format('verify-pr-{0}', github.event.pull_request.number) || format('verify-run-{0}', github.run_id) }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
