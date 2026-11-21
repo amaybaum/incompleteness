@@ -29,11 +29,14 @@ LEAN_OI = [LB + f + ".lean" for f in (
     "IndependenceCensus", "OIRealization", "PhysicalC4Discharge", "PhysicalC4StorageReadback",
     "MonoidalCompletion", "CompositionalIndependence", "PassiveQuotient", "ObservabilityQuotient",
     "RouteB", "ReadWriteControl", "CausalReadback", "C3Necessity", "TrajectoryMemory", "HiddenMemory",
-    "AccessibleAlgebra", "SubstantiveCensus", "DiagonalTheory")] + ["verification/lean-mathlib/OIBridge.lean"]
+    "AccessibleAlgebra", "SubstantiveCensus", "DiagonalTheory", "SubstratumInterfaceAudit")] + ["verification/lean-mathlib/OIBridge.lean"]
 # Lean files whose C1..C4 labels name other objects (milestones, targets, sub-claims, a group element).
 LEAN_OTHER = [LB + f + ".lean" for f in (
     "DerivedQ3", "CandidateSelection", "CoherentLift", "TwoSidedGauge", "GramTrajectorySelection",
     "IntermediateCrossTimeStructure", "LinkDecomposition")] + ["verification/lean/OI_Structural_Chain.lean"]
+
+# Single lines outside the manuscripts added at review: guard strings that restate a condition.
+EXTRA_SITES = [("papers/oi_lattice_code/architecture_check.py", 1086)]
 
 PAT = re.compile(r"(?<![A-Za-z0-9_])[CС]([1-4])(?![0-9])")
 PAT_LEAN_ID = re.compile(r"(?i)c([1-4])(?=_[a-z]|C[1-4]|Necessity)")
@@ -51,9 +54,9 @@ REVIEWED = {
  "book/ch01-observation.md:55": (E, None, "same name; structural form stated, slow bath one mechanism"),
  "book/ch01-observation.md:57": (E, None, "same name; same inequality"),
  "book/ch01-observation.md:59": (E, None, "same name; 'later visible steps' for 'future visible conditionals'"),
- "book/ch01-observation.md:251": (N, None, "table row: 'Coupling'"),
- "book/ch01-observation.md:252": (D, None, "table row names C2 'Timescale separation' (the C2-slow mechanism), F1"),
- "book/ch01-observation.md:253": (D, None, "table row names C3 'Capacity hierarchy' (the N_H>>N_V regime), F6"),
+ "book/ch01-observation.md:251": (E, None, "table row; column 'What fails' (failure mode, not a name)"),
+ "book/ch01-observation.md:252": (D, None, "column 'What fails', not a name; 'Markovian stochastic' outcome needs complete erasure / the uniform-erosion hypothesis (F1)"),
+ "book/ch01-observation.md:253": (E, None, "column 'What fails', not a name; consistent with the ch01:229 limit model"),
  "book/glossary.md:25": (N, None, "named 'Coupling'; content equivalent"),
  "book/glossary.md:27": (E, None, "close paraphrase of Main:74 incl. both forms"),
  "book/glossary.md:29": (N, "3", "named 'Hidden-sector capacity'; content equivalent"),
@@ -108,7 +111,7 @@ REVIEWED = {
  "papers/Methodology.md:162": (E, None, "role summary; consistent"),
  "papers/Introduction.md:85": (E, None, "non-technical paraphrase; 'feed the record back' reads C4 causally (low)"),
  "papers/Main.md:153": (N, "3", "'C3 (high-capacity hidden sector)' gloss inside the canonical paper"),
- "papers/Main.md:326": (E, None, "'(C1)-(C4) constrain coupling, timescales, and capacity' omits readback (low)"),
+ "papers/Main.md:326": (D, None, "canonical paper: 'not an additional structural condition: (C1)-(C4) constrain coupling, timescales, and capacity' types all four structural, glosses C2 as timescales (F2b)"),
  "papers/Main.md:546": (T, None, "characterization theorem: (iii) lists C1, C3, C4; C2 deliberately absent"),
  "papers/Main.md:552": (T, None, "characterization theorem clause (iii)"),
  "papers/Main.md:628": (T, None, "Remark (the conditions are diagnostics, not hypotheses)"),
@@ -153,7 +156,7 @@ REVIEWED = {
  "book/ch18-beyond.md:69": (E, None, "capacity floor; N_H>>N_V regime not the condition"),
  "book/ch18-beyond.md:70": (E, None, "carry the visible past into future visible conditionals"),
  "book/ch18-beyond.md:268": (E, None, "gloss list with C2 'a physical-regime premise in [Main]'s typing'"),
- "book/ch18-beyond.md:276": (E, None, "C2 failure stated in its timescale form, explicitly"),
+ "book/ch18-beyond.md:276": (D, None, "'Any conscious system must implement ... substantial C1-C4 structure'; 'The C1-C4 architecture is necessary' (F3); C2 failure stated in timescale form"),
  "book/ch18-beyond.md:294": (E, None, "gloss list, application to IIT"),
  "book/ch02-substratum.md:20": (E, "2", "structural form of C2"),
  "book/ch02-substratum.md:88": (D, "2", "'C2-mixing' (F9)"),
@@ -161,7 +164,18 @@ REVIEWED = {
  "book/ch03-structural-realism.md:24": (E, None, "role summary as Methodology:162"),
  "book/appendix-b-derivations.md:22": (T, None, "characterization theorem cited without time-homogeneity (F10)"),
  "book/appendix-b-derivations.md:405": (T, None, "characterization theorem cited without time-homogeneity (F10)"),
- "book/appendix-b-derivations.md:90": (E, None, "mirror of Main:326 sentence (low)"),
+ "book/appendix-b-derivations.md:90": (D, None, "mirror of Main:326 sentence (F2b)"),
+ "book/ch09-universality.md:88": (D, None, "'the framework's structural conditions at its horizon' then C1-C4 (F2)"),
+ "papers/Structure.md:734": (D, None, "'features required for C1-C4': necessity; C2 as slow-local-mixing, C3 as high-capacity (F3)"),
+ "book/ch18-beyond.md:286": (D, None, "'C1-C4 architecture is necessary for non-Markovian information processing' (F3)"),
+ "papers/oi_lattice_code/architecture_check.py:1086": (D, "2", "guard message string uses 'C2-mixing' (F9)"),
+ LB + "DiagonalTheory.lean:359": (T, None, "uses core_isC1C4 (F14)"),
+ LB + "SubstantiveCensus.lean:398": (T, None, "uses core_isC1C4 (F14)"),
+ LB + "PhysicalC4Discharge.lean:148": (T, None, "cites CoreC1C4 (F14)"),
+ LB + "SubstratumInterfaceAudit.lean:742": (T, None, "uses core_isC1C4 (F14)"),
+ LB + "OIRealization.lean:254": (T, None, "uses core_isC1C4 (F14)"),
+ LB + "RouteB.lean:85": (T, None, "core's C1-C4 is core_isC1C4 (F14)"),
+ LB + "RouteB.lean:383": (T, None, "uses core_isC1C4 (F14)"),
  "book/appendix-b-derivations.md:417": (E, None, "C1 asserts non-zero coupling"),
  "book/appendix-b-derivations.md:419": (E, None, "gloss: history readback, memory persistence, sufficient capacity"),
  "book/appendix-c-objections.md:172": (D, None, "'C1-C4 structural conditions' (F2)"),
@@ -242,6 +256,11 @@ def rows():
             m = sorted(set(m))
             if m:
                 emit(f, i, l, m, lean_other=f in LEAN_OTHER)
+    for f, i in EXTRA_SITES:
+        l = open(f, encoding="utf8").read().split("\n")[i - 1]
+        m = [(x.start(), x.group(1)) for x in PAT.finditer(l)]
+        if m:
+            emit(f, i, l, m)
     return out
 
 def render(rs):
