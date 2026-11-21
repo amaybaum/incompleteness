@@ -5580,3 +5580,24 @@ ledger has 371 splices in 40 files (373 edit records; D032 and D039 retain their
 | 6 | The new edits remove "finite" in D366, D367 and D369 only, as §28.3 lists |
 
 Not run here: the corrected trial of §28.1 item 5, which waits for the independent delta review.
+
+## 29. Amendment: the corrected-trial design (delta-review nits N1 and N2)
+
+The independent delta review of §28 at `453917f1` is recorded on #1477 (comment 7062890492), CONFIRMED WITH NITS. This
+section is append-only. It corrects §28.1 item 5 and changes no ledger entry, edit text or checker. The owner has held
+the trial (#1169 comment 7062890214); nothing here builds, pushes or dispatches it.
+
+**Goal link (§A.47).** A1-EXIT (#1169): this section fixes what the preregistered trial expects and from which refs it
+runs; it decides no execution question.
+
+1. **N1: the `T0` expectation.** In `a1exit-trial-verify.yml` the `guards` step has no `always()` condition, so after
+   `preserve` fails it is skipped, and the final gate fails. The preregistered expectation for `T0` is therefore:
+   `preserve` fails with only `--pdf-compare` findings for the eight PDFs; `guards` is skipped; `result.json` and the
+   PDF upload are written. `guards` is covered on `T1`, where every step must pass.
+2. **N2: the dispatch refs.** `a1exit-trial-verify.yml` entered `main` at `df6da1c6`; `97070c98` does not contain it.
+   - `T0` and `T1` are each verified by dispatching `a1exit-trial-verify.yml` from `main` (`df6da1c6` or later) with
+     `trial_sha` set to that trial commit and `plan_sha` set to the plan head.
+   - `verify.yml` on `T1` is dispatched on a branch whose head is exactly `T1`.
+3. **N3 and N4 are not applied.** They are deferred to the final scientific review: N3, adding "with
+   $\operatorname{Tr}\sigma_A=1$" to D364's channel-preserving extension; N4, a finite scope on the book and Structure
+   summaries of Theorem 24(i) (ch02:134 = FULL:766, ch03:80/136 = FULL:943/999, Structure:154).
