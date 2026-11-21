@@ -164,7 +164,25 @@ committed with the source.
   regions of …". This is line 3003, the only difference.
 - **Precedent.** The file was regenerated after earlier manuscript edits (`3a65b9ab`, `bb39f262`,
   `0748b0be`, `e2c04e8d`). The file is not listed in `legacy-records.json`.
-- **Status.** The regeneration is held for an explicit decision and is not part of this commit.
+- **Authorization.** The owner approved the regeneration as a narrowly scoped CI repair (`amaybaum`,
+  2026-11-21, recorded on #1169, relayed by the coordinating session). The approval requires a
+  deterministic regeneration from the updated book source, the checker run normally and with `-O`, a
+  diff at line 3003 only, and an unchanged controls file.
+- **Commands.** Run from the repository root, with
+  `R=verification/audits/manuscript/bell-operational-reconciliation-20261029`:
+  - `python3 -I -B $R/check_sc42_integration.py > out.json` (exit 0), then copy `out.json` to
+    `$R/sc42-integration-result.json`;
+  - `python3 -I -O -B $R/check_sc42_integration.py`: byte-identical to `out.json`;
+  - `python3 -I -B $R/check_sc42_integration.py --verbose`: byte-identical to the regenerated file.
+    This is the CI comparison.
+  - `--self-test`, normal and with `-O`: both byte-identical to the unchanged
+    `$R/sc42-integration-controls.json`.
+- **Diff.** One line, line 3003. The predicate changes from "chapter line mirrored in FULL: *The
+  equilibrium phase of $(S, \varphi)$.* Under effective m..." to "chapter line mirrored in FULL:
+  *Fast-mixing regions of $(S, \varphi)$.* Under effective mix...". It is a stored text prefix of
+  ch04:178. The check is the same check (ch04:178 mirrored in FULL), and it is `ok` before and after.
+- **No finding changes.** No mathematical finding, proof status or conclusion changes. The file records
+  mirror checks on manuscript text, and every check result is unchanged.
 
 ## 7. Deviations from PREREG
 
