@@ -1017,7 +1017,10 @@ stated at the start of the proof above), so none exists. \(\square\) On
 a finite representative Step 1 supplies the condition (NR) at every
 multiple of \(N\) exceeding \(s\). The condition (NR) needs no finite
 hidden space, invariant law, bijection or period \(N\); \(n\) is any
-time after \(s\) at which its inequality holds.
+time after \(s\) at which its inequality holds. (NR) concerns a time
+that need not be accessible and then has no finite-window test; for the
+selected update of §3.2 on \(\mathbb{Z}^d\) no law that is not supported
+on periodic configurations is known to satisfy it.
 
 \textbf{Lemma (stochastic inverse).} \emph{If a finite square stochastic
 matrix has a stochastic left or right inverse, then it is a permutation
@@ -1112,18 +1115,21 @@ finite representative the index-free form holds under full support of
 the visible prior, (FS), with the root drawn independently of the hidden
 prior, and, for the step from (b) to (c), the near-return condition
 (NR), both assumed as hypotheses of this form and not adopted, one
-direction at a time. (a) A readback gap at some finite order \(k\) gives
-(b) some \(\Gamma_s\), \(1 \leq s \leq k\), that is not a permutation,
-by the first half of the proof above with \(\min(k, L-1)\) replaced by
-\(k\), which uses no return. (b) gives (c), the family not P-divisible
-on \(\{0, \ldots, n\}\) for some \(n\), by the corollary (near-return),
-when the near-return condition (NR) holds for an overlapping pair of
-rows of that \(\Gamma_s\), assumed as a hypothesis of this implication
-and not adopted. (c) gives (a): if no order below \(n\) has a gap, the
-law on \(\{0, \ldots, n\}\) is Markov with one-step matrices \(Q_j\)
-(rows of zero-probability states chosen stochastic), every root has
-positive probability under full support (FS), so each row of
-\(\Gamma_t\) is a conditional law of that Markov process and
+direction at a time. (NR) concerns a time that need not be accessible
+and then has no finite-window test; for the selected update of §3.2 on
+\(\mathbb{Z}^d\) no law that is not supported on periodic configurations
+is known to satisfy it. (a) A readback gap at some finite order \(k\)
+gives (b) some \(\Gamma_s\), \(1 \leq s \leq k\), that is not a
+permutation, by the first half of the proof above with \(\min(k, L-1)\)
+replaced by \(k\), which uses no return. (b) gives (c), the family not
+P-divisible on \(\{0, \ldots, n\}\) for some \(n\), by the corollary
+(near-return), when the near-return condition (NR) holds for an
+overlapping pair of rows of that \(\Gamma_s\), assumed as a hypothesis
+of this implication and not adopted. (c) gives (a): if no order below
+\(n\) has a gap, the law on \(\{0, \ldots, n\}\) is Markov with one-step
+matrices \(Q_j\) (rows of zero-probability states chosen stochastic),
+every root has positive probability under full support (FS), so each row
+of \(\Gamma_t\) is a conditional law of that Markov process and
 \(\Gamma_t = \Gamma_s (Q_s \cdots Q_{t-1})\) for all \(s < t \leq n\),
 and the family is P-divisible on \(\{0, \ldots, n\}\). The bound below
 \(L\) and the horizon \(\{0, \ldots, L\}\) are statements about the
@@ -1263,11 +1269,11 @@ fails at every sufficiently late time. Continuous-time P-indivisibility
 for general Hamiltonian flows is open.
 
 The recurrence argument establishes P-indivisibility across the
-recurrence cycle. The readback lemma below shows that a readback gap at
-an accessible order produces conditional memory on observable
-timescales; that is a property of the multi-time law and does not by
-itself make the rooted family P-indivisible on those windows (Scope,
-above). A sufficient further condition is a revival of
+recurrence cycle of a finite representative. The readback lemma below
+shows that a readback gap at an accessible order produces conditional
+memory on observable timescales; that is a property of the multi-time
+law and does not by itself make the rooted family P-indivisible on those
+windows (Scope, above). A sufficient further condition is a revival of
 distinguishability within the window: two roots whose rooted laws
 coincide, or are closer, at an earlier time and differ more at a later
 one.
@@ -1372,8 +1378,11 @@ without readback, is noise.
 readback lemma are independent: the former establishes P-indivisibility
 from a non-permutation one-step witness and finiteness alone, at the
 recurrence time, or from a non-permutation rooted map and the
-near-return condition (NR) of §2.3, assumed in its place and not
-adopted, without finiteness of the hidden sector; the latter locates
+near-return condition (NR) of §2.3, assumed in its place and not adopted
+(it concerns a time that need not be accessible and then has no
+finite-window test; for the selected update of §3.2 on \(\mathbb{Z}^d\)
+no law that is not supported on periodic configurations is known to
+satisfy it), without finiteness of the hidden sector; the latter locates
 observable conditional memory inside accessible windows, which does not
 by itself make the rooted family P-indivisible there. (C2) keeps stored
 history alive between couplings; (C3) provides the room to store it;
@@ -1672,11 +1681,14 @@ the infinite-region completion (§3.2, §3.4), which is assembled from
 finite-region stages, runs on finite configuration spaces: Lemma 1 for
 the visible sector, with the total-finiteness posit (§1.2 Remark, §4.5)
 where a result also needs the hidden sector finite; the near-return
-corollary of §2.3, the index-free form of §2.3 under (FS) and (NR), the
-remark of §3.2 under the condition (IP), the measurable-carrier
-corollary of §3.2 and the two coupling-step theorems of §3.4 (the
-quantitative C2 theorem and the physical-memory theorem) take a
-measurable hidden space.
+corollary of §2.3, the index-free form of §2.3 under (FS) and (NR),
+assumed as hypotheses and not adopted (the condition (NR) concerns a
+time that need not be accessible and then has no finite-window test; for
+the selected update of §3.2 on \(\mathbb{Z}^d\) no law that is not
+supported on periodic configurations is known to satisfy it), the remark
+of §3.2 under the condition (IP), the measurable-carrier corollary of
+§3.2 and the two coupling-step theorems of §3.4 (the quantitative C2
+theorem and the physical-memory theorem) take a measurable hidden space.
 
 Three features are fixed at the representation level. When a continuous
 interpolation \(U(t) = e^{-i\hat{H}t}\) is chosen (§3.2), it is
@@ -2049,8 +2061,11 @@ the appropriate scope. On a measurable carrier the conclusion holds at
 every step under the invariant-product condition (IP), assumed as a
 hypothesis of this remark and not adopted: \(\varphi\) preserves a
 probability \(\nu \otimes \rho\) on \(\mathcal{C}_V \times H\) with
-\(\nu\) uniform. For the rooted maps \(\Gamma_t\) of the prior \(\rho\),
-as in §2.3, rows sum to one because \(\rho\) is a probability, and
+\(\nu\) uniform. (IP) is a condition on a law on the whole carrier;
+finite-window data can test some of its consequences but cannot
+establish it, and do not distinguish it from a finite carrier's counting
+law. For the rooted maps \(\Gamma_t\) of the prior \(\rho\), as in §2.3,
+rows sum to one because \(\rho\) is a probability, and
 \(\sum_a \Gamma_t(a, b) = |\mathcal{C}_V|\,(\nu \otimes \rho)(\pi_V \circ \varphi^t = b) = |\mathcal{C}_V|\,\nu(b) = 1\)
 by invariance.
 
@@ -5436,10 +5451,13 @@ compressed transition-statistics representation uses the separate
 translation hypothesis (T), and the phase-locking result uses
 (G1)--(G4). Recurrence-scale P-indivisibility uses finite order of the
 specified bijective representative, or the near-return condition (NR)
-assumed in its place and not adopted, and a non-permutation rooted map
-under a common hidden preparation (§2.3). On accessible windows a
-witnessed readback gap gives a pair-dependent quantitative bound on
-conditional memory (§2.3).
+assumed in its place and not adopted (it concerns a time that need not
+be accessible and then has no finite-window test; for the selected
+update of §3.2 on \(\mathbb{Z}^d\) no law that is not supported on
+periodic configurations is known to satisfy it), and a non-permutation
+rooted map under a common hidden preparation (§2.3). On accessible
+windows a witnessed readback gap gives a pair-dependent quantitative
+bound on conditional memory (§2.3).
 
 \textbf{Falsifiability.} The framework's structural claim is that
 \emph{the hidden sector is a classical substratum} --- a deterministic
@@ -5565,20 +5583,21 @@ and classical Hamiltonian flow {[}42, 43{]}, at no cost to the
 downstream results --- see the remark following Lemma 3); (iv) the
 measure selection for constructed realizations (§1.2 Remark) is a
 maximal-entropy principle (``the maximal-entropy invariant measure
-compatible with the observer's records'') --- a standard but substantive
-epistemic postulate, not derived; (v) the hidden-sector mixing
-hypothesis (ETH-motivated) conditioning the slow-bath form of the
-C2-necessity direction, for a system class (emergent descriptions of
-linear-mod-\(q\) automata) on which the standard ETH evidence base is
-silent, and whose exact linear rule conserves a quadratic invariant for
-every symmetric translation-invariant coupling and, at prime \(q\) not
-dividing the lattice size, for \(d\ge2\) splits its largest energy shell
-into exponentially many cycles {[}SM §4.2{]}, so that numerical
-motivation comes from the rounded candidate of {[}SM §4.2{]}, which
-behaves chaotically at the sizes measured, while whether the realized
-hidden sector satisfies the mixing hypothesis remains open --- this is
-the same open dynamical question as the typicality selection in (iv),
-one conditional wearing two hats; (vi) spatial isotropy, entering as
+compatible with the observer's records'') on a finite representative ---
+a standard but substantive epistemic postulate, not derived; (v) the
+hidden-sector mixing hypothesis (ETH-motivated) conditioning the
+slow-bath form of the C2-necessity direction, for a system class
+(emergent descriptions of linear-mod-\(q\) automata) on which the
+standard ETH evidence base is silent, and whose exact linear rule
+conserves a quadratic invariant for every symmetric
+translation-invariant coupling and, at prime \(q\) not dividing the
+lattice size, for \(d\ge2\) splits its largest energy shell into
+exponentially many cycles {[}SM §4.2{]}, so that numerical motivation
+comes from the rounded candidate of {[}SM §4.2{]}, which behaves
+chaotically at the sizes measured, while whether the realized hidden
+sector satisfies the mixing hypothesis remains open --- this is the same
+open dynamical question as the typicality selection in (iv), one
+conditional wearing two hats; (vi) spatial isotropy, entering as
 empirical input E4 of the reconstruction; (vii) linearity of the
 substratum update (A5), a further restriction beyond the affine
 condition. The affine step uses base-point-independent first
@@ -5892,32 +5911,34 @@ estimate and not adopted: a normalized \(\varphi\)-invariant probability
 \(\mu\), \(P\) the \(\mu\)-conditional expectation onto the declared
 local observables of a finite readout support with a locally finite
 dependence cone, and (EM) stated for the \(\mu\)-centred observables of
-\(L^2(\mu)\). The \(O(\varepsilon)\) typical-set and finite-size
-corrections, the canonical-typicality clause and the exact recurrence of
-the Koopman operator of a finite permutation (Setup) are statements
-about the finite representative. Three scope notes. (i) \emph{Locality
-of \(V\).} The theorem assumes \(V\) has bounded coupling-graph
-diameter. Adversarially non-local partitions --- cherry-picking distant
-subsystems that happen to be correlated --- are excluded by that
-assumption; bounded coupling degree does not by itself bound the
-diameter of \(V\), and the finite response time of a physical observer
-motivates the assumption. (ii) \emph{Ergodicity.} The gap the argument
-needs belongs to the coarse-grained effective channel
-\(\mathcal{K}_\Sigma\), not to \(\varphi\) itself: the exact Koopman
-operator of a finite permutation has modulus-one spectrum and cannot
-mix, so no spectral gap on typical orbits of \(\varphi\) is available or
-assumed. A gap for \(\mathcal{K}_\Sigma\) is exactly the content of (EM)
-and does not follow from statistical isotropy or bounded-coupling
-regularity. The cycle structure of \(\varphi\) does not settle (EM),
-which concerns the one-step compression: a single cycle does not make
-the exact compressions relax (below), and orbits of length at most \(2\)
-do not prevent a gap (on four states with cells \(\{0,1\}\),
-\(\{2,3\}\), the transposition \((0\,2)\) gives \(\mathcal{K}_\Sigma\)
-with eigenvalues \(1\) and \(0\)). The exact linear rule of {[}SM
-§4.2{]}, whose largest energy shell for \(d\ge2\) splits into
-exponentially many cycles, is therefore not excluded by its cycle
-structure; whether it or the rounded bijection satisfies (EM) is open.
-The exact \(n\)-step compressions
+\(L^2(\mu)\). (IL) is a condition on a law on the whole carrier;
+finite-window data can test some of its consequences but cannot
+establish it, and do not distinguish it from a finite carrier's counting
+law. The \(O(\varepsilon)\) typical-set and finite-size corrections, the
+canonical-typicality clause and the exact recurrence of the Koopman
+operator of a finite permutation (Setup) are statements about the finite
+representative. Three scope notes. (i) \emph{Locality of \(V\).} The
+theorem assumes \(V\) has bounded coupling-graph diameter. Adversarially
+non-local partitions --- cherry-picking distant subsystems that happen
+to be correlated --- are excluded by that assumption; bounded coupling
+degree does not by itself bound the diameter of \(V\), and the finite
+response time of a physical observer motivates the assumption. (ii)
+\emph{Ergodicity.} The gap the argument needs belongs to the
+coarse-grained effective channel \(\mathcal{K}_\Sigma\), not to
+\(\varphi\) itself: the exact Koopman operator of a finite permutation
+has modulus-one spectrum and cannot mix, so no spectral gap on typical
+orbits of \(\varphi\) is available or assumed. A gap for
+\(\mathcal{K}_\Sigma\) is exactly the content of (EM) and does not
+follow from statistical isotropy or bounded-coupling regularity. The
+cycle structure of \(\varphi\) does not settle (EM), which concerns the
+one-step compression: a single cycle does not make the exact
+compressions relax (below), and orbits of length at most \(2\) do not
+prevent a gap (on four states with cells \(\{0,1\}\), \(\{2,3\}\), the
+transposition \((0\,2)\) gives \(\mathcal{K}_\Sigma\) with eigenvalues
+\(1\) and \(0\)). The exact linear rule of {[}SM §4.2{]}, whose largest
+energy shell for \(d\ge2\) splits into exponentially many cycles, is
+therefore not excluded by its cycle structure; whether it or the rounded
+bijection satisfies (EM) is open. The exact \(n\)-step compressions
 \(P_\Sigma\, \mathcal{U}_\varphi^n\, P_\Sigma\) are compressions of a
 permutation, recur, and need not equal \(\mathcal{K}_\Sigma^n\): for the
 cyclic shift on five states with a coarse variable marking one of them,
@@ -6304,4 +6325,4 @@ of probabilities, probability on trajectories, and the
 stochastic-quantum correspondence,'' arXiv:2602.23491v1 (2026).
 
 \end{document}
-% source-sha256: be49228a814cb638d152b762abc7e011f0d891aa5a7634803ade8a99f3dca975
+% source-sha256: bc4c93a2022c8c805bfef1d9d8a59a6c0e5c78b34d0dc3c48dcdf893eec4a1e9

@@ -1406,12 +1406,12 @@
       "note": ""
     },
     {
-      "id": "SM:L-unnamed-ff7b7d06",
+      "id": "SM:L-unnamed-675607a6",
       "paper": "papers/SM.md",
       "line": 122,
       "kind": "Lemma",
       "label": "",
-      "fingerprint": "ff7b7d068e326e1f",
+      "fingerprint": "675607a6c305eeb8",
       "area": "sm",
       "assumptions": "see the statement",
       "checks": [],
@@ -1502,9 +1502,9 @@
       "line": 252,
       "kind": "Lemma",
       "label": "1c (canonical projection and the resummed kernel)",
-      "fingerprint": "4aa41b0aa132f70b",
+      "fingerprint": "242ff16786e66342",
       "area": "sm",
-      "assumptions": "the selected invariant measure; (ii) on a finite configuration space, or fibrewise for translation-invariant U and P with finite-dimensional cell data",
+      "assumptions": "the selected counting measure or a stated structured prior, or on Z^d a law invariant under the update and the reversal (H-mu(phi,Theta), assumed as a hypothesis and not adopted); (ii) on a finite configuration space, or fibrewise for translation-invariant U and P with finite-dimensional cell data",
       "checks": [
         {
           "kind": "probe",
@@ -1710,7 +1710,7 @@
       "line": 332,
       "kind": "Proposition",
       "label": "4b (symmetric-point custodial scalarity for a component-complete site observer)",
-      "fingerprint": "179be8cffbf610f3",
+      "fingerprint": "e7cb872ef111a22a",
       "area": "sm",
       "assumptions": "see the statement",
       "checks": [],

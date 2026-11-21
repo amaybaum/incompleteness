@@ -1221,7 +1221,7 @@ The four-feature audit across OI, string theory, LQG, causal sets, and asymptoti
 | Program | Born-form / quantum probability | Unitary dilation | Memory / indivisibility | Commutant gauge |
 |---|---|---|---|---|
 | String theory | Yes (built in) | Yes | Non-Markovian modes; indivisibility not established here | Pattern; specific differs |
-| OI | Yes (represented) | Yes | C4 memory; indivisible at recurrence scale | $SU(3)\times SU(2)\times U(1)$ |
+| OI | Yes (represented) | Yes | C4 memory; indivisible at recurrence scale on a finite representative | $SU(3)\times SU(2)\times U(1)$ |
 | LQG | Yes (built in) | Yes | Memory plausible; indivisibility open | Pattern; specific differs |
 | Causal sets | Open (QSG) | Structurally | Memory plausible; indivisibility open | Pattern; trivial gauge |
 | Asymptotic safety | Yes (built in) | Yes | Non-Markovian EFT mechanisms; indivisibility not established here | Pattern; specific differs |

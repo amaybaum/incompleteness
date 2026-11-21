@@ -1944,7 +1944,11 @@ matrix contracts total variation), so none exists. \(\square\) On a
 finite representative Step 1 of the proof above supplies the condition
 (NR) at every multiple of \(N\) exceeding \(s\). The condition (NR)
 needs no finite hidden space, invariant law, bijection or period \(N\);
-\(n\) is any time after \(s\) at which its inequality holds.
+\(n\) is any time after \(s\) at which its inequality holds. (NR)
+concerns a time that need not be accessible and then has no
+finite-window test; for the selected update of Main §3.2 on
+\(\mathbb{Z}^d\) no law that is not supported on periodic configurations
+is known to satisfy it.
 
 \textbf{The accessible-timescale lemma.} A potential objection to the
 proof as stated is that the recurrence time \(N\) can be astronomically
@@ -2081,8 +2085,8 @@ important logical point is that the existence of a Hilbert/unitary/Born
 representation does not require P-indivisibility --- every finite
 stochastic law has such a representation. Accessible conditional memory
 instead identifies the memory-bearing sector; indivisibility across the
-recurrence cycle is a separate property, present wherever a rooted
-visible map is not a permutation.
+recurrence cycle is a separate property, present on a finite
+representative wherever a rooted visible map is not a permutation.
 
 The Born rule in the fixed-basis representation is therefore part of the
 representation dictionary, not a selector derived uniquely from C1--C4.
@@ -2243,18 +2247,22 @@ directions of the finite observable-law equivalence.
 memory-bearing. It forces different hidden posteriors for visible
 histories that share a current state but have different future laws, a
 persistence/readback requirement, and the capacity lower bound of C3.
-Without A1, the near-return condition of the corollary in §1.5 is the
-stated sufficient condition for the indivisibility conclusion. Under A1
-the physical representative is finite and reversible, so it also recurs:
-its rooted visible maps, defined for every root under one hidden prior,
-return to the identity, and a non-permutation stochastic matrix has no
-stochastic inverse, so any non-permutation rooted map makes the rooted
-law indivisible somewhere in the recurrence cycle. A C4 gap supplies
-such a map, and so does every non-deterministic visible step, including
-in laws that are Markov on every accessible window. With a full-support
-visible prior, that indivisibility is equivalent to memory at some order
-below the recurrence time; an observer sees the memory only when it
-appears at an accessible order, which is what C4 asserts.
+Without A1, the near-return condition of the corollary in §1.5, assumed
+as a hypothesis and not adopted, is the stated sufficient condition for
+the indivisibility conclusion (it concerns a time that need not be
+accessible and then has no finite-window test; for the selected update
+of Main §3.2 on \(\mathbb{Z}^d\) no law that is not supported on
+periodic configurations is known to satisfy it). Under A1 the physical
+representative is finite and reversible, so it also recurs: its rooted
+visible maps, defined for every root under one hidden prior, return to
+the identity, and a non-permutation stochastic matrix has no stochastic
+inverse, so any non-permutation rooted map makes the rooted law
+indivisible somewhere in the recurrence cycle. A C4 gap supplies such a
+map, and so does every non-deterministic visible step, including in laws
+that are Markov on every accessible window. With a full-support visible
+prior, that indivisibility is equivalent to memory at some order below
+the recurrence time; an observer sees the memory only when it appears at
+an accessible order, which is what C4 asserts.
 
 \textbf{Spatial extension.} The dependency graph supplies finite causal
 cones exactly for finite-range substrata. Bell adds a separate
@@ -22547,9 +22555,11 @@ this is the appropriate scope. On a measurable carrier the conclusion
 holds at every step under the invariant-product condition (IP), assumed
 as a hypothesis of this remark and not adopted: \(\varphi\) preserves a
 probability \(\nu \otimes \rho\) on \(\mathcal{C}_V \times H\) with
-\(\nu\) uniform. For the rooted maps \(\Gamma_t\) of the prior \(\rho\),
-as in Chapter 1 §1.5, rows sum to one because \(\rho\) is a probability,
-and
+\(\nu\) uniform. (IP) is a condition on a law on the whole carrier;
+finite-window data can test some of its consequences but cannot
+establish it, and do not distinguish it from a finite carrier's counting
+law. For the rooted maps \(\Gamma_t\) of the prior \(\rho\), as in
+Chapter 1 §1.5, rows sum to one because \(\rho\) is a probability, and
 \(\sum_a \Gamma_t(a, b) = |\mathcal{C}_V|\,(\nu \otimes \rho)(\pi_V \circ \varphi^t = b) = |\mathcal{C}_V|\,\nu(b) = 1\)
 by invariance.
 
@@ -24572,10 +24582,14 @@ assumption of the results that use it, the recurrence route to
 P-indivisibility among them, and one sufficient condition rather than a
 premise of the framework: the indivisibility conclusion of that route
 also follows from the near-return condition of Chapter 1 §1.5, assumed
-in its place and not adopted; the exact representation takes a supplied
-law on a finite alphabet through a finite horizon and constructs its
-finite realization; whether the theorem's empirical applicability
-requires actual finiteness of the universe is a separate question.
+in its place and not adopted (it concerns a time that need not be
+accessible and then has no finite-window test; for the selected update
+of Main §3.2 on \(\mathbb{Z}^d\) no law that is not supported on
+periodic configurations is known to satisfy it); the exact
+representation takes a supplied law on a finite alphabet through a
+finite horizon and constructs its finite realization; whether the
+theorem's empirical applicability requires actual finiteness of the
+universe is a separate question.
 
 \emph{In Chapter 7's gravitational content.} The cosmological horizon's
 finite area bounds what is observationally accessible: the Bekenstein
@@ -27024,4 +27038,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 1272664a6f68d079a60ffe262868ee1fdbf4f621088d43f419a5a68403a5ad32
+% source-sha256: 41d4fa4a3fab863a375fd99c339c5abff62f0655741317ee25101edcea37c0b9
