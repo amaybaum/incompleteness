@@ -2432,6 +2432,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *(A4) Center independence.* The dynamics does not depend on ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *(A5) Linearity.* The wave equation governing $\\varphi$ is l..."
     },
     {
@@ -3064,6 +3068,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Integer dimension.** The self-consistency argument assumes..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The argument's structure is worth marking explicitly. The fr..."
     },
     {
@@ -3160,6 +3168,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: where $G_{oo}$ is the hidden-sector propagator: the pointwis..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: On the stated taste-blind color embedding, $\\mathrm{SU}(3)$ ..."
     },
     {
@@ -3229,6 +3241,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: Chapter 5 states the staggered squared-operator identity on ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: One singlet taste; three triplet tastes related by cubic sym..."
     },
     {
       "ok": true,
@@ -7329,6 +7345,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: *The Higgs as inflaton.* The framework accommodates an input..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *No inflation needed.* The framework's lattice structure may..."
     },
     {
       "ok": true,

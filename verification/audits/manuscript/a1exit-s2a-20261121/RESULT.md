@@ -6,7 +6,8 @@ edits: amendment 1 (`66bae3100`) applied in `083e13db2` (D1); amendment 2 (`4781
 review) in `8b77e78f5` (D2, D3); amendment 3 (`a951e63d1`) in `d87cdc2a5` (D4); amendment 4
 (`3830adfa5`, round-2 review) in `dc058fd11` (D5). The PREREG body above the amendments is
 byte-identical to its text at `940dde6c1`. No Lean, census-registry or A1-EXIT-ledger edit apart from
-the SM:T-13 coverage-ledger re-affirmation; no Q1 record edit; no merge; no workflow dispatch. Review:
+the SM:T-13 coverage-ledger re-affirmation; no Q1 record edit; the SC-42 integration result file is regenerated under owner authorization (§4a);
+no merge; no workflow dispatch. Review:
 round 1 REVISE, round 2 ACCEPT-WITH-NITS (§7).
 
 **Authorization.** Owner `amaybaum`, #1169 comment 7056875845 (2026-11-21), unit S2-A. Q1's E5 is
@@ -119,6 +120,37 @@ text is confirmed by `s2a_check.py`.
 | added-line register scan (§A.32, §A.33) | no history phrase, reader instruction or caps emphasis |
 | `checks/s2a_check.py` (default) | PASS |
 | `checks/s2a_check.py --apply` on the base files (`1c7eedc40`) | reproduces the head's seven manuscript files byte for byte (re-run after amendment 4) |
+
+### 4a. SC-42 integration result regenerated
+
+Authorized by owner `amaybaum`, #1169 comment 7057674976 (2026-11-21), on the conditions set for
+S2-D. The SC-42 checker's mirror-parity section adds one predicate, "chapter line mirrored in FULL:
+<first 60 characters>", for every book chapter line added relative to its base `ca3a5bb2`, so this
+unit's book edits add entries to its result file. Command (the one CI compares against), from the
+repository root, with `R=verification/audits/manuscript/bell-operational-reconciliation-20261029`:
+
+    python3 -I -B $R/check_sc42_integration.py --verbose > $R/sc42-integration-result.json
+
+| Check | Result |
+|---|---|
+| exit status, normal and `-O` | 0 and 0; verdict PASS; the two stdout outputs byte-identical |
+| `ok: false` entries | none |
+| `--self-test`, normal and `-O` | exit 0; output byte-identical to the committed `sc42-integration-controls.json`, which is unchanged |
+| diff of the result file | 20 added lines: 5 added entries, all `ok: true`, nothing removed or changed |
+
+The five added entries, each a chapter line this unit changed whose first 60 characters are new
+relative to `ca3a5bb2`, each confirmed present verbatim in FULL:
+
+| Predicate prefix | Chapter line | Edit |
+|---|---|---|
+| `*(A4) Center independence.* The dynamics does not depend on ...` | ch02:82 = FULL:712 | A4-ch02-82 |
+| `**Integer dimension.** The self-consistency argument assumes...` | ch05:65 = FULL:1380 | A4-ch05-65 |
+| `where $G_{oo}$ is the hidden-sector propagator: the pointwis...` | ch05:164 = FULL:1479 | C13-ch05-164 (+ am4) |
+| `One singlet taste; three triplet tastes related by cubic sym...` | ch06:24 = FULL:1535 | E4 |
+| `*No inflation needed.* The framework's lattice structure may...` | ch19:198 = FULL:5268 | A4-ch19-198 |
+
+The other changed book lines (ch02:96, ch05:91) already differed from `ca3a5bb2`, and their 60-character
+prefixes are unchanged, so their entries were present before and stay as they were.
 
 ## 5. Deviations from PREREG
 
