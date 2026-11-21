@@ -157,3 +157,40 @@ D6 changed PREREG in place, at `c2001d82`. In §5, the location of the scratch c
 temporary directory outside the repository". The change was made because the CI added-text scan
 flagged the earlier word as a local path. It changes wording only. PREREG has not been edited since, and corrections are recorded
 in this amendment.
+
+## Additions after the round-2 review at `ee96218d` (ACCEPT-WITH-NITS)
+
+These answer the round-2 nits recorded on #1471. The pin stays `1c7eedc4`. The entry set and every
+entry's text are unchanged. R5 changes number tokens, and the snapshot is regenerated for that reason
+alone (§ R5 below).
+
+### R4. Moves across files
+
+An entry whose image lies in a different file is reported as `relocated`, and as
+`relocated_from_main` when its source file is `papers/Main.md`, because Main must stay independent of
+the downstream papers. The summary counts both. A relocation sets `any_change`, and compare then exits
+1. A move within one file is not a change: such an entry is reported `unchanged` with `moved` set.
+The text-diff consequences of a within-file move (the removal and insertion it causes) are not
+reported, because the line is paired. A self-test countercontrol moves M:780 into
+`papers/Substratum.md`. It must report one relocation, flagged from Main, and `any_change`.
+
+### R5. Subtraction digits
+
+R3 makes a minus sign after a letter part of an identifier. The exception is a subtraction, defined as
+either of:
+- a Unicode minus `−` (U+2212), as in `d−1` or `N−1`;
+- an ASCII hyphen inside inline math, meaning an odd number of unescaped `$` before it, as in
+  `$2/(d-1)$`.
+
+In a subtraction the digit is kept as an unsigned number token. `X-48`, `G-2` and `spin-0` outside
+math still give no token. Countercontrols:
+- `d−1` → `d−2` at Juno:238 must be `value changed`;
+- a tokenizer line checks `d−1`, `N−1` and `$2/(d-1)$`.
+
+Effect on the snapshot: the same 3105 entries with the same text. 59 entries gain number tokens (55 in
+`numbers`, 4 in table `cells`), and the total goes from 11932 to 12042.
+
+### R6. Compare-tree output
+
+With `--compare-tree`, the JSON report records the tree as `tree:<basename>`, never a local path.
+Compare reports are working files and are not committed.

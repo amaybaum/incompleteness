@@ -5,8 +5,9 @@ the state of every inventoried prediction, empirical comparison and A1-exit site
 the later before/after comparison can be run mechanically. Whether removing A1 weakened, strengthened
 or changed any physical prediction is not assessed here.
 
-**Status.** Writer's paper-only record, WIP / UNVERIFIED. The independent review of `c2001d82`
-returned REVISE (light), recorded on #1471. This revision answers it through amendment A1. No
+**Status.** Writer's paper-only record, WIP / UNVERIFIED. Independent review on #1471: round 1 at
+`c2001d82` returned REVISE (light), and round 2 at `ee96218d` returned ACCEPT-WITH-NITS. Both are answered
+through amendment A1. No
 manuscript, Lean, registry or ledger file is edited.
 
 **Authorization.**
@@ -35,7 +36,8 @@ the 42 `papers/*.md` and `book/*.md` files at the pin:
 | File | Content |
 |---|---|
 | `PREREG.md` | The inventory rule, entry schema, compare semantics and controls, pushed before extraction (`43eff402`). Frozen except for the D6 wording change |
-| `amendments/A1-prose-and-lexical.md` | Owner-approved coverage additions P1/P1w, P2 (D1), P3 (D2), P4 and P5, and the review-round-1 changes R1–R3, each pushed before the extraction that uses it (`8c43c6cf`, `6f7da1f1`) |
+| `amendments/A1-prose-and-lexical.md` | Owner-approved coverage additions P1/P1w, P2 (D1), P3 (D2), P4 and P5, and the review changes R1–R6. R1–R3 were pushed before the re-extraction that uses them (`8c43c6cf`,
+`6f7da1f1`). R4–R6 land in the same commit as the regenerated snapshot |
 | `baseline.py` | The extractor: `build`, `check`, `self-test`, `--compare <commit>`, `--compare-tree <dir>`, `--json <path>`. Standard library only; reads Git objects at the pin |
 | `snapshot.json` | The baseline: one compact JSON line per entry, plus the pin, corpus digest, ledger blob ids and counts (3.8 MB) |
 
@@ -52,10 +54,10 @@ python3 -I -B verification/audits/foundations/a1exit-regression-20261121/baselin
 
 Expected:
 - `check PASS: snapshot.json regenerates byte for byte from 1c7eedc402eafd2bac654484fa790874a33f444d
-  (sha256 3eda4b571354f6140e3848131cf136b6f3766fa9d1af1e044e80706f7de97906)`;
+  (sha256 7312f77e26c23ff1a11b378b0665c4424ff545ddd4541e2ceb17e83d57847654)`;
 - `self-test PASS`, with every line above it `PASS`;
-- `summary: {"deleted": 0, "deleted_flagged": 0, "moved": 0, "unaccounted": 0, "unaccounted_flagged": 0,
-  "unchanged": 3105}; any change: False`, with exit status 0.
+- `summary: {"deleted": 0, "deleted_flagged": 0, "moved": 0, "relocated": 0, "relocated_from_main": 0,
+  "unaccounted": 0, "unaccounted_flagged": 0, "unchanged": 3105}; any change: False`, with exit status 0.
 
 Run with Python 3.13. The output depends only on `re`, `difflib` and `json`. Another Python 3 version is
 expected to give the same bytes, and `check` detects any difference.
@@ -68,15 +70,25 @@ expected to give the same bytes, and `check` detects any difference.
   the image of an entry (`unaccounted`), in every file including new ones, and every deleted line that
   is not an entry (`deleted`). Each is flagged for numbers, comparison markers, status/scope/negation
   terms, table rows and new files.
-- **Exit status.** It exits 1 when anything changed and 0 when nothing did.
+- **Moves.**
+  - A move across files is a change. It is reported as `relocated`, and as `relocated_from_main` when
+    the source file is `papers/Main.md`. It sets `any_change`.
+  - A move within one file is not a change. The entry is reported `unchanged` with `moved` set and its
+    new line, and the move alone sets neither `any_change` nor the exit status. Lines inserted or
+    deleted around it are still reported as `unaccounted` or `deleted`.
+- **Exit status.** It exits 1 when any entry is changed, removed or relocated, or when any line is
+  `unaccounted` or `deleted`; otherwise it exits 0.
 - **JSON file.** The schema is `a1exit-regression-compare/1`, stated in the extractor's usage text and
   in amendment A1, R1.
+  - With `--compare <commit>`, `other` is the commit.
+  - With `--compare-tree <dir>`, `other` is `tree:<basename>`, never a local path.
+  - Compare reports are working files and are not committed.
 
 The later audit must read every `text changed` entry and every flagged `unaccounted` or `deleted` line.
 
 ## 3. Coverage
 
-3105 entries (709 table rows, 2396 prose lines), with 11932 numeric tokens. An entry can carry several
+3105 entries (709 table rows, 2396 prose lines), with 12042 numeric tokens. An entry can carry several
 categories.
 
 | Category | Entries | Ledger rows | Selected by |
@@ -209,6 +221,9 @@ All passed at the commit that adds this revision.
 | Prose-comparison label (Bio:128): `label changed` only | PASS |
 | Prose-comparison removal (Bio:128): `removed` only | PASS |
 | Identifier digits: `X-48, G-2, spin-0 and 10-20 with -0.5` gives tokens `10`, `20`, `-0.5` | PASS |
+| Passage moved out of Main: M:780 moved to Substratum; one `relocated` entry, flagged from Main; `any_change` true | PASS |
+| Subtraction: Juno:238 `d−1` → `d−2`, reported `value changed` | PASS |
+| Subtraction digits: `d−1`, `N−1`, `$2/(d-1)$` give tokens `1`, `1`, `2`, `1` | PASS |
 | `--compare` against the pin: 3105 unchanged, nothing unaccounted or deleted, exit 0 | PASS |
 
 **Scratch-copy test.** The pin corpus was copied to a temporary directory outside the repository and
@@ -247,6 +262,11 @@ Recorded in full in amendment A1. In brief:
   signature; `--json <path>` with a schema; exit status.
 - **R2.** Eight added countercontrols.
 - **R3.** Identifier digits are not numbers.
+- **R4.** A move across files is reported as `relocated` (flagged when it leaves Main) and counts as a
+  change.
+- **R5.** Subtraction digits (`d−1`, `$2/(d-1)$`) are kept. This changes number tokens in 59 entries;
+  the entry set and texts are unchanged.
+- **R6.** `--compare-tree` reports record the tree's basename only.
 
 The unchanged earlier deviations:
 - **D3.** Abbreviations `README`, `appb` and `appc` from the ledger cells were added. `Bio` and `Juno`
@@ -270,8 +290,7 @@ approved, and D1 and D2 are accepted as coverage additions. No owner decision is
 | #1169 comments 7056875845 and 7057674976 | Authorization, coverage approvals | provenance (quoted with author and time) |
 | #1468 | Goal link, obligation | provenance |
 | PR #1471 and its round-1 review record | Where this record is reviewed; the source of R1–R3 | provenance |
-| `43eff402` (PREREG commit), `7dde93f3` (first extraction) | Order of preregistration and extraction | provenance; both are ancestors of this record's commit on PR #1471, and they land with it by merge commit |
-| `8c43c6cf`, `6f7da1f1` (amendment A1 commits) | Amendment pushed before re-extraction | provenance; ancestors of this record's commit |
+| `43eff402` (PREREG commit), `7dde93f3` (first extraction), `8c43c6cf` and `6f7da1f1` (amendment A1 commits) | The preregistration preceded the first extraction, and the amendment preceded the re-extraction | support: the claim uses the order of these commits. They are ancestors of this record's commit and become reachable from `main` only when the record lands by merge commit, which preserves them. A squash or rebase landing would not, and is excluded |
 | Scratch-copy test (temporary directory outside the repository, not retained) | Compare mode on synthetic edits | provenance; the claim rests on `self-test`, on `main` with this record |
 | `verification/audits/foundations/a1exit-ledger-20261120/` (blob ids in `snapshot.json`) | Ledger sites and rows | support on `main` |
 
@@ -280,8 +299,10 @@ approved, and D1 and D2 are accepted as coverage additions. No owner decision is
 - **Evidence level.** A deterministic extraction from the Git objects at the pin. `check` regenerates
   it byte for byte, and the controls of §5 pass. It certifies only what the snapshot records about the
   pinned text, and makes no claim about the physics.
-- **Missing.** Independent non-author review of this revision: amendment A1, the widened coverage and
-  the rewritten compare mode. Round 1 at `c2001d82` returned REVISE (light).
+- **Missing.** A delta check of the round-2 answers R4–R6 and the regenerated snapshot. Round 2 at
+  `ee96218d` returned ACCEPT-WITH-NITS.
 - **Accountable Issue.** #1468.
+- **Landing.** By merge commit only, so that the commits cited as support in §8 are reachable from
+  `main`.
 - **What would resolve it.** An independent review recorded on PR #1471. The before/after comparison
   and the verdict each need their own owner authorization.

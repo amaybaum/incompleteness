@@ -219,6 +219,19 @@ def role_of(col):
     return 'other'
 
 
+def in_math(t, pos):
+    """True when position pos lies inside inline math: an odd number of unescaped $ before it."""
+    n, i = 0, 0
+    while i < pos:
+        if t[i] == '\\':
+            i += 2
+            continue
+        if t[i] == '$':
+            n += 1
+        i += 1
+    return n % 2 == 1
+
+
 def parse_numbers(text):
     t = CITE_RE.sub(lambda m: ' ' * len(m.group(0)), text)
     out, pos = [], 0
@@ -231,10 +244,16 @@ def parse_numbers(text):
         it = IDENT_TAIL.search(t[max(0, m.start() - 40):m.start()]) if not m.group(1) else None
         in_ident = bool(it) and not it.group(1)
         # amendment A1, R3: a hyphen after a letter is part of an identifier (X-48, G-2, spin-0)
+        # amendment A1, R5: ... except a subtraction: a Unicode minus (d−1, N−1), or an ASCII hyphen
+        # inside inline math (2/(d-1)); the digit is kept, unsigned
+        subtraction = False
         if m.group(1) and m.start() > 0 and t[m.start() - 1].isalpha():
             hit = IDENT_TAIL.search(t[max(0, m.start() - 40):m.start()])
             if not (hit and hit.group(1)):
-                in_ident = True
+                if m.group(1) == '−' or in_math(t, m.start()):
+                    subtraction = True
+                else:
+                    in_ident = True
         if in_ident or EXCL_PREFIX.search(pre) or (m.start() > 0 and t[m.start() - 1] in '-' and
                                                    re.search(r'[A-Za-z]-$', pre)):
             pos = end
@@ -245,7 +264,7 @@ def parse_numbers(text):
                     end += 1
             pos = end
             continue
-        sign = '-' if m.group(1) else ''
+        sign = '-' if m.group(1) and not subtraction else ''
         tok = sign + m.group(2)
         rec = {'tok': tok}
         if m.group(3):
@@ -664,6 +683,11 @@ def compare(snap, other):
         ne = describe_line(new[f2], j, tidx[f2])
         r['new_file'], r['new_line'] = f2, j + 1
         r['moved'] = (f2, j + 1) != (e['file'], e['line'])
+        if f2 != e['file']:
+            # amendment A1, R4: a move across files is a change; flagged when it leaves Main
+            r['relocated'] = True
+            if e['file'] == 'papers/Main.md':
+                r['relocated_from_main'] = True
         if ne['text'] == e['text']:
             r['status'] = ['unchanged']
         else:
@@ -697,11 +721,14 @@ def compare(snap, other):
         k = '+'.join(r['status'])
         summary[k] = summary.get(k, 0) + 1
     summary['moved'] = sum(1 for r in entries if r.get('moved'))
+    summary['relocated'] = sum(1 for r in entries if r.get('relocated'))
+    summary['relocated_from_main'] = sum(1 for r in entries if r.get('relocated_from_main'))
     summary['unaccounted'] = len(unaccounted)
     summary['unaccounted_flagged'] = sum(1 for u in unaccounted if u['flags'])
     summary['deleted'] = len(deleted)
     summary['deleted_flagged'] = sum(1 for d in deleted if d['flags'])
-    changed = (any(r['status'] != ['unchanged'] for r in entries) or bool(unaccounted) or bool(deleted))
+    changed = (any(r['status'] != ['unchanged'] for r in entries) or bool(unaccounted) or bool(deleted)
+               or summary['relocated'] > 0)
     return {'schema': COMPARE_SCHEMA, 'pin': PIN, 'any_change': changed, 'summary': summary,
             'entries': entries, 'unaccounted': unaccounted, 'deleted': deleted}
 
@@ -719,7 +746,9 @@ def print_report(res):
     for r in res['entries']:
         if r['status'] != ['unchanged'] or r.get('moved'):
             where = '-' if 'new_line' not in r else '%s:%d' % (r['new_file'], r['new_line'])
-            print('%-12s %-28s -> %s  %s' % (r['id'], ', '.join(r['status']) + (' (moved)' if r.get('moved') else ''),
+            print('%-12s %-28s -> %s  %s' % (r['id'], ', '.join(r['status']) + (' (relocated from Main)' if r.get('relocated_from_main') else
+                                             ' (relocated)' if r.get('relocated') else
+                                             ' (moved)' if r.get('moved') else ''),
                                              where, ','.join(r['categories'])))
     for u in res['unaccounted']:
         print('UNACCOUNTED  %s:%d  %s [%s]  %s' % (u['file'], u['line'], u['kind'], ','.join(u['flags']),
@@ -737,14 +766,15 @@ def self_test(snap):
     ids = {e['id']: e for e in snap['entries']}
     at = {(e['file'], e['line']): e for e in snap['entries']}
 
-    def run(name, mutate, expect, n_unacc=0, n_del=0, check=None, flags=None):
+    def run(name, mutate, expect, n_unacc=0, n_del=0, check=None, flags=None, n_reloc=0):
         nonlocal ok
         c = dict(pin)
         mutate(c)
         res = compare(snap, c)
         got = {r['id']: tuple(r['status']) for r in res['entries'] if r['status'] != ['unchanged']}
         good = (got == expect and len(res['unaccounted']) == n_unacc and len(res['deleted']) == n_del
-                and res['any_change'] == bool(expect or n_unacc or n_del))
+                and res['summary']['relocated'] == n_reloc
+                and res['any_change'] == bool(expect or n_unacc or n_del or n_reloc))
         if flags is not None:
             good = good and all(set(flags) <= set(u['flags']) for u in res['unaccounted'])
         if check is not None:
@@ -908,6 +938,30 @@ def self_test(snap):
             c[pf] = '\n'.join(ls)
         run('countercontrol: prose-comparison removed', premove, {pid: ('removed',)})
 
+    # amendment A1, R4: a passage moved out of Main into a downstream paper
+    mainf, subf = 'papers/Main.md', 'papers/Substratum.md'
+    m780 = ids['M:780']
+
+    def move_out(c):
+        ls = lines_of(c[mainf])
+        assert ls[779] == m780['text']
+        del ls[779]
+        c[mainf] = '\n'.join(ls)
+        c[subf] = c[subf] + '\n' + m780['text'] + '\n'
+    run('countercontrol: passage moved out of Main', move_out, {}, n_reloc=1,
+        check=lambda res: res['summary']['relocated_from_main'] == 1 and any(
+            r['id'] == 'M:780' and r.get('relocated_from_main') and r['new_file'] == subf
+            for r in res['entries']))
+
+    # amendment A1, R5: a subtraction keeps its digit
+    sub = [e for e in snap['entries'] if 'd−1' in e['text'] and e['kind'] == 'prose'][0]
+    run('countercontrol: d−1 -> d−2 is a value change',
+        lambda c: setline(c, sub['file'], sub['line'], sub['text'].replace('d−1', 'd−2', 1)),
+        {sub['id']: ('value changed',)})
+    tok = [n['tok'] for n in parse_numbers('d−1 and N−1 and $2/(d-1)$')]
+    good = tok == ['1', '1', '2', '1']
+    print('%-46s %s  (%s)' % ('subtraction digits are kept', 'PASS' if good else 'FAIL', tok))
+    ok = ok and good
     tok = [n['tok'] for n in parse_numbers('X-48, G-2, spin-0 and 10-20 with -0.5')]
     good = tok == ['10', '20', '-0.5']
     print('%-46s %s  (%s)' % ('identifier digits are not numbers', 'PASS' if good else 'FAIL', tok))
@@ -959,7 +1013,9 @@ def main(argv):
             snap = json.load(fh)
         other = corpus_at_commit(argv[1]) if argv[0] == '--compare' else corpus_at_dir(argv[1])
         res = compare(snap, other)
-        res['other'] = argv[1]
+        # amendment A1, R6: a tree is recorded by its basename only, never a local path
+        res['other'] = argv[1] if argv[0] == '--compare' else 'tree:' + os.path.basename(
+            os.path.normpath(argv[1]))
         print_report(res)
         if json_path:
             with open(json_path, 'w', encoding='utf-8', newline='\n') as fh:
