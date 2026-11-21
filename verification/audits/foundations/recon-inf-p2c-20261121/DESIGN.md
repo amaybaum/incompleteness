@@ -269,8 +269,8 @@ Node 4 is the owner's question Q (J2); Node 5 is the stronger reading Q⁺ (J3);
   exactness)? The positive is recorded as **generic** if at least one reference rule realizes the
   target, shown by an exact primal witness; it is then not specific to the Stage 2 dynamics and does
   not count as an identification of the stages under the productivity test (§5, (a)). It is
-  credited as **specific** to Stage 2 only if every reference rule is excluded, each by its own exact
-  dual or Farkas certificate over the listed readout maps and preparations (as in Nodes 4a–4b). If
+  credited as **specific** to Stage 2 only if every J1 member of the reference set is excluded,
+  each by its own exact dual or Farkas certificate covering the same listed readout maps, preparation classes, `m` range, window and horizon as the positive under test (a thinner list does not count), as in Nodes 4a–4b. If
   neither holds, the question is unanswered and the positive is not accepted. Node-specific
   questions are added below.
 
@@ -306,8 +306,10 @@ Node 4 is the owner's question Q (J2); Node 5 is the stronger reading Q⁺ (J3);
   J1 rule (reversible, finite-range, translation-invariant, centre-free under A4's no-self-input
   clause) outside the `Φ_{q,α}` family and carrying no Stage 2 content, with a stated reason for its
   inclusion; Node 2's universal construction is included wherever Node 2 finds one. If the range-0
-  rule is kept in the set, it is labelled J1⁰, because it violates A4's no-self-input clause, and the
-  record states that a generic verdict resting on it alone is a J1⁰ verdict.
+  rule is kept in the set, it is listed as a J1⁰ member outside this criterion, because it violates
+  A4's no-self-input clause. A positive realized only by the range-0 rule is recorded as generic over
+  J1⁰; it is credited as specific only if every J1 member of the set is excluded, each with its own
+  certificate as in §4's common rule.
 - **Countercontrol.** The range-0 construction is the vacuity witness: any identification criterion
   that it satisfies is too weak to answer Q and is not used. Applied at freeze to J5(T), which it
   satisfies (§2.4).
@@ -458,8 +460,8 @@ Opened after Node 4 closes, whatever its outcome. Reported separately from Q. Al
     Node 2's frozen reference rule set (ε)-realizes the target, readout and preparation free within
     the same classes, shown by an exact primal witness, the positive is recorded as generic and does
     not count as an identification of the stages under §5 (a). It is credited as specific only if
-    every reference rule is excluded, each by its own exact dual or Farkas certificate; otherwise the
-    positive is not accepted.
+    every J1 member of the reference set is excluded, each by its own exact dual or Farkas certificate covering the same listed readout maps, preparation classes, `m` range, window and horizon as the positive under test (a thinner list does not count); otherwise the positive is not
+    accepted.
   - (ii) Readout carries the law: if `g` and the conditioning event `E` together encode the target, in
     the sense of Node 4b's test (ii′), the positive is recorded as carried by the readout and J3 is
     not credited.
