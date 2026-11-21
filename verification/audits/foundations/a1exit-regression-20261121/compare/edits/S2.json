@@ -1,0 +1,4131 @@
+{
+ "commit": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+ "edits": [
+  {
+   "amends": null,
+   "id": "E1",
+   "key": "S2-A:E1",
+   "kind": "replace",
+   "method": "json",
+   "new": "(under A1 and A4 [Substratum §3.1] it acts on configurations over a finite periodic quotient $\\Lambda/P$; the staggered and cubic results below are stated on $\\Lambda$ and hold on such a quotient when $P$ admits them: the staggered phases, and the identity of Theorem 2 with the two-step stencil, require every vector of $P$ to be even off one axis; the checkerboard requires even coordinate sums; the blocked lattice, the eight Brillouin-zone corners and the staggered blocking require $P \\subset 2\\mathbb Z^d$; and the cubic group acts when it maps $P$ to itself)",
+   "old": "(under A1 and A4 [Substratum §3.1] it acts on configurations over a finite periodic quotient of $\\Lambda$)",
+   "pr": 1470,
+   "rows": [
+    "X-42",
+    "X-43"
+   ],
+   "seq": 0,
+   "source_path": "verification/audits/manuscript/a1exit-s2a-20261121/checks/s2a_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/SM.md"
+    }
+   ],
+   "unit": "S2-A"
+  },
+  {
+   "amends": null,
+   "id": "E2a",
+   "key": "S2-A:E2a",
+   "kind": "replace",
+   "method": "json",
+   "new": "On $\\mathbb Z^3$, and on a quotient whose period vectors all lie in $2\\mathbb Z^3$, the staggered-to-Dirac reconstruction identifies the two sublattices",
+   "old": "The staggered-to-Dirac reconstruction identifies the two sublattices",
+   "pr": 1470,
+   "rows": [
+    "X-42"
+   ],
+   "seq": 1,
+   "source_path": "verification/audits/manuscript/a1exit-s2a-20261121/checks/s2a_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/SM.md"
+    }
+   ],
+   "unit": "S2-A"
+  },
+  {
+   "amends": null,
+   "id": "E2b",
+   "key": "S2-A:E2b",
+   "kind": "replace",
+   "method": "json",
+   "new": "For the designated checkerboard cut on these lattices, the visible",
+   "old": "For the designated checkerboard cut, the visible",
+   "pr": 1470,
+   "rows": [
+    "X-42"
+   ],
+   "seq": 2,
+   "source_path": "verification/audits/manuscript/a1exit-s2a-20261121/checks/s2a_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/SM.md"
+    }
+   ],
+   "unit": "S2-A"
+  },
+  {
+   "amends": null,
+   "id": "E3a",
+   "key": "S2-A:E3a",
+   "kind": "replace",
+   "method": "json",
+   "new": "block-diagonal coupling, bipartite checkerboard structure on $\\Lambda$ and on quotients whose period vectors have even coordinate sum) at the bilinear level",
+   "old": "block-diagonal coupling, bipartite checkerboard structure) at the bilinear level",
+   "pr": 1470,
+   "rows": [
+    "X-42"
+   ],
+   "seq": 3,
+   "source_path": "verification/audits/manuscript/a1exit-s2a-20261121/checks/s2a_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/SM.md"
+    }
+   ],
+   "unit": "S2-A"
+  },
+  {
+   "amends": null,
+   "id": "E3b",
+   "key": "S2-A:E3b",
+   "kind": "replace",
+   "method": "json",
+   "new": "the substratum's bipartite-lattice plus commutant structure (on $\\Lambda$ and on quotients whose period vectors have even coordinate sum)",
+   "old": "the substratum's bipartite-lattice plus commutant structure",
+   "pr": 1470,
+   "rows": [
+    "X-42"
+   ],
+   "seq": 4,
+   "source_path": "verification/audits/manuscript/a1exit-s2a-20261121/checks/s2a_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/SM.md"
+    }
+   ],
+   "unit": "S2-A"
+  },
+  {
+   "amends": null,
+   "id": "E3c",
+   "key": "S2-A:E3c",
+   "kind": "replace",
+   "method": "json",
+   "new": "block-diagonal coupling, bipartite checkerboard structure on $\\Lambda$ and on quotients whose period vectors have even coordinate sum) and the emergent-level",
+   "old": "block-diagonal coupling, bipartite checkerboard structure) and the emergent-level",
+   "pr": 1470,
+   "rows": [
+    "X-42"
+   ],
+   "seq": 5,
+   "source_path": "verification/audits/manuscript/a1exit-s2a-20261121/checks/s2a_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/SM.md"
+    }
+   ],
+   "unit": "S2-A"
+  },
+  {
+   "amends": null,
+   "id": "E4",
+   "key": "S2-A:E4",
+   "kind": "replace",
+   "method": "json",
+   "new": "One singlet taste; three triplet tastes related by cubic symmetry. These are the corners and the cubic action of $\\mathbb Z^3$; a finite periodic quotient of it (Chapter 2, A4) carries all eight corners when its period vectors lie in $2\\mathbb Z^3$, and the cubic group acts on it when it maps the period lattice to itself.",
+   "old": "One singlet taste; three triplet tastes related by cubic symmetry.",
+   "pr": 1470,
+   "rows": [
+    "X-42",
+    "X-43"
+   ],
+   "seq": 6,
+   "source_path": "verification/audits/manuscript/a1exit-s2a-20261121/checks/s2a_edits.json",
+   "targets": [
+    {
+     "chapter": "book/ch06-matter-content.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    },
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch06-matter-content.md"
+    }
+   ],
+   "unit": "S2-A"
+  },
+  {
+   "amends": null,
+   "id": "E6",
+   "key": "S2-A:E6",
+   "kind": "replace",
+   "method": "json",
+   "new": "Matching the blocked stencil and solution classes to the normalized nearest-neighbor observer wave above is a separate step. On a finite periodic quotient of $\\mathbb Z^3$ (Chapter 2, A4), the staggered phases and this two-step identity require every period vector to be even off one axis; the blocked stencil, the hypercube corners and the spin–taste grading used below require the period vectors to lie in $2\\mathbb Z^3$.",
+   "old": "Matching the blocked stencil and solution classes to the normalized nearest-neighbor observer wave above is a separate step.",
+   "pr": 1470,
+   "rows": [
+    "X-42",
+    "X-43"
+   ],
+   "seq": 7,
+   "source_path": "verification/audits/manuscript/a1exit-s2a-20261121/checks/s2a_edits.json",
+   "targets": [
+    {
+     "chapter": "book/ch05-gauge-structure.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    },
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch05-gauge-structure.md"
+    }
+   ],
+   "unit": "S2-A"
+  },
+  {
+   "amends": null,
+   "id": "A4-Sub98",
+   "key": "S2-A:A4-Sub98",
+   "kind": "replace",
+   "method": "json",
+   "new": "(the coupling graph is the discrete lattice $\\mathbb{Z}^d$, $d$ being its dimension, as the standard construction, distinct from a continuous space; a finite periodic quotient $\\mathbb{Z}^d/P$ by a finite-index sublattice $P$ is admitted as a qualified case, under the conditions on $P$ stated with each result that uses it [SM §4.1])",
+   "old": "(the coupling graph is a finite periodic lattice, the quotient of a rank-$d$ lattice by a finite-index sublattice, $d$ being its dimension)",
+   "pr": 1470,
+   "rows": [
+    "X-40"
+   ],
+   "seq": 8,
+   "source_path": "verification/audits/manuscript/a1exit-s2a-20261121/checks/s2a_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Substratum.md"
+    }
+   ],
+   "unit": "S2-A"
+  },
+  {
+   "amends": null,
+   "id": "A4-ch02-82",
+   "key": "S2-A:A4-ch02-82",
+   "kind": "replace",
+   "method": "json",
+   "new": "(the coupling graph is the discrete lattice $\\mathbb{Z}^d$, $d$ being its dimension, as the standard construction, distinct from a continuous space; a finite periodic quotient $\\mathbb{Z}^d/P$ by a finite-index sublattice $P$ is admitted as a qualified case, under the conditions on $P$ stated with each result that uses it)",
+   "old": "(the coupling graph is a finite periodic lattice, the quotient of a rank-$d$ lattice by a finite-index sublattice, $d$ being its dimension)",
+   "pr": 1470,
+   "rows": [
+    "X-40"
+   ],
+   "seq": 9,
+   "source_path": "verification/audits/manuscript/a1exit-s2a-20261121/checks/s2a_edits.json",
+   "targets": [
+    {
+     "chapter": "book/ch02-substratum.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    },
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch02-substratum.md"
+    }
+   ],
+   "unit": "S2-A"
+  },
+  {
+   "amends": null,
+   "id": "A4-SM202",
+   "key": "S2-A:A4-SM202",
+   "kind": "replace",
+   "method": "json",
+   "new": "the coupling graph is the discrete lattice $\\mathbb Z^d$ or, as a qualified case, a finite periodic quotient $\\mathbb Z^d/P$ by a finite-index sublattice $P$, so $|B(r)| \\sim r^d$ (on a quotient, below the system size) and none",
+   "old": "the coupling graph is a finite periodic lattice, the quotient of a rank-$d$ lattice by a finite-index sublattice, so $|B(r)| \\sim r^d$ below the system size and none",
+   "pr": 1470,
+   "rows": [
+    "X-40"
+   ],
+   "seq": 10,
+   "source_path": "verification/audits/manuscript/a1exit-s2a-20261121/checks/s2a_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/SM.md"
+    }
+   ],
+   "unit": "S2-A"
+  },
+  {
+   "amends": null,
+   "id": "A4-ch05-65",
+   "key": "S2-A:A4-ch05-65",
+   "kind": "replace",
+   "method": "json",
+   "new": "the coupling graph is the discrete lattice $\\mathbb Z^d$ or, as a qualified case, a finite periodic quotient $\\mathbb Z^d/P$ by a finite-index sublattice $P$, so $|B(r)| \\sim r^d$ (on a quotient, below the system size) and none",
+   "old": "the coupling graph is a finite periodic lattice, the quotient of a rank-$d$ lattice by a finite-index sublattice, so $|B(r)| \\sim r^d$ below the system size and none",
+   "pr": 1470,
+   "rows": [
+    "X-40"
+   ],
+   "seq": 11,
+   "source_path": "verification/audits/manuscript/a1exit-s2a-20261121/checks/s2a_edits.json",
+   "targets": [
+    {
+     "chapter": "book/ch05-gauge-structure.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    },
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch05-gauge-structure.md"
+    }
+   ],
+   "unit": "S2-A"
+  },
+  {
+   "amends": null,
+   "id": "A4-Sub157",
+   "key": "S2-A:A4-Sub157",
+   "kind": "replace",
+   "method": "json",
+   "new": "whose lattice translations make the coupling graph the lattice $\\mathbb{Z}^d$ or, as a qualified case, a finite periodic quotient of it",
+   "old": "whose lattice translations make the coupling graph a finite periodic lattice of rank $d$",
+   "pr": 1470,
+   "rows": [
+    "X-40",
+    "X-41"
+   ],
+   "seq": 12,
+   "source_path": "verification/audits/manuscript/a1exit-s2a-20261121/checks/s2a_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Substratum.md"
+    }
+   ],
+   "unit": "S2-A"
+  },
+  {
+   "amends": null,
+   "id": "A4-ch02-96",
+   "key": "S2-A:A4-ch02-96",
+   "kind": "replace",
+   "method": "json",
+   "new": "Under A4 the coupling graph is the lattice $\\mathbb{Z}^d$ or, as a qualified case, a finite periodic quotient of it, of some integer dimension $d$",
+   "old": "Under A4 the coupling graph is a finite periodic lattice of some integer dimension $d$",
+   "pr": 1470,
+   "rows": [
+    "X-40",
+    "X-41"
+   ],
+   "seq": 13,
+   "source_path": "verification/audits/manuscript/a1exit-s2a-20261121/checks/s2a_edits.json",
+   "targets": [
+    {
+     "chapter": "book/ch02-substratum.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    },
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch02-substratum.md"
+    }
+   ],
+   "unit": "S2-A"
+  },
+  {
+   "amends": null,
+   "id": "A4-ch19-198",
+   "key": "S2-A:A4-ch19-198",
+   "kind": "replace",
+   "method": "json",
+   "new": "On a finite periodic quotient of $\\mathbb{Z}^3$, a qualified case of A4 (Chapter 2), the notion",
+   "old": "On a finite lattice, the notion",
+   "pr": 1470,
+   "rows": [
+    "X-40"
+   ],
+   "seq": 14,
+   "source_path": "verification/audits/manuscript/a1exit-s2a-20261121/checks/s2a_edits.json",
+   "targets": [
+    {
+     "chapter": "book/ch19-open-problems.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    },
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch19-open-problems.md"
+    }
+   ],
+   "unit": "S2-A"
+  },
+  {
+   "amends": "E3b",
+   "id": "E3b-am2",
+   "key": "S2-A:E3b-am2",
+   "kind": "replace",
+   "method": "json",
+   "new": "commutant structure (on $\\Lambda$ and on quotients whose period vectors lie in $2\\mathbb Z^3$)",
+   "old": "commutant structure (on $\\Lambda$ and on quotients whose period vectors have even coordinate sum)",
+   "pr": 1470,
+   "rows": [
+    "X-42",
+    "X-43"
+   ],
+   "seq": 15,
+   "source_path": "verification/audits/manuscript/a1exit-s2a-20261121/checks/s2a_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/SM.md"
+    }
+   ],
+   "unit": "S2-A"
+  },
+  {
+   "amends": "E1",
+   "id": "E1-am2",
+   "key": "S2-A:E1-am2",
+   "kind": "replace",
+   "method": "json",
+   "new": "require every vector of $P$ to be even off one and the same axis",
+   "old": "require every vector of $P$ to be even off one axis",
+   "pr": 1470,
+   "rows": [
+    "X-42",
+    "X-43"
+   ],
+   "seq": 16,
+   "source_path": "verification/audits/manuscript/a1exit-s2a-20261121/checks/s2a_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/SM.md"
+    }
+   ],
+   "unit": "S2-A"
+  },
+  {
+   "amends": "E6",
+   "id": "E6-am2",
+   "key": "S2-A:E6-am2",
+   "kind": "replace",
+   "method": "json",
+   "new": "require every period vector to be even off one and the same axis",
+   "old": "require every period vector to be even off one axis",
+   "pr": 1470,
+   "rows": [
+    "X-42",
+    "X-43"
+   ],
+   "seq": 17,
+   "source_path": "verification/audits/manuscript/a1exit-s2a-20261121/checks/s2a_edits.json",
+   "targets": [
+    {
+     "chapter": "book/ch05-gauge-structure.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    },
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch05-gauge-structure.md"
+    }
+   ],
+   "unit": "S2-A"
+  },
+  {
+   "amends": null,
+   "id": "C13-SM543",
+   "key": "S2-A:C13-SM543",
+   "kind": "replace",
+   "method": "json",
+   "new": "which is the sharpened content of the named hypothesis H-χ'. The Schur complement over the hidden sublattice needs no further condition when the hidden block is site-diagonal (the free and onsite case); when such a taste-asymmetric structure makes the hidden block off-diagonal, it requires that block to be boundedly invertible on $\\ell^2$ of the odd sublattice, a stated condition on the dressed operator. H-χ' in this sharpened form",
+   "old": "which is the sharpened content of the named hypothesis H-χ'. H-χ' in this sharpened form",
+   "pr": 1470,
+   "rows": [
+    "X-43"
+   ],
+   "seq": 18,
+   "source_path": "verification/audits/manuscript/a1exit-s2a-20261121/checks/s2a_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/SM.md"
+    }
+   ],
+   "unit": "S2-A"
+  },
+  {
+   "amends": null,
+   "id": "C13-ch05-164",
+   "key": "S2-A:C13-ch05-164",
+   "kind": "replace",
+   "method": "json",
+   "new": "where $G_{oo}$ is the hidden-sector propagator: the pointwise inverse of the hidden block when that block is site-diagonal (the free and onsite case); when a taste-asymmetric structure of the H-χ' kind makes the block off-diagonal, the step requires it to be boundedly invertible on $\\ell^2$ of the odd sublattice.",
+   "old": "where $G_{oo}$ is the hidden-sector propagator.",
+   "pr": 1470,
+   "rows": [
+    "X-43"
+   ],
+   "seq": 19,
+   "source_path": "verification/audits/manuscript/a1exit-s2a-20261121/checks/s2a_edits.json",
+   "targets": [
+    {
+     "chapter": "book/ch05-gauge-structure.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    },
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch05-gauge-structure.md"
+    }
+   ],
+   "unit": "S2-A"
+  },
+  {
+   "amends": "C13-SM543",
+   "id": "C13-SM543-am4",
+   "key": "S2-A:C13-SM543-am4",
+   "kind": "replace",
+   "method": "json",
+   "new": "needs, when the hidden block is site-diagonal (the free and onsite case), only that its diagonal entries be nonzero, $G_{oo}$ being their pointwise inverse (on the free substratum the entry is the time term $2\\cos\\omega$, which vanishes at $\\omega = \\pi/2$); when such",
+   "old": "needs no further condition when the hidden block is site-diagonal (the free and onsite case); when such",
+   "pr": 1470,
+   "rows": [
+    "X-43"
+   ],
+   "seq": 20,
+   "source_path": "verification/audits/manuscript/a1exit-s2a-20261121/checks/s2a_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/SM.md"
+    }
+   ],
+   "unit": "S2-A"
+  },
+  {
+   "amends": "C13-ch05-164",
+   "id": "C13-ch05-164-am4",
+   "key": "S2-A:C13-ch05-164-am4",
+   "kind": "replace",
+   "method": "json",
+   "new": "the pointwise inverse of the hidden block when that block is site-diagonal (the free and onsite case), which requires its diagonal entries to be nonzero;",
+   "old": "the pointwise inverse of the hidden block when that block is site-diagonal (the free and onsite case);",
+   "pr": 1470,
+   "rows": [
+    "X-43"
+   ],
+   "seq": 21,
+   "source_path": "verification/audits/manuscript/a1exit-s2a-20261121/checks/s2a_edits.json",
+   "targets": [
+    {
+     "chapter": "book/ch05-gauge-structure.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    },
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch05-gauge-structure.md"
+    }
+   ],
+   "unit": "S2-A"
+  },
+  {
+   "amends": null,
+   "id": "E1a",
+   "key": "S2-B:E1a",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "with $U$ a permutation unitary and $\\mu_H = \\sum_k p_k\\,|k\\rangle\\langle k|$ the diagonal density matrix of a probability $(p_k)$ on $\\mathcal{C}_H$ map computational-diagonal states to computational-diagonal states.*",
+   "old": "with $U$ a permutation unitary map computational-diagonal states to computational-diagonal states.*",
+   "pr": 1473,
+   "rows": [
+    "X-50"
+   ],
+   "seq": 10000,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E1b",
+   "key": "S2-B:E1b",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "$\\square$ (Certified exactly for $t = 1, \\ldots, 6$ in `c1_cp_scope_probes.py`.) The diagonal hypothesis on $\\mu_H$ is needed: if $n \\geq 2$ and $\\langle h|\\mu_H|h'\\rangle \\neq 0$ for hidden basis states $h \\neq h'$, fix a hidden state $g_0$ and take a bijection with $(x_1, h) \\mapsto (x_1, g_0)$, $(x_1, h') \\mapsto (x_2, g_0)$ and the other points $(x_1, g)$ sent to distinct points $(x_1, g')$ with $g' \\neq g_0$, extended to a bijection of $\\mathcal{C}_V \\times \\mathcal{C}_H$; the only pair of hidden inputs at $x_1$ carried to a common hidden output at $x_1$ and at $x_2$ is $(h, h')$, so $\\langle 1|\\Phi_1(|1\\rangle\\langle 1|)|2\\rangle = \\langle h|\\mu_H|h'\\rangle \\neq 0$.",
+   "old": "$\\square$ (Certified exactly for $t = 1, \\ldots, 6$ in `c1_cp_scope_probes.py`.)",
+   "pr": 1473,
+   "rows": [
+    "X-50"
+   ],
+   "seq": 10001,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E2",
+   "key": "S2-B:E2",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "$T_{ij}(t_2) = \\langle j|\\Lambda(\\Phi_{t_1}(|i\\rangle\\langle i|))|j\\rangle = \\sum_k T_{ik}(t_1)\\,M_{kj}$ — P-divisibility of the population process. The contrapositive gives the result. $\\square$\n\n*Corollary (measurable hidden carrier).* *Let $\\mathcal{C}_V$ be finite with $|\\mathcal{C}_V| \\geq 2$, let $\\rho$ be a probability on a measurable space $(H, \\mathcal{H})$, and let $F$ be a measurable map of $\\mathcal{C}_V \\times H$, $F^t(x, h) = (A_t(x, h), K_t(x, h))$, such that for every $t \\geq 1$ and every $h$ the map $x \\mapsto F^t(x, h)$ is injective and every coincidence set $\\{h : K_t(x, h) = K_t(y, h)\\}$ lies in $\\mathcal{H}$ (as when $H$ is standard Borel). With $\\Psi_{t,h}(|x\\rangle\\langle y|) = [K_t(x, h) = K_t(y, h)]\\,|A_t(x, h)\\rangle\\langle A_t(y, h)|$, define $\\Phi_t(\\sigma) = \\int_H \\Psi_{t,h}(\\sigma)\\,\\rho(dh)$. Then: (a) for finite $H$ and bijective $F$, $\\Phi_t$ is the family of the Lemma, with $U$ the permutation unitary of $F$ and $\\mu_H = \\sum_h \\rho(h)\\,|h\\rangle\\langle h|$; (b) each $\\Phi_t$ is CPTP, and $\\Phi_t(|x\\rangle\\langle x|) = \\sum_b \\Gamma_t(x, b)\\,|b\\rangle\\langle b|$ with $\\Gamma_t(x, b) = \\rho\\{h : A_t(x, h) = b\\}$, the rooted maps of the near-return corollary of §2.3; (c) if $(\\Gamma_t)$ is not P-divisible on $\\{0, \\ldots, r\\}$, there are $0 < t_1 < t_2 \\leq r$ with no positive trace-preserving map, in particular no CPTP map, $\\Lambda$ satisfying $\\Phi_{t_2} = \\Lambda \\circ \\Phi_{t_1}$. If $\\Gamma_s$ is not a permutation matrix, the hypothesis of (c) holds under (NR), assumed as a hypothesis of this result and not adopted; (NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update on $\\mathbb{Z}^d$ the only laws known to satisfy it are supported on periodic configurations.*\n\n*Proof.* $\\Psi_{t,h}$ depends on $h$ only through the map $A_t(\\cdot, h)$ and the relation $x \\sim_h y \\iff K_t(x, h) = K_t(y, h)$, which range over a finite set; the set of $h$ giving a fixed pair is a finite Boolean combination of the measurable sets $\\{h : A_t(x, h) = b\\}$ and of coincidence sets, so $\\Phi_t$ is a finite convex combination of the $\\Psi_{t,h}$ with weights summing to $\\rho(H) = 1$. (a) $\\mathrm{Tr}_H\\,|F^t(x, h)\\rangle\\langle F^t(y, h)| = \\Psi_{t,h}(|x\\rangle\\langle y|)$; weight by $\\rho(h)$ and sum. (b) If $x \\sim_h y$ and $A_t(x, h) = A_t(y, h)$, then $F^t(x, h) = F^t(y, h)$ and $x = y$, so $A_t(\\cdot, h)$ is injective on each class $C$ of $\\sim_h$; with $K_C = \\sum_{x \\in C} |A_t(x, h)\\rangle\\langle x|$, $\\Psi_{t,h}(\\sigma) = \\sum_C K_C\\,\\sigma\\,K_C^\\dagger$ and $\\sum_C K_C^\\dagger K_C = I$, so $\\Psi_{t,h}$ is CPTP, and $\\Psi_{t,h}(|x\\rangle\\langle x|) = |A_t(x, h)\\rangle\\langle A_t(x, h)|$. (c) $\\Gamma_0 = I$, so a pair $(s, t)$ at which P-divisibility fails has $s \\geq 1$; put $t_1 = s$, $t_2 = t$. The proof of the Theorem uses only positivity and trace preservation of $\\Lambda$ and the diagonal form (b), and gives a stochastic $M$ with $\\Gamma_{t_2} = \\Gamma_{t_1} M$, a contradiction. The last sentence of the statement is the near-return corollary of §2.3. $\\square$",
+   "old": "$T_{ij}(t_2) = \\langle j|\\Lambda(\\Phi_{t_1}(|i\\rangle\\langle i|))|j\\rangle = \\sum_k T_{ik}(t_1)\\,M_{kj}$ — P-divisibility of the population process. The contrapositive gives the result. $\\square$",
+   "pr": 1473,
+   "rows": [
+    "X-50"
+   ],
+   "seq": 10002,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E3",
+   "key": "S2-B:E3",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "(recurrence-scale P-indivisibility; the CP-indivisibility theorem of §3.2, only through that P-indivisibility, which its measurable-carrier corollary takes from (NR); the all-time periodicity of a fixed realization in §3.4)",
+   "old": "(recurrence-scale P-indivisibility, the CP-indivisibility theorem of §3.2, the all-time periodicity of a fixed realization in §3.4)",
+   "pr": 1473,
+   "rows": [
+    "X-50"
+   ],
+   "seq": 10003,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E4",
+   "key": "S2-B:E4",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "A factor of any cardinality adjoined to the hidden sector, prepared independently in a normalized state or law and evolved by its own dynamics — a Hilbert space of any dimension with a normal state and a unitary or isometry, or a measurable space with a probability and a measurable map — with product dynamics, leaves every visible transition probability unchanged, because the visible coordinate of the product map does not depend on the added coordinate and the added state or law has total mass one; the cardinality of such a deep sector is unobservable at the fixed visible/hidden interface. A deep sector that the dynamics couples to the remaining degrees of freedom is outside that statement, and this Remark makes no claim about the observability of its cardinality.",
+   "old": "A finite factor adjoined to the hidden sector, prepared independently in a normalized state and evolved by its own permutation, with product dynamics, leaves every visible transition probability unchanged, because the visible coordinate of the product map does not depend on the added coordinate and the added prior has total mass one; the cardinality of such a deep sector is unobservable at the fixed visible/hidden interface. A deep sector that the dynamics couples to the remaining degrees of freedom, and an infinite hidden sector, are outside that statement, and this Remark makes no claim about the observability of their cardinality.",
+   "pr": 1473,
+   "rows": [
+    "X-53"
+   ],
+   "seq": 10004,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E5a",
+   "key": "S2-B:E5a",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "the near-return condition (NR) for the P-indivisibility conclusion of §2.3 and for the P-indivisibility input of the CP-indivisibility theorem of §3.2 on a measurable hidden carrier, the invariant-product condition",
+   "old": "the near-return condition (NR) for the P-indivisibility conclusion of §2.3, the invariant-product condition",
+   "pr": 1473,
+   "rows": [
+    "X-50"
+   ],
+   "seq": 10005,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E5b",
+   "key": "S2-B:E5b",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "the orbit capacity and the canonical-typicality step of §4.6 are statements about finite representatives",
+   "old": "the orbit capacity, the CP-indivisibility theorem of §3.2, the physical-memory theorem of §3.4 and the canonical-typicality step of §4.6 are statements about finite representatives",
+   "pr": 1473,
+   "rows": [
+    "X-50",
+    "X-51"
+   ],
+   "seq": 10006,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E6a",
+   "key": "S2-B:E6a",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "when that sector is a factor of any cardinality prepared independently in a normalized state or law and evolved by its own dynamics (a unitary or isometry, or a measurable map), with product dynamics,",
+   "old": "when that sector is a finite factor prepared independently in a normalized state and evolved by its own permutation, with product dynamics,",
+   "pr": 1473,
+   "rows": [
+    "X-53"
+   ],
+   "seq": 10007,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E6b",
+   "key": "S2-B:E6b",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "by such a decoupled enlargement",
+   "old": "by such a finite decoupled enlargement",
+   "pr": 1473,
+   "rows": [
+    "X-53"
+   ],
+   "seq": 10008,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E7",
+   "key": "S2-B:E7",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "| CP-indivisibility of $\\{\\Phi_t\\}$ | Proved for the hidden-prior (diagonal-preserving) channel family on finite or measurable hidden carriers, given P-indivisible populations;",
+   "old": "| CP-indivisibility of $\\{\\Phi_t\\}$ | Proved for the framework's diagonal-preserving (permutation-dilation) channels;",
+   "pr": 1473,
+   "rows": [
+    "X-50"
+   ],
+   "seq": 10009,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E8a",
+   "key": "S2-B:E8a",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "*Let the hidden sector be a measurable space $H$ with a reference probability $\\pi_H$, and model one coupling step by a Markov kernel $K(x, h; \\cdot)$ on $\\mathcal{C}_V$, measurable in $h$: given the visible record, the next visible value has law $\\int K(x, h; \\cdot)\\,\\mu(dh)$, with $x$ the current visible value and $\\mu$ the hidden conditional at the coupling time; $T := \\bar{K}$, $\\bar{K}_x = \\int K(x, h; \\cdot)\\,\\pi_H(dh)$, and the hidden conditional at the first coupling is $\\pi_H$ for each initial visible value. In the finite model of §3.2's construction, $K(x, h; \\cdot)$ is the bijection's visible step from $(x, h)$ and $\\pi_H$ the uniform hidden prior, so that $T$ is the uniform-prior bijection marginal. Between coupling events let the hidden sector evolve by any map on the hidden conditional. Suppose the mixing hypothesis holds: with $\\pi_H$ the *reference prior defining $T$*, every realized",
+   "old": "*Model one coupling step as the uniform-prior bijection marginal of §3.2's construction, and between coupling events let the hidden sector evolve by any map on the hidden conditional. Suppose the mixing hypothesis holds: with $\\pi_H$ the *reference prior defining $T$* — the uniform hidden prior of the model above — every realized",
+   "pr": 1473,
+   "rows": [
+    "X-51"
+   ],
+   "seq": 10010,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E8b",
+   "key": "S2-B:E8b",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "$$T^{(2)}_{x_0 x_2} - (T^2)_{x_0 x_2} = \\sum_{x_1} T_{x_0 x_1} \\int K(x_1, h; x_2)\\,\\Delta(dh),$$",
+   "old": "$$T^{(2)}_{x_0 x_2} - (T^2)_{x_0 x_2} = \\sum_{x_1} T_{x_0 x_1} \\sum_h \\Delta(h)\\, P_\\varphi(x_2 \\mid x_1, h),$$",
+   "pr": 1473,
+   "rows": [
+    "X-51"
+   ],
+   "seq": 10011,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E8c",
+   "key": "S2-B:E8c",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "where $K(x_1, h; \\cdot)$ is the coupling kernel ($P_\\varphi(x_2 \\mid x_1, h) \\in \\{0, 1\\}$, the bijection's visible step, in the finite model) and the first-coupling condition gives $T^{(1)} = T$. Taking the row's total variation and the triangle inequality, with $|\\Delta|$ the total-variation measure of the signed measure $\\Delta$, $|\\Delta|(H) = 2\\,\\mathrm{TV}(\\mu'_{x_0 x_1}, \\pi_H)$ by the Hahn decomposition, $\\tfrac{1}{2}\\sum_{x_2} |\\cdot| \\leq \\sum_{x_1} T_{x_0 x_1} \\cdot \\tfrac{1}{2} \\int \\sum_{x_2} K(x_1, h; x_2)\\,|\\Delta|(dh) =",
+   "old": "where $P_\\varphi(x_2 \\mid x_1, h) \\in \\{0, 1\\}$ is the bijection's visible step. Taking the row's total variation and the triangle inequality, $\\tfrac{1}{2}\\sum_{x_2} |\\cdot| \\leq \\sum_{x_1} T_{x_0 x_1} \\cdot \\tfrac{1}{2} \\sum_h |\\Delta(h)| \\sum_{x_2} P_\\varphi(x_2 \\mid x_1, h) =",
+   "pr": 1473,
+   "rows": [
+    "X-51"
+   ],
+   "seq": 10012,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E9a",
+   "key": "S2-B:E9a",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "— (M1): for every visible past $x_{\\leq k}$ of positive probability, every measurable $B \\subseteq H$ and every $y$, $P(X_{\\leq k} = x_{\\leq k},\\, H_k \\in B,\\, X_{k+1} = y) = \\int_B K(x_k, h; y)\\, P(X_{\\leq k} = x_{\\leq k},\\, H_k \\in dh)$, on any measurable hidden space $H$, with $\\pi_H$ the reference probability —",
+   "old": "— given the whole visible past and $H_k = h$, $X_{k+1}$ has law $K(x_k, h; \\cdot)$, with $\\pi_H$ the reference prior —",
+   "pr": 1473,
+   "rows": [
+    "X-51"
+   ],
+   "seq": 10013,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E9b",
+   "key": "S2-B:E9b",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "$\\bar{K}_{x_k} := \\int K(x_k, h; \\cdot)\\,\\pi_H(dh)$",
+   "old": "$\\bar{K}_{x_k} := \\sum_h \\pi_H(h)\\, K(x_k, h; \\cdot)$",
+   "pr": 1473,
+   "rows": [
+    "X-51"
+   ],
+   "seq": 10014,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E10",
+   "key": "S2-B:E10",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "the framework's channels, including the measurable-carrier family of the Corollary above, are in that class, which is what licenses the theorem.",
+   "old": "the framework's channels are in that class, which is what licenses the theorem.",
+   "pr": 1473,
+   "rows": [
+    "X-50"
+   ],
+   "seq": 10015,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E11a",
+   "key": "S2-B:E11a",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "(across its recurrence cycle, from a non-permutation rooted map and finiteness; or, on a measurable hidden carrier, from a non-permutation rooted map and the near-return condition (NR) [Main §2.3], assumed as a hypothesis and not adopted, which concerns a time that need not be accessible and then has no finite-window test)",
+   "old": "across its recurrence cycle (from a non-permutation rooted map and finiteness)",
+   "pr": 1473,
+   "rows": [
+    "X-50"
+   ],
+   "seq": 10016,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": "book/appendix-b-derivations.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    },
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/appendix-b-derivations.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E11b",
+   "key": "S2-B:E11b",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "The framework's $\\Phi_t$ are permutation dilations with uniform ancilla, or, on a measurable hidden carrier with a fibre-injective measurable map $F^t = (A_t, K_t)$ whose coincidence sets are measurable, mixtures over the hidden points $h$ of the channels $|x\\rangle\\langle y| \\mapsto [K_t(x,h) = K_t(y,h)]\\,|A_t(x,h)\\rangle\\langle A_t(y,h)|$ [Main §3.2], so they map computational-diagonal states to exactly diagonal states (a permutation unitary conjugates a diagonal state to a diagonal state; the partial trace preserves diagonality; each mixed channel sends $|x\\rangle\\langle x|$ to $|A_t(x,h)\\rangle\\langle A_t(x,h)|$).",
+   "old": "The framework's $\\Phi_t$ are permutation dilations with uniform ancilla, so they map computational-diagonal states to exactly diagonal states (a permutation unitary conjugates a diagonal state to a diagonal state; the partial trace preserves diagonality).",
+   "pr": 1473,
+   "rows": [
+    "X-50"
+   ],
+   "seq": 10017,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": "book/appendix-b-derivations.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    },
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/appendix-b-derivations.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E12a",
+   "key": "S2-B:E12a",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "*(iii) Decoupled ancillary enlargement.* Fix the visible/hidden interface $V\\times H$, the normalized hidden density matrix $\\omega_H$, and the permutation unitary $U$ induced by $\\varphi$. Adjoin a factor Hilbert space $\\mathcal K_A$ of any dimension, prepared independently in a density matrix $\\sigma_A$ with $\\operatorname{Tr}\\sigma_A=1$, and evolve it by a unitary or isometry $W$ with product dynamics $U\\otimes W$.",
+   "old": "*(iii) Finite decoupled ancillary enlargement.* Fix the visible/hidden interface $V\\times H$, the normalized hidden density matrix $\\omega_H$, and the permutation unitary $U$ induced by $\\varphi$. Adjoin a finite factor $A$, prepared independently in a density matrix $\\sigma_A$ with $\\operatorname{Tr}\\sigma_A=1$, and evolve it by a permutation unitary $W$ with product dynamics $U\\otimes W$.",
+   "pr": 1473,
+   "rows": [
+    "X-53"
+   ],
+   "seq": 10018,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Substratum.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E12b",
+   "key": "S2-B:E12b",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "Consequently every rooted population law $T_{ij}(t)$ is unchanged. The rooted population laws are likewise unchanged for a classical factor: a measurable space $A$ with a probability $\\alpha$, prepared independently and evolved by any measurable map $w$, with product dynamics $\\varphi\\times w$ and the uniform hidden prior times $\\alpha$. Removing the independently prepared decoupled factor reverses this comparison. This is a fixed-interface result for a factor of any cardinality; it uses the normalization $\\operatorname{Tr}\\sigma_A=1$ (respectively $\\alpha(A)=1$), and an unnormalizable factor, such as the identity on an infinite-dimensional $\\mathcal K_A$ or counting measure on an infinite $A$, is not covered.",
+   "old": "Consequently every rooted population law $T_{ij}(t)$ is unchanged. Removing the independently prepared decoupled factor reverses this comparison. This is a finite, fixed-interface result; an infinite extension requires its own normalized measure or trace-class state and a well-defined evolution, and is not established by finite uniform counting.",
+   "pr": 1473,
+   "rows": [
+    "X-53"
+   ],
+   "seq": 10019,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Substratum.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E12c",
+   "key": "S2-B:E12c",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "Partial trace over $H A$ is the original reduced state multiplied by $\\operatorname{Tr}(W^t\\sigma_AW^{\\dagger t})=\\operatorname{Tr}(\\sigma_AW^{\\dagger t}W^t)=\\operatorname{Tr}\\sigma_A=1$, using $W^\\dagger W=1$. This proves the coherent-channel identity and hence its population restriction. For a classical factor the visible coordinate of $(\\varphi\\times w)^t$ does not depend on the factor's coordinate, so each rooted event is its $\\mathcal C_H$-section times $A$, of weight $\\alpha(A)=1$ times the original.",
+   "old": "Partial trace over $H A$ is the original reduced state multiplied by $\\operatorname{Tr}(W^t\\sigma_AW^{\\dagger t})=\\operatorname{Tr}\\sigma_A=1$. This proves the coherent-channel identity and hence its population restriction.",
+   "pr": 1473,
+   "rows": [
+    "X-53"
+   ],
+   "seq": 10020,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Substratum.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E12d",
+   "key": "S2-B:E12d",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "(i) and the normalized Hilbert-space product form of (iii) preserve the coherent family",
+   "old": "(i) and the finite normalized-product form of (iii) preserve the coherent family",
+   "pr": 1473,
+   "rows": [
+    "X-53"
+   ],
+   "seq": 10021,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Substratum.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E13a",
+   "key": "S2-B:E13a",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "For the independently prepared decoupled extension of Theorem 24(iii), of any cardinality, the full fixed-interface channel family (for a classical factor, its $T_{ij}(t)$ restriction),",
+   "old": "For the independently prepared finite decoupled extension of Theorem 24(iii), the full fixed-interface channel family,",
+   "pr": 1473,
+   "rows": [
+    "X-53"
+   ],
+   "seq": 10022,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Substratum.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E13b",
+   "key": "S2-B:E13b",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": " An unnormalizable extension is outside Theorem 24(iii) and this transfer.",
+   "old": " Infinite extensions need a separately specified normalized state or measure and dynamics before any such comparison can be made.",
+   "pr": 1473,
+   "rows": [
+    "X-53"
+   ],
+   "seq": 10023,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Substratum.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E14",
+   "key": "S2-B:E14",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "Theorem 24(iii) gives an exact freedom to adjoin independently prepared decoupled factors of any cardinality at a fixed interface, each in a normalized state or law with its own unitary, isometric or measurable dynamics; an unnormalizable factor is not covered.",
+   "old": "Theorem 24(iii) gives an exact freedom to adjoin independently prepared finite decoupled factors at a fixed interface. Infinite extensions require specified normalized measures or states and well-defined dynamics; the finite identity does not supply that construction.",
+   "pr": 1473,
+   "rows": [
+    "X-53"
+   ],
+   "seq": 10024,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Substratum.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E15a",
+   "key": "S2-B:E15a",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "*(iii) Decoupled ancillary enlargement.* Adjoin a factor of any dimension to the deep hidden sector, prepare it independently in a normalized density matrix, and keep its dynamics exactly decoupled from the original system, as any unitary or isometry of the factor.",
+   "old": "*(iii) Finite decoupled ancillary enlargement.* Adjoin a finite factor to the deep hidden sector, prepare it independently in a normalized density matrix, and keep its dynamics exactly decoupled from the original system.",
+   "pr": 1473,
+   "rows": [
+    "X-53"
+   ],
+   "seq": 10025,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": "book/ch02-substratum.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    },
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch02-substratum.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E15b",
+   "key": "S2-B:E15b",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "A classical factor with a probability law and any measurable dynamics likewise preserves every rooted population law. The identity uses the factor's normalization: an infinite factor under uniform counting has none and is not covered.",
+   "old": "Infinite factors require a separately specified normalized state or measure and well-defined dynamics; finite uniform counting does not supply that extension.",
+   "pr": 1473,
+   "rows": [
+    "X-53"
+   ],
+   "seq": 10026,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": "book/ch02-substratum.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    },
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch02-substratum.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "E16",
+   "key": "S2-B:E16",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "(iii) *Decoupled ancillary enlargement.* An independently prepared, normalized factor of any dimension with exactly decoupled unitary or isometric product dynamics may be adjoined or removed at a fixed visible/hidden interface without changing the coherent channel family; unnormalizable or boundary-coupled extensions are not covered",
+   "old": "(iii) *Finite decoupled ancillary enlargement.* An independently prepared, normalized, finite factor with exactly decoupled product dynamics may be adjoined or removed at a fixed visible/hidden interface without changing the coherent channel family; infinite or boundary-coupled extensions are not covered",
+   "pr": 1473,
+   "rows": [
+    "X-53"
+   ],
+   "seq": 10027,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Structure.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "R1",
+   "key": "S2-B:R1",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "the near-return corollary of §2.3, the index-free form of §2.3 under (FS) and (NR), the remark of §3.2 under the condition (IP), the measurable-carrier corollary of §3.2 and the two coupling-step theorems of §3.4 (the quantitative C2 theorem and the physical-memory theorem) take a measurable hidden space.",
+   "old": "the near-return corollary of §2.3, the index-free form of §2.3 under (FS) and (NR), and the remark of §3.2 under the condition (IP) take a measurable hidden space.",
+   "pr": 1473,
+   "rows": [],
+   "seq": 10028,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/amendments/A1-round1.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "R2a",
+   "key": "S2-B:R2a",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "The rooted population laws, and the hidden-prior channel family of [Main §3.2] (Corollary, measurable hidden carrier), are likewise unchanged for a classical factor: a measurable space $A$ with a probability $\\alpha$, prepared independently and evolved by any measurable map $w$, with product dynamics $\\varphi\\times w$ and the uniform hidden prior times $\\alpha$; on the original carrier that family is the coherent family $\\Phi_t$.",
+   "old": "The rooted population laws are likewise unchanged for a classical factor: a measurable space $A$ with a probability $\\alpha$, prepared independently and evolved by any measurable map $w$, with product dynamics $\\varphi\\times w$ and the uniform hidden prior times $\\alpha$.",
+   "pr": 1473,
+   "rows": [],
+   "seq": 10029,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/amendments/A1-round1.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Substratum.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "R2b",
+   "key": "S2-B:R2b",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "For a classical factor $(\\varphi\\times w)^t(v,(h,a))=(\\varphi^t(v,h),w^t a)$, so the visible coordinate and the hidden coincidences of the original coordinates do not depend on $a$; each rooted event, and each set of hidden points on which that family's integrand is constant, is its $\\mathcal C_H$-section times $A$, of weight $\\alpha(A)=1$ times the original, which proves both identities; on the original carrier the family is $\\Phi_t$ by part (a) of that Corollary.",
+   "old": "For a classical factor the visible coordinate of $(\\varphi\\times w)^t$ does not depend on the factor's coordinate, so each rooted event is its $\\mathcal C_H$-section times $A$, of weight $\\alpha(A)=1$ times the original.",
+   "pr": 1473,
+   "rows": [],
+   "seq": 10030,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/amendments/A1-round1.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Substratum.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "R2c",
+   "key": "S2-B:R2c",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "(for a classical factor, read as the hidden-prior channel family of [Main §3.2])",
+   "old": "(for a classical factor, its $T_{ij}(t)$ restriction)",
+   "pr": 1473,
+   "rows": [],
+   "seq": 10031,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/amendments/A1-round1.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Substratum.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "R2d",
+   "key": "S2-B:R2d",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "A classical factor with a probability law and any measurable dynamics likewise preserves the channel family, read as the mixture over hidden points of [Main §3.2], and every rooted population law.",
+   "old": "A classical factor with a probability law and any measurable dynamics likewise preserves every rooted population law.",
+   "pr": 1473,
+   "rows": [],
+   "seq": 10032,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/amendments/A1-round1.md",
+   "targets": [
+    {
+     "chapter": "book/ch02-substratum.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    },
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch02-substratum.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "R3",
+   "key": "S2-B:R3",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "because the product dynamics factorizes and the added state or law keeps total mass one;",
+   "old": "because the visible coordinate of the product map does not depend on the added coordinate and the added state or law has total mass one;",
+   "pr": 1473,
+   "rows": [],
+   "seq": 10033,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/amendments/A1-round1.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "R4",
+   "key": "S2-B:R4",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "and let $F$ be a map of $\\mathcal{C}_V \\times H$, measurable for $2^{\\mathcal{C}_V} \\otimes \\mathcal{H}$, $F^t(x, h)",
+   "old": "and let $F$ be a measurable map of $\\mathcal{C}_V \\times H$, $F^t(x, h)",
+   "pr": 1473,
+   "rows": [],
+   "seq": 10034,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/amendments/A1-round1.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "R5",
+   "key": "S2-B:R5",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "If some $\\Gamma_s$ with $s \\geq 1$ is not a permutation matrix, the hypothesis of (c) holds, with $r = n$, under (NR) of that corollary, assumed as a hypothesis of this result and not adopted; (NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update of §3.2 on $\\mathbb{Z}^d$ the only laws known to satisfy it are supported on periodic configurations.*",
+   "old": "If $\\Gamma_s$ is not a permutation matrix, the hypothesis of (c) holds under (NR), assumed as a hypothesis of this result and not adopted; (NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update on $\\mathbb{Z}^d$ the only laws known to satisfy it are supported on periodic configurations.*",
+   "pr": 1473,
+   "rows": [],
+   "seq": 10035,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/amendments/A1-round1.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "R6",
+   "key": "S2-B:R6",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "(NR) [Main §2.3], assumed as a hypothesis and not adopted; (NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update of Main §3.2 on $\\mathbb{Z}^d$ the only laws known to satisfy it are supported on periodic configurations)",
+   "old": "(NR) [Main §2.3], assumed as a hypothesis and not adopted, which concerns a time that need not be accessible and then has no finite-window test)",
+   "pr": 1473,
+   "rows": [],
+   "seq": 10036,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/amendments/A1-round1.md",
+   "targets": [
+    {
+     "chapter": "book/appendix-b-derivations.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    },
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/appendix-b-derivations.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "R7",
+   "key": "S2-B:R7",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "for the selected update of §3.2 on $\\mathbb{Z}^d$ no law that is not supported on periodic configurations is known to satisfy it.*",
+   "old": "for the selected update of §3.2 on $\\mathbb{Z}^d$ the only laws known to satisfy it are supported on periodic configurations.*",
+   "pr": 1473,
+   "rows": [],
+   "seq": 10037,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/amendments/A2-return-form.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "R8",
+   "key": "S2-B:R8",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "for the selected update of Main §3.2 on $\\mathbb{Z}^d$ no law that is not supported on periodic configurations is known to satisfy it)",
+   "old": "for the selected update of Main §3.2 on $\\mathbb{Z}^d$ the only laws known to satisfy it are supported on periodic configurations)",
+   "pr": 1473,
+   "rows": [],
+   "seq": 10038,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/amendments/A2-return-form.md",
+   "targets": [
+    {
+     "chapter": "book/appendix-b-derivations.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    },
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/appendix-b-derivations.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "R9",
+   "key": "S2-B:R9",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "(b) each $\\Phi_t$ is completely positive and trace preserving, and",
+   "old": "(b) each $\\Phi_t$ is CPTP, and",
+   "pr": 1473,
+   "rows": [],
+   "seq": 10039,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/amendments/A3-cptp-register.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "R10",
+   "key": "S2-B:R10",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "with no positive trace-preserving map, in particular no completely positive trace-preserving map, $\\Lambda$",
+   "old": "with no positive trace-preserving map, in particular no CPTP map, $\\Lambda$",
+   "pr": 1473,
+   "rows": [],
+   "seq": 10040,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/amendments/A3-cptp-register.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "R11",
+   "key": "S2-B:R11",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "so $\\Psi_{t,h}$ is completely positive and trace preserving, and",
+   "old": "so $\\Psi_{t,h}$ is CPTP, and",
+   "pr": 1473,
+   "rows": [],
+   "seq": 10041,
+   "source_path": "verification/audits/manuscript/a1exit-s2b-20261121/amendments/A3-cptp-register.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-B"
+  },
+  {
+   "amends": null,
+   "id": "C1",
+   "key": "S2-C:C1",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "$n$ is any time after $s$ at which its inequality holds. (NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update of §3.2 on $\\mathbb{Z}^d$ the only laws known to satisfy it are supported on periodic configurations.",
+   "old": "$n$ is any time after $s$ at which its inequality holds.",
+   "pr": 1474,
+   "rows": [
+    "X-20"
+   ],
+   "seq": 20000,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C2",
+   "key": "S2-C:C2",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "both assumed as hypotheses of this form and not adopted, one direction at a time. (NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update of §3.2 on $\\mathbb{Z}^d$ the only laws known to satisfy it are supported on periodic configurations.",
+   "old": "both assumed as hypotheses of this form and not adopted, one direction at a time.",
+   "pr": 1474,
+   "rows": [
+    "X-20",
+    "X-23"
+   ],
+   "seq": 20001,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C3",
+   "key": "S2-C:C3",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "the near-return condition (NR) of §2.3, assumed in its place and not adopted (it concerns a time that need not be accessible and then has no finite-window test; for the selected update of §3.2 on $\\mathbb{Z}^d$ the only laws known to satisfy it are supported on periodic configurations), without finiteness",
+   "old": "the near-return condition (NR) of §2.3, assumed in its place and not adopted, without finiteness",
+   "pr": 1474,
+   "rows": [
+    "X-20"
+   ],
+   "seq": 20002,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C4",
+   "key": "S2-C:C4",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "the index-free form of §2.3 under (FS) and (NR), assumed as hypotheses and not adopted (the condition (NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update of §3.2 on $\\mathbb{Z}^d$ the only laws known to satisfy it are supported on periodic configurations), and the remark",
+   "old": "the index-free form of §2.3 under (FS) and (NR), and the remark",
+   "pr": 1474,
+   "rows": [
+    "X-20",
+    "X-23"
+   ],
+   "seq": 20003,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C5",
+   "key": "S2-C:C5",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "or the near-return condition (NR) assumed in its place and not adopted (it concerns a time that need not be accessible and then has no finite-window test; for the selected update of §3.2 on $\\mathbb{Z}^d$ the only laws known to satisfy it are supported on periodic configurations), and a non-permutation",
+   "old": "or the near-return condition (NR) assumed in its place and not adopted, and a non-permutation",
+   "pr": 1474,
+   "rows": [
+    "X-20"
+   ],
+   "seq": 20004,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C6",
+   "key": "S2-C:C6",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "with $\\nu$ uniform. (IP) is a condition on a law on the whole carrier; finite-window data can test some of its consequences but cannot establish it, and do not distinguish it from a finite carrier's counting law. For the rooted maps $\\Gamma_t$ of the prior $\\rho$, as in §2.3",
+   "old": "with $\\nu$ uniform. For the rooted maps $\\Gamma_t$ of the prior $\\rho$, as in §2.3",
+   "pr": 1474,
+   "rows": [
+    "X-15"
+   ],
+   "seq": 20005,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C7",
+   "key": "S2-C:C7",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "and (EM) stated for the $\\mu$-centred observables of $L^2(\\mu)$. (IL) is a condition on a law on the whole carrier; finite-window data can test some of its consequences but cannot establish it, and do not distinguish it from a finite carrier's counting law.",
+   "old": "and (EM) stated for the $\\mu$-centred observables of $L^2(\\mu)$.",
+   "pr": 1474,
+   "rows": [
+    "X-60",
+    "X-61"
+   ],
+   "seq": 20006,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C8",
+   "key": "S2-C:C8",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "The recurrence argument establishes P-indivisibility across the recurrence cycle of a finite representative.",
+   "old": "The recurrence argument establishes P-indivisibility across the recurrence cycle.",
+   "pr": 1474,
+   "rows": [
+    "X-20"
+   ],
+   "seq": 20007,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C9",
+   "key": "S2-C:C9",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "compatible with the observer's records\") on a finite representative — a standard but substantive epistemic postulate",
+   "old": "compatible with the observer's records\") — a standard but substantive epistemic postulate",
+   "pr": 1474,
+   "rows": [
+    "X-12"
+   ],
+   "seq": 20008,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C10",
+   "key": "S2-C:C10",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "in the uniform state class, for a law invariant under the update and the reversal (H-$\\mu(\\varphi,\\Theta)$), assumed as a hypothesis and not adopted (a condition on a law on the whole carrier; finite-window data can test some of its consequences but cannot establish it, and do not distinguish it from a finite carrier's counting law), the mutual information",
+   "old": "in the uniform state class, the mutual information",
+   "pr": 1474,
+   "rows": [
+    "X-41"
+   ],
+   "seq": 20009,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/SM.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C11",
+   "key": "S2-C:C11",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "the counting measure of [Main] Lemma 3, or a stated structured prior, or, on $\\mathbb{Z}^d$, a law invariant under the update and the reversal (H-$\\mu(\\varphi,\\Theta)$), assumed as a hypothesis and not adopted (a condition on a law on the whole carrier; finite-window data can test some of its consequences but cannot establish it, and do not distinguish it from a finite carrier's counting law) — and",
+   "old": "the counting measure of [Main] Lemma 3, or a stated structured prior — and",
+   "pr": 1474,
+   "rows": [
+    "X-41"
+   ],
+   "seq": 20010,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/SM.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C12",
+   "key": "S2-C:C12",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "equivariant under signed permutations of the six components (H-blind), assumed as a hypothesis of this extension and not adopted; the measure clause is a condition on a law on the whole carrier; finite-window data can test some of its consequences but cannot establish it, and do not distinguish it from a finite carrier's counting law.*",
+   "old": "equivariant under signed permutations of the six components (H-blind).*",
+   "pr": 1474,
+   "rows": [
+    "X-17"
+   ],
+   "seq": 20011,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/SM.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C13",
+   "key": "S2-C:C13",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "assumed in place of finiteness as a hypothesis and not adopted, is a weaker sufficient condition. (NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update of [Main §3.2] on $\\mathbb{Z}^d$ the only laws known to satisfy it are supported on periodic configurations.",
+   "old": "assumed in place of finiteness as a hypothesis and not adopted, is a weaker sufficient condition.",
+   "pr": 1474,
+   "rows": [
+    "X-20"
+   ],
+   "seq": 20012,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/SM.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C14",
+   "key": "S2-C:C14",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "under its near-return condition (NR), assumed in place of finiteness as a hypothesis and not adopted. (NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update of [Main §3.2] on $\\mathbb{Z}^d$ the only laws known to satisfy it are supported on periodic configurations.",
+   "old": "under its near-return condition (NR), assumed in place of finiteness as a hypothesis and not adopted.",
+   "pr": 1474,
+   "rows": [
+    "X-20"
+   ],
+   "seq": 20013,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/GR.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C15",
+   "key": "S2-C:C15",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "or the near-return condition (NR) of [Main §2.3], assumed in its place as a hypothesis and not adopted. (NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update of [Main §3.2] on $\\mathbb{Z}^d$ the only laws known to satisfy it are supported on periodic configurations.",
+   "old": "or the near-return condition (NR) of [Main §2.3], assumed in its place as a hypothesis and not adopted.",
+   "pr": 1474,
+   "rows": [
+    "X-20"
+   ],
+   "seq": 20014,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/GR.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C16",
+   "key": "S2-C:C16",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "the near-return condition (NR) of [Main §2.3], assumed in its place and not adopted, is a weaker sufficient condition. (NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update of [Main §3.2] on $\\mathbb{Z}^d$ the only laws known to satisfy it are supported on periodic configurations.",
+   "old": "the near-return condition (NR) of [Main §2.3], assumed in its place and not adopted, is a weaker sufficient condition.",
+   "pr": 1474,
+   "rows": [
+    "X-20"
+   ],
+   "seq": 20015,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Substratum.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C17",
+   "key": "S2-C:C17",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "C4 memory; indivisible at recurrence scale on a finite representative |",
+   "old": "C4 memory; indivisible at recurrence scale |",
+   "pr": 1474,
+   "rows": [
+    "X-20"
+   ],
+   "seq": 20016,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Structure.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C18",
+   "key": "S2-C:C18",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "$n$ is any time after $s$ at which its inequality holds. (NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update of Main §3.2 on $\\mathbb{Z}^d$ the only laws known to satisfy it are supported on periodic configurations.",
+   "old": "$n$ is any time after $s$ at which its inequality holds.",
+   "pr": 1474,
+   "rows": [
+    "X-20"
+   ],
+   "seq": 20017,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch01-observation.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C19",
+   "key": "S2-C:C19",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "present on a finite representative wherever a rooted visible map is not a permutation.",
+   "old": "present wherever a rooted visible map is not a permutation.",
+   "pr": 1474,
+   "rows": [
+    "X-20"
+   ],
+   "seq": 20018,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch01-observation.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C20",
+   "key": "S2-C:C20",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "Without A1, the near-return condition of the corollary in §1.5, assumed as a hypothesis and not adopted, is the stated sufficient condition for the indivisibility conclusion; it concerns a time that need not be accessible and then has no finite-window test; for the selected update of Main §3.2 on $\\mathbb{Z}^d$ the only laws known to satisfy it are supported on periodic configurations.",
+   "old": "Without A1, the near-return condition of the corollary in §1.5 is the stated sufficient condition for the indivisibility conclusion.",
+   "pr": 1474,
+   "rows": [
+    "X-20"
+   ],
+   "seq": 20019,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch01-observation.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C18-FULL",
+   "key": "S2-C:C18-FULL",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "$n$ is any time after $s$ at which its inequality holds. (NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update of Main §3.2 on $\\mathbb{Z}^d$ the only laws known to satisfy it are supported on periodic configurations.",
+   "old": "$n$ is any time after $s$ at which its inequality holds.",
+   "pr": 1474,
+   "rows": [
+    "X-20"
+   ],
+   "seq": 20020,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": "book/ch01-observation.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C19-FULL",
+   "key": "S2-C:C19-FULL",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "present on a finite representative wherever a rooted visible map is not a permutation.",
+   "old": "present wherever a rooted visible map is not a permutation.",
+   "pr": 1474,
+   "rows": [
+    "X-20"
+   ],
+   "seq": 20021,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": "book/ch01-observation.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C20-FULL",
+   "key": "S2-C:C20-FULL",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "Without A1, the near-return condition of the corollary in §1.5, assumed as a hypothesis and not adopted, is the stated sufficient condition for the indivisibility conclusion; it concerns a time that need not be accessible and then has no finite-window test; for the selected update of Main §3.2 on $\\mathbb{Z}^d$ the only laws known to satisfy it are supported on periodic configurations.",
+   "old": "Without A1, the near-return condition of the corollary in §1.5 is the stated sufficient condition for the indivisibility conclusion.",
+   "pr": 1474,
+   "rows": [
+    "X-20"
+   ],
+   "seq": 20022,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": "book/ch01-observation.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C21",
+   "key": "S2-C:C21",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "also follows from the near-return condition of Chapter 1 §1.5, assumed in its place and not adopted (it concerns a time that need not be accessible and then has no finite-window test; for the selected update of Main §3.2 on $\\mathbb{Z}^d$ the only laws known to satisfy it are supported on periodic configurations);",
+   "old": "also follows from the near-return condition of Chapter 1 §1.5, assumed in its place and not adopted;",
+   "pr": 1474,
+   "rows": [
+    "X-20"
+   ],
+   "seq": 20023,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/appendix-c-objections.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C21-FULL",
+   "key": "S2-C:C21-FULL",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "also follows from the near-return condition of Chapter 1 §1.5, assumed in its place and not adopted (it concerns a time that need not be accessible and then has no finite-window test; for the selected update of Main §3.2 on $\\mathbb{Z}^d$ the only laws known to satisfy it are supported on periodic configurations);",
+   "old": "also follows from the near-return condition of Chapter 1 §1.5, assumed in its place and not adopted;",
+   "pr": 1474,
+   "rows": [
+    "X-20"
+   ],
+   "seq": 20024,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": "book/appendix-c-objections.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C22",
+   "key": "S2-C:C22",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "with $\\nu$ uniform. (IP) is a condition on a law on the whole carrier; finite-window data can test some of its consequences but cannot establish it, and do not distinguish it from a finite carrier's counting law. For the rooted maps $\\Gamma_t$ of the prior $\\rho$, as in Chapter 1 §1.5",
+   "old": "with $\\nu$ uniform. For the rooted maps $\\Gamma_t$ of the prior $\\rho$, as in Chapter 1 §1.5",
+   "pr": 1474,
+   "rows": [
+    "X-15"
+   ],
+   "seq": 20025,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/appendix-b-derivations.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "C22-FULL",
+   "key": "S2-C:C22-FULL",
+   "kind": "replace",
+   "method": "md-table",
+   "new": "with $\\nu$ uniform. (IP) is a condition on a law on the whole carrier; finite-window data can test some of its consequences but cannot establish it, and do not distinguish it from a finite carrier's counting law. For the rooted maps $\\Gamma_t$ of the prior $\\rho$, as in Chapter 1 §1.5",
+   "old": "with $\\nu$ uniform. For the rooted maps $\\Gamma_t$ of the prior $\\rho$, as in Chapter 1 §1.5",
+   "pr": 1474,
+   "rows": [
+    "X-15"
+   ],
+   "seq": 20026,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": "book/appendix-b-derivations.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "A1-3",
+   "key": "S2-C:A1-3",
+   "kind": "replace",
+   "method": "md-bullet",
+   "new": "for the indivisibility conclusion (it concerns a time that need not be accessible and then has no finite-window test; for the selected update of Main §3.2 on $\\mathbb{Z}^d$ no law that is not supported on periodic configurations is known to satisfy it).",
+   "old": "for the indivisibility conclusion; it concerns a time that need not be accessible and then has no finite-window test; for the selected update of Main §3.2 on $\\mathbb{Z}^d$ the only laws known to satisfy it are supported on periodic configurations.",
+   "pr": 1474,
+   "rows": [],
+   "seq": 20027,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/amendments/A1.md",
+   "targets": [
+    {
+     "chapter": "book/ch01-observation.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    },
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/appendix-c-objections.md"
+    },
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch01-observation.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "A1-1",
+   "key": "S2-C:A1-1",
+   "kind": "replace-each",
+   "method": "md-bullet",
+   "new": "no law that is not supported on periodic configurations is known to satisfy it",
+   "old": "the only laws known to satisfy it are supported on periodic configurations",
+   "pr": 1474,
+   "rows": [],
+   "seq": 20028,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/amendments/A1.md",
+   "targets": [
+    {
+     "chapter": "book/appendix-c-objections.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    },
+    {
+     "chapter": "book/ch01-observation.md",
+     "count": 2,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    },
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/appendix-c-objections.md"
+    },
+    {
+     "chapter": null,
+     "count": 2,
+     "file": "book/ch01-observation.md"
+    },
+    {
+     "chapter": null,
+     "count": 2,
+     "file": "papers/GR.md"
+    },
+    {
+     "chapter": null,
+     "count": 5,
+     "file": "papers/Main.md"
+    },
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/SM.md"
+    },
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Substratum.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "A1-2",
+   "key": "S2-C:A1-2",
+   "kind": "replace",
+   "method": "md-bullet",
+   "new": "Let $\\mu$ be the invariant measure — the selected counting measure of [Main] Lemma 3",
+   "old": "Let $\\mu$ be the selected invariant measure — the counting measure of [Main] Lemma 3",
+   "pr": 1474,
+   "rows": [],
+   "seq": 20029,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/amendments/A1.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/SM.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "resolved-papers/Main.md:224",
+   "key": "S2-C:resolved-papers/Main.md:224",
+   "kind": "resolve",
+   "method": "md-resolved",
+   "new": "**Continuous spectra and the finite-substratum commitment.** Lemma 1 fixes the visible configuration space as finite, and the Barandes correspondence as applied here produces an emergent Hilbert space of finite dimension. Standard quantum mechanics makes heavy use of continuous-spectrum observables — position on $\\mathbb{R}^3$, momentum, continuous-spectrum scattering — which strictly require infinite-dimensional Hilbert spaces and unbounded self-adjoint operators. The framework's position on this is that continuous spectra are the infrared limit of the discrete spectrum produced by Lemma 1, not a deeper reality that the framework fails to capture. The quantitative separation is extreme: for a visible sector bounded by the cosmological horizon, of radius $L_H$, and an assumed discreteness scale $\\epsilon$ of the order of the Planck length $l_p$, the number of distinguishable positions is $|\\mathcal{C}_V| \\sim (L_H/\\epsilon)^3 \\sim 10^{183}$, and no independent continuous-spectrum prediction is needed or claimed. Calvo [13] extends the Barandes correspondence to countable-infinite dimensions for completeness, but the finite-dim correspondence is the load-bearing one for the framework — every result in §2–§3 other than the infinite-region completion (§3.2, §3.4), which is assembled from finite-region stages, runs on finite configuration spaces: Lemma 1 for the visible sector, with the total-finiteness posit (§1.2 Remark, §4.5) where a result also needs the hidden sector finite; the near-return corollary of §2.3, the index-free form of §2.3 under (FS) and (NR), assumed as hypotheses and not adopted (the condition (NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update of §3.2 on $\\mathbb{Z}^d$ no law that is not supported on periodic configurations is known to satisfy it), the remark of §3.2 under the condition (IP), the measurable-carrier corollary of §3.2 and the two coupling-step theorems of §3.4 (the quantitative C2 theorem and the physical-memory theorem) take a measurable hidden space.",
+   "old": null,
+   "pr": 1474,
+   "rows": [],
+   "seq": 20030,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/RESULT.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "resolved-papers/Main.md:736",
+   "key": "S2-C:resolved-papers/Main.md:736",
+   "kind": "resolve",
+   "method": "md-resolved",
+   "new": "**The posit ledger.** The two-axiom presentation of §1.2 names the foundation's primitives; the full argument consumes more inputs than two, and they are collected here so they are countable in one place. The list is complete in one specified sense: it is the audited inventory of the explicit premises that the derivations of this paper consume, including those it takes from the companion substratum construction, as these texts stand in the same revision of the repository. It does not enumerate every physical assumption one might make; the named hypotheses of the matter, gauge and gravity sectors are carried where they enter; and the empirical motivation recorded for an item does not make that item logically necessary. The framework's substantive posits, beyond Axiom 1 (tokened differentiation, indubitable), are: (i) Axiom 2 — recurrence — owned as a posit with a non-derivability countermodel; (ii) total finiteness of the bijective representative of the status Remark of §1.2 (an open hypothesis, not adopted), carried as one sufficient condition and not as a premise of the framework: each result that uses it names the hypotheses it consumes, and a weaker sufficient condition, where its sufficiency is proved, is stated with the result — the near-return condition (NR) for the P-indivisibility conclusion of §2.3 and for the P-indivisibility input of the CP-indivisibility theorem of §3.2 on a measurable hidden carrier, the invariant-product condition (IP) for the doubly stochastic marginal of §3.2 and the invariant-law condition (IL) for the decay estimate of §4.6, each assumed as a hypothesis of that result and not adopted, and reversibility (REV), item (iii), an alternative sufficient condition for bijectivity — while the counting-measure selection of Lemma 3, the exact return and its index $L$, the orbit capacity and the canonical-typicality step of §4.6 are statements about finite representatives — Lemma 1 delivers finiteness of the observer's distinguishable states from the finite-capacity clause of the Definition, and the extension to the whole representative is A1 of the companion substratum construction — there scoped as the gauge choice of the minimal finite representative, the cardinality of a deep sector being unobservable at the fixed visible/hidden interface when that sector is a factor of any cardinality prepared independently in a normalized state or law and evolved by its own dynamics (a unitary or isometry, or a measurable map), with product dynamics, which leaves every reduced visible channel, and hence every transition probability, unchanged (deep-sector enlargement, developed there) — consumed here by the recurrence step of §2.3 and by §4.6, whose conclusions hold on the finite representative; their transfer, where expressible through the transition probabilities, to every representative reached from it by relabelling the hidden states, by such a decoupled enlargement or, under the alphabet-size hypothesis that systems with the same coupling structure and dynamics class differing only in alphabet size have the same emergent transition probabilities, by a change of alphabet that keeps the coupling structure and dynamics class is stated and proved in the companion substratum construction, while the recurrence-scale conclusion of §2.3 is a statement about finite representatives, the remaining uses of the posit being listed in the status Remark of §1.2; (iii) the record-preservation and eventual-image arguments that ground injectivity (Lemma 3) close the hidden-sector margin on a finite representative (item (ii)) using one *empirical* input — the observed statistics, in the uniform-prior doubly stochastic scope — and one structural principle, the restriction of a finite map to its eventual image, which covers registered histories whose states lie in that image, so bijectivity is part-empirical rather than a pure lemma (a reader who declines the recovery may instead adopt reversibility (REV), $\\varphi$ a bimeasurable bijection of a measurable carrier, as the standard information-conservation postulate of unitary quantum mechanics and classical Hamiltonian flow [42, 43], at no cost to the downstream results — see the remark following Lemma 3); (iv) the measure selection for constructed realizations (§1.2 Remark) is a maximal-entropy principle (\"the maximal-entropy invariant measure compatible with the observer's records\") on a finite representative — a standard but substantive epistemic postulate, not derived; (v) the hidden-sector mixing hypothesis (ETH-motivated) conditioning the slow-bath form of the C2-necessity direction, for a system class (emergent descriptions of linear-mod-$q$ automata) on which the standard ETH evidence base is silent, and whose exact linear rule conserves a quadratic invariant for every symmetric translation-invariant coupling and, at prime $q$ not dividing the lattice size, for $d\\ge2$ splits its largest energy shell into exponentially many cycles [SM §4.2], so that numerical motivation comes from the rounded candidate of [SM §4.2], which behaves chaotically at the sizes measured, while whether the realized hidden sector satisfies the mixing hypothesis remains open — this is the same open dynamical question as the typicality selection in (iv), one conditional wearing two hats; (vi) spatial isotropy, entering as empirical input E4 of the reconstruction; (vii) linearity of the substratum update (A5), a further restriction beyond the affine condition. The affine step uses base-point-independent first differences, which telescope to a constant plus an additive map; and, for the spatial results — the causal cone and Bell ceiling of §3.3, the observer selection of §4.6 and the companion reconstruction — the spatial constitution, which the characterization theorem of §3.4 does not use: (viii) site factorization — the configuration space is identified with a product of local configuration spaces over a set of sites; given that identification the dynamics determines its coupling graph, the dynamics alone has not been shown to select the identification, and the coupling graph, its causal cone and the regions of §3.3 and §4.6 are read relative to it; (ix) bounded coupling degree (A3), as one degree bound across the family of finite representatives — at a single finite lattice the bound holds automatically, so the item has content only in family form, where it gives the cone of §3.3 bounded growth and is used by §4.6; (x) the nearest-neighbour range — on the reference vacuum/uniform state class the coupling graph $G_\\varphi^{\\rm ref}$ of §3.3 is the simple-cubic graph — on which the form of the wave rule, its dispersion and the six-link carrier of the companion construction rest, and which the cone of §3.3 does not require; (xi) center independence (A4), in two clauses: the update commutes with lattice translations up to gauge, and the update at a site contains no explicit copy of that site's present value; (xii) background independence (A6), covariance of the dynamics under site-dependent internal-index transformations with the link coupling transformed alongside, which in the form formalized imposes no restriction on the rule and fixes the interface through which the gauge symmetry is read locally; and, for the continuous path of $*$-automorphisms from the identity to the update in §3.2 and §3.4, (xiii) the second-order form of the update, a posit of the selected lattice model, not derived and not an axiom of OI: each site of (viii) carries a previous and a current value in a finite abelian group, and one step is $x(t+1) = F(x(t)) - x(t-1)$, in phase-space form $(x(t-1), x(t)) \\mapsto (x(t), F(x(t)) - x(t-1))$, with each $F_i$ reading the current values at finitely many sites and each site read by finitely many $F_i$ (kernel: `ruleDynamics` in `OIBridge/SecondOrderDrive.lean`), the update displayed in §3.2 being its instance with $q = 2$ and $F$ the nearest-neighbour sum; and, for the Bell analysis of §3.3, (xiv) measurement independence, $p(\\Omega\\mid a,b)=p(\\Omega)$ — the response-relevant pre-setting variable $\\Omega$ is uncorrelated with the setting generators' outputs — a posit about the initial condition, not derived. Fourteen items, of unequal weight, and not fourteen independent physical assumptions: (viii) is foundational and (ix)–(xi) and (xiii) are stated relative to it; (x) implies the bound of (ix) for $G_\\varphi^{\\rm ref}$, and with (vii) for $G_\\varphi$; the second clause of (xi) depends on the identification of (viii) as well as on the rule; (xii) restricts no rule; and (xiv) enters only the Bell analysis of §3.3. Part I of the companion methodology paper gives the complementary view: an eight-rung analysis of observational structure. The perspectival reading gives the proper-part locus. A successor map uses successive moments and a persisting locus, and preservation of registered distinctions implies injectivity on states with different registered content. The analysis takes per-moment finiteness of the visible configuration space from the finite-capacity clause of the Definition, and isolates recurrence (Axiom 2) as the one rung requiring a further axiom; the total finiteness of item (ii) and items (iv)–(xiv) lie outside the layer it treats. The two accounts describe one structure — the rung analysis counts what is *recovered*, this ledger counts what is *assumed* — and agree on the substance, including that the injectivity recovery closes its hidden-sector margin on a finite representative with an empirical input and that visible finiteness is stipulated per moment rather than derived. The two-axiom statement remains correct about what is *primitive*; this ledger states what is *assumed* or, for item (ii), hypothesized, and the framework's claims are conditional on the full list, item (ii) entering only as one of the sufficient conditions named at each use.",
+   "old": null,
+   "pr": 1474,
+   "rows": [],
+   "seq": 20031,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/RESULT.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "resolved-papers/Substratum.md:92",
+   "key": "S2-C:resolved-papers/Substratum.md:92",
+   "kind": "resolve",
+   "method": "md-resolved",
+   "new": "(A1) **Finiteness.** The configuration space $S$ is finite. E3, read as a Hilbert-space dimension cutoff $\\dim\\mathcal H\\le e^{A/4}$, bounds the observationally relevant visible sector and boundary layer $\\mathcal C_V\\times\\mathcal C_B$ under the deep-sector influence bound H-BD of [GR §3.2]. This bound alone does not establish finiteness of every underlying sector. Theorem 24(iii) gives an exact freedom to adjoin independently prepared decoupled factors of any cardinality at a fixed interface, each in a normalized state or law with its own unitary, isometric or measurable dynamics; an unnormalizable factor is not covered. A deep sector coupled under H-BD changes the transition law by at most $2t/\\tau_{BD}$ ([GR §3.2]), so its comparison is only at leading order on accessible timescales. A1 is an open hypothesis, not adopted ([Main §4.5], item (ii)), and one sufficient condition among those each result names: it remains the finite-carrier premise for the recurrence arguments, and for their P-indivisibility conclusion the near-return condition (NR) of [Main §2.3], assumed in its place and not adopted, is a weaker sufficient condition. (NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update of [Main §3.2] on $\\mathbb{Z}^d$ no law that is not supported on periodic configurations is known to satisfy it.",
+   "old": null,
+   "pr": 1474,
+   "rows": [],
+   "seq": 20032,
+   "source_path": "verification/audits/manuscript/a1exit-s2c-20261121/RESULT.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Substratum.md"
+    }
+   ],
+   "unit": "S2-C"
+  },
+  {
+   "amends": null,
+   "id": "E1",
+   "key": "S2-D:E1",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "### 4.6 Structural Exclusion of Observers from Fast-Mixing Regions",
+   "old": "### 4.6 Structural Exclusion of Equilibrium-Phase Observers",
+   "pr": 1472,
+   "rows": [
+    "X-63"
+   ],
+   "seq": 30000,
+   "source_path": "verification/audits/manuscript/a1exit-s2d-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-D"
+  },
+  {
+   "amends": null,
+   "id": "E2",
+   "key": "S2-D:E2",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "For an equilibrium macrostate of a finite representative of $(S, \\varphi)$, canonical typicality [31] implies that,",
+   "old": "Under $\\tau_{\\rm mix}\\ll\\tau_S$: For $(S, \\varphi)$ in its equilibrium macrostate, canonical typicality [31] implies that,",
+   "pr": 1472,
+   "rows": [
+    "X-62",
+    "X-63"
+   ],
+   "seq": 30001,
+   "source_path": "verification/audits/manuscript/a1exit-s2d-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-D"
+  },
+  {
+   "amends": null,
+   "id": "E3",
+   "key": "S2-D:E3",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "Under $\\tau_{\\rm mix}\\ll\\tau_S$, no bounded-diameter partition supports (C2-slow) in that description.",
+   "old": "No bounded-diameter partition supports (C2-slow) in that description.",
+   "pr": 1472,
+   "rows": [
+    "X-62",
+    "X-63"
+   ],
+   "seq": 30002,
+   "source_path": "verification/audits/manuscript/a1exit-s2d-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-D"
+  },
+  {
+   "amends": null,
+   "id": "E4",
+   "key": "S2-D:E4",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "In that description, with (C2) read in its timescale form, the framework's observers therefore occur only outside regions whose effective channel satisfies (EM) at $\\tau_{\\rm mix}\\ll\\tau_S$. Within that description, observers exist where (C1)–(C4), with (C2) read as (C2-slow), are satisfiable, and (C1)–(C4), so read, are not satisfiable in the coarse-grained description of such a region.",
+   "old": "In that description, with (C2) read in its timescale form, the framework's observers therefore exist only in the non-equilibrium phase of $(S, \\varphi)$. Within that description, observers exist where (C1)–(C4), with (C2) read as (C2-slow), are satisfiable, and (C1)–(C4), so read, are not satisfiable in the coarse-grained description of the equilibrium phase.",
+   "pr": 1472,
+   "rows": [
+    "X-63"
+   ],
+   "seq": 30003,
+   "source_path": "verification/audits/manuscript/a1exit-s2d-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-D"
+  },
+  {
+   "amends": null,
+   "id": "E5",
+   "key": "S2-D:E5",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "are nonetheless structurally excluded from regions whose effective channel mixes in a time short compared with $\\tau_S$:",
+   "old": "are nonetheless structurally restricted to the non-equilibrium phase of $(S, \\varphi)$:",
+   "pr": 1472,
+   "rows": [
+    "X-63"
+   ],
+   "seq": 30004,
+   "source_path": "verification/audits/manuscript/a1exit-s2d-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Substratum.md"
+    }
+   ],
+   "unit": "S2-D"
+  },
+  {
+   "amends": null,
+   "id": "E6",
+   "key": "S2-D:E6",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "In that description, for a finite bijective $(S,\\varphi)$, this excludes Boltzmann brains structurally rather than anthropically. Whether it replaces the low-entropy \"past hypothesis\", in its role of selecting observer-compatible configurations, with a structural observer-selection rule is open, since the rule selects regions rather than global configurations. Without A1 the question also concerns an incoming supply: on an infinite carrier",
+   "old": "In that description, for a finite bijective $(S,\\varphi)$, this replaces the low-entropy \"past hypothesis\", in its role of selecting observer-compatible configurations, with a structural observer-selection rule and excludes Boltzmann brains structurally rather than anthropically. Without A1 this replacement is open: on an infinite carrier",
+   "pr": 1472,
+   "rows": [
+    "X-63",
+    "X-82"
+   ],
+   "seq": 30005,
+   "source_path": "verification/audits/manuscript/a1exit-s2d-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Substratum.md"
+    }
+   ],
+   "unit": "S2-D"
+  },
+  {
+   "amends": null,
+   "id": "E7",
+   "key": "S2-D:E7",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "The observer's exclusion from regions whose effective channel mixes fast ($\\tau_{\\rm mix} \\ll \\tau_S$), with C2 read in its timescale form (record persistence and readback there being suppressed, not excluded), is a structural consequence of the effective-mixing hypothesis, in the coarse-grained description generated by iterating the one-step effective channel. The exclusion is time-symmetric",
+   "old": "The observer's confinement to the non-equilibrium phase of $(S, \\varphi)$, with C2 read in its timescale form (record persistence and readback there being suppressed, not excluded), is a structural consequence of the effective-mixing hypothesis, for sufficiently fast-mixing equilibria ($\\tau_{\\rm mix} \\ll \\tau_S$), in the coarse-grained description generated by iterating the one-step effective channel. The confinement is time-symmetric",
+   "pr": 1472,
+   "rows": [
+    "X-63"
+   ],
+   "seq": 30006,
+   "source_path": "verification/audits/manuscript/a1exit-s2d-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Substratum.md"
+    }
+   ],
+   "unit": "S2-D"
+  },
+  {
+   "amends": null,
+   "id": "E8",
+   "key": "S2-D:E8",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "Second, *regions whose effective channel mixes fast* ($\\tau_{\\rm mix} \\ll \\tau_S$) are, by the structural observer-selection theorem and with C2 read in its timescale form (record persistence and readback there being suppressed, not excluded), observer-free in the coarse-grained",
+   "old": "Second, the *equilibrium phase* of $(S, \\varphi)$ is, by the structural observer-selection theorem and with C2 read in its timescale form (record persistence and readback there being suppressed, not excluded), observer-free for sufficiently fast-mixing equilibria ($\\tau_{\\rm mix} \\ll \\tau_S$) in the coarse-grained",
+   "pr": 1472,
+   "rows": [
+    "X-63"
+   ],
+   "seq": 30007,
+   "source_path": "verification/audits/manuscript/a1exit-s2d-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Substratum.md"
+    }
+   ],
+   "unit": "S2-D"
+  },
+  {
+   "amends": null,
+   "id": "E9",
+   "key": "S2-D:E9",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "and from the observer-selection theorem's exclusion of observers from fast-mixing regions",
+   "old": "and from the observer-selection theorem's restriction of observers to the non-equilibrium phase",
+   "pr": 1472,
+   "rows": [
+    "X-63"
+   ],
+   "seq": 30008,
+   "source_path": "verification/audits/manuscript/a1exit-s2d-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Substratum.md"
+    }
+   ],
+   "unit": "S2-D"
+  },
+  {
+   "amends": null,
+   "id": "E10",
+   "key": "S2-D:E10",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "Under the effective-mixing hypothesis, substrata whose observer-relevant regions all have effective channels mixing with $\\tau_{\\rm mix} \\ll \\tau_S$ at every time cannot satisfy",
+   "old": "Under the effective-mixing hypothesis and for sufficiently fast-mixing equilibria ($\\tau_{\\rm mix} \\ll \\tau_S$), substrata in perpetual equilibrium cannot satisfy",
+   "pr": 1472,
+   "rows": [
+    "X-63"
+   ],
+   "seq": 30009,
+   "source_path": "verification/audits/manuscript/a1exit-s2d-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Structure.md"
+    }
+   ],
+   "unit": "S2-D"
+  },
+  {
+   "amends": null,
+   "id": "E11",
+   "key": "S2-D:E11",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "- *Local mixing rate:* $\\varphi$ admits phases",
+   "old": "- *Non-equilibrium phase:* $\\varphi$ admits phases",
+   "pr": 1472,
+   "rows": [
+    "X-63"
+   ],
+   "seq": 30010,
+   "source_path": "verification/audits/manuscript/a1exit-s2d-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Structure.md"
+    }
+   ],
+   "unit": "S2-D"
+  },
+  {
+   "amends": null,
+   "id": "E12",
+   "key": "S2-D:E12",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "the coupled-dynamics, slow-local-mixing, and high-capacity features",
+   "old": "the coupled-dynamics, non-equilibrium-phase, and high-capacity features",
+   "pr": 1472,
+   "rows": [
+    "X-63"
+   ],
+   "seq": 30011,
+   "source_path": "verification/audits/manuscript/a1exit-s2d-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Structure.md"
+    }
+   ],
+   "unit": "S2-D"
+  },
+  {
+   "amends": null,
+   "id": "E13",
+   "key": "S2-D:E13",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "— excludes observers satisfying C1–C4, with C2 read in its timescale form (record persistence and readback there being suppressed, not excluded), from regions whose effective channel mixes that fast; the exclusion is time-symmetric",
+   "old": "— restricts observers satisfying C1–C4, with C2 read in its timescale form (record persistence and readback there being suppressed, not excluded), to the non-equilibrium phase of $(S, \\varphi)$; the restriction is time-symmetric",
+   "pr": 1472,
+   "rows": [
+    "X-63"
+   ],
+   "seq": 30012,
+   "source_path": "verification/audits/manuscript/a1exit-s2d-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch02-substratum.md"
+    }
+   ],
+   "unit": "S2-D"
+  },
+  {
+   "amends": null,
+   "id": "E14",
+   "key": "S2-D:E14",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "That the regions where observers can exist are ordered by this growth is not established.",
+   "old": "That the selected non-equilibrium phase is ordered by this growth is not established.",
+   "pr": 1472,
+   "rows": [
+    "X-63"
+   ],
+   "seq": 30013,
+   "source_path": "verification/audits/manuscript/a1exit-s2d-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch02-substratum.md"
+    }
+   ],
+   "unit": "S2-D"
+  },
+  {
+   "amends": null,
+   "id": "E15",
+   "key": "S2-D:E15",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "— excludes observers satisfying C1–C4, with C2 read in its timescale form (record persistence and readback there being suppressed, not excluded), from regions whose effective channel mixes that fast; the exclusion is time-symmetric",
+   "old": "— restricts observers satisfying C1–C4, with C2 read in its timescale form (record persistence and readback there being suppressed, not excluded), to the non-equilibrium phase of $(S, \\varphi)$; the restriction is time-symmetric",
+   "pr": 1472,
+   "rows": [
+    "X-63"
+   ],
+   "seq": 30014,
+   "source_path": "verification/audits/manuscript/a1exit-s2d-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": "book/ch02-substratum.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-D"
+  },
+  {
+   "amends": null,
+   "id": "E16",
+   "key": "S2-D:E16",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "That the regions where observers can exist are ordered by this growth is not established.",
+   "old": "That the selected non-equilibrium phase is ordered by this growth is not established.",
+   "pr": 1472,
+   "rows": [
+    "X-63"
+   ],
+   "seq": 30015,
+   "source_path": "verification/audits/manuscript/a1exit-s2d-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": "book/ch02-substratum.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-D"
+  },
+  {
+   "amends": null,
+   "id": "E17",
+   "key": "S2-D:E17",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "*Fast-mixing regions of $(S, \\varphi)$.*",
+   "old": "*The equilibrium phase of $(S, \\varphi)$.*",
+   "pr": 1472,
+   "rows": [
+    "X-63"
+   ],
+   "seq": 30016,
+   "source_path": "verification/audits/manuscript/a1exit-s2d-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch04-methodology.md"
+    }
+   ],
+   "unit": "S2-D"
+  },
+  {
+   "amends": null,
+   "id": "E18",
+   "key": "S2-D:E18",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "*Fast-mixing regions of $(S, \\varphi)$.*",
+   "old": "*The equilibrium phase of $(S, \\varphi)$.*",
+   "pr": 1472,
+   "rows": [
+    "X-63"
+   ],
+   "seq": 30017,
+   "source_path": "verification/audits/manuscript/a1exit-s2d-20261121/PREREG.md",
+   "targets": [
+    {
+     "chapter": "book/ch04-methodology.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-D"
+  },
+  {
+   "amends": null,
+   "id": "E19",
+   "key": "S2-D:E19",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "In the exclusion arguments below — fast-mixing regions, and the anti-Boltzmann-brain corollary of §4.6 —",
+   "old": "In the exclusion arguments below — the equilibrium phase, and the anti-Boltzmann-brain corollary of §4.6 —",
+   "pr": 1472,
+   "rows": [
+    "X-63"
+   ],
+   "seq": 30018,
+   "source_path": "verification/audits/manuscript/a1exit-s2d-20261121/amendments/A1.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Main.md"
+    }
+   ],
+   "unit": "S2-D"
+  },
+  {
+   "amends": null,
+   "id": "E20",
+   "key": "S2-D:E20",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "Whether the effective-mixing hypothesis takes the place of an initial-condition axiom in selecting where observers exist is open.",
+   "old": "The effective-mixing hypothesis is the premise that takes the place of an initial-condition axiom in selecting where observers exist.",
+   "pr": 1472,
+   "rows": [
+    "X-63"
+   ],
+   "seq": 30019,
+   "source_path": "verification/audits/manuscript/a1exit-s2d-20261121/amendments/A1.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Substratum.md"
+    }
+   ],
+   "unit": "S2-D"
+  },
+  {
+   "amends": null,
+   "id": "E21",
+   "key": "S2-D:E21",
+   "kind": "replace",
+   "method": "md-heading",
+   "new": "- *Slow local mixing:* $\\varphi$ admits phases",
+   "old": "- *Local mixing rate:* $\\varphi$ admits phases",
+   "pr": 1472,
+   "rows": [
+    "X-63"
+   ],
+   "seq": 30020,
+   "source_path": "verification/audits/manuscript/a1exit-s2d-20261121/amendments/A1.md",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Structure.md"
+    }
+   ],
+   "unit": "S2-D"
+  },
+  {
+   "amends": null,
+   "id": "E01",
+   "key": "S2-E:E01",
+   "kind": "replace",
+   "method": "json",
+   "new": "For a finite substratum, the framework's axiomatic content concerns finite physical structures",
+   "old": "The framework's axiomatic content concerns, under A1, finite physical structures",
+   "pr": 1475,
+   "rows": [
+    "X-55"
+   ],
+   "seq": 40000,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Computation.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "E02",
+   "key": "S2-E:E02",
+   "kind": "replace",
+   "method": "json",
+   "new": "A finite substratum — one with finitely many tokens at any moment — sits naturally",
+   "old": "The framework's finiteness hypothesis (A1) — that the substratum has finitely many tokens at any moment — sits naturally",
+   "pr": 1475,
+   "rows": [
+    "X-55"
+   ],
+   "seq": 40001,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Computation.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "E03a",
+   "key": "S2-E:E03a",
+   "kind": "replace",
+   "method": "json",
+   "new": "that C1–C4-satisfying observers, with C2 read in its timescale form, cannot exist in regions whose effective channel mixes in a time short compared with $\\tau_S$:",
+   "old": "that C1–C4-satisfying observers, with C2 read in its timescale form, cannot exist in the equilibrium phase of $(S, \\varphi)$:",
+   "pr": 1475,
+   "rows": [
+    "X-82"
+   ],
+   "seq": 40002,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Complexity.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "E03b",
+   "key": "S2-E:E03b",
+   "kind": "replace",
+   "method": "json",
+   "new": "Whether the same theorem replaces the \"past hypothesis\" of low initial entropy — usually imported as a separate axiom to explain why we observe a low-entropy universe — in its role of selecting observer-compatible configurations is open, since the theorem selects regions rather than global configurations; on an infinite carrier an invariant law can also carry a low-entropy stream entering from spatial infinity, and whether such an incoming supply is excluded is not settled.",
+   "old": "The \"past hypothesis\" of low initial entropy — usually imported as a separate axiom to explain why we observe a low-entropy universe — is replaced, in its role of selecting observer-compatible configurations, by the same theorem, since, in that description and with C2 read in its timescale form, observers exist only in the non-equilibrium phase.",
+   "pr": 1475,
+   "rows": [
+    "X-63",
+    "X-82"
+   ],
+   "seq": 40003,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Complexity.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "E04",
+   "key": "S2-E:E04",
+   "kind": "replace",
+   "method": "json",
+   "new": "which holds at the recurrence scale from a non-permutation rooted map on a finite representative,",
+   "old": "which holds at the recurrence scale from a non-permutation rooted map and finiteness,",
+   "pr": 1475,
+   "rows": [
+    "X-20"
+   ],
+   "seq": 40004,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Medicine.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "E05a",
+   "key": "S2-E:E05a",
+   "kind": "replace",
+   "method": "json",
+   "new": "it is removable, on a finite representative, for registered histories whose states lie in the eventual image",
+   "old": "it is removable for registered histories whose states lie in the eventual image",
+   "pr": 1475,
+   "rows": [
+    "X-30"
+   ],
+   "seq": 40005,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Methodology.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "E05b",
+   "key": "S2-E:E05b",
+   "kind": "replace",
+   "method": "json",
+   "new": "the second, on a finite representative, for registered states in the eventual image",
+   "old": "the second for registered states in the eventual image",
+   "pr": 1475,
+   "rows": [
+    "X-30"
+   ],
+   "seq": 40006,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Methodology.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "E05c",
+   "key": "S2-E:E05c",
+   "kind": "replace",
+   "method": "json",
+   "new": "or, for registered states in the eventual image of a finite representative, by the eventual-image restriction",
+   "old": "or, for registered states in the eventual image, by the eventual-image restriction",
+   "pr": 1475,
+   "rows": [
+    "X-30"
+   ],
+   "seq": 40007,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Methodology.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "E06",
+   "key": "S2-E:E06",
+   "kind": "replace",
+   "method": "json",
+   "new": "Reversibility therefore is not established here: on a finite total space it follows from injectivity (Section 4.5); otherwise it is posited as reversibility (REV), $\\varphi$ a bimeasurable bijection of a measurable carrier ([Main §4.5]).",
+   "old": "Reversibility therefore is not established here — it waits on finiteness of the total space (Section 4.5).",
+   "pr": 1475,
+   "rows": [
+    "X-30"
+   ],
+   "seq": 40008,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Methodology.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "E07",
+   "key": "S2-E:E07",
+   "kind": "replace",
+   "method": "json",
+   "new": "For a finite substratum — A4's finite periodic quotient $\\mathbb{Z}^d/P$, a qualified case under the conditions on $P$ stated with each result that uses it [SM §4.1] — given E1–E7, A2–A6, the M1-T temporal",
+   "old": "Given E1–E7, A1–A6, the M1-T temporal",
+   "pr": 1475,
+   "rows": [
+    "X-45"
+   ],
+   "seq": 40009,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Methodology.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "E08a",
+   "key": "S2-E:E08a",
+   "kind": "replace",
+   "method": "json",
+   "new": "The structural assumptions A2–A6 and the restriction to finite substrata are not claimed as derived",
+   "old": "The structural assumptions A1–A6 are not claimed as derived",
+   "pr": 1475,
+   "rows": [
+    "X-45"
+   ],
+   "seq": 40010,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Methodology.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "E08b",
+   "key": "S2-E:E08b",
+   "kind": "replace",
+   "method": "json",
+   "new": "A reader who rejects an assumption in A2–A6, or the restriction to finite substrata,",
+   "old": "A reader who rejects an assumption in A1–A6",
+   "pr": 1475,
+   "rows": [
+    "X-45"
+   ],
+   "seq": 40011,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Methodology.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "E09a",
+   "key": "S2-E:E09a",
+   "kind": "replace",
+   "method": "json",
+   "new": "The gauge-classification theorem concerns a finite substratum, and it is what the finiteness buys",
+   "old": "The framework's setting is finite, and the gauge-classification theorem is what the finiteness buys",
+   "pr": 1475,
+   "rows": [
+    "X-45"
+   ],
+   "seq": 40012,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Methodology.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "E09b",
+   "key": "S2-E:E09b",
+   "kind": "replace",
+   "method": "json",
+   "new": "it is a statement of what a finite substratum makes available",
+   "old": "it is a statement of what the framework's finiteness hypothesis A1 makes available",
+   "pr": 1475,
+   "rows": [
+    "X-45"
+   ],
+   "seq": 40013,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Methodology.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "E10",
+   "key": "S2-E:E10",
+   "kind": "replace",
+   "method": "json",
+   "new": "the constructive-OSR claim is conditional on a finite substratum, the structural assumptions A2–A6 and the nearest-neighbor premise, which are not themselves derived; the claim is \"constructive OSR within the nearest-neighbor class of finite substrata satisfying A2–A6,\"",
+   "old": "the constructive-OSR claim is conditional on the structural assumptions A1–A6 and the nearest-neighbor premise, which are not themselves derived; the claim is \"constructive OSR within the nearest-neighbor A1–A6 class,\"",
+   "pr": 1475,
+   "rows": [
+    "X-45"
+   ],
+   "seq": 40014,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Methodology.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "E11",
+   "key": "S2-E:E11",
+   "kind": "replace",
+   "method": "json",
+   "new": "which is why the qualifier to finite substrata satisfying A2–A6 is load-bearing",
+   "old": "which is why the A1–A6 qualifier is load-bearing",
+   "pr": 1475,
+   "rows": [
+    "X-45"
+   ],
+   "seq": 40015,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Methodology.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "E12",
+   "key": "S2-E:E12",
+   "kind": "replace",
+   "method": "json",
+   "new": "The framework's substrate is the bijection $\\varphi$ on the total system $S$;",
+   "old": "The framework's substrate is the bijection on a finite set;",
+   "pr": 1475,
+   "rows": [
+    "X-01"
+   ],
+   "seq": 40016,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "papers/Methodology.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B01",
+   "key": "S2-E:B01",
+   "kind": "replace",
+   "method": "json",
+   "new": "(the bijection $\\varphi$ acts on a state space, which is finite for a finite substratum, with classical probability",
+   "old": "(the bijection $\\varphi$ acts on a state space, finite under A1, with classical probability",
+   "pr": 1475,
+   "rows": [
+    "X-55"
+   ],
+   "seq": 40017,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch14-quantum-computing.md"
+    },
+    {
+     "chapter": "book/ch14-quantum-computing.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B02",
+   "key": "S2-E:B02",
+   "kind": "replace",
+   "method": "json",
+   "new": "the universe is a deterministic system at the substratum level, finite for a finite substratum",
+   "old": "the universe is, under A1, a deterministic finite system at the substratum level",
+   "pr": 1475,
+   "rows": [
+    "X-55"
+   ],
+   "seq": 40018,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch14-quantum-computing.md"
+    },
+    {
+     "chapter": "book/ch14-quantum-computing.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B03a",
+   "key": "S2-E:B03a",
+   "kind": "replace",
+   "method": "json",
+   "new": "bijection, and finite structures for a finite substratum",
+   "old": "bijection and finite structures when A1 is posited",
+   "pr": 1475,
+   "rows": [
+    "X-55"
+   ],
+   "seq": 40019,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch14-quantum-computing.md"
+    },
+    {
+     "chapter": "book/ch14-quantum-computing.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B03b",
+   "key": "S2-E:B03b",
+   "kind": "replace",
+   "method": "json",
+   "new": "for a finite substratum, the framework's axiomatic content concerns finite physical structures",
+   "old": "the framework's axiomatic content concerns, under A1, finite physical structures",
+   "pr": 1475,
+   "rows": [
+    "X-55"
+   ],
+   "seq": 40020,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch14-quantum-computing.md"
+    },
+    {
+     "chapter": "book/ch14-quantum-computing.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B04",
+   "key": "S2-E:B04",
+   "kind": "replace",
+   "method": "json",
+   "new": "A finite substratum would limit the total number of configurations.",
+   "old": "A1 would limit the total number of configurations.",
+   "pr": 1475,
+   "rows": [
+    "X-55"
+   ],
+   "seq": 40021,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch14-quantum-computing.md"
+    },
+    {
+     "chapter": "book/ch14-quantum-computing.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B05",
+   "key": "S2-E:B05",
+   "kind": "replace",
+   "method": "json",
+   "new": "Section 18.7 develops, for a finite substratum, the finite-information character",
+   "old": "Section 18.7 develops, under A1, the finite-information character",
+   "pr": 1475,
+   "rows": [
+    "X-26"
+   ],
+   "seq": 40022,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B06",
+   "key": "S2-E:B06",
+   "kind": "replace",
+   "method": "json",
+   "new": "(whether the lattice is the infinite discrete lattice $\\mathbb{Z}^3$, which is distinct from a continuous $\\mathbb{R}^3$; a 3-torus quotient $\\mathbb{Z}^3/P$; a Klein-bottle-type identification, which is not a quotient by translations alone; or some other compact identification)",
+   "old": "(whether the universe is topologically trivial $\\mathbb{R}^3$, a 3-torus, a Klein-bottle quotient, or some other compact identification)",
+   "pr": 1475,
+   "rows": [],
+   "seq": 40023,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B07",
+   "key": "S2-E:B07",
+   "kind": "replace",
+   "method": "json",
+   "new": "But whether the lattice extends globally as the infinite discrete lattice $\\mathbb{Z}^3$, the standard construction of A4, which is distinct from a continuous $\\mathbb{R}^3$; identifies as a 3-torus $\\mathbb{Z}^3/P$, a finite periodic quotient that A4 admits as a qualified case; has a Klein-bottle-type identification, which is not a quotient by translations alone and is not among the cases A4 admits; or admits some other global identification structure",
+   "old": "But whether the lattice extends globally as $\\mathbb{R}^3$, identifies as a 3-torus, has a Klein-bottle quotient, or admits some other global identification structure",
+   "pr": 1475,
+   "rows": [],
+   "seq": 40024,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B08",
+   "key": "S2-E:B08",
+   "kind": "replace",
+   "method": "json",
+   "new": "(a 3-torus, a Klein-bottle quotient, whose identification includes a parity-reversing map and so is not a quotient by translations alone, or other compact identifications)",
+   "old": "(a 3-torus, a Klein-bottle quotient, or other compact identifications)",
+   "pr": 1475,
+   "rows": [],
+   "seq": 40025,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B09",
+   "key": "S2-E:B09",
+   "kind": "replace",
+   "method": "json",
+   "new": "the account reduces to the maximal-entropy measure of a finite representative posited in [Main §4.5]",
+   "old": "the account reduces to the maximal-entropy measure posited in [Main §4.5]",
+   "pr": 1475,
+   "rows": [
+    "X-10"
+   ],
+   "seq": 40026,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B10",
+   "key": "S2-E:B10",
+   "kind": "replace",
+   "method": "json",
+   "new": "finite information for a finite substratum, the arrow of time",
+   "old": "finite information under A1, the arrow of time",
+   "pr": 1475,
+   "rows": [
+    "X-26"
+   ],
+   "seq": 40027,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B11a",
+   "key": "S2-E:B11a",
+   "kind": "replace",
+   "method": "json",
+   "new": "A finite substratum has structural consequences",
+   "old": "The hypothesis A1 of a finite substratum has structural consequences",
+   "pr": 1475,
+   "rows": [
+    "X-26"
+   ],
+   "seq": 40028,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B11b",
+   "key": "S2-E:B11b",
+   "kind": "replace",
+   "method": "json",
+   "new": "It is described by a finite configuration space $S$ with bijection dynamics $\\varphi: S \\to S$. Finiteness is then not a calculational convenience but load-bearing:",
+   "old": "Under A1 the universe is described by a finite configuration space $S$ with bijection dynamics $\\varphi: S \\to S$. Finiteness is not a calculational convenience but load-bearing under A1:",
+   "pr": 1475,
+   "rows": [
+    "X-26"
+   ],
+   "seq": 40029,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B11c",
+   "key": "S2-E:B11c",
+   "kind": "replace",
+   "method": "json",
+   "new": "In this exact-return form the recurrence route in the framework's logic chain uses finite $S$; the near-return condition of Chapter 1 §1.5, assumed in its place and not adopted, also gives the indivisibility conclusion (it concerns a time that need not be accessible and then has no finite-window test; for the selected update of Main §3.2 on $\\mathbb{Z}^d$ no law that is not supported on periodic configurations is known to satisfy it).",
+   "old": "The recurrence route in the framework's logic chain requires finite $S$.",
+   "pr": 1475,
+   "rows": [
+    "X-20",
+    "X-26"
+   ],
+   "seq": 40030,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B12",
+   "key": "S2-E:B12",
+   "kind": "replace",
+   "method": "json",
+   "new": "and for a finite substratum it is finite.",
+   "old": "and under the finiteness posit A1 (Chapter 2 §2.4) it is finite.",
+   "pr": 1475,
+   "rows": [
+    "X-26"
+   ],
+   "seq": 40031,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B13a",
+   "key": "S2-E:B13a",
+   "kind": "replace",
+   "method": "json",
+   "new": "is load-bearing for that route's exact-return form. Infinite hidden sectors would break the finite-order argument that drives that form.",
+   "old": "is load-bearing. Infinite hidden sectors would break the recurrence argument that drives recurrence-scale P-indivisibility; that route would close.",
+   "pr": 1475,
+   "rows": [
+    "X-20",
+    "X-26"
+   ],
+   "seq": 40032,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B13b",
+   "key": "S2-E:B13b",
+   "kind": "replace",
+   "method": "json",
+   "new": "so for that update and prior an infinite substratum removes this route rather than the framework's quantum representation.",
+   "old": "so an infinite substratum removes this route rather than the framework's quantum representation.",
+   "pr": 1475,
+   "rows": [
+    "X-26"
+   ],
+   "seq": 40033,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B14a",
+   "key": "S2-E:B14a",
+   "kind": "replace",
+   "method": "json",
+   "new": "Finite information is therefore neither a quantitative claim",
+   "old": "The hypothesis of finite information (A1) is therefore neither a quantitative claim",
+   "pr": 1475,
+   "rows": [
+    "X-26"
+   ],
+   "seq": 40034,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B14b",
+   "key": "S2-E:B14b",
+   "kind": "replace",
+   "method": "json",
+   "new": "For a finite substratum it is a sufficient condition for one particular route — the recurrence-based P-indivisibility result in its exact-return form,",
+   "old": "It is a structural requirement for one particular route — the recurrence-based P-indivisibility result,",
+   "pr": 1475,
+   "rows": [
+    "X-20",
+    "X-26"
+   ],
+   "seq": 40035,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B14c",
+   "key": "S2-E:B14c",
+   "kind": "replace",
+   "method": "json",
+   "new": "For a finite substratum, finiteness is what makes this form of the route to P-indivisibility available.",
+   "old": "The substratum's finiteness is what makes this particular route to P-indivisibility available.",
+   "pr": 1475,
+   "rows": [
+    "X-26"
+   ],
+   "seq": 40036,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B15",
+   "key": "S2-E:B15",
+   "kind": "replace",
+   "method": "json",
+   "new": "The recurrence theorem connects three structural features of a finite model: substratum finiteness ($|S| < \\infty$),",
+   "old": "The recurrence theorem connects three structural features of the framework: substratum finiteness (the hypothesis A1, $|S| < \\infty$),",
+   "pr": 1475,
+   "rows": [
+    "X-26"
+   ],
+   "seq": 40037,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B16a",
+   "key": "S2-E:B16a",
+   "kind": "replace",
+   "method": "json",
+   "new": "Finite information is therefore load-bearing for the exact-return form of the recurrence route specifically,",
+   "old": "The hypothesis of finite information (A1) is therefore load-bearing for the recurrence route specifically,",
+   "pr": 1475,
+   "rows": [
+    "X-26"
+   ],
+   "seq": 40038,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B16b",
+   "key": "S2-E:B16b",
+   "kind": "replace",
+   "method": "json",
+   "new": "would remove that exact-return form rather than the framework's quantum representation; the route then needs the near-return condition of Chapter 1 §1.5, assumed as a hypothesis and not adopted.",
+   "old": "would remove the recurrence route rather than the framework's quantum representation.",
+   "pr": 1475,
+   "rows": [
+    "X-20",
+    "X-26"
+   ],
+   "seq": 40039,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B17",
+   "key": "S2-E:B17",
+   "kind": "replace",
+   "method": "json",
+   "new": "First, a compact identification by translations can give a finite periodic quotient $\\mathbb{Z}^3/P$, which A4 admits as a qualified case under the conditions on $P$ stated with each result that uses it; a Klein-bottle-type identification is not a quotient by translations alone and is not among the cases A4 admits. With finitely many states per site and the specified finite-carrier dynamics, a finite periodic quotient is one way to obtain a finite substratum in a model.",
+   "old": "First, a compact identification can give a finite periodic lattice. With finitely many states per site and the specified finite-carrier dynamics, this is one way to realize A1 in a model.",
+   "pr": 1475,
+   "rows": [
+    "X-80"
+   ],
+   "seq": 40040,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B18",
+   "key": "S2-E:B18",
+   "kind": "replace",
+   "method": "json",
+   "new": "Second, a finite substratum can also be obtained on a finite lattice region",
+   "old": "Second, A1 can also hold on a finite lattice region",
+   "pr": 1475,
+   "rows": [
+    "X-80"
+   ],
+   "seq": 40041,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B19",
+   "key": "S2-E:B19",
+   "kind": "replace",
+   "method": "json",
+   "new": "illustrate one way to model a finite substratum under the conditions above",
+   "old": "illustrate one way to model A1 under the conditions above",
+   "pr": 1475,
+   "rows": [
+    "X-80"
+   ],
+   "seq": 40042,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "B20",
+   "key": "S2-E:B20",
+   "kind": "replace",
+   "method": "json",
+   "new": "*A finite substratum bounds information content.* A finite substratum (§18.7) would constrain",
+   "old": "*The substratum is finite under A1.* Under A1 the framework's finite substratum (§18.7) would constrain",
+   "pr": 1475,
+   "rows": [
+    "X-80"
+   ],
+   "seq": 40043,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": null,
+   "id": "G01",
+   "key": "S2-E:G01",
+   "kind": "replace",
+   "method": "json",
+   "new": "uses a non-permutation rooted map and a finite return or the near-return condition (NR), assumed as a hypothesis and not adopted (it concerns a time that need not be accessible and then has no finite-window test; for the selected update of Main §3.2 on $\\mathbb{Z}^d$ no law that is not supported on periodic configurations is known to satisfy it) ([Main §3.4])",
+   "old": "uses a non-permutation rooted map and a finite return ([Main §3.4])",
+   "pr": 1475,
+   "rows": [
+    "X-20"
+   ],
+   "seq": 40044,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_edits.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/glossary.md"
+    },
+    {
+     "chapter": "book/glossary.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": "B07",
+   "id": "A1-R1a",
+   "key": "S2-E:A1-R1a",
+   "kind": "replace",
+   "method": "json",
+   "new": "which is not a quotient by translations alone;",
+   "old": "which is not a quotient by translations alone and is not among the cases A4 admits;",
+   "pr": 1475,
+   "rows": [],
+   "seq": 40045,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_amend1.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": "B17",
+   "id": "A1-R1b",
+   "key": "S2-E:A1-R1b",
+   "kind": "replace",
+   "method": "json",
+   "new": "a Klein-bottle-type identification is not a quotient by translations alone.",
+   "old": "a Klein-bottle-type identification is not a quotient by translations alone and is not among the cases A4 admits.",
+   "pr": 1475,
+   "rows": [],
+   "seq": 40046,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_amend1.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": "B16b",
+   "id": "A1-N1",
+   "key": "S2-E:A1-N1",
+   "kind": "replace",
+   "method": "json",
+   "new": "the route then rests, as a sufficient condition, on the near-return condition of Chapter 1 §1.5, assumed as a hypothesis and not adopted.",
+   "old": "the route then needs the near-return condition of Chapter 1 §1.5, assumed as a hypothesis and not adopted.",
+   "pr": 1475,
+   "rows": [],
+   "seq": 40047,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_amend1.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": "B11c",
+   "id": "A1-N2",
+   "key": "S2-E:A1-N2",
+   "kind": "replace",
+   "method": "json",
+   "new": "the near-return condition of Chapter 1 §1.5, assumed as a hypothesis and not adopted, also gives",
+   "old": "the near-return condition of Chapter 1 §1.5, assumed in its place and not adopted, also gives",
+   "pr": 1475,
+   "rows": [],
+   "seq": 40048,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_amend1.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  },
+  {
+   "amends": "B14c",
+   "id": "A1-N6",
+   "key": "S2-E:A1-N6",
+   "kind": "replace",
+   "method": "json",
+   "new": "Finiteness is what makes this form of the route to P-indivisibility available.",
+   "old": "For a finite substratum, finiteness is what makes this form of the route to P-indivisibility available.",
+   "pr": 1475,
+   "rows": [],
+   "seq": 40049,
+   "source_path": "verification/audits/manuscript/a1exit-s2e-20261121/checks/s2e_amend1.json",
+   "targets": [
+    {
+     "chapter": null,
+     "count": 1,
+     "file": "book/ch18-beyond.md"
+    },
+    {
+     "chapter": "book/ch18-beyond.md",
+     "count": 1,
+     "file": "book/The-Incompleteness-of-Observation-FULL.md"
+    }
+   ],
+   "unit": "S2-E"
+  }
+ ],
+ "schema": "a1exit-compare-edits/2",
+ "units": [
+  "S2-A",
+  "S2-B",
+  "S2-C",
+  "S2-D",
+  "S2-E"
+ ]
+}

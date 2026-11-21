@@ -1,9 +1,13 @@
 {
+ "ledger_commit": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
  "pin": "1c7eedc402eafd2bac654484fa790874a33f444d",
- "schema": "a1exit-compare-frozen/1",
+ "schema": "a1exit-compare-frozen/2",
  "sha256": {
   "baseline.py": "e0749fb926ce9da0ee52bad0ea9e0e80e4fa9f4edeb22c8009a303bf1af23ad9",
-  "compare/verdict.py": "7d3586d41ffc3c4389219e86fcbea350252fb53e0b3116381418888606f77d7f",
+  "compare/edits/S2.json": "5ff89198996543ffba310bd17d9a941e66806893eb74515ccfaad2a0acacd802",
+  "compare/verdict.py": "0f0eee0956093f0649005152178cc53ec8fd3a2e1237199ed34f648cc18daaf4",
+  "ledger rows.json at 7f28886f": "39e51d0cfd8d6855f17ef3d7253a43d372fae608a9dcae083fbeb52471b512a0",
   "snapshot.json": "2db7832d7cb95b0ba77b42afad965696390d4ad67a6835b2c45f045bd04f88c8"
- }
+ },
+ "source_commit": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5"
 }
