@@ -1,0 +1,266 @@
+name: A1-EXIT trial verify
+
+# Exact-tree verification of a predicted A1-retirement tree (#1477, PREREG §26.3; owner decision #1169
+# c.7061660930, option (a)). workflow_dispatch only: there is no push or pull_request trigger, so no push
+# launches it, and dispatching it needs owner approval (AGENTS.md §A.43 item 4). A re-run is refused: each
+# verification is a fresh dispatch on record.
+#
+# It checks out exactly the trial commit, requires it to be a single-parent child of the ledger base read from the
+# plan commit P, and runs P's pinned checkers from a worktree of P: preserve_check.py --verify-pins, --verify-ledger,
+# --commit <trial> --plan P, and --tree <trial checkout> --plan P --mutants --pdf-compare <CI build>; and
+# guards_check.py --mutants. The eight PDFs of the ledgered sources are built with build.sh on pandoc 3.1.3 and
+# xelatex on a pinned image, and the rebuilt TeX must equal the committed TeX.
+#
+# Every run step writes its exit status to out/<step>.rc. result.json (§A.44) records the inputs, the workflow
+# definition that ran, each step's outcome and exit status, the toolchain versions, the PDF page counts and the TeX
+# files that differ, read from files the steps write; log_lines_flagged is diagnostic only and decides nothing. The
+# logs and the built PDFs are uploaded with it. No step continues on error and nothing is retried; the last step
+# fails unless every required step succeeded, so a skipped step fails it. The job's own conclusion cannot be written
+# from inside the job: it is read afterwards from the run and jobs API and recorded beside result.json.
+on:
+  workflow_dispatch:
+    inputs:
+      trial_sha:
+        description: "the trial commit to verify, in full (40 lowercase hex)"
+        required: true
+        type: string
+      plan_sha:
+        description: "the plan commit P whose pinned checkers run, in full (40 lowercase hex)"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: a1exit-trial-verify
+  cancel-in-progress: false
+
+env:
+  TRIAL: ${{ inputs.trial_sha }}
+  PLAN: ${{ inputs.plan_sha }}
+  REC: verification/audits/foundations/a1exit-deletion-20261121
+  PANDOC_DEB: https://github.com/jgm/pandoc/releases/download/3.1.3/pandoc-3.1.3-1-amd64.deb
+  PANDOC_SHA256: caa7e0410f9e2cb1da2eb8db13cc97b5548fe455985e2c944e3929d22f99bcdc
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    steps:
+      - name: Inputs are full commit ids; this is the first attempt
+        id: inputs
+        run: |
+          mkdir -p "$RUNNER_TEMP/out"
+          set +e
+          (
+            test "$GITHUB_RUN_ATTEMPT" = 1 || { echo "re-runs are refused; dispatch afresh"; exit 1; }
+            [[ "$TRIAL" =~ ^[0-9a-f]{40}$ ]] || { echo "trial_sha is not a full commit id"; exit 1; }
+            [[ "$PLAN" =~ ^[0-9a-f]{40}$ ]] || { echo "plan_sha is not a full commit id"; exit 1; }
+            echo "inputs are full commit ids; run attempt $GITHUB_RUN_ATTEMPT"
+          ) > "$RUNNER_TEMP/out/inputs.log" 2>&1
+          rc=$?; cat "$RUNNER_TEMP/out/inputs.log"; echo "$rc" > "$RUNNER_TEMP/out/inputs.rc"; exit "$rc"
+
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+        id: checkout
+        with:
+          ref: ${{ inputs.trial_sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: The checkout is exactly the trial commit, a single-parent child of the ledger base, and P is present
+        id: head
+        run: |
+          set +e
+          (
+            set -e
+            test "$(git rev-parse HEAD)" = "$TRIAL"
+            test -z "$(git status --porcelain --ignored)"
+            git cat-file -e "$PLAN^{commit}"
+            base=$(git show "$PLAN:$REC/ledger.json" | python3 -I -c 'import json, sys; print(json.load(sys.stdin)["base"])')
+            [[ "$base" =~ ^[0-9a-f]{40}$ ]]
+            test "$(git rev-list --parents -n 1 "$TRIAL")" = "$TRIAL $base"
+            echo "trial $TRIAL; parent $base (ledger base, read from P)"
+          ) > "$RUNNER_TEMP/out/head.log" 2>&1
+          rc=$?; cat "$RUNNER_TEMP/out/head.log"; echo "$rc" > "$RUNNER_TEMP/out/head.rc"; exit "$rc"
+
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
+        id: python
+        with:
+          python-version: '3.11'
+
+      - name: Toolchain (pandoc 3.1.3, xelatex, poppler, numpy, scipy), versions recorded and checked
+        id: toolchain
+        run: |
+          set +e
+          (
+            set -e
+            sudo apt-get update
+            sudo apt-get install -y --no-install-recommends texlive-xetex texlive-latex-recommended \
+              texlive-latex-extra texlive-fonts-recommended lmodern poppler-utils
+            curl -fsSL -o "$RUNNER_TEMP/pandoc.deb" "$PANDOC_DEB"
+            echo "$PANDOC_SHA256  $RUNNER_TEMP/pandoc.deb" | sha256sum -c -
+            sudo dpkg -i "$RUNNER_TEMP/pandoc.deb"
+            python3 -I -m pip install numpy scipy
+            {
+              echo "image $ImageOS $ImageVersion"
+              pandoc --version | head -1
+              xelatex --version | head -1
+              pdftotext -v 2>&1 | head -1
+              python3 --version
+              python3 -I -m pip --version
+              dpkg-query -W -f '${Package} ${Version}\n' texlive-xetex texlive-latex-recommended texlive-latex-extra \
+                texlive-fonts-recommended lmodern poppler-utils
+              python3 -I -m pip freeze --all
+            } > "$RUNNER_TEMP/out/toolchain-versions.txt"
+            cat "$RUNNER_TEMP/out/toolchain-versions.txt"
+            # expected majors on ubuntu-24.04: TeX Live 2023, poppler 24, Python 3.11, pandoc 3.1.3
+            test "$ImageOS" = ubuntu24
+            test "$(pandoc --version | head -1)" = "pandoc 3.1.3"
+            [[ "$(dpkg-query -W -f '${Version}' texlive-xetex)" == 2023.* ]]
+            [[ "$(dpkg-query -W -f '${Version}' poppler-utils)" == 24.* ]]
+            [[ "$(python3 --version)" == "Python 3.11."* ]]
+          ) > "$RUNNER_TEMP/out/toolchain.log" 2>&1
+          rc=$?; tail -60 "$RUNNER_TEMP/out/toolchain.log"; echo "$rc" > "$RUNNER_TEMP/out/toolchain.rc"; exit "$rc"
+
+      - name: Plan worktree; P's preserve_check.py --verify-pins and --verify-ledger
+        id: plan
+        run: |
+          set +e
+          (
+            set -e
+            git worktree add --detach "$RUNNER_TEMP/plan" "$PLAN"
+            python3 -I -B "$RUNNER_TEMP/plan/$REC/preserve_check.py" --verify-pins --plan "$PLAN"
+            python3 -I -B "$RUNNER_TEMP/plan/$REC/preserve_check.py" --verify-ledger --plan "$PLAN"
+          ) > "$RUNNER_TEMP/out/plan.log" 2>&1
+          rc=$?; cat "$RUNNER_TEMP/out/plan.log"; echo "$rc" > "$RUNNER_TEMP/out/plan.rc"; exit "$rc"
+
+      - name: Build the eight PDFs with build.sh on a copy of the trial commit; TeX equals the committed TeX
+        id: build
+        env:
+          ALLOW_MISSING_GLYPHS: '0'
+        run: |
+          set +e
+          (
+            set -e
+            git worktree add --detach "$RUNNER_TEMP/build" "$TRIAL"
+            cd "$RUNNER_TEMP/build"
+            sh ./build.sh Computation GR Main Methodology SM Structure Substratum
+            sh ./build.sh --book
+            git diff --name-only -- papers/Computation.tex papers/GR.tex papers/Main.tex papers/Methodology.tex \
+              papers/SM.tex papers/Structure.tex papers/Substratum.tex book/The-Incompleteness-of-Observation-FULL.tex \
+              > "$RUNNER_TEMP/out/tex-diff.txt"
+            test ! -s "$RUNNER_TEMP/out/tex-diff.txt"
+            : > "$RUNNER_TEMP/out/pdf-pages.tsv"
+            for f in papers/Computation.pdf papers/GR.pdf papers/Main.pdf papers/Methodology.pdf papers/SM.pdf \
+                     papers/Structure.pdf papers/Substratum.pdf book/The-Incompleteness-of-Observation-FULL.pdf; do
+              n=$(pdfinfo "$f" | awk '/^Pages/{print $2}')
+              [[ "$n" =~ ^[0-9]+$ ]]
+              printf '%s\t%s\n' "$f" "$n" >> "$RUNNER_TEMP/out/pdf-pages.tsv"
+            done
+          ) > "$RUNNER_TEMP/out/build.log" 2>&1
+          rc=$?; cat "$RUNNER_TEMP/out/build.log"; echo "$rc" > "$RUNNER_TEMP/out/build.rc"; exit "$rc"
+
+      - name: P's preserve_check.py --commit, then --tree --mutants --pdf-compare
+        id: preserve
+        run: |
+          set +e
+          (
+            set -e
+            python3 -I -B "$RUNNER_TEMP/plan/$REC/preserve_check.py" --commit "$TRIAL" --plan "$PLAN"
+            python3 -I -B "$RUNNER_TEMP/plan/$REC/preserve_check.py" --tree "$GITHUB_WORKSPACE" --plan "$PLAN" \
+              --mutants --pdf-compare "$RUNNER_TEMP/build"
+          ) > "$RUNNER_TEMP/out/preserve.log" 2>&1
+          rc=$?; cat "$RUNNER_TEMP/out/preserve.log"; echo "$rc" > "$RUNNER_TEMP/out/preserve.rc"; exit "$rc"
+
+      - name: P's guards_check.py --mutants
+        id: guards
+        run: |
+          set +e
+          python3 -I -B "$RUNNER_TEMP/plan/$REC/guards_check.py" --mutants > "$RUNNER_TEMP/out/guards.log" 2>&1
+          rc=$?; cat "$RUNNER_TEMP/out/guards.log"; echo "$rc" > "$RUNNER_TEMP/out/guards.rc"; exit "$rc"
+
+      - name: Write result.json
+        id: result
+        if: ${{ always() }}
+        env:
+          OUTCOMES: >-
+            {"inputs": "${{ steps.inputs.outcome }}", "checkout": "${{ steps.checkout.outcome }}",
+             "head": "${{ steps.head.outcome }}", "python": "${{ steps.python.outcome }}",
+             "toolchain": "${{ steps.toolchain.outcome }}", "plan": "${{ steps.plan.outcome }}",
+             "build": "${{ steps.build.outcome }}", "preserve": "${{ steps.preserve.outcome }}",
+             "guards": "${{ steps.guards.outcome }}"}
+        run: |
+          mkdir -p "$RUNNER_TEMP/out"
+          python3 -I -B - <<'PY'
+          import json, os, re
+          out = os.path.join(os.environ['RUNNER_TEMP'], 'out')
+
+          def read(name):
+              p = os.path.join(out, name)
+              return open(p, encoding='utf-8', errors='replace').read() if os.path.exists(p) else None
+          outcomes = json.loads(os.environ['OUTCOMES'])
+          steps = {}
+          for name, outcome in outcomes.items():
+              rc = read(name + '.rc')
+              log = read(name + '.log') or ''
+              steps[name] = {'outcome': outcome, 'exit_status': int(rc.strip()) if rc is not None else None,
+                             'log_lines_flagged': [l.strip() for l in log.splitlines()
+                                                   if re.match(r'\s*(FAIL|BAD|PIN|LEDGER|TEX FAILED|PDF FAILED|ERROR)\b', l)]}
+          pages = {}
+          for l in (read('pdf-pages.tsv') or '').splitlines():
+              f, n = l.split('\t')
+              pages[f] = int(n)
+          tex_diff = read('tex-diff.txt')
+          result = {'schema': 'a1exit-trial-verify-v2', 'trial_sha': os.environ['TRIAL'], 'plan_sha': os.environ['PLAN'],
+                    'run_id': os.environ['GITHUB_RUN_ID'], 'run_attempt': os.environ['GITHUB_RUN_ATTEMPT'],
+                    'workflow_sha': os.environ['GITHUB_WORKFLOW_SHA'], 'workflow_ref': os.environ['GITHUB_WORKFLOW_REF'],
+                    'ref': os.environ['GITHUB_REF'], 'ref_sha': os.environ['GITHUB_SHA'],
+                    'steps': steps, 'pdf_pages': pages,
+                    'tex_files_differing': None if tex_diff is None else tex_diff.split(),
+                    'toolchain_versions': (read('toolchain-versions.txt') or '').splitlines(),
+                    'note': 'log_lines_flagged is diagnostic only; the verdict is the step outcomes, and the job '
+                            'conclusion is read from the run and jobs API',
+                    'verdict': 'pass' if all(s['outcome'] == 'success' for s in steps.values()) else 'fail'}
+          json.dump(result, open(os.path.join(out, 'result.json'), 'w'), indent=1, sort_keys=True)
+          print(json.dumps(result, indent=1, sort_keys=True))
+          PY
+
+      - name: Upload result.json, logs and the built PDFs
+        id: upload
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4.6.2
+        with:
+          name: a1exit-trial-verify-${{ inputs.trial_sha }}
+          path: |
+            ${{ runner.temp }}/out/
+            ${{ runner.temp }}/build/papers/Computation.pdf
+            ${{ runner.temp }}/build/papers/GR.pdf
+            ${{ runner.temp }}/build/papers/Main.pdf
+            ${{ runner.temp }}/build/papers/Methodology.pdf
+            ${{ runner.temp }}/build/papers/SM.pdf
+            ${{ runner.temp }}/build/papers/Structure.pdf
+            ${{ runner.temp }}/build/papers/Substratum.pdf
+            ${{ runner.temp }}/build/book/The-Incompleteness-of-Observation-FULL.pdf
+          if-no-files-found: error
+
+      - name: Every required step succeeded (a skipped step fails)
+        if: ${{ always() }}
+        env:
+          O_INPUTS: ${{ steps.inputs.outcome }}
+          O_CHECKOUT: ${{ steps.checkout.outcome }}
+          O_HEAD: ${{ steps.head.outcome }}
+          O_PYTHON: ${{ steps.python.outcome }}
+          O_TOOLCHAIN: ${{ steps.toolchain.outcome }}
+          O_PLAN: ${{ steps.plan.outcome }}
+          O_BUILD: ${{ steps.build.outcome }}
+          O_PRESERVE: ${{ steps.preserve.outcome }}
+          O_GUARDS: ${{ steps.guards.outcome }}
+          O_RESULT: ${{ steps.result.outcome }}
+          O_UPLOAD: ${{ steps.upload.outcome }}
+        run: |
+          for o in "$O_INPUTS" "$O_CHECKOUT" "$O_HEAD" "$O_PYTHON" "$O_TOOLCHAIN" "$O_PLAN" "$O_BUILD" \
+                   "$O_PRESERVE" "$O_GUARDS" "$O_RESULT" "$O_UPLOAD"; do
+            test "$o" = success || { echo "a required step is ${o:-missing}"; exit 1; }
+          done
+          echo "every required step succeeded"
