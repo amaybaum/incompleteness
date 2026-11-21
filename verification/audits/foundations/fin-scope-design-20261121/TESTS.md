@@ -1,11 +1,11 @@
 # FIN-SCOPE: adversarial test designs
 
-**Status.** Writer's test plan, revision 6, WIP / UNVERIFIED, for `SPEC.md` revision 6. These are
+**Status.** Writer's test plan, revision 7, WIP / UNVERIFIED, for `SPEC.md` revision 7. These are
 designs: no case has been run. Every "expected" entry is the verdict the rule as written in SPEC §3 must
 produce, fixed before any implementation exists, and the "why" column derives it from the counts.
 Revision 2 answered review c.7064941939, revision 3 the delta review
-c.7065126686, revision 4 c.7065227255, revision 5 c.7065296420, and revision 6 answers
-c.7065333755.
+c.7065126686, revision 4 c.7065227255, revision 5 c.7065296420, revision 6 c.7065333755,
+and revision 7 answers c.7065410306.
 
 **Conventions.**
 - Every case is synthetic text in a fixture file and never an edit of the manuscript. Where a case is
@@ -53,7 +53,8 @@ c.7065333755.
 | P-L2 | *Each conserved quantity of $S$ is a function of finitely many components.* (NCASES N3) | `finitely many` deleted | FS_L 1→0. FU also falls to 0, so no A | {L} | FAIL |
 | P-L3 | *A substratum of $N < \infty$ ontic configurations has …* (NCASES N4i) | `$N < \infty$` deleted | FS_L 1→0 | {L} | FAIL |
 | P-L4 | `**Lemma 9.**` *Let $S$ be finite. Every orbit of $\pi$ is periodic.* / Pigeonhole. | `**Lemma 9'.**` *Every orbit of $\pi$ is periodic.* / Pigeonhole. | The kinds match and the Jaccard similarity is at least 0.6, so the block pairs as revised. FS_L 1→0 gives L; FU=1 with FS=0 gives A | {L, A} | FAIL |
-| P-L4b | Lemma 9 as in P-L4 | the block deleted, with nothing similar added | It disappeared with FS_L+IS=1, so it is a member (R-a) reviewed against item 4, and its L hit is a hit on a member | {L} | FAIL with a plain record; PASS with a record answering the L hit with a `proof` that no surviving result needs the deleted lemma |
+| P-L4b | Lemma 9 as in P-L4 | the block deleted, with nothing similar added | Every disappeared block is a member (R-a), reviewed against extended item 4. This one also has FS_L+IS=1, so it raises the L hit as a pointer | {L} | FAIL with a plain record; PASS with a record answering the L hit with a `proof` that no surviving result needs the deleted lemma |
+| P-L4c | `**Lemma 10.**` *Every bijection of the configuration set has a cycle through each configuration it visits twice.* / Each configuration is visited before any repeats, so the walk closes. (No scope wording: FS_L=IS=0, and the finite use is worded with no listed term, as in X-2) | the block deleted, with nothing similar added | Every deleted block is a member, unconditionally. No L hit, because FS_L+IS=0. The record must answer extended item 4: whether any surviving result relies on it, and whether the finite use it silently carried is carried elsewhere | ∅ hits | membership (deletion) | FAIL with no record; PASS with a record answering extended item 4. Under the mutant that filters deletions by `FS_L + IS > 0`, it is not a member and passes with no record |
 | P-L5 | *Let $S$ be finite. Then every orbit is periodic.* / Pigeonhole. | "Let $S$ be finite." moved into the paragraph before the label, and not cited | Revised: FS_L 1→0 gives L; FU=1 with FS=0 gives A | {L, A} | FAIL |
 | P-L6 | N6's statement | "Let $S$ be countably infinite." deleted | IS 1→0; FU=IU=0 | {L} | FAIL |
 | P-L7 | *… for a Hamiltonian flow on compact energy surfaces* (NCASES N4j) | `compact` deleted | FS_L counts `compact`, and it falls 1→0 | {L} | FAIL |
@@ -253,6 +254,19 @@ through review-set membership alone.
 | N32 | (new) | *Let $f$ be of class C1 on a compact interval.* | A bare `C1` counts as a citation only inside a range or after `condition(s)`, so this is not a citation of (C1) | ∅ | membership (new block) | PASS |
 | P-H5 | (a name outside the canonical map) `(F)` defined in both `papers/SM.md` and `papers/GR.md`, not as mirrors; a block in `papers/Structure.md` cites `(F)` by bare name | — | the name is ambiguous, so the enrollment inventory fails (V12, V22) | inventory failure | inventory | FAIL |
 
+### 2.2a Copy forms (c.7065410306)
+
+These cases use fixtures in the corpus's real shapes. The canonical definition in each is
+`**(C1) Non-zero coupling.** … the configuration space is finite …`, in a Main-like file.
+
+| ID | Before | Change | Why | Items | Route | Verdict |
+|---|---|---|---|---|---|---|
+| P-H11 | a Medicine-like file with the unparenthesised copy `**C1 (Coupling).** …`; a block in an SM-like file citing `(C1)` by bare name, with a pigeonhole proof and FS_A drawn from the group's text | only the Medicine-like copy edited | The unparenthesised form is a node form for a mapped name, so the copy is in (C1)'s group. A change to any node makes the canonical definition, every copy and every citer, in any file, members. The reviewer answers whether the copy still agrees with the canonical text | ∅ hits | membership (group) | FAIL with no record. Under the parenthesised-only mutant the copy is not a node, and nothing becomes a member |
+| P-H12 | a ch01-like table `\| C1 \| Coupling \| … \|` and its FULL mirror row | the chapter's row edited, and the FULL row not | The table row is a copy, so the group and its citers are members. The two mirror rows differ, which raises M | {M} | screen (M), membership (group) | FAIL |
+| P-H13 | the glossary-like copy `**C1 (Coupling).** …` in `book/glossary.md`, and its FULL `# Glossary` copy | both edited identically | The glossary is a surface, and its FULL segment pairs with it (§3.4). Both copies are in the group, so the group and every citer are members. The mirror texts are equal, so there is no M | ∅ hits | membership (group) | FAIL with no record. Under the glossary-not-a-surface mutant only the FULL copy is seen |
+| P-H14 | the P-H11 fixture | a new paragraph `**C2 (Memory).** …` added to a new paper, with `canonical.json` unchanged | An unparenthesised copy of a mapped name, not in the map (V26) | gate failure | configuration | FAIL until the same PR adds it to the map as a copy, with its kind and a review record |
+| P-H15 | a Medicine-like list `- **C1:** The kinase domain is coupled …` | the list item edited | The list-item form is a node form, so the item is an application copy, and its edit makes the group and its citers members | ∅ hits | membership (group) | FAIL with no record |
+
 ### 2.3 Regression tests for the owner's blocking items (O7, c.7065358283)
 
 Each blocking item has adversarial regression tests. Independent confirmation of each is a separate
@@ -260,8 +274,8 @@ review step.
 
 | Blocking item | Regression tests |
 |---|---|
-| Corpus-wide named-condition dependencies, papers and book | P-H4 (a cross-file citer), P-H6 (a range), P-H7 (an inline node and an alias), P-H8 (a copy edit reaching every citer), P-H9, P-H10 (map drift), P-H5 (ambiguity outside the map) |
-| Deleted theorems keep their scope obligations | P-L4b (a deleted scoped block is a member), P-O1 (a deletion inside a batched PR) |
+| Corpus-wide named-condition dependencies, papers and book | P-H11 (an unparenthesised copy), P-H12 (a table row), P-H13 (a glossary copy with its FULL mirror), P-H14 (map drift, unparenthesised), P-H15 (a list item), P-H4 (a cross-file citer), P-H6 (a range), P-H7 (an inline node and an alias), P-H8 (a copy edit reaching every citer), P-H9, P-H10 (map drift), P-H5 (ambiguity outside the map) |
+| Deleted theorems keep their scope obligations | P-L4b (a deleted scoped block), P-L4c (a deleted block with no scope wording at all), P-O1 (a deletion inside a batched PR) |
 | Individual review of transformations affecting finiteness, infinite-system assumptions, carriers or scope | P-R9 (a carrier rename), P-R10 (deleting `finite`), P-O2 (a mathematically equivalent rewrite), P-O5 (a substitution into a carrier) |
 | No reduction silently excludes a theorem | P-O3 (r4), P-O1 (r1), P-O4 (r2), P-R11 (r3) |
 
@@ -306,9 +320,9 @@ The tool's expected verdict is recorded, and the safeguard named.
 | membership and closure (§1.1) | P-S1, P-D2, P-D3, P-H1, P-H2 | N30, the non-member cases in the conventions | P-S1, P-D2, P-H1, P-H2 |
 | block extent with a proof (C2) | P-C2, P-C3 | N29 | P-C2, P-C3 |
 | batched records (r1), (r3) | P-R9, P-R10, P-R11 | N31 | P-R9 |
-| corpus-wide names and the canonical map | P-H4–P-H10 | N32 | P-H4, P-H6, P-H8 |
+| corpus-wide names and the canonical map | P-H4–P-H15 | N32 | P-H4, P-H6, P-H8, P-H11, P-H13 |
 | reductions under O7 | P-O1–P-O5, P-R9–P-R11 | N31 | P-O3, P-O4 |
-| deleted scoped blocks | P-L4b | — | P-L4b |
+| deleted blocks | P-L4b, P-L4c | — | P-L4c |
 | advisory backstop | P-G11, row 42 | N25 | N22, N25 (G5 made blocking) |
 | resolutions and configuration | P-L8, P-G8, P-R1–P-R8 | N8, P-L9 | P-R1, P-R2, P-R6 |
 | #1483 reuse | §1.4 (C-R4), P-R7 | N5–N5d | C-R1, C-R2 |

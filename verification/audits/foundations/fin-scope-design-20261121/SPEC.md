@@ -1,6 +1,6 @@
 # FIN-SCOPE: design specification
 
-**Status.** Writer's design, revision 6, WIP / UNVERIFIED. This is a plan only. No checker exists and
+**Status.** Writer's design, revision 7, WIP / UNVERIFIED. This is a plan only. No checker exists and
 nothing has been run, so no verdict below is a measurement. The corpus inventory in §2.3 is a read-only
 `grep` count. Independent non-author review is required before any implementation is proposed.
 Implementation, the governance change and any merge each need a separate owner decision. Revision 2
@@ -10,8 +10,10 @@ the lexical rules of §3 become a screen that prioritises review. Revision 4 ans
 (C1–C3): hypothesis nodes join the dependency graph, multi-paragraph statements keep their proofs, and
 O7 is costed. Revision 5 answers c.7065296420: named conditions resolve corpus-wide, deleted scoped
 blocks are members, the cost is reconciled, and reductions (r1) and (r3) are limited. Revision 6
-answers c.7065333755 with a frozen canonical-definition map (§2.5). The map from findings to sections is
-in §14.
+answered c.7065333755 with a frozen canonical-definition map (§2.5). Revision 7 answers c.7065410306:
+copies are recognized whatever their form, every book file that `FULL.md` mirrors is a surface, the
+worked groups are re-derived in full, and every deleted block is a member. The map from findings to
+sections is in §14.
 
 **Authority.**
 - #1169 c.7061660930, item 1, owner decision of 2026-11-21:
@@ -71,9 +73,13 @@ therefore does not rest on the lexical rules. It is this:
 
 The **review set** of a pull request, computed against its merge base, is the union of:
 - **(R-a)** every new or revised statement block (§2.4), including a block whose resolved citation
-  targets, or whose *hypothesis digest*, changed while its masked digest did not (§2.4); and every
-  disappeared block with `FS_L + IS > 0` in its reference entry, reviewed against checklist item 4,
-  so that its L hit is a hit on a member and can fail the gate;
+  targets, or whose *hypothesis digest*, changed while its masked digest did not (§2.4); and **every
+  disappeared block, unconditionally**. A deleted block is reviewed against checklist item 4, extended:
+  does any surviving result rely on it, and is each scope obligation it carried (finite or infinite
+  hypotheses, a stated generality) carried by a surviving statement or deliberately withdrawn? Its
+  scope counts are carried into the record from its reference entry. A deletion with `FS_L + IS > 0`
+  also raises an L hit, as a pointer for the reviewer. The membership never depends on the screen,
+  since a clean lexical result never substitutes for review (c.7065358283);
 - **(R-e)** every new, changed or deleted *hypothesis node* (§2.5);
 - **(R-b)** every block in the *dependency closure* of (R-a) and (R-e): a block that cites, directly or
   through a chain of citations among parsed blocks and hypothesis nodes, a block of (R-a) whose
@@ -120,7 +126,7 @@ Two safeguards from the owner's O7 decision (#1169 c.7065358283) bind the whole 
 | Surface | Units | Mode |
 |---|---|---|
 | `papers/*.md` | statement blocks (§2.2) | gate (§5.1) |
-| `book/ch*.md`, `book/appendix-*.md`, `book/The-Incompleteness-of-Observation-FULL.md` | statement blocks; mirror pairs (§3.4, rule M) | gate |
+| `book/The-Incompleteness-of-Observation-FULL.md`, and every `book/*.md` whose content it mirrors: `ch*.md` (with `ch00-introduction.md`), `appendix-*.md`, `glossary.md`, `preface.md`, `readers-guide.md`, `acknowledgments.md` and `bibliography.md` | statement blocks, hypothesis nodes and their copies; mirror pairs (§3.4, rule M) | gate |
 | Lean declarations that the census resolves in a block's paragraph (§5.3) | declarations | gate |
 | *Claim surfaces* outside blocks: abstracts, sections titled Conclusion(s) or Summary, and Markdown table rows | sentences and table rows | gate (§6.2) |
 | other manuscript prose outside blocks | sentences | PR layer, advisory (§6.2; §12, O3) |
@@ -258,6 +264,16 @@ a standing scope. Each is a node of the dependency graph, with key `(file, name)
 normalized text. The node forms are:
 - a paragraph that opens by defining a parenthesised label, `(F): …`, `(H2) …`, `**(C1)** …`, or a named
   condition such as `(EM)` or `H-χ`;
+- for a name in the canonical map (below), **any** form that opens a definition of it, with or without
+  parentheses or bold:
+  - `**(C1) Title.**`, `**(C1)**`, `(C1) **Title.**`;
+  - `**C1 (Title).**`, `**C1:**`, `**C1: title.**`;
+  - a list item opening with `**C1**`, `**C1:**` or `**(C1)**`;
+  - a table row whose first cell is the name, with or without parentheses or bold (`| C1 | Coupling | …`);
+  - a run-in bold label containing the name inside a paragraph (`**Effective-mixing hypothesis (EM).**`).
+
+  Recognition is keyed to the name, not to a typographic form. Whitelisted names and every mapped name
+  are matched this way;
 - `**Definition …**`, `**Setting …**`, `**Assumption …**` and `**Hypothesis …**` paragraphs;
 - a *standing scope sentence*: a sentence opening with `Throughout this (section|chapter|paper|appendix)`
   or `In this (section|chapter), … (is|are) assumed`. Every block in its scope cites it implicitly, so
@@ -317,19 +333,79 @@ the citing file. A file-local name cited from another file must name the definin
   `$C^1$` is not a citation;
 - inline forms such as "conditional on (EM)" and "under (EM)", and the map's alias phrases.
 
-**Worked examples.** These are read-only `grep` reads of `main` at `df6da1c6`, with line numbers given for
-orientation only. The map anchors by label text and digest, not by line.
+**Worked examples: the full copy groups.** These come from a read-only, form-independent `grep` of
+`papers/*.md` and `book/*.md` on `main` at `df6da1c6` (the manuscripts are unchanged since). It searched
+for every form listed above, and for the alias phrases. Line numbers are for orientation only: the map
+anchors by label text and digest. Each group is one node group, and every citer of any member cites the
+whole group. "app" marks an application copy, "rest" a restatement and "mir" a mirror.
 
-| Name | Canonical (proposed) | Copies, with kind | Citing files (any form) | Resolves? |
-|---|---|---|---|---|
-| `(C1)` | `papers/Main.md:72`, `**(C1) Non-zero coupling.**` | `papers/GR.md:46` `**(C1)** The Hamiltonian and momentum constraints …` (application); `papers/Structure.md:112` `(C1) **Coupling.**` (restatement) | `(C1)` in 11 files: Main, GR, Structure, Complexity, Medicine, SM, FULL, appendix-b, appendix-c, ch01, ch11. `C1–C4` in 29 files. `(C1)–(C4)` at Main:754 and in FULL and appendix-b | yes: one group of 3 nodes; every citer cites the group |
-| `(C2)` | `papers/Main.md:74`, `**(C2) Memory persistence.**`, with sub-forms `C2-structural` and `C2-slow` defined there | `papers/GR.md:48` `**(C2)** The slow-bath example …` (application); `papers/Structure.md:114` `(C2) **Record persistence.**` (restatement) | 10 files: Main, GR, Structure, Substratum, Complexity, Medicine, SM, FULL, ch01, ch15 | yes: one group of 3 |
-| `H-BD` | `papers/GR.md:122`, `**H-BD** (deep-sector influence bound; posited).` | `book/appendix-b-derivations.md:177` (restatement); `book/The-Incompleteness-of-Observation-FULL.md:5854` (mirror of appendix-b:177) | 9 files: GR, Methodology, Substratum, FULL, appendix-b, ch02, ch03, ch07, ch18 | yes: one group of 3. The appendix-b/FULL pair is also under rule M |
-| `(EM)` | `papers/Main.md:756`, inline: the run-in `**Effective-mixing hypothesis (EM).**` and the italic statement it governs, inside the `**Setup.**` paragraph | none found in the node form | 4 files: Main (754, 756, 758, 764, 766, 770), Methodology, FULL, ch04; the alias "effective-mixing hypothesis" at Main:758 | yes: a group of 1, the inline span |
+**`(C1)`, a group of 14 nodes.** The canonical definition is `papers/Main.md:72`, `**(C1) Non-zero
+coupling.**`. Its copies:
 
-Two corrections to revision 5 follow from this. `(C1)` and `(C2)` have node-form paragraphs in Main, GR
-and Structure, so they are not "defined exactly once". H-BD's canonical site is GR:122, not GR:55. Under
-the map, each of the four resolves to exactly one group.
+| Site | Form | Kind |
+|---|---|---|
+| `papers/GR.md:46` | `**(C1)**` | app |
+| `papers/Structure.md:112` | `(C1) **Coupling.**` | rest |
+| `papers/Complexity.md:364` | `**C1 (coupling).**` | app |
+| `papers/Medicine.md:27` | `**C1 (Coupling).**` | rest |
+| `papers/Medicine.md:150` | list item `- **C1:**` | app |
+| `book/ch01-observation.md:251` | table row `\| C1 \| Coupling \|` | rest |
+| `FULL.md:584` | the same row | mir of ch01:251 |
+| `book/ch07-gravity.md:24` | `**C1 (coupling).**` | app |
+| `FULL.md:1889` | the same | mir of ch07:24 |
+| `book/ch13-quantum-biology.md:50` | `**C1: catalytic-conformational coupling.**` | app |
+| `FULL.md:3471` | the same | mir of ch13:50 |
+| `book/glossary.md:25` | `**C1 (Coupling).**` | rest |
+| `FULL.md:6516` | the same | mir of glossary:25 |
+
+**`(C2)`, a group of 14 nodes.** The canonical definition is `papers/Main.md:74`, `**(C2) Memory
+persistence.**`, with the sub-forms `C2-structural` and `C2-slow` defined there. Its copies are at the
+corresponding sites:
+
+| Site | Form | Kind |
+|---|---|---|
+| `papers/GR.md:48` | `**(C2)**` | app |
+| `papers/Structure.md:114` | `(C2) **Record persistence.**` | rest |
+| `papers/Complexity.md:366` | `**C2 (memory persistence).**` | app |
+| `papers/Medicine.md:29` | `**C2 (Memory persistence).**` | rest |
+| `papers/Medicine.md:151` | list item `- **C2:**` | app |
+| `book/ch01-observation.md:252` | table row `\| C2 \| Timescale separation \|` | rest |
+| `FULL.md:585` | the same row | mir |
+| `book/ch07-gravity.md:26` | `**C2 (memory persistence).**` | app |
+| `FULL.md:1891` | the same | mir |
+| `book/ch13-quantum-biology.md:52` | `**C2: conformational timescale separation.**` | app |
+| `FULL.md:3473` | the same | mir |
+| `book/glossary.md:27` | `**C2 (Memory persistence).**` | rest |
+| `FULL.md:6518` | the same | mir |
+
+**`(C3)` (14 nodes) and `(C4)` (9 nodes).** These have the same shape.
+- `(C3)`: canonical `papers/Main.md:76`. Copies at GR:50, Structure:116, Complexity:368, Medicine:31,
+  Medicine:152, ch01:253 with FULL:586, ch07:28 with FULL:1893, ch13:54 with FULL:3475, and glossary:29
+  with FULL:6520.
+- `(C4)`: canonical `papers/Main.md:78`. Copies at GR:52, Structure:118, Complexity:370, Medicine:33,
+  ch12:48 with FULL:3234, and glossary:31 with FULL:6522. The ch01 table and ch13 have no C4 row.
+
+**`H-BD`, a group of 3 nodes.** The canonical definition is `papers/GR.md:122`, `**H-BD** (deep-sector
+influence bound; posited).`. Its copies are `book/appendix-b-derivations.md:177` (rest) and
+`FULL.md:5854` (mir of appendix-b:177). The form-independent search found no other copy.
+
+**`(EM)`, a group of 1 node.** The canonical definition is `papers/Main.md:756`, the run-in
+`**Effective-mixing hypothesis (EM).**` and the italic statement it governs, inside `**Setup.**`. The
+form-independent search found no copy. The alias "effective-mixing hypothesis" occurs at Main:758 and
+:770 as a citation.
+
+**Citing files.** These are any citation form, from the same reads:
+- `(C1)`: 11 files;
+- `(C2)`: 10;
+- `H-BD`: 9;
+- `(EM)`: 4;
+- the range `C1–C4`: 29–30 files, by two counts.
+
+Each of the six names resolves to exactly one group. The groups are larger than the earlier listing
+because most copies are unparenthesised or are table rows. The ch01 table's C1–C3 rows name the
+conditions differently from the canonical texts ("Timescale separation" for C2, "Capacity hierarchy"
+for C3). Whether each copy agrees with its canonical definition is the enrollment review's question, and
+this record does not answer it.
 
 **Maintenance when a definition moves.**
 - A moved node whose digest is unchanged pairs with its old site by digest, as blocks do (§2.4). It is
@@ -500,8 +576,10 @@ hypotheses therefore pass, whichever cardinality they state.
 
 ### 3.4 Mirrors (rule M)
 
-`FULL.md` is segmented at its top-level `# Chapter N` headings and at its appendix headings. Segment `N`
-is paired with `book/chNN-*.md`, and appendix segment `X` with `book/appendix-x-*.md`. The pairing table
+`FULL.md` is segmented at its top-level headings. Segment `# Chapter N` is paired with
+`book/chNN-*.md`, `# Appendix X` with `book/appendix-x-*.md`, and `# Introduction`, `# Preface`,
+`# Reader's Guide`, `# Acknowledgments`, `# Glossary` and `# Bibliography` with `ch00-introduction.md`,
+`preface.md`, `readers-guide.md`, `acknowledgments.md`, `glossary.md` and `bibliography.md`. The pairing table
 is frozen at enrollment, and a segment with no chapter file is reported. Inside a pair, blocks are paired
 by the three steps of §2.4, applied across the two files. A block that has no mirror in a chapter that
 has one raises M.
@@ -742,6 +820,9 @@ Each run checks four configuration controls:
   | deleted scoped blocks not members | P-L4b |
   | the (r1) map limit off | P-R9 |
   | a change to a copy reaching only that copy's own citers | P-H8 |
+  | copy recognition limited to the parenthesised form | P-H11, P-H12, P-H15 |
+  | the glossary not a surface | P-H13 |
+  | deleted-block membership filtered by `FS_L + IS > 0` | P-L4c |
   | range citations not expanded | P-H6 |
   | the coverage check (V27) off | P-O3 |
   | the (r2) resolved-target equality off | P-O4 |
@@ -870,10 +951,10 @@ For the Code Review Rules, under *Claim/evidence boundary*:
 | V20 | a proof after a multi-paragraph statement is recognized, and interposed prose supplies no scope | P-C2, P-C3, N29; the opener-search and interposed-prose mutants; the enrollment inventory re-derives the 29 cases of c.7065227255 |
 | V21 | a batched record (r1) covers only exact instances of a scope-neutral map | P-R9, P-R10, N31; the instance-check and map-limit mutants (if r1 is adopted) |
 | V22 | named conditions resolve corpus-wide, and ambiguity fails closed | P-H4, P-H5; the cross-file-resolution mutant |
-| V23 | a deleted scoped block is a member and its L hit can fail the gate | P-L4b; the deleted-member mutant |
+| V23 | every deleted block is a member, unconditionally, with its scope obligations carried into its record | P-L4b, P-L4c, P-O1; the deleted-member mutant |
 | V24 | a reduced (r3) record answers items 1, 2 and 4 | P-R11 (if r3 is adopted) |
-| V25 | every mapped name resolves to exactly one node group, and a change to any node of a group reaches every citer of the group | P-H4, P-H6–P-H8; the group-closure mutant |
-| V26 | the map stays in step with the corpus: an unlisted node-form paragraph or an unresolved anchor fails | P-H9, P-H10 |
+| V25 | every mapped name resolves to exactly one node group, and a change to any node of a group, in any form, reaches every citer of the group | P-H4, P-H6–P-H8, P-H11–P-H13, P-H15; the group-closure and form mutants |
+| V26 | the map stays in step with the corpus: an unlisted copy in any form (parenthesised, unparenthesised, list item, table row, run-in), or an unresolved anchor, fails | P-H9, P-H14, P-H10 |
 | V27 | no reduction silently excludes a theorem: the union of covered keys equals the review set | P-O1, P-O3; the coverage mutant |
 | V28 | a mathematically equivalent but not mechanically identical change is never batched | P-O2, P-O5 |
 | V29 | (r2) needs identical text, hypothesis digests and resolved targets | P-O4 |
@@ -1093,3 +1174,13 @@ a FIN-SCOPE pass is not evidence for either class.
 | No silent exclusion | §12.1 coverage rule; V27 |
 | Blocking items with adversarial tests | §12 O7; TESTS §2.3 |
 | Clean lexical result is not review; mechanical identity is not equivalence | §1.1 |
+
+**Delta review c.7065410306.**
+
+| Finding | Where addressed |
+|---|---|
+| Copy recognition | §2.5 node forms keyed to the name: unparenthesised, bold, list-item, table-row and run-in forms; V26 |
+| Glossary and other mirrored book files | §2.1 surfaces; §3.4 segment pairing |
+| Full copy groups | §2.5 worked groups: (C1) 14, (C2) 14, (C3) 14, (C4) 9, H-BD 3, (EM) 1, with file:line |
+| Deleted theorems | §1.1 (R-a): every deleted block is a member, with its scope obligations carried; V23 |
+| TESTS | P-H11–P-H15, P-L4c |
