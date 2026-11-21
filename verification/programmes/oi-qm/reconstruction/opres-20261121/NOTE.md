@@ -27,9 +27,13 @@ separately.
   - Control, feedforward, configuration readout, randomness, size and depth cannot replace either
     element.
   - The bound holds on countable carriers. On measurable carriers it holds for the detection half
-    in two cases: Proposition D, for a nonsingular bijection and a normal hidden state; and
-    Remark D′, for **any** hidden state, normal or not, whenever the visible carriers are finite.
-    Singular bijections remain pending (Conjecture D″).
+    in two cases, both for a **nonsingular** bijection with C_V finite:
+    - Proposition D, for a normal hidden state;
+    - Remark D′, which is Proposition D's setting with the normality of ω dropped. It allows a
+      single, possibly non-normal, hidden state, applied last, with all other appends normal.
+
+    Singular bijections are covered by neither and remain pending (Conjecture D″, which is
+    independent of D′).
   - The pair is tight. One-bit teleportation (§4, CC-1) realizes Hadamard exactly with one creator
     (a |+⟩ ancilla) and one detector (a destructive ⟨±| readout). Everything else in it is native.
 - **Native status**, (N) as algebra and (I) on KIN, conditional on R-READ: OI's stated
@@ -39,8 +43,8 @@ separately.
   in sketch.
 - **INCONCLUSIVE.**
   - **U2** (physical): can OI's ontology host a coherence detector and a coherence source?
-  - **U1′** (narrow): measurable carriers with a singular bijection, or with a non-normal hidden
-    state and an infinite visible carrier. Two reductions are pending (§6).
+  - **U1′** (narrow): measurable carriers with a singular bijection, a non-normal hidden state
+    with C_V infinite, or several non-normal hidden states. The cases are listed in §6.
 
 **Established.**
 - Lemma C; Theorems A′, B and C; Proposition D; Remark D′ (pending review). All are layer X.
@@ -52,8 +56,9 @@ separately.
 - **KIN**, the Born-form representation on configurations (decision 4). It gives "coherence" and
   "non-monomial" their meaning.
 - Countable carriers for A′, B and C. For Proposition D: a nonsingular measurable bijection on a
-  standard measure space and a normal hidden state. For Remark D′: finite visible carriers and the
-  algebraic lift; normality is not needed.
+  standard measure space, a normal hidden state and C_V finite. For Remark D′: the same premises
+  with normality dropped, namely nonsingularity, C_V finite, and a single non-normal hidden state
+  applied last (later appends normal), with the algebraic lift of that state.
 - For B and C, fixed coherent resource states (imported).
 - **R-READ** (an Assumed reading of READ, #1501): every native readout effect lies in the
   configuration algebra (ℓ^∞ or L^∞).
@@ -244,8 +249,8 @@ X; ELABORATING; proof due to the review sketch, written out here and pending rev
 3. **Discard.** The dual of the partial trace is X ↦ X ⊗ 1, which maps 𝒜 into 𝒜 ⊗̄ 𝒜.
 4. **Appending ω.** The dual is the normal slice map id ⊗ ω. It sends M_f, with f ∈
    ℓ^∞(C_V) ⊗̄ L^∞(H), to the multiplication operator v ↦ ω(M_{f(v,·)}) in ℓ^∞(C_V). Normality
-   is used for the slice on the von Neumann tensor product. With C_V and the visible ancillas
-   finite it is not needed (Remark D′).
+   is used for the slice on the von Neumann tensor product. With C_V finite it is not needed for a
+   single hidden state applied last (Remark D′).
 5. **Feedforward.** Feedforward on configuration records is a direct sum over 𝒜-projections.
 6. **Postselection.** Sub-instruments keep the property branchwise.
 7. **Conclusion.** Induction gives Φ*(|i⟩⟨i|) ∈ ℓ^∞(C_V), so Φ is DIO on the finite visible space.
@@ -254,16 +259,63 @@ X; ELABORATING; proof due to the review sketch, written out here and pending rev
    - (i) follows because Ad_W*(|i⟩⟨i|) = W†|i⟩⟨i|W is diagonal and rank one.
    - No Kraus decomposition and no extremality step is used. ∎
 
-**Remark D′ (finite visible carriers, any hidden state; (I) on the algebraic lift; X; pending
-review).** Let C_V and the visible ancillas be finite.
-- 𝒜 = ⊕_v L^∞(H) is then a finite direct sum, and the slice f ↦ (ω(f_v))_v is defined for **any**
-  state ω on B(L²(H)), normal or not.
-- The joint ρ ⊗ ω is a state on M_n(B(L²(H))), and its restriction to the visible algebra is always
-  defined.
-- The computation (ρ ⊗ ω)(Ad_U*(|i⟩⟨i| ⊗ 1)) = Σ_v ρ_vv ω(g_v) depends on diag ρ only.
+**Remark D′ (Proposition D without normality; (I): KIN on the visible carrier, the algebraic
+lift of the hidden state as a state on B(L²(H)), nonsingularity, C_V finite, and configuration
+readouts as in D; X; pending independent re-review).**
 
-So the algebraic lift exists for non-normal ω, and the detection half holds there. It lies outside
-KIN's density-operator form, so the label is (I) on the algebraic lift.
+*Hypotheses.* All of Proposition D's premises are kept except the normality of ω:
+- C_V is finite at input and output;
+- (H, ν) is a standard measure space, and T is a measurable bijection with measurable inverse that
+  is **nonsingular**, so that D's Koopman unitary exists;
+- readouts are as in D, on countable partitions.
+
+Finiteness of intermediate visible ancillas is not used. Countability of the hidden index set is not
+used either: H is a measure space. ω is a **single** state on B(L²(H)) of the whole hidden carrier,
+not necessarily normal, appended at one point. Every other appended state, before or after it, is
+normal: a configuration state or a fixed normal ω′.
+
+The restriction to one non-normal state applied last in the Heisenberg composition is used. A
+second non-normal ω₂ appended while an infinite hidden factor H₁ is present would need
+id ⊗ ω₂ on L^∞(H₁) ⊗̄ L^∞(H₂), which is not defined for non-normal ω₂. A product of two non-normal
+states also has no canonical extension to B(L²(H₁) ⊗ L²(H₂)).
+
+*Definitions.*
+- For f ∈ ℓ^∞(C_V) ⊗̄ L^∞(H) = ⊕_v L^∞(H) (a finite direct sum, since C_V is finite), f_v ∈ L^∞(H)
+  is its v-th section.
+- For a single Koopman step, g_v is the v-th section of the indicator of T⁻¹({i} × H), so that
+  U_T†(|i⟩⟨i| ⊗ 1)U_T = ⊕_v M_{g_v}.
+- The joint state is (ρ ⊗ ω)([X_ab]) := Σ_ab ρ_ba ω(X_ab) on M_n(B(L²(H))). This is ρ composed
+  with id_n ⊗ ω. A positive functional is completely positive, so id_n ⊗ ω is CP, and ρ ⊗ ω is a
+  state.
+
+*Proof (full induction).*
+1. **The hidden-state-free part.** Write the protocol's Heisenberg dual as Φ_eff* = σ_ω ∘ Ψ*, where:
+   - σ_ω is the slice by ω at the point where ω is appended;
+   - Ψ* is the dual of every other step: the steps after the append, and the normal appends and
+     steps before it, which compose on the visible-and-normal side.
+2. **Ψ* stays in the configuration algebras.** D's steps 1 (Koopman, by nonsingularity), 2
+   (readouts on countable partitions), 3 (discard), 5 (feedforward) and 6 (postselection) use no
+   normality. D's step 4 with a normal state also maps configuration algebras into configuration
+   algebras. By induction over the steps, Ψ* maps ℓ^∞(C_V,out) into ℓ^∞(C_V,in) ⊗̄ L^∞(H) =
+   ⊕_v L^∞(H).
+   - The countable sums inside Ψ* converge as in D, since ω is applied only once, at the end of the
+     Heisenberg composition.
+3. **The non-normal slice.** σ_ω(f) := (ω(f_v))_v is defined on the finite direct sum for any
+   positive ω. It maps ⊕_v L^∞(H) into ℓ^∞(C_V) and is unital and positive. Since ℓ^∞(C_V) is
+   abelian, it is completely positive.
+4. **The effective map.** Φ_eff* = σ_ω ∘ Ψ* is a ucp map on finite matrices (C_V finite at both
+   ends). It sends |i⟩⟨i| to a diagonal matrix, for example Σ_v ω(M_{g_v})|v⟩⟨v| for one Koopman
+   step. So Φ_eff is a genuine DIO channel M_n → M_n, every state of which is normal.
+5. **Conclusion.** Theorem B(i) and (ii), and Theorem C(b), apply verbatim to Φ_eff, including the
+   diamond-norm bound with W on ℂ^{C_V}. Only D's step 4 changes; the remaining steps are
+   normality-free. ∎
+
+*Relations.*
+- D′ is Proposition D with normality dropped, and nothing else changed. It is not a separate
+  "finite visible" case, since D already assumes C_V finite.
+- Conjecture D″ (singular T) is independent of D′: D′ does not touch singular bijections. If D″ were
+  proved, its embedding would also have to carry a non-normal ω through the enlargement before D′
+  could be combined with it. That is the open point D″ already names.
 
 **Conjecture D″ (singular bijections; from the review sketch c.7066421069; not proved).** A singular
 measurable bijection T reduces to a nonsingular one by enlarging the reference measure. Set
@@ -318,7 +370,7 @@ are native here in the sense of (n1) and the kernel's supplied class (`phaseOper
 | Non-monomial step on the configuration span (FLOW; `gateFlow_not_monomial`, K) | yes | yes | **sufficient**; **not necessary** as such |
 | Destructive non-configuration readout (⟨±\|) | no | yes | a possible detector (CC-1) |
 | Coherent ancilla plus one non-configuration readout plus feedforward | yes | yes | **verified construction** (CC-1) |
-| Measurable carrier: singular bijection, or non-normal hidden state with infinite visible carrier | — | — | **INCONCLUSIVE (U1′)**, pending Conjecture D″ and the infinite-visible case (§6) |
+| Measurable carrier: singular bijection; non-normal hidden state with C_V infinite; several non-normal hidden states | — | — | **INCONCLUSIVE (U1′)**, pending Conjecture D″ and the cases of §6 |
 
 **What is necessary (proved, Theorem C):** a coherence creator and a coherence detector.
 **What is not necessary:** FLOW specifically.
@@ -371,13 +423,19 @@ D-W's sketch.
 **INCONCLUSIVE, with the missing premise named.**
 - **U1′ (narrowed, pending two reductions).** The detection half is settled in three cases:
   - Proposition D: nonsingular measurable bijections with normal hidden states;
-  - Remark D′: any hidden state, when the visible carriers are finite;
+  - Remark D′: Proposition D's setting (nonsingular bijection, C_V finite) with one possibly
+    non-normal hidden state applied last, other appends normal;
   - `Main:338`: classical laws.
 
   What remains INCONCLUSIVE:
   - (i) singular bijections, pending Conjecture D″;
-  - (ii) non-normal hidden states with an infinite visible carrier;
-  - (iii) whatever fails in the reduction of (i).
+  - (ii) non-normal hidden states when C_V is infinite. A reviewer sketch (c.7067475063), not
+    established, suggests this is narrower than it looks. For countable C_V and normal visible ρ
+    the joint state is defined for any ω, and it gives Σ_v ρ_vv ω(f_v). What can fail is that the
+    output visible marginal is non-normal, which would need a state-space form of the bound;
+  - (iii) more than one non-normal hidden state, or a non-normal state followed by a coupling to
+    a further infinite hidden factor (outside D′);
+  - (iv) whatever fails in the reduction of (i).
 
   It is **not** claimed that the lift is undefined in these cases.
 - **U2 (decisive; physical).** Can OI's ontology host a coherence detector, and a creator or
@@ -397,7 +455,7 @@ D-W's sketch.
 | Theorem B | (I): KIN, fixed coherent resource states, countable carriers | X | ELABORATING (S1 extended) |
 | Theorem C | (I): KIN, countable carriers | X | NEW relative to the corpus; standard after Theurer et al. |
 | Proposition D | (I): KIN, nonsingularity, normality | X | ELABORATING (from the review sketch); supersedes the r1 lemma for the detection half |
-| Remark D′ | (I): algebraic lift; finite visible carriers | X | ELABORATING, pending review |
+| Remark D′ | (I): KIN on the visible carrier; algebraic lift of the hidden state; nonsingularity; C_V finite; readouts as in D | X | ELABORATING, pending independent re-review |
 | Conjecture D″ | conjecture | P | open |
 | CC-1 | construction using one imported creator and one imported detector | X | POSITIVE (tightness) |
 | Corollary C1 | (I): KIN | X | ELABORATING |
