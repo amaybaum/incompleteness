@@ -5601,3 +5601,25 @@ runs; it decides no execution question.
 3. **N3 and N4 are not applied.** They are deferred to the final scientific review: N3, adding "with
    $\operatorname{Tr}\sigma_A=1$" to D364's channel-preserving extension; N4, a finite scope on the book and Structure
    summaries of Theorem 24(i) (ch02:134 = FULL:766, ch03:80/136 = FULL:943/999, Structure:154).
+
+## 30. Amendment: one plan commit P* for the corrected trial
+
+The check of §29 at `1cde4d8f` is recorded on #1477 (comment 7062917018), REVISE. §28.1 item 5 builds `T0` at
+`P2` = `453917f1`, while §29 dispatches with `plan_sha` set to the plan head, which is now `1cde4d8f`. The tree check
+compares the record directory with the plan's, so the differing PREREG.md would add a non-PDF finding, and N1's
+expectation would fail. This section is append-only. It replaces the plan commit named in §28.1 item 5 and §29 item 2,
+and changes no ledger entry, edit text or checker. Nothing here builds, pushes or dispatches the trial, which the owner
+has held (#1169 comment 7062890214).
+
+**Goal link (§A.47).** A1-EXIT (#1169): this section fixes which plan commit the trial is built from and checked
+against; it decides no execution question.
+
+1. **One plan commit.** `T0` and `T1` are both predicted from the same plan commit `P*`: `guards_check.py --predict`
+   runs at `P*`, the trial trees carry `P*`'s record directory, and `P*` is passed as `plan_sha` to every
+   `a1exit-trial-verify.yml` dispatch of `T0` and `T1`.
+2. **How `P*` is fixed.** `P*` is the head of `research/a1exit-deletion-20261121` at the moment `T0` is built, and it
+   is recorded with `T0`. This section moves the head, so `P*` is the commit carrying §30, or a later one if a review
+   asks for more; it is never `453917f1` or `1cde4d8f`.
+3. **No movement in between.** The plan branch does not move between building `T0` and the last dispatch on `T1`
+   (`a1exit-trial-verify.yml` and `verify.yml`). If it moves, `T0` and `T1` are rebuilt from the new head, which
+   becomes `P*`, and the dispatches are repeated against it.
