@@ -222,3 +222,153 @@ here.
 - **Coverage.** `coverage_check` reports OK after the Lemma 1c fingerprint was re-affirmed
   (`711478cf44840d32` → `242ff16786e66342`).
 - **Mirrors.** ch01:121/179 and appC:104 are byte-identical to FULL:454/512/6259.
+
+## 9. Catch-up with `main` at `a1f38284`
+
+The merge brings in S2-A (#1470, `0cd5d5bf`), #1476 (`f1c8c6b1`) and S2-B (#1473, `a1f38284`).
+
+- **Merge commit:** `3addf4acd`.
+  - First parent: `cb6d1b87e`, this branch.
+  - Second parent: `a1f38284`.
+  - It was made with `git merge`; no rebase.
+
+**Conflicts in `.md` files.**
+
+- **Files.** Two files conflicted: `papers/Main.md` and `papers/Substratum.md`.
+- **How they were resolved.**
+  - Each was taken from `main`, which holds S2-A and S2-B.
+  - This unit's final splices were then applied to it: PREREG §5 with amendment A1.
+  - Each old string occurred once in `main`'s text except C4's. S2-B changed M:224's list connective from
+    ", and the remark" to ", the remark", so C4's insertion was placed after "(NR)," in S2-B's text,
+    unchanged in content.
+- **Other conflicts.** The generated `.tex` and `.pdf` files also conflicted; they were rebuilt.
+- **Line shifts.** S2-B adds four lines before Main:724, so M:724, :732 and :766 of this unit are now
+  M:728, :736 and :770. No other site of this unit moved.
+
+**S2-B's return-form sites.** Main:336 (X-50) and appB:92 = FULL:5769 read, character for character,
+"concerns a time that need not be accessible and then has no finite-window test; for the selected update
+of §3.2 on $\mathbb{Z}^d$ no law that is not supported on periodic configurations is known to satisfy it".
+AppB and FULL write "of Main §3.2". This matches this unit's wording.
+
+### 9.1 The resolved lines
+
+#### M:224
+
+S2-A/S2-B change (base `1c7eedc4` → `main` `a1f38284`), word diff:
+
+  - delete: "and" → ""
+  - replace: "(IP)" → "(IP), the measurable-carrier corollary of §3.2 and the two coupling-step theorems of §3.4 (the quantitative C2 theorem and the physical-memory theorem)"
+
+S2-C change (`main` → this merge), word diff:
+
+  - insert: "assumed as hypotheses and not adopted (the condition (NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update of §3.2 on $\mathbb{Z}^d$ no law that is not supported on periodic configurations is known to satisfy it),"
+
+Resolved line `papers/Main.md:224`, in full:
+
+> **Continuous spectra and the finite-substratum commitment.** Lemma 1 fixes the visible configuration space as finite, and the Barandes correspondence as applied here produces an emergent Hilbert space of finite dimension. Standard quantum mechanics makes heavy use of continuous-spectrum observables — position on $\mathbb{R}^3$, momentum, continuous-spectrum scattering — which strictly require infinite-dimensional Hilbert spaces and unbounded self-adjoint operators. The framework's position on this is that continuous spectra are the infrared limit of the discrete spectrum produced by Lemma 1, not a deeper reality that the framework fails to capture. The quantitative separation is extreme: for a visible sector bounded by the cosmological horizon, of radius $L_H$, and an assumed discreteness scale $\epsilon$ of the order of the Planck length $l_p$, the number of distinguishable positions is $|\mathcal{C}_V| \sim (L_H/\epsilon)^3 \sim 10^{183}$, and no independent continuous-spectrum prediction is needed or claimed. Calvo [13] extends the Barandes correspondence to countable-infinite dimensions for completeness, but the finite-dim correspondence is the load-bearing one for the framework — every result in §2–§3 other than the infinite-region completion (§3.2, §3.4), which is assembled from finite-region stages, runs on finite configuration spaces: Lemma 1 for the visible sector, with the total-finiteness posit (§1.2 Remark, §4.5) where a result also needs the hidden sector finite; the near-return corollary of §2.3, the index-free form of §2.3 under (FS) and (NR), assumed as hypotheses and not adopted (the condition (NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update of §3.2 on $\mathbb{Z}^d$ no law that is not supported on periodic configurations is known to satisfy it), the remark of §3.2 under the condition (IP), the measurable-carrier corollary of §3.2 and the two coupling-step theorems of §3.4 (the quantitative C2 theorem and the physical-memory theorem) take a measurable hidden space.
+
+#### M:732 (now M:736)
+
+S2-A/S2-B change (base `1c7eedc4` → `main` `a1f38284`), word diff:
+
+  - replace: "§2.3," → "§2.3 and for the P-indivisibility input of the CP-indivisibility theorem of §3.2 on a measurable hidden carrier,"
+  - replace: "capacity, the CP-indivisibility theorem of §3.2, the physical-memory theorem of §3.4" → "capacity"
+  - delete: "finite" → ""
+  - insert: "of any cardinality"
+  - insert: "or law"
+  - replace: "permutation," → "dynamics (a unitary or isometry, or a measurable map),"
+  - delete: "finite" → ""
+
+S2-C change (`main` → this merge), word diff:
+
+  - insert: "on a finite representative"
+
+Resolved line `papers/Main.md:736`, in full:
+
+> **The posit ledger.** The two-axiom presentation of §1.2 names the foundation's primitives; the full argument consumes more inputs than two, and they are collected here so they are countable in one place. The list is complete in one specified sense: it is the audited inventory of the explicit premises that the derivations of this paper consume, including those it takes from the companion substratum construction, as these texts stand in the same revision of the repository. It does not enumerate every physical assumption one might make; the named hypotheses of the matter, gauge and gravity sectors are carried where they enter; and the empirical motivation recorded for an item does not make that item logically necessary. The framework's substantive posits, beyond Axiom 1 (tokened differentiation, indubitable), are: (i) Axiom 2 — recurrence — owned as a posit with a non-derivability countermodel; (ii) total finiteness of the bijective representative of the status Remark of §1.2 (an open hypothesis, not adopted), carried as one sufficient condition and not as a premise of the framework: each result that uses it names the hypotheses it consumes, and a weaker sufficient condition, where its sufficiency is proved, is stated with the result — the near-return condition (NR) for the P-indivisibility conclusion of §2.3 and for the P-indivisibility input of the CP-indivisibility theorem of §3.2 on a measurable hidden carrier, the invariant-product condition (IP) for the doubly stochastic marginal of §3.2 and the invariant-law condition (IL) for the decay estimate of §4.6, each assumed as a hypothesis of that result and not adopted, and reversibility (REV), item (iii), an alternative sufficient condition for bijectivity — while the counting-measure selection of Lemma 3, the exact return and its index $L$, the orbit capacity and the canonical-typicality step of §4.6 are statements about finite representatives — Lemma 1 delivers finiteness of the observer's distinguishable states from the finite-capacity clause of the Definition, and the extension to the whole representative is A1 of the companion substratum construction — there scoped as the gauge choice of the minimal finite representative, the cardinality of a deep sector being unobservable at the fixed visible/hidden interface when that sector is a factor of any cardinality prepared independently in a normalized state or law and evolved by its own dynamics (a unitary or isometry, or a measurable map), with product dynamics, which leaves every reduced visible channel, and hence every transition probability, unchanged (deep-sector enlargement, developed there) — consumed here by the recurrence step of §2.3 and by §4.6, whose conclusions hold on the finite representative; their transfer, where expressible through the transition probabilities, to every representative reached from it by relabelling the hidden states, by such a decoupled enlargement or, under the alphabet-size hypothesis that systems with the same coupling structure and dynamics class differing only in alphabet size have the same emergent transition probabilities, by a change of alphabet that keeps the coupling structure and dynamics class is stated and proved in the companion substratum construction, while the recurrence-scale conclusion of §2.3 is a statement about finite representatives, the remaining uses of the posit being listed in the status Remark of §1.2; (iii) the record-preservation and eventual-image arguments that ground injectivity (Lemma 3) close the hidden-sector margin on a finite representative (item (ii)) using one *empirical* input — the observed statistics, in the uniform-prior doubly stochastic scope — and one structural principle, the restriction of a finite map to its eventual image, which covers registered histories whose states lie in that image, so bijectivity is part-empirical rather than a pure lemma (a reader who declines the recovery may instead adopt reversibility (REV), $\varphi$ a bimeasurable bijection of a measurable carrier, as the standard information-conservation postulate of unitary quantum mechanics and classical Hamiltonian flow [42, 43], at no cost to the downstream results — see the remark following Lemma 3); (iv) the measure selection for constructed realizations (§1.2 Remark) is a maximal-entropy principle ("the maximal-entropy invariant measure compatible with the observer's records") on a finite representative — a standard but substantive epistemic postulate, not derived; (v) the hidden-sector mixing hypothesis (ETH-motivated) conditioning the slow-bath form of the C2-necessity direction, for a system class (emergent descriptions of linear-mod-$q$ automata) on which the standard ETH evidence base is silent, and whose exact linear rule conserves a quadratic invariant for every symmetric translation-invariant coupling and, at prime $q$ not dividing the lattice size, for $d\ge2$ splits its largest energy shell into exponentially many cycles [SM §4.2], so that numerical motivation comes from the rounded candidate of [SM §4.2], which behaves chaotically at the sizes measured, while whether the realized hidden sector satisfies the mixing hypothesis remains open — this is the same open dynamical question as the typicality selection in (iv), one conditional wearing two hats; (vi) spatial isotropy, entering as empirical input E4 of the reconstruction; (vii) linearity of the substratum update (A5), a further restriction beyond the affine condition. The affine step uses base-point-independent first differences, which telescope to a constant plus an additive map; and, for the spatial results — the causal cone and Bell ceiling of §3.3, the observer selection of §4.6 and the companion reconstruction — the spatial constitution, which the characterization theorem of §3.4 does not use: (viii) site factorization — the configuration space is identified with a product of local configuration spaces over a set of sites; given that identification the dynamics determines its coupling graph, the dynamics alone has not been shown to select the identification, and the coupling graph, its causal cone and the regions of §3.3 and §4.6 are read relative to it; (ix) bounded coupling degree (A3), as one degree bound across the family of finite representatives — at a single finite lattice the bound holds automatically, so the item has content only in family form, where it gives the cone of §3.3 bounded growth and is used by §4.6; (x) the nearest-neighbour range — on the reference vacuum/uniform state class the coupling graph $G_\varphi^{\rm ref}$ of §3.3 is the simple-cubic graph — on which the form of the wave rule, its dispersion and the six-link carrier of the companion construction rest, and which the cone of §3.3 does not require; (xi) center independence (A4), in two clauses: the update commutes with lattice translations up to gauge, and the update at a site contains no explicit copy of that site's present value; (xii) background independence (A6), covariance of the dynamics under site-dependent internal-index transformations with the link coupling transformed alongside, which in the form formalized imposes no restriction on the rule and fixes the interface through which the gauge symmetry is read locally; and, for the continuous path of $*$-automorphisms from the identity to the update in §3.2 and §3.4, (xiii) the second-order form of the update, a posit of the selected lattice model, not derived and not an axiom of OI: each site of (viii) carries a previous and a current value in a finite abelian group, and one step is $x(t+1) = F(x(t)) - x(t-1)$, in phase-space form $(x(t-1), x(t)) \mapsto (x(t), F(x(t)) - x(t-1))$, with each $F_i$ reading the current values at finitely many sites and each site read by finitely many $F_i$ (kernel: `ruleDynamics` in `OIBridge/SecondOrderDrive.lean`), the update displayed in §3.2 being its instance with $q = 2$ and $F$ the nearest-neighbour sum; and, for the Bell analysis of §3.3, (xiv) measurement independence, $p(\Omega\mid a,b)=p(\Omega)$ — the response-relevant pre-setting variable $\Omega$ is uncorrelated with the setting generators' outputs — a posit about the initial condition, not derived. Fourteen items, of unequal weight, and not fourteen independent physical assumptions: (viii) is foundational and (ix)–(xi) and (xiii) are stated relative to it; (x) implies the bound of (ix) for $G_\varphi^{\rm ref}$, and with (vii) for $G_\varphi$; the second clause of (xi) depends on the identification of (viii) as well as on the rule; (xii) restricts no rule; and (xiv) enters only the Bell analysis of §3.3. Part I of the companion methodology paper gives the complementary view: an eight-rung analysis of observational structure. The perspectival reading gives the proper-part locus. A successor map uses successive moments and a persisting locus, and preservation of registered distinctions implies injectivity on states with different registered content. The analysis takes per-moment finiteness of the visible configuration space from the finite-capacity clause of the Definition, and isolates recurrence (Axiom 2) as the one rung requiring a further axiom; the total finiteness of item (ii) and items (iv)–(xiv) lie outside the layer it treats. The two accounts describe one structure — the rung analysis counts what is *recovered*, this ledger counts what is *assumed* — and agree on the substance, including that the injectivity recovery closes its hidden-sector margin on a finite representative with an empirical input and that visible finiteness is stipulated per moment rather than derived. The two-axiom statement remains correct about what is *primitive*; this ledger states what is *assumed* or, for item (ii), hypothesized, and the framework's claims are conditional on the full list, item (ii) entering only as one of the sufficient conditions named at each use.
+
+#### Sub:92
+
+S2-A/S2-B change (base `1c7eedc4` → `main` `a1f38284`), word diff:
+
+  - delete: "finite" → ""
+  - insert: "of any cardinality"
+  - replace: "interface. Infinite extensions require specified" → "interface, each in a"
+  - replace: "measures" → "state"
+  - replace: "states and well-defined" → "law with its own unitary, isometric or measurable"
+  - replace: "the finite identity does" → "an unnormalizable factor is"
+  - replace: "supply that construction." → "covered."
+
+S2-C change (`main` → this merge), word diff:
+
+  - insert: "(NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update of [Main §3.2] on $\mathbb{Z}^d$ no law that is not supported on periodic configurations is known to satisfy it."
+
+Resolved line `papers/Substratum.md:92`, in full:
+
+> (A1) **Finiteness.** The configuration space $S$ is finite. E3, read as a Hilbert-space dimension cutoff $\dim\mathcal H\le e^{A/4}$, bounds the observationally relevant visible sector and boundary layer $\mathcal C_V\times\mathcal C_B$ under the deep-sector influence bound H-BD of [GR §3.2]. This bound alone does not establish finiteness of every underlying sector. Theorem 24(iii) gives an exact freedom to adjoin independently prepared decoupled factors of any cardinality at a fixed interface, each in a normalized state or law with its own unitary, isometric or measurable dynamics; an unnormalizable factor is not covered. A deep sector coupled under H-BD changes the transition law by at most $2t/\tau_{BD}$ ([GR §3.2]), so its comparison is only at leading order on accessible timescales. A1 is an open hypothesis, not adopted ([Main §4.5], item (ii)), and one sufficient condition among those each result names: it remains the finite-carrier premise for the recurrence arguments, and for their P-indivisibility conclusion the near-return condition (NR) of [Main §2.3], assumed in its place and not adopted, is a weaker sufficient condition. (NR) concerns a time that need not be accessible and then has no finite-window test; for the selected update of [Main §3.2] on $\mathbb{Z}^d$ no law that is not supported on periodic configurations is known to satisfy it.
+
+### 9.2 Union check
+
+The scratch script `s2c-union.py` (recipe below) checks every tracked `.md` file in the merged tree:
+
+- each file this unit edits equals `main`'s version plus this unit's final splices, each old string
+  occurring exactly once;
+- the same splices applied to base `1c7eedc4` reproduce this branch's pre-merge head `cb6d1b87e`
+  exactly, so the splice list is this unit's whole change;
+- every other `.md` file equals `main`'s version.
+
+Since `main` is base plus S2-A, #1476 and S2-B, the merged tree is their union with this unit's change
+and nothing more. Result: `union check: PASS`, all nine edited files OK.
+
+The recipe is to replay `PREREG.md` §5 with amendment A1 on `git show a1f38284:<file>`, with C4's old
+string read as ", the remark of §3.2", and compare with the merged file.
+
+### 9.3 Rebuild and coverage
+
+- **Builds.** `sh ./build.sh Main SM GR Substratum Structure` and `sh ./build.sh --book` succeeded with
+  no dropped glyphs.
+
+  | Artifact | Pages | Median characters per page |
+  |---|---|---|
+  | Main | 109 | 3326 |
+  | SM | 149 | 3158 |
+  | GR | 84 | 3185 |
+  | Substratum | 54 | 3196 |
+  | Structure | 94 | 2914 |
+  | book | 490 | 2980 |
+
+- **Coverage.** `coverage_check` reports OK (132 canonical statements) on the auto-merged
+  `verification/coverage/LEDGER.json`. No fingerprint moved, so none was re-affirmed.
+
+### 9.4 SC-42
+
+The result file was regenerated under the owner's authorization (#1169 comment 7057674976), on the
+conditions set for S2-D. From the repository root, with
+`R=verification/audits/manuscript/bell-operational-reconciliation-20261029`:
+
+    python3 -I -B $R/check_sc42_integration.py --verbose > $R/sc42-integration-result.json
+
+| Check | Result |
+|---|---|
+| exit status, normal and `-O` | 0 and 0; verdict PASS; the two stdout outputs are byte-identical |
+| `ok: false` entries | none |
+| added-text scan | `added-text scan: 0 hit(s)` |
+| `--self-test`, normal and `-O` | exit 0; output byte-identical to the committed `sc42-integration-controls.json`, which is unchanged |
+| diff of the result file | +4 lines: one added `ok: true` entry, nothing removed or changed |
+
+**The added entry** is "chapter line mirrored in FULL: The second route is the stochastic–quantum
+correspondence of...". It comes from ch01:161 = FULL:494 (C19), a chapter line that this unit's edit
+makes new relative to the checker's base `ca3a5bb2`.
+
+**This unit's other book lines** (ch01:121 and :179, appC:104, appB:46) add no entry. Their first 60
+characters already occur among the predicates, because those lines already differ from `ca3a5bb2`.
+
+### 9.5 Register and duplicate checks
+
+Words added against `main` in the nine edited sources were scanned for history words, reader
+instructions and capitals for emphasis: 0 hits. No non-empty line in those files occurs more often than
+it does on `main`.
+
+### 9.6 Off-`main` references
+
+None added. PR #1473 and the S2-B commit are on `main` (`a1f38284`).
