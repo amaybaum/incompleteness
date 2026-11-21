@@ -2,23 +2,31 @@
 
 **Status.** Research design only. It executes no proof, runs no computation, and changes no
 manuscript, Theorem 23, #1477 file or plan, ledger, registry or Lean file. Every node below is a
-planned investigation with a preregistered decision rule; none has been run. The design needs an
-independent review before any node is authorized.
+planned investigation with a preregistered decision rule; none has been run. This revision answers
+the review of `4cb9a8a1` (REVISE, #1535 c.7068553479); a delta review is needed before any node is
+authorized.
 
 **Authorization.** Owner decision on #1169,
 [comment 7068325638](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7068325638)
 (`amaybaum`, 2026-11-21T19:51:15Z): "RECON-INF Phase 2 | Research planning authorized | Plan Stage 1,
-Stage 3 and the cross-stage bridge separately; no proof execution yet", with "**P2-C (cross-stage).**
-Can Stage 1's observable process arise from the same infinite lattice dynamics that Stage 2
-selects?", and the order "the Phase 2 designs, prepared independently", then "Phase 2
-investigations, only after their plans are reviewed". The owner's scope for this unit: "Determine
-whether the observable process in Stage 1 can arise from the same infinite lattice dynamics selected
-in Stage 2, rather than from a separately constructed reversible system."
+Stage 3 and the cross-stage bridge separately; no proof execution yet", with the order "the Phase 2
+designs, prepared independently", then "Phase 2 investigations, only after their plans are
+reviewed".
+
+**Owner's scope, verbatim.** #1169
+[comment 7068447675](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7068447675)
+(`amaybaum`, 2026-11-21T20:01:28Z), which "supplements c.7068325638, which paraphrased it":
+"**P2-C — Cross-stage compatibility.** Determine whether the observable process in Stage 1 can arise
+from the same infinite lattice dynamics selected in Stage 2, rather than from a separately
+constructed reversible system."
 
 **Goal link.** Thread #1169 (RECON-INF); Issue #1531 (Phase 1); Phase 1 audit PR #1532, confirmed at
 `0bc9628ab3ee4e6955df8980815ecead869578ee` (reviews #1532 c.7068213461, c.7068281368, c.7068298957).
 This design takes up the seam that audit records as open in both settings: AUDIT row 53 (the
-Stage 1 → Stage 2 identification), row 52 (SM:66), §4.2 "The seam", §5 (O), and O-A4 row 2.
+Stage 1 → Stage 2 identification), row 52 (SM:66), §4.2 "The seam", §5 (O), and O-A4 row 2. AUDIT
+row 54 (Theorem 24 (ii), the alphabet-size hypothesis, open in both settings) is outside P2-C's
+question; it bears on P2-C only through the choice of `q`, which Nodes 1 and 9 range over without
+assuming the hypothesis.
 
 ## 0. Sources and notation
 
@@ -36,7 +44,7 @@ assumes no P* edit has landed. Lean paths are relative to `verification/lean-mat
 | O-A4 | `o-a4-20261120/RESULT.md` | Merged in #1441; accepted (P1-AUDIT §0) |
 | NR-1 | `nr1-near-return-20261116/NR-1.md` | Review ACCEPT WITH CHANGES; delta CONFIRMED WITH NITS |
 | A1-01 | `a1-free-p12b-observer/TRACE.md` | Trace record; its first row and row 2b are cited for the open seam only |
-| R1-INF | `r1-inf-20261119/RESULT.md` | Delta review outstanding; cited only as O-A4 row 3 cites it, each time marked "(delta review outstanding)" |
+| R1-INF | `r1-inf-20261119/RESULT.md` | Delta review outstanding; cited only as O-A4 rows 3 and 10 cite it, each time marked "(delta review outstanding)" |
 
 **(N)/(I).** A relation or result is (N) when it is proved inside the corpus from OI's own definitions,
 and (I) when it imports a result or a premise from outside; imported items are named. A relation not
@@ -44,17 +52,27 @@ yet proved carries neither label; its row names what a proof would import.
 
 ## 1. The question
 
-**Q.** Let `P` be a law Stage 1 takes as input: a finite-horizon visible law on a finite alphabet for
-one finite experimental context, in the M1-T temporal sector (Sub:123, :137). Does `P` arise as the
-law of a finite readout of the lattice dynamics that Stage 2 selects (Sub:157–159; SM:224), under a
-preparation law that is itself part of that same system, or does Stage 1's output exist only as the
-separately constructed finite dilation of Main §3.4?
+**Q (the owner's question).** Let `P` be a law Stage 1 takes as input: a finite-horizon visible law
+on a finite alphabet for one finite experimental context, in the M1-T temporal sector (Sub:123,
+:137). Does `P` arise as the law of a finite readout of the lattice dynamics that Stage 2 selects
+(Sub:157–159; SM:224), or does Stage 1's output exist only as the separately constructed finite
+dilation of Main §3.4? In the relations of §2.4, **Q is J2**: a condition on the dynamics, with the
+readout and preparation in stated classes.
 
-Either answer is a result. A positive answer would supply the identification that P1-AUDIT row 53
-records as missing, at the stated scope. A negative answer for a stated class of dynamics,
-readouts and preparations would show that Theorem 23's Stage 1 and Stage 2 describe different
-systems in that class, and would bound what a replacement theorem can claim. Neither outcome is
-preferred, and none of the decision rules below encodes an expected outcome.
+**Q⁺ (a stronger reading, the design's own).** J3: J2 with the preparation generated by a law
+satisfying H-μ(φ,Θ), the hypothesis under which Stage 2's observer branch holds on `ℤ^d` (O-A4 §2).
+Q⁺ is not the owner's question. It is carried because a J2 realization whose preparation shares no
+law with Stages 2–3 may not be what "the same system" requires; whether it is, is a definitional
+choice for the owner. Q⁺ is reported separately from Q throughout and never substitutes for it. The
+uniform Bernoulli law `β` satisfies H-μ(φ,Θ) on (Z) (O-A4 Lemma U); the corpus does not select it
+(its selection is R1-INF's (G3)+(G4), delta review outstanding, O-A4 row 10).
+
+Either answer to Q is a result. A positive answer would supply the identification that P1-AUDIT
+row 53 records as missing, at the stated scope. A negative answer for a stated class of readouts and
+preparations would show that Stage 1's law does not arise from the Stage 2 dynamics in that class;
+Stage 1 asserts only that some realization exists, so a negative does not show that the stages
+describe different systems in any wider sense. Neither outcome is preferred, and none of the
+decision rules below encodes an expected outcome.
 
 The M1-B Bell sector is outside Q. Its one-object compatibility is the open hypothesis H-Bell
 (Sub:131–133, :171–173), and the Bell–lattice obstruction (Main:420) already excludes realizing it
@@ -69,16 +87,17 @@ on the reference cone. P2-C addresses the M1-T temporal data only.
 - **Output.** A triple `R₁ = (S, φ, V)` with `S = C_V × C_H` finite, `φ` a bijection, and a hidden prior
   `μ_H` independent of the visible initial state, whose visible marginal from `P₀ ⊗ μ_H` is `P`
   (Sub:125, :137; Main:526, process dilation; Main:528, response-table form for arbitrary kernels).
-  The Lean form `Equivalence.S_imp_D`:422 uses a joint initial law on `V × Hid` (its docstring, and
-  A1-01 first row); the independent-prior form is the paper theorem. Both are (N).
+  The Lean form `Equivalence.S_imp_D`:422 uses a joint initial law on `V × Hid` (the `RevReal`
+  docstring, :150–156; A1-01 first row); the independent-prior form is the paper theorem. Both
+  are (N).
 - **Non-uniqueness.** `R₁` is one realization among many. The Stage-1 gauge statement (Sub:139) is
   scoped to "the finite channel/dilation datum actually used"; equal channel families need not have
   conjugate dilations (Sub:139; Str:669–683, Proposition 9.7b and Corollary 9.8). The canonical
   predictive quotient `T(P)` (Main:632) is the terminal object of the category of faithful
-  realizations: every faithful realization `R` of `P` carries a unique visible-preserving,
+  realizations on `C_V × C_H`: every such realization `R` carries a unique visible-preserving,
   dynamics-intertwining morphism `q_R : R → T(P)` on its prior-supported reachable part, and the
-  hidden fibres above `T(P)` are not unique (`fiber_freedom`). Stated there for realizations on
-  `C_V × C_H`, certified exhaustively at small finite sizes. (N)
+  hidden fibres above `T(P)` are not unique (`fiber_freedom`). Certified exhaustively at small
+  finite sizes. (N)
 - **Site structure.** `R₁` carries no product decomposition into sites. Site factorization is posit
   (viii) (Main:736): the dynamics has not been shown to select it, and the coupling graph is read
   relative to it; SM:68 gives a normal-mode identification of the four-site ring over ℤ/3 with
@@ -88,30 +107,62 @@ on the reference cone. P2-C addresses the M1-T temporal data only.
 
 - **Dynamics.** Within A3–A6, the nearest-neighbour premise and the second-order form (xiii)
   (Main:736), the update `Φ_{q,α}: (p, c) ↦ (c, αSc − p)` on `Ω = (ℤ_q × ℤ_q)^Λ`, `S` the
-  nearest-neighbour sum (Sub:159; SM:224, form lemma). `q` and `α` are not fixed on `main` (NR-1:101; SM:230).
+  nearest-neighbour sum (Sub:159; SM:224, form lemma). `q` and `α` are not fixed on `main` (NR-1:101;
+  SM:230).
 - **Carrier.** Setting (Z): `Λ = ℤ³` (SM:222; A4 at Sub:98 as the standard construction). Setting (F):
-  a finite periodic quotient `ℤ³/P` under the wrapping conditions on `P` (Sub:98; SM:222; O-A4 §7).
-- **Reference law.** H-μ(φ,Θ): a normalized law invariant under the update and the reversal, with
-  product form `u_V ⊗ ν` at the visible window (O-A4 §2). On (Z) the uniform Bernoulli (Haar) law
-  `β` satisfies it for every second-order rule over a finite abelian group (O-A4 Lemma U). On (F)
-  the counting law (Main:54, Lemma 3).
+  a finite periodic quotient `ℤ³/P` under the wrapping conditions on `P` (Sub:98; SM:222; O-A4 §7),
+  with side at least 3 so that A4's no-self-input clause applies (Sub:98).
+- **Laws satisfying H-μ(φ,Θ).** A normalized law invariant under the update and the reversal, with
+  product form `u_V ⊗ ν` at the visible window (O-A4 §2). On (Z) the uniform Bernoulli (Haar) law `β`
+  satisfies it for every second-order rule over a finite abelian group (O-A4 Lemma U); it is not
+  selected by the corpus (§1). On (F) the counting law (Main:54, Lemma 3) satisfies it.
 - **Readout.** The corpus readouts of the lattice model are window readouts: "the visible sector
-  being the sites of a region R" (Main:297), and NR-1's (R), `π = (u, v)|_W` (NR-1:104). SM's
+  being the sites of a region R" (Main:298), and NR-1's (R), `π = (u, v)|_W` (NR-1:104). SM's
   observer branch uses linear projections on Koopman observables (SM:242, Theorem 1a).
 
-### 2.3 Classes the nodes range over (frozen here)
+### 2.3 Classes and conventions the nodes range over (frozen here)
 
-- **Readout classes.** (R-win) the full window phase state `(p, c)|_W`; (R-win-c) the current
-  component `c|_W` only; (R-lin) any group homomorphism of the window phase state; (R-nl) any function
-  `g` of the window phase state. Each is a finite readout region (FR).
-- **Preparation classes.** (Π-β) the reference law conditioned on a finite apparatus record: `β(· | E)`
-  with `E` a cylinder event at some finite set of sites and times; (Π-H) `P₀ ⊗ (hidden marginal of β)`,
-  the visible initial law times the reference law on the hidden coordinates; (Π-prod) `P₀ ⊗ ν` with `ν`
-  any law on hidden coordinates; (Π-joint) any law on `Ω`.
-- **Target classes.** (𝒫-rat) laws with rational conditional kernels; (𝒫-Q) finite-horizon laws of
-  fixed-basis sequential measurements of a finite-dimensional unitary system (the class `Q_fb`,
-  Main:556); (𝒫-mem) laws in (𝒫-Q) with `M_t > 0` at an accessible order (the M1-T sector).
-- **Exactness.** (ex) equality of the laws on `C_V^{K+1}`; (ε) total-variation distance at most `ε`.
+**Time map.** One visible step is `m` lattice updates. `m` is a quantified parameter: each run fixes
+one `m`, and a node's verdict quantifies over `m ∈ {1, …, m_max}`, where `m_max` is written into the
+node's preregistration amendment before the run and is not changed after it. The lattice horizon is
+`mK`. A verdict states its `m` range; nothing is said about `m > m_max`.
+
+**Readout classes.** All readouts read a finite window `W`.
+- (R-coord) a fixed set `X_V` of phase coordinates of `W` (for example all of `(p, c)|_W`, or `c|_W`
+  alone, with `p|_W` counted as hidden). The visible/hidden split is `Ω = A^{X_V} × A^{X_H}`, `X_H`
+  all other coordinates.
+- (R-lin) `h ∘ π_W` with `h` a surjective group homomorphism of the window phase group. The split is
+  fixed per run by a complement `K'` of `ker h` chosen and recorded before the run: visible register
+  `h(π_W ω)`, hidden coordinates `K'`-complementary window coordinates plus all coordinates outside
+  `W`. A change of complement is a separate run.
+- (R-nl) `g ∘ π_W` with `g` any function of the window phase state. No product split exists in
+  general (fibres of `g` may differ in size).
+
+In every class the readout map (`X_V`, `h` with `K'`, or `g`) is fixed per run, and a verdict
+quantifies over a finite set of readout maps listed in the node's preregistration amendment; an
+exclusion holds only for every listed map.
+
+**Alphabet convention.** A target with outcome set `C_V` is matched through an injective labelling
+`ι : C_V → (readout values)`: the realized law must give probability zero to readout values outside
+`ι(C_V)`. A non-injective labelling of an (R-coord) or (R-lin) readout is an (R-nl) readout and is
+treated in that class; it does not preserve the affine structure used in Node 4a. A class is excluded
+for a target "by counting" only when it has fewer readout values than `|C_V|`.
+
+**Preparation classes**, per readout class.
+- Under (R-coord) and (R-lin), with the split above:
+  - (Π-H) `P₀ ⊗ β_H`: the visible initial law times the restriction of `β` to the hidden coordinates;
+  - (Π-prod) `P₀ ⊗ ν`, `ν` any law on the hidden coordinates.
+- Under every readout class:
+  - (Π-β) `β(· | E)`, `E` a cylinder event on a finite set of sites and times (an apparatus record);
+  - (Π-W) `λ_W ⊗ ν`, `λ_W` any law on the window phase states whose pushforward under the readout is
+    `P₀`, `ν` any law on coordinates outside `W`; (Π-W,β) the case `ν = β` restricted outside `W`;
+  - (Π-joint) any law on `Ω`.
+
+**Target classes.** (𝒫-rat) laws with rational conditional kernels; (𝒫-Q) finite-horizon laws of
+fixed-basis sequential measurements of a finite-dimensional unitary system (the class `Q_fb`,
+Main:556); (𝒫-mem) laws in (𝒫-Q) with `M_t > 0` at an accessible order (the M1-T sector).
+
+**Exactness.** (ex) equality of the laws on `C_V^{K+1}`; (ε) total-variation distance at most `ε`.
 
 ### 2.4 Relations
 
@@ -119,22 +170,23 @@ Each relation is stated for a target `P` at horizon `K` and is read in setting (
 
 | Id | Relation | Status | (N)/(I) | Imported or named assumptions |
 |---|---|---|---|---|
-| J0 | `P` is the visible marginal of some finite reversible realization with independent hidden prior | Established | (N) | E1 for the input law; Main:526–528 |
+| J0 | `P` is the visible marginal of some finite reversible realization; J0-ind with independent hidden prior (Main:526), J0-joint with joint initial law (`S_imp_D`) | Established | (N) | E1 for the input law; Main:526–528; `S_imp_D`:422 |
 | J1⁰ | `P` is the readout law of some reversible finite-range cellular automaton on a lattice, with no constraint from A3–A6 | Missing as a stated result; Node 2 tests whether it is vacuous | — | — |
-| J1 | As J1⁰, for a translation-invariant, centre-free, reversible finite-range rule (A2, A3, A4), with a readout and preparation in stated classes | Missing | — | A2–A4, (viii) |
-| J2 | `P` is the readout law of `Φ_{q,α}` for some `q, α`, some readout class and some preparation class | Missing | — | A2–A6, nearest-neighbour premise, (xiii), (viii) |
-| J3 | J2 with the preparation in (Π-β) or (Π-H): the preparation is generated by the reference law Stage 2 uses | Missing | — | As J2, plus H-μ(φ,Θ), and the Stage 3 measure (interface to P2-B, §6) |
-| J4-fac | Stage 1's finite `(S, φ)` is a measure-theoretic or topological factor of `(Ω, Φ_{q,α}, β)`, with the window readout factoring through it | Missing | — | As J3 |
-| J4-emb | Stage 1's finite `(S, φ)` is the restriction of `Φ_{q,α}` to a finite invariant subset of `Ω` (for example the `P`-periodic configurations), with `V` the window | Missing as a stated identification | — | As J2 |
-| J5 | A realization of `P` by `Φ_{q,α}` (J2) carries a morphism of realizations in the sense of Main:632 onto Stage 1's datum | Missing; Node 7 | — | Main:632; its extension to an infinite measurable carrier |
+| J1 | As J1⁰, for a translation-invariant, centre-free, reversible finite-range rule (A2, A3, A4), with readout and preparation in stated classes | Missing | — | A2–A4, (viii) |
+| **J2** | **`P` is the readout law of `Φ_{q,α}` for some `q, α`, `m`, readout and preparation in stated classes. This is Q.** | Missing | — | A2–A6, nearest-neighbour premise, (xiii), (viii) |
+| J3 | J2 with the preparation in (Π-β), (Π-H) or (Π-W,β). This is Q⁺, the design's stronger reading | Missing | — | As J2, plus H-μ(φ,Θ) and the choice of `β`, which the corpus does not make |
+| J4-fac | Stage 1's finite `(S, φ)` is a measure-theoretic or topological factor of `(Ω, Φ_{q,α}, β)`, with the readout factoring through it | Missing | — | As J3 |
+| J4-emb | Stage 1's finite `(S, φ)` is the restriction of `Φ_{q,α}` to a finite invariant subset of `Ω`, with `V` the readout | Missing as a stated identification | — | As J2 |
+| J5(T) | A realization of `P` carries a morphism of realizations (Main:632) onto `T(P)` | Holds for every faithful realization on `C_V × C_H` (Main:632 universality), including J0's dilation and Node 2's range-0 witness; therefore **carries no identification content** and is not used as a criterion for Q or Q⁺ | (N) on (F) with (R-coord) | Main:632; extension to (Z) or (R-nl) is Node 7a |
+| J5(R₁) | A J2 realization carries a morphism of realizations onto the specific dilation `R₁` | Missing; not implied by Main:632, whose fibres above `T(P)` are not unique | — | Main:632 |
 
-**"One and the same system".** For this design the identification Q asks for is J3 at the stated
-exactness, together with the transfer of Stage 1's conclusions to the realizing lattice system
-(Node 8). J2 without J3 gives a lattice realization that uses a preparation unrelated to the law
-Stage 2 and Stage 3 use; J4 is a stronger, dynamical identification. J0 alone is the separately
-constructed system the owner's question contrasts with. A shared ingredient (for example that both
-Stage 1's dilation and Stage 2's lattice are reversible, or both carry a finite visible window) is not
-an identification; only an explicit relation of the table counts.
+**Identification criteria.** Q is answered by J2 at its scope, together with the transfer of Stage 1's
+conclusions to the realizing lattice system (Node 8), reported separately. Q⁺ is answered by J3.
+J4 is a stronger, dynamical identification and J5(R₁) an identification with the specific dilation;
+both are reported where reached. J0 alone is the separately constructed system the owner's question
+contrasts with. A shared ingredient — reversibility, a finite visible window, or the common terminal
+quotient `T(P)` — is not an identification; only an explicit relation of the table counts, and every
+criterion is checked against Node 2's vacuity countercontrol before use (I12).
 
 ### 2.5 Implications between the relations and their witnesses (§A.34)
 
@@ -143,15 +195,18 @@ time with the witness it needs.
 
 | Direction | Witness needed | Standing |
 |---|---|---|
-| J3 ⇒ J2 ⇒ J1 ⇒ J1⁰ | Class inclusion; `Φ_{q,α}` satisfies A2–A4 (SM:224; Lean `WaveSubstratumUnbounded.waveZ_A2`–`waveZ_A5`:45–70 for the wave rule on `Fin d → ℤ`) | Inclusions by definition; the Lean anchors cover A2–A5 for the wave rule, to be checked against the readout and preparation classes in Node 1 |
-| J1 on (F) ⇒ J0 | A torus realization with a product preparation is a finite reversible realization with independent hidden prior | By definition for (Π-H), (Π-prod); (Π-β) and (Π-joint) need the independence form checked (Node 1) |
-| J2 on (Z) ⇒ J2 on (F), side `L` large | Light-cone agreement for multi-time laws under the preparation class (Node 3) | Missing. NR-1 Prop. 4.1 proves it for the rooted maps under the uniform prior only |
-| J2 on (F), side `L` large ⇒ J2 on (Z) | Lift of the torus preparation to a law on `Ω` with the same light-cone marginal (Node 3) | Missing; a separate witness from the previous row |
+| J3 ⇒ J2 ⇒ J1 ⇒ J1⁰ | Class inclusion; `Φ_{q,α}` satisfies A2–A4 (SM:224; Lean `WaveSubstratumUnbounded.waveZ_A2`–`waveZ_A5`:45–58 for the wave rule on `Fin d → ℤ`); on (F) side at least 3 for A4's no-self-input clause (Sub:98) | Inclusions by definition; the Lean anchors cover A2–A5 for the wave rule; checked against the readout and preparation classes in Node 1 |
+| J1 on (F), (R-coord), (Π-H) or (Π-prod) ⇒ J0-ind | The split of §2.3 makes the torus realization a finite reversible realization with independent hidden prior | By definition |
+| J1 on (F), (R-lin), (Π-H) or (Π-prod) ⇒ J0-ind | Relabel the window by the recorded complement `K'` so that `h` becomes a coordinate projection | Missing; Node 1 checks that the relabelling is a group isomorphism of the window phase group carrying `h` to a coordinate projection |
+| J1 on (F), (R-nl) or (Π-W), (Π-β), (Π-joint) ⇒ J0-joint | A padding argument: enlarge the readout fibres to a common size by adjoining inert hidden states, so the state space becomes `C_V × C_H` with the readout as projection | Missing; named witness required, Node 1 |
+| J2 on (Z) ⇒ J2 on (F), side `L` above the Node 3 bound | Light-cone agreement for multi-time laws under the preparation class (Node 3) | Missing. NR-1 Prop. 4.1 proves it for the rooted maps under the uniform prior only |
+| J2 on (F), side `L` above the bound ⇒ J2 on (Z) | Lift of the torus preparation to a law on `Ω` with the same light-cone marginal (Node 3) | Missing; a separate witness from the previous row |
 | J4-fac ⇒ J2-type law equality | Pushforward of `β` under the factor map with the readout compatibility `π_V ∘ π = readout` (Node 6) | Missing |
 | J4-emb ⇒ J2 with a preparation supported on the invariant subset | Restriction | By definition, once J4-emb is stated |
-| J2 on (F) ⇒ J5 onto `T(P)` | Main:632, universality clause, for finite carriers | Established on (F) for the morphism to `T(P)` (N); its extension to (Z) is Node 7 |
-| J0 ⇒ J2 | None known; Nodes 4 and 5 test it | Not asserted |
-| J5 ⇒ J4 | None known | Not asserted |
+| J2 on (F), (R-coord) ⇒ J5(T) | Main:632, universality clause | Established (N); carries no identification content (§2.4) |
+| J2 ⇒ J5(R₁) | None known | Not asserted |
+| J0 ⇒ J2 | None known; Node 4 tests it | Not asserted |
+| J5(T) ⇒ J4, J5(R₁) ⇒ J4 | None known | Not asserted |
 
 The existing equivalences the design leans on keep their directional witnesses: `S ⇔ D ⇔ Q_fb`
 (Main:556; `S_imp_D`:422, `D_imp_Qfb`:294, `Qfb_imp_S`:245, assembled in
@@ -167,13 +222,14 @@ of the cited theorem and checks that the cited hypotheses hold for `Φ_{q,α}` a
 | # | Topic | Target node | Starting points to check |
 |---|---|---|---|
 | L1 | Factor maps, conjugacy and simulation between cellular automata and subshifts; intrinsic universality of reversible CA | 2, 6 | Hedlund (1969); Lind and Marcus, *An Introduction to Symbolic Dynamics and Coding*; Kůrka, *Topological and Symbolic Dynamics*; Toffoli (1977) and Morita on universality of reversible CA; Durand-Lose on intrinsic universality of reversible CA; Kari's block-permutation representation of reversible CA; Delorme, Mazoyer, Ollinger and Theyssier on bulking |
-| L2 | Ergodic properties of linear (additive) CA over `ℤ_q`: invariance of Haar measure, ergodicity, mixing, spectrum | 4, 6 | Hedlund (1969); Willson (1975); Cattaneo, Formenti, Manzini and Margara on ergodicity of linear CA; Pivato's survey of the ergodic theory of CA; R1-INF Prop. 5 (delta review outstanding) |
+| L2 | Ergodic properties of linear (additive) CA over `ℤ_q`: invariance of Haar measure, ergodicity, mixing, spectrum | 5, 6 | Hedlund (1969); Willson (1975); Cattaneo, Formenti, Manzini and Margara on ergodicity of linear CA; Pivato's survey of the ergodic theory of CA; R1-INF Prop. 5 (delta review outstanding) |
 | L3 | Finite factors of weakly mixing systems; eigenfunctions; Rokhlin lemma; generator and model theorems | 6 | Standard texts (Walters; Petersen); Krieger's generator theorem; Jewett–Krieger; Sinai's factor theorem and Ornstein theory, for factor relations onto finite-alphabet processes |
 | L4 | Stinespring and dilation uniqueness; classical dilations of stochastic processes | 7 | Stinespring (1955); Paulsen's text; Str:660–683 (Propositions 9.7a, 9.7b, Corollary 9.8) |
 | L5 | Minimal predictive models and their universality (causal states, ε-machines, generative models) | 7 | Crutchfield and Young (1989); Shalizi and Crutchfield (2001); Löhr and Ay on generative complexity; Upper on hidden Markov models; compare with Main:632 |
-| L6 | Stochastic processes as readouts of deterministic or reversible CA with random initial data; probabilistic CA as factors of deterministic CA with noise | 2, 5 | Mairesse and Marcovici's survey on probabilistic CA; Egri et al. (Main reference [64]) for system–ancilla realizations |
+| L6 | Stochastic processes as readouts of deterministic or reversible CA with random initial data; probabilistic CA as factors of deterministic CA with noise | 2, 4 | Mairesse and Marcovici's survey on probabilistic CA; Egri et al. (Main reference [64]) for system–ancilla realizations |
 | L7 | Embeddings of finite reversible systems into reversible CA on `ℤ^d`; embedding theorems for subshifts | 2, 6 | Krieger's embedding theorem; Boyle's lower entropy factor theorem; block (Margolus) constructions |
 | L8 | Locality and light-cone reductions; quasilocal completions and automorphisms | 3, 7 | GR:279–286 (region completion, kernel `QuasilocalCharacterization`); Schumacher and Werner on reversible quantum CA |
+| L9 | Exact linear programming and certificates | 4, 5 | Exact rational simplex and Farkas certificates (Schrijver, *Theory of Linear and Integer Programming*) |
 
 **Decision rule for §3.** A node whose question a located theorem decides is closed by citation, at
 the theorem's scope, before any proof or computation is planned for it. A node that the literature
@@ -183,35 +239,42 @@ as planned. The search result is recorded per query, including null results.
 ## 4. Branch nodes (depth-first, §A.31)
 
 The walk is depth-first. Each node is closed by its decisive check and records its verdict before
-the next node opens. The order selects first the branches that decide which relation is the target
-(Nodes 1–2), then the branch closest to the owner's question, the reference law Stage 2 uses
-(Node 4), and only then the wider preparation classes. A branch outcome favourable to the
-identification receives the pressure test of §A.31 before acceptance.
+the next node opens. Nodes 1–3 fix the definitions, the vacuity baseline and the carrier reduction;
+Node 4 is the owner's question Q (J2); Node 5 is the stronger reading Q⁺ (J3); Nodes 6–9 follow.
 
-**Common rules for every computational node.**
+**Common rules for every node.**
 - Verdicts are generated from the measurements and printed only over green controls; a verdict over
   a failed, vacuous or self-reproducing control is void (§A.29).
-- Exact claims (equality of laws, zero distance, feasibility or infeasibility, rank) are certified in
-  exact rational or finite-field arithmetic. Floating point never certifies them.
+- Exact claims (equality of laws, zero distance, feasibility or infeasibility, a lower bound on a
+  distance, rank) are certified in exact rational or finite-field arithmetic: a positive by an exact
+  primal point, an exclusion by an exact dual (Farkas-type) certificate. Floating point never
+  certifies them.
 - Each run is deterministic and replayable: parameters, seeds and outputs are recorded in full
   precision and a replay must match elementwise (§A.26 item 3).
 - Cost is classified before the run (§A.40): small exact enumerations run locally; anything larger
   is planned for CI and run only after authorization.
-- Each negative verdict states its full scope: dynamics `(q, α)`, readout class, preparation class,
-  target class, setting (F) or (Z), and exactness (ex) or (ε).
+- Each negative verdict states its full scope: dynamics `(q, α)`, time map `m`, readout class and
+  maps, preparation class, target class, setting (F) or (Z), and exactness (ex) or (ε).
+- **Pressure test for every favourable outcome.** A verdict favourable to J2, J3, J4 or J5(R₁), or to
+  a reduction that enables one, is accepted only after its pressure-test table is filled. The table
+  always contains the **specificity question**: does the same realization, with the same readout map
+  and preparation, go through for every reversible rule in the class J1 (or a stated wider class)?
+  If yes, the positive is recorded as generic, not specific to the Stage 2 dynamics, and does not
+  count as an identification of the stages under the productivity test (§5, (a)); if no, the rule
+  for which it fails is named. Node-specific questions are added below.
 
 ### Node 1 — Freeze the relations against the corpus (reading)
 
-- **Check.** Re-read Sub:121–173, Main:526–562, :614–650, SM:64–68, :220–244, Main:292–297 and NR-1 §2
+- **Check.** Re-read Sub:121–173, Main:526–562, :614–650, SM:64–68, :220–244, Main:292–298 and NR-1 §2
   against the classes of §2.3. Determine: (i) which readout classes the corpus's lattice readouts
-  belong to; (ii) whether the visible alphabet size of each readout class can match the target's
-  `|C_V|` (for (R-win) it is `q^{2|W|}`, for (R-win-c) `q^{|W|}`); (iii) whether each preparation class
-  has the independence form Stage 1 uses (Main:526) or only the joint form of `S_imp_D`.
-- **Decision rule.** Node 1 is complete when every relation J0–J5 has a statement with explicit
-  quantifiers over `(q, α)`, readout, preparation and target, and every implication of §2.5 has a
-  named witness or the entry "Missing". A class that cannot meet the target alphabet size is
-  recorded as excluded for that target by counting, with the count shown, and is not carried
-  further for that target.
+  belong to; (ii) for each target family, which readout classes meet `|C_V|` under the injective
+  labelling convention; (iii) the witnesses of §2.5 rows 3 and 4 (the (R-lin) relabelling and the
+  (R-nl) padding argument).
+- **Decision rule.** Node 1 is complete when every relation has a statement with explicit
+  quantifiers over `(q, α)`, `m`, readout, preparation and target, and every implication of §2.5 has a
+  named witness or the entry "Missing". A class with fewer readout values than `|C_V|` is recorded as
+  excluded for that target by counting, with the count shown. If the padding argument fails, the
+  (R-nl) row of §2.5 stays Missing and (R-nl) verdicts are compared with J0-joint only.
 - **Output class.** Definitions only; no verdict on Q.
 
 ### Node 2 — Is lattice realization without the Stage 2 constraints vacuous? (J1⁰, J1)
@@ -226,118 +289,165 @@ identification receives the pressure test of §A.31 before acceptance.
 - **Decision rule.** If a construction realizes every target of a class exactly inside a given set
   of premises, the relation at that premise set is recorded as uninformative for Q, and Q is carried
   by the next stronger relation. If no construction is found inside A2–A4, J1 is carried as Missing
-  and the obstruction found, if any, is recorded at its scope.
+  and the obstruction found, if any, is recorded at its scope. The construction found here is the
+  reference rule set for every later specificity question.
 - **Countercontrol.** The range-0 construction is the vacuity witness: any identification criterion
-  that it satisfies is too weak to answer Q and is not used.
+  that it satisfies is too weak to answer Q and is not used. Applied at freeze to J5(T), which it
+  satisfies (§2.4).
 
 ### Node 3 — Finite versus infinite carrier at finite horizon (light-cone reduction)
 
-- **Hypothesis under test.** For `Φ_{q,α}`, readout region `W`, horizon `K` and a preparation whose
-  restriction to the backward light cone `W + B_K` is fixed, the window-history law on `ℤ³` equals
-  the law on the torus `(ℤ/L)³` once `ext_j(W) + 2K < L`, in both directions (§2.5 rows 3 and 4).
+- **Hypothesis under test.** For `Φ_{q,α}`, readout window `W`, lattice horizon `mK` and a preparation
+  in a stated class, the readout-history law on `ℤ³` equals the law on the torus `(ℤ/L)³` once the
+  set `D = (W + B_{mK}) ∪ cone(E)` maps injectively into the torus, where `cone(E)` is the union of
+  the backward dependence cones of the sites and times on which a (Π-β) event `E` is defined, taken
+  back to time 0 (for (Π-β) it is `∅` when `E` is absent). In coordinates: `ext_j(D) < L` for each
+  `j`. For (Π-H), (Π-prod), (Π-W) this is `ext_j(W) + 2mK < L`, NR-1 Prop. 4.1's bound with `t = mK`.
 - **Check.** Paper proof extending NR-1 Prop. 4.1 (rooted maps, uniform prior) to the full
-  multi-time law and to each preparation class of §2.3. The (Z) → (F) direction and the (F) → (Z)
-  direction (lifting the torus preparation) are proved separately.
-- **Decision rule.** For each preparation class: if both directions are proved, questions about J2
-  and J3 at horizon `K` for that class are decided on tori, and Nodes 4–5 may compute on tori. If
-  only one direction is proved, only that transfer is used. If a class fails (for example a
-  (Π-β) event `E` outside the light cone that correlates with it, or a (Π-joint) law with no
-  torus counterpart), that class keeps a separate (Z) status.
+  multi-time law, to each preparation class, and, for (Π-β), to the conditioned law. The
+  (Z) → (F) direction and the (F) → (Z) direction (lifting the torus preparation) are proved
+  separately.
+- **Decision rule.** For each preparation class:
+  - (Z) → (F) proved: a torus negative (non-realizability on every torus above the bound) transfers
+    to (Z), and a (Z) positive transfers to tori above the bound.
+  - (F) → (Z) proved: a torus positive transfers to (Z), and a (Z) negative transfers to tori.
+  - Both proved: Nodes 4–5 may decide (Z) questions on tori for that class, with either sign.
+  - Only one proved: only the verdict sign that direction licenses transfers; the other sign is
+    reported for the setting in which it was obtained.
+  - A class for which neither is proved keeps a separate (Z) status.
 - **Controls for any computation here.** Replay control: reproduce NR-1 §7 part B (`dim K_t`,
-  `dim N_t` agree between torus and `ℤ^d` for `t ≤ (L−1)/2`) before any new run. Countercontrol: a
-  torus below the bound must show a disagreement in at least one recorded instance, so the
-  comparison detects wrap-around.
+  `dim N_t` agree between torus and `ℤ^d` for `t ≤ (L−1)/2`) before any new run. Countercontrol,
+  fixed now: `d = 1`, `q = 2`, `α = 1`, one visible site, torus `L = 5`, horizon `t = 5`; NR-1 §7 part B
+  records the first revival on the odd torus at `(1, L)` and none on `ℤ` (Theorem 3.3, a single site
+  being lattice-convex), so the comparison must report a disagreement at some `t ≤ 5`. If it does
+  not, the comparison is not detecting wrap-around and the node halts (S3).
+- **Pressure test (favourable).** Specificity question, and: does the agreement depend on the
+  preparation being a product across `D` and its complement? If yes, the transfer is recorded for
+  product classes only.
 - **Scope.** This node bears on finite-horizon laws only. Global return (R-c), recurrence and every
   property at unbounded times differ between (F) and (Z) (P1-AUDIT §3) and are not transferred by it.
 
-### Node 4 — The Stage 2 reference law: J3 under (Π-β) and (Π-H)
+### Node 4 — The owner's question: J2
 
-This is the branch closest to Q: the preparation is generated by the reference law `β` Stage 2 uses.
-It splits into three sub-branches, taken in this order.
+Opened after Nodes 1–3. Sub-branches in this order.
 
-**4a. Arithmetic of the kernels (exact).**
-- **Hypothesis under test.** Under (Π-H) or (Π-β), with any readout class, every conditional kernel
-  of the window-history law at a positive-probability history is rational, as a ratio of counts on
-  the finite light cone (through Node 3 and the rationality statement of Main:526 for finite
-  realizations with rational prior). Then a target with an irrational conditional kernel has no
-  exact J3 realization in these classes.
+**4a. Coordinate and linear readouts: translation structure.**
+- **Hypothesis under test.** For the affine update `Φ_{q,α}`, a readout in (R-coord) or (R-lin) with
+  its split, a preparation `P₀ ⊗ ν` in (Π-prod) and time map `m`, the conditional readout-history law
+  given the visible initial value `x₀` is `τ_{A x₀} λ`: the translate, by an affine function of
+  `x₀`, of one fixed law `λ` (the pushforward of `ν`). This extends NR-1 Lemma 2.2, which proves the
+  one-time rooted case under Haar and window readout.
+- **Check.** Paper proof of the multi-time statement. Then, on tori allowed by Node 3, the distance
+  `δ_tr(P) = min over (ι, A) in the finite listed set, of min over laws λ on the readout-history group,
+  of max_{x₀} TV(ι_* P(· | x₀), τ_{A x₀} λ)`. For each fixed `(ι, A)` the inner problem is a linear
+  program in `λ` and an auxiliary bound `s` (minimize `s` subject to the linearized TV constraints).
+  Each linear program is solved in exact rational arithmetic (L9). `δ_tr(P) ≥ ε` is certified by an
+  exact dual feasible point of value at least `ε` for every listed `(ι, A)`; `δ_tr(P) = 0` by an exact
+  primal point.
+- **Decision rule.** If the lemma passes review: for every listed `(ι, A)` a certified dual bound
+  above `ε` excludes (ε) J2 realization of `P` under (R-coord)/(R-lin) and (Π-prod) for that `(q, α)`,
+  `m`, window and readout map. A certified primal point at `0` admits the exact realization, which is
+  then constructed and checked in exact arithmetic. Anything else is not a verdict. Verdicts are
+  recorded per target; no statement about all targets is made from a finite test.
+- **Controls.** Positive control: a target generated by `Φ_{q,α}` itself under (Π-prod) must give a
+  certified `0`. Countercontrol, fixed in the preregistration amendment before the run: a target
+  proved there, by a paper argument independent of the solver, to have conditional laws that are not
+  translates under any listed `(ι, A)` (for example a law on `C_V = {0,1}` whose two conditional
+  laws have different support sizes, which no translate can match); the solver must certify a
+  positive lower bound for it. Detector control: a second-order rule `x(t+1) = F(x(t)) − x(t−1)` with
+  a non-affine `F` (SM:106), fixed before the run, whose generated law the lemma does not cover, must
+  not be reported as translate-structured unless its certificate shows it. Symmetry control:
+  relabelling the visible alphabet by a group automorphism leaves `δ_tr` unchanged.
+- **Pressure test for `δ = 0`.** Specificity question; and: does the realization use a `ν` that
+  encodes the target's conditional structure directly, so that the dynamics only transports it? The
+  answer is recorded with the verdict; a positive with a yes answer is recorded as carried by the
+  preparation.
+- **Target families.** Small instances of (𝒫-Q) and (𝒫-mem) fixed in the preregistration amendment
+  before the run: a qubit and a qutrit observed in a fixed basis with a stated unitary between
+  readings, horizons 2 and 3, and memory-bearing laws from the corpus's certified examples
+  (Main §3.4 probes), each listed with its exact data. Under the injective labelling convention these
+  targets are not excluded by counting for windows with at least `|C_V|` readout values.
+
+**4b. Non-linear readouts and general preparations.**
+- **Hypothesis under test.** Every target of (𝒫-Q) is exactly J2-realizable under (R-nl) with (Π-W)
+  or (Π-joint), the hidden inflow into `W` serving as a tape.
+- **Check.** Paper construction; for small instances an exact feasibility problem. By linearity the
+  window phase history depends on coordinates outside `W` only through `M h ∈ im M`, so a law on
+  `im M` replaces `ν`. For each readout map `g` in the finite listed set the problem is a linear
+  feasibility problem in the preparation law; the problem over all listed `g` is their union.
+  Feasibility is certified by an exact rational feasible point for some listed `g`; infeasibility by
+  an exact Farkas certificate for every listed `g`.
+- **Decision rule.** Feasible with a verified point: J2 holds for that target, `g`, `m`, window and
+  preparation class; the record states whether the preparation lies in (Π-W,β), which bears on Q⁺.
+  Infeasible with verified certificates for every listed `g`: J2 fails for that target over the
+  listed maps, `m` range, window and horizon. No other output is a verdict.
+- **Controls.** Positive control: a law generated by `Φ_{q,α}` under a random rational preparation
+  must be feasible. Negative control: a law with support outside every listed `g`'s image must be
+  infeasible with certificates. Replay: rerun from the recorded rational data must reproduce the
+  certificates.
+- **Pressure test for a feasible point.** Specificity question; and (ii′): does `g` encode the
+  target, in the sense that the same `g` and preparation realize the target for the range-0 rule of
+  Node 2 with the window's own coordinates? If yes, the positive is recorded as carried by the
+  readout and is not credited as an identification under the productivity test.
+
+### Node 5 — The stronger reading: J3
+
+Opened after Node 4 closes, whatever its outcome. Reported separately from Q. All laws here are
+`β`, the uniform Bernoulli law satisfying H-μ(φ,Θ); no other law is substituted without a new node
+(§6, P2-B row).
+
+**5a. Arithmetic of the kernels (exact).**
+- **Hypothesis under test.** Under (Π-H), (Π-W,β) with rational `λ_W`, or (Π-β), with any readout
+  class, every conditional kernel of the readout-history law at a positive-probability history is
+  rational, as a ratio of counts on the finite set `D` of Node 3 (through Node 3 and the rationality
+  statement of Main:526 for finite realizations with rational prior). Then a target with an
+  irrational conditional kernel has no exact J3 realization in these classes.
 - **Check.** Paper proof. Literature check of L2 for the Haar marginals.
 - **Decision rule.** If the proof passes review, record the negative for (ex), targets with an
-  irrational kernel, preparations (Π-H) and (Π-β), every readout class and every `(q, α)`, in both
-  settings to the extent Node 3 transfers. It does not cover rational targets, (ε) realization,
-  (Π-prod) or (Π-joint), and it bears on any finite-alphabet rule with uniform hidden prior, not on
-  `Φ_{q,α}` specifically; the record states that last point. If the proof fails, 4a is parked with
-  the gap named.
-- **Pressure test.** Exact equality with an irrational empirical law is not an observable
-  requirement: data fix a law to finite precision. A negative at (ex) alone is therefore recorded
-  as an arithmetic fact about the classes and is not reported as an answer to Q; 4c carries the
-  (ε) question.
+  irrational kernel, these preparations, every readout class and every `(q, α)`, `m`, in both
+  settings to the extent Node 3 transfers negatives. It does not cover rational targets, (ε)
+  realization, (Π-prod) or (Π-joint), and it bears on any finite-alphabet rule with uniform hidden
+  prior, not on `Φ_{q,α}` specifically; the record states that last point. If the proof fails, 5a is
+  parked with the gap named.
+- **Scope of the reading.** Exact equality with an irrational empirical law is not an observable
+  requirement: data fix a law to finite precision. A negative at (ex) alone is recorded as an
+  arithmetic fact about the classes and is not reported as an answer to Q⁺; 5c carries (ε).
 
-**4b. Coset and translation structure (exact, linear readouts).**
-- **Hypothesis under test.** For an affine update, a readout in (R-lin) and a preparation `P₀ ⊗ ν`,
-  the conditional window-history law given the visible initial state `x₀` is the translate by an
-  affine function of `x₀` of one fixed law (the pushforward of `ν`). Under (Π-H), and under (Π-β)
-  with `E` an affine event, that law is uniform on a coset of a subgroup. This extends NR-1
-  Lemma 2.2, which proves the one-time rooted case under Haar and window readout.
-- **Check.** Paper proof of the multi-time statement; then an exact finite test on tori allowed by
-  Node 3: for each target, compute the distance functional
-  `δ_tr(P) = min over labellings of outcomes by readout values, laws λ and affine maps A of
-  max_{x₀} TV(P(· | x₀), τ_{A x₀} λ)` (for 4b under (Π-prod)), and the coset-uniform distance
-  `δ_cos(P)` (for (Π-H), (Π-β)), each by exact enumeration over the finite candidate set.
-- **Decision rule.** If the lemma passes review, then for (R-lin): `δ_tr(P) > ε` excludes (ε)
-  realization under (Π-prod), and `δ_cos(P) > ε` excludes it under (Π-H) and (Π-β), for that target,
-  `(q, α)` and window size; `δ = 0` admits the exact realization and is followed by an explicit
-  realization checked in exact arithmetic. Each verdict is recorded per target family; no
-  statement about all targets is made from a finite test.
-- **Controls.** Positive control: a target generated by `Φ_{q,α}` itself under (Π-H) must give
-  `δ_cos = 0`. Countercontrol: a target realized by the response-table construction (Main:528), which
-  is not affine, with conditional laws that are not translates, must give `δ_tr > 0`; and the same
-  test applied to a second-order rule `x(t+1) = F(x(t)) − x(t−1)` with a non-affine `F` (reversible
-  for every `F`, SM:106), fixed before the run, must not report a coset structure it does not have,
-  so the test is not vacuous.
-  Symmetry control: relabelling the visible alphabet by a group automorphism leaves `δ_tr` unchanged.
-- **Target families.** Small instances of (𝒫-Q) and (𝒫-mem) fixed before the run: a qubit and a
-  qutrit observed in a fixed basis with a stated unitary between readings, horizons 2 and 3, and
-  memory-bearing laws taken from the corpus's certified examples (Main §3.4 probes), each listed
-  with its exact data in the node's preregistration amendment.
+**5b. Coset structure under `β` (exact, coordinate and linear readouts).**
+- **Hypothesis under test.** Under (Π-H), and under (Π-β) with `E` an affine event, the fixed law `λ`
+  of Node 4a's lemma is uniform on a coset of a subgroup.
+- **Check.** Paper proof from Node 4a's lemma; then the finite minimum `δ_cos(P)` over the listed
+  `(ι, A)` and the finitely many subgroups and cosets, computed by exact enumeration.
+- **Decision rule.** `δ_cos(P) > ε` for every listed `(ι, A)` excludes (ε) J3 realization under these
+  classes for that target, `(q, α)`, `m`, window and readout map; `δ_cos(P) = 0` admits the exact
+  realization, checked in exact arithmetic.
+- **Controls.** As Node 4a, with the positive control generated under (Π-H).
+- **Pressure test for `δ_cos = 0`.** Specificity question.
 
-**4c. Non-linear readouts (ε).**
-- **Hypothesis under test.** Under (Π-H) or (Π-β) with (R-nl), the targets of (𝒫-Q) and (𝒫-mem) are
-  (ε)-realizable for every `ε > 0` with a window and horizon budget that can be stated.
-- **Check.** Paper construction or obstruction, then exact enumeration on small tori: the set of
-  realizable laws is the set of pushforwards of coset-uniform laws under functions `g`, so for fixed
-  `(q, α, W, K)` the minimal TV distance to the target is a finite minimization computed exactly.
-- **Decision rule.** If a construction with a stated budget `|W|(ε)` is proved, record the positive
-  at (ε) for the stated targets, with the budget, and pass to the pressure test. If the exact
+**5c. Non-linear readouts at (ε).**
+- **Hypothesis under test.** Under (Π-H), (Π-W,β) or (Π-β) with (R-nl), the targets of (𝒫-Q) and
+  (𝒫-mem) are (ε)-realizable for every `ε > 0` with a stated budget: window size `|W|(ε)` and
+  `m(ε) ≤ m_max`.
+- **Check.** Paper construction or obstruction, then exact enumeration on small tori: the realizable
+  laws are pushforwards of the finitely many `β`-conditional laws on `D` under listed maps `g`, so for
+  fixed `(q, α, m, W, K)` the minimal TV distance to the target is a finite minimization computed
+  exactly.
+- **Decision rule.** If a construction with a stated budget is proved, the positive is recorded at
+  (ε) for the stated targets, with the budget, subject to the pressure test below. If the exact
   minimum stays above a stated `ε₀` for every window up to the computed size, record only that
-  finite fact; it is not extrapolated to larger windows.
-- **Pressure test (favourable branch).** A positive here is examined for three ways it could carry
-  no Stage 2 content: (i) whether the same budget is met by every finite-range reversible rule with
-  a mixing hidden inflow, so the result says nothing about `Φ_{q,α}` in particular; (ii) whether `g`
-  must encode the target's structure, so the readout, not the dynamics, carries the law; (iii)
-  whether the construction violates the observer premises (Lemma 1's finite capacity; SM:242's
-  linear projection on Koopman observables; A1-01 row 2b's scalar-kernel bridge). Each is answered
-  before the positive is accepted, and the record states which of them hold.
-
-### Node 5 — Preparations not generated by the reference law: J2 under (Π-prod) and (Π-joint)
-
-Opened only if Node 4 leaves Q undecided for the target class, or decides it negatively.
-- **Hypothesis under test.** Every target of (𝒫-Q) is exactly J2-realizable under (Π-prod) with
-  (R-nl), the hidden inflow into `W` serving as a tape.
-- **Check.** Paper construction; for small instances an exact linear-feasibility problem: by
-  linearity the window history depends on hidden coordinates only through `M h ∈ im M`, so a law `λ`
-  on `im M` replaces `ν`; feasibility is certified by an exact rational feasible point, and
-  infeasibility by an exact Farkas certificate.
-- **Decision rule.** Feasible with a verified point: J2 holds for that target and class, and the
-  record states that the preparation is not generated by the reference law, so J3 is not
-  established by it. Infeasible with a verified certificate: J2 fails for that target, readout,
-  window and horizon. No other output is a verdict.
-- **Controls.** Positive control: a law generated by `Φ_{q,α}` under a random rational `ν` must be
-  feasible. Negative control: a law with support outside `L x₀ + im M` must be infeasible with a
-  certificate. Replay: rerun from the recorded rational data must reproduce the certificate.
-- **Interface.** A positive here moves the question to the measure: whether a preparation law of
-  this kind is the law Stage 2 and Stage 3 use. That question belongs to P2-B's measure and is
-  recorded as the interface of §6, not decided here.
+  finite fact; it is not extrapolated.
+- **Pressure test with preregistered consequences.**
+  - (i) Specificity: if the same budget is met by every rule in Node 2's reference set with the
+    same readout and preparation, the positive is recorded as generic and does not count as an
+    identification of the stages under §5 (a).
+  - (ii) Readout carries the law: if `g` and the conditioning event `E` together encode the target, in
+    the sense of Node 4b's test (ii′), the positive is recorded as carried by the readout and J3 is
+    not credited.
+  - (iii) Observer premises: if the construction violates Lemma 1's finite capacity, the linear
+    Koopman projection form of SM:242, or the scalar-kernel bridge conditions of A1-01 row 2b, the
+    positive does not count toward the productivity test, and the record names the violated
+    premise.
+  - A positive passing all three is credited as a J3 positive at (ε) with its budget.
 
 ### Node 6 — Dynamical identification: J4-fac and J4-emb
 
@@ -351,116 +461,140 @@ Opened only if Node 4 leaves Q undecided for the target class, or decides it neg
     statement with hypotheses met, record the negative for J4-fac: measurable factors, unit `α`, the
     law `β`, setting (Z). It does not cover non-unit `α`, other invariant laws, topological factors,
     or J2 and J3, which are not factor relations. If either input fails, 6a is parked with the gap.
-  - *Pressure test.* Check that the factor notion matches what Stage 1 needs: Stage 1's visible
-    process is a readout, not a factor, of `R₁` (the visible process of a non-Markovian law is not a
-    factor of `φ`), so a negative for J4-fac does not by itself bear on J3.
-- **6b. Invariant finite subsystem.**
+  - *Scope of the reading.* Stage 1's visible process is a readout, not a factor, of `R₁` (the visible
+    process of a non-Markovian law is not a factor of `φ`), so a negative for J4-fac does not by
+    itself bear on J2 or J3.
+- **6b. Invariant finite subsystems of the torus update.**
   - *Hypothesis under test.* For translation-invariant `Φ_{q,α}`, the `P`-periodic configurations of
-    `ℤ³` form a finite invariant subset on which `Φ_{q,α}` is the torus update (setting (F) inside
-    (Z)), and the union over sublattices `P` is `β`-null.
-  - *Check.* Paper argument; L7.
-  - *Decision rule.* If both parts hold, record that the finite representatives of setting (F) embed
-    in (Z) as invariant subsystems carried by a `β`-null set; then every property Stage 1 proves on a
-    finite representative (for example global return, P1-AUDIT §3 (R-c)) holds on that null set and
-    transfers to `β`-typical configurations only through a further argument, which is P2-A's
-    interface (§6). If either part fails, record the failure at its scope.
+    `ℤ³` form a finite invariant subset on which `Φ_{q,α}` is the torus update on `ℤ³/P`, and the
+    union over sublattices `P` is `β`-null.
+  - *Check.* Paper argument; L7. Both parts are elementary (periodicity is preserved by a
+    translation-invariant rule; a countable union of finite sets is null for non-atomic `β`); the node
+    is expected to classify as CONFIRMING at most, and is kept because Node 8 and P2-A use its record.
+  - *Decision rule.* If both parts hold, record that the torus updates of setting (F) embed in (Z) as
+    invariant subsystems carried by a `β`-null set, and that properties **proved of the torus update
+    `Φ_{q,α}` on `ℤ³/P`** (for example its global return, P1-AUDIT §3 (R-c)) hold on that null set
+    and reach `β`-typical configurations only through a further argument, P2-A's interface (§6). A
+    property of Stage 1's `R₁` transfers to the torus update only through a J2 or J4-emb instance on
+    (F) supplied by Node 4 or 5; the record names that instance or states that none exists. If
+    either part fails, record the failure at its scope.
 
-### Node 7 — The morphism to Stage 1's datum and the coupling-graph seam (J5)
+### Node 7 — The morphism to Stage 1's datum and the coupling-graph seam
 
 - **7a. Hypothesis under test.** The canonical predictive quotient of Main:632, with its unique
-  morphism `q_R`, extends from finite carriers to a realization of `P` by `Φ_{q,α}` on (Z) at
-  horizon `K` with a finite readout.
+  morphism `q_R`, extends from realizations on `C_V × C_H` to a realization of `P` by `Φ_{q,α}` on (Z)
+  at horizon `K`, and to (R-nl) readouts.
   - *Check.* Paper proof: well-definedness and measurability of the visible-future-tail map (it
-    depends on the finite light cone), the pushforward clause and the uniqueness clause on the
-    prior-supported reachable part, which for a non-atomic law must be restated with "almost
-    every". Compare with L5.
-  - *Decision rule.* If the extension is proved, record that every lattice realization of `P`
-    (J2 or J3) carries the morphism onto `T(P)`, so Stage 1's datum can be taken as `T(P)` and the
-    identification reduces to J2 or J3. If it fails, record the failing clause.
-- **7b. Hypothesis under test.** The coupling graph Stage 2 reads (Sub:157, "inherited from Stage 1")
-  is not a function of Stage 1's datum `R₁` or `T(P)`, which carry no site factorization; it is read
-  off a lattice realization under posit (viii).
+    depends on the finite set `D`), the pushforward clause and the uniqueness clause on the
+    prior-supported reachable part, which for a non-atomic law must be restated with "almost every".
+    Compare with L5.
+  - *Decision rule.* If the extension is proved, record J5(T) for lattice realizations on (Z) and for
+    (R-nl). Consistently with §2.4, this carries no identification content: it shows that Stage 1's
+    universal statements about `T(P)` apply to any lattice realization, and that the identification
+    question is J2 (or J3). If it fails, record the failing clause.
+  - *Pressure test (favourable).* Specificity question, applied to Node 2's range-0 rule: the
+    extension must hold there too, which confirms that J5(T) is not an identification criterion. If
+    it held for `Φ_{q,α}` and failed for the range-0 rule, the record would state that difference
+    explicitly before any use.
+- **7b. J5(R₁).** Whether a J2 realization found in Node 4 or 5 carries a morphism onto the specific
+  dilation `R₁` of Main:526–528 used by Stage 1.
+  - *Check.* Exact search for a visible-preserving, dynamics-intertwining map from the torus
+    realization's prior-supported reachable part onto `R₁`'s, on the instances Node 4 or 5 produced.
+  - *Decision rule.* Found with an exact witness: J5(R₁) holds for that instance. Excluded by an exact
+    exhaustive search: J5(R₁) fails for that instance. No statement beyond the instances.
+  - *Pressure test (favourable).* Specificity question.
+- **7c. The coupling-graph seam.** Hypothesis: the coupling graph Stage 2 reads (Sub:157, "inherited
+  from Stage 1") is not a function of Stage 1's datum `R₁` or `T(P)`, which carry no site
+  factorization; it is read off a lattice realization under posit (viii).
   - *Check.* Reading of SM:66–68 and Main:736 (viii); the SM:68 normal-mode example is the witness
     that one dynamics carries coupling graphs of different degree under two identifications.
-  - *Decision rule.* If confirmed, record that the direction of inheritance at Sub:157 needs the
-    lattice realization of Node 4 or 5 as an input, and that this is an assumption of Stage 2, not
-    an output of Stage 1. This node proposes no manuscript wording.
+  - *Decision rule.* If confirmed, record that the direction of inheritance at Sub:157 needs a
+    lattice realization (Node 4 or 5) as an input, and that this is an assumption of Stage 2, not an
+    output of Stage 1. This node proposes no manuscript wording.
   - *Countercontrol.* Apply the reading to a realization that does carry a site factorization (the
     torus realization of a J2 instance, if Node 4 or 5 supplies one): there the coupling graph is
     defined and equals the lattice graph, so the reading distinguishes the two cases.
 
 ### Node 8 — Transfer of Stage 1's conclusions to a lattice realization
 
-For a lattice realization produced by Nodes 4–5, determine which Stage 1 conclusions hold of it.
+For a lattice realization produced by Node 4 or 5, determine which Stage 1 conclusions hold of it.
 
 | Conclusion | Source | Check | Decision rule |
 |---|---|---|---|
-| C1, C3, C4 necessity; unavoidable hidden predictive memory | Main:614, :624, :736 status rows | Whether the universal theorems, stated for realizations on `C_V × C_H`, hold for a measurable infinite hidden carrier at finite horizon (via Node 3, or directly) | Holds: the conclusion transfers to every J2 realization. Fails or unproved: recorded per conclusion |
+| C1, C4 necessity; unavoidable hidden predictive memory | Main:614 (theorem), :624 (remark), Main:636 | Whether the universal theorem, stated for realizations on `C_V × C_H`, holds for a measurable infinite hidden carrier at finite horizon (via Node 3, or directly) | Holds: the conclusion transfers to every J2 realization. Fails or unproved: recorded per conclusion |
+| C3 capacity bound | Main:522 (per-process capacity bound) | As above | As above |
 | C2 persistence and slow-bath forms | Sub:129; Main:463, :477 | The theorems are stated on a measurable `H` (P1-AUDIT rows 16, 22); check the coupling-step model fits `Φ_{q,α}` with the readout | Fit shown: transfers, the slow-bath form keeping the open mixing hypothesis. Not shown: recorded |
 | Recurrence-cycle P-indivisibility | Sub:137; P1-AUDIT row 21 | Consumed as an interface from P2-A (§6); NR-1 Prop. 2.3 and Thm 3.3 already decide it negatively under Haar with window readout at their stated hypotheses | P2-C records only whether the preparation class Node 4 or 5 requires is one under which P2-A's replacement condition can hold |
-| Stage-1 gauge statement | Sub:139 | Scoped to the finite datum actually used | Not transferred by P2-C; recorded as finite-datum-only unless Node 7a supplies a lattice-level form |
+| Stage-1 gauge statement | Sub:139 | Scoped to the finite datum actually used | Not transferred by P2-C; recorded as finite-datum-only unless Node 7b supplies J5(R₁) |
 
 ### Node 9 — One system for every context
 
-- **Hypothesis under test.** One `(q, α)` and one reference law serve every experimental context,
-  the contexts differing only in readout region and preparation.
-- **Check.** Compare the constraints Nodes 1, 4 and 5 place on `(q, α)` per target (alphabet counts,
-  denominators, coset structure). For composite `q`, use the primary decomposition (NR-1 node 5
-  item (4)).
+- **Hypothesis under test.** One `(q, α)` and one `m` serve every experimental context, the contexts
+  differing only in readout region, readout map and preparation (and, for Q⁺, one law `β`).
+- **Check.** Compare the constraints Nodes 1, 4 and 5 place on `(q, α)` and `m` per target (alphabet
+  counts, denominators, coset structure). For composite `q`, use the primary decomposition (NR-1
+  node 5 item (4)). The alphabet-size hypothesis of Theorem 24 (ii) (P1-AUDIT row 54) is not
+  assumed.
 - **Decision rule.** If two target families of the stated classes impose incompatible conditions on
-  `(q, α)`, record the incompatibility at its scope. If every constraint found is met by one
-  `(q, α)`, record that, for the families tested only.
+  `(q, α)` or `m`, record the incompatibility at its scope. If every constraint found is met by one
+  choice, record that, for the families tested only.
 
 ## 5. Productivity test, stop conditions and output classes (fixed before any node runs)
 
 **Productivity test (§A.31).** P2-C is a gem iff it yields a fact strictly stronger than the
 restatement "the Stage 1 → Stage 2 identification is open in both settings" (P1-AUDIT row 53;
 O-A4 row 2), and that fact either constrains something or exposes a hidden assumption. Qualifying
-outcomes:
-- (a) a decision, proved or closed by citation, of J2 or J3 for a stated target class, readout
-  class, preparation class, setting and exactness, positive or negative;
+outcomes, each reported separately for Q (J2) and for Q⁺ (J3):
+- (a) a decision, proved or closed by citation, of J2 or of J3 for a stated target class, readout
+  class, preparation class, `m` range, setting and exactness, negative, or positive and passing its
+  pressure test without being recorded as generic, preparation-carried or readout-carried;
 - (b) a reduction of Q to a precisely stated finite problem with both directions witnessed (for
-  example Node 3 with Node 7a);
-- (c) an exposed hidden assumption with a witness: for example that the identification requires a
-  preparation not generated by the reference law of Stages 2 and 3, or that Sub:157's inheritance
-  needs a lattice realization as an input.
+  example Node 3);
+- (c) an exposed hidden assumption with a witness: for example that every J2 realization found is
+  generic over J1, or carried by the readout; that Q⁺ fails where Q holds; or that Sub:157's
+  inheritance needs a lattice realization as an input.
 
 Non-gems: renaming the relations without a decided instance; restating ledger or Phase 1 rows;
-any outcome Node 2 shows to be vacuous. The propagation bar is better than coherence; below it, the
-outcome is recorded only.
+any outcome Node 2 shows to be vacuous, J5(T) included. The propagation bar is better than
+coherence; below it, the outcome is recorded only.
 
 **Output classes.** Each node's verdict is classified NEW, POSITIVE, ELABORATING, CONFIRMING or
 BORDERLINE (§A.31), with the reason.
 
 **Stop conditions.**
-- **S1 (fixed point).** Three consecutive closed nodes without a NEW finding.
-- **S2 (posit required).** A node's decision turns on a physical choice the corpus does not make (for
-  example which preparation class is physical); the node stops and the choice is routed to the
-  owner, with the alternatives and their consequences.
+- **S1 (fixed point).** Three consecutive closed verdict-bearing nodes (4a onward) without a NEW
+  finding. Nodes 1–3 do not count toward S1, and S1 cannot fire before Node 4 has closed.
+- **S2 (posit required).** A node's decision turns on a physical or definitional choice the corpus
+  does not make (for example which preparation class is physical, or whether Q⁺ rather than Q is the
+  identification required); the node stops and the choice is routed to the owner, with the
+  alternatives and their consequences. The Q / Q⁺ choice is routed at the latest when Node 4 and
+  Node 5 verdicts differ for one target class.
 - **S3 (control failure).** A failed, vacuous or self-reproducing control voids that node's verdict;
   the node halts until the control is repaired.
 - **S4 (cost).** A computation exceeding the bounded local budget stops; the partial state and a CI
   plan are published instead (§A.40).
-- **S5 (measure interface).** If Node 4 decides J3 negatively for a target class at both (ex) and
-  (ε) for every readout class, and Node 5 decides J2 positively, the remaining question is which law
-  the system carries; P2-C stops and reports that interface to P2-B.
+- **S5 (measure interface).** If Node 4 decides J2 positively for a target class (passing its pressure
+  test) and Node 5 decides J3 negatively for it at both (ex) and (ε) for every readout class, the J2
+  and J3 verdicts are reported separately, the Q / Q⁺ choice is routed under S2, and the remaining
+  question of which law the system carries is reported to P2-B.
 - **S6 (provenance).** Any unaccounted file in the work area triggers the §A.26 sweep and halts
   substantive work.
 
-**Scope of negative results.** A negative verdict is stated for the dynamics, readout class,
-preparation class, target class, setting and exactness of the node that produced it. It is not
-stated as a failure of every observer-level extension, of every lattice dynamics, or of every
+**Scope of negative results.** A negative verdict is stated for the dynamics, time map, readout class
+and maps, preparation class, target class, setting and exactness of the node that produced it. It is
+not stated as a failure of every observer-level extension, of every lattice dynamics, or of every
 preparation law.
 
 ## 6. Interfaces with P2-A and P2-B
 
 These are stated as interfaces only. This design was prepared without reading the P2-A or P2-B
-drafts, and it fixes nothing in them.
+drafts, and it fixes nothing in them. Their scopes are taken from the owner's text (#1169
+c.7068325638, c.7068447675).
 
 | Interface | P2-C consumes | P2-C supplies |
 |---|---|---|
-| P2-A (Stage 1 return) | The condition P2-A proposes in place of exact global return, stated as a property of a dynamics, readout and law | The preparation and readout classes under which J2 or J3 holds (Nodes 4–5), and Node 6b's record of where finite representatives sit in (Z); P2-C checks whether P2-A's condition can hold in those classes (Node 8, third row) |
-| P2-B (Stage 3 measure) | The normalized law P2-B justifies on the infinite configuration space for the entropy and boundary calculation | J3 is evaluated with `β` taken to be that law when it differs from Stage 2's H-μ(φ,Θ) instance; P2-C reports whether Stage 1's laws arise from it (Node 4) or need a preparation outside it (Node 5) |
+| P2-A (Stage 1 return) | The condition P2-A proposes in place of exact global return, stated as a property of a dynamics, readout and law | The preparation and readout classes under which J2 or J3 holds (Nodes 4–5), and Node 6b's record of where torus updates sit in (Z); P2-C checks whether P2-A's condition can hold in those classes (Node 8, fourth row) |
+| P2-B (Stage 3 measure) | The normalized law P2-B justifies on the infinite configuration space for the entropy and boundary calculation | Node 4's J2 verdicts and Node 5's J3 verdicts under `β`. If P2-B's law differs from `β`, J3 under that law is a new node, opened by an additive amendment of this design with its own decision rules and controls; Nodes 5a–5c are not re-read with the other law, because their arguments use the uniformity of `β` on finite sets |
 
 Known constraints at the interfaces, already on record: under Haar with window readout and `α`
 non-nilpotent, rooted exact return and (NR) fail (NR-1 Prop. 2.3), and for `q` prime, `α ≠ 0` and
@@ -472,16 +606,19 @@ generic normalized invariant law leaves the Stage 3 slope undetermined (P1-AUDIT
 | # | Invariant asserted of this design or of a future execution | Checkpoint that measures it |
 |---|---|---|
 | I1 | This design changes only its own directory | `git diff --stat origin/main...HEAD` lists only `DESIGN.md` here, checked before each push |
-| I2 | No proof executed and no computation run in this design | The commit adds one Markdown file and no code or data file; checked with the diff above |
+| I2 | No proof executed and no computation run in this design | The commits add one Markdown file and no code or data file; checked with the diff above |
 | I3 | Every corpus citation reads as cited at the pin | Each `file:line` re-read at `df6da1c6` before commit; the reviewer re-reads a sample of them |
 | I4 | No relation carries a status stronger than its source | §2.4 and §2.5 status cells checked against P1-AUDIT, O-A4, NR-1 and Main:632 by the reviewer |
-| I5 | Decision rules are fixed before any node runs | Nodes run only from a reviewed head of this file; any change is an additive amendment commit, with the reviewed SHA cited in the node's record |
+| I5 | Decision rules are fixed before any node runs | Nodes run only from a reviewed head of this file; any change, including the per-node lists (`m_max`, readout maps, targets, countercontrol instances), is an additive amendment committed before the run, with the reviewed SHA cited in the node's record |
 | I6 | Computational verdicts print only over green controls | Each node's result record prints the control table before the verdict; a verdict line without a preceding green control table is void |
-| I7 | Exact claims are certified exactly | Each exact verdict names its certificate (rational feasible point, Farkas vector, exact count) and the replay that reproduced it |
-| I8 | Negative results carry their full scope | Each negative verdict line names the six scope fields of §4's common rules; the reviewer checks each |
-| I9 | Independence from P2-A and P2-B drafts | The design cites only the owner's statement of their scope (#1169 c.7068325638); no reference to their branches or commits appears in it |
+| I7 | Exact claims are certified exactly | Each exact verdict names its certificate (rational primal point, dual or Farkas vector, exact count) and the replay that reproduced it |
+| I8 | Negative results carry their full scope | Each negative verdict line names the scope fields of §4's common rules; the reviewer checks each |
+| I9 | Independence from P2-A and P2-B drafts | The design cites only the owner's statements of their scope (#1169 c.7068325638 and c.7068447675); no reference to their branches or commits appears in it |
 | I10 | Repository-text constraints | A grep of the added lines for the excluded vocabulary and for local paths returns nothing |
 | I11 | Every displayed equivalence has a witness per direction | §2.5 lists each direction separately with its witness or "Missing"; no new equivalence is displayed |
+| I12 | Every identification criterion passes the vacuity countercontrol | Before a relation is used to answer Q or Q⁺, the record shows it is not satisfied by Node 2's range-0 witness; J5(T) is recorded as failing this check at freeze |
+| I13 | Every favourable verdict is pressure-tested before acceptance | In each node record, a filled pressure-test table, including the specificity question and its recorded consequence, precedes each favourable verdict line; a favourable verdict without one is void |
+| I14 | Q and Q⁺ are reported separately | Every verdict line names J2 or J3; the final report has separate J2 and J3 sections |
 
 ## 8. Out of scope
 
@@ -491,6 +628,7 @@ generic normalized invariant law leaves the Stage 3 slope undetermined (P1-AUDIT
   A1-EXIT ledger, to the Lean-to-manuscript census registry, or to any Lean file.
 - No wording is proposed for Sub:157, Sub:195 or SM:66; D022 and D026 remain with the #1477
   reviewers.
-- The M1-B Bell sector and H-Bell; the continuum step; the observer-kernel bridge of A1-01 row 2b,
-  which P2-C uses only as a constraint in the pressure test of Node 4c.
+- The M1-B Bell sector and H-Bell; the continuum step; Theorem 24 (ii) and its alphabet-size
+  hypothesis (P1-AUDIT row 54); the observer-kernel bridge of A1-01 row 2b, which P2-C uses only as a
+  constraint in Node 5c's pressure test.
 - No post on #1169 or #1477.
