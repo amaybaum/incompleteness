@@ -74,15 +74,21 @@ prove BQP capability:
 
 ### 1.2 Case split on R-READ [W]
 
-- **R-READ holds.** Every native element lies in 𝒩, so Theorem C gives an **OBSTRUCTION**. No
-  non-monomial unitary is realized within the stated distances by any finite protocol of native
+- **R-READ holds.** With configuration-valued post-measurement states (below), every native
+  element is **MIO**, though not necessarily DIO. An effect-level R-READ does not exclude a
+  detector: the #1513 addendum's countermodel K₀ = H ⊕ 0, K₁ = |2⟩⟨2| (c.7066739331) has diagonal
+  effects and is not DIO. The **OBSTRUCTION** therefore rests on Theorem C(a), the absence of a
+  creator, alone. No non-monomial unitary is realized within the stated distances by any finite protocol of native
   elements, with any control, feedforward, randomness, size or depth. Label: (I) on KIN and R-READ.
   This only restates OPRES §5 (CONFIRMING).
   - **Implicit premise.** R-READ concerns *effects* only (OPRES §0; READOUT-ALG). Effects in the
     configuration algebra do not by themselves give MIO: a configuration readout followed by
     preparing |+⟩ has diagonal effects and is not MIO. The obstruction therefore also needs
-    native post-measurement states to be configurations. Under KIN that is (N) as algebra, since
-    the substratum is always in a configuration and its dynamics is a permutation.
+    native post-measurement states to be configurations. Under KIN this is (N) as algebra where
+    the corpus defines the instrument's state-update rule: permutation instruments,
+    `localLuders`, `readProj` and `recordInstr` (addendum items 2, 3 non-selective, and 5–10).
+    Where the corpus defines no state-update rule, at addendum items 1, 4, 11, 12 and 22, the
+    premise is **Open**.
 - **R-READ fails.** Some native readout has an effect E outside the configuration algebra.
   - **This is a live reading.** The corpus states that the observable algebra on each finite
     region is the full matrix algebra on its configuration space (Structure:742, :788;
@@ -120,7 +126,9 @@ prove BQP capability:
 - **Assumed.**
   - KIN, and countable carriers (Theorem C).
   - Posit (iv)-type diagonal priors, for the preparation half.
-  - Configuration post-measurement states, for the R-READ obstruction: (N) as algebra under KIN.
+  - Configuration post-measurement states, for the R-READ obstruction: (N) as algebra under KIN
+    for instruments with a corpus-defined update rule; **Open** for readouts with none (addendum
+    items 1, 4, 11, 12, 22).
   - The standing of R-READ's measurable-carrier case, which READOUT-ALG makes conditional on
     measurability.
 - **Missing.** The earliest unsupported step is a physical mechanism: the native post-measurement
