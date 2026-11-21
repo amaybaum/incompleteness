@@ -908,7 +908,7 @@ For the Code Review Rules, under *Claim/evidence boundary*:
   - The actual cost is reviewed after deployment.
   - The reductions are approved only under the owner's conditions, which §12.1 carries.
   - No reduction may silently exclude a theorem from review.
-  - Three items are blocking before acceptance, each with adversarial regression tests (TESTS §2.4) and
+  - Three items are blocking before acceptance, each with adversarial regression tests (TESTS §2.3) and
     independent confirmation:
     - corpus-wide named-condition dependencies (§2.5);
     - deleted theorems keeping their scope obligations (§1.1, R-a);
@@ -1091,5 +1091,5 @@ a FIN-SCOPE pass is not evidence for either class.
 | Provisional load, cost reviewed after deployment | §12 O7; §12.1 trade-off |
 | r1–r4 conditions | §12.1 |
 | No silent exclusion | §12.1 coverage rule; V27 |
-| Blocking items with adversarial tests | §12 O7; TESTS §2.4 |
+| Blocking items with adversarial tests | §12 O7; TESTS §2.3 |
 | Clean lexical result is not review; mechanical identity is not equivalence | §1.1 |

@@ -253,7 +253,7 @@ through review-set membership alone.
 | N32 | (new) | *Let $f$ be of class C1 on a compact interval.* | A bare `C1` counts as a citation only inside a range or after `condition(s)`, so this is not a citation of (C1) | ∅ | membership (new block) | PASS |
 | P-H5 | (a name outside the canonical map) `(F)` defined in both `papers/SM.md` and `papers/GR.md`, not as mirrors; a block in `papers/Structure.md` cites `(F)` by bare name | — | the name is ambiguous, so the enrollment inventory fails (V12, V22) | inventory failure | inventory | FAIL |
 
-### 2.4 Regression tests for the owner's blocking items (O7, c.7065358283)
+### 2.3 Regression tests for the owner's blocking items (O7, c.7065358283)
 
 Each blocking item has adversarial regression tests. Independent confirmation of each is a separate
 review step.
