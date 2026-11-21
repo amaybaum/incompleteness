@@ -2,7 +2,8 @@
 
 **WIP / UNVERIFIED. Design and paper research only.** This note walks `PLAN.md`, which was
 committed before it at `02b1f040`. Revision r2 answers the review at `a1d5bbc0` (#1522
-c.7067367430; the reviewer's O6 disclosure is recorded there); r2 is not yet re-reviewed. It adopts nothing and edits no reviewed record. It runs no
+c.7067367430; the reviewer's O6 disclosure is recorded there). r3 applies the nits of c.7067399887
+(grades of §2.2; basis of the closure). It adopts nothing and edits no reviewed record. It runs no
 computation, edits no manuscript and posts nothing on #1169. Physical source remains NOT PASSED.
 
 **Base and citations.** GA = GATE-A r5.8 (`verification/programmes/oi-qm/reconstruction/gate-a-r5-20261121/PROPOSAL.md`
@@ -92,7 +93,7 @@ is a fixed append for each s.
 | O1-C, O1-D | yes | OPRES CC-1: one-bit teleportation realizes Hadamard with a \|+⟩ ancilla, a creator that is DIO-type by the O_1 computation in §2.1, and a destructive ⟨±\| readout, a detector that outputs a classical record and so maps diagonal inputs to diagonal outputs (MIO-type) | Born-form, instrument; X; (I) on KIN |
 | FE-ADM, J-coh | not an independence question: the two are of different types (FE-ADM constrains a witness's label rule; J-coh is an assumption about the interface) | — | typing |
 | FE-ADM, BF: BF without FE-ADM | yes | a GA-typed model: a bijective M* with identity free dynamics, a **monomial** target Λ_t = Ad_X^t on a qubit level, and labels realized by interventions. BF holds, since the Born-form family and the free operational law are both the identity; FE-ADM fails, since free evolution is not the label interpretation of Ad_X | Born-form vs operational; P; this example is from the review c.7067367430 |
-| FE-ADM, BF: FE-ADM without BF | yes, for non-monomial targets, on the reading that BF holds only when its family is defined; conditional on Remark D′ (pending review) and on D-W meeting FE-ADM (sketch) | the stepwise D-W meets FE-ADM by a loaded program (T12). Its visible carrier X_A is finite, so normality is not needed (OPRES Remark D′). The remaining premise is nonsingularity of its reversible step with respect to the reference measure ν = (counting measure on X_A × program fields × records) ⊗ (the seed tape's product law) ⊗ (Lebesgue measure on the register's real coordinates). If the step is ν-nonsingular, Remark D′ makes the Born-form family DIO, so it is not Ad_W and BF fails; if it is ν-singular, the Koopman operator φ̂ is not unitary on L²(ν), the Born-form family is undefined, and BF is not met. A countable-seed variant (alphabet weights 2^{−k}, whose subset sums give every t ∈ [0, 1]) would allow ℓ² with counting measure, where S1 and Lemma C apply directly, if the register's content can also be carried on a countable alphabet; that is not checked | Born-form vs operational; P |
+| FE-ADM, BF: FE-ADM without BF | yes, for non-monomial targets, for any reference measure ν; conditional on Remark D′ (pending review), on D-W meeting FE-ADM (sketch, T12), and on the reading that BF holds only where its family is defined | the stepwise D-W meets FE-ADM by a loaded program (T12). Its visible carrier X_A is finite, so normality is not needed (OPRES Remark D′). For any reference measure ν on its configuration space, for example (counting measure on X_A × program fields × records) ⊗ (the seed tape's product law) ⊗ (Lebesgue measure on the register's real coordinates): if the step is ν-nonsingular, Remark D′ makes the Born-form family DIO, so it is not Ad_W and BF fails; if it is ν-singular, the Koopman operator φ̂ is not unitary on L²(ν), the family is undefined, and BF is not met. The closure does not depend on a countable-seed variant of D-W | Born-form vs operational; P; ELABORATING |
 | E, I-3 | not independent | I-3 is a test on E and M* | typing |
 
 ### 2.3 Q4: O1 and I-3
@@ -121,11 +122,11 @@ GA, T12 or I3S relies on it.
 
 ### 2.5 Outcome (PLAN §1)
 
-**Gem by the fixed test, on §2.2 alone:** three independences with separating examples (O1-C
-and O1-D; BF without FE-ADM; FE-ADM without BF, conditional as stated). R6-1 is CONFIRMING and
-does not count. FE-ADM and J-coh are of different types, so no independence is claimed for them. No
+**No gem is claimed.** The independences of §2.2 meet the fixed test only formally
+(c.7067399887). Their grades: O1-C and O1-D, **CONFIRMING** of OPRES (CC-1 and Lemma C); BF
+and FE-ADM in both directions, **ELABORATING**. R6-1 is CONFIRMING. FE-ADM and J-coh are of different types, so no independence is claimed for them. No
 layer error was found in the existing records. The r1 INCONCLUSIVE item is closed conditionally in
-§2.2.
+§2.2, on Remark D′, on D-W meeting FE-ADM and on BF holding only where defined, for any ν.
 
 ### 2.6 The three questions (R6-1)
 
