@@ -181,7 +181,7 @@ queued X-20 wording (unpinned update, "the only laws known") is not used anywher
 
 | Measure | Count |
 |---|---|
-| Edit records in `edits.json` | 360 (ptr 242, consistency 23, handoff 5, lean-docstring 36, repo-active 35, guard-pin 19); 358 change text, and D032, D039 retain theirs |
+| Edit records in `edits.json` | 373 (ptr 242, consistency 36, handoff 5, lean-docstring 36, repo-active 35, guard-pin 19); 371 change text, and D032, D039 retain theirs |
 | Pointer sites with a drafted rewrite | 194 of 194 (140 primary sites and 54 byte-identical FULL mirrors) |
 | Pointer sites by class (a FULL mirror takes its chapter's class) | 194 sites: mechanical 121, semantic 61, needs scientific review 12 |
 | Consistency corrections outside the 194 sites | 21 sites: mechanical 4, semantic 17, needs scientific review 0 |
@@ -4590,8 +4590,8 @@ before any execution is authorized:
 | `edits_check.py --pins --commit 97070c98` | merged `main` | pins check: 0 unresolved pins (literals of tracked checks that the edits would break); 0 updated pins not found in their targets |
 | `edits_check.py --repo-scan --simulate --final --commit 97070c98` | merged `main` | repository-wide scan: 0 unexplained lines; RESULT PASS |
 | `edits_check.py --static` | — | infinity-assertion scan (new and new_step2): 0 hits; register scan (added text, §A.32/§A.33, history phrases): 0 hits; new capitals (3+ letters): 0; identifier rule (new and new_step2): 0 findings; preservation check (required content in every replacement variant): 0 findings; mirror parity (every chapter edit byte-identical to its FULL mirror): 0 findings; sitemap cross-check: 194 ptr sites in the map, 194 with an edit; 0 findings; RESULT PASS |
-| `edits_check.py --commit 97070c98` | base | uniqueness: 360 edits, 0 fail; variants used {'old': 360}; RESULT PASS |
-| `edits_check.py --commit 97070c98 --simulate` | base | uniqueness: 360 edits, 0 fail; variants used {'old': 360}; simulation: residual pointer lines 5 (5 allowed as listed, 0 unqualified); simulation: criterion-5/paraphrase hits on changed lines without a scope in their sentence: 0; simulation: finite-scope and configuration-space preservation findings: 0; simulation: identifier and count findings: 0; RESULT PASS |
+| `edits_check.py --commit 97070c98` | base | uniqueness: 373 edits, 0 fail; variants used {'old': 373}; RESULT PASS |
+| `edits_check.py --commit 97070c98 --simulate` | base | uniqueness: 373 edits, 0 fail; variants used {'old': 373}; simulation: residual pointer lines 5 (5 allowed as listed, 0 unqualified); simulation: criterion-5/paraphrase hits on changed lines without a scope in their sentence: 0; simulation: finite-scope and configuration-space preservation findings: 0; simulation: identifier and count findings: 0; RESULT PASS |
 | `edits_check.py --tree <projection> --simulate` | projected integration (pre-merge) | (projection retired at reconciliation; see §24) |
 | `guards_check.py --mutants` | simulated post-deletion tree of merged `main` | §25.6: the guards and readers pass; CC-1–CC-4 fail as named; pins P01–P30 and the three declaration names each fail under mutation; RESULT PASS |
 | `preserve_check.py --verify-ledger`, `--self-test`, `--tree <simulated tree>` | ledger base `97070c98` | §25.6: RESULT PASS each |
@@ -5153,7 +5153,7 @@ destructive transformations, which decision 3 names as its minimum, as frozen pr
 **Why this is permitted.** Decision 3 allows either route provided the equivalent safeguards are named. A native
 round's protocol record (one `v3-round` control plane, owner-designated `F` and `E` with exact-head `check-run`
 attestations, a receipt `Q` that `tools/v3_verifier.py --verify-round` must hold) certifies the chronology of a
-governed computation. The deletion is a text change: 358 literal splices (360 edit records, of which D032 and D039 retain their text) of manuscript, README, registry, coverage,
+governed computation. The deletion is a text change: 371 literal splices (373 edit records, of which D032 and D039 retain their text) of manuscript, README, registry, coverage,
 AGENTS.md, Lean-comment and guard-literal text, with no computational verdict, no kernel statement changed (every Lean
 file is code-identical outside comments). No edited file is listed in `verification/infrastructure/legacy-records.json`, lies in one of its closed namespaces or in a receipt's record directory; the programme files it edits are live charters, active material under §A.48. What §A.39 protects
 against in a destructive change (a deletion the plan did not authorize, a retained statement silently removed, a
@@ -5169,7 +5169,7 @@ by owner decision, and in the guard pins of §25.4.
 
 | Safeguard | Component | State |
 |---|---|---|
-| Frozen exact-edit ledger | `ledger.json`: 358 splices in 40 files at `97070c98`, and the two retained-site records D032, D039 listed apart; each splice records its file, the byte span of the old text at the base, the SHA-256 of the old text, the new text, its SHA-256 and the reason; the SHA-256 of `edits.json` it was built from. Ledger SHA-256: §26.4. `preserve_check.py --verify-ledger` re-derives it from `edits.json` and the base and compares | exists; frozen at the commit the owner designates when authorizing execution. A later `edits.json` change, or a base at which a ledgered file differs, needs a new ledger, a new digest and a new acceptance |
+| Frozen exact-edit ledger | `ledger.json`: 371 splices in 40 files at `97070c98`, and the two retained-site records D032, D039 listed apart; each splice records its file, the byte span of the old text at the base, the SHA-256 of the old text, the new text, its SHA-256 and the reason; the SHA-256 of `edits.json` it was built from. Ledger SHA-256: §26.4. `preserve_check.py --verify-ledger` re-derives it from `edits.json` and the base and compares | exists; frozen at the commit the owner designates when authorizing execution. A later `edits.json` change, or a base at which a ledgered file differs, needs a new ledger, a new digest and a new acceptance |
 | No deletion without a ledger entry | every deletion is a splice with its literal old text and reason; nothing is inferred | exists |
 | Preservation checker independent of the transformation | `preserve_check.py` imports nothing from `edits_check.py`, `guards_check.py` or any applying script; it reads the base from the object store, rebuilds every ledgered file from the base and the ledger alone, and compares every tracked file byte for byte: a ledgered file must equal the rebuilt one, any other file the base, except the regenerated artifacts of §26.2, each compared with its rebuild on the candidate; the record directory must equal the plan's (§26.4). Structural checks: a Python file changes only in string constants and comments (AST with strings blanked), a Lean file only inside comments, a JSON file only in string values. `--base REV` compares against a later `main`, and is refused unless every ledgered file is byte-identical there | exists |
 | Agreement of two implementations | the tree built by `edits_check.py`'s in-memory application (`guards_check.py`) passes `preserve_check.py --tree`; the unedited base fails it, with one finding in each of the 40 ledgered files | checked (§25.6) |
@@ -5387,11 +5387,11 @@ the plan commit under `--plan`.
 
 | File | SHA-256 |
 |---|---|
-| `edits.json` | `215fa9af9b084b3e73a7635f11fd6284c65349a8096b25111573dcd900115287` |
-| `ledger.json` | `9dc77029f890523082ea8b1fb67893967ee328c3662b99cc19756cce8fcc1ccd` |
-| `edits_check.py` | `1bde14e41603d6bcbf209d4b497df49dad4cbb20122a79ad183712c212cd8339` |
-| `guards_check.py` | `ea0f9b28104e0f55e279a4da70653f5ac4392ee1e05efc42910a6a03161cd733` |
-| `preserve_check.py` | `91e8dcb4fc444ca8db1d50201a68544b218b73569cc6de314d2767484b3e03de` |
+| `edits.json` | `d40c84d52b19f15d2644351337ac19273017f248aa02e0a9ad3233a9b99a45c5` |
+| `ledger.json` | `41ac4fd9fbcf4485d34a9aa1c1b46899a86c9a88503b65208e785af2412ff0f6` |
+| `edits_check.py` | `4e6cb79a71bfc9dfacd897df82a325aa8482908531bf94010a14afe7d947a8a3` |
+| `guards_check.py` | `2685bd16f9cb3c1d1ce8d386cc3ba9bb8eef9dad63f66f2a2edbb277e29315fe` |
+| `preserve_check.py` | `67d8dd9832ab19ead13ade999c03f6f5f82ecd333d04f5d63a63181cff6e5a74` |
 
 ### 26.5 Kernel identifiers in the guard's code literals
 
@@ -5564,3 +5564,19 @@ the frozen H-B sentence stays.
 2. The edits of §28.2 in `edits.json`, the checkers' result output, the re-cut ledger and pins, and the results of
    §28.4 (§28.7).
 3. The independent delta review, then the corrected trial of §28.1 item 5.
+
+### 28.7 Results at `97070c98`
+
+Each check of §28.4 was run from the checkers in this record directory. The record pins of §26.4 are re-frozen; the
+ledger has 371 splices in 40 files (373 edit records; D032 and D039 retain their text).
+
+| §28.4 item | Result |
+|---|---|
+| 1 | `edits_check.py`: `--self-test` PASS (93 countercontrols); `--static` 0 findings in every scan, preservation of the ten new required texts included, sitemap 194/194; `--commit 97070c98 --simulate` 373/373 unique, residual 5 (all allowed), 0 unscoped, 0 preservation, 0 identifier; `--pins` 0/0; `--repo-scan --simulate --final` 0 unexplained |
+| 2 | `preserve_check.py --verify-pins` PASS, `--verify-ledger` identical, `--self-test` PASS (38 recorded checks, none failing) |
+| 3 | `guards_check.py --mutants` PASS: the 14 checks on the simulated tree (R7, with R7-HYB and R7-HYE, and F71 among them), CC-1–CC-4 failing as named, inventory 0 unlisted, P01–P30, the 12 kernel identifiers and the 3 message names each failing under mutation; 64 recorded checks, none failing |
+| 4 | `guards_check.py --predict`, then `preserve_check.py --tree <predicted> --mutants`: PASS, 0 findings, the 5 tree mutants failing as required |
+| 5 | Every run wrote its result file, and each parses; the self-test's result-file control (a failing check recorded as `fail` with its discrepancy, verdict `fail`) passes. A tree check run while the record directory differed from the plan recorded the finding as `fail` |
+| 6 | The new edits remove "finite" in D366, D367 and D369 only, as §28.3 lists |
+
+Not run here: the corrected trial of §28.1 item 5, which waits for the independent delta review.

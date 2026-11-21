@@ -422,6 +422,18 @@ PRESERVE.update({'D259': [CS_SENTENCE], 'D261': [CS_SENTENCE], 'D310': [CS_SENTE
                  'D260': ['on a finite representative, the counting measure is selected'],
                  'D312': ['on a finite representative, the counting measure is selected'],
                  'D309': ['of a finite representative (Lemma 2) it is the uniform probability']})
+# Amendment §28: the finite scope of Theorem 24(i)/(iii) and the narrowed membership of (iii) must survive any redraft.
+PRESERVE.update({'D361': ['For finite $\\mathcal{C}_H$ and any bijection'],
+                 'D362': ['bimeasurable bijection $\\psi$ of $A$', 'the uniform hidden prior on a finite $\\mathcal{C}_H$'],
+                 'D363': ['bijection $\\psi$ of $A$', 'has bijective dynamics (A2)'],
+                 'D364': ['channel-preserving extensions, not members of'],
+                 'D367': ['exactly decoupled added factors of any cardinality in a normalized state or law',
+                          'an unnormalizable or coupled factor is outside it'],
+                 'D368': ['permutation product dynamics', 'as a channel-preserving extension'],
+                 'D370': ['a channel-preserving extension rather than a member of the group'],
+                 'D371': ['a channel-preserving extension rather than a member of the group'],
+                 'D372': ['a bimeasurable bijection as its dynamics', 'as a channel-preserving extension'],
+                 'D373': ['a bimeasurable bijection as its dynamics', 'as a channel-preserving extension']})
 # Text that must be present in the simulated manuscript: the approved sentence, and the finite scope of every
 # finite-only result stated near it (owner decision #1169 c.7058446475).
 SIM_PRESERVE = {

@@ -297,17 +297,43 @@ def predict(data, rev, dest):
     return step
 
 
+RESULTS = []
+
+
+def record(name, ok, discrepancies=()):
+    RESULTS.append({'name': name, 'status': 'pass' if ok else 'fail', 'discrepancies': list(discrepancies)})
+
+
+def write_result(explicit, mode, meta):
+    """The structured result (§A.44), to --result-json and, when RUNNER_TEMP/out exists, there as well."""
+    import json as _json
+    doc = dict(meta, schema='a1exit-checker-result-v1', checker='guards_check.py', mode=mode, checks=RESULTS,
+               verdict='pass' if RESULTS and all(c['status'] == 'pass' for c in RESULTS) else 'fail')
+    paths = [explicit] if explicit else []
+    rt = os.environ.get('RUNNER_TEMP')
+    if rt and os.path.isdir(os.path.join(rt, 'out')):
+        paths.append(os.path.join(rt, 'out', 'guards_check-%s.json' % mode))
+    for pth in paths:
+        with open(pth, 'w', encoding='utf-8') as f:
+            _json.dump(doc, f, indent=1, sort_keys=True, ensure_ascii=False)
+            f.write('\n')
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--rev')
     ap.add_argument('--mutants', action='store_true')
     ap.add_argument('--keep')
+    ap.add_argument('--result-json', metavar='PATH', help='write the structured result here')
     ap.add_argument('--predict', help='write the predicted execution tree as a git worktree at this new path, and exit')
     a = ap.parse_args()
     data = ec.load()
     rev = a.rev or data['drafting_base']
     if a.predict:
-        sys.exit(0 if predict(data, rev, a.predict) else 1)
+        good = predict(data, rev, a.predict)
+        record('predicted tree built; verify.yml SC-42 comparisons on it', good, [] if good else ['SC-42 comparisons failed'])
+        write_result(a.result_json, 'predict', {'base': rev, 'tree': a.predict})
+        sys.exit(0 if good else 1)
     dest = a.keep or tempfile.mkdtemp(prefix='a1exit-sim-')
     ok = True
     try:
@@ -318,6 +344,7 @@ def main():
             rc, fails, last = run(dest, cwd, argv)
             good = rc == 0 and not fails
             ok &= good
+            record('%s on the simulated tree' % name, good, [] if good else ['exit %d %s' % (rc, ','.join(fails))])
             print('  %s %-24s exit %d%s  %s' % ('PASS' if good else 'FAIL', name, rc, (' FAIL ' + ','.join(fails)) if fails else '', last))
         print('countercontrols (each must fail):')
         ccs = [('CC-1 pin edit D302 omitted', ['D302'], None, R7),
@@ -335,12 +362,14 @@ def main():
             rc, fails, last = run(dest, 'verification/lean', [os.path.basename(guard)])
             caught = rc != 0
             ok &= caught
+            record(name + ' must fail', caught, [] if caught else ['the countercontrol passed'])
             print('  %s %s: exit %d, failing checks %s' % ('ok ' if caught else 'BAD', name, rc, ','.join(fails) or '-'))
             if saved is not None:
                 open(fp, 'w', encoding='utf-8').write(saved)
         apply(data, dest, rev)
         inv = inventory(dest)
         ok &= not inv
+        record('guard A1-string inventory', not inv, inv)
         print('guard A1-string inventory: %d listed pins, %d messages naming declarations (pins pending #1482); %d unlisted strings or comments'
               % (len(PINS), len(DECL_NAMES), len(inv)))
         for x in inv:
@@ -368,6 +397,7 @@ def main():
                 named = any(not f.startswith('abort@') or abs(int(f[6:]) - line) <= 5 for f in fails)
                 good = present and rc != 0 and named
                 ok &= good
+                record('pin %s %s against %s' % (pid, pol, target), good, [] if good else ['mutation not detected or not named: %s' % (','.join(fails) or '-')])
                 print('  %s %s %s %s -> %s: mutation fails %s' % ('ok ' if good else 'BAD', pid, pol, lit[:48], target,
                                                                   ','.join(fails) or 'nothing named (exit %d)' % rc))
             print('kernel identifiers in code literals (owner question, #1482 updates them), each tested against its target:')
@@ -381,6 +411,7 @@ def main():
                 open(tgt, 'w', encoding='utf-8').write(orig)
                 good = rc != 0 and bool(fails)
                 ok &= good
+                record('kernel identifier %s (line %d, %s) against %s' % (nm, line, pol, target), good, [] if good else ['not detected'])
                 print('  %s line %d %s %s -> %s: mutation fails %s' % ('ok ' if good else 'BAD', line, pol, nm, target, ','.join(fails) or '-'))
             print('declaration names in check messages (technical pins pending #1482), each renamed in its target:')
             for line, text, target, names in DECL_NAMES:
@@ -393,10 +424,14 @@ def main():
                     open(tgt, 'w', encoding='utf-8').write(before)
                     good = present and rc != 0
                     ok &= good
+                    record('message name %s renamed in %s fails the guard' % (nm, target), good, [] if good else ['not detected'])
                     print('  %s line %d %s -> %s: renaming fails %s' % ('ok ' if good else 'BAD', line, nm, target, ','.join(fails) or 'the guard (exit %d)' % rc))
     finally:
         if not a.keep:
             shutil.rmtree(dest, ignore_errors=True)
+    if not ok and all(c['status'] == 'pass' for c in RESULTS):
+        record('overall', False, ['a check failed without a recorded entry'])
+    write_result(a.result_json, 'mutants' if a.mutants else 'checks', {'base': rev})
     print('RESULT ' + ('PASS' if ok else 'FAIL'))
     sys.exit(0 if ok else 1)
 

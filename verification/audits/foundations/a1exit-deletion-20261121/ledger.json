@@ -1,7 +1,7 @@
 {
  "schema": "a1exit deletion exact-edit ledger v2",
  "base": "97070c986c28f7ff8a443cbda5890c1694dd76dd",
- "edits_sha256": "215fa9af9b084b3e73a7635f11fd6284c65349a8096b25111573dcd900115287",
+ "edits_sha256": "d40c84d52b19f15d2644351337ac19273017f248aa02e0a9ad3233a9b99a45c5",
  "retained_unchanged": [
   "D032",
   "D039"
@@ -236,6 +236,26 @@
    "new": "the substratum is a set with a bijection on it. $\\mathcal{G}",
    "new_sha256": "3853f88c6093d39249ec84d0feb4f58ad8b55eb157b742f70eae92b365a22c64",
    "reason": "X-02 rule."
+  },
+  {
+   "id": "D371",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "start": 179084,
+   "end": 179308,
+   "old_sha256": "d4b80e56d0c891a33f4cd0671b3cd4beb5a855b9944fdfe800d95daeb8a23f24",
+   "new": "Adjoin a classical factor of any cardinality to the deep hidden sector, prepare it independently in a normalized density matrix, and keep its dynamics exactly decoupled from the original system, as a permutation of the factor's configurations; the identity also holds for any unitary or isometry of the factor, which is a channel-preserving extension rather than a member of the group.",
+   "new_sha256": "c71af565a4f865a2fada5033945e3aefaec2b98b8e94656eb51ec1eac10da533",
+   "reason": "Item (ii), findings 4-6 (#1477 c.7061693815; owner #1169 c.7062144714): Theorem 24(iii) states a family that G_sub contains, and G_sub acts on substrata, which have bijective dynamics (A2); membership is narrowed to a factor of any cardinality with bijective dynamics, and the wider channel identity is stated separately as a channel-preserving extension."
+  },
+  {
+   "id": "D373",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "start": 179546,
+   "end": 179743,
+   "old_sha256": "30a54618ebedf3d9bcaea77fe05fee0f043a87eaccd6b20450d4aa91af8b4c86",
+   "new": "A classical factor with a probability law and a bimeasurable bijection as its dynamics likewise preserves the channel family, read as the mixture over hidden points of [Main §3.2], and every rooted population law; with any measurable dynamics the identity still holds, as a channel-preserving extension.",
+   "new_sha256": "1cd1d4c5bdd7def2699bca9ec2490c14664d9b78946937f01e06bd870465537d",
+   "reason": "Item (ii), findings 4-6 (#1477 c.7061693815; owner #1169 c.7062144714): Theorem 24(iii) states a family that G_sub contains, and G_sub acts on substrata, which have bijective dynamics (A2); membership is narrowed to a factor of any cardinality with bijective dynamics, and the wider channel identity is stated separately as a channel-preserving extension."
   },
   {
    "id": "D131",
@@ -1128,6 +1148,26 @@
    "reason": "X-02 rule."
   },
   {
+   "id": "D370",
+   "file": "book/ch02-substratum.md",
+   "start": 33803,
+   "end": 34027,
+   "old_sha256": "d4b80e56d0c891a33f4cd0671b3cd4beb5a855b9944fdfe800d95daeb8a23f24",
+   "new": "Adjoin a classical factor of any cardinality to the deep hidden sector, prepare it independently in a normalized density matrix, and keep its dynamics exactly decoupled from the original system, as a permutation of the factor's configurations; the identity also holds for any unitary or isometry of the factor, which is a channel-preserving extension rather than a member of the group.",
+   "new_sha256": "c71af565a4f865a2fada5033945e3aefaec2b98b8e94656eb51ec1eac10da533",
+   "reason": "Item (ii), findings 4-6 (#1477 c.7061693815; owner #1169 c.7062144714): Theorem 24(iii) states a family that G_sub contains, and G_sub acts on substrata, which have bijective dynamics (A2); membership is narrowed to a factor of any cardinality with bijective dynamics, and the wider channel identity is stated separately as a channel-preserving extension."
+  },
+  {
+   "id": "D372",
+   "file": "book/ch02-substratum.md",
+   "start": 34265,
+   "end": 34462,
+   "old_sha256": "30a54618ebedf3d9bcaea77fe05fee0f043a87eaccd6b20450d4aa91af8b4c86",
+   "new": "A classical factor with a probability law and a bimeasurable bijection as its dynamics likewise preserves the channel family, read as the mixture over hidden points of [Main §3.2], and every rooted population law; with any measurable dynamics the identity still holds, as a channel-preserving extension.",
+   "new_sha256": "1cd1d4c5bdd7def2699bca9ec2490c14664d9b78946937f01e06bd870465537d",
+   "reason": "Item (ii), findings 4-6 (#1477 c.7061693815; owner #1169 c.7062144714): Theorem 24(iii) states a family that G_sub contains, and G_sub acts on substrata, which have bijective dynamics (A2); membership is narrowed to a factor of any cardinality with bijective dynamics, and the wider channel identity is stated separately as a channel-preserving extension."
+  },
+  {
    "id": "D130",
    "file": "book/ch02-substratum.md",
    "start": 38561,
@@ -1938,6 +1978,16 @@
    "reason": "X-02 rule."
   },
   {
+   "id": "D368",
+   "file": "papers/Structure.md",
+   "start": 9523,
+   "end": 9661,
+   "old_sha256": "e71967dd0aeef246b2bb6df8389c1053e338b06c26231ba5f14152f8654d8f96",
+   "new": "An independently prepared, normalized classical factor of any cardinality with exactly decoupled permutation product dynamics (the channel identity also holds for unitary or isometric factor dynamics, as a channel-preserving extension) may be adjoined",
+   "new_sha256": "be102307b5a491c63edac38ccd3de39e4082db6c05d67b5a56aed6cd518cddc2",
+   "reason": "Item (ii), findings 4-6 (#1477 c.7061693815; owner #1169 c.7062144714): Theorem 24(iii) states a family that G_sub contains, and G_sub acts on substrata, which have bijective dynamics (A2); membership is narrowed to a factor of any cardinality with bijective dynamics, and the wider channel identity is stated separately as a channel-preserving extension."
+  },
+  {
    "id": "D047",
    "file": "papers/Structure.md",
    "start": 14481,
@@ -2026,6 +2076,16 @@
    "new": "Some relations: finiteness is related to but distinct from C3",
    "new_sha256": "c359324ce2ba1e80e09e6d555b63d6a8c78f536c095469375bf206374b40a1df",
    "reason": "F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); \"A1\" is replaced by \"finiteness\" as the class scope, A2–A6 keep their identifiers."
+  },
+  {
+   "id": "D369",
+   "file": "papers/Structure.md",
+   "start": 26598,
+   "end": 26680,
+   "old_sha256": "e0e0cd0b292e9dcf1529fc39db916219a0175da1cd04d9a7b876397e26c3b68d",
+   "new": "independently prepared decoupled ancillary enlargement by a normalized factor of any cardinality with bijective dynamics as exact invariances",
+   "new_sha256": "cef6a19efce8ddbef62e751df15f3b306ea4f33ce3ab29f287838e777c04c214",
+   "reason": "Item (ii), finding 7 (#1477 c.7061693815): the same pass of AGENTS.md §A.25 aligns the sentence with the narrowed membership of Theorem 24(iii)."
   },
   {
    "id": "D055",
@@ -2508,6 +2568,16 @@
    "reason": "X-02 rule: the parenthesis is deleted; the next sentence states where finiteness of the total carrier is used."
   },
   {
+   "id": "D367",
+   "file": "papers/Substratum.md",
+   "start": 22443,
+   "end": 22538,
+   "old_sha256": "00e58610068bb4f7e0e40c4ea8370e61abd286ec5eacbe4e95f94eedfea52e1a",
+   "new": "The exact normalized-product-ancilla identity of Theorem 24(iii) concerns independently prepared, exactly decoupled added factors of any cardinality in a normalized state or law; an unnormalizable or coupled factor is outside it.",
+   "new_sha256": "54f56a9f3591da20b37ce88d35baf41b8f27faed9e04bb777c0fac725621661b",
+   "reason": "Item (iii), finding 8 (#1477 c.7061693815): the sentence understated Theorem 24(iii) on main; it states the identity's actual conditions in the reviewer's wording."
+  },
+  {
    "id": "D244",
    "file": "papers/Substratum.md",
    "start": 23932,
@@ -2608,6 +2678,16 @@
    "reason": "Theorem 23 takes the finite-substratum scope with the wrapping conditions on P that X-45 and X-42 require (review round 1, F1); paper and book read the same. The ledger's further instruction to state Stage 2 on Z^d where Q1 supports it goes beyond the smallest correction and is routed to §5.4 for review, with Issue #1479 as its accountable home. Review: that Stages 1 and 3 need exactly this scope (X-29, X-70, X-71)."
   },
   {
+   "id": "D366",
+   "file": "papers/Substratum.md",
+   "start": 63571,
+   "end": 63629,
+   "old_sha256": "5058bd8279bad9839c438ba5b2ceaafb71e858c6e47f22eedb586f0bb48b9eca",
+   "new": "decoupled deep-sector enlargement by a normalized factor of any cardinality with bijective dynamics",
+   "new_sha256": "9193dca5a7dd2fce07803c3e06b61292be863dca5f6141c51ab5ac2e436afdc1",
+   "reason": "Item (ii), finding 7 (#1477 c.7061693815): the same pass of AGENTS.md §A.25 aligns the sentence with the narrowed membership of Theorem 24(iii)."
+  },
+  {
    "id": "D023",
    "file": "papers/Substratum.md",
    "start": 67318,
@@ -2666,6 +2746,56 @@
    "new": "\\text{Finite substratum, structural assumptions (A2–A6)}",
    "new_sha256": "baaa85c29e2a0a42e6086d09568db96608ecd57f13410dcb212ea3181762f9e1",
    "reason": "Range rewrite with the theorem's scope."
+  },
+  {
+   "id": "D365",
+   "file": "papers/Substratum.md",
+   "start": 78097,
+   "end": 78184,
+   "old_sha256": "00908aa50b92007305f0490d6a0860230467b12943d19a1d63198fa9813cf6b5",
+   "new": "(i) and the normalized permutation product form of (iii) preserve the coherent family",
+   "new_sha256": "40d268884e951aeff44741d5c8d51e805789e94f89bd969aae2895631ef6d6b7",
+   "reason": "Item (ii), finding 7 (#1477 c.7061693815): the same pass of AGENTS.md §A.25 aligns the sentence with the narrowed membership of Theorem 24(iii)."
+  },
+  {
+   "id": "D361",
+   "file": "papers/Substratum.md",
+   "start": 78672,
+   "end": 78764,
+   "old_sha256": "427ec1ed679baed1daa6aedac875f596d3a1ea7a73c765bc7b17cdb14fa74d1a",
+   "new": "*(i) Hidden-sector relabeling.* For finite $\\mathcal{C}_H$ and any bijection $\\sigma: \\mathcal{C}_H \\to \\mathcal{C}_H$,",
+   "new_sha256": "e1a1373f1ba3c7a6f78aa8e9943561851834cc0856892d87d13a70eb9416d0e0",
+   "reason": "Item (i), acceptance-review classification finding 3 (#1477 c.7061693815): with the (A1) entry gone (D232), Theorem 24(i) uses the uniform prior 1/|C_H|, which exists only for a finite C_H, so the finite scope is printed where it is used."
+  },
+  {
+   "id": "D363",
+   "file": "papers/Substratum.md",
+   "start": 79996,
+   "end": 80227,
+   "old_sha256": "f1b6b8ff1d5c38e9e8785cbfa22dddb0f77ddee726967bb27ae381007bbc03c2",
+   "new": "Adjoin a classical factor $A$ of any cardinality, with $\\ell^2(A)$ prepared independently in a density matrix $\\sigma_A$ with $\\operatorname{Tr}\\sigma_A=1$, and evolve it by the permutation unitary $W$ of a bijection $\\psi$ of $A$, with product dynamics $U\\otimes W$; the enlarged pair $(S\\times A,\\varphi\\times\\psi)$ has bijective dynamics (A2).",
+   "new_sha256": "b67530ec47908de0f2275988dd7d61a8ac7ca0b42cc56c84b7160ed112356cd8",
+   "reason": "Item (ii), findings 4-6 (#1477 c.7061693815; owner #1169 c.7062144714): Theorem 24(iii) states a family that G_sub contains, and G_sub acts on substrata, which have bijective dynamics (A2); membership is narrowed to a factor of any cardinality with bijective dynamics, and the wider channel identity is stated separately as a channel-preserving extension."
+  },
+  {
+   "id": "D362",
+   "file": "papers/Substratum.md",
+   "start": 80933,
+   "end": 81051,
+   "old_sha256": "a5f67b9489d6116288021eff5307fc1ff5ccc2ae40b074b844ad0aa3ba21548a",
+   "new": "evolved by a bimeasurable bijection $\\psi$ of $A$, with product dynamics $\\varphi\\times\\psi$ and the uniform hidden prior on a finite $\\mathcal{C}_H$ times $\\alpha$",
+   "new_sha256": "d0944f1493a7b1c11931f5de48edfde356122378113d6d1d40463293dd2e070b",
+   "reason": "Item (i), acceptance-review classification finding 3 (#1477 c.7061693815): with the (A1) entry gone (D232), Theorem 24(i) uses the uniform prior 1/|C_H|, which exists only for a finite C_H, so the finite scope is printed where it is used. Item (ii), findings 4-6 (#1477 c.7061693815; owner #1169 c.7062144714): Theorem 24(iii) states a family that G_sub contains, and G_sub acts on substrata, which have bijective dynamics (A2); membership is narrowed to a factor of any cardinality with bijective dynamics, and the wider channel identity is stated separately as a channel-preserving extension."
+  },
+  {
+   "id": "D364",
+   "file": "papers/Substratum.md",
+   "start": 81383,
+   "end": 81501,
+   "old_sha256": "4e18d7b164eccc77e73f7d48653d7ff8e78154af57ba93b802b5f07d7e4d98ce",
+   "new": "such as the identity on an infinite-dimensional $\\ell^2(A)$ or counting measure on an infinite $A$, is not covered. The identity, and its proof, hold unchanged for any unitary or isometry $W$ on a Hilbert space $\\mathcal K_A$ of any dimension and, for a classical factor, any measurable map $w$; such enlargements are channel-preserving extensions, not members of $\\mathcal{G}_{\\text{sub}}$, when their dynamics is not a bijection of configurations.",
+   "new_sha256": "526cd6ec5eb09ccd3b7e1142d45520eab60e6e7fb7bd318978f3d352cac483e9",
+   "reason": "Item (ii), findings 4-6 (#1477 c.7061693815; owner #1169 c.7062144714): Theorem 24(iii) states a family that G_sub contains, and G_sub acts on substrata, which have bijective dynamics (A2); membership is narrowed to a factor of any cardinality with bijective dynamics, and the wider channel identity is stated separately as a channel-preserving extension."
   },
   {
    "id": "D029",
@@ -3599,7 +3729,7 @@
   },
   "book/The-Incompleteness-of-Observation-FULL.md": {
    "base_sha256": "2afc3c73a9847270fd92a525f49944c1683a1b3947aee47886773252607de74b",
-   "expected_sha256": "7a713ba75e1322f63aa9d78a5a70afc8f702bf9bfece3920c3684203a127b646"
+   "expected_sha256": "41efa2223caa9aa99bc8cb523a4243d3bf6b9d764d8b44ce814b3e9c2a579bc9"
   },
   "book/appendix-c-objections.md": {
    "base_sha256": "bba97f5ff2e06c5ddecc7ac8e221d46aa39240321c73aeadfac08e23038841a7",
@@ -3615,7 +3745,7 @@
   },
   "book/ch02-substratum.md": {
    "base_sha256": "e8f2f4fed541bad179f35568bdfbbd8ecdc8670d488464152e6cfa0c7a2c1158",
-   "expected_sha256": "8cc2735a5edd1000f0461ca0a01bf0aa3fb7171b027ddc4f4d2e9ba054946982"
+   "expected_sha256": "ff43d1b13f083b9e424d7d5684b7323c3323265eba019843ab52c0bcd5e37ea0"
   },
   "book/ch03-structural-realism.md": {
    "base_sha256": "01c88ef9c048196e2aed89d880192e1a804303b80b9ed75f6fb2bcb13a84b75f",
@@ -3675,11 +3805,11 @@
   },
   "papers/Structure.md": {
    "base_sha256": "9e020b2c93814f2286f3906693e7b4bcc891e1e54b776f00356a1f3ce46d8a4f",
-   "expected_sha256": "bb578f56f6cc43cfa149401bd77c7103b3a04fd4a151fd47495959fe7184915d"
+   "expected_sha256": "46a4a3d392286dc2f9d15471ec85b0372242f71f76434d545b27488e410e902b"
   },
   "papers/Substratum.md": {
    "base_sha256": "501a3ae24c3d394a6842c3567151f6a5fa853762cb5875dac243104e96fd6722",
-   "expected_sha256": "b186017544c88f6b7cd620923e2a066dc65be093c01a31c9f9f225276b5acd3e"
+   "expected_sha256": "1b10baa0ac5120fc7b091d41e4f65eff719cb3f47416ba038851d67930d0805b"
   },
   "verification/README.md": {
    "base_sha256": "d2d92060cb1a62b0d9eaa3fad834d6976c89e5e7b1c44f272f00b52cc11590fe",

@@ -442,6 +442,7 @@ def self_test(led, base_files, plan):
     def expect(cond, msg):
         nonlocal ok
         print('  %s %s' % ('ok ' if cond else 'BAD', msg))
+        record('self-test: ' + msg, cond, [] if cond else [msg])
         ok = ok and cond
     good = predicted(led, base_files, plan)
     reg = regenerate(good, None, base_files)
@@ -533,6 +534,15 @@ def self_test(led, base_files, plan):
     expect(any('this checker is not the plan' in x for x in verify_pins(plan, plan[SELF] + b'#')), 'pins: a modified checker refuses to run as the plan\'s')
     p3 = dict(plan); p3[REC + 'edits.json'] = plan[REC + 'edits.json'] + b'\n'
     expect(bool(verify_pins(p3, plan[SELF])), 'pins: an edits.json the ledger was not built from fails')
+    d3 = tempfile.mkdtemp(prefix='a1exit-res-')
+    try:
+        doc = write_result(os.path.join(d3, 'r.json'), 'self-test', {'plan': None},
+                           [{'name': 'x', 'status': 'pass', 'discrepancies': []}, {'name': 'y', 'status': 'fail', 'discrepancies': ['z']}])
+        back = json.load(open(os.path.join(d3, 'r.json'), encoding='utf-8'))
+        expect(back == doc and back['verdict'] == 'fail' and back['checks'][1]['status'] == 'fail',
+               'result file: it parses, and a failing check is recorded as fail with its discrepancy')
+    finally:
+        shutil.rmtree(d3, ignore_errors=True)
     print('self-test %s' % ('PASS' if ok else 'FAIL'))
     return ok
 
@@ -556,11 +566,35 @@ def tree_mutants(d, led, base_files, plan):
             open(fp, 'wb').write(orig)
         hit = any(want in x for x in bad)
         ok &= hit
+        record('tree mutant %s fails with "%s"' % (path, want), hit, [] if hit else ['the mutation was not detected'])
         print('  %s tree mutant %s: fails with "%s"' % ('ok ' if hit else 'BAD', path, want))
     return ok
 
 
 TEX = {}
+RESULTS = []
+
+
+def record(name, ok, discrepancies=()):
+    RESULTS.append({'name': name, 'status': 'pass' if ok else 'fail', 'discrepancies': list(discrepancies)})
+
+
+def write_result(path, mode, meta, checks):
+    """The structured result (§A.44): each check's name, status and discrepancies, and the verdict."""
+    doc = dict(meta, schema='a1exit-checker-result-v1', checker='preserve_check.py', mode=mode, checks=checks,
+               verdict='pass' if checks and all(c['status'] == 'pass' for c in checks) else 'fail')
+    with open(path, 'w', encoding='utf-8') as f:
+        json.dump(doc, f, indent=1, sort_keys=True, ensure_ascii=False)
+        f.write('\n')
+    return doc
+
+
+def result_paths(explicit, mode):
+    out = [explicit] if explicit else []
+    rt = os.environ.get('RUNNER_TEMP')
+    if rt and os.path.isdir(os.path.join(rt, 'out')):
+        out.append(os.path.join(rt, 'out', 'preserve_check-%s.json' % mode))
+    return out
 
 
 def main():
@@ -576,6 +610,8 @@ def main():
     ap.add_argument('--plan')
     ap.add_argument('--base')
     ap.add_argument('--mutants', action='store_true')
+    ap.add_argument('--result-json', metavar='PATH', help='write the structured result here (also to RUNNER_TEMP/out/ when '
+                    'that directory exists)')
     ap.add_argument('--pdf-compare', metavar='BUILT', help='with --tree: compare the committed PDFs of the ledgered sources '
                     'with those the CI build wrote under BUILT (page count and pdftotext text)')
     a = ap.parse_args()
@@ -594,6 +630,7 @@ def main():
     print('plan: %s; %d record files; pin findings %d' % (a.plan or 'working checkout (not a designated plan commit)', len(plan), len(pin_bad)))
     for x in pin_bad:
         print('  PIN ' + x)
+    record('record pins (PREREG §26.4) and the plan\'s own checker', not pin_bad, pin_bad)
     led = json.loads(plan[LEDGER])
     TEX = tex_sources(led)
     base = tree_of(a.base or led['base'])
@@ -602,13 +639,17 @@ def main():
           % (len(led['splices']), len(led['files']), led['base'][:12], sha(plan[LEDGER]), len(bad)))
     for x in bad:
         print('  LEDGER ' + x)
+    record('ledger spans and hashes at the base', not bad, bad)
     ok = not bad and not pin_bad
+    mode = ('verify-pins' if a.verify_pins else 'verify-ledger' if a.verify_ledger else 'self-test' if a.self_test
+            else 'commit' if a.commit else 'tree')
     if a.verify_pins:
         pass
     elif a.verify_ledger:
         re_led = build_ledger(json.loads(plan[EDITS]), base, plan[EDITS])
         same = re_led == led
         print('ledger re-derived from edits.json: %s' % ('identical' if same else 'DIFFERENT'))
+        record('ledger re-derived from edits.json', same, [] if same else ['the re-derived ledger differs'])
         ok = ok and same
     elif a.self_test:
         ok = self_test(led, base, plan) and ok
@@ -627,18 +668,26 @@ def main():
                 print('  FAIL ' + x)
             for x in pdfs:
                 print('  PDF ' + x)
+            record('candidate against base, ledger, regenerated artifacts and plan record', not fails, fails)
             ok = ok and not fails
             if a.pdf_compare and a.tree:
                 pb = pdf_compare(a.tree, a.pdf_compare, {t[:-4] + '.pdf' for t in TEX})
                 print('pdf compare against the CI build: %d findings' % len(pb))
                 for x in pb:
                     print('  FAIL ' + x)
+                record('committed PDFs against the CI build (pages, pdftotext)', not pb, pb)
                 ok = ok and not pb
             if a.mutants and a.tree:
                 ok = tree_mutants(a.tree, led, base, plan) and ok
         finally:
             if work:
                 git('worktree', 'remove', '--force', work)
+    meta = {'plan': a.plan, 'ledger_sha256': sha(plan[LEDGER]), 'ledger_base': led['base'],
+            'candidate': a.commit or (os.path.abspath(a.tree) if a.tree else None), 'base': a.base or led['base']}
+    if not ok and all(c['status'] == 'pass' for c in RESULTS):
+        record('overall', False, ['a check failed without a recorded entry'])
+    for pth in result_paths(a.result_json, mode):
+        write_result(pth, mode, meta, RESULTS)
     print('RESULT ' + ('PASS' if ok else 'FAIL'))
     sys.exit(0 if ok else 1)
 
