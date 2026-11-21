@@ -24,7 +24,7 @@ No design in this record is (N). §6.2 says why, and where the imports enter fir
 
 **Not overlapped.** The BQP Lean ladder (`research/bqp-p2-20261121`), the Theorem 24 Lean sketch
 (`research/thm24-def-20261121`) and the mathematics thread on unbounded carriers
-(`research/oiqm-unbounded-20261121`) are cross-references only. None of their designs is used here. The single exception is the reconciliation the review of this record requested in §5.2: #1504's Proposition U and AW-U2 (reviewed, at `c66625e8`) were read for that purpose only. Nothing in this record depends on the A1 retirement (#1477) having landed. §6.3 marks the
+(`research/oiqm-unbounded-20261121`) are cross-references only. None of their designs is used here. The single exception is the reconciliation the review of this record requested in §5.2: #1504's Proposition U and AW-U2 (reviewed, at `31594967`, CONFIRMED) were read for that purpose only. Nothing in this record depends on the A1 retirement (#1477) having landed. §6.3 marks the
 designs that need cardinality neutrality.
 
 ## 0. Answers to the three questions
@@ -438,7 +438,8 @@ def InclusionAt (E : ∀ {A} [Fintype A] [DecidableEq A], NativeModel A → Prop
     load unboundedly many ancilla levels, which requires unbounded record and ancilla resources
     already at one A. This is close to a restatement of EP:41, recorded as a scope note, not a gem.
   - **D-I.4b, design lemma.**
-    `InclusionAt E A → ¬ (Finite M.Ω ∧ Isolation M)`.
+    `∀ (M : NativeModel A), (∀ k p π h, M.law p π h = qLaw p.ρ π h) → ¬ (Finite M.Ω ∧ Isolation M)`,
+    quantified over every model M, not only the witness of `InclusionAt E A`.
     - The hypothesis `Isolation M` is clause (b) of `SchemaAdmissible`: for fixed p, the law of the
       prepared uncontrolled state is independent of the future measurement π.
     - Proof sketch: with that hypothesis, `B(p, π, h) = ∫ ξ_{π,h} dν_p`, with `ν_p` a law on the
@@ -466,13 +467,14 @@ Read informally, this says that with E trivial, the typed clauses I-1, I-2 (sign
 
 **Construction sketch: a stepwise reversible simulator.** This replaces a superseded sketch. A precomputed trajectory on a shift space wrote the outcomes of later instruments into the loaded configuration. Those outcomes depend on the future program, so that sketch violated U-completeness and isolation (`SchemaAdmissible` (a), (b); EP:77, EP:79).
 
-- **Seeds.** `Λs := ℕ → unitInterval` with `Measure.infinitePi (fun _ => volume)`.
+- **Seeds.** `Λs := (ℕ → unitInterval) × (ℕ → unitInterval)`, the outcome tape and the setting tape, with the product of two `Measure.infinitePi (fun _ => volume)`.
   - `infinitePi` is at Mathlib/Probability/ProductMeasure.lean:358, with its
     `IsProbabilityMeasure` instance at :381 and `infinitePi_map_restrict` at :377.
   - `volume` on `unitInterval` is the `MeasureSpace I` instance of
     Mathlib/MeasureTheory/Constructions/UnitInterval.lean:26.
-- **World configurations.** `Ω := Tape × Reg × Prog × Rec × Hist × Clock`, where:
-  - `Tape := ℕ → unitInterval` is the seed tape, which is U;
+- **World configurations.** `Ω := Tape × STape × Reg × Prog × Rec × Hist × Clock`, where:
+  - `Tape := ℕ → unitInterval` is the outcome-seed tape, which is U;
+  - `STape := ℕ → unitInterval` is a separate setting-seed tape, read only by setting nodes and not part of U;
   - `Reg` is a simulator register holding the current unnormalized state;
   - `Prog` holds the program π in isolated controller fields;
   - `Rec` is the outcome record;
@@ -487,14 +489,14 @@ Read informally, this says that with E trivial, the typed clauses I-1, I-2 (sign
     by the standard two-sided embedding: the domain is extended so that every configuration has a
     unique predecessor (Bennett, IBM J. Res. Dev. 17 (1973) 525). This is a design obligation, at the
     same level of effort as `exists_perm_extending` (Equivalence.lean:60) but on an infinite type.
-- **Loading.** `ι p π λ := (λ, init p, π, [], [], 0)`. It writes the seeds, the preparation label and
+- **Loading.** `ι p π (λ, s) := (λ, s, init p, π, [], [], 0)`. It writes the seeds, the preparation label and
   the program, and **no outcome**. The uncontrolled restriction is `U ω := tape ω`, whose law is μ_p
   for every π. Changing a future program changes only `Prog`, and the step reads `Prog` only at the
   current instruction.
 - **Admission.**
   - (a) U-completeness: the tape is the only uncontrolled variable.
   - (b) Isolation: the law of U does not depend on π.
-  - (c) Settings: fresh setting nodes consume seeds from a disjoint subsequence, which gives `IndepFun`.
+  - (c) Settings: fresh setting nodes read the setting tape `STape`, which is independent of `Tape` under the product seed law, so `IndepFun` of U and S holds by construction. Drawing settings from the U tape itself would correlate U with S and break this clause.
   - (d) Causal prefixes: common prefixes consume the same seeds.
   - (e) Compositionality: the step interprets each primitive label by a fixed rule.
 - **Records.** `R` reads `Rec` along the orbit.
@@ -504,7 +506,7 @@ Read informally, this says that with E trivial, the typed clauses I-1, I-2 (sign
 
 This is the adaptive, infinite-horizon analogue of the clock-and-trajectory construction in `S_imp_D` (Equivalence.lean:422, `Hid := Fin (K+1) × Traj V K` at :365). It is the history-law counterpart of the operation-level `qm_generated_by_substratum_extension` with `fullClass`. In the literature it is the ψ-complete ontological model (Harrigan and Spekkens, Found. Phys. 40 (2010) 125; Beltrametti and Bugajski, J. Phys. A 28 (1995) 3329).
 
-**What D-W would establish (classification POSITIVE, by §A.31, pending review).** It is conditional on two things: this stepwise restatement, and `SchemaAdmissible` being written to include U-completeness and isolation. Given both, the typed parts of I carry no content without a nontrivial E:
+**What D-W would establish (classification POSITIVE, by §A.31, pending review).** The simulator meets the schema clauses (a) to (e) as stated here, so including U-completeness and isolation does not exclude it. The condition is therefore that it meets `SchemaAdmissible` as finally written, which is a check to repeat if the clauses change. Given that, the typed parts of I carry no content without a nontrivial E:
 - I-1, the typable part of I-2, I-4 and the EP schema;
 - including reversibility, seed independence, isolation and causal prefixes.
 
@@ -593,7 +595,7 @@ theorem single_model_inclusion (C : CoherentTower ι Q) [Infinite ι] (hlaw : �
       C.model.law (encodeP C A p) (encodeProt C A π) (encodeHist h) = qLaw p.ρ π h
 ```
 
-The superseded form had a field `regionSem : ∀ Λ, RealizedSemantics (model.restrict Λ) …`. That field presumed a finite-region ontic realization of each stage. Under #1504's Proposition U (reviewed, at `c66625e8`), that is impossible for any native exact model satisfying preparation–setting independence, item (xiv). Proposition U is a paper result, labelled (I).
+The superseded form had a field `regionSem : ∀ Λ, RealizedSemantics (model.restrict Λ) …`. That field presumed a finite-region ontic realization of each stage. Under #1504's Proposition U (reviewed, at `31594967`, CONFIRMED), that is impossible for any native exact model satisfying preparation–setting independence, item (xiv). Proposition U is a paper result, labelled (I).
 - On a site-factorized Ω with finite-range dynamics, an exact qubit needs readout cones that lie in no single finite region.
 - So `cone` must be unbounded over the procedures interpreting any one stage. That is a consequence the design expects, not a field it imposes.
 
@@ -690,7 +692,7 @@ If any design were later implemented, it would be new modules, one family per de
 | D-O3 | (I) | Uniform attach, readout existence and locality, feed-forward with retained records, discard: fields of `O3Fields`. Trace law: `LawBridge.trace_rule`. |
 | D-I (§4.1–4.2) | (I) | The comparator `qLaw`, complex QM by definition. E: a predicate parameter. Unsourced clauses: named hypotheses of the inclusion theorem. |
 | D-I.4b | (I) | Unbounded qubit nonnegative rank (Main:568 [55]): a hypothesis, since Mathlib has none. Isolation, the π-independence of U's law: the hypothesis `Isolation M`. |
-| D-W | (I) | The comparator's matrices, used as data inside the stepwise simulator. That is the point of the countercontrol. The conclusion is conditional on `SchemaAdmissible` including clauses (a) and (b). |
+| D-W | (I) | The comparator's matrices, used as data inside the stepwise simulator. That is the point of the countercontrol. The conclusion is conditional on the simulator meeting `SchemaAdmissible` as finally written. |
 | §4.4 | (I) | Kinematics, `LawBridge` and `O3Fields` as hypotheses. `hqm` is the O1 output. |
 | D-O2 | (I) | `QuantumArchitecture 𝓘`, a structure field carrying O1. Operational `opSem`, a field. S-∞ in operational form, the field `spectator`. The readout cone `cone` is a field that is not bounded. O2-a alone is a statement about the comparator, with no native content. |
 
@@ -714,8 +716,8 @@ The existing kernel results all sit downstream of link 1, so a physical source o
 
 ### 6.4 §A.31 outcome classification of the findings
 
-- **POSITIVE, pending review, and conditional on the stepwise restatement and on `SchemaAdmissible`
-  (a) and (b): D-W.**
+- **POSITIVE, pending review, and conditional on the stepwise simulator meeting `SchemaAdmissible`
+  as finally written: D-W.**
   - Only EP:75, EP:47, EP:92 and EP:102 can exclude the witness, and only through a nontrivial E.
   - A finite-information condition alone does not exclude it.
 - **BORDERLINE / ELABORATING: D-I.2.** I-2's intensional part is not a predicate on the concrete map,
