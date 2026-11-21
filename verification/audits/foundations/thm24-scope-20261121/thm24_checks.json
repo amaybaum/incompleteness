@@ -1,0 +1,264 @@
+{
+ "C1": {
+  "cases": 3840,
+  "equal": 3840,
+  "failures": [],
+  "unitary_checks": {
+   "R3": true,
+   "R3*cyc*R3^T": true,
+   "diag(1,-1)": true,
+   "diag(1,i)": true,
+   "perm10": true,
+   "perm201": true,
+   "perm210": true,
+   "perm3012": true,
+   "perm3021": true,
+   "perm3102": true,
+   "perm3120": true,
+   "perm3201": true,
+   "perm3210": true,
+   "rot_3/5_4/5": true
+  }
+ },
+ "C2": {
+  "bijective_iff": true,
+  "cases": 6048,
+  "equal": 6048,
+  "failures": [],
+  "injective_hyp_all": true,
+  "maps": 32,
+  "minimal_example": {
+   "phi": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "phi_x_w_bijective": false,
+   "w": [
+    0,
+    0
+   ]
+  },
+  "nonbijective_maps": 23
+ },
+ "C3": {
+  "R3": {
+   "charpoly": [
+    "1+0i",
+    "-5/3+0i",
+    "5/3+0i",
+    "-1+0i"
+   ],
+   "dim": 3,
+   "is_permutation_matrix": false,
+   "similar_to_permutation": false
+  },
+  "R3*cyc*R3^T": {
+   "charpoly": [
+    "1+0i",
+    "0+0i",
+    "0+0i",
+    "-1+0i"
+   ],
+   "dim": 3,
+   "is_permutation_matrix": false,
+   "similar_to_permutation": true
+  },
+  "diag(1,-1)": {
+   "charpoly": [
+    "1+0i",
+    "0+0i",
+    "-1+0i"
+   ],
+   "dim": 2,
+   "is_permutation_matrix": false,
+   "similar_to_permutation": true
+  },
+  "diag(1,i)": {
+   "charpoly": [
+    "1+0i",
+    "-1+-1i",
+    "0+1i"
+   ],
+   "dim": 2,
+   "is_permutation_matrix": false,
+   "similar_to_permutation": false
+  },
+  "perm10": {
+   "charpoly": [
+    "1+0i",
+    "-1+0i"
+   ],
+   "dim": 1,
+   "is_permutation_matrix": true,
+   "similar_to_permutation": true
+  },
+  "perm201": {
+   "charpoly": [
+    "1+0i",
+    "-2+0i",
+    "1+0i"
+   ],
+   "dim": 2,
+   "is_permutation_matrix": true,
+   "similar_to_permutation": true
+  },
+  "perm210": {
+   "charpoly": [
+    "1+0i",
+    "0+0i",
+    "-1+0i"
+   ],
+   "dim": 2,
+   "is_permutation_matrix": true,
+   "similar_to_permutation": true
+  },
+  "perm3012": {
+   "charpoly": [
+    "1+0i",
+    "-3+0i",
+    "3+0i",
+    "-1+0i"
+   ],
+   "dim": 3,
+   "is_permutation_matrix": true,
+   "similar_to_permutation": true
+  },
+  "perm3021": {
+   "charpoly": [
+    "1+0i",
+    "-1+0i",
+    "-1+0i",
+    "1+0i"
+   ],
+   "dim": 3,
+   "is_permutation_matrix": true,
+   "similar_to_permutation": true
+  },
+  "perm3102": {
+   "charpoly": [
+    "1+0i",
+    "-1+0i",
+    "-1+0i",
+    "1+0i"
+   ],
+   "dim": 3,
+   "is_permutation_matrix": true,
+   "similar_to_permutation": true
+  },
+  "perm3120": {
+   "charpoly": [
+    "1+0i",
+    "0+0i",
+    "0+0i",
+    "-1+0i"
+   ],
+   "dim": 3,
+   "is_permutation_matrix": true,
+   "similar_to_permutation": true
+  },
+  "perm3201": {
+   "charpoly": [
+    "1+0i",
+    "0+0i",
+    "0+0i",
+    "-1+0i"
+   ],
+   "dim": 3,
+   "is_permutation_matrix": true,
+   "similar_to_permutation": true
+  },
+  "perm3210": {
+   "charpoly": [
+    "1+0i",
+    "-1+0i",
+    "-1+0i",
+    "1+0i"
+   ],
+   "dim": 3,
+   "is_permutation_matrix": true,
+   "similar_to_permutation": true
+  },
+  "rot_3/5_4/5": {
+   "charpoly": [
+    "1+0i",
+    "-6/5+0i",
+    "1+0i"
+   ],
+   "dim": 2,
+   "is_permutation_matrix": false,
+   "similar_to_permutation": false
+  }
+ },
+ "K1": {
+  "cases": 480,
+  "scaled_by_2": 480,
+  "unequal": 480
+ },
+ "K2_classical": {
+  "cases": 96,
+  "changed": 20,
+  "example": {
+   "phi": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "t": 1
+  }
+ },
+ "K2_hilbert": {
+  "cases": 96,
+  "changed": 44,
+  "example": {
+   "phi": [
+    0,
+    1,
+    3,
+    2
+   ],
+   "t": 2
+  }
+ },
+ "K3": {
+  "cases": 96,
+  "example": {
+   "phi": [
+    0,
+    2,
+    1,
+    3
+   ],
+   "t": 1
+  },
+  "nonuniform_changed": 40,
+  "nonuniform_populations_changed": 40,
+  "uniform_equal": 96
+ },
+ "K4": {
+  "cases": 96,
+  "equal": 96
+ },
+ "carrier": {
+  "C_H": 2,
+  "C_V": 2,
+  "bijections": 24,
+  "times": 4
+ },
+ "checks": {
+  "C1_hilbert_identity_all_cases": true,
+  "C2a_product_bijective_iff_w_bijective": true,
+  "C2b_main336_hypothesis_holds_for_every_w": true,
+  "C2c_main336_family_unchanged_for_every_w": true,
+  "C3_spectral_classification_as_computed": true,
+  "K1_unnormalized_state_scales_channel_by_trace": true,
+  "K2_coupled_hilbert_factor_changes_channel": true,
+  "K2_visible_dependent_classical_factor_changes_family": true,
+  "K3_uniform_relabelling_preserves_nonuniform_changes": true,
+  "K4_main336_family_equals_coherent_channel": true
+ },
+ "script": "thm24_checks.py",
+ "verdict": "pass"
+}
