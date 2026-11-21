@@ -205,3 +205,18 @@ level GAP unchanged, and the check then reported `OK (132 canonical statements, 
 **Deviation.** The amendment's preamble says "Ten manuscript edits". The amendment actually
 preregisters nine edits (R1, R2a–R2d, R3, R4, R5, R6) at 11 file sites. The edits themselves are as
 preregistered.
+
+## 9. Amendment A2 (return-form wording)
+
+The coordinator relayed a change from S2-C's (#1474) review. Amendment `amendments/A2-return-form.md`
+was pushed at `45421a9ca`, and its edits were applied verbatim at `d0e5f17b7`. M:336 (the X-50
+criterion-3 sentence) and Theorem B.2.5 (AppB:92 = FULL:5769) now read "for the selected update of
+[Main] §3.2 on ℤ^d no law that is not supported on periodic configurations is known to satisfy it".
+
+The reason: "the only laws known …" implies that such laws are on record, and none is. The "of §3.2"
+qualifier is required, since NR-1 Prop. 5.1 gives a nilpotent α under which the Bernoulli law
+satisfies (NR).
+
+After the rebuild, Main has 108 pages (median 3322 characters per page) and the book has 489 pages
+(median 2991). `coverage_check` reports OK with no fingerprint change. The grep count is unchanged
+at 64.
