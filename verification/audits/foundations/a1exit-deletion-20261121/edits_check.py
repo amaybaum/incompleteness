@@ -738,11 +738,12 @@ EXPLAINED = [  # (path or prefix ending in '/', substring or None, class, reason
     ('verification/lean-mathlib/OIBridge/Averaging.lean', None, 'unrelated label', 'item A1 of the Lean roadmap'),
     ('verification/lean-mathlib/OIBridge.lean', None, 'unrelated label', 'items A1/A5 of the Lean roadmap'),
     ('verification/coverage/LEDGER.json', 'A1 = 1, A2 = sign', 'unrelated label', 'the A1 irrep'),
-    # frozen sentences of round H-B, pinned byte-identical by the R7 guard (Z18, W21, the HB module check); they name
-    # the kernel class of the predicates A1-A4 without A5 and are left to the governed change of #1482 (PREREG §24)
-    ('verification/programmes/hydrodynamics/PROGRAMME.md', 'H-B: one candidate executed in the A1–A4, ¬A5 class', 'pending #1482', 'round H-B frozen sentence (kernel class), guard-pinned (Z18, W21); deferred to #1482 with the guard amendment'),
-    ('verification/lean-mathlib/OIBridge/HexLatticeGas.lean', '**a rigorous reversible fluid witness in the A1–A4, ¬A5 class**', 'pending #1482', 'round H-B module sentence (kernel class), guard-pinned; deferred to #1482'),
-    ('verification/lean-manuscript-census.json', "reads 'H-B: one candidate executed in the A1-A4, not-A5 class", 'pending #1482', 'registry quotation of the frozen H-B sentence; deferred to #1482'),
+    # the frozen sentence of round H-B, pinned byte-identical by the R7 guard (Z18, W21, the HB module check): preserved
+    # historical evidence, unchanged by this plan and by #1482 (owner decision 4, #1169 c.7059136165; PREREG §25.3); the
+    # active text beside it states the class by its condition
+    ('verification/programmes/hydrodynamics/PROGRAMME.md', 'H-B: one candidate executed in the A1–A4, ¬A5 class', 'preserved historical evidence', 'round H-B frozen sentence, guard-pinned (Z18, W21); D358 states the class beside it'),
+    ('verification/lean-mathlib/OIBridge/HexLatticeGas.lean', '**a rigorous reversible fluid witness in the A1–A4, ¬A5 class**', 'preserved historical evidence', 'round H-B frozen module wording, guard-pinned (Z17); the paragraph states the condition'),
+    ('verification/lean-manuscript-census.json', "reads 'H-B: one candidate executed in the A1-A4, not-A5 class", 'preserved historical evidence', 'registry quotation of the frozen H-B sentence; D335 states the class by its condition'),
     ('verification/programmes/black-hole-information/PROGRAMME.md', 'A1/A2 exact-QM targets', 'unrelated label', 'the programme targets A1/A2'),
     ('verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/README.md', 'A1 and A2', 'unrelated label', 'the programme targets A1 and A2'),
     ('verification/programmes/oi-qm/reconstruction/intervene-substate-results-20261113/README.md', None, 'unrelated label', 'rows A1, A2 of a results table'),
