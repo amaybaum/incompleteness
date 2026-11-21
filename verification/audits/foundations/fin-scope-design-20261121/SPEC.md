@@ -1,6 +1,6 @@
 # FIN-SCOPE: design specification
 
-**Status.** Writer's design, revision 4, WIP / UNVERIFIED. This is a plan only. No checker exists and
+**Status.** Writer's design, revision 5, WIP / UNVERIFIED. This is a plan only. No checker exists and
 nothing has been run, so no verdict below is a measurement. The corpus inventory in §2.3 is a read-only
 `grep` count. Independent non-author review is required before any implementation is proposed.
 Implementation, the governance change and any merge each need a separate owner decision. Revision 2
@@ -8,7 +8,9 @@ answered review c.7064941939 (B1–B7, N-a–N-j). Revision 3 answers the delta 
 and generality moved into proofs and post-proof prose). It makes the guarantee structural (§1.1), and
 the lexical rules of §3 become a screen that prioritises review. Revision 4 answers review c.7065227255
 (C1–C3): hypothesis nodes join the dependency graph, multi-paragraph statements keep their proofs, and
-O7 is costed. The map from findings to sections is in §14.
+O7 is costed. Revision 5 answers c.7065296420: named conditions resolve corpus-wide, deleted scoped
+blocks are members, the cost is reconciled, and reductions (r1) and (r3) are limited. The map from
+findings to sections is in §14.
 
 **Authority.**
 - #1169 c.7061660930, item 1, owner decision of 2026-11-21:
@@ -68,7 +70,9 @@ therefore does not rest on the lexical rules. It is this:
 
 The **review set** of a pull request, computed against its merge base, is the union of:
 - **(R-a)** every new or revised statement block (§2.4), including a block whose resolved citation
-  targets, or whose *hypothesis digest*, changed while its masked digest did not (§2.4);
+  targets, or whose *hypothesis digest*, changed while its masked digest did not (§2.4); and every
+  disappeared block with `FS_L + IS > 0` in its reference entry, reviewed against checklist item 4,
+  so that its L hit is a hit on a member and can fail the gate;
 - **(R-e)** every new, changed or deleted *hypothesis node* (§2.5);
 - **(R-b)** every block in the *dependency closure* of (R-a) and (R-e): a block that cites, directly or
   through a chain of citations among parsed blocks and hypothesis nodes, a block of (R-a) whose
@@ -249,7 +253,24 @@ normalized text. The node forms are:
   it is part of each such block's local hypotheses.
 
 A block cites a node when its statement names the node's label, or the node is a standing scope
-sentence over it. A node cited from another file counts only when the citation names that file.
+sentence over it.
+
+**One corpus-wide dependency index.** Citations are resolved across all surfaces, `papers/*.md`, the
+book chapters and `FULL.md`, through a single index built at every run:
+- **Corpus-unique names** resolve by name alone, from any file. These are the conditions and hypotheses
+  of the AGENTS.md whitelist ((C1)–(C4), (EM), H-χ, H-spin), together with H-BD and every other name
+  the enrollment inventory finds defined exactly once in the corpus apart from mirrors. For example,
+  `(C1)` is defined at Main:72 and cited by name in ten other files, and `H-BD` is defined at GR:55
+  and cited in eight. Editing either makes every citer, in any file, a member.
+- **File-local names**, such as `(F)` or `(H2)` defined in more than one file, resolve to the
+  definition in the citing file. A file-local name cited from a file that does not define it must name
+  the defining file.
+- **Mirror nodes.** A node defined in a chapter and again in `FULL.md` is one node with two copies.
+  Rule M applies to the pair, and a change to either copy makes both copies, and every citer of
+  either, members.
+- **Ambiguity fails closed.** The enrollment inventory lists every citation by bare name. A bare name
+  that resolves to two non-mirror definitions fails the inventory (V12), and so does a citation that
+  resolves to none.
 
 When a node is new, changed or deleted, the node itself is a review-set member (R-e), and every block
 citing it joins the review set by closure (R-b), since its hypothesis digest changed. For example,
@@ -641,6 +662,9 @@ Each run checks four configuration controls:
   | standing scope sentences not cited implicitly | P-H2 |
   | the proof-opener search limited to the first paragraph | P-C2 |
   | interposed prose counted in the local hypotheses | P-C3 |
+  | cross-file names resolved only within the citing file | P-H4 |
+  | deleted scoped blocks not members | P-L4b |
+  | the (r1) map limit off | P-R9 |
   | the attestation check off | P-R1 |
   | the reference-count recomputation off | P-R6 |
 
@@ -682,6 +706,8 @@ statement means, or adds a claim, without any record. The known classes are:
   for example a notation convention in another chapter ("$S$ denotes a finite set") that statements rely
   on without citing it. Changing that text changes their scope with no reviewer;
 - external sources cited by a proof (X-6). A finite-only result outside the corpus is not a node;
+- a `**Definition**` used through the term it defines rather than cited by its label. The changed
+  definition is a member, and the blocks that use the term are not (X-11);
 - Lean declarations that the census does not resolve beside a block (§5.3). A changed binder there
   reaches no reviewer through FIN-SCOPE;
 - a block the grammar fails to recognize, until the enrollment inventory check (V12) reports its form;
@@ -762,7 +788,10 @@ For the Code Review Rules, under *Claim/evidence boundary*:
 | V18 | generality in a proof or post-block paragraph is screened and reviewed | P-E1, P-E2; the rule-E mutants |
 | V19 | a changed hypothesis node puts itself and every citing block in the review set | P-H1, P-H2; the hypothesis-digest mutant |
 | V20 | a proof after a multi-paragraph statement is recognized, and interposed prose supplies no scope | P-C2, P-C3, N29; the opener-search and interposed-prose mutants; the enrollment inventory re-derives the 29 cases of c.7065227255 |
-| V21 | a batched record (r1) covers only exact instances of its map | P-R9; the instance-check mutant (if r1 is adopted) |
+| V21 | a batched record (r1) covers only exact instances of a scope-neutral map | P-R9, P-R10, N31; the instance-check and map-limit mutants (if r1 is adopted) |
+| V22 | named conditions resolve corpus-wide, and ambiguity fails closed | P-H4, P-H5; the cross-file-resolution mutant |
+| V23 | a deleted scoped block is a member and its L hit can fail the gate | P-L4b; the deleted-member mutant |
+| V24 | a reduced (r3) record answers items 1, 2 and 4 | P-R11 (if r3 is adopted) |
 
 ## 12. Owner decisions needed
 
@@ -793,59 +822,70 @@ For the Code Review Rules, under *Claim/evidence boundary*:
 
 ### 12.1 The cost of O7
 
-**Measurements.** Both are approximate counts of changed labelled blocks (R-a only) in the first-parent
-history of `main` touching `papers/` or `book/`, from 2026-11-11 to 2026-11-21. Each was made with an
-ad hoc paragraph parser that approximates §2.2, and neither is a FIN-SCOPE measurement.
+**Counting conventions.** A revised block can be counted in two ways:
+- **paired**: each revised block counts once, as one member. This is the convention of this
+  specification, because §2.4's pairing makes a revised block a single member;
+- **split**: each revision counts as one disappearance plus one new block, roughly doubling the count.
 
-| Count | Reviewer (c.7065227255) | Writer (re-measured, read-only) |
-|---|---|---|
-| commits touching the manuscripts | 47 | 46 |
-| of which changed a block | 28 | 33 |
-| block changes in total | about 170 | 242 |
-| median per changing commit | about 4 | 4 |
-| tail | 8, 10, 12, 15 | 9, 10, 11, 11, 12, 15, 15, 19 |
-| largest (a propagation sweep) | 63 | 77 |
+**Measurements.** All are approximate R-a counts of changed labelled blocks in the first-parent history
+of `main` touching `papers/` or `book/`, from 2026-11-11 to 2026-11-21. Each used an ad hoc paragraph
+parser approximating §2.2. They are design inputs, not FIN-SCOPE measurements.
 
-The two parsers differ in what they call a block, which explains most of the gap.
+| Count | Convention | Block changes | Largest PR (the #1475 propagation sweep) |
+|---|---|---|---|
+| reviewer, two independent parsers (c.7065227255, c.7065296420) | paired | about 170, in 28 commits | 63–64 |
+| reviewer, same window | split | 338 | 127 |
+| writer (c.7065264934) | mixed: pairs some revisions, splits others | 242 | 77 |
 
-**Expected load.** This is an estimate, extrapolated from those counts.
-- **R-a alone:** about 120–170 members a week. A typical PR has about 4. One PR in five has 10–20, and a
-  §A.25 propagation sweep or a renaming like #1482's has 60–80.
-- **Mirrors.** These multiply the book's share by about 2.
-- **The dependency closure (R-b) and hypothesis nodes (R-e).** These add little to a typical PR. A change
-  to a widely cited foundational lemma or hypothesis adds all of its transitive dependents, which can be
-  tens of blocks.
-- **Proofs, post-block paragraphs and claim-surface rows (R-c, R-d).** These add members mostly in PRs
-  that already have block changes.
-- **Overall.** About 200–350 members a week. A typical PR has about 5–10. A sweep has 100–200.
+The paired figure, **about 170 in eleven days**, is the one that matches this specification. All counts
+already include `FULL.md` and the chapter files, so mirrors are not multiplied again. The window was
+the A1-EXIT propagation period, busier than usual, and the counts are re-measured at enrollment.
 
-Each member needs a record with sentence answers and an attestation. Under (β) that is an owner
-clearance per member or per batch. Under (δ) it is a separate reviewer identity.
+**Expected load, paired.**
+- **R-a alone:** about 110 members a week.
+- **With the closure (R-b), hypothesis nodes (R-e), proofs and post-block paragraphs (R-c), claim
+  surfaces (R-d) and deleted scoped blocks:** about **130–250 members a week**.
+- **Per PR:** a typical PR has a handful. One PR in five has 10–20. A propagation sweep or a renaming
+  like #1482's has about 60–130.
 
-**Reductions that keep the guarantee.** Each one comes with its own control.
-- **(r1) Batched records for mechanically identical changes.**
-  - The PR declares a frozen substitution map, for example a symbol rename.
-  - The tool checks that each member's diff is exactly an instance of the map, token for token.
-  - One record answers the checklist for the map, and covers every instance.
-  - A member whose diff is not an exact instance falls back to its own record.
-- **(r2) One record per mirror pair** whose masked texts are byte-identical after the change. The control
-  is equality of the two digests. A pair whose texts differ needs two records.
-- **(r3) A reduced checklist for closure members whose own text is unchanged.** Only item 1 and item 4
-  are answered, against the changed lemma or node: does this block rely on what changed?
-- **(r4) One attestation per PR under (β)**, listing every member's digests. This reduces the owner's
-  actions from one per member to one per PR, and the number of records is unchanged.
+Each member needs a record with sentence answers and an attestation: an owner clearance per member or
+per batch under (β), or a separate reviewer identity under (δ).
 
-**Reductions that would weaken the guarantee.** These are listed for completeness, and the writer does
-not propose them:
+**Reductions that keep the guarantee, each with its limit and its control.**
+- **(r1) Batched records for scope-neutral substitutions.**
+  - The PR declares a frozen substitution map. The tool checks that each member's diff is exactly an
+    instance of the map, token for token.
+  - **Limit.** Neither side of any map entry may contain a token of a screen class (`FINITE_TERMS`,
+    `FS_A` forms, `NEG_FINITE`, `IS`, `GEN`, `PROMO`, `FU`, `IU`, J10's vocabularies), a carrier symbol
+    or a carrier noun. No member's screen counts or hypothesis digest may change under the map.
+  - A map that fails the limit is refused for batching, and every member then needs its own record.
+    So a map that deletes "finite" at 40 sites, or renames a carrier, cannot pass under one answer.
+  - One record then answers the checklist for the map, and covers every instance. A member whose diff
+    is not an exact instance falls back to its own record.
+- **(r2) One record per mirror pair.** This needs byte-identical masked texts and equal hypothesis
+  digests after the change, since `FULL.md` and the chapter may resolve different nodes. The control is
+  equality of both digests. Otherwise two records are needed.
+- **(r3) A reduced checklist for closure members whose own text is unchanged.** Items 1, 2 and 4 are
+  answered, against the changed lemma or node: does this block rely on the finiteness or the
+  infiniteness that changed, or on a removed hypothesis? Item 2 is needed because a cited lemma narrowed
+  to infinite systems changes what its dependents rely on.
+- **(r4) One owner attestation per PR under (β)**, listing every member's digests.
+  - This reduces the owner's actions from one per member to one per PR, and leaves the number of records
+    unchanged.
+  - Its risk is stated plainly: a single action over a hundred digests invites approval without reading.
+    It keeps the guarantee formally, and only as well as the owner reads.
+
+**Reductions that would weaken the guarantee.** These are listed for completeness and not proposed:
 - exempting screen-clean members;
-- sampling members;
+- sampling;
 - exempting punctuation-only or "editorial" changes. A deleted qualifier or a flipped operator is a
   scope change (#1483 NCASES).
 
-**Trade-off.** The guarantee costs one attested review record per member. With (r1)–(r4), a typical PR
-needs a handful of records and a sweep needs a few. Without them, a sweep needs a hundred or more. The
-only way to make it cheaper still is to review less, which reopens the escapes R1–R5 for the
-unreviewed changes. Choosing the reductions, and accepting the load, is the owner's decision.
+**Trade-off.** The guarantee costs one attested review record per member, about 130–250 a week on the
+measured window. With (r1)–(r4), a typical PR needs a handful of records. A sweep needs one per member
+whose change carries scope, plus one per scope-neutral map. Making it cheaper still means reviewing
+less, which reopens the escapes R1–R5 for the unreviewed changes. Choosing the reductions and accepting
+the load is the owner's decision.
 
 ## 13. Result classification
 
@@ -901,3 +941,16 @@ a FIN-SCOPE pass is not evidence for either class.
 | O1 reading | §12 O1 |
 | §14 nit | B7 row |
 | TESTS nits | N24 (neutral span, §3.1), N25 (merged spans, §3.1) |
+
+**Delta review c.7065296420.**
+
+| Finding | Where addressed |
+|---|---|
+| C1 across files | §2.5 corpus-wide dependency index, mirror nodes, fail-closed ambiguity; V22; TESTS P-H4, P-H5 |
+| Definitions cited by term | §9 limit; TESTS X-11 |
+| R1, deleted blocks | §1.1 (R-a); V23; TESTS P-L4b |
+| C3 cost | §12.1 conventions (paired, split), reconciled counts, about 130–250 a week with no second mirror factor, the busy-window caveat |
+| (r1) limit | §12.1; V21; TESTS P-R9 (refused for batching), P-R10, N31 |
+| (r2) hypothesis digests | §12.1 |
+| (r3) item 2 | §12.1; V24; TESTS P-R11 |
+| (r4) risk | §12.1 |

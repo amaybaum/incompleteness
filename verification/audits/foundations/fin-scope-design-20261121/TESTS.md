@@ -1,10 +1,10 @@
 # FIN-SCOPE: adversarial test designs
 
-**Status.** Writer's test plan, revision 4, WIP / UNVERIFIED, for `SPEC.md` revision 4. These are
+**Status.** Writer's test plan, revision 5, WIP / UNVERIFIED, for `SPEC.md` revision 5. These are
 designs: no case has been run. Every "expected" entry is the verdict the rule as written in SPEC §3 must
 produce, fixed before any implementation exists, and the "why" column derives it from the counts.
 Revision 2 answered review c.7064941939, revision 3 the delta review
-c.7065126686, and revision 4 answers c.7065227255.
+c.7065126686, revision 4 c.7065227255, and revision 5 answers c.7065296420.
 
 **Conventions.**
 - Every case is synthetic text in a fixture file and never an edit of the manuscript. Where a case is
@@ -52,7 +52,7 @@ c.7065126686, and revision 4 answers c.7065227255.
 | P-L2 | *Each conserved quantity of $S$ is a function of finitely many components.* (NCASES N3) | `finitely many` deleted | FS_L 1→0. FU also falls to 0, so no A | {L} | FAIL |
 | P-L3 | *A substratum of $N < \infty$ ontic configurations has …* (NCASES N4i) | `$N < \infty$` deleted | FS_L 1→0 | {L} | FAIL |
 | P-L4 | `**Lemma 9.**` *Let $S$ be finite. Every orbit of $\pi$ is periodic.* / Pigeonhole. | `**Lemma 9'.**` *Every orbit of $\pi$ is periodic.* / Pigeonhole. | The kinds match and the Jaccard similarity is at least 0.6, so the block pairs as revised. FS_L 1→0 gives L; FU=1 with FS=0 gives A | {L, A} | FAIL |
-| P-L4b | Lemma 9 as in P-L4 | the block deleted, with nothing similar added | It disappeared with FS_L+IS=1 | {L} | FAIL |
+| P-L4b | Lemma 9 as in P-L4 | the block deleted, with nothing similar added | It disappeared with FS_L+IS=1, so it is a member (R-a) reviewed against item 4, and its L hit is a hit on a member | {L} | FAIL with a plain record; PASS with a record answering the L hit with a `proof` that no surviving result needs the deleted lemma |
 | P-L5 | *Let $S$ be finite. Then every orbit is periodic.* / Pigeonhole. | "Let $S$ be finite." moved into the paragraph before the label, and not cited | Revised: FS_L 1→0 gives L; FU=1 with FS=0 gives A | {L, A} | FAIL |
 | P-L6 | N6's statement | "Let $S$ be countably infinite." deleted | IS 1→0; FU=IU=0 | {L} | FAIL |
 | P-L7 | *… for a Hamiltonian flow on compact energy surfaces* (NCASES N4j) | `compact` deleted | FS_L counts `compact`, and it falls 1→0 | {L} | FAIL |
@@ -239,7 +239,12 @@ through review-set membership alone.
 | P-C3 | (new) | as P-C2, with an interposed ordinary paragraph "For finite $S$ this is classical." between the clauses and the proof (C2) | Interposed prose is not local hypotheses, so FS_A=0. FU=1 | {A} | screen | FAIL. Under the interposed-prose mutant it would give ∅ |
 | N29 | (new) | P-C2 with clause `*(i)*` reading `*(i) if $S$ is finite, every orbit is periodic;*` | `$S$ is finite` is a positive predication in a statement paragraph: FS_A=1; FU=1 | ∅ | membership | PASS |
 | P-D3 | Lemma L is N3 (neutral). B1–B5 cite L; C1–C4 cite B1; D1–D3 cite C1. None of B, C, D states finiteness; B1–B5 have neutral proofs | L narrowed to N1's form; nothing else changes | The review set is L plus its transitive dependents: 1 + 5 + 4 + 3 = 13 members, or 26 if all are book blocks with FULL mirrors. The transitive clause gives FU=1 on B1–B5, whose cited L now has FS_A=1. C and D cite blocks with FS_A=0, so they get no transitive FU | {A} on each of B1–B5; ∅ on L, C1–C4 and D1–D3 | screen on 5; membership on 8 | FAIL; the expected review-set size is 13 |
-| P-R9 | a PR renaming `$\mathcal C_H$` to `$\mathcal H_c$` in 20 blocks under one batched record (r1), one of which also deletes `finite` | — | 19 members are exact instances of the map and are covered. The 20th is not an instance, so it needs its own record (V21) | {L} on the 20th | membership, plus the screen on the 20th | FAIL with only the batched record |
+| P-R9 | a PR renaming `$\mathcal C_H$` to `$\mathcal H_c$` in 20 blocks under one batched record (r1) | — | `\mathcal C_*` is a carrier symbol, so the map fails the (r1) limit and is refused for batching. Every member needs its own record. On each block whose finite predication was `finite $\mathcal C_H$`, FS_A falls to 0: A fires where there is finite use, and the block's dependents join by closure | refused batch; {A} on each such block with finite use | membership, plus the screen | FAIL with only the batched record |
+| P-R10 | a map deleting the word `finite` at 40 sites, under one batched record | — | `finite` is a `FINITE_TERMS` token, so the map is refused for batching. Every member needs its own record, and each raises L | refused batch; {L} on each of 40 | membership, plus the screen | FAIL with only the batched record |
+| N31 | a map renaming the non-carrier symbol `$\tau$` to `$\sigma_1$` in 12 blocks, under one batched record | — | Neither side holds a screen token or a carrier, and no member's counts or hypothesis digest change. All 12 diffs are exact instances | ∅ | membership (one batched record) | PASS with the batched record |
+| P-R11 | Lemma M is N3; block D cites M and is unchanged | M narrowed with "Let $S$ be countably infinite." D's reduced (r3) record answers items 1 and 4 only | M's IS changed, so D joins by closure. A reduced record must answer items 1, 2 and 4, and this one lacks item 2 | ∅ hits on D | membership (closure) | FAIL; PASS once item 2 is answered |
+| P-H4 | `(C1)` defined in `papers/Main.md`; a block in `papers/GR.md` cites `(C1)` by bare name, with a pigeonhole proof and FS_A drawn from (C1)'s text "the configuration space is finite" | (C1) in Main edited to drop "is finite" (C1, cross-file) | `(C1)` is corpus-unique, so it resolves corpus-wide. The GR block's hypothesis digest changed, so it is a member. FS_A=0 and FU=1 | {A} on the GR block | screen, on a cross-file dependent | FAIL. Under the mutant that resolves names only within the citing file, the GR block is not a member and the case gives ∅ |
+| P-H5 | `(F)` defined in both `papers/SM.md` and `papers/GR.md`, not as mirrors; a block in `papers/Structure.md` cites `(F)` by bare name | — | the name is ambiguous, so the enrollment inventory fails (V12, V22) | inventory failure | inventory | FAIL |
 
 ## 3. Documented limits (X-cases)
 
@@ -256,6 +261,7 @@ The tool's expected verdict is recorded, and the safeguard named.
 | X-7 | *For every density operator $\rho$ on $\mathcal H$, $\mathrm{tr}\,\rho^2 \le 1$.*, where $\mathcal H$ is declared finite-dimensional in an earlier Setting that the statement does not cite | {A}, an admitted false positive | FU=1; the finiteness lies outside the local hypotheses. Answered by a `basis`, or by citing the Setting |
 | X-8 | *For every lattice $\Lambda$, the conserved quantities of a bijection of $Q^\Lambda$ are orbit-constant.* | no blocking hit (screen escape) | "lattice" is not a carrier noun, and `$Q^\Lambda$` is undeclared. The generality over infinite lattices is caught by checklist item 3 (R5) |
 | X-9 | *Let $S$ be finite, though this is not needed. Every bijection of $S$ has a periodic orbit.* / Pigeonhole. | no blocking hit (screen escape) | The positive predication satisfies FS_A. Caught by checklist items 1 and 3 (R1) |
+| X-11 | a `**Definition (orbit space).**` edited, and blocks that use the phrase "orbit space" without citing the Definition's label | the Definition is a member; the using blocks are not (escape) | Definitions used by their term are outside the index. They reach review only through ordinary PR review (SPEC §9) |
 | X-10 | "The same holds for all $S$." two paragraphs after a block, outside a claim surface | not in the review set (screen escape) | Beyond the post-block paragraph. Advisory only, unless owner decision O3 brings such prose in |
 
 ## 4. Coverage
@@ -272,7 +278,9 @@ The tool's expected verdict is recorded, and the safeguard named.
 | E | P-E1, P-E2 | N28 | P-E1, P-E2 |
 | membership and closure (§1.1) | P-S1, P-D2, P-D3, P-H1, P-H2 | N30, the non-member cases in the conventions | P-S1, P-D2, P-H1, P-H2 |
 | block extent with a proof (C2) | P-C2, P-C3 | N29 | P-C2, P-C3 |
-| batched records (r1) | P-R9 | — | P-R9 |
+| batched records (r1), (r3) | P-R9, P-R10, P-R11 | N31 | P-R9 |
+| corpus-wide names (C1) | P-H4, P-H5 | — | P-H4 |
+| deleted scoped blocks | P-L4b | — | P-L4b |
 | advisory backstop | P-G11, row 42 | N25 | N22, N25 (G5 made blocking) |
 | resolutions and configuration | P-L8, P-G8, P-R1–P-R8 | N8, P-L9 | P-R1, P-R2, P-R6 |
 | #1483 reuse | §1.4 (C-R4), P-R7 | N5–N5d | C-R1, C-R2 |
