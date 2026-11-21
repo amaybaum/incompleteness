@@ -27,15 +27,20 @@ argument; K kernel theorem on `main`, cited and not duplicated.
    simulators operationally: three countermodels (CM-1 to CM-3, §2.1) show that each of (a), (c)
    and the coherent-input requirement (d) is load-bearing.
 2. **Proposition S2, the resource statement at the scope established ((I); layer X).** Under (b),
-   (c), (d) and (e), **for every logical encoding** (so without (a)), a one-step unitary channel of
+   (c), (d) and (e), **for every same-basis unitary encoding of the whole visible space** (a unitary
+   change of basis U on all of ℂ^{C_V}, with |C_V| = |A|, used at input and output; so without (a)),
+   a one-step unitary channel of
    a permutation dilation has, up to a global phase, only roots of unity as eigenvalues. So an
    exact single-time rotation Ad_{R_θ} with θ/π irrational is not realizable by any bijection with
-   any fixed countable hidden state under any encoding. Within that representational scope, a
+   any fixed countable hidden state under such an encoding. Distinct input and output encodings
+   trivialize the question and are excluded; subspace and fixed-ancilla encodings are not covered
+   (conjecture, §2.1). Within that representational scope, a
    native realization needs at least one resource outside the class: a non-monomial operation on
    the configuration span (FLOW), preparation-dependent coherent hidden states (dropping (c)), an
    uncountable hidden carrier with a non-classical hidden state (dropping (e); not treated), or a
    realization by protocol rather than autonomous evolution (dropping (b); Stage 2, where D-W
-   shows that operational exactness needs no such resource). **No operational resource statement
+   shows that operational exactness needs no such resource). Dropping (d), a unitary target,
+   leaves I★_st-coh altogether (CM-1, CM-5). **No operational resource statement
    is established**: S2 says what the Born-form target needs, not what an embedded observer's data
    require.
 3. **I★ versus I★_st (definitional mismatch, not a logical distinction).** I★ implies the
@@ -178,7 +183,7 @@ in the corpus (`Main:328`, `:338`; the Hadamard boundary `Main:340`; `Main:746`)
 operational no-go for classical simulators: it distinguishes a classical simulator from genuine QM
 only through the representational requirements (a)–(d).
 
-**Countermodels bounding S1′** (review addendum c.7065957850, §2; layer X).
+**Countermodels bounding S1′ and S2** (review addendum c.7065957850, §2, and c.7066083871; layer X).
 - **CM-1 (native readout, populations).** On {0,1} × {0,1} with a uniform diagonal prior, the
   involution (v, h) ↦ (v ⊕ h, h) gives T(1) uniform and T(2) = id: exactly the Hadamard
   populations |⟨j|H^t|i⟩|² at every t. A native bijection with a classical prior meets I★_st-pop for
@@ -195,6 +200,12 @@ only through the representational requirements (a)–(d).
   every configuration preparation goes to the Hadamard output. S1 does not apply, because (c)
   fails. It needs coherent hidden states, which have no meaning as classical laws; with diagonal
   preparation-dependent priors the output stays diagonal.
+- **CM-5 (coarse-graining with an irrational-angle spectrum; review c.7066083871).** V = ℤ₄,
+  H = {h₀, h₁, h₂} with a uniform prior, and the bijection that is the identity on V × {h₀} and the
+  4-cycle P₄ on V × {h₁, h₂}. The visible map is T = ⅓I + ⅔P₄, with eigenvalue (1 + 2i)/3, whose
+  angle arctan 2 is irrational relative to π. Coarse-graining a permutation therefore does give
+  visible maps with irrational-angle spectrum. T is not unitary, so S2's hypothesis (d), a unitary
+  target on all inputs, is what excludes it: (d) is load-bearing in S2 as in S1.
 - **CM-4.** Observer-controlled permutations reduce to S1 (fixed controller state) or to CM-3
   (preparation-dependent controller).
 
@@ -214,10 +225,22 @@ root of unity.
    eigenvalues λ of D′P_σ satisfy λ^L = the product of the D′ entries on the cycle, a root of
    unity. So λ is a root of unity. ∎
 
-A change of logical basis U changes W to UWU†, which has the same spectrum, so S2 holds for every
-encoding. **Consequence.** For R_θ with θ/π irrational, the eigenvalue ratio e^{2iθ} is not a root
+**Encoding scope (proved).** A same-basis unitary change of basis U on the whole of ℂ^{C_V}, with
+|C_V| = |A| and the same U at input and output, changes W to UWU†, which has the same spectrum. S2
+holds for every such encoding, and only those are proved.
+- *Distinct input and output encodings* trivialize the result: with the identity bijection, take the
+  output encoding to be R_θ composed with the input encoding. They are excluded by hypothesis.
+- *Subspace encodings* (|C_V| > |A|, logical states in a code space) and *fixed-ancilla encodings* (a
+  visible ancilla traced out at the end) are **not covered**: only the code space, not all of
+  ℂ^{C_V}, is then mapped unitarily. **Conjecture S2-sub (open):** the conclusion survives them. The
+  reviewer's sketch (c.7066083871): the coordinate functionals of the code space form a finite set
+  of lines the dynamics must permute, which forces a root of unity or a block-diagonal structure,
+  and a Fourier argument on the amplitude multisets then forces λ_a/λ_b to be a root of unity. This
+  is a sketch, not a result.
+
+**Consequence.** For R_θ with θ/π irrational, the eigenvalue ratio e^{2iθ} is not a root
 of unity, so Ad_{R_θ} is not the one-step channel of any bijection with any fixed countable hidden
-state under any logical encoding. The diagonal-prior case gives W proportional to a permutation
+state under any same-basis unitary encoding of the whole visible space. The diagonal-prior case gives W proportional to a permutation
 matrix (all ratios 1). Relation to the corpus: `Main:650` (finite order of a bijection on a finite
 set) and the countable-covering results of `OIBridge/CoherentContinuumSource.lean` are of the same
 family; no formal map is claimed. Grade: ELABORATING (pending review).
@@ -228,7 +251,8 @@ does; it is not a bijection model. Hosting every family at once needs a sector o
 
 **Answer to N1 (coherent).** Clauses (i)–(iii) of T-SUB′ restrict Φ to the substratum update, a
 bijection; so under (a)–(e) no T-SUB′-admissible model meets I★_st-coh for Ad_H, under any
-reading of (iv), and by S2 none meets it for Ad_{R_θ} under any encoding. The (iv) dilemma is not
+reading of (iv), and by S2 none meets it for Ad_{R_θ} under any same-basis whole-space unitary
+encoding. The (iv) dilemma is not
 reached at Stage 1-coh. This is a property of the representational target, not a sourcing test.
 
 **Skepticism.** The exclusion is mathematical, not operational: CM-1 meets the population data
@@ -512,7 +536,7 @@ criterion gives the same verdict on D-W and on every encrypted, compressed or sp
 |---|---|
 | S1 | ELABORATING (coherent-hidden-state extension); S1′ for diagonal priors CONFIRMING (`Main:328`, `:338`, `:340`, `:746`) |
 | S2 (spectral resource statement) | ELABORATING, pending review |
-| CM-1 to CM-3 | countercontrols bounding S1′ (from the review addendum) |
+| CM-1 to CM-5 | countercontrols bounding S1′ and S2 (from the reviews) |
 | I★ against I★_st | ELABORATING (definitional mismatch; conditional implication under ID-FE) |
 | R1 | ELABORATING (on R2) |
 | R2 | NEW, (I) on EP:79 (hidden assumption in GA §2.2) |
