@@ -1,6 +1,9 @@
 # NATIVE-UNIV, phase 2: the bounded-breach question, P3 stage S1, and the P1-Q2 design
 
-**Standing.** Writer's research record. Paper only, not independently reviewed. It follows
+**Standing.** Writer's research record. Paper only. Independent non-author review at `d2ddb3cb`:
+REVISE ([#1499 c.7064953331](https://github.com/amaybaum/incompleteness/pull/1499#issuecomment-7064953331)),
+mathematics confirmed apart from NU8's tick count. Its items R1, R2 and n1–n4 are answered in an
+appended commit, not yet re-reviewed. It follows
 `PLAN.md`, which was committed (`960977eb`) before this file. No computation was run. No
 manuscript, Lean or registry edit and no premise adoption. Authorization, scope and the
 productivity test are in `PLAN.md`.
@@ -66,16 +69,18 @@ Nothing here assumes PM-D5 (#1454), which stays paused, or any other unresolved 
    - *Theorem NU8.* For every 16-state 2-D reversible partitioned CA `P` (Morita–Ueno Def. 2.1)
      there is a narrow-class rule `R_P`. Its update is `x(t+1) = F(x(t)) − x(t−1) mod 8995` on `ℤ²`,
      and `F` reads only the four nearest neighbours: no self-term, translation-commuting.
-   - `R_P` comes with an injective encoding `E` such that three steps of `R_P` act on `E(c)`
-     exactly as one step of `P` acts on `c`.
+   - `R_P` comes with an injective encoding `E` such that six ticks of `R_P` act on `E(c)`
+     exactly as one step of `P` acts on `c`. Each tick updates one sublattice.
    - Applied to Morita–Ueno Model 1, it gives a narrow-class comparison rule that is universal at
      the standing of Morita–Ueno's construction. The design embeds in `ℤ³`.
    - *What the comparison rule is not.* It is neither isotropic nor totalistic, and it needs a
      designed periodic background of role tags and clocks. It is a comparison model only and does
      not bear on `R_q`.
-4. **Productivity (PLAN test).** Met by (i): NU4 and NU5 expose a hidden assumption in F1's
-   decisive question and constrain any controlled transfer in Q. Met by (iii): NU8. Not met by
-   (ii): S1 is open.
+4. **Productivity (PLAN test).** Met by (iii): NU8. Not counted toward (i): NU4 and NU5 correct
+   F1 §4's framing, but they apply MQ1's converse at a closed set's boundary and are ELABORATING
+   (§5). They do not settle Q, because the region `D` is still free and excursions inside a
+   never-breached `D` remain possible. Not met by (ii): S1 is open.
+5. **(N)/(I) and Established / Assumed / Missing** for each result: §4a.
 
 ***
 
@@ -180,14 +185,18 @@ finite closed set at every tick. Every such seed has an excursion at `t = 0` or 
 
 **Lemma NU7 (the axis tips of the light cone die) [W].** For a seed at the origin, `y_t(i) = 0`
 whenever `|i|₁ > t` (light cone, by induction). On an axis tip `i = t e_k`, the only neighbour
-inside the cone at `t − 1` is `(t−1) e_k`, and `y_{t−1}(t e_k) = 0`. So `u_t := y_t(t e_k)` satisfies
-`u_t = G(u_{t−1})` with `u_0 = b`.
-- Since `|G(u)| ≤ (|u| + 1)/3 < |u|` for `|u| ≥ 1`, and `G(u) = 0` for `|u| ≤ 1`, we get
-  `u_t = 0` for `t ≥ ⌈log₃ |b|⌉ + 1`.
-- All values satisfy `|y| ≤ |b|`, so the orbit stays in Lemma 2.1's window. ∎
+inside the cone at `t − 1` is `(t−1) e_k`, and the subtracted term `y_{t−2}(t e_k)` is 0 (as is
+`y_{t−1}(t e_k)`). So `u_t := y_t(t e_k)` satisfies `u_t = G(u_{t−1})` with `u_0 = b`.
+- If `|u| ≤ 3^m` then `|G(u)| ≤ 3^{m−1}`, and `G(u) = 0` for `|u| ≤ 1`. So for `|b| ≥ 2`,
+  `u_t = 0` for `t ≥ ⌈log₃ |b|⌉ + 1`. For `|b| ≤ 1` the tip is 0 from `t = 1`.
+- The recursion is exact on representatives and needs no window bound. The bound `|u_t| ≤ |b|`
+  holds for the tip values only: off the axis values can exceed `|b|`, and `y_1(0) = −a` already
+  does when `|a| > |b|`. ∎
 
 *Consequence.* The support does not grow at speed 1 along the axes beyond a finite time. A proof
-of S1 that follows the outermost front at light speed fails at the axis tips.
+of S1 that follows the outermost front at light speed fails at the axis tips. The rest of the
+light-cone surface is not shown to die, so a proof following an off-axis light-speed front is not
+excluded.
 
 **Where the attempt stopped.**
 - *What a proof needs.* A sub-luminal growth mechanism: a quantity forcing the support's radius to
@@ -262,7 +271,7 @@ each phase's data invariant before the step, with `X = enc₄` of `f_P`'s input 
 | 1 | edges | `−e` (`e` = the edge's two parts) | `enc₈(X_W, X_E) − e`; for a vertical edge, `(X_S, X_N)`. Here `e` is read from the two cells: RIGHT of W is a component of `X_E`, LEFT of E is a component of `X_W` | `enc₈(X_W, X_E)` |
 | 2 | cells | `X` | `X + Y`: `X` from any edge's copy, `Y = enc₄(f_P(X))` | `Y` |
 | 2 | plaquettes | `0` | `0` | `0` |
-| 3 | edges | `enc₈(X_W, X_E)` | `enc₈(X_W, X_E) + enc₂(RIGHT(Y_W), LEFT(Y_E))`; `X = f_P^{−1}(Y)`, read from the cells | `e′` (the new parts) |
+| 3 | edges | `enc₈(X_W, X_E)` (vertical: `enc₈(X_S, X_N)`) | horizontal: `enc₈(X_W, X_E) + enc₂(RIGHT(Y_W), LEFT(Y_E))`; vertical: `enc₈(X_S, X_N) + enc₂(UP(Y_S), DOWN(Y_N))`; `X = f_P^{−1}(Y)`, read from the cells | `e′` (the new parts) |
 | 4 | cells | `Y` | `Y`, read from the four edges' new parts: UP on N, RIGHT on E, DOWN on S, LEFT on W | `0` |
 | 4 | plaquettes | `0` | `0` | `0` |
 | 5 | edges | `e′` | `0` (cells and plaquettes hold 0) | `−e′` |
@@ -270,8 +279,9 @@ each phase's data invariant before the step, with `X = enc₄` of `f_P`'s input 
 **Theorem NU8 [W].** For every 16-state `2RPCA(4)` `P`, the rule `R_P` above has these properties:
 - *Class.* It lies in the narrow class: `x(t+1) = F(x(t)) − x(t−1) mod 8995` on `ℤ²`, with `F`
   reading only the four nearest neighbours, no self-term and one `F` at every site.
-- *Simulation.* Its staggered component satisfies `Φ³ ∘ E = E ∘ F_P`: six half-steps are three
-  steps of the second-order rule.
+- *Simulation.* Let `Ψ` be one tick of the second-order rule. By NU1(b), one tick is one
+  half-step of the staggered component, which updates one sublattice. Then
+  `Ψ⁶ ∘ E = E ∘ F_P`: six ticks per PCA step.
 
 *Proof.* Induction over the six phases, using the table's invariants.
 - *Phase 0.* Each cell's four incoming parts are on its four edges, negated, so the cell obtains
@@ -296,8 +306,11 @@ computation.
 - Not checked here: whether Morita–Ueno's universal constructions need non-ultimately-periodic
   configurations; and the transfer to U1's Definition U, which is F1 §3.1 consequence 1's caveat.
 - *Three dimensions.* Let `F` depend only on the four in-plane neighbours, with the planes
-  `z ≠ 0` at 0. Off-plane sites see zero in-plane tags and get `F = 0`. This puts a comparison
-  rule in the narrow class on `ℤ³`.
+  `z ≠ 0` at 0. Off-plane sites see zero in-plane tags and get `F = 0`. This gives a rule on `ℤ³`
+  that reads nearest neighbours only, with no self-term. Its `F` does not depend on the `±z`
+  neighbours, so its coupling graph is the planar square lattice in each plane, not ledger (x)'s
+  simple-cubic graph on the reference class. A variant whose `F` reads the `±z` neighbours is not
+  treated here: NU8 is not extended until the owner rules on §6 item 1.
 
 **Skepticism (the favourable branch, §A.31).**
 1. *It is a comparison model.* `F` depends on neighbour positions (not isotropic), on whole values
@@ -328,11 +341,34 @@ The native rule is not settled by NU8 or by any comparison model.
 
 ***
 
+## 4a. (N)/(I) classification and Established / Assumed / Missing
+
+The standard is [#1169 c.7064859041](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7064859041) ("Governing standard: the (N)/(I) classification"). That post does not spell
+out the letters. This record reads them as follows; the owner may correct the reading.
+- **(N):** a statement about OI's native rule `R_q` (here Q), resting only on its published
+  definition and on results on `main`.
+- **(I):** a statement that imports an assumption, or concerns an object that is not the native
+  rule.
+
+The labels apply to individual results.
+
+| Result | Label | Established | Assumed (where it enters) | Missing (earliest unsupported step; kind) |
+|---|---|---|---|---|
+| NU3 | (N) | For finite perturbations of a uniform background of Q: periodic ⇔ bounded support over `t ≥ 0` ⇔ confined at every tick in one finite closed set with in-range boundary. Written proof, cycle (a)⇒(c)⇒(b)⇒(a) | MQ1's converse [R] in (a)⇒(c); F1 NU2 [W-rev] in (b)⇒(a); reversibility, the finite alphabet and the fixed-point background (NU2's hypotheses) | independent review of this record; none within the statement |
+| NU4, NU4′ | (N) | For any closed `D`, finite or infinite, with the complement at `c`: no breach at `t` ⇔ complement still at `c` at `t + 1` | MQ1 and its converse [R], at the closed set's boundary; current-slice breach as in MQ2 | review; none within the statement |
+| NU5 | (N) | Relative to the allowed closed region `D`, no breach heals without radiation; a radiation-free transit is exactly a never-breached `D` | NU4′ | it does not settle Q: whether a controlled transfer exists inside some never-breached `D = cl₂(lines ∪ R)` (mathematics) |
+| NU6 | (N) | In a confined transit, `∂D` stays in range and `|S| ≤ 7` on `∂D`; a planar confined transit is ternary at every tick | NU5; RZ inside U1 Lemma 2.1's window [R] for (a) | whether a planar ternary turn exists (mathematics; a search would be a gated computation) |
+| NU7 | (N) | For a single-site seed, the six axis tips of the light cone are 0 from `t = ⌈log₃|b|⌉ + 1` (from `t = 1` when `|b| ≤ 1`) | the light cone of a radius-1 second-order rule; `G`'s contraction | the rest of the light-cone surface (mathematics) |
+| S1 (P3 stage 1) | (N), open | reformulated by NU3; not proved or refuted | as NU3, NU7 | a sub-luminal growth mechanism, or an exact periodic counterexample (mathematics; P2 `k = 1` would test it, gated) |
+| NU8 | (I) | For every 16-state 2RPCA(4) `P`, a narrow-class rule `R_P` on `ℤ²`, `q = 8995`, with injective `E` and `Ψ⁶ ∘ E = E ∘ F_P`. Written proof by phase invariants | `f_P` bijective (Morita–Ueno Lemma 2.1) in phase 3; `f_P(0) = 0` for the ultimately-periodic remark; a designed periodic tag-and-clock background (part of `E`); a non-native rule (neither isotropic nor totalistic). For universality: Morita–Ueno's Fredkin-gate construction and Fredkin–Toffoli's gate universality [LIT-R, at the source's standing] | the transfer to U1's Definition U, including whether Morita–Ueno's universal configurations are ultimately periodic (mathematics). It bears on `R_q` not at all |
+
+***
+
 ## 5. Classification (§A.31) and assumption-watch
 
 | Item | Class |
 |---|---|
-| NU4, NU4′, NU5: relative to a closed region, breach is radiation one tick later; the bounded-breach alternative of F1 §4 is not distinct from confinement | NEW (exposes a hidden assumption in F1's decisive question) |
+| NU4, NU4′, NU5: relative to a closed region, breach is radiation one tick later; the bounded-breach alternative of F1 §4 is not distinct from confinement | ELABORATING (MQ1's sharp converse at a closed set's boundary; corrects F1 §4's framing; does not settle Q, since `D` is free) |
 | NU3: periodic ⇔ bounded ⇔ confined in a finite closed set at all ticks | ELABORATING (NU2, MQ2) |
 | NU6(c): planar confined transits are ternary at every tick | NEW, minor |
 | NU7: axis tips die | NEW, minor (closes one proof route for S1) |
@@ -360,7 +396,8 @@ isotropy, totalisticity and the absence of such a background, not the neighbourh
    item 3(b)? It was carried out as proof exploration under
    [c.7064767045](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7064767045).
    It has not been tested or run.
-2. **The NU8 check** (`plans/NU8-CHECK-PREREG.md`): a bounded exact comparison of `Φ³ ∘ E` with
+2. **The NU8 check** (`plans/NU8-CHECK-PREREG.md`, with amendment
+   `plans/amendments/A01-NU8-CHECK-six-ticks.md`): a bounded exact comparison of `Ψ⁶ ∘ E` with
    `E ∘ F_P`, preregistered and not run. It needs authorization.
 3. **Next step for Q.** The confined-transfer question of NU5, starting with the planar ternary
    case of NU6(c). Any search there is a computation and stays gated.
