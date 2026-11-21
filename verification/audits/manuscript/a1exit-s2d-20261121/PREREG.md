@@ -309,33 +309,13 @@ That the regions where observers can exist are ordered by this growth is not est
 
 Finding: §A.14 mirror.
 
-Old (unique in its file):
-
-````text
-— restricts observers satisfying C1–C4, with C2 read in its timescale form (record persistence and readback there being suppressed, not excluded), to the non-equilibrium phase of $(S, \varphi)$; the restriction is time-symmetric
-````
-
-New:
-
-````text
-— excludes observers satisfying C1–C4, with C2 read in its timescale form (record persistence and readback there being suppressed, not excluded), from regions whose effective channel mixes that fast; the exclusion is time-symmetric
-````
+Old and new strings: identical to E13 (unique in FULL.md).
 
 ### E16 — `book/The-Incompleteness-of-Observation-FULL.md:822` (X-63; source T18 (FULL mirror of E14))
 
 Finding: §A.14 mirror.
 
-Old (unique in its file):
-
-````text
-That the selected non-equilibrium phase is ordered by this growth is not established.
-````
-
-New:
-
-````text
-That the regions where observers can exist are ordered by this growth is not established.
-````
+Old and new strings: identical to E14 (unique in FULL.md).
 
 ### E17 — `book/ch04-methodology.md:178` (X-63; source T20b)
 
@@ -357,17 +337,7 @@ New:
 
 Finding: §A.14 mirror.
 
-Old (unique in its file):
-
-````text
-*The equilibrium phase of $(S, \varphi)$.*
-````
-
-New:
-
-````text
-*Fast-mixing regions of $(S, \varphi)$.*
-````
+Old and new strings: identical to E17 (unique in FULL.md).
 
 
 ## Mirrors (§A.14, §A.25)
