@@ -40,7 +40,7 @@ holds" would be a defect even on a full positive.
   manuscripts' site type, alphabet and neighbourhood; `pk2a_bridge` is the bridge equation
   `R.F = linkF R.N M`, which is the content of `PK2`; `pk2b_covariance` is `A6Cov` on the packaged
   carrier's own link data, an **instance of a merged identity and not a new theorem**.
-  `pk3a_A1`–`pk3e_A5` put the packaged carrier against `A1`–`A5`, `A4Exact` **under the
+  `pk3a_A1`–`pk3e_A5` put the packaged carrier against the finiteness predicate `A1` and `A2`–`A5`, `A4Exact` **under the
   translation-invariance hypothesis on the link coupling, which is part of the statement and is
   reported with it every time**. `pk4_shift_not_scalar` exhibits a non-scalar additive
   automorphism of `Fin 6 → ZMod q`. `pk5_symmetric_point` is the separate stronger
@@ -71,7 +71,7 @@ fixed-background condition failing, which is the recorded reason it is not the a
 containment used is proved, in `cx2_unitary_gaugeLink`, and the interface's class is strictly
 larger, so the interface's statement **contains** the manuscripts' law as a specialization and is
 not identical to it. No inner product, unitarity as a constraint on the interface, condensate,
-state or cubic group action enters, `A1` is not weakened, no second substratum structure is
+state or cubic group action enters, the finiteness predicate `A1` is not weakened, no second substratum structure is
 introduced, and no field is added to `Substratum`. No manuscript is edited. No `ROADMAP` label is
 moved, and no label change is recommended.
 -/
@@ -271,7 +271,7 @@ a condition was tested and survived. It is an instance of a merged identity and 
 theorem**. -/
 theorem pk2b_covariance : A6Cov (nbrs d L) M := a6cov_all _ _
 
-/-- **`PK3-a` — A1** on the packaged carrier, for a nonzero torus size and a nonzero alphabet
+/-- **`PK3-a` — the finiteness predicate `A1`** on the packaged carrier, for a nonzero torus size and a nonzero alphabet
 modulus: the configuration space `ι → V × V` is finite. -/
 theorem pk3a_A1 [NeZero L] [NeZero q] :
     (linkSubstratum (Fin d → ZMod L) (Fin 6 → ZMod q) (nbrs d L) M
@@ -495,8 +495,8 @@ theorem cx3a_complex_axioms (d L : ℕ)
   ⟨linkSubstratum_A2 _ _ _, linkSubstratum_A3 _ d L M, linkSubstratum_A5 _ _ _,
     linkSubstratum_A4Exact _ d L M hM⟩
 
-/-- **`CX3-b` — THE COMPLEX CARRIER IS NOT A SUBSTRATUM SATISFYING A1, AND THIS IS THE PROOF.**
-`Substratum.A1` is `Finite (ι → V × V)` and `Fin 6 → ℂ` is infinite, so the configuration space of
+/-- **`CX3-b` — THE COMPLEX CARRIER IS NOT A SUBSTRATUM SATISFYING THE FINITENESS PREDICATE `A1`, AND THIS IS THE PROOF.**
+The finiteness predicate `Substratum.A1` is `Finite (ι → V × V)` and `Fin 6 → ℂ` is infinite, so the configuration space of
 the complex carrier is infinite: the constant families exhibit an injection from `ℂ`. **A proved
 negative, computed in the kernel, not a failed proof search.**
 
@@ -506,7 +506,7 @@ complex lift inside the interface" can mean two different things, and they come 
 as a substratum in the kernel's sense**, because finiteness is the first of the interface's axioms
 and the complex carrier is infinite. That is **not a defect of the interface and not a defect of the
 manuscripts**: the manuscripts' substratum is the finite object of `SM.md:306` and the complex
-carrier is the object on which the derivation of `SM.md:114` and Theorem 5 is conducted. **`A1` is
+carrier is the object on which the derivation of `SM.md:114` and Theorem 5 is conducted. **the finiteness predicate `A1` is
 not weakened**, no finiteness parameter is added, and no second substratum structure is
 introduced. -/
 theorem cx3b_complex_not_A1 (d L : ℕ)
@@ -561,7 +561,7 @@ theorem as1_finite (d L q : ℕ)
 
 /-- **`AS1` AT THE COMPLEX ALPHABET** `Fin 6 → ℂ`, on the same torus and neighbourhood. Read with
 `CX3-b`: the identity holds at this carrier, and this carrier is **not** a substratum satisfying
-`A1`. -/
+the finiteness predicate `A1`. -/
 theorem as1_complex (d L : ℕ)
     (M : (Fin d → ZMod L) → (Fin d → ZMod L) → ((Fin 6 → ℂ) →+ (Fin 6 → ℂ)))
     (g : (Fin d → ZMod L) → AddAut (Fin 6 → ℂ))

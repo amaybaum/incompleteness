@@ -1440,6 +1440,14 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Theorem B.2.5 (CP-indivisibility).** *The P-indivisibility..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Proof.* The framework's $\\Phi_t$ are permutation dilations ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: with $\\hat{H}_{\\text{eff}} = H_V + \\mathrm{Tr}_H[V_{\\text{in..."
     },
     {
@@ -1824,19 +1832,19 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: ## C.6 Finiteness: is posit A1 too strong?..."
+      "predicate": "chapter line mirrored in FULL: ## C.6 Finiteness: does the framework assume a finite univer..."
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: A third foundational objection concerns the framework's fini..."
+      "predicate": "chapter line mirrored in FULL: A third foundational objection concerns finiteness: several ..."
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: **The framework's response.** Posit A1 plays different roles..."
+      "predicate": "chapter line mirrored in FULL: **The framework's response.** The framework assumes neither ..."
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: *In Chapter 1's foundational content.* Posit A1 is a mathema..."
+      "predicate": "chapter line mirrored in FULL: *In Chapter 1's foundational content.* Finiteness of the rep..."
     },
     {
       "ok": true,
@@ -1844,7 +1852,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: A referee who rejects posit A1 for the universe as a whole d..."
+      "predicate": "chapter line mirrored in FULL: A referee who denies that the universe as a whole is finite ..."
     },
     {
       "ok": true,
@@ -1856,11 +1864,11 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: A1 is therefore *compatible with* the standard QFT descripti..."
+      "predicate": "chapter line mirrored in FULL: The discrete substratum is therefore *compatible with* the s..."
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: A1 is therefore not just a mathematical convenience but a st..."
+      "predicate": "chapter line mirrored in FULL: Finiteness is therefore the stated scope of specific results..."
     },
     {
       "ok": true,
@@ -2060,6 +2068,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Configuration space.** The substratum has a configuration ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Lemma 1 (Finiteness).** *The observer's finite capacity fo..."
     },
     {
@@ -2076,7 +2088,11 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: **Lemma 3 (Determinism and selected measure).** *$\\varphi$ i..."
+      "predicate": "chapter line mirrored in FULL: ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Lemma 3 (Determinism and selected measure).** *On a finite..."
     },
     {
       "ok": true,
@@ -2168,6 +2184,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *Corollary (near-return).* *Let $\\mathcal{C}_V$ be finite wi..."
     },
     {
@@ -2189,10 +2209,6 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The witnessed readback gap gives conditional memory inside i..."
-    },
-    {
-      "ok": true,
-      "predicate": "chapter line mirrored in FULL: ..."
     },
     {
       "ok": true,
@@ -2229,6 +2245,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The first is internal and elementary. A finite reversible re..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The second route is the stochastic–quantum correspondence of..."
     },
     {
       "ok": true,
@@ -2376,7 +2396,11 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: The framework's central object is a triple. $S$ is the set o..."
+      "predicate": "chapter line mirrored in FULL: The framework's central object is a triple...."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Configuration space.** The substratum has a configuration ..."
     },
     {
       "ok": true,
@@ -2385,6 +2409,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: On a finite alphabet and horizon, a supplied observer-level ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
     },
     {
       "ok": true,
@@ -2424,7 +2452,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: *(A1) Finiteness.* The configuration space $S$ is finite. Le..."
+      "predicate": "chapter line mirrored in FULL: **Structural assumptions.** The reconstruction restricts att..."
     },
     {
       "ok": true,
@@ -2432,7 +2460,15 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *(A4) Center independence.* The dynamics does not depend on ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *(A5) Linearity.* The wave equation governing $\\varphi$ is l..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The reconstruction theorem's claim is that, for a finite sub..."
     },
     {
       "ok": true,
@@ -2472,11 +2508,15 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: **Reconstruction Theorem.** *Let E1–E7, M1-T and M1-B, and A..."
+      "predicate": "chapter line mirrored in FULL: **Reconstruction Theorem.** *Let $(S,\\varphi)$ be a finite s..."
     },
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The theorem's content is striking. From the empirical inputs..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Two scope remarks.** First, uniqueness is within the class..."
     },
     {
       "ok": true,
@@ -2488,7 +2528,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: *(iii) Finite decoupled ancillary enlargement.* Adjoin a fin..."
+      "predicate": "chapter line mirrored in FULL: *(iii) Decoupled ancillary enlargement.* Adjoin a factor of ..."
     },
     {
       "ok": true,
@@ -3000,7 +3040,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: *The equilibrium phase of $(S, \\varphi)$.* Under effective m..."
+      "predicate": "chapter line mirrored in FULL: *Fast-mixing regions of $(S, \\varphi)$.* Under effective mix..."
     },
     {
       "ok": true,
@@ -3040,6 +3080,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The chapter takes as input the framework's prior content. Th..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework's content rests on a minimal mathematical stru..."
     },
     {
@@ -3061,6 +3105,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: Within A4's assumed periodic-lattice class and the stated co..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Integer dimension.** The self-consistency argument assumes..."
     },
     {
       "ok": true,
@@ -3160,6 +3208,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: where $G_{oo}$ is the hidden-sector propagator: the pointwis..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: On the stated taste-blind color embedding, $\\mathrm{SU}(3)$ ..."
     },
     {
@@ -3229,6 +3281,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: Chapter 5 states the staggered squared-operator identity on ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: One singlet taste; three triplet tastes related by cubic sym..."
     },
     {
       "ok": true,
@@ -3508,7 +3564,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: Under H-count the total system is finite (A1), and the energ..."
+      "predicate": "chapter line mirrored in FULL: Under H-count the total system is finite, and the energy-dep..."
     },
     {
       "ok": true,
@@ -4204,7 +4260,11 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: *Finiteness.* The substratum $S$ has finite cardinality — as..."
+      "predicate": "chapter line mirrored in FULL: The framework's universality-class commitments — the conditi..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Finiteness.* Finite cardinality of $S$ is used by the resul..."
     },
     {
       "ok": true,
@@ -4292,7 +4352,11 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: *A1 (finiteness).* The framework's representative has finite..."
+      "predicate": "chapter line mirrored in FULL: The bridge would be: identify the framework's finite-bijecti..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Finiteness.* The framework's finite-only results use a repr..."
     },
     {
       "ok": true,
@@ -6904,10 +6968,6 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: where the operators $\\hat{O}_k$ encode the measurement histo..."
-    },
-    {
-      "ok": true,
       "predicate": "chapter line mirrored in FULL: **History-dependent corrections at late times.** Even after ..."
     },
     {
@@ -7036,7 +7096,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: The hypothesis A1 of a finite substratum has structural cons..."
+      "predicate": "chapter line mirrored in FULL: A finite substratum has structural consequences that extend ..."
     },
     {
       "ok": true,
@@ -7048,7 +7108,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: The hypothesis of finite information (A1) is therefore neith..."
+      "predicate": "chapter line mirrored in FULL: Finite information is therefore neither a quantitative claim..."
     },
     {
       "ok": true,
@@ -7096,7 +7156,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: The hypothesis of finite information (A1) is therefore load-..."
+      "predicate": "chapter line mirrored in FULL: Finite information is therefore load-bearing for the exact-r..."
     },
     {
       "ok": true,
@@ -7128,6 +7188,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Janna Levin's compact-universe proposal.** Levin developed..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **The empirical program: matched-circle signatures.** A topo..."
     },
     {
@@ -7140,11 +7204,11 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: First, a compact identification can give a finite periodic l..."
+      "predicate": "chapter line mirrored in FULL: First, a compact identification by translations can give a f..."
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: Second, A1 can also hold on a finite lattice region with pre..."
+      "predicate": "chapter line mirrored in FULL: Second, a finite substratum can also be obtained on a finite..."
     },
     {
       "ok": true,
@@ -7172,7 +7236,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: *The substratum is finite under A1.* Under A1 the framework'..."
+      "predicate": "chapter line mirrored in FULL: *A finite substratum bounds information content.* A finite s..."
     },
     {
       "ok": true,
@@ -7332,6 +7396,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *No inflation needed.* The framework's lattice structure may..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *Initial conditions as gauge.* The deep hidden sector's card..."
     },
     {
@@ -7428,7 +7496,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: **A1 (Finiteness).** The open hypothesis, not adopted, that ..."
+      "predicate": "chapter line mirrored in FULL: **Background independence (A6).** The structural assumption ..."
     },
     {
       "ok": true,
@@ -7497,6 +7565,14 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **Cubic decomposition.** On the six signed link directions t..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Finite representative.** The minimal finite bijective repr..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
     },
     {
       "ok": true,

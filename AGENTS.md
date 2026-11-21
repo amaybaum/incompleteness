@@ -34,8 +34,8 @@ confers no protection, and "the framework needs this to be true" is never an arg
   or postdiction beyond the problem it was built to fix; reject any variant that can be
   adjusted to fit any outcome.
 - **The substratum follows the most basic rules consistent with observation, and no more.**
-  Every posit of the substratum model — the posit ledger of `papers/Main.md`, including total
-  finiteness (A1), linearity (A5), the lattice and its coupling range, the form of the update and
+  Every posit of the substratum model — the posit ledger of `papers/Main.md`, including
+  linearity (A5), the lattice and its coupling range, the form of the update and
   the measure selection — is a hypothesis that may be false, not a fixed part of the framework.
   A posit is kept only where observation forces it or a stated result needs it; it records why it
   was chosen, and a weaker alternative is sought wherever one may exist. What counts as "most
@@ -445,7 +445,8 @@ revision record.
 - **Fix the root cause, not the label.**
 - **Claim IDs are identifiers, not ordinals** (e.g. appendix-a `G`-rows): never renumber
   successors, never reuse a retired ID, never annotate the gap. And a removed claim can hide in
-  a **count** — after any inventory change, grep the totals corpus-wide (§A.25).
+  a **count** — after any inventory change, grep the totals corpus-wide (§A.25). The one
+  exception is renaming or renumbering under an identifier migration (§A.48); no ID is ever reused.
 
 ---
 
@@ -590,7 +591,10 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
 - **§A.28 Repo minimalism.** The repo is public and permanent; the burden of proof is on adding,
   not omitting. Before committing a file: it must be needed by a reader of the manuscripts or the
   code, be maintained, and not leak process. Process artifacts are cheap to add and expensive to
-  retire.
+  retire. The standard is symmetric for active material (§A.48): obsolete text, terminology or
+  structure is not kept merely because it exists. Removing a scientifically meaningful premise,
+  proof condition or dependency still requires evidence that the surviving claims remain valid;
+  evidence on `main` is removed only under §A.46 item 6.
 - **§A.40 Where verification runs; CI-first resource discipline.** Run bounded, deterministic
   smoke checks locally before a push: one tool self-test, the V3 verifier's self-test and corpus,
   `legacy_records_check.py`, cheap round controls, and Python compilation/static checks.
@@ -1467,3 +1471,49 @@ has ranked highest under §A.45; a provisional tier is not such a ranking.
    (§A.45 rule 6).
 
 Adopted 2026-11-15 by owner decision (owner `amaybaum`, 2026-11-15).
+
+***
+
+## §A.48 Canonical clarity over historical compatibility
+
+The active material presents the clearest scientifically justified version of OI. Active material
+is `papers/`, `book/`, the READMEs, AGENTS.md (except its record sections, such as §A.37 and the
+provenance paragraphs of §A.42), code comments, and the Lean formalization's names and docstrings.
+It excludes verification records and every record that §A.39, §A.42 or §A.46 governs. Historical identifiers, terminology and structures are kept in active material only while
+they remain useful; traceability lives in Git history and in the preserved research records, not
+in the presentation of the current theory.
+
+1. **Active material states the current theory.** Obsolete terminology, retired premises and
+   superseded structures in active material are defects under §A.25. They are removed or rewritten
+   where they appear (§A.27, §A.30), as their own scoped and propagated change, not bundled with
+   another correction, not kept for compatibility and not explained by historical notes.
+2. **Evidence stays trustworthy.** Frozen records, receipts, legacy records, preserved research
+   records, and the evidence and status records that §A.46 items 4, 6 and 7 require are not edited
+   for clarity (§A.39, §A.42 item 6, §A.46). Clarity never licenses a changed conclusion, a weakened
+   claim, a broken proof dependency or a hidden premise; a result that needs a condition states it.
+3. **Identifier migration.** A manuscript-facing identifier (a claim, posit, hypothesis or condition
+   ID, or a kernel identifier that the manuscripts, the census or a record cites) may be renamed or
+   renumbered only by an explicit migration that the owner approves in advance and an independent
+   non-author review accepts. The migration:
+   - states and demonstrates the clarity gain it delivers;
+   - maps every old identifier to its successor, and reuses no ID: no identifier takes a meaning
+     different from the one any record has given it;
+   - traces every reference across the active material, the Lean modules, the census registry
+     (§A.35), the guards and the coverage ledger, and updates each in the same change;
+   - leaves frozen and preserved records unchanged, and records, in a mutable index on `main`, the
+     successor of every old identifier those records cite;
+   - is verified by the build, the kernel and every check that reads the identifiers.
+
+   A §A.35 supersession of a strengthened theorem is not a migration. Outside a migration, §A.30's
+   prohibition on renumbering and reuse is unchanged.
+4. **Additions and removals carry the same burden** (§A.28). Removing obsolete active material
+   needs no reason beyond its obsolescence; removing a scientifically meaningful premise, proof
+   condition or dependency needs evidence that the surviving claims remain valid; evidence on
+   `main` is removed only under §A.46 item 6.
+
+This section authorizes no work (§A.45 rule 3); cleanup under it is housekeeping under §A.47
+item 2.
+
+Adopted 2026-11-21 by owner decision (`amaybaum`, #1169 comment 7058897767), implementing the
+principle recorded at #1169 comment 7058521984, within the drafting scope of #1169 comment
+7058574403 and the strict reading of identifier reuse confirmed at #1169 comment 7058783437.

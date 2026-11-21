@@ -45,7 +45,7 @@
   the state exchanges, and a phase — the concrete controllability the abstract stabilities do
   not entail.
 
-  WHAT IS NOT CLAIMED. This does not derive a quantum architecture from A1-A6 or from the
+  WHAT IS NOT CLAIMED. This does not derive a quantum architecture from the substratum conditions or from the
   read-write substratum dynamics; it reduces the three primitive-source principles to one
   object and names its decisive property, so that the remaining audit is whether the concrete
   OI physics supplies that object. The minimal drivability repertoire is that of round 59 and

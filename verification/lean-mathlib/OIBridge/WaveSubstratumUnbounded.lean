@@ -18,7 +18,7 @@ is infinite.
   `Substratum.a4_of_exact`.
 * `waveZ_A4Exact_int` : the exact form of A4 restated over `ℤ^d`, with the translation `shiftBy`
   taken in the additive group of `Fin d → ℤ`.
-* `waveZ_not_A1` (control) : for `d ≥ 1` and a nontrivial alphabet, A1 fails at `L = 0`; the
+* `waveZ_not_A1` (control) : for `d ≥ 1` and a nontrivial alphabet, the finiteness predicate `A1` fails at `L = 0`; the
   configuration space is infinite, so the instance above is not a finite model.
 
 The scope is the wave rule of `[SM §4.1]` on `ℤ^d` with alphabet `ZMod q`, and the predicates
@@ -64,7 +64,7 @@ theorem waveZ_A4Exact_int (v : Fin d → ℤ) (c : (Fin d → ℤ) → ZMod q) :
       shiftBy (ι := Fin d → ℤ) v (waveF d 0 q α c) :=
   waveSubstratum_A4Exact d 0 q α v c
 
-/-- Control: for `d ≥ 1` and a nontrivial alphabet, A1 fails at `L = 0`. The configurations
+/-- Control: for `d ≥ 1` and a nontrivial alphabet, the finiteness predicate `A1` fails at `L = 0`. The configurations
 `δ_n`, equal to `(1, 0)` at the constant site `(n, …, n)` and `(0, 0)` elsewhere, are pairwise
 distinct for `n : ℤ`. -/
 theorem waveZ_not_A1 (hd : 0 < d) [Nontrivial (ZMod q)] : ¬ (waveSubstratum d 0 q α).A1 := by
