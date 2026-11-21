@@ -110,7 +110,7 @@ executable once, under CTRL. Every other operation stays in `𝒩`.
 **Ties.** In `PLAN.md`'s order, with support counted in sites, all of the following tie with H-F1
 on the first two criteria: one element, one site.
 - **H-F1′.** `unit shear_m (1/2)` at a site whose pinned neighbours make `shear_m` an unconditional
-  NOT on `p_m`. By the count in §2.2, that needs two or three pinned non-background neighbours.
+  NOT on `p_m`. With no varying neighbour, `Σ` is constant: it equals `k` at `c = 0` and `6 − k` at `c = 1`. So by the window of §2.2 this needs two to four pinned non-background neighbours.
 - **H-F1(t).** The same flows at any `t ∈ (0, 1)`. `unit g t` is non-monomial there
   (`gateFlow_not_monomial`, `CoherentContinuumSource.lean:74`).
 
@@ -150,7 +150,8 @@ background a breach.
 
 ### 2.3 R-READ at three levels (the owner's provisional constraint)
 
-The three levels are kept distinct, as the owner requires (#1169, in the Phase-3 addendum).
+The three levels are kept distinct, as the owner requires
+([#1169 c.7066770882](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7066770882)).
 1. **Observable effects.** READOUT-ALG (#1513 `0ba83cff`, provisional, under review) finds that,
    under its stated hypotheses, native readout effects lie in the configuration algebra. This is
    treated as a question under review, not a theorem.
