@@ -56,8 +56,9 @@ impossible. It finds no native readout in the corpus that supplies one.
    - At the **instrument** level, including the state update, the procedure is DIO for items 2, 3
      (non-selective) and 5–10, and for item 26 when its step U is monomial. The corpus gives those
      items Kraus operators that are monomial, diagonal, or block-scalar on configuration blocks.
-   - Items 1, 4, 11, 12 and 22 are established **at the effect level only**. The corpus gives them no
-     update rule, so they are **Open for O1-D**.
+   - Items 1, 4, 11, 12 and 22 are established **at the effect level only**, so they are **Open for
+     O1-D**. Items 11 and 12 have no update rule in the corpus. Items 1, 4 and 22 have `Main:664`'s
+     update for the diagonal sector only, which assigns coherent inputs to imports.
 2. **The declared observable algebra (reading R5).** The corpus declares, in its own voice and for
    bare OI, that the observable algebra is the full matrix algebra B(ℓ²(C_V)): `Str:742`, `Str:788`,
    `Main:722`, `GR:366` and their book mirrors. `Str:742` and `Str:788` name no import. `Main:722` and
