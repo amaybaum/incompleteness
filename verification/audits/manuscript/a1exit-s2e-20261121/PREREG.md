@@ -300,7 +300,7 @@ the book ↔ FULL identity of each edited line. At the base: `base check PASS (4
 
 ### E10 — `papers/Methodology.md:367`
 
-- **Ledger row:** X-45. **Source:** X-45 correction ("the structural class A1–A6" -> "the class of such finite substrata").
+- **Ledger row:** X-45. **Source:** X-45 correction ("the structural class A1–A6" -> "the class of such finite substrata"), applied to the constructive-OSR claim.
 - **Finding:** A1 listed among the structural assumptions.
 - **Old** (unique in its file):
 

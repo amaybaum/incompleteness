@@ -158,7 +158,7 @@
   "file": "papers/Methodology.md",
   "line": 367,
   "row": "X-45",
-  "source": "X-45 correction (\"the structural class A1–A6\" -> \"the class of such finite substrata\")",
+  "source": "X-45 correction (\"the structural class A1–A6\" -> \"the class of such finite substrata\"), applied to the constructive-OSR claim",
   "old": "the constructive-OSR claim is conditional on the structural assumptions A1–A6 and the nearest-neighbor premise, which are not themselves derived; the claim is \"constructive OSR within the nearest-neighbor A1–A6 class,\"",
   "new": "the constructive-OSR claim is conditional on a finite substratum, the structural assumptions A2–A6 and the nearest-neighbor premise, which are not themselves derived; the claim is \"constructive OSR within the nearest-neighbor class of finite substrata satisfying A2–A6,\"",
   "finding": "A1 listed among the structural assumptions",

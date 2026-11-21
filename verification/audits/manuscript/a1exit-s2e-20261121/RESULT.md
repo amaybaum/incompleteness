@@ -162,7 +162,7 @@ prefixes and one added entry (the amended text lies beyond each stored 60-charac
 |---|---|---|
 | PR #1474, branch `research/a1exit-s2c-20261121` at `cb6d1b87e` (S2-C RESULT §2) | source of the return-form parenthesis and finite-only scope (B11c, B16b, G01, E04) | provenance: the wording is reproduced in full in `checks/s2e_edits.json`; no claim here uses S2-C's edits |
 | PR #1472, branch `research/a1exit-s2d-20261121` at `c5aaeb73f` (S2-D RESULT §3) | source of E03a, E03b; no change at ch18:40, Meth:283, :441 | provenance: wording reproduced in full; the region-level reading rests on Main §4.6 on `main` |
-| PR #1470, branch `research/a1exit-s2a-20261121` at `dd95fcd0b` | A4 restatement and the conditions on $P$ stated with each result ([SM §4.1], S2-A's E1), used by Meth:339 (E07), ch18:226 (B07) and ch18:242 (B17) | **support off `main`** (review round 1 R2): these sentences cite A4 in S2-A's form and SM §4.1's stated conditions, which are on #1470's branch only. Closed by landing order: S2-E lands only after #1470 (it lands fifth, after S2-A to S2-D). ch18:22 (B06) uses only the owner's A4 decision (#1169 c.7048255658) |
+| PR #1470, branch `research/a1exit-s2a-20261121` at `dd95fcd0b` | A4 restatement and the conditions on $P$ stated with each result ([SM §4.1], S2-A's E1), used by Meth:339 (E07), ch18:226 (B07) and ch18:242 (B17) | **support off `main`** (review round 1 R2): these sentences cite A4 in S2-A's form and SM §4.1's stated conditions, which are on #1470's branch only. Closed by landing order: S2-E lands only after #1470 (it lands fifth, after S2-A to S2-D). #1470 is on `main` (merged before `4de2eabd6`) and is merged into this branch by `66ccecc39`, so this is support on `main` (§9) ch18:22 (B06) uses only the owner's A4 decision (#1169 c.7048255658) |
 | #1169 comments 7056875845, 7048255658, 7035888700, 7057200720 | authorization; A4 decision; glossary:105 routing; SC-42 precedent | provenance (owner records) |
 | PR #1475 | this unit's guiding PR | provenance |
 
@@ -172,13 +172,11 @@ prefixes and one added entry (the amended text lies beyond each stored 60-charac
   cheap gate checks above. No mathematical claim is added or strengthened; the near-return condition,
   (REV) and the region-level form are taken from statements on `main` (Main §2.3 corollary, §4.5 item
   (iii), §4.6) and S2-C/S2-D wording.
-- **Missing.** Independent non-author review of the 45 edits and amendment A1; the landing of #1470
-  before this unit (support off `main`, §6); the SC-42 result regeneration (owner
-  decision); the ledger reconciliation after Step 2 (not done here); the deletion edit for the three
+- **Missing.** Independent non-author review of the 45 edits, amendment A1 and the catch-up merge (§9);
+  the ledger reconciliation after Step 2 (not done here); the deletion edit for the three
   deferred sites and ch18:40's pointer.
 - **Accountable Issue.** #1169.
-- **Resolution.** A recorded review of this branch's head, and the owner's decision on the SC-42
-  regeneration.
+- **Resolution.** A recorded review of this branch's head. The SC-42 result was regenerated in §9.
 
 ## 8. Answer to review round 1 (REVISE, light, at `8e52b2177`)
 
@@ -191,3 +189,52 @@ prefixes and one added entry (the amended text lies beyond each stored 60-charac
 | Nit 3, nit 4 | Skipped (coordinator instruction) |
 | Nit 5 | Recorded in §5 for the reconciliation |
 | Nit 6 | Applied: A1-N6 drops "For a finite substratum," |
+
+## 9. Catch-up with `main` at `4de2eabd6` (S2-A to S2-D landed)
+
+**Merge.** `66ccecc39` merges `origin/main` at `4de2eabd6c7c88dc214db70a813ec44b8641b630` (first parent
+this branch, second parent `main`; no rebase). Since the base `1c7eedc40`, `main` took in S2-A #1470,
+#1476, S2-B #1473, S2-C #1474, the baseline record #1471 and S2-D #1472.
+
+**Conflicts.** No `.md` file conflicted: the only file both sides changed is FULL.md, at disjoint lines,
+and git merged it line by line. No manuscript line was resolved by hand, so there is no resolved line to
+quote. The two conflicts were the generated `book/The-Incompleteness-of-Observation-FULL.tex` and
+`.pdf`, both regenerated from the merged FULL.md by `sh ./build.sh --book` (`build: OK`, 490 pages;
+median characters per page 2946, against 2937 for `main`'s PDF).
+
+**Union check.** Every `.md` equals the base plus all landed units plus S2-E's accepted edits, and
+nothing more:
+- the 13 `.md` files only `main` changed (Main, SM, GR, Substratum, Structure, ch01, ch02, ch04, ch05,
+  ch06, ch19, appB, appC) are byte-identical to `main` (`git diff origin/main` empty);
+- the 7 `.md` files only S2-E changed (Computation, Complexity, Medicine, Methodology, ch14, ch18,
+  glossary) are byte-identical to the S2-E head before the merge (`git diff` against it empty);
+- FULL.md: applying S2-E's 28 FULL edits (the book edits of the 45, with the five amendments composed in)
+  to `main`'s FULL.md, each old string unique there, reproduces the merged FULL.md byte for byte;
+- `s2e_check.py`: `applied check PASS (45 edits, 5 amending, 0 failure(s))` on the merged tree.
+
+**Copied wordings against what landed.**
+- S2-C's return parenthesis occurs verbatim in `main`'s appC:104 and ch01:179 and in S2-E's ch18:166 and
+  glossary:105; "assumed as a hypothesis and not adopted" as in ch01:179.
+- S2-D's two Cx:212 new strings, extracted from `main`'s `a1exit-s2d-20261121/RESULT.md` §3, both occur in
+  Cx:212.
+- S2-A's A4 phrases on `main` (Sub:98, ch02:82: "as the standard construction, distinct from a continuous
+  space", "admitted as a qualified case, under the conditions on $P$ stated with each result that uses
+  it") are those S2-E's E07, B07 and B17 restate.
+
+**Coverage and other checks.** `coverage_check`: OK, no stale entry. `duplicate_check`: it first failed on
+this record, because PREREG E08a and E10 carried the same "Ledger row / Source" bullet. E10's source
+annotation (PREREG line 303 and `s2e_edits.json`) gains ", applied to the constructive-OSR claim". This
+changes no edit string; `duplicate_check` is then OK. The `s2e_check.py` docstring now states the
+amendment check as implemented (round-2 nit). Register: the SC-42 added-text scan reports 0 failures.
+
+**SC-42 regeneration** (owner approval as for S2-D, #1169 comment 7057200720, relayed by the
+coordinator for this unit). From the merged tree:
+- `check_sc42_integration.py` (normal) exits 0 with 0 `"ok": false`; the `-O` run is byte-identical;
+- `--verbose` output (the CI comparison) is byte-identical to the regenerated
+  `sc42-integration-result.json`;
+- `--self-test`, normal and `-O`, are byte-identical to the unchanged `sc42-integration-controls.json`.
+
+The diff against `main`'s file is exactly the earlier list, at shifted line numbers: six changed
+predicates (lines 7067, 7079, 7127, 7171, 7175, 7203; ch18:166, :172, :192, :242, :244, :288) and one
+added entry after line 7158 (ch18:230, the Levin paragraph). Every entry is a stored prefix of an S2-E
+ch18 line, and each check is `ok`.

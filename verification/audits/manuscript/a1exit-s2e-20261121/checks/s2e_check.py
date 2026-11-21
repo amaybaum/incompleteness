@@ -9,9 +9,11 @@ Modes:
   applied  (default) every new string occurs exactly once in its file (and in FULL.md for a
            book edit); no old string survives except inside its own new string; each book
            line carrying an edit is byte-identical to its FULL.md counterpart. With
-           s2e_amend1.json present, a base edit's expected new string carries its amendment,
-           and each amendment's new string occurs once (its old string not at all).
-  apply-amend  check each amendment's old string occurs once in ch18 and FULL.md, then apply.
+           s2e_amend1.json present, a base edit's expected new string carries its amendment
+           (and is checked for uniqueness as above), and each amendment's old string does not
+           occur in ch18 or FULL.md.
+  apply-amend  check each amendment's old string occurs exactly once in ch18 and in FULL.md,
+           then apply.
 Exit status 0 on success, 1 on any failure.
 """
 import json, os, sys
