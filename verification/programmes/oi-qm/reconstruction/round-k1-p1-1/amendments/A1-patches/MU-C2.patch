@@ -1,0 +1,8 @@
+--- a/verification/lean/k1p1_enum_b.py
++++ b/verification/lean/k1p1_enum_b.py
+@@ -509,3 +509,4 @@
+     m = f2_matrix(phi_coefficients(N), nc, Q)
+     # Instance-only inverse construction: the eventual MU-C2 patch changes one entry here.
+-    minv = f2_matrix(phi_inverse_coefficients(N), nc, Q)
++    minv = f2_matrix(phi_inverse_coefficients(N), nc, Q)
++    minv[0] ^= cell_mask(nc, 0)

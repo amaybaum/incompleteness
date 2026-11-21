@@ -1,0 +1,7 @@
+--- a/verification/lean/k1p1_enum_a.py
++++ b/verification/lean/k1p1_enum_a.py
+@@ -76,3 +76,3 @@
+ Q = 2
+ A_COUP = 1
+-T = 1
++T = 2
