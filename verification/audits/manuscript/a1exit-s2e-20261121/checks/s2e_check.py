@@ -8,7 +8,10 @@ Modes:
            file and, for a book edit, in FULL.md.
   applied  (default) every new string occurs exactly once in its file (and in FULL.md for a
            book edit); no old string survives except inside its own new string; each book
-           line carrying an edit is byte-identical to its FULL.md counterpart.
+           line carrying an edit is byte-identical to its FULL.md counterpart. With
+           s2e_amend1.json present, a base edit's expected new string carries its amendment,
+           and each amendment's new string occurs once (its old string not at all).
+  apply-amend  check each amendment's old string occurs once in ch18 and FULL.md, then apply.
 Exit status 0 on success, 1 on any failure.
 """
 import json, os, sys
@@ -16,6 +19,15 @@ import json, os, sys
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), *[".."] * 5))
 FULL = "book/The-Incompleteness-of-Observation-FULL.md"
 EDITS = json.load(open(os.path.join(os.path.dirname(__file__), "s2e_edits.json"), encoding="utf-8"))
+_AM = os.path.join(os.path.dirname(__file__), "s2e_amend1.json")
+AMEND = json.load(open(_AM, encoding="utf-8")) if os.path.exists(_AM) else []
+# In `applied` mode a base edit's expected new string carries its amendment.
+_BY_ID = {e["id"]: e for e in EDITS}
+for a in AMEND:
+    b = _BY_ID[a["amends"]]
+    assert b["new"].count(a["old"]) == 1, a["id"]
+    b["new_preregistered"] = b["new"]
+    b["new"] = b["new"].replace(a["old"], a["new"])
 
 
 def read(p):
@@ -64,8 +76,35 @@ def check_applied():
     return bad
 
 
+def check_amend(applied):
+    bad = 0
+    for a in AMEND:
+        for f in targets(a):
+            t = read(f)
+            want, gone = (a["new"], a["old"]) if applied else (a["old"], a["new"])
+            if t.count(want) != 1:
+                print(f"FAIL {a['id']} {f}: {'new' if applied else 'old'} occurs {t.count(want)}x"); bad += 1
+            if applied and t.replace(a["new"], "").count(a["old"]):
+                print(f"FAIL {a['id']} {f}: old survives"); bad += 1
+            if not applied and gone in t:
+                print(f"FAIL {a['id']} {f}: new already present"); bad += 1
+    return bad
+
+
 def main():
     mode = sys.argv[1] if len(sys.argv) > 1 else "applied"
+    if mode == "apply-amend":
+        bad = check_amend(False)
+        if bad:
+            print(f"amendment base check: {bad} failure(s)"); return 1
+        for a in AMEND:
+            for f in targets(a):
+                write(f, read(f).replace(a["old"], a["new"], 1))
+        print(f"amendment applied ({len(AMEND)} edits)")
+        return 0
+    if mode in ("base", "apply") and AMEND:
+        for e in EDITS:
+            e["new"] = e.get("new_preregistered", e["new"])
     if mode in ("base", "apply"):
         bad = check_base()
         if bad:
@@ -77,8 +116,8 @@ def main():
                     write(f, read(f).replace(e["old"], e["new"], 1))
             print("applied")
         return 0
-    bad = check_applied()
-    print(f"applied check {'PASS' if not bad else 'FAIL'} ({len(EDITS)} edits, {bad} failure(s))")
+    bad = check_applied() + check_amend(True)
+    print(f"applied check {'PASS' if not bad else 'FAIL'} ({len(EDITS)} edits, {len(AMEND)} amending, {bad} failure(s))")
     return 1 if bad else 0
 
 
