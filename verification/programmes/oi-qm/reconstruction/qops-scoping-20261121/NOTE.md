@@ -41,7 +41,8 @@ plan with a preregistration sketch, and none has been run.
     `RC/quarter-phase-feedback-20261107/`, QF).
 - **Open sibling records, read only, cited at their reviewed heads:**
   - NU, NATIVE-UNIV step 1, at `RC/native-univ-feasibility-20261121/NOTE.md` on draft #1489,
-    head `f77a892d` (delta re-review CONFIRMED WITH NITS, nits applied);
+    head `2572854b` (delta check CONFIRMED,
+    [#1489 c.7064397220](https://github.com/amaybaum/incompleteness/pull/1489#issuecomment-7064397220));
   - BQ, BQP-AUDIT, at `verification/audits/complexity/bqp-audit-20261121/AUDIT.md` on draft #1488,
     head `c8d87ff4` (CONFIRMED).
 
@@ -92,7 +93,7 @@ plan with a preregistration sketch, and none has been run.
      the orbit and commutant structure of the native gates, which saturation does not decide.
    - *Preparation and fault tolerance (H-QOPS-S).* A non-invariant entropy sink or supply. PR1
      shows that reversible native dynamics creates no preparation supply in law. Fault tolerance
-     needs entropy removal at a positive rate [LIT-R]. Either fresh ancillas (ABIN 1996) or
+     needs entropy removal at a positive rate [W, from the literature of §3.2]. Either fresh ancillas (ABIN 1996) or
      non-unital noise (Ben-Or, Gottesman and Hassidim 2013) can supply it.
    - *Measurement (H-QOPS-M).* A bounded breach acting as a latch, the AW-MQ-2 task. It shares
      its node, the bounded breach, with NU's decisive question for Q.
@@ -159,7 +160,7 @@ verification layer.
 | G11 | For homogeneous linear Pauli encodings with a common preparation lift, record feedback does not supply the quarter phase while constant translations stay available | `RC/quarter-phase-feedback-20261107/RESULT.md:16` | paper obstruction, reviewed ACCEPT | R |
 | G12 | Native gate ball, dimension-free core: two d-balls with a common NOT and the native CNOT relations force `d ∈ {1, 3}` | `NativeGateBall.lean:255` `nb1_kernel_core`; `ParityNot.lean` | kernel layer only; the theorem itself is layered and partly by hand | K (core), P (rest) |
 | G13 | Classical computation in the native rule:<br>• linear members with prime-power `q` are not universal in Definition U;<br>• Q has signal, crossing and memory, and no turn, gate or fan-out was found within bounds;<br>• the bounded U2 families give no controlled turn | U1 `RESULT.md:64`, `:82`; U2 `RESULT.md:43` | theorem (linear); bounded negatives (Q) | R (reviewed); [S] evidence about searched sets only |
-| G14 | NU:<br>• every rule of the *narrow class* (nearest neighbours at every state, no self-term) splits into two staggered involution rules;<br>• Goal A, the broad class (second-order form mod `q`, finite alphabet, local translation-commuting coupling), is answered positively at sketch level by Margolus (1984, App. A), a comparison rule outside the narrow class;<br>• the narrow class and Q are open;<br>• the decisive question for Q is a bounded breach that moves a signal.<br>Owner: a universal rule in OI's update form does not establish universality of OI's native rule (#1169 c.7064226074) | NU `NOTE.md:68`, `:89–102`, `:301–334` | reviewed record (CONFIRMED WITH NITS) | RR |
+| G14 | NU:<br>• every rule of the *narrow class* (nearest neighbours at every state, no self-term) splits into two staggered involution rules;<br>• Goal A, the broad class (second-order form mod `q`, finite alphabet, local translation-commuting coupling), is answered positively at sketch level by Margolus (1984, App. A), a comparison rule outside the narrow class;<br>• the narrow class and Q are open;<br>• the decisive question for Q is a bounded breach: for a finite gadget alone, a periodic orbit with excursions (Lemma NU2); in a junction with signals on unbounded lines, a breach that returns to `[c−1, c+1]` without radiation and moves a signal;<br>• Lemma NU2 [W]: under a reversible (bijective) global map, a finite alphabet and a fixed-point background, a finite perturbation whose support stays in one finite set is periodic; `R_q` meets all three hypotheses;<br>Owner: a universal rule in OI's update form does not establish universality of OI's native rule (#1169 c.7064226074) | NU `NOTE.md:75`, `:96–112`, `:292–305`, `:330–367` | reviewed record (CONFIRMED) | RR |
 
 ### 1.4 Interference
 
@@ -469,7 +470,7 @@ properties:
   second carrier.
 
 This is the AW-MQ-2 task (MQ `RESULT.md:549`). It shares its node, the bounded breach, with NU's
-decisive question for Q (NU `NOTE.md:324`). NU asks only that a breach heal without radiation
+decisive question for Q (NU `NOTE.md:353`). In a junction, NU asks only that a breach heal without radiation
 and move a signal. AW-MQ-2's four clauses (bounded record, restoration, held readiness,
 `N ≥ 2`) are stronger.
 
@@ -533,9 +534,9 @@ a locality decomposition and a per-location norm.
 
 ## 4. Dependencies on NATIVE-UNIV and BQP
 
-**NATIVE-UNIV (#1461; NU [RR], head `f77a892d`).**
+**NATIVE-UNIV (#1461; NU [RR], head `2572854b`).**
 1. *Control.* H-QOPS-C's native form is NU's question (§3.4). The measurement latch of H-QOPS-M
-   shares NU's decisive node, the bounded breach (NU `NOTE.md:324`). NU's question asks for a
+   shares NU's decisive node, the bounded breach (NU `NOTE.md:353`). NU's question asks for a
    controlled signal transfer, and AW-MQ-2's task is stronger (§3.3).
 2. *Necessary, not sufficient [W].* A positive NU answer would give native classical control.
    Any configuration-level construction stays in a permutation class. By G3 and G4, a theory
@@ -548,9 +549,9 @@ a locality decomposition and a per-location norm.
 4. *T1 does not depend on NU.* It concerns operators, not their selective application.
 5. *What NU does and does not establish (reviewed text, and the owner on #1169 c.7064226074).*
    - Goal A, the broad class, is answered positively at sketch level by Margolus's comparison
-     rule (NU `NOTE.md:305`).
+     rule (NU `NOTE.md:334`).
    - The narrow class (nearest neighbours at every state, no self-term) and Q are open
-     (`NOTE.md:311`, `:321`, `:331`).
+     (`NOTE.md:340`, `:350`, `:360`).
    - Owner: "A universal rule that shares OI's mathematical update form does not establish
      universality of OI's actual native rule."
 
@@ -636,6 +637,6 @@ assumption. The classifications below are the writer's proposals.
   - Shtanko–Sharma: not read.
 - **Not done.** No computation, no Lean, no search. The only literature read is listed above. No manuscript is
   edited. The tests are not run.
-- **Sibling inputs.** NU and BQ are cited read-only at their reviewed heads, `f77a892d` and
+- **Sibling inputs.** NU and BQ are cited read-only at their reviewed heads, `2572854b` and
   `c8d87ff4`, on open draft PRs. If either head moves, the rows citing it (G14, H1, §3.1, §4) are
   to be re-checked.
