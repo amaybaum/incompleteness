@@ -4,7 +4,8 @@
 proof, no computation and no new result. It changes no manuscript, Lean file, ledger row, registry
 file, Theorem 23 text or #1477 file. Every relation marked ESTABLISHED below is cited from a record
 or a kernel statement already on `main`, with the hypotheses that source states. Revision answering
-the independent review of `193d162b` (REVISE, #1534 c.7068536611) and its delta review of `5638bf73` (REVISE, narrow).
+the independent review of `193d162b` (REVISE, #1534 c.7068536611) its delta review of `5638bf73` (REVISE, narrow, #1534 c.7068625620), and the final check of
+`3f467e66` (CONFIRMED WITH NITS, #1534 c.7068679630).
 
 **Authorization.** Owner decision on #1169,
 [comment 7068325638](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7068325638)
@@ -314,8 +315,12 @@ tests whether IC-A, taken from observed data, transfers to every realization, an
    with no finite representative, a (FO) route, if credited, replaces recurrence-scale conclusions
    with window-scale ones and does not recover IC-R. On a finite representative it does: IC-A makes
    some `Γ_s` a non-permutation (a family of permutation matrices is P-divisible, Main:141, "if every
-   Γ_s is a permutation, Γ_s^{-1}Γ_t is a stochastic divisor"), and with `Γ_L = I` the
-   overlap-and-return theorem (Main:143; Main:137 final clause) then gives IC-R on `{0,…,L}`.
+   Γ_s is a permutation, Γ_s^{-1}Γ_t is a stochastic divisor"). The representative has finite order
+   `L`, so `Γ_{t+L} = Γ_t`; replace `s` by `s mod L`, which is nonzero because `Γ_0 = I` is a
+   permutation, so `0 < s mod L < L` and the hypothesis `s < n = L` holds. A non-permutation
+   row-stochastic matrix has two distinct rows sharing positive mass (Main:131, proof of the
+   near-return corollary). With `Γ_L = I`, the overlap-and-return theorem (Main:143; Main:137 final
+   clause) then gives IC-R on `{0,…,L}`.
 
 **Decision rule.**
 - If the transfer holds under exactly (FS) and root independence: record "(FO) ⇒ IC-A for every
@@ -493,7 +498,7 @@ of Main:60 and Theorem 24 (iii), the rooted family is unchanged.
 | V12 | Bounded local work (§A.40) | N4 and N5 computations run only after authorization, with stated size bounds; any run beyond those bounds moves to CI or stops with the partial state published |
 | V13 | Independence from P2-B and P2-C | The result lists every file read, with path and commit; the list contains no path under `verification/audits/foundations/recon-inf-p2b-20261121/` or `verification/audits/foundations/recon-inf-p2c-20261121/`, and no object read from branch `research/recon-inf-p2b-20261121` or `research/recon-inf-p2c-20261121`; reviewer check of the list against those directories and branches |
 | V14 | Literature step before any node verdict | The literature table (§3) is committed in a commit that is an ancestor of the first commit recording any node verdict; checked by `git merge-base --is-ancestor` |
-| V15 | Pressure test before each favourable verdict | Each verdict that N1 or N5 records under its first outcome is preceded, in the same or an earlier commit, by a subsection recording every item of that node's pressure test with its result; reviewer check per verdict |
+| V15 | Pressure test before each favourable verdict | Each verdict that N1 or N5 records under its first outcome, and each verdict that N3 records under its empirical branch, is preceded, in the same or an earlier commit, by a subsection recording every item of that node's pressure test with its result; reviewer check per verdict |
 | V16 | N5 only after #1523's status is settled | The first commit touching N5 cites the comment or merge that settles #1523's status, by id and time; absent that citation, no N5 commit is admissible |
 
 ## 6. Productivity test (fixed before any node is run)
@@ -567,3 +572,5 @@ the construction.
 | #1169 c.7068325638 | Authorization | Quoted with author and time |
 | #1169 c.7068447675 | Owner's verbatim scope | Quoted with author and time |
 | #1534 c.7068536611 | Review answered by this revision | Provenance |
+| #1534 c.7068625620 | Delta review answered by this revision | Provenance |
+| #1534 c.7068679630 | Final check (CONFIRMED WITH NITS) whose nits this revision applies | Provenance |
