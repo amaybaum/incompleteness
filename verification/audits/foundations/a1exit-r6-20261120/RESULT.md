@@ -1,15 +1,22 @@
 # A1-EXIT R6 — lemmas L6, L7, L9 on infinite hidden carriers: result
 
-**Status.** Writer's paper-only research record, WIP / UNVERIFIED. Targets, classification rule,
-disguised-A1 test and controls were fixed in `PREREG.md` (commit `8fb6b663`, pushed before this
-file and unchanged since). Every proof below is a [W] paper derivation by the writer, not yet
-checked by an independent reviewer; computations are exact (`fractions.Fraction`), in
-`r6_controls.py`, with outcomes in `r6_controls.json`. No manuscript, Lean, registry, book or mirror
-edit; no premise adoption. A1 (Main posit ledger item (ii)) remains open and unadopted. Independent
-non-author review is required before any use of this record, and Step 2 (manuscript propagation) is
-queued, not authorized. Revised after the independent review of `62a4332b`
-([PR #1467](https://github.com/amaybaum/incompleteness/pull/1467), round 1, REVISE, record only);
-the review is answered in §12. A delta review is required.
+**Status.** Writer's paper-only research record, accepted after independent non-author review on
+[PR #1467](https://github.com/amaybaum/incompleteness/pull/1467) (round 1 at `62a4332b`, REVISE,
+[comment 7048283597](https://github.com/amaybaum/incompleteness/pull/1467#issuecomment-7048283597); round 2 at
+`8ecb3b12`, ACCEPT-WITH-NITS,
+[comment 7048749116](https://github.com/amaybaum/incompleteness/pull/1467#issuecomment-7048749116); a
+final-head check of `81718175`, relayed by the coordinating session and not posted, answered at
+`1aae7562` (§12); the edits of `1aae7562` reviewed after landing, ACCEPT,
+[comment 7050047312](https://github.com/amaybaum/incompleteness/pull/1467#issuecomment-7050047312)) and
+landed by owner decision, recorded at
+[#1169 comment 7049542030](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7049542030)
+(`amaybaum`, 2026-11-20T20:11:42Z). Targets, classification rule, disguised-A1 test and controls were
+fixed in `PREREG.md` (commit `8fb6b663`, pushed before this file and unchanged since). Every proof
+below is a [W] paper derivation by the writer, not kernel-checked, and checked by those reviews;
+computations are exact (`fractions.Fraction`), in `r6_controls.py`, with outcomes in
+`r6_controls.json`. No manuscript, Lean, registry, book or mirror edit; no premise adoption. A1 (Main
+posit ledger item (ii)) remains open and unadopted. Step 2 (manuscript propagation) is queued, not
+authorized. The reviews are answered in §12.
 
 **Authorization, goal link, source pin.** As `PREREG.md`: owner `amaybaum`,
 [#1169 comment 7047514209](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7047514209),
@@ -29,14 +36,14 @@ standard library only).
 
 | Target | Part | Statement (short) | Proof status | Layer | Disguised-A1 test | Class |
 |---|---|---|---|---|---|---|
-| T6 | (i)–(iv) | Hidden-prior mixture family `Φ_t = Σ_π ρ(E_t(π)) Ψ_π` on a measurable hidden space: equals Main's family on finite `H`; CPTP; diagonal-preserving with populations `Γ_t`; P-indivisibility of `Γ` ⇒ CP-indivisibility | proved [W], unreviewed; finite recovery exhaustive (K1) | paper + exact finite computation | passed (odometer, K3b) | **INF** |
+| T6 | (i)–(iv) | Hidden-prior mixture family `Φ_t = Σ_π ρ(E_t(π)) Ψ_π` on a measurable hidden space: equals Main's family on finite `H`; CPTP; diagonal-preserving with populations `Γ_t`; P-indivisibility of `Γ` ⇒ CP-indivisibility | proved [W], reviewed; finite recovery exhaustive (K1) | paper + exact finite computation | passed (odometer, K3b) | **INF** |
 | T6 | P witness on infinite carriers | non-permutation `Γ_s` ⇒ P-indivisible | not by itself (K3a countermodel); under (NR) M:131 [paper, on `main`], under RIGID compactness [Lean, on `main`] | paper / Lean / exact | (NR) passed (K3b) | **WEAK** (named condition (NR) or (RIG)) |
 | T6-K (α) | diagonal preservation, constant-vector state | Koopman unitary on `ℂ^V ⊗ L²(H,ρ)` with the normal hidden state `\|ψ⟩⟨ψ\|`, `ψ` the normalized constant function, preserves diagonals | refuted on every carrier, finite ones included: exact countermodel (swap, `\|H\| = 2`, K2(i)), lifted to a diffuse carrier by T9(a) | exact + paper | — | **REFUTED** (outside the four preregistered classes; §12 D1) |
 | T6-K (β) | diagonal preservation, diagonal normal state | Single-unitary (permutation or isometry) dilation with a diagonal normal hidden state | proved for every purely atomic `ρ`, countably infinite ones included (§3.2, countable carriers); undefined on a carrier with a diffuse part, where no diagonal normal state exists (Prop. 6.7: non-existence, not a countermodel) | paper | purely atomic laws are not A1 (countably infinite carriers qualify) but fail the preregistered diffuse-exhibit test | **outside the four preregistered classes** (holds on purely atomic laws; undefined on diffuse ones; §12 D1) |
 | T6-K (γ) | diagonal preservation, other non-diagonal normal states | Finite `H`: some permutation breaks it for every non-diagonal `μ_H`; diffuse `ρ`: whether every normal state fails for some `F` | finite `H`: proved [W] (Prop. 6.9); diffuse: not shown | paper | — | finite: refuted for every non-diagonal state; diffuse: **OPEN** |
 | T6-K | CP theorem, `\|V\| = 2` | Koopman family with the constant vector, `F` preserving `c ⊗ ρ` | proved [W] (Lemma 6.8), consistent with K2 (0 countermodels in 244 728 decided pairs; 0 violations of the lemma's identity) | paper + exact | passed | **INF** (`\|V\| = 2`, under `c⊗ρ` invariance) |
 | T6-K | CP theorem, `\|V\| ≥ 3` | same | no countermodel among 1 104 decided pairs at `(3,2)`, 3 312 + 6 144 undecided | exact (partial) | — | **OPEN** (not consumed by M9) |
-| T7 | all | C2 quantitative theorem (M:459) and physical-memory theorem (M:473) on any measurable hidden space, any reference probability | proved [W], unreviewed | paper | passed (Bernoulli, K3a) | **INF** |
+| T7 | all | C2 quantitative theorem (M:459) and physical-memory theorem (M:473) on any measurable hidden space, any reference probability | proved [W], reviewed | paper | passed (Bernoulli, K3a) | **INF** |
 | T9 | (a) | decoupled factor on a Hilbert space of any dimension, normalized state (normal for the Schrödinger form; any state for the Heisenberg form), any unitary or isometric dynamics: reduced channel family unchanged | proved [W] | paper | passed | **INF** |
 | T9 | (b) | classical factor `(A, α)`, `α` a probability, any measurable map: mixture and rooted families unchanged | proved [W] | paper | passed | **INF** |
 | T9 | (c) | Theorem 24(i) relabelling on a measurable hidden carrier | proved [W] under ρ-preservation; countermodel without it (K4) | paper + exact | passed | **WEAK** (σ preserves ρ) |
