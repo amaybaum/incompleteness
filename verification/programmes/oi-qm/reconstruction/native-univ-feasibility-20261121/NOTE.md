@@ -3,8 +3,10 @@
 **Standing.** Writer's research record for Issue #1461, order step 1 (feasibility) only.
 Independent non-author review at `f87afd04`: REVISE
 ([#1489 c.7064054072](https://github.com/amaybaum/incompleteness/pull/1489#issuecomment-7064054072)),
-mathematics confirmed; its items R1–R3 and N1–N5 are answered in appended commits, not yet
-re-reviewed. No construction attempt (step 2 is not authorized), no manuscript, Lean or
+mathematics confirmed; its items R1–R3 and N1–N5 are answered in . Delta re-review at
+: CONFIRMED WITH NITS
+([#1489 c.7064102580](https://github.com/amaybaum/incompleteness/pull/1489#issuecomment-7064102580));
+its nits n1–n3 are applied. No construction attempt (step 2 is not authorized), no manuscript, Lean or
 registry edit, no premise adoption. One small exact check (§3.1, §7), preregistered in `PREREG.md`
 before the script was written.
 
@@ -326,7 +328,8 @@ Stated only at the level established, for each goal of c.7047109654.
   - *Not the alphabet.* At `q = 2^16` the pair alphabet has 2^32 symbols, so the minimal-alphabet
     literature does not bear on Q. What has to be shown concerns this particular rounded `F`.
 - **Goal C (physical emergence)** is not addressed (#866, AW-MQ-2).
-- **Not feasible-in-principle, not obstructed.** Neither stronger verdict is supported. A
+- **For the narrow class and for Q: not feasible-in-principle, not obstructed.** Neither stronger
+  verdict is supported for them. A
   universal rule in the second-order form exists. That does not show that the narrow class admits
   one, and it says nothing about Q.
 
@@ -347,7 +350,8 @@ heavy part runs in CI under an approved workflow (§A.40, §A.43 item 4).
   - Paper task beside it: whether a staggered involution rule can realize a block permutation of
     a Kari / Durand-Lose decomposition at enlarged `q`.
   - The closest located construction for that task is Morita–Ueno's 16-state two-dimensional
-    partitioned CA (1992) [LIT-B]. The reviewer recalls each new cell state as reading only the
+    partitioned CA (1992) [LIT-B for the bibliographic record and the 16-state count; LIT2 for the
+    neighbourhood description]. The reviewer recalls each new cell state as reading only the
     facing parts of the four neighbours, which is nearest-neighbour and centre-free but first-order
     and partitioned; this record has not re-read it. It is a candidate comparison model only, and
     nothing here simulates it.
