@@ -73,6 +73,7 @@ PIN_S2 = '7f28886f4cc96fbfa7407af1fdc37de2f0e562e5'     # drafting base: all fiv
 LEDGER_ROWS = 'verification/audits/foundations/a1exit-ledger-20261120/rows.json'   # read at PIN_S2
 DEL_EDITS = 'verification/audits/foundations/a1exit-deletion-20261121/edits.json'
 EDITS_S2 = os.path.join(HERE, 'inputs', 'edits-s2.json')
+FINITENESS_CASES = os.path.join(HERE, 'inputs', 'finiteness-cases.json')   # test fixture (T13e)
 DELETION_UNIT = 'DEL'
 REPO_URL = 'https://github.com/amaybaum/incompleteness'
 EXIT = {'PASS': 0, 'FAIL': 5, 'PENDING': 3, 'VOID': 4}
@@ -210,7 +211,8 @@ def read_json(path):
 FROZEN_FILES = {'baseline.py': os.path.join(RECORD, 'baseline.py'),
                 'snapshot.json': os.path.join(RECORD, 'snapshot.json'),
                 'compare/verdict.py': os.path.abspath(__file__),
-                'compare/inputs/edits-s2.json': EDITS_S2}
+                'compare/inputs/edits-s2.json': EDITS_S2,
+                'compare/inputs/finiteness-cases.json': FINITENESS_CASES}
 
 
 def digests():
@@ -881,7 +883,7 @@ def allowlist(rows=None):
     return [a['phrase'] for a in ALLOWLIST]
 
 
-def j10_hits(before, after, promotion=None, infinity=None, allow=None):
+def j10_hits(before, after, promotion=None, infinity=None, allow=None, finite=None):
     """The vocabulary layer of J10: terms whose count rises from the before text to the after text, both
     normalized and with allowlisted whole sentences removed; and a fall in finite-scope terms."""
     allow = allowlist() if allow is None else allow
@@ -893,7 +895,8 @@ def j10_hits(before, after, promotion=None, infinity=None, allow=None):
         for p in pats:
             if len(re.findall(p, a, re.I)) > len(re.findall(p, b, re.I)):
                 hits.append('%s %s' % (name, p))
-    if len(FINITE_TERMS.findall(a)) < len(FINITE_TERMS.findall(b)):
+    fin = FINITE_TERMS if finite is None else finite
+    if len(fin.findall(a)) < len(fin.findall(b)):
         hits.append('finite-scope term lost')
     return hits
 
@@ -1837,6 +1840,14 @@ def self_test():
     seq_ok = (changed('a b c', 'a c b') and changed('x.', 'x') and changed('a  b', 'a b')
               and not seq_changed('a  b', 'a b') and not set_changed('a b c', 'a c b')
               and changed('x.', 'x. ' + ALLOWLIST[1]['phrase']) and not j10_hits('x.', 'x. ' + ALLOWLIST[1]['phrase']))
+    # T13e the nine planned deletion records that remove only "finiteness" (classifier finding): each loses
+    # a finite-scope term; with the earlier narrow list (\bfinite\b) at least seven go undetected
+    fx = read_json(FINITENESS_CASES)['records']
+    lost = [r['id'] for r in fx if 'finite-scope term lost' in j10_hits(r['old'], r['new'])]
+    narrow = re.compile(r'\bfinite\b|for a finite|finite[- ]only|finite representative|finite substrat', re.I)
+    missed = [r['id'] for r in fx if not j10_hits(r['old'], r['new'], finite=narrow)]
+    report('T13e the 9 "finiteness" removals each lose a finite-scope term; the narrow-list mutant misses >= 7',
+           len(fx) == 9 and len(lost) == 9 and len(missed) >= 7, 'lost %d; narrow list misses %s' % (len(lost), missed))
     # T13d exactness: H equals the replay except for one doubled space -> not J, flagged
     cm, ed, cl, af, e = gr134(', for every $S$')
     f134 = ent['GR:134']['file']
