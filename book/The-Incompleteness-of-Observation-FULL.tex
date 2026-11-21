@@ -3135,12 +3135,14 @@ description.
 
 \emph{(A4) Center independence.} The dynamics does not depend on a
 choice of preferred site or origin: \(\varphi\) commutes with lattice
-translations up to gauge (the coupling graph is a finite periodic
-lattice, the quotient of a rank-\(d\) lattice by a finite-index
-sublattice, \(d\) being its dimension), and the update at a site
-contains no explicit copy of that site's present value. The second
-property is what the derivation of the wave equation in Stage 2 below
-uses.
+translations up to gauge (the coupling graph is the discrete lattice
+\(\mathbb{Z}^d\), \(d\) being its dimension, as the standard
+construction, distinct from a continuous space; a finite periodic
+quotient \(\mathbb{Z}^d/P\) by a finite-index sublattice \(P\) is
+admitted as a qualified case, under the conditions on \(P\) stated with
+each result that uses it), and the update at a site contains no explicit
+copy of that site's present value. The second property is what the
+derivation of the wave equation in Stage 2 below uses.
 
 \emph{(A5) Linearity.} The wave equation governing \(\varphi\) is
 linear. The affine characterization uses the stipulated
@@ -3218,11 +3220,12 @@ symmetries have their further hypotheses stated at the corresponding
 steps.
 
 The dimension argument follows the three-filter convergence described
-above. Under A4 the coupling graph is a finite periodic lattice of some
-integer dimension \(d\), an input of the assumption; statistical
-isotropy (E4) alone would not supply it. The filters E5--E7 then select
-\(d = 3\) on the stated continuum branch; they do not supply the
-integer-rank lattice assumption itself.
+above. Under A4 the coupling graph is the lattice \(\mathbb{Z}^d\) or,
+as a qualified case, a finite periodic quotient of it, of some integer
+dimension \(d\), an input of the assumption; statistical isotropy (E4)
+alone would not supply it. The filters E5--E7 then select \(d = 3\) on
+the stated continuum branch; they do not supply the integer-rank lattice
+assumption itself.
 
 The wave equation follows from center independence (A4), isotropy (E4),
 and linearity (A5), together with the nearest-neighbor restriction (an
@@ -6773,9 +6776,10 @@ bounded-degree graph need not have one: besides exponential growth
 integer-polynomial growth (\(|B(r)| \sim r^d\) for some integer \(d\)),
 there are graphs of intermediate growth (Grigorchuk) and graphs with no
 single growth exponent. Under A4 (Chapter 2) the integer is an input:
-the coupling graph is a finite periodic lattice, the quotient of a
-rank-\(d\) lattice by a finite-index sublattice, so \(|B(r)| \sim r^d\)
-below the system size and none of the other classes arises.
+the coupling graph is the discrete lattice \(\mathbb Z^d\) or, as a
+qualified case, a finite periodic quotient \(\mathbb Z^d/P\) by a
+finite-index sublattice \(P\), so \(|B(r)| \sim r^d\) (on a quotient,
+below the system size) and none of the other classes arises.
 Independently, self-consistency excludes the first two classes.
 
 Exponential growth fails because the wave equation on
@@ -6861,7 +6865,11 @@ the squared operator gives the associated two-step lattice operator,
 §4.2. Solutions of \(D_{\text{st}}\chi=0\) therefore satisfy
 \(\Box_{\text{lat}}\chi=0\). Matching the blocked stencil and solution
 classes to the normalized nearest-neighbor observer wave above is a
-separate step.
+separate step. On a finite periodic quotient of \(\mathbb Z^3\) (Chapter
+2, A4), the staggered phases and this two-step identity require every
+period vector to be even off one axis; the blocked stencil, the
+hypercube corners and the spin--taste grading used below require the
+period vectors to lie in \(2\mathbb Z^3\).
 
 The spin--taste algebra on the stated staggered branch is used in
 Chapter 6. The physical fermion identification and the map from the
@@ -7397,7 +7405,11 @@ signed vector action of the spin-taste matrices \(\gamma^j\); the
 unsigned pair labels alone transform only as \(A_1 \oplus E\), since
 sign flips act trivially on the corner components. The decomposition is
 exact: \[4 = \mathbf{1} \oplus \mathbf{3}.\] One singlet taste; three
-triplet tastes related by cubic symmetry.
+triplet tastes related by cubic symmetry. These are the corners and the
+cubic action of \(\mathbb Z^3\); a finite periodic quotient of it
+(Chapter 2, A4) carries all eight corners when its period vectors lie in
+\(2\mathbb Z^3\), and the cubic group acts on it when it maps the period
+lattice to itself.
 
 \textbf{Spin-statistics from the lattice.} The singlet taste produces a
 spin-0 field; the triplet tastes produce spin-\(1/2\) fields --- the
@@ -26991,4 +27003,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 71b8691cae60e2002f7225cc8653b0f2ed519a736894edd7328e9a3b250d7df2
+% source-sha256: 549a5e1df4df8f3def05ebd4e3a7b90ffc41c18d6b2312308b3a9aad9c9c9fec
