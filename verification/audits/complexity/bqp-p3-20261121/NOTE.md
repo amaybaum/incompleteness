@@ -190,7 +190,9 @@ algebra cost poly(n, log 1/ε) native sites and steps per use, at precision ε?
   - BQ1 treats one run;
   - OPRES and Proposition U treat one protocol.
 - **Candidates.** The hidden-sector mixing hypothesis, posit (v) (ETH-motivated, Main:736), or
-  the effective-mixing hypothesis (EM) behind the observer-selection rule (Main:736 ledger).
+  the effective-mixing hypothesis (EM) behind the structural observer-selection theorem
+  (Main:754–770). (EM) is stated with a mixing time τ_mix; whether that yields the needed
+  decorrelation is the question below.
   Neither is stated for repetition independence. Both are posits.
 - **Decisive sub-question (P2).** Does (v) or (EM) imply that the empirical frequency of
   "accept" over k successive runs concentrates at rate exp(−Ω(k)) around the single-run
