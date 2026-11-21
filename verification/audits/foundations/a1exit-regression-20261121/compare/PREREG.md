@@ -210,19 +210,24 @@ whitespace or the end:
 
 No other text is exempt. The earlier exemption of the clause "may be finite or infinite" is withdrawn.
 
-*Layer 1, structural (no vocabulary).* The normalized regions are read as token *sequences*: ASCII
-words, and every other non-space character singly, in order and with case kept. Whitespace is not a
-token, so a difference in whitespace alone is not seen; in Markdown prose it is inert.
-- **Change flag.** An item whose normalized after region differs from its normalized before region as a
-  token sequence is flagged `scientific_evaluation`, whatever its class. This covers insertions,
-  deletions, reorderings, swapped operands, flipped operators and punctuation.
-- **Non-J.** A covered item is never J if either of the following holds. It is R if marked or covered,
-  U otherwise, and it is flagged.
-  - The normalized token sequence of H's region differs from the sequence that replaying the cited
-    approved edits onto the baseline produces.
-  - H's region carries a token that neither the before region nor the new text of a cited edit carries.
+*Layer 1, the exact expected text (structural, no vocabulary).* The *expected text* of an item's region
+is what replaying its cited approved edits onto the baseline at the pin produces. It is derived only
+from independently frozen inputs: the pinned corpus, `inputs/edits-s2.json` (C0, C6 (a)–(c)) and the
+deletion edits compiled from the landed `edits.json` (C6 (d)). It is never derived from H, from
+`compare.json`'s texts, or from an earlier verdict. Both texts are normalized as above, and whitespace is
+kept character for character.
+- **Exactness (non-J).** A covered item is never J unless H's region equals its expected text
+  character for character. Any difference, whitespace included, makes it R if marked or covered, U
+  otherwise, and it is flagged. A covered item is also never J if H's region carries a token that
+  neither the before region nor the new text of a cited edit carries.
+- **Change flag.** An item whose normalized after region differs from its normalized before region,
+  whitespace included and allowlisted whole sentences removed, is flagged `scientific_evaluation`,
+  whatever its class.
+- **Diagnostics.** The token sequence (ASCII words and every other non-space character, in order) and
+  the finite-scope terms do not decide anything. They explain a flag in the item's notes: "token
+  sequence" or "whitespace only", and any finite-scope term lost.
 
-The allowlisted sentence followed by any further words changes the sequence, and is flagged.
+The allowlisted sentence followed by any further words changes the text, and is flagged.
 
 *Layer 2, the vocabulary (on the approved edits' texts).* For a covered item, the frozen vocabularies
 are counted, after normalization, in the before and after regions and in the old and new text of each
@@ -253,23 +258,26 @@ scientific evaluation. The terms, matched case-insensitively:
   `|S| < \infty`, `\lt \infty`, `< ∞`), `bounded`, `compact`. J9 uses the same terms.
 
 *What J10 guarantees, exactly.*
-- Every item whose normalized after region differs from its before region as a token sequence is
-  flagged, so every change other than in whitespace reaches the scientific evaluation. That includes
-  added, deleted and reordered wording, operators and punctuation, recognized or not.
-- No item can be J unless H's region equals, as a normalized token sequence, the region that
-  replaying its cited approved edits onto the baseline produces, and carries no token from outside
-  that baseline region and those edits' new texts.
-- No item whose cited edits gain a vocabulary term, or lose a finite-scope term, can be J.
+- **Exactness.** No item is J unless H's region equals, character for character after normalization,
+  the expected text that replaying its cited approved edits onto the baseline produces. Every other
+  difference is non-J and flagged. This includes added, deleted or reordered wording, operators,
+  punctuation and whitespace.
+- **Change flag.** Every item whose region differs from its baseline is flagged, so every change
+  reaches the scientific evaluation, J or not.
+- **Vocabulary.** No item whose cited edits gain a vocabulary term, or lose a finite-scope term, is J.
 
-A change made by an approved edit and worded outside the vocabulary can be J, but it is flagged.
+These are statements of conformance to the frozen approved plan. **The mechanical comparison
+establishes that H is the approved plan applied to the baseline. It does not establish that the plan
+is scientifically correct.** That is the separate scientific evaluation's task, and the flags route
+every change to it.
 
 The standing batteries check this:
 - T13 flags the 16 paraphrases of review c.7059976436, the 28 wordings of review c.7060670839, the
   allowlisted sentence followed by an unlisted claim, and a gain-only case.
 - T13c flags the 11 deletion, reordering, operator and punctuation cases of review c.7061319560.
+- T13d checks that a whitespace-only difference from the expected text is not J and is flagged.
 
-The mutants must fail: layer 1 disabled fails T13 (T13b), and the set comparison of the earlier rule
-fails T13c.
+The mutants must fail: layer 1 disabled fails T13 (T13b), and the earlier set comparison fails T13c.
 
 Some results do hold for arbitrary S. J10 does not treat such a statement as false: it sends it to
 review, and the item clears only through a resolution whose review cites the proof that covers that
@@ -293,7 +301,7 @@ of the result PR.
 **Scientific evaluation flag.** An item is flagged when any of the following holds:
 - it carries any of the categories C-TAB, C-PROSE, C-FINL, C-CDO, C-CAL, C-OBS or C-OPEN;
 - it carries a `value changed` kind, or a J10 hit (including a lost finite-scope term);
-- its normalized after region differs from its before region as a token sequence (J10, layer 1);
+- its normalized after region differs from its before region, whitespace included (J10, layer 1);
 - it is an unaccounted or deleted line flagged `numbers` or `marker`;
 - its before or after region contains a decimal, a number with a unit, a power of ten or a comparison
   marker.
@@ -360,7 +368,7 @@ All must pass, or the verdict is VOID.
 | C1 | `baseline.py check` | exit 0 (snapshot regenerates byte for byte from the pin) |
 | C2 | `baseline.py self-test` | exit 0 |
 | C3 | Baseline against itself: `baseline.py --compare 1c7eedc4…` | exit 0, a fresh `self-compare.json` with no change |
-| C4 | `verdict.py self-test` (T1–T21b, with T13b, T13c and T20d) | exit 0 |
+| C4 | `verdict.py self-test` (T1–T21b, with T13b, T13c, T13d and T20d) | exit 0 |
 | C5 | Countercontrol for the comparator: H's corpus copied to a temporary directory, one unjustified value change injected (the first unchanged entry of a prediction table, the last digit of its first decimal token), compared with `--compare-tree`, classified with the same `classify.json` | a fresh `injected-compare.json` with `any_change` true reporting the entry `value changed`; the entry is U and the U count is the main U count plus one |
 | C6 | Edit inputs (§4) | (a) `compile-s2` from the records reproduces `edits-s2.json` exactly; (b) every edit is non-empty and not a no-op, of a listed unit with that unit's PR, every component from that unit's allowlisted sources; (c) the replay validation of §4 holds; (d) `compile-del` reproduces `edits-del.json` exactly, the deletion commit is an ancestor of H, and the deletion edits applied to its first parent reproduce its manuscript files byte for byte. (d) is not applicable only when H is the pin |
 | C7 | Bad-citation countercontrol: in a copy of H's corpus, the first J item with an after line has one number token outside its cited edits' new strings changed (or, with none, " 0" appended), and the copy is compared and reclassified with the same edits and `classify.json` | that item becomes U, and the U count is the main U count plus one |
@@ -390,8 +398,9 @@ is refused (T20b); C0 rejects a commit that is not the pinned one (T20c).
 | A crashed step is not a pass | file-written and exit-status checks; T20 |
 | The comparator detects an unjustified value change | C5 |
 | The classifier rejects a citation that does not reproduce the change | replay rule; C7; T4–T6, T12 |
-| Every change in an item's region other than whitespace is flagged | J10 layer 1 (token-sequence change flag, after normalization); T13, T13c; T13b and the set-comparison mutant |
-| No item is J unless H's region equals the replay of its cited approved edits as a token sequence, with no token from outside them | J10 layer 1; T13, T13c |
+| Every change in an item's region, whitespace included, is flagged | J10 layer 1 (change flag on exact normalized text); T13, T13c, T13d; T13b and the set-comparison mutant |
+| No item is J unless H's region equals its expected text character for character | J10 layer 1 (exactness); T13c, T13d |
+| The expected text depends only on frozen inputs | the replay reads the pinned corpus, `edits-s2.json` and the compiled deletion list only; C0, C6 |
 | No item whose cited edits gain a vocabulary term is J | J10 layer 2; C8; C9 (a), (c), (d); T13 |
 | A result does not lose its finiteness condition as J | J10 finite-loss test on the widened finite-scope terms; C9 (f), (g); T13c |
 | A lost open term on a J row is not J | J9; C9 (e) |
@@ -461,11 +470,14 @@ No deletion head was compared.
 - The replay rule shows that cited reviewed edits produced the change. It does not show that an edit is
   scientifically right; that is the job of the flag and of the separate evaluation.
 - J9 and J10's second layer are lexical, and a lexical list is not complete. J10's guarantee is the
-  one stated in §3. Every change other than in whitespace is flagged. No item is J unless H's region is
-  the replay of its cited approved edits, token for token. A change made by an approved edit and worded
-  outside the vocabulary can be J; it is flagged, and it reaches the scientific evaluation through the
-  flag. Under the change flag, every J item whose region changes goes to the scientific evaluation;
-  the flag does not block a PASS.
+  one stated in §3. No item is J unless H's region is its expected text exactly, and every change is
+  flagged. A change made by an approved edit and worded outside the vocabulary can be J; it is
+  flagged, and it reaches the scientific evaluation through the flag. Every J item whose region changes
+  goes to the scientific evaluation; the flag does not block a PASS.
+- The comparison establishes conformance to the approved plan, not the plan's scientific correctness.
+- **Owner question, recorded and not assumed:** a whitespace-only difference from the expected text is
+  flagged and non-J, as the owner directed. Whether such a difference should ever be exempt is left to
+  the owner; no exemption is made.
 - J10's vocabularies are deliberately wide: many reviewed changes will be R and will need a review, and
   a generality claim needs one that cites its proof.
 - The author of a resolution's review is checked against the host by the result PR's review, not by
