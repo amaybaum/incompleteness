@@ -1,0 +1,52 @@
+[
+ {
+  "id": "A1-R1a",
+  "amends": "B07",
+  "file": "book/ch18-beyond.md",
+  "line": 226,
+  "old": "which is not a quotient by translations alone and is not among the cases A4 admits;",
+  "new": "which is not a quotient by translations alone;",
+  "finding": "review round 1 R1: the clause contradicts §18.9 (ch18:22, :226, :240, :257), which keeps the option open",
+  "full_mirror": true
+ },
+ {
+  "id": "A1-R1b",
+  "amends": "B17",
+  "file": "book/ch18-beyond.md",
+  "line": 242,
+  "old": "a Klein-bottle-type identification is not a quotient by translations alone and is not among the cases A4 admits.",
+  "new": "a Klein-bottle-type identification is not a quotient by translations alone.",
+  "finding": "review round 1 R1, as A1-R1a",
+  "full_mirror": true
+ },
+ {
+  "id": "A1-N1",
+  "amends": "B16b",
+  "file": "book/ch18-beyond.md",
+  "line": 192,
+  "old": "the route then needs the near-return condition of Chapter 1 §1.5, assumed as a hypothesis and not adopted.",
+  "new": "the route then rests, as a sufficient condition, on the near-return condition of Chapter 1 §1.5, assumed as a hypothesis and not adopted.",
+  "finding": "review round 1 nit 1: (NR) is a sufficient condition, not a necessary one",
+  "full_mirror": true
+ },
+ {
+  "id": "A1-N2",
+  "amends": "B11c",
+  "file": "book/ch18-beyond.md",
+  "line": 166,
+  "old": "the near-return condition of Chapter 1 §1.5, assumed in its place and not adopted, also gives",
+  "new": "the near-return condition of Chapter 1 §1.5, assumed as a hypothesis and not adopted, also gives",
+  "finding": "review round 1 nit 2: S2-C's form \", assumed as a hypothesis and not adopted,\"",
+  "full_mirror": true
+ },
+ {
+  "id": "A1-N6",
+  "amends": "B14c",
+  "file": "book/ch18-beyond.md",
+  "line": 172,
+  "old": "For a finite substratum, finiteness is what makes this form of the route to P-indivisibility available.",
+  "new": "Finiteness is what makes this form of the route to P-indivisibility available.",
+  "finding": "review round 1 nit 6: redundant scope phrase (the paragraph is already scoped to a finite substratum)",
+  "full_mirror": true
+ }
+]
