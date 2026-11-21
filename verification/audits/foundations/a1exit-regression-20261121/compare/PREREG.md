@@ -144,8 +144,11 @@ state by the completeness condition below.
 **File-level exactness items** (review c.7062140466, N5). The baseline comparison does not report blank
 lines. So every manuscript file of H is also compared, line by line, with the replayed state. The
 comparison is after normalization, with whitespace kept, blank lines and a final newline included.
-- A differing hunk is an item `RX:<file>:<line>` unless it is wholly made of lines already reported:
-  the H lines of reported items, and the replayed-state lines of replay-missing items.
+- A differing hunk is an item `RX:<file>:<line>` unless it is already reported. That holds when every
+  non-blank H line in it is a reported item's H line, and every non-blank replayed line in it is a
+  replay-missing item's line, is replaced by those reported H lines, or is the text of a reported
+  deleted line or removed entry of that file. A reported change is therefore not counted twice (C5;
+  T13f).
 - A hunk of blank lines alone is always an item.
 - An RX item is U unless marked R and resolved, never J, and always flagged.
 - Its notes attribute it to the nearest reported item within three lines, if there is one.

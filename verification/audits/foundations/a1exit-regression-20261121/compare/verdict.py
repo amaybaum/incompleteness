@@ -1020,13 +1020,15 @@ def missing_items(landed, base_corpus, after_corpus):
     return out
 
 
-def file_exact_items(landed, base_corpus, after_corpus, explained_h, explained_r):
+def file_exact_items(landed, base_corpus, after_corpus, explained_h, explained_r, explained_rtext=frozenset()):
     """N5, file-level exactness: every manuscript file of H is compared, line by line after normalization
     with whitespace kept (blank lines and a final newline included), with the replayed state (every landed
-    edit applied to the baseline). A differing hunk not wholly made of lines already reported as items
-    (explained_h: H lines of reported items; explained_r: replayed-state lines of replay-missing items)
-    is an item RX:<file>:<H line>, attributed in its notes to the nearest reported item within three
-    lines."""
+    edit applied to the baseline). A differing hunk is already reported, and is skipped, when every
+    non-blank H line in it is the H line of a reported item (explained_h), and every non-blank replayed
+    line in it is accounted for: it is a replay-missing item's line (explained_r), or the hunk replaces
+    it by reported H lines, or it is the text of a reported deleted line or removed entry of that file
+    (explained_rtext). Any other hunk, and any hunk of blank lines alone, is an item RX:<file>:<H line>,
+    attributed in its notes to the nearest reported item within three lines."""
     cur = dict(base_corpus)
     for e in sorted(landed, key=lambda x: x['seq']):
         for f in e['files']:
@@ -1042,8 +1044,10 @@ def file_exact_items(landed, base_corpus, after_corpus, explained_h, explained_r
         for tag, i1, i2, j1, j2 in sm.get_opcodes():
             if tag == 'equal':
                 continue
-            h_ok = all((f, j + 1) in explained_h for j in range(j1, j2) if hl[j].strip())
-            r_ok = all((f, i + 1) in explained_r for i in range(i1, i2) if rl[i].strip())
+            h_nb = [j for j in range(j1, j2) if hl[j].strip()]
+            h_ok = all((f, j + 1) in explained_h for j in h_nb)
+            r_ok = all((f, i + 1) in explained_r or bool(h_nb) or (f, norm(rl[i])) in explained_rtext
+                       for i in range(i1, i2) if rl[i].strip())
             blank_only = not any(hl[j].strip() for j in range(j1, j2)) and not any(rl[i].strip() for i in range(i1, i2))
             if h_ok and r_ok and not blank_only:
                 continue
@@ -1101,7 +1105,9 @@ def classify(compare, edits, cls, rows, base_corpus, after_corpus, rules=RULES, 
             elif k.startswith('U:'):
                 eh.add((it['file'], it['line']))
         er = {(it['file'], it['line']) for it in mi.values() if it.get('line')}
-        for key, item in sorted(file_exact_items(landed, base_corpus, after_corpus, eh, er).items()):
+        ert = {(it['file'], norm(normalize_text(it['before'], None, collapse=False))) for k, it in allitems.items()
+               if it.get('before') and ('deleted' in it['kinds'] or 'removed' in it['kinds'])}
+        for key, item in sorted(file_exact_items(landed, base_corpus, after_corpus, eh, er, ert).items()):
             c = cls.get('items', {}).get(key)
             klass = 'U'
             notes = ['file-level difference from the replayed state (%s)' % item['what']]
@@ -1940,8 +1946,10 @@ def self_test():
     c3 = dict(pin, **{dg: pin[dg].replace('\n\n\n', '\n\n', 1)}) if dg else None
     c4 = dict(pin, **{g134['file']: pin[g134['file']] + '\n'})
     r13f = [rx_of(c) for c in (c1, c2, c3, c4) if c is not None]
-    report('T13f blank line inserted, paragraphs joined, blank line removed, trailing newline: each RX, U, flagged',
-           len(r13f) == 4 and all(len(x) == 1 and x[0][1] == 'U' and x[0][2] for x in r13f) and not rx_of(dict(pin)),
+    report('T13f blank line inserted, paragraphs joined, blank line removed, trailing newline: each RX, U, '
+           'flagged; a reported value change or deleted line is not counted twice',
+           len(r13f) == 4 and all(len(x) == 1 and x[0][1] == 'U' and x[0][2] for x in r13f) and not rx_of(dict(pin))
+           and not rx_of(after_s) and not rx_of(dict(pin, **{g134['file']: '\n'.join(fl[:gi] + fl[gi + 1:])})),
            str(r13f))
     # T13d exactness: H equals the replay except for one doubled space -> not J, flagged
     cm, ed, cl, af, e = gr134(', for every $S$')
