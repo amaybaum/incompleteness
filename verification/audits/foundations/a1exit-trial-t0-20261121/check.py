@@ -6,10 +6,13 @@
   python3 -I -B check.py --github        also compare the artifact digest, the run's event, workflow and head,
                                          and the job conclusion with what the host reports (needs gh)
   python3 -I -B check.py --extract DIR   after the checks pass, write the artifact's members to DIR, byte for byte
-  python3 -I -B check.py --structure     Structure.pdf: committed (main) against CI-built (needs git, pdftotext)
+  python3 -I -B check.py --structure     Structure.pdf: committed (main) against CI-built; fails unless every
+                                         recorded value is reproduced (needs git, pdftotext)
 
 The integrity checks: artifact.zip has the recorded sha256 and size; its members are exactly the
-recorded ones, each with the recorded sha256; the Structure.md patch has the recorded sha256; every file under artifact/ is byte-identical to the
+recorded ones, each with the recorded sha256; the Structure.md patch has the recorded sha256;
+the four preserve_check.py reports carry the recorded verdicts and checks, with the nine findings
+exactly in the one failing check; every file under artifact/ is byte-identical to the
 member of the same name, and every out/ member is present there; the job log has the recorded
 sha256; result.json inside the artifact carries the recorded trial, plan, workflow and run ids,
 step outcomes, preserve findings, page counts and verdict.
@@ -80,6 +83,38 @@ def check(zip_bytes, retained, log_bytes, exp, patch_bytes):
     for line in exp["preserve_findings"]:
         if line not in plog:
             f.append(f"preserve.log lacks: {line}")
+    f += check_reports(members, exp)
+    return f
+
+
+def check_reports(members, exp):
+    """The nine findings and the passing checks, read from preserve_check.py's structured reports
+    (schema a1exit-checker-result-v1) rather than from log-derived fields."""
+    f = []
+    sr = exp["structured_reports"]
+    for name, want in sr.items():
+        try:
+            rep = json.loads(members[f"out/{name}"])
+        except Exception as e:
+            f.append(f"report {name} unreadable: {e}")
+            continue
+        for k in ("schema", "plan", "ledger_sha256", "mode", "verdict"):
+            if rep.get(k) != want[k]:
+                f.append(f"report {name} {k}: {rep.get(k)!r}, expected {want[k]!r}")
+        checks = rep.get("checks", [])
+        if [c.get("name") for c in checks] != want["check_names"]:
+            f.append(f"report {name}: check list differs from the recorded one")
+        failing = [c for c in checks if c.get("status") != "pass"]
+        if [c.get("name") for c in failing] != want["failing"]:
+            f.append(f"report {name}: failing checks {[c.get('name') for c in failing]}, "
+                     f"expected {want['failing']}")
+        for c in checks:
+            if c.get("status") == "pass" and c.get("discrepancies"):
+                f.append(f"report {name}: passing check {c.get('name')!r} lists discrepancies")
+        for c in failing:
+            nine = [x[len("FAIL "):] if x.startswith("FAIL ") else x for x in exp["preserve_findings"]]
+            if c.get("status") != "fail" or c.get("discrepancies") != nine:
+                f.append(f"report {name}: check {c.get('name')!r} does not carry exactly the nine findings")
     return f
 
 
@@ -134,6 +169,10 @@ def self_test():
         return forge(rezip(zb, lambda n, b: json.dumps(r).encode() if n == "out/result.json" else b), True)
     def slog(edit):
         return forge(rezip(zb, lambda n, b: edit(b) if n == "out/preserve.log" else b), True)
+    def rpt(member, edit):
+        d = json.loads(zipfile.ZipFile(io.BytesIO(zb)).read("out/" + member))
+        edit(d)
+        return forge(rezip(zb, lambda n, b: json.dumps(d).encode() if n == "out/" + member else b), True)
     finding = exp["preserve_findings"][6].encode()
     base = (zb, ret, lb, exp, pb)
     def with_(i, v):
@@ -160,6 +199,15 @@ def self_test():
         "a TeX difference": (res(lambda r: r.update(tex_files_differing=["papers/GR.tex"])), "tex_files_differing"),
         "a page count changed": (res(lambda r: r["pdf_pages"].update({"papers/Structure.pdf": 94})), "result.json pdf_pages"),
         "wrong trial sha": (res(lambda r: r.update(trial_sha="0" * 40)), "result.json trial_sha"),
+        "a finding dropped from the tree report":
+            (rpt("preserve_check-tree.json", lambda d: next(c for c in d["checks"] if c["status"] == "fail")
+                 ["discrepancies"].pop(6)), "does not carry exactly the nine findings"),
+        "a passing tree check turned failing":
+            (rpt("preserve_check-tree.json", lambda d: d["checks"][0].update(status="fail")),
+             "report preserve_check-tree.json: failing checks"),
+        "the commit report's verdict changed":
+            (rpt("preserve_check-commit.json", lambda d: d.update(verdict="fail")),
+             "report preserve_check-commit.json verdict"),
     }
     bad = 0
     for name, (args, want) in mutants.items():
@@ -250,7 +298,27 @@ def structure():
     print(f"  source removals absent from the PDF removals:   {dict(md_rem - pdf_rem)}")
     print(f"  PDF additions not from the source: {dict(pdf_add - md_add)}")
     print(f"  PDF removals not from the source:  {dict(pdf_rem - md_rem)}")
-    return 0
+    # Pass/fail: the retained evidence must reproduce the recorded comparison exactly. This checks
+    # that the evidence is what the README describes; it does not establish why the page appeared.
+    se = exp["structure_expected"]
+    got = {
+        "committed_pages": len(c), "built_pages": len(b),
+        "first_differing_page": first + 1 if first is not None else None,
+        "built_last_page_lines": lines(b[-1]),
+        "tokens_committed": sum(pc.values()), "tokens_built": sum(pbw.values()),
+        "source_net_added": sum(md_add.values()), "source_net_removed": sum(md_rem.values()),
+        "pdf_net_added": sum(pdf_add.values()), "pdf_net_removed": sum(pdf_rem.values()),
+        "source_additions_absent_from_pdf": dict(md_add - pdf_add),
+        "source_removals_absent_from_pdf": dict(md_rem - pdf_rem),
+        "pdf_additions_not_from_source": dict(pdf_add - md_add),
+        "pdf_removals_not_from_source": dict(pdf_rem - md_rem),
+    }
+    bad = [k for k in se if k != "pdftotext" and got[k] != se[k]]
+    for k in bad:
+        print(f"  FAIL {k}: {got[k]!r}, expected {se[k]!r}")
+    print(f"Structure comparison: {len(se) - 1 - len(bad)}/{len(se) - 1} recorded values reproduced "
+          f"(recorded with {se['pdftotext']}); RESULT {'PASS' if not bad else 'FAIL'}")
+    return 1 if bad else 0
 
 
 def main(argv):

@@ -78,12 +78,165 @@
   "python": "success",
   "toolchain": "success"
  },
+ "structure_expected": {
+  "built_last_page_lines": [
+   "arXiv:gr-qc/9904062.",
+   "[Weinberg1979] S. Weinberg, “Ultraviolet Divergences in Quantum Theories of",
+   "Gravitation”, in General Relativity: An Einstein Centenary Survey, eds. S. W.",
+   "Hawking, W. Israel, Cambridge University Press (1979), 790-831.",
+   "[Reuter1998] M. Reuter, “Nonperturbative evolution equation for quantum grav-",
+   "ity”, Phys. Rev. D 57, 971 (1998). arXiv:hep-th/9605030.",
+   "95"
+  ],
+  "built_pages": 95,
+  "committed_pages": 94,
+  "first_differing_page": 4,
+  "pdf_additions_not_from_source": {
+   "admitting": 1,
+   "con": 1,
+   "conservation": 1,
+   "correlations": 1,
+   "dualities": 1,
+   "empirical": 1,
+   "feature": 1,
+   "formaliza": 1,
+   "frame88": 1,
+   "necessary": 1,
+   "neutrino": 1,
+   "observer45": 1,
+   "operational": 1,
+   "real": 1,
+   "recon73": 1,
+   "reference": 1,
+   "separately": 1,
+   "sor": 1,
+   "status": 1,
+   "structed": 1,
+   "ten": 1,
+   "tent": 1,
+   "time": 1,
+   "transports": 1,
+   "works": 1,
+   "writ1": 1,
+   "𝑆": 2
+  },
+  "pdf_net_added": 233,
+  "pdf_net_removed": 109,
+  "pdf_removals_not_from_source": {
+   "alities": 1,
+   "bornform": 1,
+   "commutant": 1,
+   "conserva86": 1,
+   "content": 1,
+   "correla73": 1,
+   "dilation": 1,
+   "du": 1,
+   "emerges": 1,
+   "erational": 1,
+   "essary": 1,
+   "formalization": 1,
+   "frameworks": 1,
+   "from": 1,
+   "gauge": 1,
+   "indivisibility": 1,
+   "memory": 1,
+   "nec61": 1,
+   "neu": 1,
+   "observeradmitting": 1,
+   "op": 1,
+   "probability": 1,
+   "program": 1,
+   "quantum": 1,
+   "rately": 1,
+   "realtime": 1,
+   "reconstructed": 1,
+   "sepa74": 1,
+   "tary": 1,
+   "tensor": 1,
+   "tions": 1,
+   "trino": 1,
+   "uni41": 1,
+   "writ2": 1
+  },
+  "pdftotext": "pdftotext 24.02.0 (poppler), as used by the run",
+  "source_additions_absent_from_pdf": {
+   "31": 1,
+   "oi": 1,
+   "s": 2
+  },
+  "source_net_added": 209,
+  "source_net_removed": 75,
+  "source_removals_absent_from_pdf": {},
+  "tokens_built": 33942,
+  "tokens_committed": 33818
+ },
  "structure_patch": {
   "T0_blob": "b82fc3be12db665ca2ef5acf1d7618cb554af95d",
   "file": "structure-md-main-to-T0.patch",
   "main_blob": "80b7d277ec651a2fd0c1bad23851664a95b9e410",
   "recipe": "git diff --binary --full-index df6da1c6101e811acdc7952d5748aff57028e8ed 5b6d48b58f45d3032bc33560aa5047c4b400f35a -- papers/Structure.md",
   "sha256": "b58bcad22333dec6da4b9b85aeba0c6aa682aed2b06081246ace8389cff855f9"
+ },
+ "structured_reports": {
+  "preserve_check-commit.json": {
+   "check_names": [
+    "record pins (PREREG §26.4) and the plan's own checker",
+    "ledger spans and hashes at the base",
+    "candidate against base, ledger, regenerated artifacts and plan record"
+   ],
+   "failing": [],
+   "ledger_sha256": "41ac4fd9fbcf4485d34a9aa1c1b46899a86c9a88503b65208e785af2412ff0f6",
+   "mode": "commit",
+   "plan": "55544cc36dee5b7dd5b9079c0f03be24b74c137f",
+   "schema": "a1exit-checker-result-v1",
+   "verdict": "pass"
+  },
+  "preserve_check-tree.json": {
+   "check_names": [
+    "record pins (PREREG §26.4) and the plan's own checker",
+    "ledger spans and hashes at the base",
+    "candidate against base, ledger, regenerated artifacts and plan record",
+    "committed PDFs against the CI build (pages, pdftotext)",
+    "tree mutant papers/GR.tex fails with \"differs from its rebuild\"",
+    "tree mutant verification/audits/manuscript/bell-operational-reconciliation-20261029/sc42-integration-result.json fails with \"differs from the SC-42 checker\"",
+    "tree mutant verification/audits/foundations/a1exit-deletion-20261121/ledger.json fails with \"record file differs from the plan\"",
+    "tree mutant verification/audits/foundations/a1exit-deletion-20261121/preserve_check.py fails with \"record file differs from the plan\"",
+    "tree mutant verification/coverage/LEDGER.json fails with \"verification/coverage/LEDGER.json\""
+   ],
+   "failing": [
+    "committed PDFs against the CI build (pages, pdftotext)"
+   ],
+   "ledger_sha256": "41ac4fd9fbcf4485d34a9aa1c1b46899a86c9a88503b65208e785af2412ff0f6",
+   "mode": "tree",
+   "plan": "55544cc36dee5b7dd5b9079c0f03be24b74c137f",
+   "schema": "a1exit-checker-result-v1",
+   "verdict": "fail"
+  },
+  "preserve_check-verify-ledger.json": {
+   "check_names": [
+    "record pins (PREREG §26.4) and the plan's own checker",
+    "ledger spans and hashes at the base",
+    "ledger re-derived from edits.json"
+   ],
+   "failing": [],
+   "ledger_sha256": "41ac4fd9fbcf4485d34a9aa1c1b46899a86c9a88503b65208e785af2412ff0f6",
+   "mode": "verify-ledger",
+   "plan": "55544cc36dee5b7dd5b9079c0f03be24b74c137f",
+   "schema": "a1exit-checker-result-v1",
+   "verdict": "pass"
+  },
+  "preserve_check-verify-pins.json": {
+   "check_names": [
+    "record pins (PREREG §26.4) and the plan's own checker",
+    "ledger spans and hashes at the base"
+   ],
+   "failing": [],
+   "ledger_sha256": "41ac4fd9fbcf4485d34a9aa1c1b46899a86c9a88503b65208e785af2412ff0f6",
+   "mode": "verify-pins",
+   "plan": "55544cc36dee5b7dd5b9079c0f03be24b74c137f",
+   "schema": "a1exit-checker-result-v1",
+   "verdict": "pass"
+  }
  },
  "tex_files_differing": [],
  "trial_sha": "5b6d48b58f45d3032bc33560aa5047c4b400f35a",

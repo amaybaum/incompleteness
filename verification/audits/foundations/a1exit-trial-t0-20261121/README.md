@@ -2,7 +2,23 @@
 
 This directory retains the evidence of the first verification run of the A1-EXIT trial commit `T0`. It carries
 no manuscript claim. The trial and its expected outcome are preregistered in the retirement plan (#1477, §29
-item 1), and the owner's acceptance of the result is recorded on #1169.
+item 1, quoted below).
+
+## Owner decisions
+
+Both are #1169 comments posted under the owner's account (`amaybaum`) as the record of the owner's decision.
+
+- **Dispatch authorization**, comment 7067861041, `amaybaum`, 2026-11-21T19:13:42Z:
+  > Owner authorization recorded (2026-11-21): dispatch T0, once, with exactly these inputs:
+  > - workflow `a1exit-trial-verify.yml`, ref `main`;
+  > - `trial_sha` `5b6d48b58f45d3032bc33560aa5047c4b400f35a`;
+  > - `plan_sha` `55544cc36dee5b7dd5b9079c0f03be24b74c137f`.
+  >
+  > The result is evaluated against #1477 §29, and the exact run evidence, `result.json` and the CI-built PDFs
+  > are preserved. The expected `preserve` failure is acceptable only if it matches the eight-PDF comparison
+  > findings the plan specifies. Any deviation is reported without reinterpretation.
+- **T0 verdict**, comment 7068143470, `amaybaum`, 2026-11-21T19:36:22Z, the row of its decision table:
+  > | T0 verdict | Accepted as matching #1477 §29 | Expected failure confirmed. §29 names eight affected PDFs, not eight finding lines, so nine findings across the eight PDFs are not a deviation. |
 
 ## Provenance
 
@@ -38,16 +54,23 @@ is **derived** from git as its recipe states.
   `git diff --binary --full-index df6da1c6 5b6d48b5 -- papers/Structure.md`. Applied to the `main` blob it
   rebuilds `T0`'s blob exactly. `expected.json` records its digest and both blob ids. It lets the Structure.pdf
   attribution below be checked from `main` alone, since `T0` is not on `main`.
-- `check.py` checks the files above against `expected.json`.
+- `check.py` checks the files above against `expected.json`. It reads the nine findings from
+  `preserve_check.py`'s structured reports (`out/preserve_check-*.json`, schema `a1exit-checker-result-v1`) as
+  well as from `result.json` and `preserve.log`. The `--commit`, `--verify-pins` and `--verify-ledger` reports
+  must pass every check. In the tree report the only failing check must be the PDF comparison, and it must carry
+  exactly the nine findings.
 
 ## Result against §29 item 1
 
-§29 item 1 expects four things:
+The governing criteria are §29 item 1 of the plan's preregistration,
+`verification/audits/foundations/a1exit-deletion-20261121/PREREG.md` at the plan head `55544cc3` (blob
+`04f55e09560739fcd8eddd95f5b913da05a5c4ad`, line 5593). The plan is not on `main`. The item is retained here
+verbatim, so the criteria the result is judged against are on `main`; this record does not change the plan.
 
-- `preserve` fails with only `--pdf-compare` findings for the eight PDFs;
-- `guards` is skipped;
-- `result.json` is written;
-- the PDF upload is written.
+> 1. **N1: the `T0` expectation.** In `a1exit-trial-verify.yml` the `guards` step has no `always()` condition, so after
+>    `preserve` fails it is skipped, and the final gate fails. The preregistered expectation for `T0` is therefore:
+>    `preserve` fails with only `--pdf-compare` findings for the eight PDFs; `guards` is skipped; `result.json` and the
+>    PDF upload are written. `guards` is covered on `T1`, where every step must pass.
 
 The run did all four. The other steps succeeded: `inputs` (the inputs are full commit ids and the run is its
 first attempt), checkout, `head` (the checkout is exactly the trial commit, a single-parent child of the
@@ -101,10 +124,16 @@ PDF's last change is the same commit as the last change to `papers/Structure.md`
   one to three digits are dropped as page numbers. The comparison does not resolve differences in symbols,
   punctuation or short numbers.
 
-Within this comparison, the extra page is the reference list's last lines moving to a new page under the
-longer text, and no word other than those of the ledgered edits differs. `--structure` rebuilds `T0`'s
-`papers/Structure.md` from the `main` blob and the retained patch, checks it against `T0`'s blob id, and needs
-no `T0` objects.
+Within this comparison, no word other than those of the ledgered edits differs. The layout changes support
+the explanation that the reference list's last lines moved to a new page under the longer text. A toolchain
+contribution to the final page break has not been conclusively excluded: no run built `main`'s
+`papers/Structure.md` with the CI toolchain, and the committed PDF was built separately.
+
+`--structure` rebuilds `T0`'s `papers/Structure.md` from the `main` blob and the retained patch, checks it
+against `T0`'s blob id, and needs no `T0` objects. It is a pass/fail check of the retained evidence: it fails
+unless the page counts, the first differing page, the full text of page 95, the token counts and the four
+residual multisets above are reproduced exactly, as recorded in `expected.json` with pdftotext 24.02.0. It
+does not establish why the page appeared.
 
 ## Reproduction
 
@@ -112,9 +141,9 @@ From the repository root:
 
 ```sh
 python3 -I -B verification/audits/foundations/a1exit-trial-t0-20261121/check.py              # integrity; RESULT PASS
-python3 -I -B verification/audits/foundations/a1exit-trial-t0-20261121/check.py --self-test  # 14 mutants, each required to report its target finding
+python3 -I -B verification/audits/foundations/a1exit-trial-t0-20261121/check.py --self-test  # 17 mutants, each required to report its target finding
 python3 -I -B verification/audits/foundations/a1exit-trial-t0-20261121/check.py --github     # host digest, run event, workflow, head and job conclusion; while the artifact is retained (until 2027-02-19)
-python3 -I -B verification/audits/foundations/a1exit-trial-t0-20261121/check.py --structure  # needs git and pdftotext
+python3 -I -B verification/audits/foundations/a1exit-trial-t0-20261121/check.py --structure  # pass/fail; needs git and pdftotext
 ```
 
 To compare against a fresh download from the host, while the artifact is retained, download it with
