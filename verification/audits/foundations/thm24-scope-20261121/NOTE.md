@@ -346,6 +346,11 @@ needs a separate decision and renewed verification of the affected controls) or 
   uniform hidden prior and any bijection $\sigma$ …, the substratum $(S, \pi \circ \varphi \circ
   \pi^{-1})$ has the same coherent visible channels as $(S, \varphi)$ at the fixed interface. Under
   that prior the transition probabilities depend on …". Mirror both files (§A.14). Priority: high.
+  **Held.** Applying P2 adds one entry to
+  `verification/audits/manuscript/bell-operational-reconciliation-20261029/sc42-integration-result.json`
+  (the predicate "chapter line mirrored in FULL: *(i) Hidden-state relabeling.* For a finite set of
+  hidden co..."), so CI's SC-42 step would fail until that file is regenerated, which needs separate
+  owner approval. P2 is therefore not in the draft correction PR.
 - **P3a (F3, ch02:134 = FULL:764).** "fibre-independent hidden relabelling under the uniform hidden
   prior". Lowest priority.
 - **P4a (F4, Substratum:300).** "defined by the condition that the specified fixed-interface
@@ -451,3 +456,17 @@ here (#1169 c.7064226074, item 1); the frozen edits are not amended without sepa
 The off-ledger corrections (§10.2) are prepared as separate draft PRs, each awaiting independent
 review and owner merge approval. The candidate definition is in `DEFINITION-PROPOSAL.md`, a
 proposal kept apart from these results.
+
+## 16. Draft corrections outside the ledger (§10.2)
+
+Each is a draft PR off `main` at `df6da1c6`, awaiting independent review and owner merge approval.
+
+| PR | Branch | Head | Corrections |
+|---|---|---|---|
+| #1492 | `research/thm24-fix-prior-20261121` | `9da64a36` | P1 (Methodology:353), P3a (ch02:134 = FULL:764); P2 held (§10.2) |
+| #1493 | `research/thm24-fix-interface-20261121` | `7eb1ac59` | P4a (Substratum:300), P4c (Substratum:276, Structure:606) |
+
+At each head: no edited line lies in a #1477 ledger splice and every ledger old text occurs as at
+the base (`edits.json` at `55544cc3`); voice, duplicate, claims, coverage, staleness and census
+checks pass; the SC-42 integration output is byte-identical. `.tex` regenerated; PDFs stale.
+
