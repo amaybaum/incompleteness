@@ -105,7 +105,9 @@ criteria are frozen before any class-level verdict. OD6 records the alternative 
    and record each per design §3: source, exact statement, hypotheses, and whether it decides the
    node, bears on it, or shows it known hard; null results included. A query that decides a case is
    applied at the cited theorem's scope, with its hypotheses checked against the classes of design
-   §2.3 and Node 1 §1, before any construction for that case is written.
+   §2.3 and Node 1 §1, before any construction for that case is written. Statements of cited
+   external results recorded in step 1 are not Node 2 verdicts, so they do not void the freeze
+   (S-N2d, N2-5); their application to a frozen rule is a step 5 verdict.
 2. **Rule construction and membership.** Write the range-0 rules (§4.2), the tape candidates (§4.3)
    and any candidate universal construction (§4.4) as rules, with no realization claim. For each J1
    candidate, check membership (§4.1) and run the membership controls of §7. This step proves only
@@ -195,9 +197,9 @@ neighbour. The update is
 
 `(U_f)   x_i(t+1) = f(x_{i−1}(t), x_{i+1}(t)) − x_i(t−1)   (mod q)`.
 
-(R), for `D = ℤ` or `D = ℤ/N` with `N ≥ 3`: every profile `x_i(t) = a(i − t)`, for every `a : D → ℤ_q`, satisfies `(U_f)` if and only if
-`f(u, w) = u + w` for every `(u, w) ∈ ℤ_q²`. With `s = i − t`, `x^a` satisfies `(U_f)` iff
-`f(a(s−1), a(s+1)) = a(s−1) + a(s+1)` for every `s ∈ D`.
+(R), for `D = ℤ` or `D = ℤ/N` with `N ≥ 3`: every profile `x_i(t) = a(i − t)`, for every
+`a : D → ℤ_q`, satisfies `(U_f)` if and only if `f(u, w) = u + w` for every `(u, w) ∈ ℤ_q²`. With
+`s = i − t`, `x^a` satisfies `(U_f)` iff `f(a(s−1), a(s+1)) = a(s−1) + a(s+1)` for every `s ∈ D`.
 - (⇐) holds in every case: the reduced condition then holds identically.
 - (⇒) holds on `ℤ` and on `ℤ/N` for `N ≥ 3`, where `s − 1` and `s + 1` are distinct, so some `a`
   takes any pair `(u, w)` there.
@@ -271,6 +273,8 @@ A readout-map list is defined per `(q, W)`. The amendment fixes a finite grid `�
 `(q, W)`; for `Φ_{q,α}` and for every rule of `𝓡_J1` the lists below are frozen on `𝒢`. A Node 4 or 5
 run at a `(q, W)` outside `𝒢` has no frozen counterpart, and its positives cannot be credited as
 specific (design common rules). Proposal (OD4): `q ∈ {2, 3}`; `W` one site, or two adjacent sites.
+The grid fixes the readout lists only; `α`, `m_max`, the torus side and the targets remain choices
+of the Node 4–5 amendments, and a specificity comparison uses the positive's own values of them.
 
 **Window orientation (F2).** The design's domain correspondence fixes "the same window size", and
 the specificity question lets the reference rule's readout vary within its frozen list. For every
@@ -279,9 +283,9 @@ under the cubic group (the 48 symmetries of `ℤ³` fixing the origin; translati
 under translation invariance), that is on every window of the same size and shape up to lattice
 symmetry. For the isotropic `Φ_{q,α}` the images are equivalent; for an anisotropic rule (T-lin,
 T-nl, T-tw along `e₁`) they are not, and tying it to the sites of `W` would give it less freedom than
-the design allows, which would make a "generic" record harder and a "specific" credit easier. The grid fixes the readout lists only; `α`, `m_max`, the torus side and the targets remain
-choices of the Node 4–5 amendments, and a specificity comparison uses the positive's own values of
-them.
+the design allows, which would make a "generic" record harder and a "specific" credit easier. On
+(F) with a `P_lat` that the cubic group does not preserve (SM:222), `γW` is read as the image of `W`
+in `ℤ³` under `γ`, projected to the torus `ℤ³/P_lat`; the torus conditions are unchanged.
 
 ### 5.2 Readout-map lists (one list per `(q, W)`, shared by `Φ_{q,α}` and every `ℤ_q` reference rule)
 
@@ -300,11 +304,11 @@ to every image `γW`, `γ` in the cubic group.
 ### 5.3 Correspondence for a rule on a different site alphabet
 
 For a listed rule whose window phase group `G'_W` differs from `G_W`: its list is, for each map of
-`𝓜(q, W)` in a class with `k` values, every map of the same class with `k` values on `G'_{γW}` for every
-image `γW` of `W` under the cubic group, enumerated in the amendment. This gives the reference rule at least the
-freedom the design's "free within the lists" requires, makes a "generic" record no harder to reach
-and a "specific" credit no easier, and is fixed before any outcome. Alternative forms (a single
-named map per `Φ` map) are OD10.
+`𝓜(q, W)` in a class with `k` values, every map of the same class with `k` values on `G'_{γW}` for
+every image `γW` of `W` under the cubic group, enumerated in the amendment. This gives the reference
+rule at least the freedom the design's "free within the lists" requires, makes a "generic" record
+no harder to reach and a "specific" credit no easier, and is fixed before any outcome. Alternative
+forms (a single named map per `Φ` map) are OD10.
 
 ### 5.4 Preparation lists (per rule, per readout map)
 
@@ -336,9 +340,10 @@ D5 (Node 1 §6): the design does not fix whether `F^{-1}` must have finite range
   automaton on the full shift is again a cellular automaton, by the `d`-dimensional
   Curtis–Hedlund–Lyndon theorem (Richardson 1972; Hedlund 1969 is the one-dimensional case) and
   compactness (L1; to be checked by Node 2 against the exact statement and hypotheses), so D5 is
-  empty there; a rule commuting only up to gauge (OD2) is not covered by that citation; it is substantive only for J1⁰ rules that are not
-  translation-invariant on (Z). On (F) every bijection has range bounded by the torus diameter, and
-  the reading needed is a range bound uniform in the torus size.
+  empty there; a rule commuting only up to gauge (OD2) is not covered by that citation. D5 is
+  substantive only for rules that do not commute with the translations of `ℤ³` exactly. On (F)
+  every bijection has range bounded by the torus diameter, and the reading needed is a range bound
+  uniform in the torus size.
 - **Proposal.** Node 2 adopts "`F^{-1}` of finite range" (on (F): uniform in the torus size) as the
   working reading, states for each verdict whether it holds under both readings, and routes D5 to
   the owner under S2 only if a verdict differs between them.
@@ -407,11 +412,11 @@ sub-problem; a larger one is planned for CI (§A.40).
 | N2-4 | Every corpus citation reads as cited at the pin | Each `file:line` re-read at `df6da1c6`; the reviewer re-reads a sample |
 | N2-5 | The freeze precedes every class-level verdict and every per-target outcome (order of §3) | The amendment is one commit, accepted before any commit that adds a realization verdict; no earlier commit of the branch contains a realizability statement for a class or an individual target, and `NODE-2.md` contains none for an individual target |
 | N2-6 | Every listed J1 member meets §4.1 with recorded witnesses and its failed premises recorded; `𝓡_J1` is nonempty and contains the tape construction | The §4.1 table filled per rule; the count printed |
-| N2-11 | Each reference rule's lists cover every cubic image of each grid window | The amendment lists, per rule and `(q, W)`, the images `γW` and the transported maps and events |
 | N2-7 | R0 and R0-ti are labelled J1⁰ and outside the criterion | Checked in the amendment |
 | N2-8 | The membership controls of §7 pass before the freeze | The control table precedes the list in the amendment |
 | N2-9 | Repository-text constraints | A grep of the added lines for the excluded vocabulary and for local paths returns nothing |
 | N2-10 | No equivalence is displayed without a witness per direction (§A.34) | (R) of §4.3 is the only biconditional here; its directions are proved separately with their scope, (⇒) only on `ℤ` and on `ℤ/N`, `N ≥ 3`. Node 2 proves each direction of any biconditional it uses or states the direction it proves |
+| N2-11 | Each reference rule's lists cover every cubic image of each grid window | The amendment lists, per rule and `(q, W)`, the images `γW` and the transported maps and events |
 
 ## 11. Points needing an owner decision
 
@@ -495,7 +500,8 @@ decides.
   - *Point:* on the provisional grid `q ∈ {2, 3}` every permutation of `ℤ_q` is affine, so the twisted
     family gives no non-linear tape there, and a non-linear tape on the grid needs another mechanism.
     If Node 2 cannot construct one meeting §4.1, the alternatives are: (a) keep the grid and record
-    the non-linear requirement as unmet at its scope (S-N2a); (b) widen the grid before the freeze to
+    the non-linear requirement as unmet at its scope; no freeze is made (S-N2a), and a freeze with
+    T-lin as the only J1 member does not satisfy OD3; (b) widen the grid before the freeze to
     include a `q ≥ 4` (for example `q = 4` for T-tw), with every list frozen there as well; (c) keep
     the grid and preregister T-tw separately as exploratory.
   - *Default:* (a); no widening without an owner decision.
@@ -517,8 +523,8 @@ decides.
 ## 13. Requested authorization
 
 Execute P2-C Node 2 as the design states it, by the procedure of §3, with the freezing amendment of
-§4 and §5 as decided under §11 and in the order of §3 (or OD6's alternative, as decided), paper-only, by the writer and reviewer of §12, into the record
-location of §12.
+§4 and §5 as decided under §11 and in the order of §3 (or OD6's alternative, as decided),
+paper-only, by the writer and reviewer of §12, into the record location of §12.
 
 This request grants nothing by itself. It would not authorize Nodes 3–9, any computation, any
 change to `DESIGN.md` or `NODE-1.md`, any manuscript or Lean change, or any merge. The decisions of
