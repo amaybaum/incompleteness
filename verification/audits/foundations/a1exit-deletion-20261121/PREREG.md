@@ -6292,6 +6292,45 @@ substratum is the finite object of" and D319's lower-case form. `PRESERVE` gains
 drift 0; against `9ba8ef10`, 385 unchanged, 4 revised, 8 added (D392–D399), drift 0. Records: 399 (lean-docstring 41);
 splices 397 in 44 files.
 
+### 31.17 Results of §31.12 at `53c6601a`
+
+Each check was run at H from the checkers at `0702dacc` (the commit that applies §31.12.9 and carries the §31.18 pins),
+with `--plan 0702dacc` for `preserve_check.py`, and `scipy` 1.18.1 installed for F71. Every run exited 0, and every result
+file parses with verdict `pass`. §31.10 is not edited.
+
+| Check | Result |
+|---|---|
+| `edits_check.py --self-test` | PASS (93 countercontrols) |
+| `edits_check.py --static` | infinity 0, register 0, capitals 0, identifier 0, preservation 0 (every §31.6, §31.12 and §31.12.9 entry), mirror parity 0, Lean docstring-only 0, sitemap 194/194 |
+| `edits_check.py --commit 53c6601a --simulate` | 399/399 unique, residual 5 (all allowed), 0 unscoped, 0 preservation, 0 identifier |
+| `edits_check.py --pins --commit 53c6601a` | 0 unresolved, 0 missing |
+| `edits_check.py --repo-scan --simulate --final --commit 53c6601a` | 0 unexplained |
+| `preserve_check.py --verify-ledger` / `--verify-pins` | identical / PASS (§31.18) |
+| `preserve_check.py --self-test` | PASS, 67 recorded checks: every R1 mutant (MT-pdf-build-failed, -build-rc-missing, -pages-missing, -not-built, -pages-mismatch, -stale, -other-document, -absent) fails with its finding and the all-conditions control passes; every `--verify-run` void mutant (run metadata missing, self-reported `workflow_sha` or `ref_sha` differing from the run's `head_sha`, a `head_sha` without W or with another workflow blob or off `main`'s first-parent history, another event, workflow, run id, attempt or branch, a `trial_sha` whose parent is not H, a merge, a non-commit) is void with its finding and the valid control passes; the scope controls (the base fails all 64 assertions the plan adds); the reconcile controls |
+| `--reconcile 55544cc3…` (P\*) | 302 unchanged, 60 shifted (+121, ch02/FULL, the same 60 IDs as §31.2), 9 revised (D026, D231, D363, D364, D369; D276, D326, D332; D319), 26 added (D374–D399), drift 0. §31.2's 306 unchanged are these 302 plus D276, D326, D332 and D319, each revised by a named finding; its 5 revised and 18 added are among the 9 and 26 |
+| `--reconcile 9ba8ef10…` | 385 unchanged, 4 revised (D276, D326, D332, D319), 8 added (D392–D399), drift 0 |
+| `guards_check.py --mutants` | PASS: the 14 checks on the simulated tree (44 files edited by 399 records), CC-1–CC-4 failing as named, inventory 0 unlisted, every pin, kernel-identifier and message-name mutant failing; 64 recorded checks |
+| `guards_check.py --predict`, then `preserve_check.py --tree --mutants` | 0 findings; scope assertions 44 present and 24 absent, 0 findings; the 5 tree mutants fail as required |
+| coverage | exactly the seven census fingerprints of §31.6 change; `tools/coverage_check.py` on the predicted tree: OK |
+
+**Ledger.** 397 splices in 44 files at H (399 edit records; D032 and D039 retain their text), SHA-256
+`877c930510e0d431d5fbd60d7871d2cf03711643059e08fa9b5c91dcec31656c`.
+
+**Departures from the text of §31.12, with reasons.**
+1. *D332's wording.* §31.12.2 gives "… `A1` (for a finite torus and a finite alphabet) and A2-A5 (Q1)". The identifier
+   rule rejects that form, which leaves a bare `A1`, and so does its range rule. The record reads "an instance satisfying
+   the finiteness predicate `A1` and A2-A5 (Q1; the finiteness predicate for a finite torus and a finite alphabet)". The
+   condition is the same, and the scope assertion checks that string.
+2. *The base countercontrol.* Two required-absent forms are earlier plan text and never occur at the base: D276's "`A1`
+   on a finite torus and" and D319's lower-case form. The control therefore expects 64 failures at the base
+   (44 − 2 + 24 − 2). It counts each required-absent form only where the base carries it.
+3. *The R1 stale test* relies on xelatex embedding a creation date and a document id, so that a rebuild differs in
+   bytes. A reproducible build would make it fail, which is the safe direction.
+4. *The workflow-blob mutant.* No `main` commit containing W carries a different workflow blob, so the control uses H,
+   which fails the containment test as well as the blob test. Each finding is checked by its own message.
+5. *Not run here:* the PDF build (no xelatex in this container), so the local tree check reports 0 PDFs rebuilt. R1's
+   fail-closed comparison runs only with a CI build directory. T0′/T1′ remain unbuilt and undispatched.
+
 ### 31.18 Record pins
 
 The digests below pin the record files from §31.12.9 on (D399, D319 revised, and their checks);
