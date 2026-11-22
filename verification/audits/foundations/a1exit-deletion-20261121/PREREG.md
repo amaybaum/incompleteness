@@ -6345,3 +6345,70 @@ records; D032 and D039 retain their text).
 | `edits_check.py` | `97b7d6016e94b3528aaf657547ac9ed40a966b6124e87bc6c80c38576ddcfb56` |
 | `guards_check.py` | `ef89e1c79a0cc3c34af1ebb981e1674edd33a534d6f98612ee06ce57005b5cee` |
 | `preserve_check.py` | `16302831c36620ab26abd1d476e83d1470f1da48bb41746ff6d930329d950d55` |
+
+#### 31.12.10 The second delta review: R5, N5–N7
+
+The second independent delta review, at `ba19109f`, is recorded on #1477 (comment 7076440898). It is REVISE on one
+finding, R5, with nits N4–N7. N4 waits for an owner decision and is not part of this subsection.
+
+**R5: `verify_run` fails open without a host `head_sha`.** Every executed-commit check sat under
+`if head is not None`. A run record with no `head_sha`, or with `head_sha` null, was therefore VALID on self-reported
+SHAs alone, which the owner's safeguard (c.7075869738) excludes.
+
+*The fix.* A `head_sha` that is missing, null or not a 40-character lowercase hex id voids the run. The comparison of
+`result.json`'s `workflow_sha` and `ref_sha` with the host's `head_sha` runs unconditionally, so a missing self-report
+voids the run too.
+
+*The fail-open audit.* Every optional value read by `verify_run` and by the R1 PDF comparison was checked for a missing
+value that skips a check instead of failing it:
+
+| Value | Before | After |
+|---|---|---|
+| `head_sha` (run record) | missing or null: every executed-commit check skipped (R5) | void |
+| `id` (run record) and `run_id` (`result.json`) | compared as `str(...)`, so if both are missing, "None" equals "None" and the check passes | void unless both are present and equal |
+| `result.json` not a JSON object | exception, a crash, not a pass | void |
+| `event`, `path`, `head_branch`, `run_attempt` | compared with `!=`, so missing already voids | unchanged |
+| `workflow_sha`, `ref_sha` | compared only under `head is not None` | compared unconditionally |
+| `trial_sha` | missing already voids | unchanged |
+| the workflow blob at W or at `head_sha` | `None` already voids | unchanged |
+| `--run-meta` file missing or not parsing | already void (meta `None`) | unchanged |
+| R1: the set of ledgered PDFs | an empty set compared nothing and passed | fails: no ledgered PDF to compare |
+| R1: `build.rc`, `pdf-pages.tsv` | missing already fails | unchanged |
+| R1: a malformed `pdf-pages.tsv` row | exception, a crash, not a pass | fails: malformed build record |
+| R1: a PDF missing from the record or the build | already fails | unchanged |
+
+`scope_check`'s required-absent entries pass when a file is missing. A deleted file is a separate finding of the tree
+comparison (`file deleted`), so nothing passes on that account. This is recorded, not changed.
+
+*New void and fail mutants:*
+- `head_sha` key missing;
+- `head_sha` null;
+- `head_sha` not a hex id;
+- run id missing on both sides;
+- `result.json` not an object;
+- R1 with an empty PDF set;
+- R1 with a malformed record row.
+
+Each must void or fail with its named finding.
+
+**N5.** The blob test gets an isolated mutant: `verify_run` with the host `head_sha` = W, workflow base = H and
+`main` = W. W contains H and lies on `main`'s first-parent history, so the only finding is the blob, and the mutant
+requires exactly that one finding. The earlier double-duty mutant stays as well.
+
+**N6: the reason for declining R-1, restated.**
+- §31.12.4's reason is wrong. The proposed text does not exceed the kernel: `WaveSubstratumUnbounded.waveZ_sites`
+  proves `(waveSubstratum d 0 q α).ι = (Fin d → ℤ)` by `rfl`, and the text claims no `A1` at `L = 0`.
+- The correct reason is that R-1 is not caused by the retirement. The docstring understates the definition's range and
+  does not generalize a finite-only result.
+- The owner accepted R-1 only if demonstrably editorial and within the change's purpose. It is left unchanged.
+
+**N7: the order of the subsections.**
+- §31.12.5 and §31.12.6 point to "§31.13" for results. The results are §31.17 for §31.12–§31.12.9, and §31.19 for this
+  subsection.
+- The subsections appear in commit order: 31.12.1–31.12.7, 31.14 (pins), 31.12.8, 31.16 (pins), 31.12.9, 31.17
+  (results), 31.18 (pins), 31.12.10, 31.19 (results), 31.20 (pins). There is no §31.13 or §31.15.
+- The pins in force are always the last `Record pins` subsection, §31.20 from this round on.
+
+**Checks.** The full battery of §31.12.6 is re-run from the plan head that carries §31.19, with the new mutants. The
+ledger and the edit list do not change in this round, so the reconciliations must reproduce §31.17's figures (against
+P\*: 302/60/9/26, drift 0; against `9ba8ef10`: 385/4/8, drift 0), and the ledger SHA-256 must stay `877c9305…`.
