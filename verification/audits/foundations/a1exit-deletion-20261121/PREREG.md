@@ -6193,3 +6193,27 @@ so §26.4 and §31.11 stay as the pins of P* and of `9ba8ef10`. The ledger has 3
 | `edits_check.py` | `5c0be6f81ea3292591b4037ff08dddb6f8d639c78df40521c818a6da1263bc35` |
 | `guards_check.py` | `ef89e1c79a0cc3c34af1ebb981e1674edd33a534d6f98612ee06ce57005b5cee` |
 | `preserve_check.py` | `fcfa3728193423281a2bf4ee0343e09184d2cfaec7de80618bbb50bdf641f056` |
+
+#### 31.12.8 The executed workflow commit, from the host's run record
+
+Owner decision, owner `amaybaum`, 2026-11-22T07:21:50Z,
+[#1169 comment 7075869738](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7075869738), quoted in
+part:
+
+> **New safeguard, `workflow_sha`.** `workflow_sha` must identify the commit whose workflow definition actually executed, not just a commit referenced in `result.json`. The checker verifies it against the CI run's trusted metadata from the host's API (the run's workflow ref and head commit), not against a self-reported value. A self-reported SHA alone must not produce a pass.
+
+§31.12.7's check is extended. `--verify-run RESULT.json --run-meta RUN.json`, where `RUN.json` is the host's record of
+the run (`GET /repos/amaybaum/incompleteness/actions/runs/{run_id}`, saved whole beside the result), and the run counts
+only if, besides §31.12.7's parts:
+
+3. *The run record.* `RUN.json` is present and parses; its `id` equals `result.json`'s `run_id`; its `event` is
+   `workflow_dispatch`; its `path` is `.github/workflows/a1exit-trial-verify.yml`; its `head_branch` is `main`; its
+   `run_attempt` is 1.
+4. *The executed commit.* The commit whose workflow definition executed is the run record's `head_sha`. Part 1 of
+   §31.12.7 (on `main`'s first-parent history, containing W, the workflow blob equal to W's) is applied to that
+   `head_sha`, and `result.json`'s self-reported `workflow_sha` and `ref_sha` must each equal it; a self-reported value
+   that differs from the host's is void, and so is a run without a host record.
+
+Self-test mutants, each void with its named finding: the run metadata missing; a `workflow_sha` in `result.json` that
+differs from the run's `head_sha`; a run whose `head_sha` carries a workflow blob other than W's; a run record of another
+event, another workflow path, another run id, or a re-run attempt. A valid control passes.
