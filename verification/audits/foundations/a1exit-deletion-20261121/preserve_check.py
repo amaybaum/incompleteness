@@ -27,10 +27,10 @@ Usage (from the repository root):
                                                               child of the ledger base (PREREG §31.12.7, §31.12.8);
                                                               with --run-meta-redacted COPY, a retained redacted copy
                                                               must keep its fields and types and verdict (§31.12.13)
-  python3 -I -B .../preserve_check.py --expect-trial T0|T1 --run-out OUT --plan P --jobs JOBS.json --built DIR
+  python3 -I -B .../preserve_check.py --expect-trial T0|T1 --run-out OUT --plan P --jobs JOBS.json --built DIR --trial-sha T --run-id N
                                                               a trial run's outputs against the expected result of
                                                               PREREG §31.12.13: B1's PDF findings, the expected skips
-  python3 -I -B .../preserve_check.py --expect-verify JOBS.json --plan P
+  python3 -I -B .../preserve_check.py --expect-verify JOBS.json --plan P --trial-sha T --run-id N
                                                               T1′'s verify.yml jobs record against its expected skips
 
 In every candidate mode the scope assertions of PREREG §31.7 item 6 (SCOPE_PRESENT, SCOPE_ABSENT) are a recorded check.
@@ -425,6 +425,12 @@ def pdf_facts(path):
     return pages, text
 
 
+def pdf_page_count(path):
+    """The page count pdfinfo reports for a PDF (N11, §31.12.15); an error when pdfinfo cannot read it."""
+    info = subprocess.run(['pdfinfo', path], capture_output=True, text=True, check=True).stdout
+    return int(re.search(r'^Pages:\s+(\d+)', info, re.M).group(1))
+
+
 def pdf_out_dir(built_dir, explicit=None):
     """The run's output directory: --pdf-out, or BUILT/../out (the workflow's $RUNNER_TEMP/out beside $RUNNER_TEMP/build)."""
     return explicit or os.path.join(os.path.dirname(os.path.abspath(built_dir).rstrip(os.sep)), 'out')
@@ -769,6 +775,76 @@ T0_HOST = {"P's preserve_check.py --commit, then --tree --mutants --pdf-compare"
            'Every required step succeeded (a skipped step fails)': 'failure'}
 # verify.yml at H on workflow_dispatch: the steps skipped by design, by (job, step)
 VERIFY_SKIPS = {('Mathlib bridge', 'KTRANS-SEP-2 marker complete reports with an axiom outside the three'): 'skipped'}
+VERIFY_JOBS = (  # §31.12.15: the 41 jobs of verify.yml at H on workflow_dispatch, from T1's run of it (ci-record.json)
+    'Lean kernel check',
+    'Mathlib bridge',
+    'Numerical probes',
+    'Numerical probes / A36 hierarchy',
+    'Numerical probes / A38 escape',
+    'Numerical probes / A40 locus',
+    'Numerical probes / A41 hulls',
+    'Numerical probes / A41 independent',
+    'Numerical probes / A41 production',
+    'Numerical probes / A42 census01',
+    'Numerical probes / A42 exclusion (cubes:0)',
+    'Numerical probes / A42 exclusion (cubes:1)',
+    'Numerical probes / A42 exclusion (cubes:2)',
+    'Numerical probes / A42 exclusion (dfs:0)',
+    'Numerical probes / A42 exclusion (dfs:1)',
+    'Numerical probes / A42 exclusion (dfs:2)',
+    'Numerical probes / A42 exclusion (dfs:3)',
+    'Numerical probes / A42 exclusion (dfs:4)',
+    'Numerical probes / A42 exclusion (dfs:5)',
+    'Numerical probes / A42 exclusion (n18:0)',
+    'Numerical probes / A42 exclusion (n18:1)',
+    'Numerical probes / A42 exclusion (n18:2)',
+    'Numerical probes / A42 exclusion (paths)',
+    'Numerical probes / A42 exclusion (r5)',
+    'Numerical probes / A42 exclusion (sathr)',
+    'Numerical probes / A42 witness',
+    'Numerical probes / A45 ancilla',
+    'Numerical probes / ARP-1-MARC exact span check',
+    'Numerical probes / BG-2 premise orientation',
+    'Numerical probes / KINF-2 foundations',
+    'Numerical probes / KT4-PREM-1 premise audit',
+    'Numerical probes / KTOKEN-MAXCONE-1 k = 3 exact layer',
+    'Numerical probes / KTRANS-SEP-2 Omega4 counterexample',
+    'Numerical probes / NB-1 native-gate ball',
+    'Numerical probes / OI channel protocol',
+    'Numerical probes / OI finite protocol',
+    'Numerical probes / OI pair maxCone',
+    'Numerical probes / PRESERVE-INDUCT-1 preservation induction',
+    'Numerical probes / core A',
+    'Numerical probes / core B',
+    'Numerical probes / foundations',
+)
+TRIAL_WORKFLOW_NAME, VERIFY_WORKFLOW_NAME = 'A1-EXIT trial verify', 'verify'
+
+
+def identity_findings(trial_sha, run_id):
+    """R7 (§31.12.15): the designated trial commit and run id, required and well formed."""
+    bad = []
+    if not isinstance(trial_sha, str) or not re.fullmatch(r'[0-9a-f]{40}', trial_sha):
+        bad.append('no designated trial commit: --trial-sha %r missing or not a full commit id' % (trial_sha,))
+    if not isinstance(run_id, str) or not re.fullmatch(r'[1-9][0-9]*', run_id):
+        bad.append('no designated run: --run-id %r missing or not a positive decimal id' % (run_id,))
+    return bad
+
+
+def job_binding(js, run_id, head_sha, workflow_name):
+    """R7: every job belongs to run run_id, at head_sha, first attempt, of the named workflow."""
+    bad = []
+    for j in js:
+        n = j.get('name')
+        if type(j.get('run_id')) is not int or str(j.get('run_id')) != str(run_id):
+            bad.append('job %r: run_id %r is not the designated run %s' % (n, j.get('run_id'), run_id))
+        if j.get('head_sha') != head_sha:
+            bad.append('job %r: head_sha %r is not %s' % (n, j.get('head_sha'), head_sha))
+        if type(j.get('run_attempt')) is not int or j.get('run_attempt') != 1:
+            bad.append('job %r: run_attempt %r, not 1' % (n, j.get('run_attempt')))
+        if j.get('workflow_name') != workflow_name:
+            bad.append('job %r: workflow_name %r, not %r' % (n, j.get('workflow_name'), workflow_name))
+    return bad
 
 
 def pdf_finding_kind(x, pdfs):
@@ -814,12 +890,21 @@ def _jobs_why(rec):
     return 'a job without steps'
 
 
-def expect_trial(kind, res, reports, pdfs, jobs=None, built=None):
-    """PREREG §31.12.13: the run's structured outputs against the T0′ or T1′ expectation. Returns the deviations."""
-    bad = []
+def expect_trial(kind, res, reports, pdfs, jobs=None, built=None, trial_sha=None, run_id=None):
+    """PREREG §31.12.13–§31.12.15: the run's structured outputs against the T0′ or T1′ expectation, bound to the
+    designated trial commit and run (R7). Returns the deviations."""
+    bad = identity_findings(trial_sha, run_id)
     t0 = kind == 'T0'
     if not isinstance(res, dict):
-        return ['result.json missing or not a JSON object']
+        return bad + ['result.json missing or not a JSON object']
+    if res.get('trial_sha') != trial_sha:
+        bad.append('result.json trial_sha %r is not the designated trial commit %r' % (res.get('trial_sha'), trial_sha))
+    if res.get('run_id') != run_id:
+        bad.append('result.json run_id %r is not the designated run %r' % (res.get('run_id'), run_id))
+    wsha = res.get('workflow_sha')
+    if not isinstance(wsha, str) or not re.fullmatch(r'[0-9a-f]{40}', wsha):
+        bad.append('result.json workflow_sha %r missing or not a full commit id' % (wsha,))
+        wsha = None
     steps = res.get('steps') if isinstance(res.get('steps'), dict) else {}
     for s in sorted(set(TRIAL_STEPS) | set(steps)):
         want = {'preserve': 'failure', 'guards': 'skipped'}.get(s, 'success') if t0 else 'success'
@@ -864,6 +949,9 @@ def expect_trial(kind, res, reports, pdfs, jobs=None, built=None):
         elif len(js) != 1:
             bad.append('host jobs record: not exactly one job')
         else:
+            bad += job_binding(js, run_id, wsha, TRIAL_WORKFLOW_NAME)
+            if js[0].get('name') != 'verify':
+                bad.append('host job name %r, not verify' % js[0].get('name'))
             seen = set()
             for s in js[0].get('steps') or []:
                 want = T0_HOST.get(s.get('name'), 'success') if t0 else 'success'
@@ -886,16 +974,31 @@ def expect_trial(kind, res, reports, pdfs, jobs=None, built=None):
                 bad.append('%s: not in the uploaded artifact' % p)
             elif not open(f, 'rb').read(4) == b'%PDF':
                 bad.append('%s: in the uploaded artifact, but empty or not a PDF' % p)
+            else:  # N11 (§31.12.15): it parses, and has the page count result.json records
+                try:
+                    n = pdf_page_count(f)
+                except (subprocess.CalledProcessError, AttributeError, ValueError):
+                    bad.append('%s: in the uploaded artifact, but pdfinfo cannot read it' % p)
+                    continue
+                if n != (res.get('pdf_pages') or {}).get(p):
+                    bad.append('%s: the uploaded PDF has %d pages, result.json records %r' % (p, n, (res.get('pdf_pages') or {}).get(p)))
     return bad
 
 
-def expect_verify(jobs):
-    """PREREG §31.12.13: T1′'s verify.yml run, workflow_dispatch: every job and step succeeds, except the skips listed
-    in VERIFY_SKIPS, each of which must conclude as listed."""
+def expect_verify(jobs, trial_sha=None, run_id=None):
+    """PREREG §31.12.13–§31.12.15: T1′'s verify.yml run, workflow_dispatch: every job belongs to the designated run
+    at the trial commit (R7) and is one of the 41 pinned jobs; every job and step succeeds, except the skips listed in
+    VERIFY_SKIPS, each of which must conclude as listed."""
+    bad = identity_findings(trial_sha, run_id)
     js = _jobs(jobs)
     if js is None:
-        return ['host jobs record rejected: %s' % _jobs_why(jobs)]
-    bad, seen = [], set()
+        return bad + ['host jobs record rejected: %s' % _jobs_why(jobs)]
+    bad += job_binding(js, run_id, trial_sha, VERIFY_WORKFLOW_NAME)
+    names = [j.get('name') for j in js]
+    if sorted(names) != sorted(VERIFY_JOBS):
+        bad.append('the jobs are not the %d pinned jobs of verify.yml: missing %s, unexpected %s'
+                   % (len(VERIFY_JOBS), sorted(set(VERIFY_JOBS) - set(names)), sorted(set(names) - set(VERIFY_JOBS))))
+    seen = set()
     for j in js:
         if j.get('conclusion') != 'success':
             bad.append('job %r: %s, expected success' % (j.get('name'), j.get('conclusion')))
@@ -1221,30 +1324,48 @@ def self_test(led, base_files, plan):
         rep = None
         expect(False, 'expect-trial: T0 and T1 evidence at the ledger base %s is required (%s)' % (led['base'][:12], e))
     if rep:
-        import copy as _copy
+        import copy as _copy, io as _io, zipfile as _zip
         p8 = set(rep['t0'][0]['pdf_pages'])
-        # a jobs record as the host serves it with ?per_page=100 (§31.12.14): total_count and every job
-        t1jobs = {'total_count': len(ci['runs'][0]['jobs']), 'jobs': ci['runs'][0]['jobs']}
-        t0jobs = _copy.deepcopy(t1jobs)
+        # a jobs record as the host serves it with ?per_page=100 (§31.12.14). ci-record.json keeps each job's id, name,
+        # conclusion and steps, and the run's run_id, head_sha and run_attempt once per run; the fixture copies those
+        # run-level values and the workflow's name onto each job, as the host serves them (§31.12.15).
+        def hostjobs(run, wname):
+            js = _copy.deepcopy(run['jobs'])
+            for j in js:
+                j.update(run_id=run['run_id'], head_sha=run['head_sha'], run_attempt=run['run_attempt'], workflow_name=wname)
+            return {'total_count': len(js), 'jobs': js}
+        t1run = ci['runs'][0]
+        t1jobs = hostjobs(t1run, TRIAL_WORKFLOW_NAME)
+        r0 = rep['t0'][0]
+        t0jobs = hostjobs(dict(t1run, run_id=int(r0['run_id']), head_sha=r0['workflow_sha']), TRIAL_WORKFLOW_NAME)
         t0jobs['jobs'][0]['conclusion'] = 'failure'
         for s in t0jobs['jobs'][0]['steps']:
             s['conclusion'] = T0_HOST.get(s['name'], 'success')
-        bdir = tempfile.mkdtemp(prefix='a1exit-built-')
-        for p in p8:
-            os.makedirs(os.path.dirname(os.path.join(bdir, p)), exist_ok=True)
-            open(os.path.join(bdir, p), 'wb').write(b'%PDF-1.5 fixture\n')
+        ident = {t: (rep[t][0]['trial_sha'], rep[t][0]['run_id']) for t in ('t0', 't1')}
+        # the built PDFs: each run's own artifact.zip at H (N11 compares their page counts with pdf_pages)
+        bdirs = {}
+        for t in ('t0', 't1'):
+            bdirs[t] = tempfile.mkdtemp(prefix='a1exit-built-')
+            z = _zip.ZipFile(_io.BytesIO(git('show', '%s:%s' % (led['base'], (ev % t) + 'artifact.zip'))))
+            for m in z.namelist():
+                if m.endswith('.pdf') and 'build/' in m:
+                    f = os.path.join(bdirs[t], m.split('build/', 1)[1])
+                    os.makedirs(os.path.dirname(f), exist_ok=True)
+                    open(f, 'wb').write(z.read(m))
         tree_pdf = [c for c in rep['t0'][1]['tree']['checks'] if c['name'] == PDF_CHECK]
         expect(len(tree_pdf) == 1 and any(pdf_finding_kind(x, p8) == 'pages' for x in tree_pdf[0]['discrepancies'])
-               and not expect_trial('T0', rep['t0'][0], rep['t0'][1], p8, t0jobs, bdir),
-               'expect-trial: T0\'s real evidence, with the Structure page-count finding, is expected under the T0 rule (B1)')
-        expect(not expect_trial('T1', rep['t1'][0], rep['t1'][1], p8, t1jobs, bdir),
-               'expect-trial: T1\'s real evidence is expected under the T1 rule')
+               and not expect_trial('T0', rep['t0'][0], rep['t0'][1], p8, t0jobs, bdirs['t0'], *ident['t0']),
+               'expect-trial: (a) T0\'s real evidence and built PDFs, the matching run, with the Structure page-count '
+               'finding, is expected under the T0 rule (B1)')
+        expect(not expect_trial('T1', rep['t1'][0], rep['t1'][1], p8, t1jobs, bdirs['t1'], *ident['t1']),
+               'expect-trial: (a) T1\'s real evidence and built PDFs, the matching run, is expected under the T1 rule')
 
-        def t0mut(name, change, want, kind='T0', src='t0', jobs=None, built=True):
+        def t0mut(name, change, want, kind='T0', src='t0', jobs=None, built=True, idn=None):
             res, reps = _copy.deepcopy(rep[src])
-            jb = _copy.deepcopy(jobs if jobs is not None else (t0jobs if kind == 'T0' else t1jobs))
+            jb = _copy.deepcopy(jobs if jobs not in (None, 'none') else (t0jobs if kind == 'T0' else t1jobs))
             change(res, reps, jb)
-            b = expect_trial(kind, res, reps, p8, None if jobs == 'none' else jb, bdir if built else None)
+            b = expect_trial(kind, res, reps, p8, None if jobs == 'none' else jb, bdirs[src] if built else None,
+                             *(idn if idn is not None else ident[src]))
             expect(any(want in x for x in b), 'expect-trial deviation: %s ("%s")' % (name, want))
 
         def pdfc(reps):
@@ -1275,32 +1396,90 @@ def self_test(led, base_files, plan):
         t0mut('skips: the upload step not succeeding',
               lambda r, p, j: [s.update(conclusion='skipped') for s in j['jobs'][0]['steps'] if s['name'].startswith('Upload')],
               'an unexpected skip')
-        # R6 (§31.12.14): a missing host record or artifact, and the built PDFs themselves
+        # R6 (§31.12.14): a missing host record or artifact
         t0mut('R6: --expect-trial without --jobs', lambda r, p, j: None, 'host jobs record not supplied', jobs='none')
         t0mut('R6: --expect-trial without --built', lambda r, p, j: None, 'artifact not supplied', built=False)
         t0mut('R6: the trial jobs record without total_count', lambda r, p, j: j.pop('total_count'), 'total_count None missing')
-        bad_pdf = sorted(p8)[0]
-        open(os.path.join(bdir, bad_pdf), 'wb').write(b'')
-        t0mut('R6: an empty built PDF', lambda r, p, j: None, 'empty or not a PDF')
-        shutil.rmtree(bdir, ignore_errors=True)
-        vjobs = {'total_count': len(ci['runs'][1]['jobs']), 'jobs': ci['runs'][1]['jobs']}
-        expect(not expect_verify(vjobs) and vjobs['total_count'] == 41,
-               'expect-verify: T1\'s real verify.yml record (41 jobs), the KTRANS-SEP-2 marker skipped, is expected')
-        for name, change, want in (
+        # R7 (§31.12.15), for T1 under --expect-trial: (b) another run, same commit; (c) another commit; (d) missing or
+        # malformed evidence
+        T1, R1 = ident['t1']
+        for name, change, want, idn in (
+                ('R7 (b): --run-id another run', lambda r, p, j: None, 'is not the designated run', (T1, '44939798305')),
+                ('R7 (b): the jobs\' run_id another run, same commit', lambda r, p, j: j['jobs'][0].update(run_id=44939798305),
+                 'is not the designated run', None),
+                ('R7 (c): the jobs\' head_sha another commit', lambda r, p, j: j['jobs'][0].update(head_sha='c06259692ddf12f7d3dffe170ec3118dc97682fc'),
+                 'head_sha', None),
+                ('R7 (c): --trial-sha another commit', lambda r, p, j: None, 'is not the designated trial commit',
+                 ('5b6d48b58f45d3032bc33560aa5047c4b400f35a', R1)),
+                ('R7 (d): no --run-id', lambda r, p, j: None, 'no designated run', (T1, None)),
+                ('R7 (d): no --trial-sha', lambda r, p, j: None, 'no designated trial commit', (None, R1)),
+                ('R7 (d): an upper-case --trial-sha', lambda r, p, j: None, 'no designated trial commit', (T1.upper(), R1)),
+                ('R7 (d): a 12-character --trial-sha', lambda r, p, j: None, 'no designated trial commit', (T1[:12], R1)),
+                ('R7 (d): a run id abc', lambda r, p, j: None, 'no designated run', (T1, 'abc')),
+                ('R7 (d): a job without run_id', lambda r, p, j: j['jobs'][0].pop('run_id'), 'run_id None', None),
+                ('R7 (d): result.json without workflow_sha', lambda r, p, j: r.pop('workflow_sha'), 'workflow_sha None missing', None),
+                ('R7: a job of another workflow', lambda r, p, j: j['jobs'][0].update(workflow_name='verify'), 'workflow_name', None),
+                ('R6: an empty built PDF', None, 'empty or not a PDF', None),
+                ('N11: a four-byte %PDF built file', None, 'pdfinfo cannot read it', None),
+                ('N11: a real PDF with another page count', None, 'the uploaded PDF has', None)):
+            if change is None:
+                f = os.path.join(bdirs['t1'], 'papers/GR.pdf')
+                keep = open(f, 'rb').read()
+                open(f, 'wb').write(b'' if 'empty' in name else b'%PDF' if 'four-byte' in name
+                                    else open(os.path.join(bdirs['t1'], 'papers/Main.pdf'), 'rb').read())
+                try:
+                    t0mut(name, lambda r, p, j: None, want, kind='T1', src='t1')
+                finally:
+                    open(f, 'wb').write(keep)
+            else:
+                t0mut(name, change, want, kind='T1', src='t1', idn=idn)
+        for t in bdirs.values():
+            shutil.rmtree(t, ignore_errors=True)
+        vrun = ci['runs'][1]
+        vjobs = hostjobs(vrun, VERIFY_WORKFLOW_NAME)
+        VT, VR = vrun['head_sha'], str(vrun['run_id'])
+        expect(not expect_verify(vjobs, VT, VR) and vjobs['total_count'] == 41 and sorted(VERIFY_JOBS) == sorted(j['name'] for j in vjobs['jobs']),
+               'expect-verify: (a) T1\'s real verify.yml record (41 jobs, the pinned names), the matching run and commit, the '
+               'KTRANS-SEP-2 marker skipped, is expected')
+        other = '5b6d48b58f45d3032bc33560aa5047c4b400f35a'
+        for name, change, want, idn in (
                 ('the marker step succeeding', lambda j: [s.update(conclusion='success') for x in j['jobs'] for s in x['steps']
-                                                          if s['name'].startswith('KTRANS-SEP-2 marker')], 'expected skipped'),
-                ('another step skipped', lambda j: j['jobs'][0]['steps'][1].update(conclusion='skipped'), 'an unexpected skip'),
-                ('a job skipped', lambda j: j['jobs'][2].update(conclusion='skipped'), 'expected success'),
-                ('R6: the default page, 30 of 41 jobs', lambda j: j.update(jobs=j['jobs'][:30]), 'incomplete: 30 jobs for total_count 41'),
-                ('R6: the record without total_count', lambda j: j.pop('total_count'), 'total_count None missing'),
-                ('R6: one job removed, total_count kept', lambda j: j['jobs'].pop(5), 'incomplete: 40 jobs for total_count 41'),
+                                                          if s['name'].startswith('KTRANS-SEP-2 marker')], 'expected skipped', None),
+                ('another step skipped', lambda j: j['jobs'][0]['steps'][1].update(conclusion='skipped'), 'an unexpected skip', None),
+                ('a job skipped', lambda j: j['jobs'][2].update(conclusion='skipped'), 'expected success', None),
+                ('R6: the default page, 30 of 41 jobs', lambda j: j.update(jobs=j['jobs'][:30]), 'incomplete: 30 jobs for total_count 41', None),
+                ('R6: the record without total_count', lambda j: j.pop('total_count'), 'total_count None missing', None),
+                ('R6: one job removed, total_count kept', lambda j: j['jobs'].pop(5), 'incomplete: 40 jobs for total_count 41', None),
                 ('R6 audit: a job listed twice, total_count raised',
-                 lambda j: (j['jobs'].append(_copy.deepcopy(j['jobs'][0])), j.update(total_count=42)), 'not unique'),
-                ('R6 audit: a job\'s steps removed', lambda j: j['jobs'][3].update(steps=[]), 'a job without steps')):
+                 lambda j: (j['jobs'].append(_copy.deepcopy(j['jobs'][0])), j.update(total_count=42)), 'not unique', None),
+                ('R6 audit: a job\'s steps removed', lambda j: j['jobs'][3].update(steps=[]), 'a job without steps', None),
+                ('R7 (b): --run-id another run, same commit', lambda j: None, 'is not the designated run', (VT, '44951832698')),
+                ('R7 (b): every job\'s run_id rewritten to another run',
+                 lambda j: [x.update(run_id=44951832698) for x in j['jobs']], 'is not the designated run', None),
+                ('R7 (b): one job\'s run_id changed (mixed runs)', lambda j: j['jobs'][7].update(run_id=44951832698),
+                 'is not the designated run', None),
+                ('R7 (c): every job\'s head_sha another commit', lambda j: [x.update(head_sha=other) for x in j['jobs']],
+                 'head_sha', None),
+                ('R7 (c): --trial-sha another commit', lambda j: None, 'head_sha', (other, VR)),
+                ('R7 (d): no --run-id', lambda j: None, 'no designated run', (VT, None)),
+                ('R7 (d): no --trial-sha', lambda j: None, 'no designated trial commit', (None, VR)),
+                ('R7 (d): an upper-case --trial-sha', lambda j: None, 'no designated trial commit', (VT.upper(), VR)),
+                ('R7 (d): a 12-character --trial-sha', lambda j: None, 'no designated trial commit', (VT[:12], VR)),
+                ('R7 (d): a run id abc', lambda j: None, 'no designated run', (VT, 'abc')),
+                ('R7 (d): a job without run_id', lambda j: j['jobs'][4].pop('run_id'), 'run_id None', None),
+                ('R7 (d): a job without head_sha', lambda j: j['jobs'][4].pop('head_sha'), 'head_sha None', None),
+                ('R7: run_attempt 2', lambda j: j['jobs'][1].update(run_attempt=2), 'run_attempt 2', None),
+                ('R7: workflow_name another workflow\'s', lambda j: j['jobs'][1].update(workflow_name=TRIAL_WORKFLOW_NAME),
+                 'workflow_name', None),
+                ('R7: the first 30 jobs with total_count 30', lambda j: j.update(jobs=j['jobs'][:30], total_count=30),
+                 'not the 41 pinned jobs', None),
+                ('R7: a job renamed', lambda j: j['jobs'][9].update(name=j['jobs'][9]['name'] + ' (renamed)'),
+                 'not the 41 pinned jobs', None)):
             vj = _copy.deepcopy(vjobs)
             change(vj)
-            expect(any(want in x for x in expect_verify(vj)), 'expect-verify deviation: %s ("%s")' % (name, want))
-        expect(any('not a JSON object with total_count' in x for x in expect_verify(_copy.deepcopy(vjobs['jobs']))),
+            expect(any(want in x for x in expect_verify(vj, *(idn if idn is not None else (VT, VR)))),
+                   'expect-verify deviation: %s ("%s")' % (name, want))
+        expect(any('not a JSON object with total_count' in x for x in expect_verify(_copy.deepcopy(vjobs['jobs']), VT, VR)),
                'expect-verify deviation: R6: a bare list of jobs ("not a JSON object with total_count")')
     d3 = tempfile.mkdtemp(prefix='a1exit-res-')
     try:
@@ -1396,6 +1575,8 @@ def main():
                     '--run-meta; it must keep the fields and types verify_run reads and give the same findings')
     ap.add_argument('--run-out', metavar='DIR', help='with --expect-trial: the run\'s out/ directory (result.json and the '
                     'checker result files)')
+    ap.add_argument('--trial-sha', metavar='SHA', help='with --expect-trial or --expect-verify: the designated trial commit')
+    ap.add_argument('--run-id', metavar='N', help='with --expect-trial or --expect-verify: the id of the run judged')
     ap.add_argument('--jobs', metavar='JOBS_JSON', help='with --expect-trial: the host jobs record of the run, saved whole')
     ap.add_argument('--built', metavar='DIR', help='with --expect-trial: the artifact\'s built PDFs (their repository paths under DIR)')
     ap.add_argument('--pdf-out', metavar='DIR', help='with --pdf-compare: the run\'s output directory holding build.rc and '
@@ -1469,13 +1650,13 @@ def main():
                     jobs = json.load(open(a.jobs, encoding='utf-8'))
                 except (OSError, ValueError):
                     jobs = 'unreadable'
-            eb = expect_trial(a.expect_trial, res, reps, {t[:-4] + '.pdf' for t in TEX}, jobs, a.built)
+            eb = expect_trial(a.expect_trial, res, reps, {t[:-4] + '.pdf' for t in TEX}, jobs, a.built, a.trial_sha, a.run_id)
             label = 'expected result of %s′ (PREREG §31.12.13)' % a.expect_trial
         else:
             try:
-                eb = expect_verify(json.load(open(a.expect_verify, encoding='utf-8')))
+                eb = expect_verify(json.load(open(a.expect_verify, encoding='utf-8')), a.trial_sha, a.run_id)
             except (OSError, ValueError):
-                eb = ['host jobs record missing or not JSON']
+                eb = identity_findings(a.trial_sha, a.run_id) + ['host jobs record missing or not JSON']
             label = 'expected result of T1′\'s verify.yml run (PREREG §31.12.13)'
         for x in eb:
             print('  DEVIATION ' + x)
