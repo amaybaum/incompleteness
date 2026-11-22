@@ -58,8 +58,8 @@ instruments, accessible algebras or readouts.
    piece (class (a2)). Then no controlled turn involves that piece or the breather (L11). If, for
    every start, one of the sites listed in §4 touches no further piece, every
    f-cycle start leaks by R6's leak tick, and no initial state has an admissible no-input orbit.
-   For one further straight piece the condition holds in every placement, except at `H00` for a
-   matched piece through `(−3,0,0)`; there 16 of the 20 f-starts leak for every background of that
+   For one further straight piece the conclusion of (b)–(c) holds in every placement, except at
+   `H00` for a matched piece through `(−3,0,0)`; there 16 of the 20 f-starts leak for every background of that
    piece, and the other 4 leak for two of its four backgrounds and are not decided for the others.
 7. **Necessary condition AW-NU-7 (§5).** For the breather to take part in a leak-free orbit other
    than through the leak condition at its coupling sites, a piece must touch the cube. For a
@@ -453,9 +453,10 @@ without signals, in contact with each other or not, none touching `C` or `P_in`)
 - (d) Lemma G gives (b)'s condition except in the stated sub-case. There, by L11, a leak-free run
   up to `T − 1` has `D` at its background, so the sum at `(−2,0,0)` at `T − 1` is
   `−2 + w^D_{T−1}(−3,0,0)`. `(−3,0,0)` is active at `T − 1 ≡ 7 (mod 20)`, `w^D_{t+4} = w^D_t`, and
-  L12 gives a leak by `T` when this sum is −3. If `D` is unmatched, its clamped orbit is its
-  background, which is 0 in the breather's component, so the sum is −2 for every background, and
-  (c)'s argument applies to every state of `D` without a signal. ∎
+  L12 gives a leak by `T` when this sum is −3. If `D` is unmatched, its clamped orbit keeps its
+  breather-component slots at 0, since they read only `D`'s own breather-component values, so the
+  sum is −2, and (c)'s argument applies to every state of `D` whose breather-component slots are 0,
+  signals in its own component included. ∎
 
 *Values.* Every clamped value of `K` used lies in `{−2, …, 3}` (R6 Theorem H), so RZ equals Q
 there (U1 Lemma 2.1).
@@ -497,8 +498,8 @@ every end in (a3) that touches a gadget site.
 - (iii) class (a2) (breather's cluster `{C, P_in}`, `P_in` matched and head-on at distance 1 with
   at least two sites): no controlled turn involving `P_in` or the breather; and, when some site of
   each `Λ(τ₀)` touches no further piece, no admissible no-input orbit, hence no signal interaction.
-  For one further straight piece without a signal the condition holds except at `H00` for a
-  matched piece through `(−3,0,0)`.
+  For one further straight piece without a signal the conclusion of (b)–(c) holds except at `H00`
+  for a matched piece through `(−3,0,0)` (Theorem HO(d)).
 
 These are conditions on designs and scoped exclusions. Meeting the conditions would not establish a
 controlled turn, and a controlled turn would not establish that R_q is universal in Definition U,
@@ -531,7 +532,7 @@ initial patterns, a scope condition, not a claim about native preparation.
   in 8 free cycles, and R6's single-contact branches already run to 28–33 ticks with departures
   across the cube. This is beyond hand scale under PLAN's stop rule.
 - *Unmatched contacts.* Gadgets with an unmatched piece in contact with `C` or with `P_in` (in
-  (a3) by §1's partition), or with a matched piece of a gadget otherwise in (a2). §2's example shows
+  (a3) by §1's partition). §2's example shows
   that such a piece can carry breather-component values without a leak, so neither Theorem D nor
   Theorem HO covers them.
 - *Absorption in class (b′)* (Theorem D (D4)): whether a W2 signal reaching a piece end can be
