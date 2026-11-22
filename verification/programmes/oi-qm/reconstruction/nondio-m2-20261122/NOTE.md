@@ -8,6 +8,14 @@ pins, the formulation (F-at), the typings (F-H) and (F-S), and the assumptions a
 `PLAN.md` §1, §3 and §4. Names without a prefix are this record's. Those prefixed "NN" are
 NATIVE-NONDIO's at `ab830621`, and those prefixed "M1" are NONDIO-M1's at `dac9ca3f`.
 
+Revision r2 answers the independent review of `b8cb9451` (#1509 c.7077843705, verdict REVISE).
+- R1: the classical reading of the joint-state ambiguity is narrowed to diagonal marginals. The
+  reviewer's pair with non-diagonal marginals is added as CX-F′.
+- R2: AW-3's attribution is corrected at each pin.
+- n1–n5 are applied.
+
+No DIO-type or MIO-type result changes, and nothing is strengthened. `PLAN.md` is unchanged.
+
 **Labels.**
 - **ESTABLISHED**: proved on paper here (layer X), or cited at its source's standing: (L) a
   literature theorem, (R) a corpus record. "Established" means established within this record,
@@ -39,22 +47,25 @@ configuration observables unchanged (VC: E(g ⊗ 1) = g for g ∈ ℓ^∞(C_V)).
 | DIO-type of E∘Φ_o\*(· ⊗ 1) | every E with VC, so every hidden state ω, normal or not, appended by σ_ω; also classically correlated hidden priors | **yes** (RED-M2) |
 | the slice σ_ω for non-normal ω and infinite C_V | every state ω of B(H_Z) | **exists** (Lemma VS), and is the **only** positive map with the product property PROD (Lemma SL) |
 | MIO-type | E = σ_ω with ω = ω∘Δ_Z, normal or not | **yes** (MIO-M2) |
-| MIO-type, non-diagonal ω | E = σ_ω, ω ≠ ω∘Δ_Z | **no** for a configuration bijection of the total carrier (CX-M); the coherence created changes no record law (IDLE-V) |
+| MIO-type, non-diagonal ω | E = σ_ω, ω ≠ ω∘Δ_Z, and \|C_V\| = \|Z\| | **no** for a configuration bijection of the total carrier (CX-M); the coherence created changes no record law (IDLE-V) |
 | record laws | every visible state, every E with VC; every total state | depend only on the configuration law (IDLE-V; M1 IDLE-∞) |
 
 Neither normality of ω, nor finiteness of C_V (FIN-V), nor countability of C_V or Z, nor complete
 positivity of E or Φ_o is used. This extends M1 RED-∞ (F-at), stated there for normal ω or finite
 C_V, by the proof of §3; RED-∞ itself is not reinterpreted.
 
-**(F-S): EXTENDS on normal visible inputs and for both slice orders; INCONCLUSIVE for general
-affine assignments on non-normal visible inputs.**
+**(F-S): INCONCLUSIVE, with BIDUAL-REL missing.** This is the single outcome `PLAN.md` §2 asks for
+in this typing. The following partial results are established:
 - For a normal visible input ρ and any state ω, exactly one state of B(H_V ⊗ H_Z) has the product
   marginals, namely ρ∘σ_ω (Lemma JU). So every assignment satisfying PROD, linear or not, gives the
   (F-H) output on normal inputs, and is DIO-type there.
-- For two non-normal states the joint state is not fixed by its marginals: CX-F gives two
-  diagonal joint states with the same product marginals and different configuration laws on
-  ℓ^∞(ℕ × ℕ). The ambiguity is that of iterated ultrafilter limits on a commutative algebra, and
-  is classical.
+- For two non-normal states the joint state is not fixed by its marginals.
+  - With diagonal marginals, CX-F gives two diagonal joint states with the same product marginals
+    and different configuration laws on ℓ^∞(ℕ × ℕ). That ambiguity is the one of iterated
+    ultrafilter limits on a commutative algebra, and is classical.
+  - With non-diagonal marginals, CX-F′ gives two joint states with the same product marginals that
+    differ on an element of zero diagonal. That ambiguity is not confined to the configuration
+    algebra.
 - Both slice orders are DIO-type. For a general affine assignment, DIO-type reduces to whether the
   relative commutant ℓ^∞(C_V)′ ∩ B(ℓ²(C_V))\*\* equals the σ-weak closure ℓ^∞(C_V)\*\* of the
   diagonal in the bidual (Proposition BID). **Missing ingredient: BIDUAL-REL.** It is a sufficient
@@ -71,14 +82,18 @@ affine assignments on non-normal visible inputs.**
   DIO-type and MIO-type hold. The non-diagonal non-normal states of CX-M, and the non-normal
   visible inputs of the (F-S) residual, are outside LAW in both readings.
 
-**Assumption-watch marker AW-3 (§6).** The parent records took the slice by a non-normal state on
-B(H_V ⊗ H_Z) with infinite C_V to be undefined (NN N5, M1 §5, OPRES D step 4 and U1′ (ii)). On this
-tensor product of two type-I factors, the vector slice exists for every state and is unique among
-positive maps with the product property. The non-canonical object is the joint state of two
-non-normal states, and that ambiguity already occurs in ℓ^∞(ℕ × ℕ).
+**Assumption-watch marker AW-3 (§8).** M1 states that the slice needs FIN-V or a normal ω (M1
+Verdict N1, "The slice in S9 needs FIN-V, or normal ω, outside (F-C\*)"; the S9 row). On
+B(H_V ⊗ H_Z), the tensor product of two type-I factors, this is false. The vector slice exists for
+every state, and it is unique among positive maps with the product property (VS, SL). NN N5
+records the same slice as not established (M2), and VS closes that open item. OPRES Remark D′
+asserts that σ_ω is not defined on L^∞(H₁) ⊗̄ L^∞(H) for non-normal ω when a diffuse factor H₁ is
+present. As a statement about the vector slice this is false too, and it bears on OPRES U1′ (iii).
+What is non-canonical is the joint state of two non-normal states. That ambiguity already occurs
+in ℓ^∞(ℕ × ℕ) (CX-F), and for non-diagonal marginals it is not confined there (CX-F′).
 
-**MISSING.** BIDUAL-REL (§5); OPRES U1′ in OPRES's own formulation (AW-3 bears on it, and it is not
-checked here); an infinite-C_V form of OPRES Theorem C(b), which is not claimed; the nativeness
+**MISSING.** BIDUAL-REL (§5); OPRES U1′ (iii) in OPRES's own formulation (AW-3 bears on it, and it is
+not checked here); an infinite-C_V form of OPRES Theorem C(b), which is not claimed; the nativeness
 of the bijection in CX-M (NN M4); NN M3; M1-b (out of scope).
 
 **Productivity (`PLAN.md` §5): gem.** The output class is ELABORATING, with one NEW
@@ -127,7 +142,11 @@ The map σ_ω is linear, unital, completely positive and of norm 1. It satisfies
 
 *Relations.*
 - σ_ω(1 ⊗ c) = ω(c)1, so σ_ω is normal if and only if ω is.
-- For normal ω, σ_ω is the normal slice id ⊗ ω (both are normal and agree on elementary tensors).
+- For normal ω, σ_ω is normal and is the normal slice id ⊗ ω. Write ω = Σ_k λ_k ⟨e_k|·|e_k⟩, with
+  (e_k) orthonormal, λ_k ≥ 0 and Σ_k λ_k = 1, and let V_k ξ := ξ ⊗ e_k. Then
+  ⟨ξ|V_k\* b V_k|η⟩ = ⟨e_k|b_{ξη}|e_k⟩, so σ_ω = Σ_k λ_k V_k\*(·)V_k. This is a norm-convergent sum
+  of normal maps, hence normal. The normal slice is positive and satisfies PROD, so Lemma SL
+  identifies the two.
 - For C_V finite it is id_n ⊗ ω. On ℓ^∞(C_V × Z) it is the pointwise slice
   f ↦ (ω(M_{f(v,·)}))_v of OPRES D′ step 3, since (M_f)_{vv′} = δ_{vv′} M_{f(v,·)}. M1 §5 records
   this pointwise slice as canonical for every ω; Lemma VS extends it off the diagonal.
@@ -202,9 +221,11 @@ Then:
 *What is not used.* Normality of ω and of E; finiteness or countability of C_V and Z; PROD (VC
 suffices); complete positivity of E or Φ_o.
 
-*Example of VC without PROD (ESTABLISHED, X).* For any family (ω_v)_{v∈C_V} of states of B(H_Z),
-E(b) := Σ_v ω_v(b_{vv}) P_v is positive and unital, and E(g ⊗ 1) = g. It appends a hidden prior
-correlated with the visible configuration. RED-M2 applies to it.
+*Example of VC without PROD (ESTABLISHED, X; trivial instance).* For any family (ω_v)_{v∈C_V} of
+states of B(H_Z), E(b) := Σ_v ω_v(b_{vv}) P_v is positive and unital, and E(g ⊗ 1) = g. It appends
+a hidden prior correlated with the visible configuration. Its values lie in ℓ^∞(C_V) for every b,
+so it also dephases the visible input, and RED-M2 holds for it trivially. It shows only that VC is
+strictly weaker than PROD. It is not a non-trivial instance of RED-M2.
 
 **Corollary IDLE-V (ESTABLISHED, X).** For every visible state ρ, normal or not, and every E with
 VC:
@@ -292,9 +313,28 @@ factors exchanged).
   {v : v < z} is finite and does not lie in u, so Ω_2(M_f) = 0.
 - Both are diagonal states: Ω_i∘Δ = Ω_i.
 
-So the joint state of two non-normal states is not fixed by its marginals, and the difference
-already lies in the commutative algebra ℓ^∞(ℕ × ℕ), between two incoherent states. By Lemma SL, Ω_2
-is not ρ_u∘E for any positive E: B(H_V ⊗ H_Z) → B(H_V) with PROD.
+So the joint state of two non-normal states is not fixed by its marginals. For these diagonal
+marginals the difference lies in the commutative algebra ℓ^∞(ℕ × ℕ), between two incoherent
+states. By Lemma SL, Ω_2 is not ρ_u∘E for any positive E: B(H_V ⊗ H_Z) → B(H_V) with PROD.
+
+**Counterexample CX-F′ (with non-diagonal marginals the ambiguity is not classical; ESTABLISHED,
+X, using free ultrafilters; from the review, c.7077843705, R1, checked here).** Let C_V = Z = ℕ,
+let ξ_n := (|2n⟩ + |2n + 1⟩)/√2 as in CX-M, let u and w be free ultrafilters, and put
+ρ := lim_{n→u} ⟨ξ_n|·|ξ_n⟩ and ω := lim_{m→w} ⟨ξ_m|·|ξ_m⟩.
+- Put Ω_1 := ρ∘σ_ω and Ω_2 := ω∘σ′_ρ. Both satisfy PROD. Writing η_{nm} := ξ_n ⊗ ξ_m, Lemma VS gives
+  Ω_1(b) = lim_{n→u} lim_{m→w} ⟨η_{nm}|b|η_{nm}⟩, and Ω_2(b) is the same with the limits in the
+  other order.
+- The η_{nm} are orthonormal, so X := Σ_{n<m} |η_{nm}⟩⟨η_{nm}| is a projection with
+  ⟨η_{nm}|X|η_{nm}⟩ = 1_{n<m}.
+- Each η_{nm} has the four diagonal entries ¼ on {2n, 2n + 1} × {2m, 2m + 1}, so ΔX = ¼ M_f with
+  f(v, z) = 1 when ⌊v/2⌋ < ⌊z/2⌋ and 0 otherwise. Then ⟨η_{nm}|ΔX|η_{nm}⟩ = ¼ 1_{n<m}.
+- Put Y := X − ΔX, so ΔY = 0. Since {m : m > n} ∈ w and {n : n < m} ∉ u:
+  - Ω_1(X) = 1 and Ω_1(ΔX) = ¼, so Ω_1(Y) = ¾;
+  - Ω_2(X) = 0 and Ω_2(ΔX) = 0, so Ω_2(Y) = 0.
+
+So Ω_1 − Ω_2 ≠ (Ω_1 − Ω_2)∘Δ. The two joint states differ on an element with zero diagonal, so
+their difference is not confined to ℓ^∞(C_V × Z). RED-M2 and the DIO-type of both slice orders are
+unaffected, since they concern only the configuration law of the output.
 
 *Both slice orders are DIO-type (ESTABLISHED, X).* The assignment ρ ↦ ρ∘σ_ω is (F-H). For
 ρ ↦ ω∘σ′_ρ, which is affine and satisfies PROD, and for diagonal a, σ′_ρ(Φ_o\*(a ⊗ 1)) =
@@ -315,7 +355,11 @@ Hence: **if BIDUAL-REL holds, that is, ℓ^∞(C_V)′ ∩ B(ℓ²(C_V))\*\* = �
 assignment satisfying PROD is DIO-type in (F-S).** ∎
 
 **BIDUAL-REL (MISSING).** It is not settled here whether the relative commutant of the diagonal in
-the bidual of B(ℓ²(C_V)) is the bidual of the diagonal, for C_V countably infinite. It concerns
+the bidual of B(ℓ²(C_V)) is the bidual of the diagonal, for C_V countably infinite. Multiplication
+in the bidual is separately σ-weakly continuous, so ℓ^∞(C_V)′ = (ℓ^∞(C_V)\*\*)′ there, and BIDUAL-REL
+is equivalent to ℓ^∞(C_V)\*\* being maximal abelian in B(ℓ²(C_V))\*\*. No literature search was run
+on it (audit-method Step 4). In particular, maximality of D\*\* in A\*\* for a MASA D ⊆ A with the
+extension property was not searched for. It concerns
 only states that vanish on the compact operators, since on normal states Lemma JU already settles
 the question. It is a question about the diagonal MASA, adjacent to Kadison–Singer (context, not
 used) and to M1-b, which needs separate authorization. BIDUAL-REL is a sufficient condition. Its
@@ -323,10 +367,12 @@ failure would not by itself give a non-DIO assignment: that would need an affine
 PROD whose E takes a value outside ℓ^∞(C_V)\*\* on ℓ^∞(C_V × Z), and none is constructed.
 Assignments that are not affine on non-normal visible inputs are NN M3.
 
-**Verdict N4.** (F-S) is DIO-type on normal visible inputs, for every assignment with PROD. It is
-DIO-type on all inputs for both slice orders. For general affine assignments on non-normal visible
-inputs it is INCONCLUSIVE, with BIDUAL-REL missing. The non-uniqueness that does occur (CX-F) is
-classical.
+**Verdict N4: INCONCLUSIVE, with BIDUAL-REL missing.** This is the single (F-S) outcome. The
+established partial results are these:
+- (F-S) is DIO-type on normal visible inputs, for every assignment with PROD;
+- it is DIO-type on all inputs for both slice orders;
+- the non-uniqueness of joint states is classical for diagonal marginals (CX-F), and not confined
+  to the configuration algebra for non-diagonal ones (CX-F′).
 
 ## 6. N5: mathematical existence and physical realizability
 
@@ -385,22 +431,43 @@ LAW do not settle whether non-σ-additive hidden laws are physical; that is not 
 | MIO-M2 | as RED-M2, with PROD and diagonal ω | X | ELABORATING |
 | CX-M | free ultrafilter | X | CONFIRMING: NN 4d on a countably infinite visible carrier |
 | Lemma JU | — | X | ELABORATING: uniqueness behind OPRES's U1′ (ii) sketch |
-| CX-F | free ultrafilters | X | ELABORATING: locates the non-canonical joint state, and shows it is classical |
+| CX-F | free ultrafilters | X | ELABORATING: locates the non-canonical joint state, and shows it is classical for diagonal marginals |
+| CX-F′ | free ultrafilters; from the review | X | ELABORATING: for non-diagonal marginals the joint-state ambiguity is not confined to the configuration algebra |
 | Proposition BID; BIDUAL-REL | — | X | BORDERLINE: a reduction to an open question, not a decision |
 | §6 realizability | readings LAW-σ, LAW-fa | X, P | ELABORATING |
 
 **AW-3 (assumption-watch marker).** A record that restricts a slice, a reduction or a joint state
 to normal hidden states should check whether the tensor product is B(H ⊗ K). There the vector
 slice σ_ω exists for every state ω and is the unique positive map with the product property. The
-case that is non-canonical is the joint state of two non-normal states (CX-F), and its ambiguity
-lies in the configuration algebra.
+case that is non-canonical is the joint state of two non-normal states. Its ambiguity already
+occurs in the configuration algebra (CX-F), and for non-diagonal marginals it is not confined
+there (CX-F′).
 
-*Cross-propagation (not settled here).* OPRES Proposition D step 4 and Remark D′ restrict the
-append to normal ω or finite C_V, and U1′ (ii)–(iii) list the cases left open. Lemma VS gives the
-vector slice B(K ⊗ L²(H, ν)) → B(K) for every state of B(L²(H, ν)). Lemma CMP gives preservation of
-any configuration algebra 𝒜 ⊆ B(K) that is maximal abelian and whose projections the append fixes.
-Whether this settles U1′ (ii) or (iii) in OPRES's own protocol class, with its Theorems B and C(b)
-on an infinite visible carrier, is not checked here.
+*Instances at the pins.*
+- **M1 at `dac9ca3f`: the premise is stated, and VS refutes it.** "The slice in S9 needs FIN-V, or
+  normal ω, outside (F-C\*)" (Verdict N1); the S9 row gives "ω normal, or C_V finite". AW-3 is NEW
+  on this instance.
+- **NN N5 at `ab830621`: an open item.** "With C_V countably infinite and ω non-normal the slice is
+  not established" (M2). VS closes it; no premise is refuted there.
+- **OPRES Remark D′ at `24702c1d`: a further instance.** Its hypotheses state that, with a diffuse
+  factor H₁ present, "σ_ω would have to act on L^∞(H₁) ⊗̄ L^∞(H), which is not defined for
+  non-normal ω". For the vector slice this is false:
+  - VS gives σ_ω on B(L²(H₁) ⊗ L²(H)) for every ω;
+  - by bimodularity σ_ω(b) commutes with L^∞(H₁) whenever b commutes with L^∞(H₁) ⊗ 1, so
+    σ_ω(b) ∈ L^∞(H₁)′ = L^∞(H₁);
+  - SL gives uniqueness among positive maps with PROD.
+
+  This bears on OPRES U1′ (iii).
+- **Not instances.** OPRES D step 4 ("Normality is used for the slice on the von Neumann tensor
+  product") describes D's proof, not the slice's existence. OPRES U1′ (ii) names a different
+  obstacle: a non-normal output visible marginal, which would need a state-space form of the
+  Theorem C(b) bound.
+
+*Cross-propagation (not settled here).* Lemma VS gives the vector slice B(K ⊗ L²(H, ν)) → B(K) for
+every state of B(L²(H, ν)). Lemma CMP gives preservation of any configuration algebra 𝒜 ⊆ B(K)
+that is maximal abelian and whose projections the append fixes. Whether this settles U1′ (iii) in
+OPRES's own protocol class, with its Theorems B and C(b) on an infinite visible carrier, is not
+checked here. U1′ (ii) is not addressed.
 
 **Productivity test (`PLAN.md` §5).**
 - *Stronger than the restatement:* the restatement is "RED holds for normal ω or finite C_V; the
@@ -408,7 +475,7 @@ on an infinite visible carrier, is not checked here.
   exists and is unique for every ω (VS, SL), and that the visible instrument is DIO-type for every
   append with VC (RED-M2).
 - *(i) Decides or narrows:* M2 is decided in (F-H). In (F-S) it is decided on normal visible inputs
-  and reduced to BIDUAL-REL on non-normal ones. OPRES U1′ (ii) is bounded by AW-3, and not settled.
+  and reduced to BIDUAL-REL on non-normal ones. AW-3 bears on OPRES U1′ (iii), which is not settled.
 - *(ii) Exposes a hidden assumption:* AW-3.
 - **Gem under `PLAN.md` §5. Output class ELABORATING, with one NEW marker.**
 
@@ -420,12 +487,13 @@ whether VC or PROD smuggles DIO in.
 - The same mechanism does not settle (F-S). There the relative commutant is taken in the bidual,
   where maximality is not available. The record reports that case as INCONCLUSIVE.
 - Lemma SL does not remove every non-uniqueness. CX-F exhibits one, for joint states of two
-  non-normal states, and it lies in the configuration algebra ℓ^∞(ℕ × ℕ).
+  non-normal states. For diagonal marginals it lies in ℓ^∞(ℕ × ℕ), and for non-diagonal marginals
+  it does not (CX-F′).
 
 *Stop condition.* The record stops under the `PLAN.md` §8 condition "answered in both typings of
 §3, or each remaining case reported INCONCLUSIVE with its missing ingredient". (F-H) is answered;
-(F-S) is answered on normal inputs and for both slice orders, and the remaining affine case is
-INCONCLUSIVE with BIDUAL-REL named. A further node would need BIDUAL-REL, which is adjacent to
+(F-S) is INCONCLUSIVE with BIDUAL-REL named, with its normal-input and slice-order results
+established. A further node would need BIDUAL-REL, which is adjacent to
 M1-b and outside this authorization. The fixed-point condition of `PLAN.md` §8 is not claimed to
 be met.
 
@@ -434,7 +502,7 @@ be met.
 **ESTABLISHED** (this record, layer X, unreviewed):
 - Lemma VS, Lemma SL, Corollary SL′, Lemma CMP and Lemma JU;
 - Theorem RED-M2, Corollary IDLE-V and Theorem MIO-M2;
-- CX-M and CX-F, each using a free ultrafilter;
+- CX-M, CX-F and CX-F′, each using a free ultrafilter (CX-F′ from the review);
 - Proposition BID, as a reduction;
 - the characterization of normal states by complete additivity of the configuration law (from M1
   NRM (a)), and the realizability readings of §6;
@@ -452,8 +520,9 @@ be met.
 - **BIDUAL-REL** (§5): whether ℓ^∞(C_V)′ ∩ B(ℓ²(C_V))\*\* = ℓ^∞(C_V)\*\*. It is sufficient for (F-S)
   on non-normal visible inputs. It is adjacent to M1-b, which needs separate authorization, and it
   is not attempted.
-- **OPRES U1′ (ii), (iii)** in OPRES's own formulation: AW-3 bears on them, and they are not
-  checked.
+- **OPRES U1′ (iii)** in OPRES's own formulation: AW-3 bears on it, through Remark D′'s
+  diffuse-factor sentence, and it is not checked. U1′ (ii) is a different obstacle and is not
+  addressed.
 - **An infinite-C_V form of OPRES Theorem C(b)** (the diamond-norm bound): not claimed. DIO-type
   is proved here; no distance bound is.
 - **Nativeness of the bijection in CX-M** (NN M4), and **NN M3** (nonlinear state assignments):
