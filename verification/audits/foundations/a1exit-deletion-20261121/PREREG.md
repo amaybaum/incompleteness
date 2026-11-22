@@ -6427,3 +6427,50 @@ records; D032 and D039 retain their text).
 | `edits_check.py` | `97b7d6016e94b3528aaf657547ac9ed40a966b6124e87bc6c80c38576ddcfb56` |
 | `guards_check.py` | `ef89e1c79a0cc3c34af1ebb981e1674edd33a534d6f98612ee06ce57005b5cee` |
 | `preserve_check.py` | `657a8d987bc2cc0c96f658db3c46e32add91217e414bb046e5e680b97620ecf5` |
+
+#### 31.12.11 Owner decisions on R5 and N4–N7
+
+Owner decision, owner `amaybaum`,
+[#1169 comment 7076485257](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7076485257), quoted in
+part:
+
+> | N4, `A6Instantiation.lean:55–56` and `:506–507` | Approved. Replace the assertion that finiteness is an axiom of the interface with wording that describes finiteness as a predicate, or as an explicit condition where required. Preserve the established finite-case theorems and their assumptions. Add N4 to the ledger's traceability and to its required-present and required-absent checks. |
+> | N5 and N7 | Apply them if they are non-substantive corrections consistent with the review. |
+> | N6, the R-1 explanation | Correct the explanation. The kernel does cover the L = 0 case. R-1 is excluded because it is not a correction caused by the retirement. |
+
+For R5, the decision also requires failing closed when the host's `head_sha` is absent, null, empty or malformed
+(anything other than 40 lowercase hex characters). It requires verifying always against trusted host metadata, and an
+audit of both checkers with a void mutant for each missing-data bypass. §31.12.10 covers these. This subsection adds the
+empty-string `head_sha` mutant, which the "missing or malformed" test already voids.
+
+**N4, two new records (`lean-docstring`, semantic).** In the kernel, `A1` is a predicate on a `Substratum`
+(`Substratum.A1 : Prop := Finite 𝒮.Conf`), not a field of the structure. The complex carrier is built as a `Substratum`
+(`linkSubstratum`), and `cx3b_complex_not_A1` proves that it fails the predicate. "Finiteness is the first of the
+interface's axioms" therefore misdescribes the kernel, and after the retirement it also reads as a premise.
+
+| Record | Site | Old → new |
+|---|---|---|
+| D400 | `A6Instantiation.lean:55–56` (module docstring, `CX3`) | "because finiteness is the first of the interface's axioms and the complex\n  carrier is infinite" → "because the interface's finiteness predicate `A1` requires a finite configuration space\n  and the complex carrier's is infinite" |
+| D401 | `A6Instantiation.lean:506–507` (docstring of `cx3b_complex_not_A1`) | "because finiteness is the first of the interface's axioms\nand the complex carrier is infinite" → "because the interface's finiteness predicate `A1` requires a finite\nconfiguration space and the complex carrier's is infinite" |
+
+- *The finite-case results are unchanged.* `cx3b_complex_not_A1`, `cx3a_complex_axioms` and their statements are
+  untouched, and the passages keep the distinction that the covariance statement comes inside and the complex carrier
+  does not.
+- *No overlap.* D401's old text ends at "is infinite." on line 507. D399's old text begins on line 508 ("the
+  manuscripts' substratum is …"), and D319's two lines later. D400 lies in the module docstring, apart from D314–D316.
+  The ledger's overlap check must confirm this.
+- *Checks.* `SCOPE_PRESENT` gains both new phrases, and `SCOPE_ABSENT` gains "finiteness is the first of the interface's
+  axioms". `PRESERVE` gains D400 and D401, `NEW31` gains D400–D401, and the edit list grows to 401 records and 399
+  splices.
+
+**N5 and N7** are applied as §31.12.10 states: one added mutant, and one appended sentence mapping the order. Both are
+non-substantive. **N6** is §31.12.10's restatement.
+
+**Expected after the re-pin.**
+
+| Comparison | Expected |
+|---|---|
+| Against P\* | 302 unchanged, 60 shifted, 9 revised, 28 added (D374–D401), drift 0 |
+| Against `9ba8ef10` | 385 unchanged, 4 revised, 10 added, drift 0 |
+| Results | §31.19 |
+| Pins | the last `Record pins` subsection, §31.21; §31.20 stays as the pins of `2fc36b1e` |
