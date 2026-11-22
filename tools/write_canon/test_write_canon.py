@@ -100,15 +100,25 @@ class Fixtures(unittest.TestCase):
         self.assertEqual(r["constructs"]["unsupported"], ["line 23: mention or e-mail autolink"])
         self.assertFalse(r["ok"])
 
-    def test_issue_1169_corruption(self):
-        sub, st = fx("issue1169-submitted.md"), fx("issue1169-stored.md")
+    def test_backtick_wrap_corruption(self):
+        # Synthetic copy of the corruption first seen on #1169: inline blob links wrapped in
+        # backtick runs whose length grows by one per wrapped link.
+        sub, st = fx("wrap-submitted.md"), fx("wrap-stored.md")
         r = W.check(sub, st)
-        self.assertFalse(r["integrity"]["stored_matches_expected"])
+        self.assertTrue(r["integrity"]["source_sha256"] and not r["integrity"]["stored_matches_expected"])
         self.assertFalse(r["links"]["ok"])
+        self.assertEqual([re.sub(r"^line [0-9]+: |: .*$", "", x) for x in r["links"]["problems"]],
+                         ["blob URL as an inline-link destination"] * 6)
         self.assertFalse(r["constructs"]["ok"])                  # headings, HTML, block quotes
+        bad = " ".join(r["constructs"]["unsupported"])
+        for why in ("construct: ## ", "construct: ***", "construct: <details>", "construct: > ",
+                    "construct: 1. ", "construct: ---", "names a different number"):
+            self.assertIn(why, bad)
+        self.assertEqual(r["constructs"]["inventory"]["code-span"], 3)   # incl. a `` ` `` span and an ellipsis
+        self.assertIn("`abcd1234\u2026/README.md`", sub)
         # Apart from the capture's final newline, the stored body is N(submitted) with backtick runs
         # (and one adjacent space) inserted around link destinations, and nothing else.
-        exp, got, i, j, ins = W.normalize(sub), st[:-1], 0, 0, 0
+        exp, got, i, j, runs = W.normalize(sub), st[:-1], 0, 0, []
         self.assertTrue(st.endswith(TAIL + "\n"))
         while i < len(exp) or j < len(got):
             if i < len(exp) and j < len(got) and exp[i] == got[j]:
@@ -118,10 +128,13 @@ class Fixtures(unittest.TestCase):
             while k < len(got) and got[k] == "`":
                 k += 1
             self.assertGreater(k, j + (got[j] == " "), "non-backtick difference at %d" % j)
+            runs.append(got[j:k].count("`"))
             if got[j] != " " and k < len(got) and got[k] == " " and (i >= len(exp) or exp[i] != " "):
                 k += 1
-            ins, j = ins + 1, k
-        self.assertEqual(ins, 38)                         # 19 links, opened and closed
+            j = k
+        self.assertEqual(runs, [2, 2, 3, 3, 4, 4, 5, 5, 6, 6])   # five of six links, opened and closed
+        spans = [c for ln in st.split("\n") for _, _, c in (W.code_spans(ln)[1] or []) if "/blob/" in c]
+        self.assertEqual(len(spans), 5)                            # the table-cell fragment link is not wrapped
 
 
 class Scanner(unittest.TestCase):

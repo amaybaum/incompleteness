@@ -37,10 +37,10 @@ as U+0020, does not equal the normalized source and is not caught.
 The receipt is created with a hard link so that it never replaces a file. On a filesystem without
 hard links, a post that was written and verified therefore halts with "receipt not written".
 
-**Fixtures** are captures of real bodies: the #1169 Issue body as submitted and as stored with its
-link destinations wrapped in backticks (the stored capture ends in one newline more than the
-normalized body), the blob-link round trip on #1548 (comment 7080042581) and the #1548 receipt
-(comment 7080894635). Before committing, they were scanned for secrets, e-mail addresses and local
-paths. In the #1169 pair, sixteen agent names written like home-directory paths were renamed,
-keeping their length, and one closing keyword before an Issue number was reworded (`close` to
-`shut`, one byte shorter); neither change alters a construct or a link.
+**Fixtures.** `bloblink-*` and `receipt1548-*` are unedited copies of two public comments on #1548
+(7080042581, a blob-link round trip, and 7080894635, a receipt) as submitted and as stored; they
+were scanned for secrets, e-mail addresses and local paths before committing. `wrap-*` is
+synthetic: it reproduces the corruption first seen on the #1169 Issue body, in which inline blob
+links came back wrapped in backtick runs growing by one per link, in each placement seen there,
+with one fragment link in a table cell left unwrapped and the stored copy ending in one extra
+newline. Its links name no real files.

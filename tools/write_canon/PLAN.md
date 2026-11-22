@@ -63,8 +63,9 @@ One standard-library Python tool, `write_canon.py`, with an offline test suite, 
 
 ## Tests (`python3 -I -m unittest discover -s tools/write_canon`)
 
-- every real fixture: #1169 submitted and stored bodies, the blob-link round trip, the #1548
-  receipt (Unicode ellipsis in a code span, preserved as exact UTF-8);
+- every fixture: the blob-link round trip and the #1548 receipt (Unicode ellipsis in a code span,
+  preserved as exact UTF-8), both real, and a synthetic submitted and stored pair reproducing the
+  #1169 backtick-wrap corruption;
 - idempotence of N on every fixture and on repeated, missing, one-blank-line, rule-only,
   footer-without-rule, footer-plus-text and double footers; trailing newlines; byte identity
   outside the footer;
