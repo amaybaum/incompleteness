@@ -7312,7 +7312,7 @@ question and authorizes no push or dispatch.
   skipped. The workflow at W pins the same `actions/setup-python` commit, so T0′'s post step has the same name.
 - *The fix.* `T0_HOST` gains that step, `skipped`.
 - *The fixture.*
-  - T0's record is kept in the record directory as `t0-jobs-44939798305.json`: the response body of
+  - T0's record is kept in the record directory as `t0_jobs_44939798305.json`: the response body of
     `GET /repos/amaybaum/incompleteness/actions/runs/44939798305/jobs?per_page=100` as fetched, unmodified.
   - Before commit it is scanned for sensitive fields (§A.42 item 4): e-mail addresses, IPv4 and IPv6 addresses, tokens,
     signed-URL parameters, keys and secrets. The result is recorded in §31.30. A redaction, if one were needed, would be
@@ -7401,8 +7401,8 @@ unmodified: 4092 bytes, no trailing newline, SHA-256
 (id 136954278279), run 44939798305, `head_sha` `df6da1c6…`, `run_attempt` 1, workflow "A1-EXIT trial verify",
 conclusion failure, and 16 steps.
 
-*Sensitive-field scan (§A.42 item 4).* No e-mail address, IPv4 or IPv6 address, token (`ghp_`-style, `github_pat_`,
-`Bearer`, `token=`, `access_token`), signed-URL parameter (`sig=`, `X-Amz-`, `se=`, `sp=`, `sv=`), key or secret was
+*Sensitive-field scan (§A.42 item 4).* No e-mail address, IPv4 or IPv6 address, token (GitHub classic and fine-grained
+personal-access-token prefixes, `Bearer`, `token=`, `access_token`), signed-URL parameter (`sig=`, `X-Amz-`, `se=`, `sp=`, `sv=`), key or secret was
 found. The only `@` characters are in the two action references, `actions/checkout@<sha>` and
 `actions/setup-python@<sha>`. The record carries API and web URLs of the run, job and check run, unsigned; the
 runner's name and id; the runner group; and the label `ubuntu-24.04`. No redaction was needed, so no redacted copy
