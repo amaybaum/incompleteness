@@ -6018,3 +6018,133 @@ records; D032 and D039 retain their text).
 | `edits_check.py` | `3ab6ba2ac6c0dbefee37f8589593aa259fc997980c34bd33f892015fea446e3b` |
 | `guards_check.py` | `ef89e1c79a0cc3c34af1ebb981e1674edd33a534d6f98612ee06ce57005b5cee` |
 | `preserve_check.py` | `08400a60ca70220344f4bb4b633a56c3b4c3fd3ce121efab2d56a07c44f91b3a` |
+
+### 31.12 Amendment, preregistered: the delta review's R1–R3
+
+The independent delta review of §31 at `607f7a61` is recorded on #1477 (comment 7075534457), REVISE with three findings
+R1–R3; it reproduces the reconciliation of §31.2 (306 unchanged, 60 shifted, 5 revised, 18 added, drift 0) and accepts
+the seven deviations of §31.3. The owner's decisions on it, owner `amaybaum`, 2026-11-22T06:50:57Z,
+[#1169 comment 7075564570](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7075564570), quoted in
+part:
+
+> | Finding | Decision |
+> |---|---|
+> | R1, PDF checker false pass | Required fix. Each of the nine ledgered PDFs must be rebuilt in CI before its comparison can count as passing. The checker fails closed if a build is missing, fails or compares stale output. A new mutant must show that this failure is actually detected. |
+> | R2, finite alphabet | Required fix. Keep the finite-alphabet condition, including `[NeZero q]`, wherever the revised claims depend on it. |
+> | R3, Lean docstrings | Required fix. Scope all four ensemble claims explicitly to the finite cases actually supported. |
+> | N3, nine PDFs | Apply. |
+> | Optional R-1 | Accept only if it is demonstrably editorial and does not broaden any scientific claim. |
+>
+> The 306 unchanged, 60 shifted, 5 revised and 18 added splices must stay traceable after re-pinning. Any additional change needs an explicit explanation. Once corrected, §31 returns for another independent delta review before the freeze.
+
+The Complexity route (a) of §31.8 was provisionally approved at #1169 comment 7075394811 (`amaybaum`,
+2026-11-22T06:33:27Z) and is the workflow change #1543, confirmed with nits at #1543 comment 7075542860; c.7075564570
+item 2 approves its merge under conditions.
+
+**Goal link (§A.47).** A1-EXIT (#1169): this subsection decides whether the trial's PDF comparison can fail for every
+ledgered PDF, and whether the plan's Lean-docstring, registry and README texts keep the finite instances the kernel
+results take; it does not decide execution.
+
+**Order.** This subsection is committed first; the edit-list, checker, ledger and pin changes follow; the results are
+§31.13 and the record pins §31.14, which `preserve_check.py` reads as the last `Record pins` subsection. §31.1–§31.11
+are not edited; where §31.8 differs from this subsection, this subsection governs.
+
+#### 31.12.1 R1: the PDF comparison fails closed
+
+*What §31.8 got wrong.* §31.8 says that with Complexity unbuilt "T0′ would carry a ninth, non-mismatch finding and T1′
+could not pass". In fact the workflow's build directory is a worktree of the trial commit, so for a ledgered source the
+workflow does not rebuild, the built directory holds the trial's own committed PDF, and `--pdf-compare` compares that
+PDF with a copy of itself: it passes. T0′ would show no Complexity finding, and T1′ would pass with H's stale
+`papers/Complexity.pdf`. The comparison was vacuous for any ledgered source missing from the workflow's list.
+
+*The fix, in `preserve_check.py`'s `--pdf-compare BUILT`.* A comparison of a ledgered PDF counts as passing only when
+that PDF was rebuilt by the run's CI build. The run's output directory is `BUILT/../out` (the workflow's
+`$RUNNER_TEMP/out`), or `--pdf-out DIR`. For every PDF of a ledgered source the check fails, naming the PDF, when:
+
+| Failure mode | Test | Self-test mutant |
+|---|---|---|
+| F-a: the build did not succeed | `build.rc` absent from the output directory, or not `0` | MT-pdf-build-failed (`build.rc` = `1`); MT-pdf-build-rc-missing |
+| F-b: no build record | `pdf-pages.tsv` absent | MT-pdf-pages-missing |
+| F-c: missing build | the PDF is not a row of `pdf-pages.tsv`, or absent from BUILT | MT-pdf-not-built (a ledgered PDF absent from the rows: the Complexity case) |
+| F-d: the record does not describe the built file | the row's page count differs from `pdfinfo` of the built PDF | MT-pdf-pages-mismatch |
+| F-e: stale output | the built PDF is byte-identical to the candidate's committed PDF (xelatex embeds a creation date and document id, so a rebuild differs in bytes; a reproducible build would make this fail, in the safe direction) | MT-pdf-stale (built = committed copy) |
+| (kept) content | page count and `pdftotext` text of committed and built differ | the existing two controls |
+
+Each mutant must fail with its named finding, and a control with every condition met must pass.
+
+*What makes Complexity's comparison real.* #1543 adds `Complexity` to the workflow's `build.sh` list, TeX-equality
+list, page-count loop and upload list. With it merged before T0′ is cut, Complexity's PDF is rebuilt and listed; the
+checker change above makes any future omission fail instead of passing. #1543 changes the workflow on `main` only. The
+ledger base stays H: T0′ and T1′ are children of H and carry H's copy of the workflow file, which is not a ledgered file
+and is compared with H unchanged; the workflow that runs is read from `main` at dispatch. No pin or check of the plan
+reads `main`'s workflow file (the repository scan's entry for it has no substring).
+
+*N3 (#1543 c.7075542860): §31.8's T0′ expectation reads nine PDFs.* T0′: every step up to `preserve` passes;
+`preserve` fails with only `--pdf-compare` text findings for the nine PDFs of the ledgered sources (H's committed PDFs
+against their rebuilds from the corrected sources); `guards` is skipped; `result.json` and the upload of nine PDFs are
+written. T1′: the nine PDFs replaced by T0′'s CI-built ones; every step and job of both workflows passes. A missing glyph
+or a failed build fails the trial; it is not a reason to weaken a check (c.7075564570 item 2).
+
+#### 31.12.2 R2: the finite alphabet
+
+`waveSubstratum_A1 [NeZero L] [NeZero q]` (`SubstratumInterfaceAudit.lean:185`): the configuration space is
+`(Fin d → ZMod L) → ZMod q`, and `ZMod 0 = ℤ`, so the finiteness predicate needs a finite torus and a finite alphabet.
+
+| Record | Site | Old → new (replacement) | Why |
+|---|---|---|---|
+| D276 (revised) | `SubstratumInterfaceAudit.lean:7` | "the finiteness predicate `A1` on a finite torus" → "… `A1` for a finite torus and a finite alphabet" | R2 |
+| D332 (revised) | census registry :525 | "the finiteness predicate `A1` and A2-A5 (Q1)" → "… `A1` (for a finite torus and a finite alphabet) and A2-A5 (Q1)" | R2 |
+| D326 (revised) | `verification/README.md:1007` | "the finiteness predicate `A1` and A2–A5" → "… `A1` for a finite alphabet and A2–A5" | additional: the README sentence restates the same theorem and already says "on a finite cubic torus"; the same omission, propagated (§A.25) |
+
+#### 31.12.3 R3: the ensemble and observer-theory headings
+
+Each result is proved in a section whose variables carry `[Fintype 𝒮.ι] [Fintype 𝒮.V]`; `obsTheory` and
+`EnsembleDetermined` are defined only there. On an infinite carrier whose non-zero orbits are all infinite, δ₀ is the
+unique invariant law, so "fails for every substratum" is false outside the finite case. The headings take the instances'
+scope (docstring only, no kernel change; class `lean-docstring`, checked docstring-only).
+
+| Record | Site | Old → new | Why |
+|---|---|---|---|
+| D392 | `StochasticInterface.lean:113` | "FAILS FOR EVERY SUBSTRATUM WITH A LINEAR RULE AND MORE THAN ONE CONFIGURATION" → "… WITH FINITELY MANY SITES, A FINITE ALPHABET, A LINEAR RULE AND MORE THAN ONE CONFIGURATION" | R3 |
+| D393 | `StochasticInterface.lean:173` | "For every substratum whose rule is linear" → "For every substratum with finitely many sites and a finite alphabet whose rule is linear" | R3 |
+| D394 | `LiftSource.lean:36` | "the observer theory of every substratum has its swap layer" → "… of every substratum with finitely many sites and a finite alphabet has …" | R3 |
+| D395 | `ExecSource.lean:14` | "the observer theory of every substratum executes no layer flow" → "… with finitely many sites and a finite alphabet executes …" | R3 |
+| D396 | `verification/README.md:1261` | the same phrase for `obs_not_layerFlowExecutable` | additional: README restatement of D395's result (§A.25) |
+| D397 | `verification/README.md:1311` | the same phrase for `obs_swap_avail_one_not_layerFlowExecutable` | additional: README restatement of D394's result |
+| D398 | `verification/README.md:1639` | "every substratum (`permTheory_nonnegBounded`, `obsTheory_nonnegBounded`)" → "every substratum with finitely many sites and a finite alphabet (…)" | additional: README restatement of `FrozenSourcing.lean:82`, which D282 already scopes |
+
+`FrozenSourcing.lean:82` needs no new record (D282). The R7 guard's R7-EXEC message (`edge_rigidity_probe.py:4709`)
+describes, in a check message, the results the guard verifies ("the observer theory of every substratum executing no
+layer flow"); it is not edited: it names no A1 premise, and the results it pins carry the finite instances in their
+statements. New IDs D392–D398 continue from D391; none is reused.
+
+#### 31.12.4 R-1 (optional): not applied
+
+`SubstratumInterfaceAudit.lean:175` says `waveSubstratum` is "the manuscripts' rule on a finite cubic torus with alphabet
+`ℤ/qℤ`"; the definition holds for every `L`, `L = 0` giving `ℤᵈ`. The change would add a statement about the `L = 0`
+case, which `waveSubstratum_A1` excludes and the manuscripts do not use for this rule; it is not a consequence of
+retiring A1 (the docstring understates, it does not generalize). It is not demonstrably editorial, so under
+c.7075564570 it is left unchanged.
+
+#### 31.12.5 Traceability after the re-pin
+
+The `--reconcile` classification treats a record of the revised set as unchanged when its old and new bytes and span
+are unchanged. The revised set becomes D026, D231, D276, D326, D332, D363, D364, D369 and the added set D374–D398.
+Expected:
+
+- against P\* (`55544cc3`): 303 unchanged, 60 shifted (as §31.2, every row unchanged), 8 revised (§31.3's five and
+  R2's three), 25 added (D374–D398), drift 0; the 306 of §31.2 are the 303 plus D276, D326 and D332;
+- against §31's first re-cut (`9ba8ef10`, 389 splices): 386 unchanged, 3 revised (D276, D326, D332), 7 added
+  (D392–D398), drift 0.
+
+Records: 398 (ptr 242, consistency 54, handoff 5, lean-docstring 40, repo-active 38, guard-pin 19); splices 396 in 44
+files (`StochasticInterface.lean`, `LiftSource.lean` and `ExecSource.lean` newly ledgered).
+
+#### 31.12.6 Preregistered checks and decision rule
+
+Every item of §31.7 is re-run at H from the plan head that carries §31.13, with these changes: item 1 counts 398
+records; item 2 is the two reconciliations of §31.12.5; item 3's self-test includes the R1 mutants of §31.12.1, each
+failing with its named finding, and its positive control; item 6's scope assertions add R2's three phrases and R3's
+seven, and the superseded forms of R3's four headings; item 7 expects the same seven coverage entries (no manuscript
+statement changes). `guards_check.py --mutants` runs with `scipy` installed (F71 needs it). A failure of any item stops
+the amendment; it is not re-run with changed thresholds.
