@@ -254,7 +254,7 @@ def mutate(dest, target, lit, pol):
 
 def predict(data, rev, dest):
     """The predicted execution tree, less its result note, as a git worktree of the ledger base: the edits applied, the
-    TeX of the edited sources rebuilt by build.sh's recipe, the four stale coverage fingerprints re-affirmed from the
+    TeX of the edited sources rebuilt by build.sh's recipe, the seven stale coverage fingerprints re-affirmed from the
     census, the plan's record directory copied in, and the SC-42 result regenerated. PDFs are left to the CI build."""
     import hashlib, json as _json
     subprocess.run(['git', '-C', ROOT, 'worktree', 'add', '--detach', dest, rev], check=True, capture_output=True)
@@ -273,7 +273,9 @@ def predict(data, rev, dest):
                                                                           cwd=dest, capture_output=True, text=True, check=True).stdout)}
     cov = os.path.join(dest, 'verification/coverage/LEDGER.json')
     t = open(cov, encoding='utf-8').read()
-    stale = ['MAIN:L-3', 'STRUCTURE:P-9.5', 'SUBSTRATUM:C-effective-finiteness-gauge-class-transfer', 'SUBSTRATUM:T-23']
+    stale = ['MAIN:L-3', 'STRUCTURE:P-9.5', 'SUBSTRATUM:C-effective-finiteness-gauge-class-transfer', 'SUBSTRATUM:T-23',
+             # amendment §31, nit 5 (D389-D391)
+             'SM:L-1c-canonical-projection-resummed-kernel', 'SM:P-4b-symmetric-point-custodial-scalarity-component', 'SM:T-19']
     for i in stale:
         m = re.search(r'"id": "%s",.*?"fingerprint": "([0-9a-f]*)"' % re.escape(i), t, re.S)
         t = t[:m.start(1)] + cen[i] + t[m.end(1):]

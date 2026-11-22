@@ -67,6 +67,8 @@ CRIT5_ALLOW = [
     (FULL, 'The output of Stage 1 is a triple $(S, \\varphi, V)$ with $S$ finite', 'FULL mirror of ch02:88'),
     ('papers/Structure.md', 'a discretization scheme for quantum gravity with manifestly finite configuration space',
      'Str:339 describes causal dynamical triangulations, another programme; no claim about the OI substratum (unchanged sentence on a changed line)'),
+    ('papers/SM.md', '(ii) On a finite configuration space, and in each Fourier fibre',
+     'SM:252, Lemma 1c(ii) states its own finite scope (ledger X-18); unchanged sentence on a line D389 changes (PREREG §31)'),
 ]
 # Infinity assertions that no replacement string may introduce (owner decision: cardinality neutrality).
 INF = re.compile(r'(?:\b(?:is|are|be|being|been)\s+infinite\b(?!-))|\b(?:is|are)\s+not\s+finite\b|\binfinitely many\b'
@@ -434,6 +436,28 @@ PRESERVE.update({'D361': ['For finite $\\mathcal{C}_H$ and any bijection'],
                  'D371': ['a channel-preserving extension rather than a member of the group'],
                  'D372': ['a bimeasurable bijection as its dynamics', 'as a channel-preserving extension'],
                  'D373': ['a bimeasurable bijection as its dynamics', 'as a channel-preserving extension']})
+# Amendment §31: the corrections of the final scientific review (#1477 c.7074137435) must survive any redraft.
+FIN_CH = 'of a finite $\\mathcal{C}_H$'
+PRESERVE.update({'D026': ['no established form for a substratum of unspecified cardinality',
+                          'Corollary (near-return) of [Main §2.3], of which an exact return is a case',
+                          'assumed and not adopted, is a weaker sufficient condition for that conclusion',
+                          'what is open for a substratum of unspecified cardinality is a source of the return hypothesis',
+                          'which [GR §2.3] states for a total system that is finite', 'E3 does not establish finiteness of $S$',
+                          'Theorem 23 retains its stated finite-substratum hypothesis',
+                          'a meromorphic continuation of the memory-resummed Schur complement that is not established',
+                          'These do not by themselves extend the complete reconstruction theorem'],
+                 'D231': ['every representative, or channel-preserving extension,'],
+                 'D363': ['a density matrix $\\sigma_A$ on $\\ell^2(A)$ with $\\operatorname{Tr}\\sigma_A=1$'],
+                 'D364': ['for any density matrix $\\sigma_A$ with $\\operatorname{Tr}\\sigma_A=1$ on a Hilbert space',
+                          'for a classical factor with $\\alpha(A)=1$'],
+                 'D369': ['uniform hidden-coordinate relabelling ' + FIN_CH],
+                 'D374': ['for $S$ of unspecified cardinality bijectivity is the reversibility posit (REV)',
+                          'thus, for a finite $S$, partly structural'],
+                 'D387': ['of a finite set of hidden configurations'], 'D388': ['of a finite set of hidden states'],
+                 'D389': ['Lemma 3 on a finite representative'], 'D390': ['counting measure on a finite representative'],
+                 'D391': ['the counting measure on a finite $\\mathcal{C}_H$']})
+PRESERVE.update({i: [FIN_CH] for i in ('D375', 'D376', 'D377', 'D378', 'D379', 'D380', 'D381', 'D382', 'D383', 'D384',
+                                      'D385', 'D386')})
 # Text that must be present in the simulated manuscript: the approved sentence, and the finite scope of every
 # finite-only result stated near it (owner decision #1169 c.7058446475).
 SIM_PRESERVE = {
@@ -453,6 +477,35 @@ SIM_PRESERVE = {
                                                         'On a finite representative, or under A2 (Chapter 2 §2.4), $\\varphi$ is a bijection on $S$.',
                                                         'the results stated for a finite substratum take it finite'],
 }
+# Amendment §31 (§31.7 item 6): the corrected sentences, and #1494's book statement of Theorem 24(i) (F5).
+THM24_BOOK = 'For a finite set of hidden configurations $\\mathcal{C}_H$ with the uniform hidden prior and any bijection'
+for _f, _subs in {
+        'papers/Substratum.md': ['no established form for a substratum of unspecified cardinality',
+                                 'of which an exact return is a case',
+                                 'what is open for a substratum of unspecified cardinality is a source of the return hypothesis',
+                                 'a meromorphic continuation of the memory-resummed Schur complement that is not established',
+                                 'These do not by themselves extend the complete reconstruction theorem',
+                                 'for any density matrix $\\sigma_A$ with $\\operatorname{Tr}\\sigma_A=1$ on a Hilbert space',
+                                 'for a classical factor with $\\alpha(A)=1$', 'a density matrix $\\sigma_A$ on $\\ell^2(A)$',
+                                 'for $S$ of unspecified cardinality bijectivity is the reversibility posit (REV)',
+                                 'thus, for a finite $S$, partly structural'],
+        'papers/Structure.md': ['uniform hidden-coordinate relabelling ' + FIN_CH],
+        'papers/SM.md': ['Lemma 3 on a finite representative', 'counting measure on a finite representative',
+                         'the counting measure on a finite $\\mathcal{C}_H$'],
+        'papers/Main.md': ['every representative, or channel-preserving extension,'],
+        'papers/Complexity.md': ['uniform relabelling of a finite set of hidden configurations'],
+        'papers/Methodology.md': ['a permutation of a finite set of hidden states'],
+        'book/ch02-substratum.md': [THM24_BOOK, 'uniform hidden-coordinate relabelling ' + FIN_CH + ' and',
+                                    'uniform hidden-coordinate relabelling ' + FIN_CH + ', with the uniform hidden prior'],
+        'book/ch03-structural-realism.md': ['A single hidden permutation ' + FIN_CH,
+                                            'A uniform hidden-coordinate relabelling ' + FIN_CH + ' preserves',
+                                            'A uniform hidden-coordinate relabelling ' + FIN_CH + ', or'],
+        'book/ch04-methodology.md': ['Uniform hidden relabelling ' + FIN_CH],
+        FULL: [THM24_BOOK, 'uniform hidden-coordinate relabelling ' + FIN_CH + ' and',
+               'uniform hidden-coordinate relabelling ' + FIN_CH + ', with the uniform hidden prior',
+               'A single hidden permutation ' + FIN_CH, 'A uniform hidden-coordinate relabelling ' + FIN_CH + ' preserves',
+               'A uniform hidden-coordinate relabelling ' + FIN_CH + ', or', 'Uniform hidden relabelling ' + FIN_CH]}.items():
+    SIM_PRESERVE.setdefault(_f, []).extend(_subs)
 CS_COUNT = {'papers/Main.md': 1, 'papers/Substratum.md': 1, 'book/ch01-observation.md': 1, 'book/ch02-substratum.md': 1,
             'book/The-Incompleteness-of-Observation-FULL.md': 2}
 
@@ -729,6 +782,9 @@ IDENT = re.compile(r'[Ff]initeness predicate `[\w.]*A1`|`[^`\n]*[A-Za-z_.]A1[^`\
                    r'|\bA1Realized\b|\bA1A2Realized\b|\ba1_\w+|\.A1\b|\bdef A1\b|\bA1-RIGID-1\b|\bFINITENESS PREDICATE `A1`')
 EXPLAINED = [  # (path or prefix ending in '/', substring or None, class, reason)
     ('.github/workflows/pe01-bounded-tests.yml', None, 'unrelated label', 'amendment A1 of the pe01 plan'),
+    # on main from #1484 (df6da1c6), after the ledger base 97070c98 (PREREG §31.2): the programme name A1-EXIT and
+    # "A1-retirement" name the retirement itself; neither states A1 as a premise
+    ('.github/workflows/a1exit-trial-verify.yml', None, 'unrelated label', 'the programme name A1-EXIT and the A1-retirement trial (#1484)'),
     ('tools/citation_roles_check.py', None, 'unrelated label', 'a phrase list entry "In (A1), "'),
     ('tools/build_migration_manifest.py', 'the A1-A6 audit', 'historical record label', 'names the frozen manuscript-axiom audit record in the grandfather manifest'),
     ('papers/oi_lattice_code/', None, 'unrelated label', 'the A1 irrep (Higgs, O_h, S3) and task labels of the lattice code'),

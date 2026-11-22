@@ -5965,3 +5965,17 @@ Built only after the independent delta review of this amendment and with the own
    which is not landing). It is not an A1 consequence and is left to that stream.
 3. Nit 5 makes three more coverage entries stale (SM Lemma 1c, Proposition 4b, Theorem 19), re-affirmed as the other
    four are (§11 item 4).
+
+### 31.11 Record pins
+
+The digests below pin the record files from amendment §31 on; `preserve_check.py` reads the last `Record pins`
+subsection of this record, so §26.4 stays as P*'s pins. The ledger has 389 splices in 41 files at `53c6601a` (391 edit
+records; D032 and D039 retain their text).
+
+| File | SHA-256 |
+|---|---|
+| `edits.json` | `1d5e31f7a0e80f03b2689c3bdd56892be7c1bafc325831bf5623a1c3be0af813` |
+| `ledger.json` | `244da1c319f7b0932f78f907e5033b02351e02e1f0dba744be8f3a4636cba66e` |
+| `edits_check.py` | `3ab6ba2ac6c0dbefee37f8589593aa259fc997980c34bd33f892015fea446e3b` |
+| `guards_check.py` | `ef89e1c79a0cc3c34af1ebb981e1674edd33a534d6f98612ee06ce57005b5cee` |
+| `preserve_check.py` | `08400a60ca70220344f4bb4b633a56c3b4c3fd3ce121efab2d56a07c44f91b3a` |

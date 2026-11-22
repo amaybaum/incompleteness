@@ -14,6 +14,11 @@ Usage (from the repository root):
   python3 -I -B .../preserve_check.py --commit REV | --tree DIR [--plan REV] [--base REV] [--mutants]
                                                               check a candidate post-deletion tree
   python3 -I -B .../preserve_check.py --self-test             mutation tests in both directions on the real ledger
+  python3 -I -B .../preserve_check.py --reconcile REV         the ledger at REV, splice by splice, against the current
+                                                              ledger and base: unchanged, shifted by a base change
+                                                              before it, revised at §31, or drift (PREREG §31.2)
+
+In every candidate mode the scope assertions of PREREG §31.7 item 6 (SCOPE_PRESENT, SCOPE_ABSENT) are a recorded check.
 
 --plan REV   the plan commit the owner designates when authorizing execution. The ledger, the pin table and the record
              directory are read from REV's objects, never from the candidate or the working checkout, and this script's
@@ -51,7 +56,54 @@ PINNED = ['edits.json', 'ledger.json', 'edits_check.py', 'guards_check.py', 'pre
 BOOK = 'book/The-Incompleteness-of-Observation-FULL'
 HEADER = 'tools/unicode-fix.tex'
 COVERAGE = 'verification/coverage/LEDGER.json'
-STALE = ['MAIN:L-3', 'STRUCTURE:P-9.5', 'SUBSTRATUM:C-effective-finiteness-gauge-class-transfer', 'SUBSTRATUM:T-23']
+STALE = ['MAIN:L-3', 'STRUCTURE:P-9.5', 'SUBSTRATUM:C-effective-finiteness-gauge-class-transfer', 'SUBSTRATUM:T-23',
+         # amendment §31, nit 5 (D389-D391): the statements of SM Lemma 1c, Proposition 4b and Theorem 19
+         'SM:L-1c-canonical-projection-resummed-kernel', 'SM:P-4b-symmetric-point-custodial-scalarity-component', 'SM:T-19']
+# Amendment §31 (PREREG §31.7 item 6): the corrected sentences the candidate must carry, and the superseded forms it must
+# not, at the sites of the final scientific review (#1477 c.7074137435); the last two present entries are #1494's book
+# statement of Theorem 24(i), on main at the base.
+_FC = 'of a finite $\\mathcal{C}_H$'
+_SUB, _FULL, _CH2, _CH3, _CH4 = ('papers/Substratum.md', BOOK + '.md', 'book/ch02-substratum.md',
+                                 'book/ch03-structural-realism.md', 'book/ch04-methodology.md')
+SCOPE_PRESENT = [
+    (_SUB, 'no established form for a substratum of unspecified cardinality'),
+    (_SUB, 'Corollary (near-return) of [Main §2.3], of which an exact return is a case'),
+    (_SUB, 'what is open for a substratum of unspecified cardinality is a source of the return hypothesis'),
+    (_SUB, 'a meromorphic continuation of the memory-resummed Schur complement that is not established'),
+    (_SUB, 'These do not by themselves extend the complete reconstruction theorem'),
+    (_SUB, 'for any density matrix $\\sigma_A$ with $\\operatorname{Tr}\\sigma_A=1$ on a Hilbert space'),
+    (_SUB, 'for a classical factor with $\\alpha(A)=1$'),
+    (_SUB, 'a density matrix $\\sigma_A$ on $\\ell^2(A)$'),
+    (_SUB, 'for $S$ of unspecified cardinality bijectivity is the reversibility posit (REV)'),
+    (_SUB, 'thus, for a finite $S$, partly structural'),
+    ('papers/Structure.md', 'uniform hidden-coordinate relabelling ' + _FC),
+    ('papers/SM.md', 'Lemma 3 on a finite representative'),
+    ('papers/SM.md', 'counting measure on a finite representative'),
+    ('papers/SM.md', 'the counting measure on a finite $\\mathcal{C}_H$'),
+    ('papers/Main.md', 'every representative, or channel-preserving extension,'),
+    ('papers/Complexity.md', 'uniform relabelling of a finite set of hidden configurations'),
+    ('papers/Methodology.md', 'a permutation of a finite set of hidden states'),
+] + [(f, s) for f in (_CH2, _FULL) for s in ('uniform hidden-coordinate relabelling ' + _FC + ' and',
+                                              'uniform hidden-coordinate relabelling ' + _FC + ', with the uniform hidden prior')] \
+  + [(f, s) for f in (_CH3, _FULL) for s in ('A single hidden permutation ' + _FC,
+                                              'A uniform hidden-coordinate relabelling ' + _FC + ' preserves',
+                                              'A uniform hidden-coordinate relabelling ' + _FC + ', or')] \
+  + [(f, 'Uniform hidden relabelling ' + _FC) for f in (_CH4, _FULL)] \
+  + [(f, 'For a finite set of hidden configurations $\\mathcal{C}_H$ with the uniform hidden prior and any bijection')
+     for f in (_CH2, _FULL)]
+SCOPE_ABSENT = [
+    ('papers/Structure.md', 'states uniform hidden-coordinate relabelling and independently'),
+    ('papers/Complexity.md', 'uniform hidden relabelling preserves the coherent channel'),
+    ('papers/Methodology.md', 'by a permutation of the hidden states applied uniformly'),
+] + [(f, s) for f in (_CH2, _FULL) for s in ('uniform hidden-coordinate relabelling and independently prepared finite',
+                                              'A uniform hidden-coordinate relabelling, with the uniform hidden prior')] \
+  + [(f, s) for f in (_CH3, _FULL) for s in ('A single hidden permutation used identically',
+                                              'A uniform hidden-coordinate relabelling preserves the coherent',
+                                              'A uniform hidden-coordinate relabelling, or an independently')] \
+  + [(f, 'Uniform hidden relabelling and an independently prepared') for f in (_CH4, _FULL)]
+# --reconcile: the records amendment §31 revises (their replacement changes; D369's old text is extended) and adds.
+REVISED31 = {'D026', 'D231', 'D363', 'D364', 'D369'}
+NEW31 = {'D%03d' % n for n in range(374, 392)}
 SC42_DIR = 'verification/audits/manuscript/bell-operational-reconciliation-20261029/'
 SC42 = SC42_DIR + 'sc42-integration-result.json'
 SC42_CONTROLS = SC42_DIR + 'sc42-integration-controls.json'
@@ -109,11 +161,13 @@ def plan_files(rev):
 
 
 def read_pins(prereg):
-    """The digest table of PREREG §26.4: rows "| `file` | `sha256` |"."""
+    """The digest table of the last "Record pins" subsection of PREREG (§26.4 for P*, §31.11 from amendment §31):
+    rows "| `file` | `sha256` |"."""
     t = prereg.decode('utf-8')
-    i = t.find('### 26.4 Record pins')
-    if i < 0:
+    heads = [m.start() for m in re.finditer(r'^### \d+\.\d+ Record pins\b', t, re.M)]
+    if not heads:
         return {}
+    i = heads[-1]
     j = t.find('\n#', i + 5)
     return dict(re.findall(r'^\| `([\w.]+)` \| `([0-9a-f]{64})` \|', t[i:j if j > 0 else None], re.M))
 
@@ -425,6 +479,72 @@ def compare(led, base_files, cand, plan, reg):
     return bad, pdfs
 
 
+def scope_check(cand):
+    """PREREG §31.7 item 6: every corrected sentence present, every superseded form absent."""
+    bad = []
+    for f, s in SCOPE_PRESENT:
+        if s.encode('utf-8') not in cand.get(f, b''):
+            bad.append('scope assertion: %s lacks %r' % (f, s[:70]))
+    for f, s in SCOPE_ABSENT:
+        if s.encode('utf-8') in cand.get(f, b''):
+            bad.append('scope assertion: %s still carries %r' % (f, s[:70]))
+    return bad
+
+
+def changed_region(a, b):
+    """(start, end in a, end in b) of the one region enclosing every difference between a and b, or None."""
+    if a == b:
+        return None
+    p = 0
+    while p < min(len(a), len(b)) and a[p] == b[p]:
+        p += 1
+    q = 0
+    while q < min(len(a), len(b)) - p and a[-1 - q] == b[-1 - q]:
+        q += 1
+    return p, len(a) - q, len(b) - q
+
+
+def reconcile(old_led, led, old_base, base):
+    """PREREG §31.2: each splice of an earlier ledger against the current ledger and base. A splice keeps its bytes and is
+    unchanged (same span), or shifted by exactly the length change of a base difference wholly before it; a record of
+    REVISED31 keeps its file (and, except D369, its old bytes and span); a splice anywhere else is drift."""
+    new = {x['id']: x for x in led['splices']}
+    rows, drift, regions = [], [], {}
+    for x in old_led['splices']:
+        f, y = x['file'], new.get(x['id'])
+        if f not in regions:
+            regions[f] = changed_region(old_base.get(f, b''), base.get(f, b''))
+        reg = regions[f]
+        if y is None or y['file'] != f:
+            drift.append('%s: absent from the current ledger or in another file' % x['id']); continue
+        old_bytes = old_base[f][x['start']:x['end']]
+        if x['id'] in REVISED31:
+            if x['id'] == 'D369':
+                ok = old_bytes in base[f][y['start']:y['end']]
+            else:
+                ok = y['old_sha256'] == x['old_sha256'] and (y['start'], y['end']) == (x['start'], x['end'])
+            rows.append((x['id'], f, 'revised at §31', 0))
+            if not ok:
+                drift.append('%s: revised record does not keep its old text' % x['id'])
+            continue
+        if y['old_sha256'] != x['old_sha256'] or y['new'] != x['new']:
+            drift.append('%s: old or new bytes differ' % x['id']); continue
+        shift = y['start'] - x['start']
+        if shift == 0 and (reg is None or x['end'] <= reg[0] or (x['start'] >= reg[1] and reg[2] == reg[1])):
+            rows.append((x['id'], f, 'unchanged', 0))
+        elif reg is not None and x['start'] >= reg[1] and shift == (reg[2] - reg[1]) and y['end'] - y['start'] == x['end'] - x['start']:
+            rows.append((x['id'], f, 'shifted by the base change at bytes %d-%d' % (reg[0], reg[1]), shift))
+        else:
+            drift.append('%s: span moved by %+d, not explained by a base change before it' % (x['id'], shift))
+    added = sorted(set(new) - {x['id'] for x in old_led['splices']})
+    for i in added:
+        if i not in NEW31:
+            drift.append('%s: splice added outside the records of amendment §31' % i)
+    if set(old_led.get('retained_unchanged', [])) != set(led.get('retained_unchanged', [])):
+        drift.append('retained-site records differ')
+    return rows, added, drift
+
+
 # ---- self-test and tree mutants -----------------------------------------------------------------------------
 
 def predicted(led, base_files, plan):
@@ -454,6 +574,30 @@ def self_test(led, base_files, plan):
     bad, _ = compare(led, base_files, good, plan, reg)
     expect(not bad, 'positive control: base, ledger, rebuilt TeX, census fingerprints and the plan\'s record pass (%d splices)'
            % len(led['splices']))
+    expect(not scope_check(good), 'scope assertions: the predicted candidate carries every corrected sentence')
+    n_base = len(scope_check(base_files))
+    want_base = sum(1 for f, s in SCOPE_PRESENT if s.encode('utf-8') not in base_files.get(f, b'')) + len(SCOPE_ABSENT)
+    expect(n_base == want_base == len(SCOPE_PRESENT) - 2 + len(SCOPE_ABSENT),
+           'scope assertions: the unedited base fails every one the plan adds (%d findings)' % n_base)
+    c = dict(good); c['papers/SM.md'] = c['papers/SM.md'].replace('the counting measure on a finite $\\mathcal{C}_H$'.encode(), b'the counting measure', 1)
+    expect(any('lacks' in x for x in scope_check(c)), 'scope assertions: a candidate without D391 fails')
+    r0 = reconcile(led, led, base_files, base_files)
+    expect(not r0[2] and all(k in ('unchanged', 'revised at §31') for _, _, k, _ in r0[0]),
+           'reconcile: a ledger against itself has every splice unchanged and no drift')
+    t2 = json.loads(json.dumps(led)); g = [x for x in t2['splices'] if x['id'] not in REVISED31][0]; g['new'] += ' '
+    expect(any(g['id'] in x for x in reconcile(t2, led, base_files, base_files)[2]), 'reconcile: a changed replacement is drift')
+    b2 = dict(base_files); b2['papers/GR.md'] = b'xx' + base_files['papers/GR.md']
+    t3 = json.loads(json.dumps(led))
+    for x in t3['splices']:
+        if x['file'] == 'papers/GR.md':
+            x['start'] += 2; x['end'] += 2
+    r3 = reconcile(led, t3, base_files, b2)
+    expect(not r3[2] and any(s == 2 for _, f, _, s in r3[0] if f == 'papers/GR.md'),
+           'reconcile: splices after a base insertion, shifted by its length, are explained')
+    [x for x in t3['splices'] if x['file'] == 'papers/GR.md'][0]['start'] += 1
+    expect(bool(reconcile(led, t3, base_files, b2)[2]), 'reconcile: a span moved by anything else is drift')
+    c = dict(good); c[BOOK + '.md'] = c[BOOK + '.md'] + 'A single hidden permutation used identically\n'.encode()
+    expect(any('still carries' in x for x in scope_check(c)), 'scope assertions: a superseded form in FULL fails')
     for x in bad[:5]:
         print('      ' + x)
     ids = {x['id']: x for x in led['splices']}
@@ -607,6 +751,8 @@ def main():
     g.add_argument('--commit')
     g.add_argument('--tree')
     g.add_argument('--self-test', action='store_true')
+    g.add_argument('--reconcile', metavar='REV', help='compare the ledger at REV (an earlier plan commit) with the current '
+                   'ledger and base, splice by splice (PREREG §31.2)')
     ap.add_argument('--plan')
     ap.add_argument('--base')
     ap.add_argument('--mutants', action='store_true')
@@ -642,9 +788,28 @@ def main():
     record('ledger spans and hashes at the base', not bad, bad)
     ok = not bad and not pin_bad
     mode = ('verify-pins' if a.verify_pins else 'verify-ledger' if a.verify_ledger else 'self-test' if a.self_test
-            else 'commit' if a.commit else 'tree')
+            else 'reconcile' if a.reconcile else 'commit' if a.commit else 'tree')
     if a.verify_pins:
         pass
+    elif a.reconcile:
+        old_led = json.loads(plan_files(a.reconcile)[LEDGER])
+        rows, added, drift = reconcile(old_led, led, tree_of(old_led['base']), base)
+        kinds = {}
+        for i, f, k, s in rows:
+            kinds[k.split(' at bytes')[0]] = kinds.get(k.split(' at bytes')[0], 0) + 1
+        print('reconcile: ledger at %s (base %s, %d splices) against the current ledger (base %s, %d splices)'
+              % (a.reconcile[:12], old_led['base'][:12], len(old_led['splices']), led['base'][:12], len(led['splices'])))
+        for k, n in sorted(kinds.items()):
+            print('  %-45s %d' % (k, n))
+        for i, f, k, s in rows:
+            if s:
+                print('  SHIFT %s %s %+d (%s)' % (i, f, s, k))
+        print('  added splices: %d (%s)' % (len(added), ' '.join(added)))
+        print('  drift: %d' % len(drift))
+        for x in drift:
+            print('  DRIFT ' + x)
+        record('reconcile against the ledger at %s: every changed splice explained, no drift' % a.reconcile, not drift, drift)
+        ok = ok and not drift
     elif a.verify_ledger:
         re_led = build_ledger(json.loads(plan[EDITS]), base, plan[EDITS])
         same = re_led == led
@@ -663,6 +828,13 @@ def main():
             d = a.tree or work
             cand = tree_dir(d)
             fails, pdfs = compare(led, base, cand, plan, regenerate(cand, d, base))
+            sc = scope_check(cand)
+            print('scope assertions (PREREG §31.7 item 6): %d present, %d absent required; %d findings'
+                  % (len(SCOPE_PRESENT), len(SCOPE_ABSENT), len(sc)))
+            for x in sc:
+                print('  FAIL ' + x)
+            record('scope assertions of amendment §31 in the candidate', not sc, sc)
+            ok = ok and not sc
             print('candidate: %d findings; PDFs of ledgered sources rebuilt (checked by the CI build): %d' % (len(fails), len(pdfs)))
             for x in fails:
                 print('  FAIL ' + x)

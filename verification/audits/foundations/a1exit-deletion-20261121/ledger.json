@@ -1,7 +1,7 @@
 {
  "schema": "a1exit deletion exact-edit ledger v2",
- "base": "97070c986c28f7ff8a443cbda5890c1694dd76dd",
- "edits_sha256": "d40c84d52b19f15d2644351337ac19273017f248aa02e0a9ad3233a9b99a45c5",
+ "base": "53c6601a10419b6b333cc992474272501ab542af",
+ "edits_sha256": "1d5e31f7a0e80f03b2689c3bdd56892be7c1bafc325831bf5623a1c3be0af813",
  "retained_unchanged": [
   "D032",
   "D039"
@@ -228,6 +228,16 @@
    "reason": "Ledger X-45 wording."
   },
   {
+   "id": "D376",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "start": 176708,
+   "end": 176830,
+   "old_sha256": "d2f7b2aabf1fcc89856248266ceeed9193e2073427ca083d39ac40ea0c850bf6",
+   "new": "uniform hidden-coordinate relabelling of a finite $\\mathcal{C}_H$ and independently prepared finite decoupled enlargement preserve the coherent family",
+   "new_sha256": "8a5c56054ee28e522d3131570fc187b0d1d3600cf092c928417ea7265f238278",
+   "reason": "Final scientific review F4 (#1477 c.7074137435) and #1494 exact-head review N3 (#1494 c.7074737862); owner #1169 c.7074687817: with A1 retired, the coherent form of Theorem 24(i) uses the uniform hidden prior, which exists only for a finite hidden set, so the summary states that scope. FULL mirror of D375, at FULL:764."
+  },
+  {
    "id": "D129",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
    "start": 177066,
@@ -240,8 +250,8 @@
   {
    "id": "D371",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 179084,
-   "end": 179308,
+   "start": 179205,
+   "end": 179429,
    "old_sha256": "d4b80e56d0c891a33f4cd0671b3cd4beb5a855b9944fdfe800d95daeb8a23f24",
    "new": "Adjoin a classical factor of any cardinality to the deep hidden sector, prepare it independently in a normalized density matrix, and keep its dynamics exactly decoupled from the original system, as a permutation of the factor's configurations; the identity also holds for any unitary or isometry of the factor, which is a channel-preserving extension rather than a member of the group.",
    "new_sha256": "c71af565a4f865a2fada5033945e3aefaec2b98b8e94656eb51ec1eac10da533",
@@ -250,8 +260,8 @@
   {
    "id": "D373",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 179546,
-   "end": 179743,
+   "start": 179667,
+   "end": 179864,
    "old_sha256": "30a54618ebedf3d9bcaea77fe05fee0f043a87eaccd6b20450d4aa91af8b4c86",
    "new": "A classical factor with a probability law and a bimeasurable bijection as its dynamics likewise preserves the channel family, read as the mixture over hidden points of [Main §3.2], and every rooted population law; with any measurable dynamics the identity still holds, as a channel-preserving extension.",
    "new_sha256": "1cd1d4c5bdd7def2699bca9ec2490c14664d9b78946937f01e06bd870465537d",
@@ -260,18 +270,28 @@
   {
    "id": "D131",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 183842,
-   "end": 183898,
+   "start": 183963,
+   "end": 184019,
    "old_sha256": "55786d3d374ed1c15465346379aa179929b49a6775ef2716e12fca9323eeef8f",
    "new": "$S$ is a set with no complex structure",
    "new_sha256": "797b14be61e9b94a3b83a811d93511ba78a1e16b0ac2621880599bb8137ad394",
    "reason": "X-02 rule."
   },
   {
+   "id": "D378",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "start": 186379,
+   "end": 186522,
+   "old_sha256": "6c10a52162fcd7eb653f67a5d8d04daca0c5c96fa24c066e5383b2b1a6c3d20e",
+   "new": "A uniform hidden-coordinate relabelling of a finite $\\mathcal{C}_H$, with the uniform hidden prior, and an independently prepared finite exactly decoupled ancillary factor",
+   "new_sha256": "93cd545c6173f00c7e77da97f57547b85b1247290604490c7981c1096bfc7c66",
+   "reason": "Final scientific review F4 (#1477 c.7074137435) and #1494 exact-head review N3 (#1494 c.7074737862); owner #1169 c.7074687817: with A1 retired, the coherent form of Theorem 24(i) uses the uniform hidden prior, which exists only for a finite hidden set, so the summary states that scope. FULL mirror of D377, at FULL:802."
+  },
+  {
    "id": "D133",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 203592,
-   "end": 203652,
+   "start": 203713,
+   "end": 203773,
    "old_sha256": "c844c03ce6dcdcdadab1d9a4d453b692ff38664293f30305833bf7e863e6461b",
    "new": "a set with a deterministic bijection on it",
    "new_sha256": "39f1bde928320be8c7b987dfb579ffa575a75bea353dd28d2f78e558950ea09b",
@@ -280,8 +300,8 @@
   {
    "id": "D135",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 218924,
-   "end": 218982,
+   "start": 219045,
+   "end": 219103,
    "old_sha256": "482f101b8d246c478ffc9fc65ca046300317aa51132589bb91e394923755204c",
    "new": "finite substrata satisfying A2–A6 of the reconstruction theorem",
    "new_sha256": "de5d5289a7f4029da0077361b589519deef4cceb52b221e396a647c25f0ffed9",
@@ -290,8 +310,8 @@
   {
    "id": "D137",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 222912,
-   "end": 222965,
+   "start": 223033,
+   "end": 223086,
    "old_sha256": "67be99ebb3dd7a23f744b9b9541fc1d0775ae028f64c3d98fc89b50c884ae527",
    "new": "The finite scope and the structural conditions A2–A6 that define Level D",
    "new_sha256": "2cb9c30d91734a39997cbc5dad306620f13ef7309d41996e85e06b82bfc0c668",
@@ -300,8 +320,8 @@
   {
    "id": "D139",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 223125,
-   "end": 223202,
+   "start": 223246,
+   "end": 223323,
    "old_sha256": "31a74657581c2628be186717a149d37a0c8d73789c07156c9dfca0bd47158cba",
    "new": "; finiteness and A2–A6 are conditions for membership in the finite OI class, the finite subclass of OI's *specific* universality class",
    "new_sha256": "f8f6026466e738a5d87481d00d45de3f2f0496a328a27f5f1a549fb29230b10a",
@@ -310,28 +330,58 @@
   {
    "id": "D141",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 223241,
-   "end": 223380,
+   "start": 223362,
+   "end": 223501,
    "old_sha256": "145fe2da182b2a7b1798b48ca6209087b2ab72b6f6f2976e97a8eb7ccad69e27",
    "new": "Some of these conditions relate to but are distinct from C's: finiteness of the total configuration space is the scope of the finite class and is not asserted of nature.",
    "new_sha256": "d2557edf12a79a1bb4daf790d8116badedfa80f41ff6aa76fcd5e4ecdf177079",
    "reason": "F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); \"A1\" is replaced by \"finiteness\" as the class scope, A2–A6 keep their identifiers."
   },
   {
+   "id": "D380",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "start": 232686,
+   "end": 232821,
+   "old_sha256": "cab198a7356197e09fb704f0d4d464ada5ab9f6b5ca0aa5bdc8a448de6d242d1",
+   "new": "A single hidden permutation of a finite $\\mathcal{C}_H$ used identically in every visible fibre preserves the coherent channel family with the uniform hidden prior",
+   "new_sha256": "6c863a22516b07829ad4fb787f8fa50caef7a212406281ff46d77666a0db745e",
+   "reason": "Final scientific review F4 (#1477 c.7074137435) and #1494 exact-head review N3 (#1494 c.7074737862); owner #1169 c.7074687817: with A1 retired, the coherent form of Theorem 24(i) uses the uniform hidden prior, which exists only for a finite hidden set, so the summary states that scope. FULL mirror of D379, at FULL:941."
+  },
+  {
    "id": "D143",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 233675,
-   "end": 233749,
+   "start": 233796,
+   "end": 233870,
    "old_sha256": "93d86d98bc5d9f8f0a095af82c29ac2d4558da933b2f96862733ee63d2b4aac5",
    "new": "the substratum is a set with a bijection on it, governed",
    "new_sha256": "1ec18c99dd8cf95abc12f859bcc696ff4e138ac6d024790cc5ac3139b10e2cd2",
    "reason": "X-02 rule."
   },
   {
+   "id": "D382",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "start": 245955,
+   "end": 246084,
+   "old_sha256": "8bcb62b098bcbc7ae7a3f0759e01adde776e59b5b2657e6f92e8805fc3004683",
+   "new": "A uniform hidden-coordinate relabelling of a finite $\\mathcal{C}_H$ preserves the coherent channels at a fixed visible interface with a uniform hidden prior.",
+   "new_sha256": "e21c1f87870dc0151c78a3f1e65fe21f049a9745a452c4b68c4b246435ed041b",
+   "reason": "Final scientific review F4 (#1477 c.7074137435) and #1494 exact-head review N3 (#1494 c.7074737862); owner #1169 c.7074687817: with A1 retired, the coherent form of Theorem 24(i) uses the uniform hidden prior, which exists only for a finite hidden set, so the summary states that scope. FULL mirror of D381, at FULL:997."
+  },
+  {
+   "id": "D384",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "start": 247286,
+   "end": 247457,
+   "old_sha256": "2e787602a305607006c79dadf7ec3796a973850b6dcef8c6618a91893fe0ce51",
+   "new": "A uniform hidden-coordinate relabelling of a finite $\\mathcal{C}_H$, or an independently prepared, normalized, exactly decoupled finite ancillary factor, can leave a fixed observed channel unchanged.",
+   "new_sha256": "55378203a35efb6bd24665f49d5fb0a319e62d5688b28d1a1824ac6f533a321b",
+   "reason": "Final scientific review F4 (#1477 c.7074137435) and #1494 exact-head review N3 (#1494 c.7074737862); owner #1169 c.7074687817: with A1 retired, the coherent form of Theorem 24(i) uses the uniform hidden prior, which exists only for a finite hidden set, so the summary states that scope. FULL mirror of D383, at FULL:1003."
+  },
+  {
    "id": "D145",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 282637,
-   "end": 282757,
+   "start": 282758,
+   "end": 282878,
    "old_sha256": "e67fafeb50c98bdc2aa0f07e3c9f3386ffe315c294665f4ac5e53a2a27597d50",
    "new": "Recurrence and the other assumptions retain the statuses given in the technical sources [Main §3.1, §4.5], and results that use a finite representative are stated for finite representatives.",
    "new_sha256": "1b150d28076efe9c2b915c4f93372b8c927cb797f8773e23dc3f86bb9b45405d",
@@ -340,8 +390,8 @@
   {
    "id": "D147",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 288498,
-   "end": 288562,
+   "start": 288619,
+   "end": 288683,
    "old_sha256": "187a2258ea5c03110c1d001d43de9bf1b6f6b5dfe2366b25e5b211ea7d43773d",
    "new": "including the structural assumptions A2–A6 with the finite-substratum scope of the reconstruction theorem, site factorization",
    "new_sha256": "6a6f18c494eb39d108646ebec341172152a820235a722428ce2d08d03e5c36b4",
@@ -350,8 +400,8 @@
   {
    "id": "D149",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 293788,
-   "end": 293990,
+   "start": 293909,
+   "end": 294111,
    "old_sha256": "e6c1dd6f889d2cad4ef63517c76bce575951ff6fe3aed5e07016c565c383c730",
    "new": "The structural assumptions A2–A6 identified in Chapter 2's reconstruction theorem (determinism, bounded coupling, center independence, linearity, background independence), with its finite-substratum scope, are not derivable",
    "new_sha256": "4e679603bf004f12f91319fd7dfbe98927d1e5edd0041014baab80c5285afad3",
@@ -360,8 +410,8 @@
   {
    "id": "D151",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 294192,
-   "end": 294257,
+   "start": 294313,
+   "end": 294378,
    "old_sha256": "ffcd90e269c6c04d5137af50926409b9ab7e361f8b38a75af2fb2a2a144cf4ef",
    "new": "the class of finite substrata defined by A2–A6 and the nearest-neighbor restriction",
    "new_sha256": "ebfa7aace620cd0ebc94bc748192748df178e125adccadfc68449e6a60f3f8be",
@@ -370,18 +420,28 @@
   {
    "id": "D153",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 294341,
-   "end": 294535,
+   "start": 294462,
+   "end": 294656,
    "old_sha256": "034fa2d0774d1d2fa647e2b3b4259a6e1d03d2b1abfd8b0824f0487634bd2c34",
    "new": "The framework's defense of A2–A6 is an argument from the empirical inputs of physics, not a derivation from the foundational premise — A2 by",
    "new_sha256": "c9603edd33697d2a0f6cd16cb1216cb2a6ad9d49fcf40e764de8c35c4f16c0ba",
    "reason": "F row X-45; the motivation of A1 is removed with the identifier (owner decision items 1, 3)."
   },
   {
+   "id": "D386",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "start": 342275,
+   "end": 342405,
+   "old_sha256": "f52c208274fb8adb87fdee273ba41b2858c4f16d2ec662b1b1b037554b4f2391",
+   "new": "Uniform hidden relabelling of a finite $\\mathcal{C}_H$ and an independently prepared finite decoupled enlargement give exact examples [Substratum Theorem 24].",
+   "new_sha256": "b9c44dd32254cf1d29e3ec8231984af2b51525521bc637f3128153a2868cfa5e",
+   "reason": "Final scientific review F4 (#1477 c.7074137435) and #1494 exact-head review N3 (#1494 c.7074737862); owner #1169 c.7074687817: with A1 retired, the coherent form of Theorem 24(i) uses the uniform hidden prior, which exists only for a finite hidden set, so the summary states that scope. FULL mirror of D385, at FULL:1276."
+  },
+  {
    "id": "D155",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 359471,
-   "end": 359545,
+   "start": 359592,
+   "end": 359666,
    "old_sha256": "6a335e6049f82594c72e0326ccb35da3c39678d33aca6be8ffb68bf43623dbe9",
    "new": "a set with a deterministic bijection",
    "new_sha256": "320fbfd6dc4d4281f714c5ec4f382a84032a5806462ef08cb66d708af7f9bd01",
@@ -390,8 +450,8 @@
   {
    "id": "D157",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 361980,
-   "end": 362038,
+   "start": 362101,
+   "end": 362159,
    "old_sha256": "ab0e417d97132d116601ea8e3ebeb1664b56005f3e79975e13100266eb396dc9",
    "new": "provides the finite-substratum scope, the structural assumptions A2–A6 and the stated",
    "new_sha256": "7e1028b84ac6515c495bc112bbd81190c624fe5db9897f97a2b94335cdbce032",
@@ -400,8 +460,8 @@
   {
    "id": "D159",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 362794,
-   "end": 362875,
+   "start": 362915,
+   "end": 362996,
    "old_sha256": "c75b29cef3a3d67b65ae5c9c48e2eede06ee93bd80be3d8105c28f6243b6ac98",
    "new": "a set $S$, a deterministic",
    "new_sha256": "bcf7cc54d845736e8073df8f14585c0a3e6d73cd63bd2b6e4d7a0f69d5c3fd29",
@@ -410,8 +470,8 @@
   {
    "id": "D161",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 378063,
-   "end": 378117,
+   "start": 378184,
+   "end": 378238,
    "old_sha256": "397a75eedb87e91d1d3d3846159abab15c94e2169c7e828d51410ba2a55fff94",
    "new": "the substratum bijection is governed",
    "new_sha256": "11e4584f04d7630cb94510fbbf41f98f2fdacf179861c78074f4f378e932d063",
@@ -420,8 +480,8 @@
   {
    "id": "D163",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 379004,
-   "end": 379058,
+   "start": 379125,
+   "end": 379179,
    "old_sha256": "6fcbecba8932e6108ca50c78dfb367991031ddcebb95f5624b481c6a1734d0d7",
    "new": "not the fundamental bijection itself",
    "new_sha256": "0085c04400f0e4115e09d5bb19694a4671929862db2df32f142352b19cb3e67c",
@@ -430,8 +490,8 @@
   {
    "id": "D165",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 492808,
-   "end": 492858,
+   "start": 492929,
+   "end": 492979,
    "old_sha256": "1593c6d9c4f9a1e0073cdf6a3bc1a9f693666ca7a24c66cd13c788a3a75d0b70",
    "new": "Under H-count the total system is finite, and",
    "new_sha256": "a4ed2c32814fbab8f17293ad3336908a3198129d5bffd9a435f77b95c73cd654",
@@ -440,8 +500,8 @@
   {
    "id": "D167",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 517699,
-   "end": 517752,
+   "start": 517820,
+   "end": 517873,
    "old_sha256": "79a00e7f79ea2a4b7190925fd621a2889d8f36ca3dd10f04cdc25bc760a139ff",
    "new": "acting on a configuration space $S$.",
    "new_sha256": "152f92b162fec5875677f43da5eb5f938fa68606b307264f53821ca0257dcb6b",
@@ -450,8 +510,8 @@
   {
    "id": "D169",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 598496,
-   "end": 598558,
+   "start": 598617,
+   "end": 598679,
    "old_sha256": "86b84c1b68f1916986b2845f9a004b8c02a6c6127cf67b170903c53359a4099c",
    "new": "a deterministic bijection are not equivalent",
    "new_sha256": "5408a59fc0cbf8349bab8a206646f81fbed6ea351a28dc78bea64c0f4440d425",
@@ -460,8 +520,8 @@
   {
    "id": "D171",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 601690,
-   "end": 601805,
+   "start": 601811,
+   "end": 601926,
    "old_sha256": "44860840543be48d982db1a3f6eab0f171fe0bbef1eef66bc8e5a2657184af40",
    "new": "(deterministic bijection, classical probability, causal partition).",
    "new_sha256": "96ae65334f2fda62ef649a5ae1a3e166f36d99ad649d8a5c7215d1821757041b",
@@ -470,8 +530,8 @@
   {
    "id": "D256",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 616419,
-   "end": 616489,
+   "start": 616540,
+   "end": 616610,
    "old_sha256": "33faa6407729e5836ad8a19b9c0716337946f4221e42db93a0c3935da09f92bb",
    "new": "are, for the finite OI class, five structural properties of the substratum; finiteness, stated first, is that class's scope. They are organized as follows.",
    "new_sha256": "1b605dca8ef3c65f9b6ee8c21f68fdd7093a9738fb34a8434715598ddaec3375",
@@ -480,8 +540,8 @@
   {
    "id": "D173",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 616491,
-   "end": 616633,
+   "start": 616612,
+   "end": 616754,
    "old_sha256": "c18d54c15be24186deb685decc7cfc5532bff8fe6d7c568a41bd0a97f91b34a4",
    "new": "*Finiteness.* Finite cardinality of $S$ is used by the results stated for a finite representative and is not asserted of nature. It is load-bearing",
    "new_sha256": "224572ea29c24e7fcc5e41618a9da3df8f75a765d9c35ed651b01f5b4fb3fe7f",
@@ -490,8 +550,8 @@
   {
    "id": "D175",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 627105,
-   "end": 627265,
+   "start": 627226,
+   "end": 627386,
    "old_sha256": "8fa928adf3bdf1a513c65cf0ac8ff50d6cd0a6fd2232b0f6cf90b783be0bfa7d",
    "new": "The framework is a deterministic-substratum program: it takes a configuration space with a deterministic bijection, finite in the representatives on which its finite-only results are stated,",
    "new_sha256": "a9f6a3e91bb542201440814e9d76ee8ccfddf89c3e3acda25b69d9569a8f3b74",
@@ -500,8 +560,8 @@
   {
    "id": "D177",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 628372,
-   "end": 628423,
+   "start": 628493,
+   "end": 628544,
    "old_sha256": "920bfcae2f7c5046f07b793887c0d9ff84c898fe3330be6541837c7bdc297758",
    "new": "acts on a configuration space, finite where the framework's finite-only results apply, with",
    "new_sha256": "01b0a10c858e30d382e28b1d31cda7cb6063aaa093ec4a9d873b748ca9c8a28a",
@@ -510,8 +570,8 @@
   {
    "id": "D258",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 628897,
-   "end": 628973,
+   "start": 629018,
+   "end": 629094,
    "old_sha256": "190e7468b1604f70b9c85a34c0f966a5d9248d8691553476b7477e70cff47401",
    "new": "The finite scope and five structural axioms must be checked for compatibility under such a bridge.",
    "new_sha256": "de9a35f0ef76fca9ea221b6f59a744a608337040ddd97bf2b1bd1347c9c912f7",
@@ -520,8 +580,8 @@
   {
    "id": "D179",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 628975,
-   "end": 629042,
+   "start": 629096,
+   "end": 629163,
    "old_sha256": "f56495f9fc0f8dd049c07e6cefe76c60744c41fbc614d754c31e047cb40e1ded",
    "new": "*Finiteness.* The framework's finite-only results use a representative with finite $|S|$.",
    "new_sha256": "481a1f952f5f78ba5d9aed8a37ae4a6b9e45c0df7be3c0d629a67f8d4f3b7832",
@@ -530,8 +590,8 @@
   {
    "id": "D360",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 629043,
-   "end": 629105,
+   "start": 629164,
+   "end": 629226,
    "old_sha256": "75e391ae486b678a69cfbd971ed323d1a0b69f0a6788f9071178a51f634ed2ed",
    "new": "Matrix models with $N \\to \\infty$ limits lie outside that finite scope",
    "new_sha256": "b72218addaa7573e2315855afdae302e736546ec10c3f3274c1a28501cce658c",
@@ -540,8 +600,8 @@
   {
    "id": "D181",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 629353,
-   "end": 629432,
+   "start": 629474,
+   "end": 629553,
    "old_sha256": "5c7354b47f69839cd694d7548f5dd32c2d8200a5e55010e231e45abf6c035303",
    "new": "The cardinality of the total configuration space is left open.",
    "new_sha256": "baf367eebb3b1ba3a1d6dc0f2c16b95b4622d6efcf1482bcb6aab8b9636627b1",
@@ -550,8 +610,8 @@
   {
    "id": "D252",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 960916,
-   "end": 960996,
+   "start": 961037,
+   "end": 961117,
    "old_sha256": "6e5856d3f90efa278ecd92775594063e54f22d3214d509106e9468286604581c",
    "new": "the finite reversible substratum dynamics, which is recurrent (§18.7);",
    "new_sha256": "0703473c745cd81933a979ba614d8e4d7f78f7d0e1173a3feb8b77d0963bbb55",
@@ -560,8 +620,8 @@
   {
    "id": "D183",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 1070106,
-   "end": 1070556,
+   "start": 1070227,
+   "end": 1070677,
    "old_sha256": "451e251030854a809524ab2e93ff692cbcf4e1263a02be7b44e0236373515ef4",
    "new": "the concrete OI substratum, in its finite model, supplies the structural architecture — closure under composition and coarse-graining, stability under an uncoupled spectator, relabelling invariance, reversibility, the exchanges of distinguishable states, and, as a stated intervention principle rather than a consequence of its finite states and bijective dynamics, the phases — but, under finite bijective read-write dynamics ",
    "new_sha256": "37431b95c1171d0657b520b9157befe9f16ba4d13c962a935914ed3eda9f514a",
@@ -570,8 +630,8 @@
   {
    "id": "D185",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 1094641,
-   "end": 1094738,
+   "start": 1094762,
+   "end": 1094859,
    "old_sha256": "df818423510310cad7882f4b0a4ab6343f66148b5d735425fabe9ac2e6a95d8a",
    "new": "classical probability — constrain the class.",
    "new_sha256": "ba6bd5ef402e78f9b4f31940fb00ee61f0f5937ceb85eb2cd522c4d6fc02aec9",
@@ -580,8 +640,8 @@
   {
    "id": "D187",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 1095359,
-   "end": 1095417,
+   "start": 1095480,
+   "end": 1095538,
    "old_sha256": "9c57cf8900d6085820828c8bcaa390c218f50d856151a7dfb0e30de27e587ff6",
    "new": "deterministic bijection structure is not",
    "new_sha256": "9aab0eb3a8b8b50fc873dd60272f637384b381d97b6fa0929b6dbf80425dc6d2",
@@ -590,8 +650,8 @@
   {
    "id": "D189",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 1095937,
-   "end": 1096014,
+   "start": 1096058,
+   "end": 1096135,
    "old_sha256": "c2013cd8eb4c80a1c52f31e648f27056c72716f2ab07697db7b4d8e3ecfb5d22",
    "new": "(deterministic bijectivity on a set of unspecified cardinality, no further commitments)",
    "new_sha256": "d6ab351cc663f67e63eef595475d83be728d819fe218b8ded7910705d9bf202c",
@@ -600,8 +660,8 @@
   {
    "id": "D191",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 1132171,
-   "end": 1132314,
+   "start": 1132292,
+   "end": 1132435,
    "old_sha256": "0f0d5503dc2b39bf3b6aa64381a76e64f0aa5181eba0978c7f7bd94d006e0305",
    "new": "",
    "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -610,8 +670,8 @@
   {
    "id": "D193",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 1269263,
-   "end": 1269327,
+   "start": 1269384,
+   "end": 1269448,
    "old_sha256": "ff82afe561585ccabdcaec7e822181b4d61ff5cae9452a0f4e403eeca341b3bd",
    "new": "and finiteness (whether the framework assumes a finite universe).",
    "new_sha256": "1066521d9c389d6cf3742652ef869a6a4a1322c2c0e0666c2fa846daf6d79a0d",
@@ -620,8 +680,8 @@
   {
    "id": "D195",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 1286299,
-   "end": 1286341,
+   "start": 1286420,
+   "end": 1286462,
    "old_sha256": "22b81c9792c8fdf37e75271f0dcef52629c375f5db8c65c42f4c219db0122dbe",
    "new": "## C.6 Finiteness: does the framework assume a finite universe?",
    "new_sha256": "8d4df6455a971b07653979150df5f2520978d1d8e523a58b41535f6e7d3e6cc9",
@@ -630,8 +690,8 @@
   {
    "id": "D197",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 1286374,
-   "end": 1286571,
+   "start": 1286495,
+   "end": 1286692,
    "old_sha256": "8a92c4daadde85194e8051f6ef801f5f25a19799e848a5dd106ece2f4fcba762",
    "new": "concerns finiteness: several of the framework's results are stated for a finite substratum $S$. Critics object that a finite substratum is incompatible",
    "new_sha256": "3e2708e85480dc5e2b4f6be727d5da65c29fb44e31292ed7e505a2f42be3f9ff",
@@ -640,8 +700,8 @@
   {
    "id": "D199",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 1286978,
-   "end": 1287135,
+   "start": 1287099,
+   "end": 1287256,
    "old_sha256": "97008c96f73ff11b37764fa1d11c5bf6d608bd23095cd06a74136c2e77baae88",
    "new": "**The framework's response.** The framework assumes neither that the substratum is finite nor that it is infinite. Finiteness enters as the scope of the results stated for a finite representative, and it plays different roles in different parts of the framework's content.",
    "new_sha256": "1ff93ccf8435df0fda368f0900800ff7ec8ac0637a059d65c03c4e348e64b230",
@@ -650,8 +710,8 @@
   {
    "id": "D201",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 1287176,
-   "end": 1287363,
+   "start": 1287297,
+   "end": 1287484,
    "old_sha256": "0fdd311285edfec6a751ab1d48b26b60c93460eac5d38b536f19d9c1e9005fdd",
    "new": "Finiteness of the representative is a mathematical hypothesis of the results stated for a finite representative, the recurrence route to P-indivisibility among them, and not a premise of the framework:",
    "new_sha256": "647371056f620e4932121221f7a18b2e48e9f91ce4344b7af563314cce5138d4",
@@ -660,8 +720,8 @@
   {
    "id": "D203",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 1288488,
-   "end": 1288695,
+   "start": 1288609,
+   "end": 1288816,
    "old_sha256": "8543111c3e347fd298dd52fac01daef59f7cb8983839ccb53e4baf3e92b984d5",
    "new": "It does not establish finiteness of the total configuration space $S$, and the framework does not assume it: the minimal finite representative is a choice of representative, and",
    "new_sha256": "c2ca5087bfd0f43f06f6efc4474e0b92cd4037e192ce8c7894a07f10622f8091",
@@ -670,8 +730,8 @@
   {
    "id": "D205",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 1289280,
-   "end": 1289384,
+   "start": 1289401,
+   "end": 1289505,
    "old_sha256": "952626ec2ceeaa14a0956c5110efc558cf96d6fb4e6190664192070db0e26f2c",
    "new": "A referee who denies that the universe as a whole is finite does not thereby reject the Bekenstein bound,",
    "new_sha256": "65e906c7481b14f578ad9fa5021d60b573aa2686dbe6b725647cd8ef0060b8a2",
@@ -680,8 +740,8 @@
   {
    "id": "D207",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 1289661,
-   "end": 1289868,
+   "start": 1289782,
+   "end": 1289989,
    "old_sha256": "b04e8cb5c0535be42ceebe561bed94febf0d8db7e710168163b2fe38ac2e1109",
    "new": "does not establish finiteness of the whole of $S$. The framework's finite-only results agree with mainstream physics' commitment to the Bekenstein bound on the accessible sector and make no claim about the whole of $S$.",
    "new_sha256": "bcecd59d3a9f37ab7f75f6272ec556e65bcf4eb77a02969649820a53e181200d",
@@ -690,8 +750,8 @@
   {
    "id": "D209",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 1290224,
-   "end": 1290289,
+   "start": 1290345,
+   "end": 1290410,
    "old_sha256": "5c2c7c54193009cf0c0548d6dc5bd6de2c7aa0e4079f06eff9dace738af0d7ed",
    "new": "At the substratum level, the framework posits a discrete lattice (Chapter 2 §2.4), with no claim about the number of its sites,",
    "new_sha256": "fe2782b867155693f69c2fc97b6d437bc0bbfea97a668ac64d201623da396a3c",
@@ -700,8 +760,8 @@
   {
    "id": "D211",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 1290560,
-   "end": 1290636,
+   "start": 1290681,
+   "end": 1290757,
    "old_sha256": "fea92cd60257181ff04ed2091f8a273c2b6b98d139374e55cabe454c18131e8a",
    "new": "discrete at the substratum level, and finite-dimensional on a finite representative, but *appearing* infinite-dimensional",
    "new_sha256": "6f6c89002c2a8ffda8d74deea9051ec8adfcabc707f8b234cd7119c927cc5afa",
@@ -710,8 +770,8 @@
   {
    "id": "D213",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 1290809,
-   "end": 1290866,
+   "start": 1290930,
+   "end": 1290987,
    "old_sha256": "ec7ec3aea61e238aee64f15dd20109a4e53ebd3d062331eef84c7ed70ee1ff5d",
    "new": "the underlying physics is discrete, but the long-wavelength",
    "new_sha256": "6b3e954de10f17a607842f3787f86cbbb77925e5c7fa08a511af83cfff510125",
@@ -720,8 +780,8 @@
   {
    "id": "D215",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 1290918,
-   "end": 1291146,
+   "start": 1291039,
+   "end": 1291267,
    "old_sha256": "541bb01693c8e485ac718e83ff113ba94b64a5bb902a86173a0d3f30b96c4ee4",
    "new": "The discrete substratum is therefore *compatible with* the standard QFT description as an effective continuum theory while making specific structural claims about the substratum level. The two levels of description coexist; on a finite representative, the apparent",
    "new_sha256": "ece013bc81c3ba37684e232d6c201d5a902a058c1409a8aab8056e4d4bd8db5c",
@@ -730,8 +790,8 @@
   {
    "id": "D217",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 1291267,
-   "end": 1291432,
+   "start": 1291388,
+   "end": 1291553,
    "old_sha256": "121638ecf8aad4f6e5e587cce071bb3e8a388b03f8c7c3ec3e43766d43de9750",
    "new": "Finiteness is therefore the stated scope of specific results, not a premise about the universe, and is compatible with continuum QFT.",
    "new_sha256": "2133d16d5c7cd63a8da9780bf75dc82ddcc66e117c04bca303f45c24deb88eb1",
@@ -740,8 +800,8 @@
   {
    "id": "D219",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 1294424,
-   "end": 1294512,
+   "start": 1294545,
+   "end": 1294633,
    "old_sha256": "4eda74d914b56e844764b3b06a248a774006501b428304f260d931ba43e8bf4e",
    "new": "that on a finite representative $\\varphi$ is a bijection on a finite set, which is trivially computable:",
    "new_sha256": "ad375e59393d2f223040e12de89313484eb7b784a4c17688c262dcde21fae898",
@@ -750,8 +810,8 @@
   {
    "id": "D247",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 1294826,
-   "end": 1294925,
+   "start": 1294947,
+   "end": 1295046,
    "old_sha256": "b7f20e34583eb59ea1aaef358dd239109a1a455e1de679a0a226c72a842196d6",
    "new": "But on a finite representative the bijection is in-principle computable.",
    "new_sha256": "baccb6dbdeea27aede0617246d1c8788e68a1135388c8781ba4798ae113630fc",
@@ -760,8 +820,8 @@
   {
    "id": "D236",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 1335300,
-   "end": 1335937,
+   "start": 1335421,
+   "end": 1336058,
    "old_sha256": "c2bd307e24606f973e433a2732197595981b8c5ccb15371dbc8d112807277fb1",
    "new": "",
    "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -770,8 +830,8 @@
   {
    "id": "D221",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 1335971,
-   "end": 1336031,
+   "start": 1336092,
+   "end": 1336152,
    "old_sha256": "441c2a11734c16d65a78272bae29235a6e7e190b9a11f34eab191698043e3b71",
    "new": "The structural assumption A6 of the reconstruction theorem (A2–A6):",
    "new_sha256": "8b7bb2469e1a2ca4739929490948e3e6176aca8ad75013ad250b5b251cbf5dfb",
@@ -780,8 +840,8 @@
   {
    "id": "D238",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 1355451,
-   "end": 1355481,
+   "start": 1355572,
+   "end": 1355602,
    "old_sha256": "d691bda89f028748065136e515d234aca4cfcc173efb5e98ded30316a742a01b",
    "new": "**Finite representative.** The minimal finite bijective representative $(S, \\varphi)$ of a finite hidden dynamics, on which the results stated for a finite substratum hold — among them the exact return and its index, the counting measure and the reconstruction theorem of Chapter 2. These results are finite-only; the framework assumes neither that the substratum is finite nor that it is infinite. Lemma 1 delivers finiteness of the observer's distinguishable states. Discussed in Chapter 1 and Appendix C §C.6.\n\n**Frauchiger-Renner theorem.**",
    "new_sha256": "620d79a5c19a2567be55bf56ebc1bc464e696aca229bdc96dc9108977e29cb22",
@@ -790,8 +850,8 @@
   {
    "id": "D223",
    "file": "book/The-Incompleteness-of-Observation-FULL.md",
-   "start": 1374128,
-   "end": 1374224,
+   "start": 1374249,
+   "end": 1374345,
    "old_sha256": "44a583d09fa8466a3a9be53edfcb8f14ba6c8013bfb1f720e85e91b7831df610",
    "new": "The cardinality of its total configuration space is left open; results stated for a finite representative take it finite.",
    "new_sha256": "26a5ac9086ec153e60b21f7bb0a7f4c86f5a0df57a59b3d9b18a50d4937eb459",
@@ -1138,6 +1198,16 @@
    "reason": "Ledger X-45 wording."
   },
   {
+   "id": "D375",
+   "file": "book/ch02-substratum.md",
+   "start": 31427,
+   "end": 31549,
+   "old_sha256": "d2f7b2aabf1fcc89856248266ceeed9193e2073427ca083d39ac40ea0c850bf6",
+   "new": "uniform hidden-coordinate relabelling of a finite $\\mathcal{C}_H$ and independently prepared finite decoupled enlargement preserve the coherent family",
+   "new_sha256": "8a5c56054ee28e522d3131570fc187b0d1d3600cf092c928417ea7265f238278",
+   "reason": "Final scientific review F4 (#1477 c.7074137435) and #1494 exact-head review N3 (#1494 c.7074737862); owner #1169 c.7074687817: with A1 retired, the coherent form of Theorem 24(i) uses the uniform hidden prior, which exists only for a finite hidden set, so the summary states that scope."
+  },
+  {
    "id": "D128",
    "file": "book/ch02-substratum.md",
    "start": 31785,
@@ -1150,8 +1220,8 @@
   {
    "id": "D370",
    "file": "book/ch02-substratum.md",
-   "start": 33803,
-   "end": 34027,
+   "start": 33924,
+   "end": 34148,
    "old_sha256": "d4b80e56d0c891a33f4cd0671b3cd4beb5a855b9944fdfe800d95daeb8a23f24",
    "new": "Adjoin a classical factor of any cardinality to the deep hidden sector, prepare it independently in a normalized density matrix, and keep its dynamics exactly decoupled from the original system, as a permutation of the factor's configurations; the identity also holds for any unitary or isometry of the factor, which is a channel-preserving extension rather than a member of the group.",
    "new_sha256": "c71af565a4f865a2fada5033945e3aefaec2b98b8e94656eb51ec1eac10da533",
@@ -1160,8 +1230,8 @@
   {
    "id": "D372",
    "file": "book/ch02-substratum.md",
-   "start": 34265,
-   "end": 34462,
+   "start": 34386,
+   "end": 34583,
    "old_sha256": "30a54618ebedf3d9bcaea77fe05fee0f043a87eaccd6b20450d4aa91af8b4c86",
    "new": "A classical factor with a probability law and a bimeasurable bijection as its dynamics likewise preserves the channel family, read as the mixture over hidden points of [Main §3.2], and every rooted population law; with any measurable dynamics the identity still holds, as a channel-preserving extension.",
    "new_sha256": "1cd1d4c5bdd7def2699bca9ec2490c14664d9b78946937f01e06bd870465537d",
@@ -1170,18 +1240,28 @@
   {
    "id": "D130",
    "file": "book/ch02-substratum.md",
-   "start": 38561,
-   "end": 38617,
+   "start": 38682,
+   "end": 38738,
    "old_sha256": "55786d3d374ed1c15465346379aa179929b49a6775ef2716e12fca9323eeef8f",
    "new": "$S$ is a set with no complex structure",
    "new_sha256": "797b14be61e9b94a3b83a811d93511ba78a1e16b0ac2621880599bb8137ad394",
    "reason": "X-02 rule."
   },
   {
+   "id": "D377",
+   "file": "book/ch02-substratum.md",
+   "start": 41098,
+   "end": 41241,
+   "old_sha256": "6c10a52162fcd7eb653f67a5d8d04daca0c5c96fa24c066e5383b2b1a6c3d20e",
+   "new": "A uniform hidden-coordinate relabelling of a finite $\\mathcal{C}_H$, with the uniform hidden prior, and an independently prepared finite exactly decoupled ancillary factor",
+   "new_sha256": "93cd545c6173f00c7e77da97f57547b85b1247290604490c7981c1096bfc7c66",
+   "reason": "Final scientific review F4 (#1477 c.7074137435) and #1494 exact-head review N3 (#1494 c.7074737862); owner #1169 c.7074687817: with A1 retired, the coherent form of Theorem 24(i) uses the uniform hidden prior, which exists only for a finite hidden set, so the summary states that scope."
+  },
+  {
    "id": "D132",
    "file": "book/ch02-substratum.md",
-   "start": 58311,
-   "end": 58371,
+   "start": 58432,
+   "end": 58492,
    "old_sha256": "c844c03ce6dcdcdadab1d9a4d453b692ff38664293f30305833bf7e863e6461b",
    "new": "a set with a deterministic bijection on it",
    "new_sha256": "39f1bde928320be8c7b987dfb579ffa575a75bea353dd28d2f78e558950ea09b",
@@ -1228,6 +1308,16 @@
    "reason": "F row X-46: the class stays the finite OI class, a finite subclass (owner ruling #1169 c.7057674976; the cardinality-neutral class is Issue #1478); \"A1\" is replaced by \"finiteness\" as the class scope, A2–A6 keep their identifiers."
   },
   {
+   "id": "D379",
+   "file": "book/ch03-structural-realism.md",
+   "start": 22010,
+   "end": 22145,
+   "old_sha256": "cab198a7356197e09fb704f0d4d464ada5ab9f6b5ca0aa5bdc8a448de6d242d1",
+   "new": "A single hidden permutation of a finite $\\mathcal{C}_H$ used identically in every visible fibre preserves the coherent channel family with the uniform hidden prior",
+   "new_sha256": "6c863a22516b07829ad4fb787f8fa50caef7a212406281ff46d77666a0db745e",
+   "reason": "Final scientific review F4 (#1477 c.7074137435) and #1494 exact-head review N3 (#1494 c.7074737862); owner #1169 c.7074687817: with A1 retired, the coherent form of Theorem 24(i) uses the uniform hidden prior, which exists only for a finite hidden set, so the summary states that scope."
+  },
+  {
    "id": "D142",
    "file": "book/ch03-structural-realism.md",
    "start": 23120,
@@ -1236,6 +1326,26 @@
    "new": "the substratum is a set with a bijection on it, governed",
    "new_sha256": "1ec18c99dd8cf95abc12f859bcc696ff4e138ac6d024790cc5ac3139b10e2cd2",
    "reason": "X-02 rule."
+  },
+  {
+   "id": "D381",
+   "file": "book/ch03-structural-realism.md",
+   "start": 35279,
+   "end": 35408,
+   "old_sha256": "8bcb62b098bcbc7ae7a3f0759e01adde776e59b5b2657e6f92e8805fc3004683",
+   "new": "A uniform hidden-coordinate relabelling of a finite $\\mathcal{C}_H$ preserves the coherent channels at a fixed visible interface with a uniform hidden prior.",
+   "new_sha256": "e21c1f87870dc0151c78a3f1e65fe21f049a9745a452c4b68c4b246435ed041b",
+   "reason": "Final scientific review F4 (#1477 c.7074137435) and #1494 exact-head review N3 (#1494 c.7074737862); owner #1169 c.7074687817: with A1 retired, the coherent form of Theorem 24(i) uses the uniform hidden prior, which exists only for a finite hidden set, so the summary states that scope."
+  },
+  {
+   "id": "D383",
+   "file": "book/ch03-structural-realism.md",
+   "start": 36610,
+   "end": 36781,
+   "old_sha256": "2e787602a305607006c79dadf7ec3796a973850b6dcef8c6618a91893fe0ce51",
+   "new": "A uniform hidden-coordinate relabelling of a finite $\\mathcal{C}_H$, or an independently prepared, normalized, exactly decoupled finite ancillary factor, can leave a fixed observed channel unchanged.",
+   "new_sha256": "55378203a35efb6bd24665f49d5fb0a319e62d5688b28d1a1824ac6f533a321b",
+   "reason": "Final scientific review F4 (#1477 c.7074137435) and #1494 exact-head review N3 (#1494 c.7074737862); owner #1169 c.7074687817: with A1 retired, the coherent form of Theorem 24(i) uses the uniform hidden prior, which exists only for a finite hidden set, so the summary states that scope."
   },
   {
    "id": "D144",
@@ -1286,6 +1396,16 @@
    "new": "The framework's defense of A2–A6 is an argument from the empirical inputs of physics, not a derivation from the foundational premise — A2 by",
    "new_sha256": "c9603edd33697d2a0f6cd16cb1216cb2a6ad9d49fcf40e764de8c35c4f16c0ba",
    "reason": "F row X-45; the motivation of A1 is removed with the identifier (owner decision items 1, 3)."
+  },
+  {
+   "id": "D385",
+   "file": "book/ch04-methodology.md",
+   "start": 54599,
+   "end": 54729,
+   "old_sha256": "f52c208274fb8adb87fdee273ba41b2858c4f16d2ec662b1b1b037554b4f2391",
+   "new": "Uniform hidden relabelling of a finite $\\mathcal{C}_H$ and an independently prepared finite decoupled enlargement give exact examples [Substratum Theorem 24].",
+   "new_sha256": "b9c44dd32254cf1d29e3ec8231984af2b51525521bc637f3128153a2868cfa5e",
+   "reason": "Final scientific review F4 (#1477 c.7074137435) and #1494 exact-head review N3 (#1494 c.7074737862); owner #1169 c.7074687817: with A1 retired, the coherent form of Theorem 24(i) uses the uniform hidden prior, which exists only for a finite hidden set, so the summary states that scope."
   },
   {
    "id": "D154",
@@ -1568,6 +1688,16 @@
    "reason": "Ledger X-01 B1 rule."
   },
   {
+   "id": "D387",
+   "file": "papers/Complexity.md",
+   "start": 22160,
+   "end": 22246,
+   "old_sha256": "2eb6d653c0b5c7b4a26018da569ea4e862be6c0a53d618be99fb58476fc4dc7c",
+   "new": "uniform relabelling of a finite set of hidden configurations preserves the coherent channel under its stated preparation",
+   "new_sha256": "b224ded5dca11f2b264e99671a16131876a306570f1c2cd21c77e908bfa6ae46",
+   "reason": "Final scientific review F4 (#1477 c.7074137435) and #1494 exact-head review N3 (#1494 c.7074737862); owner #1169 c.7074687817: with A1 retired, the coherent form of Theorem 24(i) uses the uniform hidden prior, which exists only for a finite hidden set, so the summary states that scope."
+  },
+  {
    "id": "D248",
    "file": "papers/Computation.md",
    "start": 22045,
@@ -1723,9 +1853,9 @@
    "start": 19895,
    "end": 19959,
    "old_sha256": "38806daa364605a96e78e5fe2af12480e2ff8362387e26bddfa8461186fc6e9b",
-   "new": "The transfer of the conclusions of the recurrence step of §2.3 and of §4.6, where expressible through the transition probabilities, from a finite representative to every representative reached from it by relabelling the hidden states, by a decoupled enlargement of the kind just stated or, under the alphabet-size hypothesis that systems with the same coupling structure and dynamics class differing only in alphabet size have the same emergent transition probabilities, by a change of alphabet that keeps the coupling structure and dynamics class is stated and proved in the companion substratum construction; the recurrence-scale conclusion of §2.3 is a statement about finite representatives. Of the two finiteness statements, the following results use only",
-   "new_sha256": "cc4211cbe7ad7113624923e3291d1c8ec3708d30aef609004002447c01beb529",
-   "reason": "X-00: the posit sentence becomes the finite-representative scope and receives item (ii)'s weaker-condition list (with S2-B's CP clause) and its transfer clause, verbatim apart from the connective; the P8 sentence takes ledger X-00 wording. After the deletion M:60 is Main's first mention of (NR), (IP) and (IL), so S2-C's return- and law-form qualifications are printed there and at the later (NR) mention (review round 1, F3). Review: that the transfer clause is not stronger than the companion proof."
+   "new": "The transfer of the conclusions of the recurrence step of §2.3 and of §4.6, where expressible through the transition probabilities, from a finite representative to every representative, or channel-preserving extension, reached from it by relabelling the hidden states, by a decoupled enlargement of the kind just stated or, under the alphabet-size hypothesis that systems with the same coupling structure and dynamics class differing only in alphabet size have the same emergent transition probabilities, by a change of alphabet that keeps the coupling structure and dynamics class is stated and proved in the companion substratum construction; the recurrence-scale conclusion of §2.3 is a statement about finite representatives. Of the two finiteness statements, the following results use only",
+   "new_sha256": "3eb71aad6c585faef546dd2114632674942c796ef08cfad23dc05cc8368bb1a7",
+   "reason": "X-00: the posit sentence becomes the finite-representative scope and receives item (ii)'s weaker-condition list (with S2-B's CP clause) and its transfer clause, verbatim apart from the connective; the P8 sentence takes ledger X-00 wording. After the deletion M:60 is Main's first mention of (NR), (IP) and (IL), so S2-C's return- and law-form qualifications are printed there and at the later (NR) mention (review round 1, F3). Review: that the transfer clause is not stronger than the companion proof. Revised at amendment §31 (final scientific review nit 6, #1477 c.7074137435): a decoupled enlargement whose dynamics is not a bijection of configurations is a channel-preserving extension of the substratum construction's Theorem 24(iii), not a representative; the transfer covers both, since it uses only the channel identity (that paper's Corollary (iii))."
   },
   {
    "id": "D254",
@@ -1918,6 +2048,16 @@
    "reason": "X-01 site deferred to the deletion edit by S2-E (its PREREG §3); J row X-30 names (REV)."
   },
   {
+   "id": "D388",
+   "file": "papers/Methodology.md",
+   "start": 79103,
+   "end": 79207,
+   "old_sha256": "7a16bacf220909025c2c85ef7041d6d15e11deeb050f5b5eb8488e6f7d0877b1",
+   "new": "conjugating the bijection by a permutation of a finite set of hidden states applied uniformly in every visible fibre",
+   "new_sha256": "8854d2047bc564fad6f2395058b9432cdaf721f9bc531e1b23e086a47c582310",
+   "reason": "Final scientific review F4 (#1477 c.7074137435) and #1494 exact-head review N3 (#1494 c.7074737862); owner #1169 c.7074687817: with A1 retired, the coherent form of Theorem 24(i) uses the uniform hidden prior, which exists only for a finite hidden set, so the summary states that scope."
+  },
+  {
    "id": "D033",
    "file": "papers/SM.md",
    "start": 11301,
@@ -1968,6 +2108,16 @@
    "reason": "The next clause cites [Main §3.2] for finite permutations; the finite scope is kept explicit."
   },
   {
+   "id": "D389",
+   "file": "papers/SM.md",
+   "start": 98100,
+   "end": 98178,
+   "old_sha256": "d9deafa718ccde1ef774e4c6e0f9c2a15af40f7c7b7cb15ff5da91fcc4343124",
+   "new": "the selected counting measure of [Main] Lemma 3 on a finite representative, or a stated structured prior,",
+   "new_sha256": "8f19a65d36dfe8bb018e7738b0e2d338c231f9c23cceaaa59a4291ede834fd35",
+   "reason": "Final scientific review nit 5 (#1477 c.7074137435): the selected counting measure of Main Lemma 3 is the normalized counting law of a finite representative; the scope is printed where Lemma 1c names it, beside its $\\mathbb{Z}^d$ alternative."
+  },
+  {
    "id": "D038",
    "file": "papers/SM.md",
    "start": 121257,
@@ -1976,6 +2126,26 @@
    "new": "the fundamental bijection without",
    "new_sha256": "5c14ebdad401d59208f5bc6088129e0744eb63514b9d7397bba4a7ff930426d9",
    "reason": "X-02 rule."
+  },
+  {
+   "id": "D390",
+   "file": "papers/SM.md",
+   "start": 123399,
+   "end": 123498,
+   "old_sha256": "da43b72a109a14c707fa4591f2bac6507ccaefed53e4a0540af4b52597d75ce2",
+   "new": "take the selected counting measure on a finite representative, which is invariant under signed permutations of the components,",
+   "new_sha256": "6dc15a8748fd371a857af1cf08a6133b78ab1dc2c2831b0ae99f0b810ded4dd8",
+   "reason": "Final scientific review nit 5 (#1477 c.7074137435): Proposition 4b takes the selected counting measure, the normalized counting law of a finite representative; the scope is printed."
+  },
+  {
+   "id": "D391",
+   "file": "papers/SM.md",
+   "start": 199841,
+   "end": 199890,
+   "old_sha256": "21b884b2548fe5f1e57154b240f54cbda07dead2198343bc99efd570da191caa",
+   "new": "and let the hidden prior be the counting measure on a finite $\\mathcal{C}_H$.",
+   "new_sha256": "246d66b5f4cd75ce66c6691614ab4d081a0034bd9d7db5bd7cafc8c0b1ebf5e5",
+   "reason": "Final scientific review nit 5 (#1477 c.7074137435): Theorem 19 divides by $|\\mathcal{C}_H|$ (its proof), so the counting hidden prior is stated on a finite $\\mathcal{C}_H$."
   },
   {
    "id": "D368",
@@ -2080,12 +2250,12 @@
   {
    "id": "D369",
    "file": "papers/Structure.md",
-   "start": 26598,
+   "start": 26556,
    "end": 26680,
-   "old_sha256": "e0e0cd0b292e9dcf1529fc39db916219a0175da1cd04d9a7b876397e26c3b68d",
-   "new": "independently prepared decoupled ancillary enlargement by a normalized factor of any cardinality with bijective dynamics as exact invariances",
-   "new_sha256": "cef6a19efce8ddbef62e751df15f3b306ea4f33ce3ab29f287838e777c04c214",
-   "reason": "Item (ii), finding 7 (#1477 c.7061693815): the same pass of AGENTS.md §A.25 aligns the sentence with the narrowed membership of Theorem 24(iii)."
+   "old_sha256": "7470d2215a405273a2c5dd01155ce319527afc99e5b6cfc818fa7287261ec9ac",
+   "new": "uniform hidden-coordinate relabelling of a finite $\\mathcal{C}_H$ and independently prepared decoupled ancillary enlargement by a normalized factor of any cardinality with bijective dynamics as exact invariances",
+   "new_sha256": "060d1aec8d540c56fe67122621a5baf17360ec8872f7d3dc8f7832581173cfc2",
+   "reason": "Item (ii), finding 7 (#1477 c.7061693815): the same pass of AGENTS.md §A.25 aligns the sentence with the narrowed membership of Theorem 24(iii). Revised at amendment §31 (final scientific review F4 = delta-review N4, #1477 c.7074137435): the anchor is extended to the relabelling clause, which takes the finite scope of Theorem 24(i) (D361); the enlargement wording is unchanged."
   },
   {
    "id": "D055",
@@ -2598,6 +2768,16 @@
    "reason": "X-02: the (A1) entry is deleted; Theorem 23 states finiteness as its scope (X-45). The E3/H-BD reading survives at Sub:268 (i), the factor freedom at Theorem 24(iii) and (NR) at Main §2.3 and Sub:137. With the entry gone, A4's Z^d standard construction is no longer excluded by the assumption list (S2-A review finding)."
   },
   {
+   "id": "D374",
+   "file": "papers/Substratum.md",
+   "start": 31753,
+   "end": 31905,
+   "old_sha256": "648a4e6b239fe84d6bae2c1b043222e252f6a38ad3512c219cfba04343a795cd",
+   "new": "every map on a finite set restricting to a bijection on that image; for $S$ of unspecified cardinality bijectivity is the reversibility posit (REV) of [Main §4.5]. Bijectivity for the dynamics governing registered history is thus, for a finite $S$, partly structural,",
+   "new_sha256": "3bf462034072408c2bac7598ba442da5c80bedc15517c5a29141d777cfbe4d91",
+   "reason": "Final scientific review F7 (#1477 c.7074137435; owner #1169 c.7074687817): the eventual-image argument has a finite premise; with the (A1) entry gone (D232) its conclusion is scoped to a finite $S$, and for $S$ of unspecified cardinality bijectivity is the reversibility posit (REV) of Main item (iii)."
+  },
+  {
    "id": "D016",
    "file": "papers/Substratum.md",
    "start": 36487,
@@ -2723,9 +2903,9 @@
    "start": 68259,
    "end": 68458,
    "old_sha256": "da6d288790475ce677ba2eac17f1da75a76b0dd611dc527e67da03a744e22c32",
-   "new": "- The finite-substratum scope of Theorem 23 is used by Stage 1's exact return and Stage 3's count; E3 does not establish finiteness of $S$, and a form of those stages for a substratum of unspecified cardinality, or an effective-finiteness argument with continuum UV completion, is not developed.",
-   "new_sha256": "3aa21762e56ba311f54233f4c0c2a717b647c5a4e5f882416bf170732ec5187c",
-   "reason": "The bullet is rewritten from a motivation of A1 to the reason for the finite scope (X-45: Stage 1 X-29, Stage 3 X-70). Review that no other stage uses finiteness."
+   "new": "- The finite-substratum scope of Theorem 23 supplies the two steps that have no established form for a substratum of unspecified cardinality. The first is Stage 1's exact rooted return $\\Gamma_n=I$ after a non-permutation rooted map. The step from such a return to P-indivisibility holds for a hidden prior on a measurable hidden carrier of any cardinality (Corollary (near-return) of [Main §2.3], of which an exact return is a case), and the near-return condition (NR) of [Main §2.3], assumed and not adopted, is a weaker sufficient condition for that conclusion (§3.2); what is open for a substratum of unspecified cardinality is a source of the return hypothesis. The second is Stage 3's count under H-count, which [GR §2.3] states for a total system that is finite. E3 does not establish finiteness of $S$. An effective-finiteness argument with continuum UV completion is not developed. Theorem 23 retains its stated finite-substratum hypothesis. Its Stage 2 local lattice results are also stated on $\\mathbb{Z}^d$ under their named hypotheses [SM §4.1]; the observer-operator pole statement of Lemma 1c [SM §4.1] and the continued response of Proposition 4b [SM §4.4] additionally need, outside the finite and translation-invariant cases of [SM §4.1], a meromorphic continuation of the memory-resummed Schur complement that is not established. These do not by themselves extend the complete reconstruction theorem to a substratum of unspecified cardinality.",
+   "new_sha256": "1096fea476ba417ae50a3868c3429b72c966f09110cb4f067bb51ceb96fb3a0e",
+   "reason": "The bullet is rewritten from a motivation of A1 to the reason for the finite scope (X-45: Stage 1 X-29, Stage 3 X-70). Review that no other stage uses finiteness. Revised at amendment §31 (final scientific review F1/F2, #1477 c.7074137435; owner #1169 c.7074687817): the bullet names the two steps with no established infinite-configuration form, states that the step from an exact rooted return to P-indivisibility holds on a hidden carrier of any cardinality (Main Corollary (near-return)) and that the source of the return hypothesis on an infinite configuration space is open (LEDGER X-21), and carries the restricted D022 companion sentences, with the open continuation condition of SM Lemma 1c(ii) and Proposition 4b stated by its content."
   },
   {
    "id": "D027",
@@ -2773,9 +2953,9 @@
    "start": 79996,
    "end": 80227,
    "old_sha256": "f1b6b8ff1d5c38e9e8785cbfa22dddb0f77ddee726967bb27ae381007bbc03c2",
-   "new": "Adjoin a classical factor $A$ of any cardinality, with $\\ell^2(A)$ prepared independently in a density matrix $\\sigma_A$ with $\\operatorname{Tr}\\sigma_A=1$, and evolve it by the permutation unitary $W$ of a bijection $\\psi$ of $A$, with product dynamics $U\\otimes W$; the enlarged pair $(S\\times A,\\varphi\\times\\psi)$ has bijective dynamics (A2).",
-   "new_sha256": "b67530ec47908de0f2275988dd7d61a8ac7ca0b42cc56c84b7160ed112356cd8",
-   "reason": "Item (ii), findings 4-6 (#1477 c.7061693815; owner #1169 c.7062144714): Theorem 24(iii) states a family that G_sub contains, and G_sub acts on substrata, which have bijective dynamics (A2); membership is narrowed to a factor of any cardinality with bijective dynamics, and the wider channel identity is stated separately as a channel-preserving extension."
+   "new": "Adjoin a classical factor $A$ of any cardinality, prepared independently in a density matrix $\\sigma_A$ on $\\ell^2(A)$ with $\\operatorname{Tr}\\sigma_A=1$, and evolve it by the permutation unitary $W$ of a bijection $\\psi$ of $A$, with product dynamics $U\\otimes W$; the enlarged pair $(S\\times A,\\varphi\\times\\psi)$ has bijective dynamics (A2).",
+   "new_sha256": "1294dd887cb2f94979a1f647e6372d4aeaae7b4d3c189aea62d45abf99758b9d",
+   "reason": "Item (ii), findings 4-6 (#1477 c.7061693815; owner #1169 c.7062144714): Theorem 24(iii) states a family that G_sub contains, and G_sub acts on substrata, which have bijective dynamics (A2); membership is narrowed to a factor of any cardinality with bijective dynamics, and the wider channel identity is stated separately as a channel-preserving extension. Revised at amendment §31 (final scientific review F3 nit, #1477 c.7074137435): \"prepared independently in a density matrix $\\sigma_A$ on $\\ell^2(A)$\", wording only."
   },
   {
    "id": "D362",
@@ -2793,9 +2973,9 @@
    "start": 81383,
    "end": 81501,
    "old_sha256": "4e18d7b164eccc77e73f7d48653d7ff8e78154af57ba93b802b5f07d7e4d98ce",
-   "new": "such as the identity on an infinite-dimensional $\\ell^2(A)$ or counting measure on an infinite $A$, is not covered. The identity, and its proof, hold unchanged for any unitary or isometry $W$ on a Hilbert space $\\mathcal K_A$ of any dimension and, for a classical factor, any measurable map $w$; such enlargements are channel-preserving extensions, not members of $\\mathcal{G}_{\\text{sub}}$, when their dynamics is not a bijection of configurations.",
-   "new_sha256": "526cd6ec5eb09ccd3b7e1142d45520eab60e6e7fb7bd318978f3d352cac483e9",
-   "reason": "Item (ii), findings 4-6 (#1477 c.7061693815; owner #1169 c.7062144714): Theorem 24(iii) states a family that G_sub contains, and G_sub acts on substrata, which have bijective dynamics (A2); membership is narrowed to a factor of any cardinality with bijective dynamics, and the wider channel identity is stated separately as a channel-preserving extension."
+   "new": "such as the identity on an infinite-dimensional $\\ell^2(A)$ or counting measure on an infinite $A$, is not covered. The identity, and its proof, hold unchanged for any density matrix $\\sigma_A$ with $\\operatorname{Tr}\\sigma_A=1$ on a Hilbert space $\\mathcal K_A$ of any dimension evolved by a unitary or isometry $W$ and, for a classical factor with $\\alpha(A)=1$, any measurable map $w$; such enlargements are channel-preserving extensions, not members of $\\mathcal{G}_{\\text{sub}}$, when their dynamics is not a bijection of configurations.",
+   "new_sha256": "bc14a73d779c8691215c8b1b9a6114310b0b8301da90f5fdfc3a42f14485f770",
+   "reason": "Item (ii), findings 4-6 (#1477 c.7061693815; owner #1169 c.7062144714): Theorem 24(iii) states a family that G_sub contains, and G_sub acts on substrata, which have bijective dynamics (A2); membership is narrowed to a factor of any cardinality with bijective dynamics, and the wider channel identity is stated separately as a channel-preserving extension. Revised at amendment §31 (final scientific review F3 = delta-review N3, #1477 c.7074137435): the extension sentence states the normalization its proof uses, $\\operatorname{Tr}\\sigma_A=1$ and $\\alpha(A)=1$."
   },
   {
    "id": "D029",
@@ -3728,8 +3908,8 @@
    "expected_sha256": "331e67a3a9954ac7b2a203003dc54c4810862d7bfe0024ee174396259a8ae7ff"
   },
   "book/The-Incompleteness-of-Observation-FULL.md": {
-   "base_sha256": "2afc3c73a9847270fd92a525f49944c1683a1b3947aee47886773252607de74b",
-   "expected_sha256": "41efa2223caa9aa99bc8cb523a4243d3bf6b9d764d8b44ce814b3e9c2a579bc9"
+   "base_sha256": "d11389868cab7759fb77a93f080488c21fed570bbddae2d8e9dbc19d62e3bebf",
+   "expected_sha256": "0864768eca02d2661ecbf107adf551e8c23ef0b39dcdcb7d4ceb2db0aa237f0c"
   },
   "book/appendix-c-objections.md": {
    "base_sha256": "bba97f5ff2e06c5ddecc7ac8e221d46aa39240321c73aeadfac08e23038841a7",
@@ -3744,16 +3924,16 @@
    "expected_sha256": "c4f7a874354cfcbba9838cd27f69e4df601b4db987ced764ca0618368baf1861"
   },
   "book/ch02-substratum.md": {
-   "base_sha256": "e8f2f4fed541bad179f35568bdfbbd8ecdc8670d488464152e6cfa0c7a2c1158",
-   "expected_sha256": "ff43d1b13f083b9e424d7d5684b7323c3323265eba019843ab52c0bcd5e37ea0"
+   "base_sha256": "9b89243567a57774102d0ff567833e6e1ee03bc94b387ab5cb68de811ab9c57a",
+   "expected_sha256": "65077f545070a11d3e972730dbbcad9c23599f6907231277a218ff86ab1117b1"
   },
   "book/ch03-structural-realism.md": {
    "base_sha256": "01c88ef9c048196e2aed89d880192e1a804303b80b9ed75f6fb2bcb13a84b75f",
-   "expected_sha256": "9a9df06855caafdb7b7f92ba39933e76b01f7d52ad75c5be70e8804ae7e6861f"
+   "expected_sha256": "93247be2de61aa62ec0defa36db7998d7d014197df32a77fa90fdec51a5755b3"
   },
   "book/ch04-methodology.md": {
    "base_sha256": "ed2aaa797b2fe75bf2316f2d5617029db9e0e2b7cc9fd3893a08e1b1ff482447",
-   "expected_sha256": "f3c75419632ba90de2b84837dd8f4f81c445906a5a603ac939d8f1125a117022"
+   "expected_sha256": "4219af22eef583e9d2cbdfc38adb22b968274003b11b889b6094e0ea8dc353a2"
   },
   "book/ch05-gauge-structure.md": {
    "base_sha256": "2ff71dc4ce9ca70c6cadf3b286f1ab5fd94395aa42750daac4a7803cacfe39e6",
@@ -3783,6 +3963,10 @@
    "base_sha256": "099ff52381e55545d4e02c9eb7fdbe5b0bb6532615c3c89ceea35173bf8ebbc0",
    "expected_sha256": "c703ba3594a1999b49f1be08a7ae446bfb5f9974704d62a4b8bf55a484d229fa"
   },
+  "papers/Complexity.md": {
+   "base_sha256": "63b490641a152760de8ab6e0936b9e863f7a3225ca4d3bfe0034bb2b28ddf5b2",
+   "expected_sha256": "69f7c24db3c8a6d84301a5a48e9bbdf5efd6face28602babaf3baf5929c58a1b"
+  },
   "papers/Computation.md": {
    "base_sha256": "c2a1869f1bcb30d427b0ce830d5b86b10350e22051f5eae3eda0f119756d2563",
    "expected_sha256": "fc510398928a9c4fa62c1667738766414e2144f4111d4b7c95da519ac1841093"
@@ -3793,23 +3977,23 @@
   },
   "papers/Main.md": {
    "base_sha256": "8b12696cd02b1e5caeb2488a5d8a6f16e8baaeca929b1bb1734875e134c9f6c3",
-   "expected_sha256": "fa799fab1060df5ecf2fca13ade550e3bc1d79b2edff2309fc8e0a2da35f1b67"
+   "expected_sha256": "037358cae01e4bc945aeb1c2c37977605fce0a21bad399ab68d714a57fdd73a8"
   },
   "papers/Methodology.md": {
    "base_sha256": "0af403d27864243a715c863d44b385a5ce4df719862c8b9359b088b6f6b566c3",
-   "expected_sha256": "55cc95965f10acffa531f05879db351b98e3f6ebce6ce7bfae07cbbfb459d155"
+   "expected_sha256": "02de62917e6212f86540ee3eaabd030a92eaac244a5f1d88ed8103a43e002cf6"
   },
   "papers/SM.md": {
    "base_sha256": "0ed094252ca3a5a2fd6ff2081b72541ba053725b420b491deced73df93bf04cf",
-   "expected_sha256": "70509837bbccff2cc4750b1315957462499c041c5a39718b4ed3a55a9ba120dc"
+   "expected_sha256": "90fe2c154d7b5e8cc6e0c7d5d003ce1a47aaeda59d74a492db41489ebdbc7091"
   },
   "papers/Structure.md": {
    "base_sha256": "9e020b2c93814f2286f3906693e7b4bcc891e1e54b776f00356a1f3ce46d8a4f",
-   "expected_sha256": "46a4a3d392286dc2f9d15471ec85b0372242f71f76434d545b27488e410e902b"
+   "expected_sha256": "00ff9eb49727b98bb03a7f19d0d672944c3ecdd0f53ca2049604784d35acc8a5"
   },
   "papers/Substratum.md": {
    "base_sha256": "501a3ae24c3d394a6842c3567151f6a5fa853762cb5875dac243104e96fd6722",
-   "expected_sha256": "1b10baa0ac5120fc7b091d41e4f65eff719cb3f47416ba038851d67930d0805b"
+   "expected_sha256": "7233552c3a749920c0ab7009be6e0570d7fe0ad2fd4e39365b0b6b37326289f8"
   },
   "verification/README.md": {
    "base_sha256": "d2d92060cb1a62b0d9eaa3fad834d6976c89e5e7b1c44f272f00b52cc11590fe",
