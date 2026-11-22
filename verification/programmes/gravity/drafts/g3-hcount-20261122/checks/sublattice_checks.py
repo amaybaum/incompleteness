@@ -8,7 +8,11 @@ K2  separate conservation of the two sublattice parts E_A, E_B of
     with the labelling frozen at t = 0 the two parts exchange (Y = E_A - E_B
     alternates); nontriviality: on some shell of E, E_A takes more than one
     value; countercontrol: the split by the site's spatial parity alone is not
-    conserved.
+    conserved. Count comparison: on the E-shell with most unordered splits
+    {E_A, E_B} (ties: the largest shell), the number of states per split;
+    the check requires these counts to differ.
+The d = 1 rounded cases of K1 use the d = 3 rounding (s + 1) // 3; they are a
+structural control of the decoupling, not the corpus's one-dimensional analog.
 
 Run: python3 -I sublattice_checks.py   (exit 0 and a final line "ALL PASS").
 """
@@ -92,6 +96,7 @@ def k2(d, L, q, modq):
     S = sites(d, L)
     ok_st, alt_sp, bad = True, True, 0
     shell = {}
+    cnt = {}
     for vals in itertools.product(range(q), repeat=2 * len(S)):
         u = dict(zip(S, vals[: len(S)]))
         v = dict(zip(S, vals[len(S):]))
@@ -102,7 +107,10 @@ def k2(d, L, q, modq):
         s0 = parts(u, v, d, L, 0, "spatial")
         s1 = parts(u1, v1, d, L, 0, "spatial")
         red = (lambda x: x % q) if modq else (lambda x: x)
-        shell.setdefault(red(a0[0] + a0[1]), set()).add(red(a0[0]))
+        ek = red(a0[0] + a0[1])
+        shell.setdefault(ek, set()).add(red(a0[0]))
+        sk = (ek, tuple(sorted((red(a0[0]), red(a0[1])))))
+        cnt[sk] = cnt.get(sk, 0) + 1
         if any(red(a0[i]) != red(a1[i]) for i in (0, 1)):
             ok_st = False
         # frozen labelling: the two parts exchange (Y = E_0 - E_1 alternates)
@@ -112,7 +120,12 @@ def k2(d, L, q, modq):
         if red(s0[0]) != red(s1[0]):
             bad += 1
     split = max(len(x) for x in shell.values())
-    return ok_st, alt_sp, bad, split
+    per = {}
+    for (ek, pair), c in cnt.items():
+        per.setdefault(ek, {})[pair] = c
+    best = max(per, key=lambda e: (len(per[e]), sum(per[e].values()), -e))
+    counts = sorted(per[best].items())
+    return ok_st, alt_sp, bad, split, best, counts
 
 
 def main():
@@ -131,12 +144,15 @@ def main():
             fails.append(("K1-cc", d, L, rule))
     for (d, L, qq, modq) in ((1, 4, 3, True), (1, 6, 3, True), (2, 2, 3, True),
                              (1, 4, 2, False), (1, 6, 2, False), (1, 8, 2, False)):
-        ok_st, alt_sp, bad, split = k2(d, L, qq, modq)
+        ok_st, alt_sp, bad, split, best, counts = k2(d, L, qq, modq)
         tag = "mod q" if modq else "integer (binary)"
         print(f"K2 d={d} L={L} q={qq} {tag}: spacetime parts conserved={ok_st}; "
               f"frozen-label parts exchange={alt_sp}; site-parity part changes on {bad} states; "
               f"max distinct E_A values on one E-shell={split}")
-        if not (ok_st and alt_sp and bad > 0 and split > 1):
+        cs = [c for _, c in counts]
+        print(f"   counts at fixed (E, {{E_A, E_B}}), E = {best}: "
+              + ", ".join(f"{{{a},{b}}}: {c}" for (a, b), c in counts))
+        if not (ok_st and alt_sp and bad > 0 and split > 1 and len(set(cs)) > 1):
             fails.append(("K2", d, L, qq))
     if fails:
         print("FAIL", fails)
