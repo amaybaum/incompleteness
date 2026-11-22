@@ -31,9 +31,9 @@ DEC.** Throughout, MIO, DIO and "coherence" are taken in the configuration basis
   dynamics is a map on it), A2's determinism (`Main:54`, `Sub:94`), and NAT's clause that outcomes
   and records are functions of configurations;
 - **DEC** (N): every adjoined factor whose dynamics is not a configuration map (a deep factor
-  evolved by a unitary or an isometry) is prepared independently and evolves by product dynamics.
-  A deep factor evolved by a measurable map is a configuration map on an uncountable carrier,
-  which falls under M1 (`Main:60`; ledger item (ii), `Main:736`; `Sub:94`);
+  evolved by a unitary or an isometry) is prepared independently and evolves by product dynamics
+  (`Main:60`; ledger item (ii), `Main:736`; `Sub:94`). A deep factor evolved by a measurable map
+  is a configuration map on an uncountable carrier, which falls under M1;
 - KIN-B; positivity and linearity (LIN);
 - **TB** (I): the global trace bound Σ_o Tr Φ_o(ρ) ≤ Tr ρ for **all** ρ ≥ 0, coherent inputs
   included. Its configuration-level restriction does not suffice (N6).
