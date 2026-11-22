@@ -6291,3 +6291,18 @@ substratum is the finite object of" and D319's lower-case form. `PRESERVE` gains
 `NEW31` gains D399. The expectations of §31.12.5 become: against P\*, 302 unchanged, 60 shifted, 9 revised, 26 added,
 drift 0; against `9ba8ef10`, 385 unchanged, 4 revised, 8 added (D392–D399), drift 0. Records: 399 (lean-docstring 41);
 splices 397 in 44 files.
+
+### 31.18 Record pins
+
+The digests below pin the record files from §31.12.9 on (D399, D319 revised, and their checks);
+`preserve_check.py` reads the last `Record pins` subsection, so §26.4, §31.11, §31.14 and §31.16 stay as the pins of P*,
+`9ba8ef10`, `785b17f9` and `3fa2d18f`. The ledger has 397 splices in 44 files at `53c6601a` (399 edit
+records; D032 and D039 retain their text).
+
+| File | SHA-256 |
+|---|---|
+| `edits.json` | `fff453b7165769d313a35ed8f9c1598634dd0bbfa7d23910222e5835e0e56dfe` |
+| `ledger.json` | `877c930510e0d431d5fbd60d7871d2cf03711643059e08fa9b5c91dcec31656c` |
+| `edits_check.py` | `97b7d6016e94b3528aaf657547ac9ed40a966b6124e87bc6c80c38576ddcfb56` |
+| `guards_check.py` | `ef89e1c79a0cc3c34af1ebb981e1674edd33a534d6f98612ee06ce57005b5cee` |
+| `preserve_check.py` | `16302831c36620ab26abd1d476e83d1470f1da48bb41746ff6d930329d950d55` |

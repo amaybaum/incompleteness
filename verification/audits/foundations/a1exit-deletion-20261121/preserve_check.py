@@ -127,7 +127,14 @@ SCOPE_PRESENT += [
     ('verification/README.md', 'the observer theory of every substratum ' + _FIN + ' at its own'),
     ('verification/README.md', 'every substratum ' + _FIN + ' (`permTheory_nonnegBounded`'),
 ]
+SCOPE_PRESENT += [
+    (_OI + 'A6Instantiation.lean', "the manuscripts' finite representatives, configurations over a finite periodic quotient"),
+    (_OI + 'A6Instantiation.lean', '(`SM.md` §4.1, §4.4), are finite objects'),
+    (_OI + 'A6Instantiation.lean', '**The finiteness predicate `A1` is\nnot weakened**'),
+]
 SCOPE_ABSENT += [
+    (_OI + 'A6Instantiation.lean', "the manuscripts' substratum is the finite object of"),
+    (_OI + 'A6Instantiation.lean', '**the finiteness predicate `A1` is\nnot weakened**'),
     (_OI + 'SubstratumInterfaceAudit.lean', 'the finiteness predicate `A1` on a finite torus and'),
     (_OI + 'StochasticInterface.lean', 'FAILS FOR EVERY SUBSTRATUM WITH A LINEAR RULE'),
     (_OI + 'StochasticInterface.lean', 'For every substratum whose rule is'),
@@ -137,8 +144,8 @@ SCOPE_ABSENT += [
     ('verification/README.md', 'every substratum (`permTheory_nonnegBounded`'),
 ]
 # --reconcile: the records amendment §31 revises (their replacement changes; D369's old text is extended) and adds.
-REVISED31 = {'D026', 'D231', 'D363', 'D364', 'D369', 'D276', 'D326', 'D332'}  # §31.3, and §31.12 (R2)
-NEW31 = {'D%03d' % n for n in range(374, 399)}  # D374-D391 (§31.3), D392-D398 (§31.12)
+REVISED31 = {'D026', 'D231', 'D363', 'D364', 'D369', 'D276', 'D326', 'D332', 'D319'}  # §31.3, §31.12 (R2), §31.12.9 (R-8)
+NEW31 = {'D%03d' % n for n in range(374, 400)}  # D374-D391 (§31.3), D392-D398 (§31.12), D399 (§31.12.9)
 SC42_DIR = 'verification/audits/manuscript/bell-operational-reconciliation-20261029/'
 SC42 = SC42_DIR + 'sc42-integration-result.json'
 SC42_CONTROLS = SC42_DIR + 'sc42-integration-controls.json'
@@ -705,7 +712,8 @@ def self_test(led, base_files, plan):
         sum(1 for f, s in SCOPE_ABSENT if s.encode('utf-8') in base_files.get(f, b''))
     # the two #1494 statements hold at the base; one absent form (D276's earlier replacement, "`A1` on a finite torus
     # and") is plan text, never at the base
-    expect(n_base == want_base == len(SCOPE_PRESENT) - 2 + len(SCOPE_ABSENT) - 1,
+    # likewise D319's earlier lower-case replacement ("**the finiteness predicate `A1` is")
+    expect(n_base == want_base == len(SCOPE_PRESENT) - 2 + len(SCOPE_ABSENT) - 2,
            'scope assertions: the unedited base fails every one the plan adds (%d findings)' % n_base)
     c = dict(good); c['papers/SM.md'] = c['papers/SM.md'].replace('the counting measure on a finite $\\mathcal{C}_H$'.encode(), b'the counting measure', 1)
     expect(any('lacks' in x for x in scope_check(c)), 'scope assertions: a candidate without D391 fails')

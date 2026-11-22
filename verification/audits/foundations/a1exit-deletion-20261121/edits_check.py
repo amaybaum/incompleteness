@@ -461,7 +461,9 @@ PRESERVE.update({'D276': ['for a finite torus and a finite alphabet'], 'D332': [
                  'D392': ['FINITELY MANY SITES, A FINITE ALPHABET'],
                  'D393': ['with finitely many sites and a finite alphabet'], 'D394': ['with finitely many sites and a finite alphabet'],
                  'D395': ['with finitely many sites and a finite alphabet'], 'D396': ['with finitely many sites and a finite alphabet'],
-                 'D397': ['with finitely many sites and a finite alphabet'], 'D398': ['with finitely many sites and a finite alphabet']})
+                 'D397': ['with finitely many sites and a finite alphabet'], 'D398': ['with finitely many sites and a finite alphabet'],
+                 'D399': ["the manuscripts' finite representatives", '(`SM.md` §4.1, §4.4), are finite objects'],
+                 'D319': ['**The finiteness predicate `A1` is\nnot weakened**']})
 PRESERVE.update({i: [FIN_CH] for i in ('D375', 'D376', 'D377', 'D378', 'D379', 'D380', 'D381', 'D382', 'D383', 'D384',
                                       'D385', 'D386')})
 # Text that must be present in the simulated manuscript: the approved sentence, and the finite scope of every

@@ -4534,11 +4534,11 @@
    "row": "-",
    "disposition": "-",
    "cls": "mechanical",
-   "reason": "R-1/R-2 are a separate PR (#1482, owner decision #1169 c.7058783437); the prose names the kernel predicate as the finiteness predicate `A1`, accurate with or without the rename, and does not present A1 as an assumption. Docstring only; identifiers keep their names (rename proposals in PREREG §22).",
+   "reason": "R-1/R-2 are a separate PR (#1482, owner decision #1169 c.7058783437); the prose names the kernel predicate as the finiteness predicate `A1`, accurate with or without the rename, and does not present A1 as an assumption. Docstring only; identifiers keep their names (rename proposals in PREREG §22). Revised at amendment §31.12.9 (R-8, Lean audit #1542 at f9e91692, AUDIT.md §6; owner #1169 c.7075903147): capitalized at the sentence boundary.",
    "step2_note": null,
    "old": "**`A1` is\nnot weakened**",
-   "new": "**the finiteness predicate `A1` is\nnot weakened**",
-   "revised": "new in round 1"
+   "new": "**The finiteness predicate `A1` is\nnot weakened**",
+   "revised": "revised at amendment §31.12.9"
   },
   {
    "id": "D320",
@@ -6168,6 +6168,22 @@
    "old": "every substratum (`permTheory_nonnegBounded`, `obsTheory_nonnegBounded`)",
    "new": "every substratum with finitely many sites and a finite alphabet (`permTheory_nonnegBounded`, `obsTheory_nonnegBounded`)",
    "revised": "new at amendment §31.12"
+  },
+  {
+   "id": "D399",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/A6Instantiation.lean",
+   "site": "verification/lean-mathlib/OIBridge/A6Instantiation.lean:508",
+   "part": 1,
+   "mirror_of": null,
+   "row": "X-81",
+   "disposition": "-",
+   "cls": "semantic",
+   "reason": "R-7 (Lean audit #1542 at f9e91692, AUDIT.md §6; owner #1169 c.7075903147): the docstring stated the manuscripts' substratum to be finite, which the retirement of A1 does not support, and cited SM.md:306, the scope Remark of SM Theorem 3; the statement is scoped to the finite representatives, cited by section: SM §4.1 (SM:222, the finite periodic quotient, a qualified case after D036) and SM §4.4 (SM:312, the substratum's alphabet). The kernel statement cx3b_complex_not_A1 and the passage's distinction are unchanged.",
+   "step2_note": null,
+   "old": "the manuscripts' substratum is the finite object of `SM.md:306`",
+   "new": "the manuscripts' finite representatives, configurations over a finite periodic quotient of the lattice (a qualified case) with the substratum's alphabet `ℤ/qℤ` (`SM.md` §4.1, §4.4), are finite objects",
+   "revised": "new at amendment §31.12.9"
   }
  ]
 }
