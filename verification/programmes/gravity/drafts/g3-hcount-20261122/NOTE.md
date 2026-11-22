@@ -2,7 +2,7 @@
 
 **Standing.** Author record of a paper-only research unit (AGENTS.md §A.29, §A.31 depth-first
 form). WIP / UNVERIFIED: no independent non-author review yet. The preregistration `PLAN.md`
-(commit `b04cf7e5`) was pushed before this record and is unchanged. Authorization, snapshot `D`,
+(commit `b04cf7e5`) was committed before this record and is unchanged. Authorization, snapshot `D`,
 sources, assumption IDs, decision rule, productivity test, stop conditions and goal link are as in
 `PLAN.md`. The unit adopts no premise, H-COUNT-1 included, and edits no manuscript, Lean module,
 registry or shared record. Its one computation is the tiny exact check `checks/sublattice_checks.py`
