@@ -6232,3 +6232,62 @@ records; D032 and D039 retain their text).
 | `edits_check.py` | `5c0be6f81ea3292591b4037ff08dddb6f8d639c78df40521c818a6da1263bc35` |
 | `guards_check.py` | `ef89e1c79a0cc3c34af1ebb981e1674edd33a534d6f98612ee06ce57005b5cee` |
 | `preserve_check.py` | `6999cd3cf7e28298f050b692fc29f6733f055edef8ebcad8553a11c96914a861` |
+
+#### 31.12.9 R-7 and R-8 of the Lean audit
+
+Owner decision, owner `amaybaum`, 2026-11-22T07:25:13Z,
+[#1169 comment 7075903147](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7075903147), quoted in
+part:
+
+> | R-7, `A6Instantiation.lean:508` | Required. Replace the global-finiteness assertion with a correctly scoped statement about finite representatives, and correct the stale `SM.md:306` citation. |
+> | R-8, D319 capitalization | Approved. Capitalize "The finiteness predicate A1 is not weakened" at the sentence boundary. |
+>
+> - R-7 is scientifically significant: the existing statement describes the substratum itself as finite, which contradicts the intended A1 retirement.
+> - The writer must preserve the valid finite-case results and independently verify the replacement citation.
+> - Both changes go into the amended ledger with their own traceability entries and required-present/required-absent checks.
+
+The source is the Lean A1-dependency audit (#1542 at `f9e91692`, its AUDIT.md §6, rows R-7 and R-8).
+
+**R-7, the passage.** The docstring of `cx3b_complex_not_A1` (`A6Instantiation.lean`, "Bounded reading, frozen")
+reads, at H: "That is **not a defect of the interface and not a defect of the manuscripts**: the manuscripts' substratum
+is the finite object of `SM.md:306` and the complex carrier is the object on which the derivation of `SM.md:114` and
+Theorem 5 is conducted. **`A1` is not weakened**, …".
+
+*The citation, checked against the source.* `SM.md:306` at H, and at the module's own commit `082c3eaa`, is the Remark on
+the scope of the center-dependence–mass identification of Theorem 3, which states no finiteness. The round's frozen
+record (`verification/programmes/substratum/a6-instantiation/result.md`, start-state table) used `SM.md:306` for the
+K-component multi-component update; at H that passage is SM:312 in §4.4, and it states the update on the observer-level
+branch, "not the $\mathbb{Z}/q\mathbb{Z}$ alphabet of the substratum". The finite object the sentence contrasts with the
+complex carrier is stated in two places at H:
+- SM §4.1, SM:222: "under A1 and A4 [Substratum §3.1] it acts on configurations over a finite periodic quotient
+  $\Lambda/P$". After the retirement (D036) it reads "under A4 [Substratum §3.1] it acts on configurations over
+  $\Lambda$ or, as a qualified case, over a finite periodic quotient".
+- SM §4.4, SM:312: the substratum's alphabet $\mathbb{Z}/q\mathbb{Z}$.
+
+So the replacement cites sections, which do not go stale with line moves: `SM.md` §4.1 and §4.4.
+
+*The edit (D399, `lean-docstring`, semantic).* "the manuscripts' substratum is the finite object of `SM.md:306`" →
+"the manuscripts' finite representatives, configurations over a finite periodic quotient of the lattice (a qualified
+case) with the substratum's alphabet `ℤ/qℤ` (`SM.md` §4.1, §4.4), are finite objects". This states only finiteness of the
+finite representatives, not of the substratum. The finite-case result is unchanged: the kernel statement
+`cx3b_complex_not_A1`, that the complex carrier does not satisfy the finiteness predicate, and the passage's distinction,
+that the covariance statement comes inside the interface and the complex carrier does not.
+
+*Consistency with D317–D320.* D399's old text ends before " and the complex\ncarrier", and D319's old text,
+"**`A1` is\nnot weakened**", begins two sentences later, so the two splices are disjoint. The ledger's overlap check
+(`validate_ledger`) confirms this. The sentence after D399 still reads "and the complex carrier is the object on which
+…".
+
+*Further stale citations found, not edited.* The same docstring's next theorem cites "`SM.md:306`–`:308`" for the
+dynamics (`A6Instantiation.lean:539`), and `SM.md:114` here may also have moved. Neither states or implies finiteness, so
+they are not consequences of the retirement. They are recorded for the Lean audit (#1542) and left unchanged, to keep the
+change minimal.
+
+**R-8 (D319 revised).** "**the finiteness predicate `A1` is\nnot weakened**" → "**The finiteness predicate `A1` is\nnot
+weakened**". It opens a sentence after "… Theorem 5 is conducted.".
+
+**Checks.** `SCOPE_PRESENT` gains D399's replacement and D319's capitalized form. `SCOPE_ABSENT` gains "the manuscripts'
+substratum is the finite object of" and D319's lower-case form. `PRESERVE` gains both. `REVISED31` gains D319 and
+`NEW31` gains D399. The expectations of §31.12.5 become: against P\*, 302 unchanged, 60 shifted, 9 revised, 26 added,
+drift 0; against `9ba8ef10`, 385 unchanged, 4 revised, 8 added (D392–D399), drift 0. Records: 399 (lean-docstring 41);
+splices 397 in 44 files.
