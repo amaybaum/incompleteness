@@ -6840,3 +6840,94 @@ D032 and D039 retain their text).
 | `edits_check.py` | `2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c` |
 | `guards_check.py` | `ef89e1c79a0cc3c34af1ebb981e1674edd33a534d6f98612ee06ce57005b5cee` |
 | `preserve_check.py` | `95835b28a02713e26682a16a18a02dc3fd71c0164a8bb4ec342cae911a1fc7d3` |
+
+### 31.24 Results of §31.12.13 at `53c6601a`
+
+Each check was run at H from the checkers at `19ff4ca9`, the commit that applies §31.12.13 and carries the §31.25 pins.
+`preserve_check.py` ran with `--plan 19ff4ca9346b3e2ada3ca7d95e499475fb4ff1ef`, and `scipy` 1.18.1 was installed. Every
+run exited 0, and every result file parses with verdict `pass`. In the file this subsection follows §31.25, which the
+apply commit wrote first, as §31.22 follows §31.23. The pins in force are §31.25's.
+
+| Check | Result |
+|---|---|
+| `edits_check.py --self-test` | PASS (93) |
+| `edits_check.py --static` | infinity 0, register 0, capitals 0, identifier 0, preservation 0, mirror parity 0, Lean docstring-only 0; sitemap 194/194 |
+| `edits_check.py --commit 53c6601a --simulate` | 401/401 unique; residual 5, all allowed; 0 unscoped; 0 preservation; 0 identifier |
+| `edits_check.py --pins --commit 53c6601a` | 0 unresolved, 0 missing |
+| `edits_check.py --repo-scan --simulate --final --commit 53c6601a` | 0 unexplained |
+| `preserve_check.py --verify-ledger` | identical |
+| `preserve_check.py --verify-pins` | PASS against §31.25 |
+| `preserve_check.py --self-test` | PASS, 114 recorded checks, all `pass` (see below) |
+| `--reconcile 55544cc3…` (P\*) | 302 unchanged, 60 shifted, 9 revised, 28 added (D374–D401), drift 0 |
+| `--reconcile 9ba8ef10…` | 385 unchanged, 4 revised, 10 added (D392–D401), drift 0 |
+| `guards_check.py --mutants` | PASS, 64 checks: the 14 checks on the simulated tree (44 files edited by 401 records), F71 among them; CC-1–CC-4 failing as named; 30 listed pins, 0 unlisted strings |
+| `guards_check.py --predict`, then `preserve_check.py --tree --mutants` | 44 files edited, 9 TeX rebuilt, 7 fingerprints re-affirmed; 0 findings; scope assertions 46 present and 25 absent, 0 findings; the 5 tree mutants fail as required |
+| Coverage | `tools/coverage_check.py` on the predicted tree: OK, 132 canonical statements |
+
+The figures required by §31.12.13 are reproduced: both reconciliations, and the ledger SHA-256.
+
+The self-test's 114 checks are §31.22's 93 and 21 new ones:
+- *The redacted host record* (5):
+  - the control, the redaction of a valid run object carrying both e-mail fields, is valid with the original's findings;
+  - a copy that drops `head_sha` voids ("lacks head_sha");
+  - a copy with `id` the string `"1"` voids ("changes id");
+  - a copy that keeps an e-mail field voids;
+  - `verify_run` alone accepts the string `id`, which is why the type check is needed.
+- *The expected result under `--expect-trial`* (12):
+  - two controls: T0's real evidence at H, with its `papers/Structure.pdf: 94 pages committed, 95 built` finding, is
+    expected under the T0 rule; T1's real evidence is expected under the T1 rule;
+  - ten mutants, each a deviation with its named finding: a stale finding in the PDF comparison; a content finding for
+    a PDF outside the set; a finding in another tree check; a failing `--commit` report; the PDF comparison missing;
+    the PDF comparison passing at T0; T1 with a text finding; `build` skipped; `guards` failing instead of skipped; the
+    upload step not succeeding.
+- *The expected result under `--expect-verify`* (4):
+  - the control: T1's real `verify.yml` record, with the KTRANS-SEP-2 marker skipped, is expected;
+  - three mutants, each a deviation: the marker succeeding, another step skipped, a job skipped.
+
+The T0 and T1 controls take the eight-PDF set those runs had.
+
+**Command-line probes** at `19ff4ca9`, on T0's and T1's evidence extracted from H. The jobs records are taken from T1's
+`ci-record.json`.
+- `--expect-trial T0` on T0's `out/`, and `--expect-trial T1` on T1's `out/` with its jobs record, each give
+  `TRIAL DEVIATION`, with one finding: `result.json` lists eight PDFs, not the nine ledgered ones. Nothing else deviates.
+  This is the outcome the nine-PDF rule requires for those eight-PDF runs, and T0's page-count finding is not among the
+  deviations.
+- `--expect-verify` on T1's `verify.yml` jobs record gives `TRIAL EXPECTED`.
+- `--verify-run` on T1's real `result.json` and its run object (run 44951832698, fetched from the API at check time),
+  `--plan 55544cc3`:
+  - With the redacted copy, the e-mail keys at `head_commit.author` and `head_commit.committer` removed, the result is
+    `RUN VOID` with the same two findings as without it. The head does not contain W, and its workflow blob is not W's,
+    which is expected for a run before W. The copy adds 0 findings, and it contains no `@`.
+  - A copy with `id` as a string adds 2 findings, the type change and a difference beyond the e-mail fields.
+  - A copy without `event` adds 3: the missing field, the difference, and a different `verify_run` result.
+
+**The push-trigger check of the trial refs**, run on the predicted tree:
+- *The workflows at H.* H has nine workflows; four have a `push` trigger:
+  - `verify.yml` and `hidden-sector-replay.yml`, both `branches: [main]`;
+  - `bg2-orientation-design.yml` and `bridge-compatibility-research.yml`, both with path filters only.
+
+  The other five have only `workflow_dispatch` among their triggers: `a1exit-trial-verify.yml`, `evidence-replay.yml`,
+  `oret-phasea.yml`, `pe01-bounded-tests.yml` and `project-board.yml`.
+- *The changed files.* The predicted tree changes 60 files against H: 54 modified tracked files and the 6 files of the
+  record directory, which H does not have. None lies under either path filter, and none is under `.github/`. T1′ adds
+  the nine PDFs, which are under `papers/` and `book/`.
+- *Against `main`.* `main` (W) differs from H only in `.github/workflows/a1exit-trial-verify.yml`, which matches neither
+  filter.
+- *The result.* A push of T0′ or T1′ to its `trial/` ref is expected to trigger no workflow.
+- *The host record.* The host's runs list for `trial/a1exit-T0-55544cc3` is empty. For `trial/a1exit-T1-55544cc3` it
+  holds only the `verify.yml` dispatch, run 44953482787, and no push run.
+- *Still to do.* The check is repeated on the actual T0′ and T1′ commits before each push, and on their runs lists after
+  it (§31.12.13).
+
+**Not run here.**
+- The PDF build: there is no xelatex in this container.
+- A real T0′ or T1′ host run: none exists. `--expect-trial` and `--expect-verify` have run on T0's and T1's evidence
+  only. The first nine-PDF outputs they can judge are T0′'s.
+- The trial refs: neither is created, and nothing was pushed to them or dispatched. Each push and dispatch needs the
+  owner's approval after this amended plan is reviewed and frozen.
+
+**The plan commit of a real dispatch** is still bound only through `result.json`'s self-reported `plan_sha` and
+`--plan`, as §31.22 records. §31.12.13 does not change this.
+
+**Ledger.** Unchanged from §31.21: 399 splices in 44 files at H (401 edit records), SHA-256
+`2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5`.
