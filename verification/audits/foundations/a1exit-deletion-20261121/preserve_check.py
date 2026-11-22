@@ -24,7 +24,14 @@ Usage (from the repository root):
                                                               (RUN.json), on main's first-parent history, containing W
                                                               with W's workflow blob, equal to the self-reported
                                                               workflow_sha and ref_sha, and its trial_sha a single-parent
-                                                              child of the ledger base (PREREG §31.12.7, §31.12.8)
+                                                              child of the ledger base (PREREG §31.12.7, §31.12.8);
+                                                              with --run-meta-redacted COPY, a retained redacted copy
+                                                              must keep its fields and types and verdict (§31.12.13)
+  python3 -I -B .../preserve_check.py --expect-trial T0|T1 --run-out OUT --plan P [--jobs JOBS.json] [--built DIR]
+                                                              a trial run's outputs against the expected result of
+                                                              PREREG §31.12.13: B1's PDF findings, the expected skips
+  python3 -I -B .../preserve_check.py --expect-verify JOBS.json --plan P
+                                                              T1′'s verify.yml jobs record against its expected skips
 
 In every candidate mode the scope assertions of PREREG §31.7 item 6 (SCOPE_PRESENT, SCOPE_ABSENT) are a recorded check.
 
@@ -707,6 +714,182 @@ def verify_run(res, meta, ledger_base, workflow_base, main_rev, plan_sha):
     return bad
 
 
+# ---- §31.12.13: the redacted host record, and the trial's expected result ------------------------------------
+
+RUN_FIELDS = (('id', int), ('event', str), ('path', str), ('head_branch', str), ('head_sha', str), ('run_attempt', int))
+
+
+def redact_run(meta):
+    """The run object with every key named email removed, at any depth (§A.42 item 4)."""
+    if isinstance(meta, dict):
+        return {k: redact_run(v) for k, v in meta.items() if k != 'email'}
+    if isinstance(meta, list):
+        return [redact_run(v) for v in meta]
+    return meta
+
+
+def _has_email(v):
+    if isinstance(v, dict):
+        return 'email' in v or any(_has_email(x) for x in v.values())
+    return isinstance(v, list) and any(_has_email(x) for x in v)
+
+
+def verify_redacted(orig, copy, res, ledger_base, workflow_base, main_rev, plan_sha):
+    """PREREG §31.12.13: a retained redacted copy keeps every field verify_run reads with the same value and JSON type,
+    removes the e-mail fields and nothing else, and gives verify_run's findings on the original exactly."""
+    if not isinstance(orig, dict) or not isinstance(copy, dict):
+        return ['redacted copy: the original or the copy is not a JSON object']
+    bad = []
+    for k, t in RUN_FIELDS + (('inputs', dict),):
+        if k == 'inputs' and k not in orig:
+            continue
+        if k not in copy:
+            bad.append('redacted copy lacks %s, which verify_run reads' % k)
+        elif type(copy[k]) is not type(orig[k]) or copy[k] != orig[k]:
+            bad.append('redacted copy changes %s: %r (%s) in the original, %r (%s) in the copy'
+                       % (k, orig[k], type(orig[k]).__name__, copy[k], type(copy[k]).__name__))
+    if _has_email(copy):
+        bad.append('redacted copy still carries an email field')
+    elif copy != redact_run(orig):
+        bad.append('redacted copy differs from the original in more than its email fields')
+    a = verify_run(res, orig, ledger_base, workflow_base, main_rev, plan_sha)
+    b = verify_run(res, copy, ledger_base, workflow_base, main_rev, plan_sha)
+    if a != b:
+        bad.append('redacted copy: verify_run differs from the original (%d against %d findings)' % (len(b), len(a)))
+    return bad
+
+
+PDF_CHECK = 'committed PDFs against the CI build (pages, pdftotext)'
+TRIAL_STEPS = ('inputs', 'checkout', 'head', 'python', 'toolchain', 'plan', 'build', 'preserve', 'guards')
+# host step names of a1exit-trial-verify.yml at the workflow base whose conclusion at T0 is not success
+T0_HOST = {"P's preserve_check.py --commit, then --tree --mutants --pdf-compare": 'failure',
+           "P's guards_check.py --mutants": 'skipped',
+           'Every required step succeeded (a skipped step fails)': 'failure'}
+# verify.yml at H on workflow_dispatch: the steps skipped by design, by (job, step)
+VERIFY_SKIPS = {('Mathlib bridge', 'KTRANS-SEP-2 marker complete reports with an axiom outside the three'): 'skipped'}
+
+
+def pdf_finding_kind(x, pdfs):
+    """B1 (§31.12.13): 'pages' or 'text' for a content finding of a ledgered PDF; None for any other finding."""
+    m = re.fullmatch(r'(\S+): \d+ pages committed, \d+ built', x)
+    if m and m.group(1) in pdfs:
+        return 'pages'
+    m = re.fullmatch(r'(\S+): extracted text differs from the CI-built PDF', x)
+    if m and m.group(1) in pdfs:
+        return 'text'
+    return None
+
+
+def _jobs(rec):
+    """Jobs of a host jobs record: GET .../runs/{id}/jobs saved whole ({'jobs': [...]}) or a list of jobs."""
+    j = rec.get('jobs') if isinstance(rec, dict) else rec
+    return j if isinstance(j, list) and all(isinstance(x, dict) for x in j) else None
+
+
+def expect_trial(kind, res, reports, pdfs, jobs=None, built=None):
+    """PREREG §31.12.13: the run's structured outputs against the T0′ or T1′ expectation. Returns the deviations."""
+    bad = []
+    t0 = kind == 'T0'
+    if not isinstance(res, dict):
+        return ['result.json missing or not a JSON object']
+    steps = res.get('steps') if isinstance(res.get('steps'), dict) else {}
+    for s in sorted(set(TRIAL_STEPS) | set(steps)):
+        want = {'preserve': 'failure', 'guards': 'skipped'}.get(s, 'success') if t0 else 'success'
+        got = steps.get(s, {}).get('outcome') if isinstance(steps.get(s), dict) else None
+        if got != want:
+            bad.append('step %s: %s, expected %s%s' % (s, got, want, ' (an unexpected skip)' if got == 'skipped' else ''))
+    if set(res.get('pdf_pages') or {}) != set(pdfs):
+        bad.append('result.json pdf_pages lists %s, not the ledgered PDFs %s' % (sorted(res.get('pdf_pages') or {}), sorted(pdfs)))
+    if res.get('tex_files_differing') != []:
+        bad.append('result.json tex_files_differing %r, not []' % (res.get('tex_files_differing'),))
+    names = ['verify-pins', 'verify-ledger', 'commit', 'tree'] + ([] if t0 else ['guards'])
+    for n in names:
+        r = reports.get(n)
+        if not isinstance(r, dict) or r.get('schema') != 'a1exit-checker-result-v1' or not isinstance(r.get('checks'), list):
+            bad.append('report %s missing or not in the a1exit-checker-result-v1 schema' % n)
+            continue
+        seen = False
+        for c in r['checks']:
+            if n == 'tree' and c.get('name') == PDF_CHECK:
+                seen = True
+                ds = c.get('discrepancies') or []
+                if t0:
+                    if c.get('status') != 'fail' or not ds:
+                        bad.append('tree report: the PDF comparison %s, expected to fail with content findings' % c.get('status'))
+                    for x in ds:
+                        if pdf_finding_kind(x, pdfs) is None:
+                            bad.append('tree report: PDF comparison finding not of an allowed kind: %s' % x)
+                elif c.get('status') != 'pass' or ds:
+                    bad.append('tree report: the PDF comparison %s with %d findings, expected to pass' % (c.get('status'), len(ds)))
+            elif c.get('status') != 'pass':
+                bad.append('report %s: check %r %s: %s' % (n, c.get('name'), c.get('status'), (c.get('discrepancies') or [''])[0]))
+        if n == 'tree' and not seen:
+            bad.append('tree report: no PDF comparison check')
+        if n != 'tree' and r.get('verdict') != 'pass':
+            bad.append('report %s verdict %r, not pass' % (n, r.get('verdict')))
+    if jobs is not None:
+        js = _jobs(jobs)
+        if not js or len(js) != 1:
+            bad.append('host jobs record: not exactly one job')
+        else:
+            seen = set()
+            for s in js[0].get('steps') or []:
+                want = T0_HOST.get(s.get('name'), 'success') if t0 else 'success'
+                seen.add(s.get('name'))
+                if s.get('conclusion') != want:
+                    bad.append('host step %r: %s, expected %s%s' % (s.get('name'), s.get('conclusion'), want,
+                                                                     ' (an unexpected skip)' if s.get('conclusion') == 'skipped' else ''))
+            for n in ['Write result.json', 'Upload result.json, logs and the built PDFs'] + (sorted(T0_HOST) if t0 else []):
+                if n not in seen:
+                    bad.append('host step %r missing from the jobs record' % n)
+            want = 'failure' if t0 else 'success'
+            if js[0].get('conclusion') != want:
+                bad.append('host job conclusion %s, expected %s' % (js[0].get('conclusion'), want))
+    if built is not None:
+        for p in sorted(pdfs):
+            if not os.path.isfile(os.path.join(built, p)):
+                bad.append('%s: not in the uploaded artifact' % p)
+    return bad
+
+
+def expect_verify(jobs):
+    """PREREG §31.12.13: T1′'s verify.yml run, workflow_dispatch: every job and step succeeds, except the skips listed
+    in VERIFY_SKIPS, each of which must conclude as listed."""
+    js = _jobs(jobs)
+    if not js:
+        return ['host jobs record missing or malformed']
+    bad, seen = [], set()
+    for j in js:
+        if j.get('conclusion') != 'success':
+            bad.append('job %r: %s, expected success' % (j.get('name'), j.get('conclusion')))
+        for s in j.get('steps') or []:
+            key = (j.get('name'), s.get('name'))
+            want = VERIFY_SKIPS.get(key, 'success')
+            seen.add(key)
+            if s.get('conclusion') != want:
+                bad.append('job %r step %r: %s, expected %s%s' % (key[0], key[1], s.get('conclusion'), want,
+                                                                  ' (an unexpected skip)' if s.get('conclusion') == 'skipped' else ''))
+    for key in sorted(set(VERIFY_SKIPS) - seen):
+        bad.append('job %r step %r missing from the jobs record' % key)
+    return bad
+
+
+def read_reports(out):
+    names = {'verify-pins': 'preserve_check-verify-pins.json', 'verify-ledger': 'preserve_check-verify-ledger.json',
+             'commit': 'preserve_check-commit.json', 'tree': 'preserve_check-tree.json', 'guards': 'guards_check-mutants.json'}
+    reps = {}
+    for k, f in names.items():
+        try:
+            reps[k] = json.load(open(os.path.join(out, f), encoding='utf-8'))
+        except (OSError, ValueError):
+            reps[k] = None
+    try:
+        res = json.load(open(os.path.join(out, 'result.json'), encoding='utf-8'))
+    except (OSError, ValueError):
+        res = None
+    return res, reps
+
+
 # ---- self-test and tree mutants -----------------------------------------------------------------------------
 
 def predicted(led, base_files, plan):
@@ -963,8 +1146,100 @@ def self_test(led, base_files, plan):
         iso = verify_run(ok_run, ok_meta, lb, lb, WORKFLOW_BASE, PL)
         expect(len(iso) == 1 and 'differs from its blob at the workflow base' in iso[0],
                'verify-run void, isolated: only the workflow blob differs (exactly one finding: %s)' % (iso[0][:60] if iso else '-'))
+        # §31.12.13: the redacted host record
+        orig = dict(ok_meta, head_commit={'id': child, 'author': {'name': 'a', 'email': 'author address'},
+                                          'committer': {'name': 'c', 'email': 'committer address'}})
+        red = redact_run(orig)
+        expect(not _has_email(red) and not verify_redacted(orig, red, ok_run, lb, WORKFLOW_BASE, WORKFLOW_BASE, PL)
+               and verify_run(ok_run, red, lb, WORKFLOW_BASE, WORKFLOW_BASE, PL) == verify_run(ok_run, orig, lb, WORKFLOW_BASE, WORKFLOW_BASE, PL) == [],
+               'redacted host record: the e-mail fields removed, every field verify_run reads kept, the same verdict (valid)')
+        for name, copy, want in (
+                ('a copy that drops head_sha', {k: v for k, v in red.items() if k != 'head_sha'}, 'lacks head_sha'),
+                ('a copy whose id is the string "1"', dict(red, id='1'), 'changes id'),
+                ('a copy that keeps an e-mail field', dict(red, head_commit=orig['head_commit']), 'still carries an email field')):
+            expect(any(want in x for x in verify_redacted(orig, copy, ok_run, lb, WORKFLOW_BASE, WORKFLOW_BASE, PL)),
+                   'redacted host record void: %s ("%s")' % (name, want))
+        expect(not verify_run(ok_run, dict(red, id='1'), lb, WORKFLOW_BASE, WORKFLOW_BASE, PL),
+               'redacted host record: verify_run alone accepts the string id, so the type check is needed')
     else:
         expect(False, 'verify-run: the workflow base %s is required in the object store' % WORKFLOW_BASE[:12])
+    # §31.12.13: the expected result of T0′/T1′ (B1 and the expected skips), on T0's and T1's real evidence at H
+    ev = 'verification/audits/foundations/a1exit-trial-%s-20261121/'
+    try:
+        def load(t, n):
+            return json.loads(git('show', '%s:%s' % (led['base'], (ev % t) + n)))
+        rep = {}
+        for t in ('t0', 't1'):
+            out = 'artifact/out/'
+            rep[t] = (load(t, out + 'result.json'),
+                      {k: load(t, out + f) for k, f in (('verify-pins', 'preserve_check-verify-pins.json'),
+                                                        ('verify-ledger', 'preserve_check-verify-ledger.json'),
+                                                        ('commit', 'preserve_check-commit.json'), ('tree', 'preserve_check-tree.json'))})
+        rep['t1'][1]['guards'] = load('t1', 'artifact/out/guards_check-mutants.json')
+        ci = load('t1', 'ci-record.json')
+    except (subprocess.CalledProcessError, ValueError, KeyError) as e:
+        rep = None
+        expect(False, 'expect-trial: T0 and T1 evidence at the ledger base %s is required (%s)' % (led['base'][:12], e))
+    if rep:
+        import copy as _copy
+        p8 = set(rep['t0'][0]['pdf_pages'])
+        t1jobs = ci['runs'][0]['jobs']
+        t0jobs = _copy.deepcopy(t1jobs)
+        t0jobs[0]['conclusion'] = 'failure'
+        for s in t0jobs[0]['steps']:
+            s['conclusion'] = T0_HOST.get(s['name'], 'success')
+        tree_pdf = [c for c in rep['t0'][1]['tree']['checks'] if c['name'] == PDF_CHECK]
+        expect(len(tree_pdf) == 1 and any(pdf_finding_kind(x, p8) == 'pages' for x in tree_pdf[0]['discrepancies'])
+               and not expect_trial('T0', rep['t0'][0], rep['t0'][1], p8, t0jobs),
+               'expect-trial: T0\'s real evidence, with the Structure page-count finding, is expected under the T0 rule (B1)')
+        expect(not expect_trial('T1', rep['t1'][0], rep['t1'][1], p8, t1jobs),
+               'expect-trial: T1\'s real evidence is expected under the T1 rule')
+
+        def t0mut(name, change, want, kind='T0', src='t0', jobs=None):
+            res, reps = _copy.deepcopy(rep[src])
+            jb = _copy.deepcopy(jobs if jobs is not None else (t0jobs if kind == 'T0' else t1jobs))
+            change(res, reps, jb)
+            b = expect_trial(kind, res, reps, p8, jb)
+            expect(any(want in x for x in b), 'expect-trial deviation: %s ("%s")' % (name, want))
+
+        def pdfc(reps):
+            return [c for c in reps['tree']['checks'] if c['name'] == PDF_CHECK][0]
+        t0mut('B1: a fail-closed finding (stale) in the PDF comparison',
+              lambda r, p, j: pdfc(p)['discrepancies'].append('papers/GR.pdf: stale: the built PDF is byte-identical to the committed one, so it was not rebuilt'),
+              'not of an allowed kind')
+        t0mut('B1: a content finding for a PDF outside the ledgered set',
+              lambda r, p, j: pdfc(p)['discrepancies'].append('papers/Other.pdf: extracted text differs from the CI-built PDF'),
+              'not of an allowed kind')
+        t0mut('B1: a finding in another check of the tree report',
+              lambda r, p, j: p['tree']['checks'][2].update(status='fail', discrepancies=['papers/Main.md: unauthorized change']),
+              'report tree: check')
+        t0mut('B1: a failing --commit report',
+              lambda r, p, j: (p['commit']['checks'][0].update(status='fail', discrepancies=['x']), p['commit'].update(verdict='fail')),
+              'report commit')
+        t0mut('B1: the PDF comparison check missing',
+              lambda r, p, j: p['tree'].update(checks=[c for c in p['tree']['checks'] if c['name'] != PDF_CHECK]),
+              'no PDF comparison check')
+        t0mut('B1: the PDF comparison passing at T0',
+              lambda r, p, j: pdfc(p).update(status='pass', discrepancies=[]), 'expected to fail with content findings')
+        t0mut('B1: T1 with a text finding in its PDF comparison',
+              lambda r, p, j: pdfc(p).update(status='fail', discrepancies=['papers/GR.pdf: extracted text differs from the CI-built PDF']),
+              'expected to pass', kind='T1', src='t1')
+        t0mut('skips: build skipped', lambda r, p, j: r['steps']['build'].update(outcome='skipped'), 'an unexpected skip')
+        t0mut('skips: guards failing instead of skipped', lambda r, p, j: r['steps']['guards'].update(outcome='failure'),
+              'step guards: failure, expected skipped')
+        t0mut('skips: the upload step not succeeding',
+              lambda r, p, j: [s.update(conclusion='skipped') for s in j[0]['steps'] if s['name'].startswith('Upload')],
+              'an unexpected skip')
+        vjobs = ci['runs'][1]['jobs']
+        expect(not expect_verify(vjobs), 'expect-verify: T1\'s real verify.yml record, the KTRANS-SEP-2 marker skipped, is expected')
+        for name, change, want in (
+                ('the marker step succeeding', lambda j: [s.update(conclusion='success') for x in j for s in x['steps']
+                                                          if s['name'].startswith('KTRANS-SEP-2 marker')], 'expected skipped'),
+                ('another step skipped', lambda j: j[0]['steps'][1].update(conclusion='skipped'), 'an unexpected skip'),
+                ('a job skipped', lambda j: j[2].update(conclusion='skipped'), 'expected success')):
+            vj = _copy.deepcopy(vjobs)
+            change(vj)
+            expect(any(want in x for x in expect_verify(vj)), 'expect-verify deviation: %s ("%s")' % (name, want))
     d3 = tempfile.mkdtemp(prefix='a1exit-res-')
     try:
         doc = write_result(os.path.join(d3, 'r.json'), 'self-test', {'plan': None},
@@ -1040,6 +1315,10 @@ def main():
     g.add_argument('--self-test', action='store_true')
     g.add_argument('--verify-run', metavar='RESULT_JSON', help='PREREG §31.12.7: the run record of a trial dispatch is '
                    'valid (workflow base on main, trial commit a single-parent child of the ledger base) or void')
+    g.add_argument('--expect-trial', choices=('T0', 'T1'), help='PREREG §31.12.13: the run output directory --run-out '
+                   'of a T0′ or T1′ dispatch of the trial workflow against its expected result')
+    g.add_argument('--expect-verify', metavar='JOBS_JSON', help='PREREG §31.12.13: the host jobs record of T1′\'s '
+                   'verify.yml dispatch against its expected step conclusions and skips')
     g.add_argument('--reconcile', metavar='REV', help='compare the ledger at REV (an earlier plan commit) with the current '
                    'ledger and base, splice by splice (PREREG §31.2)')
     ap.add_argument('--plan')
@@ -1051,6 +1330,12 @@ def main():
     ap.add_argument('--main', default='origin/main', help='with --verify-run: the current main')
     ap.add_argument('--run-meta', metavar='RUN_JSON', help='with --verify-run: the host API record of the run '
                     '(GET .../actions/runs/{run_id}, saved whole); without it the run is void')
+    ap.add_argument('--run-meta-redacted', metavar='RUN_JSON', help='with --verify-run: a retained redacted copy of '
+                    '--run-meta; it must keep the fields and types verify_run reads and give the same findings')
+    ap.add_argument('--run-out', metavar='DIR', help='with --expect-trial: the run\'s out/ directory (result.json and the '
+                    'checker result files)')
+    ap.add_argument('--jobs', metavar='JOBS_JSON', help='with --expect-trial: the host jobs record of the run, saved whole')
+    ap.add_argument('--built', metavar='DIR', help='with --expect-trial: the artifact\'s built PDFs (their repository paths under DIR)')
     ap.add_argument('--pdf-out', metavar='DIR', help='with --pdf-compare: the run\'s output directory holding build.rc and '
                     'pdf-pages.tsv (default BUILT/../out)')
     ap.add_argument('--pdf-compare', metavar='BUILT', help='with --tree: compare the committed PDFs of the ledgered sources '
@@ -1083,7 +1368,8 @@ def main():
     record('ledger spans and hashes at the base', not bad, bad)
     ok = not bad and not pin_bad
     mode = ('verify-pins' if a.verify_pins else 'verify-ledger' if a.verify_ledger else 'self-test' if a.self_test
-            else 'reconcile' if a.reconcile else 'verify-run' if a.verify_run else 'commit' if a.commit else 'tree')
+            else 'reconcile' if a.reconcile else 'expect-trial' if a.expect_trial else 'expect-verify' if a.expect_verify
+            else 'verify-run' if a.verify_run else 'commit' if a.commit else 'tree')
     if a.verify_pins:
         pass
     elif a.verify_run:
@@ -1098,9 +1384,42 @@ def main():
         print('verify-run: workflow base %s, ledger base %s, main %s' % (a.workflow_base[:12], led['base'][:12], a.main))
         for x in vb:
             print('  VOID ' + x)
+        if a.run_meta_redacted:
+            try:
+                cb = open(a.run_meta_redacted, 'rb').read()
+                copy = json.loads(cb)
+            except (OSError, ValueError):
+                cb, copy = b'', None
+            rb = verify_redacted(meta, copy, res, led['base'], a.workflow_base, a.main, a.plan)
+            print('redacted copy %s: sha256 %s; %d findings' % (a.run_meta_redacted, sha(cb), len(rb)))
+            vb = vb + rb
+            for x in rb:
+                print('  VOID ' + x)
         print('RUN ' + ('VALID' if not vb else 'VOID'))
         record('trial run record: workflow base on main, trial a single-parent child of the ledger base', not vb, vb)
         ok = ok and not vb
+    elif a.expect_trial or a.expect_verify:
+        if a.expect_trial:
+            res, reps = read_reports(a.run_out or '.')
+            jobs = None
+            if a.jobs:
+                try:
+                    jobs = json.load(open(a.jobs, encoding='utf-8'))
+                except (OSError, ValueError):
+                    jobs = []
+            eb = expect_trial(a.expect_trial, res, reps, {t[:-4] + '.pdf' for t in TEX}, jobs, a.built)
+            label = 'expected result of %s′ (PREREG §31.12.13)' % a.expect_trial
+        else:
+            try:
+                eb = expect_verify(json.load(open(a.expect_verify, encoding='utf-8')))
+            except (OSError, ValueError):
+                eb = ['host jobs record missing or not JSON']
+            label = 'expected result of T1′\'s verify.yml run (PREREG §31.12.13)'
+        for x in eb:
+            print('  DEVIATION ' + x)
+        print('TRIAL ' + ('EXPECTED' if not eb else 'DEVIATION'))
+        record(label, not eb, eb)
+        ok = ok and not eb
     elif a.reconcile:
         old_led = json.loads(plan_files(a.reconcile)[LEDGER])
         rows, added, drift = reconcile(old_led, led, tree_of(old_led['base']), base)
