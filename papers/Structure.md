@@ -603,7 +603,7 @@ The substratum is captured by the realization; the observer is captured by the v
 
 The universality-class proposal in algebraic terms: two substrata are in the same class if they produce equivalent $(\mathcal{A}_V, \Phi)$ pairs, where equivalence is *-isomorphism of the algebras and conjugacy of the channels (channels related by an algebra isomorphism).
 
-**Status.** This formalization is intermediate in heaviness between categorical and operational. It uses standard machinery from operator-algebra and CPTP-channel theory, both well-developed. It captures OI's framework directly: OI's reconstruction theorem produces an algebra-channel pair from the substratum, and $\mathcal{G}_{\rm sub}$ is characterized by transformations preserving this pair. Extending to string theory's emergence requires identifying the corresponding algebra-channel pair from string-theoretic dynamics, which is non-trivial but tractable for matrix-model formulations and AdS/CFT.
+**Status.** This formalization is intermediate in heaviness between categorical and operational. It uses standard machinery from operator-algebra and CPTP-channel theory, both well-developed. It captures OI's framework directly: OI's reconstruction theorem produces an algebra-channel pair from the substratum, and families (i) and (iii) of $\mathcal{G}_{\rm sub}$ ([Substratum §4]), with family (ii) under the alphabet-size hypothesis, relate substrata with bijective dynamics whose pairs agree at a fixed visible/hidden interface. Extending to string theory's emergence requires identifying the corresponding algebra-channel pair from string-theoretic dynamics, which is non-trivial but tractable for matrix-model formulations and AdS/CFT.
 
 ### 8.4 Choosing a formalization
 
