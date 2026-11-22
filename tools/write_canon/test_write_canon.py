@@ -1,5 +1,5 @@
 """Offline tests for write_canon.py: python3 -I -m unittest discover -s tools/write_canon"""
-import fcntl, json, os, tempfile, unittest
+import fcntl, json, os, re, subprocess, tempfile, unittest
 from pathlib import Path
 
 import write_canon as W
@@ -21,7 +21,8 @@ def unsupported(body):
 class Normalization(unittest.TestCase):
     CASES = ["x", "x\n", "x\n\n\n\n", "x\n---\n" + F, "x\n\n---\n" + F + "\n", "x" + TAIL, "x" + TAIL + TAIL,
              "x\n" + F, "x\n---\n", "x\n---\n" + F + "\ntrailing text", "x\n---\n" + F + "\n\n---\n" + F + "\n",
-             "x\n---\n" + F[:-1], "---\n" + F, "x---\n" + F, "x\t\n\n"]
+             "x\n---\n" + F[:-1], "---\n" + F, "x---\n" + F, "x\t\n\n", "\n\n---\n" + F, "Title\n---\n" + F,
+             "Values x---\n" + F, "x\n\n---\n" + F + "\n\n---\n" + F]
 
     def all_inputs(self):
         return self.CASES + [fx(p.name) for p in sorted(FX.iterdir())]
@@ -34,8 +35,9 @@ class Normalization(unittest.TestCase):
         for s in self.all_inputs():
             c = W.core(s)
             self.assertTrue(s.startswith(c))
-            rest = s[len(c):].strip("\n")
-            self.assertIn(rest, ("", "---\n" + F), repr(rest))
+            rest, foot = s[len(c):], re.escape(F)
+            self.assertTrue(re.fullmatch(r"\n*", rest) or re.fullmatch(r"\n\n+---\n%s\n*" % foot, rest)
+                            or (c == "" and re.fullmatch(r"---\n%s\n*" % foot, rest)), repr(rest))
             self.assertEqual(W.normalize(s), c + TAIL)
 
     def test_footer_variants(self):
@@ -49,6 +51,24 @@ class Normalization(unittest.TestCase):
         self.assertEqual(n("x\n---\n" + F + "\nmore"), "x\n---\n" + F + "\nmore" + TAIL)
         for body in ("x" + TAIL + TAIL, "x\n" + F, "x\n---\n", "x\n---\n" + F + "\nmore"):
             self.assertFalse(W.check(body)["ok"], body)                     # leftover footer parts fail closed
+
+    def test_footer_boundaries(self):
+        n = W.normalize
+        self.assertEqual(n("Values x---\n" + F), "Values x---\n" + F + TAIL)     # mid-line rule keeps its bytes
+        self.assertEqual(n("Title\n---\n" + F), "Title\n---\n" + F + TAIL)     # setext H2 is not a footer
+        self.assertEqual(n("x\n---\n" + F), "x\n---\n" + F + TAIL)             # no blank line before the rule
+        self.assertEqual(n("x\n\n---\n" + F), "x" + TAIL)                       # blank line: footer
+        self.assertEqual(n("---\n" + F + "\n"), TAIL)                            # footer is the whole body
+        self.assertEqual(n("\n\n---\n" + F), TAIL)
+        self.assertTrue(W.check("x\n\n---\n" + F)["ok"])
+        for body in ("Values x---\n" + F, "Title\n---\n" + F, "x\n---\n" + F, "---\n" + F):
+            self.assertFalse(W.check(body)["ok"], body)
+
+    def test_non_ascii_whitespace(self):
+        for ws in ("\u00a0", "\u2003", "\u3000", "\u1680", "\u202f", "\u2028", "\u0085"):
+            r = W.check("- " + LOCAL + ws + "x")
+            self.assertFalse(r["ok"] or r["integrity"]["ok"] or r["links"]["ok"], repr(ws))
+            self.assertEqual(r["links"]["links"], [])
 
     def test_forbidden_characters(self):
         for bad in ("a\rb", "a\r\n", "a\0", "a\x1b[0m", "a\x7f", "a\x85"):
@@ -136,6 +156,14 @@ class Scanner(unittest.TestCase):
             r = W.check(body)
             self.assertFalse(r["ok"], repr(body))
 
+    def test_review_bypasses(self):
+        for body in ("where $a_1$ is", "$$\nx\n$$", "math $`x`$ here", "fetch ftp://example.com/a", "FTP://x.y/a",
+                     "see foo://bar", "- " + LOCAL + "<x", "see owner/repo#5", "see owner/repo@abc1234", "see GH-12",
+                     "see gh-12", "[#12](https://github.com/amaybaum/incompleteness/issues/13)"):
+            self.assertFalse(W.check(body)["ok"], repr(body))
+        self.assertTrue(W.check("[#12](https://github.com/amaybaum/incompleteness/issues/12)")["ok"])
+        self.assertTrue(W.check("a `$x$ ftp://x owner/repo#5` b")["ok"])            # literals inside code
+
     def test_unsupported_does_not_rewrite(self):
         body = "# h\n\n<b>x</b>"
         self.assertEqual(W.normalize(body), body + TAIL)
@@ -163,6 +191,41 @@ class Links(unittest.TestCase):
         self.assertFalse(W.check("- " + short)["links"]["ok"])
         self.assertFalse(W.check("- " + LOCAL.replace("413b0bb88f39cad901befcf4684355c7ee39480b", "413b0bb"))["links"]["ok"])
         self.assertTrue(W.check("- `" + short + "`")["ok"])
+
+    def test_reachability_from_origin_refs(self):
+        env = {k: v for k, v in os.environ.items() if not k.startswith("GIT_")}
+        env.update(GIT_AUTHOR_NAME="t", GIT_AUTHOR_EMAIL="t", GIT_COMMITTER_NAME="t", GIT_COMMITTER_EMAIL="t")
+        with tempfile.TemporaryDirectory() as d:
+            def g(*a):
+                return subprocess.run(["git", "-C", d] + list(a), env=env, check=True, capture_output=True,
+                                      text=True).stdout.strip()
+            g("init", "-q")
+            Path(d, "f").write_text("x\n")
+            g("add", "f")
+            g("commit", "-q", "-m", "a")
+            pushed = g("rev-parse", "HEAD")
+            g("update-ref", "refs/remotes/origin/main", pushed)
+            g("commit", "-q", "--allow-empty", "-m", "b")
+            local = g("rev-parse", "HEAD")
+            dangling = g("commit-tree", pushed + "^{tree}", "-m", "c")
+            fork = g("commit-tree", pushed + "^{tree}", "-m", "d")
+            g("update-ref", "refs/remotes/upstream/x", fork)
+            old, W.REPO_ROOT = W.REPO_ROOT, Path(d)
+            try:
+                url = "https://github.com/amaybaum/incompleteness/blob/%s/f"
+                self.assertEqual(W.check("- " + url % pushed)["links"]["links"][0]["status"], "verified-local")
+                for sha in (local, dangling, fork):
+                    st = W.check("- " + url % sha)["links"]["links"][0]["status"]
+                    self.assertTrue(st.startswith("unverified"), st)
+            finally:
+                W.REPO_ROOT = old
+            saved = {k: os.environ.get(k) for k in ("GIT_DIR", "GIT_WORK_TREE", "GIT_OBJECT_DIRECTORY")}
+            os.environ.update(GIT_DIR=str(Path(d, ".git")), GIT_WORK_TREE=d, GIT_OBJECT_DIRECTORY=str(Path(d, "x")))
+            try:                                                  # GIT_* from the environment is ignored
+                self.assertEqual(W.check("- " + LOCAL)["links"]["links"][0]["status"], "verified-local")
+            finally:
+                for k, v in saved.items():
+                    os.environ.pop(k, None) if v is None else os.environ.__setitem__(k, v)
 
     def test_inline_blob_link_rejected(self):
         r = W.check("[guide](" + LOCAL + ")")
@@ -199,8 +262,8 @@ class Mutants(unittest.TestCase):
 class Stub:
     """Injectable gh runner. Records every argv; no network."""
 
-    def __init__(self, stored=None, post="ok", issue=None, created="2026-11-22T00:00:00Z", updated=None):
-        self.calls, self.stored, self.post, self.created = [], stored, post, created
+    def __init__(self, stored=None, post="ok", issue=None, created="2026-11-22T00:00:00Z", updated=None, recent=()):
+        self.calls, self.stored, self.post, self.created, self.recent = [], stored, post, created, recent
         self.updated = updated or created
         self.issue = issue if issue is not None else {"number": 7}
 
@@ -215,6 +278,8 @@ class Stub:
                 return 0, "<html>", ""
             self.body = Path(argv[6][len("body=@"):]).read_text(encoding="utf-8")
             return 0, json.dumps({"id": 123}), ""
+        if "/comments?since=" in argv[2]:
+            return (1, "", "HTTP 500") if self.recent == "fail" else (0, json.dumps(list(self.recent)), "")
         if "/issues/comments/" in argv[2]:
             if self.stored == "missing":
                 return 1, "", "HTTP 404"
@@ -249,6 +314,7 @@ class Post(unittest.TestCase):
         rec = json.loads(self.rcpt.read_text())
         self.assertTrue(rec["match"] and rec["links_survived"] and rec["created_equals_updated"])
         self.assertIn("does not", rec["note"])
+        self.assertIn("gh", rec["executables"])
         self.assertFalse((self.state / "PENDING").exists() or (self.state / "HALT").exists())
         self.assertEqual(self.posts(stub), [["gh", "api", "-X", "POST", "repos/amaybaum/incompleteness/issues/7/comments",
                                              "-F", "body=@%s" % (self.state / "submit.md")]])
@@ -321,6 +387,34 @@ class Post(unittest.TestCase):
         self.assertEqual(self.run_post(stub)[0], 1)
         self.assertEqual(stub.calls, [])
 
+    def test_duplicate_and_unlistable_recent_comments(self):
+        for recent in ([{"body": W.normalize(OK_BODY)}], [{"body": "x"}] * 100, "fail"):
+            stub = Stub(recent=recent)
+            self.assertEqual(self.run_post(stub)[0], 3)
+            self.assertEqual(self.posts(stub), [])
+
+    def test_state_dir_permissions(self):
+        self.state.mkdir(mode=0o700)
+        os.chmod(self.state, 0o750)
+        stub = Stub()
+        self.assertEqual(self.run_post(stub)[0], 3)
+        self.assertEqual(stub.calls, [])
+
+    def test_foreign_link_refused_and_no_online_post(self):
+        self.src.write_text("- " + LOCAL.replace("amaybaum/incompleteness", "other/repo") + "\n", encoding="utf-8")
+        stub = Stub()
+        self.assertEqual(self.run_post(stub)[0], 1)
+        self.assertEqual(stub.calls, [])
+        with self.assertRaises(SystemExit):
+            W.main(["post", "7", str(self.src), "--receipt", str(self.rcpt), "--online"])
+
+    def test_exclusive_receipt_write(self):
+        self.rcpt.write_text("old")
+        with self.assertRaises(FileExistsError):
+            W.write_atomic(self.rcpt, "new", exclusive=True)
+        self.assertEqual(self.rcpt.read_text(), "old")
+        self.assertEqual([p.name for p in self.d.iterdir() if p.name.endswith(".tmp")], [])
+
     def test_pull_request_refused(self):
         stub = Stub(issue={"number": 7, "pull_request": {}})
         self.assertEqual(self.run_post(stub)[0], 3)
@@ -381,7 +475,9 @@ class Post(unittest.TestCase):
                ["gh", "api", "-X", "POST", r + "issues/7/comments", "-F", "title=x"],
                ["gh", "api", "-X", "POST", r + "issues/7/comments", "-f", "body=@/s/submit.md"],
                ["gh", "api", r + "issues/7", "-f", "body=x"], ["gh", "api", "graphql"],
-               ["gh", "pr", "comment", "7"], ["gh", "issue", "edit", "7"], ["gh", "api", r + "pulls/7"]]
+               ["gh", "pr", "comment", "7"], ["gh", "issue", "edit", "7"], ["gh", "api", r + "pulls/7"],
+               ["gh", "api", r + "issues/7/comments?per_page=100"],
+               ["gh", "api", r + "issues/7/comments?since=2026-11-15T00:00:00Z&per_page=100&body=x"]]
         for argv in bad:
             with self.assertRaises(ValueError, msg=argv):
                 W.gh(lambda a: self.fail("runner reached"), argv)

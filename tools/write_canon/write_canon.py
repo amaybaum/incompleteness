@@ -2,12 +2,12 @@
 """WRITE-CANON-1: check, and optionally post, one Issue comment on amaybaum/incompleteness.
 
   check SOURCE [--stored STORED] [--online]   writes nothing to GitHub
-  post ISSUE SOURCE --receipt FILE [--online]  one gh api Issue-comment POST, verified afterwards
+  post ISSUE SOURCE --receipt FILE            one gh api Issue-comment POST, verified afterwards
 
 Three checks are reported separately: (a) integrity, (b) links, (c) constructs. A byte match
 establishes (a) only. Exit codes: 0 ok, 1 check failed, 2 usage, 3 refused, 4 halted.
 """
-import argparse, collections, fcntl, hashlib, json, os, pwd, re, stat, subprocess, sys, time, unicodedata
+import argparse, collections, fcntl, hashlib, json, os, pwd, re, shutil, stat, subprocess, sys, time, unicodedata
 from pathlib import Path
 
 REPO = "amaybaum/incompleteness"
@@ -16,6 +16,7 @@ TAIL = "\n\n\n---\n" + F
 MAX_BODY = 65536
 REPO_ROOT = Path(__file__).resolve().parents[2]
 STATE_DIR = Path(pwd.getpwuid(os.getuid()).pw_dir) / ".write-canon"
+SAFE_PATH = "/usr/local/bin:/usr/bin:/bin"
 ALLOWED = {"bold", "bullet-list", "nested-list", "table", "code-span", "bare-blob-link",
            "issue-link", "bracket-code-literal", "paragraph"}
 NOTE = ("A byte match establishes integrity (a) only; link validity (b) and the construct "
@@ -26,8 +27,11 @@ POST_NOTE = ("Verification runs after the write: it detects a modified stored bo
 
 # ---------------------------------------------------------------- normalization
 def core(s):
+    """Strip trailing newlines, then one footer that is the whole body or follows a blank line."""
     s = s.rstrip("\n")
-    if s.endswith("---\n" + F):
+    if s == "---\n" + F:
+        return ""
+    if s.endswith("\n\n---\n" + F):
         s = s[: -(len(F) + 4)].rstrip("\n")
     return s
 
@@ -39,8 +43,9 @@ def normalize(s):
 def char_problems(s):
     out = []
     for i, ch in enumerate(s):
-        if unicodedata.category(ch) == "Cc" and ch not in "\n\t":
-            out.append("forbidden control character U+%04X at offset %d" % (ord(ch), i))
+        cat = unicodedata.category(ch)
+        if (cat == "Cc" and ch not in "\n\t") or ((cat == "Zs" or ch.isspace()) and ch not in " \n\t"):
+            out.append("forbidden control or non-ASCII whitespace character U+%04X at offset %d" % (ord(ch), i))
     return out[:5]
 
 
@@ -125,20 +130,23 @@ def inline(sc, ln, s, cell=False):
             sc.inv["inline-blob-link"] += 1
         elif ISSUE_LINK.fullmatch(dest):
             sc.inv["issue-link"] += 1
+            num = re.match(r"#([0-9]+)", text.strip())
+            if num and num.group(1) != re.search(r"/(?:issues|pull)/([0-9]+)", dest).group(1):
+                sc.no(ln, "link text %s names a different number than its target" % num.group(0))
         else:
             sc.inv["inline-link-other"] += 1
         blank(a, a + 1), blank(p - 2, e + 1)
     t = "".join(m)
-    for mt in re.finditer(r"(?i)https?://|www\.", t):
+    for mt in re.finditer(r"(?i)(?:https?|ftp)://|www\.", t):
         a = mt.start()
-        if a > 0 and not t[a - 1].isspace():
+        if a > 0 and t[a - 1] not in " \t":
             sc.no(ln, "URL not preceded by whitespace")
             continue
         e = a
-        while e < len(t) and not t[e].isspace():
+        while e < len(t) and t[e] not in " \t<":        # GFM ends an autolink only here
             e += 1
         url = t[a:e]
-        if url[-1] in ".,:;!?*_~'\")" or any(ch in url for ch in "()<>\0[]"):
+        if url[-1] in ".,:;!?*_~'\")" or any(ch in url for ch in "()<>\0\1[]"):
             sc.no(ln, "URL with ambiguous boundary: " + url)
         elif BLOB_FULL.fullmatch(url) and not {".", ".."} & set(url.split("/")):
             sc.inv["bare-blob-link"] += 1
@@ -160,7 +168,10 @@ def inline(sc, ln, s, cell=False):
               (r"@", "mention or e-mail autolink"), (r":[a-z_+-][a-z0-9_+-]*:", "emoji shortcode"),
               (r"\*", "emphasis or stray asterisk"), (r"(?<![A-Za-z0-9])_|_(?![A-Za-z0-9])", "underscore emphasis"),
               (r"[\[\]]", "bracket outside a supported link (reference link, footnote or literal)"),
-              (r"\|", "stray pipe outside a table")]
+              (r"\|", "stray pipe outside a table"), (r"\$", "math delimiter"),
+              (r"://", "URL scheme outside a recognised URL"),
+              (r"(?<![A-Za-z0-9_./-])[A-Za-z0-9-]+/[A-Za-z0-9_.-]+[#@]", "cross-repository reference"),
+              (r"(?i)\bgh-[0-9]+", "GH- reference")]
     for pat, why in checks:
         if re.search(pat, t):
             sc.no(ln, why)
@@ -251,14 +262,41 @@ def table_row(sc, ln, row, ncols):
 
 
 # ---------------------------------------------------------------- links
-def default_runner(argv):
-    p = subprocess.run(argv, capture_output=True, encoding="utf-8", timeout=120)
+def executables():
+    return {k: shutil.which(k, path=SAFE_PATH) for k in ("gh", "git")}
+
+
+def _exec(argv, env, timeout):
+    exe = shutil.which(argv[0], path=SAFE_PATH)
+    if not exe:
+        raise OSError("%s not found on %s" % (argv[0], SAFE_PATH))
+    p = subprocess.run([exe] + argv[1:], capture_output=True, encoding="utf-8", timeout=timeout, env=env)
     return p.returncode, p.stdout, p.stderr
 
 
-def git_type(obj):
-    p = subprocess.run(["git", "-C", str(REPO_ROOT), "cat-file", "-t", obj], capture_output=True, text=True)
-    return p.stdout.strip() if p.returncode == 0 else None
+def default_runner(argv):
+    env = {k: v for k, v in os.environ.items() if k not in ("GH_HOST", "GH_REPO")}
+    return _exec(argv, env, 120)
+
+
+def git(*args):
+    """Read-only git in the repository this tool lives in, with no GIT_* from the environment."""
+    env = {k: v for k, v in os.environ.items() if not k.startswith("GIT_")}
+    env.update(GIT_NO_REPLACE_OBJECTS="1", GIT_CONFIG_NOSYSTEM="1", GIT_TERMINAL_PROMPT="0")
+    rc, gd, _ = _exec(["git", "-C", str(REPO_ROOT), "rev-parse", "--absolute-git-dir"], env, 30)
+    if rc != 0:
+        return None
+    env.update(GIT_DIR=gd.strip(), GIT_WORK_TREE=str(REPO_ROOT))
+    rc, out, _ = _exec(["git"] + list(args), env, 30)
+    return out.strip() if rc == 0 else None
+
+
+def local_status(sha, path):
+    if git("cat-file", "-t", sha) != "commit" or git("cat-file", "-t", "%s:%s" % (sha, path)) != "blob":
+        return "invalid"
+    if not git("for-each-ref", "--contains", sha, "--format=%(refname)", "refs/remotes/origin/"):
+        return "unverified (commit not reachable from a local origin remote-tracking ref)"
+    return "verified-local"
 
 
 def check_links(urls, online=False, runner=default_runner):
@@ -266,8 +304,7 @@ def check_links(urls, online=False, runner=default_runner):
     for url in urls:
         o, r, sha, path = BLOB_FULL.fullmatch(url).groups()
         if "%s/%s" % (o, r) == REPO:
-            ok = git_type(sha) == "commit" and git_type("%s:%s" % (sha, path)) == "blob"
-            status = "verified-local" if ok else "invalid"
+            status = local_status(sha, path)
         elif online:
             try:
                 rc, so, _ = gh(runner, ["gh", "api", "repos/%s/%s/contents/%s?ref=%s" % (o, r, path, sha)])
@@ -328,7 +365,8 @@ def read_nofollow(path):
         os.close(fd)
 
 
-def write_atomic(path, data):
+def write_atomic(path, data, exclusive=False):
+    """Write via a temporary file; exclusive=True never replaces an existing path."""
     path = Path(path)
     if path.is_symlink():
         raise OSError("refusing symlink: %s" % path)
@@ -338,7 +376,12 @@ def write_atomic(path, data):
         f.write(data.encode("utf-8"))
         f.flush()
         os.fsync(f.fileno())
-    os.replace(tmp, path)
+    if not exclusive:
+        return os.replace(tmp, path)
+    try:
+        os.link(tmp, path)
+    finally:
+        os.unlink(tmp)
 
 
 def create_excl(path, text):
@@ -354,8 +397,8 @@ def create_excl(path, text):
 def state_paths(state_dir):
     os.makedirs(state_dir, mode=0o700, exist_ok=True)
     st = os.lstat(state_dir)
-    if not stat.S_ISDIR(st.st_mode) or st.st_uid != os.getuid():
-        raise OSError("state directory is not a directory owned by this user: %s" % state_dir)
+    if not stat.S_ISDIR(st.st_mode) or st.st_uid != os.getuid() or st.st_mode & 0o077:
+        raise OSError("state directory is not a private directory owned by this user: %s" % state_dir)
     return {k: Path(state_dir) / k for k in ("lock", "HALT", "PENDING", "submit.md")}
 
 
@@ -366,6 +409,8 @@ def gh(runner, argv):
     ok = (len(argv) == 3 and argv[:2] == ["gh", "api"] and (
               re.fullmatch(r"repos/%s/issues/[1-9][0-9]*" % r, argv[2], re.A)
               or re.fullmatch(r"repos/%s/issues/comments/[1-9][0-9]*" % r, argv[2], re.A)
+              or re.fullmatch(r"repos/%s/issues/[1-9][0-9]*/comments\?since=[0-9TZ:-]{20}&per_page=100" % r,
+                              argv[2], re.A)
               or re.fullmatch(r"repos/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/contents/[A-Za-z0-9_./-]+\?ref=[0-9a-f]{40}",
                               argv[2], re.A))) or (
          len(argv) == 7 and argv[:4] == ["gh", "api", "-X", "POST"] and argv[5] == "-F"
@@ -376,7 +421,7 @@ def gh(runner, argv):
     return runner(argv)
 
 
-def post(issue, source, receipt, runner=default_runner, state_dir=STATE_DIR, online=False):
+def post(issue, source, receipt, runner=default_runner, state_dir=STATE_DIR):
     if not re.fullmatch(r"[1-9][0-9]{0,8}", issue, re.A):
         return 2, "issue number must be a positive integer"
     try:
@@ -390,12 +435,12 @@ def post(issue, source, receipt, runner=default_runner, state_dir=STATE_DIR, onl
         os.close(lk)
         return 3, "another post holds the lock"
     try:
-        return _post(issue, source, Path(receipt), runner, p, online)
+        return _post(issue, source, Path(receipt), runner, p)
     finally:
         os.close(lk)
 
 
-def _post(issue, source, receipt, runner, p, online):
+def _post(issue, source, receipt, runner, p):
     for k in ("HALT", "PENDING"):
         if os.path.lexists(p[k]):
             return 3, "%s marker present at %s; a human must clear it" % (k, p[k])
@@ -405,8 +450,8 @@ def _post(issue, source, receipt, runner, p, online):
         src = read_nofollow(source)
     except (OSError, UnicodeDecodeError) as e:
         return 3, "cannot read source safely: %s" % e
-    rep = check(src, online=online, runner=runner)
-    if not rep["ok"]:
+    rep = check(src, runner=runner)
+    if not rep["ok"] or any(l["status"] != "verified-local" for l in rep["links"]["links"]):
         return 1, "check failed; nothing posted\n" + json.dumps(rep, indent=1, ensure_ascii=False)
     try:
         rc, so, _ = gh(runner, ["gh", "api", "repos/%s/issues/%s" % (REPO, issue)])
@@ -416,21 +461,32 @@ def _post(issue, source, receipt, runner, p, online):
     if not isinstance(d, dict) or d.get("number") != int(issue) or "pull_request" in d:
         return 3, "issue %s is not a readable Issue (pull requests are refused)" % issue
     exp = normalize(src)
+    since = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(time.time() - 7 * 86400))
+    try:
+        rc, so, _ = gh(runner, ["gh", "api", "repos/%s/issues/%s/comments?since=%s&per_page=100" % (REPO, issue, since)])
+        recent = json.loads(so) if rc == 0 else None
+    except Exception:
+        recent = None
+    if not isinstance(recent, list) or len(recent) >= 100:
+        return 3, "cannot list the Issue's recent comments completely; refusing"
+    if any(isinstance(c, dict) and c.get("body") == exp for c in recent):
+        return 3, "an identical comment was posted in the last seven days; refusing"
     write_atomic(p["submit.md"], src)
     rec = {"issue": int(issue), "source_sha256": sha(src), "expected_sha256": sha(exp), "check": rep,
-           "note": POST_NOTE, "time": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
+           "note": POST_NOTE, "executables": executables(),
+           "time": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
     if not create_excl(p["PENDING"], json.dumps(rec["source_sha256"]) + "\n"):
         return 3, "pending marker appeared; refusing"
     why = verify_post(issue, src, exp, rec, runner, p)
     if why:
         create_excl(p["HALT"], why + "\n")
         try:
-            write_atomic(receipt, json.dumps(rec, indent=1, ensure_ascii=False) + "\n")
+            write_atomic(receipt, json.dumps(rec, indent=1, ensure_ascii=False) + "\n", exclusive=True)
         except OSError:
             pass
         return 4, "HALTED, no retry: " + why
     try:
-        write_atomic(receipt, json.dumps(rec, indent=1, ensure_ascii=False) + "\n")
+        write_atomic(receipt, json.dumps(rec, indent=1, ensure_ascii=False) + "\n", exclusive=True)
     except OSError as e:
         create_excl(p["HALT"], "receipt not written: %s\n" % e)
         return 4, "HALTED: posted and verified, but the receipt was not written: %s" % e
@@ -479,7 +535,6 @@ def main(argv=None):
     q.add_argument("issue")
     q.add_argument("source")
     q.add_argument("--receipt", required=True)
-    q.add_argument("--online", action="store_true")
     a = ap.parse_args(argv)
     if a.mode == "check":
         try:
@@ -491,7 +546,7 @@ def main(argv=None):
         rep = check(src, stored, a.online)
         print(json.dumps(rep, indent=1, ensure_ascii=False))
         return 0 if rep["ok"] else 1
-    code, msg = post(a.issue, a.source, a.receipt, online=a.online)
+    code, msg = post(a.issue, a.source, a.receipt)
     print(msg, file=sys.stderr if code else sys.stdout)
     return code
 

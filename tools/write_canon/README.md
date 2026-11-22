@@ -20,13 +20,19 @@ tests and acceptance criteria are in `PLAN.md`.
 **Limits.** The scanner accepts only the constructs listed in `PLAN.md` and fails closed on the
 rest. It does not inventory GitHub's own autolinking of `#123` references or commit-like hex
 strings, and it does not check the targets of Issue and comment links. Offline, a blob link to
-another repository is unverified and fails; a blob link to this one is checked for the commit and
-path in the local object store, not for reachability from `main`.
+another repository is unverified and fails, and `post` refuses it. A blob link to this repository
+is checked for its commit and path in the local object store, and its commit must be reachable from
+a local `refs/remotes/origin/*` ref; those refs are as of the last fetch and may lag GitHub.
+
+The lock and markers are local to one account on one machine: a post from another account or
+machine does not see them. As a cheap guard across them, `post` reads the Issue's comments from
+the last seven days (one read-only GET, `per_page=100`) and refuses if any body equals the
+normalized source, or if the listing is incomplete.
 
 **Fixtures** are captures of real bodies: the #1169 Issue body as submitted and as stored with its
 link destinations wrapped in backticks (the stored capture ends in one newline more than the
 normalized body), the blob-link round trip on #1548 (comment 7080042581) and the #1548 receipt
 (comment 7080894635). Before committing, they were scanned for secrets, e-mail addresses and local
 paths. In the #1169 pair, sixteen agent names written like home-directory paths were renamed,
-keeping their length, and one closing keyword before an Issue number was reworded; neither change
-alters a construct or a link.
+keeping their length, and one closing keyword before an Issue number was reworded (`close` to
+`shut`, one byte shorter); neither change alters a construct or a link.
