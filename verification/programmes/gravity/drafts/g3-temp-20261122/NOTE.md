@@ -1,8 +1,10 @@
 # G3-TEMP: the temperature law on a non-Killing horizon
 
 **Standing.** Author record of a paper-only research unit (AGENTS.md §A.29, §A.31 depth-first
-form). WIP / UNVERIFIED. Independent non-author review at `16f1a7f6`: REVISE (minor), relayed by
-the coordinating session and not posted on GitHub, since the write halt covers comments. This
+form). WIP / UNVERIFIED. Independent non-author review at `16f1a7f6`: REVISE (minor). It was relayed by
+the coordinating session and not posted on GitHub at the time; the owner has ruled that comments
+are within the write halt, apart from a narrow automated-comment exception approved later (#1169
+c.7079083095, `amaybaum`, 2026-11-22). This
 revision answers its findings 1–5 and nits 6–8. The preregistration `PLAN.md` (commit
 `666708b0`) was pushed before this record and is unchanged. Authorization, snapshot `D`, sources,
 assumption IDs, decision rule, productivity test, stop conditions and goal link are as in
@@ -30,7 +32,7 @@ law, on a Killing horizon or off one. Every finite family of visible rate ratios
 thermal at ħ/(2πR), or thermal at no temperature, has a finite reversible realization (GR:76; Main
 §1.3, theorem statement item (3); Main §3.4, intervention dilation, Main:490), and the bare permutation does not fix the frequency gaps that a rate-ratio law is
 stated in (GR:84). Excluded: every temperature law claimed to follow from N-OBS + N-TRACE alone,
-that is, to hold on every finite reversible realization (§2). This excludes no law for the
+that is, to hold on every finite reversible realization, μ_H ranging over fixed hidden priors (§2). This excludes no law for the
 specific substratum rule, which is a different and open question.
 
 **The missing native ingredient, named exactly.** A native conserved shell energy for the hidden
@@ -66,8 +68,8 @@ the count (§3.3).
 |---|---|---|
 | N-OBS + N-TRACE (bare) | Not fixed; every finite rate-ratio family realizable | INCONCLUSIVE; class of bare derivations excluded |
 | + N-FL | T_cl = ε-independent multiple of κ, κ an input | Not fixed |
-| + H-COUNT-1 (+ N-dS, N-FL at every radius, N-UNIV) | ħ/(2πR) on the counted surface | Derived (conditional); T_A excluded in the class |
-| + N-AREA | ħH/2π on R_A | Derived (conditional); selects R1 via G3-OFFDS §4 |
+| + H-COUNT-1 (+ N-dS, N-FL at every radius, N-UNIV) | 1/(8πGηR) on the counted surface; ħ/(2πR) under GR:88's calibration conditions | Derived (conditional); T_A excluded in the class |
+| + N-AREA | 1/(8πGηR_A) on R_A; ħH/2π under GR:88's calibration conditions | Derived (conditional); selects R1 via G3-OFFDS §4 |
 | + N-SLOPE off de Sitter, N-UNIV | KMS-side \|κ\| = 1/R on the counted surface | Derived (conditional); κ_KH excluded in the class |
 | Count with a second shell variable X | Not fixed; T_A reachable | INCONCLUSIVE |
 
@@ -185,7 +187,8 @@ equals the de Sitter temperature at the same counted radius.
   counted radius R, the de Sitter state of (c) included. T_A on R_A takes the values
   (ħ/2πR_A)|1 − ε/2|, which differ between two admissible states of the same R_A whose values of
   |1 − ε/2| differ; one of them may be taken to be the de Sitter state, where |1 − ε/2| = 1. So T_A
-  cannot equal the counting temperature on both, which excludes T_A on every state with ε ∉ {0, 4}.
+  cannot equal the counting temperature on both: as a law of the class it is excluded, and, holding
+  on the de Sitter state of each radius, it fails on every state with ε ∉ {0, 4}.
   With the calibration, T_A/(ħH/2π) = |1 − ε/2|. (ε ≡ 4, w_tot = 5/3, is outside the exclusion, as
   in G3-OFFDS §4.) The Kodama–Hayward law read on R_E, |κ(R_E)|/2π = (ħ/2π)|H² + Ḣ/2|R_E, is
   excluded on R_E for the same reason wherever it differs from ħ/(2πR_E).
@@ -329,7 +332,8 @@ are used only as labelled comparisons.
 
 **Outcome under the decision rule.** Bare construction: INCONCLUSIVE, naming the missing native
 ingredient above, with the class of bare derivations excluded (2.3). Under H-COUNT-1 with N-dS, N-FL
-and N-UNIV: derived, T = ħ/(2πR) on the counted surface, and T_A excluded for that class (3.3);
+and N-UNIV: derived, T = 1/(8πGηR) on the counted surface, which is ħ/(2πR) under GR:88's calibration
+conditions, and T_A excluded for that class (3.3);
 with N-SLOPE added, κ_KH excluded on the KMS side for that class (4.2). Under a count with a second
 shell variable: INCONCLUSIVE.
 
