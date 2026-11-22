@@ -99,8 +99,12 @@ homomorphism is a function. For an (R-coord) map, viewing it in (R-lin) with the
 complement as `K'` gives the same split; another `K'` is a separate run (design §2.3). As sets of
 laws, (Π-H) ⊂ (Π-prod) ⊂ (Π-joint), (Π-W,β) ⊂ (Π-W) ⊂ (Π-joint) and (Π-β) ⊂ (Π-joint). (Π-prod)
 and (Π-W) coincide when `X_V` is all of `W`'s phase coordinates (then `g` is the identity of `G_W`
-and `λ_W = ι_* P_0` is forced). Otherwise, for `P_0` not a point mass, neither contains the other;
-for `P_0` a point mass, (Π-W) ⊂ (Π-prod) (the window law is then `δ_a` on the visible coordinates
+and `λ_W = ι_* P_0` is forced). Otherwise, for `P_0` not a point mass and `W ≠ Λ`, neither
+contains the other. On (F) with `W = Λ` there are no coordinates outside `W`: (Π-prod) is then
+`ι_* P_0 ⊗ ν` on the hidden window coordinates, which lies in (Π-W), and (Π-W) is every law on `Ω`
+with readout marginal `ι_* P_0`, so (Π-prod) ⊂ (Π-W), strictly when `P_0` is not a point mass and
+some window coordinate is hidden. For `P_0` a point mass, (Π-W) ⊂ (Π-prod), with equality when
+`W = Λ` (the window law is then `δ_a` on the visible coordinates
 times a law on the rest of the window, and its product with `ν` is a law on `H_r`; under (R-lin)
 the same through `Θ`).
 
@@ -426,16 +430,16 @@ dynamics-intertwining (`q ∘ φ_R = σ ∘ q`) (Main:632).
 
 Scope. On (F) with (R-coord) and `ι` onto `Y_r`, the realization of §4.3 is such an `R`; with `ι`
 not onto, Main:632 applies to the realization `ψ` on `C_V × C_H` of Lemma P(a). Under (ex) the
-quotient is `T(P)`; under (ε) the realization is of `P'` and the quotient is `T(P')`. The form for
-(R-lin) and (R-nl) readouts on the torus states needs the morphism notion restated with `κ ∘ r` in
+quotient is `T(P)`; under (ε) the realization is of `P'` and the quotient is `T(P')`. The form on
+the torus states for (R-lin) and (R-nl) readouts, and for (R-coord) with `ι` not onto, needs the morphism notion restated with `κ ∘ r` in
 place of `π_V`, and is Node 7a's question; composing Lemma P(a) with Main:632 is a route Node 7a may
 examine, not established here (M5). On (Z) the statement needs Node 7a's extension.
 
 Status: Established (N) on (F) with (R-coord), at the paper-proof layer with exhaustive exact
 certification at small sizes (Main:632); not kernel-checked. It holds for every faithful realization,
 J0's dilation and Node 2's range-0 witness included, so it carries no identification content and is
-not a criterion for Q or Q⁺ (design §2.4, I12). (R-lin) and (R-nl) on the torus states, and (Z):
-Missing (Node 7a).
+not a criterion for Q or Q⁺ (design §2.4, I12). (R-lin) and (R-nl), and (R-coord) with `ι` not onto, on the
+torus states, and (Z): Missing (Node 7a).
 
 ### 5.10 J5(R₁)
 
@@ -489,7 +493,8 @@ node that first needs it, or to the owner under design S2 if a verdict turns on 
 - **M4.** The truth of J1⁰, J1, J2, J3, J4-fac, `J4-emb[R₁]` and J5(R₁): statements frozen here,
   decisions Missing (Nodes 2, 4, 5, 6, 7b).
 - **M5.** Node 7a: J5(T) on (Z), with the "almost every" restatement for a non-atomic law, and the
-  form for (R-lin) and (R-nl) readouts on the torus states (§5.9). Missing.
+  form on the torus states for (R-lin) and (R-nl) readouts, and for (R-coord) with `ι` not onto
+  (§5.9). Missing.
 - **M6.** The relation between SM:242's linear observer projections and the §2.3 readout classes is
   not stated in the passages read. No row of design §2.5 needs it. Missing (recorded, not pursued).
 - **M7.** J0-ind is not formalized in the kernel (Main:530); its support is the paper derivation of
