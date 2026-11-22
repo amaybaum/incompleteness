@@ -16,6 +16,11 @@ Revision r2 answers the independent review of `b8cb9451` (#1509 c.7077843705, ve
 
 No DIO-type or MIO-type result changes, and nothing is strengthened. `PLAN.md` is unchanged.
 
+Revision r2.1 answers the delta check of `449575cf` (#1509 c.7077898374).
+- d1: the classical reading is restricted to the two slice-order states of CX-F. The reviewer's
+  pair with diagonal marginals is added as CX-F″.
+- d2: the U1′ (ii) wording is replaced.
+
 **Labels.**
 - **ESTABLISHED**: proved on paper here (layer X), or cited at its source's standing: (L) a
   literature theorem, (R) a corpus record. "Established" means established within this record,
@@ -60,12 +65,15 @@ in this typing. The following partial results are established:
   marginals, namely ρ∘σ_ω (Lemma JU). So every assignment satisfying PROD, linear or not, gives the
   (F-H) output on normal inputs, and is DIO-type there.
 - For two non-normal states the joint state is not fixed by its marginals.
-  - With diagonal marginals, CX-F gives two diagonal joint states with the same product marginals
-    and different configuration laws on ℓ^∞(ℕ × ℕ). That ambiguity is the one of iterated
-    ultrafilter limits on a commutative algebra, and is classical.
+  - For the two slice-order states of diagonal marginals, CX-F gives two diagonal joint states
+    with the same product marginals and different configuration laws on ℓ^∞(ℕ × ℕ). That pair
+    differs by iterated ultrafilter limits on a commutative algebra, and is classical.
+  - Diagonal marginals do not make the ambiguity classical in general. CX-F″ gives a joint state of
+    two diagonal non-normal marginals whose dephasing has the same marginals, agrees with it on
+    ℓ^∞, and differs from it on the swap.
   - With non-diagonal marginals, CX-F′ gives two joint states with the same product marginals that
-    differ on an element of zero diagonal. That ambiguity is not confined to the configuration
-    algebra.
+    differ on an element of zero diagonal.
+  - So the ambiguity is not confined to the configuration algebra (CX-F′, CX-F″).
 - Both slice orders are DIO-type. For a general affine assignment, DIO-type reduces to whether the
   relative commutant ℓ^∞(C_V)′ ∩ B(ℓ²(C_V))\*\* equals the σ-weak closure ℓ^∞(C_V)\*\* of the
   diagonal in the bidual (Proposition BID). **Missing ingredient: BIDUAL-REL.** It is a sufficient
@@ -90,7 +98,8 @@ records the same slice as not established (M2), and VS closes that open item. OP
 asserts that σ_ω is not defined on L^∞(H₁) ⊗̄ L^∞(H) for non-normal ω when a diffuse factor H₁ is
 present. As a statement about the vector slice this is false too, and it bears on OPRES U1′ (iii).
 What is non-canonical is the joint state of two non-normal states. That ambiguity already occurs
-in ℓ^∞(ℕ × ℕ) (CX-F), and for non-diagonal marginals it is not confined there (CX-F′).
+in ℓ^∞(ℕ × ℕ) (CX-F), and it is not confined there, whether the marginals are non-diagonal (CX-F′)
+or diagonal (CX-F″).
 
 **MISSING.** BIDUAL-REL (§5); OPRES U1′ (iii) in OPRES's own formulation (AW-3 bears on it, and it is
 not checked here); an infinite-C_V form of OPRES Theorem C(b), which is not claimed; the nativeness
@@ -336,6 +345,25 @@ So Ω_1 − Ω_2 ≠ (Ω_1 − Ω_2)∘Δ. The two joint states differ on an ele
 their difference is not confined to ℓ^∞(C_V × Z). RED-M2 and the DIO-type of both slice orders are
 unaffected, since they concern only the configuration law of the output.
 
+**Counterexample CX-F″ (diagonal marginals do not make the ambiguity classical; ESTABLISHED, X,
+using a free ultrafilter; from the delta check, c.7077898374, d1, checked here).** Let
+C_V = Z = ℕ, let u be a free ultrafilter, and put ρ = ω := lim_{v→u} ⟨v|·|v⟩, a diagonal
+non-normal state. For v ≠ z put ψ_{vz} := (|v, z⟩ + |z, v⟩)/√2, and set
+Ω(b) := lim_{v→u} lim_{z→u} ⟨ψ_{vz}|b|ψ_{vz}⟩.
+- *Ω satisfies PROD.* ⟨ψ_{vz}|a ⊗ c|ψ_{vz}⟩ is ½ times the sum of four terms:
+  ⟨v|a|v⟩⟨z|c|z⟩, ⟨z|a|z⟩⟨v|c|v⟩, ⟨v|a|z⟩⟨z|c|v⟩ and ⟨z|a|v⟩⟨v|c|z⟩.
+  - For fixed v, ⟨z|c|v⟩ → 0 and ⟨v|c|z⟩ → 0 as z → ∞, since c|v⟩ and c\*|v⟩ lie in ℓ². The
+    other factors are bounded, so the two cross terms vanish in the inner limit.
+  - The inner limit is then ½(⟨v|a|v⟩ω(c) + ρ(a)⟨v|c|v⟩), and the outer limit is ρ(a)ω(c).
+- *Ω∘Δ satisfies PROD as well,* since Δ(a ⊗ c) = Δ_V(a) ⊗ Δ_Z(c) and ρ, ω are diagonal. It agrees
+  with Ω on ℓ^∞(C_V × Z).
+- *They differ on the swap.* For the swap F|v, z⟩ = |z, v⟩, Fψ_{vz} = ψ_{vz}, so Ω(F) = 1. ΔF is the
+  projection onto {v = z}, and ⟨ψ_{vz}|ΔF|ψ_{vz}⟩ = 0 for v ≠ z, so Ω∘Δ(F) = 0.
+
+So two joint states with the same diagonal non-normal marginals, and the same configuration law,
+differ on a coherence observable. The classical description of CX-F applies to its two slice-order
+states, not to joint states of diagonal marginals in general. No DIO-type result is affected.
+
 *Both slice orders are DIO-type (ESTABLISHED, X).* The assignment ρ ↦ ρ∘σ_ω is (F-H). For
 ρ ↦ ω∘σ′_ρ, which is affine and satisfies PROD, and for diagonal a, σ′_ρ(Φ_o\*(a ⊗ 1)) =
 σ′_ρ(M_h) is the multiplication operator z ↦ ρ(M_{h(·,z)}), which depends on ρ only through
@@ -371,8 +399,9 @@ Assignments that are not affine on non-normal visible inputs are NN M3.
 established partial results are these:
 - (F-S) is DIO-type on normal visible inputs, for every assignment with PROD;
 - it is DIO-type on all inputs for both slice orders;
-- the non-uniqueness of joint states is classical for diagonal marginals (CX-F), and not confined
-  to the configuration algebra for non-diagonal ones (CX-F′).
+- the two slice-order states of diagonal marginals differ classically (CX-F); in general the
+  non-uniqueness of joint states is not confined to the configuration algebra, whether the
+  marginals are non-diagonal (CX-F′) or diagonal (CX-F″).
 
 ## 6. N5: mathematical existence and physical realizability
 
@@ -431,7 +460,8 @@ LAW do not settle whether non-σ-additive hidden laws are physical; that is not 
 | MIO-M2 | as RED-M2, with PROD and diagonal ω | X | ELABORATING |
 | CX-M | free ultrafilter | X | CONFIRMING: NN 4d on a countably infinite visible carrier |
 | Lemma JU | — | X | ELABORATING: uniqueness behind OPRES's U1′ (ii) sketch |
-| CX-F | free ultrafilters | X | ELABORATING: locates the non-canonical joint state, and shows it is classical for diagonal marginals |
+| CX-F | free ultrafilters | X | ELABORATING: locates the non-canonical joint state; its two slice-order states differ classically |
+| CX-F″ | free ultrafilter; from the delta check | X | ELABORATING: for diagonal marginals the joint-state ambiguity is not confined to the configuration algebra either |
 | CX-F′ | free ultrafilters; from the review | X | ELABORATING: for non-diagonal marginals the joint-state ambiguity is not confined to the configuration algebra |
 | Proposition BID; BIDUAL-REL | — | X | BORDERLINE: a reduction to an open question, not a decision |
 | §6 realizability | readings LAW-σ, LAW-fa | X, P | ELABORATING |
@@ -440,8 +470,8 @@ LAW do not settle whether non-σ-additive hidden laws are physical; that is not 
 to normal hidden states should check whether the tensor product is B(H ⊗ K). There the vector
 slice σ_ω exists for every state ω and is the unique positive map with the product property. The
 case that is non-canonical is the joint state of two non-normal states. Its ambiguity already
-occurs in the configuration algebra (CX-F), and for non-diagonal marginals it is not confined
-there (CX-F′).
+occurs in the configuration algebra (CX-F), and it is not confined there, whether the marginals
+are non-diagonal (CX-F′) or diagonal (CX-F″).
 
 *Instances at the pins.*
 - **M1 at `dac9ca3f`: the premise is stated, and VS refutes it.** "The slice in S9 needs FIN-V, or
@@ -467,7 +497,10 @@ there (CX-F′).
 every state of B(L²(H, ν)). Lemma CMP gives preservation of any configuration algebra 𝒜 ⊆ B(K)
 that is maximal abelian and whose projections the append fixes. Whether this settles U1′ (iii) in
 OPRES's own protocol class, with its Theorems B and C(b) on an infinite visible carrier, is not
-checked here. U1′ (ii) is not addressed.
+checked here. On U1′ (ii), Lemma JU shows that the joint state is defined and unique for a normal
+visible input and any ω, which is the content of its sketch. CX-M exhibits the non-normal output
+visible marginal that the sketch names, with the instrument DIO-type. What U1′ (ii) asks for, a
+state-space form of the Theorem C(b) bound, is not checked.
 
 **Productivity test (`PLAN.md` §5).**
 - *Stronger than the restatement:* the restatement is "RED holds for normal ω or finite C_V; the
@@ -487,8 +520,8 @@ whether VC or PROD smuggles DIO in.
 - The same mechanism does not settle (F-S). There the relative commutant is taken in the bidual,
   where maximality is not available. The record reports that case as INCONCLUSIVE.
 - Lemma SL does not remove every non-uniqueness. CX-F exhibits one, for joint states of two
-  non-normal states. For diagonal marginals it lies in ℓ^∞(ℕ × ℕ), and for non-diagonal marginals
-  it does not (CX-F′).
+  non-normal states, whose two slice-order states differ in ℓ^∞(ℕ × ℕ). Other joint states differ
+  off the configuration algebra, with non-diagonal (CX-F′) or diagonal (CX-F″) marginals.
 
 *Stop condition.* The record stops under the `PLAN.md` §8 condition "answered in both typings of
 §3, or each remaining case reported INCONCLUSIVE with its missing ingredient". (F-H) is answered;
@@ -502,7 +535,7 @@ be met.
 **ESTABLISHED** (this record, layer X, unreviewed):
 - Lemma VS, Lemma SL, Corollary SL′, Lemma CMP and Lemma JU;
 - Theorem RED-M2, Corollary IDLE-V and Theorem MIO-M2;
-- CX-M, CX-F and CX-F′, each using a free ultrafilter (CX-F′ from the review);
+- CX-M, CX-F, CX-F′ and CX-F″, each using a free ultrafilter (CX-F′ and CX-F″ from the review);
 - Proposition BID, as a reduction;
 - the characterization of normal states by complete additivity of the configuration law (from M1
   NRM (a)), and the realizability readings of §6;
@@ -521,8 +554,9 @@ be met.
   on non-normal visible inputs. It is adjacent to M1-b, which needs separate authorization, and it
   is not attempted.
 - **OPRES U1′ (iii)** in OPRES's own formulation: AW-3 bears on it, through Remark D′'s
-  diffuse-factor sentence, and it is not checked. U1′ (ii) is a different obstacle and is not
-  addressed.
+  diffuse-factor sentence, and it is not checked. On U1′ (ii), JU and CX-M bear on its sketch
+  (the joint state for normal visible inputs; a non-normal output visible marginal, DIO-type);
+  the state-space form of the Theorem C(b) bound it asks for is not checked.
 - **An infinite-C_V form of OPRES Theorem C(b)** (the diamond-norm bound): not claimed. DIO-type
   is proved here; no distance bound is.
 - **Nativeness of the bijection in CX-M** (NN M4), and **NN M3** (nonlinear state assignments):
