@@ -175,7 +175,9 @@ Let `Ŷ` be the orbit with `P̂` and `Y` the orbit with `P`, from the restricted
 an end `m` of `P` with an outward neighbour in `P̂ ∖ P` a *cut end*, with outward neighbour `m⁺` and
 inward neighbour `m⁻ ∈ P`. Suppose:
 - no site of `{m} ∪ (P̂ ∖ P)`, for any cut end `m`, has an allowed neighbour other than sites of
-  the line;
+  the line, and no site off the line adjacent to `P̂ ∖ P` has an allowed neighbour off the line.
+  Equivalently: every allowed site off the line is at ℓ1-distance ≥ 2 from each cut end and ≥ 3
+  from `P̂ ∖ P`;
 - `Ŷ` does not leak up to `T − 1`;
 - at every tick `≤ T − 2`, for each cut end `m`, the sites `m⁻`, `m`, `m⁺` carry their free W2
   values in `Ŷ`.
@@ -192,17 +194,22 @@ Then:
 - `m⁺` is outside the allowed region of `Y`. By the first hypothesis its sum there is `y_t(m)`,
   ternary since `m` is free, so it stays 0. The other sites of `P̂ ∖ P` read only 0s and sites
   outside both allowed regions, so they stay 0 in `Y`.
-
-*Necessity of the first hypothesis.* If a `K` site with value 1 is adjacent to `m`, at a tick with
-`m⁻ = 1` and `m⁺ = −1`, then `m` reads 1 in `Ŷ` and stays free, but reads 2 in `Y` and departs.
 - A site off the line adjacent to `P̂ ∖ P` is outside both allowed regions, so it is 0 in `Ŷ` (no
-  leak up to `T − 1`). In `Y` its sum is 0, so it stays 0.
+  leak up to `T − 1`). By the first hypothesis its only allowed neighbours are line sites, so in
+  `Y` its sum is 0 and it stays 0.
 
-At `T`, a leaking site `o` of `Ŷ` not adjacent to `P̂ ∖ P` reads, at `T − 1`, only sites at which the
-two runs agree, and its previous value is 0 in both. It lies outside both allowed regions. ∎
+At `T`, a leaking site `o` of `Ŷ` not adjacent to `P̂ ∖ P` reads, at `T − 1`, only sites at which
+the two runs agree, and its previous value is 0 in both. It lies outside both allowed regions. ∎
 
-**L8 (time reversal) [W, (N); the clause on the breather conditional on A-NU9].** For any orbit `y` of RZ on `ℤ³` and any even `T`,
-`ỹ_s := −y_{T−s}` is an orbit. It occupies the same component as `y`. It leaks at `s` if and only if
+*Necessity of the first hypothesis.* Both parts are needed:
+- if a `K` site with value 1 is adjacent to `m`, at a tick with `m⁻ = 1` and `m⁺ = −1`, then `m`
+  reads 1 in `Ŷ` and stays free, but reads 2 in `Y` and departs;
+- if a site `o` off the line is adjacent to `r ∈ P̂ ∖ P` with `y(r) = −1` and to `K` sites whose
+  values sum to 2, then `o` reads 1 in `Ŷ` and stays 0, but reads 2 in `Y`, so `Y` leaks where `Ŷ`
+  does not.
+
+**L8 (time reversal) [W, (N); the clause on the breather conditional on A-NU9].**
+For any orbit `y` of RZ on `ℤ³` and any even `T`, `ỹ_s := −y_{T−s}` is an orbit. It occupies the same component as `y`. It leaks at `s` if and only if
 `y` leaks at `T − s`, and it is periodic if and only if `y` is. For a head-on piece, it maps the set
 of free superpositions (NU9 at some phase, f-cycle piece) onto the set (NU9 at some phase, g-cycle
 piece), and conversely.
@@ -276,8 +283,8 @@ the configuration leaks within 20 ticks.
 
 Nothing in it uses the infiniteness of a line. ∎
 
-**Corollary (single piece at distance 2) [conditional on A-NU9].** Every matched W2 piece at ℓ1-distance exactly 2 from
-the cube leaks within 20 ticks, from all 40 initial states.
+**Corollary (single piece at distance 2) [conditional on A-NU9].**
+Every matched W2 piece at ℓ1-distance exactly 2 from the cube leaks within 20 ticks, from all 40 initial states.
 *Proof.* Take `g ∈ C` and a piece site `l` at distance 2, and `o` a common neighbour. `o` is not in
 `C`, since `l` is at distance 2. It is not in the piece, since the piece is at distance 2. `o` has
 at most one neighbour in each of the closed sets `C` and `P`, so it has exactly the two allowed
@@ -672,8 +679,9 @@ at a uniform background `c` with `3 ≤ c ≤ q − 4`. Then:
 *Proof.*
 - (a) For a ray, this is §5's f-tables and branches. For a segment with `x₁ ≥ 3`, apply L7 with
   `P̂` the ray and the cut end `m = r_{x₁}`, so `m⁻ = r_{x₁−1}` and `m⁺ = r_{x₁+1}`. The first
-  hypothesis holds: `m` and the sites `r_x`, `x > x₁`, have first coordinate ≥ 3, so none is
-  adjacent to the cube. In every f-branch, `r_x` for `x ≥ 3` keeps its free value up to the leak,
+  hypothesis holds: the cube's sites have first coordinate ≤ 1, `m` has first coordinate ≥ 3 (so
+  ℓ1-distance ≥ 2 from the cube), and the removed sites `r_x`, `x > x₁`, have first coordinate
+  ≥ 4 (so distance ≥ 3). The bound `x₁ ≥ 3` is unchanged. In every f-branch, `r_x` for `x ≥ 3` keeps its free value up to the leak,
   and `r_2 = e` (which is `m⁻` when `x₁ = 3`) up to the tick before it. So `m⁻`, `m`, `m⁺` are free
   at every tick `≤ T − 2`. Every leak site of §5 has first coordinate ≤ 2, so it is not adjacent to
   `P̂ ∖ P`.
@@ -773,8 +781,9 @@ placements `(2,0)` and `(2,1)` persist for a piece `{(x, 2, b) : x₀ ≤ x ≤ 
   closed neighbourhood departed at `t`, or the site itself departed at `t − 1`. So a line site
   `(x, 2, b)` that departs at `τ₀ + k` has `|x| ≤ k`.
 - Up to `T − 2 ≤ τ₀ + 4`, the departed line sites have `|x| ≤ 4`. L7 then applies at both ends. Its
-  first hypothesis holds, since the cut ends and the removed sites have `|x| ≥ 6` and are not
-  adjacent to the cube. R5's leak sites have `|x| ≤ 2`. ∎
+  first hypothesis holds: the cut ends have `|x| ≥ 6` and the removed sites `|x| ≥ 7`, while a line
+  site `(x, 2, b)` lies at ℓ1-distance `|x|` from the cube. The bounds `x₀ ≤ −6`, `x₁ ≥ 6` are
+  unchanged. R5's leak sites have `|x| ≤ 2`. ∎
 
 Alongside pieces with an end at `|x| ≤ 5` are not covered (§8).
 
@@ -914,8 +923,9 @@ the orbit off its cycle.
 **Fixed point.** One pass, with NEW items; the §A.31 fixed point is not reached. Under PLAN's stop
 rule the round stops here, on its first condition: the question is answered for the class of §7.
 The remaining single-piece cases fall under different conditions:
-- alongside ends at distance 1: five intervals per placement, each with 40 states and several
-  contact sites per tick, more cases than this round writes out by hand;
+- alongside ends at distance 1: per placement, four ray starts up to mirror symmetry
+  (`x₀ ∈ {−2, −1, 0, 1}`) and unboundedly many segments, each with 40 states and several contact
+  sites per tick, more cases than this round writes out by hand;
 - K2 beyond tick 30: past the ~30-tick branch bound;
 - the single-site head-on segment: not attempted. Its end has no piece neighbour, so L9 does not
   apply, and it appears to be within hand scale. It is left for a separate decision;
