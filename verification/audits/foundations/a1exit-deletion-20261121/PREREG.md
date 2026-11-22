@@ -6148,3 +6148,34 @@ failing with its named finding, and its positive control; item 6's scope asserti
 seven, and the superseded forms of R3's four headings; item 7 expects the same seven coverage entries (no manuscript
 statement changes). `guards_check.py --mutants` runs with `scipy` installed (F71 needs it). A failure of any item stops
 the amendment; it is not re-run with changed thresholds.
+
+#### 31.12.7 Two bases, and the validity of each trial run
+
+The owner's requirement for T0′ (relayed for this correction round): the trial uses the workflow merged by #1543 at
+`main` `413b0bb88f39cad901befcf4684355c7ee39480b`, or a later `main` that contains it unchanged, and the scientific ledger
+stays pinned to H. The two bases are distinct and neither stands in for the other anywhere in §31:
+
+| Base | Commit | Role |
+|---|---|---|
+| **Ledger base** | H = `53c6601a10419b6b333cc992474272501ab542af` | decides *what* is checked: the ledger's spans and base hashes, the predicted tree, and the parent of T0′ and T1′, each a single-parent child of H |
+| **Workflow base** | W = `413b0bb88f39cad901befcf4684355c7ee39480b` | decides *how* the trial is checked: the `a1exit-trial-verify.yml` that is dispatched, with its nine-PDF build, TeX-equality, page-count and upload lists |
+
+H's own copy of the workflow (eight PDFs) is a file of the trial trees, compared with H unchanged like any other file
+that the ledger does not touch; it is never the workflow that runs. W changes only that workflow file relative to H
+(`git diff 53c6601a 413b0bb8`: one file), so it changes no ledgered file, no base hash and no pin.
+
+**Preregistered check of every dispatch (T0′, and both dispatches of T1′).** A run counts only if both parts hold; a run
+that fails either is **void**, neither a pass nor a fail of the plan, and is repeated by a fresh dispatch:
+
+1. *Workflow base.* The run's `result.json` fields `workflow_sha` and `ref_sha` each name a commit on `main`'s
+   first-parent history that has W as an ancestor (W itself included), and at that commit the blob of
+   `.github/workflows/a1exit-trial-verify.yml` equals its blob at W. For the `verify.yml` dispatch on T1′, which writes no
+   `result.json`, the run record's head is exactly T1′ (§29 item 2) and part 1 does not apply.
+2. *Ledger base.* The run's `trial_sha` has exactly one parent, H.
+
+The check is `preserve_check.py --verify-run RESULT.json --workflow-base W --main REV` (`REV` the current `main`), which
+reads only the structured `result.json` and the object store (§A.44), prints `RUN VALID` or `RUN VOID` with each
+failing part, and writes its structured result; its self-test includes a void mutant for each part (a `workflow_sha`
+without W as an ancestor, a workflow blob that differs from W's, a `ref_sha` off `main`, a `trial_sha` whose parent is
+not H, and a merge `trial_sha`). The workflow's own head step already enforces part 2 against the ledger base read from
+P\*\*, and this check repeats it from the record.
