@@ -7077,7 +7077,7 @@ optional, and a retained copy is checked with the flag before it is relied on.
 PREREG.md, so its `preserve_check.py` and pins are those tested here. T0′ is built from P\*\*, the frozen head, and P\*\*
 is passed as both `plan_sha` and `--plan` (§31.12.14).
 
-**Not run here.**
+**Not run here (§31.26).**
 - The PDF build: there is no xelatex in this container.
 - A real T0′ or T1′ run.
 - Any push to a trial ref, or any dispatch. Each needs the owner's approval after this amended plan is reviewed and
@@ -7256,7 +7256,7 @@ The figures required by §31.12.15 are reproduced: both reconciliations, and the
 **N11.** `pdfinfo` and `pdftotext` are installed in this container, so N11 uses `pdfinfo`'s page count, not a
 structural check alone. On the real built PDFs of T0 and T1, every page count equals the run's `pdf_pages`.
 
-**Not run here.**
+**Not run here (§31.28).**
 - The PDF build: there is no xelatex in this container.
 - A real T0′ or T1′ run.
 - Any push to a trial ref, or any dispatch. Each needs the owner's approval after this amended plan is reviewed and
