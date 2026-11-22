@@ -2,7 +2,12 @@
 
 **Standing.** Writer's research record, paper only. It follows `PLAN.md` (`8931f03`), committed
 first. No computation was run, no script is added and no exact check was replayed. Every orbit
-below is derived by hand, tick by tick, or follows from a stated lemma. Not independently reviewed.
+below is derived by hand, tick by tick, or follows from a stated lemma. Independent non-author
+review at `17d81a3`: REVISE on status and scope
+([#1549 c.7077076211](https://github.com/amaybaum/incompleteness/pull/1549#issuecomment-7077076211)).
+The reviewer re-derived NU9, the event tables and all eight branches by hand, and the mathematics
+holds. This revision answers R1, R2 and n1–n8. For n9: the A1 retirement ledger, re-read at the
+ledger branch's head `c176d35`, still lists no `native-univ-*` path.
 
 Inputs and their standing are listed in `PLAN.md`: `R4` (NU9), `PT` (PLANAR-TURN), `P2N` (NU3–NU6),
 `F1` (NU1, NU2) are reviewed records not on `main`; `U1`, `U2` and `MQ` are on `main`.
@@ -25,13 +30,16 @@ instruments, accessible algebras or readouts.
    - L4 (*period-4 locking*): if an outside site has exactly two allowed neighbours, a gadget site
      `g` and an undisturbed W2 line site `l`, then `y_t(g)·w_t(l) ≤ 0` at every tick. If `y(g)`
      repeats after `P ≡ 2 (mod 4)` ticks over a stretch where `l` is undisturbed, then `y(g) = 0`
-     throughout that stretch.
+     at every tick of that stretch at which `l` is active (every tick of it, when `g` lies in `l`'s
+     component).
    - L5 (*first deviation*): for parts confined to pairwise non-adjacent closed sets, with the
      allowed region their union, the first departure from free superposition is a leak.
-3. **Theorem T (§3–§5), (N), ESTABLISHED on paper.** Let a bare NU9 breather and one straight W2
-   line be given, disjoint, at any placement and any relative phase, at a uniform background `c`
-   with `3 ≤ c ≤ q − 4`. The allowed region is the cube plus the line. Then exactly one of the
-   following holds:
+3. **Theorem T (§3–§5), (N), conditional on A-NU9.** The NU9 orbit is ASSUMED: it is hand
+   re-derived (R4's review and this round's review), and its exact re-run NU9-CHECK is pending and
+   not authorized. Given A-NU9, the proof below is a paper derivation. Let a bare NU9 breather and
+   one straight W2 line be given, disjoint, at any placement and any relative phase, at a uniform
+   background `c` with `3 ≤ c ≤ q − 4`. The allowed region is the cube plus the line. Then exactly
+   one of the following holds:
    - (a) the line lies in the other parity component, or at ℓ1-distance ≥ 3 from the cube. Breather
      and line then evolve independently for all time, with or without a W2 signal. There is no
      interaction of any kind;
@@ -41,14 +49,15 @@ instruments, accessible algebras or readouts.
 
    Up to the cube's symmetry there are five placements in (b), each with 40 initial configurations;
    all 200 leak.
-4. **Corollary (§6).** No bare-breather gadget with one W2 line realizes a leak-free signal
-   interaction: not a write, a read, a delay or a reflection. No bare-breather gadget realizes a
-   leak-free controlled turn or signal interaction when its lines are pairwise disjoint, none is
-   adjacent to the cube or to another line, and some breather–line coupling site touches only one
-   matched line. The mechanism is the period mismatch:
+4. **Corollary (§6), conditional on A-NU9.** No bare-breather gadget with one W2 line realizes a
+   leak-free signal interaction: not a write, a read, a delay or a reflection. No bare-breather
+   gadget realizes a leak-free controlled turn or signal interaction when its lines are pairwise
+   disjoint, none is adjacent to the cube or to another line, and some breather–line coupling site
+   touches only one matched line. The mechanism is the period mismatch:
    - NU9 has period 10 ≡ 2 (mod 4);
    - a W2 line is negated after 10 ticks;
-   - so every corner contact is driven to `|S| = 2` within one breather period (L4).
+   - so every corner contact is driven to `|S| = 2` within 20 ticks, two breather periods (L4,
+     T-IND).
 5. **MISSING (§7).** Not settled:
    - two or more lines with at least one in direct contact;
    - lines through the cube;
@@ -95,8 +104,10 @@ In the free cycles of §4 the backgrounds are, with the breather at phase `t mod
 - *g-type:* `(−1)^t` times the f-type.
 
 Here `κ` is fixed by the placement. The other sign of each type is the same free cycle shifted by
-10 ticks, by (W). The g-type is the mirror image of the f-type under `x ↦ −x`, which fixes the cube
-and the line.
+10 ticks, by (W). The mirror image of the f-type under `x ↦ −x`, which fixes the cube and the line,
+is `(−1)^κ` times the g-type. So it is the g-type when `κ` is even, and the g-type shifted by 10
+ticks when `κ` is odd, as at placement `(2,1)`. Either way the g-type free cycle is the mirror of
+the f-type free cycle, which is what §3 uses.
 
 **W2 signal.** U2 K0's defect, launched at distance ≥ 8 on a line toward the gadget (U2 §1, PT §1).
 It is ternary at every tick.
@@ -104,7 +115,8 @@ It is ternary at every tick.
 **Definition (thick gadget).** A *gadget* is a finite set `K ⊂ ℤ³` with initial two-slice values,
 together with finitely many W2 lines, disjoint from `K`. Its *allowed region* is
 `A = K ∪ lines`. The gadget is *thick* when `A` has an interior site, one whose six neighbours all
-lie in `A`. A gadget is *built around NU9* when `K` contains a unit cube carrying NU9 at some phase.
+lie in `A`. A gadget is *built around NU9* when `K` contains a 3 × 3 × 3 cube (a translate of `C`)
+carrying NU9 at some phase.
 It is the *bare breather* when `K` is exactly that cube, with every other site of `K` absent.
 Every gadget built around NU9 is thick, since the cube's centre is interior. A planar `A` has no
 interior site, so PT's class contains no thick gadget.
@@ -114,7 +126,9 @@ interior site, so PT's class contains no thick gadget.
 
 **Definition (controlled turn).** PT §2's outcome T or T-STATEFUL, not R6-NULL, for a signal
 entering on line `A_1` and leaving on a line `B` not collinear with it. This is U2's R1–R6 in PT's
-exact form. It requires a no-input orbit that does not leak (R1) and does not emit along a line
+exact form. Here every line is a full straight line `ℓ(a, b)`. PT's geometries J1 and J2 use rays
+that end at the junction instead; a gadget with rays or finite segments is outside this record's
+class (§7). It requires a no-input orbit that does not leak (R1) and does not emit along a line
 (Q-EMIT).
 
 **Definition (signal interaction).** Let the no-input orbit `N` not leak, and let `F` be the
@@ -167,8 +181,9 @@ active at `t`, and by (W), `w_{t+P}(l) = (−1)^{P/2} w_t(l) = −w_t(l)`. So `y
 configuration lies in `l`'s component, which is the case in §3–5, `g`'s slot is active exactly when
 `l`'s is.
 
-*Reading.* A gadget site at a corner contact with an undisturbed W2 line cannot carry any
-nonzero value that recurs after 2, 6, 10, … ticks. NU9's sites recur after 10.
+*Reading.* At the ticks where `l` is active, a gadget site at a corner contact with an undisturbed
+W2 line cannot carry any nonzero value that recurs after 2, 6, 10, … ticks. NU9's sites recur
+after 10.
 
 **L5 (first deviation is a leak) [W, (N)].** Let `X¹, …, Xⁿ` be orbits, each confined alone to a
 closed set `D_k` (support in `D_k` at every tick, `∂D_k` in range), with the `D_k` pairwise
@@ -378,7 +393,7 @@ whose value differs from the free cycle, and every site that decides the outcome
   - `(−1,1,±1)`: `0 + 1 + 0 = 1`, so 0 (free 1).
   - `(1,1,±1)`: `0 + 1 + 1 = 2`, so 1.
   - The other C3: 3, so 1.
-  - E1 other than `(0,1,0)`: `4 − 1 = 3` or `3 − 1 = 2` against previous value 1, so 0, as free.
+  - E1 other than `(0,1,0)`: sum 4 or 3, so `G = 1`; against previous value 1 this gives 0, as free.
   - `(0,2,±1)`: `0 + 1 = 1`: no leak.
   - `(±2,1,0)`: `1 − 1` and `0 − 1`: no leak.
 - `13 → 14` (`y_13` = C3 except `(−1,1,±1)`, plus `(0,1,0) = 1`).
@@ -421,8 +436,8 @@ used are:
 - `(x,2,0)` for `|x| ≤ 1`: cube neighbour `(x,1,0)`, line neighbour `(x,2,1)`.
 - `(±2,1,1)`: cube neighbour C3 `(±1,1,1)`, line neighbour `(±2,2,1)`.
 
-**I-events.** The C3 breather sums are `3, 0, −3, 0, 0` at the even phases, all ≡ 0 (mod 3). So by
-L2 the C3 contact sites never deviate. At `(0,1,1)` the sums are `S_b = 2, 2, −2, −2` at phases
+**I-events.** The C3 breather sums at phases 0, 2, 4, 6, 8 are `0, 3, 0, −3, 0`, all ≡ 0 (mod 3).
+So by L2 the C3 contact sites never deviate. At `(0,1,1)` the sums are `S_b = 2, 2, −2, −2` at phases
 1, 3, 5, 7. The line values `w_t(0)` at `t = 1, 3, …, 19` are `+, −, +, −, +, −, +, −, +, −`. This
 gives events at `t = 3` (`2 − 1`), `5` (`−2 + 1`), `11` (`2 − 1`) and `17` (`−2 + 1`).
 
@@ -483,22 +498,23 @@ matched configurations within distance 2 leak without input.
 
 ## 6. Theorem T and its corollaries
 
-**Theorem T [W, (N)].** It is stated in §0 item 3. Its proof:
+**Theorem T [W, (N), conditional on A-NU9].** It is stated in §0 item 3. Every case of the proof
+uses NU9's values, which are ASSUMED (hand re-derived; exact re-run pending). Its proof:
 - unmatched lines: L3(a);
 - `δ ≥ 3`: L3(b), with the cube's boundary ternary (R4) and the line ternary with or without a
   signal;
 - `δ = 2`: T-IND (§4);
 - `δ = 1`: §5.1–5.2, with the mirror (§3).
 
-**Corollary T1 (no signal interaction with a bare breather on one line).** In case (a), `S = N + F`
-exactly, so there is no interaction. In case (b), the no-input orbit leaks, and a signal
-interaction, like a controlled turn, requires a no-input orbit that does not leak (§1). So no
-bare-breather gadget with one W2 line, at any placement, phase or component, realizes a leak-free
-signal interaction.
+**Corollary T1 (no signal interaction with a bare breather on one line; conditional on A-NU9).** In
+case (a), `S = N + (F − background)` exactly, so there is no interaction. In case (b), the no-input
+orbit leaks, and a signal interaction, like a controlled turn, requires a no-input orbit that does
+not leak (§1). So no bare-breather gadget with one W2 line, at any placement, phase or component,
+realizes a leak-free signal interaction.
 
-**Corollary T2 (bare breather with several lines, none in direct contact).** Let the gadget be the
-bare breather with finitely many W2 lines, in either component, such that the cube and the lines are
-pairwise disjoint and non-adjacent (so every line has `δ ≥ 2`). Let some coupling site of the cube
+**Corollary T2 (bare breather with several lines, none in direct contact; conditional on A-NU9).**
+Let the gadget be the bare breather with finitely many W2 lines, in either component, such that
+the cube and the lines are pairwise disjoint and non-adjacent (so every line has `δ ≥ 2`). Let some coupling site of the cube
 touch exactly one matched line. Then the no-input orbit leaks (T-IND), and the gadget realizes no
 leak-free controlled turn or signal interaction. A turn through the breather needs at least two
 lines that interact with it, which by L3 are matched with `δ ≤ 2`. T2 therefore leaves open exactly
@@ -507,24 +523,26 @@ in which every coupling site of the cube is shared between matched lines (§7).
 
 **What the obstruction rests on.** The leaks come from the period mismatch of L4:
 - NU9 recurs after 10 ticks, while a W2 line is negated after 10;
-- every coupling site therefore reaches `|S| = 2` within one breather period, unless the breather is
-  perturbed first;
+- every coupling site therefore reaches `|S| = 2` within 20 ticks, two breather periods, unless the
+  breather is perturbed first. One period does not suffice in general: at an E1 or C3 site the two
+  nonzero phases are 6 or 2 ticks apart, both `y` and `w` change sign between them, and `y·w` keeps
+  its sign (at an E2 site they are 4 apart, and `y·w` changes sign);
 - at direct contact the perturbation occurs first, and §5 shows that it reaches a coupling site
   within 6 ticks.
 
 L4 is the general form: any gadget site at a corner contact with an undisturbed W2 line must have
 period 4 in sign, up to zeros.
 
-**Classification of the excluded class (as required).** Excluded:
-- (i) every gadget whose allowed region is a unit cube carrying NU9 at some phase plus one straight
-  W2 line, disjoint from it: no leak-free controlled turn and no leak-free signal interaction;
+**Excluded class.** Conditional on A-NU9, the following are excluded:
+- (i) every gadget whose allowed region is a 3 × 3 × 3 cube carrying NU9 at some phase plus one
+  straight W2 line, disjoint from it: no leak-free controlled turn and no leak-free signal interaction;
 - (ii) every gadget whose allowed region is that cube plus finitely many straight W2 lines, in
   either component, pairwise disjoint, none adjacent to the cube or to another line, with one
   coupling site of the cube touching exactly one matched line: no leak-free no-input orbit, hence
   no turn and no interaction.
 
-Both hold at every uniform background `c` with `3 ≤ c ≤ q − 4`, for any `q ≥ 7`, and for the
-W2 signal and background only.
+Both hold at every uniform background `c` with `3 ≤ c ≤ q − 4`, for any `q ≥ 7`, for full straight
+lines only (not rays or segments), and for the W2 signal and background only.
 
 ***
 
@@ -538,7 +556,7 @@ W2 signal and background only.
 | L5 (first deviation) | (N) | writer's; unreviewed | for disjoint confined parts; leak at the first departure when they are non-adjacent | MQ1 | — |
 | T-IND | (N) | writer's; unreviewed | all matched indirect placements of one line (120 configurations); the multi-line version under its stated hypothesis | NU9 (R4; hand re-derived in review; exact re-run pending, not on `main`); L5; (W) | multi-line arrangements without a single-line coupling site |
 | §5 direct contact | (N) | writer's hand derivation; unreviewed | 80 configurations, each followed to its leak | NU9; L2; the f/g reduction of §3 (mirror symmetry of Q) | an exact re-run (a computation; not authorized, not run) |
-| Theorem T, T1, T2 | (N) | writer's | the class of §6 | as above; the definitions of §1 (PT, U2) | everything listed below |
+| Theorem T, T1, T2 | (N) | writer's; conditional on A-NU9; mathematics confirmed in review (#1549 c.7077076211) | given A-NU9, the class of §6 | A-NU9 in every case (R4; hand re-derived; exact re-run pending, not on `main`); as above; the definitions of §1 (PT, U2) | NU9-CHECK; everything listed below |
 
 No quantum, operational or measurement assumption is used. The W2 lines and the breather are
 designed initial patterns, a scope condition, not a claim about native preparation.
@@ -546,12 +564,17 @@ designed initial patterns, a scope condition, not a claim about native preparati
 **MISSING (not excluded; mathematics unless stated):**
 - two or more interacting lines with at least one in direct contact, or with coupling sites shared
   between lines (the first event can then be an I-event whose branch depends on the other lines);
+- two lines adjacent to each other (a line–line contact), with the breather nearby;
+- rays or finite segments that end next to the cube, as in PT's turn geometries J1 and J2. The class
+  of §6 uses full straight lines only, and a line end is a contact of its own (U1 E6);
 - lines that meet the cube (`δ = 0`), where the initial configuration is not a sum of parts;
 - allowed regions `K ⊋` cube, including any gadget that places absorbers, spacers or a period
   converter at the coupling sites. L4 still applies at every corner contact of such a gadget;
 - W1 lines and signals (period 6; L4's sign argument uses period 4), non-uniform backgrounds, and
   breathers other than NU9 (none other is derived in the corpus);
 - a turn or interaction that uses a breather only as a timing element, away from the lines;
+- the exact re-run of NU9 (NU9-CHECK), on which Theorem T, T1 and T2 are conditional (a computation;
+  not authorized);
 - whether R_q is universal in Definition U: not addressed.
 
 ***
@@ -575,8 +598,7 @@ designed initial patterns, a scope condition, not a claim about native preparati
 | L1 | ELABORATING (NU6(b) for non-closed regions) |
 | L2, L3 | CONFIRMING (elementary; NU1, MQ2(b)) |
 
-**Skepticism (§A.31).** The result is unfavourable to the framework's universality route. The checks
-target the ways it could be wrong in either direction.
+**Skepticism (§A.31).** The checks target the ways the result could be wrong in either direction.
 1. *Completeness of the placements.* Every axis line reduces to `ℓ(a,b)`, `a ≥ b ≥ 0`, by symmetries
    that fix NU9. NU9's values depend only on the site class (R4 §1), and Q commutes with the cube
    group.
