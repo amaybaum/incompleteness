@@ -7,6 +7,19 @@ changes no status and strengthens no manuscript or kernel theorem. No merge is a
 prefixed "BR" are BIDUAL-REL's at `dda8d67c`, "M2" NONDIO-M2's at `7102e6af`, "M1" NONDIO-M1's at
 `dac9ca3f` and "NN" NATIVE-NONDIO's at `ab830621`. Names without a prefix are this record's.
 
+Revision r2 answers the independent review of `124ecd56` (#1509 c.7080237134, verdict REVISE).
+- Finding 1 (blocking): the §6 circularity sentence is restated in the form CFG (⇒) proves, a
+  restriction sufficient for DIO-type implies R-CFG, with the reviewer's counterexample E_{z_f/2}
+  to the earlier form; AW-5's third bullet reads the same way.
+- Nit 2: the joint-preparation text is cited as `Main:48–52`. `PLAN.md` is left frozen; its pin
+  "Lemma 2 (line 48)" names the line where Lemma 2 begins, and the sentence quoted from it is at
+  `Main:52`.
+- Nits 3–8: the total-finiteness wording (§2), "infinite" and "countably infinite" kept apart
+  (§0), the missing premise stated as R-CFG on those inputs with the additional assumptions listed
+  (§0), CFG reclassified ELABORATING, the headline's scope (§0), and lowercase verdicts.
+
+No result is strengthened.
+
 **Labels.**
 - **ESTABLISHED**: proved on paper here (layer X), or cited at its source's standing: (L) a
   literature theorem, (R) a corpus record, (M) a statement of `papers/Main.md`. "Established"
@@ -37,9 +50,14 @@ E_z := (1 − z)σ_ω + zE′.
 Definition's finite-capacity clause makes C_V finite (`Main:42`, `Main:46`, Lemma 1). With C_V
 finite every state of A is normal, and every assignment with PROD, affine or not, for every
 hidden state ω, normal or not, is ρ ↦ ρ∘σ_ω and is DIO-type in (F-S) (Proposition FV). BIDUAL-REL
-itself holds trivially there (A\*\* = A). Theorem NDIO needs C_V infinite (CNT-V), which is outside
-the Definition. This restriction acts on the carrier, and through it on the visible states; it is
-not a restriction of the assignment.
+itself holds trivially there (A\*\* = A). By FV, any non-DIO assignment needs C_V infinite, which
+is outside the Definition. Theorem NDIO is constructed on C_V = ℕ (CNT-V); the uncountable visible
+case is neither covered here nor needed. This restriction acts on the carrier, and through it on
+the visible states; it is not a restriction of the assignment.
+
+*Scope of the headline.* FV concerns the observer's visible configuration carrier of the
+Definition. Effective or encoded descriptions with infinite-dimensional visible spaces (for
+example encoded carriers in the sense of T-SUB′ (iv), NN §0) are outside FV.
 
 **On CNT-V (a mathematical extension outside the Definition), restriction by restriction:**
 
@@ -52,16 +70,20 @@ not a restriction of the assignment.
 | hidden covariance under the stabilizer of ω, or covariance of the family ω ↦ Ω^ω | assignment (symmetry) | **no**: Theorem NDIO's assignment satisfies both (COV) | no statement in the corpus |
 | invariance of ω under all permutations of Z | normal-state, through ω | the class is **empty** for Z infinite (PERM); for Z finite, ω is normal and HN′ applies | the finite-representative uniform prior (`Main:58`) has it; it has no infinite-Z analogue |
 | covariance under visible dephasing (COV-Δ) | assignment (symmetry under a channel) | **yes** (Proposition DEPH); not implied by covariance under the diagonal unitaries | no statement in the corpus: additional assumption |
-| a single global slice order (fixed scalar z) | assignment (slice-order selection) | **yes** (M2 §5; SEL) | no: OI takes the joint preparation as a datum (`Main:48`) and fixes no order; additional assumption |
+| a single global slice order (fixed scalar z) | assignment (slice-order selection) | **yes** (M2 §5; SEL) | no: OI takes the joint preparation as a datum (`Main:48–52`) and fixes no order; additional assumption |
 | sector-wise slice-order selection, z central in A\*\* | assignment (slice-order selection) | **exactly when z ∈ D\*\***, for ω with ν vanishing on finite sets (Theorem SEL); Theorem NDIO is the case z = z_f ∉ D\*\* | no statement in the corpus |
 
 **The exact condition and the missing premise.** For every assignment with PROD, affine or not,
 on C_V = Z = ℕ, DIO-type in (F-S) is equivalent to **R-CFG**: the joint configuration law
 Ω_ρ|_{ℓ^∞(C_V × Z)} depends on ρ only through ρ|_D (Proposition CFG, both directions proved).
 R-CFG is DIO-type restated at the level of the joint state, so it is definitional, not a physical
-restriction. Every sufficient restriction of the table implies it. **Missing premise:** a native
-rule fixing the joint configuration law of a coherent non-normal visible input with an
-independently prepared hidden state. OI states none: its preparations are configurations or laws
+restriction. Every restriction sufficient for DIO-type implies it (CFG (⇒), for C_V = Z = ℕ).
+**Missing premise:** a native rule fixing the joint configuration law of a coherent non-normal
+visible input with an independently prepared hidden state as a function of (ρ|_D, ω), that is,
+R-CFG restricted to the coherent non-normal visible inputs. Each non-circular sufficient
+restriction found on CNT-V is an additional assumption: normal ω (HN′), a single global slice
+order, z ∈ D\*\* in sector-wise selection (SEL), and COV-Δ (DEPH). OI states none of them, and no
+rule of this kind: its preparations are configurations or laws
 over them (LAW), under which no coherent non-normal visible input is native, and its DEC statement
 (`Main:60`) is made for normal states.
 
@@ -77,7 +99,7 @@ over them (LAW), under which no coherent non-normal visible input is native, and
 
 **Productivity (`PLAN.md` §4): gem.** Sufficiency or insufficiency is decided for every restriction
 of `PLAN.md` §5 not covered by the restatement, and two hidden assumptions are exposed (AW-5, §7).
-Output class NEW for Theorem SEL, COV and Proposition CFG; ELABORATING for HN′, DEPH and PERM;
+Output class NEW for Theorem SEL and COV; ELABORATING for Proposition CFG, HN′, DEPH and PERM;
 CONFIRMING for FV.
 
 ## 1. D0: corpus and literature
@@ -91,7 +113,7 @@ and covariance of a preparation or append.
 |---|---|---|
 | finiteness of C_V | `Main:42` (Definition: "an observer V ⊊ S — a proper subsystem with finitely many distinguishable internal states"); `Main:46` (Lemma 1: "The finite-capacity clause of the observer definition makes the visible configuration space 𝒞_V finite"); `Main:60` ("only finite visible resolution is a theorem (Lemma 1 …)") | C_V finite, as a consequence of the Definition, independent of total finiteness (A1) |
 | other observers | `Main:696` (observer covariance and nested observers) | each partition V ⊊ S is an observer in the sense of the Definition; no infinite visible carrier is introduced |
-| joint preparation | `Main:48` (Lemma 2: "a joint preparation may already correlate the two sectors. The reduced law uses that preparation, or its corresponding conditional hidden law") | the joint state or law is a preparation datum; no rule builds it from the visible marginal |
+| joint preparation | `Main:48–52` (Lemma 2: "a joint preparation may already correlate the two sectors. The reduced law uses that preparation, or its corresponding conditional hidden law") | the joint state or law is a preparation datum; no rule builds it from the visible marginal |
 | hidden prior | `Main:58` (a realization "carries its own fixed hidden prior μ_H"; the canonical measure is the uniform probability on the finite carrier, with the uniform conditional law on 𝒞_H) | the hidden prior is a datum; its permutation-invariant default is stated on finite representatives |
 | independent adjoined factor (DEC) | `Main:60` ("a Hilbert space of any dimension with a normal state and a unitary or isometry, or a measurable space with a probability and a measurable map"); ledger item (ii), `Main:736` | DEC is stated for normal states and probability measures |
 | total finiteness | `Main:736`, ledger item (ii) | an open hypothesis, not adopted |
@@ -103,7 +125,7 @@ an infinite set (PERM) is classical and is proved here. No source is claimed for
 HN′ or DEPH; any novelty is relative to the corpus.
 
 **Verdict D0.** The corpus fixes C_V finite (`Main:46`), treats the joint preparation as a datum
-(`Main:48`), and states DEC for normal states (`Main:60`). It contains no covariance condition on
+(`Main:48–52`), and states DEC for normal states (`Main:60`). It contains no covariance condition on
 an append and no slice-order rule.
 
 ## 2. D1 (decisive): FIN-V
@@ -124,9 +146,8 @@ cardinality, and let ω be any state of B(H_Z), normal or not. Then:
   because D is maximal abelian (M2 RED-M2 proof). ∎
 
 **Source in OI.** FIN-V is `Main:46` (Lemma 1), derived there from the finite-capacity clause of
-the Definition (`Main:42`). It does not use total finiteness (ledger item (ii)), so it is not
-affected by the A1 retirement as recorded in `Main:60`. M1 records it as (N) (M1 `PLAN.md` §4),
-and M2 `PLAN.md` §4 drops it as the scope of its question.
+the Definition (`Main:42`). It does not use total finiteness (ledger item (ii), an open
+hypothesis not adopted, `Main:60`). M1 records it as (N) (M1 `PLAN.md` §4), and M2 `PLAN.md` §4 drops it as the scope of its question.
 
 *Skepticism on the favourable branch.*
 - *Is any OI object a visible carrier with infinitely many configurations?* D0 finds none.
@@ -140,7 +161,7 @@ and M2 `PLAN.md` §4 drops it as the scope of its question.
 - *Is FV a restriction of the assignment?* No. It removes the states on which assignments differ.
   On CNT-V, the remaining nodes are needed.
 
-**Verdict D1: SUFFICIENT; follows from OI** (`Main:46`), for every assignment with PROD and every
+**Verdict D1: sufficient; follows from OI** (`Main:46`), for every assignment with PROD and every
 ω. Theorem NDIO does not survive it. Class CONFIRMING: the boundary was known to M1 and M2; what is
 recorded here is that the boundary is a theorem of Main, and that it covers non-affine assignments.
 
@@ -176,7 +197,7 @@ for "a normal state" or "a probability"; a non-normal ω is outside the scope of
 which does not assert that every hidden prior is normal. LAW-σ would give normality, and total
 finiteness (ledger item (ii)) would give Z finite; neither is adopted.
 
-**Verdict D2.** (a) SUFFICIENT; follows from OI through FIN-V only. (b) SUFFICIENT for every
+**Verdict D2.** (a) sufficient; follows from OI through FIN-V only. (b) sufficient for every
 assignment (HN′); an additional assumption on CNT-V.
 
 ## 4. D3: covariance
@@ -291,20 +312,20 @@ is an additional assumption, and through (ii) it is at least as strong as R-CFG,
 DIO-type restated (§6).
 
 **Verdict D3.**
-- (a) Visible covariance under any group of unitaries of A: **INSUFFICIENT** (counterexample:
+- (a) Visible covariance under any group of unitaries of A: **insufficient** (counterexample:
   BR Theorem NDIO, by COV). Not in the corpus.
 - (b) Hidden covariance under the stabilizer of ω, and covariance of the family:
-  **INSUFFICIENT** (the same counterexample). Not in the corpus. Invariance of ω under all
+  **insufficient** (the same counterexample). Not in the corpus. Invariance of ω under all
   permutations: **empty** for Z infinite (PERM); for Z finite it reduces to HN′.
-- (c) COV-Δ: **SUFFICIENT** (DEPH), for every assignment. An additional assumption.
+- (c) COV-Δ: **sufficient** (DEPH), for every assignment. An additional assumption.
 
 ## 5. D4: slice-order selection
 
 **(a) A single global slice order.** For a fixed scalar c ∈ [0, 1], E_c = (1 − c)σ_ω + cE′. The
 cases c = 0 and c = 1 are the two orders of M2 §5, and each is DIO-type there; c ∈ [0, 1] is the
-case z = c1 ∈ D\*\* of Theorem SEL. **SUFFICIENT (ESTABLISHED, X; R M2 §5).**
+case z = c1 ∈ D\*\* of Theorem SEL. **sufficient (ESTABLISHED, X; R M2 §5).**
 
-*Source.* OI takes the joint state or law as a preparation datum (`Main:48`) and contains no rule
+*Source.* OI takes the joint state or law as a preparation datum (`Main:48–52`) and contains no rule
 that builds it from the visible input by a fixed order (D0). The two orders are two extensions of
 PROD to non-normal inputs, which agree on normal inputs (M2 JU). A single global order is an
 additional assumption, and which order it fixes does not matter for DIO-type.
@@ -354,7 +375,7 @@ the two orders (z = 0, 1) and Theorem NDIO (z = z_f, Lemma ID).
 Sector-wise selection with z ∉ D\*\* is a mathematical construction, as BR §5 records for Theorem
 NDIO.
 
-**Verdict D4.** (a) A single global slice order: **SUFFICIENT**, an additional assumption. (b)
+**Verdict D4.** (a) A single global slice order: **sufficient**, an additional assumption. (b)
 Sector-wise selection: DIO-type **exactly when z ∈ D\*\*** (for ω with ν vanishing on finite sets);
 sufficient for every ω when z ∈ D\*\*. Not in the corpus. **MISSING (not needed):** whether every
 central z ∈ D\*\* with 0 ≤ z ≤ 1 is of the form c_1 z_K + c_2(1 − z_K).
@@ -392,15 +413,17 @@ For an affine assignment, R-CFG is E(ℓ^∞(C_V × Z)) ⊆ D\*\* (BR Propositio
 *Circularity.* R-CFG is DIO-type restated at the level of the joint state: it is equivalent to
 the conclusion by Proposition CFG and is not offered as a physical restriction. Every sufficient
 restriction of D1–D4 implies it: FV, D2 (a) and HN′ fix Ω_ρ = ρ∘σ_ω where they apply; DEPH (ii)
-proves it; SEL (i) gives E_z(ℓ^∞(C_V × Z)) ⊆ D\*\*. Any restriction that excludes Theorem NDIO on
-CNT-V must imply R-CFG on the coherent non-normal inputs.
+proves it; SEL (i) gives E_z(ℓ^∞(C_V × Z)) ⊆ D\*\*. CFG (⇒) proves only this: any restriction
+that is sufficient for DIO-type in (F-S) implies R-CFG, for C_V = Z = ℕ. A restriction that merely
+excludes Theorem NDIO need not: z ≠ z_f excludes it and still admits E_{z_f/2}, with z_f/2 central
+and not in D\*\*, which is non-DIO by SEL (ii) and so violates R-CFG by CFG (⇒).
 
 **Does OI supply R-CFG?**
 - On normal inputs it holds for every assignment (M2 JU).
 - On native inputs it is vacuous: under LAW-fa native inputs are diagonal, and two with the same
   configuration law are equal; under LAW-σ they are normal.
 - On coherent non-normal inputs OI states nothing. Such inputs are outside LAW in both readings
-  (M2 §6, BR §5). The joint state is a preparation datum (`Main:48`), and DEC is stated for normal
+  (M2 §6, BR §5). The joint state is a preparation datum (`Main:48–52`), and DEC is stated for normal
   states (`Main:60`). NAT concerns transitions, not the append of a hidden prior to a visible input.
 
 **Missing premise (precisely).** A rule, native to OI, that fixes the joint configuration law of a
@@ -440,7 +463,7 @@ Whether non-σ-additive hidden laws are physical is not decided here.
 | Proposition PERM | X (classical) | ELABORATING: full hidden permutation invariance is empty on infinite Z |
 | Proposition DEPH | X | ELABORATING: dephasing covariance is sufficient and is not implied by group covariance |
 | Theorem SEL | X | NEW: exact condition z ∈ D\*\* for sector-wise selection |
-| Proposition CFG | X | NEW: DIO-type in (F-S) is equivalent to R-CFG, for every assignment |
+| Proposition CFG | X | ELABORATING: DIO-type in (F-S) restated as R-CFG on the joint state, for every assignment; (⇒) uses only bijection instruments and PROD on finite sets |
 | D6 table | X, M | ELABORATING |
 
 **AW-5 (assumption-watch marker).**
@@ -451,8 +474,8 @@ Whether non-σ-additive hidden laws are physical is not decided here.
 - On non-normal states, covariance under the diagonal unitaries does not give compatibility with
   the dephasing Δ_V (COV, Remark). An argument that passes from one to the other uses normality.
 - The restriction that excludes Theorem NDIO for OI's own observers is FIN-V (`Main:46`), a carrier
-  restriction. On CNT-V the minimal assignment restriction is R-CFG, which is the conclusion
-  restated (CFG).
+  restriction. On CNT-V, every assignment restriction sufficient for DIO-type implies R-CFG, which
+  is the conclusion restated (CFG); excluding Theorem NDIO alone does not imply it.
 
 **Productivity test (`PLAN.md` §4).**
 - *Stronger than the restatement:* the restatement covers normal ω for affine assignments, normal
