@@ -1,7 +1,7 @@
 {
  "schema": "a1exit deletion exact-edit ledger v2",
  "base": "53c6601a10419b6b333cc992474272501ab542af",
- "edits_sha256": "fff453b7165769d313a35ed8f9c1598634dd0bbfa7d23910222e5835e0e56dfe",
+ "edits_sha256": "528f146d03b29cbc3d7dc29948e3dd1d4cd26f4d36e6e009f032e24f9462dec1",
  "retained_unchanged": [
   "D032",
   "D039"
@@ -3318,6 +3318,16 @@
    "reason": "R-1/R-2 are a separate PR (#1482, owner decision #1169 c.7058783437); the prose names the kernel predicate as the finiteness predicate `A1`, accurate with or without the rename, and does not present A1 as an assumption. Docstring only; identifiers keep their names (rename proposals in PREREG §22)."
   },
   {
+   "id": "D400",
+   "file": "verification/lean-mathlib/OIBridge/A6Instantiation.lean",
+   "start": 3658,
+   "end": 3753,
+   "old_sha256": "62ee80305e6de43723b41db1e313f0e22fed7fef3b6ec45ea292b1f28782ca75",
+   "new": "because the interface's finiteness predicate `A1` requires a finite configuration space\n  and the complex carrier's is infinite",
+   "new_sha256": "0bfbc28d59c7ed3a019dee6452407d19560c46192cbc7d3123667a3f6484c22c",
+   "reason": "N4 (second §31 delta review N4 (#1477 c.7076440898); owner #1169 c.7076485257): in the kernel A1 is a predicate on a Substratum (def A1 : Prop := Finite 𝒮.Conf), not a field of the structure; the complex carrier is a Substratum (linkSubstratum) that fails the predicate (cx3b_complex_not_A1). \"Finiteness is the first of the interface's axioms\" misdescribes the kernel and, with A1 retired, reads as a premise; the clause names the predicate and its condition. The theorems and their statements are unchanged."
+  },
+  {
    "id": "D315",
    "file": "verification/lean-mathlib/OIBridge/A6Instantiation.lean",
    "start": 5129,
@@ -3356,6 +3366,16 @@
    "new": "\nThe finiteness predicate `Substratum.A1` is `Finite (ι → V × V)`",
    "new_sha256": "8d6554ece4b0abe3e5f9673ed151227552920608f5cfbe8742bb2669909b2c27",
    "reason": "R-1/R-2 are a separate PR (#1482, owner decision #1169 c.7058783437); the prose names the kernel predicate as the finiteness predicate `A1`, accurate with or without the rename, and does not present A1 as an assumption. Docstring only; identifiers keep their names (rename proposals in PREREG §22)."
+  },
+  {
+   "id": "D401",
+   "file": "verification/lean-mathlib/OIBridge/A6Instantiation.lean",
+   "start": 29874,
+   "end": 29967,
+   "old_sha256": "fbdbfa6dd8c69f1987f1645a7637af818c377325dfb31e15d7556e2ee595609b",
+   "new": "because the interface's finiteness predicate `A1` requires a finite\nconfiguration space and the complex carrier's is infinite",
+   "new_sha256": "e2bcd5ce59941df47f74bde2695b5bbe9fa72d643e6b33547134e92ae4d82143",
+   "reason": "N4 (second §31 delta review N4 (#1477 c.7076440898); owner #1169 c.7076485257): in the kernel A1 is a predicate on a Substratum (def A1 : Prop := Finite 𝒮.Conf), not a field of the structure; the complex carrier is a Substratum (linkSubstratum) that fails the predicate (cx3b_complex_not_A1). \"Finiteness is the first of the interface's axioms\" misdescribes the kernel and, with A1 retired, reads as a premise; the clause names the predicate and its condition. The theorems and their statements are unchanged."
   },
   {
    "id": "D399",
@@ -4089,7 +4109,7 @@
   },
   "verification/lean-mathlib/OIBridge/A6Instantiation.lean": {
    "base_sha256": "545df9a18351e4cbf18c2a8cd481342b1af154add13d40c2ddd7bb73cf8b7b3b",
-   "expected_sha256": "b4b536da4b4865b08583ea97815a8d7106bfa6b42c621bad722878b0048c3a0b"
+   "expected_sha256": "04fc8c8efda68dc0b796e9f0cfc35cedd1c3168cd56d36e1a68ca56827d72d92"
   },
   "verification/lean-mathlib/OIBridge/ExecSource.lean": {
    "base_sha256": "be0a2cd5ba95eb861e39f0040e20f6aea7058838c947ea5042b075aabcb39fb1",

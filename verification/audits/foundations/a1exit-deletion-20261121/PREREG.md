@@ -6474,3 +6474,18 @@ non-substantive. **N6** is §31.12.10's restatement.
 | Against `9ba8ef10` | 385 unchanged, 4 revised, 10 added, drift 0 |
 | Results | §31.19 |
 | Pins | the last `Record pins` subsection, §31.21; §31.20 stays as the pins of `2fc36b1e` |
+
+### 31.21 Record pins
+
+The digests below pin the record files from §31.12.11 on (N4: D400, D401; the R5 mutants of the owner decision);
+`preserve_check.py` reads the last `Record pins` subsection, so §26.4, §31.11, §31.14, §31.16, §31.18 and §31.20 stay as the pins of P*,
+`9ba8ef10`, `785b17f9`, `3fa2d18f`, `0702dacc` and `2fc36b1e`. The ledger has 399 splices in 44 files at `53c6601a` (401 edit
+records; D032 and D039 retain their text).
+
+| File | SHA-256 |
+|---|---|
+| `edits.json` | `528f146d03b29cbc3d7dc29948e3dd1d4cd26f4d36e6e009f032e24f9462dec1` |
+| `ledger.json` | `2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5` |
+| `edits_check.py` | `2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c` |
+| `guards_check.py` | `ef89e1c79a0cc3c34af1ebb981e1674edd33a534d6f98612ee06ce57005b5cee` |
+| `preserve_check.py` | `b9d34e5daadc38184a98cb269096fe62dd4358acdd83698608f0618fd83bfe4e` |

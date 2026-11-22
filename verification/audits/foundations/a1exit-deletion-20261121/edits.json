@@ -6184,6 +6184,38 @@
    "old": "the manuscripts' substratum is the finite object of `SM.md:306`",
    "new": "the manuscripts' finite representatives, configurations over a finite periodic quotient of the lattice (a qualified case) with the substratum's alphabet `ℤ/qℤ` (`SM.md` §4.1, §4.4), are finite objects",
    "revised": "new at amendment §31.12.9"
+  },
+  {
+   "id": "D400",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/A6Instantiation.lean",
+   "site": "verification/lean-mathlib/OIBridge/A6Instantiation.lean:55",
+   "part": 1,
+   "mirror_of": null,
+   "row": "X-81",
+   "disposition": "-",
+   "cls": "semantic",
+   "reason": "N4 (second §31 delta review N4 (#1477 c.7076440898); owner #1169 c.7076485257): in the kernel A1 is a predicate on a Substratum (def A1 : Prop := Finite 𝒮.Conf), not a field of the structure; the complex carrier is a Substratum (linkSubstratum) that fails the predicate (cx3b_complex_not_A1). \"Finiteness is the first of the interface's axioms\" misdescribes the kernel and, with A1 retired, reads as a premise; the clause names the predicate and its condition. The theorems and their statements are unchanged.",
+   "step2_note": null,
+   "old": "because finiteness is the first of the interface's axioms and the complex\n  carrier is infinite",
+   "new": "because the interface's finiteness predicate `A1` requires a finite configuration space\n  and the complex carrier's is infinite",
+   "revised": "new at amendment §31.12.11"
+  },
+  {
+   "id": "D401",
+   "kind": "lean-docstring",
+   "file": "verification/lean-mathlib/OIBridge/A6Instantiation.lean",
+   "site": "verification/lean-mathlib/OIBridge/A6Instantiation.lean:506",
+   "part": 1,
+   "mirror_of": null,
+   "row": "X-81",
+   "disposition": "-",
+   "cls": "semantic",
+   "reason": "N4 (second §31 delta review N4 (#1477 c.7076440898); owner #1169 c.7076485257): in the kernel A1 is a predicate on a Substratum (def A1 : Prop := Finite 𝒮.Conf), not a field of the structure; the complex carrier is a Substratum (linkSubstratum) that fails the predicate (cx3b_complex_not_A1). \"Finiteness is the first of the interface's axioms\" misdescribes the kernel and, with A1 retired, reads as a premise; the clause names the predicate and its condition. The theorems and their statements are unchanged.",
+   "step2_note": null,
+   "old": "because finiteness is the first of the interface's axioms\nand the complex carrier is infinite",
+   "new": "because the interface's finiteness predicate `A1` requires a finite\nconfiguration space and the complex carrier's is infinite",
+   "revised": "new at amendment §31.12.11"
   }
  ]
 }

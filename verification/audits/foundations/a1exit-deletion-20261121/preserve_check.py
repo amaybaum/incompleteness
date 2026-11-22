@@ -131,9 +131,12 @@ SCOPE_PRESENT += [
     (_OI + 'A6Instantiation.lean', "the manuscripts' finite representatives, configurations over a finite periodic quotient"),
     (_OI + 'A6Instantiation.lean', '(`SM.md` §4.1, §4.4), are finite objects'),
     (_OI + 'A6Instantiation.lean', '**The finiteness predicate `A1` is\nnot weakened**'),
+    (_OI + 'A6Instantiation.lean', "because the interface's finiteness predicate `A1` requires a finite configuration space\n  and"),
+    (_OI + 'A6Instantiation.lean', "because the interface's finiteness predicate `A1` requires a finite\nconfiguration space and"),
 ]
 SCOPE_ABSENT += [
     (_OI + 'A6Instantiation.lean', "the manuscripts' substratum is the finite object of"),
+    (_OI + 'A6Instantiation.lean', "finiteness is the first of the interface's axioms"),
     (_OI + 'A6Instantiation.lean', '**the finiteness predicate `A1` is\nnot weakened**'),
     (_OI + 'SubstratumInterfaceAudit.lean', 'the finiteness predicate `A1` on a finite torus and'),
     (_OI + 'StochasticInterface.lean', 'FAILS FOR EVERY SUBSTRATUM WITH A LINEAR RULE'),
@@ -145,7 +148,7 @@ SCOPE_ABSENT += [
 ]
 # --reconcile: the records amendment §31 revises (their replacement changes; D369's old text is extended) and adds.
 REVISED31 = {'D026', 'D231', 'D363', 'D364', 'D369', 'D276', 'D326', 'D332', 'D319'}  # §31.3, §31.12 (R2), §31.12.9 (R-8)
-NEW31 = {'D%03d' % n for n in range(374, 400)}  # D374-D391 (§31.3), D392-D398 (§31.12), D399 (§31.12.9)
+NEW31 = {'D%03d' % n for n in range(374, 402)}  # D374-D391 (§31.3), D392-D398 (§31.12), D399 (§31.12.9), D400-D401 (§31.12.11)
 SC42_DIR = 'verification/audits/manuscript/bell-operational-reconciliation-20261029/'
 SC42 = SC42_DIR + 'sc42-integration-result.json'
 SC42_CONTROLS = SC42_DIR + 'sc42-integration-controls.json'
@@ -902,6 +905,8 @@ def self_test(led, base_files, plan):
                 ('R5: no head_sha and result.json self-reporting the ledger base', {'workflow_sha': lb, 'ref_sha': lb},
                  {'head_sha': None, '_drop': 'head_sha'}, 'self-reported, not the executed commit'),
                 ('a head_sha that is not a hex id', {}, {'head_sha': 'W'}, "head_sha 'W' missing"),
+                ('R5: an empty head_sha', {}, {'head_sha': ''}, "head_sha '' missing"),
+                ('R5: an upper-case head_sha', {}, {'head_sha': WORKFLOW_BASE.upper()}, 'missing or not a full commit id'),
                 ('a run id missing on both sides', {'run_id': None}, {'id': None}, 'both must be present and equal'),
                 ('result.json missing workflow_sha', {'workflow_sha': None}, {}, 'self-reported, not the executed commit'),
                 ('a trial_sha given as a ref name, not a full id', {'trial_sha': 'HEAD'}, {}, 'not a known commit')):
