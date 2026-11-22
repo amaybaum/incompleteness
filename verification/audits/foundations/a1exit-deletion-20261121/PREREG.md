@@ -7003,3 +7003,85 @@ is unchanged from §31.21: 399 splices in 44 files at `53c6601a` (401 edit recor
 | `edits_check.py` | `2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c` |
 | `guards_check.py` | `ef89e1c79a0cc3c34af1ebb981e1674edd33a534d6f98612ee06ce57005b5cee` |
 | `preserve_check.py` | `2a40ac19d774ec59997a8b327bac53a6a02f356075f05e645378a66ef526b5df` |
+
+### 31.26 Results of §31.12.14 at `53c6601a`
+
+Each check was run at H from the checkers at `62172514`, the commit that applies §31.12.14 and carries the §31.27 pins.
+`preserve_check.py` ran with `--plan 6217251493eac3315601d29115e47eafca21238b`, and `scipy` 1.18.1 was installed. Every
+run exited 0, and every result file parses with verdict `pass`. In the file this subsection follows §31.27, which the
+apply commit wrote first. The pins in force are §31.27's.
+
+| Check | Result |
+|---|---|
+| `edits_check.py --self-test` | PASS (93) |
+| `edits_check.py --static` | infinity 0, register 0, capitals 0, identifier 0, preservation 0, mirror parity 0, Lean docstring-only 0; sitemap 194/194 |
+| `edits_check.py --commit 53c6601a --simulate` | 401/401 unique; residual 5, all allowed; 0 unscoped; 0 preservation; 0 identifier |
+| `edits_check.py --pins --commit 53c6601a` | 0 unresolved, 0 missing |
+| `edits_check.py --repo-scan --simulate --final --commit 53c6601a` | 0 unexplained |
+| `preserve_check.py --verify-ledger` | identical |
+| `preserve_check.py --verify-pins` | PASS against §31.27 |
+| `preserve_check.py --self-test` | PASS, 126 recorded checks, all `pass` (see below) |
+| `--reconcile 55544cc3…` (P\*) | 302 unchanged, 60 shifted, 9 revised, 28 added (D374–D401), drift 0 |
+| `--reconcile 9ba8ef10…` | 385 unchanged, 4 revised, 10 added (D392–D401), drift 0 |
+| `guards_check.py --mutants` | PASS, 64 checks: the 14 checks on the simulated tree (44 files edited by 401 records), F71 among them; CC-1–CC-4 failing as named; 30 listed pins, 0 unlisted strings |
+| `guards_check.py --predict`, then `preserve_check.py --tree --mutants` | 44 files edited, 9 TeX rebuilt, 7 fingerprints re-affirmed; 0 findings; scope assertions 46 present and 25 absent, 0 findings; the 5 tree mutants fail as required |
+| Coverage | `tools/coverage_check.py` on the predicted tree: OK, 132 canonical statements |
+
+The figures required by §31.12.14 are reproduced: both reconciliations, and the ledger SHA-256.
+
+The self-test's 126 checks are §31.24's 114 and 12 new ones, each failing with its named finding:
+- *R6, the jobs record under `--expect-verify`*, starting from T1's real `verify.yml` record (41 jobs):
+  - the default page, 30 of 41 jobs ("incomplete: 30 jobs for total_count 41");
+  - no `total_count`;
+  - one job removed with `total_count` kept ("incomplete: 40 jobs for total_count 41");
+  - a bare list of jobs.
+- *R6 under `--expect-trial`:*
+  - no `--jobs` ("host jobs record not supplied");
+  - no `--built` ("artifact not supplied");
+  - the trial jobs record without `total_count`.
+- *The audit:*
+  - a job listed twice, with `total_count` raised ("not unique");
+  - a job's steps removed ("a job without steps");
+  - an empty built PDF ("empty or not a PDF");
+  - a redacted copy that is not an object;
+  - the copy given as the original ("not the host's original record").
+
+The controls (T0's and T1's real evidence with complete jobs records and fixture PDFs, and T1's real `verify.yml`
+record) are expected.
+
+**Command-line probes** at `62172514`, on records fetched from the host API at check time:
+- *T1's `verify.yml` run 44953482787:*
+  - with the default jobs page (`total_count` 41, 30 jobs), `--expect-verify` gives `TRIAL DEVIATION`, "incomplete: 30
+    jobs for total_count 41";
+  - with `?per_page=100` (41 of 41), it gives `TRIAL EXPECTED`.
+- *T1's trial run 44951832698, `?per_page=100` (1 of 1), with T1's `out/`:*
+  - without `--built`, two deviations: the eight-PDF `pdf_pages` and "artifact not supplied";
+  - without `--jobs` either, "host jobs record not supplied" as well;
+  - with `--built` set to the eight PDFs extracted from T1's `artifact.zip`, two deviations: the eight-PDF `pdf_pages`,
+    and `papers/Complexity.pdf` missing from the artifact.
+
+  The second of these is the outcome the nine-PDF rule requires of an eight-PDF run. Nothing else deviates.
+
+**Audit result.** Of the inputs of `--expect-verify`, `--expect-trial` and `--run-meta-redacted`, four had a gap, each
+closed with a mutant:
+- a job without steps;
+- a duplicated job;
+- an empty built PDF;
+- a copy supplied as the original.
+
+The table in §31.12.14 gives the rest of the audit. A missing or non-JSON copy, or an omitted `--run-out`, already
+failed closed. Omitting `--run-meta-redacted` leaves a retained copy unchecked, by design: §31.12.13 makes the copy
+optional, and a retained copy is checked with the flag before it is relied on.
+
+**The plan commit.** This battery ran with `--plan 62172514`. The commit that carries this subsection changes only
+PREREG.md, so its `preserve_check.py` and pins are those tested here. T0′ is built from P\*\*, the frozen head, and P\*\*
+is passed as both `plan_sha` and `--plan` (§31.12.14).
+
+**Not run here.**
+- The PDF build: there is no xelatex in this container.
+- A real T0′ or T1′ run.
+- Any push to a trial ref, or any dispatch. Each needs the owner's approval after this amended plan is reviewed and
+  frozen.
+
+**Ledger.** Unchanged from §31.21: 399 splices in 44 files at H (401 edit records), SHA-256
+`2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5`.
