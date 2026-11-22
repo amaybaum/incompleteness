@@ -7182,3 +7182,88 @@ is unchanged from §31.21: 399 splices in 44 files at `53c6601a` (401 edit recor
 | `edits_check.py` | `2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c` |
 | `guards_check.py` | `ef89e1c79a0cc3c34af1ebb981e1674edd33a534d6f98612ee06ce57005b5cee` |
 | `preserve_check.py` | `4ccdcee205b35700b4a1e3312ab379621c09b57917ccd7449bbbe4df99c50e62` |
+
+### 31.28 Results of §31.12.15 at `53c6601a`
+
+Each check was run at H from the checkers at `5f7a292a`, the commit that applies §31.12.15 and carries the §31.29 pins.
+`preserve_check.py` ran with `--plan 5f7a292a63c28501b9aa62396c9f075d58397e27`, and `scipy` 1.18.1 was installed. Every
+run exited 0, and every result file parses with verdict `pass`. In the file this subsection follows §31.29, which the
+apply commit wrote first. The pins in force are §31.29's.
+
+| Check | Result |
+|---|---|
+| `edits_check.py --self-test` | PASS (93) |
+| `edits_check.py --static` | infinity 0, register 0, capitals 0, identifier 0, preservation 0, mirror parity 0, Lean docstring-only 0; sitemap 194/194 |
+| `edits_check.py --commit 53c6601a --simulate` | 401/401 unique; residual 5, all allowed; 0 unscoped; 0 preservation; 0 identifier |
+| `edits_check.py --pins --commit 53c6601a` | 0 unresolved, 0 missing |
+| `edits_check.py --repo-scan --simulate --final --commit 53c6601a` | 0 unexplained |
+| `preserve_check.py --verify-ledger` | identical |
+| `preserve_check.py --verify-pins` | PASS against §31.29 |
+| `preserve_check.py --self-test` | PASS, 156 recorded checks, all `pass` (see below) |
+| `--reconcile 55544cc3…` (P\*) | 302 unchanged, 60 shifted, 9 revised, 28 added (D374–D401), drift 0 |
+| `--reconcile 9ba8ef10…` | 385 unchanged, 4 revised, 10 added (D392–D401), drift 0 |
+| `guards_check.py --mutants` | PASS, 64 checks: the 14 checks on the simulated tree (44 files edited by 401 records), F71 among them; CC-1–CC-4 failing as named; 30 listed pins, 0 unlisted strings |
+| `guards_check.py --predict`, then `preserve_check.py --tree --mutants` | 44 files edited, 9 TeX rebuilt, 7 fingerprints re-affirmed; 0 findings; scope assertions 46 present and 25 absent, 0 findings; the 5 tree mutants fail as required |
+| Coverage | `tools/coverage_check.py` on the predicted tree: OK, 132 canonical statements |
+
+The figures required by §31.12.15 are reproduced: both reconciliations, and the ledger SHA-256.
+
+**The self-test's 156 checks** are §31.26's 126 and 30 new ones.
+- *The controls (a)* now carry the designated identity and the real built PDFs:
+  - T0's and T1's real evidence, each with its own trial commit, run id and `artifact.zip` PDFs, is expected under its
+    rule. T0's control keeps the Structure page-count finding.
+  - T1's real `verify.yml` record is expected: 41 jobs, exactly the pinned names, run 44953482787 at `c06259692ddf`.
+- *Under `--expect-trial`*, 14 new mutants, each a deviation with its named finding:
+  - (b) `--run-id` another run; the job's `run_id` another run, on the same commit;
+  - (c) the job's `head_sha` another commit; `--trial-sha` another commit;
+  - (d) no `--run-id`; no `--trial-sha`; an upper-case or a 12-character `--trial-sha`; a run id `abc`; a job without
+    `run_id`; `result.json` without `workflow_sha`;
+  - a job of another workflow;
+  - N11: a four-byte `%PDF` file ("pdfinfo cannot read it"); a real PDF with another page count.
+- *Under `--expect-verify`*, 16 new mutants, each a deviation:
+  - (b) `--run-id` another run on the same commit; every job's `run_id` rewritten; one job's `run_id` changed (mixed
+    runs);
+  - (c) every job's `head_sha` another commit; `--trial-sha` another commit;
+  - (d) no `--run-id`; no `--trial-sha`; an upper-case or a 12-character `--trial-sha`; a run id `abc`; a job without
+    `run_id`; a job without `head_sha`;
+  - `run_attempt` 2; another workflow's `workflow_name`; the first 30 jobs with `total_count` 30; a job renamed.
+- *Kept.* §31.26's R6 empty-PDF mutant is now run against the real built PDFs.
+
+**Command-line probes** at `5f7a292a`, on the jobs records fetched from the host at check time with `?per_page=100`.
+
+*`--expect-verify` on run 44953482787*, 41 of 41 jobs:
+
+| Inputs | Result |
+|---|---|
+| `--trial-sha c06259692ddf…`, `--run-id 44953482787` | `TRIAL EXPECTED` |
+| the same commit, `--run-id 44951832698` (b) | `TRIAL DEVIATION` |
+| `--trial-sha 3a12f785…`, the same run (c) | `TRIAL DEVIATION` |
+| `--run-id abc` (d) | `TRIAL DEVIATION` |
+| neither argument (d) | `TRIAL DEVIATION`: no designated trial commit, no designated run, and every job unbound |
+| every job's `run_id` and `head_sha` rewritten to run 44951832698's | `TRIAL DEVIATION`: 82 findings, two per job |
+| one job's `run_id` changed | `TRIAL DEVIATION`: that job |
+| the first 30 jobs with `total_count` 30 | `TRIAL DEVIATION`: not the 41 pinned jobs |
+
+*`--expect-trial T1` on T1's `out/`*, with run 44951832698's jobs record and the eight PDFs from T1's `artifact.zip`:
+
+| Inputs | Result |
+|---|---|
+| T1's trial commit and run | two deviations: the eight-PDF `pdf_pages`, and `papers/Complexity.pdf` missing. These are what the nine-PDF rule requires of an eight-PDF run. No identity deviation. |
+| the jobs' `run_id` and `head_sha` rewritten to the `verify.yml` run's | adds the job's run id and head SHA |
+| `--run-id` 44953482787 | adds `result.json`'s run id and the job's run id |
+| `--trial-sha` T0's commit | adds `result.json`'s trial commit |
+
+**N11.** `pdfinfo` and `pdftotext` are installed in this container, so N11 uses `pdfinfo`'s page count, not a
+structural check alone. On the real built PDFs of T0 and T1, every page count equals the run's `pdf_pages`.
+
+**Not run here.**
+- The PDF build: there is no xelatex in this container.
+- A real T0′ or T1′ run.
+- Any push to a trial ref, or any dispatch. Each needs the owner's approval after this amended plan is reviewed and
+  frozen.
+
+The T0′ and T1′ checks are run with the trial commit and the run id of the run being judged, and with P\*\*, the
+frozen head, as both `plan_sha` and `--plan` (§31.12.14).
+
+**Ledger.** Unchanged from §31.21: 399 splices in 44 files at H (401 edit records), SHA-256
+`2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5`.
