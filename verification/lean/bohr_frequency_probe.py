@@ -8900,7 +8900,7 @@ if os.path.exists(_ss71):
     ok71 &= 'theorem diagClass_not_drivesElementary' in _ss_txt71
     ok71 &= 'theorem diagGen_not_quantumArchitectureGenerated' in _ss_txt71
     ok71 &= 'sorry' not in _ss_txt71
-    ok71 &= 'does not derive a quantum architecture from A1-A6' in _ss_txt71
+    ok71 &= 'does not derive a quantum architecture from the substratum conditions' in _ss_txt71
 check("F71", ok71,
       "ROUND 61: SUBSTRATUM-SOURCE AUDIT, FIRST ENTRY (phase three, round sixty-one; kernel: "
       "OIBridge/SubstratumSource.lean, 9 results -- DrivesElementary, genTheory_avail_conj, "
@@ -8925,7 +8925,7 @@ check("F71", ok71,
       "operators under dagger and 1 (x) ., the 3-4-5 rotation as an off-diagonal unitary no "
       "diagonal conjugation preserves, unitarity of the phase gate and exchange, and the kernel "
       "text read back. NOT CLAIMED, lint-guarded: any derivation of a quantum architecture from "
-      "A1-A6 or the read-write substratum dynamics -- the round reduces the three principles to "
+      "the substratum conditions or the read-write substratum dynamics -- the round reduces the three principles to "
       "one object and names its decisive property, leaving the concrete-physics audit open; no "
       "manuscript change; the open redundancy of the inverse clause and the minimal repertoire "
       "are untouched.")

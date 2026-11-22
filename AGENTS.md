@@ -34,8 +34,8 @@ confers no protection, and "the framework needs this to be true" is never an arg
   or postdiction beyond the problem it was built to fix; reject any variant that can be
   adjusted to fit any outcome.
 - **The substratum follows the most basic rules consistent with observation, and no more.**
-  Every posit of the substratum model — the posit ledger of `papers/Main.md`, including total
-  finiteness (A1), linearity (A5), the lattice and its coupling range, the form of the update and
+  Every posit of the substratum model — the posit ledger of `papers/Main.md`, including
+  linearity (A5), the lattice and its coupling range, the form of the update and
   the measure selection — is a hypothesis that may be false, not a fixed part of the framework.
   A posit is kept only where observation forces it or a stated result needs it; it records why it
   was chosen, and a weaker alternative is sought wherever one may exist. What counts as "most

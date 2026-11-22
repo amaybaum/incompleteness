@@ -110,8 +110,8 @@ section EnsembleLeg
 
 variable (𝒮 : Substratum) [Fintype 𝒮.ι] [Fintype 𝒮.V] [DecidableEq 𝒮.V]
 
-/-- **THE ENSEMBLE LEG FAILS FOR EVERY SUBSTRATUM WITH A LINEAR RULE AND MORE THAN ONE
-CONFIGURATION.** The zero configuration is fixed, so it and the orbit of any other configuration
+/-- **THE ENSEMBLE LEG FAILS FOR EVERY SUBSTRATUM WITH FINITELY MANY SITES, A FINITE ALPHABET, A LINEAR
+RULE AND MORE THAN ONE CONFIGURATION.** The zero configuration is fixed, so it and the orbit of any other configuration
 are disjoint nonempty invariant sets, and invariance leaves the law undetermined. The architecture
 states A5 and states no ensemble beyond invariance, so nothing here selects a law and nothing is
 added. -/
@@ -170,8 +170,8 @@ end ObservationLeg
 
 section Verdict
 
-/-- **OUTCOME A, THE INTERFACE GAP, ON THE ENSEMBLE LEG.** For every substratum whose rule is
-linear and whose configuration space carries more than the zero configuration, the only ensemble
+/-- **OUTCOME A, THE INTERFACE GAP, ON THE ENSEMBLE LEG.** For every substratum with finitely many sites and a finite alphabet whose
+rule is linear and whose configuration space carries more than the zero configuration, the only ensemble
 constraint the architecture states — invariance — leaves the law undetermined, and the single-orbit
 route that would have derived one is closed by the same fixed point. Stage 1 therefore does not
 deliver a sourced pair, and the round stops: the induced process of stage 2 is not defined and the

@@ -11,7 +11,7 @@ the census of the corpus is in the note.
   of an involution with a moved configuration has a non-monomial admissible operator at level one,
   and the architecture is not configuration-level (`exists_nonMonomial_of_layerFlowExecutable`,
   `not_configurationLevel_of_layerFlowExecutable`).
-* T2, the actual layers: the observer theory of every substratum executes no layer flow of an
+* T2, the actual layers: the observer theory of every substratum with finitely many sites and a finite alphabet executes no layer flow of an
   involution with a moved configuration, its own shear and swap layers included; the swap layer of
   the wave substratum moves a configuration for every nontrivial alphabet, so the wave substratum's
   observer theory does not execute its own swap-layer flow (`obs_not_layerFlowExecutable`,
