@@ -7368,3 +7368,81 @@ retain their text).
 | `guards_check.py` | `ef89e1c79a0cc3c34af1ebb981e1674edd33a534d6f98612ee06ce57005b5cee` |
 | `preserve_check.py` | `101ecdf46bfc6ecf337db6600c22c5ac01ccb1fad89b8d19a5a79b012d369d32` |
 | `t0_jobs_44939798305.json` | `8c5edab3c18cf9de86c33e406a30fe1a6957e8cc881e26d2bae9f7e2a7fe5bce` |
+
+### 31.30 Results of §31.12.16 at `53c6601a`
+
+Each check was run at H from the checkers at `d0382823`, the commit that applies §31.12.16 and carries the §31.31 pins.
+`preserve_check.py` ran with `--plan d03828234aa2a29999527aaf3fe7d151068dca6d`, and `scipy` 1.18.1 was installed. Every
+run exited 0, and every result file parses with verdict `pass`. In the file this subsection follows §31.31, which the
+apply commit wrote first. The pins in force are §31.31's.
+
+| Check | Result |
+|---|---|
+| `edits_check.py --self-test` | PASS (93) |
+| `edits_check.py --static` | infinity 0, register 0, capitals 0, identifier 0, preservation 0, mirror parity 0, Lean docstring-only 0; sitemap 194/194 |
+| `edits_check.py --commit 53c6601a --simulate` | 401/401 unique; residual 5, all allowed; 0 unscoped; 0 preservation; 0 identifier |
+| `edits_check.py --pins --commit 53c6601a` | 0 unresolved, 0 missing |
+| `edits_check.py --repo-scan --simulate --final --commit 53c6601a` | 0 unexplained |
+| `preserve_check.py --verify-ledger` | identical |
+| `preserve_check.py --verify-pins` | PASS against §31.31: 7 record files, the fixture among the six pinned |
+| `preserve_check.py --self-test` | PASS, 161 recorded checks, all `pass` (see below) |
+| `--reconcile 55544cc3…` (P\*) | 302 unchanged, 60 shifted, 9 revised, 28 added (D374–D401), drift 0 |
+| `--reconcile 9ba8ef10…` | 385 unchanged, 4 revised, 10 added (D392–D401), drift 0 |
+| `guards_check.py --mutants` | PASS, 64 checks: the 14 checks on the simulated tree (44 files edited by 401 records), F71 among them; CC-1–CC-4 failing as named; 30 listed pins, 0 unlisted strings |
+| `guards_check.py --predict`, then `preserve_check.py --tree --mutants` | 44 files edited, 9 TeX rebuilt, 7 fingerprints re-affirmed; 0 findings; scope assertions 46 present and 25 absent, 0 findings; the 5 tree mutants fail as required |
+| Coverage | `tools/coverage_check.py` on the predicted tree: OK, 132 canonical statements |
+
+The figures required by §31.12.16 are reproduced: both reconciliations, and the ledger SHA-256.
+
+**The fixture.** `t0_jobs_44939798305.json` is the response body of
+`GET /repos/amaybaum/incompleteness/actions/runs/44939798305/jobs?per_page=100`, fetched at check time and committed
+unmodified: 4092 bytes, no trailing newline, SHA-256
+`8c5edab3c18cf9de86c33e406a30fe1a6957e8cc881e26d2bae9f7e2a7fe5bce`. It holds `total_count` 1 and one job, `verify`
+(id 136954278279), run 44939798305, `head_sha` `df6da1c6…`, `run_attempt` 1, workflow "A1-EXIT trial verify",
+conclusion failure, and 16 steps.
+
+*Sensitive-field scan (§A.42 item 4).* No e-mail address, IPv4 or IPv6 address, token (`ghp_`-style, `github_pat_`,
+`Bearer`, `token=`, `access_token`), signed-URL parameter (`sig=`, `X-Amz-`, `se=`, `sp=`, `sv=`), key or secret was
+found. The only `@` characters are in the two action references, `actions/checkout@<sha>` and
+`actions/setup-python@<sha>`. The record carries API and web URLs of the run, job and check run, unsigned; the
+runner's name and id; the runner group; and the label `ubuntu-24.04`. No redaction was needed, so no redacted copy
+exists.
+
+*The re-derivation.* Of the 16 steps, step 25 (the setup-python post step, `skipped`) is the only one whose conclusion
+differs from the T0 rule before §31.12.16. The three steps `T0_HOST` listed conclude as listed, the other twelve
+succeed, and the job concludes failure.
+
+**The self-test's 161 checks** are §31.28's 156 and 5 new ones:
+- the fixture is in the plan;
+- *the T0 control (a)*, rewritten: T0's real record, unchanged, is expected under the T0 rule, with T0's identity (run
+  44939798305, trial `5b6d48b5…`), its real reports and built PDFs, and the Structure page-count finding. The existing T0
+  mutants now run on that record;
+- *R8:* the setup-python post step `success` at T0 ("expected skipped"); `--expect-trial` with the run check not run
+  ("the run record is not verified"); a void run check;
+- *N12:* `pdfinfo` absent, with `PATH` emptied ("pdfinfo could not be run").
+
+**Command-line probe of R8** at `d0382823`: `--expect-trial T0` on T0's `out/`, the fixture as `--jobs`, T0's eight
+`artifact.zip` PDFs, `--trial-sha 5b6d48b5…` and `--run-id 44939798305`.
+- *With `--run-meta`* set to T0's run object, fetched at check time, there is no step deviation. The setup-python post
+  step is accepted. The deviations are:
+  - the two eight-PDF ones, the `pdf_pages` set and `papers/Complexity.pdf` missing;
+  - four `verify-run` findings, each expected for a run before W under a later plan: `plan_sha` `55544cc3` is not
+    `--plan`; the head does not contain W; its workflow blob is not W's; and T0's parent is `97070c98`, not H.
+- *Without `--run-meta`*, "the run record is not verified" replaces the four `verify-run` findings.
+
+**The procedure for T0′ and T1′.** Each run is checked by both of the following, on the same `result.json` and with
+P\*\*, the frozen head, as both `plan_sha` and `--plan`:
+- `--verify-run`;
+- `--expect-trial`, with `--run-meta`, `--jobs` (`?per_page=100`), `--built`, `--trial-sha` and `--run-id`.
+
+T1′'s `verify.yml` run is checked by `--expect-verify`, with its `--trial-sha` and `--run-id`. `--expect-trial` reports
+`TRIAL EXPECTED` only when `verify_run` passes on its inputs.
+
+**Not run here.**
+- The PDF build: there is no xelatex in this container.
+- A real T0′ or T1′ run.
+- Any push to a trial ref, or any dispatch. Each needs the owner's approval after this amended plan is reviewed and
+  frozen.
+
+**Ledger.** Unchanged from §31.21: 399 splices in 44 files at H (401 edit records), SHA-256
+`2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5`.
