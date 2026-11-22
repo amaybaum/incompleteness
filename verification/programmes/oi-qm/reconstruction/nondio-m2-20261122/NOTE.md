@@ -9,8 +9,8 @@ pins, the formulation (F-at), the typings (F-H) and (F-S), and the assumptions a
 NATIVE-NONDIO's at `ab830621`, and those prefixed "M1" are NONDIO-M1's at `dac9ca3f`.
 
 Revision r2 answers the independent review of `b8cb9451` (#1509 c.7077843705, verdict REVISE).
-- R1: the classical reading of the joint-state ambiguity is narrowed to diagonal marginals. The
-  reviewer's pair with non-diagonal marginals is added as CX-F′.
+- R1: the classical reading of the joint-state ambiguity is restricted to CX-F's slice-order
+  states. The reviewer's pair with non-diagonal marginals is added as CX-F′.
 - R2: AW-3's attribution is corrected at each pin.
 - n1–n5 are applied.
 
@@ -399,7 +399,9 @@ Assignments that are not affine on non-normal visible inputs are NN M3.
 established partial results are these:
 - (F-S) is DIO-type on normal visible inputs, for every assignment with PROD;
 - it is DIO-type on all inputs for both slice orders;
-- the two slice-order states of diagonal marginals differ classically (CX-F); in general the
+- the two slice-order states of diagonal marginals are diagonal states and differ classically
+  (CX-F; their diagonality uses the identity σ_ωΔ = Δ_Vσ_ω for diagonal ω of MIO-M2's proof, and
+  its mirror for σ′_ρ); in general the
   non-uniqueness of joint states is not confined to the configuration algebra, whether the
   marginals are non-diagonal (CX-F′) or diagonal (CX-F″).
 
