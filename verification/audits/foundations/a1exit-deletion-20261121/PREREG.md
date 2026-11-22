@@ -7509,3 +7509,63 @@ before a freeze is requested. Every item must pass with no unexpected finding.
 
 For the same reason this correction carries no results subsection. Its battery and gate results are reported in the
 same way.
+
+#### 31.12.18 The release gate in the pre-freeze gate, and the duplicate-paragraph correction
+
+Two findings bear on the frozen plan `1ed13b8d`, both recorded on #1169. A local finding (comment 7083824379) and the
+diagnostic `verify.yml` run 45059499568 on the T0′ ref (comment 7084708435) each show the same failure:
+- *The failing step.* `tools/duplicate_check.py`, the release-gate step `duplicate`, fails on the real T0′ and T1′.
+  The cause is this PREREG: three results subsections carry the same "Not run here." paragraph, word for word.
+- *The rest of the run.* The other 21 release-gate steps and the other 40 jobs passed.
+- *A step not run.* "PRESERVE-INDUCT-1 axiom reports" was skipped after the gate failed. A skipped step is not a pass.
+
+§31.12.17's gate did not run the release gate, so it could not see this.
+
+The owner's decision is owner `amaybaum`, 2026-11-22T20:20:22Z,
+[#1169 comment 7085167425](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7085167425). Its
+correction item reads:
+
+> **PREREG correction.** Make the repeated "Not run here." paragraphs textually distinct with section-specific wording, keeping their meaning and every bullet. The already-distinct occurrence is left alone, and no unrelated file, fixture, ledger or checker is changed. The duplicate check is then confirmed locally to pass.
+
+Its gate item amends §31.12.17, as set out below, and it states: "A diagnostic run is not execution authorization.
+Each push and dispatch still needs its own approval."
+
+**Goal link (§A.47).** A1-EXIT (#1169): this subsection decides whether a candidate plan head passes every check that
+T0′'s and T1′'s workflows run, the release gate included, before a freeze is requested. It decides no execution
+question and authorizes no push or dispatch.
+
+**The correction.** It is made in place, as the owner directs.
+- §31.26's paragraph heading reads "Not run here (§31.26)." and §31.28's reads "Not run here (§31.28).".
+- Their bullets are unchanged.
+- §31.30's occurrence is left as it stands, as are §31.22's and §31.24's, whose bullets already differ.
+- No other line, file, fixture, checker, pinned file, edit or ledger entry changes, so §31.31's pins stay in force.
+- With the correction, `tools/duplicate_check.py` must report no repeated paragraph and no repeated heading, both in the
+  record directory and on the whole T0′ tree.
+
+**The gate, extended.** Items 1–5 of §31.12.17 are unchanged. After every change to a candidate plan, the following
+are added at the exact candidate head P.
+6. *The release gate on T0′.* `tools/release_gate.py` runs on a worktree of the real T0′ built from P, and the result
+   of each of its steps is recorded.
+7. *The release gate on the gate's T1′.* The real T1′ needs the PDFs of a T0′ run of this P, which does not exist
+   before T0′ is dispatched.
+   - The gate therefore builds a provisional T1′: T0′'s tree with the nine ledgered PDFs replaced by the CI-built PDFs
+     of the most recent accepted T0′ run, each checked against that run's retained digest.
+   - `tools/release_gate.py` runs on it, and the result of each step is recorded.
+   - The provisional T1′ is a commit object only. No ref names it, and it is never pushed or dispatched.
+   - The real T1′ is rebuilt from the new T0′ run's own PDFs once that run exists. Its PDFs are compared by hash with
+     the earlier run's, where identity is expected and is checked, not assumed.
+8. *The steps that cannot be decided locally* are named with their reason:
+   - `legacy-records`, `v3-corpus`, `v3-receipts` and `citation-roles` need full history;
+   - `lean-axioms` and the Lean checks need `lake`;
+   - and any other step that cannot run in the gate's environment.
+
+   Such a step is undecided, not passed. Its decision comes from item 9.
+9. *A CI diagnostic.* One `verify.yml` diagnostic run on the candidate T0′ ref is required before a freeze is
+   requested. In it the following must each conclude `success`: the release gate with every step passed, the Lean
+   kernel check, the Mathlib bridge build, and "PRESERVE-INDUCT-1 axiom reports".
+   - The push of that ref and the dispatch each need their own owner approval.
+   - The run is diagnostic only. It is not a T0′ or T1′ trial run and is not their evidence.
+10. *Review.* An independent review of the exact candidate head precedes any new freeze decision.
+
+The no-regress rule of §31.12.17 holds for items 6–10. Their results, the provisional T1′'s ids and the diagnostic
+run's ids are recorded outside the plan's record directory, and are never committed into the plan.
