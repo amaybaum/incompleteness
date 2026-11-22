@@ -1,8 +1,11 @@
 # G3-OFFDS: the off-de-Sitter horizon functional, temperature and exchange law
 
 **Standing.** Author record of a paper-only research unit (AGENTS.md §A.29, §A.31 depth-first
-form). WIP / UNVERIFIED: no independent non-author review yet. The preregistration `PLAN.md`
-(commit `bd8255f4`) was pushed before this record. The unit adopts no premise, runs no computation,
+form). WIP / UNVERIFIED. Independent non-author review at `96ffff23`: REVISE (#1545
+c.7076925155). This revision answers its findings 1–5 and nits 6–9. The preregistration `PLAN.md`
+(commit `bd8255f4`) was pushed before this record and is unchanged. The guiding PR's description
+predates this revision and is not updated, since PR-description writes are halted (owner, #1169
+c.7076910606). Where the two differ, this record governs. The unit adopts no premise, runs no computation,
 and edits no manuscript, Lean module, registry or shared record. Authorization, snapshot, sources,
 assumptions (A-…), decision rule and goal link are as in `PLAN.md`.
 
@@ -25,29 +28,40 @@ completion A-KH (imported, not adopted), the off-de-Sitter energy functional is 
 mass on the trapping (apparent) horizon, its temperature is GR:56's T_A, and it carries no exchange
 law because it describes the total (ρ, p) and no separate component. This selects R1 in its
 Misner–Sharp reading: the value E = R_A/(2G) is kept exactly off de Sitter, and R1's label T = H/2π
-is not kept. R2 and R3 contradict A-KH (§4). The selected completion has no dynamics: it fixes no
+is not kept. The selection holds only on that value reading, which `PLAN.md`'s definition of R1
+("which G3-HOM 2.1 identifies with the Misner–Sharp mass") admits. Read with its temperature label
+H/2π, R1 contradicts A-TA and A-KH, as G3-HOM Node 4 records. On that reading no candidate is
+consistent under A-KH, a case the decision rule's branches do not cover. R2 and R3 contradict A-KH
+(§4). The selected completion has no dynamics: it fixes no
 w(z) and no Λ_eff, and it makes the GR §7.2 identity the Friedmann constraint. So under A-KH the
 horizon budget supplies no separately gravitating homogeneous component, and the vacuum-energy
 question passes wholly to the native source (W1-0 with its stress).
 
 **Without A-KH, none is selected.** The corpus alone does not fix the off-de-Sitter functional
 (GR:56). Its native partition (GR:40, A-PART) is the event horizon, which A-KH does not use, and
-G3-HOM's R2/R3 counterexample stands. The minimal discriminating input is then the **temperature
-law on a non-Killing horizon together with the exchange law**. Under A-KH's surface-gravity
-function the surface drops out of the λS·T/V density (2.2). The surface is an independent input
-only under the T = 1/(2πR) law.
+G3-HOM's R2/R3 counterexample stands. Under the decision rule, the minimal discriminating input
+is **the temperature law on a non-Killing horizon, together with the surface in the T = 1/(2πR)
+branch only**. The Kodama–Hayward law separates R2 from R1 and R3 by itself. The 1/(2πR) law
+excludes R2, and the surface then separates R1 from R3. The exchange law is not needed to separate
+the candidates. It is needed to fix w(z) within R2 or R3 (3.3, 3.4), which is G3-HOM's
+missing-input sense. Off R_A, the Kodama–Hayward scalar κ(R) is a formal extension (2.2). If the
+law is taken to be defined on R_A only, specifying it fixes the surface as well, and the answer is
+the same. The preregistered primary outcome (selected, conditional on A-KH) is unchanged by this
+correction. Only the statement of the minimal discriminating input in the no-premise branch is
+corrected.
 
 | Item | Corpus alone | Under A-KH | Under A-CK |
 |---|---|---|---|
-| (a) functional and surface | MISSING (GR:56); partition = event horizon (GR:40), counted area = apparent horizon (GR:56) | Misner–Sharp mass on the trapping horizon R_A [L, W] | Matter flux through R_A; no state-function energy stated |
+| (a) functional and surface | MISSING (GR:56); partition = event horizon (GR:40), counted area = apparent horizon (GR:56) | Misner–Sharp mass on the trapping horizon R_A [L, W] | Matter flux through R_A; ∫T dS = R_A/G = 2S·T, a state function of the area [W] |
 | (b) temperature | Quoted value T_A at R_A (GR:56); its off-de-Sitter derivation is MISSING (GR:56, GR:58) | T_A = \|κ_KH\|/2π [L, W] | 1/(2πR_A) [L] |
 | (c) exchange law | MISSING; Type I and Type II are named alternatives (GR:382) | None: one conserved total (Kodama current) [L] | None stated |
 
 **Productivity test (§A.31): met.** Items (i), (ii) and (iii) of the test are each met by a fact
 stronger than G3-HOM Node 4's restatement: (i) R2 and R3 are excluded under A-KH (§4); (ii) the
 surface is shown not to be needed for the λS·T/V density under the Kodama–Hayward temperature law
-(2.2); (iii) the first-law energy off de Sitter is not a state function of the area, which GR:58's
-counting derivation assumes (1.4, §5).
+(2.2); (iii) GR:58's counting derivation assumes a state-function energy. Off de Sitter, the first-law
+energy is a state function of the area under the Cai–Kim temperature 1/(2πR_A), which contradicts
+GR:56's T_A, and is not one under the Kodama–Hayward temperature T_A (1.4, §5).
 
 ***
 
@@ -89,7 +103,7 @@ its area). In flat FLRW, with h = −dt² + a²dr²:
   S·T/E_MS(R_E) = 1/(HR_E)² = Ω_de. The attributed energy is the fraction Ω_de of the Kodama charge
   inside R_E, which restates R3's definition.
 
-**1.4 The first-law energy off de Sitter is not a state function of the area [W].** Hayward's
+**1.4 Under κ = κ_KH the first-law energy off de Sitter is not a state function of the area [W].** Hayward's
 unified first law projected along the trapping horizon reads (κ/8πG) dA = dE_MS − W dV with
 W = (ρ − p)/2 and κ < 0 for this horizon. In flat FLRW, per unit time:
 
@@ -104,8 +118,11 @@ Cai, PRD 75, 084003 (2007), hep-th/0609128, state). The corpus normalization dE 
   ∫ (|κ|/8πG) dA = (1/G) ∫ (1 − Ṙ_A/2) dR_A
 
 depends on the rate Ṙ_A along the history and not only on its endpoints. No function E(A) satisfies
-dE = |κ_KH| dA/(8πG) on all histories. On exact de Sitter (Ṙ_A = 0) the integral is R_A/G, which is
-GR:58's shell energy. Two corollaries:
+dE = |κ_KH| dA/(8πG) on all histories. On one exact de Sitter history dR_A = 0, and the integral
+vanishes. Taken quasi-statically over the family of de Sitter states from R = 0 to R_A, it is
+R_A/G, which is GR:58's shell energy. Under the Cai–Kim temperature 1/(2πR_A) instead,
+T dS = dR_A/G, and ∫T dS = R_A/G = 2S·T is a state function of the area off de Sitter, at the cost
+of a temperature H/2π that contradicts GR:56's T_A (A-TA). Two corollaries:
 
 - On exact de Sitter the corpus carries two different horizon energies: GR:58's first-law energy
   R/G and GR §7.2's S·T = R/(2G) = E_MS. Only the second is A-KH's conserved charge. (G3-HOM 3.3
@@ -158,8 +175,9 @@ temperature law.
   S = A/(4G), T dS = Ṙ_E dt/G = (HR_E − 1)dt/G. The law holds at t iff f(R_E) = 0, where
   f(R) = HḢR³ + HR − 1. With H, Ḣ fixed at t, f is a nonzero polynomial of degree at most 3, so it
   has at most three roots. Changing a(t′) only for t′ > t + Δ leaves H(t) and Ḣ(t) fixed and moves
-  R_E(t) continuously through an interval. So the law fails on an open set of flat-FLRW histories
-  with an event horizon. It is not an identity, and imposing it would be a new dynamical premise.
+  R_E(t) continuously through an interval. So, for each t and each fixed (H(t), Ḣ(t)), the law
+  fails for all but at most three values in an interval of R_E(t) values that flat-FLRW histories
+  with an event horizon realize. It is not an identity, and imposing it would be a new dynamical premise.
   This reproduces in elementary form the failure Wang, Gong and Abdalla report (PRD 74, 083520
   (2006), gr-qc/0511051). For related event-horizon thermodynamics, see Davies, CQG 5, 1349 (1988).
 
@@ -217,32 +235,53 @@ laws proportional to ρ_m, such as GR:382's Type I example Q = 3νHρ_dm. The co
 - R1: its value E = R_A/(2G) is E_MS(R_A), the Kodama charge on the trapping horizon, for every
   history (1.3). Consistent. Its label T = H/2π is replaced by T_A (2.1), and E ≠ S·T_A off de
   Sitter. As a separate component it contradicts Ω_B > 0 (G3-HOM 2.1; 3.2), so the consistent
-  reading is the total restated.
+  reading is the total restated. Read with its label T = H/2π, R1 contradicts A-TA and A-KH, and
+  this bullet then excludes it too.
 - R2: S·T_A ≠ E_MS off de Sitter, with deficit (3/4)(ρ + p)V_A (1.3), and S·T_A ≠ ∫T_A dS (1.4).
   It contradicts A-KH's energy.
 - R3: R_E is not the trapping horizon off de Sitter (2.3), T = 1/(2πR_E) is not the Kodama–Hayward
   surface gravity there (2.2), and S·T is not E_MS(R_E) (1.3). It contradicts A-KH's surface and
   temperature.
 
-Exactly one candidate is consistent. **Selected: R1 in its Misner–Sharp reading, conditional on
-A-KH.** It fixes no w(z) and no Λ_eff (G3-HOM 3.2).
+On R1's value reading, exactly one candidate is consistent. **Selected: R1 in its Misner–Sharp
+reading, conditional on A-KH.** On the label reading, none is consistent under A-KH. It fixes no w(z) and no Λ_eff (G3-HOM 3.2).
 
 **Under A-CK.** R1 is consistent with T = 1/(2πR_A). R3 fails the flux law on R_E (2.3). A-CK
 states no energy functional, so it does not decide R2's E = S·T_A. It narrows the field to R1 and R2
 but does not select, and this record does not rely on it.
 
 **Without a selection premise.** R2 and R3 each satisfy every listed input (G3-HOM Node 4), and
-nothing found here contradicts that. **None selected.** The minimal discriminating input is the
-temperature law on a non-Killing horizon together with the exchange law: under the Kodama–Hayward
-law the surface is irrelevant to the density (2.2), so surface and temperature are not independent
-inputs there, while Q changes R2's and R3's dynamics in every component reading (3.3, 3.4). The
-surface is a third independent input only under the 1/(2πR) law.
+nothing found here contradicts that. **None selected.** The minimal discriminating input, in the
+sense of the decision rule, is the temperature law on a non-Killing horizon, together with the
+surface in the T = 1/(2πR) branch only:
 
-**Exact classes excluded under A-KH (negative result).** Attributions ρ_x = λS·T/V of a uniformly
-spread horizon energy read as the horizon's first-law energy, with T ∈ {T_A, 1/(2πR)} on
-R ∈ {R_A, R_E}, are excluded in flat FLRW off exact de Sitter (none equals E_MS on an open time
-interval), except the value λ = 1 with T = 1/(2πR_A) on R_A, which equals E_MS and gives no
-component. Unconditionally (A-FLRW only): the Cai–Kim flux first
+- Kodama–Hayward law: every surface gives R2's density (2.2), so R1 and R3, which use 1/(2πR), are
+  excluded. Off R_A the law is a formal extension; read as defined on R_A only, it fixes the surface
+  too.
+- 1/(2πR) law: R2 is excluded, and the surface (R_A or R_E) separates R1 from R3.
+
+The exchange law is not needed to separate the candidates. It is needed to fix w(z) within R2 or
+R3 (3.3, 3.4).
+
+**Exact classes excluded under A-KH (negative result).** Fix λ = 1 (A-dS). Attributions
+ρ_x = S·T/V of a uniformly spread horizon energy, read as the horizon's first-law energy, are
+excluded in flat FLRW on any time interval with ε ≢ 0 when (R, T) is one of:
+
+- (R_A, T_A): S·T_A = E_MS(1 − ε/2);
+- (R_E, 1/(2πR_E)): equality needs HR_E = 1 on the interval, which forces ε = 0 (2.3);
+- (R_E, |κ(R_E)|/2π): S·T = E_MS(R_E)(1 − ε/2).
+
+The survivor is the value (R_A, 1/(2πR_A)), which equals E_MS and gives no component. Two readings
+are not excluded, and are outside the class:
+
+- λ ≠ 1, which fails A-dS but can equal E_MS off de Sitter: for example λ = 4/3 with T_A on R_A
+  on a ∝ t² (constant ε = 1/2), and generally λ(1 − ε/2) = 1 at constant ε = 2(1 − 1/λ).
+- "T_A on R_E" read as GR:56's value (H/2π)(1 − ε/2). Equality with E_MS(R_E) is
+  HR_E = 1 − ε/2. With Ṙ_E = HR_E − 1 this holds on an interval iff ε̇ = Hε(3 − ε), which has
+  solutions with ε ≠ 0, and the future expansion can be chosen to realize them (the freedom used in
+  2.3).
+
+Verified by hand for this revision. Unconditionally (A-FLRW only): the Cai–Kim flux first
 law with T = 1/(2πR_E) and S = A/(4G) on the event horizon is not an identity of flat FLRW (2.3).
 Under A-dS: exchange laws with Q ≠ 0 at ρ_m = 0 on de Sitter (3.5). These are not exclusions of
 R2 or R3 as phenomenological dark-energy models, which A-KH does not address, nor of attributions
@@ -252,10 +291,17 @@ outside the λS·T/V family or beyond spherical symmetry.
 
 - *Uniqueness of the energy.* Misner–Sharp is unique as the Kodama charge. Other quasi-local
   energies exist, such as Brown–York, which needs a reference embedding, and Padmanabhan's
-  Komar-type 2S·T. Under the Komar reading, 2S·T_A = (ρ − 3p)V/2 and 2S·(H/2π) = 2ρV each equal
-  |ρ + 3p|V only at w = −1. That is the known statement that holographic equipartition holds
-  exactly only in de Sitter (G3-HOM R6). So no alternative reading revives R2 or R3, but the
-  selection is conditional on A-KH's choice of the Kodama charge.
+  Komar-type 2S·T (Padmanabhan, Rep. Prog. Phys. 73, 046901 (2010), arXiv:0911.5004). Under the
+  Komar reading at constant w:
+  - 2S·T_A = (ρ − 3p)V/2 equals |ρ + 3p|V at w = −1 and w = −1/9;
+  - 2S·(H/2π) = 2ρV equals it at w = −1 and w = 1/3.
+
+  With the signed Komar energy (ρ + 3p)V, w = −1 is not a root, since ρ + 3p = −2ρ there; the
+  roots are w = −1/9 and w = 1/3 respectively. So the equipartition reading is an identity on
+  these constant-w (power-law) backgrounds, and in its absolute-value form also on de Sitter. It
+  is not an identity of flat FLRW. It is a condition on the total (ρ, p), G3-HOM's R6, and attributes no separate
+  component on any background, so it does not revive R2 or R3 as attributions. The selection
+  remains conditional on A-KH's choice of the Kodama charge.
 - *Spherical symmetry.* A-KH needs it. The homogeneous sector about one observer has it. The
   selection says nothing about inhomogeneous cuts.
 - *Agreement with G3-HOM's exclusion of R1 from the counterexample pair.* G3-HOM excluded R1 for its
@@ -278,8 +324,10 @@ outside the λS·T/V family or beyond spherical symmetry.
   first-law energy. By 1.4 that energy is path-dependent heat off de Sitter under A-KH, and the
   Kodama charge E_MS is not it (it is half of it on de Sitter). The ratio of rates along a history
   gives T = ε²|κ|/(8πGσ) formally, but the microcanonical step needs Ω_H(E) as a function of E. So
-  the off-de-Sitter extension of T_cl = T_micro needs a state-function energy that neither the corpus
-  nor A-KH supplies: W1-0, or a conserved quantity outside G3-W1's classes (G3-W1 §4, "not
+  under A-KH the off-de-Sitter extension of T_cl = T_micro needs a state-function energy that
+  neither the corpus nor A-KH supplies. The A-CK branch supplies one, E = ∫T dS = R_A/G (1.4), but
+  only with the temperature H/2π, which contradicts GR:56's T_A (A-TA). A consistent extension
+  therefore needs either a reason to set A-TA aside or a native state-function energy: W1-0, or a conserved quantity outside G3-W1's classes (G3-W1 §4, "not
   excluded"), for example a coarse-grained one. MISSING. This marker bears on every off-de-Sitter use
   of the calibration, including a₀ = cH/6 off de Sitter (G3-HOM 3.4).
 - **Partition against count (assumption-watch marker).** Off de Sitter, H-count's boundary count
@@ -328,4 +376,4 @@ One depth-first pass was made. A fixed point is not claimed. No branch needed a 
 | G3-HOM, G3-W1 and G3-CF records; GR and Structure lines at `D` | Support on `main` at `D` |
 | Kodama (1980); Misner–Sharp (1964); Hayward (1996, 1998); Hayward–Mukohyama–Ashworth (gr-qc/9810006); Akbar–Cai (2007); Cai–Kim (2005) | Standard results quoted [L] for A-KH and A-CK; the FLRW evaluations are re-derived here |
 | Cai–Cao–Hu (2009); arXiv:1411.6547; arXiv:1502.04235 | Literature on the apparent-horizon temperature; cited for the existence of the disagreement only |
-| Wang–Gong–Abdalla (PRD 2006; PLB 2005); Davies (1988); Pavón–Zimdahl (2005); Gao–Wu–Chen–Shen (2009); Li (2004); Hsu (2004); Padmanabhan (2010) | Literature on event-horizon thermodynamics and holographic models; each use is stated where it is made, and the formulas used are re-derived here |
+| Wang–Gong–Abdalla (PRD 2006; PLB 2005); Davies (1988); Pavón–Zimdahl (2005); Gao–Wu–Chen–Shen (2009); Li (2004), hep-th/0403127; Hsu, PLB 594, 13 (2004), hep-th/0403052; Padmanabhan, Rep. Prog. Phys. 73, 046901 (2010), arXiv:0911.5004 | Literature on event-horizon thermodynamics and holographic models; each use is stated where it is made, and the formulas used are re-derived here |
