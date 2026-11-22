@@ -4,16 +4,16 @@ import OIBridge.LiftAudit
 # The substratum-interface audit — the smallest faithful substrate-to-observer interface
 
 The preregistered pass of `SUBSTRATUM-INTERFACE-AUDIT.md`. One arrow, `𝒮 ⟶ T_obs(𝒮)`: a
-substratum carrying the manuscript substrate data, A1–A5 represented as stated or with their
+substratum carrying the manuscript substrate data, the finiteness predicate `A1` and A2–A5 represented as stated or with their
 parameters and A6 recorded as a gap, and the
 finite operational theory an embedded observer with read and write access to its visible
 configurations obtains from it, by sourcing theorems and by nothing else.
 
 * **Q1, faithful substrate representation** (Section A): `Substratum` is built from the kernel's
-  second-order rule `Rule`, its phase-space map `leapEquiv`, and lattice translations; A1, A2,
-  A5 are stated outright, A3 with the degree as a parameter and in family form, A4 with the gauge
+  second-order rule `Rule`, its phase-space map `leapEquiv`, and lattice translations; the finiteness predicate `A1`,
+  A2 and A5 are stated outright, A3 with the degree as a parameter and in family form, A4 with the gauge
   as a parameter; A6 is a gap and has no predicate. The manuscripts' discrete wave rule is an
-  instance, `waveSubstratum`, and satisfies A1–A5 as stated.
+  instance, `waveSubstratum`, and satisfies the finiteness predicate `A1` for a finite torus and a finite alphabet and A2–A5 as stated.
 * **Q2, observer sourcing** (Sections B, C, E): the write access, the read-write families at
   every level, generates the least architecture containing the exchanges, identified as
   `permClass`, the scaled partial permutation matrices, canonical by `permClass_le_of_exchanges`.
@@ -80,7 +80,7 @@ abbrev Conf : Type := 𝒮.ι → 𝒮.V × 𝒮.V
 /-- The dynamics `φ`: the phase-space map `(p, c) ↦ (c, F c − p)`. -/
 def φ : 𝒮.Conf ≃ 𝒮.Conf := leapEquiv 𝒮.R.F
 
-/-- **(A1) FINITENESS**: the configuration space is finite. -/
+/-- **FINITENESS**: the configuration space is finite. -/
 def A1 : Prop := Finite 𝒮.Conf
 
 /-- **(A2) DETERMINISM**: the dynamics is a bijection. -/
@@ -105,7 +105,7 @@ def A5 : Prop := ∀ c c' : 𝒮.ι → 𝒮.V, 𝒮.R.F (c + c') = 𝒮.R.F c +
 second-order form. -/
 theorem a2_every_substratum : 𝒮.A2 := 𝒮.φ.bijective
 
-/-- **A1 HOLDS UNDER FINITENESS OF THE SITES AND THE ALPHABET.** -/
+/-- **FINITENESS HOLDS FOR FINITELY MANY SITES AND A FINITE ALPHABET.** -/
 theorem a1_of_finite [Finite 𝒮.ι] [Finite 𝒮.V] : 𝒮.A1 := by
   show Finite 𝒮.Conf
   infer_instance
@@ -181,7 +181,7 @@ def waveSubstratum (α : ZMod q) : Substratum where
 
 variable (α : ZMod q)
 
-/-- **THE WAVE SUBSTRATUM SATISFIES A1** for a finite torus and alphabet. -/
+/-- **THE WAVE SUBSTRATUM HAS A FINITE CONFIGURATION SPACE** for a finite torus and alphabet. -/
 theorem waveSubstratum_A1 [NeZero L] [NeZero q] : (waveSubstratum d L q α).A1 := by
   show Finite ((Fin d → ZMod L) → ZMod q × ZMod q)
   infer_instance
@@ -766,7 +766,7 @@ section Observer
 variable (𝒮 : Substratum) [Fintype 𝒮.ι] [Fintype 𝒮.V] [DecidableEq 𝒮.V]
 
 /-- **THE OBSERVER THEORY OF A SUBSTRATUM**: the sourced theory on its configuration space,
-under the finiteness A1 supplies. -/
+for finitely many sites and a finite alphabet. -/
 noncomputable abbrev obsTheory : FiniteOperationalTheory 𝒮.Conf :=
   permTheory 𝒮.Conf
 
@@ -782,7 +782,7 @@ theorem obsTheory_rule_independent (ι V : Type) [DecidableEq ι] [AddCommGroup 
     obsTheory { ι := ι, V := V, R := R } = obsTheory { ι := ι, V := V, R := R' } := rfl
 
 omit [DecidableEq 𝒮.V] in
-/-- **A1 FOR THE OBSERVER THEORY'S SUBSTRATUM.** -/
+/-- **FINITENESS FOR THE OBSERVER THEORY'S SUBSTRATUM.** -/
 theorem obs_a1 : 𝒮.A1 := Substratum.a1_of_finite 𝒮
 
 /-- **SOURCING — THE SUBSTRATUM'S OWN UPDATE IS AVAILABLE** at every level, the ancilla a

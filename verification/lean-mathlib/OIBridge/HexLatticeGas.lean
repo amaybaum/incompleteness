@@ -34,7 +34,7 @@ configurations, `(ρ·c) (ρ i) (k + 1) = c i k`.
 
 ## The targets, and what each is read as
 
-* **`HB0` — the A-profile, and the sector** (Sections B, D). `hexSubstratum L` satisfies `A1`,
+* **`HB0` — the A-profile, and the sector** (Sections B, D). `hexSubstratum L` satisfies the finiteness predicate `A1`,
   `A2`, `A3 6` and `A4Exact` (`hexSubstratum_A1`, `hexSubstratum_A2`, `hexSubstratum_A3`,
   `hexSubstratum_A4Exact`, with `hexSubstratum_A4` the gauge form `A4 ⊥`), and **fails `A5` by
   construction**: for the witness `c` = one particle in channel `0` at the origin, `c'` = one in
@@ -103,7 +103,7 @@ HD, HC, HI or HO reading above is a reading for the candidate, in the class it l
 says OI yields Navier–Stokes**: a lattice gas with the right conservation laws and stencil is not
 a hydrodynamic limit, and the candidate is not shown to be selected by OI. **Nothing here is a
 continuum statement**: no PDE limit is asserted and no scaling map is fixed beyond the field lift.
-**No timescale separation is asserted.** **Nothing here changes A1–A6 or their status**; H-A's
+**No timescale separation is asserted.** **Nothing here changes the substratum conditions or their status**; H-A's
 findings stand as stated for the wave representative, and the candidate's A5 failure is not a
 criticism of the manuscripts' linear rule. **Nothing about `d = 3`.** No manuscript is edited.
 -/
@@ -308,7 +308,7 @@ theorem hexSubstratum_N (i : Fin 2 → ZMod L) :
     (hexSubstratum L).R.N i = Finset.univ.image fun k : Fin 6 => i + fun j => (hexDir k j : ZMod L) :=
   rfl
 
-/-- **`HB0-a` — A1**: the configuration space is finite. -/
+/-- **`HB0-a` — the finiteness predicate `A1`**: the configuration space is finite. -/
 theorem hexSubstratum_A1 : (hexSubstratum L).A1 := by
   show Finite ((Fin 2 → ZMod L) → (Fin 6 → ZMod 2) × (Fin 6 → ZMod 2))
   infer_instance

@@ -34,7 +34,7 @@ operational interface, and the countermodel to the generator reading.
 * T4, the generator reading: the substratum theory has the gate of every involution available at
   time one at every level and executes its flow at no level when the involution moves a
   configuration (`avail_one_not_layerFlowExecutable`); the observer theory of every substratum
-  has its swap layer available at time one and executes its flow at no level when the swap layer
+  with finitely many sites and a finite alphabet has its swap layer available at time one and executes its flow at no level when the swap layer
   moves a configuration (`obs_swap_avail_one_not_layerFlowExecutable`).
 
 Not claimed: that the wave-operator lift on the amplitude space is or is not derivable, or that a
