@@ -27,7 +27,7 @@ Usage (from the repository root):
                                                               child of the ledger base (PREREG §31.12.7, §31.12.8);
                                                               with --run-meta-redacted COPY, a retained redacted copy
                                                               must keep its fields and types and verdict (§31.12.13)
-  python3 -I -B .../preserve_check.py --expect-trial T0|T1 --run-out OUT --plan P [--jobs JOBS.json] [--built DIR]
+  python3 -I -B .../preserve_check.py --expect-trial T0|T1 --run-out OUT --plan P --jobs JOBS.json --built DIR
                                                               a trial run's outputs against the expected result of
                                                               PREREG §31.12.13: B1's PDF findings, the expected skips
   python3 -I -B .../preserve_check.py --expect-verify JOBS.json --plan P
@@ -748,6 +748,8 @@ def verify_redacted(orig, copy, res, ledger_base, workflow_base, main_rev, plan_
         elif type(copy[k]) is not type(orig[k]) or copy[k] != orig[k]:
             bad.append('redacted copy changes %s: %r (%s) in the original, %r (%s) in the copy'
                        % (k, orig[k], type(orig[k]).__name__, copy[k], type(copy[k]).__name__))
+    if not _has_email(orig):
+        bad.append('the original run record carries no email field, so it is not the host\'s original record')
     if _has_email(copy):
         bad.append('redacted copy still carries an email field')
     elif copy != redact_run(orig):
@@ -781,9 +783,35 @@ def pdf_finding_kind(x, pdfs):
 
 
 def _jobs(rec):
-    """Jobs of a host jobs record: GET .../runs/{id}/jobs saved whole ({'jobs': [...]}) or a list of jobs."""
-    j = rec.get('jobs') if isinstance(rec, dict) else rec
-    return j if isinstance(j, list) and all(isinstance(x, dict) for x in j) else None
+    """Jobs of a complete host jobs record (§31.12.14, R6): GET .../runs/{id}/jobs?per_page=100 saved whole, every page
+    concatenated when total_count exceeds 100. The record must be a JSON object whose integer total_count equals the
+    number of its jobs; each job carries a unique integer id and a non-empty steps list. Otherwise (a partial page, a
+    bare list, a job without steps or listed twice) None."""
+    if not isinstance(rec, dict):
+        return None
+    j, n = rec.get('jobs'), rec.get('total_count')
+    if type(n) is not int or not isinstance(j, list) or len(j) != n or not all(isinstance(x, dict) for x in j):
+        return None
+    ids = [x.get('id') for x in j]
+    if not all(type(i) is int for i in ids) or len(set(ids)) != len(ids):
+        return None
+    if not all(isinstance(x.get('steps'), list) and x['steps'] and all(isinstance(s, dict) for s in x['steps']) for x in j):
+        return None
+    return j
+
+
+def _jobs_why(rec):
+    if not isinstance(rec, dict):
+        return 'not a JSON object with total_count and jobs'
+    j, n = rec.get('jobs'), rec.get('total_count')
+    if type(n) is not int:
+        return 'total_count %r missing or not an integer' % (n,)
+    if not isinstance(j, list) or len(j) != n:
+        return 'incomplete: %s jobs for total_count %d' % (len(j) if isinstance(j, list) else None, n)
+    ids = [x.get('id') if isinstance(x, dict) else None for x in j]
+    if not all(type(i) is int for i in ids) or len(set(ids)) != len(ids):
+        return 'job ids missing, not integers or not unique'
+    return 'a job without steps'
 
 
 def expect_trial(kind, res, reports, pdfs, jobs=None, built=None):
@@ -827,9 +855,13 @@ def expect_trial(kind, res, reports, pdfs, jobs=None, built=None):
             bad.append('tree report: no PDF comparison check')
         if n != 'tree' and r.get('verdict') != 'pass':
             bad.append('report %s verdict %r, not pass' % (n, r.get('verdict')))
-    if jobs is not None:
+    if jobs is None:
+        bad.append('host jobs record not supplied (--jobs): the host step conclusions are unchecked')
+    else:
         js = _jobs(jobs)
-        if not js or len(js) != 1:
+        if js is None:
+            bad.append('host jobs record rejected: %s' % _jobs_why(jobs))
+        elif len(js) != 1:
             bad.append('host jobs record: not exactly one job')
         else:
             seen = set()
@@ -845,10 +877,15 @@ def expect_trial(kind, res, reports, pdfs, jobs=None, built=None):
             want = 'failure' if t0 else 'success'
             if js[0].get('conclusion') != want:
                 bad.append('host job conclusion %s, expected %s' % (js[0].get('conclusion'), want))
-    if built is not None:
+    if built is None:
+        bad.append('artifact not supplied (--built): the uploaded PDFs are unchecked')
+    else:
         for p in sorted(pdfs):
-            if not os.path.isfile(os.path.join(built, p)):
+            f = os.path.join(built, p)
+            if not os.path.isfile(f):
                 bad.append('%s: not in the uploaded artifact' % p)
+            elif not open(f, 'rb').read(4) == b'%PDF':
+                bad.append('%s: in the uploaded artifact, but empty or not a PDF' % p)
     return bad
 
 
@@ -856,8 +893,8 @@ def expect_verify(jobs):
     """PREREG §31.12.13: T1′'s verify.yml run, workflow_dispatch: every job and step succeeds, except the skips listed
     in VERIFY_SKIPS, each of which must conclude as listed."""
     js = _jobs(jobs)
-    if not js:
-        return ['host jobs record missing or malformed']
+    if js is None:
+        return ['host jobs record rejected: %s' % _jobs_why(jobs)]
     bad, seen = [], set()
     for j in js:
         if j.get('conclusion') != 'success':
@@ -1156,9 +1193,12 @@ def self_test(led, base_files, plan):
         for name, copy, want in (
                 ('a copy that drops head_sha', {k: v for k, v in red.items() if k != 'head_sha'}, 'lacks head_sha'),
                 ('a copy whose id is the string "1"', dict(red, id='1'), 'changes id'),
-                ('a copy that keeps an e-mail field', dict(red, head_commit=orig['head_commit']), 'still carries an email field')):
+                ('a copy that keeps an e-mail field', dict(red, head_commit=orig['head_commit']), 'still carries an email field'),
+                ('R6 audit: a copy that is not an object', None, 'not a JSON object')):
             expect(any(want in x for x in verify_redacted(orig, copy, ok_run, lb, WORKFLOW_BASE, WORKFLOW_BASE, PL)),
                    'redacted host record void: %s ("%s")' % (name, want))
+        expect(any('not the host\'s original record' in x for x in verify_redacted(red, red, ok_run, lb, WORKFLOW_BASE, WORKFLOW_BASE, PL)),
+               'redacted host record void: R6 audit: the copy given as the original ("not the host\'s original record")')
         expect(not verify_run(ok_run, dict(red, id='1'), lb, WORKFLOW_BASE, WORKFLOW_BASE, PL),
                'redacted host record: verify_run alone accepts the string id, so the type check is needed')
     else:
@@ -1183,23 +1223,28 @@ def self_test(led, base_files, plan):
     if rep:
         import copy as _copy
         p8 = set(rep['t0'][0]['pdf_pages'])
-        t1jobs = ci['runs'][0]['jobs']
+        # a jobs record as the host serves it with ?per_page=100 (§31.12.14): total_count and every job
+        t1jobs = {'total_count': len(ci['runs'][0]['jobs']), 'jobs': ci['runs'][0]['jobs']}
         t0jobs = _copy.deepcopy(t1jobs)
-        t0jobs[0]['conclusion'] = 'failure'
-        for s in t0jobs[0]['steps']:
+        t0jobs['jobs'][0]['conclusion'] = 'failure'
+        for s in t0jobs['jobs'][0]['steps']:
             s['conclusion'] = T0_HOST.get(s['name'], 'success')
+        bdir = tempfile.mkdtemp(prefix='a1exit-built-')
+        for p in p8:
+            os.makedirs(os.path.dirname(os.path.join(bdir, p)), exist_ok=True)
+            open(os.path.join(bdir, p), 'wb').write(b'%PDF-1.5 fixture\n')
         tree_pdf = [c for c in rep['t0'][1]['tree']['checks'] if c['name'] == PDF_CHECK]
         expect(len(tree_pdf) == 1 and any(pdf_finding_kind(x, p8) == 'pages' for x in tree_pdf[0]['discrepancies'])
-               and not expect_trial('T0', rep['t0'][0], rep['t0'][1], p8, t0jobs),
+               and not expect_trial('T0', rep['t0'][0], rep['t0'][1], p8, t0jobs, bdir),
                'expect-trial: T0\'s real evidence, with the Structure page-count finding, is expected under the T0 rule (B1)')
-        expect(not expect_trial('T1', rep['t1'][0], rep['t1'][1], p8, t1jobs),
+        expect(not expect_trial('T1', rep['t1'][0], rep['t1'][1], p8, t1jobs, bdir),
                'expect-trial: T1\'s real evidence is expected under the T1 rule')
 
-        def t0mut(name, change, want, kind='T0', src='t0', jobs=None):
+        def t0mut(name, change, want, kind='T0', src='t0', jobs=None, built=True):
             res, reps = _copy.deepcopy(rep[src])
             jb = _copy.deepcopy(jobs if jobs is not None else (t0jobs if kind == 'T0' else t1jobs))
             change(res, reps, jb)
-            b = expect_trial(kind, res, reps, p8, jb)
+            b = expect_trial(kind, res, reps, p8, None if jobs == 'none' else jb, bdir if built else None)
             expect(any(want in x for x in b), 'expect-trial deviation: %s ("%s")' % (name, want))
 
         def pdfc(reps):
@@ -1228,18 +1273,35 @@ def self_test(led, base_files, plan):
         t0mut('skips: guards failing instead of skipped', lambda r, p, j: r['steps']['guards'].update(outcome='failure'),
               'step guards: failure, expected skipped')
         t0mut('skips: the upload step not succeeding',
-              lambda r, p, j: [s.update(conclusion='skipped') for s in j[0]['steps'] if s['name'].startswith('Upload')],
+              lambda r, p, j: [s.update(conclusion='skipped') for s in j['jobs'][0]['steps'] if s['name'].startswith('Upload')],
               'an unexpected skip')
-        vjobs = ci['runs'][1]['jobs']
-        expect(not expect_verify(vjobs), 'expect-verify: T1\'s real verify.yml record, the KTRANS-SEP-2 marker skipped, is expected')
+        # R6 (§31.12.14): a missing host record or artifact, and the built PDFs themselves
+        t0mut('R6: --expect-trial without --jobs', lambda r, p, j: None, 'host jobs record not supplied', jobs='none')
+        t0mut('R6: --expect-trial without --built', lambda r, p, j: None, 'artifact not supplied', built=False)
+        t0mut('R6: the trial jobs record without total_count', lambda r, p, j: j.pop('total_count'), 'total_count None missing')
+        bad_pdf = sorted(p8)[0]
+        open(os.path.join(bdir, bad_pdf), 'wb').write(b'')
+        t0mut('R6: an empty built PDF', lambda r, p, j: None, 'empty or not a PDF')
+        shutil.rmtree(bdir, ignore_errors=True)
+        vjobs = {'total_count': len(ci['runs'][1]['jobs']), 'jobs': ci['runs'][1]['jobs']}
+        expect(not expect_verify(vjobs) and vjobs['total_count'] == 41,
+               'expect-verify: T1\'s real verify.yml record (41 jobs), the KTRANS-SEP-2 marker skipped, is expected')
         for name, change, want in (
-                ('the marker step succeeding', lambda j: [s.update(conclusion='success') for x in j for s in x['steps']
+                ('the marker step succeeding', lambda j: [s.update(conclusion='success') for x in j['jobs'] for s in x['steps']
                                                           if s['name'].startswith('KTRANS-SEP-2 marker')], 'expected skipped'),
-                ('another step skipped', lambda j: j[0]['steps'][1].update(conclusion='skipped'), 'an unexpected skip'),
-                ('a job skipped', lambda j: j[2].update(conclusion='skipped'), 'expected success')):
+                ('another step skipped', lambda j: j['jobs'][0]['steps'][1].update(conclusion='skipped'), 'an unexpected skip'),
+                ('a job skipped', lambda j: j['jobs'][2].update(conclusion='skipped'), 'expected success'),
+                ('R6: the default page, 30 of 41 jobs', lambda j: j.update(jobs=j['jobs'][:30]), 'incomplete: 30 jobs for total_count 41'),
+                ('R6: the record without total_count', lambda j: j.pop('total_count'), 'total_count None missing'),
+                ('R6: one job removed, total_count kept', lambda j: j['jobs'].pop(5), 'incomplete: 40 jobs for total_count 41'),
+                ('R6 audit: a job listed twice, total_count raised',
+                 lambda j: (j['jobs'].append(_copy.deepcopy(j['jobs'][0])), j.update(total_count=42)), 'not unique'),
+                ('R6 audit: a job\'s steps removed', lambda j: j['jobs'][3].update(steps=[]), 'a job without steps')):
             vj = _copy.deepcopy(vjobs)
             change(vj)
             expect(any(want in x for x in expect_verify(vj)), 'expect-verify deviation: %s ("%s")' % (name, want))
+        expect(any('not a JSON object with total_count' in x for x in expect_verify(_copy.deepcopy(vjobs['jobs']))),
+               'expect-verify deviation: R6: a bare list of jobs ("not a JSON object with total_count")')
     d3 = tempfile.mkdtemp(prefix='a1exit-res-')
     try:
         doc = write_result(os.path.join(d3, 'r.json'), 'self-test', {'plan': None},
@@ -1406,7 +1468,7 @@ def main():
                 try:
                     jobs = json.load(open(a.jobs, encoding='utf-8'))
                 except (OSError, ValueError):
-                    jobs = []
+                    jobs = 'unreadable'
             eb = expect_trial(a.expect_trial, res, reps, {t[:-4] + '.pdf' for t in TEX}, jobs, a.built)
             label = 'expected result of %s′ (PREREG §31.12.13)' % a.expect_trial
         else:
