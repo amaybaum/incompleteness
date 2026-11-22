@@ -244,7 +244,7 @@ laws proportional to ρ_m, such as GR:382's Type I example Q = 3νHρ_dm. The co
   temperature.
 
 On R1's value reading, exactly one candidate is consistent. **Selected: R1 in its Misner–Sharp
-reading, conditional on A-KH.** On the label reading, none is consistent under A-KH. It fixes no w(z) and no Λ_eff (G3-HOM 3.2).
+reading, conditional on A-KH.** On the label reading, none is consistent under A-KH. The selected completion fixes no w(z) and no Λ_eff (G3-HOM 3.2).
 
 **Under A-CK.** R1 is consistent with T = 1/(2πR_A). R3 fails the flux law on R_E (2.3). A-CK
 states no energy functional, so it does not decide R2's E = S·T_A. It narrows the field to R1 and R2
@@ -265,14 +265,18 @@ R3 (3.3, 3.4).
 
 **Exact classes excluded under A-KH (negative result).** Fix λ = 1 (A-dS). Attributions
 ρ_x = S·T/V of a uniformly spread horizon energy, read as the horizon's first-law energy, are
-excluded in flat FLRW on any time interval with ε ≢ 0 when (R, T) is one of:
+excluded in flat FLRW on any time interval on which ε ≢ 0, and for the first and third pairs also
+ε ≢ 4, when (R, T) is one of:
 
-- (R_A, T_A): S·T_A = E_MS(1 − ε/2);
+- (R_A, T_A): S·T_A = E_MS|1 − ε/2|, equal to E_MS iff ε ∈ {0, 4};
 - (R_E, 1/(2πR_E)): equality needs HR_E = 1 on the interval, which forces ε = 0 (2.3);
-- (R_E, |κ(R_E)|/2π): S·T = E_MS(R_E)(1 − ε/2).
+- (R_E, |κ(R_E)|/2π): S·T = E_MS(R_E)|1 − ε/2|, equal to E_MS(R_E) iff ε ∈ {0, 4}.
 
-The survivor is the value (R_A, 1/(2πR_A)), which equals E_MS and gives no component. Two readings
+The survivor is the value (R_A, 1/(2πR_A)), which equals E_MS and gives no component. Three cases
 are not excluded, and are outside the class:
+
+- ε ≡ 4 on the interval (w_tot = 5/3, a ∝ t^{1/4}) for (R_A, T_A) and (R_E, |κ(R_E)|/2π), where
+  |1 − ε/2| = 1. A-FLRW does not exclude it; it lies outside §2.2's domain w_tot ≤ 1/3.
 
 - λ ≠ 1, which fails A-dS but can equal E_MS off de Sitter: for example λ = 4/3 with T_A on R_A
   on a ∝ t² (constant ε = 1/2), and generally λ(1 − ε/2) = 1 at constant ε = 2(1 − 1/λ).
@@ -281,7 +285,7 @@ are not excluded, and are outside the class:
   solutions with ε ≠ 0, and the future expansion can be chosen to realize them (the freedom used in
   2.3).
 
-Verified by hand for this revision. Unconditionally (A-FLRW only): the Cai–Kim flux first
+Unconditionally (A-FLRW only): the Cai–Kim flux first
 law with T = 1/(2πR_E) and S = A/(4G) on the event horizon is not an identity of flat FLRW (2.3).
 Under A-dS: exchange laws with Q ≠ 0 at ρ_m = 0 on de Sitter (3.5). These are not exclusions of
 R2 or R3 as phenomenological dark-energy models, which A-KH does not address, nor of attributions
