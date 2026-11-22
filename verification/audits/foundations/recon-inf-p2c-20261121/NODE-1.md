@@ -19,7 +19,7 @@ relative to `verification/lean-mathlib/OIBridge/` at that commit. Design section
 **What was read.** Sub:121–173, Main:526–562, Main:614–650, SM:64–68, SM:220–244, Main:292–298 and
 NR-1 §2 (NR-1:69–121), with the lines those passages cite where a statement below depends on them
 (Sub:94, :98; Main:54, :736 items (viii) and (xiii); SM:106; `Equivalence.lean`:150–156, :422;
-`SubstratumInterfaceAudit.lean`:87–102; `WaveSubstratumUnbounded.lean`:45–58).
+`SubstratumInterfaceAudit.lean`:87–102, :185–211; `WaveSubstratumUnbounded.lean`:45–58).
 
 **Labels.** Established / Assumed / Missing, as the task requires; (N) native, (I) imported, as
 design §0 defines them. A relation not yet proved carries no (N)/(I) label; its entry names what a
@@ -38,7 +38,9 @@ These definitions instantiate design §2.3 and are used by every relation in §5
 
 - **Carrier.** `A = ℤ_q`, `q ≥ 2`. Setting (Z): `Λ = ℤ³`. Setting (F): `Λ = ℤ³/P_lat`, `P_lat` a
   finite-index sublattice with side at least 3 and the wrapping conditions each use states
-  (Sub:98; SM:222). `Ω = (A²)^Λ`, a site carrying the pair `(p, c)` (previous, current).
+  (Sub:98; SM:222). For a sublattice that is not cubic, "side at least 3" is read as: every nonzero
+  vector of `P_lat` has ℓ¹-norm at least 3. Under this reading the sites `i ± e_j` are distinct from
+  `i` and from one another, which the no-self-input reading and the return count of §5.4 use. `Ω = (A²)^Λ`, a site carrying the pair `(p, c)` (previous, current).
 - **Dynamics.** `Φ_{q,α}(p, c) = (c, αSc − p)`, `S` the nearest-neighbour sum (Sub:159; SM:224;
   NR-1:75, which also displays `Φ^{-1}(u, v) = (v, αSv − u)` with `u` current, `v` previous).
   Main:296 is the instance `q = 2`, `α = 1`, with `(u, v) = (c, p)`.
@@ -97,7 +99,10 @@ homomorphism is a function. For an (R-coord) map, viewing it in (R-lin) with the
 complement as `K'` gives the same split; another `K'` is a separate run (design §2.3). As sets of
 laws, (Π-H) ⊂ (Π-prod) ⊂ (Π-joint), (Π-W,β) ⊂ (Π-W) ⊂ (Π-joint) and (Π-β) ⊂ (Π-joint). (Π-prod)
 and (Π-W) coincide when `X_V` is all of `W`'s phase coordinates (then `g` is the identity of `G_W`
-and `λ_W = ι_* P_0` is forced); otherwise neither contains the other.
+and `λ_W = ι_* P_0` is forced). Otherwise, for `P_0` not a point mass, neither contains the other;
+for `P_0` a point mass, (Π-W) ⊂ (Π-prod) (the window law is then `δ_a` on the visible coordinates
+times a law on the rest of the window, and its product with `ν` is a law on `H_r`; under (R-lin)
+the same through `Θ`).
 
 **Finding for (i).** Every lattice readout in the passages read that is used for the M1-T temporal
 sector is of one kind: (R-coord) with `X_V` the full phase state of the window. No passage read uses
@@ -114,17 +119,20 @@ spatial lattice, or a genuinely non-linear readout. SM:242's observer projection
 | Class | Value count of one map `r` | Maximum over the class at `(q, W)` | Attained by |
 |---|---|---|---|
 | (R-coord), `|X_V| = k`, `1 ≤ k ≤ 2w` | `q^k` | `q^{2w}` | `X_V` all of `W` |
-| (R-lin) | `|im h| = q^{2w} / |ker h|`, a divisor of `q^{2w}` (Lagrange) | `q^{2w}` | `h` the identity, `ker h = 0`, `K' = G_W` |
+| (R-lin) | `|im h| = |K'|`, the order of a direct summand of `G_W` | `q^{2w}` | `h` the identity, `ker h = 0`, `K' = G_W` |
 | (R-nl) | `|im g| ≤ |G_W| = q^{2w}`; every value `1, …, q^{2w}` occurs | `q^{2w}` | `g` injective |
 
 **Counting rule, applied.** For a target `P` with `n = |C_V|`, at alphabet `q` and window `W`:
 - a single readout map is excluded by counting iff its value count is below `n`;
 - each class is excluded by counting iff `q^{2w} < n`. The threshold is the same for all three
   classes, since each contains a map with `q^{2w}` values; the classes differ only in which value
-  counts below the maximum their maps take (powers `q^k` for (R-coord); divisors of `q^{2w}` for
-  (R-lin), powers of `q` when `q` is prime; every count for (R-nl)).
+  counts below the maximum their maps take (powers `q^k` for (R-coord); orders of direct summands of
+  `G_W` for (R-lin), powers of `q` when `q` is a prime power; every count for (R-nl)).
 - The least window that no class is excluded on is the least `w` with `q^{2w} ≥ n`; for `n ≤ q²`
   it is a single site.
+- Counting is a necessary condition for an injective labelling only. A map or class not excluded by
+  counting is not thereby shown to realize the target: meeting the count says nothing about whether
+  J2 or any other relation holds.
 
 **Per target family.** The counting depends on a target only through `n = |C_V|`. It therefore
 excludes individual targets, never a family as such: for (𝒫-rat), (𝒫-Q) and (𝒫-mem) alike, a target
@@ -133,16 +141,22 @@ its count is below `n`. (𝒫-mem) needs `n ≥ 2`, since `M_t > 0` requires a n
 variable; `n = 1` targets are excluded by no class.
 
 **Hand counts for the design's Node 4a families** (a qubit, `n = 2`, and a qutrit, `n = 3`,
-observed in a fixed basis; design Node 4a, "Target families"):
+observed in a fixed basis; design Node 4a, "Target families"). Observed projectively at every step,
+with a fixed unitary `U` between readings, these laws are Markov: after a reading the state is a basis
+vector, so `P(x_{k+1} = j | x_{≤k}) = |U_{ji}|²` whatever the past, and `M_t = 0` at every order.
+They therefore lie in (𝒫-Q) and not in (𝒫-mem), and are not M1-T inputs of the kind Q concerns;
+design Node 4a lists them beside the memory-bearing laws of the Main §3.4 probes. The table checks
+only value counts against the listed readouts. It shows that no listed map is excluded by counting
+except `c|_W` for the qutrit at `q = 2`; it shows nothing about realization:
 
 | `q` | `w` | `c|_W` alone: `q^w` | Class maximum `q^{2w}` | Qubit (`n = 2`) | Qutrit (`n = 3`) |
 |---|---|---|---|---|---|
-| 2 | 1 | `2^1 = 2` | `2^2 = 4` | every class meets (`4 ≥ 2`); `c|_W` meets (`2 ≥ 2`) | every class meets (`4 ≥ 3`); `c|_W` excluded by counting (`2 < 3`) |
-| 2 | 2 | `2^2 = 4` | `2^4 = 16` | all meet | all meet (`4 ≥ 3`, `16 ≥ 3`) |
-| 3 | 1 | `3^1 = 3` | `3^2 = 9` | all meet | all meet (`3 ≥ 3`, `9 ≥ 3`) |
+| 2 | 1 | `2^1 = 2` | `2^2 = 4` | no class excluded (`4 ≥ 2`); `c|_W` not excluded (`2 ≥ 2`) | no class excluded (`4 ≥ 3`); `c|_W` excluded by counting (`2 < 3`) |
+| 2 | 2 | `2^2 = 4` | `2^4 = 16` | none excluded | none excluded (`4 ≥ 3`, `16 ≥ 3`) |
+| 3 | 1 | `3^1 = 3` | `3^2 = 9` | none excluded | none excluded (`3 ≥ 3`, `9 ≥ 3`) |
 
 The corpus instance Main:294–298 (`q = 2`, full window readout) has `2^{2|R|}` values: 4 at
-`|R| = 1`, enough for both families. At `q = 2` no (R-coord) or (R-lin) map has exactly 3 values
+`|R| = 1`, so neither family is excluded by counting there. At `q = 2` no (R-coord) or (R-lin) map has exactly 3 values
 (its counts are powers of 2), so a qutrit target under these classes always leaves readout values
 outside `ι(C_V)`, which the realized law must avoid at every time `0, …, K`; that is a constraint
 for Nodes 4–5, not an exclusion by counting.
@@ -201,7 +215,10 @@ Standing: Established (N), elementary group theory, subject to review (M1).
 
 (b) If moreover `Ω_F = Y × H` with `r = pr_Y` and `λ = ι_* P_0 ⊗ ν`, then `b` can be chosen with
 `b(ι(x), h) = (x, j(h))` for one injective `j : H → C_H`, and then `b_* λ = P_0 ⊗ j_* ν`: the
-hidden prior is independent of the visible initial state.
+hidden prior is independent of the visible initial state. The product form is that of the posited
+preparation class (Π-H) or (Π-prod), carried through the bijection `b`: it is inherited from the
+hypothesis on `λ`, not produced by the dynamics, and it is not a physically sourced preparation
+(Main:648).
 
 *Proof.* (a) Choose `κ : Y → C_V` with `κ ∘ ι = id` (arbitrary on `Y ∖ ι(C_V)`). The fibres
 `G_x = (κ ∘ r)^{-1}(x)`, `x ∈ C_V`, partition `Ω_F`; let `a_x = |G_x|` and `c = max_x a_x`, and put
@@ -217,7 +234,8 @@ bijection of `Ω'`. Each `G_x ⊔ I_x` has `c` elements, so choose bijections
 (b) Here `G_x ⊇ {ι(x)} × H` for every `x`, so `c ≥ |H|`; fix an injection `j : H → C_H`. The map
 `(ι(x), h) ↦ (x, j(h))` is injective from `{ι(x)} × H` into `{x} × C_H`; a partial injection
 between finite sets of equal size `c` extends to a bijection (the counting step of Main:530,
-`exists_perm_extending` in `Equivalence.lean`), so `b_x` can be chosen extending it. Then
+`exists_perm_extending` in `Equivalence.lean`:60, composed with a fixed bijection
+`G_x ⊔ I_x → {x} × C_H`), so `b_x` can be chosen extending it. Then
 `b_*(ι_* P_0 ⊗ ν)(x, j(h)) = P_0(x) ν(h)`, which is `P_0 ⊗ j_* ν`. `□`
 
 *Consequences used below.* Under (ex), `P' = P`; under (ε), `TV(P', P) ≤ ε`, and the realization is
@@ -231,19 +249,23 @@ readout with a general preparation is compared with J0-joint.
 
 ### 4.3 The implications of design §2.5, row by row
 
+Under (ex) the J1 ⇒ J0 rows below give J0 for `P`. Under (ε) they give J0 for the realized law
+`P' = ι^{-1}_* L`, with `TV(P', P) ≤ ε`, not for `P` (§4.2, consequences); since J0 holds for every
+finite-horizon law (Main:528; `S_imp_D`), this costs nothing for J0 itself.
+
 | Design §2.5 row | Witness after Node 1 | Standing |
 |---|---|---|
-| J3 ⇒ J2 ⇒ J1 ⇒ J1⁰ | Class inclusion (§2 nesting; §5 statements) with the same readout and preparation class on both sides. `Φ_{q,α}` satisfies A2 (SM:106; `waveSubstratum_A2`, `SubstratumInterfaceAudit.lean`:190), A3 with degree `2d` (`waveSubstratum_A3`:194), A4's translation clause exactly (`waveSubstratum_A4Exact`:202; `waveZ_A4Exact`:51 in (Z)), and A4's no-self-input clause by its form, the new current at `i` being `αSc(i) − p(i)` with `S` excluding `i` (SM:228; Sub:98; side at least 3 on (F)). The Lean predicate `A4Exact` (`SubstratumInterfaceAudit.lean`:94) is the translation clause only; the no-self-input clause rests on the form, not on a kernel theorem. The inclusion J2 ⇒ J1 holds with J1's time-map quantifier as stated in §5.4 | Established (N), by definition, for the quantifier form of §5.4 |
-| J1 on (F), (R-coord), (Π-H) or (Π-prod) ⇒ J0-ind | The coordinate split when `ι` is onto `Y_r`; Lemma P(b) when it is not (values outside `ι(C_V)` assigned by `κ`) | Established (N): by definition for `ι` onto, Lemma P(b) otherwise |
-| J1 on (F), (R-lin), (Π-H) or (Π-prod) ⇒ J0-ind | Lemma R, then the previous row (Lemma P(b) when `ι` is not onto) | Established (N), Lemmas R and P(b) |
-| J1 on (F), (R-lin), (Π-W), (Π-β) or (Π-joint) ⇒ J0-joint | Lemma R, then the next row; or directly Lemma P(a), since (R-lin) ⊂ (R-nl) | Established (N), Lemma R or Lemma P(a) |
-| J1 on (F), (R-coord), (Π-W), (Π-β) or (Π-joint) ⇒ J0-joint | The coordinate split when `ι` is onto; Lemma P(a) otherwise | Established (N) |
-| J1 on (F), (R-nl), any preparation class ⇒ J0-joint | Lemma P(a) with `Ψ = F^m` | Established (N), Lemma P(a) |
+| J3 ⇒ J2 ⇒ J1 ⇒ J1⁰ | Class inclusion (§2 nesting; §5 statements) with the same readout and preparation class on both sides. `Φ_{q,α}` satisfies A2 (SM:106; `waveSubstratum_A2`, `SubstratumInterfaceAudit.lean`:190), A3 with degree `2d` (`waveSubstratum_A3`:194), A4's translation clause exactly (`waveSubstratum_A4Exact`:202; `waveZ_A4Exact`:51 in (Z)); these Lean anchors are stated on `Fin d → ZMod L`, that is on cubic tori `P_lat = Lℤ^d` and on `ℤ^d` at `L = 0`, and for a non-cubic `P_lat` the A2–A4 checks rest on SM:106 and the form; and A4's no-self-input clause by its form, the new current at `i` being `αSc(i) − p(i)` with `S` excluding `i` (SM:228; Sub:98; on (F), the ℓ¹ reading of side at least 3 in §1). The Lean predicate `A4Exact` (`SubstratumInterfaceAudit.lean`:94) is the translation clause only; the no-self-input clause rests on the form, not on a kernel theorem. The inclusion J2 ⇒ J1 holds with J1's time-map quantifier as stated in §5.4 | Established (N), by definition, for the quantifier form of §5.4 |
+| J1 on (F), (R-coord), (Π-H) or (Π-prod) ⇒ J0-ind | The coordinate split when `ι` is onto `Y_r`; Lemma P(b) when it is not (values outside `ι(C_V)` assigned by `κ`) | Established (N): by definition for `ι` onto, Lemma P(b) otherwise; for `P` under (ex), for `P'` under (ε) |
+| J1 on (F), (R-lin), (Π-H) or (Π-prod) ⇒ J0-ind | Lemma R, then the previous row (Lemma P(b) when `ι` is not onto) | Established (N), Lemmas R and P(b); for `P` under (ex), for `P'` under (ε) |
+| J1 on (F), (R-lin), (Π-W), (Π-β) or (Π-joint) ⇒ J0-joint | Lemma R, then the next row; or directly Lemma P(a), since (R-lin) ⊂ (R-nl) | Established (N), Lemma R or Lemma P(a); for `P` under (ex), for `P'` under (ε) |
+| J1 on (F), (R-coord), (Π-W), (Π-β) or (Π-joint) ⇒ J0-joint | The coordinate split when `ι` is onto; Lemma P(a) otherwise | Established (N); for `P` under (ex), for `P'` under (ε) |
+| J1 on (F), (R-nl), any preparation class ⇒ J0-joint | Lemma P(a) with `Ψ = F^m` | Established (N), Lemma P(a); for `P` under (ex), for `P'` under (ε) |
 | J2 on (Z) ⇒ J2 on (F), side above the Node 3 bound | Light-cone agreement for multi-time laws (Node 3); NR-1 Prop. 4.1 covers rooted maps under the uniform prior only | Missing (Node 3) |
 | J2 on (F), side above the bound ⇒ J2 on (Z) | Lift of the torus preparation (Node 3) | Missing (Node 3) |
 | J4-fac ⇒ J2-type law equality | Pushforward under the factor map (Node 6); the law on `S` must be named (§5.7) | Missing (Node 6) |
 | J4-emb ⇒ J2 with a preparation supported on the invariant subset | With J4-emb stated as in §5.8: the preparation `b'^{-1}_* μ_R`, supported on `Ω'`, gives readout law `P`; it lies in (Π-joint) | Established (N), by definition |
-| J2 on (F), (R-coord) ⇒ J5(T) | Main:632, universality clause, applied to the realization of the J0 rows; Lemma P(a) extends this to (R-lin) and (R-nl) on (F) (§5.9) | Established (N); no identification content |
+| J2 on (F), (R-coord) ⇒ J5(T) | Main:632, universality clause, applied to the realization of the J0 rows (`ι` onto; otherwise to the realization `ψ` on `C_V × C_H` of Lemma P(a)); `T(P)` under (ex), `T(P')` under (ε). The (R-lin)/(R-nl) form on the torus states is Node 7a's (§5.9) | Established (N) on (F) with (R-coord), paper-proof layer with exhaustive small-size certification, not kernel-checked; no identification content |
 | J2 ⇒ J5(R₁) | None known | Not asserted |
 | J0 ⇒ J2 | None known; Node 4 | Not asserted |
 | J5(T) ⇒ J4, J5(R₁) ⇒ J4 | None known | Not asserted |
@@ -307,7 +329,8 @@ every site) is also a member. (b) Finite range bounds each site's coupling degre
 from A3–A6" is read as no constraint beyond finite range. (c) (R-coord) and (R-lin) need
 coordinates and a group structure on `B`; (R-nl) is always defined. (d) Whether `F^{-1}` must also
 have finite range is not fixed by the design; every rule J2 uses has a finite-range inverse
-(NR-1:75), so the inclusions of §4.3 hold under either reading.
+(NR-1:75), so the inclusions of §4.3 hold under either reading; Node 2's vacuity test may turn on
+it (§6, D5).
 
 Status: Missing as a stated result; Node 2 tests whether it is vacuous. Imports a proof would need:
 none beyond A2.
@@ -324,10 +347,11 @@ preparation classes and `m` are quantified as in J1⁰.
 
 **Time-map quantifier.** J1 quantifies `∃ F ∃ m`, with A2–A4 required of the one-step rule `F`, not
 of `F^m`. With this form, J2 ⇒ J1 is class inclusion for every `m`. The other reading, in which
-`F^m` must itself satisfy A4's no-self-input clause, does not contain J2 in general: `Φ^2` is not
+`F^m` must itself satisfy A4's no-self-input clause, does not contain J2 in general, under the
+reading of D3 that the new current value at `i` must not depend on `c(i)`: `Φ^2` is not
 of the second-order form in the phase coordinates `(p, c)`, and its current component is
 `Φ^2(p, c)_c = α² S²c − αSp − c`, in which `c(i)` occurs with coefficient `2dα² − 1` (`S²c(i)` has
-`2d` back-and-forth terms returning to `i` on `ℤ^d`, and on a torus of side at least 3). That
+`2d` back-and-forth terms returning to `i` on `ℤ^d`, and on a torus under the ℓ¹ reading of §1). That
 coefficient is nonzero unless `2dα² ≡ 1 (mod q)`; for `d = 3`, `q = 5`, `α = 1` it is
 `6 − 1 = 5 ≡ 0`.
 
@@ -361,7 +385,9 @@ reported separately (design §1).
 relevant set, for some `r` and `ι`.
 
 Quantifier remark. The law on `C_V × C_H` that a measure-theoretic factor carries is `π_* β`, and
-`φ_{R*}(π_* β) = π_*(Φ^m_* β) = π_* β`: it is `φ_R`-invariant. J4-fac therefore relates `Ω` to
+`φ_{R*}(π_* β) = π_*(Φ^m_* β) = π_* β`: it is `φ_R`-invariant (`β` is `Φ`-invariant: on (F) because
+`Φ` is a bijection and `β` is the counting law; on (Z) because `Φ` is a continuous automorphism of a
+compact group, NR-1:77, :103). J4-fac therefore relates `Ω` to
 `(C_V × C_H, φ_R)` with an invariant law; Stage 1's initial law `P_0 ⊗ μ_H` enters the row
 "J4-fac ⇒ J2-type law equality" only where it is that law or is obtained from it by a stated
 further step. Node 6 must name which (M3).
@@ -370,7 +396,8 @@ Status: Missing. Imports: as J3.
 
 ### 5.8 J4-emb
 
-For a realization `R = (C_V × C_H, φ_R, μ_R)` of `P`: `∃ (q, α) ∃ m`, a finite `Φ^m`-invariant set
+For a realization `R = (C_V × C_H, φ_R, μ_R)` of `P`, "realization" meaning Main:614's faithful
+realization (the initial law `μ_R` on `C_V × C_H` may correlate the coordinates): `∃ (q, α) ∃ m`, a finite `Φ^m`-invariant set
 `Ω' ⊂ Ω`, and a bijection `b' : Ω' → C_V × C_H` with `b' ∘ Φ^m|_{Ω'} = φ_R ∘ b'` and
 `π_V ∘ b' = ι^{-1} ∘ r` on `Ω'`, for some readout `r` and injective `ι`. Two quantifier forms:
 `J4-emb[R]` for a fixed `R`, and `J4-emb∃ := ∃ R J4-emb[R]`.
@@ -378,12 +405,17 @@ For a realization `R = (C_V × C_H, φ_R, μ_R)` of `P`: `∃ (q, α) ∃ m`, a 
 Quantifier remark. On (F), J2 for a readout whose fibres `(κ ∘ r)^{-1}(x)` all have the same size
 (for example (R-coord), or (R-lin) through Lemma R, with `ι` onto) gives `J4-emb∃` with no further
 argument: Lemma P adjoins no inert state, `b` is a bijection `Ω_F → C_V × C_H`, and
-`R = (C_V × C_H, b Φ^m b^{-1}, b_* λ)` satisfies `J4-emb[R]` with `Ω' = Ω_F`. `J4-emb∃` therefore
+`R = (C_V × C_H, b Φ^m b^{-1}, b_* λ)` satisfies `J4-emb[R]` with `Ω' = Ω_F`. Under (ex) `R` realizes
+`P`; under (ε) it realizes `P'`, so the implication is J2(ε) ⇒ `J4-emb∃` for `P'`, not for `P`. With
+the joint initial law allowed this holds for every preparation class. With a product initial law
+required (the J0-ind form, which Stage 1's `R₁` has, Main:526), it holds for (Π-H) and (Π-prod) only,
+through Lemma P(b), because otherwise `b_* λ` is not a product. Under (ex), `J4-emb∃` therefore
 adds nothing to J2 on (F) for such readouts. Identification content can only come from
 `J4-emb[R₁]`, with `R₁` the dilation Stage 1 actually uses (§6, D4).
 
 Status: `J4-emb[R₁]` Missing as a stated identification; `J4-emb∃` on (F) for equal-fibre readouts is
-implied by J2 there (Established (N), Lemma P). Imports: as J2.
+implied by J2 there, for `P` under (ex) and for `P'` under (ε), with the preparation classes stated
+above for each initial-law form (Established (N), Lemma P). Imports: as J2.
 
 ### 5.9 J5(T)
 
@@ -392,15 +424,18 @@ initial law allowed): `∃!` morphism of realizations `q_R : R → T(P)` on the 
 reachable part, a morphism being stage-preserving, visible-preserving (`π_V ∘ q = π_V`) and
 dynamics-intertwining (`q ∘ φ_R = σ ∘ q`) (Main:632).
 
-Scope. On (F) with (R-coord) and `ι` onto `Y_r`, the realization of §4.3 is such an `R`. Otherwise on (F), and for (R-lin) or (R-nl),
-Lemma P(a) gives a faithful realization `ψ` whose prior-supported reachable part lies in `b(Ω_F)`,
-so Main:632 applies to it and `q ∘ b` is the morphism on the torus states. On (Z) the statement
-needs Node 7a's extension.
+Scope. On (F) with (R-coord) and `ι` onto `Y_r`, the realization of §4.3 is such an `R`; with `ι`
+not onto, Main:632 applies to the realization `ψ` on `C_V × C_H` of Lemma P(a). Under (ex) the
+quotient is `T(P)`; under (ε) the realization is of `P'` and the quotient is `T(P')`. The form for
+(R-lin) and (R-nl) readouts on the torus states needs the morphism notion restated with `κ ∘ r` in
+place of `π_V`, and is Node 7a's question; composing Lemma P(a) with Main:632 is a route Node 7a may
+examine, not established here (M5). On (Z) the statement needs Node 7a's extension.
 
-Status: Established (N) on (F) for every readout class (Main:632, with Lemma P for (R-lin) and
-(R-nl)); certified exhaustively at small sizes (Main:632). It holds for every faithful realization,
+Status: Established (N) on (F) with (R-coord), at the paper-proof layer with exhaustive exact
+certification at small sizes (Main:632); not kernel-checked. It holds for every faithful realization,
 J0's dilation and Node 2's range-0 witness included, so it carries no identification content and is
-not a criterion for Q or Q⁺ (design §2.4, I12). (Z): Missing (Node 7a).
+not a criterion for Q or Q⁺ (design §2.4, I12). (R-lin) and (R-nl) on the torus states, and (Z):
+Missing (Node 7a).
 
 ### 5.10 J5(R₁)
 
@@ -436,6 +471,9 @@ node that first needs it, or to the owner under design S2 if a verdict turns on 
   reachable part through `K` (J5(R₁)) does not see the completion; a relation on all of `S`
   (`J4-emb[R₁]`, the restriction being all of `(S, φ)`) does. Which choices `R₁` fixes must be stated
   before Nodes 6–7 run.
+- **D5. Finite range of `F^{-1}` in J1⁰.** §5.3, reading note (d): the design does not fix whether
+  `F^{-1}` must have finite range. The inclusions of §4.3 hold either way. First needed by Node 2,
+  whose vacuity test may turn on it.
 
 ***
 
@@ -450,12 +488,13 @@ node that first needs it, or to the owner under design S2 if a verdict turns on 
   (§5.7). Missing.
 - **M4.** The truth of J1⁰, J1, J2, J3, J4-fac, `J4-emb[R₁]` and J5(R₁): statements frozen here,
   decisions Missing (Nodes 2, 4, 5, 6, 7b).
-- **M5.** J5(T) on (Z), with the "almost every" restatement for a non-atomic law (Node 7a). Missing.
+- **M5.** Node 7a: J5(T) on (Z), with the "almost every" restatement for a non-atomic law, and the
+  form for (R-lin) and (R-nl) readouts on the torus states (§5.9). Missing.
 - **M6.** The relation between SM:242's linear observer projections and the §2.3 readout classes is
   not stated in the passages read. No row of design §2.5 needs it. Missing (recorded, not pursued).
 - **M7.** J0-ind is not formalized in the kernel (Main:530); its support is the paper derivation of
   Main:526–528 with probe certification. Recorded as the existing layer, not a P2-C obligation.
-- **M8.** D1–D4 of §6: definitional choices to be fixed before the nodes that use them run.
+- **M8.** D1–D5 of §6: definitional choices to be fixed before the nodes that use them run.
 
 Nothing in Node 1 required a computation, so no step is recorded as "Missing (needs computation)".
 No step required a proof beyond Lemmas R and P; the one coefficient in §5.4 is hand arithmetic
