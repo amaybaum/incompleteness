@@ -239,11 +239,17 @@ migration leaves unchanged and indexes.
 plus R-2's D332 scope; no supersession entry, no anchor change. **Identifier migrations:** §5,
 pending owner approval under §A.48 item 3.
 
-**Disposition in the plan.** The coordinating session reports that, at the owner's direction on
-#1169, R-2 and R-3 are taken into the corrections of the A1 plan's §31. They are not present at
-the audited head `607f7a61`. R-7, found by the independent review of this record (#1542 comment
-7075467292), and the nit R-8 are listed here for §31 to take up on the same footing; this record
-does not adopt them into the plan.
+**Disposition in the plan.** The owner approved the §31 corrections at #1169 comment 7075564570
+(`amaybaum`, 2026-11-22T06:50:57Z): "R2, finite alphabet | Required fix. Keep the finite-alphabet
+condition, including `[NeZero q]`, wherever the revised claims depend on it." and "R3, Lean
+docstrings | Required fix. Scope all four ensemble claims explicitly to the finite cases actually
+supported." That record numbers its findings as the §31 delta review does; its R2 and R3 cover this
+audit's R-2 and R-3. Its "four ensemble claims" differs from the five headings of this audit's R-3;
+reconciling the two is left to the §31 delta review. The owner then directed R-7 and R-8 into the
+§31 corrections at #1169 comment 7075903147 (`amaybaum`, 2026-11-22T07:25:13Z): "R-7 and R-8 enter
+the A1 plan's §31 corrections (#1477), as recommended by the Lean audit (#1542)", R-7 as required
+and R-8 as approved. R-7 was found by the independent review of this record (#1542 comment
+7075467292). None of R-2, R-3, R-7 or R-8 is present at the audited plan head `607f7a61`.
 
 ## 7. Checks run
 
