@@ -377,7 +377,9 @@ locate the content of (a), 4.3's concavity condition and its tension with GR:58'
 **Relation to H-COUNT-1, one direction at a time (§A.34) [W].**
 
 - *H-COUNT-1 ⇒ H-COUNT-1′, fixed-variable reading.* Read (a2) and (b) for the count at fixed values
-  x of the further variables: ln Ω(E, x) = g(E) for every x occurring on the shell, with g strictly
+  x of the further variables (in this section x ranges over whichever further variables are
+  fixed, orbit labels possibly included, whereas in §3 and 4.7 the fixed-variable reading fixes E
+  and the sublattice split only): ln Ω(E, x) = g(E) for every x occurring on the shell, with g strictly
   increasing and g = ηA + const. Let n(E) be the number of those values. Then s_1 = g + ln n, every
   fixed slope is g′, and β_1 = g′ + (ln n)′, so δ = −(ln n)′/β_1. The implication holds under
   **N-FEW** [ASSUMED]: ln n = o(g) and (ln n)′ = o(g′) at leading order. N-FEW fails if the orbit
