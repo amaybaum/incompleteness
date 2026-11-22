@@ -6,6 +6,18 @@ computation. It edits no manuscript, Lean module, reviewed record or Issue. It a
 changes no status and strengthens no manuscript or kernel theorem. No merge is authorized. Names
 prefixed "M2" are NONDIO-M2's at `7102e6af`; names without a prefix are this record's.
 
+Revision r2 answers the independent review of `238a9330` (CONFIRMED WITH NITS, relayed by the
+coordinating session).
+- N1: Lemma PUR obtains f by Krein–Milman on the face of states over the pure character χ, so MSS
+  is not needed. The face over the non-pure μ named in the review is not a face, but every state
+  over χ restricts to μ on D, which gives the same conclusion.
+- N2: the reason every witness has a singular part is stated (§0; §3, Remarks).
+- N3: the comparison remark is restricted to maximality.
+- N4: NN M4 is stated as out of scope for the bijection of Theorem NDIO.
+- N5: Proposition HN's remark gives E = σ_ω on all of B.
+
+No result is strengthened. `PLAN.md` is unchanged.
+
 **Labels.**
 - **ESTABLISHED**: proved on paper here (layer X), or cited at its source's standing: (L) a
   literature theorem. "Established" means established within this record, not in the §A.46
@@ -23,10 +35,12 @@ of M2 Lemma VS, and σ′_ρ is the vector slice over the first factor (M2 §5).
 
 **BIDUAL-REL: REFUTED** (B1). With C_V countably infinite, D′ ∩ A\*\* ≠ D\*\*: ℓ^∞(C_V)\*\* is not
 maximal abelian in B(ℓ²(C_V))\*\*. The witness is a projection s ∈ D′ ∩ A\*\* with s ∉ D\*\*
-(Theorem REL). It is constructed from a free ultrafilter, and its proof uses the
-Marcus–Spielman–Srivastava solution of the Kadison–Singer problem, for one purpose only: to show
-that a certain ultrafilter limit of vector states is pure. The witness lies in the singular part
-of A\*\*, as M2 Lemma JU requires.
+(Theorem REL). It is constructed from a free ultrafilter and a pure state obtained by
+Krein–Milman (Lemma PUR). The Marcus–Spielman–Srivastava solution of the Kadison–Singer problem
+gives an alternative route to that pure state and is not needed. Every witness has a non-zero
+singular part, since z_K is central, z_K ∈ D\*\* and z_K A\*\* ≅ B(ℓ²) carries z_K D\*\* onto ℓ^∞,
+which is maximal abelian there (the norm-level step of M2 RED-M2), so z_K(D′ ∩ A\*\*) = z_K D\*\*
+(§3, Remarks).
 
 **Consequence for (F-S): a non-DIO affine assignment exists** (B2). There is an affine assignment
 ρ ↦ Ω_ρ, defined on all states of A, satisfying PROD with a diagonal non-normal hidden state ω,
@@ -47,7 +61,7 @@ So a non-DIO assignment needs a non-normal ω and a non-normal visible input. Th
 both. For a fixed assignment, Proposition BID's condition is also necessary (Proposition BID′).
 
 **Mathematical existence and physical realizability.**
-- The construction uses free ultrafilters and a theorem proved in ZFC (MSS).
+- The construction uses free ultrafilters and Krein–Milman. MSS is not needed.
 - The hidden state ω of Theorem NDIO is diagonal, so it is admitted under LAW-fa and excluded
   under LAW-σ.
 - Of the two inputs, ψ = f∘Δ is diagonal and non-normal (admitted under LAW-fa). f is coherent and
@@ -65,7 +79,7 @@ assignments are both decided. The output class is NEW, with assumption-watch mar
 | Topic | Source | Use |
 |---|---|---|
 | Kadison–Singer problem | R. V. Kadison, I. M. Singer, "Extensions of pure states", Amer. J. Math. 81 (1959), 383–400 | formulation only |
-| Its solution | A. W. Marcus, D. A. Spielman, N. Srivastava, "Interlacing families II: Mixed characteristic polynomials and the Kadison–Singer problem", Ann. of Math. 182 (2015), 327–350 | **used (L)**, in Lemma PUR, in the form: every pure state of the diagonal MASA ℓ^∞(ℕ) ⊆ B(ℓ²(ℕ)) has exactly one extension to a state of B(ℓ²(ℕ)). The form is unitarily invariant, so it holds for the diagonal MASA of any orthonormal basis of a separable infinite-dimensional Hilbert space |
+| Its solution | A. W. Marcus, D. A. Spielman, N. Srivastava, "Interlacing families II: Mixed characteristic polynomials and the Kadison–Singer problem", Ann. of Math. 182 (2015), 327–350 | **alternative route (L)**, not needed. In the form "every pure state of the diagonal MASA ℓ^∞(ℕ) ⊆ B(ℓ²(ℕ)) has exactly one extension to a state of B(ℓ²(ℕ))", which is unitarily invariant, it identifies the state f of Lemma PUR with the ultrafilter limit f_0. No proof uses it |
 | Extension property of MASAs | R. J. Archbold, J. W. Bunce, K. D. Gregson, "Extensions of states of C\*-algebras, II", Proc. Roy. Soc. Edinburgh Sect. A 92 (1982), 113–122; J. Anderson, "Extensions, restrictions, and representations of states on C\*-algebras", Trans. Amer. Math. Soc. 249 (1979), 303–329 | context. Only the abstract of the first was read: an abelian subalgebra with the extension property is a MASA. Neither paper is used in a proof |
 | Excision | C. A. Akemann, J. Anderson, G. K. Pedersen, "Excising states of C\*-algebras", Canad. J. Math. 38 (1986), 1239–1260 | context. Not read in full and not used |
 | Bidual as enveloping von Neumann algebra | M. Takesaki, *Theory of Operator Algebras I*, Springer (1979), Ch. III §2 | **used (L)**, for standard facts F1–F4 (§2) |
@@ -94,18 +108,37 @@ reviewer with library access may find it stated elsewhere.
 
 **The state f.** Let B_n := {2^n − 1, …, 2^{n+1} − 2} for n ≥ 0. These are consecutive blocks of
 length 2^n that partition ℕ. Put e_n := 2^{−n/2} Σ_{k∈B_n} |k⟩. The e_n are orthonormal, and e_n → 0
-weakly. Let 𝒰 be a free ultrafilter on ℕ and f(b) := lim_{n→𝒰} ⟨e_n|b|e_n⟩ for b ∈ A.
-- f is a state. It vanishes on the compact operators, since ‖ke_n‖ → 0 for compact k.
-- On D, f(M_g) = lim_{n→𝒰} 2^{−n} Σ_{k∈B_n} g(k) =: μ(g).
-- Write (π_f, H_f, ξ) for its GNS representation and z_f for its central support.
+weakly. Let 𝒰 be a free ultrafilter on ℕ, and put μ(g) := lim_{n→𝒰} 2^{−n} Σ_{k∈B_n} g(k) for
+g ∈ ℓ^∞(C_V).
 
-**Lemma PUR (f is pure; ESTABLISHED, X with MSS (L)).** Complete (e_n) to an orthonormal basis
-(e_n) ∪ (e′_m) of H_V. The complement of span{e_n} is infinite-dimensional and separable, so the
-basis is countable. Let D_e be the operators diagonal in this basis. D_e is a MASA unitarily
-equivalent to D. On D_e, f(Σ x_n|e_n⟩⟨e_n| + Σ y_m|e′_m⟩⟨e′_m|) = lim_𝒰 x_n, which is
-multiplicative, so f|_{D_e} is a pure state χ. By MSS, f is the only state extending χ. The set
-of extensions of χ is a face of the state space: if f = tf_1 + (1 − t)f_2 with 0 < t < 1, then
-χ = tf_1|_{D_e} + (1 − t)f_2|_{D_e}, so f_i|_{D_e} = χ, and f_i = f. Hence f is pure. ∎
+Complete (e_n) to an orthonormal basis (e_n) ∪ (e′_m) of H_V. The complement of span{e_n} is
+infinite-dimensional and separable, so the basis is countable. Let D_e be the operators diagonal
+in this basis, a MASA unitarily equivalent to D, and χ the character
+χ(Σ x_n|e_n⟩⟨e_n| + Σ y_m|e′_m⟩⟨e′_m|) := lim_𝒰 x_n of D_e.
+
+**Lemma PUR (a pure state over χ; ESTABLISHED, X, using a free ultrafilter and Krein–Milman).**
+There is a pure state f of A with f|_{D_e} = χ. Every state f of A with f|_{D_e} = χ satisfies
+f|_D = μ, vanishes on the compact operators, and differs from f∘Δ.
+
+*Proof.*
+- *Existence.* The set F_χ of states of A extending χ is non-empty (Hahn–Banach; for example
+  f_0 := lim_𝒰 ⟨e_n|·|e_n⟩) and weak\*-compact and convex, so it has an extreme point f
+  (Krein–Milman). F_χ is a face of the state space, because χ is pure: if f = tf_1 + (1 − t)f_2
+  with 0 < t < 1, then χ = tf_1|_{D_e} + (1 − t)f_2|_{D_e}, so f_i|_{D_e} = χ and f_i ∈ F_χ. An
+  extreme point of a face is extreme in the state space, so f is pure.
+- *Localization.* For U ∈ 𝒰 let p_U be the projection onto span{e_n : n ∈ U}. Then p_U ∈ D_e and
+  f(p_U) = 1, so f(b) = f(p_U b p_U) by Cauchy–Schwarz.
+- *The configuration law.* For g ∈ ℓ^∞(C_V), the e_n have disjoint supports, so
+  p_U M_g p_U = Σ_{n∈U} μ_n(g)|e_n⟩⟨e_n| with μ_n(g) := 2^{−n} Σ_{k∈B_n} g(k). Hence
+  f(M_g) = χ(Σ_{n∈U} μ_n(g)|e_n⟩⟨e_n|) = μ(g).
+- *Singularity.* For k ∈ C_V, f(P_k) = μ(1_{{k}}) = 0. So f vanishes on finite-rank operators by
+  Cauchy–Schwarz, and on the compacts by norm continuity.
+- *Coherence.* With P_e := Σ_n |e_n⟩⟨e_n| ∈ D_e, f(P_e) = 1, while
+  f(Δ(P_e)) = μ(Δ(P_e)) = lim_𝒰 2^{−n} = 0. ∎
+
+The ultrafilter limit f_0 is one element of F_χ. With MSS, F_χ = {f_0}, so f = f_0, but no proof
+here needs this. Only three properties of f are used below: f is pure, f|_D = μ, and f vanishes
+on the compacts. Write (π_f, H_f, ξ) for its GNS representation and z_f for its central support.
 
 So π_f is irreducible, and z_f A\*\* ≅ B(H_f) by F2. π_f vanishes on the compact operators, since
 ‖π_f(k)π_f(a)ξ‖² = f(a\*k\*ka) = 0. So every normal state ρ of A has ρ\*\*(z_f) = 0: π̃_f kills the
@@ -140,7 +173,7 @@ So π_f is irreducible, and z_f A\*\* ≅ B(H_f) by F2. π_f vanishes on the com
   λL ≤ Σ_i ⟨η_i|ρ|η_i⟩ = tr(ρTT\*) ≤ ‖G‖ tr ρ ≤ t/λ,
   so t ≥ λ²L. λ does not depend on l, and t ≤ 1, so l with 2^l > 1/λ² gives a contradiction. ∎
 
-**Theorem REL (BIDUAL-REL fails; ESTABLISHED, X, using a free ultrafilter and MSS).** Let P_f be the
+**Theorem REL (BIDUAL-REL fails; ESTABLISHED, X, using a free ultrafilter and Krein–Milman).** Let P_f be the
 projection of H_f onto the closure of π_f(D)ξ, and let s ∈ A\*\* be the element with s = z_f s and
 π̃_f(s) = P_f. Then s is a projection, s ∈ D′ ∩ A\*\* and s ∉ D\*\*.
 
@@ -156,11 +189,16 @@ projection of H_f onto the closure of π_f(D)ξ, and let s ∈ A\*\* be the elem
 *Remarks.*
 - s corresponds to the D-cyclic subspace of the GNS vector of f, in the irreducible summand
   B(H_f) of A\*\*. It lies in the singular part: s ≤ z_f ≤ 1 − z_K.
+- *Every witness has a singular part.* z_K is central, and z_K ∈ D\*\* as the σ-weak limit of the
+  finite diagonal projections. Through z_K A\*\* ≅ B(H_V) (the identity representation), z_K D\*\*
+  corresponds to D, which is maximal abelian in B(H_V) (the norm-level step of M2 RED-M2). So for
+  x ∈ D′ ∩ A\*\*, z_K x ∈ z_K D\*\* ⊆ D\*\*, and x ∉ D\*\* forces (1 − z_K)x ∉ D\*\*, in particular
+  (1 − z_K)x ≠ 0.
 - Δ\*\*(s) ∈ D\*\* satisfies f\*\*(Δ\*\*(s)) = 0, so s − Δ\*\*(s) is a non-zero element of the
   relative commutant on which Δ\*\* vanishes.
 - *Comparison with the norm level.* M2 RED-M2's step D′ ∩ A = D uses only that D is maximal
-  abelian in A. MSS is the stronger statement that pure states of D extend uniquely. Theorem REL
-  shows that neither property passes to the bidual. The mechanism is Lemma DSJ: the dephasing f∘Δ
+  abelian in A. Theorem REL shows that maximality does not pass to the bidual. Whether the
+  extension property of D does is not addressed here. The mechanism is Lemma DSJ: the dephasing f∘Δ
   of a pure state whose configuration law μ admits partitions of measure 1/L for every L has no
   component in the sector of f.
 
@@ -205,6 +243,10 @@ all visible inputs, for every branch in RED-M2's class.
   E(PM_hP) = Σ_{z∈F} ω(P_z) M_{h(·,z)} ∈ D.
 - So E(M_h) is a norm limit of elements of D, and lies in D. Complex h follows by linearity. ∎
 
+*Remark.* The same estimate applies to every self-adjoint b ∈ B: PbP lies in the algebraic tensor
+product B(H_V) ⊙ B(P_F H_Z), where PROD gives E(PbP) = σ_ω(PbP), and σ_ω obeys the same bound.
+So E = σ_ω on all of B for normal ω, in line with M2 Lemma SL.
+
 Together with M2 Lemma JU (normal visible input), a non-DIO assignment needs both a non-normal ω
 and a non-normal visible input.
 
@@ -229,7 +271,7 @@ state of §3, ω any state of B(H_Z), and Ω any state of B with Ω(a ⊗ c) = f
 E takes values in A\*\*, not in A. This is consistent with M2 Lemma SL, which makes σ_ω the only
 positive map into A with PROD, and it leaves (F-H) untouched.
 
-**Theorem NDIO (a non-DIO affine assignment; ESTABLISHED, X, using free ultrafilters and MSS).**
+**Theorem NDIO (a non-DIO affine assignment; ESTABLISHED, X, using free ultrafilters and Krein–Milman).**
 - *The hidden state.* Let w be a free ultrafilter on Z = ℕ and ω := lim_{z→w}⟨z|·|z⟩. This is
   diagonal and non-normal.
 - *The assignment.* Take Ω := ω∘σ′_f, the slice order that appends f to ω. It satisfies PROD
@@ -245,14 +287,17 @@ positive map into A with PROD, and it leaves (F-H) untouched.
 - *The outcome.* The probability that the visible output configuration lies in A_e is
   p(ρ) = Ω_ρ(M_{1_S}).
   - *Input f.* p(f) = Ω(M_{1_S}) = ω(σ′_f(M_{1_S})). Here σ′_f(M_{1_S}) is multiplication by
-    z ↦ f(M_{1_{[0,z)}}) = lim_{n→𝒰} |B_n ∩ [0, z)|/2^n = 0, since B_n lies beyond z for large n.
+    z ↦ f(M_{1_{[0,z)}}) = μ(1_{[0,z)}) = lim_{n→𝒰} |B_n ∩ [0, z)|/2^n = 0, since B_n lies beyond
+    z for large n (Lemma PUR).
     So p(f) = 0.
   - *Input ψ = f∘Δ.* p(ψ) = ψ(σ_ω(M_{1_S})). Here σ_ω(M_{1_S}) is multiplication by
     v ↦ lim_{z→w} 1_{z>v} = 1. So p(ψ) = 1.
 - *The comparison.* ψ|_D = f|_D, since Δ is the identity on D. So two visible inputs with the same
   configuration law give output configuration laws that differ, 0 and 1. The visible instrument is
   not DIO-type in (F-S). By Proposition BID′, E(M_{1_S}) ∈ (D′ ∩ A\*\*) ∖ D\*\*, which is a second
-  witness for Theorem REL. ∎
+  witness for Theorem REL.
+- *Scope.* Whether the bijection F is a step of the selected φ (NN M4) is not addressed, as in
+  M2 CX-M. ∎
 
 *Reading.*
 - Within the sector of f, the assignment uses the slice order "ρ appended to ω". Outside it, it
@@ -269,7 +314,8 @@ slice orders, and of M2 RED-M2 in (F-H), are unaffected.
 ## 5. B3: existence and realizability
 
 - **Choice principles.** The free ultrafilters 𝒰 and w come from the ultrafilter lemma.
-  Proposition BID′ uses Hahn–Banach, through F4. MSS is a theorem of ZFC. Whether any choice
+  Lemma PUR uses Krein–Milman. Proposition BID′ uses Hahn–Banach, through F4. MSS is not used; it
+  is an alternative route to the state of Lemma PUR. Whether any choice
   principle is necessary is not checked.
 - **Where the states stand** (LAW-σ and LAW-fa are readings of M2 §6, neither adopted):
 
@@ -293,17 +339,16 @@ decided here.
 
 | Item | Label | Layer | Class |
 |---|---|---|---|
-| Lemma PUR | MSS (L), free ultrafilter | X, L | ELABORATING |
+| Lemma PUR | free ultrafilter, Krein–Milman (MSS an alternative, not needed) | X | ELABORATING |
 | Lemma DSJ | — | X | NEW: the dephasing of f carries no weight in the sector of f |
-| Theorem REL | free ultrafilter, MSS | X | NEW: decides BIDUAL-REL (refuted) |
+| Theorem REL | free ultrafilter, Krein–Milman | X | NEW: decides BIDUAL-REL (refuted) |
 | Proposition BID′ | Hahn–Banach | X | ELABORATING: BID's condition is necessary for each assignment |
 | Proposition HN | — | X | ELABORATING: normal ω forces DIO-type in (F-S) |
-| Construction GLU, Theorem NDIO | free ultrafilters, MSS | X | NEW: (F-S) admits a non-DIO affine assignment with PROD |
+| Construction GLU, Theorem NDIO | free ultrafilters, Krein–Milman | X | NEW: (F-S) admits a non-DIO affine assignment with PROD |
 | §5 realizability | LAW-σ, LAW-fa readings | X | ELABORATING |
 
 **AW-4 (assumption-watch marker).**
-- The extension property of a MASA (MSS for ℓ^∞ ⊆ B(ℓ²)) and its maximality at the norm level do
-  not pass to the bidual.
+- Maximality of a MASA at the norm level (ℓ^∞ ⊆ B(ℓ²)) does not pass to the bidual.
 - A state-space typing that admits non-normal inputs and fixes the joint state only through its
   product marginals (PROD) and affinity does not determine the output configuration law. A
   sector-wise choice of joint state can make it depend on coherence.
@@ -320,7 +365,7 @@ decided here.
 - **Gem. Output class NEW.**
 
 *Skepticism.* The refutation was checked at each step where a favourable reading could enter:
-- the identification z_f A\*\* ≅ B(H_f) needs purity, which rests on MSS;
+- the identification z_f A\*\* ≅ B(H_f) needs purity, which Lemma PUR gives by Krein–Milman on the face over the pure state χ (the states over the non-pure μ do not form a face);
 - the bound t ≥ λ²L uses only ρ ≥ λ|η_i⟩⟨η_i| and ‖G‖ ≤ 1/λ;
 - the step from s ∈ D\*\* to ψ\*\*(s) = 1 uses only F3;
 - in Theorem NDIO, PROD is verified on all of B(H_V) ⊗ B(H_Z), and normal inputs reproduce σ_ω.
@@ -337,13 +382,13 @@ decided here.
 | KIN-B, KIN-𝒟, LIN | define the setting: configuration basis, coherence relative to ℓ^∞, positive maps |
 | DEC | used only through PROD (the hidden state is appended independently) |
 | NAT | not used, not adopted |
-| MSS | used only for purity of f (Lemma PUR) |
+| MSS | **dispensable**: Krein–Milman gives a pure f with the properties used (Lemma PUR); MSS only identifies it with f_0 |
 | complete positivity | not used. GLU and Φ are completely positive, but only positivity is needed |
 
 ## 8. ESTABLISHED, ASSUMED, MISSING
 
 **ESTABLISHED** (this record, layer X, unreviewed):
-- Lemma PUR (with MSS (L)), Lemma DSJ and Theorem REL: BIDUAL-REL fails for C_V countably
+- Lemma PUR (Krein–Milman), Lemma DSJ and Theorem REL: BIDUAL-REL fails for C_V countably
   infinite;
 - Proposition BID′: for a fixed affine assignment, M2 BID's condition is necessary as well as
   sufficient;
@@ -357,11 +402,10 @@ decided here.
 - (N): DEC (through PROD) and σ-D (satisfied by the instrument);
 - NAT: named, not adopted;
 - LAW-σ and LAW-fa: readings, neither adopted;
-- (L): MSS, and the standard bidual facts F1–F4.
+- (L): the standard bidual facts F1–F4. MSS is cited as an alternative route only.
 
 **MISSING:**
-- whether a choice principle is necessary for Theorem REL, and whether purity of f (and so MSS)
-  can be avoided;
+- whether any choice principle is needed for Theorem REL at all. MSS is not needed (Lemma PUR);
 - whether π_f(D)″ is maximal abelian in B(H_f). This is not needed and not settled;
 - whether some physically motivated restriction of (F-S), for example covariance of the
   assignment under the diagonal unitaries or under configuration permutations, or a single
