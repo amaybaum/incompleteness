@@ -5623,3 +5623,345 @@ against; it decides no execution question.
 3. **No movement in between.** The plan branch does not move between building `T0` and the last dispatch on `T1`
    (`a1exit-trial-verify.yml` and `verify.yml`). If it moves, `T0` and `T1` are rebuilt from the new head, which
    becomes `P*`, and the dispatches are repeated against it.
+
+## 31. Amendment, preregistered: the final scientific review's corrections, and reconciliation to `53c6601a`
+
+**Owner decisions.** Owner `amaybaum`, 2026-11-22T05:19:53Z,
+[#1169 comment 7074687817](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7074687817),
+"Owner decisions on the final scientific review (#1477 c.7074137435), the A1 correction route and P2-C Node 1", quoted
+in part:
+
+> | Item | Decision |
+> |---|---|
+> | #1494, book Theorem 24(i) | APPROVE landing first, subject to an exact-head independent review, green CI and a clean merge |
+> | §31 append-only amendment | AUTHORIZE preparation |
+> | D026, D364, F4 and F7 corrections | AUTHORIZE within the amendment |
+> | D022 restriction | APPROVE, explicitly keeping the open H-cont obligation |
+> | Independent §31 delta review | REQUIRED |
+> | New T0′/T1′ trial | REQUIRED |
+> | Retirement execution | NOT AUTHORIZED |
+> | F6, C2-mixing and Sub:129/135 | AUTHORIZE separate correction preparation and review; no merge yet |
+>
+> **§31 requirements.** The amendment must:
+> - keep the original frozen ledger and the T0/T1 evidence unchanged;
+> - state the corrected D026 distinction between an available mathematical return formulation and the still-unsourced return hypothesis X-21;
+> - correct D364's normalization assumption, including `Tr σ_A = 1`;
+> - apply the necessary finite-`C_H` restrictions to the affected summary sites;
+> - correct Sub:94 so its conclusion does not exceed its finite premise;
+> - include the accepted Sub:257 wording correction and the applicable review nits;
+> - keep traceability from each review finding to its exact correction.
+>
+> F6 is not incorporated into the retirement.
+>
+> [...] T0′/T1′ run against the amended, independently reviewed plan. The original evidence is kept as a historical
+> baseline. [...] The previous T1's successful checker results do not establish acceptance of T1′.
+
+Owner `amaybaum`, 2026-11-22T05:34:52Z,
+[#1169 comment 7074829849](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7074829849),
+"Owner decision: the #1494 merge record is accepted, and §31 continues under its existing scope", quoted in part:
+
+> - **60 failing splices.** Rebuilding the ledger and re-pinning the base hashes is necessary. Applying the old plan to `53c6601a` would not be valid.
+> - **Three additional summary sites.** ch04:172, Complexity:206 and Methodology:353 are included in the scope audit and the traceability table.
+> - **Stale `FULL.pdf`.** Tracking it in #1539 is acceptable for now, but the corrected PDF must be rebuilt and verified before the retirement is considered complete.
+> - **Historical evidence.** P* and the original T0/T1 receipts are kept unchanged.
+>
+> **Additional safeguard.** The reconciliation must separate the legitimate changes caused by #1494 from unrelated drift. Every changed splice gets an explicit explanation. A passing checker alone is not sufficient scientific evidence.
+
+The route is that of c.7074687817 item 4: #1494 lands first (merged as `53c6601a`, recorded at #1169 c.7074755696),
+then this amendment and its independent delta review, then T0′/T1′, then a separate execution decision.
+
+**Goal link (§A.47).** A1-EXIT (#1169): this amendment decides whether the plan, moved to the base `53c6601a`, keeps
+every finite-only result finite-scoped at every site the final scientific review names, states the open return and
+continuation conditions as open, and explains every changed splice; it does not decide execution.
+
+**Order.** As in §28: this section is committed first; the edit-list, ledger and checker changes follow in later
+additive commits; the results of §31.7 are recorded in §31.10 and the record pins in §31.11. No earlier section is
+edited: where an earlier count, base or pin table differs from this section, this section governs, and the earlier text
+stays as the record of P*.
+
+### 31.1 New base and the historical baseline
+
+- **H** = `53c6601a10419b6b333cc992474272501ab542af`, the merge of #1494 (parents `fd9f99cc` and `98e55009`). Since the
+  ledger base `97070c98` `main` merged #1484 (`df6da1c6`, the dispatch-only trial workflow), #1533 (`3a12f785`, the T0
+  evidence), #1537 (`fd9f99cc`, the T1 evidence) and #1494 (`53c6601a`).
+- **Files changed between `97070c98` and H.** `.github/workflows/a1exit-trial-verify.yml` (added); the T0 and T1
+  evidence directories `verification/audits/foundations/a1exit-trial-t0-20261121/` and `-t1-20261121/` (added);
+  `book/ch02-substratum.md` and `book/The-Incompleteness-of-Observation-FULL.md` (one paragraph each, Theorem 24(i));
+  `book/The-Incompleteness-of-Observation-FULL.tex` (regenerated by #1494); and
+  `verification/audits/manuscript/bell-operational-reconciliation-20261029/sc42-integration-result.json` (regenerated
+  by #1494, one mirror entry). No other file differs. Of these, only the two book sources are ledgered files; the TeX
+  and the SC-42 result are regenerated artifacts that `preserve_check.py` compares with their rebuild on the candidate
+  (the TeX base control rebuilds H's `FULL.md` and must reproduce H's `FULL.tex`).
+- **Historical baseline.** P* = `55544cc36dee5b7dd5b9079c0f03be24b74c137f`, its `ledger.json` (SHA-256
+  `41ac4fd9fbcf4485d34a9aa1c1b46899a86c9a88503b65208e785af2412ff0f6`, base `97070c98`), the §26.4 pins and the T0/T1
+  evidence on `main` under `verification/audits/foundations/a1exit-trial-t0-20261121/` and `-t1-20261121/` are kept
+  unchanged. They record that the P* plan applied correctly at `97070c98`; they do not apply at H (60 of P*'s splices
+  fail their span check there, §31.2) and they do not establish acceptance of T1′.
+
+### 31.2 Reconciliation record (§9 at H)
+
+**Step 1.** H is recorded above. The Step-2 merge commits are those of §24.1 and are ancestors of H.
+
+**Step 2, and the cause of every changed splice.** At H every `old` string of the 373 P* records occurs exactly once
+(`edits_check.py --commit H`: 373/373). P*'s ledger, validated against H, fails the span check for exactly 60 splices:
+every one lies in `book/ch02-substratum.md` or `FULL.md` after the paragraph #1494 replaced. #1494 replaced ch02 bytes
+32514–32755 by bytes 32514–32876 and FULL bytes 177795–178036 by bytes 177795–178157, a net change of +121 bytes in each
+file and no change of line count. For each of the 60 splices: its old text is byte-identical at H, occurs once, starts
+exactly 121 bytes later, on the same line, and does not overlap the replaced paragraph; its new text is unchanged. So the
+only change is the byte offset, caused by #1494, and the claim, scope and class of each replacement are unchanged because
+neither its old nor its new bytes change. No splice changed for any other reason: drift 0. No splice outside these two
+files fails, and the ledger's base hashes differ at H only for these two files. The comparison is the mode
+`preserve_check.py --reconcile P*` added by this amendment (§31.6), which classifies each P* splice as unchanged,
+shifted by the preceding change or drift, and fails on any drift.
+
+| Edit | Site at H | Span start, P* → H | Shift | Cause | Class |
+|---|---|---|---|---|---|
+| D371 | FULL:774 | 179084 → 179205 | +121 | #1494 (byte shift only) | needs scientific review, unchanged |
+| D373 | FULL:774 | 179546 → 179667 | +121 | #1494 (byte shift only) | needs scientific review, unchanged |
+| D131 | FULL:788 | 183842 → 183963 | +121 | #1494 (byte shift only) | mechanical, unchanged |
+| D133 | FULL:842 | 203592 → 203713 | +121 | #1494 (byte shift only) | mechanical, unchanged |
+| D135 | FULL:895 | 218924 → 219045 | +121 | #1494 (byte shift only) | mechanical, unchanged |
+| D137 | FULL:905 | 222912 → 223033 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D139 | FULL:905 | 223125 → 223246 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D141 | FULL:905 | 223241 → 223362 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D143 | FULL:945 | 233675 → 233796 | +121 | #1494 (byte shift only) | mechanical, unchanged |
+| D145 | FULL:1087 | 282637 → 282758 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D147 | FULL:1114 | 288498 → 288619 | +121 | #1494 (byte shift only) | mechanical, unchanged |
+| D149 | FULL:1130 | 293788 → 293909 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D151 | FULL:1130 | 294192 → 294313 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D153 | FULL:1130 | 294341 → 294462 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D155 | FULL:1330 | 359471 → 359592 | +121 | #1494 (byte shift only) | mechanical, unchanged |
+| D157 | FULL:1334 | 361980 → 362101 | +121 | #1494 (byte shift only) | mechanical, unchanged |
+| D159 | FULL:1338 | 362794 → 362915 | +121 | #1494 (byte shift only) | mechanical, unchanged |
+| D161 | FULL:1398 | 378063 → 378184 | +121 | #1494 (byte shift only) | mechanical, unchanged |
+| D163 | FULL:1404 | 379004 → 379125 | +121 | #1494 (byte shift only) | mechanical, unchanged |
+| D165 | FULL:1907 | 492808 → 492929 | +121 | #1494 (byte shift only) | mechanical, unchanged |
+| D167 | FULL:1983 | 517699 → 517820 | +121 | #1494 (byte shift only) | mechanical, unchanged |
+| D169 | FULL:2433 | 598496 → 598617 | +121 | #1494 (byte shift only) | mechanical, unchanged |
+| D171 | FULL:2451 | 601690 → 601811 | +121 | #1494 (byte shift only) | mechanical, unchanged |
+| D256 | FULL:2519 | 616419 → 616540 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D173 | FULL:2521 | 616491 → 616612 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D175 | FULL:2597 | 627105 → 627226 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D177 | FULL:2603 | 628372 → 628493 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D258 | FULL:2605 | 628897 → 629018 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D179 | FULL:2607 | 628975 → 629096 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D360 | FULL:2607 | 629043 → 629164 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D181 | FULL:2607 | 629353 → 629474 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D252 | FULL:4771 | 960916 → 961037 | +121 | #1494 (byte shift only) | mechanical, unchanged |
+| D183 | FULL:5196 | 1070106 → 1070227 | +121 | #1494 (byte shift only) | mechanical, unchanged |
+| D185 | FULL:5282 | 1094641 → 1094762 | +121 | #1494 (byte shift only) | mechanical, unchanged |
+| D187 | FULL:5284 | 1095359 → 1095480 | +121 | #1494 (byte shift only) | mechanical, unchanged |
+| D189 | FULL:5286 | 1095937 → 1096058 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D191 | FULL:5430 | 1132171 → 1132292 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D193 | FULL:6171 | 1269263 → 1269384 | +121 | #1494 (byte shift only) | mechanical, unchanged |
+| D195 | FULL:6251 | 1286299 → 1286420 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D197 | FULL:6253 | 1286374 → 1286495 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D199 | FULL:6257 | 1286978 → 1287099 | +121 | #1494 (byte shift only) | needs scientific review, unchanged |
+| D201 | FULL:6259 | 1287176 → 1287297 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D203 | FULL:6261 | 1288488 → 1288609 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D205 | FULL:6263 | 1289280 → 1289401 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D207 | FULL:6263 | 1289661 → 1289782 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D209 | FULL:6265 | 1290224 → 1290345 | +121 | #1494 (byte shift only) | needs scientific review, unchanged |
+| D211 | FULL:6267 | 1290560 → 1290681 | +121 | #1494 (byte shift only) | needs scientific review, unchanged |
+| D213 | FULL:6267 | 1290809 → 1290930 | +121 | #1494 (byte shift only) | needs scientific review, unchanged |
+| D215 | FULL:6269 | 1290918 → 1291039 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D217 | FULL:6271 | 1291267 → 1291388 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D219 | FULL:6291 | 1294424 → 1294545 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D247 | FULL:6293 | 1294826 → 1294947 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D236 | FULL:6502 | 1335300 → 1335421 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D221 | FULL:6504 | 1335971 → 1336092 | +121 | #1494 (byte shift only) | mechanical, unchanged |
+| D238 | FULL:6562 | 1355451 → 1355572 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D223 | FULL:6628 | 1374128 → 1374249 | +121 | #1494 (byte shift only) | semantic, unchanged |
+| D370 | ch02:144 | 33803 → 33924 | +121 | #1494 (byte shift only) | needs scientific review, unchanged |
+| D372 | ch02:144 | 34265 → 34386 | +121 | #1494 (byte shift only) | needs scientific review, unchanged |
+| D130 | ch02:158 | 38561 → 38682 | +121 | #1494 (byte shift only) | mechanical, unchanged |
+| D132 | ch02:212 | 58311 → 58432 | +121 | #1494 (byte shift only) | mechanical, unchanged |
+
+**Step 3, redrafts.** No `old` string fails or changed at H, so no record is redrafted because of the base. The five
+records whose replacement changes (D026, D231, D363, D364, D369) are revised because of the findings of §31.3, not because
+of the base; D369's `old` is extended to the clause before it (§31.3). Each carries a `revised` field.
+
+**Step 4, the ledger site map.** `ledger_check.py build` reads the working tree and writes its record's `sitemap.json`
+(pin `e837e3db`), a record on `main` that this plan does not edit. It is run on a scratch export of H, and the rebuilt
+ptr-site set is compared with the frozen map: #1494 changed one line in ch02 and one in FULL, neither carrying a pointer
+pattern, and the line count of neither file changed, so the expectation is the same 194 ptr sites at the same lines.
+The new records are of kind `consistency` and are not ptr sites. The sitemap cross-check of `--static` reads the base
+lines at H.
+
+**Steps 5 and 6** are §31.7 items 1–4.
+
+**Re-pins.** The ledger is re-cut at H: `edits.json`'s `drafting_base` becomes H (`previous_base` `97070c98`), and
+`preserve_check.py --build-ledger` writes new spans and the base hashes of every ledgered file at H, including ch02 and
+FULL. `FULL.tex` and the SC-42 result carry no base hash: the candidate's copy is compared with its rebuild on the
+candidate. The record pins move to §31.11, which `preserve_check.py` reads (§31.6); §26.4 stays as P*'s pins.
+
+### 31.3 Findings and their corrections
+
+Line numbers are lines of the file at H. "FR" is the final scientific review (#1477 c.7074137435); "N1–N3 (#1494)" the
+exact-head review of #1494 (#1494 c.7074737862); "N3/N4 (§29)" the delta-review nits deferred in §29 item 3.
+
+| Finding | Edit | Site | Old → new (summary) |
+|---|---|---|---|
+| FR F1 (Stage 1 and Stage 3 in D026) | D026 (revised) | Sub:216 | P*'s "used by Stage 1's exact return and Stage 3's count; … a form of those stages for a substratum of unspecified cardinality … is not developed" → the two steps with no established form for a substratum of unspecified cardinality: Stage 1's exact rooted return $\Gamma_n=I$ after a non-permutation rooted map, whose step to P-indivisibility holds for a hidden prior on a measurable carrier of any cardinality (Main's Corollary (near-return), of which an exact return is a case), with (NR) a weaker sufficient condition for that conclusion, assumed and not adopted, and the source of the return hypothesis open (LEDGER X-21); Stage 3's count under H-count [GR §2.3]; E3 does not establish finiteness of $S$; no effective-finiteness argument |
+| FR F2 (D022 companion, owner's restriction) | D026 (revised); D022 unchanged | Sub:216; Sub:193 | the restricted sentences appended to the same bullet: Theorem 23 keeps its finite-substratum hypothesis; Stage 2's local results are also stated on $\mathbb{Z}^d$ under their named hypotheses [SM §4.1]; the pole and continued-response statements (Lemma 1c(ii), Proposition 4b) additionally need a meromorphic continuation of the memory-resummed Schur complement that is not established (the open H-cont obligation, stated by its content); these do not extend the complete theorem |
+| FR F3 = N3 (§29) | D364 (revised) | Sub:262 | "hold unchanged for any unitary or isometry $W$ on a Hilbert space $\mathcal K_A$ of any dimension and, for a classical factor, any measurable map $w$" → "hold unchanged for any density matrix $\sigma_A$ with $\operatorname{Tr}\sigma_A=1$ on a Hilbert space $\mathcal K_A$ of any dimension evolved by a unitary or isometry $W$ and, for a classical factor with $\alpha(A)=1$, any measurable map $w$" |
+| FR F3 nit (Sub:257) | D363 (revised) | Sub:257 | "with $\ell^2(A)$ prepared independently in a density matrix $\sigma_A$ with …" → "prepared independently in a density matrix $\sigma_A$ on $\ell^2(A)$ with …" |
+| FR F4 = N4 (§29) | D369 (revised) | Str:154 | `old` extended to "uniform hidden-coordinate relabelling and …"; "relabelling" → "relabelling of a finite $\mathcal{C}_H$"; the enlargement wording of §28 unchanged |
+| FR F4 | D375, D376 | ch02:134 = FULL:764 | "uniform hidden-coordinate relabelling and independently prepared finite decoupled enlargement preserve" → "… relabelling of a finite $\mathcal{C}_H$ and …" |
+| FR F4 | D377, D378 | ch02:172 = FULL:802 | "A uniform hidden-coordinate relabelling, with the uniform hidden prior," → "A uniform hidden-coordinate relabelling of a finite $\mathcal{C}_H$, with the uniform hidden prior," |
+| FR F4 | D379, D380 | ch03:80 = FULL:941 | "A single hidden permutation used identically in every visible fibre" → "A single hidden permutation of a finite $\mathcal{C}_H$ used identically in every visible fibre" |
+| FR F4 | D381, D382 | ch03:136 = FULL:997 | "A uniform hidden-coordinate relabelling preserves" → "A uniform hidden-coordinate relabelling of a finite $\mathcal{C}_H$ preserves" |
+| FR F4 | D383, D384 | ch03:142 = FULL:1003 | "A uniform hidden-coordinate relabelling, or" → "A uniform hidden-coordinate relabelling of a finite $\mathcal{C}_H$, or" |
+| N3 (#1494) | D385, D386 | ch04:172 = FULL:1276 | "Uniform hidden relabelling and an independently prepared finite decoupled enlargement give exact examples" → "Uniform hidden relabelling of a finite $\mathcal{C}_H$ and …" |
+| N3 (#1494) | D387 | Complexity:206 | "uniform hidden relabelling preserves the coherent channel under its stated preparation" → "uniform relabelling of a finite set of hidden configurations preserves …" (the paper does not use $\mathcal{C}_H$) |
+| N3 (#1494) | D388 | Methodology:353 | "a permutation of the hidden states applied uniformly in every visible fibre" → "a permutation of a finite set of hidden states applied uniformly in every visible fibre" |
+| FR F5 | none in this plan | ch02:140 = FULL:770 | landed by #1494 (`53c6601a`) before this amendment; the plan's edits do not touch it, and §31.7 item 6 asserts it in the predicted tree |
+| FR F6 | none | — | excluded: "F6 is not incorporated into the retirement" (c.7074687817); separate stream |
+| FR F7 | D374 | Sub:94 | "…restricting to a bijection on that image. Bijectivity … is thus partly structural," → "…restricting to a bijection on that image; for $S$ of unspecified cardinality bijectivity is the reversibility posit (REV) of [Main §4.5]. Bijectivity … is thus, for a finite $S$, partly structural," |
+| FR nit 5 | D389 | SM:252 (Lemma 1c) | "the selected counting measure of [Main] Lemma 3," → "… of [Main] Lemma 3 on a finite representative," |
+| FR nit 5 | D390 | SM:334 (Proposition 4b) | "take the selected counting measure," → "take the selected counting measure on a finite representative," |
+| FR nit 5 | D391 | SM:641 (Theorem 19) | "let the hidden prior be the counting measure." → "… the counting measure on a finite $\mathcal{C}_H$." |
+| FR nit 6 | D231 (revised) | Main:60 | "to every representative reached from it by …" → "to every representative, or channel-preserving extension, reached from it by …" |
+| N1 (#1494) | none | `FULL.pdf` | the corrected PDF is T1′'s CI-built `FULL.pdf` (§31.8); Issue #1539 |
+| N2 (#1494) | ledger re-cut | ch02, FULL.md, FULL.tex, SC-42 | §31.2 re-pins; the SC-42 result is regenerated on the predicted tree, never taken from either side |
+
+New IDs D374–D391 continue from D373; no ID is reused or renumbered. Every new record is of kind `consistency` with
+`revised: "new at amendment §31"`. Classes: D374 needs scientific review; D375–D391 semantic; the revised records keep
+their classes (D026, D231, D363, D364 needs scientific review; D369 semantic). Records: 391 (ptr 242, consistency 54,
+handoff 5, lean-docstring 36, repo-active 35, guard-pin 19); splices 389 (D032 and D039 retain their text) in 41 files
+(`papers/Complexity.md` added).
+
+**Where the text differs from the review's, and why.**
+
+1. *H-cont.* The label appears in no manuscript, only in verification records (O-A4). Printed in Substratum it would be
+   an undefined identifier, the defect F6 names for "C2-mixing". The obligation is kept and stated by its content, as
+   SM's Lemma 1c proof states it ("the pole reading assumes a meromorphic continuation of $\mathcal D$ that is not
+   established here").
+2. *[GR §3.1] → [GR §2.3].* H-count is stated at GR:58, in GR §2.3 ("Application"); §3.1 is the classical horizon
+   temperature. Its finite scope is written "for a total system that is finite", the review's "finite total system"
+   matching the residual pointer pattern P2.
+3. *"an infinite configuration space" → "a substratum of unspecified cardinality".* The owner's infinity scan rejects
+   "infinite configuration space" in a replacement; the plan's cardinality-neutral wording (P*'s D026, Sub:94) carries
+   the same scope.
+4. *(NR).* The review's "a weaker sufficient condition for it" is made "for that conclusion", the P-indivisibility
+   conclusion, as Main §2.3 and D245 state it; (NR) is not a sufficient condition for an exact return.
+5. *The return formulation (owner requirement).* The distinction is stated in D026: the step from an exact return
+   holds for a hidden prior on a measurable carrier of any cardinality, Main's Corollary (near-return) (its hypothesis
+   (NR) holds with margin $m>0$ when $\Gamma_n=I$), and what is open is a source of the return hypothesis (X-21).
+6. *Nit 5.* For Lemma 1c and Proposition 4b, "the selected counting measure" is Lemma 3's, the counting law of a finite
+   representative, so "on a finite representative" is the scope; Theorem 19's proof divides by $|\mathcal{C}_H|$, so
+   its scope is "a finite $\mathcal{C}_H$".
+7. *Methodology:353.* Only the finite scope is added. Its "which preserves every channel" states no prior; the
+   uniform-prior wording is the scope of #1492, which is not landing, and is not changed here (§31.9).
+
+### 31.4 Scope audit: every summary of Theorem 24(i) at H
+
+A `git grep` at H over `papers/*.md` and `book/*.md` for "relabel", "hidden permutation" and "permutation of the hidden"
+gives the sites below that concern hidden relabelling (the others concern alphabet relabelling, spectra, hypercharges,
+carriers of operational theories or the Born rule).
+
+| Site | Kind | Disposition |
+|---|---|---|
+| Sub:253 | the theorem statement | D361 (§28) |
+| ch02:140 = FULL:770 | the book statement | #1494, on `main` |
+| Str:154; ch02:134 = FULL:764; ch02:172 = FULL:802; ch03:80 = FULL:941; ch03:136 = FULL:997; ch03:142 = FULL:1003; ch04:172 = FULL:1276; Complexity:206; Methodology:353 | summaries stating the invariance | D369, D375–D388 |
+| Methodology:467 | "give examples at the stated scope of [Substratum Theorem 24]" | no change: the scope is the theorem's |
+| Main:60 (D231's sentence); Main:736 (item (ii), D224) | transfer from a finite representative | the relabelled object is a relabelling of a finite representative; D231 revised for nit 6 |
+| Str:742, Str:792 | Proposition 9.5 | no change: Proposition 9.5 is stated for finite OI-class substrata (its A1-A6 clause is rewritten by the plan, `STRUCTURE:P-9.5`) |
+| Sub:139, Sub:191, Sub:201, Sub:395; Str:51, Str:64, Str:206, Str:679; Computation:254; ch14:234 | generator lists | no change: they name generator (i) and state no invariance (as #1494 N3 records for Str:51, Str:206, Computation:254, ch14:234) |
+| Methodology:463; ch09:258 | the members of $\mathcal G_{\text{sub}}$ described as indistinguishable | no change: they describe the members of the group, whose scope is the theorem's |
+| ch02:148 = FULL:778 | proof of the scoped statement | no change |
+
+### 31.5 Not changed
+
+A1 stays retired, no optional A1 hypothesis is introduced, and the frozen H-B sentence stays. D001–D373 keep their text
+apart from the five revised records. D022, D116/D117 and D370–D373 are unchanged (the review accepts them). F6 is not
+incorporated.
+
+### 31.6 Checker changes
+
+- `preserve_check.py`: the record pins are read from the last `Record pins` subsection of PREREG (§31.11), so §26.4
+  stays as written; `--reconcile REV` compares the ledger at REV with the current ledger and base (§31.2); a scope
+  assertion check `SCOPE`, run in every candidate mode, requires each corrected sentence of §31.3 (and #1494's statement,
+  F5) in the candidate, with self-test mutants that drop one; the stale coverage entries gain `SM:L-1c-…`, `SM:P-4b-…`
+  and `SM:T-19` (D389–D391 change their statements).
+- `guards_check.py`: the same three entries in `--predict`'s stale list.
+- `edits_check.py`: `PRESERVE` entries for D026, D231, D363, D364, D369 and D374–D391, and `SIM_PRESERVE` entries for the
+  corrected sentences, so a redraft that drops a scope fails `--static` and `--simulate`.
+
+### 31.7 Preregistered checks and decision rule
+
+The amendment passes only if all of the following hold at H, each from the checkers at the plan head that carries
+§31.10:
+
+1. `edits_check.py`: `--self-test` PASS; `--static` 0 findings in every scan (infinity, register, capitals,
+   identifiers, preservation including every §31.6 entry, mirror parity, Lean docstring-only) and sitemap 194/194;
+   `--commit H --simulate` 391/391 unique, residual 5 (all allowed), 0 unscoped, 0 preservation, 0 identifier;
+   `--pins --commit H` 0 unresolved and 0 missing; `--repo-scan --simulate --final --commit H` 0 unexplained.
+2. `preserve_check.py --reconcile 55544cc36dee5b7dd5b9079c0f03be24b74c137f`: all 371 P* splices are compared with the
+   re-cut ledger at H. 366 keep their old and new bytes, of which exactly 60 are shifted, all by +121 bytes and all in
+   ch02 or FULL after the #1494 paragraph, and 306 keep their span; D026, D231, D363 and D364 keep their old bytes and
+   span and carry the revised replacement; D369 carries the extended old text and the revised replacement; 0 drift; the
+   18 records D374–D391 are new.
+3. `preserve_check.py --verify-ledger` identical; `--verify-pins` PASS against §31.11; `--self-test` PASS with the new
+   scope mutants.
+4. `guards_check.py --mutants` PASS (as §28.4 item 3).
+5. `guards_check.py --predict`, then `preserve_check.py --tree <predicted> --mutants`: PASS, 0 findings, the scope
+   assertions all present, the tree mutants failing as required. On H itself (the unedited base) the scope check fails,
+   one finding per assertion that the plan adds.
+6. Scope assertions, preregistered: in the predicted tree each of the following is present, and the superseded form at
+   each F4 site is absent: Sub:216 "no established form for a substratum of unspecified cardinality", "Corollary
+   (near-return) of [Main §2.3], of which an exact return is a case", "what is open for a substratum of unspecified
+   cardinality is a source of the return hypothesis", "a meromorphic continuation of the memory-resummed Schur
+   complement that is not established", "These do not by themselves extend the complete reconstruction theorem";
+   Sub:262 "for any density matrix $\sigma_A$ with $\operatorname{Tr}\sigma_A=1$ on a Hilbert space" and "for a
+   classical factor with $\alpha(A)=1$"; Sub:257 "a density matrix $\sigma_A$ on $\ell^2(A)$"; Sub:94 "for $S$ of
+   unspecified cardinality bijectivity is the reversibility posit (REV)" and "thus, for a finite $S$, partly
+   structural"; Str:154 and the book summaries "of a finite $\mathcal{C}_H$" at each of the twelve book sites and
+   Str:154; Complexity:206 and Methodology:353 "of a finite set of hidden"; SM:252 and SM:334 "counting measure … on a
+   finite representative"; SM:641 "the counting measure on a finite $\mathcal{C}_H$"; Main:60 "every representative,
+   or channel-preserving extension,"; ch02:140 and FULL:770 "For a finite set of hidden configurations $\mathcal{C}_H$
+   with the uniform hidden prior". The same strings are `preserve_check.py`'s `SCOPE` list, which T0′ and T1′ run.
+7. The coverage entries changed by the plan are exactly the seven of §31.6; `tools/coverage_check.py` passes on the
+   predicted tree.
+8. The new and revised records remove no finiteness term: compared with the base, the only removal of "finite" among
+   them is D369's, recorded in §28.3.
+9. Every run writes its structured result file, and each parses.
+
+A failure of any item stops the amendment; it is not re-run with changed thresholds.
+
+### 31.8 The trial T0′/T1′
+
+Built only after the independent delta review of this amendment and with the owner's approval of the trial dispatches
+(§A.43 item 4):
+
+- **P\*\*** is the head of `research/a1exit-deletion-20261121` at the moment T0′ is built; it is recorded with T0′, and
+  the plan branch does not move between building T0′ and the last T1′ dispatch. If it moves, T0′ and T1′ are rebuilt
+  from the new head, and the dispatches are repeated (§30).
+- **T0′**: a single-parent child of H whose tree is `guards_check.py --predict` at P\*\* (H's PDFs).
+  `a1exit-trial-verify.yml` is dispatched from `main` with `trial_sha` T0′ and `plan_sha` P\*\*. Expectation, as §29
+  item 1: every step up to `preserve` passes; `preserve` fails with only `--pdf-compare` findings for the PDFs of the
+  ledgered sources; `guards` is skipped; `result.json` and the PDF upload are written. The scope assertions of §31.7
+  item 6 pass in `preserve`'s `--commit` and `--tree` runs (each is a recorded check in the structured result).
+- **T1′**: a single-parent child of H whose tree is T0′'s with the PDFs of the ledgered sources replaced by T0′'s
+  CI-built PDFs. `a1exit-trial-verify.yml` (from `main`, `plan_sha` P\*\*) and `verify.yml` (on a branch whose head is
+  exactly T1′) are dispatched; every step and job must pass.
+- **Complexity.** D387 makes `papers/Complexity.md` a ledgered source, so its TeX is rebuilt and its PDF is one of the
+  PDFs `--pdf-compare` checks. The workflow on `main` builds and uploads the PDFs of seven papers and the book, not
+  Complexity's, so T0′ would carry a ninth, non-mismatch finding and T1′ could not pass. Before T0′ is built, the owner
+  decides between (a) adding `Complexity` to that workflow's `build.sh` list, page-count loop and upload list, a
+  separate reviewed change to `main`, after which the expectation above reads nine PDFs; and (b) removing D387 from this
+  plan by a further amendment and carrying Complexity:206 as a separate correction. Until that decision T0′ is not built.
+- **FULL.pdf (#1539).** H distributes a `FULL.pdf` that still prints the statement #1494 corrected. T1′'s CI-built
+  `FULL.pdf`, built by `build.sh --book` on the pinned toolchain from the predicted tree, is the route for the
+  corrected PDF; the retirement is not complete until that PDF is verified (its `pdf-compare` check and page count in
+  T1′'s structured result, and an independent check that it prints the corrected statement).
+- P\*'s T0/T1 results are not evidence for T0′/T1′.
+
+### 31.9 Recorded for the owner
+
+1. The Complexity PDF route of §31.8, (a) or (b).
+2. Methodology:353's "which preserves every channel" names no hidden prior (a uniform-prior wording is in #1492's scope,
+   which is not landing). It is not an A1 consequence and is left to that stream.
+3. Nit 5 makes three more coverage entries stale (SM Lemma 1c, Proposition 4b, Theorem 19), re-affirmed as the other
+   four are (§11 item 4).
