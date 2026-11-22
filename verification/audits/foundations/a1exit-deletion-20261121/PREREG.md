@@ -7085,3 +7085,85 @@ is passed as both `plan_sha` and `--plan` (§31.12.14).
 
 **Ledger.** Unchanged from §31.21: 399 splices in 44 files at H (401 edit records), SHA-256
 `2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5`.
+
+#### 31.12.15 R7: the jobs records are bound to the run and the commit they judge; N11
+
+The exact-head review at `b1b0522d` returned REVISE on one finding, R7, and a nit, N11. R7 falls under the owner's
+requirement that verification rest on trusted host data and fail closed. For R7 the owner has added that the fix fail
+closed whenever the run identity, the commit or other required provenance evidence is missing or does not match. Its
+regression tests include, for both `--expect-verify` and `--expect-trial`:
+- a valid matching run, as the control;
+- a different run on the same commit;
+- a run on a different commit;
+- missing or malformed evidence: no run id, no trial SHA, a malformed SHA, a malformed id.
+
+**Goal link (§A.47).** A1-EXIT (#1169): this subsection decides whether a host jobs record can be credited to a run or
+commit it does not belong to; it decides no execution question and authorizes no push or dispatch.
+
+**Order.** This text first; then the checker change and the record pins, §31.29; then the results, §31.28.
+
+**R7.**
+- *The defect.* `expect_verify` took the jobs record alone, and `_jobs` checked only its completeness, so a complete
+  record of any run passed. On the real 41-job record of run 44953482787, each of the following gave
+  `TRIAL EXPECTED`:
+  - every job's `run_id` and `head_sha` rewritten to another run's;
+  - one job's `run_id` changed, so that the record mixes runs;
+  - the first 30 jobs, with `total_count` rewritten to 30.
+
+  `expect_trial` never compared the jobs' `run_id` with `result.json`'s. T1's own `verify.yml` record, at
+  `c06259692ddf`, would have satisfied T1′'s check.
+- *The designated identity.* `--expect-verify` and `--expect-trial` each require `--trial-sha T` and `--run-id N`: the
+  trial commit, and the id of the run being judged. The check is void when either is missing, when T is not 40
+  lowercase hex characters, or when N is not a positive decimal integer.
+- *`--expect-verify`.* Every job must carry:
+  - `run_id`, an integer equal to N;
+  - `head_sha` equal to T;
+  - `run_attempt` the integer 1;
+  - `workflow_name` "verify".
+
+  A missing field is a deviation. The job names must be exactly the 41 that `verify.yml` at H produces on
+  `workflow_dispatch`, pinned in the checker as `VERIFY_JOBS` from T1's run of that file (`ci-record.json`). `verify.yml`
+  is byte-identical at `97070c98`, at H and at W. So a trimmed subset, even with a consistent `total_count`, fails, and
+  so does a renamed or an extra job.
+- *`--expect-trial`.*
+  - `result.json`'s `trial_sha` must equal T, and its `run_id` must equal N.
+  - Its `workflow_sha` must be a full commit id.
+  - Every job must carry:
+    - `run_id`, an integer equal to N;
+    - `head_sha` equal to `result.json`'s `workflow_sha`. `--verify-run` binds that value to the host run record's
+      `head_sha`, and a trial workflow's jobs run at the dispatching `main` commit, not at the trial commit;
+    - `run_attempt` 1;
+    - `workflow_name` "A1-EXIT trial verify";
+    - `name` "verify".
+- *Mutants*, for both modes, each a deviation with its named finding:
+  - the valid matching run, as the control;
+  - a different run on the same commit: `--run-id` another id, and the jobs' `run_id` rewritten to another id;
+  - a run on a different commit: the jobs' `head_sha` rewritten, and `--trial-sha` another commit (for
+    `--expect-trial`, `result.json`'s `trial_sha` differing from it);
+  - missing or malformed evidence: no `--run-id`; no `--trial-sha`; an upper-case or a 12-character SHA; a run id
+    `abc`; a job without `run_id`;
+  - for `--expect-verify` in addition:
+    - one job's `run_id` changed (mixed runs);
+    - `run_attempt` 2;
+    - `workflow_name` another workflow's;
+    - the first 30 jobs with `total_count` 30;
+    - a job renamed.
+- *The controls* use T1's recorded runs. `ci-record.json` keeps each job's id, name, conclusion and steps, and records
+  the run's `run_id`, `head_sha` and `run_attempt` once per run. The self-test fixture copies those run-level values,
+  and the workflow's name, onto each job, as the host serves them. A command-line probe repeats the check on the jobs
+  records fetched from the host at check time.
+
+**N11: a built PDF is checked as a PDF.**
+- *The defect.* A built file holding only the four bytes `%PDF` passed `--built`.
+- *The fix.* Each built PDF must parse under `pdfinfo`, and its page count must equal the count `result.json` records
+  in `pdf_pages`. `pdfinfo` and `pdftotext` are installed here, as `--pdf-compare` requires.
+- *Controls.* T0's and T1's built PDFs, extracted from their `artifact.zip` at H, against their own `pdf_pages`.
+- *Mutants:*
+  - a four-byte `%PDF` file;
+  - a real PDF whose page count is not the recorded one: another built PDF copied over it.
+
+**Checks.** The full battery is re-run with `--plan` set to the commit that applies this subsection and carries
+§31.29. The edit list and the ledger do not change, so the reconciliations must reproduce §31.26's figures: against P\*,
+302/60/9/28, drift 0; against `9ba8ef10`, 385/4/10, drift 0. The ledger SHA-256 must stay `2055e68f…`. The command-line
+probes are repeated on T1's jobs records fetched from the host, with the designated identity, and with each kind of
+mismatch.
