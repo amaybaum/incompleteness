@@ -175,8 +175,8 @@ Let `Ŷ` be the orbit with `P̂` and `Y` the orbit with `P`, from the restricted
 an end `m` of `P` with an outward neighbour in `P̂ ∖ P` a *cut end*, with outward neighbour `m⁺` and
 inward neighbour `m⁻ ∈ P`. Suppose:
 - no site of `{m} ∪ (P̂ ∖ P)`, for any cut end `m`, has an allowed neighbour other than sites of
-  the line, and no site off the line adjacent to `P̂ ∖ P` has an allowed neighbour off the line.
-  Equivalently: every allowed site off the line is at ℓ1-distance ≥ 2 from each cut end and ≥ 3
+  `P̂`, and no site outside `P̂` adjacent to `P̂ ∖ P` has an allowed neighbour outside `P̂`.
+  Equivalently: every allowed site outside `P̂` is at ℓ1-distance ≥ 2 from each cut end and ≥ 3
   from `P̂ ∖ P`;
 - `Ŷ` does not leak up to `T − 1`;
 - at every tick `≤ T − 2`, for each cut end `m`, the sites `m⁻`, `m`, `m⁺` carry their free W2
@@ -195,7 +195,7 @@ Then:
   ternary since `m` is free, so it stays 0. The other sites of `P̂ ∖ P` read only 0s and sites
   outside both allowed regions, so they stay 0 in `Y`.
 - A site off the line adjacent to `P̂ ∖ P` is outside both allowed regions, so it is 0 in `Ŷ` (no
-  leak up to `T − 1`). By the first hypothesis its only allowed neighbours are line sites, so in
+  leak up to `T − 1`). By the first hypothesis its only allowed neighbours are sites of `P̂`, so in
   `Y` its sum is 0 and it stays 0.
 
 At `T`, a leaking site `o` of `Ŷ` not adjacent to `P̂ ∖ P` reads, at `T − 1`, only sites at which
@@ -209,10 +209,10 @@ the two runs agree, and its previous value is 0 in both. It lies outside both al
   does not.
 
 **L8 (time reversal) [W, (N); the clause on the breather conditional on A-NU9].**
-For any orbit `y` of RZ on `ℤ³` and any even `T`, `ỹ_s := −y_{T−s}` is an orbit. It occupies the same component as `y`. It leaks at `s` if and only if
-`y` leaks at `T − s`, and it is periodic if and only if `y` is. For a head-on piece, it maps the set
-of free superpositions (NU9 at some phase, f-cycle piece) onto the set (NU9 at some phase, g-cycle
-piece), and conversely.
+For any orbit `y` of RZ on `ℤ³` and any even `T`, `ỹ_s := −y_{T−s}` is an orbit. It occupies the
+same component as `y`. It leaks at `s` if and only if `y` leaks at `T − s`, and it is periodic if
+and only if `y` is. For a head-on piece, it maps the set of free superpositions (NU9 at some phase,
+f-cycle piece) onto the set (NU9 at some phase, g-cycle piece), and conversely.
 
 *Proof.* The update is `y_{t+1} + y_{t−1} = G(S_t(y))`, symmetric under `t ± 1`. So
 `ỹ_{s+1} + ỹ_{s−1} = −(y_{T−s−1} + y_{T−s+1}) = −G(S(y_{T−s})) = G(S(ỹ_s))`, because `G` is odd and
@@ -284,7 +284,8 @@ the configuration leaks within 20 ticks.
 Nothing in it uses the infiniteness of a line. ∎
 
 **Corollary (single piece at distance 2) [conditional on A-NU9].**
-Every matched W2 piece at ℓ1-distance exactly 2 from the cube leaks within 20 ticks, from all 40 initial states.
+Every matched W2 piece at ℓ1-distance exactly 2 from the cube leaks within 20 ticks, from all 40
+initial states.
 *Proof.* Take `g ∈ C` and a piece site `l` at distance 2, and `o` a common neighbour. `o` is not in
 `C`, since `l` is at distance 2. It is not in the piece, since the piece is at distance 2. `o` has
 at most one neighbour in each of the closed sets `C` and `P`, so it has exactly the two allowed
@@ -681,9 +682,9 @@ at a uniform background `c` with `3 ≤ c ≤ q − 4`. Then:
   `P̂` the ray and the cut end `m = r_{x₁}`, so `m⁻ = r_{x₁−1}` and `m⁺ = r_{x₁+1}`. The first
   hypothesis holds: the cube's sites have first coordinate ≤ 1, `m` has first coordinate ≥ 3 (so
   ℓ1-distance ≥ 2 from the cube), and the removed sites `r_x`, `x > x₁`, have first coordinate
-  ≥ 4 (so distance ≥ 3). The bound `x₁ ≥ 3` is unchanged. In every f-branch, `r_x` for `x ≥ 3` keeps its free value up to the leak,
-  and `r_2 = e` (which is `m⁻` when `x₁ = 3`) up to the tick before it. So `m⁻`, `m`, `m⁺` are free
-  at every tick `≤ T − 2`. Every leak site of §5 has first coordinate ≤ 2, so it is not adjacent to
+  ≥ 4 (so distance ≥ 3). The bound `x₁ ≥ 3` is unchanged. In every f-branch, `r_x` for `x ≥ 3`
+  keeps its free value up to the leak, and `r_2 = e` (which is `m⁻` when `x₁ = 3`) up to the tick
+  before it. So `m⁻`, `m`, `m⁺` are free at every tick `≤ T − 2`. Every leak site of §5 has first coordinate ≤ 2, so it is not adjacent to
   `P̂ ∖ P`.
 - (b) The f-cycle states have no admissible orbit by (a). The g-cycle states have none by L8 and
   (a), for rays and segments alike.
