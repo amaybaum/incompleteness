@@ -6931,3 +6931,60 @@ The T0 and T1 controls take the eight-PDF set those runs had.
 
 **Ledger.** Unchanged from §31.21: 399 splices in 44 files at H (401 edit records), SHA-256
 `2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5`.
+
+#### 31.12.14 R6: the expectation checker fails closed on a partial or omitted record
+
+The exact-head review at `15b96d18` is recorded on #1477 (comment 7078510488), REVISE on one finding, R6; everything
+else is confirmed. R6 falls under the owner's requirement that every analogous missing-data bypass fail closed
+(#1169 comment 7076485257 item 3).
+
+**Goal link (§A.47).** A1-EXIT (#1169): this subsection decides whether `--expect-trial` and `--expect-verify` can
+pass on a host record that is incomplete or not supplied; it decides no execution question and authorizes no push or
+dispatch.
+
+**Order.** This text first; then the checker change and the record pins, §31.27; then the results, §31.26.
+
+**R6.**
+- *The defect.* The jobs endpoint returns its first page by default. For T1's `verify.yml` run (44953482787) that
+  page is 30 of 41 jobs, with `total_count` 41. Saved whole as §31.12.13 instructed, it passed `--expect-verify`, and
+  so did a record with a job removed. `--jobs` and `--built` were optional for `--expect-trial`, so without them the
+  verdict rested on `result.json`'s self-reported steps alone, and the nine uploaded PDFs went unchecked.
+- *The fetch, corrected.* §31.12.13's jobs record is `GET /repos/{owner}/{repo}/actions/runs/{run_id}/jobs?per_page=100`,
+  saved whole. When `total_count` exceeds 100, every page is fetched (`&page=2`, …) and the jobs are concatenated into
+  one record `{"total_count": N, "jobs": [...]}` that holds all N jobs.
+- *The checks.*
+  - A jobs record is accepted only as a JSON object with an integer `total_count` equal to the number of its `jobs`.
+    Each job must carry an integer `id`, unique in the record, and a non-empty `steps` list. Anything else, a bare
+    list included, is a deviation.
+  - Under `--expect-trial`, `--jobs` and `--built` are required: a missing one is a deviation ("host jobs record not
+    supplied", "artifact not supplied"). Each of the nine built PDFs must be a non-empty file that begins `%PDF`.
+- *Mutants*, each a deviation with its named finding:
+  - T1's real `verify.yml` record cut to the default page, 30 of 41 jobs with `total_count` 41;
+  - the record without `total_count`;
+  - one job removed, with `total_count` kept;
+  - `--expect-trial` without `--jobs`;
+  - `--expect-trial` without `--built`.
+
+  The controls are the complete records.
+
+**The audit of the other new modes.** Each optional input
+and each record a mode reads was checked for a value whose absence, truncation or duplication skips a check:
+
+| Mode | Input or record | Before | After | Mutant |
+|---|---|---|---|---|
+| `--expect-verify` | a job without steps | passed: nothing to check | deviation | a job's steps removed |
+| `--expect-verify`, `--expect-trial` | a job listed twice, with `total_count` raised to match | passed | deviation: the job ids must be unique | a duplicated job |
+| `--expect-trial` | a built PDF that is empty or not a PDF | passed the presence check | deviation | an empty built PDF |
+| `--run-meta-redacted` | a copy supplied as both the original and the copy | passed: the two agree | void: with a copy given, the original must carry the e-mail fields it removes | the copy as the original |
+| `--run-meta-redacted` | a copy that is missing or not JSON | void | unchanged | a copy that is not an object |
+| `--run-meta-redacted` | flag omitted | the copy is not checked | unchanged: a copy is optional (§31.12.13); a retained copy is checked with this flag before it is relied on | none |
+| `--expect-trial` | `--run-out` omitted or incomplete | every missing report or `result.json` is a deviation | unchanged | the existing report mutants |
+
+**The plan commit.** As §30 and the review require, T0′ is built from P\*\*, the frozen head itself. The same P\*\* is
+both `plan_sha` and `--plan`, because the tree check compares the candidate's record directory with the plan's byte for
+byte.
+
+**Checks.** The full battery is re-run with `--plan` set to the commit that applies this subsection and carries §31.27.
+The edit list and the ledger do not change, so the reconciliations must reproduce §31.24's figures: against P\*,
+302/60/9/28, drift 0; against `9ba8ef10`, 385/4/10, drift 0. The ledger SHA-256 must stay `2055e68f…`. The command-line
+probes are repeated on T1's real jobs records from the host, the default page and the `per_page=100` record.
