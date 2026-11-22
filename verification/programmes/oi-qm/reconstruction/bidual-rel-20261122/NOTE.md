@@ -9,7 +9,7 @@ prefixed "M2" are NONDIO-M2's at `7102e6af`; names without a prefix are this rec
 Revision r2 answers the independent review of `238a9330` (CONFIRMED WITH NITS, relayed by the
 coordinating session).
 - N1: Lemma PUR obtains f by Krein–Milman on the face of states over the pure character χ, so MSS
-  is not needed. The face over the non-pure μ named in the review is not a face, but every state
+  is not needed. The set of states over the non-pure μ named in the review is not a face, but every state
   over χ restricts to μ on D, which gives the same conclusion.
 - N2: the reason every witness has a singular part is stated (§0; §3, Remarks).
 - N3: the comparison remark is restricted to maximality.
@@ -80,7 +80,7 @@ assignments are both decided. The output class is NEW, with assumption-watch mar
 |---|---|---|
 | Kadison–Singer problem | R. V. Kadison, I. M. Singer, "Extensions of pure states", Amer. J. Math. 81 (1959), 383–400 | formulation only |
 | Its solution | A. W. Marcus, D. A. Spielman, N. Srivastava, "Interlacing families II: Mixed characteristic polynomials and the Kadison–Singer problem", Ann. of Math. 182 (2015), 327–350 | **alternative route (L)**, not needed. In the form "every pure state of the diagonal MASA ℓ^∞(ℕ) ⊆ B(ℓ²(ℕ)) has exactly one extension to a state of B(ℓ²(ℕ))", which is unitarily invariant, it identifies the state f of Lemma PUR with the ultrafilter limit f_0. No proof uses it |
-| Extension property of MASAs | R. J. Archbold, J. W. Bunce, K. D. Gregson, "Extensions of states of C\*-algebras, II", Proc. Roy. Soc. Edinburgh Sect. A 92 (1982), 113–122; J. Anderson, "Extensions, restrictions, and representations of states on C\*-algebras", Trans. Amer. Math. Soc. 249 (1979), 303–329 | context. Only the abstract of the first was read: an abelian subalgebra with the extension property is a MASA. Neither paper is used in a proof |
+| Extension property of MASAs | R. J. Archbold, J. W. Bunce, K. D. Gregson, "Extensions of states of C\*-algebras, II", Proc. Roy. Soc. Edinburgh Sect. A 92 (1982), 113–122; J. Anderson, "Extensions, restrictions, and representations of states on C\*-algebras", Trans. Amer. Math. Soc. 249 (1979), 303–329 | context. That an abelian subalgebra with the extension property is a MASA is the standard fact of this line of work, not checked at source here. Neither paper is used in a proof |
 | Excision | C. A. Akemann, J. Anderson, G. K. Pedersen, "Excising states of C\*-algebras", Canad. J. Math. 38 (1986), 1239–1260 | context. Not read in full and not used |
 | Bidual as enveloping von Neumann algebra | M. Takesaki, *Theory of Operator Algebras I*, Springer (1979), Ch. III §2 | **used (L)**, for standard facts F1–F4 (§2) |
 
@@ -131,7 +131,7 @@ f|_D = μ, vanishes on the compact operators, and differs from f∘Δ.
 - *The configuration law.* For g ∈ ℓ^∞(C_V), the e_n have disjoint supports, so
   p_U M_g p_U = Σ_{n∈U} μ_n(g)|e_n⟩⟨e_n| with μ_n(g) := 2^{−n} Σ_{k∈B_n} g(k). Hence
   f(M_g) = χ(Σ_{n∈U} μ_n(g)|e_n⟩⟨e_n|) = μ(g).
-- *Singularity.* For k ∈ C_V, f(P_k) = μ(1_{{k}}) = 0. So f vanishes on finite-rank operators by
+- *Singularity.* For x ∈ C_V, f(P_x) = μ(1_{{x}}) = 0, with P_x the projection onto |x⟩. So f vanishes on finite-rank operators by
   Cauchy–Schwarz, and on the compacts by norm continuity.
 - *Coherence.* With P_e := Σ_n |e_n⟩⟨e_n| ∈ D_e, f(P_e) = 1, while
   f(Δ(P_e)) = μ(Δ(P_e)) = lim_𝒰 2^{−n} = 0. ∎
