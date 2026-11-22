@@ -149,7 +149,7 @@ class Scanner(unittest.TestCase):
                   "a ~~s~~", "1. one", "+ plus", "* star", "    code", "  lead", "@someone", "a :smile: b",
                   "a\\*b", "line  ", "line\\", "a | b", "| a |", "| a |\n|---|\n| b | c |", "- x\n  continued",
                   "- x\ncontinued", "- - x", "-", "- ", "  - jump", "- a\n    - jump", "https://example.com",
-                  "see " + LOCAL + ".", "(" + LOCAL + ")", "[a](https://example.com)", "[a](https://github.com/other/repo/issues/1)", "a​b", "a\u2028b",
+                  "see " + LOCAL + ".", "(" + LOCAL + ")", "[a](https://example.com)", "[a](https://github.com/other/repo/issues/1)", "a\u200bb", "a\u2028b",
                   "x\n\n---\n\ny", "- | a | b |", "| - a | b |\n|---|---|\n| c | d |", "| `a|b` | c |\n|---|---|",
                   "| a | b |\n|---|---|\ntext", "**a\nb**", "a**b**c", "**a"]
         for body in bodies:
