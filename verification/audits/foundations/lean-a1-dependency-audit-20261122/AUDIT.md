@@ -43,10 +43,13 @@ docstring or registry entry that the retirement must change or re-prove.
    and on a copy of `papers/`, `book/`, `tools/`, the Lean trees and the registry with all
    applicable `edits.json` records applied by the plan's own `apply_edits`. Every family whose
    modules encode A1 is `kernel-only` with no manuscript anchor, so no anchor moves.
-4. **Docstring corrections the plan does not yet make:** four (R-1 to R-4 below), each a heading or
-   scope sentence that reads as cardinality-free while the declaration carries finite hypotheses,
-   or that states more finiteness than the declaration carries. Under global A1 the first kind was
-   implicitly finite; after the retirement it is not.
+4. **Docstring corrections the plan does not yet make:** R-1 to R-3 and R-7 below, with R-4 a
+   propagation note and R-8 a capitalization nit in plan record D319. R-1 to R-3 are headings or
+   scope sentences that read as cardinality-free while the declaration carries finite hypotheses,
+   or that state more finiteness than the declaration carries; under global A1 the first kind was
+   implicitly finite, and after the retirement it is not. R-7 is a docstring that still states the
+   retired posit as a fact about the manuscripts (`A6Instantiation.lean:508`), found by the
+   independent review of this record (#1542 comment 7075467292).
 5. **Identifier-migration candidates:** the thirteen kernel names and one registry family name of
    §5, matching the plan's §22.4 table. They are listed only; renaming is a §A.48 item 3 migration
    needing prior owner approval (Issue #1482).
@@ -99,16 +102,17 @@ as a hypothesis; outside `ManuscriptAxioms.lean` no file uses the latter two at 
 
 ### 3.2 Finite hypotheses on carriers (class (a), keep)
 
-About 200 of the 252 Lean files carry `[Fintype _]` or `[Finite _]` binders. They type matrices,
+180 of the 252 Lean files (`verification/lean/*.lean`, `OIBridge/*.lean`, `OIBridge.lean`) match
+`\[(Fintype|Finite)\b`, that is, carry `[Fintype _]` or `[Finite _]` binders. They type matrices,
 finite sums, probability vectors and `FiniteOperationalTheory` carriers; none is stated as A1.
 Those behind the finite-only results Main states were read in full at the signature level:
 
 | Module | Finite binder | Manuscript scope after the retirement |
 |---|---|---|
 | `CausalReadback.lean:178` (`RootedRealization V H [Fintype H]`), `RecurrenceHorizon.lean:134`, `RootedClassification.lean:24, 135` | finite visible and hidden carriers | Main §2.3 theorems state finite `𝒞_V`, `𝒞_H`; D004 rewrites Main:129 to "the theorem takes the hidden space finite, as on a finite representative" — matches the kernel |
-| `CanonicalMeasure.lean:54` | `[Fintype S]` (uniform law, injective ⇒ bijective) | Lemma 3 counting measure "on a finite representative" (D253, D389); Substratum:94 finite-set clause with (REV) otherwise (D374) — matches |
+| `CanonicalMeasure.lean:54` (cited by `book/ch01` and FULL, not by Main or SM) | `[Fintype S]` (uniform law, injective ⇒ bijective) | Lemma 3 counting measure "on a finite representative" (D253, D389); Substratum:94 finite-set clause with (REV) otherwise (D374) — matches |
 | `PhysicalC4Discharge.lean:576`, `PhysicalC4StorageReadback.lean` | `[Fintype 𝒮.ι] [Fintype 𝒮.V]`, finite `H` | routed readback, finite carriers; no plan edit to that paragraph |
-| `SubstratumInterfaceAudit.lean:766`, `FrozenSourcing.lean:84, 277`, `StochasticInterface.lean:111, 125, 182`, `LiftSource.lean:196, 296`, `ExecSource.lean` | `[Fintype 𝒮.ι] [Fintype 𝒮.V]` for `obsTheory 𝒮` | the observer theory is defined only for finite sites and alphabet; Main:598 and GR:257 keep "in its finite model" (D008, D043) — matches; headings see R-3 |
+| `SubstratumInterfaceAudit.lean:766`, `FrozenSourcing.lean:84, 277`, `StochasticInterface.lean:111, 182`, `LiftSource.lean:196, 296`, `ExecSource.lean` | `[Fintype 𝒮.ι] [Fintype 𝒮.V]` for `obsTheory 𝒮` | the observer theory is defined only for finite sites and alphabet; Main:598 and GR:257 keep "in its finite model" (D008, D043) — matches; headings see R-3 |
 | `Finiteness.lean` | finite boundary modes ⇒ `Finite C_V` | Main Lemma 1, visible finiteness: not A1 and not touched |
 
 ### 3.3 Theorems the retirement can cite for any cardinality (class (c))
@@ -118,7 +122,7 @@ Those behind the finite-only results Main states were read in full at the signat
 | `ObservableFactorRecurrence.changeEvent_eq_iUnion` (`:48`) | `X`, `V` arbitrary types, no instance | no finiteness at all |
 | `ObservableFactorRecurrence.pIndivisible_of_visible_identity_return_nonperm` (`:68`) | `[Fintype V] [DecidableEq V]` on the visible alphabet only; no hidden carrier occurs in the statement; the measurable realization of `Γ` is not constructed (its docstring says so) | no hidden-carrier finiteness; finite visible alphabet kept |
 | `WaveUnbounded.waveZ_A2`, `waveZ_A3`, `waveZ_A4Exact`, `waveZ_A4`, `waveZ_A5`, `waveZ_A4Exact_int` (`WaveSubstratumUnbounded.lean:45–65`) | `L = 0`, sites `Fin d → ℤ`; `q` arbitrary (`q = 0` gives alphabet `ℤ`); no instance binder; the upstream `waveSubstratum_A2`–`_A5` hold for every `L`, and the rule `waveF` sums over the `2d` neighbour directions, not over sites | no finiteness |
-| `ObservableRigidity` (`:152–372`): `rootedFamily_isRowStochastic`, `tv_revives_of_nearReturn`, `exists_pIndivisibleWithin_of_nonPermutation`, `rootedFamily_productLaw` | microscopic carrier `S` any measurable space; `[Fintype V]` on the visible alphabet only; the existence theorem additionally assumes a compact-orbit hypothesis | no hidden-carrier finiteness |
+| `ObservableRigidity` (`:88–392`): `tv_revives_of_nearReturn` (`:88`), `rootedFamily_isRowStochastic` (`:170`), `exists_pIndivisibleWithin_of_nonPermutation`, `rootedFamily_productLaw` | microscopic carrier `S` any measurable space; `[Fintype V]` on the visible alphabet only; the existence theorem additionally assumes a compact-orbit hypothesis | no hidden-carrier finiteness |
 
 None of these names is cited by a manuscript at `main` or in the plan's new text. The retirement's
 cardinality-free claims — the near-return step on a measurable hidden carrier (D026, D229), the
@@ -133,7 +137,7 @@ obligation.
 
 ### 3.4 Prose naming A1 as the global posit (class (b))
 
-Every such site at `main` is covered by a plan record: `ManuscriptAxioms.lean:4, 8, 17, 21–26, 72,
+Every such site at `main` but one is covered by a plan record: `ManuscriptAxioms.lean:4, 8, 17, 21–26, 72,
 75, 89, 93, 97` (D262–D273); `SubstratumInterfaceAudit.lean:7, 13, 16, 83, 108, 184, 769, 785`
 (D274–D281); `FrozenSourcing.lean:83` (D282); `HexLatticeGas.lean:37, 106, 311` (D283, D321,
 D322); `HydroSourceAudit.lean:88` (D284); `RouteB.lean:108` (D285); `SubstratumSource.lean:48`
@@ -142,22 +146,38 @@ D322); `HydroSourceAudit.lean:88` (D284); `RouteB.lean:108` (D285); `SubstratumS
 these files are declaration names, the phrase "the finiteness predicate `A1`", and the frozen H-B
 sentence at `HexLatticeGas.lean:94`.
 
+The exception is `A6Instantiation.lean:508`, in the docstring of `cx3b_complex_not_A1`: "the
+manuscripts' substratum is the finite object of `SM.md:306`". After the retirement the manuscripts
+do not posit a finite substratum, so the clause states the retired posit as a fact; and `SM.md:306`
+at `main` is the scope remark of SM Theorem 3, not a finiteness statement. No `edits.json` record
+touches it (D319 edits the next sentence) and `PREREG.md` does not mention it. The A1-token grep of
+§2 missed it because it contains no `A1` token. The same passage (`:506`) calls finiteness "the
+first of the interface's axioms", which names the kernel predicate `A1` and is accurate for the
+interface. The passage is labelled the round's frozen "bounded reading"; the plan already edits
+inside it (D319), so it is treated as active docstring text, unless an owner decision freezes it as
+for the H-B sentence. Class (b); recommendation R-7.
+
 ### 3.5 Unrelated labels (class (u), no change)
 
 `OIBridge.lean:2` and `Averaging.lean:55` ("ROADMAP §A1", a section of the frozen roadmap);
 `OI_Regulator_Symmetry.lean:27` (the same section); `OrbitGeometrySelector.lean:1641`
 (`geo4_a1_l5_not_implies_geo`, cell `a1` of act 24) and its registry mention at line 1219;
-`QuarterTurn.lean:490` (`chiA1`, the character of the irreducible representation A₁);
+`QuarterTurn.lean:408` (`chiA1`; `sum_chiA1_sq` at `:490`, the character of the irreducible representation A₁);
 `OI_Structural_Core.lean:389` (variables `A0 A1 A2`); `ObservableRigidity.lean:8, 16` and registry
 line 1725 (the programme label A1-RIGID-1, kept by the plan).
 
 ## 4. Cross-check against the retirement edits
 
-**Kernel-citing manuscript paragraphs.** Ten `edits.json` records fall in paragraphs that cite
-kernel declarations: D004, D008, D009, D043, D224–D228, D253, D389. Each keeps or adds a finite
-scope ("finite model", "a finite substratum", "on a finite representative", "takes the hidden
-space finite"), and each cited kernel statement carries that finiteness as an explicit binder
-(§3.2). No edited sentence states a kernel result more strongly or more weakly than its statement.
+**Kernel-citing manuscript paragraphs.** Eleven `edits.json` records were checked: D004, D008,
+D009, D043, D224–D228, D253, D389. Nine of them (D008, D009, D043, D224–D228, D253) sit in a
+paragraph with a kernel citation; D004 (`Main.md:129`) and D389 (`SM.md:252`) do not, and are scope
+checks against the §3.2 modules. Each keeps or adds a finite scope ("finite model", "a finite
+substratum", "on a finite representative", "takes the hidden space finite"). For D008, D009 and
+D043 the cited kernel statements carry that finiteness as explicit binders (`obsTheory` under
+`[Fintype 𝒮.ι] [Fintype 𝒮.V]`, `FiniteRootedRealizable` with a finite `H`). For D224–D228 and D253
+the paragraph's kernel citation is `ruleDynamics`, for ledger item (viii) (a finite alphabet over
+arbitrary sites), which the edits do not touch. No edited sentence states a kernel result more
+strongly or more weakly than its statement.
 
 **Census registry (§A.35).** No supersession entry is needed: no theorem statement changes. No
 anchor changes: the families carrying A1 material — "route B: consequence closure", "manuscript
@@ -172,8 +192,9 @@ keeps an unscoped instance claim (R-2).
 (`edge_rigidity_probe.py`) and `bohr_frequency_probe.py` — the only probes under `verification/lean/`
 that read the nine edited modules or the registry — and the census, mirror, citation and
 dependency-label checks, with `edits_check.py --pins` scanning the literals of every tracked Python
-check. Outside that list, CI runs self-tests that read the live registry: the KTOKEN-MAXCONE-1
-probe and `verification/infrastructure/ktoken_historical_selftest.py` (its family last), and the
+check. Outside that list, CI runs self-tests that read the live registry:
+`verification/infrastructure/ktoken_historical_selftest.py` (it compares the whole KTOKEN family;
+the independent review ran it on the simulated tree: PASS), and the
 `--self-test`/`exact` modes of the round controls of OI-FINITE-PROTOCOL-1, OI-PAIR-MAXCONE-1,
 PRESERVE-INDUCT-1 and KTRANS-SEP-2. None names a family the plan edits, and the plan adds or
 reorders no family, so none is expected to be affected; they are exercised by the plan's
@@ -231,5 +252,5 @@ No Lean or Mathlib build was run; the kernel statements are read from source, no
 ## 8. Not claimed
 
 This audit does not certify the plan, its other 355 records, or the manuscript edits outside the
-ten kernel-citing paragraphs; it does not re-check any kernel proof; and it changes no claim's
+eleven records of §4's kernel-paragraph check; it does not re-check any kernel proof; and it changes no claim's
 status.
