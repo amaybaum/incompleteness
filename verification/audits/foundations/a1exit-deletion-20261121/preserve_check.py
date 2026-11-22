@@ -18,7 +18,7 @@ Usage (from the repository root):
                                                               ledger and base: unchanged, shifted by a base change
                                                               before it, revised at §31, or drift (PREREG §31.2)
 
-  python3 -I -B .../preserve_check.py --verify-run RESULT.json --run-meta RUN.json [--workflow-base W] [--main REV]
+  python3 -I -B .../preserve_check.py --verify-run RESULT.json --run-meta RUN.json --plan P [--workflow-base W] [--main REV]
                                                               a trial dispatch's result.json is valid or void: its
                                                               executed workflow commit, the host run record's head_sha
                                                               (RUN.json), on main's first-parent history, containing W
@@ -444,6 +444,9 @@ def pdf_compare(cand_dir, built_dir, paths, out_dir=None):
                 if len(cols) != 2 or not cols[1].strip().isdigit():
                     bad.append('malformed build record row in pdf-pages.tsv: %r' % line)
                     continue
+                if cols[0] in rows:
+                    bad.append('duplicate build record row in pdf-pages.tsv for %s' % cols[0])
+                    continue
                 rows[cols[0]] = cols[1].strip()
     else:
         bad.append('no build record: pdf-pages.tsv absent from %s' % out)
@@ -636,7 +639,7 @@ def _blob(rev, path):
     return r.stdout.strip() if r.returncode == 0 else None
 
 
-def verify_run(res, meta, ledger_base, workflow_base, main_rev):
+def verify_run(res, meta, ledger_base, workflow_base, main_rev, plan_sha):
     """PREREG §31.12.7 and §31.12.8. The executed workflow commit is the host run record's head_sha, never a value the
     run reports about itself: (3) the run record (the host API's GET .../actions/runs/{run_id}, saved whole) is present,
     is that run, a first-attempt workflow_dispatch of the trial workflow from main; (4) its head_sha is on main's
@@ -646,6 +649,14 @@ def verify_run(res, meta, ledger_base, workflow_base, main_rev):
     bad = []
     if not isinstance(res, dict):
         return ['result.json is not a JSON object']
+    # N8 (§31.12.12): the run is bound to the designated plan commit
+    if not isinstance(plan_sha, str) or not re.fullmatch(r'[0-9a-f]{40}', plan_sha):
+        bad.append('no designated plan: --plan %r missing or not a full commit id' % (plan_sha,))
+    rp = res.get('plan_sha')
+    if not isinstance(rp, str) or not re.fullmatch(r'[0-9a-f]{40}', rp):
+        bad.append('result.json plan_sha %r missing or not a full commit id' % (rp,))
+    elif rp != plan_sha:
+        bad.append('result.json plan_sha %s is not the designated plan %s' % (rp[:12], str(plan_sha)[:12]))
     head = None
     if not isinstance(meta, dict) or not meta:
         bad.append('run metadata missing: no host record of the run, so the executed workflow commit is unverified')
@@ -659,7 +670,11 @@ def verify_run(res, meta, ledger_base, workflow_base, main_rev):
             bad.append('run workflow path %r, not %s' % (meta.get('path'), WORKFLOW))
         if meta.get('head_branch') != 'main':
             bad.append('run head_branch %r, not main' % meta.get('head_branch'))
-        if meta.get('run_attempt') != 1:
+        if 'inputs' in meta:
+            inp = meta.get('inputs')
+            if not isinstance(inp, dict) or inp.get('plan_sha') != plan_sha:
+                bad.append('host record inputs %r do not carry the designated plan %s' % (inp, str(plan_sha)[:12]))
+        if type(meta.get('run_attempt')) is not int or meta.get('run_attempt') != 1:
             bad.append('run attempt %r, not 1' % meta.get('run_attempt'))
         head = meta.get('head_sha')
         if not isinstance(head, str) or not re.fullmatch(r'[0-9a-f]{40}', head):
@@ -853,6 +868,10 @@ def self_test(led, base_files, plan):
             open(os.path.join(out, 'pdf-pages.tsv'), 'a').write('papers/GR.pdf 12\n')
             expect(any('malformed build record row' in x for x in pdf_compare(d1, d2, both)),
                    'pdf compare MT-pdf-malformed-row: fails with "malformed build record row"')
+            state()
+            open(os.path.join(out, 'pdf-pages.tsv'), 'a').write('papers/GR.pdf\t%d\n' % pdf_facts(os.path.join(d2, 'papers/GR.pdf'))[0])
+            expect(any('duplicate build record row' in x for x in pdf_compare(d1, d2, both)),
+                   'pdf compare MT-pdf-duplicate-row: fails with "duplicate build record row"')
             open(os.path.join(d2, 'papers/Complexity.pdf'), 'wb').write(cx)
             mutant('MT-pdf-stale (the built PDF is the committed copy)', 'papers/Complexity.pdf: stale')
             rebuilt('papers/Complexity.pdf', cx)
@@ -878,10 +897,12 @@ def self_test(led, base_files, plan):
     child, other = '556cfb081ce698763578682e73731d80dd7aa616', '98e55009428fb32c87a1f2f8ea6fcaf2427a7ae2'
     if all(_git_ok('cat-file', '-e', x + '^{commit}') for x in (WORKFLOW_BASE, child, other)) and led['base'].startswith('53c6601a'):
         lb = led['base']
-        ok_run = {'workflow_sha': WORKFLOW_BASE, 'ref_sha': WORKFLOW_BASE, 'trial_sha': child, 'run_id': '1'}
+        # N8: a plan commit of this record directory and an earlier one with the same ledger base H
+        PL, PL_OTHER = 'fef0f1589d66ae6e120b14e73b0ebb70b316e4c7', '9ba8ef10e54d3618685e27d29d31291588ff9a6f'
+        ok_run = {'workflow_sha': WORKFLOW_BASE, 'ref_sha': WORKFLOW_BASE, 'trial_sha': child, 'run_id': '1', 'plan_sha': PL}
         ok_meta = {'id': 1, 'event': 'workflow_dispatch', 'path': WORKFLOW, 'head_branch': 'main', 'run_attempt': 1,
                    'head_sha': WORKFLOW_BASE}
-        expect(not verify_run(ok_run, ok_meta, lb, WORKFLOW_BASE, WORKFLOW_BASE),
+        expect(not verify_run(ok_run, ok_meta, lb, WORKFLOW_BASE, WORKFLOW_BASE, PL),
                'verify-run: a host record of a dispatch at the workflow base, and a child of the ledger base: valid')
         for name, ch, mch, want in (
                 ('the run metadata missing', {}, None, 'run metadata missing'),
@@ -909,16 +930,37 @@ def self_test(led, base_files, plan):
                 ('R5: an upper-case head_sha', {}, {'head_sha': WORKFLOW_BASE.upper()}, 'missing or not a full commit id'),
                 ('a run id missing on both sides', {'run_id': None}, {'id': None}, 'both must be present and equal'),
                 ('result.json missing workflow_sha', {'workflow_sha': None}, {}, 'self-reported, not the executed commit'),
-                ('a trial_sha given as a ref name, not a full id', {'trial_sha': 'HEAD'}, {}, 'not a known commit')):
+                ('a trial_sha given as a ref name, not a full id', {'trial_sha': 'HEAD'}, {}, 'not a known commit'),
+                ('N8: plan_sha missing', {'plan_sha': None}, {}, 'plan_sha None missing'),
+                ('N8: plan_sha upper case', {'plan_sha': PL.upper()}, {}, 'missing or not a full commit id'),
+                ('N8: plan_sha a short id', {'plan_sha': PL[:12]}, {}, 'missing or not a full commit id'),
+                ('N8: plan_sha differing from the designated plan', {'plan_sha': PL_OTHER}, {}, 'is not the designated plan'),
+                ('N8: host inputs carrying another plan', {}, {'inputs': {'plan_sha': PL_OTHER, 'trial_sha': child}},
+                 'do not carry the designated plan'),
+                ('N8: host inputs malformed', {}, {'inputs': 'x'}, 'do not carry the designated plan'),
+                ('N9: run_attempt True', {}, {'run_attempt': True}, 'not 1'),
+                ('N9: run_attempt 1.0', {}, {'run_attempt': 1.0}, 'not 1'),
+                ('N9: run_attempt "1"', {}, {'run_attempt': '1'}, 'not 1')):
             m = None if mch is None else dict(ok_meta, **{k: v for k, v in mch.items() if k != '_drop'})
             if mch and '_drop' in mch:
                 m.pop(mch['_drop'], None)
-            expect(any(want in x for x in verify_run(dict(ok_run, **ch), m, lb, WORKFLOW_BASE, WORKFLOW_BASE)),
+            expect(any(want in x for x in verify_run(dict(ok_run, **ch), m, lb, WORKFLOW_BASE, WORKFLOW_BASE, PL)),
                    'verify-run void: %s ("%s")' % (name, want))
-        expect(any('not a JSON object' in x for x in verify_run([], ok_meta, lb, WORKFLOW_BASE, WORKFLOW_BASE)),
+        expect(any('not a JSON object' in x for x in verify_run([], ok_meta, lb, WORKFLOW_BASE, WORKFLOW_BASE, PL)),
                'verify-run void: result.json not an object ("not a JSON object")')
+        for name, pl in (('--plan missing', None), ('--plan malformed', 'fef0f158')):
+            expect(any('no designated plan' in x for x in verify_run(ok_run, ok_meta, lb, WORKFLOW_BASE, WORKFLOW_BASE, pl)),
+                   'verify-run void: N8: %s ("no designated plan")' % name)
+        # the owner's test: an otherwise valid, consistent run of another plan commit with the same ledger base H
+        other_base = json.loads(git('show', PL_OTHER + ':' + LEDGER)).get('base')
+        other = dict(ok_run, plan_sha=PL_OTHER)
+        both = verify_run(other, dict(ok_meta, inputs={'plan_sha': PL_OTHER}), lb, WORKFLOW_BASE, WORKFLOW_BASE, PL)
+        expect(other_base == lb and not verify_run(other, dict(ok_meta, inputs={'plan_sha': PL_OTHER}), lb, WORKFLOW_BASE,
+                                                   WORKFLOW_BASE, PL_OTHER) and any('is not the designated plan' in x for x in both),
+               'verify-run void: N8, the owner\'s test: a consistent run of plan %s (same ledger base %s) against plan %s'
+               % (PL_OTHER[:8], lb[:8], PL[:8]))
         # N5: the blob test alone. With workflow base H and main W, W contains H and is on main, so only the blob differs.
-        iso = verify_run(ok_run, ok_meta, lb, lb, WORKFLOW_BASE)
+        iso = verify_run(ok_run, ok_meta, lb, lb, WORKFLOW_BASE, PL)
         expect(len(iso) == 1 and 'differs from its blob at the workflow base' in iso[0],
                'verify-run void, isolated: only the workflow blob differs (exactly one finding: %s)' % (iso[0][:60] if iso else '-'))
     else:
@@ -1052,7 +1094,7 @@ def main():
                 meta = json.load(open(a.run_meta, encoding='utf-8'))
             except ValueError:
                 meta = None
-        vb = verify_run(res, meta, led['base'], a.workflow_base, a.main)
+        vb = verify_run(res, meta, led['base'], a.workflow_base, a.main, a.plan)
         print('verify-run: workflow base %s, ledger base %s, main %s' % (a.workflow_base[:12], led['base'][:12], a.main))
         for x in vb:
             print('  VOID ' + x)
