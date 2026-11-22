@@ -6529,3 +6529,58 @@ records; D032 and D039 retain their text).
 | `edits_check.py` | `2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c` |
 | `guards_check.py` | `ef89e1c79a0cc3c34af1ebb981e1674edd33a534d6f98612ee06ce57005b5cee` |
 | `preserve_check.py` | `b9d34e5daadc38184a98cb269096fe62dd4358acdd83698608f0618fd83bfe4e` |
+
+#### 31.12.12 The final delta review's N8–N10
+
+The final delta review at `c176d358` is recorded on #1477 (comment 7077120504), CONFIRMED WITH NITS. The owner chose
+option (a), owner `amaybaum`, 2026-11-22T09:40:16Z,
+[#1169 comment 7077295004](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7077295004), quoted in
+part:
+
+> 2. **A1 plan §31: option (a).** Apply N8, N9 and N10 from the final delta review (#1477 c.7077120504).
+>    - `--verify-run` checks `plan_sha` against the designated plan commit. It is tested to reject an otherwise valid run of a different plan with the same ledger base.
+>    - A short independent confirmation is obtained at the new head before the freeze decision.
+
+**N8: the run is bound to the designated plan.**
+- `--verify-run` requires `--plan P**`, the plan commit the owner designates. The run is void:
+  - when `--plan` is missing or is not 40 lowercase hex characters;
+  - when `result.json`'s `plan_sha` is missing or malformed;
+  - when the two differ.
+- Where the host run record carries the dispatch inputs (an `inputs` object), its `plan_sha` must equal `--plan` too. If
+  `inputs` is present but malformed, the run is void.
+- The GitHub run record does not carry dispatch inputs (review item, N8). In practice, therefore, the bound is
+  `result.json`'s echo of the input against the designated P\*\*. The workflow derives the ledger base from that same
+  input in its head step.
+- The ledger and the ledger base are read from `--plan`'s objects (`plan_files`), so the run's trial parent is checked
+  against that plan's ledger base.
+- What stays a qualification: a run that executed one plan while echoing another is not detectable from the host record.
+  The run's own checker result files (`preserve_check-*.json`, field `plan`) record the plan its checkers were read from,
+  and an independent check of T0′/T1′ can compare them.
+- *Mutants*, each void with its named finding:
+  - `--plan` missing;
+  - `--plan` malformed;
+  - `plan_sha` missing;
+  - `plan_sha` malformed (upper case, or a short id);
+  - `plan_sha` differing from `--plan`;
+  - a host `inputs.plan_sha` differing;
+  - a malformed host `inputs`;
+  - the owner's test: an otherwise valid run, with `result.json`, the host record and the inputs all consistent and the
+    same ledger base H, but with `plan_sha` the commit `9ba8ef10`, whose ledger base is also H, where `--plan` is the
+    current plan.
+- A valid control passes.
+
+**N9.**
+- `run_attempt` must be the integer 1 exactly (`type(x) is int`), so `True`, `1.0` and `"1"` void the run.
+- A path listed twice in `pdf-pages.tsv` fails the PDF comparison as a duplicate build record row, and does not resolve
+  last-wins.
+- Each has a mutant.
+
+**N10.** The order of the subsections, extended from §31.12.10's mapping:
+- 31.12.1–31.12.7, 31.14 (pins), 31.12.8, 31.16 (pins), 31.12.9, 31.17 (results), 31.18 (pins), 31.12.10, 31.19
+  (results), 31.20 (pins), 31.12.11, 31.21 (pins), 31.12.12, 31.22 (results), 31.23 (pins).
+- Any later subsection follows the same rule: its text first, then its results, then its pins.
+- The pins in force are always the last `Record pins` subsection.
+
+**Checks.** The full battery is re-run. The edit list and the ledger do not change in this round. The reconciliations
+must reproduce §31.19's figures: against P\*, 302/60/9/28 with drift 0; against `9ba8ef10`, 385/4/10 with drift 0. The
+ledger SHA-256 must stay `2055e68f…`.
