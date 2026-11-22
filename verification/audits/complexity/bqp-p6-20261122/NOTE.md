@@ -55,7 +55,7 @@ A failure of H5 is none of the three. No imported quantum operation is counted a
    - Proposition AG extends from (xiii) to every site-factorized map. ESTABLISHED [W].
 4. **On a fixed infinite lattice, (ix) follows from (xi)** (§3, Lemma R).
    - On ℤ^d, finite reading sets and (xi) with a site-wise gauge give N_i = i + O with O finite.
-     So (ix) holds with K = |O|.
+     So (ix) holds, with bound 2K₀ where K₀ = |O \ {0}|.
    - (ix) is independent only in family form, as Main:736 itself says. ESTABLISHED [W].
 5. **The corpus readings: one is excluded, and the corpus does not decide between the others**
    (§4).
@@ -79,7 +79,7 @@ A failure of H5 is none of the three. No imported quantum operation is counted a
    - The (ix)-failure branch has a one-step blow-up of the non-adaptive set only.
      ESTABLISHED [W].
 7. **LIT1 bears on the fixed-lattice case** (§6).
-   - A fixed rule in 𝒞 on ℤ^d with (xiv) meets the hypotheses of LIT1's v-causal models, with the
+   - A fixed rule in 𝒞′ on ℤ^d with (xiv) meets the hypotheses of LIT1's v-causal models, with the
      update foliation as the privileged frame and v = ℓ sites per update. [W, hypothesis mapping]
    - Corollary VC needs three (I) hypotheses:
      - H-Bell (i) read as reproducing the quantum correlations in the sequential orderings of
@@ -408,7 +408,7 @@ contrapositive of Proposition AG′ together with Lemma R. ∎
 - **Statement.** The rule is a v-causal model in LIT1's sense, with:
   - the update foliation as the privileged frame;
   - v = ℓ sites per update;
-  - λ the configuration outside the setting regions;
+  - λ the configuration at a reference time before every setting;
   - (xiv) as free choice.
 - **Proof.**
   1. By Proposition AG′ and Proposition FS (BQP-P5 §6), a readout taken k updates after a setting
@@ -481,8 +481,8 @@ contrapositive of Proposition AG′ together with Lemma R. ∎
   require (xi) to fail.
 - **In family form.** The offsets O may depend on the quotient, so no fixed v exists, and
   Corollary VC does not follow. OBSTRUCTION (I) still applies under (ix) and (xi).
-- **Relation to BQP-P5 §6.** For a fixed rule in 𝒞′ on ℤ^d and the sequential reading of
-  H-Bell (i), Corollary VC establishes the implication that BQP-P5 §6 records as [CONJ]. Its
+- **Relation to BQP-P5 §6.** For a fixed rule in 𝒞′ on ℤ^d, under (TI), the sequential reading
+  of H-Bell (i) and the four-party reading of H-Bell (ii), Corollary VC establishes the implication that BQP-P5 §6 records as [CONJ]. Its
   family-form part is not addressed here.
 
 ## 7. Fixed point and stop
