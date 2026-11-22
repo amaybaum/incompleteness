@@ -162,7 +162,8 @@ for the H-B sentence. Class (b); recommendation R-7.
 `OIBridge.lean:2` and `Averaging.lean:55` ("ROADMAP §A1", a section of the frozen roadmap);
 `OI_Regulator_Symmetry.lean:27` (the same section); `OrbitGeometrySelector.lean:1641`
 (`geo4_a1_l5_not_implies_geo`, cell `a1` of act 24) and its registry mention at line 1219;
-`QuarterTurn.lean:408` (`chiA1`; `sum_chiA1_sq` at `:490`, the character of the irreducible representation A₁);
+`QuarterTurn.lean:408` (`chiA1`, the character of the irreducible representation A₁, and
+`sum_chiA1_sq` at `:490`);
 `OI_Structural_Core.lean:389` (variables `A0 A1 A2`); `ObservableRigidity.lean:8, 16` and registry
 line 1725 (the programme label A1-RIGID-1, kept by the plan).
 
@@ -231,10 +232,18 @@ migration leaves unchanged and indexes.
 | R-4 | `ManuscriptAxioms.lean:8–9` after D263 | (b), wording | D263 makes the module say the manuscripts' conditions are "finiteness of the configuration space (the scope of the reconstruction theorem) and A2–A6". Correct against Substratum Theorem 23's finite scope (PREREG H-7); the parenthesis is the only place in Lean that ties the reconstruction theorem's scope to finiteness, so it must follow any later change to that scope | No change now; add `ManuscriptAxioms.lean` to the propagation set of any future change to Theorem 23's scope |
 | R-5 | `guards_check.py` reader list | coverage | The CI-run self-tests that read the live registry, and `audit_census_probe.py`, which counts manuscript vocabularies (§4), are outside the local list | Add `audit_census_probe.py` to the reader list (it runs in under a second); add the registry-reading self-tests or record that the exact-tree CI run alone covers them |
 | R-6 | Main §2.3 Corollary (near-return); Main §3.2 Corollary (measurable hidden carrier); Substratum Theorem 24(iii) | layer | The retirement's cardinality-free statements rest on paper proofs. Kernel material for parts of them exists (`tv_revives_of_nearReturn`, `rootedFamily_isRowStochastic`, `rootedFamily_productLaw` in `ObservableRigidity`) | Optional, separate formalization Issue; before Main cites `ObservableRigidity`, check its proof dependencies for downstream content |
+| R-7 | `A6Instantiation.lean:508` (docstring of `cx3b_complex_not_A1`) | (b), docstring | "the manuscripts' substratum is the finite object of `SM.md:306`" states the retired posit as a fact, and the pointer does not resolve to a finiteness statement at `main` (§3.4). No plan record touches it | Add a plan record rewriting the clause to a scoped statement, for example "the manuscripts' substratum on a finite representative", with a pointer that resolves; or, if the passage is to stay frozen, record the owner decision that freezes it, as for `HexLatticeGas.lean:94` |
+| R-8 | Plan record D319 (`A6Instantiation.lean:509`) | nit, plan | The new text starts a sentence in lower case: "… Theorem 5 is conducted. **the finiteness predicate `A1` is not weakened**"; the other records that insert the phrase at a sentence start capitalize it | New text "**The finiteness predicate `A1` is not weakened**" |
 
 **New proof obligations:** none (§1 item 1). **Census registry changes:** the plan's note edits,
 plus R-2's D332 scope; no supersession entry, no anchor change. **Identifier migrations:** §5,
 pending owner approval under §A.48 item 3.
+
+**Disposition in the plan.** The coordinating session reports that, at the owner's direction on
+#1169, R-2 and R-3 are taken into the corrections of the A1 plan's §31. They are not present at
+the audited head `607f7a61`. R-7, found by the independent review of this record (#1542 comment
+7075467292), and the nit R-8 are listed here for §31 to take up on the same footing; this record
+does not adopt them into the plan.
 
 ## 7. Checks run
 
