@@ -6217,3 +6217,18 @@ only if, besides §31.12.7's parts:
 Self-test mutants, each void with its named finding: the run metadata missing; a `workflow_sha` in `result.json` that
 differs from the run's `head_sha`; a run whose `head_sha` carries a workflow blob other than W's; a run record of another
 event, another workflow path, another run id, or a re-run attempt. A valid control passes.
+
+### 31.16 Record pins
+
+The digests below pin the record files from §31.12.8 on (`preserve_check.py` gains the host-run-record check);
+`preserve_check.py` reads the last `Record pins` subsection, so §26.4, §31.11 and §31.14 stay as the pins of P*,
+`9ba8ef10` and `785b17f9`. The ledger is unchanged from §31.14: 396 splices in 44 files at `53c6601a` (398 edit
+records; D032 and D039 retain their text).
+
+| File | SHA-256 |
+|---|---|
+| `edits.json` | `7ce472d10eb4eae86bedec00d8cbc497d9b4682aa1ccde94f3331f218d4552ac` |
+| `ledger.json` | `a6422a733ae9c31e107aed92e04e3becd2e80c30d0e71980b6083a9ab9411661` |
+| `edits_check.py` | `5c0be6f81ea3292591b4037ff08dddb6f8d639c78df40521c818a6da1263bc35` |
+| `guards_check.py` | `ef89e1c79a0cc3c34af1ebb981e1674edd33a534d6f98612ee06ce57005b5cee` |
+| `preserve_check.py` | `6999cd3cf7e28298f050b692fc29f6733f055edef8ebcad8553a11c96914a861` |

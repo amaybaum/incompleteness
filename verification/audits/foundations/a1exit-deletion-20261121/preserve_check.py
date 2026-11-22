@@ -18,11 +18,13 @@ Usage (from the repository root):
                                                               ledger and base: unchanged, shifted by a base change
                                                               before it, revised at §31, or drift (PREREG §31.2)
 
-  python3 -I -B .../preserve_check.py --verify-run RESULT.json [--workflow-base W] [--main REV]
+  python3 -I -B .../preserve_check.py --verify-run RESULT.json --run-meta RUN.json [--workflow-base W] [--main REV]
                                                               a trial dispatch's result.json is valid or void: its
-                                                              workflow_sha and ref_sha on main's first-parent history,
-                                                              containing W with W's workflow blob, and its trial_sha a
-                                                              single-parent child of the ledger base (PREREG §31.12.7)
+                                                              executed workflow commit, the host run record's head_sha
+                                                              (RUN.json), on main's first-parent history, containing W
+                                                              with W's workflow blob, equal to the self-reported
+                                                              workflow_sha and ref_sha, and its trial_sha a single-parent
+                                                              child of the ledger base (PREREG §31.12.7, §31.12.8)
 
 In every candidate mode the scope assertions of PREREG §31.7 item 6 (SCOPE_PRESENT, SCOPE_ABSENT) are a recorded check.
 
@@ -619,23 +621,45 @@ def _blob(rev, path):
     return r.stdout.strip() if r.returncode == 0 else None
 
 
-def verify_run(res, ledger_base, workflow_base, main_rev):
-    """PREREG §31.12.7: (1) workflow_sha and ref_sha are commits on main's first-parent history that contain the
-    workflow base and carry its workflow blob; (2) trial_sha has exactly one parent, the ledger base. Any failure voids
-    the run."""
+def verify_run(res, meta, ledger_base, workflow_base, main_rev):
+    """PREREG §31.12.7 and §31.12.8. The executed workflow commit is the host run record's head_sha, never a value the
+    run reports about itself: (3) the run record (the host API's GET .../actions/runs/{run_id}, saved whole) is present,
+    is that run, a first-attempt workflow_dispatch of the trial workflow from main; (4) its head_sha is on main's
+    first-parent history, contains the workflow base and carries the workflow base's workflow blob, and result.json's
+    workflow_sha and ref_sha each equal it; (2) trial_sha has exactly one parent, the ledger base. Any failure voids the
+    run."""
     bad = []
-    first = set(git('rev-list', '--first-parent', main_rev).decode().split())
-    want = _blob(workflow_base, WORKFLOW)
-    for k in ('workflow_sha', 'ref_sha'):
-        s = res.get(k)
-        if not isinstance(s, str) or not re.fullmatch(r'[0-9a-f]{40}', s) or not _git_ok('cat-file', '-e', s + '^{commit}'):
-            bad.append('%s %r is not a known full commit id' % (k, s)); continue
-        if s not in first:
-            bad.append('%s %s is not on the first-parent history of main (%s)' % (k, s[:12], main_rev))
-        if not _git_ok('merge-base', '--is-ancestor', workflow_base, s):
-            bad.append('%s %s does not contain the workflow base %s' % (k, s[:12], workflow_base[:12]))
-        if want is None or _blob(s, WORKFLOW) != want:
-            bad.append('%s %s: %s differs from its blob at the workflow base' % (k, s[:12], WORKFLOW))
+    if not isinstance(meta, dict) or not meta:
+        bad.append('run metadata missing: no host record of the run, so the executed workflow commit is unverified')
+        head = None
+    else:
+        if str(meta.get('id')) != str(res.get('run_id')):
+            bad.append('run record id %r is not result.json run_id %r' % (meta.get('id'), res.get('run_id')))
+        if meta.get('event') != 'workflow_dispatch':
+            bad.append('run event %r, not workflow_dispatch' % meta.get('event'))
+        if meta.get('path') != WORKFLOW:
+            bad.append('run workflow path %r, not %s' % (meta.get('path'), WORKFLOW))
+        if meta.get('head_branch') != 'main':
+            bad.append('run head_branch %r, not main' % meta.get('head_branch'))
+        if meta.get('run_attempt') != 1:
+            bad.append('run attempt %r, not 1' % meta.get('run_attempt'))
+        head = meta.get('head_sha')
+    if head is not None:
+        if not isinstance(head, str) or not re.fullmatch(r'[0-9a-f]{40}', head) or not _git_ok('cat-file', '-e', head + '^{commit}'):
+            bad.append('run head_sha %r is not a known full commit id' % head)
+        else:
+            first = set(git('rev-list', '--first-parent', main_rev).decode().split())
+            if head not in first:
+                bad.append('run head_sha %s is not on the first-parent history of main (%s)' % (head[:12], main_rev))
+            if not _git_ok('merge-base', '--is-ancestor', workflow_base, head):
+                bad.append('run head_sha %s does not contain the workflow base %s' % (head[:12], workflow_base[:12]))
+            want = _blob(workflow_base, WORKFLOW)
+            if want is None or _blob(head, WORKFLOW) != want:
+                bad.append('run head_sha %s: %s differs from its blob at the workflow base' % (head[:12], WORKFLOW))
+        for k in ('workflow_sha', 'ref_sha'):
+            if res.get(k) != head:
+                bad.append('result.json %s %r differs from the run\'s head_sha %s (self-reported, not the executed commit)'
+                           % (k, res.get(k), str(head)[:12]))
     tr = res.get('trial_sha')
     if not isinstance(tr, str) or not _git_ok('cat-file', '-e', str(tr) + '^{commit}'):
         bad.append('trial_sha %r is not a known commit' % tr)
@@ -824,16 +848,30 @@ def self_test(led, base_files, plan):
     child, other = '556cfb081ce698763578682e73731d80dd7aa616', '98e55009428fb32c87a1f2f8ea6fcaf2427a7ae2'
     if all(_git_ok('cat-file', '-e', x + '^{commit}') for x in (WORKFLOW_BASE, child, other)) and led['base'].startswith('53c6601a'):
         lb = led['base']
-        ok_run = {'workflow_sha': WORKFLOW_BASE, 'ref_sha': WORKFLOW_BASE, 'trial_sha': child}
-        expect(not verify_run(ok_run, lb, WORKFLOW_BASE, WORKFLOW_BASE), 'verify-run: the workflow base and a child of the ledger base: valid')
-        for name, ch, want in (('workflow_sha without the workflow base', {'workflow_sha': lb}, 'does not contain the workflow base'),
-                               ('a workflow blob that differs from the base\'s (the ledger base\'s eight-PDF workflow)', {'ref_sha': lb},
-                                'differs from its blob at the workflow base'),
-                               ('ref_sha off the first-parent history of main', {'ref_sha': child}, 'not on the first-parent history of main'),
-                               ('trial_sha whose single parent is not the ledger base', {'trial_sha': other}, 'not exactly the ledger base'),
-                               ('a merge trial_sha', {'trial_sha': WORKFLOW_BASE}, 'not exactly the ledger base'),
-                               ('a trial_sha that is not a commit', {'trial_sha': '0' * 40}, 'not a known commit')):
-            expect(any(want in x for x in verify_run(dict(ok_run, **ch), lb, WORKFLOW_BASE, WORKFLOW_BASE)),
+        ok_run = {'workflow_sha': WORKFLOW_BASE, 'ref_sha': WORKFLOW_BASE, 'trial_sha': child, 'run_id': '1'}
+        ok_meta = {'id': 1, 'event': 'workflow_dispatch', 'path': WORKFLOW, 'head_branch': 'main', 'run_attempt': 1,
+                   'head_sha': WORKFLOW_BASE}
+        expect(not verify_run(ok_run, ok_meta, lb, WORKFLOW_BASE, WORKFLOW_BASE),
+               'verify-run: a host record of a dispatch at the workflow base, and a child of the ledger base: valid')
+        for name, ch, mch, want in (
+                ('the run metadata missing', {}, None, 'run metadata missing'),
+                ('result.json workflow_sha differs from the run\'s head_sha', {'workflow_sha': lb}, {}, 'differs from the run\'s head_sha'),
+                ('result.json ref_sha differs from the run\'s head_sha', {'ref_sha': lb}, {}, 'differs from the run\'s head_sha'),
+                ('a run head_sha without the workflow base', {'workflow_sha': lb, 'ref_sha': lb}, {'head_sha': lb}, 'does not contain the workflow base'),
+                ('a run head_sha whose workflow blob is not the workflow base\'s (the ledger base\'s eight-PDF workflow)',
+                 {'workflow_sha': lb, 'ref_sha': lb}, {'head_sha': lb}, 'differs from its blob at the workflow base'),
+                ('a run head_sha off the first-parent history of main', {'workflow_sha': child, 'ref_sha': child}, {'head_sha': child},
+                 'not on the first-parent history of main'),
+                ('a run of another event', {}, {'event': 'push'}, 'not workflow_dispatch'),
+                ('a run of another workflow', {}, {'path': '.github/workflows/verify.yml'}, 'run workflow path'),
+                ('a run record of another run', {}, {'id': 2}, 'is not result.json run_id'),
+                ('a re-run attempt', {}, {'run_attempt': 2}, 'not 1'),
+                ('a run from another branch', {}, {'head_branch': 'trial/x'}, 'not main'),
+                ('trial_sha whose single parent is not the ledger base', {'trial_sha': other}, {}, 'not exactly the ledger base'),
+                ('a merge trial_sha', {'trial_sha': WORKFLOW_BASE}, {}, 'not exactly the ledger base'),
+                ('a trial_sha that is not a commit', {'trial_sha': '0' * 40}, {}, 'not a known commit')):
+            m = None if mch is None else dict(ok_meta, **mch)
+            expect(any(want in x for x in verify_run(dict(ok_run, **ch), m, lb, WORKFLOW_BASE, WORKFLOW_BASE)),
                    'verify-run void: %s ("%s")' % (name, want))
     else:
         expect(False, 'verify-run: the workflow base %s is required in the object store' % WORKFLOW_BASE[:12])
@@ -921,6 +959,8 @@ def main():
                     'that directory exists)')
     ap.add_argument('--workflow-base', default=WORKFLOW_BASE, help='with --verify-run (default the merge of #1543)')
     ap.add_argument('--main', default='origin/main', help='with --verify-run: the current main')
+    ap.add_argument('--run-meta', metavar='RUN_JSON', help='with --verify-run: the host API record of the run '
+                    '(GET .../actions/runs/{run_id}, saved whole); without it the run is void')
     ap.add_argument('--pdf-out', metavar='DIR', help='with --pdf-compare: the run\'s output directory holding build.rc and '
                     'pdf-pages.tsv (default BUILT/../out)')
     ap.add_argument('--pdf-compare', metavar='BUILT', help='with --tree: compare the committed PDFs of the ledgered sources '
@@ -958,7 +998,13 @@ def main():
         pass
     elif a.verify_run:
         res = json.load(open(a.verify_run, encoding='utf-8'))
-        vb = verify_run(res, led['base'], a.workflow_base, a.main)
+        meta = None
+        if a.run_meta and os.path.isfile(a.run_meta):
+            try:
+                meta = json.load(open(a.run_meta, encoding='utf-8'))
+            except ValueError:
+                meta = None
+        vb = verify_run(res, meta, led['base'], a.workflow_base, a.main)
         print('verify-run: workflow base %s, ledger base %s, main %s' % (a.workflow_base[:12], led['base'][:12], a.main))
         for x in vb:
             print('  VOID ' + x)
