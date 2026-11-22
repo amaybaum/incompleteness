@@ -22,12 +22,19 @@ rest. It does not inventory GitHub's own autolinking of `#123` references or com
 strings, and it does not check the targets of Issue and comment links. Offline, a blob link to
 another repository is unverified and fails, and `post` refuses it. A blob link to this repository
 is checked for its commit and path in the local object store, and its commit must be reachable from
-a local `refs/remotes/origin/*` ref; those refs are as of the last fetch and may lag GitHub.
+a local `refs/remotes/origin/*` ref; those refs are as of the last fetch and may lag GitHub, and
+anyone with write access to the local repository can forge them. Only `check --online`, which
+asks GitHub for the path at that commit for every blob link, settles reachability against GitHub.
 
 The lock and markers are local to one account on one machine: a post from another account or
 machine does not see them. As a cheap guard across them, `post` reads the Issue's comments from
 the last seven days (one read-only GET, `per_page=100`) and refuses if any body equals the
-normalized source, or if the listing is incomplete.
+normalized source, or if the listing is incomplete. The guard catches exact copies only: an
+earlier post of the same source that the write path altered, such as one whose U+00A0 was stored
+as U+0020, does not equal the normalized source and is not caught.
+
+The receipt is created with a hard link so that it never replaces a file. On a filesystem without
+hard links, a post that was written and verified therefore halts with "receipt not written".
 
 **Fixtures** are captures of real bodies: the #1169 Issue body as submitted and as stored with its
 link destinations wrapped in backticks (the stored capture ends in one newline more than the

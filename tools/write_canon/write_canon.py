@@ -303,9 +303,9 @@ def check_links(urls, online=False, runner=default_runner):
     out = []
     for url in urls:
         o, r, sha, path = BLOB_FULL.fullmatch(url).groups()
-        if "%s/%s" % (o, r) == REPO:
+        if "%s/%s" % (o, r) == REPO and not online:
             status = local_status(sha, path)
-        elif online:
+        elif online:                          # GitHub itself settles existence, for any repository
             try:
                 rc, so, _ = gh(runner, ["gh", "api", "repos/%s/%s/contents/%s?ref=%s" % (o, r, path, sha)])
                 d = json.loads(so) if rc == 0 else None

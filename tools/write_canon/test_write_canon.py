@@ -284,6 +284,7 @@ class Stub:
             if self.stored == "missing":
                 return 1, "", "HTTP 404"
             body = W.normalize(self.body) if self.stored is None else self.stored
+            body = self.transform(body) if getattr(self, "transform", None) else body
             return 0, json.dumps({"id": 123, "body": body, "created_at": self.created, "updated_at": self.updated,
                                   "issue_url": "https://api.github.com/repos/amaybaum/incompleteness/issues/7"}), ""
         return 0, json.dumps(self.issue), ""
@@ -306,6 +307,28 @@ class Post(unittest.TestCase):
 
     def posts(self, stub):
         return [c for c in stub.calls if c[2:4] == ["-X", "POST"]]
+
+    NBSP_BODY = "**Test**\n\nOne two.\n"       # synthetic: the stored copy had U+00A0 turned into U+0020
+
+    def test_nbsp_rewrite_detected_after_write(self):
+        stub = Stub()
+        stub.transform = lambda b: b.replace(" ", " ")
+        p = W.state_paths(self.state)
+        W.write_atomic(p["submit.md"], self.NBSP_BODY)
+        rec = {}
+        why = W.verify_post("7", self.NBSP_BODY, W.normalize(self.NBSP_BODY), rec, stub, p)
+        self.assertIn("match", why)
+        self.assertFalse(rec["match"])
+        self.assertEqual(rec["stored_sha256"], W.sha(W.normalize(self.NBSP_BODY).replace(" ", " ")))
+
+    def test_nbsp_source_refused_before_post(self):
+        self.src.write_text(self.NBSP_BODY, encoding="utf-8")
+        stub = Stub()
+        stub.transform = lambda b: b.replace(" ", " ")
+        self.assertEqual(self.run_post(stub)[0], 1)
+        self.assertEqual(len(self.posts(stub)), 0)
+        self.assertEqual(stub.calls, [])
+        self.assertFalse((self.state / "PENDING").exists() or (self.state / "HALT").exists())
 
     def test_match(self):
         stub = Stub()
