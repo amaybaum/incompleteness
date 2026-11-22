@@ -60,10 +60,13 @@ instruments, accessible algebras or readouts.
      T-IND).
 5. **MISSING (§7).** Not settled:
    - two or more lines with at least one in direct contact;
+   - two lines adjacent to each other;
+   - rays or finite segments that end next to the cube (PT's J1/J2 geometry);
    - lines through the cube;
    - allowed regions larger than the cube (absorbers, spacers, period converters);
    - non-W2 signals and other backgrounds;
-   - other breathers.
+   - other breathers;
+   - the exact re-run of NU9 (NU9-CHECK), on which Theorem T is conditional.
 
    No claim is made that R_q is non-universal.
 6. **Productivity (§8):** gem by (ii), for the class of item 3, and by (iii), for L4 and L5.
@@ -552,10 +555,10 @@ lines only (not rays or segments), and for the W2 signal and background only.
 |---|---|---|---|---|---|
 | L1, L2 | (N) | writer's; elementary | as stated | MQ1's converse (`main`) | — |
 | L3 | (N) | writer's | (a) from NU1; (b) from MQ2(b) | NU1 (F1, reviewed, not on `main`); MQ2 (`main`) | — |
-| L4 (period-4 locking) | (N) | writer's; unreviewed | for any `K`, corner contact with an undisturbed W2 site | L1; (W) for W2 backgrounds (U1 E2, on `main`) | how often the "undisturbed" hypothesis holds in a gadget's no-input orbit |
-| L5 (first deviation) | (N) | writer's; unreviewed | for disjoint confined parts; leak at the first departure when they are non-adjacent | MQ1 | — |
-| T-IND | (N) | writer's; unreviewed | all matched indirect placements of one line (120 configurations); the multi-line version under its stated hypothesis | NU9 (R4; hand re-derived in review; exact re-run pending, not on `main`); L5; (W) | multi-line arrangements without a single-line coupling site |
-| §5 direct contact | (N) | writer's hand derivation; unreviewed | 80 configurations, each followed to its leak | NU9; L2; the f/g reduction of §3 (mirror symmetry of Q) | an exact re-run (a computation; not authorized, not run) |
+| L4 (period-4 locking) | (N) | writer's; independently reviewed (#1549 c.7077076211, c.7077118425) | for any `K`, corner contact with an undisturbed W2 site | L1; (W) for W2 backgrounds (U1 E2, on `main`) | how often the "undisturbed" hypothesis holds in a gadget's no-input orbit |
+| L5 (first deviation) | (N) | writer's; independently reviewed (#1549 c.7077076211, c.7077118425) | for disjoint confined parts; leak at the first departure when they are non-adjacent | MQ1 | — |
+| T-IND | (N) | writer's; independently reviewed (#1549 c.7077076211, c.7077118425) | all matched indirect placements of one line (120 configurations); the multi-line version under its stated hypothesis | NU9 (R4; hand re-derived in review; exact re-run pending, not on `main`); L5; (W) | multi-line arrangements without a single-line coupling site |
+| §5 direct contact | (N) | writer's hand derivation; independently reviewed (#1549 c.7077076211, c.7077118425) | 80 configurations, each followed to its leak | NU9; L2; the f/g reduction of §3 (mirror symmetry of Q) | an exact re-run (a computation; not authorized, not run) |
 | Theorem T, T1, T2 | (N) | writer's; conditional on A-NU9; mathematics confirmed in review (#1549 c.7077076211) | given A-NU9, the class of §6 | A-NU9 in every case (R4; hand re-derived; exact re-run pending, not on `main`); as above; the definitions of §1 (PT, U2) | NU9-CHECK; everything listed below |
 
 No quantum, operational or measurement assumption is used. The W2 lines and the breather are
