@@ -6179,3 +6179,17 @@ failing part, and writes its structured result; its self-test includes a void mu
 without W as an ancestor, a workflow blob that differs from W's, a `ref_sha` off `main`, a `trial_sha` whose parent is
 not H, and a merge `trial_sha`). The workflow's own head step already enforces part 2 against the ledger base read from
 P\*\*, and this check repeats it from the record.
+
+### 31.14 Record pins
+
+The digests below pin the record files from §31.12 on; `preserve_check.py` reads the last `Record pins` subsection,
+so §26.4 and §31.11 stay as the pins of P* and of `9ba8ef10`. The ledger has 396 splices in 44 files at `53c6601a`
+(398 edit records; D032 and D039 retain their text).
+
+| File | SHA-256 |
+|---|---|
+| `edits.json` | `7ce472d10eb4eae86bedec00d8cbc497d9b4682aa1ccde94f3331f218d4552ac` |
+| `ledger.json` | `a6422a733ae9c31e107aed92e04e3becd2e80c30d0e71980b6083a9ab9411661` |
+| `edits_check.py` | `5c0be6f81ea3292591b4037ff08dddb6f8d639c78df40521c818a6da1263bc35` |
+| `guards_check.py` | `ef89e1c79a0cc3c34af1ebb981e1674edd33a534d6f98612ee06ce57005b5cee` |
+| `preserve_check.py` | `fcfa3728193423281a2bf4ee0343e09184d2cfaec7de80618bbb50bdf641f056` |

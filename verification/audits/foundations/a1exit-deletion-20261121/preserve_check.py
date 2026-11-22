@@ -18,6 +18,12 @@ Usage (from the repository root):
                                                               ledger and base: unchanged, shifted by a base change
                                                               before it, revised at §31, or drift (PREREG §31.2)
 
+  python3 -I -B .../preserve_check.py --verify-run RESULT.json [--workflow-base W] [--main REV]
+                                                              a trial dispatch's result.json is valid or void: its
+                                                              workflow_sha and ref_sha on main's first-parent history,
+                                                              containing W with W's workflow blob, and its trial_sha a
+                                                              single-parent child of the ledger base (PREREG §31.12.7)
+
 In every candidate mode the scope assertions of PREREG §31.7 item 6 (SCOPE_PRESENT, SCOPE_ABSENT) are a recorded check.
 
 --plan REV   the plan commit the owner designates when authorizing execution. The ledger, the pin table and the record
@@ -28,7 +34,9 @@ In every candidate mode the scope assertions of PREREG §31.7 item 6 (SCOPE_PRES
              byte-identical at REV and at the ledger base.
 --pdf-compare BUILT
              with --tree: every committed PDF of a ledgered source has the page count and the pdftotext text of the PDF
-             the CI build (build.sh) made from the same tree under BUILT.
+             the CI build (build.sh) made from the same tree under BUILT. Fails closed (PREREG §31.12.1): the run's
+             build.rc is 0, the PDF is a row of its pdf-pages.tsv with the built file's page count, and the built PDF
+             is not byte-identical to the committed one; both files are read from --pdf-out DIR, default BUILT/../out.
 --mutants    with --tree: mutates the candidate in place, one change at a time, restores it, and requires each mutation
              to fail (a hand-edited TeX file, SC-42 result, ledger, checker, coverage fingerprint, record file).
 
@@ -101,9 +109,34 @@ SCOPE_ABSENT = [
                                               'A uniform hidden-coordinate relabelling preserves the coherent',
                                               'A uniform hidden-coordinate relabelling, or an independently')] \
   + [(f, 'Uniform hidden relabelling and an independently prepared') for f in (_CH4, _FULL)]
+# §31.12 (R2, R3): the finite alphabet of waveSubstratum_A1, and the finite instances of the ensemble and observer-theory
+# results, in the Lean docstrings, the census registry and the README.
+_FIN = 'with finitely many sites and a finite alphabet'
+_OI = 'verification/lean-mathlib/OIBridge/'
+SCOPE_PRESENT += [
+    (_OI + 'SubstratumInterfaceAudit.lean', 'the finiteness predicate `A1` for a finite torus and a finite alphabet'),
+    ('verification/lean-manuscript-census.json', '(Q1; the finiteness predicate for a finite torus and a finite alphabet)'),
+    ('verification/README.md', 'satisfies the finiteness predicate `A1` for a finite alphabet and A2'),
+    (_OI + 'StochasticInterface.lean', 'FOR EVERY SUBSTRATUM WITH FINITELY MANY SITES, A FINITE ALPHABET, A LINEAR'),
+    (_OI + 'StochasticInterface.lean', 'For every substratum ' + _FIN + ' whose'),
+    (_OI + 'LiftSource.lean', 'the observer theory of every substratum\n  ' + _FIN + ' has its swap layer'),
+    (_OI + 'ExecSource.lean', 'the observer theory of every substratum ' + _FIN + ' executes'),
+    ('verification/README.md', 'the observer theory of every substratum ' + _FIN + ' executes no such flow'),
+    ('verification/README.md', 'the observer theory of every substratum ' + _FIN + ' at its own'),
+    ('verification/README.md', 'every substratum ' + _FIN + ' (`permTheory_nonnegBounded`'),
+]
+SCOPE_ABSENT += [
+    (_OI + 'SubstratumInterfaceAudit.lean', 'the finiteness predicate `A1` on a finite torus and'),
+    (_OI + 'StochasticInterface.lean', 'FAILS FOR EVERY SUBSTRATUM WITH A LINEAR RULE'),
+    (_OI + 'StochasticInterface.lean', 'For every substratum whose rule is'),
+    (_OI + 'LiftSource.lean', 'the observer theory of every substratum\n  has its swap layer'),
+    (_OI + 'ExecSource.lean', 'the observer theory of every substratum executes no layer flow'),
+    ('verification/README.md', 'the observer theory of every substratum executes no such flow'),
+    ('verification/README.md', 'every substratum (`permTheory_nonnegBounded`'),
+]
 # --reconcile: the records amendment §31 revises (their replacement changes; D369's old text is extended) and adds.
-REVISED31 = {'D026', 'D231', 'D363', 'D364', 'D369'}
-NEW31 = {'D%03d' % n for n in range(374, 392)}
+REVISED31 = {'D026', 'D231', 'D363', 'D364', 'D369', 'D276', 'D326', 'D332'}  # §31.3, and §31.12 (R2)
+NEW31 = {'D%03d' % n for n in range(374, 399)}  # D374-D391 (§31.3), D392-D398 (§31.12)
 SC42_DIR = 'verification/audits/manuscript/bell-operational-reconciliation-20261029/'
 SC42 = SC42_DIR + 'sc42-integration-result.json'
 SC42_CONTROLS = SC42_DIR + 'sc42-integration-controls.json'
@@ -373,14 +406,41 @@ def pdf_facts(path):
     return pages, text
 
 
-def pdf_compare(cand_dir, built_dir, paths):
-    """Each committed PDF has the page count and the extracted text of the PDF the CI build made from the same tree."""
+def pdf_out_dir(built_dir, explicit=None):
+    """The run's output directory: --pdf-out, or BUILT/../out (the workflow's $RUNNER_TEMP/out beside $RUNNER_TEMP/build)."""
+    return explicit or os.path.join(os.path.dirname(os.path.abspath(built_dir).rstrip(os.sep)), 'out')
+
+
+def pdf_compare(cand_dir, built_dir, paths, out_dir=None):
+    """Fails closed (PREREG §31.12.1): a ledgered PDF's comparison counts only when the run's CI build succeeded
+    (build.rc 0), recorded it (a row of pdf-pages.tsv whose page count is the built file's) and rebuilt it (the built
+    file is not byte-identical to the committed one); then committed and built must agree in pages and text."""
     bad = []
+    out = pdf_out_dir(built_dir, out_dir)
+    rc_path, tsv_path = os.path.join(out, 'build.rc'), os.path.join(out, 'pdf-pages.tsv')
+    rc = open(rc_path, encoding='utf-8').read().strip() if os.path.isfile(rc_path) else None
+    if rc != '0':
+        bad.append('the CI build did not succeed (build.rc %s in %s)' % ('absent' if rc is None else repr(rc), out))
+    rows = None
+    if os.path.isfile(tsv_path):
+        rows = {}
+        for line in open(tsv_path, encoding='utf-8').read().splitlines():
+            if line.strip():
+                f, n = line.split('\t')
+                rows[f] = n
+    else:
+        bad.append('no build record: pdf-pages.tsv absent from %s' % out)
     for p in sorted(paths):
         a, b = os.path.join(cand_dir, p), os.path.join(built_dir, p)
+        if rows is not None and p not in rows:
+            bad.append('%s: not rebuilt by the CI build (absent from pdf-pages.tsv)' % p)
         if not os.path.isfile(a) or not os.path.isfile(b):
             bad.append('%s: missing in the candidate or in the CI build' % p); continue
+        if open(a, 'rb').read() == open(b, 'rb').read():
+            bad.append('%s: stale: the built PDF is byte-identical to the committed one, so it was not rebuilt' % p)
         (pa, ta), (pb, tb) = pdf_facts(a), pdf_facts(b)
+        if rows is not None and p in rows and rows[p] != str(pb):
+            bad.append('%s: pdf-pages.tsv records %s pages, the built PDF has %d' % (p, rows[p], pb))
         if pa != pb:
             bad.append('%s: %d pages committed, %d built' % (p, pa, pb))
         if ta != tb:
@@ -518,7 +578,8 @@ def reconcile(old_led, led, old_base, base):
         if y is None or y['file'] != f:
             drift.append('%s: absent from the current ledger or in another file' % x['id']); continue
         old_bytes = old_base[f][x['start']:x['end']]
-        if x['id'] in REVISED31:
+        same = y['old_sha256'] == x['old_sha256'] and y['new'] == x['new']
+        if x['id'] in REVISED31 and not (same and (y['start'], y['end']) == (x['start'], x['end'])):
             if x['id'] == 'D369':
                 ok = old_bytes in base[f][y['start']:y['end']]
             else:
@@ -543,6 +604,46 @@ def reconcile(old_led, led, old_base, base):
     if set(old_led.get('retained_unchanged', [])) != set(led.get('retained_unchanged', [])):
         drift.append('retained-site records differ')
     return rows, added, drift
+
+
+WORKFLOW = '.github/workflows/a1exit-trial-verify.yml'
+WORKFLOW_BASE = '413b0bb88f39cad901befcf4684355c7ee39480b'  # PREREG §31.12.7: #1543 merged, the nine-PDF trial workflow
+
+
+def _git_ok(*a):
+    return subprocess.run(['git', '-C', ROOT] + list(a), capture_output=True).returncode == 0
+
+
+def _blob(rev, path):
+    r = subprocess.run(['git', '-C', ROOT, 'rev-parse', '%s:%s' % (rev, path)], capture_output=True, text=True)
+    return r.stdout.strip() if r.returncode == 0 else None
+
+
+def verify_run(res, ledger_base, workflow_base, main_rev):
+    """PREREG §31.12.7: (1) workflow_sha and ref_sha are commits on main's first-parent history that contain the
+    workflow base and carry its workflow blob; (2) trial_sha has exactly one parent, the ledger base. Any failure voids
+    the run."""
+    bad = []
+    first = set(git('rev-list', '--first-parent', main_rev).decode().split())
+    want = _blob(workflow_base, WORKFLOW)
+    for k in ('workflow_sha', 'ref_sha'):
+        s = res.get(k)
+        if not isinstance(s, str) or not re.fullmatch(r'[0-9a-f]{40}', s) or not _git_ok('cat-file', '-e', s + '^{commit}'):
+            bad.append('%s %r is not a known full commit id' % (k, s)); continue
+        if s not in first:
+            bad.append('%s %s is not on the first-parent history of main (%s)' % (k, s[:12], main_rev))
+        if not _git_ok('merge-base', '--is-ancestor', workflow_base, s):
+            bad.append('%s %s does not contain the workflow base %s' % (k, s[:12], workflow_base[:12]))
+        if want is None or _blob(s, WORKFLOW) != want:
+            bad.append('%s %s: %s differs from its blob at the workflow base' % (k, s[:12], WORKFLOW))
+    tr = res.get('trial_sha')
+    if not isinstance(tr, str) or not _git_ok('cat-file', '-e', str(tr) + '^{commit}'):
+        bad.append('trial_sha %r is not a known commit' % tr)
+    else:
+        parents = git('rev-list', '--parents', '-n', '1', tr).decode().split()[1:]
+        if parents != [ledger_base]:
+            bad.append('trial_sha %s has parents %s, not exactly the ledger base %s' % (tr[:12], [x[:12] for x in parents], ledger_base[:12]))
+    return bad
 
 
 # ---- self-test and tree mutants -----------------------------------------------------------------------------
@@ -576,13 +677,16 @@ def self_test(led, base_files, plan):
            % len(led['splices']))
     expect(not scope_check(good), 'scope assertions: the predicted candidate carries every corrected sentence')
     n_base = len(scope_check(base_files))
-    want_base = sum(1 for f, s in SCOPE_PRESENT if s.encode('utf-8') not in base_files.get(f, b'')) + len(SCOPE_ABSENT)
-    expect(n_base == want_base == len(SCOPE_PRESENT) - 2 + len(SCOPE_ABSENT),
+    want_base = sum(1 for f, s in SCOPE_PRESENT if s.encode('utf-8') not in base_files.get(f, b'')) + \
+        sum(1 for f, s in SCOPE_ABSENT if s.encode('utf-8') in base_files.get(f, b''))
+    # the two #1494 statements hold at the base; one absent form (D276's earlier replacement, "`A1` on a finite torus
+    # and") is plan text, never at the base
+    expect(n_base == want_base == len(SCOPE_PRESENT) - 2 + len(SCOPE_ABSENT) - 1,
            'scope assertions: the unedited base fails every one the plan adds (%d findings)' % n_base)
     c = dict(good); c['papers/SM.md'] = c['papers/SM.md'].replace('the counting measure on a finite $\\mathcal{C}_H$'.encode(), b'the counting measure', 1)
     expect(any('lacks' in x for x in scope_check(c)), 'scope assertions: a candidate without D391 fails')
     r0 = reconcile(led, led, base_files, base_files)
-    expect(not r0[2] and all(k in ('unchanged', 'revised at §31') for _, _, k, _ in r0[0]),
+    expect(not r0[2] and all(k == 'unchanged' for _, _, k, _ in r0[0]),
            'reconcile: a ledger against itself has every splice unchanged and no drift')
     t2 = json.loads(json.dumps(led)); g = [x for x in t2['splices'] if x['id'] not in REVISED31][0]; g['new'] += ' '
     expect(any(g['id'] in x for x in reconcile(t2, led, base_files, base_files)[2]), 'reconcile: a changed replacement is drift')
@@ -656,17 +760,54 @@ def self_test(led, base_files, plan):
     b, p = compare(led, base_files, c, plan, reg)
     expect(not b and p == ['papers/GR.pdf'], 'a rebuilt PDF of a ledgered source is left to the CI build')
     if shutil.which('pdftotext') and shutil.which('pdfinfo'):
-        d1, d2 = tempfile.mkdtemp(prefix='a1exit-pdf-'), tempfile.mkdtemp(prefix='a1exit-pdf-')
+        root = tempfile.mkdtemp(prefix='a1exit-pdf-')
         try:
-            for d, src in ((d1, 'papers/GR.pdf'), (d2, 'papers/GR.pdf')):
-                os.makedirs(os.path.join(d, 'papers')); open(os.path.join(d, 'papers/GR.pdf'), 'wb').write(base_files[src])
-            expect(not pdf_compare(d1, d2, ['papers/GR.pdf']), 'pdf compare: a PDF equal in pages and text to the built one passes')
-            open(os.path.join(d2, 'papers/GR.pdf'), 'wb').write(base_files['papers/Main.pdf'])
-            expect(bool(pdf_compare(d1, d2, ['papers/GR.pdf'])), 'pdf compare: a committed PDF that is not the built one fails')
+            d1, d2, out = (os.path.join(root, x) for x in ('cand', 'build', 'out'))
+            for d in (d1, d2):
+                os.makedirs(os.path.join(d, 'papers'))
+            os.makedirs(out)
+            gr, cx = base_files['papers/GR.pdf'], base_files['papers/Complexity.pdf']
+            open(os.path.join(d1, 'papers/GR.pdf'), 'wb').write(gr)
+            open(os.path.join(d1, 'papers/Complexity.pdf'), 'wb').write(cx)
+
+            def rebuilt(name, data):  # the same document with other bytes, as a rebuild's creation date makes it
+                open(os.path.join(d2, name), 'wb').write(data + b'\n%% rebuilt\n')
+            rebuilt('papers/GR.pdf', gr)
+            rebuilt('papers/Complexity.pdf', cx)
+
+            def state(rc='0', rows=('papers/GR.pdf', 'papers/Complexity.pdf'), tsv=True, shift=0):
+                rcp, tp = os.path.join(out, 'build.rc'), os.path.join(out, 'pdf-pages.tsv')
+                for f in (rcp, tp):
+                    if os.path.exists(f):
+                        os.remove(f)
+                if rc is not None:
+                    open(rcp, 'w').write(rc + '\n')
+                if tsv:
+                    open(tp, 'w').write(''.join('%s\t%d\n' % (r, (pdf_facts(os.path.join(d2, r))[0] if os.path.isfile(os.path.join(d2, r)) else 0) + shift)
+                                                for r in rows))
+            both = ['papers/Complexity.pdf', 'papers/GR.pdf']
+            state()
+            expect(not pdf_compare(d1, d2, both), 'pdf compare: rebuilt, recorded, build succeeded, equal in pages and text: passes')
+
+            def mutant(name, want, **kw):
+                state(**kw)
+                b = pdf_compare(d1, d2, both)
+                expect(any(want in x for x in b), 'pdf compare %s: fails with "%s"' % (name, want))
+            mutant('MT-pdf-build-failed (build.rc 1)', 'the CI build did not succeed', rc='1')
+            mutant('MT-pdf-build-rc-missing', 'the CI build did not succeed', rc=None)
+            mutant('MT-pdf-pages-missing (no pdf-pages.tsv)', 'no build record', tsv=False)
+            mutant('MT-pdf-not-built (Complexity absent from the build record)',
+                   'papers/Complexity.pdf: not rebuilt by the CI build', rows=('papers/GR.pdf',))
+            mutant('MT-pdf-pages-mismatch (record and built file disagree)', 'pdf-pages.tsv records', shift=1)
+            open(os.path.join(d2, 'papers/Complexity.pdf'), 'wb').write(cx)
+            mutant('MT-pdf-stale (the built PDF is the committed copy)', 'papers/Complexity.pdf: stale')
+            rebuilt('papers/Complexity.pdf', cx)
+            rebuilt('papers/GR.pdf', base_files['papers/Main.pdf'])
+            mutant('MT-pdf-other-document (a committed PDF that is not the built one)', 'papers/GR.pdf: extracted text differs')
             os.remove(os.path.join(d2, 'papers/GR.pdf'))
-            expect(bool(pdf_compare(d1, d2, ['papers/GR.pdf'])), 'pdf compare: a PDF the CI build did not make fails')
+            mutant('MT-pdf-absent (a PDF the CI build did not make)', 'papers/GR.pdf: missing in the candidate or in the CI build')
         finally:
-            shutil.rmtree(d1, ignore_errors=True); shutil.rmtree(d2, ignore_errors=True)
+            shutil.rmtree(root, ignore_errors=True)
     else:
         expect(False, 'pdf compare: pdftotext and pdfinfo are required')
     t = json.loads(json.dumps(led)); t['splices'][0]['old_sha256'] = '0' * 64
@@ -678,6 +819,24 @@ def self_test(led, base_files, plan):
     expect(any('this checker is not the plan' in x for x in verify_pins(plan, plan[SELF] + b'#')), 'pins: a modified checker refuses to run as the plan\'s')
     p3 = dict(plan); p3[REC + 'edits.json'] = plan[REC + 'edits.json'] + b'\n'
     expect(bool(verify_pins(p3, plan[SELF])), 'pins: an edits.json the ledger was not built from fails')
+    # controls from existing commits only (nothing is written to the object store): 556cfb08, #1543's commit, is a
+    # single-parent child of the ledger base; 98e55009 (#1494's head) has another single parent; W is a merge
+    child, other = '556cfb081ce698763578682e73731d80dd7aa616', '98e55009428fb32c87a1f2f8ea6fcaf2427a7ae2'
+    if all(_git_ok('cat-file', '-e', x + '^{commit}') for x in (WORKFLOW_BASE, child, other)) and led['base'].startswith('53c6601a'):
+        lb = led['base']
+        ok_run = {'workflow_sha': WORKFLOW_BASE, 'ref_sha': WORKFLOW_BASE, 'trial_sha': child}
+        expect(not verify_run(ok_run, lb, WORKFLOW_BASE, WORKFLOW_BASE), 'verify-run: the workflow base and a child of the ledger base: valid')
+        for name, ch, want in (('workflow_sha without the workflow base', {'workflow_sha': lb}, 'does not contain the workflow base'),
+                               ('a workflow blob that differs from the base\'s (the ledger base\'s eight-PDF workflow)', {'ref_sha': lb},
+                                'differs from its blob at the workflow base'),
+                               ('ref_sha off the first-parent history of main', {'ref_sha': child}, 'not on the first-parent history of main'),
+                               ('trial_sha whose single parent is not the ledger base', {'trial_sha': other}, 'not exactly the ledger base'),
+                               ('a merge trial_sha', {'trial_sha': WORKFLOW_BASE}, 'not exactly the ledger base'),
+                               ('a trial_sha that is not a commit', {'trial_sha': '0' * 40}, 'not a known commit')):
+            expect(any(want in x for x in verify_run(dict(ok_run, **ch), lb, WORKFLOW_BASE, WORKFLOW_BASE)),
+                   'verify-run void: %s ("%s")' % (name, want))
+    else:
+        expect(False, 'verify-run: the workflow base %s is required in the object store' % WORKFLOW_BASE[:12])
     d3 = tempfile.mkdtemp(prefix='a1exit-res-')
     try:
         doc = write_result(os.path.join(d3, 'r.json'), 'self-test', {'plan': None},
@@ -751,6 +910,8 @@ def main():
     g.add_argument('--commit')
     g.add_argument('--tree')
     g.add_argument('--self-test', action='store_true')
+    g.add_argument('--verify-run', metavar='RESULT_JSON', help='PREREG §31.12.7: the run record of a trial dispatch is '
+                   'valid (workflow base on main, trial commit a single-parent child of the ledger base) or void')
     g.add_argument('--reconcile', metavar='REV', help='compare the ledger at REV (an earlier plan commit) with the current '
                    'ledger and base, splice by splice (PREREG §31.2)')
     ap.add_argument('--plan')
@@ -758,6 +919,10 @@ def main():
     ap.add_argument('--mutants', action='store_true')
     ap.add_argument('--result-json', metavar='PATH', help='write the structured result here (also to RUNNER_TEMP/out/ when '
                     'that directory exists)')
+    ap.add_argument('--workflow-base', default=WORKFLOW_BASE, help='with --verify-run (default the merge of #1543)')
+    ap.add_argument('--main', default='origin/main', help='with --verify-run: the current main')
+    ap.add_argument('--pdf-out', metavar='DIR', help='with --pdf-compare: the run\'s output directory holding build.rc and '
+                    'pdf-pages.tsv (default BUILT/../out)')
     ap.add_argument('--pdf-compare', metavar='BUILT', help='with --tree: compare the committed PDFs of the ledgered sources '
                     'with those the CI build wrote under BUILT (page count and pdftotext text)')
     a = ap.parse_args()
@@ -788,9 +953,18 @@ def main():
     record('ledger spans and hashes at the base', not bad, bad)
     ok = not bad and not pin_bad
     mode = ('verify-pins' if a.verify_pins else 'verify-ledger' if a.verify_ledger else 'self-test' if a.self_test
-            else 'reconcile' if a.reconcile else 'commit' if a.commit else 'tree')
+            else 'reconcile' if a.reconcile else 'verify-run' if a.verify_run else 'commit' if a.commit else 'tree')
     if a.verify_pins:
         pass
+    elif a.verify_run:
+        res = json.load(open(a.verify_run, encoding='utf-8'))
+        vb = verify_run(res, led['base'], a.workflow_base, a.main)
+        print('verify-run: workflow base %s, ledger base %s, main %s' % (a.workflow_base[:12], led['base'][:12], a.main))
+        for x in vb:
+            print('  VOID ' + x)
+        print('RUN ' + ('VALID' if not vb else 'VOID'))
+        record('trial run record: workflow base on main, trial a single-parent child of the ledger base', not vb, vb)
+        ok = ok and not vb
     elif a.reconcile:
         old_led = json.loads(plan_files(a.reconcile)[LEDGER])
         rows, added, drift = reconcile(old_led, led, tree_of(old_led['base']), base)
@@ -843,7 +1017,7 @@ def main():
             record('candidate against base, ledger, regenerated artifacts and plan record', not fails, fails)
             ok = ok and not fails
             if a.pdf_compare and a.tree:
-                pb = pdf_compare(a.tree, a.pdf_compare, {t[:-4] + '.pdf' for t in TEX})
+                pb = pdf_compare(a.tree, a.pdf_compare, {t[:-4] + '.pdf' for t in TEX}, a.pdf_out)
                 print('pdf compare against the CI build: %d findings' % len(pb))
                 for x in pb:
                     print('  FAIL ' + x)

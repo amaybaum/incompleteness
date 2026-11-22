@@ -456,6 +456,12 @@ PRESERVE.update({'D026': ['no established form for a substratum of unspecified c
                  'D387': ['of a finite set of hidden configurations'], 'D388': ['of a finite set of hidden states'],
                  'D389': ['Lemma 3 on a finite representative'], 'D390': ['counting measure on a finite representative'],
                  'D391': ['the counting measure on a finite $\\mathcal{C}_H$']})
+PRESERVE.update({'D276': ['for a finite torus and a finite alphabet'], 'D332': ['for a finite torus and a finite alphabet'],
+                 'D326': ['`A1` for a finite alphabet'],
+                 'D392': ['FINITELY MANY SITES, A FINITE ALPHABET'],
+                 'D393': ['with finitely many sites and a finite alphabet'], 'D394': ['with finitely many sites and a finite alphabet'],
+                 'D395': ['with finitely many sites and a finite alphabet'], 'D396': ['with finitely many sites and a finite alphabet'],
+                 'D397': ['with finitely many sites and a finite alphabet'], 'D398': ['with finitely many sites and a finite alphabet']})
 PRESERVE.update({i: [FIN_CH] for i in ('D375', 'D376', 'D377', 'D378', 'D379', 'D380', 'D381', 'D382', 'D383', 'D384',
                                       'D385', 'D386')})
 # Text that must be present in the simulated manuscript: the approved sentence, and the finite scope of every
