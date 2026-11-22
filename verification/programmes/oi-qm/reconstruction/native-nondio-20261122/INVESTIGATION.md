@@ -57,12 +57,14 @@ T-SUB′ (iv) are outside every statement of this note.
 
 **What stays open.** Measurable diffuse carriers (M1); a non-normal hidden state with a countably
 infinite visible carrier (M2); nonlinear state assignments (M3); the nativeness criterion itself,
-since T-SUB′ is an option under D5 and NAT is a named premise (M4). Uncountable configuration
-sets, including the infinite lattice once A1 is retired, fall under M1. The physical sourcing of
+since T-SUB′ is an option under D5 and NAT is a named premise (M4). Countably infinite carriers
+with normal states are covered by the proofs. The infinite-carrier cases that remain open are
+uncountable configuration sets, including the infinite lattice once A1 is retired (M1), and a
+non-normal hidden state with a countably infinite visible carrier (M2). The physical sourcing of
 non-classical operations (I-3, M5) remains open.
 
 **Standing of the negative.** The obstruction is conditional on total-carrier determinism, TB,
-DEC, KIN-B and LIN. It concerns coherence in the configuration basis only. Encoded quantum
+DEC, KIN-B and LIN, and on NAT, a named premise that is not adopted (M4). It concerns coherence in the configuration basis only. Encoded quantum
 carriers are outside it: nothing here shows that a deterministic substratum cannot reproduce
 quantum phenomena through encoded operations (GATE-A r5.8 §2.2, the (iv) dilemma). Accountable
 Issue: #1509 (owner, #1169 c.7075903147).
