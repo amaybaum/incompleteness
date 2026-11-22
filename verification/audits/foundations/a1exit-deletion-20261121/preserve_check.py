@@ -430,13 +430,18 @@ def pdf_compare(cand_dir, built_dir, paths, out_dir=None):
     rc = open(rc_path, encoding='utf-8').read().strip() if os.path.isfile(rc_path) else None
     if rc != '0':
         bad.append('the CI build did not succeed (build.rc %s in %s)' % ('absent' if rc is None else repr(rc), out))
+    if not paths:
+        bad.append('no ledgered PDF to compare: an empty comparison does not pass')
     rows = None
     if os.path.isfile(tsv_path):
         rows = {}
         for line in open(tsv_path, encoding='utf-8').read().splitlines():
             if line.strip():
-                f, n = line.split('\t')
-                rows[f] = n
+                cols = line.split('\t')
+                if len(cols) != 2 or not cols[1].strip().isdigit():
+                    bad.append('malformed build record row in pdf-pages.tsv: %r' % line)
+                    continue
+                rows[cols[0]] = cols[1].strip()
     else:
         bad.append('no build record: pdf-pages.tsv absent from %s' % out)
     for p in sorted(paths):
@@ -633,15 +638,18 @@ def verify_run(res, meta, ledger_base, workflow_base, main_rev):
     run reports about itself: (3) the run record (the host API's GET .../actions/runs/{run_id}, saved whole) is present,
     is that run, a first-attempt workflow_dispatch of the trial workflow from main; (4) its head_sha is on main's
     first-parent history, contains the workflow base and carries the workflow base's workflow blob, and result.json's
-    workflow_sha and ref_sha each equal it; (2) trial_sha has exactly one parent, the ledger base. Any failure voids the
-    run."""
+    workflow_sha and ref_sha each equal it; (2) trial_sha has exactly one parent, the ledger base. Any failure, and any
+    missing or malformed value, voids the run; no check is skipped for a missing value (§31.12.10, R5)."""
     bad = []
+    if not isinstance(res, dict):
+        return ['result.json is not a JSON object']
+    head = None
     if not isinstance(meta, dict) or not meta:
         bad.append('run metadata missing: no host record of the run, so the executed workflow commit is unverified')
-        head = None
     else:
-        if str(meta.get('id')) != str(res.get('run_id')):
-            bad.append('run record id %r is not result.json run_id %r' % (meta.get('id'), res.get('run_id')))
+        rid, mid = res.get('run_id'), meta.get('id')
+        if rid is None or mid is None or str(mid) != str(rid):
+            bad.append('run record id %r is not result.json run_id %r (both must be present and equal)' % (mid, rid))
         if meta.get('event') != 'workflow_dispatch':
             bad.append('run event %r, not workflow_dispatch' % meta.get('event'))
         if meta.get('path') != WORKFLOW:
@@ -651,8 +659,12 @@ def verify_run(res, meta, ledger_base, workflow_base, main_rev):
         if meta.get('run_attempt') != 1:
             bad.append('run attempt %r, not 1' % meta.get('run_attempt'))
         head = meta.get('head_sha')
+        if not isinstance(head, str) or not re.fullmatch(r'[0-9a-f]{40}', head):
+            bad.append('run record head_sha %r missing or not a full commit id: the executed workflow commit is unverified'
+                       % (head,))
+            head = None
     if head is not None:
-        if not isinstance(head, str) or not re.fullmatch(r'[0-9a-f]{40}', head) or not _git_ok('cat-file', '-e', head + '^{commit}'):
+        if not _git_ok('cat-file', '-e', head + '^{commit}'):
             bad.append('run head_sha %r is not a known full commit id' % head)
         else:
             first = set(git('rev-list', '--first-parent', main_rev).decode().split())
@@ -663,12 +675,12 @@ def verify_run(res, meta, ledger_base, workflow_base, main_rev):
             want = _blob(workflow_base, WORKFLOW)
             if want is None or _blob(head, WORKFLOW) != want:
                 bad.append('run head_sha %s: %s differs from its blob at the workflow base' % (head[:12], WORKFLOW))
-        for k in ('workflow_sha', 'ref_sha'):
-            if res.get(k) != head:
-                bad.append('result.json %s %r differs from the run\'s head_sha %s (self-reported, not the executed commit)'
-                           % (k, res.get(k), str(head)[:12]))
+    for k in ('workflow_sha', 'ref_sha'):  # unconditional: a self-report never stands in for the host's head_sha
+        if head is None or res.get(k) != head:
+            bad.append('result.json %s %r differs from the run\'s head_sha %s (self-reported, not the executed commit)'
+                       % (k, res.get(k), str(head)[:12]))
     tr = res.get('trial_sha')
-    if not isinstance(tr, str) or not _git_ok('cat-file', '-e', str(tr) + '^{commit}'):
+    if not isinstance(tr, str) or not re.fullmatch(r'[0-9a-f]{40}', tr) or not _git_ok('cat-file', '-e', tr + '^{commit}'):
         bad.append('trial_sha %r is not a known commit' % tr)
     else:
         parents = git('rev-list', '--parents', '-n', '1', tr).decode().split()[1:]
@@ -831,6 +843,13 @@ def self_test(led, base_files, plan):
             mutant('MT-pdf-not-built (Complexity absent from the build record)',
                    'papers/Complexity.pdf: not rebuilt by the CI build', rows=('papers/GR.pdf',))
             mutant('MT-pdf-pages-mismatch (record and built file disagree)', 'pdf-pages.tsv records', shift=1)
+            state()
+            expect(any('no ledgered PDF to compare' in x for x in pdf_compare(d1, d2, [])),
+                   'pdf compare MT-pdf-empty-set (no ledgered PDF): fails with "no ledgered PDF to compare"')
+            state()
+            open(os.path.join(out, 'pdf-pages.tsv'), 'a').write('papers/GR.pdf 12\n')
+            expect(any('malformed build record row' in x for x in pdf_compare(d1, d2, both)),
+                   'pdf compare MT-pdf-malformed-row: fails with "malformed build record row"')
             open(os.path.join(d2, 'papers/Complexity.pdf'), 'wb').write(cx)
             mutant('MT-pdf-stale (the built PDF is the committed copy)', 'papers/Complexity.pdf: stale')
             rebuilt('papers/Complexity.pdf', cx)
@@ -877,10 +896,26 @@ def self_test(led, base_files, plan):
                 ('a run from another branch', {}, {'head_branch': 'trial/x'}, 'not main'),
                 ('trial_sha whose single parent is not the ledger base', {'trial_sha': other}, {}, 'not exactly the ledger base'),
                 ('a merge trial_sha', {'trial_sha': WORKFLOW_BASE}, {}, 'not exactly the ledger base'),
-                ('a trial_sha that is not a commit', {'trial_sha': '0' * 40}, {}, 'not a known commit')):
-            m = None if mch is None else dict(ok_meta, **mch)
+                ('a trial_sha that is not a commit', {'trial_sha': '0' * 40}, {}, 'not a known commit'),
+                ('R5: a run record without head_sha', {}, {'head_sha': None, '_drop': 'head_sha'}, 'head_sha None missing'),
+                ('R5: a run record with head_sha null', {}, {'head_sha': None}, 'head_sha None missing'),
+                ('R5: no head_sha and result.json self-reporting the ledger base', {'workflow_sha': lb, 'ref_sha': lb},
+                 {'head_sha': None, '_drop': 'head_sha'}, 'self-reported, not the executed commit'),
+                ('a head_sha that is not a hex id', {}, {'head_sha': 'W'}, "head_sha 'W' missing"),
+                ('a run id missing on both sides', {'run_id': None}, {'id': None}, 'both must be present and equal'),
+                ('result.json missing workflow_sha', {'workflow_sha': None}, {}, 'self-reported, not the executed commit'),
+                ('a trial_sha given as a ref name, not a full id', {'trial_sha': 'HEAD'}, {}, 'not a known commit')):
+            m = None if mch is None else dict(ok_meta, **{k: v for k, v in mch.items() if k != '_drop'})
+            if mch and '_drop' in mch:
+                m.pop(mch['_drop'], None)
             expect(any(want in x for x in verify_run(dict(ok_run, **ch), m, lb, WORKFLOW_BASE, WORKFLOW_BASE)),
                    'verify-run void: %s ("%s")' % (name, want))
+        expect(any('not a JSON object' in x for x in verify_run([], ok_meta, lb, WORKFLOW_BASE, WORKFLOW_BASE)),
+               'verify-run void: result.json not an object ("not a JSON object")')
+        # N5: the blob test alone. With workflow base H and main W, W contains H and is on main, so only the blob differs.
+        iso = verify_run(ok_run, ok_meta, lb, lb, WORKFLOW_BASE)
+        expect(len(iso) == 1 and 'differs from its blob at the workflow base' in iso[0],
+               'verify-run void, isolated: only the workflow blob differs (exactly one finding: %s)' % (iso[0][:60] if iso else '-'))
     else:
         expect(False, 'verify-run: the workflow base %s is required in the object store' % WORKFLOW_BASE[:12])
     d3 = tempfile.mkdtemp(prefix='a1exit-res-')

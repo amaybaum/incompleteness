@@ -6412,3 +6412,18 @@ requires exactly that one finding. The earlier double-duty mutant stays as well.
 **Checks.** The full battery of §31.12.6 is re-run from the plan head that carries §31.19, with the new mutants. The
 ledger and the edit list do not change in this round, so the reconciliations must reproduce §31.17's figures (against
 P\*: 302/60/9/26, drift 0; against `9ba8ef10`: 385/4/8, drift 0), and the ledger SHA-256 must stay `877c9305…`.
+
+### 31.20 Record pins
+
+The digests below pin the record files from §31.12.10 on (R5: `preserve_check.py` fails closed);
+`preserve_check.py` reads the last `Record pins` subsection, so §26.4, §31.11, §31.14, §31.16 and §31.18 stay as the pins of P*,
+`9ba8ef10`, `785b17f9`, `3fa2d18f` and `0702dacc`. The ledger is unchanged from §31.18: 397 splices in 44 files at `53c6601a` (399 edit
+records; D032 and D039 retain their text).
+
+| File | SHA-256 |
+|---|---|
+| `edits.json` | `fff453b7165769d313a35ed8f9c1598634dd0bbfa7d23910222e5835e0e56dfe` |
+| `ledger.json` | `877c930510e0d431d5fbd60d7871d2cf03711643059e08fa9b5c91dcec31656c` |
+| `edits_check.py` | `97b7d6016e94b3528aaf657547ac9ed40a966b6124e87bc6c80c38576ddcfb56` |
+| `guards_check.py` | `ef89e1c79a0cc3c34af1ebb981e1674edd33a534d6f98612ee06ce57005b5cee` |
+| `preserve_check.py` | `657a8d987bc2cc0c96f658db3c46e32add91217e414bb046e5e680b97620ecf5` |
