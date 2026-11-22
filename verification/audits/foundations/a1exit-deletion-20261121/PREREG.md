@@ -6599,3 +6599,80 @@ records; D032 and D039 retain their text).
 | `edits_check.py` | `2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c` |
 | `guards_check.py` | `ef89e1c79a0cc3c34af1ebb981e1674edd33a534d6f98612ee06ce57005b5cee` |
 | `preserve_check.py` | `1f1f629d22a65f8b4c1027b723c35d1ea2ff3eed9322387c0d435d342c178abb` |
+
+### 31.22 Results of §31.12.12 at `53c6601a`
+
+Each check was run at H from the checkers at `ea1029d5`, the commit that applies §31.12.12 and carries the §31.23 pins.
+`preserve_check.py` ran with `--plan ea1029d59b0bc0de7c5e21790d6011d83738e8bd`, and `scipy` 1.18.1 was installed. Every
+run exited 0, and every result file parses with verdict `pass`. In the file this subsection follows §31.23, which the
+apply commit wrote first; the order of N10 is the logical order, and the pins in force are §31.23's, the last
+`Record pins` subsection.
+
+| Check | Result |
+|---|---|
+| `edits_check.py --self-test` | PASS (93) |
+| `edits_check.py --static` | infinity 0, register 0, capitals 0, identifier 0, preservation 0, mirror parity 0, Lean docstring-only 0; sitemap 194/194 |
+| `edits_check.py --commit 53c6601a --simulate` | 401/401 unique; residual 5, all allowed; 0 unscoped; 0 preservation; 0 identifier |
+| `edits_check.py --pins --commit 53c6601a` | 0 unresolved, 0 missing |
+| `edits_check.py --repo-scan --simulate --final --commit 53c6601a` | 0 unexplained |
+| `preserve_check.py --verify-ledger` | identical |
+| `preserve_check.py --verify-pins` | PASS against §31.23 |
+| `preserve_check.py --self-test` | PASS, 93 recorded checks, all `pass` (see below) |
+| `--reconcile 55544cc3…` (P\*) | 302 unchanged, 60 shifted, 9 revised, 28 added (D374–D401), drift 0 |
+| `--reconcile 9ba8ef10…` | 385 unchanged, 4 revised, 10 added (D392–D401), drift 0 |
+| `guards_check.py --mutants` | PASS, 64 checks: the 14 checks on the simulated tree (44 files edited by 401 records), F71 among them; CC-1–CC-4 failing as named; 30 listed pins, 0 unlisted strings |
+| `guards_check.py --predict`, then `preserve_check.py --tree --mutants` | 44 files edited, 9 TeX rebuilt, 7 fingerprints re-affirmed; 0 findings; scope assertions 46 present and 25 absent, 0 findings; the 5 tree mutants fail as required |
+| Coverage | `tools/coverage_check.py` on the predicted tree: OK, 132 canonical statements |
+
+The figures required by §31.12.12 are reproduced: both reconciliations, and the ledger SHA-256.
+
+The self-test's 93 checks are §31.19's 80 and 13 new ones, each failing with its named finding:
+- N8: `plan_sha` null, upper case or a 12-character id; `plan_sha` differing from the designated plan; host `inputs`
+  carrying another plan; host `inputs` malformed; `--plan` missing; `--plan` malformed;
+- N8, the owner's test: a run of `9ba8ef10`, whose ledger base is H, with `result.json`, the host record and the inputs
+  consistent, is valid against `--plan 9ba8ef10…` and void against the designated plan;
+- N9: `run_attempt` `True`, `1.0` and `"1"`; a path listed twice in `pdf-pages.tsv`.
+
+The valid control passes.
+
+**Further probes of `verify_run`** at `ea1029d5`, loaded unchanged, with the self-test's objects (trial `556cfb08`, host
+`head_sha` W) and `--plan ea1029d5…`:
+- the valid control: 0 findings;
+- `plan_sha` absent from `result.json` (the key, not a null value): void, "missing or not a full commit id";
+- the owner's test in the shape of a real host record (no `inputs`), `plan_sha` = `9ba8ef10…`: void with exactly one
+  finding, "is not the designated plan"; the same run against `--plan 9ba8ef10…` has 0 findings;
+- `run_attempt` 2, or absent: void;
+- `--plan` empty: void, "no designated plan".
+
+From the command line, with `result.json` carrying `plan_sha` = `9ba8ef10…` and a valid run record:
+- without `--plan`: `RUN VOID` ("no designated plan", and the plan mismatch), exit 1. `--plan` is required in the
+  sense that its absence voids the run; the argument parser does not reject it;
+- with `--plan ea1029d5…`: `RUN VOID`, the plan mismatch alone, exit 1;
+- with `--plan 9ba8ef10…`: `RUN VALID`, and `RESULT FAIL`, exit 1, because the checker's own bytes are not
+  `9ba8ef10`'s pinned copy. A run of another plan is checked with that plan's own checker.
+
+**Where the plan of a real dispatch is recorded.** A real dispatch of `a1exit-trial-verify.yml` does not expose
+`plan_sha` in the host's run record.
+- The workflow at W (`413b0bb8`) takes `plan_sha` as a `workflow_dispatch` input. It sets no `run-name`, so the run's
+  `display_title` is the workflow name. It writes `plan_sha` only into `result.json`, from `env.PLAN`, and names its
+  artifact after `trial_sha` alone.
+- The Actions run object (`GET …/actions/runs/{run_id}`) has no `inputs` field. The two existing dispatches of this
+  workflow (runs 44939798305 and 44951832698, dispatched at earlier `main` commits) return 35 keys, none of them
+  `inputs`, and `display_title` "A1-EXIT trial verify". Their jobs' step names are the workflow's fixed names.
+- So no host data carries the plan commit, and `verify_run`'s check of `inputs` never applies to a real run. For a real
+  T0′ or T1′ the plan bound rests on `result.json`'s self-reported `plan_sha` together with `--plan`.
+
+*The limitation.* A run that executed one plan while reporting another in `result.json` is not detectable from GitHub's
+host record. What does bind the plan: the workflow's head step reads the ledger base from `plan_sha`'s own
+`ledger.json`; its checker steps run `plan_sha`'s pinned checkers from a worktree of that commit; and each checker's
+structured result file (`preserve_check-*.json`) records, in its `plan` field, the plan it was read from. An independent
+check of T0′ or T1′ compares those fields with `--plan`. These are outputs of the run, not host records.
+
+**Not run here.**
+- The PDF build: this container has no xelatex, so no PDF was rebuilt (0 PDFs checked), and the fail-closed comparison
+  of §31.12.1 has not run against a real CI build.
+- No real host run record has been checked; `verify_run` has run only on fixtures. Both come from T0′, which needs its
+  own dispatch authorization, as does T1′.
+
+**Ledger.** Unchanged from §31.21: 399 splices in 44 files at H (401 edit records), SHA-256
+`2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5`.
