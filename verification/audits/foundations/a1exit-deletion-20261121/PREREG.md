@@ -7446,3 +7446,66 @@ T1′'s `verify.yml` run is checked by `--expect-verify`, with its `--trial-sha`
 
 **Ledger.** Unchanged from §31.21: 399 splices in 44 files at H (401 edit records), SHA-256
 `2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5`.
+
+#### 31.12.17 The real-T0′ pre-freeze gate, and the SC-42 correction
+
+A finding recorded on #1169 (comment 7081249369) shows that the T0′ built from `8d7d67d0` fails a required
+pre-dispatch check.
+- *The two builds.* Both give the commit `ee72fe77e73a85597b33caeacb67769631536b24`.
+- *The failing checks.* `preserve_check.py --commit` and `--tree --mutants` on that commit each report two SC-42
+  findings: the regenerated `sc42-integration-result.json` differs, and the SC-42 self-test does not reproduce its
+  controls.
+- *The cause.* The SC-42 added-text scan's `SECRET` pattern matches one literal token prefix in §31.30's
+  sensitive-field scan text. The scan runs `git diff` over tracked files. `guards_check.py --predict` copies the record
+  directory in untracked, so its own SC-42 regeneration never saw the line.
+
+The owner's decision is owner `amaybaum`, 2026-11-22T15:23:16Z,
+[#1169 comment 7081263493](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7081263493).
+- Its item 1 directs one additive correction commit. It replaces the literal token prefix on line 7404 by a
+  plain-language description that keeps the intended meaning and does not contain the trigger. It also corrects the
+  N13 fixture-name inconsistency, if that change is strictly editorial. The item is not quoted verbatim here, because
+  it names the literal itself.
+- Quoted from it:
+
+  > The SC-42 scanner, the prediction logic, the secret-scan exemptions and all unrelated plan content stay unchanged. The frozen commit `8d7d67d0` is superseded for future trial preparation and is kept as evidence.
+
+- Its item 2 adds the mandatory pre-freeze gate below.
+
+**Goal link (§A.47).** A1-EXIT (#1169): this subsection decides whether a candidate plan head passes the checks
+that T0′ will run, on the actual T0′ commit, before the head is frozen. It decides no execution question and
+authorizes no push or dispatch.
+
+**The correction.** It is the one change to existing PREREG text in this amendment, and it is made in place, as the
+owner directs:
+- §31.30's scan line names the token forms in plain language ("GitHub classic and fine-grained personal-access-token
+  prefixes") in place of the two literal prefixes. The scan, the patterns it searched for and its result are as
+  before.
+- N13: §31.12.16 names the fixture by the file actually committed, `t0_jobs_44939798305.json`, in place of a hyphenated
+  form. This is editorial: the file, its digest and its pin are as before.
+
+No other line changes. The SC-42 scanner, the prediction, the exemptions, the checkers, the edit list and the ledger
+are unchanged. No pinned file changes, so §31.31's pins stay in force. The record directory, matched against the
+SC-42 `SECRET` and `LOCAL` patterns line by line, must then carry no match.
+
+**The pre-freeze gate.** After every change to a candidate plan, the following is run at the exact candidate head P
+before a freeze is requested. Every item must pass with no unexpected finding.
+1. T0′ is built from P twice, in two new work directories, and both builds give the same commit id and tree id.
+2. The complete pre-dispatch battery runs with `--plan P`:
+   - `edits_check.py`: self-test, static, `--commit H --simulate`, pins and repo-scan;
+   - `preserve_check.py`: `--verify-pins`, `--verify-ledger`, `--self-test`, and both reconciliations;
+   - `guards_check.py --mutants`, with `scipy`;
+   - the coverage check on the predicted tree.
+3. `preserve_check.py --commit <T0′> --plan P`, and `--tree <a worktree of T0′> --plan P --mutants`, run against the
+   actual T0′ commit.
+4. The SC-42 regeneration and the reproduction of its controls are verified on T0′, through those two runs' SC-42
+   checks and the SC-42 checker run directly on T0′'s worktree.
+5. The commit and tree ids of P, of H and of T0′, and every output, are kept.
+
+*The regress.* Recording the gate's results in the record directory would change P, and with it T0′. So:
+- the gate runs at the final candidate head;
+- its results are recorded outside the plan's record directory: on #1169, by the coordinating session, and in the
+  independent review;
+- they are never committed into the plan afterwards.
+
+For the same reason this correction carries no results subsection. Its battery and gate results are reported in the
+same way.
