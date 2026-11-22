@@ -31,8 +31,9 @@ DEC.** Throughout, MIO, DIO and "coherence" are taken in the configuration basis
   dynamics is a map on it), A2's determinism (`Main:54`, `Sub:94`), and NAT's clause that outcomes
   and records are functions of configurations;
 - **DEC** (N): every adjoined factor whose dynamics is not a configuration map (a deep factor
-  evolved by a unitary, an isometry or a measurable map) is prepared independently and evolves by
-  product dynamics (`Main:60`; ledger item (ii), `Main:736`; `Sub:94`);
+  evolved by a unitary or an isometry) is prepared independently and evolves by product dynamics.
+  A deep factor evolved by a measurable map is a configuration map on an uncountable carrier,
+  which falls under M1 (`Main:60`; ledger item (ii), `Main:736`; `Sub:94`);
 - KIN-B; positivity and linearity (LIN);
 - **TB** (I): the global trace bound Σ_o Tr Φ_o(ρ) ≤ Tr ρ for **all** ρ ≥ 0, coherent inputs
   included. Its configuration-level restriction does not suffice (N6).
@@ -77,11 +78,12 @@ the exact criterion for a non-DIO multi-branch branch, RIG(d)); GATE-A r5.8 §2 
 
 ## 2. N1 (decisive): rigidity of deterministic actions
 
-Setting (CNT, KIN-B, LIN). X, Y countable; (Φ_o)_{o ∈ O}, O countable, normal positive linear
-maps from trace-class operators on ℓ²(X) to those on ℓ²(Y), with Σ_o Tr Φ_o(ρ) ≤ Tr ρ for every
-ρ ≥ 0 (TB; required on all inputs, not only on configuration states). p(o, y | x) := ⟨y|Φ_o(|x⟩⟨x|)|y⟩. F_{o,y} := Φ_o*(|y⟩⟨y|).
+Setting (CNT, KIN-B, LIN, TB). X, Y countable; (Φ_o)_{o ∈ O}, O countable, normal positive
+linear maps from trace-class operators on ℓ²(X) to those on ℓ²(Y), with Σ_o Tr Φ_o(ρ) ≤ Tr ρ for
+every ρ ≥ 0 (TB; required on all inputs, not only on configuration states).
+p(o, y | x) := ⟨y|Φ_o(|x⟩⟨x|)|y⟩. F_{o,y} := Φ_o*(|y⟩⟨y|).
 
-**Proposition SHARP (necessary conditions; Established, X; (I) on KIN-B, LIN).**
+**Proposition SHARP (necessary conditions; Established, X; (I) on KIN-B, LIN, TB).**
 - **(D)** If branch o is not DIO-type, there are y and x ≠ x′ with p(o, y | x) and p(o, y | x′)
   both in the open interval (0, 1).
 - **(M)** If branch o is not MIO-type, there are x and y ≠ y′ with p(o, y | x) > 0 and
@@ -105,7 +107,7 @@ maps from trace-class operators on ℓ²(X) to those on ℓ²(Y), with Σ_o Tr �
 
 Whether (D) and (M) are sufficient in general is not shown (Missing M7, minor).
 
-**Lemma DET (Established, X; (I) on KIN-B, LIN).** If the configuration-level action is
+**Lemma DET (Established, X; (I) on KIN-B, LIN, TB).** If the configuration-level action is
 deterministic, then every branch of every positive extension is MIO-type and DIO-type. Moreover
 F_{o,y} is the diagonal projector onto span{|x⟩ : p(o, y | x) = 1}, and Φ_o(|x⟩⟨x|) is
 |f_o(x)⟩⟨f_o(x)| or 0.
@@ -155,7 +157,7 @@ inventory (its §5). The finding concerns those sources only.
 
 ## 4. N3: reduction and record laws
 
-**Corollary RED (Established, X; (I) on KIN-B, LIN).** Let (Φ_o) be any positive extension, on
+**Corollary RED (Established, X; (I) on KIN-B, LIN, TB).** Let (Φ_o) be any positive extension, on
 ℓ²(C_V × Z) → ℓ²(C_V′ × Z′) with Z, Z′ countable, of a deterministic action. Let ω be a normal
 state on B(ℓ²(Z)), or any state if C_V is finite. The visible instrument, in Heisenberg form
 Φ^V_o*(M_g) := σ_ω(Φ_o*(M_g ⊗ 1)), is DIO-type, whatever ω is. It is MIO-type if ω is diagonal.
@@ -173,7 +175,7 @@ and DET(i) and normality apply. ∎
   trace-preserving visible protocol and every unitary W on ℂ^{C_V}. The bound is positive for
   non-monomial W.
 
-**Corollary IDLE (Established, X; (I) on KIN-B, LIN).** For any NAT protocol and any positive
+**Corollary IDLE (Established, X; (I) on KIN-B, LIN, TB).** For any NAT protocol and any positive
 extension of its steps, the probability of every record outcome o is ρ(Φ_o*(1)) with
 Φ_o*(1) ∈ ℓ^∞(X). It therefore depends on the initial total state ρ only through the restriction
 of ρ to ℓ^∞(X): for a normal ρ, its diagonal. This holds for every state, normal or not.
@@ -359,9 +361,10 @@ marker being BORDERLINE, the fixed-point rule (`PLAN.md` §8) stops the walk her
 NAT(iii), given DEC, KIN-B, LIN and TB, and for coherence in the configuration basis.
 *Cross-propagation:* retiring A1 (#1477) or replacing bijectivity by REV opens no native coherence
 route on countable carriers; only the measurable case (M1) interacts with cardinality. This
-covers mainly finite and countable-site carriers: an infinite lattice with a finite local alphabet,
-the natural carrier once A1 is retired, has an uncountable configuration set, so that case falls
-under M1 and remains open.
+covers carriers with countably many configurations (finitely many sites with a countable
+alphabet, or finitely supported configurations). An infinite site set with an alphabet of q ≥ 2
+symbols has 2^ℵ₀ configurations, so the infinite lattice, the natural carrier once A1 is retired,
+falls under M1 and remains open.
 
 *NAT and T-SUB′ (iii).* NAT reads clause (iii) as "functions of configurations"; GATE-A says
 "functions of visible-sector configurations". NAT is the broader class, so the negative over NAT
@@ -371,7 +374,7 @@ covers T-SUB′ (ii)–(iii).
 
 | Item | Label | Layer | Class |
 |---|---|---|---|
-| Proposition SHARP | (I): KIN-B, LIN | X | ELABORATING: necessary conditions stated on the configuration-level action alone |
+| Proposition SHARP | (I): KIN-B, LIN, TB | X | ELABORATING: necessary conditions stated on the configuration-level action alone |
 | Lemma DET | (I): KIN-B, LIN, TB; (N) premise: determinism | X | ELABORATING: contains the MIO and DIO conclusions of RIG(a) and all of RIG(b); decides RIG(d) for deterministic branches |
 | Corollary RED | as DET, with DEC | X | ELABORATING: extends RIG′ from CP extensions of the injective lift to positive extensions (with TB) of any deterministic action, and any hidden state in scope |
 | Corollary IDLE | as DET | X | POSITIVE: coherence in native states is empirically idle, which is §A.29's "representing is not deriving" in this setting |
