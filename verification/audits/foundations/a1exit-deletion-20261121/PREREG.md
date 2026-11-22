@@ -6413,6 +6413,46 @@ requires exactly that one finding. The earlier double-duty mutant stays as well.
 ledger and the edit list do not change in this round, so the reconciliations must reproduce §31.17's figures (against
 P\*: 302/60/9/26, drift 0; against `9ba8ef10`: 385/4/8, drift 0), and the ledger SHA-256 must stay `877c9305…`.
 
+### 31.19 Results of §31.12.10–§31.12.11 at `53c6601a`
+
+Each check was run at H from the checkers at `fef0f158`, the commit that applies §31.12.11 and carries the §31.21 pins.
+`preserve_check.py` ran with `--plan fef0f158`, and `scipy` 1.18.1 was installed. Every run exited 0, and every result file
+parses with verdict `pass`.
+
+| Check | Result |
+|---|---|
+| `edits_check.py --self-test` | PASS (93) |
+| `edits_check.py --static` | 0 in every scan, preservation for D400 and D401 included; sitemap 194/194 |
+| `edits_check.py --commit 53c6601a --simulate` | 401/401 unique; residual 5, all allowed; 0 unscoped; 0 preservation |
+| `edits_check.py --pins` | 0 / 0 |
+| `edits_check.py --repo-scan --simulate --final` | 0 unexplained |
+| `preserve_check.py --verify-ledger` | identical |
+| `preserve_check.py --verify-pins` | PASS against §31.21 |
+| `preserve_check.py --self-test` | PASS, 80 recorded checks (see below) |
+| `--reconcile 55544cc3…` (P\*) | 302 unchanged, 60 shifted (the same 60 IDs as §31.2), 9 revised, 28 added (D374–D401), drift 0 |
+| `--reconcile 9ba8ef10…` | 385 unchanged, 4 revised, 10 added (D392–D401), drift 0 |
+| `guards_check.py --mutants` | PASS, 64 checks; simulated tree of 44 files edited by 401 records |
+| `--predict`, then `preserve_check.py --tree --mutants` | 0 findings; scope assertions 46 present and 25 absent, 0 findings; the tree mutants fail |
+| Coverage | exactly 7 fingerprints change; `coverage_check` OK |
+
+The self-test's 80 checks include:
+- every R5 void mutant: `head_sha` missing, null, empty, upper-case or not hex; no `head_sha` together with a
+  self-reported H; the run id missing on both sides; `result.json` not an object, or missing `workflow_sha`; a `trial_sha`
+  given as a ref name;
+- the isolated workflow-blob mutant, with exactly one finding;
+- the R1 empty-set and malformed-row mutants;
+- the base countercontrol: the unedited base fails all 67 scope assertions the plan adds.
+
+The reviewer's reproduction now voids. A run record without `head_sha`, with `result.json` self-reporting
+`workflow_sha` = `ref_sha` = H, gives `RUN VOID` with three findings: the missing `head_sha`, and each self-reported SHA
+differing from it.
+
+**Ledger.** 399 splices in 44 files at H (401 edit records), SHA-256
+`2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5`.
+
+**Fail-open audit, found beyond §31.12.10's table.** A `trial_sha` given as a ref name (for example `HEAD`) resolved
+through `git cat-file` and was accepted. It now must be a 40-hex id, with a void mutant.
+
 ### 31.20 Record pins
 
 The digests below pin the record files from §31.12.10 on (R5: `preserve_check.py` fails closed);
