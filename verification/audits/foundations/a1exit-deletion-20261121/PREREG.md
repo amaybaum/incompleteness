@@ -6676,3 +6676,151 @@ check of T0′ or T1′ compares those fields with `--plan`. These are outputs o
 
 **Ledger.** Unchanged from §31.21: 399 splices in 44 files at H (401 edit records), SHA-256
 `2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5`.
+
+#### 31.12.13 The P3 pre-audit: B1, expected skips, the trial refs, the host record and the §A.42 route
+
+The independent P3 pre-audit of the plan at `ea1029d5` is recorded on #1477 (comment 7077602092): one blocker, B1. The
+owner's decisions on it, owner `amaybaum`, 2026-11-22T10:32:44Z,
+[#1169 comment 7077861392](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7077861392), quoted in
+part:
+
+> **(i) One append-only §31 amendment, then independent review.**
+> - **B1.** Only page-count and extracted-text differences are allowed in T0′'s PDF comparison. T1′ must pass the comparison for all nine PDFs.
+> - **Expected skips.** Expected skips are recorded by workflow and event. T0′ skips guards after the expected `preserve` failure, and still uploads its result and all nine PDFs. Any unexpected skip is a finding.
+> - **T0′ branch push.** The dedicated ref, the exact trial SHA and the check of push-triggered workflows are preregistered. The push and the dispatch return to the owner for approval after the amended plan has been reviewed and frozen.
+> - **Host record.** It is verified against GitHub's original run metadata. The redacted copy must keep the required fields and types, and must give the same verifier result.
+>
+> **(ii) The §A.42 route: verification after landing.** T0′ and T1′ still gate the execution decision. The durable evidence gap closes only after independent verification from `main`. That verification includes confirming that FULL.pdf prints the corrected Theorem 24(i) (#1539).
+
+**Goal link (§A.47).** A1-EXIT (#1169): this subsection fixes, before T0′ is built, the decision rule by which T0′ and
+T1′ are judged, the refs and records they use, and the route by which their evidence reaches `main`; it decides no
+execution question and authorizes no push or dispatch.
+
+**Order.** This text first; then the checker change and the record pins, §31.25; then the results, §31.24. The pins in
+force are the last `Record pins` subsection.
+
+**B1: the T0′ PDF expectation, superseded.**
+- *Superseded text.* §31.12.1's N3 paragraph says that at T0′ "`preserve` fails with only `--pdf-compare` text findings
+  for the nine PDFs". That clause is superseded by the rule below, which governs T0′ and T1′ wherever §29 item 1, §31.8
+  or §31.12.1 differ from it.
+- *Why.* "Text findings" was narrower than §29 item 1 and §31.8, which say "only `--pdf-compare` findings". It was also
+  narrower than the content findings `pdf_compare` emits, which are of two kinds, a page count and an extracted text. At
+  T0 the run reported `papers/Structure.pdf: 94 pages committed, 95 built` beside the text findings, and the owner
+  accepted T0 as matching (#1169 comment 7068143470). The nine committed PDFs at H are those of T0's base, so T0′ is
+  expected to repeat that page-count finding.
+- *The rule for T0′.* `preserve` fails. In its structured reports the only failing check is the tree report's
+  "committed PDFs against the CI build (pages, pdftotext)". Every finding of that check is one of the two content kinds,
+  for one of the nine ledgered PDFs (`papers/Complexity.pdf`, `Computation`, `GR`, `Main`, `Methodology`, `SM`,
+  `Structure`, `Substratum`, and `book/The-Incompleteness-of-Observation-FULL.pdf`):
+  - `<pdf>: <n> pages committed, <m> built`;
+  - `<pdf>: extracted text differs from the CI-built PDF`.
+
+  Every other finding is a deviation. That covers the fail-closed findings of §31.12.1 (build failed, no build record,
+  not rebuilt, record mismatch, stale, missing, malformed or duplicate row, empty set), a content finding for any other
+  path, and a finding in any other check or report.
+- *The rule for T1′.* The PDF comparison passes for all nine PDFs, with no finding, and every report passes.
+- *In the checker.* `preserve_check.py --expect-trial T0|T1 OUT` reads the run's output directory OUT
+  (`result.json`, `preserve_check-{verify-pins,verify-ledger,commit,tree}.json` and, for T1, `guards_check-mutants.json`)
+  and prints `TRIAL EXPECTED` or `TRIAL DEVIATION` with each finding. With `--jobs JOBS.json`, the host's jobs record of
+  the run (`GET .../actions/runs/{run_id}/jobs`, saved whole), it also checks every step conclusion; with `--built DIR`,
+  the artifact's built PDFs, it checks that all nine are present. The nine PDFs are read from the plan's ledger, as
+  `--pdf-compare` reads them.
+- *Mutants.* The control is T0's real evidence on `main` (`a1exit-trial-t0-20261121`, eight PDFs, with the Structure
+  page-count finding): it is expected under the T0 rule. Each of the following is a deviation with its named finding:
+  - a fail-closed finding (a stale PDF) added to the PDF comparison;
+  - a content finding for a PDF outside the ledgered set;
+  - a finding in another check of the tree report;
+  - a failing `--commit` report;
+  - the PDF comparison check missing;
+  - a T0 tree report in which the PDF comparison passes;
+  - T1's real evidence with a text finding added to its PDF comparison, under the T1 rule.
+
+  T1's real evidence (`a1exit-trial-t1-20261121`) is expected under the T1 rule.
+
+**Expected skips, by workflow and event.** Any skip not on this list is a finding, and so is any listed step that does
+not conclude as listed.
+
+| Trial | Workflow, event | Step (job) | Conclusion | Why |
+|---|---|---|---|---|
+| T0′ | `a1exit-trial-verify.yml`, `workflow_dispatch` from `main` | "P's preserve_check.py --commit, then --tree --mutants --pdf-compare" (`verify`) | failure | the B1 findings |
+| T0′ | same | "P's guards_check.py --mutants" (`verify`) | skipped | no `if:`, so the implicit `success()` is false after `preserve` fails |
+| T0′ | same | "Every required step succeeded (a skipped step fails)" (`verify`) | failure | `if: ${{ always() }}`; it fails on `preserve` and `guards` |
+| T0′ | same | "Write result.json", "Upload result.json, logs and the built PDFs" (`verify`) | success | `if: ${{ always() }}`; the upload holds `result.json` and all nine PDFs |
+| T1′ | `a1exit-trial-verify.yml`, `workflow_dispatch` from `main` | none | | every step succeeds |
+| T1′ | `verify.yml`, `workflow_dispatch` on the T1′ ref | "KTRANS-SEP-2 marker complete reports with an axiom outside the three" (Mathlib bridge) | skipped | `if: ${{ !cancelled() && steps.ktrans_sep2_axioms.outputs.reports == 'complete-nonstandard' }}`; false when the fifteen reports lie within the three axioms, as at T1 (run 44953482787) |
+
+Every other step concludes `success`, every job of T1′'s `verify.yml` run concludes `success`, and no job is skipped.
+The other conditional steps and jobs of `verify.yml` at H run on `workflow_dispatch` and must succeed:
+- the `if: ${{ !cancelled() }}` steps of Mathlib bridge (KTOKEN-MAXCONE-1 check A3 and the first three KTRANS-SEP-2
+  steps);
+- the Numerical probes / A42 exclusion matrix, `if: ${{ github.event_name == 'workflow_dispatch' }}`;
+- the three ARP-1-MARC steps whose conditions hold on `workflow_dispatch`;
+- the Numerical probes aggregate, `if: ${{ always() }}`.
+
+In the result step's `steps` record, T0′ has `preserve` failure and `guards` skipped, and every other step success. T1′
+has every step success.
+
+*In the checker.* `--expect-trial` applies the `a1exit-trial-verify.yml` rows to `result.json` and, with `--jobs`, to the
+host's step conclusions. `--expect-verify JOBS.json` applies the `verify.yml` row to the host's jobs record of the
+`verify.yml` run. Mutants:
+- under `--expect-trial`, an unexpected skip (`build` skipped), `guards` failing instead of skipped, and the upload step
+  not succeeding;
+- under `--expect-verify`, starting from T1's real record (`ci-record.json`, expected), the marker step succeeding,
+  another step skipped, and a job skipped.
+
+**T0′ and T1′ refs.**
+- *Names.* T0′ is pushed to the new ref `trial/a1exit-T0prime-<P8>`, and T1′ to `trial/a1exit-T1prime-<P8>`, where
+  `<P8>` is the first eight hex digits of P\*\*. T0 and T1 used `trial/a1exit-T0-55544cc3` and
+  `trial/a1exit-T1-55544cc3`. Neither ref exists before its push.
+- *Exact SHA.* After each push, `git ls-remote origin refs/heads/<ref>` must print exactly the trial commit's full id.
+  The ref does not move while its trial is being verified.
+- *Push-triggered workflows.* A push runs the workflows of the pushed commit's tree, which for a trial commit are H's,
+  since no trial commit changes a workflow file. At H four workflows have a `push` trigger:
+
+  | Workflow | Push filter | On a trial ref |
+  |---|---|---|
+  | `verify.yml` | `branches: [main]` | not run |
+  | `hidden-sector-replay.yml` | `branches: [main]` and paths | not run |
+  | `bg2-orientation-design.yml` | paths under `verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/` and the workflow file | not run unless a changed file matches |
+  | `bridge-compatibility-research.yml` | paths under `bridge-compatibility-audit/`, `physical-state-operation-compatibility/`, `OIBridge/BridgeFiniteProtocol.lean` and the workflow file | not run unless a changed file matches |
+
+  *The check.* Before each push, list the files the trial commit changes against H, and against `main`, and confirm that
+  none matches either path filter. Then confirm that the ref's host runs list (`GET .../actions/runs?branch=<ref>`)
+  shows no push run after the push. None of the four is a governed launch: none designates, attests, dispatches or
+  pushes. The pushes of T0 and T1 started no run.
+- *Authorization.* Pushing either ref, the T0′ dispatch and the T1′ dispatches each need owner approval, given after
+  this amended plan has been independently reviewed and frozen. Nothing in this subsection pushes or dispatches.
+
+**The host record.**
+- *What is verified.* `--verify-run` reads GitHub's original run metadata as `--run-meta`: the run object
+  `GET /repos/{owner}/{repo}/actions/runs/{run_id}`, fetched from the API at check time and saved whole and unmodified.
+- *The redacted copy.* A redacted copy may be retained. It removes the e-mail fields (§A.42 item 4): every key named
+  `email`, which the run object carries at `head_commit.author.email` and `head_commit.committer.email`. It carries its
+  own SHA-256 digest. The copy keeps every field `verify_run` reads with the same value and JSON type: `id` (integer),
+  `event`, `path`, `head_branch` and `head_sha` (strings), `run_attempt` (integer), and `inputs` when present.
+- *In the checker.* `--verify-run ... --run-meta ORIGINAL --run-meta-redacted COPY` voids the run unless:
+  - the copy keeps each of those fields with the same value and type;
+  - the copy carries no `email` key;
+  - the copy equals the original with every `email` key removed, and nothing else changed;
+  - `verify_run` gives identical findings on the original and on the copy.
+
+  The copy's SHA-256 is printed.
+- *Mutants.* Each of the following voids with its named finding:
+  - a copy that drops `head_sha`;
+  - a copy whose `id` is the string `"1"`, which `verify_run` alone would accept, since it compares `str(id)`;
+  - a copy that keeps an e-mail field.
+
+  The control is the redaction of a valid run object carrying both e-mail fields: valid, with the same findings (none)
+  as the original.
+
+**The §A.42 route.**
+- T0′ and T1′ gate the execution decision, and only that.
+- The durable evidence gap stays open after T1′. The trial commits and P\*\* are not on `main`, and the CI runs and
+  their logs are provenance (§A.42 item 2). It closes only after landing, by independent verification from `main`. That
+  verification includes confirming that the landed `FULL.pdf` prints the corrected Theorem 24(i) (#1539).
+- No new temporary exception to §A.42 item 2 is added.
+
+**Checks.** The full battery is re-run from the commit that applies this subsection and carries §31.25, with the new
+mutants. The edit list and the ledger do not change, so the reconciliations must reproduce §31.22's figures: against P\*,
+302/60/9/28, drift 0; against `9ba8ef10`, 385/4/10, drift 0. The ledger SHA-256 must stay `2055e68f…`. In addition, the
+push-trigger check above is run on the predicted tree against H, and against `main`.
