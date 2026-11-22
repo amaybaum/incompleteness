@@ -135,7 +135,7 @@ Level C commits to: structural realism at this level is class-level (the univers
 
 (A1) Finiteness; (A2) Determinism (bijection); (A3) Bounded coupling degree; (A4) Center independence; (A5) Linearity; (A6) Background independence.
 
-Combined with the empirical inputs and modeling assumptions stated in Theorem 23, these determine — conditional on C2-mixing — the **local lattice/gauge residue**. H-Bell separately conditions Bell-inclusive existence, whose uniqueness is open (Theorem 23 in [Substratum]).
+Combined with the empirical inputs and modeling assumptions stated in Theorem 23, these determine the **local lattice/gauge residue**, the slow-bath form of C2's necessity direction additionally using the hidden-sector mixing hypothesis of [Main §3.4]. H-Bell separately conditions Bell-inclusive existence, whose uniqueness is open (Theorem 23 in [Substratum]).
 
 A1–A6 are not the same as observer-admission C1–C4; they operate at a different hierarchy level. C1–C4 specify admission to the memory-bearing observer sector (Level B); A1–A6 are conditions for membership in *OI's specific* universality class (Level D). Some relations: A1 (finiteness) is related to but distinct from C3 (capacity); A2 (determinism) is a Level D commitment that selects deterministic-substratum members of a universality class — observers can in principle exist on stochastic dynamics. Other A's (A3–A6) are pure class-specific: required for OI's specific gauge-structure derivation, not necessary for observer-admission.
 
