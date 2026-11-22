@@ -35,12 +35,15 @@ A failure of H5 is none of the three. No imported quantum operation is counted a
 1. **There is no separate prepared-class rule** (§1).
    - Under A-U and A-G, the prepared class is a state class K of the one map Φ, and its graph
      G_φ^K is a subgraph of G_φ.
-   - Ledger item (ix) is a bound on G_φ, and item (xi) is a statement about Φ as a map. Neither
-     has a state-class scope to fix.
-   - So "(ix) and (xi) on the prepared class" is the same statement as "the Bell branch's Φ
-     satisfies (ix) and (xi)". The union clause of (S-𝒞) is (ix) itself.
-   - The per-configuration "bounded-degree" of Main:418, Substratum:131 and SM:110 bounds G_φ^{x}
-     only, and does not imply (ix). ESTABLISHED [W; (N)].
+   - Read literally (R1), ledger item (ix) is a bound on G_φ, and item (xi) is a statement about
+     Φ as a map. On that reading neither has a state-class scope to fix.
+   - So, under (R1), "(ix) and (xi) on the prepared class" is the same statement as "the Bell
+     branch's Φ satisfies (ix) and (xi)". The union clause of (S-𝒞) is then (ix) itself, up to the
+     factor 2 between out-degree and symmetrized degree (§1.1).
+   - The per-state bounds the corpus states for the branch do not imply (ix). These are the
+     "bounded-degree" of Main:418 (a per-preparation bound on G_φ^K), Substratum:131 and SM:110,
+     and SM:104's bound on each G_{φ_x}. ESTABLISHED [W; (N)] for the graph inclusions;
+     [SA] for what the ledger items bound.
 2. **(N) alone does not give (ix), (xi) or PG** (§1.3). E1 and the address-decoding rule of
    BQP-P5 §5 are maps of the kind A-U and A-G describe, and both fail PG. So HOLDS in the sense of
    `PLAN.md` §4 is excluded. ESTABLISHED [W].
@@ -54,16 +57,20 @@ A failure of H5 is none of the three. No imported quantum operation is counted a
    - On ℤ^d, finite reading sets and (xi) with a site-wise gauge give N_i = i + O with O finite.
      So (ix) holds with K = |O|.
    - (ix) is independent only in family form, as Main:736 itself says. ESTABLISHED [W].
-5. **The corpus readings are resolved** (§4).
-   - (R2) is not the corpus's reading: it would make ledger item (x) and step (b)'s
-     nearest-neighbour premise redundant, and it conflicts with the long edges of
-     Substratum:131 in the same paper.
-   - (R3) as an exemption has no textual support. Substratum:145 is a list of derivation inputs,
-     Substratum:191 restricts a uniqueness comparison, and Substratum:133 says H-Bell is not
-     derived from A1–A6.
-   - (R1) is the corpus's reading. A3 and A4 are stated of φ (Substratum:96, 98); A5 alone is
-     stated of "the selected wave-equation model" (Substratum:100); and Main:424 names (vii) as
-     the only ledger item the branch's update leaves. [SA]
+5. **The corpus readings: one is excluded, and the corpus does not decide between the others**
+   (§4).
+   - (R2) is not the corpus's reading. A4's parenthetical contrasts ℤ^d with "a continuous space"
+     and admits "a finite periodic quotient ℤ^d/P", which is language about the site set.
+   - (R1) is the literal reading. Main:736 and Substratum:96, 98 state (ix) and (xi) of φ.
+   - Neither (R3) nor a per-φ_s reading is excluded. On the per-φ_s reading, the posits bound
+     each G_{φ_s} of SM:104's state-dependent branch.
+     - SM:104, Substratum:131 and SM:108 state the branch's constraints per state or on the
+       reference class.
+     - Main:424 is silent on the items other than (vii). That silence does not state that the
+       branch keeps them.
+     - The wording of A5 (Substratum:100) against that of A3 and A4 (Substratum:96, 98) is the only
+       textual evidence for (R1) over (R3), and it is modest.
+   - So the corpus does not decide whether the Bell branch's Φ keeps (ix) and (xi). [SA]
 6. **Which failure leaves room** (§5).
    - Within site-factorized maps with finite reading sets, superpolynomial |D| needs PG to fail.
    - On a fixed ℤ^d that needs (xi) to fail. In family form it needs (ix) or (xi) to fail.
@@ -74,22 +81,52 @@ A failure of H5 is none of the three. No imported quantum operation is counted a
 7. **LIT1 bears on the fixed-lattice case** (§6).
    - A fixed rule in 𝒞 on ℤ^d with (xiv) meets the hypotheses of LIT1's v-causal models, with the
      update foliation as the privileged frame and v = ℓ sites per update. [W, hypothesis mapping]
-   - By LIT1, if H-Bell (i) is read as reproducing quantum correlations in the sequential
-     orderings of LIT1's four-party configuration, then H-Bell (i) and (ii) cannot both hold for
-     such a rule. ESTABLISHED as an implication [W from LIT].
+   - Corollary VC needs three (I) hypotheses:
+     - H-Bell (i) read as reproducing the quantum correlations in the sequential orderings of
+       LIT1's four-party configuration;
+     - H-Bell (ii) read as four-party operational no-signalling;
+     - timing independence of λ's law.
+   - Under them, H-Bell (i) and (ii) cannot both hold for such a rule. This is ESTABLISHED as an
+     implication [W from LIT], with an explicit wing placement. LIT1's Lemma 1, including its
+     proof and the explicit S, is imported [LIT] and was not read.
    - So on a fixed ℤ^d, both an H-Bell branch under that reading and H5 failure need (xi) to fail.
 
-**Outcome: INCONCLUSIVE, with the conflicting corpus readings resolved.**
-- **Conditional result.** Take every Bell-route dynamics that is a map of (viii)'s configuration
-  with finite reading sets and that satisfies A3 and A4 as the corpus states them of φ. That class
-  is in 𝒞′ (§2.3), and BQP-P5's OBSTRUCTION (I) applies to it with H1–H4, BQ1-D and polynomial T.
-- **Why this is not HOLDS.** (ix) and (xi) are ledger posits (I). The (N) structure does not give
-  them (item 2).
-- **Undecided by the corpus.** Whether H-Bell's "equivalent nonlocal response map" (Main:418,
-  Substratum:131) is a map of (viii)'s configuration. The gauge class away from the periodic cubic
-  context in which Substratum:98 states it.
-- **Not FAILS.** No rule that satisfies A3 and A4 as stated has a prepared configuration violating
-  (S-𝒞′), by §1.1. Every exhibited failure (E1, address decoding) violates A4 or A3.
+**Outcome: INCONCLUSIVE.** (R2) is excluded. The corpus is shown not to decide between (R1) and
+(R3) or a per-φ_s reading. This is the route of `PLAN.md` §4 in which the corpus is shown not to
+decide.
+- **Conditional result.** Let Φ be a Bell-route dynamics such that:
+  - (a) Φ is a map of (viii)'s configuration, on the site set ℤ^d or on each member of a family
+    ℤ^d/P;
+  - (b) Φ has finite reading sets, by (xiii) or by Main:368's second form;
+  - (c) (ix) holds for G_φ as a bound on the union over all states, in family form on quotients.
+    On ℤ^d, (c) follows from (b) and (d) by Lemma R;
+  - (d) (xi) holds with a factor-wise gauge. The corpus states that gauge class only in
+    Substratum:98's context: second-order rules over ℤ_q on a periodic cubic lattice of side at
+    least 3. Outside that context the class is MISSING.
+
+  Then Φ ∈ 𝒞′ and |D| ≤ |R₀|·C(T+K, K) (§2.3). Add H1, extended to polynomial-time computability of
+  each output component and each gauge map; H2–H4 at #1527's scopes; BQ1-D; polynomial T; and
+  |R₀| = poly(n). Then BQP-P5's OBSTRUCTION (I) applies: native hosting of BQP by such runs implies
+  BQP ⊆ BPP.
+- **Whether OI's Bell route meets (c) and (d)** is not decided by the corpus (§4).
+- **Why this is not HOLDS.** (ix) and (xi) are ledger posits (I), and the (N) structure does not
+  give them (item 2).
+- **Undecided by the corpus.**
+  - Whether the Bell branch's Φ keeps (ix) and (xi).
+  - Whether H-Bell's "equivalent nonlocal response map" (Main:418, Substratum:131) is a map of
+    (viii)'s configuration.
+  - The gauge class away from the periodic cubic context in which Substratum:98 states it.
+- **Not FAILS.**
+  - **Under (R1) [SA].** No rule that satisfies (ix) and (xi) as properties of Φ has a prepared
+    configuration violating (S-𝒞′). By Lemma S they hold at every state.
+  - **Outside (R1).** FAILS is not reached either, because the corpus does not fix the posit set
+    for the branch.
+    - Under a per-configuration or per-φ_s reading, the address-decoding rule meets the
+      per-state degree bounds and (xi), and fails the union bound (ix).
+    - Neither it nor E1 supplies a Bell mechanism. Neither is shown to give H-Bell (i)'s parameter
+      dependence together with (ii)'s no-signalling.
+    - So neither is a rule meeting every posit the corpus states for the Bell route, in the sense
+      of `PLAN.md` §4.
 
 ## 1. Node 1: the scope of (ix) and (xi) is the scope of Φ (Q1)
 
@@ -115,12 +152,21 @@ A failure of H5 is none of the three. No imported quantum operation is counted a
   the whole map, not a state class.
 - (xi) is a statement about Φ as a map: "the update commutes with lattice translations up to
   gauge" (Main:736); "φ commutes with lattice translations up to gauge" (Substratum:98).
-- **Consequence [W].** If the Bell branch's Φ satisfies (ix), then |N_i^min| ≤ K + 1 at every
-  site, on the union over all configurations. The union clause of (S-𝒞) is (ix) as the ledger
-  states it, not an extension of it.
-  - The per-configuration "bounded-degree" of Main:418, Substratum:131 and SM:110 bounds G_φ^{x}.
+- This is the literal reading (R1). §4 records that the corpus does not exclude readings on which
+  the branch's constraints are per state.
+- **Consequence [W], under (R1).**
+  - If the Bell branch's Φ satisfies (ix) with bound K on the symmetrized G_φ, then
+    |N_i^min| ≤ K + 1 at every site, on the union over all configurations: the out-degree is at
+    most K.
+  - Conversely, a union out-degree bound K together with an in-degree bound K gives (ix) with
+    bound 2K.
+  - So the union clause of (S-𝒞) is (ix) as the ledger states it, up to that factor 2.
+  - The per-state bounds the corpus states for the branch are of three kinds. Main:418's
+    "bounded-degree long edges ... supplied by a Bell preparation" bounds G_φ^K for each
+    preparation class K. The "bounded-degree" of Substratum:131 and SM:110 bounds G_φ^{x}. SM:104's
+    state-dependent form s(t+1) = φ_{s(t)}(s(t)) bounds each G_{φ_x}.
   - By BQP-P5 §5 (remark), the address-decoding rule has one long edge per configuration and an
-    unbounded union. So a per-configuration bound does not imply (ix).
+    unbounded union. So none of these per-state bounds implies (ix).
 
 ### 1.2 Preparations
 
@@ -137,6 +183,10 @@ A failure of H5 is none of the three. No imported quantum operation is counted a
   - E1 has a prepared class on which |D| ≥ 2^T, so PG fails, and it fails (xi).
   - The address-decoding rule fails (ix) in family form.
   - Both are consistent with A-U and A-G, which therefore do not exclude either failure. ∎
+- Neither rule carries a Bell mechanism: neither is shown to supply H-Bell (i)'s parameter
+  dependence with (ii). HOLDS is still excluded, because `PLAN.md` §4 requires a derivation from
+  (N) assumptions alone, and H-Bell (i)–(ii) are not (N). Whether adding H-Bell would force (ix),
+  (xi) or PG is not shown here. Corollary VC (§6) bears on it only on a fixed ℤ^d under (xi).
 - So HOLDS in `PLAN.md` §4's sense is excluded. Any positive result rests on (I) posits.
 
 ## 2. Node 2: the gauge class (hidden assumption in Proposition AG)
@@ -190,10 +240,13 @@ A failure of H5 is none of the three. No imported quantum operation is counted a
 
 **Lemma R [W].**
 - **Statement.** Let Φ act on (viii)'s configuration over ℤ^d, with finite reading sets (xiii, or
-  Main:368's second form) and (xi) with a factor-wise gauge. Then (ix) holds with
-  K = |N_0^min| − 1, and Φ ∈ 𝒞′.
-- **Proof.** By §2.2, N_i^min = i + N_0^min. N_0^min is finite by hypothesis. So every site reads
-  |N_0^min| sites. Each site is read by the same number, since j ∈ N_i^min iff j − i ∈ N_0^min. ∎
+  Main:368's second form) and (xi) with a factor-wise gauge. Let K₀ = |N_0^min \ {0}|. Then:
+  - every site has out-degree and in-degree K₀ in the unsymmetrized G_φ;
+  - (ix) holds for the symmetrized G_φ with bound 2K₀;
+  - Φ ∈ 𝒞′.
+- **Proof.** By §2.2, N_i^min = i + N_0^min, and N_0^min is finite by hypothesis. So every site
+  reads K₀ sites other than itself. Each site is read by the same number of sites, since
+  j ∈ N_i^min iff j − i ∈ N_0^min. The symmetrized degree is at most the sum of the two. ∎
 
 **Scope.**
 - On one fixed rule on ℤ^d, (ix) is implied by (xi) and finite reading sets. For complexity, a
@@ -209,26 +262,26 @@ A failure of H5 is none of the three. No imported quantum operation is counted a
 
 | Reading | Claim | Verdict | Grounds |
 |---|---|---|---|
-| (R1) | (ix) and (xi) bind the Bell branch's Φ | The corpus's reading [SA] | Lemma S; A3 and A4 are stated of φ; Main:424 names only (vii) |
-| (R2) | A4's parenthetical, read on G_φ, admits no long edge | Not the corpus's reading [SA] | Redundancy of (x) and of step (b); conflict with Substratum:131 |
-| (R3) | A3–A6 are scoped to the local sector, so the prepared class is open | Correct for A5; no support as an exemption for A3, A4 [SA] | Substratum:100's wording; what Substratum:145, 191 and 133 state |
+| (R1) | (ix) and (xi) bind the Bell branch's Φ | The literal reading; not shown to be the reading that governs the branch [SA] | Lemma S; Main:736 and Substratum:96, 98 state the items of φ |
+| (R2) | A4's parenthetical, read on G_φ, admits no long edge | Not the corpus's reading [SA] | The parenthetical's site-set language |
+| (R3), or per-φ_s | A3–A6 are scoped to the local sector, or bound each G_{φ_s}, so the prepared class is open | Not excluded [SA] | Substratum:100's wording for A5; SM:104; Substratum:131; SM:108; Substratum:145's joint list |
 
 **(R2).**
 - Read on G_φ, "the coupling graph is the discrete lattice ℤ^d" makes G_φ the nearest-neighbour
   hypercubic graph at every state.
-- Then A4 would contain the content of ledger item (x), which is stated only on the reference class
-  and "which the cone of §3.3 does not require" (Main:736). It would also contain Stage 2's
-  separate "nearest-neighbor premise of step (b)", which Substratum:145 lists beside A4.
-- It would also exclude the "bounded-degree Bell-relevant long edges" of Substratum:131, in the
-  same paper, at every state.
 - The parenthetical contrasts ℤ^d with "a continuous space" and admits "a finite periodic quotient
-  ℤ^d/P". That is language about the site set and its translation group.
+  ℤ^d/P". That is language about the site set and its translation group, and it is the ground for
+  excluding (R2).
+- Under (R2), the "bounded-degree Bell-relevant long edges" of Substratum:131 would place the
+  branch outside A4 by definition. That is a consequence of (R2), not a contradiction, so it is not
+  a separate ground.
 - So the corpus does not use (R2), and the parenthetical names the site set.
 
 **(R3).**
 - **Substratum:145** lists A3–A6 among the inputs of the Stage-2 derivation. "Identification of
   this local lattice output with the Bell-violating Stage-1 completion additionally assumes
-  H-Bell": H-Bell is added to those inputs, and none is removed.
+  H-Bell": H-Bell is added to those inputs. The sentence does not say which of them the
+  completion keeps.
 - **Substratum:191** says the Stage-2 statements "do not compare preparation-indexed Bell edge
   rules ... because the Stage-2 uniqueness argument does not act on that extra structure". That
   limits what the uniqueness comparison determines. It does not limit which posits Φ satisfies.
@@ -239,23 +292,38 @@ A failure of H5 is none of the three. No imported quantum operation is counted a
 - **A5 differs in wording.** A3 is stated of "φ's action" and A4 of "the dynamics φ"
   (Substratum:96, 98). A5 is stated of "the selected wave-equation model" (Substratum:100).
   - Under A-U, a Bell branch with preparation-indexed edges lies outside A5 (SM:104; Main:424).
-  - A5's own wording scopes it to the selected model, so Theorem 23 is consistent with that branch.
-  - No such wording scopes A3 or A4.
+  - Substratum:145 lists A3–A6 together, and the branch already lies outside one of them. So the
+    joint list is read as scoped to the Stage-2 derivation, at least for A5.
+  - That A3 and A4 carry no such wording is modest evidence that they are not scoped that way. It
+    does not show that they bind the branch.
+- **Text that scopes the branch's constraints per state or to the reference class.**
+  - SM:104 writes the state-dependent branch as s(t+1) = φ_{s(t)}(s(t)), "where each φ_s is a
+    bijection but G_{φ_s} varies with s". A3 and A4, read of each φ_s, bound each G_{φ_s}, a
+    per-state bound (§1.1).
+  - Substratum:131 assigns "the geometric bounded-range graph" to "the vacuum/uniform reference
+    class", and to the entangling preparation only "bounded-degree" long edges.
+  - SM:108 states constraints (i)–(iii) "in the reference vacuum/uniform state class".
+  - None of these states that the composite Φ satisfies A3 or A4, and none states that it does not.
 
 **(R1).**
-- By Lemma S, the ledger's (ix) and (xi) have no state-class restriction to interpret.
-- Main:424 states that the branch's update "lies outside ledger item (vii)", and names no other
-  item.
-- Main:736 states that the framework's claims are "conditional on the full list".
-- So, as the corpus is written, the Bell branch's Φ is subject to (ix) and (xi). The direct
-  support of c.7076936181 nit 5 is preserved: the corpus derives (ix) for the branch's G_φ
-  nowhere. (ix) and (xi) enter as posits (I), and are not derived.
+- By Lemma S, the ledger's (ix) and (xi), read literally of Φ, have no state-class restriction to
+  interpret.
+- Main:424 states that the branch's update "lies outside ledger item (vii)". It is silent on the
+  other items. That silence is not a statement that the branch keeps them.
+- Main:736 states that the framework's claims are "conditional on the full list". That makes the
+  posits conditions on the framework's claims. It does not bind every branch: Main:424 places the
+  branch outside (vii) without contradiction.
+- So (R1) is the literal reading, and the corpus does not establish that it governs the branch.
+  The direct support of c.7076936181 nit 5 stands: the corpus derives (ix) for the branch's G_φ
+  nowhere.
 
 **Result [SA].**
-- (S-𝒞), restated as (S-𝒞′) by §2.3, is the content of ledger items (ix) and (xi) for the Bell
-  branch's Φ.
-- The corpus posits it for every branch that is a map of (viii)'s configuration, and does not
-  derive it. The open item is whether the branch's mechanism is such a map.
+- Under (R1), (S-𝒞), restated as (S-𝒞′) by §2.3, is the content of ledger items (ix) and (xi) for
+  the Bell branch's Φ.
+- Under (R3) or a per-φ_s reading, the corpus states for the branch only per-state or
+  reference-class bounds. These do not imply (S-𝒞′) (§1.1).
+- The corpus does not decide which reading governs the branch. MISSING. It derives (S-𝒞′) under
+  none of them.
 
 ## 5. Node 5: which failure leaves room (Q3)
 
@@ -280,10 +348,15 @@ contrapositive of Proposition AG′ together with Lemma R. ∎
 | not a map of (viii)'s configuration | — | H-Bell's response-map alternative, if it is one | outside Lemma Γ and outside H1 |
 
 **E1 on ℤ [W, from BQP-P5's proof].**
-- **The rule.** Take E1's formula with the site set ℤ in place of {1, …, N}. Then
-  F_i = (1 − τ_{i+1})(c_{i−1} + c_{i+1}) + τ_{i+1}(c_{2i} + c_{2i+1}) and τ_i(t+1) = −τ_i(t−1).
+- **The rule.** Take E1's formula on the site set ℤ, with the long reads restricted to i ≥ 1.
+  Let σ_i = 1 for i ≥ 1 and σ_i = 0 otherwise. Then
+  F_i = (1 − σ_iτ_{i+1})(c_{i−1} + c_{i+1}) + σ_iτ_{i+1}(c_{2i} + c_{2i+1}) and
+  τ_i(t+1) = −τ_i(t−1).
   - It is one rule on one infinite lattice, with |N_i| ≤ 5 at every i ∈ ℤ.
-  - It is center independent, nearest-neighbour on τ ≡ 0, and fails (xi).
+  - It is center independent: for i ≥ 1, 2i ≠ i and 2i + 1 ≠ i, and for i ≤ 0 only the chain
+    neighbours and τ_{i+1} are read. Without the restriction, F_0 would read c_0 when τ_1 = 1, and
+    F_{−1} would read c_{−1}.
+  - It is nearest-neighbour on τ ≡ 0, and fails (xi).
 - **The prepared configurations.** For each h, set τ_i = 1 exactly for 2 ≤ i ≤ 2^h.
 - **The dependence.** The proof of BQP-P5 §5 uses only the reading pattern of the nodes
   1, …, 2^h − 1, which is unchanged. So c_1(T) depends on all 2^T depth-T sites with coefficient 1,
@@ -295,8 +368,9 @@ contrapositive of Proposition AG′ together with Lemma R. ∎
   route.
 
 **Answer to Q3.**
-- Room for H5 failure within maps of (viii)'s configuration exists exactly where (xi) fails, or,
-  in family form, where (ix) fails.
+- Within maps of (viii)'s configuration, room for H5 failure exists only where (xi) fails or, in
+  family form, where (ix) fails (Proposition RM). It is exhibited in the (xi)-failure branch by E1,
+  and in the (ix)-failure branch by address decoding, in the non-adaptive sense.
 - E1-type 2^T growth is exhibited in the (xi)-failure branch, on ℤ and in family form.
 - In the (ix)-failure branch only the one-step non-adaptive blow-up is exhibited. Whether it gives
   superpolynomial adaptive dependency growth is not analysed.
@@ -346,25 +420,64 @@ contrapositive of Proposition AG′ together with Lemma R. ∎
   3. (xiv) gives p(λ | settings) = p(λ), which is LIT1's free choice. ∎
 
 **Corollary VC [W from LIT].**
-- **Hypotheses.** A fixed rule in 𝒞′ on ℤ^d with (xiv).
-- **Statement.** Read H-Bell (i) as requiring the quantum correlations of LIT1's four-party
-  configuration in the orderings A < D < B < C and A < D < C < B. Then H-Bell (i) and (ii)
-  (Substratum:133) do not both hold for that rule.
-- **Proof.** Choose positions and measurement times so that, under the speed ℓ, A's and D's
-  setting regions lie within the cones of the later wings, and in the third ordering B's and C's
-  regions lie outside each other's cones. On ℤ^d this holds when A and D are measured well before
-  B and C, and B and C are measured at ℓ₁-separation greater than ℓ times their time difference.
-  By Proposition FS, B∼C then holds. LIT1's Lemma 1 applies by Proposition VC. ∎
+- **Hypotheses.**
+  - A fixed rule in 𝒞′ on ℤ^d, with (xiv).
+  - **(TI) timing independence (I).** λ, the configuration at a reference time before every
+    setting, has a law that does not depend on which of the three timing configurations below is
+    run. (xiv) covers the settings only.
+  - **H-Bell (i), sequential reading (I).** The rule reproduces the quantum correlations of
+    LIT1's four-party configuration in the orderings A < D < B < C and A < D < C < B.
+  - **H-Bell (ii), four-party reading (I).** The four-party outcome law is operationally
+    no-signalling, which is LIT1 Lemma 1's hypothesis (b).
+- **Statement.** These hypotheses are jointly inconsistent. So H-Bell (i) and (ii)
+  (Substratum:133), read this way, do not both hold for that rule.
+- **The wing placement.**
+  - Work along one lattice axis e. Each wing W has a setting region and a readout region of
+    ℓ₁-radius at most r about a point p_W. The setting is applied at time t_W, and the readout is
+    taken at t_W + 1.
+  - By Proposition FS, wing W′'s readout can depend on W's setting only if
+    ‖p_W′ − p_W‖₁ ≤ ℓ(t_W′ + 1 − t_W) + 2r. Call W′ *inside W's cone* when this holds, and
+    *outside* when it fails.
+  - A and D are early, near the midpoint: p_A = 0, t_A = 0; p_D = δe with δ > 2r, and t_D > δ/ℓ.
+    Then D is inside A's cone.
+  - B and C are placed symmetrically: p_B = Xe and p_C = −Xe, with
+    X > max(δ + 2r, (ℓ + 2r)/2). Fix a time t₀ with ℓ(t₀ − t_D) > X + δ + 2r. Then B and C are
+    inside the cones of A and D whenever t_B, t_C ≥ t₀.
+  - **A < D < (B∼C).** Set t_B = t_C = t₀. Then ‖p_B − p_C‖₁ = 2X > ℓ + 2r, so each of B and C is
+    outside the other's cone.
+  - **A < D < B < C.** Set t_B = t₀ and t_C = t₀ + Δ, with Δ ≥ 1 and ℓΔ ≥ 2X. Then C is inside
+    B's cone. C's setting comes after the readouts of A, B and D, so they are outside its cone.
+  - **A < D < C < B.** The same, with B and C exchanged.
+- **Proof.**
+  1. By Proposition VC, in each timing configuration the rule is a v-causal model with the cone
+     relations above.
+  2. By (TI), the three configurations share one law of λ.
+  3. In the third configuration, B and C are outside each other's cones. So, for each value of
+     A's and D's inputs and outputs, the BC correlations take LIT1's local form, with
+     (λ, a, x, d, w) as the shared variable. This is Lemma 1's hypothesis (a) as the literature
+     reading of this round reports it. Its exact form is in LIT1's appendix, which is [LIT] and was
+     not read.
+  4. B is set and read at the same times in the first and third configurations. Each outcome is a
+     deterministic function of λ and of the settings in its cone, and by (TI) λ has one law. So the
+     ABD marginal of the third configuration equals that of the first. Likewise, the ACD marginal
+     of the third configuration equals that of the second.
+  5. Under the sequential reading of (i), these marginals are the quantum ones, and they fix
+     S ≃ 7.2. Under (ii), Lemma 1's hypothesis (b) holds in the third configuration, so Lemma 1
+     gives S ≤ 7 there. ∎
 - **Labels.**
-  - The reading of H-Bell (i) is (I). Substratum:133 states (i) as "supply the required ontic
-    parameter dependence", without naming configurations.
-  - The wing placement is a geometric sketch. It is checked against FS's cone condition only.
+  - The three readings, (TI), (i) and (ii), are (I). Substratum:133 states (i) as "supply the
+    required ontic parameter dependence", without naming configurations.
+  - LIT1's Lemma 1, its proof and the explicit Bell expression S are imported [LIT] and were not
+    read. They are in LIT1's appendices, and this round read the abstract and the HTML body
+    only.
+  - The placement is checked against Proposition FS's cone condition only.
 
 ### 6.3 Consequence
 
-- **On a fixed ℤ^d [W].** By Lemma R, (xi) with finite reading sets puts the Bell branch in 𝒞′.
-  So OBSTRUCTION (I) applies, and by Corollary VC, under the sequential reading of H-Bell (i),
-  H-Bell (i) and (ii) fail together. Both a working H-Bell branch under that reading and H5 failure
+- **On a fixed ℤ^d [W].** By Lemma R, if the Bell branch's Φ has finite reading sets and satisfies
+  (xi) with a factor-wise gauge, it is in 𝒞′.
+  So OBSTRUCTION (I) applies, and by Corollary VC, under (TI) and the readings of H-Bell (i) and
+  (ii) stated there, H-Bell (i) and (ii) fail together. Both a working H-Bell branch under that reading and H5 failure
   require (xi) to fail.
 - **In family form.** The offsets O may depend on the quotient, so no fixed v exists, and
   Corollary VC does not follow. OBSTRUCTION (I) still applies under (ix) and (xi).
@@ -374,28 +487,34 @@ contrapositive of Proposition AG′ together with Lemma R. ∎
 
 ## 7. Fixed point and stop
 
-- **Classification.** Nodes 1, 2, 3, 5 and 6 are NEW. Node 4 is NEW for the A3/A4 versus A5
-  wording and for (R2)'s redundancy, and ELABORATING otherwise.
+- **Classification.** Nodes 1, 2, 3, 5 and 6 are NEW. Node 4 is NEW for the site-set exclusion
+  of (R2) and for showing that the corpus does not decide between (R1) and (R3) or a per-φ_s
+  reading. It is ELABORATING otherwise.
 - **Productivity test.** Node 1 meets P1, node 4 P2, node 5 P3, node 2 P4 and node 6 P5.
 - **Why the round stops.** Q1–Q4 are answered under `PLAN.md` §4. Each further step would need
   something excluded here:
   - a choice of the Bell mechanism, which is a physical rule;
-  - a decision on whether ledger posits (ix) and (xi) are kept for the branch, which is a premise
-    decision;
+  - a decision on which reading governs the branch, that is, whether ledger posits (ix) and (xi)
+    are kept for it. That is a premise decision;
   - an analysis of adaptive dependency sets, or of bounded-range gauges.
 
 ## 8. Established / Assumed / Missing
 
 **ESTABLISHED** [W, unreviewed]:
-- Lemma S: the prepared class has no rule apart from Φ, and (ix) is the union bound (§1.1);
+- Lemma S: the prepared class has no rule apart from Φ, and, under (R1), (ix) is the union bound
+  up to a factor 2 (§1.1);
 - (N) alone does not give (ix), (xi) or PG (§1.3), so the outcome is not HOLDS;
 - Lemma V: an unrestricted gauge makes (xi) vacuous (§2.1);
 - factor-wise gauges preserve dependence (§2.2), and Proposition AG′ with OBSTRUCTION (I) holds for
   𝒞′ (§2.3);
-- Lemma R: on a fixed ℤ^d, (xi) with finite reading sets implies (ix) (§3);
-- Proposition RM and the failure table, including E1 on ℤ with |D| ≥ 2^T (§5);
-- Proposition VC and Corollary VC, as implications from LIT1 (§6);
-- [SA] the resolution of (R1)–(R3) (§4).
+- Lemma R: on a fixed ℤ^d, (xi) with finite reading sets implies (ix), with bound 2K₀ (§3);
+- Proposition RM and the failure table, including E1 on ℤ, with long reads restricted to i ≥ 1,
+  with |D| ≥ 2^T (§5);
+- Proposition VC, and Corollary VC as an implication from LIT1 under (TI) and the stated readings
+  of H-Bell (i) and (ii), with an explicit wing placement (§6);
+- [SA]: (R2) is excluded; (R1) is the literal reading; neither (R3) nor a per-φ_s reading is
+  excluded; the corpus does not decide (§4);
+- not FAILS under (R1), and FAILS not reached outside it (§0, Outcome).
 
 **ASSUMED:**
 - A-U and A-G (N);
@@ -403,14 +522,18 @@ contrapositive of Proposition AG′ together with Lemma R. ∎
   Substratum:98, each (I);
 - H1–H4 at #1527's scopes, BQ1, BQ1-D, BQ1-S and polynomial T (I), as in BQP-P5;
 - (xiv) (I), for §6;
-- the sequential reading of H-Bell (i) (I), for Corollary VC;
-- LIT1's Lemma 1 and main result [LIT].
+- the sequential reading of H-Bell (i), the four-party no-signalling reading of H-Bell (ii) and
+  timing independence (TI), each (I), for Corollary VC;
+- LIT1's Lemma 1, its proof and the explicit S, and LIT1's main result [LIT], not read in their
+  appendix form;
+- for OBSTRUCTION (I) on 𝒞′: H1 extended to polynomial-time gauge maps, and |R₀| = poly(n).
 
 **MISSING:**
 - whether H-Bell's mechanism, including the "equivalent nonlocal response map", is a map of (viii)'s
   configuration (§2.3);
-- whether the Bell branch keeps ledger posits (ix) and (xi): the corpus posits them for Φ and names
-  no exemption, and does not derive them (§4);
+- which reading governs the Bell branch, and so whether its Φ keeps ledger posits (ix) and (xi).
+  The literal reading (R1) states them of Φ. Neither (R3) nor a per-φ_s reading is excluded. The
+  corpus derives them under none of these (§4);
 - the gauge class outside the periodic cubic second-order context of Substratum:98, and bounded-range
   gauges (§2.2);
 - adaptive dependency growth in the (ix)-failure branch (§5);
@@ -418,11 +541,12 @@ contrapositive of Proposition AG′ together with Lemma R. ∎
 
 ## 9. What this record does not claim
 
-- It does not claim that OI's Bell route is in 𝒞′, or outside it. It claims that the corpus posits
-  the defining items for Φ, and that they are not derived.
+- It does not claim that OI's Bell route is in 𝒞′, or outside it. It claims three things: the
+  defining items, read literally, are stated of Φ; other readings are not excluded; and the items
+  are not derived.
 - It does not claim that efficient native QC is impossible, possible, or universal.
 - It does not claim that E1, or any rule here, is OI's rule or a candidate for it.
 - It does not claim that H5 failure implies hardness of classical simulation.
-- It does not claim that H-Bell fails. Corollary VC is conditional on a fixed rule in 𝒞′ on ℤ^d
-  and on the sequential reading of H-Bell (i).
+- It does not claim that H-Bell fails. Corollary VC is conditional on a fixed rule in 𝒞′ on ℤ^d,
+  on (TI), and on the stated readings of H-Bell (i) and (ii).
 - It adopts no premise and proposes no manuscript change.
