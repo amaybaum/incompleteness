@@ -1,0 +1,28 @@
+{
+ "base": "97070c986c28f7ff8a443cbda5890c1694dd76dd",
+ "candidate": null,
+ "checker": "preserve_check.py",
+ "checks": [
+  {
+   "discrepancies": [],
+   "name": "record pins (PREREG §26.4) and the plan's own checker",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "ledger spans and hashes at the base",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "ledger re-derived from edits.json",
+   "status": "pass"
+  }
+ ],
+ "ledger_base": "97070c986c28f7ff8a443cbda5890c1694dd76dd",
+ "ledger_sha256": "41ac4fd9fbcf4485d34a9aa1c1b46899a86c9a88503b65208e785af2412ff0f6",
+ "mode": "verify-ledger",
+ "plan": "55544cc36dee5b7dd5b9079c0f03be24b74c137f",
+ "schema": "a1exit-checker-result-v1",
+ "verdict": "pass"
+}

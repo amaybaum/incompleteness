@@ -1,0 +1,70 @@
+simulated tree: 3550 tracked files of 97070c986c28, 40 edited by 373 edits
+  PASS R7 guard                 exit 0  edge_rigidity_probe: ALL CHECKS PASS
+  PASS F71 guard                exit 0  bohr_frequency_probe: ALL CHECKS PASS
+  PASS repertoire_lie           exit 0  repertoire_lie_probe: ALL CHECKS PASS
+  PASS wave_period              exit 0  wave_period_probe: ALL CHECKS PASS  [1.1s]
+  PASS gap_correspondence       exit 0  gap_correspondence_probe: ALL CHECKS PASS
+  PASS stinespring_scope        exit 0  stinespring_scope_probe: ALL CHECKS PASS
+  PASS canonical_measure        exit 0  canonical_measure_probe: ALL CHECKS PASS
+  PASS structural_chain         exit 0       rotations; δ invariant, diag(1,0,0) not — the countercontrol that gives the claim teeth
+  PASS structural_core          exit 0  R6 PASS: no sorry/admit; zero imports across all 6 proof files; 39 theorems in this one; kernel check: see VERIFYING.md
+  PASS cubic_isotropy           exit 0  cubic_isotropy_probe: ALL CHECKS PASS
+  PASS lean-manuscript census   exit 0  lean_manuscript_census: OK (every cited identifier and path resolves, no superseded citation without its successor, every module classified, every carried famil
+  PASS mirror                   exit 0  mirror_check: 0 chapter line(s) absent from FULL.md
+  PASS citation                 exit 0  citation_check: 102 citation(s), 0 broken, 0 duplicate bib number(s)
+  PASS dependency-label         exit 0  dependency_label_check: OK (no stale dependency label, 41 files) -- promote to --strict in release_gate.py
+countercontrols (each must fail):
+  ok  CC-1 pin edit D302 omitted: exit 1, failing checks R7-RB1
+  ok  CC-2 D302 literal removed from its target: exit 1, failing checks R7-RB1
+  ok  CC-3 glossary edit D220 omitted, pin D306 applied: exit 1, failing checks R7-A6P
+  ok  CC-4 pin edit D301 omitted: exit 1, failing checks F71
+guard A1-string inventory: 30 listed pins, 2 messages naming declarations (pins pending #1482); 0 unlisted strings or comments
+pin inventory: 30 retained A1 string literals of the guards, each mutated in its target
+  ok  P01 + A1–A6 are not `DerivedOI` -> verification/programmes/substratum/route-b-audit.md: mutation fails R7-RB1
+  ok  P02 + **(A1) Finiteness.** The configuration space $S$ -> verification/programmes/substratum/manuscript-axiom-audit.md: mutation fails R7-MAX
+  ok  P03 + | A1 finiteness | **yes** -> verification/programmes/substratum/manuscript-axiom-audit.md: mutation fails R7-MAX
+  ok  P04 + Status: pass complete, with a scope repair recor -> verification/programmes/substratum/manuscript-axiom-audit.md: mutation fails R7-MAX
+  ok  P05 + A1 and A2 are realized-core images, not faithful -> verification/programmes/substratum/manuscript-axiom-audit.md: mutation fails R7-MAX
+  ok  P06 + | A1 finiteness | realized-core image holds for  -> verification/programmes/substratum/manuscript-axiom-audit.md: mutation fails R7-MAX
+  ok  P07 - A1 and A2 hold for the witness -> verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean: mutation fails R7-MAX
+  ok  P08 - A1 AND A2 HOLD FOR THE WITNESS -> verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean: mutation fails R7-MAX
+  ok  P09 - A1–A6 hold for the witness -> verification/programmes/substratum/manuscript-axiom-audit.md: mutation fails R7-MAX
+  ok  P10 - satisfies A1–A6 -> verification/programmes/substratum/manuscript-axiom-audit.md: mutation fails R7-MAX
+  ok  P11 - A1 and A2 hold for the witness -> verification/programmes/substratum/manuscript-axiom-audit.md: mutation fails R7-MAX
+  ok  P12 + manuscript axioms A1-A6 -> verification/lean-manuscript-census.json: mutation fails abort@3470
+  ok  P13 + | manuscript axioms A1–A6 | 1 | kernel-only | -> verification/audits/manuscript/lean-manuscript-census.md: mutation fails R7-MAX
+  ok  P14 + realized-core images of A1 and A2 -> verification/audits/manuscript/lean-manuscript-census.md: mutation fails R7-MAX
+  ok  P15 + def A1 : Prop := Finite 𝒮.Conf -> verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean: mutation fails R7-SUB
+  ok  P16 + Status: pass complete. Q1: A1, A2 and A5 are sta -> verification/programmes/substratum/interface-audit.md: mutation fails R7-SUB
+  ok  P17 - satisfies A1–A6 -> verification/programmes/substratum/interface-audit.md: mutation fails R7-SUB
+  ok  P18 - satisfies the manuscripts' A1–A6 -> verification/programmes/substratum/interface-audit.md: mutation fails R7-SUB
+  ok  P19 - A1–A6 as predicates of it -> verification/README.md: mutation fails R7-SUB
+  ok  P20 - A1 -> verification/lean-mathlib/OIBridge/FrozenSourcing.lean: mutation fails R7-FSS
+  ok  P21 - A1 -> verification/lean-mathlib/OIBridge/StochasticInterface.lean: mutation fails R7-SOI
+  ok  P22 + **a rigorous reversible fluid witness in the A1– -> verification/lean-mathlib/OIBridge/HexLatticeGas.lean: mutation fails R7-HYB
+  ok  P23 + H-B: one candidate executed in the A1–A4, ¬A5 cl -> verification/programmes/hydrodynamics/PROGRAMME.md: mutation fails R7-HYB,R7-HYE
+  ok  P24 + H-B: one candidate executed in the A1–A4, ¬A5 cl -> verification/programmes/hydrodynamics/PROGRAMME.md: mutation fails R7-HYB,R7-HYE
+  ok  P25 + | **P1** | A6 — background independence / local  -> verification/ROADMAP.md: mutation fails R7-A6D,R7-A6P
+  ok  P26 + | **P1** | A6 — background independence / local  -> verification/ROADMAP.md: mutation fails R7-A6D,R7-A6P
+  ok  P27 + ¬ (linkSubstratum (Fin d → ZMod L) (Fin 6 → ℂ) ( -> verification/lean-mathlib/OIBridge/A6Instantiation.lean: mutation fails R7-A6I
+  ok  P28 + `A1` is not weakened to make it fit -> verification/ROADMAP.md: mutation fails R7-A6I
+  ok  P29 + `A1` is not weakened -> verification/README.md: mutation fails R7-A6I
+  ok  P30 + H-B: one candidate executed in the A1–A4, ¬A5 cl -> verification/programmes/hydrodynamics/PROGRAMME.md: mutation fails R7-HYB,R7-HYE
+kernel identifiers in code literals (owner question, #1482 updates them), each tested against its target:
+  ok  line 3380 + a1_every_theory -> verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean: mutation fails R7-MAX
+  ok  line 3380 + substratumTheory_A1 -> verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean: mutation fails R7-MAX
+  ok  line 3380 + substratumTheory_A1A2 -> verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean: mutation fails R7-MAX
+  ok  line 3389 + A1Realized -> verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean: mutation fails R7-MAX
+  ok  line 3389 + A1A2Realized -> verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean: mutation fails R7-MAX
+  ok  line 3392 + A1Realized -> verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean: mutation fails R7-MAX
+  ok  line 3467 - A1Realized -> papers/Main.md: mutation fails R7-MAX
+  ok  line 3476 + A1Realized -> verification/README.md: mutation fails R7-MAX
+  ok  line 3667 + a1_of_finite -> verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean: mutation fails R7-SUB
+  ok  line 3667 + waveSubstratum_A1 -> verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean: mutation fails R7-SUB
+  ok  line 10978 + cx3b_complex_not_A1 -> verification/lean-mathlib/OIBridge/A6Instantiation.lean: mutation fails R7-A6I
+  ok  line 11216 + cx3b_complex_not_A1 -> verification/programmes/substratum/a6-instantiation/result.md: mutation fails R7-A6I
+declaration names in check messages (technical pins pending #1482), each renamed in its target:
+  ok  line 3485 A1Realized -> verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean: renaming fails R7-MAX
+  ok  line 3485 A1A2Realized -> verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean: renaming fails R7-MAX
+  ok  line 11265 cx3b_complex_not_A1 -> verification/lean-mathlib/OIBridge/A6Instantiation.lean: renaming fails R7-A6I
+RESULT PASS

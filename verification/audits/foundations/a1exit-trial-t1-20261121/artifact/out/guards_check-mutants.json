@@ -1,0 +1,329 @@
+{
+ "base": "97070c986c28f7ff8a443cbda5890c1694dd76dd",
+ "checker": "guards_check.py",
+ "checks": [
+  {
+   "discrepancies": [],
+   "name": "R7 guard on the simulated tree",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "F71 guard on the simulated tree",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "repertoire_lie on the simulated tree",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "wave_period on the simulated tree",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "gap_correspondence on the simulated tree",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "stinespring_scope on the simulated tree",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "canonical_measure on the simulated tree",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "structural_chain on the simulated tree",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "structural_core on the simulated tree",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "cubic_isotropy on the simulated tree",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "lean-manuscript census on the simulated tree",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "mirror on the simulated tree",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "citation on the simulated tree",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "dependency-label on the simulated tree",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "CC-1 pin edit D302 omitted must fail",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "CC-2 D302 literal removed from its target must fail",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "CC-3 glossary edit D220 omitted, pin D306 applied must fail",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "CC-4 pin edit D301 omitted must fail",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "guard A1-string inventory",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P01 + against verification/programmes/substratum/route-b-audit.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P02 + against verification/programmes/substratum/manuscript-axiom-audit.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P03 + against verification/programmes/substratum/manuscript-axiom-audit.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P04 + against verification/programmes/substratum/manuscript-axiom-audit.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P05 + against verification/programmes/substratum/manuscript-axiom-audit.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P06 + against verification/programmes/substratum/manuscript-axiom-audit.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P07 - against verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P08 - against verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P09 - against verification/programmes/substratum/manuscript-axiom-audit.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P10 - against verification/programmes/substratum/manuscript-axiom-audit.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P11 - against verification/programmes/substratum/manuscript-axiom-audit.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P12 + against verification/lean-manuscript-census.json",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P13 + against verification/audits/manuscript/lean-manuscript-census.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P14 + against verification/audits/manuscript/lean-manuscript-census.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P15 + against verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P16 + against verification/programmes/substratum/interface-audit.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P17 - against verification/programmes/substratum/interface-audit.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P18 - against verification/programmes/substratum/interface-audit.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P19 - against verification/README.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P20 - against verification/lean-mathlib/OIBridge/FrozenSourcing.lean",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P21 - against verification/lean-mathlib/OIBridge/StochasticInterface.lean",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P22 + against verification/lean-mathlib/OIBridge/HexLatticeGas.lean",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P23 + against verification/programmes/hydrodynamics/PROGRAMME.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P24 + against verification/programmes/hydrodynamics/PROGRAMME.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P25 + against verification/ROADMAP.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P26 + against verification/ROADMAP.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P27 + against verification/lean-mathlib/OIBridge/A6Instantiation.lean",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P28 + against verification/ROADMAP.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P29 + against verification/README.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "pin P30 + against verification/programmes/hydrodynamics/PROGRAMME.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "kernel identifier a1_every_theory (line 3380, +) against verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "kernel identifier substratumTheory_A1 (line 3380, +) against verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "kernel identifier substratumTheory_A1A2 (line 3380, +) against verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "kernel identifier A1Realized (line 3389, +) against verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "kernel identifier A1A2Realized (line 3389, +) against verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "kernel identifier A1Realized (line 3392, +) against verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "kernel identifier A1Realized (line 3467, -) against papers/Main.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "kernel identifier A1Realized (line 3476, +) against verification/README.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "kernel identifier a1_of_finite (line 3667, +) against verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "kernel identifier waveSubstratum_A1 (line 3667, +) against verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "kernel identifier cx3b_complex_not_A1 (line 10978, +) against verification/lean-mathlib/OIBridge/A6Instantiation.lean",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "kernel identifier cx3b_complex_not_A1 (line 11216, +) against verification/programmes/substratum/a6-instantiation/result.md",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "message name A1Realized renamed in verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean fails the guard",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "message name A1A2Realized renamed in verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean fails the guard",
+   "status": "pass"
+  },
+  {
+   "discrepancies": [],
+   "name": "message name cx3b_complex_not_A1 renamed in verification/lean-mathlib/OIBridge/A6Instantiation.lean fails the guard",
+   "status": "pass"
+  }
+ ],
+ "mode": "mutants",
+ "schema": "a1exit-checker-result-v1",
+ "verdict": "pass"
+}

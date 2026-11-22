@@ -1,0 +1,89 @@
+{
+ "note": "log_lines_flagged is diagnostic only; the verdict is the step outcomes, and the job conclusion is read from the run and jobs API",
+ "pdf_pages": {
+  "book/The-Incompleteness-of-Observation-FULL.pdf": 490,
+  "papers/Computation.pdf": 21,
+  "papers/GR.pdf": 84,
+  "papers/Main.pdf": 109,
+  "papers/Methodology.pdf": 53,
+  "papers/SM.pdf": 149,
+  "papers/Structure.pdf": 95,
+  "papers/Substratum.pdf": 54
+ },
+ "plan_sha": "55544cc36dee5b7dd5b9079c0f03be24b74c137f",
+ "ref": "refs/heads/main",
+ "ref_sha": "3a12f785278049c93a3bb50209582df4c492b0ad",
+ "run_attempt": "1",
+ "run_id": "44951832698",
+ "schema": "a1exit-trial-verify-v2",
+ "steps": {
+  "build": {
+   "exit_status": 0,
+   "log_lines_flagged": [],
+   "outcome": "success"
+  },
+  "checkout": {
+   "exit_status": null,
+   "log_lines_flagged": [],
+   "outcome": "success"
+  },
+  "guards": {
+   "exit_status": 0,
+   "log_lines_flagged": [],
+   "outcome": "success"
+  },
+  "head": {
+   "exit_status": 0,
+   "log_lines_flagged": [],
+   "outcome": "success"
+  },
+  "inputs": {
+   "exit_status": 0,
+   "log_lines_flagged": [],
+   "outcome": "success"
+  },
+  "plan": {
+   "exit_status": 0,
+   "log_lines_flagged": [],
+   "outcome": "success"
+  },
+  "preserve": {
+   "exit_status": 0,
+   "log_lines_flagged": [],
+   "outcome": "success"
+  },
+  "python": {
+   "exit_status": null,
+   "log_lines_flagged": [],
+   "outcome": "success"
+  },
+  "toolchain": {
+   "exit_status": 0,
+   "log_lines_flagged": [],
+   "outcome": "success"
+  }
+ },
+ "tex_files_differing": [],
+ "toolchain_versions": [
+  "image ubuntu24 20261116.133.1",
+  "pandoc 3.1.3",
+  "XeTeX 3.141592653-2.6-0.999995 (TeX Live 2023/Debian)",
+  "pdftotext version 24.02.0",
+  "Python 3.11.18",
+  "pip 26.3 from /opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/pip (python 3.11)",
+  "lmodern 2.005-1",
+  "poppler-utils 24.02.0-1ubuntu9.11",
+  "texlive-fonts-recommended 2023.20240207-1",
+  "texlive-latex-extra 2023.20240207-1",
+  "texlive-latex-recommended 2023.20240207-1",
+  "texlive-xetex 2023.20240207-1",
+  "numpy==2.4.6",
+  "pip==26.3",
+  "scipy==1.17.1",
+  "setuptools==79.0.1"
+ ],
+ "trial_sha": "c06259692ddf12f7d3dffe170ec3118dc97682fc",
+ "verdict": "pass",
+ "workflow_ref": "amaybaum/incompleteness/.github/workflows/a1exit-trial-verify.yml@refs/heads/main",
+ "workflow_sha": "3a12f785278049c93a3bb50209582df4c492b0ad"
+}
