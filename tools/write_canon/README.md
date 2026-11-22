@@ -23,8 +23,9 @@ strings, and it does not check the targets of Issue and comment links. Offline, 
 another repository is unverified and fails, and `post` refuses it. A blob link to this repository
 is checked for its commit and path in the local object store, and its commit must be reachable from
 a local `refs/remotes/origin/*` ref; those refs are as of the last fetch and may lag GitHub, and
-anyone with write access to the local repository can forge them. Only `check --online`, which
-asks GitHub for the path at that commit for every blob link, settles reachability against GitHub.
+anyone with write access to the local repository can forge them. Only `check --online` asks
+GitHub itself: for each blob link it settles whether GitHub serves that path at that commit for
+that repository.
 
 The lock and markers are local to one account on one machine: a post from another account or
 machine does not see them. As a cheap guard across them, `post` reads the Issue's comments from

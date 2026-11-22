@@ -149,7 +149,7 @@ class Scanner(unittest.TestCase):
                   "a ~~s~~", "1. one", "+ plus", "* star", "    code", "  lead", "@someone", "a :smile: b",
                   "a\\*b", "line  ", "line\\", "a | b", "| a |", "| a |\n|---|\n| b | c |", "- x\n  continued",
                   "- x\ncontinued", "- - x", "-", "- ", "  - jump", "- a\n    - jump", "https://example.com",
-                  "see " + LOCAL + ".", "(" + LOCAL + ")", "[a](https://example.com)", "[a](https://github.com/other/repo/issues/1)", "a​b", "a b",
+                  "see " + LOCAL + ".", "(" + LOCAL + ")", "[a](https://example.com)", "[a](https://github.com/other/repo/issues/1)", "a​b", "a\u2028b",
                   "x\n\n---\n\ny", "- | a | b |", "| - a | b |\n|---|---|\n| c | d |", "| `a|b` | c |\n|---|---|",
                   "| a | b |\n|---|---|\ntext", "**a\nb**", "a**b**c", "**a"]
         for body in bodies:
@@ -226,6 +226,30 @@ class Links(unittest.TestCase):
             finally:
                 for k, v in saved.items():
                     os.environ.pop(k, None) if v is None else os.environ.__setitem__(k, v)
+
+    def test_online_check_this_repo_stubbed(self):
+        want = ["gh", "api", "repos/amaybaum/incompleteness/contents/AGENTS.md?ref=413b0bb88f39cad901befcf4684355c7ee39480b"]
+
+        def stub(result):
+            calls = []
+
+            def run(argv):
+                calls.append(argv)
+                if isinstance(result, Exception):
+                    raise result
+                return result
+            return calls, run
+        cases = {"file": ((0, json.dumps({"type": "file", "sha": "x"}), ""), "verified-online"),
+                 "raises": (TimeoutError("reset"), "unverified"), "nonzero": ((1, "", "HTTP 502"), "unverified"),
+                 "html": ((0, "<html>error</html>", ""), "unverified"),
+                 "listing": ((0, json.dumps([{"type": "file"}]), ""), "invalid"),
+                 "dir": ((0, json.dumps({"type": "dir"}), ""), "invalid")}
+        for name, (result, status) in cases.items():
+            calls, run = stub(result)
+            r = W.check("- " + LOCAL + "\n- " + LOCAL, online=True, runner=run)
+            self.assertEqual(calls, [want, want], name)                     # one contents GET per link
+            self.assertTrue(r["links"]["links"][0]["status"].startswith(status), name)
+            self.assertEqual(r["ok"], name == "file", name)
 
     def test_inline_blob_link_rejected(self):
         r = W.check("[guide](" + LOCAL + ")")
@@ -308,23 +332,23 @@ class Post(unittest.TestCase):
     def posts(self, stub):
         return [c for c in stub.calls if c[2:4] == ["-X", "POST"]]
 
-    NBSP_BODY = "**Test**\n\nOne two.\n"       # synthetic: the stored copy had U+00A0 turned into U+0020
+    NBSP_BODY = "**Test**\n\nOne\u00a0two.\n"       # synthetic: the stored copy had U+00A0 turned into U+0020
 
     def test_nbsp_rewrite_detected_after_write(self):
         stub = Stub()
-        stub.transform = lambda b: b.replace(" ", " ")
+        stub.transform = lambda b: b.replace("\u00a0", " ")
         p = W.state_paths(self.state)
         W.write_atomic(p["submit.md"], self.NBSP_BODY)
         rec = {}
         why = W.verify_post("7", self.NBSP_BODY, W.normalize(self.NBSP_BODY), rec, stub, p)
         self.assertIn("match", why)
         self.assertFalse(rec["match"])
-        self.assertEqual(rec["stored_sha256"], W.sha(W.normalize(self.NBSP_BODY).replace(" ", " ")))
+        self.assertEqual(rec["stored_sha256"], W.sha(W.normalize(self.NBSP_BODY).replace("\u00a0", " ")))
 
     def test_nbsp_source_refused_before_post(self):
         self.src.write_text(self.NBSP_BODY, encoding="utf-8")
         stub = Stub()
-        stub.transform = lambda b: b.replace(" ", " ")
+        stub.transform = lambda b: b.replace("\u00a0", " ")
         self.assertEqual(self.run_post(stub)[0], 1)
         self.assertEqual(len(self.posts(stub)), 0)
         self.assertEqual(stub.calls, [])

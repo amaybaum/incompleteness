@@ -309,9 +309,12 @@ def check_links(urls, online=False, runner=default_runner):
             try:
                 rc, so, _ = gh(runner, ["gh", "api", "repos/%s/%s/contents/%s?ref=%s" % (o, r, path, sha)])
                 d = json.loads(so) if rc == 0 else None
-                status = "verified-online" if isinstance(d, dict) and d.get("type") == "file" else "invalid"
             except Exception:
-                status = "unverified"
+                rc, d = None, None
+            if rc != 0 or d is None:              # failed call, gh error or non-JSON: nothing settled
+                status = "unverified (GitHub did not answer the contents request)"
+            else:
+                status = "verified-online" if isinstance(d, dict) and d.get("type") == "file" else "invalid"
         else:
             status = "unverified (other repository; offline check cannot confirm it)"
         out.append({"url": url, "repository": "%s/%s" % (o, r), "status": status})
