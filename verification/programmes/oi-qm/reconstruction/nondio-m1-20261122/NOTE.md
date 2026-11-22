@@ -9,8 +9,18 @@ Lemma, corollary and node names without a prefix are this record's. Those prefix
 NATIVE-NONDIO's, at `ab830621` (`INVESTIGATION.md`).
 
 Revision r2 answers the independent review of `24ac0874` (#1547 c.7077044631, verdict REVISE).
-R1–R4 narrow §0 and the affected nodes to what is proved, and n1–n9 are applied as nits. r2 has
-not been re-reviewed. `PLAN.md` is unchanged.
+R1–R4 narrow §0 and the affected nodes to what is proved, and n1–n9 are applied as nits. The
+headline changes in r2 are these:
+- (F-at): the excluded set of maps is unchanged; it is described as a class of normal maps,
+  since σ-D forces normality (Lemma NRM), and r1's "normal or not" covered no further map.
+- Type-I diffuse W\*: withdrawn from the excluded class, since its reading SS-D is definitional;
+  reported as DIO definitional and MIO untypable.
+- R: restricted to NAT maps nonsingular for μ (singular case M1-c).
+- (F-C\*): MIO stated in the proved direction only.
+
+The delta check of `c39c5266` (c.7077116712, CONFIRMED WITH NITS) is answered in r2.1, which
+moves this narration out of §0 and §3 and applies its nits m1, m2 and the n3
+follow-up. `PLAN.md` is unchanged.
 
 **Labels.**
 - **ESTABLISHED**: proved on paper here (layer X), or cited at its source's standing: (L) a
@@ -29,16 +39,6 @@ result (an obstruction to native coherence), conditional throughout on TB, DEC, 
 LIN and NAT. NAT is a named premise that is not adopted (NN M4). Coherence is relative to the
 configuration algebra 𝒟, and encoded carriers in the sense of T-SUB′ (iv) are outside every
 statement (NN §0).
-
-**Changes from r1 to the headline, stated plainly.**
-- (F-at): the excluded class is the same set of maps, but it is a class of **normal** maps.
-  Under σ-D every positive map is normal (Lemma NRM), so r1's "normal or not" described no
-  further map.
-- Type-I diffuse W\*: r1 counted it as a formulation where the obstruction extends. Its reading
-  SS-D is equivalent to the projection case of DIO-type, so the row is withdrawn from the
-  excluded class and reported as definitional (DIO) and untypable (MIO).
-- R: the row holds for NAT maps that are nonsingular for μ; the singular case is M1-c.
-- (F-C\*): MIO is stated in the proved direction only.
 
 **The exact class excluded.** No NAT operation on a total configuration set of any cardinality
 has a positive extension, satisfying TB, that is non-DIO-type, in each of the following
@@ -60,7 +60,8 @@ which is itself definitional (§6).
 - **Reductions and record laws.** Corollary RED-∞ (§5) shows that the visible reductions are
   DIO-type for every hidden state: in (F-C\*) for any visible carrier, and in (F-at) and R when
   the visible carrier is finite (FIN-V, `Main:46`). Corollary IDLE-∞ shows that native record
-  laws depend only on the configuration law, for every state. This includes diffuse laws, such
+  laws depend only on the configuration law, for every state, in (F-at), (F-C\*) and R (in
+  type-I diffuse W\* only under the definitional SS-D). This includes diffuse laws, such
   as Bernoulli and Gibbs measures on A^Λ, and coherent states with a diffuse configuration law.
   In (F-at) a configuration law is a finitely additive state of ℓ^∞(X), and a Bernoulli or Gibbs
   measure fixes the record law there when D_o and f_o are Borel, as they are for a CA.
@@ -189,7 +190,7 @@ an uncountable record range needs no uncountable O.
     projection, gives SS-D at once. So SS-D says exactly that Φ_o\* sends event projections to
     event projections, the projection case of DIO-type. It constrains Φ\*(q) on all of ran P, and
     by NE every normal state concentrated on P is coherent.
-  - What is proved about weaker readings is narrower than r1 stated: no formulation on normal
+  - What is proved about weaker readings is this: no formulation on normal
     diagonal states exists (NE), and no conditional expectation is faithful, so Corollary P1 is
     unavailable. Whether some other non-definitional event reading exists in this formulation
     is not settled here.
@@ -471,7 +472,8 @@ carrier). It does not settle OPRES U1′, whose protocols append states step by 
 For CP extensions, the visible map is a CP DIO-type map on M_{C_V}, and OPRES Theorem C(b) gives
 ‖Φ^V − Ad_W‖_⋄ ≥ 2κ_row(W).
 
-**Corollary IDLE-∞ (ESTABLISHED, X).** In every formulation, and for every state ρ of ℬ_in:
+**Corollary IDLE-∞ (ESTABLISHED, X).** In (F-at), (F-C\*) and R, and in type-I diffuse W\* under
+SS-D, which is definitional there (§3), for every state ρ of ℬ_in:
 - the probability of outcome o is ρ(Φ_o\*(1)) with Φ_o\*(1) ∈ 𝒟_in;
 - the joint law of outcome and output configuration is ρ∘Φ_o\*|_{𝒟_out}, and it depends only
   on ρ|_{𝒟_in}.
@@ -603,9 +605,10 @@ were made:
 - the W\* formulations relative to the Borel functions instead of ℓ^∞.
 
 Neither yielded a NEW finding. That is two passes, not the three consecutive passes of
-`PLAN.md` §8's fixed-point condition, which is therefore not met; Lemma NRM, found in review,
-would have been a NEW finding of a further pass. The walk stops under the other condition of
-`PLAN.md` §8: the question is answered, or reported untypable with its missing ingredient, in
+`PLAN.md` §8's fixed-point condition, which is therefore not met, and the §A.31 fixed point is not
+reached. Lemma NRM, which sharpens AW-2 and is classed ELABORATING, was found in review. This
+record reads the bullets of `PLAN.md` §8 as alternative stop conditions, and stops under the one
+that is met: the question is answered, or reported untypable with its missing ingredient, in
 every formulation of `PLAN.md` §3.
 
 ## 9. ESTABLISHED, ASSUMED, MISSING
