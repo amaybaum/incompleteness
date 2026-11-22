@@ -50,18 +50,25 @@ instruments, accessible algebras or readouts.
    is driven back to `±1` within 20 ticks by the period mismatch.
 6. **Excluded class (§7), conditional on A-NU9.** The bare breather plus one straight matched W2
    piece, either at ℓ1-distance 2 from the cube in any placement or head-on at distance 1 with at
-   least two sites, has no admissible no-input orbit. So it carries no controlled turn and no signal interaction. With
-   several pieces, every arrangement without direct contact and with one coupling site exclusive to
-   one matched piece leaks (T-IND′). This covers the thick J2 analogue with both arms at distance 2.
+   least two sites, has no admissible no-input orbit. So it carries no controlled turn and no
+   signal interaction; an unmatched piece is independent of the breather (L3(a)). With several
+   pieces, pairwise disjoint and non-adjacent, none adjacent to the cube, and with a coupling site
+   adjacent to exactly one matched piece, every initial state leaks (T-IND′). This covers the
+   thick J2 analogue with both arms at distance 2. R5's full-line alongside leaks persist for
+   alongside pieces extending to `|x| ≥ 6` on both sides (Corollary R3).
 7. **Necessary condition, not universality (§7).** In an admissible no-input orbit of any gadget, a
    gadget site carrying a nonzero value of period ≡ 2 (mod 4) cannot stay for 20 ticks at a corner
-   or end contact whose piece sites keep their free W2 values (L4, L9). This is a condition on designs. A gadget meeting it would still not show that
+   or end contact whose piece sites keep their free W2 values (L4, L9). This is a condition on
+   designs. A gadget meeting it would still not show that
    R_q is universal.
 8. **MISSING (§8).** Not settled:
    - pieces alongside a face that end next to the cube;
    - single-site segments;
    - two or more pieces with a direct contact, including the thick J1 analogue;
    - the forward fate of the 9 starts of item 4(c);
+   - the forward orbits of the g-cycle states of finite segments (excluded in item 4(b) only through
+     the periodicity requirement, by L8);
+   - pieces that meet or enter the cube, and a breather used only as a timing element;
    - NU9-CHECK.
 
    No claim is made that R_q is non-universal.
@@ -129,7 +136,9 @@ admissible orbit is leak-free at every tick of `ℤ`.
 **Controlled turn; signal interaction.** As in R5 §1, with pieces in place of full lines and with
 the no-input orbit required to be admissible. For a controlled turn this is PT's requirement. For a
 signal interaction it is stronger than R5's, which asked only for a forward leak-free no-input
-orbit. The difference matters only for the 9 starts of Theorem H(c), and §8 lists it.
+orbit. The difference decides two sets of states, both listed in §8: the 9 `H00` ray starts of
+Theorem H(c) (K2), and the 60 g-cycle states of every finite segment (3 placements × 20), whose
+forward orbits are not derived. Under R5's forward-only requirement both sets would be open.
 
 **Relation to Definition U.** Turns and signal interactions are building blocks (U1 §3). A negative
 result here concerns the stated class only. A positive gadget would be a building block only.
@@ -161,29 +170,38 @@ closed set whose free orbit is confined, with ternary boundary, and each of its 
 (W). L3(b) is MQ2(b) for closed sets at distance ≥ 3.
 
 **L7 (truncation) [W, (N)].** Let `P ⊂ P̂` be two W2 pieces on the same line, the values on `P`
-being the restriction of those on `P̂`, and let a gadget `K` be given. Let `Ŷ` be the orbit with
-`P̂` and `Y` the orbit with `P`, from the restricted initial state. Suppose that `Ŷ` does not leak
-up to `T − 1`, and that at every tick `≤ T − 2`, for each end `e` of `P` with outward neighbour
-`e⁺ ∈ P̂ ∖ P` and inward neighbour `e⁻ ∈ P`, the sites `e⁻`, `e`, `e⁺` carry their free W2 values
-in `Ŷ`. Then:
+being the restriction of those on `P̂`, and let a gadget `K` (and possibly other pieces) be given.
+Let `Ŷ` be the orbit with `P̂` and `Y` the orbit with `P`, from the restricted initial state. Call
+an end `m` of `P` with an outward neighbour in `P̂ ∖ P` a *cut end*, with outward neighbour `m⁺` and
+inward neighbour `m⁻ ∈ P`. Suppose:
+- no site of `{m} ∪ (P̂ ∖ P)`, for any cut end `m`, has an allowed neighbour other than sites of
+  the line;
+- `Ŷ` does not leak up to `T − 1`;
+- at every tick `≤ T − 2`, for each cut end `m`, the sites `m⁻`, `m`, `m⁺` carry their free W2
+  values in `Ŷ`.
+
+Then:
 - `Y` equals `Ŷ` at every site outside `P̂ ∖ P`, and is 0 on `P̂ ∖ P`, at every tick `≤ T − 1`;
 - a leak of `Ŷ` at `T` at a site not adjacent to `P̂ ∖ P` is a leak of `Y` at `T`.
 
 *Proof.* By induction over `t ≤ T − 2`, for the step `t → t + 1`.
 - A site whose closed neighbourhood avoids `P̂ ∖ P` reads the same values in both runs.
-- The end `e` reads `e⁻` in `Y`, and `e⁻ + e⁺` in `Ŷ`. Both carry free values, so the first sum is
-  in `{−1, 0, 1}` and the second is 0 (alternation). Both give `G = 0`, so `e` updates to
-  `−y_{t−1}(e)` in both runs.
-- `e⁺` is outside the allowed region of `Y`. Its sum there is `y_t(e)`, ternary since `e` is free,
-  so it stays 0. The other sites of `P̂ ∖ P` read only 0s and sites outside both allowed regions,
-  so they stay 0 in `Y`.
+- By the first hypothesis, the cut end `m` reads only `m⁻` in `Y`, and `m⁻ + m⁺` in `Ŷ`. Both
+  carry free values, so the first sum is in `{−1, 0, 1}` and the second is 0 (alternation). Both
+  give `G = 0`, so `m` updates to `−y_{t−1}(m)` in both runs.
+- `m⁺` is outside the allowed region of `Y`. By the first hypothesis its sum there is `y_t(m)`,
+  ternary since `m` is free, so it stays 0. The other sites of `P̂ ∖ P` read only 0s and sites
+  outside both allowed regions, so they stay 0 in `Y`.
+
+*Necessity of the first hypothesis.* If a `K` site with value 1 is adjacent to `m`, at a tick with
+`m⁻ = 1` and `m⁺ = −1`, then `m` reads 1 in `Ŷ` and stays free, but reads 2 in `Y` and departs.
 - A site off the line adjacent to `P̂ ∖ P` is outside both allowed regions, so it is 0 in `Ŷ` (no
   leak up to `T − 1`). In `Y` its sum is 0, so it stays 0.
 
 At `T`, a leaking site `o` of `Ŷ` not adjacent to `P̂ ∖ P` reads, at `T − 1`, only sites at which the
 two runs agree, and its previous value is 0 in both. It lies outside both allowed regions. ∎
 
-**L8 (time reversal) [W, (N)].** For any orbit `y` of RZ on `ℤ³` and any even `T`,
+**L8 (time reversal) [W, (N); the clause on the breather conditional on A-NU9].** For any orbit `y` of RZ on `ℤ³` and any even `T`,
 `ỹ_s := −y_{T−s}` is an orbit. It occupies the same component as `y`. It leaks at `s` if and only if
 `y` leaks at `T − s`, and it is periodic if and only if `y` is. For a head-on piece, it maps the set
 of free superpositions (NU9 at some phase, f-cycle piece) onto the set (NU9 at some phase, g-cycle
@@ -258,7 +276,7 @@ the configuration leaks within 20 ticks.
 
 Nothing in it uses the infiniteness of a line. ∎
 
-**Corollary (single piece at distance 2).** Every matched W2 piece at ℓ1-distance exactly 2 from
+**Corollary (single piece at distance 2) [conditional on A-NU9].** Every matched W2 piece at ℓ1-distance exactly 2 from
 the cube leaks within 20 ticks, from all 40 initial states.
 *Proof.* Take `g ∈ C` and a piece site `l` at distance 2, and `o` a common neighbour. `o` is not in
 `C`, since `l` is at distance 2. It is not in the piece, since the piece is at distance 2. `o` has
@@ -653,9 +671,12 @@ at a uniform background `c` with `3 ≤ c ≤ q − 4`. Then:
 
 *Proof.*
 - (a) For a ray, this is §5's f-tables and branches. For a segment with `x₁ ≥ 3`, apply L7 with
-  `P̂` the ray and `e = r_{x₁}`. In every f-branch, `r_x` for `x ≥ 3` keeps its free value up to
-  the leak, and `r_2 = e` up to the tick before it. So `e⁻`, `e`, `e⁺` are free at every tick
-  `≤ T − 2`. Every leak site of §5 has first coordinate ≤ 2, so it is not adjacent to `P̂ ∖ P`.
+  `P̂` the ray and the cut end `m = r_{x₁}`, so `m⁻ = r_{x₁−1}` and `m⁺ = r_{x₁+1}`. The first
+  hypothesis holds: `m` and the sites `r_x`, `x > x₁`, have first coordinate ≥ 3, so none is
+  adjacent to the cube. In every f-branch, `r_x` for `x ≥ 3` keeps its free value up to the leak,
+  and `r_2 = e` (which is `m⁻` when `x₁ = 3`) up to the tick before it. So `m⁻`, `m`, `m⁺` are free
+  at every tick `≤ T − 2`. Every leak site of §5 has first coordinate ≤ 2, so it is not adjacent to
+  `P̂ ∖ P`.
 - (b) The f-cycle states have no admissible orbit by (a). The g-cycle states have none by L8 and
   (a), for rays and segments alike.
 - (c) This is §5's g-tables and branches.
@@ -712,8 +733,10 @@ So no outside site leaves `c` through tick 30.
   not periodic.
 - *What the table shows.* At tick 30 the piece differs from `W` at `r_3`–`r_6`, a disturbance moving
   away from the cube. At `(29, 30)` the values of `e`, `r_3`, …, `r_6` equal those at `(19, 20)`,
-  while `W` has changed sign. Relative to the sign-reversed background, the pattern near the cube
-  therefore repeats after 10 ticks.
+  while `W` has changed sign. The values repeat while the background has changed sign, so the
+  deviation from `W` does not repeat.
+- *One orbit.* The 9 starts `τ₀ ∈ {3, …, 11}` lie on one free cycle and coincide from tick 11 on,
+  so they are one orbit.
 - *What it does not show.* Whether this continues, whether the disturbance is a W2 signal, and
   whether the forward orbit leaks later are not derived. The sites beyond `r_6` influence the
   pattern near the cube within a few ticks, so no extrapolation is made.
@@ -749,18 +772,21 @@ placements `(2,0)` and `(2,1)` persist for a piece `{(x, 2, b) : x₀ ≤ x ≤ 
 - Events occur only at contact sites (L5(a)). A site departs at `t + 1` only if a site of its
   closed neighbourhood departed at `t`, or the site itself departed at `t − 1`. So a line site
   `(x, 2, b)` that departs at `τ₀ + k` has `|x| ≤ k`.
-- Up to `T − 2 ≤ τ₀ + 4`, the departed line sites have `|x| ≤ 4`. L7 then applies at both ends, and
-  R5's leak sites have `|x| ≤ 2`. ∎
+- Up to `T − 2 ≤ τ₀ + 4`, the departed line sites have `|x| ≤ 4`. L7 then applies at both ends. Its
+  first hypothesis holds, since the cut ends and the removed sites have `|x| ≥ 6` and are not
+  adjacent to the cube. R5's leak sites have `|x| ≤ 2`. ∎
 
 Alongside pieces with an end at `|x| ≤ 5` are not covered (§8).
 
 **Excluded class, in one statement.** Conditional on A-NU9, at a uniform background `c` with
 `3 ≤ c ≤ q − 4`, any `q ≥ 7`, W2 pieces as defined in §1 and the W2 signal:
-- (i) the bare NU9 breather plus one straight W2 ray or segment of at least two sites, either
-  head-on at ℓ1-distance 1 or at ℓ1-distance 2 in any placement, has no admissible no-input orbit,
-  and so no controlled turn and no signal interaction;
-- (ii) the bare breather plus finitely many W2 pieces with no direct contact and one exclusive
-  coupling site leaks from every initial state.
+- (i) the bare NU9 breather plus one straight matched W2 ray or segment of at least two sites,
+  either head-on at ℓ1-distance 1 or at ℓ1-distance 2 in any placement, has no admissible no-input
+  orbit, and so no controlled turn and no signal interaction. An unmatched piece is independent of
+  the breather (L3(a)), so it gives no interaction either;
+- (ii) the bare breather plus finitely many W2 pieces, pairwise disjoint and non-adjacent, none
+  adjacent to the cube, with a coupling site adjacent to a cube site and to exactly one matched
+  piece, leaks from every initial state.
 
 **Necessary geometric conditions (any gadget; conditional on A-NU9 where NU9 is named).** For an
 admissible no-input orbit of a gadget with W2 pieces:
@@ -768,8 +794,9 @@ admissible no-input orbit of a gadget with W2 pieces:
   free value, the contact gadget site is sign-locked to period 4 at the piece's active ticks. A
   gadget site carrying a nonzero value with period ≡ 2 (mod 4), such as an NU9 boundary site, cannot
   sit at such a contact for 20 ticks with the piece undisturbed;
-- (N2) consequently, in a bare-breather gadget, some contact must have its piece site depart from
-  W2 in the no-input orbit, or the cube must depart from NU9;
+- (N2) consequently, in a bare-breather gadget with at least one matched piece within ℓ1-distance 2
+  of the cube (so that an L4 or L9 contact exists), some contact must have its piece site depart
+  from W2 in the no-input orbit, or the cube must depart from NU9;
 - (N3) without a direct contact, and with a coupling site exclusive to one matched piece, such a
   departure first appears at a coupling site, which is a leak (R2). So an admissible bare-breather
   gadget needs a direct contact (a piece at distance 1 from the cube or adjacent to another piece),
@@ -784,10 +811,10 @@ fan-out, composition and an encoding with a correctness proof (U1 §3).
 against W2's negation over 10 ticks, acting at one of three kinds of site:
 - a coupling site: T-IND′, the O-events;
 - an end, which is driven to `±2` and leaks through its cap or a coupling site (F1, F2, P3, P5, H2,
-  H3), is driven to the sign opposite its free value (G1), or is erased and driven back (L10: G2,
-  Q2, Q4, K3);
+  H3), is driven to the sign opposite its free value (G1, Q5), or is erased and driven back (L10:
+  G2, Q2, Q4, K3);
 - the cube, which is driven off NU9 at `g` until a boundary site reaches `±2` (H1, H4, K1, K4, P6,
-  Q3), or until a free O-event is reached (P1, P2, P4, Q1, Q5, Q6).
+  Q3), or until a free O-event is reached (P1, P2, P4, Q1, Q6).
 
 ***
 
@@ -797,7 +824,7 @@ against W2's negation over 10 ticks, acting at one of three kinds of site:
 |---|---|---|---|---|---|
 | L6 | (N) | writer's; elementary | as stated | U1 Lemma 2.2, MQ1 (`main`) | — |
 | L7 (truncation) | (N) | writer's | as stated | L6; no leak up to `T − 1` | — |
-| L8 (time reversal) | (N) | writer's | orbits, leaks, periods; f ↔ g for head-on pieces | NU9's symmetry (R4) for the breather part | — |
+| L8 (time reversal) | (N) | writer's; the breather clause conditional on A-NU9 | orbits, leaks, periods; f ↔ g for head-on pieces | NU9's symmetry (R4) for the breather part | — |
 | L9 (end locking) | (N) | writer's | for any gadget site at an end with two allowed neighbours | L1 (R5); (W) by L6 | — |
 | L10 (erased end) | (N) | writer's; conditional on A-NU9 | as stated, `u ≤ s + 19` | NU9 (R4; hand re-derived; exact re-run pending); L5 (R5) | — |
 | T-IND′ | (N) | writer's; conditional on A-NU9 | R5's T-IND for pieces | T-IND (R5, reviewed); L6; NU9 | arrangements in which every coupling site is shared |
@@ -820,6 +847,11 @@ initial patterns, a scope condition, not a claim about native preparation.
 - arrangements in which every coupling site is shared between matched pieces;
 - the forward orbit of the K2 starts beyond tick 30: whether it leaks, and whether the disturbance
   it sends along the ray is a W2 signal;
+- the forward orbits of the g-cycle states of finite segments (60 states). Their exclusion in
+  Theorem H(b), Corollary R1 and the excluded class (i) rests on the periodicity requirement,
+  through L8; under R5's forward-only requirement they would be open;
+- pieces that meet or enter the cube (R5's "lines that meet the cube"), and a breather used only
+  as a timing element away from the pieces: outside this record's class;
 - allowed regions larger than the cube (absorbers, spacers, period converters), non-W2 pieces and
   signals, non-uniform backgrounds and other breathers;
 - the exact re-run of NU9 (NU9-CHECK), on which every NU9 result here is conditional (a
@@ -880,6 +912,11 @@ end departs from W2 without leaking. In this class, the end is driven to `±2`, 
 the orbit off its cycle.
 
 **Fixed point.** One pass, with NEW items; the §A.31 fixed point is not reached. Under PLAN's stop
-rule the round stops here. The question is answered for the class of §7. The next classes (alongside
-ends, direct-contact pairs, K2 beyond tick 30) need branch analyses beyond hand scale or a
-computation.
+rule the round stops here, on its first condition: the question is answered for the class of §7.
+The remaining single-piece cases fall under different conditions:
+- alongside ends at distance 1: five intervals per placement, each with 40 states and several
+  contact sites per tick, more cases than this round writes out by hand;
+- K2 beyond tick 30: past the ~30-tick branch bound;
+- the single-site head-on segment: not attempted. Its end has no piece neighbour, so L9 does not
+  apply, and it appears to be within hand scale. It is left for a separate decision;
+- direct-contact pairs: branch analyses beyond hand scale, or a computation.
