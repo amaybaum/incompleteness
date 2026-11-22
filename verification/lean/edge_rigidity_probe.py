@@ -1905,7 +1905,7 @@ ok6 &= 'theorem lieRank_redundant' not in lrs and 'theorem elementary_redundant_
 ok6 &= 'structure FiniteOperationalTheory' not in lrs and 'native_decide' not in lrs
 # Round-61 guards: the substratum object (quantum architecture) collapsing the three
 # primitive-source principles; the QM equivalence; the decisive elementary-drivability property
-# with the diagonal countermodel; no derivation from A1-A6 claimed.
+# with the diagonal countermodel; no derivation from the substratum conditions claimed.
 sub = open(os.path.join(BRIDGE, 'OIBridge', 'SubstratumSource.lean'), encoding='utf-8').read()
 _subflat = ' '.join(sub.split())
 ok6 &= 'structure QuantumArchitecture' in sub and 'def DrivesElementary' in sub
@@ -1913,7 +1913,7 @@ ok6 &= 'theorem quantumArchitecture_supplies_all' in sub and 'theorem genTheory_
 ok6 &= 'theorem qm_generated_by_quantumArchitecture' in sub
 ok6 &= 'theorem diagClass_not_drivesElementary' in sub and 'theorem diagGen_not_quantumArchitectureGenerated' in sub
 ok6 &= 'ReversibleImplementationLocality (genTheory 𝓘 hq.arch A) ∧ ElementaryTransitionRichness (genTheory 𝓘 hq.arch A) ∧ EmbeddedObservation (genTheory 𝓘 hq.arch A)' in _subflat
-ok6 &= 'does not derive a quantum architecture from A1-A6' in _subflat
+ok6 &= 'does not derive a quantum architecture from the substratum conditions' in _subflat
 ok6 &= 'theorem quantumArchitecture_of_oiCore' not in sub and 'theorem substratum_supplies' not in sub
 ok6 &= 'theorem drivesElementary_of_' not in sub and 'axiom ' not in sub
 ok6 &= 'structure FiniteOperationalTheory' not in sub and 'native_decide' not in sub
@@ -3354,7 +3354,7 @@ ok_rb1 &= re.search(r'The exceptions? (is|are) the Route B family', _cen1) is no
 for _t in ('is proved (`routeB_target`, through `target_of_substratum_core`)',
            'substratumTheory_realizesSealedOICore', 'substratumTheory_relabel',
            'derivedOICore_not_phaseFree', 'derivedOI_qm_iff_phaseFree',
-           'whose A1–A6 are not `DerivedOI`', 'which is a propagation round of its own'):
+           'whose substratum conditions are not `DerivedOI`', 'which is a propagation round of its own'):
     ok_rb1 &= _t in _rd1
 check('R7-RB1', ok_rb1,
       'Route B1 guard: the note preregisters the four sealed-core clauses before the outcome, each '
@@ -3366,8 +3366,8 @@ check('R7-RB1', ok_rb1,
       'its scope: the two-state closure with the core does not entail phase-free richness, under the '
       'closure quantum mechanics is exactly phase-free richness, and nothing is said of bare OI.')
 
-# ---- The manuscript-axiom pass: A1–A6 preregistered before the proof with a representability
-# verdict each, A1 and A2 closed under faithful forms, A3–A6 recorded as gaps with no weakened
+# ---- The manuscript-axiom pass: the substratum conditions preregistered before the proof with a representability
+# verdict each, finiteness and A2 closed under faithful forms, A3–A6 recorded as gaps with no weakened
 # predicate, no ManuscriptOI conjunction formed, the sourcing bound proved, nothing asserted
 # about the witness against A3–A6 or about the strongest claim ----
 ok_max = True
@@ -3467,7 +3467,7 @@ for _rel in ('papers/GR.md', 'papers/Main.md',
     ok_max &= 'ManuscriptAxioms' not in _t and 'A1Realized' not in _t and 'ConfigurationLevel' not in _t
 _ma_fam = [f for f in _ptr_reg['families'] if f['name'] == 'manuscript axioms A1-A6']
 ok_max &= len(_ma_fam) == 1 and _ma_fam[0]['status'] == 'kernel-only' and _ma_fam[0]['modules'] == ['ManuscriptAxioms']
-ok_max &= _ma_fam[0]['manuscript'] == [] and 'asserts nothing about whether the witness satisfies any of A1-A6 in the manuscript sense' in _ma_fam[0]['note']
+ok_max &= _ma_fam[0]['manuscript'] == [] and 'asserts nothing about whether the witness satisfies any of these conditions in the manuscript sense' in _ma_fam[0]['note']
 ok_max &= 'realized-core images' in _ma_fam[0]['note'] and 'requires some non-configuration-level sourcing' in _ma_fam[0]['note']
 for _bad in ('faithful theory-level forms', 'every configuration-level sourcing of any substratum', 'only through the observer-level lift'):
     ok_max &= _bad not in _ma_fam[0]['note']
@@ -3475,10 +3475,10 @@ _cen_ma = re.sub(r'\s+', ' ', open(_artifact('LEAN-MANUSCRIPT-CENSUS.md'), encod
 ok_max &= '| manuscript axioms A1–A6 | 1 | kernel-only |' in _cen_ma and 'realized-core images of A1 and A2' in _cen_ma
 for _t in ('`R7-MAX`', 'MANUSCRIPT-AXIOM-AUDIT.md', 'A1Realized', 'A2Realized', 'ConfigurationLevel',
            'configurationLevel_not_phaseFree', 'formalization gap', 'Eleven named results',
-           'no manuscript-level A1–A6 conjunct is presently a faithful predicate of the bare theory',
+           'no manuscript-level conjunct of these conditions is presently a faithful predicate of the bare theory',
            'realized-core images', 'requires some non-configuration-level sourcing',
            'specifically named open candidate', 'not shown to be the only one',
-           'asserts nothing about whether the witness satisfies any of A1–A6 in the manuscript sense'):
+           'asserts nothing about whether the witness satisfies any of these conditions in the manuscript sense'):
     ok_max &= _t in _rd1
 check('R7-MAX', ok_max,
       'Manuscript-axiom guard: the module carries no sorry, axiom or native_decide and prints the axioms '
@@ -3486,11 +3486,11 @@ check('R7-MAX', ok_max,
       'ConfigurationLevel, verbatim as pinned, with no predicate for A3–A6 and no ManuscriptOI; the '
       'note quotes the six axioms, gives each a representability verdict before the proof, preregisters '
       'the sourcing bound with its reading fixed in advance, records the scope repair made at review '
-      'with the preregistration commit named, records the A1 and A2 realized-core images as holding '
+      'with the preregistration commit named, records the realized-core images of finiteness and A2 as holding '
       'and all six axioms as gaps at the manuscript-substratum level with the missing interface, the '
       'bound as necessity of a non-configuration-level sourcing with the lift as the named candidate '
       'and not the only route, the negative case as not established and the strongest form as not '
-      'refuted, and asserts nothing about the witness against A1–A6 in the manuscript sense or about '
+      'refuted, and asserts nothing about the witness against the substratum conditions in the manuscript sense or about '
       'the strongest claim; the superseded readings are absent from the module, the README, the '
       'registry and the outcome; no manuscript carries the pass; the registry and the census carry the '
       'family as kernel-only with no anchor and the README carries the paragraph.')
@@ -3753,7 +3753,7 @@ ok_sub &= 'permClass_unitaryRaySaturated' in _san1 and 'realized_of_instAvail pe
 check('R7-SUB', ok_sub,
       'Substratum-interface guard: the module carries no sorry, axiom or native_decide and prints the axioms '
       'of exactly its eighty-two results, the sourced class unitary-ray saturated after the migration; it asks no executability question (no LayerFlowExecutable, gateFlow, '
-      'unit or drive); it defines A1, A2, A3, A3Family, A4Exact, A4 and A5 verbatim as pinned with no predicate '
+      'unit or drive); it defines the finiteness predicate, A2, A3, A3Family, A4Exact, A4 and A5 verbatim as pinned with no predicate '
       'for A6 and no ManuscriptOI; it defines the sourced class, the sourced and observer theories, the '
       'nonnegativity invariant, the bijection-level classes and SourcedOI verbatim, with the canonicity of the '
       'class, the no-phase theorem for every bijection-level class, the failure of DerivedOI and SubstratumAvail '
@@ -9453,7 +9453,7 @@ check('R7-PQT', ok_pqt,
 # gas placed inside the kernel's Substratum interface unmodified. What can go wrong is the STATUS --
 # and this round has a STATUS RULE frozen in advance: the candidate fails A5 by construction, so the
 # round may not report H-B closed, may not write any label "for OI", must name the witness as a
-# witness in the A1-A4, not-A5 class, and must record the admissibility of that class as OPEN. The
+# witness in the class of a finite configuration space with A2-A4, not A5, and must record the admissibility of that class as OPEN. The
 # hazards the control plane named are readings -- the sector qualifier dropped from a conservation
 # statement; the sixth-order bound read as isotropy at all orders. The guard checks each in the
 # freeze's own words, with a mutation control per contract, pins PROGRAMME.md's one-line state to
@@ -9596,7 +9596,7 @@ check('R7-HYB', ok_hyb,
       'Hydrodynamics round H-B guard: a CONSTRUCTIVE round executed under a STATUS RULE frozen in '
       'advance, so what can go wrong is the status the witness is reported under. The status rule '
       'is checked in its four parts: H-B NOT reported closed, no label written "for OI", the '
-      'witness named in the A1-A4, not-A5 class, the admissibility of that class recorded OPEN -- '
+      'witness named in the class of a finite configuration space with A2-A4, not A5, the admissibility of that class recorded OPEN -- '
       "and PROGRAMME.md's section 8 line pinned to the frozen sentence. The kernel is held to the "
       'theorem statements -- the three conditions, the Z-span, the gas iff, the sector relation as '
       'hypothesis, the fourth-moment closed form, the sixth-moment ratio, the pinned L = 4 '
@@ -9730,8 +9730,8 @@ _A6P_CH09_207 = ("*A6 (background independence).* The framework's assumption is 
 _A6P_APPB_317 = ('Background independence — covariance of the dynamics under site-dependent choices of basis '
                  'within each eigenspace, the link coupling transforming with them — promotes this global '
                  'commutant to local gauge invariance.')
-_A6P_GLOS_ENTRY = ("**Background independence (A6).** The sixth of the framework's structural assumptions "
-                   'A1–A6: the substratum dynamics is covariant under spatially varying internal-index '
+_A6P_GLOS_ENTRY = ("**Background independence (A6).** The structural assumption A6 of the "
+                   'reconstruction theorem (A2–A6): the substratum dynamics is covariant under spatially varying internal-index '
                    'transformations, a site-dependent transformation being a symmetry provided the coupling '
                    'data carried on the links are transformed with it. The content of the assumption is the '
                    'covariant interface itself — the coupling is link-valued data the transformations act on '
@@ -10900,7 +10900,7 @@ check('R7-CT2', ok_ct2,
 # substratum violates A6"; PK3-d reported without its translation-invariance hypothesis; PK4 read
 # as identifying the interface's transformation class with the manuscripts' G(n); the interface's
 # class identified with U(6); an instantiation result sliding into the Standard Model or into the
-# gauge-group derivation; A1 weakened so that the complex carrier fits; a field added to
+# gauge-group derivation; the finiteness condition weakened so that the complex carrier fits; a field added to
 # Substratum or a covariance predicate defined on it and named a reading; two of the four readings
 # identified; the ROADMAP label moved, or a label recommended. The guard checks each of these in
 # the freeze's own terms, the kernel statements in terms, the two-slot budget with three
@@ -10965,7 +10965,7 @@ def _a6i_pk5_kernel(t=None):
 def _a6i_cx_kernel(t=None):
     """I17 -- CX1, CX2 and CX3 in the kernel: the interface's own predicate at the complex carrier
     with no new definition, the C-linear and the matrix-unitary instance, and the PROVED FAILURE of
-    A1 on the complex carrier."""
+    finiteness on the complex carrier."""
     t = _A6ILEAN if t is None else t
     return ('theorem cx1_complex_covariance {ι : Type} (N : ι → Finset ι) (M : ι → ι → ((Fin 6 → ℂ) '
             '→+ (Fin 6 → ℂ))) : A6Cov N M := a6cov_all N M' in t
@@ -11016,8 +11016,8 @@ def _a6i_label_unmoved(t=None, r=None):
 
 def _a6i_roadmap_section(r=None):
     """I22 -- the ROADMAP propagation is confined to the P1 - A6 section: the paragraph carries the
-    two halves separately, the caveat on the covariance instance, the carrier staying outside, A1
-    not weakened, the residual named, and the label decision left to the owner; and the section
+    two halves separately, the caveat on the covariance instance, the carrier staying outside, the finiteness
+    predicate not weakened, the residual named, and the label decision left to the owner; and the section
     links to this round's two artifacts."""
     r = _A6IROAD if r is None else r
     _sec = _a6i_section(r)
@@ -11263,7 +11263,7 @@ check('R7-A6I', ok_a6i,
       'own predicate at Fin 6 -> C with no new definition; cx2_clinear_forgets and '
       "cx2_unitary_gaugeLink exhibiting the manuscripts' transformation as an instance of the "
       "interface's class, the containment proved; and cx3b_complex_not_A1 as the PROVED FAILURE of "
-      'A1 at the complex carrier. The four readings are checked never identified. The ROADMAP row '
+      'finiteness at the complex carrier. The four readings are checked never identified. The ROADMAP row '
       "is checked to carry CONDITIONAL with no DERIVED row anywhere and the re-pin of R7-A6D's row "
       "clause recorded as NOT performed because the row's reasons are byte-identical; a DERIVED "
       'label and a recommended label are mutation-tested. The ROADMAP section paragraph and the '

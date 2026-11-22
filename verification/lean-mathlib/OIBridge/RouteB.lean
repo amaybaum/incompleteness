@@ -105,7 +105,7 @@ every conjunct of `DerivedOICore` and fails phase-free richness. The witness is 
 substratum class generates, so every theory-level predicate the kernel proves for that theory
 holds in it; what separates it from quantum mechanics is the one operation the monomial class does
 not generate. Not proved, and not asserted: that the drive is independent of observation
-incompleteness in the manuscripts' sense, whose A1–A6 are not `DerivedOI`; that `DerivedOI`
+incompleteness in the manuscripts' sense, whose substratum conditions are not `DerivedOI`; that `DerivedOI`
 exhausts what bare OI entails; that the substratum theory is a physical theory beyond the finite
 operational formalism; that any manuscript statement changes, which is a propagation round of its
 own.

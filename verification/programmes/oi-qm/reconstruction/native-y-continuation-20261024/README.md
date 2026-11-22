@@ -55,7 +55,7 @@ checkout of `main`.
 
 - A1 and A2 name the programme's two reconstruction targets here: exact
   reconstruction and finite operational approximation. They are distinct
-  from the structural conditions A1–A6 of the manuscripts.
+  from the manuscripts' structural conditions on a substratum.
 - Several packages cite off-repository archives by path and SHA-256: the
   combined handoff `OI_combined_handoff_2026-10-24_v1` and the earlier
   `OI_native_Y_continuation_handoff_v1`. Neither is in the repository; both

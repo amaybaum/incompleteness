@@ -122,13 +122,13 @@ Two facts are used:
 
 ## Reading
 
-A rigorous **sufficient** replacement for total finiteness in this one
+A rigorous **sufficient** condition, in place of finiteness of the configuration space, for this one
 recurrence step is `π ∘ T^L = π` almost everywhere, where `π` is the finite
 visible partition. Equivalently, `Γ_L = I`. The proof note shows that
 any non-permutation `Γ_s`, `0 < s < L`, then forces rooted-family
 P-indivisibility. This is not claimed necessary for all OI memory results.
 In the free wave example, cancellation of non-returning parabolic modes
-is one mechanism satisfying the condition. Total finiteness is another.
+is one mechanism satisfying the condition. Finiteness of the configuration space is another.
 
 The two continua sit at opposite ends of this condition:
 
