@@ -1,7 +1,9 @@
 # G3-TEMP: the temperature law on a non-Killing horizon
 
 **Standing.** Author record of a paper-only research unit (AGENTS.md §A.29, §A.31 depth-first
-form). WIP / UNVERIFIED; not independently reviewed. The preregistration `PLAN.md` (commit
+form). WIP / UNVERIFIED. Independent non-author review at `16f1a7f6`: REVISE (minor), relayed by
+the coordinating session and not posted on GitHub, since the write halt covers comments. This
+revision answers its findings 1–5 and nits 6–8. The preregistration `PLAN.md` (commit
 `666708b0`) was pushed before this record and is unchanged. Authorization, snapshot `D`, sources,
 assumption IDs, decision rule, productivity test, stop conditions and goal link are as in
 `PLAN.md`. The unit adopts no premise, runs no computation, and edits no manuscript, Lean module,
@@ -26,7 +28,7 @@ R1, R2, R3 are G3-HOM's completions as in G3-OFFDS.
 excluded.** The substratum triple (S, φ, V), the partition and the trace-out fix no temperature
 law, on a Killing horizon or off one. Every finite family of visible rate ratios, thermal at T_A,
 thermal at ħ/(2πR), or thermal at no temperature, has a finite reversible realization (GR:76; Main
-§1.3, theorem statement item (3)), and the bare permutation does not fix the frequency gaps that a rate-ratio law is
+§1.3, theorem statement item (3); Main §3.4, intervention dilation, Main:490), and the bare permutation does not fix the frequency gaps that a rate-ratio law is
 stated in (GR:84). Excluded: every temperature law claimed to follow from N-OBS + N-TRACE alone,
 that is, to hold on every finite reversible realization (§2). This excludes no law for the
 specific substratum rule, which is a different and open question.
@@ -43,14 +45,15 @@ then forced by the counting route under N-UNIV, so it adds no independent select
 on non-de-Sitter states with one history-independent count s_H(E) of the shell energy alone, then,
 with the exact-de-Sitter first law and calibration at every radius,
 
-  T = ħ/(2πR) on the counted surface, on every admissible state,
+  T = 1/(8πGηR) = ħ/(2πR) on the counted surface, on every admissible state,
 
-and the Kodama–Hayward T_A, and every law that depends on Ḣ at fixed R, is excluded for that class
+where the ħ form carries the calibration conditions of GR:88 (§3.2), and the Kodama–Hayward T_A, and every law that depends on Ḣ at fixed R, is excluded for that class
 on any instant with ε ∉ {0, 4}. With N-AREA (the count is on R_A), T = ħH/2π: the 1/(2πR) branch
 on R_A, which by G3-OFFDS §4 selects R1, on its value reading and also on its label reading. Adding
 N-SLOPE off de Sitter and N-UNIV, the KMS-side surface gravity is forced to |κ| = 1/R on the counted
-surface, and κ = κ_KH is excluded there too (§4.2): with κ_KH the calibrated action scale would be
-a_* = ħ/|1 − ε/2| ≈ 1.29ħ today in GR:56's ΛCDM illustration.
+surface, and κ = κ_KH is excluded there too (§4.2): the de Sitter states of H-COUNT-1 fix a_* = ħ,
+and with κ_KH the action scale would be a_* = ħ/|1 − ε/2| ≠ ħ wherever ε ∉ {0, 4}, about 1.29ħ
+today in GR:56's ΛCDM illustration.
 
 **Exposed assumption.** GR:56 states that extending the calibration off de Sitter "would require a
 Kodama–Hayward treatment showing the same factor enters both the classical and emergent thermal
@@ -95,8 +98,11 @@ calibration only (§1.2).
   H-spectrum, which §2 records as underivable from S1–S4".
 - *N-FRAME.* The preferred foliation is the comoving one (GR:470).
 
-**1.2 Verdict.** Of these, only N-COUNT defines a temperature without taking κ as an input; N-FL
-and N-SLOPE are linear in an unspecified κ off a Killing horizon. ESTABLISHED [S]. Routing finding
+**1.2 Verdict.** N-FL and N-SLOPE are linear in an unspecified κ off a Killing horizon. Only
+N-COUNT's definition T = (∂s_H/∂E)⁻¹ is free of κ, and it stays free of κ only when the shell
+energy E is a state variable specified without κ, as in H-COUNT-1 (a) (§3.1). GR:58 takes E to be
+the first-law energy, dE = κ dA/(8πG), so κ re-enters through E off de Sitter (G3-OFFDS 1.4).
+ESTABLISHED [S]. Routing finding
 (no edit): Sub:393 states that the trace-out projects onto "classical horizon thermodynamics …
 with the metric, the surface gravity, the entropy, and the temperature determined by the partition
 geometry". The partition of GR:40 is the event horizon, which off de Sitter is not a Killing
@@ -106,9 +112,13 @@ calibration and not off it. CONFIRMING (1.1); ELABORATING (the Sub:393 scope).
 ## 2. Node 2: the bare construction fixes no temperature law
 
 **2.1 Every finite rate-ratio family is realizable [S, W].** Main §1.3, theorem statement item (3)
-(reverse finite realization), and the intervention-dilation theorem cited at GR:76 realize every finite
-action-labelled conditional family with one finite reversible dynamics, a fixed hidden prior and
-permutation interventions. GR:76 applies this to a two-gap probe that is thermal at no common
+(reverse finite realization), and Main §3.4's intervention-dilation theorem (Main:490, the finite
+classical action-labelled comb; cited at GR:76) realize every finite action-labelled conditional
+family with one finite reversible dynamics, a fixed hidden prior and permutation interventions.
+Here μ_H ranges over fixed hidden priors, which are realization data (Main §1.2, Remark *the
+measure as a realization datum*); the theorems construct the prior. Whether the same families are
+realizable under Lemma 3's counting prior is not decided here, and that case stays outside the
+class of 2.3. GR:76 applies this to a two-gap probe that is thermal at no common
 temperature. The same construction realizes, on any finite probe window, a family thermal at
 T_A(t), one thermal at ħ/(2πR(t)), and one thermal at neither. A constraint satisfied on every
 finite reversible realization is therefore satisfied by all three, so it selects none of them.
@@ -120,8 +130,9 @@ law and a normalized time generator, and the bare construction supplies neither.
 
 **2.3 Excluded class (negative result).** Every temperature law, on a Killing or non-Killing
 horizon, offered as a consequence of N-OBS + N-TRACE alone, that is, as a property of every finite
-reversible realization (φ, partition, μ_H) with its visible rate ratios. Not excluded: a law that
-holds for the specific substratum rule and partition, or for the hidden prior selected by Lemma 3;
+reversible realization (φ, partition, μ_H), μ_H ranging over fixed hidden priors, with its visible
+rate ratios. Not excluded: a law that holds for the specific substratum rule and partition, or for
+every realization under the counting prior selected by Lemma 3 (2.1);
 that is H-spectrum for the actual realization, which GR:144 records as open and which no paper
 argument in this unit decides (stop condition: it would need the rule's spectral data).
 
@@ -144,7 +155,8 @@ states with Ḣ ≠ 0:
   GR:56 "does not depend on which de Sitter H calibrates it").
 
 GR:58 states H-count without restricting it to de Sitter and evaluates it on the exact-de-Sitter
-calibration. Its application to non-de-Sitter states, and the one-variable form (a), are not
+calibration (`PLAN.md`'s N-COUNT row describes it as stated on exact de Sitter; the source line
+carries no such restriction). Its application to non-de-Sitter states, and the one-variable form (a), are not
 stated in the corpus. H-COUNT-1 also requires a conserved shell, which is W1-0 (Node 5).
 
 **3.2 Derivation [W].** By (a) and (b), A = (s_H(E) − const)/η is a strictly increasing function
@@ -158,16 +170,25 @@ This is GR:58's E = c⁴R/G, now on every admissible state. Then
 
   T = (∂s_H/∂E)⁻¹ = (dE/dA)/η = 1/(8πGηR) = ħ/(2πR),
 
-using ħ = 1/(4Gη). The temperature depends on the counted radius only. On a non-de-Sitter state it
+using ħ = 1/(4Gη). The form free of ħ is T = 1/(8πGηR). The ħ form uses the exact-de-Sitter
+calibration, which carries GR:88's conditions: H-count, H-slope on identified transitions, H-frame,
+the H-Hawking horizon and frame conditions, local boost structure and the symmetric detailed-balance
+rate ratio. The exclusion of 3.3 does not need them, since it uses only T ∝ 1/R at fixed η and
+compares states of the same radius; 4.2 does need them. The temperature depends on the counted
+radius only. On a non-de-Sitter state it
 equals the de Sitter temperature at the same counted radius.
 
 **3.3 What it excludes, and what it leaves [W].**
 
 - *Excluded class.* Within H-COUNT-1 on I-FLRW, every temperature law that at fixed counted radius
-  depends on Ḣ. In particular T_A on R_A: T_A/(ħH/2π) = |1 − ε/2|, which differs from 1 at every
-  instant with ε ∉ {0, 4}. (ε ≡ 4, w_tot = 5/3, is outside the exclusion, as in G3-OFFDS §4.) The
-  Kodama–Hayward law read on R_E, |κ(R_E)|/2π = (ħ/2π)(H² + Ḣ/2)R_E, is excluded on R_E for the same
-  reason wherever it differs from ħ/(2πR_E).
+  depends on Ḣ. The counting temperature is the same, 1/(8πGηR), on every admissible state of
+  counted radius R, the de Sitter state of (c) included. T_A on R_A takes the values
+  (ħ/2πR_A)|1 − ε/2|, which differ between two admissible states of the same R_A whose values of
+  |1 − ε/2| differ; one of them may be taken to be the de Sitter state, where |1 − ε/2| = 1. So T_A
+  cannot equal the counting temperature on both, which excludes T_A on every state with ε ∉ {0, 4}.
+  With the calibration, T_A/(ħH/2π) = |1 − ε/2|. (ε ≡ 4, w_tot = 5/3, is outside the exclusion, as
+  in G3-OFFDS §4.) The Kodama–Hayward law read on R_E, |κ(R_E)|/2π = (ħ/2π)|H² + Ḣ/2|R_E, is
+  excluded on R_E for the same reason wherever it differs from ħ/(2πR_E).
 - *Cai–Kim comparison (I-CK, labelled).* On R_A, with T = ħ/(2πR_A) and S = ηA, η = 1/(4Għ),
   T dS = (ħ/2πR_A)·(8πR_A dR_A)/(4Għ) = dR_A/G = dE. The change of E is
   dE/dt = ε/G, and the flux of total energy through R_A, 4πR_A³H(ρ + p) with
@@ -245,9 +266,12 @@ surface. Then
 
   a_* = τ_K/β_E = 2π/(|κ|·8πGηR) = ħ/(|κ|R).
 
-N-UNIV (a_* universal, GR:78) on every admissible state gives |κ| = 1/R. For κ = κ_KH on R_A,
-|κ|R_A = |1 − ε/2|, so a_* = ħ/|1 − ε/2|, which is not constant on any interval with ε ≢ 0, 4; at
-GR:56's ΛCDM value 1 − ε/2 ≈ 0.775 it is about 1.29ħ. Excluded class: within H-COUNT-1 with
+H-COUNT-1 (c) places the de Sitter states, on which |κ|R = 1 and a_* = ħ, in the admissible class,
+so N-UNIV (a_* universal, GR:78) requires a_* = ħ on every admissible state, that is |κ| = 1/R. For
+κ = κ_KH on R_A, |κ|R_A = |1 − ε/2|, so a_* = ħ/|1 − ε/2|, which differs from ħ at every instant with
+ε ∉ {0, 4}. On a power-law epoch ε is constant and so is a_*, at a value other than ħ: 4ħ in matter
+domination (ε = 3/2); in radiation (ε = 2) κ_KH = 0 and there is no KMS period. At GR:56's ΛCDM
+value 1 − ε/2 ≈ 0.775 it is about 1.29ħ. Excluded class: within H-COUNT-1 with
 N-SLOPE and N-UNIV, every KMS-side surface gravity other than 1/R on the counted surface, κ_KH
 included. This is the explicit form of GR:56's requirement that "the same factor enters both … and
 cancels": in H-COUNT-1 the factor does not enter the counting side, so universality forces it out
@@ -269,8 +293,10 @@ choice among the definitions of dynamical surface gravity. NEW: 4.2. ELABORATING
   natively (Node 2) and fixes it under H-COUNT-1 (Node 3). Its A-KH branch (T_A, Misner–Sharp mass)
   and the H-COUNT-1 branch (ħ/(2πR)) disagree on the temperature and agree on R1's value:
   S·T = ηA·ħH/2π = R_A/(2G) = E_MS(R_A). Both relocate the
-  vacuum-energy question to the native source. G3-OFFDS 1.4's corollary that GR:58's energy R/G is
-  a state function only under the 1/(2πR_A) temperature is the special case of 3.2 on R_A.
+  vacuum-energy question to the native source. G3-OFFDS 1.4 derives a state-function energy,
+  ∫T dS = R_A/G, from the 1/(2πR_A) temperature; 3.2 derives that temperature from a state-function
+  energy under H-COUNT-1. On R_A these are converse directions, and neither result supplies the
+  other (§A.34).
 - **G3-HOM.** Unchanged: R1–R3 and its counterexample stand without a premise. H-COUNT-1 is a named
   hypothesis that would select R1 under N-AREA and R3 under a count on R_E.
 - **G3-W1 (47 excluded classes).** H-COUNT-1 needs a conserved shell energy, and the T_A route
