@@ -34,7 +34,7 @@ step t, so Φ = Φ_0(t) + Φ_1(t).
 | Component of H-COUNT-1 | Verdict | Support |
 |---|---|---|
 | (a1) a conserved real shell energy E (W1-0) | Open. No native candidate at d = 3; one class G3-W1 left open is reduced to its excluded classes | §2 [W, S] |
-| (a2) the count depends on E alone, read at fixed values of all conserved variables | Refuted on a stated class: on checkerboard lattices, a conserved additive energy with a parity-pure density whose count at fixed (E, {E_0, E_1}) varies with the split on some shell. Instances: RD6, integer E, d = 1 (K2); the exact linear rule, where E is conserved only modulo q and is not an (a1) energy. Not covered: E = λN, energies with one split per shell. At d = 3 conditional on W1-0 being met by such an energy | §3 [W, EC, S] |
+| (a2) the count depends on E alone, read at fixed E and fixed values of the additive conserved variables (the sublattice split) | Refuted on a stated class: on checkerboard lattices, a conserved additive energy with a parity-pure density whose count at fixed (E, {E_0, E_1}) varies with the split on some shell. Instances: RD6, integer E, d = 1 (K2); the exact linear rule, where E is conserved only modulo q and is not an (a1) energy. Not covered: E = λN, energies with one split per shell; the reading with orbit labels included, which is the orbit-size question (3.1, W1-min′). At d = 3 conditional on W1-0 being met by such an energy | §3 [W, EC, S] |
 | (a2) read as the marginal count over the E-shell | Holds by definition; carries no content | §4.1 [W] |
 | (a′3) the realized values of the further conserved variables are slope-typical | Imposed: needs the measure posit T-MEAS and a concavity property of the count that the corpus does not supply, and that H-count's de Sitter form contradicts if inherited by each sublattice part | §4 [W, L] |
 | (a′4) the identified transitions share one slope at the realized values | Imposed; needed for the KMS-side result; fails at a boundary concentration point of the sublattice split | 4.4, 4.7 [W] |
@@ -76,7 +76,7 @@ H-COUNT-1′ under N-FEW (the logarithm of the number of values of the further v
 and its E-derivative, negligible at leading order); on the marginal reading it does not imply
 (a′3). The converse fails on the fixed-variable reading, by an abstract counting witness. Within
 4.2's product form neither H-COUNT-1 on the fixed-variable reading nor H-COUNT-1′ with the
-realized split at the symmetric point or at a boundary has a realization (4.7); whether any
+realized split at the symmetric point or, through (a′4), at a boundary has a realization (4.7); whether any
 realization of H-COUNT-1′ exists in the class of §3.4 is open.
 
 **The T_A route (§7).** A second conserved variable yields T_A only if its realized value labels
@@ -231,10 +231,14 @@ running labelling depends on the step parity and is conserved only as a function
 configuration and t mod 2. The pair is a shell variable beyond E, nontrivial wherever an E-shell
 contains states with different splits. Its existence is forced by N-2ND, N-NN, N-CI and N-BIP
 together with the existence of a parity-pure conserved E; it is not an additional posit. The set a
-state can reach lies in its (E, {E_0, E_1}) shell. The fixed-variable reading of (a2) requires the
+state can reach lies in its (E, {E_0, E_1}) shell. The fixed-variable reading of (a2), at fixed E
+and fixed values of the additive conserved variables (here the sublattice split), requires the
 count of that shell to be one function of E; it is refuted on a shell on which that count varies
 with the split, as in K2's instances (3.4). It is not refuted by this argument where the count does
-not vary, for example for E = λN, or where every shell carries one split. At RD6 there are further additive invariants,
+not vary, for example for E = λN, or where every shell carries one split. The reading with the
+orbit labels of 3.1 among the fixed variables is a different question: at fixed values of all
+conserved variables the count is the orbit size, the question of 3.1 and W1-1's W1-min′, which
+this argument does not address. At RD6 there are further additive invariants,
 the mover counts N_L, N_R, and the mover patterns are transported rigidly, so the orbit of a state
 keeps its full pattern up to translation (G3-HOM 1.2).
 
@@ -253,12 +257,13 @@ keeps its full pattern up to translation (G3-HOM 1.2).
   variables; it does not by itself change the counting temperature. That is Node 4.
 
 **Node 3 verdict.** ESTABLISHED: 3.1 [W, S]; 3.2 [W, EC]; 3.3 [W]; 3.4 [W, EC]; 3.5 [W]. Refuted on
-a class: the reading of (a2) as "the count at fixed values of all conserved variables depends on E
-alone", on checkerboard lattices under N-2ND, N-NN, N-CI, for conserved parity-pure additive energies
+a class: the reading of (a2) as "the count at fixed E and fixed values of the additive conserved
+variables (the sublattice split) depends on E alone", on checkerboard lattices under N-2ND, N-NN, N-CI, for conserved parity-pure additive energies
 (h(0) = 0 or h translation-invariant) whose count at fixed (E, {E_0, E_1}) varies with the split on
 some shell (proof); instances: RD6 (d = 1, q = 2, α = 1; K2 at L = 6, 8, and the mover counts of
 G3-HOM 1.2), and the exact linear rule modulo q (K2), which is not an (a1) energy. At d = 3 the
-refutation is conditional on W1-0 being met by such an energy. NEW (author): 3.3–3.5 and their bearing on H-count. ELABORATING: 3.2. CONFIRMING: 3.1.
+refutation is conditional on W1-0 being met by such an energy. The reading with orbit labels
+included (the orbit-size question, 3.1, W1-min′) is not addressed. NEW (author): 3.3–3.5 and their bearing on H-count. ELABORATING: 3.2. CONFIRMING: 3.1.
 
 ## 4. Node 4: does a further conserved variable change the counting temperature?
 
@@ -332,7 +337,8 @@ quadratic in E at leading order.
 
 - *Log-concave ω.* f(a) + f(E − a) is concave in (a, E), so its maximum over a is concave in E,
   which a leading quadratic term with positive coefficient is not. Excluded by (b′).
-- *The fixed-variable reading of (a2).* If the count at fixed (E, split) is one function of E,
+- *The fixed-variable reading of (a2)* (fixed E and fixed sublattice split; orbit labels not
+  included). If the count at fixed (E, split) is one function of E,
   f(a) + f(E − a) does not depend on a, so f has zero second differences and is affine: the count is
   e^{kE + const}, linear in the exponent. Excluded by (b) and (c). So within the product form,
   H-COUNT-1 on the fixed-variable reading has no realization.
@@ -415,10 +421,12 @@ on that class. The o(1) is not bounded here: for the exclusion at a given ε the
 smaller than (1 − ε/2)⁻¹ − 1 in magnitude (about 0.29 at GR:56's ΛCDM value 1 − ε/2 ≈ 0.775), and
 4.3's convex case gives δ = −1/2 at the symmetric split, which is not small.
 
-**Node 5 verdict.** Strengthened, conditionally, in the decision rule's sense relative to H-COUNT-1
-together with N-FEW on the fixed-variable reading: G3-TEMP's temperature law and its exclusion of
-T_A hold at leading order under H-COUNT-1′, and its KMS-side result under H-COUNT-1′ with (a′4).
-Relative to H-COUNT-1 alone, and on the marginal reading, no implication is shown. ESTABLISHED [W]:
+**Node 5 verdict.** Under the frozen decision rule, relative to H-COUNT-1: unchanged. No premise
+set strictly weaker than H-COUNT-1 itself is shown; on the marginal reading no implication is
+shown either. Separate conditional statement: H-COUNT-1′ without (a′4) is strictly weaker than
+H-COUNT-1 together with N-FEW on the fixed-variable reading (5.1), and under H-COUNT-1′ G3-TEMP's
+temperature law and its exclusion of T_A hold at leading order, and its KMS-side result with
+(a′4). ESTABLISHED [W]:
 5.1's directional statements, 5.2 under H-COUNT-1′. ASSUMED: H-COUNT-1′, N-FEW. NEW (author).
 
 ## 6. Node 6: history independence and the moving partition
@@ -494,18 +502,22 @@ shell variable is narrowed to this class. ESTABLISHED [W] for 7.1; 7.2 an estima
 | A real conserved shell energy (W1-0) | Open | §2 |
 | Slope typicality of further conserved variables | Imposed: T-MEAS plus an unsupplied concavity property | §4 |
 | One slope at the realized split (a′4) | Imposed; fails at a boundary concentration point | 4.4, 4.7 |
-| Product form against (b), (b′): no fixed-variable realization; log-concave, symmetric and boundary cases excluded | Deduction (counting, at leading order) | 4.7 |
+| Product form against (b), (b′): no fixed-variable realization; log-concave and symmetric cases excluded, boundary cases through (a′4) | Deduction (counting, at leading order) | 4.7 |
 | One count function across histories; the partition entering through E | Imposed | §6 |
 | s_H = ηA (W1) | Imposed | §1; W1-1 |
 | De Sitter family and one calibration | Corpus conditions (N-dS, N-UNIV, GR:88) | §1 |
 
 **8.1 Overall verdict under the decision rule.** H-COUNT-1 is not derived. Its fixed-variable
-reading of (a2) is refuted (proof) for parity-pure conserved energies whose count at fixed
+reading of (a2), at fixed E and fixed values of the additive conserved variables (the sublattice
+split), is refuted (proof) for parity-pure conserved energies whose count at fixed
 (E, {E_0, E_1}) varies with the split on some shell, with instances at RD6 (exact, d = 1) and for the
 exact linear rule (E conserved only modulo q, not an (a1) energy); at d = 3 the refutation is
-conditional on W1-0 being met by such an energy. Within the product form it has no realization
-(4.7). Its marginal reading is a definition. Its load-bearing content, slope typicality (§4), its
-history independence (§6) and its area count (b) are imposed. W1-0 is open. Under H-COUNT-1′ (§5)
+conditional on W1-0 being met by such an energy. The reading with orbit labels included is the
+orbit-size question (3.1, W1-min′) and is not addressed. Within the product form the
+fixed-variable reading has no realization (4.7). Its marginal reading is a definition. Its load-bearing content, slope typicality (§4), its
+history independence (§6) and its area count (b) are imposed. W1-0 is open. Node 5 under the
+frozen rule, relative to H-COUNT-1: unchanged. Separately, H-COUNT-1′ without (a′4) is strictly
+weaker than H-COUNT-1 together with N-FEW on the fixed-variable reading, and under H-COUNT-1′ (§5)
 G3-TEMP's temperature law holds at leading order, and its KMS-side result with (a′4), the
 realized split an interior stationary point (equal slopes). Outcome: missing native mechanism
 (M1–M5), with a proof refuting the fixed-variable reading of (a2) on the stated class.
@@ -527,7 +539,9 @@ realized split an interior stationary point (equal slopes). Outcome: missing nat
   orbit-level form of slope typicality; 4.1 gives its relation to the marginal slope when the
   connected sector is a fixed-X shell. Its comparison "GR:58's setting with H-count implies W1-0 and
   W1-min(L)" is unaffected; §3 shows that, on the class of 3.4 with varying split counts, that
-  setting cannot hold with the count at fixed conserved variables a function of E alone.
+  setting cannot hold with the count at fixed E and fixed sublattice split a function of E alone.
+  The count at fixed values of all conserved variables, orbit labels included, is the orbit size,
+  W1-min′'s question, which §3 does not address.
 
 ## 10. Classification and stop
 
