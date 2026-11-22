@@ -8,7 +8,7 @@ name: A1-EXIT trial verify
 # It checks out exactly the trial commit, requires it to be a single-parent child of the ledger base read from the
 # plan commit P, and runs P's pinned checkers from a worktree of P: preserve_check.py --verify-pins, --verify-ledger,
 # --commit <trial> --plan P, and --tree <trial checkout> --plan P --mutants --pdf-compare <CI build>; and
-# guards_check.py --mutants. The eight PDFs of the ledgered sources are built with build.sh on pandoc 3.1.3 and
+# guards_check.py --mutants. The nine PDFs of the ledgered sources are built with build.sh on pandoc 3.1.3 and
 # xelatex on a pinned image, and the rebuilt TeX must equal the committed TeX.
 #
 # Every run step writes its exit status to out/<step>.rc. result.json (§A.44) records the inputs, the workflow
@@ -135,7 +135,7 @@ jobs:
           ) > "$RUNNER_TEMP/out/plan.log" 2>&1
           rc=$?; cat "$RUNNER_TEMP/out/plan.log"; echo "$rc" > "$RUNNER_TEMP/out/plan.rc"; exit "$rc"
 
-      - name: Build the eight PDFs with build.sh on a copy of the trial commit; TeX equals the committed TeX
+      - name: Build the nine PDFs with build.sh on a copy of the trial commit; TeX equals the committed TeX
         id: build
         env:
           ALLOW_MISSING_GLYPHS: '0'
@@ -145,14 +145,14 @@ jobs:
             set -e
             git worktree add --detach "$RUNNER_TEMP/build" "$TRIAL"
             cd "$RUNNER_TEMP/build"
-            sh ./build.sh Computation GR Main Methodology SM Structure Substratum
+            sh ./build.sh Complexity Computation GR Main Methodology SM Structure Substratum
             sh ./build.sh --book
-            git diff --name-only -- papers/Computation.tex papers/GR.tex papers/Main.tex papers/Methodology.tex \
+            git diff --name-only -- papers/Complexity.tex papers/Computation.tex papers/GR.tex papers/Main.tex papers/Methodology.tex \
               papers/SM.tex papers/Structure.tex papers/Substratum.tex book/The-Incompleteness-of-Observation-FULL.tex \
               > "$RUNNER_TEMP/out/tex-diff.txt"
             test ! -s "$RUNNER_TEMP/out/tex-diff.txt"
             : > "$RUNNER_TEMP/out/pdf-pages.tsv"
-            for f in papers/Computation.pdf papers/GR.pdf papers/Main.pdf papers/Methodology.pdf papers/SM.pdf \
+            for f in papers/Complexity.pdf papers/Computation.pdf papers/GR.pdf papers/Main.pdf papers/Methodology.pdf papers/SM.pdf \
                      papers/Structure.pdf papers/Substratum.pdf book/The-Incompleteness-of-Observation-FULL.pdf; do
               n=$(pdfinfo "$f" | awk '/^Pages/{print $2}')
               [[ "$n" =~ ^[0-9]+$ ]]
@@ -234,6 +234,7 @@ jobs:
           name: a1exit-trial-verify-${{ inputs.trial_sha }}
           path: |
             ${{ runner.temp }}/out/
+            ${{ runner.temp }}/build/papers/Complexity.pdf
             ${{ runner.temp }}/build/papers/Computation.pdf
             ${{ runner.temp }}/build/papers/GR.pdf
             ${{ runner.temp }}/build/papers/Main.pdf
