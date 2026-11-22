@@ -63,7 +63,8 @@ A failure of H5 is none of the three.
    - The rule E1 satisfies (xiii), (ix), the SM §3.1 constraints (i)–(iii) on the reference class,
      center independence, and round 4's (M1), (M3) and (M4). Its long edges are fixed at
      preparation, and no edge is generated.
-   - It fails (xi), and its readout depends on exactly 2^T initial sites, so H5 fails.
+   - It fails (xi), and its readout depends on all 2^T depth-T initial sites, each with coefficient
+     1, so |D| ≥ 2^T and H5 fails.
      ESTABLISHED [W, exact algebra].
    - Its output law is nevertheless trivially samplable. Failure of H5 is not hardness.
 6. **The price of 𝒞 on ℤ^d** (§6).
@@ -89,8 +90,11 @@ A failure of H5 is none of the three.
 ### 1.1 Preparation-indexed is configuration-indexed
 
 - **A-U.** The dynamics is one fixed map Φ on configurations (SM:104: s(t+1) = φ_{s(t)}(s(t)) is
-  one map of s). Setting generators are part of the system (Main:410–416), and so are preparation
-  devices, since nothing in the corpus makes them external.
+  one map of s; Main:368). Main:412 places the setting generators inside the system only
+  conditionally ("when the setting generators are part of the system"). The argument below does
+  not need that clause. A preparation that writes the configuration from outside, as the
+  Corollary's setting interventions do, also leaves its only trace in the configuration. Only a
+  change to the rule itself differs, and that case is labelled (I) below.
 - So a "Bell preparation" (Main:418) or an "entangling preparation" (Substratum:131) is a
   stretch of runs of Φ. After it, the only datum that differs from an unprepared run is the
   configuration: the pair (x(t−1), x(t)) in the second-order form.
@@ -207,7 +211,8 @@ family of quotients.
   - H2, a prior on D that does not depend on the input and is samplable in poly(|D|) time;
   - H3, (xiv) for inputs;
   - H4, polynomial-time readout and charged conditioning;
-  - polynomial T.
+  - polynomial T;
+  - a readout region with |R₀| = poly(n).
 - The same holds for the wider class 𝒞_PG, in which (ix) and (xi) are replaced by PG.
 - *Not excluded:*
   - rules outside 𝒞_PG;
@@ -225,11 +230,14 @@ family of quotients.
 |---|---|---|
 | Main:736, ledger (ix), (xi) | (ix): one degree bound across the family. (xi): commutes with translations up to gauge. No restriction to a state class | (R1) Read literally, both apply, so the Bell route is in 𝒞 and OBSTRUCTION (I) applies |
 | Main:424 | the Bell branch's update "lies outside ledger item (vii)" | names (vii) only, and is silent on (ix) and (xi) |
-| Substratum:98, A4 | "commutes with lattice translations up to gauge (the coupling graph is the discrete lattice ℤ^d …)" | (R2) If the parenthetical is read on G_φ, no long edge is admitted, and the Bell branch lies outside A4 by definition |
+| Substratum:98, A4 | "commutes with lattice translations up to gauge (the coupling graph is the discrete lattice ℤ^d …)" | (R2) If the parenthetical is read on G_φ, no long edge is admitted, and the Bell branch lies outside A4 by definition. This is the weaker reading: the parenthetical contrasts ℤ^d with a continuous space, which suggests a reading on the vertex set |
 | Substratum:145, 191 | A3–A6 enter the local lattice output. Its identification with the Bell completion "additionally assumes H-Bell", and the gauge statement does "not compare preparation-indexed Bell edges" | (R3) A3 and A4 are scoped to the local sector, and the prepared class is open |
 | Main:418, Substratum:131, SM:110 | "bounded-degree" long edges | a bound per preparation or per configuration. By Lemma U it implies (ix) for Γ only together with (M3) and a finite alphabet |
 
 - **Result.** The three readings disagree, and none is stated for the prepared class.
+- **Direct support.** Main:736 states that "(x) implies the bound of (ix) for G_φ^ref, and with
+  (vii) for G_φ", and Main:424 places the Bell branch outside (vii). So the corpus nowhere derives
+  (ix) for the Bell branch's G_φ. This supports the MISSING item below directly.
 - **MISSING.** The single premise that decides between OBSTRUCTION and no OBSTRUCTION through this
   route is the following.
   - **(S-𝒞)** The rule on the prepared class satisfies (ix), as a uniform bound on the reading sets
@@ -381,6 +389,8 @@ with every displayed coefficient equal to 1. So c_1(T) depends on all 2^T sites 
 - A-13 (xiii), A-9 (ix) and A-11 (xi) with a site-local gauge, each (I), in §3 and §6 only;
 - H1–H4 at round 4's scopes (I);
 - BQ1 and BQ1-D (#1498, reviewed);
+- BQ1-S for the IQP-sampling sentence of §3, with its imports: Bremner, Jozsa and Shepherd (2011)
+  and, for the contrapositive, non-collapse of PH (#1498);
 - polynomial T (AW-2);
 - for §6, Main's Bell-ceiling theorem and the Corollary's hypotheses, including (xiv).
 
