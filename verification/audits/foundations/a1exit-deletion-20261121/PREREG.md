@@ -5966,6 +5966,45 @@ Built only after the independent delta review of this amendment and with the own
 3. Nit 5 makes three more coverage entries stale (SM Lemma 1c, Proposition 4b, Theorem 19), re-affirmed as the other
    four are (§11 item 4).
 
+### 31.10 Results at `53c6601a`
+
+Each check of §31.7 was run from the checkers at `9ba8ef10` (the commit that applies §31 and carries the §31.11 pins),
+with `--plan 9ba8ef10` for `preserve_check.py`. Every run wrote its structured result file, and each parses with verdict
+`pass`.
+
+| §31.7 item | Result |
+|---|---|
+| 1 | `edits_check.py`: `--self-test` PASS (93 countercontrols); `--static` infinity 0, register 0, capitals 0, identifier 0, preservation 0 (every §31.6 entry included), mirror parity 0, Lean docstring-only 0, sitemap 194/194; `--commit 53c6601a --simulate` 391/391 unique, residual 5 (all allowed), 0 unscoped, 0 preservation, 0 identifier; `--pins --commit 53c6601a` 0 unresolved, 0 missing; `--repo-scan --simulate --final --commit 53c6601a` 0 unexplained |
+| 2 | `preserve_check.py --reconcile 55544cc3…`: 371 P* splices; 306 unchanged, 60 shifted by the base change (each +121, in ch02 or FULL, after the #1494 paragraph), 5 revised at §31; 18 added (D374–D391); drift 0 |
+| 3 | `--verify-ledger` identical; `--verify-pins` PASS (§31.11); `--self-test` PASS, 46 recorded checks, among them the scope controls (the predicted candidate carries every corrected sentence; the unedited base fails all 44 assertions the plan adds; a candidate without D391, or with a superseded form in FULL, fails) and the reconcile controls (a ledger against itself: no drift; a changed replacement: drift; splices after a base insertion, shifted by its length: explained; a span moved otherwise: drift) |
+| 4 | `guards_check.py --mutants` PASS: the 14 checks on the simulated tree of 53c6601a (41 files edited by 391 records), CC-1–CC-4 failing as named, inventory 0 unlisted, P01–P30, the kernel identifiers and the message names each failing under mutation; 64 recorded checks |
+| 5 | `guards_check.py --predict` (9 TeX rebuilt, 7 fingerprints re-affirmed, SC-42 result regenerated, `verify.yml`'s four SC-42 comparisons PASS), then `preserve_check.py --tree <predicted> --plan 9ba8ef10 --mutants`: 0 findings; scope assertions 31 present and 15 absent, 0 findings; the 5 tree mutants fail as required |
+| 6 | as item 5: every assertion holds on the predicted tree, and the self-test shows the base fails every one the plan adds |
+| 7 | the census fingerprints that differ between 53c6601a and the predicted tree are exactly `MAIN:L-3`, `SM:L-1c-canonical-projection-resummed-kernel`, `SM:P-4b-symmetric-point-custodial-scalarity-component`, `SM:T-19`, `STRUCTURE:P-9.5`, `SUBSTRATUM:C-effective-finiteness-gauge-class-transfer`, `SUBSTRATUM:T-23`; `tools/coverage_check.py` on the predicted tree: OK |
+| 8 | no new or revised record has fewer occurrences of "finit" in its replacement than in its old text; D369 still removes "finite decoupled" (§28.3) and adds "of a finite $\mathcal{C}_H$" |
+| 9 | the nine result files (`edits_check.py` writes none) parse, verdict `pass` |
+
+**Found while applying §31.**
+
+1. *Identifier rule.* The rule against printing the retired ledger identifier "(ii)" rejects "Lemma 1c(ii)" in a
+   replacement. D026 names it "the observer-operator pole statement of Lemma 1c [SM §4.1] and the continued response
+   of Proposition 4b [SM §4.4]"; the content is that of §31.3.
+2. *Criterion-5 scan.* D389 changes the line of SM's Lemma 1c, whose part (ii) opens "On a finite configuration space";
+   that unchanged sentence states its own finite scope, and is listed in `CRIT5_ALLOW`.
+3. *Drift outside the splices, flagged.* The repository scan at H finds two lines that are not at `97070c98`: the
+   name and header comment of `.github/workflows/a1exit-trial-verify.yml` (#1484, merged at `df6da1c6` after the
+   ledger base, not #1494). They carry the programme name A1-EXIT and "A1-retirement", which name the retirement and
+   state no premise; they are classed "unrelated label" with that reason. No splice and no ledgered file is affected.
+4. *Site map, step 4.* `ledger_check.py build` on scratch exports of `97070c98` and of H gives the same site set apart
+   from two new sites at H, ch02:140 and FULL:770, #1494's statement, which matches the finite-scope pattern P6 and is
+   not a pointer site; the ptr count is 193 in both rebuilds. The frozen map at its pin `e837e3db` has 194 ptr sites,
+   and the plan's sitemap cross-check (base lines mapped back to that pin) is 194/194 at H as at `97070c98`. The
+   difference of one between a rebuild and the frozen map predates the base and is not caused by #1494; it is
+   reported for the delta review and changes no edit.
+5. *Cost.* The tree check of item 5 took about 13 minutes here, the mutant run about 6; the T0′/T1′ runs are CI's.
+
+Not run here: T0′/T1′ (§31.8), which wait for the delta review, the owner's Complexity decision and the dispatch approval.
+
 ### 31.11 Record pins
 
 The digests below pin the record files from amendment §31 on; `preserve_check.py` reads the last `Record pins`
