@@ -28,6 +28,7 @@ Usage (from the repository root):
                                                               with --run-meta-redacted COPY, a retained redacted copy
                                                               must keep its fields and types and verdict (§31.12.13)
   python3 -I -B .../preserve_check.py --expect-trial T0|T1 --run-out OUT --plan P --jobs JOBS.json --built DIR --trial-sha T --run-id N
+                                                              --run-meta RUN.json
                                                               a trial run's outputs against the expected result of
                                                               PREREG §31.12.13: B1's PDF findings, the expected skips
   python3 -I -B .../preserve_check.py --expect-verify JOBS.json --plan P --trial-sha T --run-id N
@@ -69,7 +70,8 @@ ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..'))
 REC = os.path.relpath(HERE, ROOT).replace(os.sep, '/') + '/'
 SELF = REC + 'preserve_check.py'
 EDITS, LEDGER, PREREG = REC + 'edits.json', REC + 'ledger.json', REC + 'PREREG.md'
-PINNED = ['edits.json', 'ledger.json', 'edits_check.py', 'guards_check.py', 'preserve_check.py']
+PINNED = ['edits.json', 'ledger.json', 'edits_check.py', 'guards_check.py', 'preserve_check.py', 't0_jobs_44939798305.json']
+T0_JOBS = 't0_jobs_44939798305.json'  # §31.12.16: T0's real host jobs record, GET .../runs/44939798305/jobs?per_page=100
 BOOK = 'book/The-Incompleteness-of-Observation-FULL'
 HEADER = 'tools/unicode-fix.tex'
 COVERAGE = 'verification/coverage/LEDGER.json'
@@ -431,6 +433,18 @@ def pdf_page_count(path):
     return int(re.search(r'^Pages:\s+(\d+)', info, re.M).group(1))
 
 
+class PdfinfoUnavailable(Exception):
+    pass
+
+
+def _page_count(path):
+    """N12 (§31.12.16): pdf_page_count, with an OSError (pdfinfo absent or not runnable) raised as PdfinfoUnavailable."""
+    try:
+        return pdf_page_count(path)
+    except OSError as e:
+        raise PdfinfoUnavailable(str(e))
+
+
 def pdf_out_dir(built_dir, explicit=None):
     """The run's output directory: --pdf-out, or BUILT/../out (the workflow's $RUNNER_TEMP/out beside $RUNNER_TEMP/build)."""
     return explicit or os.path.join(os.path.dirname(os.path.abspath(built_dir).rstrip(os.sep)), 'out')
@@ -772,7 +786,9 @@ TRIAL_STEPS = ('inputs', 'checkout', 'head', 'python', 'toolchain', 'plan', 'bui
 # host step names of a1exit-trial-verify.yml at the workflow base whose conclusion at T0 is not success
 T0_HOST = {"P's preserve_check.py --commit, then --tree --mutants --pdf-compare": 'failure',
            "P's guards_check.py --mutants": 'skipped',
-           'Every required step succeeded (a skipped step fails)': 'failure'}
+           'Every required step succeeded (a skipped step fails)': 'failure',
+           # R8 (§31.12.16): skipped in T0's real record, where preserve failed; success in T1's passing run
+           'Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065': 'skipped'}
 # verify.yml at H on workflow_dispatch: the steps skipped by design, by (job, step)
 VERIFY_SKIPS = {('Mathlib bridge', 'KTRANS-SEP-2 marker complete reports with an axiom outside the three'): 'skipped'}
 VERIFY_JOBS = (  # §31.12.15: the 41 jobs of verify.yml at H on workflow_dispatch, from T1's run of it (ci-record.json)
@@ -890,10 +906,15 @@ def _jobs_why(rec):
     return 'a job without steps'
 
 
-def expect_trial(kind, res, reports, pdfs, jobs=None, built=None, trial_sha=None, run_id=None):
-    """PREREG §31.12.13–§31.12.15: the run's structured outputs against the T0′ or T1′ expectation, bound to the
-    designated trial commit and run (R7). Returns the deviations."""
+def expect_trial(kind, res, reports, pdfs, jobs=None, built=None, trial_sha=None, run_id=None, run_check=None):
+    """PREREG §31.12.13–§31.12.16: the run's structured outputs against the T0′ or T1′ expectation, bound to the
+    designated trial commit and run (R7). run_check is verify_run's findings on the same result.json and the host run
+    object (§31.12.16): None when it was not run, which is itself a deviation. Returns the deviations."""
     bad = identity_findings(trial_sha, run_id)
+    if run_check is None:
+        bad.append('the run record is not verified: --expect-trial needs --run-meta, and --verify-run on the same result.json')
+    else:
+        bad += ['verify-run: %s' % x for x in run_check]
     t0 = kind == 'T0'
     if not isinstance(res, dict):
         return bad + ['result.json missing or not a JSON object']
@@ -976,7 +997,10 @@ def expect_trial(kind, res, reports, pdfs, jobs=None, built=None, trial_sha=None
                 bad.append('%s: in the uploaded artifact, but empty or not a PDF' % p)
             else:  # N11 (§31.12.15): it parses, and has the page count result.json records
                 try:
-                    n = pdf_page_count(f)
+                    n = _page_count(f)
+                except PdfinfoUnavailable as e:
+                    bad.append('%s: pdfinfo could not be run (%s), so the uploaded PDF is unchecked' % (p, e))
+                    continue
                 except (subprocess.CalledProcessError, AttributeError, ValueError):
                     bad.append('%s: in the uploaded artifact, but pdfinfo cannot read it' % p)
                     continue
@@ -1336,11 +1360,13 @@ def self_test(led, base_files, plan):
             return {'total_count': len(js), 'jobs': js}
         t1run = ci['runs'][0]
         t1jobs = hostjobs(t1run, TRIAL_WORKFLOW_NAME)
-        r0 = rep['t0'][0]
-        t0jobs = hostjobs(dict(t1run, run_id=int(r0['run_id']), head_sha=r0['workflow_sha']), TRIAL_WORKFLOW_NAME)
-        t0jobs['jobs'][0]['conclusion'] = 'failure'
-        for s in t0jobs['jobs'][0]['steps']:
-            s['conclusion'] = T0_HOST.get(s['name'], 'success')
+        # R8 (§31.12.16): T0's own host jobs record, the pinned fixture of the plan, unchanged
+        try:
+            t0jobs = json.loads(plan[REC + T0_JOBS])
+        except (KeyError, ValueError):
+            t0jobs = None
+        expect(isinstance(t0jobs, dict), 'expect-trial: T0\'s real host jobs record %s is in the plan' % T0_JOBS)
+        t0jobs = t0jobs if isinstance(t0jobs, dict) else {}
         ident = {t: (rep[t][0]['trial_sha'], rep[t][0]['run_id']) for t in ('t0', 't1')}
         # the built PDFs: each run's own artifact.zip at H (N11 compares their page counts with pdf_pages)
         bdirs = {}
@@ -1354,18 +1380,19 @@ def self_test(led, base_files, plan):
                     open(f, 'wb').write(z.read(m))
         tree_pdf = [c for c in rep['t0'][1]['tree']['checks'] if c['name'] == PDF_CHECK]
         expect(len(tree_pdf) == 1 and any(pdf_finding_kind(x, p8) == 'pages' for x in tree_pdf[0]['discrepancies'])
-               and not expect_trial('T0', rep['t0'][0], rep['t0'][1], p8, t0jobs, bdirs['t0'], *ident['t0']),
-               'expect-trial: (a) T0\'s real evidence and built PDFs, the matching run, with the Structure page-count '
-               'finding, is expected under the T0 rule (B1)')
-        expect(not expect_trial('T1', rep['t1'][0], rep['t1'][1], p8, t1jobs, bdirs['t1'], *ident['t1']),
+               and not expect_trial('T0', rep['t0'][0], rep['t0'][1], p8, t0jobs, bdirs['t0'], *ident['t0'], run_check=[]),
+               'expect-trial: (a) T0\'s real evidence, its real host jobs record unchanged and its built PDFs, the matching '
+               'run, with the Structure page-count finding and the setup-python post step skipped, is expected under the '
+               'T0 rule (B1, R8)')
+        expect(not expect_trial('T1', rep['t1'][0], rep['t1'][1], p8, t1jobs, bdirs['t1'], *ident['t1'], run_check=[]),
                'expect-trial: (a) T1\'s real evidence and built PDFs, the matching run, is expected under the T1 rule')
 
-        def t0mut(name, change, want, kind='T0', src='t0', jobs=None, built=True, idn=None):
+        def t0mut(name, change, want, kind='T0', src='t0', jobs=None, built=True, idn=None, run_check=()):
             res, reps = _copy.deepcopy(rep[src])
             jb = _copy.deepcopy(jobs if jobs not in (None, 'none') else (t0jobs if kind == 'T0' else t1jobs))
             change(res, reps, jb)
             b = expect_trial(kind, res, reps, p8, None if jobs == 'none' else jb, bdirs[src] if built else None,
-                             *(idn if idn is not None else ident[src]))
+                             *(idn if idn is not None else ident[src]), run_check=list(run_check) if run_check is not None else None)
             expect(any(want in x for x in b), 'expect-trial deviation: %s ("%s")' % (name, want))
 
         def pdfc(reps):
@@ -1396,6 +1423,13 @@ def self_test(led, base_files, plan):
         t0mut('skips: the upload step not succeeding',
               lambda r, p, j: [s.update(conclusion='skipped') for s in j['jobs'][0]['steps'] if s['name'].startswith('Upload')],
               'an unexpected skip')
+        # R8 (§31.12.16): a wrong step conclusion on T0's real record, and the run check not run or void
+        t0mut('R8: the setup-python post step succeeding at T0',
+              lambda r, p, j: [s.update(conclusion='success') for s in j['jobs'][0]['steps'] if s['name'].startswith('Post Run actions/setup-python')],
+              'expected skipped')
+        t0mut('R8: --expect-trial with the run check not run', lambda r, p, j: None, 'the run record is not verified', run_check=None)
+        t0mut('R8: --expect-trial with a void run check', lambda r, p, j: None, 'verify-run: run head_sha',
+              run_check=['run head_sha 0000 does not contain the workflow base'])
         # R6 (§31.12.14): a missing host record or artifact
         t0mut('R6: --expect-trial without --jobs', lambda r, p, j: None, 'host jobs record not supplied', jobs='none')
         t0mut('R6: --expect-trial without --built', lambda r, p, j: None, 'artifact not supplied', built=False)
@@ -1421,8 +1455,16 @@ def self_test(led, base_files, plan):
                 ('R7: a job of another workflow', lambda r, p, j: j['jobs'][0].update(workflow_name='verify'), 'workflow_name', None),
                 ('R6: an empty built PDF', None, 'empty or not a PDF', None),
                 ('N11: a four-byte %PDF built file', None, 'pdfinfo cannot read it', None),
-                ('N11: a real PDF with another page count', None, 'the uploaded PDF has', None)):
-            if change is None:
+                ('N11: a real PDF with another page count', None, 'the uploaded PDF has', None),
+                ('N12: pdfinfo absent', 'nopath', 'pdfinfo could not be run', None)):
+            if change == 'nopath':
+                path = os.environ.get('PATH')
+                os.environ['PATH'] = ''
+                try:
+                    t0mut(name, lambda r, p, j: None, want, kind='T1', src='t1')
+                finally:
+                    os.environ['PATH'] = path if path is not None else ''
+            elif change is None:
                 f = os.path.join(bdirs['t1'], 'papers/GR.pdf')
                 keep = open(f, 'rb').read()
                 open(f, 'wb').write(b'' if 'empty' in name else b'%PDF' if 'four-byte' in name
@@ -1650,7 +1692,20 @@ def main():
                     jobs = json.load(open(a.jobs, encoding='utf-8'))
                 except (OSError, ValueError):
                     jobs = 'unreadable'
-            eb = expect_trial(a.expect_trial, res, reps, {t[:-4] + '.pdf' for t in TEX}, jobs, a.built, a.trial_sha, a.run_id)
+            rc = None
+            if a.run_meta:  # §31.12.16: --verify-run on the same result.json, with the same plan and bases
+                try:
+                    meta = json.load(open(a.run_meta, encoding='utf-8'))
+                except (OSError, ValueError):
+                    meta = None
+                rc = verify_run(res, meta, led['base'], a.workflow_base, a.main, a.plan)
+                if a.run_meta_redacted:
+                    try:
+                        copy = json.load(open(a.run_meta_redacted, encoding='utf-8'))
+                    except (OSError, ValueError):
+                        copy = None
+                    rc = rc + verify_redacted(meta, copy, res, led['base'], a.workflow_base, a.main, a.plan)
+            eb = expect_trial(a.expect_trial, res, reps, {t[:-4] + '.pdf' for t in TEX}, jobs, a.built, a.trial_sha, a.run_id, rc)
             label = 'expected result of %s′ (PREREG §31.12.13)' % a.expect_trial
         else:
             try:
