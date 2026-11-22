@@ -76,7 +76,7 @@ All are #1169 comments posted under the owner's account (`amaybaum`) as the reco
 >      `trial_sha` set to that trial commit and `plan_sha` set to the plan head.
 >    - `verify.yml` on `T1` is dispatched on a branch whose head is exactly `T1`.
 
-§30 items 1–3 (lines 5617–5626), verbatim, fix the plan commit `P*` and its freeze:
+§30 items 1–3 (lines 5617–5625), verbatim, fix the plan commit `P*` and its freeze:
 
 > 1. **One plan commit.** `T0` and `T1` are both predicted from the same plan commit `P*`: `guards_check.py --predict`
 >    runs at `P*`, the trial trees carry `P*`'s record directory, and `P*` is passed as `plan_sha` to every
@@ -88,7 +88,10 @@ All are #1169 comments posted under the owner's account (`amaybaum`) as the reco
 >    (`a1exit-trial-verify.yml` and `verify.yml`). If it moves, `T0` and `T1` are rebuilt from the new head, which
 >    becomes `P*`, and the dispatches are repeated against it.
 
-`P*` stayed at `55544cc3` from T0's build through both T1 dispatches.
+`P*` stayed at `55544cc3` from T0's build through both T1 dispatches. The host's activity record for
+`refs/heads/research/a1exit-deletion-20261121` shows its last push, `1cde4d8f` → `55544cc3`, at 2026-11-21T12:57:04Z,
+before T0's run 44939798305 (19:13:45Z) and both T1 runs (from 21:29:59Z). T0's and T1's `a1exit-trial-verify.yml`
+dispatches both carry `plan_sha` `55544cc3` (each run's `result.json`), and the branch head is still `55544cc3`.
 
 The owner's authorization states the expectations: for dispatch 1, every required step passes, with zero
 PDF-comparison findings, `guards --mutants` succeeding and `result.json` reporting `verdict: pass`; for dispatch 2,
