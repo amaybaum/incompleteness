@@ -7267,3 +7267,86 @@ frozen head, as both `plan_sha` and `--plan` (§31.12.14).
 
 **Ledger.** Unchanged from §31.21: 399 splices in 44 files at H (401 edit records), SHA-256
 `2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5`.
+
+#### 31.12.16 R8: the T0 expectation against T0's real host record; the two checks together; N12
+
+The exact-head review at `236797b6` is posted on #1169 (comment 7079625191). Its verdict is REVISE on one new finding,
+R8, and it confirms R7 and N11 closed. The owner's decision, owner `amaybaum`, 2026-11-22T13:09:06Z,
+[#1169 comment 7079604239](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7079604239), quoted in
+part:
+
+> **R8, if confirmed, is a freeze blocker.** A valid T0′ run must not be rejected only because a legitimate cleanup step was skipped. The owner supports this correction:
+> - the T0 expectation marks the `setup-python` post step as skipped;
+> - the actual T0 jobs record is kept as a test fixture;
+> - the positive T0 control uses that record unchanged, not a modified T1 record;
+> - a regression test shows that the real T0 record passes and that a wrong step conclusion fails.
+>
+> **Procedural requirement.** The T0′/T1′ verification procedure requires `--expect-trial` and `--verify-run` together. Neither is treated as sufficient alone.
+>
+> **N12.** A missing `pdfinfo` executable becomes an explicit, named deviation, not an uncontrolled crash.
+
+It authorizes repairing the identified verification defects only, not a freeze or a trial dispatch.
+
+**Goal link (§A.47).** A1-EXIT (#1169): this subsection decides whether a T0′ run that behaves as designed is judged
+expected, and whether the expectation can be reported without the run record's verification; it decides no execution
+question and authorizes no push or dispatch.
+
+**Order.** This text first; then the checker change, the fixture and the record pins, §31.31; then the results,
+§31.30.
+
+**R8.**
+- *The defect.* In the real host record of T0's run 44939798305, step 25, "Post Run
+  actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065", concludes `skipped`; in T1's passing run it concludes
+  `success`. `T0_HOST` did not list it, so `--expect-trial T0` reported the real T0 record as a deviation. The
+  self-test's T0 control was T1's record with `T0_HOST`'s conclusions written over it, so it passed by construction.
+- *Re-derived from the real record.* The record (`GET .../actions/runs/44939798305/jobs?per_page=100`, `total_count`
+  1) has 16 steps:
+  - three conclude as `T0_HOST` lists: the `preserve` step, failure; the `guards` step, skipped; "Every required step
+    succeeded (a skipped step fails)", failure;
+  - step 25, the setup-python post step, is skipped;
+  - the other twelve succeed, the result and upload steps among them;
+  - the job concludes failure.
+
+  Step 25 is the only difference from `T0_HOST`. In the two recorded runs it was skipped in the one where `preserve`
+  failed, and succeeded in the one where every step passed. T0′ fails at `preserve` by design, so the T0 rule expects it
+  skipped. The workflow at W pins the same `actions/setup-python` commit, so T0′'s post step has the same name.
+- *The fix.* `T0_HOST` gains that step, `skipped`.
+- *The fixture.*
+  - T0's record is kept in the record directory as `t0-jobs-44939798305.json`: the response body of
+    `GET /repos/amaybaum/incompleteness/actions/runs/44939798305/jobs?per_page=100` as fetched, unmodified.
+  - Before commit it is scanned for sensitive fields (§A.42 item 4): e-mail addresses, IPv4 and IPv6 addresses, tokens,
+    signed-URL parameters, keys and secrets. The result is recorded in §31.30. A redaction, if one were needed, would be
+    recorded there with the redacted copy's own digest.
+  - The fixture is pinned with the other record files. `PINNED` gains it, so `--verify-pins` fails on any change to it.
+- *The T0 control.* It uses that record unchanged, as T1's control uses T1's run, with only its identity checked: run
+  44939798305 at `df6da1c6`, T0's `workflow_sha`.
+- *Regression tests:*
+  - the real T0 record passes under T0;
+  - the same record with step 25 `success` deviates ("expected skipped");
+  - the existing T0 mutants run on the real record.
+
+**`--expect-trial` and `--verify-run` together.**
+- Neither is sufficient alone. `--expect-trial` alone accepts a `result.json` whose `workflow_sha` and job `head_sha`
+  are rewritten consistently to another commit, since it binds the jobs to `result.json`. `--verify-run` alone does not
+  judge the steps, the reports, the PDF findings or the artifact.
+- *In the checker.* `--expect-trial` requires `--run-meta RUN.json`, the host run object, and runs `verify_run` on the
+  same `result.json` from `--run-out`, with the same `--plan`, `--workflow-base` and `--main`. With
+  `--run-meta-redacted`, it runs the redacted-copy check too. Each `verify_run` finding is a deviation, and so is a
+  missing run object. `TRIAL EXPECTED` is printed only when both checks pass.
+- *Mutants:*
+  - `--expect-trial` with the run check not run;
+  - `--expect-trial` with a void run check.
+- *The procedure for T0′ and T1′:* `--verify-run` and `--expect-trial` are run on the same `result.json`, with the same
+  P\*\* as `--plan`. For T1′, `--expect-verify` is run on `verify.yml`'s run.
+- *A consequence.* T0's and T1's own evidence ran before W, so on the command line `--expect-trial` reports their
+  `verify_run` findings (the head does not contain W) beside the eight-PDF ones. The self-test controls supply a
+  passed run check for those runs, and the mutants above exercise the void and missing cases.
+
+**N12.** `pdf_page_count` catches `OSError`, which includes a missing `pdfinfo` executable. Under `--expect-trial`
+that is a named deviation, "pdfinfo could not be run". *Mutant:* the check with `PATH` emptied, so that `pdfinfo` cannot
+be found.
+
+**Checks.** The full battery is re-run with `--plan` set to the commit that applies this subsection and carries
+§31.31. The edit list and the ledger do not change, so the reconciliations must reproduce §31.28's figures: against P\*,
+302/60/9/28, drift 0; against `9ba8ef10`, 385/4/10, drift 0. The ledger SHA-256 must stay `2055e68f…`. The command-line
+probe of R8 is repeated on the real T0 record.
