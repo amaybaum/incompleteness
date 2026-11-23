@@ -270,6 +270,15 @@ def k_controls():
     sd = '%s:3@%s' % (doc_path, w.pin[:8])
     sr = '%s:7@%s' % (doc_path, w.pin[:8])
     out['K1'] = [i['class'] for i in it if i['subject'] == sd] == ['context-meaning-unverified']
+    # K10: the positive direction of K1, with a matching context adjudication (sec. 4.1 row 2)
+    sg0 = cv.segments[0]
+    from_ctx = sg0['ctx_from'][sd][0]
+    xl = w.ctx().ft(x, doc_path).lines
+    to_ctx = util.context_hash_block(xl, 2, 3)
+    adj = {'context': [{'site_id': sd, 'segment': sg0['name'], 'from_context_sha256': from_ctx,
+                        'to_context_sha256': to_ctx}]}
+    cv10, it10 = w.coverage(x, [seg(w.pin, x)], adj=adj, hits=False)
+    out['K10'] = not [i for i in it10 if i['subject'] == sd] and decision(it10) == oc.pass_
     out['K2'] = not [i for i in it if i['subject'] == sr] and cv.site_out[sr]['context_changed'] is True
     sw = base_text.replace('alpha line one stands here.\n\nbeta line two stands here.\n\ngamma line three stands here.',
                            'gamma line three stands here.\n\nbeta line two stands here.\n\nalpha line one stands here.')
