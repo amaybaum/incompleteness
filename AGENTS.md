@@ -1539,13 +1539,35 @@ settings:
    zero-width characters and the byte-order mark, or a non-ASCII space such as the no-break space) is
    not sent.
 2. **Exact read-back.** After every write, the stored text is read back and compared byte for byte
-   with an expected text fixed before the write. The expected text is the text sent, for every body,
-   title, comment, review and review comment, except an Issue comment posted through, and under
-   every condition of, the owner-approved comment procedure (#1548 comment 7079078606), whose
-   expected text is the one that procedure's formula gives, footer included. No other normalization
-   is allowed. Any difference, or a read-back that fails or cannot be completed, is a mismatch.
+   with an expected text fixed before the write: the text sent, for every body, title, comment,
+   review and review comment. The text sent is chosen from the footer handling observed for that
+   operation. Observed with Claude Code on 2026-11-23: comments posted through the REST API and pull
+   requests opened through the GitHub connector were stored unchanged when the text sent ended with
+   one blank line, `---`, the footer line and no trailing newline; a pull-request description edited
+   through the connector had such a footer removed, and was stored unchanged when sent without one.
+   These are observations, not rules of the tooling. No normalization is allowed. Any difference, or
+   a read-back that fails or cannot be completed, is a mismatch.
 3. **Stop on a mismatch.** Automated GitHub text writes stop at once, for every agent and session.
    The text sent and the text stored are kept as evidence under §A.26, and the owner is told. Only a
    recorded owner decision resumes writing; a later correction does not make a failed write a pass.
+
+Adopted 2026-11-23 by owner decision (`amaybaum`, coordinating session); rule 2 amended the same day.
+
+***
+
+## §A.50 Actions that need the owner's approval each time
+
+Rules that exist only in a session lapse unless this file states them or the owner restates them.
+Beyond the gates of a frozen plan or round, which stand as written, these actions need the owner's
+explicit approval each time:
+
+1. merging into `main`;
+2. for a plan that changes the posit ledger of `papers/Main.md` (including adding, removing,
+   weakening, strengthening, replacing or reinstating a posit): freezing it, amending it once
+   frozen, executing it, or dispatching its trials;
+3. deleting branches, Issues, pull requests or evidence;
+4. sending material outside GitHub.
+
+Other work follows this file, GitHub writes under §A.49.
 
 Adopted 2026-11-23 by owner decision (`amaybaum`, coordinating session).
