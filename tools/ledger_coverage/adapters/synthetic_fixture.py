@@ -329,9 +329,6 @@ def y_controls(r):
         == ['context-meaning-unverified']
     good_digest = (hashlib.sha256(apply_text(TEXT, edits).encode()).hexdigest() + '\n').encode()
     Xg, cg, pg, sg_ = y_world(syn, edits, {'out/digest.txt': good_digest})
-    ex = ['execution', '--scientific-base', syn.H, '--candidate', Xg, '--ledger', '%s:syn/patch.json' % cg,
-          '--edits', '%s:syn/patch.json' % cg, '--delegation', '%s:syn/delegation.json' % cg]
-    out['_exec_note'] = 'execution needs an edits companion; the synthetic ledger has none'
     code_g, res_g = run_exec(r, syn, Xg, cg, pg, sg_)
     Xw, cw2, pw2, sw2 = y_world(syn, edits, {'out/digest.txt': b'0\n'})
     code_w, res_w = run_exec(r, syn, Xw, cw2, pw2, sw2)
