@@ -1542,8 +1542,8 @@ settings:
    with an expected text fixed before the write. The expected text is the text sent, for every body,
    title, comment, review and review comment, except an Issue comment posted through, and under
    every condition of, the owner-approved comment procedure (#1548 comment 7079078606), whose
-   expected text is the one that procedure's formula gives, footer included. No other normalization is allowed. Any difference, or
-   a read-back that fails or cannot be completed, is a mismatch.
+   expected text is the one that procedure's formula gives, footer included. No other normalization
+   is allowed. Any difference, or a read-back that fails or cannot be completed, is a mismatch.
 3. **Stop on a mismatch.** Automated GitHub text writes stop at once, for every agent and session.
    The text sent and the text stored are kept as evidence under §A.26, and the owner is told. Only a
    recorded owner decision resumes writing; a later correction does not make a failed write a pass.
