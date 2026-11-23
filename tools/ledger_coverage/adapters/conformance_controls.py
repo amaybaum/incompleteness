@@ -922,6 +922,290 @@ def f3_controls(t):
           out['present'] is True and out['absent'] is False and out['different'] is False)
 
 
+# ---- corrections after the third independent review (B1, B2, B3, N2) ----------------------------------------------
+
+def _r4_event(tag):
+    return {'plan': hf.PLAN, 'round': tag, 'kind': 'withdraw', 'commit': 'ab' * 20, 'comment_id': 1, 'author_id': 1,
+            'created_at': '2026-11-23T00:00:00Z', 'first_line': 'x'}
+
+
+def _r4_ledger(tags):
+    return hf.jb({'schema': auth.ledger_schema, 'events': [_r4_event(x) for x in tags]})
+
+
+def _r4_approve(w, old, new, approver, via):
+    if via == 'append':
+        return w.comment(hf.PLAN_ISSUE, 'oi-freeze-ledger/1 append plan=%s round=%s from=%s to=%s'
+                         % (hf.PLAN, hf.ROUND, sha(old), sha(new)), author_id=approver)
+    return w.comment(hf.AUTH_ISSUE, 'oi-authority/1 approve from=%s to=%s' % (sha(old), sha(new)), author_id=approver)
+
+
+def _r4_set_ledger(w, new, via, approver=None, approve=True, after=False, direct=False):
+    """One freeze-ledger change on the world's main: approved (before, or after, the change) by `approver` (the
+    owner in force by default), landed by a recorded pull-request merge or, with `direct`, by a push with no merge
+    record."""
+    old = w.ledger_bytes
+    who = approver if approver is not None else w.a['owner']['id']
+    if approve and not after:
+        _r4_approve(w, old, new, who, via)
+    cid = 'c%d' % (len(w.h.repos[hf.REPO_ID]['commits']) + 1)
+    if direct:
+        files = dict(w.h.repos[hf.REPO_ID]['commits'][w.main]['files'])
+        files[hf.LEDGER_PATH] = new
+        w.h.add_commit(hf.REPO_ID, cid, [w.main], files)
+        w.main = cid
+        w.h.repos[hf.REPO_ID]['main'] = cid
+        w.h.runs[w.run_id]['head_sha'] = cid
+    else:
+        w.add_main(cid, {hf.LEDGER_PATH: new}, merged_by=w.a['owner']['id'])
+    if approve and after:
+        _r4_approve(w, old, new, who, via)
+    w.ledger_bytes = new
+
+
+def _r4_owner_change(w, owner):
+    new_a = hf.authority('syn/PREREG.md', owner_id=owner,
+                         supersedes={'path': auth.authority_path, 'blob_sha256': sha(w.a_bytes)},
+                         extra={'status': 'v-%d-%d' % (owner, len(w.h.repos[hf.REPO_ID]['commits']))})
+    change_authority(w, new_a, extra_approver=owner if owner != w.a['owner']['id'] else None)
+
+
+def _r4_run(t, steps):
+    """A fresh world, the steps applied to it, then a designated freeze carrying the first A. The fixture
+    configuration names owner 4242: a run whose ledger history is verified exits 0 when 4242 is the final owner."""
+    w = t.world()
+    a1 = w.a_bytes
+    steps(w)
+    F = t.freeze(w, a_bytes=a1)
+    w.designate(F, author_id=w.a['owner']['id'])
+    code, res = t.run(w, F)
+    msg = ((res or {}).get('stop') or {}).get('message', '')
+    return {'exit': code, 'stop': stop(res), 'message': msg[:220], 'ledger_refused': 'freeze-ledger change' in msg}
+
+
+def r4_b1_controls(t):
+    """B1: an approval comment authorizes exactly one change, and each ledger version extends the previous one."""
+    OLD, NEW = hf.OWNER_ID, 5555
+    out = {}
+    for via in ('append', 'authority'):
+        def r1(w, via=via):
+            l0 = w.ledger_bytes
+            _r4_set_ledger(w, _r4_ledger(['one']), via, OLD)          # A approves L0 -> L1
+            _r4_owner_change(w, NEW)                                   # A -> B
+            _r4_set_ledger(w, l0, via, NEW)                            # B approves the revert L1 -> L0
+            _r4_owner_change(w, OLD)                                   # B -> A
+            _r4_set_ledger(w, _r4_ledger(['one']), via, approve=False)  # L0 -> L1 again, no new approval
+
+        def r2(w, via=via):
+            l0 = w.ledger_bytes
+            _r4_set_ledger(w, _r4_ledger(['one']), via, OLD)
+            _r4_set_ledger(w, l0, via, OLD)
+            _r4_set_ledger(w, _r4_ledger(['one']), via, approve=False)
+
+        def r3(w, via=via):
+            _r4_set_ledger(w, _r4_ledger(['one']), via, OLD)
+            _r4_owner_change(w, NEW)
+            _r4_owner_change(w, OLD)
+            _r4_set_ledger(w, _r4_ledger(['two']), via, approve=False)
+
+        def legit(w, via=via):
+            for tags in (['one'], ['one', 'two'], ['one', 'two', 'three']):
+                _r4_set_ledger(w, _r4_ledger(tags), via)
+
+        def legit_owner(w, via=via):
+            _r4_set_ledger(w, _r4_ledger(['one']), via)
+            _r4_owner_change(w, NEW)
+            _r4_set_ledger(w, _r4_ledger(['one', 'two']), via)
+            _r4_owner_change(w, OLD)
+            _r4_set_ledger(w, _r4_ledger(['one', 'two', 'three']), via)
+        out['R1 A->B->A replay [%s]' % via] = _r4_run(t, r1)
+        out['R2 replay, no owner change [%s]' % via] = _r4_run(t, r2)
+        out['R3 different change, no approval [%s]' % via] = _r4_run(t, r3)
+        out['appends, each approved [%s]' % via] = _r4_run(t, legit)
+        out['appends across A->B->A, each approved by the owner in force [%s]' % via] = _r4_run(t, legit_owner)
+    bad = [v for k, v in out.items() if k.startswith(('R1', 'R2', 'R3'))]
+    good = [v for k, v in out.items() if k.startswith('appends')]
+    check('R4-B1', 'freeze-ledger approvals cannot be replayed (sec. 6.3, "append-only"; "its own explicit owner '
+          'approval comment"): R1 (approve L0->L1; owner A->B; B approves the revert L1->L0; B->A; L0->L1 again with '
+          'no new approval) and R2 (the same with no owner change) are refused, and R3 (a different change with no '
+          'approval) stays refused; a sequence of appends, each with its own approval by the owner in force, is '
+          'admitted, also across an owner change and change-back; each case in both comment forms',
+          "R1, R2, R3: exit 65 naming the freeze-ledger change; the append sequences: exit 0", out,
+          all(o['exit'] == 65 and o['ledger_refused'] for o in bad) and all(o['exit'] == 0 for o in good))
+    # each guard on its own: with the append-only check disabled the single-use check refuses R1 and R2, and with
+    # the single-use check disabled the append-only check refuses them
+    guards = {}
+    for name, attr, stub in (('single-use alone', '_ledger_extension_problem', lambda old, new: None),
+                             ('append-only alone', '_fresh', lambda hits, consumed, point, what: hits)):
+        orig = getattr(auth, attr, None)
+        if orig is None:
+            guards[name] = 'the engine has no %s' % attr
+            continue
+        setattr(auth, attr, stub)
+        try:
+            got = {}
+            for via in ('append', 'authority'):
+                got['R1 [%s]' % via] = _r4_run(t, lambda w, via=via: (
+                    _r4_set_ledger(w, _r4_ledger(['one']), via, OLD), _r4_owner_change(w, NEW),
+                    _r4_set_ledger(w, _r4_ledger([]), via, NEW), _r4_owner_change(w, OLD),
+                    _r4_set_ledger(w, _r4_ledger(['one']), via, approve=False)))
+                got['R2 [%s]' % via] = _r4_run(t, lambda w, via=via: (
+                    _r4_set_ledger(w, _r4_ledger(['one']), via, OLD), _r4_set_ledger(w, _r4_ledger([]), via, OLD),
+                    _r4_set_ledger(w, _r4_ledger(['one']), via, approve=False)))
+            guards[name] = got
+        finally:
+            setattr(auth, attr, orig)
+    want = {'single-use alone': 'already authorized', 'append-only alone': 'not an append'}
+    check('R4-B1-GUARDS', 'each B1 guard refuses the replay on its own: with the append-only check disabled, the '
+          'single-use check refuses R1 and R2; with the single-use check disabled, the append-only check refuses them',
+          "every case exits 65 naming the freeze-ledger change, with 'already authorized' (single-use alone) or 'not "
+          "an append' (append-only alone) in the message", guards,
+          all(isinstance(g, dict) and all(o['exit'] == 65 and o['ledger_refused'] and want[n] in o['message']
+                                          for o in g.values()) for n, g in guards.items()))
+
+
+def r4_b2_controls(t):
+    """B2: a freeze-ledger change with no merge record is refused, whatever its approval."""
+    out = {}
+    for via in ('append', 'authority'):
+        out['direct push, approval after the push [%s]' % via] = _r4_run(
+            t, lambda w, via=via: _r4_set_ledger(w, _r4_ledger(['d']), via, after=True, direct=True))
+        out['direct push, approval before the push [%s]' % via] = _r4_run(
+            t, lambda w, via=via: _r4_set_ledger(w, _r4_ledger(['d']), via, direct=True))
+        out['pull-request merge, approval before the merge [%s]' % via] = _r4_run(
+            t, lambda w, via=via: _r4_set_ledger(w, _r4_ledger(['d']), via))
+    bad = [v for k, v in out.items() if k.startswith('direct')]
+    good = [v for k, v in out.items() if k.startswith('pull-request')]
+    check('R4-B2', 'a freeze-ledger change landed with no merge record (a direct push; the host reports no merged '
+          'pull request) is refused, with the approval created after the push (P9) and also before it; the same '
+          'change merged by pull request with an approval created before the merge is admitted; both comment forms',
+          "direct pushes: exit 65 naming the freeze-ledger change; pull-request merges: exit 0", out,
+          all(o['exit'] == 65 and o['ledger_refused'] for o in bad) and all(o['exit'] == 0 for o in good))
+
+
+def r4_b3_controls(r):
+    """B3: every list entry of a reviewed record carries its id field; a record where one does not is record-invalid
+    and its verdicts cannot fall back to the record id."""
+    def scenario(cls_mut=None, verdicts=None):
+        syn = sf.Syn()
+        edits = [('# synthetic', ['# synthetic', '', 'Preface line one.'])]
+        pd = sf.patch_doc(syn.H, edits)
+        base = {'patch_sha': sha(pd), 'files': {'syn/patch.json': pd}}
+        c0, p0, s0, f0 = syn.build(base)
+        recs = json.loads(f0[p0])['records']
+        M = syn.repo.derive(syn.H, {'notes/side.txt': b'side change on main\n'}, parents=[syn.H], subject='M')
+        cls = {'schema': 'oi-side-change-classes/1', 'record_id': 'syn-classes', 'author': sf.WRITER,
+               'supersedes': None,
+               'classes': [{'id': 'notes', 'prefixes': ['notes/'], 'reason': 'synthetic',
+                            'pins': [{'path': 'notes/side.txt', 'git_blob': syn.repo.blob_id(M, 'notes/side.txt'),
+                                      'blob_sha256': sha(b'side change on main\n')}]}]}
+        if cls_mut:
+            cls_mut(cls)
+        files = dict(base['files'])
+        cb = sf.jb(cls)
+        files['syn/classes.json'] = cb
+        ref = {'path': 'syn/classes.json', 'blob_sha256': sha(cb)}
+        vs = verdicts if verdicts is not None else [{'item': 'notes', 'verdict': 'accept'}]
+        rv = {'schema': 'oi-review-record/1', 'reviewer': sf.REVIEWER, 'reviewed': ref, 'method': 'read',
+              'verdicts': vs}
+        files['syn/classes.review.json'] = sf.jb(rv)
+        au = {'schema': 'oi-owner-authorization/1', 'owner': sf.OWNER, 'time': 't0', 'comment_id': 'c-2',
+              'authorizes': [{'record': ref, 'review': {'path': 'syn/classes.review.json',
+                                                        'blob_sha256': sha(files['syn/classes.review.json'])}}]}
+        files['syn/classes.auth.json'] = sf.jb(au)
+        extra = [{'kind': 'side-change-classes', 'path': 'syn/classes.json', 'blob_sha256': sha(cb)},
+                 {'kind': 'review', 'path': 'syn/classes.review.json',
+                  'blob_sha256': sha(files['syn/classes.review.json'])},
+                 {'kind': 'authorization', 'path': 'syn/classes.auth.json',
+                  'blob_sha256': sha(files['syn/classes.auth.json'])}]
+        v = dict(base, files=files, extra={'records': recs + extra})
+        c, p, s, f = syn.build(v)
+        X = syn.repo.derive(syn.H, {sf.DOC: sf.apply_text(syn.repo.read(syn.H, sf.DOC).decode(), edits).encode()},
+                            parents=[syn.H], subject='X')
+        w = hf.World('syn/PREREG.md')
+        listed = {q: syn.repo.read(c, q) for q in syn.repo.paths(c) if q.startswith('syn/') and q.endswith('.json')}
+        Ff = {'syn/PREREG.md': hf.pin_table({q[len('syn/'):]: sha(b) for q, b in listed.items()}),
+              auth.authority_path: w.a_bytes}
+        F = syn.repo.derive(c, Ff, parents=syn.repo.parents(c), subject='freeze')
+        w.designate(F)
+        argv = ['execution', '--config', '%s:%s' % (F, p), '--out', r.out()] + w.args(F) + \
+            ['--scientific-base', syn.H, '--candidate', X, '--ledger', '%s:syn/patch.json' % F, '--main', M]
+        try:
+            code, res = cli.run(argv, repo=syn.repo, stderr=io.StringIO(), control=w.control(), environ={})
+        except Exception as exc:
+            return {'exit': 'EXCEPTION', 'exception': '%s: %s' % (type(exc).__name__, exc)}
+        its = (res or {}).get('items', [])
+        return {'exit': code,
+                'record_invalid': sorted(str(i.get('subject')) for i in its if i['class'] == 'record-invalid'),
+                'unclassified': sorted(str(i.get('subject')) for i in its if i['class'] == 'side-change-unclassified')}
+
+    def second_without_id(c):
+        c['classes'].append({'prefixes': ['other/'], 'reason': 'x', 'pins': []})
+
+    def none_with_id(c):
+        for k in c['classes']:
+            k.pop('id')
+    acc = lambda *ids: [{'item': i, 'verdict': 'accept'} for i in ids]  # noqa: E731
+    out = {'C0 reviewed and authorized, one verdict per class': scenario(),
+           'C9 a second class without id; one verdict, on the record id': scenario(second_without_id,
+                                                                                    acc('syn-classes')),
+           'C9b a second class without id; verdicts on notes and on the record id': scenario(
+               second_without_id, acc('notes', 'syn-classes')),
+           'C8 no class has an id; one verdict, on the record id': scenario(none_with_id, acc('syn-classes'))}
+    bad = [v for k, v in out.items() if not k.startswith('C0')]
+    pos = out['C0 reviewed and authorized, one verdict per class']
+    check('R4-B3', 'a side-change class record one of whose classes lacks its id field (C9, and C9b with a verdict '
+          'for the class that has one), or all of whose classes lack it (C8), is record-invalid (sec. 6.3: one '
+          'verdict per item id; a missing field is record-invalid); no verdict on the record id stands in for the '
+          'per-item verdicts; the side change stays unclassified; no exception; the record with ids and one verdict '
+          'per class classifies the side change',
+          "C9, C9b, C8: exit 20, record-invalid on syn/classes.json, notes/side.txt unclassified; C0: exit 10, no "
+          "record-invalid, nothing unclassified", out,
+          all(o['exit'] == 20 and 'syn/classes.json' in o['record_invalid'] and 'notes/side.txt' in o['unclassified']
+              for o in bad) and
+          pos.get('exit') == 10 and not pos.get('record_invalid') and not pos.get('unclassified'))
+
+
+def r4_n2_controls(t):
+    """N2: the consumer predicate hashes the result bytes it is given and requires that hash to equal the run's
+    uploaded artifact and the landing record's result hash."""
+    w = t.world()
+    F = t.freeze(w)
+    w.designate(F)
+    code, res = t.run(w, F)
+    snap = res['config']['admission']['simulated_chain']['snapshot']
+    pins = {'engine': res['engine']['blob_sha256'], 'config': res['config']['blob_sha256'],
+            'adapters': {a['name']: a['module_sha256'] for a in res.get('adapters', [])},
+            'admission': {k: snap[k] for k in ('freeze', 'designation_comment_id', 'pin_table_sha256',
+                                               'authority_sha256')},
+            'repository_id': hf.REPO_ID, 'workflow_path': hf.WF_PATH, 'workflow_sha256': sha(hf.WF),
+            'engine_pins': {}, 'authority_blob_sha256': sha(w.a_bytes)}
+    chain = copy.deepcopy(res)
+    del chain['harness']
+    chain['config']['admission'] = {'mode': 'chain', 'snapshot': snap,
+                                    'snapshot_sha256': res['config']['admission']['snapshot_sha256']}
+    raw = util.dump_result(chain).encode('utf-8')
+    w.h.artifacts[(w.run_id, 'ledger-coverage-result')] = sha(raw)
+    landing = {'evaluated': snap.get('evaluated'), 'artifact_name': 'ledger-coverage-result', 'result_sha256': sha(raw)}
+    forged = copy.deepcopy(chain)
+    forged['covered_paths'] = ['forged/path']
+    forged['items'] = []
+    forged_raw = util.dump_result(forged).encode('utf-8')
+    out = {}
+    for name, data in (('genuine bytes', raw), ('forged bytes, landing quotes the genuine artifact hash', forged_raw),
+                       ('genuine bytes plus one byte', raw + b' ')):
+        try:
+            out[name] = checker.accept_with_host(data, 0, pins, w.h, landing)
+        except Exception as exc:
+            out[name] = '%s: %s' % (type(exc).__name__, exc)
+    check('R4-N2', 'the consumer predicate binds the result it is given to the run\'s uploaded artifact (sec. 5, "the '
+          'result file is that run\'s uploaded artifact, by sha256"): it hashes the raw result bytes itself; a forged '
+          'result presented with a landing record that quotes the genuine artifact\'s hash is not accepted',
+          "accept_with_host(raw bytes, ...) is True for the genuine bytes and False for the forged bytes and for the "
+          "genuine bytes with one byte added", out,
+          out['genuine bytes'] is True and all(v is False for k, v in out.items() if k != 'genuine bytes'))
+
+
 # ---- acceptance, durable evidence and replay ----------------------------------------------------------------------
 
 def acceptance_controls(r, t):
@@ -1314,7 +1598,9 @@ def main(out_root):
                                                                              traceback.format_exc()[-1200:]), 'FAIL')
     if t is not None:
         for name, fn in (('R3-F1', lambda: f1_controls(t)), ('R3-F2', lambda: f2_controls(r)),
-                         ('R3-F3', lambda: f3_controls(t))):
+                         ('R3-F3', lambda: f3_controls(t)), ('R4-B1', lambda: r4_b1_controls(t)),
+                         ('R4-B2', lambda: r4_b2_controls(t)), ('R4-B3', lambda: r4_b3_controls(r)),
+                         ('R4-N2', lambda: r4_n2_controls(t))):
             try:
                 fn()
             except Exception as exc:
