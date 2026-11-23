@@ -104,8 +104,8 @@
     },
     {
      "path": "tools/ledger_coverage/authority.json",
-     "git_blob": "82163b7f78e656e585414f8a17eb21bf630d336c",
-     "blob_sha256": "de332d0e1ab965f2ba757b0ed9f7f568af3038d15ca991aceb306e1dde10c017"
+     "git_blob": "085f8226dfe2c576007e7f3df2f1e9d0b7db2887",
+     "blob_sha256": "fda4d06c0bbb4adab2022b84bb02c585e8a86ff60c5305987ac275a442308186"
     },
     {
      "path": "tools/ledger_coverage/engine/__init__.py",
@@ -184,8 +184,8 @@
     },
     {
      "path": "tools/ledger_coverage/engine/purity.py",
-     "git_blob": "2380e3cd9d03ee5e8a5cd3490aa8add7ab0fabe5",
-     "blob_sha256": "cf7995098cfbedb515f943bf36bd5cf6763db74d794b15f629daff2362801bff"
+     "git_blob": "36d0ec95b6c905455709b90c5984b2a2d6a55343",
+     "blob_sha256": "ae9fffc5c1423e72e0b6d5e7470b418186a985258f8d321ce854695419c1fdb1"
     },
     {
      "path": "tools/ledger_coverage/engine/reconcile.py",
