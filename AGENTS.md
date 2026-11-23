@@ -1540,11 +1540,13 @@ settings:
    not sent.
 2. **Exact read-back.** After every write, the stored text is read back and compared byte for byte
    with an expected text fixed before the write: the text sent, for every body, title, comment,
-   review and review comment. Where the writing tool appends a footer, the text sent already ends
-   with that footer; for Claude Code comments and pull-request descriptions, the form observed
-   stored unchanged on 2026-11-23 is one blank line, `---`, the footer line, no trailing newline. No
-   normalization is allowed. Any difference, or a read-back that fails or cannot be completed, is a
-   mismatch.
+   review and review comment. The text sent is chosen from the footer handling observed for that
+   operation. Observed with Claude Code on 2026-11-23: comments posted through the REST API and pull
+   requests opened through the GitHub connector were stored unchanged when the text sent ended with
+   one blank line, `---`, the footer line and no trailing newline; a pull-request description edited
+   through the connector had such a footer removed, and was stored unchanged when sent without one.
+   These are observations, not rules of the tooling. No normalization is allowed. Any difference, or
+   a read-back that fails or cannot be completed, is a mismatch.
 3. **Stop on a mismatch.** Automated GitHub text writes stop at once, for every agent and session.
    The text sent and the text stored are kept as evidence under §A.26, and the owner is told. Only a
    recorded owner decision resumes writing; a later correction does not make a failed write a pass.
