@@ -401,6 +401,8 @@ def tr_controls(r):
         out28.append(show(*t.run(w28, F28)))
     check('TR28', 'tool blobs at head_sha differing from A.engine_pins, or an extra file under the tool: ERROR at '
           'the tool', "both exit 65", out28, all(o['exit'] == 65 for o in out28))
+    # TR48-TR53 (K7, v5.5.3): the files permitted under the tool directory at head_sha
+    k7(t, check, show)
     # TR29: head_sha not on main's first-parent chain; head_sha = X (no workflow, no tool)
     out29 = []
     for mut in ('branch', 'x'):
@@ -480,6 +482,66 @@ def tr_controls(r):
           "without deletion events the run is admitted (exit 0, the documented residual); with them exit 65",
           {'no_deletion_events': code35, 'deletion_events': code35b}, code35 == 0 and code35b == 65)
     return t
+
+
+def k7(t, check, show):
+    pin_path = 'tools/ledger_coverage/engine/x.py'
+    wf_in = 'tools/ledger_coverage/workflow.yml'
+
+    def world(extra, wf_inside=False, a_override=None):
+        a = json.loads(hf.jb(hf.authority('syn/PREREG.md')))
+        a['engine_pins'] = {pin_path: sha(b'x = 1\n')}
+        if wf_inside:
+            a['workflow'] = {'path': wf_in, 'content_sha256': sha(hf.WF)}
+        files = {pin_path: b'x = 1\n'}
+        if wf_inside:
+            files[wf_in] = hf.WF
+        w = world_with_authority(a, files)
+        if wf_inside:
+            w.h.runs[w.run_id]['workflow_path'] = wf_in
+        if extra:
+            w.add_main('c2', extra)
+        F = t.freeze(w)
+        w.designate(F)
+        return w, F
+    out = {}
+    w, F = world({}, wf_inside=True)
+    out['TR48'] = show(*t.run(w, F))
+    a_path = auth.authority_path
+    w, F = world({})
+    cur = w.h.repos[hf.REPO_ID]['commits'][w.main]['files'][a_path]
+    w.add_main('c2', {a_path: cur[:-2] + b' \n'})
+    out['TR49'] = show(*t.run(w, F))
+    w, F = world({wf_in: hf.WF + b'#'}, wf_inside=True)
+    out['TR50'] = show(*t.run(w, F))
+    tr51 = {}
+    for name, val in (('content', b'{}\n'), ('symlink', ('symlink', 'elsewhere.json')),
+                      ('submodule', ('submodule', 'ab' * 20))):
+        w, F = world({})
+        w.h.repos[hf.REPO_ID]['commits'][w.main]['files'][a_path] = val
+        tr51['authority ' + name] = show(*t.run(w, F))
+        w, F = world({}, wf_inside=True)
+        w.h.repos[hf.REPO_ID]['commits'][w.main]['files'][wf_in] = val if name != 'content' else b'other\n'
+        tr51['workflow ' + name] = show(*t.run(w, F))
+    w, F = world({'tools/ledger_coverage/engine/extra.py': b'y = 1\n'})
+    out['TR52'] = show(*t.run(w, F))
+    w, F = world({})
+    w.add_main('c3', {'tools/ledger_coverage/authority-copy.json':
+                      w.h.repos[hf.REPO_ID]['commits'][w.main]['files'][a_path]})
+    out['TR53'] = show(*t.run(w, F))
+    check('TR48', 'a head_sha whose tool directory holds exactly the pinned files, the approved authority record and '
+          'the approved workflow: accepted (execution identity holds)', "exit == 0", out['TR48'],
+          out['TR48']['exit'] == 0)
+    check('TR49', 'the authority record at head_sha modified by one byte: ERROR', "exit == 65", out['TR49'],
+          out['TR49']['exit'] == 65)
+    check('TR50', 'the workflow at A.workflow.path modified by one byte: ERROR', "exit == 65", out['TR50'],
+          out['TR50']['exit'] == 65)
+    check('TR51', 'a substituted file at either permitted path (other content, a symlink, a submodule): ERROR in each '
+          'case', "all six cases exit 65", tr51, all(v['exit'] == 65 for v in tr51.values()))
+    check('TR52', 'an additional file under the tool directory, neither pinned nor permitted: ERROR', "exit == 65",
+          out['TR52'], out['TR52']['exit'] == 65)
+    check('TR53', 'a byte-identical second copy of the authority record at another path: ERROR', "exit == 65",
+          out['TR53'], out['TR53']['exit'] == 65)
 
 
 def cfg_field_run(t, cfg):
@@ -732,7 +794,7 @@ def acceptance_controls(r, t):
     gz = checker.deterministic_gzip(raw)
     w.h.artifacts[(w.run_id, 'ledger-coverage-result')] = sha(raw)
     host_pins = dict(pins, repository_id=hf.REPO_ID, workflow_path=hf.WF_PATH, workflow_sha256=sha(hf.WF),
-                     engine_pins={})
+                     engine_pins={}, authority_blob_sha256=sha(w.a_bytes))
     landing = {'evaluated': snap.get('evaluated'), 'artifact_name': 'ledger-coverage-result',
                'result_sha256': sha(raw)}
     ok_full = checker.accept_with_host(chain, 0, host_pins, w.h, landing)

@@ -272,7 +272,7 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
         on_main = host.on_first_parent_chain(repo_id, head, main)
         wf = host.file_at(repo_id, head, a['workflow']['path'])
         a_head = host.file_at(repo_id, head, authority_path)
-        tool_paths = host.paths_at(repo_id, head, 'tools/ledger_coverage')
+        tool_entries = host.entries_at(repo_id, head, 'tools/ledger_coverage/')
     except HostUnavailable as exc:
         refuse('identity', 'execution identity cannot be read: %s' % exc)
     if not on_main:
@@ -284,9 +284,17 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
     if a_head is None:
         refuse('identity', 'the run\'s commit does not contain the authority record')
     pins = a['engine_pins']
-    extra = [p for p in tool_paths if p not in pins and p != authority_path]
-    if extra:
-        refuse('identity', 'files under the tool not pinned: %s' % extra[:3])
+    # point 3 (K7, v5.5.3): besides the files A.engine_pins names, exactly the authority record (blob equal to the
+    # admitted A) and the workflow at A.workflow.path (if it lies there), each only as a regular file; any other
+    # entry, a second copy of either, a changed file, a symlink or a submodule refuses
+    permitted = {authority_path: util.sha256(a_bytes), a['workflow']['path']: a['workflow']['content_sha256']}
+    for p, kind in tool_entries:
+        if p not in pins and p not in permitted:
+            refuse('identity', 'a file under the tool is neither pinned nor permitted: %s' % p)
+        if kind != 'file':
+            refuse('identity', '%s at the run\'s commit is a %s, not a regular file' % (p, kind))
+    if util.sha256(a_head) != util.sha256(a_bytes):
+        refuse('identity', 'the authority record at the run\'s commit differs from the admitted one')
     for p, want in sorted(pins.items()):
         b = host.file_at(repo_id, head, p)
         if b is None or util.sha256(b) != want:

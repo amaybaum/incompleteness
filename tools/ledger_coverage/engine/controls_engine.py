@@ -572,7 +572,7 @@ def r_controls():
     out['R14'] = 'base-drift' in classes(run(M14, side=[tool]).items)
     Mo = w.child(M, files={'ops/other.yml': b'z\n'}, subject='another main')
     L15 = exmod.compose_landing(w.repo, H, Mo, X, led, w.repo)
-    out['R15'] = 'landing-first-parent-not-M' in classes(run(M, L15, side=[wfc, pin('o', Mo, 'ops/other.yml')],
+    out['R15'] = 'landing-first-parent-not-M' in classes(run(M, L15, side=[wfc, pin('ops-other', Mo, 'ops/other.yml')],
                                                              cand=False).items)
     e16 = exmod.Execution(ctx, H, X, led, None, pin_ok=[{'file': 'tools/t.py', 'prefix': 'x', 'recorded_at': M}])
     e16.freeze = H

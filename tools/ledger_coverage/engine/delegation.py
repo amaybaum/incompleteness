@@ -57,7 +57,14 @@ class Delegation:
             state, per_tree = 'pass', []
             results = []
             if F is None:
-                results.append(('X', [('missing', 'no freeze F: a delegated class never passes without F (T4)')]))
+                # T4: never PASS without F; the native re-derivations that need no checker of F still run
+                try:
+                    got = mod.verify(repo, dict(roles, tree_role='X'), c, None, ledger)
+                except Exception as exc:
+                    got = [('fail', 'class adapter raised %s: %s' % (type(exc).__name__, exc))]
+                got = [g for g in got if g[0] == 'fail']
+                results.append(('X', got + [('missing', 'no freeze F: a delegated class never passes without F '
+                                                        '(T4)')]))
             else:
                 for name, tree in trees:
                     r = dict(roles, candidate=tree, tree_role=name)

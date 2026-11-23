@@ -66,12 +66,24 @@ class MemoryHost:
     def file_at(self, repo_id, sha, path):
         self._need('file')
         c = self.repos.get(repo_id, {}).get('commits', {}).get(sha)
-        return None if c is None else c['files'].get(path)
+        v = None if c is None else c['files'].get(path)
+        return v[1].encode() if isinstance(v, tuple) else v
 
     def paths_at(self, repo_id, sha, prefix):
         self._need('tree')
         c = self.repos[repo_id]['commits'].get(sha)
         return sorted(p for p in (c['files'] if c else {}) if p.startswith(prefix))
+
+    def entries_at(self, repo_id, sha, prefix):
+        """[(path, kind)] of every tree entry under prefix; kind is 'file', 'symlink' or 'submodule'. A fixture
+        marks a non-regular entry by a tuple value ('symlink', target) or ('submodule', commit)."""
+        self._need('tree')
+        c = self.repos[repo_id]['commits'].get(sha)
+        out = []
+        for p, v in sorted((c['files'] if c else {}).items()):
+            if p.startswith(prefix):
+                out.append((p, v[0] if isinstance(v, tuple) else 'file'))
+        return out
 
     def first_parents(self, repo_id, head):
         out = []
@@ -186,10 +198,20 @@ class RestHost:
             raise
 
     def paths_at(self, repo_id, sha, prefix):
+        return sorted(p for p, _ in self.entries_at(repo_id, sha, prefix))
+
+    def entries_at(self, repo_id, sha, prefix):
         t = self._json('/repositories/%d/git/trees/%s?recursive=1' % (repo_id, sha))
         if t.get('truncated'):
             raise HostUnavailable('tree listing truncated')
-        return sorted(e['path'] for e in t['tree'] if e['type'] == 'blob' and e['path'].startswith(prefix))
+        out = []
+        for e in t['tree']:
+            if not e['path'].startswith(prefix) or e['type'] == 'tree':
+                continue
+            kind = 'submodule' if e['type'] == 'commit' else 'symlink' if e.get('mode') == '120000' else \
+                'file' if e['type'] == 'blob' and e.get('mode') in ('100644', '100755') else 'other'
+            out.append((e['path'], kind))
+        return sorted(out)
 
     def on_first_parent_chain(self, repo_id, commit, head, limit=5000):
         c = head

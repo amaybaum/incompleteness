@@ -188,7 +188,7 @@ def rt_coverage(a):
     nonhp = [i for i in res.get('items', []) if i['decision'] == 'FAIL' and i['obligation'] != 'HP']
     ind = [i for i in res.get('items', []) if i['class'] == 'context-structure-changed' and i['obligation'] != 'HP']
     want_struct = sorted(['book/The-Incompleteness-of-Observation-FULL.md:706', 'book/The-Incompleteness-of-'
-                          'Observation-FULL.md:708', 'book/ch02-the-substratum.md:76', 'book/ch02-the-substratum.md:78',
+                          'Observation-FULL.md:708', 'book/ch02-substratum.md:76', 'book/ch02-substratum.md:78',
                           'papers/Substratum.md:94', 'papers/Substratum.md:253', 'papers/Main.md:741'])
     got_struct = sorted(i['subject'].split('@')[0] for i in res.get('items', [])
                         if i['class'] == 'context-structure-changed' and i['obligation'] == 'HP')
@@ -325,7 +325,12 @@ def rt_terms(a):
     st_of = {(h['file'], h['line']): h['state'] for h in hits}
     gr58 = st_of.get(('papers/GR.md', 58))
     others = {'p0-core', 'p0-para', 'ledger-ext', 'ptr', 'repo', 'count-grep'}
-    resid_only = [h for h in resid if not set(h['profiles']) & others]
+    # "hit by no other review profile": every review profile evaluated on the same tree (repo with its scope)
+    c_all, r_all, _ = a.run(['terms', '--commit', T, '--base', H, '--ledger', LEDGER, '--profile',
+                             ','.join(sorted(others | {'resid'})), '--scope',
+                             '%s:%srecords/repo-scope-v1.json' % (a.crev, a.ad)])
+    prof_at = {(h['file'], h['line']): set(h['profiles']) for h in r_all.get('hits', [])}
+    resid_only = [h for h in resid if not prof_at.get((h['file'], h['line']), set()) & others]
     a.record('RT-D', not any(i['class'] == 'deny-match' for i in res.get('items', [])) and
              all(st_of.get(k) == 'PASS' for k in w1_lines + w2_lines) and gr58 == 'REVIEW_REQUIRED' and
              len(resid) == 45 and len(resid_only) == 17,
@@ -813,7 +818,7 @@ def ex_controls(a):
     x = a.repo.derive(T, {lean: a.repo.read(T, lean) + b'\ndef controlDefinition : Nat := 1\n'}, parents=[H])
     code, res, t = a.run(exec_args(a, x))
     a.record('S11-10', 'lean-code-change' in classes(res), 'FAIL lean-code-change', classes(res))
-    gp = [e for e in a.led['edits'] if e.get('kind') == 'guard-pin' and e.get('targets')][0]
+    gp = [e for e in a.led['raw']['edits'] if e.get('kind') == 'guard-pin' and e.get('targets')][0]
     x = a.repo.derive(T, {gp['file']: a.base.read(H, gp['file'])}, parents=[H])
     code, res, t = a.run(exec_args(a, x))
     a.record('S11-12', 'pin-broken' in classes(res) or 'pin-target-missing' in classes(res),
