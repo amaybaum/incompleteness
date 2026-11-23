@@ -712,7 +712,7 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   pull request's kept branch. Keeping that branch and assigning the gap to an Issue were taken as
   enough. Hence §A.42 item 8: every off-`main` reference is traced to its claim before landing,
   and responsibility is not retention.
-- For nearly three weeks a tool layer between agent sessions and GitHub rewrote long `blob`
+- For nearly three weeks a tool layer between agents and GitHub rewrote long `blob`
   links in agent-written Issue and pull-request text into code spans, so that they no longer
   linked, and added a footer to some texts. It was found only when a byte-exact read-back
   compared the stored text with what was sent. Hence §A.49.
@@ -1526,18 +1526,18 @@ principle recorded at #1169 comment 7058521984, within the drafting scope of #11
 
 ## §A.49 Automated GitHub writes
 
-Text that an agent session writes to GitHub (Issue bodies, pull-request descriptions, comments) can be
-changed by tooling before GitHub stores it. Changes to long `blob` links and to a trailing attribution
-footer have been observed; their source and exact rules are not established. Whatever the attribution
-settings:
+Text that an automated agent writes to GitHub (Issue bodies, pull-request descriptions, comments),
+whatever the tool, can be changed by tooling before GitHub stores it. With Claude Code, changes to
+long `blob` links and a trailing attribution footer have been observed; their source and exact rules
+are not established. Whatever the tool or its attribution settings:
 
 1. **Check before writing.** Files are named by path and commit, or by a link of at most 101
    characters or one with a `#fragment`. Text containing a longer `blob` link without a `#fragment`,
    a carriage return or an invisible character is not sent.
 2. **Exact read-back.** After every write, the stored text is compared byte for byte with an
    expected text fixed before the write. For an Issue body or a pull-request description, the
-   expected text is the text sent. For an Issue comment posted through the owner-approved comment
-   procedure, it is the text that procedure states in advance, including the footer it expects.
+   expected text is the text sent. For an Issue comment posted through a procedure the owner has
+   approved, it is the text that procedure states in advance, including any footer it expects.
    No other normalization is allowed; any other difference is a mismatch.
 3. **Stop on a mismatch.** Automated GitHub text writes stop at once, the text sent and the text
    stored are kept, and the owner is told. Only an owner decision resumes writing; a later
