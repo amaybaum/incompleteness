@@ -950,6 +950,29 @@ def scope_from_record(repo, commit, sd):
 
 # ---- op C ------------------------------------------------------------------------------------------------
 
+def candidate_with_and_without(ctx, H, X, led, dele, M, L, C, side, recon, record_refs=None):
+    """Op C's candidate checks on X; with reconciliation records they are run without the records as well, and
+    any difference is record-invalid (S2, N2). Returns the Execution."""
+    ex = exmod.Execution(ctx, H, X, led, dele, M, L, C, side, recon)
+    ex.record_refs = record_refs or {}
+    ex.integrity()
+    ex.candidate()
+    ex.x_identity = None
+    if recon:
+        bare = exmod.Execution(ctx, H, X, led, dele, M, L, C, side, ())
+        bare.integrity()
+        bare.candidate()
+        with_r = sorted(i['fingerprint'] for i in ex.items)
+        without = sorted(i['fingerprint'] for i in bare.items)
+        ex.x_identity = {'with': len(with_r), 'without': len(without), 'identical': with_r == without}
+        if with_r != without:
+            for r in recon:
+                ex.item('RECORD', 'record-invalid', (r.get('_ref') or {}).get('path') or r.get('record_id'),
+                        {'why': 'changes X'},
+                        detail='op C\'s items on X differ with and without the reconciliation records (S2)')
+    return ex
+
+
 def native_env(a, repo, F, control):
     """The native execution environment (B2): clones are made only inside a host CI job, or when an in-process
     control asks for them on its own small repository; a replay takes every run from the snapshot."""
@@ -1011,24 +1034,9 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
     M = resolve(repo, a.main) if a.main else None
     L = resolve(repo, a.landing) if a.landing else None
     C = resolve(repo, a.certified) if a.certified else None
-    ex = exmod.Execution(ctx, H, X, led, dele, M, L, C, side, recon)
-    ex.record_refs = record_refs
-    ex.integrity()
-    ex.candidate()
+    ex = candidate_with_and_without(ctx, H, X, led, dele, M, L, C, side, recon, record_refs)
     if recon:
-        # S2 (N2): op C's candidate checks on X are run without the records as well; any difference is
-        # record-invalid
-        bare = exmod.Execution(ctx, H, X, led, dele, M, L, C, side, ())
-        bare.integrity()
-        bare.candidate()
-        with_r = sorted(i['fingerprint'] for i in ex.items)
-        without = sorted(i['fingerprint'] for i in bare.items)
-        result['reconciliation_x_identity'] = {'with': len(with_r), 'without': len(without),
-                                               'identical': with_r == without}
-        if with_r != without:
-            for r in recon:
-                ex.item('RECORD', 'record-invalid', (r.get('_ref') or {}).get('path'), {'why': 'changes X'},
-                        detail='op C\'s items on X differ with and without the reconciliation records (S2)')
+        result['reconciliation_x_identity'] = ex.x_identity
     if C and C != X:
         chain = first_parent_chain(repo, X, C)
         if chain is None:

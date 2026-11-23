@@ -331,6 +331,10 @@ class Execution:
                 if not rec:
                     self.item('MAIN', 'base-drift', path, {'h': hp.get(path), 'm': mp.get(path)}, file=path,
                               commit=made, failed_conditions=[e['failed'] for e in ev])
+                for e in ev:
+                    if 'R12' in e['failed']:
+                        self.item('RECORD', 'record-invalid', '%s:%s' % ((e.get('record') or {}).get('path'), path),
+                                  {'why': 'R12'}, detail='the record states decisions it changes on X (R12)')
             else:
                 cls, why = self._side_class(path)
                 entry['class'] = cls

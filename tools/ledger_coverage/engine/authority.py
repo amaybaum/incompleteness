@@ -200,17 +200,24 @@ def verify_history(host, repo_id, path, governing, main, kind, plan_threads=None
                     any(x.get('verdict') != 'accept' for x in rvd.get('verdicts', [])) or not rvd.get('verdicts'):
                 refuse('authority', 'authority change %s has no valid independent review record' % v['commit'][:12])
             prev_a = new_a
-            out.append({'commit': v['commit'], 'blob_sha256': new_sha, 'approval': hits[0]['id']})
+            out.append({'commit': v['commit'], 'blob_sha256': new_sha, 'approval': hits[0]['id'],
+                        'owner_id': new_a['owner']['id']})
         else:
             a = governing
+            # the approver is an owner id of a verified version of A (the one in effect may differ after an
+            # owner-id change; every version's owner passed the authority-change procedure)
+            owners = governing.get('_owner_ids') or [a['owner']['id']]
             cs_auth = read_thread(host, a['authority_thread']['repository_id'], a['authority_thread']['issue'])
-            ok = find_approval(a, cs_auth, 'authority-approve', {'frm': old_sha, 'to': new_sha}, a['owner']['id'],
-                               v.get('merged_at'))
+            ok = []
+            for oid in owners:
+                ok += find_approval(a, cs_auth, 'authority-approve', {'frm': old_sha, 'to': new_sha}, oid,
+                                    v.get('merged_at'))
             if not ok:
                 for (rid, issue), (plan, rnd) in (plan_threads or {}).items():
                     cs = read_thread(host, rid, issue)
-                    ok = find_approval(a, cs, 'ledger-append', {'frm': old_sha, 'to': new_sha}, a['owner']['id'],
-                                       v.get('merged_at'))
+                    for oid in owners:
+                        ok += find_approval(a, cs, 'ledger-append', {'frm': old_sha, 'to': new_sha}, oid,
+                                            v.get('merged_at'))
                     if ok:
                         break
             if len(ok) != 1:
@@ -318,7 +325,8 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
         refuse('ledger', 'the freeze ledger is not valid json')
     if ledger.get('schema') != ledger_schema or not isinstance(ledger.get('events'), list):
         refuse('ledger', 'the freeze ledger is not an oi-freeze-ledger/1 record')
-    led_versions = verify_history(host, repo_id, a['freeze_ledger_path'], a, main, 'ledger',
+    governing = dict(a, _owner_ids=sorted({v['owner_id'] for v in versions}))
+    led_versions = verify_history(host, repo_id, a['freeze_ledger_path'], governing, main, 'ledger',
                                   {thread: (plan_id, round_id)})
     if not led_versions or led_versions[-1]['blob_sha256'] != util.sha256(led_b):
         refuse('ledger', 'the freeze ledger on main has no verified history')

@@ -12,6 +12,7 @@ from . import pipeline as pl
 from . import profiles as pr
 from . import records as rec
 from . import rules as rulemod
+from . import reconcile as rcmod
 from . import util
 from .gitobj import Overlay
 
@@ -92,6 +93,12 @@ def ledger(base, splices, repo):
                                'old_sha256': util.sha256(data[a:b]), 'new': new, 'new_bytes': new.encode(),
                                'new_sha256': util.sha256(new.encode())})
         out['files'][path] = {'base_sha256': util.sha256(data)}
+    from . import segments as sgm
+    for path in out['files']:
+        out['files'][path]['expected_sha256'] = util.sha256(sgm.apply_splices(
+            repo.read(base, path), [s for s in out['splices'] if s['file'] == path]))
+    out['raw'] = {'files': out['files'], 'splices': [{k: v for k, v in s.items() if k != 'new_bytes'}
+                                                     for s in out['splices']], 'edits': []}
     return out
 
 
@@ -496,8 +503,15 @@ def r_controls():
         if l:
             e.landing()
         return e
-    e = run(M, side=[{'id': 'wf', 'paths': [wf]}])
+    def pin(cid, commit, *paths):
+        return {'id': cid, 'pins': [{'path': p, 'git_blob': w.repo.blob_id(commit, p),
+                                     'blob_sha256': util.sha256(w.repo.read(commit, p))} for p in paths]}
+    wfc = pin('wf', M, wf)
+    e = run(M, side=[wfc])
     out['R1'] = not e.items and e.side_changes[0]['class'] == 'wf'
+    # R18 (S3): a listed path whose blob at M differs from its pin; R19 (V3): a prefix alone classifies nothing
+    out['R18-engine'] = 'side-change-unclassified' in classes(run(M, side=[dict(wfc, pins=[dict(
+        wfc['pins'][0], blob_sha256='0' * 64)])]).items)
     xm = w.repo.derive(M, {doc_path: w.repo.read(X, doc_path)}, parents=[H])
     e2 = run(x=xm)
     out['R2'] = any(i['subject'] == wf for i in e2.items)
@@ -523,26 +537,33 @@ def r_controls():
     L7 = exmod.compose_landing(w.repo, H, M7, X, led, w.repo)
     e7l = run(M7, L7)
     out['R7'] = not [i for i in e7.items if i['obligation'] == 'RET'] and 'base-drift' in classes(e7.items)
-    rec8 = {'paths': [{'path': doc_path, 'm': w.repo.blob_id(M7, doc_path), 'l': w.repo.blob_id(L7, doc_path)}]}
+    rec8 = rcmod.draft(w.repo, ctx, H, M7, X, led, doc_path)
     e8 = run(M7, L7, recon=[rec8])
-    out['R8'] = not [i for i in e8.items if i['class'] in ('base-drift', 'landing-conflict-unresolved')]
+    out['R8'] = not [i for i in e8.items if i['class'] in ('base-drift', 'landing-conflict-unresolved',
+                                                         'record-invalid')]
+    bad8 = dict(rec8, paths=[dict(rec8['paths'][0], l=w.repo.blob_id(X, doc_path))])
+    e8b = run(M7, L7, recon=[bad8])
+    out['R8-S6'] = 'record-invalid' in classes(e8b.items) and 'base-drift' in classes(e8b.items)
     L = exmod.compose_landing(w.repo, H, M, X, led, w.repo)
-    out['RL'] = not run(M, L, side=[{'id': 'wf', 'paths': [wf]}]).items
+    out['RL'] = not run(M, L, side=[wfc]).items
     L9 = w.repo.derive(L, {}, parents=[X, M])
-    out['R9'] = 'landing-parents' in classes(run(M, L9, side=[{'id': 'wf', 'paths': [wf]}]).items)
+    out['R9'] = 'landing-parents' in classes(run(M, L9, side=[wfc]).items)
     L10 = w.repo.derive(L, {wf: None}, parents=[M, X])
-    out['R10'] = 'landing-drops-main-change' in classes(run(M, L10, side=[{'id': 'wf', 'paths': [wf]}]).items)
+    out['R10'] = 'landing-drops-main-change' in classes(run(M, L10, side=[wfc]).items)
     L11 = w.repo.derive(L, {other_path: b'extra word\n'}, parents=[M, X])
-    out['R11'] = 'landing-extra-change' in classes(run(M, L11, side=[{'id': 'wf', 'paths': [wf]}]).items)
+    out['R11'] = 'landing-extra-change' in classes(run(M, L11, side=[wfc]).items)
     L12 = w.repo.derive(L, {doc_path: w.repo.read(H, doc_path)}, parents=[M, X])
-    out['R12'] = bool(classes(run(M, L12, side=[{'id': 'wf', 'paths': [wf]}]).items))
+    out['R12'] = bool(classes(run(M, L12, side=[wfc]).items))
     M13 = w.child(H, files={'tools/t.py': b'x = 1\n'}, subject='tool landing')
-    out['R13'] = not run(M13, side=[{'id': 'tool', 'prefixes': ['tools/']}]).items
+    tool = dict(pin('tool', M13, 'tools/t.py'), prefixes=['tools/'])
+    out['R13'] = not run(M13, side=[tool]).items
+    M19 = w.child(M13, files={'tools/u.py': b'y = 2\n'}, subject='unlisted tool file')
+    out['R19-engine'] = 'side-change-unclassified' in classes(run(M19, side=[tool]).items)
     M14 = w.child(H, base_text.replace('epsilon closing', 'epsilon tool edit'), subject='tool touches ledgered')
-    out['R14'] = 'base-drift' in classes(run(M14, side=[{'id': 'tool', 'prefixes': ['tools/']}]).items)
+    out['R14'] = 'base-drift' in classes(run(M14, side=[tool]).items)
     Mo = w.child(M, files={'ops/other.yml': b'z\n'}, subject='another main')
     L15 = exmod.compose_landing(w.repo, H, Mo, X, led, w.repo)
-    out['R15'] = 'landing-first-parent-not-M' in classes(run(M, L15, side=[{'id': 'wf', 'paths': [wf, 'ops/other.yml']}],
+    out['R15'] = 'landing-first-parent-not-M' in classes(run(M, L15, side=[wfc, pin('o', Mo, 'ops/other.yml')],
                                                              cand=False).items)
     e16 = exmod.Execution(ctx, H, X, led, None, pin_ok=[{'file': 'tools/t.py', 'prefix': 'x', 'recorded_at': M}])
     e16.freeze = H
@@ -551,11 +572,29 @@ def r_controls():
     e17.freeze = M
     e17.pins({'min_len': 20, 'skip_prefixes': [], 'ok': []})
     out['N1'] = 'pin-broken' in classes(e16.items) and not e17.items
-    Xu = w.child(H, base_text.replace('betx', 'beta').replace('epsilon closing', 'epsilon other'), subject='bad')
-    rec_n2 = {'paths': [{'path': doc_path, 'm': None, 'l': None}]}
-    e18 = run(x=Xu, recon=[rec_n2])
-    out['N2'] = 'record-invalid' in classes(e18.items) and 'unauthorized-edit' in classes(e18.items)
+    # N2 (S2): op C's items on X with and without the records must be identical; a candidate stage that let a
+    # record change a decision on X is caught by that comparison (the defect is injected here)
+    out['N2'] = n2_control(w, ctx, H, X, led, rec8)
     return out
+
+
+def n2_control(w, ctx, H, X, led, rec):
+    from . import cli as climod
+    real = exmod.Execution.candidate
+
+    def leaky(self, commit=None, parent=None):
+        real(self, commit, parent)
+        if self.reconciliations:
+            self.items = [i for i in self.items if i['class'] != 'unauthorized-edit']
+    Xu = w.child(H, base_text.replace('beta line two', 'bxta line two', 1), subject='bad')
+    exmod.Execution.candidate = leaky
+    try:
+        items = climod.candidate_with_and_without(ctx, H, Xu, led, None, None, None, Xu, [], [rec]).items
+    finally:
+        exmod.Execution.candidate = real
+    clean = climod.candidate_with_and_without(ctx, H, Xu, led, None, None, None, Xu, [], [rec]).items
+    return 'record-invalid' in classes(items) and 'record-invalid' not in classes(clean) and \
+        'unauthorized-edit' in classes(clean)
 
 
 def rule_controls():
@@ -571,7 +610,7 @@ def rule_controls():
             'context_required': False, 'max_instances': 1,
             'fingerprints': [{'file': doc_path, 'sentence_sha256': util.sha256(sent),
                               'context_sha256': rulemod.sentence_context_sha(sents, k)}],
-            'recorded_at': w.pin, 'positive_examples': ['The zeta value counts items.'],
+            'recorded_at': w.pin, 'positive_examples': [sent, 'The zeta value counts items.'],
             'negative_examples': ['The zeta value counts omega items.'], 'reason': 'neutral', 'author': 'eng-writer'}
 
     def terms(commit, rules):

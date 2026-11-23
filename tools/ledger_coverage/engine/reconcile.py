@@ -214,3 +214,35 @@ def evaluate(repo, ctx, H, M, X, led, rdoc, entry, classes, record_refs):
             'composed_blob': blob_id_of(comp) if comp is not None else None,
             'composed_sha256': util.sha256(comp) if comp is not None else None,
             'side_change_commits': changes}
+
+
+def draft(repo, ctx, H, M, X, led, path, protected=(), classes=(), record_refs=None):
+    """A draft reconciliation record for one path, every value derived from git objects (for writers and
+    controls). A draft is never admitted without its review chain (sec. 6.3)."""
+    b = binding(led, path)
+    sps = [s for s in led['splices'] if s['file'] == path]
+    h = repo.read(H, path) or b''
+    m = repo.read(M, path) or b''
+    x = repo.read(X, path)
+    common = 0
+    while common < min(len(h), len(m)) and h[common] == m[common]:
+        common += 1
+    comp, placed = compose(repo, H, M, path, sps)
+    if comp is None:
+        return None
+    rsp = []
+    for sp, a, e in placed:
+        rsp.append({'id': sp['id'], 'start_H': sp['start'], 'end_H': sp['end'], 'start_M': a, 'end_M': e,
+                    'translation': 'identity' if a == sp['start'] and common >= sp['end'] else 'shift',
+                    'new_sha256': sp['new_sha256']})
+    prot = []
+    for a, e in protected:
+        prot.append({'start_M': a, 'end_M': e, 'sha256': util.sha256(m[a:e])})
+    entry = {'path': path, 'm': repo.blob_id(M, path), 'm_sha256': util.sha256(m),
+             'x': repo.blob_id(X, path), 'x_sha256': util.sha256(x or b''),
+             'l': blob_id_of(comp), 'l_sha256': util.sha256(comp), 'splices': rsp, 'protected': prot}
+    ev = evaluate(repo, ctx, H, M, X, led, {'ledger_binding': b}, dict(entry, side_change_commits=[]),
+                  list(classes), record_refs or {})
+    entry['side_change_commits'] = ev['side_change_commits']
+    return {'schema': 'oi-reconciliation/1', 'record_id': 'draft-%s' % path, 'supersedes': None,
+            'ledger_binding': b, 'paths': [entry], 'changes_decisions_on_X': []}
