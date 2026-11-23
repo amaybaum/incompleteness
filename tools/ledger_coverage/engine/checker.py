@@ -57,10 +57,18 @@ def accept(doc, exit_status, pins):
     return True
 
 
-def accept_with_host(doc, exit_status, pins, host, landing):
-    """The full predicate: the offline part, then trust-root points 1-3 repeated from the host by the consumer,
-    the evaluated commits against the landing record, and the result file against the run's artifact."""
-    if not accept(doc, exit_status, pins):
+def accept_with_host(raw, exit_status, pins, host, landing):
+    """The full predicate over the result file's raw bytes: the offline part, then trust-root points 1-3 repeated
+    from the host by the consumer, the evaluated commits against the landing record, and the result file against the
+    run's artifact. The consumer hashes the bytes it is given itself: their sha256 must equal the run's uploaded
+    artifact and the landing record's result hash (sec. 5), and the predicate is evaluated on exactly those bytes."""
+    if not isinstance(raw, bytes):
+        return False
+    try:
+        doc = json.loads(raw.decode('utf-8'))
+    except (ValueError, UnicodeDecodeError):
+        return False
+    if not isinstance(doc, dict) or not accept(doc, exit_status, pins):
         return False
     snap = doc['config']['admission']['snapshot']
     run = host.run_record(snap['run']['run_id'], pins['repository_id'])
@@ -96,7 +104,7 @@ def accept_with_host(doc, exit_status, pins, host, landing):
     if snap.get('evaluated') != landing.get('evaluated'):
         return False
     art = host.artifact_sha256(run['repository_id'], snap['run']['run_id'], landing.get('artifact_name'))
-    if art is None or art != landing.get('result_sha256'):
+    if art is None or art != landing.get('result_sha256') or hashlib.sha256(raw).hexdigest() != art:
         return False
     return True
 

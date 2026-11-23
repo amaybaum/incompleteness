@@ -13,13 +13,37 @@ record_schemas = ('oi-term-rules/2', 'oi-hp-adjudication/1', 'oi-context-adjudic
 _url = re.compile(r'://|/runs/|/actions|check[-_ ]run|/issues/\d+$|^#\d+$|/pull/\d+$')
 
 
+item_lists = (('rules', 'id'), ('sites', 'site_id'), ('entries', 'id'), ('classifications', 'id'), ('records', 'id'),
+              ('classes', 'id'))
+
+
+def entries_without_id(doc):
+    """[(list key, index)] of every entry of an item list that is not an object carrying its id field as a non-empty
+    string (sec. 6.3: a missing field is record-invalid)."""
+    if not isinstance(doc, dict) or doc.get('schema') == 'oi-retirement-config/1':
+        return []
+    out = []
+    for key, idf in item_lists:
+        if isinstance(doc.get(key), list):
+            out += [(key, i) for i, x in enumerate(doc[key])
+                    if not (isinstance(x, dict) and isinstance(x.get(idf), str) and x[idf])]
+    return out
+
+
 def item_ids(doc):
+    """The item ids a review gives one verdict each (sec. 6.3). The ids of every non-empty item list; a record with
+    no item list is one item, its record id. A record any of whose list entries lacks its id field has no item ids,
+    and is record-invalid: the record id never stands in for an entry's id."""
     if doc.get('schema') == 'oi-retirement-config/1':
         return [doc.get('config_id')]
-    for key, idf in (('rules', 'id'), ('sites', 'site_id'), ('entries', 'id'), ('classifications', 'id'),
-                     ('records', 'id'), ('classes', 'id')):
-        if isinstance(doc.get(key), list) and doc[key] and all(isinstance(x, dict) and idf in x for x in doc[key]):
-            return sorted(x[idf] for x in doc[key])
+    if entries_without_id(doc):
+        return []
+    ids = []
+    for key, idf in item_lists:
+        if isinstance(doc.get(key), list):
+            ids += [x[idf] for x in doc[key]]
+    if ids:
+        return sorted(ids)
     for key in ('config_id', 'record_id', 'site_id', 'id'):
         if isinstance(doc.get(key), str):
             return [doc[key]]
@@ -125,6 +149,10 @@ def lint_chain(ref, store, owner, admitted_shas):
             out.append('record %s: review names another blob of the same path' % ref['path'])
         else:
             out.append('record %s: no review record' % ref['path'])
+        return out
+    missing = entries_without_id(doc)
+    if missing:
+        out.append('record %s: %s entry %d lacks its id field' % ((ref['path'],) + missing[0]))
         return out
     ids = item_ids(doc)
     if not ids:

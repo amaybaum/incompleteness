@@ -774,8 +774,9 @@ def f1_controls(t):
     NEW = 5555
 
     def ledger_change(w, approver, via, rnd):
+        # an append to the current ledger (the ledger is append-only, sec. 6.3)
         old = w.ledger_bytes
-        new = hf.jb({'schema': auth.ledger_schema, 'events': [
+        new = hf.jb({'schema': auth.ledger_schema, 'events': json.loads(old.decode('utf-8'))['events'] + [
             {'plan': hf.PLAN, 'round': rnd, 'kind': 'withdraw', 'commit': 'ab' * 20, 'comment_id': 1,
              'author_id': approver, 'created_at': '2026-11-23T00:00:00Z', 'first_line': 'x'}]})
         if via == 'append':
@@ -912,7 +913,7 @@ def f3_controls(t):
         w2.h.artifacts[(w2.run_id, 'ledger-coverage-result')] = sha(raw)
         landing = {'evaluated': s2.get('evaluated'), 'artifact_name': 'ledger-coverage-result',
                    'result_sha256': sha(raw)}
-        return checker.accept_with_host(chain, 0, host_pins, w2.h, landing)
+        return checker.accept_with_host(raw, 0, host_pins, w2.h, landing)
     out = {'present': at_head({'syn/unrelated.txt': b'x\n'}),
            'absent': at_head({auth.authority_path: None}),
            'different': at_head({auth.authority_path: w.a_bytes + b' '})}
@@ -1239,12 +1240,12 @@ def acceptance_controls(r, t):
                      engine_pins={}, authority_blob_sha256=sha(w.a_bytes))
     landing = {'evaluated': snap.get('evaluated'), 'artifact_name': 'ledger-coverage-result',
                'result_sha256': sha(raw)}
-    ok_full = checker.accept_with_host(chain, 0, host_pins, w.h, landing)
+    ok_full = checker.accept_with_host(raw, 0, host_pins, w.h, landing)
     bad_landing = dict(landing, evaluated={'commit': '0' * 40})
     check('TR30', 'a result whose evaluated commits differ from the landing record\'s: non-acceptance',
           "accept_with_host is true for the matching landing record and false for the other",
-          {'matching': ok_full, 'differing': checker.accept_with_host(chain, 0, host_pins, w.h, bad_landing)},
-          ok_full and not checker.accept_with_host(chain, 0, host_pins, w.h, bad_landing))
+          {'matching': ok_full, 'differing': checker.accept_with_host(raw, 0, host_pins, w.h, bad_landing)},
+          ok_full and not checker.accept_with_host(raw, 0, host_pins, w.h, bad_landing))
     gz_bad = checker.deterministic_gzip(raw + b' ')
     check('TR46', 'a committed compressed result whose uncompressed sha256 differs from the recorded one: refused '
           'at landing', "verify_compressed is true for the exact bytes and false for the altered ones, and the gzip "

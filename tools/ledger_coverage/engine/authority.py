@@ -149,6 +149,32 @@ def find_approval(a, cs, name, fields, author_id, before):
     return hits
 
 
+def _fresh(hits, consumed, point, what):
+    """Single use (sec. 6.3): an approval comment authorizes exactly one change. Returns the matching comments that
+    no earlier verified change consumed; refuses when every match was consumed."""
+    fresh = [c for c in hits if c['id'] not in consumed]
+    if hits and not fresh:
+        refuse(point, '%s: approval comment %s already authorized an earlier change' % (what, hits[0]['id']))
+    return fresh
+
+
+def _ledger_extension_problem(old, new):
+    """None when the ledger blob `new` extends `old` (sec. 6.3, an append-only list): the events of `old` are a
+    proper prefix of those of `new` and no other field changes. Otherwise the reason."""
+    try:
+        o, n = json.loads(old.decode('utf-8')), json.loads(new.decode('utf-8'))
+    except (ValueError, UnicodeDecodeError):
+        return 'a ledger version is not valid json'
+    if not isinstance(o, dict) or not isinstance(n, dict) or not isinstance(o.get('events'), list) or \
+            not isinstance(n.get('events'), list):
+        return 'a ledger version has no event list'
+    if {k: v for k, v in o.items() if k != 'events'} != {k: v for k, v in n.items() if k != 'events'}:
+        return 'a field other than the events changed'
+    if len(n['events']) <= len(o['events']) or n['events'][:len(o['events'])] != o['events']:
+        return 'the earlier events are not a proper prefix of the later ones'
+    return None
+
+
 # ---- the authority-change procedure ---------------------------------------------------------------------------
 
 def review_path(a, to_sha):
@@ -177,11 +203,15 @@ def in_force(host, repo_id, a_versions, commit):
     return got
 
 
-def verify_history(host, repo_id, path, governing, main, kind, plan_threads=None, a_versions=None):
+def verify_history(host, repo_id, path, governing, main, kind, plan_threads=None, a_versions=None, consumed=None):
     """Every version of `path` on main passed its approval procedure. kind: 'authority' or 'ledger'.
     Returns the list of versions with their approvals. For kind 'authority', `a_versions` (a list) receives
     (commit, parsed A) for every verified version; for kind 'ledger' it supplies them, and each ledger change is
-    approved by the owner of the version in force when it merged."""
+    approved by the owner of the version in force when it merged. `consumed` (a set, shared between the authority
+    and the ledger histories) holds the approval comment ids already used: each comment authorizes one change.
+    Each ledger version extends the previous one, and each ledger change has a merge record."""
+    if consumed is None:
+        consumed = set()
     try:
         hist = host.file_history(repo_id, path)
     except HostUnavailable as exc:
@@ -202,15 +232,19 @@ def verify_history(host, repo_id, path, governing, main, kind, plan_threads=None
                 refuse('authority', 'the authority record does not supersede the previous one')
             gov = prev_a or new_a
             cs = read_thread(host, gov['authority_thread']['repository_id'], gov['authority_thread']['issue'])
-            hits = find_approval(gov, cs, 'authority-approve', {'frm': old_sha, 'to': new_sha}, gov['owner']['id'],
-                                 v.get('merged_at'))
+            what = 'authority change %s' % v['commit'][:12]
+            hits = _fresh(find_approval(gov, cs, 'authority-approve', {'frm': old_sha, 'to': new_sha},
+                                        gov['owner']['id'], v.get('merged_at')), consumed, 'authority', what)
             if len(hits) != 1:
                 refuse('authority', 'authority change %s has %d valid approvals by the owner id' % (v['commit'][:12],
                                                                                                    len(hits)))
+            used = [hits[0]['id']]
             if prev_a is not None and new_a['owner']['id'] != prev_a['owner']['id']:
-                if len(find_approval(gov, cs, 'authority-approve', {'frm': old_sha, 'to': new_sha},
-                                     new_a['owner']['id'], v.get('merged_at'))) != 1:
+                co = _fresh(find_approval(gov, cs, 'authority-approve', {'frm': old_sha, 'to': new_sha},
+                                          new_a['owner']['id'], v.get('merged_at')), consumed, 'authority', what)
+                if len(co) != 1:
                     refuse('authority', 'an owner-id change needs the approval of the new id as well')
+                used.append(co[0]['id'])
             if v.get('merged_by_id') != gov['owner']['id']:
                 refuse('authority', 'authority change %s was merged by another account' % v['commit'][:12])
             rv = host.file_at(repo_id, main, review_path(new_a, new_sha))
@@ -223,28 +257,43 @@ def verify_history(host, repo_id, path, governing, main, kind, plan_threads=None
                     rvd.get('reviewer') in (None, gov['owner']['login']) or \
                     any(x.get('verdict') != 'accept' for x in rvd.get('verdicts', [])) or not rvd.get('verdicts'):
                 refuse('authority', 'authority change %s has no valid independent review record' % v['commit'][:12])
+            consumed.update(used)
             prev_a = new_a
             if a_versions is not None:
                 a_versions.append((v['commit'], new_a))
             out.append({'commit': v['commit'], 'blob_sha256': new_sha, 'approval': hits[0]['id'],
                         'owner_id': new_a['owner']['id']})
         else:
+            what = 'freeze-ledger change %s' % v['commit'][:12]
+            # a ledger change lands by a pull-request merge, whose time bounds its approval (sec. 6.3); a change
+            # with no merge record (a direct push) is refused
+            if v.get('merged_at') is None:
+                refuse('ledger', '%s has no merge record' % what)
+            # the ledger is append-only (sec. 6.3): each version extends the previous one, so no change can be
+            # reverted and re-applied under an approval already given
+            if prev_blob is not None:
+                why = _ledger_extension_problem(prev_blob, blob)
+                if why:
+                    refuse('ledger', '%s is not an append: %s' % (what, why))
             # the approver is the owner of the version of A in force when this ledger change merged (sec. 6.3); the
             # owner of a superseded version keeps no authority over a change merged after its supersession
             a = in_force(host, repo_id, a_versions, v['commit']) if a_versions else governing
             oid = a['owner']['id']
             cs_auth = read_thread(host, a['authority_thread']['repository_id'], a['authority_thread']['issue'])
-            ok = find_approval(a, cs_auth, 'authority-approve', {'frm': old_sha, 'to': new_sha}, oid,
-                               v.get('merged_at'))
-            if not ok:
+            hits = find_approval(a, cs_auth, 'authority-approve', {'frm': old_sha, 'to': new_sha}, oid,
+                                 v.get('merged_at'))
+            if not [c for c in hits if c['id'] not in consumed]:
                 for (rid, issue), (plan, rnd) in (plan_threads or {}).items():
                     cs = read_thread(host, rid, issue)
-                    ok += find_approval(a, cs, 'ledger-append', {'frm': old_sha, 'to': new_sha}, oid,
-                                        v.get('merged_at'))
-                    if ok:
+                    h = find_approval(a, cs, 'ledger-append', {'frm': old_sha, 'to': new_sha}, oid,
+                                      v.get('merged_at'))
+                    hits += h
+                    if [c for c in h if c['id'] not in consumed]:
                         break
+            ok = _fresh(hits, consumed, 'ledger', what)
             if len(ok) != 1:
-                refuse('ledger', 'freeze-ledger change %s has no verified approval comment' % v['commit'][:12])
+                refuse('ledger', '%s has no verified approval comment' % what)
+            consumed.add(ok[0]['id'])
             out.append({'commit': v['commit'], 'blob_sha256': new_sha, 'approval': ok[0]['id']})
         prev_blob = blob
     return out
@@ -324,7 +373,9 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
             refuse('identity', 'tool file %s at the run\'s commit differs from its pin' % p)
     # the authority-change procedure over every version of A on main
     a_versions = []
-    versions = verify_history(host, repo_id, authority_path, None, main, 'authority', a_versions=a_versions)
+    consumed = set()
+    versions = verify_history(host, repo_id, authority_path, None, main, 'authority', a_versions=a_versions,
+                              consumed=consumed)
     if not versions or versions[-1]['blob_sha256'] != util.sha256(a_bytes):
         refuse('authority', 'the authority record on main has no verified history')
     # F must contain A, a verified version
@@ -358,7 +409,7 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
     if ledger.get('schema') != ledger_schema or not isinstance(ledger.get('events'), list):
         refuse('ledger', 'the freeze ledger is not an oi-freeze-ledger/1 record')
     led_versions = verify_history(host, repo_id, a['freeze_ledger_path'], a, main, 'ledger',
-                                  {thread: (plan_id, round_id)}, a_versions=a_versions)
+                                  {thread: (plan_id, round_id)}, a_versions=a_versions, consumed=consumed)
     if not led_versions or led_versions[-1]['blob_sha256'] != util.sha256(led_b):
         refuse('ledger', 'the freeze ledger on main has no verified history')
     snap_events = []

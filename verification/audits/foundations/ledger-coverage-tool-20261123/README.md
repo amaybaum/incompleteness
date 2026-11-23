@@ -25,14 +25,14 @@ scientific question and no row disposition.
 | `records/repo-scope-v1.json` | `oi-scope/1` | the scope of the `repo` profile (item 11) |
 | `rules/register-infinity-params-v1.json` | `oi-term-rules/2` | the per-edit parameters of items 5 and 6 that are not extractable assignments of the plan's checker (kind `params`), linted against that checker |
 | `records/side-change-classes-v1.json` | `oi-side-change-classes/1` | the class `tool-landing` only: every path this tool's landing adds, each with its exact blob |
+| `freeze/freeze-ledger.json` | `oi-freeze-ledger/1` | the empty freeze ledger (it lands on `main` with the authority record) |
+| `workflow-draft/ledger-coverage.yml` | workflow | the one workflow whose runs may produce an acceptable result; its content hash is pinned in the authority record under `.github/workflows/ledger-coverage.yml`, where it must land unchanged |
 
 The A1 configuration `retirement-config.json` (`oi-retirement-config/1`) is not part of this landing. It
 belongs in the retirement plan's record directory, `verification/audits/foundations/a1exit-deletion-20261121/`,
 frozen with the plan at `F` with its review and authorization (design sec. 16.2), and it pins the class record
 above; the class record pins every other path of this landing. Until then it exists only as an unreviewed,
 unauthorized draft outside the repository, and the A1 controls read it with `--staged-config`.
-| `freeze/freeze-ledger.json` | `oi-freeze-ledger/1` | the empty freeze ledger (it lands on `main` with the authority record) |
-| `workflow-draft/ledger-coverage.yml` | workflow | the one workflow whose runs may produce an acceptable result; its content hash is pinned in the authority record under `.github/workflows/ledger-coverage.yml`, where it must land unchanged |
 
 ## Limitations (stated, not closed)
 
