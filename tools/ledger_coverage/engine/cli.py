@@ -246,7 +246,7 @@ def rule_files(loaded, harness, ctx_lookup):
                 widen.append('%s:deny rule removed' % rid)
         wp = rec.widening_review_problems(ref, loaded.store, loaded.admitted, rec.reviewers_of(ref, loaded.store),
                                           doc.get('author'), sup, widen, owner) if widen else []
-        if wp and not harness:
+        if wp and (not harness or ctx_lookup.get('force_widening')):
             probs.append('widening without a valid widening review (%s): %s' % ('; '.join(widen[:3]), wp[0]))
         if probs:
             items.append(oc.make_item('RECORD', 'record-invalid', ref['path'], None, {'why': probs[0]},
@@ -426,6 +426,7 @@ def stages(a, repo, harness, result, extra_records, preflight_fn, control, envir
     if harness and control.get('replace_rule_files') is not None:
         loaded.rule_files = control['replace_rule_files'](loaded.rule_files)
         result['control'] = 'rule files replaced in memory by the control'
+    lookup['force_widening'] = bool(harness and control.get('force_widening'))
     allow, rule_items = rule_files(loaded, harness and not control.get('lint_chain'), lookup)
     ctx.allow_rules = allow
     bad = {i['subject'] for i in rule_items}

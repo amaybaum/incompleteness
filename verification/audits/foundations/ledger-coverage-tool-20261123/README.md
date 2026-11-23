@@ -1,13 +1,13 @@
 # Ledger and terminology verification tool: records (unreviewed drafts)
 
-Status: Stage 1 implementation of the accepted design (DESIGN v5.1, sha256
-0c4ff0e60331d0e9604ece0c997dec472b3f977bf24384676d74f850bff4a3fe). **Every record in this directory is an
-unreviewed draft.** None has an independent review record or an owner authorization record, and no freeze `F`
-exists. Under the review chain the tool therefore refuses the configuration with ERROR `CONFIG_UNREVIEWED`
-(exit 65). The real-tree controls run through the control harness of
-`tools/ledger_coverage/adapters/a1_controls.py`, which admits the draft configuration without its chain and
-states that in every result. A harness result is evidence about the implementation, never an acceptance of a
-check of the retirement plan.
+Status: implementation of the frozen design v5.5.2 (sha256
+835ff356200349db7689ea41ce936349015fb70f47b35a508945d681a8604323). **Every record in this directory is an
+unreviewed draft**, and so is the tool authority record `tools/ledger_coverage/authority.json`. None has an
+independent review record or an owner authorization record, and no freeze `F` exists. A configuration is admitted
+only inside a host job of the pinned workflow, from `F`'s pin table and the owner's designation of `F` (design
+sec. 6.3); every other run is refused with ERROR `CONFIG_UNREVIEWED` (exit 65). The real-tree controls run
+through the control harness, which writes `control-result.json` with `"harness": true`; a harness result is
+evidence about the implementation and is never acceptable.
 
 Goal link (sec. A.47): A1-EXIT (#1169), the exception-free verification route. This directory decides no
 scientific question and no row disposition.
@@ -24,7 +24,10 @@ scientific question and no row disposition.
 | `rules/w1-w2-allow-v1.json` | `oi-term-rules/2` | the seed allow rules W1 (four sentences) and W2 (two sentences), fingerprinted at T1' |
 | `records/gr58-hit-classification-v1.json` | `oi-hit-classification/1` | the classification of papers/GR.md:58 at T1' |
 | `records/repo-scope-v1.json` | `oi-scope/1` | the scope of the `repo` profile (item 11) |
-| `records/side-change-classes-v1.json` | `oi-side-change-classes/1` | side-change classes: the trial workflow and this tool's landing paths |
+| `rules/register-infinity-params-v1.json` | `oi-term-rules/2` | the per-edit parameters of items 5 and 6 that are not extractable assignments of the plan's checker (kind `params`), linted against that checker |
+| `records/side-change-classes-v1.json` | `oi-side-change-classes/1` | the class `tool-landing` only: every path this tool's landing adds, each with its exact blob |
+| `freeze/freeze-ledger.json` | `oi-freeze-ledger/1` | the empty freeze ledger (it lands on `main` with the authority record) |
+| `workflow-draft/ledger-coverage.yml` | workflow | the one workflow whose runs may produce an acceptable result; its content hash is pinned in the authority record under `.github/workflows/ledger-coverage.yml`, where it must land unchanged |
 
 ## Limitations (stated, not closed)
 
@@ -44,12 +47,14 @@ says nothing about the meaning of any replacement text (design sec. 1).
 
 ## Reproduction
 
-From the repository root, with a configuration admitted under its chain (not yet possible for these drafts):
+From the repository root, inside a host job of the pinned workflow, with a designated freeze F whose pin table lists the configuration, its review and its authorization:
 
-    python3 -I -B tools/ledger_coverage.py coverage --config REV:verification/audits/foundations/ledger-coverage-tool-20261123/a1exit-retirement-config.json --config-sha256 SHA --commit REV --out DIR
+    python3 -I -B tools/ledger_coverage.py coverage --config F:PATH --freeze F --plan PLAN --round ROUND --commit REV --out DIR
 
-The control runs of Stage 1:
+The control runs:
 
     python3 -I -B tools/ledger_coverage.py self-test --out DIR
     python3 -I -B tools/ledger_coverage/adapters/synthetic_fixture.py DIR .
+    python3 -I -B tools/ledger_coverage/adapters/conformance_controls.py DIR
+    python3 -I -B tools/ledger_coverage/adapters/a1_conformance.py --repo . --config HEAD:verification/audits/foundations/ledger-coverage-tool-20261123/a1exit-retirement-config.json --out DIR
     python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo . --config HEAD:verification/audits/foundations/ledger-coverage-tool-20261123/a1exit-retirement-config.json --out DIR

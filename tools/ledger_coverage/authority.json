@@ -1,0 +1,92 @@
+{
+ "schema": "oi-tool-authority/2",
+ "status": "UNREVIEWED DRAFT: no approval comment, no independent review record and no owner authorization exist. The plan round ids and the authority thread are draft values for owner decision.",
+ "owner": {
+  "id": 7273571,
+  "login": "amaybaum"
+ },
+ "repository": {
+  "id": 1156244443,
+  "full_name": "amaybaum/incompleteness",
+  "fork": false
+ },
+ "workflow": {
+  "path": ".github/workflows/ledger-coverage.yml",
+  "content_sha256": "05bd76faa21138ca47f9d628dc52c507ef5ec86d40941d4970b98f7eed00f461"
+ },
+ "engine_pins": {
+  "tools/ledger_coverage/__init__.py": "b0072faa34b8db8ce3d86a70a06835f88094856f060a1540d1acd41f23e12d99",
+  "tools/ledger_coverage/adapters/__init__.py": "d1b8b5e2f52f7f43fd794ec783c80124beae41b28804e26bac05981f1b65f34a",
+  "tools/ledger_coverage/adapters/a1_conformance.py": "ae4128b577e133a8c48b243c018d139081ce2321bd4b2206b79eb50db2c6f091",
+  "tools/ledger_coverage/adapters/a1_controls.py": "58dfea98471f6e45eeab854febe8aaad45c843f48abe1b85f5185ada82fba668",
+  "tools/ledger_coverage/adapters/a1exit_exact_edit.py": "efdc8bf861d8e057f2f50612ef8dea0415705a0815f6bac6e3984fd6a03bf21d",
+  "tools/ledger_coverage/adapters/a1exit_sitemap.py": "b01001bc64d39367f00f9e36502933519ca0b28be3bd4af817679287698dd0e5",
+  "tools/ledger_coverage/adapters/artifact_hash.py": "74f719c9119fb77896868385c1b3142f747dfde6a2c450d4fc3cea1ca0a7a7cf",
+  "tools/ledger_coverage/adapters/conformance_controls.py": "0743a6d6c086e5d9219a01605a6550051252c86f7969c3bdf7e9d61a5ab279a1",
+  "tools/ledger_coverage/adapters/deleg_fingerprint_regen.py": "3c86abe926f1f2e7c581a9e8ce88ce60d6bcba3f85e6143bcb1948b600c8f6ab",
+  "tools/ledger_coverage/adapters/deleg_host_run.py": "10e154ca32e5457efca8ec1a18db8bdb83203935f849eab35d5958ea22ea1376",
+  "tools/ledger_coverage/adapters/deleg_preserve_check.py": "e524f675215f354baf41c91b2469c9d4eacc7beb03f3dc21e4f583e177388527",
+  "tools/ledger_coverage/adapters/deleg_record_dir.py": "bb82c3f8f696b9c58425a4b80cb072673a7e63cc737c629307989ee8065cee54",
+  "tools/ledger_coverage/adapters/deleg_rerun_equal.py": "58debe302a8b83c67e46c56b3291a5ed6e35aa02bd2cb09e662f56f14e41c0aa",
+  "tools/ledger_coverage/adapters/host_fixture.py": "2eef330d45226dd0e62db7ccb889417bb67e3dc8f92fbe6e4441471e37672939",
+  "tools/ledger_coverage/adapters/line_patch.py": "1ca45cae73494a7c1616de7a8411a2c115b3ac7f6bd20bbc5f906c8ff981978c",
+  "tools/ledger_coverage/adapters/python_frozen_replay.py": "79ad93539fb24ba9bce8ece8c140fdfbaf38dbcb9b38d60a5327bfd41b2e2b0a",
+  "tools/ledger_coverage/adapters/synthetic_fixture.py": "7e9f3e83767af4513e0157a85ad0d05c1d11acd7b870ca77e8e15bae7c6f359f",
+  "tools/ledger_coverage/engine/__init__.py": "9a53e22ce914f807e90487dba08c25a2880006148ebfe28e9ee97b7fd185e0f9",
+  "tools/ledger_coverage/engine/authority.py": "3959835494b7a6fdd2822649bef9fd393b650ae8ef5ba5c4f7c4801e3caa76bb",
+  "tools/ledger_coverage/engine/checker.py": "ab4217b2b12464126640eca8eb33dccd74ccc3541f8881d2852964d732f661c3",
+  "tools/ledger_coverage/engine/cli.py": "2bc4da0ee06aa51eb63c586916d145a8c7d420a80bbfa8bd1fe7e0a8759f50cd",
+  "tools/ledger_coverage/engine/config.py": "0e7963a2c5af8ed3b3f8ec892660ea389606d170363bd6a1b8f696ac14129c06",
+  "tools/ledger_coverage/engine/context.py": "5980ad55a134fbc15a91ad44e9ee517269599805e433d3abcd72cd001c15b686",
+  "tools/ledger_coverage/engine/controls_engine.py": "71da29d28a522a09f7a5e95ad7ab3c496974278590e61afc81db0a08c8f06acf",
+  "tools/ledger_coverage/engine/delegation.py": "b4095e068474d3b125693ed1b197b648b3fb5d78c03ec1172eeb803d09b90567",
+  "tools/ledger_coverage/engine/execution.py": "8436e5aa306df4036a921d52913356ef8ca6213e9678f46b6667e0f9fc08fd82",
+  "tools/ledger_coverage/engine/gitobj.py": "b25e9537aa8db916642c91637199e9512fcdbd45c33535c5cbf72d4bbb48d91a",
+  "tools/ledger_coverage/engine/host.py": "71bf9e1de6b0fbbba709e94c60ad1fa9055999a00e76b1b17c927f2d40fda3aa",
+  "tools/ledger_coverage/engine/outcome.py": "5f868f4019b6892a3337eb1d8ccb057af84d5e4f23f8d4621fd380ac356bb170",
+  "tools/ledger_coverage/engine/peredit.py": "ec8eb2bc59200e621c6f53952e1dda631a09affbb226cee04af281d151b3a38a",
+  "tools/ledger_coverage/engine/pipeline.py": "5970ed877c94b3222bbc00473280ef0b3c4522028d3ada4b52b3bf76f5de4c6f",
+  "tools/ledger_coverage/engine/profiles.py": "9fd62cfb11c5b4799694286012567625edc9c4753ebb9a9c484ffca94a013b0d",
+  "tools/ledger_coverage/engine/purity.py": "cf7995098cfbedb515f943bf36bd5cf6763db74d794b15f629daff2362801bff",
+  "tools/ledger_coverage/engine/reconcile.py": "bbe8cfc4aad0f306e87c62ee749b903232b56226fadb98d23ccd9bdb1c9e616d",
+  "tools/ledger_coverage/engine/records.py": "fd4b56d29025a1f8a271c06a00b90cb6b2c9727ef872dfac3b34fd9cdeaf8ba1",
+  "tools/ledger_coverage/engine/replay.py": "6f26d917a35ae3fdbc16fc088a8ca18abb4104203204ab47e9afeabd4c3fc89b",
+  "tools/ledger_coverage/engine/rules.py": "c0e1e156a3058f4a49201cda2c1fcb4ec4677e4148eab3f39cdbc9517deb6619",
+  "tools/ledger_coverage/engine/schema.py": "6e7fc27f8c20052b692402e17d50f8eb1ab648f5c49faf213d8c8263e87a4d36",
+  "tools/ledger_coverage/engine/schemas/oi-ledger-coverage-4.schema.json": "e0242decc589052bbc60c97feed532ffa8e08f17457b5daab44e4d68fc2e02af",
+  "tools/ledger_coverage/engine/segments.py": "47f6c6b06fd7f2872fad2e997a29525e1b9278e45c152ca2fc354ea0f9c6d193",
+  "tools/ledger_coverage/engine/selftest.py": "128f99a4e7ec957418df76bec5317ea9f419286b39d270d2f66bb04a2b045dce",
+  "tools/ledger_coverage/engine/util.py": "7cb6eeccb332189cca5c8073dac69530660e381345662cf545a7f116612d7a6f",
+  "tools/ledger_coverage.py": "f7ce63a6384b22f7edb69e81d977ca51db980e60f3507f734c59ff582c47bf9e"
+ },
+ "plans": [
+  {
+   "plan_id": "a1exit",
+   "thread": {
+    "repository_id": 1156244443,
+    "issue": 1169
+   },
+   "rounds": [
+    "f1"
+   ],
+   "pin_table_path": "verification/audits/foundations/a1exit-deletion-20261121/PREREG.md"
+  }
+ ],
+ "authority_thread": {
+  "repository_id": 1156244443,
+  "issue": 1169
+ },
+ "freeze_ledger_path": "verification/audits/foundations/ledger-coverage-tool-20261123/freeze/freeze-ledger.json",
+ "forms": {
+  "version": 1,
+  "first_line": "the body bytes up to the first LF, with at most one trailing CR removed and no other normalization",
+  "templates": {
+   "freeze-designate": "oi-freeze/1 designate plan=<plan_id> round=<round_id> commit=<F>",
+   "freeze-withdraw": "oi-freeze/1 withdraw plan=<plan_id> round=<round_id> commit=<F>",
+   "freeze-supersede": "oi-freeze/1 supersede plan=<plan_id> round=<round_id> commit=<F> by=<F2>",
+   "authority-approve": "oi-authority/1 approve from=<from> to=<to>",
+   "ledger-append": "oi-freeze-ledger/1 append plan=<plan_id> round=<round_id> from=<from> to=<to>"
+  }
+ },
+ "supersedes": null
+}

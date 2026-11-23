@@ -38,7 +38,7 @@ LEDGER = P + ':' + PL + 'ledger.json'
 EDITS = P + ':' + PL + 'edits.json'
 FULL = 'book/The-Incompleteness-of-Observation-FULL.md'
 WF = '.github/workflows/a1exit-trial-verify.yml'
-MAIN = '4fb2c1eed350edf95da2b316abcca93717246589'  # main at the time of this implementation (the sec. A.49 merge)
+MAIN = '8e9b83341cf5bc7fd9fb260892d0385fc9bfab4d'  # main at the time of this implementation
 
 
 def sha(b):
@@ -73,7 +73,11 @@ class A1:
         return code, res or {}, round(time.time() - t, 1)
 
     def record(self, cid, passed, expected, actual, **extra):
-        d = {'passed': bool(passed), 'expected': expected, 'actual': actual}
+        """B6: {id, expected, predicate, actual, status}; status PASS or FAIL (NOT RUN and SKIP are set
+        explicitly by the controls that cannot run)."""
+        d = {'id': cid, 'passed': bool(passed), 'expected': expected, 'actual': actual,
+             'status': 'PASS' if passed else 'FAIL',
+             'predicate': extra.pop('predicate', 'the boolean computed for this id in a1_controls.py')}
         d.update(extra)
         self.results[cid] = d
 
@@ -183,11 +187,18 @@ def rt_coverage(a):
     fc = res.get('finding_counts', {})
     nonhp = [i for i in res.get('items', []) if i['decision'] == 'FAIL' and i['obligation'] != 'HP']
     ind = [i for i in res.get('items', []) if i['class'] == 'context-structure-changed' and i['obligation'] != 'HP']
+    want_struct = sorted(['book/The-Incompleteness-of-Observation-FULL.md:706', 'book/The-Incompleteness-of-'
+                          'Observation-FULL.md:708', 'book/ch02-the-substratum.md:76', 'book/ch02-the-substratum.md:78',
+                          'papers/Substratum.md:94', 'papers/Substratum.md:253', 'papers/Main.md:741'])
+    got_struct = sorted(i['subject'].split('@')[0] for i in res.get('items', [])
+                        if i['class'] == 'context-structure-changed' and i['obligation'] == 'HP')
     a.record('RT-H0', code == 20 and not nonhp and not ind and fc.get('HP/FAIL/hp-unadjudicated') == 113 and
-             fc.get('HP/FAIL/context-meaning-unverified') == 7,
-             'FAIL; every FAIL and indicator item HP; 113 hp-unadjudicated; 7 HP meaning; 3 HP structure (reference)',
+             fc.get('HP/FAIL/context-meaning-unverified') == 7 and got_struct == want_struct,
+             'FAIL; every FAIL and indicator item HP; 113 hp-unadjudicated; 7 HP context-meaning-unverified; 7 HP '
+             'context-structure-changed (FULL:706, FULL:708, ch02:76, ch02:78, Substratum.md:94, :253, Main.md:741)',
              {'exit': code, 'finding_counts': fc, 'structure_sites': sorted(i['subject'] for i in res['items']
                                                                             if i['class'] == 'context-structure-changed')},
+             predicate='exit 20; no non-HP FAIL or indicator item; counts 113 and 7; the 7 structure sites as listed',
              reference_difference='7 HP context-structure-changed, not 3: the 4 further sites (FULL:706, ch02:76, '
                                   'Substratum.md:94, :253) are unique at E and H and rewritten in H..T1\'; the '
                                   'reference population required uniqueness at T1\' as well (sec. 14).')
@@ -199,7 +210,10 @@ def rt_coverage(a):
     shared = sum(1 for s in sites if s['region_shared_with'])
     splices = sorted({x for s in sites for x in s['region_splices']})
     line_sites = [s for s in sites if s['line_splices']]
+    hp_struct = sum(1 for i in res.get('items', []) if i['class'] == 'context-structure-changed' and
+                    i['obligation'] == 'HP')
     ok = (code == 20 and fc.get('HP/FAIL/hp-unadjudicated') == 113 and fc.get('HP/FAIL/context-meaning-unverified') == 7
+          and hp_struct == 7
           and fc.get('RET/FAIL/untracked-hp-overlap') == 19 and fc.get('RET/FAIL/context-meaning-unverified') == 5
           and fc.get('RET/REVIEW_REQUIRED/context-structure-changed') == 3 and not any('deny' in k for k in fc)
           and res['site_counts'].get('authorized-replacement') == 197 and res['site_counts'].get('authorized-removal') == 4
@@ -210,9 +224,14 @@ def rt_coverage(a):
               'merger_groups': len(res.get('merger_groups', [])), 'shared_sites': shared,
               'region_splices_distinct': len(splices), 'line_attributed_sites': len(line_sites),
               'hit_counts': res.get('hit_counts')},
-             reference_difference='HP structure REVIEWs 7, not 3 (as RT-H0).')
-    a.results['RT-T'] = {'passed': code != 0, 'expected': 'PASS only when every record verifies; any missing '
-                                                         'record leaves REVIEW_REQUIRED or FAIL',
+             reference_difference='the "215 region lines" figure is not part of this predicate: op B does not '
+                                  'output a region-line count (a known gap of this control).',
+             predicate='exit 20; HP 113/7 and 7 HP structure REVIEWs; RET 19/5/3; no deny; 197 replaced, 4 removed; '
+                       '168 moved; 22 shared sites in 9 groups; 31 region splices')
+    a.results['RT-T'] = {'id': 'RT-T', 'passed': False, 'status': 'NOT RUN', 'predicate': None,
+                         'expected': 'PASS only when every record verifies; any missing '
+                                     'record leaves REVIEW_REQUIRED or FAIL. Reported NOT RUN while no reviewed record '
+                                     'exists (sec. 10.4)',
                          'actual': {'note': 'no reviewed record exists; RT-T0 shows the result without them',
                                     'exit': code}}
 
@@ -298,16 +317,27 @@ def rt_terms(a):
     hits = res.get('hits', [])
     w_pass = sorted('%s:%d' % (h['file'], h['line']) for h in hits if h['state'] == 'PASS')
     resid = [h for h in hits if 'resid' in h['profiles'] and h['state'] != 'PASS']
-    a.record('RT-D', not any(i['class'] == 'deny-match' for i in res.get('items', [])),
-             '0 deny; W1 and W2 PASS with their rules; GR.md:58 PASS with its record, else REVIEW; resid 17 lines',
+    F_ = FULL
+    w1_lines = [('papers/SM.md', 1394), ('book/ch09-universality.md', 137), ('book/ch19-open-problems.md', 198),
+                ('book/ch19-open-problems.md', 212), (F_, 2554), (F_, 5270), (F_, 5284)]
+    w2_lines = [('book/appendix-b-derivations.md', 235), ('book/appendix-b-derivations.md', 246), (F_, 5914),
+                (F_, 5925)]
+    st_of = {(h['file'], h['line']): h['state'] for h in hits}
+    gr58 = st_of.get(('papers/GR.md', 58))
+    others = {'p0-core', 'p0-para', 'ledger-ext', 'ptr', 'repo', 'count-grep'}
+    resid_only = [h for h in resid if not set(h['profiles']) & others]
+    a.record('RT-D', not any(i['class'] == 'deny-match' for i in res.get('items', [])) and
+             all(st_of.get(k) == 'PASS' for k in w1_lines + w2_lines) and gr58 == 'REVIEW_REQUIRED' and
+             len(resid) == 45 and len(resid_only) == 17,
+             '0 deny; all 7 W1 lines (W1-c with its allowance) and the 4 W2 lines PASS with their rules; GR.md:58 '
+             'REVIEW without its record (PASS with it: RT-D-gr58); 45 resid lines REVIEW, 17 hit by no other profile',
              {'exit': code, 'finding_counts': res.get('finding_counts'), 'pass_lines': w_pass,
-              'resid_review_lines': len(resid),
+              'resid_review_lines': len(resid), 'resid_only_lines': len(resid_only), 'gr58': gr58,
+              'w1_w2_states': {'%s:%d' % k: st_of.get(k) for k in w1_lines + w2_lines},
               'rule_negative': sorted(i['subject'] for i in res.get('items', []) if i['class'] == 'rule-negative-match')},
-             reference_difference='resid: 45 lines REVIEW under item 7\'s profile set; the reference 17 counts the '
-                                  'lines no other review profile (p0-core, p0-para, ledger-ext, ptr, repo, '
-                                  'count-grep) hits. W1-c (ch19:198, FULL:5270) FAILs its own negative matcher: '
-                                  'the sentence contains "finite periodic quotient" and the design\'s W1 negative '
-                                  'list contains "finit".')
+             reference_difference=None,
+             predicate='no deny-match; the 11 W1/W2 hit states are PASS; GR.md:58 REVIEW_REQUIRED; 45 resid REVIEW lines '
+                       'of which 17 carry no other review profile')
     code, res, t = a.run(['terms', '--commit', T, '--base', H, '--ledger', LEDGER, '--check', 'item7',
                           '--classify', '%s:%srecords/gr58-hit-classification-v1.json' % (a.crev, a.ad)])
     gr = [h for h in res.get('hits', []) if h['file'] == 'papers/GR.md' and h['line'] == 58]
@@ -525,6 +555,86 @@ def v_controls(a):
     a.record('N-W', code == 0, 'no deny match', {'exit': code})
 
 
+def pipeline_rule_controls(a, cfg, allow_ref, deny_ref, allow, deny, w1, rec, st):
+    """B6: A1r-A11r run the mutated rule file through the pipeline (op D at T1', item 7) and require an emitted
+    FAIL record-invalid naming that rule file (A5r: FAIL deny-match), not a truthy lint result."""
+    import copy as cp
+    dr1 = [r for r in deny['rules'] if r['id'] == 'DR-1'][0]
+    dr5 = [r for r in deny['rules'] if r['id'] == 'DR-5'][0]
+
+    def allow_mut(fn):
+        d = cp.deepcopy(allow)
+        d['supersedes'] = {'path': allow_ref['path'], 'blob_sha256': allow_ref['blob_sha256']}
+        for r in d['rules']:
+            if r['id'] == w1['id']:
+                fn(r)
+        return allow_ref['path'], d
+
+    def deny_mut(fn, sup=True):
+        d = cp.deepcopy(deny)
+        if sup:
+            d['supersedes'] = {'path': deny_ref['path'], 'blob_sha256': deny_ref['blob_sha256']}
+        for r in d['rules']:
+            if r['id'] in ('DR-1', 'DR-5'):
+                fn(r)
+        return deny_ref['path'], d
+
+    def fp_swap(r):
+        r['fingerprints'][0] = dict(r['fingerprints'][0], sentence_sha256=sha(b'another sentence'))
+    muts = {
+        'A1r': ('widening (added files)', allow_mut(lambda r: r['scope'].update(files=r['scope']['files'] +
+                                                                                  ['book/x.md']))),
+        'A2r': ('widening (a changed, shorter literal)', allow_mut(lambda r: r['matcher'].update(
+            literal='six structural'))),
+        'A3r': ('widening (fingerprint swap, count unchanged)', allow_mut(fp_swap)),
+        'A6r': ('lint: the literal does not cover the trigger', allow_mut(lambda r: r['matcher'].update(
+            literal='further narrow it'))),
+        'A8r': ('lint: no negative example', allow_mut(lambda r: r.update(negative_examples=[]))),
+        'A9r': ('deny widening (changed pattern) and its own negative example matched', deny_mut(
+            lambda r: r['patterns'].update(a=r['patterns']['a'] + '|structural propert') if r['id'] == 'DR-1'
+            else None)),
+        'A10r': ('deny widening (narrower scope)', deny_mut(lambda r: r.update(scope=['papers/Main.md'])
+                                                            if r['id'] == 'DR-1' else None)),
+        'A11r': ('lint: the countercontrol does not match', deny_mut(lambda r: r.update(countercontrol=[
+            {'commit': H, 'path': 'papers/Main.md', 'line': 1, 'alternative': 'a'}]) if r['id'] == 'DR-5' else None,
+            sup=False)),
+    }
+    for cid, (what, (path, doc)) in sorted(muts.items()):
+        def repl(files, path=path, doc=doc):
+            return [(r, doc if r['path'] == path else d) for r, d in files]
+        code, res, t = a.run(['terms', '--commit', T, '--check', 'item7'],
+                             control={'replace_rule_files': repl, 'force_widening': True})
+        ri = sorted({i['class'] for i in res.get('items', []) if i.get('subject') == path})
+        a.record(cid, code == 20 and ri == ['record-invalid'], what + ' -> FAIL record-invalid, emitted by the pipeline',
+                 {'exit': code, 'classes_for_the_rule_file': ri,
+                  'why': [i.get('detail') for i in res.get('items', []) if i.get('subject') == path][:1]},
+                 predicate='exit == 20 and the classes of the items naming the rule file == [record-invalid]')
+    # A4r: a widening review written by the rule's author is rejected; through the pipeline no admitted widening
+    # review exists, so the widened file is record-invalid
+    path, doc = muts['A1r'][1]
+    probs = rec.widening_review_problems({'path': 'r.json', 'blob_sha256': sha(b'{}')}, st, set(st.by_sha), set(),
+                                         w1['author'], None, ['W1-d:added files'], 7273571)
+
+    def repl4(files):
+        return [(r, doc if r['path'] == path else d) for r, d in files]
+    code, res, t = a.run(['terms', '--commit', T, '--check', 'item7'],
+                         control={'replace_rule_files': repl4, 'force_widening': True})
+    ri = sorted({i['class'] for i in res.get('items', []) if i.get('subject') == path})
+    a.record('A4r', code == 20 and ri == ['record-invalid'] and any('author' in p for p in probs),
+             'a widening review by the author is rejected -> FAIL record-invalid',
+             {'exit': code, 'classes': ri, 'review_problems': probs[:2]},
+             predicate='exit == 20, record-invalid for the rule file, and the author-written review is rejected')
+    # A7r: a reused rule id in a second admitted rule file
+    dup = dict(allow, record_id='dup', supersedes=None, rules=[dict(w1)])
+
+    def repl7(files):
+        return list(files) + [({'path': a.ad + 'rules/dup.json', 'blob_sha256': sha(util.canonical(dup))}, dup)]
+    code, res, t = a.run(['terms', '--commit', T, '--check', 'item7'], control={'replace_rule_files': repl7})
+    ri = sorted({i['class'] for i in res.get('items', []) if i.get('subject') == a.ad + 'rules/dup.json'})
+    a.record('A7r', code == 20 and ri == ['record-invalid'], 'a reused rule id -> FAIL record-invalid',
+             {'exit': code, 'classes': ri}, predicate='exit == 20 and record-invalid for the second file')
+
+
 def rule_lint_controls(a):
     """A1r-A11r and A5r on the drafted A1 rule files, with a synthetic review chain in memory."""
     cfg = json.loads(a.repo.read(a.crev, a.cpath))
@@ -595,6 +705,11 @@ def rule_lint_controls(a):
     code, resx, t = a.run(['terms', '--commit', x, '--profile', 'count-grep,DR-3'], control={'replace_rule_files': replace})
     on = items_on(resx, 'book/ch19-open-problems.md', 212)
     res['A5r'] = any(i['class'] == 'deny-match' for i in on)
+    a.record('A5r', res['A5r'] and base_ok, 'FAIL deny-match (a fingerprinted sentence a deny rule matches)',
+             {'deny_match_on_line': res['A5r'], 'unmutated_rule_lints_clean': base_ok},
+             predicate='a deny-match item on ch19:212 emitted by the pipeline')
+    pipeline_rule_controls(a, cfg, allow_ref, deny_ref, allow, deny, w1, rec, st)
+    return
     exp = {'A1r': 'widening (added files)', 'A2r': 'widening (literal)', 'A3r': 'widening (fingerprint swap)',
            'A4r': 'widening review by the author rejected', 'A5r': 'FAIL deny-match', 'A6r': 'lint: literal does not '
            'cover the trigger', 'A7r': 'reused id', 'A8r': 'lint: no negative example', 'A9r': 'deny widening and '
@@ -612,10 +727,30 @@ def cfgmod_loaded(a):
 
 # ---- op C: RT-C, G, sec. 11 countercontrols, four trees ------------------------------------------------------
 
+def drift_classes(a):
+    """In-memory draft class records for the two side changes on main that are not this tool's (the trial
+    workflow and the tool configuration file), each pinned to its blob at main; they belong to the drift records,
+    not to this directory (one definition per class id, S7)."""
+    if getattr(a, '_drift', None):
+        return a._drift
+    classes = []
+    for cid, path in (('trial-workflow', WF), ('tool-configuration', '.claude/settings.json')):
+        b = a.repo.read(MAIN, path)
+        classes.append({'id': cid, 'pins': [{'path': path, 'git_blob': a.repo.blob_id(MAIN, path),
+                                             'blob_sha256': sha(b)}]})
+    doc = {'schema': 'oi-side-change-classes/1', 'record_id': 'control-drift-classes', 'author': 'control-writer',
+           'supersedes': None, 'classes': classes}
+    c = a.repo.derive(a.crev, {a.ad + 'records/control-drift-classes.json': (json.dumps(doc) + '\n').encode()},
+                      parents=a.repo.parents(a.crev), subject='control class records')
+    a._drift = '%s:%srecords/control-drift-classes.json' % (c, a.ad)
+    return a._drift
+
+
 def exec_args(a, x=T, extra=()):
     return ['execution', '--scientific-base', H, '--candidate', x, '--ledger', LEDGER, '--edits', EDITS,
             '--delegation', '%s:%sdelegation-draft.json' % (a.crev, a.ad),
-            '--classify', '%s:%srecords/side-change-classes-v1.json' % (a.crev, a.ad)] + list(extra)
+            '--classify', '%s:%srecords/side-change-classes-v1.json' % (a.crev, a.ad),
+            '--classify', drift_classes(a)] + list(extra)
 
 
 def ex_controls(a):
@@ -761,12 +896,23 @@ def tree_controls(a, tool_files):
                       'main_items': sorted((i['class'], i['subject']) for i in res.get('items', [])
                                            if i['obligation'] == 'MAIN')}
         Mp = a.repo.derive(M, tool_files, parents=[M], subject='predicted main with the tool landing')
-        code, res, t = a.run(exec_args(a, extra=['--main', Mp]))
+        from ledger_coverage.engine import reconcile as rcm
+        loaded = cfgmod_loaded(a)
+        ctx_ = pl.RunContext(a.repo, loaded.config, loaded.profiles, [], {}, None)
+        led_ = __import__('ledger_coverage.adapters.a1exit_exact_edit', fromlist=['x']).load(
+            a.base.read(P, PL + 'ledger.json'), {'edits': a.base.read(P, PL + 'edits.json')})
+        mb = a.repo.read(M, 'AGENTS.md')
+        hdr = mb.find('## \u00a7A.49'.encode())
+        rdoc = rcm.draft(a.repo, ctx_, H, Mp, T, led_, 'AGENTS.md', [(hdr, len(mb))] if hdr > 0 else [])
+        rc_ = a.repo.derive(a.crev, {a.ad + 'records/control-recon.json': (json.dumps(rdoc) + '\n').encode()},
+                            parents=a.repo.parents(a.crev), subject='control reconciliation record')
+        recon_arg = ['--classify', '%s:%srecords/control-recon.json' % (rc_, a.ad)]
+        code, res, t = a.run(exec_args(a, extra=['--main', Mp] + recon_arg))
         out['predicted'] = {'exit': code, 'side_changes': res.get('side_changes'),
                             'main_items': sorted((i['class'], i['subject']) for i in res.get('items', [])
                                                  if i['obligation'] == 'MAIN'), 'admission': res.get('config', {}).get('admission')}
         L2 = ex.compose_landing(a.repo, H, Mp, T, a.led, a.repo)
-        code, res, t = a.run(exec_args(a, extra=['--main', Mp, '--landing', L2]))
+        code, res, t = a.run(exec_args(a, extra=['--main', Mp, '--landing', L2] + recon_arg))
         out['predicted_with_landing'] = {'exit': code, 'main_items': sorted(
             (i['class'], i['subject']) for i in res.get('items', []) if i['obligation'] == 'MAIN')}
         code, res, t = a.run(exec_args(a, extra=['--main', Mp]), harness=False)
@@ -775,9 +921,11 @@ def tree_controls(a, tool_files):
     a.record('RT-L2', not any(c == 'base-drift' for c, _ in drift) and
              not any(c == 'side-change-unclassified' for c, _ in drift),
              'every side change classified and no base-drift (sec. 13.4 sequencing safeguard)', out,
-             finding='At main 4fb2c1ee the sec. A.49 merge changes AGENTS.md, a ledgered path (splice D296): '
-                     'base-drift. .claude/settings.json is a side change no class covers: side-change-unclassified. '
-                     'Neither is suppressed or relabelled; no baseline was changed.')
+             predicate='no base-drift and no side-change-unclassified among the MAIN items at the predicted main',
+             finding='Predicted main = 8e9b8334 plus this tool\'s landing files, with the drafted reconciliation record '
+                     'for AGENTS.md and pinned classes for the trial workflow and .claude/settings.json. Any path the '
+                     'tool-landing class cannot pin without a hash cycle (the configuration, which pins the class '
+                     'record) stays side-change-unclassified: see the report.')
 
 
 def chain_refusal(a):
@@ -821,9 +969,11 @@ def sweeps(a):
     base_cv = pl.Coverage(ctx, H, [dict(hp_seg)], None, {}, []).run()
     hp_sites = {k for k, so in base_cv.site_out.items() if so.get('hp_steps')}
     baseline = {}
+    base_tuples = {}
     for i in base_cv.items:
         if i['decision'] == 'FAIL':
             baseline.setdefault(i['subject'], set()).add(i['class'])
+        base_tuples.setdefault(i['subject'], set()).add((i['obligation'], i['class'], i['segment'], i['fingerprint']))
     res = {}
     for name, base_commit, todo in (('SW1', E, sites), ('SW2', H, [s for s in sites if s['site_id'] not in hp_sites])):
         bad = []
@@ -845,7 +995,19 @@ def sweeps(a):
                 [dict(hp_seg), {'from': H, 'to': x, 'kind': 'unledgered'}]
             cv = pl.Coverage(ctx, x, segs, None, {}, []).run()
             mine = [i for i in cv.items if i['subject'] == s['site_id'] and i['decision'] == 'FAIL']
-            if len(mine) != 1:
+            if base_commit == H:
+                # D2: items compared by (obligation, class, segment, fingerprint); exactly one new FAIL, RET
+                # unauthorized-change in segment H..X; the items naming the site at the unmutated H unchanged
+                allt = {(i['obligation'], i['class'], i['segment'], i['fingerprint']) for i in cv.items
+                        if i['subject'] == s['site_id']}
+                prev_t = base_tuples.get(s['site_id'], set())
+                new_t = [t_ for t_ in allt - prev_t if t_[1] == 'unauthorized-change' or
+                         any(i['decision'] == 'FAIL' and (i['obligation'], i['class'], i['segment'], i['fingerprint'])
+                             == t_ for i in cv.items)]
+                last = cv.segments[-1]['name']
+                if not (len(new_t) == 1 and new_t[0][:3] == ('RET', 'unauthorized-change', last) and prev_t <= allt):
+                    bad.append((s['site_id'], sorted(map(list, allt - prev_t))[:3]))
+            elif len(mine) != 1:
                 bad.append((s['site_id'], [i['class'] for i in mine]))
             pre = baseline.get(s['site_id'], set()) if base_commit == H else set()
             new = [i for i in mine if i['class'] not in pre]
@@ -856,8 +1018,13 @@ def sweeps(a):
                      'not_exactly_one_new_fail_against_the_unmutated_tree': bad_delta,
                      'seconds': round(time.time() - t0, 1)}
         a.record(name, not bad and len(todo) == (697 if name == 'SW1' else 584),
-                 'exactly one FAIL naming each site (%s)' % ('697 at E' if name == 'SW1' else '584 at H'), res[name],
-                 note='strict reading: all FAIL items naming the site, including those the unmutated tree already has')
+                 'exactly one FAIL naming each site (697 at E)' if name == 'SW1' else
+                 'for each of the 584 sites at H, exactly one new FAIL naming it (RET, unauthorized-change, segment '
+                 'H..X), the items naming it at the unmutated H unchanged; items compared by (obligation, class, '
+                 'segment, fingerprint)', res[name],
+                 predicate='SW1: exactly one FAIL item names each site' if name == 'SW1' else
+                 'per site: allt - prev_t holds exactly one new FAIL tuple (RET, unauthorized-change, last segment) and '
+                 'prev_t is a subset of allt; 584 sites')
 
 
 def engine_identity_y8(a, syn_engine):
