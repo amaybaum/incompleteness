@@ -1534,8 +1534,11 @@ settings:
 1. **Check before writing.** Files are named by path and commit, or by a link of at most 101
    characters or one with a `#fragment`. Text containing a longer `blob` link without a `#fragment`,
    a carriage return or an invisible character is not sent.
-2. **Exact read-back.** After every write, the stored text is compared byte for byte with the text
-   sent, with no normalization. Any difference, an added or changed footer included, is a mismatch.
+2. **Exact read-back.** After every write, the stored text is compared byte for byte with an
+   expected text fixed before the write. For an Issue body or a pull-request description, the
+   expected text is the text sent. For an Issue comment posted through the owner-approved comment
+   procedure, it is the text that procedure states in advance, including the footer it expects.
+   No other normalization is allowed; any other difference is a mismatch.
 3. **Stop on a mismatch.** Automated GitHub text writes stop at once, the text sent and the text
    stored are kept, and the owner is told. Only an owner decision resumes writing; a later
    correction does not make a failed write a pass.
