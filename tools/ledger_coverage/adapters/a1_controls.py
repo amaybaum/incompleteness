@@ -217,17 +217,17 @@ def rt_coverage(a):
           and fc.get('RET/FAIL/untracked-hp-overlap') == 19 and fc.get('RET/FAIL/context-meaning-unverified') == 5
           and fc.get('RET/REVIEW_REQUIRED/context-structure-changed') == 3 and not any('deny' in k for k in fc)
           and res['site_counts'].get('authorized-replacement') == 197 and res['site_counts'].get('authorized-removal') == 4
-          and moved == 168 and shared == 22 and len(res.get('merger_groups', [])) == 9 and len(splices) == 31)
+          and moved == 168 and shared == 22 and len(res.get('merger_groups', [])) == 9 and len(splices) == 31
+          and (res.get('region_lines') or {}).get('count') == 215)
     a.record('RT-T0', ok, 'FAIL; HP 113/7/3; RET 19/5/3; deny 0; 383 unchanged (168 moved), 197 replaced, 4 removed; '
-                          '9 merger groups, 22 sites',
+                          '215 region lines; 9 merger groups, 22 sites',
              {'exit': code, 'finding_counts': fc, 'site_counts': res.get('site_counts'), 'moved_H_T': moved,
               'merger_groups': len(res.get('merger_groups', [])), 'shared_sites': shared,
               'region_splices_distinct': len(splices), 'line_attributed_sites': len(line_sites),
-              'hit_counts': res.get('hit_counts')},
-             reference_difference='the "215 region lines" figure is not part of this predicate: op B does not '
-                                  'output a region-line count (a known gap of this control).',
+              'hit_counts': res.get('hit_counts'), 'region_lines': res.get('region_lines')},
              predicate='exit 20; HP 113/7 and 7 HP structure REVIEWs; RET 19/5/3; no deny; 197 replaced, 4 removed; '
-                       '168 moved; 22 shared sites in 9 groups; 31 region splices')
+                       '168 moved; 22 shared sites in 9 groups; 31 region splices; region_lines.count == 215 (the '
+                       'LF-inclusive site span, sec. 5)')
     a.results['RT-T'] = {'id': 'RT-T', 'passed': False, 'status': 'NOT RUN', 'predicate': None,
                          'expected': 'PASS only when every record verifies; any missing '
                                      'record leaves REVIEW_REQUIRED or FAIL. Reported NOT RUN while no reviewed record '
@@ -1039,6 +1039,20 @@ def engine_identity_y8(a, syn_engine):
              {'a1': res.get('engine', {}).get('blob_sha256'), 'synthetic': syn_engine})
 
 
+PREDICATES = {
+    'RT-DR': "terms --profile DR-1,DR-3,DR-4,DR-5: at H 86 distinct deny lines, per rule DR-1 61 / DR-4 28 / DR-5 1, "
+             "DR-1 alternatives a 6 / b 2 / c 55, and the six named lines hit at line level by their rule; at E 95 "
+             "lines; at T1' exit 0 with no line or sentence match",
+    'RT-I7': "terms --profile item7-literal: exit 20 at both; (items, A1 report lines) == (7, 4) at T1' and (14, 179) "
+             "at H",
+    'RT-I7A': "terms --check item7 --final without allow rules: at H exit 20, 86 deny lines, 123 final-unclassified, "
+              "209 FAIL lines (93 / 216 with sentences), 95 retired lines, none of them only REVIEW; at T1' exit 20, "
+              "0 deny lines, 12 final-unclassified",
+    'V3-countercontrol': "terms --check item7 at H without --final and without allow rules: exit 20 and every one of "
+                         "the 95 retired lines is an unclassified REVIEW item",
+}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--repo', required=True)
@@ -1095,6 +1109,11 @@ def main():
             a.results['%s-group-error' % name] = {'passed': False, 'expected': 'no exception',
                                                   'actual': traceback.format_exc()[-3000:]}
         timing[name] = round(time.time() - t, 1)
+    # sec. 10.4: every control carries a status and its predicate
+    for cid, v in a.results.items():
+        v.setdefault('status', 'PASS' if v.get('passed') else 'FAIL')
+        if not v.get('predicate'):
+            v['predicate'] = PREDICATES.get(cid, 'the boolean computed for this id in a1_controls.py')
     summary = {'controls': a.results, 'timing_seconds': timing,
                'passed': sum(1 for v in a.results.values() if v.get('passed')),
                'failed': sorted(k for k, v in a.results.items() if not v.get('passed'))}

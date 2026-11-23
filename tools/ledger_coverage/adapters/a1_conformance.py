@@ -75,9 +75,10 @@ def wb_controls(a):
     text = a.repo.read(T, CH19).decode()
     full = a.repo.read(T, FULL).decode()
 
-    def run(files, extra=(), control=None):
+    def run(files, extra=(), control=None, profile=None):
         x = a.repo.derive(T, {k: v.encode() for k, v in files.items()}, parents=[H], subject='WB')
-        code, res, _ = a.run(['terms', '--commit', x, '--check', 'item7'] + list(extra), control=control)
+        sel = ['--profile', profile] if profile else ['--check', 'item7']
+        code, res, _ = a.run(['terms', '--commit', x] + sel + list(extra), control=control)
         return x, code, res
     _, code, res = run({})
     l_full = line_of(full, s)
@@ -165,10 +166,18 @@ def wb_controls(a):
     check('WB11', 'lint: a rule whose fingerprinted sentence fails its own rule (W1-c with no allowance): FAIL '
           'record-invalid', "exit 20 with record-invalid for the rule file", wb11,
           wb11[0] == 20 and wb11[1] == ['record-invalid'])
+    # WB12 is V7a (sec. 10.2: V2 with DR-3 removed from the profile set) on the W1-c sentence: item 7's profile set
+    # less DR-3, so step 3 (the rule's negative matcher) is reached; deny-first order (sec. 6.2) is unchanged
     s12 = s.replace('of the bijection)', 'of the bijection, one of which is total finiteness,)', 1)
-    _, code, res = run({CH19: text.replace(s, s12)})
+    cfg = json.loads(a.repo.read(a.crev, a.cpath))
+    v7a = [n for n in [c for c in cfg['checks'] if c['id'] == 'item7'][0]['profiles'] if n != 'DR-3']
+    _, code, res = run({CH19: text.replace(s, s12)}, profile=','.join(v7a))
+    its = [(i['class'], str(i.get('rule_id'))) for i in res.get('items', [])
+           if i.get('file') == CH19 and i.get('line') == ln]
     check('WB12', 'V7a on the W1-c sentence (", one of which is total finiteness,"): FAIL rule-negative-match',
-          "the line has rule-negative-match", items_at(res, CH19, ln), 'rule-negative-match' in items_at(res, CH19, ln))
+          "profile set = item7 less DR-3 (%s); exit 20; the line has rule-negative-match of W1-c and no deny-match"
+          % ','.join(v7a), {'exit': code, 'items': its},
+          code == 20 and ('rule-negative-match', 'W1-c') in its and not [x for x in its if x[0] == 'deny-match'])
     lines = text.split('\n')
     para = lines[ln - 1]
     t13 = '\n'.join(lines[:ln - 1] + lines[ln:]).rstrip('\n') + '\n\n' + para + '\n'

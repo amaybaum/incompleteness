@@ -764,6 +764,164 @@ def ledger_controls(t, check):
           dict(out47, valid=pos), all(v == 65 for v in out47.values()) and pos == 0)
 
 
+# ---- corrections after the second independent review (F1, F2, F3) -------------------------------------------------
+
+def f1_controls(t):
+    """F1: each freeze-ledger change is approved by the owner of the authority version in force when that ledger
+    change merged (sec. 6.3). The owner changes 4242 -> 5555 through a verified authority change; the fixture
+    configuration names the old owner, so a run that passes the ledger history stops at point 7 (retirement.owner),
+    and a refused ledger history stops naming the freeze-ledger change."""
+    NEW = 5555
+
+    def ledger_change(w, approver, via, rnd):
+        old = w.ledger_bytes
+        new = hf.jb({'schema': auth.ledger_schema, 'events': [
+            {'plan': hf.PLAN, 'round': rnd, 'kind': 'withdraw', 'commit': 'ab' * 20, 'comment_id': 1,
+             'author_id': approver, 'created_at': '2026-11-23T00:00:00Z', 'first_line': 'x'}]})
+        if via == 'append':
+            w.comment(hf.PLAN_ISSUE, 'oi-freeze-ledger/1 append plan=%s round=%s from=%s to=%s'
+                      % (hf.PLAN, hf.ROUND, sha(old), sha(new)), author_id=approver)
+        else:
+            w.comment(hf.AUTH_ISSUE, 'oi-authority/1 approve from=%s to=%s' % (sha(old), sha(new)),
+                      author_id=approver)
+        w.add_main('c%d' % (len(w.h.repos[hf.REPO_ID]['commits']) + 1), {hf.LEDGER_PATH: new}, merged_by=approver)
+        w.ledger_bytes = new
+
+    def owner_change(w):
+        new_a = hf.authority('syn/PREREG.md', owner_id=NEW,
+                             supersedes={'path': auth.authority_path, 'blob_sha256': sha(w.a_bytes)},
+                             extra={'status': 'second version'})
+        change_authority(w, new_a, extra_approver=NEW)
+
+    def scenario(steps):
+        w = t.world()
+        a1 = w.a_bytes
+        for kind, approver, via, rnd in steps:
+            if kind == 'owner':
+                owner_change(w)
+            else:
+                ledger_change(w, approver, via, rnd)
+        F = t.freeze(w, a_bytes=a1)
+        w.designate(F, author_id=w.a['owner']['id'])
+        code, res = t.run(w, F)
+        msg = ((res or {}).get('stop') or {}).get('message', '')
+        return {'exit': code, 'stop': stop(res), 'message': msg[:200],
+                'ledger_refused': 'freeze-ledger change' in msg, 'past_ledger': 'retirement.owner' in msg}
+    out = {
+        'former-owner-append-after-change': scenario([('owner', None, None, None),
+                                                      ('ledger', hf.OWNER_ID, 'append', 'r0')]),
+        'former-owner-authority-form-after-change': scenario([('owner', None, None, None),
+                                                              ('ledger', hf.OWNER_ID, 'authority', 'r0')]),
+        'then-owner-before-change': scenario([('ledger', hf.OWNER_ID, 'append', 'r0'),
+                                              ('owner', None, None, None)]),
+        'new-owner-after-change': scenario([('ledger', hf.OWNER_ID, 'authority', 'r0'), ('owner', None, None, None),
+                                            ('ledger', NEW, 'append', 'r9')]),
+    }
+    refused = [out['former-owner-append-after-change'], out['former-owner-authority-form-after-change']]
+    valid = [out['then-owner-before-change'], out['new-owner-after-change']]
+    check('R3-F1', 'after a verified owner change 4242 -> 5555, a freeze-ledger change merged later and approved only '
+          'by 4242 (append form in the plan thread; separately the authority form in the authority thread) is '
+          'refused; a ledger change approved by 4242 and merged before the owner change stays valid, and one merged '
+          'after it and approved by 5555 is valid',
+          "both former-owner cases exit 65 naming the freeze-ledger change; both valid cases pass the ledger history "
+          "(admission stops only at point 7, retirement.owner)", out,
+          all(o['exit'] == 65 and o['ledger_refused'] for o in refused) and
+          all(o['exit'] == 65 and o['past_ledger'] and not o['ledger_refused'] for o in valid))
+
+
+def f2_controls(r):
+    """F2: a side-change class record referenced by the configuration is chain-linted in op C (sec. 6.3): one
+    without a review record and an owner authorization gives FAIL record-invalid and classifies nothing."""
+    def scenario(with_class, reviewed):
+        syn = sf.Syn()
+        edits = [('# synthetic', ['# synthetic', '', 'Preface line one.'])]
+        pd = sf.patch_doc(syn.H, edits)
+        base = {'patch_sha': sha(pd), 'files': {'syn/patch.json': pd}}
+        c0, p0, s0, f0 = syn.build(base)
+        recs = json.loads(f0[p0])['records']
+        M = syn.repo.derive(syn.H, {'notes/side.txt': b'side change on main\n'}, parents=[syn.H], subject='M')
+        cls = {'schema': 'oi-side-change-classes/1', 'record_id': 'syn-classes', 'author': sf.WRITER,
+               'supersedes': None,
+               'classes': [{'id': 'notes', 'prefixes': ['notes/'], 'reason': 'synthetic',
+                            'pins': [{'path': 'notes/side.txt', 'git_blob': syn.repo.blob_id(M, 'notes/side.txt'),
+                                      'blob_sha256': sha(b'side change on main\n')}]}]}
+        files = dict(base['files'])
+        v = dict(base)
+        if with_class:
+            cb = sf.jb(cls)
+            files['syn/classes.json'] = cb
+            extra = [{'kind': 'side-change-classes', 'path': 'syn/classes.json', 'blob_sha256': sha(cb)}]
+            if reviewed:
+                extra += syn.chain(files, 'syn/classes.json', sf.REVIEWER)
+            v['extra'] = {'records': recs + extra}
+        v['files'] = files
+        c, p, s, f = syn.build(v)
+        X = syn.repo.derive(syn.H, {sf.DOC: sf.apply_text(syn.repo.read(syn.H, sf.DOC).decode(), edits).encode()},
+                            parents=[syn.H], subject='X')
+        w = hf.World('syn/PREREG.md')
+        listed = {q: syn.repo.read(c, q) for q in syn.repo.paths(c) if q.startswith('syn/') and q.endswith('.json')}
+        Ff = {'syn/PREREG.md': hf.pin_table({q[len('syn/'):]: sha(b) for q, b in listed.items()}),
+              auth.authority_path: w.a_bytes}
+        F = syn.repo.derive(c, Ff, parents=syn.repo.parents(c), subject='freeze')
+        w.designate(F)
+        argv = ['execution', '--config', '%s:%s' % (F, p), '--out', r.out()] + w.args(F) + \
+            ['--scientific-base', syn.H, '--candidate', X, '--ledger', '%s:syn/patch.json' % F, '--main', M]
+        code, res = cli.run(argv, repo=syn.repo, stderr=io.StringIO(), control=w.control(), environ={})
+        items = sorted({(i['class'], str(i.get('subject'))) for i in (res or {}).get('items', [])
+                        if i['class'] in ('record-invalid', 'side-change-unclassified', 'base-drift')})
+        return {'exit': code, 'outcome': (res or {}).get('outcome'), 'stop': stop(res), 'items': items}
+    out = {'none': scenario(False, False), 'reviewed': scenario(True, True), 'unreviewed': scenario(True, False)}
+    un = out['unreviewed']
+    check('R3-F2', 'op C: a side-change class record referenced by the configuration with no review record and no '
+          'owner authorization: FAIL record-invalid, and the side change stays unclassified; the reviewed and '
+          'authorized record classifies it; with no class record it is side-change-unclassified',
+          "unreviewed: exit 20, record-invalid on syn/classes.json and side-change-unclassified on notes/side.txt; "
+          "reviewed: no record-invalid and no side-change-unclassified; none: side-change-unclassified", out,
+          un['exit'] == 20 and ('record-invalid', 'syn/classes.json') in un['items'] and
+          ('side-change-unclassified', 'notes/side.txt') in un['items'] and
+          not out['reviewed']['items'] and
+          ('side-change-unclassified', 'notes/side.txt') in out['none']['items'])
+
+
+def f3_controls(t):
+    """F3: the consumer's predicate checks that head_sha contains the authority record, blob-equal to the admitted
+    A (sec. 5, trust-root point 3)."""
+    w = t.world()
+    F = t.freeze(w)
+    w.designate(F)
+    code, res = t.run(w, F)
+    snap = res['config']['admission']['simulated_chain']['snapshot']
+    pins = {'engine': res['engine']['blob_sha256'], 'config': res['config']['blob_sha256'],
+            'adapters': {a['name']: a['module_sha256'] for a in res.get('adapters', [])},
+            'admission': {k: snap[k] for k in ('freeze', 'designation_comment_id', 'pin_table_sha256',
+                                               'authority_sha256')}}
+    host_pins = dict(pins, repository_id=hf.REPO_ID, workflow_path=hf.WF_PATH, workflow_sha256=sha(hf.WF),
+                     engine_pins={}, authority_blob_sha256=sha(w.a_bytes))
+
+    def at_head(head_files):
+        """A main commit with the given change becomes the run's head; the result names it."""
+        w2 = copy.deepcopy(w)
+        w2.add_main('c9', head_files)
+        chain = copy.deepcopy(res)
+        del chain['harness']
+        s2 = copy.deepcopy(snap)
+        s2['run']['head_sha'] = 'c9'
+        chain['config']['admission'] = {'mode': 'chain', 'snapshot': s2,
+                                        'snapshot_sha256': res['config']['admission']['snapshot_sha256']}
+        raw = util.dump_result(chain).encode('utf-8')
+        w2.h.artifacts[(w2.run_id, 'ledger-coverage-result')] = sha(raw)
+        landing = {'evaluated': s2.get('evaluated'), 'artifact_name': 'ledger-coverage-result',
+                   'result_sha256': sha(raw)}
+        return checker.accept_with_host(chain, 0, host_pins, w2.h, landing)
+    out = {'present': at_head({'syn/unrelated.txt': b'x\n'}),
+           'absent': at_head({auth.authority_path: None}),
+           'different': at_head({auth.authority_path: w.a_bytes + b' '})}
+    check('R3-F3', 'the consumer check: a run whose head_sha lacks the authority record, or holds one that differs '
+          'from the admitted A, is not accepted; the same result with A present and equal is accepted',
+          "accept_with_host is true for present, false for absent and for different", out,
+          out['present'] is True and out['absent'] is False and out['different'] is False)
+
+
 # ---- acceptance, durable evidence and replay ----------------------------------------------------------------------
 
 def acceptance_controls(r, t):
@@ -1155,6 +1313,14 @@ def main(out_root):
             record('%s-group' % name, 'the group runs', None, '%s: %s %s' % (type(exc).__name__, exc,
                                                                              traceback.format_exc()[-1200:]), 'FAIL')
     if t is not None:
+        for name, fn in (('R3-F1', lambda: f1_controls(t)), ('R3-F2', lambda: f2_controls(r)),
+                         ('R3-F3', lambda: f3_controls(t))):
+            try:
+                fn()
+            except Exception as exc:
+                import traceback
+                record(name, 'the control runs', None, '%s: %s %s' % (type(exc).__name__, exc,
+                                                                        traceback.format_exc()[-1200:]), 'FAIL')
         try:
             acceptance_controls(r, t)
         except Exception as exc:
