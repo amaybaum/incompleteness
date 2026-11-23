@@ -15,7 +15,7 @@
   "record_commit": "53c6601a10419b6b333cc992474272501ab542af",
   "side_change_classes": {
    "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json",
-   "blob_sha256": "f5e3627a08124085a2cf284a429d194b9ffda286b7b1580346b2c64fa5aa2dea"
+   "blob_sha256": "b22dac34b681f99275312f05e94768dd9088d3700c59436ab04f1f7d4903623e"
   }
  },
  "corpus": {
@@ -654,7 +654,7 @@
   {
    "kind": "side-change-classes",
    "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json",
-   "blob_sha256": "f5e3627a08124085a2cf284a429d194b9ffda286b7b1580346b2c64fa5aa2dea"
+   "blob_sha256": "b22dac34b681f99275312f05e94768dd9088d3700c59436ab04f1f7d4903623e"
   },
   {
    "kind": "hit-classification",

@@ -607,6 +607,8 @@ def run_all(out_root, repo_path):
 
 
 if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        os.makedirs(sys.argv[1], exist_ok=True)
     root = tempfile.mkdtemp(prefix='syn-controls-', dir=sys.argv[1] if len(sys.argv) > 1 else None)
     res = run_all(root, sys.argv[2] if len(sys.argv) > 2 else os.getcwd())
     print(json.dumps(res, indent=1, sort_keys=True, default=str))

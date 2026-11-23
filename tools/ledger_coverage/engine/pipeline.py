@@ -110,6 +110,7 @@ class Coverage:
         self.site_out = {}
         self.states = []
         self.snapshots = []
+        self.region_lines = {}
 
     def item(self, obligation, cls, subject, segment, fp=None, **kw):
         self.items.append(oc.make_item(obligation, cls, subject, segment, fp, **kw))
@@ -358,6 +359,10 @@ class Coverage:
                         self._context_check(st, seg, frm, to, 'RET')
                     if status == 'authorized-removal':
                         so['removed_at'] = det.get('offset_line')
+                    elif status == 'authorized-replacement':
+                        # the replacement region at `to`, whole lines, from the LF-inclusive site span (sec. 5)
+                        first, last = det['lines']
+                        self.region_lines.setdefault(name, set()).update((path, k) for k in range(first, last + 1))
                 continue
             if ff.data != ft.data or ff.exists != ft.exists:
                 self.file_conformance.append({'segment': name, 'file': path, 'status': 'unledgered-file-change',

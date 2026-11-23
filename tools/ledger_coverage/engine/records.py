@@ -23,7 +23,7 @@ def item_ids(doc):
     for key in ('config_id', 'record_id', 'site_id', 'id'):
         if isinstance(doc.get(key), str):
             return [doc[key]]
-    return ['*']
+    return []
 
 
 def _person(v):
@@ -127,6 +127,11 @@ def lint_chain(ref, store, owner, admitted_shas):
             out.append('record %s: no review record' % ref['path'])
         return out
     ids = item_ids(doc)
+    if not ids:
+        # a review gives one verdict per item id (sec. 6.3); a record whose items cannot be identified is refused
+        # rather than covered by a single verdict
+        out.append('record %s: no item ids can be identified' % ref['path'])
+        return out
     good_reviews = []
     for sha, path, rv in exact:
         bad = []

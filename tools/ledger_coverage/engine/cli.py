@@ -781,6 +781,9 @@ def op_coverage(a, repo, ctx, loaded, records, result):
     result['site_counts'] = site_counts(cv)
     result['hit_counts'] = hit_counts(tm.hits)
     result['merger_groups'] = [list(x) for x in getattr(cv, 'merger_groups', [])]
+    if led_segs:
+        rl = cv.region_lines.get(led_segs[-1]['name'], set())
+        result['region_lines'] = {'segment': led_segs[-1]['name'], 'count': len(rl)}
     result['profiles_evaluated'] = {commit: sorted({p.name for p in tm.review_profiles} |
                                                    {p.name for p in deny})}
     result['covered_paths'] = ctx.corpus(commit)
@@ -1013,21 +1016,27 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
     record_refs = {}
     for r in cfg['records']:
         d = loaded.store.get(r)
-        if r.get('kind') == 'side-change-classes':
-            if d is not None and d.get('schema') == 'oi-side-change-classes/1':
-                class_docs.append(d)
-                side += d.get('classes', [])
-                record_refs[r['path']] = r['blob_sha256']
-        elif r.get('kind') == 'reconciliation' and d is not None and d.get('schema') == 'oi-reconciliation/1':
-            # a reconciliation record frozen with the plan is referenced by the configuration (sec. 6.3, 16.2);
-            # its chain is linted like any record the run uses
-            probs = [] if records.harness else rec.lint_chain(r, loaded.store, cfg['retirement']['owner'],
-                                                              loaded.admitted)
-            if probs:
-                records.items.append(oc.make_item('RECORD', 'record-invalid', r['path'], None,
-                                                  {'sha': r['blob_sha256'], 'why': probs[0]}, detail=probs))
-            else:
-                recon.append(dict(d, _ref={'path': r['path'], 'blob_sha256': r['blob_sha256']}))
+        kind = r.get('kind')
+        if kind == 'side-change-classes' and (d is None or d.get('schema') != 'oi-side-change-classes/1'):
+            continue
+        if kind == 'reconciliation' and (d is None or d.get('schema') != 'oi-reconciliation/1'):
+            continue
+        if kind not in ('side-change-classes', 'reconciliation'):
+            continue
+        # side-change class records and reconciliation records referenced by the configuration (sec. 6.3, 13.1,
+        # 16.2) have their chain linted like any record the run uses; a failing record is record-invalid and is
+        # not used
+        probs = [] if records.harness else rec.lint_chain(r, loaded.store, cfg['retirement']['owner'],
+                                                          loaded.admitted)
+        if probs:
+            records.items.append(oc.make_item('RECORD', 'record-invalid', r['path'], None,
+                                              {'sha': r['blob_sha256'], 'why': probs[0]}, detail=probs))
+        elif kind == 'side-change-classes':
+            class_docs.append(d)
+            side += d.get('classes', [])
+            record_refs[r['path']] = r['blob_sha256']
+        else:
+            recon.append(dict(d, _ref={'path': r['path'], 'blob_sha256': r['blob_sha256']}))
     for r in a.classify:
         d = records.admit(repo, r, 'classification')
         if d is None:
