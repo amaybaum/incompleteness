@@ -586,6 +586,7 @@ def world_with_authority(a, extra_files, owner_id=None):
     w.comment(hf.AUTH_ISSUE, 'oi-authority/1 approve from=none to=%s' % sha(w.ledger_bytes), author_id=owner_id)
     files = {auth.authority_path: w.a_bytes, hf.LEDGER_PATH: w.ledger_bytes, hf.WF_PATH: hf.WF,
              auth.review_path(a, sha(w.a_bytes)): w.review}
+    files.update(hf.ledger_review_file(a, w.ledger_bytes, 'none'))
     files.update(extra_files)
     w.main = 'c1'
     w.h.add_commit(hf.REPO_ID, 'c0', [], {})
@@ -661,17 +662,9 @@ def ledger_controls(t, check):
                 'edited': False, 'first_line': auth.first_line(comment['body']),
                 'body_sha256': sha(comment['body'].encode())}
 
-    def with_ledger_event(w, event, via='append'):
-        old = w.ledger_bytes
-        led = {'schema': auth.ledger_schema, 'events': [event]}
-        new = hf.jb(led)
-        if via == 'authority':
-            w.comment(hf.AUTH_ISSUE, 'oi-authority/1 approve from=%s to=%s' % (sha(old), sha(new)))
-        elif via == 'append':
-            w.comment(hf.PLAN_ISSUE, 'oi-freeze-ledger/1 append plan=%s round=%s from=%s to=%s'
-                      % (hf.PLAN, hf.ROUND, sha(old), sha(new)))
-        w.add_main('c%d' % (len(w.h.repos[hf.REPO_ID]['commits']) + 1), {hf.LEDGER_PATH: new})
-        w.ledger_bytes = new
+    def with_ledger_event(w, event):
+        # the whole procedure: authority approval, append comment, review record, owner merge
+        w.land_ledger(hf.jb({'schema': auth.ledger_schema, 'events': [event]}))
     out31 = {}
     for mut in ('deleted', 'hidden', 'edited'):
         w = t.world()
@@ -746,9 +739,12 @@ def ledger_controls(t, check):
             issue = 99
         elif mut == 'malformed':
             line = line.replace('oi-freeze-ledger/1', 'oi-freeze-ledger/2')
+        # the authority approval, the review record and the owner merge are present in every case; only the append
+        # comment varies
+        w.comment(hf.AUTH_ISSUE, 'oi-authority/1 approve from=%s to=%s' % (sha(old), sha(new)))
         if mut not in ('none', 'after-merge'):
             w.comment(issue, line, **kw)
-        w.add_main('c9', {hf.LEDGER_PATH: new})
+        w.add_main('c9', dict(hf.ledger_review_file(w.a, new, sha(old)), **{hf.LEDGER_PATH: new}))
         if mut == 'after-merge':
             w.comment(issue, line)
         code, res = t.run(w, F)
@@ -756,7 +752,7 @@ def ledger_controls(t, check):
     w = t.world()
     F = t.freeze(w)
     d = w.designate(F)
-    with_ledger_event(w, ev('designate', F, d), via='append')
+    with_ledger_event(w, ev('designate', F, d))
     pos = t.run(w, F)[0]
     check('TR47', 'an acceptance-time append to the freeze ledger with no valid append comment (none, other hashes, '
           'other id, edited, hidden, other thread, after the merge, malformed): refused; later admissions refuse',
@@ -779,13 +775,15 @@ def f1_controls(t):
         new = hf.jb({'schema': auth.ledger_schema, 'events': json.loads(old.decode('utf-8'))['events'] + [
             {'plan': hf.PLAN, 'round': rnd, 'kind': 'withdraw', 'commit': 'ab' * 20, 'comment_id': 1,
              'author_id': approver, 'created_at': '2026-11-23T00:00:00Z', 'first_line': 'x'}]})
-        if via == 'append':
-            w.comment(hf.PLAN_ISSUE, 'oi-freeze-ledger/1 append plan=%s round=%s from=%s to=%s'
-                      % (hf.PLAN, hf.ROUND, sha(old), sha(new)), author_id=approver)
-        else:
-            w.comment(hf.AUTH_ISSUE, 'oi-authority/1 approve from=%s to=%s' % (sha(old), sha(new)),
-                      author_id=approver)
-        w.add_main('c%d' % (len(w.h.repos[hf.REPO_ID]['commits']) + 1), {hf.LEDGER_PATH: new}, merged_by=approver)
+        # `approver` writes the comment of the named form; the owner in force writes the other, reviews are present and
+        # the owner in force merges, so only that comment's author decides
+        current = w.a['owner']['id']
+        w.comment(hf.PLAN_ISSUE, 'oi-freeze-ledger/1 append plan=%s round=%s from=%s to=%s'
+                  % (hf.PLAN, hf.ROUND, sha(old), sha(new)), author_id=approver if via == 'append' else current)
+        w.comment(hf.AUTH_ISSUE, 'oi-authority/1 approve from=%s to=%s' % (sha(old), sha(new)),
+                  author_id=approver if via == 'authority' else current)
+        w.add_main('c%d' % (len(w.h.repos[hf.REPO_ID]['commits']) + 1),
+                   dict(hf.ledger_review_file(w.a, new, sha(old)), **{hf.LEDGER_PATH: new}), merged_by=current)
         w.ledger_bytes = new
 
     def owner_change(w):
@@ -935,16 +933,19 @@ def _r4_ledger(tags):
 
 
 def _r4_approve(w, old, new, approver, via):
-    if via == 'append':
-        return w.comment(hf.PLAN_ISSUE, 'oi-freeze-ledger/1 append plan=%s round=%s from=%s to=%s'
-                         % (hf.PLAN, hf.ROUND, sha(old), sha(new)), author_id=approver)
-    return w.comment(hf.AUTH_ISSUE, 'oi-authority/1 approve from=%s to=%s' % (sha(old), sha(new)), author_id=approver)
+    """via 'all': both approval comments the procedure needs; 'append': only the oi-freeze-ledger/1 append comment;
+    'authority': only the oi-authority/1 approve comment."""
+    if via in ('all', 'append'):
+        w.comment(hf.PLAN_ISSUE, 'oi-freeze-ledger/1 append plan=%s round=%s from=%s to=%s'
+                  % (hf.PLAN, hf.ROUND, sha(old), sha(new)), author_id=approver)
+    if via in ('all', 'authority'):
+        w.comment(hf.AUTH_ISSUE, 'oi-authority/1 approve from=%s to=%s' % (sha(old), sha(new)), author_id=approver)
 
 
 def _r4_set_ledger(w, new, via, approver=None, approve=True, after=False, direct=False):
-    """One freeze-ledger change on the world's main: approved (before, or after, the change) by `approver` (the
-    owner in force by default), landed by a recorded pull-request merge or, with `direct`, by a push with no merge
-    record."""
+    """One freeze-ledger change on the world's main, with its review record: approved (before, or after, the change)
+    by `approver` (the owner in force by default) through the comments `via` names, landed by a recorded pull-request
+    merge by the owner or, with `direct`, by a push with no merge record."""
     old = w.ledger_bytes
     who = approver if approver is not None else w.a['owner']['id']
     if approve and not after:
@@ -953,12 +954,14 @@ def _r4_set_ledger(w, new, via, approver=None, approve=True, after=False, direct
     if direct:
         files = dict(w.h.repos[hf.REPO_ID]['commits'][w.main]['files'])
         files[hf.LEDGER_PATH] = new
+        files.update(hf.ledger_review_file(w.a, new, sha(old)))
         w.h.add_commit(hf.REPO_ID, cid, [w.main], files)
         w.main = cid
         w.h.repos[hf.REPO_ID]['main'] = cid
         w.h.runs[w.run_id]['head_sha'] = cid
     else:
-        w.add_main(cid, {hf.LEDGER_PATH: new}, merged_by=w.a['owner']['id'])
+        w.add_main(cid, dict(hf.ledger_review_file(w.a, new, sha(old)), **{hf.LEDGER_PATH: new}),
+                   merged_by=w.a['owner']['id'])
     if approve and after:
         _r4_approve(w, old, new, who, via)
     w.ledger_bytes = new
@@ -988,7 +991,7 @@ def r4_b1_controls(t):
     """B1: an approval comment authorizes exactly one change, and each ledger version extends the previous one."""
     OLD, NEW = hf.OWNER_ID, 5555
     out = {}
-    for via in ('append', 'authority'):
+    for via in ('all', 'append', 'authority'):
         def r1(w, via=via):
             l0 = w.ledger_bytes
             _r4_set_ledger(w, _r4_ledger(['one']), via, OLD)          # A approves L0 -> L1
@@ -1024,17 +1027,17 @@ def r4_b1_controls(t):
         out['R3 different change, no approval [%s]' % via] = _r4_run(t, r3)
         out['appends, each approved [%s]' % via] = _r4_run(t, legit)
         out['appends across A->B->A, each approved by the owner in force [%s]' % via] = _r4_run(t, legit_owner)
-    bad = [v for k, v in out.items() if k.startswith(('R1', 'R2', 'R3')) or k.endswith('[authority]')]
-    good = [v for k, v in out.items() if k.startswith('appends') and k.endswith('[append]')]
+    bad = [v for k, v in out.items() if k.startswith(('R1', 'R2', 'R3')) or not k.endswith('[all]')]
+    good = [v for k, v in out.items() if k.startswith('appends') and k.endswith('[all]')]
     check('R4-B1', 'freeze-ledger approvals cannot be replayed (sec. 6.3, "append-only"; "its own explicit owner '
           'approval comment"): R1 (approve L0->L1; owner A->B; B approves the revert L1->L0; B->A; L0->L1 again with '
           'no new approval) and R2 (the same with no owner change) are refused, and R3 (a different change with no '
-          'approval) stays refused; a sequence of appends, each with its own append comment by the owner in force, '
-          'is admitted, also across an owner change and change-back; every case whose ledger changes are approved '
-          'only by oi-authority/1 approve comments in the authority thread is refused (N3: each append needs its own '
-          'oi-freeze-ledger/1 append comment in the plan\'s thread)',
-          "R1, R2, R3 and every [authority] case: exit 65 naming the freeze-ledger change; the [append] append "
-          "sequences: exit 0", out,
+          'approval) stays refused; a sequence of appends, each with its own approval comments by the owner in force '
+          '(both the oi-authority/1 approve and the oi-freeze-ledger/1 append comment, [all]), is admitted, also '
+          'across an owner change and change-back; every case approved by only one of the two comments ([append], '
+          '[authority]) is refused (sec. 6.3, "How it changes", and N3: none stands in for the other)',
+          "R1, R2, R3 and every [append] and [authority] case: exit 65 naming the freeze-ledger change; the [all] "
+          "append sequences: exit 0", out,
           all(o['exit'] == 65 and o['ledger_refused'] for o in bad) and all(o['exit'] == 0 for o in good))
     # each guard on its own: with the append-only check disabled the single-use check refuses R1 and R2, and with
     # the single-use check disabled the append-only check refuses them
@@ -1048,7 +1051,7 @@ def r4_b1_controls(t):
         setattr(auth, attr, stub)
         try:
             got = {}
-            for via in ('append',):
+            for via in ('all',):
                 got['R1 [%s]' % via] = _r4_run(t, lambda w, via=via: (
                     _r4_set_ledger(w, _r4_ledger(['one']), via, OLD), _r4_owner_change(w, NEW),
                     _r4_set_ledger(w, _r4_ledger([]), via, NEW), _r4_owner_change(w, OLD),
@@ -1062,7 +1065,7 @@ def r4_b1_controls(t):
     want = {'single-use alone': 'already authorized', 'append-only alone': 'not an append'}
     check('R4-B1-GUARDS', 'each B1 guard refuses the replay on its own: with the append-only check disabled, the '
           'single-use check refuses R1 and R2; with the single-use check disabled, the append-only check refuses them '
-          '(append comments; the authority-thread route authorizes no append, R4-B1)',
+          '(with both approval comments; one comment alone authorizes no append, R4-B1)',
           "every case exits 65 naming the freeze-ledger change, with 'already authorized' (single-use alone) or 'not "
           "an append' (append-only alone) in the message", guards,
           all(isinstance(g, dict) and all(o['exit'] == 65 and o['ledger_refused'] and want[n] in o['message']
@@ -1072,20 +1075,20 @@ def r4_b1_controls(t):
 def r4_b2_controls(t):
     """B2: a freeze-ledger change with no merge record is refused, whatever its approval."""
     out = {}
-    for via in ('append', 'authority'):
+    for via in ('all', 'append', 'authority'):
         out['direct push, approval after the push [%s]' % via] = _r4_run(
             t, lambda w, via=via: _r4_set_ledger(w, _r4_ledger(['d']), via, after=True, direct=True))
         out['direct push, approval before the push [%s]' % via] = _r4_run(
             t, lambda w, via=via: _r4_set_ledger(w, _r4_ledger(['d']), via, direct=True))
         out['pull-request merge, approval before the merge [%s]' % via] = _r4_run(
             t, lambda w, via=via: _r4_set_ledger(w, _r4_ledger(['d']), via))
-    bad = [v for k, v in out.items() if k.startswith('direct') or k.endswith('[authority]')]
-    good = [v for k, v in out.items() if k.startswith('pull-request') and k.endswith('[append]')]
+    bad = [v for k, v in out.items() if k.startswith('direct') or not k.endswith('[all]')]
+    good = [v for k, v in out.items() if k.startswith('pull-request') and k.endswith('[all]')]
     check('R4-B2', 'a freeze-ledger change landed with no merge record (a direct push; the host reports no merged '
           'pull request) is refused, with the approval created after the push (P9) and also before it; the same '
-          'change merged by pull request with an append comment created before the merge is admitted; with only an '
-          'authority-thread approval every case is refused (N3)',
-          "direct pushes and every [authority] case: exit 65 naming the freeze-ledger change; the [append] "
+          'change merged by pull request with both approval comments created before the merge is admitted; with only '
+          'one of the two comments every case is refused',
+          "direct pushes and every [append] and [authority] case: exit 65 naming the freeze-ledger change; the [all] "
           "pull-request merge: exit 0", out,
           all(o['exit'] == 65 and o['ledger_refused'] for o in bad) and all(o['exit'] == 0 for o in good))
 
@@ -1193,11 +1196,11 @@ def r4_b2_provenance_controls(t):
         w.h.file_history = fh
 
     def other_merge_commit(w):
-        _r4_set_ledger(w, _r4_ledger(['m']), 'append')
+        _r4_set_ledger(w, _r4_ledger(['m']), 'all')
         w.h.merges[(hf.REPO_ID, w.main)]['merge_commit'] = 'c1'
 
     def off_chain(w):
-        _r4_set_ledger(w, _r4_ledger(['m']), 'append')
+        _r4_set_ledger(w, _r4_ledger(['m']), 'all')
         cm = w.h.repos[hf.REPO_ID]['commits'][w.main]
         w.h.add_commit(hf.REPO_ID, 'side', list(cm['parents']), cm['files'], merged_by=hf.OWNER_ID,
                        merged_at=w.h.merges[(hf.REPO_ID, w.main)]['merged_at'])
@@ -1209,7 +1212,7 @@ def r4_b2_provenance_controls(t):
         report_history(w, edit)
 
     def not_introducing(w):
-        _r4_set_ledger(w, _r4_ledger(['m']), 'append')
+        _r4_set_ledger(w, _r4_ledger(['m']), 'all')
         intro = w.main
         w.add_main('c%d' % (len(w.h.repos[hf.REPO_ID]['commits']) + 1), {'syn/unrelated.txt': b'x\n'})
         later = w.main
@@ -1220,9 +1223,9 @@ def r4_b2_provenance_controls(t):
         report_history(w, edit)
 
     def merge_times(w):
-        _r4_set_ledger(w, _r4_ledger(['m']), 'append')
+        _r4_set_ledger(w, _r4_ledger(['m']), 'all')
         first = w.main
-        _r4_set_ledger(w, _r4_ledger(['m', 'n']), 'append')
+        _r4_set_ledger(w, _r4_ledger(['m', 'n']), 'all')
         w.h.merges[(hf.REPO_ID, first)]['merged_at'] = '2026-11-23T00:00:59Z'
 
     def authority_other_merge_commit(w):
@@ -1230,8 +1233,8 @@ def r4_b2_provenance_controls(t):
         w.h.merges[(hf.REPO_ID, w.main)]['merge_commit'] = 'c1'
 
     def consistent(w):
-        _r4_set_ledger(w, _r4_ledger(['m']), 'append')
-        _r4_set_ledger(w, _r4_ledger(['m', 'n']), 'append')
+        _r4_set_ledger(w, _r4_ledger(['m']), 'all')
+        _r4_set_ledger(w, _r4_ledger(['m', 'n']), 'all')
     out = {'merge record names another merge commit': _r4_run(t, other_merge_commit),
            'version reported at a commit off main\'s first-parent chain': _r4_run(t, off_chain),
            'version reported at a commit that did not introduce it': _r4_run(t, not_introducing),
@@ -1435,90 +1438,64 @@ def r5_k1_controls(t):
 
 
 def r5_k2_controls(t):
-    """K2 (N3): every freeze-ledger change that adds events needs its own oi-freeze-ledger/1 append comment by the
-    owner in force, in the authorized thread of a plan A lists, naming that plan and one of its rounds; an
-    oi-authority/1 approve comment in the authority thread does not authorize an append."""
-    def L(tags):
-        return _r4_ledger(tags)
+    """K2: every freeze-ledger change passes the authority-change procedure (sec. 6.3, "How it changes": an owner
+    oi-authority/1 approve comment in the authority thread, an independent review record naming both ledger blobs, and
+    a pull-request merge by the owner) and, when it adds events, also carries its own oi-freeze-ledger/1 append comment
+    by the owner in force in the thread of a plan A lists, naming that plan and one of its rounds (N3). Every component
+    is required; none substitutes for another."""
+    L = _r4_ledger
 
-    def land(w, new, merged_by=None):
-        w.add_main('c%d' % (len(w.h.repos[hf.REPO_ID]['commits']) + 1), {hf.LEDGER_PATH: new},
-                   merged_by=merged_by or w.a['owner']['id'])
-        w.ledger_bytes = new
-
-    def append_comment(w, old, new, plan=hf.PLAN, rnd=hf.ROUND, issue=hf.PLAN_ISSUE):
-        return w.comment(issue, 'oi-freeze-ledger/1 append plan=%s round=%s from=%s to=%s'
-                         % (plan, rnd, sha(old), sha(new)))
-
-    def authority_comment(w, old, new):
-        return w.comment(hf.AUTH_ISSUE, 'oi-authority/1 approve from=%s to=%s' % (sha(old), sha(new)))
-
-    def l2_authority(merged_by):
+    def land(**kw):
         def steps(w):
-            new = L(['a'])
-            authority_comment(w, w.ledger_bytes, new)
-            land(w, new, merged_by)
+            w.land_ledger(L(['a']), **kw)
         return steps
 
-    def l2_append(w):
-        new = L(['a'])
-        append_comment(w, w.ledger_bytes, new)
-        land(w, new, 31337)
-
-    def l3(plan, rnd):
+    def with_review(doc_edit):
         def steps(w):
-            new = L(['a'])
-            append_comment(w, w.ledger_bytes, new, plan=plan, rnd=rnd)
-            land(w, new)
+            old, new = w.ledger_bytes, L(['a'])
+            rv = json.loads(hf.ledger_review(new, sha(old)).decode())
+            doc_edit(rv)
+            w.land_ledger(new, review=hf.jb(rv))
         return steps
 
-    def in_authority_thread(w):
-        new = L(['a'])
-        append_comment(w, w.ledger_bytes, new, issue=hf.AUTH_ISSUE)
-        land(w, new)
+    def authority_form_in_plan_thread(w):
+        old, new = w.ledger_bytes, L(['a'])
+        w.comment(hf.PLAN_ISSUE, 'oi-authority/1 approve from=%s to=%s' % (sha(old), sha(new)))
+        w.land_ledger(new, authority=False)
 
-    def legit(w):
+    def legit_sequence(w):
         for tags in (['a'], ['a', 'b'], ['a', 'b', 'c']):
-            new = L(tags)
-            append_comment(w, w.ledger_bytes, new)
-            land(w, new)
+            w.land_ledger(L(tags))
 
-    def legit_both(w):
-        new = L(['a'])
-        authority_comment(w, w.ledger_bytes, new)
-        append_comment(w, w.ledger_bytes, new)
-        land(w, new)
-
-    def one_comment_two_appends(w):
-        l0 = w.ledger_bytes
-        new = L(['a'])
-        append_comment(w, l0, new)
-        land(w, new)
-        new2 = L(['a', 'b'])
-        authority_comment(w, w.ledger_bytes, new2)
-        land(w, new2)
-    out = {'L2 [authority] append approved only in the authority thread, merged by 31337, no review':
-           _r4_run(t, l2_authority(31337)),
-           'L2 [authority, merged by the owner] append approved only in the authority thread':
-           _r4_run(t, l2_authority(None)),
-           'L3 append comment naming a plan A does not list': _r4_run(t, l3('other-plan', hf.ROUND)),
-           'L3 append comment naming the plan and a round A does not list': _r4_run(t, l3(hf.PLAN, 'r9')),
-           'append comment in the authority thread, not the plan thread': _r4_run(t, in_authority_thread),
-           'a second append approved only in the authority thread': _r4_run(t, one_comment_two_appends),
-           'appends, each with its own append comment (positive)': _r4_run(t, legit),
-           'an append with both comments (positive)': _r4_run(t, legit_both)}
-    pending = {'L2 [append] append comment present, merged by 31337, no review (pending owner decision on the '
-               'review-record and merged-by checks for ledger changes; not part of the predicate)':
-               _r4_run(t, l2_append)}
+    def second_without_append(w):
+        w.land_ledger(L(['a']))
+        w.land_ledger(L(['a', 'b']), append=False)
+    out = {
+        'L2 [authority]: authority comment, review and owner merge, no append comment': _r4_run(t, land(append=False)),
+        'L2 [append]: append comment only, merged by 31337, no review, no authority comment':
+            _r4_run(t, land(authority=False, review=False, merged_by=31337)),
+        'missing: the authority comment': _r4_run(t, land(authority=False)),
+        'missing: the review record': _r4_run(t, land(review=False)),
+        'missing: the owner merge (merged by 31337)': _r4_run(t, land(merged_by=31337)),
+        'review naming another previous ledger blob': _r4_run(t, with_review(lambda d: d.update(previous='0' * 64))),
+        'review by the owner': _r4_run(t, with_review(lambda d: d.update(reviewer=hf.OWNER_LOGIN))),
+        'review with a reject verdict': _r4_run(t, with_review(lambda d: d.update(
+            verdicts=[{'item': 'ledger', 'verdict': 'reject'}]))),
+        'L3 append comment naming a plan A does not list': _r4_run(t, land(plan='other-plan')),
+        'L3 append comment naming the plan and a round A does not list': _r4_run(t, land(rnd='r9')),
+        'append comment in the authority thread, not the plan thread': _r4_run(t, land(issue=hf.AUTH_ISSUE)),
+        'authority comment in the plan thread, not the authority thread': _r4_run(t, authority_form_in_plan_thread),
+        'a second append without its append comment': _r4_run(t, second_without_append),
+        'all four components (positive)': _r4_run(t, land()),
+        'appends, each with all four components (positive)': _r4_run(t, legit_sequence)}
     bad = [v for k, v in out.items() if '(positive)' not in k]
     good = [v for k, v in out.items() if '(positive)' in k]
-    check('R5-K2', 'N3 (sec. 6.3, "Approval of each acceptance-time append"; TR47): an append to the freeze ledger is '
-          'refused unless its own oi-freeze-ledger/1 append comment by the owner in force is in the thread of a plan '
-          'A lists, naming that plan and one of its rounds; an oi-authority/1 approve comment alone (L2 [authority]), '
-          'a comment naming an unlisted plan or round (L3), or one in the authority thread authorizes nothing; '
-          'appends each with their own append comment are admitted',
-          "every refusal case exits 65 naming the freeze-ledger change; both positive cases exit 0; the pending case "
-          "is reported only", dict(out, **pending),
+    check('R5-K2', 'a freeze-ledger change is admitted only with all four components: the owner\'s oi-authority/1 '
+          'approve comment in the authority thread, an independent review record naming both ledger blobs, a merge by '
+          'the owner, and its own oi-freeze-ledger/1 append comment in the thread of a plan A lists, naming that plan '
+          'and one of its rounds (sec. 6.3, "How it changes"; N3; TR47); L2 [authority], L2 [append], each component '
+          'missing in turn, an invalid review, an unlisted plan or round (L3) and comments in the wrong thread refuse',
+          "every refusal case exits 65 naming the freeze-ledger change; both positive cases exit 0", out,
           all(o['exit'] == 65 and o['ledger_refused'] for o in bad) and all(o['exit'] == 0 for o in good))
 
 

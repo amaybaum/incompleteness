@@ -235,15 +235,35 @@ def _ledger_append_approval(host, a, old_sha, new_sha, v, consumed, what):
     return ok[0]
 
 
-def _ledger_first_approval(host, a, new_sha, v, consumed, what):
-    """The first, empty ledger lands with A under the authority-change procedure: an `oi-authority/1 approve
-    from=none` comment by the owner in the authority thread, created before the merge. Returns the comment."""
+def _ledger_authority_approval(host, a, old_sha, new_sha, v, consumed, what):
+    """The authority-change procedure's approval of a ledger change (sec. 6.3, "How it changes"): an
+    `oi-authority/1 approve` comment by the owner of `a` in `a`'s authority thread, quoting exactly the ledger hashes
+    before ("none" for the first ledger) and after, unedited and visible, created before the merge, and used by no
+    earlier change. Returns the comment."""
     cs = read_thread(host, a['authority_thread']['repository_id'], a['authority_thread']['issue'])
-    ok = _fresh(find_approval(a, cs, 'authority-approve', {'frm': 'none', 'to': new_sha}, a['owner']['id'],
+    ok = _fresh(find_approval(a, cs, 'authority-approve', {'frm': old_sha, 'to': new_sha}, a['owner']['id'],
                               v.get('merged_at')), consumed, 'ledger', what)
     if len(ok) != 1:
-        refuse('ledger', '%s has no verified approval comment' % what)
+        refuse('ledger', '%s has no verified oi-authority/1 approve comment in the authority thread' % what)
     return ok[0]
+
+
+def _review_problem(host, repo_id, main, a, path, new_sha, old_sha):
+    """None when main holds at `path` a valid independent review record (sec. 6.3) of the change from `old_sha` to
+    `new_sha`: schema oi-review-record/1, naming both blobs, by a reviewer other than the owner, with at least one
+    verdict and every verdict accept. Otherwise the reason."""
+    rv = host.file_at(repo_id, main, path)
+    try:
+        rvd = json.loads(rv.decode('utf-8')) if rv else None
+    except (ValueError, UnicodeDecodeError):
+        rvd = None
+    if not isinstance(rvd, dict) or rvd.get('schema') != 'oi-review-record/1' or \
+            not isinstance(rvd.get('reviewed'), dict) or rvd['reviewed'].get('blob_sha256') != new_sha or \
+            rvd.get('previous') != old_sha or rvd.get('reviewer') in (None, a['owner']['login']) or \
+            not isinstance(rvd.get('verdicts'), list) or not rvd['verdicts'] or \
+            any(not isinstance(x, dict) or x.get('verdict') != 'accept' for x in rvd['verdicts']):
+        return 'has no valid independent review record'
+    return None
 
 
 # ---- the authority-change procedure ---------------------------------------------------------------------------
@@ -251,6 +271,12 @@ def _ledger_first_approval(host, a, new_sha, v, consumed, what):
 def review_path(a, to_sha):
     base = a['freeze_ledger_path'].rsplit('/', 1)[0]
     return '%s/authority-reviews/%s.json' % (base, to_sha)
+
+
+def ledger_review_path(a, from_sha, to_sha):
+    """The review record of a freeze-ledger change, named by both ledger blobs ("none" before the first)."""
+    base = a['freeze_ledger_path'].rsplit('/', 1)[0]
+    return '%s/ledger-reviews/%s-%s.json' % (base, from_sha, to_sha)
 
 
 def in_force(host, repo_id, a_versions, commit):
@@ -280,9 +306,10 @@ def verify_history(host, repo_id, path, governing, main, kind, a_versions=None, 
     (commit, parsed A) for every verified version; for kind 'ledger' it supplies them, and each ledger change is
     approved by the owner of the version in force when it merged. `consumed` (a set, shared between the authority
     and the ledger histories) holds the approval comment ids already used: each comment authorizes one change.
-    Each ledger version extends the previous one, and each ledger change has a merge record. A ledger change that
-    adds events needs its own append comment (N3); only the first, empty ledger is approved in the authority
-    thread."""
+    Each ledger version extends the previous one, and each ledger change has a merge record. Every ledger change
+    passes the authority-change procedure (an approval comment in the authority thread, an independent review record
+    naming both blobs, and a pull-request merge by the owner), and one that adds events also needs its own append
+    comment in a plan thread (N3); none of these stands in for another."""
     if consumed is None:
         consumed = set()
     try:
@@ -325,15 +352,7 @@ def verify_history(host, repo_id, path, governing, main, kind, a_versions=None, 
                 used.append(co[0]['id'])
             if v.get('merged_by_id') != gov['owner']['id']:
                 refuse('authority', 'authority change %s was merged by another account' % v['commit'][:12])
-            rv = host.file_at(repo_id, main, review_path(new_a, new_sha))
-            try:
-                rvd = json.loads(rv.decode('utf-8')) if rv else None
-            except ValueError:
-                rvd = None
-            if not rvd or rvd.get('schema') != 'oi-review-record/1' or \
-                    rvd.get('reviewed', {}).get('blob_sha256') != new_sha or rvd.get('previous') != old_sha or \
-                    rvd.get('reviewer') in (None, gov['owner']['login']) or \
-                    any(x.get('verdict') != 'accept' for x in rvd.get('verdicts', [])) or not rvd.get('verdicts'):
+            if _review_problem(host, repo_id, main, gov, review_path(new_a, new_sha), new_sha, old_sha):
                 refuse('authority', 'authority change %s has no valid independent review record' % v['commit'][:12])
             consumed.update(used)
             prev_a = new_a
@@ -352,13 +371,21 @@ def verify_history(host, repo_id, path, governing, main, kind, a_versions=None, 
             # the approver is the owner of the version of A in force when this ledger change merged (sec. 6.3); the
             # owner of a superseded version keeps no authority over a change merged after its supersession
             a = in_force(host, repo_id, a_versions, v['commit']) if a_versions else governing
-            # every change after the first adds events (append-only, above); the first adds events unless it is empty
+            # the authority-change procedure, for every ledger change (sec. 6.3, "How it changes")
+            approval = _ledger_authority_approval(host, a, old_sha, new_sha, v, consumed, what)
+            why = _review_problem(host, repo_id, main, a, ledger_review_path(a, old_sha, new_sha), new_sha, old_sha)
+            if why:
+                refuse('ledger', '%s %s' % (what, why))
+            if v.get('merged_by_id') != a['owner']['id']:
+                refuse('ledger', '%s was merged by another account' % what)
+            # and, for a change that adds events, its own append comment (N3): every change after the first adds
+            # events (append-only, above); the first adds events unless it is empty
+            append = None
             if prev_blob is not None or _ledger_events(blob, what):
-                approval = _ledger_append_approval(host, a, old_sha, new_sha, v, consumed, what)
-            else:
-                approval = _ledger_first_approval(host, a, new_sha, v, consumed, what)
-            consumed.add(approval['id'])
-            out.append({'commit': v['commit'], 'blob_sha256': new_sha, 'approval': approval['id']})
+                append = _ledger_append_approval(host, a, old_sha, new_sha, v, consumed, what)['id']
+            consumed.update([approval['id']] + ([append] if append is not None else []))
+            out.append({'commit': v['commit'], 'blob_sha256': new_sha, 'approval': approval['id'],
+                        'append_approval': append})
         prev_blob = blob
         prev_merged_at = v['merged_at']
     return out

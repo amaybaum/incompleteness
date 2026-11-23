@@ -1,8 +1,9 @@
 """An in-memory host world for the admission controls (TR1-TR47) and the simulated-chain controls.
 
 It builds, on the engine's in-memory host, a repository with an authority record on `main` (approved, reviewed and
-merged by the owner), an empty freeze ledger, a pinned workflow, a run record, and a plan thread holding the
-owner's designation of a freeze `F` that the caller builds in its own (in-memory) git repository with a pin table.
+merged by the owner), an empty freeze ledger (approved, reviewed and merged by the owner), a pinned workflow, a run
+record, and a plan thread holding the owner's designation of a freeze `F` that the caller builds in its own
+(in-memory) git repository with a pin table.
 Every identity here is a synthetic fixture. Nothing is written to any host.
 """
 import hashlib
@@ -55,6 +56,18 @@ def authority(pin_table_path, owner_id=OWNER_ID, supersedes=None, extra=None):
     return a
 
 
+def ledger_review(new_bytes, old_sha):
+    """An independent review record of a freeze-ledger change (sec. 6.3), naming both ledger blobs."""
+    return jb({'schema': 'oi-review-record/1', 'reviewer': 'reviewer-b',
+               'reviewed': {'path': LEDGER_PATH, 'blob_sha256': sha(new_bytes)}, 'previous': old_sha,
+               'method': 'read both ledger versions', 'verdicts': [{'item': 'ledger', 'verdict': 'accept'}]})
+
+
+def ledger_review_file(a, new_bytes, old_sha):
+    """{path: bytes} of the review record of the ledger change from `old_sha` to `new_bytes`."""
+    return {auth.ledger_review_path(a, old_sha, sha(new_bytes)): ledger_review(new_bytes, old_sha)}
+
+
 def pin_table(entries):
     rows = '\n'.join('| `%s` | `%s` |' % (n, h) for n, h in sorted(entries.items()))
     return ('# PREREG\n\n### 1.1 Record pins\n\n| File | sha256 |\n|---|---|\n%s\n' % rows).encode()
@@ -82,6 +95,7 @@ class World:
         self.approve(AUTH_ISSUE, 'oi-authority/1 approve from=none to=%s' % sha(self.ledger_bytes))
         files = {auth.authority_path: self.a_bytes, LEDGER_PATH: self.ledger_bytes, WF_PATH: WF,
                  auth.review_path(self.a, sha(self.a_bytes)): self.review}
+        files.update(ledger_review_file(self.a, self.ledger_bytes, 'none'))
         self.main = 'c1'
         self.h.add_commit(REPO_ID, 'c0', [], {})
         self.h.add_commit(REPO_ID, 'c1', ['c0'], files, merged_by=OWNER_ID, merged_at=self.tick())
@@ -112,6 +126,28 @@ class World:
 
     def args(self, F):
         return ['--freeze', F, '--plan', PLAN, '--round', ROUND]
+
+    def land_ledger(self, new, approver=None, authority=True, append=True, review=True, merged_by=None,
+                    plan=PLAN, rnd=ROUND, issue=PLAN_ISSUE):
+        """A freeze-ledger change through the whole procedure (sec. 6.3): the owner's oi-authority/1 approve comment,
+        its own oi-freeze-ledger/1 append comment (N3), an independent review record naming both blobs, and a
+        pull-request merge by the owner. Each component can be left out or altered (`review` may be the review
+        record's bytes)."""
+        old = self.ledger_bytes
+        who = approver if approver is not None else self.a['owner']['id']
+        if authority:
+            self.comment(AUTH_ISSUE, 'oi-authority/1 approve from=%s to=%s' % (sha(old), sha(new)), author_id=who)
+        if append:
+            self.comment(issue, 'oi-freeze-ledger/1 append plan=%s round=%s from=%s to=%s'
+                         % (plan, rnd, sha(old), sha(new)), author_id=who)
+        files = {LEDGER_PATH: new}
+        if isinstance(review, bytes):
+            files[auth.ledger_review_path(self.a, sha(old), sha(new))] = review
+        elif review:
+            files.update(ledger_review_file(self.a, new, sha(old)))
+        self.add_main('c%d' % (len(self.h.repos[REPO_ID]['commits']) + 1), files,
+                      merged_by=merged_by if merged_by is not None else self.a['owner']['id'])
+        self.ledger_bytes = new
 
     def add_main(self, cid, files, merged_by=OWNER_ID, merged_at=None):
         """A new first-parent commit on main changing `files`."""
