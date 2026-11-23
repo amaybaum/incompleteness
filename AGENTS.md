@@ -1551,8 +1551,7 @@ settings:
    The text sent and the text stored are kept as evidence under §A.26, and the owner is told. Only a
    recorded owner decision resumes writing; a later correction does not make a failed write a pass.
 
-Adopted 2026-11-23 by owner decision (`amaybaum`, coordinating session); rule 2 amended the same day
-(#1169 comment 7099599721).
+Adopted 2026-11-23 by owner decision (`amaybaum`, coordinating session); rule 2 amended the same day.
 
 ***
 
@@ -1563,10 +1562,10 @@ Beyond the gates of a frozen plan or round, which stand as written, these action
 explicit approval each time:
 
 1. merging into `main`;
-2. amending, freezing or executing the posit-retirement plan of #1169, or dispatching its trials;
+2. amending, freezing or executing a plan that retires a substratum posit, or dispatching its trials;
 3. deleting branches, Issues, pull requests or evidence;
 4. sending material outside GitHub.
 
 Other work follows this file, GitHub writes under §A.49.
 
-Adopted 2026-11-23 by owner decision (`amaybaum`, #1169 comment 7099599721).
+Adopted 2026-11-23 by owner decision (`amaybaum`, coordinating session).
