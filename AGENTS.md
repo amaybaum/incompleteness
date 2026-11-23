@@ -712,6 +712,10 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   pull request's kept branch. Keeping that branch and assigning the gap to an Issue were taken as
   enough. Hence §A.42 item 8: every off-`main` reference is traced to its claim before landing,
   and responsibility is not retention.
+- For at least four weeks, agent-written Issue and pull-request text was stored with long
+  repository links (`blob` and `tree`) rewritten into code spans, so that they no longer linked,
+  and some texts gained a footer; the cause is not located. It was found only when a byte-exact
+  read-back compared the stored text with what was sent. Hence §A.49.
 
 ---
 
@@ -1517,3 +1521,31 @@ item 2.
 Adopted 2026-11-21 by owner decision (`amaybaum`, #1169 comment 7058897767), implementing the
 principle recorded at #1169 comment 7058521984, within the drafting scope of #1169 comment
 7058574403 and the strict reading of identifier reuse confirmed at #1169 comment 7058783437.
+
+***
+
+## §A.49 Automated GitHub writes
+
+Text that an automated agent writes to GitHub (Issue and pull-request bodies, titles, comments and
+reviews), whatever the tool, can be changed before GitHub stores it. With Claude Code, long
+repository links (`blob` and `tree`) rewritten into code spans and a trailing attribution footer have
+been observed; their source and exact rules are not established. Whatever the tool or its attribution
+settings:
+
+1. **Check before writing.** Files and directories are named by path and commit, or by a github.com
+   repository link (`blob` or `tree`; the URL counted alone, bare or in Markdown) of at most 101
+   characters or with a `#fragment`. Text containing a longer such link without a `#fragment`, a
+   carriage return or an invisible character (Unicode format characters, category Cf, including
+   zero-width characters and the byte-order mark, or a non-ASCII space such as the no-break space) is
+   not sent.
+2. **Exact read-back.** After every write, the stored text is read back and compared byte for byte
+   with an expected text fixed before the write. The expected text is the text sent, for every body,
+   title, comment, review and review comment, except an Issue comment posted through, and under
+   every condition of, the owner-approved comment procedure (#1548 comment 7079078606), whose
+   expected text is the one that procedure's formula gives, footer included. No other normalization
+   is allowed. Any difference, or a read-back that fails or cannot be completed, is a mismatch.
+3. **Stop on a mismatch.** Automated GitHub text writes stop at once, for every agent and session.
+   The text sent and the text stored are kept as evidence under §A.26, and the owner is told. Only a
+   recorded owner decision resumes writing; a later correction does not make a failed write a pass.
+
+Adopted 2026-11-23 by owner decision (`amaybaum`, coordinating session).
