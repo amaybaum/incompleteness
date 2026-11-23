@@ -104,8 +104,8 @@
     },
     {
      "path": "tools/ledger_coverage/authority.json",
-     "git_blob": "d08ef0ee60c6e3588e04851703a2e178d4cd47dc",
-     "blob_sha256": "f898e9251a18d831f899b3ecc82a166f22d0b68fc4f842837d80c8d6debde69c"
+     "git_blob": "160ce96ed356c89b47caedf7e72e08faa87c0062",
+     "blob_sha256": "47793d40b993bbf6808a8771f9e4e4e01622af952497fdce22efbe7d10f5a691"
     },
     {
      "path": "tools/ledger_coverage/engine/__init__.py",
@@ -114,13 +114,13 @@
     },
     {
      "path": "tools/ledger_coverage/engine/authority.py",
-     "git_blob": "6423be7c777abf711005c74acc2cef345e3439b6",
-     "blob_sha256": "6b34dd357de67ab4109ffc7ca6f7ff9bddde37442d0e05f4d3aa3d82cf928471"
+     "git_blob": "62c5024e928f4db034dbf03f7434dbeac69b9566",
+     "blob_sha256": "b5266351da521581696bd60e2c7d581d94e93369d5592a142bb130e3078d5967"
     },
     {
      "path": "tools/ledger_coverage/engine/checker.py",
-     "git_blob": "88ba85e6198825ddb3d5d466f904f22a8ed34092",
-     "blob_sha256": "abc2adab782cbf6df4488d6b26155aed6596166668fd7ede069980ac08d9fdac"
+     "git_blob": "6f697296af5ca3af02daf9dd4b227438884e758c",
+     "blob_sha256": "5293889733cfd82836e52d64f2d9bf99f5be172d24ebe6b3206e5e68804ca750"
     },
     {
      "path": "tools/ledger_coverage/engine/cli.py",

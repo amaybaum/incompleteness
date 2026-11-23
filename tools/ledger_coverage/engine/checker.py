@@ -79,9 +79,9 @@ def accept_with_host(doc, exit_status, pins, host, landing):
         if b is None or hashlib.sha256(b).hexdigest() != want:
             return False
     # point 3 (K7): only the pinned files, the authority record and the workflow, each a regular file
-    permitted = {'tools/ledger_coverage/authority.json': pins.get('authority_blob_sha256'),
-                 pins['workflow_path']: pins['workflow_sha256']}
-    for path, kind in host.entries_at(run['repository_id'], run['head_sha'], 'tools/ledger_coverage/'):
+    a_path = 'tools/ledger_coverage/authority.json'
+    permitted = {a_path: pins.get('authority_blob_sha256'), pins['workflow_path']: pins['workflow_sha256']}
+    for path, kind in host.entries_at(run['repository_id'], run['head_sha'], a_path.rsplit('/', 1)[0] + '/'):
         if kind != 'file' or (path not in pins['engine_pins'] and path not in permitted):
             return False
         if path in permitted and path not in pins['engine_pins']:

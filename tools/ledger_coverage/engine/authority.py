@@ -12,6 +12,7 @@ from . import util
 from .host import HostUnavailable, first_line
 
 authority_path = 'tools/ledger_coverage/authority.json'
+tool_dir = authority_path.rsplit('/', 1)[0] + '/'
 authority_schema = 'oi-tool-authority/2'
 ledger_schema = 'oi-freeze-ledger/1'
 authority_fields = ['schema', 'owner', 'repository', 'workflow', 'engine_pins', 'plans', 'authority_thread',
@@ -272,7 +273,7 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
         on_main = host.on_first_parent_chain(repo_id, head, main)
         wf = host.file_at(repo_id, head, a['workflow']['path'])
         a_head = host.file_at(repo_id, head, authority_path)
-        tool_entries = host.entries_at(repo_id, head, 'tools/ledger_coverage/')
+        tool_entries = host.entries_at(repo_id, head, tool_dir)
     except HostUnavailable as exc:
         refuse('identity', 'execution identity cannot be read: %s' % exc)
     if not on_main:
