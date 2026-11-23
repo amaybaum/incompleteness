@@ -8,7 +8,7 @@ independently of any record (S6).
 """
 from . import segments as sg
 from . import util
-from .gitobj import blob_id_of, on_first_parent_chain
+from .gitobj import Unresolvable, blob_id_of, on_first_parent_chain
 
 condition_order = ['R13', 'R1', 'R2', 'R3', 'R4', 'R5', 'R6', 'R7', 'R8', 'R9', 'R10', 'R11', 'R12']
 
@@ -122,7 +122,11 @@ def evaluate(repo, ctx, H, M, X, led, rdoc, entry, classes, record_refs):
         all(b[k] == want.get(k) for k in ('files_entry_sha256', 'splices_sha256', 'edit_records_sha256'))
     # R1
     changes = []
-    if on_first_parent_chain(repo, H, M):
+    try:
+        on_chain = on_first_parent_chain(repo, H, M)
+    except Unresolvable:
+        on_chain = False
+    if on_chain:
         chain, c = [], M
         while c != H:
             chain.append(c)

@@ -1011,12 +1011,22 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
     side, recon, class_docs = [], [], []
     record_refs = {}
     for r in cfg['records']:
+        d = loaded.store.get(r)
         if r.get('kind') == 'side-change-classes':
-            d = loaded.store.get(r)
             if d is not None and d.get('schema') == 'oi-side-change-classes/1':
                 class_docs.append(d)
                 side += d.get('classes', [])
                 record_refs[r['path']] = r['blob_sha256']
+        elif r.get('kind') == 'reconciliation' and d is not None and d.get('schema') == 'oi-reconciliation/1':
+            # a reconciliation record frozen with the plan is referenced by the configuration (sec. 6.3, 16.2);
+            # its chain is linted like any record the run uses
+            probs = [] if records.harness else rec.lint_chain(r, loaded.store, cfg['retirement']['owner'],
+                                                              loaded.admitted)
+            if probs:
+                records.items.append(oc.make_item('RECORD', 'record-invalid', r['path'], None,
+                                                  {'sha': r['blob_sha256'], 'why': probs[0]}, detail=probs))
+            else:
+                recon.append(dict(d, _ref={'path': r['path'], 'blob_sha256': r['blob_sha256']}))
     for r in a.classify:
         d = records.admit(repo, r, 'classification')
         if d is None:
@@ -1026,7 +1036,8 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
                 class_docs.append(d)
                 side += d.get('classes', [])
                 record_refs[d['_ref']['path']] = d['_ref']['blob_sha256']
-        elif d.get('schema') == 'oi-reconciliation/1':
+        elif d.get('schema') == 'oi-reconciliation/1' and \
+                d['_ref']['blob_sha256'] not in {x['_ref']['blob_sha256'] for x in recon}:
             recon.append(d)
     dup = rcmod.duplicate_class_ids(class_docs)
     if dup:

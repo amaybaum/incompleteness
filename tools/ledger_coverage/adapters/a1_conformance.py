@@ -502,6 +502,34 @@ def n_controls(a):
           'for the path', "L's blob is 86d79863... and no item names AGENTS.md",
           {'l_blob': repo.blob_id(L11, path), 'items': cl11},
           repo.blob_id(L11, path) == '86d79863821f3f8cdad86771008b2df89fd1961a' and not cl11)
+    # the configuration route (owner: the record is frozen with the plan and referenced by the configuration)
+    cfg = json.loads(repo.read(a.crev, a.cpath))
+    classes_doc = {'schema': 'oi-side-change-classes/1', 'record_id': 'n3-classes', 'author': 'control-writer',
+                   'supersedes': None, 'classes': rcn.classes}
+    rp, cp = a.ad + 'records/n3-reconciliation.json', a.ad + 'records/n3-classes.json'
+    rb, cb = (json.dumps(rec, indent=1) + '\n').encode(), (json.dumps(classes_doc, indent=1) + '\n').encode()
+    cfg['records'] = [r_ for r_ in cfg['records'] if r_.get('kind') != 'side-change-classes'] + [
+        {'kind': 'side-change-classes', 'path': cp, 'blob_sha256': sha(cb)},
+        {'kind': 'reconciliation', 'path': rp, 'blob_sha256': sha(rb)}]
+    cfg['roles']['side_change_classes'] = {'path': cp, 'blob_sha256': sha(cb)}
+    cfgb = (json.dumps(cfg, indent=1, ensure_ascii=False) + '\n').encode()
+    c2 = repo.derive(a.crev, {rp: rb, cp: cb, a.cpath: cfgb}, parents=repo.parents(a.crev), subject='route')
+    old_c, old_s = a.crev, a.csha
+    a.crev, a.csha = c2, sha(cfgb)
+    try:
+        code, res, _ = a.run(['execution', '--scientific-base', H, '--candidate', T, '--ledger', a1c.LEDGER,
+                              '--edits', a1c.EDITS, '--delegation', '%s:%sdelegation-draft.json' % (c2, a.ad),
+                              '--main', M, '--landing', L11])
+    finally:
+        a.crev, a.csha = old_c, old_s
+    on = [i['class'] for i in res.get('items', []) if path in str(i.get('file')) or path in str(i.get('subject'))]
+    check('N3-config-route', 'a reconciliation record referenced by the configuration (frozen with the plan) is loaded '
+          'from it: AGENTS.md is reconciled at M and composed at the landing', "op C (harness) gives no item naming "
+          "AGENTS.md and records the composition 86d79863...", {'exit': code, 'items': on, 'stop': (res.get('stop') or
+                                                                                                    {}).get('message'),
+                                                                 'compositions': res.get('landing_compositions')},
+          not on and any(x.get('composed_blob') == '86d79863821f3f8cdad86771008b2df89fd1961a'
+                         for x in res.get('landing_compositions') or []))
     # R18, R19
     bad = [dict(rcn.classes[0], pins=[dict(rcn.classes[0]['pins'][0], blob_sha256='0' * 64)]), rcn.classes[1]]
     e18c = rcn.run(rec, classes=bad)
