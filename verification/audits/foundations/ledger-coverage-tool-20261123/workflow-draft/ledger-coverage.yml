@@ -1,0 +1,79 @@
+# UNREVIEWED DRAFT of the one workflow whose runs may produce an acceptable result (design sec. 6.3, A-D4, V3).
+# It is drafted here because the tool's landing paths do not include .github/workflows/ (sec. 12.3); the
+# authority record pins its content hash under the path .github/workflows/ledger-coverage.yml, where it must
+# land, unchanged, through its own reviewed change. It is not active in this directory.
+name: ledger-coverage
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: coverage, execution or terms
+        required: true
+      arguments:
+        description: the operation's arguments (commits as full ids), without --out
+        required: true
+      plan:
+        required: true
+      round:
+        required: true
+      freeze:
+        required: true
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+  actions: read
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - name: check out exactly the run's head
+        run: |
+          git init -q work
+          cd work
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          git -c http.extraheader="AUTHORIZATION: bearer ${{ secrets.GITHUB_TOKEN }}" fetch -q origin \
+            '+refs/heads/main:refs/remotes/origin/main' "${GITHUB_SHA}"
+          git checkout -q --detach "${GITHUB_SHA}"
+          test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
+      - name: verify the tool blobs against the authority record before executing
+        working-directory: work
+        run: |
+          python3 -I -B - <<'PY'
+          import hashlib, json, subprocess, sys
+          a = json.loads(subprocess.run(['git', 'show', 'origin/main:tools/ledger_coverage/authority.json'],
+                                        capture_output=True, check=True).stdout)
+          tracked = subprocess.run(['git', 'ls-files', 'tools/ledger_coverage', 'tools/ledger_coverage.py'],
+                                   capture_output=True, text=True, check=True).stdout.split()
+          extra = [p for p in tracked if p not in a['engine_pins'] and p != 'tools/ledger_coverage/authority.json']
+          bad = [p for p, h in a['engine_pins'].items()
+                 if hashlib.sha256(open(p, 'rb').read()).hexdigest() != h]
+          if extra or bad:
+              sys.exit('tool blobs differ from the authority record: extra %s, changed %s' % (extra, bad))
+          PY
+      - name: run the tool from this tree only
+        working-directory: work
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPERATION: ${{ inputs.operation }}
+          ARGUMENTS: ${{ inputs.arguments }}
+          PLAN: ${{ inputs.plan }}
+          ROUND: ${{ inputs.round }}
+          FREEZE: ${{ inputs.freeze }}
+        run: |
+          set +e
+          # shellcheck disable=SC2086
+          python3 -I -B tools/ledger_coverage.py "$OPERATION" $ARGUMENTS --freeze "$FREEZE" --plan "$PLAN" \
+            --round "$ROUND" --out "$RUNNER_TEMP/out"
+          echo "status=$?" >> "$GITHUB_OUTPUT"
+          exit 0
+        id: tool
+      - name: upload the result
+        uses: actions/upload-artifact@v4
+        with:
+          name: ledger-coverage-result
+          path: ${{ runner.temp }}/out/result.json
+          if-no-files-found: error
+      - name: the tool's exit status decides the job
+        run: test "${{ steps.tool.outputs.status }}" = "0"

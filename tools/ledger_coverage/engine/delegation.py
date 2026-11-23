@@ -4,8 +4,8 @@ Every class is executed by the tool itself in a disposable full clone at X and, 
 under --out (no --depth, no alternates; commit and tree ids checked in the clone). Checkers run from F's blobs.
 The tool records each run (checker blob sha256, command line, working directory, exit status, the bytes of
 each output it compares) and re-derives what it can. A result file supplied from outside the run is never
-evidence for a class the tool can execute; host-run classes read the host's records through its API. Without F
-every class is REVIEW_REQUIRED delegated-evidence-missing (T4); where clones cannot be made (a local run), the
+evidence for a class the tool can execute; host-run classes read the host's records through its interface. Without F
+every class is a review item delegated-evidence-missing (T4); where clones cannot be made (a local run), the
 same.
 """
 import base64
@@ -57,7 +57,7 @@ class Delegation:
             state, per_tree = 'pass', []
             results = []
             if F is None:
-                results.append(('X', [('missing', 'no freeze F: a delegated class is never PASS without F (T4)')]))
+                results.append(('X', [('missing', 'no freeze F: a delegated class never passes without F (T4)')]))
             else:
                 for name, tree in trees:
                     r = dict(roles, candidate=tree, tree_role=name)
@@ -146,7 +146,7 @@ class Native:
                            text=True)
         if r.returncode != 0:
             raise RuntimeError('checkout failed: %s' % r.stderr[-300:])
-        head = subprocess.run(['git', '-C', d, 'rev-parse', 'HEAD', 'HEAD^{tree}'], capture_output=True,
+        head = subprocess.run(['git', '-C', d, 'log', '-1', '--format=%H %T'], capture_output=True,
                               text=True).stdout.split()
         if head != [commit, self.repo.tree_id(commit)]:
             raise RuntimeError('the clone\'s commit or tree differs from %s' % commit)
@@ -181,9 +181,9 @@ class Native:
         for f in result_files:
             p = f if os.path.isabs(f) else os.path.join(cwd, f)
             files[os.path.basename(f)] = open(p, 'rb').read() if os.path.isfile(p) else None
-        rel = [a.replace(self.out, '$OUT') if isinstance(a, str) else a for a in argv]
+        rel = [a.replace(self.out, '<out>') if isinstance(a, str) else a for a in argv]
         rec = {'label': label, 'tree': tree, 'checker_sha256': checker_sha, 'argv': rel,
-               'cwd': cwd.replace(self.out, '$OUT'), 'exit': r.returncode, 'stdout': _bytes_record(r.stdout),
+               'cwd': cwd.replace(self.out, '<out>'), 'exit': r.returncode, 'stdout': _bytes_record(r.stdout),
                'stderr_sha256': util.sha256(r.stderr), 'files': {k: _bytes_record(v) for k, v in files.items()}}
         self.runs.append(rec)
         return {'exit': r.returncode, 'stdout': r.stdout, 'files': files}
@@ -202,6 +202,8 @@ class Native:
         self.derivations.append({'class': cls, 'tree': tree, 'check': what, 'holds': bool(holds)})
 
     def record(self):
+        if self.replay is not None:
+            return self.replay
         return {'enabled': self.enabled, 'why_disabled': self.why_disabled, 'clones': sorted(self.clones),
                 'runs': self.runs, 'host_records': self.host_records, 'derivations': self.derivations,
                 'python': sys.version.split()[0]}

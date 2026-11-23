@@ -156,7 +156,7 @@ class Execution:
     def commits_after(self, chain, F=None):
         """B4: each commit after X on the chain to C, with its parent, classified path by path as X is against
         H: ledgered (H plus the splices), delegated (checked by its class at C) or record (admitted after F);
-        anything else is FAIL unauthorized-change naming the commit."""
+        anything else fails as unauthorized-change, naming the commit."""
         led = self.ledger
         by_file = {}
         for sp in led['splices']:

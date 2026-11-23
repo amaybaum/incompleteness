@@ -10,9 +10,9 @@
    "id": "register-infinity-params",
    "kind": "params",
    "profiles": {
-    "register": "register",
-    "caps": "register-caps",
-    "infinity": "infinity"
+    "register_profile": "register",
+    "caps_profile": "register-caps",
+    "infinity_profile": "infinity"
    },
    "caps_kinds": [
     "ptr",

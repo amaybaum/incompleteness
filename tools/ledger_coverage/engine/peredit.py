@@ -30,11 +30,11 @@ class Unit:
     def __init__(self, params, profiles):
         self.p = params
         self.names = params['profiles']
-        self.reg = _one(profiles.get(self.names['register']))
-        self.caps = _one(profiles.get(self.names['caps']))
-        caps_prof = profiles.get(self.names['caps'])
+        self.reg = _one(profiles.get(self.names['register_profile']))
+        self.caps = _one(profiles.get(self.names['caps_profile']))
+        caps_prof = profiles.get(self.names['caps_profile'])
         self.caps_ok = caps_prof.minus[1] if caps_prof is not None and caps_prof.minus else set()
-        inf = profiles.get(self.names['infinity'])
+        inf = profiles.get(self.names['infinity_profile'])
         self.inf = _one(inf)
         self.neutral = inf.minus[1] if inf is not None and inf.minus else []
         self.split = re.compile(params['splitter'])
@@ -86,7 +86,7 @@ class Unit:
                 reg += r
                 caps += c
                 inf += i
-        return {self.names['register']: reg, self.names['caps']: caps, self.names['infinity']: inf}
+        return {self.names['register_profile']: reg, self.names['caps_profile']: caps, self.names['infinity_profile']: inf}
 
 
 def unit_pairs(units, pairs_key):
@@ -104,7 +104,7 @@ def unit_pairs(units, pairs_key):
 
 
 def evaluate(led, params, profiles):
-    """Returns (record, items). Fail-closed: a missing parameter record or profile is a FAIL of the unit."""
+    """Returns (record, items). Fail-closed: a missing parameter record or profile fails the unit."""
     units = led.get('edit_units')
     if units is None:
         return None, []
@@ -122,8 +122,8 @@ def evaluate(led, params, profiles):
     for prof, finds in sorted(res.items()):
         for f in finds:
             items.append(oc.make_item('TERMS', 'deny-match', '%s: %s' % (f[0], prof), None,
-                                      {'edit': f[0], 'profile': prof, 'token': f[1]},
-                                      profiles=[prof], rule_id=[prof], unit='per-edit', edit=f[0], match=f[1]))
+                                      {'edit_id': f[0], 'profile': prof, 'token': f[1]},
+                                      profiles=[prof], rule_id=[prof], unit='per-edit', edit_id=f[0], match=f[1]))
     rec = {'evaluated': True, 'edits': len(units), 'counts': {k: len(v) for k, v in sorted(res.items())},
            'findings': {k: [list(x) for x in v] for k, v in sorted(res.items())}}
     return rec, items
@@ -169,7 +169,7 @@ def check_examples(rule, profiles):
         return ['%s: profiles missing for the examples' % rule.get('id')]
     for ex in rule.get('positive_examples', []):
         r, c, i = u.pair('ex', ex.get('kind'), ex['old'], ex['new'])
-        got = {u.names['register']: len(r), u.names['caps']: len(c), u.names['infinity']: len(i)}
+        got = {u.names['register_profile']: len(r), u.names['caps_profile']: len(c), u.names['infinity_profile']: len(i)}
         if any(got[k] != v for k, v in ex['expect'].items()):
             out.append('%s: positive example %r gives %s' % (rule['id'], ex['new'][:40], got))
     for ex in rule.get('negative_examples', []):

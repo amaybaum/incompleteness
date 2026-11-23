@@ -33,11 +33,14 @@ field_names = frozenset([
     'manuscript_digest', 'paths_record', 'record-dir', 'interface', 'module_sha256', 'regex', 'context_field',
     'INTERFACE', 'NAME', 'VERSION', 'outcome', 'exit_status', 'items', 'preflight', 'record_checks', 'passed',
     'holds', 'obligation', 'class', 'decision', 'subject', 'fingerprint', 'm', 'l', 'h', 'c', 'x', 'list', 'check',
+    'message', 'status', 'match', 'H', 'X', 'M', 'L', 'C', 'GITHUB_ACTIONS', 'GITHUB_RUN_ID', 'GITHUB_TOKEN',
+    'GITHUB_API_URL', 'GITHUB_REPOSITORY_ID',
 ])
 schema_ids = frozenset([
     'oi-ledger-coverage/4', 'oi-retirement-config/1', 'oi-term-rules/2', 'oi-delegation/1', 'oi-hp-adjudication/1',
     'oi-context-adjudication/1', 'oi-hit-classification/1', 'oi-scope/1', 'oi-side-change-classes/1',
-    'oi-reconciliation/1', 'oi-review-record/1', 'oi-owner-authorization/1',
+    'oi-reconciliation/1', 'oi-review-record/1', 'oi-owner-authorization/1', 'oi-tool-authority/2',
+    'oi-freeze-ledger/1', 'oi-ledger-landing/1',
 ])
 enumerations = frozenset([
     'PASS', 'REVIEW_REQUIRED', 'FAIL', 'USAGE', 'ERROR', 'VOID', 'INTERNAL',
@@ -61,6 +64,10 @@ enumerations = frozenset([
     'RECORD', 'MAIN', 'DELEGATED', 'BOF', 'EOF', 'hp', 'ledgered', 'unledgered', 'unchanged', 'moved',
     'authorized-replacement', 'authorized-removal', 'unresolved', 'carried', 'changed', 'removed', 'conforms',
     'pass', 'fail', 'missing', 'widening', 'edits', 'checker', 'identity', 'scope', 'classification',
+    'none', 'side-change-classes', 'REPLAY_REFUSED', 'REPLAY_MISMATCH',
+    'R1', 'R2', 'R3', 'R4', 'R5', 'R6', 'R7', 'R8', 'R9', 'R10', 'R11', 'R12', 'R13',
+    'U', 'M', 'K', 'B', 'H', 'O', 'R', 'S1', 'N2', 'B1', 'B2', 'B3', 'B4', 'B6', 'K1', 'K2', 'K3', 'K4', 'K5',
+    'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M11', 'O1', 'O9',
 ])
 _hex = re.compile(r'(?<![0-9A-Za-z])[0-9a-fA-F]{7,}(?![0-9A-Za-z])')
 _field_rx = re.compile(r'^[A-Za-z_][A-Za-z0-9_-]*$')
@@ -108,6 +115,41 @@ def string_values(doc, out=None):
         for v in doc:
             string_values(v, out)
     return out
+
+
+def source_values(data, name):
+    """String values of a record an adapter reads (a json file). A source file named as a companion (a checker)
+    is code, not a record; its string constants are not values of the configuration."""
+    try:
+        return string_values(json.loads(data.decode('utf-8')))
+    except (ValueError, UnicodeDecodeError):
+        return set()
+
+
+def config_values(read, commit, cfg):
+    """B5: the value set of one configuration: its own values, every record and rule it references, its controls
+    and delegation contract, and every file its adapters read (`path`, `companion`, `module_path`)."""
+    values = string_values(cfg)
+    refs = list(cfg.get('rules', [])) + list(cfg.get('records', [])) + [cfg.get('controls')] + \
+        ([cfg['delegation']] if cfg.get('delegation') else [])
+    for r in refs:
+        if isinstance(r, dict) and r.get('path'):
+            b = read(r.get('commit') or commit, r['path'])
+            if b is not None:
+                values |= source_values(b, r['path'])
+    for spec in (cfg.get('adapters') or {}).values():
+        if not isinstance(spec, dict):
+            continue
+        named = [(spec.get('commit') or commit, spec.get('path'))]
+        named += [(c.get('commit') or spec.get('commit') or commit, c.get('path')) for c in spec.get('companion', [])]
+        if spec.get('module_path'):
+            named.append((spec.get('commit') or commit, spec['module_path']))
+        for c, pth in named:
+            if pth:
+                b = read(c, pth)
+                if b is not None:
+                    values |= source_values(b, pth)
+    return values
 
 
 def lint_sources(sources, values, profiles):

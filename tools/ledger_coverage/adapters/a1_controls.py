@@ -789,9 +789,7 @@ def chain_refusal(a):
 
 def z9g(a):
     cfg = json.loads(a.repo.read(a.crev, a.cpath))
-    values = purity.string_values(cfg)
-    for r in list(cfg['rules']) + list(cfg['records']) + [cfg['controls'], cfg['delegation']]:
-        values |= purity.string_values(json.loads(a.repo.read(a.crev, r['path'])))
+    values = purity.config_values(a.repo.read, a.crev, cfg)
     from ledger_coverage.adapters import synthetic_fixture as sf
     syn = sf.Syn()
     pd = sf.patch_doc(syn.H, [])

@@ -173,7 +173,7 @@ def lint_chain(ref, store, owner, admitted_shas):
 
 
 def widening_review_problems(ref, store, admitted_shas, regular_reviewers, author, old_ref, changed, owner):
-    """Sec. 6.3 (B4): a review of kind widening naming the superseding blob and the superseded blob, admitted, by a
+    """Sec. 6.3 (B4): a review of kind widening naming the new blob and the blob it replaces, admitted, by a
     non-author reviewer other than the record's own reviewers, with an `accept` verdict for every changed item,
     and an owner authorization listing the widening review's blob. Returns [] when one such review exists."""
     why = []
@@ -183,8 +183,8 @@ def widening_review_problems(ref, store, admitted_shas, regular_reviewers, autho
         if sha not in admitted_shas or d.get('reviewed', {}).get('blob_sha256') != ref['blob_sha256']:
             continue
         bad = []
-        if old_ref is not None and (d.get('superseded') or {}).get('blob_sha256') != old_ref.get('blob_sha256'):
-            bad.append('does not name the superseded blob')
+        if old_ref is not None and (d.get('replaces') or {}).get('blob_sha256') != old_ref.get('blob_sha256'):
+            bad.append('does not name the blob it replaces')
         who = d.get('reviewer')
         if not _person(who) or who == author or who in regular_reviewers:
             bad.append('reviewer is the author, a regular reviewer, or not a person')

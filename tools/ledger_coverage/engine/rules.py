@@ -146,7 +146,7 @@ def lint_rule(rule, profile_lookup, sentence_lookup, deny_profiles, control_inpu
             if ctx == fp['context_sha256'] and spans:
                 st, _, _ = apply_allow([rule], fp['file'], sentence, neighbours, ctx, spans, False, {}, None)
                 if st != 'pass':
-                    out.append('%s: fingerprinted sentence %s is not PASS under its own rule (self-PASS)'
+                    out.append('%s: fingerprinted sentence %s does not pass under its own rule (self-pass)'
                                % (rule['id'], fp['sentence_sha256'][:12]))
             if sentence not in rule['positive_examples']:
                 out.append('%s: the fingerprinted sentence is not a positive example in full' % rule['id'])

@@ -283,7 +283,7 @@ def run(argv, repo=None, harness=False, stderr=None, extra_records=(), preflight
         return 64, None
     result = {'schema': oc.result_schema, 'operation': a.op, 'engine': engine_identity(), 'preflight': [],
               'record_checks': None, 'items': [], 'invocation': invocation(argv)}
-    if harness:
+    if harness or (control or {}).get('host') is not None:
         result['harness'] = True
     try:
         if repo is None:
@@ -329,30 +329,47 @@ def invocation(argv):
 
 def write(out, result, harness=False):
     os.makedirs(out, exist_ok=True)
-    name = 'control-result.json' if harness or result.get('harness') else 'result.json'
+    mode = ((result.get('config') or {}).get('admission') or {}).get('mode')
+    name = 'control-result.json' if harness or result.get('harness') else \
+        'replay-result.json' if mode == 'replay' else 'result.json'
     with open(os.path.join(out, name), 'w', encoding='utf-8') as f:
         f.write(util.dump_result(result))
 
 
 def admission(a, repo, harness, control, crev, cpath, environ):
-    """Sec. 6.3 admission. Returns (admission, table) for config.load. Outside the harness every failure is
-    ERROR CONFIG_UNREVIEWED; a run outside a host CI job can never reach "chain" (point 9)."""
+    """Sec. 6.3 admission. Returns (admission, table) for config.load. Outside the harness every failure is an
+    error of class config-unreviewed; a run outside a host job can never reach "chain" (point 9)."""
     def refuse(msg, **d):
         raise oc.Stop(oc.error, 'CONFIG_UNREVIEWED', msg, d)
+    if control.get('replay_snapshot') is not None:
+        snap = control['replay_snapshot']
+        F = resolve(repo, a.freeze) if a.freeze else None
+        if F is None or F != snap.get('freeze') or resolve(repo, crev) != F:
+            refuse('the replay names another freeze than its snapshot')
+        pt = snap.get('pin_table') or {}
+        if util.sha256(repo.read(F, pt.get('path', '')) or b'') != pt.get('blob_sha256'):
+            refuse('the pin table at F differs from the snapshot\'s')
+        rec_dir = pt['path'].rsplit('/', 1)[0] + '/'
+        return {'mode': 'replay', 'snapshot': snap, 'owner_id': snap.get('owner_id')}, \
+            auth.admitted_by_table(repo, F, rec_dir, pt.get('entries') or {})
+    sim = control.get('host')
+    if sim is not None:
+        # an in-process control on an in-memory host: the whole of sec. 6.3 runs, the result is a control
+        # artefact (control-harness, with the simulated snapshot), never "chain"
+        if not a.freeze:
+            refuse('no --freeze: the configuration is admitted only from a designated freeze', simulated_host=True)
+        try:
+            F = resolve(repo, a.freeze)
+            if resolve(repo, crev) != F:
+                refuse('the configuration is read from the freeze only', simulated_host=True)
+            A, snap, table, rec_dir = auth.admit(sim, repo, control['run_id'], a.plan, a.round, F, cpath,
+                                                 a.config_sha256)
+        except auth.Refused as exc:
+            refuse(str(exc), point=exc.point, simulated_host=True)
+        return ({'mode': 'control-harness', 'simulated_chain': {'host': 'in-memory control host', 'snapshot': snap},
+                 'owner_id': A['owner']['id']}, auth.admitted_by_table(repo, F, rec_dir, table))
     if harness:
-        adm = {'mode': 'control-harness'}
-        sim = control.get('host')
-        if sim is not None:
-            if not a.freeze:
-                refuse('no --freeze', simulated_host=True)
-            try:
-                F = resolve(repo, a.freeze)
-                A, snap, table, rec_dir = auth.admit(sim, repo, control['run_id'], a.plan, a.round, F, cpath,
-                                                     a.config_sha256)
-            except auth.Refused as exc:
-                refuse(str(exc), point=exc.point, simulated_host=True)
-            adm['simulated_chain'] = {'host': 'in-memory control host', 'snapshot': snap}
-        return adm, None
+        return {'mode': 'control-harness'}, None
     if not a.freeze:
         refuse('no --freeze: the configuration is admitted only from a designated freeze (sec. 6.3)')
     if not a.plan or not a.round:
@@ -446,6 +463,9 @@ def finish_snapshot(result):
     adm = result.get('config', {}).get('admission') or {}
     snap = adm.get('snapshot') or (adm.get('simulated_chain') or {}).get('snapshot')
     if snap is None:
+        return
+    if adm.get('mode') == 'replay':
+        adm['snapshot_sha256'] = util.fingerprint(snap)
         return
     snap['evaluated'] = result.get('roles') or result.get('evaluated')
     snap['delegated_evidence'] = (result.get('delegation') or {}).get('evidence_record')

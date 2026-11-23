@@ -25,10 +25,7 @@ def cli(a, out):
             commit = repo.resolve(rev)
             loaded = cfgmod.load(repo, commit, path, None, None, 'harness')
             cfg = loaded.config
-            values = purity.string_values(cfg)
-            for r in list(cfg['rules']) + list(cfg['records']) + [cfg['controls']] + \
-                    ([cfg['delegation']] if cfg['delegation'] else []):
-                values |= purity.string_values(json.loads(repo.read(commit, r['path'])))
+            values = purity.config_values(repo.read, commit, cfg)
             profs = [p for p in loaded.profiles.values() if p.kind in ('review', 'deny')]
         res = purity.lint_engine(values, profs)
         doc = {'schema': oc.result_schema, 'operation': 'purity-lint', 'findings': res,

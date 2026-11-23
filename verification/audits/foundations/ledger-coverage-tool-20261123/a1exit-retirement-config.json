@@ -470,7 +470,7 @@
   },
   {
    "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/register-infinity-params-v1.json",
-   "blob_sha256": "b86efb2b265753fa93d0d88746f4bb3424b694553e0ddd25e71c52b987ea8e7b"
+   "blob_sha256": "05149ba694dd4017ad27dd60c02810403ec7351036776bea212768ba9ebc509f"
   }
  ],
  "context_mapping": {

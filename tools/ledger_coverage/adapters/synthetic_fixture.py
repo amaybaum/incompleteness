@@ -27,7 +27,7 @@ TEXT = ('# synthetic\n\nAxiom Z is the named premise of the synthetic world.\n\n
         'Remark two notes a side fact.\n\nIntro to the list:\n\n- item first here\n- item second here\n\n'
         'Closing words of the file.\n')
 WITNESS = 'syn/witness.md'
-OWNER, WRITER, REVIEWER, WIDENER = 'owner-c', 'writer-a', 'reviewer-b', 'widener-d'
+OWNER, WRITER, REVIEWER, WIDENER = 4242, 'writer-a', 'reviewer-b', 'widener-d'  # the owner is a numeric id
 AD = 'tools/ledger_coverage/adapters/'
 
 
@@ -108,10 +108,12 @@ class Syn:
             recs += self.chain(files, p, v.get('reviewer', REVIEWER) if p.endswith('allow.json') else REVIEWER)
         wr0 = {'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': WIDENER,
                'reviewed': {'path': 'syn/rules-allow.json', 'blob_sha256': sha(files['syn/rules-allow.json'])},
-               'method': 'read the new allow rule', 'verdicts': [{'item': 'syn-allow-1', 'verdict': 'accept'}]}
+               'method': 'read the new allow rule',
+               'verdicts': [{'item': 'syn-allow-1:new allow rule without supersedes', 'verdict': 'accept'}]}
         files['syn/rules-allow.widen.json'] = jb(wr0)
         recs.append({'kind': 'review', 'path': 'syn/rules-allow.widen.json',
                      'blob_sha256': sha(files['syn/rules-allow.widen.json'])})
+        recs += self.widening_auth(files, 'syn/rules-allow.json', 'syn/rules-allow.widen.json')
         for rp_, rd_ in sorted(v.get('records_extra', {}).items()):
             files[rp_] = jb(rd_)
             recs.append({'kind': 'record', 'path': rp_, 'blob_sha256': sha(files[rp_])})
@@ -124,10 +126,14 @@ class Syn:
             if v.get('widening_review'):
                 wr = {'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': v.get('widener', WIDENER),
                       'reviewed': {'path': 'syn/rules-allow-v2.json', 'blob_sha256': sha(files['syn/rules-allow-v2.json'])},
-                      'method': 'read', 'verdicts': [{'item': 'syn-allow-1', 'verdict': 'accept'}]}
+                      'replaces': old_ref, 'method': 'read',
+                      'verdicts': [{'item': i, 'verdict': 'accept'} for i in v.get('widening_items',
+                                                                                   ['syn-allow-1:added files'])]}
                 files['syn/rules-allow-v2.widen.json'] = jb(wr)
                 recs.append({'kind': 'review', 'path': 'syn/rules-allow-v2.widen.json',
                              'blob_sha256': sha(files['syn/rules-allow-v2.widen.json'])})
+                if not v.get('widening_no_auth'):
+                    recs += self.widening_auth(files, 'syn/rules-allow-v2.json', 'syn/rules-allow-v2.widen.json')
         controls = {'control_inputs': [{'id': 'witness', 'commit': self.pin, 'path': WITNESS,
                                         'sha256': sha(self.repo.read(self.pin, WITNESS))}],
                     'controls': [{'id': 'Y-%s-%s' % (op, d), 'operations': [op], 'direction': d}
@@ -232,6 +238,14 @@ class Syn:
         commit = self.repo.derive(at, files, parents=self.repo.parents(at), subject=self.repo.subject(at))
         return commit, path, sha(cb), files
 
+    def widening_auth(self, files, rec_path, wr_path):
+        au = {'schema': 'oi-owner-authorization/1', 'owner': OWNER, 'time': 't0', 'comment_id': 'c-3',
+              'authorizes': [{'record': {'path': rec_path, 'blob_sha256': sha(files[rec_path])},
+                              'review': {'path': wr_path, 'blob_sha256': sha(files[wr_path])}}]}
+        ap = wr_path[:-5] + '.auth.json'
+        files[ap] = jb(au)
+        return [{'kind': 'authorization', 'path': ap, 'blob_sha256': sha(files[ap])}]
+
     def chain(self, files, path, reviewer):
         ref = {'path': path, 'blob_sha256': sha(files[path])}
         from ledger_coverage.engine import records as rec
@@ -270,10 +284,26 @@ class Runner:
         self.n += 1
         return os.path.join(self.out_root, 'run%03d' % self.n)
 
-    def cli(self, repo, args, commit, path, csha, harness=False, stderr=None):
-        argv = args[:1] + ['--config', '%s:%s' % (commit, path), '--config-sha256', csha, '--out', self.out()] + \
-            args[1:]
-        return cli.run(argv, repo=repo, harness=harness, stderr=stderr or io.StringIO())
+    def cli(self, repo, args, commit, path, csha, harness=False, stderr=None, world=None):
+        """harness: the control harness. Otherwise the whole of sec. 6.3 runs on an in-memory host: F is the
+        configuration commit plus a pin table listing every json file of the configuration's directory, and the
+        owner designates F in the plan thread (a control artefact, never "chain")."""
+        if harness:
+            argv = args[:1] + ['--config', '%s:%s' % (commit, path), '--config-sha256', csha, '--out', self.out()] + \
+                args[1:]
+            return cli.run(argv, repo=repo, harness=True, stderr=stderr or io.StringIO())
+        from ledger_coverage.adapters import host_fixture as hf
+        w = world or hf.World('syn/PREREG.md')
+        d = path.rsplit('/', 1)[0] + '/'
+        listed = {p: repo.read(commit, p) for p in repo.paths(commit) if p.startswith(d) and p.endswith('.json')}
+        entries = {p[len('syn/'):]: sha(b) for p, b in listed.items()}
+        F = repo.derive(commit, {'syn/PREREG.md': hf.pin_table(entries),
+                                 'tools/ledger_coverage/authority.json': w.a_bytes},
+                        parents=repo.parents(commit), subject=repo.subject(commit))
+        w.designate(F)
+        argv = args[:1] + ['--config', '%s:%s' % (F, path), '--config-sha256', csha, '--out', self.out()] + \
+            w.args(F) + args[1:]
+        return cli.run(argv, repo=repo, harness=False, stderr=stderr or io.StringIO(), control=w.control())
 
 
 def y_world(syn, edits, extra_files=None, edits_doc=None, x_text=None):
@@ -378,7 +408,7 @@ def z_controls(r):
     out['Z6'] = stop_of({'adapter_version': 2}) == (65, 'CONFIG_INVALID')
     c, p, s, files = syn.build(base)
     code, res = r.cli(syn.repo, ['terms', '--commit', syn.H], c, p, '1' * 64)
-    out['Z6b'] = (code, res['stop']['class']) == (65, 'SOURCE_CHANGED')
+    out['Z6b'] = (code, res['stop']['class']) == (65, 'CONFIG_UNREVIEWED')  # point 8: --config-sha256 unequal
     out['Z7'] = stop_of({'duplicate_profile': True}) == (65, 'CONFIG_INCONSISTENT') and \
         stop_of({'final': ['Z-premise']}) == (65, 'CONFIG_INCONSISTENT') and \
         stop_of({'bad_pattern_hash': True}) == (65, 'CONFIG_INCONSISTENT')
@@ -406,7 +436,7 @@ def z_controls(r):
         return fts[(cm, pth)]
     st, steps, region, det = sgm.walk_region(s2.repo, [s2.m1, s2.H], {s2.m1: s2.pin, s2.H: s2.m1}, DOC,
                                              ['Remark two notes a side fact.'], dec)
-    adj = {'schema': 'oi-hp-adjudication/1', 'record_id': 'syn-hp', 'author': WRITER,
+    adj = {'schema': 'oi-hp-adjudication/1', 'record_id': 'syn-hp', 'author': WRITER, 'supersedes': None,
            'sites': [{'site_id': '%s:7@%s' % (DOC, s2.pin[:8]),
                       'steps': [{k: v for k, v in x.items() if k != 'post'} for x in steps],
                       'carried': {'row': 'r', 'code': 'c', 'owner': 'o'}, 'semantic_classification': 'restated',
@@ -414,9 +444,14 @@ def z_controls(r):
 
     def widening(path, cfg_sha):
         wr = {'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': WIDENER,
-              'reviewed': {'path': path, 'blob_sha256': cfg_sha}, 'method': 'read the added merge and its chain',
-              'verdicts': [{'item': 'synthetic-retirement-config', 'verdict': 'accept'}]}
-        return {path.rsplit('/', 1)[0] + '/widening.json': jb(wr)}
+              'reviewed': {'path': path, 'blob_sha256': cfg_sha}, 'replaces': sup,
+              'method': 'read the added merge and its chain',
+              'verdicts': [{'item': 'synthetic-retirement-config:changed hp_obligations', 'verdict': 'accept'}]}
+        wp = path.rsplit('/', 1)[0] + '/widening.json'
+        au = {'schema': 'oi-owner-authorization/1', 'owner': OWNER, 'time': 't0', 'comment_id': 'c-4',
+              'authorizes': [{'record': {'path': path, 'blob_sha256': cfg_sha},
+                              'review': {'path': wp, 'blob_sha256': sha(jb(wr))}}]}
+        return {wp: jb(wr), path.rsplit('/', 1)[0] + '/widening-auth.json': jb(au)}
     v3 = dict(v2, post=widening, records_extra={'syn/hp.json': adj})
     c3, p3, h3, f3 = s2.build(v3)
     code_a, res_a = r.cli(s2.repo, ['coverage', '--commit', s2.H, '--hp', '%s:syn/hp.json' % c3], c3, p3, h3)
@@ -450,7 +485,7 @@ def x_controls(r, repo_path):
     cli.op_terms = boom
     o = r.out()
     real_run = cli.run
-    cli.run = lambda argv: real_run(argv, repo=syn.repo, stderr=io.StringIO())
+    cli.run = lambda argv: real_run(argv, repo=syn.repo, stderr=io.StringIO(), harness=True)
     try:
         code = mod.main(['terms', '--config', '%s:%s' % (c, p), '--config-sha256', s, '--out', o,
                          '--commit', syn.H])
@@ -501,11 +536,24 @@ def x_controls(r, repo_path):
     out['X9'] = a == 10 and b == 20 and 'final-unclassified' in classes(rb) and d == 10 and e == 64
     # X10: the acceptance predicate
     good, rg = r.cli(syn.repo, ['terms', '--commit', syn.H], c, p, s)
-    pins = {'engine': rg['engine']['blob_sha256'], 'config': rg['config']['blob_sha256']}
-    edited = dict(rg, outcome='FAIL')
-    other = dict(rg, engine=dict(rg['engine'], blob_sha256='f' * 64))
-    out['X10'] = checker.accept(rg, good, pins) and not checker.accept(edited, 0, pins) and \
-        not checker.accept(other, 0, pins) and checker.recompute(rg) == 'PASS'
+    # the simulated chain is a control artefact: never accepted as it stands (X11); a copy relabelled as a chain
+    # result tests the rest of the predicate
+    import copy
+    snap = rg['config']['admission']['simulated_chain']['snapshot']
+    as_chain = copy.deepcopy(rg)
+    del as_chain['harness']
+    as_chain['config']['admission'] = {'mode': 'chain', 'snapshot': snap}
+    pins = {'engine': rg['engine']['blob_sha256'], 'config': rg['config']['blob_sha256'],
+            'adapters': {a_['name']: a_['module_sha256'] for a_ in rg.get('adapters', [])},
+            'admission': {k: snap[k] for k in ('freeze', 'designation_comment_id', 'pin_table_sha256',
+                                               'authority_sha256')}}
+    edited = dict(as_chain, outcome='FAIL')
+    other = dict(as_chain, engine=dict(rg['engine'], blob_sha256='f' * 64))
+    other_f = copy.deepcopy(as_chain)
+    other_f['config']['admission']['snapshot']['freeze'] = '0' * 40
+    out['X10'] = good == 0 and checker.accept(as_chain, good, pins) and not checker.accept(rg, good, pins) and \
+        not checker.accept(edited, 0, pins) and not checker.accept(other, 0, pins) and \
+        not checker.accept(other_f, 0, pins) and checker.recompute(rg) == 'PASS'
     # M10: --out inside the repository checkout is refused
     code, res = cli.run(['terms', '--config', 'x:y', '--config-sha256', '0', '--out',
                          os.path.join(repo_path, 'no-such-out-dir'), '--commit', 'x', '--repo', repo_path],
@@ -516,7 +564,7 @@ def x_controls(r, repo_path):
     bad = []
     for root, dirs, fs in os.walk(r.out_root):
         for f in fs:
-            if f == 'result.json':
+            if f in ('result.json', 'control-result.json'):
                 d_ = json.load(open(os.path.join(root, f)))
                 if schema.validate(d_):
                     bad.append((root, schema.validate(d_)[:2]))

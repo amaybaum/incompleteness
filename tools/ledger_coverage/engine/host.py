@@ -1,7 +1,7 @@
 """The host interface the admission reads (sec. 6.3): run records, files at a commit, `main`, threads and their
 comments with edit history and hidden state, pull-request provenance, file histories and artifacts.
 
-Two implementations: `RestHost`, which reads the host's API inside a CI job and is never used outside one, and
+Two implementations: `RestHost`, which reads the host's interface inside a host job and is never used outside one, and
 `MemoryHost`, an in-memory host for controls. Nothing here writes to any host.
 """
 import base64
@@ -123,7 +123,7 @@ class MemoryHost:
 
 
 class RestHost:
-    """Reads the host's REST and GraphQL APIs with the job token. Used only inside a CI job."""
+    """Reads the host's rest and graphql interfaces with the job token. Used only inside a host job."""
 
     def __init__(self, api, token):
         self.api = api.rstrip('/')
@@ -152,7 +152,7 @@ class RestHost:
 
     def _graphql(self, query, variables):
         body = json.dumps({'query': query, 'variables': variables}).encode()
-        req = urllib.request.Request(self.api + '/graphql', data=body, method='POST',
+        req = urllib.request.Request(self.api + '/graphql', data=body,
                                      headers={'Authorization': 'Bearer ' + self.token})
         try:
             with urllib.request.urlopen(req, timeout=60) as r:

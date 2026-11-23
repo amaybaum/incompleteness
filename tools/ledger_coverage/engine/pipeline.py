@@ -528,10 +528,12 @@ class Terms:
         keys = [(re.compile(k['pattern']), k['key']) for k in p.spec.get('match_keys', [])]
         rewrite = [(re.compile(r['pattern']), r['replacement']) for r in p.spec.get('replaced_text_rewrite', [])]
         prm = getattr(self.ctx, 'edit_params', None)
+        norm = None
         if prm is not None and p.name in prm['profiles'].values():
+            norm = re.compile(prm['key_normalize'])
             # the reviewed params rule decides these, for both units (sec. 6.1)
-            kinds = prm['caps_kinds'] if p.name == prm['profiles']['caps'] else None
-            if p.name == prm['profiles']['infinity']:
+            kinds = prm['caps_kinds'] if p.name == prm['profiles']['caps_profile'] else None
+            if p.name == prm['profiles']['infinity_profile']:
                 keys = [(re.compile(k['pattern']), k['key']) for k in prm['key_rules']]
                 rewrite = [(re.compile(prm['old_rewrite']['pattern']), prm['old_rewrite']['replacement'])]
             else:
@@ -544,8 +546,8 @@ class Terms:
             old_text = sp['old']
             for rx, rep in rewrite:
                 old_text = rx.sub(rep, old_text)
-            new = [match_key(sp['new'][a:b], keys) for _, a, b in p.matches(sp['new'])]
-            old = [match_key(old_text[a:b], keys) for _, a, b in p.matches(old_text)]
+            new = [match_key(sp['new'][a:b], keys, norm) for _, a, b in p.matches(sp['new'])]
+            old = [match_key(old_text[a:b], keys, norm) for _, a, b in p.matches(old_text)]
             pool = {}
             for k in old:
                 pool[k] = pool.get(k, 0) + 1
@@ -715,8 +717,11 @@ class Terms:
             for fp in r.get('fingerprints', []):
                 sents = self.ctx.sentences(self.commit, fp['file']) if self.ctx.repo.blob_id(self.commit, fp['file']) \
                     else []
+                # a fingerprint bound to its location (context required, or a negative allowance, which is
+                # granted only at the approved location) is stale when its sentence is absent there (WB5)
+                located = r.get('context_required') or bool(fp.get('negative_allowance'))
                 if not any(util.sha256(s) == fp['sentence_sha256'] and
-                           rulemod.sentence_context_sha(sents, j) == fp['context_sha256']
+                           (not located or rulemod.sentence_context_sha(sents, j) == fp['context_sha256'])
                            for j, (s, _, _) in enumerate(sents)):
                     self.items.append(oc.make_item('TERMS', 'rule-stale', '%s#%s' % (r['id'], fp['sentence_sha256'][:16]),
                                                    None, {'rule': r['id'], 'fp': fp['sentence_sha256']},
@@ -752,9 +757,13 @@ def splice_texts(ctx, frm, commit, ledger):
     return out
 
 
-def match_key(text, keys):
-    """A match normalized for the added-text comparison: lower case, runs of space, * and _ to one space."""
-    k = re.sub(r'[\s*_]+', ' ', text.lower()).strip()
+_ws = re.compile(r'\s+')
+
+
+def match_key(text, keys, norm=None):
+    """A match normalized for the added-text comparison: lower case, runs matching the params rule's
+    normalization (default: whitespace) to one space, then the key rules."""
+    k = (norm or _ws).sub(' ', text.lower()).strip()
     for rx, key in keys:
         if rx.search(k):
             return key

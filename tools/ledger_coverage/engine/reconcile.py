@@ -27,7 +27,7 @@ def occurrences(buf, needle):
 
 def binding(led, path):
     """Canonical sha256 of the path's files entry, its splice list and its edit-list entries, as the ledger and the
-    edit list hold them (sorted keys, no whitespace, UTF-8)."""
+    edit list hold them (sorted keys, no whitespace, utf-8)."""
     raw = led.get('raw') or {}
     fe = (raw.get('files') or {}).get(path) if isinstance(raw.get('files'), dict) else None
     sl = [s for s in raw.get('splices', []) if s.get('file') == path]

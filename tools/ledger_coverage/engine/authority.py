@@ -2,7 +2,7 @@
 forms, the authority-change procedure, the freeze ledger with its approved appends, the deterministic designation
 state, the plan's pin table, and the admission snapshot.
 
-Every failure refuses admission (ERROR CONFIG_UNREVIEWED). The caller supplies only the commits and the plan
+Every failure refuses admission (an error of class config-unreviewed). The caller supplies only the commits and the plan
 and round names; every authority value comes from `A`, read from `main` of the attested repository.
 """
 import json
@@ -135,7 +135,7 @@ def comment_record(c):
 
 def find_approval(a, cs, name, fields, author_id, before):
     """An unedited, visible approval comment by `author_id` carrying exactly the form and fields, created
-    before `before` (an ISO time)."""
+    before `before` (a host timestamp)."""
     hits = []
     for c in cs:
         if c.get('author_id') != author_id or c.get('hidden') or c.get('edits') or c.get('edited'):
@@ -230,7 +230,7 @@ def read_pin_table(prereg):
         return {}
     i = heads[-1]
     j = t.find('\n#', i + 5)
-    return dict(re.findall(r'^\| `([\w.-]+)` \| `([0-9a-f]{64})` \|', t[i:j if j > 0 else None], re.M))
+    return dict(re.findall(r'^\| `([\w./-]+)` \| `([0-9a-f]{64})` \|', t[i:j if j > 0 else None], re.M))
 
 
 def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=None, attested_repo=None):
@@ -360,7 +360,7 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
     for c, (name, fields) in forms:
         if fields['plan'] != plan_id or fields['round'] != round_id:
             continue
-        kind = name.split('-', 1)[1]
+        kind = name[len('freeze') + 1:]
         events.append({'kind': kind, 'commit': fields['commit'], 'by': fields.get('by'), 'comment_id': c['id'],
                        'created_at': c['created_at'], 'author_id': c['author_id'], 'first_line': first_line(c['body'])})
     seen = {e['comment_id'] for e in events}
@@ -373,8 +373,8 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
     state = {}
     for e in events:
         if e['kind'] == 'designate':
-            if state.get(e['commit']) == 'withdrawn':
-                refuse('state', 'a withdrawn commit is designated again')
+            if state.get(e['commit']) == 'revoked':
+                refuse('state', 'a revoked commit is designated again')
             live = [k for k, v in state.items() if v == 'designated' and k != e['commit']]
             if live:
                 refuse('state', 'two live designations in one round')
@@ -382,13 +382,13 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
         elif e['kind'] == 'withdraw':
             if state.get(e['commit']) != 'designated':
                 refuse('state', 'a withdrawal names a commit that is not designated')
-            state[e['commit']] = 'withdrawn'
+            state[e['commit']] = 'revoked'
         elif e['kind'] == 'supersede':
             if state.get(e['commit']) != 'designated':
                 refuse('state', 'a supersession names a commit that is not designated')
-            state[e['commit']] = 'withdrawn'
-            if state.get(e['by']) == 'withdrawn':
-                refuse('state', 'a supersession designates a withdrawn commit')
+            state[e['commit']] = 'revoked'
+            if state.get(e['by']) == 'revoked':
+                refuse('state', 'a supersession designates a revoked commit')
             state[e['by']] = 'designated'
     live = [k for k, v in state.items() if v == 'designated']
     if live != [freeze]:
@@ -406,10 +406,11 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
         refuse('pins', 'the configuration is not in the plan\'s record directory at the freeze')
     name = config_path[len(rec_dir):]
     if table.get(name) != util.sha256(cfg_b):
-        refuse('pins', 'the configuration is not listed in the freeze\'s pin table with its sha256')
+        refuse('pins', 'the configuration is absent from the freeze\'s pin table, or has another sha256 there')
     if config_sha is not None and config_sha != util.sha256(cfg_b):
         refuse('pins', 'the configuration does not equal --config-sha256')
     snap.update({
+        'owner_id': a['owner']['id'], 'repository_id': a['repository']['id'],
         'authority_sha256': util.sha256(a_bytes), 'authority_versions': versions,
         'run': {'run_id': run_id, 'repository_id': repo_id, 'fork': bool(run.get('fork')),
                 'workflow_path': run['workflow_path'], 'workflow_sha256': util.sha256(wf), 'head_sha': head,
