@@ -661,7 +661,7 @@ def ledger_controls(t, check):
                 'edited': False, 'first_line': auth.first_line(comment['body']),
                 'body_sha256': sha(comment['body'].encode())}
 
-    def with_ledger_event(w, event, via='authority'):
+    def with_ledger_event(w, event, via='append'):
         old = w.ledger_bytes
         led = {'schema': auth.ledger_schema, 'events': [event]}
         new = hf.jb(led)
@@ -815,7 +815,7 @@ def f1_controls(t):
                                                               ('ledger', hf.OWNER_ID, 'authority', 'r0')]),
         'then-owner-before-change': scenario([('ledger', hf.OWNER_ID, 'append', 'r0'),
                                               ('owner', None, None, None)]),
-        'new-owner-after-change': scenario([('ledger', hf.OWNER_ID, 'authority', 'r0'), ('owner', None, None, None),
+        'new-owner-after-change': scenario([('ledger', hf.OWNER_ID, 'append', 'r0'), ('owner', None, None, None),
                                             ('ledger', NEW, 'append', 'r9')]),
     }
     refused = [out['former-owner-append-after-change'], out['former-owner-authority-form-after-change']]
@@ -1024,14 +1024,17 @@ def r4_b1_controls(t):
         out['R3 different change, no approval [%s]' % via] = _r4_run(t, r3)
         out['appends, each approved [%s]' % via] = _r4_run(t, legit)
         out['appends across A->B->A, each approved by the owner in force [%s]' % via] = _r4_run(t, legit_owner)
-    bad = [v for k, v in out.items() if k.startswith(('R1', 'R2', 'R3'))]
-    good = [v for k, v in out.items() if k.startswith('appends')]
+    bad = [v for k, v in out.items() if k.startswith(('R1', 'R2', 'R3')) or k.endswith('[authority]')]
+    good = [v for k, v in out.items() if k.startswith('appends') and k.endswith('[append]')]
     check('R4-B1', 'freeze-ledger approvals cannot be replayed (sec. 6.3, "append-only"; "its own explicit owner '
           'approval comment"): R1 (approve L0->L1; owner A->B; B approves the revert L1->L0; B->A; L0->L1 again with '
           'no new approval) and R2 (the same with no owner change) are refused, and R3 (a different change with no '
-          'approval) stays refused; a sequence of appends, each with its own approval by the owner in force, is '
-          'admitted, also across an owner change and change-back; each case in both comment forms',
-          "R1, R2, R3: exit 65 naming the freeze-ledger change; the append sequences: exit 0", out,
+          'approval) stays refused; a sequence of appends, each with its own append comment by the owner in force, '
+          'is admitted, also across an owner change and change-back; every case whose ledger changes are approved '
+          'only by oi-authority/1 approve comments in the authority thread is refused (N3: each append needs its own '
+          'oi-freeze-ledger/1 append comment in the plan\'s thread)',
+          "R1, R2, R3 and every [authority] case: exit 65 naming the freeze-ledger change; the [append] append "
+          "sequences: exit 0", out,
           all(o['exit'] == 65 and o['ledger_refused'] for o in bad) and all(o['exit'] == 0 for o in good))
     # each guard on its own: with the append-only check disabled the single-use check refuses R1 and R2, and with
     # the single-use check disabled the append-only check refuses them
@@ -1045,7 +1048,7 @@ def r4_b1_controls(t):
         setattr(auth, attr, stub)
         try:
             got = {}
-            for via in ('append', 'authority'):
+            for via in ('append',):
                 got['R1 [%s]' % via] = _r4_run(t, lambda w, via=via: (
                     _r4_set_ledger(w, _r4_ledger(['one']), via, OLD), _r4_owner_change(w, NEW),
                     _r4_set_ledger(w, _r4_ledger([]), via, NEW), _r4_owner_change(w, OLD),
@@ -1058,7 +1061,8 @@ def r4_b1_controls(t):
             setattr(auth, attr, orig)
     want = {'single-use alone': 'already authorized', 'append-only alone': 'not an append'}
     check('R4-B1-GUARDS', 'each B1 guard refuses the replay on its own: with the append-only check disabled, the '
-          'single-use check refuses R1 and R2; with the single-use check disabled, the append-only check refuses them',
+          'single-use check refuses R1 and R2; with the single-use check disabled, the append-only check refuses them '
+          '(append comments; the authority-thread route authorizes no append, R4-B1)',
           "every case exits 65 naming the freeze-ledger change, with 'already authorized' (single-use alone) or 'not "
           "an append' (append-only alone) in the message", guards,
           all(isinstance(g, dict) and all(o['exit'] == 65 and o['ledger_refused'] and want[n] in o['message']
@@ -1075,12 +1079,14 @@ def r4_b2_controls(t):
             t, lambda w, via=via: _r4_set_ledger(w, _r4_ledger(['d']), via, direct=True))
         out['pull-request merge, approval before the merge [%s]' % via] = _r4_run(
             t, lambda w, via=via: _r4_set_ledger(w, _r4_ledger(['d']), via))
-    bad = [v for k, v in out.items() if k.startswith('direct')]
-    good = [v for k, v in out.items() if k.startswith('pull-request')]
+    bad = [v for k, v in out.items() if k.startswith('direct') or k.endswith('[authority]')]
+    good = [v for k, v in out.items() if k.startswith('pull-request') and k.endswith('[append]')]
     check('R4-B2', 'a freeze-ledger change landed with no merge record (a direct push; the host reports no merged '
           'pull request) is refused, with the approval created after the push (P9) and also before it; the same '
-          'change merged by pull request with an approval created before the merge is admitted; both comment forms',
-          "direct pushes: exit 65 naming the freeze-ledger change; pull-request merges: exit 0", out,
+          'change merged by pull request with an append comment created before the merge is admitted; with only an '
+          'authority-thread approval every case is refused (N3)',
+          "direct pushes and every [authority] case: exit 65 naming the freeze-ledger change; the [append] "
+          "pull-request merge: exit 0", out,
           all(o['exit'] == 65 and o['ledger_refused'] for o in bad) and all(o['exit'] == 0 for o in good))
 
 
@@ -1225,7 +1231,7 @@ def r4_b2_provenance_controls(t):
 
     def consistent(w):
         _r4_set_ledger(w, _r4_ledger(['m']), 'append')
-        _r4_set_ledger(w, _r4_ledger(['m', 'n']), 'authority')
+        _r4_set_ledger(w, _r4_ledger(['m', 'n']), 'append')
     out = {'merge record names another merge commit': _r4_run(t, other_merge_commit),
            'version reported at a commit off main\'s first-parent chain': _r4_run(t, off_chain),
            'version reported at a commit that did not introduce it': _r4_run(t, not_introducing),
@@ -1330,6 +1336,207 @@ def r4_n2_controls(t):
           "genuine bytes with one byte added", out,
           out['genuine bytes'] is True and all(v is False for k, v in out.items() if k != 'genuine bytes'))
 
+
+
+# ---- corrections after the fourth independent review (K1, K2, N6) ------------------------------------------------
+
+def r5_k1_controls(t):
+    """K1: a committed admission snapshot never designates. A recorded withdrawal or supersession binds only by
+    revoking its `commit`; `by` is designated only by an owner form present in the thread now; a recorded event that
+    names a comment present in the thread requires that comment's author to be the owner (sec. 6.3, reconciliation;
+    admission points 3, 4 and 6)."""
+    snap_path = hf.LEDGER_PATH.rsplit('/', 1)[0] + '/landings/forged/snapshot.json'
+
+    def ev(kind, F, by=None, cid=777777, author=hf.OWNER_ID, at='2026-11-23T00:00:58Z'):
+        line = 'oi-freeze/1 %s plan=%s round=%s commit=%s' % (kind, hf.PLAN, hf.ROUND, F) + (
+            ' by=%s' % by if by else '')
+        return {'plan': hf.PLAN, 'round': hf.ROUND, 'kind': kind, 'commit': F, 'by': by, 'comment_id': cid,
+                'author_id': author, 'created_at': at, 'first_line': line}
+
+    def show(code, res):
+        return {'exit': code, 'stop': stop(res), 'message': ((res or {}).get('stop') or {}).get('message', '')[:180],
+                'designation_comment_id': (((res or {}).get('config') or {}).get('admission') or {}).get(
+                    'simulated_chain', {}).get('snapshot', {}).get('designation_comment_id')}
+    out = {}
+    # S0: the owner designates F; a run for F is admitted
+    w = t.world()
+    F = t.freeze(w)
+    w.designate(F)
+    out['S0 owner designates F; run for F'] = show(*t.run(w, F))
+    # S1: a snapshot landed by another account with no approval records a supersession of F by F2 whose comment is
+    # not in the thread; no owner comment names F2
+    w = t.world()
+    F = t.freeze(w)
+    F2 = t.freeze(w, extra={'syn/other.txt': b'2\n'})
+    w.designate(F)
+    w.add_main('c9', {snap_path: hf.jb({'events': [ev('supersede', F, by=F2)]})}, merged_by=31337)
+    out['S1 snapshot supersedes F by F2, comment absent; run for F2'] = show(*t.run(w, F2))
+    # S2: as S1, the event names a comment present in the thread, written by a non-owner account
+    w = t.world()
+    F = t.freeze(w)
+    F2 = t.freeze(w, extra={'syn/other.txt': b'2\n'})
+    w.designate(F)
+    c = w.comment(hf.PLAN_ISSUE, 'oi-freeze/1 supersede plan=%s round=%s commit=%s by=%s'
+                  % (hf.PLAN, hf.ROUND, F, F2), author_id=31337, login='someone')
+    w.add_main('c9', {snap_path: hf.jb({'events': [ev('supersede', F, by=F2, cid=c['id'], author=31337,
+                                                      at=c['created_at'])]})}, merged_by=31337)
+    out['S2 snapshot supersession bound to a non-owner comment in the thread; run for F2'] = show(*t.run(w, F2))
+    # S3: no owner comment; the snapshot holds a designation of F and its supersession by F2
+    w = t.world()
+    F = t.freeze(w)
+    F2 = t.freeze(w, extra={'syn/other.txt': b'2\n'})
+    w.add_main('c9', {snap_path: hf.jb({'events': [ev('designate', F, at='2026-11-23T00:00:30Z'),
+                                                   ev('supersede', F, by=F2, cid=777778)]})}, merged_by=31337)
+    out['S3 no owner comment; snapshot designates F and supersedes it by F2; run for F2'] = show(*t.run(w, F2))
+    # S4: a snapshot withdrawal of F (the restrictive direction)
+    w = t.world()
+    F = t.freeze(w)
+    w.designate(F)
+    w.add_main('c9', {snap_path: hf.jb({'events': [ev('withdraw', F)]})}, merged_by=31337)
+    out['S4 snapshot withdraws F; run for F'] = show(*t.run(w, F))
+    # S5: the owner's supersession of F by F2, committed in a snapshot, its comment later deleted; the owner then
+    # designates F2 in the thread: F2 is admitted (the recorded supersession keeps F revoked)
+    w = t.world()
+    F = t.freeze(w)
+    F2 = t.freeze(w, extra={'syn/other.txt': b'2\n'})
+    w.designate(F)
+    sp = w.comment(hf.PLAN_ISSUE, 'oi-freeze/1 supersede plan=%s round=%s commit=%s by=%s'
+                   % (hf.PLAN, hf.ROUND, F, F2))
+    w.add_main('c9', {snap_path: hf.jb({'events': [ev('supersede', F, by=F2, cid=sp['id'], at=sp['created_at'])]})})
+    w.comments[(hf.REPO_ID, hf.PLAN_ISSUE)].remove(sp)
+    d2 = w.designate(F2)
+    out['S5 owner supersession committed, comment deleted; owner designates F2; run for F2'] = show(*t.run(w, F2))
+    out['S5 owner supersession committed, comment deleted; owner designates F2; run for F2']['want_comment'] = d2['id']
+    out['S5b the same; run for F'] = show(*t.run(w, F))
+    # S6: the owner's supersession present in the thread and committed in a snapshot: F2 is admitted by that comment
+    w = t.world()
+    F = t.freeze(w)
+    F2 = t.freeze(w, extra={'syn/other.txt': b'2\n'})
+    w.designate(F)
+    sp = w.comment(hf.PLAN_ISSUE, 'oi-freeze/1 supersede plan=%s round=%s commit=%s by=%s'
+                   % (hf.PLAN, hf.ROUND, F, F2))
+    w.add_main('c9', {snap_path: hf.jb({'events': [ev('supersede', F, by=F2, cid=sp['id'], at=sp['created_at'])]})})
+    out['S6 owner supersession in the thread and in a snapshot; run for F2'] = show(*t.run(w, F2))
+    out['S6 owner supersession in the thread and in a snapshot; run for F2']['want_comment'] = sp['id']
+    refused = [out[k] for k in out if k.startswith(('S1', 'S2', 'S3', 'S4', 'S5b'))]
+    admitted = [out[k] for k in out if k.startswith(('S0', 'S5 ', 'S6'))]
+    check('R5-K1', 'a committed admission snapshot is no source of authority (sec. 6.3: "a designation must be '
+          'present and verifiable in the thread now"; forms are read only from owner comments): a recorded '
+          'supersession revokes its commit and never designates its `by`; a recorded event naming a comment present '
+          'in the thread requires the owner as its author. S1 (snapshot supersession, comment absent) and S2 (bound to '
+          'a non-owner comment) do not admit F2; S3 (snapshot alone) and S4 (snapshot withdrawal) refuse; S0 admits '
+          'the owner\'s F; S5 (committed owner supersession, comment deleted, owner designates F2) admits F2 by that '
+          'designation and keeps F revoked; S6 (owner supersession in the thread) admits F2 by that comment',
+          "S1, S2, S3, S4, S5b: exit 65 CONFIG_UNREVIEWED; S0, S5, S6: exit 0, S5 and S6 with designation_comment_id "
+          "the owner's comment", out,
+          all(o['exit'] == 65 and o['stop'] == 'CONFIG_UNREVIEWED' for o in refused) and
+          all(o['exit'] == 0 for o in admitted) and
+          all(o['designation_comment_id'] == o['want_comment'] for o in admitted if 'want_comment' in o))
+
+
+def r5_k2_controls(t):
+    """K2 (N3): every freeze-ledger change that adds events needs its own oi-freeze-ledger/1 append comment by the
+    owner in force, in the authorized thread of a plan A lists, naming that plan and one of its rounds; an
+    oi-authority/1 approve comment in the authority thread does not authorize an append."""
+    def L(tags):
+        return _r4_ledger(tags)
+
+    def land(w, new, merged_by=None):
+        w.add_main('c%d' % (len(w.h.repos[hf.REPO_ID]['commits']) + 1), {hf.LEDGER_PATH: new},
+                   merged_by=merged_by or w.a['owner']['id'])
+        w.ledger_bytes = new
+
+    def append_comment(w, old, new, plan=hf.PLAN, rnd=hf.ROUND, issue=hf.PLAN_ISSUE):
+        return w.comment(issue, 'oi-freeze-ledger/1 append plan=%s round=%s from=%s to=%s'
+                         % (plan, rnd, sha(old), sha(new)))
+
+    def authority_comment(w, old, new):
+        return w.comment(hf.AUTH_ISSUE, 'oi-authority/1 approve from=%s to=%s' % (sha(old), sha(new)))
+
+    def l2_authority(merged_by):
+        def steps(w):
+            new = L(['a'])
+            authority_comment(w, w.ledger_bytes, new)
+            land(w, new, merged_by)
+        return steps
+
+    def l2_append(w):
+        new = L(['a'])
+        append_comment(w, w.ledger_bytes, new)
+        land(w, new, 31337)
+
+    def l3(plan, rnd):
+        def steps(w):
+            new = L(['a'])
+            append_comment(w, w.ledger_bytes, new, plan=plan, rnd=rnd)
+            land(w, new)
+        return steps
+
+    def in_authority_thread(w):
+        new = L(['a'])
+        append_comment(w, w.ledger_bytes, new, issue=hf.AUTH_ISSUE)
+        land(w, new)
+
+    def legit(w):
+        for tags in (['a'], ['a', 'b'], ['a', 'b', 'c']):
+            new = L(tags)
+            append_comment(w, w.ledger_bytes, new)
+            land(w, new)
+
+    def legit_both(w):
+        new = L(['a'])
+        authority_comment(w, w.ledger_bytes, new)
+        append_comment(w, w.ledger_bytes, new)
+        land(w, new)
+
+    def one_comment_two_appends(w):
+        l0 = w.ledger_bytes
+        new = L(['a'])
+        append_comment(w, l0, new)
+        land(w, new)
+        new2 = L(['a', 'b'])
+        authority_comment(w, w.ledger_bytes, new2)
+        land(w, new2)
+    out = {'L2 [authority] append approved only in the authority thread, merged by 31337, no review':
+           _r4_run(t, l2_authority(31337)),
+           'L2 [authority, merged by the owner] append approved only in the authority thread':
+           _r4_run(t, l2_authority(None)),
+           'L3 append comment naming a plan A does not list': _r4_run(t, l3('other-plan', hf.ROUND)),
+           'L3 append comment naming the plan and a round A does not list': _r4_run(t, l3(hf.PLAN, 'r9')),
+           'append comment in the authority thread, not the plan thread': _r4_run(t, in_authority_thread),
+           'a second append approved only in the authority thread': _r4_run(t, one_comment_two_appends),
+           'appends, each with its own append comment (positive)': _r4_run(t, legit),
+           'an append with both comments (positive)': _r4_run(t, legit_both)}
+    pending = {'L2 [append] append comment present, merged by 31337, no review (pending owner decision on the '
+               'review-record and merged-by checks for ledger changes; not part of the predicate)':
+               _r4_run(t, l2_append)}
+    bad = [v for k, v in out.items() if '(positive)' not in k]
+    good = [v for k, v in out.items() if '(positive)' in k]
+    check('R5-K2', 'N3 (sec. 6.3, "Approval of each acceptance-time append"; TR47): an append to the freeze ledger is '
+          'refused unless its own oi-freeze-ledger/1 append comment by the owner in force is in the thread of a plan '
+          'A lists, naming that plan and one of its rounds; an oi-authority/1 approve comment alone (L2 [authority]), '
+          'a comment naming an unlisted plan or round (L3), or one in the authority thread authorizes nothing; '
+          'appends each with their own append comment are admitted',
+          "every refusal case exits 65 naming the freeze-ledger change; both positive cases exit 0; the pending case "
+          "is reported only", dict(out, **pending),
+          all(o['exit'] == 65 and o['ledger_refused'] for o in bad) and all(o['exit'] == 0 for o in good))
+
+
+def r5_n6_controls(r):
+    """N6: a side-change class record whose `classes` is an object, not a list, is record-invalid (sec. 6.3, a field
+    error), never an internal error."""
+    def as_object(c):
+        c['classes'] = {'notes': c['classes'][0]}
+    got = _r4_class_scenario(r, as_object)
+    pos = _r4_class_scenario(r)
+    check('R5-N6', 'a side-change class record referenced by the configuration whose classes field is an object: '
+          'FAIL record-invalid, the side change unclassified, no exception and no INTERNAL exit; the record with a '
+          'class list classifies it',
+          "object: exit 20, record-invalid on syn/classes.json, notes/side.txt unclassified; list: exit 10, nothing "
+          "record-invalid or unclassified", {'object': got, 'list': pos},
+          got.get('exit') == 20 and 'syn/classes.json' in got.get('record_invalid', []) and
+          'notes/side.txt' in got.get('unclassified', []) and pos.get('exit') == 10 and
+          not pos.get('record_invalid') and not pos.get('unclassified'))
 
 # ---- acceptance, durable evidence and replay ----------------------------------------------------------------------
 
@@ -1727,7 +1934,8 @@ def main(out_root):
                          ('R4-B2', lambda: r4_b2_controls(t)), ('R4-B3', lambda: r4_b3_controls(r)),
                          ('R4-B2-PROV', lambda: r4_b2_provenance_controls(t)),
                          ('R4-B3-DUP', lambda: r4_b3_duplicate_controls(r)),
-                         ('R4-N2', lambda: r4_n2_controls(t))):
+                         ('R4-N2', lambda: r4_n2_controls(t)), ('R5-K1', lambda: r5_k1_controls(t)),
+                         ('R5-K2', lambda: r5_k2_controls(t)), ('R5-N6', lambda: r5_n6_controls(r))):
             try:
                 fn()
             except Exception as exc:
