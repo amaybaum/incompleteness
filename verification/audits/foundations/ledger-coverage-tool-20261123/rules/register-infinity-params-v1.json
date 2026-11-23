@@ -1,0 +1,113 @@
+{
+ "schema": "oi-term-rules/2",
+ "record_id": "a1-register-infinity-params-v1",
+ "status": "UNREVIEWED DRAFT: prepared by the implementation writer; no independent review and no owner authorization exist. The tool does not admit it under the review chain.",
+ "supersedes": null,
+ "recorded_at": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+ "author": "implementation-writer-20261123",
+ "rules": [
+  {
+   "id": "register-infinity-params",
+   "kind": "params",
+   "profiles": {
+    "register": "register",
+    "caps": "register-caps",
+    "infinity": "infinity"
+   },
+   "caps_kinds": [
+    "ptr",
+    "consistency",
+    "handoff"
+   ],
+   "old_rewrite": {
+    "pattern": "\\bA1\\b(?: \\(finiteness\\))?",
+    "replacement": "finiteness"
+   },
+   "key_normalize": "[\\s*_]+",
+   "key_rules": [
+    {
+     "pattern": "finiteness\\b.*\\bfails",
+     "key": "finiteness fails"
+    }
+   ],
+   "splitter": "(?<=[.;:?])\\s+",
+   "pairs_key": "new_step2",
+   "lint": {
+    "checker": {
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
+     "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6"
+    },
+    "scan_function": "static_new",
+    "key_function": "inf_key",
+    "sentence_function": "sentences",
+    "sentence_call": "re.split"
+   },
+   "positive_examples": [
+    {
+     "old": "The bound holds.",
+     "new": "The bound now holds.",
+     "kind": "ptr",
+     "expect": {
+      "register": 1,
+      "register-caps": 0,
+      "infinity": 0
+     }
+    },
+    {
+     "old": "see the ledger",
+     "new": "see the NEW ledger",
+     "kind": "ptr",
+     "expect": {
+      "register": 0,
+      "register-caps": 1,
+      "infinity": 0
+     }
+    },
+    {
+     "old": "The bound holds.",
+     "new": "The bound holds; the lattice is infinite.",
+     "kind": "prose",
+     "expect": {
+      "register": 0,
+      "register-caps": 0,
+      "infinity": 1
+     }
+    },
+    {
+     "old": "A1 fails here.",
+     "new": "Finiteness fails at this point, and the lattice is infinite.",
+     "kind": "prose",
+     "expect": {
+      "register": 0,
+      "register-caps": 0,
+      "infinity": 1
+     }
+    }
+   ],
+   "negative_examples": [
+    {
+     "old": "The bound now holds.",
+     "new": "The bound now holds again.",
+     "kind": "ptr"
+    },
+    {
+     "old": "see the ledger",
+     "new": "see the NEW ledger",
+     "kind": "prose"
+    },
+    {
+     "old": "A1 fails here.",
+     "new": "Finiteness fails here.",
+     "kind": "prose"
+    },
+    {
+     "old": "x",
+     "new": "neither that the substratum is finite nor that it is infinite",
+     "kind": "prose"
+    }
+   ],
+   "reason": "Items 5 and 6 of the frozen plan are evaluated per edit as its checker does; these are the values of that checker's per-edit scan and key function that are not extractable assignments.",
+   "author": "implementation-writer-20261123"
+  }
+ ]
+}

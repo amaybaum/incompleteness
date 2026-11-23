@@ -47,6 +47,24 @@ def _ast_value(node):
     raise ExtractFault('unsupported value node %s' % type(node).__name__)
 
 
+def _dotted(node):
+    if isinstance(node, ast.Name):
+        return node.id
+    if isinstance(node, ast.Attribute):
+        inner = _dotted(node.value)
+        return None if inner is None else inner + '.' + node.attr
+    return None
+
+
+def function_literals(data, function):
+    """Every string constant in one module-level function's body (for the params lint)."""
+    tree = ast.parse(data.decode('utf-8'))
+    fns = [n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == function]
+    if len(fns) != 1:
+        return None
+    return [n.value for n in ast.walk(fns[0]) if isinstance(n, ast.Constant) and isinstance(n.value, str)]
+
+
 def extract(kind, selector, data):
     """Returns the extracted value (a string, list or dict of strings)."""
     if kind == 'json-pointer':
@@ -66,6 +84,19 @@ def extract(kind, selector, data):
             if isinstance(node, ast.Assign) and any(getattr(t, 'id', None) == selector for t in node.targets):
                 return _ast_value(node.value)
         raise ExtractFault('no module-level assignment to %s' % selector)
+    if kind == 'python-ast-call-arg':
+        # selector {function, call, arg}: the literal argument of the one call `call` inside function `function`
+        if not isinstance(selector, dict) or set(selector) != {'function', 'call', 'arg'}:
+            raise ExtractFault('python-ast-call-arg selector must be {function, call, arg}')
+        tree = ast.parse(data.decode('utf-8'))
+        fns = [n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == selector['function']]
+        if len(fns) != 1:
+            raise ExtractFault('no single module-level function %s' % selector['function'])
+        calls = [n for n in ast.walk(fns[0]) if isinstance(n, ast.Call) and _dotted(n.func) == selector['call']]
+        if len(calls) != 1 or len(calls[0].args) <= selector['arg']:
+            raise ExtractFault('no single call %s with argument %d in %s' % (selector['call'], selector['arg'],
+                                                                            selector['function']))
+        return _ast_value(calls[0].args[selector['arg']])
     if kind == 'literal-list':
         if not isinstance(selector, list) or not all(isinstance(x, str) for x in selector):
             raise ExtractFault('literal-list selector must be a list of strings')

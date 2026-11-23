@@ -117,10 +117,18 @@ class Loaded:
         self.problems = []
 
 
-def load(repo, rev, path, expected_sha, operation, mode, extra_records=()):
-    """Integrity stage for the configuration. mode: 'chain' (root of trust: expected_sha and the review chain)
-    or 'harness' (an in-process control run that admits the configuration without its chain and says so)."""
+forbidden = ('owner', 'repository', 'workflow', 'engine_pins', 'plans', 'authority_thread', 'freeze_ledger_path',
+             'forms', 'authority', 'admission')
+retirement_fields = ('name', 'issue', 'owner')
+
+
+def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admission=None, table=None):
+    """Integrity stage for the configuration. mode: 'chain' (admitted by sec. 6.3: `admission` is the snapshot
+    the authority module built, `table` the blobs F's pin table lists, {path: bytes}) or 'harness' (an in-process
+    control run that admits a draft configuration without its chain; never acceptable)."""
     L = Loaded()
+    if mode == 'chain' and (admission is None or table is None):
+        raise stop('CONFIG_UNREVIEWED', 'no admission: the configuration is admitted only through sec. 6.3')
     try:
         commit = repo.resolve(rev)
     except Unresolvable as exc:
@@ -129,8 +137,11 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=()):
     if data is None:
         raise stop('SOURCE_CHANGED', 'configuration %s not present at %s' % (path, commit[:12]))
     sha = util.sha256(data)
-    if mode == 'chain' and sha != expected_sha:
-        raise stop('SOURCE_CHANGED', 'configuration does not hash to the pinned value')
+    if mode == 'chain' and table.get(path) != data:
+        raise stop('CONFIG_UNREVIEWED', 'the configuration is not the blob F\'s pin table lists')
+    if expected_sha is not None and sha != expected_sha:
+        raise stop('CONFIG_UNREVIEWED' if mode == 'chain' else 'SOURCE_CHANGED',
+                   'configuration does not equal --config-sha256')
     try:
         cfg = json.loads(data.decode('utf-8'))
     except ValueError as exc:
@@ -142,6 +153,11 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=()):
     unknown = [k for k in cfg if k not in required and k not in optional]
     if missing or unknown:
         raise stop('CONFIG_INVALID', 'missing %s; unknown %s' % (missing, unknown))
+    if not isinstance(cfg['retirement'], dict) or set(cfg['retirement']) - set(retirement_fields):
+        raise stop('CONFIG_INVALID', 'unknown retirement field (authority values are never configuration): %s'
+                   % sorted(set(cfg['retirement']) - set(retirement_fields)))
+    if mode == 'chain' and cfg['retirement'].get('owner') != admission['owner_id']:
+        raise stop('CONFIG_UNREVIEWED', 'retirement.owner is not the authority record\'s owner id')
     if not set(cfg['operations']) <= set(operations):
         raise stop('CONFIG_INVALID', 'unknown operation in operations')
     if operation is not None and operation not in cfg['operations']:
@@ -170,23 +186,51 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=()):
     controls_b = read_ref(repo, commit, cfg['controls'], 'controls file')
     for r in extra_records:
         entries.append((r['path'], r['data']))
-    # the configuration's own review and authorization: found beside it, naming its blob
+    # the configuration's own review and authorization: under the chain, only the blobs F's pin table lists
+    # (point 6; files beside the configuration are never admitted). The harness reads the draft's neighbours.
     cfg_dir = path.rsplit('/', 1)[0] + '/' if '/' in path else ''
-    for p, bid in sorted(repo.paths(commit).items()):
-        if p.startswith(cfg_dir) and p.endswith('.json') and p != path and '/' not in p[len(cfg_dir):]:
-            entries.append((p, repo.read_blob(bid)))
+    if mode == 'chain':
+        for p, b in sorted(table.items()):
+            if p != path and p.endswith('.json'):
+                entries.append((p, b))
+    else:
+        for p, bid in sorted(repo.paths(commit).items()):
+            if p.startswith(cfg_dir) and p.endswith('.json') and p != path and '/' not in p[len(cfg_dir):]:
+                entries.append((p, repo.read_blob(bid)))
     entries.append((path, data))
     L.store = rec.Store(entries)
+
+    def resolver(ref, _c=commit):
+        try:
+            b = repo.read(_c, ref['path'])
+        except Unresolvable:
+            return None
+        if b is None or util.sha256(b) != ref['blob_sha256']:
+            return None
+        try:
+            return json.loads(b.decode('utf-8'))
+        except (ValueError, UnicodeDecodeError):
+            return None
+    L.store.resolver = resolver
     L.admitted = {r['blob_sha256'] for r in list(cfg['rules']) + list(cfg['records'])} | {sha}
     for p, d in entries:
         doc = L.store.by_sha[util.sha256(d)][1]
         if isinstance(doc, dict) and doc.get('schema') in (rec.review_schema, rec.auth_schema) and \
-                p.startswith(cfg_dir):
+                (p in (table or {}) if mode == 'chain' else p.startswith(cfg_dir)):
             if doc.get('schema') == rec.review_schema and doc.get('reviewed', {}).get('blob_sha256') == sha:
                 L.admitted.add(util.sha256(d))
             if doc.get('schema') == rec.auth_schema and any(e.get('record', {}).get('blob_sha256') == sha
                                                             for e in doc.get('authorizes', [])):
                 L.admitted.add(util.sha256(d))
+    # S7: a side-change class id is defined exactly once across the class records the configuration references
+    seen_ids = []
+    for r in cfg['records']:
+        d = L.store.get(r)
+        if isinstance(d, dict) and d.get('schema') == 'oi-side-change-classes/1':
+            seen_ids += [c.get('id') for c in d.get('classes', [])]
+    if len(seen_ids) != len(set(seen_ids)):
+        raise stop('CONFIG_INCONSISTENT', 'a side-change class id is defined more than once: %s'
+                   % sorted({i for i in seen_ids if seen_ids.count(i) > 1}))
     # review chain of the configuration itself
     if mode == 'chain':
         probs = rec.lint_chain({'path': path, 'blob_sha256': sha}, L.store, cfg['retirement'].get('owner'),
@@ -199,11 +243,14 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=()):
             if why:
                 reviewers = rec.reviewers_of({'blob_sha256': sha}, L.store)
                 if not rec.widening_review_ok({'path': path, 'blob_sha256': sha}, L.store, L.admitted,
-                                              reviewers, cfg.get('author')):
+                                              reviewers, cfg.get('author'), cfg['supersedes'],
+                                              ['%s:%s' % (cfg['config_id'], w) for w in why],
+                                              cfg['retirement'].get('owner')):
                     raise stop('CONFIG_UNREVIEWED', 'widening without a widening review: %s' % '; '.join(why[:4]))
-        L.admission = 'chain'
+        L.admission = dict(admission)
     else:
-        L.admission = 'control-harness: configuration admitted without its review chain'
+        L.admission = dict(admission or {}, mode='control-harness',
+                           note='a draft configuration admitted without its chain by the control harness')
     # consistency
     names = [p['name'] for p in cfg['profiles']]
     if len(names) != len(set(names)):

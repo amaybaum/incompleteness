@@ -1,19 +1,19 @@
-"""Delegation class adapter record-dir/1: the plan's record directory equals F's blobs; additions only under
-execution/."""
+"""Delegation class adapter record-dir, interface 2: the plan's record directory equals F's blobs; additions
+only under execution/."""
 INTERFACE = 'delegation'
 NAME = 'record-dir'
-VERSION = 1
+VERSION = 2
 
 
-def verify(repo, roles, cls, evidence, ledger):
+def verify(repo, roles, cls, env, ledger):
     out = []
     F, X = roles.get('freeze'), roles.get('candidate')
     for d in cls['paths']:
-        fp = {p: b for p, b in repo.paths(F).items() if p.startswith(d)} if F else {}
-        xp = {p: b for p, b in repo.paths(X).items() if p.startswith(d)}
         if not F:
             out.append(('missing', 'no freeze commit F given'))
             continue
+        fp = {p: b for p, b in repo.paths(F).items() if p.startswith(d)}
+        xp = {p: b for p, b in repo.paths(X).items() if p.startswith(d)}
         for p, b in fp.items():
             if xp.get(p) != b:
                 out.append(('fail', '%s differs from F' % p))

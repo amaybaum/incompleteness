@@ -5,6 +5,7 @@ import re
 import warnings
 
 from . import outcome as oc
+from . import reconcile as rc
 from . import segments as sg
 from . import util
 from .gitobj import Unresolvable, on_first_parent_chain
@@ -58,6 +59,7 @@ class Execution:
         self.ctx = ctx
         self.repo = ctx.repo
         self.H, self.X, self.M, self.L, self.C = H, X, M, L, C or X
+        self.compositions = []
         self.ledger = ledger
         self.delegation = delegation
         self.side_classes = side_classes or []
@@ -88,23 +90,13 @@ class Execution:
             if util.sha256(d[sp['start']:sp['end']]) != sp['old_sha256']:
                 bad.append('%s: old_sha256 does not match its span at H' % sp['id'])
         sids = {sp['id'] for sp in led['splices']}
-        retained = {r['id'] for r in led['retained']}
-        for e in led.get('edits', []):
-            t = (self.repo.read(self.H, e['file']) or b'').decode('utf-8', 'replace')
-            if t.count(e['old']) != 1:
-                bad.append('%s: old text does not occur exactly once at H' % e['id'])
-            if e['id'] in retained:
-                if e['id'] in sids:
-                    bad.append('%s: retained edit has a splice' % e['id'])
-            elif e['id'] not in sids:
-                bad.append('%s: edit maps to no splice' % e['id'])
-        eids = {e['id'] for e in led.get('edits', [])}
-        for s in sids - eids if eids else ():
-            bad.append('%s: splice maps to no edit' % s)
+        for r in led['retained']:
+            if r['id'] in sids:
+                bad.append('%s: retained edit has a splice' % r['id'])
         if bad:
             raise oc.Stop(oc.error, 'LEDGER_INTEGRITY', bad[0], {'problems': bad[:50], 'count': len(bad)})
         self.checks.append({'name': 'preconditions-at-H', 'holds': True, 'splices': len(led['splices']),
-                            'edits': len(led.get('edits', []))})
+                            'edit_units': len(led.get('edit_units', []))})
 
     # ---- candidate X ----
     def candidate(self, commit=None, parent=None):
@@ -145,12 +137,6 @@ class Execution:
             if by_file.get(p):
                 self.item('RET', 'unauthorized-edit', p, {'expected': 'splices applied', 'actual': hp.get(p)},
                           file=p)
-        diff_paths = {p for p in set(hp) | set(xp) if hp.get(p) != xp.get(p)}
-        for r in self.reconciliations:
-            for e in r.get('paths', []):
-                if e.get('path') in diff_paths:
-                    self.item('RECORD', 'record-invalid', 'reconciliation %s' % e.get('path'), {'path': e.get('path')},
-                              detail='a reconciliation record never changes a decision of op C on the candidate')
         self.checks.append({'name': 'ledgered-files-conform', 'conforming_changed_files': conform,
                             'ledgered_files': len(led['files'])})
         # splice postconditions: each new at its translated span
@@ -166,6 +152,54 @@ class Execution:
         self.retained(X)
         self.mirrors()
         self.lean(X)
+
+    def commits_after(self, chain, F=None):
+        """B4: each commit after X on the chain to C, with its parent, classified path by path as X is against
+        H: ledgered (H plus the splices), delegated (checked by its class at C) or record (admitted after F);
+        anything else is FAIL unauthorized-change naming the commit."""
+        led = self.ledger
+        by_file = {}
+        for sp in led['splices']:
+            by_file.setdefault(sp['file'], []).append(sp)
+        deleg_paths = set(self.delegation.paths()) if self.delegation else set()
+        record_prefixes = self.delegation.record_prefixes() if self.delegation else []
+        report = []
+        prev = self.X
+        for c in chain:
+            ps = self.repo.parents(c)
+            if ps != [prev]:
+                self.item('RET', 'candidate-parent', c, {'c': c, 'parents': ps})
+            pp, cp = self.repo.paths(prev), self.repo.paths(c)
+            row = {'commit': c, 'paths': []}
+            for path in sorted(set(pp) | set(cp)):
+                if pp.get(path) == cp.get(path):
+                    continue
+                cls = None
+                if path in led['files']:
+                    if self.delegation and self.delegation.owns_ledgered(path):
+                        cls = 'delegated'
+                    else:
+                        want = sg.apply_splices(self.repo.read(self.H, path) or b'', by_file.get(path, []))
+                        cls = 'ledgered' if self.repo.read(c, path) == want else None
+                        if cls is None:
+                            self.item('RET', 'unauthorized-edit', '%s@%s' % (path, c[:12]), {'commit': c},
+                                      file=path, commit=c)
+                            row['paths'].append({'path': path, 'class': 'unauthorized-edit'})
+                            continue
+                elif path in deleg_paths:
+                    cls = 'delegated'
+                else:
+                    for d in record_prefixes:
+                        if path.startswith(d + 'execution/') and (F is None or self.repo.blob_id(F, path) is None):
+                            cls = 'record'
+                if cls is None:
+                    self.item('RET', 'unauthorized-change', '%s@%s' % (path, c[:12]), {'commit': c, 'path': path},
+                              file=path, commit=c)
+                    cls = 'unauthorized-change'
+                row['paths'].append({'path': path, 'class': cls})
+            report.append(row)
+            prev = c
+        self.checks.append({'name': 'commits-after-X', 'commits': report})
 
     def retained(self, X):
         sids = {sp['id'] for sp in self.ledger['splices']}
@@ -202,17 +236,18 @@ class Execution:
         before = {f: norm((self.repo.read(self.H, f) or b'').decode('utf-8', 'replace')) for f in files}
         after = {f: norm((self.repo.read(X, f) or b'').decode('utf-8', 'replace')) for f in files}
         grams = set()
+        g = max(1, min(20, rules['min_len']))  # invariant: every pinned literal is at least g characters long
         for f in files:
             h = self.repo.read(self.H, f) or b''
             for sp in led['splices']:
                 if sp['file'] == f:
                     seg = norm(h[max(0, sp['start'] - 100):sp['end'] + 100].decode('utf-8', 'replace'))
-                    for i in range(max(1, len(seg) - 19)):
-                        grams.add(seg[i:i + 20])
+                    for i in range(max(1, len(seg) - g + 1)):
+                        grams.add(seg[i:i + g])
 
         def near_splice(lit):
             # a literal overlapping a splice shares a 20-character window with the text around it
-            return any(lit[i:i + 20] in grams for i in range(max(1, len(lit) - 19)))
+            return any(lit[i:i + g] in grams for i in range(max(1, len(lit) - g + 1)))
         pyfiles = [p for p in self.repo.paths(self.H) if p.endswith('.py')
                    and not p.startswith(tuple(rules['skip_prefixes']))]
         broken = []
@@ -247,24 +282,21 @@ class Execution:
             if self.freeze is None or not self.repo.is_ancestor(o.get('recorded_at', ''), self.freeze):
                 self.item('RET', 'pin-broken', 'pin-ok %s' % o['file'], {'entry': o},
                           detail='a pin exemption recorded after the freeze')
-        # updated pins must occur in their targets
-        for e in led.get('edits', []):
-            if e.get('kind') != 'guard-pin' or e.get('pin_note') in ('message', 'comment'):
-                continue
-            pf = e['file']
-            old = {l for _, l in py_literals((self.repo.read(self.H, pf) or b'').decode('utf-8', 'replace'), 20)}
-            new = [l for _, l in py_literals((self.repo.read(X, pf) or b'').decode('utf-8', 'replace'), 20)
-                   if l not in old]
-            pieces = [norm(x) for x in re.split(r'[\'"]', e['new'])]
-            pieces = [x for x in pieces if len(x) >= 12 and not x.startswith(('ok', 'in ', '#'))]
-            mine = [l for l in new if any(x in l for x in pieces)]
+        # updated pins must occur in their targets (the selection rules live in the ledger adapter)
+        for g in led.get('guard_pins', []):
+            pf = g['file']
+            old = {l for _, l in py_literals((self.repo.read(self.H, pf) or b'').decode('utf-8', 'replace'),
+                                             rules['min_len'])}
+            new = [l for _, l in py_literals((self.repo.read(X, pf) or b'').decode('utf-8', 'replace'),
+                                             rules['min_len']) if l not in old]
+            mine = [l for l in new if any(x in l for x in g['pieces'])]
             if not mine:
-                self.item('RET', 'pin-target-missing', e['id'], {'file': pf}, detail='no new literal found')
-            for t in e.get('targets') or []:
+                self.item('RET', 'pin-target-missing', g['id'], {'file': pf}, detail='no new literal found')
+            for t in g.get('targets') or []:
                 tt = norm((self.repo.read(X, t) or b'').decode('utf-8', 'replace'))
                 for l in mine:
                     if l not in tt:
-                        self.item('RET', 'pin-target-missing', '%s->%s' % (e['id'], t), {'literal': l})
+                        self.item('RET', 'pin-target-missing', '%s->%s' % (g['id'], t), {'literal': l})
         self.checks.append({'name': 'pins', 'python_files': len(pyfiles), 'broken': len(broken)})
 
     # ---- integration base M and landing L ----
@@ -292,36 +324,39 @@ class Execution:
                 prev = c
             entry = {'path': path, 'h': hp.get(path), 'm': mp.get(path), 'commit': made}
             if path in ledgered_or_corpus:
-                rec = self._reconciled(path)
+                rec, ev = self._reconciled(path)
                 entry['class'] = 'base-drift'
                 entry['reconciled'] = bool(rec)
+                entry['record_conditions'] = ev
                 if not rec:
                     self.item('MAIN', 'base-drift', path, {'h': hp.get(path), 'm': mp.get(path)}, file=path,
-                              commit=made)
+                              commit=made, failed_conditions=[e['failed'] for e in ev])
             else:
-                cls = self._side_class(path)
+                cls, why = self._side_class(path)
                 entry['class'] = cls
                 if cls is None:
                     self.item('MAIN', 'side-change-unclassified', path, {'h': hp.get(path), 'm': mp.get(path)},
-                              file=path, commit=made)
+                              file=path, commit=made, why=why)
             self.side_changes.append(entry)
 
     def _side_class(self, path):
-        for c in self.side_classes:
-            for p in c.get('paths', []):
-                if path == p:
-                    return c['id']
-            for p in c.get('prefixes', []):
-                if path.startswith(p):
-                    return c['id']
-        return None
+        """S3: a path matches a class only if its blob at M equals the class pin."""
+        return rc.classify_side(self.repo, self.M, path, self.side_classes, getattr(self, 'record_refs', {}))
 
     def _reconciled(self, path):
+        """(entry, evaluations): the record entry that applies (every condition holds, S5), or None."""
+        evs = []
         for r in self.reconciliations:
             for e in r.get('paths', []):
-                if e.get('path') == path and e.get('m') == self.repo.blob_id(self.M, path):
-                    return e
-        return None
+                if e.get('path') != path:
+                    continue
+                ev = rc.evaluate(self.repo, self.ctx, self.H, self.M, self.X, self.ledger, r, e, self.side_classes,
+                                 getattr(self, 'record_refs', {}))
+                ev['record'] = r.get('_ref')
+                evs.append(ev)
+                if not ev['failed']:
+                    return dict(e, _ref=r.get('_ref')), evs
+        return None, evs
 
     def landing(self, generated_rx=None):
         L, M, C = self.L, self.M, self.C
@@ -355,12 +390,19 @@ class Execution:
                     if l != m:
                         self.item('MAIN', 'landing-extra-change', path, {'l': l, 'm': m}, file=path)
                     continue
-                rec = self._reconciled(path)
-                if rec and rec.get('l') == l:
-                    continue
                 if path in led['files']:
-                    want = self.translate_onto_main(path, by_file.get(path, []))
-                    if want is not None and l is not None and self.repo.read(L, path) == want:
+                    # S6: the composition is evaluated for every path, with or without a record; a record's l is
+                    # only a prediction checked against it
+                    comp, _ = rc.compose(self.repo, self.H, M, path, by_file.get(path, []))
+                    comp_id = rc.blob_id_of(comp) if comp is not None else None
+                    self.compositions.append({'path': path, 'composed_blob': comp_id, 'l': l})
+                    recs = [(r, e) for r in self.reconciliations for e in r.get('paths', []) if e.get('path') == path]
+                    for r, e in recs:
+                        if e.get('l') != comp_id:
+                            self.item('RECORD', 'record-invalid', '%s:%s' % ((r.get('_ref') or {}).get('path'), path),
+                                      {'l': e.get('l'), 'composed': comp_id}, file=path,
+                                      detail='the record\'s l differs from the composition (the record\'s R7)')
+                    if comp is not None and l is not None and l == comp_id:
                         continue
                 if generated_rx is not None and generated_rx.search(path):
                     self.item('MAIN', 'delegated-evidence-missing', path, {'l': l}, file=path,

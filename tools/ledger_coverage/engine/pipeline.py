@@ -30,6 +30,9 @@ class RunContext:
         roles = config['roles']
         self.retired_form_trees = {roles.get('pin'), roles.get('scientific_base')} - {None}
 
+    def in_corpus(self, path):
+        return path in self.corpus_exact or any(rx.search(path) for rx in self.corpus_rx)
+
     def ft(self, commit, path):
         key = (commit, path)
         if key not in self._ft:
@@ -524,6 +527,15 @@ class Terms:
         kinds = p.spec.get('splice_kinds')
         keys = [(re.compile(k['pattern']), k['key']) for k in p.spec.get('match_keys', [])]
         rewrite = [(re.compile(r['pattern']), r['replacement']) for r in p.spec.get('replaced_text_rewrite', [])]
+        prm = getattr(self.ctx, 'edit_params', None)
+        if prm is not None and p.name in prm['profiles'].values():
+            # the reviewed params rule decides these, for both units (sec. 6.1)
+            kinds = prm['caps_kinds'] if p.name == prm['profiles']['caps'] else None
+            if p.name == prm['profiles']['infinity']:
+                keys = [(re.compile(k['pattern']), k['key']) for k in prm['key_rules']]
+                rewrite = [(re.compile(prm['old_rewrite']['pattern']), prm['old_rewrite']['replacement'])]
+            else:
+                keys, rewrite = [], []
         for sp in self.splice_texts or []:
             if p.spec.get('scope') == 'corpus' and sp['file'] not in self.ctx.corpus(self.commit):
                 continue
@@ -640,7 +652,7 @@ class Terms:
                         dh = bool(self.deny_on_sentence(s))
                         state, cls, rid = rulemod.apply_allow(self.ctx.allow_rules, path, s, neigh, csha,
                                                               [(pos, pos + b - a)], dh, self.rule_counts,
-                                                              (path, sa))
+                                                              (path, sa), self.granted(path, k))
                         rank = {'fail': 3, 'review': 2, 'pass': 1}[state]
                         if decided is None or rank > decided[0] or (rank == decided[0] == 2 and decided[2] is None
                                                                     and rid is not None):
@@ -673,6 +685,18 @@ class Terms:
                                                        'semantic_classification', 'author']}))
         return self
 
+    def granted(self, path, k):
+        """One grant per fingerprint (V5): to the sentence with the smallest byte offset among those of the file
+        whose text and context equal the fingerprint's; sentences are in file order, so the smallest index."""
+        def g(fp):
+            sents = self.ctx.sentences(self.commit, path)
+            for j in range(len(sents)):
+                if util.sha256(sents[j][0]) == fp['sentence_sha256'] and \
+                        rulemod.sentence_context_sha(sents, j) == fp['context_sha256']:
+                    return j == k
+            return False
+        return g
+
     def _profile(self, name):
         for p in self.review_profiles:
             if p.name == name:
@@ -691,7 +715,9 @@ class Terms:
             for fp in r.get('fingerprints', []):
                 sents = self.ctx.sentences(self.commit, fp['file']) if self.ctx.repo.blob_id(self.commit, fp['file']) \
                     else []
-                if not any(util.sha256(s) == fp['sentence_sha256'] for s, _, _ in sents):
+                if not any(util.sha256(s) == fp['sentence_sha256'] and
+                           rulemod.sentence_context_sha(sents, j) == fp['context_sha256']
+                           for j, (s, _, _) in enumerate(sents)):
                     self.items.append(oc.make_item('TERMS', 'rule-stale', '%s#%s' % (r['id'], fp['sentence_sha256'][:16]),
                                                    None, {'rule': r['id'], 'fp': fp['sentence_sha256']},
                                                    file=fp['file'], rule_id=r['id']))

@@ -419,14 +419,15 @@ def h_controls():
 
 def chain_world():
     """A record, its review and its owner authorization, with fixture identities."""
-    rule = {'schema': 'oi-term-rules/2', 'record_id': 'r1', 'author': 'eng-writer', 'rules': [{'id': 'q1'}]}
+    rule = {'schema': 'oi-term-rules/2', 'record_id': 'r1', 'author': 'eng-writer', 'supersedes': None,
+            'rules': [{'id': 'q1'}]}
     rb = util.canonical(rule)
     ref = {'path': 'rec/r.json', 'blob_sha256': util.sha256(rb)}
     review = {'schema': rec.review_schema, 'reviewer': 'eng-reviewer', 'reviewed': ref, 'method': 'read the objects',
               'verdicts': [{'item': 'q1', 'verdict': 'accept'}]}
     vb = util.canonical(review)
     vref = {'path': 'rec/r.review.json', 'blob_sha256': util.sha256(vb)}
-    auth = {'schema': rec.auth_schema, 'owner': 'eng-owner', 'time': 't0', 'comment_id': 'c-42',
+    auth = {'schema': rec.auth_schema, 'owner': 9001, 'time': 't0', 'comment_id': 'c-42',
             'authorizes': [{'record': ref, 'review': vref}]}
     ab = util.canonical(auth)
     return rule, review, auth, ref, vref
@@ -438,7 +439,7 @@ def chain_probs(rule, review, auth, admitted_extra=(), mutate_ref=None):
     st = rec.Store(entries)
     ref = {'path': 'rec/r.json', 'blob_sha256': util.sha256(rb)}
     admitted = {util.sha256(b) for _, b in entries} | set(admitted_extra)
-    return rec.lint_chain(mutate_ref or ref, st, 'eng-owner', admitted)
+    return rec.lint_chain(mutate_ref or ref, st, 9001, admitted)
 
 
 def o_controls():
@@ -468,7 +469,7 @@ def o_controls():
     rb2 = util.canonical(rule)
     st = rec.Store([('rec/r.json', rb2)])
     out['O8'] = any('not referenced' in p for p in rec.lint_chain({'path': 'rec/r.json',
-                                                                   'blob_sha256': util.sha256(rb2)}, st, 'eng-owner',
+                                                                   'blob_sha256': util.sha256(rb2)}, st, 9001,
                                                                   set()))
     return out
 

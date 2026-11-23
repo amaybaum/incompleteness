@@ -12,10 +12,15 @@ from . import context as ctxmod
 from . import delegation as delmod
 from . import execution as exmod
 from . import outcome as oc
+from . import peredit
+from . import profiles as prmod
 from . import pipeline as pl
+from . import reconcile as rcmod
 from . import records as rec
 from . import rules as rulemod
 from . import util
+from . import authority as auth
+from . import host as hostmod
 from .gitobj import GitRepo, Overlay, Unresolvable, first_parent_chain
 
 here = os.path.dirname(os.path.abspath(__file__))
@@ -42,7 +47,10 @@ def build_parser():
 
     def common(sp):
         sp.add_argument('--config', required=True, help='rev:path of the configuration record')
-        sp.add_argument('--config-sha256', required=True, help='the pin of the configuration (root of trust)')
+        sp.add_argument('--config-sha256', default=None, help='optional equality with the admitted configuration')
+        sp.add_argument('--freeze', default=None, help='the designated freeze F (sec. 6.3)')
+        sp.add_argument('--plan', default=None, help='the plan id, as the authority record lists it')
+        sp.add_argument('--round', default=None, help='the round id, as the authority record lists it')
         sp.add_argument('--out', required=True)
         sp.add_argument('--repo', default=None)
 
@@ -65,7 +73,6 @@ def build_parser():
     e.add_argument('--certified', default=None)
     e.add_argument('--main', default=None)
     e.add_argument('--landing', default=None)
-    e.add_argument('--freeze', default=None)
     e.add_argument('--ledger', required=True)
     e.add_argument('--edits', default=None)
     e.add_argument('--delegation', default=None)
@@ -82,6 +89,10 @@ def build_parser():
     t.add_argument('--scope', default=None)
     t.add_argument('--rules', action='append', default=[])
     t.add_argument('--classify', action='append', default=[])
+    rp = sub.add_parser('replay')
+    rp.add_argument('--snapshot', required=True, help='a committed landing record (oi-ledger-landing/1)')
+    rp.add_argument('--out', required=True)
+    rp.add_argument('--repo', default=None)
     s = sub.add_parser('self-test')
     s.add_argument('--out', required=True)
     s.add_argument('--repo', default=None)
@@ -208,22 +219,35 @@ def rule_files(loaded, harness, ctx_lookup):
             if other is not None and other != ref['path'] and not (sup and sup.get('path') == other):
                 probs.append('rule id %s reused' % r['id'])
             seen_ids[r['id']] = ref['path']
+            if r.get('kind') == peredit.params_kind:
+                src = ctx_lookup['checker']()
+                lint = r.get('lint') or {}
+                try:
+                    sp = prmod.extract(
+                        'python-ast-call-arg', {'function': lint.get('sentence_function'),
+                                                'call': lint.get('sentence_call'), 'arg': 0}, src) if src else None
+                except Exception as exc:  # an extraction fault is a lint failure of the params rule
+                    sp = None
+                    probs.append('%s: splitter not extractable: %s' % (r['id'], exc))
+                probs += peredit.lint_params(r, src, sp)
+                probs += peredit.check_examples(r, ctx_lookup['profiles']())
+                continue
             probs += rulemod.lint_rule(r, ctx_lookup['profile'], ctx_lookup['sentence'], ctx_lookup['deny'],
                                        ctx_lookup['control_input'])
             if r.get('kind') == 'allow':
                 if r['id'] in old_rules:
                     widen += rulemod.allow_widening(old_rules[r['id']], r)
                 else:
-                    widen.append('new allow rule %s' % r['id'])
+                    widen.append('%s:new allow rule without supersedes' % r['id'])
             elif r.get('kind') == 'deny' and r['id'] in old_rules:
                 widen += rulemod.deny_widening(old_rules[r['id']], r)
         for rid in old_rules:
             if rid not in {r['id'] for r in doc.get('rules', [])} and old_rules[rid].get('kind') == 'deny':
-                widen.append('deny rule %s removed' % rid)
-        if widen and not rec.widening_review_ok(ref, loaded.store, loaded.admitted,
-                                                 rec.reviewers_of(ref, loaded.store), doc.get('author')):
-            if not harness:
-                probs.append('widening without a widening review: %s' % '; '.join(widen[:3]))
+                widen.append('%s:deny rule removed' % rid)
+        wp = rec.widening_review_problems(ref, loaded.store, loaded.admitted, rec.reviewers_of(ref, loaded.store),
+                                          doc.get('author'), sup, widen, owner) if widen else []
+        if wp and not harness:
+            probs.append('widening without a valid widening review (%s): %s' % ('; '.join(widen[:3]), wp[0]))
         if probs:
             items.append(oc.make_item('RECORD', 'record-invalid', ref['path'], None, {'why': probs[0]},
                                       detail=probs[:20]))
@@ -234,8 +258,10 @@ def rule_files(loaded, harness, ctx_lookup):
 
 # ---- the run -------------------------------------------------------------------------------------------
 
-def run(argv, repo=None, harness=False, stderr=None, extra_records=(), preflight_fn=None, control=None):
-    """Returns (exit status, result dict or None). Nothing is written except under --out."""
+def run(argv, repo=None, harness=False, stderr=None, extra_records=(), preflight_fn=None, control=None,
+        environ=None):
+    """Returns (exit status, result dict or None). Nothing is written except under --out. A harness run (an
+    in-process control) writes control-result.json with "harness": true, never result.json (X11)."""
     stderr = stderr if stderr is not None else sys.stderr
     try:
         a = build_parser().parse_args(argv)
@@ -246,6 +272,9 @@ def run(argv, repo=None, harness=False, stderr=None, extra_records=(), preflight
         if a.op in ('self-test', 'purity-lint'):
             from . import selftest
             return selftest.cli(a, out)
+        if a.op == 'replay':
+            from . import replay
+            return replay.cli(a, out, repo, stderr)
         if getattr(a, 'final', False) and not getattr(a, 'check', None):
             raise UsageError('--final requires --check')
     except UsageError as exc:
@@ -253,7 +282,9 @@ def run(argv, repo=None, harness=False, stderr=None, extra_records=(), preflight
         stderr.write(json.dumps(msg, sort_keys=True) + '\n')
         return 64, None
     result = {'schema': oc.result_schema, 'operation': a.op, 'engine': engine_identity(), 'preflight': [],
-              'record_checks': None, 'items': []}
+              'record_checks': None, 'items': [], 'invocation': invocation(argv)}
+    if harness:
+        result['harness'] = True
     try:
         if repo is None:
             try:
@@ -261,7 +292,8 @@ def run(argv, repo=None, harness=False, stderr=None, extra_records=(), preflight
             except Unresolvable as exc:
                 raise oc.Stop(oc.error, 'UNRESOLVABLE', str(exc))
         try:
-            res = stages(a, repo, harness, result, extra_records, preflight_fn, control or {})
+            res = stages(a, repo, harness, result, extra_records, preflight_fn, control or {},
+                         os.environ if environ is None else environ)
         except util.EncodingFault as exc:
             raise oc.Stop(oc.error, 'ENCODING', str(exc))
         except Unresolvable as exc:
@@ -273,27 +305,85 @@ def run(argv, repo=None, harness=False, stderr=None, extra_records=(), preflight
             return 64, None
         result.update(outcome=s.outcome, exit_status=oc.exit_codes[s.outcome],
                       stop={'class': s.cls, 'message': s.message, 'detail': s.detail})
-        write(out, result)
+        write(out, result, harness)
         return result['exit_status'], result
-    write(out, res)
+    write(out, res, harness)
     return res['exit_status'], res
 
 
-def write(out, result):
+def invocation(argv):
+    """The arguments that decide the result, without --out (for the offline replay)."""
+    out, skip = [], False
+    for x in argv:
+        if skip:
+            skip = False
+            continue
+        if x in ('--out', '--repo'):
+            skip = True
+            continue
+        if x.startswith('--out=') or x.startswith('--repo='):
+            continue
+        out.append(x)
+    return out
+
+
+def write(out, result, harness=False):
     os.makedirs(out, exist_ok=True)
-    with open(os.path.join(out, 'result.json'), 'w', encoding='utf-8') as f:
+    name = 'control-result.json' if harness or result.get('harness') else 'result.json'
+    with open(os.path.join(out, name), 'w', encoding='utf-8') as f:
         f.write(util.dump_result(result))
 
 
-def stages(a, repo, harness, result, extra_records, preflight_fn, control):
-    # integrity: configuration, adapters, profiles, records
+def admission(a, repo, harness, control, crev, cpath, environ):
+    """Sec. 6.3 admission. Returns (admission, table) for config.load. Outside the harness every failure is
+    ERROR CONFIG_UNREVIEWED; a run outside a host CI job can never reach "chain" (point 9)."""
+    def refuse(msg, **d):
+        raise oc.Stop(oc.error, 'CONFIG_UNREVIEWED', msg, d)
+    if harness:
+        adm = {'mode': 'control-harness'}
+        sim = control.get('host')
+        if sim is not None:
+            if not a.freeze:
+                refuse('no --freeze', simulated_host=True)
+            try:
+                F = resolve(repo, a.freeze)
+                A, snap, table, rec_dir = auth.admit(sim, repo, control['run_id'], a.plan, a.round, F, cpath,
+                                                     a.config_sha256)
+            except auth.Refused as exc:
+                refuse(str(exc), point=exc.point, simulated_host=True)
+            adm['simulated_chain'] = {'host': 'in-memory control host', 'snapshot': snap}
+        return adm, None
+    if not a.freeze:
+        refuse('no --freeze: the configuration is admitted only from a designated freeze (sec. 6.3)')
+    if not a.plan or not a.round:
+        refuse('--plan and --round are required for admission')
+    det = hostmod.RestHost.detect(environ)
+    if det is None:
+        refuse('a run outside a host CI job cannot reach chain admission (point 9)')
+    host, run_id, repo_id = det
+    F = resolve(repo, a.freeze)
+    if resolve(repo, crev) != F:
+        refuse('the configuration is read from the freeze only')
+    try:
+        A, snap, table, rec_dir = auth.admit(host, repo, run_id, a.plan, a.round, F, cpath, a.config_sha256,
+                                             attested_repo=repo_id)
+    except auth.Refused as exc:
+        refuse(str(exc), point=exc.point)
+    admitted = auth.admitted_by_table(repo, F, rec_dir, table)
+    return {'mode': 'chain', 'snapshot': snap, 'owner_id': A['owner']['id']}, admitted
+
+
+def stages(a, repo, harness, result, extra_records, preflight_fn, control, environ):
+    # admission (sec. 6.3), then integrity: configuration, adapters, profiles, records
     crev, cpath = split_ref(a.config)
+    adm, table = admission(a, repo, harness, control, crev, cpath, environ)
     loaded = cfgmod.load(repo, crev, cpath, a.config_sha256, a.op, 'harness' if harness else 'chain',
-                         extra_records)
+                         extra_records, adm, table)
     cfg = loaded.config
+    rec_adm = {k: v for k, v in loaded.admission.items() if k != 'owner_id'}
     result['config'] = {'config_id': cfg['config_id'], 'version': cfg['version'], 'path': cpath,
                         'commit': loaded.ref['commit'], 'blob_sha256': loaded.ref['blob_sha256'],
-                        'admission': loaded.admission}
+                        'admission': rec_adm}
     result['adapters'] = loaded.adapter_records
     result['profiles'] = loaded.profile_records
     result['rule_files'] = [{'path': r['path'], 'blob_sha256': r['blob_sha256']} for r, _ in loaded.rule_files]
@@ -321,6 +411,9 @@ def stages(a, repo, harness, result, extra_records, preflight_fn, control):
         result['control'] = 'rule files replaced in memory by the control'
     allow, rule_items = rule_files(loaded, harness and not control.get('lint_chain'), lookup)
     ctx.allow_rules = allow
+    bad = {i['subject'] for i in rule_items}
+    ctx.edit_params = peredit.find_params([(r, d) for r, d in loaded.rule_files if r['path'] not in bad])
+    loaded.ctx = ctx
     items = list(rule_items)
     op = a.op
     if op == 'record':
@@ -330,7 +423,7 @@ def stages(a, repo, harness, result, extra_records, preflight_fn, control):
     elif op == 'terms':
         body = op_terms(a, repo, ctx, loaded, records, result)
     else:
-        body = op_execution(a, repo, ctx, loaded, records, result)
+        body = op_execution(a, repo, ctx, loaded, records, result, control)
     items += body + records.items
     if getattr(a, 'final', False):
         chk = ctx.check(a.check)
@@ -344,7 +437,20 @@ def stages(a, repo, harness, result, extra_records, preflight_fn, control):
     outc = oc.compute(result['preflight'], result['record_checks'], items)
     result['outcome'] = outc
     result['exit_status'] = oc.exit_codes[outc]
+    finish_snapshot(result)
     return result
+
+
+def finish_snapshot(result):
+    """The evaluated commits and the delegated evidence enter the admission snapshot, then its own sha256."""
+    adm = result.get('config', {}).get('admission') or {}
+    snap = adm.get('snapshot') or (adm.get('simulated_chain') or {}).get('snapshot')
+    if snap is None:
+        return
+    snap['evaluated'] = result.get('roles') or result.get('evaluated')
+    snap['delegated_evidence'] = (result.get('delegation') or {}).get('evidence_record')
+    snap['invocation'] = result.get('invocation')
+    adm['snapshot_sha256'] = util.fingerprint(snap)
 
 
 def counts(items):
@@ -394,7 +500,16 @@ def lookups(ctx, loaded):
         return lines[cc['line'] - 1] if 0 < cc['line'] <= len(lines) else None
 
     deny = [p for p in ctx.profiles.values() if p.kind == 'deny' and p.applies_to == 'tree']
-    return {'profile': profile, 'sentence': sentence, 'control_input': control_input, 'deny': deny}
+
+    def checker():
+        led = (loaded.config.get('adapters') or {}).get('ledger') or {}
+        for c in led.get('companion', []):
+            if c.get('role') == 'checker':
+                return cfgmod.read_ref(ctx.repo, c.get('commit') or loaded.ref['commit'],
+                                       {'path': c['path'], 'blob_sha256': c['blob_sha256']}, 'checker companion')
+        return None
+    return {'profile': profile, 'sentence': sentence, 'control_input': control_input, 'deny': deny,
+            'checker': checker, 'profiles': lambda: ctx.profiles}
 
 
 def declared_sites(repo, loaded):
@@ -440,10 +555,22 @@ def load_adapter_input(repo, loaded, iface, rev_path=None):
     errs = out.get('errors', [])
     if errs:
         kind = errs[0][0]
-        cls = 'SOURCE_CHANGED' if kind == 'schema' else 'EDITS_HASH_MISMATCH' if kind == 'edits_sha256' \
-            else 'LEDGER_INTEGRITY'
-        raise oc.Stop(oc.error, cls, errs[0][1], {'errors': [e[1] for e in errs[:20]]})
+        cls = 'SOURCE_CHANGED' if kind in ('schema', 'correspondence') else 'EDITS_HASH_MISMATCH' \
+            if kind == 'edits_sha256' else 'LEDGER_INTEGRITY'
+        detail = {'errors': [e[1] for e in errs[:20]]}
+        if kind == 'correspondence' and getattr(loaded, 'ctx', None) is not None:
+            # the per-edit result of items 5 and 6 is computed and recorded even on a refusal (sec. 6.1, C4)
+            rec_, _ = peredit.evaluate(out, loaded.ctx.edit_params, loaded.ctx.profiles)
+            detail['per_edit'] = rec_
+        raise oc.Stop(oc.error, cls, errs[0][1], detail)
     return out
+
+
+def per_edit(ctx, led, result):
+    rec_, items = peredit.evaluate(led, getattr(ctx, 'edit_params', None), ctx.profiles)
+    if rec_ is not None:
+        result['per_edit'] = rec_
+    return items
 
 
 # ---- op A ------------------------------------------------------------------------------------------------
@@ -546,6 +673,7 @@ def parse_segments(a, repo, ctx, loaded, commit):
 
 def op_coverage(a, repo, ctx, loaded, records, result):
     commit = resolve(repo, a.commit)
+    result['evaluated'] = {'commit': commit}
     sm = load_adapter_input(repo, loaded, 'sitemap')
     ctx.sitemap = sm
     for f in ctx.corpus(commit):
@@ -604,6 +732,8 @@ def op_coverage(a, repo, ctx, loaded, records, result):
                                          and p.applies_to == 'added-text' and p.name in chk['profiles']],
                   deny, added=added, hit_records=hit_recs, check=chk, splice_texts=stexts)
     tm.deny()
+    if led_segs and any(p.applies_to == 'added-text' for p in deny):
+        items += per_edit(ctx, led_segs[-1]['ledger'], result)
     seg_name = segs[-1]['name'] if segs else None
     for h_key in list(region_info):
         region_info[h_key].setdefault('segment', seg_name)
@@ -688,6 +818,7 @@ def hit_counts(hits):
 
 def op_terms(a, repo, ctx, loaded, records, result):
     commit = resolve(repo, a.commit)
+    result['evaluated'] = {'commit': commit}
     if a.profile and a.check:
         raise oc.Stop(oc.usage, 'USAGE', '--profile and --check are exclusive')
     if a.check:
@@ -717,6 +848,9 @@ def op_terms(a, repo, ctx, loaded, records, result):
         if commit != base:
             added = pl.added_lines(ctx, commit, led, ctx.corpus(commit))
             stexts = pl.splice_texts(ctx, base, commit, led)
+            if any(p.applies_to == 'added-text' and p.kind == 'deny' for p in profs):
+                records.items.extend(i for i in per_edit(ctx, led, result)
+                                     if set(i.get('profiles', [])) <= set(names))
     scope_paths = None
     if any(p.spec.get('scope') == 'repo' for p in profs):
         if not a.scope:
@@ -796,7 +930,22 @@ def scope_from_record(repo, commit, sd):
 
 # ---- op C ------------------------------------------------------------------------------------------------
 
-def op_execution(a, repo, ctx, loaded, records, result):
+def native_env(a, repo, F, control):
+    """The native execution environment (B2): clones are made only inside a host CI job, or when an in-process
+    control asks for them on its own small repository; a replay takes every run from the snapshot."""
+    if control.get('replay_evidence') is not None:
+        return delmod.Native(repo, None, os.path.realpath(a.out), F, False, replay=control['replay_evidence'])
+    det = hostmod.RestHost.detect(control.get('environ', os.environ))
+    enabled = bool(control.get('native')) or det is not None
+    host, repo_id = (control.get('host'), control.get('repo_id')) if control.get('native') else \
+        ((det[0], det[2]) if det else (None, None))
+    repo_path = control.get('repo_path') or getattr(a, 'repo', None) or os.getcwd()
+    why = None if enabled else 'a local run: no disposable clone is made (sec. A.40)'
+    return delmod.Native(repo, repo_path, os.path.realpath(a.out), F, enabled, host, repo_id, why)
+
+
+def op_execution(a, repo, ctx, loaded, records, result, control=None):
+    control = control or {}
     cfg = loaded.config
     H = resolve(repo, a.scientific_base)
     if H != cfg['roles']['scientific_base']:
@@ -816,31 +965,63 @@ def op_execution(a, repo, ctx, loaded, records, result):
         data = cfgmod.read_ref(repo, resolve(repo, drev), dref, 'delegation contract')
         mods = {k.split(':', 1)[1]: v for k, v in loaded.modules.items() if k.startswith('delegation:')}
         dele = delmod.Delegation(json.loads(data.decode('utf-8')), mods)
-    side, recon = [], []
+    side, recon, class_docs = [], [], []
+    record_refs = {}
+    for r in cfg['records']:
+        if r.get('kind') == 'side-change-classes':
+            d = loaded.store.get(r)
+            if d is not None and d.get('schema') == 'oi-side-change-classes/1':
+                class_docs.append(d)
+                side += d.get('classes', [])
+                record_refs[r['path']] = r['blob_sha256']
     for r in a.classify:
         d = records.admit(repo, r, 'classification')
         if d is None:
             continue
         if d.get('schema') == 'oi-side-change-classes/1':
-            side += d.get('classes', [])
+            if d['_ref']['path'] not in record_refs:
+                class_docs.append(d)
+                side += d.get('classes', [])
+                record_refs[d['_ref']['path']] = d['_ref']['blob_sha256']
         elif d.get('schema') == 'oi-reconciliation/1':
             recon.append(d)
+    dup = rcmod.duplicate_class_ids(class_docs)
+    if dup:
+        raise oc.Stop(oc.error, 'CONFIG_INCONSISTENT', 'side-change class id defined more than once: %s' % dup[:3])
     M = resolve(repo, a.main) if a.main else None
     L = resolve(repo, a.landing) if a.landing else None
     C = resolve(repo, a.certified) if a.certified else None
     ex = exmod.Execution(ctx, H, X, led, dele, M, L, C, side, recon)
+    ex.record_refs = record_refs
     ex.integrity()
     ex.candidate()
+    if recon:
+        # S2 (N2): op C's candidate checks on X are run without the records as well; any difference is
+        # record-invalid
+        bare = exmod.Execution(ctx, H, X, led, dele, M, L, C, side, ())
+        bare.integrity()
+        bare.candidate()
+        with_r = sorted(i['fingerprint'] for i in ex.items)
+        without = sorted(i['fingerprint'] for i in bare.items)
+        result['reconciliation_x_identity'] = {'with': len(with_r), 'without': len(without),
+                                               'identical': with_r == without}
+        if with_r != without:
+            for r in recon:
+                ex.item('RECORD', 'record-invalid', (r.get('_ref') or {}).get('path'), {'why': 'changes X'},
+                        detail='op C\'s items on X differ with and without the reconciliation records (S2)')
     if C and C != X:
         chain = first_parent_chain(repo, X, C)
         if chain is None:
             ex.item('RET', 'candidate-parent', C, {'c': C}, detail='C does not descend linearly from X')
         else:
-            prev = X
-            for c in chain:
-                if repo.parents(c) != [prev]:
-                    ex.item('RET', 'candidate-parent', c, {'c': c})
-                prev = c
+            ex.commits_after(chain, resolve(repo, a.freeze) if a.freeze else None)
+            # the tree of C is then checked as a whole, as X is (deduplicated by fingerprint)
+            whole = exmod.Execution(ctx, H, C, led, dele, M, L, C, side, ())
+            whole.candidate(C, chain[-2] if len(chain) > 1 else X)
+            have = {i['fingerprint'] for i in ex.items}
+            for i in whole.items:
+                if i['fingerprint'] not in have:
+                    ex.items.append(dict(i, tree='C'))
     pin_rules = led.get('pin_rules') or {'min_len': 20, 'skip_prefixes': [], 'ok': []}
     ex.pins(pin_rules)
     # deny profiles on the candidate (added text for added-text profiles)
@@ -848,13 +1029,21 @@ def op_execution(a, repo, ctx, loaded, records, result):
     deny = [p for p in ctx.profiles.values() if p.kind == 'deny']
     tm = pl.Terms(ctx, X, [], deny, added=added, splice_texts=pl.splice_texts(ctx, H, X, led))
     tm.deny()
-    items = list(ex.items) + list(tm.items)
+    items = list(ex.items) + list(tm.items) + per_edit(ctx, led, result)
     if dele is not None:
-        roles = {'scientific_base': H, 'candidate': X, 'freeze': resolve(repo, a.freeze) if a.freeze else None,
+        F = resolve(repo, a.freeze) if a.freeze else None
+        roles = {'scientific_base': H, 'candidate': X, 'freeze': F, 'certified': C,
                  'ledger_sha256': cfg['adapters']['ledger']['blob_sha256']}
-        di, rep = dele.verify(repo, roles, a.evidence, led)
+        env = native_env(a, repo, F, control)
+        supplied = {}
+        if a.evidence and os.path.isdir(a.evidence):
+            for name in sorted(os.listdir(a.evidence)):
+                p_ = os.path.join(a.evidence, name)
+                if os.path.isfile(p_):
+                    supplied[name] = open(p_, 'rb').read()
+        di, rep_ = dele.verify(repo, roles, env, led, supplied)
         items += di
-        result['delegation'] = rep
+        result['delegation'] = rep_
     else:
         items.append(oc.make_item('DELEGATED', 'delegated-evidence-missing', 'delegation contract', None,
                                   {'why': 'no contract given'}))
@@ -872,6 +1061,8 @@ def op_execution(a, repo, ctx, loaded, records, result):
         ex.landing(re.compile(r'\.(tex|pdf)$'))
         items += ex.items[before:]
     result['checks'] = ex.checks
+    if ex.compositions:
+        result['landing_compositions'] = ex.compositions
     result['roles'] = {'H': H, 'X': X, 'M': M, 'L': L, 'C': C or X}
     result['covered_paths'] = sorted(set(repo.paths(H)) | set(repo.paths(X)))
     return items

@@ -30,6 +30,11 @@ def _person(v):
     return isinstance(v, str) and v.strip() and not _url.search(v) and '/' not in v and not v.isdigit()
 
 
+def _owner(v):
+    """An owner is a numeric host user id (sec. 6.3, A-D1); a login never matches."""
+    return isinstance(v, int) and not isinstance(v, bool) and v > 0
+
+
 def _comment(v):
     return isinstance(v, str) and v.strip() and not _url.search(v)
 
@@ -49,11 +54,48 @@ class Store:
             self.by_path.setdefault(path, []).append((sha, doc))
             self.by_sha[sha] = (path, doc)
 
+    resolver = None
+
     def get(self, ref):
         hit = self.by_sha.get(ref.get('blob_sha256'))
         if hit is None or hit[0] != ref.get('path'):
             return None
         return hit[1]
+
+    def resolve(self, ref):
+        """A record read from the object store (at or before F) by {path, blob_sha256}, or None."""
+        if not isinstance(ref, dict) or not isinstance(ref.get('path'), str) or \
+                not isinstance(ref.get('blob_sha256'), str):
+            return None
+        got = self.get(ref)
+        if got is None and self.resolver is not None:
+            got = self.resolver(ref)
+        return got
+
+
+def supersedes_problems(ref, doc, store):
+    """S4: a supersedes chain must name records of the same kind, schema and lineage that exist in the object
+    store; a first record has supersedes null."""
+    out = []
+    seen = {ref.get('blob_sha256')}
+    cur = doc
+    while isinstance(cur, dict) and cur.get('supersedes') is not None:
+        sup = cur['supersedes']
+        prev = store.resolve(sup)
+        if prev is None:
+            out.append('record %s: supersedes names %r, which is not a record in the object store'
+                       % (ref.get('path'), sup))
+            break
+        if not isinstance(prev, dict) or prev.get('schema') != doc.get('schema') or \
+                (doc.get('schema') == 'oi-retirement-config/1' and prev.get('config_id') != doc.get('config_id')):
+            out.append('record %s: supersedes names a record of another kind, schema or lineage' % ref.get('path'))
+            break
+        if sup.get('blob_sha256') in seen:
+            out.append('record %s: supersedes chain loops' % ref.get('path'))
+            break
+        seen.add(sup.get('blob_sha256'))
+        cur = prev
+    return out
 
 
 def lint_chain(ref, store, owner, admitted_shas):
@@ -67,6 +109,9 @@ def lint_chain(ref, store, owner, admitted_shas):
         out.append('record %s: not referenced by the configuration' % ref['path'])
     if doc.get('schema') not in record_schemas:
         out.append('record %s: unknown schema %r' % (ref['path'], doc.get('schema')))
+    if 'supersedes' not in doc:
+        out.append('record %s: no supersedes field' % ref['path'])
+    out += supersedes_problems(ref, doc, store)
     author = doc.get('author')
     if not _person(author):
         out.append('record %s: author missing or not a person' % ref['path'])
@@ -118,7 +163,7 @@ def lint_chain(ref, store, owner, admitted_shas):
             if a.get('owner') != owner:
                 out.append('record %s: authorization owner differs from the configuration owner' % ref['path'])
                 continue
-            if not _person(a.get('owner')) or not _comment(a.get('comment_id')) or not a.get('time'):
+            if not _owner(a.get('owner')) or not _comment(str(a.get('comment_id') or '')) or not a.get('time'):
                 out.append('record %s: authorization lacks owner, time or comment id' % ref['path'])
                 continue
             ok = True
@@ -127,19 +172,41 @@ def lint_chain(ref, store, owner, admitted_shas):
     return out
 
 
-def widening_review_ok(ref, store, admitted_shas, regular_reviewers, author):
-    """A review record of kind widening naming exactly this blob, admitted by the configuration, by a non-author
-    reviewer other than the record's own reviewers, accepting every item."""
-    for sha, (path, d) in store.by_sha.items():
+def widening_review_problems(ref, store, admitted_shas, regular_reviewers, author, old_ref, changed, owner):
+    """Sec. 6.3 (B4): a review of kind widening naming the superseding blob and the superseded blob, admitted, by a
+    non-author reviewer other than the record's own reviewers, with an `accept` verdict for every changed item,
+    and an owner authorization listing the widening review's blob. Returns [] when one such review exists."""
+    why = []
+    for sha, (path, d) in sorted(store.by_sha.items()):
         if not isinstance(d, dict) or d.get('schema') != review_schema or d.get('kind') != 'widening':
             continue
         if sha not in admitted_shas or d.get('reviewed', {}).get('blob_sha256') != ref['blob_sha256']:
             continue
+        bad = []
+        if old_ref is not None and (d.get('superseded') or {}).get('blob_sha256') != old_ref.get('blob_sha256'):
+            bad.append('does not name the superseded blob')
         who = d.get('reviewer')
-        if _person(who) and who != author and who not in regular_reviewers and d.get('verdicts') and \
-                all(v.get('verdict') == 'accept' for v in d.get('verdicts', [])):
-            return True
-    return False
+        if not _person(who) or who == author or who in regular_reviewers:
+            bad.append('reviewer is the author, a regular reviewer, or not a person')
+        verdicts = {v.get('item'): v.get('verdict') for v in d.get('verdicts', []) if isinstance(v, dict)}
+        miss = [c for c in changed if verdicts.get(c) != 'accept']
+        if miss or any(v != 'accept' for v in verdicts.values()) or not verdicts:
+            bad.append('verdicts do not accept every changed item (%s)' % ', '.join(miss[:3]))
+        auth = any(isinstance(a, dict) and a.get('schema') == auth_schema and s2 in admitted_shas and
+                   a.get('owner') == owner and _owner(a.get('owner')) and a.get('comment_id') and a.get('time') and
+                   any((e.get('review') or {}).get('blob_sha256') == sha or
+                       (e.get('record') or {}).get('blob_sha256') == sha for e in a.get('authorizes', []))
+                   for s2, (_, a) in store.by_sha.items())
+        if not auth:
+            bad.append('no owner authorization lists the widening review')
+        if not bad:
+            return []
+        why.append('widening review %s: %s' % (path, '; '.join(bad)))
+    return why or ['no widening review names the superseding blob']
+
+
+def widening_review_ok(ref, store, admitted_shas, regular_reviewers, author, old_ref=None, changed=(), owner=None):
+    return not widening_review_problems(ref, store, admitted_shas, regular_reviewers, author, old_ref, changed, owner)
 
 
 def reviewers_of(ref, store):

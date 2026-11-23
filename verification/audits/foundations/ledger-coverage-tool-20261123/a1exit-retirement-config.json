@@ -3,11 +3,11 @@
  "config_id": "a1exit-retirement-config",
  "version": 1,
  "supersedes": null,
- "notes": "UNREVIEWED DRAFT (Stage 1 implementation). No independent review, no owner authorization and no freeze F exist. Under the review chain the tool refuses it with ERROR CONFIG_UNREVIEWED. The ledger, edit list and plan checker are pinned at the frozen plan P until the amended plan is frozen at F.",
+ "notes": "UNREVIEWED DRAFT. No independent review, no owner authorization and no freeze F exist; it is admitted only through the pin table of the freeze and an owner designation (sec. 6.3), so the tool refuses it with ERROR CONFIG_UNREVIEWED. The ledger, edit list and plan checker are pinned at the frozen plan P until the amended plan is frozen at F.",
  "retirement": {
   "name": "A1-EXIT",
   "issue": "#1169",
-  "owner": "amaybaum"
+  "owner": 7273571
  },
  "roles": {
   "scientific_base": "53c6601a10419b6b333cc992474272501ab542af",
@@ -30,7 +30,7 @@
    "adapter_version": 2,
    "module": {
     "path": "tools/ledger_coverage/adapters/a1exit_exact_edit.py",
-    "blob_sha256": "085ee24a15e88e65791c44d5fbda06d90da7368b9d59c8309b57363d0d56eb41"
+    "blob_sha256": "efdc8bf861d8e057f2f50612ef8dea0415705a0815f6bac6e3984fd6a03bf21d"
    },
    "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
    "path": "verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
@@ -236,11 +236,6 @@
    "kind": "deny",
    "applies_to": "added-text",
    "scope": "ledgered",
-   "splice_kinds": [
-    "ptr",
-    "consistency",
-    "handoff"
-   ],
    "source": {
     "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
@@ -269,18 +264,6 @@
    "kind": "deny",
    "applies_to": "added-text",
    "scope": "ledgered",
-   "match_keys": [
-    {
-     "pattern": "finiteness\\b.*\\bfails",
-     "key": "finiteness fails"
-    }
-   ],
-   "replaced_text_rewrite": [
-    {
-     "pattern": "\\bA1\\b(?: \\(finiteness\\))?",
-     "replacement": "finiteness"
-    }
-   ],
    "source": {
     "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
@@ -483,7 +466,11 @@
   },
   {
    "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/w1-w2-allow-v1.json",
-   "blob_sha256": "46f8597ae2eee200afd9693fb36cff2e3044b21d63ec69ab47069673d1db67b4"
+   "blob_sha256": "0cbb97c98725cba618598650b0cd9c687c97e280b3422c4ad6e62794a222b171"
+  },
+  {
+   "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/register-infinity-params-v1.json",
+   "blob_sha256": "b86efb2b265753fa93d0d88746f4bb3424b694553e0ddd25e71c52b987ea8e7b"
   }
  ],
  "context_mapping": {
@@ -614,46 +601,46 @@
  ],
  "delegation": {
   "path": "verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json",
-  "blob_sha256": "367aa13891606147f9f9a1d3651673ac7815a7a8a206ac88dd293976aa9f56bb",
+  "blob_sha256": "015826146fd01b9f5ebc5ae8b1966f700e2f964b8989203d66b75e36e032f65c",
   "class_adapters": [
    {
     "adapter": "preserve-check-v1",
-    "adapter_version": 1,
+    "adapter_version": 2,
     "module": {
      "path": "tools/ledger_coverage/adapters/deleg_preserve_check.py",
-     "blob_sha256": "45192e07aacee9007b3ebd81eb48b6e34784e6a52e3e506661f7e2bf7cda9f73"
+     "blob_sha256": "e524f675215f354baf41c91b2469c9d4eacc7beb03f3dc21e4f583e177388527"
     }
    },
    {
     "adapter": "record-dir",
-    "adapter_version": 1,
+    "adapter_version": 2,
     "module": {
      "path": "tools/ledger_coverage/adapters/deleg_record_dir.py",
-     "blob_sha256": "bb1535784789e26ab270f846cdf0ba02add83656ef10f57c58e26bb137bff735"
+     "blob_sha256": "bb82c3f8f696b9c58425a4b80cb072673a7e63cc737c629307989ee8065cee54"
     }
    },
    {
     "adapter": "rerun-equal",
-    "adapter_version": 1,
+    "adapter_version": 2,
     "module": {
      "path": "tools/ledger_coverage/adapters/deleg_rerun_equal.py",
-     "blob_sha256": "43b3ee6a2f42a00f2facdc1c47c8c3ff8edeb7cbcc67f92b6049d41f13b61ca8"
+     "blob_sha256": "58debe302a8b83c67e46c56b3291a5ed6e35aa02bd2cb09e662f56f14e41c0aa"
     }
    },
    {
     "adapter": "fingerprint-regen",
-    "adapter_version": 1,
+    "adapter_version": 2,
     "module": {
      "path": "tools/ledger_coverage/adapters/deleg_fingerprint_regen.py",
-     "blob_sha256": "5489f71c9919a54c8436bf089075e6a7b0d5eaeca043ca26b6550ac173ee47a6"
+     "blob_sha256": "3c86abe926f1f2e7c581a9e8ce88ce60d6bcba3f85e6143bcb1948b600c8f6ab"
     }
    },
    {
     "adapter": "host-run",
-    "adapter_version": 1,
+    "adapter_version": 2,
     "module": {
      "path": "tools/ledger_coverage/adapters/deleg_host_run.py",
-     "blob_sha256": "a20af64dd6678a933332d3a296f3f41b25320e5637a43dd5f4e9bc3e76412ba1"
+     "blob_sha256": "10e154ca32e5457efca8ec1a18db8bdb83203935f849eab35d5958ea22ea1376"
     }
    }
   ]

@@ -1,7 +1,7 @@
 {
  "schema": "oi-delegation/1",
  "record_id": "a1exit-delegation-draft",
- "status": "UNREVIEWED DRAFT: prepared by the implementation writer; no independent review and no owner authorization exist. The tool does not admit it under the review chain. Drafted for the plan amendment; the contract itself belongs in the amended plan record directory at F.",
+ "status": "UNREVIEWED DRAFT (interface 2: native execution): prepared by the implementation writer; no independent review and no owner authorization exist. The tool does not admit it under the review chain. Drafted for the plan amendment; the contract itself belongs in the amended plan record directory at F.",
  "author": "implementation-writer-20261123",
  "classes": [
   {
@@ -34,7 +34,9 @@
      "candidate against base, ledger, regenerated artifacts and plan record",
      "scope assertions of amendment sec. 31"
     ],
-    "checker_sha256": "101ecdf46bfc6ecf337db6600c22c5ac01ccb1fad89b8d19a5a79b012d369d32"
+    "checker_sha256": "101ecdf46bfc6ecf337db6600c22c5ac01ccb1fad89b8d19a5a79b012d369d32",
+    "checker_path": "verification/audits/foundations/a1exit-deletion-20261121/preserve_check.py",
+    "placement": "repo-path"
    },
    "evidence": [
     "tex-preserve-check.json"
@@ -56,7 +58,10 @@
    ],
    "params": {
     "required_checks": [],
-    "checker_sha256": "101ecdf46bfc6ecf337db6600c22c5ac01ccb1fad89b8d19a5a79b012d369d32"
+    "checker_sha256": "101ecdf46bfc6ecf337db6600c22c5ac01ccb1fad89b8d19a5a79b012d369d32",
+    "checker_path": "verification/audits/foundations/a1exit-deletion-20261121/preserve_check.py",
+    "workflow_path": ".github/workflows/a1exit-trial-verify.yml",
+    "job": "pdf-compare"
    },
    "evidence": [
     "pdf-preserve-check.json",
@@ -81,7 +86,8 @@
    ],
    "params": {
     "must_contain": "ca3a5bb25ec6fdff3d3ccffcacd2d7bac3bb4caf",
-    "controls_path": "verification/audits/manuscript/bell-operational-reconciliation-20261029/sc42-integration-controls.json"
+    "controls_path": "verification/audits/manuscript/bell-operational-reconciliation-20261029/sc42-integration-controls.json",
+    "checker_path": "verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py"
    },
    "evidence": [
     "sc42-rerun.json"
@@ -105,7 +111,8 @@
      "SM:L-1c-canonical-projection-resummed-kernel",
      "SM:P-4b-symmetric-point-custodial-scalarity-component",
      "SM:T-19"
-    ]
+    ],
+    "census_path": "tools/proof_census.py"
    },
    "evidence": [
     "proof-census.json"

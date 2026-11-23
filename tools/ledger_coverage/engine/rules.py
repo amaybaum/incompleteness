@@ -18,14 +18,25 @@ def sentence_context_sha(sents, k):
     return util.sha256(prev.encode('utf-8') + b'\x00' + nxt.encode('utf-8'))
 
 
-def _neg_match(neg, sentence):
+def neg_key(n):
+    return n['regex'] if isinstance(n, dict) else n
+
+
+def neg_counts(neg, sentence):
+    """Non-overlapping matches of each negative entry in the sentence: literals case-insensitively (O1), a regex
+    with its own flags."""
+    out = {}
+    low = sentence.lower()
     for n in neg:
         if isinstance(n, dict):
-            if re.search(n['regex'], sentence):
-                return True
-        elif n in sentence:
-            return True
-    return False
+            out[neg_key(n)] = sum(1 for _ in re.finditer(n['regex'], sentence))
+        else:
+            out[n] = low.count(n.lower()) if n else 0
+    return out
+
+
+def _neg_match(neg, sentence):
+    return any(v > 0 for v in neg_counts(neg, sentence).values())
 
 
 def literal_covers(literal, sentence, span):
@@ -46,7 +57,18 @@ def matcher_holds(rule, sentence, neighbours, spans):
     return all(c in pool for c in m.get('context', []))
 
 
-def apply_allow(rules, path, sentence, neighbours, ctx_sha, spans, deny_hit, counts, inst_key):
+def allowance(rule, path, ssha, ctx_sha, granted):
+    """Step 3's allowance for one sentence (S1-D1 option B): the negative_allowance of a fingerprint whose file,
+    sentence sha and context sha all equal the sentence's, if the grant of that fingerprint goes to this sentence
+    (`granted(fp)` is true only for the sentence at the smallest byte offset among those satisfying it)."""
+    for fp in rule['fingerprints']:
+        if fp['file'] == path and fp['sentence_sha256'] == ssha and fp['context_sha256'] == ctx_sha and \
+                fp.get('negative_allowance') and granted(fp):
+            return dict(fp['negative_allowance'])
+    return {}
+
+
+def apply_allow(rules, path, sentence, neighbours, ctx_sha, spans, deny_hit, counts, inst_key, granted=None):
     """Sec. 6.2 steps 1-6 for one hit sentence. Returns (state, class or None, rule id or None)."""
     cand = [r for r in rules if r['kind'] == 'allow' and path in r['scope']['files']
             and matcher_holds(r, sentence, neighbours, spans)]
@@ -55,9 +77,11 @@ def apply_allow(rules, path, sentence, neighbours, ctx_sha, spans, deny_hit, cou
     r = cand[0]
     if deny_hit:
         return 'fail', 'deny-match', r['id']
-    if _neg_match(r['matcher'].get('negative', []), sentence):
-        return 'fail', 'rule-negative-match', r['id']
     ssha = util.sha256(sentence)
+    allow = allowance(r, path, ssha, ctx_sha, granted or (lambda fp: True))
+    for key, n in neg_counts(r['matcher'].get('negative', []), sentence).items():
+        if n > allow.get(key, 0):
+            return 'fail', 'rule-negative-match', r['id']
     fps = [f for f in r['fingerprints'] if f['file'] == path and f['sentence_sha256'] == ssha
            and (not r['context_required'] or f['context_sha256'] == ctx_sha)]
     if not fps:
@@ -109,8 +133,32 @@ def lint_rule(rule, profile_lookup, sentence_lookup, deny_profiles, control_inpu
                 out.append('%s: no trigger in fingerprinted sentence' % rule['id'])
             if not all(literal_covers(rule['matcher']['literal'], sentence, sp) for sp in spans):
                 out.append('%s: literal does not cover the trigger' % rule['id'])
+            negs = rule['matcher'].get('negative', [])
+            keys = {neg_key(n) for n in negs}
+            al = fp.get('negative_allowance') or {}
+            if set(al) - keys:
+                out.append('%s: negative_allowance names a literal outside the negative matcher' % rule['id'])
+            cnt = neg_counts(negs, sentence)
+            for k2, v in al.items():
+                if not isinstance(v, int) or isinstance(v, bool) or v != cnt.get(k2):
+                    out.append('%s: negative_allowance of %r is %r, the sentence has %r matches'
+                               % (rule['id'], k2, v, cnt.get(k2)))
+            if ctx == fp['context_sha256'] and spans:
+                st, _, _ = apply_allow([rule], fp['file'], sentence, neighbours, ctx, spans, False, {}, None)
+                if st != 'pass':
+                    out.append('%s: fingerprinted sentence %s is not PASS under its own rule (self-PASS)'
+                               % (rule['id'], fp['sentence_sha256'][:12]))
+            if sentence not in rule['positive_examples']:
+                out.append('%s: the fingerprinted sentence is not a positive example in full' % rule['id'])
+        fp_sents = {}
+        for fp in rule['fingerprints']:
+            got = sentence_lookup(rule['recorded_at'], fp['file'], fp['sentence_sha256'])
+            if got is not None:
+                fp_sents[got[0]] = fp.get('negative_allowance') or {}
         for ex in rule['positive_examples']:
-            if not (matcher_holds(rule, ex, [], []) and not _neg_match(rule['matcher'].get('negative', []), ex)):
+            al = fp_sents.get(ex, {})
+            cnt = neg_counts(rule['matcher'].get('negative', []), ex)
+            if not (matcher_holds(rule, ex, [], []) and all(v <= al.get(k, 0) for k, v in cnt.items())):
                 out.append('%s: positive example not accepted by the matcher' % rule['id'])
         for ex in rule['negative_examples']:
             if matcher_holds(rule, ex, [], []) and not _neg_match(rule['matcher'].get('negative', []), ex) \
@@ -176,7 +224,15 @@ def allow_widening(old, new):
         why.append('larger max_instances')
     if old['context_required'] and not new['context_required']:
         why.append('context_required turned off')
-    return why
+    oa = {(f['file'], f['sentence_sha256'], f['context_sha256']): f.get('negative_allowance') or {}
+          for f in old['fingerprints']}
+    for f in new['fingerprints']:
+        na = f.get('negative_allowance') or {}
+        prev = oa.get((f['file'], f['sentence_sha256'], f['context_sha256']))
+        if na and (prev is None or any(v > prev.get(k, 0) for k, v in na.items())):
+            why.append('negative_allowance added, raised or moved')
+            break
+    return [x if ':' in x else '%s:%s' % (new['id'], x) for x in why]
 
 
 def deny_widening(old, new):
