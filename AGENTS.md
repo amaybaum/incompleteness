@@ -1562,9 +1562,9 @@ Beyond the gates of a frozen plan or round, which stand as written, these action
 explicit approval each time:
 
 1. merging into `main`;
-2. for a plan that changes the posit ledger of `papers/Main.md` (adding, removing, weakening,
-   replacing or reinstating a posit): freezing it, amending it once frozen, executing it, or
-   dispatching its trials;
+2. for a plan that changes the posit ledger of `papers/Main.md` (including adding, removing,
+   weakening, strengthening, replacing or reinstating a posit): freezing it, amending it once
+   frozen, executing it, or dispatching its trials;
 3. deleting branches, Issues, pull requests or evidence;
 4. sending material outside GitHub.
 
