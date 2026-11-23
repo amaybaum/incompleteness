@@ -155,6 +155,13 @@ def lint_chain(ref, store, owner, admitted_shas):
         out.append('record %s: %s entry %d lacks its id field' % ((ref['path'],) + missing[0]))
         return out
     ids = item_ids(doc)
+    # one verdict per item id (sec. 6.3): an id given to two items is record-invalid. Two classes of a side-change
+    # class record sharing an id are instead the configuration inconsistency of S7 (ERROR CONFIG_INCONSISTENT,
+    # control Z11), raised where the classes are collected
+    dup = sorted({i for i in ids if ids.count(i) > 1})
+    if dup and doc.get('schema') != 'oi-side-change-classes/1':
+        out.append('record %s: item id %s is given to more than one item' % (ref['path'], dup[0]))
+        return out
     if not ids:
         # a review gives one verdict per item id (sec. 6.3); a record whose items cannot be identified is refused
         # rather than covered by a single verdict
@@ -168,6 +175,9 @@ def lint_chain(ref, store, owner, admitted_shas):
         if rv.get('reviewer') == author:
             bad.append('reviewer equals author')
         verdicts = {v.get('item'): v.get('verdict') for v in rv.get('verdicts', []) if isinstance(v, dict)}
+        named = [v.get('item') for v in rv.get('verdicts', []) if isinstance(v, dict)]
+        if len(named) != len(set(named)):
+            bad.append('an item has more than one verdict')
         if set(ids) - set(verdicts):
             bad.append('verdicts do not cover every item')
         if any(verdicts.get(i) != 'accept' for i in ids):

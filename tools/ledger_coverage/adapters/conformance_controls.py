@@ -1084,61 +1084,67 @@ def r4_b2_controls(t):
           all(o['exit'] == 65 and o['ledger_refused'] for o in bad) and all(o['exit'] == 0 for o in good))
 
 
+def _r4_class_scenario(r, cls_mut=None, verdicts=None):
+    """Op C over a synthetic side change on main and a configuration-referenced side-change class record with its
+    review (the given verdicts; one accept for class `notes` by default) and owner authorization."""
+    syn = sf.Syn()
+    edits = [('# synthetic', ['# synthetic', '', 'Preface line one.'])]
+    pd = sf.patch_doc(syn.H, edits)
+    base = {'patch_sha': sha(pd), 'files': {'syn/patch.json': pd}}
+    c0, p0, s0, f0 = syn.build(base)
+    recs = json.loads(f0[p0])['records']
+    M = syn.repo.derive(syn.H, {'notes/side.txt': b'side change on main\n'}, parents=[syn.H], subject='M')
+    cls = {'schema': 'oi-side-change-classes/1', 'record_id': 'syn-classes', 'author': sf.WRITER,
+           'supersedes': None,
+           'classes': [{'id': 'notes', 'prefixes': ['notes/'], 'reason': 'synthetic',
+                        'pins': [{'path': 'notes/side.txt', 'git_blob': syn.repo.blob_id(M, 'notes/side.txt'),
+                                  'blob_sha256': sha(b'side change on main\n')}]}]}
+    if cls_mut:
+        cls_mut(cls)
+    files = dict(base['files'])
+    cb = sf.jb(cls)
+    files['syn/classes.json'] = cb
+    ref = {'path': 'syn/classes.json', 'blob_sha256': sha(cb)}
+    vs = verdicts if verdicts is not None else [{'item': 'notes', 'verdict': 'accept'}]
+    rv = {'schema': 'oi-review-record/1', 'reviewer': sf.REVIEWER, 'reviewed': ref, 'method': 'read',
+          'verdicts': vs}
+    files['syn/classes.review.json'] = sf.jb(rv)
+    au = {'schema': 'oi-owner-authorization/1', 'owner': sf.OWNER, 'time': 't0', 'comment_id': 'c-2',
+          'authorizes': [{'record': ref, 'review': {'path': 'syn/classes.review.json',
+                                                    'blob_sha256': sha(files['syn/classes.review.json'])}}]}
+    files['syn/classes.auth.json'] = sf.jb(au)
+    extra = [{'kind': 'side-change-classes', 'path': 'syn/classes.json', 'blob_sha256': sha(cb)},
+             {'kind': 'review', 'path': 'syn/classes.review.json',
+              'blob_sha256': sha(files['syn/classes.review.json'])},
+             {'kind': 'authorization', 'path': 'syn/classes.auth.json',
+              'blob_sha256': sha(files['syn/classes.auth.json'])}]
+    v = dict(base, files=files, extra={'records': recs + extra})
+    c, p, s, f = syn.build(v)
+    X = syn.repo.derive(syn.H, {sf.DOC: sf.apply_text(syn.repo.read(syn.H, sf.DOC).decode(), edits).encode()},
+                        parents=[syn.H], subject='X')
+    w = hf.World('syn/PREREG.md')
+    listed = {q: syn.repo.read(c, q) for q in syn.repo.paths(c) if q.startswith('syn/') and q.endswith('.json')}
+    Ff = {'syn/PREREG.md': hf.pin_table({q[len('syn/'):]: sha(b) for q, b in listed.items()}),
+          auth.authority_path: w.a_bytes}
+    F = syn.repo.derive(c, Ff, parents=syn.repo.parents(c), subject='freeze')
+    w.designate(F)
+    argv = ['execution', '--config', '%s:%s' % (F, p), '--out', r.out()] + w.args(F) + \
+        ['--scientific-base', syn.H, '--candidate', X, '--ledger', '%s:syn/patch.json' % F, '--main', M]
+    try:
+        code, res = cli.run(argv, repo=syn.repo, stderr=io.StringIO(), control=w.control(), environ={})
+    except Exception as exc:
+        return {'exit': 'EXCEPTION', 'exception': '%s: %s' % (type(exc).__name__, exc)}
+    its = (res or {}).get('items', [])
+    return {'exit': code, 'stop': stop(res),
+            'record_invalid': sorted(str(i.get('subject')) for i in its if i['class'] == 'record-invalid'),
+            'unclassified': sorted(str(i.get('subject')) for i in its if i['class'] == 'side-change-unclassified')}
+
+
 def r4_b3_controls(r):
     """B3: every list entry of a reviewed record carries its id field; a record where one does not is record-invalid
     and its verdicts cannot fall back to the record id."""
     def scenario(cls_mut=None, verdicts=None):
-        syn = sf.Syn()
-        edits = [('# synthetic', ['# synthetic', '', 'Preface line one.'])]
-        pd = sf.patch_doc(syn.H, edits)
-        base = {'patch_sha': sha(pd), 'files': {'syn/patch.json': pd}}
-        c0, p0, s0, f0 = syn.build(base)
-        recs = json.loads(f0[p0])['records']
-        M = syn.repo.derive(syn.H, {'notes/side.txt': b'side change on main\n'}, parents=[syn.H], subject='M')
-        cls = {'schema': 'oi-side-change-classes/1', 'record_id': 'syn-classes', 'author': sf.WRITER,
-               'supersedes': None,
-               'classes': [{'id': 'notes', 'prefixes': ['notes/'], 'reason': 'synthetic',
-                            'pins': [{'path': 'notes/side.txt', 'git_blob': syn.repo.blob_id(M, 'notes/side.txt'),
-                                      'blob_sha256': sha(b'side change on main\n')}]}]}
-        if cls_mut:
-            cls_mut(cls)
-        files = dict(base['files'])
-        cb = sf.jb(cls)
-        files['syn/classes.json'] = cb
-        ref = {'path': 'syn/classes.json', 'blob_sha256': sha(cb)}
-        vs = verdicts if verdicts is not None else [{'item': 'notes', 'verdict': 'accept'}]
-        rv = {'schema': 'oi-review-record/1', 'reviewer': sf.REVIEWER, 'reviewed': ref, 'method': 'read',
-              'verdicts': vs}
-        files['syn/classes.review.json'] = sf.jb(rv)
-        au = {'schema': 'oi-owner-authorization/1', 'owner': sf.OWNER, 'time': 't0', 'comment_id': 'c-2',
-              'authorizes': [{'record': ref, 'review': {'path': 'syn/classes.review.json',
-                                                        'blob_sha256': sha(files['syn/classes.review.json'])}}]}
-        files['syn/classes.auth.json'] = sf.jb(au)
-        extra = [{'kind': 'side-change-classes', 'path': 'syn/classes.json', 'blob_sha256': sha(cb)},
-                 {'kind': 'review', 'path': 'syn/classes.review.json',
-                  'blob_sha256': sha(files['syn/classes.review.json'])},
-                 {'kind': 'authorization', 'path': 'syn/classes.auth.json',
-                  'blob_sha256': sha(files['syn/classes.auth.json'])}]
-        v = dict(base, files=files, extra={'records': recs + extra})
-        c, p, s, f = syn.build(v)
-        X = syn.repo.derive(syn.H, {sf.DOC: sf.apply_text(syn.repo.read(syn.H, sf.DOC).decode(), edits).encode()},
-                            parents=[syn.H], subject='X')
-        w = hf.World('syn/PREREG.md')
-        listed = {q: syn.repo.read(c, q) for q in syn.repo.paths(c) if q.startswith('syn/') and q.endswith('.json')}
-        Ff = {'syn/PREREG.md': hf.pin_table({q[len('syn/'):]: sha(b) for q, b in listed.items()}),
-              auth.authority_path: w.a_bytes}
-        F = syn.repo.derive(c, Ff, parents=syn.repo.parents(c), subject='freeze')
-        w.designate(F)
-        argv = ['execution', '--config', '%s:%s' % (F, p), '--out', r.out()] + w.args(F) + \
-            ['--scientific-base', syn.H, '--candidate', X, '--ledger', '%s:syn/patch.json' % F, '--main', M]
-        try:
-            code, res = cli.run(argv, repo=syn.repo, stderr=io.StringIO(), control=w.control(), environ={})
-        except Exception as exc:
-            return {'exit': 'EXCEPTION', 'exception': '%s: %s' % (type(exc).__name__, exc)}
-        its = (res or {}).get('items', [])
-        return {'exit': code,
-                'record_invalid': sorted(str(i.get('subject')) for i in its if i['class'] == 'record-invalid'),
-                'unclassified': sorted(str(i.get('subject')) for i in its if i['class'] == 'side-change-unclassified')}
+        return _r4_class_scenario(r, cls_mut, verdicts)
 
     def second_without_id(c):
         c['classes'].append({'prefixes': ['other/'], 'reason': 'x', 'pins': []})
@@ -1165,6 +1171,124 @@ def r4_b3_controls(r):
           all(o['exit'] == 20 and 'syn/classes.json' in o['record_invalid'] and 'notes/side.txt' in o['unclassified']
               for o in bad) and
           pos.get('exit') == 10 and not pos.get('record_invalid') and not pos.get('unclassified'))
+
+
+def r4_b2_provenance_controls(t):
+    """B2 (provenance): a change of the ledger or of A whose merge record is inconsistent with the commit it claims is
+    refused: the record names another merge commit; the version's commit is off main's first-parent chain; the
+    commit is not the one that introduced the version; the merge times do not increase along the history."""
+    def report_history(w, edit):
+        """The host reports the freeze ledger's history through `edit` (an altered or inconsistent host record)."""
+        orig = w.h.file_history
+
+        def fh(repo_id, path):
+            hist = orig(repo_id, path)
+            return edit(w, hist) if path == hf.LEDGER_PATH else hist
+        w.h.file_history = fh
+
+    def other_merge_commit(w):
+        _r4_set_ledger(w, _r4_ledger(['m']), 'append')
+        w.h.merges[(hf.REPO_ID, w.main)]['merge_commit'] = 'c1'
+
+    def off_chain(w):
+        _r4_set_ledger(w, _r4_ledger(['m']), 'append')
+        cm = w.h.repos[hf.REPO_ID]['commits'][w.main]
+        w.h.add_commit(hf.REPO_ID, 'side', list(cm['parents']), cm['files'], merged_by=hf.OWNER_ID,
+                       merged_at=w.h.merges[(hf.REPO_ID, w.main)]['merged_at'])
+
+        def edit(w, hist):
+            return [dict(v, commit='side', merge_commit='side') if v['commit'] == w.ledger_commit else v
+                    for v in hist]
+        w.ledger_commit = w.main
+        report_history(w, edit)
+
+    def not_introducing(w):
+        _r4_set_ledger(w, _r4_ledger(['m']), 'append')
+        intro = w.main
+        w.add_main('c%d' % (len(w.h.repos[hf.REPO_ID]['commits']) + 1), {'syn/unrelated.txt': b'x\n'})
+        later = w.main
+
+        def edit(w, hist):
+            return [dict(v, commit=later, parent=intro, merge_commit=later) if v['commit'] == intro else v
+                    for v in hist]
+        report_history(w, edit)
+
+    def merge_times(w):
+        _r4_set_ledger(w, _r4_ledger(['m']), 'append')
+        first = w.main
+        _r4_set_ledger(w, _r4_ledger(['m', 'n']), 'append')
+        w.h.merges[(hf.REPO_ID, first)]['merged_at'] = '2026-11-23T00:00:59Z'
+
+    def authority_other_merge_commit(w):
+        _r4_owner_change(w, 5555)
+        w.h.merges[(hf.REPO_ID, w.main)]['merge_commit'] = 'c1'
+
+    def consistent(w):
+        _r4_set_ledger(w, _r4_ledger(['m']), 'append')
+        _r4_set_ledger(w, _r4_ledger(['m', 'n']), 'authority')
+    out = {'merge record names another merge commit': _r4_run(t, other_merge_commit),
+           'version reported at a commit off main\'s first-parent chain': _r4_run(t, off_chain),
+           'version reported at a commit that did not introduce it': _r4_run(t, not_introducing),
+           'merge times do not increase along the history': _r4_run(t, merge_times),
+           'A change whose merge record names another merge commit': _r4_run(t, authority_other_merge_commit),
+           'consistent merge records (positive)': _r4_run(t, consistent)}
+    for k, v in out.items():
+        v['authority_refused'] = 'authority change' in v['message']
+    bad = [v for k, v in out.items() if k.startswith(('merge', 'version'))]
+    check('R4-B2-PROV', 'a freeze-ledger change whose merge record is inconsistent with the commit it claims is '
+          'refused: the record names another merge commit; the version is reported at a commit off main\'s '
+          'first-parent chain; at a commit that did not introduce it; merge times that do not increase; an A change '
+          'whose merge record names another merge commit is refused as well; consistent records are admitted',
+          "the four ledger cases exit 65 naming the freeze-ledger change; the A case exits 65 naming the authority "
+          "change; the consistent case exits 0", out,
+          all(o['exit'] == 65 and o['ledger_refused'] for o in bad) and
+          out['A change whose merge record names another merge commit']['exit'] == 65 and
+          out['A change whose merge record names another merge commit']['authority_refused'] and
+          out['consistent merge records (positive)']['exit'] == 0)
+
+
+def r4_b3_duplicate_controls(r):
+    """B3 (duplicates): an item id given to two items of a record, or two verdicts for one item, is record-invalid;
+    two classes of a class record sharing an id are ERROR CONFIG_INCONSISTENT (S7, Z11), also in chain mode."""
+    from ledger_coverage.engine import records as rec
+
+    def lint(ids, verdicts):
+        d = {'schema': 'oi-hit-classification/1', 'record_id': 'h', 'author': 'writer-a', 'supersedes': None,
+             'classifications': [{'id': i} for i in ids]}
+        db = util.canonical(d)
+        ref = {'path': 'r/h.json', 'blob_sha256': sha(db)}
+        rb = util.canonical({'schema': 'oi-review-record/1', 'reviewer': 'reviewer-b', 'reviewed': ref,
+                             'method': 'read', 'verdicts': [{'item': i, 'verdict': v} for i, v in verdicts]})
+        ab = util.canonical({'schema': 'oi-owner-authorization/1', 'owner': 7, 'time': 't0', 'comment_id': 'c-1',
+                             'authorizes': [{'record': ref, 'review': {'path': 'r/h.review.json',
+                                                                       'blob_sha256': sha(rb)}}]})
+        st = rec.Store([('r/h.json', db), ('r/h.review.json', rb), ('r/h.auth.json', ab)])
+        return rec.lint_chain(ref, st, 7, {sha(x) for x in (db, rb, ab)})
+
+    def dup_class(c):
+        c['classes'].append(dict(c['classes'][0], prefixes=['other/']))
+    acc = [{'item': 'notes', 'verdict': 'accept'}]
+    out = {'lint: distinct ids, one verdict each (positive)': lint(['a', 'b'], [('a', 'accept'), ('b', 'accept')]),
+           'lint: id a given to two items': lint(['a', 'a'], [('a', 'accept')]),
+           'lint: two verdicts for item b (reject, then accept)': lint(['a', 'b'], [('a', 'accept'), ('b', 'reject'),
+                                                                                     ('b', 'accept')]),
+           'op C: two classes with id notes, reviewed and authorized': _r4_class_scenario(r, dup_class, acc + acc),
+           'op C: one class, two verdicts for notes (reject, then accept)': _r4_class_scenario(
+               r, None, [{'item': 'notes', 'verdict': 'reject'}] + acc)}
+    pos = out['lint: distinct ids, one verdict each (positive)']
+    two = out['op C: one class, two verdicts for notes (reject, then accept)']
+    check('R4-B3-DUP', 'an item id given to more than one item of a record, or an item given more than one verdict, '
+          'makes the record record-invalid; a class record defining one class id twice is ERROR CONFIG_INCONSISTENT '
+          '(S7, Z11) in chain mode; distinct ids with one verdict each lint clean',
+          "the positive lint is empty; the duplicate-id lint names the id; the duplicate-verdict lint reports it; "
+          "op C with the duplicate class id stops 65 CONFIG_INCONSISTENT; op C with two verdicts for notes is exit "
+          "20 with record-invalid on syn/classes.json and notes/side.txt unclassified", out,
+          pos == [] and any('more than one item' in x for x in out['lint: id a given to two items']) and
+          any('more than one verdict' in x for x in out['lint: two verdicts for item b (reject, then accept)']) and
+          out['op C: two classes with id notes, reviewed and authorized'].get('exit') == 65 and
+          out['op C: two classes with id notes, reviewed and authorized'].get('stop') == 'CONFIG_INCONSISTENT' and
+          two.get('exit') == 20 and 'syn/classes.json' in two.get('record_invalid', []) and
+          'notes/side.txt' in two.get('unclassified', []))
 
 
 def r4_n2_controls(t):
@@ -1601,6 +1725,8 @@ def main(out_root):
         for name, fn in (('R3-F1', lambda: f1_controls(t)), ('R3-F2', lambda: f2_controls(r)),
                          ('R3-F3', lambda: f3_controls(t)), ('R4-B1', lambda: r4_b1_controls(t)),
                          ('R4-B2', lambda: r4_b2_controls(t)), ('R4-B3', lambda: r4_b3_controls(r)),
+                         ('R4-B2-PROV', lambda: r4_b2_provenance_controls(t)),
+                         ('R4-B3-DUP', lambda: r4_b3_duplicate_controls(r)),
                          ('R4-N2', lambda: r4_n2_controls(t))):
             try:
                 fn()

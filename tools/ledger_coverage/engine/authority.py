@@ -175,6 +175,33 @@ def _ledger_extension_problem(old, new):
     return None
 
 
+def _provenance_problem(host, repo_id, path, main, v, prev_blob, prev_merged_at):
+    """None when the change `v` of `path` has a consistent merge record (sec. 6.3: every change lands by a pull
+    request into main, and its approval predates that merge): a merge time; the merge commit the record names is the
+    change's own commit; that commit is on main's first-parent chain, holds the version, and its first parent holds
+    the previous version (so the history is continuous); and the merge times increase along the history.
+    Otherwise the reason."""
+    if v.get('merged_at') is None:
+        return 'has no merge record'
+    if v.get('merge_commit') != v['commit']:
+        return 'has a merge record that names another commit (%s)' % str(v.get('merge_commit'))[:12]
+    try:
+        on_main = host.on_first_parent_chain(repo_id, v['commit'], main)
+        here = host.file_at(repo_id, v['commit'], path)
+        before = host.file_at(repo_id, v['parent'], path) if v.get('parent') else None
+    except HostUnavailable as exc:
+        refuse('history', 'the merge record of %s cannot be checked: %s' % (v['commit'][:12], exc))
+    if not on_main:
+        return 'is not on main\'s first-parent chain'
+    if here != v['blob']:
+        return 'does not hold the recorded version'
+    if before != prev_blob:
+        return 'is not the commit that introduced its version after the previous one'
+    if prev_merged_at is not None and not v['merged_at'] > prev_merged_at:
+        return 'has a merge time that does not follow the previous change\'s'
+    return None
+
+
 # ---- the authority-change procedure ---------------------------------------------------------------------------
 
 def review_path(a, to_sha):
@@ -217,11 +244,16 @@ def verify_history(host, repo_id, path, governing, main, kind, plan_threads=None
     except HostUnavailable as exc:
         refuse('history', 'the history of %s cannot be read: %s' % (path, exc))
     out = []
-    prev_blob, prev_a = None, None
+    prev_blob, prev_a, prev_merged_at = None, None, None
     for v in hist:
         blob = v['blob']
         if blob is None:
             refuse('history', '%s was deleted on main' % path)
+        # every version, of A and of the ledger, landed by a verifiable pull-request merge (sec. 6.3)
+        why = _provenance_problem(host, repo_id, path, main, v, prev_blob, prev_merged_at)
+        if why:
+            refuse('authority' if kind == 'authority' else 'ledger', '%s change %s %s' % (
+                'authority' if kind == 'authority' else 'freeze-ledger', v['commit'][:12], why))
         new_sha = util.sha256(blob)
         old_sha = util.sha256(prev_blob) if prev_blob is not None else 'none'
         if kind == 'authority':
@@ -265,10 +297,6 @@ def verify_history(host, repo_id, path, governing, main, kind, plan_threads=None
                         'owner_id': new_a['owner']['id']})
         else:
             what = 'freeze-ledger change %s' % v['commit'][:12]
-            # a ledger change lands by a pull-request merge, whose time bounds its approval (sec. 6.3); a change
-            # with no merge record (a direct push) is refused
-            if v.get('merged_at') is None:
-                refuse('ledger', '%s has no merge record' % what)
             # the ledger is append-only (sec. 6.3): each version extends the previous one, so no change can be
             # reverted and re-applied under an approval already given
             if prev_blob is not None:
@@ -296,6 +324,7 @@ def verify_history(host, repo_id, path, governing, main, kind, plan_threads=None
             consumed.add(ok[0]['id'])
             out.append({'commit': v['commit'], 'blob_sha256': new_sha, 'approval': ok[0]['id']})
         prev_blob = blob
+        prev_merged_at = v['merged_at']
     return out
 
 

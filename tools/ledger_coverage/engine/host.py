@@ -44,7 +44,7 @@ class MemoryHost:
     def add_commit(self, repo_id, cid, parents, files, merged_by=None, merged_at=None):
         self.repos[repo_id]['commits'][cid] = {'parents': list(parents), 'files': dict(files)}
         if merged_by is not None:
-            self.merges[(repo_id, cid)] = {'merged_by_id': merged_by, 'merged_at': merged_at}
+            self.merges[(repo_id, cid)] = {'merged_by_id': merged_by, 'merged_at': merged_at, 'merge_commit': cid}
 
     def _need(self, what):
         if what in self.fail:
@@ -99,7 +99,8 @@ class MemoryHost:
         return commit in self.first_parents(repo_id, head)
 
     def file_history(self, repo_id, path):
-        """Commits on main's first-parent chain whose `path` differs from their first parent's, oldest first."""
+        """Commits on main's first-parent chain whose `path` differs from their first parent's, oldest first, each
+        with its first parent and the host's merge record (merged_by_id, merged_at, and the merge commit it names)."""
         self._need('history')
         out = []
         for c in reversed(self.first_parents(repo_id, self.repos[repo_id]['main'])):
@@ -108,8 +109,9 @@ class MemoryHost:
             before = self.repos[repo_id]['commits'][par]['files'].get(path) if par else None
             if cm['files'].get(path) != before:
                 m = self.merges.get((repo_id, c), {})
-                out.append({'commit': c, 'blob': cm['files'].get(path), 'merged_by_id': m.get('merged_by_id'),
-                            'merged_at': m.get('merged_at')})
+                out.append({'commit': c, 'parent': par, 'blob': cm['files'].get(path),
+                            'merged_by_id': m.get('merged_by_id'), 'merged_at': m.get('merged_at'),
+                            'merge_commit': m.get('merge_commit')})
         return out
 
     def comments(self, repo_id, issue):
@@ -233,8 +235,10 @@ class RestHost:
                 pulls = self._json('/repositories/%d/commits/%s/pulls' % (repo_id, c['sha']))
                 merged = [p for p in pulls if p.get('merge_commit_sha') == c['sha']]
                 m = self._json(merged[0]['url']) if merged else {}
-                out.append({'commit': c['sha'], 'blob': self.file_at(repo_id, c['sha'], path),
-                            'merged_by_id': (m.get('merged_by') or {}).get('id'), 'merged_at': m.get('merged_at')})
+                out.append({'commit': c['sha'], 'parent': (c.get('parents') or [{}])[0].get('sha'),
+                            'blob': self.file_at(repo_id, c['sha'], path),
+                            'merged_by_id': (m.get('merged_by') or {}).get('id'), 'merged_at': m.get('merged_at'),
+                            'merge_commit': m.get('merge_commit_sha')})
             if len(cs) < 100:
                 break
             page += 1
