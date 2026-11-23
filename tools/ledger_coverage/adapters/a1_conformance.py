@@ -4,7 +4,8 @@ composition (N3-N18, with N10 and N11 pinned to main 8e9b8334 and T1'), and the 
 R19). Every run uses the control harness (the A1 records are unreviewed drafts); mutant trees, ledgers and
 records exist only in memory. Each control is reported as {id, expected, predicate, actual, status}.
 
-Usage: python3 -I -B tools/ledger_coverage/adapters/a1_conformance.py --repo DIR --config REV:PATH --out DIR
+Usage: python3 -I -B tools/ledger_coverage/adapters/a1_conformance.py --repo DIR --config REV:PATH --staged-config FILE
+       --out DIR (PATH: the staged configuration's path in the plan's record directory; see a1_controls.py)
 """
 import argparse
 import copy
@@ -565,9 +566,11 @@ def main():
     ap.add_argument('--config', required=True)
     ap.add_argument('--out', required=True)
     ap.add_argument('--only', default=None)
+    ap.add_argument('--staged-config', default=None,
+                    help='the staged configuration file; --config REV:PATH names its path in the plan directory')
     args = ap.parse_args()
     os.makedirs(args.out, exist_ok=True)
-    a = a1c.A1(args.repo, args.config, args.out)
+    a = a1c.A1(args.repo, args.config, args.out, args.staged_config)
     groups = [('WB', wb_controls), ('S11', s11_controls), ('N', n_controls)]
     for name, fn in groups:
         if args.only and name not in args.only.split(','):

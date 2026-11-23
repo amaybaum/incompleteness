@@ -17,8 +17,8 @@
  "engine_pins": {
   "tools/ledger_coverage/__init__.py": "b0072faa34b8db8ce3d86a70a06835f88094856f060a1540d1acd41f23e12d99",
   "tools/ledger_coverage/adapters/__init__.py": "d1b8b5e2f52f7f43fd794ec783c80124beae41b28804e26bac05981f1b65f34a",
-  "tools/ledger_coverage/adapters/a1_conformance.py": "a0b4826acf0caf7feaf93bf888873261214c2a613f90936afd53c48a9fe8fb0e",
-  "tools/ledger_coverage/adapters/a1_controls.py": "4e920585206c0e4eaffc10c084f6aeb0f9533ff602160111a95b802afd85da86",
+  "tools/ledger_coverage/adapters/a1_conformance.py": "d891975eade7bdcfc969c77fc16e450670a460f420931a4605238f27fd650f8a",
+  "tools/ledger_coverage/adapters/a1_controls.py": "d782fd98f09b40063c6bdaf4ea98ab24251a628fe85b71747592f34de95034d0",
   "tools/ledger_coverage/adapters/a1exit_exact_edit.py": "efdc8bf861d8e057f2f50612ef8dea0415705a0815f6bac6e3984fd6a03bf21d",
   "tools/ledger_coverage/adapters/a1exit_sitemap.py": "b01001bc64d39367f00f9e36502933519ca0b28be3bd4af817679287698dd0e5",
   "tools/ledger_coverage/adapters/artifact_hash.py": "74f719c9119fb77896868385c1b3142f747dfde6a2c450d4fc3cea1ca0a7a7cf",
@@ -31,6 +31,7 @@
   "tools/ledger_coverage/adapters/host_fixture.py": "2eef330d45226dd0e62db7ccb889417bb67e3dc8f92fbe6e4441471e37672939",
   "tools/ledger_coverage/adapters/line_patch.py": "1ca45cae73494a7c1616de7a8411a2c115b3ac7f6bd20bbc5f906c8ff981978c",
   "tools/ledger_coverage/adapters/python_frozen_replay.py": "79ad93539fb24ba9bce8ece8c140fdfbaf38dbcb9b38d60a5327bfd41b2e2b0a",
+  "tools/ledger_coverage/adapters/staged_purity_lint.py": "2cc5ece6215d5c6949f5f2d9510d1695f83bd8069166c2737af05a5a151db23e",
   "tools/ledger_coverage/adapters/synthetic_fixture.py": "b71e0bcdeae6dd4e26f68698260be9f8e3bee84d2e5a876aa23bb2158df430bb",
   "tools/ledger_coverage/engine/__init__.py": "9a53e22ce914f807e90487dba08c25a2880006148ebfe28e9ee97b7fd185e0f9",
   "tools/ledger_coverage/engine/authority.py": "e6a4c9683396d11fdee8690619649f938591385e56cd04ac71801605fdcf1afa",

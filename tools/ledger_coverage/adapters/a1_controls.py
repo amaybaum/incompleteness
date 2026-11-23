@@ -7,8 +7,14 @@ configuration is admitted without its review chain and each result says so. Unde
 configuration is refused (ERROR CONFIG_UNREVIEWED); control CHAIN-REFUSAL shows it. Mutant trees, ledgers and
 evidence exist only in memory or under the output directory.
 
-Usage: python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo DIR --config REV:PATH --out DIR
-       [--only ID,ID] [--skip-sweeps]
+The configuration does not land with the tool (design sec. 16.2): it belongs in the retirement plan's record
+directory, frozen with the plan at F. A staged draft is given with --staged-config FILE and --config REV:PATH,
+where PATH is its path in the plan's record directory; the runner builds an in-memory stand-in for F, REV's tree
+plus the staged file at PATH, and reads the configuration from it. The predicted main carries only the tool's
+landing.
+
+Usage: python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo DIR --config REV:PATH
+       --staged-config FILE --out DIR [--only ID,ID] [--skip-sweeps]
 """
 import argparse
 import collections
@@ -45,16 +51,28 @@ def sha(b):
     return hashlib.sha256(b).hexdigest()
 
 
+def simulated_freeze(repo, rev, path, staged_bytes):
+    """An in-memory stand-in for F: rev's tree with the staged configuration at its plan-directory path."""
+    return repo.derive(rev, {path: staged_bytes}, parents=[rev],
+                       subject='stand-in for F: the staged configuration in the plan record directory')
+
+
 class A1:
-    def __init__(self, repo_path, config_ref, out_root):
+    def __init__(self, repo_path, config_ref, out_root, staged=None):
         self.base = gitobj.GitRepo(repo_path)
         self.repo = gitobj.Overlay(self.base)
         self.repo_path = repo_path
         rev, self.cpath = config_ref.split(':', 1)
         self.crev = self.repo.resolve(rev) if rev in self.repo.mem else self.base.resolve(rev)
+        self.tool_rev = self.crev
+        if staged is not None:
+            with open(staged, 'rb') as f:
+                self.crev = simulated_freeze(self.repo, self.crev, self.cpath, f.read())
         data = self.repo.read(self.crev, self.cpath)
         self.csha = sha(data) if data is not None else None
-        self.ad = self.cpath.rsplit('/', 1)[0] + '/'
+        # the tool's record directory: where the configuration's controls file lies
+        cfg = json.loads(data) if data is not None else {}
+        self.ad = (cfg.get('controls') or {}).get('path', self.cpath).rsplit('/', 1)[0] + '/'
         self.out_root = out_root
         self.n = 0
         from ledger_coverage.adapters import a1exit_exact_edit as le
@@ -912,7 +930,16 @@ def tree_controls(a, tool_files):
         rc_ = a.repo.derive(a.crev, {a.ad + 'records/control-recon.json': (json.dumps(rdoc) + '\n').encode()},
                             parents=a.repo.parents(a.crev), subject='control reconciliation record')
         recon_arg = ['--classify', '%s:%srecords/control-recon.json' % (rc_, a.ad)]
+        code, res, t = a.run(exec_args(a, extra=['--main', Mp]))
+        out['predicted_without_reconciliation'] = {
+            'exit': code, 'main_items': sorted((i['class'], i['subject']) for i in res.get('items', [])
+                                               if i['obligation'] == 'MAIN')}
         code, res, t = a.run(exec_args(a, extra=['--main', Mp] + recon_arg))
+        sc = {e['path']: e for e in res.get('side_changes') or []}
+        out['landed_paths'] = len(tool_files)
+        out['landed_unbound'] = sorted(p for p in tool_files if (sc.get(p) or {}).get('class') in (None, 'base-drift'))
+        out['landed_classes'] = dict(collections.Counter(str((sc.get(p) or {}).get('class')) for p in tool_files))
+        out['agents_md'] = {k: (sc.get('AGENTS.md') or {}).get(k) for k in ('class', 'reconciled')}
         out['predicted'] = {'exit': code, 'side_changes': res.get('side_changes'),
                             'main_items': sorted((i['class'], i['subject']) for i in res.get('items', [])
                                                  if i['obligation'] == 'MAIN'), 'admission': res.get('config', {}).get('admission')}
@@ -923,14 +950,140 @@ def tree_controls(a, tool_files):
         code, res, t = a.run(exec_args(a, extra=['--main', Mp]), harness=False)
         out['predicted_chain_admission'] = {'exit': code, 'stop': res.get('stop', {}).get('class')}
     drift = out.get('predicted', {}).get('main_items', [])
+    raw = out.get('predicted_without_reconciliation', {}).get('main_items', [])
     a.record('RT-L2', not any(c == 'base-drift' for c, _ in drift) and
-             not any(c == 'side-change-unclassified' for c, _ in drift),
+             not any(c == 'side-change-unclassified' for c, _ in drift) and
+             out.get('landed_paths', 0) > 0 and not out.get('landed_unbound') and
+             ('base-drift', 'AGENTS.md') in raw and out.get('agents_md') == {'class': 'base-drift', 'reconciled': True},
              'every side change classified and no base-drift (sec. 13.4 sequencing safeguard)', out,
-             predicate='no base-drift and no side-change-unclassified among the MAIN items at the predicted main',
-             finding='Predicted main = 8e9b8334 plus this tool\'s landing files, with the drafted reconciliation record '
-                     'for AGENTS.md and pinned classes for the trial workflow and .claude/settings.json. Any path the '
-                     'tool-landing class cannot pin without a hash cycle (the configuration, which pins the class '
-                     'record) stays side-change-unclassified: see the report.')
+             predicate='at the predicted main (main plus the tool landing only; the configuration is read from the '
+                       'stand-in for F): every landed path is a side change classified by an exact blob (tool-landing '
+                       'or the configuration\'s pin of the class record); no base-drift and no '
+                       'side-change-unclassified among the MAIN items with the drafted reconciliation record; and the '
+                       'real AGENTS.md drift is shown: base-drift without that record, base-drift reconciled with it',
+             finding='Predicted main = 8e9b8334 plus this tool\'s landing files (the configuration not among them, '
+                     'design sec. 16.2), with the drafted reconciliation record for AGENTS.md and pinned classes for '
+                     'the trial workflow and .claude/settings.json.')
+
+
+# ---- K1: the reference graph of the landing and the freeze ---------------------------------------------------
+
+def git_blob(b):
+    return hashlib.sha1(b'blob %d\x00' % len(b) + b).hexdigest()
+
+
+def reference_graph(nodes, required):
+    """Edges path -> path: A's bytes name B's current blob (its sha256 or git blob id), plus the edges a rule
+    requires (`required`: {path: [paths]}), which must hold whatever the bytes are. Returns (edges, cycle)."""
+    ids = {}
+    for q, b in nodes.items():
+        ids[q] = (sha(b), git_blob(b))
+    edges = {q: set() for q in nodes}
+    for q, b in nodes.items():
+        text = b.decode('utf-8', 'replace')
+        for r, (h, g) in ids.items():
+            if r != q and (h in text or g in text):
+                edges[q].add(r)
+    for q, rs in required.items():
+        edges.setdefault(q, set()).update(r for r in rs if r != q)
+    state, stack = {}, []
+
+    def visit(q):
+        state[q] = 1
+        stack.append(q)
+        for r in sorted(edges.get(q, ())):
+            if state.get(r) == 1:
+                return stack[stack.index(r):] + [r]
+            if r not in state:
+                got = visit(r)
+                if got:
+                    return got
+        stack.pop()
+        state[q] = 2
+        return None
+    for q in sorted(edges):
+        if q not in state:
+            got = visit(q)
+            if got:
+                return edges, got
+    return edges, None
+
+
+def k1_graph(a, tool_files):
+    """The full reference graph: configuration -> records, rules, reviews and authorizations; F's pin table ->
+    configuration and its review and authorization; class record -> every other landed path. The reviews and
+    authorizations do not exist yet; the graph places them where the design puts records frozen with the plan
+    (sec. 6.3, 16.2), as in-memory fixtures only. The actual layout must be acyclic; two countercontrols place a
+    record in the landing that names a blob the class record must pin, and must give a cycle."""
+    cfg_b = a.repo.read(a.crev, a.cpath)
+    cfg = json.loads(cfg_b)
+    rec_dir = a.cpath.rsplit('/', 1)[0] + '/'
+    cls_path = cfg['roles']['side_change_classes']['path']
+
+    def jb(o):
+        return (json.dumps(o, indent=1, sort_keys=True) + '\n').encode()
+
+    def review(path, b, reviewer):
+        return jb({'schema': 'oi-review-record/1', 'reviewer': reviewer, 'reviewed': {'path': path,
+                   'blob_sha256': sha(b)}, 'method': 'graph fixture', 'verdicts': [{'item': '*', 'verdict': 'accept'}]})
+
+    def authorization(path, b, rpath, rb):
+        return jb({'schema': 'oi-owner-authorization/1', 'owner': cfg['retirement']['owner'], 'comment_id': 'fixture',
+                   'time': 'fixture', 'authorizes': [{'record': {'path': path, 'blob_sha256': sha(b)},
+                                                      'review': {'path': rpath, 'blob_sha256': sha(rb)}}]})
+
+    def layout(landed, cls_review_dir):
+        """nodes and required edges for one placement. cls_review_dir: where the class record's review and
+        authorization lie."""
+        nodes = dict(landed)
+        cls_b = nodes[cls_path]
+        rk_p, ak_p = cls_review_dir + 'reviews/class-record.review.json', cls_review_dir + 'reviews/class-record.auth.json'
+        rk = review(cls_path, cls_b, 'reviewer-fixture')
+        ak = authorization(cls_path, cls_b, rk_p, rk)
+        nodes[rk_p], nodes[ak_p] = rk, ak
+        c2 = dict(cfg, records=list(cfg['records']) + [{'kind': 'review', 'path': rk_p, 'blob_sha256': sha(rk)},
+                                                        {'kind': 'authorization', 'path': ak_p, 'blob_sha256': sha(ak)}])
+        c2b = jb(c2)
+        if a.cpath in landed:
+            # the configuration in the landing: its bytes as landed are the ones the class record pins
+            c2b = landed[a.cpath]
+        nodes[a.cpath] = c2b
+        rc_p, ac_p = rec_dir + 'reviews/config.review.json', rec_dir + 'reviews/config.auth.json'
+        rc = review(a.cpath, c2b, 'reviewer-fixture')
+        ac = authorization(a.cpath, c2b, rc_p, rc)
+        nodes[rc_p], nodes[ac_p] = rc, ac
+        pt_p = rec_dir + 'PREREG.md'
+        nodes[pt_p] = ('### 1.1 Record pins\n\n' + ''.join('| `%s` | `%s` |\n' % (q[len(rec_dir):], sha(nodes[q]))
+                                                           for q in (a.cpath, rc_p, ac_p))).encode()
+        required = {cls_path: [q for q in landed if q != cls_path] + ([rk_p, ak_p] if rk_p in landed else []),
+                    pt_p: [a.cpath, rc_p, ac_p], a.cpath: [cls_path, rk_p, ak_p], rc_p: [a.cpath],
+                    ac_p: [a.cpath, rc_p], rk_p: [cls_path], ak_p: [cls_path, rk_p]}
+        return nodes, required
+    out = {}
+    nodes, req = layout(dict(tool_files), rec_dir)
+    edges, cyc = reference_graph(nodes, req)
+    out['actual'] = {'nodes': len(nodes), 'edges': sum(len(v) for v in edges.values()), 'cycle': cyc,
+                     'config_in_landing': a.cpath in tool_files,
+                     'config_edges': sorted(edges[a.cpath])[:20], 'pin_table_edges': sorted(edges[rec_dir + 'PREREG.md'])}
+    # countercontrol 1: the configuration landed with the tool (the class record must pin it)
+    landed1 = dict(tool_files)
+    landed1[a.cpath] = cfg_b
+    n1, r1 = layout(landed1, rec_dir)
+    out['config_landed'] = {'cycle': reference_graph(n1, r1)[1]}
+    # countercontrol 2: the class record's review and authorization landed with the tool
+    tool_ad = a.ad
+    n2, r2 = layout(dict(tool_files), tool_ad)
+    landed2 = {q: n2[q] for q in list(tool_files) + [tool_ad + 'reviews/class-record.review.json',
+                                                     tool_ad + 'reviews/class-record.auth.json']}
+    n2, r2 = layout(landed2, tool_ad)
+    out['class_review_landed'] = {'cycle': reference_graph(n2, r2)[1]}
+    a.record('K1-GRAPH', cyc is None and out['actual']['config_in_landing'] is False and
+             bool(out['config_landed']['cycle']) and bool(out['class_review_landed']['cycle']),
+             'the reference graph of the tool landing and the freeze has no cycle, including through review and '
+             'authorization records; placing the configuration, or the class record\'s review, in the landing gives '
+             'a cycle', out,
+             predicate='no cycle in the actual layout (configuration not landed; reviews and authorizations in the '
+                       'plan record directory); a cycle in each countercontrol layout')
 
 
 def chain_refusal(a):
@@ -1063,6 +1216,8 @@ def main():
     ap.add_argument('--overlay-from-disk', action='store_true',
                     help='test the working files: overlay tools/ledger_coverage* and the audit directory on HEAD')
     ap.add_argument('--syn-engine', default=None)
+    ap.add_argument('--staged-config', default=None,
+                    help='the staged configuration file; --config REV:PATH names its path in the plan directory')
     args = ap.parse_args()
     os.makedirs(args.out, exist_ok=True)
     out_root = tempfile.mkdtemp(prefix='a1-controls-', dir=args.out)
@@ -1070,7 +1225,8 @@ def main():
     tool_files = {}
     a0 = gitobj.GitRepo(args.repo)
     rev, cpath = cref.split(':', 1)
-    ad = cpath.rsplit('/', 1)[0]
+    probe = A1(args.repo, cref, out_root, args.staged_config)
+    ad = probe.ad.rstrip('/')
     if args.overlay_from_disk:
         for root in ('tools/ledger_coverage', ad):
             for dp, dn, fn in os.walk(os.path.join(args.repo, root)):
@@ -1079,19 +1235,20 @@ def main():
                     p = os.path.relpath(os.path.join(dp, f), args.repo)
                     tool_files[p] = open(os.path.join(dp, f), 'rb').read()
         tool_files['tools/ledger_coverage.py'] = open(os.path.join(args.repo, 'tools/ledger_coverage.py'), 'rb').read()
-        a = A1(args.repo, '%s:%s' % (a0.resolve(rev), cpath), out_root)
-        wt = a.repo.derive(a0.resolve(rev), tool_files, subject='working files')
+        a = A1(args.repo, '%s:%s' % (a0.resolve(rev), cpath), out_root, args.staged_config)
+        wt = a.repo.derive(a.crev, tool_files, subject='working files')
         a.crev = wt
         a.csha = sha(a.repo.read(wt, cpath))
     else:
-        a = A1(args.repo, cref, out_root)
-        head = a.crev
+        a = probe
+        head = a.tool_rev
         for p, b in a.base.paths(head).items():
             if p.startswith(('tools/ledger_coverage/', ad + '/')) or p == 'tools/ledger_coverage.py':
                 tool_files[p] = a.base.read_blob(b)
     groups = [('chain', chain_refusal), ('record', rt_record), ('coverage', rt_coverage), ('terms', rt_terms),
               ('v', v_controls), ('rules', rule_lint_controls), ('exec', ex_controls),
-              ('trees', lambda x: tree_controls(x, tool_files)), ('z9g', z9g)]
+              ('trees', lambda x: tree_controls(x, tool_files)), ('k1', lambda x: k1_graph(x, tool_files)),
+              ('z9g', z9g)]
     if args.syn_engine:
         groups.append(('y8', lambda x: engine_identity_y8(x, args.syn_engine)))
     if not args.skip_sweeps:

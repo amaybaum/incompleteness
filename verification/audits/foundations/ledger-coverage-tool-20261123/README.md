@@ -16,7 +16,6 @@ scientific question and no row disposition.
 
 | Path | Kind | What it holds |
 |---|---|---|
-| `a1exit-retirement-config.json` | `oi-retirement-config/1` | the A1 configuration: roles, adapters pinned by blob, profiles with their source blobs and pattern hashes, checks, context mapping, indicators, splitter, HP obligation, delegation, records, controls |
 | `controls.json` | A1 control set | the preregistered A1 controls with the design's expected outcomes, and the control-only inputs (DR-3's witness `AGENTS.md` at `H`) |
 | `delegation-draft.json` | `oi-delegation/1` | a draft of the delegation contract; the contract itself belongs in the amended plan's record directory at `F` |
 | `rules/dr-deny-v1.json` | `oi-term-rules/2` | deny rules DR-1 (a, b, c), DR-3, DR-4, DR-5 with examples and real-tree countercontrols |
@@ -26,6 +25,12 @@ scientific question and no row disposition.
 | `records/repo-scope-v1.json` | `oi-scope/1` | the scope of the `repo` profile (item 11) |
 | `rules/register-infinity-params-v1.json` | `oi-term-rules/2` | the per-edit parameters of items 5 and 6 that are not extractable assignments of the plan's checker (kind `params`), linted against that checker |
 | `records/side-change-classes-v1.json` | `oi-side-change-classes/1` | the class `tool-landing` only: every path this tool's landing adds, each with its exact blob |
+
+The A1 configuration `retirement-config.json` (`oi-retirement-config/1`) is not part of this landing. It
+belongs in the retirement plan's record directory, `verification/audits/foundations/a1exit-deletion-20261121/`,
+frozen with the plan at `F` with its review and authorization (design sec. 16.2), and it pins the class record
+above; the class record pins every other path of this landing. Until then it exists only as an unreviewed,
+unauthorized draft outside the repository, and the A1 controls read it with `--staged-config`.
 | `freeze/freeze-ledger.json` | `oi-freeze-ledger/1` | the empty freeze ledger (it lands on `main` with the authority record) |
 | `workflow-draft/ledger-coverage.yml` | workflow | the one workflow whose runs may produce an acceptable result; its content hash is pinned in the authority record under `.github/workflows/ledger-coverage.yml`, where it must land unchanged |
 
@@ -56,5 +61,10 @@ The control runs:
     python3 -I -B tools/ledger_coverage.py self-test --out DIR
     python3 -I -B tools/ledger_coverage/adapters/synthetic_fixture.py DIR .
     python3 -I -B tools/ledger_coverage/adapters/conformance_controls.py DIR
-    python3 -I -B tools/ledger_coverage/adapters/a1_conformance.py --repo . --config HEAD:verification/audits/foundations/ledger-coverage-tool-20261123/a1exit-retirement-config.json --out DIR
-    python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo . --config HEAD:verification/audits/foundations/ledger-coverage-tool-20261123/a1exit-retirement-config.json --out DIR
+With `CFG=HEAD:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json` and `STAGED` the
+staged draft (the runners read it into an in-memory stand-in for `F`, `HEAD`'s tree plus that file at its plan
+path):
+
+    python3 -I -B tools/ledger_coverage/adapters/staged_purity_lint.py --repo . --config $CFG --staged-config STAGED --out DIR
+    python3 -I -B tools/ledger_coverage/adapters/a1_conformance.py --repo . --config $CFG --staged-config STAGED --out DIR
+    python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo . --config $CFG --staged-config STAGED --out DIR
