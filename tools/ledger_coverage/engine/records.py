@@ -17,6 +17,14 @@ item_lists = (('rules', 'id'), ('sites', 'site_id'), ('entries', 'id'), ('classi
               ('classes', 'id'))
 
 
+def item_list_problems(doc):
+    """A description of every item list field present in a record that is not a list (sec. 6.3: a field error is
+    record-invalid)."""
+    if not isinstance(doc, dict) or doc.get('schema') == 'oi-retirement-config/1':
+        return []
+    return ['%s is not a list' % key for key, _ in item_lists if key in doc and not isinstance(doc[key], list)]
+
+
 def entries_without_id(doc):
     """[(list key, index)] of every entry of an item list that is not an object carrying its id field as a non-empty
     string (sec. 6.3: a missing field is record-invalid)."""
@@ -36,7 +44,7 @@ def item_ids(doc):
     and is record-invalid: the record id never stands in for an entry's id."""
     if doc.get('schema') == 'oi-retirement-config/1':
         return [doc.get('config_id')]
-    if entries_without_id(doc):
+    if item_list_problems(doc) or entries_without_id(doc):
         return []
     ids = []
     for key, idf in item_lists:
@@ -149,6 +157,10 @@ def lint_chain(ref, store, owner, admitted_shas):
             out.append('record %s: review names another blob of the same path' % ref['path'])
         else:
             out.append('record %s: no review record' % ref['path'])
+        return out
+    shape = item_list_problems(doc)
+    if shape:
+        out.append('record %s: %s' % (ref['path'], shape[0]))
         return out
     missing = entries_without_id(doc)
     if missing:

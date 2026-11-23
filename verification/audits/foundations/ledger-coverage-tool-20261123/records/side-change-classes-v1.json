@@ -109,8 +109,8 @@
     },
     {
      "path": "tools/ledger_coverage/authority.json",
-     "git_blob": "88a4cd0d69700f4c66d41b1d6883d6ebcaf8df45",
-     "blob_sha256": "ad4bdb0aab28f4d3744301fe036db572100b7f022b51f825331ca81aa6620c21"
+     "git_blob": "6ef905a242934f88c28533c81b229df7f588ff0f",
+     "blob_sha256": "a81eef8cebd2b07cc6a8624a4783156fc77b5e4eb3d4891db71ff494fbc90411"
     },
     {
      "path": "tools/ledger_coverage/engine/__init__.py",
@@ -119,8 +119,8 @@
     },
     {
      "path": "tools/ledger_coverage/engine/authority.py",
-     "git_blob": "9306f566646c26c70320e640607e02e0fde4fbb6",
-     "blob_sha256": "95d0c94b34dd3eb955d5557c0d1047d260f3a8f82cd61a31967b1668f7ec17c8"
+     "git_blob": "bc3d3bc8ad5b978c2658ea2995ee4fb41169dd3a",
+     "blob_sha256": "e65cfec6043ebdfcc3e5e5b2bb47f35eab05998ba669860525fa52e701db5ad8"
     },
     {
      "path": "tools/ledger_coverage/engine/checker.py",
@@ -129,13 +129,13 @@
     },
     {
      "path": "tools/ledger_coverage/engine/cli.py",
-     "git_blob": "41f1643288c49cf20d0fa7be0bc03066df697d93",
-     "blob_sha256": "4ff650a8e21fa03347ce856db127400bafa28d3e6d5171ae5b593df038196689"
+     "git_blob": "567eca0345ff2d26cb7ad81f23325623474c43ce",
+     "blob_sha256": "89f59524dbb870fd5f944198674617fc05895ba7bb9b1fd968a4c15ed1b6ff02"
     },
     {
      "path": "tools/ledger_coverage/engine/config.py",
-     "git_blob": "82f22da112477e29851cf510d7bed229ac2bfafe",
-     "blob_sha256": "0e7963a2c5af8ed3b3f8ec892660ea389606d170363bd6a1b8f696ac14129c06"
+     "git_blob": "07d71351c8744d805b83b36df3971b0fdba4a8f5",
+     "blob_sha256": "e7040bccee0a597d00322c925f49f73e963a209ddd2242056c6f971d629da309"
     },
     {
      "path": "tools/ledger_coverage/engine/context.py",
@@ -199,8 +199,8 @@
     },
     {
      "path": "tools/ledger_coverage/engine/records.py",
-     "git_blob": "d54fba93c4c30efdf5704e88cc4845a9a3eea19b",
-     "blob_sha256": "acdd450bc42257ed6520a26033f2b6eefa8f7ae856419c2e404ca2fb08604697"
+     "git_blob": "6e55601c6c2376bdc61b603757c1e93cfbcb0001",
+     "blob_sha256": "53e6f2920fb62f20bba047b0f41411419ddfbf0eb389f9aedd224aecc4c9b40c"
     },
     {
      "path": "tools/ledger_coverage/engine/replay.py",

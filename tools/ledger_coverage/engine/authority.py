@@ -202,6 +202,50 @@ def _provenance_problem(host, repo_id, path, main, v, prev_blob, prev_merged_at)
     return None
 
 
+def _ledger_events(blob, what):
+    """The event list of a ledger version; refuses when the version is not a ledger record."""
+    try:
+        d = json.loads(blob.decode('utf-8'))
+    except (ValueError, UnicodeDecodeError):
+        d = None
+    if not isinstance(d, dict) or not isinstance(d.get('events'), list):
+        refuse('ledger', '%s is not a freeze-ledger record with an event list' % what)
+    return d['events']
+
+
+def _ledger_append_approval(host, a, old_sha, new_sha, v, consumed, what):
+    """N3 (sec. 6.3, "Approval of each acceptance-time append"): a ledger change that adds events is authorized only by
+    its own `oi-freeze-ledger/1 append` comment, by the owner of `a` (the version of A in force at the merge), in the
+    authorized thread of a plan `a` lists, naming that plan and one of the rounds `a` lists for it, quoting exactly the
+    ledger hashes before and after, unedited and visible, created before the merge, and used by no earlier change. An
+    `oi-authority/1 approve` comment in the authority thread does not authorize an append. Returns the comment."""
+    hits, threads = [], {}
+    for p in a['plans']:
+        key = (p['thread']['repository_id'], p['thread']['issue'])
+        if key not in threads:
+            threads[key] = read_thread(host, *key)
+        for c in find_approval(a, threads[key], 'ledger-append', {'frm': old_sha, 'to': new_sha}, a['owner']['id'],
+                               v.get('merged_at')):
+            f = parse_form(a, c['body'])[1]
+            if f['plan'] == p['plan_id'] and f['round'] in p['rounds'] and c['id'] not in [h['id'] for h in hits]:
+                hits.append(c)
+    ok = _fresh(hits, consumed, 'ledger', what)
+    if len(ok) != 1:
+        refuse('ledger', '%s has no verified oi-freeze-ledger/1 append comment in a plan thread' % what)
+    return ok[0]
+
+
+def _ledger_first_approval(host, a, new_sha, v, consumed, what):
+    """The first, empty ledger lands with A under the authority-change procedure: an `oi-authority/1 approve
+    from=none` comment by the owner in the authority thread, created before the merge. Returns the comment."""
+    cs = read_thread(host, a['authority_thread']['repository_id'], a['authority_thread']['issue'])
+    ok = _fresh(find_approval(a, cs, 'authority-approve', {'frm': 'none', 'to': new_sha}, a['owner']['id'],
+                              v.get('merged_at')), consumed, 'ledger', what)
+    if len(ok) != 1:
+        refuse('ledger', '%s has no verified approval comment' % what)
+    return ok[0]
+
+
 # ---- the authority-change procedure ---------------------------------------------------------------------------
 
 def review_path(a, to_sha):
@@ -230,13 +274,15 @@ def in_force(host, repo_id, a_versions, commit):
     return got
 
 
-def verify_history(host, repo_id, path, governing, main, kind, plan_threads=None, a_versions=None, consumed=None):
+def verify_history(host, repo_id, path, governing, main, kind, a_versions=None, consumed=None):
     """Every version of `path` on main passed its approval procedure. kind: 'authority' or 'ledger'.
     Returns the list of versions with their approvals. For kind 'authority', `a_versions` (a list) receives
     (commit, parsed A) for every verified version; for kind 'ledger' it supplies them, and each ledger change is
     approved by the owner of the version in force when it merged. `consumed` (a set, shared between the authority
     and the ledger histories) holds the approval comment ids already used: each comment authorizes one change.
-    Each ledger version extends the previous one, and each ledger change has a merge record."""
+    Each ledger version extends the previous one, and each ledger change has a merge record. A ledger change that
+    adds events needs its own append comment (N3); only the first, empty ledger is approved in the authority
+    thread."""
     if consumed is None:
         consumed = set()
     try:
@@ -306,23 +352,13 @@ def verify_history(host, repo_id, path, governing, main, kind, plan_threads=None
             # the approver is the owner of the version of A in force when this ledger change merged (sec. 6.3); the
             # owner of a superseded version keeps no authority over a change merged after its supersession
             a = in_force(host, repo_id, a_versions, v['commit']) if a_versions else governing
-            oid = a['owner']['id']
-            cs_auth = read_thread(host, a['authority_thread']['repository_id'], a['authority_thread']['issue'])
-            hits = find_approval(a, cs_auth, 'authority-approve', {'frm': old_sha, 'to': new_sha}, oid,
-                                 v.get('merged_at'))
-            if not [c for c in hits if c['id'] not in consumed]:
-                for (rid, issue), (plan, rnd) in (plan_threads or {}).items():
-                    cs = read_thread(host, rid, issue)
-                    h = find_approval(a, cs, 'ledger-append', {'frm': old_sha, 'to': new_sha}, oid,
-                                      v.get('merged_at'))
-                    hits += h
-                    if [c for c in h if c['id'] not in consumed]:
-                        break
-            ok = _fresh(hits, consumed, 'ledger', what)
-            if len(ok) != 1:
-                refuse('ledger', '%s has no verified approval comment' % what)
-            consumed.add(ok[0]['id'])
-            out.append({'commit': v['commit'], 'blob_sha256': new_sha, 'approval': ok[0]['id']})
+            # every change after the first adds events (append-only, above); the first adds events unless it is empty
+            if prev_blob is not None or _ledger_events(blob, what):
+                approval = _ledger_append_approval(host, a, old_sha, new_sha, v, consumed, what)
+            else:
+                approval = _ledger_first_approval(host, a, new_sha, v, consumed, what)
+            consumed.add(approval['id'])
+            out.append({'commit': v['commit'], 'blob_sha256': new_sha, 'approval': approval['id']})
         prev_blob = blob
         prev_merged_at = v['merged_at']
     return out
@@ -437,8 +473,8 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
         refuse('ledger', 'the freeze ledger is not valid json')
     if ledger.get('schema') != ledger_schema or not isinstance(ledger.get('events'), list):
         refuse('ledger', 'the freeze ledger is not an oi-freeze-ledger/1 record')
-    led_versions = verify_history(host, repo_id, a['freeze_ledger_path'], a, main, 'ledger',
-                                  {thread: (plan_id, round_id)}, a_versions=a_versions, consumed=consumed)
+    led_versions = verify_history(host, repo_id, a['freeze_ledger_path'], a, main, 'ledger', a_versions=a_versions,
+                                  consumed=consumed)
     if not led_versions or led_versions[-1]['blob_sha256'] != util.sha256(led_b):
         refuse('ledger', 'the freeze ledger on main has no verified history')
     snap_events = []
@@ -461,7 +497,9 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
             if f[1]['plan'] not in [p['plan_id'] for p in a['plans']]:
                 refuse('forms', 'owner comment %s names a plan the authority record does not list' % c['id'])
             forms.append((c, f))
-    # reconciliation of the thread with the ledger and the snapshots
+    # reconciliation of the thread with the ledger and the snapshots. A recorded event is no source of authority: a
+    # withdrawal or supersession binds only by revoking its commit, even when its comment is gone; a recorded event
+    # that names a comment present in the thread must agree with it, and that comment must be the owner's
     by_id = {c['id']: c for c in cs}
     bound = []
     for ev in list(ledger['events']) + snap_events:
@@ -470,6 +508,8 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
         c = by_id.get(ev['comment_id'])
         if c is not None and (c['author_id'] != ev['author_id'] or first_line(c['body']) != ev['first_line']):
             refuse('ledger', 'a recorded event conflicts with the thread (comment %s)' % ev['comment_id'])
+        if c is not None and c['author_id'] != a['owner']['id']:
+            refuse('ledger', 'a recorded event names comment %s, which is not the owner\'s' % ev['comment_id'])
         if ev['kind'] in ('withdraw', 'supersede'):
             bound.append(ev)
         elif ev['kind'] == 'designate' and c is None:
@@ -506,13 +546,15 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
             if state.get(e['commit']) != 'designated':
                 refuse('state', 'a supersession names a commit that is not designated')
             state[e['commit']] = 'revoked'
+            if e.get('bound'):
+                continue  # a recorded supersession only revokes; `by` is designated only by a form in the thread
             if state.get(e['by']) == 'revoked':
                 refuse('state', 'a supersession designates a revoked commit')
             state[e['by']] = 'designated'
     live = [k for k, v in state.items() if v == 'designated']
     if live != [freeze]:
         refuse('state', 'the freeze is not the one designated commit of the round (designated: %s)' % live)
-    designation = [e for e in events if e['kind'] in ('designate', 'supersede') and
+    designation = [e for e in events if not e.get('bound') and e['kind'] in ('designate', 'supersede') and
                    (e['commit'] == freeze if e['kind'] == 'designate' else e['by'] == freeze)][-1]
     # point 6: the pin table, authenticated by the designation of exactly F
     prereg = git.read(freeze, plan['pin_table_path'])

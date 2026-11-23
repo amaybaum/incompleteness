@@ -227,7 +227,9 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
     for r in cfg['records']:
         d = L.store.get(r)
         if isinstance(d, dict) and d.get('schema') == 'oi-side-change-classes/1':
-            seen_ids += [c.get('id') for c in d.get('classes', [])]
+            cl = d.get('classes', [])
+            # a record whose classes are not a list of objects is record-invalid where it is used (N6)
+            seen_ids += [c.get('id') for c in cl if isinstance(c, dict)] if isinstance(cl, list) else []
     if len(seen_ids) != len(set(seen_ids)):
         raise stop('CONFIG_INCONSISTENT', 'a side-change class id is defined more than once: %s'
                    % sorted({i for i in seen_ids if seen_ids.count(i) > 1}))

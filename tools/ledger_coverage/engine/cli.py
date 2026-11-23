@@ -1029,8 +1029,8 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
         probs = [] if records.harness else rec.lint_chain(r, loaded.store, cfg['retirement']['owner'],
                                                           loaded.admitted)
         # a class without its id field is a field error in every mode (sec. 6.3); it is never used
-        probs = probs or ['record %s: %s entry %d lacks its id field' % ((r['path'],) + m)
-                          for m in rec.entries_without_id(d)[:1]]
+        probs = probs or ['record %s: %s' % (r['path'], m) for m in rec.item_list_problems(d)[:1]] or \
+            ['record %s: %s entry %d lacks its id field' % ((r['path'],) + m) for m in rec.entries_without_id(d)[:1]]
         if probs:
             records.items.append(oc.make_item('RECORD', 'record-invalid', r['path'], None,
                                               {'sha': r['blob_sha256'], 'why': probs[0]}, detail=probs))
@@ -1045,11 +1045,11 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
         if d is None:
             continue
         if d.get('schema') == 'oi-side-change-classes/1':
-            missing = rec.entries_without_id(d)
+            missing = rec.item_list_problems(d) or ['%s entry %d lacks its id field' % m
+                                                    for m in rec.entries_without_id(d)]
             if missing:
                 records.items.append(oc.make_item('RECORD', 'record-invalid', d['_ref']['path'], None,
-                                                  {'sha': d['_ref']['blob_sha256'],
-                                                   'why': '%s entry %d lacks its id field' % missing[0]}))
+                                                  {'sha': d['_ref']['blob_sha256'], 'why': missing[0]}))
                 continue
             if d['_ref']['path'] not in record_refs:
                 class_docs.append(d)
