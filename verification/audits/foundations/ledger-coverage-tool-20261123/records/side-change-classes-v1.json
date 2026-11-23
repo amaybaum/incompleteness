@@ -1,0 +1,26 @@
+{
+ "schema": "oi-side-change-classes/1",
+ "record_id": "side-change-classes-v1",
+ "status": "UNREVIEWED DRAFT: prepared by the implementation writer; no independent review and no owner authorization exist. The tool does not admit it under the review chain.",
+ "author": "implementation-writer-20261123",
+ "classes": [
+  {
+   "id": "trial-workflow",
+   "paths": [
+    ".github/workflows/a1exit-trial-verify.yml"
+   ],
+   "reason": "the trial workflow changed on main by W (413b0bb8); not a retirement edit"
+  },
+  {
+   "id": "tool-landing",
+   "paths": [
+    "tools/ledger_coverage.py"
+   ],
+   "prefixes": [
+    "tools/ledger_coverage/",
+    "verification/audits/foundations/ledger-coverage-tool-20261123/"
+   ],
+   "reason": "this tool's landing paths (design sec. 12.3)"
+  }
+ ]
+}

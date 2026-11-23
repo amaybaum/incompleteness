@@ -1,0 +1,302 @@
+{
+ "schema": "oi-term-rules/2",
+ "record_id": "a1-allow-w1-w2-v1",
+ "status": "UNREVIEWED DRAFT: prepared by the implementation writer; no independent review and no owner authorization exist. The tool does not admit it under the review chain.",
+ "supersedes": null,
+ "recorded_at": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+ "author": "implementation-writer-20261123",
+ "rules": [
+  {
+   "id": "W1-a",
+   "kind": "allow",
+   "profiles": [
+    "count-grep"
+   ],
+   "scope": {
+    "files": [
+     "papers/SM.md"
+    ]
+   },
+   "matcher": {
+    "literal": "the six structural properties",
+    "context": [],
+    "negative": [
+     "A1",
+     "A1-A6",
+     "finit",
+     "assumption",
+     "axiom",
+     "of the substratum"
+    ]
+   },
+   "context_required": true,
+   "max_instances": 1,
+   "fingerprints": [
+    {
+     "file": "papers/SM.md",
+     "sentence_sha256": "df203079707ec02ac8b488df1a801dd851700afd7e965347c887292fb2f94130",
+     "context_sha256": "2f51773c9bd4236766f75f451cafd7d8db07175d19d5932a7aa435ab5dd07a36"
+    }
+   ],
+   "recorded_at": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+   "positive_examples": [
+    "they hold for every bijection satisfying the six structural properties."
+   ],
+   "negative_examples": [
+    "the six structural properties of the substratum, one of which is finiteness"
+   ],
+   "reason": "Counts the bijection's six structural properties as SM defines them (its sentence carries neither the list nor 'of the bijection', so the rule requires its context fingerprint); not the retired posit count.",
+   "author": "implementation-writer-20261123"
+  },
+  {
+   "id": "W1-b",
+   "kind": "allow",
+   "profiles": [
+    "count-grep"
+   ],
+   "scope": {
+    "files": [
+     "book/ch09-universality.md",
+     "book/The-Incompleteness-of-Observation-FULL.md"
+    ]
+   },
+   "matcher": {
+    "literal": "the six structural properties developed in Chapter 5",
+    "context": [
+     "isotropy, sublattice structure, link content"
+    ],
+    "negative": [
+     "A1",
+     "A1-A6",
+     "finit",
+     "assumption",
+     "axiom",
+     "of the substratum"
+    ]
+   },
+   "context_required": false,
+   "max_instances": 2,
+   "fingerprints": [
+    {
+     "file": "book/ch09-universality.md",
+     "sentence_sha256": "91cc0436fa8070b64a751e24226712247d674c7b37849c7662dd9087434752ac",
+     "context_sha256": "d03916e7d2af45af1dac795c18e4353f4a4c81383f92eaf8670b4626d793f0fd"
+    },
+    {
+     "file": "book/The-Incompleteness-of-Observation-FULL.md",
+     "sentence_sha256": "91cc0436fa8070b64a751e24226712247d674c7b37849c7662dd9087434752ac",
+     "context_sha256": "d03916e7d2af45af1dac795c18e4353f4a4c81383f92eaf8670b4626d793f0fd"
+    }
+   ],
+   "recorded_at": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+   "positive_examples": [
+    "the six structural properties developed in Chapter 5 (isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count)"
+   ],
+   "negative_examples": [
+    "the six structural properties developed in Chapter 5 (isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count), and finiteness"
+   ],
+   "reason": "Counts the bijection's six properties, enumerated in the sentence; not the retired posit count.",
+   "author": "implementation-writer-20261123"
+  },
+  {
+   "id": "W1-c",
+   "kind": "allow",
+   "profiles": [
+    "count-grep"
+   ],
+   "scope": {
+    "files": [
+     "book/ch19-open-problems.md",
+     "book/The-Incompleteness-of-Observation-FULL.md"
+    ]
+   },
+   "matcher": {
+    "literal": "one of the framework's six structural properties of the bijection",
+    "context": [
+     "of the bijection"
+    ],
+    "negative": [
+     "A1",
+     "A1-A6",
+     "finit",
+     "assumption",
+     "axiom",
+     "of the substratum"
+    ]
+   },
+   "context_required": false,
+   "max_instances": 2,
+   "fingerprints": [
+    {
+     "file": "book/ch19-open-problems.md",
+     "sentence_sha256": "d4a11b15d8ca936fcf87247d3669a45abbc86ed153ba85e04499e5b927b23721",
+     "context_sha256": "6c16e6e13e2e9f19820d37a939528e8fe01e749f1ab24f767f6972ca3647d0dd"
+    },
+    {
+     "file": "book/The-Incompleteness-of-Observation-FULL.md",
+     "sentence_sha256": "d4a11b15d8ca936fcf87247d3669a45abbc86ed153ba85e04499e5b927b23721",
+     "context_sha256": "6c16e6e13e2e9f19820d37a939528e8fe01e749f1ab24f767f6972ca3647d0dd"
+    }
+   ],
+   "recorded_at": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+   "positive_examples": [
+    "statistically isotropic (one of the framework's six structural properties of the bijection)"
+   ],
+   "negative_examples": [
+    "one of the framework's six structural properties of the bijection, namely total finiteness"
+   ],
+   "reason": "Names isotropy as one of the bijection's six properties; not the retired posit count.",
+   "author": "implementation-writer-20261123"
+  },
+  {
+   "id": "W1-d",
+   "kind": "allow",
+   "profiles": [
+    "count-grep"
+   ],
+   "scope": {
+    "files": [
+     "book/ch19-open-problems.md",
+     "book/The-Incompleteness-of-Observation-FULL.md"
+    ]
+   },
+   "matcher": {
+    "literal": "The framework's six structural properties of the bijection",
+    "context": [
+     "of the bijection"
+    ],
+    "negative": [
+     "A1",
+     "A1-A6",
+     "finit",
+     "assumption",
+     "axiom",
+     "of the substratum"
+    ]
+   },
+   "context_required": false,
+   "max_instances": 2,
+   "fingerprints": [
+    {
+     "file": "book/ch19-open-problems.md",
+     "sentence_sha256": "085a5e05d6e02f7ce357fd0bef703c27fab50937c99b261c7c6269f8066a8c6d",
+     "context_sha256": "7efefbd4ecebe38f37116e12492e69989bbc6953824b7bac4c62e1dc5f013519"
+    },
+    {
+     "file": "book/The-Incompleteness-of-Observation-FULL.md",
+     "sentence_sha256": "085a5e05d6e02f7ce357fd0bef703c27fab50937c99b261c7c6269f8066a8c6d",
+     "context_sha256": "7efefbd4ecebe38f37116e12492e69989bbc6953824b7bac4c62e1dc5f013519"
+    }
+   ],
+   "recorded_at": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+   "positive_examples": [
+    "The framework's six structural properties of the bijection (developed across Chapters 5-7) further narrow it."
+   ],
+   "negative_examples": [
+    "The framework's six structural properties of the bijection, one of which is total finiteness, further narrow it."
+   ],
+   "reason": "Counts the bijection's six properties; not the retired posit count.",
+   "author": "implementation-writer-20261123"
+  },
+  {
+   "id": "W2-a",
+   "kind": "allow",
+   "profiles": [
+    "ptr",
+    "repo"
+   ],
+   "scope": {
+    "files": [
+     "book/appendix-b-derivations.md",
+     "book/The-Incompleteness-of-Observation-FULL.md"
+    ]
+   },
+   "matcher": {
+    "literal": "(A1) $\\mathrm{SU}(3)^3$ anomaly",
+    "context": [
+     "anomaly"
+    ],
+    "negative": [
+     "Finiteness",
+     "finit",
+     "posit",
+     "substratum",
+     "configuration space"
+    ]
+   },
+   "context_required": false,
+   "max_instances": 2,
+   "fingerprints": [
+    {
+     "file": "book/appendix-b-derivations.md",
+     "sentence_sha256": "0b0e05e696577c8c383a95d2e4e09569029e281ec7999ebc6b5e46226bd37976",
+     "context_sha256": "bba1a3b016445e863f07d86bb7371cda38b23aeeae6722fea27933c11832f04d"
+    },
+    {
+     "file": "book/The-Incompleteness-of-Observation-FULL.md",
+     "sentence_sha256": "0b0e05e696577c8c383a95d2e4e09569029e281ec7999ebc6b5e46226bd37976",
+     "context_sha256": "bba1a3b016445e863f07d86bb7371cda38b23aeeae6722fea27933c11832f04d"
+    }
+   ],
+   "recorded_at": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+   "positive_examples": [
+    "(A1) $\\mathrm{SU}(3)^3$ anomaly: $\\sum_{\\text{triplets}} 1 - \\sum_{\\text{anti-triplets}} 1 = 0$"
+   ],
+   "negative_examples": [
+    "(A1) $\\mathrm{SU}(3)^3$ anomaly of the finite substratum"
+   ],
+   "reason": "The anomaly condition labelled (A1) in the anomaly-cancellation list; an unrelated label, not the retired posit.",
+   "author": "implementation-writer-20261123"
+  },
+  {
+   "id": "W2-b",
+   "kind": "allow",
+   "profiles": [
+    "ptr",
+    "repo"
+   ],
+   "scope": {
+    "files": [
+     "book/appendix-b-derivations.md",
+     "book/The-Incompleteness-of-Observation-FULL.md"
+    ]
+   },
+   "matcher": {
+    "literal": "(A1) is automatically satisfied",
+    "context": [
+     "\\mathrm{SU}(3)"
+    ],
+    "negative": [
+     "Finiteness",
+     "finit",
+     "posit",
+     "substratum",
+     "configuration space"
+    ]
+   },
+   "context_required": false,
+   "max_instances": 2,
+   "fingerprints": [
+    {
+     "file": "book/appendix-b-derivations.md",
+     "sentence_sha256": "32ebfb906b7213f85fb4407f71977e8b2bcace175ae0fb926726cf42096f024a",
+     "context_sha256": "7ee521657fdd230c8443be7bef909ecb23d3610746c067ef9cec7b03601878f1"
+    },
+    {
+     "file": "book/The-Incompleteness-of-Observation-FULL.md",
+     "sentence_sha256": "32ebfb906b7213f85fb4407f71977e8b2bcace175ae0fb926726cf42096f024a",
+     "context_sha256": "7ee521657fdd230c8443be7bef909ecb23d3610746c067ef9cec7b03601878f1"
+    }
+   ],
+   "recorded_at": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+   "positive_examples": [
+    "(A1) is automatically satisfied: $\\mathrm{SU}(3)$ is vector-like"
+   ],
+   "negative_examples": [
+    "(A1) is automatically satisfied: $\\mathrm{SU}(3)$ on a finite configuration space"
+   ],
+   "reason": "The anomaly condition (A1) of the same list; an unrelated label, not the retired posit.",
+   "author": "implementation-writer-20261123"
+  }
+ ]
+}

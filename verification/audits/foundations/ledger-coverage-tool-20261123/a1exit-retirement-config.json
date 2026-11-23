@@ -1,0 +1,689 @@
+{
+ "schema": "oi-retirement-config/1",
+ "config_id": "a1exit-retirement-config",
+ "version": 1,
+ "supersedes": null,
+ "notes": "UNREVIEWED DRAFT (Stage 1 implementation). No independent review, no owner authorization and no freeze F exist. Under the review chain the tool refuses it with ERROR CONFIG_UNREVIEWED. The ledger, edit list and plan checker are pinned at the frozen plan P until the amended plan is frozen at F.",
+ "retirement": {
+  "name": "A1-EXIT",
+  "issue": "#1169",
+  "owner": "amaybaum"
+ },
+ "roles": {
+  "scientific_base": "53c6601a10419b6b333cc992474272501ab542af",
+  "pin": "e837e3dbaa605efc867a213f3345cee14c36d8f5",
+  "record_commit": "53c6601a10419b6b333cc992474272501ab542af",
+  "side_change_classes": {
+   "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json",
+   "blob_sha256": "8027e8d928dbf822693d071ff6dc7d5fbd80dcbeee7a5af2cb6a6f181dcce1fa"
+  }
+ },
+ "corpus": {
+  "patterns": [
+   "^papers/[^/]+\\.md$",
+   "^book/[^/]+\\.md$"
+  ]
+ },
+ "adapters": {
+  "ledger": {
+   "adapter": "a1exit-exact-edit",
+   "adapter_version": 2,
+   "module": {
+    "path": "tools/ledger_coverage/adapters/a1exit_exact_edit.py",
+    "blob_sha256": "085ee24a15e88e65791c44d5fbda06d90da7368b9d59c8309b57363d0d56eb41"
+   },
+   "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+   "path": "verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+   "blob_sha256": "2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5",
+   "companion": [
+    {
+     "role": "edits",
+     "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+     "blob_sha256": "528f146d03b29cbc3d7dc29948e3dd1d4cd26f4d36e6e009f032e24f9462dec1"
+    },
+    {
+     "role": "checker",
+     "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
+     "blob_sha256": "2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c"
+    }
+   ]
+  },
+  "sitemap": {
+   "adapter": "a1exit-sitemap",
+   "adapter_version": 2,
+   "module": {
+    "path": "tools/ledger_coverage/adapters/a1exit_sitemap.py",
+    "blob_sha256": "b01001bc64d39367f00f9e36502933519ca0b28be3bd4af817679287698dd0e5"
+   },
+   "commit": "53c6601a10419b6b333cc992474272501ab542af",
+   "path": "verification/audits/foundations/a1exit-ledger-20261120/sitemap.json",
+   "blob_sha256": "586c526b52e2c6afc124a1a56fe5888abd2a89a4368af174aa303ceb390a2cb9",
+   "companion": [
+    {
+     "role": "rows",
+     "commit": "53c6601a10419b6b333cc992474272501ab542af",
+     "path": "verification/audits/foundations/a1exit-ledger-20261120/rows.json",
+     "blob_sha256": "39e51d0cfd8d6855f17ef3d7253a43d372fae608a9dcae083fbeb52471b512a0"
+    },
+    {
+     "role": "phase0",
+     "commit": "53c6601a10419b6b333cc992474272501ab542af",
+     "path": "verification/audits/foundations/a1-scope-phase0-20261120/sites.json",
+     "blob_sha256": "00165404a6411a219a875ea1d9d6187e1d0d8f9951637fbb31ca0280212b4a5f"
+    }
+   ]
+  },
+  "replay": {
+   "adapter": "python-frozen-replay",
+   "adapter_version": 1,
+   "module": {
+    "path": "tools/ledger_coverage/adapters/python_frozen_replay.py",
+    "blob_sha256": "79ad93539fb24ba9bce8ece8c140fdfbaf38dbcb9b38d60a5327bfd41b2e2b0a"
+   },
+   "module_path": "verification/audits/foundations/a1exit-ledger-20261120/ledger_check.py",
+   "record_tree": "b05efdca935a42b9c94ef1748c964696bf58fcd9",
+   "functions": [
+    "manuscript_digest",
+    "build",
+    "render",
+    "splice_block",
+    "check",
+    "extended_unmapped",
+    "self_test"
+   ]
+  }
+ },
+ "profiles": [
+  {
+   "name": "p0-core",
+   "kind": "review",
+   "applies_to": "tree",
+   "scope": "corpus",
+   "source": {
+    "commit": "53c6601a10419b6b333cc992474272501ab542af",
+    "path": "verification/audits/foundations/a1-scope-phase0-20261120/sites.json",
+    "extractor": {
+     "kind": "json-pointer",
+     "selector": "/core_patterns"
+    },
+    "blob_sha256": "00165404a6411a219a875ea1d9d6187e1d0d8f9951637fbb31ca0280212b4a5f"
+   },
+   "pattern_sha256": "939cafdad4dbcb47762af98a82a357bf2f1ff0da17408177d806eaff18204d93"
+  },
+  {
+   "name": "p0-para",
+   "kind": "review",
+   "applies_to": "tree",
+   "scope": "corpus",
+   "source": {
+    "commit": "53c6601a10419b6b333cc992474272501ab542af",
+    "path": "verification/audits/foundations/a1-scope-phase0-20261120/sites.json",
+    "extractor": {
+     "kind": "json-pointer",
+     "selector": "/paraphrase_patterns"
+    },
+    "blob_sha256": "00165404a6411a219a875ea1d9d6187e1d0d8f9951637fbb31ca0280212b4a5f"
+   },
+   "pattern_sha256": "28b482757bee068e79eaac85619b4fd0a0e6f23e4d72cdd2b8252fb22167bd42"
+  },
+  {
+   "name": "ledger-ext",
+   "kind": "review",
+   "applies_to": "tree",
+   "scope": "corpus",
+   "source": {
+    "commit": "53c6601a10419b6b333cc992474272501ab542af",
+    "path": "verification/audits/foundations/a1exit-ledger-20261120/ledger_check.py",
+    "extractor": {
+     "kind": "python-ast-assign",
+     "selector": "EXTENDED_PATTERNS"
+    },
+    "blob_sha256": "34314041cff64f01287bd195d33c61cd17882166e11bd1296b005e72d4ad78e8"
+   },
+   "pattern_sha256": "63f19fbfea68e9468aadcb5fa52685f1c4f15f38f4b376dc9d48de5c0ef25a2e"
+  },
+  {
+   "name": "ptr",
+   "kind": "review",
+   "applies_to": "tree",
+   "scope": "corpus",
+   "source": {
+    "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+    "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
+    "extractor": {
+     "kind": "python-ast-assign",
+     "selector": "PTR"
+    },
+    "blob_sha256": "2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c"
+   },
+   "pattern_sha256": "00a25f44c1adad9c9cc8de5097871336b15f56534e3d30394beedd2ad6a1ec5d"
+  },
+  {
+   "name": "repo",
+   "kind": "review",
+   "applies_to": "tree",
+   "scope": "repo",
+   "source": {
+    "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+    "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
+    "extractor": {
+     "kind": "python-ast-assign",
+     "selector": "REPO_PAT"
+    },
+    "blob_sha256": "2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c"
+   },
+   "pattern_sha256": "1664bdf1e5e12cb8d7b95e78e99a7d89f1cbab0d05d603ed4604a43bb5a6a80b"
+  },
+  {
+   "name": "count-grep",
+   "kind": "review",
+   "applies_to": "tree",
+   "scope": "corpus",
+   "source": {
+    "commit": null,
+    "path": null,
+    "extractor": {
+     "kind": "literal-list",
+     "selector": [
+      "Fourteen",
+      "six structural",
+      "sixth of"
+     ]
+    }
+   },
+   "pattern_sha256": "d8a72dbd7ffecc708ee24d2dcb0e3ceb457b4031ff7ec00b45516063f4f84a8a"
+  },
+  {
+   "name": "item7-literal",
+   "kind": "countercontrol",
+   "applies_to": "tree",
+   "scope": "corpus",
+   "source": {
+    "commit": null,
+    "path": null,
+    "extractor": {
+     "kind": "literal-list",
+     "selector": [
+      "Fourteen",
+      "six structural",
+      "sixth of"
+     ]
+    }
+   },
+   "report_regex": "\\bA1\\b",
+   "pattern_sha256": "d8a72dbd7ffecc708ee24d2dcb0e3ceb457b4031ff7ec00b45516063f4f84a8a"
+  },
+  {
+   "name": "register",
+   "kind": "deny",
+   "applies_to": "added-text",
+   "scope": "ledgered",
+   "source": {
+    "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+    "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
+    "extractor": {
+     "kind": "python-ast-assign",
+     "selector": "REG"
+    },
+    "blob_sha256": "2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c"
+   },
+   "pattern_sha256": "fae2274866d3a161c52750c7046c8336fb05f8bcaabe98c1291268a56f75e946"
+  },
+  {
+   "name": "register-caps",
+   "kind": "deny",
+   "applies_to": "added-text",
+   "scope": "ledgered",
+   "splice_kinds": [
+    "ptr",
+    "consistency",
+    "handoff"
+   ],
+   "source": {
+    "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+    "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
+    "extractor": {
+     "kind": "python-ast-assign",
+     "selector": "CAPS"
+    },
+    "blob_sha256": "2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c"
+   },
+   "except": {
+    "mode": "tokens",
+    "source": {
+     "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
+     "extractor": {
+      "kind": "python-ast-assign",
+      "selector": "CAPS_OK"
+     },
+     "blob_sha256": "2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c"
+    }
+   },
+   "pattern_sha256": "1e0fc5a833f5361c2d89d45a16016b636e164ebe4e589bb7c0aaf31dc5443014"
+  },
+  {
+   "name": "infinity",
+   "kind": "deny",
+   "applies_to": "added-text",
+   "scope": "ledgered",
+   "match_keys": [
+    {
+     "pattern": "finiteness\\b.*\\bfails",
+     "key": "finiteness fails"
+    }
+   ],
+   "replaced_text_rewrite": [
+    {
+     "pattern": "\\bA1\\b(?: \\(finiteness\\))?",
+     "replacement": "finiteness"
+    }
+   ],
+   "source": {
+    "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+    "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
+    "extractor": {
+     "kind": "python-ast-assign",
+     "selector": "INF"
+    },
+    "blob_sha256": "2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c"
+   },
+   "except": {
+    "mode": "spans",
+    "source": {
+     "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
+     "extractor": {
+      "kind": "python-ast-assign",
+      "selector": "NEUTRAL"
+     },
+     "blob_sha256": "2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c"
+    }
+   },
+   "pattern_sha256": "d6c4e97a4075e45982602d152b01171527ac8fd26e0aca14c2e5649ae94c07e5"
+  },
+  {
+   "name": "resid",
+   "kind": "review",
+   "applies_to": "added-text",
+   "scope": "corpus",
+   "levels": [
+    "line"
+   ],
+   "combine": "any",
+   "source": {
+    "commit": null,
+    "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/resid-v1.json",
+    "extractor": {
+     "kind": "json-pointer",
+     "selector": "/rules/0/patterns"
+    },
+    "blob_sha256": "7aa1412206f7bf5fec1d3573d76e1b91c0f6bc8f67704a1dcb75344d09aac221"
+   },
+   "pattern_sha256": "39a91e1a3d6a628adc889f83a034aa6399942d984c8dc8b3e963fdb0ff9a18d4"
+  },
+  {
+   "name": "DR-1",
+   "kind": "deny",
+   "applies_to": "tree",
+   "scope": "corpus",
+   "levels": [
+    "line",
+    "sentence"
+   ],
+   "combine": "any",
+   "source": {
+    "commit": null,
+    "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/dr-deny-v1.json",
+    "extractor": {
+     "kind": "json-pointer",
+     "selector": "/rules/0/patterns"
+    },
+    "blob_sha256": "daf3a8e231ace391f0037447d1266d1255df8dc015baaaa601fcc79b63cec6ae"
+   },
+   "pattern_sha256": "6e8e5cda3b386761043c23830ed629ebb9366b8548d5a997c4ac7fa6d0133368"
+  },
+  {
+   "name": "DR-3",
+   "kind": "deny",
+   "applies_to": "tree",
+   "scope": "corpus",
+   "levels": [
+    "sentence"
+   ],
+   "combine": "all",
+   "source": {
+    "commit": null,
+    "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/dr-deny-v1.json",
+    "extractor": {
+     "kind": "json-pointer",
+     "selector": "/rules/1/patterns"
+    },
+    "blob_sha256": "daf3a8e231ace391f0037447d1266d1255df8dc015baaaa601fcc79b63cec6ae"
+   },
+   "pattern_sha256": "ca9942f4dbf13728d3c9055b32e296378a18ee81982f56f1284ceef546cc6eed"
+  },
+  {
+   "name": "DR-4",
+   "kind": "deny",
+   "applies_to": "tree",
+   "scope": "corpus",
+   "levels": [
+    "line",
+    "sentence"
+   ],
+   "combine": "any",
+   "source": {
+    "commit": null,
+    "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/dr-deny-v1.json",
+    "extractor": {
+     "kind": "json-pointer",
+     "selector": "/rules/2/patterns"
+    },
+    "blob_sha256": "daf3a8e231ace391f0037447d1266d1255df8dc015baaaa601fcc79b63cec6ae"
+   },
+   "pattern_sha256": "f8db18e04bb603aed81386af55c37699c22bdaa036a3e68e223e92e315f4e72a"
+  },
+  {
+   "name": "DR-5",
+   "kind": "deny",
+   "applies_to": "tree",
+   "scope": "corpus",
+   "levels": [
+    "line",
+    "sentence"
+   ],
+   "combine": "any",
+   "source": {
+    "commit": null,
+    "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/dr-deny-v1.json",
+    "extractor": {
+     "kind": "json-pointer",
+     "selector": "/rules/3/patterns"
+    },
+    "blob_sha256": "daf3a8e231ace391f0037447d1266d1255df8dc015baaaa601fcc79b63cec6ae"
+   },
+   "pattern_sha256": "0d1e2360877eb31e392594f9fd38e70d9c075137d498e35a3a0ab2482f70482a"
+  }
+ ],
+ "checks": [
+  {
+   "id": "item1",
+   "profiles": [
+    "ptr"
+   ],
+   "final_profiles": []
+  },
+  {
+   "id": "item2",
+   "profiles": [
+    "p0-core",
+    "p0-para",
+    "ledger-ext"
+   ],
+   "final_profiles": [],
+   "default_for": [
+    "coverage"
+   ]
+  },
+  {
+   "id": "item5",
+   "profiles": [
+    "register",
+    "register-caps"
+   ],
+   "final_profiles": []
+  },
+  {
+   "id": "item6",
+   "profiles": [
+    "infinity"
+   ],
+   "final_profiles": []
+  },
+  {
+   "id": "item7",
+   "profiles": [
+    "ptr",
+    "count-grep",
+    "resid",
+    "DR-1",
+    "DR-3",
+    "DR-4",
+    "DR-5"
+   ],
+   "final_profiles": [
+    "ptr",
+    "count-grep"
+   ],
+   "default_for": [
+    "terms"
+   ]
+  },
+  {
+   "id": "item11",
+   "profiles": [
+    "repo"
+   ],
+   "final_profiles": [
+    "repo"
+   ]
+  }
+ ],
+ "rules": [
+  {
+   "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/dr-deny-v1.json",
+   "blob_sha256": "daf3a8e231ace391f0037447d1266d1255df8dc015baaaa601fcc79b63cec6ae"
+  },
+  {
+   "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/resid-v1.json",
+   "blob_sha256": "7aa1412206f7bf5fec1d3573d76e1b91c0f6bc8f67704a1dcb75344d09aac221"
+  },
+  {
+   "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/w1-w2-allow-v1.json",
+   "blob_sha256": "46f8597ae2eee200afd9693fb36cff2e3044b21d63ec69ab47069673d1db67b4"
+  }
+ ],
+ "context_mapping": {
+  "source_field": "s3",
+  "values": {
+   "visible (names the hypothesis); rewritten at deletion": false,
+   "visible (P0/P1/P2 disposition)": false,
+   "visible (applied splice)": false,
+   "visible (none: the (NR) corollary inserted by Phase 1 (E5/B-units); states the weaker condition)": false,
+   "n/a": false,
+   "not determined: Q3 census": true,
+   "not determined": true,
+   "per unit regression audit (#1468)": true,
+   "per unit Q1 corrections (Step 2)": true,
+   "per unit Step-2 phase": true,
+   "per unit R6 corrections (Step 2)": true,
+   "per unit R1/R2 scoping": true,
+   "per unit Q2": true
+  },
+  "default": "invalid"
+ },
+ "indicators": {
+  "strip": [
+   "^\\s*(?:>\\s*)*(?:#{1,6}\\s+)?(?:(?:[-*+]|\\d+[.)])\\s+)?[*_]*"
+  ],
+  "definitions": [
+   {
+    "name": "anaph",
+    "on": "stripped",
+    "effect": "meaning",
+    "patterns": [
+     "^(This|These|Such|Hence|Thus|It|Under this)\\b"
+    ]
+   },
+   {
+    "name": "list",
+    "on": "line",
+    "effect": "structure-list",
+    "patterns": [
+     "^\\s*(>\\s*)*([-*+]|\\d+[.)])\\s+",
+     "^\\s*(>\\s*)*(([-*+]|\\d+[.)])\\s+)?[*_]{0,2}\\(\\s*([A-Z]{1,3}\\d{1,2}[a-z]?|[ivx]{1,4})\\s*\\)"
+    ]
+   },
+   {
+    "name": "table",
+    "on": "line",
+    "effect": "structure-table",
+    "patterns": [
+     "^\\s*\\|"
+    ]
+   },
+   {
+    "name": "partial_quote",
+    "on": "quote",
+    "effect": "info"
+   }
+  ],
+  "list_item_patterns": [
+   "^\\s*(>\\s*)*([-*+]|\\d+[.)])\\s+",
+   "^\\s*(>\\s*)*(([-*+]|\\d+[.)])\\s+)?[*_]{0,2}\\(\\s*([A-Z]{1,3}\\d{1,2}[a-z]?|[ivx]{1,4})\\s*\\)"
+  ],
+  "table_row_pattern": "^\\s*\\|",
+  "caption_prefixes": [
+   "Table:",
+   ": "
+  ]
+ },
+ "sentence": {
+  "splitter_version": 2,
+  "abbreviations": [
+   "sec.",
+   "Sec.",
+   "e.g.",
+   "i.e.",
+   "cf.",
+   "Fig.",
+   "Eq.",
+   "Eqs.",
+   "No.",
+   "vs.",
+   "et al.",
+   "Ch.",
+   "App.",
+   "Thm.",
+   "Prop.",
+   "Lem."
+  ]
+ },
+ "hp_obligations": [
+  {
+   "segment": [
+    "e837e3dbaa605efc867a213f3345cee14c36d8f5",
+    "53c6601a10419b6b333cc992474272501ab542af"
+   ],
+   "merges": [
+    {
+     "pr": "#1470",
+     "commit": "0cd5d5bfb4f6641c8b08706c4eb636ee730ebbf0",
+     "first_parent": "1c7eedc402eafd2bac654484fa790874a33f444d"
+    },
+    {
+     "pr": "#1473",
+     "commit": "a1f38284d21338b66119c870a551a670c73e3fa7",
+     "first_parent": "f1c8c6b18b245c2faaa68abb464d70ab332b7bec"
+    },
+    {
+     "pr": "#1474",
+     "commit": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+     "first_parent": "a1f38284d21338b66119c870a551a670c73e3fa7"
+    },
+    {
+     "pr": "#1472",
+     "commit": "4de2eabd6c7c88dc214db70a813ec44b8641b630",
+     "first_parent": "0adc410c4ad8c3ff51fc77ebb2e055506d758fc8"
+    },
+    {
+     "pr": "#1475",
+     "commit": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+     "first_parent": "4de2eabd6c7c88dc214db70a813ec44b8641b630"
+    },
+    {
+     "pr": "#1494",
+     "commit": "53c6601a10419b6b333cc992474272501ab542af",
+     "first_parent": "fd9f99cc8866bd4f4244298f819fa99d5c707fba"
+    }
+   ]
+  }
+ ],
+ "delegation": {
+  "path": "verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json",
+  "blob_sha256": "367aa13891606147f9f9a1d3651673ac7815a7a8a206ac88dd293976aa9f56bb",
+  "class_adapters": [
+   {
+    "adapter": "preserve-check-v1",
+    "adapter_version": 1,
+    "module": {
+     "path": "tools/ledger_coverage/adapters/deleg_preserve_check.py",
+     "blob_sha256": "45192e07aacee9007b3ebd81eb48b6e34784e6a52e3e506661f7e2bf7cda9f73"
+    }
+   },
+   {
+    "adapter": "record-dir",
+    "adapter_version": 1,
+    "module": {
+     "path": "tools/ledger_coverage/adapters/deleg_record_dir.py",
+     "blob_sha256": "bb1535784789e26ab270f846cdf0ba02add83656ef10f57c58e26bb137bff735"
+    }
+   },
+   {
+    "adapter": "rerun-equal",
+    "adapter_version": 1,
+    "module": {
+     "path": "tools/ledger_coverage/adapters/deleg_rerun_equal.py",
+     "blob_sha256": "43b3ee6a2f42a00f2facdc1c47c8c3ff8edeb7cbcc67f92b6049d41f13b61ca8"
+    }
+   },
+   {
+    "adapter": "fingerprint-regen",
+    "adapter_version": 1,
+    "module": {
+     "path": "tools/ledger_coverage/adapters/deleg_fingerprint_regen.py",
+     "blob_sha256": "5489f71c9919a54c8436bf089075e6a7b0d5eaeca043ca26b6550ac173ee47a6"
+    }
+   },
+   {
+    "adapter": "host-run",
+    "adapter_version": 1,
+    "module": {
+     "path": "tools/ledger_coverage/adapters/deleg_host_run.py",
+     "blob_sha256": "a20af64dd6678a933332d3a296f3f41b25320e5637a43dd5f4e9bc3e76412ba1"
+    }
+   }
+  ]
+ },
+ "records": [
+  {
+   "kind": "scope",
+   "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/repo-scope-v1.json",
+   "blob_sha256": "32afecca8e371a1f51217a70058676144e874b24526ca0becddea04e2c12df42"
+  },
+  {
+   "kind": "side-change-classes",
+   "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json",
+   "blob_sha256": "8027e8d928dbf822693d071ff6dc7d5fbd80dcbeee7a5af2cb6a6f181dcce1fa"
+  },
+  {
+   "kind": "hit-classification",
+   "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/gr58-hit-classification-v1.json",
+   "blob_sha256": "8177b0923a7eddf09c473ce541e4c23de53067429a31d52260aa35f0bafa8410"
+  }
+ ],
+ "operations": [
+  "record",
+  "coverage",
+  "execution",
+  "terms"
+ ],
+ "controls": {
+  "path": "verification/audits/foundations/ledger-coverage-tool-20261123/controls.json",
+  "blob_sha256": "23b480729816aae94dcc98cd00d28f35827853424112d093fbff91e4c8d9226a"
+ },
+ "author": "implementation-writer-20261123"
+}

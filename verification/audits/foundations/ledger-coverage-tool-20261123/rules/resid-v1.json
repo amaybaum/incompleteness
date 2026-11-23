@@ -1,0 +1,41 @@
+{
+ "schema": "oi-term-rules/2",
+ "record_id": "a1-resid-v1",
+ "status": "UNREVIEWED DRAFT: prepared by the implementation writer; no independent review and no owner authorization exist. The tool does not admit it under the review chain.",
+ "supersedes": null,
+ "recorded_at": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+ "author": "implementation-writer-20261123",
+ "rules": [
+  {
+   "id": "resid",
+   "kind": "review-pattern",
+   "patterns": {
+    "a": "(?i)\\b(?:configuration|state|phase)\\s+spaces?\\b[^.;]{0,40}\\b(?:is|be|being|are|remains?)\\s+(?:\\w+\\s+)?finite\\b|\\b(?:posits?|premises?|axioms?|assumptions?|hypothes[ie]s)\\b[^.;]{0,60}\\bfinit\\w*|\\bfinit\\w*[^.;]{0,60}\\b(?:posits?|premises?|axioms?|assumptions?|hypothes[ie]s)\\b",
+    "b": "(?i)\\bfinite\\s+(?:\\w+\\s+)?set\\b|\\b(?:substratum|universe|world)\\b[^.;]{0,40}\\b(?:is|be|being|are)\\s+(?:a\\s+)?(?:\\w+\\s+)?finite\\b",
+    "c": "(?i)\\bfinite\\s+(?:number|count)\\s+of\\s+(?:\\w+\\s+)?(?:states|configurations|elements|points|sites)\\b"
+   },
+   "combine": "any",
+   "levels": [
+    "line"
+   ],
+   "scope": "all-corpus",
+   "positive_examples": [
+    "one of the posits is that the configuration space is finite",
+    "a finite set with a deterministic bijection on it",
+    "uses a finite set with a deterministic bijection",
+    "the substratum is a finite set with a bijection on it",
+    "We take the substratum to be finite.",
+    "the universe is assumed finite",
+    "The substratum is assumed to have a finite number of states.",
+    "the substratum's sixth axiom, finiteness"
+   ],
+   "negative_examples": [
+    "the framework's sixth structural property, finiteness of the bijection",
+    "The framework's sixth structural property is finiteness of the substratum",
+    "the six posits of the substratum"
+   ],
+   "reason": "Residual review profile on added text (design sec. 6.6, widened in v5): REVIEW for lexically unanchored paraphrases of the retired posit. Its negative examples are documented residuals that it does not catch (design sec. 1, sec. 15 items 2 and 3).",
+   "author": "implementation-writer-20261123"
+  }
+ ]
+}

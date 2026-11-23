@@ -1,0 +1,37 @@
+{
+ "schema": "oi-scope/1",
+ "record_id": "repo-scope-v1",
+ "status": "UNREVIEWED DRAFT: prepared by the implementation writer; no independent review and no owner authorization exist. The tool does not admit it under the review chain.",
+ "author": "implementation-writer-20261123",
+ "profile": "repo",
+ "statement": "Scope of the repo profile (design sec. 11 item 11): every tracked text file, less historical records and generated artifacts, as the frozen plan checker classifies them.",
+ "source": {
+  "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+  "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
+  "names": [
+   "HISTORICAL_PREFIX",
+   "HISTORICAL_FILE",
+   "ACTIVE_IN_RECORDS"
+  ]
+ },
+ "exclude_prefixes": [
+  "verification/audits/",
+  "verification/programmes/",
+  "verification/infrastructure/",
+  "verification/receipts/",
+  "verification/seals/",
+  "verification/certificates/",
+  "evidence/"
+ ],
+ "exclude_files": [
+  "verification/ROADMAP.md",
+  "verification/MIGRATION-MANIFEST.md",
+  "verification/migration-manifest.json"
+ ],
+ "include_patterns_within_excluded": [
+  "^verification/programmes/(?:.*/)?(?:PROGRAMME|README)\\.md$"
+ ],
+ "exclude_patterns": [
+  "^(?:papers|book)/.*\\.(?:tex|pdf)$"
+ ]
+}

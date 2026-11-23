@@ -1,0 +1,1267 @@
+{
+ "schema": "oi-a1-controls/1",
+ "record_id": "a1exit-controls-v1",
+ "status": "UNREVIEWED DRAFT: the preregistered A1 control set with the design's expected outcomes (DESIGN v5.1 sec. 10, 11, 13). Not reviewed or authorized.",
+ "author": "implementation-writer-20261123",
+ "design": {
+  "name": "DESIGN-v5.1",
+  "sha256": "0c4ff0e60331d0e9604ece0c997dec472b3f977bf24384676d74f850bff4a3fe"
+ },
+ "control_inputs": [
+  {
+   "id": "agents-md-at-H",
+   "commit": "53c6601a10419b6b333cc992474272501ab542af",
+   "path": "AGENTS.md",
+   "blob": "12a9281fb88c14395b6715a3bf4b4f6b030f433c",
+   "sha256": "d87acac54b5f6392af3323630236d98b14bb4d485d10c0ff56b20806b0883e27"
+  },
+  {
+   "id": "agents-md-at-T1p",
+   "commit": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+   "path": "AGENTS.md",
+   "sha256": "59b68984e659ef808819e02d4653d80388f8bd2f4c009796b162fc2453882ce2"
+  }
+ ],
+ "controls": [
+  {
+   "id": "RT-A",
+   "operations": [
+    "record"
+   ],
+   "direction": "positive",
+   "case": "record --pin E --record H",
+   "expect": {
+    "outcome": "PASS",
+    "classes": []
+   },
+   "by": "",
+   "reference": "frozen replay: 0 errors; 697 anchors"
+  },
+  {
+   "id": "X1",
+   "operations": [
+    "record"
+   ],
+   "direction": "adversarial",
+   "case": "record --pin H",
+   "expect": {
+    "outcome": "ERROR",
+    "classes": [
+     "PIN_MISMATCH"
+    ]
+   },
+   "by": "sec. 5"
+  },
+  {
+   "id": "RT-E",
+   "operations": [
+    "coverage"
+   ],
+   "direction": "positive",
+   "case": "coverage --commit E",
+   "expect": {
+    "outcome": "PASS",
+    "classes": []
+   },
+   "by": "",
+   "reference": "697 unchanged"
+  },
+  {
+   "id": "RT-H0",
+   "operations": [
+    "coverage"
+   ],
+   "direction": "adversarial",
+   "case": "coverage --commit H, no HP records",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "hp-unadjudicated",
+     "context-meaning-unverified",
+     "context-structure-changed"
+    ]
+   },
+   "by": "",
+   "reference": "113 hp-unadjudicated; 7 HP context-meaning-unverified; 3 HP context-structure-changed; every FAIL and indicator item has obligation HP"
+  },
+  {
+   "id": "RT-T0",
+   "operations": [
+    "coverage"
+   ],
+   "direction": "adversarial",
+   "case": "coverage at X = T1', no records",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "hp-unadjudicated",
+     "untracked-hp-overlap",
+     "context-meaning-unverified",
+     "context-structure-changed"
+    ]
+   },
+   "by": "",
+   "reference": "HP: 113 hp-unadjudicated, 7 context FAILs, 3 structure REVIEWs. RET: 19 untracked-hp-overlap, 5 context-meaning-unverified, 3 context-structure-changed. Deny: 0. 383 unchanged (168 moved), 197 replaced, 4 removed; 9 merger groups covering 22 sites"
+  },
+  {
+   "id": "RT-T",
+   "operations": [
+    "coverage"
+   ],
+   "direction": "positive",
+   "case": "RT-T0 with all reviewed records of sec. 8.2",
+   "expect": {
+    "outcome": "PASS",
+    "classes": []
+   },
+   "by": "",
+   "reference": "PASS only when every record verifies; any missing record leaves REVIEW_REQUIRED or FAIL"
+  },
+  {
+   "id": "RT-C",
+   "operations": [
+    "execution"
+   ],
+   "direction": "positive",
+   "case": "execution at X = T1' with F = the amended freeze",
+   "expect": {
+    "outcome": "PASS",
+    "classes": []
+   },
+   "by": "",
+   "reference": "399 splices verified at H; 23 corpus and 21 other ledgered files conform, except LEDGER.json under coverage-ledger; PASS only with contract evidence"
+  },
+  {
+   "id": "RT-D",
+   "operations": [
+    "terms"
+   ],
+   "direction": "positive",
+   "case": "terms --commit T1' --base H --ledger F:ledger.json",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes": [
+     "unclassified"
+    ]
+   },
+   "by": "",
+   "reference": "0 deny matches; W1 and W2 PASS with their rules, else REVIEW; GR.md:58 PASS with its record, else REVIEW; resid 17 lines REVIEW until classified"
+  },
+  {
+   "id": "RT-DR",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "terms --commit H --profile DR-1,DR-3,DR-4,DR-5",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "deny-match"
+    ]
+   },
+   "by": "",
+   "reference": "at H: DR-1 61 lines (a 6, b 2, c 55), DR-3 0, DR-4 28, DR-5 1, 86 distinct lines; at E: 95; at T1' 0 lines and 0 sentences",
+   "targets": [
+    {
+     "rule": "DR-1",
+     "alternative": "a",
+     "file": "book/The-Incompleteness-of-Observation-FULL.md",
+     "line": 6504
+    },
+    {
+     "rule": "DR-1",
+     "alternative": "a",
+     "file": "book/glossary.md",
+     "line": 13
+    },
+    {
+     "rule": "DR-1",
+     "alternative": "b",
+     "file": "book/ch09-universality.md",
+     "line": 104
+    },
+    {
+     "rule": "DR-1",
+     "alternative": "c",
+     "file": "book/The-Incompleteness-of-Observation-FULL.md",
+     "line": 718
+    },
+    {
+     "rule": "DR-4",
+     "file": "papers/Substratum.md",
+     "line": 92
+    },
+    {
+     "rule": "DR-5",
+     "file": "papers/Main.md",
+     "line": 736
+    }
+   ]
+  },
+  {
+   "id": "RT-DR3W",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "control-only scan of AGENTS.md at H with DR-3 alone; countercontrol AGENTS.md at T1'",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "deny-match"
+    ]
+   },
+   "by": "",
+   "reference": "exactly one DR-3 sentence at H, starting on line 37 and including lines 37-38; 0 at T1'"
+  },
+  {
+   "id": "RT-I7",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "terms --commit T1' --profile item7-literal; the same at H",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "item7-literal-match"
+    ]
+   },
+   "by": "",
+   "reference": "T1': 7 \"six structural\" lines, 0 \"Fourteen\", 0 \"sixth of\"; \\bA1\\b 4. H: 11 / 1 / 2; \\bA1\\b 179"
+  },
+  {
+   "id": "RT-I7A",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "the proposed item-7 amendment check at H and at T1', no records",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "deny-match",
+     "final-unclassified"
+    ]
+   },
+   "by": "",
+   "reference": "H: 86 deny lines (line level; 93 with sentence attribution) and 123 final-unclassified lines (209 FAIL lines); all 95 retired lines FAIL. T1': 0 deny lines; 12 final-unclassified lines"
+  },
+  {
+   "id": "SW1",
+   "operations": [
+    "coverage"
+   ],
+   "direction": "adversarial",
+   "case": "per-site sweep at E: each of the 697 sites, one token deleted",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "unauthorized-change"
+    ]
+   },
+   "by": "",
+   "reference": "exactly one FAIL naming that site"
+  },
+  {
+   "id": "SW2",
+   "operations": [
+    "coverage"
+   ],
+   "direction": "adversarial",
+   "case": "per-site sweep at H: each of the 584 sites",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "unauthorized-change"
+    ]
+   },
+   "by": "",
+   "reference": "exactly one FAIL naming that site"
+  },
+  {
+   "id": "L1",
+   "operations": [
+    "terms"
+   ],
+   "direction": "positive",
+   "case": "the W1 sentence shifted by 40 lines",
+   "expect": {
+    "outcome": "PASS",
+    "classes": []
+   },
+   "by": "W1 rule"
+  },
+  {
+   "id": "L2",
+   "operations": [
+    "terms"
+   ],
+   "direction": "positive",
+   "case": "the W2 lines moved",
+   "expect": {
+    "outcome": "PASS",
+    "classes": []
+   },
+   "by": "W2 rule"
+  },
+  {
+   "id": "L3",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "a W1 sentence copied inside scope",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "rule-overreach"
+    ]
+   },
+   "by": "max_instances"
+  },
+  {
+   "id": "L4",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "a W1 sentence copied outside scope",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes": [
+     "unclassified"
+    ]
+   },
+   "by": "scope"
+  },
+  {
+   "id": "V1",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "\"The six structural properties of the substratum are listed in Chapter 2.\"",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "deny-match"
+    ]
+   },
+   "by": "DR-1b"
+  },
+  {
+   "id": "V2",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "ch19:212 edited to \"six structural properties, one of which is total finiteness,\"",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "deny-match"
+    ]
+   },
+   "by": "DR-3"
+  },
+  {
+   "id": "V3",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "\"(A1) the substratum is finite in total\" in appendix B",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "deny-match"
+    ]
+   },
+   "by": "DR-4"
+  },
+  {
+   "id": "V4",
+   "operations": [
+    "terms"
+   ],
+   "direction": "positive",
+   "case": "\"the framework's sixth structural property, finiteness of the bijection\"",
+   "expect": {
+    "outcome": "PASS",
+    "classes": []
+   },
+   "by": "accepted residual (V5-D1)"
+  },
+  {
+   "id": "V27",
+   "operations": [
+    "terms"
+   ],
+   "direction": "positive",
+   "case": "\"The framework's sixth structural property is finiteness of the substratum\", alone and as the edited glossary.md:13 line",
+   "expect": {
+    "outcome": "PASS",
+    "classes": []
+   },
+   "by": "accepted residual (V5-D1)"
+  },
+  {
+   "id": "V5",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "\"**(A1) Finiteness.** The configuration space is finite.\" in appendix B",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "deny-match"
+    ]
+   },
+   "by": "DR-4"
+  },
+  {
+   "id": "V6",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "\"the six structural properties of the substratum, including finiteness\"",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "deny-match"
+    ]
+   },
+   "by": "DR-1b and DR-3"
+  },
+  {
+   "id": "V7a",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "V2 with DR-3 removed, inside W1-d scope",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "rule-negative-match"
+    ]
+   },
+   "by": "W1's negative matcher"
+  },
+  {
+   "id": "V7b",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "V2 text outside every W1 scope, DR-3 removed",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes": [
+     "unclassified"
+    ]
+   },
+   "by": "p0-core and count-grep hits with no rule"
+  },
+  {
+   "id": "V7c",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "a W1 sentence edited with no negative literal",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes": [
+     "rule-fingerprint-mismatch"
+    ]
+   },
+   "by": "sec. 6.2 step 4"
+  },
+  {
+   "id": "V9",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "\"Six structural assumptions define the substratum.\"",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "deny-match"
+    ]
+   },
+   "by": "DR-1a"
+  },
+  {
+   "id": "V10",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "\"the six structural conditions on the substratum\"",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "deny-match"
+    ]
+   },
+   "by": "DR-1a"
+  },
+  {
+   "id": "V11",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "\"six structural premises of the framework\"",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "deny-match"
+    ]
+   },
+   "by": "DR-1a"
+  },
+  {
+   "id": "V12",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "\"the six substratum posits\"",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "deny-match"
+    ]
+   },
+   "by": "DR-1a"
+  },
+  {
+   "id": "V13",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "\"the structural assumptions A1 through A6\"",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "deny-match"
+    ]
+   },
+   "by": "DR-1c"
+  },
+  {
+   "id": "V14",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "\"A1--A6\"; \"A1—A6\"; \"(A1)–(A6)\"; \"A1, ..., A6\"",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "deny-match"
+    ]
+   },
+   "by": "DR-1c"
+  },
+  {
+   "id": "V15",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "\"the substratum's sixth axiom, finiteness\"",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes": [
+     "unclassified"
+    ]
+   },
+   "by": "resid (resid-a)"
+  },
+  {
+   "id": "V16",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "\"posit A1 (finiteness) holds\"",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "deny-match"
+    ]
+   },
+   "by": "DR-4"
+  },
+  {
+   "id": "V17",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "\"A1 (Finiteness): the configuration space is finite\"",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "deny-match"
+    ]
+   },
+   "by": "DR-4"
+  },
+  {
+   "id": "V18",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "\"(A1) Finiteness. The configuration space S is finite.\"",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "deny-match"
+    ]
+   },
+   "by": "DR-4"
+  },
+  {
+   "id": "V19",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "\"The posit ledger has 14 items.\"",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "deny-match"
+    ]
+   },
+   "by": "DR-5"
+  },
+  {
+   "id": "V20",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "\"the six structural properties of the bijection, the first being finiteness of S\"",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "deny-match"
+    ]
+   },
+   "by": "DR-3"
+  },
+  {
+   "id": "V21",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "\"one of the posits is that the configuration space is finite\"",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes": [
+     "unclassified"
+    ]
+   },
+   "by": "resid only"
+  },
+  {
+   "id": "V22",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "Main.md:736's H sentence reinstated",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "deny-match"
+    ]
+   },
+   "by": "DR-5"
+  },
+  {
+   "id": "N-W",
+   "operations": [
+    "terms"
+   ],
+   "direction": "positive",
+   "case": "every W1 and W2 line at T1', and Main.md:738",
+   "expect": {
+    "outcome": "PASS",
+    "classes": []
+   },
+   "by": "negative examples"
+  },
+  {
+   "id": "V23",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "ch02:136 at H reinstated; item 7 with --final",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "final-unclassified"
+    ]
+   },
+   "by": "sec. 5, 11 note 1"
+  },
+  {
+   "id": "V24",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "\"six structural hypotheses\" added; item 7 with --final",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "final-unclassified"
+    ]
+   },
+   "by": "V3"
+  },
+  {
+   "id": "V25",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "V23 and V24 without --final; a W2 line with its rule under --final; a resid-only hit under --final",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes": [
+     "unclassified"
+    ]
+   },
+   "by": "sec. 5"
+  },
+  {
+   "id": "V26",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "five resid-b/resid-c strings added one at a time",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes": [
+     "unclassified"
+    ]
+   },
+   "by": "resid (b, b, b, b, c)"
+  },
+  {
+   "id": "A1r",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "rule scope widened to book/",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "record-invalid"
+    ]
+   },
+   "by": "sec. 6.3"
+  },
+  {
+   "id": "A2r",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "literal shortened to (A1)",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "record-invalid"
+    ]
+   },
+   "by": "widening"
+  },
+  {
+   "id": "A3r",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "fingerprint swapped, no widening review",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "record-invalid"
+    ]
+   },
+   "by": "widening"
+  },
+  {
+   "id": "A4r",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "widening review signed by the author",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "record-invalid"
+    ]
+   },
+   "by": "reviewer is not the author"
+  },
+  {
+   "id": "A5r",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "allow rule fingerprinting a sentence a deny rule matches",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "deny-match"
+    ]
+   },
+   "by": "deny precedence"
+  },
+  {
+   "id": "A6r",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "literal not covering the trigger",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "record-invalid"
+    ]
+   },
+   "by": "trigger definition"
+  },
+  {
+   "id": "A7r",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "reused rule id",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "record-invalid"
+    ]
+   },
+   "by": "id rule"
+  },
+  {
+   "id": "A8r",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "allow rule with no negative example",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "record-invalid"
+    ]
+   },
+   "by": "examples"
+  },
+  {
+   "id": "A9r",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "rule widened by one alternation",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "record-invalid"
+    ]
+   },
+   "by": "widening and examples"
+  },
+  {
+   "id": "A10r",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "deny rule narrowed in scope",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "record-invalid"
+    ]
+   },
+   "by": "deny widening"
+  },
+  {
+   "id": "A11r",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "deny rule whose countercontrol no longer matches",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "record-invalid"
+    ]
+   },
+   "by": "countercontrols"
+  },
+  {
+   "id": "S1r",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "a fingerprinted sentence edited",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes": [
+     "rule-fingerprint-mismatch"
+    ]
+   },
+   "by": "sec. 6.2"
+  },
+  {
+   "id": "S2r",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "a fingerprinted sentence deleted",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes": [
+     "rule-stale"
+    ]
+   },
+   "by": ""
+  },
+  {
+   "id": "G1",
+   "operations": [
+    "execution"
+   ],
+   "direction": "adversarial",
+   "case": "delegated result whose candidate is an abbreviation",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "delegated-evidence-invalid"
+    ]
+   },
+   "by": "sec. 7.2"
+  },
+  {
+   "id": "G2",
+   "operations": [
+    "execution"
+   ],
+   "direction": "adversarial",
+   "case": "no delegated result supplied",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes": [
+     "delegated-evidence-missing"
+    ]
+   },
+   "by": "sec. 7.2"
+  },
+  {
+   "id": "G3",
+   "operations": [
+    "execution"
+   ],
+   "direction": "adversarial",
+   "case": "LEDGER.json with one STALE id removed",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "delegated-evidence-invalid"
+    ]
+   },
+   "by": "sec. 7.3"
+  },
+  {
+   "id": "S11-1",
+   "operations": [
+    "execution"
+   ],
+   "direction": "adversarial",
+   "case": "sec. 11 row 1 countercontrol: one splice reverted in X",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "unauthorized-edit"
+    ]
+   },
+   "by": "sec. 11"
+  },
+  {
+   "id": "S11-2",
+   "operations": [
+    "execution"
+   ],
+   "direction": "adversarial",
+   "case": "sec. 11 row 2 countercontrol: frozen self-test countercontrols at E",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "missing"
+    ]
+   },
+   "by": "sec. 11"
+  },
+  {
+   "id": "S11-3",
+   "operations": [
+    "execution"
+   ],
+   "direction": "adversarial",
+   "case": "sec. 11 row 3 countercontrol: evidence from another head_sha",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "delegated-evidence-invalid"
+    ]
+   },
+   "by": "sec. 11"
+  },
+  {
+   "id": "S11-4",
+   "operations": [
+    "execution"
+   ],
+   "direction": "adversarial",
+   "case": "sec. 11 row 4 countercontrol: one STALE value altered",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "delegated-evidence-invalid"
+    ]
+   },
+   "by": "sec. 11"
+  },
+  {
+   "id": "S11-5",
+   "operations": [
+    "execution"
+   ],
+   "direction": "adversarial",
+   "case": "sec. 11 row 5 countercontrol: a splice adding \"no longer\"",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "deny-match"
+    ]
+   },
+   "by": "sec. 11"
+  },
+  {
+   "id": "S11-6",
+   "operations": [
+    "execution"
+   ],
+   "direction": "adversarial",
+   "case": "sec. 11 row 6 countercontrol: a splice adding \"is infinite\"",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "deny-match"
+    ]
+   },
+   "by": "sec. 11"
+  },
+  {
+   "id": "S11-7",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "sec. 11 row 7 countercontrol: \"Fourteen items\" reinstated",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "item7-literal-match",
+     "deny-match"
+    ]
+   },
+   "by": "sec. 11"
+  },
+  {
+   "id": "S11-8",
+   "operations": [
+    "execution"
+   ],
+   "direction": "adversarial",
+   "case": "sec. 11 row 8 countercontrol: FULL mirror text altered",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "mirror-mismatch"
+    ]
+   },
+   "by": "sec. 11"
+  },
+  {
+   "id": "S11-9",
+   "operations": [
+    "execution"
+   ],
+   "direction": "adversarial",
+   "case": "sec. 11 row 9 countercontrol: one registry splice dropped",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "unauthorized-edit"
+    ]
+   },
+   "by": "sec. 11"
+  },
+  {
+   "id": "S11-10",
+   "operations": [
+    "execution"
+   ],
+   "direction": "adversarial",
+   "case": "sec. 11 row 10 countercontrol: a Lean definition changed",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "lean-code-change"
+    ]
+   },
+   "by": "sec. 11"
+  },
+  {
+   "id": "S11-11",
+   "operations": [
+    "terms"
+   ],
+   "direction": "adversarial",
+   "case": "sec. 11 row 11 countercontrol: a new unexplained A1 line in a new active file, item 11 --final",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "final-unclassified"
+    ]
+   },
+   "by": "sec. 11"
+  },
+  {
+   "id": "S11-12",
+   "operations": [
+    "execution"
+   ],
+   "direction": "adversarial",
+   "case": "sec. 11 row 12 countercontrol: a guard-pin splice dropped",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "pin-broken"
+    ]
+   },
+   "by": "sec. 11"
+  },
+  {
+   "id": "S11-13",
+   "operations": [
+    "execution"
+   ],
+   "direction": "adversarial",
+   "case": "sec. 11 row 13 countercontrol: the SC-42 result hand-edited",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "delegated-evidence-invalid"
+    ]
+   },
+   "by": "sec. 11"
+  },
+  {
+   "id": "S11-14",
+   "operations": [
+    "execution"
+   ],
+   "direction": "adversarial",
+   "case": "sec. 11 row 14 countercontrol: an extra word in an unledgered file of X; L dropping W's workflow",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "unauthorized-change",
+     "landing-drops-main-change"
+    ]
+   },
+   "by": "sec. 11"
+  },
+  {
+   "id": "RT-X",
+   "operations": [
+    "execution"
+   ],
+   "direction": "positive",
+   "case": "--scientific-base H --main W --candidate T1'",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes": [
+     "delegated-evidence-missing"
+    ]
+   },
+   "by": "",
+   "reference": "candidate checks as RT-C; one side change (.github/workflows/a1exit-trial-verify.yml) classified; no RET item from it"
+  },
+  {
+   "id": "RT-L",
+   "operations": [
+    "execution"
+   ],
+   "direction": "positive",
+   "case": "in-memory landing with parents (W, T1')",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes": []
+   },
+   "by": "",
+   "reference": "composition PASS; the workflow at L equals W's blob; the mutant with H's copy FAILs landing-drops-main-change"
+  },
+  {
+   "id": "RT-L2",
+   "operations": [
+    "execution"
+   ],
+   "direction": "adversarial",
+   "case": "predicted M containing the tool's landing paths",
+   "expect": {
+    "outcome": "FAIL",
+    "classes": [
+     "base-drift"
+    ]
+   },
+   "by": "",
+   "reference": "sec. 13.4: must show every side change classified and no base-drift; at M = main 4fb2c1ee, AGENTS.md (a ledgered path, splice D296) changed by the sec. A.49 merge is base-drift, and .claude/settings.json is an unclassified side change"
+  }
+ ]
+}
