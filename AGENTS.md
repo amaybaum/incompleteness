@@ -1540,10 +1540,11 @@ settings:
    not sent.
 2. **Exact read-back.** After every write, the stored text is read back and compared byte for byte
    with an expected text fixed before the write: the text sent, for every body, title, comment,
-   review and review comment. Where the writing tool appends a footer to stored text, the text sent
-   already ends with it in the form GitHub stores (for Claude Code comments: one blank line, `---`,
-   the footer line, no trailing newline), so that nothing is added. No normalization is allowed. Any
-   difference, or a read-back that fails or cannot be completed, is a mismatch.
+   review and review comment. Where the writing tool appends a footer, the text sent already ends
+   with that footer; for Claude Code comments and pull-request descriptions, the form observed
+   stored unchanged on 2026-11-23 is one blank line, `---`, the footer line, no trailing newline. No
+   normalization is allowed. Any difference, or a read-back that fails or cannot be completed, is a
+   mismatch.
 3. **Stop on a mismatch.** Automated GitHub text writes stop at once, for every agent and session.
    The text sent and the text stored are kept as evidence under §A.26, and the owner is told. Only a
    recorded owner decision resumes writing; a later correction does not make a failed write a pass.
@@ -1560,7 +1561,7 @@ Beyond the gates of a frozen plan or round, which stand as written, these action
 explicit approval each time:
 
 1. merging into `main`;
-2. amending, freezing or executing the A1 plan, or dispatching its trials;
+2. amending, freezing or executing the posit-retirement plan of #1169, or dispatching its trials;
 3. deleting branches, Issues, pull requests or evidence;
 4. sending material outside GitHub.
 
