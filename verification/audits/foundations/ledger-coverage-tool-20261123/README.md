@@ -128,6 +128,17 @@ content), **support on `main`**, or **gap** (support off `main`). None of these 
 admission or execution identity; the gaps concern decisions of the A1 retirement once a frozen configuration
 references the records, and stay open as the escalations ESC-1 to ESC-4 of the accepted Q10 disposition.
 
+This landing carries the four gaps open by owner decision under sec. A.42 item 8 (amaybaum, 2026-11-24, coordinating
+session): "Approve the limited landing exception under AGENTS.md §A.42 item 8 for ESC-1–ESC-4. The verification
+tool may land while the following evidence gaps remain open: ESC-1: support for the w1-w2 rule fingerprints. ESC-2:
+support for the register-infinity parameters. ESC-3: support for the repository-scope record. ESC-4: support for the
+GR.md line 58 classification. This decision rests on the accepted Q10 disposition establishing that none of these gaps
+is required for the tool's own landing verification. It does not close the gaps, establish the unsupported claims or
+authorize their use in A1 retirement acceptance. All four gaps must be resolved through the separately reviewed and
+approved A1 plan amendment before retirement execution." The claims it leaves unsupported are those of the four gap
+rows below: the rule file's fingerprints at `T1'` (ESC-1), the parameters' equality to `P`'s checker (ESC-2), the
+scope record's agreement with `P`'s classification (ESC-3) and the classified line of `T1'`'s `papers/GR.md` (ESC-4).
+
 | Reference | Where | What reads it | Classification |
 |---|---|---|---|
 | `T1'` in each allow rule's `recorded_at` | `rules/w1-w2-allow-v1.json` | the rule-file lint reproduces every fingerprint (sentence and context) at that commit, and the `rule-stale` scoping decides ancestry against it | gap: admitting the rule file needs `T1'`'s objects (ESC-1) |
