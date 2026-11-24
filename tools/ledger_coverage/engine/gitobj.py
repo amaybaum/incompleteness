@@ -3,6 +3,7 @@ import hashlib
 import os
 import re
 import subprocess
+from types import MappingProxyType
 
 
 class Unresolvable(Exception):
@@ -49,6 +50,7 @@ class GitRepo:
         self._proc = None
         self._trees = {}
         self._entries = {}
+        self._paths = {}
         self._commits = {}
         self._blobs = {}
         self._objs = {}
@@ -141,7 +143,8 @@ class GitRepo:
 
     def entries(self, cid):
         """{path: (mode, id)} of every non-tree entry of the commit's tree (blobs, symlinks and submodules), parsed
-        from verified tree objects."""
+        from verified tree objects. Built once per commit id, after every tree it lists has been verified, and
+        returned as a read-only view, so that no caller can change what later calls return."""
         if cid not in self._entries:
             out = {}
 
@@ -152,12 +155,16 @@ class GitRepo:
                     else:
                         out[pre + name] = (mode, oid)
             walk(self._commit(cid)['tree'], '')
-            self._entries[cid] = out
+            self._entries[cid] = MappingProxyType(out)
         return self._entries[cid]
 
     def paths(self, cid):
-        """{path: blob id} of every blob entry (regular files and symlinks), as `ls-tree` listed them."""
-        return {p: oid for p, (mode, oid) in self.entries(cid).items() if mode != '160000'}
+        """{path: blob id} of every blob entry (regular files and symlinks), as `ls-tree` listed them: a read-only
+        view, built once per commit id from the verified entries."""
+        if cid not in self._paths:
+            self._paths[cid] = MappingProxyType({p: oid for p, (mode, oid) in self.entries(cid).items()
+                                                 if mode != '160000'})
+        return self._paths[cid]
 
     def mode(self, cid, path):
         e = self.entries(cid).get(path)
@@ -211,6 +218,8 @@ class Overlay:
     def __init__(self, base=None):
         self.base = base
         self.mem = {}
+        self._paths = {}
+        self._entries = {}
 
     def add_commit(self, files, parents, subject='in-memory'):
         """files: {path: bytes}; returns a synthetic 40-hex id."""
@@ -280,14 +289,21 @@ class Overlay:
     def entries(self, cid):
         """{path: (mode, id)} of every entry, symlinks and submodules included."""
         if cid in self.mem:
-            f = self.mem[cid]['files']
-            if isinstance(f, _LazyTree):
-                return f.entries()
-            return {p: _entry_of(d) for p, d in f.items()}
+            if cid not in self._entries:
+                f = self.mem[cid]['files']
+                self._entries[cid] = MappingProxyType(dict(f.entries()) if isinstance(f, _LazyTree) else
+                                                      {p: _entry_of(d) for p, d in f.items()})
+            return self._entries[cid]
         return self.base.entries(cid)
 
     def paths(self, cid):
-        return {p: oid for p, (mode, oid) in self.entries(cid).items() if mode != '160000'}
+        """A read-only view, built once per in-memory commit id (base commits: the base reader's own view)."""
+        if cid in self.mem:
+            if cid not in self._paths:
+                self._paths[cid] = MappingProxyType({p: oid for p, (mode, oid) in self.entries(cid).items()
+                                                     if mode != '160000'})
+            return self._paths[cid]
+        return self.base.paths(cid)
 
     def mode(self, cid, path):
         e = self.entries(cid).get(path)

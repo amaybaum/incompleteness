@@ -914,6 +914,91 @@ def gv_disk_controls(r):
           code6 == 65 and stop(res6) == 'CONFIG_UNREVIEWED' and 'not a regular file' in show(code6, res6)['message'])
 
 
+def cache_controls(r):
+    """The verified reader's per-commit path and entry caches (implementation controls of the performance
+    correction): a corrupted object is refused whether or not the commit's paths are already cached, a refused tree
+    leaves nothing cached, and no caller can change a cached mapping."""
+    dk, ids, p, run = disk_world(r, 'cache-store')
+    X = ids['X']
+    blob = gitb(dk.d, 'rev-parse', '%s:%s' % (X, sf.DOC))
+    tree = gitb(dk.d, 'rev-parse', X + ':doc')
+    d1 = os.path.join(r.out_root, 'cache-blob')
+    shutil.copytree(dk.d, d1, symlinks=True)
+    raw = subprocess.run(['git', '-C', d1, 'cat-file', 'blob', blob], capture_output=True).stdout
+    f = dk.loose(blob).replace(dk.d, d1)
+    os.chmod(f, 0o644)
+    with open(f, 'wb') as fh:
+        fh.write(zlib.compress(b'blob %d\x00' % (len(raw) + 1) + raw + b' '))
+
+    def refused(fn):
+        try:
+            fn()
+            return 'accepted'
+        except gitobj.Unresolvable as exc:
+            return 'refused: %s' % str(exc)[:80]
+    cold = gitobj.GitRepo(d1)
+    warm = gitobj.GitRepo(d1)
+    warm_paths = dict(warm.paths(X))
+    out = {'blob, paths not cached': refused(lambda: cold.read(X, sf.DOC)),
+           'blob, paths already cached': refused(lambda: warm.read(X, sf.DOC)),
+           'blob, paths cached, second read': refused(lambda: warm.read(X, sf.DOC)),
+           'the cached paths name the blob': warm_paths.get(sf.DOC) == blob}
+    d2 = os.path.join(r.out_root, 'cache-tree')
+    shutil.copytree(dk.d, d2, symlinks=True)
+    rawt = subprocess.run(['git', '-C', d2, 'cat-file', 'tree', tree], capture_output=True).stdout
+    ft = dk.loose(tree).replace(dk.d, d2)
+    os.chmod(ft, 0o644)
+    with open(ft, 'wb') as fh:
+        other = rawt.replace(b's.md', b's.me', 1)
+        fh.write(zlib.compress(b'tree %d\x00' % len(other) + other))
+    rt = gitobj.GitRepo(d2)
+    out['tree, first paths call'] = refused(lambda: rt.paths(X))
+    out['tree, second paths call (nothing cached by the refusal)'] = refused(lambda: rt.paths(X))
+    out['tree, entries call'] = refused(lambda: rt.entries(X))
+    out['tool run on the corrupted blob'] = show(*run(store=d1))
+    ok = all(str(v).startswith('refused') and 'does not hash' in str(v) for k, v in out.items()
+             if k.startswith(('blob,', 'tree,'))) and out['the cached paths name the blob'] and \
+        out['tool run on the corrupted blob']['exit'] == 65
+    check('GV-CACHE', 'a corrupted object is refused exactly as before the per-commit caches: a corrupted blob whose '
+          'commit\'s paths are already cached, and one whose are not; a corrupted tree on every call, nothing cached '
+          'by the refusal; a tool run reading the corrupted blob is ERROR (implementation control)',
+          "every reader case refuses with 'does not hash to its id'; the cached paths still name the blob; the tool "
+          "run exits 65", out, ok)
+    # callers cannot change a cached mapping
+    g = gitobj.GitRepo(dk.d)
+    ov = gitobj.Overlay(g)
+    Xm = ov.derive(X, {'notes/extra.txt': b'x\n'}, parents=[X])
+    attempts = {}
+    for name, view in (('GitRepo.paths', g.paths(X)), ('GitRepo.entries', g.entries(X)),
+                       ('Overlay.paths (in-memory commit)', ov.paths(Xm)),
+                       ('Overlay.entries (in-memory commit)', ov.entries(Xm)),
+                       ('Overlay.paths (base commit)', ov.paths(X))):
+        before = dict(view)
+        tried = []
+        for how, act in (('item assignment', lambda v: v.__setitem__(sf.DOC, '0' * 40)),
+                         ('item deletion', lambda v: v.__delitem__(sf.DOC)),
+                         ('pop', lambda v: v.pop(sf.DOC)), ('update', lambda v: v.update({'a': 'b'})),
+                         ('clear', lambda v: v.clear())):
+            try:
+                act(view)
+                tried.append('%s: allowed' % how)
+            except (TypeError, AttributeError):
+                tried.append('%s: refused' % how)
+        copy_ = dict(view)
+        copy_[sf.DOC] = '0' * 40
+        again = g.paths(X) if name.startswith('GitRepo.paths') else g.entries(X) if name == 'GitRepo.entries' else \
+            ov.paths(Xm) if name == 'Overlay.paths (in-memory commit)' else ov.entries(Xm) if \
+            name == 'Overlay.entries (in-memory commit)' else ov.paths(X)
+        attempts[name] = {'attempts': tried, 'unchanged after the attempts and a mutated copy': dict(again) == before,
+                          'same view returned': again is view}
+    check('GV-CACHE-IMMUTABLE', 'no caller can change a cached path or entry mapping: each is a read-only view '
+          '(assignment, deletion, pop, update and clear refused); a mutated copy leaves the cache unchanged; later '
+          'calls return the same view (implementation control)',
+          "every mutation attempt refused, every mapping unchanged, the same view object returned", attempts,
+          all(all(t.endswith('refused') for t in v['attempts']) and v['unchanged after the attempts and a mutated copy']
+              and v['same view returned'] for v in attempts.values()))
+
+
 def patch_commit_graph(d, commit, new_parent):
     """Rewrites, in the commit-graph file of `d`, the first parent of `commit` to `new_parent` (both must be in the
     graph). Returns True when patched."""
@@ -2201,7 +2286,7 @@ def z11_s4a(r):
 
 # every control this runner implements; one whose group stopped before it ran is FAIL, never absent
 ALL_IDS = ['TR5-sim', 'TR5', 'TR1', 'TR2', 'TR3', 'TR13', 'TR14-tool', 'TR14', 'TR15', 'ADM-CONFIG-AT-F',
-           'ACCEPT-SCHEMA', 'CONFIG-LINT', 'B4-MEANING', 'TR28-tool', 'TR28-consumer', 'TR29-tool',
+           'ACCEPT-SCHEMA', 'CONFIG-LINT', 'B4-MEANING', 'GV-CACHE', 'GV-CACHE-IMMUTABLE', 'TR28-tool', 'TR28-consumer', 'TR29-tool',
            'TR29', 'TR30', 'TR45-opB', 'TR46', 'TR48', 'TR50', 'TR51', 'TR52', 'X11', 'EI1', 'EI2', 'EI2-consumer',
            'EI3', 'EI4', 'EI5', 'EI6', 'EI7-tool', 'EI8', 'EI9', 'EI10', 'EI11', 'EI12', 'EI13', 'EI14', 'EI15', 'GV1',
            'GV2', 'GV3', 'GV4', 'GV5', 'GV6', 'GV6-disk', 'GV7-tool', 'GV7-consumer', 'R16', 'R17', 'A12r', 'Z11',
@@ -2232,7 +2317,8 @@ def main(out_root):
     t = None
     groups = [('TR', lambda: tr_controls(r)), ('EI5', lambda: ei5_controls(r)), ('R16', lambda: r_controls(r)),
               ('A12r', lambda: a12r(r)), ('Z11', lambda: z11_s4a(r)), ('G', lambda: g_controls(r)),
-              ('GV', lambda: gv_disk_controls(r)), ('EI', lambda: ei_controls(r)),
+              ('GV', lambda: gv_disk_controls(r)), ('GV-CACHE', lambda: cache_controls(r)),
+              ('EI', lambda: ei_controls(r)),
               ('R3-F2', lambda: f2_controls(r)), ('R4-B3', lambda: r4_b3_controls(r)),
               ('R4-B3-DUP', lambda: r4_b3_duplicate_controls(r)), ('R5-N6', lambda: r5_n6_controls(r)),
               ('LN', lambda: ln1_ln8(r)), ('R6-G6', lambda: r6_g6(r)),
