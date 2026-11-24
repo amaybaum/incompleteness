@@ -154,19 +154,29 @@ def tr_controls(r):
     a1 = show(*t.run(w, F, args=[], control={}))
     a2 = show(*t.run(w, F, args=[]))
     check('TR1', 'a run without --freeze: ' + UNREV, "both runs (no host; the in-memory host) exit 65 with stop "
-          "'CONFIG_UNREVIEWED'", [a1, a2], all(o['exit'] == 65 and o['stop'] == 'CONFIG_UNREVIEWED' for o in (a1, a2)))
+          "'CONFIG_UNREVIEWED' naming --freeze", [a1, a2],
+          all(o['exit'] == 65 and o['stop'] == 'CONFIG_UNREVIEWED' and '--freeze' in o['message'] for o in (a1, a2)))
     # TR2: the configuration not in the pin table of the PREREG.md beside it
     rv = t.p.rsplit('/', 1)[0] + '/review.json'
     F2 = t.freeze(listed={rv: t.repo.read(t.c, rv)})
     o2 = show(*t.run(w, F2))
     check('TR2', 'a configuration whose sha256 is not in the pin table of the PREREG.md beside it: ' + UNREV,
-          "exit == 65 and stop == 'CONFIG_UNREVIEWED'", o2, o2['exit'] == 65 and o2['stop'] == 'CONFIG_UNREVIEWED')
+          "exit == 65 and stop == 'CONFIG_UNREVIEWED', refused by the pin table's rows", o2,
+          o2['exit'] == 65 and o2['stop'] == 'CONFIG_UNREVIEWED' and o2['message'].startswith('the last Record pins'))
     # TR3: the review beside the configuration, naming its blob, not in the pin table
     F3 = t.freeze(listed={t.p: t.repo.read(t.c, t.p)})
     o3 = show(*t.run(w, F3))
     check('TR3', 'a review record placed beside the configuration, naming its blob, but not in F\'s pin table: '
-          + UNREV, "exit == 65 and stop == 'CONFIG_UNREVIEWED'", o3,
-          o3['exit'] == 65 and o3['stop'] == 'CONFIG_UNREVIEWED')
+          + UNREV, "exit == 65 and stop == 'CONFIG_UNREVIEWED', refused because no review is listed", o3,
+          o3['exit'] == 65 and o3['stop'] == 'CONFIG_UNREVIEWED' and 'no review record' in o3['message'])
+    # the configuration read from F only: --config naming another commit than --freeze
+    other_c = t.repo.derive(F, {}, parents=[F], subject='another commit')
+    of = show(*cli.run(['terms', '--config', '%s:%s' % (other_c, t.p), '--out', r.out(), '--freeze', F, '--commit',
+                        t.syn.H], repo=t.repo, stderr=io.StringIO(), control=w.control(w.checkout()), environ={}))
+    check('ADM-CONFIG-AT-F', 'configuration admission point 1: the configuration is read only from F\'s tree, never '
+          'from another commit (implementation control)', "--config naming a commit other than --freeze exits 65 "
+          "CONFIG_UNREVIEWED, naming F", of, of['exit'] == 65 and of['stop'] == 'CONFIG_UNREVIEWED' and
+          'from F only' in of['message'])
     # TR13: a local run, all inputs otherwise valid; and a run whose environment imitates a host job without a token
     o13 = show(*t.run(w, F, control={}, environ={}))
     o13b = show(*t.run(w, F, control={}, environ={'GITHUB_ACTIONS': 'true', 'GITHUB_RUN_ID': '7'}))
@@ -179,10 +189,11 @@ def tr_controls(r):
                       ('another repository', {'repository_id': 79, 'head_repository_id': 79}),
                       ('pull_request from a fork, listed in the canonical repository',
                        {'head_repository_id': 78, 'event': 'pull_request'}),
-                      ('head repository a fork, event workflow_dispatch', {'head_repository_id': 78})):
+                      ('head repository a fork, event workflow_dispatch', {'head_repository_id': 78}),
+                      ('repository another, head repository canonical', {'repository_id': 79})):
         out14[name] = show(*t.run(t.world(run=run), F))
-    check('TR14', 'the same workflow and tool run in a fork, or in another repository; separately, a pull_request '
-          'run from a fork, executed and listed in the canonical repository: ERROR at the tool (repository or head '
+    check('TR14-tool', 'the same workflow and tool run in a fork, or in another repository; separately, a '
+          'pull_request run from a fork, executed and listed in the canonical repository: ERROR at the tool (repository or head '
           'repository id differs from repository_id); the consumer half is reported with the acceptance controls',
           "every case exits 65 with stop 'CONFIG_UNREVIEWED'", out14,
           all(o['exit'] == 65 and o['stop'] == 'CONFIG_UNREVIEWED' for o in out14.values()))
@@ -297,9 +308,15 @@ def ei4_controls(t, w):
     out['(d) no PREREG.md beside the configuration'] = show(*t.run(w, t.c))
     bad = hf.pin_table({'config.json': sha(cfg), 'review.json': sha(rv)}) + b'| `ledger.json` | 0123 |\n'
     out['(d2) a malformed row in the last Record pins subsection'] = show(*t.run(w, t.freeze(prereg=bad)))
+    dup = hf.pin_table({'config.json': sha(cfg), 'review.json': sha(rv)}) + ('| `config.json` | `%s` |\n'
+                                                                            % sha(b'other')).encode()
+    out['(d3) a file listed twice in the last Record pins subsection'] = show(*t.run(w, t.freeze(prereg=dup)))
     out['(countercontrol) the plan\'s own configuration'] = show(*t.run(w, Fa))
     ok = all(v['exit'] == 65 and v['stop'] == 'CONFIG_UNREVIEWED' for k, v in out.items() if k[:3] in ('(a)', '(c)',
-                                                                                                      '(d)', '(d2'))
+                                                                                                      '(d)', '(d2',
+                                                                                                      '(d3'))
+    ok = ok and 'malformed' in out['(d2) a malformed row in the last Record pins subsection']['message'] and \
+        'twice' in out['(d3) a file listed twice in the last Record pins subsection']['message']
     check('EI4', 'F holds the plan directory with its PREREG.md and a second directory whose PREREG.md lists another '
           'configuration: (a) that configuration in the plan directory, listed only by the second PREREG.md; (b) a '
           'caller argument naming the second PREREG.md as pin table; (c) the plan PREREG.md whose last Record pins '
@@ -365,7 +382,8 @@ def gv7_tool_controls(t, w, F):
           "both run-record cases exit 65 CONFIG_UNREVIEWED; the host-run class gives no item with the good run and "
           "exactly delegated-evidence-missing in the four other cases", out,
           all(out[k]['exit'] == 65 and out[k]['stop'] == 'CONFIG_UNREVIEWED'
-              for k in ('run record read fails', 'run record incomplete')) and deleg['good'] == [] and
+              for k in ('run record read fails', 'run record incomplete')) and
+          'host call failed' in out['run record read fails']['message'] and deleg['good'] == [] and
           all(deleg[k] == missing for k in deleg if k != 'good'))
 
 
@@ -392,6 +410,7 @@ EI7_FORMS = {
     'a whole-document flow mapping after ---': None,
     'a tab after the dash': _STEPS + '      -\t"\\x75ses": ./x\n',
     'a tab after a colon before a flow collection': '    steps:\t[ {"\\x75ses": ./x} ]\n',
+    'the key in upper case (any letter case)': _STEPS + '      - USES: ./x\n',
 }
 
 
@@ -419,7 +438,7 @@ def ei7_controls(r):
           "each blob; the conforming workflow (a uses line naming an action by a 40-hex id) exits 0",
           {'tool': tool, 'rule': cons, 'positive': pos},
           all(o['exit'] == 65 and o['stop'] == 'CONFIG_UNREVIEWED' and 'uses' in o['message'] for o in tool.values())
-          and all(cons.values()) and pos['exit'] == 0 and len(tool) == 18)
+          and all(cons.values()) and pos['exit'] == 0 and len(tool) == 19)
 
 
 # ---- the consumer's acceptance predicate --------------------------------------------------------------------------
@@ -437,11 +456,14 @@ def acceptance_controls(r, t):
     code_h, res_h = cli.run(['terms', '--config', '%s:%s' % (t.c, t.p), '--out', o, '--commit', t.syn.H],
                             repo=t.repo, harness=True, stderr=io.StringIO())
     files_h = sorted(os.listdir(o))
+    unmarked = copy.deepcopy(res)
+    del unmarked['harness']
     check('X11', 'a control-harness PASS result presented with the pinned tool and configuration hashes: '
           'non-acceptance; the harness never writes result.json',
-          "accept() is false for the harness result and for the simulated-chain result, and the harness run "
-          "directory holds control-result.json only", {'harness_exit': code_h, 'files': files_h},
-          code_h == 0 and not checker.accept(res_h, code_h, pins) and not checker.accept(res, code, pins)
+          "accept() is false for the harness result, for the simulated-chain result, and for that result with its "
+          "harness marker removed (admission not chain); the harness run directory holds control-result.json only",
+          {'harness_exit': code_h, 'files': files_h}, code_h == 0 and not checker.accept(res_h, code_h, pins) and
+          not checker.accept(res, code, pins) and not checker.accept(unmarked, code, pins)
           and files_h == ['control-result.json'])
     # a chain-labelled copy, the landing record, and the consumer's host checks
     chain = copy.deepcopy(res)
@@ -471,6 +493,12 @@ def acceptance_controls(r, t):
             h.artifacts[(w.run_id, 'ledger-coverage-result')] = sha(art_raw)
         return h
     ok = consumer()
+    old_schema = copy.deepcopy(chain)
+    old_schema['schema'] = 'oi-ledger-coverage/4'
+    check('ACCEPT-SCHEMA', 'sec. 5: a result of another schema id than oi-ledger-coverage/5 is never acceptable '
+          '(implementation control)', "accept() true for the /5 chain result and false for the same as /4",
+          {'v5': checker.accept(chain, 0, pins), 'v4': checker.accept(old_schema, 0, pins)},
+          checker.accept(chain, 0, pins) and not checker.accept(old_schema, 0, pins))
     check('TR30', 'a result whose evaluated commits differ from the landing record\'s: non-acceptance',
           "accept_with_host is true for the matching landing record and false for the other",
           {'matching': ok, 'differing': consumer(landing_=dict(landing, evaluated={'commit': '0' * 40}))},
@@ -533,7 +561,9 @@ def acceptance_controls(r, t):
           not any(v for k, v in con.items() if not k.startswith('(countercontrol)')))
     # TR29 at the consumer
     c29 = {'T not on main\'s first-parent chain': consumer(landing_=dict(landing, main=t.syn.H)),
-           'the recorded T differs from the run\'s head_sha': consumer(raw_=doc_with(tool_commit=t.syn.H)),
+           'the recorded T differs from the run\'s head_sha': (lambda b: consumer(
+               raw_=b, host=host_with(art_raw=b), landing_=dict(landing, result_sha256=sha(b))))(
+               doc_with(tool_commit=t.syn.H)),
            'head_sha is the evaluated commit X': consumer(host=host_with(head_sha=t.syn.H))}
     check('TR29', 'a run whose head_sha is not on main\'s first-parent chain; separately a run whose head_sha is X; '
           'separately a result whose recorded T differs from the producing run\'s head_sha: non-acceptance at the '
@@ -743,7 +773,8 @@ def gv_disk_controls(r):
     gitb(dk.d, 'branch', '-f', 'main', ids['X'])
     gitb(dk.d, 'tag', '-f', 'v1', ids['X'])
     by_ref = {n: show(*run(commit=n)) for n in ('main', 'v1', 'HEAD', ids['X'][:12], ids['X'].upper())}
-    g1['ref names unresolvable'] = all(v['exit'] == 65 and v['stop'] == 'UNRESOLVABLE' for v in by_ref.values())
+    g1['ref names unresolvable'] = all(v['exit'] == 65 and v['stop'] == 'UNRESOLVABLE' and
+                                       'refs are not consulted' in v['message'] for v in by_ref.values())
     g1['(countercontrol) the replace refs are live'] = live1 == '1' and '"substituted"' in (live1b or '')
     check('GV1', 'a replace ref that substitutes a commit of the E..H chain, and separately one that substitutes the '
           'configuration\'s blob at F; separately a role commit given as a ref name (main, a tag): the replace refs '
@@ -771,7 +802,10 @@ def gv_disk_controls(r):
     gitb(d3, 'commit-graph', 'write', '--reachable')
     patched = patch_commit_graph(d3, ids['H'], unrelated)
     live3 = gitb(d3, '-c', 'core.commitGraph=true', 'rev-list', '--first-parent', ids['H'], check_=False)
-    g3 = {'patched': patched, 'live': bool(live3) and ids['pin'] not in live3.split() and unrelated in live3.split(),
+    merge = gitb(d3, 'commit-tree', gitb(d3, 'rev-parse', ids['X'] + '^{tree}'), '-p', ids['X'], '-p', ids['T'],
+                 data=b'a two-parent commit\n')
+    g3_parents = gitobj.GitRepo(d3).parents(merge) == [ids['X'], ids['T']]
+    g3 = {'parsed parents of a two-parent commit': g3_parents, 'patched': patched, 'live': bool(live3) and ids['pin'] not in live3.split() and unrelated in live3.split(),
           'terms equal (rule-stale scoping, hp chain)': same(run(store=d3), clean),
           'execution equal (H on M\'s first-parent chain)': same(run('execution', store=d3, extra=[
               '--scientific-base', ids['H'], '--candidate', ids['X'], '--ledger', '%s:syn/patch.json' % ids['c'],
@@ -874,7 +908,7 @@ def gv_disk_controls(r):
                           control={'host': hostmod.MemoryHost(), 'run_id': 1, 'repo_id': hf.REPO_ID}, environ={})
     check('GV6-disk', 'a symlink entry (mode 120000) at the configuration\'s path in an on-disk F: refused before '
           'any host read', "exit 65 with stop 'CONFIG_UNREVIEWED'", show(code6, res6),
-          code6 == 65 and stop(res6) == 'CONFIG_UNREVIEWED')
+          code6 == 65 and stop(res6) == 'CONFIG_UNREVIEWED' and 'not a regular file' in show(code6, res6)['message'])
 
 
 def patch_commit_graph(d, commit, new_parent):
@@ -1243,6 +1277,7 @@ def ei_controls(r):
         f.write(MARKER)
     code_no_i = e.entry(d6b, flags=('-B',))[0]
     marks_no_i = e.markers(d6b)
+    code_no_i2 = e.entry(d6b, flags=('-B', '-E', '-s', '-P'))[0]  # not isolated, no checkout directory on sys.path
     d6c = e.fresh('EI6 checkout on sys.path')
     with open(os.path.join(d6c, 'tools', 'json.py'), 'wb') as f:
         f.write(MARKER)
@@ -1254,6 +1289,8 @@ def ei_controls(r):
     out6 = {'shadow run': {'exit': code6, 'markers': e.markers(d6), 'stray_imports': stray[:10],
                            'imports_seen': len(loaded), 'result_equal_to_clean': same6},
             'without -I': {'exit': code_no_i, 'markers': marks_no_i},
+            'without -I, with -E -s -P (no checkout directory on sys.path)': {'exit': code_no_i2,
+                                                                             'markers': e.markers(d6b)},
             'checkout directory on sys.path': {'exit': p6c.returncode, 'markers': e.markers(d6c)}}
     check('EI6', 'the checkout of a T holding, besides the pinned files, unpinned tools/hashlib.py (re.py, '
           'subprocess.py, json.py, importlib.py) whose bodies write a marker: the marker is never written, every '
@@ -1265,7 +1302,7 @@ def ei_controls(r):
           "without -I and with the checkout on sys.path: exit 65 and no marker (json.py shadows the first module "
           "imported after the check)", out6,
           code6 == 0 and not out6['shadow run']['markers'] and not stray and loaded and same6 and
-          code_no_i == 65 and not marks_no_i and p6c.returncode == 65 and not out6['checkout directory on sys.path'][
+          code_no_i == 65 and not marks_no_i and code_no_i2 == 65 and not e.markers(d6b) and p6c.returncode == 65 and not out6['checkout directory on sys.path'][
               'markers'])
 
 
@@ -1277,6 +1314,81 @@ def _interpreter_dirs(checkout):
     dirs = {os.path.realpath(x) for x in json.loads(p.stdout) if x}
     root = os.path.realpath(checkout)
     return {x for x in dirs if not (x == root or x.startswith(root + os.sep))}
+
+
+def config_lint_controls(r):
+    """Sec. 16.2 and 16.6 at load (implementation controls of the configuration lint for `tool`, `repository_id`,
+    `retirement` and the record kinds), through the control harness and through the simulated chain."""
+    syn = sf.Syn()
+    pd = sf.patch_doc(syn.H, [])
+    base = {'patch_sha': sha(pd), 'files': {'syn/patch.json': pd}}
+    pins = hf.tool_pins()
+    outside = dict(pins, files=pins['files'] + [{'path': 'tools/other.py', 'blob_sha256': '0' * 64}])
+    no_entry = dict(pins, files=[f for f in pins['files'] if f['path'] != hf.ENTRY])
+    twice = dict(pins, files=pins['files'] + pins['files'][:1])
+    auth_doc = {'schema': 'oi-owner-authorization/1', 'record_id': 'a', 'author': sf.WRITER, 'supersedes': None}
+    variants = {'tool.files names a path outside the tool': {'tool': outside},
+                'tool.files omits the entry point': {'tool': no_entry},
+                'tool.files names a path twice': {'tool': twice},
+                'tool.workflow without a sha256': {'tool': dict(pins, workflow={'path': hf.WF_PATH})},
+                'repository_id zero': {'repository_id': 0},
+                'repository_id a string': {'repository_id': '77'},
+                'tool missing': {'drop': ['tool']},
+                'retirement.owner present': {'extra': {'retirement': {'name': 'synthetic', 'issue': 'none',
+                                                                       'owner': 4242}}},
+                'a record of the retired kind oi-owner-authorization/1': {'records_extra': {'syn/auth.json': auth_doc}}}
+    out = {}
+    for name, v in variants.items():
+        c, p, s_, _ = syn.build(dict(base, **v))
+        out[name] = show(*r.cli(syn.repo, ['terms', '--commit', syn.H], c, p, s_, harness=True))
+    c, p, s_, _ = syn.build(base)
+    out['(countercontrol) the valid configuration'] = show(*r.cli(syn.repo, ['terms', '--commit', syn.H], c, p, s_,
+                                                                  harness=True))
+    check('CONFIG-LINT', 'sec. 16.2 lint and sec. 16.6: tool.files naming a path outside the entry point and the package, '
+          'omitting the entry point or naming a path twice; a workflow pin without its sha256; repository_id not a '
+          'positive integer; tool missing; a retirement field other than name and issue; a record of a kind the design '
+          'does not define (the retired oi-owner-authorization/1): ERROR CONFIG_INVALID in each case (implementation '
+          'control)', "every variant exits 65 CONFIG_INVALID; the valid configuration exits 0", out,
+          all(v['exit'] == 65 and v['stop'] == 'CONFIG_INVALID' for k, v in out.items()
+              if not k.startswith('(countercontrol)')) and out['(countercontrol) the valid configuration']['exit'] == 0)
+
+
+def meaning_controls(r):
+    """Sec. 5, "Class meanings" (B-4): every result carries the fixed table, and every item, site state and file
+    state in one of the four classes quotes its meaning."""
+    from ledger_coverage.engine import outcome as oc
+    syn = sf.Syn()
+    edits = [('# synthetic', ['# synthetic', '', 'Preface line one.', '', 'Preface line two.'])]
+    X, c, p, s_ = sf.y_world(syn, edits)
+    Xb = syn.repo.derive(syn.H, {sf.DOC: sf.apply_text(sf.TEXT, [('# synthetic', ['# synthetic', '', 'Preface uno.',
+                                                                                 '', 'Preface line two.'])]).encode()},
+                         parents=[syn.H])
+    seg = ['--segment', '%s..%s' % (syn.pin, syn.H), '--segment', '%s..%s=%s:syn/patch.json' % (syn.H, Xb, c)]
+    code, res = r.cli(syn.repo, ['coverage', '--commit', Xb] + seg, c, p, s_)
+    found, missing = [], []
+
+    def walk(x):
+        if isinstance(x, dict):
+            for key in ('class', 'status', 'state'):
+                if x.get(key) in oc.class_meaning:
+                    (found if x.get('meaning') == oc.class_meaning[x[key]] else missing).append(x[key])
+            for k, v in x.items():
+                if k != 'config':
+                    walk(v)
+        elif isinstance(x, list):
+            for v in x:
+                walk(v)
+    walk(res or {})
+    code2, res2 = r.cli(syn.repo, ['record', '--pin', syn.pin, '--record', syn.H], c, p, s_)
+    check('B4-MEANING', 'sec. 5 (B-4): every result carries class_meaning, identical in each; every item and state '
+          'of the classes authorized-replacement, authorized-removal, unauthorized-edit or unauthorized-change quotes '
+          'its meaning from the table (implementation control)',
+          "a coverage run with an unauthorized-edit item and an ERROR result both carry the table equal to "
+          "outcome.class_meaning; at least one classed item or state, and every one quotes its meaning",
+          {'exit': code, 'quoted': sorted(set(found)), 'missing': missing[:5], 'error_result_table':
+           (res2 or {}).get('class_meaning') == oc.class_meaning},
+          (res or {}).get('class_meaning') == oc.class_meaning and (res2 or {}).get('class_meaning') ==
+          oc.class_meaning and 'unauthorized-edit' in found and not missing)
 
 
 def simrun(r, syn, c, p, argv_tail, op):
@@ -2037,8 +2149,11 @@ def a12r(r):
 def z9h(values):
     src = open(os.path.join(tools, 'ledger_coverage', 'engine', 'outcome.py')).read() + "\nPLANTED = 'guard-pin'\n"
     found = purity.lint_sources({'engine/outcome.py': src}, values, [])
+    dotted = purity.lint_sources({'engine/outcome.py': "X = '%s.json'\n" % hashlib.sha1(b'z9').hexdigest()}, set(), [])
     check('Z9h', '\'guard-pin\' planted in an engine module, with the adapter companions in the value set: lint '
-          'FAIL', "a finding names the planted literal", found[:3], any('guard-pin' in f for f in found))
+          'FAIL', "a finding names the planted literal; a planted 40-hex file name is a finding too (the allowlist "
+          "exempts only its listed values)", {'guard-pin': found[:3], 'dotted': dotted[:2]},
+          any('guard-pin' in f for f in found) and bool(dotted))
 
 
 def z11_s4a(r):
@@ -2092,7 +2207,8 @@ def z11_s4a(r):
 
 
 # every control this runner implements; one whose group stopped before it ran is FAIL, never absent
-ALL_IDS = ['TR5-sim', 'TR5', 'TR1', 'TR2', 'TR3', 'TR13', 'TR14', 'TR15', 'TR28-tool', 'TR28-consumer', 'TR29-tool',
+ALL_IDS = ['TR5-sim', 'TR5', 'TR1', 'TR2', 'TR3', 'TR13', 'TR14-tool', 'TR14', 'TR15', 'ADM-CONFIG-AT-F',
+           'ACCEPT-SCHEMA', 'CONFIG-LINT', 'B4-MEANING', 'TR28-tool', 'TR28-consumer', 'TR29-tool',
            'TR29', 'TR30', 'TR45-opB', 'TR46', 'TR48', 'TR50', 'TR51', 'TR52', 'X11', 'EI1', 'EI2', 'EI2-consumer',
            'EI3', 'EI4', 'EI5', 'EI6', 'EI7-tool', 'EI8', 'EI9', 'EI10', 'EI11', 'EI12', 'EI13', 'EI14', 'EI15', 'GV1',
            'GV2', 'GV3', 'GV4', 'GV5', 'GV6', 'GV6-disk', 'GV7-tool', 'GV7-consumer', 'R16', 'R17', 'A12r', 'Z11',
@@ -2102,6 +2218,12 @@ ALL_IDS = ['TR5-sim', 'TR5', 'TR1', 'TR2', 'TR3', 'TR13', 'TR14', 'TR15', 'TR28-
 
 def write(out_root):
     os.makedirs(out_root, exist_ok=True)
+    seen = {}
+    for rrec in RESULTS:
+        seen[rrec['id']] = seen.get(rrec['id'], 0) + 1
+    for cid, n in sorted(seen.items()):
+        if n > 1:
+            record(cid + '-duplicate-id', 'every control id is reported once', None, '%d reports' % n, 'FAIL')
     summary = {}
     for rrec in RESULTS:
         summary[rrec['status']] = summary.get(rrec['status'], 0) + 1
@@ -2120,7 +2242,8 @@ def main(out_root):
               ('GV', lambda: gv_disk_controls(r)), ('EI', lambda: ei_controls(r)),
               ('R3-F2', lambda: f2_controls(r)), ('R4-B3', lambda: r4_b3_controls(r)),
               ('R4-B3-DUP', lambda: r4_b3_duplicate_controls(r)), ('R5-N6', lambda: r5_n6_controls(r)),
-              ('LN', lambda: ln1_ln8(r)), ('R6-G6', lambda: r6_g6(r))]
+              ('LN', lambda: ln1_ln8(r)), ('R6-G6', lambda: r6_g6(r)),
+              ('CONFIG-LINT', lambda: config_lint_controls(r)), ('B4-MEANING', lambda: meaning_controls(r))]
     for name, fn in groups:
         try:
             got = fn()
