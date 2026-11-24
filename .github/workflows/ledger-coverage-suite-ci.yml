@@ -1,0 +1,1075 @@
+name: ledger coverage suite CI validation (disposable)
+# A disposable validation workflow for the ledger coverage tool at the reviewed commit T =
+# 4f4a9d58fd0bf41289a4904c9b39c00c711c9093. It exists only on the branch ci/ledger-coverage-suite-4f4a9d58,
+# runs on a push to that branch, and is not for merge.
+#
+# The suite runs in a detached worktree whose HEAD is T itself (not this commit, whose workflow file is not a
+# pinned tool file), checked clean, over the full history fetched by the checkout. The staged A1 configuration is
+# embedded below (gzip, base64) and used only after its sha256 is verified; the mutation harness is embedded
+# byte-identical to the local harness and verified by sha256 before use.
+#
+# Steps: the local reproduction's steps 1-7 (the entry point's self-test with -I -S -B, the staged purity lint, the
+# synthetic fixture, the conformance controls, the A1 conformance, the A1 controls without --main and with --main,
+# the release gate), Y8 (the A1 and the synthetic configuration run in this one job by the same engine blob, through
+# the A1 runner's --syn-engine flag), and the mutation run of the sets c1, c2, v60e and cache. The release gate runs
+# last, after the Lean toolchain and the Mathlib bridge build that the repository's verify workflow prepares for it.
+# Every step records its exit status, wall time, peak RSS (GNU time) and disk use.
+#
+# Decision rules, fixed before the run. A suite step fails exactly when its rule fails, so each step's conclusion is
+# its verdict; logs are diagnostics only.
+#   1-self-test: exit 0; every control of result.json passed.
+#   2-purity: exit 0; outcome PASS.
+#   3-synthetic: exit 0; every non-informational entry of the printed JSON is true.
+#   4-conformance: exit 0; every status PASS, except NOT RUN for exactly TR5 and G-A1.
+#   5-a1-conformance: exit 0; every status PASS.
+#   6a-a1-controls-no-main: exit 2 (usage) and no result file written.
+#   6-a1-controls: no status other than PASS and NOT RUN; NOT RUN for exactly RT-T; the failed list equals the NOT
+#     RUN list; exit 1 when that list is nonempty, else 0.
+#   8-y8: exit 0; Y8 PASS; no control failed.
+#   9-mutation: exit 0; base statuses PASS except NOT RUN for exactly conformance/TR5 and conformance/G-A1; NOT
+#     APPLIED for exactly v60e:U01; every survivor is one of the seven survivors of the local run at T (c2:D02,
+#     v60e:V05, v60e:I06, v60e:C08, v60e:H03, v60e:P01, cache:K08), so no mutant killed there survives here.
+#   lean-install: exit 0.
+#   lean-build: exit 0 and the worktree's status unchanged (empty).
+#   7-release-gate: exit 0.
+# Deferred to post-landing validation: TR5, G-A1, EI14.
+#
+# ci-results.json, schema ledger-coverage-suite-ci/1: {schema; commits {ci_commit, tool_commit, main,
+# origin_main_at_run}; workflow {path, git_blob, sha256}; config {path, sha256_expected, sha256}; run {id, attempt,
+# repository, ref, event, sha}; environment {os, kernel, image_os, image_version, runner_name, runner_arch, python,
+# python_executable, git, cpus, mem_total_kB, disk_root_bytes}; steps [{id, exit, wall_seconds, max_rss_kB,
+# disk_used_bytes, disk_avail_bytes, verdict (PASS, FAIL or NOT RUN), reasons}]; controls {step: {control id:
+# status}}; y8 {synthetic_engine, actual}; mutation {counts, base_counts, killed, survived, not_applied,
+# killed_here_survived_locally, source_files, tree_entries, mutant_trees_bytes}; deferred_post_landing;
+# not_runnable_pre_landing [{id, reason}]; all_verdicts_pass; evidence_sha256 {file: sha256}}.
+on:
+  push:
+    branches: [ci/ledger-coverage-suite-4f4a9d58]
+permissions:
+  contents: read
+concurrency:
+  group: ledger-coverage-suite-ci
+  cancel-in-progress: false
+jobs:
+  suite:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 300
+    defaults:
+      run:
+        shell: bash
+    env:
+      T: 4f4a9d58fd0bf41289a4904c9b39c00c711c9093
+      MAIN: 9deb69568d8231210c7f39cb65be943dea566371
+      BRANCH: ci/ledger-coverage-suite-4f4a9d58
+      WFP: .github/workflows/ledger-coverage-suite-ci.yml
+      CFG: "HEAD:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json"
+      CFGSHA: 5072a3b0e25e9283acecf4c3df87f820e34464d8d6e2e501ec672615114a96a0
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+        with:
+          path: ci
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: helpers
+        id: helpers
+        run: |
+          set -euo pipefail
+          LCS="$RUNNER_TEMP/lcs"
+          mkdir -p "$LCS/ev" "$LCS/out" "$LCS/bin" "$LCS/harness"
+          echo "LCS=$LCS" >> "$GITHUB_ENV"
+          echo "TOOL=$GITHUB_WORKSPACE/tool" >> "$GITHUB_ENV"
+          cat > "$LCS/bin/run_step.sh" <<'LCS_HELPER_EOF'
+          #!/bin/bash
+          # run_step.sh ID CMD...: runs CMD in the tool worktree under GNU time and records, beside the evidence, its exit
+          # status (ID.exit), start and end times (ID.wall), the GNU time report with peak RSS (ID.time) and disk use after it
+          # (ID.df: used and available bytes of /). Always exits 0; the step's verdict is decided by verdict.py.
+          set -u
+          id="$1"
+          shift
+          ev="$LCS/ev"
+          cd "$TOOL" || exit 70
+          t0=$(date +%s.%N)
+          /usr/bin/time -v -o "$ev/$id.time" "$@" > "$ev/$id.stdout" 2> "$ev/$id.stderr"
+          rc=$?
+          t1=$(date +%s.%N)
+          printf '%s\n' "$rc" > "$ev/$id.exit"
+          printf '%s %s\n' "$t0" "$t1" > "$ev/$id.wall"
+          df -B1 --output=used,avail / | tail -n 1 > "$ev/$id.df"
+          exit 0
+          LCS_HELPER_EOF
+          cat > "$LCS/bin/verdict.py" <<'LCS_HELPER_EOF'
+          """verdict.py STEP: applies STEP's decision rule (stated in the workflow header) to its exit status and its result
+          files, writes STEP.verdict.json in the evidence directory and exits 1 when the rule fails, so that the step's
+          conclusion carries the verdict."""
+          import json
+          import os
+          import sys
+
+          LCS = os.environ['LCS']
+          EV = os.path.join(LCS, 'ev')
+          OUT = os.path.join(LCS, 'out')
+          MUT = os.path.join(LCS, 'mutwork')
+          # the survivors of the local mutation run at the tool commit
+          LOCAL_SURVIVORS = {'c2:D02', 'v60e:V05', 'v60e:I06', 'v60e:C08', 'v60e:H03', 'v60e:P01', 'cache:K08'}
+
+
+          def load(path):
+              with open(path) as f:
+                  return json.load(f)
+
+
+          def rows(controls):
+              """{id: status} from a list of {id, status} rows or a {id: {status}} map; a repeated id is an error."""
+              out = {}
+              items = controls.items() if isinstance(controls, dict) else [(c['id'], c) for c in controls]
+              for cid, c in items:
+                  if cid in out:
+                      raise ValueError('control id %s repeated' % cid)
+                  out[cid] = c['status']
+              return out
+
+
+          def main():
+              step = sys.argv[1]
+              reasons = []
+              extra = {}
+              controls = None
+
+              def need(cond, why):
+                  if not cond:
+                      reasons.append(why)
+
+              try:
+                  with open(os.path.join(EV, step + '.exit')) as f:
+                      rc = int(f.read().strip())
+              except Exception as exc:
+                  rc = None
+                  reasons.append('no exit status: %r' % exc)
+              try:
+                  if step == '1-self-test':
+                      need(rc == 0, 'exit %s' % rc)
+                      controls = {}
+                      for c in load(os.path.join(OUT, 'st', 'result.json'))['controls']:
+                          if c['id'] in controls:
+                              raise ValueError('control id %s repeated' % c['id'])
+                          controls[c['id']] = 'PASS' if c['passed'] is True else 'FAIL'
+                      need(controls and all(v == 'PASS' for v in controls.values()), 'a self-test control did not pass')
+                  elif step == '2-purity':
+                      need(rc == 0, 'exit %s' % rc)
+                      d = load(os.path.join(OUT, 'p', 'result.json'))
+                      controls = {'outcome': d['outcome']}
+                      need(d['outcome'] == 'PASS', 'outcome %s' % d['outcome'])
+                  elif step == '3-synthetic':
+                      need(rc == 0, 'exit %s' % rc)
+                      d = load(os.path.join(EV, '3-synthetic.stdout'))
+                      controls = {k: ('PASS' if v is True else 'FAIL') for k, v in d.items() if not k.startswith('_')}
+                      extra['informational'] = {k: v for k, v in d.items() if k.startswith('_')}
+                      need(controls and all(v == 'PASS' for v in controls.values()), 'a synthetic control is not true')
+                  elif step == '4-conformance':
+                      need(rc == 0, 'exit %s' % rc)
+                      controls = rows(load(os.path.join(OUT, 'conf', 'conformance-controls.json'))['controls'])
+                      nr = sorted(k for k, v in controls.items() if v == 'NOT RUN')
+                      need(nr == ['G-A1', 'TR5'], 'NOT RUN set %s' % nr)
+                      bad = sorted(k for k, v in controls.items() if v not in ('PASS', 'NOT RUN'))
+                      need(not bad, 'not PASS: %s' % bad)
+                  elif step == '5-a1-conformance':
+                      need(rc == 0, 'exit %s' % rc)
+                      controls = rows(load(os.path.join(OUT, 'a1c', 'a1-conformance.json'))['controls'])
+                      bad = sorted(k for k, v in controls.items() if v != 'PASS')
+                      need(controls and not bad, 'not PASS: %s' % bad)
+                  elif step == '6a-a1-controls-no-main':
+                      need(rc == 2, 'exit %s, expected 2 (usage)' % rc)
+                      need(not os.path.exists(os.path.join(OUT, 'a1-nomain', 'a1-controls.json')), 'a result file was written')
+                  elif step == '6-a1-controls':
+                      d = load(os.path.join(OUT, 'a1', 'a1-controls.json'))
+                      controls = rows(d['controls'])
+                      nr = sorted(k for k, v in controls.items() if v == 'NOT RUN')
+                      need(nr == ['RT-T'], 'NOT RUN set %s' % nr)
+                      bad = sorted(k for k, v in controls.items() if v not in ('PASS', 'NOT RUN'))
+                      need(not bad, 'not PASS: %s' % bad)
+                      need(sorted(d['failed']) == nr, 'failed list %s differs from the NOT RUN set' % d['failed'])
+                      need(rc == (1 if d['failed'] else 0), 'exit %s inconsistent with the failed list' % rc)
+                      extra['timing_seconds'] = d.get('timing_seconds')
+                  elif step == '8-y8':
+                      need(rc == 0, 'exit %s' % rc)
+                      d = load(os.path.join(OUT, 'y8', 'a1-controls.json'))
+                      controls = rows(d['controls'])
+                      need(controls.get('Y8') == 'PASS', 'Y8 %s' % controls.get('Y8'))
+                      need(d['failed'] == [], 'failed %s' % d['failed'])
+                      extra['y8_actual'] = d['controls'].get('Y8', {}).get('actual')
+                  elif step == '9-mutation':
+                      need(rc == 0, 'exit %s' % rc)
+                      d = load(os.path.join(MUT, 'results.json'))
+                      base = load(os.path.join(MUT, 'base.json'))
+                      nr = sorted(k for k, v in base.items() if v == 'NOT RUN')
+                      need(nr == ['conformance/G-A1', 'conformance/TR5'], 'base NOT RUN set %s' % nr)
+                      bad = sorted(k for k, v in base.items() if v not in ('PASS', 'NOT RUN'))
+                      need(not bad, 'base not PASS: %s' % bad)
+                      controls = {}
+                      for m in d['mutants']:
+                          if m['id'] in controls:
+                              raise ValueError('mutant id %s repeated' % m['id'])
+                          controls[m['id']] = m['status']
+                      na = sorted(k for k, v in controls.items() if v == 'NOT APPLIED')
+                      need(na == ['v60e:U01'], 'NOT APPLIED set %s' % na)
+                      surv = sorted(k for k, v in controls.items() if v == 'SURVIVED')
+                      need(set(surv) <= LOCAL_SURVIVORS, 'survivors killed in the local run: %s' % sorted(set(surv) - LOCAL_SURVIVORS))
+                      other = sorted(k for k, v in controls.items() if v not in ('KILLED', 'SURVIVED', 'NOT APPLIED'))
+                      need(not other, 'unknown status: %s' % other)
+                      extra.update(counts=d['counts'], base_counts=d['base_counts'], survived=surv, not_applied=na,
+                                   killed=sum(1 for v in controls.values() if v == 'KILLED'),
+                                   killed_here_survived_locally=sorted(k for k in LOCAL_SURVIVORS if controls.get(k) == 'KILLED'))
+                  elif step in ('lean-install', '7-release-gate'):
+                      need(rc == 0, 'exit %s' % rc)
+                  elif step == 'lean-build':
+                      need(rc == 0, 'exit %s' % rc)
+                      with open(os.path.join(EV, 'lean-build.tree-status')) as f:
+                          s = f.read()
+                      need(s == '', 'the worktree changed: %s' % s[:400])
+                  else:
+                      reasons.append('no rule for step %s' % step)
+              except Exception as exc:
+                  reasons.append('unreadable result: %s: %s' % (type(exc).__name__, exc))
+              v = {'step': step, 'exit': rc, 'pass': not reasons, 'reasons': reasons, 'controls': controls, 'extra': extra}
+              with open(os.path.join(EV, step + '.verdict.json'), 'w') as f:
+                  json.dump(v, f, indent=1, sort_keys=True, default=str)
+              print('%s %s %s' % (step, 'PASS' if not reasons else 'FAIL', '; '.join(reasons)))
+              return 0 if not reasons else 1
+
+
+          if __name__ == '__main__':
+              sys.exit(main())
+          LCS_HELPER_EOF
+          cat > "$LCS/bin/collect.py" <<'LCS_HELPER_EOF'
+          """collect.py MODE: `identity` writes identity.json (the commits and the workflow blob), `env` writes env.json (the
+          runner environment), `results` copies the runners' result files into the evidence directory and writes
+          ci-results.json (schema ledger-coverage-suite-ci/1, stated in the workflow header)."""
+          import hashlib
+          import json
+          import os
+          import platform
+          import shutil
+          import subprocess
+          import sys
+
+          LCS = os.environ['LCS']
+          EV = os.path.join(LCS, 'ev')
+          OUT = os.path.join(LCS, 'out')
+          STEPS = ['1-self-test', '2-purity', '3-synthetic', '4-conformance', '5-a1-conformance', '6a-a1-controls-no-main',
+                   '6-a1-controls', '8-y8', '9-mutation', 'lean-install', 'lean-build', '7-release-gate']
+          COPIES = [('st/result.json', '1-self-test-result.json'), ('p/result.json', '2-purity-result.json'),
+                    ('conf/conformance-controls.json', '4-conformance-controls.json'),
+                    ('a1c/a1-conformance.json', '5-a1-conformance.json'), ('a1/a1-controls.json', '6-a1-controls.json'),
+                    ('y8/a1-controls.json', '8-y8-a1-controls.json'), ('../mutwork/results.json', '9-mutation-results.json'),
+                    ('../mutwork/base.json', '9-mutation-base.json')]
+          NOT_RUNNABLE = [
+              {'id': 'RT-T', 'reason': 'needs reviewed records, none of which exists before review; the A1 runner reports it '
+                                       'NOT RUN, as in the local run; not bound to the host'},
+              {'id': 'TR45 op-C', 'reason': 'the offline replay of an op-C result needs delegated evidence recorded by native '
+                                            'runs at X and C (G-A1, deferred); no entry point or flag of the runners at the '
+                                            'tool commit performs it'},
+              {'id': 'RestHost real reads', 'reason': 'the tool builds RestHost only for chain admission from a plan commit F '
+                                                      'with a reviewed configuration (TR5) and for native delegated runs of an '
+                                                      'admitted configuration (G-A1); no F exists before landing and no runner '
+                                                      'flag performs a host read; the job token is not given to the suite '
+                                                      'steps, so the runs match the local ones'},
+              {'id': 'sec. 16.7 double run', 'reason': 'no entry point or flag runs a tool result twice and compares the '
+                                                       'bytes; it would need new control code'},
+          ]
+
+
+          def git(*a):
+              r = subprocess.run(['git'] + list(a), capture_output=True, text=True)
+              return r.stdout.strip() if r.returncode == 0 else None
+
+
+          def sha256_file(p):
+              h = hashlib.sha256()
+              with open(p, 'rb') as f:
+                  for b in iter(lambda: f.read(1 << 20), b''):
+                      h.update(b)
+              return h.hexdigest()
+
+
+          def read(p):
+              try:
+                  with open(p) as f:
+                      return f.read()
+              except OSError:
+                  return None
+
+
+          def dump(name, obj):
+              with open(os.path.join(EV, name), 'w') as f:
+                  json.dump(obj, f, indent=1, sort_keys=True, default=str)
+                  f.write('\n')
+
+
+          def identity():
+              ws = os.environ['GITHUB_WORKSPACE']
+              ci_dir, wfp = os.path.join(ws, 'ci'), os.environ['WFP']
+              dump('identity.json', {
+                  'ci_commit': git('-C', ci_dir, 'rev-parse', 'HEAD'),
+                  'ci_commit_parents': (git('-C', ci_dir, 'rev-list', '--parents', '-n', '1', 'HEAD') or '').split()[1:],
+                  'tool_commit': os.environ['T'],
+                  'tool_worktree_head': git('-C', os.environ['TOOL'], 'rev-parse', 'HEAD'),
+                  'main': os.environ['MAIN'],
+                  'origin_main_at_run': git('-C', ci_dir, 'rev-parse', '--verify', '-q', 'refs/remotes/origin/main'),
+                  'workflow': {'path': wfp, 'git_blob': git('-C', ci_dir, 'rev-parse', 'HEAD:' + wfp),
+                               'sha256': sha256_file(os.path.join(ci_dir, wfp))},
+              })
+
+
+          def env():
+              mem = None
+              for line in (read('/proc/meminfo') or '').splitlines():
+                  if line.startswith('MemTotal:'):
+                      mem = int(line.split()[1])
+              osr = {}
+              for line in (read('/etc/os-release') or '').splitlines():
+                  if '=' in line:
+                      k, v = line.split('=', 1)
+                      osr[k] = v.strip('"')
+              du = shutil.disk_usage('/')
+              dump('env.json', {'os': osr.get('PRETTY_NAME'), 'kernel': platform.release(),
+                                'image_os': os.environ.get('ImageOS'), 'image_version': os.environ.get('ImageVersion'),
+                                'runner_name': os.environ.get('RUNNER_NAME'), 'runner_arch': os.environ.get('RUNNER_ARCH'),
+                                'python': sys.version, 'python_executable': sys.executable, 'git': git('--version'),
+                                'cpus': os.cpu_count(), 'mem_total_kB': mem,
+                                'disk_root_bytes': {'total': du.total, 'used': du.used, 'free': du.free}})
+
+
+          def time_report(step):
+              out = {}
+              for line in (read(os.path.join(EV, step + '.time')) or '').splitlines():
+                  if ':' in line:
+                      k, v = line.rsplit(':', 1)
+                      out[k.strip()] = v.strip()
+              try:
+                  return int(out['Maximum resident set size (kbytes)'])
+              except (KeyError, ValueError):
+                  return None
+
+
+          def results():
+              for src, dst in COPIES:
+                  p = os.path.normpath(os.path.join(OUT, src))
+                  if os.path.exists(p):
+                      shutil.copy(p, os.path.join(EV, dst))
+              ident = json.loads(read(os.path.join(EV, 'identity.json')) or '{}')
+              steps, controls, mutation = [], {}, None
+              for s in STEPS:
+                  v = json.loads(read(os.path.join(EV, s + '.verdict.json')) or 'null')
+                  ex = read(os.path.join(EV, s + '.exit'))
+                  wall = (read(os.path.join(EV, s + '.wall')) or '').split()
+                  df = (read(os.path.join(EV, s + '.df')) or '').split()
+                  steps.append({'id': s, 'exit': int(ex) if ex and ex.strip().lstrip('-').isdigit() else None,
+                                'wall_seconds': round(float(wall[1]) - float(wall[0]), 1) if len(wall) == 2 else None,
+                                'max_rss_kB': time_report(s),
+                                'disk_used_bytes': int(df[0]) if len(df) == 2 else None,
+                                'disk_avail_bytes': int(df[1]) if len(df) == 2 else None,
+                                'verdict': ('PASS' if v['pass'] else 'FAIL') if v else 'NOT RUN',
+                                'reasons': v['reasons'] if v else []})
+                  if v and v.get('controls') is not None:
+                      controls[s] = v['controls']
+                  if s == '9-mutation' and v:
+                      mutation = dict(v.get('extra') or {}, source_files=(read(os.path.join(EV, '9-mutation.source-files'))
+                                                                          or '').strip(),
+                                      tree_entries=(read(os.path.join(EV, '9-mutation.tree-entries')) or '').strip(),
+                                      mutant_trees_bytes=(read(os.path.join(EV, '9-mutation.trees-bytes')) or '').strip())
+              y8 = json.loads(read(os.path.join(EV, '8-y8.verdict.json')) or 'null')
+              syn = json.loads(read(os.path.join(EV, '3-synthetic.verdict.json')) or 'null')
+              doc = {
+                  'schema': 'ledger-coverage-suite-ci/1',
+                  'commits': {'ci_commit': ident.get('ci_commit'), 'tool_commit': ident.get('tool_commit'),
+                              'main': ident.get('main'), 'origin_main_at_run': ident.get('origin_main_at_run')},
+                  'workflow': ident.get('workflow'),
+                  'config': {'path': os.environ.get('CFG'), 'sha256_expected': os.environ.get('CFGSHA'),
+                             'sha256': (read(os.path.join(EV, 'staged-config.sha256')) or '').strip() or None},
+                  'run': {'id': os.environ.get('GITHUB_RUN_ID'), 'attempt': os.environ.get('GITHUB_RUN_ATTEMPT'),
+                          'repository': os.environ.get('GITHUB_REPOSITORY'), 'ref': os.environ.get('GITHUB_REF'),
+                          'event': os.environ.get('GITHUB_EVENT_NAME'), 'sha': os.environ.get('GITHUB_SHA')},
+                  'environment': json.loads(read(os.path.join(EV, 'env.json')) or 'null'),
+                  'steps': steps,
+                  'controls': controls,
+                  'y8': {'synthetic_engine': ((syn or {}).get('extra') or {}).get('informational', {}).get('_Y8_engine'),
+                         'actual': ((y8 or {}).get('extra') or {}).get('y8_actual')},
+                  'mutation': mutation,
+                  'deferred_post_landing': ['TR5', 'G-A1', 'EI14'],
+                  'not_runnable_pre_landing': NOT_RUNNABLE,
+                  'all_verdicts_pass': all(s['verdict'] == 'PASS' for s in steps),
+              }
+              doc['evidence_sha256'] = {n: sha256_file(os.path.join(EV, n)) for n in sorted(os.listdir(EV))
+                                        if n != 'ci-results.json' and os.path.isfile(os.path.join(EV, n))}
+              dump('ci-results.json', doc)
+              print(json.dumps({'all_verdicts_pass': doc['all_verdicts_pass'],
+                                'steps': {s['id']: s['verdict'] for s in steps}}, indent=1))
+
+
+          if __name__ == '__main__':
+              {'identity': identity, 'env': env, 'results': results}[sys.argv[1]]()
+          LCS_HELPER_EOF
+          chmod +x "$LCS/bin/run_step.sh"
+
+      - name: identity of the commits and the tool worktree
+        id: identity
+        run: |
+          set -euo pipefail
+          fail() { echo "IDENTITY FAIL: $*" >&2; exit 1; }
+          [ "$GITHUB_EVENT_NAME" = push ] || fail "event $GITHUB_EVENT_NAME"
+          [ "$GITHUB_REF" = "refs/heads/$BRANCH" ] || fail "ref $GITHUB_REF"
+          cd "$GITHUB_WORKSPACE/ci"
+          [ "$(git rev-parse --is-shallow-repository)" = false ] || fail "shallow clone"
+          ci=$(git rev-parse HEAD)
+          [ "$ci" = "$GITHUB_SHA" ] || fail "HEAD is not the pushed commit"
+          [ "$(git rev-list --parents -n 1 HEAD)" = "$ci $T" ] || fail "the CI commit is not a single-parent child of T"
+          [ "$(git diff --no-renames --name-status "$T" HEAD)" = "$(printf 'A\t%s' "$WFP")" ] || fail "the CI commit changes more than its workflow"
+          [ -z "$(git status --porcelain)" ] || fail "the CI checkout is not clean"
+          for c in "$T" "$MAIN" e837e3dbaa605efc867a213f3345cee14c36d8f5 53c6601a10419b6b333cc992474272501ab542af \
+                   14ac71b4b0a0c0aa2d7068d6799a73f474097060 4c79be642ca631573f06b444903be75ec4f5e2b6 \
+                   413b0bb88f39cad901befcf4684355c7ee39480b 8e9b83341cf5bc7fd9fb260892d0385fc9bfab4d; do
+            git cat-file -e "$c^{commit}" || fail "commit $c is not in the clone"
+          done
+          git worktree add --detach "$TOOL" "$T"
+          [ "$(git -C "$TOOL" rev-parse HEAD)" = "$T" ] || fail "the tool worktree's HEAD is not T"
+          [ -z "$(git -C "$TOOL" status --porcelain)" ] || fail "the tool worktree is not clean"
+          [ ! -e "$TOOL/$WFP" ] || fail "the tool worktree holds this workflow"
+          python3 -I "$LCS/bin/collect.py" identity
+
+      - name: staged configuration, verified by sha256
+        id: config
+        run: |
+          set -euo pipefail
+          ST="$LCS/staging/verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json"
+          mkdir -p "${ST%/*}"
+          base64 -d <<'LCS_CONFIG_EOF' | gunzip -c > "$ST"
+          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
+          x3HCVd598X8BlX1PNWBoAAA=
+          LCS_CONFIG_EOF
+          got=$(sha256sum "$ST" | cut -d' ' -f1)
+          echo "$got" > "$LCS/ev/staged-config.sha256"
+          [ "$got" = "$CFGSHA" ] || { echo "CONFIG SHA256 MISMATCH: $got" >&2; exit 1; }
+          for o in $(grep -oE '\b[0-9a-f]{40}\b' "$ST" | sort -u); do
+            git -C "$TOOL" cat-file -e "$o" || { echo "object $o named by the configuration is not in the clone" >&2; exit 1; }
+          done
+          echo "ST=$ST" >> "$GITHUB_ENV"
+
+      - name: mutation harness, verified by sha256
+        id: harness
+        run: |
+          set -euo pipefail
+          H="$LCS/harness"
+          cat > "$H/mutate_c2.py" <<'LCS_HARNESS_EOF'
+          """Correction 2 copy of mutate_c1.py: runs the mutant sets named by MUTANT_SETS (default c1, c2, v60e, cache) with one worker; ids are prefixed by their set. Runs every mutant against the engine self-test, the synthetic fixture and the conformance controls
+          of a copy of the final commit, and compares each control's status with the unmutated base.
+          Usage: python3 -I mutate.py WORK_DIR SOURCE_TREE [MUTANT_ID ...]
+          SOURCE_TREE: an extraction of the final commit (git archive), made a fresh git repository by this script."""
+          import concurrent.futures as cf
+          import json
+          import os
+          import shutil
+          import subprocess
+          import sys
+
+          HERE = os.path.dirname(os.path.abspath(__file__))
+          sys.path.insert(0, HERE)
+          import importlib  # noqa: E402
+          SETS = {"v60e": "mutants", "cache": "mutants_cache", "c1": "mutants_c1", "c2": "mutants_c2"}
+          MUTANTS = []
+          for _k in os.environ.get("MUTANT_SETS", "c1,c2,v60e,cache").split(","):
+              MUTANTS += [(_k + ":" + m[0],) + tuple(m[1:]) for m in importlib.import_module(SETS[_k]).MUTANTS]
+
+          AUDIT = 'verification/audits/foundations/ledger-coverage-tool-20261123'
+          WFP = '.github/workflows/ledger-coverage.yml'
+          ENV = dict(os.environ, GIT_AUTHOR_NAME='m', GIT_AUTHOR_EMAIL='m', GIT_COMMITTER_NAME='m', GIT_COMMITTER_EMAIL='m',
+                     GIT_CONFIG_GLOBAL=os.devnull, GIT_CONFIG_NOSYSTEM='1')
+
+
+          def go(argv, cwd=None):
+              try:
+                  p = subprocess.run([sys.executable, '-I', '-B'] + argv, capture_output=True, text=True, timeout=900, cwd=cwd)
+                  return p.returncode, p.stdout, p.stderr
+              except subprocess.TimeoutExpired:
+                  return 'TIMEOUT', '', ''
+
+
+          def run_all(root, out, wt):
+              os.makedirs(out, exist_ok=True)
+              res = {}
+              t = os.path.join(root, 'tools')
+              rc, so, se = go([os.path.join(t, 'ledger_coverage.py'), 'self-test', '--out', os.path.join(out, 'st')])
+              try:
+                  for c in json.load(open(os.path.join(out, 'st', 'result.json')))['controls']:
+                      res['self-test/' + c['id']] = 'PASS' if c['passed'] else 'FAIL'
+              except Exception as exc:
+                  res['self-test/*'] = 'CRASH %s rc=%s' % (type(exc).__name__, rc)
+              rc, so, se = go([os.path.join(t, 'ledger_coverage', 'adapters', 'synthetic_fixture.py'), os.path.join(out, 'syn'), wt])
+              try:
+                  d = json.loads(so)
+                  for k, v in d.items():
+                      if not k.startswith('_'):
+                          res['synthetic/' + k] = 'PASS' if v is True else 'FAIL'
+              except Exception as exc:
+                  res['synthetic/*'] = 'CRASH %s rc=%s %s' % (type(exc).__name__, rc, se[-300:])
+              rc, so, se = go([os.path.join(t, 'ledger_coverage', 'adapters', 'conformance_controls.py'), os.path.join(out, 'conf')])
+              try:
+                  d = json.load(open(os.path.join(out, 'conf', 'conformance-controls.json')))
+                  for c in d['controls']:
+                      res['conformance/' + c['id']] = c['status']
+              except Exception as exc:
+                  res['conformance/*'] = 'CRASH %s rc=%s %s' % (type(exc).__name__, rc, se[-400:])
+              return res
+
+
+          def one(args):
+              m, work, wt = args
+              mid, f, reps, why = m
+              root = os.path.join(work, 'mut', mid.replace(':', '-'))
+              if os.path.exists(root):
+                  shutil.rmtree(root)
+              os.makedirs(os.path.join(root, 'tools'))
+              shutil.copytree(os.path.join(wt, 'tools', 'ledger_coverage'), os.path.join(root, 'tools', 'ledger_coverage'))
+              shutil.copy(os.path.join(wt, 'tools', 'ledger_coverage.py'), os.path.join(root, 'tools', 'ledger_coverage.py'))
+              shutil.copytree(os.path.join(wt, AUDIT), os.path.join(root, AUDIT))
+              os.makedirs(os.path.join(root, '.github', 'workflows'))
+              shutil.copy(os.path.join(wt, WFP), os.path.join(root, WFP))
+              p = os.path.join(root, 'tools', f)
+              src = open(p).read()
+              for old, new in reps:
+                  n = src.count(old)
+                  if n != 1:
+                      return mid, {'_apply': 'old string occurs %d times: %r' % (n, old[:80])}
+                  src = src.replace(old, new)
+              open(p, 'w').write(src)
+              r = run_all(root, os.path.join(root, 'out'), wt)
+              shutil.rmtree(os.path.join(root, 'tools'))
+              return mid, r
+
+
+          def main():
+              work, wt = sys.argv[1], sys.argv[2]
+              sel = sys.argv[3:]
+              if not os.path.isdir(os.path.join(wt, '.git')):
+                  subprocess.run(['git', 'init', '-q'], cwd=wt, env=ENV, check=True)
+                  subprocess.run(['git', 'add', '-A'], cwd=wt, env=ENV, check=True)
+                  subprocess.run(['git', 'commit', '-qm', 'final commit extraction'], cwd=wt, env=ENV, check=True)
+              os.makedirs(os.path.join(work, 'mut'), exist_ok=True)
+              base = run_all(wt, os.path.join(work, 'base-run'), wt)
+              json.dump(base, open(os.path.join(work, 'base.json'), 'w'), indent=1, sort_keys=True)
+              ms = [m for m in MUTANTS if not sel or m[0] in sel]
+              out = {}
+              with cf.ThreadPoolExecutor(1) as ex:
+                  for mid, r in ex.map(one, [(m, work, wt) for m in ms]):
+                      out[mid] = r
+              summary = []
+              for m in ms:
+                  mid = m[0]
+                  r = out[mid]
+                  if '_apply' in r:
+                      summary.append({'id': mid, 'file': m[1], 'rule': m[3], 'status': 'NOT APPLIED', 'why': r['_apply']})
+                      continue
+                  killed = sorted(k for k, v in r.items() if base.get(k) != v)
+                  summary.append({'id': mid, 'file': m[1], 'rule': m[3], 'status': 'KILLED' if killed else 'SURVIVED',
+                                  'killed_by': killed})
+              counts = {}
+              for s in summary:
+                  counts[s['status']] = counts.get(s['status'], 0) + 1
+              json.dump({'base_counts': {s: sum(1 for v in base.values() if v == s) for s in set(base.values())},
+                         'counts': counts, 'mutants': summary, 'raw': out},
+                        open(os.path.join(work, 'results.json'), 'w'), indent=1, sort_keys=True)
+              for s in summary:
+                  print(s['id'], s['status'], s.get('why', ''), ' '.join(s.get('killed_by', [])[:6]), '|', s['rule'])
+              print(json.dumps(counts))
+
+
+          if __name__ == '__main__':
+              main()
+          LCS_HARNESS_EOF
+          cat > "$H/mutants.py" <<'LCS_HARNESS_EOF'
+          """Mutants of the v6.0e code (new and changed): (id, file under tools/, [(old, new), ...], the rule weakened).
+          Each old string must occur exactly once in its file."""
+          G = 'ledger_coverage/engine/gitobj.py'
+          L = 'ledger_coverage/engine/cli.py'
+          C = 'ledger_coverage/engine/config.py'
+          K = 'ledger_coverage/engine/checker.py'
+          D = 'ledger_coverage/engine/delegation.py'
+          O = 'ledger_coverage/engine/outcome.py'
+          R = 'ledger_coverage/engine/records.py'
+          H = 'ledger_coverage/engine/host.py'
+          P = 'ledger_coverage/engine/purity.py'
+          E = 'ledger_coverage.py'
+
+          MUTANTS = [
+              # ---- the verified reader (object integrity)
+              ('V01', G, [("        if len(data) != size or object_id(head[1], data) != oid:", "        if len(data) != size:")],
+               'GV4: every object id recomputed from type, length and content'),
+              ('V02', G, [("            self._proc = subprocess.Popen(['git', '--no-replace-objects', '-C', self.path, 'cat-file', '--batch'],",
+                           "            self._proc = subprocess.Popen(['git', '-C', self.path, 'cat-file', '--batch'],"),
+                          ("    env.update(GIT_NO_REPLACE_OBJECTS='1', GIT_NO_LAZY_FETCH='1', GIT_ALLOW_PROTOCOL='none-permitted',",
+                           "    env.update(GIT_NO_LAZY_FETCH='1', GIT_ALLOW_PROTOCOL='none-permitted',")],
+               'GV1: replace refs never applied'),
+              ('V03', G, [("    if not isinstance(rev, str) or not _full.match(rev):\n        raise Unresolvable('not a full 40-hex object id",
+                           "    if False:\n        raise Unresolvable('not a full 40-hex object id")],
+               'GV1: role commits are full ids only (no ref names)'),
+              ('V04', G, [("        if e[0] not in regular_modes:\n            raise Unresolvable('%s is not a regular file at %s (mode %s)'",
+                           "        if False:\n            raise Unresolvable('%s is not a regular file at %s (mode %s)'")],
+               'GV6: records, configuration and pin table only from regular-file entries (on disk)'),
+              ('V05', G, [("            elif a in self.mem:\n                continue  # a commit of the base store has no in-memory ancestor",
+                           "            elif a in self.mem and False:\n                continue  # a commit of the base store has no in-memory ancestor")],
+               'overlay ancestry shortcut (equivalent: the base walk also answers False, at the cost of a full walk)'),
+              ('V06', G, [("            if isinstance(v, tuple):\n                raise Unresolvable('%s is not a regular file at %s' % (path, cid[:12]))",
+                           "            if False:\n                raise Unresolvable('%s is not a regular file at %s' % (path, cid[:12]))")],
+               'GV6: a non-regular in-memory entry is never read as a file'),
+              ('V07', G, [("            for line in lines[1:]:\n                if not line.startswith(b'parent '):\n                    break",
+                           "            for line in lines[1:2]:\n                if not line.startswith(b'parent '):\n                    break")],
+               'parents parsed from the verified commit: every parent line'),
+              # ---- configuration admission (sec. 6.3 points 1-3)
+              ('A01', L, [("    if not a.freeze:\n        refuse('no --freeze", "    if False:\n        refuse('no --freeze")],
+               'TR1: no admission without --freeze'),
+              ('A02', L, [("    if crev != F:\n        refuse('the configuration is read from F only", "    if False:\n        refuse('the configuration is read from F only")],
+               'configuration read from F only'),
+              ('A03', L, [("    if table.get(cpath[len(rec_dir):]) != util.sha256(data):", "    if False:")],
+               'TR2/EI4: the configuration listed in the last Record pins subsection'),
+              ('A04', L, [("    if not any(_reviews(b, cpath, util.sha256(data)) for b in admitted.values()):", "    if False:")],
+               'TR3: the review record listed in the pin table'),
+              ('A05', L, [("        if det is None:\n            refuse('a run outside a host CI job", "        if False:\n            refuse('a run outside a host CI job")],
+               'TR13: no chain outside a host job (crashes rather than refusing)'),
+              ('A06', C, [("    i = heads[-1]\n", "    i = heads[0]\n")], 'EI4 (c): the last Record pins subsection'),
+              ('A07', C, [("        if not m or m.group(1) in ('.', '..'):\n            raise PinTableError('malformed row",
+                           "        if not m:\n            continue\n        if m.group(1) in ('.', '..'):\n            raise PinTableError('malformed row")],
+               'EI4: a malformed row refuses'),
+              ('A08', C, [("        if m.group(1) in out:\n            raise PinTableError", "        if False:\n            raise PinTableError")],
+               'a file listed twice is malformed'),
+              ('A09', C, [("        if f['path'] != entry and not (f['path'].startswith(pkg) and len(f['path']) > len(pkg)):",
+                           "        if False:")], 'sec. 16.2 lint: tool.files only the entry point and package paths'),
+              ('A10', C, [("    if entry not in paths:\n        out.append('tool.files does not name the entry point')",
+                           "    if False:\n        out.append('tool.files does not name the entry point')")], 'sec. 16.2 lint: the entry point named'),
+              ('A11', C, [("    if not isinstance(repository_id, int) or isinstance(repository_id, bool) or repository_id <= 0:",
+                           "    if False:")], 'sec. 16.2 lint: repository_id a positive integer'),
+              ('A12', C, [("retirement_fields = ('name', 'issue')", "retirement_fields = ('name', 'issue', 'owner')")],
+               'sec. 16.2: retirement holds name and issue only (an owner field is unknown)'),
+              ('A13', C, [("        if isinstance(doc, dict) and 'schema' in doc and doc['schema'] not in rec.record_schemas + (rec.review_schema,):",
+                           "        if False:")], 'sec. 16.2: a record kind the design does not define is CONFIG_INVALID'),
+              ('A14', C, [("    tp = tool_problems(cfg['tool'], cfg['repository_id'])\n    if tp:", "    tp = tool_problems(cfg['tool'], cfg['repository_id'])\n    if False:")],
+               'sec. 16.6: tool and repository_id lint at load'),
+              # ---- execution identity (points 1, 2, 5, 6)
+              ('I01', L, [("    if run['repository_id'] != rid or run['head_repository_id'] != rid:", "    if run['repository_id'] != rid:")],
+               'TR14: the head repository id'),
+              ('I02', L, [("    if run['repository_id'] != rid or run['head_repository_id'] != rid:", "    if run['head_repository_id'] != rid:")],
+               'TR14: the repository id'),
+              ('I03', L, [("    if run['event'] not in ('push', 'workflow_dispatch'):", "    if run['event'] not in ('push', 'workflow_dispatch', 'pull_request'):")],
+               'EI2: event push or workflow_dispatch only'),
+              ('I04', L, [("    if run['head_branch'] != 'main':", "    if False:")], 'TR29: head branch main'),
+              ('I05', L, [("    if set(mine) != set(pins):", "    if not set(pins) <= set(mine):")], 'TR28/TR52: no extra file under the package'),
+              ('I06', L, [("        if mine[p][0] not in regular_modes:", "        if False:")], 'TR51: regular files only at T'),
+              ('I07', L, [("        if util.sha256(blobs[p]) != pins[p]:", "        if False:")], 'TR28: each tool blob equal to its pin'),
+              ('I08', L, [("    if run['workflow_path'] != wf['path']:", "    if False:")], 'TR15: the run\'s workflow path is the pinned one'),
+              ('I09', L, [("    if wfb is None or util.sha256(wfb) != wf['blob_sha256']:", "    if wfb is None:")], 'TR15/TR50: workflow blob equal to its pin'),
+              ('I10', L, [("    bad = checker.uses_line_problems(wfb)\n    if bad:", "    bad = checker.uses_line_problems(wfb)\n    if False:")],
+               'EI7: the uses: line rule at the tool'),
+              ('I11', L, [("    if set(checkout) != set(blobs) or any(checkout[p] != blobs[p] for p in blobs):", "    if set(checkout) != set(blobs):")],
+               'EI1: the checkout byte-identical to T'),
+              ('I12', L, [("    if set(checkout) != set(blobs) or any(checkout[p] != blobs[p] for p in blobs):",
+                           "    if any(checkout.get(p) != blobs[p] for p in blobs):")], 'EI1: no extra file in the checkout'),
+              ('I13', L, [("    if not isinstance(run, dict) or any(run.get(k) is None for k in keys):", "    if not isinstance(run, dict):")],
+               'GV7: an incomplete run record refuses'),
+              ('I14', L, [("    except hostmod.HostUnavailable as exc:\n        refuse('the run record cannot be read: %s' % exc, simulated_host=simulated)",
+                           "    except hostmod.HostUnavailable as exc:\n        run = {}")], 'GV7: a failed run-record read refuses'),
+              # ---- the uses: line rule
+              ('U01', K, [("_uses = re.compile(r'^\\s*(- )?uses: [A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+(/[^@\\s]+)?@[0-9a-f]{40}\\s*$')",
+                           "_uses = re.compile(r'^\\s*(- )?uses: \\S+@\\S+\\s*$')")], 'EI7 clause 1: owner/repo@40-hex only'),
+              ('U02', K, [("_prefix = re.compile(r'^\\s*((-|---)\\s+)*')", "_prefix = re.compile(r'^\\s*(- )?')")],
+               'EI7 clause 2: any number of dash or document markers with any whitespace (review v6.0d B-1)'),
+              ('U03', K, [("        if rest[:1] and rest[:1] in '\"\\'{[?&*!':", "        if rest[:1] and rest[:1] in '{[':")],
+               'EI7 clause 2: quotes, complex keys, anchors, aliases, tags'),
+              ('U04', K, [("_value = re.compile(r':\\s+[{[&*!]')", "_value = re.compile(r': [{[&*!]')")],
+               'EI7 clause 3: any whitespace after the colon (a tab)'),
+              ('U05', K, [("_uses_word = re.compile(r'uses', re.I)", "_uses_word = re.compile(r'uses')")], 'EI7 clause 1: any letter case'),
+              # ---- the consumer (sec. 5) and the landing (sec. 13.4)
+              ('C01', K, [("    if exit_status != 0 or doc.get('schema') != 'oi-ledger-coverage/5':", "    if exit_status != 0:")],
+               'acceptance: schema /5 only'),
+              ('C02', K, [("    if 'harness' in doc or admission_mode(doc) != 'chain':", "    if 'harness' in doc:")], 'X11: chain only'),
+              ('C03', K, [("    if pins.get('freeze') is None or snap.get('freeze') != pins['freeze'] or cfg.get('commit') != pins['freeze']:",
+                           "    if pins.get('freeze') is None:")], 'EI3: F equal to the landing record\'s'),
+              ('C04', K, [("    if pins.get('pin_table') is None or snap.get('pin_table') != pins['pin_table']:", "    if pins.get('pin_table') is None:")],
+               'EI3: the pin table equal to the landing record\'s'),
+              ('C05', K, [("    if not want_files or snap.get('tool_blobs') != want_files or snap.get('workflow') != tool.get('workflow'):",
+                           "    if not want_files:")], 'X10: recorded tool blobs equal to the configuration\'s tool pins'),
+              ('C06', K, [("        if run.get('repository_id') != rid or run.get('head_repository_id') != rid or \\\n                run.get('event') not in ('push', 'workflow_dispatch'):",
+                           "        if run.get('repository_id') != rid:")], 'TR14/EI2 at the consumer'),
+              ('C07', K, [("        if T != snap.get('tool_commit') or run.get('workflow_path') != tool['workflow']['path']:",
+                           "        if run.get('workflow_path') != tool['workflow']['path']:")], 'TR29: recorded T equal to head_sha'),
+              ('C08', K, [("        if set(mine) != set(pins_f):\n            return False", "        if not set(pins_f) <= set(mine):\n            return False")],
+               'TR52 at the consumer'),
+              ('C09', K, [("            if mode not in ('100644', '100755') or hashlib.sha256(repo.read(T, p)).hexdigest() != pins_f[p]:",
+                           "            if mode not in ('100644', '100755', '120000', '160000'):")], 'TR28/TR51 at the consumer'),
+              ('C10', K, [("        if wf is None or hashlib.sha256(wf).hexdigest() != tool['workflow']['blob_sha256'] or uses_line_problems(wf):",
+                           "        if wf is None or hashlib.sha256(wf).hexdigest() != tool['workflow']['blob_sha256']:")],
+               'EI7 at the consumer'),
+              ('C11', K, [("        if not isinstance(M, str) or not _on_first_parent_chain(repo, T, M):", "        if not isinstance(M, str):")],
+               'TR29: T on M\'s first-parent chain'),
+              ('C12', K, [("        if snap.get('evaluated') != landing.get('evaluated'):", "        if False:")], 'TR30'),
+              ('C13', K, [("    if art is None or art != landing.get('result_sha256') or hashlib.sha256(raw).hexdigest() != art:",
+                           "    if art is None or art != landing.get('result_sha256'):")], 'R4-N2: the result is the run\'s artifact'),
+              ('C14', K, [("    if len(hits) != 1 or len(hits[0]) != 2:", "    if not hits:")], 'EI5: exactly one main line'),
+              ('C15', K, [("    if M != landing_first_parent:", "    if False:")], 'EI5: M equal to L\'s first parent'),
+              ('C16', K, [("    try:\n        repo.resolve(M)\n    except Exception as exc:", "    try:\n        pass\n    except Exception as exc:")],
+               'EI5: M readable by the verified reader'),
+              # ---- host reads, delegation, outputs, entry point
+              ('H01', D, [("            if r.get('event') in ('push', 'workflow_dispatch') and r.get('repository_id') == self.repo_id and \\\n                    r.get('head_repository_id') == self.repo_id:",
+                           "            if True:")], 'sec. 7.2 / F-12: host-run evidence from push or dispatch runs in the repository'),
+              ('H02', D, [("            if not isinstance(r, dict) or not isinstance(r.get('jobs'), list):\n                return None",
+                           "            if not isinstance(r, dict):\n                return None")], 'GV7: an incomplete run record is missing evidence'),
+              ('H03', D, [("        except HostUnavailable:\n            return None", "        except HostUnavailable:\n            return []")],
+               'GV7: equivalent (an empty list is also no evidence)'),
+              ('O01', O, [("                if isinstance(v, str) and v in class_meaning:\n                    x['meaning'] = class_meaning[v]",
+                           "                if False:\n                    x['meaning'] = class_meaning[v]")], 'B-4: explanations quote the class meaning'),
+              ('O02', O, [("    result['class_meaning'] = dict(class_meaning)\n", "")], 'B-4: the fixed table in every result'),
+              ('E01', E, [("if not sys.flags.isolated or any(_inside(p) for p in sys.path):", "if any(_inside(p) for p in sys.path):")],
+               'EI6: isolated mode required'),
+              ('E02', E, [("if not sys.flags.isolated or any(_inside(p) for p in sys.path):", "if not sys.flags.isolated:")],
+               'EI6: no sys.path entry inside the checkout'),
+              ('P01', P, [("    return s in field_names or s in schema_ids or s in enumerations or s in interface_names",
+                           "    return s in field_names or s in schema_ids or s in enumerations or s in interface_names or '.' in s")],
+               'Z9: the allowlist exempts only its listed values'),
+              ('R01', R, [("        if any(verdicts.get(i) != 'accept' for i in ids):\n            bad.append('an item is not accepted')",
+                           "        if False:\n            bad.append('an item is not accepted')")], 'LN4/O3: every item accepted'),
+              ('R02', R, [("        if miss or any(v != 'accept' for v in verdicts.values()) or not verdicts:", "        if not verdicts:")],
+               'A12r: the widening review accepts every changed item'),
+              ('R03', R, [("        if old_ref is not None and (d.get('replaces') or {}).get('blob_sha256') != old_ref.get('blob_sha256'):",
+                           "        if False:")], 'A12r: the widening review names the superseded blob'),
+          ]
+          LCS_HARNESS_EOF
+          cat > "$H/mutants_c1.py" <<'LCS_HARNESS_EOF'
+          """Mutants of correction 1 (3184c7f9): (id, file under tools/, [(old, new), ...], rule)."""
+          CK = 'ledger_coverage/engine/checker.py'
+          SC = 'ledger_coverage/engine/schemas/oi-ledger-coverage-5.schema.json'
+          DL = 'ledger_coverage/engine/delegation.py'
+          CF = 'ledger_coverage/engine/config.py'
+          CC = 'ledger_coverage/adapters/conformance_controls.py'
+          OWNER = "uses: [A-Za-z0-9](?:-?[A-Za-z0-9])*/"
+
+          MUTANTS = [
+              ('C01', CK, [(OWNER, "uses: [A-Za-z0-9_.-]+/")], 'B-1: the owner is a GitHub account name (the rule before the fix)'),
+              ('C02', CK, [(OWNER, "uses: [A-Za-z0-9.](?:-?[A-Za-z0-9.])*/")], 'B-1: the owner admits no dot'),
+              ('C03', CK, [(OWNER, "uses: (?:\\.\\./)?[A-Za-z0-9](?:-?[A-Za-z0-9])*/")], 'B-1: the owner admits no parent path'),
+              ('C04', CK, [(OWNER, "uses: [A-Za-z0-9-](?:-?[A-Za-z0-9])*/")],
+               'B-1: the owner does not start with a hyphen (outside the B-1 counterexamples)'),
+              ('C05', SC, [('    "blob_sha256",\n    "admission"\n', '    "blob_sha256"\n')],
+               'N-2: the /5 schema requires config.admission'),
+              ('C06', CK, [("    try:\n        repo.resolve(M)\n    except Exception as exc:\n        raise ValueError('the resolved main cannot be read: %s' % exc)\n", "")],
+               'N-1: the re-resolved main must be readable by the verified reader'),
+              ('C07', DL, [("        env = dict(os.environ, GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL=os.devnull)\n        r = subprocess.run(['git', 'clone'",
+                            "        env = dict(os.environ, GIT_CONFIG_NOSYSTEM='1')\n        r = subprocess.run(['git', 'clone'")],
+               'D-11 (O-3): the delegated clone ignores the global git configuration'),
+              ('C08', DL, [("        env = dict(os.environ, GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL=os.devnull)\n        r = subprocess.run(['git', 'clone'",
+                            "        env = dict(os.environ, GIT_CONFIG_GLOBAL=os.devnull)\n        r = subprocess.run(['git', 'clone'")],
+               'D-11 (O-3): the delegated clone ignores the system git configuration (outside the local control)'),
+              ('C09', CF, [("            except Unresolvable:\n                raise stop('CONFIG_INCONSISTENT', 'merge %s is not resolvable' % m['commit'][:12])",
+                            "            except Unresolvable:\n                continue")],
+               'D-6: an unresolvable HP merge is an error (GV4 accepts either error class)'),
+              ('C10', CF, [("            except Unresolvable:\n                raise stop('CONFIG_INCONSISTENT', 'merge %s is not resolvable' % m['commit'][:12])",
+                            "            except Unresolvable:\n                return")],
+               'D-6: an unresolvable HP merge ends the HP check with an error, not a pass'),
+              ('C11', CC, [("    p = subprocess.run([sys.executable, '-I', '-S', '-c', 'import sys, json; print(json.dumps(sys.path))'], cwd='/',",
+                            "    p = subprocess.run([sys.executable, '-I', '-c', 'import sys, json; print(json.dumps(sys.path))'], cwd='/',")],
+               'D-7: EI6 admits only the standard library (the -I import path before the correction)'),
+              ('C12', CC, [("    def entry(self, d, extra=(), flags=('-I', '-S', '-B'), out_name='out'):",
+                            "    def entry(self, d, extra=(), flags=('-I', '-B'), out_name='out'):"),
+                           ("    code6, res6, err6 = e.entry(d6, flags=('-I', '-S', '-B', '-v'))",
+                            "    code6, res6, err6 = e.entry(d6, flags=('-I', '-B', '-v'))")],
+               'D-7: the EI runs use the workflow\'s flags -I -S -B'),
+          ]
+          LCS_HARNESS_EOF
+          cat > "$H/mutants_c2.py" <<'LCS_HARNESS_EOF'
+          """Mutants of correction 2 (4f4a9d58): the EI6 predicate's new parts. (id, file under tools/, [(old, new), ...], rule)."""
+          CC = 'ledger_coverage/adapters/conformance_controls.py'
+
+          MUTANTS = [
+              ('D01', CC, [("    if any(rf == i or rf.startswith(i + os.sep) for i in installed):\n        return False\n    for s in stdlib:\n        if rf.startswith(s + os.sep) and not any(n in INSTALLED_NAMES for n in rf[len(s) + 1:].split(os.sep)[:-1]):\n            return True\n    return False",
+                            "    return any(rf.startswith(s + os.sep) for s in stdlib)")],
+               'R-B1: EI6\'s predicate as at 3184c7f9 (a prefix test on the -I -S path)'),
+              ('D02', CC, [("    if any(rf == i or rf.startswith(i + os.sep) for i in installed):\n        return False\n", "")],
+               'R-B1: the installed-package directories are excluded by real path (redundant with the name rule on this layout)'),
+              ('D03', CC, [("        if rf.startswith(s + os.sep) and not any(n in INSTALLED_NAMES for n in rf[len(s) + 1:].split(os.sep)[:-1]):",
+                            "        if rf.startswith(s + os.sep):")],
+               'R-B1: a site-packages or dist-packages directory inside a standard-library directory is refused'),
+          ]
+          LCS_HARNESS_EOF
+          cat > "$H/mutants_cache.py" <<'LCS_HARNESS_EOF'
+          """Mutants of the reader-cache correction (engine/gitobj.py): (id, file under tools/, [(old, new), ...], rule)."""
+          G = 'ledger_coverage/engine/gitobj.py'
+
+          MUTANTS = [
+              ('K01', G, [("            self._paths[cid] = MappingProxyType({p: oid for p, (mode, oid) in self.entries(cid).items()\n                                                 if mode != '160000'})",
+                           "            self._paths[cid] = {p: oid for p, (mode, oid) in self.entries(cid).items()\n                                                 if mode != '160000'}")],
+               'GitRepo.paths returns a read-only view'),
+              ('K02', G, [("            self._entries[cid] = MappingProxyType(out)", "            self._entries[cid] = out")],
+               'GitRepo.entries returns a read-only view'),
+              ('K03', G, [("        if cid not in self._paths:\n            self._paths[cid] = MappingProxyType({p: oid for p, (mode, oid) in self.entries(cid).items()\n                                                 if mode != '160000'})\n        return self._paths[cid]",
+                           "        if 'k' not in self._paths:\n            self._paths['k'] = MappingProxyType({p: oid for p, (mode, oid) in self.entries(cid).items()\n                                                 if mode != '160000'})\n        return self._paths['k']")],
+               'the path cache is keyed by the commit id'),
+              ('K04', G, [("        if cid not in self._entries:\n            out = {}\n\n            def walk(tid, pre):",
+                           "        if cid not in self._entries:\n            out = {}\n            self._entries[cid] = MappingProxyType(out)\n\n            def walk(tid, pre):")],
+               'a refused tree caches nothing (the map is stored only after the whole walk)'),
+              ('K05', G, [("            if cid not in self._paths:\n                self._paths[cid] = MappingProxyType({p: oid for p, (mode, oid) in self.entries(cid).items()\n                                                     if mode != '160000'})\n            return self._paths[cid]",
+                           "            if 'k' not in self._paths:\n                self._paths['k'] = MappingProxyType({p: oid for p, (mode, oid) in self.entries(cid).items()\n                                                     if mode != '160000'})\n            return self._paths['k']")],
+               'the overlay path cache is keyed by the commit id'),
+              ('K06', G, [("                self._entries[cid] = MappingProxyType(dict(f.entries()) if isinstance(f, _LazyTree) else\n                                                      {p: _entry_of(d) for p, d in f.items()})",
+                           "                self._entries[cid] = (f.entries() if isinstance(f, _LazyTree) else\n                                      {p: _entry_of(d) for p, d in f.items()})")],
+               'the overlay entry map is a read-only copy, not the in-memory tree\'s own dict'),
+              ('K07', G, [("        if oid in self._objs:\n            return self._objs[oid]",
+                           "        if oid in self._objs or any(oid in m.values() for m in self._paths.values()):\n            return self._objs.get(oid) or self._unverified(oid)"),
+                          ("    def resolve(self, rev):\n        \"\"\"A role commit",
+                           "    def _unverified(self, oid):\n        r = subprocess.run(['git', '-C', self.path, 'cat-file', '-t', oid], capture_output=True, text=True)\n        t = r.stdout.strip()\n        d = subprocess.run(['git', '-C', self.path, 'cat-file', t, oid], capture_output=True).stdout\n        self._objs[oid] = (t, d)\n        return t, d\n\n    def resolve(self, rev):\n        \"\"\"A role commit")],
+               'an object listed in a cached path map is still verified on first read'),
+              ('K08', G, [("            self._paths[cid] = MappingProxyType({p: oid for p, (mode, oid) in self.entries(cid).items()\n                                                 if mode != '160000'})",
+                           "            self._paths[cid] = MappingProxyType({p: oid for p, (mode, oid) in self.entries(cid).items()})")],
+               'the path map lists blobs and symlinks, not submodules'),
+          ]
+          LCS_HARNESS_EOF
+          cd "$H"
+          sha256sum --strict -c - <<'LCS_SUMS_EOF'
+          2d6cc731af4dfacbd4f7f6669ee7f990feee24bc45ff476dfa2fed3c7554ef95  mutate_c2.py
+          01e2a58412750fe638e8eda771ddf134413f4dc52fd6453dd7e00cd049cf902f  mutants.py
+          1288853aedfa2d630e44659c7ebf556517233f80c8e97d1b702b374a8ff79a54  mutants_c1.py
+          7171c20d660f95f7def52922f9e3043c33f9e8f1ec53f7b4d014f8eda19689b5  mutants_c2.py
+          49c051daa52b7e3bf3cae923af964de5c00f6713c00bff78320c99193271a757  mutants_cache.py
+          LCS_SUMS_EOF
+          [ "$(ls "$H" | wc -l)" = 5 ] || { echo "unexpected harness files" >&2; exit 1; }
+
+      - name: runner environment
+        id: env
+        run: |
+          set -euo pipefail
+          if [ ! -x /usr/bin/time ]; then sudo apt-get update -q && sudo apt-get install -y -q time; fi
+          python3 -I "$LCS/bin/collect.py" env
+          cat "$LCS/ev/env.json"
+
+      - name: 1-self-test
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          "$LCS/bin/run_step.sh" 1-self-test python3 -I -S -B tools/ledger_coverage.py self-test --out "$LCS/out/st"
+          python3 -I "$LCS/bin/verdict.py" 1-self-test
+
+      - name: 2-purity
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          "$LCS/bin/run_step.sh" 2-purity python3 -I -B tools/ledger_coverage/adapters/staged_purity_lint.py --repo . --config "$CFG" --staged-config "$ST" --out "$LCS/out/p"
+          python3 -I "$LCS/bin/verdict.py" 2-purity
+
+      - name: 3-synthetic
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          "$LCS/bin/run_step.sh" 3-synthetic python3 -I -B tools/ledger_coverage/adapters/synthetic_fixture.py "$LCS/out/syn" .
+          python3 -I "$LCS/bin/verdict.py" 3-synthetic
+
+      - name: 4-conformance
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          "$LCS/bin/run_step.sh" 4-conformance python3 -I -B tools/ledger_coverage/adapters/conformance_controls.py "$LCS/out/conf"
+          python3 -I "$LCS/bin/verdict.py" 4-conformance
+
+      - name: 5-a1-conformance
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          "$LCS/bin/run_step.sh" 5-a1-conformance python3 -I -B tools/ledger_coverage/adapters/a1_conformance.py --repo . --config "$CFG" --staged-config "$ST" --out "$LCS/out/a1c"
+          python3 -I "$LCS/bin/verdict.py" 5-a1-conformance
+
+      - name: 6a-a1-controls-no-main
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          "$LCS/bin/run_step.sh" 6a-a1-controls-no-main python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo . --config "$CFG" --staged-config "$ST" --out "$LCS/out/a1-nomain"
+          python3 -I "$LCS/bin/verdict.py" 6a-a1-controls-no-main
+
+      - name: 6-a1-controls
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          "$LCS/bin/run_step.sh" 6-a1-controls python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo . --config "$CFG" --staged-config "$ST" --main "$MAIN" --out "$LCS/out/a1"
+          python3 -I "$LCS/bin/verdict.py" 6-a1-controls
+
+      - name: 8-y8
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          set -euo pipefail
+          eng=$(python3 -I -c 'import json, sys; print(json.load(open(sys.argv[1]))["_Y8_engine"])' "$LCS/ev/3-synthetic.stdout")
+          "$LCS/bin/run_step.sh" 8-y8 python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo . --config "$CFG" --staged-config "$ST" --main "$MAIN" --only y8 --syn-engine "$eng" --out "$LCS/out/y8"
+          python3 -I "$LCS/bin/verdict.py" 8-y8
+
+      - name: 9-mutation
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          set -euo pipefail
+          MS="$LCS/msrc"
+          mkdir -p "$MS" "$LCS/mutwork"
+          GIT_INDEX_FILE="$LCS/msrc.index" git -C "$TOOL" read-tree "$T"
+          GIT_INDEX_FILE="$LCS/msrc.index" git -C "$TOOL" checkout-index -a --prefix="$MS/"
+          rm -f "$LCS/msrc.index"
+          find "$MS" \( -type f -o -type l \) | wc -l > "$LCS/ev/9-mutation.source-files"
+          git -C "$TOOL" ls-tree -r "$T" | wc -l > "$LCS/ev/9-mutation.tree-entries"
+          "$LCS/bin/run_step.sh" 9-mutation python3 -I "$LCS/harness/mutate_c2.py" "$LCS/mutwork" "$MS"
+          python3 -I "$LCS/bin/verdict.py" 9-mutation
+
+      - name: remove the mutant trees
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          set -euo pipefail
+          if [ -d "$LCS/mutwork/mut" ]; then du -sb "$LCS/mutwork/mut" | cut -f1 > "$LCS/ev/9-mutation.trees-bytes"; fi
+          rm -rf "$LCS/mutwork/mut" "$LCS/msrc"
+          df -B1 /
+
+      - name: lean-install
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          set -euo pipefail
+          "$LCS/bin/run_step.sh" lean-install sh -c 'curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o "$LCS/elan-init.sh" && sh "$LCS/elan-init.sh" -y --default-toolchain none'
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+          python3 -I "$LCS/bin/verdict.py" lean-install
+
+      - name: lean-build
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          set -euo pipefail
+          "$LCS/bin/run_step.sh" lean-build sh -c 'cd verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build'
+          git -C "$TOOL" status --porcelain > "$LCS/ev/lean-build.tree-status"
+          python3 -I "$LCS/bin/verdict.py" lean-build
+
+      - name: 7-release-gate
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          "$LCS/bin/run_step.sh" 7-release-gate python3 tools/release_gate.py
+          python3 -I "$LCS/bin/verdict.py" 7-release-gate
+
+      - name: collect evidence
+        if: always()
+        continue-on-error: true
+        run: python3 -I "$LCS/bin/collect.py" results
+
+      - name: upload evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4.6.2
+        with:
+          name: ledger-coverage-suite-ci-evidence
+          path: ${{ runner.temp }}/lcs/ev
+          retention-days: 90
+          if-no-files-found: error
