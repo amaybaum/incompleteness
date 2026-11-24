@@ -13,9 +13,14 @@
    ],
    "pins": [
     {
+     "path": ".github/workflows/ledger-coverage.yml",
+     "git_blob": "f17911941279d36a5b4f84c9f706cb17738322c2",
+     "blob_sha256": "4206b6b4d08ff43c3a0764dbb9f6aa803be2d9d9e871ff5eeefd975d92abbbe4"
+    },
+    {
      "path": "tools/ledger_coverage.py",
-     "git_blob": "eb1bd4ef4e495b553daf6acb73125e8e009ea230",
-     "blob_sha256": "2b871141322f0c091c8014cca66b3f268a9b31914ee3fcfb1662e3d7cde2dd54"
+     "git_blob": "90e96d21fed97f2af9c2c70fa831ae6e13aed390",
+     "blob_sha256": "a1644e76bfb41f45d0bb95c57770c4701d30d65ec89557cff4b4115c806571f1"
     },
     {
      "path": "tools/ledger_coverage/__init__.py",
@@ -34,8 +39,8 @@
     },
     {
      "path": "tools/ledger_coverage/adapters/a1_controls.py",
-     "git_blob": "5aa4fc701bb1664d59b424959031228ee7cf0f8b",
-     "blob_sha256": "0b0c47983ea8dc35ae7b91c8b07808a002776897bdcac94586a513e05a1f239f"
+     "git_blob": "e2079dfa43e699d090de810bb75f4a41ba217e75",
+     "blob_sha256": "f438e03eee2a54f2066928552422a059f864432853cf1116f448789789733151"
     },
     {
      "path": "tools/ledger_coverage/adapters/a1exit_exact_edit.py",
@@ -54,8 +59,8 @@
     },
     {
      "path": "tools/ledger_coverage/adapters/conformance_controls.py",
-     "git_blob": "3e1c95018eb4a41190c07ff686102b4049479f01",
-     "blob_sha256": "ceba724993250335565982bc71783abc87a245e2e4a21c4993709c306dd54cc5"
+     "git_blob": "07efb49656f224e8dc4b4382a448f6b7adc3a1cc",
+     "blob_sha256": "0299f9f919005f85f9802019bf95a3e1cab5319ffacd07016c81959823a7ca1f"
     },
     {
      "path": "tools/ledger_coverage/adapters/deleg_fingerprint_regen.py",
@@ -114,8 +119,8 @@
     },
     {
      "path": "tools/ledger_coverage/engine/checker.py",
-     "git_blob": "e704a7e31b2c9c458f20e99bd0ede0766fddfcbf",
-     "blob_sha256": "da6a80bb44deb6cff13a85641ee60815c1606dae6d0d8743e60b492b80b1454b"
+     "git_blob": "d218ec09e6107a0c002cae3e9cd83549af2727db",
+     "blob_sha256": "91accb1e47998b297c530db3173a0a41613dbb9a00af03f75fc1caa9d91f71b6"
     },
     {
      "path": "tools/ledger_coverage/engine/cli.py",
@@ -209,8 +214,8 @@
     },
     {
      "path": "tools/ledger_coverage/engine/schemas/oi-ledger-coverage-5.schema.json",
-     "git_blob": "24565b4bfaa6b238132dcb8b11d3a39ae2fffabf",
-     "blob_sha256": "edc24cdda72f01a9ed68841d2a9a4f45fd1fc8c126c75a9e9258b907e0d5d864"
+     "git_blob": "a8a14c824667872cf4dacba2d4404e94d143f85a",
+     "blob_sha256": "a3ee6813d04a98ee92075e19dec80f8a5cf26433b9182cf484f3654ffacf93a2"
     },
     {
      "path": "tools/ledger_coverage/engine/segments.py",
@@ -229,8 +234,8 @@
     },
     {
      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/README.md",
-     "git_blob": "619e060b75c3f7cf5f3640cb9129082206fa526c",
-     "blob_sha256": "31ea7a2fb31e6bf16e73a2187487458d3c4165e12d5a1582c3e6c34784bb97c8"
+     "git_blob": "7a02e57247d33c73a49a82ca25ab51196957445e",
+     "blob_sha256": "ed692a77ea4bbda55614610e205d0a5e7667cd90d56e090d02c58f0c23367744"
     },
     {
      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/controls.json",
@@ -271,14 +276,9 @@
      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/w1-w2-allow-v1.json",
      "git_blob": "bf1882fb74938164d67602f5d482f9dd2d09ff49",
      "blob_sha256": "0cbb97c98725cba618598650b0cd9c687c97e280b3422c4ad6e62794a222b171"
-    },
-    {
-     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/workflow/ledger-coverage.yml",
-     "git_blob": "e6421aa7c4c5b402a472708d4cd92372a33059b3",
-     "blob_sha256": "6ea5ee7f4e8fd8d28e7fdd60f2fa120f2d946b60583aefd833e0fd0aea1f8de6"
     }
    ],
-   "reason": "this tool's landing paths (design sec. 12.3), each bound to its exact blob (sec. 13.1, V3); the prefixes only say where such paths may lie"
+   "reason": "this tool's landing paths (design sec. 12.3), each bound to its exact blob (sec. 13.1, V3); the prefixes only say where such paths may lie; the one path outside them, the workflow that tool.workflow pins, is listed by its exact path (owner decision on sec. 12.3)"
   }
  ]
 }

@@ -1,0 +1,106 @@
+name: ledger coverage
+on:
+  workflow_dispatch:
+    inputs:
+      freeze:
+        description: the plan commit F, a full 40-hex id
+        required: true
+        type: string
+      config:
+        description: the configuration path in F
+        required: true
+        type: string
+      check:
+        description: the plan check whose fixed command runs (design sec. 11)
+        required: true
+        type: choice
+        options:
+          - item1-execution
+          - item1-terms
+          - item2-record
+          - item2-coverage
+          - item3
+          - item4
+          - item5
+          - item6
+          - item8
+          - item9
+          - item10
+          - item12
+          - item13
+          - item7
+          - item7-amended
+          - item11
+          - item14
+          - item14-landing
+      h:
+        description: the scientific base H, a full 40-hex id
+        required: false
+        type: string
+      x:
+        description: the candidate X, a full 40-hex id
+        required: false
+        type: string
+      e:
+        description: the ledger pin E, a full 40-hex id
+        required: false
+        type: string
+      m:
+        description: main M re-resolved before landing, a full 40-hex id
+        required: false
+        type: string
+      l:
+        description: the landing merge L, a full 40-hex id
+        required: false
+        type: string
+permissions:
+  actions: read
+  contents: read
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: fetch F
+        env:
+          F: ${{ inputs.freeze }}
+        run: git fetch --no-tags -- origin "$F"
+      - name: pre-run pin check
+        env:
+          F: ${{ inputs.freeze }}
+          CFG: ${{ inputs.config }}
+        run: python3 -I -S -B -c 'exec("import sys, os, re, stat, json, hashlib, subprocess\ndef fail(m):\n    sys.stderr.write(\"PRE-RUN FAIL \" + m + \"\\n\")\n    sys.exit(1)\nF = os.environ.get(\"F\", \"\")\nC = os.environ.get(\"CFG\", \"\")\nif os.environ.get(\"GITHUB_REF\") != \"refs/heads/main\" or not re.fullmatch(\"[0-9a-f]{40}\", F):\n    fail(\"GITHUB_REF is not refs/heads/main or F is not a full lowercase id\")\nif not C:\n    fail(\"no configuration path\")\nr = subprocess.run([\"git\", \"--no-replace-objects\", \"cat-file\", \"blob\", F + \":\" + C], capture_output=True)\nif r.returncode:\n    fail(\"the configuration is not readable at F\")\ntry:\n    pins = dict((e[\"path\"], e[\"blob_sha256\"]) for e in json.loads(r.stdout)[\"tool\"][\"files\"])\nexcept Exception as e:\n    fail(\"tool.files unreadable \" + repr(e))\nseen = {}\ndef walk(p):\n    st = os.lstat(p)\n    if stat.S_ISDIR(st.st_mode):\n        for n in sorted(os.listdir(p)):\n            walk(p + \"/\" + n)\n    elif stat.S_ISREG(st.st_mode):\n        with open(p, \"rb\") as f:\n            seen[p] = hashlib.sha256(f.read()).hexdigest()\n    else:\n        fail(\"non-regular entry \" + p)\ntry:\n    if not stat.S_ISDIR(os.lstat(\"tools\").st_mode):\n        fail(\"tools is not a real directory\")\n    walk(\"tools/ledger_coverage.py\")\n    walk(\"tools/ledger_coverage\")\nexcept OSError as e:\n    fail(\"missing \" + repr(e))\nif not pins or set(seen) != set(pins):\n    fail(\"path set differs \" + repr(sorted(set(seen) ^ set(pins))))\nfor p in pins:\n    if seen[p] != pins[p]:\n        fail(\"sha256 differs \" + p)\nprint(\"PRE-RUN OK \" + str(len(seen)) + \" files\")\n")'
+      - name: ledger coverage
+        env:
+          F: ${{ inputs.freeze }}
+          CFG: ${{ inputs.config }}
+          CHECK: ${{ inputs.check }}
+          H: ${{ inputs.h }}
+          X: ${{ inputs.x }}
+          E: ${{ inputs.e }}
+          M: ${{ inputs.m }}
+          L: ${{ inputs.l }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          D="${CFG%/*}"
+          set -- --freeze "$F" --config "$F:$CFG" --out "$RUNNER_TEMP/out"
+          case "$CHECK" in
+            item1-execution) exec python3 -I -S -B tools/ledger_coverage.py execution "$@" --scientific-base "$H" --candidate "$X" --ledger "$F:$D/ledger.json" --edits "$F:$D/edits.json" ;;
+            item1-terms) exec python3 -I -S -B tools/ledger_coverage.py terms "$@" --commit "$X" --profile ptr ;;
+            item2-record) exec python3 -I -S -B tools/ledger_coverage.py record "$@" --pin "$E" --record "$F" ;;
+            item2-coverage) exec python3 -I -S -B tools/ledger_coverage.py coverage "$@" --commit "$X" --segment "$E..$H" --segment "$H..$X=$F:$D/ledger.json" --hp "$F:$D/hp.json" ;;
+            item3|item4|item5|item6|item8|item9|item10|item12|item13) exec python3 -I -S -B tools/ledger_coverage.py execution "$@" --scientific-base "$H" --candidate "$X" --ledger "$F:$D/ledger.json" --edits "$F:$D/edits.json" --delegation "$F:$D/delegation.json" ;;
+            item7) exec python3 -I -S -B tools/ledger_coverage.py terms "$@" --commit "$X" --profile item7-literal ;;
+            item7-amended) exec python3 -I -S -B tools/ledger_coverage.py terms "$@" --commit "$X" --base "$H" --ledger "$F:$D/ledger.json" --check item7 --final ;;
+            item11) exec python3 -I -S -B tools/ledger_coverage.py terms "$@" --commit "$X" --check item11 --scope "$F:$D/repo-scope.json" --rules "$F:$D/repo-rules.json" --final ;;
+            item14) exec python3 -I -S -B tools/ledger_coverage.py execution "$@" --scientific-base "$H" --main "$M" --candidate "$X" --ledger "$F:$D/ledger.json" --edits "$F:$D/edits.json" --delegation "$F:$D/delegation.json" ;;
+            item14-landing) exec python3 -I -S -B tools/ledger_coverage.py execution "$@" --scientific-base "$H" --main "$M" --landing "$L" --candidate "$X" --ledger "$F:$D/ledger.json" --edits "$F:$D/edits.json" --delegation "$F:$D/delegation.json" ;;
+          esac
+          exit 64
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ledger-coverage-result
+          path: ${{ runner.temp }}/out/result.json

@@ -8,7 +8,7 @@ checkout (sec. 6.3, execution identity point 5). It then installs the wrapper an
 the exit exception raised by code the tool calls and a keyboard interrupt, becomes the internal outcome with exit 71
 and a result.json.
 
-Usage: python3 -I -B tools/ledger_coverage.py {record,coverage,execution,terms,replay,self-test,purity-lint} ...
+Usage: python3 -I -S -B tools/ledger_coverage.py {record,coverage,execution,terms,replay,self-test,purity-lint} ...
 Exit codes: 0 pass, 10 review required, 20 fail, 64 usage, 65 error, 70 void, 71 internal.
 """
 import os

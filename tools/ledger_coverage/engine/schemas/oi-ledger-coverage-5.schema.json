@@ -132,7 +132,8 @@
     "version",
     "path",
     "commit",
-    "blob_sha256"
+    "blob_sha256",
+    "admission"
    ]
   },
   "adapters": {

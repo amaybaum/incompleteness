@@ -32,10 +32,11 @@ def admission_mode(doc):
 
 
 # The `uses:` line rule on the workflow blob's raw text (sec. 6.3, execution identity point 5; no YAML parser). It only
-# refuses: a line containing `uses` in any letter case that is not exactly an action named by a full commit id; a line
+# refuses: a line containing `uses` in any letter case that is not exactly an action named by a full commit id, its
+# owner a GitHub account name (letters, digits and single inner hyphens, so no local or parent path); a line
 # whose first character after its indentation and any `-` or `---` markers is a quote, a flow collection, a complex
 # key, an anchor, an alias or a tag; a colon followed by whitespace and then a flow collection, anchor, alias or tag.
-_uses = re.compile(r'^\s*(- )?uses: [A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+(/[^@\s]+)?@[0-9a-f]{40}\s*$')
+_uses = re.compile(r'^\s*(- )?uses: [A-Za-z0-9](?:-?[A-Za-z0-9])*/[A-Za-z0-9_.-]+(/[^@\s]+)?@[0-9a-f]{40}\s*$')
 _uses_word = re.compile(r'uses', re.I)
 _prefix = re.compile(r'^\s*((-|---)\s+)*')
 _value = re.compile(r':\s+[{[&*!]')

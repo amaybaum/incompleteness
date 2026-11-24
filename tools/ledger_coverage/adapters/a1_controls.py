@@ -53,6 +53,8 @@ LEDGER = P + ':' + PL + 'ledger.json'
 EDITS = P + ':' + PL + 'edits.json'
 FULL = 'book/The-Incompleteness-of-Observation-FULL.md'
 WF = '.github/workflows/a1exit-trial-verify.yml'
+# the workflow that tool.workflow pins, the one path of the tool landing outside tools/ and its audit directory
+WORKFLOW_PATH = '.github/workflows/ledger-coverage.yml'
 
 
 def sha(b):
@@ -1264,6 +1266,7 @@ def main():
                     p = os.path.relpath(os.path.join(dp, f), args.repo)
                     tool_files[p] = open(os.path.join(dp, f), 'rb').read()
         tool_files['tools/ledger_coverage.py'] = open(os.path.join(args.repo, 'tools/ledger_coverage.py'), 'rb').read()
+        tool_files[WORKFLOW_PATH] = open(os.path.join(args.repo, WORKFLOW_PATH), 'rb').read()
         a = A1(args.repo, '%s:%s' % (rev_parse(args.repo, rev), cpath), out_root, args.staged_config, main_c)
         wt = a.repo.derive(a.crev, tool_files, subject='working files')
         a.crev = wt
@@ -1272,7 +1275,7 @@ def main():
         a = probe
         head = a.tool_rev
         for p, b in a.base.paths(head).items():
-            if p.startswith(('tools/ledger_coverage/', ad + '/')) or p == 'tools/ledger_coverage.py':
+            if p.startswith(('tools/ledger_coverage/', ad + '/')) or p in ('tools/ledger_coverage.py', WORKFLOW_PATH):
                 tool_files[p] = a.base.read_blob(b)
     groups = [('chain', chain_refusal), ('record', rt_record), ('coverage', rt_coverage), ('terms', rt_terms),
               ('v', v_controls), ('rules', rule_lint_controls), ('exec', ex_controls),

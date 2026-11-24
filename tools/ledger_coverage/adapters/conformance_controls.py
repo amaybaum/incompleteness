@@ -3,7 +3,8 @@ in-memory host (TR1-TR3, TR5, TR13-TR15, TR28, TR29, TR48, TR50-TR52, EI1, EI2, 
 predicate (X11, TR14, TR15, TR28-TR30, TR50-TR52, EI2, EI3, EI7, GV7) and the landing's re-resolution of `M` (EI5),
 the durable evidence TR45/TR46, the verified reader on small on-disk repositories (GV1-GV6), the host-read failures
 (GV7), the pre-run pin check and the entry point as subprocess runs on trees materialized under OUT_DIR (EI6,
-EI8-EI15), native delegation G4-G9 on a small on-disk repository, commits after X R16/R17, widening A12r,
+EI8-EI15), native delegation G4-G9 on a small on-disk repository, the delegated clone's git configuration (O3-FILTER),
+commits after X R16/R17, widening A12r,
 the synthetic parts of S4a and Z11, the lineage controls LN1-LN8 and LN10 (DI-2), and the retained controls for the
 independent reviews' findings (R3-F2, R4-B3, R4-B3-DUP, R5-N6, R6-G6).
 
@@ -38,12 +39,11 @@ if 'ledger_coverage' not in sys.modules:
     _spec.loader.exec_module(sys.modules['ledger_coverage'])
 
 from ledger_coverage.engine import checker, cli, delegation as delmod, execution as exmod  # noqa: E402
-from ledger_coverage.engine import gitobj, host as hostmod, purity, util  # noqa: E402
+from ledger_coverage.engine import gitobj, host as hostmod, purity, schema as schemamod, util  # noqa: E402
 from ledger_coverage.adapters import host_fixture as hf, synthetic_fixture as sf  # noqa: E402
 
 RESULTS = []
-WORKFLOW = os.path.join(os.path.dirname(tools), 'verification', 'audits', 'foundations', 'ledger-coverage-tool-20261123',
-                        'workflow', 'ledger-coverage.yml')
+WORKFLOW = os.path.join(os.path.dirname(tools), '.github', 'workflows', 'ledger-coverage.yml')
 
 
 def record(cid, expected, predicate, actual, status):
@@ -411,7 +411,13 @@ EI7_FORMS = {
     'a tab after the dash': _STEPS + '      -\t"\\x75ses": ./x\n',
     'a tab after a colon before a flow collection': '    steps:\t[ {"\\x75ses": ./x} ]\n',
     'the key in upper case (any letter case)': _STEPS + '      - USES: ./x\n',
+    'a local action with a 40-hex suffix': _STEPS + '      - uses: ./.github/actions/x@%s\n' % _HEX,
+    'a local reusable workflow with a 40-hex suffix': '    uses: ./.github/workflows/w.yml@%s\n' % _HEX,
+    'a parent path with a 40-hex suffix': _STEPS + '      - uses: ../x/y@%s\n' % _HEX,
 }
+# the forms of review impl-v6.0e B-1: an owner component that is a local or parent path, with a full-id suffix
+EI7_B1 = ('a local action with a 40-hex suffix', 'a local reusable workflow with a 40-hex suffix',
+          'a parent path with a 40-hex suffix')
 
 
 def ei7_blob(name):
@@ -432,13 +438,14 @@ def ei7_controls(r):
     pos = show(*t.run(w, F))
     check('EI7-tool', 'a pinned workflow blob with each form the `uses:` line rule refuses (a local action, a local '
           'reusable workflow, a tag, a branch, a quoted or escaped key, a flow mapping or sequence, an anchor and '
-          'alias, a block scalar, a complex key, and the forms of review v6.0d B-1): ERROR at the tool in each case, '
+          'alias, a block scalar, a complex key, the forms of review v6.0d B-1, and a local action, a local reusable '
+          'workflow or a parent path each with a 40-hex suffix): ERROR at the tool in each case, '
           'the blob being the configuration\'s pinned workflow; the consumer half is reported with the acceptance '
           'controls', "every form exits 65 with stop 'CONFIG_UNREVIEWED' naming the line rule, and the rule refuses "
           "each blob; the conforming workflow (a uses line naming an action by a 40-hex id) exits 0",
           {'tool': tool, 'rule': cons, 'positive': pos},
           all(o['exit'] == 65 and o['stop'] == 'CONFIG_UNREVIEWED' and 'uses' in o['message'] for o in tool.values())
-          and all(cons.values()) and pos['exit'] == 0 and len(tool) == 19)
+          and all(cons.values()) and pos['exit'] == 0 and len(tool) == 22)
 
 
 # ---- the consumer's acceptance predicate --------------------------------------------------------------------------
@@ -498,10 +505,17 @@ def acceptance_controls(r, t):
     ok = consumer()
     old_schema = copy.deepcopy(chain)
     old_schema['schema'] = 'oi-ledger-coverage/4'
-    check('ACCEPT-SCHEMA', 'sec. 5: a result of another schema id than oi-ledger-coverage/5 is never acceptable '
-          '(implementation control)', "accept() true for the /5 chain result and false for the same as /4",
-          {'v5': checker.accept(chain, 0, pins), 'v4': checker.accept(old_schema, 0, pins)},
-          checker.accept(chain, 0, pins) and not checker.accept(old_schema, 0, pins))
+    # review impl-v6.0e N-2: the /5 schema requires config.admission wherever a result carries config (sec. 5)
+    no_adm = copy.deepcopy(chain)
+    del no_adm['config']['admission']
+    schema_errs = {'chain': schemamod.validate(chain), 'without config.admission': schemamod.validate(no_adm)}
+    check('ACCEPT-SCHEMA', 'sec. 5: a result of another schema id than oi-ledger-coverage/5 is never acceptable; the '
+          '/5 schema requires config.admission in a result that carries config (implementation control)',
+          "accept() true for the /5 chain result and false for the same as /4; the schema passes the chain result "
+          "and refuses it without config.admission",
+          {'v5': checker.accept(chain, 0, pins), 'v4': checker.accept(old_schema, 0, pins), 'schema': schema_errs},
+          checker.accept(chain, 0, pins) and not checker.accept(old_schema, 0, pins) and not schema_errs['chain']
+          and schema_errs['without config.admission'] == ['$.config: missing admission'])
     check('TR30', 'a result whose evaluated commits differ from the landing record\'s: non-acceptance',
           "accept_with_host is true for the matching landing record and false for the other",
           {'matching': ok, 'differing': consumer(landing_=dict(landing, evaluated={'commit': '0' * 40}))},
@@ -544,17 +558,21 @@ def acceptance_controls(r, t):
         'EI7 a workflow with a local action, pinned': None,
         '(countercontrol) a forged T equal to the pins': forged_T(),
     }
-    t7, w7, F7 = with_tool(r, wf=ei7_blob('local action ./.github/actions/x'))
-    code7, res7 = t7.run(w7, F7)
-    cfg7 = json.loads(t7.repo.read(F7, t7.p))
-    d7 = copy.deepcopy(chain)
-    d7['config']['admission']['snapshot'].update(tool_commit=w7.T, workflow=cfg7['tool']['workflow'],
-                                                 run=dict(snap['run'], head_sha=w7.T))
-    b7 = util.dump_result(d7).encode('utf-8')
-    h7 = host_with(art_raw=b7, head_sha=w7.T)
-    con['EI7 a workflow with a local action, pinned'] = checker.accept_with_host(
-        b7, 0, dict(pins, tool=cfg7['tool']), h7,
-        dict(landing, result_sha256=sha(b7), main=t7.repo.derive(w7.T, {}, parents=[w7.T])), t7.repo)
+
+    def ei7_consumer(form):
+        t7, w7, F7 = with_tool(r, wf=ei7_blob(form))
+        cfg7 = json.loads(t7.repo.read(F7, t7.p))
+        d7 = copy.deepcopy(chain)
+        d7['config']['admission']['snapshot'].update(tool_commit=w7.T, workflow=cfg7['tool']['workflow'],
+                                                     run=dict(snap['run'], head_sha=w7.T))
+        b7 = util.dump_result(d7).encode('utf-8')
+        h7 = host_with(art_raw=b7, head_sha=w7.T)
+        return checker.accept_with_host(
+            b7, 0, dict(pins, tool=cfg7['tool']), h7,
+            dict(landing, result_sha256=sha(b7), main=t7.repo.derive(w7.T, {}, parents=[w7.T])), t7.repo)
+    con['EI7 a workflow with a local action, pinned'] = ei7_consumer('local action ./.github/actions/x')
+    for form in EI7_B1:
+        con['EI7 %s, pinned' % form] = ei7_consumer(form)
     check('TR28-consumer', 'the consumer reads T\'s tool files and workflow itself from its verified store: a T whose '
           'tool blob differs from the pins (TR28), whose workflow differs or is one byte different (TR15, TR50), that '
           'holds a symlink or submodule (TR51) or an extra file (TR52), or whose pinned workflow fails the uses: line '
@@ -627,17 +645,69 @@ def ei5_controls(r):
             out[name] = 'accepted'
         except ValueError as exc:
             out[name] = 'refused: %s' % exc
+    # review impl-v6.0e N-1: the id equals the given first parent, so only the readability clause can refuse it
+    absent = '1' * 40
+    try:
+        checker.resolve_main(lambda: (0, '%s\trefs/heads/main\n' % absent), t.repo, absent)
+        out['an id equal to L\'s given first parent that the verified reader cannot read'] = 'accepted'
+    except ValueError as exc:
+        out['an id equal to L\'s given first parent that the verified reader cannot read'] = 'refused: %s' % exc
     try:
         got = checker.resolve_main(lambda: (0, '%s\tHEAD\n%s\trefs/heads/main\n' % (w.T, L1)), t.repo, L1)
         out['(countercontrol) one main line equal to L\'s first parent'] = got == L1
     except ValueError as exc:
         out['(countercontrol) one main line equal to L\'s first parent'] = 'refused: %s' % exc
     check('EI5', 'before landing, git ls-remote failing; separately returning no refs/heads/main line or more than '
-          'one; separately an id that is not a full 40-hex id, or that the verified reader cannot read; separately an '
-          'id other than L\'s first parent: the landing is refused in each case',
+          'one; separately an id that is not a full 40-hex id, or that the verified reader cannot read (including one '
+          'equal to L\'s given first parent); separately an id other than L\'s first parent: the landing is refused in '
+          'each case',
           "every case is refused; one main line equal to L's first parent resolves to it", out,
           all(str(v).startswith('refused') for k, v in out.items() if not k.startswith('(countercontrol)')) and
           out['(countercontrol) one main line equal to L\'s first parent'] is True)
+
+
+def o3_controls(r):
+    """Review impl-v6.0e D-11 (O-3): the disposable clones of delegated runs check out with the system and global git
+    configuration disabled, so a smudge filter defined there never runs; the same checkout with the global
+    configuration in force runs it (the countercontrol)."""
+    base = tempfile.mkdtemp(prefix='o3-', dir=r.out_root)
+    src, marker, gcfg = os.path.join(base, 'src'), os.path.join(base, 'MARKER'), os.path.join(base, 'globalconfig')
+    with open(gcfg, 'w') as f:
+        f.write('[filter "smudge-probe"]\n\tsmudge = "sh -c \'touch %s; cat\'"\n\trequired = true\n' % marker)
+    os.makedirs(src)
+    gitb(src, 'init', '-q')
+    with open(os.path.join(src, '.gitattributes'), 'w') as f:
+        f.write('*.txt filter=smudge-probe\n')
+    with open(os.path.join(src, 'a.txt'), 'w') as f:
+        f.write('x\n')
+    gitb(src, 'add', '.')
+    gitb(src, 'commit', '-qm', 'c')
+    c = gitb(src, 'rev-parse', 'HEAD')
+    saved = {k: os.environ.get(k) for k in ('GIT_CONFIG_GLOBAL', 'GIT_CONFIG_NOSYSTEM')}
+    os.environ['GIT_CONFIG_GLOBAL'] = gcfg
+    os.environ.pop('GIT_CONFIG_NOSYSTEM', None)
+    try:
+        d = delmod.Native(gitobj.GitRepo(src), src, os.path.join(base, 'out'), c, True).clone(c)
+        native = {'clone': bool(d), 'file_checked_out': bool(d) and os.path.exists(os.path.join(d, 'a.txt')),
+                  'marker': os.path.exists(marker)}
+        cc = os.path.join(base, 'counter')
+        subprocess.run(['git', 'clone', '-q', '--no-local', '--no-checkout', src, cc], capture_output=True)
+        rc = subprocess.run(['git', '-C', cc, 'checkout', '-q', '--detach', c], capture_output=True).returncode
+        counter = {'checkout_exit': rc, 'marker': os.path.exists(marker)}
+    finally:
+        for k, v in saved.items():
+            if v is None:
+                os.environ.pop(k, None)
+            else:
+                os.environ[k] = v
+    check('O3-FILTER', 'review impl-v6.0e D-11 (O-3): a global git configuration defining a required smudge filter '
+          'and a commit whose .gitattributes names it: the delegated runs\' disposable clone (Native.clone) checks '
+          'the commit out without running the filter (implementation control)',
+          "Native.clone checks the commit out and the filter's marker is not written; a plain clone and checkout "
+          "of the same commit with the global configuration in force writes it (the countercontrol)",
+          {'native': native, 'countercontrol': counter},
+          native['clone'] and native['file_checked_out'] and not native['marker'] and counter['checkout_exit'] == 0
+          and counter['marker'])
 
 
 # ---- the verified reader on small on-disk repositories (GV1-GV6) -------------------------------------------------
@@ -825,7 +895,10 @@ def gv_disk_controls(r):
                'a tree of X': (gitb(dk.d, 'rev-parse', ids['X'] + ':doc'), 'UNRESOLVABLE'),
                'a commit of the E..H chain': (ids['pin'], 'UNRESOLVABLE'),
                'a tool blob at T': (gitb(dk.d, 'rev-parse', '%s:%s' % (ids['T'], hf.PKG + 'engine/x.py')),
-                                    'CONFIG_UNREVIEWED')}
+                                    'CONFIG_UNREVIEWED'),
+               # review impl-v6.0e D-6: the HP chain check reads the HP merge first; ERROR 65 and no PASS, its class
+               # either the inconsistent-configuration or the unresolvable-object error
+               'the HP merge m1': (ids['m1'], ('CONFIG_INCONSISTENT', 'UNRESOLVABLE'))}
     for name, (oid, want) in targets.items():
         d4 = copy_store('gv4-%d' % len(g4))
         kind = gitb(d4, 'cat-file', '-t', oid)
@@ -842,15 +915,21 @@ def gv_disk_controls(r):
             fh.write(zlib.compress(b'%s %d\x00' % (kind.encode(), len(other)) + other))
         served = subprocess.run(['git', '-C', d4, 'cat-file', kind, oid], capture_output=True)
         pretty = subprocess.run(['git', '-C', d4, 'cat-file', '-p', oid], capture_output=True).returncode == 0
-        o = show(*run(store=d4))
-        g4[name] = dict(o, want=want, git_serves_the_content=served.returncode == 0 and served.stdout == other,
+        code4, res4 = run(store=d4)
+        o = show(code4, res4)
+        wants = want if isinstance(want, tuple) else (want,)
+        g4[name] = dict(o, want=want, outcome=(res4 or {}).get('outcome'),
+                        git_serves_the_content=served.returncode == 0 and served.stdout == other,
                         git_cat_file_p_prints_it=pretty,
-                        holds=o['exit'] == 65 and o['stop'] == want and served.stdout == other)
+                        holds=code4 == 65 and o['stop'] in wants and (res4 or {}).get('outcome') != 'PASS' and
+                        served.stdout == other)
     check('GV4', 'a loose object whose stored content does not hash to its id, each case separately: the '
-          'configuration\'s blob at F, the pin table\'s blob, a tree of X, a commit of E..H, a tool blob at T: ERROR '
-          'in each case (CONFIG_UNREVIEWED for an admission or identity read, the unresolvable-object error '
-          'otherwise), although git cat-file -p prints the content',
-          "each case exits 65 with its stated class, and git serves the substituted content (git cat-file <type>, the "
+          'configuration\'s blob at F, the pin table\'s blob, a tree of X, a commit of E..H, a tool blob at T, the HP '
+          'merge: ERROR in each case (CONFIG_UNREVIEWED for an admission or identity read, the unresolvable-object '
+          'error otherwise; the HP merge, read first by the HP chain check, CONFIG_INCONSISTENT or the '
+          'unresolvable-object error), although git cat-file -p prints the content',
+          "each case exits 65 with its stated class and no PASS, and git serves the substituted content (git "
+          "cat-file <type>, the "
           "read the store answers; -p is recorded: it prints blobs and commits and refuses the tree)", g4,
           all(v['holds'] for v in g4.values()))
     # GV5: a store lacking a parent a bounded walk needs; a partial store lacking a blob; a shallow store that holds
@@ -1192,7 +1271,7 @@ class EI:
         p = subprocess.run([sys.executable, '-I', '-S', '-B', '-c', self.prog], cwd=d, env=env, capture_output=True)
         return p.returncode, (p.stdout + p.stderr).decode('utf-8', 'replace').strip().split('\n')[-1][:160]
 
-    def entry(self, d, extra=(), flags=('-I', '-B'), out_name='out'):
+    def entry(self, d, extra=(), flags=('-I', '-S', '-B'), out_name='out'):
         env = {'PATH': os.environ.get('PATH', '/usr/bin:/bin'), 'HOME': d, 'PROBE_MARKER_DIR': os.path.join(d, 'm')}
         out = os.path.join(self.r.out_root, os.path.basename(d) + '-' + out_name)
         p = subprocess.run([sys.executable] + list(flags) + ['tools/ledger_coverage.py', 'purity-lint', '--out', out]
@@ -1414,7 +1493,7 @@ def ei_controls(r):
     for m in ('hashlib', 're', 'subprocess', 'json', 'importlib'):
         with open(os.path.join(d6, 'tools', m + '.py'), 'wb') as f:
             f.write(MARKER)
-    code6, res6, err6 = e.entry(d6, flags=('-I', '-B', '-v'))
+    code6, res6, err6 = e.entry(d6, flags=('-I', '-S', '-B', '-v'))
     loaded = sorted(set(re.findall(r"(?:code object from|matches|loaded from) '?([^'\s]+\.(?:pyc|py|so))\b", err6)))
     stdlib = _interpreter_dirs(d6)
     pinned = {os.path.realpath(os.path.join(d6, q)) for q in e.files}
@@ -1436,7 +1515,7 @@ def ei_controls(r):
     prog = ('import sys, runpy; sys.path.insert(0, %r); sys.argv = ["tools/ledger_coverage.py", "purity-lint", '
             '"--out", %r]; runpy.run_path("tools/ledger_coverage.py", run_name="__main__")'
             % (os.path.join(d6c, 'tools'), os.path.join(r.out_root, 'ei6c-out')))
-    p6c = subprocess.run([sys.executable, '-I', '-B', '-c', prog], cwd=d6c, capture_output=True,
+    p6c = subprocess.run([sys.executable, '-I', '-S', '-B', '-c', prog], cwd=d6c, capture_output=True,
                          env={'PATH': os.environ.get('PATH', ''), 'PROBE_MARKER_DIR': os.path.join(d6c, 'm')})
     out6 = {'shadow run': {'exit': code6, 'markers': e.markers(d6), 'stray_imports': stray[:10],
                            'imports_seen': len(loaded), 'result_equal_to_clean': same6},
@@ -1449,8 +1528,8 @@ def ei_controls(r):
           'imported module\'s file lies in tool.files or the interpreter\'s standard library, and the run\'s result '
           'equals that without the files; separately the entry point run without -I, or with a checkout directory '
           'on sys.path: ERROR at the entry point, exit 65, before any import of a module not loaded at start',
-          "shadow run: exit 0, no marker, no imported file outside the pins and the interpreter's own import path (its "
-          "standard library and installed packages), result equal; "
+          "shadow run (the workflow's flags -I -S -B): exit 0, no marker, no imported file outside the pins and the "
+          "interpreter's standard library, result equal; "
           "without -I and with the checkout on sys.path: exit 65 and no marker (json.py shadows the first module "
           "imported after the check)", out6,
           code6 == 0 and not out6['shadow run']['markers'] and not stray and loaded and same6 and
@@ -1459,9 +1538,10 @@ def ei_controls(r):
 
 
 def _interpreter_dirs(checkout):
-    """The real paths of the interpreter's own import path in isolated mode (its standard library and the runner
-    image's installed packages, sec. 6.3 residual trust), none of which may lie inside the checkout."""
-    p = subprocess.run([sys.executable, '-I', '-c', 'import sys, json; print(json.dumps(sys.path))'], cwd='/',
+    """The real paths of the interpreter's own import path under the workflow's flags -I -S (its standard library
+    only: -S leaves the runner image's installed packages off sys.path; sec. 6.3 residual trust), none of which may lie
+    inside the checkout."""
+    p = subprocess.run([sys.executable, '-I', '-S', '-c', 'import sys, json; print(json.dumps(sys.path))'], cwd='/',
                        capture_output=True, text=True)
     dirs = {os.path.realpath(x) for x in json.loads(p.stdout) if x}
     root = os.path.realpath(checkout)
@@ -2356,7 +2436,7 @@ ALL_IDS = ['TR5-sim', 'TR5', 'TR1', 'TR2', 'TR3', 'TR13', 'TR14-tool', 'TR14', '
            'EI3', 'EI4', 'EI5', 'EI6', 'EI7-tool', 'EI8', 'EI9', 'EI10', 'EI11', 'EI12', 'EI13', 'EI14', 'EI15', 'GV1',
            'GV2', 'GV3', 'GV4', 'GV5', 'GV6', 'GV6-disk', 'GV7-tool', 'GV7-consumer', 'R16', 'R17', 'A12r', 'Z11',
            'S4a', 'G4', 'G5', 'G6', 'G7', 'G8', 'G9', 'G-A1', 'R3-F2', 'R4-B3', 'R4-B3-DUP', 'R5-N6', 'R6-G6',
-           'LN1', 'LN2', 'LN3', 'LN4', 'LN5', 'LN6', 'LN7', 'LN8', 'LN10']
+           'LN1', 'LN2', 'LN3', 'LN4', 'LN5', 'LN6', 'LN7', 'LN8', 'LN10', 'O3-FILTER']
 
 
 def write(out_root):
@@ -2380,7 +2460,8 @@ def main(out_root):
     os.makedirs(out_root, exist_ok=True)
     r = sf.Runner(tempfile.mkdtemp(prefix='conf-', dir=out_root))
     t = None
-    groups = [('TR', lambda: tr_controls(r)), ('EI5', lambda: ei5_controls(r)), ('R16', lambda: r_controls(r)),
+    groups = [('TR', lambda: tr_controls(r)), ('EI5', lambda: ei5_controls(r)), ('O3', lambda: o3_controls(r)),
+              ('R16', lambda: r_controls(r)),
               ('A12r', lambda: a12r(r)), ('Z11', lambda: z11_s4a(r)), ('G', lambda: g_controls(r)),
               ('GV', lambda: gv_disk_controls(r)), ('GV-CACHE', lambda: cache_controls(r)),
               ('EI', lambda: ei_controls(r)),

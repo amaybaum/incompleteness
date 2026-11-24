@@ -37,7 +37,6 @@ scientific question and no row disposition.
 | `records/repo-scope-v1.json` | `oi-scope/1` | the scope of the `repo` profile (item 11) |
 | `rules/register-infinity-params-v1.json` | `oi-term-rules/2` | the per-edit parameters of items 5 and 6 that are not extractable assignments of the plan's checker (kind `params`), linted against the checker the configuration pins |
 | `records/side-change-classes-v1.json` | `oi-side-change-classes/1` | the class `tool-landing` only: every path this tool's landing adds, each with its exact blob |
-| `workflow/ledger-coverage.yml` | workflow text | the workflow that a configuration's `tool.workflow` pins, with the pre-run pin check of design sec. 6.3 point 5; it runs only where the host reads workflows (see below) |
 
 The A1 configuration `retirement-config.json` (`oi-retirement-config/1`) is not part of this landing. It belongs in
 the retirement plan's record directory, `verification/audits/foundations/a1exit-deletion-20261121/`, frozen with the
@@ -48,15 +47,24 @@ it with `--staged-config`.
 
 ## The pinned workflow
 
-`workflow/ledger-coverage.yml` is the workflow text of design sec. 6.3 point 5: it is dispatched with `F`, the
-configuration path and the operation as inputs, which reach the shell only through `env:`; it fetches `F` with
-`git fetch --no-tags -- origin "$F"`; its step `pre-run pin check` runs one inline program with
+The tool's landing may add paths only under `tools/`, its audit directory, and the one file
+`.github/workflows/ledger-coverage.yml`, the workflow that `tool.workflow` pins. This is the owner's decision on
+design sec. 12.3 (`amaybaum`, 2026-11-24). The class record lists that file as one exact path with its blob, not as a
+prefix. It is `workflow_dispatch` only, so landing it starts no run.
+
+The workflow is the text of design sec. 6.3 point 5. It is dispatched with `F`, the configuration path, the plan
+check and the role commits that check needs, as inputs that reach the shell only through `env:`. The check is a
+choice among fixed values, and each value selects one fixed command in a `case` block, with every expansion quoted;
+a value with no arm exits 64. The arms are the commands of design sec. 11, one per plan check, with record paths
+taken from the configuration's directory at `F`; the amended plan's sec. 11 states the commands of record, and a
+changed arm is a new workflow blob, pinned again by the configuration frozen at `F`. The workflow fetches `F` with
+`git fetch --no-tags -- origin "$F"`. Its step `pre-run pin check` runs one inline program with
 `python3 -I -S -B -c`, which refuses unless `GITHUB_REF` is `refs/heads/main` and `F` a full lowercase 40-hex id, and
 compares the entry point and every file under `tools/ledger_coverage/` on disk with the configuration's `tool.files`
-before any file of the checkout runs; the tool then runs with `python3 -I -B`. Every `uses:` line names an action by
-a full commit id. GitHub runs workflows only from `.github/workflows/`, so a run of this text needs a byte-identical
-copy there, which this landing does not add (design sec. 12.3 confines the landing to `tools/` and this directory);
-the configuration's `tool.workflow` pins that copy's path and blob.
+before any file of the checkout runs; the tool then runs with `python3 -I -S -B`, so neither `site` nor the runner
+image's installed packages load (the tool uses the standard library only). Every `uses:` line names an action of a
+GitHub account, `<owner>/<repo>[/<path>]`, by a full commit id; a local or parent path (`./`, `../`) is refused even
+with a 40-hex suffix.
 
 ## Host reads
 
@@ -89,11 +97,11 @@ says nothing about the meaning of any replacement text (design sec. 1).
 From the repository root, inside a host job of the pinned workflow, with a plan commit `F` whose `PREREG.md` beside
 the configuration lists the configuration and its review in its last `Record pins` subsection:
 
-    python3 -I -B tools/ledger_coverage.py coverage --freeze F --config F:PATH --commit REV --out DIR
+    python3 -I -S -B tools/ledger_coverage.py coverage --freeze F --config F:PATH --commit REV --out DIR
 
 The control runs:
 
-    python3 -I -B tools/ledger_coverage.py self-test --out DIR
+    python3 -I -S -B tools/ledger_coverage.py self-test --out DIR
     python3 -I -B tools/ledger_coverage/adapters/synthetic_fixture.py DIR .
     python3 -I -B tools/ledger_coverage/adapters/conformance_controls.py DIR
 
