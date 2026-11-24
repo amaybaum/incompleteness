@@ -1,0 +1,720 @@
+{
+ "controls": [
+  {
+   "actual": {
+    "classes": [
+     "base-drift",
+     "landing-conflict-unresolved",
+     "record-invalid"
+    ],
+    "composed": "86d79863821f3f8cdad86771008b2df89fd1961a",
+    "m_blob": "6b1280fa92fa30e36555e9afd30cc0d6e992f5bb",
+    "x_blob": "9f4fc3e830707c90ffc105842d26d5b51f01760b"
+   },
+   "expected": "M = 8e9b8334, X = T1', L's AGENTS.md = X's blob 9f4fc3e8 (drops M's inserted section), a record whose l names that blob; reference composition 86d79863: FAIL landing-conflict-unresolved for AGENTS.md and record-invalid for the record; the composition is evaluated regardless of the record",
+   "id": "N10",
+   "predicate": "x blob 9f4fc3e8..., composed blob 86d79863..., and both classes for AGENTS.md",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "items": [],
+    "l_blob": "86d79863821f3f8cdad86771008b2df89fd1961a"
+   },
+   "expected": "the same M, X and reference, L's AGENTS.md equal to 86d79863 and the record's l equal to it: PASS for the path",
+   "id": "N11",
+   "predicate": "L's blob is 86d79863... and no item names AGENTS.md",
+   "status": "PASS"
+  },
+  {
+   "actual": [
+    "R13",
+    "R1",
+    "R3"
+   ],
+   "expected": "the record's R3: D296's old bytes made to occur twice at H in a synthetic copy: does not apply, naming R3",
+   "id": "N12",
+   "predicate": "the evaluated failed conditions include R3",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "base_drift": true,
+    "failed": [
+     "R1",
+     "R2",
+     "R4",
+     "R5",
+     "R7",
+     "R9"
+    ]
+   },
+   "expected": "an insertion on M before D296's offset while the record states the identity translation: does not apply, naming R5",
+   "id": "N13",
+   "predicate": "the record does not apply: base-drift for AGENTS.md, and the failed conditions include R5",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "base_drift": true,
+    "failed": [
+     "R6"
+    ]
+   },
+   "expected": "the record's approved text differs from the ledger's new: does not apply, naming R6",
+   "id": "N14",
+   "predicate": "the record does not apply: base-drift for AGENTS.md, and the failed conditions include R6",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "base_drift": true,
+    "failed": [
+     "R8"
+    ]
+   },
+   "expected": "the record's x differs from the ledger's expected_sha256 for the path: does not apply, naming R8",
+   "id": "N15",
+   "predicate": "the record does not apply: base-drift for AGENTS.md, and the failed conditions include R8",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "base_drift": true,
+    "failed": [
+     "R10",
+     "R11"
+    ]
+   },
+   "expected": "another ledgered file changed on M: does not apply, naming R10; that file is base-drift",
+   "id": "N16",
+   "predicate": "the record does not apply: base-drift for AGENTS.md, and the failed conditions include R10",
+   "status": "PASS"
+  },
+  {
+   "actual": "papers/Complexity.md",
+   "expected": "the other ledgered file is base-drift",
+   "id": "N16-file",
+   "predicate": "base-drift for that file",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "base_drift": true,
+    "failed": [
+     "R11"
+    ]
+   },
+   "expected": "a changed path on M not covered by a pinned class: does not apply, naming R11",
+   "id": "N17",
+   "predicate": "the record does not apply: base-drift for AGENTS.md, and the failed conditions include R11",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "base_drift": true,
+    "failed": [
+     "R12"
+    ]
+   },
+   "expected": "the record's changes_decisions_on_X non-empty: does not apply, naming R12; the record is record-invalid",
+   "id": "N18",
+   "predicate": "the record does not apply: base-drift for AGENTS.md, and the failed conditions include R12",
+   "status": "PASS"
+  },
+  {
+   "actual": [
+    "base-drift",
+    "record-invalid"
+   ],
+   "expected": "the record is record-invalid",
+   "id": "N18-record",
+   "predicate": "a record-invalid item",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "failed": [],
+    "items": [],
+    "record_invalid": [],
+    "x_identity": {
+     "identical": true,
+     "with": 27,
+     "without": 27
+    }
+   },
+   "expected": "a valid reconciliation record naming a ledgered path that X changes (AGENTS.md: D296 at X, a later section added on M): the record applies; no record-invalid; op C's items on X identical with and without it",
+   "id": "N3",
+   "predicate": "no item for AGENTS.md at M (R1-R13 hold), no record-invalid, and the with/without items on X are identical",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "compositions": [
+     {
+      "composed_blob": "86d79863821f3f8cdad86771008b2df89fd1961a",
+      "l": "86d79863821f3f8cdad86771008b2df89fd1961a",
+      "path": "AGENTS.md"
+     }
+    ],
+    "exit": 10,
+    "items": [],
+    "stop": null
+   },
+   "expected": "a reconciliation record referenced by the configuration (frozen with the plan) is loaded from it: AGENTS.md is reconciled at M and composed at the landing",
+   "id": "N3-config-route",
+   "predicate": "op C (harness) gives no item naming AGENTS.md and records the composition 86d79863...",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "base_drift": true,
+    "failed": [
+     "R13"
+    ]
+   },
+   "expected": "the record with its ledger_binding altered by one byte: does not apply (base-drift), naming R13",
+   "id": "N4",
+   "predicate": "the record does not apply: base-drift for AGENTS.md, and the failed conditions include R13",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "base_drift": true,
+    "failed": [
+     "R1",
+     "R2",
+     "R7"
+    ]
+   },
+   "expected": "M with one more first-parent commit changing the path: does not apply, naming R1",
+   "id": "N5",
+   "predicate": "the record does not apply: base-drift for AGENTS.md, and the failed conditions include R1",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "base_drift": true,
+    "failed": [
+     "R9"
+    ]
+   },
+   "expected": "a protected range at M altered by one byte (the recorded range shifted by one byte): does not apply, naming R9",
+   "id": "N6",
+   "predicate": "the record does not apply: base-drift for AGENTS.md, and the failed conditions include R9",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "base_drift": true,
+    "failed": [
+     "R2"
+    ]
+   },
+   "expected": "the path's blob at M differs from the record's m: does not apply, naming R2",
+   "id": "N7",
+   "predicate": "the record does not apply: base-drift for AGENTS.md, and the failed conditions include R2",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "base_drift": true,
+    "failed": [
+     "R1",
+     "R2",
+     "R4",
+     "R6",
+     "R7",
+     "R9"
+    ]
+   },
+   "expected": "a splice's old bytes occurring twice at M: does not apply, naming R4",
+   "id": "N8",
+   "predicate": "the record does not apply: base-drift for AGENTS.md, and the failed conditions include R4",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "base_drift": true,
+    "failed": [
+     "R7"
+    ]
+   },
+   "expected": "the record's l differs from the composed blob: does not apply, naming R7",
+   "id": "N9",
+   "predicate": "the record does not apply: base-drift for AGENTS.md, and the failed conditions include R7",
+   "status": "PASS"
+  },
+  {
+   "actual": [
+    "side-change-unclassified",
+    "base-drift"
+   ],
+   "expected": "a classified side-change path whose blob at M differs from its class pin: REVIEW_REQUIRED side-change-unclassified",
+   "id": "R18",
+   "predicate": "side-change-unclassified for the workflow path",
+   "status": "PASS"
+  },
+  {
+   "actual": [
+    "tools/ledger_coverage/extra.py",
+    "tools/ledger_coverage/listed.py"
+   ],
+   "expected": "a path under the tool-landing prefix on M that the class does not list, and separately a listed path whose blob differs from its pin: REVIEW_REQUIRED side-change-unclassified each",
+   "id": "R19",
+   "predicate": "side-change-unclassified for both tool paths",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "P": {
+     "infinity": 0,
+     "register": 0,
+     "register-caps": 0
+    },
+    "row5": [
+     20,
+     {
+      "infinity": 0,
+      "register": 1,
+      "register-caps": 0
+     }
+    ],
+    "row6": [
+     20,
+     {
+      "infinity": 1,
+      "register": 0,
+      "register-caps": 0
+     }
+    ],
+    "tool": {
+     "infinity": 0,
+     "register": 0,
+     "register-caps": 0
+    }
+   },
+   "expected": "items 5 and 6 at T1': register, register-caps and infinity on P's per-edit unit give 0 findings each, equal to P's static_new on P's edits.json; the mutants of rows 5 and 6 FAIL",
+   "id": "S11-56",
+   "predicate": "the tool's per-edit counts equal P's (all 0) and both mutants exit 20 with deny-match",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "P": {
+     "infinity": 0,
+     "register": 1,
+     "register-caps": 0
+    },
+    "per_splice": {
+     "infinity": 0,
+     "register": 0,
+     "register-caps": 0
+    },
+    "refused": false,
+    "selected_equal": true,
+    "tool": {
+     "infinity": 0,
+     "register": 1,
+     "register-caps": 0
+    }
+   },
+   "expected": "a two-variant edit, selected variant unchanged, unapplied variant adds \"now\": FAIL deny-match (register), as P (register 1); the per-splice unit alone would PASS",
+   "id": "S11-57a",
+   "predicate": "tool register == P register == 1 and the per-splice unit gives 0",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "b": {
+     "P": {
+      "infinity": 0,
+      "register": 1,
+      "register-caps": 0
+     },
+     "per_splice": {
+      "infinity": 0,
+      "register": 0,
+      "register-caps": 0
+     },
+     "refused": false,
+     "selected_equal": true,
+     "tool": {
+      "infinity": 0,
+      "register": 1,
+      "register-caps": 0
+     }
+    },
+    "b-H-holds-step2": {
+     "P": {
+      "infinity": 0,
+      "register": 1,
+      "register-caps": 0
+     },
+     "per_splice": {
+      "infinity": 0,
+      "register": 1,
+      "register-caps": 0
+     },
+     "refused": false,
+     "selected_equal": true,
+     "tool": {
+      "infinity": 0,
+      "register": 1,
+      "register-caps": 0
+     }
+    }
+   },
+   "expected": "the same with \"no longer\"; also at an H holding old_step2: FAIL deny-match, as P, at both",
+   "id": "S11-57b",
+   "predicate": "tool equals P with register 1 at both, with P's selection",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "P": {
+     "infinity": 0,
+     "register": 1,
+     "register-caps": 0
+    },
+    "refusal": [
+     "E1: splice differs from the plan checker's application (splice f.md 3-27, application 3-16)",
+     "E2: edit without a splice"
+    ],
+    "tool": {
+     "infinity": 0,
+     "register": 1,
+     "register-caps": 0
+    }
+   },
+   "expected": "one splice covering two edits (one deletes \"now\", the other adds it): ERROR SOURCE_CHANGED; evaluated per edit, FAIL deny-match (register), as P",
+   "id": "S11-57c",
+   "predicate": "the correspondence refuses and the per-edit register count equals P's (1)",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "P": {
+     "infinity": 1,
+     "register": 0,
+     "register-caps": 0
+    },
+    "split": [
+     "The bound holds;",
+     "the lattice is infinite."
+    ],
+    "tool": {
+     "infinity": 1,
+     "register": 0,
+     "register-caps": 0
+    }
+   },
+   "expected": "\"The bound holds; the lattice is infinite.\" as an added pair: split as P's splitter does; the result equals P's static_new",
+   "id": "S11-57d",
+   "predicate": "P's splitter gives two sentences and the tool's infinity count equals P's",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "a": {
+     "P_selected": "alpha one.",
+     "items_equal": true,
+     "refused": false,
+     "tool_selected": "alpha one."
+    },
+    "b": {
+     "P_selected": "beta two.",
+     "items_equal": true,
+     "refused": false,
+     "tool_selected": "beta two."
+    },
+    "c": {
+     "P_selected": null,
+     "items_equal": true,
+     "refused": true,
+     "tool_selected": null
+    },
+    "d": {
+     "P_selected": "alpha one.",
+     "items_equal": true,
+     "refused": false,
+     "tool_selected": "alpha one."
+    },
+    "e": {
+     "P_selected": "beta two.",
+     "items_equal": true,
+     "refused": false,
+     "tool_selected": "beta two."
+    },
+    "f": {
+     "P_selected": null,
+     "items_equal": true,
+     "refused": true,
+     "tool_selected": null
+    }
+   },
+   "expected": "one two-variant edit with H holding old once, old_step2 only, neither, both once, old twice and old_step2 once, both ambiguous: selection, refusal (ERROR SOURCE_CHANGED in c and f) and items 5-6 equal to P's",
+   "id": "S11-58a-f",
+   "predicate": "the tool's selection equals P's and the expected one in each case; refusal exactly in c and f; items equal",
+   "status": "PASS"
+  },
+  {
+   "actual": [
+    "E1: splice differs from the plan checker's application (splice f.md 2-12, application 24-33)"
+   ],
+   "expected": "a splice built for (old, new) while P selects (old_step2, new_step2): ERROR SOURCE_CHANGED",
+   "id": "S11-58g",
+   "predicate": "the correspondence refuses",
+   "status": "PASS"
+  },
+  {
+   "actual": [
+    "E2: the edit is lost (no pair occurs exactly once after the edits before it)"
+   ],
+   "expected": "an earlier edit that destroys a later edit's old: ERROR SOURCE_CHANGED, as P reports the edit lost",
+   "id": "S11-58h",
+   "predicate": "the correspondence refuses naming E2 as lost",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "P": "old",
+    "refusal": [],
+    "start": 1
+   },
+   "expected": "old = \"aa\" in \"xaaay\" (non-overlapping count 1): selected at offset 1, as P selects; accepted",
+   "id": "S11-58i",
+   "predicate": "selected, splice at offset 1, no refusal",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "P": {
+     "infinity": 0,
+     "register": 0,
+     "register-caps": 0
+    },
+    "refusal": [
+     "E2: chained edit (its occurrence lies in or across an earlier edit's image)"
+    ]
+   },
+   "expected": "chained edits (edit 2's only occurrence after edit 1 lies inside edit 1's image): ERROR SOURCE_CHANGED naming edit 2 (chained); P's items 5 and 6 recorded",
+   "id": "S11-58j",
+   "predicate": "a refusal naming E2 as chained",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "P_result": "xQ",
+    "refusal": [
+     "E2: chained edit (its occurrence lies in or across an earlier edit's image)"
+    ]
+   },
+   "expected": "chained across the image boundary (H \"ab qc\", edit 1 \"ab q\"->\"xy\", edit 2 qc/yc): ERROR SOURCE_CHANGED naming edit 2 (chained); P applies the list, with result \"xQ\"",
+   "id": "S11-58k",
+   "predicate": "a refusal naming E2 as chained, and P's application gives 'xQ'",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "ch19": [
+     "PASS"
+    ],
+    "full": [
+     "PASS"
+    ],
+    "items": []
+   },
+   "expected": "the W1-c sentence at T1' in ch19:198 and FULL:5270, with negative_allowance {finit: 1}: PASS, both lines",
+   "id": "WB1",
+   "predicate": "both hits PASS and no item on either line",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "axiom": [
+     20,
+     [
+      "record-invalid"
+     ]
+    ],
+    "two": [
+     20,
+     [
+      "record-invalid"
+     ]
+    ],
+    "zero": [
+     20,
+     [
+      "record-invalid"
+     ]
+    ]
+   },
+   "expected": "lint: a W1-c allowance of 2, of 0, or naming axiom: FAIL record-invalid",
+   "id": "WB10",
+   "predicate": "each mutant gives exit 20 with record-invalid for the rule file",
+   "status": "PASS"
+  },
+  {
+   "actual": [
+    20,
+    [
+     "record-invalid"
+    ]
+   ],
+   "expected": "lint: a rule whose fingerprinted sentence fails its own rule (W1-c with no allowance): FAIL record-invalid",
+   "id": "WB11",
+   "predicate": "exit 20 with record-invalid for the rule file",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "exit": 20,
+    "items": [
+     [
+      "rule-negative-match",
+      "W1-c"
+     ]
+    ]
+   },
+   "expected": "V7a on the W1-c sentence (\", one of which is total finiteness,\"): FAIL rule-negative-match",
+   "id": "WB12",
+   "predicate": "profile set = item7 less DR-3 (ptr,count-grep,resid,DR-1,DR-4,DR-5); exit 20; the line has rule-negative-match of W1-c and no deny-match",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "hit": [
+     "PASS"
+    ],
+    "items": [],
+    "stale": []
+   },
+   "expected": "the fingerprinted sentence moved with both of its neighbours to another section of the same file: PASS",
+   "id": "WB13",
+   "predicate": "the moved line has no item and its hit PASS; no W1-c rule-stale",
+   "status": "PASS"
+  },
+  {
+   "actual": [
+    {
+     "fingerprinted": [],
+     "later": [
+      "rule-negative-match"
+     ]
+    },
+    {
+     "fingerprinted": [],
+     "later": [
+      "rule-negative-match"
+     ]
+    }
+   ],
+   "expected": "the fingerprinted sentence with both neighbours duplicated in the same file: the copy at the smaller byte offset PASSes, the later copy FAILs rule-negative-match, on every run",
+   "id": "WB14",
+   "predicate": "in two runs: fingerprinted line no item, later copy rule-negative-match, identical",
+   "status": "PASS"
+  },
+  {
+   "actual": [
+    "rule-negative-match"
+   ],
+   "expected": "\"Finiteness\" (capitalized) added to a W1 sentence at its fingerprinted location: FAIL rule-negative-match (case-insensitive negatives)",
+   "id": "WB15",
+   "predicate": "the line has rule-negative-match",
+   "status": "PASS"
+  },
+  {
+   "actual": [
+    "rule-negative-match"
+   ],
+   "expected": "one more word containing finit in the fingerprinted sentence: FAIL rule-negative-match",
+   "id": "WB2",
+   "predicate": "the line has rule-negative-match",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "copy": [
+     "rule-negative-match"
+    ],
+    "original": []
+   },
+   "expected": "the fingerprinted sentence copied unchanged to another paragraph of a file in W1-c's scope: FAIL rule-negative-match at the copy; the original still PASS",
+   "id": "WB3",
+   "predicate": "copy line rule-negative-match; original line no item",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "file": "book/ch00-introduction.md",
+    "items": [
+     "unclassified"
+    ]
+   },
+   "expected": "the fingerprinted sentence copied to a file outside every W1 rule's scope: REVIEW_REQUIRED unclassified",
+   "id": "WB4",
+   "predicate": "the copy's line has unclassified and no FAIL class",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "new": [
+     "rule-negative-match"
+    ],
+    "stale": 1
+   },
+   "expected": "the fingerprinted sentence moved to another paragraph of the same file: FAIL rule-negative-match at the new location; REVIEW_REQUIRED rule-stale for the fingerprint",
+   "id": "WB5",
+   "predicate": "new line rule-negative-match and a W1-c rule-stale item",
+   "status": "PASS"
+  },
+  {
+   "actual": [
+    "rule-negative-match"
+   ],
+   "expected": "a near-copy at the fingerprinted location, one other word changed, one finit word kept: FAIL rule-negative-match",
+   "id": "WB6",
+   "predicate": "the line has rule-negative-match",
+   "status": "PASS"
+  },
+  {
+   "actual": [
+    "rule-fingerprint-mismatch"
+   ],
+   "expected": "the fingerprinted sentence with its one finit word removed: REVIEW_REQUIRED rule-fingerprint-mismatch",
+   "id": "WB7",
+   "predicate": "the line has rule-fingerprint-mismatch and no FAIL class",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "hit": [
+     "PASS"
+    ],
+    "items": []
+   },
+   "expected": "the fingerprinted sentence and its neighbours shifted by 40 lines: PASS",
+   "id": "WB8",
+   "predicate": "no item on the shifted line and its hit PASS",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "fingerprinted": [],
+    "later": [
+     "rule-negative-match"
+    ]
+   },
+   "expected": "two sentences matching one fingerprint in one file, so that one allowance is claimed twice: the claim at the larger byte offset gets no allowance (FAIL rule-negative-match)",
+   "id": "WB9",
+   "predicate": "the later copy has rule-negative-match; the fingerprinted line has none",
+   "status": "PASS"
+  }
+ ],
+ "schema": "oi-control-report/1",
+ "summary": {
+  "PASS": 47
+ }
+}

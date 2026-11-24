@@ -1,0 +1,8 @@
+1-self-test 0 0.1 24856
+2-purity 0 0.7 38572
+3-synthetic 0 0.5 28388
+4-conformance 0 7.9 35780
+5-a1-conformance 0 54.6 202632
+6-a1-controls 1 1132.7 1481596
+ALLDONE
+7-release-gate 1 58.6 51200

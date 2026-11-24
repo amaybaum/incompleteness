@@ -1,0 +1,8 @@
+name: x
+on: workflow_dispatch
+jobs:
+  j:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: a
+        uses: my-org/bar@0123456789abcdef0123456789abcdef01234567

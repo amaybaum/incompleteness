@@ -1,0 +1,7 @@
+1-self-test 0 0.2 24560
+2-purity 0 0.8 38384
+3-synthetic 0 0.7 28192
+4-conformance 0 7.5 35456
+5-a1-conformance 0 56.7 201972
+6-a1-controls 1 1188.6 1483472
+ALLDONE

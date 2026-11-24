@@ -1,0 +1,639 @@
+{
+ "schema": "a1-retirement-preservation-manifest-1 (batch 2)",
+ "transformations": {
+  "T1": "absolute path of the local records directory -> <records>",
+  "T2": "absolute path of the local repository checkout -> <repo>",
+  "T3": "absolute path of the local checked-write state directory -> <write-state>",
+  "T4": "any other path prefix in the system temporary directory -> \"<tmp>/\"",
+  "T5": "the local name of the session working directory (one word) -> \"workspace\", case preserved",
+  "T6": "the commit-identity e-mail address -> <commit-identity-email>"
+ },
+ "files": [
+  {
+   "path": "HANDOFF-20261124.md",
+   "original_sha256": "a902a95a9e5a80457e88a5c4d99a953e149267cd78277f40fb35ad1c551a8cfa",
+   "original_bytes": 10403,
+   "copy_sha256": "729013d261004f9acc52f1590c8587dd265a639ff3cc84c5ff372d1eefda4225",
+   "copy_bytes": 10311,
+   "byte_identical": false,
+   "transformations": {
+    "T1": 1,
+    "T3": 1,
+    "T5": 2
+   }
+  },
+  {
+   "path": "HANDOFF-20261124b.md",
+   "original_sha256": "3a4f5f9c15c33e8539657a2a71ed8167aea026e59444182a471862b61c83c1f4",
+   "original_bytes": 8598,
+   "copy_sha256": "696fae0d3ef53fb63cccf0fb72147cbd5124998c20f5a50153dd9fa922c4b2fd",
+   "copy_bytes": 8492,
+   "byte_identical": false,
+   "transformations": {
+    "T1": 1,
+    "T2": 1,
+    "T3": 1,
+    "T5": 1,
+    "T6": 2
+   }
+  },
+  {
+   "path": "coord2-a1-amend/RECONCILIATION-OBLIGATIONS-20261124.md",
+   "original_sha256": "a7c20b8c84e6eb04d01ca2c73f859075ace4d89e7085b6f428fcde0eca3d1254",
+   "original_bytes": 895,
+   "copy_sha256": "a7c20b8c84e6eb04d01ca2c73f859075ace4d89e7085b6f428fcde0eca3d1254",
+   "copy_bytes": 895,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/OWNER-DECISIONS-CORR2-20261124.md",
+   "original_sha256": "4ee1c5d8a97c6bdbad97eaa722c1db8601b83e54e61554a6a3eae6499b7692f5",
+   "original_bytes": 3757,
+   "copy_sha256": "4ee1c5d8a97c6bdbad97eaa722c1db8601b83e54e61554a6a3eae6499b7692f5",
+   "copy_bytes": 3757,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/ci-validation/BUILD.md",
+   "original_sha256": "0b90bc533c6759be363f55943e98c99026cdf4aece4b188cf619ca4698b86eae",
+   "original_bytes": 12667,
+   "copy_sha256": "665abb5e10b9ce3a939cb37aed446c659b425e19f14d7cf49d313fbc76b55480",
+   "copy_bytes": 12670,
+   "byte_identical": false,
+   "transformations": {
+    "T5": 1,
+    "T6": 2
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/ci-validation/dryrun.py",
+   "original_sha256": "a60928059008e0de79b9be7d0ac8ff02c9f9bfed8d86ed18ed68321e37606cf2",
+   "original_bytes": 1777,
+   "copy_sha256": "a60928059008e0de79b9be7d0ac8ff02c9f9bfed8d86ed18ed68321e37606cf2",
+   "copy_bytes": 1777,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/ci-validation/gen.py",
+   "original_sha256": "73f80c8ab4b10dc23cf4bd6e72b024dc6fa936992ef286daf1a3486ee82852d3",
+   "original_bytes": 1789,
+   "copy_sha256": "73f80c8ab4b10dc23cf4bd6e72b024dc6fa936992ef286daf1a3486ee82852d3",
+   "copy_bytes": 1789,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/ci-validation/ledger-coverage-suite-ci.yml",
+   "original_sha256": "13176a4d1ed91b1b2f6e2445380f57bf79006072ccbfb48d55dcd6d90b65f513",
+   "original_bytes": 77415,
+   "copy_sha256": "13176a4d1ed91b1b2f6e2445380f57bf79006072ccbfb48d55dcd6d90b65f513",
+   "copy_bytes": 77415,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/ci-validation/msg.txt",
+   "original_sha256": "49359ab24665a7352981f5625fdabb7e65dfc4000bf595067345ed5430f507db",
+   "original_bytes": 674,
+   "copy_sha256": "897be3a9895b1e83d480100500e03b74e66ebec7390761f22849178da655e4da",
+   "copy_bytes": 676,
+   "byte_identical": false,
+   "transformations": {
+    "T6": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/ci-validation/src/collect.py",
+   "original_sha256": "243c6f1d1a65b35950f6819999bfdc4f957e4eb4f95c0a2179163806164d44ca",
+   "original_bytes": 8759,
+   "copy_sha256": "243c6f1d1a65b35950f6819999bfdc4f957e4eb4f95c0a2179163806164d44ca",
+   "copy_bytes": 8759,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/ci-validation/src/template.yml",
+   "original_sha256": "c7b885e6866f0de1a22d155687a3be8c4d02b9bb496c4b45b73caaaae1a44db0",
+   "original_bytes": 14214,
+   "copy_sha256": "c7b885e6866f0de1a22d155687a3be8c4d02b9bb496c4b45b73caaaae1a44db0",
+   "copy_bytes": 14214,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/ci-validation/src/verdict.py",
+   "original_sha256": "6abee1ae5894774ff62cda71f75b52fdf855037557c4696b8b1e578a65ef4de9",
+   "original_bytes": 7146,
+   "copy_sha256": "6abee1ae5894774ff62cda71f75b52fdf855037557c4696b8b1e578a65ef4de9",
+   "copy_bytes": 7146,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-v6.0e/CORRECTION-1.md",
+   "original_sha256": "3352a14ec2700750b81f405079e0f6bc020a0b9605ac70e9379c2add61419213",
+   "original_bytes": 18726,
+   "copy_sha256": "0b92160180bba548eaf1ddcb672918e3bea63f2f1a74182a711e760e3e706ba4",
+   "copy_bytes": 18728,
+   "byte_identical": false,
+   "transformations": {
+    "T6": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-v6.0e/CORRECTION-2-CHECKPOINT.md",
+   "original_sha256": "afa21b0d5cca9cf019e8fbbe20f0cc5e335dbd6b0f10f1ecd9ab09de953053a2",
+   "original_bytes": 2154,
+   "copy_sha256": "afa21b0d5cca9cf019e8fbbe20f0cc5e335dbd6b0f10f1ecd9ab09de953053a2",
+   "copy_bytes": 2154,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-v6.0e/CORRECTION-2.md",
+   "original_sha256": "b555ca5263691d9da453dc659813a63a0b770c211dfad4e6005ac2fa30e9cf7e",
+   "original_bytes": 21601,
+   "copy_sha256": "17757af1eee10991ad78724a286f9bc0224991186bfa3474d65b0743b1e6bcff",
+   "copy_bytes": 21602,
+   "byte_identical": false,
+   "transformations": {
+    "T5": 1,
+    "T6": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-v6.0e/MANIFEST.sha256",
+   "original_sha256": "2a7e97d218afee75dc7f0048c6f63b8e035437421e33cf05d6fee8b24dc9c793",
+   "original_bytes": 25011,
+   "copy_sha256": "2a7e97d218afee75dc7f0048c6f63b8e035437421e33cf05d6fee8b24dc9c793",
+   "copy_bytes": 25011,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-v6.0e/logs/corr2/full/1-self-test-result.json",
+   "original_sha256": "59ee42a5b22b8dd4507cd4bcbf40f1c02054c871c536d34aad55afb0b1756799",
+   "original_bytes": 7961,
+   "copy_sha256": "59ee42a5b22b8dd4507cd4bcbf40f1c02054c871c536d34aad55afb0b1756799",
+   "copy_bytes": 7961,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-v6.0e/logs/corr2/full/2-purity-result.json",
+   "original_sha256": "900c03b7b5bbe0a070d3c9e991ed6d0a6bb3f6b0b1f74a53da4a6190a2b04ca1",
+   "original_bytes": 437,
+   "copy_sha256": "900c03b7b5bbe0a070d3c9e991ed6d0a6bb3f6b0b1f74a53da4a6190a2b04ca1",
+   "copy_bytes": 437,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-v6.0e/logs/corr2/full/a1-conformance.json",
+   "original_sha256": "f6d65403063c35eee361fb4eaaa4c193806baa6d4fb7a21add0fed0493a17c16",
+   "original_bytes": 19869,
+   "copy_sha256": "f6d65403063c35eee361fb4eaaa4c193806baa6d4fb7a21add0fed0493a17c16",
+   "copy_bytes": 19869,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-v6.0e/logs/corr2/full/a1-controls.json",
+   "original_sha256": "15e24c1216c07a7e0bcfae2d6b90355c8a8bb54886a75e02dfe54e63228b7b66",
+   "original_bytes": 64185,
+   "copy_sha256": "15e24c1216c07a7e0bcfae2d6b90355c8a8bb54886a75e02dfe54e63228b7b66",
+   "copy_bytes": 64185,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-v6.0e/logs/corr2/full/conformance-controls.json",
+   "original_sha256": "7ea73a5136bc119b4587fd2f5532a6dccff6a1331ee2b0171770498b88015536",
+   "original_bytes": 86317,
+   "copy_sha256": "ef2cdc29e1ccfb05dd1a97750fd78bff33f3c976b2b096f70cf72154cae2ed4d",
+   "copy_bytes": 84523,
+   "byte_identical": false,
+   "transformations": {
+    "T1": 23
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-v6.0e/logs/corr2/full/head.txt",
+   "original_sha256": "03500abccf951f4ac4cb3a882cc56d4b30dd5f3d8909731f2b7545f34c420d01",
+   "original_bytes": 41,
+   "copy_sha256": "03500abccf951f4ac4cb3a882cc56d4b30dd5f3d8909731f2b7545f34c420d01",
+   "copy_bytes": 41,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-v6.0e/logs/corr2/full/staged-config.sha256",
+   "original_sha256": "b042f824d9af29675388c65f31825d25729654a10d83e5a4d3100534c81baeeb",
+   "original_bytes": 65,
+   "copy_sha256": "b042f824d9af29675388c65f31825d25729654a10d83e5a4d3100534c81baeeb",
+   "copy_bytes": 65,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-v6.0e/logs/corr2/full/status.txt",
+   "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "original_bytes": 0,
+   "copy_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "copy_bytes": 0,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-v6.0e/staging-4f4a9d58/verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json",
+   "original_sha256": "5072a3b0e25e9283acecf4c3df87f820e34464d8d6e2e501ec672615114a96a0",
+   "original_bytes": 26720,
+   "copy_sha256": "5072a3b0e25e9283acecf4c3df87f820e34464d8d6e2e501ec672615114a96a0",
+   "copy_bytes": 26720,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr1/CHECKPOINT.md",
+   "original_sha256": "15a714a7bdbe01246da2d8feab3dc1c09ebb7d0d212e7833212cea5dda430f4a",
+   "original_bytes": 4330,
+   "copy_sha256": "15a714a7bdbe01246da2d8feab3dc1c09ebb7d0d212e7833212cea5dda430f4a",
+   "copy_bytes": 4330,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr1/MANIFEST.sha256",
+   "original_sha256": "c0843cab13c10d74d96d45d2a5381fb414e0bca0c9eed6fbcc3f08ddfcc2be60",
+   "original_bytes": 3445,
+   "copy_sha256": "c0843cab13c10d74d96d45d2a5381fb414e0bca0c9eed6fbcc3f08ddfcc2be60",
+   "copy_bytes": 3445,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr1/evidence/a1-conformance.json",
+   "original_sha256": "f6d65403063c35eee361fb4eaaa4c193806baa6d4fb7a21add0fed0493a17c16",
+   "original_bytes": 19869,
+   "copy_sha256": "f6d65403063c35eee361fb4eaaa4c193806baa6d4fb7a21add0fed0493a17c16",
+   "copy_bytes": 19869,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr1/evidence/a1-controls.json",
+   "original_sha256": "a433baf204ba2cf181e6f940a701877966f8ca625155d38a6128c3818553e93a",
+   "original_bytes": 64186,
+   "copy_sha256": "a433baf204ba2cf181e6f940a701877966f8ca625155d38a6128c3818553e93a",
+   "copy_bytes": 64186,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr1/evidence/cmp.py",
+   "original_sha256": "3c7f81a0d82179087185ffa7755652e2d25448fa15f5c19d09f97b90e78f7032",
+   "original_bytes": 674,
+   "copy_sha256": "ff84b203717be46fa2b44a8afb31434b280da42bb1ba35b6dd48361cea546628",
+   "copy_bytes": 675,
+   "byte_identical": false,
+   "transformations": {
+    "T4": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr1/evidence/conformance-controls.json",
+   "original_sha256": "2f8f8220db5df19ab519f6953eed0c0c4eddf1fc3d796cdc878d0b218b25d36d",
+   "original_bytes": 84374,
+   "copy_sha256": "06cda0e170707046873569a7b5741f0eb591327df6ab92b44be79ba7959bf05b",
+   "copy_bytes": 82580,
+   "byte_identical": false,
+   "transformations": {
+    "T1": 23
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr1/evidence/ei6_fix_check.py",
+   "original_sha256": "859ab55d7ff6d4656e7d205ecaf8fa1f70244fdb324addd7e62bc86c81505816",
+   "original_bytes": 1333,
+   "copy_sha256": "859ab55d7ff6d4656e7d205ecaf8fa1f70244fdb324addd7e62bc86c81505816",
+   "copy_bytes": 1333,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr1/evidence/ei6_predicate_probe.py",
+   "original_sha256": "64cfa169ee49e5e8017d58026612686df193768acc4baba7780554c277e55a55",
+   "original_bytes": 1775,
+   "copy_sha256": "64cfa169ee49e5e8017d58026612686df193768acc4baba7780554c277e55a55",
+   "copy_bytes": 1775,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr1/evidence/o3_sys_probe.py",
+   "original_sha256": "a6aefd21fe1cf1b93b4cdfd7eaf8056cdba92f7091ba83ebe2110b7f642d6bfe",
+   "original_bytes": 2574,
+   "copy_sha256": "a6aefd21fe1cf1b93b4cdfd7eaf8056cdba92f7091ba83ebe2110b7f642d6bfe",
+   "copy_bytes": 2574,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr1/evidence/steps.txt",
+   "original_sha256": "41c57ee0794d6c246206c2a420da9fa600d5174856bdf1b755bb8e5ac5d3222b",
+   "original_bytes": 165,
+   "copy_sha256": "41c57ee0794d6c246206c2a420da9fa600d5174856bdf1b755bb8e5ac5d3222b",
+   "copy_bytes": 165,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr1/evidence/wf-extra/c04_hyphen_inner.yml",
+   "original_sha256": "0e74240370dc59be6168e96a5395deceb9b45883f4cb5bf571ab057a99a43e13",
+   "original_bytes": 160,
+   "copy_sha256": "0e74240370dc59be6168e96a5395deceb9b45883f4cb5bf571ab057a99a43e13",
+   "copy_bytes": 160,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr1/evidence/wf-extra/c05_digits.yml",
+   "original_sha256": "1bb0fff0f6bbb119cc1054487a17baab6904a77033ab7ce2376aec850c0323dd",
+   "original_bytes": 173,
+   "copy_sha256": "1bb0fff0f6bbb119cc1054487a17baab6904a77033ab7ce2376aec850c0323dd",
+   "copy_bytes": 173,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr1/evidence/wf-extra/x01_hyphen_owner.yml",
+   "original_sha256": "6b53294c1f4e26eecffbb6d537364113682c996dbd30d2f34223324db73bb801",
+   "original_bytes": 158,
+   "copy_sha256": "6b53294c1f4e26eecffbb6d537364113682c996dbd30d2f34223324db73bb801",
+   "copy_bytes": 158,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr1/evidence/wf-extra/x02_trailing_hyphen_owner.yml",
+   "original_sha256": "ca5405c7a07b1598c5bfddcd53038361d141bedfa98a3ef8fc5a7167f1c2a860",
+   "original_bytes": 158,
+   "copy_sha256": "ca5405c7a07b1598c5bfddcd53038361d141bedfa98a3ef8fc5a7167f1c2a860",
+   "copy_bytes": 158,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr1/evidence/wf-extra/x03_double_hyphen.yml",
+   "original_sha256": "7355e8e7c411bab43066ecab93c990abd59d137ee7571511b3bba16d2215be58",
+   "original_bytes": 159,
+   "copy_sha256": "7355e8e7c411bab43066ecab93c990abd59d137ee7571511b3bba16d2215be58",
+   "copy_bytes": 159,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr1/evidence/wf-extra/x04_dot_owner.yml",
+   "original_sha256": "00d6a9957a745994491a710c99b11bc1597eafdebbefd200b75674029178d9fa",
+   "original_bytes": 155,
+   "copy_sha256": "00d6a9957a745994491a710c99b11bc1597eafdebbefd200b75674029178d9fa",
+   "copy_bytes": 155,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr1/evidence/wf-extra/x05_dotdot_repo.yml",
+   "original_sha256": "05907bcbe4760858471e36ca25f043d2ea5f904da5737eb38b80bda23cb5cf98",
+   "original_bytes": 156,
+   "copy_sha256": "05907bcbe4760858471e36ca25f043d2ea5f904da5737eb38b80bda23cb5cf98",
+   "copy_bytes": 156,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr1/evidence/wf-extra/x06_docker.yml",
+   "original_sha256": "f66e9521c22092257bc9766eeed68a72218595ac69aa3bebd9d4e1e03d5932a1",
+   "original_bytes": 172,
+   "copy_sha256": "f66e9521c22092257bc9766eeed68a72218595ac69aa3bebd9d4e1e03d5932a1",
+   "copy_bytes": 172,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr1/evidence/wf-extra/x07_underscore_owner.yml",
+   "original_sha256": "a1713034dee39fb58593d90dce562d86be3257e0aaa2654bd543af8493326aac",
+   "original_bytes": 158,
+   "copy_sha256": "a1713034dee39fb58593d90dce562d86be3257e0aaa2654bd543af8493326aac",
+   "copy_bytes": 158,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr1/evidence/wf-extra/x08_upper_hex.yml",
+   "original_sha256": "509a7230f82403c9c48e2defb1afef2d3f6f33f3911d5e789b92c450e92e793d",
+   "original_bytes": 157,
+   "copy_sha256": "509a7230f82403c9c48e2defb1afef2d3f6f33f3911d5e789b92c450e92e793d",
+   "copy_bytes": 157,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr1/evidence/wf-extra/x09_dotdot_path.yml",
+   "original_sha256": "fbc3a2aac9000459d847312e1cd506b2f3e619e0b2418a6b4f0f036a544224e0",
+   "original_bytes": 165,
+   "copy_sha256": "fbc3a2aac9000459d847312e1cd506b2f3e619e0b2418a6b4f0f036a544224e0",
+   "copy_bytes": 165,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr1/review.md",
+   "original_sha256": "3b99a0899d7cd5b167fa9f557461ea901540f551f85d997cdc8cc9f69c47a68f",
+   "original_bytes": 26638,
+   "copy_sha256": "fe5fd5748518648f030359ca7f1a99eb5d2a2f59d862b87fc7028b9a5bbb07f7",
+   "copy_bytes": 26636,
+   "byte_identical": false,
+   "transformations": {
+    "T5": 4,
+    "T6": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr2/CHECKPOINT.md",
+   "original_sha256": "2957eecc4483b89f02a85a7d59e0f67b9e8735ee4c17e586f30daaa42f5c9eed",
+   "original_bytes": 2358,
+   "copy_sha256": "2957eecc4483b89f02a85a7d59e0f67b9e8735ee4c17e586f30daaa42f5c9eed",
+   "copy_bytes": 2358,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr2/MANIFEST.sha256",
+   "original_sha256": "13a55cb9825625ce11a48f0a8b016cb3271132b7b65f952105ef6457e24f089d",
+   "original_bytes": 2341,
+   "copy_sha256": "13a55cb9825625ce11a48f0a8b016cb3271132b7b65f952105ef6457e24f089d",
+   "copy_bytes": 2341,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr2/evidence/a1-conformance.json",
+   "original_sha256": "f6d65403063c35eee361fb4eaaa4c193806baa6d4fb7a21add0fed0493a17c16",
+   "original_bytes": 19869,
+   "copy_sha256": "f6d65403063c35eee361fb4eaaa4c193806baa6d4fb7a21add0fed0493a17c16",
+   "copy_bytes": 19869,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr2/evidence/a1-controls.json",
+   "original_sha256": "c8813cbb6bf5477bacf1972876490f2cb148704fdab3914e962170dc2e8aecb9",
+   "original_bytes": 64185,
+   "copy_sha256": "c8813cbb6bf5477bacf1972876490f2cb148704fdab3914e962170dc2e8aecb9",
+   "copy_bytes": 64185,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr2/evidence/arms_c2-reviewer.json",
+   "original_sha256": "c2770ce6561527c647d9651a0780152376f8fc6cc2fc8bb81c457f62f887b953",
+   "original_bytes": 33540,
+   "copy_sha256": "e7fc857a86d722ca7b7a02279cc83b72fdd3b2651d0fb5cd0774c786f06b2823",
+   "copy_bytes": 32136,
+   "byte_identical": false,
+   "transformations": {
+    "T1": 18
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr2/evidence/cmp.py",
+   "original_sha256": "62bc6ae1c9133435488de94f9da3940802482051150f2268c136e5f84f1f4f72",
+   "original_bytes": 1078,
+   "copy_sha256": "b74d5fbc2bd31ee0429bd6624ce533f9bd94170911a57c56d44ec063cb7232e3",
+   "copy_bytes": 1080,
+   "byte_identical": false,
+   "transformations": {
+    "T4": 2
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr2/evidence/conformance-controls.json",
+   "original_sha256": "4238f5255fde51104c6bd51a6e7466390353d2e763439098cc6ee5a6cae625d0",
+   "original_bytes": 86225,
+   "copy_sha256": "270e3efbabd509005f174fcf8a0fef32af6025a70a3565ffcd78c411404d6a47",
+   "copy_bytes": 84431,
+   "byte_identical": false,
+   "transformations": {
+    "T1": 23
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr2/evidence/ei6_break.py",
+   "original_sha256": "c8524b1b843528f0afa604973ccd43bea7dd56f609519083178baa0670088383",
+   "original_bytes": 5239,
+   "copy_sha256": "c8524b1b843528f0afa604973ccd43bea7dd56f609519083178baa0670088383",
+   "copy_bytes": 5239,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr2/evidence/meas.py",
+   "original_sha256": "21eb6bf46180fd16d1c60f26cf906c70f25e9023524cc1b3dd5d0c7b133d545c",
+   "original_bytes": 386,
+   "copy_sha256": "21eb6bf46180fd16d1c60f26cf906c70f25e9023524cc1b3dd5d0c7b133d545c",
+   "copy_bytes": 386,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr2/evidence/mutants_rv.py",
+   "original_sha256": "93da3c5f0b5510180d3aa77b54d07fd7ac0d7f5513a7173ee64e4aee2114daf0",
+   "original_bytes": 375,
+   "copy_sha256": "93da3c5f0b5510180d3aa77b54d07fd7ac0d7f5513a7173ee64e4aee2114daf0",
+   "copy_bytes": 375,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr2/evidence/mutate-rv-results.json",
+   "original_sha256": "deb1fc6e22c2868cf44e9ac8742c17d758132b285cd3ac86cf28334aecb2dbd2",
+   "original_bytes": 6394,
+   "copy_sha256": "deb1fc6e22c2868cf44e9ac8742c17d758132b285cd3ac86cf28334aecb2dbd2",
+   "copy_bytes": 6394,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr2/evidence/sigcheck.py",
+   "original_sha256": "f200ddfd156bcdbe25a606235f96f0d27e4d6a40ce0a9ba923ec7c82072d5fc5",
+   "original_bytes": 1429,
+   "copy_sha256": "f200ddfd156bcdbe25a606235f96f0d27e4d6a40ce0a9ba923ec7c82072d5fc5",
+   "copy_bytes": 1429,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr2/evidence/steps.txt",
+   "original_sha256": "eb9d1b7bc728fead17e45e664bf307e272ebf9869fde88392b22957e7d7ffc17",
+   "original_bytes": 193,
+   "copy_sha256": "eb9d1b7bc728fead17e45e664bf307e272ebf9869fde88392b22957e7d7ffc17",
+   "copy_bytes": 193,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr2/evidence/wf_check.py",
+   "original_sha256": "316d0de2495f62844fa7449fc330b307f6de3219afb3ed6150347c4fcd3ce115",
+   "original_bytes": 7038,
+   "copy_sha256": "c427f369375d820f85c315acf05f9844615cc4da614e1ac00b4ae77a0c6f9adf",
+   "copy_bytes": 7039,
+   "byte_identical": false,
+   "transformations": {
+    "T4": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-corr2/review.md",
+   "original_sha256": "8449ef903a99adf61815c31f379d50da4a9f0d6e5b5ae88fdf6273158a471dce",
+   "original_bytes": 20709,
+   "copy_sha256": "ce8c6235f9425455918ca6a4da2c4eadc315eab3ff154b43abfa91fa429eda59",
+   "copy_bytes": 20709,
+   "byte_identical": false,
+   "transformations": {
+    "T4": 1,
+    "T5": 3,
+    "T6": 1
+   }
+  },
+  {
+   "path": "coord2-records/proposed/corr2-accept-1169.md",
+   "original_sha256": "da873cfd025b04318c9affc92e5f1e179f986975004679007f5d7f1045869d12",
+   "original_bytes": 1901,
+   "copy_sha256": "da873cfd025b04318c9affc92e5f1e179f986975004679007f5d7f1045869d12",
+   "copy_bytes": 1901,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/proposed/corr2-ci-1169.md",
+   "original_sha256": "ac5ae9a4932c3cac8e2f416d7248336d7855fb4ef728d9e7cbc8270132e959b8",
+   "original_bytes": 3334,
+   "copy_sha256": "ac5ae9a4932c3cac8e2f416d7248336d7855fb4ef728d9e7cbc8270132e959b8",
+   "copy_bytes": 3334,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/proposed/preserve-tool-1169.md",
+   "original_sha256": "ddbd2788b4fc5185c6b48329e1b8ada7d2322e801b9bb4f320ece88d98a2eda2",
+   "original_bytes": 924,
+   "copy_sha256": "ddbd2788b4fc5185c6b48329e1b8ada7d2322e801b9bb4f320ece88d98a2eda2",
+   "copy_bytes": 924,
+   "byte_identical": true,
+   "transformations": {}
+  }
+ ]
+}

@@ -40,3 +40,14 @@ excluding working directories (`work*`); the staged configuration `staging-3184c
 `diffs-r5` in full; and the session handoff. Not copied: raw run outputs, logs, mutation outputs,
 probe trees and copies of repository trees, which are regenerable or not needed by a surviving
 record; the final review of `3184c7f9`, still in progress; and the paused OI-COMP-BENCH records.
+
+## Batch 2 (2026-11-24): correction 2, its review and the CI validation build
+
+`copies-2/` and `MANIFEST-2.json` add, by the same mechanical method and transformations, the records made after
+batch 1: the final review of correction 1 (`review-corr1/`), the correction 2 writer's record, checkpoint, local
+suite results (`impl-v6.0e/logs/corr2/full/`) and staged configuration (`staging-4f4a9d58/`), the correction 2
+review (`review-corr2/`), the CI validation build record and workflow copy (`ci-validation/`), the owner decision
+records for correction 2 and the A1 plan reconciliation obligations, the texts of the #1169 record comments, both
+session handoffs, and the then-current `impl-v6.0e/MANIFEST.sha256` and `CORRECTION-1.md`. A file present in both
+batches is copied as it stood at each batch; `MANIFEST-2.json` gives the original hash at batch 2. Batch 1 is
+unchanged. These are preservation copies, not byte-identical original evidence.

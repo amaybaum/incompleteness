@@ -1,0 +1,1049 @@
+{
+ "F_stand_in": "4eee7077108cbb19c2b2706864a0098ba83d92b0",
+ "config_sha256": "5072a3b0e25e9283acecf4c3df87f820e34464d8d6e2e501ec672615114a96a0",
+ "results": {
+  "item1-execution": {
+   "argv": [
+    "-I",
+    "-S",
+    "-B",
+    "tools/ledger_coverage.py",
+    "execution",
+    "--freeze",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0",
+    "--config",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json",
+    "--out",
+    "<records>/rv-corr2/arms/new/item1-execution/out",
+    "--scientific-base",
+    "53c6601a10419b6b333cc992474272501ab542af",
+    "--candidate",
+    "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+    "--ledger",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+    "--edits",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/edits.json"
+   ],
+   "block_exit": 0,
+   "run": {
+    "exit": 20,
+    "finding_counts": {
+     "DELEGATED/REVIEW_REQUIRED/delegated-evidence-missing": 1,
+     "RET/FAIL/unauthorized-change": 26,
+     "RET/FAIL/unauthorized-edit": 1
+    },
+    "outcome": "FAIL",
+    "record_invalid": [],
+    "seconds": 10.7,
+    "stop_class": null,
+    "stop_message": ""
+   },
+   "static": [
+    {
+     "arg": "--ledger",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--edits",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    }
+   ]
+  },
+  "item1-terms": {
+   "argv": [
+    "-I",
+    "-S",
+    "-B",
+    "tools/ledger_coverage.py",
+    "terms",
+    "--freeze",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0",
+    "--config",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json",
+    "--out",
+    "<records>/rv-corr2/arms/new/item1-terms/out",
+    "--commit",
+    "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+    "--profile",
+    "ptr",
+    "--classify",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/ledger-coverage-tool-20261123/records/gr58-hit-classification-v1.json"
+   ],
+   "block_exit": 0,
+   "run": {
+    "exit": 0,
+    "finding_counts": {},
+    "outcome": "PASS",
+    "record_invalid": [],
+    "seconds": 0.6,
+    "stop_class": null,
+    "stop_message": ""
+   },
+   "static": [
+    {
+     "arg": "--classify",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/gr58-hit-classification-v1.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    }
+   ]
+  },
+  "item10": {
+   "argv": [
+    "-I",
+    "-S",
+    "-B",
+    "tools/ledger_coverage.py",
+    "execution",
+    "--freeze",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0",
+    "--config",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json",
+    "--out",
+    "<records>/rv-corr2/arms/new/item10/out",
+    "--scientific-base",
+    "53c6601a10419b6b333cc992474272501ab542af",
+    "--candidate",
+    "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+    "--ledger",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+    "--edits",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+    "--delegation",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json"
+   ],
+   "block_exit": 0,
+   "run": {
+    "exit": 20,
+    "finding_counts": {
+     "DELEGATED/FAIL/delegated-evidence-invalid": 5,
+     "DELEGATED/REVIEW_REQUIRED/delegated-evidence-missing": 5
+    },
+    "outcome": "FAIL",
+    "record_invalid": [],
+    "seconds": 7.0,
+    "stop_class": null,
+    "stop_message": ""
+   },
+   "static": [
+    {
+     "arg": "--ledger",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--edits",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--delegation",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    }
+   ]
+  },
+  "item11": {
+   "argv": [
+    "-I",
+    "-S",
+    "-B",
+    "tools/ledger_coverage.py",
+    "terms",
+    "--freeze",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0",
+    "--config",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json",
+    "--out",
+    "<records>/rv-corr2/arms/new/item11/out",
+    "--commit",
+    "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+    "--check",
+    "item11",
+    "--scope",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/ledger-coverage-tool-20261123/records/repo-scope-v1.json",
+    "--final"
+   ],
+   "block_exit": 0,
+   "run": {
+    "exit": 20,
+    "finding_counts": {
+     "TERMS/FAIL/final-unclassified": 172
+    },
+    "outcome": "FAIL",
+    "record_invalid": [],
+    "seconds": 1.9,
+    "stop_class": null,
+    "stop_message": ""
+   },
+   "static": [
+    {
+     "arg": "--scope",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/repo-scope-v1.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    }
+   ]
+  },
+  "item12": {
+   "argv": [
+    "-I",
+    "-S",
+    "-B",
+    "tools/ledger_coverage.py",
+    "execution",
+    "--freeze",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0",
+    "--config",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json",
+    "--out",
+    "<records>/rv-corr2/arms/new/item12/out",
+    "--scientific-base",
+    "53c6601a10419b6b333cc992474272501ab542af",
+    "--candidate",
+    "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+    "--ledger",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+    "--edits",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+    "--delegation",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json"
+   ],
+   "block_exit": 0,
+   "run": {
+    "exit": 20,
+    "finding_counts": {
+     "DELEGATED/FAIL/delegated-evidence-invalid": 5,
+     "DELEGATED/REVIEW_REQUIRED/delegated-evidence-missing": 5
+    },
+    "outcome": "FAIL",
+    "record_invalid": [],
+    "seconds": 7.8,
+    "stop_class": null,
+    "stop_message": ""
+   },
+   "static": [
+    {
+     "arg": "--ledger",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--edits",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--delegation",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    }
+   ]
+  },
+  "item13": {
+   "argv": [
+    "-I",
+    "-S",
+    "-B",
+    "tools/ledger_coverage.py",
+    "execution",
+    "--freeze",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0",
+    "--config",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json",
+    "--out",
+    "<records>/rv-corr2/arms/new/item13/out",
+    "--scientific-base",
+    "53c6601a10419b6b333cc992474272501ab542af",
+    "--candidate",
+    "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+    "--ledger",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+    "--edits",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+    "--delegation",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json"
+   ],
+   "block_exit": 0,
+   "run": {
+    "exit": 20,
+    "finding_counts": {
+     "DELEGATED/FAIL/delegated-evidence-invalid": 5,
+     "DELEGATED/REVIEW_REQUIRED/delegated-evidence-missing": 5
+    },
+    "outcome": "FAIL",
+    "record_invalid": [],
+    "seconds": 8.1,
+    "stop_class": null,
+    "stop_message": ""
+   },
+   "static": [
+    {
+     "arg": "--ledger",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--edits",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--delegation",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    }
+   ]
+  },
+  "item14": {
+   "argv": [
+    "-I",
+    "-S",
+    "-B",
+    "tools/ledger_coverage.py",
+    "execution",
+    "--freeze",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0",
+    "--config",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json",
+    "--out",
+    "<records>/rv-corr2/arms/new/item14/out",
+    "--scientific-base",
+    "53c6601a10419b6b333cc992474272501ab542af",
+    "--main",
+    "9deb69568d8231210c7f39cb65be943dea566371",
+    "--candidate",
+    "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+    "--ledger",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+    "--edits",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+    "--delegation",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json"
+   ],
+   "block_exit": 0,
+   "run": {
+    "exit": 20,
+    "finding_counts": {
+     "DELEGATED/FAIL/delegated-evidence-invalid": 5,
+     "DELEGATED/REVIEW_REQUIRED/delegated-evidence-missing": 5,
+     "MAIN/FAIL/base-drift": 1,
+     "MAIN/REVIEW_REQUIRED/side-change-unclassified": 2
+    },
+    "outcome": "FAIL",
+    "record_invalid": [],
+    "seconds": 7.5,
+    "stop_class": null,
+    "stop_message": ""
+   },
+   "static": [
+    {
+     "arg": "--ledger",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--edits",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--delegation",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    }
+   ]
+  },
+  "item14-landing": {
+   "argv": [
+    "-I",
+    "-S",
+    "-B",
+    "tools/ledger_coverage.py",
+    "execution",
+    "--freeze",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0",
+    "--config",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json",
+    "--out",
+    "<records>/rv-corr2/arms/new/item14-landing/out",
+    "--scientific-base",
+    "53c6601a10419b6b333cc992474272501ab542af",
+    "--main",
+    "9deb69568d8231210c7f39cb65be943dea566371",
+    "--certified",
+    "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+    "--landing",
+    "9deb69568d8231210c7f39cb65be943dea566371",
+    "--candidate",
+    "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+    "--ledger",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+    "--edits",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+    "--delegation",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json"
+   ],
+   "block_exit": 0,
+   "run": {
+    "exit": 20,
+    "finding_counts": {
+     "DELEGATED/FAIL/delegated-evidence-invalid": 5,
+     "DELEGATED/REVIEW_REQUIRED/delegated-evidence-missing": 5,
+     "MAIN/FAIL/base-drift": 1,
+     "MAIN/FAIL/landing-parents": 1,
+     "MAIN/REVIEW_REQUIRED/side-change-unclassified": 2
+    },
+    "outcome": "FAIL",
+    "record_invalid": [],
+    "seconds": 7.0,
+    "stop_class": null,
+    "stop_message": ""
+   },
+   "static": [
+    {
+     "arg": "--ledger",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--edits",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--delegation",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    }
+   ]
+  },
+  "item2-coverage": {
+   "argv": [
+    "-I",
+    "-S",
+    "-B",
+    "tools/ledger_coverage.py",
+    "coverage",
+    "--freeze",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0",
+    "--config",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json",
+    "--out",
+    "<records>/rv-corr2/arms/new/item2-coverage/out",
+    "--commit",
+    "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+    "--segment",
+    "e837e3dbaa605efc867a213f3345cee14c36d8f5..53c6601a10419b6b333cc992474272501ab542af",
+    "--segment",
+    "53c6601a10419b6b333cc992474272501ab542af..14ac71b4b0a0c0aa2d7068d6799a73f474097060=4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+    "--hp",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/hp.json",
+    "--classify",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/ledger-coverage-tool-20261123/records/gr58-hit-classification-v1.json"
+   ],
+   "block_exit": 0,
+   "run": {
+    "exit": 65,
+    "finding_counts": null,
+    "outcome": "ERROR",
+    "record_invalid": [],
+    "seconds": 0.6,
+    "stop_class": "SOURCE_CHANGED",
+    "stop_message": "record verification/audits/foundations/a1exit-deletion-20261121/hp.json not present at 4eee7077108c"
+   },
+   "run_without_hp": {
+    "exit": 20,
+    "outcome": "FAIL",
+    "record_invalid": [],
+    "stop_class": null,
+    "stop_message": ""
+   },
+   "static": [
+    {
+     "arg": "--segment",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--hp",
+     "named_by_configuration": false,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/hp.json",
+     "present_at_F": false,
+     "rev_is_F": true,
+     "sha256_equals_pin": false
+    },
+    {
+     "arg": "--classify",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/gr58-hit-classification-v1.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    }
+   ]
+  },
+  "item2-record": {
+   "argv": [
+    "-I",
+    "-S",
+    "-B",
+    "tools/ledger_coverage.py",
+    "record",
+    "--freeze",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0",
+    "--config",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json",
+    "--out",
+    "<records>/rv-corr2/arms/new/item2-record/out",
+    "--pin",
+    "e837e3dbaa605efc867a213f3345cee14c36d8f5",
+    "--record",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0"
+   ],
+   "block_exit": 0,
+   "run": {
+    "exit": 0,
+    "finding_counts": {},
+    "outcome": "PASS",
+    "record_invalid": [],
+    "seconds": 11.1,
+    "stop_class": null,
+    "stop_message": ""
+   },
+   "static": []
+  },
+  "item3": {
+   "argv": [
+    "-I",
+    "-S",
+    "-B",
+    "tools/ledger_coverage.py",
+    "execution",
+    "--freeze",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0",
+    "--config",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json",
+    "--out",
+    "<records>/rv-corr2/arms/new/item3/out",
+    "--scientific-base",
+    "53c6601a10419b6b333cc992474272501ab542af",
+    "--candidate",
+    "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+    "--ledger",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+    "--edits",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+    "--delegation",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json"
+   ],
+   "block_exit": 0,
+   "run": {
+    "exit": 20,
+    "finding_counts": {
+     "DELEGATED/FAIL/delegated-evidence-invalid": 5,
+     "DELEGATED/REVIEW_REQUIRED/delegated-evidence-missing": 5
+    },
+    "outcome": "FAIL",
+    "record_invalid": [],
+    "seconds": 7.5,
+    "stop_class": null,
+    "stop_message": ""
+   },
+   "static": [
+    {
+     "arg": "--ledger",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--edits",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--delegation",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    }
+   ]
+  },
+  "item4": {
+   "argv": [
+    "-I",
+    "-S",
+    "-B",
+    "tools/ledger_coverage.py",
+    "execution",
+    "--freeze",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0",
+    "--config",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json",
+    "--out",
+    "<records>/rv-corr2/arms/new/item4/out",
+    "--scientific-base",
+    "53c6601a10419b6b333cc992474272501ab542af",
+    "--candidate",
+    "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+    "--ledger",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+    "--edits",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+    "--delegation",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json"
+   ],
+   "block_exit": 0,
+   "run": {
+    "exit": 20,
+    "finding_counts": {
+     "DELEGATED/FAIL/delegated-evidence-invalid": 5,
+     "DELEGATED/REVIEW_REQUIRED/delegated-evidence-missing": 5
+    },
+    "outcome": "FAIL",
+    "record_invalid": [],
+    "seconds": 7.9,
+    "stop_class": null,
+    "stop_message": ""
+   },
+   "static": [
+    {
+     "arg": "--ledger",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--edits",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--delegation",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    }
+   ]
+  },
+  "item5": {
+   "argv": [
+    "-I",
+    "-S",
+    "-B",
+    "tools/ledger_coverage.py",
+    "execution",
+    "--freeze",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0",
+    "--config",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json",
+    "--out",
+    "<records>/rv-corr2/arms/new/item5/out",
+    "--scientific-base",
+    "53c6601a10419b6b333cc992474272501ab542af",
+    "--candidate",
+    "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+    "--ledger",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+    "--edits",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+    "--delegation",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json"
+   ],
+   "block_exit": 0,
+   "run": {
+    "exit": 20,
+    "finding_counts": {
+     "DELEGATED/FAIL/delegated-evidence-invalid": 5,
+     "DELEGATED/REVIEW_REQUIRED/delegated-evidence-missing": 5
+    },
+    "outcome": "FAIL",
+    "record_invalid": [],
+    "seconds": 7.9,
+    "stop_class": null,
+    "stop_message": ""
+   },
+   "static": [
+    {
+     "arg": "--ledger",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--edits",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--delegation",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    }
+   ]
+  },
+  "item6": {
+   "argv": [
+    "-I",
+    "-S",
+    "-B",
+    "tools/ledger_coverage.py",
+    "execution",
+    "--freeze",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0",
+    "--config",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json",
+    "--out",
+    "<records>/rv-corr2/arms/new/item6/out",
+    "--scientific-base",
+    "53c6601a10419b6b333cc992474272501ab542af",
+    "--candidate",
+    "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+    "--ledger",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+    "--edits",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+    "--delegation",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json"
+   ],
+   "block_exit": 0,
+   "run": {
+    "exit": 20,
+    "finding_counts": {
+     "DELEGATED/FAIL/delegated-evidence-invalid": 5,
+     "DELEGATED/REVIEW_REQUIRED/delegated-evidence-missing": 5
+    },
+    "outcome": "FAIL",
+    "record_invalid": [],
+    "seconds": 7.1,
+    "stop_class": null,
+    "stop_message": ""
+   },
+   "static": [
+    {
+     "arg": "--ledger",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--edits",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--delegation",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    }
+   ]
+  },
+  "item7": {
+   "argv": [
+    "-I",
+    "-S",
+    "-B",
+    "tools/ledger_coverage.py",
+    "terms",
+    "--freeze",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0",
+    "--config",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json",
+    "--out",
+    "<records>/rv-corr2/arms/new/item7/out",
+    "--commit",
+    "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+    "--profile",
+    "item7-literal"
+   ],
+   "block_exit": 0,
+   "run": {
+    "exit": 20,
+    "finding_counts": {
+     "TERMS/FAIL/item7-literal-match": 7
+    },
+    "outcome": "FAIL",
+    "record_invalid": [],
+    "seconds": 0.4,
+    "stop_class": null,
+    "stop_message": ""
+   },
+   "static": []
+  },
+  "item7-amended": {
+   "argv": [
+    "-I",
+    "-S",
+    "-B",
+    "tools/ledger_coverage.py",
+    "terms",
+    "--freeze",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0",
+    "--config",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json",
+    "--out",
+    "<records>/rv-corr2/arms/new/item7-amended/out",
+    "--commit",
+    "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+    "--base",
+    "53c6601a10419b6b333cc992474272501ab542af",
+    "--ledger",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+    "--check",
+    "item7",
+    "--final",
+    "--classify",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/ledger-coverage-tool-20261123/records/gr58-hit-classification-v1.json"
+   ],
+   "block_exit": 0,
+   "run": {
+    "exit": 10,
+    "finding_counts": {
+     "TERMS/REVIEW_REQUIRED/unclassified": 45
+    },
+    "outcome": "REVIEW_REQUIRED",
+    "record_invalid": [],
+    "seconds": 2.6,
+    "stop_class": null,
+    "stop_message": ""
+   },
+   "static": [
+    {
+     "arg": "--ledger",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--classify",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/gr58-hit-classification-v1.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    }
+   ]
+  },
+  "item8": {
+   "argv": [
+    "-I",
+    "-S",
+    "-B",
+    "tools/ledger_coverage.py",
+    "execution",
+    "--freeze",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0",
+    "--config",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json",
+    "--out",
+    "<records>/rv-corr2/arms/new/item8/out",
+    "--scientific-base",
+    "53c6601a10419b6b333cc992474272501ab542af",
+    "--candidate",
+    "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+    "--ledger",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+    "--edits",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+    "--delegation",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json"
+   ],
+   "block_exit": 0,
+   "run": {
+    "exit": 20,
+    "finding_counts": {
+     "DELEGATED/FAIL/delegated-evidence-invalid": 5,
+     "DELEGATED/REVIEW_REQUIRED/delegated-evidence-missing": 5
+    },
+    "outcome": "FAIL",
+    "record_invalid": [],
+    "seconds": 7.3,
+    "stop_class": null,
+    "stop_message": ""
+   },
+   "static": [
+    {
+     "arg": "--ledger",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--edits",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--delegation",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    }
+   ]
+  },
+  "item9": {
+   "argv": [
+    "-I",
+    "-S",
+    "-B",
+    "tools/ledger_coverage.py",
+    "execution",
+    "--freeze",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0",
+    "--config",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json",
+    "--out",
+    "<records>/rv-corr2/arms/new/item9/out",
+    "--scientific-base",
+    "53c6601a10419b6b333cc992474272501ab542af",
+    "--candidate",
+    "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+    "--ledger",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+    "--edits",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+    "--delegation",
+    "4eee7077108cbb19c2b2706864a0098ba83d92b0:verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json"
+   ],
+   "block_exit": 0,
+   "run": {
+    "exit": 20,
+    "finding_counts": {
+     "DELEGATED/FAIL/delegated-evidence-invalid": 5,
+     "DELEGATED/REVIEW_REQUIRED/delegated-evidence-missing": 5
+    },
+    "outcome": "FAIL",
+    "record_invalid": [],
+    "seconds": 7.3,
+    "stop_class": null,
+    "stop_message": ""
+   },
+   "static": [
+    {
+     "arg": "--ledger",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--edits",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    },
+    {
+     "arg": "--delegation",
+     "named_by_configuration": true,
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json",
+     "present_at_F": true,
+     "rev_is_F": true,
+     "sha256_equals_pin": true
+    }
+   ]
+  }
+ }
+}

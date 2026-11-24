@@ -1,0 +1,19 @@
+# CHECKPOINT review-corr2 (commit 4f4a9d58)
+- [x] input hashes verified (owner dec 4ee1c5d8, rc1 3b99a089, CORR-2 b555ca52, MANIFEST 2a7e97d2, config 5072a3b0)
+- work dir: SP/rv-corr2
+- [x] owner decision: writer-cited 6bb934c1 = sha256 of the file's first section (before "## Review criteria" appended later); explained
+- [x] trees: rv-corr2/tree (4f4a9d58, 3660 files, all hash-object = ls-tree), tree0 (3184c7f9), gitcopy (git init)
+- [x] diff = writer diff-c2.patch (c6c6c499); 5 paths; hunks read
+- [ ] full suite running: rv-corr2/run.sh -> rv-corr2/logs (started ~18:25)
+- NOTE: my probe ei6_break.py (python3 -I, no -B) wrote __pycache__ into rv-corr2/tree/tools/ledger_coverage/{,engine,adapters} at 18:20:25, during my step 5 (A1 conformance). Steps 1-4 ran before. Plan: after step 6, move them to rv-corr2/own-pycache/ and re-run steps 4 and 5 clean for equality.
+- [x] workflow probe rv-corr2/probe/wf/wf_check.out: 18 arms == independent expectation; unknown values exit 64; injection none; pre-run raw identical; bash -n 0
+- [x] signatures valid (python ed25519; tamper countercontrol False); class record 53 pins == ls-tree; staged config 83 refs match; diff vs staging-3184c7f9 = controls, class record x2, conformance_controls, workflow
+- [ ] mutation run rv-corr2/mut/run (all sets) running
+- [x] mutation (rv-corr2/mut/run, all sets): 82 killed / 7 survived / 1 not applied == writer runC2 exactly; C04,C08,C11 KILLED; previously killed now not killed: only v60e:U01 (not applied); adapted U01a KILLED (mut/runrv)
+- [x] EI6 break probe rv-corr2/probe/ei6_break.out: all refusals hold; D02 differs only on symlinked non-standard-name site dir under stdlib (constructed); sitecustomize.py admitted (observation)
+- [x] steps 1-5 equal writer's; equal 3184c7f9 except EI6/EI7-tool/O3-FILTER actual (explained)
+- [x] arms reproduced (rv-corr2/arms/new): identical to writer arms-new; only item2 --hp hp.json unnamed (SOURCE_CHANGED)
+- [x] --certified option-like values USAGE 64
+- [ ] step 6 (A1 controls) pending; then: move own pycache, rerun 4/5 clean, release gate
+- [x] step 6 equal to writer (0 diffs) and to 3184c7f9 except RT-L2 (6 consistent substitutions); own pycache moved out, steps 4/5 rerun clean identical; release gate rows identical to 3184c7f9
+- [x] review.md written: ACCEPT-WITH-NITS, no blocking; MANIFEST.sha256 written

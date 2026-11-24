@@ -1,0 +1,275 @@
+name: ledger coverage suite CI validation (disposable)
+# A disposable validation workflow for the ledger coverage tool at the reviewed commit T =
+# 4f4a9d58fd0bf41289a4904c9b39c00c711c9093. It exists only on the branch ci/ledger-coverage-suite-4f4a9d58,
+# runs on a push to that branch, and is not for merge.
+#
+# The suite runs in a detached worktree whose HEAD is T itself (not this commit, whose workflow file is not a
+# pinned tool file), checked clean, over the full history fetched by the checkout. The staged A1 configuration is
+# embedded below (gzip, base64) and used only after its sha256 is verified; the mutation harness is embedded
+# byte-identical to the local harness and verified by sha256 before use.
+#
+# Steps: the local reproduction's steps 1-7 (the entry point's self-test with -I -S -B, the staged purity lint, the
+# synthetic fixture, the conformance controls, the A1 conformance, the A1 controls without --main and with --main,
+# the release gate), Y8 (the A1 and the synthetic configuration run in this one job by the same engine blob, through
+# the A1 runner's --syn-engine flag), and the mutation run of the sets c1, c2, v60e and cache. The release gate runs
+# last, after the Lean toolchain and the Mathlib bridge build that the repository's verify workflow prepares for it.
+# Every step records its exit status, wall time, peak RSS (GNU time) and disk use.
+#
+# Decision rules, fixed before the run. A suite step fails exactly when its rule fails, so each step's conclusion is
+# its verdict; logs are diagnostics only.
+#   1-self-test: exit 0; every control of result.json passed.
+#   2-purity: exit 0; outcome PASS.
+#   3-synthetic: exit 0; every non-informational entry of the printed JSON is true.
+#   4-conformance: exit 0; every status PASS, except NOT RUN for exactly TR5 and G-A1.
+#   5-a1-conformance: exit 0; every status PASS.
+#   6a-a1-controls-no-main: exit 2 (usage) and no result file written.
+#   6-a1-controls: no status other than PASS and NOT RUN; NOT RUN for exactly RT-T; the failed list equals the NOT
+#     RUN list; exit 1 when that list is nonempty, else 0.
+#   8-y8: exit 0; Y8 PASS; no control failed.
+#   9-mutation: exit 0; base statuses PASS except NOT RUN for exactly conformance/TR5 and conformance/G-A1; NOT
+#     APPLIED for exactly v60e:U01; every survivor is one of the seven survivors of the local run at T (c2:D02,
+#     v60e:V05, v60e:I06, v60e:C08, v60e:H03, v60e:P01, cache:K08), so no mutant killed there survives here.
+#   lean-install: exit 0.
+#   lean-build: exit 0 and the worktree's status unchanged (empty).
+#   7-release-gate: exit 0.
+# Deferred to post-landing validation: TR5, G-A1, EI14.
+#
+# ci-results.json, schema ledger-coverage-suite-ci/1: {schema; commits {ci_commit, tool_commit, main,
+# origin_main_at_run}; workflow {path, git_blob, sha256}; config {path, sha256_expected, sha256}; run {id, attempt,
+# repository, ref, event, sha}; environment {os, kernel, image_os, image_version, runner_name, runner_arch, python,
+# python_executable, git, cpus, mem_total_kB, disk_root_bytes}; steps [{id, exit, wall_seconds, max_rss_kB,
+# disk_used_bytes, disk_avail_bytes, verdict (PASS, FAIL or NOT RUN), reasons}]; controls {step: {control id:
+# status}}; y8 {synthetic_engine, actual}; mutation {counts, base_counts, killed, survived, not_applied,
+# killed_here_survived_locally, source_files, tree_entries, mutant_trees_bytes}; deferred_post_landing;
+# not_runnable_pre_landing [{id, reason}]; all_verdicts_pass; evidence_sha256 {file: sha256}}.
+on:
+  push:
+    branches: [ci/ledger-coverage-suite-4f4a9d58]
+permissions:
+  contents: read
+concurrency:
+  group: ledger-coverage-suite-ci
+  cancel-in-progress: false
+jobs:
+  suite:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 300
+    defaults:
+      run:
+        shell: bash
+    env:
+      T: 4f4a9d58fd0bf41289a4904c9b39c00c711c9093
+      MAIN: 9deb69568d8231210c7f39cb65be943dea566371
+      BRANCH: ci/ledger-coverage-suite-4f4a9d58
+      WFP: .github/workflows/ledger-coverage-suite-ci.yml
+      CFG: "HEAD:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json"
+      CFGSHA: 5072a3b0e25e9283acecf4c3df87f820e34464d8d6e2e501ec672615114a96a0
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+        with:
+          path: ci
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: helpers
+        id: helpers
+        run: |
+          set -euo pipefail
+          LCS="$RUNNER_TEMP/lcs"
+          mkdir -p "$LCS/ev" "$LCS/out" "$LCS/bin" "$LCS/harness"
+          echo "LCS=$LCS" >> "$GITHUB_ENV"
+          echo "TOOL=$GITHUB_WORKSPACE/tool" >> "$GITHUB_ENV"
+          cat > "$LCS/bin/run_step.sh" <<'LCS_HELPER_EOF'
+          @@FILE run_step.sh@@
+          LCS_HELPER_EOF
+          cat > "$LCS/bin/verdict.py" <<'LCS_HELPER_EOF'
+          @@FILE verdict.py@@
+          LCS_HELPER_EOF
+          cat > "$LCS/bin/collect.py" <<'LCS_HELPER_EOF'
+          @@FILE collect.py@@
+          LCS_HELPER_EOF
+          chmod +x "$LCS/bin/run_step.sh"
+
+      - name: identity of the commits and the tool worktree
+        id: identity
+        run: |
+          set -euo pipefail
+          fail() { echo "IDENTITY FAIL: $*" >&2; exit 1; }
+          [ "$GITHUB_EVENT_NAME" = push ] || fail "event $GITHUB_EVENT_NAME"
+          [ "$GITHUB_REF" = "refs/heads/$BRANCH" ] || fail "ref $GITHUB_REF"
+          cd "$GITHUB_WORKSPACE/ci"
+          [ "$(git rev-parse --is-shallow-repository)" = false ] || fail "shallow clone"
+          ci=$(git rev-parse HEAD)
+          [ "$ci" = "$GITHUB_SHA" ] || fail "HEAD is not the pushed commit"
+          [ "$(git rev-list --parents -n 1 HEAD)" = "$ci $T" ] || fail "the CI commit is not a single-parent child of T"
+          [ "$(git diff --no-renames --name-status "$T" HEAD)" = "$(printf 'A\t%s' "$WFP")" ] || fail "the CI commit changes more than its workflow"
+          [ -z "$(git status --porcelain)" ] || fail "the CI checkout is not clean"
+          for c in "$T" "$MAIN" e837e3dbaa605efc867a213f3345cee14c36d8f5 53c6601a10419b6b333cc992474272501ab542af \
+                   14ac71b4b0a0c0aa2d7068d6799a73f474097060 4c79be642ca631573f06b444903be75ec4f5e2b6 \
+                   413b0bb88f39cad901befcf4684355c7ee39480b 8e9b83341cf5bc7fd9fb260892d0385fc9bfab4d; do
+            git cat-file -e "$c^{commit}" || fail "commit $c is not in the clone"
+          done
+          git worktree add --detach "$TOOL" "$T"
+          [ "$(git -C "$TOOL" rev-parse HEAD)" = "$T" ] || fail "the tool worktree's HEAD is not T"
+          [ -z "$(git -C "$TOOL" status --porcelain)" ] || fail "the tool worktree is not clean"
+          [ ! -e "$TOOL/$WFP" ] || fail "the tool worktree holds this workflow"
+          python3 -I "$LCS/bin/collect.py" identity
+
+      - name: staged configuration, verified by sha256
+        id: config
+        run: |
+          set -euo pipefail
+          ST="$LCS/staging/verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json"
+          mkdir -p "${ST%/*}"
+          base64 -d <<'LCS_CONFIG_EOF' | gunzip -c > "$ST"
+          @@CONFIG@@
+          LCS_CONFIG_EOF
+          got=$(sha256sum "$ST" | cut -d' ' -f1)
+          echo "$got" > "$LCS/ev/staged-config.sha256"
+          [ "$got" = "$CFGSHA" ] || { echo "CONFIG SHA256 MISMATCH: $got" >&2; exit 1; }
+          for o in $(grep -oE '\b[0-9a-f]{40}\b' "$ST" | sort -u); do
+            git -C "$TOOL" cat-file -e "$o" || { echo "object $o named by the configuration is not in the clone" >&2; exit 1; }
+          done
+          echo "ST=$ST" >> "$GITHUB_ENV"
+
+      - name: mutation harness, verified by sha256
+        id: harness
+        run: |
+          set -euo pipefail
+          H="$LCS/harness"
+          cat > "$H/mutate_c2.py" <<'LCS_HARNESS_EOF'
+          @@FILE mutate_c2.py@@
+          LCS_HARNESS_EOF
+          cat > "$H/mutants.py" <<'LCS_HARNESS_EOF'
+          @@FILE mutants.py@@
+          LCS_HARNESS_EOF
+          cat > "$H/mutants_c1.py" <<'LCS_HARNESS_EOF'
+          @@FILE mutants_c1.py@@
+          LCS_HARNESS_EOF
+          cat > "$H/mutants_c2.py" <<'LCS_HARNESS_EOF'
+          @@FILE mutants_c2.py@@
+          LCS_HARNESS_EOF
+          cat > "$H/mutants_cache.py" <<'LCS_HARNESS_EOF'
+          @@FILE mutants_cache.py@@
+          LCS_HARNESS_EOF
+          cd "$H"
+          sha256sum --strict -c - <<'LCS_SUMS_EOF'
+          @@SUMS@@
+          LCS_SUMS_EOF
+          [ "$(ls "$H" | wc -l)" = 5 ] || { echo "unexpected harness files" >&2; exit 1; }
+
+      - name: runner environment
+        id: env
+        run: |
+          set -euo pipefail
+          if [ ! -x /usr/bin/time ]; then sudo apt-get update -q && sudo apt-get install -y -q time; fi
+          python3 -I "$LCS/bin/collect.py" env
+          cat "$LCS/ev/env.json"
+
+      - name: 1-self-test
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          "$LCS/bin/run_step.sh" 1-self-test python3 -I -S -B tools/ledger_coverage.py self-test --out "$LCS/out/st"
+          python3 -I "$LCS/bin/verdict.py" 1-self-test
+
+      - name: 2-purity
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          "$LCS/bin/run_step.sh" 2-purity python3 -I -B tools/ledger_coverage/adapters/staged_purity_lint.py --repo . --config "$CFG" --staged-config "$ST" --out "$LCS/out/p"
+          python3 -I "$LCS/bin/verdict.py" 2-purity
+
+      - name: 3-synthetic
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          "$LCS/bin/run_step.sh" 3-synthetic python3 -I -B tools/ledger_coverage/adapters/synthetic_fixture.py "$LCS/out/syn" .
+          python3 -I "$LCS/bin/verdict.py" 3-synthetic
+
+      - name: 4-conformance
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          "$LCS/bin/run_step.sh" 4-conformance python3 -I -B tools/ledger_coverage/adapters/conformance_controls.py "$LCS/out/conf"
+          python3 -I "$LCS/bin/verdict.py" 4-conformance
+
+      - name: 5-a1-conformance
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          "$LCS/bin/run_step.sh" 5-a1-conformance python3 -I -B tools/ledger_coverage/adapters/a1_conformance.py --repo . --config "$CFG" --staged-config "$ST" --out "$LCS/out/a1c"
+          python3 -I "$LCS/bin/verdict.py" 5-a1-conformance
+
+      - name: 6a-a1-controls-no-main
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          "$LCS/bin/run_step.sh" 6a-a1-controls-no-main python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo . --config "$CFG" --staged-config "$ST" --out "$LCS/out/a1-nomain"
+          python3 -I "$LCS/bin/verdict.py" 6a-a1-controls-no-main
+
+      - name: 6-a1-controls
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          "$LCS/bin/run_step.sh" 6-a1-controls python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo . --config "$CFG" --staged-config "$ST" --main "$MAIN" --out "$LCS/out/a1"
+          python3 -I "$LCS/bin/verdict.py" 6-a1-controls
+
+      - name: 8-y8
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          set -euo pipefail
+          eng=$(python3 -I -c 'import json, sys; print(json.load(open(sys.argv[1]))["_Y8_engine"])' "$LCS/ev/3-synthetic.stdout")
+          "$LCS/bin/run_step.sh" 8-y8 python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo . --config "$CFG" --staged-config "$ST" --main "$MAIN" --only y8 --syn-engine "$eng" --out "$LCS/out/y8"
+          python3 -I "$LCS/bin/verdict.py" 8-y8
+
+      - name: 9-mutation
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          set -euo pipefail
+          MS="$LCS/msrc"
+          mkdir -p "$MS" "$LCS/mutwork"
+          GIT_INDEX_FILE="$LCS/msrc.index" git -C "$TOOL" read-tree "$T"
+          GIT_INDEX_FILE="$LCS/msrc.index" git -C "$TOOL" checkout-index -a --prefix="$MS/"
+          rm -f "$LCS/msrc.index"
+          find "$MS" \( -type f -o -type l \) | wc -l > "$LCS/ev/9-mutation.source-files"
+          git -C "$TOOL" ls-tree -r "$T" | wc -l > "$LCS/ev/9-mutation.tree-entries"
+          "$LCS/bin/run_step.sh" 9-mutation python3 -I "$LCS/harness/mutate_c2.py" "$LCS/mutwork" "$MS"
+          python3 -I "$LCS/bin/verdict.py" 9-mutation
+
+      - name: remove the mutant trees
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          set -euo pipefail
+          if [ -d "$LCS/mutwork/mut" ]; then du -sb "$LCS/mutwork/mut" | cut -f1 > "$LCS/ev/9-mutation.trees-bytes"; fi
+          rm -rf "$LCS/mutwork/mut" "$LCS/msrc"
+          df -B1 /
+
+      - name: lean-install
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          set -euo pipefail
+          "$LCS/bin/run_step.sh" lean-install sh -c 'curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o "$LCS/elan-init.sh" && sh "$LCS/elan-init.sh" -y --default-toolchain none'
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+          python3 -I "$LCS/bin/verdict.py" lean-install
+
+      - name: lean-build
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          set -euo pipefail
+          "$LCS/bin/run_step.sh" lean-build sh -c 'cd verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build'
+          git -C "$TOOL" status --porcelain > "$LCS/ev/lean-build.tree-status"
+          python3 -I "$LCS/bin/verdict.py" lean-build
+
+      - name: 7-release-gate
+        if: ${{ !cancelled() && steps.env.outcome == 'success' }}
+        run: |
+          "$LCS/bin/run_step.sh" 7-release-gate python3 tools/release_gate.py
+          python3 -I "$LCS/bin/verdict.py" 7-release-gate
+
+      - name: collect evidence
+        if: always()
+        continue-on-error: true
+        run: python3 -I "$LCS/bin/collect.py" results
+
+      - name: upload evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4.6.2
+        with:
+          name: ledger-coverage-suite-ci-evidence
+          path: ${{ runner.temp }}/lcs/ev
+          retention-days: 90
+          if-no-files-found: error

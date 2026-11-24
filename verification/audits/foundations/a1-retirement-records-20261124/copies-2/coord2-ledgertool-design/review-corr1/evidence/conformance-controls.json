@@ -1,0 +1,2081 @@
+{
+ "controls": [
+  {
+   "actual": {
+    "complete": [
+     0,
+     []
+    ],
+    "names-another-superseded-blob": [
+     20,
+     [
+      "record-invalid",
+      "unclassified"
+     ]
+    ],
+    "omits-item": [
+     20,
+     [
+      "record-invalid",
+      "unclassified"
+     ]
+    ]
+   },
+   "expected": "a widening review whose verdicts omit one changed item; separately one naming another superseded blob: FAIL record-invalid each",
+   "id": "A12r",
+   "predicate": "complete: exit 0; both mutants: exit 20 with record-invalid",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "schema": {
+     "chain": [],
+     "without config.admission": [
+      "$.config: missing admission"
+     ]
+    },
+    "v4": false,
+    "v5": true
+   },
+   "expected": "sec. 5: a result of another schema id than oi-ledger-coverage/5 is never acceptable; the /5 schema requires config.admission in a result that carries config (implementation control)",
+   "id": "ACCEPT-SCHEMA",
+   "predicate": "accept() true for the /5 chain result and false for the same as /4; the schema passes the chain result and refuses it without config.admission",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "exit": 65,
+    "message": "the configuration is read from F only (--config F:path)",
+    "stop": "CONFIG_UNREVIEWED"
+   },
+   "expected": "configuration admission point 1: the configuration is read only from F's tree, never from another commit (implementation control)",
+   "id": "ADM-CONFIG-AT-F",
+   "predicate": "--config naming a commit other than --freeze exits 65 CONFIG_UNREVIEWED, naming F",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "error_result_table": true,
+    "exit": 20,
+    "missing": [],
+    "quoted": [
+     "unauthorized-edit"
+    ]
+   },
+   "expected": "sec. 5 (B-4): every result carries class_meaning, identical in each; every item and state of the classes authorized-replacement, authorized-removal, unauthorized-edit or unauthorized-change quotes its meaning from the table (implementation control)",
+   "id": "B4-MEANING",
+   "predicate": "a coverage run with an unauthorized-edit item and an ERROR result both carry the table equal to outcome.class_meaning; at least one classed item or state, and every one quotes its meaning",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "(countercontrol) the valid configuration": {
+     "exit": 0,
+     "message": "",
+     "stop": null
+    },
+    "a record of the retired kind oi-owner-authorization/1": {
+     "exit": 65,
+     "message": "record syn/auth.json has a kind this design does not define: 'oi-owner-authorization/1'",
+     "stop": "CONFIG_INVALID"
+    },
+    "repository_id a string": {
+     "exit": 65,
+     "message": "repository_id is not a positive integer",
+     "stop": "CONFIG_INVALID"
+    },
+    "repository_id zero": {
+     "exit": 65,
+     "message": "repository_id is not a positive integer",
+     "stop": "CONFIG_INVALID"
+    },
+    "retirement.owner present": {
+     "exit": 65,
+     "message": "unknown retirement field: ['owner']",
+     "stop": "CONFIG_INVALID"
+    },
+    "tool missing": {
+     "exit": 65,
+     "message": "missing ['tool']; unknown []",
+     "stop": "CONFIG_INVALID"
+    },
+    "tool.files names a path outside the tool": {
+     "exit": 65,
+     "message": "tool.files names a path outside the tool: tools/other.py",
+     "stop": "CONFIG_INVALID"
+    },
+    "tool.files names a path twice": {
+     "exit": 65,
+     "message": "tool.files names a path more than once",
+     "stop": "CONFIG_INVALID"
+    },
+    "tool.files omits the entry point": {
+     "exit": 65,
+     "message": "tool.files does not name the entry point",
+     "stop": "CONFIG_INVALID"
+    },
+    "tool.workflow without a sha256": {
+     "exit": 65,
+     "message": "tool.workflow is not {path, blob_sha256}",
+     "stop": "CONFIG_INVALID"
+    }
+   },
+   "expected": "sec. 16.2 lint and sec. 16.6: tool.files naming a path outside the entry point and the package, omitting the entry point or naming a path twice; a workflow pin without its sha256; repository_id not a positive integer; tool missing; a retirement field other than name and issue; a record of a kind the design does not define (the retired oi-owner-authorization/1): ERROR CONFIG_INVALID in each case (implementation control)",
+   "id": "CONFIG-LINT",
+   "predicate": "every variant exits 65 CONFIG_INVALID; the valid configuration exits 0",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "(countercontrol) the checkout equal to T": {
+     "exit": 0,
+     "message": "",
+     "stop": null
+    },
+    "bytecode file": {
+     "exit": 65,
+     "message": "the checkout the tool runs from differs from T's tool files (point 2)",
+     "stop": "CONFIG_UNREVIEWED"
+    },
+    "patched module": {
+     "exit": 65,
+     "message": "the checkout the tool runs from differs from T's tool files (point 2)",
+     "stop": "CONFIG_UNREVIEWED"
+    }
+   },
+   "expected": "the tool run directly, without the pre-run check, on a checkout of T in which one tool file differs from T's blob, or that holds a file T does not (a compiled-bytecode file): ERROR at the tool",
+   "id": "EI1",
+   "predicate": "both mutants exit 65 with stop 'CONFIG_UNREVIEWED' naming the checkout; the equal checkout exits 0",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "built": true,
+    "countercontrol: the entry point run directly runs the init": [
+     "MARKER-extension-util"
+    ],
+    "dir": "<records>/rv-corr1/out/conf/conf-2jpzq82h/ei-04-ei10-extension",
+    "markers": [],
+    "prerun": "PRE-RUN FAIL path set differs ['tools/ledger_coverage/engine/util.cpython-313-x86_64-linux-gnu.so']",
+    "prerun_exit": 1
+   },
+   "expected": "the pre-run check on a checkout holding an extension module beside the pinned engine/util.py: the step fails before the entry point runs; the module's init never runs",
+   "id": "EI10",
+   "predicate": "pre-run exit nonzero, the entry point not run, no marker; without the pre-run step the init runs (the probe is live)",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "countercontrol": [
+     "MARKER-ledger_coverage_engine_util"
+    ],
+    "dir": "<records>/rv-corr1/out/conf/conf-2jpzq82h/ei-06-ei11-symlinked-module",
+    "markers": [],
+    "prerun": "PRE-RUN FAIL non-regular entry tools/ledger_coverage/engine/util.py",
+    "prerun_exit": 1
+   },
+   "expected": "the pre-run check on a checkout in which the pinned path engine/util.py is a symlink to a payload outside the package: the step fails before the entry point runs; the payload never runs",
+   "id": "EI11",
+   "predicate": "pre-run exit nonzero naming a non-regular entry, no marker; without the pre-run step the payload runs",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "countercontrol": [
+     "MARKER-__main__"
+    ],
+    "dir": "<records>/rv-corr1/out/conf/conf-2jpzq82h/ei-08-ei12-symlinked-entry",
+    "markers": [],
+    "prerun": "PRE-RUN FAIL non-regular entry tools/ledger_coverage.py",
+    "prerun_exit": 1
+   },
+   "expected": "the pre-run check on a checkout in which the entry point is a symlink to tools/evil.py: the step fails before the entry point runs; evil.py never runs",
+   "id": "EI12",
+   "predicate": "pre-run exit nonzero, no marker; without the pre-run step evil.py runs",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "F not fetched": {
+     "dir": "<records>/rv-corr1/out/conf/conf-2jpzq82h/ei-16-ei13-f-absent",
+     "markers": [],
+     "prerun": "PRE-RUN FAIL the configuration is not readable at F",
+     "prerun_exit": 1
+    },
+    "a FIFO": {
+     "dir": "<records>/rv-corr1/out/conf/conf-2jpzq82h/ei-13-ei13-fifo",
+     "markers": [],
+     "prerun": "PRE-RUN FAIL non-regular entry tools/ledger_coverage/engine/fifo",
+     "prerun_exit": 1
+    },
+    "a configuration without tool.files": {
+     "dir": "<records>/rv-corr1/out/conf/conf-2jpzq82h/ei-18-ei13-no-tool-files",
+     "markers": [],
+     "prerun": "PRE-RUN FAIL tool.files unreadable KeyError('files')",
+     "prerun_exit": 1
+    },
+    "a pinned file changed by one byte": {
+     "dir": "<records>/rv-corr1/out/conf/conf-2jpzq82h/ei-10-ei13-one-byte",
+     "markers": [],
+     "prerun": "PRE-RUN FAIL sha256 differs tools/ledger_coverage/engine/util.py",
+     "prerun_exit": 1
+    },
+    "a pinned file missing": {
+     "dir": "<records>/rv-corr1/out/conf/conf-2jpzq82h/ei-11-ei13-missing",
+     "markers": [],
+     "prerun": "PRE-RUN FAIL path set differs ['tools/ledger_coverage/engine/rules.py']",
+     "prerun_exit": 1
+    },
+    "an extra .py file": {
+     "dir": "<records>/rv-corr1/out/conf/conf-2jpzq82h/ei-12-ei13-extra",
+     "markers": [],
+     "prerun": "PRE-RUN FAIL path set differs ['tools/ledger_coverage/engine/extra.py']",
+     "prerun_exit": 1
+    },
+    "the configuration path absent at F": {
+     "dir": "<records>/rv-corr1/out/conf/conf-2jpzq82h/ei-17-ei13-config-absent",
+     "markers": [],
+     "prerun": "PRE-RUN FAIL the configuration is not readable at F",
+     "prerun_exit": 1
+    },
+    "tools a symlink inside the checkout": {
+     "dir": "<records>/rv-corr1/out/conf/conf-2jpzq82h/ei-14-ei13-tools-link-inside",
+     "markers": [],
+     "prerun": "PRE-RUN FAIL tools is not a real directory",
+     "prerun_exit": 1
+    },
+    "tools a symlink to an absolute outside path": {
+     "dir": "<records>/rv-corr1/out/conf/conf-2jpzq82h/ei-15-ei13-tools-link-outside",
+     "markers": [],
+     "prerun": "PRE-RUN FAIL tools is not a real directory",
+     "prerun_exit": 1
+    }
+   },
+   "expected": "the pre-run check, each case separately: a pinned file changed by one byte; a pinned file missing; an extra .py file; a directory entry that is neither a regular file nor a directory; tools a symlink to a real directory inside the checkout, and separately to an absolute path outside it; F not fetched; the configuration path absent at F; a configuration without tool.files: the step fails in each case before the entry point runs",
+   "id": "EI13",
+   "predicate": "every case: pre-run exit nonzero, the entry point not run, no marker",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "branch": {
+     "dir": "<records>/rv-corr1/out/conf/conf-2jpzq82h/ei-19-ei14-branch",
+     "markers": [],
+     "prerun": "PRE-RUN FAIL GITHUB_REF is not refs/heads/main or F is not a full lowercase id",
+     "prerun_exit": 1
+    },
+    "main": {
+     "dir": "<records>/rv-corr1/out/conf/conf-2jpzq82h/ei-20-ei14-on-main",
+     "entry_exit": 0,
+     "markers": [],
+     "prerun": "PRE-RUN OK 43 files",
+     "prerun_exit": 0
+    },
+    "result_equal": true
+   },
+   "expected": "the CX-3 tree, a branch T' holding the pinned files and unpinned tools/hashlib.py (re.py, subprocess.py, json.py): dispatched on the branch the pre-run check fails (GITHUB_REF), so nothing runs; the same files at an on-main T: the pre-run check passes, the files never execute, the run is unaffected (the tool's head_branch refusal and the consumer's first-parent walk are TR29)",
+   "id": "EI14",
+   "predicate": "branch: pre-run exit nonzero naming GITHUB_REF, no marker; main: pre-run exit 0, entry exit 0, no marker, and the result equals that of the clean tree",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "F abbreviated": {
+     "dir": "<records>/rv-corr1/out/conf/conf-2jpzq82h/ei-26-ei15-abbreviated",
+     "markers": [],
+     "prerun": "PRE-RUN FAIL GITHUB_REF is not refs/heads/main or F is not a full lowercase id",
+     "prerun_exit": 1
+    },
+    "F given as HEAD": {
+     "dir": "<records>/rv-corr1/out/conf/conf-2jpzq82h/ei-25-ei15-head",
+     "markers": [],
+     "prerun": "PRE-RUN FAIL GITHUB_REF is not refs/heads/main or F is not a full lowercase id",
+     "prerun_exit": 1
+    },
+    "F in upper case": {
+     "dir": "<records>/rv-corr1/out/conf/conf-2jpzq82h/ei-27-ei15-upper",
+     "markers": [],
+     "prerun": "PRE-RUN FAIL GITHUB_REF is not refs/heads/main or F is not a full lowercase id",
+     "prerun_exit": 1
+    },
+    "GITHUB_REF refs/tags/main": {
+     "dir": "<records>/rv-corr1/out/conf/conf-2jpzq82h/ei-23-ei15-tag",
+     "markers": [],
+     "prerun": "PRE-RUN FAIL GITHUB_REF is not refs/heads/main or F is not a full lowercase id",
+     "prerun_exit": 1
+    },
+    "GITHUB_REF unset": {
+     "dir": "<records>/rv-corr1/out/conf/conf-2jpzq82h/ei-24-ei15-unset",
+     "markers": [],
+     "prerun": "PRE-RUN FAIL GITHUB_REF is not refs/heads/main or F is not a full lowercase id",
+     "prerun_exit": 1
+    },
+    "a branch dispatch with F' pinning the branch's changed code": {
+     "dir": "<records>/rv-corr1/out/conf/conf-2jpzq82h/ei-22-ei15-branch-f-prime",
+     "markers": [],
+     "prerun": "PRE-RUN FAIL GITHUB_REF is not refs/heads/main or F is not a full lowercase id",
+     "prerun_exit": 1
+    },
+    "countercontrol": {
+     "dir": "<records>/rv-corr1/out/conf/conf-2jpzq82h/ei-28-ei15-countercontrol-main-f-prime",
+     "entry_exit": 0,
+     "markers": [
+      "MARKER-ledger_coverage_engine_util"
+     ],
+     "prerun": "PRE-RUN OK 43 files",
+     "prerun_exit": 0
+    }
+   },
+   "expected": "the pre-run check, each case separately: a workflow_dispatch run on a branch with F' a commit whose configuration pins the branch's changed tool code; GITHUB_REF refs/tags/main; F given as HEAD, as an abbreviated id, or in upper case: the step fails in each case before the entry point runs; with the plan's F on main the step passes (countercontrol EI8)",
+   "id": "EI15",
+   "predicate": "every case fails with no marker; the same changed tree and F' with GITHUB_REF refs/heads/main passes the step (the ref test is what refuses), and EI8 passes",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "(countercontrol) push": {
+     "exit": 0,
+     "message": "",
+     "stop": null
+    },
+    "pull_request": {
+     "exit": 65,
+     "message": "the run's event 'pull_request' is not push or workflow_dispatch (point 1)",
+     "stop": "CONFIG_UNREVIEWED"
+    },
+    "schedule": {
+     "exit": 65,
+     "message": "the run's event 'schedule' is not push or workflow_dispatch (point 1)",
+     "stop": "CONFIG_UNREVIEWED"
+    },
+    "workflow_run": {
+     "exit": 65,
+     "message": "the run's event 'workflow_run' is not push or workflow_dispatch (point 1)",
+     "stop": "CONFIG_UNREVIEWED"
+    }
+   },
+   "expected": "a run whose event is pull_request (head in the canonical repository); separately schedule; separately workflow_run: ERROR at the tool; the consumer half is reported with the acceptance controls",
+   "id": "EI2",
+   "predicate": "the three events exit 65 with stop 'CONFIG_UNREVIEWED'; a push run exits 0",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "(countercontrol) push": true,
+    "pull_request": false,
+    "schedule": false,
+    "workflow_run": false
+   },
+   "expected": "a run whose event is pull_request, schedule or workflow_run: non-acceptance at the consumer",
+   "id": "EI2-consumer",
+   "predicate": "false for the three events; true for push",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "F differs": false,
+    "configuration path differs": false,
+    "matching": true,
+    "pin table differs": false,
+    "pin table path differs": false
+   },
+   "expected": "a result whose F differs from the landing record's; separately whose pin table {path, blob_sha256} differs; separately whose configuration path differs: non-acceptance in each case",
+   "id": "EI3",
+   "predicate": "false in each case; true for the matching landing record",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "(a) the other configuration in the plan directory": {
+     "exit": 65,
+     "message": "the last Record pins subsection of syn/cfg/PREREG.md has no row with the configuration and its sha256",
+     "stop": "CONFIG_UNREVIEWED"
+    },
+    "(b) a caller argument naming the second PREREG.md": {
+     "exit": 64,
+     "result": null
+    },
+    "(c) the last Record pins subsection omits the configuration": {
+     "exit": 65,
+     "message": "the last Record pins subsection of syn/cfg/PREREG.md has no row with the configuration and its sha256",
+     "stop": "CONFIG_UNREVIEWED"
+    },
+    "(countercontrol) the plan's own configuration": {
+     "exit": 0,
+     "message": "",
+     "stop": null
+    },
+    "(d) no PREREG.md beside the configuration": {
+     "exit": 65,
+     "message": "no file of record pins beside the configuration in F: syn/cfg/PREREG.md",
+     "stop": "CONFIG_UNREVIEWED"
+    },
+    "(d2) a malformed row in the last Record pins subsection": {
+     "exit": 65,
+     "message": "the pin table cannot be read: malformed row in the last Record pins subsection: '| `ledger.json` | 0123 |'",
+     "stop": "CONFIG_UNREVIEWED"
+    },
+    "(d3) a file listed twice in the last Record pins subsection": {
+     "exit": 65,
+     "message": "the pin table cannot be read: a file is listed twice in the last Record pins subsection: config.json",
+     "stop": "CONFIG_UNREVIEWED"
+    }
+   },
+   "expected": "F holds the plan directory with its PREREG.md and a second directory whose PREREG.md lists another configuration: (a) that configuration in the plan directory, listed only by the second PREREG.md; (b) a caller argument naming the second PREREG.md as pin table; (c) the plan PREREG.md whose last Record pins subsection omits the configuration while an earlier one lists it; (d) no PREREG.md beside the configuration; separately a malformed row in its last Record pins subsection",
+   "id": "EI4",
+   "predicate": "(a), (c), (d) and the malformed row exit 65 with stop 'CONFIG_UNREVIEWED'; (b) exits 64 with no result; the plan's own configuration at the same F exits 0",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "(countercontrol) one main line equal to L's first parent": true,
+    "an abbreviated id": "refused: the resolved main is not a full 40-hex id",
+    "an id equal to L's given first parent that the verified reader cannot read": "refused: the resolved main cannot be read: cannot resolve '1111111111111111111111111111111111111111'",
+    "an id other than L's first parent": "refused: the resolved main is not the landing's first parent",
+    "an id the verified reader cannot read": "refused: the resolved main cannot be read: cannot resolve '1111111111111111111111111111111111111111'",
+    "ls-remote fails": "refused: git ls-remote exited 128",
+    "ls-remote raises": "refused: git ls-remote failed: no network",
+    "no refs/heads/main line": "refused: git ls-remote returned 0 refs/heads/main lines",
+    "two refs/heads/main lines": "refused: git ls-remote returned 2 refs/heads/main lines"
+   },
+   "expected": "before landing, git ls-remote failing; separately returning no refs/heads/main line or more than one; separately an id that is not a full 40-hex id, or that the verified reader cannot read (including one equal to L's given first parent); separately an id other than L's first parent: the landing is refused in each case",
+   "id": "EI5",
+   "predicate": "every case is refused; one main line equal to L's first parent resolves to it",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "checkout directory on sys.path": {
+     "exit": 65,
+     "markers": []
+    },
+    "shadow run": {
+     "exit": 0,
+     "imports_seen": 184,
+     "markers": [],
+     "result_equal_to_clean": true,
+     "stray_imports": []
+    },
+    "without -I": {
+     "exit": 65,
+     "markers": []
+    },
+    "without -I, with -E -s -P (no checkout directory on sys.path)": {
+     "exit": 65,
+     "markers": []
+    }
+   },
+   "expected": "the checkout of a T holding, besides the pinned files, unpinned tools/hashlib.py (re.py, subprocess.py, json.py, importlib.py) whose bodies write a marker: the marker is never written, every imported module's file lies in tool.files or the interpreter's standard library, and the run's result equals that without the files; separately the entry point run without -I, or with a checkout directory on sys.path: ERROR at the entry point, exit 65, before any import of a module not loaded at start",
+   "id": "EI6",
+   "predicate": "shadow run (the workflow's flags -I -S -B): exit 0, no marker, no imported file outside the pins and the interpreter's standard library, result equal; without -I and with the checkout on sys.path: exit 65 and no marker (json.py shadows the first module imported after the check)",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "positive": {
+     "exit": 0,
+     "message": "",
+     "stop": null
+    },
+    "rule": {
+     "a block scalar": true,
+     "a branch": true,
+     "a complex key": true,
+     "a flow mapping": true,
+     "a flow mapping after a dash and two spaces": true,
+     "a flow sequence": true,
+     "a local action with a 40-hex suffix": true,
+     "a local reusable workflow with a 40-hex suffix": true,
+     "a nested dash": true,
+     "a parent path with a 40-hex suffix": true,
+     "a quoted key": true,
+     "a tab after a colon before a flow collection": true,
+     "a tab after the dash": true,
+     "a tag": true,
+     "a tag after a dash and two spaces": true,
+     "a whole-document flow mapping after ---": true,
+     "an anchor and alias": true,
+     "an escaped key": true,
+     "an escaped key after a dash and two spaces": true,
+     "local action ./.github/actions/x": true,
+     "local reusable workflow": true,
+     "the key in upper case (any letter case)": true
+    },
+    "tool": {
+     "a block scalar": {
+      "exit": 65,
+      "message": "the workflow at T fails the uses: line rule (point 5): line 8, a uses line that does not name an action by a full commit id",
+      "stop": "CONFIG_UNREVIEWED"
+     },
+     "a branch": {
+      "exit": 65,
+      "message": "the workflow at T fails the uses: line rule (point 5): line 8, a uses line that does not name an action by a full commit id",
+      "stop": "CONFIG_UNREVIEWED"
+     },
+     "a complex key": {
+      "exit": 65,
+      "message": "the workflow at T fails the uses: line rule (point 5): line 8, a uses line that does not name an action by a full commit id",
+      "stop": "CONFIG_UNREVIEWED"
+     },
+     "a flow mapping": {
+      "exit": 65,
+      "message": "the workflow at T fails the uses: line rule (point 5): line 8, a uses line that does not name an action by a full commit id",
+      "stop": "CONFIG_UNREVIEWED"
+     },
+     "a flow mapping after a dash and two spaces": {
+      "exit": 65,
+      "message": "the workflow at T fails the uses: line rule (point 5): line 8, an entry starting with '{'",
+      "stop": "CONFIG_UNREVIEWED"
+     },
+     "a flow sequence": {
+      "exit": 65,
+      "message": "the workflow at T fails the uses: line rule (point 5): line 7, a flow collection, anchor, alias or tag as a value",
+      "stop": "CONFIG_UNREVIEWED"
+     },
+     "a local action with a 40-hex suffix": {
+      "exit": 65,
+      "message": "the workflow at T fails the uses: line rule (point 5): line 8, a uses line that does not name an action by a full commit id",
+      "stop": "CONFIG_UNREVIEWED"
+     },
+     "a local reusable workflow with a 40-hex suffix": {
+      "exit": 65,
+      "message": "the workflow at T fails the uses: line rule (point 5): line 7, a uses line that does not name an action by a full commit id",
+      "stop": "CONFIG_UNREVIEWED"
+     },
+     "a nested dash": {
+      "exit": 65,
+      "message": "the workflow at T fails the uses: line rule (point 5): line 8, an entry starting with '\"'",
+      "stop": "CONFIG_UNREVIEWED"
+     },
+     "a parent path with a 40-hex suffix": {
+      "exit": 65,
+      "message": "the workflow at T fails the uses: line rule (point 5): line 8, a uses line that does not name an action by a full commit id",
+      "stop": "CONFIG_UNREVIEWED"
+     },
+     "a quoted key": {
+      "exit": 65,
+      "message": "the workflow at T fails the uses: line rule (point 5): line 8, a uses line that does not name an action by a full commit id",
+      "stop": "CONFIG_UNREVIEWED"
+     },
+     "a tab after a colon before a flow collection": {
+      "exit": 65,
+      "message": "the workflow at T fails the uses: line rule (point 5): line 7, a flow collection, anchor, alias or tag as a value",
+      "stop": "CONFIG_UNREVIEWED"
+     },
+     "a tab after the dash": {
+      "exit": 65,
+      "message": "the workflow at T fails the uses: line rule (point 5): line 8, an entry starting with '\"'",
+      "stop": "CONFIG_UNREVIEWED"
+     },
+     "a tag": {
+      "exit": 65,
+      "message": "the workflow at T fails the uses: line rule (point 5): line 8, a uses line that does not name an action by a full commit id",
+      "stop": "CONFIG_UNREVIEWED"
+     },
+     "a tag after a dash and two spaces": {
+      "exit": 65,
+      "message": "the workflow at T fails the uses: line rule (point 5): line 8, an entry starting with '!'",
+      "stop": "CONFIG_UNREVIEWED"
+     },
+     "a whole-document flow mapping after ---": {
+      "exit": 65,
+      "message": "the workflow at T fails the uses: line rule (point 5): line 1, an entry starting with '{'",
+      "stop": "CONFIG_UNREVIEWED"
+     },
+     "an anchor and alias": {
+      "exit": 65,
+      "message": "the workflow at T fails the uses: line rule (point 5): line 7, a flow collection, anchor, alias or tag as a value",
+      "stop": "CONFIG_UNREVIEWED"
+     },
+     "an escaped key": {
+      "exit": 65,
+      "message": "the workflow at T fails the uses: line rule (point 5): line 8, an entry starting with '\"'",
+      "stop": "CONFIG_UNREVIEWED"
+     },
+     "an escaped key after a dash and two spaces": {
+      "exit": 65,
+      "message": "the workflow at T fails the uses: line rule (point 5): line 8, an entry starting with '\"'",
+      "stop": "CONFIG_UNREVIEWED"
+     },
+     "local action ./.github/actions/x": {
+      "exit": 65,
+      "message": "the workflow at T fails the uses: line rule (point 5): line 8, a uses line that does not name an action by a full commit id",
+      "stop": "CONFIG_UNREVIEWED"
+     },
+     "local reusable workflow": {
+      "exit": 65,
+      "message": "the workflow at T fails the uses: line rule (point 5): line 8, a uses line that does not name an action by a full commit id",
+      "stop": "CONFIG_UNREVIEWED"
+     },
+     "the key in upper case (any letter case)": {
+      "exit": 65,
+      "message": "the workflow at T fails the uses: line rule (point 5): line 8, a uses line that does not name an action by a full commit id",
+      "stop": "CONFIG_UNREVIEWED"
+     }
+    }
+   },
+   "expected": "a pinned workflow blob with each form the `uses:` line rule refuses (a local action, a local reusable workflow, a tag, a branch, a quoted or escaped key, a flow mapping or sequence, an anchor and alias, a block scalar, a complex key, the forms of review v6.0d B-1, and a local action, a local reusable workflow or a parent path each with a 40-hex suffix): ERROR at the tool in each case, the blob being the configuration's pinned workflow; the consumer half is reported with the acceptance controls",
+   "id": "EI7-tool",
+   "predicate": "every form exits 65 with stop 'CONFIG_UNREVIEWED' naming the line rule, and the rule refuses each blob; the conforming workflow (a uses line naming an action by a 40-hex id) exits 0",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "dir": "<records>/rv-corr1/out/conf/conf-2jpzq82h/ei-01-ei8-clean",
+    "entry_exit": 0,
+    "markers": [],
+    "prerun": "PRE-RUN OK 43 files",
+    "prerun_exit": 0
+   },
+   "expected": "the pre-run check on a clean checkout of a T equal to the configuration's tool.files: the step passes and the entry point runs (positive control)",
+   "id": "EI8",
+   "predicate": "pre-run exit 0 naming every file, entry exit 0, no marker",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "countercontrol: the entry point run directly writes the marker": [
+     "MARKER-ledger_coverage_engine_util"
+    ],
+    "dir": "<records>/rv-corr1/out/conf/conf-2jpzq82h/ei-02-ei9-pyc",
+    "markers": [],
+    "prerun": "PRE-RUN FAIL path set differs ['tools/ledger_coverage/engine/__pycache__/util.cpython-313.pyc']",
+    "prerun_exit": 1
+   },
+   "expected": "the pre-run check on a checkout holding an unchecked-hash bytecode file for engine/util.py (built for the running interpreter's cache tag) whose code writes a marker: the step fails; the job ends before the entry point runs; the marker is never written",
+   "id": "EI9",
+   "predicate": "pre-run exit nonzero, the entry point not run, no marker; run without the pre-run step the same tree writes the marker (the probe is live)",
+   "status": "PASS"
+  },
+  {
+   "actual": "needs F and a CI job (sec. A.40: a full clone of the repository per tree); CI plan in the report",
+   "expected": "the A1 classes executed natively in disposable clones at X and C (tex, sc42, coverage-ledger) and the host-run classes (pdf, ci) read from the host API",
+   "id": "G-A1",
+   "predicate": null,
+   "status": "NOT RUN"
+  },
+  {
+   "actual": {
+    "ignored": [
+     "sc42-rerun.json"
+    ],
+    "mutant": [
+     "delegated-evidence-invalid"
+    ],
+    "positive": [],
+    "runs": 4
+   },
+   "expected": "sc42 with a supplied result claiming verbose_equal true while the clone's re-execution differs: FAIL delegated-evidence-invalid; the supplied file is not read as evidence",
+   "id": "G4",
+   "predicate": "the positive case has no item; the mutant gives delegated-evidence-invalid; the report lists the supplied file as ignored",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "mutant": [
+     "delegated-evidence-invalid"
+    ],
+    "positive": []
+   },
+   "expected": "coverage-ledger with a supplied census JSON; one STALE value at X differing from the census the tool runs: FAIL",
+   "id": "G5",
+   "predicate": "no item when the value equals the tool's census; delegated-evidence-invalid when it differs, whatever the supplied file says",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "right": [
+     "delegated-evidence-missing"
+    ],
+    "wrong": [
+     "delegated-evidence-invalid",
+     "delegated-evidence-missing"
+    ]
+   },
+   "expected": "tex with a supplied preserve_check result reporting pass, while a TeX stamp at X is wrong: FAIL delegated-evidence-invalid",
+   "id": "G6",
+   "predicate": "the wrong stamp gives delegated-evidence-invalid; the right stamp gives no invalid item (the checker run itself is missing locally)",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "artifact": [
+     "delegated-evidence-invalid"
+    ],
+    "good": [],
+    "tree": [
+     "delegated-evidence-invalid"
+    ]
+   },
+   "expected": "pdf evidence whose candidate_tree differs from X's, or whose artifact hash differs: FAIL delegated-evidence-invalid",
+   "id": "G7",
+   "predicate": "good: no item; tree and artifact mutants: delegated-evidence-invalid",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "with": [
+     "delegated-evidence-invalid",
+     "delegated-evidence-missing"
+    ],
+    "without_named_evidence": [
+     [
+      "delegated-evidence-missing",
+      "X"
+     ]
+    ]
+   },
+   "expected": "delegated evidence with plan null and no F: never PASS: REVIEW_REQUIRED delegated-evidence-missing for the class, and the field FAIL delegated-evidence-invalid",
+   "id": "G8",
+   "predicate": "the class gives delegated-evidence-missing and the plan-null file delegated-evidence-invalid",
+   "status": "PASS"
+  },
+  {
+   "actual": [
+    [
+     "C",
+     "delegated-evidence-invalid"
+    ]
+   ],
+   "expected": "C = X plus one commit that changes the SC-42 result file, the class at X alone passing: FAIL for sc42 from the clone at C",
+   "id": "G9",
+   "predicate": "no item at X; delegated-evidence-invalid at C",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "blob, paths already cached": "refused: object 6482d67ffcb0e5f89f33712b753b1706c6beb3db does not hash to its id",
+    "blob, paths cached, second read": "refused: object 6482d67ffcb0e5f89f33712b753b1706c6beb3db does not hash to its id",
+    "blob, paths not cached": "refused: object 6482d67ffcb0e5f89f33712b753b1706c6beb3db does not hash to its id",
+    "the cached paths name the blob": true,
+    "tool run on the corrupted blob": {
+     "exit": 65,
+     "message": "object 6482d67ffcb0e5f89f33712b753b1706c6beb3db does not hash to its id",
+     "stop": "UNRESOLVABLE"
+    },
+    "tree, entries call": "refused: object 7a98576aea18b76c5fb856c4f7ca9871d56af0a6 does not hash to its id",
+    "tree, first paths call": "refused: object 7a98576aea18b76c5fb856c4f7ca9871d56af0a6 does not hash to its id",
+    "tree, second paths call (nothing cached by the refusal)": "refused: object 7a98576aea18b76c5fb856c4f7ca9871d56af0a6 does not hash to its id"
+   },
+   "expected": "a corrupted object is refused exactly as before the per-commit caches: a corrupted blob whose commit's paths are already cached, and one whose are not; a corrupted tree on every call, nothing cached by the refusal; a tool run reading the corrupted blob is ERROR (implementation control)",
+   "id": "GV-CACHE",
+   "predicate": "every reader case refuses with 'does not hash to its id'; the cached paths still name the blob; the tool run exits 65",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "a new reader": "refused: object 6482d67ffcb0e5f89f33712b753b1706c6beb3db does not hash to its id",
+    "same reader, paths after the corruption equal": true,
+    "same reader, read after the corruption": "served the verified bytes"
+   },
+   "expected": "corruption of the object store after a successful read: within one reader's lifetime it is not re-detected (the reader serves the bytes it verified, from its object cache, which the reader held before this correction too); a new reader verifies the object again and refuses it (implementation control; it states the behaviour and claims no detection after a read)",
+   "id": "GV-CACHE-AFTER-READ",
+   "predicate": "the same reader returns the bytes it verified and the same path map; a new reader refuses with 'does not hash to its id'",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "GitRepo.entries": {
+     "attempts": [
+      "item assignment: refused",
+      "item deletion: refused",
+      "pop: refused",
+      "update: refused",
+      "clear: refused"
+     ],
+     "same view returned": true,
+     "unchanged after the attempts and a mutated copy": true
+    },
+    "GitRepo.paths": {
+     "attempts": [
+      "item assignment: refused",
+      "item deletion: refused",
+      "pop: refused",
+      "update: refused",
+      "clear: refused"
+     ],
+     "same view returned": true,
+     "unchanged after the attempts and a mutated copy": true
+    },
+    "Overlay.entries (in-memory commit)": {
+     "attempts": [
+      "item assignment: refused",
+      "item deletion: refused",
+      "pop: refused",
+      "update: refused",
+      "clear: refused"
+     ],
+     "same view returned": true,
+     "unchanged after the attempts and a mutated copy": true
+    },
+    "Overlay.paths (base commit)": {
+     "attempts": [
+      "item assignment: refused",
+      "item deletion: refused",
+      "pop: refused",
+      "update: refused",
+      "clear: refused"
+     ],
+     "same view returned": true,
+     "unchanged after the attempts and a mutated copy": true
+    },
+    "Overlay.paths (in-memory commit)": {
+     "attempts": [
+      "item assignment: refused",
+      "item deletion: refused",
+      "pop: refused",
+      "update: refused",
+      "clear: refused"
+     ],
+     "same view returned": true,
+     "unchanged after the attempts and a mutated copy": true
+    }
+   },
+   "expected": "no caller can change a cached path or entry mapping: each is a read-only view (assignment, deletion, pop, update and clear refused); a mutated copy leaves the cache unchanged; later calls return the same view (implementation control)",
+   "id": "GV-CACHE-IMMUTABLE",
+   "predicate": "every mutation attempt refused, every mapping unchanged, the same view object returned",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "X and M (M changes one path) give different views": true,
+    "distinct maps among the seven commits": 7,
+    "each commit's cached map equals git ls-tree of that commit, in both read orders": {
+     "1d55cc32e58ceaf26c56d611e49f32d02270b838": [
+      true,
+      true
+     ],
+     "4df09f54b4ab31cc8ae9ebc67f00d4f06e3849e4": [
+      true,
+      true
+     ],
+     "64ebc7242ff65c7003a21c5b750781b2223b4d42": [
+      true,
+      true
+     ],
+     "91b475f011f5c66062a6ceb16981e57cbc30672f": [
+      true,
+      true
+     ],
+     "b1afa9a15e13eff0bb6dc1e92cb360e2dbbb7f48": [
+      true,
+      true
+     ],
+     "e98d2134ba2c1c548454597d88838c103b5de5d5": [
+      true,
+      true
+     ],
+     "f65dda01abcec3479c4c965bef89e8f208ba0530": [
+      true,
+      true
+     ]
+    },
+    "in-memory commits each get their own map": true
+   },
+   "expected": "the path cache is keyed by the exact verified commit id: each commit's cached map equals that commit's tree (git ls-tree, replacement disabled), whatever the order in which commits are read; a different commit never receives another commit's map; likewise for in-memory commits (implementation control)",
+   "id": "GV-CACHE-KEY",
+   "predicate": "every comparison true in both orders; seven commits with different trees give seven distinct maps; X's and M's views differ in notes/m.txt; the two in-memory commits each see only their own file",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "(countercontrol) the replace refs are live": true,
+    "by_ref": {
+     "4DF09F54B4AB31CC8AE9EBC67F00D4F06E3849E4": {
+      "exit": 65,
+      "message": "not a full 40-hex object id (refs are not consulted): '4DF09F54B4AB31CC8AE9EBC67F00D4F06E3849E4'",
+      "stop": "UNRESOLVABLE"
+     },
+     "4df09f54b4ab": {
+      "exit": 65,
+      "message": "not a full 40-hex object id (refs are not consulted): '4df09f54b4ab'",
+      "stop": "UNRESOLVABLE"
+     },
+     "HEAD": {
+      "exit": 65,
+      "message": "not a full 40-hex object id (refs are not consulted): 'HEAD'",
+      "stop": "UNRESOLVABLE"
+     },
+     "main": {
+      "exit": 65,
+      "message": "not a full 40-hex object id (refs are not consulted): 'main'",
+      "stop": "UNRESOLVABLE"
+     },
+     "v1": {
+      "exit": 65,
+      "message": "not a full 40-hex object id (refs are not consulted): 'v1'",
+      "stop": "UNRESOLVABLE"
+     }
+    },
+    "clean": {
+     "exit": 0,
+     "message": "",
+     "stop": null
+    },
+    "commit of the chain replaced: equal": true,
+    "configuration blob replaced: equal": true,
+    "ref names unresolvable": true
+   },
+   "expected": "a replace ref that substitutes a commit of the E..H chain, and separately one that substitutes the configuration's blob at F; separately a role commit given as a ref name (main, a tag): the replace refs are ignored (the result equals that of the same store without them); the ref name is an unresolvable object (ERROR), refs not being consulted",
+   "id": "GV1",
+   "predicate": "both replaced stores give results equal to the clean store's; main, a tag, HEAD, an abbreviated and an upper-case id each exit 65 UNRESOLVABLE; git itself sees both replacements (the controls are live)",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "equal": true,
+    "live": true
+   },
+   "expected": "a graft file that makes a commit of the E..H chain parentless: ignored, the result equals that without the graft file",
+   "id": "GV2",
+   "predicate": "the result equals the clean store's; git itself honours the graft (the control is live)",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "execution equal (H on M's first-parent chain)": true,
+    "live": true,
+    "parsed parents of a two-parent commit": true,
+    "patched": true,
+    "terms equal (rule-stale scoping, hp chain)": true
+   },
+   "expected": "a commit-graph file recording false parents for a commit between H and M and for the rules' recorded_at scoping: ignored; H on M's first-parent chain and the rule-stale scoping equal those of the clean store",
+   "id": "GV3",
+   "predicate": "terms and execution results equal the clean store's; git itself follows the false parent (the control is live)",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "a commit of the E..H chain": {
+     "exit": 65,
+     "git_cat_file_p_prints_it": true,
+     "git_serves_the_content": true,
+     "holds": true,
+     "message": "object b1afa9a15e13eff0bb6dc1e92cb360e2dbbb7f48 does not hash to its id",
+     "outcome": "ERROR",
+     "stop": "UNRESOLVABLE",
+     "want": "UNRESOLVABLE"
+    },
+    "a tool blob at T": {
+     "exit": 65,
+     "git_cat_file_p_prints_it": true,
+     "git_serves_the_content": true,
+     "holds": true,
+     "message": "a tool file at T cannot be read: object 7d4290a117a4ddcc11daae7ea675841033830c8f does not hash to its id",
+     "outcome": "ERROR",
+     "stop": "CONFIG_UNREVIEWED",
+     "want": "CONFIG_UNREVIEWED"
+    },
+    "a tree of X": {
+     "exit": 65,
+     "git_cat_file_p_prints_it": false,
+     "git_serves_the_content": true,
+     "holds": true,
+     "message": "object 7a98576aea18b76c5fb856c4f7ca9871d56af0a6 does not hash to its id",
+     "outcome": "ERROR",
+     "stop": "UNRESOLVABLE",
+     "want": "UNRESOLVABLE"
+    },
+    "the HP merge m1": {
+     "exit": 65,
+     "git_cat_file_p_prints_it": true,
+     "git_serves_the_content": true,
+     "holds": true,
+     "message": "merge 1d55cc32e58c is not resolvable",
+     "outcome": "ERROR",
+     "stop": "CONFIG_INCONSISTENT",
+     "want": [
+      "CONFIG_INCONSISTENT",
+      "UNRESOLVABLE"
+     ]
+    },
+    "the configuration's blob at F": {
+     "exit": 65,
+     "git_cat_file_p_prints_it": true,
+     "git_serves_the_content": true,
+     "holds": true,
+     "message": "a configuration admission read failed: object 590396bf409d21914a7605a2eae5b00e3648d398 does not hash to its id",
+     "outcome": "ERROR",
+     "stop": "CONFIG_UNREVIEWED",
+     "want": "CONFIG_UNREVIEWED"
+    },
+    "the pin table's blob": {
+     "exit": 65,
+     "git_cat_file_p_prints_it": true,
+     "git_serves_the_content": true,
+     "holds": true,
+     "message": "a configuration admission read failed: object aeaee5befdd10bb622270f4dacb5ccade8c283c8 does not hash to its id",
+     "outcome": "ERROR",
+     "stop": "CONFIG_UNREVIEWED",
+     "want": "CONFIG_UNREVIEWED"
+    }
+   },
+   "expected": "a loose object whose stored content does not hash to its id, each case separately: the configuration's blob at F, the pin table's blob, a tree of X, a commit of E..H, a tool blob at T, the HP merge: ERROR in each case (CONFIG_UNREVIEWED for an admission or identity read, the unresolvable-object error otherwise; the HP merge, read first by the HP chain check, CONFIG_INCONSISTENT or the unresolvable-object error), although git cat-file -p prints the content",
+   "id": "GV4",
+   "predicate": "each case exits 65 with its stated class and no PASS, and git serves the substituted content (git cat-file <type>, the read the store answers; -p is recorded: it prints blobs and commits and refuses the tree)",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "partial store lacking blobs": {
+     "exit": 65,
+     "message": "a configuration admission read failed: missing blob 590396bf409d21914a7605a2eae5b00e3648d398",
+     "objects_after": 31,
+     "objects_before": 31,
+     "stop": "CONFIG_UNREVIEWED"
+    },
+    "shallow boundary inside E..H": {
+     "exit": 65,
+     "message": "merge 1d55cc32e58c is not resolvable",
+     "stop": "CONFIG_INCONSISTENT"
+    },
+    "shallow store holding every needed object": {
+     "equal": true,
+     "exit": 0,
+     "is_shallow": "true",
+     "message": "",
+     "stop": null
+    }
+   },
+   "expected": "a store lacking a parent a bounded walk needs (a shallow store whose boundary lies inside E..H; separately a partial store lacking a needed blob): ERROR, with no object fetched; a shallow store that holds every object the run needs proceeds as in a full store",
+   "id": "GV5",
+   "predicate": "the first two exit 65 (UNRESOLVABLE or CONFIG_UNREVIEWED) and the partial store's object count is unchanged; the third is a shallow repository whose result equals the full store's",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "configuration": {
+     "exit": 65,
+     "message": "a configuration admission read failed: syn/cfg/config.json is not a regular file at 157ac950eb2d",
+     "stop": "CONFIG_UNREVIEWED"
+    },
+    "pin table": {
+     "exit": 65,
+     "message": "a configuration admission read failed: syn/cfg/PREREG.md is not a regular file at 40e251225154",
+     "stop": "CONFIG_UNREVIEWED"
+    },
+    "record": {
+     "exit": 20,
+     "message": "",
+     "record_invalid": [
+      "syn/rules-allow.json"
+     ],
+     "stop": null
+    }
+   },
+   "expected": "a symlink entry at the configuration's path in F; separately at the pin table's path; separately at a record's path: refused in each case",
+   "id": "GV6",
+   "predicate": "the first two exit 65 with stop 'CONFIG_UNREVIEWED'; the record is record-invalid (exit 20)",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "exit": 65,
+    "message": "a configuration admission read failed: syn/cfg/config.json is not a regular file at ab1767785f63 (mode 120000)",
+    "stop": "CONFIG_UNREVIEWED"
+   },
+   "expected": "a symlink entry (mode 120000) at the configuration's path in an on-disk F: refused before any host read",
+   "id": "GV6-disk",
+   "predicate": "exit 65 with stop 'CONFIG_UNREVIEWED'",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "R4-N2: the artifact digest differs from the result": false,
+    "artifact list fails": false,
+    "artifact list incomplete": false,
+    "run record fails": false
+   },
+   "expected": "the consumer's artifact list or run record failing or incomplete: non-acceptance, no fallback; a result file whose sha256 is not the run's artifact digest: non-acceptance (R4-N2)",
+   "id": "GV7-consumer",
+   "predicate": "false in each case",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "host-run class": {
+     "good": [],
+     "run from a pull_request event": [
+      [
+       "delegated-evidence-missing",
+       "REVIEW_REQUIRED"
+      ]
+     ],
+     "run in a fork": [
+      [
+       "delegated-evidence-missing",
+       "REVIEW_REQUIRED"
+      ]
+     ],
+     "runs incomplete": [
+      [
+       "delegated-evidence-missing",
+       "REVIEW_REQUIRED"
+      ]
+     ],
+     "runs read fails": [
+      [
+       "delegated-evidence-missing",
+       "REVIEW_REQUIRED"
+      ]
+     ]
+    },
+    "run record incomplete": {
+     "exit": 65,
+     "message": "the run record cannot be read or is incomplete",
+     "stop": "CONFIG_UNREVIEWED"
+    },
+    "run record read fails": {
+     "exit": 65,
+     "message": "the run record cannot be read: host call failed: run",
+     "stop": "CONFIG_UNREVIEWED"
+    }
+   },
+   "expected": "the host's REST API failing or incomplete: the run record (no \"chain\", ERROR CONFIG_UNREVIEWED); the run and job records of a host-run class (REVIEW_REQUIRED delegated-evidence-missing, never PASS); a run of another event or from a fork is not evidence; no fallback source in any case (the consumer's artifact list is reported with the acceptance controls)",
+   "id": "GV7-tool",
+   "predicate": "both run-record cases exit 65 CONFIG_UNREVIEWED; the host-run class gives no item with the good run and exactly delegated-evidence-missing in the four other cases",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "lint": {
+     "oi-context-adjudication/1": [
+      "record r/s.json: supersedes names a record of another lineage (an unrelated chain)"
+     ],
+     "oi-hit-classification/1": [
+      "record r/s.json: supersedes names a record of another lineage (an unrelated chain)"
+     ],
+     "oi-hp-adjudication/1": [
+      "record r/s.json: supersedes names a record of another lineage (an unrelated chain)"
+     ],
+     "oi-reconciliation/1": [
+      "record r/s.json: supersedes names a record of another lineage (an unrelated chain)"
+     ],
+     "oi-retirement-config/1": [
+      "record r/s.json: supersedes names a record of another lineage (an unrelated chain)"
+     ],
+     "oi-scope/1": [
+      "record r/s.json: supersedes names a record of another lineage (an unrelated chain)"
+     ],
+     "oi-side-change-classes/1": [
+      "record r/s.json: supersedes names a record of another lineage (an unrelated chain)"
+     ],
+     "oi-term-rules/2": [
+      "record r/s.json: supersedes names a record of another lineage (an unrelated chain)"
+     ]
+    },
+    "run": {
+     "exit": 20,
+     "message": "",
+     "record_invalid": [
+      "syn/rules-pat-v2.json"
+     ],
+     "rule_files": [
+      "syn/rules-pat-v2.json",
+      "syn/rules-allow.json"
+     ],
+     "stop": null,
+     "why": {
+      "syn/rules-pat-v2.json": "record syn/rules-pat-v2.json: supersedes names a record of another lineage (an unrelated chain)"
+     }
+    }
+   },
+   "expected": "(review probe E6) a record superseding a record of the same kind and schema, present at F, with another record_id; for each kind of S4a (config_id for the configuration): FAIL record-invalid for each kind",
+   "id": "LN1",
+   "predicate": "for each kind, lint_chain (whose problems are record-invalid) reports the superseding record, the predecessor passing its own lint; and a terms run using such a rule file exits 20 with record-invalid on it",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "exit": 0,
+    "message": "",
+    "record_invalid": [],
+    "rule_files": [
+     "syn/rules-pat.json",
+     "syn/rules-allow.json",
+     "syn/rules-extra.json"
+    ],
+    "stop": null,
+    "why": {}
+   },
+   "expected": "(positive) a record with supersedes: null and no record_id, named by no supersedes: no record-invalid",
+   "id": "LN10",
+   "predicate": "exit 0, no record-invalid, the record among the run's rule files",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "exit": 0,
+    "message": "",
+    "record_invalid": [],
+    "rule_files": [
+     "syn/rules-pat-v2.json",
+     "syn/rules-allow.json"
+    ],
+    "stop": null,
+    "why": {}
+   },
+   "expected": "(positive) a record superseding a record of the same kind, schema and record_id that itself passes the lint: no record-invalid; the run uses the superseding record",
+   "id": "LN2",
+   "predicate": "exit 0, no record-invalid, and the run's rule files include the superseding record",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "predecessor without record_id": {
+     "exit": 20,
+     "message": "",
+     "record_invalid": [
+      "syn/rules-pat-v2.json"
+     ],
+     "rule_files": [
+      "syn/rules-pat-v2.json",
+      "syn/rules-allow.json"
+     ],
+     "stop": null,
+     "why": {
+      "syn/rules-pat-v2.json": "record syn/rules-pat-v2.json: supersedes names a record without a valid lineage id (record_id) | record syn/rules-pat-v2.json: id syn-pat is reused by syn/rules-pat.json, which does not lie on its supersedes chain"
+     }
+    },
+    "record_id empty": {
+     "exit": 20,
+     "message": "",
+     "record_invalid": [
+      "syn/rules-pat-v2.json"
+     ],
+     "rule_files": [
+      "syn/rules-pat-v2.json",
+      "syn/rules-allow.json"
+     ],
+     "stop": null,
+     "why": {
+      "syn/rules-pat-v2.json": "record syn/rules-pat-v2.json: supersedes another record but has no valid lineage id (record_id)"
+     }
+    },
+    "record_id missing": {
+     "exit": 20,
+     "message": "",
+     "record_invalid": [
+      "syn/rules-pat-v2.json"
+     ],
+     "rule_files": [
+      "syn/rules-pat-v2.json",
+      "syn/rules-allow.json"
+     ],
+     "stop": null,
+     "why": {
+      "syn/rules-pat-v2.json": "record syn/rules-pat-v2.json: supersedes another record but has no valid lineage id (record_id)"
+     }
+    },
+    "record_id not a string": {
+     "exit": 20,
+     "message": "",
+     "record_invalid": [
+      "syn/rules-pat-v2.json"
+     ],
+     "rule_files": [
+      "syn/rules-pat-v2.json",
+      "syn/rules-allow.json"
+     ],
+     "stop": null,
+     "why": {
+      "syn/rules-pat-v2.json": "record syn/rules-pat-v2.json: supersedes another record but has no valid lineage id (record_id)"
+     }
+    }
+   },
+   "expected": "a superseding record whose record_id is missing, empty or not a string; separately, a valid superseding record whose predecessor lacks a valid record_id: FAIL record-invalid in each case",
+   "id": "LN3",
+   "predicate": "each run exits 20 with record-invalid on the superseding record, naming the lineage id",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "(countercontrol) the widened predecessor with a valid widening review": {
+     "exit": 0,
+     "message": "",
+     "record_invalid": [],
+     "rule_files": [
+      "syn/rules-pat-v2.json",
+      "syn/rules-allow.json"
+     ],
+     "stop": null,
+     "why": {}
+    },
+    "a predecessor widening its own predecessor without a widening review": {
+     "exit": 20,
+     "message": "",
+     "record_invalid": [
+      "syn/rules-pat-v2.json"
+     ],
+     "rule_files": [
+      "syn/rules-pat-v2.json",
+      "syn/rules-allow.json"
+     ],
+     "stop": null,
+     "why": {
+      "syn/rules-pat-v2.json": "record syn/rules-pat-v2.json: its predecessor syn/rules-pat-r1.json does not pass the lint: widening without a valid widening review: no widening review names the superseding blob"
+     }
+    },
+    "a verdict not accept": {
+     "exit": 20,
+     "message": "",
+     "record_invalid": [
+      "syn/rules-pat-v2.json"
+     ],
+     "rule_files": [
+      "syn/rules-pat-v2.json",
+      "syn/rules-allow.json"
+     ],
+     "stop": null,
+     "why": {
+      "syn/rules-pat-v2.json": "record syn/rules-pat-v2.json: its predecessor syn/rules-pat-r1.json does not pass the lint: record syn/rules-pat-r1.json: review syn/rules-pat-r1.review.json: an item is not accepted | record syn/rules-pat-v2.json: id syn-pat is reused by syn/rules-pat.json, which does not lie on its supersedes chain"
+     }
+    },
+    "no review record": {
+     "exit": 20,
+     "message": "",
+     "record_invalid": [
+      "syn/rules-pat-v2.json"
+     ],
+     "rule_files": [
+      "syn/rules-pat-v2.json",
+      "syn/rules-allow.json"
+     ],
+     "stop": null,
+     "why": {
+      "syn/rules-pat-v2.json": "record syn/rules-pat-v2.json: its predecessor syn/rules-pat-r1.json does not pass the lint: record syn/rules-pat-r1.json: no review record | record syn/rules-pat-v2.json: id syn-pat is reused by syn/rules-pat.json, which does not lie on its supersedes chain"
+     }
+    },
+    "the same with a widening review omitting the changed item": {
+     "exit": 20,
+     "message": "",
+     "record_invalid": [
+      "syn/rules-pat-v2.json"
+     ],
+     "rule_files": [
+      "syn/rules-pat-v2.json",
+      "syn/rules-allow.json"
+     ],
+     "stop": null,
+     "why": {
+      "syn/rules-pat-v2.json": "record syn/rules-pat-v2.json: its predecessor syn/rules-pat-r1.json does not pass the lint: widening without a valid widening review: widening review syn/rules-pat-r1.widen.json: verdicts do not accept every changed item (changed pattern)"
+     }
+    }
+   },
+   "expected": "a predecessor of the same lineage that fails the lint itself (no review record; separately, a verdict not accept; separately, a predecessor that widens its own predecessor without a valid widening review): FAIL record-invalid for the superseding record in each case",
+   "id": "LN4",
+   "predicate": "each run exits 20 with record-invalid on the superseding record, naming its predecessor; with a valid widening review of the widened predecessor the run is clean",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "self-supersession": [
+     "record r/t.json: supersedes chain loops"
+    ],
+    "two-record cycle": [
+     "record r/t.json: supersedes chain loops"
+    ]
+   },
+   "expected": "a supersedes cycle of two records, and a self-supersession, in a synthetic in-memory store that resolves each named {path, blob_sha256} to the given record without rehashing: FAIL record-invalid in both; the chain walk terminates",
+   "id": "LN5",
+   "predicate": "lint_chain returns, for both, a problem naming the loop",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "exit": 20,
+    "message": "",
+    "record_invalid": [
+     "syn/rules-pat-v2.json"
+    ],
+    "rule_files": [
+     "syn/rules-pat-v2.json",
+     "syn/rules-allow.json"
+    ],
+    "stop": null,
+    "why": {
+     "syn/rules-pat-v2.json": "record syn/rules-pat-v2.json: ambiguous ancestry: syn/rules-pat-v2b.json also supersedes syn/rules-pat.json | record syn/rules-pat-v2.json: id syn-pat is reused by syn/rules-pat-v2b.json, which does not lie on its supersedes chain"
+    }
+   },
+   "expected": "two records of one lineage superseding the same predecessor, both in the audit directory at F, only one referenced by the configuration: FAIL record-invalid (ambiguous ancestry)",
+   "id": "LN6",
+   "predicate": "exit 20 with record-invalid on the referenced record, naming the ambiguous ancestry",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "two diverging chains": {
+     "exit": 20,
+     "message": "",
+     "record_invalid": [
+      "syn/rules-pat-v2.json",
+      "syn/rules-pat-v2b.json"
+     ],
+     "rule_files": [
+      "syn/rules-pat-v2.json",
+      "syn/rules-allow.json",
+      "syn/rules-pat-v2b.json"
+     ],
+     "stop": null,
+     "why": {
+      "syn/rules-pat-v2.json": "record syn/rules-pat-v2.json: ambiguous ancestry: syn/rules-pat-v2b.json also supersedes syn/rules-pat.json | record syn/rules-pat-v2.json: lineage syn-pat has two heads among the records the run reads (syn/rules-pat-v2.json, syn/rules-pat-v2b.json) | record syn/rules-pat-v2.json: id syn-pat is reused by syn/rules-pat-v2b.json, which does not lie on its supersedes chain",
+      "syn/rules-pat-v2b.json": "record syn/rules-pat-v2b.json: ambiguous ancestry: syn/rules-pat-v2.json also supersedes syn/rules-pat.json | record syn/rules-pat-v2b.json: lineage syn-pat has two heads among the records the run reads (syn/rules-pat-v2.json, syn/rules-pat-v2b.json) | record syn/rules-pat-v2b.json: id syn-pat is reused by syn/rules-pat-v2.json, which does not lie on its supersedes chain | rule id syn-review reuse"
+     }
+    },
+    "two first records": {
+     "exit": 20,
+     "message": "",
+     "record_invalid": [
+      "syn/rules-pat-b.json",
+      "syn/rules-pat.json"
+     ],
+     "rule_files": [
+      "syn/rules-pat.json",
+      "syn/rules-allow.json",
+      "syn/rules-pat-b.json"
+     ],
+     "stop": null,
+     "why": {
+      "syn/rules-pat-b.json": "record syn/rules-pat-b.json: lineage syn-pat has two heads among the records the run reads (syn/rules-pat-b.json, syn/rules-pat.json) | record syn/rules-pat-b.json: id syn-pat is reused by syn/rules-pat.json, which does not lie on its supersedes chain",
+      "syn/rules-pat.json": "record syn/rules-pat.json: lineage syn-pat has two heads among the records the run reads (syn/rules-pat-b.json, syn/rules-pat.json) | record syn/rules-pat.json: id syn-pat is reused by syn/rules-pat-b.json, which does not lie on its supersedes chain"
+     }
+    }
+   },
+   "expected": "two records with one record_id and kind, each with supersedes: null (separately, two chains from one first record that diverge), both read in one run: FAIL record-invalid (two heads)",
+   "id": "LN7",
+   "predicate": "each run exits 20 with record-invalid on both records, naming two heads",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "middle record with another record_id": {
+     "exit": 20,
+     "message": "",
+     "record_invalid": [
+      "syn/rules-pat-v2.json"
+     ],
+     "rule_files": [
+      "syn/rules-pat-v2.json",
+      "syn/rules-allow.json"
+     ],
+     "stop": null,
+     "why": {
+      "syn/rules-pat-v2.json": "record syn/rules-pat-v2.json: supersedes names a record of another lineage (an unrelated chain)"
+     }
+    },
+    "middle record with another schema": {
+     "exit": 20,
+     "message": "",
+     "record_invalid": [
+      "syn/rules-pat-v2.json"
+     ],
+     "rule_files": [
+      "syn/rules-pat-v2.json",
+      "syn/rules-allow.json"
+     ],
+     "stop": null,
+     "why": {
+      "syn/rules-pat-v2.json": "record syn/rules-pat-v2.json: supersedes names a record of another kind, schema or lineage"
+     }
+    }
+   },
+   "expected": "a three-record chain whose middle record has another record_id (separately, another schema of the same kind): FAIL record-invalid (unrelated chain)",
+   "id": "LN8",
+   "predicate": "each run exits 20 with record-invalid on the head, naming another lineage or another kind, schema",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "countercontrol": {
+     "checkout_exit": 0,
+     "marker": true
+    },
+    "native": {
+     "clone": true,
+     "file_checked_out": true,
+     "marker": false
+    }
+   },
+   "expected": "review impl-v6.0e D-11 (O-3): a global git configuration defining a required smudge filter and a commit whose .gitattributes names it: the delegated runs' disposable clone (Native.clone) checks the commit out without running the filter (implementation control)",
+   "id": "O3-FILTER",
+   "predicate": "Native.clone checks the commit out and the filter's marker is not written; a plain clone and checkout of the same commit with the global configuration in force writes it (the countercontrol)",
+   "status": "PASS"
+  },
+  {
+   "actual": [
+    [
+     "unauthorized-change",
+     "9be9beabdd09c997f06e884b4e240e6c482de5d2"
+    ]
+   ],
+   "expected": "C = X plus one commit that changes an unledgered, undeclared path: FAIL unauthorized-change naming that commit",
+   "id": "R16",
+   "predicate": "one unauthorized-change item whose commit is that commit",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "items": [],
+    "paths": [
+     {
+      "class": "record",
+      "path": "plan/execution/result.json"
+     }
+    ]
+   },
+   "expected": "C = X plus one commit that changes only a record path the plan admits after F: PASS for that commit",
+   "id": "R17",
+   "predicate": "no item; the path is classified record",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "none": {
+     "exit": 10,
+     "items": [
+      [
+       "side-change-unclassified",
+       "notes/side.txt"
+      ]
+     ],
+     "outcome": "REVIEW_REQUIRED",
+     "stop": null
+    },
+    "reviewed": {
+     "exit": 10,
+     "items": [],
+     "outcome": "REVIEW_REQUIRED",
+     "stop": null
+    },
+    "unreviewed": {
+     "exit": 20,
+     "items": [
+      [
+       "record-invalid",
+       "syn/classes.json"
+      ],
+      [
+       "side-change-unclassified",
+       "notes/side.txt"
+      ]
+     ],
+     "outcome": "FAIL",
+     "stop": null
+    }
+   },
+   "expected": "op C: a side-change class record referenced by the configuration with no review record: FAIL record-invalid, and the side change stays unclassified; the reviewed record classifies it; with no class record it is side-change-unclassified",
+   "id": "R3-F2",
+   "predicate": "unreviewed: exit 20, record-invalid on syn/classes.json and side-change-unclassified on notes/side.txt; reviewed: no record-invalid and no side-change-unclassified; none: side-change-unclassified",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "C0 reviewed, one verdict per class": {
+     "exit": 10,
+     "record_invalid": [],
+     "stop": null,
+     "unclassified": []
+    },
+    "C8 no class has an id; one verdict, on the record id": {
+     "exit": 20,
+     "record_invalid": [
+      "syn/classes.json"
+     ],
+     "stop": null,
+     "unclassified": [
+      "notes/side.txt"
+     ]
+    },
+    "C9 a second class without id; one verdict, on the record id": {
+     "exit": 20,
+     "record_invalid": [
+      "syn/classes.json"
+     ],
+     "stop": null,
+     "unclassified": [
+      "notes/side.txt"
+     ]
+    },
+    "C9b a second class without id; verdicts on notes and on the record id": {
+     "exit": 20,
+     "record_invalid": [
+      "syn/classes.json"
+     ],
+     "stop": null,
+     "unclassified": [
+      "notes/side.txt"
+     ]
+    }
+   },
+   "expected": "a side-change class record one of whose classes lacks its id field (C9, and C9b with a verdict for the class that has one), or all of whose classes lack it (C8), is record-invalid (sec. 6.3: one verdict per item id; a missing field is record-invalid); no verdict on the record id stands in for the per-item verdicts; the side change stays unclassified; no exception; the record with ids and one verdict per class classifies the side change",
+   "id": "R4-B3",
+   "predicate": "C9, C9b, C8: exit 20, record-invalid on syn/classes.json, notes/side.txt unclassified; C0: exit 10, no record-invalid, nothing unclassified",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "lint: distinct ids, one verdict each (positive)": [],
+    "lint: id a given to two items": [
+     "record r/h.json: item id a is given to more than one item"
+    ],
+    "lint: two verdicts for item b (reject, then accept)": [
+     "record r/h.json: review r/h.review.json: an item has more than one verdict"
+    ],
+    "op C: one class, two verdicts for notes (reject, then accept)": {
+     "exit": 20,
+     "record_invalid": [
+      "syn/classes.json"
+     ],
+     "stop": null,
+     "unclassified": [
+      "notes/side.txt"
+     ]
+    },
+    "op C: two classes with id notes, reviewed": {
+     "exit": 65,
+     "record_invalid": [],
+     "stop": "CONFIG_INCONSISTENT",
+     "unclassified": []
+    }
+   },
+   "expected": "an item id given to more than one item of a record, or an item given more than one verdict, makes the record record-invalid; a class record defining one class id twice is ERROR CONFIG_INCONSISTENT (S7, Z11) in chain mode; distinct ids with one verdict each lint clean",
+   "id": "R4-B3-DUP",
+   "predicate": "the positive lint is empty; the duplicate-id lint names the id; the duplicate-verdict lint reports it; op C with the duplicate class id stops 65 CONFIG_INCONSISTENT; op C with two verdicts for notes is exit 20 with record-invalid on syn/classes.json and notes/side.txt unclassified",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "list": {
+     "exit": 10,
+     "record_invalid": [],
+     "stop": null,
+     "unclassified": []
+    },
+    "object": {
+     "exit": 20,
+     "record_invalid": [
+      "syn/classes.json"
+     ],
+     "stop": null,
+     "unclassified": [
+      "notes/side.txt"
+     ]
+    }
+   },
+   "expected": "a side-change class record referenced by the configuration whose classes field is an object: FAIL record-invalid, the side change unclassified, no exception and no INTERNAL exit; the record with a class list classifies it",
+   "id": "R5-N6",
+   "predicate": "object: exit 20, record-invalid on syn/classes.json, notes/side.txt unclassified; list: exit 10, nothing record-invalid or unclassified",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "(positive) no such record": {
+     "exit": 0,
+     "message": "",
+     "record_invalid": [],
+     "rule_files": [
+      "syn/rules-pat.json",
+      "syn/rules-allow.json"
+     ],
+     "stop": null,
+     "why": {}
+    },
+    "a second record with the rule file's record_id, off its chain": {
+     "exit": 20,
+     "message": "",
+     "record_invalid": [
+      "syn/rules-pat.json"
+     ],
+     "rule_files": [
+      "syn/rules-pat.json",
+      "syn/rules-allow.json"
+     ],
+     "stop": null,
+     "why": {
+      "syn/rules-pat.json": "record syn/rules-pat.json: id syn-pat is reused by syn/rules-pat-dup.json, which does not lie on its supersedes chain"
+     }
+    }
+   },
+   "expected": "a record in the audit directory at F carrying the record_id, kind and schema of a rule file the configuration references, with supersedes null (not on that file's supersedes chain) (sec. 6.3, DI-2: \"a record_id carried by two records that do not lie on one supersedes chain is\" a reused id): FAIL record-invalid on the referenced rule file; without that record the run is clean",
+   "id": "R6-G6",
+   "predicate": "the first exits 20 with record-invalid on syn/rules-pat.json naming the reuse; the second exits 0 with no record-invalid",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "oi-context-adjudication/1/absent": true,
+    "oi-context-adjudication/1/other-kind": true,
+    "oi-hit-classification/1/absent": true,
+    "oi-hit-classification/1/other-kind": true,
+    "oi-hp-adjudication/1/absent": true,
+    "oi-hp-adjudication/1/other-kind": true,
+    "oi-reconciliation/1/absent": true,
+    "oi-reconciliation/1/other-kind": true,
+    "oi-retirement-config/1/absent": true,
+    "oi-retirement-config/1/other-kind": true,
+    "oi-scope/1/absent": true,
+    "oi-scope/1/other-kind": true,
+    "oi-side-change-classes/1/absent": true,
+    "oi-side-change-classes/1/other-kind": true,
+    "oi-term-rules/2/absent": true,
+    "oi-term-rules/2/other-kind": true
+   },
+   "expected": "a record of each kind whose supersedes names a blob that does not exist, or a record of another kind: FAIL record-invalid for each kind",
+   "id": "S4a",
+   "predicate": "every kind and case gives a supersedes problem (which lint_chain reports as record-invalid)",
+   "status": "PASS"
+  },
+  {
+   "actual": [
+    {
+     "exit": 65,
+     "message": "no --freeze: the configuration is admitted only from the plan commit F (sec. 6.3)",
+     "stop": "CONFIG_UNREVIEWED"
+    },
+    {
+     "exit": 65,
+     "message": "no --freeze: the configuration is admitted only from the plan commit F (sec. 6.3)",
+     "stop": "CONFIG_UNREVIEWED"
+    }
+   ],
+   "expected": "a run without --freeze: ERROR CONFIG_UNREVIEWED, exit 65",
+   "id": "TR1",
+   "predicate": "both runs (no host; the in-memory host) exit 65 with stop 'CONFIG_UNREVIEWED' naming --freeze",
+   "status": "PASS"
+  },
+  {
+   "actual": [
+    {
+     "exit": 65,
+     "message": "a run outside a host CI job cannot reach chain admission (configuration admission point 3)",
+     "stop": "CONFIG_UNREVIEWED"
+    },
+    {
+     "exit": 65,
+     "message": "a run outside a host CI job cannot reach chain admission (configuration admission point 3)",
+     "stop": "CONFIG_UNREVIEWED"
+    }
+   ],
+   "expected": "a local run, all inputs otherwise valid: no \"chain\" admission; never acceptable",
+   "id": "TR13",
+   "predicate": "both exit 65 with stop 'CONFIG_UNREVIEWED'",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "TR14: a consumer that runs in a fork (its host reports the fork)": false,
+    "TR14: a pull_request run from a fork, listed in the canonical repository": false,
+    "TR14: the run in a fork": false,
+    "canonical": true
+   },
+   "expected": "the same results presented to a consumer: a run in a fork or another repository, a pull_request run from a fork, a consumer running in a fork: non-acceptance in every case (the tool half: ERROR, reported above)",
+   "id": "TR14",
+   "predicate": "accept_with_host is false in every case and true for the canonical run",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "another repository": {
+     "exit": 65,
+     "message": "the run's repository or head repository is not the configuration's repository_id (point 1)",
+     "stop": "CONFIG_UNREVIEWED"
+    },
+    "fork run": {
+     "exit": 65,
+     "message": "the run's repository or head repository is not the configuration's repository_id (point 1)",
+     "stop": "CONFIG_UNREVIEWED"
+    },
+    "head repository a fork, event workflow_dispatch": {
+     "exit": 65,
+     "message": "the run's repository or head repository is not the configuration's repository_id (point 1)",
+     "stop": "CONFIG_UNREVIEWED"
+    },
+    "pull_request from a fork, listed in the canonical repository": {
+     "exit": 65,
+     "message": "the run's repository or head repository is not the configuration's repository_id (point 1)",
+     "stop": "CONFIG_UNREVIEWED"
+    },
+    "repository another, head repository canonical": {
+     "exit": 65,
+     "message": "the run's repository or head repository is not the configuration's repository_id (point 1)",
+     "stop": "CONFIG_UNREVIEWED"
+    }
+   },
+   "expected": "the same workflow and tool run in a fork, or in another repository; separately, a pull_request run from a fork, executed and listed in the canonical repository: ERROR at the tool (repository or head repository id differs from repository_id); the consumer half is reported with the acceptance controls",
+   "id": "TR14-tool",
+   "predicate": "every case exits 65 with stop 'CONFIG_UNREVIEWED'",
+   "status": "PASS"
+  },
+  {
+   "actual": [
+    {
+     "exit": 65,
+     "message": "the workflow at T differs from tool.workflow (point 2)",
+     "stop": "CONFIG_UNREVIEWED"
+    },
+    {
+     "exit": 65,
+     "message": "the run's workflow path is not tool.workflow.path (point 2)",
+     "stop": "CONFIG_UNREVIEWED"
+    },
+    {
+     "exit": 65,
+     "message": "the run's workflow path is not tool.workflow.path (point 2)",
+     "stop": "CONFIG_UNREVIEWED"
+    }
+   ],
+   "expected": "a run of a workflow whose blob at T differs from tool.workflow.blob_sha256 (CX-2); separately a same-named workflow at a path other than tool.workflow.path: ERROR at the tool",
+   "id": "TR15",
+   "predicate": "all three cases (a changed workflow at T; the run's workflow path differing from the pin; a same-named workflow at another path) exit 65 with stop 'CONFIG_UNREVIEWED'",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "exit": 65,
+    "message": "the last Record pins subsection of syn/cfg/PREREG.md has no row with the configuration and its sha256",
+    "stop": "CONFIG_UNREVIEWED"
+   },
+   "expected": "a configuration whose sha256 is not in the pin table of the PREREG.md beside it: ERROR CONFIG_UNREVIEWED, exit 65",
+   "id": "TR2",
+   "predicate": "exit == 65 and stop == 'CONFIG_UNREVIEWED', refused by the pin table's rows",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "(countercontrol) a forged T equal to the pins": true,
+    "EI7 a local action with a 40-hex suffix, pinned": false,
+    "EI7 a local reusable workflow with a 40-hex suffix, pinned": false,
+    "EI7 a parent path with a 40-hex suffix, pinned": false,
+    "EI7 a workflow with a local action, pinned": false,
+    "TR15 changed workflow at T": false,
+    "TR15 the run's workflow path another": false,
+    "TR28 tool blob differs": false,
+    "TR50 workflow one byte": false,
+    "TR51 submodule": false,
+    "TR51 symlink": false,
+    "TR52 extra file": false
+   },
+   "expected": "the consumer reads T's tool files and workflow itself from its verified store: a T whose tool blob differs from the pins (TR28), whose workflow differs or is one byte different (TR15, TR50), that holds a symlink or submodule (TR51) or an extra file (TR52), or whose pinned workflow fails the uses: line rule (EI7), is non-acceptance; the run's workflow path differing from the pin likewise",
+   "id": "TR28-consumer",
+   "predicate": "accept_with_host is false in every mutant case and true for a T equal to the pins",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "blob": {
+     "exit": 65,
+     "message": "tools/ledger_coverage/engine/x.py at T differs from its tool pin (point 2)",
+     "stop": "CONFIG_UNREVIEWED"
+    },
+    "extra": {
+     "exit": 65,
+     "message": "T's tool files differ from the configuration's tool.files (point 2)",
+     "stop": "CONFIG_UNREVIEWED"
+    }
+   },
+   "expected": "a T whose tool blobs differ from the configuration's tool.files pins (CX-1), or that carries an extra file under the package directory: ERROR at the tool; the consumer half is TR28-consumer",
+   "id": "TR28-tool",
+   "predicate": "both exit 65 with stop 'CONFIG_UNREVIEWED'",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "T not on main's first-parent chain": false,
+    "canonical": true,
+    "head_sha is the evaluated commit X": false,
+    "the recorded T differs from the run's head_sha": false
+   },
+   "expected": "a run whose head_sha is not on main's first-parent chain; separately a run whose head_sha is X; separately a result whose recorded T differs from the producing run's head_sha: non-acceptance at the consumer (T on the first-parent chain of M, resolved as sec. 13.4 states); the tool half (ERROR on the head branch) is TR29-tool",
+   "id": "TR29",
+   "predicate": "accept_with_host is false in each case and true for T on M's first-parent chain",
+   "status": "PASS"
+  },
+  {
+   "actual": [
+    {
+     "exit": 65,
+     "message": "the run's head branch is not main (point 6)",
+     "stop": "CONFIG_UNREVIEWED"
+    },
+    {
+     "exit": 65,
+     "message": "T's tool files differ from the configuration's tool.files (point 2)",
+     "stop": "CONFIG_UNREVIEWED"
+    }
+   ],
+   "expected": "a run whose head_sha is not on main (its head branch is not main): ERROR at the tool before any evaluation; separately a run whose head_sha is the evaluated commit X (no tool there): ERROR",
+   "id": "TR29-tool",
+   "predicate": "both exit 65 with stop 'CONFIG_UNREVIEWED'; the first names the head branch",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "exit": 65,
+    "message": "no review record of the configuration is listed in the pin table of syn/cfg/PREREG.md",
+    "stop": "CONFIG_UNREVIEWED"
+   },
+   "expected": "a review record placed beside the configuration, naming its blob, but not in F's pin table: ERROR CONFIG_UNREVIEWED, exit 65",
+   "id": "TR3",
+   "predicate": "exit == 65 and stop == 'CONFIG_UNREVIEWED', refused because no review is listed",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "differing": false,
+    "matching": true
+   },
+   "expected": "a result whose evaluated commits differ from the landing record's: non-acceptance",
+   "id": "TR30",
+   "predicate": "accept_with_host is true for the matching landing record and false for the other",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "altered": [
+     65,
+     "REPLAY_REFUSED"
+    ],
+    "equal": true,
+    "exit": 0,
+    "mode": "replay"
+   },
+   "expected": "the offline replay of an op-B/D result from its committed snapshot: output equal to the committed result except config.admission.mode = \"replay\"; never acceptable; a result file that does not hash to its recorded sha256 makes the replay refuse",
+   "id": "TR45-opB",
+   "predicate": "replay exit equals the committed exit, equal_to_committed is true, mode is 'replay', accept() is false; the altered landing refuses with REPLAY_REFUSED",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "altered": false,
+    "exact": true,
+    "mtime_zero": true,
+    "os_byte": 255
+   },
+   "expected": "a committed compressed result whose uncompressed sha256 differs from the recorded one: refused at landing",
+   "id": "TR46",
+   "predicate": "verify_compressed is true for the exact bytes and false for the altered ones, and the gzip header carries mtime 0 and operating-system byte 255",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "exit": 0,
+    "tool_blobs": {
+     "tools/ledger_coverage.py": "3a0f14788b8b8920006ec3af3be77b33782da34bad6245b78a4e4a4e8457bc50",
+     "tools/ledger_coverage/engine/x.py": "9e26bf369911c45c243c684147b23fc9e1dcfcf257d299a1c632016a6fcd33f4"
+    },
+    "tool_commit": true,
+    "workflow": {
+     "blob_sha256": "55445207cfb1429b43c8c85187a8b00e8474cad505297df284e11f5c9265cb6a",
+     "path": ".github/workflows/lc.yml"
+    }
+   },
+   "expected": "a valid T whose package directory and entry point hold exactly tool.files, each regular with its pinned blob, the workflow equal to its pin, the checkout equal to T: execution identity holds; T and every tool and workflow blob recorded",
+   "id": "TR48",
+   "predicate": "exit 0; the snapshot's tool_commit is T, tool_blobs equal the pins and workflow equals the pin",
+   "status": "PASS"
+  },
+  {
+   "actual": "needs a run of the pinned workflow in the repository the configuration names, with the host API; CI plan in the report",
+   "expected": "`config.admission: \"chain\"` with every snapshot field of sec. 6.3 recorded (positive control, CI only)",
+   "id": "TR5",
+   "predicate": null,
+   "status": "NOT RUN"
+  },
+  {
+   "actual": {
+    "exit": 0,
+    "message": "",
+    "missing": [],
+    "missing_run": [],
+    "stop": null
+   },
+   "expected": "the whole of sec. 6.3 holds on the in-memory host (--freeze F, --config F:path, the PREREG.md beside the configuration listing it and its review, a workflow_dispatch run in the configuration's repository, T's tool files and workflow equal to the pins and to the checkout): every snapshot field recorded; the result is a control artefact (control-harness), never chain",
+   "id": "TR5-sim",
+   "predicate": "exit == 0, admission.mode == 'control-harness', harness is true, every snapshot field and run field present, tool_commit == T and freeze == F",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "exit": 65,
+    "message": "the workflow at T differs from tool.workflow (point 2)",
+    "stop": "CONFIG_UNREVIEWED"
+   },
+   "expected": "the workflow at tool.workflow.path at T modified by one byte: ERROR",
+   "id": "TR50",
+   "predicate": "exit 65 with stop 'CONFIG_UNREVIEWED'",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "submodule": {
+     "exit": 65,
+     "message": "tools/ledger_coverage/engine/x.py is not a regular file at T (point 2)",
+     "stop": "CONFIG_UNREVIEWED"
+    },
+    "submodule (an added entry)": {
+     "exit": 65,
+     "message": "T's tool files differ from the configuration's tool.files (point 2)",
+     "stop": "CONFIG_UNREVIEWED"
+    },
+    "symlink": {
+     "exit": 65,
+     "message": "tools/ledger_coverage/engine/x.py is not a regular file at T (point 2)",
+     "stop": "CONFIG_UNREVIEWED"
+    },
+    "symlink (an added entry)": {
+     "exit": 65,
+     "message": "T's tool files differ from the configuration's tool.files (point 2)",
+     "stop": "CONFIG_UNREVIEWED"
+    }
+   },
+   "expected": "a symlink, separately a submodule entry, under the package directory in T's tree: ERROR in each case",
+   "id": "TR51",
+   "predicate": "every case exits 65 with stop 'CONFIG_UNREVIEWED'",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "exit": 65,
+    "message": "T's tool files differ from the configuration's tool.files (point 2)",
+    "stop": "CONFIG_UNREVIEWED"
+   },
+   "expected": "an additional file under the package directory at T that tool.files does not name: ERROR",
+   "id": "TR52",
+   "predicate": "exit 65 with stop 'CONFIG_UNREVIEWED'",
+   "status": "PASS"
+  },
+  {
+   "actual": {
+    "files": [
+     "control-result.json"
+    ],
+    "harness_exit": 0
+   },
+   "expected": "a control-harness PASS result presented with the pinned tool and configuration hashes: non-acceptance; the harness never writes result.json",
+   "id": "X11",
+   "predicate": "accept() is false for the harness result, for the simulated-chain result, and for that result with its harness marker removed, with or without the snapshot (admission not chain); the harness run directory holds control-result.json only",
+   "status": "PASS"
+  },
+  {
+   "actual": [
+    [
+     65,
+     "CONFIG_INCONSISTENT"
+    ],
+    [
+     65,
+     "CONFIG_INCONSISTENT"
+    ]
+   ],
+   "expected": "two class records, or one record, defining the same class id: ERROR CONFIG_INCONSISTENT",
+   "id": "Z11",
+   "predicate": "both exit 65 with stop CONFIG_INCONSISTENT",
+   "status": "PASS"
+  }
+ ],
+ "schema": "oi-control-report/1",
+ "summary": {
+  "NOT RUN": 2,
+  "PASS": 79
+ }
+}

@@ -1,0 +1,11 @@
+# Correction 2 checkpoint (writer)
+- [start] authority read: OWNER-DECISIONS-CORR2 sha256 6bb934c1… verified; review 3b99a089… verified; CORRECTION-1 3352a14e… verified. Base 3184c7f9, worktree clean.
+- [items 1,4 code] conformance_controls.py edited (uncommitted): EI6 ei6_allowed/_installed_dirs/ei6_installed_cases; EI7 hyphen-owner form (23 forms); O3-FILTER global+system cases. Local conformance run: 79 PASS, 2 NOT RUN; EI6 self-test out-of-tree imports 162 all accepted; fixture refused; certifi refused.
+- [commit] 4f4a9d58fd0bf41289a4904c9b39c00c711c9093 tree 82276267baa5518d3d2466b08bc0c88a4bdd1f02 parent 3184c7f9, signed; 5 paths. Class record 53 pins == ls-tree. Staged config staging-4f4a9d58/... sha256 5072a3b0e25e9283acecf4c3df87f820e34464d8d6e2e501ec672615114a96a0 (generators gen/gen_final_c2.py, gen_config_c2.py).
+- [D-2 probes] logs/corr2/probe: yaml/line rule/bash -n/pre-run identical (prog 001a3357); stub argv; injection; --certified option-like values USAGE 64. Arms run (arms_c2.py) in progress.
+- [arms new] logs/corr2/probe/arms-new/arms_c2.json: every record argument of every arm is a path the staged configuration names, present at the stand-in F with its pinned sha256, except item 2's --hp F:hp.json (no HP record named by the configuration: PREREG s32.8 lists it as missing) -> SOURCE_CHANGED; without --hp the arm runs (FAIL, no path error). No arm ends in a path/record error otherwise; item1-terms PASS (GR.md:58 by its record), item7-amended REVIEW (45 resid), item11 FAIL (172 final-unclassified), executions FAIL on delegated evidence (no host), item14-landing landing-parents (no real L).
+- [suite] running logs/corr2/repro.sh (background). Old arms run (3184c7f9 workflow) running.
+- [suite] done: 347 rows, 340 PASS, 3 NOT RUN, 4 info; equality vs 3184c7f9: 343 identical, 0 status changes, 4 actual (EI6, EI7-tool, O3-FILTER, RT-L2 keyed: 0 unexplained).
+- [mutation] runC2: 82 killed, 7 survived (c2:D02 new; v60e V05 I06 C08 H03 P01; cache K08), 1 not applied (v60e:U01). C04, C08, C11 killed.
+- [record] CORRECTION-2.md written; manifest append next.
+- [final] manifest appended; record complete.

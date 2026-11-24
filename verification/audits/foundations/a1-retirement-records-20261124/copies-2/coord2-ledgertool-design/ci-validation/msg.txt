@@ -1,0 +1,13 @@
+ci: disposable validation run of the ledger coverage tool at 4f4a9d58 (not for merge)
+
+A disposable validation commit, not for merge. It adds only the temporary
+workflow .github/workflows/ledger-coverage-suite-ci.yml, which runs on a
+push to this branch and executes the suite, the A1 controls, Y8 and the
+mutation run against a detached worktree at the reviewed tool commit
+4f4a9d58fd0bf41289a4904c9b39c00c711c9093, with the staged configuration
+verified by sha256 and full history. TR5, G-A1 and EI14 are deferred to
+post-landing validation.
+
+Co-Authored-By: Claude Opus 5.5 <<commit-identity-email>>
+Claude-Session: https://claude.ai/code/session_013T6pfKuv5mi3MXtKjH2tZb
+
