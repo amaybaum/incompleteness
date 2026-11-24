@@ -3499,9 +3499,20 @@ def s1_p2_history_controls(r):
     w2 = t.world()
     sq = {p: (norm(rf.HybridHost(w2.h, hf.REPO_ID).file_history(hf.REPO_ID, p)),
               norm(w2.h.file_history(hf.REPO_ID, p))) for p in paths}
-    check('S1-P2-SQUASH', 'single-parent landings: the corrected reader equals the in-memory host',
-          'new == truth for A and the ledger', {p: brief(v[0]) for p, v in sq.items()},
-          all(a == b and a for a, b in sq.values()))
+    # a path already present in the root commit: the root is a version
+    m7 = hostmod.MemoryHost()
+    m7.add_repo(hf.REPO_ID, 'fixture/repo')
+    m7.add_commit(hf.REPO_ID, 'r0', [], {'syn/root.txt': b'root\n'})
+    m7.add_commit(hf.REPO_ID, 'r1', ['r0'], {'syn/root.txt': b'next\n'})
+    m7.repos[hf.REPO_ID]['main'] = 'r1'
+    root7 = (norm(rf.HybridHost(m7, hf.REPO_ID).file_history(hf.REPO_ID, 'syn/root.txt')),
+             norm(m7.file_history(hf.REPO_ID, 'syn/root.txt')))
+    check('S1-P2-SQUASH', 'single-parent landings: the corrected reader equals the in-memory host; a path present in '
+          'the root commit gives the root as its first version',
+          "new == truth for A and the ledger; for the root case new == truth with commits ['r0', 'r1']",
+          {'landings': {p: brief(v[0]) for p, v in sq.items()}, 'root': brief(root7[0])},
+          all(a == b and a for a, b in sq.values()) and root7[0] == root7[1] and
+          [v['commit'] for v in root7[0]] == ['r0', 'r1'])
     # a revert and a deletion by merges: A -> B -> A -> deleted, each change found once, in order
     w3 = t.world()
     xp = 'syn/x.txt'
