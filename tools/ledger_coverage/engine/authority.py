@@ -673,7 +673,7 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
 
     def revoke(e, commit):
         if state.get(commit) == 'revoked':
-            refuse('state', 'a %s names a commit that is already withdrawn' % e['kind'])
+            refuse('state', 'a %s names a withdrawn commit' % e['kind'])
         if state.get(commit) != 'designated' and commit not in ever:
             refuse('state', 'a %s names a commit never designated' % ('withdrawal' if e['kind'] == 'withdraw'
                                                                       else 'supersession'))
