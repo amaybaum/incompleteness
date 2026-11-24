@@ -1,0 +1,993 @@
+diff --git a/tools/ledger_coverage/adapters/conformance_controls.py b/tools/ledger_coverage/adapters/conformance_controls.py
+index 613f21b5d..e21a4bc39 100644
+--- a/tools/ledger_coverage/adapters/conformance_controls.py
++++ b/tools/ledger_coverage/adapters/conformance_controls.py
+@@ -774,8 +774,9 @@ def f1_controls(t):
+     NEW = 5555
+ 
+     def ledger_change(w, approver, via, rnd):
++        # an append to the current ledger (the ledger is append-only, sec. 6.3)
+         old = w.ledger_bytes
+-        new = hf.jb({'schema': auth.ledger_schema, 'events': [
++        new = hf.jb({'schema': auth.ledger_schema, 'events': json.loads(old.decode('utf-8'))['events'] + [
+             {'plan': hf.PLAN, 'round': rnd, 'kind': 'withdraw', 'commit': 'ab' * 20, 'comment_id': 1,
+              'author_id': approver, 'created_at': '2026-11-23T00:00:00Z', 'first_line': 'x'}]})
+         if via == 'append':
+@@ -912,7 +913,7 @@ def f3_controls(t):
+         w2.h.artifacts[(w2.run_id, 'ledger-coverage-result')] = sha(raw)
+         landing = {'evaluated': s2.get('evaluated'), 'artifact_name': 'ledger-coverage-result',
+                    'result_sha256': sha(raw)}
+-        return checker.accept_with_host(chain, 0, host_pins, w2.h, landing)
++        return checker.accept_with_host(raw, 0, host_pins, w2.h, landing)
+     out = {'present': at_head({'syn/unrelated.txt': b'x\n'}),
+            'absent': at_head({auth.authority_path: None}),
+            'different': at_head({auth.authority_path: w.a_bytes + b' '})}
+@@ -922,6 +923,414 @@ def f3_controls(t):
+           out['present'] is True and out['absent'] is False and out['different'] is False)
+ 
+ 
++# ---- corrections after the third independent review (B1, B2, B3, N2) ----------------------------------------------
++
++def _r4_event(tag):
++    return {'plan': hf.PLAN, 'round': tag, 'kind': 'withdraw', 'commit': 'ab' * 20, 'comment_id': 1, 'author_id': 1,
++            'created_at': '2026-11-23T00:00:00Z', 'first_line': 'x'}
++
++
++def _r4_ledger(tags):
++    return hf.jb({'schema': auth.ledger_schema, 'events': [_r4_event(x) for x in tags]})
++
++
++def _r4_approve(w, old, new, approver, via):
++    if via == 'append':
++        return w.comment(hf.PLAN_ISSUE, 'oi-freeze-ledger/1 append plan=%s round=%s from=%s to=%s'
++                         % (hf.PLAN, hf.ROUND, sha(old), sha(new)), author_id=approver)
++    return w.comment(hf.AUTH_ISSUE, 'oi-authority/1 approve from=%s to=%s' % (sha(old), sha(new)), author_id=approver)
++
++
++def _r4_set_ledger(w, new, via, approver=None, approve=True, after=False, direct=False):
++    """One freeze-ledger change on the world's main: approved (before, or after, the change) by `approver` (the
++    owner in force by default), landed by a recorded pull-request merge or, with `direct`, by a push with no merge
++    record."""
++    old = w.ledger_bytes
++    who = approver if approver is not None else w.a['owner']['id']
++    if approve and not after:
++        _r4_approve(w, old, new, who, via)
++    cid = 'c%d' % (len(w.h.repos[hf.REPO_ID]['commits']) + 1)
++    if direct:
++        files = dict(w.h.repos[hf.REPO_ID]['commits'][w.main]['files'])
++        files[hf.LEDGER_PATH] = new
++        w.h.add_commit(hf.REPO_ID, cid, [w.main], files)
++        w.main = cid
++        w.h.repos[hf.REPO_ID]['main'] = cid
++        w.h.runs[w.run_id]['head_sha'] = cid
++    else:
++        w.add_main(cid, {hf.LEDGER_PATH: new}, merged_by=w.a['owner']['id'])
++    if approve and after:
++        _r4_approve(w, old, new, who, via)
++    w.ledger_bytes = new
++
++
++def _r4_owner_change(w, owner):
++    new_a = hf.authority('syn/PREREG.md', owner_id=owner,
++                         supersedes={'path': auth.authority_path, 'blob_sha256': sha(w.a_bytes)},
++                         extra={'status': 'v-%d-%d' % (owner, len(w.h.repos[hf.REPO_ID]['commits']))})
++    change_authority(w, new_a, extra_approver=owner if owner != w.a['owner']['id'] else None)
++
++
++def _r4_run(t, steps):
++    """A fresh world, the steps applied to it, then a designated freeze carrying the first A. The fixture
++    configuration names owner 4242: a run whose ledger history is verified exits 0 when 4242 is the final owner."""
++    w = t.world()
++    a1 = w.a_bytes
++    steps(w)
++    F = t.freeze(w, a_bytes=a1)
++    w.designate(F, author_id=w.a['owner']['id'])
++    code, res = t.run(w, F)
++    msg = ((res or {}).get('stop') or {}).get('message', '')
++    return {'exit': code, 'stop': stop(res), 'message': msg[:220], 'ledger_refused': 'freeze-ledger change' in msg}
++
++
++def r4_b1_controls(t):
++    """B1: an approval comment authorizes exactly one change, and each ledger version extends the previous one."""
++    OLD, NEW = hf.OWNER_ID, 5555
++    out = {}
++    for via in ('append', 'authority'):
++        def r1(w, via=via):
++            l0 = w.ledger_bytes
++            _r4_set_ledger(w, _r4_ledger(['one']), via, OLD)          # A approves L0 -> L1
++            _r4_owner_change(w, NEW)                                   # A -> B
++            _r4_set_ledger(w, l0, via, NEW)                            # B approves the revert L1 -> L0
++            _r4_owner_change(w, OLD)                                   # B -> A
++            _r4_set_ledger(w, _r4_ledger(['one']), via, approve=False)  # L0 -> L1 again, no new approval
++
++        def r2(w, via=via):
++            l0 = w.ledger_bytes
++            _r4_set_ledger(w, _r4_ledger(['one']), via, OLD)
++            _r4_set_ledger(w, l0, via, OLD)
++            _r4_set_ledger(w, _r4_ledger(['one']), via, approve=False)
++
++        def r3(w, via=via):
++            _r4_set_ledger(w, _r4_ledger(['one']), via, OLD)
++            _r4_owner_change(w, NEW)
++            _r4_owner_change(w, OLD)
++            _r4_set_ledger(w, _r4_ledger(['two']), via, approve=False)
++
++        def legit(w, via=via):
++            for tags in (['one'], ['one', 'two'], ['one', 'two', 'three']):
++                _r4_set_ledger(w, _r4_ledger(tags), via)
++
++        def legit_owner(w, via=via):
++            _r4_set_ledger(w, _r4_ledger(['one']), via)
++            _r4_owner_change(w, NEW)
++            _r4_set_ledger(w, _r4_ledger(['one', 'two']), via)
++            _r4_owner_change(w, OLD)
++            _r4_set_ledger(w, _r4_ledger(['one', 'two', 'three']), via)
++        out['R1 A->B->A replay [%s]' % via] = _r4_run(t, r1)
++        out['R2 replay, no owner change [%s]' % via] = _r4_run(t, r2)
++        out['R3 different change, no approval [%s]' % via] = _r4_run(t, r3)
++        out['appends, each approved [%s]' % via] = _r4_run(t, legit)
++        out['appends across A->B->A, each approved by the owner in force [%s]' % via] = _r4_run(t, legit_owner)
++    bad = [v for k, v in out.items() if k.startswith(('R1', 'R2', 'R3'))]
++    good = [v for k, v in out.items() if k.startswith('appends')]
++    check('R4-B1', 'freeze-ledger approvals cannot be replayed (sec. 6.3, "append-only"; "its own explicit owner '
++          'approval comment"): R1 (approve L0->L1; owner A->B; B approves the revert L1->L0; B->A; L0->L1 again with '
++          'no new approval) and R2 (the same with no owner change) are refused, and R3 (a different change with no '
++          'approval) stays refused; a sequence of appends, each with its own approval by the owner in force, is '
++          'admitted, also across an owner change and change-back; each case in both comment forms',
++          "R1, R2, R3: exit 65 naming the freeze-ledger change; the append sequences: exit 0", out,
++          all(o['exit'] == 65 and o['ledger_refused'] for o in bad) and all(o['exit'] == 0 for o in good))
++    # each guard on its own: with the append-only check disabled the single-use check refuses R1 and R2, and with
++    # the single-use check disabled the append-only check refuses them
++    guards = {}
++    for name, attr, stub in (('single-use alone', '_ledger_extension_problem', lambda old, new: None),
++                             ('append-only alone', '_fresh', lambda hits, consumed, point, what: hits)):
++        orig = getattr(auth, attr, None)
++        if orig is None:
++            guards[name] = 'the engine has no %s' % attr
++            continue
++        setattr(auth, attr, stub)
++        try:
++            got = {}
++            for via in ('append', 'authority'):
++                got['R1 [%s]' % via] = _r4_run(t, lambda w, via=via: (
++                    _r4_set_ledger(w, _r4_ledger(['one']), via, OLD), _r4_owner_change(w, NEW),
++                    _r4_set_ledger(w, _r4_ledger([]), via, NEW), _r4_owner_change(w, OLD),
++                    _r4_set_ledger(w, _r4_ledger(['one']), via, approve=False)))
++                got['R2 [%s]' % via] = _r4_run(t, lambda w, via=via: (
++                    _r4_set_ledger(w, _r4_ledger(['one']), via, OLD), _r4_set_ledger(w, _r4_ledger([]), via, OLD),
++                    _r4_set_ledger(w, _r4_ledger(['one']), via, approve=False)))
++            guards[name] = got
++        finally:
++            setattr(auth, attr, orig)
++    want = {'single-use alone': 'already authorized', 'append-only alone': 'not an append'}
++    check('R4-B1-GUARDS', 'each B1 guard refuses the replay on its own: with the append-only check disabled, the '
++          'single-use check refuses R1 and R2; with the single-use check disabled, the append-only check refuses them',
++          "every case exits 65 naming the freeze-ledger change, with 'already authorized' (single-use alone) or 'not "
++          "an append' (append-only alone) in the message", guards,
++          all(isinstance(g, dict) and all(o['exit'] == 65 and o['ledger_refused'] and want[n] in o['message']
++                                          for o in g.values()) for n, g in guards.items()))
++
++
++def r4_b2_controls(t):
++    """B2: a freeze-ledger change with no merge record is refused, whatever its approval."""
++    out = {}
++    for via in ('append', 'authority'):
++        out['direct push, approval after the push [%s]' % via] = _r4_run(
++            t, lambda w, via=via: _r4_set_ledger(w, _r4_ledger(['d']), via, after=True, direct=True))
++        out['direct push, approval before the push [%s]' % via] = _r4_run(
++            t, lambda w, via=via: _r4_set_ledger(w, _r4_ledger(['d']), via, direct=True))
++        out['pull-request merge, approval before the merge [%s]' % via] = _r4_run(
++            t, lambda w, via=via: _r4_set_ledger(w, _r4_ledger(['d']), via))
++    bad = [v for k, v in out.items() if k.startswith('direct')]
++    good = [v for k, v in out.items() if k.startswith('pull-request')]
++    check('R4-B2', 'a freeze-ledger change landed with no merge record (a direct push; the host reports no merged '
++          'pull request) is refused, with the approval created after the push (P9) and also before it; the same '
++          'change merged by pull request with an approval created before the merge is admitted; both comment forms',
++          "direct pushes: exit 65 naming the freeze-ledger change; pull-request merges: exit 0", out,
++          all(o['exit'] == 65 and o['ledger_refused'] for o in bad) and all(o['exit'] == 0 for o in good))
++
++
++def _r4_class_scenario(r, cls_mut=None, verdicts=None):
++    """Op C over a synthetic side change on main and a configuration-referenced side-change class record with its
++    review (the given verdicts; one accept for class `notes` by default) and owner authorization."""
++    syn = sf.Syn()
++    edits = [('# synthetic', ['# synthetic', '', 'Preface line one.'])]
++    pd = sf.patch_doc(syn.H, edits)
++    base = {'patch_sha': sha(pd), 'files': {'syn/patch.json': pd}}
++    c0, p0, s0, f0 = syn.build(base)
++    recs = json.loads(f0[p0])['records']
++    M = syn.repo.derive(syn.H, {'notes/side.txt': b'side change on main\n'}, parents=[syn.H], subject='M')
++    cls = {'schema': 'oi-side-change-classes/1', 'record_id': 'syn-classes', 'author': sf.WRITER,
++           'supersedes': None,
++           'classes': [{'id': 'notes', 'prefixes': ['notes/'], 'reason': 'synthetic',
++                        'pins': [{'path': 'notes/side.txt', 'git_blob': syn.repo.blob_id(M, 'notes/side.txt'),
++                                  'blob_sha256': sha(b'side change on main\n')}]}]}
++    if cls_mut:
++        cls_mut(cls)
++    files = dict(base['files'])
++    cb = sf.jb(cls)
++    files['syn/classes.json'] = cb
++    ref = {'path': 'syn/classes.json', 'blob_sha256': sha(cb)}
++    vs = verdicts if verdicts is not None else [{'item': 'notes', 'verdict': 'accept'}]
++    rv = {'schema': 'oi-review-record/1', 'reviewer': sf.REVIEWER, 'reviewed': ref, 'method': 'read',
++          'verdicts': vs}
++    files['syn/classes.review.json'] = sf.jb(rv)
++    au = {'schema': 'oi-owner-authorization/1', 'owner': sf.OWNER, 'time': 't0', 'comment_id': 'c-2',
++          'authorizes': [{'record': ref, 'review': {'path': 'syn/classes.review.json',
++                                                    'blob_sha256': sha(files['syn/classes.review.json'])}}]}
++    files['syn/classes.auth.json'] = sf.jb(au)
++    extra = [{'kind': 'side-change-classes', 'path': 'syn/classes.json', 'blob_sha256': sha(cb)},
++             {'kind': 'review', 'path': 'syn/classes.review.json',
++              'blob_sha256': sha(files['syn/classes.review.json'])},
++             {'kind': 'authorization', 'path': 'syn/classes.auth.json',
++              'blob_sha256': sha(files['syn/classes.auth.json'])}]
++    v = dict(base, files=files, extra={'records': recs + extra})
++    c, p, s, f = syn.build(v)
++    X = syn.repo.derive(syn.H, {sf.DOC: sf.apply_text(syn.repo.read(syn.H, sf.DOC).decode(), edits).encode()},
++                        parents=[syn.H], subject='X')
++    w = hf.World('syn/PREREG.md')
++    listed = {q: syn.repo.read(c, q) for q in syn.repo.paths(c) if q.startswith('syn/') and q.endswith('.json')}
++    Ff = {'syn/PREREG.md': hf.pin_table({q[len('syn/'):]: sha(b) for q, b in listed.items()}),
++          auth.authority_path: w.a_bytes}
++    F = syn.repo.derive(c, Ff, parents=syn.repo.parents(c), subject='freeze')
++    w.designate(F)
++    argv = ['execution', '--config', '%s:%s' % (F, p), '--out', r.out()] + w.args(F) + \
++        ['--scientific-base', syn.H, '--candidate', X, '--ledger', '%s:syn/patch.json' % F, '--main', M]
++    try:
++        code, res = cli.run(argv, repo=syn.repo, stderr=io.StringIO(), control=w.control(), environ={})
++    except Exception as exc:
++        return {'exit': 'EXCEPTION', 'exception': '%s: %s' % (type(exc).__name__, exc)}
++    its = (res or {}).get('items', [])
++    return {'exit': code, 'stop': stop(res),
++            'record_invalid': sorted(str(i.get('subject')) for i in its if i['class'] == 'record-invalid'),
++            'unclassified': sorted(str(i.get('subject')) for i in its if i['class'] == 'side-change-unclassified')}
++
++
++def r4_b3_controls(r):
++    """B3: every list entry of a reviewed record carries its id field; a record where one does not is record-invalid
++    and its verdicts cannot fall back to the record id."""
++    def scenario(cls_mut=None, verdicts=None):
++        return _r4_class_scenario(r, cls_mut, verdicts)
++
++    def second_without_id(c):
++        c['classes'].append({'prefixes': ['other/'], 'reason': 'x', 'pins': []})
++
++    def none_with_id(c):
++        for k in c['classes']:
++            k.pop('id')
++    acc = lambda *ids: [{'item': i, 'verdict': 'accept'} for i in ids]  # noqa: E731
++    out = {'C0 reviewed and authorized, one verdict per class': scenario(),
++           'C9 a second class without id; one verdict, on the record id': scenario(second_without_id,
++                                                                                    acc('syn-classes')),
++           'C9b a second class without id; verdicts on notes and on the record id': scenario(
++               second_without_id, acc('notes', 'syn-classes')),
++           'C8 no class has an id; one verdict, on the record id': scenario(none_with_id, acc('syn-classes'))}
++    bad = [v for k, v in out.items() if not k.startswith('C0')]
++    pos = out['C0 reviewed and authorized, one verdict per class']
++    check('R4-B3', 'a side-change class record one of whose classes lacks its id field (C9, and C9b with a verdict '
++          'for the class that has one), or all of whose classes lack it (C8), is record-invalid (sec. 6.3: one '
++          'verdict per item id; a missing field is record-invalid); no verdict on the record id stands in for the '
++          'per-item verdicts; the side change stays unclassified; no exception; the record with ids and one verdict '
++          'per class classifies the side change',
++          "C9, C9b, C8: exit 20, record-invalid on syn/classes.json, notes/side.txt unclassified; C0: exit 10, no "
++          "record-invalid, nothing unclassified", out,
++          all(o['exit'] == 20 and 'syn/classes.json' in o['record_invalid'] and 'notes/side.txt' in o['unclassified']
++              for o in bad) and
++          pos.get('exit') == 10 and not pos.get('record_invalid') and not pos.get('unclassified'))
++
++
++def r4_b2_provenance_controls(t):
++    """B2 (provenance): a change of the ledger or of A whose merge record is inconsistent with the commit it claims is
++    refused: the record names another merge commit; the version's commit is off main's first-parent chain; the
++    commit is not the one that introduced the version; the merge times do not increase along the history."""
++    def report_history(w, edit):
++        """The host reports the freeze ledger's history through `edit` (an altered or inconsistent host record)."""
++        orig = w.h.file_history
++
++        def fh(repo_id, path):
++            hist = orig(repo_id, path)
++            return edit(w, hist) if path == hf.LEDGER_PATH else hist
++        w.h.file_history = fh
++
++    def other_merge_commit(w):
++        _r4_set_ledger(w, _r4_ledger(['m']), 'append')
++        w.h.merges[(hf.REPO_ID, w.main)]['merge_commit'] = 'c1'
++
++    def off_chain(w):
++        _r4_set_ledger(w, _r4_ledger(['m']), 'append')
++        cm = w.h.repos[hf.REPO_ID]['commits'][w.main]
++        w.h.add_commit(hf.REPO_ID, 'side', list(cm['parents']), cm['files'], merged_by=hf.OWNER_ID,
++                       merged_at=w.h.merges[(hf.REPO_ID, w.main)]['merged_at'])
++
++        def edit(w, hist):
++            return [dict(v, commit='side', merge_commit='side') if v['commit'] == w.ledger_commit else v
++                    for v in hist]
++        w.ledger_commit = w.main
++        report_history(w, edit)
++
++    def not_introducing(w):
++        _r4_set_ledger(w, _r4_ledger(['m']), 'append')
++        intro = w.main
++        w.add_main('c%d' % (len(w.h.repos[hf.REPO_ID]['commits']) + 1), {'syn/unrelated.txt': b'x\n'})
++        later = w.main
++
++        def edit(w, hist):
++            return [dict(v, commit=later, parent=intro, merge_commit=later) if v['commit'] == intro else v
++                    for v in hist]
++        report_history(w, edit)
++
++    def merge_times(w):
++        _r4_set_ledger(w, _r4_ledger(['m']), 'append')
++        first = w.main
++        _r4_set_ledger(w, _r4_ledger(['m', 'n']), 'append')
++        w.h.merges[(hf.REPO_ID, first)]['merged_at'] = '2026-11-23T00:00:59Z'
++
++    def authority_other_merge_commit(w):
++        _r4_owner_change(w, 5555)
++        w.h.merges[(hf.REPO_ID, w.main)]['merge_commit'] = 'c1'
++
++    def consistent(w):
++        _r4_set_ledger(w, _r4_ledger(['m']), 'append')
++        _r4_set_ledger(w, _r4_ledger(['m', 'n']), 'authority')
++    out = {'merge record names another merge commit': _r4_run(t, other_merge_commit),
++           'version reported at a commit off main\'s first-parent chain': _r4_run(t, off_chain),
++           'version reported at a commit that did not introduce it': _r4_run(t, not_introducing),
++           'merge times do not increase along the history': _r4_run(t, merge_times),
++           'A change whose merge record names another merge commit': _r4_run(t, authority_other_merge_commit),
++           'consistent merge records (positive)': _r4_run(t, consistent)}
++    for k, v in out.items():
++        v['authority_refused'] = 'authority change' in v['message']
++    bad = [v for k, v in out.items() if k.startswith(('merge', 'version'))]
++    check('R4-B2-PROV', 'a freeze-ledger change whose merge record is inconsistent with the commit it claims is '
++          'refused: the record names another merge commit; the version is reported at a commit off main\'s '
++          'first-parent chain; at a commit that did not introduce it; merge times that do not increase; an A change '
++          'whose merge record names another merge commit is refused as well; consistent records are admitted',
++          "the four ledger cases exit 65 naming the freeze-ledger change; the A case exits 65 naming the authority "
++          "change; the consistent case exits 0", out,
++          all(o['exit'] == 65 and o['ledger_refused'] for o in bad) and
++          out['A change whose merge record names another merge commit']['exit'] == 65 and
++          out['A change whose merge record names another merge commit']['authority_refused'] and
++          out['consistent merge records (positive)']['exit'] == 0)
++
++
++def r4_b3_duplicate_controls(r):
++    """B3 (duplicates): an item id given to two items of a record, or two verdicts for one item, is record-invalid;
++    two classes of a class record sharing an id are ERROR CONFIG_INCONSISTENT (S7, Z11), also in chain mode."""
++    from ledger_coverage.engine import records as rec
++
++    def lint(ids, verdicts):
++        d = {'schema': 'oi-hit-classification/1', 'record_id': 'h', 'author': 'writer-a', 'supersedes': None,
++             'classifications': [{'id': i} for i in ids]}
++        db = util.canonical(d)
++        ref = {'path': 'r/h.json', 'blob_sha256': sha(db)}
++        rb = util.canonical({'schema': 'oi-review-record/1', 'reviewer': 'reviewer-b', 'reviewed': ref,
++                             'method': 'read', 'verdicts': [{'item': i, 'verdict': v} for i, v in verdicts]})
++        ab = util.canonical({'schema': 'oi-owner-authorization/1', 'owner': 7, 'time': 't0', 'comment_id': 'c-1',
++                             'authorizes': [{'record': ref, 'review': {'path': 'r/h.review.json',
++                                                                       'blob_sha256': sha(rb)}}]})
++        st = rec.Store([('r/h.json', db), ('r/h.review.json', rb), ('r/h.auth.json', ab)])
++        return rec.lint_chain(ref, st, 7, {sha(x) for x in (db, rb, ab)})
++
++    def dup_class(c):
++        c['classes'].append(dict(c['classes'][0], prefixes=['other/']))
++    acc = [{'item': 'notes', 'verdict': 'accept'}]
++    out = {'lint: distinct ids, one verdict each (positive)': lint(['a', 'b'], [('a', 'accept'), ('b', 'accept')]),
++           'lint: id a given to two items': lint(['a', 'a'], [('a', 'accept')]),
++           'lint: two verdicts for item b (reject, then accept)': lint(['a', 'b'], [('a', 'accept'), ('b', 'reject'),
++                                                                                     ('b', 'accept')]),
++           'op C: two classes with id notes, reviewed and authorized': _r4_class_scenario(r, dup_class, acc + acc),
++           'op C: one class, two verdicts for notes (reject, then accept)': _r4_class_scenario(
++               r, None, [{'item': 'notes', 'verdict': 'reject'}] + acc)}
++    pos = out['lint: distinct ids, one verdict each (positive)']
++    two = out['op C: one class, two verdicts for notes (reject, then accept)']
++    check('R4-B3-DUP', 'an item id given to more than one item of a record, or an item given more than one verdict, '
++          'makes the record record-invalid; a class record defining one class id twice is ERROR CONFIG_INCONSISTENT '
++          '(S7, Z11) in chain mode; distinct ids with one verdict each lint clean',
++          "the positive lint is empty; the duplicate-id lint names the id; the duplicate-verdict lint reports it; "
++          "op C with the duplicate class id stops 65 CONFIG_INCONSISTENT; op C with two verdicts for notes is exit "
++          "20 with record-invalid on syn/classes.json and notes/side.txt unclassified", out,
++          pos == [] and any('more than one item' in x for x in out['lint: id a given to two items']) and
++          any('more than one verdict' in x for x in out['lint: two verdicts for item b (reject, then accept)']) and
++          out['op C: two classes with id notes, reviewed and authorized'].get('exit') == 65 and
++          out['op C: two classes with id notes, reviewed and authorized'].get('stop') == 'CONFIG_INCONSISTENT' and
++          two.get('exit') == 20 and 'syn/classes.json' in two.get('record_invalid', []) and
++          'notes/side.txt' in two.get('unclassified', []))
++
++
++def r4_n2_controls(t):
++    """N2: the consumer predicate hashes the result bytes it is given and requires that hash to equal the run's
++    uploaded artifact and the landing record's result hash."""
++    w = t.world()
++    F = t.freeze(w)
++    w.designate(F)
++    code, res = t.run(w, F)
++    snap = res['config']['admission']['simulated_chain']['snapshot']
++    pins = {'engine': res['engine']['blob_sha256'], 'config': res['config']['blob_sha256'],
++            'adapters': {a['name']: a['module_sha256'] for a in res.get('adapters', [])},
++            'admission': {k: snap[k] for k in ('freeze', 'designation_comment_id', 'pin_table_sha256',
++                                               'authority_sha256')},
++            'repository_id': hf.REPO_ID, 'workflow_path': hf.WF_PATH, 'workflow_sha256': sha(hf.WF),
++            'engine_pins': {}, 'authority_blob_sha256': sha(w.a_bytes)}
++    chain = copy.deepcopy(res)
++    del chain['harness']
++    chain['config']['admission'] = {'mode': 'chain', 'snapshot': snap,
++                                    'snapshot_sha256': res['config']['admission']['snapshot_sha256']}
++    raw = util.dump_result(chain).encode('utf-8')
++    w.h.artifacts[(w.run_id, 'ledger-coverage-result')] = sha(raw)
++    landing = {'evaluated': snap.get('evaluated'), 'artifact_name': 'ledger-coverage-result', 'result_sha256': sha(raw)}
++    forged = copy.deepcopy(chain)
++    forged['covered_paths'] = ['forged/path']
++    forged['items'] = []
++    forged_raw = util.dump_result(forged).encode('utf-8')
++    out = {}
++    for name, data in (('genuine bytes', raw), ('forged bytes, landing quotes the genuine artifact hash', forged_raw),
++                       ('genuine bytes plus one byte', raw + b' ')):
++        try:
++            out[name] = checker.accept_with_host(data, 0, pins, w.h, landing)
++        except Exception as exc:
++            out[name] = '%s: %s' % (type(exc).__name__, exc)
++    check('R4-N2', 'the consumer predicate binds the result it is given to the run\'s uploaded artifact (sec. 5, "the '
++          'result file is that run\'s uploaded artifact, by sha256"): it hashes the raw result bytes itself; a forged '
++          'result presented with a landing record that quotes the genuine artifact\'s hash is not accepted',
++          "accept_with_host(raw bytes, ...) is True for the genuine bytes and False for the forged bytes and for the "
++          "genuine bytes with one byte added", out,
++          out['genuine bytes'] is True and all(v is False for k, v in out.items() if k != 'genuine bytes'))
++
++
+ # ---- acceptance, durable evidence and replay ----------------------------------------------------------------------
+ 
+ def acceptance_controls(r, t):
+@@ -955,12 +1364,12 @@ def acceptance_controls(r, t):
+                      engine_pins={}, authority_blob_sha256=sha(w.a_bytes))
+     landing = {'evaluated': snap.get('evaluated'), 'artifact_name': 'ledger-coverage-result',
+                'result_sha256': sha(raw)}
+-    ok_full = checker.accept_with_host(chain, 0, host_pins, w.h, landing)
++    ok_full = checker.accept_with_host(raw, 0, host_pins, w.h, landing)
+     bad_landing = dict(landing, evaluated={'commit': '0' * 40})
+     check('TR30', 'a result whose evaluated commits differ from the landing record\'s: non-acceptance',
+           "accept_with_host is true for the matching landing record and false for the other",
+-          {'matching': ok_full, 'differing': checker.accept_with_host(chain, 0, host_pins, w.h, bad_landing)},
+-          ok_full and not checker.accept_with_host(chain, 0, host_pins, w.h, bad_landing))
++          {'matching': ok_full, 'differing': checker.accept_with_host(raw, 0, host_pins, w.h, bad_landing)},
++          ok_full and not checker.accept_with_host(raw, 0, host_pins, w.h, bad_landing))
+     gz_bad = checker.deterministic_gzip(raw + b' ')
+     check('TR46', 'a committed compressed result whose uncompressed sha256 differs from the recorded one: refused '
+           'at landing', "verify_compressed is true for the exact bytes and false for the altered ones, and the gzip "
+@@ -1314,7 +1723,11 @@ def main(out_root):
+                                                                              traceback.format_exc()[-1200:]), 'FAIL')
+     if t is not None:
+         for name, fn in (('R3-F1', lambda: f1_controls(t)), ('R3-F2', lambda: f2_controls(r)),
+-                         ('R3-F3', lambda: f3_controls(t))):
++                         ('R3-F3', lambda: f3_controls(t)), ('R4-B1', lambda: r4_b1_controls(t)),
++                         ('R4-B2', lambda: r4_b2_controls(t)), ('R4-B3', lambda: r4_b3_controls(r)),
++                         ('R4-B2-PROV', lambda: r4_b2_provenance_controls(t)),
++                         ('R4-B3-DUP', lambda: r4_b3_duplicate_controls(r)),
++                         ('R4-N2', lambda: r4_n2_controls(t))):
+             try:
+                 fn()
+             except Exception as exc:
+diff --git a/tools/ledger_coverage/authority.json b/tools/ledger_coverage/authority.json
+index 73a73bcbc..561f637e1 100644
+--- a/tools/ledger_coverage/authority.json
++++ b/tools/ledger_coverage/authority.json
+@@ -22,7 +22,7 @@
+   "tools/ledger_coverage/adapters/a1exit_exact_edit.py": "efdc8bf861d8e057f2f50612ef8dea0415705a0815f6bac6e3984fd6a03bf21d",
+   "tools/ledger_coverage/adapters/a1exit_sitemap.py": "b01001bc64d39367f00f9e36502933519ca0b28be3bd4af817679287698dd0e5",
+   "tools/ledger_coverage/adapters/artifact_hash.py": "74f719c9119fb77896868385c1b3142f747dfde6a2c450d4fc3cea1ca0a7a7cf",
+-  "tools/ledger_coverage/adapters/conformance_controls.py": "63bd3423bbde9754e552ed4f0663c4486c242a895e3a858579b6aff809a62596",
++  "tools/ledger_coverage/adapters/conformance_controls.py": "9e040dc2fc239af913ad627aca04e58dad8c39c1ab94520b20e09fd011956695",
+   "tools/ledger_coverage/adapters/deleg_fingerprint_regen.py": "3c86abe926f1f2e7c581a9e8ce88ce60d6bcba3f85e6143bcb1948b600c8f6ab",
+   "tools/ledger_coverage/adapters/deleg_host_run.py": "10e154ca32e5457efca8ec1a18db8bdb83203935f849eab35d5958ea22ea1376",
+   "tools/ledger_coverage/adapters/deleg_preserve_check.py": "e524f675215f354baf41c91b2469c9d4eacc7beb03f3dc21e4f583e177388527",
+@@ -34,23 +34,23 @@
+   "tools/ledger_coverage/adapters/staged_purity_lint.py": "2cc5ece6215d5c6949f5f2d9510d1695f83bd8069166c2737af05a5a151db23e",
+   "tools/ledger_coverage/adapters/synthetic_fixture.py": "b71e0bcdeae6dd4e26f68698260be9f8e3bee84d2e5a876aa23bb2158df430bb",
+   "tools/ledger_coverage/engine/__init__.py": "9a53e22ce914f807e90487dba08c25a2880006148ebfe28e9ee97b7fd185e0f9",
+-  "tools/ledger_coverage/engine/authority.py": "e6a4c9683396d11fdee8690619649f938591385e56cd04ac71801605fdcf1afa",
+-  "tools/ledger_coverage/engine/checker.py": "803218eb4c43bbe4cb1846115b00385f89ab22253d3adccb5393c253d3ba6e03",
+-  "tools/ledger_coverage/engine/cli.py": "d1db751bcef917462fc29bfbe9234146f6b806dd5b15a247de7214cb58f92ae4",
++  "tools/ledger_coverage/engine/authority.py": "95d0c94b34dd3eb955d5557c0d1047d260f3a8f82cd61a31967b1668f7ec17c8",
++  "tools/ledger_coverage/engine/checker.py": "51e7d3b348abee1196caabdc36899c6a2a3a824665c84bad150c836010e2dd34",
++  "tools/ledger_coverage/engine/cli.py": "4ff650a8e21fa03347ce856db127400bafa28d3e6d5171ae5b593df038196689",
+   "tools/ledger_coverage/engine/config.py": "0e7963a2c5af8ed3b3f8ec892660ea389606d170363bd6a1b8f696ac14129c06",
+   "tools/ledger_coverage/engine/context.py": "5980ad55a134fbc15a91ad44e9ee517269599805e433d3abcd72cd001c15b686",
+   "tools/ledger_coverage/engine/controls_engine.py": "229afd4cda6d9a722a725f04c2d04c1e141fe1e4e30002ce1ed58c299ee144b1",
+   "tools/ledger_coverage/engine/delegation.py": "fb0ee3928a0a88c594d63e9b00ec793c1aa51ec858dd94989fc8d51175b0a54b",
+   "tools/ledger_coverage/engine/execution.py": "8436e5aa306df4036a921d52913356ef8ca6213e9678f46b6667e0f9fc08fd82",
+   "tools/ledger_coverage/engine/gitobj.py": "b25e9537aa8db916642c91637199e9512fcdbd45c33535c5cbf72d4bbb48d91a",
+-  "tools/ledger_coverage/engine/host.py": "5573c260b599ea91d6ce2fdf5d413f1b1765f305ec202bc758dfef95660fd9b7",
++  "tools/ledger_coverage/engine/host.py": "de27b681048b8b887965ea7263b5cab7eac14779bdbf953c66281954660dd2d1",
+   "tools/ledger_coverage/engine/outcome.py": "5f868f4019b6892a3337eb1d8ccb057af84d5e4f23f8d4621fd380ac356bb170",
+   "tools/ledger_coverage/engine/peredit.py": "ec8eb2bc59200e621c6f53952e1dda631a09affbb226cee04af281d151b3a38a",
+   "tools/ledger_coverage/engine/pipeline.py": "b0c07371fca20cac86e8e8c046ff814c8817c2a111a2a6fdbfd2a6eb9a17bb65",
+   "tools/ledger_coverage/engine/profiles.py": "9fd62cfb11c5b4799694286012567625edc9c4753ebb9a9c484ffca94a013b0d",
+   "tools/ledger_coverage/engine/purity.py": "ae9fffc5c1423e72e0b6d5e7470b418186a985258f8d321ce854695419c1fdb1",
+   "tools/ledger_coverage/engine/reconcile.py": "bbe8cfc4aad0f306e87c62ee749b903232b56226fadb98d23ccd9bdb1c9e616d",
+-  "tools/ledger_coverage/engine/records.py": "15cc0ae7ee768e0d269981f0967670415e98c2fc4d664f942758c43a9c120512",
++  "tools/ledger_coverage/engine/records.py": "acdd450bc42257ed6520a26033f2b6eefa8f7ae856419c2e404ca2fb08604697",
+   "tools/ledger_coverage/engine/replay.py": "6f26d917a35ae3fdbc16fc088a8ca18abb4104203204ab47e9afeabd4c3fc89b",
+   "tools/ledger_coverage/engine/rules.py": "c0e1e156a3058f4a49201cda2c1fcb4ec4677e4148eab3f39cdbc9517deb6619",
+   "tools/ledger_coverage/engine/schema.py": "6e7fc27f8c20052b692402e17d50f8eb1ab648f5c49faf213d8c8263e87a4d36",
+diff --git a/tools/ledger_coverage/engine/authority.py b/tools/ledger_coverage/engine/authority.py
+index b8eb08244..9306f5666 100644
+--- a/tools/ledger_coverage/engine/authority.py
++++ b/tools/ledger_coverage/engine/authority.py
+@@ -149,6 +149,59 @@ def find_approval(a, cs, name, fields, author_id, before):
+     return hits
+ 
+ 
++def _fresh(hits, consumed, point, what):
++    """Single use (sec. 6.3): an approval comment authorizes exactly one change. Returns the matching comments that
++    no earlier verified change consumed; refuses when every match was consumed."""
++    fresh = [c for c in hits if c['id'] not in consumed]
++    if hits and not fresh:
++        refuse(point, '%s: approval comment %s already authorized an earlier change' % (what, hits[0]['id']))
++    return fresh
++
++
++def _ledger_extension_problem(old, new):
++    """None when the ledger blob `new` extends `old` (sec. 6.3, an append-only list): the events of `old` are a
++    proper prefix of those of `new` and no other field changes. Otherwise the reason."""
++    try:
++        o, n = json.loads(old.decode('utf-8')), json.loads(new.decode('utf-8'))
++    except (ValueError, UnicodeDecodeError):
++        return 'a ledger version is not valid json'
++    if not isinstance(o, dict) or not isinstance(n, dict) or not isinstance(o.get('events'), list) or \
++            not isinstance(n.get('events'), list):
++        return 'a ledger version has no event list'
++    if {k: v for k, v in o.items() if k != 'events'} != {k: v for k, v in n.items() if k != 'events'}:
++        return 'a field other than the events changed'
++    if len(n['events']) <= len(o['events']) or n['events'][:len(o['events'])] != o['events']:
++        return 'the earlier events are not a proper prefix of the later ones'
++    return None
++
++
++def _provenance_problem(host, repo_id, path, main, v, prev_blob, prev_merged_at):
++    """None when the change `v` of `path` has a consistent merge record (sec. 6.3: every change lands by a pull
++    request into main, and its approval predates that merge): a merge time; the merge commit the record names is the
++    change's own commit; that commit is on main's first-parent chain, holds the version, and its first parent holds
++    the previous version (so the history is continuous); and the merge times increase along the history.
++    Otherwise the reason."""
++    if v.get('merged_at') is None:
++        return 'has no merge record'
++    if v.get('merge_commit') != v['commit']:
++        return 'has a merge record that names another commit (%s)' % str(v.get('merge_commit'))[:12]
++    try:
++        on_main = host.on_first_parent_chain(repo_id, v['commit'], main)
++        here = host.file_at(repo_id, v['commit'], path)
++        before = host.file_at(repo_id, v['parent'], path) if v.get('parent') else None
++    except HostUnavailable as exc:
++        refuse('history', 'the merge record of %s cannot be checked: %s' % (v['commit'][:12], exc))
++    if not on_main:
++        return 'is not on main\'s first-parent chain'
++    if here != v['blob']:
++        return 'does not hold the recorded version'
++    if before != prev_blob:
++        return 'is not the commit that introduced its version after the previous one'
++    if prev_merged_at is not None and not v['merged_at'] > prev_merged_at:
++        return 'has a merge time that does not follow the previous change\'s'
++    return None
++
++
+ # ---- the authority-change procedure ---------------------------------------------------------------------------
+ 
+ def review_path(a, to_sha):
+@@ -177,21 +230,30 @@ def in_force(host, repo_id, a_versions, commit):
+     return got
+ 
+ 
+-def verify_history(host, repo_id, path, governing, main, kind, plan_threads=None, a_versions=None):
++def verify_history(host, repo_id, path, governing, main, kind, plan_threads=None, a_versions=None, consumed=None):
+     """Every version of `path` on main passed its approval procedure. kind: 'authority' or 'ledger'.
+     Returns the list of versions with their approvals. For kind 'authority', `a_versions` (a list) receives
+     (commit, parsed A) for every verified version; for kind 'ledger' it supplies them, and each ledger change is
+-    approved by the owner of the version in force when it merged."""
++    approved by the owner of the version in force when it merged. `consumed` (a set, shared between the authority
++    and the ledger histories) holds the approval comment ids already used: each comment authorizes one change.
++    Each ledger version extends the previous one, and each ledger change has a merge record."""
++    if consumed is None:
++        consumed = set()
+     try:
+         hist = host.file_history(repo_id, path)
+     except HostUnavailable as exc:
+         refuse('history', 'the history of %s cannot be read: %s' % (path, exc))
+     out = []
+-    prev_blob, prev_a = None, None
++    prev_blob, prev_a, prev_merged_at = None, None, None
+     for v in hist:
+         blob = v['blob']
+         if blob is None:
+             refuse('history', '%s was deleted on main' % path)
++        # every version, of A and of the ledger, landed by a verifiable pull-request merge (sec. 6.3)
++        why = _provenance_problem(host, repo_id, path, main, v, prev_blob, prev_merged_at)
++        if why:
++            refuse('authority' if kind == 'authority' else 'ledger', '%s change %s %s' % (
++                'authority' if kind == 'authority' else 'freeze-ledger', v['commit'][:12], why))
+         new_sha = util.sha256(blob)
+         old_sha = util.sha256(prev_blob) if prev_blob is not None else 'none'
+         if kind == 'authority':
+@@ -202,15 +264,19 @@ def verify_history(host, repo_id, path, governing, main, kind, plan_threads=None
+                 refuse('authority', 'the authority record does not supersede the previous one')
+             gov = prev_a or new_a
+             cs = read_thread(host, gov['authority_thread']['repository_id'], gov['authority_thread']['issue'])
+-            hits = find_approval(gov, cs, 'authority-approve', {'frm': old_sha, 'to': new_sha}, gov['owner']['id'],
+-                                 v.get('merged_at'))
++            what = 'authority change %s' % v['commit'][:12]
++            hits = _fresh(find_approval(gov, cs, 'authority-approve', {'frm': old_sha, 'to': new_sha},
++                                        gov['owner']['id'], v.get('merged_at')), consumed, 'authority', what)
+             if len(hits) != 1:
+                 refuse('authority', 'authority change %s has %d valid approvals by the owner id' % (v['commit'][:12],
+                                                                                                    len(hits)))
++            used = [hits[0]['id']]
+             if prev_a is not None and new_a['owner']['id'] != prev_a['owner']['id']:
+-                if len(find_approval(gov, cs, 'authority-approve', {'frm': old_sha, 'to': new_sha},
+-                                     new_a['owner']['id'], v.get('merged_at'))) != 1:
++                co = _fresh(find_approval(gov, cs, 'authority-approve', {'frm': old_sha, 'to': new_sha},
++                                          new_a['owner']['id'], v.get('merged_at')), consumed, 'authority', what)
++                if len(co) != 1:
+                     refuse('authority', 'an owner-id change needs the approval of the new id as well')
++                used.append(co[0]['id'])
+             if v.get('merged_by_id') != gov['owner']['id']:
+                 refuse('authority', 'authority change %s was merged by another account' % v['commit'][:12])
+             rv = host.file_at(repo_id, main, review_path(new_a, new_sha))
+@@ -223,30 +289,42 @@ def verify_history(host, repo_id, path, governing, main, kind, plan_threads=None
+                     rvd.get('reviewer') in (None, gov['owner']['login']) or \
+                     any(x.get('verdict') != 'accept' for x in rvd.get('verdicts', [])) or not rvd.get('verdicts'):
+                 refuse('authority', 'authority change %s has no valid independent review record' % v['commit'][:12])
++            consumed.update(used)
+             prev_a = new_a
+             if a_versions is not None:
+                 a_versions.append((v['commit'], new_a))
+             out.append({'commit': v['commit'], 'blob_sha256': new_sha, 'approval': hits[0]['id'],
+                         'owner_id': new_a['owner']['id']})
+         else:
++            what = 'freeze-ledger change %s' % v['commit'][:12]
++            # the ledger is append-only (sec. 6.3): each version extends the previous one, so no change can be
++            # reverted and re-applied under an approval already given
++            if prev_blob is not None:
++                why = _ledger_extension_problem(prev_blob, blob)
++                if why:
++                    refuse('ledger', '%s is not an append: %s' % (what, why))
+             # the approver is the owner of the version of A in force when this ledger change merged (sec. 6.3); the
+             # owner of a superseded version keeps no authority over a change merged after its supersession
+             a = in_force(host, repo_id, a_versions, v['commit']) if a_versions else governing
+             oid = a['owner']['id']
+             cs_auth = read_thread(host, a['authority_thread']['repository_id'], a['authority_thread']['issue'])
+-            ok = find_approval(a, cs_auth, 'authority-approve', {'frm': old_sha, 'to': new_sha}, oid,
+-                               v.get('merged_at'))
+-            if not ok:
++            hits = find_approval(a, cs_auth, 'authority-approve', {'frm': old_sha, 'to': new_sha}, oid,
++                                 v.get('merged_at'))
++            if not [c for c in hits if c['id'] not in consumed]:
+                 for (rid, issue), (plan, rnd) in (plan_threads or {}).items():
+                     cs = read_thread(host, rid, issue)
+-                    ok += find_approval(a, cs, 'ledger-append', {'frm': old_sha, 'to': new_sha}, oid,
+-                                        v.get('merged_at'))
+-                    if ok:
++                    h = find_approval(a, cs, 'ledger-append', {'frm': old_sha, 'to': new_sha}, oid,
++                                      v.get('merged_at'))
++                    hits += h
++                    if [c for c in h if c['id'] not in consumed]:
+                         break
++            ok = _fresh(hits, consumed, 'ledger', what)
+             if len(ok) != 1:
+-                refuse('ledger', 'freeze-ledger change %s has no verified approval comment' % v['commit'][:12])
++                refuse('ledger', '%s has no verified approval comment' % what)
++            consumed.add(ok[0]['id'])
+             out.append({'commit': v['commit'], 'blob_sha256': new_sha, 'approval': ok[0]['id']})
+         prev_blob = blob
++        prev_merged_at = v['merged_at']
+     return out
+ 
+ 
+@@ -324,7 +402,9 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
+             refuse('identity', 'tool file %s at the run\'s commit differs from its pin' % p)
+     # the authority-change procedure over every version of A on main
+     a_versions = []
+-    versions = verify_history(host, repo_id, authority_path, None, main, 'authority', a_versions=a_versions)
++    consumed = set()
++    versions = verify_history(host, repo_id, authority_path, None, main, 'authority', a_versions=a_versions,
++                              consumed=consumed)
+     if not versions or versions[-1]['blob_sha256'] != util.sha256(a_bytes):
+         refuse('authority', 'the authority record on main has no verified history')
+     # F must contain A, a verified version
+@@ -358,7 +438,7 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
+     if ledger.get('schema') != ledger_schema or not isinstance(ledger.get('events'), list):
+         refuse('ledger', 'the freeze ledger is not an oi-freeze-ledger/1 record')
+     led_versions = verify_history(host, repo_id, a['freeze_ledger_path'], a, main, 'ledger',
+-                                  {thread: (plan_id, round_id)}, a_versions=a_versions)
++                                  {thread: (plan_id, round_id)}, a_versions=a_versions, consumed=consumed)
+     if not led_versions or led_versions[-1]['blob_sha256'] != util.sha256(led_b):
+         refuse('ledger', 'the freeze ledger on main has no verified history')
+     snap_events = []
+diff --git a/tools/ledger_coverage/engine/checker.py b/tools/ledger_coverage/engine/checker.py
+index db0aa45c5..573f4ec84 100644
+--- a/tools/ledger_coverage/engine/checker.py
++++ b/tools/ledger_coverage/engine/checker.py
+@@ -57,10 +57,18 @@ def accept(doc, exit_status, pins):
+     return True
+ 
+ 
+-def accept_with_host(doc, exit_status, pins, host, landing):
+-    """The full predicate: the offline part, then trust-root points 1-3 repeated from the host by the consumer,
+-    the evaluated commits against the landing record, and the result file against the run's artifact."""
+-    if not accept(doc, exit_status, pins):
++def accept_with_host(raw, exit_status, pins, host, landing):
++    """The full predicate over the result file's raw bytes: the offline part, then trust-root points 1-3 repeated
++    from the host by the consumer, the evaluated commits against the landing record, and the result file against the
++    run's artifact. The consumer hashes the bytes it is given itself: their sha256 must equal the run's uploaded
++    artifact and the landing record's result hash (sec. 5), and the predicate is evaluated on exactly those bytes."""
++    if not isinstance(raw, bytes):
++        return False
++    try:
++        doc = json.loads(raw.decode('utf-8'))
++    except (ValueError, UnicodeDecodeError):
++        return False
++    if not isinstance(doc, dict) or not accept(doc, exit_status, pins):
+         return False
+     snap = doc['config']['admission']['snapshot']
+     run = host.run_record(snap['run']['run_id'], pins['repository_id'])
+@@ -96,7 +104,7 @@ def accept_with_host(doc, exit_status, pins, host, landing):
+     if snap.get('evaluated') != landing.get('evaluated'):
+         return False
+     art = host.artifact_sha256(run['repository_id'], snap['run']['run_id'], landing.get('artifact_name'))
+-    if art is None or art != landing.get('result_sha256'):
++    if art is None or art != landing.get('result_sha256') or hashlib.sha256(raw).hexdigest() != art:
+         return False
+     return True
+ 
+diff --git a/tools/ledger_coverage/engine/cli.py b/tools/ledger_coverage/engine/cli.py
+index f3194f29e..41f164328 100644
+--- a/tools/ledger_coverage/engine/cli.py
++++ b/tools/ledger_coverage/engine/cli.py
+@@ -1028,6 +1028,9 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
+         # not used
+         probs = [] if records.harness else rec.lint_chain(r, loaded.store, cfg['retirement']['owner'],
+                                                           loaded.admitted)
++        # a class without its id field is a field error in every mode (sec. 6.3); it is never used
++        probs = probs or ['record %s: %s entry %d lacks its id field' % ((r['path'],) + m)
++                          for m in rec.entries_without_id(d)[:1]]
+         if probs:
+             records.items.append(oc.make_item('RECORD', 'record-invalid', r['path'], None,
+                                               {'sha': r['blob_sha256'], 'why': probs[0]}, detail=probs))
+@@ -1042,6 +1045,12 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
+         if d is None:
+             continue
+         if d.get('schema') == 'oi-side-change-classes/1':
++            missing = rec.entries_without_id(d)
++            if missing:
++                records.items.append(oc.make_item('RECORD', 'record-invalid', d['_ref']['path'], None,
++                                                  {'sha': d['_ref']['blob_sha256'],
++                                                   'why': '%s entry %d lacks its id field' % missing[0]}))
++                continue
+             if d['_ref']['path'] not in record_refs:
+                 class_docs.append(d)
+                 side += d.get('classes', [])
+diff --git a/tools/ledger_coverage/engine/host.py b/tools/ledger_coverage/engine/host.py
+index 4a7246af8..d13ee0ec6 100644
+--- a/tools/ledger_coverage/engine/host.py
++++ b/tools/ledger_coverage/engine/host.py
+@@ -44,7 +44,7 @@ class MemoryHost:
+     def add_commit(self, repo_id, cid, parents, files, merged_by=None, merged_at=None):
+         self.repos[repo_id]['commits'][cid] = {'parents': list(parents), 'files': dict(files)}
+         if merged_by is not None:
+-            self.merges[(repo_id, cid)] = {'merged_by_id': merged_by, 'merged_at': merged_at}
++            self.merges[(repo_id, cid)] = {'merged_by_id': merged_by, 'merged_at': merged_at, 'merge_commit': cid}
+ 
+     def _need(self, what):
+         if what in self.fail:
+@@ -99,7 +99,8 @@ class MemoryHost:
+         return commit in self.first_parents(repo_id, head)
+ 
+     def file_history(self, repo_id, path):
+-        """Commits on main's first-parent chain whose `path` differs from their first parent's, oldest first."""
++        """Commits on main's first-parent chain whose `path` differs from their first parent's, oldest first, each
++        with its first parent and the host's merge record (merged_by_id, merged_at, and the merge commit it names)."""
+         self._need('history')
+         out = []
+         for c in reversed(self.first_parents(repo_id, self.repos[repo_id]['main'])):
+@@ -108,8 +109,9 @@ class MemoryHost:
+             before = self.repos[repo_id]['commits'][par]['files'].get(path) if par else None
+             if cm['files'].get(path) != before:
+                 m = self.merges.get((repo_id, c), {})
+-                out.append({'commit': c, 'blob': cm['files'].get(path), 'merged_by_id': m.get('merged_by_id'),
+-                            'merged_at': m.get('merged_at')})
++                out.append({'commit': c, 'parent': par, 'blob': cm['files'].get(path),
++                            'merged_by_id': m.get('merged_by_id'), 'merged_at': m.get('merged_at'),
++                            'merge_commit': m.get('merge_commit')})
+         return out
+ 
+     def comments(self, repo_id, issue):
+@@ -233,8 +235,10 @@ class RestHost:
+                 pulls = self._json('/repositories/%d/commits/%s/pulls' % (repo_id, c['sha']))
+                 merged = [p for p in pulls if p.get('merge_commit_sha') == c['sha']]
+                 m = self._json(merged[0]['url']) if merged else {}
+-                out.append({'commit': c['sha'], 'blob': self.file_at(repo_id, c['sha'], path),
+-                            'merged_by_id': (m.get('merged_by') or {}).get('id'), 'merged_at': m.get('merged_at')})
++                out.append({'commit': c['sha'], 'parent': (c.get('parents') or [{}])[0].get('sha'),
++                            'blob': self.file_at(repo_id, c['sha'], path),
++                            'merged_by_id': (m.get('merged_by') or {}).get('id'), 'merged_at': m.get('merged_at'),
++                            'merge_commit': m.get('merge_commit_sha')})
+             if len(cs) < 100:
+                 break
+             page += 1
+diff --git a/tools/ledger_coverage/engine/records.py b/tools/ledger_coverage/engine/records.py
+index 031201189..d54fba93c 100644
+--- a/tools/ledger_coverage/engine/records.py
++++ b/tools/ledger_coverage/engine/records.py
+@@ -13,13 +13,37 @@ record_schemas = ('oi-term-rules/2', 'oi-hp-adjudication/1', 'oi-context-adjudic
+ _url = re.compile(r'://|/runs/|/actions|check[-_ ]run|/issues/\d+$|^#\d+$|/pull/\d+$')
+ 
+ 
++item_lists = (('rules', 'id'), ('sites', 'site_id'), ('entries', 'id'), ('classifications', 'id'), ('records', 'id'),
++              ('classes', 'id'))
++
++
++def entries_without_id(doc):
++    """[(list key, index)] of every entry of an item list that is not an object carrying its id field as a non-empty
++    string (sec. 6.3: a missing field is record-invalid)."""
++    if not isinstance(doc, dict) or doc.get('schema') == 'oi-retirement-config/1':
++        return []
++    out = []
++    for key, idf in item_lists:
++        if isinstance(doc.get(key), list):
++            out += [(key, i) for i, x in enumerate(doc[key])
++                    if not (isinstance(x, dict) and isinstance(x.get(idf), str) and x[idf])]
++    return out
++
++
+ def item_ids(doc):
++    """The item ids a review gives one verdict each (sec. 6.3). The ids of every non-empty item list; a record with
++    no item list is one item, its record id. A record any of whose list entries lacks its id field has no item ids,
++    and is record-invalid: the record id never stands in for an entry's id."""
+     if doc.get('schema') == 'oi-retirement-config/1':
+         return [doc.get('config_id')]
+-    for key, idf in (('rules', 'id'), ('sites', 'site_id'), ('entries', 'id'), ('classifications', 'id'),
+-                     ('records', 'id'), ('classes', 'id')):
+-        if isinstance(doc.get(key), list) and doc[key] and all(isinstance(x, dict) and idf in x for x in doc[key]):
+-            return sorted(x[idf] for x in doc[key])
++    if entries_without_id(doc):
++        return []
++    ids = []
++    for key, idf in item_lists:
++        if isinstance(doc.get(key), list):
++            ids += [x[idf] for x in doc[key]]
++    if ids:
++        return sorted(ids)
+     for key in ('config_id', 'record_id', 'site_id', 'id'):
+         if isinstance(doc.get(key), str):
+             return [doc[key]]
+@@ -126,7 +150,18 @@ def lint_chain(ref, store, owner, admitted_shas):
+         else:
+             out.append('record %s: no review record' % ref['path'])
+         return out
++    missing = entries_without_id(doc)
++    if missing:
++        out.append('record %s: %s entry %d lacks its id field' % ((ref['path'],) + missing[0]))
++        return out
+     ids = item_ids(doc)
++    # one verdict per item id (sec. 6.3): an id given to two items is record-invalid. Two classes of a side-change
++    # class record sharing an id are instead the configuration inconsistency of S7 (ERROR CONFIG_INCONSISTENT,
++    # control Z11), raised where the classes are collected
++    dup = sorted({i for i in ids if ids.count(i) > 1})
++    if dup and doc.get('schema') != 'oi-side-change-classes/1':
++        out.append('record %s: item id %s is given to more than one item' % (ref['path'], dup[0]))
++        return out
+     if not ids:
+         # a review gives one verdict per item id (sec. 6.3); a record whose items cannot be identified is refused
+         # rather than covered by a single verdict
+@@ -140,6 +175,9 @@ def lint_chain(ref, store, owner, admitted_shas):
+         if rv.get('reviewer') == author:
+             bad.append('reviewer equals author')
+         verdicts = {v.get('item'): v.get('verdict') for v in rv.get('verdicts', []) if isinstance(v, dict)}
++        named = [v.get('item') for v in rv.get('verdicts', []) if isinstance(v, dict)]
++        if len(named) != len(set(named)):
++            bad.append('an item has more than one verdict')
+         if set(ids) - set(verdicts):
+             bad.append('verdicts do not cover every item')
+         if any(verdicts.get(i) != 'accept' for i in ids):
+diff --git a/verification/audits/foundations/ledger-coverage-tool-20261123/README.md b/verification/audits/foundations/ledger-coverage-tool-20261123/README.md
+index f51bede25..d25af2ed8 100644
+--- a/verification/audits/foundations/ledger-coverage-tool-20261123/README.md
++++ b/verification/audits/foundations/ledger-coverage-tool-20261123/README.md
+@@ -25,14 +25,14 @@ scientific question and no row disposition.
+ | `records/repo-scope-v1.json` | `oi-scope/1` | the scope of the `repo` profile (item 11) |
+ | `rules/register-infinity-params-v1.json` | `oi-term-rules/2` | the per-edit parameters of items 5 and 6 that are not extractable assignments of the plan's checker (kind `params`), linted against that checker |
+ | `records/side-change-classes-v1.json` | `oi-side-change-classes/1` | the class `tool-landing` only: every path this tool's landing adds, each with its exact blob |
++| `freeze/freeze-ledger.json` | `oi-freeze-ledger/1` | the empty freeze ledger (it lands on `main` with the authority record) |
++| `workflow-draft/ledger-coverage.yml` | workflow | the one workflow whose runs may produce an acceptable result; its content hash is pinned in the authority record under `.github/workflows/ledger-coverage.yml`, where it must land unchanged |
+ 
+ The A1 configuration `retirement-config.json` (`oi-retirement-config/1`) is not part of this landing. It
+ belongs in the retirement plan's record directory, `verification/audits/foundations/a1exit-deletion-20261121/`,
+ frozen with the plan at `F` with its review and authorization (design sec. 16.2), and it pins the class record
+ above; the class record pins every other path of this landing. Until then it exists only as an unreviewed,
+ unauthorized draft outside the repository, and the A1 controls read it with `--staged-config`.
+-| `freeze/freeze-ledger.json` | `oi-freeze-ledger/1` | the empty freeze ledger (it lands on `main` with the authority record) |
+-| `workflow-draft/ledger-coverage.yml` | workflow | the one workflow whose runs may produce an acceptable result; its content hash is pinned in the authority record under `.github/workflows/ledger-coverage.yml`, where it must land unchanged |
+ 
+ ## Limitations (stated, not closed)
+ 
+diff --git a/verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json b/verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json
+index 29ddaca14..b30e3aa23 100644
+--- a/verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json
++++ b/verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json
+@@ -54,8 +54,8 @@
+     },
+     {
+      "path": "tools/ledger_coverage/adapters/conformance_controls.py",
+-     "git_blob": "613f21b5db8dfe2ab0ed93febf14e038c064ca5e",
+-     "blob_sha256": "63bd3423bbde9754e552ed4f0663c4486c242a895e3a858579b6aff809a62596"
++     "git_blob": "e21a4bc3939b4e487146cc8dab8042fcb6482829",
++     "blob_sha256": "9e040dc2fc239af913ad627aca04e58dad8c39c1ab94520b20e09fd011956695"
+     },
+     {
+      "path": "tools/ledger_coverage/adapters/deleg_fingerprint_regen.py",
+@@ -109,8 +109,8 @@
+     },
+     {
+      "path": "tools/ledger_coverage/authority.json",
+-     "git_blob": "73a73bcbc918bb5d7587d9b3ac5959a7430f3710",
+-     "blob_sha256": "b67e8695ceb02842db7daf6e30c37d46317bc92fc72b94dc0cd78ed92b3eedc6"
++     "git_blob": "561f637e1274683bc3423966454453adfe9eccdb",
++     "blob_sha256": "695451fe5f5ba519e026a25abf05999e1311ecf5e3ed48497f525ffb5cc70b16"
+     },
+     {
+      "path": "tools/ledger_coverage/engine/__init__.py",
+@@ -119,18 +119,18 @@
+     },
+     {
+      "path": "tools/ledger_coverage/engine/authority.py",
+-     "git_blob": "b8eb0824465493bdf1ddcc64936e3acbf9e38c5d",
+-     "blob_sha256": "e6a4c9683396d11fdee8690619649f938591385e56cd04ac71801605fdcf1afa"
++     "git_blob": "9306f566646c26c70320e640607e02e0fde4fbb6",
++     "blob_sha256": "95d0c94b34dd3eb955d5557c0d1047d260f3a8f82cd61a31967b1668f7ec17c8"
+     },
+     {
+      "path": "tools/ledger_coverage/engine/checker.py",
+-     "git_blob": "db0aa45c54a3250ef52c8440fd6101df5240a797",
+-     "blob_sha256": "803218eb4c43bbe4cb1846115b00385f89ab22253d3adccb5393c253d3ba6e03"
++     "git_blob": "573f4ec8471d792026b07f0a5b51a6a89c05e37a",
++     "blob_sha256": "51e7d3b348abee1196caabdc36899c6a2a3a824665c84bad150c836010e2dd34"
+     },
+     {
+      "path": "tools/ledger_coverage/engine/cli.py",
+-     "git_blob": "f3194f29eb76df67bdcb26bae963ce439c8e8dad",
+-     "blob_sha256": "d1db751bcef917462fc29bfbe9234146f6b806dd5b15a247de7214cb58f92ae4"
++     "git_blob": "41f1643288c49cf20d0fa7be0bc03066df697d93",
++     "blob_sha256": "4ff650a8e21fa03347ce856db127400bafa28d3e6d5171ae5b593df038196689"
+     },
+     {
+      "path": "tools/ledger_coverage/engine/config.py",
+@@ -164,8 +164,8 @@
+     },
+     {
+      "path": "tools/ledger_coverage/engine/host.py",
+-     "git_blob": "4a7246af87eb117a10b7b4f696d759bd1182639c",
+-     "blob_sha256": "5573c260b599ea91d6ce2fdf5d413f1b1765f305ec202bc758dfef95660fd9b7"
++     "git_blob": "d13ee0ec6cffce0961b9d173a833af1af17f973f",
++     "blob_sha256": "de27b681048b8b887965ea7263b5cab7eac14779bdbf953c66281954660dd2d1"
+     },
+     {
+      "path": "tools/ledger_coverage/engine/outcome.py",
+@@ -199,8 +199,8 @@
+     },
+     {
+      "path": "tools/ledger_coverage/engine/records.py",
+-     "git_blob": "0312011897c6a550fca6eba8493ed63299a327fa",
+-     "blob_sha256": "15cc0ae7ee768e0d269981f0967670415e98c2fc4d664f942758c43a9c120512"
++     "git_blob": "d54fba93c4c30efdf5704e88cc4845a9a3eea19b",
++     "blob_sha256": "acdd450bc42257ed6520a26033f2b6eefa8f7ae856419c2e404ca2fb08604697"
+     },
+     {
+      "path": "tools/ledger_coverage/engine/replay.py",
+@@ -239,8 +239,8 @@
+     },
+     {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/README.md",
+-     "git_blob": "f51bede25baee950086dc86bd505d4bc03ea05eb",
+-     "blob_sha256": "44d7e159ac05707038ea9fbf4718b4e63e51001a049e07366ccbbf99f0a0e14c"
++     "git_blob": "d25af2ed891600c0c6fa03bb919985c96c19e191",
++     "blob_sha256": "9e4dac7aa24c48fa6465c01005b52b1d315034fa613333aa8d95baa6ebe15367"
+     },
+     {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/controls.json",

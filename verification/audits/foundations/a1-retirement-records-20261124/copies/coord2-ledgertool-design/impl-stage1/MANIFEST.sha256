@@ -1,0 +1,17 @@
+9093f93a002fcc2dfa5574468ed15bf37044a6434c59b2f2d81d3eecde7cad9f  ./REPORT.md
+bc45435f829a8e2a379630d3537846569a3174dc043c66beaece55bfa809937d  ./diff.patch
+27544ff7b9f740cb8642ff71ad59964e44c57a8b7cd9b68726a6aeced0d12608  ./logs/a1-controls.json
+36389d26bb0c86fccefeeb1dfc2176653385ccce2fb38e019b67edda3708615c  ./logs/a1-controls.stdout
+a29a84763fe4759b6ebbecbacb159b7776f8e089e23d6272b5228f949c19de33  ./logs/cli-smoke.log
+2b37de3e17faecbcc9b060b5ba645b185c59a6aec4ce43706271d5b5c1ca20be  ./logs/commits.txt
+2a145ba34c3b1cb8d21091e5c28e5f0dc697457e0ae2abe3565a31cb55d274fe  ./logs/controls-table.md
+b8348f58f23ff721eb446138e3d2a8392ae7527207778d52873b6494a78ff230  ./logs/determinism.json
+18f506f371ca8256792e07c1260f27a4bc21cb8afde41a510c407212c38fcd86  ./logs/diffstat.txt
+a376822ecb86d500b8ec33c28cc2b29b0c38d3516a17b9342eff69faf8518a5c  ./logs/engine-self-test-result.json
+c36facc1158ea087a30a640a842e933ed5270d877bf1d93f3c76e3884f053d1a  ./logs/name-status.txt
+a1b1ec75bb6d2a3c626cbca5b6104567add84b9ed3587f87006fe39aff3ae620  ./logs/purity-lint-result.json
+79e449344f25e6d52e895ccf916767762730233864841c5b39e4ba2376b96dff  ./logs/release-gate-branch-final.log
+79e449344f25e6d52e895ccf916767762730233864841c5b39e4ba2376b96dff  ./logs/release-gate-main-4fb2c1ee.log
+175cf8473c9655a78936b10d551e608836eb22d21bb0c2a7ac0e495dd6337a97  ./logs/resid-table.json
+961e7dcb48fa0a95d6020d4a65ffc7f183c34254ebf36e6b311c649cdeec7cf5  ./logs/sentence-alternatives.json
+41c4e8a8373c019e64f645935ebbfa2443454b18e98d648eb21c3d1a36331bb6  ./logs/synthetic-controls.stdout

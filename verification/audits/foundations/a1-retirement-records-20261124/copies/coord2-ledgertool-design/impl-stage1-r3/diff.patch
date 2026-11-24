@@ -1,0 +1,1741 @@
+diff --git a/tools/ledger_coverage/adapters/a1_conformance.py b/tools/ledger_coverage/adapters/a1_conformance.py
+index 7abd5a22b..0ff62ebd2 100644
+--- a/tools/ledger_coverage/adapters/a1_conformance.py
++++ b/tools/ledger_coverage/adapters/a1_conformance.py
+@@ -4,7 +4,8 @@ composition (N3-N18, with N10 and N11 pinned to main 8e9b8334 and T1'), and the
+ R19). Every run uses the control harness (the A1 records are unreviewed drafts); mutant trees, ledgers and
+ records exist only in memory. Each control is reported as {id, expected, predicate, actual, status}.
+ 
+-Usage: python3 -I -B tools/ledger_coverage/adapters/a1_conformance.py --repo DIR --config REV:PATH --out DIR
++Usage: python3 -I -B tools/ledger_coverage/adapters/a1_conformance.py --repo DIR --config REV:PATH --staged-config FILE
++       --out DIR (PATH: the staged configuration's path in the plan's record directory; see a1_controls.py)
+ """
+ import argparse
+ import copy
+@@ -75,9 +76,10 @@ def wb_controls(a):
+     text = a.repo.read(T, CH19).decode()
+     full = a.repo.read(T, FULL).decode()
+ 
+-    def run(files, extra=(), control=None):
++    def run(files, extra=(), control=None, profile=None):
+         x = a.repo.derive(T, {k: v.encode() for k, v in files.items()}, parents=[H], subject='WB')
+-        code, res, _ = a.run(['terms', '--commit', x, '--check', 'item7'] + list(extra), control=control)
++        sel = ['--profile', profile] if profile else ['--check', 'item7']
++        code, res, _ = a.run(['terms', '--commit', x] + sel + list(extra), control=control)
+         return x, code, res
+     _, code, res = run({})
+     l_full = line_of(full, s)
+@@ -165,10 +167,18 @@ def wb_controls(a):
+     check('WB11', 'lint: a rule whose fingerprinted sentence fails its own rule (W1-c with no allowance): FAIL '
+           'record-invalid', "exit 20 with record-invalid for the rule file", wb11,
+           wb11[0] == 20 and wb11[1] == ['record-invalid'])
++    # WB12 is V7a (sec. 10.2: V2 with DR-3 removed from the profile set) on the W1-c sentence: item 7's profile set
++    # less DR-3, so step 3 (the rule's negative matcher) is reached; deny-first order (sec. 6.2) is unchanged
+     s12 = s.replace('of the bijection)', 'of the bijection, one of which is total finiteness,)', 1)
+-    _, code, res = run({CH19: text.replace(s, s12)})
++    cfg = json.loads(a.repo.read(a.crev, a.cpath))
++    v7a = [n for n in [c for c in cfg['checks'] if c['id'] == 'item7'][0]['profiles'] if n != 'DR-3']
++    _, code, res = run({CH19: text.replace(s, s12)}, profile=','.join(v7a))
++    its = [(i['class'], str(i.get('rule_id'))) for i in res.get('items', [])
++           if i.get('file') == CH19 and i.get('line') == ln]
+     check('WB12', 'V7a on the W1-c sentence (", one of which is total finiteness,"): FAIL rule-negative-match',
+-          "the line has rule-negative-match", items_at(res, CH19, ln), 'rule-negative-match' in items_at(res, CH19, ln))
++          "profile set = item7 less DR-3 (%s); exit 20; the line has rule-negative-match of W1-c and no deny-match"
++          % ','.join(v7a), {'exit': code, 'items': its},
++          code == 20 and ('rule-negative-match', 'W1-c') in its and not [x for x in its if x[0] == 'deny-match'])
+     lines = text.split('\n')
+     para = lines[ln - 1]
+     t13 = '\n'.join(lines[:ln - 1] + lines[ln:]).rstrip('\n') + '\n\n' + para + '\n'
+@@ -556,9 +566,11 @@ def main():
+     ap.add_argument('--config', required=True)
+     ap.add_argument('--out', required=True)
+     ap.add_argument('--only', default=None)
++    ap.add_argument('--staged-config', default=None,
++                    help='the staged configuration file; --config REV:PATH names its path in the plan directory')
+     args = ap.parse_args()
+     os.makedirs(args.out, exist_ok=True)
+-    a = a1c.A1(args.repo, args.config, args.out)
++    a = a1c.A1(args.repo, args.config, args.out, args.staged_config)
+     groups = [('WB', wb_controls), ('S11', s11_controls), ('N', n_controls)]
+     for name, fn in groups:
+         if args.only and name not in args.only.split(','):
+diff --git a/tools/ledger_coverage/adapters/a1_controls.py b/tools/ledger_coverage/adapters/a1_controls.py
+index ffb185c7d..253f35fc0 100644
+--- a/tools/ledger_coverage/adapters/a1_controls.py
++++ b/tools/ledger_coverage/adapters/a1_controls.py
+@@ -7,8 +7,14 @@ configuration is admitted without its review chain and each result says so. Unde
+ configuration is refused (ERROR CONFIG_UNREVIEWED); control CHAIN-REFUSAL shows it. Mutant trees, ledgers and
+ evidence exist only in memory or under the output directory.
+ 
+-Usage: python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo DIR --config REV:PATH --out DIR
+-       [--only ID,ID] [--skip-sweeps]
++The configuration does not land with the tool (design sec. 16.2): it belongs in the retirement plan's record
++directory, frozen with the plan at F. A staged draft is given with --staged-config FILE and --config REV:PATH,
++where PATH is its path in the plan's record directory; the runner builds an in-memory stand-in for F, REV's tree
++plus the staged file at PATH, and reads the configuration from it. The predicted main carries only the tool's
++landing.
++
++Usage: python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo DIR --config REV:PATH
++       --staged-config FILE --out DIR [--only ID,ID] [--skip-sweeps]
+ """
+ import argparse
+ import collections
+@@ -45,16 +51,28 @@ def sha(b):
+     return hashlib.sha256(b).hexdigest()
+ 
+ 
++def simulated_freeze(repo, rev, path, staged_bytes):
++    """An in-memory stand-in for F: rev's tree with the staged configuration at its plan-directory path."""
++    return repo.derive(rev, {path: staged_bytes}, parents=[rev],
++                       subject='stand-in for F: the staged configuration in the plan record directory')
++
++
+ class A1:
+-    def __init__(self, repo_path, config_ref, out_root):
++    def __init__(self, repo_path, config_ref, out_root, staged=None):
+         self.base = gitobj.GitRepo(repo_path)
+         self.repo = gitobj.Overlay(self.base)
+         self.repo_path = repo_path
+         rev, self.cpath = config_ref.split(':', 1)
+         self.crev = self.repo.resolve(rev) if rev in self.repo.mem else self.base.resolve(rev)
++        self.tool_rev = self.crev
++        if staged is not None:
++            with open(staged, 'rb') as f:
++                self.crev = simulated_freeze(self.repo, self.crev, self.cpath, f.read())
+         data = self.repo.read(self.crev, self.cpath)
+         self.csha = sha(data) if data is not None else None
+-        self.ad = self.cpath.rsplit('/', 1)[0] + '/'
++        # the tool's record directory: where the configuration's controls file lies
++        cfg = json.loads(data) if data is not None else {}
++        self.ad = (cfg.get('controls') or {}).get('path', self.cpath).rsplit('/', 1)[0] + '/'
+         self.out_root = out_root
+         self.n = 0
+         from ledger_coverage.adapters import a1exit_exact_edit as le
+@@ -217,17 +235,17 @@ def rt_coverage(a):
+           and fc.get('RET/FAIL/untracked-hp-overlap') == 19 and fc.get('RET/FAIL/context-meaning-unverified') == 5
+           and fc.get('RET/REVIEW_REQUIRED/context-structure-changed') == 3 and not any('deny' in k for k in fc)
+           and res['site_counts'].get('authorized-replacement') == 197 and res['site_counts'].get('authorized-removal') == 4
+-          and moved == 168 and shared == 22 and len(res.get('merger_groups', [])) == 9 and len(splices) == 31)
++          and moved == 168 and shared == 22 and len(res.get('merger_groups', [])) == 9 and len(splices) == 31
++          and (res.get('region_lines') or {}).get('count') == 215)
+     a.record('RT-T0', ok, 'FAIL; HP 113/7/3; RET 19/5/3; deny 0; 383 unchanged (168 moved), 197 replaced, 4 removed; '
+-                          '9 merger groups, 22 sites',
++                          '215 region lines; 9 merger groups, 22 sites',
+              {'exit': code, 'finding_counts': fc, 'site_counts': res.get('site_counts'), 'moved_H_T': moved,
+               'merger_groups': len(res.get('merger_groups', [])), 'shared_sites': shared,
+               'region_splices_distinct': len(splices), 'line_attributed_sites': len(line_sites),
+-              'hit_counts': res.get('hit_counts')},
+-             reference_difference='the "215 region lines" figure is not part of this predicate: op B does not '
+-                                  'output a region-line count (a known gap of this control).',
++              'hit_counts': res.get('hit_counts'), 'region_lines': res.get('region_lines')},
+              predicate='exit 20; HP 113/7 and 7 HP structure REVIEWs; RET 19/5/3; no deny; 197 replaced, 4 removed; '
+-                       '168 moved; 22 shared sites in 9 groups; 31 region splices')
++                       '168 moved; 22 shared sites in 9 groups; 31 region splices; region_lines.count == 215 (the '
++                       'LF-inclusive site span, sec. 5)')
+     a.results['RT-T'] = {'id': 'RT-T', 'passed': False, 'status': 'NOT RUN', 'predicate': None,
+                          'expected': 'PASS only when every record verifies; any missing '
+                                      'record leaves REVIEW_REQUIRED or FAIL. Reported NOT RUN while no reviewed record '
+@@ -912,7 +930,16 @@ def tree_controls(a, tool_files):
+         rc_ = a.repo.derive(a.crev, {a.ad + 'records/control-recon.json': (json.dumps(rdoc) + '\n').encode()},
+                             parents=a.repo.parents(a.crev), subject='control reconciliation record')
+         recon_arg = ['--classify', '%s:%srecords/control-recon.json' % (rc_, a.ad)]
++        code, res, t = a.run(exec_args(a, extra=['--main', Mp]))
++        out['predicted_without_reconciliation'] = {
++            'exit': code, 'main_items': sorted((i['class'], i['subject']) for i in res.get('items', [])
++                                               if i['obligation'] == 'MAIN')}
+         code, res, t = a.run(exec_args(a, extra=['--main', Mp] + recon_arg))
++        sc = {e['path']: e for e in res.get('side_changes') or []}
++        out['landed_paths'] = len(tool_files)
++        out['landed_unbound'] = sorted(p for p in tool_files if (sc.get(p) or {}).get('class') in (None, 'base-drift'))
++        out['landed_classes'] = dict(collections.Counter(str((sc.get(p) or {}).get('class')) for p in tool_files))
++        out['agents_md'] = {k: (sc.get('AGENTS.md') or {}).get(k) for k in ('class', 'reconciled')}
+         out['predicted'] = {'exit': code, 'side_changes': res.get('side_changes'),
+                             'main_items': sorted((i['class'], i['subject']) for i in res.get('items', [])
+                                                  if i['obligation'] == 'MAIN'), 'admission': res.get('config', {}).get('admission')}
+@@ -923,14 +950,140 @@ def tree_controls(a, tool_files):
+         code, res, t = a.run(exec_args(a, extra=['--main', Mp]), harness=False)
+         out['predicted_chain_admission'] = {'exit': code, 'stop': res.get('stop', {}).get('class')}
+     drift = out.get('predicted', {}).get('main_items', [])
++    raw = out.get('predicted_without_reconciliation', {}).get('main_items', [])
+     a.record('RT-L2', not any(c == 'base-drift' for c, _ in drift) and
+-             not any(c == 'side-change-unclassified' for c, _ in drift),
++             not any(c == 'side-change-unclassified' for c, _ in drift) and
++             out.get('landed_paths', 0) > 0 and not out.get('landed_unbound') and
++             ('base-drift', 'AGENTS.md') in raw and out.get('agents_md') == {'class': 'base-drift', 'reconciled': True},
+              'every side change classified and no base-drift (sec. 13.4 sequencing safeguard)', out,
+-             predicate='no base-drift and no side-change-unclassified among the MAIN items at the predicted main',
+-             finding='Predicted main = 8e9b8334 plus this tool\'s landing files, with the drafted reconciliation record '
+-                     'for AGENTS.md and pinned classes for the trial workflow and .claude/settings.json. Any path the '
+-                     'tool-landing class cannot pin without a hash cycle (the configuration, which pins the class '
+-                     'record) stays side-change-unclassified: see the report.')
++             predicate='at the predicted main (main plus the tool landing only; the configuration is read from the '
++                       'stand-in for F): every landed path is a side change classified by an exact blob (tool-landing '
++                       'or the configuration\'s pin of the class record); no base-drift and no '
++                       'side-change-unclassified among the MAIN items with the drafted reconciliation record; and the '
++                       'real AGENTS.md drift is shown: base-drift without that record, base-drift reconciled with it',
++             finding='Predicted main = 8e9b8334 plus this tool\'s landing files (the configuration not among them, '
++                     'design sec. 16.2), with the drafted reconciliation record for AGENTS.md and pinned classes for '
++                     'the trial workflow and .claude/settings.json.')
++
++
++# ---- K1: the reference graph of the landing and the freeze ---------------------------------------------------
++
++def git_blob(b):
++    return hashlib.sha1(b'blob %d\x00' % len(b) + b).hexdigest()
++
++
++def reference_graph(nodes, required):
++    """Edges path -> path: A's bytes name B's current blob (its sha256 or git blob id), plus the edges a rule
++    requires (`required`: {path: [paths]}), which must hold whatever the bytes are. Returns (edges, cycle)."""
++    ids = {}
++    for q, b in nodes.items():
++        ids[q] = (sha(b), git_blob(b))
++    edges = {q: set() for q in nodes}
++    for q, b in nodes.items():
++        text = b.decode('utf-8', 'replace')
++        for r, (h, g) in ids.items():
++            if r != q and (h in text or g in text):
++                edges[q].add(r)
++    for q, rs in required.items():
++        edges.setdefault(q, set()).update(r for r in rs if r != q)
++    state, stack = {}, []
++
++    def visit(q):
++        state[q] = 1
++        stack.append(q)
++        for r in sorted(edges.get(q, ())):
++            if state.get(r) == 1:
++                return stack[stack.index(r):] + [r]
++            if r not in state:
++                got = visit(r)
++                if got:
++                    return got
++        stack.pop()
++        state[q] = 2
++        return None
++    for q in sorted(edges):
++        if q not in state:
++            got = visit(q)
++            if got:
++                return edges, got
++    return edges, None
++
++
++def k1_graph(a, tool_files):
++    """The full reference graph: configuration -> records, rules, reviews and authorizations; F's pin table ->
++    configuration and its review and authorization; class record -> every other landed path. The reviews and
++    authorizations do not exist yet; the graph places them where the design puts records frozen with the plan
++    (sec. 6.3, 16.2), as in-memory fixtures only. The actual layout must be acyclic; two countercontrols place a
++    record in the landing that names a blob the class record must pin, and must give a cycle."""
++    cfg_b = a.repo.read(a.crev, a.cpath)
++    cfg = json.loads(cfg_b)
++    rec_dir = a.cpath.rsplit('/', 1)[0] + '/'
++    cls_path = cfg['roles']['side_change_classes']['path']
++
++    def jb(o):
++        return (json.dumps(o, indent=1, sort_keys=True) + '\n').encode()
++
++    def review(path, b, reviewer):
++        return jb({'schema': 'oi-review-record/1', 'reviewer': reviewer, 'reviewed': {'path': path,
++                   'blob_sha256': sha(b)}, 'method': 'graph fixture', 'verdicts': [{'item': '*', 'verdict': 'accept'}]})
++
++    def authorization(path, b, rpath, rb):
++        return jb({'schema': 'oi-owner-authorization/1', 'owner': cfg['retirement']['owner'], 'comment_id': 'fixture',
++                   'time': 'fixture', 'authorizes': [{'record': {'path': path, 'blob_sha256': sha(b)},
++                                                      'review': {'path': rpath, 'blob_sha256': sha(rb)}}]})
++
++    def layout(landed, cls_review_dir):
++        """nodes and required edges for one placement. cls_review_dir: where the class record's review and
++        authorization lie."""
++        nodes = dict(landed)
++        cls_b = nodes[cls_path]
++        rk_p, ak_p = cls_review_dir + 'reviews/class-record.review.json', cls_review_dir + 'reviews/class-record.auth.json'
++        rk = review(cls_path, cls_b, 'reviewer-fixture')
++        ak = authorization(cls_path, cls_b, rk_p, rk)
++        nodes[rk_p], nodes[ak_p] = rk, ak
++        c2 = dict(cfg, records=list(cfg['records']) + [{'kind': 'review', 'path': rk_p, 'blob_sha256': sha(rk)},
++                                                        {'kind': 'authorization', 'path': ak_p, 'blob_sha256': sha(ak)}])
++        c2b = jb(c2)
++        if a.cpath in landed:
++            # the configuration in the landing: its bytes as landed are the ones the class record pins
++            c2b = landed[a.cpath]
++        nodes[a.cpath] = c2b
++        rc_p, ac_p = rec_dir + 'reviews/config.review.json', rec_dir + 'reviews/config.auth.json'
++        rc = review(a.cpath, c2b, 'reviewer-fixture')
++        ac = authorization(a.cpath, c2b, rc_p, rc)
++        nodes[rc_p], nodes[ac_p] = rc, ac
++        pt_p = rec_dir + 'PREREG.md'
++        nodes[pt_p] = ('### 1.1 Record pins\n\n' + ''.join('| `%s` | `%s` |\n' % (q[len(rec_dir):], sha(nodes[q]))
++                                                           for q in (a.cpath, rc_p, ac_p))).encode()
++        required = {cls_path: [q for q in landed if q != cls_path] + ([rk_p, ak_p] if rk_p in landed else []),
++                    pt_p: [a.cpath, rc_p, ac_p], a.cpath: [cls_path, rk_p, ak_p], rc_p: [a.cpath],
++                    ac_p: [a.cpath, rc_p], rk_p: [cls_path], ak_p: [cls_path, rk_p]}
++        return nodes, required
++    out = {}
++    nodes, req = layout(dict(tool_files), rec_dir)
++    edges, cyc = reference_graph(nodes, req)
++    out['actual'] = {'nodes': len(nodes), 'edges': sum(len(v) for v in edges.values()), 'cycle': cyc,
++                     'config_in_landing': a.cpath in tool_files,
++                     'config_edges': sorted(edges[a.cpath])[:20], 'pin_table_edges': sorted(edges[rec_dir + 'PREREG.md'])}
++    # countercontrol 1: the configuration landed with the tool (the class record must pin it)
++    landed1 = dict(tool_files)
++    landed1[a.cpath] = cfg_b
++    n1, r1 = layout(landed1, rec_dir)
++    out['config_landed'] = {'cycle': reference_graph(n1, r1)[1]}
++    # countercontrol 2: the class record's review and authorization landed with the tool
++    tool_ad = a.ad
++    n2, r2 = layout(dict(tool_files), tool_ad)
++    landed2 = {q: n2[q] for q in list(tool_files) + [tool_ad + 'reviews/class-record.review.json',
++                                                     tool_ad + 'reviews/class-record.auth.json']}
++    n2, r2 = layout(landed2, tool_ad)
++    out['class_review_landed'] = {'cycle': reference_graph(n2, r2)[1]}
++    a.record('K1-GRAPH', cyc is None and out['actual']['config_in_landing'] is False and
++             bool(out['config_landed']['cycle']) and bool(out['class_review_landed']['cycle']),
++             'the reference graph of the tool landing and the freeze has no cycle, including through review and '
++             'authorization records; placing the configuration, or the class record\'s review, in the landing gives '
++             'a cycle', out,
++             predicate='no cycle in the actual layout (configuration not landed; reviews and authorizations in the '
++                       'plan record directory); a cycle in each countercontrol layout')
+ 
+ 
+ def chain_refusal(a):
+@@ -1039,6 +1192,20 @@ def engine_identity_y8(a, syn_engine):
+              {'a1': res.get('engine', {}).get('blob_sha256'), 'synthetic': syn_engine})
+ 
+ 
++PREDICATES = {
++    'RT-DR': "terms --profile DR-1,DR-3,DR-4,DR-5: at H 86 distinct deny lines, per rule DR-1 61 / DR-4 28 / DR-5 1, "
++             "DR-1 alternatives a 6 / b 2 / c 55, and the six named lines hit at line level by their rule; at E 95 "
++             "lines; at T1' exit 0 with no line or sentence match",
++    'RT-I7': "terms --profile item7-literal: exit 20 at both; (items, A1 report lines) == (7, 4) at T1' and (14, 179) "
++             "at H",
++    'RT-I7A': "terms --check item7 --final without allow rules: at H exit 20, 86 deny lines, 123 final-unclassified, "
++              "209 FAIL lines (93 / 216 with sentences), 95 retired lines, none of them only REVIEW; at T1' exit 20, "
++              "0 deny lines, 12 final-unclassified",
++    'V3-countercontrol': "terms --check item7 at H without --final and without allow rules: exit 20 and every one of "
++                         "the 95 retired lines is an unclassified REVIEW item",
++}
++
++
+ def main():
+     ap = argparse.ArgumentParser()
+     ap.add_argument('--repo', required=True)
+@@ -1049,6 +1216,8 @@ def main():
+     ap.add_argument('--overlay-from-disk', action='store_true',
+                     help='test the working files: overlay tools/ledger_coverage* and the audit directory on HEAD')
+     ap.add_argument('--syn-engine', default=None)
++    ap.add_argument('--staged-config', default=None,
++                    help='the staged configuration file; --config REV:PATH names its path in the plan directory')
+     args = ap.parse_args()
+     os.makedirs(args.out, exist_ok=True)
+     out_root = tempfile.mkdtemp(prefix='a1-controls-', dir=args.out)
+@@ -1056,7 +1225,8 @@ def main():
+     tool_files = {}
+     a0 = gitobj.GitRepo(args.repo)
+     rev, cpath = cref.split(':', 1)
+-    ad = cpath.rsplit('/', 1)[0]
++    probe = A1(args.repo, cref, out_root, args.staged_config)
++    ad = probe.ad.rstrip('/')
+     if args.overlay_from_disk:
+         for root in ('tools/ledger_coverage', ad):
+             for dp, dn, fn in os.walk(os.path.join(args.repo, root)):
+@@ -1065,19 +1235,20 @@ def main():
+                     p = os.path.relpath(os.path.join(dp, f), args.repo)
+                     tool_files[p] = open(os.path.join(dp, f), 'rb').read()
+         tool_files['tools/ledger_coverage.py'] = open(os.path.join(args.repo, 'tools/ledger_coverage.py'), 'rb').read()
+-        a = A1(args.repo, '%s:%s' % (a0.resolve(rev), cpath), out_root)
+-        wt = a.repo.derive(a0.resolve(rev), tool_files, subject='working files')
++        a = A1(args.repo, '%s:%s' % (a0.resolve(rev), cpath), out_root, args.staged_config)
++        wt = a.repo.derive(a.crev, tool_files, subject='working files')
+         a.crev = wt
+         a.csha = sha(a.repo.read(wt, cpath))
+     else:
+-        a = A1(args.repo, cref, out_root)
+-        head = a.crev
++        a = probe
++        head = a.tool_rev
+         for p, b in a.base.paths(head).items():
+             if p.startswith(('tools/ledger_coverage/', ad + '/')) or p == 'tools/ledger_coverage.py':
+                 tool_files[p] = a.base.read_blob(b)
+     groups = [('chain', chain_refusal), ('record', rt_record), ('coverage', rt_coverage), ('terms', rt_terms),
+               ('v', v_controls), ('rules', rule_lint_controls), ('exec', ex_controls),
+-              ('trees', lambda x: tree_controls(x, tool_files)), ('z9g', z9g)]
++              ('trees', lambda x: tree_controls(x, tool_files)), ('k1', lambda x: k1_graph(x, tool_files)),
++              ('z9g', z9g)]
+     if args.syn_engine:
+         groups.append(('y8', lambda x: engine_identity_y8(x, args.syn_engine)))
+     if not args.skip_sweeps:
+@@ -1095,6 +1266,11 @@ def main():
+             a.results['%s-group-error' % name] = {'passed': False, 'expected': 'no exception',
+                                                   'actual': traceback.format_exc()[-3000:]}
+         timing[name] = round(time.time() - t, 1)
++    # sec. 10.4: every control carries a status and its predicate
++    for cid, v in a.results.items():
++        v.setdefault('status', 'PASS' if v.get('passed') else 'FAIL')
++        if not v.get('predicate'):
++            v['predicate'] = PREDICATES.get(cid, 'the boolean computed for this id in a1_controls.py')
+     summary = {'controls': a.results, 'timing_seconds': timing,
+                'passed': sum(1 for v in a.results.values() if v.get('passed')),
+                'failed': sorted(k for k, v in a.results.items() if not v.get('passed'))}
+diff --git a/tools/ledger_coverage/adapters/conformance_controls.py b/tools/ledger_coverage/adapters/conformance_controls.py
+index 4ab97255c..613f21b5d 100644
+--- a/tools/ledger_coverage/adapters/conformance_controls.py
++++ b/tools/ledger_coverage/adapters/conformance_controls.py
+@@ -764,6 +764,164 @@ def ledger_controls(t, check):
+           dict(out47, valid=pos), all(v == 65 for v in out47.values()) and pos == 0)
+ 
+ 
++# ---- corrections after the second independent review (F1, F2, F3) -------------------------------------------------
++
++def f1_controls(t):
++    """F1: each freeze-ledger change is approved by the owner of the authority version in force when that ledger
++    change merged (sec. 6.3). The owner changes 4242 -> 5555 through a verified authority change; the fixture
++    configuration names the old owner, so a run that passes the ledger history stops at point 7 (retirement.owner),
++    and a refused ledger history stops naming the freeze-ledger change."""
++    NEW = 5555
++
++    def ledger_change(w, approver, via, rnd):
++        old = w.ledger_bytes
++        new = hf.jb({'schema': auth.ledger_schema, 'events': [
++            {'plan': hf.PLAN, 'round': rnd, 'kind': 'withdraw', 'commit': 'ab' * 20, 'comment_id': 1,
++             'author_id': approver, 'created_at': '2026-11-23T00:00:00Z', 'first_line': 'x'}]})
++        if via == 'append':
++            w.comment(hf.PLAN_ISSUE, 'oi-freeze-ledger/1 append plan=%s round=%s from=%s to=%s'
++                      % (hf.PLAN, hf.ROUND, sha(old), sha(new)), author_id=approver)
++        else:
++            w.comment(hf.AUTH_ISSUE, 'oi-authority/1 approve from=%s to=%s' % (sha(old), sha(new)),
++                      author_id=approver)
++        w.add_main('c%d' % (len(w.h.repos[hf.REPO_ID]['commits']) + 1), {hf.LEDGER_PATH: new}, merged_by=approver)
++        w.ledger_bytes = new
++
++    def owner_change(w):
++        new_a = hf.authority('syn/PREREG.md', owner_id=NEW,
++                             supersedes={'path': auth.authority_path, 'blob_sha256': sha(w.a_bytes)},
++                             extra={'status': 'second version'})
++        change_authority(w, new_a, extra_approver=NEW)
++
++    def scenario(steps):
++        w = t.world()
++        a1 = w.a_bytes
++        for kind, approver, via, rnd in steps:
++            if kind == 'owner':
++                owner_change(w)
++            else:
++                ledger_change(w, approver, via, rnd)
++        F = t.freeze(w, a_bytes=a1)
++        w.designate(F, author_id=w.a['owner']['id'])
++        code, res = t.run(w, F)
++        msg = ((res or {}).get('stop') or {}).get('message', '')
++        return {'exit': code, 'stop': stop(res), 'message': msg[:200],
++                'ledger_refused': 'freeze-ledger change' in msg, 'past_ledger': 'retirement.owner' in msg}
++    out = {
++        'former-owner-append-after-change': scenario([('owner', None, None, None),
++                                                      ('ledger', hf.OWNER_ID, 'append', 'r0')]),
++        'former-owner-authority-form-after-change': scenario([('owner', None, None, None),
++                                                              ('ledger', hf.OWNER_ID, 'authority', 'r0')]),
++        'then-owner-before-change': scenario([('ledger', hf.OWNER_ID, 'append', 'r0'),
++                                              ('owner', None, None, None)]),
++        'new-owner-after-change': scenario([('ledger', hf.OWNER_ID, 'authority', 'r0'), ('owner', None, None, None),
++                                            ('ledger', NEW, 'append', 'r9')]),
++    }
++    refused = [out['former-owner-append-after-change'], out['former-owner-authority-form-after-change']]
++    valid = [out['then-owner-before-change'], out['new-owner-after-change']]
++    check('R3-F1', 'after a verified owner change 4242 -> 5555, a freeze-ledger change merged later and approved only '
++          'by 4242 (append form in the plan thread; separately the authority form in the authority thread) is '
++          'refused; a ledger change approved by 4242 and merged before the owner change stays valid, and one merged '
++          'after it and approved by 5555 is valid',
++          "both former-owner cases exit 65 naming the freeze-ledger change; both valid cases pass the ledger history "
++          "(admission stops only at point 7, retirement.owner)", out,
++          all(o['exit'] == 65 and o['ledger_refused'] for o in refused) and
++          all(o['exit'] == 65 and o['past_ledger'] and not o['ledger_refused'] for o in valid))
++
++
++def f2_controls(r):
++    """F2: a side-change class record referenced by the configuration is chain-linted in op C (sec. 6.3): one
++    without a review record and an owner authorization gives FAIL record-invalid and classifies nothing."""
++    def scenario(with_class, reviewed):
++        syn = sf.Syn()
++        edits = [('# synthetic', ['# synthetic', '', 'Preface line one.'])]
++        pd = sf.patch_doc(syn.H, edits)
++        base = {'patch_sha': sha(pd), 'files': {'syn/patch.json': pd}}
++        c0, p0, s0, f0 = syn.build(base)
++        recs = json.loads(f0[p0])['records']
++        M = syn.repo.derive(syn.H, {'notes/side.txt': b'side change on main\n'}, parents=[syn.H], subject='M')
++        cls = {'schema': 'oi-side-change-classes/1', 'record_id': 'syn-classes', 'author': sf.WRITER,
++               'supersedes': None,
++               'classes': [{'id': 'notes', 'prefixes': ['notes/'], 'reason': 'synthetic',
++                            'pins': [{'path': 'notes/side.txt', 'git_blob': syn.repo.blob_id(M, 'notes/side.txt'),
++                                      'blob_sha256': sha(b'side change on main\n')}]}]}
++        files = dict(base['files'])
++        v = dict(base)
++        if with_class:
++            cb = sf.jb(cls)
++            files['syn/classes.json'] = cb
++            extra = [{'kind': 'side-change-classes', 'path': 'syn/classes.json', 'blob_sha256': sha(cb)}]
++            if reviewed:
++                extra += syn.chain(files, 'syn/classes.json', sf.REVIEWER)
++            v['extra'] = {'records': recs + extra}
++        v['files'] = files
++        c, p, s, f = syn.build(v)
++        X = syn.repo.derive(syn.H, {sf.DOC: sf.apply_text(syn.repo.read(syn.H, sf.DOC).decode(), edits).encode()},
++                            parents=[syn.H], subject='X')
++        w = hf.World('syn/PREREG.md')
++        listed = {q: syn.repo.read(c, q) for q in syn.repo.paths(c) if q.startswith('syn/') and q.endswith('.json')}
++        Ff = {'syn/PREREG.md': hf.pin_table({q[len('syn/'):]: sha(b) for q, b in listed.items()}),
++              auth.authority_path: w.a_bytes}
++        F = syn.repo.derive(c, Ff, parents=syn.repo.parents(c), subject='freeze')
++        w.designate(F)
++        argv = ['execution', '--config', '%s:%s' % (F, p), '--out', r.out()] + w.args(F) + \
++            ['--scientific-base', syn.H, '--candidate', X, '--ledger', '%s:syn/patch.json' % F, '--main', M]
++        code, res = cli.run(argv, repo=syn.repo, stderr=io.StringIO(), control=w.control(), environ={})
++        items = sorted({(i['class'], str(i.get('subject'))) for i in (res or {}).get('items', [])
++                        if i['class'] in ('record-invalid', 'side-change-unclassified', 'base-drift')})
++        return {'exit': code, 'outcome': (res or {}).get('outcome'), 'stop': stop(res), 'items': items}
++    out = {'none': scenario(False, False), 'reviewed': scenario(True, True), 'unreviewed': scenario(True, False)}
++    un = out['unreviewed']
++    check('R3-F2', 'op C: a side-change class record referenced by the configuration with no review record and no '
++          'owner authorization: FAIL record-invalid, and the side change stays unclassified; the reviewed and '
++          'authorized record classifies it; with no class record it is side-change-unclassified',
++          "unreviewed: exit 20, record-invalid on syn/classes.json and side-change-unclassified on notes/side.txt; "
++          "reviewed: no record-invalid and no side-change-unclassified; none: side-change-unclassified", out,
++          un['exit'] == 20 and ('record-invalid', 'syn/classes.json') in un['items'] and
++          ('side-change-unclassified', 'notes/side.txt') in un['items'] and
++          not out['reviewed']['items'] and
++          ('side-change-unclassified', 'notes/side.txt') in out['none']['items'])
++
++
++def f3_controls(t):
++    """F3: the consumer's predicate checks that head_sha contains the authority record, blob-equal to the admitted
++    A (sec. 5, trust-root point 3)."""
++    w = t.world()
++    F = t.freeze(w)
++    w.designate(F)
++    code, res = t.run(w, F)
++    snap = res['config']['admission']['simulated_chain']['snapshot']
++    pins = {'engine': res['engine']['blob_sha256'], 'config': res['config']['blob_sha256'],
++            'adapters': {a['name']: a['module_sha256'] for a in res.get('adapters', [])},
++            'admission': {k: snap[k] for k in ('freeze', 'designation_comment_id', 'pin_table_sha256',
++                                               'authority_sha256')}}
++    host_pins = dict(pins, repository_id=hf.REPO_ID, workflow_path=hf.WF_PATH, workflow_sha256=sha(hf.WF),
++                     engine_pins={}, authority_blob_sha256=sha(w.a_bytes))
++
++    def at_head(head_files):
++        """A main commit with the given change becomes the run's head; the result names it."""
++        w2 = copy.deepcopy(w)
++        w2.add_main('c9', head_files)
++        chain = copy.deepcopy(res)
++        del chain['harness']
++        s2 = copy.deepcopy(snap)
++        s2['run']['head_sha'] = 'c9'
++        chain['config']['admission'] = {'mode': 'chain', 'snapshot': s2,
++                                        'snapshot_sha256': res['config']['admission']['snapshot_sha256']}
++        raw = util.dump_result(chain).encode('utf-8')
++        w2.h.artifacts[(w2.run_id, 'ledger-coverage-result')] = sha(raw)
++        landing = {'evaluated': s2.get('evaluated'), 'artifact_name': 'ledger-coverage-result',
++                   'result_sha256': sha(raw)}
++        return checker.accept_with_host(chain, 0, host_pins, w2.h, landing)
++    out = {'present': at_head({'syn/unrelated.txt': b'x\n'}),
++           'absent': at_head({auth.authority_path: None}),
++           'different': at_head({auth.authority_path: w.a_bytes + b' '})}
++    check('R3-F3', 'the consumer check: a run whose head_sha lacks the authority record, or holds one that differs '
++          'from the admitted A, is not accepted; the same result with A present and equal is accepted',
++          "accept_with_host is true for present, false for absent and for different", out,
++          out['present'] is True and out['absent'] is False and out['different'] is False)
++
++
+ # ---- acceptance, durable evidence and replay ----------------------------------------------------------------------
+ 
+ def acceptance_controls(r, t):
+@@ -1155,6 +1313,14 @@ def main(out_root):
+             record('%s-group' % name, 'the group runs', None, '%s: %s %s' % (type(exc).__name__, exc,
+                                                                              traceback.format_exc()[-1200:]), 'FAIL')
+     if t is not None:
++        for name, fn in (('R3-F1', lambda: f1_controls(t)), ('R3-F2', lambda: f2_controls(r)),
++                         ('R3-F3', lambda: f3_controls(t))):
++            try:
++                fn()
++            except Exception as exc:
++                import traceback
++                record(name, 'the control runs', None, '%s: %s %s' % (type(exc).__name__, exc,
++                                                                        traceback.format_exc()[-1200:]), 'FAIL')
+         try:
+             acceptance_controls(r, t)
+         except Exception as exc:
+diff --git a/tools/ledger_coverage/adapters/staged_purity_lint.py b/tools/ledger_coverage/adapters/staged_purity_lint.py
+new file mode 100644
+index 000000000..ae8b3fcd4
+--- /dev/null
++++ b/tools/ledger_coverage/adapters/staged_purity_lint.py
+@@ -0,0 +1,52 @@
++"""purity-lint over a staged configuration (sec. 16.1, 16.2).
++
++The configuration does not land with the tool: it belongs in the retirement plan's record directory, frozen with
++the plan at F. This runs the engine's purity lint exactly as `ledger_coverage.py purity-lint --config REV:PATH`
++does, with the configuration read from an in-memory stand-in for F (REV's tree plus the staged file at PATH).
++Nothing reaches the repository.
++
++Usage: python3 -I -B tools/ledger_coverage/adapters/staged_purity_lint.py --repo DIR --config REV:PATH
++       --staged-config FILE --out DIR
++"""
++import argparse
++import json
++import os
++import sys
++
++here = os.path.dirname(os.path.abspath(__file__))
++tools = os.path.dirname(os.path.dirname(here))
++if tools not in sys.path:
++    sys.path.insert(0, tools)
++
++from ledger_coverage.engine import config as cfgmod, gitobj, outcome as oc, purity, util  # noqa: E402
++from ledger_coverage.adapters import a1_controls as a1c  # noqa: E402
++
++
++def main(argv=None):
++    ap = argparse.ArgumentParser()
++    ap.add_argument('--repo', required=True)
++    ap.add_argument('--config', required=True)
++    ap.add_argument('--staged-config', required=True)
++    ap.add_argument('--out', required=True)
++    args = ap.parse_args(argv)
++    repo = gitobj.Overlay(gitobj.GitRepo(args.repo))
++    rev, path = args.config.split(':', 1)
++    with open(args.staged_config, 'rb') as f:
++        commit = a1c.simulated_freeze(repo, repo.resolve(rev), path, f.read())
++    loaded = cfgmod.load(repo, commit, path, None, None, 'harness')
++    values = purity.config_values(repo.read, commit, loaded.config)
++    profs = [p for p in loaded.profiles.values() if p.kind in ('review', 'deny')]
++    res = purity.lint_engine(values, profs)
++    doc = {'schema': oc.result_schema, 'operation': 'purity-lint', 'findings': res,
++           'outcome': oc.pass_ if not res else oc.fail, 'exit_status': 0 if not res else 20,
++           'preflight': [], 'record_checks': None, 'items': [],
++           'config': {'path': path, 'stand_in_for_F': commit, 'blob_sha256': util.sha256(repo.read(commit, path))}}
++    os.makedirs(args.out, exist_ok=True)
++    with open(os.path.join(args.out, 'result.json'), 'w', encoding='utf-8') as f:
++        f.write(util.dump_result(doc))
++    print(json.dumps({'outcome': doc['outcome'], 'findings': len(res)}))
++    return doc['exit_status']
++
++
++if __name__ == '__main__':
++    sys.exit(main())
+diff --git a/tools/ledger_coverage/adapters/synthetic_fixture.py b/tools/ledger_coverage/adapters/synthetic_fixture.py
+index d540af01f..527f5dd51 100644
+--- a/tools/ledger_coverage/adapters/synthetic_fixture.py
++++ b/tools/ledger_coverage/adapters/synthetic_fixture.py
+@@ -607,6 +607,8 @@ def run_all(out_root, repo_path):
+ 
+ 
+ if __name__ == '__main__':
++    if len(sys.argv) > 1:
++        os.makedirs(sys.argv[1], exist_ok=True)
+     root = tempfile.mkdtemp(prefix='syn-controls-', dir=sys.argv[1] if len(sys.argv) > 1 else None)
+     res = run_all(root, sys.argv[2] if len(sys.argv) > 2 else os.getcwd())
+     print(json.dumps(res, indent=1, sort_keys=True, default=str))
+diff --git a/tools/ledger_coverage/authority.json b/tools/ledger_coverage/authority.json
+index 160ce96ed..73a73bcbc 100644
+--- a/tools/ledger_coverage/authority.json
++++ b/tools/ledger_coverage/authority.json
+@@ -17,12 +17,12 @@
+  "engine_pins": {
+   "tools/ledger_coverage/__init__.py": "b0072faa34b8db8ce3d86a70a06835f88094856f060a1540d1acd41f23e12d99",
+   "tools/ledger_coverage/adapters/__init__.py": "d1b8b5e2f52f7f43fd794ec783c80124beae41b28804e26bac05981f1b65f34a",
+-  "tools/ledger_coverage/adapters/a1_conformance.py": "ae4128b577e133a8c48b243c018d139081ce2321bd4b2206b79eb50db2c6f091",
+-  "tools/ledger_coverage/adapters/a1_controls.py": "16f07304970027c866433e6b56cfd36e9f917de2ce699127e7684ad0100f8bc9",
++  "tools/ledger_coverage/adapters/a1_conformance.py": "d891975eade7bdcfc969c77fc16e450670a460f420931a4605238f27fd650f8a",
++  "tools/ledger_coverage/adapters/a1_controls.py": "d782fd98f09b40063c6bdaf4ea98ab24251a628fe85b71747592f34de95034d0",
+   "tools/ledger_coverage/adapters/a1exit_exact_edit.py": "efdc8bf861d8e057f2f50612ef8dea0415705a0815f6bac6e3984fd6a03bf21d",
+   "tools/ledger_coverage/adapters/a1exit_sitemap.py": "b01001bc64d39367f00f9e36502933519ca0b28be3bd4af817679287698dd0e5",
+   "tools/ledger_coverage/adapters/artifact_hash.py": "74f719c9119fb77896868385c1b3142f747dfde6a2c450d4fc3cea1ca0a7a7cf",
+-  "tools/ledger_coverage/adapters/conformance_controls.py": "b09dd06bd9a4fce0b092b91cfba290cd722dfc6dcc19b433a74c6f3ccb981400",
++  "tools/ledger_coverage/adapters/conformance_controls.py": "63bd3423bbde9754e552ed4f0663c4486c242a895e3a858579b6aff809a62596",
+   "tools/ledger_coverage/adapters/deleg_fingerprint_regen.py": "3c86abe926f1f2e7c581a9e8ce88ce60d6bcba3f85e6143bcb1948b600c8f6ab",
+   "tools/ledger_coverage/adapters/deleg_host_run.py": "10e154ca32e5457efca8ec1a18db8bdb83203935f849eab35d5958ea22ea1376",
+   "tools/ledger_coverage/adapters/deleg_preserve_check.py": "e524f675215f354baf41c91b2469c9d4eacc7beb03f3dc21e4f583e177388527",
+@@ -31,11 +31,12 @@
+   "tools/ledger_coverage/adapters/host_fixture.py": "2eef330d45226dd0e62db7ccb889417bb67e3dc8f92fbe6e4441471e37672939",
+   "tools/ledger_coverage/adapters/line_patch.py": "1ca45cae73494a7c1616de7a8411a2c115b3ac7f6bd20bbc5f906c8ff981978c",
+   "tools/ledger_coverage/adapters/python_frozen_replay.py": "79ad93539fb24ba9bce8ece8c140fdfbaf38dbcb9b38d60a5327bfd41b2e2b0a",
+-  "tools/ledger_coverage/adapters/synthetic_fixture.py": "7e9f3e83767af4513e0157a85ad0d05c1d11acd7b870ca77e8e15bae7c6f359f",
++  "tools/ledger_coverage/adapters/staged_purity_lint.py": "2cc5ece6215d5c6949f5f2d9510d1695f83bd8069166c2737af05a5a151db23e",
++  "tools/ledger_coverage/adapters/synthetic_fixture.py": "b71e0bcdeae6dd4e26f68698260be9f8e3bee84d2e5a876aa23bb2158df430bb",
+   "tools/ledger_coverage/engine/__init__.py": "9a53e22ce914f807e90487dba08c25a2880006148ebfe28e9ee97b7fd185e0f9",
+-  "tools/ledger_coverage/engine/authority.py": "b5266351da521581696bd60e2c7d581d94e93369d5592a142bb130e3078d5967",
+-  "tools/ledger_coverage/engine/checker.py": "5293889733cfd82836e52d64f2d9bf99f5be172d24ebe6b3206e5e68804ca750",
+-  "tools/ledger_coverage/engine/cli.py": "2bc4da0ee06aa51eb63c586916d145a8c7d420a80bbfa8bd1fe7e0a8759f50cd",
++  "tools/ledger_coverage/engine/authority.py": "e6a4c9683396d11fdee8690619649f938591385e56cd04ac71801605fdcf1afa",
++  "tools/ledger_coverage/engine/checker.py": "803218eb4c43bbe4cb1846115b00385f89ab22253d3adccb5393c253d3ba6e03",
++  "tools/ledger_coverage/engine/cli.py": "d1db751bcef917462fc29bfbe9234146f6b806dd5b15a247de7214cb58f92ae4",
+   "tools/ledger_coverage/engine/config.py": "0e7963a2c5af8ed3b3f8ec892660ea389606d170363bd6a1b8f696ac14129c06",
+   "tools/ledger_coverage/engine/context.py": "5980ad55a134fbc15a91ad44e9ee517269599805e433d3abcd72cd001c15b686",
+   "tools/ledger_coverage/engine/controls_engine.py": "229afd4cda6d9a722a725f04c2d04c1e141fe1e4e30002ce1ed58c299ee144b1",
+@@ -45,11 +46,11 @@
+   "tools/ledger_coverage/engine/host.py": "5573c260b599ea91d6ce2fdf5d413f1b1765f305ec202bc758dfef95660fd9b7",
+   "tools/ledger_coverage/engine/outcome.py": "5f868f4019b6892a3337eb1d8ccb057af84d5e4f23f8d4621fd380ac356bb170",
+   "tools/ledger_coverage/engine/peredit.py": "ec8eb2bc59200e621c6f53952e1dda631a09affbb226cee04af281d151b3a38a",
+-  "tools/ledger_coverage/engine/pipeline.py": "5970ed877c94b3222bbc00473280ef0b3c4522028d3ada4b52b3bf76f5de4c6f",
++  "tools/ledger_coverage/engine/pipeline.py": "b0c07371fca20cac86e8e8c046ff814c8817c2a111a2a6fdbfd2a6eb9a17bb65",
+   "tools/ledger_coverage/engine/profiles.py": "9fd62cfb11c5b4799694286012567625edc9c4753ebb9a9c484ffca94a013b0d",
+   "tools/ledger_coverage/engine/purity.py": "ae9fffc5c1423e72e0b6d5e7470b418186a985258f8d321ce854695419c1fdb1",
+   "tools/ledger_coverage/engine/reconcile.py": "bbe8cfc4aad0f306e87c62ee749b903232b56226fadb98d23ccd9bdb1c9e616d",
+-  "tools/ledger_coverage/engine/records.py": "fd4b56d29025a1f8a271c06a00b90cb6b2c9727ef872dfac3b34fd9cdeaf8ba1",
++  "tools/ledger_coverage/engine/records.py": "15cc0ae7ee768e0d269981f0967670415e98c2fc4d664f942758c43a9c120512",
+   "tools/ledger_coverage/engine/replay.py": "6f26d917a35ae3fdbc16fc088a8ca18abb4104203204ab47e9afeabd4c3fc89b",
+   "tools/ledger_coverage/engine/rules.py": "c0e1e156a3058f4a49201cda2c1fcb4ec4677e4148eab3f39cdbc9517deb6619",
+   "tools/ledger_coverage/engine/schema.py": "6e7fc27f8c20052b692402e17d50f8eb1ab648f5c49faf213d8c8263e87a4d36",
+diff --git a/tools/ledger_coverage/engine/authority.py b/tools/ledger_coverage/engine/authority.py
+index 62c5024e9..b8eb08244 100644
+--- a/tools/ledger_coverage/engine/authority.py
++++ b/tools/ledger_coverage/engine/authority.py
+@@ -156,9 +156,32 @@ def review_path(a, to_sha):
+     return '%s/authority-reviews/%s.json' % (base, to_sha)
+ 
+ 
+-def verify_history(host, repo_id, path, governing, main, kind, plan_threads=None):
++def in_force(host, repo_id, a_versions, commit):
++    """The version of A in force when `commit` merged: the latest verified version of A merged before it on main's
++    first-parent chain. A version merged in the same commit takes effect with that merge, so it governs a change
++    only when no version merged before it exists (the first landing of A and the ledger together)."""
++    before, same = None, None
++    for c, a in a_versions:
++        if c == commit:
++            same = a
++        else:
++            try:
++                earlier = host.on_first_parent_chain(repo_id, c, commit)
++            except HostUnavailable as exc:
++                refuse('history', 'the order of the authority and ledger changes cannot be read: %s' % exc)
++            if earlier:
++                before = a
++    got = before or same
++    if got is None:
++        refuse('ledger', 'freeze-ledger change %s precedes every verified authority record' % commit[:12])
++    return got
++
++
++def verify_history(host, repo_id, path, governing, main, kind, plan_threads=None, a_versions=None):
+     """Every version of `path` on main passed its approval procedure. kind: 'authority' or 'ledger'.
+-    Returns the list of versions with their approvals."""
++    Returns the list of versions with their approvals. For kind 'authority', `a_versions` (a list) receives
++    (commit, parsed A) for every verified version; for kind 'ledger' it supplies them, and each ledger change is
++    approved by the owner of the version in force when it merged."""
+     try:
+         hist = host.file_history(repo_id, path)
+     except HostUnavailable as exc:
+@@ -201,24 +224,23 @@ def verify_history(host, repo_id, path, governing, main, kind, plan_threads=None
+                     any(x.get('verdict') != 'accept' for x in rvd.get('verdicts', [])) or not rvd.get('verdicts'):
+                 refuse('authority', 'authority change %s has no valid independent review record' % v['commit'][:12])
+             prev_a = new_a
++            if a_versions is not None:
++                a_versions.append((v['commit'], new_a))
+             out.append({'commit': v['commit'], 'blob_sha256': new_sha, 'approval': hits[0]['id'],
+                         'owner_id': new_a['owner']['id']})
+         else:
+-            a = governing
+-            # the approver is an owner id of a verified version of A (the one in effect may differ after an
+-            # owner-id change; every version's owner passed the authority-change procedure)
+-            owners = governing.get('_owner_ids') or [a['owner']['id']]
++            # the approver is the owner of the version of A in force when this ledger change merged (sec. 6.3); the
++            # owner of a superseded version keeps no authority over a change merged after its supersession
++            a = in_force(host, repo_id, a_versions, v['commit']) if a_versions else governing
++            oid = a['owner']['id']
+             cs_auth = read_thread(host, a['authority_thread']['repository_id'], a['authority_thread']['issue'])
+-            ok = []
+-            for oid in owners:
+-                ok += find_approval(a, cs_auth, 'authority-approve', {'frm': old_sha, 'to': new_sha}, oid,
+-                                    v.get('merged_at'))
++            ok = find_approval(a, cs_auth, 'authority-approve', {'frm': old_sha, 'to': new_sha}, oid,
++                               v.get('merged_at'))
+             if not ok:
+                 for (rid, issue), (plan, rnd) in (plan_threads or {}).items():
+                     cs = read_thread(host, rid, issue)
+-                    for oid in owners:
+-                        ok += find_approval(a, cs, 'ledger-append', {'frm': old_sha, 'to': new_sha}, oid,
+-                                            v.get('merged_at'))
++                    ok += find_approval(a, cs, 'ledger-append', {'frm': old_sha, 'to': new_sha}, oid,
++                                        v.get('merged_at'))
+                     if ok:
+                         break
+             if len(ok) != 1:
+@@ -301,7 +323,8 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
+         if b is None or util.sha256(b) != want:
+             refuse('identity', 'tool file %s at the run\'s commit differs from its pin' % p)
+     # the authority-change procedure over every version of A on main
+-    versions = verify_history(host, repo_id, authority_path, None, main, 'authority')
++    a_versions = []
++    versions = verify_history(host, repo_id, authority_path, None, main, 'authority', a_versions=a_versions)
+     if not versions or versions[-1]['blob_sha256'] != util.sha256(a_bytes):
+         refuse('authority', 'the authority record on main has no verified history')
+     # F must contain A, a verified version
+@@ -334,9 +357,8 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
+         refuse('ledger', 'the freeze ledger is not valid json')
+     if ledger.get('schema') != ledger_schema or not isinstance(ledger.get('events'), list):
+         refuse('ledger', 'the freeze ledger is not an oi-freeze-ledger/1 record')
+-    governing = dict(a, _owner_ids=sorted({v['owner_id'] for v in versions}))
+-    led_versions = verify_history(host, repo_id, a['freeze_ledger_path'], governing, main, 'ledger',
+-                                  {thread: (plan_id, round_id)})
++    led_versions = verify_history(host, repo_id, a['freeze_ledger_path'], a, main, 'ledger',
++                                  {thread: (plan_id, round_id)}, a_versions=a_versions)
+     if not led_versions or led_versions[-1]['blob_sha256'] != util.sha256(led_b):
+         refuse('ledger', 'the freeze ledger on main has no verified history')
+     snap_events = []
+diff --git a/tools/ledger_coverage/engine/checker.py b/tools/ledger_coverage/engine/checker.py
+index 6f697296a..db0aa45c5 100644
+--- a/tools/ledger_coverage/engine/checker.py
++++ b/tools/ledger_coverage/engine/checker.py
+@@ -78,8 +78,13 @@ def accept_with_host(doc, exit_status, pins, host, landing):
+         b = host.file_at(run['repository_id'], run['head_sha'], path)
+         if b is None or hashlib.sha256(b).hexdigest() != want:
+             return False
+-    # point 3 (K7): only the pinned files, the authority record and the workflow, each a regular file
++    # point 3: head_sha contains A, blob-equal to the admitted authority record (sec. 5)
+     a_path = 'tools/ledger_coverage/authority.json'
++    a_head = host.file_at(run['repository_id'], run['head_sha'], a_path)
++    if a_head is None or pins.get('authority_blob_sha256') is None or \
++            hashlib.sha256(a_head).hexdigest() != pins['authority_blob_sha256']:
++        return False
++    # point 3 (K7): only the pinned files, the authority record and the workflow, each a regular file
+     permitted = {a_path: pins.get('authority_blob_sha256'), pins['workflow_path']: pins['workflow_sha256']}
+     for path, kind in host.entries_at(run['repository_id'], run['head_sha'], a_path.rsplit('/', 1)[0] + '/'):
+         if kind != 'file' or (path not in pins['engine_pins'] and path not in permitted):
+diff --git a/tools/ledger_coverage/engine/cli.py b/tools/ledger_coverage/engine/cli.py
+index 28984e8a2..f3194f29e 100644
+--- a/tools/ledger_coverage/engine/cli.py
++++ b/tools/ledger_coverage/engine/cli.py
+@@ -781,6 +781,9 @@ def op_coverage(a, repo, ctx, loaded, records, result):
+     result['site_counts'] = site_counts(cv)
+     result['hit_counts'] = hit_counts(tm.hits)
+     result['merger_groups'] = [list(x) for x in getattr(cv, 'merger_groups', [])]
++    if led_segs:
++        rl = cv.region_lines.get(led_segs[-1]['name'], set())
++        result['region_lines'] = {'segment': led_segs[-1]['name'], 'count': len(rl)}
+     result['profiles_evaluated'] = {commit: sorted({p.name for p in tm.review_profiles} |
+                                                    {p.name for p in deny})}
+     result['covered_paths'] = ctx.corpus(commit)
+@@ -1013,21 +1016,27 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
+     record_refs = {}
+     for r in cfg['records']:
+         d = loaded.store.get(r)
+-        if r.get('kind') == 'side-change-classes':
+-            if d is not None and d.get('schema') == 'oi-side-change-classes/1':
+-                class_docs.append(d)
+-                side += d.get('classes', [])
+-                record_refs[r['path']] = r['blob_sha256']
+-        elif r.get('kind') == 'reconciliation' and d is not None and d.get('schema') == 'oi-reconciliation/1':
+-            # a reconciliation record frozen with the plan is referenced by the configuration (sec. 6.3, 16.2);
+-            # its chain is linted like any record the run uses
+-            probs = [] if records.harness else rec.lint_chain(r, loaded.store, cfg['retirement']['owner'],
+-                                                              loaded.admitted)
+-            if probs:
+-                records.items.append(oc.make_item('RECORD', 'record-invalid', r['path'], None,
+-                                                  {'sha': r['blob_sha256'], 'why': probs[0]}, detail=probs))
+-            else:
+-                recon.append(dict(d, _ref={'path': r['path'], 'blob_sha256': r['blob_sha256']}))
++        kind = r.get('kind')
++        if kind == 'side-change-classes' and (d is None or d.get('schema') != 'oi-side-change-classes/1'):
++            continue
++        if kind == 'reconciliation' and (d is None or d.get('schema') != 'oi-reconciliation/1'):
++            continue
++        if kind not in ('side-change-classes', 'reconciliation'):
++            continue
++        # side-change class records and reconciliation records referenced by the configuration (sec. 6.3, 13.1,
++        # 16.2) have their chain linted like any record the run uses; a failing record is record-invalid and is
++        # not used
++        probs = [] if records.harness else rec.lint_chain(r, loaded.store, cfg['retirement']['owner'],
++                                                          loaded.admitted)
++        if probs:
++            records.items.append(oc.make_item('RECORD', 'record-invalid', r['path'], None,
++                                              {'sha': r['blob_sha256'], 'why': probs[0]}, detail=probs))
++        elif kind == 'side-change-classes':
++            class_docs.append(d)
++            side += d.get('classes', [])
++            record_refs[r['path']] = r['blob_sha256']
++        else:
++            recon.append(dict(d, _ref={'path': r['path'], 'blob_sha256': r['blob_sha256']}))
+     for r in a.classify:
+         d = records.admit(repo, r, 'classification')
+         if d is None:
+diff --git a/tools/ledger_coverage/engine/pipeline.py b/tools/ledger_coverage/engine/pipeline.py
+index ca773cea1..73bad0ada 100644
+--- a/tools/ledger_coverage/engine/pipeline.py
++++ b/tools/ledger_coverage/engine/pipeline.py
+@@ -110,6 +110,7 @@ class Coverage:
+         self.site_out = {}
+         self.states = []
+         self.snapshots = []
++        self.region_lines = {}
+ 
+     def item(self, obligation, cls, subject, segment, fp=None, **kw):
+         self.items.append(oc.make_item(obligation, cls, subject, segment, fp, **kw))
+@@ -358,6 +359,10 @@ class Coverage:
+                         self._context_check(st, seg, frm, to, 'RET')
+                     if status == 'authorized-removal':
+                         so['removed_at'] = det.get('offset_line')
++                    elif status == 'authorized-replacement':
++                        # the replacement region at `to`, whole lines, from the LF-inclusive site span (sec. 5)
++                        first, last = det['lines']
++                        self.region_lines.setdefault(name, set()).update((path, k) for k in range(first, last + 1))
+                 continue
+             if ff.data != ft.data or ff.exists != ft.exists:
+                 self.file_conformance.append({'segment': name, 'file': path, 'status': 'unledgered-file-change',
+diff --git a/tools/ledger_coverage/engine/records.py b/tools/ledger_coverage/engine/records.py
+index e42f148b5..031201189 100644
+--- a/tools/ledger_coverage/engine/records.py
++++ b/tools/ledger_coverage/engine/records.py
+@@ -23,7 +23,7 @@ def item_ids(doc):
+     for key in ('config_id', 'record_id', 'site_id', 'id'):
+         if isinstance(doc.get(key), str):
+             return [doc[key]]
+-    return ['*']
++    return []
+ 
+ 
+ def _person(v):
+@@ -127,6 +127,11 @@ def lint_chain(ref, store, owner, admitted_shas):
+             out.append('record %s: no review record' % ref['path'])
+         return out
+     ids = item_ids(doc)
++    if not ids:
++        # a review gives one verdict per item id (sec. 6.3); a record whose items cannot be identified is refused
++        # rather than covered by a single verdict
++        out.append('record %s: no item ids can be identified' % ref['path'])
++        return out
+     good_reviews = []
+     for sha, path, rv in exact:
+         bad = []
+diff --git a/verification/audits/foundations/ledger-coverage-tool-20261123/README.md b/verification/audits/foundations/ledger-coverage-tool-20261123/README.md
+index 70470b435..f51bede25 100644
+--- a/verification/audits/foundations/ledger-coverage-tool-20261123/README.md
++++ b/verification/audits/foundations/ledger-coverage-tool-20261123/README.md
+@@ -16,7 +16,6 @@ scientific question and no row disposition.
+ 
+ | Path | Kind | What it holds |
+ |---|---|---|
+-| `a1exit-retirement-config.json` | `oi-retirement-config/1` | the A1 configuration: roles, adapters pinned by blob, profiles with their source blobs and pattern hashes, checks, context mapping, indicators, splitter, HP obligation, delegation, records, controls |
+ | `controls.json` | A1 control set | the preregistered A1 controls with the design's expected outcomes, and the control-only inputs (DR-3's witness `AGENTS.md` at `H`) |
+ | `delegation-draft.json` | `oi-delegation/1` | a draft of the delegation contract; the contract itself belongs in the amended plan's record directory at `F` |
+ | `rules/dr-deny-v1.json` | `oi-term-rules/2` | deny rules DR-1 (a, b, c), DR-3, DR-4, DR-5 with examples and real-tree countercontrols |
+@@ -26,6 +25,12 @@ scientific question and no row disposition.
+ | `records/repo-scope-v1.json` | `oi-scope/1` | the scope of the `repo` profile (item 11) |
+ | `rules/register-infinity-params-v1.json` | `oi-term-rules/2` | the per-edit parameters of items 5 and 6 that are not extractable assignments of the plan's checker (kind `params`), linted against that checker |
+ | `records/side-change-classes-v1.json` | `oi-side-change-classes/1` | the class `tool-landing` only: every path this tool's landing adds, each with its exact blob |
++
++The A1 configuration `retirement-config.json` (`oi-retirement-config/1`) is not part of this landing. It
++belongs in the retirement plan's record directory, `verification/audits/foundations/a1exit-deletion-20261121/`,
++frozen with the plan at `F` with its review and authorization (design sec. 16.2), and it pins the class record
++above; the class record pins every other path of this landing. Until then it exists only as an unreviewed,
++unauthorized draft outside the repository, and the A1 controls read it with `--staged-config`.
+ | `freeze/freeze-ledger.json` | `oi-freeze-ledger/1` | the empty freeze ledger (it lands on `main` with the authority record) |
+ | `workflow-draft/ledger-coverage.yml` | workflow | the one workflow whose runs may produce an acceptable result; its content hash is pinned in the authority record under `.github/workflows/ledger-coverage.yml`, where it must land unchanged |
+ 
+@@ -56,5 +61,10 @@ The control runs:
+     python3 -I -B tools/ledger_coverage.py self-test --out DIR
+     python3 -I -B tools/ledger_coverage/adapters/synthetic_fixture.py DIR .
+     python3 -I -B tools/ledger_coverage/adapters/conformance_controls.py DIR
+-    python3 -I -B tools/ledger_coverage/adapters/a1_conformance.py --repo . --config HEAD:verification/audits/foundations/ledger-coverage-tool-20261123/a1exit-retirement-config.json --out DIR
+-    python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo . --config HEAD:verification/audits/foundations/ledger-coverage-tool-20261123/a1exit-retirement-config.json --out DIR
++With `CFG=HEAD:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json` and `STAGED` the
++staged draft (the runners read it into an in-memory stand-in for `F`, `HEAD`'s tree plus that file at its plan
++path):
++
++    python3 -I -B tools/ledger_coverage/adapters/staged_purity_lint.py --repo . --config $CFG --staged-config STAGED --out DIR
++    python3 -I -B tools/ledger_coverage/adapters/a1_conformance.py --repo . --config $CFG --staged-config STAGED --out DIR
++    python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo . --config $CFG --staged-config STAGED --out DIR
+diff --git a/verification/audits/foundations/ledger-coverage-tool-20261123/a1exit-retirement-config.json b/verification/audits/foundations/ledger-coverage-tool-20261123/a1exit-retirement-config.json
+deleted file mode 100644
+index 4ae7d2503..000000000
+--- a/verification/audits/foundations/ledger-coverage-tool-20261123/a1exit-retirement-config.json
++++ /dev/null
+@@ -1,676 +0,0 @@
+-{
+- "schema": "oi-retirement-config/1",
+- "config_id": "a1exit-retirement-config",
+- "version": 1,
+- "supersedes": null,
+- "notes": "UNREVIEWED DRAFT. No independent review, no owner authorization and no freeze F exist; it is admitted only through the pin table of the freeze and an owner designation (sec. 6.3), so the tool refuses it with ERROR CONFIG_UNREVIEWED. The ledger, edit list and plan checker are pinned at the frozen plan P until the amended plan is frozen at F.",
+- "retirement": {
+-  "name": "A1-EXIT",
+-  "issue": "#1169",
+-  "owner": 7273571
+- },
+- "roles": {
+-  "scientific_base": "53c6601a10419b6b333cc992474272501ab542af",
+-  "pin": "e837e3dbaa605efc867a213f3345cee14c36d8f5",
+-  "record_commit": "53c6601a10419b6b333cc992474272501ab542af",
+-  "side_change_classes": {
+-   "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json",
+-   "blob_sha256": "02644e3b8c0f2ecb2d06dcdc0d23ab1bcbc644dab72ec39339a706fe6b60c370"
+-  }
+- },
+- "corpus": {
+-  "patterns": [
+-   "^papers/[^/]+\\.md$",
+-   "^book/[^/]+\\.md$"
+-  ]
+- },
+- "adapters": {
+-  "ledger": {
+-   "adapter": "a1exit-exact-edit",
+-   "adapter_version": 2,
+-   "module": {
+-    "path": "tools/ledger_coverage/adapters/a1exit_exact_edit.py",
+-    "blob_sha256": "efdc8bf861d8e057f2f50612ef8dea0415705a0815f6bac6e3984fd6a03bf21d"
+-   },
+-   "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+-   "path": "verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+-   "blob_sha256": "2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5",
+-   "companion": [
+-    {
+-     "role": "edits",
+-     "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+-     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+-     "blob_sha256": "528f146d03b29cbc3d7dc29948e3dd1d4cd26f4d36e6e009f032e24f9462dec1"
+-    },
+-    {
+-     "role": "checker",
+-     "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+-     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
+-     "blob_sha256": "2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c"
+-    }
+-   ]
+-  },
+-  "sitemap": {
+-   "adapter": "a1exit-sitemap",
+-   "adapter_version": 2,
+-   "module": {
+-    "path": "tools/ledger_coverage/adapters/a1exit_sitemap.py",
+-    "blob_sha256": "b01001bc64d39367f00f9e36502933519ca0b28be3bd4af817679287698dd0e5"
+-   },
+-   "commit": "53c6601a10419b6b333cc992474272501ab542af",
+-   "path": "verification/audits/foundations/a1exit-ledger-20261120/sitemap.json",
+-   "blob_sha256": "586c526b52e2c6afc124a1a56fe5888abd2a89a4368af174aa303ceb390a2cb9",
+-   "companion": [
+-    {
+-     "role": "rows",
+-     "commit": "53c6601a10419b6b333cc992474272501ab542af",
+-     "path": "verification/audits/foundations/a1exit-ledger-20261120/rows.json",
+-     "blob_sha256": "39e51d0cfd8d6855f17ef3d7253a43d372fae608a9dcae083fbeb52471b512a0"
+-    },
+-    {
+-     "role": "phase0",
+-     "commit": "53c6601a10419b6b333cc992474272501ab542af",
+-     "path": "verification/audits/foundations/a1-scope-phase0-20261120/sites.json",
+-     "blob_sha256": "00165404a6411a219a875ea1d9d6187e1d0d8f9951637fbb31ca0280212b4a5f"
+-    }
+-   ]
+-  },
+-  "replay": {
+-   "adapter": "python-frozen-replay",
+-   "adapter_version": 1,
+-   "module": {
+-    "path": "tools/ledger_coverage/adapters/python_frozen_replay.py",
+-    "blob_sha256": "79ad93539fb24ba9bce8ece8c140fdfbaf38dbcb9b38d60a5327bfd41b2e2b0a"
+-   },
+-   "module_path": "verification/audits/foundations/a1exit-ledger-20261120/ledger_check.py",
+-   "record_tree": "b05efdca935a42b9c94ef1748c964696bf58fcd9",
+-   "functions": [
+-    "manuscript_digest",
+-    "build",
+-    "render",
+-    "splice_block",
+-    "check",
+-    "extended_unmapped",
+-    "self_test"
+-   ]
+-  }
+- },
+- "profiles": [
+-  {
+-   "name": "p0-core",
+-   "kind": "review",
+-   "applies_to": "tree",
+-   "scope": "corpus",
+-   "source": {
+-    "commit": "53c6601a10419b6b333cc992474272501ab542af",
+-    "path": "verification/audits/foundations/a1-scope-phase0-20261120/sites.json",
+-    "extractor": {
+-     "kind": "json-pointer",
+-     "selector": "/core_patterns"
+-    },
+-    "blob_sha256": "00165404a6411a219a875ea1d9d6187e1d0d8f9951637fbb31ca0280212b4a5f"
+-   },
+-   "pattern_sha256": "939cafdad4dbcb47762af98a82a357bf2f1ff0da17408177d806eaff18204d93"
+-  },
+-  {
+-   "name": "p0-para",
+-   "kind": "review",
+-   "applies_to": "tree",
+-   "scope": "corpus",
+-   "source": {
+-    "commit": "53c6601a10419b6b333cc992474272501ab542af",
+-    "path": "verification/audits/foundations/a1-scope-phase0-20261120/sites.json",
+-    "extractor": {
+-     "kind": "json-pointer",
+-     "selector": "/paraphrase_patterns"
+-    },
+-    "blob_sha256": "00165404a6411a219a875ea1d9d6187e1d0d8f9951637fbb31ca0280212b4a5f"
+-   },
+-   "pattern_sha256": "28b482757bee068e79eaac85619b4fd0a0e6f23e4d72cdd2b8252fb22167bd42"
+-  },
+-  {
+-   "name": "ledger-ext",
+-   "kind": "review",
+-   "applies_to": "tree",
+-   "scope": "corpus",
+-   "source": {
+-    "commit": "53c6601a10419b6b333cc992474272501ab542af",
+-    "path": "verification/audits/foundations/a1exit-ledger-20261120/ledger_check.py",
+-    "extractor": {
+-     "kind": "python-ast-assign",
+-     "selector": "EXTENDED_PATTERNS"
+-    },
+-    "blob_sha256": "34314041cff64f01287bd195d33c61cd17882166e11bd1296b005e72d4ad78e8"
+-   },
+-   "pattern_sha256": "63f19fbfea68e9468aadcb5fa52685f1c4f15f38f4b376dc9d48de5c0ef25a2e"
+-  },
+-  {
+-   "name": "ptr",
+-   "kind": "review",
+-   "applies_to": "tree",
+-   "scope": "corpus",
+-   "source": {
+-    "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+-    "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
+-    "extractor": {
+-     "kind": "python-ast-assign",
+-     "selector": "PTR"
+-    },
+-    "blob_sha256": "2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c"
+-   },
+-   "pattern_sha256": "00a25f44c1adad9c9cc8de5097871336b15f56534e3d30394beedd2ad6a1ec5d"
+-  },
+-  {
+-   "name": "repo",
+-   "kind": "review",
+-   "applies_to": "tree",
+-   "scope": "repo",
+-   "source": {
+-    "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+-    "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
+-    "extractor": {
+-     "kind": "python-ast-assign",
+-     "selector": "REPO_PAT"
+-    },
+-    "blob_sha256": "2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c"
+-   },
+-   "pattern_sha256": "1664bdf1e5e12cb8d7b95e78e99a7d89f1cbab0d05d603ed4604a43bb5a6a80b"
+-  },
+-  {
+-   "name": "count-grep",
+-   "kind": "review",
+-   "applies_to": "tree",
+-   "scope": "corpus",
+-   "source": {
+-    "commit": null,
+-    "path": null,
+-    "extractor": {
+-     "kind": "literal-list",
+-     "selector": [
+-      "Fourteen",
+-      "six structural",
+-      "sixth of"
+-     ]
+-    }
+-   },
+-   "pattern_sha256": "d8a72dbd7ffecc708ee24d2dcb0e3ceb457b4031ff7ec00b45516063f4f84a8a"
+-  },
+-  {
+-   "name": "item7-literal",
+-   "kind": "countercontrol",
+-   "applies_to": "tree",
+-   "scope": "corpus",
+-   "source": {
+-    "commit": null,
+-    "path": null,
+-    "extractor": {
+-     "kind": "literal-list",
+-     "selector": [
+-      "Fourteen",
+-      "six structural",
+-      "sixth of"
+-     ]
+-    }
+-   },
+-   "report_regex": "\\bA1\\b",
+-   "pattern_sha256": "d8a72dbd7ffecc708ee24d2dcb0e3ceb457b4031ff7ec00b45516063f4f84a8a"
+-  },
+-  {
+-   "name": "register",
+-   "kind": "deny",
+-   "applies_to": "added-text",
+-   "scope": "ledgered",
+-   "source": {
+-    "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+-    "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
+-    "extractor": {
+-     "kind": "python-ast-assign",
+-     "selector": "REG"
+-    },
+-    "blob_sha256": "2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c"
+-   },
+-   "pattern_sha256": "fae2274866d3a161c52750c7046c8336fb05f8bcaabe98c1291268a56f75e946"
+-  },
+-  {
+-   "name": "register-caps",
+-   "kind": "deny",
+-   "applies_to": "added-text",
+-   "scope": "ledgered",
+-   "source": {
+-    "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+-    "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
+-    "extractor": {
+-     "kind": "python-ast-assign",
+-     "selector": "CAPS"
+-    },
+-    "blob_sha256": "2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c"
+-   },
+-   "except": {
+-    "mode": "tokens",
+-    "source": {
+-     "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+-     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
+-     "extractor": {
+-      "kind": "python-ast-assign",
+-      "selector": "CAPS_OK"
+-     },
+-     "blob_sha256": "2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c"
+-    }
+-   },
+-   "pattern_sha256": "1e0fc5a833f5361c2d89d45a16016b636e164ebe4e589bb7c0aaf31dc5443014"
+-  },
+-  {
+-   "name": "infinity",
+-   "kind": "deny",
+-   "applies_to": "added-text",
+-   "scope": "ledgered",
+-   "source": {
+-    "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+-    "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
+-    "extractor": {
+-     "kind": "python-ast-assign",
+-     "selector": "INF"
+-    },
+-    "blob_sha256": "2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c"
+-   },
+-   "except": {
+-    "mode": "spans",
+-    "source": {
+-     "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+-     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
+-     "extractor": {
+-      "kind": "python-ast-assign",
+-      "selector": "NEUTRAL"
+-     },
+-     "blob_sha256": "2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c"
+-    }
+-   },
+-   "pattern_sha256": "d6c4e97a4075e45982602d152b01171527ac8fd26e0aca14c2e5649ae94c07e5"
+-  },
+-  {
+-   "name": "resid",
+-   "kind": "review",
+-   "applies_to": "added-text",
+-   "scope": "corpus",
+-   "levels": [
+-    "line"
+-   ],
+-   "combine": "any",
+-   "source": {
+-    "commit": null,
+-    "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/resid-v1.json",
+-    "extractor": {
+-     "kind": "json-pointer",
+-     "selector": "/rules/0/patterns"
+-    },
+-    "blob_sha256": "7aa1412206f7bf5fec1d3573d76e1b91c0f6bc8f67704a1dcb75344d09aac221"
+-   },
+-   "pattern_sha256": "39a91e1a3d6a628adc889f83a034aa6399942d984c8dc8b3e963fdb0ff9a18d4"
+-  },
+-  {
+-   "name": "DR-1",
+-   "kind": "deny",
+-   "applies_to": "tree",
+-   "scope": "corpus",
+-   "levels": [
+-    "line",
+-    "sentence"
+-   ],
+-   "combine": "any",
+-   "source": {
+-    "commit": null,
+-    "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/dr-deny-v1.json",
+-    "extractor": {
+-     "kind": "json-pointer",
+-     "selector": "/rules/0/patterns"
+-    },
+-    "blob_sha256": "daf3a8e231ace391f0037447d1266d1255df8dc015baaaa601fcc79b63cec6ae"
+-   },
+-   "pattern_sha256": "6e8e5cda3b386761043c23830ed629ebb9366b8548d5a997c4ac7fa6d0133368"
+-  },
+-  {
+-   "name": "DR-3",
+-   "kind": "deny",
+-   "applies_to": "tree",
+-   "scope": "corpus",
+-   "levels": [
+-    "sentence"
+-   ],
+-   "combine": "all",
+-   "source": {
+-    "commit": null,
+-    "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/dr-deny-v1.json",
+-    "extractor": {
+-     "kind": "json-pointer",
+-     "selector": "/rules/1/patterns"
+-    },
+-    "blob_sha256": "daf3a8e231ace391f0037447d1266d1255df8dc015baaaa601fcc79b63cec6ae"
+-   },
+-   "pattern_sha256": "ca9942f4dbf13728d3c9055b32e296378a18ee81982f56f1284ceef546cc6eed"
+-  },
+-  {
+-   "name": "DR-4",
+-   "kind": "deny",
+-   "applies_to": "tree",
+-   "scope": "corpus",
+-   "levels": [
+-    "line",
+-    "sentence"
+-   ],
+-   "combine": "any",
+-   "source": {
+-    "commit": null,
+-    "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/dr-deny-v1.json",
+-    "extractor": {
+-     "kind": "json-pointer",
+-     "selector": "/rules/2/patterns"
+-    },
+-    "blob_sha256": "daf3a8e231ace391f0037447d1266d1255df8dc015baaaa601fcc79b63cec6ae"
+-   },
+-   "pattern_sha256": "f8db18e04bb603aed81386af55c37699c22bdaa036a3e68e223e92e315f4e72a"
+-  },
+-  {
+-   "name": "DR-5",
+-   "kind": "deny",
+-   "applies_to": "tree",
+-   "scope": "corpus",
+-   "levels": [
+-    "line",
+-    "sentence"
+-   ],
+-   "combine": "any",
+-   "source": {
+-    "commit": null,
+-    "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/dr-deny-v1.json",
+-    "extractor": {
+-     "kind": "json-pointer",
+-     "selector": "/rules/3/patterns"
+-    },
+-    "blob_sha256": "daf3a8e231ace391f0037447d1266d1255df8dc015baaaa601fcc79b63cec6ae"
+-   },
+-   "pattern_sha256": "0d1e2360877eb31e392594f9fd38e70d9c075137d498e35a3a0ab2482f70482a"
+-  }
+- ],
+- "checks": [
+-  {
+-   "id": "item1",
+-   "profiles": [
+-    "ptr"
+-   ],
+-   "final_profiles": []
+-  },
+-  {
+-   "id": "item2",
+-   "profiles": [
+-    "p0-core",
+-    "p0-para",
+-    "ledger-ext"
+-   ],
+-   "final_profiles": [],
+-   "default_for": [
+-    "coverage"
+-   ]
+-  },
+-  {
+-   "id": "item5",
+-   "profiles": [
+-    "register",
+-    "register-caps"
+-   ],
+-   "final_profiles": []
+-  },
+-  {
+-   "id": "item6",
+-   "profiles": [
+-    "infinity"
+-   ],
+-   "final_profiles": []
+-  },
+-  {
+-   "id": "item7",
+-   "profiles": [
+-    "ptr",
+-    "count-grep",
+-    "resid",
+-    "DR-1",
+-    "DR-3",
+-    "DR-4",
+-    "DR-5"
+-   ],
+-   "final_profiles": [
+-    "ptr",
+-    "count-grep"
+-   ],
+-   "default_for": [
+-    "terms"
+-   ]
+-  },
+-  {
+-   "id": "item11",
+-   "profiles": [
+-    "repo"
+-   ],
+-   "final_profiles": [
+-    "repo"
+-   ]
+-  }
+- ],
+- "rules": [
+-  {
+-   "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/dr-deny-v1.json",
+-   "blob_sha256": "daf3a8e231ace391f0037447d1266d1255df8dc015baaaa601fcc79b63cec6ae"
+-  },
+-  {
+-   "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/resid-v1.json",
+-   "blob_sha256": "7aa1412206f7bf5fec1d3573d76e1b91c0f6bc8f67704a1dcb75344d09aac221"
+-  },
+-  {
+-   "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/w1-w2-allow-v1.json",
+-   "blob_sha256": "0cbb97c98725cba618598650b0cd9c687c97e280b3422c4ad6e62794a222b171"
+-  },
+-  {
+-   "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/register-infinity-params-v1.json",
+-   "blob_sha256": "05149ba694dd4017ad27dd60c02810403ec7351036776bea212768ba9ebc509f"
+-  }
+- ],
+- "context_mapping": {
+-  "source_field": "s3",
+-  "values": {
+-   "visible (names the hypothesis); rewritten at deletion": false,
+-   "visible (P0/P1/P2 disposition)": false,
+-   "visible (applied splice)": false,
+-   "visible (none: the (NR) corollary inserted by Phase 1 (E5/B-units); states the weaker condition)": false,
+-   "n/a": false,
+-   "not determined: Q3 census": true,
+-   "not determined": true,
+-   "per unit regression audit (#1468)": true,
+-   "per unit Q1 corrections (Step 2)": true,
+-   "per unit Step-2 phase": true,
+-   "per unit R6 corrections (Step 2)": true,
+-   "per unit R1/R2 scoping": true,
+-   "per unit Q2": true
+-  },
+-  "default": "invalid"
+- },
+- "indicators": {
+-  "strip": [
+-   "^\\s*(?:>\\s*)*(?:#{1,6}\\s+)?(?:(?:[-*+]|\\d+[.)])\\s+)?[*_]*"
+-  ],
+-  "definitions": [
+-   {
+-    "name": "anaph",
+-    "on": "stripped",
+-    "effect": "meaning",
+-    "patterns": [
+-     "^(This|These|Such|Hence|Thus|It|Under this)\\b"
+-    ]
+-   },
+-   {
+-    "name": "list",
+-    "on": "line",
+-    "effect": "structure-list",
+-    "patterns": [
+-     "^\\s*(>\\s*)*([-*+]|\\d+[.)])\\s+",
+-     "^\\s*(>\\s*)*(([-*+]|\\d+[.)])\\s+)?[*_]{0,2}\\(\\s*([A-Z]{1,3}\\d{1,2}[a-z]?|[ivx]{1,4})\\s*\\)"
+-    ]
+-   },
+-   {
+-    "name": "table",
+-    "on": "line",
+-    "effect": "structure-table",
+-    "patterns": [
+-     "^\\s*\\|"
+-    ]
+-   },
+-   {
+-    "name": "partial_quote",
+-    "on": "quote",
+-    "effect": "info"
+-   }
+-  ],
+-  "list_item_patterns": [
+-   "^\\s*(>\\s*)*([-*+]|\\d+[.)])\\s+",
+-   "^\\s*(>\\s*)*(([-*+]|\\d+[.)])\\s+)?[*_]{0,2}\\(\\s*([A-Z]{1,3}\\d{1,2}[a-z]?|[ivx]{1,4})\\s*\\)"
+-  ],
+-  "table_row_pattern": "^\\s*\\|",
+-  "caption_prefixes": [
+-   "Table:",
+-   ": "
+-  ]
+- },
+- "sentence": {
+-  "splitter_version": 2,
+-  "abbreviations": [
+-   "sec.",
+-   "Sec.",
+-   "e.g.",
+-   "i.e.",
+-   "cf.",
+-   "Fig.",
+-   "Eq.",
+-   "Eqs.",
+-   "No.",
+-   "vs.",
+-   "et al.",
+-   "Ch.",
+-   "App.",
+-   "Thm.",
+-   "Prop.",
+-   "Lem."
+-  ]
+- },
+- "hp_obligations": [
+-  {
+-   "segment": [
+-    "e837e3dbaa605efc867a213f3345cee14c36d8f5",
+-    "53c6601a10419b6b333cc992474272501ab542af"
+-   ],
+-   "merges": [
+-    {
+-     "pr": "#1470",
+-     "commit": "0cd5d5bfb4f6641c8b08706c4eb636ee730ebbf0",
+-     "first_parent": "1c7eedc402eafd2bac654484fa790874a33f444d"
+-    },
+-    {
+-     "pr": "#1473",
+-     "commit": "a1f38284d21338b66119c870a551a670c73e3fa7",
+-     "first_parent": "f1c8c6b18b245c2faaa68abb464d70ab332b7bec"
+-    },
+-    {
+-     "pr": "#1474",
+-     "commit": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+-     "first_parent": "a1f38284d21338b66119c870a551a670c73e3fa7"
+-    },
+-    {
+-     "pr": "#1472",
+-     "commit": "4de2eabd6c7c88dc214db70a813ec44b8641b630",
+-     "first_parent": "0adc410c4ad8c3ff51fc77ebb2e055506d758fc8"
+-    },
+-    {
+-     "pr": "#1475",
+-     "commit": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+-     "first_parent": "4de2eabd6c7c88dc214db70a813ec44b8641b630"
+-    },
+-    {
+-     "pr": "#1494",
+-     "commit": "53c6601a10419b6b333cc992474272501ab542af",
+-     "first_parent": "fd9f99cc8866bd4f4244298f819fa99d5c707fba"
+-    }
+-   ]
+-  }
+- ],
+- "delegation": {
+-  "path": "verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json",
+-  "blob_sha256": "015826146fd01b9f5ebc5ae8b1966f700e2f964b8989203d66b75e36e032f65c",
+-  "class_adapters": [
+-   {
+-    "adapter": "preserve-check-v1",
+-    "adapter_version": 2,
+-    "module": {
+-     "path": "tools/ledger_coverage/adapters/deleg_preserve_check.py",
+-     "blob_sha256": "e524f675215f354baf41c91b2469c9d4eacc7beb03f3dc21e4f583e177388527"
+-    }
+-   },
+-   {
+-    "adapter": "record-dir",
+-    "adapter_version": 2,
+-    "module": {
+-     "path": "tools/ledger_coverage/adapters/deleg_record_dir.py",
+-     "blob_sha256": "bb82c3f8f696b9c58425a4b80cb072673a7e63cc737c629307989ee8065cee54"
+-    }
+-   },
+-   {
+-    "adapter": "rerun-equal",
+-    "adapter_version": 2,
+-    "module": {
+-     "path": "tools/ledger_coverage/adapters/deleg_rerun_equal.py",
+-     "blob_sha256": "58debe302a8b83c67e46c56b3291a5ed6e35aa02bd2cb09e662f56f14e41c0aa"
+-    }
+-   },
+-   {
+-    "adapter": "fingerprint-regen",
+-    "adapter_version": 2,
+-    "module": {
+-     "path": "tools/ledger_coverage/adapters/deleg_fingerprint_regen.py",
+-     "blob_sha256": "3c86abe926f1f2e7c581a9e8ce88ce60d6bcba3f85e6143bcb1948b600c8f6ab"
+-    }
+-   },
+-   {
+-    "adapter": "host-run",
+-    "adapter_version": 2,
+-    "module": {
+-     "path": "tools/ledger_coverage/adapters/deleg_host_run.py",
+-     "blob_sha256": "10e154ca32e5457efca8ec1a18db8bdb83203935f849eab35d5958ea22ea1376"
+-    }
+-   }
+-  ]
+- },
+- "records": [
+-  {
+-   "kind": "scope",
+-   "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/repo-scope-v1.json",
+-   "blob_sha256": "32afecca8e371a1f51217a70058676144e874b24526ca0becddea04e2c12df42"
+-  },
+-  {
+-   "kind": "side-change-classes",
+-   "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json",
+-   "blob_sha256": "02644e3b8c0f2ecb2d06dcdc0d23ab1bcbc644dab72ec39339a706fe6b60c370"
+-  },
+-  {
+-   "kind": "hit-classification",
+-   "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/gr58-hit-classification-v1.json",
+-   "blob_sha256": "8177b0923a7eddf09c473ce541e4c23de53067429a31d52260aa35f0bafa8410"
+-  }
+- ],
+- "operations": [
+-  "record",
+-  "coverage",
+-  "execution",
+-  "terms"
+- ],
+- "controls": {
+-  "path": "verification/audits/foundations/ledger-coverage-tool-20261123/controls.json",
+-  "blob_sha256": "23b480729816aae94dcc98cd00d28f35827853424112d093fbff91e4c8d9226a"
+- },
+- "author": "implementation-writer-20261123"
+-}
+diff --git a/verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json b/verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json
+index ec86467cb..29ddaca14 100644
+--- a/verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json
++++ b/verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json
+@@ -29,13 +29,13 @@
+     },
+     {
+      "path": "tools/ledger_coverage/adapters/a1_conformance.py",
+-     "git_blob": "7abd5a22be8d4f47ea793fdd1d8a489819d9ffa8",
+-     "blob_sha256": "ae4128b577e133a8c48b243c018d139081ce2321bd4b2206b79eb50db2c6f091"
++     "git_blob": "0ff62ebd21a8781d25fa4d0e73cf6ae12fa7fc88",
++     "blob_sha256": "d891975eade7bdcfc969c77fc16e450670a460f420931a4605238f27fd650f8a"
+     },
+     {
+      "path": "tools/ledger_coverage/adapters/a1_controls.py",
+-     "git_blob": "ffb185c7d8c2af701fa1030ff4f2328a26917ad6",
+-     "blob_sha256": "16f07304970027c866433e6b56cfd36e9f917de2ce699127e7684ad0100f8bc9"
++     "git_blob": "253f35fc03fefb3f5caa293d8e9228c67405ad7a",
++     "blob_sha256": "d782fd98f09b40063c6bdaf4ea98ab24251a628fe85b71747592f34de95034d0"
+     },
+     {
+      "path": "tools/ledger_coverage/adapters/a1exit_exact_edit.py",
+@@ -54,8 +54,8 @@
+     },
+     {
+      "path": "tools/ledger_coverage/adapters/conformance_controls.py",
+-     "git_blob": "4ab97255c111ea455f59ddc0249d66af3060bcfb",
+-     "blob_sha256": "b09dd06bd9a4fce0b092b91cfba290cd722dfc6dcc19b433a74c6f3ccb981400"
++     "git_blob": "613f21b5db8dfe2ab0ed93febf14e038c064ca5e",
++     "blob_sha256": "63bd3423bbde9754e552ed4f0663c4486c242a895e3a858579b6aff809a62596"
+     },
+     {
+      "path": "tools/ledger_coverage/adapters/deleg_fingerprint_regen.py",
+@@ -97,15 +97,20 @@
+      "git_blob": "36239479d6ea38cafe4ce0358021d23a7b91ee8e",
+      "blob_sha256": "79ad93539fb24ba9bce8ece8c140fdfbaf38dbcb9b38d60a5327bfd41b2e2b0a"
+     },
++    {
++     "path": "tools/ledger_coverage/adapters/staged_purity_lint.py",
++     "git_blob": "ae8b3fcd467feee4b323b2db576f3417bdb8d56f",
++     "blob_sha256": "2cc5ece6215d5c6949f5f2d9510d1695f83bd8069166c2737af05a5a151db23e"
++    },
+     {
+      "path": "tools/ledger_coverage/adapters/synthetic_fixture.py",
+-     "git_blob": "d540af01f2b3acf76ac23c84d17024c08870bba6",
+-     "blob_sha256": "7e9f3e83767af4513e0157a85ad0d05c1d11acd7b870ca77e8e15bae7c6f359f"
++     "git_blob": "527f5dd51c96e427c917179d71ecb549800c777d",
++     "blob_sha256": "b71e0bcdeae6dd4e26f68698260be9f8e3bee84d2e5a876aa23bb2158df430bb"
+     },
+     {
+      "path": "tools/ledger_coverage/authority.json",
+-     "git_blob": "160ce96ed356c89b47caedf7e72e08faa87c0062",
+-     "blob_sha256": "47793d40b993bbf6808a8771f9e4e4e01622af952497fdce22efbe7d10f5a691"
++     "git_blob": "73a73bcbc918bb5d7587d9b3ac5959a7430f3710",
++     "blob_sha256": "b67e8695ceb02842db7daf6e30c37d46317bc92fc72b94dc0cd78ed92b3eedc6"
+     },
+     {
+      "path": "tools/ledger_coverage/engine/__init__.py",
+@@ -114,18 +119,18 @@
+     },
+     {
+      "path": "tools/ledger_coverage/engine/authority.py",
+-     "git_blob": "62c5024e928f4db034dbf03f7434dbeac69b9566",
+-     "blob_sha256": "b5266351da521581696bd60e2c7d581d94e93369d5592a142bb130e3078d5967"
++     "git_blob": "b8eb0824465493bdf1ddcc64936e3acbf9e38c5d",
++     "blob_sha256": "e6a4c9683396d11fdee8690619649f938591385e56cd04ac71801605fdcf1afa"
+     },
+     {
+      "path": "tools/ledger_coverage/engine/checker.py",
+-     "git_blob": "6f697296af5ca3af02daf9dd4b227438884e758c",
+-     "blob_sha256": "5293889733cfd82836e52d64f2d9bf99f5be172d24ebe6b3206e5e68804ca750"
++     "git_blob": "db0aa45c54a3250ef52c8440fd6101df5240a797",
++     "blob_sha256": "803218eb4c43bbe4cb1846115b00385f89ab22253d3adccb5393c253d3ba6e03"
+     },
+     {
+      "path": "tools/ledger_coverage/engine/cli.py",
+-     "git_blob": "28984e8a277eee0418135f012e5a1f69de217b4d",
+-     "blob_sha256": "2bc4da0ee06aa51eb63c586916d145a8c7d420a80bbfa8bd1fe7e0a8759f50cd"
++     "git_blob": "f3194f29eb76df67bdcb26bae963ce439c8e8dad",
++     "blob_sha256": "d1db751bcef917462fc29bfbe9234146f6b806dd5b15a247de7214cb58f92ae4"
+     },
+     {
+      "path": "tools/ledger_coverage/engine/config.py",
+@@ -174,8 +179,8 @@
+     },
+     {
+      "path": "tools/ledger_coverage/engine/pipeline.py",
+-     "git_blob": "ca773cea15cd5354e32e70578027c0b11a09dbad",
+-     "blob_sha256": "5970ed877c94b3222bbc00473280ef0b3c4522028d3ada4b52b3bf76f5de4c6f"
++     "git_blob": "73bad0adaa99f67e18d033c2fdd87c067df6bae2",
++     "blob_sha256": "b0c07371fca20cac86e8e8c046ff814c8817c2a111a2a6fdbfd2a6eb9a17bb65"
+     },
+     {
+      "path": "tools/ledger_coverage/engine/profiles.py",
+@@ -194,8 +199,8 @@
+     },
+     {
+      "path": "tools/ledger_coverage/engine/records.py",
+-     "git_blob": "e42f148b501d6cae1a9bcc4f887c1776d443531d",
+-     "blob_sha256": "fd4b56d29025a1f8a271c06a00b90cb6b2c9727ef872dfac3b34fd9cdeaf8ba1"
++     "git_blob": "0312011897c6a550fca6eba8493ed63299a327fa",
++     "blob_sha256": "15cc0ae7ee768e0d269981f0967670415e98c2fc4d664f942758c43a9c120512"
+     },
+     {
+      "path": "tools/ledger_coverage/engine/replay.py",
+@@ -234,8 +239,8 @@
+     },
+     {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/README.md",
+-     "git_blob": "70470b435510d886b67eb179903f8760d7026532",
+-     "blob_sha256": "b527ccaa6f4da4edf0288ce5e7a2f2cbdc08db8fb834125d483700c4a6d5485d"
++     "git_blob": "f51bede25baee950086dc86bd505d4bc03ea05eb",
++     "blob_sha256": "44d7e159ac05707038ea9fbf4718b4e63e51001a049e07366ccbbf99f0a0e14c"
+     },
+     {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/controls.json",

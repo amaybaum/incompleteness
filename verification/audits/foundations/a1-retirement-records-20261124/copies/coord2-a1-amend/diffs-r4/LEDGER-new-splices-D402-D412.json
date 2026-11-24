@@ -1,0 +1,134 @@
+{
+ "base": "53c6601a10419b6b333cc992474272501ab542af",
+ "edits_sha256": "19eb79bd478275110b4ff1cd3ae2271c37574e849d45be272f53b8e75e726b4b",
+ "new_splices": [
+  {
+   "id": "D405",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "start": 621142,
+   "end": 621196,
+   "old_sha256": "8eb676bc135a4dcb4b48b654894ca36f5a0e24c1e09f5596c4f7267d37bd6284",
+   "new": "the structural properties developed in Chapter 5 (",
+   "new_sha256": "b88d10778c8dc87370c5109a846d07d232116e735db5432e4dd2490b49df88fe",
+   "reason": "Owner decision of 2026-11-24, option A: the count names the Chapter-5 structural properties of ch09:36 and ch09:137 explicitly; the set and its meaning are unchanged."
+  },
+  {
+   "id": "D407",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "start": 1092427,
+   "end": 1092494,
+   "old_sha256": "9890b8e5e5101e09af0a8f72f9575321c2892d16bbb8511b3707783dcaa19d68",
+   "new": "(one of the framework's structural properties of the bijection: isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count)",
+   "new_sha256": "4ddee078457fb2cc5cfcef75b2b0a52036b7483fc0124a40c9e5b0aae4e1cc9b",
+   "reason": "Owner decision of 2026-11-24, option A: the count names the Chapter-5 structural properties of ch09:36 and ch09:137 explicitly; the set and its meaning are unchanged."
+  },
+  {
+   "id": "D409",
+   "file": "book/The-Incompleteness-of-Observation-FULL.md",
+   "start": 1094860,
+   "end": 1094969,
+   "old_sha256": "085a5e05d6e02f7ce357fd0bef703c27fab50937c99b261c7c6269f8066a8c6d",
+   "new": "The framework's structural properties of the bijection (isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count; developed across Chapters 5-7) further narrow it.",
+   "new_sha256": "2ba6e306addc5776dbe65b83c8a98386134502ff8262d8b24c77bd9319c6980b",
+   "reason": "Owner decision of 2026-11-24, option A: the count names the Chapter-5 structural properties of ch09:36 and ch09:137 explicitly; the set and its meaning are unchanged."
+  },
+  {
+   "id": "D404",
+   "file": "book/ch09-universality.md",
+   "start": 26169,
+   "end": 26223,
+   "old_sha256": "8eb676bc135a4dcb4b48b654894ca36f5a0e24c1e09f5596c4f7267d37bd6284",
+   "new": "the structural properties developed in Chapter 5 (",
+   "new_sha256": "b88d10778c8dc87370c5109a846d07d232116e735db5432e4dd2490b49df88fe",
+   "reason": "Owner decision of 2026-11-24, option A: the count names the Chapter-5 structural properties of ch09:36 and ch09:137 explicitly; the set and its meaning are unchanged."
+  },
+  {
+   "id": "D406",
+   "file": "book/ch19-open-problems.md",
+   "start": 49287,
+   "end": 49354,
+   "old_sha256": "9890b8e5e5101e09af0a8f72f9575321c2892d16bbb8511b3707783dcaa19d68",
+   "new": "(one of the framework's structural properties of the bijection: isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count)",
+   "new_sha256": "4ddee078457fb2cc5cfcef75b2b0a52036b7483fc0124a40c9e5b0aae4e1cc9b",
+   "reason": "Owner decision of 2026-11-24, option A: the count names the Chapter-5 structural properties of ch09:36 and ch09:137 explicitly; the set and its meaning are unchanged."
+  },
+  {
+   "id": "D408",
+   "file": "book/ch19-open-problems.md",
+   "start": 51720,
+   "end": 51829,
+   "old_sha256": "085a5e05d6e02f7ce357fd0bef703c27fab50937c99b261c7c6269f8066a8c6d",
+   "new": "The framework's structural properties of the bijection (isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count; developed across Chapters 5-7) further narrow it.",
+   "new_sha256": "2ba6e306addc5776dbe65b83c8a98386134502ff8262d8b24c77bd9319c6980b",
+   "reason": "Owner decision of 2026-11-24, option A: the count names the Chapter-5 structural properties of ch09:36 and ch09:137 explicitly; the set and its meaning are unchanged."
+  },
+  {
+   "id": "D402",
+   "file": "papers/SM.md",
+   "start": 405504,
+   "end": 405575,
+   "old_sha256": "227117bc96e597894158fe4ba53ceb3b0c426e3a7f6ed5f414698db95e08d3c6",
+   "new": "they rest on the local spatial/gauge construction of §2.3 and on cubic-group representation theory, each entry under the further conditions of the theorems cited for it; whether an entry requires finiteness of the substratum is not established where those theorems use the measure conditions of Lemma 1c or Proposition 4b or the continuum conditions of the $d = 3$ selection (§3.2), and $1/\\alpha_0$ is computed from the lattice momentum integral of §6.1 over the whole Brillouin zone, whose counterpart for a finite substratum and whose normalization of the vertex coupling are not established.",
+   "new_sha256": "c46d5981668cd855168395667e9ed51cf12fa62295e3addedc1a6d50b5a071d9",
+   "reason": "Owner decision of 2026-11-24 on SM:1394, option (c): the sentence states the dependencies of its predictions without one common sufficient condition, and states that whether an entry requires finiteness of the substratum is not established where its theorems use the open measure or continuum conditions or the lattice momentum integral (amendment §32.9 trace). No class or entry is added, and no condition is removed."
+  },
+  {
+   "id": "D412",
+   "file": "papers/SM.md",
+   "start": 405671,
+   "end": 405724,
+   "old_sha256": "84248f693bafe923251c44979e5382f7d0f1a5cc0361f2e34cb99c85cb1875bc",
+   "new": "SU(3) × SU(2) × U(1) with multiplicities (3, 2, 1), whose reduction from the stabilizer U(3) × U(2) × U(1) of Theorem 5 carries the amplitude-scale-gauge and background-independence premises of §4.6, a specified charged matter action and the further physical input of Proposition 14a (§4.9),",
+   "new_sha256": "758c165782d84541bf4e4c2612d50adb5d3710da0c4949bccc5669b8d8e82210",
+   "reason": "Owner decision of 2026-11-24 on SM:1394, option (c), requirements 2 and 5: Theorem 5 gives U(3) × U(2) × U(1); the reduction to the Standard-Model group carries the premises and the matter action stated at SM:344 and SM:374, and Proposition 14a's quotient needs further physical input (SM:585). The entry names them."
+  },
+  {
+   "id": "D410",
+   "file": "papers/SM.md",
+   "start": 405725,
+   "end": 405782,
+   "old_sha256": "61aee339b7b5fd2258bc76da5f5536f9b7767d50d8d495da76839a2ac39e1a14",
+   "new": "three generations (spin-1/2 sectors under H-spin', Theorems 9–10; chirality conditional on H-χ', §4.8; light-spectrum selection, Theorem 10)",
+   "new_sha256": "60165e7ced64da66c2da633a41acb475290fa7a6429712c762c1f3d350bc0582",
+   "reason": "Owner decision of 2026-11-24 on SM:1394, option (c), requirements 2 and 5: Theorem 10 reads the three sectors as spin-1/2 generations under H-spin' and names light-spectrum selection among its flagged inputs (SM:456, SM:460). The entry names them."
+  },
+  {
+   "id": "D411",
+   "file": "papers/SM.md",
+   "start": 405940,
+   "end": 406029,
+   "old_sha256": "d19aeb52bf949a18fd801ae3981493a6bc7cc29e2c4b8058230f1676f811dfea",
+   "new": "unique hypercharges from anomaly cancellation, given the observed family pattern in the five representations per family, family-universal charges and chirality under H-χ' (Theorem 15; apart from the exceptional branch $Y_Q=0$)",
+   "new_sha256": "ec826227c78a97aa02321a0f6bb751cd7b2be4c2fce018c3802407ce837591f9",
+   "reason": "Owner decision of 2026-11-24 on SM:1394, option (c), requirements 2 and 5: Theorem 15 takes the five representations per family and family-universal charges as inputs, and its use at SM:460 and SM:555 takes the observed family pattern and the chirality named by H-χ'. The entry names them."
+  },
+  {
+   "id": "D403",
+   "file": "papers/SM.md",
+   "start": 406304,
+   "end": 406399,
+   "old_sha256": "13d29b79536f017b85ed3a098ed71fa523cb869b86e71e16be06a68c6edd2d7c",
+   "new": "hold for the same class as consistency relations conditional on H-count, which includes finiteness of the total system and a conserved energy shell, and on H-slope on identified transitions, H-frame, the H-Hawking horizon and frame conditions, local boost structure and the symmetric detailed-balance rate ratio, with selection of the physical slope an additional condition ([GR §2.3, §3.2, §4–§5, §8.5])",
+   "new_sha256": "9b4e94b118f933c8f6bbfa5e0a3b24f7f83c9e0ebcd62a288a90dffde9b5f230",
+   "reason": "Owner decision of 2026-11-24 on SM:1394, option (c): GR states that the de Sitter calibration of the action scale and of the 1/4 requires H-count, including finiteness of the total system and the conserved energy shell, H-slope on identified transitions, H-frame, the H-Hawking horizon and frame conditions, local boost structure and the symmetric detailed-balance rate ratio, and selection of the physical slope remains an additional condition (GR:88); the sentence carries those conditions."
+  }
+ ],
+ "files_entries_changed": {
+  "book/The-Incompleteness-of-Observation-FULL.md": {
+   "base_sha256": "d11389868cab7759fb77a93f080488c21fed570bbddae2d8e9dbc19d62e3bebf",
+   "expected_sha256": "9f419aaefd4eed423da191616b9b87ffac4d15ab1b03e3a42916fa72d05c1610"
+  },
+  "book/ch09-universality.md": {
+   "base_sha256": "21bdcd8c979401d6f7142655653e2a3985413841f6b7e8c876720b58bed94f83",
+   "expected_sha256": "71a3fb678b95d4d4d93e68631a193fa2bfbf57b15f86b9593a04c737e0b7ede5"
+  },
+  "book/ch19-open-problems.md": {
+   "base_sha256": "84fb4608bd4ab2127f82950309a5903d7d384f95dea19f576023c636b9658da9",
+   "expected_sha256": "370a9f9de42a712277e0f62f433d4678e4d158ffc92b8efb1a798b957cb9b1d3"
+  },
+  "papers/SM.md": {
+   "base_sha256": "0ed094252ca3a5a2fd6ff2081b72541ba053725b420b491deced73df93bf04cf",
+   "expected_sha256": "1259d56b6e98e5f57b7f73367bbe719eb988175958f93259dcc809da581ef415"
+  }
+ }
+}

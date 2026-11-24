@@ -1,0 +1,416 @@
+--- DESIGN-v5.5.9.md	2026-11-24 02:35:24.383840070 +0000
++++ DESIGN-v5.5.10.md	2026-11-24 08:52:11.331115551 +0000
+@@ -1,4 +1,4 @@
+-# Commit-independent ledger and terminology verification tool: design v5.5.9
++# Commit-independent ledger and terminology verification tool: design v5.5.10
+ 
+ ## Status and authority
+ 
+@@ -7,6 +7,29 @@
+ - It supersedes v5.4 where they differ. `DESIGN.md` (v1), `DESIGN-v2.md` to `DESIGN-v5.md` and
+   `DESIGN-v5.1.md` to `DESIGN-v5.4.md` stay as written. This document is complete in itself; it is
+   not a diff. It is intended as the final design version.
++- **v5.5.10 amends the adopted v5.5.9 for the owner decisions HS-1 to HS-7 of 2026-11-24 only:**
++  the sources from which the tool reads the host. It is authoritative only after an independent
++  review returns ACCEPT and the owner adopts it; until then the authoritative design is v5.5.9
++  (sha256 cdfbe08cd9ec331ac94e9d57d66f0e0c919cc2ff17038a8475a1ff2d7a779df9). It changes sec. 5 (the
++  consumer's verification, integrity errors), sec. 6.3 (trust root, authority changes, the freeze
++  ledger's residual, admission points 2, 3 and 9, the admission snapshot, residual trust), sec. 7.2
++  (clones and host-run records), sec. 10.4 (TR25, TR35; new controls TR71-TR85), the new sec. 10.5
++  (real-host validation, HV1-HV10), sec. 15 (items 1, 7-9) and S13. No other rule changes, and no
++  control expectation is relaxed. Implementation is not authorized by it. `CHANGES-v5.5.10.md`
++  lists every changed passage. The decisions (owner amaybaum, 2026-11-24), as they reached this
++  writer through the coordinating session, with no comment id held (sec. 15 item 1):
++  - **HS-1.** Hash-verified local git for repository history; the host's REST API for its metadata.
++  - **HS-2.** Option G: the existing comment edit-history requirements are kept, and GraphQL is
++    restricted to information unavailable through REST.
++  - **HS-3.** Fail closed whenever required edit history is missing, unreadable, incomplete or
++    unverifiable; an unreadable revision is never silently skipped.
++  - **HS-4.** Shallow and partial clones are rejected unless their completeness for all required
++    objects can be independently established; replace and graft mechanisms are ignored.
++  - **HS-5.** `updated_at` is not relied on as proof that a comment has never been edited.
++  - **HS-6.** Deleted comments are investigated separately, distinguishing what the host exposes
++    from what cannot be reconstructed; complete historical coverage is not claimed without evidence.
++  - **HS-7.** The API budget is measured, and the remaining GraphQL behaviour verified, in a
++    separately authorized CI validation stage.
+ - **v5.5.9 amends the adopted v5.5.8 for owner decision D-1 of 2026-11-24 only.** It is
+   authoritative only after an independent check returns ACCEPT and the owner adopts it; until then
+   the authoritative design is v5.5.8 (sha256
+@@ -251,6 +274,7 @@
+ | v5.4 addendum C3 and R-D5: admission snapshot, compressed result, offline replay | sec. 5, 6.3 (snapshot); TR45, TR46 |
+ | v5.4 addendum C4 and R-D1: the stricter refusals stated | sec. 6.1 |
+ | v5.4 review: residual-trust list | sec. 6.3 |
++| owner decisions HS-1 to HS-7 (2026-11-24): host sources, edit history, local stores, deleted comments, real-host validation | sec. 5, 6.3 (trust root points 1-3, authority changes, freeze ledger, admission points 2, 3 and 9, snapshot, residual trust), 7.2, 10.5, 15; TR25, TR35, TR71-TR85, HV1-HV10 |
+ 
+ ### 0.3 Figures
+ 
+@@ -795,7 +819,8 @@
+ - `config.admission` is `"chain"` and names the same `F` as the consumer's own, with the same
+   designation, the same pin table and the same `A` blob. The consumer reads `A` itself from the
+   canonical repository's `main` (sec. 6.3).
+-- The result was produced in a host CI run that the consumer verifies itself from the host API, by
++- The result was produced in a host CI run that the consumer verifies itself, from the host's REST
++  API and its own full local object store read as trust-root point 2 of sec. 6.3 states (HS-1), by
+   repeating trust-root points 1-3 of sec. 6.3:
+   - the repository id equals `A.repository.id`, and the repository is not a fork;
+   - `head_sha` is on `main`'s first-parent chain and contains `A`, the pinned workflow and the
+@@ -854,7 +879,7 @@
+ - a ledger hash, span, overlap or base mismatch;
+ - `edits_sha256` mismatch;
+ - an encoding error (not UTF-8, or CR present);
+-- an unresolvable object;
++- an unresolvable object, or one that does not hash to its id (sec. 6.3, trust root point 2);
+ - the configuration classes of sec. 16.6.
+ 
+ Evaluation order fixes precedence: USAGE, INTERNAL (at any stage), ERROR, VOID, FAIL,
+@@ -1369,22 +1394,59 @@
+ 
+ **The trust root, without circularity.** `A` is data. It cannot authenticate itself, and the owner
+ id inside it cannot be what authenticates it. Its authority rests on things outside `A`, the caller
+-and `F`, all read by the tool and, separately, by the consumer from the host API, never from a
+-run's own output:
++and `F`, all read by the tool and, separately, by the consumer from the host, never from a run's
++own output: from the host's REST API, and from a local git object store each of whose objects is
++bound by its hash to an id the host reported (point 2; HS-1):
+ 
+-1. **The host's attestation of the run.** The tool and the consumer each read the run record by
+-   the run id the host assigns. It gives:
++1. **The host's attestation of the run.** The tool and the consumer each read the run record,
++   from the host's REST API, by the run id the host assigns. It gives:
+    - the repository's numeric id and fork status;
+    - the workflow path;
+    - the run's `head_sha`.
+-2. **That repository's `main`.** `A` is read only from `main` of the attested repository, through
+-   the host API, at the head the host reports. It is never read from the caller's checkout, another
+-   ref, another repository, a file the caller supplies, or `F`'s tree. `A.repository` must equal the
+-   attested repository id. This is a consistency check of `A` against the attestation, not a source
+-   of trust.
++2. **That repository's `main`.** `A` is read only from `main` of the attested repository, at the
++   head the host reports. It is never read from the caller's checkout, another ref, another
++   repository, a file the caller supplies, or `F`'s tree. `A.repository` must equal the attested
++   repository id. This is a consistency check of `A` against the attestation, not a source of
++   trust.
++
++   **Repository history from a verified local object store (HS-1, HS-4).** The commit id of `main`
++   is read once per admission from the host's REST record of the attested repository's `main`; that
++   one id anchors every read from `main` in the admission. It and the run's `head_sha` (point 1)
++   are the anchors. The first-parent chain, every version of `A` and of the freeze ledger, and every
++   commit, tree, tree entry and file that the trust root, the authority-change procedure and the
++   freeze ledger read come from a full local git object store, read by object id only; commits named
++   otherwise (`F` and `F2` in owner comments, the evaluated commits) are read the same way:
++   - **Each object verified.** Every object is requested by its id, and its id is recomputed from
++     its type, length and content. An object that is missing, or does not hash to its id, refuses. A
++     commit's parents and tree, and a tree's entries, are parsed from the verified content. The
++     store's refs, reflogs and packed refs are never consulted.
++   - **Replace and graft mechanisms ignored.** Replace refs (`refs/replace/`) and graft files are
++     never applied, and no commit-graph file is trusted: every object is read with replacement
++     disabled, and no parent is taken from a traversal command, a graft, the store's `shallow` file
++     or a commit-graph.
++   - **The chain reaches a root.** The first-parent chain from `main`'s anchor is followed to a
++     commit with no parent; a parent missing from the store refuses. `head_sha` must lie on that
++     chain. Ancestry, such as `F`'s descent from a `main` commit that contains `A`, is computed from
++     the same parsed parents.
++   - **Shallow and partial stores refused.** A store that is shallow (it holds a `shallow` file) or
++     partial (a promisor remote, a partial-clone filter or `extensions.partialClone` configured, or
++     a promisor pack present) refuses, whatever objects it holds. No object is fetched on demand.
++     This design states no other means of establishing such a store's completeness. The
++     completeness it relies on is that every object the admission needs is present and verified, and
++     that the chain reaches a root.
++   - **Anchors absent.** If `main`'s anchor or `head_sha` is not in the store, the admission refuses.
++   - **Entries.** The reader does not change which tree entries are accepted: non-regular entries
++     refuse as point 3 states.
++   - **Other reads.** The same reader, with the same store checks, serves every other read the
++     tool makes from a git object store, in a run or in the offline replay of sec. 5; outside
++     admission, a refusal there is the integrity error of sec. 5 (HS-4).
++
++   The host's own commits, trees and contents are addressed by the same ids, so the bytes read are
++   those the host holds under the ids it reported, under the assumption on object ids stated under
++   "Residual trust assumptions".
+ 3. **Execution identity (V2, V3, R-D3).** The run's `head_sha` must be a commit on `main`'s
+    first-parent chain of the attested repository that contains `A`, the reviewed tool and the
+-   pinned workflow. The following are read by the host API at that `head_sha`:
++   pinned workflow. The following are read at that `head_sha` from the verified store of point 2:
+    - the content of the file at `A.workflow.path`, whose sha256 must equal `A.workflow.content_sha256`;
+    - every blob that `A.engine_pins` names, whose sha256 must equal its pin;
+    - **the files permitted under `tools/ledger_coverage/` (K7).** Besides the files `A.engine_pins`
+@@ -1422,8 +1484,12 @@
+ - **An owner-id change** also needs the same approval from the new id, in a separate comment. That
+   approval is authenticated as "Owner at creation" states for the new id.
+ - **An independent review record** (sec. 6.3) names both blobs.
+-- **The merge is a pull request into `main`.** The merge is recorded as provenance. Its merged-by
+-  id must equal the previous owner id, but that is a provenance check and not the authorization.
++- **The merge is a pull request into `main`.** The merge record is the host's REST pull-request
++  record whose merge commit id equals the commit that lands the new version on `main`'s first-parent
++  chain, merged into `main` of the attested repository; none, or more than one, refuses (HS-1). Its
++  merge time is the host merge time that "Owner at creation" uses. The merge is recorded as
++  provenance. Its merged-by id must equal the previous owner id, but that is a provenance check and
++  not the authorization.
+ - **The first `A`** carries `supersedes: null` and an approval `from=none`, by the id it pins, with
+   its review record. That check is consistent, but circular: nothing in the tool can authenticate
+   the first `A` from its own content. It stays a residual trust assumption (below).
+@@ -1485,19 +1551,32 @@
+   exposes deletion events for the thread. If it does, any deletion of an owner comment refuses. This
+   is a residual of the host model, stated below.
+ 
++  **What the host exposes (HS-6).** The host's REST listing holds only the comments that exist when
++  it is read, and the issue's comment count counts only those; a deletion lowers both alike, so the
++  completeness check of admission point 2 cannot reveal it. No REST issue-event or timeline type
++  records a comment's deletion. The host's GraphQL schema documents a `CommentDeletedEvent`; whether
++  it is emitted for every deletion, and whether it identifies the deleted comment's author by
++  numeric id, is not established, and the tool does not read it under this design. Neither API
++  returns a deleted comment's id, body or first line, so the form a deleted comment carried cannot
++  be reconstructed from the host. Whether deletion events can be read with evidence of their
++  completeness is an open investigation (sec. 15 item 9). Until the owner adopts a rule from it,
++  the tool reads no deletion events, and no complete historical coverage of a thread is claimed.
++
+ **Admission.** The tool performs the following inside a host CI job. Any step that fails or cannot
+ be completed refuses admission with ERROR `CONFIG_UNREVIEWED`:
+ 
+ 1. **Run and execution identity.** Points 1-3 of the trust root.
+-2. **The thread, read completely.** Every comment of the plan's authorized thread is read, page by
+-   page, until the host reports no further page, and the count must equal the host's comment count.
+-   A mismatch, a page error or an unavailable API refuses (no fallback).
++2. **The thread, read completely.** Every comment of the plan's authorized thread is read from the
++   host's REST listing, page by page, until the host reports no further page, and the count must
++   equal the comment count of the host's REST record of the issue; comment ids must be unique. Each
++   comment gives its id, node id, author numeric id and login, creation time, `updated_at`, body and
++   `minimized` field. A mismatch, a repeated id, a page error or an unavailable API refuses (no
++   fallback).
+ 3. **Every owner comment's edit status (V4, R-D2).** For every comment whose author numeric id is
+    `A.owner.id`, and every owner comment as "Owner at creation" defines it (in this point and point
+    4, each of them is meant by "an owner comment"), relevant or not, the tool reads the version of
+-   `A` in force at its creation and its edit status (REST `updated_at`; GraphQL
+-   `lastEditedAt` and `userContentEdits`, with the content of each recorded edit) and its hidden
+-   state. The admission refuses if any of the following holds:
++   `A` in force at its creation, its edit status and its hidden state, as stated below. The
++   admission refuses if any of the following holds:
+    - an owner comment carrying a form has any recorded edit (a designation edited and restored stays
+      invalid, A-D2);
+    - an owner comment's edit history ever contained a first line beginning with `oi-freeze/` or
+@@ -1505,6 +1584,30 @@
+    - an owner comment is hidden or minimized;
+    - an owner comment's edit status cannot be read.
+ 
++   **Edit history (HS-2, HS-3).** The edit history is the only fact the tool reads through the
++   host's GraphQL API. For every owner comment, whatever its `updated_at`, the tool reads
++   `lastEditedAt` and `userContentEdits` (`totalCount`, and each revision's `diff`, `editedAt` and
++   `deletedAt`), by the node ids of the REST listing, in batched queries of at most 100 node ids
++   (HV3). The content of a revision is its `diff`, and its first line is defined as for the forms.
++   The edit status cannot be read, and the admission refuses, if any of the following holds; no
++   revision is ever skipped:
++   - a request fails, or its response carries an error, a rate-limit response or a partial result;
++   - a requested node is missing or null, is returned twice, carries another node id, or is not an
++     issue comment;
++   - `lastEditedAt` or `userContentEdits` is absent;
++   - fewer revisions are returned than `totalCount` states;
++   - a revision's `diff` is null or absent, or its `deletedAt` is set.
++
++   **Edited (HS-5).** A comment is unedited only if GraphQL reports `lastEditedAt` null and
++   `totalCount` 0, and REST reports `updated_at` equal to `created_at`. Any one of the three signals
++   makes it edited; "any recorded edit" above means edited in this sense. `updated_at` can add an
++   edit signal; its equality to `created_at` never removes one and is never proof that a comment was
++   not edited.
++
++   **Hidden state (HS-2).** It is read from the REST field `minimized`. Only `null` reads as not
++   hidden, and a non-null object reads as hidden. An absent field, or any other value, cannot be
++   read, and the admission refuses.
++
+    A comment whose author has the owner's login but another numeric id is not the owner's. It is
+    reported, never matched.
+ 4. **Forms.** The owner comments of point 3 whose first line begins with `oi-freeze/` are parsed
+@@ -1533,9 +1636,9 @@
+    for the configuration's own.
+ 8. **Optional equality.** `--config-sha256`, if given, must equal the admitted configuration's
+    sha256. It is an extra check and never a substitute.
+-9. **Local runs and replay.** A run outside a host CI job, or one that cannot reach the host API,
+-   cannot reach `"chain"`. The offline replay of sec. 5 writes `"admission": "replay"` and is never
+-   acceptable as a new run.
++9. **Local runs and replay.** A run outside a host CI job, or one that cannot reach the host's REST
++   or GraphQL API or has no full local object store (point 2), cannot reach `"chain"`. The offline
++   replay of sec. 5 writes `"admission": "replay"` and is never acceptable as a new run.
+ 
+ **The admission snapshot (C3).** `result.json` records `config.admission`. Its mode is `"chain"`
+ only when points 1-7 held, and it carries the snapshot:
+@@ -1543,11 +1646,13 @@
+ - `A`'s blob sha256, the chain of approval comments, and the merge commits;
+ - the run record fields read: run id, repository id and fork status, workflow path and content
+   sha256, `head_sha`, and the engine and adapter blob hashes at `head_sha`;
++- `main`'s commit id as the host reported it, which anchored every read from `main` (point 2);
+ - the evaluated commits `E`, `H`, `X`, `C`, `L` and `M`;
+ - the thread's complete comment-id list and count;
+ - for every comment of admission point 3: id, author numeric id, creation time, the blob sha256 of
+-  the version of `A` in force at its creation, edit status, hidden state, full first line and body
+-  sha256;
++  the version of `A` in force at its creation, edit status (GraphQL `lastEditedAt` and `totalCount`,
++  the sha256 of each revision's content, REST `updated_at`, and the resulting edited flag), hidden
++  state (the REST `minimized` value as read), full first line and body sha256;
+ - the freeze-ledger blob, and the committed snapshots it was reconciled with;
+ - `F` and the pin table's `{path, blob_sha256}`;
+ - **the delegated evidence (F2)**, for every delegated and native class of sec. 7.3, at `X` and, where
+@@ -1570,19 +1675,26 @@
+ 
+ **Residual trust assumptions, stated.** The tool and the consumer trust:
+ 
+-- **The host's API and its attestations:** the run record (repository id, fork status, workflow
+-  path, `head_sha`); the content of files at a commit; `main`'s head and history; a pull request's
++- **The host's APIs and their attestations.** The REST API: the run record (repository id, fork
++  status, workflow path, `head_sha`); `main`'s head commit id; a pull request's merge commit,
+   merged-by id and merge time; and a comment's immutable id, numeric author id, creation time,
+-  edit history,
+-  hidden state, and the completeness of a thread's listing.
++  `updated_at`, body, hidden state, and the completeness of a thread's listing of the comments that
++  exist when it is read. The GraphQL API: a comment's edit history, that is, each recorded revision,
++  its content, and their count (HS-2).
++- **Git object ids.** The content of files at a commit and `main`'s history are read from a local
++  object store and bound to the ids the host reported by recomputing each object's id (trust root
++  point 2). That binding rests on the collision resistance of the repository's object hash (SHA-1);
++  the host and git's object transfer apply collision-detecting SHA-1 to the objects they accept. The
++  local store itself is not trusted.
+ - **The host runner:** that it executes the pinned workflow at `head_sha` faithfully, so that the
+   code that ran is the code whose blobs were read.
+ - **The host's access control on the canonical repository's `main`.**
+ - **Who can delete, hide or edit comments in the authorized threads:** the owner, and accounts the
+   host grants moderation rights in the repository. Edits and hiding are detected (admission point
+   3). A deletion is detected only for events already in the freeze ledger or in a committed
+-  snapshot, or if the host reports deletions. A withdrawal deleted before any admission observed it
+-  remains a residual.
++  snapshot; the tool reads no deletion events ("The freeze ledger", HS-6). A withdrawal deleted
++  before any admission observed it remains a residual, and so does any form a deleted comment
++  carried.
+ - **The integrity of the first reviewed and owner-approved landing of `A`,** which nothing in the
+   tool can verify from `A`'s content.
+ - **The owner's own account.**
+@@ -1888,7 +2000,8 @@
+ - **Native execution (B2).** Every delegated or native-re-execution class is executed by the tool
+   itself against every tree whose delegated paths are evaluated (V7). In the integrity stage the
+   tool creates a disposable full clone of the repository at exact `X` under `--out` (no `--depth`,
+-  no alternates; `X`'s commit and tree ids are checked in the clone), and, when `C` differs from `X`,
++  no `--filter`, no alternates; the clone is refused if shallow or partial, as sec. 6.3 trust root
++  point 2 states; `X`'s commit and tree ids are checked in the clone), and, when `C` differs from `X`,
+   a second disposable full clone at exact `C`, checked the same way. Every class is executed and
+   recorded in each clone separately, with the same independent re-derivation; a class PASSes for
+   the run only if it PASSes at `X` and at `C`. Checkers run only from `F`'s blobs, written into a
+@@ -1905,7 +2018,7 @@
+   addition to reading preserve_check's result. A checker result that disagrees with the tool's own
+   re-derivation is FAIL `delegated-evidence-invalid`.
+ - **Host-run classes** (`pdf`, `ci`). The evidence is the host's run and job records, read by the
+-  tool from the host's API inside the job (sec. A.44), never a file supplied by a caller. The tool
++  tool from the host's REST API inside the job (sec. A.44), never a file supplied by a caller. The tool
+   checks `head_sha = X`, the named workflow and jobs, and their conclusions. For `pdf` it also
+   checks that the PDF comparison result names `candidate_commit` and `candidate_tree` equal to
+   `X`, that it was produced by preserve_check run by this tool from `F`'s blob on PDFs built in the
+@@ -2305,7 +2418,7 @@
+ | TR22 | two live designations of different commits for one round | ERROR (conflict) | point 5 |
+ | TR23 | `F`'s tree carrying a copy of `A` that differs from the admitted `A`; separately, a change to `A` on `main` merged by an account other than the owner | ERROR in both | sec. 6.3 (`A`) |
+ | TR24 | a caller-supplied authority configuration (a file, a path argument, an environment value naming one) | never read as `A`; `A` is read from `main` of the attested repository only; a run that cannot do so is ERROR | sec. 6.3, trust root |
+-| TR25 | `A` taken from another ref (a branch, a tag, `F`'s tree) or another repository | refused: only `main` of the attested repository, through the host API | trust root point 2 |
++| TR25 | `A` taken from another ref (a branch, a tag, `F`'s tree) or another repository | refused: only `main` of the attested repository, at the head id the host's REST API reports, read from the verified store of point 2 | trust root point 2 (HS-1) |
+ | TR26 | `A` on `main` changed after the commit `F` descends from, by a merge without its review record and owner authorization; separately, the same change with them | the first: ERROR; the second: admitted under `main`'s `A`, with both blobs and the merges recorded | changes between `F` and execution |
+ | TR27 | `F` based on a `main` commit that does not yet contain `A` | ERROR | bootstrap order |
+ | TR28 | the pinned workflow at a `head_sha` whose tool blobs differ from `A.engine_pins` (or carry an extra file under `tools/ledger_coverage/`) | ERROR at the tool; non-acceptance at the consumer, which reads the blobs itself | sec. 6.3 trust root point 3 (V3) |
+@@ -2315,7 +2428,7 @@
+ | TR32 | a supersession committed in an earlier acceptance snapshot, whose comment is later deleted | the supersession binds; the earlier `F` stays superseded | freeze ledger |
+ | TR33 | a withdrawal edited into a comment without a form | ERROR (an owner comment's edit history contained a form) | point 3 (V4) |
+ | TR34 | an old owner comment edited into a designation | ERROR (an owner comment carrying a form has an edit) | point 3 (V4) |
+-| TR35 | a withdrawal posted and deleted before any admission observed it, on a host that reports no deletion events | not detected: the stated residual (sec. 6.3); the control documents the residual and does not claim a refusal. On a host that reports deletions: ERROR | residual |
++| TR35 | a withdrawal posted and deleted before any admission observed it, on a host that reports no deletion events | not detected: the stated residual (sec. 6.3); the control documents the residual and does not claim a refusal. On a host that reports deletions: ERROR. The tool reads no deletion events until the owner adopts a rule from the investigation of sec. 15 item 9, so on the host in use the first branch applies (HS-6) | residual |
+ | TR36 | the freeze ledger missing, unverifiable, or conflicting with the thread | ERROR | freeze ledger |
+ | TR37 | a designation whose first line ends in CRLF | recognized (one trailing CR removed) | forms (V5) |
+ | TR38 | a designation whose first line has a trailing space, or a doubled space, or an uppercase hex id | ERROR (malformed form) | forms (V5, C2) |
+@@ -2351,6 +2464,21 @@
+ | TR68 | V1 (owner 4242) -> V2 (owner 5555) is an owner change. Each case separately, with every other approval and review in it valid, so that each case isolates one defect: an `A` change V2 -> V3 keeping 5555, whose previous-id approval (`from=<sha256 of V2>`) 5555 created while V1 was in force; an `A` change V3 -> V4 after V2 -> V3 (5555 -> 4242), whose previous-id approval 4242 created while V1 was in force; an owner-id change V2 -> V3 (5555 -> 6666), whose new-id approval 6666 created before V1 -> V2 merged | ERROR in each case: the change does not take effect, and every later admission refuses | DI-1; authority changes |
+ | TR69 | 5555 designates `F` while 4242 is the owner; 4242 -> 5555; 5555 withdraws `F`; 5555 then designates `F'` | ERROR (a withdrawal naming a commit never designated: the designation was not an owner comment at its creation); admission of `F'`: ERROR | DI-1, point 5 |
+ | TR70 | 4242 designates `F`; 5555 posts `oi-freeze/1 supersede` of `F` by `F2` while 4242 is the owner; 4242 -> 5555; 5555 designates `F` (control harness) | `F` is the one designated commit at point 5 (the supersession is not an owner comment; neither half is processed) | DI-1, point 5 |
++| TR71 | a replace ref (`refs/replace/`) in the store that substitutes, for a commit of `main`'s first-parent chain, a commit without its change to `A`; separately, one that substitutes `A`'s blob at `head_sha` | ignored: the versions of `A`, their bytes and the admission equal those read from the same store without the replace ref, in both directions | trust root point 2 (HS-4) |
++| TR72 | a graft file that makes a commit of the chain parentless, so that a traversal command stops before an earlier change to `A` | ignored: the result equals that without the graft file | point 2 (HS-4) |
++| TR73 | a commit-graph file recording false parents for a commit of the chain | ignored: the result equals that without the commit-graph file | point 2 (HS-4) |
++| TR74 | a shallow store (a clone with `--depth`); separately, a store holding a `shallow` file in which every needed object is present | ERROR `CONFIG_UNREVIEWED` in both (refused by its marker) | point 2 (HS-4) |
++| TR75 | a partial store (`--filter=blob:none`, a promisor remote); separately, a partial store in which every needed object has already been fetched | ERROR `CONFIG_UNREVIEWED` in both; no object is fetched on demand | point 2 (HS-4) |
++| TR76 | a loose object whose stored content does not hash to its id, each case separately: a blob of `A`, a tree of a chain commit, a commit of the chain, a tool blob at `head_sha` | ERROR `CONFIG_UNREVIEWED` in each case, although `git cat-file -p` prints the content | point 2 (HS-1) |
++| TR77 | the chain does not reach a root: the first parent of a chain commit removed from the store, with no `shallow` file; separately, `main`'s anchor absent from the store; separately, `head_sha` absent | ERROR `CONFIG_UNREVIEWED` in each case | point 2 (HS-1, HS-4) |
++| TR78 | an owner comment whose GraphQL edit history holds a revision with `diff: null`; separately, with no `diff` field; separately, with `deletedAt` set; in each case with every other revision free of forms, on a comment carrying a form and, separately, on one carrying none | ERROR in every case: the edit status cannot be read; the revision is never skipped | admission point 3 (HS-3) |
++| TR79 | an owner comment whose `userContentEdits.totalCount` exceeds the number of revisions returned | ERROR | point 3 (HS-3) |
++| TR80 | the GraphQL edit-history read, each case separately: the request fails; an `errors` entry beside the data; a rate-limit response; a requested node null or missing; a node returned twice or carrying another node id; a node that is not an issue comment; `lastEditedAt` or `userContentEdits` absent | ERROR in every case; no fallback to REST | point 3 (HS-3) |
++| TR81 | an owner comment whose REST `minimized` is an object; separately, absent; separately, `true`, a string or another non-null value that is not an object | ERROR in each case: hidden in the first, unreadable in the others; only `null` reads as not hidden | point 3 (HS-2) |
++| TR82 | an owner designation for which GraphQL reports `lastEditedAt` null and `totalCount` 0 while REST `updated_at` differs from `created_at`; separately, GraphQL reporting an edit while `updated_at` equals `created_at`; separately (positive), all three signals unedited | ERROR (edited) in the first two; the third: no refusal from point 3 | point 3 (HS-5) |
++| TR83 | a REST listing that repeats one comment id and omits another, so that its count equals the issue's comment count | ERROR | admission point 2 |
++| TR84 | a version of `A` (separately, of the freeze ledger) whose landing commit on `main` has no REST pull-request record with that merge commit, merged into `main` of the attested repository (a direct push); separately, two such records; separately, a pull request merged into another base | ERROR in each case | authority changes (HS-1) |
++| TR85 | lint of the host adapter: a GraphQL query other than the edit-history read of admission point 3 (for example one reading `isMinimized`, a file, a commit or a pull request) | lint FAIL | point 3 (HS-2) |
+ | G4 | `sc42` with a supplied result file claiming `verbose_equal: true`, while the clone's re-execution differs | FAIL `delegated-evidence-invalid`; the supplied file is not read as evidence | sec. 7.2 (B2) |
+ | G5 | `coverage-ledger` with a supplied census JSON; one STALE value at `X` differs from the census the tool runs | FAIL | sec. 7.2 |
+ | G6 | `tex` with a supplied preserve_check result reporting `pass`, while a TeX stamp at `X` is wrong | FAIL `delegated-evidence-invalid` | own re-derivation |
+@@ -2374,6 +2502,30 @@
+ | S11-58k | chained across the image boundary: `H` = `"ab qc"`; edit 1 `{old: "ab q", new: "xy"}`; edit 2 `{old: "qc", new: "Q", old_step2: "yc", new_step2: "Q"}`. Edit 2's `old` occurs once at `H`; after edit 1 the text is `"xyc"`, `qc` no longer occurs, and P selects `yc`, which spans edit 1's image and the original `c`; the ledger holds edit 1's splice | ERROR `SOURCE_CHANGED` naming edit 2 (chained); P applies the list, with result `"xQ"` | V1 (F1) |
+ | K10 | a meaning-context site with a context change and a matching context adjudication | PASS (sec. 4.1 row 2) | positive direction of K1 |
+ 
++### 10.5 Real-host validation stage (HS-7)
++
++This stage is not part of this design's adoption or of the implementation step, and runs only under
++its own owner authorization. It runs in a host CI job of the attested repository, with the job's own
++token, and only reads, except for HV8-HV10, which need writes on a dedicated test issue that the
++owner authorizes separately. Its decision rules are fixed here; the figures are measured and
++recorded, never preset. Until every item has passed on the host, no admission on the real host is
++claimed: TR5 and TR48 are reported `NOT RUN` on the real host, and no result is presented for
++acceptance under sec. 5. An item that fails returns the design to the owner; no rule of sec. 6.3 is
++relaxed to make it pass.
++
++| Id | Measurement or check | Passes when |
++|---|---|---|
++| HV1 | the job token's REST budget, from the host's rate-limit record inside the job, before and after one complete admission read of the authorized thread, the authority history and the merge records | the REST requests the admission made, counted by the tool, are at most the remaining REST budget measured before it; both figures are recorded |
++| HV2 | the job token's GraphQL budget, from the same record, and the point cost of each edit-history query | the points the admission used are at most the remaining GraphQL budget measured before it; both figures are recorded |
++| HV3 | the edit-history query over every owner comment of the authorized thread, in batches of the tool's size; and one batch one id larger | each batch of the tool's size returns exactly one issue-comment node per requested id, with the same node id; the larger batch is answered completely or with an error, never truncated without one |
++| HV4 | every comment of the thread whose `totalCount` is above 0 | `totalCount` equals the revisions returned; no `diff` is null; the content of the newest revision equals the comment's current REST body, byte for byte |
++| HV5 | every comment of the thread | `lastEditedAt` null implies `totalCount` 0; the number of comments on which the REST and GraphQL edit signals disagree is recorded |
++| HV6 | the edit-history query as the tool frames it | accepted with no `errors`; every field the tool reads, `deletedAt` included, exists in the host's schema |
++| HV7 | REST `minimized` on every comment of the thread | each value is `null` or an object |
++| HV8 | (write) the owner's account edits a test comment | REST `updated_at` changes; `lastEditedAt` is set; `totalCount` rises; the newest revision's content equals the new body, and an earlier revision's the old body |
++| HV9 | (write) a revision of the test comment deleted from its edit history | the history still reports it, in `totalCount` and as a revision with a null `diff` or a set `deletedAt`, so that point 3 refuses |
++| HV10 | (write) the test comment minimized | its REST `minimized` is a non-null object |
++
+ ***
+ 
+ ## 11. Mapping of the mandatory sec. 11 checks (P's PREREG sec. 11) to the tool
+@@ -2814,9 +2966,10 @@
+    `AGENTS.md` under sec. 13.3, side-change class records) and the owner's decision; under the
+    current implementation the reconciliation cannot pass op C (drift finding S2), which v5.2
+    specifies away (sec. 13.3).
+-1. **Decision records.** The owner decisions D1-D4, V5-D1, V5-D2 and S1-D1 to S1-D3 of 2026-11-23 reached this
+-   writer only through the coordinating session. The design should cite them with author, time and
+-   comment id once the record exists (sec. A.42 item 7).
++1. **Decision records.** The owner decisions D1-D4, V5-D1, V5-D2 and S1-D1 to S1-D3 of 2026-11-23,
++   and HS-1 to HS-7 of 2026-11-24, reached this writer only through the coordinating session. The
++   design should cite them with author, time and comment id once the record exists (sec. A.42
++   item 7).
+ 2. **Accepted residuals after V5-D1.** With DR-1d and DR-2 dropped, "the framework's sixth
+    structural property, finiteness of the bijection" PASSes when added (control V4), and "the
+    substratum's sixth axiom, finiteness" is REVIEW only (V15). The text of v4's former DR-2
+@@ -2835,6 +2988,23 @@
+ 5. **Independent recount.** The figures labelled WN in sec. 0.3 need an independent recount before
+    they are used as references.
+ 6. **Item 7.** The amendment text itself is outside this design (sec. 11 note 1).
++7. **Real-host validation (HS-7).** The stage of sec. 10.5 needs its own owner authorization, and
++   HV8-HV10 need writes on a dedicated test issue, authorized separately. Until every item passes,
++   no admission on the real host is claimed.
++8. **Host behaviour not yet observed.** Whether every edit changes REST `updated_at` (the tool does
++   not rely on it, HS-5); the non-null form of REST `minimized`, which no comment of the repository
++   has shown (HV7, HV10); whether a revision deleted from an edit history is still reported (HV9);
++   whether a revision's `diff` is its full content (HV4, HV8); the batch size the host accepts
++   (HV3). The tool's rules refuse wherever the host's answer departs from the expected form. They
++   cannot detect a fact the host omits altogether, such as a minimized comment reported with
++   `minimized: null` or a deleted revision left out of `totalCount`; HV9 and HV10 test these.
++9. **Deleted comments (HS-6).** An investigation, separate from this design and not one of its
++   requirements: what the host records about a comment's deletion (the documented GraphQL
++   `CommentDeletedEvent`, its fields, whether it is emitted for every deletion, and whether it
++   identifies the author by numeric id), and what cannot be reconstructed (a deleted comment's id,
++   body and form). Its outcome may let the tool take TR35's branch for a host that reports
++   deletions, by an owner decision on its evidence. Until then the residual of sec. 6.3 stands, and
++   no complete historical coverage of a thread is claimed.
+ 
+ ***
+ 
+@@ -3149,4 +3319,4 @@
+ 
+ | Step | Work | Acceptance |
+ |---|---|---|
+-| S13 | Configuration loader and validator, adapter admission by blob, the A1 configuration, the synthetic configuration | Z1-Z8, Z9a-Z9h, Z10, Z11 and Y1-Y10 behave; N2-N18, R18, R19, S4a, LN1-LN12, S11-57a-d, S11-58a-k, G9, TR1-TR70, WB13-WB15, X11, TR1-TR5, G4-G8, R16, R17, A12r, WB1-WB12, S11-56 and K10 behave; every A1 control has the same outcome as specified in sec. 10-11 of this document; no engine source contains an A1 constant (Z9) |
++| S13 | Configuration loader and validator, adapter admission by blob, the A1 configuration, the synthetic configuration | Z1-Z8, Z9a-Z9h, Z10, Z11 and Y1-Y10 behave; N2-N18, R18, R19, S4a, LN1-LN12, S11-57a-d, S11-58a-k, G9, TR1-TR85, WB13-WB15, X11, TR1-TR5, G4-G8, R16, R17, A12r, WB1-WB12, S11-56 and K10 behave; every A1 control has the same outcome as specified in sec. 10-11 of this document; no engine source contains an A1 constant (Z9); no admission on the real host is claimed before HV1-HV10 pass in the separately authorized stage of sec. 10.5 |

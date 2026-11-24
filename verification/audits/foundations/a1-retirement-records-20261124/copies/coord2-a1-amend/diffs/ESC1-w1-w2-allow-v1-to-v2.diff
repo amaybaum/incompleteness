@@ -1,0 +1,74 @@
+--- a/verification/audits/foundations/ledger-coverage-tool-20261123/rules/w1-w2-allow-v1.json
++++ b/verification/audits/foundations/a1exit-deletion-20261121/w1-w2-allow-v2.json
+@@ -1,10 +1,13 @@
+ {
+  "schema": "oi-term-rules/2",
+  "record_id": "a1-allow-w1-w2-v1",
+- "status": "UNREVIEWED DRAFT: prepared by the implementation writer; no independent review and no owner authorization exist. The tool does not admit it under the review chain.",
+- "supersedes": null,
+- "recorded_at": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+- "author": "implementation-writer-20261123",
++ "status": "Supersedes a1-allow-w1-w2-v1 so that every fingerprint is reproduced at the ledger base H, a commit on main. Rules, matchers, examples and fingerprints are those of v1; only recorded_at differs.",
++ "supersedes": {
++  "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/w1-w2-allow-v1.json",
++  "blob_sha256": "0cbb97c98725cba618598650b0cd9c687c97e280b3422c4ad6e62794a222b171"
++ },
++ "recorded_at": "53c6601a10419b6b333cc992474272501ab542af",
++ "author": "<WRITER OF V2: a person, not the reviewer>",
+  "rules": [
+   {
+    "id": "W1-a",
+@@ -38,7 +41,7 @@
+      "context_sha256": "2f51773c9bd4236766f75f451cafd7d8db07175d19d5932a7aa435ab5dd07a36"
+     }
+    ],
+-   "recorded_at": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
++   "recorded_at": "53c6601a10419b6b333cc992474272501ab542af",
+    "positive_examples": [
+     "**Structural predictions** are properties of the equivalence class [(S, φ)]/$\\mathcal{G}_{\\text{sub}}$ — they hold for every bijection satisfying the six structural properties.",
+     "they hold for every bijection satisfying the six structural properties."
+@@ -89,7 +92,7 @@
+      "context_sha256": "d03916e7d2af45af1dac795c18e4353f4a4c81383f92eaf8670b4626d793f0fd"
+     }
+    ],
+-   "recorded_at": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
++   "recorded_at": "53c6601a10419b6b333cc992474272501ab542af",
+    "positive_examples": [
+     "Tier 2 results follow from the framework's structural commitments to the substratum's properties — the six structural properties developed in Chapter 5 (isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count) — combined with the universality-class conditions C1–C4.",
+     "the six structural properties developed in Chapter 5 (isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count)"
+@@ -146,7 +149,7 @@
+      }
+     }
+    ],
+-   "recorded_at": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
++   "recorded_at": "53c6601a10419b6b333cc992474272501ab542af",
+    "positive_examples": [
+     "On a finite periodic quotient of $\\mathbb{Z}^3$, a qualified case of A4 (Chapter 2), the notion of \"causally disconnected regions\" is modified — the lattice's coupling graph determines causal structure, and if the initial state of $\\varphi$ is statistically isotropic (one of the framework's six structural properties of the bijection), isotropy is built in rather than requiring inflation to produce it.",
+     "statistically isotropic (one of the framework's six structural properties of the bijection)"
+@@ -197,7 +200,7 @@
+      "context_sha256": "7efefbd4ecebe38f37116e12492e69989bbc6953824b7bac4c62e1dc5f013519"
+     }
+    ],
+-   "recorded_at": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
++   "recorded_at": "53c6601a10419b6b333cc992474272501ab542af",
+    "positive_examples": [
+     "The framework's six structural properties of the bijection (developed across Chapters 5-7) further narrow it."
+    ],
+@@ -247,7 +250,7 @@
+      "context_sha256": "bba1a3b016445e863f07d86bb7371cda38b23aeeae6722fea27933c11832f04d"
+     }
+    ],
+-   "recorded_at": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
++   "recorded_at": "53c6601a10419b6b333cc992474272501ab542af",
+    "positive_examples": [
+     "(A1) $\\mathrm{SU}(3)^3$ anomaly: $\\sum_{\\text{triplets}} 1 - \\sum_{\\text{anti-triplets}} 1 = 0$ (A2) $\\mathrm{SU}(2)^3$ anomaly: automatically zero (SU(2) is anomaly-free) (A3) $\\mathrm{SU}(3)^2 \\mathrm{U}(1)$ anomaly: $\\sum_{\\text{triplets}} Y - \\sum_{\\text{anti-triplets}} Y = 0$ (A4) $\\mathrm{SU}(2)^2 \\mathrm{U}(1)$ anomaly: $\\sum_{\\text{doublets}} Y = 0$ (A5) $\\mathrm{U}(1)^3$ anomaly: $\\sum Y^3 = 0$ (A6) Gravitational-$\\mathrm{U}(1)$ anomaly: $\\sum Y = 0$",
+     "(A1) $\\mathrm{SU}(3)^3$ anomaly: $\\sum_{\\text{triplets}} 1 - \\sum_{\\text{anti-triplets}} 1 = 0$"
+@@ -298,7 +301,7 @@
+      "context_sha256": "7ee521657fdd230c8443be7bef909ecb23d3610746c067ef9cec7b03601878f1"
+     }
+    ],
+-   "recorded_at": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
++   "recorded_at": "53c6601a10419b6b333cc992474272501ab542af",
+    "positive_examples": [
+     "(A1) is automatically satisfied: $\\mathrm{SU}(3)$ is vector-like with $Q$ (triplet) balanced by $u_R^c$ and $d_R^c$ (anti-triplets, with the same count).",
+     "(A1) is automatically satisfied: $\\mathrm{SU}(3)$ is vector-like"

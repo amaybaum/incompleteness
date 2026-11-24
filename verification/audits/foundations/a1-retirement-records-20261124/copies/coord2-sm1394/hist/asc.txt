@@ -1,0 +1,258 @@
+334eef0a305c23e00a3756d8b62bf409cc035637 2026-05-14T10:43:41Z add book files
+8c78c2284f296ec051d733b1bcb0bf46955f20e7 2026-05-15T11:34:26Z Delete papers/SM.md
+9850d93ef52b96248f80011dc8ae27e4d92fe3dc 2026-05-15T11:36:04Z Rename SM.md to papers/SM.md
+a8d2ba5ce745940def5c83392bf2846697735a22 2026-05-25T05:22:33Z Last Sync: 2026-05-25 08:22 (Mobile)
+9ec14788c4614fb0f85b686353b6be1709d1b502 2026-05-25T06:58:43Z Last Sync: 2026-05-25 09:58 (Mobile)
+00f1d962540d3531d492e8798e8cb8b008a5dcd3 2026-05-26T07:08:50Z Last Sync: 2026-05-26 10:08 (Mobile)
+c342e3fda623e3c4ece26c0c6c7bda615b2c9cd1 2026-05-29T16:46:26Z Last Sync: 2026-05-29 19:46 (Mobile)
+206c009b64207c2892d664a8cf146f0883cd5759 2026-05-29T17:10:48Z Last Sync: 2026-05-29 20:10 (Mobile)
+2504746e7ab131442e398e76fe64e1b54b296dbe 2026-05-29T22:03:17Z Last Sync: 2026-05-30 01:03 (Mobile)
+3ee042589824704250c84443de8e559a91393777 2026-05-31T06:20:35Z Last Sync: 2026-05-31 09:20 (Mobile)
+fa7fa6fdce3c2d0217e3984238cfde38f83d7277 2026-06-03T11:15:00Z Last Sync: 2026-06-03 14:15
+5913976e2bfc57455afb6a0005a294a44dd90e3b 2026-06-04T07:55:40Z Last Sync: 2026-06-04 10:55
+5246802450ed1d2ea1a3e1a6c727e7efa999a222 2026-06-06T18:46:16Z Last Sync: 2026-06-06 21:46
+d755b12a611ef2aaf205c2b0ddd2b9d6db1b1f54 2026-06-07T00:56:39Z Last Sync: 2026-06-07 03:56
+f9e70546b2499391755079e2f71a67f5a2f52900 2026-06-07T07:23:28Z Last Sync: 2026-06-07 09:23
+69da79132b4262d36979381ea2e58db692269f80 2026-06-07T12:49:20Z Last Sync: 2026-06-07 14:49
+04204f0f7774f62e76a873543964aff8c444acb7 2026-06-12T03:47:18Z Last Sync: 2026-06-12 06:47
+7c795d8ff33f8e4c3349fb2b24b72124ed92e0c4 2026-06-12T04:07:52Z Last Sync: 2026-06-12 07:07
+40b0cb9c0dfb407cc306e889f125c057418eb0f2 2026-06-12T11:21:31Z Last Sync: 2026-06-12 14:21
+e0d59646df29fdbd7d16555d85022b50768ea4ba 2026-06-13T06:47:28Z Last Sync: 2026-06-13 09:47
+ccaafc7461f1b4abc0aaf86a79bbfe1a7c7e104c 2026-06-16T08:58:28Z Last Sync: 2026-06-16 11:58
+16988d55e71a480f9de620acaf2a9fc442d42a3a 2026-06-16T09:43:55Z Last Sync: 2026-06-16 12:43
+28c798c116b262eb3373b74e6af9c52c22b701c7 2026-06-18T12:42:18Z Last Sync: 2026-06-18 15:42
+2e31ac2660e9d6913d79ab8009fe69668428aeee 2026-06-19T06:33:07Z Last Sync: 2026-06-19 09:33
+cfd48a10a696c77c15039f6f0f428d7ec57aeee8 2026-06-19T09:29:24Z Last Sync: 2026-06-19 12:29
+2bc7daca0a3d038e8ba58f8fb55f2f43a01a95ce 2026-06-19T10:57:01Z Last Sync: 2026-06-19 13:57
+94837bdf1c3f66cd9e933ea60bc3482584200810 2026-06-19T11:49:00Z Last Sync: 2026-06-19 14:49
+1486489e4cd051e01dc15dc4c2fd5aa786bfac47 2026-06-19T13:38:49Z Last Sync: 2026-06-19 16:38
+1370453834316b5d4a43353b5536984d110088ed 2026-06-19T14:58:20Z Last Sync: 2026-06-19 17:58
+5128d90f862fa1d903b9863923a87d305de200d1 2026-06-19T15:28:18Z Last Sync: 2026-06-19 18:28
+06f700d060b5e53851df22b939fb354dc2c1f08c 2026-06-20T03:12:11Z Last Sync: 2026-06-20 06:12
+3ad1e3fbe66775968bd89c3f6e18d3ba25097d80 2026-06-20T03:47:10Z Last Sync: 2026-06-20 06:47
+55c53b27cf1f2566b05ce8e3a8739d60ecd26529 2026-06-20T04:41:29Z Last Sync: 2026-06-20 07:41
+0cabe2d3947e538721819d83aadb17b7638e7b4e 2026-06-20T05:28:38Z Last Sync: 2026-06-20 08:28
+a7b3e19c09187cf29f14dcd791a26824825f770e 2026-06-20T05:46:51Z Last Sync: 2026-06-20 08:46
+ee6d44355080ed577369ae5171203498104771c3 2026-06-20T07:26:59Z Last Sync: 2026-06-20 10:26
+fac7fa61a68bc8777bf025bc1f4a9f983ed93ac8 2026-06-22T05:40:29Z Last Sync: 2026-06-22 08:40
+9a726ea2f82717170ab4649edccb0db9b0b58757 2026-06-22T06:24:16Z Last Sync: 2026-06-22 09:24
+e8466e319cc3752f618c986dce30401b0913eb5d 2026-06-22T09:53:46Z Last Sync: 2026-06-22 12:53
+717769ec6d38ffe07788b2fcd8fc51704c880c60 2026-06-24T21:13:42Z Last Sync: 2026-06-25 00:13
+62029bd21565dbc9d9a311f5a22d4b720801f914 2026-06-26T03:14:07Z Last Sync: 2026-06-26 06:14
+6f0e42dda3c74b1e12ff36b57532f3e39b19f599 2026-06-26T05:46:30Z Last Sync: 2026-06-26 08:46
+07d5ac836fc84dc603f473e5b055a93d561ade41 2026-06-28T14:14:39Z Last Sync: 2026-06-28 17:14
+4e52b7878718db7665e95a105059b653def1b3d1 2026-07-02T03:20:03Z Last Sync: 2026-07-02 06:20
+11807cb3706120ef636cf612e4bbfa2b5aca0b2d 2026-07-02T08:28:39Z Last Sync: 2026-07-02 11:28
+9b4177c6df0350fcf22a1c41b7428e06ef95fd16 2026-07-02T10:35:37Z Last Sync: 2026-07-02 13:35
+6419bdeb33566e4f68d0eca7a2a109910abbdf77 2026-07-02T10:53:50Z Last Sync: 2026-07-02 13:53
+f6a0fc4011ab9a3a7120835a7869a644d242f9d1 2026-07-02T15:52:43Z Last Sync: 2026-07-02 18:52
+885f6a51604f72118dc6c4f62c672ac72176b598 2026-07-03T08:57:59Z Last Sync: 2026-07-03 11:57
+4ca93ad7579cc4e677a96251097f56ede88874cf 2026-07-03T09:25:43Z Last Sync: 2026-07-03 12:25
+70ffe82fbabde937aecb7a65bbc8a9cf87916510 2026-07-05T16:39:59Z Last Sync: 2026-07-05 19:39
+c7e606b17c730d9405c4b7e4dd01ec838f6ff34b 2026-07-05T17:24:22Z Last Sync: 2026-07-05 20:24
+96e6af3b9fa88d919af7a8a248b2b70b92fd1743 2026-07-05T19:02:46Z Last Sync: 2026-07-05 22:02
+820f0020d510da31ceadd9c54878cb2d4bb2713b 2026-07-05T19:25:15Z Last Sync: 2026-07-05 22:25
+43a7e1cc9694cf5ee6f1159d7d41e005b6dcd688 2026-07-06T07:28:37Z Last Sync: 2026-07-06 10:28
+a38ca0f4e158cc4e267bf5c565af4b8d52552293 2026-07-06T11:01:31Z Last Sync: 2026-07-06 14:01
+3124ef0a91a932e7034f3a10b70e16cbd74cb307 2026-07-06T19:13:28Z Last Sync: 2026-07-06 22:13
+7b87eacb59a8ca9bf2e267f38025e0d5b9b40e16 2026-07-07T08:31:04Z Last Sync: 2026-07-07 11:31
+cef056ced68bc4a1a5bd041ec93281b93c9bd2bc 2026-07-07T12:36:37Z Last Sync: 2026-07-07 15:36
+708e8377cc363925e6be1b5f3757875e86d1bf16 2026-07-07T13:54:13Z Last Sync: 2026-07-07 16:54
+6912bde1190cbb567f92b29cdac2f3c2f289a2d2 2026-07-07T22:18:06Z Last Sync: 2026-07-08 01:18
+abbc7d5e41ea0c7d00f0adf9fa48b8c868e7ee82 2026-07-08T22:14:45Z Last Sync: 2026-07-09 01:14
+2866770dfa1020712b5abc894880b42e9afab765 2026-07-09T07:31:38Z Last Sync: 2026-07-09 10:31
+7e1fcacf6df764e15b2880eef2b1009ec36e1bc5 2026-07-09T11:28:27Z Last Sync: 2026-07-09 14:28
+536acb499f9aba2ebffb16b33c9e2c74e2d18c99 2026-07-09T13:37:03Z Last Sync: 2026-07-09 16:37
+d800412eea28a2acec196be16716de55372d70af 2026-07-14T18:19:10Z Last Sync: 2026-07-14 21:19
+3dbd58dafb7bc7957219c4056421fe99d2b20c2f 2026-07-14T18:39:46Z Last Sync: 2026-07-14 21:39
+82848dbf66eae092efa97632f0e2dde24a6b1243 2026-07-14T21:39:08Z Last Sync: 2026-07-15 00:39
+47623b879b50d64e62410e7f0028c1d8e7a1ff5c 2026-07-14T22:06:32Z Last Sync: 2026-07-15 01:06
+3d0f2e3872f5e3dd52b14e060e442ca9c0cd7f8c 2026-07-15T05:56:48Z Last Sync: 2026-07-15 08:56
+79824e46fbad9f7ea0a5f9b08a40d4a450ac834a 2026-07-15T07:10:44Z Last Sync: 2026-07-15 10:10
+c07e0cea7c896e6eac071bc55ee83ef6181b0a1d 2026-07-15T11:35:09Z Last Sync: 2026-07-15 14:35
+a4c0638ad5df47cd17e8867930bff94b88a1f83c 2026-07-15T12:26:50Z Last Sync: 2026-07-15 15:26
+47365b0372dd97d9d31f8cdf887e706a056acee3 2026-07-16T11:05:54Z Cross-artifact audit fixes (F1 + batches 1–8) + TeX/PDF regeneration (#362)
+69c14f93fb1bb4b1cbd259239929d4c52cda5d1f 2026-07-16T21:16:21Z Last Sync: 2026-07-17 00:16
+534f548036e39a084091a2d68c4406f70a548e9f 2026-07-18T13:57:03Z Last Sync: 2026-07-18 16:57
+d82599cc7d2e0a3a0db78219edd6bce7989b4651 2026-07-25T04:43:10Z Last Sync: 2026-07-25 07:43
+3a6d2ac52e8d2631872aecbd52e06158d7b1c6a0 2026-07-25T04:56:33Z Last Sync: 2026-07-25 07:56
+a4c129c6908292bf482185ce28d5af27ae9f5516 2026-07-25T07:37:24Z Last Sync: 2026-07-25 10:37
+172cc26ca0f8113946309a17dab59a7182f097a8 2026-07-25T19:31:05Z Last Sync: 2026-07-25 22:31
+6d9766ef337e5643f10f15a917d72520d4c86bec 2026-07-25T20:39:59Z Last Sync: 2026-07-25 23:39
+29946d95c782ec2c386cdefe6e52c65294daabed 2026-07-26T16:08:47Z Last Sync: 2026-07-26 19:08
+580deb2905b2b3601910330538b06549e3b32071 2026-08-02T14:43:03Z Last Sync: 2026-08-02 17:43 (Mobile)
+3dbf3252788e41d995ab9542a1d7656ce7e31df3 2026-08-03T05:27:42Z Last Sync: 2026-08-03 08:27 (Mobile)
+f01686cc287d673bb57f455011baacb670b4fb93 2026-08-03T22:31:50Z Last Sync: 2026-08-04 01:31 (Mobile)
+d379a0b1cbab21f6822dc38d02150bd30625eb5d 2026-08-03T22:37:28Z Last Sync: 2026-08-04 01:37 (Mobile)
+4f571fba53cdd5928106521e0da0ac3cef218c06 2026-08-03T23:03:32Z Last Sync: 2026-08-04 02:03 (Mobile)
+7507852d1999d0084e76de3b6dde532d53b4eee6 2026-08-04T00:26:58Z Last Sync: 2026-08-04 03:26 (Mobile)
+fe6c9bc457936c748c84e0223bd447adefea7d91 2026-08-04T05:22:04Z Last Sync: 2026-08-04 08:22 (Mobile)
+b7a09af82adcd989bd72f3581b9e4ec38d01be4d 2026-08-04T05:35:17Z Last Sync: 2026-08-04 08:35 (Mobile)
+2627fa9ffc52f4c68cc43d1890933b1459fd0b36 2026-08-04T09:47:59Z Last Sync: 2026-08-04 12:47 (Mobile)
+c6c0afea14529411005a342d92510871ee60a3ee 2026-08-04T11:56:42Z Last Sync: 2026-08-04 14:56 (Mobile)
+137ba23d889d9fd00389bc92cf3ae49122622471 2026-08-05T04:25:02Z Last Sync: 2026-08-05 07:25 (Mobile)
+e9d961ba418a6294c13077da5697153d3a482d56 2026-08-05T09:43:02Z Last Sync: 2026-08-05 12:43 (Mobile)
+85a521135f8ec031c3493339bb50516f3446ade7 2026-08-06T16:48:16Z Last Sync: 2026-08-06 19:48 (Mobile)
+6e343d6f583cd3b8bb8bca1f95d27fd5301f17e7 2026-08-07T20:11:40Z Last Sync: 2026-08-07 23:11 (Mobile)
+f2851bdc96b19c4042a5b78c7df26756d5d5298a 2026-08-08T05:42:38Z Last Sync: 2026-08-08 08:42 (Mobile)
+5d68578de60047853f1985fc69e490bfd7d5c851 2026-08-08T06:42:45Z Remove editorial voice
+b600d0e93e7dddb56b9770430598bc9a3314dc7d 2026-08-08T07:02:44Z Remove editorial voice
+49512194696193ee3ab4330951489b3dc3b92d5d 2026-08-08T09:50:57Z Update files
+c43f8c185814ca072c03391aa2a3e35acf64391d 2026-08-09T08:15:26Z Approved batch
+ce04735f687e5184555664c67de0a0d30431cea2 2026-08-10T06:14:09Z Update Juno
+13ec56c4b562823ad298dd8ae40ef8046511c1b0 2026-08-10T18:16:57Z Update chirality
+bd7ae77cbca2b430b2b7f68784a4de76c8d26589 2026-08-11T08:10:29Z θ₀ observed harmonized; τ input refreshed; Shulga, T2K+NOvA cited
+a78a9c5cd0828400802eee555ee5d2f35caa70ae 2026-08-11T15:35:49Z p16: (ii) redefined as non-Markovianity; equivalence in-house; C1 iff→witness
+86f641250420298b97a7d5814f9c3dd5a6ec1596 2026-08-11T17:47:51Z p18: fixed-Ĥ and response-table lemmas; C3 rescoped; corpus synced
+b0beb79d32b57ac3f9967502c58e2c2008c61fc8 2026-08-11T20:39:17Z Update files
+49d48d2c8b9471c1c8c0585ce71592af289d7ee9 2026-08-11T22:40:54Z Update foundation
+0b9b7a8115192c114aac946973d090fe75d733c5 2026-08-11T22:52:57Z corpus-wide C1–C4 audit; SM scopings conditionalized; repro pinned
+db5c9dbe5f099e352d61aa1cb9f722bdf27f1106 2026-08-12T02:54:02Z Update files
+15d75f8291f9b2bba15594b8e647db9bbfaa0609 2026-08-12T05:24:48Z Update SM
+e2257030bb25e55fb160fca8c259d33c06eb5727 2026-08-12T07:14:10Z Update SM and Main
+a0bbcf3ff732a221b0324e6c163671bd67633de2 2026-08-12T09:00:18Z referee-round fixes; b63b revert; battery gains plus-dialect scan
+e1842b3ab456dc432d3adcb9a9bc9b1e0663d64f 2026-08-12T09:56:35Z axiom-status opener; last b63b revert; ch01 reconstruction mirror
+db28ea8c3cf994e74cc48b59f5e3c9751e011497 2026-08-12T16:36:12Z H-χ' sharpening (minimal blind certified); classical comb proved
+43e3daf0aa4e553d10c2673ea71736c2ee15c68d 2026-08-12T19:50:17Z Update hspin
+73e16ed319bb70ced69e65eadd039c2da0fc4c20 2026-08-12T21:45:15Z p37-hspin4d
+1d0989b26feb3c0762ea4c2056860d5620f894f1 2026-08-12T22:55:28Z H-χ' mechanism class nonempty; spin-taste condensate certified; selection open
+2f8fbb9140f9166584dbdb89cf1be1462c40a10b 2026-08-13T06:11:36Z translation hypothesis named; Lemma 3 selection; ch01 regenerated
+6a1608a81d66b76ee734035837309d8084eb3440 2026-08-13T11:05:21Z generation count narrowed to candidate sectors; (T) gating completed
+ee4d6aeae777692b943e013d55c0783cec694997 2026-08-13T11:37:12Z glossary and Appendix C corrected; selection arena stated
+df133d97f7440817dc09b2e9599c8f2f1d6184aa 2026-08-14T14:25:43Z Update files
+dc5905c55bd76dadc70619a1d7b402ca2b17f19b 2026-08-15T07:02:58Z Update files
+fa53b34cc614520cbff50c7dec1f708278194e05 2026-08-15T08:26:04Z Update files
+181ea0b0f9d756878b72b872d1adbb215f386b73 2026-08-15T16:24:30Z Update files
+2c46e31cd586baf7bb9f046a0e7e62f226bb892c 2026-08-15T19:22:40Z Update files
+d0fd7cc98494349c99a6e1e4e7d0e21e7c5310e7 2026-08-16T07:43:51Z Update files
+d347048b030d18e87428a449007088a22f05bf77 2026-08-17T08:39:10Z Update files
+ad8ebbfc6852b40718e1a2c422c44037c2f873b0 2026-08-17T10:01:09Z Update files
+bc3aeaf13a91ff0e36f6fd22069eddc4e51fd690 2026-08-17T13:23:35Z Update files
+21c5a09fc36e01b6c03d41d9402ee7fe9a6ea32e 2026-08-21T11:18:44Z Update files
+e97a3cf54d94b8ea70cee64e6390818b365e61cc 2026-08-21T18:43:16Z Update files
+d60c8aee2b1d719d1b1cbdd2a213bc377ffe2dfa 2026-08-21T18:45:12Z Update files
+848a1d4ea022c9fd34154b3a4bb23f4b989ae2fb 2026-08-21T19:04:12Z Update files
+2829738fb7ed2d1e3dc0a2967108a61c3a70c439 2026-08-21T20:00:48Z Update files
+f06468e16d4d37e4dac89d666a7435926f0b51eb 2026-08-21T20:26:13Z Update files
+fe60b26101f9e90123f0428d76d0691b213c77d6 2026-08-21T21:01:20Z Update files
+3fe27778504255f0d90d52d1ac5d3abb069ed928 2026-08-23T04:03:48Z Update files
+7b338bcc0a85460ad147d15601437d9a6601a9f6 2026-08-23T04:39:57Z Update files
+8afac8b1ccee539e4be3fbd0d169a8bf99b30b97 2026-08-23T07:19:04Z Update files
+de652e80b1b46bd8ee35b291efe388a472ff8058 2026-08-27T22:18:16Z Name H-transverse-link: the induced U(1) sector has no gauge-invariant content
+66d26121c535f315a620e56797810894d9919abb 2026-08-27T22:57:21Z Decide H-transverse-link for hypercharge: it fails on every transport route
+fec8918c1082944d6895b3fb6151ab9c6341a671 2026-08-28T04:52:46Z Split H-transverse-link, and propagate the 23.25 status correction
+d97a68006a58d85f920610e30a7a65279d811cb0 2026-08-28T05:16:36Z Remove two publication-status residues left by the propagation
+bde5f5f0070fa1f72bd1718511507c0b08228c53 2026-08-29T12:23:37Z Repair Corollary 1a's moment scope, kernel-prove its algebraic core
+164df94e55663c0cea09bd55ddbfe0b7c607f8b2 2026-08-30T06:31:35Z Print Theorem 19's involutivity; Theorem 16 to K3 from the dimension balance
+3287cf99e46c7e08094cff2b2c178bb3fc7f3499 2026-09-04T15:15:35Z CT3-R2B-Q2: the exact binary cycle spectrum, and a corrected period formula
+6f13b4306a076a560549cc04296cc51e7569c867 2026-09-04T15:53:27Z CT3-R2B-Q2 review repairs: the parabolic case split, and two attributions
+cd79b9afc65b2072d5279422237a5018a72db54e 2026-09-04T17:36:48Z Audit B, the SM lattice cut: three residues around an honest theorem
+109c3c119a1729fcfb4d66244ac13544b7af5396 2026-09-05T13:28:07Z Kernel pointers at the principal statements of the SM counting layer and the Main 3.4 equivalence chain
+58100aea15eea8f5808b351d64163f55c9fed1bf 2026-09-13T17:53:13Z Substratum A6 covariance propagation: execution (publication only)
+7f926d6f51cd7b6ee00adbfe7cba4e15faffbba8 2026-10-03T19:57:07Z CC-2 stage S1: the 60 frozen substitutions, the five verification-surface instances and the regenerated artifacts
+4acade3596e192a13d3fd50021420af9292ec86f 2026-10-12T18:33:12Z Align manuscript evidence scopes and prediction inventories
+01714229d708ce69cad65a2f031aa9be0fb32a98 2026-10-13T03:36:13Z Reconcile #817 with accepted uncertainty clarification and finish evidence propagation
+5c66479d4406528d839377038f273cacfd4a663e 2026-10-15T04:38:44Z Scope the alphabet-size claims: proved results stated as such, q-independence of every observable a named hypothesis
+b590acf42fdf5554359b2031fd1e01028cacc9cb 2026-10-15T04:57:39Z Keep the entropy per boundary mode explicit: eta = sigma/eps^2, eps = 2 sqrt(sigma) l_p
+dcc90bf1689a43fbfeb8b2e343f252b049569c4c 2026-10-15T05:37:54Z Keep σ explicit in GR and SM: gap equation, component count, matching scale
+e726c90bc0ea0df05045beae0b6e71cb6ca85a77 2026-10-15T05:46:14Z Keep σ explicit in the companion papers; narrow the σ-dependent estimates
+1c186efe3d18645c7a5487f0a9015dcaa285904d 2026-10-15T06:10:58Z Narrow the discreteness-scale stability claim: the gap equation fixes ε/√σ = 2 l_p
+c4dd00bda7a1c8f722e76ff03a2928a5a46f81fb 2026-10-15T06:16:05Z Amend the LIV classification: 1/45 stays Class A, the amplitude 4σ/45 is conditional
+05232f638f361bb431b103ebbc6ff1a150248931 2026-10-16T04:42:33Z Locality corrections: posit ledger (viii)-(xii), SM 2.4 withdrawal, model assumptions vs derived results
+f3387e823460fca09803c7974a6363c5740f0b0c 2026-10-16T05:53:17Z SM 2.4: set the pullback composition in math mode
+20ceef3320d778e4f7562efacba475104bf1ab01 2026-10-26T13:32:30Z corpus: correct the verified overclaims in the owner's five areas, plus GR:567 and GR:711 (WIP, unreviewed)
+4fe0ebff00dc185a040f520856e32f94657f71f3 2026-10-26T14:10:42Z corpus: apply the review's corrections and the owner's decisions on the counts
+2cb448247d331039c5c27f2d06d0b4fd5ea97ea3 2026-10-26T19:46:29Z manuscript: apply owner decisions O1–O7 and the ħ/θ₀ correction set (#939)
+fa1d835b2a980c30f6d9f6f924e8737fd5d0f1ce 2026-10-27T06:51:20Z SC-4: apply the independent review (RC-1 to RC-7, RR-1/2/5/8)
+e99df4a00e41eee0ea562b06e07de2b673081194 2026-10-27T06:55:54Z SC-4: re-check RC-8, RC-9, RR-A, RR-B
+7a9925903653988c477e137f17f1d93d1a67e00f 2026-10-27T10:21:54Z SC-20 review: two-form C2 necessity at the §3.4 anchor and corpus-wide
+2d3067aa0484821686d6d1bbcc6e66a5aa66b72d 2026-10-27T10:29:38Z SC-16: C1-C4 give accessible conditional memory, not accessible-window P-indivisibility
+1165b06849aef708280fadaa8acef780bc2306b6 2026-10-27T10:53:01Z SC-16: apply independent review (B1, B2, N1-N9, N11, N13-N16; Explainer :352/:1019)
+338932dd5f597e2e44636971ec656622d65b3643 2026-10-27T11:41:03Z Merge main (9d975c11: SC-20 #953, SC-21 #954) into SC-16
+7c117827d434ef95875c77969f05a7868aa9b7df 2026-10-27T12:33:59Z SC-26: residual memory/divisibility scope (SC-16 / SC-3 classes) across companions and book
+838918bdbb76e00781f385fcf687f762935123d9 2026-10-27T12:35:56Z SC-27: apply independent review findings 1-3 and optional 4, 5, 7
+806b57dcbc4249b410e694d07a964bf83e0fa9ce 2026-10-27T12:48:37Z SC-25: boost exclusion stated as conditional on the foliation premise
+8d8ca8c678db3711d1ec7e0456f0ab39bcc0aeb8 2026-10-27T12:57:04Z SC-26: apply independent review (ACCEPT WITH CHANGES at 7c117827)
+9eff10d3af12b867f5d267fe0dade04fb5b72a6c 2026-10-27T13:00:40Z SC-25: apply re-review of #957 at 806b57dc (ACCEPT WITH CHANGES)
+683ca7f1874fef279658db2ec025a9c56f62d916 2026-10-27T13:05:34Z SC-25: selection attributed to the horizon partition, exclusion to the map
+66aae7561796684b009241b60e6ab7fa7c12d0d9 2026-10-27T13:19:23Z Merge main 4449b0d9 (#958, SC-27) into SC-25
+e71371dd53b805f78190aaad2004c95149986040 2026-10-27T13:23:34Z Merge main 4449b0d9 (#958, SC-27) into SC-26
+2b90a684e1afe7dcebcafe6cddebcfe0e1f2095c 2026-10-27T14:02:09Z Merge main 7a7a654d (#957, SC-25) into SC-26
+f39b8d360bdba4bc460992fc770b9bd13c286ced 2026-10-28T12:41:00Z Recover restricted theorems and reconcile publication claims
+c0844bd287a3bcc04b75f79db140af1c75e70d90 2026-10-28T19:26:16Z Reconcile foundational source with #992 and SC-44/45 review
+0ee29e51f68225b16d82262b840eb413a4c7ba81 2026-10-28T22:11:20Z Restore #982's unnecessary manuscript changes to their pre-#982 text
+ee007c89522cbca56191c9c32a187ff94d8a567a 2026-10-28T22:30:57Z Complete propagation of the kept corrections after independent review
+f41bb21c542c7ca127a9ddd1fa546eb2fefd346b 2026-10-29T03:11:54Z Revise per owner review: hidden-state, gauge hierarchy, Theorem 24(iv); keep recovery results
+cbbe68cea39c29066cdad26dd3bccd09fc3c221a 2026-10-29T03:48:36Z Correct misleading Theorems 1–6 references and scope graph comparisons in papers/SM.md
+4b62936959faf8820ac656116af611f691ec6cfb 2026-10-29T04:11:58Z Correct the Theorems 1-6 replacements: SM 3.1 for curvature, scope (iv), propagate
+33753d842acbd222a4323cb64e6928bfbe2a7043 2026-10-29T04:18:36Z Close review findings on 4b629369: Methodology 355, Explainer 783, wording
+aa65287746cff7638051b14b4b0c07813462c69b 2026-10-29T04:28:45Z Correct the integer-dimension argument and the generic-observer claim
+0a909e429acccda2cbdac1e0e0f97f47df63683a 2026-10-29T04:46:43Z Make the integer dimension an explicit A4 input; fix the census drift
+9e4c96ee802ea726f1e57c905226d2c42b75ea25 2026-10-29T09:05:53Z Clarify conditional dimension selection and theorem-specific premises
+fc058b2a4d38b2f7647bd7328a528f5b78295a33 2026-10-29T12:30:05Z WIP: reconcile recurrence and stationary-law source scope (#946)
+b60d5c6c0e2b0e10f83c8d5ddc295b895c5fa31d 2026-10-29T12:35:18Z Separate scalar sampling from determinant-pseudofermion measure identification
+c2fad1ac939cefb24641ee45d26157a4f644bac1 2026-10-29T12:37:49Z Retain time-swap symmetry without claiming temporal factorization
+987e7d449f1951b93e7a788fe254fbc8af7ee744 2026-10-29T12:38:46Z Keep the rounded invariant exclusion within computed instances
+ddf4aae5b6f8e5e1a5e04c1de8c5c90e5656c1da 2026-10-29T13:51:56Z WIP: resolve integration-review evidence and source-scope contradictions
+550d826f44ad73e0ed38e6555606d060e04b3a87 2026-10-29T13:52:41Z WIP: state the finite coherent ancillary identity and complete direct regress scope
+a3d217de20e0d204ab36fbef3532437cade3b989 2026-10-29T13:56:16Z Finish conditional dimension and chemical-chain source propagation
+c73c4812aa917cbd1fce694b593764e651434820 2026-10-29T17:46:04Z Reconcile #999 scientific source with merged #998 (draft)
+bd8fa74dc924673e14f94812dbf74d431c3a22d4 2026-10-29T21:21:59Z Forward-integrate #997 dimensional dependencies after #1000
+becdfe4ef3021f5f9f6f8d77e8f3d5e1e1701dff 2026-10-30T02:12:49Z Correct #997's final-head review findings
+d655b31971857d2ad012a5198f12026a50b7bfbe 2026-10-31T10:17:50Z fix(D-2): scope SM 6.5 on-shell measure to the 4.2 proposal
+f9dcc6355d5d435f8fbcc7999e01d1af85a81a7c 2026-10-31T10:23:08Z fix(§4): SM 4.1 alpha=1/d is the gapless normalisation, not the isotropic one
+9a6a2f189871cdcc71360216dcbe792361d9bb29 2026-10-31T10:29:13Z fix(D-3): SM Theorem 3 states the kernel's first-order onsite-term result (Route A)
+79b5444f4fac4952e1be385d4b1837776b346a1c 2026-10-31T10:34:11Z fix(D-4): Explainer selector, free-parameter and rigidity clauses at their SM/GR scope
+1cfbe6b1bc2a280cef4903ce77ccf1b75327b561 2026-10-31T11:21:46Z fix(review): independent-review findings on 68bb260b
+5008d916d2028b67c3fe96fdc964f3783dab294f 2026-11-02T19:07:46Z SM/Explainer/Structure: center independence gives an affine rule, not a linear one (#1029)
+fb532bb4e4bf400b2df2269460cb33573a70252e 2026-11-03T04:51:12Z Unit H: H-link consistency across papers and book (#1029)
+eb74b3e7886c4f21058a3f8f8f5c504a83b2dd9b 2026-11-05T04:36:25Z ARROW-1 (#1112): split the arrow-of-time claims in the companion papers
+f6f7dd13ce8779a1ddd75c9e0eb263c7e8bb5c53 2026-11-05T05:15:58Z ARROW-1 (#1112): apply owner rulings c.6650301410 to the Phase 2 reviews
+8b50bc2030e676e672badf4e121c789dcff4ce81 2026-11-06T09:16:44Z docs: centralize AI disclosure; pointers in 11 papers and the book
+484006b1215fb7ac1755dde939f1d20c1d20cc5c 2026-11-07T14:14:43Z Papers: status corrections from the pre-release audit (blocking rows)
+22ccecaaa6590d944854b0109532951c45c02988 2026-11-07T23:46:45Z #1190 minimal corrections (a): papers
+c10609e6c85b332f725f490b969e23de16a1109c 2026-11-09T11:49:17Z fix(SM): correct state-dependent ring degree bounds (#1190)
+7f80ee6e29fe867d04322d0257be641cef12c0a1 2026-11-11T11:18:54Z Main: Bell-scope ledger corrections (O1-A, O2-B, O3-B, F2-A)
+c380120c4c0a8f34a9dace70d64254435acf6467 2026-11-11T11:38:04Z Main: state that the class graph is state-independent under (vii); review nits
+64b44111712262286481c8f4dab0833ca7b9aaa6 2026-11-11T15:19:25Z Claims scope: narrow OI ↔ QM wording to the proved scope (CLAIMS-SCOPE-1, #1238)
+eab624749a8e965dafce8970d152eac4bf163479 2026-11-11T15:34:36Z Claims scope: review fixes (SM parenthetical, Substratum hypothesis name, Main representation scope)
+214cbd0a95183711f60f42bb95225cb52dbc454d 2026-11-12T08:43:28Z GR §3/§8.5: the ħ derivation rests on a* = τ_K/β_E; boundary steps are a cross-check; W1 stated (#1244 item 1)
+fe505d4634c5507eb4d220807d11ec6af3f68a1f 2026-11-12T09:14:44Z GR/book: H-count stated as a hidden-sector condition and named at each consumer; review R1–R6 (#1244 item 1)
+9845c131bbbdf907389935e8175432cbb8ab7f01 2026-11-12T12:53:54Z A/4 conditions sweep: GR, SM and Structure state the area-law conditions (#1244)
+e1fa10a4c1938375d547b6776848c7146b5e7069 2026-11-12T13:05:55Z A/4 sweep review fixes: GR:88 comma; SM/Structure cite GR §8.5(b) conditions (#1244)
+cdddef351d5624aa9bb9f75737167409f0e8d18e 2026-11-12T15:00:20Z SM §3.1 / Substratum §1 / ch02: Einstein-equation closure stated under its open conditions (#1255, Finding 2)
+b2a22e164a773a438fdc8628cc0e117483a0b06e 2026-11-12T15:01:23Z SM App. A / Substratum / book B.3: nilpotent monodromy is not erased by hidden-sector marginalization (#1255)
+cd9b2b79d3f933f99ef204dfea97a53a034efbc3 2026-11-12T15:09:28Z #1256 review: visible-sector exactness kept; G3 status on the source coupling; ch02:198/ch00:107 conditioned (#1255, Finding 2)
+5f022bd49c22ec9ba78e64833845310a188832b3 2026-11-12T15:11:02Z SM App. A / book B.3: narrow the component clause; regenerate SC-42 result (#1255, PR #1257 review)
+3b5a69c9cc5a54c1952795bd51ab642495704ad6 2026-11-12T15:35:59Z Merge origin/main (f4c42311, #1257) into #1256
+774fe30801bc7b52e2130f831b57f9204168e981 2026-11-12T16:00:02Z Merge origin/main (1ac6011c, #1257, #1256) into fix/a4-conditions-sweep-1244-20261112
+65be26f8de8ba4fe57bece099709e09d9a237dc5 2026-11-12T16:01:26Z SM: drop undefined NM column from Thm A.3; condition the lattice BW lemma (#1255 SCA-1a, SCA-2a)
+e8439b2d1721a3d80fead296f7c1ea0d0f7a12d9 2026-11-12T16:08:57Z SM §3.1: carry the BW lemma's real-system scope into its consumers (#1255 SCA-2a, PR #1259 review)
+c8e2965c953f171d513f1d62144589b1da68e31a 2026-11-12T16:10:58Z Foundations: visible bijectivity, finite capacity and four small corrections (#1255 G-A)
+c08e6ae20bb019daca44a106b6363753633ff42b 2026-11-12T16:43:24Z Merge main (fb733b4a) into fix/foundations-sca3-4-1255-20261112
+fdb146a582b1f9826cec037e7756df49257967f5 2026-11-12T16:43:32Z SM: write the lattice thermality correction as O(eps^2 kappa^2/c^4) (SCA-2b, #1255)
+13ed2b139cf14cffad37366da1b353ddf272754a 2026-11-12T16:52:11Z Merge main (fb733b4a) into fix/nm-formula-bw-citation-1255-20261112
+8e9a4ac1fcbcff19d1ca083a34dda62d11a885d5 2026-11-12T18:19:14Z Merge main (ec257bee, #1259) into fix/sca2b-dimension-1255-20261112
+ff6f0b5584038737bf7027db077dd308a3a08a1d 2026-11-12T18:21:27Z Merge main (ec257bee, #1259) into fix/foundations-sca3-4-1255-20261112
+2b99b13c0de8ddc4a196ce9c40a82e68afd3f29e 2026-11-12T18:22:33Z SM §(d=3 concordance): cite the full GR §8.5(b) conditions for the area-law coefficient (#1244)
+c795072c3769240fe67968257bc398555e11c745 2026-11-12T18:27:14Z SM:196: name the symmetric detailed-balance rate ratio (delta review)
+9aead580310be156acb5e9f164dc38551c49546a 2026-11-12T18:45:45Z Merge main (615cc119, #1264) into fix/foundations-sca3-4-1255-20261112
+7d41ff459959bdb7c99f298bbdadaa5aa8142605 2026-11-12T19:00:16Z Merge main (8a902a50) into fix/a4-older-sites-sweep-1244-20261112
+e56b39b6567335e92acc49ad2a4e6b9780719c16 2026-11-16T04:39:17Z A1 minimum-change correction (Stage 2a, #1169): narrow unsupported physical readings
+590c1d1b2a9ed1c36c5ed19133ccbf246ebe1cf7 2026-11-16T06:05:58Z Apply the twelve approved A1 Addendum 2 corrections and rebuild affected publications
+4cd2a3a0370b8afceebfda73e613aad8663732e4 2026-11-17T03:24:53Z GR/SM/Structure/Substratum/book: apply KM-1 Option B (horizon link density 3/2)
+8839ebdd3112e47a4da411d9858868d48b446261 2026-11-17T04:30:22Z ch18 scope note and three KM-1 follow-up wordings
+b023b92dd898dd64c3b6f174263823eab2633389 2026-11-19T01:45:05Z Prepare the reviewed 3.1.7 publication candidate
+ee9d4b9a4388f3ee879cd79862bf07e11f2ae35e 2026-11-19T01:53:38Z Reconcile final publication layout and scoped prose receipts
+4a6b422029a2d9cbebad1b7826cf90ba5e71c7e4 2026-11-20T07:17:50Z CLEAN-873: narrow the deferred dark-energy wording to GR §§7.1–7.4
+0748b0be95f40bc66f0cd653ef306629decf4980 2026-11-20T09:42:54Z A1-SCOPE Phase 2 (stage 2): apply the 40 reviewed splices; rebuild; derived records
+a65f71b64bedbf905f92829e62b436c18df5a004 2026-11-20T10:05:31Z Merge origin/main (ec2ff7de) into research/a1-phase2-20261120: reconciliation
+e2c04e8d58902d8b2fddb2cf298ba974bdf30039 2026-11-20T15:20:09Z PROV-CORR: correct provenance overclaims F-1..F-15, Z-1, Z-2
+dc07f587581c4dbc9ab17a9f3786dcffac86bb8e 2026-11-20T18:39:09Z A1-EXIT Q2: SM Theorem 1a holds for every set S (theorem recovery)
+e414d1c24d8f057b18259931d179cfbcb2ae1ecb 2026-11-21T04:00:25Z A1-EXIT S2-A: apply Q1 E1-E4, E6 and the A4 lattice restatement
+5cf892c69838d42f3533589d950f7a8f357886bf 2026-11-21T04:04:29Z A1-EXIT S2-C: print the criterion-3 qualifications; finite scopes (#1169)
+8b77e78f5ee7fbc761a5d57dc920953e29809ad1 2026-11-21T04:09:48Z A1-EXIT S2-A: apply amendment 2 (SM:1532 period lattice in 2Z^3; common axis)
+d87cdc2a5fe4a466b0aa2f240c2172c3818bd8e0 2026-11-21T04:12:34Z A1-EXIT S2-A: apply amendment 3 (C13 condition in Theorem 13; book mirror)
+dc058fd118b0c5a57a83c261262d9bc88fa4afd5 2026-11-21T04:16:26Z A1-EXIT S2-A: apply amendment 4 (site-diagonal case needs nonzero diagonal)
+cb6d1b87e7e001ea1a4bdd6d260ca4b616d7b135 2026-11-21T04:16:27Z A1-EXIT S2-C: apply amendment A1 (review round 1 N1, N5, N7) (#1169)
+3addf4acd49601fad371ca1e82fe3399cc167268 2026-11-21T05:44:02Z Merge origin/main (a1f38284: S2-A, #1476, S2-B) into S2-C

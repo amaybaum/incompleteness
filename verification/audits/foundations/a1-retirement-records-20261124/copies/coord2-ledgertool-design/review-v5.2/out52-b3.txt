@@ -1,0 +1,8 @@
+content-only
+files where T1p != H+splices: ['verification/coverage/LEDGER.json']
+strict  {'replaced': 197, 'unchanged': 383, 'removed': 4} region lines 203 p0+ext 84 with count-grep 86
+   count-grep extra: [('book/The-Incompleteness-of-Observation-FULL.md', 5284), ('book/ch19-open-problems.md', 212)]
+LF-inclusive
+files where T1p != H+splices: ['verification/coverage/LEDGER.json']
+strict  {'replaced': 197, 'unchanged': 383, 'removed': 4} region lines 215 p0+ext 84 with count-grep 86
+   count-grep extra: [('book/The-Incompleteness-of-Observation-FULL.md', 5284), ('book/ch19-open-problems.md', 212)]

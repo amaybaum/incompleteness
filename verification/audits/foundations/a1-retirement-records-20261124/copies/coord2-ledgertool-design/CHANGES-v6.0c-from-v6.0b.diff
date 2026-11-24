@@ -1,0 +1,249 @@
+--- DESIGN-v6.0b.md	2026-11-24 10:27:23.662886681 +0000
++++ DESIGN-v6.0c.md	2026-11-24 10:49:17.363600605 +0000
+@@ -1,9 +1,32 @@
+-# Commit-independent ledger and terminology verification tool: design v6.0b
++# Commit-independent ledger and terminology verification tool: design v6.0c
+ 
+ ## Status and authority
+ 
+ This is a paper-only design. Nothing is implemented, committed, pushed or published under it.
+ 
++- **v6.0c is a bounded correction of the draft v6.0b** (`DESIGN-v6.0b.md`, sha256
++  f87dd8bee2c0a9d20beaf462351245f4735eaf056ad0485616fe391dacceb452), applying the independent review
++  `review-v6.0b/review.md` (sha256 0c41ec5aa395e7971665b156275fbffdb3fee05a283459d11a4bcf0b4a3445aa,
++  verdict ACCEPT-WITH-NITS; finding Q-1, owner question O-1, nits N-a to N-h) under the owner
++  decision of 2026-11-24 (owner `amaybaum`, in session, relayed by the coordinating session; no
++  comment id held by this writer), quoted:
++  > "Approve O-1 option (b): restore the v5.5.9 pre-run pin check in the workflow.
++  > Authorize the bounded v6.0c design correction, including the identified reviewer nits.
++  > Preserve the following:
++  > - Verify executable dependencies before the verification tool runs.
++  > - Retain the independent consumer checks.
++  > - Preserve all scientific and technical guarantees.
++  > - Do not reintroduce automated owner-authorization verification.
++  > Obtain a focused independent review of the corrected version before adoption."
++
++  > "Checking the tool's integrity before execution is preferable to discovering afterward that the
++  > wrong code ran. This is technical verification, not authorization machinery."
++
++  v6.0c is authoritative only after a focused independent review returns ACCEPT and the owner
++  adopts it; until then the authoritative design is v5.5.9. `CHANGES-v6.0c.md` maps every change
++  to its finding; `INVENTORY-v6.0c.md` lists every removed, retained and modified section, control
++  row and implementation module against v5.5.9, and `CHANGES-v6.0c-from-v5.5.9.diff` is the exact
++  difference.
+ - **v6.0b is a bounded correction of the draft v6.0a** (`DESIGN-v6.0a.md`, sha256
+   105db5efe8803876107e525f868051593227f0cc20f0bd2fb7600ea312113585), applying the independent review
+   `review-v6.0a/review.md` (sha256 f5f4f57b6c028f0b995984be74be0c1a799e9cd3875dc4c82097a9a0167e9f2a,
+@@ -25,11 +48,7 @@
+   > "The reviewer found a genuine weakness: verifying individual files is insufficient if other,
+   > unverified files can influence what actually runs."
+ 
+-  v6.0b is authoritative only after a fresh independent review against v6.0a and v5.5.9 returns
+-  ACCEPT and the owner adopts it; until then the authoritative design is v5.5.9.
+-  `CHANGES-v6.0b.md` maps every change to its finding; `INVENTORY-v6.0b.md` lists every removed,
+-  retained and modified section, control row and implementation module against v5.5.9, and
+-  `CHANGES-v6.0b-from-v5.5.9.diff` is the exact difference.
++  `CHANGES-v6.0b.md` maps its changes to their findings.
+ - **v6.0a is a bounded correction of the draft v6.0** (`DESIGN-v6.0.md`, sha256
+   5d4ddf784164c496d98b3194030524b20353cfcd5695fbf102eae68ced85e145), applying the independent review
+   `review-v6.0/review.md` (sha256 43cfe728198588eb4f01a38dd817f4d207e50494bb98c5bb20c895df4fddb0ec,
+@@ -120,8 +139,8 @@
+   ids, the removed sec. 15 item 0a and the retired schema ids are never reused (sec. 10, "Retired
+   identifiers"). v6.0 adds the controls GV1-GV7 and sec. 15 items 10-12; v6.0a adds EI1-EI5 and
+   restores TR15 and TR50 with their v5.5.9 meaning (the pins are held by the configuration at `F`);
+-  v6.0b adds EI6 and EI7 and restores TR29's first case with its v5.5.9 meaning. None uses any of
+-  the
++  v6.0b adds EI6 and EI7 and restores TR29's first case with its v5.5.9 meaning; v6.0c adds
++  EI8-EI14. None uses any of the
+   identifiers the unadopted drafts v5.5.10 and v5.5.10a introduced (TR71-TR87, HV1-HV12, HS-1 to
+   HS-7, sec. 10.5, sec. 15 items 7-9).
+ - Authority for the route: owner decision #1169 c.7093128173 (amaybaum, 2026-11-23T06:13:50Z). It
+@@ -199,7 +218,7 @@
+ maps each v3 review correction and owner decision to the sections it changed; `CHANGES-v5.md` does
+ the same for the v4 review's corrections V1-V8, the decisions V5-D1 and V5-D2, and the optional
+ points O1-O7. Rows whose only answer was the automated authorization machinery that v6.0 removes are not
+-listed here; `DESIGN-v5.5.9.md` sec. 0.2 keeps them, and `INVENTORY-v6.0b.md` table 1 maps them.
++listed here; `DESIGN-v5.5.9.md` sec. 0.2 keeps them, and `INVENTORY-v6.0c.md` table 1 maps them.
+ 
+ | Review item | Answered in |
+ |---|---|
+@@ -265,6 +284,7 @@
+ | owner decisions of 2026-11-24 on the authorization model | Status and authority; sec. 1, 5, 6.3, 7.2, 10, 15, 16.7; GV1-GV7 |
+ | v6.0 review B-1 to B-4, N-1 to N-6 (v6.0a) | sec. 1, 5, 6.2, 6.3, 7.2, 11, 13.4, 15, 16.2, 16.4, 16.7; TR2, TR5, TR13-TR15, TR28, TR48, TR50, TR52, X10, WB rows, EI1-EI5 |
+ | v6.0a review R-1, N1-N6 (v6.0b) | sec. 5, 6.3 (configuration admission; execution identity points 4-6; residual trust), 13.4, 15; TR29, EI6, EI7 |
++| v6.0b review Q-1, O-1 (b), N-a to N-h (v6.0c) | sec. 5, 6.3 (execution identity points 5-6), 10; TR29, EI6, EI8-EI14 |
+ 
+ ### 0.3 Figures
+ 
+@@ -799,7 +819,8 @@
+ 
+ **The wrapper.** The entry point `tools/ledger_coverage.py` installs the wrapper before it imports
+ the tool's package, which it loads by location after the isolation check of sec. 6.3 (execution
+-identity point 5). The wrapper catches `BaseException` (including `SystemExit` raised by frozen
++identity point 5); the isolation check precedes every import of a module not already loaded at
++interpreter start (N-g). The wrapper catches `BaseException` (including `SystemExit` raised by frozen
+ code and `KeyboardInterrupt`) and maps it to INTERNAL, exit 71, with a `result.json`. A failure
+ before the wrapper is installed exits with the interpreter's own code.
+ 
+@@ -817,7 +838,7 @@
+ - `config.admission` is `"chain"` and names the same `F` and the same pin table
+   `{path, blob_sha256}` as the landing record (control EI3).
+ - The result was produced in a host CI run that the consumer verifies itself, by repeating
+-  execution identity (sec. 6.3, points 1-3, 5 and 6):
++  execution identity (sec. 6.3, points 1-3, the `uses:` check of point 5, and point 6):
+   - the host's REST API reports the run, by its run id, with `repository.id` and
+     `head_repository.id` both equal to the configuration's `repository_id`, and with event `push`
+     or `workflow_dispatch`;
+@@ -1364,27 +1385,60 @@
+    point 1, a `head_sha` other than the `T` the result records, or a tool or workflow blob that
+    differs from the configuration's pins is non-acceptance.
+ 
+-5. **Nothing unpinned executes (R-1).** No file outside `tool.files`, the pinned workflow and the
+-   interpreter's own standard library executes in the job, before or after the tool's own checks:
++5. **Nothing unpinned executes (R-1, O-1).** In every run of the pinned workflow, no file outside
++   `tool.files`, the pinned workflow, the actions it names by commit id and the interpreter's own
++   standard library executes in the job, before or after the tool's own checks. The delegated
++   checker runs of sec. 7, which execute `F`'s checker blobs and, for `coverage-ledger`, `X`'s own
++   `tools/proof_census.py` in clones under `--out` with `-I -B`, are outside this rule and governed
++   by sec. 7 as in v5.5.9 (N-h). The rule rests on three parts:
++   - **The pre-run pin check (O-1 (b); v5.5.9's "verify the tool blobs ... before executing").**
++     The first step after the checkout, before the entry point or any file of the checkout runs,
++     is one fixed inline step of the pinned workflow: a short program given in the workflow text
++     itself and run as `python3 -I -S -B -c '<program>'`, so that it executes no file of the
++     checkout. The workflow fetches `F` by its full id. The step reads the configuration blob at
++     `F` with `git cat-file blob`, at the path the run passes to the tool as `--config`, and takes
++     `tool.files`. It then examines the entry point `tools/ledger_coverage.py` and the directory
++     `tools/ledger_coverage/` on disk with `os.lstat`, never following a link: every entry must be a
++     regular file or a directory; the set of regular-file paths must equal the paths of
++     `tool.files` exactly, so a `__pycache__` directory's files, a bytecode file, an extension
++     module or any other extra file fails; and each file's sha256 must equal its pin. Any failure,
++     a missing `F` or configuration, or an unreadable `tool.files` fails the step, and the job ends
++     before any tool code runs (EI8-EI13). The step's program is part of the pinned workflow blob
++     (TR15, TR50), so it adds no trust root. The tool's own comparison of the checkout with `T`
++     (point 2) and the consumer's repetition of point 2 from its own store (point 4) are kept; the
++     entry point adds no second package scan.
+    - **The import path.** The workflow invokes `python3 -I -B tools/ledger_coverage.py`. Isolated
+      mode puts neither the script's directory, the working directory nor any environment-named
+      path on `sys.path`. The entry point does not insert any directory of the checkout into
+-     `sys.path`; it loads the package `tools/ledger_coverage/` by its location, so the only files
+-     of the checkout that can be imported are the pinned files under that directory. Before it
+-     imports anything else, the entry point refuses (ERROR, exit 65) unless the interpreter runs in
+-     isolated mode and no `sys.path` entry lies inside the checkout. A file such as
+-     `tools/hashlib.py` is therefore never imported, wherever it lies outside the package (EI6).
+-   - **The workflow's executable dependencies.** The pinned workflow executes only the entry point
+-     above and fixed `git` commands. Every `uses:` entry names an action or reusable workflow of
+-     another repository by a full 40-hex commit id, which binds its content by hash; no entry starts
+-     with `./` (a local action or a reusable workflow of the same repository) or names a branch or
+-     tag. No step runs a file of the checkout other than the entry point. The tool checks the
+-     `uses:` entries of the workflow blob at `T` (point 2) and refuses any other form (EI7); the
+-     remaining content rule is checked when the configuration's review covers `tool.workflow`, and
+-     the pin then fixes it (TR15, TR50).
+-6. **The tool commit is on `main`.** The consumer requires `T` to lie on the first-parent chain of
+-   `M`, the `main` resolved by `git ls-remote` as sec. 13.4 states, walked by the verified reader
+-   (TR29). This keeps `T` reachable from `main` (sec. A.42 items 1, 3), and bounds every file of `T`,
++     `sys.path`; it loads the package `tools/ledger_coverage/` by its location. Given the pre-run
++     check, the only files of the checkout that can be imported are the pinned files under that
++     directory. Before any import of a module not already loaded at interpreter start (only `sys`
++     and `os` precede it; N-g), the entry point refuses (ERROR, exit 65) unless the interpreter runs
++     in isolated mode and no `sys.path` entry lies inside the checkout. A file such as
++     `tools/hashlib.py`, outside the package, is therefore never imported (EI6).
++   - **The workflow's executable dependencies.** The pinned workflow executes only the pre-run
++     check, the entry point above, fixed `git` commands and the actions it names by commit id (N-b).
++     Every occurrence of a `uses` key in the workflow blob must match
++     `^\s*(- )?uses: <owner>/<repo>[/<path>]@<40 lowercase hex>\s*$` on its own line, with literal
++     `<owner>` and `<repo>` names; any other form refuses, including `./` (a local action or a
++     reusable workflow of the same repository), a branch or tag, a quoted key, a flow mapping, a
++     block scalar or an alias (EI7). The tool and the consumer check this on the workflow blob at
++     `T`. The rest of the workflow's content is checked against the list below when the
++     configuration's review covers `tool.workflow`, and the pin then fixes it (TR15, TR50):
++     - its triggers and inputs: the run receives `F` and the configuration path as inputs, and a
++       run without them fails the pre-run check;
++     - `permissions` read-only except artifact upload;
++     - a GitHub-hosted `runs-on`; no `container:` and no `services:`;
++     - no `env`, `GITHUB_ENV` or `GITHUB_PATH` change of `PATH`, `LD_*`, `GIT_*` or `PYTHON*`;
++     - no `shell:` override;
++     - the named actions only: no `setup-*` action, and no composite or docker action that installs
++       or downloads executables or refers to other actions by tag;
++     - the exact run lines: the fetch of `F`, the pre-run check, and the entry point's command.
++6. **The tool commit is on `main`.** The tool refuses (ERROR `CONFIG_UNREVIEWED`, before any
++   evaluation) unless the run record's `head_branch` is `main`, a field of the run record point 1
++   already reads (N-c). The consumer requires `T` to lie on the first-parent chain of `M`, the
++   `main` resolved by `git ls-remote` as sec. 13.4 states, walked by the verified reader (TR29).
++   This keeps `T` reachable from `main` (sec. A.42 items 1, 3), and bounds every file of `T`,
+    pinned or not, to code merged on `main`.
+ 
+ No command-line option, environment value or other configuration field sets `tool` or
+@@ -1988,9 +2042,9 @@
+ 
+ **Retired identifiers.** The controls O4, TR4, TR6-TR12, TR16-TR27, TR31-TR44, TR47, TR49,
+ TR53-TR70, LN9, LN11 and LN12 tested the automated authorization machinery that this design
+-removes. Their ids are retired and never reused. `INVENTORY-v6.0b.md` table 2 states, for each,
++removes. Their ids are retired and never reused. `INVENTORY-v6.0c.md` table 2 states, for each,
+ whether it tested authorization only, and which retained control covers any technical guarantee it
+-also touched. The controls GV1-GV7 and EI1-EI7 (sec. 10.4) are new; TR15 and TR50 keep their
++also touched. The controls GV1-GV7 and EI1-EI14 (sec. 10.4) are new; TR15 and TR50 keep their
+ v5.5.9 meaning, with the pins held by the configuration at `F`.
+ 
+ ### 10.1 Unit and mutation controls (synthetic, in memory)
+@@ -2173,7 +2227,7 @@
+ | TR14 | the same workflow and tool run in a fork, or in another repository; separately, a `pull_request` run from a fork, executed and listed in the canonical repository (its `head_repository.id` is the fork's); separately, the same results presented to a consumer that runs in a fork | ERROR at the tool wherever it runs with the configuration at `F` (repository or head repository id differs from `repository_id`); non-acceptance at the consumer in every case | execution identity points 1, 4; sec. 5 (B-2) |
+ | TR15 | a run of a workflow whose blob at `T` differs from `tool.workflow.blob_sha256` (a forged result written by a changed workflow step, review counterexample CX-2); separately, a same-named workflow at a path other than `tool.workflow.path` | ERROR at the tool; non-acceptance at the consumer | execution identity points 2, 4 (B-1) |
+ | TR28 | a `T` whose tool blobs differ from the configuration's `tool.files` pins (an engine module changed, review counterexample CX-1), or that carries an extra file under `tools/ledger_coverage/` | ERROR at the tool; non-acceptance at the consumer, which reads the blobs itself | sec. 6.3 execution identity point 2 (V3, B-1) |
+-| TR29 | a run whose `head_sha` is not on `main`'s first-parent chain (a branch); separately, a run whose `head_sha` is the evaluated commit `X`; separately, a result whose recorded `T` differs from the producing run's `head_sha` | ERROR / non-acceptance in each case (the first at the consumer, against `M` resolved as sec. 13.4 states) | execution identity points 3, 4, 6 (V2; R-1) |
++| TR29 | a run whose `head_sha` is not on `main`'s first-parent chain (a branch); separately, a run whose `head_sha` is the evaluated commit `X`; separately, a result whose recorded `T` differs from the producing run's `head_sha` | ERROR / non-acceptance in each case: the first is ERROR at the tool (the run record's `head_branch` is not `main`) and non-acceptance at the consumer (`T` not on the first-parent chain of `M` resolved as sec. 13.4 states) | execution identity points 3, 4, 6 (V2; R-1; N-c) |
+ | TR30 | a result whose evaluated commits differ from the landing record's | non-acceptance | sec. 5 (V2) |
+ | TR45 | the offline replay of an accepted result from its committed snapshot: an op-B result; and an op-C result whose delegated classes (`tex`, `pdf`, `record-dir`, `sc42`, `coverage-ledger`, `ci`) are taken from the snapshot's delegated evidence, with no host call, clone, PDF build or checker run | output equal to the committed result except `config.admission.mode = "replay"`, for both; never acceptable as a new run; a snapshot whose recorded result file does not hash to its recorded sha256, or lacks the evidence for a class the result decided, makes the replay refuse | sec. 5 (C3, F2) |
+ | TR46 | a committed compressed result whose uncompressed sha256 differs from the recorded one | refused at landing | sec. 5 (C3) |
+@@ -2210,13 +2264,20 @@
+ | GV5 | a store lacking a parent that a bounded walk needs (a shallow store whose boundary lies inside E..H; separately, a partial store lacking a needed blob); and the positive direction: a shallow store that holds every object the run needs | ERROR in the first two, with no object fetched; the third proceeds as in a full store | object integrity, bounded walks |
+ | GV6 | a symlink entry at the configuration's path in `F`; separately at the pin table's path; separately at a record's path | refused in each case (ERROR `CONFIG_UNREVIEWED` for the first two; the record `record-invalid`) | object integrity, entries |
+ | GV7 | the host's REST API failing or incomplete, each case separately: the run record; the consumer's artifact list; the run and job records of a host-run class | no `"chain"` (ERROR `CONFIG_UNREVIEWED`); non-acceptance at the consumer; REVIEW_REQUIRED `delegated-evidence-missing` for the class, never PASS; no fallback source in any case | sec. 6.3, host reads |
+-| EI1 | a checkout of `T` in which one tool file differs from `T`'s blob (an engine module patched after checkout), or holds a file `T` does not (a compiled-bytecode file under `tools/ledger_coverage/`) | ERROR at the tool | execution identity point 2 |
++| EI1 | the tool run directly, without the pre-run check, on a checkout of `T` in which one tool file differs from `T`'s blob (an engine module patched after checkout), or holds a file `T` does not (a compiled-bytecode file under `tools/ledger_coverage/`) | ERROR at the tool; in the pinned workflow the pre-run check fails first (EI9, EI13), and the consumer's repetition of point 2 (TR28, TR52) is the binding refusal | execution identity point 2 |
+ | EI2 | a run whose event is `pull_request` (head in the canonical repository); separately `schedule`; separately `workflow_run` | ERROR at the tool; non-acceptance at the consumer | execution identity point 1 (B-1) |
+ | EI3 | a result whose `F` differs from the landing record's; separately, whose pin table `{path, blob_sha256}` differs; separately, whose configuration path differs | non-acceptance in each case | sec. 5 (review N-1) |
+ | EI4 | `F` holds the plan directory with its `PREREG.md` and a second directory whose `PREREG.md` lists another configuration: (a) that other configuration placed in the plan directory, listed only by the second `PREREG.md`; (b) a caller argument naming the second `PREREG.md` as pin table; (c) the plan's `PREREG.md` whose last `Record pins` subsection omits the configuration while an earlier one lists it; (d) no `PREREG.md` beside the configuration; separately, a malformed row in its last `Record pins` subsection | (a), (c), (d): ERROR `CONFIG_UNREVIEWED`; (b): USAGE, exit 64 (the run takes no pin-table argument) | configuration admission point 2 (B-3) |
+ | EI5 | before landing, `git ls-remote` failing; separately, returning no `refs/heads/main` line or more than one; separately, an id that is not a full 40-hex id, or that the verified reader cannot read; separately, an id other than `L`'s first parent | the landing is refused in each case | sec. 13.4 (review N-2) |
+-| EI6 | the checkout of a `T` holding, besides the pinned files, an unpinned `tools/hashlib.py` (separately `tools/re.py`, `tools/subprocess.py`) whose module body writes a marker, the review's probe `review-v6.0a/cx3/hashlib_probe.py`; separately, the entry point run without `-I`, or with a checkout directory on `sys.path` | the first: the marker is never written, every imported module's file lies in `tool.files` or the interpreter's standard library, and the run's items equal those of the same run without the file; at the consumer a `T` that is not on `main`'s first-parent chain is non-acceptance (TR29). The second: ERROR at the entry point, exit 65, before any package import | execution identity point 5 (R-1) |
++| EI6 | the checkout of a `T` holding, besides the pinned files, an unpinned `tools/hashlib.py` (separately `tools/re.py`, `tools/subprocess.py`) whose module body writes a marker, the probe `review-v6.0a/cx3/hashlib_probe.py`; separately, the entry point run without `-I`, or with a checkout directory on `sys.path` | the first: the marker is never written, every imported module's file lies in `tool.files` or the interpreter's standard library, and the run's items equal those of the same run without the file; at the consumer a `T` that is not on `main`'s first-parent chain is non-acceptance (TR29). The second: ERROR at the entry point, exit 65, before any import of a module not already loaded at interpreter start | execution identity point 5 (R-1; N-g) |
+ | EI7 | a pinned workflow blob with `uses: ./.github/actions/x`; separately `uses: ./.github/workflows/w.yml`; separately `uses: owner/action@v4` (a tag); separately `uses: owner/action@main` | ERROR at the tool; non-acceptance at the consumer | execution identity point 5 (R-1, N5) |
++| EI8 | the pre-run check on a clean checkout of a `T` equal to the configuration's `tool.files` | the step passes and the entry point runs (positive control) | execution identity point 5 (O-1) |
++| EI9 | the pre-run check on a checkout holding `tools/ledger_coverage/engine/__pycache__/util.cpython-313.pyc`, an unchecked-hash bytecode file whose code writes a marker (review v6.0b probe P4) | the step fails; the job ends before the entry point runs; the marker is never written | point 5 (O-1) |
++| EI10 | the pre-run check on a checkout holding an extension module `tools/ledger_coverage/engine/util.so` beside the pinned `util.py` (probe P7) | the step fails before the entry point runs; the module's init never runs | point 5 (O-1) |
++| EI11 | the pre-run check on a checkout in which the pinned path `tools/ledger_coverage/engine/util.py` is a symlink to a payload outside the package (probe P9) | the step fails before the entry point runs; the payload never runs | point 5 (O-1) |
++| EI12 | the pre-run check on a checkout in which the entry point `tools/ledger_coverage.py` is a symlink to `tools/evil.py` (probe P10) | the step fails before the entry point runs; `evil.py` never runs | point 5 (O-1) |
++| EI13 | the pre-run check, each case separately: a pinned file changed by one byte; a pinned file missing; an extra `.py` file under `tools/ledger_coverage/`; a directory entry that is neither a regular file nor a directory; `F` not fetched; the configuration path absent at `F`; a configuration without `tool.files` | the step fails in each case before the entry point runs | point 5 (O-1) |
++| EI14 | the review v6.0a CX-3 tree: a branch `T'` holding the pinned files and an unpinned `tools/hashlib.py` | the pre-run check passes (the file lies outside the pinned paths and the step does not examine it); the file never executes (EI6); the tool refuses with ERROR before any evaluation (`head_branch` is not `main`, TR29); at the consumer, non-acceptance (TR29). The same file at an on-`main` `T`: never executed, the run unaffected | points 5, 6 (O-1; N-c) |
+ 
+ ***
+ 
+@@ -2677,8 +2738,8 @@
+ 5. **Independent recount.** The figures labelled WN in sec. 0.3 need an independent recount before
+    they are used as references.
+ 6. **Item 7.** The amendment text itself is outside this design (sec. 11 note 1).
+-10. **Independent review of v6.0b against v6.0a and v5.5.9.** The owner's requirement 5: an independent reviewer confirms that
+-    no scientific or technical verification guarantee of v5.5.9 is weakened (`INVENTORY-v6.0b.md`
++10. **Focused independent review of v6.0c.** The owner's requirement 5: an independent reviewer confirms that
++    no scientific or technical verification guarantee of v5.5.9 is weakened (`INVENTORY-v6.0c.md`
+     table 4), and the AGENTS.md conclusion (table 5).
+ 11. **ESC-6 and the A1 evidence gaps.** Unchanged under the accepted Q10 disposition: ESC-1 to ESC-4
+     stay unresolved A1 evidence gaps; ESC-5 is administrative; ESC-6 (the correction of the S1
+@@ -2686,10 +2747,10 @@
+     of them blocks the tool's landing, and this design resolves none of them.
+ 12. **The plan amendment.** The later, separately authorized amendment of the A1 plan does not
+     refer to an authority record, a freeze ledger, comment forms or an automated authorization
+-    check (`INVENTORY-v6.0b.md` table 6). Its frozen configuration carries the `tool` pins (tool
++    check (`INVENTORY-v6.0c.md` table 6). Its frozen configuration carries the `tool` pins (tool
+     files and workflow) and the `repository_id` (sec. 16.2), and lies beside the `PREREG.md` whose
+     last `Record pins` subsection lists it (sec. 6.3). Its pinned workflow meets execution
+-    identity point 5 of sec. 6.3.
++    identity point 5 of sec. 6.3, including the pre-run pin check.
+ 
+ ***
+ 
+@@ -3010,4 +3071,4 @@
+ 
+ | Step | Work | Acceptance |
+ |---|---|---|
+-| S13 | Configuration loader and validator, adapter admission by blob, the A1 configuration, the synthetic configuration | Z1-Z8, Z9a-Z9h, Z10, Z11 and Y1-Y10 behave; N2-N18, R18, R19, S4a, LN1-LN8, LN10, S11-57a-d, S11-58a-k, G9, TR1-TR3, TR5, TR13-TR15, TR28-TR30, TR45, TR46, TR48, TR50-TR52, GV1-GV7, EI1-EI7, WB13-WB15, X11, G4-G8, R16, R17, A12r, WB1-WB12, S11-56 and K10 behave; every A1 control has the same outcome as specified in sec. 10-11 of this document; no engine source contains an A1 constant (Z9) |
++| S13 | Configuration loader and validator, adapter admission by blob, the A1 configuration, the synthetic configuration | Z1-Z8, Z9a-Z9h, Z10, Z11 and Y1-Y10 behave; N2-N18, R18, R19, S4a, LN1-LN8, LN10, S11-57a-d, S11-58a-k, G9, TR1-TR3, TR5, TR13-TR15, TR28-TR30, TR45, TR46, TR48, TR50-TR52, GV1-GV7, EI1-EI14, WB13-WB15, X11, G4-G8, R16, R17, A12r, WB1-WB12, S11-56 and K10 behave; every A1 control has the same outcome as specified in sec. 10-11 of this document; no engine source contains an A1 constant (Z9) |

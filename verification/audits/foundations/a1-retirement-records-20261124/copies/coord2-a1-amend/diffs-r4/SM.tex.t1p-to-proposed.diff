@@ -1,0 +1,54 @@
+7617,7631c7617,7649
+< {[}(S, φ){]}/\(\mathcal{G}_{\text{sub}}\) --- they hold for every
+< bijection satisfying the six structural properties. These include,
+< conditionally on H-link with its single-copy clause and H-cust
+< (§4.5--§4.6): SU(3) × SU(2) × U(1) with multiplicities (3, 2, 1), three
+< generations (chirality conditional on H-χ', §4.8) with identical gauge
+< quantum numbers, one Higgs doublet (1, 2, +1/2), taken as input and
+< accommodated in the E projection of the singlet taste (Theorem 11),
+< unique hypercharges from anomaly cancellation (apart from the
+< exceptional branch \(Y_Q=0\)), and the universal induced coupling
+< \(1/\alpha_0 = 23.25\) (§6.1). These are theorems on the branch stated
+< in §1 (Tier 2), with the conditions marked at each entry. The horizon
+< calibration \(\hbar = c^3\epsilon^2/(4G\sigma)\) and the
+< Bekenstein-Hawking coefficient it matches hold for the same class as
+< consistency relations conditional on H-slope ({[}GR §3.2, §4--§5{]}).
+< They do not depend on which specific φ describes our universe.
+---
+> {[}(S, φ){]}/\(\mathcal{G}_{\text{sub}}\) --- they rest on the local
+> spatial/gauge construction of §2.3 and on cubic-group representation
+> theory, each entry under the further conditions of the theorems cited
+> for it; whether an entry requires finiteness of the substratum is not
+> established where those theorems use the measure conditions of Lemma 1c
+> or Proposition 4b or the continuum conditions of the \(d = 3\) selection
+> (§3.2), and \(1/\alpha_0\) is computed from the lattice momentum
+> integral of §6.1 over the whole Brillouin zone, whose counterpart for a
+> finite substratum and whose normalization of the vertex coupling are not
+> established. These include, conditionally on H-link with its single-copy
+> clause and H-cust (§4.5--§4.6): SU(3) × SU(2) × U(1) with multiplicities
+> (3, 2, 1), whose reduction from the stabilizer U(3) × U(2) × U(1) of
+> Theorem 5 carries the amplitude-scale-gauge and background-independence
+> premises of §4.6, a specified charged matter action and the further
+> physical input of Proposition 14a (§4.9), three generations (spin-1/2
+> sectors under H-spin', Theorems 9--10; chirality conditional on H-χ',
+> §4.8; light-spectrum selection, Theorem 10) with identical gauge quantum
+> numbers, one Higgs doublet (1, 2, +1/2), taken as input and accommodated
+> in the E projection of the singlet taste (Theorem 11), unique
+> hypercharges from anomaly cancellation, given the observed family
+> pattern in the five representations per family, family-universal charges
+> and chirality under H-χ' (Theorem 15; apart from the exceptional branch
+> \(Y_Q=0\)), and the universal induced coupling \(1/\alpha_0 = 23.25\)
+> (§6.1). These are theorems on the branch stated in §1 (Tier 2), with the
+> conditions marked at each entry. The horizon calibration
+> \(\hbar = c^3\epsilon^2/(4G\sigma)\) and the Bekenstein-Hawking
+> coefficient it matches hold for the same class as consistency relations
+> conditional on H-count, which includes finiteness of the total system
+> and a conserved energy shell, and on H-slope on identified transitions,
+> H-frame, the H-Hawking horizon and frame conditions, local boost
+> structure and the symmetric detailed-balance rate ratio, with selection
+> of the physical slope an additional condition ({[}GR §2.3, §3.2, §4--§5,
+> §8.5{]}). They do not depend on which specific φ describes our universe.
+9033c9051
+< % source-sha256: 90fe2c154d7b5e8cc6e0c7d5d003ce1a47aaeda59d74a492db41489ebdbc7091
+---
+> % source-sha256: 1259d56b6e98e5f57b7f73367bbe719eb988175958f93259dcc809da581ef415

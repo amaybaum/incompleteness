@@ -1,0 +1,241 @@
+{
+ "schema": "oi-reconciliation/1",
+ "record_id": "reconciliation-agents-md-v2",
+ "status": "UNREVIEWED, UNAUTHORIZED DRAFT. Not a record under DESIGN-v5.1 sec. 6.3: it has no independent review record and no owner authorization record, and under the review chain the tool must reject it (record-invalid; the configuration that references it is CONFIG_UNREVIEWED). Field spelling follows the Stage 1 implementation at commit 8c1e628a, which is itself under independent review; see DRIFT-FINAL-NOTES.md for each difference from the r3 proposal and which choices depend on Stage 1.",
+ "author": "<PLACEHOLDER/author: the writer's name, filled in before review>",
+ "supersedes": {
+  "path": "(off-repo draft) coord2-records/records-draft-r3/a1exit-recon-agents-md-1.json",
+  "blob_sha256": "dd725be9004bc47672b90af749d204d3d70175e83d687bdd766a5e7ceb4aec19"
+ },
+ "scientific_base": "53c6601a10419b6b333cc992474272501ab542af",
+ "main": {
+  "computed_at": "8e9b83341cf5bc7fd9fb260892d0385fc9bfab4d",
+  "applies_while": "at each run (the pre-landing safeguard, F and landing) main is resolved by git ls-remote origin refs/heads/main, and the record applies only if R13 and R1-R12 all hold there (R13, the ledger binding, first). The record names no later main commit; a different AGENTS.md blob at main needs a new record with supersedes"
+ },
+ "ledger": {
+  "path": "verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+  "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+  "blob_sha256": "2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5",
+  "git_blob": "ba37c1cdb560cb5fceeeb2b46a3091c832b4a80e",
+  "note": "the ledger at P, from which ledger_binding was computed; the ledger used at a run is the configuration's adapters.ledger, bound by R13"
+ },
+ "edits": {
+  "path": "verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+  "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+  "blob_sha256": "528f146d03b29cbc3d7dc29948e3dd1d4cd26f4d36e6e009f032e24f9462dec1",
+  "git_blob": "ec384fdfbc12937b860e2f226355e8c5d94820a5"
+ },
+ "ledger_binding": {
+  "canonical_json": "json.dumps(obj, sort_keys=True, separators=(',',':'), ensure_ascii=False) encoded as UTF-8, then sha256",
+  "ledger_base": "53c6601a10419b6b333cc992474272501ab542af",
+  "agents_files_entry": {
+   "value": {
+    "base_sha256": "d87acac54b5f6392af3323630236d98b14bb4d485d10c0ff56b20806b0883e27",
+    "expected_sha256": "59b68984e659ef808819e02d4653d80388f8bd2f4c009796b162fc2453882ce2"
+   },
+   "sha256": "926eaa8b21e933576422f1c7854f6cc8dd0aa178b8225e44b05067ac933dc514"
+  },
+  "agents_splices": {
+   "ids": [
+    "D296"
+   ],
+   "sha256": "dd0acccd6566e2e5f5e6b24bd3d0e6d2527cbb33210acb5fe368d0ac2c374119"
+  },
+  "agents_edit_records": {
+   "ids": [
+    "D296"
+   ],
+   "sha256": "fbb374e270690352e68e307a7e921fb6972b9efa03a0abcaa727ccdefa9f1395"
+  }
+ },
+ "paths": [
+  {
+   "path": "AGENTS.md",
+   "class": "ledgered",
+   "h": "12a9281fb88c14395b6715a3bf4b4f6b030f433c",
+   "m": "6b1280fa92fa30e36555e9afd30cc0d6e992f5bb",
+   "x": "9f4fc3e830707c90ffc105842d26d5b51f01760b",
+   "l": "86d79863821f3f8cdad86771008b2df89fd1961a",
+   "h_sha256": "d87acac54b5f6392af3323630236d98b14bb4d485d10c0ff56b20806b0883e27",
+   "m_sha256": "05bbb27fba2b3dbe55c69be80a7dd1594c53aee66f6b2a837ec25cb379d1893f",
+   "x_sha256": "59b68984e659ef808819e02d4653d80388f8bd2f4c009796b162fc2453882ce2",
+   "l_sha256": "3c334a42cb3d984c9aec5f308c53fb457e747469e200972a1660da392c8fee1b",
+   "bytes": {
+    "h": 102250,
+    "m": 105602,
+    "x": 102227,
+    "l": 105579
+   },
+   "side_change_commits": [
+    "4fb2c1eed350edf95da2b316abcca93717246589",
+    "8e9b83341cf5bc7fd9fb260892d0385fc9bfab4d"
+   ],
+   "main_changes": [
+    {
+     "op": "insert",
+     "main_bytes": [
+      46677,
+      47031
+     ],
+     "main_lines": [
+      715,
+      718
+     ],
+     "after_H_line": 714
+    },
+    {
+     "op": "insert",
+     "main_bytes": [
+      102604,
+      105602
+     ],
+     "main_lines": [
+      1524,
+      1573
+     ],
+     "after_H_line": 1519
+    }
+   ],
+   "common_prefix_H_M_bytes": 46677,
+   "splices": [
+    {
+     "id": "D296",
+     "start_H": 2332,
+     "end_H": 2382,
+     "start_M": 2332,
+     "end_M": 2382,
+     "translation": "identity",
+     "old_sha256": "8711166bd781e39db75b410808aa17a00d5decf5f6f58544d3eacf459da00e6f",
+     "new_sha256": "532c5919b0acfcb31e0c16b799e1b2832b1c07a77d2865d136267c044e9cf051",
+     "old_count_H": 1,
+     "old_count_M": 1,
+     "char_offset_H": 2305,
+     "lines": [
+      37,
+      38
+     ]
+    }
+   ],
+   "protected": [
+    {
+     "name": "§A.49",
+     "header": "## §A.49",
+     "start_M": 102610,
+     "end_M": 104821,
+     "sha256": "d2cb32f0b023b79daa1394b365a4984c02faeafaea82bab8d999e8381b401cc3",
+     "lines_M": [
+      1527,
+      1555
+     ]
+    },
+    {
+     "name": "§A.50",
+     "header": "## §A.50",
+     "start_M": 104826,
+     "end_M": 105602,
+     "sha256": "8a9ab5f45be8891b73508725f0e15b495e3222dabca8f00e73edfa3a54ba22b8",
+     "lines_M": [
+      1558,
+      1573
+     ]
+    }
+   ],
+   "length_delta": -23,
+   "resolution": "L:AGENTS.md = main's AGENTS.md with C's splices applied at main-translated offsets, each old_sha256 re-verified against main (DESIGN-v5.1 sec. 13.1; v2 sec. 13.2 'both changed')"
+  }
+ ],
+ "unchanged_ledgered": {
+  "count_at_P": 43,
+  "note": "informational: the number of other files entries in the ledger at P. R10 checks every files entry of the run's ledger, whatever their number"
+ },
+ "unchanged_corpus": {
+  "rule": "no papers/ or book/ path and no generated corpus artifact differs between H and main (evaluated at run time; not a recorded list)"
+ },
+ "side_change_classes": [
+  {
+   "kind": "side-change-classes",
+   "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-tool-configuration-v1.json",
+   "blob_sha256": "9c22394b88702f15b4e8bbc99ff5ef55fc771bc538e2e9c6bafb7bd81ad319cd",
+   "git_blob": "8964e13e65383e4a813eba07881946251ee0c5b3"
+  },
+  {
+   "kind": "side-change-classes",
+   "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-trial-workflow-v1.json",
+   "blob_sha256": "74fa640d4d18d75b292537f8ee469c8be23aa0be60905c40653e0c5f8bd112ee",
+   "git_blob": "76c00564f7990a27268e59cca6247432fbcc6eb7"
+  }
+ ],
+ "changes_decisions_on_X": [],
+ "entries": [
+  {
+   "id": "R13",
+   "check": "ledger binding, checked first: the run's ledger has base = scientific_base, and its AGENTS.md files entry, its AGENTS.md splice list and the run's edit-list records for AGENTS.md have the canonical sha256 values of ledger_binding (canonical: util.canonical of the Stage 1 engine, i.e. sorted keys, no whitespace, UTF-8); otherwise the record does not apply and a superseding record is needed",
+   "holds_at_computed_main": true
+  },
+  {
+   "id": "R1",
+   "check": "main is resolved by git ls-remote origin refs/heads/main at each run (the pre-landing safeguard, F and landing); H is on main's first-parent chain; the first-parent commits on H..main that change AGENTS.md equal paths[0].side_change_commits",
+   "holds_at_computed_main": true
+  },
+  {
+   "id": "R2",
+   "check": "AGENTS.md at main has git blob id paths[0].m and sha256 paths[0].m_sha256",
+   "holds_at_computed_main": true
+  },
+  {
+   "id": "R3",
+   "check": "uniqueness at H: the overlapping occurrence count of D296's old bytes (from the run's edit list, bound by R13) is 1, at start_H; sha256(H[start_H:end_H]) = old_sha256",
+   "holds_at_computed_main": true
+  },
+  {
+   "id": "R4",
+   "check": "uniqueness at main: the same count is 1, at start_M; sha256(main[start_M:end_M]) = old_sha256",
+   "holds_at_computed_main": true
+  },
+  {
+   "id": "R5",
+   "check": "translation: the common byte prefix of H and main is >= end_H, so the translation is the identity (otherwise the recorded delta equals the length change before start_H and no main_changes range meets [start_M, end_M))",
+   "holds_at_computed_main": true
+  },
+  {
+   "id": "R6",
+   "check": "approved text, with new and new_sha256 from the run's ledger and edit list (bound by R13): Lx = main[:start_M] + new + main[end_M:]; Lx[start_M:start_M+len(new)] = new; sha256(new) = new_sha256; lines 36-39 of Lx equal those of H + D296 (T1')",
+   "holds_at_computed_main": true
+  },
+  {
+   "id": "R7",
+   "check": "expected landing blob: git blob id and sha256 of Lx = paths[0].l and l_sha256",
+   "holds_at_computed_main": true
+  },
+  {
+   "id": "R8",
+   "check": "expected candidate blob: git blob id and sha256 of H + D296 = paths[0].x and x_sha256 = the expected_sha256 of the AGENTS.md entry of the run's ledger (bound by R13), and T1''s blob",
+   "holds_at_computed_main": true
+  },
+  {
+   "id": "R9",
+   "check": "protected sections untouched: each header in protected occurs once in main and once in Lx at a >= end_M; Lx[a+delta:b+delta] = main[a:b] with the recorded sha256; and Lx[end_M+delta:] = main[end_M:]. The owner's condition names §A.49; §A.50 is listed because it follows §A.49 and is covered by the same suffix check",
+   "holds_at_computed_main": true
+  },
+  {
+   "id": "R10",
+   "check": "every files entry of the run's ledger other than AGENTS.md, whatever their number: blob at main equals blob at H, and sha256 equals its base_sha256",
+   "holds_at_computed_main": true
+  },
+  {
+   "id": "R11",
+   "check": "git diff --name-status H main lists no corpus path and no generated corpus artifact; every other changed path is covered by a referenced side-change class record whose pinned blob matches, or by another reviewed class record (the tool's landing paths; the plan amendment's paths if they are on main before F)",
+   "holds_at_computed_main": true
+  },
+  {
+   "id": "R12",
+   "check": "changes_decisions_on_X is empty",
+   "holds_at_computed_main": true
+  }
+ ],
+ "ownership_chain": {
+  "review_record": "<PLACEHOLDER/review: a separate oi-review-record/1 file whose reviewed = {path, blob_sha256} of this file's final blob, by a non-author>",
+  "owner_authorization": "<PLACEHOLDER/authorization: a separate oi-owner-authorization/1 file with owner, time and comment_id, listing {record, review} by {path, blob_sha256}>",
+  "note": "this block exists only in the draft and is removed before review; an authorization cannot sit inside the record it authorizes"
+ }
+}

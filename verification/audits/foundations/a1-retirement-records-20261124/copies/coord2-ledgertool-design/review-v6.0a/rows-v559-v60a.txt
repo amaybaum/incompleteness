@@ -1,0 +1,135 @@
+A rows 564 B rows 522 retained 459 modified 34 removed 71 added 29
+MOD `F`
+MOD v3 R11: ownership chain
+MOD v5.4 review V2 and R-D3: the run's commit; evaluated commits
+MOD O5
+MOD O7
+MOD O9
+MOD X10
+MOD WB3
+MOD WB4
+MOD WB5
+MOD WB6
+MOD WB7
+MOD WB8
+MOD WB13
+MOD WB14
+MOD WB15
+MOD TR2
+MOD TR3
+MOD TR5
+MOD TR13
+MOD TR14
+MOD TR15
+MOD TR28
+MOD TR29
+MOD TR48
+MOD TR50
+MOD TR51
+MOD TR52
+MOD A12r
+MOD LN4
+MOD `retirement`
+MOD `records`
+MOD `author`
+MOD S13
+REM 8. Review and authorization lint for rules, PIN_OK reasons, 
+REM Stage 1 B3: configuration admission from `F`'s designation a
+REM Stage 1 B4: commits of `C` classified path by path; widening
+REM v5.2 review V2: `F`'s designation from the host, outside the
+REM v5.3 review W2-W4 and owner decisions A-D1 to A-D4: authorit
+REM owner addendum: the trust root of the authority record, boot
+REM v5.4 review V3 and R-D3: the executed code bound by the host
+REM v5.4 review V4 and R-D2: every owner comment's edits; the fr
+REM v5.4 review V5 and R-D4: the first line
+REM v5.4 addendum C1 and R-D4: authority changes by an owner app
+REM v5.4 addendum C2 and R-D4: versioned forms
+REM any profile hit in an authorized replacement image, inside o
+REM O4
+REM TR4
+REM TR6
+REM TR7
+REM TR8
+REM TR9
+REM TR10
+REM TR11
+REM TR12
+REM TR16
+REM TR17
+REM TR18
+REM TR19
+REM TR20
+REM TR21
+REM TR22
+REM TR23
+REM TR24
+REM TR25
+REM TR26
+REM TR27
+REM TR31
+REM TR32
+REM TR33
+REM TR34
+REM TR35
+REM TR36
+REM TR37
+REM TR38
+REM TR39
+REM TR40
+REM TR41
+REM TR42
+REM TR43
+REM TR44
+REM TR47
+REM TR49
+REM TR53
+REM TR54
+REM TR55
+REM TR56
+REM TR57
+REM TR58
+REM TR59
+REM TR60
+REM TR61
+REM TR62
+REM TR63
+REM TR64
+REM TR65
+REM TR66
+REM TR67
+REM TR68
+REM TR69
+REM TR70
+REM LN9
+REM LN11
+REM LN12
+REM every HP, context, hit classification, review and authorizat
+ADD `T`
+ADD 8. Review lint for rules, PIN_OK reasons, reconciliation rec
+ADD Stage 1 B3: configuration admission from `F`'s pin table
+ADD Stage 1 B4: commits of `C` classified path by path; widening
+ADD v5.4 review V3 and R-D3: the executed code and workflow boun
+ADD owner decisions of 2026-11-24 on the authorization model
+ADD v6.0 review B-1 to B-4, N-1 to N-6 (v6.0a)
+ADD Class identifier
+ADD `authorized-replacement`
+ADD `authorized-removal`
+ADD `unauthorized-edit`
+ADD `unauthorized-change`
+ADD any profile hit in a ledgered replacement image, inside or o
+ADD GV1
+ADD GV2
+ADD GV3
+ADD GV4
+ADD GV5
+ADD GV6
+ADD GV7
+ADD EI1
+ADD EI2
+ADD EI3
+ADD EI4
+ADD EI5
+ADD `tool`
+ADD `repository_id`
+ADD the tool's file and workflow pins; the repository id 1156244
+ADD every HP, context, hit classification and review record

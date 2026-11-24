@@ -1,0 +1,572 @@
+1c1
+< # Commit-independent ledger and terminology verification tool: design v5.1
+---
+> # Commit-independent ledger and terminology verification tool: design v5.2
+7,12c7,21
+< - It supersedes v5 where they differ. `DESIGN.md` (v1), `DESIGN-v2.md` to `DESIGN-v4.md` and
+<   `DESIGN-v5.md` stay as written. This document is complete in itself; it is not a diff. It differs
+<   from `DESIGN-v5.md` only by the corrections W1 and W2 and the clarification O8 of
+<   `review-v5/review-v5.md` (sha256
+<   dff73392fa0f255f58d0d658ac579a7bfe8bcbddec31cd88f34b2e32b5756af7, verdict ACCEPT WITH REQUIRED
+<   CORRECTIONS); `CHANGES-v5.1.md` lists every changed passage.
+---
+> - It supersedes v5.1 where they differ. `DESIGN.md` (v1), `DESIGN-v2.md` to `DESIGN-v5.md` and
+>   `DESIGN-v5.1.md` stay as written. This document is complete in itself; it is not a diff.
+> - v5.2 applies the independent Stage 1 review, `review-stage1/review-stage1.md` (sha256
+>   007d4ada8c19cb3103073d80f75c9721d57c908f7cd8813a7b52c568449d4b6a, verdict REVISE), of the Stage 1
+>   implementation (local commit 8c1e628a08272ad9414929fa8e003020e1cc2234; report
+>   `impl-stage1/REPORT.md`, sha256 9093f93a002fcc2dfa5574468ed15bf37044a6434c59b2f2d81d3eecde7cad9f):
+>   its design corrections D1-D8, and a specification against which the implementation fixes its
+>   blocking defects B1-B6. `DESIGN-v5.1.md` (sha256
+>   0c4ff0e60331d0e9604ece0c997dec472b3f977bf24384676d74f850bff4a3fe) and the two review inputs were
+>   verified before this revision. `CHANGES-v5.2.md` lists every changed passage.
+> - Owner decisions on the Stage 1 review (2026-11-23), called S1-D1 to S1-D3 here: S1-D1, the W1
+>   self-match is resolved by option B (sec. 6.2 step 3); S1-D2, apply D1-D8; S1-D3, specify
+>   configuration admission, native delegated execution, the classification of `C`, widening reviews,
+>   engine purity over the adapter companions, and control reporting (B1-B6). B7 (RT-L2 at current
+>   `main`) is an owner decision outside this design (sec. 15).
+34c43
+< - All of these decisions reached this writer through the coordinating session
+---
+> - All of these decisions, S1-D1 to S1-D3 included, reached this writer through the coordinating session
+127a137,152
+> | v5 review W1, W2, O8 (v5.1) | sec. 1, 6.4.1, 0.3, 10.2 V27, 14 |
+> | Stage 1 D1 and S1-D1: W1 self-match, option B; self-PASS lint | sec. 6.2 step 3, 6.3, 6.5; WB1-WB12 |
+> | Stage 1 D2: SW2 expectation | sec. 10.3 SW2 |
+> | Stage 1 D3: 7 HP structure REVIEWs | sec. 0.3, 4.4, 8.2; RT-H0, RT-T0 |
+> | Stage 1 D4: 215 region lines, LF-inclusive span | sec. 0.3, 5, 14; RT-T0 |
+> | Stage 1 D5: RT-D 45 `resid` lines | sec. 0.3; RT-D |
+> | Stage 1 D6: register and infinity semantics; parameters in a rule file | sec. 6.1, 11 rows 5-6; S11-56 |
+> | Stage 1 D7: `rule-stale` scoping | sec. 6.2 |
+> | Stage 1 D8: source-byte literals | sec. 6.2, 6.5 |
+> | Stage 1 B1: acceptance reads admission; harness results never acceptable | sec. 5, 6.3, 10.4, 16.7; X11 |
+> | Stage 1 B2: native delegated execution in a clone at `X`; independent verification | sec. 7.2; G4-G8 |
+> | Stage 1 B3: configuration admission from `F`'s designation and pin table | sec. 6.3; TR1-TR5 |
+> | Stage 1 B4: commits of `C` classified path by path; widening reviews with coverage and authorization | sec. 13.1, 6.3; R16, R17, A12r |
+> | Stage 1 B5: engine purity over adapter companions; guard pins in the adapter | sec. 16.1, 16.3; Z9g, Z9h |
+> | Stage 1 B6: control reporting with PASS, FAIL, SKIP and NOT RUN; predicates equal expectations | sec. 10.4; RT-T, RT-D |
+> | Drift findings S2-S7 (reconciliation, landing composition, class pins, supersedes, one class per id) | sec. 6.3, 13.1, 13.2, 13.3, 16.6; N2-N11, R18, Z11, S4a |
+143a169,170
+> - **S1**: measured by the Stage 1 implementation and reproduced by the Stage 1 review, and
+>   re-derived by this writer for v5.2 from git objects (`work-v52/`).
+159c186,190
+< - 383 unchanged, 197 replaced and 4 removed sites; 203 region lines. IR.
+---
+> - 383 unchanged, 197 replaced and 4 removed sites. IR. **215 region lines** (D4), with the site
+>   span as v1 sec. 4.3 defines it, the line's bytes plus its LF (sec. 5). S1. The v4 figure of 203
+>   used a span without the LF; the 12 extra lines come from 3 sites (papers/Main.md:44 at E with
+>   D259, ch01:28 with D310, FULL:361 with D311) whose second splice starts at the site line's LF and
+>   inserts a paragraph. The site counts and the 84 hit lines are the same under both spans.
+174c205,207
+<   same 4 lines; this count agrees with it.
+---
+>   same 4 lines; this count agrees with it. In RT-D, whose profile set (item 7's) evaluates no p0
+>   profile, all 45 `resid` hits are REVIEW items; 17 of them are hit by no other review profile (D5;
+>   S1).
+187c220,224
+<   changes 0, 3, 1, 39; indicator items 3 HP, 3 RET; no ANAPH failure. IR.
+---
+>   changes 0, 3, 1, 39; no ANAPH failure. IR. Indicator items: **7 HP** (D3; S1) and 3 RET (IR).
+>   The 7 HP items are FULL:706, FULL:708, ch02:76, ch02:78, papers/Substratum.md:94, :253 (LIST) and
+>   papers/Main.md:741 (TABLE): the sites unchanged at H whose context or structure context changed in
+>   E..H. v4's figure of 3 was taken over sites also unique at T1', a condition the rule does not have;
+>   only 3 of the 7 are unique at T1'.
+609c646,649
+< Indicator items (none of these sites is marked by the s3 table):
+---
+> Indicator items (none of these sites is marked by the s3 table). The E..H row counts every site
+> unchanged at H whose context or structure context changed in E..H; it has no condition at T1' (D3).
+> FULL:706, ch02:76 and Substratum.md:94 and :253 are rewritten in H..T1', so they are not among the
+> 52 unchanged sites of sec. 4.4's first table, but their E..H items stand:
+613c653
+< | E..H | LIST FULL:708, ch02:78 (a sibling item changed); TABLE papers/Main.md:741 (neighbour row changed) | 3 HP REVIEW_REQUIRED `context-structure-changed` |
+---
+> | E..H | LIST FULL:706, FULL:708, ch02:76, ch02:78 (sibling items changed), papers/Substratum.md:94, papers/Substratum.md:253; TABLE papers/Main.md:741 (neighbour row changed) | 7 HP REVIEW_REQUIRED `context-structure-changed` |
+653c693,697
+<   configuration `{path, blob_sha256}` equals the frozen one.
+---
+>   configuration `{path, blob_sha256}` equals the frozen one;
+> - `config.admission` is `"chain"` and names the same `F`, designation record and pin table as the
+>   consumer's own (sec. 6.3, B1). The schema makes `config.admission` required; a result with any
+>   other value, or with a top-level `"harness"` field, is never acceptable, whatever its outcome
+>   (control X11).
+731a776,778
+> - A site's span is its line's bytes plus its terminating LF (v1 sec. 4.3; D4). A splice that starts
+>   at the site line's LF therefore overlaps the site, and the replacement region includes the lines
+>   it inserts.
+760c807
+< | `register` | `REG` and `CAPS`/`CAPS_OK` in P's `edits_check.py`; added text only |
+---
+> | `register`, `register-caps` | `REG`, and `CAPS` less `CAPS_OK`, in P's `edits_check.py`; added text only, net of the replaced text (below) |
+762a810,837
+> **Semantics of `register` and `infinity` (D6).** These two profiles reproduce items 5 and 6 of P's
+> plan, which compare a replacement with the text it replaces (P's `edits_check.py`, `static_new`,
+> lines 351-380). Matching the image alone would flag wording that was already present in the
+> replaced text. The unit of comparison is one splice: its image (`new`) against the bytes it
+> replaces at `H` (`old`).
+> 
+> - **`register`** (REG): a FAIL for each lowercased REG token that occurs in the image and does not
+>   occur in the replaced text (set difference).
+> - **`register-caps`** (CAPS less CAPS_OK): as `register`, for capital tokens, and only for splices
+>   whose edit kind is one of the kinds named in the rule file (A1: `ptr`, `consistency`, `handoff`).
+> - **`infinity`** (INF less NEUTRAL): each sentence of image and replaced text is scanned for INF
+>   matches outside NEUTRAL spans; each match is normalized to a key (lowercase, `*`, `_` and
+>   whitespace runs collapsed). The rule file names the key rules (A1: a match containing
+>   "finiteness ... fails" has key "finiteness fails") and a rewrite applied to the replaced text
+>   before scanning (A1: `\bA1\b(?: \(finiteness\))?` becomes "finiteness", because the retirement
+>   restates a statement about A1 as one about finiteness). A FAIL is emitted for each key whose count
+>   in the image exceeds its count in the rewritten replaced text (multiset difference).
+> 
+> The patterns REG, CAPS, CAPS_OK, INF and NEUTRAL are extracted from P's blob. The edit kinds, the
+> key rules and the rewrite are not in P as extractable assignments, so they live in a reviewed rule
+> file (`register-infinity-params`) under sec. 6.3, with positive and negative examples; they are
+> never retyped in the configuration or the engine (review B-F2). The landing record lists every
+> line-level match of these profiles in the T1' splice images (the implementation reported 30) with
+> the replaced-text match that cancels it, so that a reviewer can confirm each one. Control S11-56
+> requires the tool's result at T1' to equal P's recorded `--static` result for items 5 and 6
+> (0 findings each), and its mutants (a splice adding "no longer", a splice adding "is infinite") to
+> FAIL.
+> 
+803c878,880
+< - `fingerprints`: `{file, sentence_sha256, context_sha256}`;
+---
+> - `fingerprints`: `{file, sentence_sha256, context_sha256, negative_allowance}`, where the optional
+>   `negative_allowance` maps a negative literal to the number of its matches in that exact
+>   fingerprinted sentence (S1-D1, sec. 6.2 step 3);
+830c907,919
+< 3. If the rule's negative matcher matches the sentence, the result is FAIL `rule-negative-match`.
+---
+> 3. The rule's negative matcher is applied to the whole sentence, with every negative literal
+>    counted (owner decision S1-D1, option B). The allowance for the sentence is the
+>    `negative_allowance` of a fingerprint only if all of the following hold, and is zero otherwise:
+>    - the hit's file is the fingerprint's `file`;
+>    - the sentence's sha256 equals the fingerprint's `sentence_sha256` (the exact approved text);
+>    - the context sha256 equals the fingerprint's `context_sha256` (the approved location: the same
+>      neighbouring sentences), whether or not the rule sets `context_required`;
+>    - that fingerprint has not already granted its allowance to another sentence in this tree.
+> 
+>    If, for any negative literal, the sentence has more matches than the allowance grants, the
+>    result is FAIL `rule-negative-match`. The allowance is bound to one fingerprint, that is, one
+>    approved sentence at one approved location. It is never a global count, and it cannot be used
+>    by any other sentence, file or location.
+836a926,940
+> A fingerprint with no `negative_allowance` grants none. A literal's matches are counted as
+> non-overlapping matches of the literal (or regex) in the sentence's source bytes.
+> 
+> **Matching on source bytes (D8).** Every literal of an allow or deny rule (trigger, context,
+> negative, fingerprinted sentence) is matched against the source bytes of the file as committed,
+> after the splitter's whitespace normalization (sec. 6.1), never against rendered text. For example,
+> W2-b's context literal is `\mathrm{SU}(3)`, which is what its source line contains, not "SU(3)".
+> 
+> **`rule-stale` scoping (D7).** REVIEW_REQUIRED `rule-stale` (a fingerprinted sentence no longer
+> present) is evaluated on every tree except those that are proper ancestors of the rule's
+> `recorded_at`, where the fingerprinted text has not yet been written. A candidate `X`, `C`, `L` or
+> `M`, and `recorded_at` itself, are always evaluated. `result.json` lists, per tree, the rules not
+> evaluated for staleness and why. At `recorded_at` a missing fingerprint is a lint failure of the
+> rule (sec. 6.3), not a `rule-stale` item.
+> 
+890c994,998
+< - a broken `supersedes` chain, or a reused id;
+---
+> - a broken `supersedes` chain, or a reused id, for every record kind (S4): each `supersedes` must
+>   name a `{path, blob_sha256}` that exists in the object store at or before `F` and is a record of
+>   the same kind, schema and lineage; a chain naming an id or blob that never existed as a record
+>   (for example an off-repository draft) is FAIL `record-invalid`. A first record has
+>   `supersedes: null`;
+895,899c1003,1028
+< **Root of trust (O5).** The configuration names the owner and references every authorization record,
+< so it cannot itself establish who the owner is. Its own root is `F`'s pin table, which the owner
+< designates with `F`: the configuration is admitted only if its sha256 is in that table, and the
+< configuration's `retirement.owner` must equal the owner who designated `F`, as quoted in the
+< designation record.
+---
+> **Configuration admission and the root of trust (O5, B3).** The configuration names the owner and
+> references every authorization record, so it cannot itself establish who the owner is, and a caller
+> cannot establish it either. Admission runs in the integrity stage, before any subject, as follows:
+> 
+> 1. **The freeze.** The run names `F` (`--freeze F`, a full commit id). `F` must resolve in the
+>    object store. Without `F`, no configuration is admitted under the chain, and the run is ERROR
+>    `CONFIG_UNREVIEWED` (exit 65); there is no fallback to a hash given on the command line.
+> 2. **The designation record.** `F`'s tree must contain the owner's designation record of `F` at the
+>    path the plan fixes for it (the record of sec. A.39 item 1 that quotes the owner's designation
+>    with author, time and comment id, sec. A.42 item 7). It names `F`'s parent, the pin table's path
+>    and the owner. A missing or malformed designation record is ERROR `CONFIG_UNREVIEWED`.
+> 3. **The pin table.** The tool reads `F`'s PREREG pin table from `F`'s tree, at the path the
+>    designation record names. The configuration is admitted only if its path and sha256 are listed
+>    there. The configuration's own review record and owner authorization are admitted only if they
+>    too are listed in that table with their sha256; files that merely sit beside the configuration,
+>    or name its blob, are never admitted.
+> 4. **The owner.** `retirement.owner` must equal the owner quoted in the designation record, and the
+>    owner of the configuration's authorization record must equal both.
+> 5. **Optional equality.** `--config-sha256`, if given, must equal the admitted configuration's
+>    sha256; it is an extra check and never a substitute for steps 1-4.
+> 
+> `result.json` records `config.admission`: `"chain"` when steps 1-4 held, with `F`, the
+> designation record's `{path, blob_sha256}` and the pin table's `{path, blob_sha256}`. Only
+> `"chain"` is acceptable (sec. 5). The control harness (sec. 10.4) may admit a draft configuration
+> without its chain, but its results carry `"admission": "control-harness"` and are never written as
+> an acceptable result.
+917c1046,1047
+< - a new allow rule without `supersedes`.
+---
+> - a new allow rule without `supersedes`;
+> - any `negative_allowance` added, raised or moved to another fingerprint.
+923c1053,1058
+< reviewer, under the same chain. Widening without it is FAIL `record-invalid`.
+---
+> reviewer, under the same chain as any review (B4): the widening review names the superseding
+> record's blob and the superseded record's blob, its `verdicts` cover every item that differs
+> between the two (each changed field, added file, fingerprint or allowance), every verdict is
+> `accept`, and an owner authorization lists the widening review's blob. A widening review that
+> covers only some items, has no authorization, or names other blobs is invalid. Widening without a
+> valid widening review is FAIL `record-invalid`.
+926,927c1061,1066
+< at `recorded_at`. Each example and countercontrol must behave as stated. Otherwise the record fails
+< the lint.
+---
+> at `recorded_at`. Each example and countercontrol must behave as stated. Every fingerprinted
+> sentence, read at `recorded_at` in its named file, must be classified PASS by its own rule through
+> steps 1-6 of sec. 6.2, with its own allowance (D1). Every `negative_allowance` must equal, literal
+> by literal, the number of matches of that negative literal in its fingerprinted sentence, and may
+> name only literals of the rule's negative matcher. A rule's positive examples include each
+> fingerprinted sentence in full, not a fragment of it. Otherwise the record fails the lint.
+1071,1075c1210,1229
+< There is one rule per distinct sentence. The context matcher requires the enumerated list
+< (isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation
+< count) or "of the bijection". SM.md:1394's sentence carries neither, so its rule sets
+< `context_required: true` and cites SM's own definition of the six properties. The negative matcher
+< is: `A1`, `A1-A6`, `finit`, `assumption`, `axiom`, `of the substratum`.
+---
+> There is one rule per distinct sentence. The context matcher requires part of the enumerated list
+> or "of the bijection". For W1-b the context literal is "isotropy, sublattice structure, link
+> content", not the full six-item list (D8): with the whole list as one literal, a sentence with one
+> list word changed would stop at step 1 (REVIEW `unclassified`) instead of reaching step 4 (REVIEW
+> `rule-fingerprint-mismatch`, control V7c). Both outcomes are REVIEW. SM.md:1394's sentence
+> carries neither, so its rule sets `context_required: true` and cites SM's own definition of the six
+> properties. The negative matcher is: `A1`, `A1-A6`, `finit`, `assumption`, `axiom`, `of the
+> substratum`, for every W1 rule, unchanged.
+> 
+> **W1-c and its allowance (S1-D1, D1).** W1-c fingerprints the sentence of ch19:198 and its mirror
+> FULL:5270 at T1': "On a finite periodic quotient of $\mathbb{Z}^3$, a qualified case of A4
+> (Chapter 2), the notion of ... (one of the framework's six structural properties of the bijection),
+> isotropy is built in ..." (one sentence under splitter version 2, 404 characters). It contains
+> exactly one match of the negative literal `finit` ("finite periodic quotient", which describes the
+> lattice, the qualified A4 case, not a finiteness posit) and no match of the other five. Under v5.1
+> both lines were FAIL `rule-negative-match`, which contradicted the stated outcomes of RT-D, RT-I7A,
+> sec. 8.2 and sec. 11 note 1. The negative list is not narrowed: each of W1-c's two fingerprints
+> carries `negative_allowance: {"finit": 1}`, so only that exact sentence at that exact location may
+> contain one `finit` match, and any further match, any other text, or any other location FAILs
+> (controls WB1-WB12). The other W1 sentences contain no negative literal and carry no allowance.
+1079c1233,1235
+< are unchanged site lines (held for `p0-core`). The context matcher requires `SU(3)` or `anomaly`.
+---
+> are unchanged site lines (held for `p0-core`). The context matcher requires the source-byte literal
+> `\mathrm{SU}(3)` or `anomaly` (D8: the source line reads `$\mathrm{SU}(3)$`; the rendered
+> "SU(3)" does not occur in it).
+1167,1171c1323,1349
+< - Delegated checkers run only from `F`'s blobs, in a disposable full clone at exact `X` created
+<   under `--out`. They never run in the user's repository or a worktree of it. This contains
+<   preserve_check's `git worktree add` (gap 6).
+< - The tool records each checker's blob SHA-256, its command line, its exit status and the SHA-256
+<   of its result file.
+---
+> - **Native execution (B2).** Every delegated or native-re-execution class is executed by the tool
+>   itself against the tree being evaluated. In the integrity stage the tool creates a disposable
+>   full clone of the repository at exact `X` under `--out` (no `--depth`, no alternates; `X`'s
+>   commit and tree ids are checked in the clone). Checkers run only from `F`'s blobs, written into a
+>   directory under `--out`, never from the clone's own copy and never in the user's repository or a
+>   worktree of it. This contains preserve_check's `git worktree add` (gap 6).
+> - The tool records, for each run, the checker's blob sha256, its exact command line, its working
+>   directory, its exit status, and the sha256 of each result file it wrote. It then reads the
+>   result file it produced itself; a result file supplied from outside the run is never evidence
+>   for a class that the tool can execute.
+> - **Independent verification of results.** The tool does not take a checker's verdict on trust. For
+>   each class it re-derives what it can from the clone: `sc42` compares the re-executed output bytes
+>   with the committed file itself; `coverage-ledger` compares each of the seven values with the
+>   census output it produced; `tex` checks the `% source-sha256` stamps and the path set itself, in
+>   addition to reading preserve_check's result. A checker result that disagrees with the tool's own
+>   re-derivation is FAIL `delegated-evidence-invalid`.
+> - **Host-run classes** (`pdf`, `ci`). The evidence is the host's run and job records, read by the
+>   tool from the host's API inside the job (sec. A.44), never a file supplied by a caller. The tool
+>   checks `head_sha = X`, the named workflow and jobs, and their conclusions. For `pdf` it also
+>   checks that the PDF comparison result names `candidate_commit` and `candidate_tree` equal to
+>   `X`, that it was produced by preserve_check run by this tool from `F`'s blob on PDFs built in the
+>   clone at `X`, and that the uploaded artifact's sha256 equals the result's.
+> - **No freeze, no PASS (T4).** Without `F`, every delegated class is REVIEW_REQUIRED
+>   `delegated-evidence-missing` and can never be PASS; a `plan` field that is null or absent is
+>   FAIL `delegated-evidence-invalid`.
+> - Where the environment cannot run the clone (a local run, sec. A.40), the class is
+>   REVIEW_REQUIRED `delegated-evidence-missing`. The code path and its controls (G4-G8) run in CI.
+1184c1362,1364
+<   - a checker blob that differs from `F`'s copy.
+---
+>   - a checker blob that differs from `F`'s copy;
+>   - a result file the tool did not produce in this run, for a class it executes;
+>   - a disagreement between a checker's result and the tool's own re-derivation.
+1251c1431
+< | Indicator adjudications (sec. 4.4) | | 6 | IR; 3 HP, 3 RET |
+---
+> | Indicator adjudications (sec. 4.4) | | 10 | 7 HP (S1, D3), 3 RET (IR) |
+1478,1480c1658,1660
+< | RT-H0 | `coverage --commit H`, no HP records | FAIL; every FAIL and indicator item has obligation HP | 113 `hp-unadjudicated`; 7 HP `context-meaning-unverified`; 3 HP `context-structure-changed` |
+< | RT-T0 | `coverage` at `X = T1'`, no records | FAIL. HP: 113 `hp-unadjudicated`, 7 context FAILs, 3 structure REVIEWs. RET: 19 `untracked-hp-overlap` (region-attributed; 18 line-attributed), 5 `context-meaning-unverified`, 3 `context-structure-changed`. Deny: 0. REVIEW: sec. 8.2 | 383 unchanged (168 moved), 197 replaced, 4 removed; 9 region-merger groups covering 22 sites, each site carrying `region_shared_with`; only Substratum.md 266/268 overlapped by a splice (D029) |
+< | RT-T | RT-T0 with all reviewed records of sec. 8.2 | PASS only when every record verifies under sec. 6.3; any missing record leaves REVIEW_REQUIRED or FAIL | |
+---
+> | RT-H0 | `coverage --commit H`, no HP records | FAIL; every FAIL and indicator item has obligation HP | 113 `hp-unadjudicated`; 7 HP `context-meaning-unverified`; 7 HP `context-structure-changed` (FULL:706, FULL:708, ch02:76, ch02:78, Substratum.md:94, :253, Main.md:741) |
+> | RT-T0 | `coverage` at `X = T1'`, no records | FAIL. HP: 113 `hp-unadjudicated`, 7 context FAILs, 7 structure REVIEWs (as RT-H0). RET: 19 `untracked-hp-overlap` (region-attributed; 18 line-attributed), 5 `context-meaning-unverified`, 3 `context-structure-changed`. Deny: 0. REVIEW: sec. 8.2 | 383 unchanged (168 moved), 197 replaced, 4 removed; 215 region lines; 9 region-merger groups covering 22 sites, each site carrying `region_shared_with`; only Substratum.md 266/268 overlapped by a splice (D029) |
+> | RT-T | RT-T0 with all reviewed records of sec. 8.2 | PASS only when every record verifies under sec. 6.3; any missing record leaves REVIEW_REQUIRED or FAIL. Reported `NOT RUN` while no reviewed record exists (sec. 10.4) | |
+1482c1662
+< | RT-D | `terms --commit T1' --base H --ledger F:ledger.json` | 0 deny matches; W1 and W2 PASS with their rules, else REVIEW; GR.md:58 PASS with its record, else REVIEW; `resid` 17 lines REVIEW until classified | |
+---
+> | RT-D | `terms --commit T1' --base H --ledger F:ledger.json` | 0 deny matches; all 7 W1 lines (W1-c with its allowance) and the 4 W2 lines PASS with their rules, else REVIEW; GR.md:58 PASS with its record, else REVIEW; 45 `resid` lines REVIEW until classified, 17 of them hit by no other review profile (D5) | |
+1486,1488c1666,1728
+< | RT-I7A | the proposed item-7 amendment check (sec. 11 note 1) at H and at T1', no records | FAIL at both. Every one of the 95 retired lines of sec. 0.3 is FAIL (`final-unclassified`), none only REVIEW | H: 86 `deny-match` lines and 123 `final-unclassified` lines (209 FAIL lines), counting line-level deny matches only; with every line of a matching multi-line sentence counted, 93 and 216, the 123 unchanged (O8). T1': 0 deny lines; 12 `final-unclassified` lines (the 7 W1 lines, the 4 W2 lines, GR.md:58), which become PASS once W1, W2 and GR.md:58's record exist |
+< | SW1 | per-site sweep at E: each of the 697 sites, one token deleted | exactly one FAIL naming that site | |
+< | SW2 | per-site sweep at H: each of the 584 sites | exactly one FAIL naming that site | |
+---
+> | RT-I7A | the proposed item-7 amendment check (sec. 11 note 1) at H and at T1', no records | FAIL at both. Every one of the 95 retired lines of sec. 0.3 is FAIL (`final-unclassified`), none only REVIEW | H: 86 `deny-match` lines and 123 `final-unclassified` lines (209 FAIL lines), counting line-level deny matches only; with every line of a matching multi-line sentence counted, 93 and 216, the 123 unchanged (O8). T1': 0 deny lines; 12 `final-unclassified` lines (the 7 W1 lines, the 4 W2 lines, GR.md:58), which become PASS once W1 (with W1-c's allowance), W2 and GR.md:58's record exist |
+> | SW1 | per-site sweep at E: each of the 697 sites, one token deleted | exactly one FAIL naming that site, and exactly one new FAIL against the unmutated tree | |
+> | SW2 | per-site sweep at H: each of the 584 sites, one token deleted (segments E..H `hp`, H..X unledgered) | for each site, exactly one new FAIL naming it, of obligation RET, class `unauthorized-change`, segment H..X; the items naming it at the unmutated H (all of obligation HP, segment E..H) unchanged; items compared by `(obligation, class, segment, fingerprint)` (D2). Holds for 584 of 584. Once the 7 E..H context adjudications exist, "exactly one FAIL naming that site" holds as well | the 7 sites with an HP item at H are the 7 E..H meaning-context sites of sec. 4.4 (FULL:4895, 4905, 4919; ch18:164, 174, 188; Main.md:332) |
+> 
+> ***
+> 
+> ### 10.4 Control reporting and new controls (B1-B6, S1-D1)
+> 
+> **Reporting (B6).** Every control run writes one record per control with `id`, `expected` (the
+> stated expectation of this document, verbatim), `predicate` (a machine-checkable form of exactly
+> that expectation), `actual`, and `status`, one of:
+> 
+> - `PASS`: the control ran and its predicate held;
+> - `FAIL`: the control ran and its predicate did not hold;
+> - `SKIP`: the control was deliberately not run in this environment, with the reason (for example a
+>   clone-at-`X` class outside CI, sec. A.40);
+> - `NOT RUN`: the control could not run because an input does not exist (for example RT-T, which
+>   needs reviewed records).
+> 
+> A summary counts each status separately and never reports `SKIP` or `NOT RUN` as met. A control's
+> predicate must test its whole stated expectation: every outcome, class and count it names, in every
+> direction it names. A predicate weaker than its expectation is a defect of the control. In
+> particular: RT-T is `NOT RUN` until reviewed records exist; RT-D tests the states of all 7 W1 lines,
+> the 4 W2 lines and GR.md:58 and the `resid` count; A1r-A11r run the mutated rule through the
+> pipeline and require an emitted FAIL `record-invalid` (not a truthy lint result); the sweeps compare
+> items by `(obligation, class, segment, fingerprint)`; each control that this document states in
+> both directions asserts both. A control-harness result is a control artefact. It is written as
+> `control-result.json` with a top-level `"harness": true` and `config.admission:
+> "control-harness"`, never as `result.json`, and the acceptance predicate rejects it (X11).
+> 
+> **New and changed controls.**
+> 
+> | Id | Case | Expected | By |
+> |---|---|---|---|
+> | WB1 | the W1-c sentence at T1' in ch19:198 and FULL:5270, with the W1-c fingerprints and `negative_allowance: {finit: 1}` | PASS, both lines | sec. 6.2 step 3 (S1-D1) |
+> | WB2 | the same sentence at the same location with one more word containing `finit` (for example a second "finite" inserted elsewhere in the sentence) | FAIL `rule-negative-match` (2 matches, allowance 1) | step 3 |
+> | WB3 | the approved sentence copied, unchanged, to another paragraph of a file in W1-c's scope | FAIL `rule-negative-match` at the copy (its context differs, so no allowance); the original still PASS | step 3: no reuse in other locations |
+> | WB4 | the approved sentence copied to a file outside every W1 rule's scope | REVIEW_REQUIRED `unclassified` (no rule applies; step 1) | scope |
+> | WB5 | the approved sentence moved (cut and pasted) to another paragraph of the same file | FAIL `rule-negative-match` at the new location; REVIEW_REQUIRED `rule-stale` for the fingerprint | step 3; `rule-stale` |
+> | WB6 | a near-copy at the approved location with one other word changed, keeping one `finit` word | FAIL `rule-negative-match` (sentence sha differs, so no allowance) | step 3: tied to the exact text |
+> | WB7 | the approved sentence with its one `finit` word removed | REVIEW_REQUIRED `rule-fingerprint-mismatch` (no negative match; step 4) | step 4 |
+> | WB8 | the approved sentence and its neighbours shifted by 40 lines (as L1) | PASS | context-bound, not line-bound |
+> | WB9 | two fingerprints' sentences made identical in one file, so that one allowance is claimed twice | the second claim gets no allowance: FAIL `rule-negative-match` | one grant per fingerprint |
+> | WB10 | lint: a W1-c rule whose allowance is 2, or 0, or names `axiom` (absent from the sentence) | FAIL `record-invalid` | sec. 6.3 (allowance equals the exact count) |
+> | WB11 | lint: a rule whose fingerprinted sentence fails its own rule (v5.1's W1-c, with no allowance) | FAIL `record-invalid` | sec. 6.3 self-PASS clause |
+> | WB12 | V7a on the W1-c sentence ("..., one of which is total finiteness,") | FAIL `rule-negative-match` | step 3 |
+> | X11 | a control-harness PASS result of RT-E, presented with the pinned engine and configuration hashes | non-acceptance (`admission` is not `"chain"`); the harness never writes `result.json` | sec. 5 (B1) |
+> | TR1 | a run without `--freeze` | ERROR `CONFIG_UNREVIEWED`, exit 65 | sec. 6.3 admission step 1 (B3) |
+> | TR2 | a configuration whose sha256 is not in `F`'s pin table, with a matching `--config-sha256` | ERROR `CONFIG_UNREVIEWED` | step 3 |
+> | TR3 | a review record and authorization placed beside the configuration, naming its blob, but not in `F`'s pin table | ERROR `CONFIG_UNREVIEWED` | step 3 |
+> | TR4 | `retirement.owner` differing from the owner in `F`'s designation record | ERROR `CONFIG_UNREVIEWED` | step 4 |
+> | TR5 | a complete chain at `F` | `config.admission: "chain"`, with the designation record and pin table recorded | positive control |
+> | G4 | `sc42` with a supplied result file claiming `verbose_equal: true`, while the clone's re-execution differs | FAIL `delegated-evidence-invalid`; the supplied file is not read as evidence | sec. 7.2 (B2) |
+> | G5 | `coverage-ledger` with a supplied census JSON; one STALE value at `X` differs from the census the tool runs | FAIL | sec. 7.2 |
+> | G6 | `tex` with a supplied preserve_check result reporting `pass`, while a TeX stamp at `X` is wrong | FAIL `delegated-evidence-invalid` | own re-derivation |
+> | G7 | `pdf` evidence whose `candidate_tree` differs from `X`'s, or whose artifact hash differs | FAIL `delegated-evidence-invalid` | sec. 7.2 |
+> | G8 | delegated evidence with `plan: null` and no `F` | never PASS: REVIEW_REQUIRED `delegated-evidence-missing` for the class, and the field FAIL `delegated-evidence-invalid` | T4 |
+> | R16 | `C` = `X` plus one commit that changes an unledgered, undeclared path | FAIL `unauthorized-change` naming that commit | sec. 13.1 (B4) |
+> | R17 | `C` = `X` plus one commit that changes only a record path the plan admits after `F` | PASS for that commit | sec. 13.1 |
+> | A12r | a widening review whose verdicts omit one changed item; separately, one with no owner authorization | FAIL `record-invalid` each | sec. 6.3 (B4) |
+> | Z9h | `'guard-pin'` planted in an engine module, with the adapter companions in the value set | lint FAIL | sec. 16.1 (B5) |
+> | S11-56 | items 5 and 6 at T1': the tool's `register`, `register-caps` and `infinity` results | 0 findings each, equal to P's recorded `--static`; the mutants of sec. 11 rows 5 and 6 FAIL | sec. 6.1 (D6) |
+> | K10 | a meaning-context site with a context change and a matching context adjudication | PASS (sec. 4.1 row 2) | positive direction of K1 |
+1507,1508c1747,1748
+< | 5 | register scan of added lines: 0 | `execution` profile `register` on replacement text | PASS (P's `--static` recorded 0) | a splice adding "no longer": FAIL `deny-match` |
+< | 6 | infinity scan of added lines: 0 | `execution` profile `infinity` on replacement text | PASS (0 recorded) | a splice adding "is infinite": FAIL |
+---
+> | 5 | register scan of added lines: 0 | `execution` profiles `register` and `register-caps` on each splice image, net of the replaced text (sec. 6.1) | PASS (P's `--static` recorded 0; control S11-56) | a splice adding "no longer": FAIL `deny-match` |
+> | 6 | infinity scan of added lines: 0 | `execution` profile `infinity` on each splice image, net of the rewritten replaced text (sec. 6.1) | PASS (0 recorded; control S11-56) | a splice adding "is infinite": FAIL |
+1624,1627c1864,1874
+<   Side changes are classified by a reviewed side-change class record (for example, the trial
+<   workflow file, or the tool's landing paths). An unclassified side change is REVIEW_REQUIRED
+<   `side-change-unclassified`. A side change to a ledgered or corpus path is `base-drift`, a FAIL for
+<   the landing unless it is reconciled. Side changes are never retirement edits.
+---
+>   Side changes are classified by a reviewed side-change class record (schema
+>   `oi-side-change-classes/1`; for example, the trial workflow file, or the tool's landing paths). A
+>   class binds each path it covers to its pinned blob (`git_blob` and `blob_sha256`) unless it is a
+>   declared prefix class for paths the tool itself lands. A path matches a class only if its path
+>   matches and, for a pinned path, its blob at `M` equals the pin (S3); a path whose blob differs is
+>   REVIEW_REQUIRED `side-change-unclassified` (control R18). A class id is defined exactly once across
+>   all class records the configuration references; two definitions of one id, in one record or
+>   several, are ERROR `CONFIG_INCONSISTENT` (S7, control Z11). An unclassified side change is
+>   REVIEW_REQUIRED `side-change-unclassified`. A side change to a ledgered or corpus path is
+>   `base-drift`, a FAIL for the landing unless it is reconciled under sec. 13.3. Side changes are
+>   never retirement edits.
+1631,1632c1878,1885
+< - **`C`**, the certified execution head, descends linearly from `X` when it differs from it. Each
+<   further commit is classified as `X` is.
+---
+> - **`C`**, the certified execution head, descends linearly from `X` when it differs from it (B4).
+>   Each commit `c` after `X` on that chain, with parent `p`, is classified path by path, exactly as
+>   `X` is against `H`: every path in the diff from `p` to `c` must be in exactly one class
+>   (ledgered, delegated or record); a ledgered path must equal `H`'s bytes with the ledger's
+>   splices applied, as at `X`; a delegated path is checked by its class at `C`; a record path must
+>   be one the plan's record directory admits after `F`. Any other changed path is FAIL
+>   `unauthorized-change`, naming the commit. A commit with more than one parent is FAIL
+>   `candidate-parent`. The tree of `C` is then checked as a whole, as `X` is.
+1637c1890,1892
+<     `M`-translated offsets, each `old_sha256` re-verified against `M`.
+---
+>     `M`-translated offsets, each `old_sha256` re-verified against `M`. This composition is computed
+>     and compared for every such path on every landing check, whether or not a reconciliation record
+>     names the path; no record can stand in for it (sec. 13.3, S6).
+1647a1903,1918
+> R16 and R17 (the commits of `C`) are in sec. 10.4. N2 (sec. 10.2) stands, now evaluated as sec. 13.3 states (items on `X` with and without the records). Added for the drift findings S2-S7 (the record's own checks R1-R13, named below as "the record's R13" and so on, are not these controls):
+> 
+> | Id | Case | Expected |
+> |---|---|---|
+> | N3 | a valid reconciliation record naming a ledgered path that `X` changes (the AGENTS.md shape: D296 at `X`, a later section added on `M`) | the record applies; no `record-invalid`; op C's items on `X` identical with and without it (S2) |
+> | N4 | the same record with its `ledger_binding` altered by one byte | the record does not apply: `base-drift` FAIL, naming R13 (S5) |
+> | N5 | `M` with one more first-parent commit changing the path, not in the record's `side_change_commits` | does not apply: `base-drift`, naming R1 (S5) |
+> | N6 | a protected range at `M` altered by one byte in the composed landing | does not apply: `base-drift`, naming R9 (S5) |
+> | N7 | the path's blob at `M` differs from the record's `m` | does not apply, naming R2 |
+> | N8 | a splice's `old` bytes occurring twice at `M` | does not apply, naming R4 |
+> | N9 | the record's `l` differs from the composed blob | does not apply, naming R7 |
+> | N10 | a landing whose AGENTS.md is `X`'s copy (it drops `M`'s change), under a record whose `l` names that same blob | FAIL `landing-conflict-unresolved` for the path and `record-invalid` for the record; the composition is evaluated regardless of the record (S6) |
+> | N11 | a landing equal to the composition, under a valid record whose `l` equals it | PASS for the path (positive direction of N10) |
+> | R18 | a classified side-change path whose blob at `M` differs from its class pin | REVIEW_REQUIRED `side-change-unclassified` (S3) |
+> | Z11 | two class records (or one record) defining the same class id, for example `trial-workflow` | ERROR `CONFIG_INCONSISTENT` (S7) |
+> | S4a | a record of each kind (HP, context, hit classification, rule, scope, side-change class, reconciliation, configuration) whose `supersedes` names a `{path, blob_sha256}` that does not exist in the object store, or a blob that is not a record of the same kind | FAIL `record-invalid` for each kind (S4) |
+1649c1920
+< ### 13.3 Reconciliation records
+---
+> ### 13.3 Reconciliation records (schema `oi-reconciliation/1`)
+1652,1654c1923,1960
+<   foresee.
+< - It never changes any decision of op C on `X`, and never relabels a failing retirement check.
+< - It is under the ownership chain of sec. 6.3.
+---
+>   foresee. It is under the ownership chain of sec. 6.3.
+> - **What it may and may not do (S2).** A reconciliation record names a ledgered or corpus path that
+>   both `M` and the retirement change, which is exactly the "both changed" case of v2 sec. 13.2. A
+>   record that names a path `X` changes is therefore valid. What is forbidden is a record that
+>   changes a decision of op C on `X` or relabels a failing retirement check. The tool enforces this
+>   by running op C's candidate checks with and without the reconciliation records and requiring
+>   identical items on `X`; any difference is FAIL `record-invalid` (control N2). Naming a path that
+>   `X` changes is never by itself `record-invalid` (control N3).
+> - **What the tool evaluates (S5).** A reconciliation record applies only if every one of its
+>   checkable conditions holds at the run's `M` and `L`. The tool evaluates each itself, from git
+>   objects, and never takes the record's statement that it holds:
+>   - **ledger binding** (the record's R13): the run's ledger has `base` equal to
+>     `roles.scientific_base`, and the canonical sha256 (sorted keys, no whitespace, UTF-8) of the
+>     path's `files` entry, of its splice list and of its edit-list entries equal the record's
+>     `ledger_binding` values. Checked first;
+>   - **commit list** (R1): `H` is on `M`'s first-parent chain, and the first-parent commits on
+>     `H..M` that change the path equal the record's `side_change_commits`, in order;
+>   - **blob at `M`** (R2): the path's git blob id and sha256 at `M` equal the record's `m` and
+>     `m_sha256`;
+>   - **uniqueness and translation** (R3-R5): each splice's `old` bytes occur exactly once at `H` and
+>     at `M`, and the translation is the one the record states;
+>   - **protected bytes** (R9): every protected range the record lists occurs once at `M` and once at
+>     the composed landing blob, with equal bytes and the recorded sha256, and the bytes after the
+>     last splice are unchanged;
+>   - **expected blobs** (R6-R8): the composed landing blob's git id and sha256 equal the record's
+>     `l` and `l_sha256`, and the candidate blob equals `x` and the ledger's `expected_sha256`;
+>   - **other ledgered files** (R10) and **classified side changes** (R11) as the record states;
+>   - `changes_decisions_on_X` empty (R12).
+> 
+>   If any condition fails, the record does not apply: the path stays `base-drift` (FAIL), and the
+>   result names the failed condition. Each condition has its own control (N4-N9).
+> - **A record never replaces the composition (S6).** At landing, the composition rule of sec. 13.1 is
+>   always evaluated for every path, with or without a record. A record's `l` is a prediction that
+>   the tool checks against the composition, never a substitute for it: the landing passes for the
+>   path only if `L`'s blob equals the composed blob and, where a record exists, the composed blob
+>   also equals the record's `l`. A record whose `l` names any other blob (for example `X`'s copy,
+>   which drops `M`'s change) makes the path FAIL `landing-conflict-unresolved` and the record
+>   `record-invalid` (control N10).
+1676a1983,2000
+> **v5.2 measurements (`work-v52/`).**
+> 
+> - **Structure items at H (`struct.py`).** The definitions of sec. 4.2-4.3 (copied from
+>   `work-v4/ind.py` and `ind2.py`) over every site whose pin line is unique at E and at H: 7 sites
+>   have a context or structure change in E..H (FULL:706, 708; ch02:76, 78; Substratum.md:94, 253;
+>   Main.md:741). 3 of them are unique at T1' as well, which is how v4 obtained 3.
+> - **Region lines (`b3.py` variant).** `work-v4/b3.py` with the site span extended by its LF: 383 /
+>   197 / 4 sites, 215 region lines, 84 hit lines (86 with `count-grep`); without the LF, 203.
+> - **RT-D and W1-c (`w1c.py`).** On the 287 added-text lines, 45 carry a `resid` hit, and none of the
+>   45 is a `ptr` or `count-grep` hit, so under item 7's profile set all 45 are `resid` REVIEW items.
+>   The W1-c sentence (ch19:198 and FULL:5270 at T1', splitter version 2) has exactly one match of the
+>   negative literal `finit` and none of the other five; the other five W1 sentences have none.
+> - **SW2.** Not re-run (about 6 min of sweeps on the implementation). The 7 sites the Stage 1 review
+>   found with an HP item at the unmutated H are exactly the 7 E..H meaning-context sites of
+>   sec. 4.4, which carry HP FAILs at H by the rule of sec. 4.1.
+> - **Register and infinity.** Read from P's verified `edits_check.py`, `static_new` (lines
+>   351-380) and `inf_key` (lines 345-349).
+> 
+1733c2057,2058
+<   whole lines; removed sites (empty image) have no region. 383 / 197 / 4 sites, 203 region lines,
+---
+>   whole lines; removed sites (empty image) have no region. 383 / 197 / 4 sites; 215 region lines
+>   with the LF-inclusive site span of sec. 5 (203 without the LF, the v4 measurement),
+1750c2075,2081
+< 1. **Decision records.** The owner decisions D1-D4, V5-D1 and V5-D2 of 2026-11-23 reached this
+---
+> 0. **RT-L2 at current `main` (Stage 1 review B7).** At `main`, `AGENTS.md` is `base-drift` and
+>    `.claude/settings.json` is an unclassified side change, so the sequencing safeguard of
+>    sec. 13.4 does not hold. Resolving it needs reviewed records (a reconciliation record for
+>    `AGENTS.md` under sec. 13.3, side-change class records) and the owner's decision; under the
+>    current implementation the reconciliation cannot pass op C (drift finding S2), which v5.2
+>    specifies away (sec. 13.3).
+> 1. **Decision records.** The owner decisions D1-D4, V5-D1, V5-D2 and S1-D1 to S1-D3 of 2026-11-23 reached this
+1817c2148,2151
+<   references, or in the synthetic configuration, unless the value is on the allowlist;
+---
+>   references, in any record its adapters read (the adapter companions: `ledger.json`,
+>   `edits.json`, `sitemap.json`, `rows.json`, the Phase-0 `sites.json`, and every other file named
+>   in an adapter's `path` or `companion`), or in the synthetic configuration, unless the value is on
+>   the allowlist (B5);
+1819a2154,2163
+> With the companions in the value set, Z9 catches retirement semantics hard-coded in the engine, for
+> example the guard-pin handling the Stage 1 engine carried (`engine/execution.py`: the edit kind
+> `'guard-pin'`, the `pin_note` values `'message'` and `'comment'`, a literal-piece filter, and a read
+> of `ledger['edits']`, a field outside the ledger interface). Such semantics belong to the ledger
+> adapter, which returns them through the interface field `guard_pins` (sec. 16.3); the engine reads
+> nothing from a ledger but the interface's fields. Control Z9h plants `'guard-pin'` in an engine
+> module and expects a lint FAIL; Z9g, on the real engine with the extended value set, expects no
+> finding. Allowlisting a value that occurs in a companion (for example a control id that collides
+> with a row code) requires that the value be an engine enumeration of sec. 16.1, listed by name.
+> 
+1844c2188,2189
+< | Z9g | the real engine tree | lint PASS |
+---
+> | Z9g | the real engine tree, with the value set extended to the adapter companions | lint PASS |
+> | Z9h | `'guard-pin'` planted in an engine module | lint FAIL (the value occurs in `edits.json`) |
+1941c2286
+< | ledger | `base`; `splices [{id, file, start, end, old_sha256, new_sha256, new}]` (byte spans at `base`); `files {path: {base_sha256, expected_sha256}}`; `retained [{id, site_ref}]`; `mirrors [{id, mirror_of}]`; `ignored_fields`; plus validation errors (overlap, hash, schema) |
+---
+> | ledger | `base`; `splices [{id, file, start, end, old_sha256, new_sha256, new}]` (byte spans at `base`); `files {path: {base_sha256, expected_sha256}}`; `retained [{id, site_ref}]`; `mirrors [{id, mirror_of}]`; `guard_pins [{id, file, pieces, targets}]` (the updated pin literals the edit list requires, with the retirement's own selection rules applied inside the adapter; B5); `ignored_fields`; plus validation errors (overlap, hash, schema) |
+2036c2381
+< | inconsistency: base differs from the ledger, merge off the chain, context value missing, extractor hash mismatch, duplicate profile, a `final_profiles` entry that is not a review profile | ERROR | 65 | `CONFIG_INCONSISTENT` |
+---
+> | inconsistency: base differs from the ledger, merge off the chain, context value missing, extractor hash mismatch, duplicate profile, a `final_profiles` entry that is not a review profile, a side-change class id defined more than once (S7) | ERROR | 65 | `CONFIG_INCONSISTENT` |
+2040c2385
+< class. Z9 is the purity lint of sec. 16.1, with its controls Z9a-Z9g.
+---
+> class. Z9 is the purity lint of sec. 16.1, with its controls Z9a-Z9h.
+2051c2396,2397
+< - `config`: `{config_id, version, path, commit, blob_sha256}`;
+---
+> - `config`: `{config_id, version, path, commit, blob_sha256, admission}`, with, for admission
+>   `"chain"`, `F`, the designation record and the pin table, each by `{path, blob_sha256}`;
+2067c2413
+< | S13 | Configuration loader and validator, adapter admission by blob, the A1 configuration, the synthetic configuration | Z1-Z8, Z9a-Z9g, Z10 and Y1-Y10 behave; every A1 control has the same outcome as specified in sec. 10-11 of this document; no engine source contains an A1 constant (Z9) |
+---
+> | S13 | Configuration loader and validator, adapter admission by blob, the A1 configuration, the synthetic configuration | Z1-Z8, Z9a-Z9h, Z10, Z11 and Y1-Y10 behave; N2-N11, R18, S4a, X11, TR1-TR5, G4-G8, R16, R17, A12r, WB1-WB12, S11-56 and K10 behave; every A1 control has the same outcome as specified in sec. 10-11 of this document; no engine source contains an A1 constant (Z9) |

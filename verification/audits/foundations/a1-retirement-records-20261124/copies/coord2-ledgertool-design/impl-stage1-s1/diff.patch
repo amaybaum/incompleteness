@@ -1,0 +1,3132 @@
+diff --git a/tools/ledger_coverage/adapters/a1_controls.py b/tools/ledger_coverage/adapters/a1_controls.py
+index 253f35fc0..65467b97f 100644
+--- a/tools/ledger_coverage/adapters/a1_controls.py
++++ b/tools/ledger_coverage/adapters/a1_controls.py
+@@ -13,8 +13,11 @@ where PATH is its path in the plan's record directory; the runner builds an in-m
+ plus the staged file at PATH, and reads the configuration from it. The predicted main carries only the tool's
+ landing.
+ 
++`--main REV` names the `main` commit the sec. 13.4 sequencing safeguard (RT-L2) and the drift classes are measured
++against; it is required, and the runner exits with status 2 when it is absent or unresolvable.
++
+ Usage: python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo DIR --config REV:PATH
+-       --staged-config FILE --out DIR [--only ID,ID] [--skip-sweeps]
++       --staged-config FILE --main REV --out DIR [--only ID,ID] [--skip-sweeps]
+ """
+ import argparse
+ import collections
+@@ -44,7 +47,6 @@ LEDGER = P + ':' + PL + 'ledger.json'
+ EDITS = P + ':' + PL + 'edits.json'
+ FULL = 'book/The-Incompleteness-of-Observation-FULL.md'
+ WF = '.github/workflows/a1exit-trial-verify.yml'
+-MAIN = '8e9b83341cf5bc7fd9fb260892d0385fc9bfab4d'  # main at the time of this implementation
+ 
+ 
+ def sha(b):
+@@ -58,8 +60,9 @@ def simulated_freeze(repo, rev, path, staged_bytes):
+ 
+ 
+ class A1:
+-    def __init__(self, repo_path, config_ref, out_root, staged=None):
++    def __init__(self, repo_path, config_ref, out_root, staged=None, main=None):
+         self.base = gitobj.GitRepo(repo_path)
++        self.main = main  # the main commit the safeguard is measured against (--main)
+         self.repo = gitobj.Overlay(self.base)
+         self.repo_path = repo_path
+         rev, self.cpath = config_ref.split(':', 1)
+@@ -758,8 +761,8 @@ def drift_classes(a):
+         return a._drift
+     classes = []
+     for cid, path in (('trial-workflow', WF), ('tool-configuration', '.claude/settings.json')):
+-        b = a.repo.read(MAIN, path)
+-        classes.append({'id': cid, 'pins': [{'path': path, 'git_blob': a.repo.blob_id(MAIN, path),
++        b = a.repo.read(a.main, path)
++        classes.append({'id': cid, 'pins': [{'path': path, 'git_blob': a.repo.blob_id(a.main, path),
+                                              'blob_sha256': sha(b)}]})
+     doc = {'schema': 'oi-side-change-classes/1', 'record_id': 'control-drift-classes', 'author': 'control-writer',
+            'supersedes': None, 'classes': classes}
+@@ -909,7 +912,7 @@ def tree_controls(a, tool_files):
+              'landing-drops-main-change' in classes(res_b),
+              "composition PASS; the workflow at L equals W's blob; the mutant with H's copy FAILs "
+              'landing-drops-main-change', {'exit': code, 'mutant': classes(res_b)})
+-    main = MAIN
++    main = a.main
+     out = {}
+     for label, M in (('main', main),):
+         if M is None:
+@@ -961,9 +964,9 @@ def tree_controls(a, tool_files):
+                        'or the configuration\'s pin of the class record); no base-drift and no '
+                        'side-change-unclassified among the MAIN items with the drafted reconciliation record; and the '
+                        'real AGENTS.md drift is shown: base-drift without that record, base-drift reconciled with it',
+-             finding='Predicted main = 8e9b8334 plus this tool\'s landing files (the configuration not among them, '
+-                     'design sec. 16.2), with the drafted reconciliation record for AGENTS.md and pinned classes for '
+-                     'the trial workflow and .claude/settings.json.')
++             finding='Predicted main = %s (--main) plus this tool\'s landing files (the configuration not among '
++                     'them, design sec. 16.2), with the drafted reconciliation record for AGENTS.md and pinned classes '
++                     'for the trial workflow and .claude/settings.json.' % a.main[:8])
+ 
+ 
+ # ---- K1: the reference graph of the landing and the freeze ---------------------------------------------------
+@@ -1218,14 +1221,22 @@ def main():
+     ap.add_argument('--syn-engine', default=None)
+     ap.add_argument('--staged-config', default=None,
+                     help='the staged configuration file; --config REV:PATH names its path in the plan directory')
++    ap.add_argument('--main', default=None,
++                    help='required: the main commit the sequencing safeguard (RT-L2) and the drift classes use')
+     args = ap.parse_args()
++    if not args.main:
++        ap.error('--main is required: the main commit the sequencing safeguard is measured against')
++    try:
++        main_c = gitobj.GitRepo(args.repo).resolve(args.main)
++    except Exception as exc:
++        ap.error('--main %s does not resolve: %s' % (args.main, exc))
+     os.makedirs(args.out, exist_ok=True)
+     out_root = tempfile.mkdtemp(prefix='a1-controls-', dir=args.out)
+     cref = args.config
+     tool_files = {}
+     a0 = gitobj.GitRepo(args.repo)
+     rev, cpath = cref.split(':', 1)
+-    probe = A1(args.repo, cref, out_root, args.staged_config)
++    probe = A1(args.repo, cref, out_root, args.staged_config, main_c)
+     ad = probe.ad.rstrip('/')
+     if args.overlay_from_disk:
+         for root in ('tools/ledger_coverage', ad):
+@@ -1235,7 +1246,7 @@ def main():
+                     p = os.path.relpath(os.path.join(dp, f), args.repo)
+                     tool_files[p] = open(os.path.join(dp, f), 'rb').read()
+         tool_files['tools/ledger_coverage.py'] = open(os.path.join(args.repo, 'tools/ledger_coverage.py'), 'rb').read()
+-        a = A1(args.repo, '%s:%s' % (a0.resolve(rev), cpath), out_root, args.staged_config)
++        a = A1(args.repo, '%s:%s' % (a0.resolve(rev), cpath), out_root, args.staged_config, main_c)
+         wt = a.repo.derive(a.crev, tool_files, subject='working files')
+         a.crev = wt
+         a.csha = sha(a.repo.read(wt, cpath))
+diff --git a/tools/ledger_coverage/adapters/conformance_controls.py b/tools/ledger_coverage/adapters/conformance_controls.py
+index 3d3906d17..c2ebddc28 100644
+--- a/tools/ledger_coverage/adapters/conformance_controls.py
++++ b/tools/ledger_coverage/adapters/conformance_controls.py
+@@ -4,7 +4,8 @@ on-disk repository, commits after X R16/R17, widening A12r, purity Z9h, the synt
+ lineage controls LN1-LN12 (DI-2), one review verdict per added ledger event (R6-EV), and the controls for the
+ independent reviews' findings (R3-*, R4-*, R5-*, R6-G1 to R6-G9, TR32 with the engine's own admission snapshot,
+ TR32-OWN, and R7-B2 and R7-N5*: a snapshot event conflicting with the thread, and one observed event recorded more
+-than once).
++than once), and S1-P2-* and S1-Q8: the real-host history reader over a host whose path listing simplifies history
++(A and the freeze ledger landed by merge commits), and the empty freeze ledger's fields).
+ 
+ Every control is reported as {id, expected, predicate, actual, status} with status PASS, FAIL, SKIP or NOT RUN
+ (sec. 10.4, B6). A control that needs the real host (a CI job with the host's API) is NOT RUN here, never PASS.
+@@ -3423,6 +3424,166 @@ def z11_s4a(r):
+           "lint_chain reports as record-invalid)", out, all(out.values()))
+ 
+ 
++# ---- S1-P2: the real-host history reader over a host whose path listing simplifies history ------------------
++
++S1_P2_IDS = ['S1-P2-LISTING', 'S1-P2-OLD', 'S1-P2-NEW', 'S1-P2-ADMIT', 'S1-P2-SQUASH', 'S1-P2-REVERT',
++             'S1-P2-CHAIN', 'S1-P2-FAILCLOSED', 'S1-Q8']
++
++
++def s1_p2_history_controls(r):
++    """The history reader of the real host (RestHost.file_history) against a fake rest transport whose
++    path-filtered commit listing omits a merge commit whose path equals its second parent's, as the host's does.
++    A and the freeze ledger land by two-parent merges. The reader before the correction misses every version and
++    the admission refuses; the corrected reader finds every version the in-memory host's first-parent semantics
++    finds, and the admission passes. Fail-closed: a listing that ends before the root, a truncated tree, a host
++    error, a call bound reached and bytes that do not match their tree entry each refuse."""
++    from ledger_coverage.adapters import rest_fixture as rf
++    from ledger_coverage.engine import host as hostmod
++    t = TR(r)
++
++    def show(code, res):
++        return {'exit': code, 'stop': stop(res), 'message': ((res or {}).get('stop') or {}).get('message', '')[:160]}
++
++    def norm(hist):
++        return [{k: v.get(k) for k in ('commit', 'parent', 'blob', 'merged_by_id', 'merged_at', 'merge_commit')}
++                for v in hist]
++
++    def brief(hist):
++        return [(v['commit'], v['parent'], None if v['blob'] is None else sha(v['blob'])[:12]) for v in hist]
++
++    w = t.world()
++    F = t.freeze(w)
++    w.designate(F)
++    rf.as_merge_landings(w.h, hf.REPO_ID)
++    ledger_path = hf.LEDGER_PATH
++    paths = [auth.authority_path, ledger_path]
++    fake = rf.FakeRest(w.h, hf.REPO_ID)
++    hy = rf.HybridHost(w.h, hf.REPO_ID, fake)
++    listed = {p: [c['sha'] for c in hy._json('/repositories/%d/commits?sha=%s&path=%s&per_page=100&page=1'
++                                              % (hf.REPO_ID, w.main, p))] for p in paths}
++    merges = [c for c in w.h.first_parents(hf.REPO_ID, w.main) if len(w.h.repos[hf.REPO_ID]['commits'][c]['parents']) == 2]
++    check('S1-P2-LISTING', 'the fake path listing simplifies history as the host does: A and the ledger landed by '
++          'two-parent merges, and the listing names their branch commits, not the merges',
++          'merges include c1 and c1l; no merge is listed for either path; b-c1 and b-c1l are listed',
++          {'merges': merges, 'listed': listed},
++          'c1' in merges and 'c1l' in merges and not any(m in listed[p] for p in paths for m in merges) and
++          'b-c1' in listed[auth.authority_path] and 'b-c1l' in listed[ledger_path])
++    truth = {p: norm(w.h.file_history(hf.REPO_ID, p)) for p in paths}
++    old = {p: norm(rf.old_file_history(rf.HybridHost(w.h, hf.REPO_ID), hf.REPO_ID, p)) for p in paths}
++    check('S1-P2-OLD', 'countercontrol: the reader before the correction misses every merge-landed version',
++          'old reader returns no version of A or of the ledger, while the first-parent truth has one each',
++          {'old': {p: brief(v) for p, v in old.items()}, 'truth': {p: brief(v) for p, v in truth.items()}},
++          all(old[p] == [] and len(truth[p]) == 1 for p in paths))
++    new = {p: norm(rf.HybridHost(w.h, hf.REPO_ID).file_history(hf.REPO_ID, p)) for p in paths}
++    check('S1-P2-NEW', 'the corrected reader finds every version: equal to the first-parent semantics of the '
++          'in-memory host (commit, first parent, bytes, merge record)', 'new[p] == truth[p] for A and the ledger, '
++          'and the versions are the merges c1 and c1l', {p: brief(v) for p, v in new.items()},
++          all(new[p] == truth[p] for p in paths) and [v['commit'] for v in new[auth.authority_path]] == ['c1'] and
++          [v['commit'] for v in new[ledger_path]] == ['c1l'])
++    # the admission through the rest reader: refused with the old reader, admitted with the corrected one
++    oldh = rf.HybridHost(w.h, hf.REPO_ID)
++    oldh.file_history = lambda repo_id, path: rf.old_file_history(oldh, repo_id, path)
++    code_o, res_o = t.run(w, F, control={'host': oldh, 'run_id': w.run_id, 'repo_id': hf.REPO_ID})
++    code_n, res_n = t.run(w, F, control={'host': rf.HybridHost(w.h, hf.REPO_ID), 'run_id': w.run_id,
++                                         'repo_id': hf.REPO_ID})
++    code_m, res_m = t.run(w, F)
++    adm = ((res_n or {}).get('config') or {}).get('admission') or {}
++    check('S1-P2-ADMIT', 'the simulated chain over the rest reader with merge-landed A and ledger: refused (ERROR '
++          'CONFIG_UNREVIEWED, exit 65) with the reader before the correction, admitted (exit 0, control-harness) with '
++          'the corrected reader, as on the in-memory host',
++          "old: exit 65 and stop CONFIG_UNREVIEWED; new: exit 0 and admission.mode == 'control-harness'; in-memory: "
++          "exit 0", {'old': show(code_o, res_o), 'new': show(code_n, res_n), 'in_memory': show(code_m, res_m)},
++          code_o == 65 and stop(res_o) == 'CONFIG_UNREVIEWED' and code_n == 0 and
++          adm.get('mode') == 'control-harness' and code_m == 0)
++    # no regression for single-parent (squash) landings
++    w2 = t.world()
++    sq = {p: (norm(rf.HybridHost(w2.h, hf.REPO_ID).file_history(hf.REPO_ID, p)),
++              norm(w2.h.file_history(hf.REPO_ID, p))) for p in paths}
++    # a path already present in the root commit: the root is a version
++    m7 = hostmod.MemoryHost()
++    m7.add_repo(hf.REPO_ID, 'fixture/repo')
++    m7.add_commit(hf.REPO_ID, 'r0', [], {'syn/root.txt': b'root\n'})
++    m7.add_commit(hf.REPO_ID, 'r1', ['r0'], {'syn/root.txt': b'next\n'})
++    m7.repos[hf.REPO_ID]['main'] = 'r1'
++    root7 = (norm(rf.HybridHost(m7, hf.REPO_ID).file_history(hf.REPO_ID, 'syn/root.txt')),
++             norm(m7.file_history(hf.REPO_ID, 'syn/root.txt')))
++    check('S1-P2-SQUASH', 'single-parent landings: the corrected reader equals the in-memory host; a path present in '
++          'the root commit gives the root as its first version',
++          "new == truth for A and the ledger; for the root case new == truth with commits ['r0', 'r1']",
++          {'landings': {p: brief(v[0]) for p, v in sq.items()}, 'root': brief(root7[0])},
++          all(a == b and a for a, b in sq.values()) and root7[0] == root7[1] and
++          [v['commit'] for v in root7[0]] == ['r0', 'r1'])
++    # a revert and a deletion by merges: A -> B -> A -> deleted, each change found once, in order
++    w3 = t.world()
++    xp = 'syn/x.txt'
++    for k, val in enumerate([b'one\n', b'two\n', b'one\n', None]):
++        w3.add_main('cx%d' % k, {xp: val})
++    rf.as_merge_landings(w3.h, hf.REPO_ID)
++    got3 = norm(rf.HybridHost(w3.h, hf.REPO_ID).file_history(hf.REPO_ID, xp))
++    tru3 = norm(w3.h.file_history(hf.REPO_ID, xp))
++    old3 = norm(rf.old_file_history(rf.HybridHost(w3.h, hf.REPO_ID), hf.REPO_ID, xp))
++    check('S1-P2-REVERT', 'a path changed, reverted and deleted by merges: every change found, in order, the '
++          'deletion with no bytes; the reader before the correction finds none',
++          "new == truth, commits ['cx0','cx1','cx2','cx3'], last blob None; old == []",
++          {'new': brief(got3), 'old': brief(old3)},
++          got3 == tru3 and [v['commit'] for v in got3] == ['cx0', 'cx1', 'cx2', 'cx3'] and got3[-1]['blob'] is None
++          and old3 == [])
++    hy4 = rf.HybridHost(w.h, hf.REPO_ID)
++    chain = {c: hy4.on_first_parent_chain(hf.REPO_ID, c, w.main) for c in ('c1', 'c1l', 'b-c1', 'b-c1l', 'c0')}
++    check('S1-P2-CHAIN', 'on_first_parent_chain from the host listing: the merges and the root are on main\'s '
++          'first-parent chain, their branch commits are not', 'c1, c1l, c0 True; b-c1, b-c1l False', chain,
++          chain == {'c1': True, 'c1l': True, 'b-c1': False, 'b-c1l': False, 'c0': True})
++    # fail-closed
++    fc = {}
++
++    def attempt(label, mk):
++        h_ = mk()
++        try:
++            h_.file_history(hf.REPO_ID, auth.authority_path)
++            fc[label] = 'read'
++        except hostmod.HostUnavailable as exc:
++            fc[label] = 'HostUnavailable: %s' % str(exc)[:100]
++
++    def with_fake(**kw):
++        def mk():
++            f = rf.FakeRest(w.h, hf.REPO_ID)
++            for k_, v_ in kw.items():
++                setattr(f, k_, v_)
++            return rf.HybridHost(w.h, hf.REPO_ID, f)
++        return mk
++    attempt('listing ends before the root', with_fake(listing_pages=0))
++    attempt('tree listing truncated', with_fake(truncate_trees=True))
++    attempt('host error on a tree read', with_fake(fail={'/git/trees/'}))
++    attempt('host error on the pull-request read', with_fake(fail={'/pulls'}))
++    attempt('bytes differ from the tree entry', with_fake(corrupt={auth.authority_path}))
++    attempt('call bound reached', lambda: rf.HybridHost(w.h, hf.REPO_ID, max_calls=3))
++    w6 = t.world()
++    w6.add_main('cs1', {auth.authority_path: ('symlink', 'elsewhere.json')})
++    rf.as_merge_landings(w6.h, hf.REPO_ID)
++    attempt('the path is a symlink at a commit', lambda: rf.HybridHost(w6.h, hf.REPO_ID))
++    old_pages = hostmod.RestHost.max_pages
++    try:
++        hostmod.RestHost.max_pages = 0
++        attempt('page bound reached', lambda: rf.HybridHost(w.h, hf.REPO_ID))
++    finally:
++        hostmod.RestHost.max_pages = old_pages
++    fh = rf.FakeRest(w.h, hf.REPO_ID)
++    fh.listing_pages = 0
++    code_f, res_f = t.run(w, F, control={'host': rf.HybridHost(w.h, hf.REPO_ID, fh), 'run_id': w.run_id,
++                                         'repo_id': hf.REPO_ID})
++    fc['admission with a listing that ends before the root'] = show(code_f, res_f)
++    check('S1-P2-FAILCLOSED', 'every incomplete or failed host read refuses: HostUnavailable from the reader, and '
++          'ERROR CONFIG_UNREVIEWED (exit 65) from the admission', 'every attempt raises HostUnavailable; the '
++          'admission exits 65 with stop CONFIG_UNREVIEWED', fc,
++          all(str(v).startswith('HostUnavailable') for k_, v in fc.items() if not k_.startswith('admission')) and
++          code_f == 65 and stop(res_f) == 'CONFIG_UNREVIEWED')
++    w5 = t.world()
++    led = json.loads(w5.ledger_bytes.decode('utf-8'))
++    check('S1-Q8', 'the empty freeze ledger the controls land carries schema and events only (owner decision Q8)',
++          "keys == {'schema', 'events'}, events == []", sorted(led), sorted(led) == ['events', 'schema'] and
++          led['events'] == [] and led['schema'] == auth.ledger_schema)
++
++
+ def write(out_root):
+     os.makedirs(out_root, exist_ok=True)
+     summary = {}
+@@ -3438,7 +3599,8 @@ def main(out_root):
+     os.makedirs(out_root, exist_ok=True)
+     r = sf.Runner(tempfile.mkdtemp(prefix='conf-', dir=out_root))
+     groups = [('TR', lambda: tr_controls(r)), ('R16', lambda: r_controls(r)), ('A12r', lambda: a12r(r)),
+-              ('Z11', lambda: z11_s4a(r)), ('G', lambda: g_controls(r))]
++              ('Z11', lambda: z11_s4a(r)), ('G', lambda: g_controls(r)),
++              ('S1-P2', lambda: s1_p2_history_controls(r))]
+     t = None
+     for name, fn in groups:
+         try:
+@@ -3477,10 +3639,10 @@ def main(out_root):
+         # every control of design v5.5.8 is reported: one whose group stopped before it ran is FAIL, never absent
+         for cid in ['TR%d' % i for i in range(54, 71)] + ['LN%d' % i for i in range(1, 13)] + ['R6-EV', 'TR32-OWN'] + \
+                 ['R6-G%d' % i for i in range(1, 10)] + ['R7-B2', 'R7-N5', 'R7-N5-CONFLICT', 'R7-N5-FORGED',
+-                                                       'R7-N5-SUPERSEDE', 'R7-N5-ROUND', 'R7-N5-DISTINCT']:
++                                                       'R7-N5-SUPERSEDE', 'R7-N5-ROUND', 'R7-N5-DISTINCT'] + S1_P2_IDS:
+             if not any(x['id'] == cid for x in RESULTS):
+                 group = [x for x in RESULTS if x['id'] in ('TR54-TR61', 'TR62-TR64', 'TR65', 'TR66-TR70', 'LN1-LN8',
+-                                                           'LN9-LN12', 'R6-EV')]
++                                                           'LN9-LN12', 'R6-EV', 'S1-P2-group')]
+                 record(cid, 'the control runs', None, 'its group stopped before it ran: %s'
+                        % '; '.join(str(x['actual'])[-300:] for x in group), 'FAIL')
+         try:
+diff --git a/tools/ledger_coverage/adapters/rest_fixture.py b/tools/ledger_coverage/adapters/rest_fixture.py
+new file mode 100644
+index 000000000..478864a5f
+--- /dev/null
++++ b/tools/ledger_coverage/adapters/rest_fixture.py
+@@ -0,0 +1,256 @@
++"""A fake rest transport over an in-memory host, for the controls of the real-host history reader.
++
++`FakeRest` serves the rest reads `RestHost` makes (branches, commit listings with and without a path, single
++commits, trees, raw contents, a commit's pull requests, pull requests) from a `MemoryHost`'s repository. Its
++path-filtered commit listing simplifies history as the host's does: a merge commit whose path equals one of its
++parents' is not listed. `HybridHost` is a `RestHost` reading main, trees, files and histories through such a
++transport, and run records and threads from the in-memory host. `old_file_history` is the history reader as it
++stood before the correction (path-filtered listing, then a first-parent filter), kept here as a countercontrol.
++Every identity is a synthetic fixture. Nothing is written to any host.
++"""
++import hashlib
++import json
++import os
++import sys
++import urllib.parse
++
++here = os.path.dirname(os.path.abspath(__file__))
++tools = os.path.dirname(os.path.dirname(here))
++if tools not in sys.path:
++    sys.path.insert(0, tools)
++
++from ledger_coverage.engine import host as hostmod  # noqa: E402
++
++API = 'https://api.fixture.invalid'
++
++
++def git_blob(b):
++    return hashlib.sha1(b'blob %d\x00' % len(b) + b).hexdigest()
++
++
++def _entry_bytes(v):
++    """(mode, bytes) of a fixture file value: bytes, or a tuple ('symlink', target) / ('submodule', commit)."""
++    if isinstance(v, tuple):
++        return ('120000' if v[0] == 'symlink' else '160000'), v[1].encode()
++    return '100644', v
++
++
++class FakeRest:
++    """The transport: call(url, headers) -> (bytes, headers), or HostUnavailable as the real transport raises it.
++
++    Knobs: `listing_pages` (serve at most that many pages of a commit listing, then empty pages: a host listing that
++    ends early), `truncate_trees` (tree listings report truncated), `fail` (url substrings answered with HTTP 500),
++    `corrupt` (paths whose raw contents are served altered)."""
++
++    def __init__(self, mem, repo_id):
++        self.mem, self.repo_id = mem, repo_id
++        self.listing_pages = None
++        self.truncate_trees = False
++        self.fail = set()
++        self.corrupt = set()
++        self.log = []
++        self._trees = {}
++
++    # -- the repository model
++    def _repo(self):
++        return self.mem.repos[self.repo_id]
++
++    def _commit(self, c):
++        cm = self._repo()['commits'].get(c)
++        if cm is None:
++            raise hostmod.HostUnavailable('HTTP Error 404: Not Found')
++        return cm
++
++    def _tree_of(self, files, prefix=''):
++        """The synthetic tree id of the directory `prefix` of `files`, registering every subtree."""
++        entries = {}
++        for p, v in files.items():
++            if not p.startswith(prefix):
++                continue
++            rest = p[len(prefix):]
++            if '/' in rest:
++                d = rest.split('/', 1)[0]
++                entries[d] = ('tree', '040000', None)
++            else:
++                mode, b = _entry_bytes(v)
++                typ = 'commit' if mode == '160000' else 'blob'
++                entries[rest] = (typ, mode, git_blob(b))
++        for d in [k for k, e in entries.items() if e[0] == 'tree']:
++            entries[d] = ('tree', '040000', self._tree_of(files, prefix + d + '/'))
++        doc = [{'path': k, 'type': e[0], 'mode': e[1], 'sha': e[2]} for k, e in sorted(entries.items())]
++        tid = hashlib.sha1(json.dumps(doc, sort_keys=True).encode()).hexdigest()
++        self._trees[tid] = doc
++        return tid
++
++    def _reachable(self, head):
++        """Every commit reachable from head, children before parents (the host's listing order)."""
++        seen, order, gen = set(), [], {}
++
++        def g(c):
++            if c in gen:
++                return gen[c]
++            ps = self._commit(c)['parents']
++            gen[c] = 1 + max([g(p) for p in ps] or [0])
++            return gen[c]
++        stack = [head]
++        while stack:
++            c = stack.pop()
++            if c in seen:
++                continue
++            seen.add(c)
++            order.append(c)
++            stack.extend(self._commit(c)['parents'])
++        return sorted(order, key=lambda c: (-g(c), c))
++
++    def _path_changed(self, c, parent, path):
++        a = self._commit(c)['files'].get(path)
++        b = self._commit(parent)['files'].get(path) if parent is not None else None
++        return a != b
++
++    def _listed_for_path(self, c, path):
++        """The host's simplified path history: a non-merge commit is listed when it changes the path against its
++        parent; a merge commit only when the path differs from every parent's (a merge whose path equals one
++        parent's, typically its second, is omitted)."""
++        ps = self._commit(c)['parents']
++        if len(ps) <= 1:
++            return self._path_changed(c, ps[0] if ps else None, path)
++        return all(self._path_changed(c, p, path) for p in ps)
++
++    def _commit_json(self, c):
++        cm = self._commit(c)
++        return {'sha': c, 'parents': [{'sha': p} for p in cm['parents']],
++                'commit': {'tree': {'sha': self._tree_of(cm['files'])}}}
++
++    # -- the transport
++    def __call__(self, url, headers):
++        self.log.append(url)
++        for f in self.fail:
++            if f in url:
++                raise hostmod.HostUnavailable('HTTP Error 500: Internal Server Error')
++        u = urllib.parse.urlsplit(url)
++        q = dict(urllib.parse.parse_qsl(u.query))
++        parts = u.path.strip('/').split('/')
++        if parts[:2] != ['repositories', str(self.repo_id)]:
++            raise hostmod.HostUnavailable('HTTP Error 404: Not Found')
++        rest = parts[2:]
++        raw = headers.get('Accept') == 'application/vnd.github.raw'
++        if rest == ['branches', 'main']:
++            return self._json({'commit': {'sha': self._repo()['main']}})
++        if rest == ['commits']:
++            commits = self._reachable(q['sha'])
++            if 'path' in q:
++                commits = [c for c in commits if self._listed_for_path(c, q['path'])]
++            per, page = int(q.get('per_page', 30)), int(q.get('page', 1))
++            if self.listing_pages is not None and page > self.listing_pages:
++                return self._json([])
++            return self._json([self._commit_json(c) for c in commits[(page - 1) * per:page * per]])
++        if len(rest) == 2 and rest[0] == 'commits':
++            return self._json(self._commit_json(rest[1]))
++        if len(rest) == 3 and rest[0] == 'commits' and rest[2] == 'pulls':
++            m = self.mem.merges.get((self.repo_id, rest[1]))
++            if not m:
++                return self._json([])
++            return self._json([{'merge_commit_sha': m['merge_commit'], 'url': '%s/repositories/%d/pulls/%s'
++                                % (API, self.repo_id, rest[1])}])
++        if len(rest) == 2 and rest[0] == 'pulls':
++            m = self.mem.merges.get((self.repo_id, rest[1]))
++            return self._json({'merged_by': {'id': m['merged_by_id']}, 'merged_at': m['merged_at'],
++                               'merge_commit_sha': m['merge_commit']})
++        if len(rest) == 3 and rest[:2] == ['git', 'trees']:
++            if q.get('recursive') == '1':
++                files = self._commit(rest[2])['files']
++                out = []
++                for p, v in sorted(files.items()):
++                    mode, b = _entry_bytes(v)
++                    out.append({'path': p, 'type': 'commit' if mode == '160000' else 'blob', 'mode': mode,
++                                'sha': git_blob(b)})
++                return self._json({'tree': out, 'truncated': self.truncate_trees})
++            doc = self._trees.get(rest[2])
++            if doc is None:
++                raise hostmod.HostUnavailable('HTTP Error 404: Not Found')
++            return self._json({'sha': rest[2], 'tree': doc, 'truncated': self.truncate_trees})
++        if rest and rest[0] == 'contents' and raw:
++            path = '/'.join(rest[1:])
++            v = self._commit(q['ref'])['files'].get(path)
++            if v is None:
++                raise hostmod.HostUnavailable('HTTP Error 404: Not Found')
++            b = _entry_bytes(v)[1]
++            return (b + b' ' if path in self.corrupt else b), {}
++        raise hostmod.HostUnavailable('HTTP Error 404: Not Found')
++
++    @staticmethod
++    def _json(o):
++        return json.dumps(o).encode(), {}
++
++
++class HybridHost(hostmod.RestHost):
++    """main, trees, files, chains and histories through the rest transport; run records, repositories, threads and
++    artifacts from the in-memory host."""
++
++    def __init__(self, mem, repo_id, transport=None, max_calls=20000):
++        super().__init__(API, 'fixture-token', transport or FakeRest(mem, repo_id), max_calls)
++        self.mem = mem
++
++    def run_record(self, run_id, repo_id=None):
++        return self.mem.run_record(run_id, repo_id)
++
++    def repository(self, repo_id):
++        return self.mem.repository(repo_id)
++
++    def comments(self, repo_id, issue):
++        return self.mem.comments(repo_id, issue)
++
++    def deletion_events(self, repo_id, issue):
++        return self.mem.deletion_events(repo_id, issue)
++
++    def runs_for(self, repo_id, head_sha):
++        return self.mem.runs_for(repo_id, head_sha)
++
++    def artifact_sha256(self, repo_id, run_id, name):
++        return self.mem.artifact_sha256(repo_id, run_id, name)
++
++
++def old_file_history(h, repo_id, path):
++    """The reader before the correction: the host's path-filtered listing of main, each listed commit with its pull
++    request's merge record, kept only when on main's first-parent chain (walked one commit read at a time)."""
++    def on_chain(commit, head, limit=5000):
++        c = head
++        for _ in range(limit):
++            if c == commit:
++                return True
++            ps = h._json('/repositories/%d/commits/%s' % (repo_id, c))['parents']
++            if not ps:
++                return False
++            c = ps[0]['sha']
++        raise hostmod.HostUnavailable('first-parent walk exceeded its limit')
++    out, page = [], 1
++    head = h.main_head(repo_id)
++    while True:
++        cs = h._json('/repositories/%d/commits?sha=%s&path=%s&per_page=100&page=%d' % (repo_id, head, path, page))
++        for c in cs:
++            pulls = h._json('/repositories/%d/commits/%s/pulls' % (repo_id, c['sha']))
++            merged = [p for p in pulls if p.get('merge_commit_sha') == c['sha']]
++            m = h._json(merged[0]['url']) if merged else {}
++            out.append({'commit': c['sha'], 'parent': (c.get('parents') or [{}])[0].get('sha'),
++                        'blob': h.file_at(repo_id, c['sha'], path),
++                        'merged_by_id': (m.get('merged_by') or {}).get('id'), 'merged_at': m.get('merged_at'),
++                        'merge_commit': m.get('merge_commit_sha')})
++        if len(cs) < 100:
++            break
++        page += 1
++    out.reverse()
++    return [x for x in out if on_chain(x['commit'], head)]
++
++
++def as_merge_landings(mem, repo_id):
++    """Rewrites every commit on main's first-parent chain that has a merge record into a two-parent merge: its
++    content moves to a new branch commit `b-<id>` on its first parent, and the merge (same id, same tree, same merge
++    record) takes that branch commit as its second parent. The first-parent history is unchanged; the host's
++    path-filtered listing now omits each such merge, since its paths equal its second parent's."""
++    r = mem.repos[repo_id]
++    for c in mem.first_parents(repo_id, r['main']):
++        cm = r['commits'][c]
++        if (repo_id, c) in mem.merges and cm['parents'] and len(cm['parents']) == 1:
++            b = 'b-' + c
++            r['commits'][b] = {'parents': [cm['parents'][0]], 'files': dict(cm['files'])}
++            cm['parents'] = [cm['parents'][0], b]
+diff --git a/tools/ledger_coverage/authority.json b/tools/ledger_coverage/authority.json
+deleted file mode 100644
+index f75196026..000000000
+--- a/tools/ledger_coverage/authority.json
++++ /dev/null
+@@ -1,93 +0,0 @@
+-{
+- "schema": "oi-tool-authority/2",
+- "status": "UNREVIEWED DRAFT: no approval comment, no independent review record and no owner authorization exist. The plan round ids and the authority thread are draft values for owner decision.",
+- "owner": {
+-  "id": 7273571,
+-  "login": "amaybaum"
+- },
+- "repository": {
+-  "id": 1156244443,
+-  "full_name": "amaybaum/incompleteness",
+-  "fork": false
+- },
+- "workflow": {
+-  "path": ".github/workflows/ledger-coverage.yml",
+-  "content_sha256": "05bd76faa21138ca47f9d628dc52c507ef5ec86d40941d4970b98f7eed00f461"
+- },
+- "engine_pins": {
+-  "tools/ledger_coverage/__init__.py": "b0072faa34b8db8ce3d86a70a06835f88094856f060a1540d1acd41f23e12d99",
+-  "tools/ledger_coverage/adapters/__init__.py": "d1b8b5e2f52f7f43fd794ec783c80124beae41b28804e26bac05981f1b65f34a",
+-  "tools/ledger_coverage/adapters/a1_conformance.py": "dbf65c59f468d520ccf0d399d0b23dad71de0e279b6b768cd48825f920eb68ce",
+-  "tools/ledger_coverage/adapters/a1_controls.py": "d782fd98f09b40063c6bdaf4ea98ab24251a628fe85b71747592f34de95034d0",
+-  "tools/ledger_coverage/adapters/a1exit_exact_edit.py": "efdc8bf861d8e057f2f50612ef8dea0415705a0815f6bac6e3984fd6a03bf21d",
+-  "tools/ledger_coverage/adapters/a1exit_sitemap.py": "b01001bc64d39367f00f9e36502933519ca0b28be3bd4af817679287698dd0e5",
+-  "tools/ledger_coverage/adapters/artifact_hash.py": "74f719c9119fb77896868385c1b3142f747dfde6a2c450d4fc3cea1ca0a7a7cf",
+-  "tools/ledger_coverage/adapters/conformance_controls.py": "232938ff672e4d864e17f726b9fd7890071a488b53adb054bbe69ac272c145b0",
+-  "tools/ledger_coverage/adapters/deleg_fingerprint_regen.py": "3c86abe926f1f2e7c581a9e8ce88ce60d6bcba3f85e6143bcb1948b600c8f6ab",
+-  "tools/ledger_coverage/adapters/deleg_host_run.py": "10e154ca32e5457efca8ec1a18db8bdb83203935f849eab35d5958ea22ea1376",
+-  "tools/ledger_coverage/adapters/deleg_preserve_check.py": "e524f675215f354baf41c91b2469c9d4eacc7beb03f3dc21e4f583e177388527",
+-  "tools/ledger_coverage/adapters/deleg_record_dir.py": "bb82c3f8f696b9c58425a4b80cb072673a7e63cc737c629307989ee8065cee54",
+-  "tools/ledger_coverage/adapters/deleg_rerun_equal.py": "58debe302a8b83c67e46c56b3291a5ed6e35aa02bd2cb09e662f56f14e41c0aa",
+-  "tools/ledger_coverage/adapters/host_fixture.py": "2f1d204204cd6153c85b7da5495ff9d9f39ce0976325b2084673dcbbfee75273",
+-  "tools/ledger_coverage/adapters/line_patch.py": "1ca45cae73494a7c1616de7a8411a2c115b3ac7f6bd20bbc5f906c8ff981978c",
+-  "tools/ledger_coverage/adapters/python_frozen_replay.py": "79ad93539fb24ba9bce8ece8c140fdfbaf38dbcb9b38d60a5327bfd41b2e2b0a",
+-  "tools/ledger_coverage/adapters/staged_purity_lint.py": "2cc5ece6215d5c6949f5f2d9510d1695f83bd8069166c2737af05a5a151db23e",
+-  "tools/ledger_coverage/adapters/synthetic_fixture.py": "27fcaed30e88935094f0b657b3839e7437ded7544674d475be6b02f64b947cb8",
+-  "tools/ledger_coverage/engine/__init__.py": "9a53e22ce914f807e90487dba08c25a2880006148ebfe28e9ee97b7fd185e0f9",
+-  "tools/ledger_coverage/engine/authority.py": "35779ec79c5916f768f3413bcb4eb4cd222aafbb4c06c930b50439d4b6ba1845",
+-  "tools/ledger_coverage/engine/checker.py": "51e7d3b348abee1196caabdc36899c6a2a3a824665c84bad150c836010e2dd34",
+-  "tools/ledger_coverage/engine/cli.py": "85018cce67a10a25d9deb6190b6c491e2084fd56c65cf57aa371e1c238f94182",
+-  "tools/ledger_coverage/engine/config.py": "854d784db0221314a54a155a604ed7f6eb0143a5578dc51a668472bee69d4a9e",
+-  "tools/ledger_coverage/engine/context.py": "5980ad55a134fbc15a91ad44e9ee517269599805e433d3abcd72cd001c15b686",
+-  "tools/ledger_coverage/engine/controls_engine.py": "229afd4cda6d9a722a725f04c2d04c1e141fe1e4e30002ce1ed58c299ee144b1",
+-  "tools/ledger_coverage/engine/delegation.py": "fb0ee3928a0a88c594d63e9b00ec793c1aa51ec858dd94989fc8d51175b0a54b",
+-  "tools/ledger_coverage/engine/execution.py": "8436e5aa306df4036a921d52913356ef8ca6213e9678f46b6667e0f9fc08fd82",
+-  "tools/ledger_coverage/engine/gitobj.py": "b25e9537aa8db916642c91637199e9512fcdbd45c33535c5cbf72d4bbb48d91a",
+-  "tools/ledger_coverage/engine/host.py": "de27b681048b8b887965ea7263b5cab7eac14779bdbf953c66281954660dd2d1",
+-  "tools/ledger_coverage/engine/outcome.py": "5f868f4019b6892a3337eb1d8ccb057af84d5e4f23f8d4621fd380ac356bb170",
+-  "tools/ledger_coverage/engine/peredit.py": "ec8eb2bc59200e621c6f53952e1dda631a09affbb226cee04af281d151b3a38a",
+-  "tools/ledger_coverage/engine/pipeline.py": "b0c07371fca20cac86e8e8c046ff814c8817c2a111a2a6fdbfd2a6eb9a17bb65",
+-  "tools/ledger_coverage/engine/profiles.py": "9fd62cfb11c5b4799694286012567625edc9c4753ebb9a9c484ffca94a013b0d",
+-  "tools/ledger_coverage/engine/purity.py": "ae9fffc5c1423e72e0b6d5e7470b418186a985258f8d321ce854695419c1fdb1",
+-  "tools/ledger_coverage/engine/reconcile.py": "bbe8cfc4aad0f306e87c62ee749b903232b56226fadb98d23ccd9bdb1c9e616d",
+-  "tools/ledger_coverage/engine/records.py": "debf98d3c39dd27a8c39fee8fbacafb3d8d771d9bd398bc272bc9aff1d0bdd9c",
+-  "tools/ledger_coverage/engine/replay.py": "6f26d917a35ae3fdbc16fc088a8ca18abb4104203204ab47e9afeabd4c3fc89b",
+-  "tools/ledger_coverage/engine/rules.py": "03d1af1466cd11d8f43e31e9f9ffdfb57d7410a316fbf8da359dac0fa8c8933c",
+-  "tools/ledger_coverage/engine/schema.py": "6e7fc27f8c20052b692402e17d50f8eb1ab648f5c49faf213d8c8263e87a4d36",
+-  "tools/ledger_coverage/engine/schemas/oi-ledger-coverage-4.schema.json": "e0242decc589052bbc60c97feed532ffa8e08f17457b5daab44e4d68fc2e02af",
+-  "tools/ledger_coverage/engine/segments.py": "47f6c6b06fd7f2872fad2e997a29525e1b9278e45c152ca2fc354ea0f9c6d193",
+-  "tools/ledger_coverage/engine/selftest.py": "128f99a4e7ec957418df76bec5317ea9f419286b39d270d2f66bb04a2b045dce",
+-  "tools/ledger_coverage/engine/util.py": "7cb6eeccb332189cca5c8073dac69530660e381345662cf545a7f116612d7a6f",
+-  "tools/ledger_coverage.py": "f7ce63a6384b22f7edb69e81d977ca51db980e60f3507f734c59ff582c47bf9e"
+- },
+- "plans": [
+-  {
+-   "plan_id": "a1exit",
+-   "thread": {
+-    "repository_id": 1156244443,
+-    "issue": 1169
+-   },
+-   "rounds": [
+-    "f1"
+-   ],
+-   "pin_table_path": "verification/audits/foundations/a1exit-deletion-20261121/PREREG.md"
+-  }
+- ],
+- "authority_thread": {
+-  "repository_id": 1156244443,
+-  "issue": 1169
+- },
+- "freeze_ledger_path": "verification/audits/foundations/ledger-coverage-tool-20261123/freeze/freeze-ledger.json",
+- "forms": {
+-  "version": 1,
+-  "first_line": "the body bytes up to the first LF, with at most one trailing CR removed and no other normalization",
+-  "templates": {
+-   "freeze-designate": "oi-freeze/1 designate plan=<plan_id> round=<round_id> commit=<F>",
+-   "freeze-withdraw": "oi-freeze/1 withdraw plan=<plan_id> round=<round_id> commit=<F>",
+-   "freeze-supersede": "oi-freeze/1 supersede plan=<plan_id> round=<round_id> commit=<F> by=<F2>",
+-   "authority-approve": "oi-authority/1 approve from=<from> to=<to>",
+-   "ledger-append": "oi-freeze-ledger/1 append plan=<plan_id> round=<round_id> from=<from> to=<to>"
+-  }
+- },
+- "supersedes": null
+-}
+diff --git a/tools/ledger_coverage/engine/host.py b/tools/ledger_coverage/engine/host.py
+index d13ee0ec6..5e5d4bb93 100644
+--- a/tools/ledger_coverage/engine/host.py
++++ b/tools/ledger_coverage/engine/host.py
+@@ -137,11 +137,23 @@ class MemoryHost:
+ 
+ 
+ class RestHost:
+-    """Reads the host's rest and graphql interfaces with the job token. Used only inside a host job."""
++    """Reads the host's rest and graphql interfaces with the job token. Used only inside a host job.
+ 
+-    def __init__(self, api, token):
++    Every rest read goes through `transport(url, headers)`, which returns (body bytes, headers) or raises
++    HostUnavailable; by default it is an https get request. `max_calls` bounds the rest reads of one instance: a
++    read beyond it raises HostUnavailable, so a history or chain that cannot be read within the bound refuses
++    (fail-closed)."""
++
++    max_pages = 2000
++
++    def __init__(self, api, token, transport=None, max_calls=20000):
+         self.api = api.rstrip('/')
+         self.token = token
++        self.transport = transport or self._https_get
++        self.max_calls = max_calls
++        self.calls = 0
++        self._chains = {}
++        self._trees = {}
+ 
+     @staticmethod
+     def detect(env):
+@@ -150,16 +162,22 @@ class RestHost:
+         return RestHost(env.get('GITHUB_API_URL', 'https://api.github.com'), env['GITHUB_TOKEN']), \
+             int(env['GITHUB_RUN_ID']), int(env.get('GITHUB_REPOSITORY_ID') or 0)
+ 
+-    def _get(self, url, accept='application/vnd.github+json'):
+-        req = urllib.request.Request(url if url.startswith('http') else self.api + url,
+-                                     headers={'Authorization': 'Bearer ' + self.token, 'Accept': accept,
+-                                              'X-GitHub-Api-Version': '2022-11-28'})
++    def _https_get(self, url, headers):
++        req = urllib.request.Request(url, headers=headers)
+         try:
+             with urllib.request.urlopen(req, timeout=60) as r:
+                 return r.read(), r.headers
+         except (urllib.error.URLError, OSError) as exc:
+             raise HostUnavailable(str(exc))
+ 
++    def _get(self, url, accept='application/vnd.github+json'):
++        self.calls += 1
++        if self.calls > self.max_calls:
++            raise HostUnavailable('more than %d host reads' % self.max_calls)
++        return self.transport(url if url.startswith('http') else self.api + url,
++                              {'Authorization': 'Bearer ' + self.token, 'Accept': accept,
++                               'X-GitHub-Api-Version': '2022-11-28'})
++
+     def _json(self, url):
+         data, _ = self._get(url)
+         return json.loads(data.decode('utf-8'))
+@@ -215,35 +233,90 @@ class RestHost:
+             out.append((e['path'], kind))
+         return sorted(out)
+ 
+-    def on_first_parent_chain(self, repo_id, commit, head, limit=5000):
+-        c = head
+-        for _ in range(limit):
+-            if c == commit:
+-                return True
+-            ps = self._json('/repositories/%d/commits/%s' % (repo_id, c))['parents']
+-            if not ps:
+-                return False
+-            c = ps[0]['sha']
+-        raise HostUnavailable('first-parent walk exceeded its limit')
++    def first_parent_chain(self, repo_id, head):
++        """[(commit, first parent or None, root tree id)] of `head`'s first-parent chain, newest first, down to the
++        root commit. The host's commit listing of `head` (no path, so no history simplification) holds every commit
++        reachable from it; the chain is followed through it by first parents. A listing that ends, or a page bound
++        reached, before the root is found raises HostUnavailable."""
++        key = (repo_id, head)
++        if key in self._chains:
++            return self._chains[key]
++        known, chain, cur = {}, [], head
++        for page in range(1, self.max_pages + 1):
++            cs = self._json('/repositories/%d/commits?sha=%s&per_page=100&page=%d' % (repo_id, head, page))
++            if not isinstance(cs, list):
++                raise HostUnavailable('commit listing of %s is not a list' % head)
++            for c in cs:
++                try:
++                    known[c['sha']] = ([p['sha'] for p in c['parents']], c['commit']['tree']['sha'])
++                except (KeyError, TypeError):
++                    raise HostUnavailable('commit listing entry without its parents or tree')
++            while cur in known:
++                ps, tree = known[cur]
++                chain.append((cur, ps[0] if ps else None, tree))
++                if not ps:
++                    self._chains[key] = chain
++                    return chain
++                cur = ps[0]
++            if len(cs) < 100:
++                raise HostUnavailable('the commit listing of %s ends before the root of its first-parent chain '
++                                      '(missing %s)' % (head[:12], cur[:12]))
++        raise HostUnavailable('the first-parent chain of %s exceeds %d listing pages' % (head[:12], self.max_pages))
++
++    def on_first_parent_chain(self, repo_id, commit, head):
++        return any(c == commit for c, _, _ in self.first_parent_chain(repo_id, head))
++
++    def _tree(self, repo_id, sha):
++        if sha not in self._trees:
++            t = self._json('/repositories/%d/git/trees/%s' % (repo_id, sha))
++            if t.get('truncated') or not isinstance(t.get('tree'), list):
++                raise HostUnavailable('tree %s listing truncated or unreadable' % sha[:12])
++            self._trees[sha] = {e['path']: (e['type'], e.get('mode'), e['sha']) for e in t['tree']}
++        return self._trees[sha]
++
++    def _entry(self, repo_id, tree, path):
++        """(type, mode, object id) of `path` in the root tree `tree`, or None when absent."""
++        parts = path.split('/')
++        for k, name in enumerate(parts):
++            e = self._tree(repo_id, tree).get(name)
++            if e is None:
++                return None
++            if k == len(parts) - 1:
++                return e
++            if e[0] != 'tree':
++                return None
++            tree = e[2]
+ 
+     def file_history(self, repo_id, path):
+-        out, page = [], 1
++        """Commits on main's first-parent chain whose `path` differs from their first parent's, oldest first, each
++        with its first parent, its bytes (None when deleted) and the host's merge record. Exact: every commit of the
++        chain, merge commits included, is compared with its first parent by the path's blob id; the host's
++        path-filtered commit listing is not used, since it simplifies history and omits a merge whose path equals
++        its second parent's. The bytes read are checked against the tree entry's blob id."""
+         head = self.main_head(repo_id)
+-        while True:
+-            cs = self._json('/repositories/%d/commits?sha=%s&path=%s&per_page=100&page=%d' % (repo_id, head, path, page))
+-            for c in cs:
+-                pulls = self._json('/repositories/%d/commits/%s/pulls' % (repo_id, c['sha']))
+-                merged = [p for p in pulls if p.get('merge_commit_sha') == c['sha']]
++        chain = self.first_parent_chain(repo_id, head)
++        out = []
++        after = None
++        for k in range(len(chain) - 1, -1, -1):
++            c, par, tree = chain[k]
++            here = self._entry(repo_id, tree, path)
++            if here is not None and (here[0] != 'blob' or here[1] not in ('100644', '100755')):
++                raise HostUnavailable('%s is not a regular file at %s' % (path, c[:12]))
++            blob_id = here[2] if here is not None else None
++            if blob_id != after:
++                blob = None
++                if here is not None:
++                    blob = self.file_at(repo_id, c, path)
++                    if blob is None or hashlib.sha1(b'blob %d\x00' % len(blob) + blob).hexdigest() != here[2]:
++                        raise HostUnavailable('the bytes of %s at %s do not match its tree entry' % (path, c[:12]))
++                pulls = self._json('/repositories/%d/commits/%s/pulls' % (repo_id, c))
++                merged = [p for p in pulls if p.get('merge_commit_sha') == c]
+                 m = self._json(merged[0]['url']) if merged else {}
+-                out.append({'commit': c['sha'], 'parent': (c.get('parents') or [{}])[0].get('sha'),
+-                            'blob': self.file_at(repo_id, c['sha'], path),
++                out.append({'commit': c, 'parent': par, 'blob': blob,
+                             'merged_by_id': (m.get('merged_by') or {}).get('id'), 'merged_at': m.get('merged_at'),
+                             'merge_commit': m.get('merge_commit_sha')})
+-            if len(cs) < 100:
+-                break
+-            page += 1
+-        out.reverse()
+-        return [x for x in out if self.on_first_parent_chain(repo_id, x['commit'], head)]
++            after = blob_id
++        return out
+ 
+     def comments(self, repo_id, issue):
+         total = self._json('/repositories/%d/issues/%d' % (repo_id, issue))['comments']
+diff --git a/tools/ledger_coverage/engine/purity.py b/tools/ledger_coverage/engine/purity.py
+index 36d0ec95b..0a79fd192 100644
+--- a/tools/ledger_coverage/engine/purity.py
++++ b/tools/ledger_coverage/engine/purity.py
+@@ -70,7 +70,7 @@ enumerations = frozenset([
+     'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M11', 'O1', 'O9',
+ ])
+ # The tool's own fixed data path (sec. 6.3, R-D4): the authority record. A fourth category, linted to lie under
+-# the tool's directory; a class record that lists the tool's landed paths names it (deviation recorded).
++# the tool's directory; it lands after the tool, in its own merge (sec. 15 item 0a).
+ tool_paths = frozenset(['tools/ledger_coverage/authority.json'])
+ _hex = re.compile(r'(?<![0-9A-Za-z])[0-9a-fA-F]{7,}(?![0-9A-Za-z])')
+ _field_rx = re.compile(r'^[A-Za-z_][A-Za-z0-9_-]*$')
+diff --git a/verification/audits/foundations/ledger-coverage-tool-20261123/README.md b/verification/audits/foundations/ledger-coverage-tool-20261123/README.md
+index 277473aaf..e339072b1 100644
+--- a/verification/audits/foundations/ledger-coverage-tool-20261123/README.md
++++ b/verification/audits/foundations/ledger-coverage-tool-20261123/README.md
+@@ -1,10 +1,13 @@
+ # Ledger and terminology verification tool: records (unreviewed drafts)
+ 
+-Status: implementation of design v5.5.8 (sha256
+-f531948147b3638c5ad567f5ccf0eedfd04650a30be9fd0a9f2084aa13a77ad2), adopted by the owner on 2026-11-24 as an amendment of
+-the frozen v5.5.3. **Every record in this directory is an
+-unreviewed draft**, and so is the tool authority record `tools/ledger_coverage/authority.json`. None has an
+-independent review record or an owner authorization record, and no freeze `F` exists. A configuration is admitted
++Status: implementation of design v5.5.9 (sha256
++cdfbe08cd9ec331ac94e9d57d66f0e0c919cc2ff17038a8475a1ff2d7a779df9), adopted by the owner on 2026-11-24 as an amendment of
++the adopted v5.5.8 and of the frozen v5.5.3. **Every record in this directory is an
++unreviewed draft.** None has an independent review record or an owner authorization record, and no freeze `F` exists.
++The tool authority record `A` (`tools/ledger_coverage/authority.json`), the empty freeze ledger at the path `A` names
++and the acceptance workflow whose content hash `A` pins are not part of this landing: each lands later, `A` first and
++the empty freeze ledger in its own merge after it, approved under "Owner at creation" (design sec. 6.3 and sec. 15
++item 0a). Until `A` is on `main`, every chain run refuses. A configuration is admitted
+ only inside a host job of the pinned workflow, from `F`'s pin table and the owner's designation of `F` (design
+ sec. 6.3); every other run is refused with ERROR `CONFIG_UNREVIEWED` (exit 65). The real-tree controls run
+ through the control harness, which writes `control-result.json` with `"harness": true`; a harness result is
+@@ -26,8 +29,6 @@ scientific question and no row disposition.
+ | `records/repo-scope-v1.json` | `oi-scope/1` | the scope of the `repo` profile (item 11) |
+ | `rules/register-infinity-params-v1.json` | `oi-term-rules/2` | the per-edit parameters of items 5 and 6 that are not extractable assignments of the plan's checker (kind `params`), linted against that checker |
+ | `records/side-change-classes-v1.json` | `oi-side-change-classes/1` | the class `tool-landing` only: every path this tool's landing adds, each with its exact blob |
+-| `freeze/freeze-ledger.json` | `oi-freeze-ledger/1` | the empty freeze ledger (it lands on `main` in its own merge after the authority record, approved by an owner comment created once that record is in force: design sec. 6.3, "Owner at creation") |
+-| `workflow-draft/ledger-coverage.yml` | workflow | the one workflow whose runs may produce an acceptable result; its content hash is pinned in the authority record under `.github/workflows/ledger-coverage.yml`, where it must land unchanged |
+ 
+ The A1 configuration `retirement-config.json` (`oi-retirement-config/1`) is not part of this landing. It
+ belongs in the retirement plan's record directory, `verification/audits/foundations/a1exit-deletion-20261121/`,
+@@ -35,6 +36,28 @@ frozen with the plan at `F` with its review and authorization (design sec. 16.2)
+ above; the class record pins every other path of this landing. Until then it exists only as an unreviewed,
+ unauthorized draft outside the repository, and the A1 controls read it with `--staged-config`.
+ 
++The empty freeze ledger carries the fields `schema` (`"oi-freeze-ledger/1"`) and `events` (`[]`) and no other: the
++ledger is append-only, and a change to any field other than `events` refuses (design sec. 6.3), so any further field
++would be fixed for every later version.
++
++## Host reads
++
++On the host, the history of `A` and of the freeze ledger is read from `main`'s first-parent chain: the chain is
++followed through the host's commit listing of `main` (which is not filtered by path), and each commit's blob of the
++path is compared with its first parent's, merge commits included. The host's path-filtered commit listing is not
++used: it omits a merge commit whose path equals its second parent's, which is how a pull-request merge lands a file.
++The reads are bounded; a listing that ends before the root commit, a truncated tree, a host error, a reached bound or
++bytes that differ from their tree entry refuse admission (ERROR `CONFIG_UNREVIEWED`).
++
++## Comments in governed threads
++
++No automated comment whose first line begins with `oi-` is posted in the authority thread or in a plan thread that `A`
++lists; every form comment (`oi-freeze/`, `oi-authority/`, `oi-freeze-ledger/`) is posted by the owner by hand (owner
++decision, `amaybaum`, 2026-11-24). The host attributes comments written through the owner's credentials to the
++owner's numeric id, so the tool cannot tell them from the owner's own, and one owner comment whose first line begins
++with such a prefix but does not match a form exactly, or that is ever edited, makes every admission in that thread
++refuse (design sec. 6.3, admission point 3).
++
+ ## Limitations (stated, not closed)
+ 
+ The tool verifies coverage and provenance. It does not establish complete semantic detection, and a PASS
+@@ -68,4 +91,16 @@ path):
+ 
+     python3 -I -B tools/ledger_coverage/adapters/staged_purity_lint.py --repo . --config $CFG --staged-config STAGED --out DIR
+     python3 -I -B tools/ledger_coverage/adapters/a1_conformance.py --repo . --config $CFG --staged-config STAGED --out DIR
+-    python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo . --config $CFG --staged-config STAGED --out DIR
++    python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo . --config $CFG --staged-config STAGED --main MAIN --out DIR
++
++`MAIN` is the `main` commit against which the sequencing safeguard (design sec. 13.4, control RT-L2) predicts `main`
++plus this landing; the runner exits with status 2 without it.
++
++## References to commits not on `main`
++
++The A1 controls (`a1_conformance.py`, `a1_controls.py`, `controls.json`) and the draft A1 records in `rules/` and
++`records/` read the frozen plan `P` (4c79be642ca631573f06b444903be75ec4f5e2b6) and the trial candidate `T1'`
++(14ac71b4b0a0c0aa2d7068d6799a73f474097060), neither of which is reachable from `main`. Every result of those controls,
++and every fingerprint or extraction those records take at `P` or `T1'`, is provenance only: no claim made from
++`main` rests on it until the content it reads is on `main`. The engine, the synthetic controls and the conformance
++controls (`self-test`, `synthetic_fixture.py`, `conformance_controls.py`) read no commit outside their own fixtures.
+diff --git a/verification/audits/foundations/ledger-coverage-tool-20261123/evidence/stage1-controls.json b/verification/audits/foundations/ledger-coverage-tool-20261123/evidence/stage1-controls.json
+deleted file mode 100644
+index 544f8bc96..000000000
+--- a/verification/audits/foundations/ledger-coverage-tool-20261123/evidence/stage1-controls.json
++++ /dev/null
+@@ -1,1988 +0,0 @@
+-{
+- "a1_controls": {
+-  "A10r": {
+-   "actual": {
+-    "detected": true,
+-    "unmutated_rule_lints_clean": true
+-   },
+-   "expected": "deny widening (narrower scope) -> FAIL record-invalid (A5r: deny-match)",
+-   "passed": true
+-  },
+-  "A11r": {
+-   "actual": {
+-    "detected": true,
+-    "unmutated_rule_lints_clean": true
+-   },
+-   "expected": "lint: countercontrol does not match -> FAIL record-invalid (A5r: deny-match)",
+-   "passed": true
+-  },
+-  "A1r": {
+-   "actual": {
+-    "detected": true,
+-    "unmutated_rule_lints_clean": true
+-   },
+-   "expected": "widening (added files) -> FAIL record-invalid (A5r: deny-match)",
+-   "passed": true
+-  },
+-  "A2r": {
+-   "actual": {
+-    "detected": true,
+-    "unmutated_rule_lints_clean": true
+-   },
+-   "expected": "widening (literal) -> FAIL record-invalid (A5r: deny-match)",
+-   "passed": true
+-  },
+-  "A3r": {
+-   "actual": {
+-    "detected": true,
+-    "unmutated_rule_lints_clean": true
+-   },
+-   "expected": "widening (fingerprint swap) -> FAIL record-invalid (A5r: deny-match)",
+-   "passed": true
+-  },
+-  "A4r": {
+-   "actual": {
+-    "detected": true,
+-    "unmutated_rule_lints_clean": true
+-   },
+-   "expected": "widening review by the author rejected -> FAIL record-invalid (A5r: deny-match)",
+-   "passed": true
+-  },
+-  "A5r": {
+-   "actual": {
+-    "detected": true,
+-    "unmutated_rule_lints_clean": true
+-   },
+-   "expected": "FAIL deny-match -> FAIL record-invalid (A5r: deny-match)",
+-   "passed": true
+-  },
+-  "A6r": {
+-   "actual": {
+-    "detected": true,
+-    "unmutated_rule_lints_clean": true
+-   },
+-   "expected": "lint: literal does not cover the trigger -> FAIL record-invalid (A5r: deny-match)",
+-   "passed": true
+-  },
+-  "A7r": {
+-   "actual": {
+-    "detected": true,
+-    "unmutated_rule_lints_clean": true
+-   },
+-   "expected": "reused id -> FAIL record-invalid (A5r: deny-match)",
+-   "passed": true
+-  },
+-  "A8r": {
+-   "actual": {
+-    "detected": true,
+-    "unmutated_rule_lints_clean": true
+-   },
+-   "expected": "lint: no negative example -> FAIL record-invalid (A5r: deny-match)",
+-   "passed": true
+-  },
+-  "A9r": {
+-   "actual": {
+-    "detected": true,
+-    "unmutated_rule_lints_clean": true
+-   },
+-   "expected": "deny widening and its own negative example matched -> FAIL record-invalid (A5r: deny-match)",
+-   "passed": true
+-  },
+-  "CHAIN-REFUSAL": {
+-   "actual": {
+-    "exit": 65,
+-    "stop": {
+-     "class": "CONFIG_UNREVIEWED",
+-     "detail": {},
+-     "message": "configuration review chain: record verification/audits/foundations/ledger-coverage-tool-20261123/a1exit-retirement-config.json: no review record"
+-    }
+-   },
+-   "expected": "the unreviewed draft configuration is refused under the review chain: ERROR CONFIG_UNREVIEWED",
+-   "passed": true
+-  },
+-  "G1": {
+-   "actual": [
+-    "tex: tex-preserve-check.json: ledger_sha256, candidate, check candidate against "
+-   ],
+-   "expected": "FAIL delegated-evidence-invalid",
+-   "passed": true
+-  },
+-  "G2": {
+-   "actual": "as RT-C",
+-   "expected": "REVIEW delegated-evidence-missing",
+-   "passed": true
+-  },
+-  "G3": {
+-   "actual": [
+-    "coverage-ledger: id MAIN:L-3 does not occur exactly once at X",
+-    "coverage-ledger: verification/coverage/LEDGER.json differs from the base plus its splices "
+-   ],
+-   "expected": "FAIL",
+-   "passed": true
+-  },
+-  "L1": {
+-   "actual": {
+-    "file": "book/ch19-open-problems.md",
+-    "keys": {
+-     "count-grep": [
+-      "L2"
+-     ]
+-    },
+-    "line": 252,
+-    "line_sha256": "239dc82db96bb81b8cf95bb950f78eb07874432253a46118ad8e8ca935468267",
+-    "profiles": [
+-     "count-grep"
+-    ],
+-    "rule_id": "W1-d",
+-    "state": "PASS",
+-    "tree": "in-memory object (not in the repository)"
+-   },
+-   "expected": "PASS (W1 rule)",
+-   "passed": true
+-  },
+-  "L2": {
+-   "actual": [
+-    "PASS",
+-    "PASS"
+-   ],
+-   "expected": "PASS (W2 rule)",
+-   "passed": true
+-  },
+-  "L3": {
+-   "actual": [
+-    "rule-overreach"
+-   ],
+-   "expected": "FAIL rule-overreach",
+-   "passed": true
+-  },
+-  "L4": {
+-   "actual": [
+-    "unclassified"
+-   ],
+-   "expected": "REVIEW unclassified",
+-   "passed": true
+-  },
+-  "M7": {
+-   "actual": {
+-    "cli": [
+-     65,
+-     "RECORD_TREE_MISMATCH"
+-    ],
+-    "replay_equalities": {
+-     "ck_errors_empty": false,
+-     "digest_equal": true,
+-     "extended_unmapped_empty": true,
+-     "rebuild_equal": false,
+-     "render_equal": false
+-    }
+-   },
+-   "expected": "FAILS rebuild_equal false (v1); under v5.1 the pinned record tree refuses the altered record first",
+-   "passed": true
+-  },
+-  "M8": {
+-   "actual": {
+-    "cli": [
+-     65,
+-     "RECORD_TREE_MISMATCH"
+-    ],
+-    "replay_equalities": {
+-     "ck_errors_empty": true,
+-     "digest_equal": true,
+-     "extended_unmapped_empty": true,
+-     "rebuild_equal": true,
+-     "render_equal": false
+-    }
+-   },
+-   "expected": "FAILS render_equal false (v1); refused at integrity",
+-   "passed": true
+-  },
+-  "M9": {
+-   "actual": {
+-    "cli": [
+-     65,
+-     "RECORD_TREE_MISMATCH"
+-    ]
+-   },
+-   "expected": "ERROR record tree",
+-   "passed": true
+-  },
+-  "N-W": {
+-   "actual": {
+-    "exit": 0
+-   },
+-   "expected": "no deny match",
+-   "passed": true
+-  },
+-  "RT-A": {
+-   "actual": {
+-    "anchors": 697,
+-    "ck_errors": [],
+-    "equalities": [
+-     {
+-      "equal": true,
+-      "name": "digest_equal"
+-     },
+-     {
+-      "equal": true,
+-      "name": "rebuild_equal"
+-     },
+-     {
+-      "equal": true,
+-      "name": "render_equal"
+-     },
+-     {
+-      "equal": true,
+-      "name": "ck_errors_empty"
+-     },
+-     {
+-      "equal": true,
+-      "name": "extended_unmapped_empty"
+-     }
+-    ],
+-    "exit": 0,
+-    "extended_unmapped": [],
+-    "frozen_self_test": true,
+-    "outcome": "PASS"
+-   },
+-   "expected": "PASS; 0 errors; 697 anchors",
+-   "passed": true
+-  },
+-  "RT-C": {
+-   "actual": {
+-    "checks": [
+-     {
+-      "edits": 401,
+-      "holds": true,
+-      "name": "preconditions-at-H",
+-      "splices": 399
+-     },
+-     {
+-      "conforming_changed_files": 43,
+-      "ledgered_files": 44,
+-      "name": "ledgered-files-conform"
+-     },
+-     {
+-      "broken": 0,
+-      "name": "pins",
+-      "python_files": 547
+-     }
+-    ],
+-    "delegation": [
+-     {
+-      "adapter": "preserve-check-v1",
+-      "class": "tex",
+-      "evidence": {
+-       "tex-preserve-check.json": null
+-      },
+-      "state": "missing"
+-     },
+-     {
+-      "adapter": "preserve-check-v1",
+-      "class": "pdf",
+-      "evidence": {
+-       "pdf-host-run.json": null,
+-       "pdf-preserve-check.json": null
+-      },
+-      "state": "missing"
+-     },
+-     {
+-      "adapter": "record-dir",
+-      "class": "record-dir",
+-      "evidence": {},
+-      "state": "missing"
+-     },
+-     {
+-      "adapter": "rerun-equal",
+-      "class": "sc42",
+-      "evidence": {
+-       "sc42-rerun.json": null
+-      },
+-      "state": "missing"
+-     },
+-     {
+-      "adapter": "fingerprint-regen",
+-      "class": "coverage-ledger",
+-      "evidence": {
+-       "proof-census.json": null
+-      },
+-      "state": "missing"
+-     },
+-     {
+-      "adapter": "host-run",
+-      "class": "ci",
+-      "evidence": {
+-       "ci-host-run.json": null
+-      },
+-      "state": "missing"
+-     }
+-    ],
+-    "exit": 10,
+-    "finding_counts": {
+-     "DELEGATED/REVIEW_REQUIRED/delegated-evidence-missing": 7
+-    }
+-   },
+-   "expected": "candidate checks as sec. 11; PASS only with contract evidence; without it REVIEW delegated-evidence-missing",
+-   "passed": true
+-  },
+-  "RT-D": {
+-   "actual": {
+-    "exit": 20,
+-    "finding_counts": {
+-     "TERMS/FAIL/rule-negative-match": 2,
+-     "TERMS/REVIEW_REQUIRED/unclassified": 46
+-    },
+-    "pass_lines": [
+-     "book/The-Incompleteness-of-Observation-FULL.md:2554",
+-     "book/The-Incompleteness-of-Observation-FULL.md:5284",
+-     "book/The-Incompleteness-of-Observation-FULL.md:5914",
+-     "book/The-Incompleteness-of-Observation-FULL.md:5925",
+-     "book/appendix-b-derivations.md:235",
+-     "book/appendix-b-derivations.md:246",
+-     "book/ch09-universality.md:137",
+-     "book/ch19-open-problems.md:212",
+-     "papers/SM.md:1394"
+-    ],
+-    "resid_review_lines": 45,
+-    "rule_negative": [
+-     "book/The-Incompleteness-of-Observation-FULL.md:5270",
+-     "book/ch19-open-problems.md:198"
+-    ]
+-   },
+-   "expected": "0 deny; W1 and W2 PASS with their rules; GR.md:58 PASS with its record, else REVIEW; resid 17 lines",
+-   "passed": true,
+-   "reference_difference": "resid: 45 lines REVIEW under item 7's profile set; the reference 17 counts the lines no other review profile (p0-core, p0-para, ledger-ext, ptr, repo, count-grep) hits. W1-c (ch19:198, FULL:5270) FAILs its own negative matcher: the sentence contains \"finite periodic quotient\" and the design's W1 negative list contains \"finit\"."
+-  },
+-  "RT-D-gr58": {
+-   "actual": {
+-    "gr58": {
+-     "classified_by": {
+-      "blob_sha256": "8177b0923a7eddf09c473ce541e4c23de53067429a31d52260aa35f0bafa8410",
+-      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/gr58-hit-classification-v1.json"
+-     },
+-     "file": "papers/GR.md",
+-     "keys": {
+-      "ptr": [
+-       ""
+-      ]
+-     },
+-     "line": 58,
+-     "line_sha256": "3a7c10986d047df3b55cd559344bd09de4634ef453ec64777fbdbd647a6e65f4",
+-     "profiles": [
+-      "ptr"
+-     ],
+-     "state": "PASS",
+-     "tree": "14ac71b4b0a0c0aa2d7068d6799a73f474097060"
+-    }
+-   },
+-   "expected": "GR.md:58 PASS with its record",
+-   "passed": true
+-  },
+-  "RT-DR": {
+-   "actual": {
+-    "E": {
+-     "alternatives": {
+-      "DR-1a": 6,
+-      "DR-1b": 2,
+-      "DR-1c": 59,
+-      "DR-4": 33,
+-      "DR-5": 1
+-     },
+-     "distinct_lines": 95,
+-     "exit": 20,
+-     "per_rule_lines": {
+-      "DR-1": 65,
+-      "DR-4": 33,
+-      "DR-5": 1
+-     },
+-     "with_sentence_lines": 102
+-    },
+-    "H": {
+-     "alternatives": {
+-      "DR-1a": 6,
+-      "DR-1b": 2,
+-      "DR-1c": 55,
+-      "DR-4": 28,
+-      "DR-5": 1
+-     },
+-     "distinct_lines": 86,
+-     "exit": 20,
+-     "per_rule_lines": {
+-      "DR-1": 61,
+-      "DR-4": 28,
+-      "DR-5": 1
+-     },
+-     "with_sentence_lines": 93
+-    },
+-    "T1p": {
+-     "alternatives": {},
+-     "distinct_lines": 0,
+-     "exit": 0,
+-     "per_rule_lines": {},
+-     "with_sentence_lines": 0
+-    },
+-    "targets_by_rule_id": [
+-     true,
+-     true,
+-     true,
+-     true,
+-     true,
+-     true
+-    ]
+-   },
+-   "expected": "H: DR-1 61 (a 6, b 2, c 55), DR-3 0, DR-4 28, DR-5 1, 86 lines; E: 95; T1': 0 / 0",
+-   "passed": true
+-  },
+-  "RT-DR3W": {
+-   "actual": {
+-    "agents-md-at-H": [
+-     [
+-      37,
+-      39
+-     ]
+-    ],
+-    "agents-md-at-T1p": []
+-   },
+-   "expected": "exactly one DR-3 sentence at H starting on line 37 and including lines 37-38; 0 at T1'",
+-   "passed": true
+-  },
+-  "RT-E": {
+-   "actual": {
+-    "exit": 0,
+-    "hit_counts": {
+-     "PASS": 595
+-    },
+-    "site_counts": {
+-     "unchanged": 697
+-    }
+-   },
+-   "expected": "PASS; 697 unchanged",
+-   "passed": true
+-  },
+-  "RT-H0": {
+-   "actual": {
+-    "exit": 20,
+-    "finding_counts": {
+-     "HP/FAIL/context-meaning-unverified": 7,
+-     "HP/FAIL/hp-unadjudicated": 113,
+-     "HP/REVIEW_REQUIRED/context-structure-changed": 7,
+-     "HP/REVIEW_REQUIRED/unclassified": 110
+-    },
+-    "structure_sites": [
+-     "book/The-Incompleteness-of-Observation-FULL.md:706@e837e3db",
+-     "book/The-Incompleteness-of-Observation-FULL.md:708@e837e3db",
+-     "book/ch02-substratum.md:76@e837e3db",
+-     "book/ch02-substratum.md:78@e837e3db",
+-     "papers/Main.md:741@e837e3db",
+-     "papers/Substratum.md:253@e837e3db",
+-     "papers/Substratum.md:94@e837e3db"
+-    ]
+-   },
+-   "expected": "FAIL; every FAIL and indicator item HP; 113 hp-unadjudicated; 7 HP meaning; 3 HP structure (reference)",
+-   "passed": true,
+-   "reference_difference": "7 HP context-structure-changed, not 3: the 4 further sites (FULL:706, ch02:76, Substratum.md:94, :253) are unique at E and H and rewritten in H..T1'; the reference population required uniqueness at T1' as well (sec. 14)."
+-  },
+-  "RT-I7": {
+-   "actual": {
+-    "H": {
+-     "A1_lines": 179,
+-     "exit": 20,
+-     "lines": 14,
+-     "literals": {
+-      "Fourteen": 1,
+-      "six structural": 11,
+-      "sixth of": 2
+-     }
+-    },
+-    "T1p": {
+-     "A1_lines": 4,
+-     "exit": 20,
+-     "lines": 7,
+-     "literals": {
+-      "six structural": 7
+-     }
+-    }
+-   },
+-   "expected": "FAIL at both; T1': 7 / 0 / 0, A1 4; H: 11 / 1 / 2, A1 179",
+-   "passed": true
+-  },
+-  "RT-I7A": {
+-   "actual": {
+-    "H": {
+-     "deny_lines": 86,
+-     "deny_lines_with_sentences": 93,
+-     "exit": 20,
+-     "fail_lines": 209,
+-     "fail_lines_with_sentences": 216,
+-     "final_unclassified": 123,
+-     "retired_FAIL": 95,
+-     "retired_lines": 95,
+-     "retired_only_review": []
+-    },
+-    "T1p": {
+-     "deny_lines": 0,
+-     "deny_lines_with_sentences": 0,
+-     "exit": 20,
+-     "fail_lines": 12,
+-     "fail_lines_with_sentences": 12,
+-     "final_unclassified": 12,
+-     "lines": [
+-      "book/The-Incompleteness-of-Observation-FULL.md:2554",
+-      "book/The-Incompleteness-of-Observation-FULL.md:5270",
+-      "book/The-Incompleteness-of-Observation-FULL.md:5284",
+-      "book/The-Incompleteness-of-Observation-FULL.md:5914",
+-      "book/The-Incompleteness-of-Observation-FULL.md:5925",
+-      "book/appendix-b-derivations.md:235",
+-      "book/appendix-b-derivations.md:246",
+-      "book/ch09-universality.md:137",
+-      "book/ch19-open-problems.md:198",
+-      "book/ch19-open-problems.md:212",
+-      "papers/GR.md:58",
+-      "papers/SM.md:1394"
+-     ]
+-    }
+-   },
+-   "expected": "H: 86 deny + 123 final-unclassified = 209 (93 / 216 with sentences); all 95 retired lines FAIL. T1': 0 deny; 12 final-unclassified",
+-   "passed": true
+-  },
+-  "RT-L": {
+-   "actual": {
+-    "exit": 10,
+-    "mutant": [
+-     "delegated-evidence-missing",
+-     "landing-drops-main-change"
+-    ]
+-   },
+-   "expected": "composition PASS; the workflow at L equals W's blob; the mutant with H's copy FAILs landing-drops-main-change",
+-   "passed": true
+-  },
+-  "RT-L2": {
+-   "actual": {
+-    "main": {
+-     "M": "4fb2c1eed350edf95da2b316abcca93717246589",
+-     "exit": 20,
+-     "main_items": [
+-      [
+-       "base-drift",
+-       "AGENTS.md"
+-      ],
+-      [
+-       "side-change-unclassified",
+-       ".claude/settings.json"
+-      ]
+-     ],
+-     "side_changes": [
+-      {
+-       "class": null,
+-       "commit": "4fb2c1eed350edf95da2b316abcca93717246589",
+-       "h": null,
+-       "m": "b7f9b0a6294ff7c4771ffbf85d8c514176cf25c3",
+-       "path": ".claude/settings.json"
+-      },
+-      {
+-       "class": "trial-workflow",
+-       "commit": "413b0bb88f39cad901befcf4684355c7ee39480b",
+-       "h": "dfcfd732b567304db1db5181133da8440a9f4df3",
+-       "m": "bca44ac06691363d10c70e8db2a3d352830488f2",
+-       "path": ".github/workflows/a1exit-trial-verify.yml"
+-      },
+-      {
+-       "class": "base-drift",
+-       "commit": "4fb2c1eed350edf95da2b316abcca93717246589",
+-       "h": "12a9281fb88c14395b6715a3bf4b4f6b030f433c",
+-       "m": "4a34800747d70b338e0040af29127ef2e608118a",
+-       "path": "AGENTS.md",
+-       "reconciled": false
+-      }
+-     ]
+-    },
+-    "predicted": {
+-     "admission": "control-harness: configuration admitted without its review chain",
+-     "exit": 20,
+-     "main_items": [
+-      [
+-       "base-drift",
+-       "AGENTS.md"
+-      ],
+-      [
+-       "side-change-unclassified",
+-       ".claude/settings.json"
+-      ]
+-     ],
+-     "side_changes": [
+-      {
+-       "class": null,
+-       "commit": "4fb2c1eed350edf95da2b316abcca93717246589",
+-       "h": null,
+-       "m": "b7f9b0a6294ff7c4771ffbf85d8c514176cf25c3",
+-       "path": ".claude/settings.json"
+-      },
+-      {
+-       "class": "trial-workflow",
+-       "commit": "413b0bb88f39cad901befcf4684355c7ee39480b",
+-       "h": "dfcfd732b567304db1db5181133da8440a9f4df3",
+-       "m": "bca44ac06691363d10c70e8db2a3d352830488f2",
+-       "path": ".github/workflows/a1exit-trial-verify.yml"
+-      },
+-      {
+-       "class": "base-drift",
+-       "commit": "4fb2c1eed350edf95da2b316abcca93717246589",
+-       "h": "12a9281fb88c14395b6715a3bf4b4f6b030f433c",
+-       "m": "4a34800747d70b338e0040af29127ef2e608118a",
+-       "path": "AGENTS.md",
+-       "reconciled": false
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "f0058b8f27bbae139b5bd2f9b7e15dbd9301ff7d",
+-       "path": "tools/ledger_coverage.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "c2cd5d6697d4a045c34b4e16ef649706e71b8fa4",
+-       "path": "tools/ledger_coverage/__init__.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "def4b3a3a80a6f7e376113de23388f074444db0f",
+-       "path": "tools/ledger_coverage/adapters/__init__.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "6755b09a4b259f965aae7936b0344570d319a7f6",
+-       "path": "tools/ledger_coverage/adapters/a1_controls.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "edef3235a6493c6401efb4c0104dc36aacadfc7e",
+-       "path": "tools/ledger_coverage/adapters/a1exit_exact_edit.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "53c1b93024997b1b62a178ab161a815127237f63",
+-       "path": "tools/ledger_coverage/adapters/a1exit_sitemap.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "f8a8686f1d5f69d29a33c518fa46a31acb6df549",
+-       "path": "tools/ledger_coverage/adapters/artifact_hash.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "4bbbf2df4f88bc0de28fa15f618a0d610429fc93",
+-       "path": "tools/ledger_coverage/adapters/deleg_fingerprint_regen.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "685ff96794e8f3c05544b6ca12feaa98ca51dac0",
+-       "path": "tools/ledger_coverage/adapters/deleg_host_run.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "33ed913b54170cc3dc1659442eded2e54145c581",
+-       "path": "tools/ledger_coverage/adapters/deleg_preserve_check.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "433b85b5d9ca39099dc8f97bf7b78b242d4e0799",
+-       "path": "tools/ledger_coverage/adapters/deleg_record_dir.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "911221de4cecb8c1e6da97ad05a9ab020ebf92ce",
+-       "path": "tools/ledger_coverage/adapters/deleg_rerun_equal.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "b92457fb39cb4de033001deb5ba40e6a9c7d24fa",
+-       "path": "tools/ledger_coverage/adapters/line_patch.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "36239479d6ea38cafe4ce0358021d23a7b91ee8e",
+-       "path": "tools/ledger_coverage/adapters/python_frozen_replay.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "60197bdd3c8e53ea3ed49302b3826ad3631c5bf1",
+-       "path": "tools/ledger_coverage/adapters/synthetic_fixture.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "914d9967bcd70c663cec37ee146c1072b0585f33",
+-       "path": "tools/ledger_coverage/engine/__init__.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "7418e9804af8475de80345d20a071a828e96b3a1",
+-       "path": "tools/ledger_coverage/engine/checker.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "9c20b59a76eb97b3c938302a8b37aad6da6597fb",
+-       "path": "tools/ledger_coverage/engine/cli.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "7f417aa4a934839c861a1655220d43c4fb1dfcf5",
+-       "path": "tools/ledger_coverage/engine/config.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "c9dceab58735a7733969e9cf899a33aeb3b8c0d5",
+-       "path": "tools/ledger_coverage/engine/context.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "ba67bcdfa86a48a93f8a2e3e234cc127601a7bdf",
+-       "path": "tools/ledger_coverage/engine/controls_engine.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "c0f026cb450f1996cecef99d2bf11828cbf4fe6e",
+-       "path": "tools/ledger_coverage/engine/delegation.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "27b6341abd1f7504756a1f29eaffd6df66bce89a",
+-       "path": "tools/ledger_coverage/engine/execution.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "9693f01645aebf4fce78c60c30695cf8e3897520",
+-       "path": "tools/ledger_coverage/engine/gitobj.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "6e043ccb79054b2e1b853aea5dd27eaa0cccb060",
+-       "path": "tools/ledger_coverage/engine/outcome.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "247b8d8d89f343e28e1cf6c6038042f4761665b9",
+-       "path": "tools/ledger_coverage/engine/pipeline.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "4ec49a5ba10ef22aa85322f8642a0a0dbf534821",
+-       "path": "tools/ledger_coverage/engine/profiles.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "7ae89dbca29b9e20951bf676c19290f148eda2cb",
+-       "path": "tools/ledger_coverage/engine/purity.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "fec8cbe9b79d7730fe03360b0ebf3632bbf9bc08",
+-       "path": "tools/ledger_coverage/engine/records.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "2fe7497541e82f4814694158589c7e522ee01ee1",
+-       "path": "tools/ledger_coverage/engine/rules.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "4dcc70317aacdacc2535485c5568f85284cd6f89",
+-       "path": "tools/ledger_coverage/engine/schema.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "b1b8c5c910d08a38b8381b16d99896d8e7b6bd56",
+-       "path": "tools/ledger_coverage/engine/schemas/oi-ledger-coverage-4.schema.json"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "5c17c9f4222a00bc0bb8535691f331b81f2b5878",
+-       "path": "tools/ledger_coverage/engine/segments.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "ab5b28615540768dbfa228e2b3692580c1b7a590",
+-       "path": "tools/ledger_coverage/engine/selftest.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "2d0c14c5403e1a3285814d48588fc9959f9908da",
+-       "path": "tools/ledger_coverage/engine/util.py"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "eb4f2694b6f144b415ee007268f82d9ca2a712cf",
+-       "path": "verification/audits/foundations/ledger-coverage-tool-20261123/README.md"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "957f633b8e5d1ace7fda5ffbd50a11b554d51815",
+-       "path": "verification/audits/foundations/ledger-coverage-tool-20261123/a1exit-retirement-config.json"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "f01f5a99819d211342a2c4bc898087f2b1ddcf03",
+-       "path": "verification/audits/foundations/ledger-coverage-tool-20261123/controls.json"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "c660331e3a41412410c7ce29b1930aa37a3fa356",
+-       "path": "verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "f37662df6787fd1aea08769df6c44c221de07c95",
+-       "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/gr58-hit-classification-v1.json"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "70ff5ac6f7e1b3c6e2127840081a84ac176ba7b7",
+-       "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/repo-scope-v1.json"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "d168ad1d48ce80dd79d37fa5101d0384f94e428e",
+-       "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "3f06edffb2bfb21a1d1d6d13ecfc5208d0154d15",
+-       "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/dr-deny-v1.json"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "ba1cc9117103f11d0cd8c39d0c33e52529fea226",
+-       "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/resid-v1.json"
+-      },
+-      {
+-       "class": "tool-landing",
+-       "commit": "in-memory object (not in the repository)",
+-       "h": null,
+-       "m": "bff7ca4356b5b8badfbe34e20e3016d18759da1f",
+-       "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/w1-w2-allow-v1.json"
+-      }
+-     ]
+-    },
+-    "predicted_chain_admission": {
+-     "exit": 65,
+-     "stop": "CONFIG_UNREVIEWED"
+-    },
+-    "predicted_with_landing": {
+-     "exit": 20,
+-     "main_items": [
+-      [
+-       "base-drift",
+-       "AGENTS.md"
+-      ],
+-      [
+-       "side-change-unclassified",
+-       ".claude/settings.json"
+-      ]
+-     ]
+-    }
+-   },
+-   "expected": "every side change classified and no base-drift (sec. 13.4 sequencing safeguard)",
+-   "finding": "At main 4fb2c1ee the sec. A.49 merge changes AGENTS.md, a ledgered path (splice D296): base-drift. .claude/settings.json is a side change no class covers: side-change-unclassified. Neither is suppressed or relabelled; no baseline was changed.",
+-   "passed": false
+-  },
+-  "RT-T": {
+-   "actual": {
+-    "exit": 20,
+-    "note": "no reviewed record exists; RT-T0 shows the result without them"
+-   },
+-   "expected": "PASS only when every record verifies; any missing record leaves REVIEW_REQUIRED or FAIL",
+-   "passed": true
+-  },
+-  "RT-T0": {
+-   "actual": {
+-    "exit": 20,
+-    "finding_counts": {
+-     "HP/FAIL/context-meaning-unverified": 7,
+-     "HP/FAIL/hp-unadjudicated": 113,
+-     "HP/REVIEW_REQUIRED/context-structure-changed": 7,
+-     "HP/REVIEW_REQUIRED/unclassified": 93,
+-     "RET/FAIL/context-meaning-unverified": 5,
+-     "RET/FAIL/untracked-hp-overlap": 19,
+-     "RET/REVIEW_REQUIRED/context-structure-changed": 3,
+-     "TERMS/REVIEW_REQUIRED/new-pattern-in-replacement": 57,
+-     "TERMS/REVIEW_REQUIRED/unclassified-in-replacement": 50
+-    },
+-    "hit_counts": {
+-     "PASS": 296,
+-     "REVIEW_REQUIRED/new-pattern-in-replacement": 57,
+-     "REVIEW_REQUIRED/unclassified": 93,
+-     "REVIEW_REQUIRED/unclassified-in-replacement": 50
+-    },
+-    "line_attributed_sites": 18,
+-    "merger_groups": 9,
+-    "moved_H_T": 168,
+-    "region_splices_distinct": 31,
+-    "shared_sites": 22,
+-    "site_counts": {
+-     "authorized-removal": 4,
+-     "authorized-replacement": 197,
+-     "hp": 113,
+-     "moved": 168,
+-     "unchanged": 215
+-    }
+-   },
+-   "expected": "FAIL; HP 113/7/3; RET 19/5/3; deny 0; 383 unchanged (168 moved), 197 replaced, 4 removed; 9 merger groups, 22 sites",
+-   "passed": true,
+-   "reference_difference": "HP structure REVIEWs 7, not 3 (as RT-H0)."
+-  },
+-  "RT-X": {
+-   "actual": {
+-    "exit": 10,
+-    "finding_counts": {
+-     "DELEGATED/REVIEW_REQUIRED/delegated-evidence-missing": 7
+-    },
+-    "side_changes": [
+-     {
+-      "class": "trial-workflow",
+-      "commit": "413b0bb88f39cad901befcf4684355c7ee39480b",
+-      "h": "dfcfd732b567304db1db5181133da8440a9f4df3",
+-      "m": "bca44ac06691363d10c70e8db2a3d352830488f2",
+-      "path": ".github/workflows/a1exit-trial-verify.yml"
+-     }
+-    ]
+-   },
+-   "expected": "one side change (the trial workflow) classified; no RET item from it",
+-   "passed": true
+-  },
+-  "S11-1": {
+-   "actual": [
+-    "delegated-evidence-invalid",
+-    "delegated-evidence-missing",
+-    "unauthorized-edit"
+-   ],
+-   "expected": "FAIL unauthorized-edit",
+-   "passed": true
+-  },
+-  "S11-10": {
+-   "actual": [
+-    "delegated-evidence-missing",
+-    "lean-code-change",
+-    "unauthorized-edit"
+-   ],
+-   "expected": "FAIL lean-code-change",
+-   "passed": true
+-  },
+-  "S11-11": {
+-   "actual": "new active file",
+-   "expected": "FAIL final-unclassified",
+-   "passed": true
+-  },
+-  "S11-12": {
+-   "actual": [
+-    "delegated-evidence-missing",
+-    "pin-broken",
+-    "pin-target-missing",
+-    "unauthorized-edit"
+-   ],
+-   "expected": "FAIL pin-broken (a guard-pin splice dropped)",
+-   "passed": true
+-  },
+-  "S11-13": {
+-   "actual": "control evidence states verbose_equal false",
+-   "expected": "FAIL (the re-execution does not reproduce the hand-edited file)",
+-   "passed": true
+-  },
+-  "S11-14": {
+-   "actual": [
+-    "delegated-evidence-missing",
+-    "unauthorized-change"
+-   ],
+-   "expected": "FAIL unauthorized-change",
+-   "passed": true
+-  },
+-  "S11-2a": {
+-   "actual": {
+-    "items_on_new_line": [
+-     "unclassified"
+-    ],
+-    "note": "the mutant of E is not E, so the deny profiles run on it (sec. 2.3) and its retired forms give deny-match FAILs as well",
+-    "run_outcome": "FAIL"
+-   },
+-   "expected": "unclassified new site gives REVIEW_REQUIRED",
+-   "passed": true
+-  },
+-  "S11-2b": {
+-   "actual": [
+-    "missing"
+-   ],
+-   "expected": "dropped Phase-3 site gives FAIL missing",
+-   "passed": true
+-  },
+-  "S11-2c": {
+-   "actual": {
+-    "ck_errors": [
+-     "CK5 X-13 J with S1 'Yes'"
+-    ]
+-   },
+-   "expected": "J row with S1 Yes gives FAIL (op A record_checks)",
+-   "passed": true
+-  },
+-  "S11-3": {
+-   "actual": "",
+-   "expected": "FAIL delegated-evidence-invalid (another head_sha)",
+-   "passed": true
+-  },
+-  "S11-4": {
+-   "actual": "",
+-   "expected": "FAIL (one STALE value differs from the census)",
+-   "passed": true
+-  },
+-  "S11-5": {
+-   "actual": [
+-    [
+-     "deny-match",
+-     "register"
+-    ],
+-    [
+-     "pin-broken",
+-     "None"
+-    ]
+-   ],
+-   "expected": "FAIL deny-match (register)",
+-   "passed": true
+-  },
+-  "S11-6": {
+-   "actual": [
+-    [
+-     "deny-match",
+-     "infinity"
+-    ],
+-    [
+-     "pin-broken",
+-     "None"
+-    ]
+-   ],
+-   "expected": "FAIL deny-match (infinity)",
+-   "passed": true
+-  },
+-  "S11-8": {
+-   "actual": [
+-    "delegated-evidence-missing",
+-    "mirror-mismatch",
+-    "pin-broken",
+-    "unauthorized-edit"
+-   ],
+-   "expected": "FAIL mirror-mismatch",
+-   "passed": true
+-  },
+-  "S11-9": {
+-   "actual": [
+-    "delegated-evidence-missing",
+-    "unauthorized-edit"
+-   ],
+-   "expected": "FAIL unauthorized-edit (15 census splices)",
+-   "passed": true
+-  },
+-  "S1r": {
+-   "actual": "as V7c",
+-   "expected": "REVIEW rule-fingerprint-mismatch",
+-   "passed": true
+-  },
+-  "S2r": {
+-   "actual": [
+-    [
+-     "rule-negative-match",
+-     "W1-c"
+-    ],
+-    [
+-     "rule-stale",
+-     "W1-d"
+-    ]
+-   ],
+-   "expected": "REVIEW rule-stale",
+-   "passed": true
+-  },
+-  "SW1": {
+-   "actual": {
+-    "not_exactly_one_fail": [],
+-    "not_exactly_one_new_fail_against_the_unmutated_tree": [],
+-    "sites": 697
+-   },
+-   "expected": "exactly one FAIL naming each site (697 at E)",
+-   "note": "strict reading: all FAIL items naming the site, including those the unmutated tree already has",
+-   "passed": true
+-  },
+-  "SW2": {
+-   "actual": {
+-    "not_exactly_one_fail": [
+-     [
+-      "book/The-Incompleteness-of-Observation-FULL.md:4895@e837e3db",
+-      [
+-       "context-meaning-unverified",
+-       "unauthorized-change"
+-      ]
+-     ],
+-     [
+-      "book/The-Incompleteness-of-Observation-FULL.md:4905@e837e3db",
+-      [
+-       "context-meaning-unverified",
+-       "unauthorized-change"
+-      ]
+-     ],
+-     [
+-      "book/The-Incompleteness-of-Observation-FULL.md:4919@e837e3db",
+-      [
+-       "context-meaning-unverified",
+-       "unauthorized-change"
+-      ]
+-     ],
+-     [
+-      "book/ch18-beyond.md:164@e837e3db",
+-      [
+-       "context-meaning-unverified",
+-       "unauthorized-change"
+-      ]
+-     ],
+-     [
+-      "book/ch18-beyond.md:174@e837e3db",
+-      [
+-       "context-meaning-unverified",
+-       "unauthorized-change"
+-      ]
+-     ],
+-     [
+-      "book/ch18-beyond.md:188@e837e3db",
+-      [
+-       "context-meaning-unverified",
+-       "unauthorized-change"
+-      ]
+-     ],
+-     [
+-      "papers/Main.md:332@e837e3db",
+-      [
+-       "context-meaning-unverified",
+-       "unauthorized-change"
+-      ]
+-     ]
+-    ],
+-    "not_exactly_one_new_fail_against_the_unmutated_tree": [],
+-    "sites": 584
+-   },
+-   "expected": "exactly one FAIL naming each site (584 at H)",
+-   "note": "strict reading: all FAIL items naming the site, including those the unmutated tree already has",
+-   "passed": false
+-  },
+-  "V1": {
+-   "actual": {
+-    "deny": [
+-     [
+-      "DR-1",
+-      [
+-       "b"
+-      ],
+-      "line"
+-     ],
+-     [
+-      "DR-1",
+-      [
+-       "b"
+-      ],
+-      "sentence"
+-     ]
+-    ],
+-    "exit": 20
+-   },
+-   "expected": "FAIL deny-match by DR-1b",
+-   "passed": true
+-  },
+-  "V10": {
+-   "actual": {
+-    "deny": [
+-     [
+-      "DR-1",
+-      [
+-       "a"
+-      ],
+-      "line"
+-     ],
+-     [
+-      "DR-1",
+-      [
+-       "a"
+-      ],
+-      "sentence"
+-     ]
+-    ],
+-    "exit": 20
+-   },
+-   "expected": "FAIL deny-match by DR-1a",
+-   "passed": true
+-  },
+-  "V11": {
+-   "actual": {
+-    "deny": [
+-     [
+-      "DR-1",
+-      [
+-       "a"
+-      ],
+-      "line"
+-     ],
+-     [
+-      "DR-1",
+-      [
+-       "a"
+-      ],
+-      "sentence"
+-     ]
+-    ],
+-    "exit": 20
+-   },
+-   "expected": "FAIL deny-match by DR-1a",
+-   "passed": true
+-  },
+-  "V12": {
+-   "actual": {
+-    "deny": [
+-     [
+-      "DR-1",
+-      [
+-       "a"
+-      ],
+-      "line"
+-     ],
+-     [
+-      "DR-1",
+-      [
+-       "a"
+-      ],
+-      "sentence"
+-     ]
+-    ],
+-    "exit": 20
+-   },
+-   "expected": "FAIL deny-match by DR-1a",
+-   "passed": true
+-  },
+-  "V13": {
+-   "actual": {
+-    "deny": [
+-     [
+-      "DR-1",
+-      [
+-       "c"
+-      ],
+-      "line"
+-     ],
+-     [
+-      "DR-1",
+-      [
+-       "c"
+-      ],
+-      "sentence"
+-     ]
+-    ],
+-    "exit": 20
+-   },
+-   "expected": "FAIL deny-match by DR-1c",
+-   "passed": true
+-  },
+-  "V14": {
+-   "actual": [
+-    true,
+-    true,
+-    true,
+-    true
+-   ],
+-   "expected": "FAIL deny-match DR-1c, each of four",
+-   "passed": true
+-  },
+-  "V15": {
+-   "actual": {
+-    "hits": [
+-     [
+-      "resid"
+-     ]
+-    ],
+-    "items": [
+-     [
+-      "unclassified",
+-      [
+-       "resid"
+-      ]
+-     ]
+-    ]
+-   },
+-   "expected": "REVIEW unclassified via resid only",
+-   "passed": true
+-  },
+-  "V16": {
+-   "actual": {
+-    "deny": [
+-     [
+-      "DR-4",
+-      [
+-       "a"
+-      ],
+-      "line"
+-     ],
+-     [
+-      "DR-4",
+-      [
+-       "a"
+-      ],
+-      "sentence"
+-     ]
+-    ],
+-    "exit": 20
+-   },
+-   "expected": "FAIL deny-match by DR-4a",
+-   "passed": true
+-  },
+-  "V17": {
+-   "actual": {
+-    "deny": [
+-     [
+-      "DR-4",
+-      [
+-       "a"
+-      ],
+-      "line"
+-     ],
+-     [
+-      "DR-4",
+-      [
+-       "a"
+-      ],
+-      "sentence"
+-     ]
+-    ],
+-    "exit": 20
+-   },
+-   "expected": "FAIL deny-match by DR-4a",
+-   "passed": true
+-  },
+-  "V18": {
+-   "actual": {
+-    "deny": [
+-     [
+-      "DR-4",
+-      [
+-       "a"
+-      ],
+-      "line"
+-     ],
+-     [
+-      "DR-4",
+-      [
+-       "a"
+-      ],
+-      "sentence"
+-     ]
+-    ],
+-    "exit": 20
+-   },
+-   "expected": "FAIL deny-match by DR-4a",
+-   "passed": true
+-  },
+-  "V19": {
+-   "actual": {
+-    "deny": [
+-     [
+-      "DR-5",
+-      [
+-       "a"
+-      ],
+-      "line"
+-     ],
+-     [
+-      "DR-5",
+-      [
+-       "a"
+-      ],
+-      "sentence"
+-     ]
+-    ],
+-    "exit": 20
+-   },
+-   "expected": "FAIL deny-match by DR-5a",
+-   "passed": true
+-  },
+-  "V2": {
+-   "actual": [
+-    [
+-     "deny-match",
+-     "DR-3"
+-    ],
+-    [
+-     "deny-match",
+-     "W1-d"
+-    ],
+-    [
+-     "rule-negative-match",
+-     "W1-c"
+-    ],
+-    [
+-     "rule-stale",
+-     "W1-d"
+-    ]
+-   ],
+-   "expected": "FAIL deny-match DR-3",
+-   "passed": true
+-  },
+-  "V20": {
+-   "actual": {
+-    "deny": [
+-     [
+-      "DR-3",
+-      [
+-       "count",
+-       "tail"
+-      ],
+-      "sentence"
+-     ]
+-    ],
+-    "exit": 20
+-   },
+-   "expected": "FAIL deny-match by DR-3",
+-   "passed": true
+-  },
+-  "V21": {
+-   "actual": {
+-    "hits": [
+-     [
+-      "resid"
+-     ]
+-    ],
+-    "items": [
+-     [
+-      "unclassified",
+-      [
+-       "resid"
+-      ]
+-     ]
+-    ]
+-   },
+-   "expected": "REVIEW unclassified via resid only",
+-   "passed": true
+-  },
+-  "V22": {
+-   "actual": {
+-    "literal_exit": 20,
+-    "rules": [
+-     "DR-5"
+-    ]
+-   },
+-   "expected": "FAIL deny-match DR-5; the literal item 7 fails too",
+-   "passed": true
+-  },
+-  "V23": {
+-   "actual": [
+-    [
+-     "final-unclassified",
+-     [
+-      "ptr"
+-     ]
+-    ]
+-   ],
+-   "expected": "FAIL final-unclassified (ptr hit; no deny)",
+-   "passed": true
+-  },
+-  "V24": {
+-   "actual": [
+-    [
+-     "final-unclassified",
+-     [
+-      "count-grep"
+-     ]
+-    ]
+-   ],
+-   "expected": "FAIL final-unclassified (count-grep hit; no deny)",
+-   "passed": true
+-  },
+-  "V25": {
+-   "actual": {
+-    "resid_final": [
+-     "unclassified"
+-    ],
+-    "v23": [
+-     "unclassified"
+-    ],
+-    "v24": [
+-     "unclassified"
+-    ],
+-    "w2_states": [
+-     "PASS",
+-     "PASS"
+-    ]
+-   },
+-   "expected": "without --final REVIEW; W2 line with its rule under --final PASS; resid-only stays REVIEW under --final",
+-   "passed": true
+-  },
+-  "V26": {
+-   "actual": [
+-    [
+-     true,
+-     {
+-      "resid": [
+-       "b"
+-      ]
+-     }
+-    ],
+-    [
+-     true,
+-     {
+-      "resid": [
+-       "b"
+-      ]
+-     }
+-    ],
+-    [
+-     true,
+-     {
+-      "resid": [
+-       "b"
+-      ]
+-     }
+-    ],
+-    [
+-     true,
+-     {
+-      "resid": [
+-       "b"
+-      ]
+-     }
+-    ],
+-    [
+-     true,
+-     {
+-      "resid": [
+-       "c"
+-      ]
+-     }
+-    ]
+-   ],
+-   "expected": "REVIEW unclassified each, resid (b, b, b, b, c)",
+-   "passed": true
+-  },
+-  "V27": {
+-   "actual": {
+-    "hits": [],
+-    "items": []
+-   },
+-   "expected": "PASS (no hit); accepted residual (sec. 1, sec. 15 items 2 and 3)",
+-   "passed": true
+-  },
+-  "V27-glossary": {
+-   "actual": {
+-    "hits": [],
+-    "items": [],
+-    "line": "**Background independence (A6).** The framework's sixth structural property is finiteness of the substratum: the substratum dynamics is cova"
+-   },
+-   "expected": "PASS (no hit) as the edited glossary.md:13 line",
+-   "passed": true
+-  },
+-  "V3": {
+-   "actual": {
+-    "deny": [
+-     [
+-      "DR-4",
+-      [
+-       "a"
+-      ],
+-      "line"
+-     ],
+-     [
+-      "DR-4",
+-      [
+-       "a"
+-      ],
+-      "sentence"
+-     ]
+-    ],
+-    "exit": 20
+-   },
+-   "expected": "FAIL deny-match by DR-4a",
+-   "passed": true
+-  },
+-  "V3-countercontrol": {
+-   "actual": {
+-    "review_without_final": 95
+-   },
+-   "expected": "without --final each of the 95 is REVIEW (unclassified); with --final FAIL (RT-I7A)",
+-   "passed": true
+-  },
+-  "V4": {
+-   "actual": {
+-    "hits": [],
+-    "items": []
+-   },
+-   "expected": "PASS (no hit); accepted residual (sec. 1, sec. 15 items 2 and 3)",
+-   "passed": true
+-  },
+-  "V5": {
+-   "actual": {
+-    "deny": [
+-     [
+-      "DR-4",
+-      [
+-       "a"
+-      ],
+-      "line"
+-     ],
+-     [
+-      "DR-4",
+-      [
+-       "a"
+-      ],
+-      "sentence"
+-     ]
+-    ],
+-    "exit": 20
+-   },
+-   "expected": "FAIL deny-match by DR-4a",
+-   "passed": true
+-  },
+-  "V6": {
+-   "actual": [
+-    "DR-1",
+-    "DR-3"
+-   ],
+-   "expected": "FAIL deny-match DR-1b and DR-3",
+-   "passed": true
+-  },
+-  "V7a": {
+-   "actual": [
+-    [
+-     "rule-negative-match",
+-     "W1-d"
+-    ]
+-   ],
+-   "expected": "FAIL rule-negative-match (W1's negative matcher)",
+-   "passed": true
+-  },
+-  "V7b": {
+-   "actual": [
+-    [
+-     "unclassified",
+-     [
+-      "count-grep",
+-      "p0-core"
+-     ]
+-    ]
+-   ],
+-   "expected": "REVIEW unclassified (p0-core and count-grep hits, no rule)",
+-   "passed": true
+-  },
+-  "V7c": {
+-   "actual": [
+-    [
+-     "rule-fingerprint-mismatch",
+-     "W1-b"
+-    ]
+-   ],
+-   "expected": "REVIEW rule-fingerprint-mismatch",
+-   "passed": true
+-  },
+-  "V9": {
+-   "actual": {
+-    "deny": [
+-     [
+-      "DR-1",
+-      [
+-       "a"
+-      ],
+-      "line"
+-     ],
+-     [
+-      "DR-1",
+-      [
+-       "a"
+-      ],
+-      "sentence"
+-     ]
+-    ],
+-    "exit": 20
+-   },
+-   "expected": "FAIL deny-match by DR-1a",
+-   "passed": true
+-  },
+-  "X1": {
+-   "actual": {
+-    "exit": 65,
+-    "stop": "PIN_MISMATCH"
+-   },
+-   "expected": "ERROR PIN_MISMATCH, exit 65",
+-   "passed": true
+-  },
+-  "Y8": {
+-   "actual": {
+-    "a1": "204a2d8b09ca63983e42f4eec8db82d266a3dc56f0b8cf054770ddf4f7bed81e",
+-    "synthetic": "PLACEHOLDER"
+-   },
+-   "expected": "identical engine hash recorded for the A1 and the synthetic configuration",
+-   "passed": false
+-  },
+-  "Z9g": {
+-   "actual": [],
+-   "expected": "the real engine tree: lint PASS",
+-   "passed": true
+-  },
+-  "item11-T1p": {
+-   "actual": {
+-    "exit": 20,
+-    "final_unclassified": 172,
+-    "hit_pass": 4,
+-    "of_them_corpus": 14
+-   },
+-   "expected": "FAIL final-unclassified for each of the 176 lines (sec. 8.2) until each has an exact rule",
+-   "passed": true
+-  }
+- },
+- "determinism": {
+-  "byte_identical": true,
+-  "run1": "89aaf46e503fb28c321b705729852ccb01d755ff167fdb11638239b6d348d595",
+-  "run2": "89aaf46e503fb28c321b705729852ccb01d755ff167fdb11638239b6d348d595",
+-  "size": 1257733
+- },
+- "engine_blob_sha256": "204a2d8b09ca63983e42f4eec8db82d266a3dc56f0b8cf054770ddf4f7bed81e",
+- "engine_controls": {
+-  "A5r-generic": true,
+-  "B1": true,
+-  "B2": true,
+-  "B3": true,
+-  "B4": true,
+-  "B5": true,
+-  "B6": true,
+-  "E-A1r": true,
+-  "E-A2r": true,
+-  "E-A3r": true,
+-  "E-A6r": true,
+-  "E-A8r": true,
+-  "E-L1": true,
+-  "E-L3": true,
+-  "E-S1r": true,
+-  "E-S2r": true,
+-  "H1": true,
+-  "H2": true,
+-  "H3": true,
+-  "H4": true,
+-  "H5": true,
+-  "H6": true,
+-  "H7": true,
+-  "K1": true,
+-  "K2": true,
+-  "K3": true,
+-  "K4": true,
+-  "K5": true,
+-  "K6": true,
+-  "K7": true,
+-  "K8": true,
+-  "K9": true,
+-  "M1": true,
+-  "M11": true,
+-  "M2": true,
+-  "M3": true,
+-  "M4": true,
+-  "M5": true,
+-  "M6": true,
+-  "N1": true,
+-  "N2": true,
+-  "O1": true,
+-  "O2": true,
+-  "O3": true,
+-  "O4": true,
+-  "O5": true,
+-  "O6": true,
+-  "O7": true,
+-  "O8": true,
+-  "O9": true,
+-  "R1": true,
+-  "R10": true,
+-  "R11": true,
+-  "R12": true,
+-  "R13": true,
+-  "R14": true,
+-  "R15": true,
+-  "R2": true,
+-  "R3": true,
+-  "R4": true,
+-  "R5": true,
+-  "R6": true,
+-  "R7": true,
+-  "R8": true,
+-  "R9": true,
+-  "RL": true,
+-  "U1": true,
+-  "U10": true,
+-  "U11": true,
+-  "U12": true,
+-  "U13": true,
+-  "U14": true,
+-  "U15": true,
+-  "U2": true,
+-  "U3": true,
+-  "U4": true,
+-  "U5": true,
+-  "U6": true,
+-  "U7": true,
+-  "U8": true,
+-  "U9": true,
+-  "lint-ok": true,
+-  "rule-negative": true
+- },
+- "notes": {
+-  "RT-L2": "The predicted main has base-drift on AGENTS.md and an unclassified side change .claude/settings.json; reported, not suppressed.",
+-  "SW2": "Strict reading fails on 7 sites that already carry an E..H context FAIL at the unmutated H; every one of the 584 sites gains exactly one new FAIL.",
+-  "Y8": "The runner compared against a placeholder; the recorded A1 engine hash equals the synthetic engine hash (identical engine blob)."
+- },
+- "schema": "oi-ledger-coverage-stage1-evidence/1",
+- "status": "UNREVIEWED: control results of the Stage 1 implementation, produced by the implementation writer. The A1 controls ran through the control harness, which admits the draft configuration without its review chain. No result here is an acceptance of any check of the retirement plan.",
+- "synthetic_controls": {
+-  "M10": true,
+-  "S7-schema-and-checker": true,
+-  "X10": true,
+-  "X2": true,
+-  "X3": true,
+-  "X4": true,
+-  "X5": true,
+-  "X6": true,
+-  "X7": true,
+-  "X8": true,
+-  "X9": true,
+-  "Y1": true,
+-  "Y10": true,
+-  "Y2": true,
+-  "Y3": true,
+-  "Y4": true,
+-  "Y5": true,
+-  "Y6": true,
+-  "Y7": true,
+-  "Y9": true,
+-  "Z1": true,
+-  "Z10": true,
+-  "Z2": true,
+-  "Z3": true,
+-  "Z4": true,
+-  "Z5": true,
+-  "Z6": true,
+-  "Z6b": true,
+-  "Z7": true,
+-  "Z8": true,
+-  "Z9a": true,
+-  "Z9b": true,
+-  "Z9c": true,
+-  "Z9d": true,
+-  "Z9e": true,
+-  "Z9f": true
+- },
+- "synthetic_details": {
+-  "_S7_bad": [],
+-  "_X7_exit": 71,
+-  "_Y8_engine": "204a2d8b09ca63983e42f4eec8db82d266a3dc56f0b8cf054770ddf4f7bed81e",
+-  "_Z10_detail": {
+-   "v1": [
+-    "context-meaning-unverified",
+-    "provenance-foreign"
+-   ],
+-   "v2_hp_only": [
+-    65,
+-    "CONFIG_UNREVIEWED"
+-   ],
+-   "v2_no_widening_review": [
+-    65,
+-    "CONFIG_UNREVIEWED"
+-   ],
+-   "v2_with_widening_review": [
+-    20,
+-    [
+-     "context-meaning-unverified"
+-    ]
+-   ]
+-  }
+- },
+- "tested_commits": {
+-  "a1_controls_and_determinism": "6f1ff70fc3c1c2965f9e781cd458babb27df4ae9",
+-  "engine_self_test_and_synthetic": "aff3cf08761fe5f1c340c26dd8fbb840953f1108"
+- }
+-}
+diff --git a/verification/audits/foundations/ledger-coverage-tool-20261123/freeze/freeze-ledger.json b/verification/audits/foundations/ledger-coverage-tool-20261123/freeze/freeze-ledger.json
+deleted file mode 100644
+index 91bc5aabc..000000000
+--- a/verification/audits/foundations/ledger-coverage-tool-20261123/freeze/freeze-ledger.json
++++ /dev/null
+@@ -1,5 +0,0 @@
+-{
+- "schema": "oi-freeze-ledger/1",
+- "status": "UNREVIEWED DRAFT: the empty freeze ledger, to land on main with the authority record through the authority-change procedure (design sec. 6.3). It holds no events.",
+- "events": []
+-}
+diff --git a/verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json b/verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json
+index ad5535e2a..6ef7c8911 100644
+--- a/verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json
++++ b/verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json
+@@ -34,8 +34,8 @@
+     },
+     {
+      "path": "tools/ledger_coverage/adapters/a1_controls.py",
+-     "git_blob": "253f35fc03fefb3f5caa293d8e9228c67405ad7a",
+-     "blob_sha256": "d782fd98f09b40063c6bdaf4ea98ab24251a628fe85b71747592f34de95034d0"
++     "git_blob": "65467b97f99ffa206e8043ded7a6f0e04a67e07e",
++     "blob_sha256": "cdbd1e263bc60ef1469457018327a20d1c1a80f4c9736162fbd74d45400d8e80"
+     },
+     {
+      "path": "tools/ledger_coverage/adapters/a1exit_exact_edit.py",
+@@ -54,8 +54,8 @@
+     },
+     {
+      "path": "tools/ledger_coverage/adapters/conformance_controls.py",
+-     "git_blob": "3d3906d1753a1e5ec980b6c0f53f220dee5e7c28",
+-     "blob_sha256": "232938ff672e4d864e17f726b9fd7890071a488b53adb054bbe69ac272c145b0"
++     "git_blob": "c2ebddc28faede485caa1bd14205813cb61a320f",
++     "blob_sha256": "f3b7e0daa82cb026285269ef2f02f3876a50c95754bfe42b50949edc0f939d24"
+     },
+     {
+      "path": "tools/ledger_coverage/adapters/deleg_fingerprint_regen.py",
+@@ -97,6 +97,11 @@
+      "git_blob": "36239479d6ea38cafe4ce0358021d23a7b91ee8e",
+      "blob_sha256": "79ad93539fb24ba9bce8ece8c140fdfbaf38dbcb9b38d60a5327bfd41b2e2b0a"
+     },
++    {
++     "path": "tools/ledger_coverage/adapters/rest_fixture.py",
++     "git_blob": "478864a5f4ec10ac3faa7f5f1472f8263c5631a2",
++     "blob_sha256": "e7746dbb1910bd179c18c2bb66a46b668d4b7948f4f7c67d7761d60526a73675"
++    },
+     {
+      "path": "tools/ledger_coverage/adapters/staged_purity_lint.py",
+      "git_blob": "ae8b3fcd467feee4b323b2db576f3417bdb8d56f",
+@@ -107,11 +112,6 @@
+      "git_blob": "b1a4a32739d827bdc9965567f6c24b6aa01a0252",
+      "blob_sha256": "27fcaed30e88935094f0b657b3839e7437ded7544674d475be6b02f64b947cb8"
+     },
+-    {
+-     "path": "tools/ledger_coverage/authority.json",
+-     "git_blob": "f75196026ac18aa49f4ad5da3a1a988976bc9bcc",
+-     "blob_sha256": "73de1d89e43d00eb9a43dc63b155f06e76db306ad1c709ab5c3b736aa38f7455"
+-    },
+     {
+      "path": "tools/ledger_coverage/engine/__init__.py",
+      "git_blob": "914d9967bcd70c663cec37ee146c1072b0585f33",
+@@ -164,8 +164,8 @@
+     },
+     {
+      "path": "tools/ledger_coverage/engine/host.py",
+-     "git_blob": "d13ee0ec6cffce0961b9d173a833af1af17f973f",
+-     "blob_sha256": "de27b681048b8b887965ea7263b5cab7eac14779bdbf953c66281954660dd2d1"
++     "git_blob": "5e5d4bb930b7ce01fbd4ceb64acf1c7f8b1ba496",
++     "blob_sha256": "6e81dc3cb8a10de8b243880865f6b4f45591531ed3f44baf06be5e55ae1d4d94"
+     },
+     {
+      "path": "tools/ledger_coverage/engine/outcome.py",
+@@ -189,8 +189,8 @@
+     },
+     {
+      "path": "tools/ledger_coverage/engine/purity.py",
+-     "git_blob": "36d0ec95b6c905455709b90c5984b2a2d6a55343",
+-     "blob_sha256": "ae9fffc5c1423e72e0b6d5e7470b418186a985258f8d321ce854695419c1fdb1"
++     "git_blob": "0a79fd192acf14f9d0cff3ba5de089bdea0fa4d4",
++     "blob_sha256": "b38bb501c4f0bfdd2c864739f5352af4ae49dba01a24d6a367f30f392d2dbe6b"
+     },
+     {
+      "path": "tools/ledger_coverage/engine/reconcile.py",
+@@ -239,8 +239,8 @@
+     },
+     {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/README.md",
+-     "git_blob": "277473aaf066b7e1d531b14ce416a95b837d5003",
+-     "blob_sha256": "bb41e58bfae0efb4c7b4a55dca89e590cf71615095b9ba189f64da24a89ca7a6"
++     "git_blob": "e339072b12d66631b3afb83e5612f88020223603",
++     "blob_sha256": "e8cdbe64457fd4e5441f9f9c63c3cca5555da50e20883144687e104164df7cf7"
+     },
+     {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/controls.json",
+@@ -252,16 +252,6 @@
+      "git_blob": "fa9762fb2e8ca7b384fe6702d55ceb6359a2df32",
+      "blob_sha256": "015826146fd01b9f5ebc5ae8b1966f700e2f964b8989203d66b75e36e032f65c"
+     },
+-    {
+-     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/evidence/stage1-controls.json",
+-     "git_blob": "544f8bc9622273fb04bb709161083d808957eded",
+-     "blob_sha256": "7ed1e6240de929370c30bc1075f2e437b4f67bab3814f3d0849c83a7b5d72758"
+-    },
+-    {
+-     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/freeze/freeze-ledger.json",
+-     "git_blob": "91bc5aabc4879c5e96bf58de1baaf31ea6ac100e",
+-     "blob_sha256": "2f56e6911e0af26d777859f5dce6daa54731a789c11c982a4273da2798059339"
+-    },
+     {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/gr58-hit-classification-v1.json",
+      "git_blob": "f37662df6787fd1aea08769df6c44c221de07c95",
+@@ -291,11 +281,6 @@
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/w1-w2-allow-v1.json",
+      "git_blob": "bf1882fb74938164d67602f5d482f9dd2d09ff49",
+      "blob_sha256": "0cbb97c98725cba618598650b0cd9c687c97e280b3422c4ad6e62794a222b171"
+-    },
+-    {
+-     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/workflow-draft/ledger-coverage.yml",
+-     "git_blob": "597fd397590e19e5b63a1009497a9fd68fa127dc",
+-     "blob_sha256": "05bd76faa21138ca47f9d628dc52c507ef5ec86d40941d4970b98f7eed00f461"
+     }
+    ],
+    "reason": "this tool's landing paths (design sec. 12.3), each bound to its exact blob (sec. 13.1, V3); the prefixes only say where such paths may lie"
+diff --git a/verification/audits/foundations/ledger-coverage-tool-20261123/workflow-draft/ledger-coverage.yml b/verification/audits/foundations/ledger-coverage-tool-20261123/workflow-draft/ledger-coverage.yml
+deleted file mode 100644
+index 597fd3975..000000000
+--- a/verification/audits/foundations/ledger-coverage-tool-20261123/workflow-draft/ledger-coverage.yml
++++ /dev/null
+@@ -1,79 +0,0 @@
+-# UNREVIEWED DRAFT of the one workflow whose runs may produce an acceptable result (design sec. 6.3, A-D4, V3).
+-# It is drafted here because the tool's landing paths do not include .github/workflows/ (sec. 12.3); the
+-# authority record pins its content hash under the path .github/workflows/ledger-coverage.yml, where it must
+-# land, unchanged, through its own reviewed change. It is not active in this directory.
+-name: ledger-coverage
+-on:
+-  workflow_dispatch:
+-    inputs:
+-      operation:
+-        description: coverage, execution or terms
+-        required: true
+-      arguments:
+-        description: the operation's arguments (commits as full ids), without --out
+-        required: true
+-      plan:
+-        required: true
+-      round:
+-        required: true
+-      freeze:
+-        required: true
+-permissions:
+-  contents: read
+-  issues: read
+-  pull-requests: read
+-  actions: read
+-jobs:
+-  run:
+-    runs-on: ubuntu-latest
+-    timeout-minutes: 360
+-    steps:
+-      - name: check out exactly the run's head
+-        run: |
+-          git init -q work
+-          cd work
+-          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+-          git -c http.extraheader="AUTHORIZATION: bearer ${{ secrets.GITHUB_TOKEN }}" fetch -q origin \
+-            '+refs/heads/main:refs/remotes/origin/main' "${GITHUB_SHA}"
+-          git checkout -q --detach "${GITHUB_SHA}"
+-          test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
+-      - name: verify the tool blobs against the authority record before executing
+-        working-directory: work
+-        run: |
+-          python3 -I -B - <<'PY'
+-          import hashlib, json, subprocess, sys
+-          a = json.loads(subprocess.run(['git', 'show', 'origin/main:tools/ledger_coverage/authority.json'],
+-                                        capture_output=True, check=True).stdout)
+-          tracked = subprocess.run(['git', 'ls-files', 'tools/ledger_coverage', 'tools/ledger_coverage.py'],
+-                                   capture_output=True, text=True, check=True).stdout.split()
+-          extra = [p for p in tracked if p not in a['engine_pins'] and p != 'tools/ledger_coverage/authority.json']
+-          bad = [p for p, h in a['engine_pins'].items()
+-                 if hashlib.sha256(open(p, 'rb').read()).hexdigest() != h]
+-          if extra or bad:
+-              sys.exit('tool blobs differ from the authority record: extra %s, changed %s' % (extra, bad))
+-          PY
+-      - name: run the tool from this tree only
+-        working-directory: work
+-        env:
+-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+-          OPERATION: ${{ inputs.operation }}
+-          ARGUMENTS: ${{ inputs.arguments }}
+-          PLAN: ${{ inputs.plan }}
+-          ROUND: ${{ inputs.round }}
+-          FREEZE: ${{ inputs.freeze }}
+-        run: |
+-          set +e
+-          # shellcheck disable=SC2086
+-          python3 -I -B tools/ledger_coverage.py "$OPERATION" $ARGUMENTS --freeze "$FREEZE" --plan "$PLAN" \
+-            --round "$ROUND" --out "$RUNNER_TEMP/out"
+-          echo "status=$?" >> "$GITHUB_OUTPUT"
+-          exit 0
+-        id: tool
+-      - name: upload the result
+-        uses: actions/upload-artifact@v4
+-        with:
+-          name: ledger-coverage-result
+-          path: ${{ runner.temp }}/out/result.json
+-          if-no-files-found: error
+-      - name: the tool's exit status decides the job
+-        run: test "${{ steps.tool.outputs.status }}" = "0"

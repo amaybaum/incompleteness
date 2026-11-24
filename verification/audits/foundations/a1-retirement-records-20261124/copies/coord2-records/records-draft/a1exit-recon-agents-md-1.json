@@ -1,0 +1,172 @@
+{
+  "schema": "oi-reconciliation/1",
+  "draft_status": "UNREVIEWED, UNAUTHORIZED DRAFT. Not a record under DESIGN-v5.1 sec. 6.3: it has no independent review and no owner authorization, and the tool must treat it as record-invalid. Field names follow DRIFT-RECONCILIATION-PROPOSAL-r2.md and must be reconciled with the schema implemented in Stage 1 before review. The audit directory name is a placeholder.",
+  "id": "a1exit-recon-agents-md-1",
+  "supersedes": null,
+  "author": "<PLACEHOLDER: writer session>",
+  "scientific_base": "53c6601a10419b6b333cc992474272501ab542af",
+  "main": {
+    "computed_at": "4fb2c1eed350edf95da2b316abcca93717246589",
+    "applies_while": "at every run (the pre-landing safeguard, F, landing) main is resolved by git ls-remote origin refs/heads/main and the record applies only if R1-R11 hold there: in particular AGENTS.md at that main equals paths[0].blobs.M and the first-parent commits on H..main that change AGENTS.md equal side_change_commits. The record names no later main commit, so the tool's own landing and the plan amendment do not change it; a different AGENTS.md blob means a new record with supersedes"
+  },
+  "ledger": {
+    "path": "verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+    "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+    "blob_sha256": "2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5",
+    "git_blob": "ba37c1cdb560cb5fceeeb2b46a3091c832b4a80e",
+    "note": "the ledger as frozen at P; at F, the ledger pinned in F's table"
+  },
+  "edits": {
+    "path": "verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+    "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+    "blob_sha256": "528f146d03b29cbc3d7dc29948e3dd1d4cd26f4d36e6e009f032e24f9462dec1"
+  },
+  "paths": [
+    {
+      "path": "AGENTS.md",
+      "class": "ledgered",
+      "side_change_commits": [
+        "4fb2c1eed350edf95da2b316abcca93717246589"
+      ],
+      "blobs": {
+        "H": {
+          "git": "12a9281fb88c14395b6715a3bf4b4f6b030f433c",
+          "sha256": "d87acac54b5f6392af3323630236d98b14bb4d485d10c0ff56b20806b0883e27",
+          "bytes": 102250
+        },
+        "M": {
+          "git": "4a34800747d70b338e0040af29127ef2e608118a",
+          "sha256": "f75e0d58b358f5b7e2c08a0990ea372ff496f9cd640740abbb9a5ebbc7b2eb80",
+          "bytes": 104517
+        }
+      },
+      "main_changes": [
+        {
+          "op": "insert",
+          "main_bytes": [
+            46677,
+            47031
+          ],
+          "main_lines": [
+            715,
+            718
+          ],
+          "after_H_line": 714
+        },
+        {
+          "op": "insert",
+          "main_bytes": [
+            102604,
+            104517
+          ],
+          "main_lines": [
+            1524,
+            1551
+          ],
+          "after_H_line": 1519
+        }
+      ],
+      "common_prefix_H_M_bytes": 46677,
+      "splices": [
+        {
+          "id": "D296",
+          "start_H": 2332,
+          "end_H": 2382,
+          "start_M": 2332,
+          "end_M": 2382,
+          "translation": "identity",
+          "old_sha256": "8711166bd781e39db75b410808aa17a00d5decf5f6f58544d3eacf459da00e6f",
+          "new_sha256": "532c5919b0acfcb31e0c16b799e1b2832b1c07a77d2865d136267c044e9cf051",
+          "old_count_H": 1,
+          "old_count_M": 1,
+          "char_offset_H": 2305,
+          "lines": [
+            37,
+            38
+          ]
+        }
+      ],
+      "protected": [
+        {
+          "name": "§A.49",
+          "header": "## §A.49",
+          "start_M": 102610,
+          "end_M": 104517,
+          "sha256": "07c69d0b45cc750fe5bb77b10feab331dc719e70352f8eaeddecb6532c58107e"
+        }
+      ],
+      "expected": {
+        "X": {
+          "git": "9f4fc3e830707c90ffc105842d26d5b51f01760b",
+          "sha256": "59b68984e659ef808819e02d4653d80388f8bd2f4c009796b162fc2453882ce2",
+          "equals": "ledger files.AGENTS.md.expected_sha256; AGENTS.md at T1' 14ac71b4b0a0c0aa2d7068d6799a73f474097060"
+        },
+        "L": {
+          "git": "4075b78a1fc7cb39ed83d446822d699b21d83cb8",
+          "sha256": "31bf9ac238e8017d48e8c03b2aaec396e2f38e3c2f7472fdb5df4d1ab8c5d720",
+          "bytes": 104494
+        }
+      },
+      "length_delta": -23,
+      "resolution": "L:AGENTS.md = main's AGENTS.md with C's splices applied at main-translated offsets, each old_sha256 re-verified against main (DESIGN-v5.1 sec. 13.1; v2 sec. 13.2 'both changed')"
+    }
+  ],
+  "unchanged_ledgered": {
+    "count": 43,
+    "rule": "blob at main equals blob at H, and sha256 equals base_sha256, for every other ledger files entry"
+  },
+  "unchanged_corpus": {
+    "rule": "git diff --name-status H main lists no papers/ or book/ path and no generated corpus artifact (evaluated at run time; not a recorded list)"
+  },
+  "side_change_classes": [
+    {
+      "path": "verification/audits/<TOOL-AUDIT-DIR>/a1exit-scc-tool-configuration-1.json",
+      "blob_sha256": "d225a6663fda78dc4a28da6776942bbdede5aeb8e8ae01ae20adbd4f9801ecab",
+      "git_blob": "baf74eff0b190fe4c8174fbe53799e96ce63a737"
+    },
+    {
+      "path": "verification/audits/<TOOL-AUDIT-DIR>/a1exit-scc-trial-workflow-1.json",
+      "blob_sha256": "bc23c80f08bee5596797ef25fd5ec5aa9e463de35931e62ee91d3c74eec60674",
+      "git_blob": "7c28e8b7f7c25fc1b282bc45292f883617ee6476"
+    }
+  ],
+  "changes_decisions_on_X": [],
+  "items": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10",
+    "R11",
+    "R12"
+  ],
+  "item_text": {
+    "R1": "main resolved by git ls-remote at F; H on main's first-parent chain; first-parent commits on H..main changing AGENTS.md equal side_change_commits",
+    "R2": "AGENTS.md blob at main equals blobs.M",
+    "R3": "overlapping occurrence count of D296 old bytes at H is 1, at start_H; sha256(H[start_H:end_H]) = old_sha256",
+    "R4": "the same at main: count 1 at start_M; sha256(main[start_M:end_M]) = old_sha256",
+    "R5": "common prefix of H and main >= end_H, so translation is identity (else the recorded delta equals the length change before start_H, and no main_changes range meets [start_M,end_M))",
+    "R6": "Lx = main[:start_M]+new+main[end_M:]; Lx[start_M:start_M+len(new)] = new; sha256(new) = new_sha256; lines 36-39 of Lx equal those of H+D296 (T1')",
+    "R7": "git blob id and sha256 of Lx equal expected.L",
+    "R8": "git blob id and sha256 of H+D296 equal expected.X and the ledger's expected_sha256",
+    "R9": "'## §A.49' occurs once in main and in Lx, at a >= end_M; Lx[a+delta:b+delta] = main[a:b] with the recorded sha256; and Lx[end_M+delta:] = main[end_M:]",
+    "R10": "every other ledgered file unchanged H..main and equal to its base_sha256",
+    "R11": "no corpus path changed H..main; every other changed path is covered by a referenced side-change class record (or another reviewed class record, such as the tool's landing paths or the plan amendment's paths)",
+    "R12": "changes_decisions_on_X is empty"
+  },
+  "ownership_chain": {
+    "review_record": "<PLACEHOLDER: oi-review-record/1 {path, blob_sha256} naming this record's blob; separate record, written by a non-author>",
+    "owner_authorization": {
+      "schema": "oi-owner-authorization/1 (separate record)",
+      "owner": "<PLACEHOLDER: owner login>",
+      "time": "<PLACEHOLDER: ISO time of the owner's comment>",
+      "comment_id": "<PLACEHOLDER: GitHub comment id>",
+      "authorizes": "<PLACEHOLDER: [{record: {path, blob_sha256}, review: {path, blob_sha256}}]>"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+splices on AGENTS.md [('D296', 2332, 2332)]
+H 12a9281fb8 M 6b1280fa92 X 9f4fc3e830 composed 86d7986382 105579
+probe landing blob == composed? False -> sec. 13.1 composition: FAIL landing-conflict-unresolved
+probe record l == composed? False -> sec. 13.3 R7 / S6: record-invalid, record does not apply
+M change lost in probe landing? True ; retirement change present? True
+composed keeps M change: True and D296 image: True

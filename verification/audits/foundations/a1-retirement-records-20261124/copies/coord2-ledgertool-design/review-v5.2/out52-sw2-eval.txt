@@ -1,0 +1,3 @@
+sites 584 violations recorded by the run 584 after correcting the segment-format test (segment printed as "53c6601a..<x8>") 0
+holds under the v5.2 SW2 predicate: 584 of 584
+sites carrying items at the unmutated H: 14 (7 meaning-context + 7 structure-REVIEW sites)

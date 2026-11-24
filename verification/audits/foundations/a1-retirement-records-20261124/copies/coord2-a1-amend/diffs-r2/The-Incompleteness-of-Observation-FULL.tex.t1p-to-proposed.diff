@@ -1,0 +1,30 @@
+11480c11480
+< properties --- the six structural properties developed in Chapter 5
+---
+> properties --- the structural properties developed in Chapter 5
+20754,20757c20754,20758
+< six structural properties of the bijection), isotropy is built in rather
+< than requiring inflation to produce it. This is speculative and would
+< require a detailed analysis of the lattice's causal structure at early
+< times.
+---
+> structural properties of the bijection: isotropy, sublattice structure,
+> link content, anomaly cancellation, taste content, generation count),
+> isotropy is built in rather than requiring inflation to produce it. This
+> is speculative and would require a detailed analysis of the lattice's
+> causal structure at early times.
+20800,20803c20801,20805
+< probability --- constrain the class. The framework's six structural
+< properties of the bijection (developed across Chapters 5-7) further
+< narrow it. But the axioms themselves are not derived from anything
+< deeper.
+---
+> probability --- constrain the class. The framework's structural
+> properties of the bijection (isotropy, sublattice structure, link
+> content, anomaly cancellation, taste content, generation count;
+> developed across Chapters 5-7) further narrow it. But the axioms
+> themselves are not derived from anything deeper.
+27080c27082
+< % source-sha256: 0864768eca02d2661ecbf107adf551e8c23ef0b39dcdcb7d4ceb2db0aa237f0c
+---
+> % source-sha256: 9f419aaefd4eed423da191616b9b87ffac4d15ab1b03e3a42916fa72d05c1610

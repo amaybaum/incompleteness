@@ -1,0 +1,41 @@
+{
+  "schema": "oi-side-change-classes/1",
+  "draft_status": "UNREVIEWED, UNAUTHORIZED DRAFT. Not a record under DESIGN-v5.1 sec. 6.3: it has no independent review and no owner authorization, and the tool must treat it as record-invalid. Field names follow DRIFT-RECONCILIATION-PROPOSAL-r3.md and must be reconciled with the schema implemented in Stage 1 before review. The audit directory name is a placeholder.",
+  "id": "a1exit-scc-tool-configuration-1",
+  "supersedes": null,
+  "author": "<PLACEHOLDER: writer session>",
+  "scientific_base": "53c6601a10419b6b333cc992474272501ab542af",
+  "items": [
+    {
+      "item": "SC1",
+      "path": ".claude/settings.json",
+      "class": "tool-configuration",
+      "blob": {
+        "git": "b7f9b0a6294ff7c4771ffbf85d8c514176cf25c3",
+        "sha256": "ad4130d0d5f61f0a2807e488706c925cfc6766b9a4cefc2cf04612bb4bb65b9b"
+      },
+      "blob_at_H": null,
+      "introduced_by_first_parent_commit": "4fb2c1eed350edf95da2b316abcca93717246589",
+      "ledgered": false,
+      "corpus": false,
+      "reason": "Claude Code configuration file (attribution settings). Not a ledgered path, not a corpus path, and read by no check of the A1 plan.",
+      "basis": [
+        "#1169 comment 7099655517 (amaybaum, 2026-11-23T11:26:50Z): classified as tool configuration"
+      ]
+    }
+  ],
+  "checks": [
+    "blob at the resolved main equals item.blob (git id and sha256); otherwise the path is REVIEW side-change-unclassified",
+    "path is in no ledger.json files entry and in no corpus path set of the configuration"
+  ],
+  "ownership_chain": {
+    "review_record": "<PLACEHOLDER: oi-review-record/1 {path, blob_sha256} naming this record's blob; separate record, written by a non-author>",
+    "owner_authorization": {
+      "schema": "oi-owner-authorization/1 (separate record)",
+      "owner": "<PLACEHOLDER: owner login>",
+      "time": "<PLACEHOLDER: ISO time of the owner's comment>",
+      "comment_id": "<PLACEHOLDER: GitHub comment id>",
+      "authorizes": "<PLACEHOLDER: [{record: {path, blob_sha256}, review: {path, blob_sha256}}]>"
+    }
+  }
+}

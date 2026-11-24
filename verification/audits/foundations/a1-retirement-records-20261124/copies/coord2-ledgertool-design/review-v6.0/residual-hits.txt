@@ -1,0 +1,128 @@
+10:  owner adopts it; until then the authoritative design is v5.5.9. It is complete in itself; it is
+13:- **Owner decisions of 2026-11-24** (owner `amaybaum`, in session, relayed by the coordinating
+14:  session; this writer holds no comment id for them; the record that quotes them with author, time
+15:  and comment id is still to be cited, sec. A.42 item 7 and sec. 15 item 1), quoted:
+16:  > "No, let's remove automated historical authorization verification entirely while retaining
+17:  > explicit owner authorization as a procedural requirement."
+19:  > "One distinction must be preserved: removing automated approval verification does not mean
+20:  > removing verification that the exact approved plan was executed."
+22:  > "Authorize drafting the reduced design and obtaining independent design review. Requirements:
+23:  > 1. Remove automated owner-authorization verification, including authority records, freeze
+24:  > ledgers, comment history and GraphQL dependencies. 2. Preserve all scientific and technical
+27:  > explicit owner authorization as a procedural requirement under the applicable governance
+33:  > should be as simple as possible. Do not introduce replacement authorization machinery."
+35:  > "The objective is now much clearer: verify the work, not reconstruct the owner's decision
+38:  > "the tool verifies which exact plan was executed; the owner confirms that it was the approved
+39:  > plan. The tool itself makes no claim about authorization."
+44:  result is the result commit (sec. 5, 6.3). The owner confirms, procedurally and outside the
+45:  tool, that this was the approved plan. No output, outcome, field or control of the tool states
+46:  or implies that a plan, a record, a run or a result was approved or authorized. The retained
+47:  class names `authorized-replacement`, `authorized-removal`, `unauthorized-edit` and
+48:  `unauthorized-change` are identifiers carried from v1; they mean "specified by the frozen ledger"
+49:  and "not specified by it" and say nothing about owner approval.
+50:- **What v6.0 removes.** All automated verification of owner authorization: the tool authority
+51:  record `A` (schema `oi-tool-authority/2`); the versioned comment forms `oi-freeze/1`,
+52:  `oi-authority/1` and `oi-freeze-ledger/1`; "Owner at creation"; the freeze ledger; the reading of
+53:  any comment thread, comment edit history, hidden state or deletion event; the authority-change and
+54:  ledger-append procedures; the owner-authorization record `oi-owner-authorization/1` and its lint;
+55:  and every read of the host's GraphQL API and of its comment, Issue, pull-request, branch,
+66:- **Owner authorization is procedural.** The approvals AGENTS.md requires (sec. A.50: freezing and
+68:  and A.51 for work) are given by the owner and quoted with author and time in the record that
+83:- Authority for the route: owner decision #1169 c.7093128173 (amaybaum, 2026-11-23T06:13:50Z). It
+84:  approves in principle the exception-free verification route. That route has four steps: the tool
+89:- The Q10 disposition (owner decisions of 2026-11-24, `coord2-q10/OWNER-DECISION-20261124.md`) is
+92:- Owner standing instructions that bind this revision: correct the design and its expected
+101:run checked. It decides no scientific question, no row disposition and no owner approval.
+132:### 0.1 Owner acceptance conditions
+143:| 8. Review lint for rules, PIN_OK reasons, reconciliation records and other records. The authorization lint of v5.5.9 is removed by the owner decision of 2026-11-24 (item 1); owner approval is procedural and outside
+155:maps each v3 review correction and owner decision to the sections it changed; `CHANGES-v5.md` does
+157:points O1-O7. Rows whose only answer was the automated authorization machinery that v6.0 removes are not
+178:| v3 R11: ownership chain | sec. 6.3; O1-O3, O5-O9 |
+213:| owner decision A-D5 and v5.3 review O3: durable evidence on `main` | sec. 5 |
+221:| owner decisions of 2026-11-24 on the authorization model | Status and authority; sec. 1, 5, 6.3, 7.2, 10, 15, 16.7; GV1-GV7 |
+356:  - the owner's decisions.
+357:- **Row dispositions.** The tool reclassifies no row. Row, code and owner are carried from the
+391:- **Approval is outside the tool.** The tool verifies which exact plan, configuration, tool and
+393:  the owner approved is confirmed by the owner, procedurally (sec. 6.3). No PASS states or implies
+394:  an approval.
+438:evaluates except `E` and `H`, the two trees named in the configuration as retired-form trees
+518:The record is an immutable file in the audit directory, under the ownership chain of sec. 6.3. It
+522:- the carried `row`, `code` and `owner`, which must equal the frozen values; otherwise FAIL
+552:  rules of v1 sec. 4.3. It then becomes `authorized-replacement`, `authorized-removal`,
+585:indicator. The mapping and the indicator definitions were adopted on their principle by the owner
+636:qualification is still visible or still stated. It carries `author` and is under the ownership
+784:  configuration or the run was approved; the owner confirms that procedurally (sec. 6.3).
+786:  landing record, the result commit. The landing merges only with the owner's approval (sec. A.50
+865:  `null`) over fields that do not depend on any diagnostic algorithm. For `unauthorized-edit` that
+1068:A rule file is an immutable record under the ownership chain of sec. 6.3: a change is a new file,
+1113:   counted (owner decision S1-D1, option B). The allowance for the sentence is the
+1116:   - the sentence's sha256 equals the fingerprint's `sentence_sha256` (the exact approved text);
+1117:   - the context sha256 equals the fingerprint's `context_sha256` (the approved location: the same
+1123:   approved sentence at one approved location. It is never a global count, and it cannot be used
+1142:neighbours to another part of the same file, since the approved text and its approved neighbours
+1201:**Owner approval (procedural).** In this design the ownership chain (R11) is the writer, the
+1202:independent reviewer and the frozen configuration's reference at `F`. The owner's approval of a
+1205:The tool neither reads nor checks it, no record kind, field, comment or host read stands in for
+1267:them. It does not check that `F` is the plan commit the owner designated, and it makes no claim that
+1269:it (sec. A.42 item 7), and the owner compares it with the recorded `F`.
+1324:PASS (GV7). No comment, Issue, pull request, branch, commit listing, tree or file content is read
+1325:through the host's API, and its GraphQL API is not used. Re-resolving `M` before landing
+1350:The snapshot identifies what was checked. It records no approval.
+1368:The owner's approvals are not among these: they are procedural and outside the tool. If any of
+1417:These strengthen v3's seed rules as review-v3 required (R2, R3), less the two candidates the owner
+1462:and its coupling range, the form of the update and the measure selection — is a hypothesis that may
+1487:These two rules were proposed in v4 and dropped from the active set by owner decision V5-D1. They
+1501:form can never be written.
+1591:widens it as the v4 review's V8 proposed (owner decision V5-D2), and adds one alternative of its own.
+1632:| papers/Complexity.md:206 | "uniform relabelling of a finite set of hidden configurations ..." | legitimate scope wording |
+1657:  `unauthorized-change`.
+1816:- `unauthorized-change`, `missing`, `duplicated`, `ambiguous`;
+1822:- `unauthorized-edit`;
+1852:- an `unauthorized-change` path outside the ledger and the contract.
+1888:TR53-TR70, LN9, LN11 and LN12 tested the automated authorization machinery that this design
+1890:whether it tested authorization only, and which retained control covers any technical guarantee it
+1908:| B1 | an empty-image splice on a site line | `authorized-removal`; a hit at its offset is "in image" |
+1909:| B2 | a multi-line splice (33 exist in P) | `authorized-replacement` with a line range |
+1917:| H4 | an adjudicated site later rewritten outside every splice | FAIL `unauthorized-change` (RET) |
+2017:| SW2 | per-site sweep at H: each of the 584 sites, one token deleted (segments E..H `hp`, H..X unledgered) | for each site, exactly one new FAIL naming it, of obligation RET, class `unauthorized-change`, segment H.
+2024:stated expectation of this document, verbatim), `predicate` (a machine-checkable form of exactly
+2051:| WB3 | the approved sentence copied, unchanged, to another paragraph of a file in W1-c's scope | FAIL `rule-negative-match` at the copy (its context differs, so no allowance); the original still PASS | step 3: no r
+2052:| WB4 | the approved sentence copied to a file outside every W1 rule's scope | REVIEW_REQUIRED `unclassified` (no rule applies; step 1) | scope |
+2053:| WB5 | the approved sentence moved (cut and pasted) to another paragraph of the same file | FAIL `rule-negative-match` at the new location; REVIEW_REQUIRED `rule-stale` for the fingerprint | step 3; `rule-stale` |
+2054:| WB6 | a near-copy at the approved location with one other word changed, keeping one `finit` word | FAIL `rule-negative-match` (sentence sha differs, so no allowance) | step 3: tied to the exact text |
+2055:| WB7 | the approved sentence with its one `finit` word removed | REVIEW_REQUIRED `rule-fingerprint-mismatch` (no negative match; step 4) | step 4 |
+2056:| WB8 | the approved sentence and its neighbours shifted by 40 lines (as L1) | PASS | context-bound, not line-bound |
+2061:| WB13 | the approved sentence moved together with both of its neighbours (the three sentences, unchanged) to another section of the same file | PASS: the context, which defines the location, is unchanged | sec. 6.2
+2062:| WB14 | the approved sentence with both neighbours duplicated in the same file, so that two copies satisfy step 3 | the copy at the smaller byte offset PASSes; the later copy FAILs `rule-negative-match`, on every r
+2063:| WB15 | "Finiteness" (capitalized) added to a W1 sentence at its approved location | FAIL `rule-negative-match` (case-insensitive negatives) | sec. 6.2, O1 |
+2085:| R16 | `C` = `X` plus one commit that changes an unledgered, undeclared path | FAIL `unauthorized-change` naming that commit | sec. 13.1 (B4) |
+2123:| 1 | `edits_check --commit X`: every `new` present; residual pointer scan zero unqualified | `execution --scientific-base H --candidate X --ledger F:ledger.json --edits F:edits.json` (splice postconditions) and `te
+2129:| 7 | corpus grep: only ledger false positives for `\bA1\b` and related terms; posit counts ("Fourteen", "six structural", "sixth of"): zero | as frozen: `terms --commit X --profile item7-literal` | **FAIL** at T1':
+2131:| 9 | census registry notes updated in the same commit | `execution` conformance of `verification/lean-manuscript-census.json` (15 splices) | PASS | one registry splice dropped: FAIL `unauthorized-edit` |
+2132:| 10 | Lean docstring-only; kernel and Mathlib builds; CI | `execution` subject `lean` (equal outside comments) and class `ci` | PASS with evidence | a Lean definition changed: FAIL `lean-code-change` |
+2136:| 14 | `preserve_check --commit X` (`--base main` when moved) | `execution --scientific-base H --main M --candidate X [--landing L]`, plus the `tex` contract | candidate PASS against `H`; landing per sec. 13 | an ex
+2138:**Note 1 (item 7; owner decision D1).** Item 7 as frozen fails at T1': seven lines contain the
+2144:  and the owner's authorization. It is not "passing as written", and it cannot be used in the
+2174:  form is the independent review's question. The lexically unanchored paraphrases remain a stated
+2213:"The tool is part of the verification route adopted by owner decision c.7093128173 (amaybaum,
+2219:each keep their own owner gate."
+2267:  `unauthorized-change`, naming the commit. A commit with more than one parent is FAIL
+2302:| N14 | the record's R6: the record's approved text differs from the ledger's `new`, or lines 36-39 of the composition differ from `X`'s | does not apply, naming R6 |
+2323:  foresee. It is under the ownership chain of sec. 6.3.
+2533:## 15. Open points for the owner
+2538:   `AGENTS.md` under sec. 13.3, side-change class records) and the owner's decision; under the
+2541:1. **Decision records.** The owner decisions D1-D4, V5-D1, V5-D2 and S1-D1 to S1-D3 of 2026-11-23, and the
+2542:   owner decisions of 2026-11-24 quoted in "Status and authority", reached this
+2544:   comment id once the record exists (sec. A.42 item 7).
+2553:   "$A_1$–$A_6$" (the original item 7 misses them too). The owner may accept them as residual or ask
+2563:10. **Independent review of v6.0.** The owner's requirement 5: an independent reviewer confirms that
+2570:12. **The plan amendment.** The later, separately authorized amendment of the A1 plan does not
+2571:    refer to an authority record, a freeze ledger, comment forms or an automated authorization
+2628:`'guard-pin'`, the `pin_note` values `'message'` and `'comment'`, a literal-piece filter, and a read
+2640:  `retained`, `mirrors`, `site_id`, `pin_line`, `carried`, `row`, `code`, `owner`, `author`,
+2668:  directory, frozen with the plan at `F`, under the ownership chain of sec. 6.3.
+2680:| `retirement` | name and accountable Issue; optionally the owner login, informational only and never compared with anything |
+2694:| `records` | every record and review record the run may use: `[{kind, path, blob_sha256}]`. A kind this design does not define, such as the retired `oi-owner-authorization/1`, is ERROR `CONFIG_INVALID` |
+2735:  changes that would be RET `unauthorized-change` into adjudicable HP sites; both can increase
+2760:| sitemap | `pin`; `sites [{site_id, file, pin_line, carried: {row, code, owner}, context_field_value, quote}]`; `override_anchors`; `read_entries` |
+2832:| Y2 | one edit's new lines changed | FAIL `unauthorized-edit` |

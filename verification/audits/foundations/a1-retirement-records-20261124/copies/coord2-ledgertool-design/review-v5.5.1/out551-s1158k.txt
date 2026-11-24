@@ -1,0 +1,3 @@
+P at H selects for edit 2: old | after edit 1: old_step2
+P applies: ('ok', {'f': 'xQ'})
+v5.5 rule: refuse-chained

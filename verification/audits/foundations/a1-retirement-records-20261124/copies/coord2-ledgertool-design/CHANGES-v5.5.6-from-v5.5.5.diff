@@ -1,0 +1,85 @@
+--- DESIGN-v5.5.5.md	2026-11-23 19:56:43.104560404 +0000
++++ DESIGN-v5.5.6.md	2026-11-23 20:07:40.114250057 +0000
+@@ -1,4 +1,4 @@
+-# Commit-independent ledger and terminology verification tool: design v5.5.5
++# Commit-independent ledger and terminology verification tool: design v5.5.6
+ 
+ ## Status and authority
+ 
+@@ -7,15 +7,15 @@
+ - It supersedes v5.4 where they differ. `DESIGN.md` (v1), `DESIGN-v2.md` to `DESIGN-v5.md` and
+   `DESIGN-v5.1.md` to `DESIGN-v5.4.md` stay as written. This document is complete in itself; it is
+   not a diff. It is intended as the final design version.
+-- **v5.5.5 is a draft amendment of the frozen v5.5.3.** It is authoritative only after an
++- **v5.5.6 is a draft amendment of the frozen v5.5.3.** It is authoritative only after an
+   independent review returns ACCEPT and the owner adopts it; until then the frozen design is v5.5.3
+   (sha256 99e9ce3af5476e2ea4be1cab911e1aa2cf1c2d3b3a9bf7cf06fcb2f8cbfe3379). It supersedes the
+-  v5.5.4 draft. It implements only
++  v5.5.5 draft. It implements only
+   two owner decisions of 2026-11-23 on the design issues of the fourth Stage 1 review
+   (`review-stage1-r4/review.md`, sec. 7): DI-1, option B, the owner identity of a comment (sec. 6.3,
+-  "Owner at creation"; controls TR54-TR62, TR64 and TR65); and DI-2, option A in its narrow form, the
++  "Owner at creation"; controls TR54-TR62 and TR64-TR67); and DI-2, option A in its narrow form, the
+   lineage of a superseding record (sec. 6.3, record lint and the field `supersedes` of `A`;
+-  controls LN1-LN10 and TR63). Nothing else changes. `CHANGES-v5.5.5.md` lists every changed
++  controls LN1-LN11 and TR63). Nothing else changes. `CHANGES-v5.5.6.md` lists every changed
+   passage.
+ - **v5.5.3 reopens the frozen v5.5.2 for K7 only.** By owner decision of 2026-11-23, the frozen
+   design v5.5.2 (sha256 835ff356200349db7689ea41ce936349015fb70f47b35a508945d681a8604323) is
+@@ -1252,7 +1252,8 @@
+     at any step of the chain;
+   - a `supersedes` naming a predecessor that does not itself pass this lint, read from the object
+     store at or before `F` and verified independently of the superseding record (its own review
+-    and authorization, the authorization checked as "Owner at creation" states for a predecessor,
++    and authorization, each authorization its lint requires, a widening review's included,
++    checked as "Owner at creation" states for a predecessor,
+     in place of the comparison with the configuration's owner);
+   - a cycle in a `supersedes` chain;
+   - ambiguous ancestry: two records superseding the same predecessor, among the records in the
+@@ -1345,9 +1346,9 @@
+ - **Owner authorizations.** An `oi-owner-authorization/1` record counts for a record the run uses
+   only if the version of `A` in force at its `time` has `owner.id` equal to its `owner`, its `owner`
+   equals the `owner.id` of the authority record governing the admission, and no owner change merged
+-  between its `time` and the admission. The authorization of a predecessor named by a `supersedes`
+-  is a completed action: it counts if the version of `A` in force at its `time` has `owner.id` equal
+-  to its `owner`.
++  between its `time` and the admission. Each authorization of a predecessor named by a
++  `supersedes`, a widening review's included, is a completed action: it counts if the version of
++  `A` in force at its `time` has `owner.id` equal to its `owner`.
+ - **The first `A` and an owner-id change.** The approval of the first `A`, and the new id's approval
+   of an owner-id change, are by the id the new `A` pins, which is not yet the owner. Each is
+   authenticated as that id (sec. 6.3, "Authority changes"), not as an owner comment. It must still
+@@ -1514,7 +1515,9 @@
+ 
+    The run's `F` is admitted only if, at the end, it is the one designated commit of the round. Any
+    of the following refuses: two live designations; a withdrawal or supersession naming a commit
+-   never designated; a designation of a withdrawn commit; any other conflict.
++   never designated (for this test, a designation that was an owner comment at its creation has
++   designated its commit, even if it is not processed); a designation of a withdrawn commit; any
++   other conflict.
+ 6. **The pin table.** `F`'s PREREG pin table is read from `F`'s tree, at `pin_table_path`. Its
+    content is authenticated by the owner's designation of exactly `F`. The retirement configuration
+    and its review record and owner authorization are admitted only if listed there with their
+@@ -2338,6 +2341,8 @@
+ | TR63 | an `A` on `main` whose `supersedes` names a blob other than the version of `A` preceding it on `main`'s first-parent chain; separately, names null while a version precedes it | ERROR `CONFIG_UNREVIEWED` in both | DI-2 (`A`) |
+ | TR64 | (positive) a freeze-ledger change whose approvals 4242 created before a merged change of `A` that keeps `owner.id` 4242 (for example a changed engine pin), merged after it | the approvals count (no owner change); the change verifies | DI-1 |
+ | TR65 | (authorization analogue of D3 and L5) an authorization record whose `time` falls while 4242 is owner and whose `owner` is 5555; 4242 -> 5555; 5555 designates `F`, whose configuration uses it. Separately, 4242's authorization with `time` before 4242 -> 5555 -> 4242. Separately (positive), 5555's authorization with `time` after 4242 -> 5555 | the first two: ERROR `CONFIG_UNREVIEWED` for the configuration's authorization, FAIL `record-invalid` for any other record's; the third: admitted | DI-1 |
++| TR66 | 4242 designates `F`; 5555 posts `oi-freeze/1 withdraw` of `F` while 4242 is the owner; 4242 -> 5555; 5555 designates `F` (control harness). Separately, the withdrawal posted by 4242 before the change | the first: `F` is the one designated commit at point 5 (the withdrawal is not an owner comment and is not processed); the second: ERROR (designation of a withdrawn commit) | DI-1 |
++| TR67 | a comment without a form, created by 4242 while owner; 4242 -> 5555; the comment then edited by 4242 into a first line beginning `oi-freeze/`. Separately, the same comment left unedited | the first: ERROR (point 3); the second: no refusal from point 3 or 4 | DI-1, point 3 |
+ | G4 | `sc42` with a supplied result file claiming `verbose_equal: true`, while the clone's re-execution differs | FAIL `delegated-evidence-invalid`; the supplied file is not read as evidence | sec. 7.2 (B2) |
+ | G5 | `coverage-ledger` with a supplied census JSON; one STALE value at `X` differs from the census the tool runs | FAIL | sec. 7.2 |
+ | G6 | `tex` with a supplied preserve_check result reporting `pass`, while a TeX stamp at `X` is wrong | FAIL `delegated-evidence-invalid` | own re-derivation |
+@@ -2571,6 +2576,7 @@
+ | LN8 | a three-record chain whose middle record has another `record_id` (separately, another schema of the same kind) | FAIL `record-invalid` (unrelated chain) (DI-2) |
+ | LN9 | a predecessor R1 authorized by 4242 while owner; 4242 -> 5555; R2 superseding R1, reviewed and authorized by 5555, used by the run. Separately, R1's authorization `time` before 4242 was owner | the first: no `record-invalid`, the run uses R2; the second: FAIL `record-invalid` | DI-1, DI-2 |
+ | LN10 | (positive) a record with `supersedes: null` and no `record_id`, named by no `supersedes` | no `record-invalid` | DI-2 |
++| LN11 | an allow rule R1 widening R0, R1's widening review authorized by 4242 while owner in an authorization record separate from R1's own; 4242 -> 5555; R2 superseding R1, reviewed and authorized by 5555, used by the run; separately, the same for a configuration lineage | no `record-invalid`; the run uses R2, in both | DI-1, DI-2 |
+ 
+ ### 13.3 Reconciliation records (schema `oi-reconciliation/1`)
+ 
+@@ -3134,4 +3140,4 @@
+ 
+ | Step | Work | Acceptance |
+ |---|---|---|
+-| S13 | Configuration loader and validator, adapter admission by blob, the A1 configuration, the synthetic configuration | Z1-Z8, Z9a-Z9h, Z10, Z11 and Y1-Y10 behave; N2-N18, R18, R19, S4a, LN1-LN10, S11-57a-d, S11-58a-k, G9, TR1-TR65, WB13-WB15, X11, TR1-TR5, G4-G8, R16, R17, A12r, WB1-WB12, S11-56 and K10 behave; every A1 control has the same outcome as specified in sec. 10-11 of this document; no engine source contains an A1 constant (Z9) |
++| S13 | Configuration loader and validator, adapter admission by blob, the A1 configuration, the synthetic configuration | Z1-Z8, Z9a-Z9h, Z10, Z11 and Y1-Y10 behave; N2-N18, R18, R19, S4a, LN1-LN11, S11-57a-d, S11-58a-k, G9, TR1-TR67, WB13-WB15, X11, TR1-TR5, G4-G8, R16, R17, A12r, WB1-WB12, S11-56 and K10 behave; every A1 control has the same outcome as specified in sec. 10-11 of this document; no engine source contains an A1 constant (Z9) |

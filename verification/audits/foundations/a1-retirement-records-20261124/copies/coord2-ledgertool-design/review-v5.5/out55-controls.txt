@@ -1,0 +1,4 @@
+S11-58i P: ok {'f': 'xbay'} | v5.5: ok | compare: both-ok-same | selected offset 1
+S11-58j P: ok {'f': 'fox dog.'} | v5.5: refuse-chained | compare: extra-refuse-chained | selected offset 0
+S11-58k P: refuse None | v5.5: refuse-H | compare: both-refuse | selected offset 0
+S11-58k corrected P: ('ok', {'f': 'xQ'}) | v5.5: refuse-chained | compare: extra-refuse-chained

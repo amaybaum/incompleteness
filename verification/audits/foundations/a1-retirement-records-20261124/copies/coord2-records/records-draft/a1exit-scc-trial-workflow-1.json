@@ -1,0 +1,46 @@
+{
+  "schema": "oi-side-change-classes/1",
+  "draft_status": "UNREVIEWED, UNAUTHORIZED DRAFT. Not a record under DESIGN-v5.1 sec. 6.3: it has no independent review and no owner authorization, and the tool must treat it as record-invalid. Field names follow DRIFT-RECONCILIATION-PROPOSAL-r2.md and must be reconciled with the schema implemented in Stage 1 before review. The audit directory name is a placeholder.",
+  "id": "a1exit-scc-trial-workflow-1",
+  "supersedes": null,
+  "author": "<PLACEHOLDER: writer session>",
+  "scientific_base": "53c6601a10419b6b333cc992474272501ab542af",
+  "items": [
+    {
+      "item": "SC1",
+      "path": ".github/workflows/a1exit-trial-verify.yml",
+      "class": "trial-workflow",
+      "blob": {
+        "git": "bca44ac06691363d10c70e8db2a3d352830488f2",
+        "sha256": "f8c36855cf6e61891cbbd41011714af503b094b9dd63065ac042304817621646"
+      },
+      "blob_at_H": {
+        "git": "dfcfd732b567304db1db5181133da8440a9f4df3",
+        "sha256": "5c767c9fb0166ad282664b0a8e3b2ec824493f24d5832514b61bdb71e27ee747"
+      },
+      "introduced_by_first_parent_commit": "413b0bb88f39cad901befcf4684355c7ee39480b",
+      "ledgered": false,
+      "corpus": false,
+      "reason": "The A1-EXIT trial workflow. PREREG section 31.12.7 at P defines W as the workflow base that decides how each trial is checked; preserve_check.py --verify-run requires this blob at every dispatch head.",
+      "basis": [
+        "#1169 comment 7099655517 (amaybaum, 2026-11-23T11:26:50Z): classified as the trial workflow",
+        "PREREG.md section 31.12.7 at 4c79be642ca631573f06b444903be75ec4f5e2b6 (workflow base W = 413b0bb88f39cad901befcf4684355c7ee39480b)",
+        "DESIGN-v5.1 sec. 13.1 and 16.4"
+      ]
+    }
+  ],
+  "checks": [
+    "blob at the resolved main equals item.blob (git id and sha256); otherwise the path is REVIEW side-change-unclassified",
+    "path is in no ledger.json files entry and in no corpus path set of the configuration"
+  ],
+  "ownership_chain": {
+    "review_record": "<PLACEHOLDER: oi-review-record/1 {path, blob_sha256} naming this record's blob; separate record, written by a non-author>",
+    "owner_authorization": {
+      "schema": "oi-owner-authorization/1 (separate record)",
+      "owner": "<PLACEHOLDER: owner login>",
+      "time": "<PLACEHOLDER: ISO time of the owner's comment>",
+      "comment_id": "<PLACEHOLDER: GitHub comment id>",
+      "authorizes": "<PLACEHOLDER: [{record: {path, blob_sha256}, review: {path, blob_sha256}}]>"
+    }
+  }
+}

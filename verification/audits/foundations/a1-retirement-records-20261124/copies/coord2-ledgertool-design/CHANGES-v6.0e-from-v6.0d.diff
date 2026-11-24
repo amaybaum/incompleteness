@@ -1,0 +1,101 @@
+--- DESIGN-v6.0d.md	2026-11-24 11:15:47.988271876 +0000
++++ DESIGN-v6.0e.md	2026-11-24 11:23:41.859624369 +0000
+@@ -1,9 +1,15 @@
+-# Commit-independent ledger and terminology verification tool: design v6.0d
++# Commit-independent ledger and terminology verification tool: design v6.0e
+ 
+ ## Status and authority
+ 
+ This is a paper-only design. Nothing is implemented, committed, pushed or published under it.
+ 
++- **v6.0e completes the owner-approved v6.0d editorial correction** (`DESIGN-v6.0d.md`, sha256
++  1927e1356c7491ff00861e963d43308232e6ee51622ff5916b4f7921d32ef923), applying the delta review
++  `review-v6.0d/review.md` (sha256 19f04b053854673230a4a93b980eba7b8289cce21806a0000bbaa1ba4a807eb1,
++  verdict REJECT on B-1 only, with nits S-1 to S-3): the R-a line rule is stated so that it refuses
++  every form the text says it refuses. `CHANGES-v6.0e.md` maps every change to B-1 or S-1 to S-3
++  and records the probe result; `INVENTORY-v6.0e.md` is the inventory against v5.5.9.
+ - **v6.0d is a bounded editorial correction of the draft v6.0c** (`DESIGN-v6.0c.md`, sha256
+   dd72ee5b9f1ed3718b5f1584bf88b957dbb481b0c9ac9dca3d6ff784389aa594), applying the focused review
+   `review-v6.0c/review.md` (sha256 48dd41d0c0cc8b9169f61377eec7c606170b1fc6b7bb5c9aef0b5e7d4010ad20,
+@@ -12,7 +18,8 @@
+   by this writer), quoted:
+   > "Approve the bounded v6.0d editorial correction: the one-line O-4 fix and the identified nits.
+   > Obtain a focused independent delta review against v6.0c. Do not reopen settled design
+-  > questions or introduce new requirements."
++  > questions or introduce new requirements. If the delta review passes, bring v6.0d for
++  > adoption."
+ 
+   v6.0d is authoritative only after that review returns ACCEPT and the owner adopts it; until
+   then the authoritative design is v5.5.9. `CHANGES-v6.0d.md` maps every change to O-4 or R-a to
+@@ -231,7 +238,7 @@
+ maps each v3 review correction and owner decision to the sections it changed; `CHANGES-v5.md` does
+ the same for the v4 review's corrections V1-V8, the decisions V5-D1 and V5-D2, and the optional
+ points O1-O7. Rows whose only answer was the automated authorization machinery that v6.0 removes are not
+-listed here; `DESIGN-v5.5.9.md` sec. 0.2 keeps them, and `INVENTORY-v6.0c.md` table 1 maps them.
++listed here; `DESIGN-v5.5.9.md` sec. 0.2 keeps them, and `INVENTORY-v6.0e.md` table 1 maps them.
+ 
+ | Review item | Answered in |
+ |---|---|
+@@ -1446,11 +1453,12 @@
+        `^\s*(- )?uses: <owner>/<repo>[/<path>]@<40 lowercase hex>\s*$`, with literal `<owner>` and
+        `<repo>` names; this refuses `./` (a local action or a reusable workflow of the same
+        repository), a branch or tag, an alias, a block scalar and a flow mapping on a `uses` line;
+-     - begins, after its indentation and an optional `- `, with `"`, `'`, `{`, `[`, `?`, `&`, `*` or
+-       `!`: a quoted or escaped key (such as `"\x75ses"`), a flow collection, a complex key, an
+-       anchor, an alias or a tag at the start of an entry;
+-     - contains `: {`, `: [`, `: &`, `: *` or `: !`: a flow collection, anchor, alias or tag as a
+-       value.
++     - begins, after its indentation and any number of `-` or `---` markers each followed by
++       whitespace (the prefix `^\s*((-|---)\s+)*`), with `"`, `'`, `{`, `[`, `?`, `&`, `*` or `!`:
++       a quoted or escaped key (such as `"\x75ses"`), a flow collection, a complex key, an anchor,
++       an alias or a tag at the start of an entry, a nested sequence entry or a document;
++     - contains a colon followed by any whitespace and then `{`, `[`, `&`, `*` or `!` (the pattern
++       `:\s+[{[&*!]`): a flow collection, anchor, alias or tag as a value.
+ 
+      The rule only refuses; a form it refuses that YAML would read harmlessly is written another
+      way in the pinned workflow (EI7).
+@@ -1466,6 +1474,8 @@
+      - the named actions only: no `setup-*` action, and no composite or docker action that installs
+        or downloads executables or refers to other actions by tag;
+      - the exact run lines: the fetch of `F`, the pre-run check, and the entry point's command;
++     - the inputs reach the shell only through `env:`, and the fetch of `F` is
++       `git fetch --no-tags -- origin "$F"`; no `run:` line interpolates `${{ inputs.* }}` (S-2);
+      - no `continue-on-error`, and no `if:` on the steps after the pre-run check (R-b);
+      - no reusable workflow (R-b).
+ 6. **The tool commit is on `main`.** The tool refuses (ERROR `CONFIG_UNREVIEWED`, before any
+@@ -2076,7 +2086,7 @@
+ 
+ **Retired identifiers.** The controls O4, TR4, TR6-TR12, TR16-TR27, TR31-TR44, TR47, TR49,
+ TR53-TR70, LN9, LN11 and LN12 tested the automated authorization machinery that this design
+-removes. Their ids are retired and never reused. `INVENTORY-v6.0c.md` table 2 states, for each,
++removes. Their ids are retired and never reused. `INVENTORY-v6.0e.md` table 2 states, for each,
+ whether it tested authorization only, and which retained control covers any technical guarantee it
+ also touched. The controls GV1-GV7 and EI1-EI15 (sec. 10.4) are new; TR15 and TR50 keep their
+ v5.5.9 meaning, with the pins held by the configuration at `F`.
+@@ -2304,7 +2314,7 @@
+ | EI4 | `F` holds the plan directory with its `PREREG.md` and a second directory whose `PREREG.md` lists another configuration: (a) that other configuration placed in the plan directory, listed only by the second `PREREG.md`; (b) a caller argument naming the second `PREREG.md` as pin table; (c) the plan's `PREREG.md` whose last `Record pins` subsection omits the configuration while an earlier one lists it; (d) no `PREREG.md` beside the configuration; separately, a malformed row in its last `Record pins` subsection | (a), (c), (d): ERROR `CONFIG_UNREVIEWED`; (b): USAGE, exit 64 (the run takes no pin-table argument) | configuration admission point 2 (B-3) |
+ | EI5 | before landing, `git ls-remote` failing; separately, returning no `refs/heads/main` line or more than one; separately, an id that is not a full 40-hex id, or that the verified reader cannot read; separately, an id other than `L`'s first parent | the landing is refused in each case | sec. 13.4 (review N-2) |
+ | EI6 | the checkout of a `T` holding, besides the pinned files, an unpinned `tools/hashlib.py` (separately `tools/re.py`, `tools/subprocess.py`) whose module body writes a marker, the probe `review-v6.0a/cx3/hashlib_probe.py`; separately, the entry point run without `-I`, or with a checkout directory on `sys.path` | the first: the marker is never written, every imported module's file lies in `tool.files` or the interpreter's standard library, and the run's items equal those of the same run without the file; at the consumer a `T` that is not on `main`'s first-parent chain is non-acceptance (TR29). The second: ERROR at the entry point, exit 65, before any import of a module not already loaded at interpreter start | execution identity point 5 (R-1; N-g) |
+-| EI7 | a pinned workflow blob with `uses: ./.github/actions/x`; separately `uses: ./.github/workflows/w.yml`; separately `uses: owner/action@v4` (a tag); separately `uses: owner/action@main`; separately each of the forms the line rule refuses: a quoted key `"uses": owner/action@<40 hex>`, an escaped key `"\x75ses": ./x`, a flow mapping `- {uses: ./x}` and a flow sequence `steps: [ {"\x75ses": ./x} ]`, an anchor and alias (`x: &a ./x` with `uses: *a`), a block scalar (`uses: >` followed by `./x`), and a complex key `? uses` | ERROR at the tool; non-acceptance at the consumer, in each case | execution identity point 5 (R-1, N5, R-a) |
++| EI7 | a pinned workflow blob with `uses: ./.github/actions/x`; separately `uses: ./.github/workflows/w.yml`; separately `uses: owner/action@v4` (a tag); separately `uses: owner/action@main`; separately each of the forms the line rule refuses: a quoted key `"uses": owner/action@<40 hex>`, an escaped key `"\x75ses": ./x`, a flow mapping `- {uses: ./x}` and a flow sequence `steps: [ {"\x75ses": ./x} ]`, an anchor and alias (`x: &a ./x` with `uses: *a`), a block scalar (`uses: >` followed by `./x`), a complex key `? uses`; and the forms of review v6.0d B-1: an escaped key after a dash and two spaces (`-  "\x75ses": ./x`), a flow mapping after a dash and two spaces (`-  {"\x75ses": ./x}`), a tag after a dash and two spaces (`-  !!str "\x75ses": ./x`), a nested dash (`- - "\x75ses": ./x`), a whole-document flow mapping after `---` (`--- {"jobs": ...}` with `"\x75ses"` in a step), a tab after the dash (`-<TAB>"\x75ses": ./x`), and a tab after a colon before a flow collection (`steps:<TAB>[ ... ]`) | ERROR at the tool; non-acceptance at the consumer, in each case | execution identity point 5 (R-1, N5, R-a, B-1) |
+ | EI8 | the pre-run check on a clean checkout of a `T` equal to the configuration's `tool.files` | the step passes and the entry point runs (positive control) | execution identity point 5 (O-1) |
+ | EI9 | the pre-run check on a checkout holding `tools/ledger_coverage/engine/__pycache__/util.cpython-313.pyc`, an unchecked-hash bytecode file whose code writes a marker (review v6.0b probe P4) | the step fails; the job ends before the entry point runs; the marker is never written | point 5 (O-1) |
+ | EI10 | the pre-run check on a checkout holding an extension module `tools/ledger_coverage/engine/util.so` beside the pinned `util.py` (probe P7) | the step fails before the entry point runs; the module's init never runs | point 5 (O-1) |
+@@ -2774,7 +2784,7 @@
+    they are used as references.
+ 6. **Item 7.** The amendment text itself is outside this design (sec. 11 note 1).
+ 10. **Focused independent delta review of v6.0d against v6.0c.** An independent reviewer confirms that
+-    no scientific or technical verification guarantee of v5.5.9 is weakened (`INVENTORY-v6.0c.md`
++    no scientific or technical verification guarantee of v5.5.9 is weakened (`INVENTORY-v6.0e.md`
+     table 4), and the AGENTS.md conclusion (table 5).
+ 11. **ESC-6 and the A1 evidence gaps.** Unchanged under the accepted Q10 disposition: ESC-1 to ESC-4
+     stay unresolved A1 evidence gaps; ESC-5 is administrative; ESC-6 (the correction of the S1
+@@ -2782,7 +2792,7 @@
+     of them blocks the tool's landing, and this design resolves none of them.
+ 12. **The plan amendment.** The later, separately authorized amendment of the A1 plan does not
+     refer to an authority record, a freeze ledger, comment forms or an automated authorization
+-    check (`INVENTORY-v6.0c.md` table 6). Its frozen configuration carries the `tool` pins (tool
++    check (`INVENTORY-v6.0e.md` table 6). Its frozen configuration carries the `tool` pins (tool
+     files and workflow) and the `repository_id` (sec. 16.2), and lies beside the `PREREG.md` whose
+     last `Record pins` subsection lists it (sec. 6.3). Its pinned workflow meets execution
+     identity point 5 of sec. 6.3, including the pre-run pin check.

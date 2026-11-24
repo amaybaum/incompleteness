@@ -1,0 +1,175 @@
+--- a/verification/audits/foundations/a1exit-deletion-20261121/PREREG.md
++++ b/verification/audits/foundations/a1exit-deletion-20261121/PREREG.md
+@@ -7569,3 +7569,172 @@
+ 
+ The no-regress rule of §31.12.17 holds for items 6–10. Their results, the provisional T1′'s ids and the diagnostic
+ run's ids are recorded outside the plan's record directory, and are never committed into the plan.
++
++## 32. Amendment, preregistered: verification through the ledger coverage tool, and the records it reads
++
++**Owner decisions.** Owner `amaybaum`, 2026-11-23T06:13:50Z,
++[#1169 comment 7093128173](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7093128173), "Owner
++decision, 2026-11-23: A1-EXIT change of plan to an exception-free verification route", quoted in part:
++
++> - The frozen plan at `4c79be642ca631573f06b444903be75ec4f5e2b6` stays unchanged as a historical record. The T0' trial (run 45077568347, c.7087039188) and the T1' trial and verification (runs 45080985924 and 45083256017, c.7088175248) stay as evidence of what they tested. They are not acceptance evidence for the amended plan.
++> - No change to the ledger base H `53c6601a10419b6b333cc992474272501ab542af`, the 399 ledgered splices or any scientific conclusion is authorized.
++>
++> [...]
++>
++> - amend `PREREG.md` to specify the new tool and its exact verification commands, so that every mandatory check of sec. 11 passes as written; then independent review and a new freeze;
++> - rebuild and rerun T0', T1' and `verify.yml` under the new freeze;
++
++<OWNER DECISION AUTHORIZING THIS AMENDMENT: author, time, #1169 comment id, quoted (§A.42 item 7; §A.50 item 2).>
++
++<OWNER DECISION CLOSING Q10 (accepted 2026-11-24): author, time, #1169 comment id, quoted in the part that names
++ESC-1 to ESC-4 as open evidence gaps.>
++
++**Goal link (§A.47).** A1-EXIT (#1169): this amendment decides the exact commands by which every check of §11 is run
++through the ledger coverage tool at a new freeze `F`, and how each record those commands read is supported from `main`.
++It decides no scientific question and no execution question.
++
++**Order.** This section is committed first. The configuration, the superseding rule file and the review records follow
++in later additive commits, and the record pins in §32.9 last. No earlier section is edited: where an earlier command,
++count or pin table differs from this section, this section governs, and the earlier text stays as the record of
++`4c79be64`.
++
++### 32.1 Unchanged
++
++The ledger base H, `edits.json`, `ledger.json` (399 splices in 44 files; 401 edit records), `edits_check.py`,
++`guards_check.py`, `preserve_check.py` and `t0_jobs_44939798305.json` are unchanged; their digests are those of §31.31,
++repeated in §32.9. No edit, replacement text, scope assertion, checker rule or expectation of §11 or §31 changes. The
++T0′ and T1′ of `4c79be64` (T0′ `02172b2057de36462cc7c27826af61a12114275a`, T1′
++`14ac71b4b0a0c0aa2d7068d6799a73f474097060`) and their runs remain evidence of what they tested. They are not evidence
++for the trials of §32.6.
++
++### 32.2 The tool and the configuration
++
++- **The tool.** `tools/ledger_coverage.py` and `tools/ledger_coverage/` at the tool commit `T`
++  (`<T: full id, on main's first-parent chain>`), landed by `<tool landing PR>`. Its design is
++  `<adopted tool design: version and record>`.
++- **The configuration.** `retirement-config.json` in this directory, schema `oi-retirement-config/1`, `config_id`
++  `a1exit-retirement-config`, version 1. It is read only from `F`'s tree, as
++  `--config F:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json`. It carries:
++  - `tool`: every file of the tool at `T` (the entry point and every file under `tools/ledger_coverage/`) and the
++    workflow whose runs may produce an acceptable result, each by blob sha256;
++  - `repository_id`: 1156244443;
++  - `records`: every record and review record a run may use, each by `{kind, path, blob_sha256}`. It references no
++    authorization record, and `retirement` holds the name and the accountable Issue only;
++  - the ledger, the edit list and the plan checker, and the profiles `ptr`, `repo`, `register`, `register-caps` and
++    `infinity`, read from this directory at `F`.
++- **Its review.** `review-retirement-config-v1.json` in this directory, by a non-author reviewer, covering every field,
++  `tool.workflow` included.
++- **The pinned workflow.** It runs, in this order and nothing else: the fetch of `F` by its full id, the pre-run pin
++  check against the configuration's `tool.files`, and the entry point with `python3 -I -B`. It receives `F` and the
++  configuration path as inputs and names every action by full commit id. It runs only from `main`, so that `T` is on
++  `main`'s first-parent chain when a check runs.
++- **Pins.** §32.9 lists the configuration and its review record with their sha256. It is the last `Record pins`
++  subsection of this record, so both `preserve_check.py` and the tool read it.
++
++### 32.3 The designation of F
++
++The owner designates `F` and the configuration path together (§A.50 items 2 and 5), after the gate of §32.6 and the
++independent review of the exact candidate head. The designation is quoted, with author, time and comment id, in the
++execution result note under `execution/` and in the landing record of the tool's acceptance result. The tool and the
++checkers do not read it: the tool verifies which plan commit and configuration a run used, and the designation states
++that they are the approved ones.
++
++### 32.4 The checks of §11 as tool commands
++
++Every command below is run only by the pinned workflow, as
++`python3 -I -B tools/ledger_coverage.py <operation> --freeze F --config F:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json --out <dir> <arguments>`.
++No command takes a plan id, a round id or a pin-table argument. A path written `F:<name>` is a file of this directory
++at `F`, resolved through the configuration. `X` is the execution head, `C` the certified head, `M` `main` as
++resolved before landing and `L` the landing.
++
++| §11 item | Arguments | Expected at a T1′-style `X` |
++|---|---|---|
++| 1 | `execution --scientific-base H --candidate X --ledger F:ledger.json --edits F:edits.json`, and `terms --commit X --profile ptr` | splices PASS; the `ptr` hits PASS by W2's rules and the classification of `papers/GR.md:58`; any other hit REVIEW_REQUIRED |
++| 2 | `record --pin E --record F`, and `coverage --commit X --segment E..H --segment H..X=F:ledger.json --hp F:hp.json --classify <records>` | PASS only with the HP, context and hit records the configuration references |
++| 3 | `execution --delegation <configured contract>`, classes `tex`, `pdf`, `ci` | PASS only with exact-head evidence on `X` from a `push` or `workflow_dispatch` run |
++| 4 | `execution`, class `coverage-ledger`, and class `ci` job `coverage_check` | PASS iff the seven re-affirmed fingerprints equal `tools/proof_census.py` |
++| 5 | `execution`, profiles `register` and `register-caps`, per edit, per step and per splice | PASS |
++| 6 | `execution`, profile `infinity`, per edit, per step and per splice | PASS |
++| 7 | `<OPEN, §32.10 item 1>` | — |
++| 8 | `execution`, subject `mirror` | PASS |
++| 9 | `execution`, conformance of `verification/lean-manuscript-census.json` | PASS |
++| 10 | `execution`, subject `lean`, and class `ci` | PASS |
++| 11 | `terms --commit X --check item11 --final` | PASS only when every line the `repo` profile finds is classified by a reviewed rule or record |
++| 12 | `execution`, subject `pin` at H and at `X`, and class `ci` | PASS |
++| 13 | `execution`, class `sc42` | PASS iff byte-identical |
++| 14 | `execution --scientific-base H --main M --candidate X`, then `--certified C --landing L` before landing | candidate PASS against H; landing per the tool's four-tree rules |
++
++A check passes only under the tool's acceptance predicate: exit status 0, a valid `result.json` with outcome PASS
++recomputed by the outcome checker, admission `"chain"` naming this `F` and this pin table, and a producing run whose
++repository, event, `head_sha` and tool and workflow blobs equal the configuration's pins. The tool's countercontrols for
++each item are part of its preregistered control set, which the configuration pins.
++
++### 32.5 The records and their support from `main`
++
++| Record | Change | Support of what a run uses | §A.42 item 8 |
++|---|---|---|---|
++| `w1-w2-allow-v2.json` (this directory) | supersedes `ledger-coverage-tool-20261123/rules/w1-w2-allow-v1.json` (sha256 `0cbb97c9…b171`); `recorded_at` is H, at the file's top level and in each rule; rules, matchers, examples and the 11 fingerprints are those of v1 | each fingerprinted sentence is read at H. Nine fingerprints reproduce with their context at H; W1-d's two reproduce as sentences, and W1-d sets `context_required` false and carries no negative allowance, so its context value is not read at H and its grant at `X` depends on the sentence alone | H is on `main`. v1's `recorded_at` T1′ is provenance: no decision reads v1's fingerprints |
++| `register-infinity-params-v1.json` | none | the parameters equal literals of `edits_check.py`, read through the configuration's checker companion at `F` (blob `1153e039…`, sha256 `2856e58c…`) | support on `main` once `F` is reachable (§32.7). The record's `lint.checker.commit` and `recorded_at` name `4c79be64`, an ancestor of `F` with the same blob |
++| `repo-scope-v1.json` | none | the engine applies the record's lists; their equality with `HISTORICAL_PREFIX`, `HISTORICAL_FILE`, `ACTIVE_IN_RECORDS` and the generated-artifact rule of `edits_check.py` (lines 786–788, 856, 862) is checked by its reviewer at `F` | support on `main` once `F` is reachable (§32.7); `source.commit` names `4c79be64`, an ancestor of `F` with the same blob |
++| `gr58-hit-classification-v1.json` | none | the engine matches `papers/GR.md` by line sha256 at `X`; the line is H's line 58 with splices D040 and D041 of `ledger.json` applied | support on `main`: H's `papers/GR.md` with this directory's `ledger.json` gives blob `c4a320e264d596629700548407496e9f31282dbb`, the blob the record's `tree` (T1′) holds. The reviewer re-derives the line from H and the ledger and states that equality |
++
++Every record the configuration references, and every review record, is reviewed by a non-author before `F`. The allow
++rules of v1 are reviewed as the predecessor of v2, with the widening review that a first allow-rule file needs.
++
++### 32.6 Trials and the pre-freeze gate
++
++- The gate of §31.12.17–18, items 1–10, runs at the exact candidate head before a freeze is requested.
++- T0″ and T1″ are built as T0′ and T1′ in §31.8, from the candidate head in place of `4c79be64`: single-parent children
++  of H, with this directory as it stands at that head. `a1exit-trial-verify.yml` and `verify.yml` are dispatched as in
++  §31.8, with the expectations stated there.
++- In addition, the pinned workflow of §32.2 is dispatched once with `F` and the configuration path as inputs and T1″ as
++  `X`, for the commands of §32.4 items 1–13 and the candidate part of item 14. Every one must pass as stated in §32.4.
++  The first such run is also the tool's positive real-host admission control.
++- Each push and each dispatch needs the owner's approval (§A.50 item 2). A diagnostic run is not a trial run.
++
++### 32.7 Reachability from `main` and the landing
++
++- `T` is on `main` before `F` is designated.
++- After `F` is designated, and before the execution landing `L`, the plan's pull request is merged into `main` by a merge
++  commit that keeps its history, so that `F` and `4c79be64` are reachable from `main` (§A.42 items 2, 3 and 8). The
++  merge needs the owner's approval (§A.50 item 1). The plan branch does not move between building T0″ and the last
++  T1″ dispatch (§31.8).
++- At the landing, the paths of this directory present at `M` are side changes. They are classified by a side-change
++  class record written after `F` for that purpose, as the tool's reconciliation rule allows for side changes on `M`.
++- The landing names no freeze-ledger append and no form comment. Acceptance is recorded by landing the tool's result,
++  its admission snapshot and its reproducibility recipe in a landing record on `main`, which quotes the owner's
++  approval of the landing with author and time.
++
++### 32.8 Verification status (§A.46 item 4)
++
++- **Evidence level.** The values this section relies on were recomputed from git objects: the fingerprints at H, `main`
++  and T1′; the rebuild of `papers/GR.md`, `papers/SM.md`, `book/ch09-universality.md`, `book/ch19-open-problems.md` and
++  `book/The-Incompleteness-of-Observation-FULL.md` from H and `ledger.json`, equal to T1′'s blobs; the lint of the W1
++  and W2 rules at H; and the widening comparison of v2 against v1 (none).
++- **Missing.** The adopted tool design and its implementation at `T`; the review records of §32.5; the configuration's
++  review; `hp.json`, the delegation contract and the HP, context and hit records that items 2 and 11 need, each
++  referenced by the configuration before `F`; the gate and trials of §32.6.
++- **Accountable Issue.** #1169.
++
++### 32.9 Record pins
++
++The digests below pin the record files from §32 on. `preserve_check.py` and the tool read the last `Record pins`
++subsection, so §31.31 stays as the pins of `4c79be64`.
++
++| File | SHA-256 |
++|---|---|
++| `edits.json` | `528f146d03b29cbc3d7dc29948e3dd1d4cd26f4d36e6e009f032e24f9462dec1` |
++| `ledger.json` | `2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5` |
++| `edits_check.py` | `2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c` |
++| `guards_check.py` | `ef89e1c79a0cc3c34af1ebb981e1674edd33a534d6f98612ee06ce57005b5cee` |
++| `preserve_check.py` | `101ecdf46bfc6ecf337db6600c22c5ac01ccb1fad89b8d19a5a79b012d369d32` |
++| `t0_jobs_44939798305.json` | `8c5edab3c18cf9de86c33e406a30fe1a6957e8cc881e26d2bae9f7e2a7fe5bce` |
++| `retirement-config.json` | `<SHA256>` |
++| `review-retirement-config-v1.json` | `<SHA256>` |
++| `w1-w2-allow-v2.json` | `<SHA256>` |
++| `<each review record of §32.5>` | `<SHA256>` |
++
++### 32.10 Open for the owner
++
++1. Item 7 as frozen fails at a T1′-style `X` (seven W1 lines carry the bijection's property count). Its command depends
++   on the owner's decision on restating item 7, which needs its own preregistered text and review.

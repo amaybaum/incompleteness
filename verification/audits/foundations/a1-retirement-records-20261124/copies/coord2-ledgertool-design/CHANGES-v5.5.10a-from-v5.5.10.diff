@@ -1,0 +1,263 @@
+--- DESIGN-v5.5.10.md	2026-11-24 08:52:11.331115551 +0000
++++ DESIGN-v5.5.10a.md	2026-11-24 09:14:22.296129724 +0000
+@@ -1,4 +1,4 @@
+-# Commit-independent ledger and terminology verification tool: design v5.5.10
++# Commit-independent ledger and terminology verification tool: design v5.5.10a
+ 
+ ## Status and authority
+ 
+@@ -7,6 +7,21 @@
+ - It supersedes v5.4 where they differ. `DESIGN.md` (v1), `DESIGN-v2.md` to `DESIGN-v5.md` and
+   `DESIGN-v5.1.md` to `DESIGN-v5.4.md` stay as written. This document is complete in itself; it is
+   not a diff. It is intended as the final design version.
++- **v5.5.10a is the bounded correction of the v5.5.10 draft that the owner approved on 2026-11-24**
++  after its independent review (`review-v5.5.10/review.md`, sha256
++  78dc33d3a99405cbb7150de77ad1550495643f4f3121f51795bd0312fc897a8c, verdict REJECT on B1 and B2).
++  It supersedes the v5.5.10 draft (sha256
++  fae222cd5caab23cec5a80bfa9d0db083efad8311e3985cd7b553bec87748e0c) and, like it, amends the adopted
++  v5.5.9, which stays authoritative until an independent exact-version review returns ACCEPT and the
++  owner adopts v5.5.10a. It makes only these corrections: B1, the v5.5.9 deletion rule restored,
++  with the thread's deletion events read through GraphQL under fail-closed handling (admission
++  point 3, "Deletion events"; TR35 restored; TR85; new TR86, TR87, HV11, HV12); B2, an owner comment
++  known to be edited whose earlier text is unavailable refuses (TR79, HV5); the review's nits N1
++  (object-id wording), N2 (revisions above 100), N4 (the anchor fetched before admission), N5
++  (regular-file entries) and N7 (the label of sec. 15 item 6), N8 being HV12; and F4 stated as an
++  unresolved feasibility risk that stops and escalates. Nits N3 and N6 are observations and change
++  nothing. Implementation, the validation stage and every test write stay separately authorized.
++  `CHANGES-v5.5.10a.md` lists every changed passage.
+ - **v5.5.10 amends the adopted v5.5.9 for the owner decisions HS-1 to HS-7 of 2026-11-24 only:**
+   the sources from which the tool reads the host. It is authoritative only after an independent
+   review returns ACCEPT and the owner adopts it; until then the authoritative design is v5.5.9
+@@ -275,6 +290,7 @@
+ | v5.4 addendum C4 and R-D1: the stricter refusals stated | sec. 6.1 |
+ | v5.4 review: residual-trust list | sec. 6.3 |
+ | owner decisions HS-1 to HS-7 (2026-11-24): host sources, edit history, local stores, deleted comments, real-host validation | sec. 5, 6.3 (trust root points 1-3, authority changes, freeze ledger, admission points 2, 3 and 9, snapshot, residual trust), 7.2, 10.5, 15; TR25, TR35, TR71-TR85, HV1-HV10 |
++| review of v5.5.10, B1 and B2, nits N1, N2, N4, N5, N7, N8, and F4 (owner decision of 2026-11-24 on v5.5.10a) | sec. 6.3 (trust root point 2, freeze ledger, admission point 3, snapshot, residual trust), 15; TR79, TR85, TR86, TR87, HV5, HV11, HV12 |
+ 
+ ### 0.3 Figures
+ 
+@@ -1435,8 +1451,13 @@
+      completeness it relies on is that every object the admission needs is present and verified, and
+      that the chain reaches a root.
+    - **Anchors absent.** If `main`'s anchor or `head_sha` is not in the store, the admission refuses.
+-   - **Entries.** The reader does not change which tree entries are accepted: non-regular entries
+-     refuse as point 3 states.
++     The workflow therefore fetches the exact anchor id, by its full id, into the full store before
++     admission (no depth, no filter); the objects fetched are verified like any other, and the tool
++     itself fetches nothing (N4).
++   - **Entries.** `A`, every version of the freeze ledger, review records and committed admission
++     snapshots are read only from regular-file entries (mode 100644 or 100755); a symlink, a
++     submodule or any other entry at such a path refuses (N5). Non-regular entries under
++     `tools/ledger_coverage/` refuse as point 3 states.
+    - **Other reads.** The same reader, with the same store checks, serves every other read the
+      tool makes from a git object store, in a run or in the offline replay of sec. 5; outside
+      admission, a refusal there is the integrity error of sec. 5 (HS-4).
+@@ -1556,11 +1577,14 @@
+   completeness check of admission point 2 cannot reveal it. No REST issue-event or timeline type
+   records a comment's deletion. The host's GraphQL schema documents a `CommentDeletedEvent`; whether
+   it is emitted for every deletion, and whether it identifies the deleted comment's author by
+-  numeric id, is not established, and the tool does not read it under this design. Neither API
+-  returns a deleted comment's id, body or first line, so the form a deleted comment carried cannot
+-  be reconstructed from the host. Whether deletion events can be read with evidence of their
+-  completeness is an open investigation (sec. 15 item 9). Until the owner adopts a rule from it,
+-  the tool reads no deletion events, and no complete historical coverage of a thread is claimed.
++  numeric id, is not established. The host does expose these events for a thread, so the rule
++  above applies: the tool reads them and refuses on any deletion of an owner comment, or of a
++  comment whose author cannot be shown not to be an owner (admission point 3, "Deletion events";
++  B1). Neither API returns a deleted comment's id, body or first line, so the form a deleted comment
++  carried cannot be reconstructed from the host. The absence of reported deletion events establishes
++  nothing: it is never taken as proof that no comment was deleted, the residual stands, and no
++  complete historical coverage of a thread is claimed. Whether the events are complete is an open
++  investigation (sec. 15 item 9).
+ 
+ **Admission.** The tool performs the following inside a host CI job. Any step that fails or cannot
+ be completed refuses admission with ERROR `CONFIG_UNREVIEWED`:
+@@ -1584,19 +1608,49 @@
+    - an owner comment is hidden or minimized;
+    - an owner comment's edit status cannot be read.
+ 
+-   **Edit history (HS-2, HS-3).** The edit history is the only fact the tool reads through the
+-   host's GraphQL API. For every owner comment, whatever its `updated_at`, the tool reads
++   **Edit history (HS-2, HS-3).** The edit history and the deletion events of the threads the
++   admission reads are the only facts the tool reads through the host's GraphQL API; REST provides
++   neither. For every owner comment, whatever its `updated_at`, the tool reads
+    `lastEditedAt` and `userContentEdits` (`totalCount`, and each revision's `diff`, `editedAt` and
+    `deletedAt`), by the node ids of the REST listing, in batched queries of at most 100 node ids
+-   (HV3). The content of a revision is its `diff`, and its first line is defined as for the forms.
+-   The edit status cannot be read, and the admission refuses, if any of the following holds; no
+-   revision is ever skipped:
++   (HV3). `userContentEdits` is read with its first 100 revisions and is not paginated, so a
++   comment with more than 100 revisions refuses under the `totalCount` rule below (N2). The content
++   of a revision is its `diff`, and its first line is defined as for the forms. The edit status
++   cannot be read, and the admission refuses, if any of the following holds; no revision is ever
++   skipped:
+    - a request fails, or its response carries an error, a rate-limit response or a partial result;
+    - a requested node is missing or null, is returned twice, carries another node id, or is not an
+      issue comment;
+    - `lastEditedAt` or `userContentEdits` is absent;
+    - fewer revisions are returned than `totalCount` states;
+-   - a revision's `diff` is null or absent, or its `deletedAt` is set.
++   - a revision's `diff` is null or absent, or its `deletedAt` is set;
++   - the comment is edited in the sense below while its earlier text is unavailable: no revision is
++     returned (`totalCount` 0). Whether the revisions returned hold the text of every earlier
++     version is the feasibility question below (B2).
++
++   **Required earlier text (F4).** The edit-history rules need the full text of every earlier
++   version of a comment. That GraphQL `diff` carries it is not established: the schema describes
++   `diff` as "A summary of the changes for this edit". HV4 and HV8 test it. If the host does not
++   expose the full earlier text, the stage fails and the design returns to the owner; no rule of
++   this section is relaxed and no other source is substituted.
++
++   **Deletion events (B1; "The freeze ledger", "The residual"; HS-2, HS-6).** For every thread the admission
++   reads (the plan's authorized thread and `A.authority_thread`), the tool reads the issue's
++   timeline items of type `CommentDeletedEvent` through GraphQL, page by page in pages of at most
++   100 until the host reports no further page, in batched queries (a page may share a request with
++   an edit-history batch). For each event it reads its id, creation time and
++   `deletedCommentAuthor`, whose numeric id is read through a `User` fragment. The admission
++   refuses if any of the following holds:
++   - any failure of the edit-history list above applies to the read (request failure, error,
++     rate-limit response, partial result, absent field), or the events returned differ in number
++     from the `totalCount` the host states, or an event id repeats;
++   - an event's `deletedCommentAuthor` is absent, null or not a `User`, or its numeric id is absent;
++   - an event's author numeric id equals the `owner.id` of any version of `A` on `main`'s
++     first-parent chain (the deleted comment's creation time is not exposed, so it cannot be shown
++     not to have been an owner comment).
++
++   An event whose author's numeric id differs from the `owner.id` of every version of `A` does not
++   refuse. The absence of events establishes nothing (sec. 6.3, "The freeze ledger").
+ 
+    **Edited (HS-5).** A comment is unedited only if GraphQL reports `lastEditedAt` null and
+    `totalCount` 0, and REST reports `updated_at` equal to `created_at`. Any one of the three signals
+@@ -1653,6 +1707,8 @@
+   the version of `A` in force at its creation, edit status (GraphQL `lastEditedAt` and `totalCount`,
+   the sha256 of each revision's content, REST `updated_at`, and the resulting edited flag), hidden
+   state (the REST `minimized` value as read), full first line and body sha256;
++- for every thread read, the deletion events read (event id, creation time, author numeric id) and
++  their count (B1);
+ - the freeze-ledger blob, and the committed snapshots it was reconciled with;
+ - `F` and the pin table's `{path, blob_sha256}`;
+ - **the delegated evidence (F2)**, for every delegated and native class of sec. 7.3, at `X` and, where
+@@ -1680,21 +1736,21 @@
+   merged-by id and merge time; and a comment's immutable id, numeric author id, creation time,
+   `updated_at`, body, hidden state, and the completeness of a thread's listing of the comments that
+   exist when it is read. The GraphQL API: a comment's edit history, that is, each recorded revision,
+-  its content, and their count (HS-2).
++  its content, and their count; and a thread's deletion events and their authors (HS-2, B1).
+ - **Git object ids.** The content of files at a commit and `main`'s history are read from a local
+   object store and bound to the ids the host reported by recomputing each object's id (trust root
+-  point 2). That binding rests on the collision resistance of the repository's object hash (SHA-1);
+-  the host and git's object transfer apply collision-detecting SHA-1 to the objects they accept. The
+-  local store itself is not trusted.
++  point 2). That binding rests on SHA-1's second-preimage resistance against the objects the host
++  holds, and on the host's and git's refusal of objects that collision-detecting SHA-1 flags (N1).
++  The local store itself is not trusted.
+ - **The host runner:** that it executes the pinned workflow at `head_sha` faithfully, so that the
+   code that ran is the code whose blobs were read.
+ - **The host's access control on the canonical repository's `main`.**
+ - **Who can delete, hide or edit comments in the authorized threads:** the owner, and accounts the
+   host grants moderation rights in the repository. Edits and hiding are detected (admission point
+   3). A deletion is detected only for events already in the freeze ledger or in a committed
+-  snapshot; the tool reads no deletion events ("The freeze ledger", HS-6). A withdrawal deleted
+-  before any admission observed it remains a residual, and so does any form a deleted comment
+-  carried.
++  snapshot, or if the host reports deletions (admission point 3, "Deletion events"). A withdrawal
++  deleted before any admission observed it, and not reported by the host, remains a residual, and so
++  does any form a deleted comment carried.
+ - **The integrity of the first reviewed and owner-approved landing of `A`,** which nothing in the
+   tool can verify from `A`'s content.
+ - **The owner's own account.**
+@@ -2428,7 +2484,7 @@
+ | TR32 | a supersession committed in an earlier acceptance snapshot, whose comment is later deleted | the supersession binds; the earlier `F` stays superseded | freeze ledger |
+ | TR33 | a withdrawal edited into a comment without a form | ERROR (an owner comment's edit history contained a form) | point 3 (V4) |
+ | TR34 | an old owner comment edited into a designation | ERROR (an owner comment carrying a form has an edit) | point 3 (V4) |
+-| TR35 | a withdrawal posted and deleted before any admission observed it, on a host that reports no deletion events | not detected: the stated residual (sec. 6.3); the control documents the residual and does not claim a refusal. On a host that reports deletions: ERROR. The tool reads no deletion events until the owner adopts a rule from the investigation of sec. 15 item 9, so on the host in use the first branch applies (HS-6) | residual |
++| TR35 | a withdrawal posted and deleted before any admission observed it, on a host that reports no deletion events | not detected: the stated residual (sec. 6.3); the control documents the residual and does not claim a refusal. On a host that reports deletions: ERROR | residual |
+ | TR36 | the freeze ledger missing, unverifiable, or conflicting with the thread | ERROR | freeze ledger |
+ | TR37 | a designation whose first line ends in CRLF | recognized (one trailing CR removed) | forms (V5) |
+ | TR38 | a designation whose first line has a trailing space, or a doubled space, or an uppercase hex id | ERROR (malformed form) | forms (V5, C2) |
+@@ -2472,13 +2528,15 @@
+ | TR76 | a loose object whose stored content does not hash to its id, each case separately: a blob of `A`, a tree of a chain commit, a commit of the chain, a tool blob at `head_sha` | ERROR `CONFIG_UNREVIEWED` in each case, although `git cat-file -p` prints the content | point 2 (HS-1) |
+ | TR77 | the chain does not reach a root: the first parent of a chain commit removed from the store, with no `shallow` file; separately, `main`'s anchor absent from the store; separately, `head_sha` absent | ERROR `CONFIG_UNREVIEWED` in each case | point 2 (HS-1, HS-4) |
+ | TR78 | an owner comment whose GraphQL edit history holds a revision with `diff: null`; separately, with no `diff` field; separately, with `deletedAt` set; in each case with every other revision free of forms, on a comment carrying a form and, separately, on one carrying none | ERROR in every case: the edit status cannot be read; the revision is never skipped | admission point 3 (HS-3) |
+-| TR79 | an owner comment whose `userContentEdits.totalCount` exceeds the number of revisions returned | ERROR | point 3 (HS-3) |
++| TR79 | an owner comment whose `userContentEdits.totalCount` exceeds the number of revisions returned; separately, more than 100 revisions; separately, on a comment carrying no form, `lastEditedAt` set with `totalCount` 0; separately, `updated_at` different from `created_at` with `totalCount` 0 | ERROR in every case | point 3 (HS-3; B2, N2) |
+ | TR80 | the GraphQL edit-history read, each case separately: the request fails; an `errors` entry beside the data; a rate-limit response; a requested node null or missing; a node returned twice or carrying another node id; a node that is not an issue comment; `lastEditedAt` or `userContentEdits` absent | ERROR in every case; no fallback to REST | point 3 (HS-3) |
+ | TR81 | an owner comment whose REST `minimized` is an object; separately, absent; separately, `true`, a string or another non-null value that is not an object | ERROR in each case: hidden in the first, unreadable in the others; only `null` reads as not hidden | point 3 (HS-2) |
+ | TR82 | an owner designation for which GraphQL reports `lastEditedAt` null and `totalCount` 0 while REST `updated_at` differs from `created_at`; separately, GraphQL reporting an edit while `updated_at` equals `created_at`; separately (positive), all three signals unedited | ERROR (edited) in the first two; the third: no refusal from point 3 | point 3 (HS-5) |
+ | TR83 | a REST listing that repeats one comment id and omits another, so that its count equals the issue's comment count | ERROR | admission point 2 |
+ | TR84 | a version of `A` (separately, of the freeze ledger) whose landing commit on `main` has no REST pull-request record with that merge commit, merged into `main` of the attested repository (a direct push); separately, two such records; separately, a pull request merged into another base | ERROR in each case | authority changes (HS-1) |
+-| TR85 | lint of the host adapter: a GraphQL query other than the edit-history read of admission point 3 (for example one reading `isMinimized`, a file, a commit or a pull request) | lint FAIL | point 3 (HS-2) |
++| TR85 | lint of the host adapter: a GraphQL query other than the edit-history read and the deletion-event read of admission point 3 (for example one reading `isMinimized`, a file, a commit or a pull request) | lint FAIL; the two permitted reads pass | point 3 (HS-2, B1) |
++| TR86 | a `CommentDeletedEvent` in the plan's authorized thread (separately, in the authority thread) whose author numeric id is the owner id; separately, the `owner.id` of an earlier version of `A`; separately, an author that is null, absent, not a `User` or without a numeric id; separately (positive), an author whose id differs from every version's `owner.id` | ERROR in the first three; the fourth: no refusal from the deletion events | point 3, "Deletion events" (B1) |
++| TR87 | the deletion-event read, each case separately: the request fails; an `errors` entry; a rate-limit response; a partial result; a page missing (events returned fewer than `totalCount`); an event id repeated; a field absent | ERROR in every case; no fallback | point 3, "Deletion events" (B1) |
+ | G4 | `sc42` with a supplied result file claiming `verbose_equal: true`, while the clone's re-execution differs | FAIL `delegated-evidence-invalid`; the supplied file is not read as evidence | sec. 7.2 (B2) |
+ | G5 | `coverage-ledger` with a supplied census JSON; one STALE value at `X` differs from the census the tool runs | FAIL | sec. 7.2 |
+ | G6 | `tex` with a supplied preserve_check result reporting `pass`, while a TeX stamp at `X` is wrong | FAIL `delegated-evidence-invalid` | own re-derivation |
+@@ -2506,8 +2564,8 @@
+ 
+ This stage is not part of this design's adoption or of the implementation step, and runs only under
+ its own owner authorization. It runs in a host CI job of the attested repository, with the job's own
+-token, and only reads, except for HV8-HV10, which need writes on a dedicated test issue that the
+-owner authorizes separately. Its decision rules are fixed here; the figures are measured and
++token, and only reads, except for HV8-HV10 and HV12, which need writes on a dedicated test issue
++that the owner authorizes separately. Its decision rules are fixed here; the figures are measured and
+ recorded, never preset. Until every item has passed on the host, no admission on the real host is
+ claimed: TR5 and TR48 are reported `NOT RUN` on the real host, and no result is presented for
+ acceptance under sec. 5. An item that fails returns the design to the owner; no rule of sec. 6.3 is
+@@ -2519,12 +2577,14 @@
+ | HV2 | the job token's GraphQL budget, from the same record, and the point cost of each edit-history query | the points the admission used are at most the remaining GraphQL budget measured before it; both figures are recorded |
+ | HV3 | the edit-history query over every owner comment of the authorized thread, in batches of the tool's size; and one batch one id larger | each batch of the tool's size returns exactly one issue-comment node per requested id, with the same node id; the larger batch is answered completely or with an error, never truncated without one |
+ | HV4 | every comment of the thread whose `totalCount` is above 0 | `totalCount` equals the revisions returned; no `diff` is null; the content of the newest revision equals the comment's current REST body, byte for byte |
+-| HV5 | every comment of the thread | `lastEditedAt` null implies `totalCount` 0; the number of comments on which the REST and GraphQL edit signals disagree is recorded |
++| HV5 | every comment of the thread | `lastEditedAt` null implies `totalCount` 0, and `lastEditedAt` set implies `totalCount` above 0; the number of comments on which the REST and GraphQL edit signals disagree, and the comments on which an edit signal holds with `totalCount` 0, are recorded |
+ | HV6 | the edit-history query as the tool frames it | accepted with no `errors`; every field the tool reads, `deletedAt` included, exists in the host's schema |
+ | HV7 | REST `minimized` on every comment of the thread | each value is `null` or an object |
+ | HV8 | (write) the owner's account edits a test comment | REST `updated_at` changes; `lastEditedAt` is set; `totalCount` rises; the newest revision's content equals the new body, and an earlier revision's the old body |
+ | HV9 | (write) a revision of the test comment deleted from its edit history | the history still reports it, in `totalCount` and as a revision with a null `diff` or a set `deletedAt`, so that point 3 refuses |
+ | HV10 | (write) the test comment minimized | its REST `minimized` is a non-null object |
++| HV11 | the deletion-event read of admission point 3 over the plan's authorized thread and the authority thread, every page | accepted with no `errors`; events returned equal `totalCount`; every event's `deletedCommentAuthor` resolves to a `User` with a numeric id; the number of events, and of events whose author is an owner id, are recorded. An event naming an owner id is reported to the owner for separate handling; it changes no rule |
++| HV12 | (write) a test comment by the owner's account deleted | a `CommentDeletedEvent` is reported for it, its author's numeric id equal to the owner's id, so that point 3 refuses |
+ 
+ ***
+ 
+@@ -2987,24 +3047,24 @@
+    v4 review found it correct.
+ 5. **Independent recount.** The figures labelled WN in sec. 0.3 need an independent recount before
+    they are used as references.
+-6. **Item 7.** The amendment text itself is outside this design (sec. 11 note 1).
++6. **The plan's item 7.** The amendment text itself is outside this design (sec. 11 note 1).
+ 7. **Real-host validation (HS-7).** The stage of sec. 10.5 needs its own owner authorization, and
+-   HV8-HV10 need writes on a dedicated test issue, authorized separately. Until every item passes,
++   HV8-HV10 and HV12 need writes on a dedicated test issue, authorized separately. Until every item passes,
+    no admission on the real host is claimed.
+ 8. **Host behaviour not yet observed.** Whether every edit changes REST `updated_at` (the tool does
+    not rely on it, HS-5); the non-null form of REST `minimized`, which no comment of the repository
+    has shown (HV7, HV10); whether a revision deleted from an edit history is still reported (HV9);
+-   whether a revision's `diff` is its full content (HV4, HV8); the batch size the host accepts
+-   (HV3). The tool's rules refuse wherever the host's answer departs from the expected form. They
++   whether a revision's `diff` is its full content (HV4, HV8; an unresolved feasibility risk: if it
++   is not, the design returns to the owner, sec. 6.3 "Required earlier text"); whether
++   `deletedCommentAuthor` is populated (HV11, HV12); the batch size the host accepts (HV3). The tool's rules refuse wherever the host's answer departs from the expected form. They
+    cannot detect a fact the host omits altogether, such as a minimized comment reported with
+    `minimized: null` or a deleted revision left out of `totalCount`; HV9 and HV10 test these.
+ 9. **Deleted comments (HS-6).** An investigation, separate from this design and not one of its
+-   requirements: what the host records about a comment's deletion (the documented GraphQL
+-   `CommentDeletedEvent`, its fields, whether it is emitted for every deletion, and whether it
+-   identifies the author by numeric id), and what cannot be reconstructed (a deleted comment's id,
+-   body and form). Its outcome may let the tool take TR35's branch for a host that reports
+-   deletions, by an owner decision on its evidence. Until then the residual of sec. 6.3 stands, and
+-   no complete historical coverage of a thread is claimed.
++   requirements, of completeness only: whether the host's `CommentDeletedEvent` is emitted for every
++   deletion, so that the residual of sec. 6.3 could be narrowed, and what cannot be reconstructed (a
++   deleted comment's id, body and form). The tool reads the events and refuses on them whatever the
++   outcome (admission point 3). Until the investigation gives evidence of completeness, the residual
++   stands and no complete historical coverage of a thread is claimed.
+ 
+ ***
+ 
+@@ -3319,4 +3379,4 @@
+ 
+ | Step | Work | Acceptance |
+ |---|---|---|
+-| S13 | Configuration loader and validator, adapter admission by blob, the A1 configuration, the synthetic configuration | Z1-Z8, Z9a-Z9h, Z10, Z11 and Y1-Y10 behave; N2-N18, R18, R19, S4a, LN1-LN12, S11-57a-d, S11-58a-k, G9, TR1-TR85, WB13-WB15, X11, TR1-TR5, G4-G8, R16, R17, A12r, WB1-WB12, S11-56 and K10 behave; every A1 control has the same outcome as specified in sec. 10-11 of this document; no engine source contains an A1 constant (Z9); no admission on the real host is claimed before HV1-HV10 pass in the separately authorized stage of sec. 10.5 |
++| S13 | Configuration loader and validator, adapter admission by blob, the A1 configuration, the synthetic configuration | Z1-Z8, Z9a-Z9h, Z10, Z11 and Y1-Y10 behave; N2-N18, R18, R19, S4a, LN1-LN12, S11-57a-d, S11-58a-k, G9, TR1-TR87, WB13-WB15, X11, TR1-TR5, G4-G8, R16, R17, A12r, WB1-WB12, S11-56 and K10 behave; every A1 control has the same outcome as specified in sec. 10-11 of this document; no engine source contains an A1 constant (Z9); no admission on the real host is claimed before HV1-HV12 pass in the separately authorized stage of sec. 10.5 |

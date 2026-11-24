@@ -1,0 +1,35 @@
+{
+ "schema": "oi-side-change-classes/1",
+ "record_id": "side-change-classes-tool-configuration-v1",
+ "status": "UNREVIEWED, UNAUTHORIZED DRAFT. Not a record under DESIGN-v5.1 sec. 6.3: it has no independent review record and no owner authorization record, and under the review chain the tool must reject it (record-invalid; the configuration that references it is CONFIG_UNREVIEWED). Field spelling follows the Stage 1 implementation at commit 8c1e628a, which is itself under independent review; see DRIFT-FINAL-NOTES.md for each difference from the r3 proposal and which choices depend on Stage 1.",
+ "author": "<PLACEHOLDER/author: the writer's name, filled in before review>",
+ "supersedes": null,
+ "scientific_base": "53c6601a10419b6b333cc992474272501ab542af",
+ "classes": [
+  {
+   "id": "tool-configuration",
+   "paths": [
+    ".claude/settings.json"
+   ],
+   "reason": "Claude Code configuration file (attribution settings). Not a ledgered path, not a corpus path, and read by no check of the A1 plan.",
+   "basis": [
+    "#1169 comment 7099655517 (amaybaum, 2026-11-23T11:26:50Z): classified as tool configuration"
+   ],
+   "blob_sha256": "ad4130d0d5f61f0a2807e488706c925cfc6766b9a4cefc2cf04612bb4bb65b9b",
+   "git_blob": "b7f9b0a6294ff7c4771ffbf85d8c514176cf25c3",
+   "blob_at_H": null,
+   "introduced_by_first_parent_commit": "4fb2c1eed350edf95da2b316abcca93717246589",
+   "ledgered": false,
+   "corpus": false
+  }
+ ],
+ "checks": [
+  "the blob at the resolved main equals classes[0].blob_sha256 and git_blob; otherwise the path is REVIEW side-change-unclassified (the Stage 1 tool at 8c1e628a matches by path only and does not yet read these two fields; see DRIFT-FINAL-NOTES.md)",
+  "the path is in no ledger files entry and in no corpus path set of the configuration"
+ ],
+ "ownership_chain": {
+  "review_record": "<PLACEHOLDER/review: a separate oi-review-record/1 file whose reviewed = {path, blob_sha256} of this file's final blob, by a non-author>",
+  "owner_authorization": "<PLACEHOLDER/authorization: a separate oi-owner-authorization/1 file with owner, time and comment_id, listing {record, review} by {path, blob_sha256}>",
+  "note": "this block exists only in the draft and is removed before review; an authorization cannot sit inside the record it authorizes"
+ }
+}

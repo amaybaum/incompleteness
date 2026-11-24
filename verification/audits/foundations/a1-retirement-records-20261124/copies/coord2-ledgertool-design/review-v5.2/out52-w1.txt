@@ -1,0 +1,7 @@
+papers/SM.md:1394 len=176 neg={} ci={} copies_in_file=1 sha=df203079707e
+book/ch09-universality.md:137 len=310 neg={} ci={} copies_in_file=1 sha=91cc0436fa80
+book/ch19-open-problems.md:198 len=404 neg={'finit': 1} ci={'finit': 1} copies_in_file=1 sha=d4a11b15d8ca
+book/ch19-open-problems.md:212 len=109 neg={} ci={} copies_in_file=1 sha=085a5e05d6e0
+book/The-Incompleteness-of-Observation-FULL.md:2554 len=310 neg={} ci={} copies_in_file=1 sha=91cc0436fa80
+book/The-Incompleteness-of-Observation-FULL.md:5270 len=404 neg={'finit': 1} ci={'finit': 1} copies_in_file=1 sha=d4a11b15d8ca
+book/The-Incompleteness-of-Observation-FULL.md:5284 len=109 neg={} ci={} copies_in_file=1 sha=085a5e05d6e0

@@ -1,0 +1,4381 @@
+{
+ "schema": "a1-retirement-preservation-manifest-1",
+ "transformations": {
+  "T1": "absolute path of the local records directory -> <records>",
+  "T2": "absolute path of the local repository checkout -> <repo>",
+  "T3": "absolute path of the local checked-write state directory -> <write-state>",
+  "T4": "any other path prefix in the system temporary directory -> \"<tmp>/\"",
+  "T5": "the local name of the session working directory (one word) -> \"workspace\", case preserved",
+  "T6": "the commit-identity e-mail address -> <commit-identity-email>"
+ },
+ "files": [
+  {
+   "path": "HANDOFF-20261124.md",
+   "original_sha256": "89dee433dbdeffc30f4d3c696d7a7bbb09068f96c211151604bef0149fcd58b8",
+   "original_bytes": 9680,
+   "copy_sha256": "66f1768027d9d6a90b22dcba6888a5ab9311654fc0440205a7863024a9c4de08",
+   "copy_bytes": 9588,
+   "byte_identical": false,
+   "transformations": {
+    "T1": 1,
+    "T3": 1,
+    "T5": 2
+   }
+  },
+  {
+   "path": "coord2-a1-amend/CHANGE-INVENTORY-r2.md",
+   "original_sha256": "421f8a4537b55cab378edb85670a7bf0a9db4853e8017eead1fe3eb2eb055472",
+   "original_bytes": 7865,
+   "copy_sha256": "421f8a4537b55cab378edb85670a7bf0a9db4853e8017eead1fe3eb2eb055472",
+   "copy_bytes": 7865,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/CHANGE-INVENTORY-r3.md",
+   "original_sha256": "f355e2e90bdd562d3e1beb7a0a034170bbd66bd4cf1db5999300e079aa4ecae5",
+   "original_bytes": 2655,
+   "copy_sha256": "f355e2e90bdd562d3e1beb7a0a034170bbd66bd4cf1db5999300e079aa4ecae5",
+   "copy_bytes": 2655,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/CHANGE-INVENTORY-r4.md",
+   "original_sha256": "6b875c2914ca0972325ad431e427ed55128fd7b2917317955e4948b08ec1117c",
+   "original_bytes": 2115,
+   "copy_sha256": "6b875c2914ca0972325ad431e427ed55128fd7b2917317955e4948b08ec1117c",
+   "copy_bytes": 2115,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/CHANGE-INVENTORY.md",
+   "original_sha256": "c376354443f37283430c4f62b42554dfff4f30c47347307cb6bd07319e9dc94f",
+   "original_bytes": 9522,
+   "copy_sha256": "c376354443f37283430c4f62b42554dfff4f30c47347307cb6bd07319e9dc94f",
+   "copy_bytes": 9522,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/CHANGES-r1-to-r2.md",
+   "original_sha256": "96a621fa77ceaf1b36eae15b3a3267dc42a37f8dc5b5471271dd9d9ce139640b",
+   "original_bytes": 3585,
+   "copy_sha256": "96a621fa77ceaf1b36eae15b3a3267dc42a37f8dc5b5471271dd9d9ce139640b",
+   "copy_bytes": 3585,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/CHANGES-r2-to-r3.md",
+   "original_sha256": "5d06e1e938e370667ca27c332f9658aa7f1d4995d4da64672b16be853a6acc42",
+   "original_bytes": 4698,
+   "copy_sha256": "5d06e1e938e370667ca27c332f9658aa7f1d4995d4da64672b16be853a6acc42",
+   "copy_bytes": 4698,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/CHANGES-r3-to-r4.md",
+   "original_sha256": "4399ff01f5765df53046c33610546b292d215e7b73777cafbbd318b179f3fe9d",
+   "original_bytes": 2723,
+   "copy_sha256": "4399ff01f5765df53046c33610546b292d215e7b73777cafbbd318b179f3fe9d",
+   "copy_bytes": 2723,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/CHANGES-r4-to-r5.md",
+   "original_sha256": "a7f450912eb4153148f69af1a85c5233496a2b902c1b8623b09b62858dc44c37",
+   "original_bytes": 6347,
+   "copy_sha256": "a7f450912eb4153148f69af1a85c5233496a2b902c1b8623b09b62858dc44c37",
+   "copy_bytes": 6347,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/ITEM7-DOSSIER.md",
+   "original_sha256": "4be1cafe252b273b3f256e79f0f905eeb27910c0460b0320dd75626098094dea",
+   "original_bytes": 32172,
+   "copy_sha256": "4be1cafe252b273b3f256e79f0f905eeb27910c0460b0320dd75626098094dea",
+   "copy_bytes": 32172,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/MANIFEST.sha256",
+   "original_sha256": "f2e5eb0dea81688e46a9ae67b8b5c2d315d86d258964494dc2a1fda280cce1fb",
+   "original_bytes": 28820,
+   "copy_sha256": "f2e5eb0dea81688e46a9ae67b8b5c2d315d86d258964494dc2a1fda280cce1fb",
+   "copy_bytes": 28820,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/O13-ADOPTED.md",
+   "original_sha256": "b53ed62a3cd7992e603961bd4d16dca5d82f35c7ee63e6636f5379ff5cb3fe83",
+   "original_bytes": 9562,
+   "copy_sha256": "b53ed62a3cd7992e603961bd4d16dca5d82f35c7ee63e6636f5379ff5cb3fe83",
+   "copy_bytes": 9562,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/O13-DECISION-ADOPT.md",
+   "original_sha256": "c6414f74b11d11fa7ba0d522905d22e3d0c93a285a1cd1cf2a4b5c965e350e5d",
+   "original_bytes": 8283,
+   "copy_sha256": "c6414f74b11d11fa7ba0d522905d22e3d0c93a285a1cd1cf2a4b5c965e350e5d",
+   "copy_bytes": 8283,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/O13-DECISION-DRAFT-r4.md",
+   "original_sha256": "eb2827958662be5a2334802a74c83a4067230067e7add4ed8cfebfc4076905ef",
+   "original_bytes": 5571,
+   "copy_sha256": "eb2827958662be5a2334802a74c83a4067230067e7add4ed8cfebfc4076905ef",
+   "copy_bytes": 5571,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/O13-DECISION-FINAL-r4.md",
+   "original_sha256": "2633770b9a9b0aa5652d6d31ea8ff0ccb01a536466cbc0e69ed7008ad0bd5914",
+   "original_bytes": 6124,
+   "copy_sha256": "2633770b9a9b0aa5652d6d31ea8ff0ccb01a536466cbc0e69ed7008ad0bd5914",
+   "copy_bytes": 6124,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/O13-DECISION-FINAL-r5.md",
+   "original_sha256": "8da312b5479a068dc9d7bfea992fdf89e26c67505384464d54e4543c7762d268",
+   "original_bytes": 6881,
+   "copy_sha256": "8da312b5479a068dc9d7bfea992fdf89e26c67505384464d54e4543c7762d268",
+   "copy_bytes": 6881,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/O13-DECISION-FINAL-r5b.md",
+   "original_sha256": "b6ccefbc716d0aaf585372e1b18660dd68041da10d1d95b0d14c473b7c8434bb",
+   "original_bytes": 8127,
+   "copy_sha256": "b6ccefbc716d0aaf585372e1b18660dd68041da10d1d95b0d14c473b7c8434bb",
+   "copy_bytes": 8127,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/O13-INVENTORY-r4.md",
+   "original_sha256": "497950bd721b9cdbaffd3f1d8a3174fc53fe91b8c100468186f0362c42902458",
+   "original_bytes": 16854,
+   "copy_sha256": "497950bd721b9cdbaffd3f1d8a3174fc53fe91b8c100468186f0362c42902458",
+   "copy_bytes": 16854,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/O13-INVENTORY-r5.md",
+   "original_sha256": "440934e5efb725ac2aec9fae994f4e24467965146b8f8e99a6e653b33909be8a",
+   "original_bytes": 17023,
+   "copy_sha256": "440934e5efb725ac2aec9fae994f4e24467965146b8f8e99a6e653b33909be8a",
+   "copy_bytes": 17023,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/PROPOSAL-r2.md",
+   "original_sha256": "06d1091a0c708aacb6574a9de81a95e07b2533d8404b5e82abfad2251183dd7e",
+   "original_bytes": 22160,
+   "copy_sha256": "06d1091a0c708aacb6574a9de81a95e07b2533d8404b5e82abfad2251183dd7e",
+   "copy_bytes": 22160,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/PROPOSAL-r3.md",
+   "original_sha256": "64157a76a62bf5a5dbb749baf454ee1e33bde270d621d65a52575779895db773",
+   "original_bytes": 10792,
+   "copy_sha256": "64157a76a62bf5a5dbb749baf454ee1e33bde270d621d65a52575779895db773",
+   "copy_bytes": 10792,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/PROPOSAL-r4.md",
+   "original_sha256": "676810f6d9cce203e46abcfa5ce55c1018caacd580fc57aa1da9728fe60c4e74",
+   "original_bytes": 6216,
+   "copy_sha256": "676810f6d9cce203e46abcfa5ce55c1018caacd580fc57aa1da9728fe60c4e74",
+   "copy_bytes": 6216,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/PROPOSAL.md",
+   "original_sha256": "c950bb5062bf0f4b8215eb5f0b1bb4af63d3da2e7112b3ce93b45995d4c38503",
+   "original_bytes": 27164,
+   "copy_sha256": "c950bb5062bf0f4b8215eb5f0b1bb4af63d3da2e7112b3ce93b45995d4c38503",
+   "copy_bytes": 27164,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r2/CONFIG-r1-to-r2.diff",
+   "original_sha256": "2395ac624a56fc17e57f15590464873b29d3418b67b4c4146007955d3a3daa84",
+   "original_bytes": 7099,
+   "copy_sha256": "2395ac624a56fc17e57f15590464873b29d3418b67b4c4146007955d3a3daa84",
+   "copy_bytes": 7099,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r2/CONFIG-staged-draft-to-r2.diff",
+   "original_sha256": "fdc142bc01fe0018d0b17cec9f8803edf989da989f69000c49a8418effd144fe",
+   "original_bytes": 12074,
+   "copy_sha256": "fdc142bc01fe0018d0b17cec9f8803edf989da989f69000c49a8418effd144fe",
+   "copy_bytes": 12074,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r2/EDITS-P-to-r2.diff",
+   "original_sha256": "146e0cb09c63b21b28799696431f578e95f4869d07fe4c183c9bdbbdfc6aa6ff",
+   "original_bytes": 7190,
+   "copy_sha256": "146e0cb09c63b21b28799696431f578e95f4869d07fe4c183c9bdbbdfc6aa6ff",
+   "copy_bytes": 7190,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r2/ESC1-w1-w2-allow-v1-to-v2.diff",
+   "original_sha256": "0ea9dfe17297326d21b3e0caf333a1a997b0b3b237d69e3959a389df0c86feb6",
+   "original_bytes": 9919,
+   "copy_sha256": "0ea9dfe17297326d21b3e0caf333a1a997b0b3b237d69e3959a389df0c86feb6",
+   "copy_bytes": 9919,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r2/LEDGER-new-splices-D402-D409.json",
+   "original_sha256": "56a21d21d487ba0b5de4bbde5ee6a6331c6bc0e36043b1ebc3256f1ea84afdfe",
+   "original_bytes": 6640,
+   "copy_sha256": "56a21d21d487ba0b5de4bbde5ee6a6331c6bc0e36043b1ebc3256f1ea84afdfe",
+   "copy_bytes": 6640,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r2/PREREG-append-s32-r2.diff",
+   "original_sha256": "db862d089a249f293c3f500b603f072bbb2a92af58283ca91aa2176d6f40e06a",
+   "original_bytes": 25554,
+   "copy_sha256": "db862d089a249f293c3f500b603f072bbb2a92af58283ca91aa2176d6f40e06a",
+   "copy_bytes": 25554,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r2/SM.tex.t1p-to-proposed.diff",
+   "original_sha256": "183e339abbc86f556c1c914d195295faffada7284aa070633e04d7ce16f72de4",
+   "original_bytes": 2631,
+   "copy_sha256": "183e339abbc86f556c1c914d195295faffada7284aa070633e04d7ce16f72de4",
+   "copy_bytes": 2631,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r2/The-Incompleteness-of-Observation-FULL.tex.t1p-to-proposed.diff",
+   "original_sha256": "3c61749d416a7427c54d449c9a189ad7e88cd2aadd353be88310992c44183e5a",
+   "original_bytes": 1486,
+   "copy_sha256": "3c61749d416a7427c54d449c9a189ad7e88cd2aadd353be88310992c44183e5a",
+   "copy_bytes": 1486,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r2/new-edit-records-D402-D409.json",
+   "original_sha256": "a51a111569697d04cbeccc2be791fc794f605f5fb0d2badd52513824462163f0",
+   "original_bytes": 6457,
+   "copy_sha256": "a51a111569697d04cbeccc2be791fc794f605f5fb0d2badd52513824462163f0",
+   "copy_bytes": 6457,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r3/CONFIG-r2-to-r3.diff",
+   "original_sha256": "298e28ddd3b3c8287143a493de72ac4bf0a90adf05b65febf6609fe7b64e461e",
+   "original_bytes": 894,
+   "copy_sha256": "298e28ddd3b3c8287143a493de72ac4bf0a90adf05b65febf6609fe7b64e461e",
+   "copy_bytes": 894,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r3/CONFIG-staged-draft-to-r3.diff",
+   "original_sha256": "24b5cc95ded8bd4baa17c7a59b8348f588461e3e2b2852f64cd9ee34ddba4738",
+   "original_bytes": 12249,
+   "copy_sha256": "24b5cc95ded8bd4baa17c7a59b8348f588461e3e2b2852f64cd9ee34ddba4738",
+   "copy_bytes": 12249,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r3/EDITS-P-to-r3.diff",
+   "original_sha256": "f53a9bf74c4f2ea1229844df9b9222016aa8dda916b72359eed16d8178c57ecf",
+   "original_bytes": 10489,
+   "copy_sha256": "f53a9bf74c4f2ea1229844df9b9222016aa8dda916b72359eed16d8178c57ecf",
+   "copy_bytes": 10489,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r3/ESC1-w1-w2-allow-v1-to-v2.diff",
+   "original_sha256": "0ea9dfe17297326d21b3e0caf333a1a997b0b3b237d69e3959a389df0c86feb6",
+   "original_bytes": 9919,
+   "copy_sha256": "0ea9dfe17297326d21b3e0caf333a1a997b0b3b237d69e3959a389df0c86feb6",
+   "copy_bytes": 9919,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r3/LEDGER-new-splices-D402-D412.json",
+   "original_sha256": "c86149c31e0d19d4f26b3659913b6c778b5f00501bb0a4e7f25e30850d8c0ad2",
+   "original_bytes": 9581,
+   "copy_sha256": "c86149c31e0d19d4f26b3659913b6c778b5f00501bb0a4e7f25e30850d8c0ad2",
+   "copy_bytes": 9581,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r3/PREREG-append-s32-r3.diff",
+   "original_sha256": "e5df7dee1b16ec91b24a4c98ce10ee305cbec51271d5e27f949b36d6c80f5005",
+   "original_bytes": 28861,
+   "copy_sha256": "e5df7dee1b16ec91b24a4c98ce10ee305cbec51271d5e27f949b36d6c80f5005",
+   "copy_bytes": 28861,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r3/SM.tex.t1p-to-proposed.diff",
+   "original_sha256": "ab6659a799ad16fba7f8f6a491f861e621e707d91547075288796685f671543a",
+   "original_bytes": 3599,
+   "copy_sha256": "ab6659a799ad16fba7f8f6a491f861e621e707d91547075288796685f671543a",
+   "copy_bytes": 3599,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r3/The-Incompleteness-of-Observation-FULL.tex.t1p-to-proposed.diff",
+   "original_sha256": "3c61749d416a7427c54d449c9a189ad7e88cd2aadd353be88310992c44183e5a",
+   "original_bytes": 1486,
+   "copy_sha256": "3c61749d416a7427c54d449c9a189ad7e88cd2aadd353be88310992c44183e5a",
+   "copy_bytes": 1486,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r3/new-edit-records-D402-D412.json",
+   "original_sha256": "129a005e97764c23c01b8f7b377d87473d915c5c1b215d1a1734a0ac18f217c4",
+   "original_bytes": 9660,
+   "copy_sha256": "129a005e97764c23c01b8f7b377d87473d915c5c1b215d1a1734a0ac18f217c4",
+   "copy_bytes": 9660,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r4/CONFIG-r3-to-r4.diff",
+   "original_sha256": "ef35ee9a074fad8e2d5629c7f15bd92736e9da442694742c554f4d7040229753",
+   "original_bytes": 894,
+   "copy_sha256": "ef35ee9a074fad8e2d5629c7f15bd92736e9da442694742c554f4d7040229753",
+   "copy_bytes": 894,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r4/CONFIG-staged-draft-to-r4.diff",
+   "original_sha256": "fd9f3cd79dfa53c288283681e627d215be8aa93c42f7b58e048ff3fb4f28041a",
+   "original_bytes": 12249,
+   "copy_sha256": "fd9f3cd79dfa53c288283681e627d215be8aa93c42f7b58e048ff3fb4f28041a",
+   "copy_bytes": 12249,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r4/EDITS-P-to-r4.diff",
+   "original_sha256": "14040ec63150cc0de0e1e0d5562646b6d8cd92c1f8c30f52bfefa8d73150ffb1",
+   "original_bytes": 10583,
+   "copy_sha256": "14040ec63150cc0de0e1e0d5562646b6d8cd92c1f8c30f52bfefa8d73150ffb1",
+   "copy_bytes": 10583,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r4/ESC1-w1-w2-allow-v1-to-v2.diff",
+   "original_sha256": "0ea9dfe17297326d21b3e0caf333a1a997b0b3b237d69e3959a389df0c86feb6",
+   "original_bytes": 9919,
+   "copy_sha256": "0ea9dfe17297326d21b3e0caf333a1a997b0b3b237d69e3959a389df0c86feb6",
+   "copy_bytes": 9919,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r4/LEDGER-new-splices-D402-D412.json",
+   "original_sha256": "1643cbc02c77f61f33eeed3e92e947538c60d8b4d682e701d5048c55b3bac208",
+   "original_bytes": 9675,
+   "copy_sha256": "1643cbc02c77f61f33eeed3e92e947538c60d8b4d682e701d5048c55b3bac208",
+   "copy_bytes": 9675,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r4/PREREG-append-s32-r4.diff",
+   "original_sha256": "88161b700fe0b8eeae9c0e5bc9a9d4709bdc021b8bc49f91e74ec914ac6a3f54",
+   "original_bytes": 29592,
+   "copy_sha256": "88161b700fe0b8eeae9c0e5bc9a9d4709bdc021b8bc49f91e74ec914ac6a3f54",
+   "copy_bytes": 29592,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r4/SM.tex.t1p-to-proposed.diff",
+   "original_sha256": "4b6439c6a6dc695a1c37d5a7142576f4fc979cd8b23c6603c252518653423eaf",
+   "original_bytes": 3649,
+   "copy_sha256": "4b6439c6a6dc695a1c37d5a7142576f4fc979cd8b23c6603c252518653423eaf",
+   "copy_bytes": 3649,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r4/The-Incompleteness-of-Observation-FULL.tex.t1p-to-proposed.diff",
+   "original_sha256": "3c61749d416a7427c54d449c9a189ad7e88cd2aadd353be88310992c44183e5a",
+   "original_bytes": 1486,
+   "copy_sha256": "3c61749d416a7427c54d449c9a189ad7e88cd2aadd353be88310992c44183e5a",
+   "copy_bytes": 1486,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r4/new-edit-records-D402-D412.json",
+   "original_sha256": "20305f139cfd05e4d8ac1ab880b7d0e78a48eb4d12ddf9554d40a3612fca50ee",
+   "original_bytes": 9754,
+   "copy_sha256": "20305f139cfd05e4d8ac1ab880b7d0e78a48eb4d12ddf9554d40a3612fca50ee",
+   "copy_bytes": 9754,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r5/CONFIG-r4-to-r5.diff",
+   "original_sha256": "e737917177e31f53eb27addbacdb3dcae93d788da8c927a75b9bd9bc2de89c24",
+   "original_bytes": 894,
+   "copy_sha256": "e737917177e31f53eb27addbacdb3dcae93d788da8c927a75b9bd9bc2de89c24",
+   "copy_bytes": 894,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r5/EDITS-P-to-r5.diff",
+   "original_sha256": "3bc1506e0f4bde7d08e1df5108f44b57fe74622cb737551b5620aa3f8b10caa1",
+   "original_bytes": 10587,
+   "copy_sha256": "3bc1506e0f4bde7d08e1df5108f44b57fe74622cb737551b5620aa3f8b10caa1",
+   "copy_bytes": 10587,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r5/LEDGER-new-splices-D402-D412.json",
+   "original_sha256": "6bf75b54218eb973f5c5a1e04438ea8773e3d8faae5bf90f52680e4b149e0b72",
+   "original_bytes": 9679,
+   "copy_sha256": "6bf75b54218eb973f5c5a1e04438ea8773e3d8faae5bf90f52680e4b149e0b72",
+   "copy_bytes": 9679,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r5/PREREG-append-s32-r5.diff",
+   "original_sha256": "dc7616c92945c7c3b2a93cd78bbe9abb38cd70ba29bd08be85e27e13dff39a5e",
+   "original_bytes": 29654,
+   "copy_sha256": "dc7616c92945c7c3b2a93cd78bbe9abb38cd70ba29bd08be85e27e13dff39a5e",
+   "copy_bytes": 29654,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r5/SM.tex.t1p-to-proposed.diff",
+   "original_sha256": "ce6fd1f18a447c558bdc77b3454cd7e496a524ea58afe302ba1d978352330b33",
+   "original_bytes": 3545,
+   "copy_sha256": "ce6fd1f18a447c558bdc77b3454cd7e496a524ea58afe302ba1d978352330b33",
+   "copy_bytes": 3545,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs-r5/new-edit-records-D402-D412.json",
+   "original_sha256": "0f2d06cd232d579751bc3bc2892093139151882915bc23c4db51cd4e8c698cbf",
+   "original_bytes": 9758,
+   "copy_sha256": "0f2d06cd232d579751bc3bc2892093139151882915bc23c4db51cd4e8c698cbf",
+   "copy_bytes": 9758,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs/CONFIG-staged-draft-to-proposed.diff",
+   "original_sha256": "6de7c5818557063fd25f4bb37d665d1cee8bba389d6a067a0581a1500f36f50a",
+   "original_bytes": 6635,
+   "copy_sha256": "6de7c5818557063fd25f4bb37d665d1cee8bba389d6a067a0581a1500f36f50a",
+   "copy_bytes": 6635,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs/ESC1-w1-w2-allow-v1-to-v2.diff",
+   "original_sha256": "3a7143d82ccb4361edea7b1c6dcb0a3d11ae79031b2fb0c6881282e1836669e9",
+   "original_bytes": 4963,
+   "copy_sha256": "3a7143d82ccb4361edea7b1c6dcb0a3d11ae79031b2fb0c6881282e1836669e9",
+   "copy_bytes": 4963,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/diffs/PREREG-append-s32.diff",
+   "original_sha256": "a787ff0f4aae727dbe4443348e57cf262db9cb69c32d6b13d52ed0c5f3d4bf5e",
+   "original_bytes": 14543,
+   "copy_sha256": "a787ff0f4aae727dbe4443348e57cf262db9cb69c32d6b13d52ed0c5f3d4bf5e",
+   "copy_bytes": 14543,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/grT.md",
+   "original_sha256": "73c0a0cabeb378bd8e769c49fd1b2a4b53b9c3b4b6243cab9380962612839ed4",
+   "original_bytes": 267597,
+   "copy_sha256": "73c0a0cabeb378bd8e769c49fd1b2a4b53b9c3b4b6243cab9380962612839ed4",
+   "copy_bytes": 267597,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/review-r1/MANIFEST.sha256",
+   "original_sha256": "6842d6bb8c510ee4e984c7d94d4f0bc542b4cbd43ea723ca5201c63422f448e3",
+   "original_bytes": 9052,
+   "copy_sha256": "6842d6bb8c510ee4e984c7d94d4f0bc542b4cbd43ea723ca5201c63422f448e3",
+   "copy_bytes": 9052,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/review-r1/lint_v2.py",
+   "original_sha256": "c0d5ee32a0a817bf1b1c73a9df5691e8781f56ba93592790c979be380ca79855",
+   "original_bytes": 3209,
+   "copy_sha256": "c0d5ee32a0a817bf1b1c73a9df5691e8781f56ba93592790c979be380ca79855",
+   "copy_bytes": 3209,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/review-r1/pins_check.py",
+   "original_sha256": "49277c7ef163bf25c8a565f5c7016ff29e29ae63a9018cf062020b804979f079",
+   "original_bytes": 1488,
+   "copy_sha256": "49277c7ef163bf25c8a565f5c7016ff29e29ae63a9018cf062020b804979f079",
+   "copy_bytes": 1488,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/review-r1/rebuild_all.py",
+   "original_sha256": "45a087a246a8ebe25c38a1d9ae2682b219af5e6fd7c468a25c977e9cc2dfdbc7",
+   "original_bytes": 2455,
+   "copy_sha256": "45a087a246a8ebe25c38a1d9ae2682b219af5e6fd7c468a25c977e9cc2dfdbc7",
+   "copy_bytes": 2455,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/review-r1/review.md",
+   "original_sha256": "268d8f330e4a8ff210f8ad4b0d998914ab270ddf5e45581e45776a8467212eac",
+   "original_bytes": 23537,
+   "copy_sha256": "268d8f330e4a8ff210f8ad4b0d998914ab270ddf5e45581e45776a8467212eac",
+   "copy_bytes": 23537,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/review-r2/MANIFEST.sha256",
+   "original_sha256": "60bee0996ff4350b0983e5a4f4573eb0a2749acd39dbf486c91fc1ac5ca11974",
+   "original_bytes": 4547,
+   "copy_sha256": "60bee0996ff4350b0983e5a4f4573eb0a2749acd39dbf486c91fc1ac5ca11974",
+   "copy_bytes": 4547,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/review-r2/item7.py",
+   "original_sha256": "be940585051fb10fa61009279b1f417bcc1220478b53813b6ceb8cf92f840420",
+   "original_bytes": 3142,
+   "copy_sha256": "be940585051fb10fa61009279b1f417bcc1220478b53813b6ceb8cf92f840420",
+   "copy_bytes": 3142,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/review-r2/lint_v2r1.py",
+   "original_sha256": "c0d5ee32a0a817bf1b1c73a9df5691e8781f56ba93592790c979be380ca79855",
+   "original_bytes": 3209,
+   "copy_sha256": "c0d5ee32a0a817bf1b1c73a9df5691e8781f56ba93592790c979be380ca79855",
+   "copy_bytes": 3209,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/review-r2/review.md",
+   "original_sha256": "901787327ba80afaee661c0f12e6f66854a163dae3859820ac8db1caa547c522",
+   "original_bytes": 17382,
+   "copy_sha256": "901787327ba80afaee661c0f12e6f66854a163dae3859820ac8db1caa547c522",
+   "copy_bytes": 17382,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/review-r3/MANIFEST.sha256",
+   "original_sha256": "3a51e31290ea072481591c99a47b87a3aa5f484d18375b9f3e84604fa9579027",
+   "original_bytes": 3459,
+   "copy_sha256": "3a51e31290ea072481591c99a47b87a3aa5f484d18375b9f3e84604fa9579027",
+   "copy_bytes": 3459,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/review-r3/item7.py",
+   "original_sha256": "34fb23ff6e7ecf841823e9baf4fc32a7f9df7a972fc07cd917974d7c952eb024",
+   "original_bytes": 3540,
+   "copy_sha256": "34fb23ff6e7ecf841823e9baf4fc32a7f9df7a972fc07cd917974d7c952eb024",
+   "copy_bytes": 3540,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/review-r3/review.md",
+   "original_sha256": "ab30b1a79d0376c44eb5e6532e3d7054db5c6a440a27abbf3f8ae79261f43ff9",
+   "original_bytes": 11131,
+   "copy_sha256": "ab30b1a79d0376c44eb5e6532e3d7054db5c6a440a27abbf3f8ae79261f43ff9",
+   "copy_bytes": 11131,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/review-r4/MANIFEST.sha256",
+   "original_sha256": "8ef285f77a3186bebedfc72acf6e15080e77bd8ad7883f13c27aa65beccb34a0",
+   "original_bytes": 3455,
+   "copy_sha256": "8ef285f77a3186bebedfc72acf6e15080e77bd8ad7883f13c27aa65beccb34a0",
+   "copy_bytes": 3455,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/review-r4/item7.py",
+   "original_sha256": "6e3ecda717f59bdd16b8f2df4377e0d5fa477970178cb1bc30fa134815c6ee05",
+   "original_bytes": 3565,
+   "copy_sha256": "6e3ecda717f59bdd16b8f2df4377e0d5fa477970178cb1bc30fa134815c6ee05",
+   "copy_bytes": 3565,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/review-r4/review.md",
+   "original_sha256": "be8879aa6f86d97581c39f5e025fa152b42f9a09b36c02c51ce912ab9b2183f4",
+   "original_bytes": 10883,
+   "copy_sha256": "be8879aa6f86d97581c39f5e025fa152b42f9a09b36c02c51ce912ab9b2183f4",
+   "copy_bytes": 10883,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/review-r5/MANIFEST.sha256",
+   "original_sha256": "1dcecffb4044dafbe113ddd1148b5a8ac9210f653eb04c6cb5d3fc6f34495ccd",
+   "original_bytes": 3943,
+   "copy_sha256": "1dcecffb4044dafbe113ddd1148b5a8ac9210f653eb04c6cb5d3fc6f34495ccd",
+   "copy_bytes": 3943,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/review-r5/item7.py",
+   "original_sha256": "dcdd1d65fa66ef52f405b819a9f22a4964216e0a716be26d9f889e905a2f7fd6",
+   "original_bytes": 3577,
+   "copy_sha256": "dcdd1d65fa66ef52f405b819a9f22a4964216e0a716be26d9f889e905a2f7fd6",
+   "copy_bytes": 3577,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/review-r5/review.md",
+   "original_sha256": "1ed3d4bf6a75c07fede5669a6d5b3c47f3da075078b6574efe851277dbeff1b6",
+   "original_bytes": 9013,
+   "copy_sha256": "1ed3d4bf6a75c07fede5669a6d5b3c47f3da075078b6574efe851277dbeff1b6",
+   "copy_bytes": 9013,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/smH.md",
+   "original_sha256": "0ed094252ca3a5a2fd6ff2081b72541ba053725b420b491deced73df93bf04cf",
+   "original_bytes": 476084,
+   "copy_sha256": "0ed094252ca3a5a2fd6ff2081b72541ba053725b420b491deced73df93bf04cf",
+   "copy_bytes": 476084,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-a1-amend/smT.md",
+   "original_sha256": "90fe2c154d7b5e8cc6e0c7d5d003ce1a47aaeda59d74a492db41489ebdbc7091",
+   "original_bytes": 476161,
+   "copy_sha256": "90fe2c154d7b5e8cc6e0c7d5d003ce1a47aaeda59d74a492db41489ebdbc7091",
+   "copy_bytes": 476161,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/ACCEPTED-STAGE1-9da5dd5f.md",
+   "original_sha256": "41be024dcbbe26a7cdf21c75495764acfebbd29aacf2ea2c7e43fee9edbd3892",
+   "original_bytes": 835,
+   "copy_sha256": "41be024dcbbe26a7cdf21c75495764acfebbd29aacf2ea2c7e43fee9edbd3892",
+   "copy_bytes": 835,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/ADOPTED-v5.5.8.md",
+   "original_sha256": "95b891128ddc87f3ba135d901e6ac3e73f78d194ce599bf747c9f683b1447b43",
+   "original_bytes": 1004,
+   "copy_sha256": "95b891128ddc87f3ba135d901e6ac3e73f78d194ce599bf747c9f683b1447b43",
+   "copy_bytes": 1004,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/ADOPTED-v5.5.9.md",
+   "original_sha256": "609f679aea15a3810ed09f4452531f6294aa0282d8862e52496d88e9ad9741a9",
+   "original_bytes": 859,
+   "copy_sha256": "609f679aea15a3810ed09f4452531f6294aa0282d8862e52496d88e9ad9741a9",
+   "copy_bytes": 859,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/ADOPTED-v6.0e.md",
+   "original_sha256": "22d362481798dc3ca38fe27164fd54abf52b078317176c1c143cab0e7bdfc10a",
+   "original_bytes": 1612,
+   "copy_sha256": "22d362481798dc3ca38fe27164fd54abf52b078317176c1c143cab0e7bdfc10a",
+   "copy_bytes": 1612,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v4.md",
+   "original_sha256": "c3214f10ea57879e7771bcacd2ea9a446b3fcc27c7464ad0d41cf665c145fdca",
+   "original_bytes": 14745,
+   "copy_sha256": "c3214f10ea57879e7771bcacd2ea9a446b3fcc27c7464ad0d41cf665c145fdca",
+   "copy_bytes": 14745,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.1.md",
+   "original_sha256": "89884a75d344f6019d829ad8ada684fead39a30a1bdb7eb3ab0d2bd0f8e943f1",
+   "original_bytes": 5996,
+   "copy_sha256": "89884a75d344f6019d829ad8ada684fead39a30a1bdb7eb3ab0d2bd0f8e943f1",
+   "copy_bytes": 5996,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.2.md",
+   "original_sha256": "eecb878295bfe43372800a658faf26236083850673bbafe096383c41aac8b6cb",
+   "original_bytes": 13433,
+   "copy_sha256": "eecb878295bfe43372800a658faf26236083850673bbafe096383c41aac8b6cb",
+   "copy_bytes": 13433,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.3.md",
+   "original_sha256": "2f50b625333a99ada61795f6e3cdea9d184ca8ff96d2bc85375dc29732f85a0c",
+   "original_bytes": 9113,
+   "copy_sha256": "2f50b625333a99ada61795f6e3cdea9d184ca8ff96d2bc85375dc29732f85a0c",
+   "copy_bytes": 9113,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.4.md",
+   "original_sha256": "d1e5c04858050d61a30b3b9135a6a729c4186d3878ffe3b91d129cbac15033a5",
+   "original_bytes": 10829,
+   "copy_sha256": "d1e5c04858050d61a30b3b9135a6a729c4186d3878ffe3b91d129cbac15033a5",
+   "copy_bytes": 10829,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.5.1.md",
+   "original_sha256": "89629ad8e286dac897ef30f8d46bde54307301a44426ad25f00f07e1e26ddd4c",
+   "original_bytes": 3490,
+   "copy_sha256": "89629ad8e286dac897ef30f8d46bde54307301a44426ad25f00f07e1e26ddd4c",
+   "copy_bytes": 3490,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.5.10-from-v5.5.9.diff",
+   "original_sha256": "0feaa2435e28751942576954a5d6443d0140d724e29926d8041d8b2c182b1889",
+   "original_bytes": 39303,
+   "copy_sha256": "0feaa2435e28751942576954a5d6443d0140d724e29926d8041d8b2c182b1889",
+   "copy_bytes": 39303,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.5.10.md",
+   "original_sha256": "942e8c9e93cd24f32ff3ca4d651532bb5d4e683a6b6b07dd88d6fcc3fd586530",
+   "original_bytes": 19195,
+   "copy_sha256": "942e8c9e93cd24f32ff3ca4d651532bb5d4e683a6b6b07dd88d6fcc3fd586530",
+   "copy_bytes": 19195,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.5.10a-from-v5.5.10.diff",
+   "original_sha256": "39732b40728244277c67c51e6c73c283fa7c74aa1fc9d575be0ef3472b9ee6dd",
+   "original_bytes": 27032,
+   "copy_sha256": "39732b40728244277c67c51e6c73c283fa7c74aa1fc9d575be0ef3472b9ee6dd",
+   "copy_bytes": 27032,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.5.10a-from-v5.5.9.diff",
+   "original_sha256": "0cf26beea06c65a8e0919fa8db8b2066810ea17f1cba48316d8332360e477d4e",
+   "original_bytes": 44690,
+   "copy_sha256": "0cf26beea06c65a8e0919fa8db8b2066810ea17f1cba48316d8332360e477d4e",
+   "copy_bytes": 44690,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.5.10a.md",
+   "original_sha256": "fd86c11cd939d838a94a0626ebe1acc14424465378ec71d224bad304315d3ff3",
+   "original_bytes": 13103,
+   "copy_sha256": "fd86c11cd939d838a94a0626ebe1acc14424465378ec71d224bad304315d3ff3",
+   "copy_bytes": 13103,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.5.2.md",
+   "original_sha256": "e5b3a2ab5420154ac5b6436927df330ee238aa3d0448f1b8b11bb24dfb2bcb3c",
+   "original_bytes": 3006,
+   "copy_sha256": "e5b3a2ab5420154ac5b6436927df330ee238aa3d0448f1b8b11bb24dfb2bcb3c",
+   "copy_bytes": 3006,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.5.3.md",
+   "original_sha256": "a2b6ad472fbb43a05806c74295066ad2b2f970c8205e4c479f86b2ab9e6e7d63",
+   "original_bytes": 3307,
+   "copy_sha256": "a2b6ad472fbb43a05806c74295066ad2b2f970c8205e4c479f86b2ab9e6e7d63",
+   "copy_bytes": 3307,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.5.4.diff",
+   "original_sha256": "8b139ca8a5555ec1da70d2142a8ba455a68f2ab9cda1b5846a6dcde7a9a05962",
+   "original_bytes": 20422,
+   "copy_sha256": "8b139ca8a5555ec1da70d2142a8ba455a68f2ab9cda1b5846a6dcde7a9a05962",
+   "copy_bytes": 20422,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.5.4.md",
+   "original_sha256": "76d4a41312bd2f4df18f0c50251a4e4a89aa465c06e9bbce043815671953434c",
+   "original_bytes": 26320,
+   "copy_sha256": "76d4a41312bd2f4df18f0c50251a4e4a89aa465c06e9bbce043815671953434c",
+   "copy_bytes": 26320,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.5.5-from-v5.5.4.diff",
+   "original_sha256": "7f912a1594d101ca68b318e52d20651a1fca4f87264853c427e0bc659bbda292",
+   "original_bytes": 9090,
+   "copy_sha256": "7f912a1594d101ca68b318e52d20651a1fca4f87264853c427e0bc659bbda292",
+   "copy_bytes": 9090,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.5.5.diff",
+   "original_sha256": "8845dbf7657d2cc040cc008afdcfc13dbfd87e0a3439dbac5ea2cee57e867ae2",
+   "original_bytes": 23270,
+   "copy_sha256": "8845dbf7657d2cc040cc008afdcfc13dbfd87e0a3439dbac5ea2cee57e867ae2",
+   "copy_bytes": 23270,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.5.5.md",
+   "original_sha256": "bf721f330959d54264a1cea37c44ec90841075a26814e07e7d9b0926b864dc8b",
+   "original_bytes": 28982,
+   "copy_sha256": "bf721f330959d54264a1cea37c44ec90841075a26814e07e7d9b0926b864dc8b",
+   "copy_bytes": 28982,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.5.6-from-v5.5.5.diff",
+   "original_sha256": "5d7ac4f8a6fd82fbe2d2d9fa8561c2d2e664b597aa3803b8bedfd05f80453f19",
+   "original_bytes": 8723,
+   "copy_sha256": "5d7ac4f8a6fd82fbe2d2d9fa8561c2d2e664b597aa3803b8bedfd05f80453f19",
+   "copy_bytes": 8723,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.5.6.diff",
+   "original_sha256": "aaa9ffa17919895991a8922b5ca415ec1c6e896dbe8a9b71be9f7aaa042127a4",
+   "original_bytes": 24841,
+   "copy_sha256": "aaa9ffa17919895991a8922b5ca415ec1c6e896dbe8a9b71be9f7aaa042127a4",
+   "copy_bytes": 24841,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.5.6.md",
+   "original_sha256": "8c09fcd7857dc159a8fe7eb760fd49193399d9228ac4fc76e53c8bda08392229",
+   "original_bytes": 32834,
+   "copy_sha256": "8c09fcd7857dc159a8fe7eb760fd49193399d9228ac4fc76e53c8bda08392229",
+   "copy_bytes": 32834,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.5.7-from-v5.5.6.diff",
+   "original_sha256": "bbd7daabab179ae66d9d49056ad83216a35be97c7373eefe91c363d77ff379e6",
+   "original_bytes": 10065,
+   "copy_sha256": "bbd7daabab179ae66d9d49056ad83216a35be97c7373eefe91c363d77ff379e6",
+   "copy_bytes": 10065,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.5.7.diff",
+   "original_sha256": "5030aaea3646ae99398f8d738e6d5df19863d9a349cba456eb29cc91c168327f",
+   "original_bytes": 25942,
+   "copy_sha256": "5030aaea3646ae99398f8d738e6d5df19863d9a349cba456eb29cc91c168327f",
+   "copy_bytes": 25942,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.5.7.md",
+   "original_sha256": "41df071e1df2922cfbb950c72f380b9e861f8de5c54864480cd1a5e8d08b6dfa",
+   "original_bytes": 33942,
+   "copy_sha256": "41df071e1df2922cfbb950c72f380b9e861f8de5c54864480cd1a5e8d08b6dfa",
+   "copy_bytes": 33942,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.5.8-from-v5.5.7.diff",
+   "original_sha256": "0dd33a644c24b950510d35e96cc1723d663b5779876e6e403b3e6ece57c1e9c5",
+   "original_bytes": 10211,
+   "copy_sha256": "0dd33a644c24b950510d35e96cc1723d663b5779876e6e403b3e6ece57c1e9c5",
+   "copy_bytes": 10211,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.5.8.diff",
+   "original_sha256": "1cb6be043c16a537a57c68fd8db8a3b3c3a06f6717aed2b4bc0fa9ebc0268f88",
+   "original_bytes": 26728,
+   "copy_sha256": "1cb6be043c16a537a57c68fd8db8a3b3c3a06f6717aed2b4bc0fa9ebc0268f88",
+   "copy_bytes": 26728,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.5.8.md",
+   "original_sha256": "650437c0a7fdd4ab9ccd6d368956da1a5dd70f80b959214fce7322b0b7e8f2f9",
+   "original_bytes": 36429,
+   "copy_sha256": "650437c0a7fdd4ab9ccd6d368956da1a5dd70f80b959214fce7322b0b7e8f2f9",
+   "copy_bytes": 36429,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.5.9-from-v5.5.8.diff",
+   "original_sha256": "53a42cbed1cdd110ce94eb45efbe3e8cafa99910f9e926ccbd49c3980ce6f2f2",
+   "original_bytes": 2122,
+   "copy_sha256": "53a42cbed1cdd110ce94eb45efbe3e8cafa99910f9e926ccbd49c3980ce6f2f2",
+   "copy_bytes": 2122,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.5.md",
+   "original_sha256": "815e8a03e998bf4f0a8909669d50b895c96a2808ae5ab2c09c4c32d15325a1ed",
+   "original_bytes": 10692,
+   "copy_sha256": "815e8a03e998bf4f0a8909669d50b895c96a2808ae5ab2c09c4c32d15325a1ed",
+   "copy_bytes": 10692,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v5.md",
+   "original_sha256": "9e0efa6dda27d3441507c47e5c469ae324a7794c7a6b57d3165ba8af0e95e923",
+   "original_bytes": 13623,
+   "copy_sha256": "9e0efa6dda27d3441507c47e5c469ae324a7794c7a6b57d3165ba8af0e95e923",
+   "copy_bytes": 13623,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v6.0-from-v5.5.9.diff",
+   "original_sha256": "7be43780ef43c50ce8632d947a5f63ccf935369ecbd61157a4e39de15b5cbcf2",
+   "original_bytes": 110545,
+   "copy_sha256": "7be43780ef43c50ce8632d947a5f63ccf935369ecbd61157a4e39de15b5cbcf2",
+   "copy_bytes": 110545,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v6.0a-from-v5.5.9.diff",
+   "original_sha256": "fb0aefc7315a73176ed3285bc9b614cfe42abb46305de3f69ac3eae324b9e2c9",
+   "original_bytes": 126612,
+   "copy_sha256": "fb0aefc7315a73176ed3285bc9b614cfe42abb46305de3f69ac3eae324b9e2c9",
+   "copy_bytes": 126612,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v6.0a-from-v6.0.diff",
+   "original_sha256": "50e5ba13e1225d6d730e5beeb7ece5c7646bf13e9e7089facfc41ec1e30ba098",
+   "original_bytes": 50368,
+   "copy_sha256": "50e5ba13e1225d6d730e5beeb7ece5c7646bf13e9e7089facfc41ec1e30ba098",
+   "copy_bytes": 50368,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v6.0a.md",
+   "original_sha256": "4953171d9cfda38669462d1bee680fc894db7a2d63aec09815172e4012c9a1ae",
+   "original_bytes": 9797,
+   "copy_sha256": "4953171d9cfda38669462d1bee680fc894db7a2d63aec09815172e4012c9a1ae",
+   "copy_bytes": 9797,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v6.0b-from-v5.5.9.diff",
+   "original_sha256": "c9564ad32b5b85720bada12d819866a79e5943c4fd9c68c1d147ddaa83b3d1cb",
+   "original_bytes": 132852,
+   "copy_sha256": "c9564ad32b5b85720bada12d819866a79e5943c4fd9c68c1d147ddaa83b3d1cb",
+   "copy_bytes": 132852,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v6.0b-from-v6.0a.diff",
+   "original_sha256": "a15f68c4d04b8ba9d92ecd37fd20575cfac72b3536fb58da4f3370a42693ea29",
+   "original_bytes": 22229,
+   "copy_sha256": "a15f68c4d04b8ba9d92ecd37fd20575cfac72b3536fb58da4f3370a42693ea29",
+   "copy_bytes": 22229,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v6.0b.md",
+   "original_sha256": "1a939950db6104178389cf43e328d9c64bae91bb9fc137080aedba16323033dc",
+   "original_bytes": 7735,
+   "copy_sha256": "1a939950db6104178389cf43e328d9c64bae91bb9fc137080aedba16323033dc",
+   "copy_bytes": 7735,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v6.0c-from-v5.5.9.diff",
+   "original_sha256": "2e37208f49116ebd9f77c70ba105e9aed63183c99e1986c66023cdc09275be26",
+   "original_bytes": 139787,
+   "copy_sha256": "2e37208f49116ebd9f77c70ba105e9aed63183c99e1986c66023cdc09275be26",
+   "copy_bytes": 139787,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v6.0c-from-v6.0b.diff",
+   "original_sha256": "4920ce8c2fc4159e16e27ec3cc0bdba5126d7569e4a8fd991ea28c41e4194e79",
+   "original_bytes": 27113,
+   "copy_sha256": "4920ce8c2fc4159e16e27ec3cc0bdba5126d7569e4a8fd991ea28c41e4194e79",
+   "copy_bytes": 27113,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v6.0c.md",
+   "original_sha256": "c7d24bc8b1f3b690ac798b308f792716371eaa548af16e48a4712aa139fcf4d2",
+   "original_bytes": 7981,
+   "copy_sha256": "c7d24bc8b1f3b690ac798b308f792716371eaa548af16e48a4712aa139fcf4d2",
+   "copy_bytes": 7981,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v6.0d-from-v5.5.9.diff",
+   "original_sha256": "4ee9e099273ae8c0e6edfc9dff99c7e26001577d408e0ccd528cce3ddf7a91d2",
+   "original_bytes": 143263,
+   "copy_sha256": "4ee9e099273ae8c0e6edfc9dff99c7e26001577d408e0ccd528cce3ddf7a91d2",
+   "copy_bytes": 143263,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v6.0d-from-v6.0c.diff",
+   "original_sha256": "d6b87ed0367fd52175532692cc0ab1c67d9a628ea760d270dfca701870c5d1de",
+   "original_bytes": 18079,
+   "copy_sha256": "d6b87ed0367fd52175532692cc0ab1c67d9a628ea760d270dfca701870c5d1de",
+   "copy_bytes": 18079,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v6.0d.md",
+   "original_sha256": "89206acaa63b1243563660f01eb1d2fa0190744fac896bbfd9a5ac7512bcd81d",
+   "original_bytes": 4911,
+   "copy_sha256": "89206acaa63b1243563660f01eb1d2fa0190744fac896bbfd9a5ac7512bcd81d",
+   "copy_bytes": 4911,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v6.0e-from-v5.5.9.diff",
+   "original_sha256": "fc0e551fd2c1b634baa75847f6040434430b5d02a0657ad1442f09a889616f6e",
+   "original_bytes": 144752,
+   "copy_sha256": "fc0e551fd2c1b634baa75847f6040434430b5d02a0657ad1442f09a889616f6e",
+   "copy_bytes": 144752,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v6.0e-from-v6.0d.diff",
+   "original_sha256": "f73d9e7171ee120f39f4635921d00ae9c462f445c61475f001a702b138cd4ada",
+   "original_bytes": 10892,
+   "copy_sha256": "f73d9e7171ee120f39f4635921d00ae9c462f445c61475f001a702b138cd4ada",
+   "copy_bytes": 10892,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/CHANGES-v6.0e.md",
+   "original_sha256": "44639266d1e6c9f76eb68636bf47804751bdea61092e4a0ca177d9fafbbcd332",
+   "original_bytes": 4419,
+   "copy_sha256": "44639266d1e6c9f76eb68636bf47804751bdea61092e4a0ca177d9fafbbcd332",
+   "copy_bytes": 4419,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v2.md",
+   "original_sha256": "7bd794645d50a1e81d093e334b9278b95cfbee6cf628a0fb742501e346014096",
+   "original_bytes": 37415,
+   "copy_sha256": "7bd794645d50a1e81d093e334b9278b95cfbee6cf628a0fb742501e346014096",
+   "copy_bytes": 37415,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v3.md",
+   "original_sha256": "855e3da00341a0c3cb7234ba7473870115164d809adeb698dd80752bf3d29d9d",
+   "original_bytes": 69817,
+   "copy_sha256": "855e3da00341a0c3cb7234ba7473870115164d809adeb698dd80752bf3d29d9d",
+   "copy_bytes": 69817,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v4.md",
+   "original_sha256": "3cde34d2209dbcd6c5f03f991fb27385c2e709b9bd1557b60d965f9aa219c625",
+   "original_bytes": 111837,
+   "copy_sha256": "3cde34d2209dbcd6c5f03f991fb27385c2e709b9bd1557b60d965f9aa219c625",
+   "copy_bytes": 111837,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v5.1.md",
+   "original_sha256": "0c4ff0e60331d0e9604ece0c997dec472b3f977bf24384676d74f850bff4a3fe",
+   "original_bytes": 138131,
+   "copy_sha256": "0c4ff0e60331d0e9604ece0c997dec472b3f977bf24384676d74f850bff4a3fe",
+   "copy_bytes": 138131,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v5.2.md",
+   "original_sha256": "195d1e288b1d6750c333b4707332868d351926793ad2b2a555d64e3bd78f4aeb",
+   "original_bytes": 171327,
+   "copy_sha256": "195d1e288b1d6750c333b4707332868d351926793ad2b2a555d64e3bd78f4aeb",
+   "copy_bytes": 171327,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v5.3.md",
+   "original_sha256": "3b24ac8e5e651a5a5651ace69d36112d29e1afe9388696f056631f1c59e7773d",
+   "original_bytes": 184589,
+   "copy_sha256": "3b24ac8e5e651a5a5651ace69d36112d29e1afe9388696f056631f1c59e7773d",
+   "copy_bytes": 184589,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v5.4.md",
+   "original_sha256": "a980251709485e7c1b26c91c32a18d8fdf412adb6f6d8058c382892bc29b9cb3",
+   "original_bytes": 202402,
+   "copy_sha256": "a980251709485e7c1b26c91c32a18d8fdf412adb6f6d8058c382892bc29b9cb3",
+   "copy_bytes": 202402,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v5.5.1.md",
+   "original_sha256": "8befd35c74b8e4dfa241e360d891de3222b3f878ca2aaf23ceaae1d00fbed649",
+   "original_bytes": 220142,
+   "copy_sha256": "8befd35c74b8e4dfa241e360d891de3222b3f878ca2aaf23ceaae1d00fbed649",
+   "copy_bytes": 220142,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v5.5.10.md",
+   "original_sha256": "fae222cd5caab23cec5a80bfa9d0db083efad8311e3985cd7b553bec87748e0c",
+   "original_bytes": 261703,
+   "copy_sha256": "fae222cd5caab23cec5a80bfa9d0db083efad8311e3985cd7b553bec87748e0c",
+   "copy_bytes": 261703,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v5.5.10a.md",
+   "original_sha256": "b7e45218d27a2ab2a36f6b3f837e07ea04f3df88d04120733e9487c0a3cf1ee2",
+   "original_bytes": 268313,
+   "copy_sha256": "b7e45218d27a2ab2a36f6b3f837e07ea04f3df88d04120733e9487c0a3cf1ee2",
+   "copy_bytes": 268313,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v5.5.2.md",
+   "original_sha256": "835ff356200349db7689ea41ce936349015fb70f47b35a508945d681a8604323",
+   "original_bytes": 223357,
+   "copy_sha256": "835ff356200349db7689ea41ce936349015fb70f47b35a508945d681a8604323",
+   "copy_bytes": 223357,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v5.5.3.md",
+   "original_sha256": "99e9ce3af5476e2ea4be1cab911e1aa2cf1c2d3b3a9bf7cf06fcb2f8cbfe3379",
+   "original_bytes": 226581,
+   "copy_sha256": "99e9ce3af5476e2ea4be1cab911e1aa2cf1c2d3b3a9bf7cf06fcb2f8cbfe3379",
+   "copy_bytes": 226581,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v5.5.4.md",
+   "original_sha256": "1ade8b8f43d6259c50ac9847c59e09ce71a645ba0cb8eabe7e1deb84bb4c5e34",
+   "original_bytes": 237492,
+   "copy_sha256": "1ade8b8f43d6259c50ac9847c59e09ce71a645ba0cb8eabe7e1deb84bb4c5e34",
+   "copy_bytes": 237492,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v5.5.5.md",
+   "original_sha256": "f6f966ebbf5bdd2363f7a02318b1c88981aac000b4c966570ee762908029aff9",
+   "original_bytes": 239440,
+   "copy_sha256": "f6f966ebbf5bdd2363f7a02318b1c88981aac000b4c966570ee762908029aff9",
+   "copy_bytes": 239440,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v5.5.6.md",
+   "original_sha256": "e19e9406044b4be321074ff935f5978b5ebeb258a637a76545023d3cbeafca77",
+   "original_bytes": 240672,
+   "copy_sha256": "e19e9406044b4be321074ff935f5978b5ebeb258a637a76545023d3cbeafca77",
+   "copy_bytes": 240672,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v5.5.7.md",
+   "original_sha256": "0a7efa040af44c4bf1e09b3ba026eb6e2a1a0fecc413516a0c2fcbc629504f6f",
+   "original_bytes": 241771,
+   "copy_sha256": "0a7efa040af44c4bf1e09b3ba026eb6e2a1a0fecc413516a0c2fcbc629504f6f",
+   "copy_bytes": 241771,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v5.5.8.md",
+   "original_sha256": "f531948147b3638c5ad567f5ccf0eedfd04650a30be9fd0a9f2084aa13a77ad2",
+   "original_bytes": 242555,
+   "copy_sha256": "f531948147b3638c5ad567f5ccf0eedfd04650a30be9fd0a9f2084aa13a77ad2",
+   "copy_bytes": 242555,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v5.5.9.md",
+   "original_sha256": "cdfbe08cd9ec331ac94e9d57d66f0e0c919cc2ff17038a8475a1ff2d7a779df9",
+   "original_bytes": 243022,
+   "copy_sha256": "cdfbe08cd9ec331ac94e9d57d66f0e0c919cc2ff17038a8475a1ff2d7a779df9",
+   "copy_bytes": 243022,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v5.5.md",
+   "original_sha256": "74db584a5bdb861519f9703e3b5d102ba07a60dfd0e8f89ea183bd89a80b52a4",
+   "original_bytes": 217155,
+   "copy_sha256": "74db584a5bdb861519f9703e3b5d102ba07a60dfd0e8f89ea183bd89a80b52a4",
+   "copy_bytes": 217155,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v5.md",
+   "original_sha256": "6693e5dd4dd2a0059e88a21091b979dfc36680e25e54960b9699d2a2f2972982",
+   "original_bytes": 134212,
+   "copy_sha256": "6693e5dd4dd2a0059e88a21091b979dfc36680e25e54960b9699d2a2f2972982",
+   "copy_bytes": 134212,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v6.0.md",
+   "original_sha256": "5d4ddf784164c496d98b3194030524b20353cfcd5695fbf102eae68ced85e145",
+   "original_bytes": 216356,
+   "copy_sha256": "5d4ddf784164c496d98b3194030524b20353cfcd5695fbf102eae68ced85e145",
+   "copy_bytes": 216356,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v6.0a.md",
+   "original_sha256": "105db5efe8803876107e525f868051593227f0cc20f0bd2fb7600ea312113585",
+   "original_bytes": 224274,
+   "copy_sha256": "105db5efe8803876107e525f868051593227f0cc20f0bd2fb7600ea312113585",
+   "copy_bytes": 224274,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v6.0b.md",
+   "original_sha256": "f87dd8bee2c0a9d20beaf462351245f4735eaf056ad0485616fe391dacceb452",
+   "original_bytes": 229790,
+   "copy_sha256": "f87dd8bee2c0a9d20beaf462351245f4735eaf056ad0485616fe391dacceb452",
+   "copy_bytes": 229790,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v6.0c.md",
+   "original_sha256": "dd72ee5b9f1ed3718b5f1584bf88b957dbb481b0c9ac9dca3d6ff784389aa594",
+   "original_bytes": 236664,
+   "copy_sha256": "dd72ee5b9f1ed3718b5f1584bf88b957dbb481b0c9ac9dca3d6ff784389aa594",
+   "copy_bytes": 236664,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v6.0d.md",
+   "original_sha256": "1927e1356c7491ff00861e963d43308232e6ee51622ff5916b4f7921d32ef923",
+   "original_bytes": 240105,
+   "copy_sha256": "1927e1356c7491ff00861e963d43308232e6ee51622ff5916b4f7921d32ef923",
+   "copy_bytes": 240105,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN-v6.0e.md",
+   "original_sha256": "4024a31cd2cde06763cb529eafeb023078c52dfa7a5d5fb377995373ab205131",
+   "original_bytes": 241584,
+   "copy_sha256": "4024a31cd2cde06763cb529eafeb023078c52dfa7a5d5fb377995373ab205131",
+   "copy_bytes": 241584,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/DESIGN.md",
+   "original_sha256": "447d23f362bbe265af61aaf19dc02928ecb06bc0e3393ac188087a670bc83e04",
+   "original_bytes": 32905,
+   "copy_sha256": "447d23f362bbe265af61aaf19dc02928ecb06bc0e3393ac188087a670bc83e04",
+   "copy_bytes": 32905,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/FROZEN-v5.5.2/FREEZE.md",
+   "original_sha256": "fcca472d26f1beeb8fa3a0083abdfb1a684d317981642eec7ca713acc74b9fa4",
+   "original_bytes": 1011,
+   "copy_sha256": "fcca472d26f1beeb8fa3a0083abdfb1a684d317981642eec7ca713acc74b9fa4",
+   "copy_bytes": 1011,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/FROZEN-v5.5.2/FREEZE.sha256",
+   "original_sha256": "00f6099fe565542e9132e58f80415584c6ed6bd71a2fae845c12917b96bbb9b9",
+   "original_bytes": 172,
+   "copy_sha256": "00f6099fe565542e9132e58f80415584c6ed6bd71a2fae845c12917b96bbb9b9",
+   "copy_bytes": 172,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/FROZEN-v5.5.3/FREEZE.md",
+   "original_sha256": "235af33b5414c2ea7c0862f729b868c3fd51d3d1b3225af68a45e6b11fc36db0",
+   "original_bytes": 907,
+   "copy_sha256": "235af33b5414c2ea7c0862f729b868c3fd51d3d1b3225af68a45e6b11fc36db0",
+   "copy_bytes": 907,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/FROZEN-v5.5.3/FREEZE.sha256",
+   "original_sha256": "23ab57789be7f286035256abb71092c3e7acb9ebb4c944fb16afe7401462be88",
+   "original_bytes": 172,
+   "copy_sha256": "23ab57789be7f286035256abb71092c3e7acb9ebb4c944fb16afe7401462be88",
+   "copy_bytes": 172,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/INVENTORY-v6.0.md",
+   "original_sha256": "2b4006ddafcf9be6dbfdc048953bf729f7005ea4ca6f6f8f78bd50852593953c",
+   "original_bytes": 83176,
+   "copy_sha256": "190fe6c8d4ce130b8865de91ef1753aefa4f965132f5eaa9390d13c25001be2c",
+   "copy_bytes": 83157,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/INVENTORY-v6.0a.md",
+   "original_sha256": "b5ada0da953962710ca043b66c8a356a11ceb14965d538c70b5df2dd561039ae",
+   "original_bytes": 90138,
+   "copy_sha256": "9dba6fe32992fa12ae1824c253a8604030b7934e53681a3856f9137dfde066fa",
+   "copy_bytes": 90119,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/INVENTORY-v6.0b.md",
+   "original_sha256": "7efa6bd2614d77a239a7816c219a96e37e7713fad4a0df31ec31444cf4ea630b",
+   "original_bytes": 94680,
+   "copy_sha256": "a65a19bc4436357596990348ecdb1d91a75513ad4ae083f3a18c3575f4961cfa",
+   "copy_bytes": 94661,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/INVENTORY-v6.0c.md",
+   "original_sha256": "86cbe962381a3a25fdaba9387cbf37922fa51d0e892ed075bff2cb76a4eb914c",
+   "original_bytes": 100979,
+   "copy_sha256": "f076cd63385ed9b58a5fd18c252e60a6fc410f75e9559321cbac47254bd893b3",
+   "copy_bytes": 100960,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/INVENTORY-v6.0d.md",
+   "original_sha256": "9936495b1cc7a93448a09f1111d2085e6e779f6f67de7c1f1a203e7e940b0c1a",
+   "original_bytes": 102931,
+   "copy_sha256": "1e96a77a53202534b7f91e454b5d214fd562ca0c0939b41d01a71b141d8d655d",
+   "copy_bytes": 102912,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/INVENTORY-v6.0e.md",
+   "original_sha256": "ce3abd51df3ce12b9ee05accf4eb235869c4745556a73ca7c850db771a2720f0",
+   "original_bytes": 103861,
+   "copy_sha256": "540f0daaf93816078e6ed5a7155aaa45441c132cb97843b0c4c3d24337e4e0d0",
+   "copy_bytes": 103842,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/MANIFEST.sha256",
+   "original_sha256": "301bca2603bb8f4d1af188f3d57db58c0a1d913189be3e1efec10d24539926ad",
+   "original_bytes": 2278,
+   "copy_sha256": "301bca2603bb8f4d1af188f3d57db58c0a1d913189be3e1efec10d24539926ad",
+   "copy_bytes": 2278,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/OWNER-DECISION-AUTHZ-20261124.md",
+   "original_sha256": "0f28307b28221fe2d584516cbb0504fd1747335b51507e1a58beb1568d110f0e",
+   "original_bytes": 1473,
+   "copy_sha256": "0f28307b28221fe2d584516cbb0504fd1747335b51507e1a58beb1568d110f0e",
+   "copy_bytes": 1473,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/OWNER-DECISIONS-IMPL-20261124.md",
+   "original_sha256": "3a29296150f3fa9ac7225e0846f8529ce632541bd1d74b288861826138362aca",
+   "original_bytes": 1162,
+   "copy_sha256": "3a29296150f3fa9ac7225e0846f8529ce632541bd1d74b288861826138362aca",
+   "copy_bytes": 1162,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/decisions-r4/PROPOSALS.md",
+   "original_sha256": "f10b66283f5a84762969cc8685385d614964b3660917825e1128a0a46d828771",
+   "original_bytes": 4863,
+   "copy_sha256": "f10b66283f5a84762969cc8685385d614964b3660917825e1128a0a46d828771",
+   "copy_bytes": 4863,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-stage1-r2-HANDBACK.md",
+   "original_sha256": "0d496a3273405cc5a99434004a273efffbcb00136ae2ad0a14723432fb1640db",
+   "original_bytes": 13734,
+   "copy_sha256": "376b065aa2d6022e1d2dfc1aa30f07f344314671def4ef7deb21760712eb3ad4",
+   "copy_bytes": 13731,
+   "byte_identical": false,
+   "transformations": {
+    "T5": 3
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-stage1-r2/MANIFEST.sha256",
+   "original_sha256": "ec6c31e065b44e434cb8cbd7c64d69b3f21fd893e950078af326f6b449d1ae27",
+   "original_bytes": 1510,
+   "copy_sha256": "ec6c31e065b44e434cb8cbd7c64d69b3f21fd893e950078af326f6b449d1ae27",
+   "copy_bytes": 1510,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-stage1-r2/diff.patch",
+   "original_sha256": "2075bc423f0c91e33f04c3b1d7f1624a9ce9ea6944b371159950281e3736065f",
+   "original_bytes": 402358,
+   "copy_sha256": "2075bc423f0c91e33f04c3b1d7f1624a9ce9ea6944b371159950281e3736065f",
+   "copy_bytes": 402358,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-stage1-r3/MANIFEST.sha256",
+   "original_sha256": "4b61c895c9baaf70d3b595086db233375a5265ee6a44232da0501fece7f3fcb3",
+   "original_bytes": 4339,
+   "copy_sha256": "4b61c895c9baaf70d3b595086db233375a5265ee6a44232da0501fece7f3fcb3",
+   "copy_bytes": 4339,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-stage1-r3/diff.patch",
+   "original_sha256": "ca246327787af0332ec163bd905fcdebd0a845c2ca54c31108535f1efdaf53a7",
+   "original_bytes": 88241,
+   "copy_sha256": "ca246327787af0332ec163bd905fcdebd0a845c2ca54c31108535f1efdaf53a7",
+   "copy_bytes": 88241,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-stage1-r4/MANIFEST.sha256",
+   "original_sha256": "5af160fa879ba39f475a9df5ac12c3c39196573ab4ff63bc883998c7ea0e4003",
+   "original_bytes": 4467,
+   "copy_sha256": "5af160fa879ba39f475a9df5ac12c3c39196573ab4ff63bc883998c7ea0e4003",
+   "copy_bytes": 4467,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-stage1-r4/diff.patch",
+   "original_sha256": "a0566707aa60bff45b5b1e5499d7d5ff9177a660e0cd941050a4ebaeea20414b",
+   "original_bytes": 63428,
+   "copy_sha256": "a0566707aa60bff45b5b1e5499d7d5ff9177a660e0cd941050a4ebaeea20414b",
+   "copy_bytes": 63428,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-stage1-r5/MANIFEST.sha256",
+   "original_sha256": "8e5e283dd265e7d30ad1903361facc15d29473f43721971c8f89a1bb78803c03",
+   "original_bytes": 7539,
+   "copy_sha256": "8e5e283dd265e7d30ad1903361facc15d29473f43721971c8f89a1bb78803c03",
+   "copy_bytes": 7539,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-stage1-r5/diff.patch",
+   "original_sha256": "dd6c8d6bc47fbd3971a26839e00e0842b54f490d441c5c00f574a949e4865c36",
+   "original_bytes": 60610,
+   "copy_sha256": "dd6c8d6bc47fbd3971a26839e00e0842b54f490d441c5c00f574a949e4865c36",
+   "copy_bytes": 60610,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-stage1-r6/MANIFEST.sha256",
+   "original_sha256": "53809e74d37984bc361caf94482e2b7a9e595e3b31f8fa0698d1d90dcaf1edd2",
+   "original_bytes": 9397,
+   "copy_sha256": "53809e74d37984bc361caf94482e2b7a9e595e3b31f8fa0698d1d90dcaf1edd2",
+   "copy_bytes": 9397,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-stage1-r6/diff.patch",
+   "original_sha256": "9784d9a514b44d67da5a2003349271b54cb5c1801233f3a4d6a77f10ed423d7f",
+   "original_bytes": 155461,
+   "copy_sha256": "9784d9a514b44d67da5a2003349271b54cb5c1801233f3a4d6a77f10ed423d7f",
+   "copy_bytes": 155461,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-stage1-r7/MANIFEST.sha256",
+   "original_sha256": "2947bdc9ebe80ca4b84cff5d9b16127bc8a6917fc89db0750829d60b26e9e3a0",
+   "original_bytes": 9828,
+   "copy_sha256": "2947bdc9ebe80ca4b84cff5d9b16127bc8a6917fc89db0750829d60b26e9e3a0",
+   "copy_bytes": 9828,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-stage1-r7/diff.patch",
+   "original_sha256": "3b67501c0a0ec4836282ec91d8e387b3ccbd672d01a69a9ec7e461fd4e20861f",
+   "original_bytes": 32113,
+   "copy_sha256": "3b67501c0a0ec4836282ec91d8e387b3ccbd672d01a69a9ec7e461fd4e20861f",
+   "copy_bytes": 32113,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-stage1-r8/GATE.md",
+   "original_sha256": "1b42c5fcbfc374a0ca1b54163f544ac1b4e3c323f81fa57406d3cf417572d129",
+   "original_bytes": 7125,
+   "copy_sha256": "1b42c5fcbfc374a0ca1b54163f544ac1b4e3c323f81fa57406d3cf417572d129",
+   "copy_bytes": 7125,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-stage1-r8/diff.patch",
+   "original_sha256": "e37be54a48f8b62f06cd85358d4d8045ec4bdb6171b432f44a87eac03129b176",
+   "original_bytes": 29152,
+   "copy_sha256": "e37be54a48f8b62f06cd85358d4d8045ec4bdb6171b432f44a87eac03129b176",
+   "copy_bytes": 29152,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-stage1-s1/CORRECTION-Q10.md",
+   "original_sha256": "44fb8665e7f1ab3663ed0a742e713208c6688fd458e5056abbfbe24c49830c86",
+   "original_bytes": 2348,
+   "copy_sha256": "44fb8665e7f1ab3663ed0a742e713208c6688fd458e5056abbfbe24c49830c86",
+   "copy_bytes": 2348,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-stage1-s1/EXACT-DELTA.md",
+   "original_sha256": "94e96392e510f8c7972b7150dbbf1ff38b8ff07aaec900eb1582bfaf2de8765e",
+   "original_bytes": 15198,
+   "copy_sha256": "c9a9df35bb8fc996c6e6f1676464b4ba629f76e3ba6b2a73d5336a842b6277ec",
+   "copy_bytes": 15197,
+   "byte_identical": false,
+   "transformations": {
+    "T5": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-stage1-s1/MANIFEST.sha256",
+   "original_sha256": "66f7df322e81afc4c8c21dfab32c1825d66af8b77367ec317bfb2372d2d85d1b",
+   "original_bytes": 3954,
+   "copy_sha256": "66f7df322e81afc4c8c21dfab32c1825d66af8b77367ec317bfb2372d2d85d1b",
+   "copy_bytes": 3954,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-stage1-s1/diff.patch",
+   "original_sha256": "dcd18501f8f95da37aebbf0fd166463632a3b18750ad99d3d382cb88b71d611e",
+   "original_bytes": 114417,
+   "copy_sha256": "dcd18501f8f95da37aebbf0fd166463632a3b18750ad99d3d382cb88b71d611e",
+   "copy_bytes": 114417,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-stage1/MANIFEST.sha256",
+   "original_sha256": "c7721d2566abc6421c1f5141eb521536090badf484abefdcf959d1fbbdba49c3",
+   "original_bytes": 1562,
+   "copy_sha256": "c7721d2566abc6421c1f5141eb521536090badf484abefdcf959d1fbbdba49c3",
+   "copy_bytes": 1562,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-stage1/REPORT.md",
+   "original_sha256": "9093f93a002fcc2dfa5574468ed15bf37044a6434c59b2f2d81d3eecde7cad9f",
+   "original_bytes": 35166,
+   "copy_sha256": "fd47e9b09a898d045d8f0678f7750c39cb1dd398c93a53f2a987ec4197097703",
+   "copy_bytes": 35165,
+   "byte_identical": false,
+   "transformations": {
+    "T5": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-stage1/diff.patch",
+   "original_sha256": "bc45435f829a8e2a379630d3537846569a3174dc043c66beaece55bfa809937d",
+   "original_bytes": 496718,
+   "copy_sha256": "bc45435f829a8e2a379630d3537846569a3174dc043c66beaece55bfa809937d",
+   "copy_bytes": 496718,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-v6.0e/CORRECTION-1.md",
+   "original_sha256": "3352a14ec2700750b81f405079e0f6bc020a0b9605ac70e9379c2add61419213",
+   "original_bytes": 18726,
+   "copy_sha256": "0b92160180bba548eaf1ddcb672918e3bea63f2f1a74182a711e760e3e706ba4",
+   "copy_bytes": 18728,
+   "byte_identical": false,
+   "transformations": {
+    "T6": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-v6.0e/DISCREPANCIES.md",
+   "original_sha256": "6d72e1eb5759d642db65e7aa529f7ac526ea2a1ac9ce4691443faccde512f238",
+   "original_bytes": 8093,
+   "copy_sha256": "6d72e1eb5759d642db65e7aa529f7ac526ea2a1ac9ce4691443faccde512f238",
+   "copy_bytes": 8093,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-v6.0e/ESC6-REVIEW.md",
+   "original_sha256": "284d6eaedab29ade7049725441b62385ff1aaf4807b23bf0e500ab400c0f090d",
+   "original_bytes": 8110,
+   "copy_sha256": "284d6eaedab29ade7049725441b62385ff1aaf4807b23bf0e500ab400c0f090d",
+   "copy_bytes": 8110,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-v6.0e/EXACT-DELTA.md",
+   "original_sha256": "900a03763e0dc6688f65474aa3ab82ba9ebe42319ae17828fd5d0ecdd63bf960",
+   "original_bytes": 14054,
+   "copy_sha256": "56d3339c7bbd24f9d9653d292861fd5852f8636d847ebd530a0c707dc2d68eb3",
+   "copy_bytes": 14053,
+   "byte_identical": false,
+   "transformations": {
+    "T5": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-v6.0e/IMPLEMENTATION-INVENTORY-r2.md",
+   "original_sha256": "7b4ebc2867a3f2d76475fc8c61fd8249b2e045923a79ba8f08f7a51df0e3d673",
+   "original_bytes": 13770,
+   "copy_sha256": "7b4ebc2867a3f2d76475fc8c61fd8249b2e045923a79ba8f08f7a51df0e3d673",
+   "copy_bytes": 13770,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-v6.0e/IMPLEMENTATION-INVENTORY.md",
+   "original_sha256": "e87cde6cf456842cc8fddc8f7601ac063e4706162b9a36f9904f7d03468af301",
+   "original_bytes": 10564,
+   "copy_sha256": "e87cde6cf456842cc8fddc8f7601ac063e4706162b9a36f9904f7d03468af301",
+   "copy_bytes": 10564,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-v6.0e/MANIFEST.sha256",
+   "original_sha256": "271893e257940b9bbfcdf88f17fa06e5fb9fc43be10e16ef52fe6581b21dc76e",
+   "original_bytes": 19263,
+   "copy_sha256": "271893e257940b9bbfcdf88f17fa06e5fb9fc43be10e16ef52fe6581b21dc76e",
+   "copy_bytes": 19263,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-v6.0e/PERF-FIX-r2.md",
+   "original_sha256": "8685ed3769bc72711b5de02974490e9d2b1a7ed6f8a9b59f0e6f3a9967148ca0",
+   "original_bytes": 3489,
+   "copy_sha256": "8685ed3769bc72711b5de02974490e9d2b1a7ed6f8a9b59f0e6f3a9967148ca0",
+   "copy_bytes": 3489,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-v6.0e/PERF-FIX.md",
+   "original_sha256": "69ab713b1fc0298dfbe326b50b56166754eb7ce826711e174e81b19613519078",
+   "original_bytes": 10590,
+   "copy_sha256": "69ab713b1fc0298dfbe326b50b56166754eb7ce826711e174e81b19613519078",
+   "copy_bytes": 10590,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/impl-v6.0e/staging-3184c7f9/verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json",
+   "original_sha256": "0ba409763b6129fd018cde0c7a5a1c67674b3f8bb25ef5bd8ef43cef79e054f9",
+   "original_bytes": 26720,
+   "copy_sha256": "0ba409763b6129fd018cde0c7a5a1c67674b3f8bb25ef5bd8ef43cef79e054f9",
+   "copy_bytes": 26720,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-impl-v6.0e/MANIFEST.sha256",
+   "original_sha256": "6af21c3d53c2305298eac7afc034c6794f93539436d5686f72f66eb61a659719",
+   "original_bytes": 2911,
+   "copy_sha256": "6af21c3d53c2305298eac7afc034c6794f93539436d5686f72f66eb61a659719",
+   "copy_bytes": 2911,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-impl-v6.0e/review.md",
+   "original_sha256": "68d4e071a9c83f977051d2eb18f5259d317659a671254de32e50b78f116573f1",
+   "original_bytes": 32823,
+   "copy_sha256": "729838ad542160e8b576436c716f2b3244434d468bcc83b61163599045ac82e8",
+   "copy_bytes": 32824,
+   "byte_identical": false,
+   "transformations": {
+    "T5": 1,
+    "T6": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-perf-fix/MANIFEST.sha256",
+   "original_sha256": "26fbf7f0cd25573ce4da729d00144034343e3f4233a4ed5fd883c052197bf60d",
+   "original_bytes": 3085,
+   "copy_sha256": "26fbf7f0cd25573ce4da729d00144034343e3f4233a4ed5fd883c052197bf60d",
+   "copy_bytes": 3085,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-perf-fix/review.md",
+   "original_sha256": "6def2c2a7561baf089e3d2ae0d73f9caeaa0abecd0a3185fda0eb6900657ae42",
+   "original_bytes": 16780,
+   "copy_sha256": "1f500c41e8929d4f6acd3c55528dccef0d32c16776d36d3acb98f5b7e264e9fc",
+   "copy_bytes": 16781,
+   "byte_identical": false,
+   "transformations": {
+    "T5": 1,
+    "T6": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-stage1-r2/MANIFEST.sha256",
+   "original_sha256": "aa32b21f2aca01d2f2a6ea1720200eebcb085bd1a2e65a8407dc1499378f8b85",
+   "original_bytes": 2134,
+   "copy_sha256": "aa32b21f2aca01d2f2a6ea1720200eebcb085bd1a2e65a8407dc1499378f8b85",
+   "copy_bytes": 2134,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-stage1-r2/review.md",
+   "original_sha256": "9dd390c462cb093359162c31cfda7e1caa6471514eaf015169ca2133b65e2cdd",
+   "original_bytes": 20488,
+   "copy_sha256": "9dd390c462cb093359162c31cfda7e1caa6471514eaf015169ca2133b65e2cdd",
+   "copy_bytes": 20488,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-stage1-r3/MANIFEST.sha256",
+   "original_sha256": "c3c778deee9ae271fd1ae8e6721a73fe944e55a8a4b2c1d83846b992130b5e8e",
+   "original_bytes": 13448,
+   "copy_sha256": "c3c778deee9ae271fd1ae8e6721a73fe944e55a8a4b2c1d83846b992130b5e8e",
+   "copy_bytes": 13448,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-stage1-r3/review.md",
+   "original_sha256": "4e72be6170db2d1cd0c029178c2a102ba7d20606ad58e4e22faa1a63e3f1c9d8",
+   "original_bytes": 18944,
+   "copy_sha256": "9b2f29c14fc4b59171cf5ed405480d129d9d7ef6e1de7e5ffb04371ce9994919",
+   "copy_bytes": 18944,
+   "byte_identical": false,
+   "transformations": {
+    "T4": 1,
+    "T5": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-stage1-r4/MANIFEST.sha256",
+   "original_sha256": "3b3efa629db538d2f36ddcbfd9a3a99f45aead65e77ffdea77a8cfc8fdf65ada",
+   "original_bytes": 38500,
+   "copy_sha256": "3b3efa629db538d2f36ddcbfd9a3a99f45aead65e77ffdea77a8cfc8fdf65ada",
+   "copy_bytes": 38500,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-stage1-r4/review.md",
+   "original_sha256": "e21cf9d34210ca4f41d6397a9f4b91d26674c9601f1399bacb8a57f9d2a5eae0",
+   "original_bytes": 23100,
+   "copy_sha256": "8ddf078de8ab9ab7e7bbd9211da99a20e0b7599493fff3a1be211bdc747c4723",
+   "copy_bytes": 23100,
+   "byte_identical": false,
+   "transformations": {
+    "T4": 1,
+    "T5": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-stage1-r6/MANIFEST.sha256",
+   "original_sha256": "0983a546e231c5665c899429160cc9c7769863561a41c3c27f17d48173d335fa",
+   "original_bytes": 4865,
+   "copy_sha256": "0983a546e231c5665c899429160cc9c7769863561a41c3c27f17d48173d335fa",
+   "copy_bytes": 4865,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-stage1-r6/review.md",
+   "original_sha256": "0bf9a3ad1c56cd9bf0e0b30f2b0653ee5fc8827f023049ffec65e139f3fd2392",
+   "original_bytes": 13534,
+   "copy_sha256": "8d9583c6c8ed0436523aa64ce5f9b942ef16efd185ae309b8dfac204d6ba458d",
+   "copy_bytes": 13533,
+   "byte_identical": false,
+   "transformations": {
+    "T5": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-stage1-r7/MANIFEST.sha256",
+   "original_sha256": "4be2b584c043a847e4b4da929a62eac3465645c4baf3670dc18af4f6c91bd9b9",
+   "original_bytes": 98170,
+   "copy_sha256": "4be2b584c043a847e4b4da929a62eac3465645c4baf3670dc18af4f6c91bd9b9",
+   "copy_bytes": 98170,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-stage1-r7/review.md",
+   "original_sha256": "0e4034339138326302c79e7cdfd377a90e23af0688eddb04f6507d292936b33b",
+   "original_bytes": 12480,
+   "copy_sha256": "9ff704273db632fcaf8d4c2e88248588c25af788ebe3c3cbe7e9ce7bdabcb295",
+   "copy_bytes": 12479,
+   "byte_identical": false,
+   "transformations": {
+    "T5": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-stage1-r8/MANIFEST.sha256",
+   "original_sha256": "43899bd97b2155f9d3aaf651c75ae35d6e0883a0f9eb5c3009ea92c949124c5f",
+   "original_bytes": 46837,
+   "copy_sha256": "43899bd97b2155f9d3aaf651c75ae35d6e0883a0f9eb5c3009ea92c949124c5f",
+   "copy_bytes": 46837,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-stage1-r8/authority-9da5.py",
+   "original_sha256": "35779ec79c5916f768f3413bcb4eb4cd222aafbb4c06c930b50439d4b6ba1845",
+   "original_bytes": 44878,
+   "copy_sha256": "35779ec79c5916f768f3413bcb4eb4cd222aafbb4c06c930b50439d4b6ba1845",
+   "copy_bytes": 44878,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-stage1-r8/review.md",
+   "original_sha256": "a4bb30ffa3ffc50e63ee6e76d38ca6f4129128420990921a7c8699051cbbd14f",
+   "original_bytes": 12146,
+   "copy_sha256": "02af23e100ee7334576a0c546793c511c97e5f9dc918aae0d4e0bd75e892c012",
+   "copy_bytes": 12145,
+   "byte_identical": false,
+   "transformations": {
+    "T5": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-stage1-s1/MANIFEST.sha256",
+   "original_sha256": "3ad48e1f9205ef4349dab5a01e02fb12c271d4c0a818162a3e61396e2fb33c27",
+   "original_bytes": 4747,
+   "copy_sha256": "3ad48e1f9205ef4349dab5a01e02fb12c271d4c0a818162a3e61396e2fb33c27",
+   "copy_bytes": 4747,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-stage1-s1/review.md",
+   "original_sha256": "f6c22650b5008fea987e8a41fcdf8a0d39c2f6adb4c7c24d0daf04b7d524ed61",
+   "original_bytes": 14273,
+   "copy_sha256": "79cc70195bc30c52d02ea830f1d324f07838cbd33982c8106656be90e932df4a",
+   "copy_bytes": 14273,
+   "byte_identical": false,
+   "transformations": {
+    "T4": 1,
+    "T5": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-stage1/MANIFEST.sha256",
+   "original_sha256": "d88991dc4f10caf7413e4c8a0717b63805c3444e9d46ed9d57ee6cccc58c7941",
+   "original_bytes": 2021,
+   "copy_sha256": "d88991dc4f10caf7413e4c8a0717b63805c3444e9d46ed9d57ee6cccc58c7941",
+   "copy_bytes": 2021,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-stage1/review-stage1.md",
+   "original_sha256": "007d4ada8c19cb3103073d80f75c9721d57c908f7cd8813a7b52c568449d4b6a",
+   "original_bytes": 32274,
+   "copy_sha256": "007d4ada8c19cb3103073d80f75c9721d57c908f7cd8813a7b52c568449d4b6a",
+   "copy_bytes": 32274,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v2.md",
+   "original_sha256": "1a86e3fb30fa2ac70e3c41e01d7fba20ef62da1bf422d4b58c75f52ceb1e7eb9",
+   "original_bytes": 56606,
+   "copy_sha256": "1a86e3fb30fa2ac70e3c41e01d7fba20ef62da1bf422d4b58c75f52ceb1e7eb9",
+   "copy_bytes": 56606,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v3.md",
+   "original_sha256": "5041232c6c2c0fe3b7ec939564dd669dd4f3f4f82d8ce79d365c28e7a6d2e4ff",
+   "original_bytes": 28204,
+   "copy_sha256": "fa6dfc81ee82980dcac489146b00020fe35d86d9ba56babd9e6f14acc285b0bc",
+   "copy_bytes": 28203,
+   "byte_identical": false,
+   "transformations": {
+    "T5": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/MANIFEST.sha256",
+   "original_sha256": "d86d0d95c5de05da1e590f056a6025c9e26314ff55a985103beb6d955736f36f",
+   "original_bytes": 3515,
+   "copy_sha256": "d86d0d95c5de05da1e590f056a6025c9e26314ff55a985103beb6d955736f36f",
+   "copy_bytes": 3515,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/out-23.json",
+   "original_sha256": "4a54445b9a59ead6968bff6a92eee04318760099fc6e0ac430dad75c3c832795",
+   "original_bytes": 844,
+   "copy_sha256": "4a54445b9a59ead6968bff6a92eee04318760099fc6e0ac430dad75c3c832795",
+   "copy_bytes": 844,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/out-84.json",
+   "original_sha256": "c1ba33833fa49e8a4d230b3ab21de04ba3ac759cb6dc2d1ec7bf89b5c677f19b",
+   "original_bytes": 3294,
+   "copy_sha256": "c1ba33833fa49e8a4d230b3ab21de04ba3ac759cb6dc2d1ec7bf89b5c677f19b",
+   "copy_bytes": 3294,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/out-dr.json",
+   "original_sha256": "fd6f3239a5e766f5a22e97be4fbdaf5b0ccdb82f5f53af1c49b39f445ce09a61",
+   "original_bytes": 10503,
+   "copy_sha256": "fd6f3239a5e766f5a22e97be4fbdaf5b0ccdb82f5f53af1c49b39f445ce09a61",
+   "copy_bytes": 10503,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/out-hist.json",
+   "original_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+   "original_bytes": 2,
+   "copy_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+   "copy_bytes": 2,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/out-hist.txt",
+   "original_sha256": "246e56fc171ce59523b5579f515ecc41c8344f079ad7f255e9a54c2b12b35bca",
+   "original_bytes": 26,
+   "copy_sha256": "246e56fc171ce59523b5579f515ecc41c8344f079ad7f255e9a54c2b12b35bca",
+   "copy_bytes": 26,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/out-hp.json",
+   "original_sha256": "c7d8aed4f0f7a89c181ecc7d89c3eb665f853296f20e1a4714218640da0164e2",
+   "original_bytes": 97372,
+   "copy_sha256": "c7d8aed4f0f7a89c181ecc7d89c3eb665f853296f20e1a4714218640da0164e2",
+   "copy_bytes": 97372,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/out-ledgered.txt",
+   "original_sha256": "1034f2960497cb61c1b87e8c3373577a05670183ac9acf642432bea07d64e59a",
+   "original_bytes": 31971,
+   "copy_sha256": "1034f2960497cb61c1b87e8c3373577a05670183ac9acf642432bea07d64e59a",
+   "copy_bytes": 31971,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/out-resid13.json",
+   "original_sha256": "9e5881ba1dab3731c81e853e948d74bdeaf9475fdcfff3079ceec2cf60a8ee2c",
+   "original_bytes": 565,
+   "copy_sha256": "9e5881ba1dab3731c81e853e948d74bdeaf9475fdcfff3079ceec2cf60a8ee2c",
+   "copy_bytes": 565,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/review-v4.md",
+   "original_sha256": "113d1c129ad761114a4b529c5ec90d6d79a224d468bffa0cbe7b3cfd922cca6f",
+   "original_bytes": 35172,
+   "copy_sha256": "cc2ba460a18651fed4cc93de0ed45bd0e32900228af501b98371bcce74b98ca7",
+   "copy_bytes": 35094,
+   "byte_identical": false,
+   "transformations": {
+    "T1": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_222.py",
+   "original_sha256": "81733a4d0b0d7d72f81e93fa055e6f75f6beb4021b80e68f63ed28c67026c4fc",
+   "original_bytes": 1177,
+   "copy_sha256": "81733a4d0b0d7d72f81e93fa055e6f75f6beb4021b80e68f63ed28c67026c4fc",
+   "copy_bytes": 1177,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_b3.py",
+   "original_sha256": "85b203166cc2151ab58e3fbf8c909961d33cbfcf17adf332fa48df7ec0fc7776",
+   "original_bytes": 3401,
+   "copy_sha256": "85b203166cc2151ab58e3fbf8c909961d33cbfcf17adf332fa48df7ec0fc7776",
+   "copy_bytes": 3401,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_ctx.py",
+   "original_sha256": "9b7acc25ac5569d6010a9ae04404c50e0d5303891ff94d1eb64196ec2cbe1aa4",
+   "original_bytes": 4437,
+   "copy_sha256": "9b7acc25ac5569d6010a9ae04404c50e0d5303891ff94d1eb64196ec2cbe1aa4",
+   "copy_bytes": 4437,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_dr.py",
+   "original_sha256": "f51905955eb0b0b68beb80c5d5aa23179768c24af360ce73c2211493595be64a",
+   "original_bytes": 1119,
+   "copy_sha256": "f51905955eb0b0b68beb80c5d5aa23179768c24af360ce73c2211493595be64a",
+   "copy_bytes": 1119,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_dr6.py",
+   "original_sha256": "34a58d653a3e021d90401d0922f7dbd23deca20cb11d26e0eacc3e441014d7a5",
+   "original_bytes": 1120,
+   "copy_sha256": "34a58d653a3e021d90401d0922f7dbd23deca20cb11d26e0eacc3e441014d7a5",
+   "copy_bytes": 1120,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_ex.py",
+   "original_sha256": "ee71084f03ee7fc8cfdcf5ef2dbc5490dbe5651966e4fad3349df658e1b8dad0",
+   "original_bytes": 3418,
+   "copy_sha256": "ee71084f03ee7fc8cfdcf5ef2dbc5490dbe5651966e4fad3349df658e1b8dad0",
+   "copy_bytes": 3418,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_fn.py",
+   "original_sha256": "e71ae5e6a5a00035913c7e1e4d5b54baa75bd5c1f325d0b7be500976e08b6ab5",
+   "original_bytes": 1508,
+   "copy_sha256": "e71ae5e6a5a00035913c7e1e4d5b54baa75bd5c1f325d0b7be500976e08b6ab5",
+   "copy_bytes": 1508,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_gap.py",
+   "original_sha256": "3a0de819a0b8ee3619f925526a993ddb81cf8858cafbe59be1c95423c9bfcc86",
+   "original_bytes": 1429,
+   "copy_sha256": "3a0de819a0b8ee3619f925526a993ddb81cf8858cafbe59be1c95423c9bfcc86",
+   "copy_bytes": 1429,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_git.py",
+   "original_sha256": "f71f0d25b87e3445956292901fec92ef4b2ad46bcc1b43371a79696f7508be37",
+   "original_bytes": 1389,
+   "copy_sha256": "20ce5b2e1571df00d19e4391e3fa9677488481d1902594d9a7e247c6b7d912ba",
+   "copy_bytes": 1370,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_hist.py",
+   "original_sha256": "43422348621034fbdba10ccefbafa157a63a8080f7c9a93db00cb10cc23e9799",
+   "original_bytes": 2122,
+   "copy_sha256": "43422348621034fbdba10ccefbafa157a63a8080f7c9a93db00cb10cc23e9799",
+   "copy_bytes": 2122,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_hist_sanity.py",
+   "original_sha256": "b2cceca2bd3c612815eb1d32cbf2bf3ae4dd728166f9a0254e50ab00f9c4c449",
+   "original_bytes": 2138,
+   "copy_sha256": "b2cceca2bd3c612815eb1d32cbf2bf3ae4dd728166f9a0254e50ab00f9c4c449",
+   "copy_bytes": 2138,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_hp.py",
+   "original_sha256": "169041c9b606e077016d0af6ab33da7c957db7cf1282586b1caf0c8df6a2367a",
+   "original_bytes": 4424,
+   "copy_sha256": "169041c9b606e077016d0af6ab33da7c957db7cf1282586b1caf0c8df6a2367a",
+   "copy_bytes": 4424,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_ledgered.py",
+   "original_sha256": "4cf40d23a94396c5e8e93125b5a8a7e50d43727f35a10e10b8d2a63c9920ca86",
+   "original_bytes": 896,
+   "copy_sha256": "4cf40d23a94396c5e8e93125b5a8a7e50d43727f35a10e10b8d2a63c9920ca86",
+   "copy_bytes": 896,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_lineattr.py",
+   "original_sha256": "9dd2e586b6c9968d0bbdea36a07d3dc931a6d290324c3c1b3dab13e1f521c323",
+   "original_bytes": 3177,
+   "copy_sha256": "9dd2e586b6c9968d0bbdea36a07d3dc931a6d290324c3c1b3dab13e1f521c323",
+   "copy_bytes": 3177,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_lit.py",
+   "original_sha256": "799dcd2b2e532cb185108ca0e2b8d1ba737e98cb97d3695f812dcb2f7ed61e40",
+   "original_bytes": 737,
+   "copy_sha256": "799dcd2b2e532cb185108ca0e2b8d1ba737e98cb97d3695f812dcb2f7ed61e40",
+   "copy_bytes": 737,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_merge.py",
+   "original_sha256": "7bf6a8e2e930bd394d9c0c65440e35d65e0ef9f24bb06b27824f54e5ef48ec81",
+   "original_bytes": 890,
+   "copy_sha256": "7bf6a8e2e930bd394d9c0c65440e35d65e0ef9f24bb06b27824f54e5ef48ec81",
+   "copy_bytes": 890,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_mut.py",
+   "original_sha256": "a7dbfc6b984d285f027118c33485e75ad6c540fe54dee80ab9227e456fa2026d",
+   "original_bytes": 1234,
+   "copy_sha256": "a7dbfc6b984d285f027118c33485e75ad6c540fe54dee80ab9227e456fa2026d",
+   "copy_bytes": 1234,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_prof.py",
+   "original_sha256": "e5900f053aafbd4f259615ad9ed92bd9ca711a9f82676142ed2dad4e9a81c721",
+   "original_bytes": 1821,
+   "copy_sha256": "e5900f053aafbd4f259615ad9ed92bd9ca711a9f82676142ed2dad4e9a81c721",
+   "copy_bytes": 1821,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_repo.py",
+   "original_sha256": "51de1002df3fff8bd1ad5f3ac8c5fd36636615db0a1d5ad9ee1603b6cba2c806",
+   "original_bytes": 2528,
+   "copy_sha256": "51de1002df3fff8bd1ad5f3ac8c5fd36636615db0a1d5ad9ee1603b6cba2c806",
+   "copy_bytes": 2528,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_resid.py",
+   "original_sha256": "f42fabc1ae0d1143291fe6995d68009a2e846e93f778751a9fa91a517055d1d3",
+   "original_bytes": 1935,
+   "copy_sha256": "f42fabc1ae0d1143291fe6995d68009a2e846e93f778751a9fa91a517055d1d3",
+   "copy_bytes": 1935,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_resid_ext.py",
+   "original_sha256": "2d8fea8d014732f07faccefac4e99993d95f3b1d1973e8e0525086d03b70e615",
+   "original_bytes": 1664,
+   "copy_sha256": "2d8fea8d014732f07faccefac4e99993d95f3b1d1973e8e0525086d03b70e615",
+   "copy_bytes": 1664,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_rules.py",
+   "original_sha256": "29ee3d284b9d43dcb12576fb8b3beaf24fab323735b980b86f6c11b818619fc6",
+   "original_bytes": 4176,
+   "copy_sha256": "29ee3d284b9d43dcb12576fb8b3beaf24fab323735b980b86f6c11b818619fc6",
+   "copy_bytes": 4176,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_split23.py",
+   "original_sha256": "573cc8723f7671df7f3067c7c273909640033bbf0a59f3d4f789bed39c4fd699",
+   "original_bytes": 1926,
+   "copy_sha256": "573cc8723f7671df7f3067c7c273909640033bbf0a59f3d4f789bed39c4fd699",
+   "copy_bytes": 1926,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_tree_all.py",
+   "original_sha256": "2d2a3bfcbb1362f31d70593d9a6e3da528f181cca98ec9b277a24b904905299a",
+   "original_bytes": 1551,
+   "copy_sha256": "2d2a3bfcbb1362f31d70593d9a6e3da528f181cca98ec9b277a24b904905299a",
+   "copy_bytes": 1551,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_u116.py",
+   "original_sha256": "5547ba0286e170631952abe0eb69342c7f4dbac30ad477647ffbb3d62289f745",
+   "original_bytes": 1876,
+   "copy_sha256": "5547ba0286e170631952abe0eb69342c7f4dbac30ad477647ffbb3d62289f745",
+   "copy_bytes": 1876,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v4/rv_w.py",
+   "original_sha256": "5dc549ffe5ee82e4a5ed73f0522c6704e6168354b61e5b435f44577e9c70f606",
+   "original_bytes": 758,
+   "copy_sha256": "5dc549ffe5ee82e4a5ed73f0522c6704e6168354b61e5b435f44577e9c70f606",
+   "copy_bytes": 758,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.1/MANIFEST.sha256",
+   "original_sha256": "666cca796c93d439893068f0c4fa035a8bd48140d3afefdf9aefd4c61a8b65a2",
+   "original_bytes": 167,
+   "copy_sha256": "666cca796c93d439893068f0c4fa035a8bd48140d3afefdf9aefd4c61a8b65a2",
+   "copy_bytes": 167,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.1/review-v5.1.md",
+   "original_sha256": "d0fc4b9c309a2bf62f1c015b6491f6250993b71be62152319860cb2e49cd99f6",
+   "original_bytes": 6913,
+   "copy_sha256": "c596f80ebd1aefb3013c680ae3dffcfd5c338ea937044d90b9575c94547517b2",
+   "copy_bytes": 6834,
+   "byte_identical": false,
+   "transformations": {
+    "T1": 1,
+    "T5": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.1/rv51_treeset.py",
+   "original_sha256": "f557491f47317c0a1d6382f528c82a216bea98438d3b9ff28d15c706d9020faa",
+   "original_bytes": 1633,
+   "copy_sha256": "3645fd6135c5d3c4fc4416e71693b13676bfc23f9ec0ceb72968c3b97347e320",
+   "copy_bytes": 1614,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.2/MANIFEST.sha256",
+   "original_sha256": "0005b4fc99026e6ae25e7baf10d4a1534f2675c3aef12468f69da02afdc44f7c",
+   "original_bytes": 2558,
+   "copy_sha256": "0005b4fc99026e6ae25e7baf10d4a1534f2675c3aef12468f69da02afdc44f7c",
+   "copy_bytes": 2558,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.2/diff-v51-v52.txt",
+   "original_sha256": "06994ec758330322c11782cdceb4d7314b7af1dc743d0df90579da808b6d1b95",
+   "original_bytes": 49391,
+   "copy_sha256": "06994ec758330322c11782cdceb4d7314b7af1dc743d0df90579da808b6d1b95",
+   "copy_bytes": 49391,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.2/out-84.json",
+   "original_sha256": "c1ba33833fa49e8a4d230b3ab21de04ba3ac759cb6dc2d1ec7bf89b5c677f19b",
+   "original_bytes": 3294,
+   "copy_sha256": "c1ba33833fa49e8a4d230b3ab21de04ba3ac759cb6dc2d1ec7bf89b5c677f19b",
+   "copy_bytes": 3294,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.2/out-hp.json",
+   "original_sha256": "c7d8aed4f0f7a89c181ecc7d89c3eb665f853296f20e1a4714218640da0164e2",
+   "original_bytes": 97372,
+   "copy_sha256": "c7d8aed4f0f7a89c181ecc7d89c3eb665f853296f20e1a4714218640da0164e2",
+   "copy_bytes": 97372,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.2/out52-b3.txt",
+   "original_sha256": "036c481796a98c50e507d849f98f3e43d258003fd732aaab27be9d9dfc3c0d10",
+   "original_bytes": 604,
+   "copy_sha256": "036c481796a98c50e507d849f98f3e43d258003fd732aaab27be9d9dfc3c0d10",
+   "copy_bytes": 604,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.2/out52-parity.txt",
+   "original_sha256": "6906e7106e334d23d193e73d5223727aeefe2cc2abafceeeba9720cd1eb92d85",
+   "original_bytes": 514,
+   "copy_sha256": "6906e7106e334d23d193e73d5223727aeefe2cc2abafceeeba9720cd1eb92d85",
+   "copy_bytes": 514,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.2/out52-s6.txt",
+   "original_sha256": "91cf06e48e0553de22273d95ddf0dc996cc9d9bb7b235314a4e7a48ff3a36793",
+   "original_bytes": 423,
+   "copy_sha256": "91cf06e48e0553de22273d95ddf0dc996cc9d9bb7b235314a4e7a48ff3a36793",
+   "copy_bytes": 423,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.2/out52-struct.txt",
+   "original_sha256": "568bfb80f080999fd50c77d14071d43e8698c61bce1bc7dc7f407ec7e77183ac",
+   "original_bytes": 449,
+   "copy_sha256": "568bfb80f080999fd50c77d14071d43e8698c61bce1bc7dc7f407ec7e77183ac",
+   "copy_bytes": 449,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.2/out52-sw2-eval.txt",
+   "original_sha256": "b6aee81d19907c4d997c534421218106389f11b9de7e2ef42b3d6a1f283f6b4d",
+   "original_bytes": 264,
+   "copy_sha256": "b6aee81d19907c4d997c534421218106389f11b9de7e2ef42b3d6a1f283f6b4d",
+   "copy_bytes": 264,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.2/out52-sw2.json",
+   "original_sha256": "8c858c1c2d69195e132cdfc224d91460963c4b99b9637c195954540435a2ad43",
+   "original_bytes": 101615,
+   "copy_sha256": "8c858c1c2d69195e132cdfc224d91460963c4b99b9637c195954540435a2ad43",
+   "copy_bytes": 101615,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.2/out52-w1.txt",
+   "original_sha256": "a63bdda28da8b01664fe9020b8098dc719434f5fb343a8ce4778ae8685d578d2",
+   "original_bytes": 691,
+   "copy_sha256": "a63bdda28da8b01664fe9020b8098dc719434f5fb343a8ce4778ae8685d578d2",
+   "copy_bytes": 691,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.2/review-v5.2.md",
+   "original_sha256": "15260f0957ba81bb555c413a7e73db201a828f059a073a601fbe471da2c34fd0",
+   "original_bytes": 19646,
+   "copy_sha256": "15260f0957ba81bb555c413a7e73db201a828f059a073a601fbe471da2c34fd0",
+   "copy_bytes": 19646,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.2/rv52_parity.py",
+   "original_sha256": "2aba7ca200b54227e11badb2c5837439d4273b7e5a0c130043423e38d486356d",
+   "original_bytes": 4368,
+   "copy_sha256": "2467e8ed6641188ed1b0e12683130de034364f5cf6ad223888e5d85cf00fb144",
+   "copy_bytes": 4349,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.2/rv52_s6.py",
+   "original_sha256": "36663143043629b21e7c075924184529c0dc36de9a53e14ebd1823edd1ba5a57",
+   "original_bytes": 2287,
+   "copy_sha256": "6a15282ac7d19beb92ef6234669885bf2998eb2eb39d6cb1900996f1e91fcb64",
+   "copy_bytes": 2268,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.2/rv52_struct.py",
+   "original_sha256": "fcb332e09bed20280df01ab58c64012f5ae25dca5f663d3db321615e8849f5b6",
+   "original_bytes": 1461,
+   "copy_sha256": "fcb332e09bed20280df01ab58c64012f5ae25dca5f663d3db321615e8849f5b6",
+   "copy_bytes": 1461,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.2/rv52_sw2.py",
+   "original_sha256": "b07e155c9b38583e299b71c4c2a28f1dfd8e8373feea29eb42fec5817bacfd2a",
+   "original_bytes": 3649,
+   "copy_sha256": "16eca9e4dbad9fbfd81e079de1f6683f7717dcac637640b017c677a4f610a469",
+   "copy_bytes": 3630,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.2/rv52_w1.py",
+   "original_sha256": "2afc3185f924afbae5955706055f0e1ab6c333dbef5ea05172363829d5126c8f",
+   "original_bytes": 1436,
+   "copy_sha256": "2afc3185f924afbae5955706055f0e1ab6c333dbef5ea05172363829d5126c8f",
+   "copy_bytes": 1436,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.2/rv5_resid_copy.py",
+   "original_sha256": "7a520c74e0ee3a20a5aec528b102ae040902c5c109114cda2e2567dda9864859",
+   "original_bytes": 2536,
+   "copy_sha256": "7a520c74e0ee3a20a5aec528b102ae040902c5c109114cda2e2567dda9864859",
+   "copy_bytes": 2536,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.2/rv5_rules.py",
+   "original_sha256": "ea2af6490e6acb590fbcc7138e3048aad0daf236c28b813070d2535d79f29765",
+   "original_bytes": 4512,
+   "copy_sha256": "ea2af6490e6acb590fbcc7138e3048aad0daf236c28b813070d2535d79f29765",
+   "copy_bytes": 4512,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.2/rv_b3_v4.py",
+   "original_sha256": "85b203166cc2151ab58e3fbf8c909961d33cbfcf17adf332fa48df7ec0fc7776",
+   "original_bytes": 3401,
+   "copy_sha256": "85b203166cc2151ab58e3fbf8c909961d33cbfcf17adf332fa48df7ec0fc7776",
+   "copy_bytes": 3401,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.2/rv_ctx_v4.py",
+   "original_sha256": "9b7acc25ac5569d6010a9ae04404c50e0d5303891ff94d1eb64196ec2cbe1aa4",
+   "original_bytes": 4437,
+   "copy_sha256": "9b7acc25ac5569d6010a9ae04404c50e0d5303891ff94d1eb64196ec2cbe1aa4",
+   "copy_bytes": 4437,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.2/rv_git.py",
+   "original_sha256": "f71f0d25b87e3445956292901fec92ef4b2ad46bcc1b43371a79696f7508be37",
+   "original_bytes": 1389,
+   "copy_sha256": "20ce5b2e1571df00d19e4391e3fa9677488481d1902594d9a7e247c6b7d912ba",
+   "copy_bytes": 1370,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.2/rv_hp.py",
+   "original_sha256": "169041c9b606e077016d0af6ab33da7c957db7cf1282586b1caf0c8df6a2367a",
+   "original_bytes": 4424,
+   "copy_sha256": "169041c9b606e077016d0af6ab33da7c957db7cf1282586b1caf0c8df6a2367a",
+   "copy_bytes": 4424,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.2/rv_prof.py",
+   "original_sha256": "e5900f053aafbd4f259615ad9ed92bd9ca711a9f82676142ed2dad4e9a81c721",
+   "original_bytes": 1821,
+   "copy_sha256": "e5900f053aafbd4f259615ad9ed92bd9ca711a9f82676142ed2dad4e9a81c721",
+   "copy_bytes": 1821,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.3/MANIFEST.sha256",
+   "original_sha256": "0e9de932d6d1f51513c1ca63bef3876c32b88fc1ca94da8075eefb4aeb8219a7",
+   "original_bytes": 910,
+   "copy_sha256": "0e9de932d6d1f51513c1ca63bef3876c32b88fc1ca94da8075eefb4aeb8219a7",
+   "copy_bytes": 910,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.3/diff-v52-v53.txt",
+   "original_sha256": "710dea9138b890d83cd359a52c2a3f0dc6fcd80fd4facada940cb6a1f79a1b26",
+   "original_bytes": 35407,
+   "copy_sha256": "710dea9138b890d83cd359a52c2a3f0dc6fcd80fd4facada940cb6a1f79a1b26",
+   "copy_bytes": 35407,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.3/out53-ci.txt",
+   "original_sha256": "4c8f216e2913be69775ac021ee92e80a8d1d6e24b212590b6942963175f30474",
+   "original_bytes": 592,
+   "copy_sha256": "4c8f216e2913be69775ac021ee92e80a8d1d6e24b212590b6942963175f30474",
+   "copy_bytes": 592,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.3/out53-step2.txt",
+   "original_sha256": "a2b450f774e16cb4899fed8e32ad27149be78aed9f263941d532e4665c31a8e3",
+   "original_bytes": 586,
+   "copy_sha256": "a2b450f774e16cb4899fed8e32ad27149be78aed9f263941d532e4665c31a8e3",
+   "copy_bytes": 586,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.3/review-v5.3.md",
+   "original_sha256": "20f2c0c3e867cecdbc161dee88df12973f64101acbb15ae1d8a31b6ba1b88b66",
+   "original_bytes": 15444,
+   "copy_sha256": "20f2c0c3e867cecdbc161dee88df12973f64101acbb15ae1d8a31b6ba1b88b66",
+   "copy_bytes": 15444,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.3/rv53_ci.py",
+   "original_sha256": "0f6906972ef736dbf5e912182e4983ee5b9463b00bbddc0c92e1a78c349784cc",
+   "original_bytes": 1338,
+   "copy_sha256": "0f6906972ef736dbf5e912182e4983ee5b9463b00bbddc0c92e1a78c349784cc",
+   "copy_bytes": 1338,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.3/rv53_step2.py",
+   "original_sha256": "fc7f08a1dd88d2e8287ad362e379eed5e55c44cd495540d6c4036359ce4d8bef",
+   "original_bytes": 1883,
+   "copy_sha256": "fc7f08a1dd88d2e8287ad362e379eed5e55c44cd495540d6c4036359ce4d8bef",
+   "copy_bytes": 1883,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.3/rv5_rules.py",
+   "original_sha256": "ea2af6490e6acb590fbcc7138e3048aad0daf236c28b813070d2535d79f29765",
+   "original_bytes": 4512,
+   "copy_sha256": "ea2af6490e6acb590fbcc7138e3048aad0daf236c28b813070d2535d79f29765",
+   "copy_bytes": 4512,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.3/rv_git.py",
+   "original_sha256": "f71f0d25b87e3445956292901fec92ef4b2ad46bcc1b43371a79696f7508be37",
+   "original_bytes": 1389,
+   "copy_sha256": "20ce5b2e1571df00d19e4391e3fa9677488481d1902594d9a7e247c6b7d912ba",
+   "copy_bytes": 1370,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.4/MANIFEST.sha256",
+   "original_sha256": "016c9ad8ffd06564c50b4f6045495ccf435665bf3e331989a04e30fdeb637343",
+   "original_bytes": 855,
+   "copy_sha256": "016c9ad8ffd06564c50b4f6045495ccf435665bf3e331989a04e30fdeb637343",
+   "copy_bytes": 855,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.4/diff-v53-v54.txt",
+   "original_sha256": "8583cd4e12b746781cf52377af5ec01d384be454445d2de15a50f1e34fac7bcb",
+   "original_bytes": 37733,
+   "copy_sha256": "8583cd4e12b746781cf52377af5ec01d384be454445d2de15a50f1e34fac7bcb",
+   "copy_bytes": 37733,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.4/out54-a1bind.txt",
+   "original_sha256": "0a9fbda41ea060dd33291dc0c914368efc1cdded3eb9ed268f936108a1ceba4c",
+   "original_bytes": 51,
+   "copy_sha256": "0a9fbda41ea060dd33291dc0c914368efc1cdded3eb9ed268f936108a1ceba4c",
+   "copy_bytes": 51,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.4/out54-variant.txt",
+   "original_sha256": "c25a076a8c15a1e11c6b6a9c57af4a7f196d86585fb8aeee3bdf939b1948489e",
+   "original_bytes": 808,
+   "copy_sha256": "c25a076a8c15a1e11c6b6a9c57af4a7f196d86585fb8aeee3bdf939b1948489e",
+   "copy_bytes": 808,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.4/review-v5.4-addendum.md",
+   "original_sha256": "8559e4336e293a5b879a5154c928fcad209be8e1a1aa37d15ddab459b1059ef3",
+   "original_bytes": 14143,
+   "copy_sha256": "8559e4336e293a5b879a5154c928fcad209be8e1a1aa37d15ddab459b1059ef3",
+   "copy_bytes": 14143,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.4/review-v5.4.md",
+   "original_sha256": "bc0921e37a1d941f3845b200dd90e744dcf0fdd635f8cac7fb2b6ca9d67af854",
+   "original_bytes": 17300,
+   "copy_sha256": "bc0921e37a1d941f3845b200dd90e744dcf0fdd635f8cac7fb2b6ca9d67af854",
+   "copy_bytes": 17300,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.4/rv54_a1bind.py",
+   "original_sha256": "04bc6a58220904a3915c2e827ac39f8804af86d04ef41ea23853a7abc2f856b1",
+   "original_bytes": 2584,
+   "copy_sha256": "db96affff31f021ea05e8b36b1a978284b807ee1ff1a57b113e31be9d536725c",
+   "copy_bytes": 2527,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 3
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.4/rv54_variant.py",
+   "original_sha256": "43a5777f60cd52f47d9281e46c73ae2c0bdf9ae1ecb0d35a5018eeec272e0e7e",
+   "original_bytes": 5016,
+   "copy_sha256": "43a5777f60cd52f47d9281e46c73ae2c0bdf9ae1ecb0d35a5018eeec272e0e7e",
+   "copy_bytes": 5016,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.1/MANIFEST.sha256",
+   "original_sha256": "f516b44bd3c9adb55d61bddfc3bf374a43252444bcfaa69fea95c95210e31830",
+   "original_bytes": 681,
+   "copy_sha256": "f516b44bd3c9adb55d61bddfc3bf374a43252444bcfaa69fea95c95210e31830",
+   "copy_bytes": 681,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.1/diff-v55-v551.txt",
+   "original_sha256": "b61aa683c19d645b02bda3dd317cd6fe92e1a12ba6223747f1b6abe675a439c2",
+   "original_bytes": 5312,
+   "copy_sha256": "b61aa683c19d645b02bda3dd317cd6fe92e1a12ba6223747f1b6abe675a439c2",
+   "copy_bytes": 5312,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.1/out551-s1158k.txt",
+   "original_sha256": "12c2cad8817ad45334dffd0e7f7185020513d98f5461d3be53bef4f7cd113e5b",
+   "original_bytes": 114,
+   "copy_sha256": "12c2cad8817ad45334dffd0e7f7185020513d98f5461d3be53bef4f7cd113e5b",
+   "copy_bytes": 114,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.1/review-v5.5.1.md",
+   "original_sha256": "4ae835492e11cb36e2625b8acf566e98f5ffa63fb5148bee77a1751e8de1b084",
+   "original_bytes": 4723,
+   "copy_sha256": "4ae835492e11cb36e2625b8acf566e98f5ffa63fb5148bee77a1751e8de1b084",
+   "copy_bytes": 4723,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.1/rv551_s1158k.py",
+   "original_sha256": "0195328cd53eb029038640a6f52fadcda692c2c218698e465fb4afc5dcc00832",
+   "original_bytes": 673,
+   "copy_sha256": "0195328cd53eb029038640a6f52fadcda692c2c218698e465fb4afc5dcc00832",
+   "copy_bytes": 673,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.1/rv55_parity.py",
+   "original_sha256": "ef97a70d67f4885aba3a152441571a0821a9cd2f1f30040c81281742d180cfe9",
+   "original_bytes": 5334,
+   "copy_sha256": "798b733553d014efbbec90174ae360644d1843c9e1e18fd0c27d66f1d921ffee",
+   "copy_bytes": 5315,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.10/MANIFEST.sha256",
+   "original_sha256": "4b666d06890186e780931757166124d40152c4bf64723f6ee41ba93c91ade4ac",
+   "original_bytes": 454,
+   "copy_sha256": "4b666d06890186e780931757166124d40152c4bf64723f6ee41ba93c91ade4ac",
+   "copy_bytes": 454,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.10/review.md",
+   "original_sha256": "78dc33d3a99405cbb7150de77ad1550495643f4f3121f51795bd0312fc897a8c",
+   "original_bytes": 21844,
+   "copy_sha256": "78dc33d3a99405cbb7150de77ad1550495643f4f3121f51795bd0312fc897a8c",
+   "copy_bytes": 21844,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.10/rowcmp.py",
+   "original_sha256": "da59924a5524fe09ed851493bf4a791c1725faace2f0ef99090264ae1f5163fa",
+   "original_bytes": 693,
+   "copy_sha256": "da59924a5524fe09ed851493bf4a791c1725faace2f0ef99090264ae1f5163fa",
+   "copy_bytes": 693,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.10a/MANIFEST.sha256",
+   "original_sha256": "faaa0cb9c600928bebf3f0c7a830faf3c13898154e7167f2f0f1195d2069c3e2",
+   "original_bytes": 631,
+   "copy_sha256": "faaa0cb9c600928bebf3f0c7a830faf3c13898154e7167f2f0f1195d2069c3e2",
+   "copy_bytes": 631,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.10a/review.md",
+   "original_sha256": "f8eeb9c25c5dc47dd990717d4fa4a0187a0bbfb52993bb5e42fa340c5b32cd51",
+   "original_bytes": 22615,
+   "copy_sha256": "f8eeb9c25c5dc47dd990717d4fa4a0187a0bbfb52993bb5e42fa340c5b32cd51",
+   "copy_bytes": 22615,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.10a/rowdiff.py",
+   "original_sha256": "4f72e98b4849cd60801dcbab78b58a3824f77b5652f2837d9b6cf92de70680fd",
+   "original_bytes": 1391,
+   "copy_sha256": "4f72e98b4849cd60801dcbab78b58a3824f77b5652f2837d9b6cf92de70680fd",
+   "copy_bytes": 1391,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.2/MANIFEST.sha256",
+   "original_sha256": "35c57337f47279fc0cf57a2487ef4c0507430b685c08824cf3fae10429380852",
+   "original_bytes": 172,
+   "copy_sha256": "35c57337f47279fc0cf57a2487ef4c0507430b685c08824cf3fae10429380852",
+   "copy_bytes": 172,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.2/diff-v551-v552.txt",
+   "original_sha256": "5bbcbaf8702194da4a14fd0bf136282bc2db0e0a3507a07d0ab40cd60367edd4",
+   "original_bytes": 4568,
+   "copy_sha256": "5bbcbaf8702194da4a14fd0bf136282bc2db0e0a3507a07d0ab40cd60367edd4",
+   "copy_bytes": 4568,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.2/review-v5.5.2.md",
+   "original_sha256": "56e4307c9dee8c3d2c4de2542ed3158d3fda0fc2f4c6ddc4134568bb90a01a26",
+   "original_bytes": 5211,
+   "copy_sha256": "56e4307c9dee8c3d2c4de2542ed3158d3fda0fc2f4c6ddc4134568bb90a01a26",
+   "copy_bytes": 5211,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.3/MANIFEST.sha256",
+   "original_sha256": "9c8524f6e7ecbf94afe61830c05ca5ed93e0afebe908a0c1df58f36ee11d455f",
+   "original_bytes": 172,
+   "copy_sha256": "9c8524f6e7ecbf94afe61830c05ca5ed93e0afebe908a0c1df58f36ee11d455f",
+   "copy_bytes": 172,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.3/diff-v552-v553.txt",
+   "original_sha256": "c876b95b9cf24cbcb20c86f4520b8bf01da352d5b8e4f778386e6eb06c7a7944",
+   "original_bytes": 4667,
+   "copy_sha256": "c876b95b9cf24cbcb20c86f4520b8bf01da352d5b8e4f778386e6eb06c7a7944",
+   "copy_bytes": 4667,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.3/review-v5.5.3.md",
+   "original_sha256": "699d58ab5e64e54757698ab8850aa3df1bd1299de94b9b65c3d9ef79bf467f45",
+   "original_bytes": 5827,
+   "copy_sha256": "699d58ab5e64e54757698ab8850aa3df1bd1299de94b9b65c3d9ef79bf467f45",
+   "copy_bytes": 5827,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.4/MANIFEST.sha256",
+   "original_sha256": "b6620e6e3d030f5caea126809b9ce6c11a1bed518909fb4a29474bcecf29c506",
+   "original_bytes": 424,
+   "copy_sha256": "b6620e6e3d030f5caea126809b9ce6c11a1bed518909fb4a29474bcecf29c506",
+   "copy_bytes": 424,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.4/review.md",
+   "original_sha256": "34927de86bdbed0d8e8cc8e4e2438f18bf001082153bfddb283781767c5f0842",
+   "original_bytes": 15996,
+   "copy_sha256": "34927de86bdbed0d8e8cc8e4e2438f18bf001082153bfddb283781767c5f0842",
+   "copy_bytes": 15996,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.5/MANIFEST.sha256",
+   "original_sha256": "552483e67cd1beff378816da2813fa1c86d2842eec9125bc614c0c19866d0817",
+   "original_bytes": 76,
+   "copy_sha256": "552483e67cd1beff378816da2813fa1c86d2842eec9125bc614c0c19866d0817",
+   "copy_bytes": 76,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.5/review.md",
+   "original_sha256": "c12db216df19940399f8d3a691a2c80be0cff6816c2dafbfd79539871853b7cc",
+   "original_bytes": 15573,
+   "copy_sha256": "c12db216df19940399f8d3a691a2c80be0cff6816c2dafbfd79539871853b7cc",
+   "copy_bytes": 15573,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.6/MANIFEST.sha256",
+   "original_sha256": "0fae175af15511b5c1aadfd3ce6fea32adfc291720fc7e04eb1f0aaa6a78eba6",
+   "original_bytes": 76,
+   "copy_sha256": "0fae175af15511b5c1aadfd3ce6fea32adfc291720fc7e04eb1f0aaa6a78eba6",
+   "copy_bytes": 76,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.6/review.md",
+   "original_sha256": "07d5e956b372c641850733ecccdaca69b3d4ae0a7f70e63f85146f0616799fc3",
+   "original_bytes": 16444,
+   "copy_sha256": "07d5e956b372c641850733ecccdaca69b3d4ae0a7f70e63f85146f0616799fc3",
+   "copy_bytes": 16444,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.7/MANIFEST.sha256",
+   "original_sha256": "e870a44d90477ad35cbd31cc78064561692530f221686b654f35a94c4b819b5d",
+   "original_bytes": 76,
+   "copy_sha256": "e870a44d90477ad35cbd31cc78064561692530f221686b654f35a94c4b819b5d",
+   "copy_bytes": 76,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.7/review.md",
+   "original_sha256": "761585bbbb6be90fd374152d4a6b08455a765170bc87cd9fe7ca875291792c2b",
+   "original_bytes": 10163,
+   "copy_sha256": "761585bbbb6be90fd374152d4a6b08455a765170bc87cd9fe7ca875291792c2b",
+   "copy_bytes": 10163,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.8/MANIFEST.sha256",
+   "original_sha256": "50a445e54a79085dce606e8f3eb0687e4c0240bf3bdf413c32d3427458a55868",
+   "original_bytes": 76,
+   "copy_sha256": "50a445e54a79085dce606e8f3eb0687e4c0240bf3bdf413c32d3427458a55868",
+   "copy_bytes": 76,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.8/review.md",
+   "original_sha256": "5cd26d441c9302333861790f024f2b433d0e2749bbcdd90e3992452d3f1b21e9",
+   "original_bytes": 5719,
+   "copy_sha256": "5cd26d441c9302333861790f024f2b433d0e2749bbcdd90e3992452d3f1b21e9",
+   "copy_bytes": 5719,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.9/MANIFEST.sha256",
+   "original_sha256": "1bfb8e0b2a78d4f71f5fcb2370e2543e1d09a1d670396b1bebcfc9bbe654e1b3",
+   "original_bytes": 76,
+   "copy_sha256": "1bfb8e0b2a78d4f71f5fcb2370e2543e1d09a1d670396b1bebcfc9bbe654e1b3",
+   "copy_bytes": 76,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5.9/review.md",
+   "original_sha256": "b1bc9fdfdd2123454bb88632eadf0ada26e6cd2a4b731f3afddb10fe88f66728",
+   "original_bytes": 6053,
+   "copy_sha256": "b1bc9fdfdd2123454bb88632eadf0ada26e6cd2a4b731f3afddb10fe88f66728",
+   "copy_bytes": 6053,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5/MANIFEST.sha256",
+   "original_sha256": "63683d76ead6b417b7b73769019fadecfd607cceac3cea1c79a3f7226438ef6c",
+   "original_bytes": 765,
+   "copy_sha256": "63683d76ead6b417b7b73769019fadecfd607cceac3cea1c79a3f7226438ef6c",
+   "copy_bytes": 765,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5/diff-v54-v55.txt",
+   "original_sha256": "e50f475eff1a55282253de0ef879fb578f6c9c7a7a16bde7bcd2a49a632f5a1a",
+   "original_bytes": 45349,
+   "copy_sha256": "e50f475eff1a55282253de0ef879fb578f6c9c7a7a16bde7bcd2a49a632f5a1a",
+   "copy_bytes": 45349,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5/out55-controls.txt",
+   "original_sha256": "258906f87a062a64076346a7e93b8688efb6b16ccde0996e448cf08eee5d0c08",
+   "original_bytes": 369,
+   "copy_sha256": "258906f87a062a64076346a7e93b8688efb6b16ccde0996e448cf08eee5d0c08",
+   "copy_bytes": 369,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5/out55-parity.txt",
+   "original_sha256": "b2273dc07ddf9be6b4e4e9ec479c93673656dc262a79ac578156fea457061755",
+   "original_bytes": 552,
+   "copy_sha256": "b2273dc07ddf9be6b4e4e9ec479c93673656dc262a79ac578156fea457061755",
+   "copy_bytes": 552,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5/review-v5.5.md",
+   "original_sha256": "8c77254a7291e75fe8caff01185e3f9896ace2a18a881497241fc4c51cc5f9ac",
+   "original_bytes": 13428,
+   "copy_sha256": "8c77254a7291e75fe8caff01185e3f9896ace2a18a881497241fc4c51cc5f9ac",
+   "copy_bytes": 13428,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5/rv55_controls.py",
+   "original_sha256": "5a6c131f8118d25a008099e484ae0f919f85245bc4d7b9f677f255ab8212352d",
+   "original_bytes": 1310,
+   "copy_sha256": "5a6c131f8118d25a008099e484ae0f919f85245bc4d7b9f677f255ab8212352d",
+   "copy_bytes": 1310,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5.5/rv55_parity.py",
+   "original_sha256": "ef97a70d67f4885aba3a152441571a0821a9cd2f1f30040c81281742d180cfe9",
+   "original_bytes": 5334,
+   "copy_sha256": "798b733553d014efbbec90174ae360644d1843c9e1e18fd0c27d66f1d921ffee",
+   "copy_bytes": 5315,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5/MANIFEST.sha256",
+   "original_sha256": "fa622b57a284cdd8063d30a57b391288c739bad01a2c485e56da3c4e581637df",
+   "original_bytes": 1730,
+   "copy_sha256": "fa622b57a284cdd8063d30a57b391288c739bad01a2c485e56da3c4e581637df",
+   "copy_bytes": 1730,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5/only_pl.txt",
+   "original_sha256": "6f4fcb3312b010dcd0da6cb8e1e6434cc372558ceb54221f34bc6aa81760e692",
+   "original_bytes": 246,
+   "copy_sha256": "6f4fcb3312b010dcd0da6cb8e1e6434cc372558ceb54221f34bc6aa81760e692",
+   "copy_bytes": 246,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5/out5-95.json",
+   "original_sha256": "8fa55fc336bce766c1aca886c719d9597d059032358dff14bb03132a292410eb",
+   "original_bytes": 3939,
+   "copy_sha256": "8fa55fc336bce766c1aca886c719d9597d059032358dff14bb03132a292410eb",
+   "copy_bytes": 3939,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5/out5-denylines.json",
+   "original_sha256": "910095ca45e7983509911f7746576379b7020a6e8586235272030f5136e45bcd",
+   "original_bytes": 9956,
+   "copy_sha256": "910095ca45e7983509911f7746576379b7020a6e8586235272030f5136e45bcd",
+   "copy_bytes": 9956,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5/out5-hist.txt",
+   "original_sha256": "05ea357f732c9e3bce35cf5a03f05e1d6e72e1dddfc02dbc2fceb01991ab3b38",
+   "original_bytes": 1038,
+   "copy_sha256": "05ea357f732c9e3bce35cf5a03f05e1d6e72e1dddfc02dbc2fceb01991ab3b38",
+   "copy_bytes": 1038,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5/out5-resid17.json",
+   "original_sha256": "d52531d788024807b25e74f290b93e574611c07d541b5aa44eab66ecc000c8a3",
+   "original_bytes": 725,
+   "copy_sha256": "d52531d788024807b25e74f290b93e574611c07d541b5aa44eab66ecc000c8a3",
+   "copy_bytes": 725,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5/review-v5.md",
+   "original_sha256": "dff73392fa0f255f58d0d658ac579a7bfe8bcbddec31cd88f34b2e32b5756af7",
+   "original_bytes": 14994,
+   "copy_sha256": "321b68c4d15ca946e2706c31b2a3bbcef09fc9bc7a5b8d78a3a9aa7a4564acc2",
+   "copy_bytes": 14916,
+   "byte_identical": false,
+   "transformations": {
+    "T1": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5/rv5_dr.py",
+   "original_sha256": "f8222fcedb92dcce42e9e5661d322cc7c4b467abb3dabcf76f8d3717e4f918ff",
+   "original_bytes": 1853,
+   "copy_sha256": "f8222fcedb92dcce42e9e5661d322cc7c4b467abb3dabcf76f8d3717e4f918ff",
+   "copy_bytes": 1853,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5/rv5_hist14.py",
+   "original_sha256": "65f67ea330c3c3a25d7bd124e41e194e6d438e9da1b094b93d3815223de0abe8",
+   "original_bytes": 2108,
+   "copy_sha256": "65f67ea330c3c3a25d7bd124e41e194e6d438e9da1b094b93d3815223de0abe8",
+   "copy_bytes": 2108,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5/rv5_item7.py",
+   "original_sha256": "fc18c8a2b36e43562150faae9c1349acb99a8ea92c2f26e4a44c96649f6aa660",
+   "original_bytes": 2182,
+   "copy_sha256": "fc18c8a2b36e43562150faae9c1349acb99a8ea92c2f26e4a44c96649f6aa660",
+   "copy_bytes": 2182,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5/rv5_lost.py",
+   "original_sha256": "ffca62945a50b423259a15be9c0e56086bcc81edf0d741d4f41ce93accad2c0c",
+   "original_bytes": 1626,
+   "copy_sha256": "ffca62945a50b423259a15be9c0e56086bcc81edf0d741d4f41ce93accad2c0c",
+   "copy_bytes": 1626,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5/rv5_resid.py",
+   "original_sha256": "7a520c74e0ee3a20a5aec528b102ae040902c5c109114cda2e2567dda9864859",
+   "original_bytes": 2536,
+   "copy_sha256": "7a520c74e0ee3a20a5aec528b102ae040902c5c109114cda2e2567dda9864859",
+   "copy_bytes": 2536,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5/rv5_rules.py",
+   "original_sha256": "ea2af6490e6acb590fbcc7138e3048aad0daf236c28b813070d2535d79f29765",
+   "original_bytes": 4512,
+   "copy_sha256": "ea2af6490e6acb590fbcc7138e3048aad0daf236c28b813070d2535d79f29765",
+   "copy_bytes": 4512,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5/rv_git.py",
+   "original_sha256": "f71f0d25b87e3445956292901fec92ef4b2ad46bcc1b43371a79696f7508be37",
+   "original_bytes": 1389,
+   "copy_sha256": "20ce5b2e1571df00d19e4391e3fa9677488481d1902594d9a7e247c6b7d912ba",
+   "copy_bytes": 1370,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5/rv_hp.py",
+   "original_sha256": "169041c9b606e077016d0af6ab33da7c957db7cf1282586b1caf0c8df6a2367a",
+   "original_bytes": 4424,
+   "copy_sha256": "169041c9b606e077016d0af6ab33da7c957db7cf1282586b1caf0c8df6a2367a",
+   "copy_bytes": 4424,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v5/rv_prof.py",
+   "original_sha256": "e5900f053aafbd4f259615ad9ed92bd9ca711a9f82676142ed2dad4e9a81c721",
+   "original_bytes": 1821,
+   "copy_sha256": "e5900f053aafbd4f259615ad9ed92bd9ca711a9f82676142ed2dad4e9a81c721",
+   "copy_bytes": 1821,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v6.0/MANIFEST.sha256",
+   "original_sha256": "f193e00cc61e69e6439ec64647fa421ed678856ee9373569cdfbbd8d20fc334c",
+   "original_bytes": 313,
+   "copy_sha256": "f193e00cc61e69e6439ec64647fa421ed678856ee9373569cdfbbd8d20fc334c",
+   "copy_bytes": 313,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v6.0/residual-hits.txt",
+   "original_sha256": "251eb7a28e2dc2fd11b0190e63e3c440badd1976de019e666ae803fe78d5d4de",
+   "original_bytes": 13818,
+   "copy_sha256": "251eb7a28e2dc2fd11b0190e63e3c440badd1976de019e666ae803fe78d5d4de",
+   "copy_bytes": 13818,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v6.0/review.md",
+   "original_sha256": "43cfe728198588eb4f01a38dd817f4d207e50494bb98c5bb20c895df4fddb0ec",
+   "original_bytes": 30444,
+   "copy_sha256": "43cfe728198588eb4f01a38dd817f4d207e50494bb98c5bb20c895df4fddb0ec",
+   "copy_bytes": 30444,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v6.0/rows-out.txt",
+   "original_sha256": "016ed048afd407efefa77eec3a452f14c4fde341690a8de86e5691db80e733b0",
+   "original_bytes": 29901,
+   "copy_sha256": "016ed048afd407efefa77eec3a452f14c4fde341690a8de86e5691db80e733b0",
+   "copy_bytes": 29901,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v6.0/rows.py",
+   "original_sha256": "d4747f352a80780a2a5dfd5811d8efa5f905b82d17fd75ecab673dda7101338a",
+   "original_bytes": 1558,
+   "copy_sha256": "d4747f352a80780a2a5dfd5811d8efa5f905b82d17fd75ecab673dda7101338a",
+   "copy_bytes": 1558,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v6.0a/MANIFEST.sha256",
+   "original_sha256": "6dd5ed2f2fc5fffcc6e7236595094103ed0abe7d232ae483462da74365712d8a",
+   "original_bytes": 573,
+   "copy_sha256": "6dd5ed2f2fc5fffcc6e7236595094103ed0abe7d232ae483462da74365712d8a",
+   "copy_bytes": 573,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v6.0a/review.md",
+   "original_sha256": "f5f4f57b6c028f0b995984be74be0c1a799e9cd3875dc4c82097a9a0167e9f2a",
+   "original_bytes": 19885,
+   "copy_sha256": "f5f4f57b6c028f0b995984be74be0c1a799e9cd3875dc4c82097a9a0167e9f2a",
+   "copy_bytes": 19885,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v6.0a/rows-v559-v60a.txt",
+   "original_sha256": "d30f7c5675adf2b75d710bb036e3bd61885ef40bb7dc0fcd538bcf3d0838ee8f",
+   "original_bytes": 2580,
+   "copy_sha256": "d30f7c5675adf2b75d710bb036e3bd61885ef40bb7dc0fcd538bcf3d0838ee8f",
+   "copy_bytes": 2580,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v6.0a/rows-v60-v60a.txt",
+   "original_sha256": "22f93f9df22c5f3b615168ee00b9d7830cddda7c8cc89b72fe3004642b020d5d",
+   "original_bytes": 691,
+   "copy_sha256": "22f93f9df22c5f3b615168ee00b9d7830cddda7c8cc89b72fe3004642b020d5d",
+   "copy_bytes": 691,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v6.0a/rows_cmp.py",
+   "original_sha256": "b01f03ff6081ce043ba32360c31149a33490581b255e10f8fc45f0036eabff0c",
+   "original_bytes": 1063,
+   "copy_sha256": "b01f03ff6081ce043ba32360c31149a33490581b255e10f8fc45f0036eabff0c",
+   "copy_bytes": 1063,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v6.0b/MANIFEST.sha256",
+   "original_sha256": "e931f3c508b757e23c2159bfde624a5fe5caa05f72e735633fa79f73142bd798",
+   "original_bytes": 941,
+   "copy_sha256": "e931f3c508b757e23c2159bfde624a5fe5caa05f72e735633fa79f73142bd798",
+   "copy_bytes": 941,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v6.0b/review.md",
+   "original_sha256": "0c41ec5aa395e7971665b156275fbffdb3fee05a283459d11a4bcf0b4a3445aa",
+   "original_bytes": 27646,
+   "copy_sha256": "e8d7ab2fbe8f1e42289fec19eff94282fc3611e10913dc7379e859fb4de7c1bb",
+   "copy_bytes": 27646,
+   "byte_identical": false,
+   "transformations": {
+    "T4": 2,
+    "T5": 2
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v6.0c/MANIFEST.sha256",
+   "original_sha256": "d331b17e1d087702087de749b9ff64e711e2944cd7f9d406347548ef8f11d3f3",
+   "original_bytes": 955,
+   "copy_sha256": "d331b17e1d087702087de749b9ff64e711e2944cd7f9d406347548ef8f11d3f3",
+   "copy_bytes": 955,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v6.0c/review.md",
+   "original_sha256": "48dd41d0c0cc8b9169f61377eec7c606170b1fc6b7bb5c9aef0b5e7d4010ad20",
+   "original_bytes": 21272,
+   "copy_sha256": "ffbf9a0b279666eb0c016825bfc748bd49f18721b3297b9bf8d06eec46b35db5",
+   "copy_bytes": 21272,
+   "byte_identical": false,
+   "transformations": {
+    "T4": 1,
+    "T5": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v6.0d/MANIFEST.sha256",
+   "original_sha256": "77430c654ff768d27409cc22571c9fc8c9ed11fa230cd61e5d17238b23f27414",
+   "original_bytes": 3658,
+   "copy_sha256": "77430c654ff768d27409cc22571c9fc8c9ed11fa230cd61e5d17238b23f27414",
+   "copy_bytes": 3658,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v6.0d/review.md",
+   "original_sha256": "19f04b053854673230a4a93b980eba7b8289cce21806a0000bbaa1ba4a807eb1",
+   "original_bytes": 11819,
+   "copy_sha256": "e41a5976d6d49030957d90732c6e90c96b69e47d0f408ebe1ecf2f071092501f",
+   "copy_bytes": 11819,
+   "byte_identical": false,
+   "transformations": {
+    "T4": 1,
+    "T5": 1
+   }
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v6.0e/MANIFEST.sha256",
+   "original_sha256": "9a16a87a156605b09d9ba6fa529e6517ccc9cf5a3d6c30ef4545e08d4838e8aa",
+   "original_bytes": 442,
+   "copy_sha256": "9a16a87a156605b09d9ba6fa529e6517ccc9cf5a3d6c30ef4545e08d4838e8aa",
+   "copy_bytes": 442,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/review-v6.0e/review.md",
+   "original_sha256": "4252111d818b6316b8d52a24bd95405de05e755a117a8d3b4aad17b89f606c79",
+   "original_bytes": 5343,
+   "copy_sha256": "4252111d818b6316b8d52a24bd95405de05e755a117a8d3b4aad17b89f606c79",
+   "copy_bytes": 5343,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/v5.5.10-MANIFEST.sha256",
+   "original_sha256": "d9e284bc5a2530d021abc735d6b16f1c85fba6cd5168f96a7d2d51c101416cd6",
+   "original_bytes": 450,
+   "copy_sha256": "d9e284bc5a2530d021abc735d6b16f1c85fba6cd5168f96a7d2d51c101416cd6",
+   "copy_bytes": 450,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/v5.5.10a-MANIFEST.sha256",
+   "original_sha256": "7ac930f7a37f189bedf90a3034d25c5dccab2af559a606117dceb2b6510caed8",
+   "original_bytes": 630,
+   "copy_sha256": "7ac930f7a37f189bedf90a3034d25c5dccab2af559a606117dceb2b6510caed8",
+   "copy_bytes": 630,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/v5.5.4-MANIFEST.sha256",
+   "original_sha256": "0277c041b34736d6de2664b11e35ec54e99f3f3f1e8a65a5b75ca77cf132ed42",
+   "original_bytes": 253,
+   "copy_sha256": "0277c041b34736d6de2664b11e35ec54e99f3f3f1e8a65a5b75ca77cf132ed42",
+   "copy_bytes": 253,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/v5.5.5-MANIFEST.sha256",
+   "original_sha256": "8205319d0c89964928ad897a3ae19d46c75ab70e75eab3d2c5b7eae34b16b9b2",
+   "original_bytes": 351,
+   "copy_sha256": "8205319d0c89964928ad897a3ae19d46c75ab70e75eab3d2c5b7eae34b16b9b2",
+   "copy_bytes": 351,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/v5.5.6-MANIFEST.sha256",
+   "original_sha256": "ee69568cbb874f5d17bc3048cfad02307fe703d29c803349a8c6d4ded8274b97",
+   "original_bytes": 351,
+   "copy_sha256": "ee69568cbb874f5d17bc3048cfad02307fe703d29c803349a8c6d4ded8274b97",
+   "copy_bytes": 351,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/v5.5.7-MANIFEST.sha256",
+   "original_sha256": "411cec23a2f145bb5662de69f8ff9b7d7be4a16aa83899615ea2fb83324581f7",
+   "original_bytes": 351,
+   "copy_sha256": "411cec23a2f145bb5662de69f8ff9b7d7be4a16aa83899615ea2fb83324581f7",
+   "copy_bytes": 351,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/v5.5.8-MANIFEST.sha256",
+   "original_sha256": "070cb433653cd0b27195cdf7e15d56337574c2c91a2e5de2e1e10be437e9cb5b",
+   "original_bytes": 351,
+   "copy_sha256": "070cb433653cd0b27195cdf7e15d56337574c2c91a2e5de2e1e10be437e9cb5b",
+   "copy_bytes": 351,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/v5.5.9-MANIFEST.sha256",
+   "original_sha256": "57355e088a20eb1d12b2e00509a65f68b3b41461ff4e77d830705ce9dca45d62",
+   "original_bytes": 264,
+   "copy_sha256": "57355e088a20eb1d12b2e00509a65f68b3b41461ff4e77d830705ce9dca45d62",
+   "copy_bytes": 264,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/v6.0-MANIFEST.sha256",
+   "original_sha256": "c78d7469a5bf592a3ac97bbb28b4b7211c210d744a655dcae5e78905c7b2cc97",
+   "original_bytes": 2297,
+   "copy_sha256": "c78d7469a5bf592a3ac97bbb28b4b7211c210d744a655dcae5e78905c7b2cc97",
+   "copy_bytes": 2297,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/v6.0a-MANIFEST.sha256",
+   "original_sha256": "6c8b8b5b06003925062b2cce5a2d3a5c0062893f3094ffb5232afe1d01c550f0",
+   "original_bytes": 1869,
+   "copy_sha256": "6c8b8b5b06003925062b2cce5a2d3a5c0062893f3094ffb5232afe1d01c550f0",
+   "copy_bytes": 1869,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/v6.0b-MANIFEST.sha256",
+   "original_sha256": "dae02693db6d4707164449f8ff246f63cf8dcc7eb2eededb01217fb74fed8cdc",
+   "original_bytes": 1588,
+   "copy_sha256": "dae02693db6d4707164449f8ff246f63cf8dcc7eb2eededb01217fb74fed8cdc",
+   "copy_bytes": 1588,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/v6.0c-MANIFEST.sha256",
+   "original_sha256": "90294531845eab410efbbfb30d2d02869a97cfd076cef89e7d8b8e1b719324cb",
+   "original_bytes": 1585,
+   "copy_sha256": "90294531845eab410efbbfb30d2d02869a97cfd076cef89e7d8b8e1b719324cb",
+   "copy_bytes": 1585,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/v6.0d-MANIFEST.sha256",
+   "original_sha256": "884a42c17dbbd779bd90cfb45145e0054a0400c063fedc7db76d2bc087e1fd78",
+   "original_bytes": 1315,
+   "copy_sha256": "884a42c17dbbd779bd90cfb45145e0054a0400c063fedc7db76d2bc087e1fd78",
+   "copy_bytes": 1315,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-ledgertool-design/v6.0e-MANIFEST.sha256",
+   "original_sha256": "9a7846a9ea4fc72bd7b86ad7f8e74b8a4e647bd4220ed52431c2fcaf89575f24",
+   "original_bytes": 1504,
+   "copy_sha256": "9a7846a9ea4fc72bd7b86ad7f8e74b8a4e647bd4220ed52431c2fcaf89575f24",
+   "copy_bytes": 1504,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-q10/DISPOSITION.md",
+   "original_sha256": "7ae4448024bd04256cf585b722f4b97a2a9ba3dc9b449ad40fc4865bd9345f89",
+   "original_bytes": 27359,
+   "copy_sha256": "614a500292e51ac9831eb07d453bfe3331cd9f887a82d86721e3ff5d8d825067",
+   "copy_bytes": 27340,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-q10/MANIFEST.sha256",
+   "original_sha256": "f7771c2c11c9fcc5d621252750e32c6619a4bccaae2c0af4a309426f38525112",
+   "original_bytes": 402,
+   "copy_sha256": "f7771c2c11c9fcc5d621252750e32c6619a4bccaae2c0af4a309426f38525112",
+   "copy_bytes": 402,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-q10/OWNER-DECISION-20261124.md",
+   "original_sha256": "39521663157964a9e227b952a32bb6cd9efed96202c647a6da5fa535754b423b",
+   "original_bytes": 1883,
+   "copy_sha256": "39521663157964a9e227b952a32bb6cd9efed96202c647a6da5fa535754b423b",
+   "copy_bytes": 1883,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/DRIFT-CHANGES-r1.md",
+   "original_sha256": "118eef9ab2fa3ee5730ecdea3306e6f89b211869778ef3bf3addb25a8310e752",
+   "original_bytes": 5910,
+   "copy_sha256": "118eef9ab2fa3ee5730ecdea3306e6f89b211869778ef3bf3addb25a8310e752",
+   "copy_bytes": 5910,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/DRIFT-CHANGES-r2.md",
+   "original_sha256": "3b1b2e6754e3318ac752a15955b28ac3fc275f7053c192227bdbf9b58b3b3ccb",
+   "original_bytes": 4379,
+   "copy_sha256": "3b1b2e6754e3318ac752a15955b28ac3fc275f7053c192227bdbf9b58b3b3ccb",
+   "copy_bytes": 4379,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/DRIFT-CHANGES-r3.md",
+   "original_sha256": "7b25e75ea561db2d29a6f1126638ee5e08d6b862dc44f56603e0d2f4a220053e",
+   "original_bytes": 4282,
+   "copy_sha256": "7b25e75ea561db2d29a6f1126638ee5e08d6b862dc44f56603e0d2f4a220053e",
+   "copy_bytes": 4282,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/DRIFT-FINAL-NOTES.md",
+   "original_sha256": "ca07a51456e3799fe3542c49ea80f0a728b883a5957aa3c6fb3a9b4d89869c81",
+   "original_bytes": 19066,
+   "copy_sha256": "636fe4cc7e2e5f0117467bebd815f84b5815507d8675068c7aec27400205031f",
+   "copy_bytes": 19047,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-records/DRIFT-RECONCILIATION-PROPOSAL-r1.md",
+   "original_sha256": "459987f565a95c3641238df0362ff401dae37bf0593e3d8f8989da240ba6c238",
+   "original_bytes": 34790,
+   "copy_sha256": "459987f565a95c3641238df0362ff401dae37bf0593e3d8f8989da240ba6c238",
+   "copy_bytes": 34790,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/DRIFT-RECONCILIATION-PROPOSAL-r2.md",
+   "original_sha256": "bfc6fa25ec4861d2ff927598a5a20cc5de830abd97d41e956c2f1b4aeeabc072",
+   "original_bytes": 48080,
+   "copy_sha256": "bfc6fa25ec4861d2ff927598a5a20cc5de830abd97d41e956c2f1b4aeeabc072",
+   "copy_bytes": 48080,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/DRIFT-RECONCILIATION-PROPOSAL-r3.md",
+   "original_sha256": "c16ecbb790dfc29725d1fe6d94b7dde1a402d745434926f609167b6253ad2cff",
+   "original_bytes": 55713,
+   "copy_sha256": "c16ecbb790dfc29725d1fe6d94b7dde1a402d745434926f609167b6253ad2cff",
+   "copy_bytes": 55713,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/DRIFT-RECONCILIATION-PROPOSAL.md",
+   "original_sha256": "f870c7630b41ecf0cd218a2a525ae4a7941d1942978633b654d8040628aa2c2d",
+   "original_bytes": 3943,
+   "copy_sha256": "f870c7630b41ecf0cd218a2a525ae4a7941d1942978633b654d8040628aa2c2d",
+   "copy_bytes": 3943,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/MANIFEST-final.sha256",
+   "original_sha256": "1ecc56a611bbfa2e3ea0c9a4192f86515e5a9570cd5721f3a40b4c727bab9498",
+   "original_bytes": 2606,
+   "copy_sha256": "1ecc56a611bbfa2e3ea0c9a4192f86515e5a9570cd5721f3a40b4c727bab9498",
+   "copy_bytes": 2606,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/MANIFEST-r1.sha256",
+   "original_sha256": "73616335d42149223e1cbd37043565a6a3251d877e80ba4cdb484daeb2504561",
+   "original_bytes": 188,
+   "copy_sha256": "73616335d42149223e1cbd37043565a6a3251d877e80ba4cdb484daeb2504561",
+   "copy_bytes": 188,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/MANIFEST-r2.sha256",
+   "original_sha256": "b55f312012e644bd7c90be3716f33ac80ea53ad6cb43be302027bcb3012e287e",
+   "original_bytes": 1192,
+   "copy_sha256": "b55f312012e644bd7c90be3716f33ac80ea53ad6cb43be302027bcb3012e287e",
+   "copy_bytes": 1192,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/MANIFEST-r3.sha256",
+   "original_sha256": "53e9d34d622086014ef28279dabcc09b6ce39b0e4d7ef157ab9f8329eb01bf63",
+   "original_bytes": 1201,
+   "copy_sha256": "53e9d34d622086014ef28279dabcc09b6ce39b0e4d7ef157ab9f8329eb01bf63",
+   "copy_bytes": 1201,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/MANIFEST.sha256",
+   "original_sha256": "d71ce154a6ac1d2dc4842ae72b532d2479273da05b7ef5918769b2f296a49bd8",
+   "original_bytes": 181,
+   "copy_sha256": "d71ce154a6ac1d2dc4842ae72b532d2479273da05b7ef5918769b2f296a49bd8",
+   "copy_bytes": 181,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/dec-20261123-r1.md",
+   "original_sha256": "2bc6fb0b2ba132d1aa7eddb4ac970ead347694dee9eb7de60f133158f074806c",
+   "original_bytes": 5042,
+   "copy_sha256": "2bc6fb0b2ba132d1aa7eddb4ac970ead347694dee9eb7de60f133158f074806c",
+   "copy_bytes": 5042,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/dec-20261123.md",
+   "original_sha256": "52b0fbab50ca1c498fc62203e8beac8081b7a5949d29d77bd4565442abbfc61f",
+   "original_bytes": 3525,
+   "copy_sha256": "52b0fbab50ca1c498fc62203e8beac8081b7a5949d29d77bd4565442abbfc61f",
+   "copy_bytes": 3525,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/evidence-footer-20261123-r1.md",
+   "original_sha256": "006aeda5d46696f36684562e8c636471d4aa802e7a3f8150dea4916dbfebddb3",
+   "original_bytes": 2952,
+   "copy_sha256": "006aeda5d46696f36684562e8c636471d4aa802e7a3f8150dea4916dbfebddb3",
+   "copy_bytes": 2952,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/evidence-footer-20261123.md",
+   "original_sha256": "7dc8f8d577e9e34a999a2fd0029ea30c7afd1be356ef743a485e988be5c9acd6",
+   "original_bytes": 2344,
+   "copy_sha256": "7dc8f8d577e9e34a999a2fd0029ea30c7afd1be356ef743a485e988be5c9acd6",
+   "copy_bytes": 2344,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/proposed/adopt-v6.0e-1169.md",
+   "original_sha256": "7b50a77025c9ba151608c518cb50bb5c0bb88978b921ff9eabae99a95faab553",
+   "original_bytes": 2401,
+   "copy_sha256": "7b50a77025c9ba151608c518cb50bb5c0bb88978b921ff9eabae99a95faab553",
+   "copy_bytes": 2401,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/proposed/adoption-1169.md",
+   "original_sha256": "834a1ce28ed40ad7428102037fdcfa08347fb9d69abfd270c6a33d1e8158b834",
+   "original_bytes": 1842,
+   "copy_sha256": "834a1ce28ed40ad7428102037fdcfa08347fb9d69abfd270c6a33d1e8158b834",
+   "copy_bytes": 1842,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/proposed/agents-adoption-1169.md",
+   "original_sha256": "746f70d00ba330e1ec301c4c427d17abcac14371793f5308bed994c1aafba29a",
+   "original_bytes": 3907,
+   "copy_sha256": "746f70d00ba330e1ec301c4c427d17abcac14371793f5308bed994c1aafba29a",
+   "copy_bytes": 3907,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/proposed/grant-adoption-1169.json",
+   "original_sha256": "8df98d94a049836a74efc25f180a914610f9e996d99ff4640147dbf5b21102b7",
+   "original_bytes": 901,
+   "copy_sha256": "e84129b4899b762216a54507a27926a2735ac07a87ac9a6c41c369314d09f8b0",
+   "copy_bytes": 877,
+   "byte_identical": false,
+   "transformations": {
+    "T3": 2
+   }
+  },
+  {
+   "path": "coord2-records/proposed/grant-agents-adoption-1169.json",
+   "original_sha256": "b0dded160ed2e47cbc30be9e7b14ae1b257f79b024c690a33378c8a43021fa1c",
+   "original_bytes": 817,
+   "copy_sha256": "2199db8ed648323e81d6c5c503aec6b34a0f87539c437f73df69d3da7093ff62",
+   "copy_bytes": 805,
+   "byte_identical": false,
+   "transformations": {
+    "T3": 1
+   }
+  },
+  {
+   "path": "coord2-records/proposed/grant-od-decision-1541.json",
+   "original_sha256": "dbc751e9988604c687fbd362e4691d7f47736e9d60ab1b8d6a2cda395a892a99",
+   "original_bytes": 871,
+   "copy_sha256": "332fc2c995445ecfbf3fa2908c174626a2e02f1d8ede50f3cf1117893c5aebc3",
+   "copy_bytes": 859,
+   "byte_identical": false,
+   "transformations": {
+    "T3": 1
+   }
+  },
+  {
+   "path": "coord2-records/proposed/grant-od-sheet-1541.json",
+   "original_sha256": "547919aff9f0ac8f2d210741fe9e49f4de1e938a6a0d780d243cad3172ae7574",
+   "original_bytes": 923,
+   "copy_sha256": "55c5c6ec471e579753e5d0ba8ddfcec38aa1bbf9a0ccb51210dc406e75fded88",
+   "copy_bytes": 911,
+   "byte_identical": false,
+   "transformations": {
+    "T3": 1
+   }
+  },
+  {
+   "path": "coord2-records/proposed/grant-p5-protocol-1487.json",
+   "original_sha256": "f79da0e103eff5c058af66332d1b9baec9c1cb3517a0b7293a441bcd3092e1df",
+   "original_bytes": 942,
+   "copy_sha256": "23179a72de23656c7718269f021009fdd85633d8f8b93d6c390faa1646333062",
+   "copy_bytes": 918,
+   "byte_identical": false,
+   "transformations": {
+    "T3": 2
+   }
+  },
+  {
+   "path": "coord2-records/proposed/grant-plan-1509.json",
+   "original_sha256": "623a1a96fc8c50af5bef96759363f0cec8d0c49dc1016535506e4beaca6a6d40",
+   "original_bytes": 859,
+   "copy_sha256": "02b90ad2a53b5afe9acb639416d259b693a75eff98d8e564269f00ea4e22edf0",
+   "copy_bytes": 835,
+   "byte_identical": false,
+   "transformations": {
+    "T3": 2
+   }
+  },
+  {
+   "path": "coord2-records/proposed/grant-plan-873.json",
+   "original_sha256": "b5fcb0f7ee05d47dc522fce81967359a901fa8aa89799773030cb0b44848c053",
+   "original_bytes": 855,
+   "copy_sha256": "11a6d0813555b71fa79c602f5a443477c0baab1db2cd1c0843a7fbc3676d7372",
+   "copy_bytes": 831,
+   "byte_identical": false,
+   "transformations": {
+    "T3": 2
+   }
+  },
+  {
+   "path": "coord2-records/proposed/o13-adopt-1169.md",
+   "original_sha256": "054b7622a832b1acd23b1c4714740f0fe0b925ba7364c0efa8f3542c693766c7",
+   "original_bytes": 9777,
+   "copy_sha256": "054b7622a832b1acd23b1c4714740f0fe0b925ba7364c0efa8f3542c693766c7",
+   "copy_bytes": 9777,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/proposed/od-decision-1541.md",
+   "original_sha256": "7bd255dd7afdd772bf78f7c201c252d8b36317cc219a92e6f626d17e46d92346",
+   "original_bytes": 3647,
+   "copy_sha256": "7bd255dd7afdd772bf78f7c201c252d8b36317cc219a92e6f626d17e46d92346",
+   "copy_bytes": 3647,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/proposed/od-sheet-1541.md",
+   "original_sha256": "924476e5bc0e1d88dc1fe024dccdf696b9e4d32cc7e65c5dbf06dcf50eeeb095",
+   "original_bytes": 33733,
+   "copy_sha256": "924476e5bc0e1d88dc1fe024dccdf696b9e4d32cc7e65c5dbf06dcf50eeeb095",
+   "copy_bytes": 33733,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/proposed/p5-protocol-1487.md",
+   "original_sha256": "9625305d790cb83f0e1428fa0fc01d0211effe1b5e63c50e5db61df72e498e86",
+   "original_bytes": 2387,
+   "copy_sha256": "9625305d790cb83f0e1428fa0fc01d0211effe1b5e63c50e5db61df72e498e86",
+   "copy_bytes": 2387,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/proposed/plan-1509.md",
+   "original_sha256": "ba1c1d4e76646d0c7497a3d72b1b5cea3b4ddd8adafff80cad9fb17cd72bd591",
+   "original_bytes": 2383,
+   "copy_sha256": "ba1c1d4e76646d0c7497a3d72b1b5cea3b4ddd8adafff80cad9fb17cd72bd591",
+   "copy_bytes": 2383,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/proposed/plan-873.md",
+   "original_sha256": "ed1fac184b261cf3a90793acb8b01bfbcffaee1618a2928533390907b85b2387",
+   "original_bytes": 2519,
+   "copy_sha256": "ed1fac184b261cf3a90793acb8b01bfbcffaee1618a2928533390907b85b2387",
+   "copy_bytes": 2519,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/r1-work/derive_r1.py",
+   "original_sha256": "9c23b4c3e093370e321a15f6d12e005e2f41feda0ab24ee676893b1ebbc94fe6",
+   "original_bytes": 5997,
+   "copy_sha256": "2ed47bffe2851c44037e735edf73f8f80f8bfced86a3898d442cf092dbb86a6e",
+   "copy_bytes": 5978,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-records/r1-work/scans_r1.py",
+   "original_sha256": "43d39fe0b18c5b94323e85b812fbe38643b1bbfb5cd9c8a450cbe5732fd609f9",
+   "original_bytes": 2592,
+   "copy_sha256": "28058e03729ab9bce27493919fb0b4f6dc4d46e03673c535ee6f033036df4dbe",
+   "copy_bytes": 2573,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-records/r2-work/gen_records_r2.py",
+   "original_sha256": "24d7164e01da7b4210b347cd09fa3a5009994b3b28530bdcef58dd736a2039d6",
+   "original_bytes": 11146,
+   "copy_sha256": "4f84b2e5c3547fdfa4be3b006ec6f6fd11e4bc16c089e05bda7d8a6ad8d01016",
+   "copy_bytes": 11127,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-records/r3-work/gen_records_r3.py",
+   "original_sha256": "c32a981beeae41648e2ffa2fa34f58bb11b559bbdba864ae4c4efb09cae6b57c",
+   "original_bytes": 16126,
+   "copy_sha256": "f89bbd36a762da500e5aa2a030d0d2d9e4aa5d650e89e313b1d8cec51b523ad3",
+   "copy_bytes": 16107,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-records/records-draft-r3/a1exit-recon-agents-md-1.json",
+   "original_sha256": "dd725be9004bc47672b90af749d204d3d70175e83d687bdd766a5e7ceb4aec19",
+   "original_bytes": 9930,
+   "copy_sha256": "dd725be9004bc47672b90af749d204d3d70175e83d687bdd766a5e7ceb4aec19",
+   "copy_bytes": 9930,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/records-draft-r3/a1exit-scc-tool-configuration-1.json",
+   "original_sha256": "e4895e0f9c45660178e62f2ca4618e47c4f47fd85534dd10d99f787a5531e4b5",
+   "original_bytes": 2093,
+   "copy_sha256": "e4895e0f9c45660178e62f2ca4618e47c4f47fd85534dd10d99f787a5531e4b5",
+   "copy_bytes": 2093,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/records-draft-r3/a1exit-scc-trial-workflow-1.json",
+   "original_sha256": "67561f97f4fd0236c437468e36c3ee3a5d60d69f5dbb161890357df9847b112f",
+   "original_bytes": 2507,
+   "copy_sha256": "67561f97f4fd0236c437468e36c3ee3a5d60d69f5dbb161890357df9847b112f",
+   "copy_bytes": 2507,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/records-draft/a1exit-recon-agents-md-1.json",
+   "original_sha256": "4417df9aa48f3affc00421a22c9f440be92b5737ad01c795b5febc13cb11d571",
+   "original_bytes": 7527,
+   "copy_sha256": "4417df9aa48f3affc00421a22c9f440be92b5737ad01c795b5febc13cb11d571",
+   "copy_bytes": 7527,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/records-draft/a1exit-scc-tool-configuration-1.json",
+   "original_sha256": "d225a6663fda78dc4a28da6776942bbdede5aeb8e8ae01ae20adbd4f9801ecab",
+   "original_bytes": 2093,
+   "copy_sha256": "d225a6663fda78dc4a28da6776942bbdede5aeb8e8ae01ae20adbd4f9801ecab",
+   "copy_bytes": 2093,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/records-draft/a1exit-scc-trial-workflow-1.json",
+   "original_sha256": "bc23c80f08bee5596797ef25fd5ec5aa9e463de35931e62ee91d3c74eec60674",
+   "original_bytes": 2507,
+   "copy_sha256": "bc23c80f08bee5596797ef25fd5ec5aa9e463de35931e62ee91d3c74eec60674",
+   "copy_bytes": 2507,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/records-final/reconciliation-agents-md-v2.json",
+   "original_sha256": "92de0690fee259c1deab6bb13ecd2d958443793e414a00e9c90f4c43f833df85",
+   "original_bytes": 10313,
+   "copy_sha256": "92de0690fee259c1deab6bb13ecd2d958443793e414a00e9c90f4c43f833df85",
+   "copy_bytes": 10313,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/records-final/side-change-classes-tool-configuration-v1.json",
+   "original_sha256": "9c22394b88702f15b4e8bbc99ff5ef55fc771bc538e2e9c6bafb7bd81ad319cd",
+   "original_bytes": 2286,
+   "copy_sha256": "9c22394b88702f15b4e8bbc99ff5ef55fc771bc538e2e9c6bafb7bd81ad319cd",
+   "copy_bytes": 2286,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/records-final/side-change-classes-trial-workflow-v1.json",
+   "original_sha256": "74fa640d4d18d75b292537f8ee469c8be23aa0be60905c40653e0c5f8bd112ee",
+   "original_bytes": 2691,
+   "copy_sha256": "74fa640d4d18d75b292537f8ee469c8be23aa0be60905c40653e0c5f8bd112ee",
+   "copy_bytes": 2691,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/review-r1/MANIFEST.sha256",
+   "original_sha256": "9f4bb372921abec005388e710c1da72ae0080a3bd4a2030b754a91a8b1552b1d",
+   "original_bytes": 653,
+   "copy_sha256": "9f4bb372921abec005388e710c1da72ae0080a3bd4a2030b754a91a8b1552b1d",
+   "copy_bytes": 653,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/review-r1/c7099655517.json",
+   "original_sha256": "a39d6d257be4f1cf3ebad4705caba201365d61b6587c3e5c040312dd95dc921b",
+   "original_bytes": 5139,
+   "copy_sha256": "a39d6d257be4f1cf3ebad4705caba201365d61b6587c3e5c040312dd95dc921b",
+   "copy_bytes": 5139,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/review-r1/review-drift-r1.md",
+   "original_sha256": "3f9482d78782ea006c17a2c75c85523fc800607aea36f28fa277cba02b2100b4",
+   "original_bytes": 15334,
+   "copy_sha256": "41f9fc5e8857234781d665d3be86d60a57fd5d91dd9fbb523326a6bec1244a53",
+   "copy_bytes": 15315,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-records/review-r1/rv1_blobids.py",
+   "original_sha256": "bdad7a406fd797ac9ffbd81590d14418c2be49b8532e59d5112df03f00037e72",
+   "original_bytes": 991,
+   "copy_sha256": "f253a958246b6ca16d7251f545be0cafb3821d90a44c7375cc043fc993bcf0d2",
+   "copy_bytes": 972,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-records/review-r1/rv1_facts.py",
+   "original_sha256": "ba6052c2dd74087b50df3469480f9222f04e5d8d6c11366254507d33bb08ea00",
+   "original_bytes": 4378,
+   "copy_sha256": "bc156b1bdafd222db01d77bd0426d50bcb8097fafcfd7f9c486dc91e2dc6abd8",
+   "copy_bytes": 4359,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-records/review-r1/rv1_q_added.py",
+   "original_sha256": "269bd5951a3e6ad292bbca7b6e4eac2605a3ffec078a9b1b7a2da25d0f25e686",
+   "original_bytes": 967,
+   "copy_sha256": "64c52fc3a3e5ef3eae351c48d2bc469465cc7637e7d27ba0ca5a804bde72c6e8",
+   "copy_bytes": 948,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-records/review-r2/MANIFEST.sha256",
+   "original_sha256": "b3de4ad6f22899821a83450024143b393358f94e2c70b12db99a40a1cb518bb6",
+   "original_bytes": 248,
+   "copy_sha256": "b3de4ad6f22899821a83450024143b393358f94e2c70b12db99a40a1cb518bb6",
+   "copy_bytes": 248,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/review-r2/review-drift-r2.md",
+   "original_sha256": "fb236df1712f67abd23fb50fe82cadc36c49e712a524f6c223247fb537b0435f",
+   "original_bytes": 13974,
+   "copy_sha256": "9f9853530baf22e88959c59425af0b4e98e7e749cf01c155738dfe6206bd4884",
+   "copy_bytes": 13955,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-records/review-r2/rv2_records.py",
+   "original_sha256": "a5250b4ebb5ce133eba2c51bf8e4b6f1252c3033378dd2e565f5b5793ce7dcb0",
+   "original_bytes": 8943,
+   "copy_sha256": "14ecf27dc762737f07959b39e3dd2aabe31b521109f485926017ecd217fda722",
+   "copy_bytes": 8846,
+   "byte_identical": false,
+   "transformations": {
+    "T1": 1,
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-records/review-r3/MANIFEST.sha256",
+   "original_sha256": "ec741a5c9ddb010a00319c62522f740cc0c7226e2682bd7fc3f54e5ca6c6c7c5",
+   "original_bytes": 248,
+   "copy_sha256": "ec741a5c9ddb010a00319c62522f740cc0c7226e2682bd7fc3f54e5ca6c6c7c5",
+   "copy_bytes": 248,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/review-r3/review-drift-r3.md",
+   "original_sha256": "d2c78270df3b374e5e8fac2844df2460064154916d00448c4a00048bc0cec021",
+   "original_bytes": 7611,
+   "copy_sha256": "a6a0fdff9ea77b28fdbb0d5602ddbd5d1ce5542a780194558b107dff67401f5e",
+   "copy_bytes": 7592,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-records/review-r3/rv3_binding.py",
+   "original_sha256": "06cc6ed2c66b4553c825d491c76d07086951e03d71871bebc5a61f03d8900cb9",
+   "original_bytes": 5623,
+   "copy_sha256": "4276629b82495d2d90b7d04a8ea1e9abb89fe1fbeecb36f65d509cbd6cd008c5",
+   "copy_bytes": 5526,
+   "byte_identical": false,
+   "transformations": {
+    "T1": 1,
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-records/review/MANIFEST.sha256",
+   "original_sha256": "cc1beb7650453bf4884caa1cc5ccae21b1c59153c6ddb48a4b1f73956b224c53",
+   "original_bytes": 323,
+   "copy_sha256": "cc1beb7650453bf4884caa1cc5ccae21b1c59153c6ddb48a4b1f73956b224c53",
+   "copy_bytes": 323,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/review/c7096263682.json",
+   "original_sha256": "e93df6a3a4f072ed7b3c22b284d4a5156cb9902b2476d37b2d7f2a7241389c67",
+   "original_bytes": 1545,
+   "copy_sha256": "e93df6a3a4f072ed7b3c22b284d4a5156cb9902b2476d37b2d7f2a7241389c67",
+   "copy_bytes": 1545,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-records/review/review-records.md",
+   "original_sha256": "1ef18f194efa1c2055874f0ccac51ef55b902e1dcd2e6420af05859ef256a5f8",
+   "original_bytes": 21227,
+   "copy_sha256": "49569ed9c854f55c654cdd2d111a5642a7f63540cbfe26724110e83fe7b04831",
+   "copy_bytes": 21207,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1,
+    "T5": 1
+   }
+  },
+  {
+   "path": "coord2-records/review/rv_drift.py",
+   "original_sha256": "d816d508e6acb600076a348ae2d8549745cc281197ab82b720a8589b56d0b1a4",
+   "original_bytes": 2598,
+   "copy_sha256": "1114f58487853eb975706d64f3d8d4af43fbe2f39444f94ba4bc1a4e3f49150c",
+   "copy_bytes": 2579,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-records/review/rv_scans.py",
+   "original_sha256": "a724f7f76932ddce8221dedf695a3a8590f402a7e45349fbda01cdf1b03cabc6",
+   "original_bytes": 2039,
+   "copy_sha256": "17cbf00ff57de47ebcfe43135c42f009323a3000e50ecd36a5434cf981922764",
+   "copy_bytes": 2020,
+   "byte_identical": false,
+   "transformations": {
+    "T2": 1
+   }
+  },
+  {
+   "path": "coord2-sm1394/MANIFEST.sha256",
+   "original_sha256": "e6d25e9b63031e84ba9116967e61a47efa54631077857fadc2f255595e1c0bf9",
+   "original_bytes": 1064,
+   "copy_sha256": "e6d25e9b63031e84ba9116967e61a47efa54631077857fadc2f255595e1c0bf9",
+   "copy_bytes": 1064,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-sm1394/READING.md",
+   "original_sha256": "1d3c54c6d36e89ce4bec3908fde96e4bcd40cfc4519affb72db26cd03b77fd8d",
+   "original_bytes": 12433,
+   "copy_sha256": "1d3c54c6d36e89ce4bec3908fde96e4bcd40cfc4519affb72db26cd03b77fd8d",
+   "copy_bytes": 12433,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-sm1394/hist/SM_first.md",
+   "original_sha256": "ee4c92ff5718b08603755c412154a6fb940d81e3a548e499aed61a03a85cba7d",
+   "original_bytes": 289462,
+   "copy_sha256": "ee4c92ff5718b08603755c412154a6fb940d81e3a548e499aed61a03a85cba7d",
+   "copy_bytes": 289462,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-sm1394/hist/asc.txt",
+   "original_sha256": "5d7df8f4e4db5f4e35ca9f1be877ac79bd7c963d4cdc4dd806f4bb7c291458ed",
+   "original_bytes": 29024,
+   "copy_sha256": "5d7df8f4e4db5f4e35ca9f1be877ac79bd7c963d4cdc4dd806f4bb7c291458ed",
+   "copy_bytes": 29024,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-sm1394/hist/first_Main.md",
+   "original_sha256": "b92c2fbe92cd26b7a8bae56fdf93ce9ceaa7633e5d018102c0fa3808ff93d800",
+   "original_bytes": 72538,
+   "copy_sha256": "b92c2fbe92cd26b7a8bae56fdf93ce9ceaa7633e5d018102c0fa3808ff93d800",
+   "copy_bytes": 72538,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-sm1394/hist/first_Structure.md",
+   "original_sha256": "afe078bd7cee47b02cea9b7e75808fd6b6a508ac92e86ccef006c7509df97eaf",
+   "original_bytes": 260783,
+   "copy_sha256": "afe078bd7cee47b02cea9b7e75808fd6b6a508ac92e86ccef006c7509df97eaf",
+   "copy_bytes": 260783,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-sm1394/hist/first_Substratum.md",
+   "original_sha256": "ba4f2b9f2a53987fee85ef59ced664ba0cb3fd32242474baa49123f142b1b963",
+   "original_bytes": 106993,
+   "copy_sha256": "ba4f2b9f2a53987fee85ef59ced664ba0cb3fd32242474baa49123f142b1b963",
+   "copy_bytes": 106993,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-sm1394/hist/first_ch02-substratum.md",
+   "original_sha256": "70bdd1b51da11d0f1b918007454a4d905e24ac8a8c11ba8e4dbf0acdccbb1e1a",
+   "original_bytes": 55133,
+   "copy_sha256": "70bdd1b51da11d0f1b918007454a4d905e24ac8a8c11ba8e4dbf0acdccbb1e1a",
+   "copy_bytes": 55133,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-sm1394/hist/first_ch05-gauge-structure.md",
+   "original_sha256": "74cb9c8d9c19058dde8bfb3d1758b3a21619f3aa3a0481425c6394304d64fb79",
+   "original_bytes": 52438,
+   "copy_sha256": "74cb9c8d9c19058dde8bfb3d1758b3a21619f3aa3a0481425c6394304d64fb79",
+   "copy_bytes": 52438,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-sm1394/hist/first_ch09-universality.md",
+   "original_sha256": "ac3f53f6d22ced442d3d380d7c807b70ab7f4d135f173c759354255ef6e9447f",
+   "original_bytes": 60568,
+   "copy_sha256": "ac3f53f6d22ced442d3d380d7c807b70ab7f4d135f173c759354255ef6e9447f",
+   "copy_bytes": 60568,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-sm1394/hist/first_ch19-open-problems.md",
+   "original_sha256": "daa85c557863bd4d27fda6477b112f3006ec67934b5d69733a181be372c1a858",
+   "original_bytes": 49141,
+   "copy_sha256": "daa85c557863bd4d27fda6477b112f3006ec67934b5d69733a181be372c1a858",
+   "copy_bytes": 49141,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-sm1394/hist/smcommits.txt",
+   "original_sha256": "f34a757843dc228d060a34d77f6506f2e1e3b5636d5b9741432fb6b3d91d7696",
+   "original_bytes": 29024,
+   "copy_sha256": "f34a757843dc228d060a34d77f6506f2e1e3b5636d5b9741432fb6b3d91d7696",
+   "copy_bytes": 29024,
+   "byte_identical": true,
+   "transformations": {}
+  },
+  {
+   "path": "coord2-sm1394/ledger_P.json",
+   "original_sha256": "2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5",
+   "original_bytes": 251490,
+   "copy_sha256": "2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5",
+   "copy_bytes": 251490,
+   "byte_identical": true,
+   "transformations": {}
+  }
+ ]
+}

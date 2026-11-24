@@ -1,0 +1,6420 @@
+[
+{
+"idx": 0,
+"file": "book/README.md",
+"line": 100,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 1,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 62,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 2,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 64,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 3,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 167,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 4,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 280,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 5,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 320,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 6,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 361,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 7,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 371,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 8,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 374,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 9,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 414,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 10,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 418,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 11,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 426,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 12,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 428,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 13,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 430,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 14,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 436,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 15,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 444,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 16,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 452,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 17,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 454,
+"status": "changed",
+"nsteps": 1,
+"first": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+"unique_at_H": true,
+"H_lines": [
+454,
+454
+],
+"region_hash": 8504043828671348068,
+"overlap": []
+},
+{
+"idx": 18,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 456,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 19,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 464,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 20,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 494,
+"status": "changed",
+"nsteps": 1,
+"first": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+"unique_at_H": true,
+"H_lines": [
+494,
+494
+],
+"region_hash": 8427729277750331296,
+"overlap": []
+},
+{
+"idx": 21,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 496,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 22,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 512,
+"status": "changed",
+"nsteps": 1,
+"first": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+"unique_at_H": true,
+"H_lines": [
+512,
+512
+],
+"region_hash": 4067095104259117521,
+"overlap": [
+"D109",
+"D111"
+]
+},
+{
+"idx": 23,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 516,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 24,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 528,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 25,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 617,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 26,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 638,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 27,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 644,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 28,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 646,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 29,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 648,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 30,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 662,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 31,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 672,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 32,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 706,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 33,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 708,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 34,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 712,
+"status": "changed",
+"nsteps": 1,
+"first": "0cd5d5bfb4f6641c8b08706c4eb636ee730ebbf0",
+"unique_at_H": true,
+"H_lines": [
+712,
+712
+],
+"region_hash": -6038056606225119060,
+"overlap": []
+},
+{
+"idx": 35,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 718,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 36,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 720,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 37,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 726,
+"status": "changed",
+"nsteps": 1,
+"first": "0cd5d5bfb4f6641c8b08706c4eb636ee730ebbf0",
+"unique_at_H": true,
+"H_lines": [
+726,
+726
+],
+"region_hash": 7049607181265584325,
+"overlap": []
+},
+{
+"idx": 38,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 748,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 39,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 752,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 40,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 766,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 41,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 774,
+"status": "changed",
+"nsteps": 1,
+"first": "a1f38284d21338b66119c870a551a670c73e3fa7",
+"unique_at_H": true,
+"H_lines": [
+774,
+774
+],
+"region_hash": -5325724288764870382,
+"overlap": [
+"D371",
+"D373"
+]
+},
+{
+"idx": 42,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 778,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 43,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 788,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 44,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 802,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 45,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 822,
+"status": "changed",
+"nsteps": 1,
+"first": "4de2eabd6c7c88dc214db70a813ec44b8641b630",
+"unique_at_H": true,
+"H_lines": [
+822,
+822
+],
+"region_hash": -2757068267821723422,
+"overlap": []
+},
+{
+"idx": 46,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 842,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 47,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 895,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 48,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 897,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 49,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 905,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 50,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 919,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 51,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 941,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 52,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 945,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 53,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 963,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 54,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 975,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 55,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 997,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 56,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 999,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 57,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1087,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 58,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1101,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 59,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1114,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 60,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1130,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 61,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1140,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 62,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1152,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 63,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1198,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 64,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1220,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 65,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1250,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 66,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1270,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 67,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1282,
+"status": "changed",
+"nsteps": 1,
+"first": "4de2eabd6c7c88dc214db70a813ec44b8641b630",
+"unique_at_H": true,
+"H_lines": [
+1282,
+1282
+],
+"region_hash": -2499912186695281962,
+"overlap": []
+},
+{
+"idx": 68,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1330,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 69,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1334,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 70,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1338,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 71,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1340,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 72,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1380,
+"status": "changed",
+"nsteps": 1,
+"first": "0cd5d5bfb4f6641c8b08706c4eb636ee730ebbf0",
+"unique_at_H": true,
+"H_lines": [
+1380,
+1380
+],
+"region_hash": 3901311150405079353,
+"overlap": []
+},
+{
+"idx": 73,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1388,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 74,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1392,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 75,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1398,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 76,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1404,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 77,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1410,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 78,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1510,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 79,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1521,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 80,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1573,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 81,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1605,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 82,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1719,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 83,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1907,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 84,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1983,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 85,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 1991,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 86,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 2433,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 87,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 2451,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 88,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 2457,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 89,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 2521,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 90,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 2533,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 91,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 2597,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 92,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 2603,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 93,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 2607,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 94,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 2711,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 95,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 3127,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 96,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 3760,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+3760,
+3760
+],
+"region_hash": 3361950950982166021,
+"overlap": []
+},
+{
+"idx": 97,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 3764,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+3764,
+3764
+],
+"region_hash": 3464580861249193575,
+"overlap": []
+},
+{
+"idx": 98,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 3784,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+3784,
+3784
+],
+"region_hash": 3259934025641473976,
+"overlap": []
+},
+{
+"idx": 99,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 3862,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+3862,
+3862
+],
+"region_hash": -3834311337828016812,
+"overlap": []
+},
+{
+"idx": 100,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 3872,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 101,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 3990,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 102,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 4751,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+4751,
+4753
+],
+"region_hash": 2322574426541203059,
+"overlap": []
+},
+{
+"idx": 103,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 4767,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+4767,
+4767
+],
+"region_hash": -5106821868673729191,
+"overlap": []
+},
+{
+"idx": 104,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 4771,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 105,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 4893,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+4893,
+4893
+],
+"region_hash": 7221179231763091906,
+"overlap": []
+},
+{
+"idx": 106,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 4895,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 107,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 4897,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+4897,
+4903
+],
+"region_hash": 3245829128911677091,
+"overlap": []
+},
+{
+"idx": 108,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 4899,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+4897,
+4903
+],
+"region_hash": 3245829128911677091,
+"overlap": []
+},
+{
+"idx": 109,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 4901,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+4897,
+4903
+],
+"region_hash": 3245829128911677091,
+"overlap": []
+},
+{
+"idx": 110,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 4903,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+4897,
+4903
+],
+"region_hash": 3245829128911677091,
+"overlap": []
+},
+{
+"idx": 111,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 4905,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 112,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 4907,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 113,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 4909,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 114,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 4910,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 115,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 4911,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 116,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 4914,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 117,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 4915,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 118,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 4917,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 119,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 4919,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 120,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 4921,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+4921,
+4923
+],
+"region_hash": -4481558966202214782,
+"overlap": []
+},
+{
+"idx": 121,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 4923,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+4921,
+4923
+],
+"region_hash": -4481558966202214782,
+"overlap": []
+},
+{
+"idx": 122,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 4927,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 123,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 4973,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+4973,
+4975
+],
+"region_hash": -6676067707296769706,
+"overlap": []
+},
+{
+"idx": 124,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 4975,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+4973,
+4975
+],
+"region_hash": -6676067707296769706,
+"overlap": []
+},
+{
+"idx": 125,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 4991,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+4991,
+4991
+],
+"region_hash": 3644977472566512300,
+"overlap": []
+},
+{
+"idx": 126,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 5019,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+5019,
+5019
+],
+"region_hash": 6167601822976552562,
+"overlap": []
+},
+{
+"idx": 127,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 5150,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 128,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 5196,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 129,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 5222,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 130,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 5268,
+"status": "changed",
+"nsteps": 1,
+"first": "0cd5d5bfb4f6641c8b08706c4eb636ee730ebbf0",
+"unique_at_H": true,
+"H_lines": [
+5268,
+5268
+],
+"region_hash": 7543536413393191150,
+"overlap": []
+},
+{
+"idx": 131,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 5282,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 132,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 5284,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 133,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 5286,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 134,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 5430,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 135,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 5477,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 136,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 5532,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 137,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 5664,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 138,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 5709,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 139,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 5717,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 140,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 5719,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 141,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 5721,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 142,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 5723,
+"status": "changed",
+"nsteps": 1,
+"first": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+"unique_at_H": true,
+"H_lines": [
+5723,
+5723
+],
+"region_hash": 4564198000068523771,
+"overlap": []
+},
+{
+"idx": 143,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 5767,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 144,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 5769,
+"status": "changed",
+"nsteps": 1,
+"first": "a1f38284d21338b66119c870a551a670c73e3fa7",
+"unique_at_H": true,
+"H_lines": [
+5769,
+5771
+],
+"region_hash": 9113543002431650249,
+"overlap": []
+},
+{
+"idx": 145,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 5840,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 146,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 5867,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 147,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 5871,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 148,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 5912,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 149,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 5923,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 150,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6092,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 151,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6094,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 152,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6096,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 153,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6108,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 154,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6120,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 155,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6130,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 156,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6133,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 157,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6171,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 158,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6251,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 159,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6253,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 160,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6257,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 161,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6259,
+"status": "changed",
+"nsteps": 1,
+"first": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+"unique_at_H": true,
+"H_lines": [
+6259,
+6259
+],
+"region_hash": 8617436978065175927,
+"overlap": [
+"D201"
+]
+},
+{
+"idx": 162,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6261,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 163,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6263,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 164,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6265,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 165,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6267,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 166,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6269,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 167,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6271,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 168,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6291,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 169,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6428,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 170,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6502,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 171,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6504,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 172,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6512,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 173,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6596,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+6596,
+6596
+],
+"region_hash": -3939422986379011406,
+"overlap": []
+},
+{
+"idx": 174,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6598,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 175,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6608,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 176,
+"file": "book/The-Incompleteness-of-Observation-FULL.md",
+"line": 6628,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 177,
+"file": "book/appendix-a-prediction-status.md",
+"line": 30,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 178,
+"file": "book/appendix-a-prediction-status.md",
+"line": 85,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 179,
+"file": "book/appendix-a-prediction-status.md",
+"line": 217,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 180,
+"file": "book/appendix-b-derivations.md",
+"line": 32,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 181,
+"file": "book/appendix-b-derivations.md",
+"line": 40,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 182,
+"file": "book/appendix-b-derivations.md",
+"line": 42,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 183,
+"file": "book/appendix-b-derivations.md",
+"line": 44,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 184,
+"file": "book/appendix-b-derivations.md",
+"line": 46,
+"status": "changed",
+"nsteps": 1,
+"first": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+"unique_at_H": true,
+"H_lines": [
+46,
+46
+],
+"region_hash": 4564198000068523771,
+"overlap": []
+},
+{
+"idx": 185,
+"file": "book/appendix-b-derivations.md",
+"line": 90,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 186,
+"file": "book/appendix-b-derivations.md",
+"line": 92,
+"status": "changed",
+"nsteps": 1,
+"first": "a1f38284d21338b66119c870a551a670c73e3fa7",
+"unique_at_H": true,
+"H_lines": [
+92,
+94
+],
+"region_hash": 9113543002431650249,
+"overlap": []
+},
+{
+"idx": 187,
+"file": "book/appendix-b-derivations.md",
+"line": 163,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 188,
+"file": "book/appendix-b-derivations.md",
+"line": 190,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 189,
+"file": "book/appendix-b-derivations.md",
+"line": 194,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 190,
+"file": "book/appendix-b-derivations.md",
+"line": 235,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 191,
+"file": "book/appendix-b-derivations.md",
+"line": 246,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 192,
+"file": "book/appendix-b-derivations.md",
+"line": 415,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 193,
+"file": "book/appendix-b-derivations.md",
+"line": 417,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 194,
+"file": "book/appendix-b-derivations.md",
+"line": 419,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 195,
+"file": "book/appendix-b-derivations.md",
+"line": 431,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 196,
+"file": "book/appendix-b-derivations.md",
+"line": 443,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 197,
+"file": "book/appendix-b-derivations.md",
+"line": 453,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 198,
+"file": "book/appendix-b-derivations.md",
+"line": 456,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 199,
+"file": "book/appendix-c-objections.md",
+"line": 16,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 200,
+"file": "book/appendix-c-objections.md",
+"line": 96,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 201,
+"file": "book/appendix-c-objections.md",
+"line": 98,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 202,
+"file": "book/appendix-c-objections.md",
+"line": 102,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 203,
+"file": "book/appendix-c-objections.md",
+"line": 104,
+"status": "changed",
+"nsteps": 1,
+"first": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+"unique_at_H": true,
+"H_lines": [
+104,
+104
+],
+"region_hash": 8617436978065175927,
+"overlap": [
+"D200"
+]
+},
+{
+"idx": 204,
+"file": "book/appendix-c-objections.md",
+"line": 106,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 205,
+"file": "book/appendix-c-objections.md",
+"line": 108,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 206,
+"file": "book/appendix-c-objections.md",
+"line": 110,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 207,
+"file": "book/appendix-c-objections.md",
+"line": 112,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 208,
+"file": "book/appendix-c-objections.md",
+"line": 114,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 209,
+"file": "book/appendix-c-objections.md",
+"line": 116,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 210,
+"file": "book/appendix-c-objections.md",
+"line": 136,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 211,
+"file": "book/appendix-c-objections.md",
+"line": 273,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 212,
+"file": "book/ch00-introduction.md",
+"line": 55,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 213,
+"file": "book/ch00-introduction.md",
+"line": 95,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 214,
+"file": "book/ch01-observation.md",
+"line": 28,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 215,
+"file": "book/ch01-observation.md",
+"line": 38,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 216,
+"file": "book/ch01-observation.md",
+"line": 41,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 217,
+"file": "book/ch01-observation.md",
+"line": 81,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 218,
+"file": "book/ch01-observation.md",
+"line": 85,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 219,
+"file": "book/ch01-observation.md",
+"line": 93,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 220,
+"file": "book/ch01-observation.md",
+"line": 95,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 221,
+"file": "book/ch01-observation.md",
+"line": 97,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 222,
+"file": "book/ch01-observation.md",
+"line": 103,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 223,
+"file": "book/ch01-observation.md",
+"line": 111,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 224,
+"file": "book/ch01-observation.md",
+"line": 119,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 225,
+"file": "book/ch01-observation.md",
+"line": 121,
+"status": "changed",
+"nsteps": 1,
+"first": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+"unique_at_H": true,
+"H_lines": [
+121,
+121
+],
+"region_hash": 8504043828671348068,
+"overlap": []
+},
+{
+"idx": 226,
+"file": "book/ch01-observation.md",
+"line": 123,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 227,
+"file": "book/ch01-observation.md",
+"line": 131,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 228,
+"file": "book/ch01-observation.md",
+"line": 161,
+"status": "changed",
+"nsteps": 1,
+"first": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+"unique_at_H": true,
+"H_lines": [
+161,
+161
+],
+"region_hash": 8427729277750331296,
+"overlap": []
+},
+{
+"idx": 229,
+"file": "book/ch01-observation.md",
+"line": 163,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 230,
+"file": "book/ch01-observation.md",
+"line": 179,
+"status": "changed",
+"nsteps": 1,
+"first": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+"unique_at_H": true,
+"H_lines": [
+179,
+179
+],
+"region_hash": 4067095104259117521,
+"overlap": [
+"D108",
+"D110"
+]
+},
+{
+"idx": 231,
+"file": "book/ch01-observation.md",
+"line": 183,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 232,
+"file": "book/ch01-observation.md",
+"line": 195,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 233,
+"file": "book/ch01-observation.md",
+"line": 284,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 234,
+"file": "book/ch02-substratum.md",
+"line": 8,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 235,
+"file": "book/ch02-substratum.md",
+"line": 14,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 236,
+"file": "book/ch02-substratum.md",
+"line": 16,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 237,
+"file": "book/ch02-substratum.md",
+"line": 18,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 238,
+"file": "book/ch02-substratum.md",
+"line": 32,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 239,
+"file": "book/ch02-substratum.md",
+"line": 42,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 240,
+"file": "book/ch02-substratum.md",
+"line": 76,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 241,
+"file": "book/ch02-substratum.md",
+"line": 78,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 242,
+"file": "book/ch02-substratum.md",
+"line": 82,
+"status": "changed",
+"nsteps": 1,
+"first": "0cd5d5bfb4f6641c8b08706c4eb636ee730ebbf0",
+"unique_at_H": true,
+"H_lines": [
+82,
+82
+],
+"region_hash": -6038056606225119060,
+"overlap": []
+},
+{
+"idx": 243,
+"file": "book/ch02-substratum.md",
+"line": 88,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 244,
+"file": "book/ch02-substratum.md",
+"line": 90,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 245,
+"file": "book/ch02-substratum.md",
+"line": 96,
+"status": "changed",
+"nsteps": 1,
+"first": "0cd5d5bfb4f6641c8b08706c4eb636ee730ebbf0",
+"unique_at_H": true,
+"H_lines": [
+96,
+96
+],
+"region_hash": 7049607181265584325,
+"overlap": []
+},
+{
+"idx": 246,
+"file": "book/ch02-substratum.md",
+"line": 118,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 247,
+"file": "book/ch02-substratum.md",
+"line": 122,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 248,
+"file": "book/ch02-substratum.md",
+"line": 136,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 249,
+"file": "book/ch02-substratum.md",
+"line": 144,
+"status": "changed",
+"nsteps": 1,
+"first": "a1f38284d21338b66119c870a551a670c73e3fa7",
+"unique_at_H": true,
+"H_lines": [
+144,
+144
+],
+"region_hash": -5325724288764870382,
+"overlap": [
+"D370",
+"D372"
+]
+},
+{
+"idx": 250,
+"file": "book/ch02-substratum.md",
+"line": 148,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 251,
+"file": "book/ch02-substratum.md",
+"line": 158,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 252,
+"file": "book/ch02-substratum.md",
+"line": 172,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 253,
+"file": "book/ch02-substratum.md",
+"line": 192,
+"status": "changed",
+"nsteps": 1,
+"first": "4de2eabd6c7c88dc214db70a813ec44b8641b630",
+"unique_at_H": true,
+"H_lines": [
+192,
+192
+],
+"region_hash": -2757068267821723422,
+"overlap": []
+},
+{
+"idx": 254,
+"file": "book/ch02-substratum.md",
+"line": 212,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 255,
+"file": "book/ch03-structural-realism.md",
+"line": 34,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 256,
+"file": "book/ch03-structural-realism.md",
+"line": 36,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 257,
+"file": "book/ch03-structural-realism.md",
+"line": 44,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 258,
+"file": "book/ch03-structural-realism.md",
+"line": 58,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 259,
+"file": "book/ch03-structural-realism.md",
+"line": 80,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 260,
+"file": "book/ch03-structural-realism.md",
+"line": 84,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 261,
+"file": "book/ch03-structural-realism.md",
+"line": 102,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 262,
+"file": "book/ch03-structural-realism.md",
+"line": 114,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 263,
+"file": "book/ch03-structural-realism.md",
+"line": 136,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 264,
+"file": "book/ch03-structural-realism.md",
+"line": 138,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 265,
+"file": "book/ch03-structural-realism.md",
+"line": 226,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 266,
+"file": "book/ch03-structural-realism.md",
+"line": 240,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 267,
+"file": "book/ch04-methodology.md",
+"line": 10,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 268,
+"file": "book/ch04-methodology.md",
+"line": 26,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 269,
+"file": "book/ch04-methodology.md",
+"line": 36,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 270,
+"file": "book/ch04-methodology.md",
+"line": 48,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 271,
+"file": "book/ch04-methodology.md",
+"line": 94,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 272,
+"file": "book/ch04-methodology.md",
+"line": 116,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 273,
+"file": "book/ch04-methodology.md",
+"line": 146,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 274,
+"file": "book/ch04-methodology.md",
+"line": 166,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 275,
+"file": "book/ch04-methodology.md",
+"line": 178,
+"status": "changed",
+"nsteps": 1,
+"first": "4de2eabd6c7c88dc214db70a813ec44b8641b630",
+"unique_at_H": true,
+"H_lines": [
+178,
+178
+],
+"region_hash": -2499912186695281962,
+"overlap": []
+},
+{
+"idx": 276,
+"file": "book/ch05-gauge-structure.md",
+"line": 15,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 277,
+"file": "book/ch05-gauge-structure.md",
+"line": 19,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 278,
+"file": "book/ch05-gauge-structure.md",
+"line": 23,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 279,
+"file": "book/ch05-gauge-structure.md",
+"line": 25,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 280,
+"file": "book/ch05-gauge-structure.md",
+"line": 65,
+"status": "changed",
+"nsteps": 1,
+"first": "0cd5d5bfb4f6641c8b08706c4eb636ee730ebbf0",
+"unique_at_H": true,
+"H_lines": [
+65,
+65
+],
+"region_hash": 3901311150405079353,
+"overlap": []
+},
+{
+"idx": 281,
+"file": "book/ch05-gauge-structure.md",
+"line": 73,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 282,
+"file": "book/ch05-gauge-structure.md",
+"line": 77,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 283,
+"file": "book/ch05-gauge-structure.md",
+"line": 83,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 284,
+"file": "book/ch05-gauge-structure.md",
+"line": 89,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 285,
+"file": "book/ch05-gauge-structure.md",
+"line": 95,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 286,
+"file": "book/ch05-gauge-structure.md",
+"line": 195,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 287,
+"file": "book/ch06-matter-content.md",
+"line": 10,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 288,
+"file": "book/ch06-matter-content.md",
+"line": 62,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 289,
+"file": "book/ch06-matter-content.md",
+"line": 94,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 290,
+"file": "book/ch06-matter-content.md",
+"line": 208,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 291,
+"file": "book/ch07-gravity.md",
+"line": 42,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 292,
+"file": "book/ch07-gravity.md",
+"line": 118,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 293,
+"file": "book/ch07-gravity.md",
+"line": 126,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 294,
+"file": "book/ch09-universality.md",
+"line": 18,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 295,
+"file": "book/ch09-universality.md",
+"line": 36,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 296,
+"file": "book/ch09-universality.md",
+"line": 42,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 297,
+"file": "book/ch09-universality.md",
+"line": 106,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 298,
+"file": "book/ch09-universality.md",
+"line": 118,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 299,
+"file": "book/ch09-universality.md",
+"line": 182,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 300,
+"file": "book/ch09-universality.md",
+"line": 188,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 301,
+"file": "book/ch09-universality.md",
+"line": 192,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 302,
+"file": "book/ch09-universality.md",
+"line": 296,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 303,
+"file": "book/ch11-origin-of-life.md",
+"line": 164,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 304,
+"file": "book/ch14-quantum-computing.md",
+"line": 160,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+160,
+160
+],
+"region_hash": 3361950950982166021,
+"overlap": []
+},
+{
+"idx": 305,
+"file": "book/ch14-quantum-computing.md",
+"line": 164,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+164,
+164
+],
+"region_hash": 3464580861249193575,
+"overlap": []
+},
+{
+"idx": 306,
+"file": "book/ch14-quantum-computing.md",
+"line": 184,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+184,
+184
+],
+"region_hash": 3259934025641473976,
+"overlap": []
+},
+{
+"idx": 307,
+"file": "book/ch14-quantum-computing.md",
+"line": 262,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+262,
+262
+],
+"region_hash": -3834311337828016812,
+"overlap": []
+},
+{
+"idx": 308,
+"file": "book/ch14-quantum-computing.md",
+"line": 272,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 309,
+"file": "book/ch15-quantum-engineering.md",
+"line": 113,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 310,
+"file": "book/ch18-beyond.md",
+"line": 20,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+20,
+22
+],
+"region_hash": 2322574426541203059,
+"overlap": []
+},
+{
+"idx": 311,
+"file": "book/ch18-beyond.md",
+"line": 36,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+36,
+36
+],
+"region_hash": -5106821868673729191,
+"overlap": []
+},
+{
+"idx": 312,
+"file": "book/ch18-beyond.md",
+"line": 40,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 313,
+"file": "book/ch18-beyond.md",
+"line": 162,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+162,
+162
+],
+"region_hash": 7221179231763091906,
+"overlap": []
+},
+{
+"idx": 314,
+"file": "book/ch18-beyond.md",
+"line": 164,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 315,
+"file": "book/ch18-beyond.md",
+"line": 166,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+166,
+172
+],
+"region_hash": 3245829128911677091,
+"overlap": []
+},
+{
+"idx": 316,
+"file": "book/ch18-beyond.md",
+"line": 168,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+166,
+172
+],
+"region_hash": 3245829128911677091,
+"overlap": []
+},
+{
+"idx": 317,
+"file": "book/ch18-beyond.md",
+"line": 170,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+166,
+172
+],
+"region_hash": 3245829128911677091,
+"overlap": []
+},
+{
+"idx": 318,
+"file": "book/ch18-beyond.md",
+"line": 172,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+166,
+172
+],
+"region_hash": 3245829128911677091,
+"overlap": []
+},
+{
+"idx": 319,
+"file": "book/ch18-beyond.md",
+"line": 174,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 320,
+"file": "book/ch18-beyond.md",
+"line": 176,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 321,
+"file": "book/ch18-beyond.md",
+"line": 178,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 322,
+"file": "book/ch18-beyond.md",
+"line": 179,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 323,
+"file": "book/ch18-beyond.md",
+"line": 180,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 324,
+"file": "book/ch18-beyond.md",
+"line": 183,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 325,
+"file": "book/ch18-beyond.md",
+"line": 184,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 326,
+"file": "book/ch18-beyond.md",
+"line": 186,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 327,
+"file": "book/ch18-beyond.md",
+"line": 188,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 328,
+"file": "book/ch18-beyond.md",
+"line": 190,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+190,
+192
+],
+"region_hash": -4481558966202214782,
+"overlap": []
+},
+{
+"idx": 329,
+"file": "book/ch18-beyond.md",
+"line": 192,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+190,
+192
+],
+"region_hash": -4481558966202214782,
+"overlap": []
+},
+{
+"idx": 330,
+"file": "book/ch18-beyond.md",
+"line": 196,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 331,
+"file": "book/ch18-beyond.md",
+"line": 242,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+242,
+244
+],
+"region_hash": -6676067707296769706,
+"overlap": []
+},
+{
+"idx": 332,
+"file": "book/ch18-beyond.md",
+"line": 244,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+242,
+244
+],
+"region_hash": -6676067707296769706,
+"overlap": []
+},
+{
+"idx": 333,
+"file": "book/ch18-beyond.md",
+"line": 260,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+260,
+260
+],
+"region_hash": 3644977472566512300,
+"overlap": []
+},
+{
+"idx": 334,
+"file": "book/ch18-beyond.md",
+"line": 288,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+288,
+288
+],
+"region_hash": 6167601822976552562,
+"overlap": []
+},
+{
+"idx": 335,
+"file": "book/ch19-open-problems.md",
+"line": 80,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 336,
+"file": "book/ch19-open-problems.md",
+"line": 126,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 337,
+"file": "book/ch19-open-problems.md",
+"line": 152,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 338,
+"file": "book/ch19-open-problems.md",
+"line": 198,
+"status": "changed",
+"nsteps": 1,
+"first": "0cd5d5bfb4f6641c8b08706c4eb636ee730ebbf0",
+"unique_at_H": true,
+"H_lines": [
+198,
+198
+],
+"region_hash": 7543536413393191150,
+"overlap": []
+},
+{
+"idx": 339,
+"file": "book/ch19-open-problems.md",
+"line": 212,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 340,
+"file": "book/ch19-open-problems.md",
+"line": 214,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 341,
+"file": "book/ch19-open-problems.md",
+"line": 216,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 342,
+"file": "book/ch19-open-problems.md",
+"line": 360,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 343,
+"file": "book/glossary.md",
+"line": 11,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 344,
+"file": "book/glossary.md",
+"line": 13,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 345,
+"file": "book/glossary.md",
+"line": 21,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 346,
+"file": "book/glossary.md",
+"line": 105,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+105,
+105
+],
+"region_hash": -3939422986379011406,
+"overlap": []
+},
+{
+"idx": 347,
+"file": "book/glossary.md",
+"line": 107,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 348,
+"file": "book/glossary.md",
+"line": 117,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 349,
+"file": "book/glossary.md",
+"line": 137,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 350,
+"file": "book/preface.md",
+"line": 3,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 351,
+"file": "book/preface.md",
+"line": 5,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 352,
+"file": "book/readers-guide.md",
+"line": 79,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 353,
+"file": "papers/Complexity.md",
+"line": 212,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+212,
+212
+],
+"region_hash": 770529295020709366,
+"overlap": []
+},
+{
+"idx": 354,
+"file": "papers/Complexity.md",
+"line": 292,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 355,
+"file": "papers/Complexity.md",
+"line": 374,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 356,
+"file": "papers/Complexity.md",
+"line": 474,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 357,
+"file": "papers/Computation.md",
+"line": 120,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 358,
+"file": "papers/Computation.md",
+"line": 122,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 359,
+"file": "papers/Computation.md",
+"line": 144,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 360,
+"file": "papers/Computation.md",
+"line": 178,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+178,
+178
+],
+"region_hash": 226479017445089021,
+"overlap": []
+},
+{
+"idx": 361,
+"file": "papers/Computation.md",
+"line": 182,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+182,
+182
+],
+"region_hash": 6278466927186419563,
+"overlap": []
+},
+{
+"idx": 362,
+"file": "papers/GR.md",
+"line": 20,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 363,
+"file": "papers/GR.md",
+"line": 58,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 364,
+"file": "papers/GR.md",
+"line": 88,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 365,
+"file": "papers/GR.md",
+"line": 90,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 366,
+"file": "papers/GR.md",
+"line": 112,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 367,
+"file": "papers/GR.md",
+"line": 122,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 368,
+"file": "papers/GR.md",
+"line": 124,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 369,
+"file": "papers/GR.md",
+"line": 126,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 370,
+"file": "papers/GR.md",
+"line": 128,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 371,
+"file": "papers/GR.md",
+"line": 132,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 372,
+"file": "papers/GR.md",
+"line": 134,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 373,
+"file": "papers/GR.md",
+"line": 136,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 374,
+"file": "papers/GR.md",
+"line": 138,
+"status": "changed",
+"nsteps": 1,
+"first": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+"unique_at_H": true,
+"H_lines": [
+138,
+138
+],
+"region_hash": -6545366632929796546,
+"overlap": []
+},
+{
+"idx": 375,
+"file": "papers/GR.md",
+"line": 174,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 376,
+"file": "papers/GR.md",
+"line": 190,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 377,
+"file": "papers/GR.md",
+"line": 213,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 378,
+"file": "papers/GR.md",
+"line": 215,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 379,
+"file": "papers/GR.md",
+"line": 219,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 380,
+"file": "papers/GR.md",
+"line": 225,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 381,
+"file": "papers/GR.md",
+"line": 227,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 382,
+"file": "papers/GR.md",
+"line": 239,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 383,
+"file": "papers/GR.md",
+"line": 241,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 384,
+"file": "papers/GR.md",
+"line": 243,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 385,
+"file": "papers/GR.md",
+"line": 249,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 386,
+"file": "papers/GR.md",
+"line": 255,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 387,
+"file": "papers/GR.md",
+"line": 257,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 388,
+"file": "papers/GR.md",
+"line": 261,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 389,
+"file": "papers/GR.md",
+"line": 273,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 390,
+"file": "papers/GR.md",
+"line": 279,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 391,
+"file": "papers/GR.md",
+"line": 282,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 392,
+"file": "papers/GR.md",
+"line": 328,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 393,
+"file": "papers/GR.md",
+"line": 589,
+"status": "changed",
+"nsteps": 1,
+"first": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+"unique_at_H": true,
+"H_lines": [
+589,
+589
+],
+"region_hash": -8789561309169478426,
+"overlap": [
+"D045"
+]
+},
+{
+"idx": 394,
+"file": "papers/GR.md",
+"line": 591,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 395,
+"file": "papers/GR.md",
+"line": 609,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 396,
+"file": "papers/GR.md",
+"line": 673,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 397,
+"file": "papers/GR.md",
+"line": 719,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 398,
+"file": "papers/GR.md",
+"line": 761,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 399,
+"file": "papers/GR.md",
+"line": 817,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 400,
+"file": "papers/GR.md",
+"line": 875,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 401,
+"file": "papers/GR.md",
+"line": 879,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 402,
+"file": "papers/GR.md",
+"line": 880,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 403,
+"file": "papers/GR.md",
+"line": 883,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 404,
+"file": "papers/GR.md",
+"line": 885,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 405,
+"file": "papers/GR.md",
+"line": 889,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 406,
+"file": "papers/GR.md",
+"line": 893,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 407,
+"file": "papers/GR.md",
+"line": 895,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 408,
+"file": "papers/GR.md",
+"line": 897,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 409,
+"file": "papers/GR.md",
+"line": 901,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 410,
+"file": "papers/GR.md",
+"line": 905,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 411,
+"file": "papers/Introduction.md",
+"line": 12,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 412,
+"file": "papers/Introduction.md",
+"line": 34,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 413,
+"file": "papers/Introduction.md",
+"line": 67,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 414,
+"file": "papers/Introduction.md",
+"line": 93,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 415,
+"file": "papers/Introduction.md",
+"line": 129,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 416,
+"file": "papers/Introduction.md",
+"line": 135,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 417,
+"file": "papers/Main.md",
+"line": 18,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 418,
+"file": "papers/Main.md",
+"line": 36,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 419,
+"file": "papers/Main.md",
+"line": 44,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 420,
+"file": "papers/Main.md",
+"line": 54,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 421,
+"file": "papers/Main.md",
+"line": 58,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 422,
+"file": "papers/Main.md",
+"line": 60,
+"status": "changed",
+"nsteps": 1,
+"first": "a1f38284d21338b66119c870a551a670c73e3fa7",
+"unique_at_H": true,
+"H_lines": [
+60,
+60
+],
+"region_hash": -4424247013918449809,
+"overlap": [
+"D229",
+"D230",
+"D231",
+"D254"
+]
+},
+{
+"idx": 423,
+"file": "papers/Main.md",
+"line": 72,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 424,
+"file": "papers/Main.md",
+"line": 76,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 425,
+"file": "papers/Main.md",
+"line": 80,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 426,
+"file": "papers/Main.md",
+"line": 111,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 427,
+"file": "papers/Main.md",
+"line": 113,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 428,
+"file": "papers/Main.md",
+"line": 121,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 429,
+"file": "papers/Main.md",
+"line": 129,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 430,
+"file": "papers/Main.md",
+"line": 131,
+"status": "changed",
+"nsteps": 1,
+"first": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+"unique_at_H": true,
+"H_lines": [
+131,
+131
+],
+"region_hash": -4603968127556618830,
+"overlap": []
+},
+{
+"idx": 431,
+"file": "papers/Main.md",
+"line": 137,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 432,
+"file": "papers/Main.md",
+"line": 139,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 433,
+"file": "papers/Main.md",
+"line": 141,
+"status": "changed",
+"nsteps": 1,
+"first": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+"unique_at_H": true,
+"H_lines": [
+141,
+141
+],
+"region_hash": 5326290254979643590,
+"overlap": []
+},
+{
+"idx": 434,
+"file": "papers/Main.md",
+"line": 143,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 435,
+"file": "papers/Main.md",
+"line": 145,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 436,
+"file": "papers/Main.md",
+"line": 147,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 437,
+"file": "papers/Main.md",
+"line": 149,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 438,
+"file": "papers/Main.md",
+"line": 153,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 439,
+"file": "papers/Main.md",
+"line": 157,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 440,
+"file": "papers/Main.md",
+"line": 159,
+"status": "changed",
+"nsteps": 1,
+"first": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+"unique_at_H": true,
+"H_lines": [
+159,
+159
+],
+"region_hash": -4030310207376635103,
+"overlap": []
+},
+{
+"idx": 441,
+"file": "papers/Main.md",
+"line": 165,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 442,
+"file": "papers/Main.md",
+"line": 180,
+"status": "changed",
+"nsteps": 1,
+"first": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+"unique_at_H": true,
+"H_lines": [
+180,
+180
+],
+"region_hash": 3989773552550900621,
+"overlap": []
+},
+{
+"idx": 443,
+"file": "papers/Main.md",
+"line": 182,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 444,
+"file": "papers/Main.md",
+"line": 210,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 445,
+"file": "papers/Main.md",
+"line": 216,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 446,
+"file": "papers/Main.md",
+"line": 218,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 447,
+"file": "papers/Main.md",
+"line": 224,
+"status": "changed",
+"nsteps": 2,
+"first": "a1f38284d21338b66119c870a551a670c73e3fa7",
+"unique_at_H": true,
+"H_lines": [
+224,
+224
+],
+"region_hash": -8479484880958128063,
+"overlap": [
+"D005"
+]
+},
+{
+"idx": 448,
+"file": "papers/Main.md",
+"line": 268,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 449,
+"file": "papers/Main.md",
+"line": 276,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 450,
+"file": "papers/Main.md",
+"line": 278,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 451,
+"file": "papers/Main.md",
+"line": 280,
+"status": "changed",
+"nsteps": 1,
+"first": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+"unique_at_H": true,
+"H_lines": [
+280,
+280
+],
+"region_hash": -3334139060141181494,
+"overlap": []
+},
+{
+"idx": 452,
+"file": "papers/Main.md",
+"line": 326,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 453,
+"file": "papers/Main.md",
+"line": 332,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 454,
+"file": "papers/Main.md",
+"line": 336,
+"status": "changed",
+"nsteps": 1,
+"first": "a1f38284d21338b66119c870a551a670c73e3fa7",
+"unique_at_H": true,
+"H_lines": [
+336,
+340
+],
+"region_hash": -629029887147677719,
+"overlap": []
+},
+{
+"idx": 455,
+"file": "papers/Main.md",
+"line": 340,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 456,
+"file": "papers/Main.md",
+"line": 354,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 457,
+"file": "papers/Main.md",
+"line": 356,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 458,
+"file": "papers/Main.md",
+"line": 358,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 459,
+"file": "papers/Main.md",
+"line": 364,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 460,
+"file": "papers/Main.md",
+"line": 416,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 461,
+"file": "papers/Main.md",
+"line": 418,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 462,
+"file": "papers/Main.md",
+"line": 439,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 463,
+"file": "papers/Main.md",
+"line": 441,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 464,
+"file": "papers/Main.md",
+"line": 443,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 465,
+"file": "papers/Main.md",
+"line": 451,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 466,
+"file": "papers/Main.md",
+"line": 455,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 467,
+"file": "papers/Main.md",
+"line": 459,
+"status": "changed",
+"nsteps": 1,
+"first": "a1f38284d21338b66119c870a551a670c73e3fa7",
+"unique_at_H": true,
+"H_lines": [
+463,
+463
+],
+"region_hash": 8980898988449716586,
+"overlap": []
+},
+{
+"idx": 468,
+"file": "papers/Main.md",
+"line": 473,
+"status": "changed",
+"nsteps": 1,
+"first": "a1f38284d21338b66119c870a551a670c73e3fa7",
+"unique_at_H": true,
+"H_lines": [
+477,
+477
+],
+"region_hash": 3130838359019391315,
+"overlap": []
+},
+{
+"idx": 469,
+"file": "papers/Main.md",
+"line": 486,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 470,
+"file": "papers/Main.md",
+"line": 488,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 471,
+"file": "papers/Main.md",
+"line": 492,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 472,
+"file": "papers/Main.md",
+"line": 510,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 473,
+"file": "papers/Main.md",
+"line": 518,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 474,
+"file": "papers/Main.md",
+"line": 530,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 475,
+"file": "papers/Main.md",
+"line": 536,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 476,
+"file": "papers/Main.md",
+"line": 542,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 477,
+"file": "papers/Main.md",
+"line": 560,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 478,
+"file": "papers/Main.md",
+"line": 564,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 479,
+"file": "papers/Main.md",
+"line": 568,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 480,
+"file": "papers/Main.md",
+"line": 586,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 481,
+"file": "papers/Main.md",
+"line": 588,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 482,
+"file": "papers/Main.md",
+"line": 590,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 483,
+"file": "papers/Main.md",
+"line": 594,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 484,
+"file": "papers/Main.md",
+"line": 606,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 485,
+"file": "papers/Main.md",
+"line": 618,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 486,
+"file": "papers/Main.md",
+"line": 622,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 487,
+"file": "papers/Main.md",
+"line": 624,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 488,
+"file": "papers/Main.md",
+"line": 634,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 489,
+"file": "papers/Main.md",
+"line": 646,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 490,
+"file": "papers/Main.md",
+"line": 650,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 491,
+"file": "papers/Main.md",
+"line": 660,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 492,
+"file": "papers/Main.md",
+"line": 662,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 493,
+"file": "papers/Main.md",
+"line": 664,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 494,
+"file": "papers/Main.md",
+"line": 698,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 495,
+"file": "papers/Main.md",
+"line": 708,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 496,
+"file": "papers/Main.md",
+"line": 724,
+"status": "changed",
+"nsteps": 1,
+"first": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+"unique_at_H": true,
+"H_lines": [
+728,
+728
+],
+"region_hash": -1225863935737201406,
+"overlap": []
+},
+{
+"idx": 497,
+"file": "papers/Main.md",
+"line": 726,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 498,
+"file": "papers/Main.md",
+"line": 732,
+"status": "changed",
+"nsteps": 2,
+"first": "a1f38284d21338b66119c870a551a670c73e3fa7",
+"unique_at_H": true,
+"H_lines": [
+736,
+736
+],
+"region_hash": 3700497324026847022,
+"overlap": [
+"D224",
+"D225",
+"D226",
+"D227",
+"D228",
+"D253"
+]
+},
+{
+"idx": 499,
+"file": "papers/Main.md",
+"line": 741,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 500,
+"file": "papers/Main.md",
+"line": 748,
+"status": "changed",
+"nsteps": 1,
+"first": "4de2eabd6c7c88dc214db70a813ec44b8641b630",
+"unique_at_H": true,
+"H_lines": [
+752,
+752
+],
+"region_hash": -1034892996816053340,
+"overlap": []
+},
+{
+"idx": 501,
+"file": "papers/Main.md",
+"line": 750,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 502,
+"file": "papers/Main.md",
+"line": 752,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 503,
+"file": "papers/Main.md",
+"line": 758,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 504,
+"file": "papers/Main.md",
+"line": 760,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 505,
+"file": "papers/Main.md",
+"line": 762,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 506,
+"file": "papers/Main.md",
+"line": 764,
+"status": "changed",
+"nsteps": 1,
+"first": "4de2eabd6c7c88dc214db70a813ec44b8641b630",
+"unique_at_H": true,
+"H_lines": [
+768,
+768
+],
+"region_hash": -5187289102577845470,
+"overlap": []
+},
+{
+"idx": 507,
+"file": "papers/Main.md",
+"line": 766,
+"status": "changed",
+"nsteps": 1,
+"first": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+"unique_at_H": true,
+"H_lines": [
+770,
+772
+],
+"region_hash": -1023846403682422719,
+"overlap": []
+},
+{
+"idx": 508,
+"file": "papers/Main.md",
+"line": 780,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 509,
+"file": "papers/Main.md",
+"line": 782,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 510,
+"file": "papers/Medicine.md",
+"line": 25,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 511,
+"file": "papers/Medicine.md",
+"line": 35,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+35,
+35
+],
+"region_hash": -7892292700627920775,
+"overlap": []
+},
+{
+"idx": 512,
+"file": "papers/Methodology.md",
+"line": 106,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 513,
+"file": "papers/Methodology.md",
+"line": 146,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+146,
+148
+],
+"region_hash": -8604534654030628489,
+"overlap": []
+},
+{
+"idx": 514,
+"file": "papers/Methodology.md",
+"line": 148,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+146,
+148
+],
+"region_hash": -8604534654030628489,
+"overlap": []
+},
+{
+"idx": 515,
+"file": "papers/Methodology.md",
+"line": 156,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 516,
+"file": "papers/Methodology.md",
+"line": 158,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 517,
+"file": "papers/Methodology.md",
+"line": 283,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 518,
+"file": "papers/Methodology.md",
+"line": 339,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+339,
+339
+],
+"region_hash": -5859406146656459623,
+"overlap": []
+},
+{
+"idx": 519,
+"file": "papers/Methodology.md",
+"line": 345,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+345,
+345
+],
+"region_hash": -4803191451188946624,
+"overlap": []
+},
+{
+"idx": 520,
+"file": "papers/Methodology.md",
+"line": 357,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+357,
+357
+],
+"region_hash": 7681696107025727650,
+"overlap": []
+},
+{
+"idx": 521,
+"file": "papers/Methodology.md",
+"line": 367,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+367,
+369
+],
+"region_hash": -3021321956801052124,
+"overlap": []
+},
+{
+"idx": 522,
+"file": "papers/Methodology.md",
+"line": 369,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+367,
+369
+],
+"region_hash": -3021321956801052124,
+"overlap": []
+},
+{
+"idx": 523,
+"file": "papers/Methodology.md",
+"line": 409,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 524,
+"file": "papers/Methodology.md",
+"line": 441,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 525,
+"file": "papers/Methodology.md",
+"line": 517,
+"status": "changed",
+"nsteps": 1,
+"first": "7f28886f4cc96fbfa7407af1fdc37de2f0e562e5",
+"unique_at_H": true,
+"H_lines": [
+517,
+517
+],
+"region_hash": 2007114312325298124,
+"overlap": []
+},
+{
+"idx": 526,
+"file": "papers/Methodology.md",
+"line": 529,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 527,
+"file": "papers/SM.md",
+"line": 14,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 528,
+"file": "papers/SM.md",
+"line": 20,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 529,
+"file": "papers/SM.md",
+"line": 22,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 530,
+"file": "papers/SM.md",
+"line": 24,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 531,
+"file": "papers/SM.md",
+"line": 30,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 532,
+"file": "papers/SM.md",
+"line": 36,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 533,
+"file": "papers/SM.md",
+"line": 44,
+"status": "changed",
+"nsteps": 1,
+"first": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+"unique_at_H": true,
+"H_lines": [
+44,
+44
+],
+"region_hash": 4591054080773428650,
+"overlap": []
+},
+{
+"idx": 534,
+"file": "papers/SM.md",
+"line": 60,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 535,
+"file": "papers/SM.md",
+"line": 112,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 536,
+"file": "papers/SM.md",
+"line": 158,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 537,
+"file": "papers/SM.md",
+"line": 202,
+"status": "changed",
+"nsteps": 1,
+"first": "0cd5d5bfb4f6641c8b08706c4eb636ee730ebbf0",
+"unique_at_H": true,
+"H_lines": [
+202,
+202
+],
+"region_hash": 6083211682292940071,
+"overlap": []
+},
+{
+"idx": 538,
+"file": "papers/SM.md",
+"line": 210,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 539,
+"file": "papers/SM.md",
+"line": 222,
+"status": "changed",
+"nsteps": 1,
+"first": "0cd5d5bfb4f6641c8b08706c4eb636ee730ebbf0",
+"unique_at_H": true,
+"H_lines": [
+222,
+222
+],
+"region_hash": 115681568766489404,
+"overlap": [
+"D036"
+]
+},
+{
+"idx": 540,
+"file": "papers/SM.md",
+"line": 232,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 541,
+"file": "papers/SM.md",
+"line": 236,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 542,
+"file": "papers/SM.md",
+"line": 240,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 543,
+"file": "papers/SM.md",
+"line": 242,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 544,
+"file": "papers/SM.md",
+"line": 252,
+"status": "changed",
+"nsteps": 1,
+"first": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+"unique_at_H": true,
+"H_lines": [
+252,
+252
+],
+"region_hash": -4640736161080527276,
+"overlap": [
+"D389"
+]
+},
+{
+"idx": 545,
+"file": "papers/SM.md",
+"line": 286,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 546,
+"file": "papers/SM.md",
+"line": 292,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 547,
+"file": "papers/SM.md",
+"line": 302,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 548,
+"file": "papers/SM.md",
+"line": 308,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 549,
+"file": "papers/SM.md",
+"line": 316,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 550,
+"file": "papers/SM.md",
+"line": 334,
+"status": "changed",
+"nsteps": 1,
+"first": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+"unique_at_H": true,
+"H_lines": [
+334,
+334
+],
+"region_hash": 8360252980158923382,
+"overlap": [
+"D390"
+]
+},
+{
+"idx": 551,
+"file": "papers/SM.md",
+"line": 336,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 552,
+"file": "papers/SM.md",
+"line": 434,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 553,
+"file": "papers/SM.md",
+"line": 440,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 554,
+"file": "papers/SM.md",
+"line": 456,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 555,
+"file": "papers/SM.md",
+"line": 535,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 556,
+"file": "papers/SM.md",
+"line": 539,
+"status": "changed",
+"nsteps": 1,
+"first": "0cd5d5bfb4f6641c8b08706c4eb636ee730ebbf0",
+"unique_at_H": true,
+"H_lines": [
+539,
+539
+],
+"region_hash": -3608562250401630868,
+"overlap": []
+},
+{
+"idx": 557,
+"file": "papers/SM.md",
+"line": 543,
+"status": "changed",
+"nsteps": 1,
+"first": "0cd5d5bfb4f6641c8b08706c4eb636ee730ebbf0",
+"unique_at_H": true,
+"H_lines": [
+543,
+543
+],
+"region_hash": -402161571767891529,
+"overlap": []
+},
+{
+"idx": 558,
+"file": "papers/SM.md",
+"line": 641,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 559,
+"file": "papers/SM.md",
+"line": 645,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 560,
+"file": "papers/SM.md",
+"line": 711,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 561,
+"file": "papers/SM.md",
+"line": 713,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 562,
+"file": "papers/SM.md",
+"line": 751,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 563,
+"file": "papers/SM.md",
+"line": 783,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 564,
+"file": "papers/SM.md",
+"line": 801,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 565,
+"file": "papers/SM.md",
+"line": 803,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 566,
+"file": "papers/SM.md",
+"line": 809,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 567,
+"file": "papers/SM.md",
+"line": 811,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 568,
+"file": "papers/SM.md",
+"line": 813,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 569,
+"file": "papers/SM.md",
+"line": 817,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 570,
+"file": "papers/SM.md",
+"line": 1138,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 571,
+"file": "papers/SM.md",
+"line": 1140,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 572,
+"file": "papers/SM.md",
+"line": 1144,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 573,
+"file": "papers/SM.md",
+"line": 1225,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 574,
+"file": "papers/SM.md",
+"line": 1227,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 575,
+"file": "papers/SM.md",
+"line": 1261,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 576,
+"file": "papers/SM.md",
+"line": 1267,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 577,
+"file": "papers/SM.md",
+"line": 1300,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 578,
+"file": "papers/SM.md",
+"line": 1302,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 579,
+"file": "papers/SM.md",
+"line": 1520,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 580,
+"file": "papers/SM.md",
+"line": 1536,
+"status": "changed",
+"nsteps": 1,
+"first": "0cd5d5bfb4f6641c8b08706c4eb636ee730ebbf0",
+"unique_at_H": true,
+"H_lines": [
+1536,
+1536
+],
+"region_hash": 5750762077043417427,
+"overlap": []
+},
+{
+"idx": 581,
+"file": "papers/SM.md",
+"line": 1546,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 582,
+"file": "papers/SM.md",
+"line": 1582,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 583,
+"file": "papers/SM.md",
+"line": 1648,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 584,
+"file": "papers/SM.md",
+"line": 1656,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 585,
+"file": "papers/Structure.md",
+"line": 80,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 586,
+"file": "papers/Structure.md",
+"line": 86,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 587,
+"file": "papers/Structure.md",
+"line": 134,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 588,
+"file": "papers/Structure.md",
+"line": 136,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 589,
+"file": "papers/Structure.md",
+"line": 140,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 590,
+"file": "papers/Structure.md",
+"line": 196,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 591,
+"file": "papers/Structure.md",
+"line": 206,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 592,
+"file": "papers/Structure.md",
+"line": 224,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 593,
+"file": "papers/Structure.md",
+"line": 230,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 594,
+"file": "papers/Structure.md",
+"line": 256,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 595,
+"file": "papers/Structure.md",
+"line": 258,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 596,
+"file": "papers/Structure.md",
+"line": 260,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 597,
+"file": "papers/Structure.md",
+"line": 264,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 598,
+"file": "papers/Structure.md",
+"line": 266,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 599,
+"file": "papers/Structure.md",
+"line": 270,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 600,
+"file": "papers/Structure.md",
+"line": 272,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 601,
+"file": "papers/Structure.md",
+"line": 280,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 602,
+"file": "papers/Structure.md",
+"line": 314,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 603,
+"file": "papers/Structure.md",
+"line": 316,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 604,
+"file": "papers/Structure.md",
+"line": 320,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 605,
+"file": "papers/Structure.md",
+"line": 327,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 606,
+"file": "papers/Structure.md",
+"line": 331,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 607,
+"file": "papers/Structure.md",
+"line": 339,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 608,
+"file": "papers/Structure.md",
+"line": 351,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 609,
+"file": "papers/Structure.md",
+"line": 359,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 610,
+"file": "papers/Structure.md",
+"line": 375,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 611,
+"file": "papers/Structure.md",
+"line": 560,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 612,
+"file": "papers/Structure.md",
+"line": 646,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 613,
+"file": "papers/Structure.md",
+"line": 701,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 614,
+"file": "papers/Structure.md",
+"line": 718,
+"status": "changed",
+"nsteps": 1,
+"first": "4de2eabd6c7c88dc214db70a813ec44b8641b630",
+"unique_at_H": true,
+"H_lines": [
+718,
+718
+],
+"region_hash": 8402599244199674828,
+"overlap": []
+},
+{
+"idx": 615,
+"file": "papers/Structure.md",
+"line": 730,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 616,
+"file": "papers/Structure.md",
+"line": 732,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 617,
+"file": "papers/Structure.md",
+"line": 734,
+"status": "changed",
+"nsteps": 1,
+"first": "4de2eabd6c7c88dc214db70a813ec44b8641b630",
+"unique_at_H": true,
+"H_lines": [
+734,
+734
+],
+"region_hash": 7185212676081823302,
+"overlap": []
+},
+{
+"idx": 618,
+"file": "papers/Structure.md",
+"line": 746,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 619,
+"file": "papers/Structure.md",
+"line": 768,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 620,
+"file": "papers/Structure.md",
+"line": 800,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 621,
+"file": "papers/Structure.md",
+"line": 821,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 622,
+"file": "papers/Structure.md",
+"line": 866,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 623,
+"file": "papers/Structure.md",
+"line": 972,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 624,
+"file": "papers/Structure.md",
+"line": 1000,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 625,
+"file": "papers/Structure.md",
+"line": 1006,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 626,
+"file": "papers/Structure.md",
+"line": 1008,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 627,
+"file": "papers/Structure.md",
+"line": 1010,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 628,
+"file": "papers/Structure.md",
+"line": 1012,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 629,
+"file": "papers/Structure.md",
+"line": 1014,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 630,
+"file": "papers/Structure.md",
+"line": 1016,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 631,
+"file": "papers/Structure.md",
+"line": 1030,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 632,
+"file": "papers/Structure.md",
+"line": 1066,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 633,
+"file": "papers/Structure.md",
+"line": 1094,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 634,
+"file": "papers/Structure.md",
+"line": 1110,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 635,
+"file": "papers/Structure.md",
+"line": 1114,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 636,
+"file": "papers/Structure.md",
+"line": 1116,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 637,
+"file": "papers/Structure.md",
+"line": 1122,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 638,
+"file": "papers/Structure.md",
+"line": 1150,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 639,
+"file": "papers/Structure.md",
+"line": 1153,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 640,
+"file": "papers/Structure.md",
+"line": 1155,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 641,
+"file": "papers/Structure.md",
+"line": 1165,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 642,
+"file": "papers/Structure.md",
+"line": 1169,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 643,
+"file": "papers/Structure.md",
+"line": 1187,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 644,
+"file": "papers/Structure.md",
+"line": 1224,
+"status": "changed",
+"nsteps": 1,
+"first": "0ba358ccf05eb461c3a5bd686062f65115c293fc",
+"unique_at_H": true,
+"H_lines": [
+1224,
+1224
+],
+"region_hash": -5141361327162011903,
+"overlap": []
+},
+{
+"idx": 645,
+"file": "papers/Structure.md",
+"line": 1231,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 646,
+"file": "papers/Structure.md",
+"line": 1237,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 647,
+"file": "papers/Structure.md",
+"line": 1249,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 648,
+"file": "papers/Structure.md",
+"line": 1303,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 649,
+"file": "papers/Substratum.md",
+"line": 14,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 650,
+"file": "papers/Substratum.md",
+"line": 44,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 651,
+"file": "papers/Substratum.md",
+"line": 52,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 652,
+"file": "papers/Substratum.md",
+"line": 56,
+"status": "changed",
+"nsteps": 1,
+"first": "4de2eabd6c7c88dc214db70a813ec44b8641b630",
+"unique_at_H": true,
+"H_lines": [
+56,
+56
+],
+"region_hash": 4748505578909467194,
+"overlap": [
+"D244"
+]
+},
+{
+"idx": 653,
+"file": "papers/Substratum.md",
+"line": 60,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 654,
+"file": "papers/Substratum.md",
+"line": 92,
+"status": "changed",
+"nsteps": 2,
+"first": "a1f38284d21338b66119c870a551a670c73e3fa7",
+"unique_at_H": true,
+"H_lines": [
+92,
+92
+],
+"region_hash": -5389011637116176773,
+"overlap": [
+"D232"
+]
+},
+{
+"idx": 655,
+"file": "papers/Substratum.md",
+"line": 94,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 656,
+"file": "papers/Substratum.md",
+"line": 98,
+"status": "changed",
+"nsteps": 1,
+"first": "0cd5d5bfb4f6641c8b08706c4eb636ee730ebbf0",
+"unique_at_H": true,
+"H_lines": [
+98,
+98
+],
+"region_hash": -5983152878294014158,
+"overlap": []
+},
+{
+"idx": 657,
+"file": "papers/Substratum.md",
+"line": 104,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 658,
+"file": "papers/Substratum.md",
+"line": 123,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 659,
+"file": "papers/Substratum.md",
+"line": 125,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 660,
+"file": "papers/Substratum.md",
+"line": 127,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 661,
+"file": "papers/Substratum.md",
+"line": 129,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 662,
+"file": "papers/Substratum.md",
+"line": 131,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 663,
+"file": "papers/Substratum.md",
+"line": 133,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 664,
+"file": "papers/Substratum.md",
+"line": 137,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 665,
+"file": "papers/Substratum.md",
+"line": 157,
+"status": "changed",
+"nsteps": 1,
+"first": "0cd5d5bfb4f6641c8b08706c4eb636ee730ebbf0",
+"unique_at_H": true,
+"H_lines": [
+157,
+157
+],
+"region_hash": -7422500025001844381,
+"overlap": []
+},
+{
+"idx": 666,
+"file": "papers/Substratum.md",
+"line": 189,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 667,
+"file": "papers/Substratum.md",
+"line": 193,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 668,
+"file": "papers/Substratum.md",
+"line": 195,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 669,
+"file": "papers/Substratum.md",
+"line": 205,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 670,
+"file": "papers/Substratum.md",
+"line": 207,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 671,
+"file": "papers/Substratum.md",
+"line": 212,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 672,
+"file": "papers/Substratum.md",
+"line": 216,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 673,
+"file": "papers/Substratum.md",
+"line": 223,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 674,
+"file": "papers/Substratum.md",
+"line": 233,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 675,
+"file": "papers/Substratum.md",
+"line": 251,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 676,
+"file": "papers/Substratum.md",
+"line": 253,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 677,
+"file": "papers/Substratum.md",
+"line": 257,
+"status": "changed",
+"nsteps": 1,
+"first": "a1f38284d21338b66119c870a551a670c73e3fa7",
+"unique_at_H": true,
+"H_lines": [
+257,
+257
+],
+"region_hash": 9043829399397483397,
+"overlap": [
+"D363"
+]
+},
+{
+"idx": 678,
+"file": "papers/Substratum.md",
+"line": 260,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 679,
+"file": "papers/Substratum.md",
+"line": 262,
+"status": "changed",
+"nsteps": 1,
+"first": "a1f38284d21338b66119c870a551a670c73e3fa7",
+"unique_at_H": true,
+"H_lines": [
+262,
+262
+],
+"region_hash": -7519044049431780417,
+"overlap": [
+"D362",
+"D364"
+]
+},
+{
+"idx": 680,
+"file": "papers/Substratum.md",
+"line": 266,
+"status": "changed",
+"nsteps": 1,
+"first": "a1f38284d21338b66119c870a551a670c73e3fa7",
+"unique_at_H": true,
+"H_lines": [
+266,
+268
+],
+"region_hash": -1640230224272683377,
+"overlap": [
+"D029"
+]
+},
+{
+"idx": 681,
+"file": "papers/Substratum.md",
+"line": 268,
+"status": "changed",
+"nsteps": 1,
+"first": "a1f38284d21338b66119c870a551a670c73e3fa7",
+"unique_at_H": true,
+"H_lines": [
+266,
+268
+],
+"region_hash": -1640230224272683377,
+"overlap": [
+"D029"
+]
+},
+{
+"idx": 682,
+"file": "papers/Substratum.md",
+"line": 272,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 683,
+"file": "papers/Substratum.md",
+"line": 288,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 684,
+"file": "papers/Substratum.md",
+"line": 333,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 685,
+"file": "papers/Substratum.md",
+"line": 344,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 686,
+"file": "papers/Substratum.md",
+"line": 348,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 687,
+"file": "papers/Substratum.md",
+"line": 359,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 688,
+"file": "papers/Substratum.md",
+"line": 373,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 689,
+"file": "papers/Substratum.md",
+"line": 389,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 690,
+"file": "papers/Substratum.md",
+"line": 401,
+"status": "changed",
+"nsteps": 1,
+"first": "4de2eabd6c7c88dc214db70a813ec44b8641b630",
+"unique_at_H": true,
+"H_lines": [
+401,
+401
+],
+"region_hash": 4477528895675372984,
+"overlap": []
+},
+{
+"idx": 691,
+"file": "papers/Substratum.md",
+"line": 407,
+"status": "changed",
+"nsteps": 1,
+"first": "4de2eabd6c7c88dc214db70a813ec44b8641b630",
+"unique_at_H": true,
+"H_lines": [
+407,
+407
+],
+"region_hash": -5552318303876279195,
+"overlap": []
+},
+{
+"idx": 692,
+"file": "papers/Substratum.md",
+"line": 415,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 693,
+"file": "papers/Substratum.md",
+"line": 459,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 694,
+"file": "papers/Substratum.md",
+"line": 465,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 695,
+"file": "papers/Substratum.md",
+"line": 533,
+"status": "unchanged",
+"nsteps": 0,
+"first": null
+},
+{
+"idx": 696,
+"file": "papers/Substratum.md",
+"line": 542,
+"status": "changed",
+"nsteps": 1,
+"first": "4de2eabd6c7c88dc214db70a813ec44b8641b630",
+"unique_at_H": true,
+"H_lines": [
+542,
+544
+],
+"region_hash": 5064417709271958546,
+"overlap": []
+}
+]

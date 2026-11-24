@@ -1,0 +1,7 @@
+overlap: old "aa" in "aaa"       P=ok          tool(N)=ok          same tool(O)=refuse-H    DIFF  P.check=True
+empty old                        P=ok          tool(N)=ok          same tool(O)=ok          same  P.check=True
+old == old_step2                 P=ok          tool(N)=ok          same tool(O)=ok          same  P.check=True
+edit 2 old created by edit 1     P=ok          tool(N)=ok          same tool(O)=ok          same  P.check=True
+variant 2 only after edit 1      P=ok          tool(N)=ok          same tool(O)=ok          same  P.check=True
+overlap in variant choice        P=ok          tool(N)=ok          same tool(O)=refuse-H    DIFF  P.check=True
+random cases 20000 | tool(N) differs from P: 0 | tool(O) differs from P: 260 | my P transcription vs P.check uniqueness verdict mismatches: 0

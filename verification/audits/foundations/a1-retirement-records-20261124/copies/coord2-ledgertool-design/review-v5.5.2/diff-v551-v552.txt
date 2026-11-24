@@ -1,0 +1,50 @@
+1c1
+< # Commit-independent ledger and terminology verification tool: design v5.5.1
+---
+> # Commit-independent ledger and terminology verification tool: design v5.5.2
+9a10,25
+> - **v5.5.2 is the frozen design.** By owner decision of 2026-11-23, design v5.5.1 (sha256
+>   8befd35c74b8e4dfa241e360d891de3222b3f878ca2aaf23ceaae1d00fbed649) is accepted, and v5.5.2 adds
+>   only N3 of the final bounded review. Every acceptance-time append to the freeze ledger requires its
+>   own owner approval comment, verified like a designation (sec. 6.3, "The freeze ledger"; control
+>   TR47). After v5.5.2 the design is frozen. `CHANGES-v5.5.2.md` lists every changed passage.
+> - **The owner's final decisions of 2026-11-23:**
+>   - **D1.** The residual is accepted that a withdrawal created and deleted before any check observes
+>     it may be undetectable (sec. 6.3, residual trust assumptions). This is a stated trust
+>     limitation, not a claim of complete protection.
+>   - **D2.** The three stricter refusal classes of sec. 6.1 are accepted, with the evidence that
+>     valid frozen-plan operations are not rejected: (i) a splice for the unselected variant, (ii) one
+>     splice covering two edits, (iii) chained edits.
+>   - **D3.** The append-only freeze ledger is adopted, with N3.
+>   - **D4.** The authority record at `tools/ledger_coverage/authority.json`, the versioned comment
+>     forms, authority changes that are independently reviewed and owner-approved, and numeric owner
+>     id 7273571 are adopted.
+776c792,793
+<   - **The events the admission observed,** appended to the freeze ledger (sec. 6.3).
+---
+>   - **The events the admission observed,** appended to the freeze ledger only with the append's own
+>     owner approval comment (sec. 6.3, N3).
+1331a1349,1365
+> - **Approval of each acceptance-time append (N3).** No append takes effect, including the append an
+>   acceptance landing makes, without its own explicit owner approval comment. The comment must:
+>   - be in the plan's authorized thread;
+>   - have the first line
+>     `oi-freeze-ledger/1 append plan=<plan_id> round=<round_id> from=<sha256 of the ledger before> to=<sha256 of the ledger after>`,
+>     with single spaces and lowercase 64-hex values, the first line as defined for the forms above;
+>   - be authored by numeric owner id `A.owner.id` (7273571);
+>   - be created before the merge that lands the append.
+> 
+>   It is verified exactly like a designation, by host means: the thread is read completely; the
+>   comment is matched by its immutable id, author numeric id, creation time and edit status; it is
+>   never edited, has no edit history, and is not hidden. An owner comment whose first line begins
+>   with `oi-freeze-ledger/` but does not match this form exactly refuses, and so does an unknown
+>   version. Without such a comment, quoting exactly the ledger blob hashes before and after the
+>   append, the append is refused: the acceptance landing does not merge. A ledger on `main` whose
+>   append lacks a verified approval comment is unverifiable, and every later admission refuses
+>   (TR36).
+2176a2211
+> | TR47 | an acceptance landing that appends observed events to the freeze ledger, each case separately: with no `oi-freeze-ledger/1 append` comment; with one quoting other ledger hashes; one by another numeric id (even with the owner's login); one edited, or hidden; one outside the plan's thread; one created after the merge; a malformed or unknown-version `oi-freeze-ledger/` line | the append is refused and the landing does not merge, in every case; a ledger on `main` carrying such an append makes later admissions refuse | sec. 6.3, freeze ledger (N3) |
+2963c2998
+< | S13 | Configuration loader and validator, adapter admission by blob, the A1 configuration, the synthetic configuration | Z1-Z8, Z9a-Z9h, Z10, Z11 and Y1-Y10 behave; N2-N18, R18, R19, S4a, S11-57a-d, S11-58a-k, G9, TR1-TR46, WB13-WB15, X11, TR1-TR5, G4-G8, R16, R17, A12r, WB1-WB12, S11-56 and K10 behave; every A1 control has the same outcome as specified in sec. 10-11 of this document; no engine source contains an A1 constant (Z9) |
+---
+> | S13 | Configuration loader and validator, adapter admission by blob, the A1 configuration, the synthetic configuration | Z1-Z8, Z9a-Z9h, Z10, Z11 and Y1-Y10 behave; N2-N18, R18, R19, S4a, S11-57a-d, S11-58a-k, G9, TR1-TR47, WB13-WB15, X11, TR1-TR5, G4-G8, R16, R17, A12r, WB1-WB12, S11-56 and K10 behave; every A1 control has the same outcome as specified in sec. 10-11 of this document; no engine source contains an A1 constant (Z9) |

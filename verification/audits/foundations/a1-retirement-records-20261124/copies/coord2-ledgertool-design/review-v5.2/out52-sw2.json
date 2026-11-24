@@ -1,0 +1,6447 @@
+{
+ "sites": 584,
+ "holds": 0,
+ "violations": [
+  {
+   "site": "book/README.md:100@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..48eeab4f"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:62@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..45f8b6d9"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:64@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..f4d93d10"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:167@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7f5f8dc7"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:280@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..92781f7c"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:320@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..223e4fb5"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:361@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..0de9359f"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:371@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..1a220d5c"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:374@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..038d3740"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:414@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..50ce211f"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:418@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2b53f5a1"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:426@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..486270d2"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:428@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..eb5e2742"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:430@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..8bae9b80"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:436@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..b306cdb4"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:444@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..fa7a1ca2"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:452@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..b71cffa3"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:456@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..a3153019"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:464@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..36928c12"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:496@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..b5416458"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:516@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..a84d5662"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:528@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..98623a5f"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:617@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..24f6677d"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:638@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..cc8a9eec"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:644@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..1262bbcd"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:646@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..6488904d"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:648@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..25e7be6b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:662@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d022065e"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:672@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ff0c393b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:706@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..be898499"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:708@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..8427dd45"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:718@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..c6735c85"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:720@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..36eba726"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:748@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..9505c33b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:752@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..dd0602bf"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:766@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..be6fdd4a"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:778@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..8a7f3ea5"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:788@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2d4d259b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:802@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7de48204"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:842@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..4eb9a3e5"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:895@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..c1029802"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:897@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..0f3b37a9"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:905@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..bd8bb6b7"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:919@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2f27ffdb"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:941@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..4bfa59ce"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:945@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d94a6c9e"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:963@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..e50a17e8"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:975@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d1a9d820"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:997@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..73f6b0a4"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:999@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ebd9bedc"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1087@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..e045b28f"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1101@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..78364601"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1114@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..1e24d34e"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1130@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..8634df60"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1140@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..fd3d8e57"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1152@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..625b511e"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1198@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..c43a4975"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1220@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..21e9bdd3"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1250@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..c6119427"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1270@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..097b0df8"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1330@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..a3add55f"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1334@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2e9ba1c7"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1338@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7ac1e742"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1340@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..804702fb"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1388@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..5863d30c"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1392@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..20c49485"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1398@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..a8b6d041"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1404@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..c6b99c11"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1410@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..fff84e6b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1510@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..66662b7d"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1521@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..35b3d14e"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1573@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..b6db5606"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1605@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..adaf3d72"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1719@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..98d009cb"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1907@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..bae6c1aa"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1983@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..307258ea"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:1991@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7dc0425d"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:2433@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2ccbdbec"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:2451@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7ac7a35b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:2457@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..e538e1a0"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:2521@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..e4b16892"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:2533@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d91c6dbb"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:2597@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..99c5c416"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:2603@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d3c38de4"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:2607@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..dfdc427e"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:2711@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..cae254bd"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:3127@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..5e5de02b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:3872@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..435b63b1"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:3990@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..19aa22b2"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:4771@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..676ce11f"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:4895@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..e120bee9"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:4905@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..e92189b3"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:4907@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..6f4a0000"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:4909@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2a1812e7"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:4910@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..472e189e"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:4911@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2888faa3"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:4914@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..98805708"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:4915@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..f4f198c4"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:4917@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..b8fbd6bd"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:4919@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..9ab5440a"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:4927@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..b2b5931c"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:5150@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d8e25219"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:5196@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..be7145c8"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:5222@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..957533ce"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:5282@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d1de7b8d"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:5284@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..fe026578"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:5286@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..810b0f0f"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:5430@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..78070e34"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:5477@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..3a17b258"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:5532@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..84484af7"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:5664@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..14290550"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:5709@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..9f53bcaf"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:5717@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..fc9509f0"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:5719@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..a98dd5bd"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:5721@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d5941018"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:5767@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..46f1479c"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:5840@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7f11ec56"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:5867@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d5a09c75"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:5871@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..02852950"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:5912@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..c9ef91b5"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:5923@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..8714eb7b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6092@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..62b4e931"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6094@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..41835de0"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6096@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..20d4a63f"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6108@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..e8bc4654"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6120@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..6f97565a"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6130@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..0c64f495"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6133@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ef1a87ef"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6171@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..967ba782"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6251@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..40f38a2a"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6253@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..272822a4"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6257@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..755dbf0c"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6261@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..574c94ed"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6263@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..e9fd9ebe"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6265@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..9b81a5df"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6267@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..37574f38"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6269@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..51e6edd2"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6271@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..9796845f"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6291@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..87fc1d45"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6428@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..9b894956"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6502@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..705f4457"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6504@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..83a0eb6b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6512@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2b88a1f3"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6598@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..f48ca29d"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6608@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d0140109"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/The-Incompleteness-of-Observation-FULL.md:6628@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..c18074e4"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-a-prediction-status.md:30@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..436d8d42"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-a-prediction-status.md:85@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..70d65313"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-a-prediction-status.md:217@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..a99c1ac5"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-b-derivations.md:32@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..b05b101d"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-b-derivations.md:40@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..88b0e7b4"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-b-derivations.md:42@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..597e6d4c"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-b-derivations.md:44@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..da239b5c"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-b-derivations.md:90@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..9b025290"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-b-derivations.md:163@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..29a755d1"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-b-derivations.md:190@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..a243c7b7"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-b-derivations.md:194@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ff404a0b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-b-derivations.md:235@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ca758432"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-b-derivations.md:246@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..68ab04f7"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-b-derivations.md:415@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..926688f3"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-b-derivations.md:417@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..cda0b6bb"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-b-derivations.md:419@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..fe2fdea7"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-b-derivations.md:431@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..f1c80435"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-b-derivations.md:443@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..28592b63"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-b-derivations.md:453@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..041a312c"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-b-derivations.md:456@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7ee05606"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-c-objections.md:16@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..9c2d861e"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-c-objections.md:96@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..1cc25a11"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-c-objections.md:98@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..c1f50f0f"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-c-objections.md:102@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d2711aee"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-c-objections.md:106@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..be33f9b3"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-c-objections.md:108@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..c1560f6d"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-c-objections.md:110@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ff1b553d"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-c-objections.md:112@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..093bb464"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-c-objections.md:114@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..db41e60b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-c-objections.md:116@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..138584c9"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-c-objections.md:136@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..e37ce55b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/appendix-c-objections.md:273@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..8bc3d4e3"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch00-introduction.md:55@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..fab146f5"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch00-introduction.md:95@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..742fb510"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch01-observation.md:28@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2980f702"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch01-observation.md:38@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..48c45600"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch01-observation.md:41@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..cc4efcce"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch01-observation.md:81@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..8a242679"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch01-observation.md:85@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..4b047af0"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch01-observation.md:93@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..531fdce8"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch01-observation.md:95@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..5599941d"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch01-observation.md:97@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..99701d6c"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch01-observation.md:103@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..87120a56"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch01-observation.md:111@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..89fc6395"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch01-observation.md:119@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7ec2f759"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch01-observation.md:123@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..10f17304"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch01-observation.md:131@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..9d866060"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch01-observation.md:163@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..0a3b1482"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch01-observation.md:183@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..96404fae"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch01-observation.md:195@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..54baa3aa"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch01-observation.md:284@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7642f6ff"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch02-substratum.md:8@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..9ae04148"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch02-substratum.md:14@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..96022c53"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch02-substratum.md:16@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7157188b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch02-substratum.md:18@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..38947dde"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch02-substratum.md:32@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..27aa7ed2"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch02-substratum.md:42@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..af1e152c"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch02-substratum.md:76@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..720f88aa"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch02-substratum.md:78@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..772f0c55"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch02-substratum.md:88@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..1cf95a76"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch02-substratum.md:90@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..8d43d42d"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch02-substratum.md:118@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..13290be9"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch02-substratum.md:122@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..b3fe4967"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch02-substratum.md:136@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..9c857ae4"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch02-substratum.md:148@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ea6e6730"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch02-substratum.md:158@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..1948d045"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch02-substratum.md:172@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..3f9a6121"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch02-substratum.md:212@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..f1e0e0e7"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch03-structural-realism.md:34@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..8a5e41c7"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch03-structural-realism.md:36@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..f787bb5e"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch03-structural-realism.md:44@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..fedd4927"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch03-structural-realism.md:58@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..477d1811"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch03-structural-realism.md:80@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ded2d329"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch03-structural-realism.md:84@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..82b2f17c"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch03-structural-realism.md:102@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d4743fdc"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch03-structural-realism.md:114@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..e18668e0"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch03-structural-realism.md:136@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..85ba0952"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch03-structural-realism.md:138@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..81af41f0"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch03-structural-realism.md:226@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..3d24d2f7"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch03-structural-realism.md:240@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..e4adbf68"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch04-methodology.md:10@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..c647d242"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch04-methodology.md:26@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..a4bba913"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch04-methodology.md:36@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..cf625926"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch04-methodology.md:48@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..841ff485"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch04-methodology.md:94@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..337a605c"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch04-methodology.md:116@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2ac683b7"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch04-methodology.md:146@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..5eff9098"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch04-methodology.md:166@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..1e82e4d1"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch05-gauge-structure.md:15@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..017b0584"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch05-gauge-structure.md:19@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..c36de570"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch05-gauge-structure.md:23@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..a34d8dd5"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch05-gauge-structure.md:25@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..e048f723"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch05-gauge-structure.md:73@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..b6b55244"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch05-gauge-structure.md:77@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..57abcc2e"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch05-gauge-structure.md:83@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..449a296f"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch05-gauge-structure.md:89@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..63892c94"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch05-gauge-structure.md:95@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d7f1c63a"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch05-gauge-structure.md:195@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..23b08b0a"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch06-matter-content.md:10@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d80d4c11"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch06-matter-content.md:62@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..fa5ecd2d"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch06-matter-content.md:94@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..636c0678"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch06-matter-content.md:208@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..de7a8bfb"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch07-gravity.md:42@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..170ae403"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch07-gravity.md:118@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..9aee61b7"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch07-gravity.md:126@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2a9dbcaf"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch09-universality.md:18@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..4c0d7c49"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch09-universality.md:36@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..fa204086"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch09-universality.md:42@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7339537c"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch09-universality.md:106@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..9687ef3b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch09-universality.md:118@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..60cb5362"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch09-universality.md:182@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..5ca0344e"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch09-universality.md:188@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..8c652e86"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch09-universality.md:192@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..002651c4"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch09-universality.md:296@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..f9f0f5fb"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch11-origin-of-life.md:164@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..c261ab58"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch14-quantum-computing.md:272@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..8acef89b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch15-quantum-engineering.md:113@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..6b6b0a3f"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch18-beyond.md:40@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..05282461"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch18-beyond.md:164@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..bfcb18b8"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch18-beyond.md:174@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..49f52f34"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch18-beyond.md:176@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d632aa4d"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch18-beyond.md:178@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..f07d77e0"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch18-beyond.md:179@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..99680c05"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch18-beyond.md:180@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..557bd7f9"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch18-beyond.md:183@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..b9507a79"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch18-beyond.md:184@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..cc41891b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch18-beyond.md:186@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..65b69be8"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch18-beyond.md:188@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..553349f9"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch18-beyond.md:196@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..6dc3f453"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch19-open-problems.md:80@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..71e2b110"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch19-open-problems.md:126@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..5320fe6f"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch19-open-problems.md:152@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..a898eb07"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch19-open-problems.md:212@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..6511c935"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch19-open-problems.md:214@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..a1edafab"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch19-open-problems.md:216@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2ecae561"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/ch19-open-problems.md:360@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d03f3a7a"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/glossary.md:11@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..0f3c3c24"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/glossary.md:13@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..0dfef3bb"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/glossary.md:21@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..c6664048"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/glossary.md:107@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..62786ad7"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/glossary.md:117@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..5fcdd6dd"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/glossary.md:137@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..fbe603e3"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/preface.md:3@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..6a7f503b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/preface.md:5@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..bc1a40db"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "book/readers-guide.md:79@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ff3ffc85"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Complexity.md:292@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..a30d2992"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Complexity.md:374@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..5c89a17e"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Complexity.md:474@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..f88d9847"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Computation.md:120@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..e6a6a701"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Computation.md:122@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..84560f83"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Computation.md:144@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..bc95d3ec"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:20@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..3dc09f10"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:58@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..a9e2f478"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:88@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d1276d64"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:90@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7dd57a0d"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:112@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d6581047"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:122@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2bb49be1"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:124@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..89fc11d4"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:126@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..3d5446a0"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:128@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ef0859b0"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:132@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..0b1c3a26"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:134@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2a50badc"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:136@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..9eba6bf3"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:174@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..828d5ce4"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:190@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..b381f5bc"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:213@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2f189e9f"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:215@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..95711b78"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:219@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..5deaec91"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:225@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..6caff6e3"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:227@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..fe8bc506"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:239@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..31b06873"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:241@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..e50a21d7"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:243@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2399ab33"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:249@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..31c7b79d"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:255@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..9db675df"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:257@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..18ff62b2"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:261@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..30242df9"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:273@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d7ee1e89"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:279@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..4efc4937"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:282@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..c2c21563"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:328@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..dde55977"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:591@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..903c8f44"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:609@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..0b3e21cd"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:673@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..daca48f4"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:719@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..fcf0588c"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:761@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..48877e2a"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:817@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..4416196b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:875@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..260f0fe5"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:879@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..fbfa7246"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:880@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..3a19903c"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:883@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..c74c5c12"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:885@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ffed1c2f"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:889@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..69e45092"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:893@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..15f5d270"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:895@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..5c62a523"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:897@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..103089cd"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:901@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..35ea9b96"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/GR.md:905@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..735002ef"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Introduction.md:12@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..abe2cf95"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Introduction.md:34@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..b2bd1aa9"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Introduction.md:67@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..59ca3c28"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Introduction.md:93@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..dc26d32d"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Introduction.md:129@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..333a4fcb"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Introduction.md:135@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..6c334b4e"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:18@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ed21ac47"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:36@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..b04e6f78"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:44@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..9780292c"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:54@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ed62a6d9"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:58@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ccec2189"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:72@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..8fc80fed"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:76@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..bfbeb45c"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:80@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ae84d355"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:111@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..8ce1c266"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:113@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..5cbef8c8"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:121@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..508754ac"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:129@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..31c66304"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:137@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..a2d65ccb"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:139@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..1bb25051"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:143@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..fc50b727"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:145@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..b6f4927f"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:147@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..e7dfc917"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:149@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..c9c8e51a"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:153@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..664186d2"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:157@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..aacaddae"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:165@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..b83bc270"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:182@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..b5bbb1c3"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:210@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..16f9d6cf"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:216@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2942e526"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:218@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..c47bbbb5"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:268@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..a5bfeed1"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:276@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ec892bc7"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:278@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..cd12d84d"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:326@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..4681f6ff"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:332@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7539afe4"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:340@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..cb3091a9"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:354@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..46fa2af3"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:356@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..c13d3085"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:358@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..b5487992"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:364@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..73a1cef5"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:416@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..8db138e1"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:418@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..18f977c3"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:439@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ffc6e216"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:441@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..259ecf76"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:443@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..4d8af309"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:451@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..b93eaea3"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:455@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..f762bf31"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:486@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..4b277bc2"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:488@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2bf7bdf6"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:492@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..bf3f5ce9"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:510@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7cd315fe"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:518@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7bc94f08"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:530@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..54f356ca"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:536@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..72099478"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:542@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ab0e6a10"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:560@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..b26130c3"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:564@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..655131f9"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:568@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..e6cdcc13"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:586@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..474f76d8"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:588@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..3d86c929"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:590@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..329efeaa"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:594@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d863436b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:606@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d9269015"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:618@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..4821c6d9"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:622@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ec0a2c4c"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:624@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..32a58fa6"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:634@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..571dc961"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:646@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..dd724161"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:650@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..79b9bd94"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:660@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..9f163b94"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:662@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..741b72c4"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:664@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..270ea571"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:698@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..68fac82e"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:708@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d17316ed"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:726@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..3a0ceb74"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:741@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..56ada3ab"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:750@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2a19b7ea"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:752@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..36adb237"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:758@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..c12b1050"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:760@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..5cd13536"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:762@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..397c28d0"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:780@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..475675b7"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Main.md:782@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7a4f04c1"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Medicine.md:25@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..0d9592e7"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Methodology.md:106@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..e29f634d"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Methodology.md:156@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..af5b7b68"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Methodology.md:158@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..3aa90a0f"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Methodology.md:283@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d6832249"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Methodology.md:409@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..4063aa55"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Methodology.md:441@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7c488846"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Methodology.md:529@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..30770cbe"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:14@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..a655abc0"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:20@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2806e1f5"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:22@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2509433f"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:24@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..6b8ac8c8"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:30@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..023f184c"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:36@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..16ecb27f"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:60@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ed4917c7"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:112@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..f11ebf6c"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:158@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..df32ff82"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:210@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..f167e024"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:232@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..5b87173d"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:236@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..1565cac5"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:240@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..771133ab"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:242@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7eb31233"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:286@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..e487ec80"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:292@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..701dce4d"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:302@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..b8c5fb36"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:308@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..0ae0af3a"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:316@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..cc16c169"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:336@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..3ad2ecf8"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:434@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..27b38ec2"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:440@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..597f8ccb"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:456@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..4ac1942e"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:535@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..613fa08c"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:641@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..16c2893a"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:645@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..acc872de"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:711@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..84d42eda"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:713@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..3bf36e81"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:751@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..acf9c46b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:783@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7def9d41"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:801@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ca4ea2bd"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:803@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..f6cf0ee1"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:809@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..3866b842"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:811@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..8a7c2ec5"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:813@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..8984f958"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:817@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..59011a61"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:1138@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..32a3b512"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:1140@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2dbec0b0"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:1144@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..39cbcf75"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:1225@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..c493387f"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:1227@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..de8fd705"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:1261@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..81fc88f0"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:1267@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..153595bb"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:1300@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..933fe87b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:1302@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..557e39bd"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:1520@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..98af182e"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:1546@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..fd4196a8"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:1582@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..302ba860"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:1648@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..858abc43"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/SM.md:1656@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..0e387843"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:80@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..c43e1fc6"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:86@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ab392947"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:134@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..3783552f"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:136@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..109a1940"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:140@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..b8156c18"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:196@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..a103d17e"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:206@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..59723ef8"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:224@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7e170217"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:230@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..dba9810d"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:256@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..1b1002d5"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:258@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..6b8ba4bd"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:260@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..fe1e358f"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:264@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..3d216fff"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:266@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..aebd9de1"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:270@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..008109db"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:272@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..b2975208"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:280@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..131a0102"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:314@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..cef13947"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:316@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..bd414215"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:320@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..9e6c4463"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:327@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d64984d6"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:331@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..64086539"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:339@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ab9cc743"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:351@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..3a4ef999"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:359@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..61c4ca8e"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:375@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..a9324848"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:560@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7f84021e"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:646@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..bafa7491"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:701@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..e189d66b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:730@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..3ae5bce3"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:732@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..4184a041"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:746@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..539297bb"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:768@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..10055494"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:800@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2ff8052a"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:821@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..8633bf84"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:866@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..31a48eed"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:972@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..b5d6311d"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:1000@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..e8ae7129"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:1006@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2f947932"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:1008@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..15addf40"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:1010@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..303d9452"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:1012@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ae9799d0"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:1014@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..1146c497"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:1016@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7f835b41"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:1030@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..3559beb7"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:1066@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..f09631ea"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:1094@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ed536d7f"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:1110@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..33a53b7c"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:1114@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..17527064"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:1116@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..88da3a39"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:1122@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..9b76c617"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:1150@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..1d45ffb4"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:1153@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..365812ef"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:1155@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..d9ab03bd"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:1165@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..a818e090"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:1169@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..058c92b1"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:1187@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..0b09341a"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:1231@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..b7b93f8b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:1237@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..fa0f8557"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:1249@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..6b6d1a57"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Structure.md:1303@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..316bcd4e"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:14@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..0bc75551"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:44@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7041e2d3"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:52@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..66121433"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:60@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..1a19ea39"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:94@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..47d60c7b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:104@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..3d3116d6"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:123@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..3c70bcbe"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:125@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..600d4607"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:127@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..753feff0"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:129@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2afcd6ce"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:131@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..177c4818"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:133@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..3fc05fb6"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:137@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..dedec717"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:189@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..3be1a0ae"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:193@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..064f36eb"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:195@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..028a3326"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:205@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..902e5ca7"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:207@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..83baef86"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:212@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..031e8da4"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:216@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7d91c53b"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:223@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ba14c539"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:233@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..db2c3f8a"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:251@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..6aad46e6"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:253@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..3a029491"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:260@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..05c2ac21"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:272@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2c16e00a"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:288@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..a75747b1"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:333@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ea75f807"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:344@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..199d8668"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:348@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..7836c13a"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:359@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..f643a180"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:373@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..2187d5c2"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:389@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..af960e0c"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:415@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..dba8a627"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:459@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..cd3c3b00"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:465@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..ce19d4b4"
+    ]
+   ],
+   "lost": []
+  },
+  {
+   "site": "papers/Substratum.md:533@e837e3db",
+   "new": [
+    [
+     "RET",
+     "unauthorized-change",
+     "53c6601a..374bd32d"
+    ]
+   ],
+   "lost": []
+  }
+ ],
+ "sites_with_items_at_unmutated_H": [
+  "book/The-Incompleteness-of-Observation-FULL.md:706@e837e3db",
+  "book/The-Incompleteness-of-Observation-FULL.md:708@e837e3db",
+  "book/The-Incompleteness-of-Observation-FULL.md:4895@e837e3db",
+  "book/The-Incompleteness-of-Observation-FULL.md:4905@e837e3db",
+  "book/The-Incompleteness-of-Observation-FULL.md:4919@e837e3db",
+  "book/ch02-substratum.md:76@e837e3db",
+  "book/ch02-substratum.md:78@e837e3db",
+  "book/ch18-beyond.md:164@e837e3db",
+  "book/ch18-beyond.md:174@e837e3db",
+  "book/ch18-beyond.md:188@e837e3db",
+  "papers/Main.md:332@e837e3db",
+  "papers/Main.md:741@e837e3db",
+  "papers/Substratum.md:94@e837e3db",
+  "papers/Substratum.md:253@e837e3db"
+ ],
+ "seconds": 359.6
+}

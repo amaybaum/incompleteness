@@ -1,0 +1,17 @@
+--- a/verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json
++++ b/verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json
+@@ -31,12 +31,12 @@
+     "blob_sha256": "efdc8bf861d8e057f2f50612ef8dea0415705a0815f6bac6e3984fd6a03bf21d"
+    },
+    "path": "verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+-   "blob_sha256": "d20495f0084f29ac5c58c5a0480be5f0ed342334381e6680e9cca58952940976",
++   "blob_sha256": "65c8c866fa1ebebb338c869113ed3e1275a9aca1ededab58f6bdf286aab1a2e8",
+    "companion": [
+     {
+      "role": "edits",
+      "path": "verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+-     "blob_sha256": "19eb79bd478275110b4ff1cd3ae2271c37574e849d45be272f53b8e75e726b4b"
++     "blob_sha256": "f99d705ae896c891806ee99c2217e24237cada5ac49e607b0b013bd43c6dd38d"
+     },
+     {
+      "role": "checker",

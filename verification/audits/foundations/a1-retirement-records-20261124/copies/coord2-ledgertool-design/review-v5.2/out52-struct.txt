@@ -1,0 +1,2 @@
+EH 7 ['book/The-Incompleteness-of-Observation-FULL.md:706 (not unique at T1p)', 'book/The-Incompleteness-of-Observation-FULL.md:708', 'book/ch02-substratum.md:76 (not unique at T1p)', 'book/ch02-substratum.md:78', 'papers/Main.md:741', 'papers/Substratum.md:94 (not unique at T1p)', 'papers/Substratum.md:253 (not unique at T1p)']
+HT 3 ['book/The-Incompleteness-of-Observation-FULL.md:708', 'book/ch02-substratum.md:78', 'papers/Substratum.md:127']

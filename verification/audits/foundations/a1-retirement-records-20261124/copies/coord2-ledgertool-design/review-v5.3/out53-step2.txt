@@ -1,0 +1,5 @@
+H holds old                                P applies old       P result 'A. item (ii) is removed. B.'
+                                           v5.3 rule: replaced bytes == e.old: True; image == result of both steps: True -> accepted
+H holds old_step2 (projected integration)  P applies old_step2 P result 'A. item (ii), as merged, is removed. B.'
+                                           v5.3 rule: replaced bytes == e.old: False; image == result of both steps: True -> ERROR SOURCE_CHANGED, while P applies it
+P static_new on the edit (both pairs scanned independently): [0, 0, 0]

@@ -1,0 +1,11 @@
+W1 papers/SM.md:1394 equal {}
+W1 book/ch09-universality.md:137 equal {}
+W1 book/ch19-open-problems.md:198 equal {'finit': 1}
+W1 book/ch19-open-problems.md:212 equal {}
+W1 book/The-Incompleteness-of-Observation-FULL.md:2554 equal {}
+W1 book/The-Incompleteness-of-Observation-FULL.md:5270 equal {'finit': 1}
+W1 book/The-Incompleteness-of-Observation-FULL.md:5284 equal {}
+W2 book/appendix-b-derivations.md:235 equal {}
+W2 book/appendix-b-derivations.md:246 equal {}
+W2 book/The-Incompleteness-of-Observation-FULL.md:5914 equal {}
+W2 book/The-Incompleteness-of-Observation-FULL.md:5925 equal {}

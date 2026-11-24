@@ -1,0 +1,7 @@
+P static_new over frozen edits: infinity 0 register 0 caps 0
+per-splice (P sentences()): infinity 0 register 0 caps 0
+per-splice (splitter v2): infinity 0 register 0 caps 0
+--- constructed cases (per-edit = P static_new on a one-edit list; per-splice = composite H->final) ---
+a two-step reintroduces "now"      per-edit register=1 | per-splice register=0
+b two-step adds then removes       per-edit register=1 | per-splice register=0
+c merged splice of two edits       per-edit register=1 | per-splice register=0

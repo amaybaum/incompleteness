@@ -1,0 +1,240 @@
+--- a/verification/audits/foundations/ledger-coverage-tool-20261123/rules/w1-w2-allow-v1.json
++++ b/verification/audits/foundations/a1exit-deletion-20261121/w1-w2-allow-v2.json
+@@ -1,212 +1,14 @@
+ {
+  "schema": "oi-term-rules/2",
+  "record_id": "a1-allow-w1-w2-v1",
+- "status": "UNREVIEWED DRAFT: prepared by the implementation writer; no independent review and no owner authorization exist. The tool does not admit it under the review chain.",
+- "supersedes": null,
+- "recorded_at": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+- "author": "implementation-writer-20261123",
++ "status": "Supersedes a1-allow-w1-w2-v1 so that every fingerprint is reproduced at the ledger base H, a commit on main. Rules W2-a and W2-b, their matchers, examples and fingerprints are those of v1; recorded_at differs. Rules W1-a to W1-d are not carried: edits D402 and D404-D409 remove the count their sentences carried.",
++ "supersedes": {
++  "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/w1-w2-allow-v1.json",
++  "blob_sha256": "0cbb97c98725cba618598650b0cd9c687c97e280b3422c4ad6e62794a222b171"
++ },
++ "recorded_at": "53c6601a10419b6b333cc992474272501ab542af",
++ "author": "<WRITER OF V2: a person, not the reviewer>",
+  "rules": [
+-  {
+-   "id": "W1-a",
+-   "kind": "allow",
+-   "profiles": [
+-    "count-grep"
+-   ],
+-   "scope": {
+-    "files": [
+-     "papers/SM.md"
+-    ]
+-   },
+-   "matcher": {
+-    "literal": "the six structural properties",
+-    "context": [],
+-    "negative": [
+-     "A1",
+-     "A1-A6",
+-     "finit",
+-     "assumption",
+-     "axiom",
+-     "of the substratum"
+-    ]
+-   },
+-   "context_required": true,
+-   "max_instances": 1,
+-   "fingerprints": [
+-    {
+-     "file": "papers/SM.md",
+-     "sentence_sha256": "df203079707ec02ac8b488df1a801dd851700afd7e965347c887292fb2f94130",
+-     "context_sha256": "2f51773c9bd4236766f75f451cafd7d8db07175d19d5932a7aa435ab5dd07a36"
+-    }
+-   ],
+-   "recorded_at": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+-   "positive_examples": [
+-    "**Structural predictions** are properties of the equivalence class [(S, φ)]/$\\mathcal{G}_{\\text{sub}}$ — they hold for every bijection satisfying the six structural properties.",
+-    "they hold for every bijection satisfying the six structural properties."
+-   ],
+-   "negative_examples": [
+-    "the six structural properties of the substratum, one of which is finiteness"
+-   ],
+-   "reason": "Counts the bijection's six structural properties as SM defines them (its sentence carries neither the list nor 'of the bijection', so the rule requires its context fingerprint); not the retired posit count.",
+-   "author": "implementation-writer-20261123"
+-  },
+-  {
+-   "id": "W1-b",
+-   "kind": "allow",
+-   "profiles": [
+-    "count-grep"
+-   ],
+-   "scope": {
+-    "files": [
+-     "book/ch09-universality.md",
+-     "book/The-Incompleteness-of-Observation-FULL.md"
+-    ]
+-   },
+-   "matcher": {
+-    "literal": "the six structural properties developed in Chapter 5",
+-    "context": [
+-     "isotropy, sublattice structure, link content"
+-    ],
+-    "negative": [
+-     "A1",
+-     "A1-A6",
+-     "finit",
+-     "assumption",
+-     "axiom",
+-     "of the substratum"
+-    ]
+-   },
+-   "context_required": false,
+-   "max_instances": 2,
+-   "fingerprints": [
+-    {
+-     "file": "book/ch09-universality.md",
+-     "sentence_sha256": "91cc0436fa8070b64a751e24226712247d674c7b37849c7662dd9087434752ac",
+-     "context_sha256": "d03916e7d2af45af1dac795c18e4353f4a4c81383f92eaf8670b4626d793f0fd"
+-    },
+-    {
+-     "file": "book/The-Incompleteness-of-Observation-FULL.md",
+-     "sentence_sha256": "91cc0436fa8070b64a751e24226712247d674c7b37849c7662dd9087434752ac",
+-     "context_sha256": "d03916e7d2af45af1dac795c18e4353f4a4c81383f92eaf8670b4626d793f0fd"
+-    }
+-   ],
+-   "recorded_at": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+-   "positive_examples": [
+-    "Tier 2 results follow from the framework's structural commitments to the substratum's properties — the six structural properties developed in Chapter 5 (isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count) — combined with the universality-class conditions C1–C4.",
+-    "the six structural properties developed in Chapter 5 (isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count)"
+-   ],
+-   "negative_examples": [
+-    "the six structural properties developed in Chapter 5 (isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count), and finiteness"
+-   ],
+-   "reason": "Counts the bijection's six properties, enumerated in the sentence; not the retired posit count.",
+-   "author": "implementation-writer-20261123"
+-  },
+-  {
+-   "id": "W1-c",
+-   "kind": "allow",
+-   "profiles": [
+-    "count-grep"
+-   ],
+-   "scope": {
+-    "files": [
+-     "book/ch19-open-problems.md",
+-     "book/The-Incompleteness-of-Observation-FULL.md"
+-    ]
+-   },
+-   "matcher": {
+-    "literal": "one of the framework's six structural properties of the bijection",
+-    "context": [
+-     "of the bijection"
+-    ],
+-    "negative": [
+-     "A1",
+-     "A1-A6",
+-     "finit",
+-     "assumption",
+-     "axiom",
+-     "of the substratum"
+-    ]
+-   },
+-   "context_required": false,
+-   "max_instances": 2,
+-   "fingerprints": [
+-    {
+-     "file": "book/ch19-open-problems.md",
+-     "sentence_sha256": "d4a11b15d8ca936fcf87247d3669a45abbc86ed153ba85e04499e5b927b23721",
+-     "context_sha256": "6c16e6e13e2e9f19820d37a939528e8fe01e749f1ab24f767f6972ca3647d0dd",
+-     "negative_allowance": {
+-      "finit": 1
+-     }
+-    },
+-    {
+-     "file": "book/The-Incompleteness-of-Observation-FULL.md",
+-     "sentence_sha256": "d4a11b15d8ca936fcf87247d3669a45abbc86ed153ba85e04499e5b927b23721",
+-     "context_sha256": "6c16e6e13e2e9f19820d37a939528e8fe01e749f1ab24f767f6972ca3647d0dd",
+-     "negative_allowance": {
+-      "finit": 1
+-     }
+-    }
+-   ],
+-   "recorded_at": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+-   "positive_examples": [
+-    "On a finite periodic quotient of $\\mathbb{Z}^3$, a qualified case of A4 (Chapter 2), the notion of \"causally disconnected regions\" is modified — the lattice's coupling graph determines causal structure, and if the initial state of $\\varphi$ is statistically isotropic (one of the framework's six structural properties of the bijection), isotropy is built in rather than requiring inflation to produce it.",
+-    "statistically isotropic (one of the framework's six structural properties of the bijection)"
+-   ],
+-   "negative_examples": [
+-    "one of the framework's six structural properties of the bijection, namely total finiteness"
+-   ],
+-   "reason": "Names isotropy as one of the bijection's six properties; not the retired posit count.",
+-   "author": "implementation-writer-20261123"
+-  },
+-  {
+-   "id": "W1-d",
+-   "kind": "allow",
+-   "profiles": [
+-    "count-grep"
+-   ],
+-   "scope": {
+-    "files": [
+-     "book/ch19-open-problems.md",
+-     "book/The-Incompleteness-of-Observation-FULL.md"
+-    ]
+-   },
+-   "matcher": {
+-    "literal": "The framework's six structural properties of the bijection",
+-    "context": [
+-     "of the bijection"
+-    ],
+-    "negative": [
+-     "A1",
+-     "A1-A6",
+-     "finit",
+-     "assumption",
+-     "axiom",
+-     "of the substratum"
+-    ]
+-   },
+-   "context_required": false,
+-   "max_instances": 2,
+-   "fingerprints": [
+-    {
+-     "file": "book/ch19-open-problems.md",
+-     "sentence_sha256": "085a5e05d6e02f7ce357fd0bef703c27fab50937c99b261c7c6269f8066a8c6d",
+-     "context_sha256": "7efefbd4ecebe38f37116e12492e69989bbc6953824b7bac4c62e1dc5f013519"
+-    },
+-    {
+-     "file": "book/The-Incompleteness-of-Observation-FULL.md",
+-     "sentence_sha256": "085a5e05d6e02f7ce357fd0bef703c27fab50937c99b261c7c6269f8066a8c6d",
+-     "context_sha256": "7efefbd4ecebe38f37116e12492e69989bbc6953824b7bac4c62e1dc5f013519"
+-    }
+-   ],
+-   "recorded_at": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+-   "positive_examples": [
+-    "The framework's six structural properties of the bijection (developed across Chapters 5-7) further narrow it."
+-   ],
+-   "negative_examples": [
+-    "The framework's six structural properties of the bijection, one of which is total finiteness, further narrow it."
+-   ],
+-   "reason": "Counts the bijection's six properties; not the retired posit count.",
+-   "author": "implementation-writer-20261123"
+-  },
+   {
+    "id": "W2-a",
+    "kind": "allow",
+@@ -247,7 +49,7 @@
+      "context_sha256": "bba1a3b016445e863f07d86bb7371cda38b23aeeae6722fea27933c11832f04d"
+     }
+    ],
+-   "recorded_at": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
++   "recorded_at": "53c6601a10419b6b333cc992474272501ab542af",
+    "positive_examples": [
+     "(A1) $\\mathrm{SU}(3)^3$ anomaly: $\\sum_{\\text{triplets}} 1 - \\sum_{\\text{anti-triplets}} 1 = 0$ (A2) $\\mathrm{SU}(2)^3$ anomaly: automatically zero (SU(2) is anomaly-free) (A3) $\\mathrm{SU}(3)^2 \\mathrm{U}(1)$ anomaly: $\\sum_{\\text{triplets}} Y - \\sum_{\\text{anti-triplets}} Y = 0$ (A4) $\\mathrm{SU}(2)^2 \\mathrm{U}(1)$ anomaly: $\\sum_{\\text{doublets}} Y = 0$ (A5) $\\mathrm{U}(1)^3$ anomaly: $\\sum Y^3 = 0$ (A6) Gravitational-$\\mathrm{U}(1)$ anomaly: $\\sum Y = 0$",
+     "(A1) $\\mathrm{SU}(3)^3$ anomaly: $\\sum_{\\text{triplets}} 1 - \\sum_{\\text{anti-triplets}} 1 = 0$"
+@@ -298,7 +100,7 @@
+      "context_sha256": "7ee521657fdd230c8443be7bef909ecb23d3610746c067ef9cec7b03601878f1"
+     }
+    ],
+-   "recorded_at": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
++   "recorded_at": "53c6601a10419b6b333cc992474272501ab542af",
+    "positive_examples": [
+     "(A1) is automatically satisfied: $\\mathrm{SU}(3)$ is vector-like with $Q$ (triplet) balanced by $u_R^c$ and $d_R^c$ (anti-triplets, with the same count).",
+     "(A1) is automatically satisfied: $\\mathrm{SU}(3)$ is vector-like"

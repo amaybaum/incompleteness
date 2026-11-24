@@ -1,0 +1,11 @@
+c16ecbb790dfc29725d1fe6d94b7dde1a402d745434926f609167b6253ad2cff  DRIFT-RECONCILIATION-PROPOSAL-r3.md
+7b25e75ea561db2d29a6f1126638ee5e08d6b862dc44f56603e0d2f4a220053e  DRIFT-CHANGES-r3.md
+dd725be9004bc47672b90af749d204d3d70175e83d687bdd766a5e7ceb4aec19  records-draft-r3/a1exit-recon-agents-md-1.json
+e4895e0f9c45660178e62f2ca4618e47c4f47fd85534dd10d99f787a5531e4b5  records-draft-r3/a1exit-scc-tool-configuration-1.json
+67561f97f4fd0236c437468e36c3ee3a5d60d69f5dbb161890357df9847b112f  records-draft-r3/a1exit-scc-trial-workflow-1.json
+c32a981beeae41648e2ffa2fa34f58bb11b559bbdba864ae4c4efb09cae6b57c  r3-work/gen_records_r3.py
+11bf7db0384413a7de0c9e3edcdb964a17a914cd3d313f14210deb142fe1eb6c  r3-work/gen_records_r3.M.out
+8858b9aaa27dbd53151cfc65d6409aa0bc923a9433d570779137c1f3e6b8fa3f  r3-work/gen_records_r3.Q.out
+e2a4b1a377ae5e63c24791077bf2871f4dc68d49799e4d89b5fdf8a90d586d63  r3-work/variant-pr1553-head/a1exit-recon-agents-md-1.json
+e4895e0f9c45660178e62f2ca4618e47c4f47fd85534dd10d99f787a5531e4b5  r3-work/variant-pr1553-head/a1exit-scc-tool-configuration-1.json
+67561f97f4fd0236c437468e36c3ee3a5d60d69f5dbb161890357df9847b112f  r3-work/variant-pr1553-head/a1exit-scc-trial-workflow-1.json

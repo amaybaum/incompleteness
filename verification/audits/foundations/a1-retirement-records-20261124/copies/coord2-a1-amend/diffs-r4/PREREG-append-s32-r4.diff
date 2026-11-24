@@ -1,0 +1,300 @@
+--- a/verification/audits/foundations/a1exit-deletion-20261121/PREREG.md
++++ b/verification/audits/foundations/a1exit-deletion-20261121/PREREG.md
+@@ -7569,3 +7569,297 @@
+ 
+ The no-regress rule of §31.12.17 holds for items 6–10. Their results, the provisional T1′'s ids and the diagnostic
+ run's ids are recorded outside the plan's record directory, and are never committed into the plan.
++
++## 32. Amendment, preregistered: verification through the ledger coverage tool, and the records it reads
++
++**Owner decisions.** Owner `amaybaum`, 2026-11-23T06:13:50Z,
++[#1169 comment 7093128173](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7093128173), "Owner
++decision, 2026-11-23: A1-EXIT change of plan to an exception-free verification route", quoted in part:
++
++> - The frozen plan at `4c79be642ca631573f06b444903be75ec4f5e2b6` stays unchanged as a historical record. The T0' trial (run 45077568347, c.7087039188) and the T1' trial and verification (runs 45080985924 and 45083256017, c.7088175248) stay as evidence of what they tested. They are not acceptance evidence for the amended plan.
++> - No change to the ledger base H `53c6601a10419b6b333cc992474272501ab542af`, the 399 ledgered splices or any scientific conclusion is authorized.
++>
++> [...]
++>
++> - amend `PREREG.md` to specify the new tool and its exact verification commands, so that every mandatory check of sec. 11 passes as written; then independent review and a new freeze;
++> - rebuild and rerun T0', T1' and `verify.yml` under the new freeze;
++
++<OWNER DECISION AUTHORIZING THIS AMENDMENT: author, time, #1169 comment id, quoted (§A.42 item 7; §A.50 item 2).>
++
++<OWNER DECISION CLOSING Q10 (accepted 2026-11-24): author, time, #1169 comment id, quoted in the part that names
++ESC-1 to ESC-4 as open evidence gaps.>
++
++The edits of §32.9 enter this plan only by the owner decision quoted there, which adopts them and supersedes, for
++them, the clause above on the 399 ledgered splices and on scientific conclusions.
++
++**Goal link (§A.47).** A1-EXIT (#1169): this amendment decides the exact commands by which every check of §11 is run
++through the ledger coverage tool at a new freeze `F`, how each record those commands read is supported from `main`, and
++the edits by which the manuscripts meet item 7 as frozen. It decides no execution question.
++
++**Order.** This section is committed first. The edit-list and ledger additions of §32.9, the configuration, the superseding rule
++file and the review records follow in later additive commits, and the record pins in §32.10 last. No earlier section is edited: where an earlier command,
++count or pin table differs from this section, this section governs, and the earlier text stays as the record of
++`4c79be64`.
++
++### 32.1 Unchanged and added
++
++The ledger base H, `edits_check.py`, `guards_check.py`, `preserve_check.py` and `t0_jobs_44939798305.json` are
++unchanged. The 401 edit records D001–D401 and the 399 splices of §31.31's ledger are unchanged byte for byte. Eleven edit
++records are added (D402–D412, §32.9), so `edits.json` and `ledger.json` change and are pinned anew in §32.10. No
++other replacement text, scope assertion, checker rule or expectation of §11 or §31 changes. The T0′ and T1′ of
++`4c79be64` (T0′ `02172b2057de36462cc7c27826af61a12114275a`, T1′ `14ac71b4b0a0c0aa2d7068d6799a73f474097060`) and
++their runs remain evidence of what they tested. They are not evidence for the trials of §32.6.
++
++### 32.2 The tool and the configuration
++
++- **The tool.** `tools/ledger_coverage.py` and `tools/ledger_coverage/` at the tool commit `T`
++  (`<T: full id, on main's first-parent chain>`), landed by `<tool landing PR>`. Its design is
++  `<adopted tool design: version and record>`.
++- **The configuration.** `retirement-config.json` in this directory, schema `oi-retirement-config/1`, `config_id`
++  `a1exit-retirement-config`, version 1. It is read only from `F`'s tree, as
++  `--config F:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json`. It carries:
++  - `tool`: every file of the tool at `T` (the entry point and every file under `tools/ledger_coverage/`) and the
++    workflow whose runs may produce an acceptable result, each by blob sha256;
++  - `repository_id`: 1156244443;
++  - `records`: every record and review record a run may use, each by `{kind, path, blob_sha256}`. It references no
++    authorization record, and `retirement` holds the name and the accountable Issue only;
++  - `checks.item7`: item 7 as frozen;
++  - `author`: the writer of this version;
++  - the ledger, the edit list and the plan checker, and the profiles `ptr`, `repo`, `register`, `register-caps` and
++    `infinity`, read from this directory at `F`.
++- **Its review.** `review-retirement-config-v1.json` in this directory, by a non-author reviewer, covering every field,
++  `tool.workflow` included.
++- **The pinned workflow.** It runs, in this order and nothing else: the fetch of `F` by its full id, the pre-run pin
++  check against the configuration's `tool.files`, and the entry point with `python3 -I -B`. It receives `F` and the
++  configuration path as inputs and names every action by full commit id. It runs only from `main`, so that `T` is on
++  `main`'s first-parent chain when a check runs.
++- **Pins.** §32.10 lists the configuration and its review record with their sha256. It is the last `Record pins`
++  subsection of this record, so both `preserve_check.py` and the tool read it.
++
++### 32.3 The designation of F
++
++The owner designates `F` and the configuration path together (§A.50 items 2 and 5), after the gate of §32.6 and the
++independent review of the exact candidate head. The designation is quoted, with author, time and comment id, in the
++execution result note under `execution/` and in the landing record of the tool's acceptance result. The tool and the
++checkers do not read it: the tool verifies which plan commit and configuration a run used, and the designation states
++that they are the approved ones.
++
++### 32.4 The checks of §11 as tool commands
++
++Every command below is run only by the pinned workflow, as
++`python3 -I -B tools/ledger_coverage.py <operation> --freeze F --config F:verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json --out <dir> <arguments>`.
++No command takes a plan id, a round id or a pin-table argument. A path written `F:<name>` is a file of this directory
++at `F`, resolved through the configuration. `X` is the execution head, `C` the certified head, `M` `main` as
++resolved before landing and `L` the landing.
++
++| §11 item | Arguments | Expected at a T1′-style `X` |
++|---|---|---|
++| 1 | `execution --scientific-base H --candidate X --ledger F:ledger.json --edits F:edits.json`, and `terms --commit X --profile ptr` | splices PASS; the `ptr` hits PASS by W2's rules and the classification of `papers/GR.md:58`; any other hit REVIEW_REQUIRED |
++| 2 | `record --pin E --record F`, and `coverage --commit X --segment E..H --segment H..X=F:ledger.json --hp F:hp.json --classify <records>` | PASS only with the HP, context and hit records the configuration references |
++| 3 | `execution --delegation <configured contract>`, classes `tex`, `pdf`, `ci` | PASS only with exact-head evidence on `X` from a `push` or `workflow_dispatch` run |
++| 4 | `execution`, class `coverage-ledger`, and class `ci` job `coverage_check` | PASS iff the seven re-affirmed fingerprints equal `tools/proof_census.py` |
++| 5 | `execution`, profiles `register` and `register-caps`, per edit, per step and per splice | PASS |
++| 6 | `execution`, profile `infinity`, per edit, per step and per splice | PASS |
++| 7 | as frozen (§11 item 7) | PASS: the count grep finds no line, and the pointer grep finds only the four anomaly-label lines "(A1)": appB:235 and :246, which the ledger names as false positives (LEDGER.md:304), and their FULL mirrors, false positives by the ledger's mirror convention (rules W2-a and W2-b) |
++| 8 | `execution`, subject `mirror` | PASS |
++| 9 | `execution`, conformance of `verification/lean-manuscript-census.json` | PASS |
++| 10 | `execution`, subject `lean`, and class `ci` | PASS |
++| 11 | `terms --commit X --check item11 --final` | PASS only when every line the `repo` profile finds is classified by a reviewed rule or record |
++| 12 | `execution`, subject `pin` at H and at `X`, and class `ci` | PASS |
++| 13 | `execution`, class `sc42` | PASS iff byte-identical |
++| 14 | `execution --scientific-base H --main M --candidate X`, then `--certified C --landing L` before landing | candidate PASS against H; landing per the tool's four-tree rules. `preserve_check.py --base <main>` is refused while a ledgered file (`AGENTS.md`) differs between H and `main`, so the landing part of item 14 is decided by this command with the reconciliation record of §32.7 |
++
++A check passes only under the tool's acceptance predicate: exit status 0, a valid `result.json` with outcome PASS
++recomputed by the outcome checker, admission `"chain"` naming this `F` and this pin table, and a producing run whose
++repository, event, `head_sha` and tool and workflow blobs equal the configuration's pins. The tool's countercontrols for
++each item are part of its preregistered control set, which the configuration pins. The tool's real-tree validation
++controls that read T1′ (among them RT-DR3W, RT-I7 and the item-11 control at T1′, and the control input
++`agents-md-at-T1p` of `controls.json`) are evidence about the tool's implementation; no decision of these commands
++reads them, and none of them is an acceptance input.
++
++### 32.5 The records and their support from `main`
++
++| Record | Change | Support of what a run uses | §A.42 item 8 |
++|---|---|---|---|
++| `w1-w2-allow-v2.json` (this directory) | supersedes `ledger-coverage-tool-20261123/rules/w1-w2-allow-v1.json` (sha256 `0cbb97c9…b171`); carries rules W2-a and W2-b, with `recorded_at` H; their matchers, examples and four fingerprints are those of v1. Rules W1-a to W1-d are not carried | each W2 fingerprinted sentence and its context are read at H | H is on `main`. v1's `recorded_at` T1′ is provenance: no decision reads v1's fingerprints |
++| `register-infinity-params-v1.json` | none | the parameters equal literals of `edits_check.py`, read through the configuration's checker companion at `F` (blob `1153e039…`, sha256 `2856e58c…`) | support on `main` once `F` is reachable (§32.7). The record's `lint.checker.commit` and `recorded_at` name `4c79be64`, an ancestor of `F` with the same blob |
++| `repo-scope-v1.json` | none | the engine applies the record's lists; their equality with `HISTORICAL_PREFIX`, `HISTORICAL_FILE`, `ACTIVE_IN_RECORDS` and the generated-artifact rule of `edits_check.py` (lines 786–788, 856, 862) is checked by its reviewer against blob sha256 `2856e58c…` (`edits_check.py` of `4c79be64`, carried unchanged into
++`F`) | support on `main` once `F` is reachable (§32.7); `source.commit` names `4c79be64`, an ancestor of `F` with the same blob |
++| `gr58-hit-classification-v1.json` | none | the engine matches `papers/GR.md` by line sha256 at `X`; the line is H's line 58 with splices D040 and D041 of `ledger.json` applied | support on `main`: H's `papers/GR.md` with this directory's `ledger.json` gives blob `c4a320e264d596629700548407496e9f31282dbb`, the blob the record's `tree` (T1′) holds. The reviewer re-derives the line from H and the ledger and states that equality |
++
++Rules W1-a to W1-d of v1 are not carried: after D402 and D404–D409 no line of `papers/*.md` or `book/*.md` matches
++their count literal. Removing an allow rule is not a widening.
++
++Other references to T1′ in records the configuration pins are provenance: the control input `agents-md-at-T1p` of
++`controls.json`, which no check of §32.4 reads; and the description in the tool's audit directory README.
++
++Every record the configuration references, and every review record, is reviewed by a non-author before `F`. The allow
++rules of v1 are reviewed as the predecessor of v2, with the widening review that a first allow-rule file needs.
++
++### 32.6 Trials and the pre-freeze gate
++
++- The gate of §31.12.17–18, items 1–10, runs at the exact candidate head before a freeze is requested.
++- T0″ and T1″ are built as T0′ and T1′ in §31.8, from the candidate head in place of `4c79be64`: single-parent children
++  of H, with this directory as it stands at that head. `a1exit-trial-verify.yml` and `verify.yml` are dispatched as in
++  §31.8, with the expectations stated there.
++- In addition, the pinned workflow of §32.2 is dispatched once with `F` and the configuration path as inputs and T1″ as
++  `X`, for the commands of §32.4 items 1–13 and the candidate part of item 14. Every one must pass as stated in §32.4.
++  The first such run is also the tool's positive real-host admission control.
++- Each push and each dispatch needs the owner's approval (§A.50 item 2). A diagnostic run is not a trial run.
++
++### 32.7 Reachability from `main` and the landing
++
++- `T` is on `main` before `F` is designated.
++- After `F` is designated, and before the execution landing `L`, the plan's pull request is merged into `main` by a merge
++  commit that keeps its history, so that `F` and `4c79be64` are reachable from `main` (§A.42 items 2, 3 and 8). The
++  merge needs the owner's approval (§A.50 item 1). The plan branch does not move between building T0″ and the last
++  T1″ dispatch (§31.8).
++- At the landing, the paths of this directory present at `M` are side changes between `H` and `M`. A side-change
++  class written after `F` cannot classify them, because their arrival is foreseen here, and a class frozen at `F`
++  cannot pin `retirement-config.json` or this record without a hash cycle. They are classified by
++  `<the rule the adopted tool design provides for the plan's record directory at M, for example: paths under this
++  directory whose blob at M equals their blob at F>`. Until the adopted design provides such a rule, this
++  arrangement cannot land.
++- The foreseeable side changes between `H` and `main` (`AGENTS.md`, a ledgered file; `.claude/settings.json`;
++  `.github/workflows/a1exit-trial-verify.yml`; the tool's landing paths) are classified, and `AGENTS.md` reconciled,
++  by records frozen with `F` and referenced by the configuration. They pin the blobs at `main` when `F` is frozen; a
++  later change to those paths before `L` needs a record written after `F` (admissible as unforeseen) or a new freeze.
++- §25.2's landing condition, "after merge the landing diff against its first parent is exactly the execution's own
++  diff", is read path by path as the tool's four-tree rule reads it: a path that `M` and `C` change to identical bytes
++  is carried by `L` as it stands at `M` and counts as part of the execution's own diff.
++- The landing names no freeze-ledger append and no form comment. Acceptance is recorded by landing the tool's result,
++  its admission snapshot and its reproducibility recipe in a landing record on `main`, which quotes the owner's
++  approval of the landing with author and time.
++
++### 32.8 Verification status (§A.46 item 4)
++
++- **Evidence level.** The values this section relies on were recomputed from git objects: the fingerprints at H, `main`
++  and T1′; the rebuild of `papers/GR.md`, `papers/SM.md`, `book/ch09-universality.md`, `book/ch19-open-problems.md` and
++  `book/The-Incompleteness-of-Observation-FULL.md` from H and `ledger.json`, equal to T1′'s blobs; the lint of the W1
++  and W2 rules at H; and the widening comparison of v2 against v1 (none).
++- **Missing.** The adopted tool design and its implementation at `T`; the review records of §32.5; the configuration's
++  review; `hp.json`, the delegation contract and the HP, context and hit records that items 2 and 11 need, each
++  referenced by the configuration before `F`; the classification rule of §32.7 for this directory at `M`; the
++  independent scientific review of D402–D412 and the owner decision adopting them; the gate and trials of §32.6.
++- **Accountable Issue.** #1169.
++
++### 32.9 Item 7 as frozen, and edits D402–D412
++
++**Owner instruction** (owner `amaybaum`, 2026-11-24, <#1169 comment id and time>), quoted:
++
++> Select option A: preserve item 7 exactly as frozen and resolve the ambiguous manuscript wording.
++> For the three book sentences, name the Chapter-5 structural properties explicitly, preserving their existing scientific meaning.
++> For SM.md:1394, select option (c): rewrite the sentence to state the actual mathematical dependencies of the predictions.
++
++<OWNER DECISION ADOPTING EDITS D402–D412: author, time, #1169 comment id, quoted. It states expressly that, for these
++edits, it supersedes the clause of c.7093128173 that authorizes "No change to the ledger base H …, the 399 ledgered
++splices or any scientific conclusion".>
++
++**What item 7 found at a T1′-style tree.** Over `papers/*.md` and `book/*.md`, at T1′ (H with this plan's ledger
++applied):
++
++- The count grep finds 7 lines matching "six structural", and none matching "Fourteen" or "sixth of":
++  - `papers/SM.md:1394`;
++  - `book/ch09-universality.md:137`;
++  - `book/ch19-open-problems.md:198` and `:212`;
++  - FULL lines 2554, 5270 and 5284.
++- The pointer grep finds only the four anomaly-label lines "(A1)": `book/appendix-b-derivations.md:235` and `:246`,
++  which the ledger names as false positives (LEDGER.md:304), and their FULL mirrors, which are false positives by the
++  ledger's mirror convention.
++
++**The edits.** Item 7 is unchanged. Eleven edit records are added to `edits.json`, continuing its numbering. Each old
++string is unique in its file at H, and each FULL record mirrors its chapter record byte for byte.
++
++| Id | File | Site at H, part | Old | New |
++|---|---|---|---|---|
++| D402 | `papers/SM.md` | :1394, 1 | "they hold for every bijection satisfying the six structural properties." | "they rest on the local spatial/gauge construction of §2.3 and on cubic-group representation theory, each entry under the further conditions of the theorems cited for it; whether an entry requires finiteness of the substratum is not established where those theorems use the measure conditions of Lemma 1c or Proposition 4b or the continuum conditions of the $d = 3$ selection (§3.2), and $1/\alpha_0$ is computed from the lattice momentum integral of §6.1 over the whole Brillouin zone, whose counterpart for a finite substratum and whose normalization of the vertex coupling are not established." |
++| D403 | `papers/SM.md` | :1394, 2 | "hold for the same class as consistency relations conditional on H-slope ([GR §3.2, §4–§5])" | "hold for the same class as consistency relations conditional on H-count, which includes finiteness of the total system and a conserved energy shell, and on H-slope on identified transitions, H-frame, the H-Hawking horizon and frame conditions, local boost structure and the symmetric detailed-balance rate ratio, with selection of the physical slope an additional condition ([GR §2.3, §3.2, §4–§5, §8.5])" |
++| D410 | `papers/SM.md` | :1394, 3 | "three generations (chirality conditional on H-χ', §4.8)" | "three generations (spin-1/2 sectors under H-spin', Theorems 9–10; chirality conditional on H-χ', §4.8; light-spectrum selection, Theorem 10)" |
++| D411 | `papers/SM.md` | :1394, 4 | "unique hypercharges from anomaly cancellation (apart from the exceptional branch $Y_Q=0$)" | "unique hypercharges from anomaly cancellation, given the observed family pattern in the five representations per family, family-universal charges and chirality under H-χ' (Theorem 15; apart from the exceptional branch $Y_Q=0$)" |
++| D412 | `papers/SM.md` | :1394, 5 | "SU(3) × SU(2) × U(1) with multiplicities (3, 2, 1)," | "SU(3) × SU(2) × U(1) with multiplicities (3, 2, 1), whose reduction from the stabilizer U(3) × U(2) × U(1) of Theorem 5 carries the amplitude-scale-gauge and background-independence premises of §4.6, a specified charged matter action and the further physical input of Proposition 14a (§4.9)," |
++| D404, D405 | `book/ch09-universality.md`, FULL | ch09:137 | "the six structural properties developed in Chapter 5 (" | "the structural properties developed in Chapter 5 (" |
++| D406, D407 | `book/ch19-open-problems.md`, FULL | ch19:198 | "(one of the framework's six structural properties of the bijection)" | "(one of the framework's structural properties of the bijection: isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count)" |
++| D408, D409 | `book/ch19-open-problems.md`, FULL | ch19:212, 2 | "The framework's six structural properties of the bijection (developed across Chapters 5-7) further narrow it." | "The framework's structural properties of the bijection (isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count; developed across Chapters 5-7) further narrow it." |
++
++**The three book sentences (D404–D409).**
++
++- They name the set that ch09:36 and ch09:137 enumerate as "the six properties developed in Chapter 5".
++- In ch19:212 at H, the open hypothesis A1 was listed with the axioms, apart from these properties.
++- The set and its six members are unchanged.
++
++**SM:1394 (D402, D403, D410–D412).** The predictions the sentence lists, and what their derivations use. Citations are
++to `papers/SM.md` at H unless stated.
++
++| Entry | Derivation | What it uses | Use of finiteness of the substratum (A1) in the cited derivation |
++|---|---|---|---|
++| Gauge group with multiplicities (3, 2, 1) | Theorem 7 (:374–376, kernel `theorem_7`); Theorem 5 (:340, :344); Proposition 14a (:579–585) | the six signed links of the d = 3 simple-cubic lattice (:348); d = 3 from the Corollary at :210 (A4, E5–E7, continuum conditions); H-link (one copy); H-cust. The reduction from U(3) × U(2) × U(1) to the Standard-Model group carries the amplitude-scale-gauge and background-independence premises and a specified charged matter action (:344, :374), and the quotient needs further physical input (:585). D412 states these. | No use of A1 found in Theorem 7 or Theorem 5; this is not a proof of independence from A1. H-cust's kinetic clause, where Proposition 4b (:334) supplies it, takes the counting measure on a finite representative, or its H-blind extension. The entry assumes H-cust. |
++| Three generations | Theorems 8 (:434–436, kernel `theorem_8`), 9 (:448), 10 (:456–460), 13 (:543); Theorem 2 (:286) | the staggered factorization of the wave equation, whose form uses A4, A5 and nearest-neighbour range (§4.1, :60); d = 3; H-spin′ for the spin-1/2 sectors (Theorems 9–10); H-χ′ for chirality; light-spectrum selection (Theorem 10); H-link for matter on links. D410 states the first three. | No use of A1 found in the cited derivations. Theorems 2, 8, 10 (step (ii)) and 13 hold on ℤ³, and none uses a finite clause (record `a1exit-q1-20261120`). Theorem 8b (taste couplings) is not used for the count. |
++| One Higgs doublet | Theorem 11 (:464–468) | taken as input; its accommodation uses Theorems 7 and 9 (H-spin′) | No use of A1 found; the doublet is an input. |
++| Unique hypercharges, nonzero-Y_Q branch | Theorems 14 (:575), 15 (:589); :460, :555 | the gauge group, the five representations per family and family-universal charges as inputs; the observed family pattern; chirality under H-χ′. D411 states these. | No use of A1 found in the cited derivation (group-theoretic algebra). |
++| 1/α₀ = 23.25 | §6.1 (:681–689) | N_f = 6 and T(R) = 1/2 (§4.5–§4.6); scalar coupling matrix (Theorems 6–7; Theorem 6 under H-link); the one-loop staggered vacuum polarization Π_s(0), a lattice momentum integral over the whole Brillouin zone (∫d⁴q and the lattice propagator over four directions, the vertex factors spatial, :689), from which 1/α₀ = 6 × Π_s(0) × 4π (:683–685) | No use of A1 found in the cited derivation. Its counterpart for a finite substratum, and the normalization of its vertex coupling, are not established. D402 states this. |
++| The action scale and the Bekenstein-Hawking coefficient | GR:58 (H-count), GR:88, GR:312–322 | H-count; H-slope on identified transitions, H-frame, the H-Hawking horizon and frame conditions, local boost structure and the symmetric detailed-balance rate ratio; selection of the physical slope remains an additional condition. D403 states these. | **Used.** H-count restricts a finite total system to a conserved energy shell (GR:58; GR:88 at H: "requires H-count, including A1 and the conserved energy shell"). SM:1394 at H named only H-slope. |
++
++**The wording.**
++
++- D402 replaces the count by a reference to the construction of §2.3 and to cubic-group representation theory, with
++  each entry under the further conditions of the theorems cited for it. It does not state one condition sufficient for
++  every entry.
++- D402 states in the sentence where it is not established whether an entry requires finiteness of the substratum.
++- D410–D412 name, at their entries, the conditions their theorems use that the sentence did not mark.
++- D403 carries the conditions GR states for the two horizon relations, finiteness of the total system among them.
++- No entry gains a class or loses a condition.
++- The equivalence class [(S, φ)]/G_sub, and the statement that the entries do not depend on which φ is realized, are
++  unchanged.
++
++"No use of A1 found" records the result of reading the cited derivations. It is not a statement that an entry holds
++independently of A1.
++
++**Open dependencies.** These are named in SM:1394 through D402, D410–D412 and the theorems it cites. None is resolved
++here.
++
++1. H-cust's kinetic clause, where Proposition 4b supplies it, is stated for the counting measure on a finite
++   representative or for its H-blind extension (:334).
++2. Lemma 1c's measure (:252) is the counting measure on a finite representative, a stated structured prior, or, on
++   ℤ^d, the law condition H-μ(φ,Θ), assumed and not adopted. It enters an entry only where a theorem the entry uses
++   relies on Lemma 1c. The generation count does not.
++3. The continuum conditions of the d = 3 selection (:208–210).
++4. 1/α₀: the counterpart for a finite substratum of the lattice momentum integral of §6.1 over the whole Brillouin
++   zone.
++5. 1/α₀: the normalization of the vertex coupling, and whether it uses Lemma 1c's measure.
++6. The role of the background-independence premise (A6). D412 states it for the gauge entry. For the other entries
++   it is the role §2.3 states for the construction as a whole.
++
++**Results.** Each run used this record directory's checkers on the extended edit list, at H.
++
++| Check | Result |
++|---|---|
++| `preserve_check.py --build-ledger` | 410 splices in 44 files (412 edit records; D032 and D039 retain their text); the 399 splices of §31.31's ledger byte-identical |
++| `edits_check.py --static`, `--commit H --simulate`, `--pins`, `--repo-scan --simulate --final`, `--self-test` | PASS; 412 unique; residual pointer lines 5 (all allowed); criterion-5 0; identifier and count findings 0; 0 unexplained lines |
++| `preserve_check.py --verify-ledger`, `--verify-pins`, `--self-test` | ledger re-derived identically; pin findings 0 with §32.10; self-test PASS |
++| Item 7 on H with this ledger | count grep 0 lines; pointer grep only the four anomaly-label lines |
++| Item 7 negative controls | the SM:1394 phrase, ch09:137's count, "Fourteen items, …" and "sixth of" each give a count line, and a bare "(finite under A1)" pointer gives a pointer line that is not a false positive: FAIL each |
++| `tools/duplicate_check.py` on the four edited sources and on this record | OK |
++| `tools/coverage_check.py`, `claims_check.py`, `voice_check.py`, `citation_roles_check.py`, `dependency_label_check.py`, `baseline_label_check.py` on H and on H with D402–D412 | identical output and exit status |
++| `tools/staleness_check.py` | STALE for SM and the book on H with the edits, as expected until their TeX is regenerated |
++| `papers/SM.tex` and `book/The-Incompleteness-of-Observation-FULL.tex` rebuilt by `build.sh`'s recipe (base control reproduces H's TeX) | differ from T1′'s TeX only in the edited paragraphs and the source stamp |
++
++Not run here: `guards_check.py --predict` and `--mutants`, and the SC-42 regeneration (the gate of §32.6).
++
++### 32.10 Record pins
++
++The digests below pin the record files from §32 on. `preserve_check.py` and the tool read the last `Record pins`
++subsection, so §31.31 stays as the pins of `4c79be64`. The ledger has 410 splices in 44 files at `53c6601a` (412 edit
++records; D032 and D039 retain their text).
++
++| File | SHA-256 |
++|---|---|
++| `edits.json` | `19eb79bd478275110b4ff1cd3ae2271c37574e849d45be272f53b8e75e726b4b` |
++| `ledger.json` | `d20495f0084f29ac5c58c5a0480be5f0ed342334381e6680e9cca58952940976` |
++| `edits_check.py` | `2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c` |
++| `guards_check.py` | `ef89e1c79a0cc3c34af1ebb981e1674edd33a534d6f98612ee06ce57005b5cee` |
++| `preserve_check.py` | `101ecdf46bfc6ecf337db6600c22c5ac01ccb1fad89b8d19a5a79b012d369d32` |
++| `t0_jobs_44939798305.json` | `8c5edab3c18cf9de86c33e406a30fe1a6957e8cc881e26d2bae9f7e2a7fe5bce` |
++| `retirement-config.json` | `<SHA256>` |
++| `review-retirement-config-v1.json` | `<SHA256>` |
++| `w1-w2-allow-v2.json` | `<SHA256>` |
++| `<each review record of §32.5>` | `<SHA256>` |

@@ -1,0 +1,540 @@
+--- DESIGN-v6.0.md	2026-11-24 09:49:00.774333216 +0000
++++ DESIGN-v6.0a.md	2026-11-24 10:11:32.628223863 +0000
+@@ -1,15 +1,36 @@
+-# Commit-independent ledger and terminology verification tool: design v6.0
++# Commit-independent ledger and terminology verification tool: design v6.0a
+ 
+ ## Status and authority
+ 
+ This is a paper-only design. Nothing is implemented, committed, pushed or published under it.
+ 
++- **v6.0a is a bounded correction of the draft v6.0** (`DESIGN-v6.0.md`, sha256
++  5d4ddf784164c496d98b3194030524b20353cfcd5695fbf102eae68ced85e145), applying the independent review
++  `review-v6.0/review.md` (sha256 43cfe728198588eb4f01a38dd817f4d207e50494bb98c5bb20c895df4fddb0ec,
++  verdict REJECT on B-1 to B-4, with nits N-1 to N-7) under the owner decision of 2026-11-24 (owner
++  `amaybaum`, in session, relayed by the coordinating session; no comment id held by this writer),
++  quoted:
++  > "Approve the bounded v6.0a correction. 1. Apply B-1, B-2 and B-3 as proposed, including the
++  > restored and new negative controls. 2. For B-4, use the fixed meaning table and ensure
++  > human-readable results use accurate technical terminology. Do not introduce automated text-lint
++  > machinery unless independent review demonstrates a concrete need. 3. Apply the reviewer nits,
++  > including explicit failure handling for git ls-remote and negative tests for mismatched plan and
++  > pin-table identities. 4. Record the additional requirement for the later A1 plan amendment.
++  > 5. Preserve the removal of all automated owner-authorization verification. 6. Obtain fresh
++  > independent review against both v6.0 and v5.5.9. ... Keep the scope bounded. Do not introduce
++  > additional infrastructure or replacement authorization mechanisms."
++
++  > "The correct distinction is between verifying who approved the work and verifying what actually
++  > ran. We removed the former from the tool, but the latter remains essential."
++
++  v6.0a is authoritative only after a fresh independent review against v6.0 and v5.5.9 returns
++  ACCEPT and the owner adopts it; until then the authoritative design is v5.5.9. `CHANGES-v6.0a.md`
++  maps every change to its finding.
+ - **v6.0 is a reduced design derived from the adopted v5.5.9** (`DESIGN-v5.5.9.md`, sha256
+   cdfbe08cd9ec331ac94e9d57d66f0e0c919cc2ff17038a8475a1ff2d7a779df9, verified before this
+-  revision). It is authoritative only after an independent design review returns ACCEPT and the
+-  owner adopts it; until then the authoritative design is v5.5.9. It is complete in itself; it is
+-  not a diff. `INVENTORY-v6.0.md` lists every removed, retained and modified section, control row
+-  and implementation module, and `CHANGES-v6.0-from-v5.5.9.diff` is the exact difference.
++  revision). This document is complete in itself; it is not a diff. `INVENTORY-v6.0a.md` lists
++  every removed, retained and modified section, control row and implementation module against
++  v5.5.9, and `CHANGES-v6.0a-from-v5.5.9.diff` is the exact difference.
+ - **Owner decisions of 2026-11-24** (owner `amaybaum`, in session, relayed by the coordinating
+   session; this writer holds no comment id for them; the record that quotes them with author, time
+   and comment id is still to be cited, sec. A.42 item 7 and sec. 15 item 1), quoted:
+@@ -37,16 +58,14 @@
+ 
+   > "the tool verifies which exact plan was executed; the owner confirms that it was the approved
+   > plan. The tool itself makes no claim about authorization."
+-- **What the tool verifies, and what it does not claim.** The tool verifies which exact plan was
+-  executed: every result identifies, and the run verifies against the git object store, the plan
+-  commit `F`, the pin table and configuration blobs, the tool commit `T` with every file it
+-  executed, the evaluated commits and the producing CI run; the landing record that commits the
+-  result is the result commit (sec. 5, 6.3). The owner confirms, procedurally and outside the
+-  tool, that this was the approved plan. No output, outcome, field or control of the tool states
+-  or implies that a plan, a record, a run or a result was approved or authorized. The retained
+-  class names `authorized-replacement`, `authorized-removal`, `unauthorized-edit` and
+-  `unauthorized-change` are identifiers carried from v1; they mean "specified by the frozen ledger"
+-  and "not specified by it" and say nothing about owner approval.
++- **What the tool verifies.** The tool verifies which exact plan was executed and what actually
++  ran: every result identifies, and the run verifies against the git object store and the pins of
++  the configuration at `F`, the plan commit `F`, the pin table and configuration blobs, the tool
++  commit `T` with every tool file and the workflow, the repository and event of the producing CI
++  run, and the evaluated commits; the landing record that commits the result is the result commit
++  (sec. 5, 6.3). The owner confirms, procedurally and outside the tool, that this was the approved
++  plan. The tool makes no claim about authorization (sec. 1); the output's class names carry a
++  fixed technical meaning (sec. 5, "Class meanings").
+ - **What v6.0 removes.** All automated verification of owner authorization: the tool authority
+   record `A` (schema `oi-tool-authority/2`); the versioned comment forms `oi-freeze/1`,
+   `oi-authority/1` and `oi-freeze-ledger/1`; "Owner at creation"; the freeze ledger; the reading of
+@@ -77,7 +96,9 @@
+   S1-D3, R-D1, R-D3, R-D5, A-D5, DI-2, C3, C4) keep the meanings it gives them.
+ - Identifiers: retained controls, sections and items keep their ids and meaning. Removed control
+   ids, the removed sec. 15 item 0a and the retired schema ids are never reused (sec. 10, "Retired
+-  identifiers"). v6.0 adds the controls GV1-GV7 and sec. 15 items 10-12, and uses none of the
++  identifiers"). v6.0 adds the controls GV1-GV7 and sec. 15 items 10-12; v6.0a adds EI1-EI5 and
++  restores TR15 and TR50 with their v5.5.9 meaning (the pins are held by the configuration at `F`).
++  Neither uses any of the
+   identifiers the unadopted drafts v5.5.10 and v5.5.10a introduced (TR71-TR87, HV1-HV12, HS-1 to
+   HS-7, sec. 10.5, sec. 15 items 7-9).
+ - Authority for the route: owner decision #1169 c.7093128173 (amaybaum, 2026-11-23T06:13:50Z). It
+@@ -155,7 +176,7 @@
+ maps each v3 review correction and owner decision to the sections it changed; `CHANGES-v5.md` does
+ the same for the v4 review's corrections V1-V8, the decisions V5-D1 and V5-D2, and the optional
+ points O1-O7. Rows whose only answer was the automated authorization machinery that v6.0 removes are not
+-listed here; `DESIGN-v5.5.9.md` sec. 0.2 keeps them, and `INVENTORY-v6.0.md` table 1 maps them.
++listed here; `DESIGN-v5.5.9.md` sec. 0.2 keeps them, and `INVENTORY-v6.0a.md` table 1 maps them.
+ 
+ | Review item | Answered in |
+ |---|---|
+@@ -214,11 +235,12 @@
+ | v5.3 review O2: a sentence's byte offset | sec. 6.2 |
+ | v5.4 review V1: P's count; offsets back to `H`; chained edits; overlap control | sec. 6.1; S11-58i-k |
+ | v5.4 review V2 and R-D3: the run's commit; evaluated commits as inputs | sec. 5, 6.3 (execution identity); TR29, TR30 |
+-| v5.4 review V3 and R-D3: the executed code bound to the tool commit `T` | sec. 5, 6.3 (execution identity); TR28, TR48, TR51, TR52 |
++| v5.4 review V3 and R-D3: the executed code and workflow bound to the configuration's `tool` pins at `T` | sec. 5, 6.3 (execution identity); TR15, TR28, TR48, TR50-TR52, EI1, EI2 |
+ | v5.4 addendum C3 and R-D5: admission snapshot, compressed result, offline replay | sec. 5, 6.3 (snapshot); TR45, TR46 |
+ | v5.4 addendum C4 and R-D1: the stricter refusals stated | sec. 6.1 |
+ | v5.4 review: residual-trust list | sec. 6.3 |
+ | owner decisions of 2026-11-24 on the authorization model | Status and authority; sec. 1, 5, 6.3, 7.2, 10, 15, 16.7; GV1-GV7 |
++| v6.0 review B-1 to B-4, N-1 to N-6 (v6.0a) | sec. 1, 5, 6.2, 6.3, 7.2, 11, 13.4, 15, 16.2, 16.4, 16.7; TR2, TR5, TR13-TR15, TR28, TR48, TR50, TR52, X10, WB rows, EI1-EI5 |
+ 
+ ### 0.3 Figures
+ 
+@@ -390,8 +412,9 @@
+ - The tool checks that role fields differ. It cannot check who wrote a record (sec. 6.3).
+ - **Approval is outside the tool.** The tool verifies which exact plan, configuration, tool and
+   evaluated commits a run checked, and identifies them in its result. Whether that plan is the one
+-  the owner approved is confirmed by the owner, procedurally (sec. 6.3). No PASS states or implies
+-  an approval.
++  the owner approved is confirmed by the owner, procedurally (sec. 6.3). No output, outcome, field
++  or control of the tool states or implies that a plan, a record, a run or a result was approved
++  or authorized.
+ 
+ ## 2. Pipeline and subject kinds
+ 
+@@ -762,26 +785,24 @@
+ - `result.json` exists in `--out` and validates against schema `oi-ledger-coverage/5`;
+ - its `outcome` is PASS, and the independent outcome checker (S7) recomputes PASS from its
+   `preflight`, `record_checks` and `items`;
+-- its recorded tool commit `T`, engine blobs and adapter module blobs equal the blobs the consumer
+-  reads itself at `T` from its own verified object store (sec. 6.3), its adapter module blobs equal
+-  the configuration's pins, and its configuration `{path, blob_sha256}` equals the frozen one;
++- its recorded tool commit `T` and tool blobs equal the blobs the consumer reads itself at `T` from
++  its own verified object store, and these equal the `tool` pins of the configuration at `F`
++  (sec. 6.3); its adapter module blobs equal the configuration's pins; and its configuration
++  `{path, blob_sha256}` equals the frozen one;
+ - `config.admission` is `"chain"` and names the same `F` and the same pin table
+-  `{path, blob_sha256}` as the landing record.
++  `{path, blob_sha256}` as the landing record (control EI3).
+ - The result was produced in a host CI run that the consumer verifies itself, by repeating
+   execution identity (sec. 6.3, points 1-3):
+-  - the host's REST API reports the run, by its run id, in the repository in which the consumer
+-    runs;
++  - the host's REST API reports the run, by its run id, with `repository.id` and
++    `head_repository.id` both equal to the configuration's `repository_id`, and with event `push`
++    or `workflow_dispatch`;
+   - its `head_sha` is the `T` the result records, and `T`'s tree, read from the consumer's own
+-    verified store, holds under `tools/ledger_coverage/` exactly the tool files the result records,
+-    each a regular file with the recorded blob;
++    verified store, holds the configuration's `tool.files` exactly and the pinned workflow blob at
++    `tool.workflow.path`, which is the run's workflow path;
+   - the evaluated commits equal the landing record's;
+   - the result file is that run's uploaded artifact, by sha256.
+ 
+-  A result produced anywhere else, or by other code, is never acceptable.
+-
+-  This predicate is technical. It establishes that the result is a valid PASS of the exact commits
+-  and blobs it names. It does not establish, and the result does not state, that the plan, the
+-  configuration or the run was approved; the owner confirms that procedurally (sec. 6.3).
++  A result produced anywhere else, or by other code or another workflow, is never acceptable.
+ - **Durable evidence (A-D5, C3, R-D5).** Acceptance is recorded only by landing it on `main` in a
+   landing record, the result commit. The landing merges only with the owner's approval (sec. A.50
+   item 1), which the record quotes with author and time (sec. A.42 item 7); the tool does not read
+@@ -878,6 +899,23 @@
+ - an adjudication naming a segment outside the chain is `out-of-scope`, which is reported but is
+   not a finding.
+ 
++**Class meanings (B-4).** The schema carries a fixed table `class_meaning`, identical in every
++result:
++
++| Class identifier | Meaning |
++|---|---|
++| `authorized-replacement` | a site replaced by a splice of the frozen ledger |
++| `authorized-removal` | a site removed by a splice of the frozen ledger |
++| `unauthorized-edit` | a ledgered file whose bytes differ from `H` with the frozen ledger's splices applied |
++| `unauthorized-change` | a change that no splice of the frozen ledger and no declared class specifies |
++
++These identifiers are kept from v1 (sec. A.48 item 3). They state nothing about owner approval.
++The explanation of every item or site state in one of these classes quotes its meaning from the
++table, and every human-readable text the tool writes (explanations, reasons, `resolution_needed`,
++messages on stderr) uses the technical terms of this design ("specified by the frozen ledger",
++"pinned", "recorded"), never approval vocabulary. This is a requirement on the tool's own strings,
++checked in review; no text-lint control is added.
++
+ **Explanation.** Every subject carries an explanation with:
+ 
+ - the subject id and kind;
+@@ -1113,14 +1151,14 @@
+    counted (owner decision S1-D1, option B). The allowance for the sentence is the
+    `negative_allowance` of a fingerprint only if all of the following hold, and is zero otherwise:
+    - the hit's file is the fingerprint's `file`;
+-   - the sentence's sha256 equals the fingerprint's `sentence_sha256` (the exact approved text);
+-   - the context sha256 equals the fingerprint's `context_sha256` (the approved location: the same
++   - the sentence's sha256 equals the fingerprint's `sentence_sha256` (the exact fingerprinted text);
++   - the context sha256 equals the fingerprint's `context_sha256` (the fingerprinted location: the same
+      neighbouring sentences), whether or not the rule sets `context_required`;
+    - that fingerprint has not already granted its allowance to another sentence in this tree.
+ 
+    If, for any negative literal, the sentence has more matches than the allowance grants, the
+    result is FAIL `rule-negative-match`. The allowance is bound to one fingerprint, that is, one
+-   approved sentence at one approved location. It is never a global count, and it cannot be used
++   fingerprinted sentence at one fingerprinted location. It is never a global count, and it cannot be used
+    by any other sentence, file or location.
+ 4. If the sentence or, when required, the context differs from every fingerprint, the result is
+    REVIEW_REQUIRED `rule-fingerprint-mismatch`.
+@@ -1139,7 +1177,7 @@
+ `context_sha256 = sha256(prev || 0x00 || next)`. "Location" in step 3 means exactly this pair of
+ neighbours in the named file. It is not a line number or byte offset: a shift of the whole region
+ (control WB8) keeps the allowance, and so does a move of the sentence together with both of its
+-neighbours to another part of the same file, since the approved text and its approved neighbours
++neighbours to another part of the same file, since the fingerprinted text and its fingerprinted neighbours
+ travel together (control WB13, expected PASS). A move of the sentence without both neighbours
+ changes the context and loses the allowance (WB5).
+ 
+@@ -1202,8 +1240,8 @@
+ independent reviewer and the frozen configuration's reference at `F`. The owner's approval of a
+ record, of the configuration, of `F` and of a landing is given under AGENTS.md (sec. A.45 rule 3,
+ A.50, A.51) and quoted with author and time in the record that relies on it (sec. A.42 item 7).
+-The tool neither reads nor checks it, no record kind, field, comment or host read stands in for
+-it, and no tool output states or implies it.
++The tool neither reads nor checks it, and no record kind, field, comment or host read stands in
++for it.
+ 
+ **Frozen configuration.** `retirement-config.json` at `F` references every record and review
+ record by `{path, blob_sha256}` (sec. 16.2). A record added after `F` is
+@@ -1247,48 +1285,60 @@
+ 
+ The tool never infers a role or a review from a passing tool result.
+ 
+-**Configuration admission (O5, B3).** The run names the plan commit `F` (`--freeze F`) and the pin
+-table (`--pin-table F:<path>`) as explicit inputs. Neither is inferred, and both are recorded. Any
+-step below that fails, or cannot be completed, refuses with ERROR `CONFIG_UNREVIEWED`:
++**Configuration admission (O5, B3).** The run names the plan commit `F` (`--freeze F`) and the
++configuration (`--config F:<path>`) as explicit inputs. Neither is inferred, and both are recorded.
++Any step below that fails, or cannot be completed, refuses with ERROR `CONFIG_UNREVIEWED`:
+ 
+ 1. **`F` and the configuration.** `F` is a full commit id, read through the verified reader below.
+-   The configuration is read only from `F`'s tree (`--config F:<path>`), never from a file the
+-   caller supplies or from another commit.
+-2. **The pin table.** `F`'s PREREG pin table (the sec. 26.4 mechanism) is read from `F`'s tree at
+-   the named path, as a regular file. The configuration and its review record are admitted only if
+-   listed there with their sha256. Files beside the configuration are never admitted.
+-3. **Optional equality.** `--config-sha256`, if given, must equal the admitted configuration's
+-   sha256. It is an extra check and never a substitute.
+-4. **Local runs and replay.** A run outside a host CI job, or one whose run record cannot be read
++   The configuration is read only from `F`'s tree at the named path, never from a file the caller
++   supplies or from another commit.
++2. **The pin table (B-3).** The pin table is derived, not chosen: it is read from the file
++   `PREREG.md` in the same directory of `F`'s tree as the configuration, as a regular file. Within
++   that file it is the last subsection whose heading matches `^### \d+\.\d+ Record pins\b`; its
++   rows are `` | `<file>` | `<sha256>` | ``, each naming a file of that directory. This is the plan's
++   own rule ("The pins in force are always the last `Record pins` subsection", P's PREREG). The
++   configuration and its review record are admitted only if listed there with their sha256. Files
++   beside the configuration that the table does not list are never admitted. A missing `PREREG.md`,
++   no such subsection, or a malformed table row refuses. The run takes no pin-table argument.
++3. **Local runs and replay.** A run outside a host CI job, or one whose run record cannot be read
+    (execution identity, point 1), cannot reach `"chain"`. The offline replay of sec. 5 writes
+    `"admission": "replay"` and is never acceptable as a new run.
+ 
+-The tool verifies which exact plan commit, pin table and configuration a run checked, and records
+-them. It does not check that `F` is the plan commit the owner designated, and it makes no claim that
+-it is. The designation is procedural (sec. A.50 items 2 and 5); the record that relies on it quotes
+-it (sec. A.42 item 7), and the owner compares it with the recorded `F`.
++The record directory of the plan is thereby identified by the configuration's path, which the
++result records; the landing record names it with `F`.
++Whether `F` is the plan commit the owner designated is confirmed procedurally (sec. A.50 items 2
++and 5), not by the tool.
+ 
+-**Execution identity (R-D3).** An acceptable result is produced in a host CI job by the tool files of
+-one commit `T`, the tool commit:
++**Execution identity (R-D3, B-1, B-2).** An acceptable result is computed by the tool files and
++run by the workflow that the configuration at `F` pins, in the repository it names:
+ 
+ 1. **The run record.** The tool reads its own run record by the run id the host assigns, from the
+-   host's REST API in the repository the job runs in: the repository id, the workflow path and the
+-   run's `head_sha`. `T` is that `head_sha`.
+-2. **The tool's files.** `T`'s tree is read through the verified reader. Under
+-   `tools/ledger_coverage/` every entry must be a regular file; a symlink, a submodule or any other
+-   entry refuses (K7). The workflow runs the tool with `python3 -I -B` from a checkout of `T`.
+-   Before evaluating anything, the tool compares the entry point `tools/ledger_coverage.py` and
+-   every file under `tools/ledger_coverage/` in that checkout with `T`'s tree: the same set of
+-   paths, each byte-identical to `T`'s blob. Any difference, including a file on disk that `T` does
+-   not hold (for example a compiled-bytecode file), refuses. The workflow file's blob at `T` is
+-   recorded.
++   host's REST API in the repository the job runs in: the repository id, the head repository id,
++   the event, the workflow path and the run's `head_sha`. `T`, the tool commit, is that `head_sha`.
++   The run's `repository.id` and `head_repository.id` must both equal the configuration's
++   `repository_id`, and its `event` must be `push` or `workflow_dispatch`, the events for which the
++   workflow that runs is the one at `head_sha`.
++2. **The tool's files and the workflow.** `T`'s tree is read through the verified reader. Under
++   `tools/ledger_coverage/`, together with the entry point `tools/ledger_coverage.py`, it must hold
++   exactly the files of the configuration's `tool.files`, each a regular file whose blob sha256
++   equals its pin; a further file, a missing file, a differing blob, or a symlink, submodule or
++   other non-regular entry refuses (K7). The run record's workflow path must equal
++   `tool.workflow.path`, and the blob at that path in `T` must equal `tool.workflow.blob_sha256`.
++   The workflow runs the tool with `python3 -I -B` from a checkout of `T`. Before evaluating
++   anything, the tool compares the entry point and every file under `tools/ledger_coverage/` in
++   that checkout with `T`'s tree: the same set of paths, each byte-identical. Any difference,
++   including a file on disk that `T` does not hold (for example a compiled-bytecode file), refuses.
+ 3. **Evaluated commits are inputs.** The commits evaluated (`X`, `C`, `L`, `M`, and `H` and `E`)
+    are explicit full ids, read through the verified reader and recorded. They are never the run's
+    `head_sha`, because `X` (`H` plus the ledger) does not contain the tool.
+-4. **The consumer repeats it.** The consumer repeats points 1-3 for the producing run itself (sec. 5):
+-   from the host's REST API in its own repository, and from its own verified object store. A run
+-   the host does not report there, a `head_sha` other than the `T` the result records, or a tool
+-   blob differing from `T`'s is non-acceptance.
++4. **The consumer repeats it.** The consumer repeats points 1-3 for the producing run itself (sec. 5),
++   from the host's REST API and from its own verified object store, against the configuration at
++   `F` that the landing record names. A run whose repository, head repository or event fails
++   point 1, a `head_sha` other than the `T` the result records, or a tool or workflow blob that
++   differs from the configuration's pins is non-acceptance.
++
++Whether `T` lies on `main` is not checked: the tool and workflow are fixed by the pins at `F`,
++whichever commit holds them.
+ 
+ **Object integrity (the verified reader).** Every read of a commit, tree or blob, in a run, by the
+ consumer and in the offline replay, goes through one reader over a local git object store:
+@@ -1328,8 +1378,8 @@
+ **The admission snapshot (C3).** `result.json` records `config.admission`. Its mode is `"chain"`
+ only when configuration admission and execution identity held, and it carries the snapshot:
+ 
+-- the run record fields read: run id, repository id, workflow path and `head_sha` (`T`); the
+-  workflow file's blob sha256 at `T`; the engine and adapter blob hashes at `T`;
++- the run record fields read: run id, repository id, head repository id, event, workflow path and
++  `head_sha` (`T`); the workflow file's blob sha256 at `T`; the tool blob hashes at `T`;
+ - the evaluated commits `E`, `H`, `X`, `C`, `L` and `M`;
+ - `F`, the pin table's `{path, blob_sha256}`, and the configuration's and its review record's
+   `{path, blob_sha256}`;
+@@ -1347,16 +1397,15 @@
+   - the class's own recorded re-derivations (sec. 7.2);
+ - the sha256 of the canonical JSON of the snapshot itself.
+ 
+-The snapshot identifies what was checked. It records no approval.
+-
+ Only `"chain"` is acceptable (sec. 5). The control harness (sec. 10.4) may admit a draft
+ configuration without its chain. Its results carry `"admission": "control-harness"` and are never
+ written as an acceptable result.
+ 
+ **Residual trust assumptions, stated.** The tool and the consumer trust:
+ 
+-- **The host's REST records of Actions runs:** a run's repository, workflow path and `head_sha`;
+-  its jobs, their names and conclusions; and an artifact's sha256 digest.
++- **The host's REST records of Actions runs:** a run's repository and head repository, event,
++  workflow path and `head_sha`; its jobs, their names and conclusions; and an artifact's sha256
++  digest.
+ - **The host runner:** that it executes the workflow at `head_sha` faithfully, so that the code
+   that ran is the code whose blobs were read and compared.
+ - **Git object ids.** Every object is bound to its id by recomputation. That binding rests on
+@@ -1682,7 +1731,9 @@
+ - **Host-run classes** (`pdf`, `ci`). The evidence is the host's run and job records, read by the
+   tool from the host's REST API inside the job (sec. 6.3, "Host reads"; sec. A.44), never a file
+   supplied by a caller. The tool
+-  checks `head_sha = X`, the named workflow and jobs, and their conclusions. For `pdf` it also
++  checks `head_sha = X`, the named workflow and jobs, and their conclusions, and that the run's
++  event is `push` or `workflow_dispatch` and its repository and head repository ids equal the
++  configuration's `repository_id` (sec. 6.3). For `pdf` it also
+   checks that the PDF comparison result names `candidate_commit` and `candidate_tree` equal to
+   `X`, that it was produced by preserve_check run by this tool from `F`'s blob on PDFs built in the
+   clone at `X`, and that the uploaded artifact's sha256 equals the result's.
+@@ -1884,11 +1935,12 @@
+ each expected deny FAIL names the rule alternative that produces it (measured on the control text,
+ sec. 14).
+ 
+-**Retired identifiers.** The controls O4, TR4, TR6-TR12, TR15-TR27, TR31-TR44, TR47, TR49, TR50,
++**Retired identifiers.** The controls O4, TR4, TR6-TR12, TR16-TR27, TR31-TR44, TR47, TR49,
+ TR53-TR70, LN9, LN11 and LN12 tested the automated authorization machinery that this design
+-removes. Their ids are retired and never reused. `INVENTORY-v6.0.md` table 2 states, for each,
++removes. Their ids are retired and never reused. `INVENTORY-v6.0a.md` table 2 states, for each,
+ whether it tested authorization only, and which retained control covers any technical guarantee it
+-also touched. The controls GV1-GV7 (sec. 10.4) are new.
++also touched. The controls GV1-GV7 and EI1-EI5 (sec. 10.4) are new; TR15 and TR50 keep their
++v5.5.9 meaning, with the pins held by the configuration at `F`.
+ 
+ ### 10.1 Unit and mutation controls (synthetic, in memory)
+ 
+@@ -1994,7 +2046,7 @@
+ | X7 | the tool run with a deliberately broken import in its package (a module raising `ImportError` at import time, before the wrapper's own imports complete) | a nonzero exit distinct from 20 (the interpreter's 1, or 71 if the wrapper caught it); no `result.json` with outcome PASS; the consumer's acceptance predicate reports non-acceptance | sec. 5 |
+ | X8 | the interpreter pointed at a missing script path | exit 2 from the interpreter; non-acceptance | sec. 5, unlisted codes |
+ | X9 | an unexplained `repo` hit run as item 11: without `--final`; with `--final`; a REVIEW item of a profile outside item 11's `final_profiles` with `--final`; and `--final` without `--check` | REVIEW exit 10; FAIL `final-unclassified` exit 20; that other item stays REVIEW; USAGE exit 64 | sec. 5 |
+-| X10 | exit 0 with a `result.json` whose outcome was edited to FAIL; exit 0 with an engine blob hash differing from the blob at the recorded tool commit `T` | non-acceptance in both | acceptance predicate |
++| X10 | exit 0 with a `result.json` whose outcome was edited to FAIL; exit 0 with an engine blob hash differing from the configuration's `tool` pin | non-acceptance in both | acceptance predicate |
+ 
+ ### 10.3 Real-tree controls (CI)
+ 
+@@ -2048,34 +2100,36 @@
+ |---|---|---|---|
+ | WB1 | the W1-c sentence at T1' in ch19:198 and FULL:5270, with the W1-c fingerprints and `negative_allowance: {finit: 1}` | PASS, both lines | sec. 6.2 step 3 (S1-D1) |
+ | WB2 | the same sentence at the same location with one more word containing `finit` (for example a second "finite" inserted elsewhere in the sentence) | FAIL `rule-negative-match` (2 matches, allowance 1) | step 3 |
+-| WB3 | the approved sentence copied, unchanged, to another paragraph of a file in W1-c's scope | FAIL `rule-negative-match` at the copy (its context differs, so no allowance); the original still PASS | step 3: no reuse in other locations |
+-| WB4 | the approved sentence copied to a file outside every W1 rule's scope | REVIEW_REQUIRED `unclassified` (no rule applies; step 1) | scope |
+-| WB5 | the approved sentence moved (cut and pasted) to another paragraph of the same file | FAIL `rule-negative-match` at the new location; REVIEW_REQUIRED `rule-stale` for the fingerprint | step 3; `rule-stale` |
+-| WB6 | a near-copy at the approved location with one other word changed, keeping one `finit` word | FAIL `rule-negative-match` (sentence sha differs, so no allowance) | step 3: tied to the exact text |
+-| WB7 | the approved sentence with its one `finit` word removed | REVIEW_REQUIRED `rule-fingerprint-mismatch` (no negative match; step 4) | step 4 |
+-| WB8 | the approved sentence and its neighbours shifted by 40 lines (as L1) | PASS | context-bound, not line-bound |
++| WB3 | the fingerprinted sentence copied, unchanged, to another paragraph of a file in W1-c's scope | FAIL `rule-negative-match` at the copy (its context differs, so no allowance); the original still PASS | step 3: no reuse in other locations |
++| WB4 | the fingerprinted sentence copied to a file outside every W1 rule's scope | REVIEW_REQUIRED `unclassified` (no rule applies; step 1) | scope |
++| WB5 | the fingerprinted sentence moved (cut and pasted) to another paragraph of the same file | FAIL `rule-negative-match` at the new location; REVIEW_REQUIRED `rule-stale` for the fingerprint | step 3; `rule-stale` |
++| WB6 | a near-copy at the fingerprinted location with one other word changed, keeping one `finit` word | FAIL `rule-negative-match` (sentence sha differs, so no allowance) | step 3: tied to the exact text |
++| WB7 | the fingerprinted sentence with its one `finit` word removed | REVIEW_REQUIRED `rule-fingerprint-mismatch` (no negative match; step 4) | step 4 |
++| WB8 | the fingerprinted sentence and its neighbours shifted by 40 lines (as L1) | PASS | context-bound, not line-bound |
+ | WB9 | two fingerprints' sentences made identical in one file, so that one allowance is claimed twice | the claim at the larger byte offset gets no allowance: FAIL `rule-negative-match` | one grant per fingerprint |
+ | WB10 | lint: a W1-c rule whose allowance is 2, or 0, or names `axiom` (absent from the sentence) | FAIL `record-invalid` | sec. 6.3 (allowance equals the exact count) |
+ | WB11 | lint: a rule whose fingerprinted sentence fails its own rule (v5.1's W1-c, with no allowance) | FAIL `record-invalid` | sec. 6.3 self-PASS clause |
+ | WB12 | V7a on the W1-c sentence ("..., one of which is total finiteness,") | FAIL `rule-negative-match` | step 3 |
+-| WB13 | the approved sentence moved together with both of its neighbours (the three sentences, unchanged) to another section of the same file | PASS: the context, which defines the location, is unchanged | sec. 6.2, V5 |
+-| WB14 | the approved sentence with both neighbours duplicated in the same file, so that two copies satisfy step 3 | the copy at the smaller byte offset PASSes; the later copy FAILs `rule-negative-match`, on every run | sec. 6.2, V5 |
+-| WB15 | "Finiteness" (capitalized) added to a W1 sentence at its approved location | FAIL `rule-negative-match` (case-insensitive negatives) | sec. 6.2, O1 |
++| WB13 | the fingerprinted sentence moved together with both of its neighbours (the three sentences, unchanged) to another section of the same file | PASS: the context, which defines the location, is unchanged | sec. 6.2, V5 |
++| WB14 | the fingerprinted sentence with both neighbours duplicated in the same file, so that two copies satisfy step 3 | the copy at the smaller byte offset PASSes; the later copy FAILs `rule-negative-match`, on every run | sec. 6.2, V5 |
++| WB15 | "Finiteness" (capitalized) added to a W1 sentence at its fingerprinted location | FAIL `rule-negative-match` (case-insensitive negatives) | sec. 6.2, O1 |
+ | X11 | a control-harness PASS result of RT-E, presented with the pinned engine and configuration hashes | non-acceptance (`admission` is not `"chain"`); the harness never writes `result.json` | sec. 5 (B1) |
+ | TR1 | a run without `--freeze` | ERROR `CONFIG_UNREVIEWED`, exit 65 | sec. 6.3 |
+-| TR2 | a configuration whose sha256 is not in `F`'s pin table, with a matching `--config-sha256` | ERROR `CONFIG_UNREVIEWED` | sec. 6.3, configuration admission points 2-3 |
++| TR2 | a configuration whose sha256 is not in the pin table of the `PREREG.md` beside it | ERROR `CONFIG_UNREVIEWED` | sec. 6.3, configuration admission point 2 |
+ | TR3 | a review record placed beside the configuration, naming its blob, but not in `F`'s pin table | ERROR `CONFIG_UNREVIEWED` | configuration admission point 2 |
+-| TR5 | a complete run: `--freeze F` and `--pin-table` given; `F`'s pin table listing the configuration and its review; the run record read in a host CI job; `T`'s tool files equal to the checkout | `config.admission: "chain"` with every snapshot field of sec. 6.3 recorded (`F`, the pin table, the configuration, `T` and its tool blobs, the run, the evaluated commits); no field states an approval | positive control (CI only) |
+-| TR13 | a local run, all inputs otherwise valid | no `"chain"` admission; never acceptable | configuration admission point 4 |
+-| TR14 | the same workflow and tool run in a fork, or in another repository, and its result presented to the consumer in the canonical repository | non-acceptance at the consumer: the host does not report that run in the consumer's repository | execution identity point 4; sec. 5 |
+-| TR28 | a checkout of `T` in which one tool file differs from `T`'s blob (an engine module patched after checkout), or holds a file `T` does not (a compiled-bytecode file under `tools/ledger_coverage/`); separately, a result whose recorded tool blobs differ from `T`'s | ERROR at the tool in the first case; non-acceptance at the consumer, which reads `T`'s blobs itself, in both | sec. 6.3 execution identity point 2 (V3) |
++| TR5 | a complete run: `--freeze F` and `--config F:<path>` given; the `PREREG.md` beside the configuration, whose last `Record pins` subsection lists the configuration and its review; the run record read in a host CI job, with event `workflow_dispatch` and repository and head repository ids equal to `repository_id`; `T`'s tool files and workflow equal to the configuration's `tool` pins and to the checkout | `config.admission: "chain"` with every snapshot field of sec. 6.3 recorded (`F`, the pin table, the configuration, the run with its repository, head repository and event, `T` with its tool and workflow blobs, the evaluated commits) | positive control (CI only) |
++| TR13 | a local run, all inputs otherwise valid | no `"chain"` admission; never acceptable | configuration admission point 3 |
++| TR14 | the same workflow and tool run in a fork, or in another repository; separately, a `pull_request` run from a fork, executed and listed in the canonical repository (its `head_repository.id` is the fork's); separately, the same results presented to a consumer that runs in a fork | ERROR at the tool wherever it runs with the configuration at `F` (repository or head repository id differs from `repository_id`); non-acceptance at the consumer in every case | execution identity points 1, 4; sec. 5 (B-2) |
++| TR15 | a run of a workflow whose blob at `T` differs from `tool.workflow.blob_sha256` (a forged result written by a changed workflow step, review counterexample CX-2); separately, a same-named workflow at a path other than `tool.workflow.path` | ERROR at the tool; non-acceptance at the consumer | execution identity points 2, 4 (B-1) |
++| TR28 | a `T` whose tool blobs differ from the configuration's `tool.files` pins (an engine module changed, review counterexample CX-1), or that carries an extra file under `tools/ledger_coverage/` | ERROR at the tool; non-acceptance at the consumer, which reads the blobs itself | sec. 6.3 execution identity point 2 (V3, B-1) |
+ | TR29 | a run whose `head_sha` is the evaluated commit `X`; separately, a result whose recorded `T` differs from the producing run's `head_sha` | ERROR / non-acceptance in both | execution identity points 3-4 (V2) |
+ | TR30 | a result whose evaluated commits differ from the landing record's | non-acceptance | sec. 5 (V2) |
+ | TR45 | the offline replay of an accepted result from its committed snapshot: an op-B result; and an op-C result whose delegated classes (`tex`, `pdf`, `record-dir`, `sc42`, `coverage-ledger`, `ci`) are taken from the snapshot's delegated evidence, with no host call, clone, PDF build or checker run | output equal to the committed result except `config.admission.mode = "replay"`, for both; never acceptable as a new run; a snapshot whose recorded result file does not hash to its recorded sha256, or lacks the evidence for a class the result decided, makes the replay refuse | sec. 5 (C3, F2) |
+ | TR46 | a committed compressed result whose uncompressed sha256 differs from the recorded one | refused at landing | sec. 5 (C3) |
+-| TR48 | a valid run: the checkout under `tools/ledger_coverage/` and the entry point equal `T`'s tree, every entry a regular file | accepted: execution identity holds, and `T` with every tool blob is recorded (positive control) | sec. 6.3 execution identity point 2 (K7) |
++| TR48 | a valid `T` whose `tools/ledger_coverage/` and entry point hold exactly the configuration's `tool.files`, each a regular file with its pinned blob, and whose workflow blob equals the pin; the checkout equal to `T`'s tree | accepted: execution identity holds, and `T` with every tool and workflow blob is recorded (positive control) | sec. 6.3 execution identity point 2 (K7) |
++| TR50 | the workflow at `tool.workflow.path` at `T` modified (one byte changed) | ERROR (its blob differs from `tool.workflow.blob_sha256`); non-acceptance | execution identity point 2 (B-1) |
+ | TR51 | a symlink, separately a submodule entry, under `tools/ledger_coverage/` in `T`'s tree | ERROR in each case; non-acceptance | K7 |
+-| TR52 | an additional file under `tools/ledger_coverage/` in the checkout that `T`'s tree does not hold | ERROR; non-acceptance | K7 |
++| TR52 | an additional file under `tools/ledger_coverage/` at `T` that the configuration's `tool.files` does not name | ERROR; non-acceptance | K7 |
+ | G4 | `sc42` with a supplied result file claiming `verbose_equal: true`, while the clone's re-execution differs | FAIL `delegated-evidence-invalid`; the supplied file is not read as evidence | sec. 7.2 (B2) |
+ | G5 | `coverage-ledger` with a supplied census JSON; one STALE value at `X` differs from the census the tool runs | FAIL | sec. 7.2 |
+ | G6 | `tex` with a supplied preserve_check result reporting `pass`, while a TeX stamp at `X` is wrong | FAIL `delegated-evidence-invalid` | own re-derivation |
+@@ -2105,12 +2159,17 @@
+ | GV5 | a store lacking a parent that a bounded walk needs (a shallow store whose boundary lies inside E..H; separately, a partial store lacking a needed blob); and the positive direction: a shallow store that holds every object the run needs | ERROR in the first two, with no object fetched; the third proceeds as in a full store | object integrity, bounded walks |
+ | GV6 | a symlink entry at the configuration's path in `F`; separately at the pin table's path; separately at a record's path | refused in each case (ERROR `CONFIG_UNREVIEWED` for the first two; the record `record-invalid`) | object integrity, entries |
+ | GV7 | the host's REST API failing or incomplete, each case separately: the run record; the consumer's artifact list; the run and job records of a host-run class | no `"chain"` (ERROR `CONFIG_UNREVIEWED`); non-acceptance at the consumer; REVIEW_REQUIRED `delegated-evidence-missing` for the class, never PASS; no fallback source in any case | sec. 6.3, host reads |
++| EI1 | a checkout of `T` in which one tool file differs from `T`'s blob (an engine module patched after checkout), or holds a file `T` does not (a compiled-bytecode file under `tools/ledger_coverage/`) | ERROR at the tool | execution identity point 2 |
++| EI2 | a run whose event is `pull_request` (head in the canonical repository); separately `schedule`; separately `workflow_run` | ERROR at the tool; non-acceptance at the consumer | execution identity point 1 (B-1) |
++| EI3 | a result whose `F` differs from the landing record's; separately, whose pin table `{path, blob_sha256}` differs; separately, whose configuration path differs | non-acceptance in each case | sec. 5 (review N-1) |
++| EI4 | `F` holds the plan directory with its `PREREG.md` and a second directory whose `PREREG.md` lists another configuration: (a) that other configuration placed in the plan directory, listed only by the second `PREREG.md`; (b) a caller argument naming the second `PREREG.md` as pin table; (c) the plan's `PREREG.md` whose last `Record pins` subsection omits the configuration while an earlier one lists it; (d) no `PREREG.md` beside the configuration; separately, a malformed row in its last `Record pins` subsection | (a), (c), (d): ERROR `CONFIG_UNREVIEWED`; (b): USAGE, exit 64 (the run takes no pin-table argument) | configuration admission point 2 (B-3) |
++| EI5 | before landing, `git ls-remote` failing; separately, returning no `refs/heads/main` line or more than one; separately, an id that is not a full 40-hex id, or that the verified reader cannot read; separately, an id other than `L`'s first parent | the landing is refused in each case | sec. 13.4 (review N-2) |
+ 
+ ***
+ 
+ ## 11. Mapping of the mandatory sec. 11 checks (P's PREREG sec. 11) to the tool
+ 
+-Every command adds `--freeze F`, `--pin-table F:<path>` (sec. 6.3),
++Every command adds `--freeze F` (sec. 6.3),
+ `--config F:<record dir>/retirement-config.json` and `--out DIR`, and reads
+ `F`'s records by object id. Profiles, rules, the delegation contract and the HP obligations come
+ from the configuration record. Paths given as `F:...` below are resolved through it. `X` is the
+@@ -2365,6 +2424,9 @@
+ 
+ Immediately before landing, `M` is re-resolved from the remote `main` (`git ls-remote`, read-only)
+ and checked to equal `L`'s first parent. The landing record quotes the resolved id and the command.
++A failed `git ls-remote`, an output without exactly one `refs/heads/main` line, an id that is not a
++full 40-hex id or that the verified reader cannot read, or an id other than `L`'s first parent
++refuses the landing (control EI5).
+ 
+ **Sequencing safeguard (c.7093128173).** Before the tool lands, RT-L2 is run against a predicted
+ `M` that contains the tool's landing paths. It must show every side change classified and no
+@@ -2560,8 +2622,8 @@
+ 5. **Independent recount.** The figures labelled WN in sec. 0.3 need an independent recount before
+    they are used as references.
+ 6. **Item 7.** The amendment text itself is outside this design (sec. 11 note 1).
+-10. **Independent review of v6.0.** The owner's requirement 5: an independent reviewer confirms that
+-    no scientific or technical verification guarantee of v5.5.9 is weakened (`INVENTORY-v6.0.md`
++10. **Independent review of v6.0a against v6.0 and v5.5.9.** The owner's requirement 5: an independent reviewer confirms that
++    no scientific or technical verification guarantee of v5.5.9 is weakened (`INVENTORY-v6.0a.md`
+     table 4), and the AGENTS.md conclusion (table 5).
+ 11. **ESC-6 and the A1 evidence gaps.** Unchanged under the accepted Q10 disposition: ESC-1 to ESC-4
+     stay unresolved A1 evidence gaps; ESC-5 is administrative; ESC-6 (the correction of the S1
+@@ -2569,8 +2631,9 @@
+     of them blocks the tool's landing, and this design resolves none of them.
+ 12. **The plan amendment.** The later, separately authorized amendment of the A1 plan does not
+     refer to an authority record, a freeze ledger, comment forms or an automated authorization
+-    check (`INVENTORY-v6.0.md` table 6). It names the pin-table path each run passes as
+-    `--pin-table` (sec. 6.3).
++    check (`INVENTORY-v6.0a.md` table 6). Its frozen configuration carries the `tool` pins (tool
++    files and workflow) and the `repository_id` (sec. 16.2), and lies beside the `PREREG.md` whose
++    last `Record pins` subsection lists it (sec. 6.3).
+ 
+ ***
+ 
+@@ -2677,7 +2740,7 @@
+ |---|---|
+ | `schema` | `oi-retirement-config/1` |
+ | `config_id`, `version`, `supersedes` | identity; `supersedes` is `{path, blob_sha256}` or null |
+-| `retirement` | name and accountable Issue; optionally the owner login, informational only and never compared with anything |
++| `retirement` | name and accountable Issue |
+ | `roles` | `scientific_base` (full id); `pin` and `record_commit` (optional, for replay); `side_change_classes` (`{path, blob_sha256}`) |
+ | `corpus` | an exact path list, or declared path sets with stated patterns, in a scope record (sec. 6.3) |
+ | `adapters.ledger` | `{adapter, adapter_version, module: {path, blob_sha256}, path, blob_sha256, companion: [{role, path, blob_sha256}]}` |
+@@ -2692,6 +2755,8 @@
+ | `hp_obligations` | `[{segment: [from, to], merges: [{pr, commit, first_parent}]}]` |
+ | `delegation` | `{path, blob_sha256}` (`oi-delegation/1`) with `class_adapters: [{adapter, adapter_version, module: {path, blob_sha256}}]`, or null |
+ | `records` | every record and review record the run may use: `[{kind, path, blob_sha256}]`. A kind this design does not define, such as the retired `oi-owner-authorization/1`, is ERROR `CONFIG_INVALID` |
++| `tool` | `{files: [{path, blob_sha256}], workflow: {path, blob_sha256}}`: every file of the tool (the entry point and every file under `tools/ledger_coverage/`) and the workflow whose runs may produce an acceptable result (sec. 6.3, execution identity) |
++| `repository_id` | the numeric host id of the repository whose runs may produce an acceptable result (sec. 6.3) |
+ | `operations` | the supported subset of `record`, `coverage`, `execution` and `terms` |
+ | `controls` | `{path, blob_sha256}`: the retirement's preregistered control set (sec. 10, 11) with expected outcome rules |
+ | `author` | the configuration's writer; its review is a record under sec. 6.3 |
+@@ -2712,7 +2777,9 @@
+ - no profile name is duplicated, and every `final_profiles` entry of a check is a review profile listed in that check's `profiles`;
+ - every deny profile has examples in a rule file and a countercontrol named there, the countercontrol being a real line of a scanned file or a control-only input of the controls file;
+ - the controls file names at least one positive and one adversarial control per configured
+-  operation.
++  operation;
++- `tool.files` names the entry point and only paths under `tools/ledger_coverage/`, each once, and
++  `repository_id` is a positive integer.
+ 
+ **Widening (R8, V5).** Every change compared with the superseded configuration is widening, and
+ needs a `widening_review` under sec. 6.3, unless it is on this non-widening list:
+@@ -2738,6 +2805,7 @@
+ - an allow-rule file added, or a new allow rule without `supersedes`;
+ - a side-change class added or changed;
+ - an adapter added, or an adapter's module blob or `adapter_version` changed;
++- any change to `tool` or `repository_id`;
+ - an extractor kind or selector changed;
+ - a sentence abbreviation added, or `splitter_version` changed (merged sentences change what the
+   sentence-level DR-3 sees);
+@@ -2796,6 +2864,7 @@
+ | sentence abbreviations | `sentence.abbreviations` |
+ | the six pinned merges and PR numbers (sec. 3.1) | `hp_obligations[0]` (segment `[E, H]`) |
+ | tex/pdf/record-dir/sc42/coverage-ledger/ci classes, STALE ids, SC42_BASE ca3a5bb2, `tex_sources` rule, `a1exit-checker-result-v1` | `delegation.json` and the class adapters' parameters in it |
++| the tool's file and workflow pins; the repository id 1156244443 | `tool`, `repository_id` |
+ | W's workflow, the tool's landing paths | `roles.side_change_classes` |
+ | every HP, context, hit classification and review record | `records` |
+ | controls RT-*, SW*, the sec. 11 mapping and countercontrols | `controls` |
+@@ -2875,7 +2944,8 @@
+ - every record and review record used, by path and blob;
+ - the delegation record hash and each class adapter version;
+ - the HP obligation's pinned merges;
+-- the tool commit `T` and the engine blob hash (the entry point and every engine module).
++- the tool commit `T`, the run's repository, head repository and event, and the engine blob hash
++  (the entry point and every engine module), each tool blob equal to its `tool` pin.
+ 
+ Two runs with equal inputs produce byte-identical output (sec. 5). That is checked in CI by running
+ twice and comparing.
+@@ -2884,4 +2954,4 @@
+ 
+ | Step | Work | Acceptance |
+ |---|---|---|
+-| S13 | Configuration loader and validator, adapter admission by blob, the A1 configuration, the synthetic configuration | Z1-Z8, Z9a-Z9h, Z10, Z11 and Y1-Y10 behave; N2-N18, R18, R19, S4a, LN1-LN8, LN10, S11-57a-d, S11-58a-k, G9, TR1-TR3, TR5, TR13, TR14, TR28-TR30, TR45, TR46, TR48, TR51, TR52, GV1-GV7, WB13-WB15, X11, G4-G8, R16, R17, A12r, WB1-WB12, S11-56 and K10 behave; every A1 control has the same outcome as specified in sec. 10-11 of this document; no engine source contains an A1 constant (Z9) |
++| S13 | Configuration loader and validator, adapter admission by blob, the A1 configuration, the synthetic configuration | Z1-Z8, Z9a-Z9h, Z10, Z11 and Y1-Y10 behave; N2-N18, R18, R19, S4a, LN1-LN8, LN10, S11-57a-d, S11-58a-k, G9, TR1-TR3, TR5, TR13-TR15, TR28-TR30, TR45, TR46, TR48, TR50-TR52, GV1-GV7, EI1-EI5, WB13-WB15, X11, G4-G8, R16, R17, A12r, WB1-WB12, S11-56 and K10 behave; every A1 control has the same outcome as specified in sec. 10-11 of this document; no engine source contains an A1 constant (Z9) |

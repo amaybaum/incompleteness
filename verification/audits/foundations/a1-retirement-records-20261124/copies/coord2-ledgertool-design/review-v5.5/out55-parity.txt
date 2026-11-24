@@ -1,0 +1,9 @@
+overlap "aa" in "xaaay"                        both-ok-same
+chained: edit 2 old created by edit 1          extra-refuse-chained
+chained across image boundary                  extra-refuse-chained
+occurrence spanning a deletion                 extra-refuse-chained
+adjacent independent edits                     both-ok-same
+unicode offsets                                both-ok-same
+edit 2 selects variant 2 after edit 1 removes old both-ok-same
+random 30000: {'both-refuse': 26921, 'both-ok-same': 2860, 'extra-refuse-chained': 219}
+A1: both-ok-same

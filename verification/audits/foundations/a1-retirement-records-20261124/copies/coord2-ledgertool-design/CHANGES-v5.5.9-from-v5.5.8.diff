@@ -1,0 +1,29 @@
+--- DESIGN-v5.5.8.md	2026-11-23 20:24:09.479185814 +0000
++++ DESIGN-v5.5.9.md	2026-11-24 02:35:24.383840070 +0000
+@@ -1,4 +1,4 @@
+-# Commit-independent ledger and terminology verification tool: design v5.5.8
++# Commit-independent ledger and terminology verification tool: design v5.5.9
+ 
+ ## Status and authority
+ 
+@@ -7,6 +7,11 @@
+ - It supersedes v5.4 where they differ. `DESIGN.md` (v1), `DESIGN-v2.md` to `DESIGN-v5.md` and
+   `DESIGN-v5.1.md` to `DESIGN-v5.4.md` stay as written. This document is complete in itself; it is
+   not a diff. It is intended as the final design version.
++- **v5.5.9 amends the adopted v5.5.8 for owner decision D-1 of 2026-11-24 only.** It is
++  authoritative only after an independent check returns ACCEPT and the owner adopts it; until then
++  the authoritative design is v5.5.8 (sha256
++  f531948147b3638c5ad567f5ccf0eedfd04650a30be9fd0a9f2084aa13a77ad2). It changes one sentence of
++  sec. 15, item 0a, on when the empty freeze ledger lands. Nothing else changes.
+ - **v5.5.8 is a draft amendment of the frozen v5.5.3.** It is authoritative only after an
+   independent review returns ACCEPT and the owner adopts it; until then the frozen design is v5.5.3
+   (sha256 99e9ce3af5476e2ea4be1cab911e1aa2cf1c2d3b3a9bf7cf06fcb2f8cbfe3379). It supersedes the
+@@ -2801,7 +2806,7 @@
+    written, independently reviewed, approved by the owner's `oi-authority/1` comment and merged to
+    `main` before any freeze. It pins the owner id 7273571, the repository id 1156244443, the workflow
+    path and content hash, the engine pins, the plan id with its thread and rounds, the authority
+-   thread, the freeze-ledger path and the versioned forms. The empty freeze ledger lands with it.
++   thread, the freeze-ledger path and the versioned forms. The empty freeze ledger lands in its own merge after it, approved under “Owner at creation”.
+    The plan amendment refers to these values. It cannot set them.
+ 0. **RT-L2 at current `main` (Stage 1 review B7).** At `main`, `AGENTS.md` is `base-drift` and
+    `.claude/settings.json` is an unclassified side change, so the sequencing safeguard of

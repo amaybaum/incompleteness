@@ -1,0 +1,162 @@
+--- a/verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json
++++ b/verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json
+@@ -3,11 +3,9 @@
+  "config_id": "a1exit-retirement-config",
+  "version": 1,
+  "supersedes": null,
+- "notes": "UNREVIEWED AND UNAUTHORIZED DRAFT, NOT ADMITTED. Staged outside the tool landing at the path it would have in the retirement plan record directory (design sec. 16.2); it is not part of any plan freeze. No independent review record, no owner authorization record, no pin-table entry and no freeze F exist; it is admitted only through the pin table of a designated freeze (sec. 6.3), so the tool refuses it with ERROR CONFIG_UNREVIEWED. The ledger, edit list and plan checker are pinned at the frozen plan P until the amended plan is frozen at F.",
+  "retirement": {
+   "name": "A1-EXIT",
+-  "issue": "#1169",
+-  "owner": 7273571
++  "issue": "#1169"
+  },
+  "roles": {
+   "scientific_base": "53c6601a10419b6b333cc992474272501ab542af",
+@@ -32,19 +30,16 @@
+     "path": "tools/ledger_coverage/adapters/a1exit_exact_edit.py",
+     "blob_sha256": "efdc8bf861d8e057f2f50612ef8dea0415705a0815f6bac6e3984fd6a03bf21d"
+    },
+-   "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+    "path": "verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+    "blob_sha256": "2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5",
+    "companion": [
+     {
+      "role": "edits",
+-     "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+      "path": "verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+      "blob_sha256": "528f146d03b29cbc3d7dc29948e3dd1d4cd26f4d36e6e009f032e24f9462dec1"
+     },
+     {
+      "role": "checker",
+-     "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+      "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
+      "blob_sha256": "2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c"
+     }
+@@ -150,7 +145,7 @@
+    "applies_to": "tree",
+    "scope": "corpus",
+    "source": {
+-    "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
++    "commit": null,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
+     "extractor": {
+      "kind": "python-ast-assign",
+@@ -166,7 +161,7 @@
+    "applies_to": "tree",
+    "scope": "repo",
+    "source": {
+-    "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
++    "commit": null,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
+     "extractor": {
+      "kind": "python-ast-assign",
+@@ -221,7 +216,7 @@
+    "applies_to": "added-text",
+    "scope": "ledgered",
+    "source": {
+-    "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
++    "commit": null,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
+     "extractor": {
+      "kind": "python-ast-assign",
+@@ -237,7 +232,7 @@
+    "applies_to": "added-text",
+    "scope": "ledgered",
+    "source": {
+-    "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
++    "commit": null,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
+     "extractor": {
+      "kind": "python-ast-assign",
+@@ -265,7 +260,7 @@
+    "applies_to": "added-text",
+    "scope": "ledgered",
+    "source": {
+-    "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
++    "commit": null,
+     "path": "verification/audits/foundations/a1exit-deletion-20261121/edits_check.py",
+     "extractor": {
+      "kind": "python-ast-assign",
+@@ -465,8 +460,8 @@
+    "blob_sha256": "7aa1412206f7bf5fec1d3573d76e1b91c0f6bc8f67704a1dcb75344d09aac221"
+   },
+   {
+-   "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/w1-w2-allow-v1.json",
+-   "blob_sha256": "0cbb97c98725cba618598650b0cd9c687c97e280b3422c4ad6e62794a222b171"
++   "path": "verification/audits/foundations/a1exit-deletion-20261121/w1-w2-allow-v2.json",
++   "blob_sha256": "<SHA256 OF w1-w2-allow-v2.json>"
+   },
+   {
+    "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/register-infinity-params-v1.json",
+@@ -660,8 +655,70 @@
+    "kind": "hit-classification",
+    "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/gr58-hit-classification-v1.json",
+    "blob_sha256": "8177b0923a7eddf09c473ce541e4c23de53067429a31d52260aa35f0bafa8410"
++  },
++  {
++   "kind": "review",
++   "path": "verification/audits/foundations/a1exit-deletion-20261121/review-w1-w2-allow-v1.json",
++   "blob_sha256": "<SHA256 OF review-w1-w2-allow-v1.json>"
++  },
++  {
++   "kind": "review",
++   "path": "verification/audits/foundations/a1exit-deletion-20261121/widening-review-w1-w2-allow-v1.json",
++   "blob_sha256": "<SHA256 OF widening-review-w1-w2-allow-v1.json>"
++  },
++  {
++   "kind": "review",
++   "path": "verification/audits/foundations/a1exit-deletion-20261121/review-w1-w2-allow-v2.json",
++   "blob_sha256": "<SHA256 OF review-w1-w2-allow-v2.json>"
++  },
++  {
++   "kind": "review",
++   "path": "verification/audits/foundations/a1exit-deletion-20261121/review-dr-deny-v1.json",
++   "blob_sha256": "<SHA256 OF review-dr-deny-v1.json>"
++  },
++  {
++   "kind": "review",
++   "path": "verification/audits/foundations/a1exit-deletion-20261121/review-resid-v1.json",
++   "blob_sha256": "<SHA256 OF review-resid-v1.json>"
++  },
++  {
++   "kind": "review",
++   "path": "verification/audits/foundations/a1exit-deletion-20261121/review-register-infinity-params-v1.json",
++   "blob_sha256": "<SHA256 OF review-register-infinity-params-v1.json>"
++  },
++  {
++   "kind": "review",
++   "path": "verification/audits/foundations/a1exit-deletion-20261121/review-repo-scope-v1.json",
++   "blob_sha256": "<SHA256 OF review-repo-scope-v1.json>"
++  },
++  {
++   "kind": "review",
++   "path": "verification/audits/foundations/a1exit-deletion-20261121/review-side-change-classes-v1.json",
++   "blob_sha256": "<SHA256 OF review-side-change-classes-v1.json>"
++  },
++  {
++   "kind": "review",
++   "path": "verification/audits/foundations/a1exit-deletion-20261121/review-gr58-hit-classification-v1.json",
++   "blob_sha256": "<SHA256 OF review-gr58-hit-classification-v1.json>"
+   }
+  ],
++ "tool": {
++  "files": [
++   {
++    "path": "tools/ledger_coverage.py",
++    "blob_sha256": "<SHA256 AT T>"
++   },
++   {
++    "path": "tools/ledger_coverage/<EVERY FILE UNDER THIS DIRECTORY AT T>",
++    "blob_sha256": "<SHA256 AT T>"
++   }
++  ],
++  "workflow": {
++   "path": ".github/workflows/<THE PINNED WORKFLOW AT T>",
++   "blob_sha256": "<SHA256 AT T>"
++  }
++ },
++ "repository_id": 1156244443,
+  "operations": [
+   "record",
+   "coverage",

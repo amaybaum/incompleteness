@@ -1,0 +1,40 @@
+{
+ "schema": "oi-side-change-classes/1",
+ "record_id": "side-change-classes-trial-workflow-v1",
+ "status": "UNREVIEWED, UNAUTHORIZED DRAFT. Not a record under DESIGN-v5.1 sec. 6.3: it has no independent review record and no owner authorization record, and under the review chain the tool must reject it (record-invalid; the configuration that references it is CONFIG_UNREVIEWED). Field spelling follows the Stage 1 implementation at commit 8c1e628a, which is itself under independent review; see DRIFT-FINAL-NOTES.md for each difference from the r3 proposal and which choices depend on Stage 1.",
+ "author": "<PLACEHOLDER/author: the writer's name, filled in before review>",
+ "supersedes": null,
+ "scientific_base": "53c6601a10419b6b333cc992474272501ab542af",
+ "classes": [
+  {
+   "id": "trial-workflow",
+   "paths": [
+    ".github/workflows/a1exit-trial-verify.yml"
+   ],
+   "reason": "The A1-EXIT trial workflow. PREREG section 31.12.7 at P defines W as the workflow base that decides how each trial is checked; preserve_check.py --verify-run requires this blob at every dispatch head.",
+   "basis": [
+    "#1169 comment 7099655517 (amaybaum, 2026-11-23T11:26:50Z): classified as the trial workflow",
+    "PREREG.md section 31.12.7 at 4c79be642ca631573f06b444903be75ec4f5e2b6 (workflow base W = 413b0bb88f39cad901befcf4684355c7ee39480b)",
+    "DESIGN-v5.1 sec. 13.1 and 16.4"
+   ],
+   "blob_sha256": "f8c36855cf6e61891cbbd41011714af503b094b9dd63065ac042304817621646",
+   "git_blob": "bca44ac06691363d10c70e8db2a3d352830488f2",
+   "blob_at_H": {
+    "git_blob": "dfcfd732b567304db1db5181133da8440a9f4df3",
+    "blob_sha256": "5c767c9fb0166ad282664b0a8e3b2ec824493f24d5832514b61bdb71e27ee747"
+   },
+   "introduced_by_first_parent_commit": "413b0bb88f39cad901befcf4684355c7ee39480b",
+   "ledgered": false,
+   "corpus": false
+  }
+ ],
+ "checks": [
+  "the blob at the resolved main equals classes[0].blob_sha256 and git_blob; otherwise the path is REVIEW side-change-unclassified (the Stage 1 tool at 8c1e628a matches by path only and does not yet read these two fields; see DRIFT-FINAL-NOTES.md)",
+  "the path is in no ledger files entry and in no corpus path set of the configuration"
+ ],
+ "ownership_chain": {
+  "review_record": "<PLACEHOLDER/review: a separate oi-review-record/1 file whose reviewed = {path, blob_sha256} of this file's final blob, by a non-author>",
+  "owner_authorization": "<PLACEHOLDER/authorization: a separate oi-owner-authorization/1 file with owner, time and comment_id, listing {record, review} by {path, blob_sha256}>",
+  "note": "this block exists only in the draft and is removed before review; an authorization cannot sit inside the record it authorizes"
+ }
+}

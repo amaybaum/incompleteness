@@ -1,0 +1,16 @@
+{
+ "grants": [
+  {
+   "id": "PL1-comment-1509-20261124",
+   "op": "comment.create.api",
+   "scope": "validation",
+   "target": "1509",
+   "state_dir": "<write-state>",
+   "text_sha256": "ba1c1d4e76646d0c7497a3d72b1b5cea3b4ddd8adafff80cad9fb17cd72bd591",
+   "conditions": [],
+   "rule_blob": "6b1280fa92fa30e36555e9afd30cc0d6e992f5bb",
+   "owner_record": "<OWNER RECORD PLACEHOLDER: the owner's recorded decision, quoted with author and time>",
+   "note": "One comment on Issue #1509 = plan-1509.md (2383 bytes; condition footer=canonical;nl=0). Tool gh_write.py v3 sha256 c9ecaf232d289ea8b19eaa440d7867f3ba13812e4685962219d36cfcf212d78e. Bound to AGENTS.md blob 6b1280fa92fa30e36555e9afd30cc0d6e992f5bb. Grants no other operation, target or text; no retry without a separate owner decision. Consumable only in <write-state>."
+  }
+ ]
+}

@@ -1,0 +1,38 @@
+A rows 506 B rows 522 retained 486 modified 19 removed 1 added 17
+MOD X10
+MOD WB3
+MOD WB4
+MOD WB5
+MOD WB6
+MOD WB7
+MOD WB8
+MOD WB13
+MOD WB14
+MOD WB15
+MOD TR2
+MOD TR5
+MOD TR13
+MOD TR14
+MOD TR28
+MOD TR48
+MOD TR52
+MOD `retirement`
+MOD S13
+REM v5.4 review V3 and R-D3: the executed code bound to the tool
+ADD v5.4 review V3 and R-D3: the executed code and workflow boun
+ADD v6.0 review B-1 to B-4, N-1 to N-6 (v6.0a)
+ADD Class identifier
+ADD `authorized-replacement`
+ADD `authorized-removal`
+ADD `unauthorized-edit`
+ADD `unauthorized-change`
+ADD TR15
+ADD TR50
+ADD EI1
+ADD EI2
+ADD EI3
+ADD EI4
+ADD EI5
+ADD `tool`
+ADD `repository_id`
+ADD the tool's file and workflow pins; the repository id 1156244

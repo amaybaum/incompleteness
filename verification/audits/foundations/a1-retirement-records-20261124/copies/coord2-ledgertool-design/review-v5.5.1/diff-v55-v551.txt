@@ -1,0 +1,64 @@
+1c1
+< # Commit-independent ledger and terminology verification tool: design v5.5
+---
+> # Commit-independent ledger and terminology verification tool: design v5.5.1
+9a10,16
+> - v5.5.1 differs from `DESIGN-v5.5.md` (sha256
+>   74db584a5bdb861519f9703e3b5d102ba07a60dfd0e8f89ea183bd89a80b52a4) only by the corrections F2
+>   (delegated evidence in the admission snapshot; replay of op-C results), F1 (control S11-58k
+>   completed) and N1 (wording of chained edits) of the final bounded review,
+>   `review-v5.5/review-v5.5.md` (sha256
+>   8c77254a7291e75fe8caff01185e3f9896ace2a18a881497241fc4c51cc5f9ac, verdict ACCEPT WITH REQUIRED
+>   CORRECTIONS). `CHANGES-v5.5.1.md` lists every changed passage.
+774,777c781,797
+< - **Offline replay (C3).** `replay --snapshot <path> --out DIR` recomputes the result from git
+<   objects and the committed snapshot alone, with admission taken from the snapshot and written as
+<   `"admission": {"mode": "replay", ...}`. Apart from that one field, its output must equal the
+<   committed result byte for byte (canonical JSON, sec. 5). An independent verifier can therefore
+---
+> - **Offline replay (C3, F2).** `replay --snapshot <path> --out DIR` recomputes the result from git
+>   objects and the committed snapshot alone. Admission is taken from the snapshot and written as
+>   `"admission": {"mode": "replay", ...}`.
+> 
+>   For op C, every delegated and native class is decided from the snapshot's delegated evidence
+>   (sec. 6.3). Replay does not call the host, clone the repository, build PDFs or rerun any checker.
+>   It re-applies the tool's own verification rules of sec. 7.2 and 7.3 to the recorded host records,
+>   hashes and checker outputs and to the git objects, for example:
+>   - the TeX stamps and path set;
+>   - LEDGER.json against `H` plus its splices and the recorded census values;
+>   - SC-42's committed file against the recorded `--verbose` output;
+>   - the recorded `pdf` and `ci` records against `X`'s ids and the artifact hash.
+> 
+>   Every recorded result file must also hash to the sha256 recorded beside it.
+> 
+>   Apart from the admission field, the replay's output must equal the committed result byte for
+>   byte (canonical JSON, sec. 5), for op B and op D results as well as for op C results. An independent verifier can therefore
+966,967c986,989
+<   - **(iii) Chained edits** (S11-58j). A later edit's selected occurrence lies wholly or partly
+<     inside an image an earlier edit inserted. P applies such edits, but no set of disjoint splices
+---
+>   - **(iii) Chained edits** (S11-58j, S11-58k). A later edit's selected occurrence lies wholly or
+>     partly inside an image an earlier edit inserted, or spans the point where an earlier edit's
+>     image, possibly empty (a deletion), was inserted; in the segment model it then crosses more than
+>     one segment. P applies such edits, but no set of disjoint splices
+1378a1401,1412
+> - **the delegated evidence (F2)**, for every delegated and native class of sec. 7.3, at `X` and, where
+>   `C` differs, at `C`:
+>   - the host records the tool read for the class, as the host returned them (run and job records
+>     with their ids, `head_sha`, workflow path, names and conclusions; for `pdf`, the artifact
+>     record), in canonical JSON;
+>   - the sha256 of every artifact and result file the class used;
+>   - the outputs of every checker the tool ran natively: for each run, the checker blob sha256, the
+>     exact command line, the working directory, the exit status, and the complete bytes of each
+>     result file it wrote and of each output the class compares (for example SC-42's `--verbose`
+>     and `--self-test` outputs, `proof_census.py --json`, and preserve_check's result files for
+>     `tex` and `pdf`);
+>   - the class's own recorded re-derivations (sec. 7.2);
+2141c2175
+< | TR45 | the offline replay of an accepted result from its committed snapshot | output equal to the committed result except `config.admission.mode = "replay"`; never acceptable as a new run | sec. 5 (C3) |
+---
+> | TR45 | the offline replay of an accepted result from its committed snapshot: an op-B result; and an op-C result whose delegated classes (`tex`, `pdf`, `record-dir`, `sc42`, `coverage-ledger`, `ci`) are taken from the snapshot's delegated evidence, with no host call, clone, PDF build or checker run | output equal to the committed result except `config.admission.mode = "replay"`, for both; never acceptable as a new run; a snapshot whose recorded result file does not hash to its recorded sha256, or lacks the evidence for a class the result decided, makes the replay refuse | sec. 5 (C3, F2) |
+2163c2197
+< | S11-58k | chained across the image boundary: edit 1 `ab q` → `xy` at `"ab qc"`; edit 2 selects its second variant `yc`, which spans the image and original text | ERROR (chained); P applies | V1 |
+---
+> | S11-58k | chained across the image boundary: `H` = `"ab qc"`; edit 1 `{old: "ab q", new: "xy"}`; edit 2 `{old: "qc", new: "Q", old_step2: "yc", new_step2: "Q"}`. Edit 2's `old` occurs once at `H`; after edit 1 the text is `"xyc"`, `qc` no longer occurs, and P selects `yc`, which spans edit 1's image and the original `c`; the ledger holds edit 1's splice | ERROR `SOURCE_CHANGED` naming edit 2 (chained); P applies the list, with result `"xQ"` | V1 (F1) |

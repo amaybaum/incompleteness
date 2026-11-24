@@ -1,0 +1,41 @@
+7617,7631c7617,7636
+< {[}(S, φ){]}/\(\mathcal{G}_{\text{sub}}\) --- they hold for every
+< bijection satisfying the six structural properties. These include,
+< conditionally on H-link with its single-copy clause and H-cust
+< (§4.5--§4.6): SU(3) × SU(2) × U(1) with multiplicities (3, 2, 1), three
+< generations (chirality conditional on H-χ', §4.8) with identical gauge
+< quantum numbers, one Higgs doublet (1, 2, +1/2), taken as input and
+< accommodated in the E projection of the singlet taste (Theorem 11),
+< unique hypercharges from anomaly cancellation (apart from the
+< exceptional branch \(Y_Q=0\)), and the universal induced coupling
+< \(1/\alpha_0 = 23.25\) (§6.1). These are theorems on the branch stated
+< in §1 (Tier 2), with the conditions marked at each entry. The horizon
+< calibration \(\hbar = c^3\epsilon^2/(4G\sigma)\) and the
+< Bekenstein-Hawking coefficient it matches hold for the same class as
+< consistency relations conditional on H-slope ({[}GR §3.2, §4--§5{]}).
+< They do not depend on which specific φ describes our universe.
+---
+> {[}(S, φ){]}/\(\mathcal{G}_{\text{sub}}\) --- they hold under the
+> assumptions of the local spatial/gauge construction of §2.3 together
+> with cubic-group representation theory, and under the conditions marked
+> at each entry. These include, conditionally on H-link with its
+> single-copy clause and H-cust (§4.5--§4.6): SU(3) × SU(2) × U(1) with
+> multiplicities (3, 2, 1), three generations (chirality conditional on
+> H-χ', §4.8) with identical gauge quantum numbers, one Higgs doublet (1,
+> 2, +1/2), taken as input and accommodated in the E projection of the
+> singlet taste (Theorem 11), unique hypercharges from anomaly
+> cancellation (apart from the exceptional branch \(Y_Q=0\)), and the
+> universal induced coupling \(1/\alpha_0 = 23.25\) (§6.1). These are
+> theorems on the branch stated in §1 (Tier 2), with the conditions marked
+> at each entry. The horizon calibration
+> \(\hbar = c^3\epsilon^2/(4G\sigma)\) and the Bekenstein-Hawking
+> coefficient it matches hold for the same class as consistency relations
+> conditional on H-count, which includes finiteness of the total system
+> and a conserved energy shell, and on H-slope, H-frame, the horizon and
+> frame conditions, local boost structure and the symmetric
+> detailed-balance rate ratio ({[}GR §2.3, §3.2, §4--§5, §8.5{]}). They do
+> not depend on which specific φ describes our universe.
+9033c9038
+< % source-sha256: 90fe2c154d7b5e8cc6e0c7d5d003ce1a47aaeda59d74a492db41489ebdbc7091
+---
+> % source-sha256: c4d01e0e6291df2801df3e59e48093c4f455c5236d35f6670c8855d114844d24
