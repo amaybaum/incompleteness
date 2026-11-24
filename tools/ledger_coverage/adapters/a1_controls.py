@@ -13,8 +13,11 @@ where PATH is its path in the plan's record directory; the runner builds an in-m
 plus the staged file at PATH, and reads the configuration from it. The predicted main carries only the tool's
 landing.
 
+`--main REV` names the `main` commit the sec. 13.4 sequencing safeguard (RT-L2) and the drift classes are measured
+against; it is required, and the runner exits with status 2 when it is absent or unresolvable.
+
 Usage: python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo DIR --config REV:PATH
-       --staged-config FILE --out DIR [--only ID,ID] [--skip-sweeps]
+       --staged-config FILE --main REV --out DIR [--only ID,ID] [--skip-sweeps]
 """
 import argparse
 import collections
@@ -44,7 +47,6 @@ LEDGER = P + ':' + PL + 'ledger.json'
 EDITS = P + ':' + PL + 'edits.json'
 FULL = 'book/The-Incompleteness-of-Observation-FULL.md'
 WF = '.github/workflows/a1exit-trial-verify.yml'
-MAIN = '8e9b83341cf5bc7fd9fb260892d0385fc9bfab4d'  # main at the time of this implementation
 
 
 def sha(b):
@@ -58,8 +60,9 @@ def simulated_freeze(repo, rev, path, staged_bytes):
 
 
 class A1:
-    def __init__(self, repo_path, config_ref, out_root, staged=None):
+    def __init__(self, repo_path, config_ref, out_root, staged=None, main=None):
         self.base = gitobj.GitRepo(repo_path)
+        self.main = main  # the main commit the safeguard is measured against (--main)
         self.repo = gitobj.Overlay(self.base)
         self.repo_path = repo_path
         rev, self.cpath = config_ref.split(':', 1)
@@ -758,8 +761,8 @@ def drift_classes(a):
         return a._drift
     classes = []
     for cid, path in (('trial-workflow', WF), ('tool-configuration', '.claude/settings.json')):
-        b = a.repo.read(MAIN, path)
-        classes.append({'id': cid, 'pins': [{'path': path, 'git_blob': a.repo.blob_id(MAIN, path),
+        b = a.repo.read(a.main, path)
+        classes.append({'id': cid, 'pins': [{'path': path, 'git_blob': a.repo.blob_id(a.main, path),
                                              'blob_sha256': sha(b)}]})
     doc = {'schema': 'oi-side-change-classes/1', 'record_id': 'control-drift-classes', 'author': 'control-writer',
            'supersedes': None, 'classes': classes}
@@ -909,7 +912,7 @@ def tree_controls(a, tool_files):
              'landing-drops-main-change' in classes(res_b),
              "composition PASS; the workflow at L equals W's blob; the mutant with H's copy FAILs "
              'landing-drops-main-change', {'exit': code, 'mutant': classes(res_b)})
-    main = MAIN
+    main = a.main
     out = {}
     for label, M in (('main', main),):
         if M is None:
@@ -961,9 +964,9 @@ def tree_controls(a, tool_files):
                        'or the configuration\'s pin of the class record); no base-drift and no '
                        'side-change-unclassified among the MAIN items with the drafted reconciliation record; and the '
                        'real AGENTS.md drift is shown: base-drift without that record, base-drift reconciled with it',
-             finding='Predicted main = 8e9b8334 plus this tool\'s landing files (the configuration not among them, '
-                     'design sec. 16.2), with the drafted reconciliation record for AGENTS.md and pinned classes for '
-                     'the trial workflow and .claude/settings.json.')
+             finding='Predicted main = %s (--main) plus this tool\'s landing files (the configuration not among '
+                     'them, design sec. 16.2), with the drafted reconciliation record for AGENTS.md and pinned classes '
+                     'for the trial workflow and .claude/settings.json.' % a.main[:8])
 
 
 # ---- K1: the reference graph of the landing and the freeze ---------------------------------------------------
@@ -1218,14 +1221,22 @@ def main():
     ap.add_argument('--syn-engine', default=None)
     ap.add_argument('--staged-config', default=None,
                     help='the staged configuration file; --config REV:PATH names its path in the plan directory')
+    ap.add_argument('--main', default=None,
+                    help='required: the main commit the sequencing safeguard (RT-L2) and the drift classes use')
     args = ap.parse_args()
+    if not args.main:
+        ap.error('--main is required: the main commit the sequencing safeguard is measured against')
+    try:
+        main_c = gitobj.GitRepo(args.repo).resolve(args.main)
+    except Exception as exc:
+        ap.error('--main %s does not resolve: %s' % (args.main, exc))
     os.makedirs(args.out, exist_ok=True)
     out_root = tempfile.mkdtemp(prefix='a1-controls-', dir=args.out)
     cref = args.config
     tool_files = {}
     a0 = gitobj.GitRepo(args.repo)
     rev, cpath = cref.split(':', 1)
-    probe = A1(args.repo, cref, out_root, args.staged_config)
+    probe = A1(args.repo, cref, out_root, args.staged_config, main_c)
     ad = probe.ad.rstrip('/')
     if args.overlay_from_disk:
         for root in ('tools/ledger_coverage', ad):
@@ -1235,7 +1246,7 @@ def main():
                     p = os.path.relpath(os.path.join(dp, f), args.repo)
                     tool_files[p] = open(os.path.join(dp, f), 'rb').read()
         tool_files['tools/ledger_coverage.py'] = open(os.path.join(args.repo, 'tools/ledger_coverage.py'), 'rb').read()
-        a = A1(args.repo, '%s:%s' % (a0.resolve(rev), cpath), out_root, args.staged_config)
+        a = A1(args.repo, '%s:%s' % (a0.resolve(rev), cpath), out_root, args.staged_config, main_c)
         wt = a.repo.derive(a.crev, tool_files, subject='working files')
         a.crev = wt
         a.csha = sha(a.repo.read(wt, cpath))
