@@ -2,8 +2,9 @@
 creation, DI-1), the acceptance predicate X11 and the durable evidence TR45/TR46, native delegation G4-G9 on a small
 on-disk repository, commits after X R16/R17, widening A12r, purity Z9h, the synthetic parts of S4a and Z11, the
 lineage controls LN1-LN12 (DI-2), one review verdict per added ledger event (R6-EV), and the controls for the
-independent reviews' findings (R3-*, R4-*, R5-*, R6-G1 to R6-G9, and TR32 with the engine's own admission snapshot,
-TR32-OWN).
+independent reviews' findings (R3-*, R4-*, R5-*, R6-G1 to R6-G9, TR32 with the engine's own admission snapshot,
+TR32-OWN, and R7-B2 and R7-N5*: a snapshot event conflicting with the thread, and one observed event recorded more
+than once).
 
 Every control is reported as {id, expected, predicate, actual, status} with status PASS, FAIL, SKIP or NOT RUN
 (sec. 10.4, B6). A control that needs the real host (a CI job with the host's API) is NOT RUN here, never PASS.
@@ -11,6 +12,7 @@ Every control is reported as {id, expected, predicate, actual, status} with stat
 Usage: python3 -I -B tools/ledger_coverage/adapters/conformance_controls.py OUT_DIR
 """
 import copy
+import datetime
 import gzip
 import hashlib
 import io
@@ -2748,6 +2750,306 @@ def r6_g9(t):
           all(_refused5(o['point5'], 'edits', 'cannot be read') and _unreviewed(o['full']) for o in out.values()))
 
 
+# ---- the seventh independent review's findings: a snapshot event conflicting with the thread (R7-B2) and one
+# observed event recorded more than once (R7-N5)
+
+def r7_b2(t):
+    """B-2: the engine's own admission snapshot, committed with the designation event's first line, and separately its
+    author, differing from the thread's comment (sec. 6.3, reconciliation: "a ledger or snapshot event that conflicts
+    with the thread refuses")."""
+    snap_path = hf.LEDGER_PATH.rsplit('/', 1)[0] + '/landings/round-1/snapshot.json'
+    out = {}
+    for name in ('(positive) committed as built', 'first line differs', 'author differs'):
+        w = t.world()
+        F = t.freeze(w)
+        d = w.designate(F)
+        try:
+            snap = auth.admit(w.h, t.repo, w.run_id, hf.PLAN, hf.ROUND, F, t.p)[1]
+        except Exception as exc:
+            out[name] = {'error': '%s: %s' % (type(exc).__name__, exc)}
+            continue
+        s = copy.deepcopy(snap)
+        evs = [e for e in s['events'] if e['comment_id'] == d['id']]
+        if name == 'first line differs':
+            evs[0]['first_line'] = 'oi-freeze/1 designate plan=%s round=%s commit=%s' % (hf.PLAN, hf.ROUND, 'ef' * 20)
+        elif name == 'author differs':
+            evs[0]['author_id'] = 31337
+        w.add_main(_next(w), {snap_path: hf.jb(s)})
+        out[name] = {'designation events in the snapshot': len(evs), 'point5': _p5(t, w, F), 'full': _fullx(t, w, F)}
+    pos = out.get('(positive) committed as built', {})
+    neg = [v for k, v in out.items() if not k.startswith('(positive)')]
+    check('R7-B2', 'the engine\'s own admission snapshot of F committed on main with the designation event\'s first '
+          'line, and separately its author numeric id, differing from the thread\'s comment (sec. 6.3, '
+          'reconciliation: "a ledger or snapshot event that conflicts with the thread refuses"): ERROR in each; the '
+          'snapshot committed as built does not stop F\'s admission',
+          "each conflicting case: point 5 refuses at point 'ledger' naming the conflict with the thread; the full "
+          "chain exits 65 CONFIG_UNREVIEWED naming it; the positive admits F and its full chain exits 0", out,
+          pos.get('point5', {}).get('admitted') is True and pos.get('full', {}).get('exit') == 0 and len(neg) == 2 and
+          all(o.get('designation events in the snapshot') == 1 and
+              _refused5(o.get('point5', {}), 'ledger', 'conflicts with the thread') and
+              _unreviewed(o.get('full', {}), 'conflicts with the thread') for o in neg))
+
+
+def _r7_wd_line(F, rnd=None):
+    return 'oi-freeze/1 withdraw plan=%s round=%s commit=%s' % (hf.PLAN, rnd or hf.ROUND, F)
+
+
+def _r7_guarded(fn):
+    try:
+        return fn()
+    except Exception as exc:
+        return {'error': '%s: %s' % (type(exc).__name__, exc)}
+
+
+R7_SNAP = hf.LEDGER_PATH.rsplit('/', 1)[0] + '/landings/round-1/snapshot.json'
+
+
+def _r7_landed(t, where='ledger+snapshot', edit=None, extra_ledger=()):
+    """F designated, W (an owner comment) withdraws F, F2 designated; F2 admitted, and its own admission snapshot
+    landed as an acceptance landing lands it: the snapshot committed and W appended to the freeze ledger (`where`:
+    'ledger+snapshot'; separately 'two snapshots'; separately 'same snapshot twice in its list'). `edit(lev, s, sev,
+    F2)` may change the ledger's record of W (`lev`), the snapshot (`s`) or the snapshot's record of W (`sev`);
+    `extra_ledger` are ledger records placed before W's."""
+    w = t.world()
+    F = t.freeze(w)
+    F2 = t.freeze(w, extra={'syn/other.txt': b'2\n'})
+    w.designate(F)
+    W = w.comment(hf.PLAN_ISSUE, _r7_wd_line(F))
+    d2 = w.designate(F2)
+    snap = auth.admit(w.h, t.repo, w.run_id, hf.PLAN, hf.ROUND, F2, t.p)[1]
+    wev = [e for e in snap['events'] if e['comment_id'] == W['id']][0]
+    lev = {k: wev[k] for k in ('kind', 'commit', 'by', 'comment_id', 'created_at', 'author_id', 'first_line')}
+    lev.update(plan=hf.PLAN, round=hf.ROUND)
+    s = copy.deepcopy(snap)
+    if edit is not None:
+        edit(lev, s, [e for e in s['events'] if e['comment_id'] == W['id']][0], F2)
+    if 'ledger' in where:
+        w.land_ledger(hf.jb({'schema': auth.ledger_schema,
+                             'events': [x(W, F, F2) if callable(x) else x for x in extra_ledger] + [lev]}))
+    if where == 'same snapshot twice in its list':
+        s['events'].append(copy.deepcopy(wev))
+    if 'snapshot' in where:
+        w.add_main(_next(w), {R7_SNAP: hf.jb(s)})
+    if where == 'two snapshots':
+        w.add_main(_next(w), {R7_SNAP.replace('round-1', 'round-1b'): hf.jb(s)})
+    return w, F, F2, W, d2
+
+
+def _r7_deleted(t, w, F, F2, W, both=True):
+    w.comments[(hf.REPO_ID, hf.PLAN_ISSUE)].remove(W)
+    o = {'W deleted: F2': _p5(t, w, F2), 'W deleted: F2 full chain': _fullx(t, w, F2)}
+    if both:
+        o['W deleted: F'] = _p5(t, w, F)
+    return o
+
+
+def _r7_admits(o):
+    return o.get('W deleted: F2', {}).get('admitted') is True and \
+        o.get('W deleted: F2 full chain', {}).get('exit') == 0 and _refused5(o.get('W deleted: F', {}), 'state')
+
+
+def r7_n5(t):
+    """N-5: an acceptance landing commits its admission snapshot and appends the events it observed to the freeze
+    ledger (sec. 5, "Durable evidence"; sec. 6.3, "The freeze ledger"), so one observed comment is recorded more than
+    once. Each comment is one event (sec. 6.3, point 5), processed once."""
+    seq = {}
+    for where in ('ledger+snapshot', 'two snapshots', 'same snapshot twice in its list'):
+        def one(where=where):
+            w, F, F2, W, _ = _r7_landed(t, where)
+            o = {'W present: F2': _p5(t, w, F2)}
+            o.update(_r7_deleted(t, w, F, F2, W))
+            return o
+        seq[where] = _r7_guarded(one)
+    check('R7-N5', 'one observed event recorded more than once (sec. 6.3, "The freeze ledger": each event is a '
+          'designation, withdrawal or supersession with its comment id; sec. 5, "Durable evidence": a landing commits '
+          'its snapshot and appends the events it observed; point 5: "a withdrawal of F makes it withdrawn"): F '
+          'designated, W withdraws F, F2 designated; F2 admitted and landed, W recorded in the ledger and the snapshot '
+          '(separately in two snapshots; separately twice in one snapshot); W\'s comment deleted: F2, legitimately '
+          'designated, is admitted again and F stays withdrawn',
+          "each placement: F2 admitted with W present and with W deleted, its full chain exits 0; F refused at point "
+          "'state'", seq,
+          len(seq) == 3 and all(o.get('W present: F2', {}).get('admitted') is True and _r7_admits(o)
+                                for o in seq.values()))
+
+
+def r7_n5_conflict(t):
+    """Two records of one comment that differ are a conflict and refuse; they are never merged."""
+    def later(ts):
+        return (datetime.datetime.strptime(ts, '%Y-%m-%dT%H:%M:%SZ') + datetime.timedelta(seconds=1)).strftime(
+            '%Y-%m-%dT%H:%M:%SZ')
+
+    def field(key, value):
+        def edit(lev, s, sev, F2):
+            lev[key] = value(lev, F2) if callable(value) else value
+        return edit
+
+    def body(lev, s, sev, F2):
+        lev['body_sha256'] = '0' * 64
+        sev['body_sha256'] = '1' * 64
+    out = {}
+    for name, edit in (('first line', field('first_line', lambda lev, F2: _r7_wd_line(F2))),
+                       ('author numeric id', field('author_id', 31337)),
+                       ('kind', field('kind', 'supersede')),
+                       ('creation time', field('created_at', lambda lev, F2: later(lev['created_at']))),
+                       ('commit', field('commit', lambda lev, F2: F2)),
+                       ('body sha256', body)):
+        def one(edit=edit, name=name):
+            w, F, F2, W, _ = _r7_landed(t, 'ledger+snapshot', edit)
+            o = {}
+            if name == 'creation time':
+                o['W present: F2'] = _p5(t, w, F2)
+            o.update(_r7_deleted(t, w, F, F2, W, both=False))
+            return o
+        out['the ledger and snapshot records of W differ in its %s' % name] = _r7_guarded(one)
+    check('R7-N5-CONFLICT', 'two records of one comment (the same comment id) in the freeze ledger and a committed '
+          'snapshot that differ in first line, author numeric id, kind, creation time, commit or body sha256 are a '
+          'conflict and refuse (sec. 6.3, reconciliation; point 5, "any other conflict"); they are not merged',
+          "each field, W deleted (and, for the creation time, W present): point 5 refuses at point 'ledger' naming two "
+          "records of one comment that differ; the full chain exits 65 CONFIG_UNREVIEWED", out,
+          len(out) == 6 and
+          all('W deleted: F2' in o and all(_refused5(o[k], 'ledger', 'differ') for k in ('W deleted: F2',
+                                                                                         'W present: F2') if k in o)
+              and _unreviewed(o.get('W deleted: F2 full chain', {}), 'differ') for o in out.values()) and
+          'W present: F2' in out['the ledger and snapshot records of W differ in its creation time'])
+
+
+def r7_n5_forged(t):
+    """A forged record that shares a comment id with a genuine one is caught, not hidden by processing each comment
+    once."""
+    out = {}
+
+    # a forged snapshot record under the comment id of F2's present designation, withdrawing F2
+    def forged_present(lev, s, sev, F2):
+        d = [e for e in s['events'] if e['kind'] == 'designate' and e['commit'] == F2][0]
+        s['events'].append({'kind': 'withdraw', 'commit': F2, 'by': None, 'comment_id': d['comment_id'],
+                            'created_at': d['created_at'], 'author_id': d['author_id'],
+                            'first_line': _r7_wd_line(F2)})
+
+    def one():
+        w, F, F2, W, _ = _r7_landed(t, 'ledger+snapshot', forged_present)
+        return {'designation present: F2': _p5(t, w, F2), 'designation present: F2 full chain': _fullx(t, w, F2)}
+    out['a forged withdrawal of F2 under the id of F2\'s present designation'] = _r7_guarded(one)
+
+    # W deleted: a forged snapshot record under W's comment id that withdraws F2 (consistent with itself)
+    def forged_deleted(lev, s, sev, F2):
+        sev.update(commit=F2, first_line=_r7_wd_line(F2))
+
+    def two():
+        w, F, F2, W, _ = _r7_landed(t, 'ledger+snapshot', forged_deleted)
+        return _r7_deleted(t, w, F, F2, W, both=False)
+    out['W deleted; a forged snapshot record under W\'s id withdrawing F2, the ledger\'s withdrawing F'] = \
+        _r7_guarded(two)
+    a, b = out[list(out)[0]], out[list(out)[1]]
+    check('R7-N5-FORGED', 'a forged snapshot record sharing a comment id with a genuine one: under the id of F2\'s '
+          'present designation, a withdrawal of F2; separately, with W deleted, under W\'s id a withdrawal of F2 '
+          'while the ledger records W withdrawing F. Each is caught (sec. 6.3, reconciliation: an event that '
+          'conflicts with the thread refuses; two records of one comment that differ refuse)',
+          "the first refuses at point 'ledger' naming the conflict with the thread; the second at point 'ledger' "
+          "naming two records of one comment that differ; both full chains exit 65 CONFIG_UNREVIEWED", out,
+          _refused5(a.get('designation present: F2', {}), 'ledger', 'conflicts with the thread') and
+          _unreviewed(a.get('designation present: F2 full chain', {})) and
+          _refused5(b.get('W deleted: F2', {}), 'ledger', 'differ') and
+          _unreviewed(b.get('W deleted: F2 full chain', {}), 'differ'))
+
+
+def r7_n5_supersede(t):
+    """A supersession recorded more than once still only revokes, once, and never designates (sec. 6.3, K1)."""
+    def one():
+        w = t.world()
+        F = t.freeze(w)
+        F2 = t.freeze(w, extra={'syn/other.txt': b'2\n'})
+        w.designate(F)
+        sp = w.comment(hf.PLAN_ISSUE, 'oi-freeze/1 supersede plan=%s round=%s commit=%s by=%s'
+                       % (hf.PLAN, hf.ROUND, F, F2))
+        snap = auth.admit(w.h, t.repo, w.run_id, hf.PLAN, hf.ROUND, F2, t.p)[1]
+        sev = [e for e in snap['events'] if e['comment_id'] == sp['id']][0]
+        lev = {k: sev[k] for k in ('kind', 'commit', 'by', 'comment_id', 'created_at', 'author_id', 'first_line')}
+        lev.update(plan=hf.PLAN, round=hf.ROUND)
+        w.land_ledger(hf.jb({'schema': auth.ledger_schema, 'events': [lev]}))
+        w.add_main(_next(w), {R7_SNAP: hf.jb(snap)})
+        w.add_main(_next(w), {R7_SNAP.replace('round-1', 'round-1b'): hf.jb(snap)})
+        o = {'S present: F2': _p5(t, w, F2), 'S present: F': _p5(t, w, F)}
+        w.comments[(hf.REPO_ID, hf.PLAN_ISSUE)].remove(sp)
+        o['S deleted: F'] = _p5(t, w, F)
+        o['S deleted: F2'] = _p5(t, w, F2)
+        o['S deleted: F2 full chain'] = _fullx(t, w, F2)
+        F3 = t.freeze(w, extra={'syn/other.txt': b'3\n'})
+        w.designate(F3)
+        o['S deleted, F3 designated: F3'] = _p5(t, w, F3)
+        return o
+    o = _r7_guarded(one)
+    check('R7-N5-SUPERSEDE', 'a supersession S of F by F2, recorded in the freeze ledger and in two committed '
+          'snapshots, its comment then deleted: it only revokes and never designates (sec. 6.3, "a supersession '
+          'recorded in the freeze ledger or in a committed snapshot only revokes"); processed once, it lets a later '
+          'designation of F3 stand',
+          "S present: F2 admitted, F refused at 'state'; S deleted: F and F2 refused at 'state' (F2 is not "
+          "designated), F2's full chain exits 65 CONFIG_UNREVIEWED; F3 designated afterwards is admitted", o,
+          o.get('S present: F2', {}).get('admitted') is True and _refused5(o.get('S present: F', {}), 'state') and
+          _refused5(o.get('S deleted: F', {}), 'state') and _refused5(o.get('S deleted: F2', {}), 'state') and
+          _unreviewed(o.get('S deleted: F2 full chain', {})) and
+          o.get('S deleted, F3 designated: F3', {}).get('admitted') is True)
+
+
+def r7_n5_round(t):
+    """Records of one comment id under another plan or round are not merged with this round's."""
+    out = {}
+    for where in ('snapshot', 'ledger+snapshot'):
+        for name, key, value in (('round', 'round', 'r0'), ('plan', 'plan', 'other-plan')):
+            def one(where=where, key=key, value=value):
+                w, F, F2, W, _ = _r7_landed(t, where)
+                ev = {'kind': 'withdraw', 'commit': F2, 'by': None, 'comment_id': W['id'],
+                      'created_at': W['created_at'], 'author_id': W['author_id'], 'first_line': _r7_wd_line(F2, 'r0')}
+                other = {'plan': hf.PLAN, 'round': hf.ROUND, 'events': [ev]}
+                other[key] = value
+                # read before this round's snapshot (landings/round-0/ precedes landings/round-1/)
+                w.add_main(_next(w), {R7_SNAP.replace('round-1', 'round-0'): hf.jb(other)})
+                return _r7_deleted(t, w, F, F2, W)
+            out['W recorded in this round\'s %s; a committed snapshot of another %s records W\'s comment id'
+                % (where, name)] = _r7_guarded(one)
+    check('R7-N5-ROUND', 'W recorded in this round\'s snapshot (separately, in the ledger and the snapshot); a '
+          'committed snapshot of another round (separately, another plan), read before this round\'s, records an '
+          'event with W\'s comment id; W deleted. Records are taken per plan and round (sec. 6.3, "an append-only list '
+          'of observed events per plan and round"): the other record is not merged with this round\'s, and this '
+          'round\'s W still binds',
+          "each: F2 admitted, its full chain exits 0; F refused at point 'state'", out,
+          len(out) == 4 and all(_r7_admits(o) for o in out.values()))
+
+
+def r7_n5_distinct(t):
+    """Distinct comments are distinct events: a later withdrawal is not dropped as a duplicate of an earlier one."""
+    def one():
+        w = t.world()
+        F = t.freeze(w)
+        F2 = t.freeze(w, extra={'syn/other.txt': b'2\n'})
+        F3 = t.freeze(w, extra={'syn/other.txt': b'3\n'})
+        w.designate(F)
+        W1 = w.comment(hf.PLAN_ISSUE, _r7_wd_line(F))
+        w.designate(F2)
+        W2 = w.comment(hf.PLAN_ISSUE, _r7_wd_line(F2))
+        w.designate(F3)
+        snap = auth.admit(w.h, t.repo, w.run_id, hf.PLAN, hf.ROUND, F3, t.p)[1]
+        levs = []
+        for W in (W1, W2):
+            sev = [e for e in snap['events'] if e['comment_id'] == W['id']][0]
+            lev = {k: sev[k] for k in ('kind', 'commit', 'by', 'comment_id', 'created_at', 'author_id', 'first_line')}
+            lev.update(plan=hf.PLAN, round=hf.ROUND)
+            levs.append(lev)
+        w.land_ledger(hf.jb({'schema': auth.ledger_schema, 'events': levs}))
+        w.add_main(_next(w), {R7_SNAP: hf.jb(snap)})
+        for W in (W1, W2):
+            w.comments[(hf.REPO_ID, hf.PLAN_ISSUE)].remove(W)
+        return {'W1, W2 deleted: F3': _p5(t, w, F3), 'W1, W2 deleted: F3 full chain': _fullx(t, w, F3),
+                'W1, W2 deleted: F2': _p5(t, w, F2), 'W1, W2 deleted: F': _p5(t, w, F)}
+    o = _r7_guarded(one)
+    check('R7-N5-DISTINCT', 'F designated, W1 withdraws F, F2 designated, W2 withdraws F2, F3 designated; F3 landed '
+          '(W1 and W2 in the ledger and the snapshot); W1 and W2 deleted: both withdrawals bind (distinct comments '
+          'are distinct events); F3 is admitted, F and F2 stay withdrawn',
+          "F3 admitted, its full chain exits 0; F and F2 refused at point 'state'", o,
+          o.get('W1, W2 deleted: F3', {}).get('admitted') is True and
+          o.get('W1, W2 deleted: F3 full chain', {}).get('exit') == 0 and
+          _refused5(o.get('W1, W2 deleted: F2', {}), 'state') and _refused5(o.get('W1, W2 deleted: F', {}), 'state'))
+
+
 # ---- acceptance, durable evidence and replay ----------------------------------------------------------------------
 
 def acceptance_controls(r, t):
@@ -3152,7 +3454,11 @@ def main(out_root):
                          ('R6-EV', lambda: ledger_event_verdicts(t)), ('TR32-OWN', lambda: tr32_own(t)),
                          ('R6-G1', lambda: r6_g1(t)), ('R6-G2', lambda: r6_g2(t)), ('R6-G3', lambda: r6_g3(t)),
                          ('R6-G4', lambda: r6_g4(t)), ('R6-G5', lambda: r6_g5(t)), ('R6-G6', lambda: r6_g6(r)),
-                         ('R6-G7', lambda: r6_g7(t)), ('R6-G8', lambda: r6_g8(t)), ('R6-G9', lambda: r6_g9(t))):
+                         ('R6-G7', lambda: r6_g7(t)), ('R6-G8', lambda: r6_g8(t)), ('R6-G9', lambda: r6_g9(t)),
+                         ('R7-B2', lambda: r7_b2(t)), ('R7-N5', lambda: r7_n5(t)),
+                         ('R7-N5-CONFLICT', lambda: r7_n5_conflict(t)), ('R7-N5-FORGED', lambda: r7_n5_forged(t)),
+                         ('R7-N5-SUPERSEDE', lambda: r7_n5_supersede(t)), ('R7-N5-ROUND', lambda: r7_n5_round(t)),
+                         ('R7-N5-DISTINCT', lambda: r7_n5_distinct(t))):
             try:
                 fn()
             except Exception as exc:
@@ -3161,7 +3467,8 @@ def main(out_root):
                                                                         traceback.format_exc()[-1200:]), 'FAIL')
         # every control of design v5.5.8 is reported: one whose group stopped before it ran is FAIL, never absent
         for cid in ['TR%d' % i for i in range(54, 71)] + ['LN%d' % i for i in range(1, 13)] + ['R6-EV', 'TR32-OWN'] + \
-                ['R6-G%d' % i for i in range(1, 10)]:
+                ['R6-G%d' % i for i in range(1, 10)] + ['R7-B2', 'R7-N5', 'R7-N5-CONFLICT', 'R7-N5-FORGED',
+                                                       'R7-N5-SUPERSEDE', 'R7-N5-ROUND', 'R7-N5-DISTINCT']:
             if not any(x['id'] == cid for x in RESULTS):
                 group = [x for x in RESULTS if x['id'] in ('TR54-TR61', 'TR62-TR64', 'TR65', 'TR66-TR70', 'LN1-LN8',
                                                            'LN9-LN12', 'R6-EV')]
