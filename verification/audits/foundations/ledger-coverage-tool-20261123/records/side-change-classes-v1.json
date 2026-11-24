@@ -54,8 +54,8 @@
     },
     {
      "path": "tools/ledger_coverage/adapters/conformance_controls.py",
-     "git_blob": "d87c9a99b62ba6c8e42a6337b3850e2bfe6cac59",
-     "blob_sha256": "5ca0435cb934fbf6c35d2057691c620d83fd9d34be7702d4b073f14f04d43817"
+     "git_blob": "c2ebddc28faede485caa1bd14205813cb61a320f",
+     "blob_sha256": "f3b7e0daa82cb026285269ef2f02f3876a50c95754bfe42b50949edc0f939d24"
     },
     {
      "path": "tools/ledger_coverage/adapters/deleg_fingerprint_regen.py",
