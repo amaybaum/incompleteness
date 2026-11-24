@@ -174,17 +174,17 @@ class PinTableError(Exception):
 
 
 def read_pin_table(prereg):
-    """The pin table of a plan record directory (sec. 6.3, configuration admission point 2): the last subsection of
-    its PREREG.md whose heading matches `### N.N Record pins`, with rows "| `file` | `sha256` |", each naming a file of
-    that directory. A table line that is neither the header row, its separator nor such a row is malformed; a file
-    named twice is malformed. Raises PinTableError."""
+    """The pin table of a plan record directory (sec. 6.3, configuration admission point 2): in the plan's file of
+    record pins, the last subsection whose heading matches `### N.N Record pins`, with rows "| `file` | `sha256` |",
+    each naming a file of that directory. A table line that is neither the header row, its separator nor such a row is
+    malformed; a file named twice is malformed. Raises PinTableError."""
     try:
         t = prereg.decode('utf-8')
     except UnicodeDecodeError:
-        raise PinTableError('PREREG.md is not UTF-8')
+        raise PinTableError('the file of record pins is not utf-8')
     heads = [m.start() for m in _pins_head.finditer(t)]
     if not heads:
-        raise PinTableError('PREREG.md has no Record pins subsection')
+        raise PinTableError('the file of record pins has no Record pins subsection')
     i = heads[-1]
     j = t.find('\n#', i + 5)
     lines = t[i:j if j > 0 else None].split('\n')

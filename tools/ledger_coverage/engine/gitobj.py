@@ -68,7 +68,7 @@ class GitRepo:
             return self._objs[oid]
         if self._proc is None:
             self._proc = subprocess.Popen(['git', '--no-replace-objects', '-C', self.path, 'cat-file', '--batch'],
-                                          stdin=-1, stdout=-1, stderr=subprocess.DEVNULL, env=_reader_env())
+                                          stdin=-1, stdout=-1, stderr=open(os.devnull, 'wb'), env=_reader_env())
         self._proc.stdin.write(oid.encode() + b'\n')
         self._proc.stdin.flush()
         head = self._proc.stdout.readline().decode().split()

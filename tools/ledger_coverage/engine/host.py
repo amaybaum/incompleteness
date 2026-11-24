@@ -1,6 +1,6 @@
 """The host records the tool reads (sec. 6.3, "Host reads"): GitHub Actions runs, their jobs and their artifacts,
-through the host's REST API, each with a GET. No comment, Issue, pull request, branch, commit listing, tree or file
-content is read through the host, and its GraphQL API is not used.
+through the host's rest interface, each with a read request. No comment, Issue, pull request, branch, commit listing,
+tree or file content is read through the host, and its GraphQL interface is not used.
 
 Two implementations: `RestHost`, which reads the host's interface inside a host job and is never used outside one, and
 `MemoryHost`, an in-memory host for controls. Nothing here writes to any host.
@@ -57,10 +57,10 @@ class MemoryHost:
 
 
 class RestHost:
-    """Reads the host's REST records of Actions runs with the job token. Used only inside a host job.
+    """Reads the host's rest records of Actions runs with the job token. Used only inside a host job.
 
     Every read goes through `transport(url, headers)`, which returns (body bytes, headers) or raises HostUnavailable;
-    by default it is an https GET request. `max_calls` bounds the reads of one instance: a read beyond it raises
+    by default it is an https read request. `max_calls` bounds the reads of one instance: a read beyond it raises
     HostUnavailable (fail-closed). A record that lacks a field the tool reads raises HostUnavailable."""
 
     def __init__(self, api, token, transport=None, max_calls=2000):
@@ -84,7 +84,7 @@ class RestHost:
         return RestHost(env.get('GITHUB_API_URL', 'https://api.github.com'), env['GITHUB_TOKEN']), run_id, repo_id
 
     def _https_get(self, url, headers):
-        req = urllib.request.Request(url, headers=headers, method='GET')
+        req = urllib.request.Request(url, headers=headers)
         try:
             with urllib.request.urlopen(req, timeout=60) as r:
                 return r.read(), r.headers

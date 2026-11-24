@@ -334,8 +334,9 @@ def write(out, result, harness=False):
 
 def admission(a, repo, harness, control, crev, cpath, environ):
     """Sec. 6.3: configuration admission from F, then execution identity. Returns (admission, table) for config.load,
-    `table` being the blobs F's pin table admits ({path: bytes}). Outside the harness every failure is ERROR
-    CONFIG_UNREVIEWED, before anything is evaluated; a run outside a host CI job never reaches "chain" (point 3)."""
+    `table` being the blobs F's pin table admits ({path: bytes}). Outside the harness every failure refuses as a
+    configuration-unreviewed error, before anything is evaluated; a run outside a host job never reaches "chain"
+    (point 3)."""
     def refuse(msg, **d):
         raise oc.Stop(oc.error, 'CONFIG_UNREVIEWED', msg, d)
     if control.get('replay_snapshot') is not None:
@@ -390,9 +391,9 @@ def _reviews(b, path, sha):
 
 def freeze_admission(repo, freeze, crev, cpath, refuse):
     """Configuration admission points 1-2: F a full id read through the verified reader; the configuration read only
-    from F's tree; the pin table derived from the PREREG.md beside it (its last Record pins subsection), listing the
-    configuration and its review record with their sha256. Returns (F, table, admitted blobs, pin table
-    {path, blob_sha256}, the configuration as parsed)."""
+    from F's tree; the pin table derived from the plan's file of record pins beside it (its last Record pins
+    subsection), listing the configuration and its review record with their sha256. Returns (F, table, admitted blobs,
+    pin table {path, blob_sha256}, the configuration as parsed)."""
     try:
         F = repo.resolve(full_id(freeze))
     except Unresolvable as exc:
@@ -409,13 +410,13 @@ def freeze_admission(repo, freeze, crev, cpath, refuse):
     if data is None:
         refuse('no configuration at %s in F' % cpath)
     if pt is None:
-        refuse('no PREREG.md beside the configuration in F: %s' % prereg)
+        refuse('no file of record pins beside the configuration in F: %s' % prereg)
     try:
         table = cfgmod.read_pin_table(pt)
     except cfgmod.PinTableError as exc:
         refuse('the pin table cannot be read: %s' % exc)
     if table.get(cpath[len(rec_dir):]) != util.sha256(data):
-        refuse('the configuration is not listed with its sha256 in the last Record pins subsection of %s' % prereg)
+        refuse('the last Record pins subsection of %s has no row with the configuration and its sha256' % prereg)
     admitted = cfgmod.admitted_by_table(repo, F, rec_dir, table)
     if not any(_reviews(b, cpath, util.sha256(data)) for b in admitted.values()):
         refuse('no review record of the configuration is listed in the pin table of %s' % prereg)
@@ -430,25 +431,27 @@ def freeze_admission(repo, freeze, crev, cpath, refuse):
 
 def disk_checkout(refuse):
     """{path: bytes} of the entry point and every file under the tool's package directory in the checkout the tool
-    runs from, read with lstat (no link followed); a non-regular entry, or a parent that is not a real directory,
-    refuses (execution identity point 2)."""
-    import stat
+    runs from, read without following a link; a non-regular entry, or a parent that is not a real directory, refuses
+    (execution identity point 2)."""
     entry, pkg = cfgmod.tool_layout()
     pkg_dir = os.path.dirname(here)
     root = os.path.dirname(os.path.dirname(pkg_dir))
     out = {}
     d = pkg_dir
     while d != root:
-        if not stat.S_ISDIR(os.lstat(d).st_mode):
+        if os.path.islink(d) or not os.path.isdir(d):
             refuse('%s is not a real directory in the checkout' % d)
         d = os.path.dirname(d)
 
     def walk(p, rel):
-        st = os.lstat(p)
-        if stat.S_ISDIR(st.st_mode):
-            for n in sorted(os.listdir(p)):
+        if os.path.islink(p):
+            refuse('a non-regular entry in the checkout: %s' % rel)
+        if os.path.isdir(p):
+            with os.scandir(p) as it:
+                names = sorted(e.name for e in it)
+            for n in names:
                 walk(os.path.join(p, n), rel + '/' + n)
-        elif stat.S_ISREG(st.st_mode):
+        elif os.path.isfile(p):
             with open(p, 'rb') as f:
                 out[rel] = f.read()
         else:

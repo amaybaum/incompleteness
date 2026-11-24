@@ -46,7 +46,7 @@ def uses_line_problems(blob):
     try:
         text = blob.decode('utf-8')
     except (UnicodeDecodeError, AttributeError):
-        return [(0, 'not UTF-8 text')]
+        return [(0, 'not utf-8 text')]
     out = []
     for n, line in enumerate(text.split('\n'), 1):
         if _uses_word.search(line) and not _uses.match(line):
@@ -95,7 +95,7 @@ def accept(doc, exit_status, pins):
 
 def accept_with_host(raw, exit_status, pins, host, landing, repo):
     """The full predicate over the result file's raw bytes (sec. 5): the offline part, then execution identity
-    points 1-3, the `uses:` rule of point 5 and point 6 repeated by the consumer from the host's REST records and from
+    points 1-3, the `uses:` rule of point 5 and point 6 repeated by the consumer from the host's rest records and from
     its own verified object store `repo`, the evaluated commits against the landing record, and the result file against
     the run's artifact. pins as for `accept`, plus 'repository_id' (the configuration's). landing: {'evaluated',
     'artifact_name', 'result_sha256', 'main'} with `main` the M re-resolved as sec. 13.4 states. The consumer hashes the

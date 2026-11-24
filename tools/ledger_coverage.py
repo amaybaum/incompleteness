@@ -27,8 +27,8 @@ def _inside(p):
 
 
 if not sys.flags.isolated or any(_inside(p) for p in sys.path):
-    sys.stderr.write('{"exit_status": 65, "outcome": "ERROR", "stop": {"class": "ISOLATION", "message": "the entry '
-                     'point runs only as python3 -I, with no sys.path entry inside the checkout"}}\n')
+    sys.stderr.write('refused, exit 65: the entry point runs only as python3 -I, with no sys.path entry inside the '
+                     'checkout\n')
     sys.exit(65)
 
 import json  # noqa: E402  (after the isolation check)

@@ -68,6 +68,9 @@ enumerations = frozenset([
     'U', 'M', 'K', 'B', 'H', 'O', 'R', 'S1', 'N2', 'B1', 'B2', 'B3', 'B4', 'B6', 'K1', 'K2', 'K3', 'K4', 'K5',
     'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M11', 'O1', 'O9',
 ])
+# The design's fixed name of the plan's file of record pins (sec. 6.3, configuration admission point 2): a fourth
+# category, linted to be one file name of the plan's record directory. It names no retirement.
+interface_names = frozenset(['PREREG.md'])
 _hex = re.compile(r'(?<![0-9A-Za-z])[0-9a-fA-F]{7,}(?![0-9A-Za-z])')
 _field_rx = re.compile(r'^[A-Za-z_][A-Za-z0-9_-]*$')
 _schema_rx = re.compile(r'^oi-[a-z0-9-]+/[0-9]+$')
@@ -79,11 +82,12 @@ def lint_allowlist():
     bad += ['field name %r' % x for x in field_names if not _field_rx.match(x)]
     bad += ['schema id %r' % x for x in schema_ids if not _schema_rx.match(x)]
     bad += ['enumeration %r' % x for x in enumerations if not _enum_rx.match(x)]
+    bad += ['interface name %r' % x for x in interface_names if not re.match(r'^[A-Za-z][A-Za-z0-9_-]*\.md$', x)]
     return bad
 
 
 def allowed(s):
-    return s in field_names or s in schema_ids or s in enumerations
+    return s in field_names or s in schema_ids or s in enumerations or s in interface_names
 
 
 def engine_sources(root=None):
