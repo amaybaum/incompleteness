@@ -605,8 +605,9 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   The exact-head host runs dispatched on exactly `F` and `E` are the `check-run` attestations
   a receipt records: verification evidence, not protocol validity, which remains
   `tools/v3_verifier.py --verify-round Q` printing `VERDICT  HOLDS` (§A.39). A local run is
-  evidence for the executor and is never recorded as a `check-run` attestation. Any special
-  dispatch or launch still requires owner approval (§A.43).
+  evidence for the executor and is never recorded as a `check-run` attestation. A
+  `workflow_dispatch` or special launch requires owner approval: a work package that names it
+  (§A.51 item 4), or otherwise the owner's approval each time.
   **Keep local checkouts small.** Prefer repository APIs and reuse of an existing worktree,
   sparse checkout or partial clone over repeated full clones and duplicate object stores.
   Full-history gates and isolated, no-alternates recovery tests belong in CI with the complete
@@ -1168,15 +1169,17 @@ status, which rests on the proofs, Lean modules, manuscripts and verification re
    From the start of a candidate `F` or `E` exact-head hold until owner designation or
    explicit release of that hold, the round's branch must not move. After `F` is
    designated, §A.39's linear `F`→`E` execution and reconciliation rules govern it.
-4. **Do not confuse publication with authorization.** A normal WIP branch push or draft
-   PR update is allowed by default. It does **not** authorize `workflow_dispatch`, a
-   special workflow launch, F/E designation, acceptance, merge to `main`, destructive
-   ref movement or branch deletion. Before pushing, inspect
+4. **Do not confuse publication with authorization.** An agent's WIP branch push or draft PR
+   update is made by the designated writer of that branch under a recorded owner authorization that
+   covers the work (§A.45 rule 3), a work package or another, with §A.51 item 3's preflight and
+   read-back; a text write is made under §A.49. It does **not** authorize a `workflow_dispatch` or
+   special workflow launch that no work package names, F/E designation, acceptance, merge to `main`,
+   destructive ref movement or branch deletion. Before pushing, inspect
    all `push`-triggered workflows, including path-filtered workflows whose triggers depend
    on the diff or branch history (especially a non-fast-forward update). A push to a
-   special trigger branch that starts a governed launch is itself a launch and still
-   needs separate owner authorization. Ordinary automatic draft-PR CI is not an
-   exact-head F/E attestation (§A.39, §A.40).
+   special trigger branch that starts a governed launch is itself a launch: it needs a work package
+   that names it (§A.51 item 4) or, otherwise, the owner's approval each time. Ordinary automatic
+   draft-PR CI is not an exact-head F/E attestation (§A.39, §A.40).
 5. **Exceptions are narrow and explicit.** An owner-imposed hold on pushing must name
    its affected ref or artifact, reason and release condition and be recorded on the
    guiding PR where safe. Never infer a blanket `no push` rule from `no merge`,
@@ -1253,6 +1256,10 @@ rules below govern that record (owner, 2026-11-03).
    - a recorded owner authorization covers that work;
    - a designated writer is recorded for that work;
    - no active item with a different writer writes the same branch, file or artifact.
+
+   A work package (§A.51) is one such authorization: it covers the work its record names, by its
+   designated writers, without a further authorization for each step, except as §A.51 item 2
+   requires.
 
    Several items may be active at once (owner, 2026-11-03). Each new start also respects §A.40's
    resource limits.
@@ -1550,8 +1557,18 @@ settings:
 3. **Stop on a mismatch.** Automated GitHub text writes stop at once, for every agent and session.
    The text sent and the text stored are kept as evidence under §A.26, and the owner is told. Only a
    recorded owner decision resumes writing; a later correction does not make a failed write a pass.
+4. **No automated form comments.** In a governed thread, an Issue or pull request in which a frozen
+   plan, an authority record or an owner decision admits the owner's form comments, no automated
+   text whose first line begins, after leading whitespace and in any letter case, with `oi-` is
+   written. No existing comment whose first line so begins is edited by an automated agent or tool,
+   in a governed thread or elsewhere, nor is such a comment deleted, hidden, replaced or recreated
+   by one so as to change what it says. The owner posts form comments by hand.
 
-Adopted 2026-11-23 by owner decision (`amaybaum`, coordinating session); rule 2 amended the same day.
+An authorization to write, for one write or standing (§A.51 item 2), waives none of these rules.
+
+Adopted 2026-11-23 by owner decision (`amaybaum`, coordinating session); rule 2 amended the same
+day; rule 4 and the closing sentence on authorizations added 2026-11-24 by owner decision
+(`amaybaum`, #1169 comment 7124456482).
 
 ***
 
@@ -1563,11 +1580,80 @@ explicit approval each time:
 
 1. merging into `main`;
 2. for a plan that changes the posit ledger of `papers/Main.md` (including adding, removing,
-   weakening, strengthening, replacing or reinstating a posit): freezing it, amending it once
-   frozen, executing it, or dispatching its trials;
+   weakening, strengthening, replacing or reinstating a posit), such as the A1 retirement plan of
+   #1169: freezing it, amending it once frozen, executing it, or dispatching its trials. A trial is
+   any run that uses the plan's designated trial records, executes its trial procedure, or could
+   change the plan's scientific status. Unit tests, synthetic controls and ordinary CI controls
+   that do none of these are not trials; a case that may be one is put to the owner first;
 3. deleting branches, Issues, pull requests or evidence;
-4. sending material outside GitHub.
+4. sending material outside GitHub;
+5. freezing a preregistration, protocol or experimental plan, including designating a round's `F`
+   or `E` (§A.39), or amending one once frozen;
+6. adopting, withdrawing, weakening, strengthening, replacing or reinstating a premise of the
+   framework: a posit, axiom, mechanism or selection principle (§A.29, §A.45 rule 5).
 
-Other work follows this file, GitHub writes under §A.49.
+Other work follows this file: work packages under §A.51, GitHub writes under §A.49.
 
-Adopted 2026-11-23 by owner decision (`amaybaum`, coordinating session).
+Adopted 2026-11-23 by owner decision (`amaybaum`, coordinating session); item 2 amended, items 5
+and 6 added and the closing line reworded 2026-11-24 by owner decision (`amaybaum`, #1169 comment
+7124456482).
+
+***
+
+## §A.51 Work packages
+
+A work package is one recorded owner authorization (§A.45 rule 3) for a bounded unit of work.
+Within its boundaries it covers routine planning, implementation, corrections, reviews and evidence
+recording, without a separate authorization for each comment, Issue update, pull request, push or
+ordinary CI run. Its record is the owner's recorded comment that the item's Authorization entry
+links. A package record, a change to one or a resumption of one that automation writes quotes the
+owner's actual instruction with its author and time (§A.42 item 7); an agent infers from it no
+permission broader than the instruction grants.
+
+1. **What it names.** The record fixes, and only a new owner record changes:
+   - *scope:* the Issues and pull requests it works in, the paths it may change, the branches it may
+     push to (item 3), the GitHub write operations and targets it may use, with the write that
+     validated each (item 2), and the workflows it may run (item 4);
+   - *writers:* the designated writer of each branch, file and artifact, with no conflicting writer
+     (§A.45 rule 3);
+   - *review:* which results need an independent non-author review, and before which step, beyond
+     the reviews this file or a frozen plan requires;
+   - *resource limits:* agents, CI runs and their cost, within §A.40;
+   - *stop conditions*, beyond those of item 5;
+   - its *Goal link* (§A.47).
+
+   Work outside these boundaries is outside the package. A case the package does not clearly cover
+   is put to the owner before it is done.
+2. **Standing write grants.** An operation is validated when one write of it, made through the same
+   tool and path under the owner's grant for that one write, passed §A.49's exact read-back. A
+   package may grant its writers standing use of validated operations on its targets, without a
+   grant for each write. An operation that is not validated needs a grant for each write. A
+   standing grant to edit comments extends only to comments that the package's designated writers
+   wrote under it; editing a comment written under another work package, or by the owner in person,
+   needs a separate authorization. Every write remains subject to §A.49.
+3. **Pushes.** A package's writers push only to the branches it designates. None of them is `main`,
+   a protected branch, a branch held at a candidate `F` or `E` (§A.43 item 3), or a trigger branch
+   whose push starts a launch the package does not name. Before each push the writer confirms that
+   no stop is in force (item 5); that the push creates a ref or fast-forwards one; that the commits
+   meet §A.43 items 1 and 5, the applicable checks of §A.40 have been run on them and any that fail
+   are stated as §A.43 item 2 requires; and that the push starts no launch the package does not name
+   (§A.43 item 4). After the push the remote ref is read back and must equal the commit pushed. No
+   force-push, history rewrite or ref deletion is made under a package. An agent's push under
+   another authorization meets the same conditions, with that authorization in place of the package.
+4. **CI.** The workflows that run automatically on the package's pushes and pull requests run under
+   it, within its resource limits. The package may name further workflows that its writers may
+   dispatch or launch, each with its branch, its inputs or the rule that fixes them, and its limit;
+   a launch condition that the workflow itself states stands. It does not cover the exact-head
+   `check-run` dispatches at a candidate `F` or `E` (§A.39) or any run §A.50 reserves.
+5. **Stop.** An unknown outcome of a write, push or launch, a step outside the package's scope, a
+   failed preflight or read-back (item 3, §A.49), a failed check the package names as a stop, or
+   evidence that conflicts with the package's records stops the package's automated operations at
+   once. The evidence is kept under §A.26 and the owner is told. A §A.49 mismatch also stops every
+   automated text write (§A.49 rule 3). Only a recorded owner decision resumes a stopped package.
+6. **What it does not do.** A package grants none of the actions of §A.50, waives no review, check
+   or gate that this file, a frozen plan or a round requires, confers no scientific status (§A.45
+   rule 1), changes no frozen record or its protocol (§A.39, §A.42 item 6) and authorizes no
+   integration or publication (§A.45 rule 7). Planning-status maintenance (§A.45 rule 3) does not
+   widen it.
+
+Adopted 2026-11-24 by owner decision (`amaybaum`, #1169 comment 7124456482).
