@@ -140,8 +140,9 @@ class RestHost:
     """Reads the host's rest and graphql interfaces with the job token. Used only inside a host job.
 
     Every rest read goes through `transport(url, headers)`, which returns (body bytes, headers) or raises
-    HostUnavailable; by default it is an https GET. `max_calls` bounds the rest reads of one instance: a read beyond
-    it raises HostUnavailable, so a history or chain that cannot be read within the bound refuses (fail-closed)."""
+    HostUnavailable; by default it is an https get request. `max_calls` bounds the rest reads of one instance: a
+    read beyond it raises HostUnavailable, so a history or chain that cannot be read within the bound refuses
+    (fail-closed)."""
 
     max_pages = 2000
 

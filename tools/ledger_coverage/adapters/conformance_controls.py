@@ -3546,6 +3546,10 @@ def s1_p2_history_controls(r):
     attempt('host error on the pull-request read', with_fake(fail={'/pulls'}))
     attempt('bytes differ from the tree entry', with_fake(corrupt={auth.authority_path}))
     attempt('call bound reached', lambda: rf.HybridHost(w.h, hf.REPO_ID, max_calls=3))
+    w6 = t.world()
+    w6.add_main('cs1', {auth.authority_path: ('symlink', 'elsewhere.json')})
+    rf.as_merge_landings(w6.h, hf.REPO_ID)
+    attempt('the path is a symlink at a commit', lambda: rf.HybridHost(w6.h, hf.REPO_ID))
     old_pages = hostmod.RestHost.max_pages
     try:
         hostmod.RestHost.max_pages = 0
