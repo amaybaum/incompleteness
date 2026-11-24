@@ -1,10 +1,12 @@
 """Configuration record oi-retirement-config/1: loading, fail-closed validation, adapter admission (sec. 16)."""
 import json
+import posixpath
 import types
 
 from . import outcome as oc
 from . import profiles as pr
 from . import records as rec
+from . import rules as rulemod
 from . import util
 from .gitobj import Unresolvable, on_first_parent_chain
 
@@ -212,6 +214,44 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
         except (ValueError, UnicodeDecodeError):
             return None
     L.store.resolver = resolver
+
+    def scan(_c=commit):
+        """DI-2: every json blob of the plan's record directory (the configuration's directory) and of the audit
+        directory (the deepest directory holding every record and rule file the configuration references, or each
+        such record's own directory when they share none) at F."""
+        refs = [r['path'] for r in list(cfg['rules']) + list(cfg['records']) if isinstance(r.get('path'), str)]
+        dirs = {cfg_dir}
+        rdirs = [posixpath.dirname(q) for q in refs]
+        common = posixpath.commonpath(rdirs) if rdirs else ''
+        dirs |= {common + '/'} if common else {d + '/' if d else '' for d in rdirs}
+        out = []
+        for q, bid in sorted(repo.paths(_c).items()):
+            if q.endswith('.json') and any(q.startswith(d) for d in dirs):
+                out.append((q, repo.read_blob(bid)))
+        return out
+    L.store.scan = scan
+
+    def widening(old, new):
+        """The widening items of a rule file or configuration against the record it supersedes (sec. 6.3, 16.2)."""
+        try:
+            if new.get('schema') == rulemod.rules_schema:
+                return rulemod.file_widening(old, new)
+            if new.get('schema') == config_schema and old is not None:
+                return ['%s:%s' % (new.get('config_id'), w) for w in non_widening(old, new)]
+        except (KeyError, TypeError, AttributeError) as exc:
+            return ['%s:predecessor not comparable (%s)' % (new.get('record_id') or new.get('config_id'), exc)]
+        return []
+    L.store.widening = widening
+    if mode == 'chain':
+        # DI-1: the owner timeline of the admission, from the verified versions of A the snapshot records
+        snap = admission.get('snapshot') or (admission.get('simulated_chain') or {}).get('snapshot') or {}
+        tl = rec.OwnerTimeline.from_versions(snap.get('authority_versions'))
+        if tl is None:
+            raise stop('CONFIG_UNREVIEWED', 'the admission records no owner timeline (verified versions of A with '
+                                            'their merge times)')
+        L.store.timeline = tl
+    # DI-2, two heads: among the records the run reads
+    L.store.heads_problems = rec.lineage_heads(list(cfg['rules']) + list(cfg['records']), L.store)
     L.admitted = {r['blob_sha256'] for r in list(cfg['rules']) + list(cfg['records'])} | {sha}
     for p, d in entries:
         doc = L.store.by_sha[util.sha256(d)][1]

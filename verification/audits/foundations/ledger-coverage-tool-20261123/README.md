@@ -1,7 +1,8 @@
 # Ledger and terminology verification tool: records (unreviewed drafts)
 
-Status: implementation of the frozen design v5.5.2 (sha256
-835ff356200349db7689ea41ce936349015fb70f47b35a508945d681a8604323). **Every record in this directory is an
+Status: implementation of design v5.5.8 (sha256
+f531948147b3638c5ad567f5ccf0eedfd04650a30be9fd0a9f2084aa13a77ad2), adopted by the owner on 2026-11-24 as an amendment of
+the frozen v5.5.3. **Every record in this directory is an
 unreviewed draft**, and so is the tool authority record `tools/ledger_coverage/authority.json`. None has an
 independent review record or an owner authorization record, and no freeze `F` exists. A configuration is admitted
 only inside a host job of the pinned workflow, from `F`'s pin table and the owner's designation of `F` (design
@@ -25,7 +26,7 @@ scientific question and no row disposition.
 | `records/repo-scope-v1.json` | `oi-scope/1` | the scope of the `repo` profile (item 11) |
 | `rules/register-infinity-params-v1.json` | `oi-term-rules/2` | the per-edit parameters of items 5 and 6 that are not extractable assignments of the plan's checker (kind `params`), linted against that checker |
 | `records/side-change-classes-v1.json` | `oi-side-change-classes/1` | the class `tool-landing` only: every path this tool's landing adds, each with its exact blob |
-| `freeze/freeze-ledger.json` | `oi-freeze-ledger/1` | the empty freeze ledger (it lands on `main` with the authority record) |
+| `freeze/freeze-ledger.json` | `oi-freeze-ledger/1` | the empty freeze ledger (it lands on `main` in its own merge after the authority record, approved by an owner comment created once that record is in force: design sec. 6.3, "Owner at creation") |
 | `workflow-draft/ledger-coverage.yml` | workflow | the one workflow whose runs may produce an acceptable result; its content hash is pinned in the authority record under `.github/workflows/ledger-coverage.yml`, where it must land unchanged |
 
 The A1 configuration `retirement-config.json` (`oi-retirement-config/1`) is not part of this landing. It

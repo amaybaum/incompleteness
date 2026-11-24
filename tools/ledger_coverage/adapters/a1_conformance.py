@@ -1,4 +1,4 @@
-"""A1 controls added for the frozen design v5.5.2 on real objects: W1 option B (WB1-WB15), the per-edit unit and
+"""A1 controls of the design (v5.5.8) on real objects: W1 option B (WB1-WB15), the per-edit unit and
 the plan checker's selection (S11-56, S11-57a-d, S11-58a-k), the reconciliation conditions and the landing
 composition (N3-N18, with N10 and N11 pinned to main 8e9b8334 and T1'), and the pinned side-change classes (R18,
 R19). Every run uses the control harness (the A1 records are unreviewed drafts); mutant trees, ledgers and

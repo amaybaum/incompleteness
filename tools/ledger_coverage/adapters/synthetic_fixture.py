@@ -430,8 +430,12 @@ def z_controls(r):
     code, res = r.cli(s2.repo, ['coverage', '--commit', s2.H], c1, p1, h1)
     foreign = 'provenance-foreign' in classes(res)
     sup = {'path': p1, 'blob_sha256': h1}
+    # the superseded configuration lies in the object store at F with its own review and authorization (DI-2: a
+    # predecessor passes the lint itself)
+    pd1 = p1.rsplit('/', 1)[0] + '/'
     v2 = dict(b2, second_merge=True, version=2, supersedes=sup, config_path='syn/cfg2/config.json',
-              files=dict(b2['files'], **{p1: f1[p1]}))
+              files=dict(b2['files'], **{p1: f1[p1], pd1 + 'review.json': f1[pd1 + 'review.json'],
+                                         pd1 + 'auth.json': f1[pd1 + 'auth.json']}))
     c2, p2, h2, f2 = s2.build(v2)
     code_u, res_u = r.cli(s2.repo, ['coverage', '--commit', s2.H], c2, p2, h2)
     unrev = (code_u, (res_u or {}).get('stop', {}).get('class')) == (65, 'CONFIG_UNREVIEWED')

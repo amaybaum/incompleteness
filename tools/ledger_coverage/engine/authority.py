@@ -1,6 +1,7 @@
-"""Configuration admission and its root of trust (sec. 6.3): the tool authority record `A`, the versioned comment
-forms, the authority-change procedure, the freeze ledger with its approved appends, the deterministic designation
-state, the plan's pin table, and the admission snapshot.
+"""Configuration admission and its root of trust (design v5.5.8, sec. 6.3): the tool authority record `A`, the
+versioned comment forms, the authority-change procedure, the freeze ledger with its approved appends, the
+deterministic designation state, the plan's pin table, and the admission snapshot. Every comment's authority is judged
+by "Owner at creation" (DI-1): its author against the owner of the version of `A` in force at its creation.
 
 Every failure refuses admission (an error of class config-unreviewed). The caller supplies only the commits and the plan
 and round names; every authority value comes from `A`, read from `main` of the attested repository.
@@ -10,6 +11,7 @@ import re
 
 from . import util
 from .host import HostUnavailable, first_line
+from .records import OwnerTimeline
 
 authority_path = 'tools/ledger_coverage/authority.json'
 tool_dir = authority_path.rsplit('/', 1)[0] + '/'
@@ -106,11 +108,13 @@ def read_thread(host, repo_id, issue):
     return cs
 
 
-def owner_comments(a, cs):
-    """Point 3 over every owner comment; returns the owner comments and the reported impostors."""
+def owner_comments(a, cs, tl):
+    """Point 3 over every comment whose author numeric id is `A.owner.id` and every owner comment as "Owner at
+    creation" defines it (its author was the owner of the version of A in force at its creation); returns those
+    comments and the reported impostors (the owner's login with another numeric id)."""
     own, impostors = [], []
     for c in cs:
-        if c.get('author_id') != a['owner']['id']:
+        if c.get('author_id') != a['owner']['id'] and not tl.owner_comment(c.get('author_id'), c.get('created_at')):
             if c.get('author_login') == a['owner']['login']:
                 impostors.append(c['id'])
             continue
@@ -128,10 +132,20 @@ def owner_comments(a, cs):
     return own, impostors
 
 
-def comment_record(c):
+def comment_record(c, tl):
+    v = tl.in_force(c['created_at'])
     return {'id': c['id'], 'author_id': c['author_id'], 'created_at': c['created_at'],
+            'authority_in_force_sha256': None if v is None else v[2],
             'edited': bool(c['edits']) or bool(c.get('edited')), 'hidden': c['hidden'],
             'first_line': first_line(c['body']), 'body_sha256': util.sha256(c['body'])}
+
+
+def counts_as_approval(tl, c, owner_id, merged_at):
+    """Sec. 6.3, "Owner at creation", approvals: an owner comment, by `owner_id` (the owner of the authority record
+    governing the evaluation), with no owner change merged between its creation and the merge it authorizes
+    (`merged_at`, or None for a change not yet merged)."""
+    return c['author_id'] == owner_id and tl.owner_comment(c['author_id'], c['created_at']) and \
+        not tl.changed_between(c['created_at'], merged_at)
 
 
 def find_approval(a, cs, name, fields, author_id, before):
@@ -213,46 +227,68 @@ def _ledger_events(blob, what):
     return d['events']
 
 
-def _ledger_append_approval(host, a, old_sha, new_sha, v, consumed, what):
+def _ledger_append_approval(host, a, tl, old_sha, new_sha, merged_at, consumed, what):
     """N3 (sec. 6.3, "Approval of each acceptance-time append"): a ledger change that adds events is authorized only by
-    its own `oi-freeze-ledger/1 append` comment, by the owner of `a` (the version of A in force at the merge), in the
+    its own `oi-freeze-ledger/1 append` comment, by the owner of `a` (the version of A governing the change), in the
     authorized thread of a plan `a` lists, naming that plan and one of the rounds `a` lists for it, quoting exactly the
-    ledger hashes before and after, unedited and visible, created before the merge, and used by no earlier change. An
-    `oi-authority/1 approve` comment in the authority thread does not authorize an append. Returns the comment."""
+    ledger hashes before and after, unedited and visible, created before the merge, counting as an approval under
+    "Owner at creation" (DI-1), and used by no earlier change. An `oi-authority/1 approve` comment in the authority
+    thread does not authorize an append. Returns the comment."""
     hits, threads = [], {}
     for p in a['plans']:
         key = (p['thread']['repository_id'], p['thread']['issue'])
         if key not in threads:
             threads[key] = read_thread(host, *key)
         for c in find_approval(a, threads[key], 'ledger-append', {'frm': old_sha, 'to': new_sha}, a['owner']['id'],
-                               v.get('merged_at')):
+                               merged_at):
             f = parse_form(a, c['body'])[1]
             if f['plan'] == p['plan_id'] and f['round'] in p['rounds'] and c['id'] not in [h['id'] for h in hits]:
                 hits.append(c)
-    ok = _fresh(hits, consumed, 'ledger', what)
+    # single use first (an approval that authorized an earlier change refuses), then "Owner at creation"
+    ok = [c for c in _fresh(hits, consumed, 'ledger', what) if counts_as_approval(tl, c, a['owner']['id'], merged_at)]
     if len(ok) != 1:
-        refuse('ledger', '%s has no verified oi-freeze-ledger/1 append comment in a plan thread' % what)
+        refuse('ledger', '%s has no verified oi-freeze-ledger/1 append comment in a plan thread that counts under '
+                         'Owner at creation' % what)
     return ok[0]
 
 
-def _ledger_authority_approval(host, a, old_sha, new_sha, v, consumed, what):
+def _ledger_authority_approval(host, a, tl, old_sha, new_sha, merged_at, consumed, what):
     """The authority-change procedure's approval of a ledger change (sec. 6.3, "How it changes"): an
     `oi-authority/1 approve` comment by the owner of `a` in `a`'s authority thread, quoting exactly the ledger hashes
-    before ("none" for the first ledger) and after, unedited and visible, created before the merge, and used by no
-    earlier change. Returns the comment."""
+    before ("none" for the first ledger) and after, unedited and visible, created before the merge, counting as an
+    approval under "Owner at creation" (DI-1), and used by no earlier change. Returns the comment."""
     cs = read_thread(host, a['authority_thread']['repository_id'], a['authority_thread']['issue'])
-    ok = _fresh(find_approval(a, cs, 'authority-approve', {'frm': old_sha, 'to': new_sha}, a['owner']['id'],
-                              v.get('merged_at')), consumed, 'ledger', what)
+    hits = find_approval(a, cs, 'authority-approve', {'frm': old_sha, 'to': new_sha}, a['owner']['id'], merged_at)
+    ok = [c for c in _fresh(hits, consumed, 'ledger', what) if counts_as_approval(tl, c, a['owner']['id'], merged_at)]
     if len(ok) != 1:
-        refuse('ledger', '%s has no verified oi-authority/1 approve comment in the authority thread' % what)
+        refuse('ledger', '%s has no verified oi-authority/1 approve comment in the authority thread that counts under '
+                         'Owner at creation' % what)
     return ok[0]
 
 
-def _review_problem(host, repo_id, main, a, path, new_sha, old_sha):
-    """None when main holds at `path` a valid independent review record (sec. 6.3) of the change from `old_sha` to
-    `new_sha`: schema oi-review-record/1, naming both blobs, by a reviewer other than the owner, with at least one
-    verdict and every verdict accept. Otherwise the reason."""
-    rv = host.file_at(repo_id, main, path)
+def added_event_ids(old, new):
+    """The item ids of a ledger change's review (sec. 6.3: one verdict per item id of the reviewed record; the items of
+    a ledger change's review are the events the change adds, each identified by its comment id). Returns (ids, None),
+    or (None, reason) when an added event has no comment id or two added events share one."""
+    o = _ledger_events(old, 'the previous ledger') if old is not None else []
+    n = _ledger_events(new, 'the ledger')
+    ids = []
+    for ev in n[len(o):]:
+        cid = ev.get('comment_id') if isinstance(ev, dict) else None
+        if isinstance(cid, bool) or not isinstance(cid, (int, str)) or cid == '':
+            return None, 'an added event has no comment id'
+        ids.append(str(cid))
+    if len(ids) != len(set(ids)):
+        return None, 'two added events share a comment id'
+    return ids, None
+
+
+def _review_problem(rv, a, new_sha, old_sha, items=None):
+    """None when `rv` (the bytes of the review record, or None) is a valid independent review record (sec. 6.3) of
+    the change from `old_sha` to `new_sha`: schema oi-review-record/1, naming both blobs, by a reviewer other than the
+    owner, with a method, at least one verdict and every verdict accept. With `items` (the event ids a ledger change
+    adds), one verdict per item: an item without a verdict, an item with two, or one not `accept` refuses. Otherwise
+    the reason."""
     try:
         rvd = json.loads(rv.decode('utf-8')) if rv else None
     except (ValueError, UnicodeDecodeError):
@@ -263,6 +299,14 @@ def _review_problem(host, repo_id, main, a, path, new_sha, old_sha):
             not isinstance(rvd.get('verdicts'), list) or not rvd['verdicts'] or \
             any(not isinstance(x, dict) or x.get('verdict') != 'accept' for x in rvd['verdicts']):
         return 'has no valid independent review record'
+    if items:
+        named = [str(x.get('item')) for x in rvd['verdicts']]
+        missing = [i for i in items if i not in named]
+        if missing:
+            return 'has a review record with no verdict for added event %s' % missing[0]
+        dup = sorted({i for i in named if named.count(i) > 1})
+        if dup:
+            return 'has a review record with more than one verdict for item %s' % dup[0]
     return None
 
 
@@ -279,37 +323,63 @@ def ledger_review_path(a, from_sha, to_sha):
     return '%s/ledger-reviews/%s-%s.json' % (base, from_sha, to_sha)
 
 
-def in_force(host, repo_id, a_versions, commit):
-    """The version of A in force when `commit` merged: the latest verified version of A merged before it on main's
-    first-parent chain. A version merged in the same commit takes effect with that merge, so it governs a change
-    only when no version merged before it exists (the first landing of A and the ledger together)."""
-    before, same = None, None
-    for c, a in a_versions:
-        if c == commit:
-            same = a
-        else:
-            try:
-                earlier = host.on_first_parent_chain(repo_id, c, commit)
-            except HostUnavailable as exc:
-                refuse('history', 'the order of the authority and ledger changes cannot be read: %s' % exc)
-            if earlier:
-                before = a
-    got = before or same
+def timeline_of(a_versions):
+    """The owner timeline (DI-1) of the verified versions of A: [(commit, A, merged_at, blob sha256)]."""
+    return OwnerTimeline([(m, x['owner']['id'], b) for _, x, m, b in a_versions])
+
+
+def in_force(a_versions, t, what):
+    """The version of A in force at `t` (sec. 6.3, "Owner at creation"): the latest verified version whose merge time
+    is strictly before `t`. A version merged at `t` is not yet in force."""
+    got = None
+    for _, a, m, _b in a_versions:
+        if m < t:
+            got = a
     if got is None:
-        refuse('ledger', 'freeze-ledger change %s precedes every verified authority record' % commit[:12])
+        refuse('ledger', '%s merged when no verified authority record was in force' % what)
     return got
+
+
+def _verify_ledger_change(host, a, tl, prev_blob, blob, merged_at, consumed, what, review_bytes):
+    """One freeze-ledger change from `prev_blob` (None for the first) to `blob`, governed by `a`, merged at `merged_at`
+    (None for a change not yet merged, as at an acceptance landing): append-only; the owner's oi-authority/1 approve
+    comment; the independent review record, one verdict per added event; and, when it adds events, its own
+    oi-freeze-ledger/1 append comment (N3). Each approval counts under "Owner at creation". Returns (approval id,
+    append approval id or None); the caller consumes them."""
+    new_sha = util.sha256(blob)
+    old_sha = util.sha256(prev_blob) if prev_blob is not None else 'none'
+    # the ledger is append-only (sec. 6.3): each version extends the previous one, so no change can be reverted and
+    # re-applied under an approval already given
+    if prev_blob is not None:
+        why = _ledger_extension_problem(prev_blob, blob)
+        if why:
+            refuse('ledger', '%s is not an append: %s' % (what, why))
+    approval = _ledger_authority_approval(host, a, tl, old_sha, new_sha, merged_at, consumed, what)
+    items, why = added_event_ids(prev_blob, blob)
+    if why:
+        refuse('ledger', '%s: %s' % (what, why))
+    why = _review_problem(review_bytes, a, new_sha, old_sha, items)
+    if why:
+        refuse('ledger', '%s %s' % (what, why))
+    # and, for a change that adds events, its own append comment (N3): every change after the first adds events
+    # (append-only, above); the first adds events unless it is empty
+    append = None
+    if prev_blob is not None or _ledger_events(blob, what):
+        append = _ledger_append_approval(host, a, tl, old_sha, new_sha, merged_at, consumed, what)['id']
+    return approval['id'], append
 
 
 def verify_history(host, repo_id, path, governing, main, kind, a_versions=None, consumed=None):
     """Every version of `path` on main passed its approval procedure. kind: 'authority' or 'ledger'.
     Returns the list of versions with their approvals. For kind 'authority', `a_versions` (a list) receives
-    (commit, parsed A) for every verified version; for kind 'ledger' it supplies them, and each ledger change is
-    approved by the owner of the version in force when it merged. `consumed` (a set, shared between the authority
-    and the ledger histories) holds the approval comment ids already used: each comment authorizes one change.
-    Each ledger version extends the previous one, and each ledger change has a merge record. Every ledger change
-    passes the authority-change procedure (an approval comment in the authority thread, an independent review record
-    naming both blobs, and a pull-request merge by the owner), and one that adds events also needs its own append
-    comment in a plan thread (N3); none of these stands in for another."""
+    (commit, parsed A, merge time, blob sha256) for every verified version; for kind 'ledger' it supplies them, and
+    each ledger change is governed by the version of A in force when it merged. `consumed` (a set, shared between the
+    authority and the ledger histories) holds the approval comment ids already used: each comment authorizes one
+    change. Every approval counts under "Owner at creation" (DI-1). Each ledger version extends the previous one, and
+    each ledger change has a merge record. Every ledger change passes the authority-change procedure (an approval
+    comment in the authority thread, an independent review record naming both blobs with one verdict per added
+    event, and a pull-request merge by the owner), and one that adds events also needs its own append comment in a
+    plan thread (N3); none of these stands in for another."""
     if consumed is None:
         consumed = set()
     try:
@@ -317,6 +387,7 @@ def verify_history(host, repo_id, path, governing, main, kind, a_versions=None, 
     except HostUnavailable as exc:
         refuse('history', 'the history of %s cannot be read: %s' % (path, exc))
     out = []
+    seen = [] if a_versions is None else a_versions
     prev_blob, prev_a, prev_merged_at = None, None, None
     for v in hist:
         blob = v['blob']
@@ -329,66 +400,94 @@ def verify_history(host, repo_id, path, governing, main, kind, a_versions=None, 
                 'authority' if kind == 'authority' else 'freeze-ledger', v['commit'][:12], why))
         new_sha = util.sha256(blob)
         old_sha = util.sha256(prev_blob) if prev_blob is not None else 'none'
+        merged_at = v['merged_at']
         if kind == 'authority':
             new_a = parse_authority(blob)
             if prev_a is None and new_a.get('supersedes') is not None:
                 refuse('authority', 'the first authority record must have supersedes null')
-            if prev_a is not None and (new_a.get('supersedes') or {}).get('blob_sha256') != old_sha:
-                refuse('authority', 'the authority record does not supersede the previous one')
+            # DI-2: A's lineage is its fixed path; supersedes names the version preceding it on main's first-parent
+            # chain, at the same path
+            if prev_a is not None and (not isinstance(new_a.get('supersedes'), dict) or
+                                       new_a['supersedes'].get('blob_sha256') != old_sha or
+                                       new_a['supersedes'].get('path') != path):
+                refuse('authority', 'the authority record does not supersede the version preceding it on main')
             gov = prev_a or new_a
+            tl = timeline_of(seen)
             cs = read_thread(host, gov['authority_thread']['repository_id'], gov['authority_thread']['issue'])
             what = 'authority change %s' % v['commit'][:12]
-            hits = _fresh(find_approval(gov, cs, 'authority-approve', {'frm': old_sha, 'to': new_sha},
-                                        gov['owner']['id'], v.get('merged_at')), consumed, 'authority', what)
+            found = _fresh(find_approval(gov, cs, 'authority-approve', {'frm': old_sha, 'to': new_sha},
+                                         gov['owner']['id'], merged_at), consumed, 'authority', what)
+            if prev_a is None:
+                # the first A: approved by the id it pins, authenticated as that id, created before the merge
+                hits = [c for c in found if not tl.changed_between(c['created_at'], merged_at)]
+            else:
+                hits = [c for c in found if counts_as_approval(tl, c, gov['owner']['id'], merged_at)]
             if len(hits) != 1:
-                refuse('authority', 'authority change %s has %d valid approvals by the owner id' % (v['commit'][:12],
-                                                                                                   len(hits)))
+                refuse('authority', 'authority change %s has %d valid approvals by the owner id that count under '
+                                    'Owner at creation' % (v['commit'][:12], len(hits)))
             used = [hits[0]['id']]
             if prev_a is not None and new_a['owner']['id'] != prev_a['owner']['id']:
-                co = _fresh(find_approval(gov, cs, 'authority-approve', {'frm': old_sha, 'to': new_sha},
-                                          new_a['owner']['id'], v.get('merged_at')), consumed, 'authority', what)
+                # the new id's approval, authenticated as the id the new A pins: created before the merge, with no
+                # owner change merged between its creation and the merge
+                co = [c for c in _fresh(find_approval(gov, cs, 'authority-approve', {'frm': old_sha, 'to': new_sha},
+                                                      new_a['owner']['id'], merged_at), consumed, 'authority', what)
+                      if not tl.changed_between(c['created_at'], merged_at)]
                 if len(co) != 1:
-                    refuse('authority', 'an owner-id change needs the approval of the new id as well')
+                    refuse('authority', 'an owner-id change needs the approval of the new id as well, created before '
+                                        'the merge with no owner change merged in between')
                 used.append(co[0]['id'])
             if v.get('merged_by_id') != gov['owner']['id']:
                 refuse('authority', 'authority change %s was merged by another account' % v['commit'][:12])
-            if _review_problem(host, repo_id, main, gov, review_path(new_a, new_sha), new_sha, old_sha):
+            if _review_problem(host.file_at(repo_id, main, review_path(new_a, new_sha)), gov, new_sha, old_sha):
                 refuse('authority', 'authority change %s has no valid independent review record' % v['commit'][:12])
             consumed.update(used)
             prev_a = new_a
-            if a_versions is not None:
-                a_versions.append((v['commit'], new_a))
+            seen.append((v['commit'], new_a, merged_at, new_sha))
             out.append({'commit': v['commit'], 'blob_sha256': new_sha, 'approval': hits[0]['id'],
-                        'owner_id': new_a['owner']['id']})
+                        'owner_id': new_a['owner']['id'], 'merged_at': merged_at})
         else:
             what = 'freeze-ledger change %s' % v['commit'][:12]
-            # the ledger is append-only (sec. 6.3): each version extends the previous one, so no change can be
-            # reverted and re-applied under an approval already given
-            if prev_blob is not None:
-                why = _ledger_extension_problem(prev_blob, blob)
-                if why:
-                    refuse('ledger', '%s is not an append: %s' % (what, why))
-            # the approver is the owner of the version of A in force when this ledger change merged (sec. 6.3); the
-            # owner of a superseded version keeps no authority over a change merged after its supersession
-            a = in_force(host, repo_id, a_versions, v['commit']) if a_versions else governing
-            # the authority-change procedure, for every ledger change (sec. 6.3, "How it changes")
-            approval = _ledger_authority_approval(host, a, old_sha, new_sha, v, consumed, what)
-            why = _review_problem(host, repo_id, main, a, ledger_review_path(a, old_sha, new_sha), new_sha, old_sha)
-            if why:
-                refuse('ledger', '%s %s' % (what, why))
+            # the governing A is the version in force when this ledger change merged (sec. 6.3); the owner of a
+            # superseded version keeps no authority over a change merged after its supersession
+            a = in_force(seen, merged_at, what) if seen else governing
+            tl = timeline_of(seen) if seen else OwnerTimeline([])
+            review = host.file_at(repo_id, main, ledger_review_path(a, old_sha, new_sha))
+            approval, append = _verify_ledger_change(host, a, tl, prev_blob, blob, merged_at, consumed, what, review)
             if v.get('merged_by_id') != a['owner']['id']:
                 refuse('ledger', '%s was merged by another account' % what)
-            # and, for a change that adds events, its own append comment (N3): every change after the first adds
-            # events (append-only, above); the first adds events unless it is empty
-            append = None
-            if prev_blob is not None or _ledger_events(blob, what):
-                append = _ledger_append_approval(host, a, old_sha, new_sha, v, consumed, what)['id']
-            consumed.update([approval['id']] + ([append] if append is not None else []))
-            out.append({'commit': v['commit'], 'blob_sha256': new_sha, 'approval': approval['id'],
-                        'append_approval': append})
+            consumed.update([approval] + ([append] if append is not None else []))
+            out.append({'commit': v['commit'], 'blob_sha256': new_sha, 'approval': approval,
+                        'append_approval': append, 'merged_at': merged_at})
         prev_blob = blob
-        prev_merged_at = v['merged_at']
+        prev_merged_at = merged_at
     return out
+
+
+def check_ledger_landing(host, repo_id, new_ledger, review_bytes):
+    """The landing check of a freeze-ledger change not yet merged, as an acceptance landing carries it (sec. 6.3, N3):
+    main's authority and ledger histories verify; the change extends main's ledger; and it carries all its components,
+    each approval counting under "Owner at creation" with main's current A as the governing authority record and no
+    owner change merged after the approval's creation. Raises Refused: the landing does not merge. Returns the
+    approval ids."""
+    try:
+        main = host.main_head(repo_id)
+        a_bytes = host.file_at(repo_id, main, authority_path)
+    except HostUnavailable as exc:
+        refuse('ledger', 'main cannot be read: %s' % exc)
+    if a_bytes is None:
+        refuse('ledger', 'no authority record on main')
+    a = parse_authority(a_bytes)
+    a_versions, consumed = [], set()
+    versions = verify_history(host, repo_id, authority_path, None, main, 'authority', a_versions=a_versions,
+                              consumed=consumed)
+    if not versions or versions[-1]['blob_sha256'] != util.sha256(a_bytes):
+        refuse('authority', 'the authority record on main has no verified history')
+    verify_history(host, repo_id, a['freeze_ledger_path'], a, main, 'ledger', a_versions=a_versions,
+                   consumed=consumed)
+    old = host.file_at(repo_id, main, a['freeze_ledger_path'])
+    approval, append = _verify_ledger_change(host, a, timeline_of(a_versions), old, new_ledger, None, consumed,
+                                             'the freeze-ledger change of the landing', review_bytes)
+    return {'approval': approval, 'append_approval': append}
 
 
 # ---- admission ------------------------------------------------------------------------------------------------
@@ -448,7 +547,7 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
     if a_head is None:
         refuse('identity', 'the run\'s commit does not contain the authority record')
     pins = a['engine_pins']
-    # point 3 (K7, v5.5.3): besides the files A.engine_pins names, exactly the authority record (blob equal to the
+    # point 3 (K7, design v5.5.8): besides the files A.engine_pins names, exactly the authority record (blob equal to the
     # admitted A) and the workflow at A.workflow.path (if it lies there), each only as a regular file; any other
     # entry, a second copy of either, a changed file, a symlink or a submodule refuses
     permitted = {authority_path: util.sha256(a_bytes), a['workflow']['path']: a['workflow']['content_sha256']}
@@ -486,7 +585,9 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
     deleted = host.deletion_events(*thread)
     if deleted:
         refuse('thread', 'the host reports deleted comments in the thread')
-    own, impostors = owner_comments(a, cs)
+    # DI-1: the owner timeline of the verified versions of A, for "Owner at creation"
+    tl = timeline_of(a_versions)
+    own, impostors = owner_comments(a, cs, tl)
     # the freeze ledger, its approvals, and the committed snapshots
     try:
         led_b = host.file_at(repo_id, main, a['freeze_ledger_path'])
@@ -526,7 +627,8 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
             forms.append((c, f))
     # reconciliation of the thread with the ledger and the snapshots. A recorded event is no source of authority: a
     # withdrawal or supersession binds only by revoking its commit, even when its comment is gone; a recorded event
-    # that names a comment present in the thread must agree with it, and that comment must be the owner's
+    # that names a comment present in the thread must agree with it, and that comment must have been an owner comment
+    # at its creation (sec. 6.3, "Owner at creation")
     by_id = {c['id']: c for c in cs}
     bound = []
     for ev in list(ledger['events']) + snap_events:
@@ -535,13 +637,17 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
         c = by_id.get(ev['comment_id'])
         if c is not None and (c['author_id'] != ev['author_id'] or first_line(c['body']) != ev['first_line']):
             refuse('ledger', 'a recorded event conflicts with the thread (comment %s)' % ev['comment_id'])
-        if c is not None and c['author_id'] != a['owner']['id']:
-            refuse('ledger', 'a recorded event names comment %s, which is not the owner\'s' % ev['comment_id'])
+        if c is not None and not tl.owner_comment(c['author_id'], c['created_at']):
+            refuse('ledger', 'a recorded event names comment %s, which was not an owner comment at its creation'
+                   % ev['comment_id'])
         if ev['kind'] in ('withdraw', 'supersede'):
             bound.append(ev)
         elif ev['kind'] == 'designate' and c is None:
             pass  # a ledger entry alone never designates
-    # point 5: deterministic state
+    # point 5: deterministic state. Each form, and each half of a supersession, is processed only if it counts under
+    # "Owner at creation": a withdrawal and the revoking half of a supersession if they are owner comments; a
+    # designation and the designating half of a supersession if they are owner comments by the owner of the governing
+    # A with no owner change merged since their creation. A recorded supersession only revokes.
     events = []
     for c, (name, fields) in forms:
         if fields['plan'] != plan_id or fields['round'] != round_id:
@@ -556,32 +662,53 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
                            'comment_id': ev['comment_id'], 'created_at': ev['created_at'],
                            'author_id': ev['author_id'], 'first_line': ev['first_line'], 'bound': True})
     events.sort(key=lambda e: (e['created_at'], e['comment_id']))
+    for e in events:
+        e['owner_comment'] = tl.owner_comment(e['author_id'], e['created_at'])
+        e['designates'] = not e.get('bound') and e['owner_comment'] and e['author_id'] == a['owner']['id'] and \
+            not tl.changed_between(e['created_at'])
     state = {}
+    # for the test "naming a commit never designated", a designation that was an owner comment at its creation has
+    # designated its commit, even if it is not processed (point 5)
+    ever = set()
+
+    def revoke(e, commit):
+        if state.get(commit) == 'revoked':
+            refuse('state', 'a %s names a commit that is already withdrawn' % e['kind'])
+        if state.get(commit) != 'designated' and commit not in ever:
+            refuse('state', 'a %s names a commit never designated' % ('withdrawal' if e['kind'] == 'withdraw'
+                                                                      else 'supersession'))
+        state[commit] = 'revoked'
+
+    def designate(e, commit):
+        if state.get(commit) == 'revoked':
+            refuse('state', 'a revoked commit is designated again')
+        live = [k for k, v in state.items() if v == 'designated' and k != commit]
+        if live:
+            refuse('state', 'two live designations in one round')
+        state[commit] = 'designated'
+        e['processed'] = True
     for e in events:
         if e['kind'] == 'designate':
-            if state.get(e['commit']) == 'revoked':
-                refuse('state', 'a revoked commit is designated again')
-            live = [k for k, v in state.items() if v == 'designated' and k != e['commit']]
-            if live:
-                refuse('state', 'two live designations in one round')
-            state[e['commit']] = 'designated'
+            if e['owner_comment'] and not e.get('bound'):
+                ever.add(e['commit'])
+            if e['designates']:
+                designate(e, e['commit'])
         elif e['kind'] == 'withdraw':
-            if state.get(e['commit']) != 'designated':
-                refuse('state', 'a withdrawal names a commit that is not designated')
-            state[e['commit']] = 'revoked'
+            if e['owner_comment']:
+                revoke(e, e['commit'])
+                e['processed'] = True
         elif e['kind'] == 'supersede':
-            if state.get(e['commit']) != 'designated':
-                refuse('state', 'a supersession names a commit that is not designated')
-            state[e['commit']] = 'revoked'
-            if e.get('bound'):
-                continue  # a recorded supersession only revokes; `by` is designated only by a form in the thread
-            if state.get(e['by']) == 'revoked':
-                refuse('state', 'a supersession designates a revoked commit')
-            state[e['by']] = 'designated'
+            if e['owner_comment']:
+                revoke(e, e['commit'])
+                e['processed'] = True
+                if not e.get('bound'):
+                    ever.add(e['by'])
+            if e['designates']:
+                designate(e, e['by'])
     live = [k for k, v in state.items() if v == 'designated']
     if live != [freeze]:
         refuse('state', 'the freeze is not the one designated commit of the round (designated: %s)' % live)
-    designation = [e for e in events if not e.get('bound') and e['kind'] in ('designate', 'supersede') and
+    designation = [e for e in events if e['designates'] and e['kind'] in ('designate', 'supersede') and
                    (e['commit'] == freeze if e['kind'] == 'designate' else e['by'] == freeze)][-1]
     # point 6: the pin table, authenticated by the designation of exactly F
     prereg = git.read(freeze, plan['pin_table_path'])
@@ -605,7 +732,7 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
                 'tool_blobs': {p: pins[p] for p in sorted(pins)}},
         'main': main, 'thread': {'repository_id': thread[0], 'issue': thread[1],
                                  'comment_ids': [c['id'] for c in cs], 'count': len(cs)},
-        'owner_comments': [comment_record(c) for c in own], 'impostor_comments': impostors,
+        'owner_comments': [comment_record(c, tl) for c in own], 'impostor_comments': impostors,
         'freeze_ledger': {'path': a['freeze_ledger_path'], 'blob_sha256': util.sha256(led_b),
                           'versions': led_versions},
         'events': events, 'designation_comment_id': designation['comment_id'],

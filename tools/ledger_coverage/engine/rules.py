@@ -248,3 +248,23 @@ def deny_widening(old, new):
     if util.canonical(old['countercontrol']) != util.canonical(new['countercontrol']):
         why.append('countercontrol changed')
     return why
+
+
+def file_widening(old_doc, new_doc):
+    """Sec. 6.3: the widening items of the rule file `new_doc` against the file it supersedes (`old_doc`, or None for
+    a first file or an unreadable predecessor): every allow rule widened or new, every deny rule widened or removed."""
+    old_rules = {r['id']: r for r in (old_doc or {}).get('rules', []) if isinstance(r, dict) and 'id' in r}
+    widen = []
+    for r in new_doc.get('rules', []):
+        if not isinstance(r, dict):
+            continue
+        if r.get('kind') == 'allow':
+            widen += allow_widening(old_rules[r['id']], r) if r.get('id') in old_rules else \
+                ['%s:new allow rule without supersedes' % r.get('id')]
+        elif r.get('kind') == 'deny' and r.get('id') in old_rules:
+            widen += deny_widening(old_rules[r['id']], r)
+    for rid in old_rules:
+        if rid not in {r.get('id') for r in new_doc.get('rules', []) if isinstance(r, dict)} and \
+                old_rules[rid].get('kind') == 'deny':
+            widen.append('%s:deny rule removed' % rid)
+    return widen

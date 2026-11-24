@@ -207,13 +207,14 @@ def rule_files(loaded, harness, ctx_lookup):
         probs = [] if harness else rec.lint_chain(ref, loaded.store, owner, loaded.admitted)
         sup = doc.get('supersedes')
         old_rules = {}
+        od = None
         if sup:
-            od = loaded.store.get(sup)
+            # the predecessor is read from the object store at or before F (sec. 6.3, DI-2)
+            od = loaded.store.resolve(sup)
             if od is None:
                 probs.append('broken supersedes chain')
             else:
                 old_rules = {r['id']: r for r in od.get('rules', [])}
-        widen = []
         for r in doc.get('rules', []):
             other = seen_ids.get(r['id'])
             if other is not None and other != ref['path'] and not (sup and sup.get('path') == other):
@@ -234,16 +235,7 @@ def rule_files(loaded, harness, ctx_lookup):
                 continue
             probs += rulemod.lint_rule(r, ctx_lookup['profile'], ctx_lookup['sentence'], ctx_lookup['deny'],
                                        ctx_lookup['control_input'])
-            if r.get('kind') == 'allow':
-                if r['id'] in old_rules:
-                    widen += rulemod.allow_widening(old_rules[r['id']], r)
-                else:
-                    widen.append('%s:new allow rule without supersedes' % r['id'])
-            elif r.get('kind') == 'deny' and r['id'] in old_rules:
-                widen += rulemod.deny_widening(old_rules[r['id']], r)
-        for rid in old_rules:
-            if rid not in {r['id'] for r in doc.get('rules', [])} and old_rules[rid].get('kind') == 'deny':
-                widen.append('%s:deny rule removed' % rid)
+        widen = rulemod.file_widening(od, doc)
         wp = rec.widening_review_problems(ref, loaded.store, loaded.admitted, rec.reviewers_of(ref, loaded.store),
                                           doc.get('author'), sup, widen, owner) if widen else []
         if wp and (not harness or ctx_lookup.get('force_widening')):

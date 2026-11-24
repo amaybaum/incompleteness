@@ -421,7 +421,7 @@ def tr_controls(r):
         out28.append(show(*t.run(w28, F28)))
     check('TR28', 'tool blobs at head_sha differing from A.engine_pins, or an extra file under the tool: ERROR at '
           'the tool', "both exit 65", out28, all(o['exit'] == 65 for o in out28))
-    # TR48-TR53 (K7, v5.5.3): the files permitted under the tool directory at head_sha
+    # TR48-TR53 (K7, design v5.5.8): the files permitted under the tool directory at head_sha
     k7(t, check, show)
     # TR29: head_sha not on main's first-parent chain; head_sha = X (no workflow, no tool)
     out29 = []
