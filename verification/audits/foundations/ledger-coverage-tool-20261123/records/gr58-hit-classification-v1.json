@@ -1,0 +1,23 @@
+{
+ "schema": "oi-hit-classification/1",
+ "record_id": "gr58-v1",
+ "status": "UNREVIEWED DRAFT: prepared by the implementation writer; no independent review and no owner authorization exist. The tool does not admit it under the review chain.",
+ "author": "implementation-writer-20261123",
+ "statement": "This record classifies meaning only; the splice provenance of the line is recorded separately in the ledger.",
+ "classifications": [
+  {
+   "id": "GR-58",
+   "file": "papers/GR.md",
+   "line_sha256": "3a7c10986d047df3b55cd559344bd09de4634ef453ec64777fbdbd647a6e65f4",
+   "tree": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+   "segment": "H..X",
+   "profiles": [
+    "p0-core",
+    "p0-para",
+    "ptr"
+   ],
+   "semantic_classification": "\"For a finite total system\" restricts the derivation to a finite total system as its stated scope; it states no finiteness posit and no premise about the substratum.",
+   "author": "implementation-writer-20261123"
+  }
+ ]
+}
