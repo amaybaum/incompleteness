@@ -80,8 +80,8 @@ class OwnerTimeline:
     """The owner of `A` over time (sec. 6.3, "Owner at creation", DI-1). `versions` are the verified versions of `A`
     on main's first-parent chain, oldest first, as (host merge time, owner id, blob sha256). The version in force at a
     time `t` is the latest version whose merge time is strictly before `t`; an owner change is the merge of a version
-    whose owner id differs from that of the version it replaces. Host times are ISO 8601 UTC timestamps with
-    seconds and a final Z, which order as strings.
+    whose owner id differs from that of the version it replaces. Host times are timestamps of the form
+    2026-11-23T00:00:01Z, which order as strings.
 
     `constant(owner)` is the timeline of a control-harness run that has no host: one owner at every time and no owner
     change, so that an authorization counts exactly when its owner is that owner."""
