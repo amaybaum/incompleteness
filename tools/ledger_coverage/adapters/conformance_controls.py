@@ -991,6 +991,70 @@ def cache_controls(r):
             name == 'Overlay.entries (in-memory commit)' else ov.paths(X)
         attempts[name] = {'attempts': tried, 'unchanged after the attempts and a mutated copy': dict(again) == before,
                           'same view returned': again is view}
+    # the cache is keyed by the exact commit id: a different commit never receives another commit's mapping
+    def ls_tree(store, c):
+        out = subprocess.run(['git', '--no-replace-objects', '-C', store, 'ls-tree', '-r', '-z', '--full-tree', c],
+                             capture_output=True).stdout.split(b'\x00')
+        got = {}
+        for rec_ in out:
+            if rec_:
+                meta, _, path = rec_.partition(b'\t')
+                parts = meta.split()
+                if parts[1] == b'blob':
+                    got[path.decode()] = parts[2].decode()
+        return got
+    commits = [ids[k] for k in ('pin', 'H', 'c', 'F', 'T', 'X', 'M')]
+    keyed = {}
+    for order in (commits, list(reversed(commits))):
+        g2 = gitobj.GitRepo(dk.d)
+        for c in order:
+            keyed.setdefault(c, []).append(dict(g2.paths(c)) == ls_tree(dk.d, c))
+    distinct = len({tuple(sorted(gitobj.GitRepo(dk.d).paths(c).items())) for c in commits})
+    g3 = gitobj.GitRepo(dk.d)
+    first, second = g3.paths(ids['X']), g3.paths(ids['M'])
+    ov2 = gitobj.Overlay(gitobj.GitRepo(dk.d))
+    m1 = ov2.derive(ids['X'], {'notes/one.txt': b'1\n'}, parents=[ids['X']])
+    m2 = ov2.derive(ids['X'], {'notes/two.txt': b'2\n'}, parents=[ids['X']])
+    ov_ok = 'notes/one.txt' in ov2.paths(m1) and 'notes/one.txt' not in ov2.paths(m2) and \
+        'notes/two.txt' in ov2.paths(m2) and 'notes/two.txt' not in ov2.paths(m1) and \
+        dict(ov2.paths(ids['X'])) == ls_tree(dk.d, ids['X'])
+    keyout = {'each commit\'s cached map equals git ls-tree of that commit, in both read orders': keyed,
+              'distinct maps among the seven commits': distinct,
+              'X and M (M changes one path) give different views': first is not second and
+              'notes/m.txt' in second and 'notes/m.txt' not in first,
+              'in-memory commits each get their own map': ov_ok}
+    check('GV-CACHE-KEY', 'the path cache is keyed by the exact verified commit id: each commit\'s cached map equals '
+          'that commit\'s tree (git ls-tree, replacement disabled), whatever the order in which commits are read; a '
+          'different commit never receives another commit\'s map; likewise for in-memory commits (implementation '
+          'control)', "every comparison true in both orders; seven commits with different trees give seven distinct "
+          "maps; X's and M's views differ in notes/m.txt; the two in-memory commits each see only their own file",
+          keyout, all(all(v) for v in keyed.values()) and distinct == 7 and
+          keyout['X and M (M changes one path) give different views'] and ov_ok)
+    # corruption of the store after a successful read (stated, not claimed as detected): the reader caches every
+    # verified object for its lifetime, so the same reader serves the bytes it verified and does not re-read the
+    # store; a new reader verifies again and refuses
+    d3 = os.path.join(r.out_root, 'cache-after-read')
+    shutil.copytree(dk.d, d3, symlinks=True)
+    same = gitobj.GitRepo(d3)
+    before_bytes = same.read(ids['X'], sf.DOC)
+    paths_before = dict(same.paths(ids['X']))
+    f3 = dk.loose(blob).replace(dk.d, d3)
+    os.chmod(f3, 0o644)
+    with open(f3, 'wb') as fh:
+        fh.write(zlib.compress(b'blob %d\x00' % (len(raw) + 1) + raw + b' '))
+    after_read = {'same reader, read after the corruption': 'served the verified bytes'
+                  if same.read(ids['X'], sf.DOC) == before_bytes else 'other bytes',
+                  'same reader, paths after the corruption equal': dict(same.paths(ids['X'])) == paths_before,
+                  'a new reader': refused(lambda: gitobj.GitRepo(d3).read(ids['X'], sf.DOC))}
+    check('GV-CACHE-AFTER-READ', 'corruption of the object store after a successful read: within one reader\'s '
+          'lifetime it is not re-detected (the reader serves the bytes it verified, from its object cache, which the '
+          'reader held before this correction too); a new reader verifies the object again and refuses it '
+          '(implementation control; it states the behaviour and claims no detection after a read)',
+          "the same reader returns the bytes it verified and the same path map; a new reader refuses with 'does not "
+          "hash to its id'", after_read,
+          after_read['same reader, read after the corruption'] == 'served the verified bytes' and
+          after_read['same reader, paths after the corruption equal'] and
+          str(after_read['a new reader']).startswith('refused') and 'does not hash' in after_read['a new reader'])
     check('GV-CACHE-IMMUTABLE', 'no caller can change a cached path or entry mapping: each is a read-only view '
           '(assignment, deletion, pop, update and clear refused); a mutated copy leaves the cache unchanged; later '
           'calls return the same view (implementation control)',
@@ -2286,7 +2350,8 @@ def z11_s4a(r):
 
 # every control this runner implements; one whose group stopped before it ran is FAIL, never absent
 ALL_IDS = ['TR5-sim', 'TR5', 'TR1', 'TR2', 'TR3', 'TR13', 'TR14-tool', 'TR14', 'TR15', 'ADM-CONFIG-AT-F',
-           'ACCEPT-SCHEMA', 'CONFIG-LINT', 'B4-MEANING', 'GV-CACHE', 'GV-CACHE-IMMUTABLE', 'TR28-tool', 'TR28-consumer', 'TR29-tool',
+           'ACCEPT-SCHEMA', 'CONFIG-LINT', 'B4-MEANING', 'GV-CACHE', 'GV-CACHE-IMMUTABLE', 'GV-CACHE-KEY',
+           'GV-CACHE-AFTER-READ', 'TR28-tool', 'TR28-consumer', 'TR29-tool',
            'TR29', 'TR30', 'TR45-opB', 'TR46', 'TR48', 'TR50', 'TR51', 'TR52', 'X11', 'EI1', 'EI2', 'EI2-consumer',
            'EI3', 'EI4', 'EI5', 'EI6', 'EI7-tool', 'EI8', 'EI9', 'EI10', 'EI11', 'EI12', 'EI13', 'EI14', 'EI15', 'GV1',
            'GV2', 'GV3', 'GV4', 'GV5', 'GV6', 'GV6-disk', 'GV7-tool', 'GV7-consumer', 'R16', 'R17', 'A12r', 'Z11',
