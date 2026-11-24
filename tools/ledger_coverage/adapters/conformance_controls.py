@@ -2918,17 +2918,22 @@ def r7_n5_forged(t):
     once."""
     out = {}
 
-    # a forged snapshot record under the comment id of F2's present designation, withdrawing F2
-    def forged_present(lev, s, sev, F2):
-        d = [e for e in s['events'] if e['kind'] == 'designate' and e['commit'] == F2][0]
-        s['events'].append({'kind': 'withdraw', 'commit': F2, 'by': None, 'comment_id': d['comment_id'],
-                            'created_at': d['created_at'], 'author_id': d['author_id'],
-                            'first_line': _r7_wd_line(F2)})
-
-    def one():
-        w, F, F2, W, _ = _r7_landed(t, 'ledger+snapshot', forged_present)
-        return {'designation present: F2': _p5(t, w, F2), 'designation present: F2 full chain': _fullx(t, w, F2)}
-    out['a forged withdrawal of F2 under the id of F2\'s present designation'] = _r7_guarded(one)
+    def forged_present(replace):
+        """A forged snapshot record under the comment id of F2's present designation, withdrawing F2; beside the
+        genuine record of that designation, or in its place."""
+        def edit(lev, s, sev, F2):
+            d = [e for e in s['events'] if e['kind'] == 'designate' and e['commit'] == F2][0]
+            if replace:
+                s['events'].remove(d)
+            s['events'].append({'kind': 'withdraw', 'commit': F2, 'by': None, 'comment_id': d['comment_id'],
+                                'created_at': d['created_at'], 'author_id': d['author_id'],
+                                'first_line': _r7_wd_line(F2)})
+        return edit
+    for name, replace in (('beside the genuine record', False), ('in place of the genuine record', True)):
+        def one(replace=replace):
+            w, F, F2, W, _ = _r7_landed(t, 'ledger+snapshot', forged_present(replace))
+            return {'designation present: F2': _p5(t, w, F2), 'designation present: F2 full chain': _fullx(t, w, F2)}
+        out['a forged withdrawal of F2 under the id of F2\'s present designation, %s' % name] = _r7_guarded(one)
 
     # W deleted: a forged snapshot record under W's comment id that withdraws F2 (consistent with itself)
     def forged_deleted(lev, s, sev, F2):
@@ -2939,17 +2944,21 @@ def r7_n5_forged(t):
         return _r7_deleted(t, w, F, F2, W, both=False)
     out['W deleted; a forged snapshot record under W\'s id withdrawing F2, the ledger\'s withdrawing F'] = \
         _r7_guarded(two)
-    a, b = out[list(out)[0]], out[list(out)[1]]
+    a, b, c = (out[k] for k in out)
     check('R7-N5-FORGED', 'a forged snapshot record sharing a comment id with a genuine one: under the id of F2\'s '
-          'present designation, a withdrawal of F2; separately, with W deleted, under W\'s id a withdrawal of F2 '
-          'while the ledger records W withdrawing F. Each is caught (sec. 6.3, reconciliation: an event that '
-          'conflicts with the thread refuses; two records of one comment that differ refuse)',
-          "the first refuses at point 'ledger' naming the conflict with the thread; the second at point 'ledger' "
-          "naming two records of one comment that differ; both full chains exit 65 CONFIG_UNREVIEWED", out,
-          _refused5(a.get('designation present: F2', {}), 'ledger', 'conflicts with the thread') and
-          _unreviewed(a.get('designation present: F2 full chain', {})) and
-          _refused5(b.get('W deleted: F2', {}), 'ledger', 'differ') and
-          _unreviewed(b.get('W deleted: F2 full chain', {}), 'differ'))
+          'present designation, a withdrawal of F2, beside the genuine record (separately, in its place); separately, '
+          'with W deleted, under W\'s id a withdrawal of F2 while the ledger records W withdrawing F. Each is caught '
+          '(sec. 6.3, reconciliation: an event that conflicts with the thread refuses; two records of one comment '
+          'that differ refuse)',
+          "beside: refused at point 'ledger' naming two records of one comment that differ; in place: refused at point "
+          "'ledger' naming the conflict with the thread; W deleted: refused at point 'ledger' naming two records that "
+          "differ; each full chain exits 65 CONFIG_UNREVIEWED", out,
+          _refused5(a.get('designation present: F2', {}), 'ledger', 'differ') and
+          _unreviewed(a.get('designation present: F2 full chain', {}), 'differ') and
+          _refused5(b.get('designation present: F2', {}), 'ledger', 'conflicts with the thread') and
+          _unreviewed(b.get('designation present: F2 full chain', {}), 'conflicts with the thread') and
+          _refused5(c.get('W deleted: F2', {}), 'ledger', 'differ') and
+          _unreviewed(c.get('W deleted: F2 full chain', {}), 'differ'))
 
 
 def r7_n5_supersede(t):
