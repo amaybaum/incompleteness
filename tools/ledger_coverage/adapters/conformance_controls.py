@@ -4,7 +4,8 @@ on-disk repository, commits after X R16/R17, widening A12r, purity Z9h, the synt
 lineage controls LN1-LN12 (DI-2), one review verdict per added ledger event (R6-EV), and the controls for the
 independent reviews' findings (R3-*, R4-*, R5-*, R6-G1 to R6-G9, TR32 with the engine's own admission snapshot,
 TR32-OWN, and R7-B2 and R7-N5*: a snapshot event conflicting with the thread, and one observed event recorded more
-than once).
+than once), and S1-P2-* and S1-Q8: the real-host history reader over a host whose path listing simplifies history
+(A and the freeze ledger landed by merge commits), and the empty freeze ledger's fields).
 
 Every control is reported as {id, expected, predicate, actual, status} with status PASS, FAIL, SKIP or NOT RUN
 (sec. 10.4, B6). A control that needs the real host (a CI job with the host's API) is NOT RUN here, never PASS.
@@ -3423,6 +3424,151 @@ def z11_s4a(r):
           "lint_chain reports as record-invalid)", out, all(out.values()))
 
 
+# ---- S1-P2: the real-host history reader over a host whose path listing simplifies history ------------------
+
+S1_P2_IDS = ['S1-P2-LISTING', 'S1-P2-OLD', 'S1-P2-NEW', 'S1-P2-ADMIT', 'S1-P2-SQUASH', 'S1-P2-REVERT',
+             'S1-P2-CHAIN', 'S1-P2-FAILCLOSED', 'S1-Q8']
+
+
+def s1_p2_history_controls(r):
+    """The history reader of the real host (RestHost.file_history) against a fake rest transport whose
+    path-filtered commit listing omits a merge commit whose path equals its second parent's, as the host's does.
+    A and the freeze ledger land by two-parent merges. The reader before the correction misses every version and
+    the admission refuses; the corrected reader finds every version the in-memory host's first-parent semantics
+    finds, and the admission passes. Fail-closed: a listing that ends before the root, a truncated tree, a host
+    error, a call bound reached and bytes that do not match their tree entry each refuse."""
+    from ledger_coverage.adapters import rest_fixture as rf
+    from ledger_coverage.engine import host as hostmod
+    t = TR(r)
+
+    def show(code, res):
+        return {'exit': code, 'stop': stop(res), 'message': ((res or {}).get('stop') or {}).get('message', '')[:160]}
+
+    def norm(hist):
+        return [{k: v.get(k) for k in ('commit', 'parent', 'blob', 'merged_by_id', 'merged_at', 'merge_commit')}
+                for v in hist]
+
+    def brief(hist):
+        return [(v['commit'], v['parent'], None if v['blob'] is None else sha(v['blob'])[:12]) for v in hist]
+
+    w = t.world()
+    F = t.freeze(w)
+    w.designate(F)
+    rf.as_merge_landings(w.h, hf.REPO_ID)
+    ledger_path = hf.LEDGER_PATH
+    paths = [auth.authority_path, ledger_path]
+    fake = rf.FakeRest(w.h, hf.REPO_ID)
+    hy = rf.HybridHost(w.h, hf.REPO_ID, fake)
+    listed = {p: [c['sha'] for c in hy._json('/repositories/%d/commits?sha=%s&path=%s&per_page=100&page=1'
+                                              % (hf.REPO_ID, w.main, p))] for p in paths}
+    merges = [c for c in w.h.first_parents(hf.REPO_ID, w.main) if len(w.h.repos[hf.REPO_ID]['commits'][c]['parents']) == 2]
+    check('S1-P2-LISTING', 'the fake path listing simplifies history as the host does: A and the ledger landed by '
+          'two-parent merges, and the listing names their branch commits, not the merges',
+          'merges include c1 and c1l; no merge is listed for either path; b-c1 and b-c1l are listed',
+          {'merges': merges, 'listed': listed},
+          'c1' in merges and 'c1l' in merges and not any(m in listed[p] for p in paths for m in merges) and
+          'b-c1' in listed[auth.authority_path] and 'b-c1l' in listed[ledger_path])
+    truth = {p: norm(w.h.file_history(hf.REPO_ID, p)) for p in paths}
+    old = {p: norm(rf.old_file_history(rf.HybridHost(w.h, hf.REPO_ID), hf.REPO_ID, p)) for p in paths}
+    check('S1-P2-OLD', 'countercontrol: the reader before the correction misses every merge-landed version',
+          'old reader returns no version of A or of the ledger, while the first-parent truth has one each',
+          {'old': {p: brief(v) for p, v in old.items()}, 'truth': {p: brief(v) for p, v in truth.items()}},
+          all(old[p] == [] and len(truth[p]) == 1 for p in paths))
+    new = {p: norm(rf.HybridHost(w.h, hf.REPO_ID).file_history(hf.REPO_ID, p)) for p in paths}
+    check('S1-P2-NEW', 'the corrected reader finds every version: equal to the first-parent semantics of the '
+          'in-memory host (commit, first parent, bytes, merge record)', 'new[p] == truth[p] for A and the ledger, '
+          'and the versions are the merges c1 and c1l', {p: brief(v) for p, v in new.items()},
+          all(new[p] == truth[p] for p in paths) and [v['commit'] for v in new[auth.authority_path]] == ['c1'] and
+          [v['commit'] for v in new[ledger_path]] == ['c1l'])
+    # the admission through the rest reader: refused with the old reader, admitted with the corrected one
+    oldh = rf.HybridHost(w.h, hf.REPO_ID)
+    oldh.file_history = lambda repo_id, path: rf.old_file_history(oldh, repo_id, path)
+    code_o, res_o = t.run(w, F, control={'host': oldh, 'run_id': w.run_id, 'repo_id': hf.REPO_ID})
+    code_n, res_n = t.run(w, F, control={'host': rf.HybridHost(w.h, hf.REPO_ID), 'run_id': w.run_id,
+                                         'repo_id': hf.REPO_ID})
+    code_m, res_m = t.run(w, F)
+    adm = ((res_n or {}).get('config') or {}).get('admission') or {}
+    check('S1-P2-ADMIT', 'the simulated chain over the rest reader with merge-landed A and ledger: refused (ERROR '
+          'CONFIG_UNREVIEWED, exit 65) with the reader before the correction, admitted (exit 0, control-harness) with '
+          'the corrected reader, as on the in-memory host',
+          "old: exit 65 and stop CONFIG_UNREVIEWED; new: exit 0 and admission.mode == 'control-harness'; in-memory: "
+          "exit 0", {'old': show(code_o, res_o), 'new': show(code_n, res_n), 'in_memory': show(code_m, res_m)},
+          code_o == 65 and stop(res_o) == 'CONFIG_UNREVIEWED' and code_n == 0 and
+          adm.get('mode') == 'control-harness' and code_m == 0)
+    # no regression for single-parent (squash) landings
+    w2 = t.world()
+    sq = {p: (norm(rf.HybridHost(w2.h, hf.REPO_ID).file_history(hf.REPO_ID, p)),
+              norm(w2.h.file_history(hf.REPO_ID, p))) for p in paths}
+    check('S1-P2-SQUASH', 'single-parent landings: the corrected reader equals the in-memory host',
+          'new == truth for A and the ledger', {p: brief(v[0]) for p, v in sq.items()},
+          all(a == b and a for a, b in sq.values()))
+    # a revert and a deletion by merges: A -> B -> A -> deleted, each change found once, in order
+    w3 = t.world()
+    xp = 'syn/x.txt'
+    for k, val in enumerate([b'one\n', b'two\n', b'one\n', None]):
+        w3.add_main('cx%d' % k, {xp: val})
+    rf.as_merge_landings(w3.h, hf.REPO_ID)
+    got3 = norm(rf.HybridHost(w3.h, hf.REPO_ID).file_history(hf.REPO_ID, xp))
+    tru3 = norm(w3.h.file_history(hf.REPO_ID, xp))
+    old3 = norm(rf.old_file_history(rf.HybridHost(w3.h, hf.REPO_ID), hf.REPO_ID, xp))
+    check('S1-P2-REVERT', 'a path changed, reverted and deleted by merges: every change found, in order, the '
+          'deletion with no bytes; the reader before the correction finds none',
+          "new == truth, commits ['cx0','cx1','cx2','cx3'], last blob None; old == []",
+          {'new': brief(got3), 'old': brief(old3)},
+          got3 == tru3 and [v['commit'] for v in got3] == ['cx0', 'cx1', 'cx2', 'cx3'] and got3[-1]['blob'] is None
+          and old3 == [])
+    hy4 = rf.HybridHost(w.h, hf.REPO_ID)
+    chain = {c: hy4.on_first_parent_chain(hf.REPO_ID, c, w.main) for c in ('c1', 'c1l', 'b-c1', 'b-c1l', 'c0')}
+    check('S1-P2-CHAIN', 'on_first_parent_chain from the host listing: the merges and the root are on main\'s '
+          'first-parent chain, their branch commits are not', 'c1, c1l, c0 True; b-c1, b-c1l False', chain,
+          chain == {'c1': True, 'c1l': True, 'b-c1': False, 'b-c1l': False, 'c0': True})
+    # fail-closed
+    fc = {}
+
+    def attempt(label, mk):
+        h_ = mk()
+        try:
+            h_.file_history(hf.REPO_ID, auth.authority_path)
+            fc[label] = 'read'
+        except hostmod.HostUnavailable as exc:
+            fc[label] = 'HostUnavailable: %s' % str(exc)[:100]
+
+    def with_fake(**kw):
+        def mk():
+            f = rf.FakeRest(w.h, hf.REPO_ID)
+            for k_, v_ in kw.items():
+                setattr(f, k_, v_)
+            return rf.HybridHost(w.h, hf.REPO_ID, f)
+        return mk
+    attempt('listing ends before the root', with_fake(listing_pages=0))
+    attempt('tree listing truncated', with_fake(truncate_trees=True))
+    attempt('host error on a tree read', with_fake(fail={'/git/trees/'}))
+    attempt('host error on the pull-request read', with_fake(fail={'/pulls'}))
+    attempt('bytes differ from the tree entry', with_fake(corrupt={auth.authority_path}))
+    attempt('call bound reached', lambda: rf.HybridHost(w.h, hf.REPO_ID, max_calls=3))
+    old_pages = hostmod.RestHost.max_pages
+    try:
+        hostmod.RestHost.max_pages = 0
+        attempt('page bound reached', lambda: rf.HybridHost(w.h, hf.REPO_ID))
+    finally:
+        hostmod.RestHost.max_pages = old_pages
+    fh = rf.FakeRest(w.h, hf.REPO_ID)
+    fh.listing_pages = 0
+    code_f, res_f = t.run(w, F, control={'host': rf.HybridHost(w.h, hf.REPO_ID, fh), 'run_id': w.run_id,
+                                         'repo_id': hf.REPO_ID})
+    fc['admission with a listing that ends before the root'] = show(code_f, res_f)
+    check('S1-P2-FAILCLOSED', 'every incomplete or failed host read refuses: HostUnavailable from the reader, and '
+          'ERROR CONFIG_UNREVIEWED (exit 65) from the admission', 'every attempt raises HostUnavailable; the '
+          'admission exits 65 with stop CONFIG_UNREVIEWED', fc,
+          all(str(v).startswith('HostUnavailable') for k_, v in fc.items() if not k_.startswith('admission')) and
+          code_f == 65 and stop(res_f) == 'CONFIG_UNREVIEWED')
+    w5 = t.world()
+    led = json.loads(w5.ledger_bytes.decode('utf-8'))
+    check('S1-Q8', 'the empty freeze ledger the controls land carries schema and events only (owner decision Q8)',
+          "keys == {'schema', 'events'}, events == []", sorted(led), sorted(led) == ['events', 'schema'] and
+          led['events'] == [] and led['schema'] == auth.ledger_schema)
+
+
 def write(out_root):
     os.makedirs(out_root, exist_ok=True)
     summary = {}
@@ -3438,7 +3584,8 @@ def main(out_root):
     os.makedirs(out_root, exist_ok=True)
     r = sf.Runner(tempfile.mkdtemp(prefix='conf-', dir=out_root))
     groups = [('TR', lambda: tr_controls(r)), ('R16', lambda: r_controls(r)), ('A12r', lambda: a12r(r)),
-              ('Z11', lambda: z11_s4a(r)), ('G', lambda: g_controls(r))]
+              ('Z11', lambda: z11_s4a(r)), ('G', lambda: g_controls(r)),
+              ('S1-P2', lambda: s1_p2_history_controls(r))]
     t = None
     for name, fn in groups:
         try:
@@ -3477,10 +3624,10 @@ def main(out_root):
         # every control of design v5.5.8 is reported: one whose group stopped before it ran is FAIL, never absent
         for cid in ['TR%d' % i for i in range(54, 71)] + ['LN%d' % i for i in range(1, 13)] + ['R6-EV', 'TR32-OWN'] + \
                 ['R6-G%d' % i for i in range(1, 10)] + ['R7-B2', 'R7-N5', 'R7-N5-CONFLICT', 'R7-N5-FORGED',
-                                                       'R7-N5-SUPERSEDE', 'R7-N5-ROUND', 'R7-N5-DISTINCT']:
+                                                       'R7-N5-SUPERSEDE', 'R7-N5-ROUND', 'R7-N5-DISTINCT'] + S1_P2_IDS:
             if not any(x['id'] == cid for x in RESULTS):
                 group = [x for x in RESULTS if x['id'] in ('TR54-TR61', 'TR62-TR64', 'TR65', 'TR66-TR70', 'LN1-LN8',
-                                                           'LN9-LN12', 'R6-EV')]
+                                                           'LN9-LN12', 'R6-EV', 'S1-P2-group')]
                 record(cid, 'the control runs', None, 'its group stopped before it ran: %s'
                        % '; '.join(str(x['actual'])[-300:] for x in group), 'FAIL')
         try:

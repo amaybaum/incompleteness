@@ -137,11 +137,22 @@ class MemoryHost:
 
 
 class RestHost:
-    """Reads the host's rest and graphql interfaces with the job token. Used only inside a host job."""
+    """Reads the host's rest and graphql interfaces with the job token. Used only inside a host job.
 
-    def __init__(self, api, token):
+    Every rest read goes through `transport(url, headers)`, which returns (body bytes, headers) or raises
+    HostUnavailable; by default it is an https GET. `max_calls` bounds the rest reads of one instance: a read beyond
+    it raises HostUnavailable, so a history or chain that cannot be read within the bound refuses (fail-closed)."""
+
+    max_pages = 2000
+
+    def __init__(self, api, token, transport=None, max_calls=20000):
         self.api = api.rstrip('/')
         self.token = token
+        self.transport = transport or self._https_get
+        self.max_calls = max_calls
+        self.calls = 0
+        self._chains = {}
+        self._trees = {}
 
     @staticmethod
     def detect(env):
@@ -150,15 +161,21 @@ class RestHost:
         return RestHost(env.get('GITHUB_API_URL', 'https://api.github.com'), env['GITHUB_TOKEN']), \
             int(env['GITHUB_RUN_ID']), int(env.get('GITHUB_REPOSITORY_ID') or 0)
 
-    def _get(self, url, accept='application/vnd.github+json'):
-        req = urllib.request.Request(url if url.startswith('http') else self.api + url,
-                                     headers={'Authorization': 'Bearer ' + self.token, 'Accept': accept,
-                                              'X-GitHub-Api-Version': '2022-11-28'})
+    def _https_get(self, url, headers):
+        req = urllib.request.Request(url, headers=headers)
         try:
             with urllib.request.urlopen(req, timeout=60) as r:
                 return r.read(), r.headers
         except (urllib.error.URLError, OSError) as exc:
             raise HostUnavailable(str(exc))
+
+    def _get(self, url, accept='application/vnd.github+json'):
+        self.calls += 1
+        if self.calls > self.max_calls:
+            raise HostUnavailable('more than %d host reads' % self.max_calls)
+        return self.transport(url if url.startswith('http') else self.api + url,
+                              {'Authorization': 'Bearer ' + self.token, 'Accept': accept,
+                               'X-GitHub-Api-Version': '2022-11-28'})
 
     def _json(self, url):
         data, _ = self._get(url)
@@ -215,35 +232,90 @@ class RestHost:
             out.append((e['path'], kind))
         return sorted(out)
 
-    def on_first_parent_chain(self, repo_id, commit, head, limit=5000):
-        c = head
-        for _ in range(limit):
-            if c == commit:
-                return True
-            ps = self._json('/repositories/%d/commits/%s' % (repo_id, c))['parents']
-            if not ps:
-                return False
-            c = ps[0]['sha']
-        raise HostUnavailable('first-parent walk exceeded its limit')
+    def first_parent_chain(self, repo_id, head):
+        """[(commit, first parent or None, root tree id)] of `head`'s first-parent chain, newest first, down to the
+        root commit. The host's commit listing of `head` (no path, so no history simplification) holds every commit
+        reachable from it; the chain is followed through it by first parents. A listing that ends, or a page bound
+        reached, before the root is found raises HostUnavailable."""
+        key = (repo_id, head)
+        if key in self._chains:
+            return self._chains[key]
+        known, chain, cur = {}, [], head
+        for page in range(1, self.max_pages + 1):
+            cs = self._json('/repositories/%d/commits?sha=%s&per_page=100&page=%d' % (repo_id, head, page))
+            if not isinstance(cs, list):
+                raise HostUnavailable('commit listing of %s is not a list' % head)
+            for c in cs:
+                try:
+                    known[c['sha']] = ([p['sha'] for p in c['parents']], c['commit']['tree']['sha'])
+                except (KeyError, TypeError):
+                    raise HostUnavailable('commit listing entry without its parents or tree')
+            while cur in known:
+                ps, tree = known[cur]
+                chain.append((cur, ps[0] if ps else None, tree))
+                if not ps:
+                    self._chains[key] = chain
+                    return chain
+                cur = ps[0]
+            if len(cs) < 100:
+                raise HostUnavailable('the commit listing of %s ends before the root of its first-parent chain '
+                                      '(missing %s)' % (head[:12], cur[:12]))
+        raise HostUnavailable('the first-parent chain of %s exceeds %d listing pages' % (head[:12], self.max_pages))
+
+    def on_first_parent_chain(self, repo_id, commit, head):
+        return any(c == commit for c, _, _ in self.first_parent_chain(repo_id, head))
+
+    def _tree(self, repo_id, sha):
+        if sha not in self._trees:
+            t = self._json('/repositories/%d/git/trees/%s' % (repo_id, sha))
+            if t.get('truncated') or not isinstance(t.get('tree'), list):
+                raise HostUnavailable('tree %s listing truncated or unreadable' % sha[:12])
+            self._trees[sha] = {e['path']: (e['type'], e.get('mode'), e['sha']) for e in t['tree']}
+        return self._trees[sha]
+
+    def _entry(self, repo_id, tree, path):
+        """(type, mode, object id) of `path` in the root tree `tree`, or None when absent."""
+        parts = path.split('/')
+        for k, name in enumerate(parts):
+            e = self._tree(repo_id, tree).get(name)
+            if e is None:
+                return None
+            if k == len(parts) - 1:
+                return e
+            if e[0] != 'tree':
+                return None
+            tree = e[2]
 
     def file_history(self, repo_id, path):
-        out, page = [], 1
+        """Commits on main's first-parent chain whose `path` differs from their first parent's, oldest first, each
+        with its first parent, its bytes (None when deleted) and the host's merge record. Exact: every commit of the
+        chain, merge commits included, is compared with its first parent by the path's blob id; the host's
+        path-filtered commit listing is not used, since it simplifies history and omits a merge whose path equals
+        its second parent's. The bytes read are checked against the tree entry's blob id."""
         head = self.main_head(repo_id)
-        while True:
-            cs = self._json('/repositories/%d/commits?sha=%s&path=%s&per_page=100&page=%d' % (repo_id, head, path, page))
-            for c in cs:
-                pulls = self._json('/repositories/%d/commits/%s/pulls' % (repo_id, c['sha']))
-                merged = [p for p in pulls if p.get('merge_commit_sha') == c['sha']]
+        chain = self.first_parent_chain(repo_id, head)
+        out = []
+        after = None
+        for k in range(len(chain) - 1, -1, -1):
+            c, par, tree = chain[k]
+            here = self._entry(repo_id, tree, path)
+            if here is not None and (here[0] != 'blob' or here[1] not in ('100644', '100755')):
+                raise HostUnavailable('%s is not a regular file at %s' % (path, c[:12]))
+            blob_id = here[2] if here is not None else None
+            if blob_id != after:
+                blob = None
+                if here is not None:
+                    blob = self.file_at(repo_id, c, path)
+                    if blob is None or hashlib.sha1(b'blob %d\x00' % len(blob) + blob).hexdigest() != here[2]:
+                        raise HostUnavailable('the bytes of %s at %s do not match its tree entry' % (path, c[:12]))
+                pulls = self._json('/repositories/%d/commits/%s/pulls' % (repo_id, c))
+                merged = [p for p in pulls if p.get('merge_commit_sha') == c]
                 m = self._json(merged[0]['url']) if merged else {}
-                out.append({'commit': c['sha'], 'parent': (c.get('parents') or [{}])[0].get('sha'),
-                            'blob': self.file_at(repo_id, c['sha'], path),
+                out.append({'commit': c, 'parent': par, 'blob': blob,
                             'merged_by_id': (m.get('merged_by') or {}).get('id'), 'merged_at': m.get('merged_at'),
                             'merge_commit': m.get('merge_commit_sha')})
-            if len(cs) < 100:
-                break
-            page += 1
-        out.reverse()
-        return [x for x in out if self.on_first_parent_chain(repo_id, x['commit'], head)]
+            after = blob_id
+        return out
 
     def comments(self, repo_id, issue):
         total = self._json('/repositories/%d/issues/%d' % (repo_id, issue))['comments']
