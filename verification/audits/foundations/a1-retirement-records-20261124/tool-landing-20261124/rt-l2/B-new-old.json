@@ -1,0 +1,273 @@
+{
+ "controls": {
+  "G1": {
+   "actual": [],
+   "expected": "FAIL delegated-evidence-invalid",
+   "id": "G1",
+   "passed": false,
+   "predicate": "the boolean computed for this id in a1_controls.py",
+   "status": "FAIL"
+  },
+  "G2": {
+   "actual": "as RT-C",
+   "expected": "REVIEW delegated-evidence-missing",
+   "id": "G2",
+   "passed": false,
+   "predicate": "the boolean computed for this id in a1_controls.py",
+   "status": "FAIL"
+  },
+  "G3": {
+   "actual": [],
+   "expected": "FAIL",
+   "id": "G3",
+   "passed": false,
+   "predicate": "the boolean computed for this id in a1_controls.py",
+   "status": "FAIL"
+  },
+  "K1-GRAPH": {
+   "actual": {
+    "actual": {
+     "config_edges": [
+      ".github/workflows/ledger-coverage.yml",
+      "tools/ledger_coverage.py",
+      "tools/ledger_coverage/__init__.py",
+      "tools/ledger_coverage/adapters/__init__.py",
+      "tools/ledger_coverage/adapters/a1_conformance.py",
+      "tools/ledger_coverage/adapters/a1_controls.py",
+      "tools/ledger_coverage/adapters/a1exit_exact_edit.py",
+      "tools/ledger_coverage/adapters/a1exit_sitemap.py",
+      "tools/ledger_coverage/adapters/artifact_hash.py",
+      "tools/ledger_coverage/adapters/conformance_controls.py",
+      "tools/ledger_coverage/adapters/deleg_fingerprint_regen.py",
+      "tools/ledger_coverage/adapters/deleg_host_run.py",
+      "tools/ledger_coverage/adapters/deleg_preserve_check.py",
+      "tools/ledger_coverage/adapters/deleg_record_dir.py",
+      "tools/ledger_coverage/adapters/deleg_rerun_equal.py",
+      "tools/ledger_coverage/adapters/host_fixture.py",
+      "tools/ledger_coverage/adapters/line_patch.py",
+      "tools/ledger_coverage/adapters/python_frozen_replay.py",
+      "tools/ledger_coverage/adapters/staged_purity_lint.py",
+      "tools/ledger_coverage/adapters/synthetic_fixture.py"
+     ],
+     "config_in_landing": false,
+     "cycle": null,
+     "edges": 111,
+     "nodes": 58,
+     "pin_table_edges": [
+      "verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json",
+      "verification/audits/foundations/a1exit-deletion-20261121/reviews/config.review.json"
+     ]
+    },
+    "class_review_landed": {
+     "cycle": [
+      "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json",
+      "verification/audits/foundations/ledger-coverage-tool-20261123/reviews/class-record.review.json",
+      "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json"
+     ]
+    },
+    "config_landed": {
+     "cycle": [
+      "verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json",
+      "verification/audits/foundations/a1exit-deletion-20261121/reviews/class-record.review.json",
+      "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json",
+      "verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json"
+     ]
+    }
+   },
+   "expected": "the reference graph of the tool landing and the freeze has no cycle, including through review records; placing the configuration, or the class record's review, in the landing gives a cycle",
+   "id": "K1-GRAPH",
+   "passed": true,
+   "predicate": "no cycle in the actual layout (configuration not landed; reviews in the plan record directory); a cycle in each countercontrol layout",
+   "status": "PASS"
+  },
+  "RT-C": {
+   "actual": {
+    "checks": null,
+    "delegation": null,
+    "exit": 65,
+    "finding_counts": {},
+    "seconds": 0.0
+   },
+   "expected": "candidate checks as sec. 11; PASS only with contract evidence; without it REVIEW delegated-evidence-missing",
+   "id": "RT-C",
+   "passed": false,
+   "predicate": "the boolean computed for this id in a1_controls.py",
+   "status": "FAIL"
+  },
+  "RT-L": {
+   "actual": {
+    "exit": 65,
+    "mutant": []
+   },
+   "expected": "composition PASS; the workflow at L equals W's blob; the mutant with H's copy FAILs landing-drops-main-change",
+   "id": "RT-L",
+   "passed": false,
+   "predicate": "the boolean computed for this id in a1_controls.py",
+   "status": "FAIL"
+  },
+  "RT-X": {
+   "actual": {
+    "exit": 65,
+    "finding_counts": null,
+    "side_changes": []
+   },
+   "expected": "one side change (the trial workflow) classified; no RET item from it",
+   "id": "RT-X",
+   "passed": false,
+   "predicate": "the boolean computed for this id in a1_controls.py",
+   "status": "FAIL"
+  },
+  "S11-1": {
+   "actual": [],
+   "expected": "FAIL unauthorized-edit",
+   "id": "S11-1",
+   "passed": false,
+   "predicate": "the boolean computed for this id in a1_controls.py",
+   "status": "FAIL"
+  },
+  "S11-10": {
+   "actual": [],
+   "expected": "FAIL lean-code-change",
+   "id": "S11-10",
+   "passed": false,
+   "predicate": "the boolean computed for this id in a1_controls.py",
+   "status": "FAIL"
+  },
+  "S11-11": {
+   "actual": "new active file",
+   "expected": "FAIL final-unclassified",
+   "id": "S11-11",
+   "passed": false,
+   "predicate": "the boolean computed for this id in a1_controls.py",
+   "status": "FAIL"
+  },
+  "S11-12": {
+   "actual": [],
+   "expected": "FAIL pin-broken (a guard-pin splice dropped)",
+   "id": "S11-12",
+   "passed": false,
+   "predicate": "the boolean computed for this id in a1_controls.py",
+   "status": "FAIL"
+  },
+  "S11-13": {
+   "actual": "control evidence states verbose_equal false",
+   "expected": "FAIL (the re-execution does not reproduce the hand-edited file)",
+   "id": "S11-13",
+   "passed": false,
+   "predicate": "the boolean computed for this id in a1_controls.py",
+   "status": "FAIL"
+  },
+  "S11-14": {
+   "actual": [],
+   "expected": "FAIL unauthorized-change",
+   "id": "S11-14",
+   "passed": false,
+   "predicate": "the boolean computed for this id in a1_controls.py",
+   "status": "FAIL"
+  },
+  "S11-2a": {
+   "actual": {
+    "items_on_new_line": [],
+    "note": "the mutant of E is not E, so the deny profiles run on it (sec. 2.3) and its retired forms give deny-match FAILs as well",
+    "run_outcome": "ERROR"
+   },
+   "expected": "unclassified new site gives REVIEW_REQUIRED",
+   "id": "S11-2a",
+   "passed": false,
+   "predicate": "the boolean computed for this id in a1_controls.py",
+   "status": "FAIL"
+  },
+  "S11-2b": {
+   "actual": [],
+   "expected": "dropped Phase-3 site gives FAIL missing",
+   "id": "S11-2b",
+   "passed": false,
+   "predicate": "the boolean computed for this id in a1_controls.py",
+   "status": "FAIL"
+  },
+  "S11-3": {
+   "actual": "",
+   "expected": "FAIL delegated-evidence-invalid (another head_sha)",
+   "id": "S11-3",
+   "passed": false,
+   "predicate": "the boolean computed for this id in a1_controls.py",
+   "status": "FAIL"
+  },
+  "S11-4": {
+   "actual": "",
+   "expected": "FAIL (one STALE value differs from the census)",
+   "id": "S11-4",
+   "passed": false,
+   "predicate": "the boolean computed for this id in a1_controls.py",
+   "status": "FAIL"
+  },
+  "S11-5": {
+   "actual": [],
+   "expected": "FAIL deny-match (register)",
+   "id": "S11-5",
+   "passed": false,
+   "predicate": "the boolean computed for this id in a1_controls.py",
+   "status": "FAIL"
+  },
+  "S11-6": {
+   "actual": [],
+   "expected": "FAIL deny-match (infinity)",
+   "id": "S11-6",
+   "passed": false,
+   "predicate": "the boolean computed for this id in a1_controls.py",
+   "status": "FAIL"
+  },
+  "S11-8": {
+   "actual": [],
+   "expected": "FAIL mirror-mismatch",
+   "id": "S11-8",
+   "passed": false,
+   "predicate": "the boolean computed for this id in a1_controls.py",
+   "status": "FAIL"
+  },
+  "S11-9": {
+   "actual": [],
+   "expected": "FAIL unauthorized-edit (15 census splices)",
+   "id": "S11-9",
+   "passed": false,
+   "predicate": "the boolean computed for this id in a1_controls.py",
+   "status": "FAIL"
+  },
+  "trees-group-error": {
+   "actual": "Traceback (most recent call last):\n  File \"<scratch>/wt-new/tools/ledger_coverage/adapters/a1_controls.py\", line 1295, in main\n    fn(a)\n    ~~^^^\n  File \"<scratch>/wt-new/tools/ledger_coverage/adapters/a1_controls.py\", line 1282, in <lambda>\n    ('trees', lambda x: tree_controls(x, tool_files)), ('k1', lambda x: k1_graph(x, tool_files)),\n                        ~~~~~~~~~~~~~^^^^^^^^^^^^^^^\n  File \"<scratch>/wt-new/tools/ledger_coverage/adapters/a1_controls.py\", line 945, in tree_controls\n    loaded = cfgmod_loaded(a)\n  File \"<scratch>/wt-new/tools/ledger_coverage/adapters/a1_controls.py\", line 770, in cfgmod_loaded\n    return cfgmod.load(a.repo, a.crev, a.cpath, a.csha, 'terms', 'harness')\n           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<scratch>/wt-new/tools/ledger_coverage/engine/config.py\", line 287, in load\n    entries.append((r['path'], read_ref(repo, commit, r, 'record %s' % r['path'])))\n                               ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<scratch>/wt-new/tools/ledger_coverage/engine/config.py\", line 40, in read_ref\n    raise stop('SOURCE_CHANGED', '%s: %s does not hash to its pin' % (what, ref['path']))\nledger_coverage.engine.outcome.Stop: record verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json: verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json does not hash to its pin\n",
+   "expected": "no exception",
+   "passed": false,
+   "predicate": "the boolean computed for this id in a1_controls.py",
+   "status": "FAIL"
+  }
+ },
+ "failed": [
+  "G1",
+  "G2",
+  "G3",
+  "RT-C",
+  "RT-L",
+  "RT-X",
+  "S11-1",
+  "S11-10",
+  "S11-11",
+  "S11-12",
+  "S11-13",
+  "S11-14",
+  "S11-2a",
+  "S11-2b",
+  "S11-3",
+  "S11-4",
+  "S11-5",
+  "S11-6",
+  "S11-8",
+  "S11-9",
+  "trees-group-error"
+ ],
+ "passed": 1,
+ "timing_seconds": {
+  "exec": 0.2,
+  "k1": 0.0,
+  "trees": 0.2
+ }
+}

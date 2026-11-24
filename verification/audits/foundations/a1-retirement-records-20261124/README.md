@@ -89,3 +89,30 @@ every other file in it, and all 99 match.
     was killed by the self-test alone. The substantive detection is in the conformance, synthetic and A1 controls.
   - The release gate ran in relative mode only (no `--label` given), so its baseline check was not absolute.
   - The Lean toolchain installer was fetched from an unpinned source (elan master), as in `verify.yml`.
+
+## Tool landing (2026-11-24): pull request #1557
+
+The tool landed on `main` by merge `e2e2a623265187a28ebec604ab8bcc672742888f` (first parent `main`
+`9deb69568d8231210c7f39cb65be943dea566371`, second parent `bb620ec653cfbed986785d9810cf2372906c9b73`, tree
+`1d325e0c8c8f1b35dd75e72bea6466a2eb636379`, as approved by the owner). `bb620ec6` is a single-parent child of the
+accepted `4f4a9d58` that adds the owner's sec. A.42 item 8 decision for ESC-1 to ESC-4 to the tool's audit README and
+re-pins that README in `records/side-change-classes-v1.json`; no executable file changed. Pre-merge `verify` run
+45496121210 and post-merge `verify` run 45497989649 on the merge both succeeded (26 jobs passed; the A42 exclusion job
+is skipped by design except on `workflow_dispatch`).
+
+`tool-landing-20261124/` holds:
+- `review-readme-delta.md`: the independent check of `bb620ec6` (ACCEPT-WITH-NITS), reproduced in ASCII with the
+  reviewer's scratch path replaced by `<scratch>`.
+- `rt-l2/`: the result files (`a1-controls.json`) of three local runs of the A1 control runner, groups `exec`,
+  `trees` and `k1`, on a full clone with `--main 9deb6956`: `A-old-old` (tool `4f4a9d58`, staged configuration
+  SHA-256 `5072a3b0...`), 22 of 22 PASS; `B-new-old` (tool `bb620ec6`, the same configuration), 21 FAIL, the
+  countercontrol (the class record no longer matches the configuration's pin); `C-new-new` (tool `bb620ec6`, the
+  configuration with its two pins of the class record changed from `81af5033...` to `4b28d3d2...`, SHA-256
+  `2bc78c3a...`), 22 of 22 PASS including RT-L2. Local runs: checks, not CI attestations. In `B-new-old` six
+  occurrences of the local scratch path in error text are replaced by `<scratch>` (original SHA-256
+  `7e083bf535d51fda417185351224c3f109ff095ae1db22d7022043a0eb0a69e6`); the other two are byte-identical to their
+  originals.
+
+Open after landing: the staged configuration's pin of the class record must change from `81af5033...` to
+`4b28d3d2...` in the A1 plan reconciliation; ESC-1 to ESC-4 stay open under the landing exception until the A1 plan
+amendment resolves them; post-landing validation (TR5, G-A1, EI14, real REST reads) needs its own authorization.
