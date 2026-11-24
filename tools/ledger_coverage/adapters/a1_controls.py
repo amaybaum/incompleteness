@@ -1117,6 +1117,16 @@ def z9g(a):
     profs = [pp for pp in loaded.profiles.values() if pp.kind in ('review', 'deny')]
     found = purity.lint_engine(values, profs)
     a.record('Z9g', not found, 'the real engine tree: lint PASS', found[:40])
+    # Z9h: 'guard-pin' planted in an engine module, with the adapter companions in the value set
+    src = open(os.path.join(tools, 'ledger_coverage', 'engine', 'outcome.py')).read() + "\nPLANTED = 'guard-pin'\n"
+    planted = purity.lint_sources({'engine/outcome.py': src}, values, [])
+    dotted = purity.lint_sources({'engine/outcome.py': "X = '%s.json'\n" % hashlib.sha1(b'z9').hexdigest()},
+                                 set(), [])
+    a.record('Z9h', any('guard-pin' in f for f in planted) and 'guard-pin' in values and bool(dotted),
+             "'guard-pin' planted in an engine module, with the adapter companions in the value set: lint FAIL",
+             {'planted': planted[:3], 'in_value_set': 'guard-pin' in values, 'dotted_40_hex': dotted[:2]},
+             predicate="a finding names the planted literal, which occurs in the companions' values; a planted "
+                       "40-hex file name is a finding too (the allowlist exempts only its listed values)")
     return values
 
 

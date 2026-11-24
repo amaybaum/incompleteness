@@ -3,7 +3,7 @@ in-memory host (TR1-TR3, TR5, TR13-TR15, TR28, TR29, TR48, TR50-TR52, EI1, EI2, 
 predicate (X11, TR14, TR15, TR28-TR30, TR50-TR52, EI2, EI3, EI7, GV7) and the landing's re-resolution of `M` (EI5),
 the durable evidence TR45/TR46, the verified reader on small on-disk repositories (GV1-GV6), the host-read failures
 (GV7), the pre-run pin check and the entry point as subprocess runs on trees materialized under OUT_DIR (EI6,
-EI8-EI15), native delegation G4-G9 on a small on-disk repository, commits after X R16/R17, widening A12r, purity Z9h,
+EI8-EI15), native delegation G4-G9 on a small on-disk repository, commits after X R16/R17, widening A12r,
 the synthetic parts of S4a and Z11, the lineage controls LN1-LN8 and LN10 (DI-2), and the retained controls for the
 independent reviews' findings (R3-F2, R4-B3, R4-B3-DUP, R5-N6, R6-G6).
 
@@ -168,7 +168,7 @@ def tr_controls(r):
     o3 = show(*t.run(w, F3))
     check('TR3', 'a review record placed beside the configuration, naming its blob, but not in F\'s pin table: '
           + UNREV, "exit == 65 and stop == 'CONFIG_UNREVIEWED', refused because no review is listed", o3,
-          o3['exit'] == 65 and o3['stop'] == 'CONFIG_UNREVIEWED' and 'no review record' in o3['message'])
+          o3['exit'] == 65 and o3['stop'] == 'CONFIG_UNREVIEWED' and o3['message'].startswith('no review record of the'))
     # the configuration read from F only: --config naming another commit than --freeze
     other_c = t.repo.derive(F, {}, parents=[F], subject='another commit')
     of = show(*cli.run(['terms', '--config', '%s:%s' % (other_c, t.p), '--out', r.out(), '--freeze', F, '--commit',
@@ -458,12 +458,15 @@ def acceptance_controls(r, t):
     files_h = sorted(os.listdir(o))
     unmarked = copy.deepcopy(res)
     del unmarked['harness']
+    relabelled = copy.deepcopy(unmarked)
+    relabelled['config']['admission'] = {'mode': 'control-harness', 'snapshot': snapshot_of(res)}
     check('X11', 'a control-harness PASS result presented with the pinned tool and configuration hashes: '
           'non-acceptance; the harness never writes result.json',
           "accept() is false for the harness result, for the simulated-chain result, and for that result with its "
-          "harness marker removed (admission not chain); the harness run directory holds control-result.json only",
+          "harness marker removed, with or without the snapshot (admission not chain); the harness run directory holds control-result.json only",
           {'harness_exit': code_h, 'files': files_h}, code_h == 0 and not checker.accept(res_h, code_h, pins) and
-          not checker.accept(res, code, pins) and not checker.accept(unmarked, code, pins)
+          not checker.accept(res, code, pins) and not checker.accept(unmarked, code, pins) and
+          not checker.accept(relabelled, code, pins)
           and files_h == ['control-result.json'])
     # a chain-labelled copy, the landing record, and the consumer's host checks
     chain = copy.deepcopy(res)
@@ -2144,16 +2147,6 @@ def a12r(r):
           'blob: FAIL record-invalid each', "complete: exit 0; both mutants: exit 20 with record-invalid",
           out, out['complete'][0] == 0 and all(out[k][0] == 20 and 'record-invalid' in out[k][1]
                                                for k in ('omits-item', 'names-another-superseded-blob')))
-
-
-def z9h(values):
-    src = open(os.path.join(tools, 'ledger_coverage', 'engine', 'outcome.py')).read() + "\nPLANTED = 'guard-pin'\n"
-    found = purity.lint_sources({'engine/outcome.py': src}, values, [])
-    dotted = purity.lint_sources({'engine/outcome.py': "X = '%s.json'\n" % hashlib.sha1(b'z9').hexdigest()}, set(), [])
-    check('Z9h', '\'guard-pin\' planted in an engine module, with the adapter companions in the value set: lint '
-          'FAIL', "a finding names the planted literal; a planted 40-hex file name is a finding too (the allowlist "
-          "exempts only its listed values)", {'guard-pin': found[:3], 'dotted': dotted[:2]},
-          any('guard-pin' in f for f in found) and bool(dotted))
 
 
 def z11_s4a(r):
