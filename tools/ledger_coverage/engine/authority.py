@@ -503,6 +503,36 @@ def read_pin_table(prereg):
     return dict(re.findall(r'^\| `([\w./-]+)` \| `([0-9a-f]{64})` \|', t[i:j if j > 0 else None], re.M))
 
 
+def snapshot_events(data, path):
+    """The events of a committed admission snapshot (sec. 6.3, reconciliation), each carrying its plan and round. The
+    admission snapshot records `plan` and `round` once, at its top level; an event's own value, where it has one, must
+    agree with it. An event with neither, or with one that contradicts the top level, refuses: an event whose plan and
+    round cannot be established would otherwise never bind."""
+    try:
+        doc = json.loads(data.decode('utf-8'))
+    except (ValueError, UnicodeDecodeError, AttributeError):
+        refuse('ledger', 'a committed snapshot cannot be read: %s' % path)
+    if not isinstance(doc, dict) or not isinstance(doc.get('events', []), list):
+        refuse('ledger', 'a committed snapshot cannot be read: %s' % path)
+    out = []
+    for ev in doc.get('events', []):
+        if not isinstance(ev, dict):
+            refuse('ledger', 'a committed snapshot has an event that is not an object: %s' % path)
+        ev = dict(ev)
+        for key in ('plan', 'round'):
+            top = doc.get(key)
+            if ev.get(key) is None:
+                if top is None:
+                    refuse('ledger', 'an event of committed snapshot %s has no %s, in the event or at the top level'
+                           % (path, key))
+                ev[key] = top
+            elif top is not None and ev[key] != top:
+                refuse('ledger', 'an event of committed snapshot %s names %s %r, the snapshot %r'
+                       % (path, key, ev[key], top))
+        out.append(ev)
+    return out
+
+
 def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=None, attested_repo=None):
     """Points 1-8. Returns (A, the admission snapshot, the pin table). Raises Refused."""
     snap = {'plan': plan_id, 'round': round_id, 'freeze': freeze}
@@ -609,10 +639,7 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
     snaps_dir = a['freeze_ledger_path'].rsplit('/', 1)[0] + '/landings/'
     for p in host.paths_at(repo_id, main, snaps_dir):
         if p.endswith('/snapshot.json'):
-            try:
-                snap_events += json.loads(host.file_at(repo_id, main, p).decode('utf-8')).get('events', [])
-            except (ValueError, AttributeError):
-                refuse('ledger', 'a committed snapshot cannot be read: %s' % p)
+            snap_events += snapshot_events(host.file_at(repo_id, main, p), p)
     # point 4: the forms
     forms = []
     for c in own:

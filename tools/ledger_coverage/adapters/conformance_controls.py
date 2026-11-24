@@ -2,7 +2,8 @@
 creation, DI-1), the acceptance predicate X11 and the durable evidence TR45/TR46, native delegation G4-G9 on a small
 on-disk repository, commits after X R16/R17, widening A12r, purity Z9h, the synthetic parts of S4a and Z11, the
 lineage controls LN1-LN12 (DI-2), one review verdict per added ledger event (R6-EV), and the controls for the
-independent reviews' findings (R3-*, R4-*, R5-*).
+independent reviews' findings (R3-*, R4-*, R5-*, R6-G1 to R6-G9, and TR32 with the engine's own admission snapshot,
+TR32-OWN).
 
 Every control is reported as {id, expected, predicate, actual, status} with status PASS, FAIL, SKIP or NOT RUN
 (sec. 10.4, B6). A control that needs the real host (a CI job with the host's API) is NOT RUN here, never PASS.
@@ -2393,6 +2394,360 @@ def ledger_event_verdicts(t):
                                          'freeze-ledger change' in o['message'] for o in bad))
 
 
+# ---- the sixth independent review's findings: the engine's own snapshot (TR32-OWN) and the control gaps R6-G1 to R6-G9
+
+PRE_A = '2026-11-23T00:00:00Z'  # before the first A of a fixture world merges (its first tick is the approval)
+
+
+def _p5(t, w, F):
+    """_point5, with an exception of the engine reported as the outcome (the control then fails, it does not abort)."""
+    try:
+        return _point5(t, w, F)
+    except Exception as exc:
+        return {'admitted': None, 'error': '%s: %s' % (type(exc).__name__, exc)}
+
+
+def _fullx(t, w, F):
+    """_full, with an exception of the engine reported as the outcome."""
+    try:
+        return _full(t, w, F)
+    except Exception as exc:
+        return {'exit': None, 'stop': None, 'message': '', 'record_invalid': [],
+                'error': '%s: %s' % (type(exc).__name__, exc)}
+
+
+def _refused5(o, point, word=None):
+    return o.get('admitted') is False and o.get('point') == point and (word is None or word in o.get('message', ''))
+
+
+def _unreviewed(o, *words):
+    return o.get('exit') == 65 and o.get('stop') == 'CONFIG_UNREVIEWED' and all(x in o.get('message', '')
+                                                                                 for x in words)
+
+
+def _next(w):
+    return 'c%d' % (len(w.h.repos[hf.REPO_ID]['commits']) + 1)
+
+
+def tr32_own(t):
+    """TR32 with the admission snapshot exactly as the engine builds it (`auth.admit`), committed as an acceptance
+    landing commits it, at `<ledger directory>/landings/<round>/snapshot.json`. That snapshot records `plan` and
+    `round` once, at its top level, not in each event."""
+    snap_path = hf.LEDGER_PATH.rsplit('/', 1)[0] + '/landings/round-1/snapshot.json'
+
+    def own_snapshot(w, F):
+        try:
+            return auth.admit(w.h, t.repo, w.run_id, hf.PLAN, hf.ROUND, F, t.p)[1], None
+        except Exception as exc:
+            return None, '%s: %s' % (type(exc).__name__, exc)
+    out = {}
+    # the sequence: 4242 designates F, supersedes F by F2; F2 admitted; its snapshot committed; the supersession deleted
+    w = t.world()
+    F = t.freeze(w)
+    F2 = t.freeze(w, extra={'syn/other.txt': b'2\n'})
+    w.designate(F)
+    sp = w.comment(hf.PLAN_ISSUE, 'oi-freeze/1 supersede plan=%s round=%s commit=%s by=%s'
+                   % (hf.PLAN, hf.ROUND, F, F2))
+    snap, err = own_snapshot(w, F2)
+    seq = {'F2 admitted, its snapshot built': snap is not None, 'error': err}
+    if snap is not None:
+        seq['events carrying plan or round'] = sum(1 for e in snap['events'] if 'plan' in e or 'round' in e)
+        seq['snapshot plan, round'] = [snap.get('plan'), snap.get('round')]
+        w.add_main(_next(w), {snap_path: hf.jb(snap)})
+        seq['F, supersession comment present: point 5'] = _p5(t, w, F)
+        w.comments[(hf.REPO_ID, hf.PLAN_ISSUE)].remove(sp)
+        seq['F, supersession comment deleted: point 5'] = _p5(t, w, F)
+        seq['F, supersession comment deleted: full chain'] = _fullx(t, w, F)
+    out['sequence'] = seq
+
+    # the engine's snapshot of F's own admission, committed as built and with one change each
+    def committed(edit):
+        w = t.world()
+        F = t.freeze(w)
+        w.designate(F)
+        snap, err = own_snapshot(w, F)
+        if snap is None:
+            return {'admitted': None, 'error': err}
+        s = copy.deepcopy(snap)
+        edit(s)
+        w.add_main(_next(w), {snap_path: hf.jb(s)})
+        return _p5(t, w, F)
+
+    def no_plan_round(s):
+        s.pop('plan')
+        s.pop('round')
+
+    def event_field(key, value):
+        return lambda s: s['events'][0].update({key: value})
+    out['(positive) F\'s own snapshot committed as built; F admitted again'] = committed(lambda s: None)
+    out['no plan and round, in the events or at the top level'] = committed(no_plan_round)
+    out['an event naming another plan than the snapshot'] = committed(event_field('plan', 'other-plan'))
+    out['an event naming another round than the snapshot'] = committed(event_field('round', 'r9'))
+    out['(positive) an event repeating the snapshot\'s plan and round'] = committed(
+        lambda s: s['events'][0].update({'plan': s['plan'], 'round': s['round']}))
+    positives = [v for k, v in out.items() if k.startswith('(positive)')]
+    malformed = [v for k, v in out.items() if k != 'sequence' and not k.startswith('(positive)')]
+    check('TR32-OWN', 'TR32 with the engine\'s own admission snapshot (sec. 6.3, reconciliation: "a withdrawal or '
+          'supersession in the ledger or in a committed snapshot binds, even if its comment is now deleted"): 4242 '
+          'designates F and supersedes it by F2; F2 is admitted; the snapshot auth.admit returns for F2 is committed '
+          'as snapshot.json; the supersession comment is deleted: F stays superseded, its admission refuses. An event '
+          'of a committed snapshot takes the snapshot\'s plan and round; one with neither, or one contradicting the '
+          'snapshot\'s, refuses. F\'s own snapshot, committed, does not stop F\'s admission',
+          "sequence: F2 admitted with no event carrying plan or round; F refused at point 5 ('state') before and after "
+          "the deletion; after it the full chain exits 65 CONFIG_UNREVIEWED; the three malformed snapshots refuse at "
+          "point 'ledger' naming the committed snapshot; both positives admit F", out,
+          seq.get('F2 admitted, its snapshot built') is True and seq.get('events carrying plan or round') == 0 and
+          _refused5(seq.get('F, supersession comment present: point 5', {}), 'state') and
+          _refused5(seq.get('F, supersession comment deleted: point 5', {}), 'state') and
+          _unreviewed(seq.get('F, supersession comment deleted: full chain', {})) and
+          all(_refused5(o, 'ledger', 'committed snapshot') for o in malformed) and
+          all(o.get('admitted') is True for o in positives))
+
+
+def r6_g1(t):
+    """G-1: a designation created when no version of A was in force is not an owner comment."""
+    out = {}
+    for name in ('created before the first A merged', 'created in the second the first A merged'):
+        w = t.world()
+        F = t.freeze(w)
+        at = PRE_A if name.startswith('created before') else w.h.merges[(hf.REPO_ID, 'c1')]['merged_at']
+        w.designate(F, at=at)
+        out[name] = {'at': at, 'point5': _p5(t, w, F), 'full': _fullx(t, w, F)}
+    check('R6-G1', 'the owner\'s designation of F created before the first A merged; separately, created in the second '
+          'the first A merged (sec. 6.3, "Owner at creation": the version in force at t is the latest merged strictly '
+          'before t, and a comment created when no version was in force is not an owner comment): ERROR (missing '
+          'designation) in both',
+          "both: point 5 refuses (point 'state', F not the one designated commit); the full chain exits 65 "
+          "CONFIG_UNREVIEWED", out,
+          all(_refused5(o['point5'], 'state', 'not the one designated') and _unreviewed(o['full'])
+              for o in out.values()))
+
+
+def r6_g2(t):
+    """G-2: the snapshot records, for every owner comment, the blob of the version of A in force at its creation."""
+    w = t.world()
+    a1 = w.a_bytes
+    pre = w.comment(hf.PLAN_ISSUE, 'a note', at=PRE_A)
+    under1 = w.comment(hf.PLAN_ISSUE, 'a note under the first version')
+    change_authority(w, hf.authority('syn/PREREG.md', supersedes={'path': auth.authority_path, 'blob_sha256': sha(a1)},
+                                     extra={'status': 'second version'}))
+    a2 = w.a_bytes
+    F = t.freeze(w, a_bytes=a1)
+    d = w.designate(F)
+    code, res = t.run(w, F)
+    snap = (((res or {}).get('config') or {}).get('admission') or {}).get('simulated_chain', {}).get('snapshot', {})
+    got = {c.get('id'): c.get('authority_in_force_sha256', 'absent') for c in snap.get('owner_comments', [])}
+    want = {pre['id']: None, under1['id']: sha(a1), d['id']: sha(a2)}
+    o = {'exit': code, 'recorded': {str(k): got.get(k, 'absent') for k in want},
+         'want': {str(k): v for k, v in want.items()},
+         'every owner comment carries the field': all(v != 'absent' for v in got.values())}
+    check('R6-G2', 'the admission snapshot records, for every owner comment of point 3, the blob sha256 of the version '
+          'of A in force at its creation (sec. 6.3, "The admission snapshot"): a comment by 4242 created before the '
+          'first A merged (none in force), one under the first version, and the designation under the second version '
+          '(an A change keeping the owner)',
+          "the full chain exits 0; authority_in_force_sha256 is null, sha256(A1) and sha256(A2) for the three comments; "
+          "every owner comment record carries the field", o,
+          code == 0 and all(got.get(k, 'absent') == v for k, v in want.items()) and
+          o['every owner comment carries the field'])
+
+
+def r6_g3(t):
+    """G-3: each approval of a freeze-ledger change is an owner comment at its creation, each checked on its own."""
+    out = {}
+    # the approvals created before the first A merged: both, then each alone (main route)
+    for i, case in enumerate(('both approvals', 'the append comment only', 'the oi-authority/1 approval only')):
+        w = t.world()
+        new = _ledger_with(w, 880101 + i)
+        old = w.ledger_bytes
+        pre_auth = case in ('both approvals', 'the oi-authority/1 approval only')
+        pre_app = case in ('both approvals', 'the append comment only')
+        w.comment(hf.AUTH_ISSUE, 'oi-authority/1 approve from=%s to=%s' % (sha(old), sha(new)),
+                  at=PRE_A if pre_auth else None)
+        w.comment(hf.PLAN_ISSUE, 'oi-freeze-ledger/1 append plan=%s round=%s from=%s to=%s'
+                  % (hf.PLAN, hf.ROUND, sha(old), sha(new)), at=PRE_A if pre_app else None)
+        _ledger_merge(w, new, hf.OWNER_ID)
+        F = t.freeze(w)
+        w.designate(F)
+        out['created before the first A merged: %s' % case] = _fullx(t, w, F)
+    # TR58-style: one approval by 5555 created while 4242 is the owner, the other by 5555 after 4242 -> 5555; each
+    # ledger route; and the positive, both created after the change
+    for i, defective in enumerate(('append', 'authority', None)):
+        for route in ('landing', 'main'):
+            w = t.world()
+            a1 = w.a_bytes
+            new = _ledger_with(w, 880111 + 2 * i + (route == 'main'))
+            old = w.ledger_bytes
+            forms = {'authority': (hf.AUTH_ISSUE, 'oi-authority/1 approve from=%s to=%s' % (sha(old), sha(new))),
+                     'append': (hf.PLAN_ISSUE, 'oi-freeze-ledger/1 append plan=%s round=%s from=%s to=%s'
+                                % (hf.PLAN, hf.ROUND, sha(old), sha(new)))}
+            if defective is not None:
+                w.comment(forms[defective][0], forms[defective][1], author_id=NEW_OWNER)
+            _owner_change(w, NEW_OWNER)
+            for k, (issue, line) in sorted(forms.items()):
+                if k != defective:
+                    w.comment(issue, line, author_id=NEW_OWNER)
+            if route == 'landing':
+                o = _landing(w, new)
+            else:
+                _ledger_merge(w, new, NEW_OWNER)
+                F = t.refreeze(w, a_bytes=a1)
+                _designate(w, F, NEW_OWNER)
+                o = _fullx(t, w, F)
+            key = ('(positive) both by 5555 after 4242 -> 5555' if defective is None else
+                   '%s comment by 5555 while 4242 is the owner' % defective)
+            out['%s: %s route' % (key, route)] = o
+    names = {'append': 'oi-freeze-ledger/1 append', 'authority': 'oi-authority/1 approve'}
+
+    def refused(o, which):
+        if 'merges' in o:
+            return o['merges'] is False and _owner_at_creation_refusal(o) and names[which] in o.get('message', '')
+        return _unreviewed(o, 'freeze-ledger change', 'Owner at creation', names[which])
+    pre = [(k, v) for k, v in out.items() if k.startswith('created before')]
+    check('R6-G3', 'the approvals of a freeze-ledger change count only as owner comments at their creation (sec. 6.3, '
+          '"Owner at creation", approvals): approvals created before the first A merged (both; separately only the '
+          'append comment; only the oi-authority/1 approval): ERROR. TR57/TR58-style, one defective approval at a time '
+          'on each ledger route: 5555 creates the append comment (separately the oi-authority/1 approval) while 4242 is '
+          'the owner and the other after 4242 -> 5555: refused. Both created by 5555 after the change: verified',
+          "pre-A: each exits 65 CONFIG_UNREVIEWED naming the freeze-ledger change, Owner at creation and the "
+          "defective form (the oi-authority/1 approval when both are); TR58-style: landing route refuses and main "
+          "route exits 65, naming Owner at creation and the defective form; positive: the landing merges and the main "
+          "route exits 0", out,
+          refused(out['created before the first A merged: both approvals'], 'authority') and
+          refused(out['created before the first A merged: the append comment only'], 'append') and
+          refused(out['created before the first A merged: the oi-authority/1 approval only'], 'authority') and
+          all(refused(out['%s comment by 5555 while 4242 is the owner: %s route' % (d, r)], d)
+              for d in ('append', 'authority') for r in ('landing', 'main')) and
+          out['(positive) both by 5555 after 4242 -> 5555: landing route'].get('merges') is True and
+          out['(positive) both by 5555 after 4242 -> 5555: main route'].get('exit') == 0 and len(pre) == 3)
+
+
+def r6_g4(t):
+    """G-4: "in force" at t is merged strictly before t: a comment in the second of an owner change's merge."""
+    out = {}
+    for same in (True, False):
+        w = t.world()
+        F = t.freeze(w)
+        _owner_change(w, NEW_OWNER)
+        m = w.h.merges[(hf.REPO_ID, w.main)]['merged_at']
+        d = w.designate(F, author_id=NEW_OWNER, login='login-%d' % NEW_OWNER, at=m if same else None)
+        out['5555 designates F in the second the owner change merged' if same else
+            '(positive) 5555 designates F one second later'] = {'merge': m, 'created': d['created_at'],
+                                                                'point5': _p5(t, w, F)}
+    a = out['5555 designates F in the second the owner change merged']
+    b = out['(positive) 5555 designates F one second later']
+    check('R6-G4', 'an owner change 4242 -> 5555 merged at m; 5555 designates F created at m: not an owner comment (the '
+          'version in force at m is the one merged strictly before m, owner 4242): ERROR (missing designation). '
+          'Separately, the designation created at m + 1 s: F is the one designated commit at point 5',
+          "same second: point 5 refuses (point 'state', F not the one designated commit); one second later: point 5 "
+          "admits F", out,
+          a['created'] == a['merge'] and _refused5(a['point5'], 'state', 'not the one designated') and
+          b['created'] > b['merge'] and b['point5'].get('admitted') is True)
+
+
+def r6_g5(t):
+    """G-5: an owner authorization's time must be a host timestamp (a non-timestamp has no version in force)."""
+    out = {}
+    for tm in ('t0', '2026-11-24T00:00:00'):
+        w = t.world()
+        F = t.refreeze(w, variant={'cfg_auth_time': tm})
+        w.designate(F)
+        out['configuration authorization time %r' % tm] = _fullx(t, w, F)
+    check('R6-G5', 'the configuration\'s owner authorization with time "t0"; separately "2026-11-24T00:00:00" (no '
+          'zone): not a host timestamp, so no version of A is in force at it and it does not count under "Owner at '
+          'creation" (sec. 6.3; point 7): ERROR CONFIG_UNREVIEWED for the configuration\'s own',
+          "both exit 65 CONFIG_UNREVIEWED naming the configuration review chain and a time that is not a host "
+          "timestamp", out,
+          all(_unreviewed(o, 'configuration review chain', 'not a host timestamp') for o in out.values()))
+
+
+def r6_g6(r):
+    """G-6: a record_id carried by a record off the referenced record's supersedes chain is a reused id."""
+    x = LN(r)
+    _variant_doc(x.files, PAT, 'syn/rules-pat-dup.json', author='writer-c')
+    reused = x.run(hf.World('syn/PREREG.md'))
+    clean = LN(r).run(hf.World('syn/PREREG.md'))
+    out = {'a second record with the rule file\'s record_id, off its chain': reused, '(positive) no such record': clean}
+    check('R6-G6', 'a record in the audit directory at F carrying the record_id, kind and schema of a rule file the '
+          'configuration references, with supersedes null (not on that file\'s supersedes chain) (sec. 6.3, DI-2: '
+          '"a record_id carried by two records that do not lie on one supersedes chain is" a reused id): FAIL '
+          'record-invalid on the referenced rule file; without that record the run is clean',
+          "the first exits 20 with record-invalid on syn/rules-pat.json naming the reuse; the second exits 0 with no "
+          "record-invalid", out,
+          _invalid(reused, PAT, 'reused') and clean['exit'] == 0 and not clean['record_invalid'])
+
+
+def r6_g7(t):
+    """G-7: a freeze-ledger change is governed by the version of A merged strictly before it."""
+    out = {}
+    for same in (True, False):
+        w = t.world()
+        a1 = w.a_bytes
+        new = _ledger_with(w, 880121 + same)
+        old = w.ledger_bytes
+        _ledger_comments(w, new, hf.OWNER_ID)
+        _owner_change(w, NEW_OWNER)
+        m = w.h.merges[(hf.REPO_ID, w.main)]['merged_at']
+        w.add_main(_next(w), dict(hf.ledger_review_file(w.a, new, sha(old)), **{hf.LEDGER_PATH: new}),
+                   merged_by=hf.OWNER_ID, merged_at=m if same else None)
+        lm = w.h.merges[(hf.REPO_ID, w.main)]['merged_at']
+        w.ledger_bytes = new
+        F = t.refreeze(w, a_bytes=a1)
+        _designate(w, F, NEW_OWNER)
+        out['(positive) ledger merged in the second of the owner change' if same else
+            'ledger merged one second later'] = dict(_fullx(t, w, F), owner_change_merged=m, ledger_merged=lm)
+    a = out['(positive) ledger merged in the second of the owner change']
+    b = out['ledger merged one second later']
+    check('R6-G7', '4242 creates both approvals of a freeze-ledger change; an owner change 4242 -> 5555 merges at m; the '
+          'ledger change is merged by 4242 at m; 5555 designates an F whose configuration 5555 authorized: the ledger '
+          'change is governed by the version of A in force at its merge, the one merged strictly before m (owner '
+          '4242), so it verifies and F is admitted. Separately, the ledger change merged by 4242 at m + 1 s is governed '
+          'by 5555\'s version: ERROR',
+          "same second: the full chain exits 0; one second later: exits 65 CONFIG_UNREVIEWED naming the freeze-ledger "
+          "change", out,
+          a['owner_change_merged'] == a['ledger_merged'] and a.get('exit') == 0 and
+          b['ledger_merged'] > b['owner_change_merged'] and _unreviewed(b, 'freeze-ledger change'))
+
+
+def r6_g8(t):
+    """G-8: an A change needs its independent review record, its approval alone does not suffice."""
+    out = {}
+    for review in (False, True):
+        w = t.world()
+        old = w.a_bytes
+        change_authority(w, hf.authority('syn/PREREG.md', supersedes={'path': auth.authority_path,
+                                                                      'blob_sha256': sha(old)},
+                                         extra={'status': 'second version'}), approve=True, review=review)
+        F = t.freeze(w, a_bytes=old)
+        w.designate(F)
+        out['(positive) approval and review record' if review else 'approval, no review record'] = _fullx(t, w, F)
+    a, b = out['approval, no review record'], out['(positive) approval and review record']
+    check('R6-G8', 'a change to A after F\'s base with the owner\'s approval and pull-request merge but no independent '
+          'review record (sec. 6.3, "Authority changes": "An independent review record names both blobs"): ERROR; '
+          'with the review record as well: admitted',
+          "the first exits 65 CONFIG_UNREVIEWED naming the authority change's independent review record; the second "
+          "exits 0", out, _unreviewed(a, 'authority change', 'independent review record') and b.get('exit') == 0)
+
+
+def r6_g9(t):
+    """G-9: point 3 refuses when an owner comment's edit status cannot be read."""
+    out = {}
+    for name, key, form in (('the designation without edits', 'edits', True),
+                            ('the designation without its hidden state', 'hidden', True),
+                            ('an owner comment without a form, without edits', 'edits', False)):
+        w = t.world()
+        F = t.freeze(w)
+        d = w.designate(F)
+        c = d if form else w.comment(hf.PLAN_ISSUE, 'a note')
+        del c[key]
+        out[name] = {'point5': _p5(t, w, F), 'full': _fullx(t, w, F)}
+    check('R6-G9', 'an owner comment whose edit status cannot be read (sec. 6.3, admission point 3: "an owner comment\'s '
+          'edit status cannot be read", relevant or not): the designation with no edit record; separately with no '
+          'hidden state; separately an owner comment without a form with no edit record: ERROR in each',
+          "each: point 5 refuses at point 'edits' naming an edit status that cannot be read; the full chain exits 65 "
+          "CONFIG_UNREVIEWED", out,
+          all(_refused5(o['point5'], 'edits', 'cannot be read') and _unreviewed(o['full']) for o in out.values()))
+
+
 # ---- acceptance, durable evidence and replay ----------------------------------------------------------------------
 
 def acceptance_controls(r, t):
@@ -2794,7 +3149,10 @@ def main(out_root):
                          ('TR54-TR61', lambda: tr54_tr61(t)), ('TR62-TR64', lambda: tr62_tr64(t)),
                          ('TR65', lambda: tr65(t)), ('TR66-TR70', lambda: tr66_tr70(t)),
                          ('LN1-LN8', lambda: ln1_ln8(r)), ('LN9-LN12', lambda: ln9_ln12(r)),
-                         ('R6-EV', lambda: ledger_event_verdicts(t))):
+                         ('R6-EV', lambda: ledger_event_verdicts(t)), ('TR32-OWN', lambda: tr32_own(t)),
+                         ('R6-G1', lambda: r6_g1(t)), ('R6-G2', lambda: r6_g2(t)), ('R6-G3', lambda: r6_g3(t)),
+                         ('R6-G4', lambda: r6_g4(t)), ('R6-G5', lambda: r6_g5(t)), ('R6-G6', lambda: r6_g6(r)),
+                         ('R6-G7', lambda: r6_g7(t)), ('R6-G8', lambda: r6_g8(t)), ('R6-G9', lambda: r6_g9(t))):
             try:
                 fn()
             except Exception as exc:
@@ -2802,7 +3160,8 @@ def main(out_root):
                 record(name, 'the control runs', None, '%s: %s %s' % (type(exc).__name__, exc,
                                                                         traceback.format_exc()[-1200:]), 'FAIL')
         # every control of design v5.5.8 is reported: one whose group stopped before it ran is FAIL, never absent
-        for cid in ['TR%d' % i for i in range(54, 71)] + ['LN%d' % i for i in range(1, 13)] + ['R6-EV']:
+        for cid in ['TR%d' % i for i in range(54, 71)] + ['LN%d' % i for i in range(1, 13)] + ['R6-EV', 'TR32-OWN'] + \
+                ['R6-G%d' % i for i in range(1, 10)]:
             if not any(x['id'] == cid for x in RESULTS):
                 group = [x for x in RESULTS if x['id'] in ('TR54-TR61', 'TR62-TR64', 'TR65', 'TR66-TR70', 'LN1-LN8',
                                                            'LN9-LN12', 'R6-EV')]
