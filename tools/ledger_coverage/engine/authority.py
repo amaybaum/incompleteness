@@ -17,6 +17,8 @@ authority_path = 'tools/ledger_coverage/authority.json'
 tool_dir = authority_path.rsplit('/', 1)[0] + '/'
 authority_schema = 'oi-tool-authority/2'
 ledger_schema = 'oi-freeze-ledger/1'
+# the observed fields of a recorded event (sec. 6.3, "The freeze ledger") compared between two records of one comment
+observed_fields = ('kind', 'commit', 'by', 'created_at', 'author_id', 'first_line')
 authority_fields = ['schema', 'owner', 'repository', 'workflow', 'engine_pins', 'plans', 'authority_thread',
                     'freeze_ledger_path', 'forms', 'supersedes']
 overridable_never = ['owner', 'repository', 'workflow', 'engine_pins', 'plans', 'authority_thread',
@@ -658,9 +660,24 @@ def admit(host, git, run_id, plan_id, round_id, freeze, config_path, config_sha=
     # at its creation (sec. 6.3, "Owner at creation")
     by_id = {c['id']: c for c in cs}
     bound = []
+    # one observed comment is one event (sec. 6.3, "The freeze ledger": each event carries its comment id; point 5): a
+    # landing records it in the ledger and in its snapshot, and later snapshots record it again, so the records of
+    # this plan and round are taken once per comment id; two records of one comment that differ in what was observed
+    # are a conflict and refuse
+    recorded = {}
     for ev in list(ledger['events']) + snap_events:
         if ev.get('plan') != plan_id or ev.get('round') != round_id:
             continue
+        first = recorded.get(ev['comment_id'])
+        if first is not None:
+            differ = [k for k in observed_fields if first.get(k) != ev.get(k)]
+            if first.get('body_sha256') is not None and ev.get('body_sha256') is not None and \
+                    first['body_sha256'] != ev['body_sha256']:
+                differ.append('body_sha256')
+            if differ:
+                refuse('ledger', 'two records of comment %s differ (%s)' % (ev['comment_id'], ', '.join(differ)))
+            continue
+        recorded[ev['comment_id']] = ev
         c = by_id.get(ev['comment_id'])
         if c is not None and (c['author_id'] != ev['author_id'] or first_line(c['body']) != ev['first_line']):
             refuse('ledger', 'a recorded event conflicts with the thread (comment %s)' % ev['comment_id'])
