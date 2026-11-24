@@ -8,7 +8,7 @@ _types = {'object': dict, 'array': list, 'string': str, 'boolean': bool, 'null':
 
 
 def load():
-    with open(os.path.join(here, 'schemas', 'oi-ledger-coverage-4.schema.json'), encoding='utf-8') as f:
+    with open(os.path.join(here, 'schemas', 'oi-ledger-coverage-5.schema.json'), encoding='utf-8') as f:
         return json.load(f)
 
 

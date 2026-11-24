@@ -15,8 +15,14 @@ import sys
 
 here = os.path.dirname(os.path.abspath(__file__))
 tools = os.path.dirname(os.path.dirname(here))
-if tools not in sys.path:
-    sys.path.insert(0, tools)
+if 'ledger_coverage' not in sys.modules:
+    # the package is loaded by its location, as the entry point loads it; no directory is put on sys.path
+    import importlib.util
+    _pkg = os.path.dirname(here)
+    _spec = importlib.util.spec_from_file_location('ledger_coverage', os.path.join(_pkg, '__init__.py'),
+                                                   submodule_search_locations=[_pkg])
+    sys.modules['ledger_coverage'] = importlib.util.module_from_spec(_spec)
+    _spec.loader.exec_module(sys.modules['ledger_coverage'])
 
 from ledger_coverage.engine import config as cfgmod, gitobj, outcome as oc, purity, util  # noqa: E402
 from ledger_coverage.adapters import a1_controls as a1c  # noqa: E402
@@ -32,7 +38,7 @@ def main(argv=None):
     repo = gitobj.Overlay(gitobj.GitRepo(args.repo))
     rev, path = args.config.split(':', 1)
     with open(args.staged_config, 'rb') as f:
-        commit = a1c.simulated_freeze(repo, repo.resolve(rev), path, f.read())
+        commit = a1c.simulated_freeze(repo, repo.resolve(a1c.rev_parse(args.repo, rev)), path, f.read())
     loaded = cfgmod.load(repo, commit, path, None, None, 'harness')
     values = purity.config_values(repo.read, commit, loaded.config)
     profs = [p for p in loaded.profiles.values() if p.kind in ('review', 'deny')]

@@ -10,7 +10,16 @@ void = 'VOID'
 internal = 'INTERNAL'
 
 exit_codes = {pass_: 0, review: 10, fail: 20, usage: 64, error: 65, void: 70, internal: 71}
-result_schema = 'oi-ledger-coverage/4'
+result_schema = 'oi-ledger-coverage/5'
+
+# The fixed meaning of the four class identifiers kept from v1 (sec. 5, "Class meanings"); identical in every result.
+# They state what the frozen ledger and the declared classes specify, nothing about who decided it.
+class_meaning = {
+    'authorized-replacement': 'a site replaced by a splice of the frozen ledger',
+    'authorized-removal': 'a site removed by a splice of the frozen ledger',
+    'unauthorized-edit': "a ledgered file whose bytes differ from H with the frozen ledger's splices applied",
+    'unauthorized-change': 'a change that no splice of the frozen ledger and no declared class specifies',
+}
 
 fail_classes = frozenset([
     'unauthorized-change', 'missing', 'duplicated', 'ambiguous', 'context-meaning-unverified', 'retained-changed',
@@ -97,3 +106,24 @@ def apply_final(items, final_profiles):
         else:
             out.append(it)
     return out
+
+
+def annotate(result):
+    """Adds the fixed `class_meaning` table to a result, and quotes the meaning in every item, site state and file
+    state whose class is one of its four identifiers (sec. 5). The admission record is left as it is."""
+    result['class_meaning'] = dict(class_meaning)
+
+    def walk(x):
+        if isinstance(x, dict):
+            for key in ('class', 'status', 'state'):
+                v = x.get(key)
+                if isinstance(v, str) and v in class_meaning:
+                    x['meaning'] = class_meaning[v]
+            for k, v in x.items():
+                if k not in ('config', 'class_meaning'):
+                    walk(v)
+        elif isinstance(x, list):
+            for v in x:
+                walk(v)
+    walk({k: v for k, v in result.items() if k != 'config'})
+    return result

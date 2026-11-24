@@ -1,13 +1,12 @@
-"""Ownership chain of every reviewed record kind: writer, independent reviewer, owner authorization (design v5.5.8,
-sec. 6.3), with each authorization counted under "Owner at creation" (DI-1) and the lineage of every `supersedes`
-chain (DI-2)."""
+"""The review chain of every reviewed record kind: writer and independent reviewer, each review bound to the exact
+blob it reviews and covering every item (sec. 6.3), and the lineage of every `supersedes` chain (DI-2). The owner's
+approval is procedural and outside the tool: no record kind stands in for it."""
 import json
 import re
 
 from . import util
 
 review_schema = 'oi-review-record/1'
-auth_schema = 'oi-owner-authorization/1'
 record_schemas = ('oi-term-rules/2', 'oi-hp-adjudication/1', 'oi-context-adjudication/1', 'oi-hit-classification/1',
                   'oi-scope/1', 'oi-side-change-classes/1', 'oi-reconciliation/1', 'oi-retirement-config/1',
                   'oi-delegation/1')
@@ -64,108 +63,12 @@ def _person(v):
     return isinstance(v, str) and v.strip() and not _url.search(v) and '/' not in v and not v.isdigit()
 
 
-def _owner(v):
-    """An owner is a numeric host user id (sec. 6.3, A-D1); a login never matches."""
-    return isinstance(v, int) and not isinstance(v, bool) and v > 0
-
-
-def _comment(v):
-    return isinstance(v, str) and v.strip() and not _url.search(v)
-
-
-_iso = re.compile(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$')
-
-
-class OwnerTimeline:
-    """The owner of `A` over time (sec. 6.3, "Owner at creation", DI-1). `versions` are the verified versions of `A`
-    on main's first-parent chain, oldest first, as (host merge time, owner id, blob sha256). The version in force at a
-    time `t` is the latest version whose merge time is strictly before `t`; an owner change is the merge of a version
-    whose owner id differs from that of the version it replaces. Host times are timestamps of the form
-    2026-11-23T00:00:01Z, which order as strings.
-
-    `constant(owner)` is the timeline of a control-harness run that has no host: one owner at every time and no owner
-    change, so that an authorization counts exactly when its owner is that owner."""
-
-    def __init__(self, versions, host=True):
-        self.versions = list(versions)
-        self.host = host
-
-    @classmethod
-    def constant(cls, owner):
-        return cls([(None, owner, None)], host=False)
-
-    @classmethod
-    def from_versions(cls, versions):
-        """From the `authority_versions` of an admission snapshot (each with merged_at, owner_id, blob_sha256)."""
-        out = []
-        for v in versions or []:
-            if not isinstance(v, dict) or not _iso.match(str(v.get('merged_at'))):
-                return None
-            out.append((v['merged_at'], v.get('owner_id'), v.get('blob_sha256')))
-        return cls(out) if out else None
-
-    def valid_time(self, t):
-        if not isinstance(t, str) or not t.strip():
-            return False
-        return bool(_iso.match(t)) if self.host else True
-
-    def in_force(self, t):
-        """(merged_at, owner id, blob sha256) of the version in force at `t`, or None."""
-        if not self.host:
-            return self.versions[-1]
-        if not self.valid_time(t):
-            return None
-        got = None
-        for v in self.versions:
-            if v[0] < t:
-                got = v
-        return got
-
-    def owner_at(self, t):
-        v = self.in_force(t)
-        return None if v is None else v[1]
-
-    def owner_changes(self):
-        return [v[0] for i, v in enumerate(self.versions) if i and v[1] != self.versions[i - 1][1]]
-
-    def changed_between(self, t1, t2=None):
-        """True if an owner change merged strictly after `t1` (and strictly before `t2`, when given)."""
-        return any(t1 < m and (t2 is None or m < t2) for m in self.owner_changes())
-
-    @property
-    def governing_owner(self):
-        return self.versions[-1][1] if self.versions else None
-
-    def owner_comment(self, author_id, created_at):
-        """An owner comment: its author numeric id equals the owner of the version in force at its creation."""
-        return author_id is not None and self.owner_at(created_at) == author_id
-
-    def authorization_problem(self, a, predecessor=False):
-        """Sec. 6.3, "Owner authorizations": None when the `oi-owner-authorization/1` record `a` counts. For a record
-        the run uses: the version of A in force at its `time` has the authorization's `owner`, that owner is the owner
-        of the governing A, and no owner change merged after its `time`. For a predecessor named by a `supersedes` (a
-        completed action): the version of A in force at its `time` has the authorization's `owner`."""
-        t = a.get('time')
-        if not self.valid_time(t):
-            return 'its time is not a host timestamp'
-        if self.owner_at(t) != a.get('owner'):
-            return 'its owner was not the owner of the authority record in force at its time'
-        if predecessor:
-            return None
-        if a.get('owner') != self.governing_owner:
-            return 'its owner is not the owner of the governing authority record'
-        if self.changed_between(t):
-            return 'an owner change merged after its time'
-        return None
-
-
 class Store:
     """Records read from the object store: {path: (sha256, doc)}; nothing is read from a working tree.
 
     `scan` (set by the configuration loader) returns [(path, bytes)] of every record in the audit directory and the
-    plan's record directory at F; it is read only when a `supersedes` chain is walked (DI-2). `timeline` is the
-    owner timeline of the admission (DI-1); `widening` maps (old doc, new doc) to the widening items of a rule file or
-    configuration."""
+    plan's record directory at F; it is read only when a `supersedes` chain is walked (DI-2). `widening` maps (old doc,
+    new doc) to the widening items of a rule file or configuration."""
 
     def __init__(self, entries):
         self.by_path = {}
@@ -177,7 +80,6 @@ class Store:
 
     resolver = None
     scan = None
-    timeline = None
     widening = None
     heads_problems = None
 
@@ -231,12 +133,12 @@ def lineage_id(doc):
     return v if isinstance(v, str) and v else None
 
 
-def supersedes_problems(ref, doc, store, owner=None):
+def supersedes_problems(ref, doc, store):
     """S4 and DI-2 over the `supersedes` chain of one record: every step names a record that exists in the object
     store at or before F and has the same kind, schema and lineage (`record_id`, or `config_id` for the
     configuration); a record that supersedes, or is named by a `supersedes`, carries a valid lineage id; every
-    predecessor passes the lint itself, verified independently of the superseding record, its authorizations (a
-    widening review's included) counted as "Owner at creation" states for a predecessor; the chain has no cycle; and no
+    predecessor passes the lint itself, verified independently of the superseding record (its own review and, where it
+    widens the record it supersedes, its widening review); the chain has no cycle; and no
     other record in the audit directory, the plan's record directory or the records the run reads supersedes the
     same predecessor (ambiguous ancestry)."""
     out = []
@@ -276,7 +178,7 @@ def supersedes_problems(ref, doc, store, owner=None):
             out.append('record %s: ambiguous ancestry: %s also supersedes %s' % (ref.get('path'), forks[0],
                                                                                sup.get('path')))
             break
-        why = predecessor_problems(sup, prev, store, owner)
+        why = predecessor_problems(sup, prev, store)
         if why:
             out.append('record %s: its predecessor %s does not pass the lint: %s' % (ref.get('path'), sup.get('path'),
                                                                                     why[0]))
@@ -285,37 +187,32 @@ def supersedes_problems(ref, doc, store, owner=None):
     return out
 
 
-def predecessor_problems(ref, doc, store, owner=None):
+def predecessor_problems(ref, doc, store):
     """DI-2: the lint of a predecessor named by a `supersedes`, read from the object store at or before F and verified
-    independently of the superseding record: its own review and authorization (found among the records of the audit
-    and plan record directories), and, when it widens the record it supersedes, its widening review with that review's
-    authorization; each authorization counted as a completed action (sec. 6.3, "Owner at creation"). Its own chain is
-    walked by the caller. `owner` is the configuration's owner, used only by the constant timeline of a run without
-    a host."""
+    independently of the superseding record: its own review (found among the records of the audit and plan record
+    directories), and, when it widens the record it supersedes, its widening review. Its own chain is walked by the
+    caller."""
     key = ref.get('blob_sha256')
     if key in store._pred_cache:
         return store._pred_cache[key]
     store._pred_cache[key] = ['the predecessor chain is being evaluated']
-    out = lint_chain(ref, store, owner, None, predecessor=True)
+    out = lint_chain(ref, store, None, predecessor=True)
     if not out and store.widening is not None:
         old = store.resolve(doc.get('supersedes')) if doc.get('supersedes') is not None else None
         changed = store.widening(old, doc)
         if changed:
             wp = widening_review_problems(ref, store, None, reviewers_of(ref, store, everywhere=True),
-                                          doc.get('author'), doc.get('supersedes'), changed, owner, predecessor=True)
+                                          doc.get('author'), doc.get('supersedes'), changed, predecessor=True)
             if wp:
                 out = ['widening without a valid widening review: %s' % wp[0]]
     store._pred_cache[key] = out
     return out
 
 
-def lint_chain(ref, store, owner, admitted_shas, predecessor=False):
+def lint_chain(ref, store, admitted_shas, predecessor=False):
     """Problems with one record's chain. ref = {path, blob_sha256}; admitted_shas: the blobs the configuration
-    references (records, reviews, authorizations). Each authorization must count under "Owner at creation" (DI-1)
-    on the store's owner timeline (a constant timeline of `owner` when the run has no host). With `predecessor`, the
-    record is a predecessor named by a `supersedes` (DI-2): it need not be referenced, its review and authorization
-    are found among the records of the object store at F, and its authorization counts as a completed action."""
-    tl = store.timeline or OwnerTimeline.constant(owner)
+    references (records and reviews). With `predecessor`, the record is a predecessor named by a `supersedes` (DI-2):
+    it need not be referenced, and its review is found among the records of the object store at F."""
     out = []
     doc = store.resolve(ref) if predecessor else store.get(ref)
     if doc is None:
@@ -328,7 +225,7 @@ def lint_chain(ref, store, owner, admitted_shas, predecessor=False):
     if 'supersedes' not in doc:
         out.append('record %s: no supersedes field' % ref['path'])
     if not predecessor:
-        out += supersedes_problems(ref, doc, store, owner)
+        out += supersedes_problems(ref, doc, store)
         if store.heads_problems:
             out += [p for p in store.heads_problems.get(ref['blob_sha256'], [])]
     author = doc.get('author')
@@ -369,7 +266,6 @@ def lint_chain(ref, store, owner, admitted_shas, predecessor=False):
         # rather than covered by a single verdict
         out.append('record %s: no item ids can be identified' % ref['path'])
         return out
-    good_reviews = []
     for sha, path, rv in exact:
         bad = []
         if not _person(rv.get('reviewer')):
@@ -388,37 +284,6 @@ def lint_chain(ref, store, owner, admitted_shas, predecessor=False):
             bad.append('no method')
         if bad:
             out.append('record %s: review %s: %s' % (ref['path'], path, '; '.join(bad)))
-        else:
-            good_reviews.append((sha, path, rv))
-    if not good_reviews:
-        return out
-    auths = [d for sha, (path, d) in pool.items()
-             if isinstance(d, dict) and d.get('schema') == auth_schema and usable(sha)]
-    ok = False
-    for a in auths:
-        for e in a.get('authorizes', []):
-            rec, rv = e.get('record', {}), e.get('review', {})
-            if rec.get('path') == ref['path'] and 'blob_sha256' not in rec:
-                out.append('record %s: authorization names the path without a hash' % ref['path'])
-                continue
-            if rec.get('blob_sha256') != ref['blob_sha256']:
-                continue
-            if not any(rv.get('blob_sha256') == g[0] and rv.get('path') == g[1] for g in good_reviews):
-                continue
-            if not predecessor and a.get('owner') != owner:
-                out.append('record %s: authorization owner differs from the configuration owner' % ref['path'])
-                continue
-            if not _owner(a.get('owner')) or not _comment(str(a.get('comment_id') or '')) or not a.get('time'):
-                out.append('record %s: authorization lacks owner, time or comment id' % ref['path'])
-                continue
-            why = tl.authorization_problem(a, predecessor)
-            if why:
-                out.append('record %s: the authorization does not count under "Owner at creation": %s'
-                           % (ref['path'], why))
-                continue
-            ok = True
-    if not ok:
-        out.append('record %s: no owner authorization listing the record and its review' % ref['path'])
     return out
 
 
@@ -490,14 +355,12 @@ def lineage_heads(refs, store):
     return out
 
 
-def widening_review_problems(ref, store, admitted_shas, regular_reviewers, author, old_ref, changed, owner,
+def widening_review_problems(ref, store, admitted_shas, regular_reviewers, author, old_ref, changed,
                              predecessor=False):
     """Sec. 6.3 (B4): a review of kind widening naming the new blob and the blob it replaces, admitted, by a
-    non-author reviewer other than the record's own reviewers, with an `accept` verdict for every changed item,
-    and an owner authorization listing the widening review's blob, counted under "Owner at creation" (DI-1; for a
-    predecessor named by a `supersedes`, as a completed action, and the widening review and its authorization found
-    among the records of the object store at F). Returns [] when one such review exists."""
-    tl = store.timeline or OwnerTimeline.constant(owner)
+    non-author reviewer other than the record's own reviewers, with an `accept` verdict for every changed item (for a
+    predecessor named by a `supersedes`, the widening review is found among the records of the object store at F).
+    Returns [] when one such review exists."""
     pool = store.scanned() if predecessor else store.by_sha
 
     def usable(sha):
@@ -518,22 +381,14 @@ def widening_review_problems(ref, store, admitted_shas, regular_reviewers, autho
         miss = [c for c in changed if verdicts.get(c) != 'accept']
         if miss or any(v != 'accept' for v in verdicts.values()) or not verdicts:
             bad.append('verdicts do not accept every changed item (%s)' % ', '.join(miss[:3]))
-        auth = any(isinstance(a, dict) and a.get('schema') == auth_schema and usable(s2) and
-                   (predecessor or a.get('owner') == owner) and _owner(a.get('owner')) and a.get('comment_id') and
-                   a.get('time') and tl.authorization_problem(a, predecessor) is None and
-                   any((e.get('review') or {}).get('blob_sha256') == sha or
-                       (e.get('record') or {}).get('blob_sha256') == sha for e in a.get('authorizes', []))
-                   for s2, (_, a) in pool.items())
-        if not auth:
-            bad.append('no owner authorization that counts under "Owner at creation" lists the widening review')
         if not bad:
             return []
         why.append('widening review %s: %s' % (path, '; '.join(bad)))
     return why or ['no widening review names the superseding blob']
 
 
-def widening_review_ok(ref, store, admitted_shas, regular_reviewers, author, old_ref=None, changed=(), owner=None):
-    return not widening_review_problems(ref, store, admitted_shas, regular_reviewers, author, old_ref, changed, owner)
+def widening_review_ok(ref, store, admitted_shas, regular_reviewers, author, old_ref=None, changed=()):
+    return not widening_review_problems(ref, store, admitted_shas, regular_reviewers, author, old_ref, changed)
 
 
 def reviewers_of(ref, store, everywhere=False):

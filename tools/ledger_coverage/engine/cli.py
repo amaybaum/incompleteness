@@ -19,9 +19,9 @@ from . import reconcile as rcmod
 from . import records as rec
 from . import rules as rulemod
 from . import util
-from . import authority as auth
+from . import checker
 from . import host as hostmod
-from .gitobj import GitRepo, Overlay, Unresolvable, first_parent_chain
+from .gitobj import GitRepo, Overlay, Unresolvable, first_parent_chain, full_id, regular_modes
 
 here = os.path.dirname(os.path.abspath(__file__))
 
@@ -46,11 +46,8 @@ def build_parser():
     sub = p.add_subparsers(dest='op')
 
     def common(sp):
-        sp.add_argument('--config', required=True, help='rev:path of the configuration record')
-        sp.add_argument('--config-sha256', default=None, help='optional equality with the admitted configuration')
-        sp.add_argument('--freeze', default=None, help='the designated freeze F (sec. 6.3)')
-        sp.add_argument('--plan', default=None, help='the plan id, as the authority record lists it')
-        sp.add_argument('--round', default=None, help='the round id, as the authority record lists it')
+        sp.add_argument('--config', required=True, help='F:path of the configuration record')
+        sp.add_argument('--freeze', default=None, help='the plan commit F, a full id (sec. 6.3)')
         sp.add_argument('--out', required=True)
         sp.add_argument('--repo', default=None)
 
@@ -99,7 +96,7 @@ def build_parser():
     z = sub.add_parser('purity-lint')
     z.add_argument('--out', required=True)
     z.add_argument('--repo', default=None)
-    z.add_argument('--config', default=None, help='rev:path of a configuration whose values and profiles are linted')
+    z.add_argument('--config', default=None, help='commit:path of a configuration whose values and profiles are linted')
     return p
 
 
@@ -147,6 +144,7 @@ def split_ref(s):
 
 
 def resolve(repo, rev):
+    """A role commit: a full 40-hex id read through the verified reader; a ref name is never resolved (GV1)."""
     try:
         return repo.resolve(rev)
     except Unresolvable as exc:
@@ -166,7 +164,12 @@ class RecordSet:
         """A record named on the command line: read from the object store; admitted only through the chain."""
         rev, path = split_ref(refspec)
         commit = resolve(repo, rev)
-        data = repo.read(commit, path)
+        try:
+            data = repo.read(commit, path)
+        except Unresolvable as exc:
+            self.items.append(oc.make_item('RECORD', 'record-invalid', path, None, {'why': 'not a regular file'},
+                                           detail=str(exc)))
+            return None
         if data is None:
             raise oc.Stop(oc.error, 'SOURCE_CHANGED', 'record %s not present at %s' % (path, commit[:12]))
         sha = util.sha256(data)
@@ -185,7 +188,7 @@ class RecordSet:
         st = self.loaded.store
         if st.get(ref) is None:
             st.by_sha[sha] = (path, doc)
-        probs = rec.lint_chain(ref, st, self.loaded.config['retirement']['owner'], self.loaded.admitted)
+        probs = rec.lint_chain(ref, st, self.loaded.admitted)
         if probs:
             self.items.append(oc.make_item('RECORD', 'record-invalid', path, None, {'sha': sha, 'why': probs[0]},
                                            detail=probs))
@@ -199,12 +202,11 @@ def rule_files(loaded, harness, ctx_lookup):
     items = []
     allow = []
     seen_ids = {}
-    owner = loaded.config['retirement']['owner']
     for ref, doc in loaded.rule_files:
         if doc is None or doc.get('schema') != rulemod.rules_schema:
             items.append(oc.make_item('RECORD', 'record-invalid', ref['path'], None, {'why': 'schema'}))
             continue
-        probs = [] if harness else rec.lint_chain(ref, loaded.store, owner, loaded.admitted)
+        probs = [] if harness else rec.lint_chain(ref, loaded.store, loaded.admitted)
         sup = doc.get('supersedes')
         old_rules = {}
         od = None
@@ -237,7 +239,7 @@ def rule_files(loaded, harness, ctx_lookup):
                                        ctx_lookup['control_input'])
         widen = rulemod.file_widening(od, doc)
         wp = rec.widening_review_problems(ref, loaded.store, loaded.admitted, rec.reviewers_of(ref, loaded.store),
-                                          doc.get('author'), sup, widen, owner) if widen else []
+                                          doc.get('author'), sup, widen) if widen else []
         if wp and (not harness or ctx_lookup.get('force_widening')):
             probs.append('widening without a valid widening review (%s): %s' % ('; '.join(widen[:3]), wp[0]))
         if probs:
@@ -297,8 +299,10 @@ def run(argv, repo=None, harness=False, stderr=None, extra_records=(), preflight
             return 64, None
         result.update(outcome=s.outcome, exit_status=oc.exit_codes[s.outcome],
                       stop={'class': s.cls, 'message': s.message, 'detail': s.detail})
+        oc.annotate(result)
         write(out, result, harness)
         return result['exit_status'], result
+    oc.annotate(res)
     write(out, res, harness)
     return res['exit_status'], res
 
@@ -329,67 +333,202 @@ def write(out, result, harness=False):
 
 
 def admission(a, repo, harness, control, crev, cpath, environ):
-    """Sec. 6.3 admission. Returns (admission, table) for config.load. Outside the harness every failure is an
-    error of class config-unreviewed; a run outside a host job can never reach "chain" (point 9)."""
+    """Sec. 6.3: configuration admission from F, then execution identity. Returns (admission, table) for config.load,
+    `table` being the blobs F's pin table admits ({path: bytes}). Outside the harness every failure is ERROR
+    CONFIG_UNREVIEWED, before anything is evaluated; a run outside a host CI job never reaches "chain" (point 3)."""
     def refuse(msg, **d):
         raise oc.Stop(oc.error, 'CONFIG_UNREVIEWED', msg, d)
     if control.get('replay_snapshot') is not None:
         snap = control['replay_snapshot']
-        F = resolve(repo, a.freeze) if a.freeze else None
-        if F is None or F != snap.get('freeze') or resolve(repo, crev) != F:
-            refuse('the replay names another freeze than its snapshot')
-        pt = snap.get('pin_table') or {}
-        if util.sha256(repo.read(F, pt.get('path', '')) or b'') != pt.get('blob_sha256'):
+        if not a.freeze or a.freeze != snap.get('freeze') or crev != a.freeze:
+            refuse('the replay names another plan commit than its snapshot')
+        F, table, admitted, pt_ref, _ = freeze_admission(repo, a.freeze, crev, cpath, refuse)
+        if pt_ref != snap.get('pin_table'):
             refuse('the pin table at F differs from the snapshot\'s')
-        rec_dir = pt['path'].rsplit('/', 1)[0] + '/'
-        return {'mode': 'replay', 'snapshot': snap, 'owner_id': snap.get('owner_id')}, \
-            auth.admitted_by_table(repo, F, rec_dir, pt.get('entries') or {})
+        return {'mode': 'replay', 'snapshot': snap}, admitted
     sim = control.get('host')
-    if sim is not None:
-        # an in-process control on an in-memory host: the whole of sec. 6.3 runs, the result is a control
-        # artefact (control-harness, with the simulated snapshot), never "chain"
-        if not a.freeze:
-            refuse('no --freeze: the configuration is admitted only from a designated freeze', simulated_host=True)
-        try:
-            F = resolve(repo, a.freeze)
-            if resolve(repo, crev) != F:
-                refuse('the configuration is read from the freeze only', simulated_host=True)
-            A, snap, table, rec_dir = auth.admit(sim, repo, control['run_id'], a.plan, a.round, F, cpath,
-                                                 a.config_sha256)
-        except auth.Refused as exc:
-            refuse(str(exc), point=exc.point, simulated_host=True)
-        return ({'mode': 'control-harness', 'simulated_chain': {'host': 'in-memory control host', 'snapshot': snap},
-                 'owner_id': A['owner']['id']}, auth.admitted_by_table(repo, F, rec_dir, table))
-    if harness:
+    if harness and sim is None:
         return {'mode': 'control-harness'}, None
     if not a.freeze:
-        refuse('no --freeze: the configuration is admitted only from a designated freeze (sec. 6.3)')
-    if not a.plan or not a.round:
-        refuse('--plan and --round are required for admission')
-    det = hostmod.RestHost.detect(environ)
-    if det is None:
-        refuse('a run outside a host CI job cannot reach chain admission (point 9)')
-    host, run_id, repo_id = det
-    F = resolve(repo, a.freeze)
-    if resolve(repo, crev) != F:
-        refuse('the configuration is read from the freeze only')
+        refuse('no --freeze: the configuration is admitted only from the plan commit F (sec. 6.3)',
+               simulated_host=sim is not None)
+    F, table, admitted, pt_ref, cfg = freeze_admission(repo, a.freeze, crev, cpath, refuse)
+    if sim is not None:
+        # an in-process control on an in-memory host: the whole of sec. 6.3 runs, the result is a control artefact
+        # (control-harness, with the simulated snapshot), never "chain"
+        host, run_id, read_repo = sim, control.get('run_id'), control.get('repo_id')
+        checkout = control['checkout'] if 'checkout' in control else None
+    else:
+        det = hostmod.RestHost.detect(environ)
+        if det is None:
+            refuse('a run outside a host CI job cannot reach chain admission (configuration admission point 3)')
+        host, run_id, read_repo = det
+        checkout = disk_checkout(refuse)
+    snap = execution_identity(host, run_id, read_repo, repo, cfg, checkout, refuse, simulated=sim is not None)
+    review = [p for p, b in sorted(admitted.items()) if _reviews(b, cpath, util.sha256(table_bytes(admitted, cpath)))]
+    snap.update(freeze=F, pin_table=pt_ref,
+                configuration={'path': cpath, 'blob_sha256': util.sha256(table_bytes(admitted, cpath))},
+                configuration_review=[{'path': p, 'blob_sha256': util.sha256(admitted[p])} for p in review])
+    if sim is not None:
+        return {'mode': 'control-harness', 'simulated_chain': {'host': 'in-memory control host',
+                                                               'snapshot': snap}}, admitted
+    return {'mode': 'chain', 'snapshot': snap}, admitted
+
+
+def table_bytes(admitted, path):
+    return admitted.get(path) or b''
+
+
+def _reviews(b, path, sha):
     try:
-        A, snap, table, rec_dir = auth.admit(host, repo, run_id, a.plan, a.round, F, cpath, a.config_sha256,
-                                             attested_repo=repo_id)
-    except auth.Refused as exc:
-        refuse(str(exc), point=exc.point)
-    admitted = auth.admitted_by_table(repo, F, rec_dir, table)
-    return {'mode': 'chain', 'snapshot': snap, 'owner_id': A['owner']['id']}, admitted
+        d = json.loads(b.decode('utf-8'))
+    except (ValueError, UnicodeDecodeError):
+        return False
+    return isinstance(d, dict) and d.get('schema') == rec.review_schema and \
+        d.get('reviewed') == {'path': path, 'blob_sha256': sha}
+
+
+def freeze_admission(repo, freeze, crev, cpath, refuse):
+    """Configuration admission points 1-2: F a full id read through the verified reader; the configuration read only
+    from F's tree; the pin table derived from the PREREG.md beside it (its last Record pins subsection), listing the
+    configuration and its review record with their sha256. Returns (F, table, admitted blobs, pin table
+    {path, blob_sha256}, the configuration as parsed)."""
+    try:
+        F = repo.resolve(full_id(freeze))
+    except Unresolvable as exc:
+        refuse('the plan commit F cannot be read: %s' % exc)
+    if crev != F:
+        refuse('the configuration is read from F only (--config F:path)')
+    rec_dir = cpath.rsplit('/', 1)[0] + '/' if '/' in cpath else ''
+    prereg = rec_dir + 'PREREG.md'
+    try:
+        data = repo.read(F, cpath)
+        pt = repo.read(F, prereg)
+    except Unresolvable as exc:
+        refuse('a configuration admission read failed: %s' % exc)
+    if data is None:
+        refuse('no configuration at %s in F' % cpath)
+    if pt is None:
+        refuse('no PREREG.md beside the configuration in F: %s' % prereg)
+    try:
+        table = cfgmod.read_pin_table(pt)
+    except cfgmod.PinTableError as exc:
+        refuse('the pin table cannot be read: %s' % exc)
+    if table.get(cpath[len(rec_dir):]) != util.sha256(data):
+        refuse('the configuration is not listed with its sha256 in the last Record pins subsection of %s' % prereg)
+    admitted = cfgmod.admitted_by_table(repo, F, rec_dir, table)
+    if not any(_reviews(b, cpath, util.sha256(data)) for b in admitted.values()):
+        refuse('no review record of the configuration is listed in the pin table of %s' % prereg)
+    try:
+        cfg = json.loads(data.decode('utf-8'))
+    except (ValueError, UnicodeDecodeError) as exc:
+        refuse('the configuration cannot be read: %s' % exc)
+    if not isinstance(cfg, dict) or cfgmod.tool_problems(cfg.get('tool'), cfg.get('repository_id')):
+        refuse('the configuration\'s tool pins or repository id cannot be read')
+    return F, table, admitted, {'path': prereg, 'blob_sha256': util.sha256(pt)}, cfg
+
+
+def disk_checkout(refuse):
+    """{path: bytes} of the entry point and every file under the tool's package directory in the checkout the tool
+    runs from, read with lstat (no link followed); a non-regular entry, or a parent that is not a real directory,
+    refuses (execution identity point 2)."""
+    import stat
+    entry, pkg = cfgmod.tool_layout()
+    pkg_dir = os.path.dirname(here)
+    root = os.path.dirname(os.path.dirname(pkg_dir))
+    out = {}
+    d = pkg_dir
+    while d != root:
+        if not stat.S_ISDIR(os.lstat(d).st_mode):
+            refuse('%s is not a real directory in the checkout' % d)
+        d = os.path.dirname(d)
+
+    def walk(p, rel):
+        st = os.lstat(p)
+        if stat.S_ISDIR(st.st_mode):
+            for n in sorted(os.listdir(p)):
+                walk(os.path.join(p, n), rel + '/' + n)
+        elif stat.S_ISREG(st.st_mode):
+            with open(p, 'rb') as f:
+                out[rel] = f.read()
+        else:
+            refuse('a non-regular entry in the checkout: %s' % rel)
+    try:
+        walk(os.path.join(root, entry), entry)
+        walk(pkg_dir, pkg.rstrip('/'))
+    except OSError as exc:
+        refuse('the checkout cannot be read: %s' % exc)
+    return out
+
+
+def execution_identity(host, run_id, read_repo, repo, cfg, checkout, refuse, simulated=False):
+    """Sec. 6.3, execution identity points 1, 2, the `uses:` rule of point 5, and point 6. Returns the snapshot's run
+    and tool fields. `checkout` is {path: bytes} of the checkout the tool runs from (None in a control: T's own
+    files)."""
+    try:
+        run = host.run_record(run_id, read_repo)
+    except hostmod.HostUnavailable as exc:
+        refuse('the run record cannot be read: %s' % exc, simulated_host=simulated)
+    keys = ('repository_id', 'head_repository_id', 'event', 'head_branch', 'workflow_path', 'head_sha')
+    if not isinstance(run, dict) or any(run.get(k) is None for k in keys):
+        refuse('the run record cannot be read or is incomplete', simulated_host=simulated)
+    rid = cfg['repository_id']
+    if run['repository_id'] != rid or run['head_repository_id'] != rid:
+        refuse('the run\'s repository or head repository is not the configuration\'s repository_id (point 1)')
+    if run['event'] not in ('push', 'workflow_dispatch'):
+        refuse('the run\'s event %r is not push or workflow_dispatch (point 1)' % run['event'])
+    if run['head_branch'] != 'main':
+        refuse('the run\'s head branch is not main (point 6)')
+    try:
+        T = repo.resolve(full_id(run['head_sha']))
+        ents = repo.entries(T)
+    except Unresolvable as exc:
+        refuse('the tool commit T cannot be read: %s' % exc)
+    entry, pkg = cfgmod.tool_layout()
+    pins = {f['path']: f['blob_sha256'] for f in cfg['tool']['files']}
+    mine = {p: e for p, e in ents.items() if p == entry or p.startswith(pkg)}
+    if set(mine) != set(pins):
+        refuse('T\'s tool files differ from the configuration\'s tool.files (point 2)',
+               extra=sorted(set(mine) - set(pins))[:20], missing=sorted(set(pins) - set(mine))[:20])
+    blobs = {}
+    for p in sorted(mine):
+        if mine[p][0] not in regular_modes:
+            refuse('%s is not a regular file at T (point 2)' % p)
+        try:
+            blobs[p] = repo.read(T, p)
+        except Unresolvable as exc:
+            refuse('a tool file at T cannot be read: %s' % exc)
+        if util.sha256(blobs[p]) != pins[p]:
+            refuse('%s at T differs from its tool pin (point 2)' % p)
+    wf = cfg['tool']['workflow']
+    if run['workflow_path'] != wf['path']:
+        refuse('the run\'s workflow path is not tool.workflow.path (point 2)')
+    try:
+        wfb = repo.read(T, wf['path'])
+    except Unresolvable as exc:
+        refuse('the workflow at T cannot be read: %s' % exc)
+    if wfb is None or util.sha256(wfb) != wf['blob_sha256']:
+        refuse('the workflow at T differs from tool.workflow (point 2)')
+    bad = checker.uses_line_problems(wfb)
+    if bad:
+        refuse('the workflow at T fails the uses: line rule (point 5): line %d, %s' % bad[0])
+    if checkout is None:
+        checkout = blobs
+    if set(checkout) != set(blobs) or any(checkout[p] != blobs[p] for p in blobs):
+        refuse('the checkout the tool runs from differs from T\'s tool files (point 2)',
+               differs=sorted(set(checkout) ^ set(blobs) | {p for p in blobs if checkout.get(p) != blobs[p]})[:20])
+    return {'run': {k: run[k] for k in ('run_id',) + keys if k in run}, 'tool_commit': T,
+            'tool_blobs': {p: util.sha256(b) for p, b in sorted(blobs.items())},
+            'workflow': {'path': wf['path'], 'blob_sha256': util.sha256(wfb)}}
 
 
 def stages(a, repo, harness, result, extra_records, preflight_fn, control, environ):
     # admission (sec. 6.3), then integrity: configuration, adapters, profiles, records
     crev, cpath = split_ref(a.config)
     adm, table = admission(a, repo, harness, control, crev, cpath, environ)
-    loaded = cfgmod.load(repo, crev, cpath, a.config_sha256, a.op, 'harness' if harness else 'chain',
-                         extra_records, adm, table)
+    loaded = cfgmod.load(repo, crev, cpath, None, a.op, 'harness' if harness else 'chain', extra_records, adm, table)
     cfg = loaded.config
-    rec_adm = {k: v for k, v in loaded.admission.items() if k != 'owner_id'}
+    rec_adm = dict(loaded.admission)
     result['config'] = {'config_id': cfg['config_id'], 'version': cfg['version'], 'path': cpath,
                         'commit': loaded.ref['commit'], 'blob_sha256': loaded.ref['blob_sha256'],
                         'admission': rec_adm}
@@ -976,8 +1115,9 @@ def native_env(a, repo, F, control):
         return delmod.Native(repo, None, os.path.realpath(a.out), F, False, replay=control['replay_evidence'])
     det = hostmod.RestHost.detect(control.get('environ', os.environ))
     enabled = bool(control.get('native')) or det is not None
+    # host-run evidence is read in the configuration's repository and filtered by its id (sec. 7.2)
     host, repo_id = (control.get('host'), control.get('repo_id')) if control.get('native') else \
-        ((det[0], det[2]) if det else (None, None))
+        ((det[0], getattr(a, '_repository_id', None)) if det else (None, None))
     repo_path = control.get('repo_path') or getattr(a, 'repo', None) or os.getcwd()
     why = None if enabled else 'a local run: no disposable clone is made (sec. A.40)'
     return delmod.Native(repo, repo_path, os.path.realpath(a.out), F, enabled, host, repo_id, why)
@@ -986,6 +1126,7 @@ def native_env(a, repo, F, control):
 def op_execution(a, repo, ctx, loaded, records, result, control=None):
     control = control or {}
     cfg = loaded.config
+    a._repository_id = cfg['repository_id']
     H = resolve(repo, a.scientific_base)
     if H != cfg['roles']['scientific_base']:
         raise oc.Stop(oc.error, 'SCIENTIFIC_BASE_MISMATCH', '--scientific-base is not the configured base')
@@ -1018,8 +1159,7 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
         # side-change class records and reconciliation records referenced by the configuration (sec. 6.3, 13.1,
         # 16.2) have their chain linted like any record the run uses; a failing record is record-invalid and is
         # not used
-        probs = [] if records.harness else rec.lint_chain(r, loaded.store, cfg['retirement']['owner'],
-                                                          loaded.admitted)
+        probs = [] if records.harness else rec.lint_chain(r, loaded.store, loaded.admitted)
         # a class without its id field is a field error in every mode (sec. 6.3); it is never used
         probs = probs or ['record %s: %s' % (r['path'], m) for m in rec.item_list_problems(d)[:1]] or \
             ['record %s: %s entry %d lacks its id field' % ((r['path'],) + m) for m in rec.entries_without_id(d)[:1]]

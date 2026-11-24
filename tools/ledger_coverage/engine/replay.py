@@ -59,6 +59,7 @@ def cli(a, out, repo, stderr):
         res = {'schema': oc.result_schema, 'operation': 'replay', 'outcome': oc.error, 'exit_status': 65,
                'stop': {'class': cls, 'message': msg, 'detail': d}, 'items': [], 'preflight': [],
                'record_checks': None}
+        oc.annotate(res)
         os.makedirs(out, exist_ok=True)
         with open(os.path.join(out, 'replay-result.json'), 'w', encoding='utf-8') as f:
             f.write(util.dump_result(res))
@@ -113,6 +114,7 @@ def cli(a, out, repo, stderr):
     equal = util.canonical(a1) == util.canonical(a2)
     res['replay'] = {'equal_to_committed': equal, 'landing': land.get('name'),
                      'committed_sha256': land['result']['sha256']}
+    oc.annotate(res)
     os.makedirs(out, exist_ok=True)
     with open(os.path.join(out, 'replay-result.json'), 'w', encoding='utf-8') as f:
         f.write(util.dump_result(res))

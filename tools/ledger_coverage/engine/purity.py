@@ -37,10 +37,9 @@ field_names = frozenset([
     'GITHUB_API_URL', 'GITHUB_REPOSITORY_ID',
 ])
 schema_ids = frozenset([
-    'oi-ledger-coverage/4', 'oi-retirement-config/1', 'oi-term-rules/2', 'oi-delegation/1', 'oi-hp-adjudication/1',
+    'oi-ledger-coverage/5', 'oi-retirement-config/1', 'oi-term-rules/2', 'oi-delegation/1', 'oi-hp-adjudication/1',
     'oi-context-adjudication/1', 'oi-hit-classification/1', 'oi-scope/1', 'oi-side-change-classes/1',
-    'oi-reconciliation/1', 'oi-review-record/1', 'oi-owner-authorization/1', 'oi-tool-authority/2',
-    'oi-freeze-ledger/1', 'oi-ledger-landing/1',
+    'oi-reconciliation/1', 'oi-review-record/1', 'oi-ledger-landing/1',
 ])
 enumerations = frozenset([
     'PASS', 'REVIEW_REQUIRED', 'FAIL', 'USAGE', 'ERROR', 'VOID', 'INTERNAL',
@@ -69,9 +68,6 @@ enumerations = frozenset([
     'U', 'M', 'K', 'B', 'H', 'O', 'R', 'S1', 'N2', 'B1', 'B2', 'B3', 'B4', 'B6', 'K1', 'K2', 'K3', 'K4', 'K5',
     'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M11', 'O1', 'O9',
 ])
-# The tool's own fixed data path (sec. 6.3, R-D4): the authority record. A fourth category, linted to lie under
-# the tool's directory; it lands after the tool, in its own merge (sec. 15 item 0a).
-tool_paths = frozenset(['tools/ledger_coverage/authority.json'])
 _hex = re.compile(r'(?<![0-9A-Za-z])[0-9a-fA-F]{7,}(?![0-9A-Za-z])')
 _field_rx = re.compile(r'^[A-Za-z_][A-Za-z0-9_-]*$')
 _schema_rx = re.compile(r'^oi-[a-z0-9-]+/[0-9]+$')
@@ -83,12 +79,11 @@ def lint_allowlist():
     bad += ['field name %r' % x for x in field_names if not _field_rx.match(x)]
     bad += ['schema id %r' % x for x in schema_ids if not _schema_rx.match(x)]
     bad += ['enumeration %r' % x for x in enumerations if not _enum_rx.match(x)]
-    bad += ['tool path %r' % x for x in tool_paths if not re.match(r'^tools/ledger_coverage/[a-z_]+\.json$', x)]
     return bad
 
 
 def allowed(s):
-    return s in field_names or s in schema_ids or s in enumerations or s in tool_paths
+    return s in field_names or s in schema_ids or s in enumerations
 
 
 def engine_sources(root=None):

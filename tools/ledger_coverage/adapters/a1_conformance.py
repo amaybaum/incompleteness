@@ -1,4 +1,4 @@
-"""A1 controls of the design (v5.5.8) on real objects: W1 option B (WB1-WB15), the per-edit unit and
+"""A1 controls of the design (v6.0e) on real objects: W1 option B (WB1-WB15), the per-edit unit and
 the plan checker's selection (S11-56, S11-57a-d, S11-58a-k), the reconciliation conditions and the landing
 composition (N3-N18, with N10 and N11 pinned to main 8e9b8334 and T1'), and the pinned side-change classes (R18,
 R19). Every run uses the control harness (the A1 records are unreviewed drafts); mutant trees, ledgers and
@@ -17,8 +17,14 @@ import types
 
 here = os.path.dirname(os.path.abspath(__file__))
 tools = os.path.dirname(os.path.dirname(here))
-if tools not in sys.path:
-    sys.path.insert(0, tools)
+if 'ledger_coverage' not in sys.modules:
+    # the package is loaded by its location, as the entry point loads it; no directory is put on sys.path
+    import importlib.util
+    _pkg = os.path.dirname(here)
+    _spec = importlib.util.spec_from_file_location('ledger_coverage', os.path.join(_pkg, '__init__.py'),
+                                                   submodule_search_locations=[_pkg])
+    sys.modules['ledger_coverage'] = importlib.util.module_from_spec(_spec)
+    _spec.loader.exec_module(sys.modules['ledger_coverage'])
 
 from ledger_coverage.engine import cli, execution as exmod, peredit, pipeline as pl, reconcile as rc  # noqa: E402
 from ledger_coverage.engine import rules as rulemod, util  # noqa: E402
@@ -89,12 +95,12 @@ def wb_controls(a):
           'lines', "both hits PASS and no item on either line", wb1,
           wb1['ch19'] == ['PASS'] and wb1['full'] == ['PASS'] and not wb1['items'])
     _, code, res = run({CH19: text.replace(s, s.replace('the notion of', 'the finite notion of', 1))})
-    check('WB2', 'one more word containing finit in the approved sentence: FAIL rule-negative-match',
+    check('WB2', 'one more word containing finit in the fingerprinted sentence: FAIL rule-negative-match',
           "the line has rule-negative-match", items_at(res, CH19, ln), 'rule-negative-match' in items_at(res, CH19, ln))
     t3 = text.rstrip('\n') + '\n\n' + s + '\n'
     _, code, res = run({CH19: t3})
     end = len(t3.rstrip('\n').split('\n'))
-    check('WB3', 'the approved sentence copied unchanged to another paragraph of a file in W1-c\'s scope: FAIL '
+    check('WB3', 'the fingerprinted sentence copied unchanged to another paragraph of a file in W1-c\'s scope: FAIL '
           'rule-negative-match at the copy; the original still PASS', "copy line rule-negative-match; original line "
           "no item", {'copy': items_at(res, CH19, end), 'original': items_at(res, CH19, ln)},
           'rule-negative-match' in items_at(res, CH19, end) and not items_at(res, CH19, ln))
@@ -103,7 +109,7 @@ def wb_controls(a):
     ot = a.repo.read(T, other).decode().rstrip('\n') + '\n\n' + s + '\n'
     _, code, res = run({other: ot})
     end4 = len(ot.rstrip('\n').split('\n'))
-    check('WB4', 'the approved sentence copied to a file outside every W1 rule\'s scope: REVIEW_REQUIRED '
+    check('WB4', 'the fingerprinted sentence copied to a file outside every W1 rule\'s scope: REVIEW_REQUIRED '
           'unclassified', "the copy's line has unclassified and no FAIL class", {'file': other,
                                                                                  'items': items_at(res, other, end4)},
           items_at(res, other, end4) == ['unclassified'])
@@ -111,20 +117,20 @@ def wb_controls(a):
     _, code, res = run({CH19: t5})
     end5 = len(t5.rstrip('\n').split('\n'))
     stale = [i for i in res.get('items', []) if i['class'] == 'rule-stale' and i.get('rule_id') == 'W1-c']
-    check('WB5', 'the approved sentence moved to another paragraph of the same file: FAIL rule-negative-match at the '
+    check('WB5', 'the fingerprinted sentence moved to another paragraph of the same file: FAIL rule-negative-match at the '
           'new location; REVIEW_REQUIRED rule-stale for the fingerprint', "new line rule-negative-match and a W1-c "
           "rule-stale item", {'new': items_at(res, CH19, end5), 'stale': len(stale)},
           'rule-negative-match' in items_at(res, CH19, end5) and len(stale) >= 1)
     _, code, res = run({CH19: text.replace(s, s.replace('periodic', 'cyclic', 1))})
-    check('WB6', 'a near-copy at the approved location, one other word changed, one finit word kept: FAIL '
+    check('WB6', 'a near-copy at the fingerprinted location, one other word changed, one finit word kept: FAIL '
           'rule-negative-match', "the line has rule-negative-match", items_at(res, CH19, ln),
           'rule-negative-match' in items_at(res, CH19, ln))
     _, code, res = run({CH19: text.replace(s, s.replace('a finite periodic', 'a periodic', 1))})
-    check('WB7', 'the approved sentence with its one finit word removed: REVIEW_REQUIRED rule-fingerprint-mismatch',
+    check('WB7', 'the fingerprinted sentence with its one finit word removed: REVIEW_REQUIRED rule-fingerprint-mismatch',
           "the line has rule-fingerprint-mismatch and no FAIL class", items_at(res, CH19, ln),
           items_at(res, CH19, ln) == ['rule-fingerprint-mismatch'])
     _, code, res = run({CH19: '\n' * 40 + text})
-    check('WB8', 'the approved sentence and its neighbours shifted by 40 lines: PASS', "no item on the shifted line "
+    check('WB8', 'the fingerprinted sentence and its neighbours shifted by 40 lines: PASS', "no item on the shifted line "
           "and its hit PASS", {'items': items_at(res, CH19, ln + 40), 'hit': hit_state(res, CH19, ln + 40)},
           not items_at(res, CH19, ln + 40) and hit_state(res, CH19, ln + 40) == ['PASS'])
     trio = '%s %s %s' % (prev, s, nxt)
@@ -133,8 +139,8 @@ def wb_controls(a):
     end9 = len(f9.rstrip('\n').split('\n'))
     check('WB9', 'two sentences matching one fingerprint in one file, so that one allowance is claimed twice: the '
           'claim at the larger byte offset gets no allowance (FAIL rule-negative-match)', "the later copy has "
-          "rule-negative-match; the approved line has none", {'later': items_at(res, FULL, end9),
-                                                               'approved': items_at(res, FULL, l_full)},
+          "rule-negative-match; the fingerprinted line has none", {'later': items_at(res, FULL, end9),
+                                                               'fingerprinted': items_at(res, FULL, l_full)},
           'rule-negative-match' in items_at(res, FULL, end9) and not items_at(res, FULL, l_full))
     # WB10/WB11: lint through the pipeline: a mutated W1-c rule file gives record-invalid
     rp = a.ad + 'rules/w1-w2-allow-v1.json'
@@ -184,7 +190,7 @@ def wb_controls(a):
     t13 = '\n'.join(lines[:ln - 1] + lines[ln:]).rstrip('\n') + '\n\n' + para + '\n'
     _, code, res = run({CH19: t13})
     end13 = len(t13.rstrip('\n').split('\n'))
-    check('WB13', 'the approved sentence moved with both of its neighbours to another section of the same file: PASS',
+    check('WB13', 'the fingerprinted sentence moved with both of its neighbours to another section of the same file: PASS',
           "the moved line has no item and its hit PASS; no W1-c rule-stale",
           {'items': items_at(res, CH19, end13), 'hit': hit_state(res, CH19, end13),
            'stale': [i['subject'] for i in res.get('items', []) if i['class'] == 'rule-stale']},
@@ -195,13 +201,13 @@ def wb_controls(a):
     runs = []
     for _ in range(2):
         _, code, res = run({CH19: t14})
-        runs.append({'approved': items_at(res, CH19, ln), 'later': items_at(res, CH19, end14)})
-    check('WB14', 'the approved sentence with both neighbours duplicated in the same file: the copy at the smaller '
+        runs.append({'fingerprinted': items_at(res, CH19, ln), 'later': items_at(res, CH19, end14)})
+    check('WB14', 'the fingerprinted sentence with both neighbours duplicated in the same file: the copy at the smaller '
           'byte offset PASSes, the later copy FAILs rule-negative-match, on every run',
-          "in two runs: approved line no item, later copy rule-negative-match, identical", runs,
-          runs[0] == runs[1] and not runs[0]['approved'] and 'rule-negative-match' in runs[0]['later'])
+          "in two runs: fingerprinted line no item, later copy rule-negative-match, identical", runs,
+          runs[0] == runs[1] and not runs[0]['fingerprinted'] and 'rule-negative-match' in runs[0]['later'])
     _, code, res = run({CH19: text.replace(s, s.replace('the notion of', 'the Finiteness notion of', 1))})
-    check('WB15', '"Finiteness" (capitalized) added to a W1 sentence at its approved location: FAIL '
+    check('WB15', '"Finiteness" (capitalized) added to a W1 sentence at its fingerprinted location: FAIL '
           'rule-negative-match (case-insensitive negatives)', "the line has rule-negative-match",
           items_at(res, CH19, ln), 'rule-negative-match' in items_at(res, CH19, ln))
 

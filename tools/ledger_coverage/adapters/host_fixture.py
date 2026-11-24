@@ -1,38 +1,36 @@
-"""An in-memory host world for the admission controls (TR1-TR47) and the simulated-chain controls.
+"""An in-memory host world for the admission and execution-identity controls (TR1-TR3, TR5, TR13-TR15, TR28-TR30,
+TR48, TR50-TR52, GV7, EI1-EI7) and the simulated-chain controls.
 
-It builds, on the engine's in-memory host, a repository with an authority record on `main` (approved, reviewed and
-merged by the owner), then, in a later merge, an empty freeze ledger (approved, reviewed and merged by the owner once
-the authority record is in force: sec. 6.3, "Owner at creation"), a pinned workflow, a run record, and a plan thread
-holding the owner's designation of a freeze `F` that the caller builds in its own (in-memory) git repository with a
-pin table.
-Every identity here is a synthetic fixture. Nothing is written to any host.
+It builds, in the caller's in-memory git repository, a tool commit `T` holding a small fixture tool (an entry point
+and one module under the package directory) and a pinned workflow, and a plan commit `F` whose `PREREG.md` carries the
+pin table; on the engine's in-memory host it records the run (repository, head repository, event, head branch,
+workflow path, `head_sha`) and the artifacts. Every identity here is a synthetic fixture. Nothing is written to any
+host.
 """
 import hashlib
+import importlib.util
 import json
 import os
 import sys
 
 here = os.path.dirname(os.path.abspath(__file__))
-tools = os.path.dirname(os.path.dirname(here))
-if tools not in sys.path:
-    sys.path.insert(0, tools)
+if 'ledger_coverage' not in sys.modules:
+    _pkg = os.path.dirname(here)
+    _spec = importlib.util.spec_from_file_location('ledger_coverage', os.path.join(_pkg, '__init__.py'),
+                                                   submodule_search_locations=[_pkg])
+    sys.modules['ledger_coverage'] = importlib.util.module_from_spec(_spec)
+    _spec.loader.exec_module(sys.modules['ledger_coverage'])
 
-from ledger_coverage.engine import authority as auth, host as hostmod  # noqa: E402
+from ledger_coverage.engine import config as cfgmod, host as hostmod  # noqa: E402
 
-OWNER_ID, OWNER_LOGIN = 4242, 'owner-c'
 REPO_ID = 77
+RUN_ID = 501
 WF_PATH = '.github/workflows/lc.yml'
-WF = b'name: lc\non: workflow_dispatch\n'
-PLAN, ROUND = 'syn-plan', 'r1'
-PLAN_ISSUE, AUTH_ISSUE = 11, 12
-LEDGER_PATH = 'syn/freeze/freeze-ledger.json'
-FORMS = {'version': 1, 'first_line': 'bytes up to the first LF, at most one trailing CR removed',
-         'templates': {
-             'freeze-designate': 'oi-freeze/1 designate plan=<plan_id> round=<round_id> commit=<F>',
-             'freeze-withdraw': 'oi-freeze/1 withdraw plan=<plan_id> round=<round_id> commit=<F>',
-             'freeze-supersede': 'oi-freeze/1 supersede plan=<plan_id> round=<round_id> commit=<F> by=<F2>',
-             'authority-approve': 'oi-authority/1 approve from=<from> to=<to>',
-             'ledger-append': 'oi-freeze-ledger/1 append plan=<plan_id> round=<round_id> from=<from> to=<to>'}}
+WF = (b'name: lc\non:\n  workflow_dispatch:\npermissions:\n  contents: read\njobs:\n  run:\n'
+      b'    runs-on: ubuntu-24.04\n    steps:\n'
+      b'      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683\n')
+ENTRY, PKG = cfgmod.tool_layout()
+TOOL_FILES = {ENTRY: b'# fixture entry point\n', PKG + 'engine/x.py': b'x = 1\n'}
 
 
 def sha(b):
@@ -43,161 +41,68 @@ def jb(o):
     return (json.dumps(o, indent=1, sort_keys=True) + '\n').encode()
 
 
-def authority(pin_table_path, owner_id=OWNER_ID, supersedes=None, extra=None):
-    a = {'schema': auth.authority_schema, 'status': 'synthetic fixture',
-         'owner': {'id': owner_id, 'login': OWNER_LOGIN},
-         'repository': {'id': REPO_ID, 'full_name': 'fixture/repo', 'fork': False},
-         'workflow': {'path': WF_PATH, 'content_sha256': sha(WF)},
-         'engine_pins': {},
-         'plans': [{'plan_id': PLAN, 'thread': {'repository_id': REPO_ID, 'issue': PLAN_ISSUE}, 'rounds': [ROUND],
-                    'pin_table_path': pin_table_path}],
-         'authority_thread': {'repository_id': REPO_ID, 'issue': AUTH_ISSUE},
-         'freeze_ledger_path': LEDGER_PATH, 'forms': FORMS, 'supersedes': supersedes}
-    a.update(extra or {})
-    return a
+def tool_pins(files=None, wf=None, wf_path=WF_PATH):
+    """The configuration's `tool` field for the fixture tool."""
+    files = TOOL_FILES if files is None else files
+    return {'files': [{'path': p, 'blob_sha256': sha(b)} for p, b in sorted(files.items())],
+            'workflow': {'path': wf_path, 'blob_sha256': sha(WF if wf is None else wf)}}
 
 
-_ledger_versions = {}
-
-
-def added_event_items(new_bytes, old_sha):
-    """The item ids of a ledger change's review (sec. 6.3): the comment id of each event the change adds, or the one
-    item 'ledger' when it adds none (the first, empty ledger). The previous version is looked up by its sha256 among
-    the versions this fixture has reviewed; an unknown previous version counts every event as added."""
-    try:
-        new = json.loads(new_bytes.decode('utf-8')).get('events', [])
-    except (ValueError, UnicodeDecodeError, AttributeError):
-        return ['ledger']
-    old_b = _ledger_versions.get(old_sha)
-    old = json.loads(old_b.decode('utf-8')).get('events', []) if old_b is not None else []
-    added = new[len(old):] if isinstance(new, list) and new[:len(old)] == old else new
-    ids = []
-    for ev in added if isinstance(added, list) else []:
-        cid = ev.get('comment_id') if isinstance(ev, dict) else None
-        if cid is not None and str(cid) not in ids:
-            ids.append(str(cid))
-    return ids or ['ledger']
-
-
-def ledger_review(new_bytes, old_sha):
-    """An independent review record of a freeze-ledger change (sec. 6.3), naming both ledger blobs, with one accept
-    verdict per event the change adds."""
-    _ledger_versions[sha(new_bytes)] = new_bytes
-    return jb({'schema': 'oi-review-record/1', 'reviewer': 'reviewer-b',
-               'reviewed': {'path': LEDGER_PATH, 'blob_sha256': sha(new_bytes)}, 'previous': old_sha,
-               'method': 'read both ledger versions',
-               'verdicts': [{'item': i, 'verdict': 'accept'} for i in added_event_items(new_bytes, old_sha)]})
-
-
-def ledger_review_file(a, new_bytes, old_sha):
-    """{path: bytes} of the review record of the ledger change from `old_sha` to `new_bytes`."""
-    return {auth.ledger_review_path(a, old_sha, sha(new_bytes)): ledger_review(new_bytes, old_sha)}
-
-
-def pin_table(entries):
-    rows = '\n'.join('| `%s` | `%s` |' % (n, h) for n, h in sorted(entries.items()))
-    return ('# PREREG\n\n### 1.1 Record pins\n\n| File | sha256 |\n|---|---|\n%s\n' % rows).encode()
+def pin_table(entries, earlier=None):
+    """A PREREG.md whose last `Record pins` subsection lists `entries` {file: sha256}; `earlier`, if given, is listed
+    in an earlier `Record pins` subsection."""
+    def table(e):
+        return '| File | sha256 |\n|---|---|\n' + ''.join('| `%s` | `%s` |\n' % (n, h) for n, h in sorted(e.items()))
+    text = '# PREREG\n\n'
+    if earlier is not None:
+        text += '### 1.1 Record pins\n\n' + table(earlier) + '\n### 1.2 Results\n\nText.\n\n'
+    text += '### 1.3 Record pins\n\n' + table(entries)
+    return text.encode()
 
 
 class World:
-    """host: the in-memory host; a_bytes: A on main; run_id: the attested run."""
+    """The tool commit T in `repo` (derived from `base`) and an in-memory host holding the run record of one run of
+    the pinned workflow at T."""
 
-    def __init__(self, pin_table_path, ledger_events=None):
+    def __init__(self, repo, base, tool_files=None, wf=None, wf_path=WF_PATH, extra=None, run=None):
+        self.repo = repo
+        # T holds exactly the fixture tool under the tool's paths (the base's own files there are removed)
+        files = {p: None for p in repo.entries(base) if p == ENTRY or p.startswith(PKG)}
+        files.update(TOOL_FILES if tool_files is None else tool_files)
+        files[wf_path] = WF if wf is None else wf
+        files.update(extra or {})
+        self.T = repo.derive(base, files, parents=[base], subject='tool commit')
         self.h = hostmod.MemoryHost()
-        self.h.add_repo(REPO_ID, 'fixture/repo')
-        self.pin_table_path = pin_table_path
-        self.a = authority(pin_table_path)
-        self.a_bytes = jb(self.a)
-        self.ledger = {'schema': auth.ledger_schema, 'events': list(ledger_events or [])}
-        self.ledger_bytes = jb(self.ledger)
-        self.review = jb({'schema': 'oi-review-record/1', 'reviewer': 'reviewer-b',
-                          'reviewed': {'path': auth.authority_path, 'blob_sha256': sha(self.a_bytes)},
-                          'previous': 'none', 'method': 'read A', 'verdicts': [{'item': 'A', 'verdict': 'accept'}]})
-        self.t = 0
-        self.cid = 0
-        self.comments = {(REPO_ID, PLAN_ISSUE): [], (REPO_ID, AUTH_ISSUE): []}
-        self.h.threads = self.comments
-        bootstrap(self, OWNER_ID, {})
+        self.run_id = RUN_ID
+        self.h.runs[RUN_ID] = dict({'repository_id': REPO_ID, 'head_repository_id': REPO_ID,
+                                    'event': 'workflow_dispatch', 'head_branch': 'main', 'workflow_path': WF_PATH,
+                                    'head_sha': self.T}, **(run or {}))
 
-    def tick(self):
-        self.t += 1
-        return '2026-11-23T%02d:%02d:%02dZ' % (self.t // 3600, self.t // 60 % 60, self.t % 60)
+    def checkout(self):
+        """{path: bytes} of T's tool files, as a checkout of T holds them."""
+        ents = self.repo.entries(self.T)
+        return {p: self.repo.read(self.T, p) if m in ('100644', '100755') else ('non-regular', m)
+                for p, (m, _) in ents.items() if p == ENTRY or p.startswith(PKG)}
 
-    def comment(self, issue, body, author_id=OWNER_ID, login=OWNER_LOGIN, edits=(), hidden=False, at=None):
-        self.cid += 1
-        c = {'id': 9000 + self.cid, 'author_id': author_id, 'author_login': login, 'created_at': at or self.tick(),
-             'body': body, 'edits': list(edits), 'hidden': hidden}
-        self.comments.setdefault((REPO_ID, issue), []).append(c)
+    def control(self, checkout=None):
+        c = {'host': self.h, 'run_id': self.run_id, 'repo_id': REPO_ID}
+        if checkout is not None:
+            c['checkout'] = checkout
         return c
 
-    def approve(self, issue, body, **kw):
-        return self.comment(issue, body, **kw)
-
-    def designate(self, F, **kw):
-        return self.comment(PLAN_ISSUE, 'oi-freeze/1 designate plan=%s round=%s commit=%s' % (PLAN, ROUND, F), **kw)
-
-    def control(self):
-        return {'host': self.h, 'run_id': self.run_id, 'repo_id': REPO_ID}
-
-    def args(self, F):
-        return ['--freeze', F, '--plan', PLAN, '--round', ROUND]
-
-    def land_ledger(self, new, approver=None, authority=True, append=True, review=True, merged_by=None,
-                    plan=PLAN, rnd=ROUND, issue=PLAN_ISSUE):
-        """A freeze-ledger change through the whole procedure (sec. 6.3): the owner's oi-authority/1 approve comment,
-        its own oi-freeze-ledger/1 append comment (N3), an independent review record naming both blobs, and a
-        pull-request merge by the owner. Each component can be left out or altered (`review` may be the review
-        record's bytes)."""
-        old = self.ledger_bytes
-        who = approver if approver is not None else self.a['owner']['id']
-        if authority:
-            self.comment(AUTH_ISSUE, 'oi-authority/1 approve from=%s to=%s' % (sha(old), sha(new)), author_id=who)
-        if append:
-            self.comment(issue, 'oi-freeze-ledger/1 append plan=%s round=%s from=%s to=%s'
-                         % (plan, rnd, sha(old), sha(new)), author_id=who)
-        files = {LEDGER_PATH: new}
-        if isinstance(review, bytes):
-            files[auth.ledger_review_path(self.a, sha(old), sha(new))] = review
-        elif review:
-            files.update(ledger_review_file(self.a, new, sha(old)))
-        self.add_main('c%d' % (len(self.h.repos[REPO_ID]['commits']) + 1), files,
-                      merged_by=merged_by if merged_by is not None else self.a['owner']['id'])
-        self.ledger_bytes = new
-
-    def add_main(self, cid, files, merged_by=OWNER_ID, merged_at=None):
-        """A new first-parent commit on main changing `files`."""
-        base = dict(self.h.repos[REPO_ID]['commits'][self.main]['files'])
-        base.update(files)
-        for k in [k for k, v in base.items() if v is None]:
-            del base[k]
-        self.h.add_commit(REPO_ID, cid, [self.main], base, merged_by=merged_by, merged_at=merged_at or self.tick())
-        self.main = cid
-        self.h.repos[REPO_ID]['main'] = cid
-        self.h.runs[self.run_id]['head_sha'] = cid
+    @staticmethod
+    def args(F):
+        return ['--freeze', F]
 
 
-def bootstrap(w, owner_id, extra_files):
-    """The first A, approved by the id it pins and merged (commit c1); then the first, empty freeze ledger, approved by
-    the owner once A is in force (an owner comment: sec. 6.3, "Owner at creation"), reviewed and merged (commit c1l).
-    A ledger approved before A's merge was by no owner, so the ledger lands in its own, later merge."""
-    w.approve(AUTH_ISSUE, 'oi-authority/1 approve from=none to=%s' % sha(w.a_bytes), author_id=owner_id)
-    files = {auth.authority_path: w.a_bytes, WF_PATH: WF, auth.review_path(w.a, sha(w.a_bytes)): w.review}
-    files.update(extra_files)
-    w.main = 'c1'
-    w.h.add_commit(REPO_ID, 'c0', [], {})
-    w.h.add_commit(REPO_ID, 'c1', ['c0'], files, merged_by=owner_id, merged_at=w.tick())
-    w.h.repos[REPO_ID]['main'] = 'c1'
-    w.run_id = 501
-    w.h.runs[w.run_id] = {'repository_id': REPO_ID, 'fork': False, 'workflow_path': WF_PATH, 'head_sha': 'c1'}
-    w.approve(AUTH_ISSUE, 'oi-authority/1 approve from=none to=%s' % sha(w.ledger_bytes), author_id=owner_id)
-    w.add_main('c1l', dict(ledger_review_file(w.a, w.ledger_bytes, 'none'), **{LEDGER_PATH: w.ledger_bytes}),
-               merged_by=owner_id)
-
-
-def freeze_files(world, cfg_path, cfg_bytes, review_path, review_bytes, auth_path, auth_bytes, extra_listed=()):
-    """Files to add at F: the pin table listing the configuration, its review and authorization, and A."""
-    rec_dir = world.pin_table_path.rsplit('/', 1)[0] + '/'
-    entries = {}
-    for p, b in [(cfg_path, cfg_bytes), (review_path, review_bytes), (auth_path, auth_bytes)] + list(extra_listed):
-        entries[p[len(rec_dir):]] = sha(b)
-    return {world.pin_table_path: pin_table(entries), auth.authority_path: world.a_bytes}
+def freeze(repo, commit, cfg_path, listed=None, extra=None, earlier=None, prereg=None):
+    """F: `commit` plus a PREREG.md beside the configuration whose last Record pins subsection lists `listed`
+    ({path: bytes}; by default every json file of the configuration's directory)."""
+    d = cfg_path.rsplit('/', 1)[0] + '/'
+    if listed is None:
+        listed = {p: repo.read(commit, p) for p in repo.paths(commit)
+                  if p.startswith(d) and p.endswith('.json') and '/' not in p[len(d):]}
+    files = {d + 'PREREG.md': prereg if prereg is not None else
+             pin_table({p[len(d):]: sha(b) for p, b in listed.items()}, earlier)}
+    files.update(extra or {})
+    return repo.derive(commit, files, parents=repo.parents(commit), subject='freeze')

@@ -4,7 +4,7 @@ It is structurally different from A1: a line-patch ledger, sites declared in the
 review and one deny profile, one HP obligation with one merge, one delegation class (artifact-hash/1), context
 field `kind`, and one indicator (LIST). It runs the Y controls, the configuration-defect controls Z1-Z8 and Z10,
 the purity controls Z9a-Z9f and the command-line controls X2-X10 and M10 through the same executable.
-The identities in its review chain (writer-a, reviewer-b, widener-d, owner-c) are synthetic fixtures.
+The identities in its review chain (writer-a, reviewer-b, widener-d) are synthetic fixtures.
 """
 import hashlib
 import io
@@ -17,20 +17,24 @@ import tempfile
 
 here = os.path.dirname(os.path.abspath(__file__))
 tools = os.path.dirname(os.path.dirname(here))
-if tools not in sys.path:
-    sys.path.insert(0, tools)
+if 'ledger_coverage' not in sys.modules:
+    # the package is loaded by its location, as the entry point loads it; no directory is put on sys.path
+    import importlib.util
+    _pkg = os.path.dirname(here)
+    _spec = importlib.util.spec_from_file_location('ledger_coverage', os.path.join(_pkg, '__init__.py'),
+                                                   submodule_search_locations=[_pkg])
+    sys.modules['ledger_coverage'] = importlib.util.module_from_spec(_spec)
+    _spec.loader.exec_module(sys.modules['ledger_coverage'])
 
 from ledger_coverage.engine import checker, cli, gitobj, outcome as oc, pipeline as pl, purity, util  # noqa: E402
+from ledger_coverage.adapters import host_fixture as hf  # noqa: E402
 
 DOC = 'doc/s.md'
 TEXT = ('# synthetic\n\nAxiom Z is the named premise of the synthetic world.\n\nDefinition one states the base object.\n\n'
         'Remark two notes a side fact.\n\nIntro to the list:\n\n- item first here\n- item second here\n\n'
         'Closing words of the file.\n')
 WITNESS = 'syn/witness.md'
-OWNER, WRITER, REVIEWER, WIDENER = 4242, 'writer-a', 'reviewer-b', 'widener-d'  # the owner is a numeric id
-# the time of every owner authorization record: a host timestamp after the in-memory host world's first authority
-# record has merged (sec. 6.3, "Owner at creation"); a variant may give another time and owner
-AUTH_TIME = '2026-11-23T00:00:03Z'
+WRITER, REVIEWER, WIDENER = 'writer-a', 'reviewer-b', 'widener-d'
 AD = 'tools/ledger_coverage/adapters/'
 
 
@@ -49,8 +53,6 @@ def module_bytes(name):
 
 class Syn:
     """Builds the synthetic world. variant: dict of configuration changes for the Z controls."""
-
-    auth_owner, auth_time = OWNER, AUTH_TIME
 
     def __init__(self, two_merges=False):
         self.repo = gitobj.Overlay(None)
@@ -104,7 +106,6 @@ class Syn:
         """Writes the configuration and its records into a commit derived from `at`; returns (commit, path, sha)."""
         v = variant or {}
         at = at or self.H
-        self.auth_owner, self.auth_time = v.get('auth_owner', OWNER), v.get('auth_time', AUTH_TIME)
         files = {}
         pats, allow = self.rule_files(v.get('allow_scope'))
         files['syn/rules-pat.json'] = jb(pats)
@@ -119,7 +120,6 @@ class Syn:
         files['syn/rules-allow.widen.json'] = jb(wr0)
         recs.append({'kind': 'review', 'path': 'syn/rules-allow.widen.json',
                      'blob_sha256': sha(files['syn/rules-allow.widen.json'])})
-        recs += self.widening_auth(files, 'syn/rules-allow.json', 'syn/rules-allow.widen.json')
         for rp_, rd_ in sorted(v.get('records_extra', {}).items()):
             files[rp_] = jb(rd_)
             recs.append({'kind': 'record', 'path': rp_, 'blob_sha256': sha(files[rp_])})
@@ -132,14 +132,12 @@ class Syn:
             if v.get('widening_review'):
                 wr = {'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': v.get('widener', WIDENER),
                       'reviewed': {'path': 'syn/rules-allow-v2.json', 'blob_sha256': sha(files['syn/rules-allow-v2.json'])},
-                      'replaces': old_ref, 'method': 'read',
+                      'replaces': v.get('widening_replaces', old_ref), 'method': 'read',
                       'verdicts': [{'item': i, 'verdict': 'accept'} for i in v.get('widening_items',
                                                                                    ['syn-allow-1:added files'])]}
                 files['syn/rules-allow-v2.widen.json'] = jb(wr)
                 recs.append({'kind': 'review', 'path': 'syn/rules-allow-v2.widen.json',
                              'blob_sha256': sha(files['syn/rules-allow-v2.widen.json'])})
-                if not v.get('widening_no_auth'):
-                    recs += self.widening_auth(files, 'syn/rules-allow-v2.json', 'syn/rules-allow-v2.widen.json')
         controls = {'control_inputs': [{'id': 'witness', 'commit': self.pin, 'path': WITNESS,
                                         'sha256': sha(self.repo.read(self.pin, WITNESS))}],
                     'controls': [{'id': 'Y-%s-%s' % (op, d), 'operations': [op], 'direction': d}
@@ -182,7 +180,7 @@ class Syn:
         lp = AD + 'line_patch.py'
         cfg = {'schema': 'oi-retirement-config/1', 'config_id': 'synthetic-retirement-config',
                'version': v.get('version', 1), 'supersedes': v.get('supersedes'),
-               'retirement': {'name': 'synthetic', 'issue': 'none', 'owner': v.get('owner', OWNER)},
+               'retirement': {'name': 'synthetic', 'issue': 'none'},
                'roles': {'scientific_base': self.H, 'pin': self.pin, 'side_change_classes': None},
                'corpus': {'patterns': [r'^doc/[^/]+\.md$']},
                'adapters': {'ledger': {'adapter': 'line-patch', 'adapter_version': 1,
@@ -214,7 +212,8 @@ class Syn:
                                                   'module': {'path': AD + 'artifact_hash.py',
                                                              'blob_sha256': sha(self.repo.read(self.pin,
                                                                                                AD + 'artifact_hash.py'))}}]},
-               'records': recs, 'operations': v.get('operations', ['coverage', 'execution', 'terms']),
+               'records': recs, 'tool': v.get('tool', hf.tool_pins()), 'repository_id': v.get('repository_id', hf.REPO_ID),
+               'operations': v.get('operations', ['coverage', 'execution', 'terms']),
                'controls': {'path': 'syn/controls.json', 'blob_sha256': sha(files['syn/controls.json'])},
                'author': WRITER}
         if v.get('widening_review_cfg'):
@@ -234,25 +233,11 @@ class Syn:
               'method': 'read every referenced object', 'verdicts': [{'item': 'synthetic-retirement-config',
                                                                      'verdict': 'accept'}]}
         files[path.rsplit('/', 1)[0] + '/review.json'] = jb(rv)
-        au = {'schema': 'oi-owner-authorization/1', 'owner': v.get('cfg_auth_owner', self.auth_owner),
-              'time': v.get('cfg_auth_time', self.auth_time), 'comment_id': 'c-1',
-              'authorizes': [{'record': cref, 'review': {'path': path.rsplit('/', 1)[0] + '/review.json',
-                                                         'blob_sha256': sha(jb(rv))}}]}
-        files[path.rsplit('/', 1)[0] + '/auth.json'] = jb(au)
         files.update(v.get('files', {}))
         if v.get('post'):
             files.update(v['post'](path, sha(cb)))
         commit = self.repo.derive(at, files, parents=self.repo.parents(at), subject=self.repo.subject(at))
         return commit, path, sha(cb), files
-
-    def widening_auth(self, files, rec_path, wr_path):
-        au = {'schema': 'oi-owner-authorization/1', 'owner': self.auth_owner, 'time': self.auth_time,
-              'comment_id': 'c-3',
-              'authorizes': [{'record': {'path': rec_path, 'blob_sha256': sha(files[rec_path])},
-                              'review': {'path': wr_path, 'blob_sha256': sha(files[wr_path])}}]}
-        ap = wr_path[:-5] + '.auth.json'
-        files[ap] = jb(au)
-        return [{'kind': 'authorization', 'path': ap, 'blob_sha256': sha(files[ap])}]
 
     def chain(self, files, path, reviewer):
         ref = {'path': path, 'blob_sha256': sha(files[path])}
@@ -262,13 +247,7 @@ class Syn:
               'verdicts': [{'item': i, 'verdict': 'accept'} for i in ids]}
         rp = path[:-5] + '.review.json'
         files[rp] = jb(rv)
-        au = {'schema': 'oi-owner-authorization/1', 'owner': self.auth_owner, 'time': self.auth_time,
-              'comment_id': 'c-2',
-              'authorizes': [{'record': ref, 'review': {'path': rp, 'blob_sha256': sha(files[rp])}}]}
-        ap = path[:-5] + '.auth.json'
-        files[ap] = jb(au)
-        return [{'kind': 'review', 'path': rp, 'blob_sha256': sha(files[rp])},
-                {'kind': 'authorization', 'path': ap, 'blob_sha256': sha(files[ap])}]
+        return [{'kind': 'review', 'path': rp, 'blob_sha256': sha(files[rp])}]
 
 
 def patch_doc(base, edits):
@@ -293,26 +272,20 @@ class Runner:
         self.n += 1
         return os.path.join(self.out_root, 'run%03d' % self.n)
 
-    def cli(self, repo, args, commit, path, csha, harness=False, stderr=None, world=None):
+    def cli(self, repo, args, commit, path, csha, harness=False, stderr=None, world=None, checkout=None):
         """harness: the control harness. Otherwise the whole of sec. 6.3 runs on an in-memory host: F is the
-        configuration commit plus a pin table listing every json file of the configuration's directory, and the
-        owner designates F in the plan thread (a control artefact, never "chain")."""
+        configuration commit plus a PREREG.md whose last Record pins subsection lists every json file of the
+        configuration's directory, and the run record names a tool commit T whose tool files and workflow are the
+        configuration's pins (a control artefact, never "chain"). `csha` is the configuration's sha256, which the
+        configuration commit carries (not a command-line input)."""
         if harness:
-            argv = args[:1] + ['--config', '%s:%s' % (commit, path), '--config-sha256', csha, '--out', self.out()] + \
-                args[1:]
+            argv = args[:1] + ['--config', '%s:%s' % (commit, path), '--out', self.out()] + args[1:]
             return cli.run(argv, repo=repo, harness=True, stderr=stderr or io.StringIO())
-        from ledger_coverage.adapters import host_fixture as hf
-        w = world or hf.World('syn/PREREG.md')
-        d = path.rsplit('/', 1)[0] + '/'
-        listed = {p: repo.read(commit, p) for p in repo.paths(commit) if p.startswith(d) and p.endswith('.json')}
-        entries = {p[len('syn/'):]: sha(b) for p, b in listed.items()}
-        F = repo.derive(commit, {'syn/PREREG.md': hf.pin_table(entries),
-                                 'tools/ledger_coverage/authority.json': w.a_bytes},
-                        parents=repo.parents(commit), subject=repo.subject(commit))
-        w.designate(F)
-        argv = args[:1] + ['--config', '%s:%s' % (F, path), '--config-sha256', csha, '--out', self.out()] + \
-            w.args(F) + args[1:]
-        return cli.run(argv, repo=repo, harness=False, stderr=stderr or io.StringIO(), control=w.control())
+        w = world or hf.World(repo, commit)
+        F = hf.freeze(repo, commit, path)
+        argv = args[:1] + ['--config', '%s:%s' % (F, path), '--out', self.out()] + w.args(F) + args[1:]
+        return cli.run(argv, repo=repo, harness=False, stderr=stderr or io.StringIO(),
+                       control=w.control(checkout if checkout is not None else w.checkout()))
 
 
 def y_world(syn, edits, extra_files=None, edits_doc=None, x_text=None):
@@ -416,8 +389,9 @@ def z_controls(r):
     out['Z5'] = stop_of({'cfg_reviewer': WRITER}) == (65, 'CONFIG_UNREVIEWED')
     out['Z6'] = stop_of({'adapter_version': 2}) == (65, 'CONFIG_INVALID')
     c, p, s, files = syn.build(base)
-    code, res = r.cli(syn.repo, ['terms', '--commit', syn.H], c, p, '1' * 64)
-    out['Z6b'] = (code, res['stop']['class']) == (65, 'CONFIG_UNREVIEWED')  # point 8: --config-sha256 unequal
+    # the run takes the configuration only from F: a --config-sha256 argument no longer exists and is USAGE
+    code, res = r.cli(syn.repo, ['terms', '--commit', syn.H, '--config-sha256', s], c, p, s)
+    out['Z6b'] = (code, res) == (64, None)
     out['Z7'] = stop_of({'duplicate_profile': True}) == (65, 'CONFIG_INCONSISTENT') and \
         stop_of({'final': ['Z-premise']}) == (65, 'CONFIG_INCONSISTENT') and \
         stop_of({'bad_pattern_hash': True}) == (65, 'CONFIG_INCONSISTENT')
@@ -430,12 +404,11 @@ def z_controls(r):
     code, res = r.cli(s2.repo, ['coverage', '--commit', s2.H], c1, p1, h1)
     foreign = 'provenance-foreign' in classes(res)
     sup = {'path': p1, 'blob_sha256': h1}
-    # the superseded configuration lies in the object store at F with its own review and authorization (DI-2: a
-    # predecessor passes the lint itself)
+    # the superseded configuration lies in the object store at F with its own review (DI-2: a predecessor passes the
+    # lint itself)
     pd1 = p1.rsplit('/', 1)[0] + '/'
     v2 = dict(b2, second_merge=True, version=2, supersedes=sup, config_path='syn/cfg2/config.json',
-              files=dict(b2['files'], **{p1: f1[p1], pd1 + 'review.json': f1[pd1 + 'review.json'],
-                                         pd1 + 'auth.json': f1[pd1 + 'auth.json']}))
+              files=dict(b2['files'], **{p1: f1[p1], pd1 + 'review.json': f1[pd1 + 'review.json']}))
     c2, p2, h2, f2 = s2.build(v2)
     code_u, res_u = r.cli(s2.repo, ['coverage', '--commit', s2.H], c2, p2, h2)
     unrev = (code_u, (res_u or {}).get('stop', {}).get('class')) == (65, 'CONFIG_UNREVIEWED')
@@ -461,10 +434,7 @@ def z_controls(r):
               'method': 'read the added merge and its chain',
               'verdicts': [{'item': 'synthetic-retirement-config:changed hp_obligations', 'verdict': 'accept'}]}
         wp = path.rsplit('/', 1)[0] + '/widening.json'
-        au = {'schema': 'oi-owner-authorization/1', 'owner': OWNER, 'time': AUTH_TIME, 'comment_id': 'c-4',
-              'authorizes': [{'record': {'path': path, 'blob_sha256': cfg_sha},
-                              'review': {'path': wp, 'blob_sha256': sha(jb(wr))}}]}
-        return {wp: jb(wr), path.rsplit('/', 1)[0] + '/widening-auth.json': jb(au)}
+        return {wp: jb(wr)}
     v3 = dict(v2, post=widening, records_extra={'syn/hp.json': adj})
     c3, p3, h3, f3 = s2.build(v3)
     code_a, res_a = r.cli(s2.repo, ['coverage', '--commit', s2.H, '--hp', '%s:syn/hp.json' % c3], c3, p3, h3)
@@ -500,8 +470,7 @@ def x_controls(r, repo_path):
     real_run = cli.run
     cli.run = lambda argv: real_run(argv, repo=syn.repo, stderr=io.StringIO(), harness=True)
     try:
-        code = mod.main(['terms', '--config', '%s:%s' % (c, p), '--config-sha256', s, '--out', o,
-                         '--commit', syn.H])
+        code = mod.main(['terms', '--config', '%s:%s' % (c, p), '--out', o, '--commit', syn.H])
     finally:
         cli.op_terms = orig
         cli.run = real_run
@@ -529,8 +498,7 @@ def x_controls(r, repo_path):
             f.write('\nraise ImportError("deliberately broken module")\n')
         o = os.path.join(tmp, 'out')
         pr = subprocess.run([sys.executable, '-I', '-B', os.path.join(tmp, 'ledger_coverage.py'), 'terms',
-                             '--config', 'x:y', '--config-sha256', '0', '--out', o, '--commit', 'x'],
-                            capture_output=True)
+                             '--config', 'x:y', '--out', o, '--commit', 'x'], capture_output=True)
         doc = json.load(open(os.path.join(o, 'result.json'))) if os.path.exists(os.path.join(o, 'result.json')) \
             else None
         out['X7'] = pr.returncode not in (0, 20) and (doc is None or doc['outcome'] != 'PASS') and \
@@ -556,19 +524,20 @@ def x_controls(r, repo_path):
     as_chain = copy.deepcopy(rg)
     del as_chain['harness']
     as_chain['config']['admission'] = {'mode': 'chain', 'snapshot': snap}
-    pins = {'engine': rg['engine']['blob_sha256'], 'config': rg['config']['blob_sha256'],
-            'adapters': {a_['name']: a_['module_sha256'] for a_ in rg.get('adapters', [])},
-            'admission': {k: snap[k] for k in ('freeze', 'designation_comment_id', 'pin_table_sha256',
-                                               'authority_sha256')}}
+    cfg_doc = json.loads(syn.repo.read(c, p))
+    pins = {'config': {'path': p, 'blob_sha256': s}, 'freeze': snap['freeze'], 'pin_table': snap['pin_table'],
+            'adapters': {a_['name']: a_['module_sha256'] for a_ in rg.get('adapters', [])}, 'tool': cfg_doc['tool']}
     edited = dict(as_chain, outcome='FAIL')
-    other = dict(as_chain, engine=dict(rg['engine'], blob_sha256='f' * 64))
+    other = copy.deepcopy(as_chain)  # a tool blob differing from the configuration's tool pin
+    first = sorted(other['config']['admission']['snapshot']['tool_blobs'])[0]
+    other['config']['admission']['snapshot']['tool_blobs'][first] = 'f' * 64
     other_f = copy.deepcopy(as_chain)
     other_f['config']['admission']['snapshot']['freeze'] = '0' * 40
     out['X10'] = good == 0 and checker.accept(as_chain, good, pins) and not checker.accept(rg, good, pins) and \
         not checker.accept(edited, 0, pins) and not checker.accept(other, 0, pins) and \
         not checker.accept(other_f, 0, pins) and checker.recompute(rg) == 'PASS'
     # M10: --out inside the repository checkout is refused
-    code, res = cli.run(['terms', '--config', 'x:y', '--config-sha256', '0', '--out',
+    code, res = cli.run(['terms', '--config', 'x:y', '--out',
                          os.path.join(repo_path, 'no-such-out-dir'), '--commit', 'x', '--repo', repo_path],
                         stderr=io.StringIO())
     out['M10'] = code == 64 and not os.path.exists(os.path.join(repo_path, 'no-such-out-dir'))

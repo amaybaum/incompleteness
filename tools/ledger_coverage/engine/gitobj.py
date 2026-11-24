@@ -1,5 +1,7 @@
 """Read-only object access: the git object store, or in-memory commits layered over it."""
 import hashlib
+import os
+import re
 import subprocess
 
 
@@ -11,60 +13,116 @@ def blob_id_of(data):
     return hashlib.sha1(b'blob %d\x00' % len(data) + data).hexdigest()
 
 
+_full = re.compile(r'^[0-9a-f]{40}$')
+regular_modes = ('100644', '100755')
+
+
+def full_id(rev):
+    """A role commit or object is named by its full 40-hex id; no ref name, abbreviation or upper case is resolved
+    (sec. 6.3, object integrity)."""
+    if not isinstance(rev, str) or not _full.match(rev):
+        raise Unresolvable('not a full 40-hex object id (refs are not consulted): %r' % (rev,))
+    return rev
+
+
+def object_id(kind, data):
+    return hashlib.sha1(kind.encode() + b' %d\x00' % len(data) + data).hexdigest()
+
+
+def _reader_env():
+    """The environment of every object read: replace refs disabled, no object fetched on demand (a lazy fetch of a
+    partial clone has no permitted transport), no prompt."""
+    env = dict(os.environ)
+    env.update(GIT_NO_REPLACE_OBJECTS='1', GIT_NO_LAZY_FETCH='1', GIT_ALLOW_PROTOCOL='none-permitted',
+               GIT_TERMINAL_PROMPT='0')
+    return env
+
+
 class GitRepo:
-    """Reads commits, trees and blobs through `git cat-file --batch`; never writes."""
+    """The verified reader (sec. 6.3, object integrity): every commit, tree and blob is requested by its full id
+    through `git cat-file --batch` with replacement disabled and no lazy fetch, and its id is recomputed from its type,
+    length and content. Parents, trees and tree entries with their modes are parsed from the verified content; no ref,
+    graft, shallow file or commit-graph decides anything. Never writes."""
 
     def __init__(self, path):
         self.path = path
         self._proc = None
         self._trees = {}
+        self._entries = {}
         self._commits = {}
         self._blobs = {}
+        self._objs = {}
         r = subprocess.run(['git', '-C', path, 'rev-parse', '--git-dir'], capture_output=True, text=True)
         if r.returncode:
             raise Unresolvable('not a git repository: %s' % path)
 
     def _git(self, *args):
-        r = subprocess.run(['git', '-C', self.path] + list(args), capture_output=True)
+        r = subprocess.run(['git', '--no-replace-objects', '-C', self.path] + list(args), capture_output=True,
+                           env=_reader_env())
         return r
 
-    def _batch(self, spec):
+    def _batch(self, oid):
+        """(type, content) of the object `oid`, verified against its id; (None, None) when the store lacks it."""
+        full_id(oid)
+        if oid in self._objs:
+            return self._objs[oid]
         if self._proc is None:
-            self._proc = subprocess.Popen(['git', '-C', self.path, 'cat-file', '--batch'], stdin=-1,
-                                          stdout=-1)
-        self._proc.stdin.write(spec.encode() + b'\n')
+            self._proc = subprocess.Popen(['git', '--no-replace-objects', '-C', self.path, 'cat-file', '--batch'],
+                                          stdin=-1, stdout=-1, stderr=subprocess.DEVNULL, env=_reader_env())
+        self._proc.stdin.write(oid.encode() + b'\n')
         self._proc.stdin.flush()
         head = self._proc.stdout.readline().decode().split()
-        if len(head) < 3 or head[1] == 'missing':
+        if len(head) < 3 or head[1] == 'missing' or head[0] != oid:
             return None, None
         size = int(head[2])
         data = self._proc.stdout.read(size)
         self._proc.stdout.read(1)
+        if len(data) != size or object_id(head[1], data) != oid:
+            raise Unresolvable('object %s does not hash to its id' % oid)
+        self._objs[oid] = (head[1], data)
         return head[1], data
 
     def resolve(self, rev):
-        if rev in self._commits:
-            return rev
-        r = self._git('rev-parse', '--verify', '--quiet', rev + '^{commit}')
-        if r.returncode:
-            raise Unresolvable('cannot resolve %r to a commit' % rev)
-        return r.stdout.decode().strip()
+        """A role commit: a full id of a commit the store holds, verified. Refs are never consulted."""
+        full_id(rev)
+        self._commit(rev)
+        return rev
 
     def _commit(self, cid):
         if cid not in self._commits:
             kind, data = self._batch(cid)
             if kind != 'commit':
-                raise Unresolvable('not a commit: %s' % cid)
-            text = data.decode('utf-8', 'replace')
-            head, _, msg = text.partition('\n\n')
-            parents, tree = [], None
-            for line in head.split('\n'):
-                if line.startswith('tree '):
-                    tree = line[5:]
-                elif line.startswith('parent '):
-                    parents.append(line[7:])
-            self._commits[cid] = {'tree': tree, 'parents': parents, 'subject': msg.split('\n', 1)[0]}
+                raise Unresolvable('not a commit in the object store: %s' % cid)
+            head, _, msg = data.partition(b'\n\n')
+            lines = head.split(b'\n')
+            if not lines or not lines[0].startswith(b'tree '):
+                raise Unresolvable('commit %s has no tree line' % cid)
+            tree = full_id(lines[0][5:].decode('ascii', 'replace'))
+            parents = []
+            for line in lines[1:]:
+                if not line.startswith(b'parent '):
+                    break
+                parents.append(full_id(line[7:].decode('ascii', 'replace')))
+            self._commits[cid] = {'tree': tree, 'parents': parents,
+                                  'subject': msg.decode('utf-8', 'replace').split('\n', 1)[0]}
         return self._commits[cid]
+
+    def _tree(self, tid):
+        """[(mode, name, id)] of a verified tree object."""
+        if tid not in self._trees:
+            kind, data = self._batch(tid)
+            if kind != 'tree':
+                raise Unresolvable('not a tree in the object store: %s' % tid)
+            out, i = [], 0
+            while i < len(data):
+                sp = data.index(b' ', i)
+                nul = data.index(b'\x00', sp)
+                mode = data[i:sp].decode('ascii')
+                name = data[sp + 1:nul].decode('utf-8', 'surrogateescape')
+                out.append((mode.zfill(6) if mode == '40000' else mode, name, data[nul + 1:nul + 21].hex()))
+                i = nul + 21
+            self._trees[tid] = out
+        return self._trees[tid]
 
     def parents(self, cid):
         return list(self._commit(cid)['parents'])
@@ -73,27 +131,37 @@ class GitRepo:
         return self._commit(cid)['subject']
 
     def tree_id(self, cid, prefix=''):
-        if not prefix:
-            return self._commit(cid)['tree']
-        r = self._git('rev-parse', '--verify', '--quiet', '%s:%s' % (cid, prefix.rstrip('/')))
-        return r.stdout.decode().strip() if r.returncode == 0 else None
+        tid = self._commit(cid)['tree']
+        for part in [x for x in prefix.strip('/').split('/') if x]:
+            got = [e for e in self._tree(tid) if e[1] == part and e[0] == '040000']
+            if not got:
+                return None
+            tid = got[0][2]
+        return tid
+
+    def entries(self, cid):
+        """{path: (mode, id)} of every non-tree entry of the commit's tree (blobs, symlinks and submodules), parsed
+        from verified tree objects."""
+        if cid not in self._entries:
+            out = {}
+
+            def walk(tid, pre):
+                for mode, name, oid in self._tree(tid):
+                    if mode == '040000':
+                        walk(oid, pre + name + '/')
+                    else:
+                        out[pre + name] = (mode, oid)
+            walk(self._commit(cid)['tree'], '')
+            self._entries[cid] = out
+        return self._entries[cid]
 
     def paths(self, cid):
-        if cid not in self._trees:
-            r = self._git('ls-tree', '-r', '-z', '--full-tree', cid)
-            if r.returncode:
-                raise Unresolvable('cannot list %s' % cid)
-            out = {}
-            for rec in r.stdout.split(b'\x00'):
-                if not rec:
-                    continue
-                meta, _, path = rec.partition(b'\t')
-                parts = meta.split()
-                if parts[1] != b'blob':
-                    continue
-                out[path.decode('utf-8')] = parts[2].decode()
-            self._trees[cid] = out
-        return self._trees[cid]
+        """{path: blob id} of every blob entry (regular files and symlinks), as `ls-tree` listed them."""
+        return {p: oid for p, (mode, oid) in self.entries(cid).items() if mode != '160000'}
+
+    def mode(self, cid, path):
+        e = self.entries(cid).get(path)
+        return None if e is None else e[0]
 
     def blob_id(self, cid, path):
         return self.paths(cid).get(path)
@@ -107,12 +175,29 @@ class GitRepo:
         return self._blobs[bid]
 
     def read(self, cid, path):
-        bid = self.blob_id(cid, path)
-        return None if bid is None else self.read_blob(bid)
+        """The bytes of a regular-file entry, or None when the path is absent; any other entry refuses."""
+        e = self.entries(cid).get(path)
+        if e is None:
+            return None
+        if e[0] not in regular_modes:
+            raise Unresolvable('%s is not a regular file at %s (mode %s)' % (path, cid[:12], e[0]))
+        return self.read_blob(e[1])
 
     def is_ancestor(self, a, b):
-        r = self._git('merge-base', '--is-ancestor', a, b)
-        return r.returncode == 0
+        """Is `a` an ancestor of (or equal to) `b`, from parsed parents only. A parent the walk needs and the store
+        lacks is an unresolvable object."""
+        if not isinstance(a, str) or not _full.match(a):
+            return False
+        todo, seen = [b], set()
+        while todo:
+            c = todo.pop()
+            if c == a:
+                return True
+            if c in seen:
+                continue
+            seen.add(c)
+            todo.extend(self.parents(c))
+        return False
 
     def diff_u0(self, a, b, path):
         r = self._git('diff', '-U0', '--no-renames', '--no-color', '--diff-algorithm=myers', a, b, '--', path)
@@ -120,7 +205,8 @@ class GitRepo:
 
 
 class Overlay:
-    """In-memory commits on top of a base reader; nothing reaches the repository."""
+    """In-memory commits on top of a base reader; nothing reaches the repository. A file value is the bytes of a
+    regular file, or a tuple ('symlink', target) or ('submodule', commit id) for a non-regular entry."""
 
     def __init__(self, base=None):
         self.base = base
@@ -133,7 +219,7 @@ class Overlay:
         for p in parents:
             h.update(p.encode())
         for path in sorted(files):
-            h.update(path.encode() + b'\x00' + blob_id_of(files[path]).encode())
+            h.update(path.encode() + b'\x00' + _value_id(files[path]).encode())
         cid = h.hexdigest()
         self.mem[cid] = {'files': dict(files), 'parents': list(parents), 'subject': subject}
         return cid
@@ -147,7 +233,7 @@ class Overlay:
         h.update(subject.encode())
         h.update(base_commit.encode())
         for p in sorted(changes):
-            h.update(p.encode() + b'\x00' + (blob_id_of(changes[p]).encode() if changes[p] is not None else b'-'))
+            h.update(p.encode() + b'\x00' + (_value_id(changes[p]).encode() if changes[p] is not None else b'-'))
         for p in (parents if parents is not None else [base_commit]):
             h.update(p.encode())
         cid = h.hexdigest()
@@ -156,6 +242,7 @@ class Overlay:
         return cid
 
     def resolve(self, rev):
+        full_id(rev)
         if rev in self.mem:
             return rev
         if self.base is None:
@@ -165,6 +252,8 @@ class Overlay:
     def parents(self, cid):
         if cid in self.mem:
             return list(self.mem[cid]['parents'])
+        if self.base is None:
+            raise Unresolvable('not a commit: %s' % cid)
         return self.base.parents(cid)
 
     def subject(self, cid):
@@ -178,7 +267,7 @@ class Overlay:
             if isinstance(f, _LazyTree) and prefix and not any(p.startswith(prefix.rstrip('/') + '/')
                                                               for p in f.changes):
                 return self.tree_id(f.base_commit, prefix)
-            ps = sorted((p, blob_id_of(d)) for p, d in self._files(cid).items() if p.startswith(prefix))
+            ps = sorted((p, _value_id(d)) for p, d in self._files(cid).items() if p.startswith(prefix))
             return hashlib.sha1(repr(ps).encode()).hexdigest()
         return self.base.tree_id(cid, prefix)
 
@@ -188,13 +277,21 @@ class Overlay:
             return f.materialize()
         return f
 
-    def paths(self, cid):
+    def entries(self, cid):
+        """{path: (mode, id)} of every entry, symlinks and submodules included."""
         if cid in self.mem:
             f = self.mem[cid]['files']
             if isinstance(f, _LazyTree):
-                return f.paths()
-            return {p: blob_id_of(d) for p, d in f.items()}
-        return self.base.paths(cid)
+                return f.entries()
+            return {p: _entry_of(d) for p, d in f.items()}
+        return self.base.entries(cid)
+
+    def paths(self, cid):
+        return {p: oid for p, (mode, oid) in self.entries(cid).items() if mode != '160000'}
+
+    def mode(self, cid, path):
+        e = self.entries(cid).get(path)
+        return None if e is None else e[0]
 
     def blob_id(self, cid, path):
         return self.paths(cid).get(path)
@@ -202,9 +299,10 @@ class Overlay:
     def read(self, cid, path):
         if cid in self.mem:
             f = self.mem[cid]['files']
-            if isinstance(f, _LazyTree):
-                return f.get(path)
-            return f.get(path)
+            v = f.get(path)
+            if isinstance(v, tuple):
+                raise Unresolvable('%s is not a regular file at %s' % (path, cid[:12]))
+            return v
         return self.base.read(cid, path)
 
     def read_blob(self, bid):
@@ -216,7 +314,7 @@ class Overlay:
                     return d
                 continue
             for d in f.values():
-                if blob_id_of(d) == bid:
+                if isinstance(d, bytes) and blob_id_of(d) == bid:
                     return d
         if self.base is None:
             raise Unresolvable('missing blob %s' % bid)
@@ -228,6 +326,8 @@ class Overlay:
         return self.base.diff_u0(a, b, path)
 
     def is_ancestor(self, a, b):
+        if not isinstance(a, str) or not _full.match(a):
+            return False
         todo, seen = [b], set()
         while todo:
             c = todo.pop()
@@ -238,10 +338,24 @@ class Overlay:
             seen.add(c)
             if c in self.mem:
                 todo.extend(self.mem[c]['parents'])
-            elif self.base is not None and hasattr(self.base, 'is_ancestor'):
-                if self.base.is_ancestor(a, c):
-                    return True
+            elif a in self.mem:
+                continue  # a commit of the base store has no in-memory ancestor
+            elif self.base is not None and self.base.is_ancestor(a, c):
+                return True
         return False
+
+
+def _value_id(v):
+    return '%s:%s' % _entry_of(v)
+
+
+def _entry_of(v):
+    """(mode, id) of an in-memory file value."""
+    if isinstance(v, tuple):
+        if v[0] == 'submodule':
+            return '160000', v[1]
+        return '120000', blob_id_of(v[1].encode() if isinstance(v[1], str) else v[1])
+    return '100644', blob_id_of(v)
 
 
 class _LazyTree:
@@ -262,23 +376,28 @@ class _LazyTree:
     def get(self, path):
         if path in self.changes:
             return self.changes[path]
+        if self.repo.mode(self.base_commit, path) not in (None,) + regular_modes:
+            return ('symlink', b'')
         return self.repo.read(self.base_commit, path)
 
-    def paths(self):
-        if getattr(self, '_paths', None) is not None:
-            return self._paths
-        out = dict(self.repo.paths(self.base_commit))
+    def entries(self):
+        if getattr(self, '_entries', None) is not None:
+            return self._entries
+        out = dict(self.repo.entries(self.base_commit))
         for p, v in self.changes.items():
             if v is None:
                 out.pop(p, None)
             else:
-                out[p] = blob_id_of(v)
-        self._paths = out
+                out[p] = _entry_of(v)
+        self._entries = out
         return out
+
+    def paths(self):
+        return {p: oid for p, (mode, oid) in self.entries().items() if mode != '160000'}
 
     def find_blob(self, bid):
         for v in self.changes.values():
-            if v is not None and blob_id_of(v) == bid:
+            if isinstance(v, bytes) and blob_id_of(v) == bid:
                 return v
         return None
 

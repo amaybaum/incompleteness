@@ -1,6 +1,8 @@
 """Configuration record oi-retirement-config/1: loading, fail-closed validation, adapter admission (sec. 16)."""
 import json
+import os
 import posixpath
+import re
 import types
 
 from . import outcome as oc
@@ -13,7 +15,7 @@ from .gitobj import Unresolvable, on_first_parent_chain
 config_schema = 'oi-retirement-config/1'
 required = ['schema', 'config_id', 'version', 'supersedes', 'retirement', 'roles', 'corpus', 'adapters', 'profiles',
             'checks', 'rules', 'context_mapping', 'indicators', 'sentence', 'hp_obligations', 'delegation', 'records',
-            'operations', 'controls', 'author']
+            'tool', 'repository_id', 'operations', 'controls', 'author']
 optional = ['notes', 'sites']
 operations = ('record', 'coverage', 'execution', 'terms')
 interfaces = ('ledger', 'sitemap', 'replay', 'delegation')
@@ -119,15 +121,107 @@ class Loaded:
         self.problems = []
 
 
-forbidden = ('owner', 'repository', 'workflow', 'engine_pins', 'plans', 'authority_thread', 'freeze_ledger_path',
-             'forms', 'authority', 'admission')
-retirement_fields = ('name', 'issue', 'owner')
+retirement_fields = ('name', 'issue')
+_sha = re.compile(r'^[0-9a-f]{64}$')
+
+
+def tool_layout():
+    """The tool's own paths relative to the checkout it runs from: (entry point, package directory with a trailing
+    slash), derived from this module's location, so the engine holds no path literal (sec. 16.1)."""
+    pkg = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    root = os.path.dirname(os.path.dirname(pkg))
+    return os.path.relpath(pkg + '.py', root).replace(os.sep, '/'), \
+        os.path.relpath(pkg, root).replace(os.sep, '/') + '/'
+
+
+def tool_problems(tool, repository_id):
+    """Sec. 16.2 lint of `tool` and `repository_id`: the files name the entry point and only paths under the package
+    directory, each once, each with a sha256; the workflow a path and a sha256; the repository id a positive
+    integer."""
+    entry, pkg = tool_layout()
+    out = []
+    if not isinstance(tool, dict) or set(tool) != {'files', 'workflow'} or not isinstance(tool.get('files'), list):
+        return ['tool must be {files, workflow}']
+    paths = []
+    for f in tool['files']:
+        if not isinstance(f, dict) or set(f) != {'path', 'blob_sha256'} or not isinstance(f.get('path'), str) or \
+                not _sha.match(str(f.get('blob_sha256'))):
+            out.append('tool.files entry is not {path, blob_sha256}')
+            continue
+        paths.append(f['path'])
+        if f['path'] != entry and not (f['path'].startswith(pkg) and len(f['path']) > len(pkg)):
+            out.append('tool.files names a path outside the tool: %s' % f['path'])
+    if len(paths) != len(set(paths)):
+        out.append('tool.files names a path more than once')
+    if entry not in paths:
+        out.append('tool.files does not name the entry point')
+    wf = tool.get('workflow')
+    if not isinstance(wf, dict) or set(wf) != {'path', 'blob_sha256'} or not isinstance(wf.get('path'), str) or \
+            not wf['path'] or not _sha.match(str(wf.get('blob_sha256'))):
+        out.append('tool.workflow is not {path, blob_sha256}')
+    if not isinstance(repository_id, int) or isinstance(repository_id, bool) or repository_id <= 0:
+        out.append('repository_id is not a positive integer')
+    return out
+
+
+_pins_head = re.compile(r'^### \d+\.\d+ Record pins\b', re.M)
+_pin_row = re.compile(r'^\| `([^`/\s]+)` \| `([0-9a-f]{64})` \|$')
+_sep_row = re.compile(r'^\|(\s*:?-+:?\s*\|)+\s*$')
+
+
+class PinTableError(Exception):
+    pass
+
+
+def read_pin_table(prereg):
+    """The pin table of a plan record directory (sec. 6.3, configuration admission point 2): the last subsection of
+    its PREREG.md whose heading matches `### N.N Record pins`, with rows "| `file` | `sha256` |", each naming a file of
+    that directory. A table line that is neither the header row, its separator nor such a row is malformed; a file
+    named twice is malformed. Raises PinTableError."""
+    try:
+        t = prereg.decode('utf-8')
+    except UnicodeDecodeError:
+        raise PinTableError('PREREG.md is not UTF-8')
+    heads = [m.start() for m in _pins_head.finditer(t)]
+    if not heads:
+        raise PinTableError('PREREG.md has no Record pins subsection')
+    i = heads[-1]
+    j = t.find('\n#', i + 5)
+    lines = t[i:j if j > 0 else None].split('\n')
+    out = {}
+    for k, line in enumerate(lines):
+        if not line.startswith('|'):
+            continue
+        if _sep_row.match(line):
+            continue
+        if k + 1 < len(lines) and _sep_row.match(lines[k + 1]):
+            continue  # the header row
+        m = _pin_row.match(line)
+        if not m or m.group(1) in ('.', '..'):
+            raise PinTableError('malformed row in the last Record pins subsection: %r' % line[:120])
+        if m.group(1) in out:
+            raise PinTableError('a file is listed twice in the last Record pins subsection: %s' % m.group(1))
+        out[m.group(1)] = m.group(2)
+    return out
+
+
+def admitted_by_table(repo, freeze, rec_dir, table):
+    """Blobs the pin table admits, read from the freeze's tree as regular files: {path: bytes}."""
+    out = {}
+    for name, want in table.items():
+        try:
+            b = repo.read(freeze, rec_dir + name)
+        except Unresolvable:
+            continue
+        if b is not None and util.sha256(b) == want:
+            out[rec_dir + name] = b
+    return out
 
 
 def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admission=None, table=None):
-    """Integrity stage for the configuration. mode: 'chain' (admitted by sec. 6.3: `admission` is the snapshot
-    the authority module built, `table` the blobs F's pin table lists, {path: bytes}) or 'harness' (an in-process
-    control run that admits a draft configuration without its chain; never acceptable)."""
+    """Integrity stage for the configuration. mode: 'chain' (admitted by sec. 6.3: `admission` is the admission record
+    with its snapshot, `table` the blobs F's pin table lists, {path: bytes}) or 'harness' (an in-process control run
+    that admits a draft configuration without its chain; never acceptable)."""
     L = Loaded()
     if mode == 'chain' and (admission is None or table is None):
         raise stop('CONFIG_UNREVIEWED', 'no admission: the configuration is admitted only through sec. 6.3')
@@ -143,7 +237,7 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
         raise stop('CONFIG_UNREVIEWED', 'the configuration is not the blob F\'s pin table lists')
     if expected_sha is not None and sha != expected_sha:
         raise stop('CONFIG_UNREVIEWED' if mode == 'chain' else 'SOURCE_CHANGED',
-                   'configuration does not equal --config-sha256')
+                   'configuration does not equal the expected sha256')
     try:
         cfg = json.loads(data.decode('utf-8'))
     except ValueError as exc:
@@ -156,10 +250,11 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
     if missing or unknown:
         raise stop('CONFIG_INVALID', 'missing %s; unknown %s' % (missing, unknown))
     if not isinstance(cfg['retirement'], dict) or set(cfg['retirement']) - set(retirement_fields):
-        raise stop('CONFIG_INVALID', 'unknown retirement field (authority values are never configuration): %s'
+        raise stop('CONFIG_INVALID', 'unknown retirement field: %s'
                    % sorted(set(cfg['retirement']) - set(retirement_fields)))
-    if mode == 'chain' and cfg['retirement'].get('owner') != admission['owner_id']:
-        raise stop('CONFIG_UNREVIEWED', 'retirement.owner is not the authority record\'s owner id')
+    tp = tool_problems(cfg['tool'], cfg['repository_id'])
+    if tp:
+        raise stop('CONFIG_INVALID', '; '.join(tp[:4]))
     if not set(cfg['operations']) <= set(operations):
         raise stop('CONFIG_INVALID', 'unknown operation in operations')
     if operation is not None and operation not in cfg['operations']:
@@ -181,14 +276,31 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
             L.adapter_records.append({'interface': 'delegation', 'name': spec['adapter'],
                                       'version': spec['adapter_version'], 'module_sha256': msha,
                                       'module_path': spec['module']['path']})
-    # referenced records and rule files, by pinned blob
+    # referenced records and rule files, by pinned blob, each from a regular-file entry (a record at a non-regular
+    # entry is not read: it is record-invalid where it is used)
     entries = []
+    L.nonregular = set()
     for r in list(cfg['rules']) + list(cfg['records']):
+        if repo.mode(commit, r['path']) not in (None, '100644', '100755'):
+            L.nonregular.add(r['path'])
+            continue
         entries.append((r['path'], read_ref(repo, commit, r, 'record %s' % r['path'])))
+    # a record kind this design does not define (for example a retired schema) is a configuration error (sec. 16.2)
+    for r, (_, b) in zip([r for r in list(cfg['rules']) + list(cfg['records']) if r['path'] not in L.nonregular],
+                         entries):
+        if r not in cfg['records']:
+            continue
+        try:
+            doc = json.loads(b.decode('utf-8'))
+        except (ValueError, UnicodeDecodeError):
+            continue
+        if isinstance(doc, dict) and 'schema' in doc and doc['schema'] not in rec.record_schemas + (rec.review_schema,):
+            raise stop('CONFIG_INVALID', 'record %s has a kind this design does not define: %r'
+                       % (r['path'], doc['schema']))
     controls_b = read_ref(repo, commit, cfg['controls'], 'controls file')
     for r in extra_records:
         entries.append((r['path'], r['data']))
-    # the configuration's own review and authorization: under the chain, only the blobs F's pin table lists
+    # the configuration's own review: under the chain, only the blobs F's pin table lists
     # (point 6; files beside the configuration are never admitted). The harness reads the draft's neighbours.
     cfg_dir = path.rsplit('/', 1)[0] + '/' if '/' in path else ''
     if mode == 'chain':
@@ -196,8 +308,9 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
             if p != path and p.endswith('.json'):
                 entries.append((p, b))
     else:
-        for p, bid in sorted(repo.paths(commit).items()):
-            if p.startswith(cfg_dir) and p.endswith('.json') and p != path and '/' not in p[len(cfg_dir):]:
+        for p, (mode, bid) in sorted(repo.entries(commit).items()):
+            if p.startswith(cfg_dir) and p.endswith('.json') and p != path and '/' not in p[len(cfg_dir):] and \
+                    mode in ('100644', '100755'):
                 entries.append((p, repo.read_blob(bid)))
     entries.append((path, data))
     L.store = rec.Store(entries)
@@ -225,8 +338,8 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
         common = posixpath.commonpath(rdirs) if rdirs else ''
         dirs |= {common + '/'} if common else {d + '/' if d else '' for d in rdirs}
         out = []
-        for q, bid in sorted(repo.paths(_c).items()):
-            if q.endswith('.json') and any(q.startswith(d) for d in dirs):
+        for q, (mode, bid) in sorted(repo.entries(_c).items()):
+            if q.endswith('.json') and any(q.startswith(d) for d in dirs) and mode in ('100644', '100755'):
                 out.append((q, repo.read_blob(bid)))
         return out
     L.store.scan = scan
@@ -242,26 +355,15 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
             return ['%s:predecessor not comparable (%s)' % (new.get('record_id') or new.get('config_id'), exc)]
         return []
     L.store.widening = widening
-    if mode == 'chain':
-        # DI-1: the owner timeline of the admission, from the verified versions of A the snapshot records
-        snap = admission.get('snapshot') or (admission.get('simulated_chain') or {}).get('snapshot') or {}
-        tl = rec.OwnerTimeline.from_versions(snap.get('authority_versions'))
-        if tl is None:
-            raise stop('CONFIG_UNREVIEWED', 'the admission records no owner timeline (verified versions of A with '
-                                            'their merge times)')
-        L.store.timeline = tl
     # DI-2, two heads: among the records the run reads
     L.store.heads_problems = rec.lineage_heads(list(cfg['rules']) + list(cfg['records']) +
                                                [{'path': path, 'blob_sha256': sha}], L.store)
     L.admitted = {r['blob_sha256'] for r in list(cfg['rules']) + list(cfg['records'])} | {sha}
     for p, d in entries:
         doc = L.store.by_sha[util.sha256(d)][1]
-        if isinstance(doc, dict) and doc.get('schema') in (rec.review_schema, rec.auth_schema) and \
+        if isinstance(doc, dict) and doc.get('schema') == rec.review_schema and \
                 (p in (table or {}) if mode == 'chain' else p.startswith(cfg_dir)):
-            if doc.get('schema') == rec.review_schema and doc.get('reviewed', {}).get('blob_sha256') == sha:
-                L.admitted.add(util.sha256(d))
-            if doc.get('schema') == rec.auth_schema and any(e.get('record', {}).get('blob_sha256') == sha
-                                                            for e in doc.get('authorizes', [])):
+            if doc.get('reviewed', {}).get('blob_sha256') == sha:
                 L.admitted.add(util.sha256(d))
     # S7: a side-change class id is defined exactly once across the class records the configuration references
     seen_ids = []
@@ -276,8 +378,7 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
                    % sorted({i for i in seen_ids if seen_ids.count(i) > 1}))
     # review chain of the configuration itself
     if mode == 'chain':
-        probs = rec.lint_chain({'path': path, 'blob_sha256': sha}, L.store, cfg['retirement'].get('owner'),
-                               L.admitted)
+        probs = rec.lint_chain({'path': path, 'blob_sha256': sha}, L.store, L.admitted)
         if probs:
             raise stop('CONFIG_UNREVIEWED', 'configuration review chain: %s' % '; '.join(probs[:4]))
         if cfg['supersedes'] is not None:
@@ -287,8 +388,7 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
                 reviewers = rec.reviewers_of({'blob_sha256': sha}, L.store)
                 if not rec.widening_review_ok({'path': path, 'blob_sha256': sha}, L.store, L.admitted,
                                               reviewers, cfg.get('author'), cfg['supersedes'],
-                                              ['%s:%s' % (cfg['config_id'], w) for w in why],
-                                              cfg['retirement'].get('owner')):
+                                              ['%s:%s' % (cfg['config_id'], w) for w in why]):
                     raise stop('CONFIG_UNREVIEWED', 'widening without a widening review: %s' % '; '.join(why[:4]))
         L.admission = dict(admission)
     else:

@@ -31,8 +31,14 @@ import time
 
 here = os.path.dirname(os.path.abspath(__file__))
 tools = os.path.dirname(os.path.dirname(here))
-if tools not in sys.path:
-    sys.path.insert(0, tools)
+if 'ledger_coverage' not in sys.modules:
+    # the package is loaded by its location, as the entry point loads it; no directory is put on sys.path
+    import importlib.util
+    _pkg = os.path.dirname(here)
+    _spec = importlib.util.spec_from_file_location('ledger_coverage', os.path.join(_pkg, '__init__.py'),
+                                                   submodule_search_locations=[_pkg])
+    sys.modules['ledger_coverage'] = importlib.util.module_from_spec(_spec)
+    _spec.loader.exec_module(sys.modules['ledger_coverage'])
 
 from ledger_coverage.engine import cli, gitobj, execution as exmod, pipeline as pl, purity, util  # noqa: E402
 from ledger_coverage.engine import profiles as prf, rules as rulemod, records as rec  # noqa: E402
@@ -53,6 +59,17 @@ def sha(b):
     return hashlib.sha256(b).hexdigest()
 
 
+def rev_parse(repo_path, rev):
+    """The full id of a revision of the runner's own checkout (the runner names its inputs by ref; the tool reads
+    only full ids)."""
+    import subprocess
+    r = subprocess.run(['git', '-C', repo_path, 'rev-parse', '--verify', '--quiet', rev + '^{commit}'],
+                       capture_output=True, text=True)
+    if r.returncode:
+        raise ValueError('%s does not resolve to a commit' % rev)
+    return r.stdout.strip()
+
+
 def simulated_freeze(repo, rev, path, staged_bytes):
     """An in-memory stand-in for F: rev's tree with the staged configuration at its plan-directory path."""
     return repo.derive(rev, {path: staged_bytes}, parents=[rev],
@@ -66,7 +83,7 @@ class A1:
         self.repo = gitobj.Overlay(self.base)
         self.repo_path = repo_path
         rev, self.cpath = config_ref.split(':', 1)
-        self.crev = self.repo.resolve(rev) if rev in self.repo.mem else self.base.resolve(rev)
+        self.crev = rev if rev in self.repo.mem else self.base.resolve(rev_parse(repo_path, rev))
         self.tool_rev = self.crev
         if staged is not None:
             with open(staged, 'rb') as f:
@@ -87,8 +104,8 @@ class A1:
         return os.path.join(self.out_root, 'run%03d' % self.n)
 
     def run(self, args, harness=True, control=None):
-        argv = args[:1] + ['--config', '%s:%s' % (self.crev, self.cpath), '--config-sha256', self.csha,
-                           '--out', self.out(), '--repo', self.repo_path] + args[1:]
+        argv = args[:1] + ['--config', '%s:%s' % (self.crev, self.cpath), '--out', self.out(),
+                           '--repo', self.repo_path] + args[1:]
         t = time.time()
         code, res = cli.run(argv, repo=self.repo, harness=harness, stderr=io.StringIO(), control=control)
         return code, res or {}, round(time.time() - t, 1)
@@ -639,7 +656,7 @@ def pipeline_rule_controls(a, cfg, allow_ref, deny_ref, allow, deny, w1, rec, st
     # review exists, so the widened file is record-invalid
     path, doc = muts['A1r'][1]
     probs = rec.widening_review_problems({'path': 'r.json', 'blob_sha256': sha(b'{}')}, st, set(st.by_sha), set(),
-                                         w1['author'], None, ['W1-d:added files'], 7273571)
+                                         w1['author'], None, ['W1-d:added files'])
 
     def repl4(files):
         return [(r, doc if r['path'] == path else d) for r, d in files]
@@ -1013,11 +1030,11 @@ def reference_graph(nodes, required):
 
 
 def k1_graph(a, tool_files):
-    """The full reference graph: configuration -> records, rules, reviews and authorizations; F's pin table ->
-    configuration and its review and authorization; class record -> every other landed path. The reviews and
-    authorizations do not exist yet; the graph places them where the design puts records frozen with the plan
-    (sec. 6.3, 16.2), as in-memory fixtures only. The actual layout must be acyclic; two countercontrols place a
-    record in the landing that names a blob the class record must pin, and must give a cycle."""
+    """The full reference graph: configuration -> records, rules and reviews; F's pin table -> configuration and its
+    review; class record -> every other landed path. The reviews do not exist yet; the graph places them where the
+    design puts records frozen with the plan (sec. 6.3, 16.2), as in-memory fixtures only. The actual layout must be
+    acyclic; two countercontrols place a record in the landing that names a blob the class record must pin, and must
+    give a cycle."""
     cfg_b = a.repo.read(a.crev, a.cpath)
     cfg = json.loads(cfg_b)
     rec_dir = a.cpath.rsplit('/', 1)[0] + '/'
@@ -1030,37 +1047,27 @@ def k1_graph(a, tool_files):
         return jb({'schema': 'oi-review-record/1', 'reviewer': reviewer, 'reviewed': {'path': path,
                    'blob_sha256': sha(b)}, 'method': 'graph fixture', 'verdicts': [{'item': '*', 'verdict': 'accept'}]})
 
-    def authorization(path, b, rpath, rb):
-        return jb({'schema': 'oi-owner-authorization/1', 'owner': cfg['retirement']['owner'], 'comment_id': 'fixture',
-                   'time': 'fixture', 'authorizes': [{'record': {'path': path, 'blob_sha256': sha(b)},
-                                                      'review': {'path': rpath, 'blob_sha256': sha(rb)}}]})
-
     def layout(landed, cls_review_dir):
-        """nodes and required edges for one placement. cls_review_dir: where the class record's review and
-        authorization lie."""
+        """nodes and required edges for one placement. cls_review_dir: where the class record's review lies."""
         nodes = dict(landed)
         cls_b = nodes[cls_path]
-        rk_p, ak_p = cls_review_dir + 'reviews/class-record.review.json', cls_review_dir + 'reviews/class-record.auth.json'
+        rk_p = cls_review_dir + 'reviews/class-record.review.json'
         rk = review(cls_path, cls_b, 'reviewer-fixture')
-        ak = authorization(cls_path, cls_b, rk_p, rk)
-        nodes[rk_p], nodes[ak_p] = rk, ak
-        c2 = dict(cfg, records=list(cfg['records']) + [{'kind': 'review', 'path': rk_p, 'blob_sha256': sha(rk)},
-                                                        {'kind': 'authorization', 'path': ak_p, 'blob_sha256': sha(ak)}])
+        nodes[rk_p] = rk
+        c2 = dict(cfg, records=list(cfg['records']) + [{'kind': 'review', 'path': rk_p, 'blob_sha256': sha(rk)}])
         c2b = jb(c2)
         if a.cpath in landed:
             # the configuration in the landing: its bytes as landed are the ones the class record pins
             c2b = landed[a.cpath]
         nodes[a.cpath] = c2b
-        rc_p, ac_p = rec_dir + 'reviews/config.review.json', rec_dir + 'reviews/config.auth.json'
+        rc_p = rec_dir + 'reviews/config.review.json'
         rc = review(a.cpath, c2b, 'reviewer-fixture')
-        ac = authorization(a.cpath, c2b, rc_p, rc)
-        nodes[rc_p], nodes[ac_p] = rc, ac
+        nodes[rc_p] = rc
         pt_p = rec_dir + 'PREREG.md'
         nodes[pt_p] = ('### 1.1 Record pins\n\n' + ''.join('| `%s` | `%s` |\n' % (q[len(rec_dir):], sha(nodes[q]))
-                                                           for q in (a.cpath, rc_p, ac_p))).encode()
-        required = {cls_path: [q for q in landed if q != cls_path] + ([rk_p, ak_p] if rk_p in landed else []),
-                    pt_p: [a.cpath, rc_p, ac_p], a.cpath: [cls_path, rk_p, ak_p], rc_p: [a.cpath],
-                    ac_p: [a.cpath, rc_p], rk_p: [cls_path], ak_p: [cls_path, rk_p]}
+                                                           for q in (a.cpath, rc_p))).encode()
+        required = {cls_path: [q for q in landed if q != cls_path] + ([rk_p] if rk_p in landed else []),
+                    pt_p: [a.cpath, rc_p], a.cpath: [cls_path, rk_p], rc_p: [a.cpath], rk_p: [cls_path]}
         return nodes, required
     out = {}
     nodes, req = layout(dict(tool_files), rec_dir)
@@ -1073,27 +1080,29 @@ def k1_graph(a, tool_files):
     landed1[a.cpath] = cfg_b
     n1, r1 = layout(landed1, rec_dir)
     out['config_landed'] = {'cycle': reference_graph(n1, r1)[1]}
-    # countercontrol 2: the class record's review and authorization landed with the tool
+    # countercontrol 2: the class record's review landed with the tool
     tool_ad = a.ad
     n2, r2 = layout(dict(tool_files), tool_ad)
-    landed2 = {q: n2[q] for q in list(tool_files) + [tool_ad + 'reviews/class-record.review.json',
-                                                     tool_ad + 'reviews/class-record.auth.json']}
+    landed2 = {q: n2[q] for q in list(tool_files) + [tool_ad + 'reviews/class-record.review.json']}
     n2, r2 = layout(landed2, tool_ad)
     out['class_review_landed'] = {'cycle': reference_graph(n2, r2)[1]}
     a.record('K1-GRAPH', cyc is None and out['actual']['config_in_landing'] is False and
              bool(out['config_landed']['cycle']) and bool(out['class_review_landed']['cycle']),
-             'the reference graph of the tool landing and the freeze has no cycle, including through review and '
-             'authorization records; placing the configuration, or the class record\'s review, in the landing gives '
-             'a cycle', out,
-             predicate='no cycle in the actual layout (configuration not landed; reviews and authorizations in the '
-                       'plan record directory); a cycle in each countercontrol layout')
+             'the reference graph of the tool landing and the freeze has no cycle, including through review records; '
+             'placing the configuration, or the class record\'s review, in the landing gives a cycle', out,
+             predicate='no cycle in the actual layout (configuration not landed; reviews in the plan record '
+                       'directory); a cycle in each countercontrol layout')
 
 
 def chain_refusal(a):
     code, res, t = a.run(['coverage', '--commit', E], harness=False)
-    a.record('CHAIN-REFUSAL', code == 65 and res.get('stop', {}).get('class') == 'CONFIG_UNREVIEWED',
-             'the unreviewed draft configuration is refused under the review chain: ERROR CONFIG_UNREVIEWED',
-             {'exit': code, 'stop': res.get('stop')})
+    code2, res2, t2 = a.run(['coverage', '--commit', E, '--freeze', a.crev], harness=False)
+    a.record('CHAIN-REFUSAL', code == 65 and res.get('stop', {}).get('class') == 'CONFIG_UNREVIEWED' and
+             code2 == 65 and res2.get('stop', {}).get('class') == 'CONFIG_UNREVIEWED',
+             'the unreviewed draft configuration is refused under the review chain: ERROR CONFIG_UNREVIEWED, without '
+             '--freeze and with the stand-in for F (no pin table lists the draft, and it has no review)',
+             {'without_freeze': {'exit': code, 'stop': res.get('stop')},
+              'with_stand_in_F': {'exit': code2, 'stop': res2.get('stop')}})
 
 
 def z9g(a):
@@ -1227,14 +1236,13 @@ def main():
     if not args.main:
         ap.error('--main is required: the main commit the sequencing safeguard is measured against')
     try:
-        main_c = gitobj.GitRepo(args.repo).resolve(args.main)
+        main_c = gitobj.GitRepo(args.repo).resolve(rev_parse(args.repo, args.main))
     except Exception as exc:
         ap.error('--main %s does not resolve: %s' % (args.main, exc))
     os.makedirs(args.out, exist_ok=True)
     out_root = tempfile.mkdtemp(prefix='a1-controls-', dir=args.out)
     cref = args.config
     tool_files = {}
-    a0 = gitobj.GitRepo(args.repo)
     rev, cpath = cref.split(':', 1)
     probe = A1(args.repo, cref, out_root, args.staged_config, main_c)
     ad = probe.ad.rstrip('/')
@@ -1246,7 +1254,7 @@ def main():
                     p = os.path.relpath(os.path.join(dp, f), args.repo)
                     tool_files[p] = open(os.path.join(dp, f), 'rb').read()
         tool_files['tools/ledger_coverage.py'] = open(os.path.join(args.repo, 'tools/ledger_coverage.py'), 'rb').read()
-        a = A1(args.repo, '%s:%s' % (a0.resolve(rev), cpath), out_root, args.staged_config, main_c)
+        a = A1(args.repo, '%s:%s' % (rev_parse(args.repo, rev), cpath), out_root, args.staged_config, main_c)
         wt = a.repo.derive(a.crev, tool_files, subject='working files')
         a.crev = wt
         a.csha = sha(a.repo.read(wt, cpath))

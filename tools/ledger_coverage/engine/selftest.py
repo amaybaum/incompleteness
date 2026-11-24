@@ -22,7 +22,7 @@ def cli(a, out):
             from .gitobj import GitRepo
             repo = GitRepo(a.repo or os.getcwd())
             rev, path = a.config.split(':', 1)
-            commit = repo.resolve(rev)
+            commit = repo.resolve(rev)  # a full id; refs are not consulted
             loaded = cfgmod.load(repo, commit, path, None, None, 'harness')
             cfg = loaded.config
             values = purity.config_values(repo.read, commit, cfg)
@@ -37,6 +37,7 @@ def cli(a, out):
         doc = {'schema': oc.result_schema, 'operation': 'self-test', 'controls': rs,
                'outcome': oc.pass_ if not bad else oc.void, 'exit_status': 0 if not bad else 70,
                'preflight': rs, 'record_checks': None, 'items': []}
+    oc.annotate(doc)
     os.makedirs(out, exist_ok=True)
     with open(os.path.join(out, 'result.json'), 'w', encoding='utf-8') as f:
         f.write(util.dump_result(doc))

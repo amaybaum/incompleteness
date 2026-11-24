@@ -17,6 +17,7 @@ import sys
 
 from . import outcome as oc
 from . import util
+from .host import HostUnavailable
 
 delegation_schema = 'oi-delegation/1'
 interface_version = 2
@@ -143,14 +144,17 @@ class Native:
         if os.path.exists(d):
             shutil.rmtree(d)
         os.makedirs(os.path.dirname(d), exist_ok=True)
+        # the runner's global and system git configuration (for example a filter driver) does not apply to the
+        # clone, so its working tree is checked out from X's blobs as they are (O-3)
+        env = dict(os.environ, GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL=os.devnull)
         r = subprocess.run(['git', 'clone', '--no-local', '--no-checkout', '--quiet', self.repo_path, d],
-                           capture_output=True, text=True)
+                           capture_output=True, text=True, env=env)
         if r.returncode != 0:
             raise RuntimeError('clone failed: %s' % r.stderr[-300:])
         if os.path.exists(os.path.join(d, '.git', 'objects', 'info', 'alternates')):
             raise RuntimeError('the clone has alternates')
         r = subprocess.run(['git', '-C', d, 'checkout', '--quiet', '--detach', commit], capture_output=True,
-                           text=True)
+                           text=True, env=env)
         if r.returncode != 0:
             raise RuntimeError('checkout failed: %s' % r.stderr[-300:])
         head = subprocess.run(['git', '-C', d, 'log', '-1', '--format=%H %T'], capture_output=True,
@@ -196,14 +200,26 @@ class Native:
         return {'exit': r.returncode, 'stdout': r.stdout, 'files': files}
 
     def host_runs(self, head_sha):
-        """The host's run and job records for a commit, as returned (B2 host-run classes)."""
+        """The host's run and job records for a commit, as returned (B2 host-run classes): only runs with event
+        `push` or `workflow_dispatch` whose repository and head repository ids equal the configuration's
+        `repository_id` (sec. 7.2); a failed or incomplete read gives None, never another source (GV7)."""
         if self.replay is not None:
             return [h for h in self.replay.get('host_records', []) if h.get('head_sha') == head_sha] or None
         if self.host is None:
             return None
-        got = self.host.runs_for(self.repo_id, head_sha)
-        self.host_records += got or []
-        return got
+        try:
+            got = self.host.runs_for(self.repo_id, head_sha)
+        except HostUnavailable:
+            return None
+        keep = []
+        for r in got or []:
+            if not isinstance(r, dict) or not isinstance(r.get('jobs'), list):
+                return None
+            if r.get('event') in ('push', 'workflow_dispatch') and r.get('repository_id') == self.repo_id and \
+                    r.get('head_repository_id') == self.repo_id:
+                keep.append(r)
+        self.host_records += keep
+        return keep or None
 
     def derive(self, cls, tree, what, holds):
         self.derivations.append({'class': cls, 'tree': tree, 'check': what, 'holds': bool(holds)})

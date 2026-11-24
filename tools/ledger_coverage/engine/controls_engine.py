@@ -434,7 +434,7 @@ def h_controls():
 
 
 def chain_world():
-    """A record, its review and its owner authorization, with fixture identities."""
+    """A record and its review, with fixture identities."""
     rule = {'schema': 'oi-term-rules/2', 'record_id': 'r1', 'author': 'eng-writer', 'supersedes': None,
             'rules': [{'id': 'q1'}]}
     rb = util.canonical(rule)
@@ -443,50 +443,41 @@ def chain_world():
               'verdicts': [{'item': 'q1', 'verdict': 'accept'}]}
     vb = util.canonical(review)
     vref = {'path': 'rec/r.review.json', 'blob_sha256': util.sha256(vb)}
-    auth = {'schema': rec.auth_schema, 'owner': 9001, 'time': 't0', 'comment_id': 'c-42',
-            'authorizes': [{'record': ref, 'review': vref}]}
-    ab = util.canonical(auth)
-    return rule, review, auth, ref, vref
+    return rule, review, ref, vref
 
 
-def chain_probs(rule, review, auth, admitted_extra=(), mutate_ref=None):
-    rb, vb, ab = util.canonical(rule), util.canonical(review), util.canonical(auth)
-    entries = [('rec/r.json', rb), ('rec/r.review.json', vb), ('rec/r.auth.json', ab)]
+def chain_probs(rule, review, admitted_extra=(), mutate_ref=None):
+    rb, vb = util.canonical(rule), util.canonical(review)
+    entries = [('rec/r.json', rb), ('rec/r.review.json', vb)]
     st = rec.Store(entries)
     ref = {'path': 'rec/r.json', 'blob_sha256': util.sha256(rb)}
     admitted = {util.sha256(b) for _, b in entries} | set(admitted_extra)
-    return rec.lint_chain(mutate_ref or ref, st, 9001, admitted)
+    return rec.lint_chain(mutate_ref or ref, st, admitted)
 
 
 def o_controls():
     out = {}
-    rule, review, auth, ref, vref = chain_world()
-    out['O9'] = chain_probs(rule, review, auth) == []
-    out['O1'] = bool(chain_probs(rule, dict(review, reviewer='eng-writer'), auth))
+    rule, review, ref, vref = chain_world()
+    out['O9'] = chain_probs(rule, review) == []
+    out['O1'] = bool(chain_probs(rule, dict(review, reviewer='eng-writer')))
     other = dict(rule, record_id='r2')
     r2 = dict(review, reviewed={'path': 'rec/r.json', 'blob_sha256': util.sha256(util.canonical(other))})
-    out['O2'] = bool(chain_probs(rule, r2, auth))
+    out['O2'] = bool(chain_probs(rule, r2))
     r3 = dict(rule, rules=[{'id': 'q1'}, {'id': 'q2'}])
     nref = {'path': 'rec/r.json', 'blob_sha256': util.sha256(util.canonical(r3))}
     rv3 = dict(review, reviewed=nref)
-    au3 = dict(auth, authorizes=[{'record': nref, 'review': {'path': 'rec/r.review.json',
-                                                             'blob_sha256': util.sha256(util.canonical(rv3))}}])
-    out['O3'] = bool(chain_probs(r3, rv3, au3))
-    out['O4'] = bool(chain_probs(rule, review, dict(auth, authorizes=[{'record': {'path': 'rec/r.json'},
-                                                                       'review': vref}])))
-    out['O5'] = bool(chain_probs(rule, dict(review, reviewer='https://ci.example/runs/7'), auth)) and \
-        bool(chain_probs(rule, review, dict(auth, comment_id='#42')))
+    out['O3'] = bool(chain_probs(r3, rv3))
+    out['O5'] = bool(chain_probs(rule, dict(review, reviewer='https://ci.example/runs/7')))
     rb = util.canonical(rule)
     st = rec.Store([('rec/r.json', rb + b' ')])
     out['O6'] = st.get({'path': 'rec/r.json', 'blob_sha256': util.sha256(rb)}) is None
     sup = dict(rule, record_id='r1b', supersedes=ref)
-    out['O7'] = bool(chain_probs(sup, review, auth, mutate_ref={'path': 'rec/r.json',
-                                                                 'blob_sha256': util.sha256(util.canonical(sup))}))
+    out['O7'] = bool(chain_probs(sup, review, mutate_ref={'path': 'rec/r.json',
+                                                           'blob_sha256': util.sha256(util.canonical(sup))}))
     rb2 = util.canonical(rule)
     st = rec.Store([('rec/r.json', rb2)])
     out['O8'] = any('not referenced' in p for p in rec.lint_chain({'path': 'rec/r.json',
-                                                                   'blob_sha256': util.sha256(rb2)}, st, 9001,
-                                                                  set()))
+                                                                   'blob_sha256': util.sha256(rb2)}, st, set()))
     return out
 
 
