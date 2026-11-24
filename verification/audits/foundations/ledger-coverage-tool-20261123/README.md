@@ -55,9 +55,11 @@ prefix. It is `workflow_dispatch` only, so landing it starts no run.
 The workflow is the text of design sec. 6.3 point 5. It is dispatched with `F`, the configuration path, the plan
 check and the role commits that check needs, as inputs that reach the shell only through `env:`. The check is a
 choice among fixed values, and each value selects one fixed command in a `case` block, with every expansion quoted;
-a value with no arm exits 64. The arms are the commands of design sec. 11, one per plan check, with record paths
-taken from the configuration's directory at `F`; the amended plan's sec. 11 states the commands of record, and a
-changed arm is a new workflow blob, pinned again by the configuration frozen at `F`. The workflow fetches `F` with
+a value with no arm exits 64. The arms are the commands of design sec. 11 as the amended plan's sec. 32.4 states
+them, one per plan check, each record read at `F` from the path the configuration names (the ledger, the edit list
+and the HP record in the configuration's directory; the delegation contract, the scope record and the hit
+classification record in this directory); the amended plan states the commands of record, and a changed arm is a new
+workflow blob, pinned again by the configuration frozen at `F`. The workflow fetches `F` with
 `git fetch --no-tags -- origin "$F"`. Its step `pre-run pin check` runs one inline program with
 `python3 -I -S -B -c`, which refuses unless `GITHUB_REF` is `refs/heads/main` and `F` a full lowercase 40-hex id, and
 compares the entry point and every file under `tools/ledger_coverage/` on disk with the configuration's `tool.files`

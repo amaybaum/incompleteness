@@ -414,6 +414,7 @@ EI7_FORMS = {
     'a local action with a 40-hex suffix': _STEPS + '      - uses: ./.github/actions/x@%s\n' % _HEX,
     'a local reusable workflow with a 40-hex suffix': '    uses: ./.github/workflows/w.yml@%s\n' % _HEX,
     'a parent path with a 40-hex suffix': _STEPS + '      - uses: ../x/y@%s\n' % _HEX,
+    'an owner name beginning with a hyphen, with a 40-hex suffix': _STEPS + '      - uses: -foo/bar@%s\n' % _HEX,
 }
 # the forms of review impl-v6.0e B-1: an owner component that is a local or parent path, with a full-id suffix
 EI7_B1 = ('a local action with a 40-hex suffix', 'a local reusable workflow with a 40-hex suffix',
@@ -438,14 +439,14 @@ def ei7_controls(r):
     pos = show(*t.run(w, F))
     check('EI7-tool', 'a pinned workflow blob with each form the `uses:` line rule refuses (a local action, a local '
           'reusable workflow, a tag, a branch, a quoted or escaped key, a flow mapping or sequence, an anchor and '
-          'alias, a block scalar, a complex key, the forms of review v6.0d B-1, and a local action, a local reusable '
-          'workflow or a parent path each with a 40-hex suffix): ERROR at the tool in each case, '
-          'the blob being the configuration\'s pinned workflow; the consumer half is reported with the acceptance '
+          'alias, a block scalar, a complex key, the forms of review v6.0d B-1, a local action, a local reusable '
+          'workflow or a parent path each with a 40-hex suffix, and an owner name beginning with a hyphen): ERROR at '
+          'the tool in each case, the blob being the configuration\'s pinned workflow; the consumer half is reported with the acceptance '
           'controls', "every form exits 65 with stop 'CONFIG_UNREVIEWED' naming the line rule, and the rule refuses "
           "each blob; the conforming workflow (a uses line naming an action by a 40-hex id) exits 0",
           {'tool': tool, 'rule': cons, 'positive': pos},
           all(o['exit'] == 65 and o['stop'] == 'CONFIG_UNREVIEWED' and 'uses' in o['message'] for o in tool.values())
-          and all(cons.values()) and pos['exit'] == 0 and len(tool) == 22)
+          and all(cons.values()) and pos['exit'] == 0 and len(tool) == 23)
 
 
 # ---- the consumer's acceptance predicate --------------------------------------------------------------------------
@@ -668,12 +669,12 @@ def ei5_controls(r):
 
 def o3_controls(r):
     """Review impl-v6.0e D-11 (O-3): the disposable clones of delegated runs check out with the system and global git
-    configuration disabled, so a smudge filter defined there never runs; the same checkout with the global
-    configuration in force runs it (the countercontrol)."""
+    configuration disabled, so a smudge filter defined in either never runs. Each configuration is a separate case:
+    the filter in a global configuration file (GIT_CONFIG_GLOBAL) and in a system configuration file
+    (GIT_CONFIG_SYSTEM); in each case the same checkout with that configuration in force runs it (the
+    countercontrol)."""
     base = tempfile.mkdtemp(prefix='o3-', dir=r.out_root)
-    src, marker, gcfg = os.path.join(base, 'src'), os.path.join(base, 'MARKER'), os.path.join(base, 'globalconfig')
-    with open(gcfg, 'w') as f:
-        f.write('[filter "smudge-probe"]\n\tsmudge = "sh -c \'touch %s; cat\'"\n\trequired = true\n' % marker)
+    src = os.path.join(base, 'src')
     os.makedirs(src)
     gitb(src, 'init', '-q')
     with open(os.path.join(src, '.gitattributes'), 'w') as f:
@@ -683,31 +684,46 @@ def o3_controls(r):
     gitb(src, 'add', '.')
     gitb(src, 'commit', '-qm', 'c')
     c = gitb(src, 'rev-parse', 'HEAD')
-    saved = {k: os.environ.get(k) for k in ('GIT_CONFIG_GLOBAL', 'GIT_CONFIG_NOSYSTEM')}
-    os.environ['GIT_CONFIG_GLOBAL'] = gcfg
-    os.environ.pop('GIT_CONFIG_NOSYSTEM', None)
-    try:
-        d = delmod.Native(gitobj.GitRepo(src), src, os.path.join(base, 'out'), c, True).clone(c)
-        native = {'clone': bool(d), 'file_checked_out': bool(d) and os.path.exists(os.path.join(d, 'a.txt')),
-                  'marker': os.path.exists(marker)}
-        cc = os.path.join(base, 'counter')
-        subprocess.run(['git', 'clone', '-q', '--no-local', '--no-checkout', src, cc], capture_output=True)
-        rc = subprocess.run(['git', '-C', cc, 'checkout', '-q', '--detach', c], capture_output=True).returncode
-        counter = {'checkout_exit': rc, 'marker': os.path.exists(marker)}
-    finally:
-        for k, v in saved.items():
-            if v is None:
-                os.environ.pop(k, None)
-            else:
-                os.environ[k] = v
-    check('O3-FILTER', 'review impl-v6.0e D-11 (O-3): a global git configuration defining a required smudge filter '
-          'and a commit whose .gitattributes names it: the delegated runs\' disposable clone (Native.clone) checks '
-          'the commit out without running the filter (implementation control)',
-          "Native.clone checks the commit out and the filter's marker is not written; a plain clone and checkout "
-          "of the same commit with the global configuration in force writes it (the countercontrol)",
-          {'native': native, 'countercontrol': counter},
-          native['clone'] and native['file_checked_out'] and not native['marker'] and counter['checkout_exit'] == 0
-          and counter['marker'])
+
+    def case(scope):
+        d = os.path.join(base, scope)
+        os.makedirs(d)
+        marker, cfg = os.path.join(d, 'MARKER'), os.path.join(d, scope + 'config')
+        with open(cfg, 'w') as f:
+            f.write('[filter "smudge-probe"]\n\tsmudge = "sh -c \'touch %s; cat\'"\n\trequired = true\n' % marker)
+        keys = ('GIT_CONFIG_GLOBAL', 'GIT_CONFIG_SYSTEM', 'GIT_CONFIG_NOSYSTEM')
+        saved = {k: os.environ.get(k) for k in keys}
+        os.environ.pop('GIT_CONFIG_NOSYSTEM', None)
+        if scope == 'global':
+            os.environ['GIT_CONFIG_GLOBAL'] = cfg
+        else:
+            os.environ['GIT_CONFIG_GLOBAL'] = os.devnull
+            os.environ['GIT_CONFIG_SYSTEM'] = cfg
+        try:
+            cl = delmod.Native(gitobj.GitRepo(src), src, os.path.join(d, 'out'), c, True).clone(c)
+            native = {'clone': bool(cl), 'file_checked_out': bool(cl) and os.path.exists(os.path.join(cl, 'a.txt')),
+                      'marker': os.path.exists(marker)}
+            cc = os.path.join(d, 'counter')
+            subprocess.run(['git', 'clone', '-q', '--no-local', '--no-checkout', src, cc], capture_output=True)
+            rc = subprocess.run(['git', '-C', cc, 'checkout', '-q', '--detach', c], capture_output=True).returncode
+            counter = {'checkout_exit': rc, 'marker': os.path.exists(marker)}
+        finally:
+            for k, v in saved.items():
+                if v is None:
+                    os.environ.pop(k, None)
+                else:
+                    os.environ[k] = v
+        return {'native': native, 'countercontrol': counter}
+    out = {scope: case(scope) for scope in ('global', 'system')}
+    check('O3-FILTER', 'review impl-v6.0e D-11 (O-3): a git configuration defining a required smudge filter and a '
+          'commit whose .gitattributes names it, each case separately: the filter in a global configuration file and '
+          'in a system configuration file; the delegated runs\' disposable clone (Native.clone) checks the commit out '
+          'without running the filter (implementation control)',
+          "in each case Native.clone checks the commit out and the filter's marker is not written; a plain clone and "
+          "checkout of the same commit with that configuration in force writes it (the countercontrol)",
+          out,
+          all(o['native']['clone'] and o['native']['file_checked_out'] and not o['native']['marker'] and
+              o['countercontrol']['checkout_exit'] == 0 and o['countercontrol']['marker'] for o in out.values()))
 
 
 # ---- the verified reader on small on-disk repositories (GV1-GV6) -------------------------------------------------
@@ -1496,12 +1512,13 @@ def ei_controls(r):
     code6, res6, err6 = e.entry(d6, flags=('-I', '-S', '-B', '-v'))
     loaded = sorted(set(re.findall(r"(?:code object from|matches|loaded from) '?([^'\s]+\.(?:pyc|py|so))\b", err6)))
     stdlib = _interpreter_dirs(d6)
+    installed = _installed_dirs()
     pinned = {os.path.realpath(os.path.join(d6, q)) for q in e.files}
 
     def allowed_file(f):
-        rf = os.path.realpath(f)
-        return rf in pinned or any(rf.startswith(s + os.sep) for s in stdlib)
+        return ei6_allowed(os.path.realpath(f), pinned, stdlib, installed)
     stray = [f for f in loaded if not allowed_file(f)]
+    neg6 = ei6_installed_cases(e, stdlib, installed)
     same6 = res6 == e.entry(e.fresh('EI6 clean reference'))[1]
     d6b = e.fresh('EI6 no isolation')
     with open(os.path.join(d6b, 'tools', 'json.py'), 'wb') as f:
@@ -1522,25 +1539,126 @@ def ei_controls(r):
             'without -I': {'exit': code_no_i, 'markers': marks_no_i},
             'without -I, with -E -s -P (no checkout directory on sys.path)': {'exit': code_no_i2,
                                                                              'markers': e.markers(d6b)},
-            'checkout directory on sys.path': {'exit': p6c.returncode, 'markers': e.markers(d6c)}}
+            'checkout directory on sys.path': {'exit': p6c.returncode, 'markers': e.markers(d6c)},
+            'installed packages': neg6}
     check('EI6', 'the checkout of a T holding, besides the pinned files, unpinned tools/hashlib.py (re.py, '
           'subprocess.py, json.py, importlib.py) whose bodies write a marker: the marker is never written, every '
           'imported module\'s file lies in tool.files or the interpreter\'s standard library, and the run\'s result '
           'equals that without the files; separately the entry point run without -I, or with a checkout directory '
-          'on sys.path: ERROR at the entry point, exit 65, before any import of a module not loaded at start',
+          'on sys.path: ERROR at the entry point, exit 65, before any import of a module not loaded at start. The '
+          'standard library is the interpreter\'s -I -S import path less its installed-package directories '
+          '(sysconfig purelib and platlib, site-packages and dist-packages, by real path); its predicate refuses an '
+          'installed-package import (a fixture package in a site-packages directory under a standard-library '
+          'directory, and an installed package of the interpreter where one is present) and accepts every import of '
+          'a real -I -S -B self-test run',
           "shadow run (the workflow's flags -I -S -B): exit 0, no marker, no imported file outside the pins and the "
           "interpreter's standard library, result equal; "
           "without -I and with the checkout on sys.path: exit 65 and no marker (json.py shadows the first module "
-          "imported after the check)", out6,
+          "imported after the check); installed packages: no allowed directory is or lies under an installed-package "
+          "directory, every traced file of the fixture package's import (and of the installed package's, where "
+          "present) is refused, and every out-of-tree import of the self-test run is accepted", out6,
           code6 == 0 and not out6['shadow run']['markers'] and not stray and loaded and same6 and
           code_no_i == 65 and not marks_no_i and code_no_i2 == 65 and not e.markers(d6b) and p6c.returncode == 65 and not out6['checkout directory on sys.path'][
-              'markers'])
+              'markers'] and neg6['holds'])
+
+
+# the directory names under which an interpreter keeps installed packages (EI6)
+INSTALLED_NAMES = ('site-packages', 'dist-packages')
+_TRACE = r"(?:code object from|matches|loaded from) '?([^'\s]+\.(?:pyc|py|so))\b"
+
+
+def ei6_allowed(rf, pinned, stdlib, installed):
+    """EI6's predicate on the real path of one imported file: a pinned file, or a file under a directory of the
+    interpreter's -I -S import path that is neither at or under an installed-package directory nor below a
+    site-packages or dist-packages directory inside that directory."""
+    if rf in pinned:
+        return True
+    if any(rf == i or rf.startswith(i + os.sep) for i in installed):
+        return False
+    for s in stdlib:
+        if rf.startswith(s + os.sep) and not any(n in INSTALLED_NAMES for n in rf[len(s) + 1:].split(os.sep)[:-1]):
+            return True
+    return False
+
+
+def _installed_dirs():
+    """The real paths of the interpreter's installed-package directories: sysconfig's purelib and platlib under
+    every scheme it defines, site's site-packages and user site-packages, and each site-packages or dist-packages
+    directory on its import path without -S."""
+    prog = ('import sys, json, sysconfig, site\n'
+            'd = []\n'
+            'for s in sysconfig.get_scheme_names():\n'
+            '    try:\n'
+            '        p = sysconfig.get_paths(s)\n'
+            '    except Exception:\n'
+            '        continue\n'
+            '    d += [p.get("purelib"), p.get("platlib")]\n'
+            'd += list(site.getsitepackages()) + [site.getusersitepackages()]\n'
+            'print(json.dumps(d))')
+    p = subprocess.run([sys.executable, '-I', '-S', '-c', prog], cwd='/', capture_output=True, text=True)
+    q = subprocess.run([sys.executable, '-I', '-c', 'import sys, json; print(json.dumps(sys.path))'], cwd='/',
+                       capture_output=True, text=True)
+    out = {os.path.realpath(x) for x in json.loads(p.stdout) if x}
+    for x in json.loads(q.stdout):
+        rx = os.path.realpath(x) if x else ''
+        if rx and any(n in INSTALLED_NAMES for n in rx.split(os.sep)):
+            out.add(rx)
+    return out
+
+
+def ei6_installed_cases(e, stdlib, installed):
+    """EI6's negative control on its own predicate: the allowed directories hold no installed-package directory;
+    a traced import of a fixture package from a site-packages directory (a symlink to dist-packages, as CPython lays
+    it out) inside a standard-library-like directory is refused; a traced import of an installed package of the
+    interpreter (certifi, where present) is refused; every out-of-tree import of a real -I -S -B self-test run is
+    accepted."""
+    out = {}
+    bad_dirs = sorted(s for s in stdlib if any(s == i or s.startswith(i + os.sep) for i in installed) or
+                      any(n in INSTALLED_NAMES for n in s.split(os.sep)))
+    out['allowed directories at or under an installed-package directory'] = bad_dirs
+    root = os.path.join(e.r.out_root, 'ei6-installed')
+    lib = os.path.join(root, 'lib', 'python3')
+    os.makedirs(os.path.join(lib, 'dist-packages', 'ei6fixture'))
+    with open(os.path.join(lib, 'dist-packages', 'ei6fixture', '__init__.py'), 'w') as f:
+        f.write('X = 1\n')
+    os.symlink('dist-packages', os.path.join(lib, 'site-packages'))
+    prog = 'import sys; sys.path.insert(0, %r); import ei6fixture' % os.path.join(lib, 'site-packages')
+    p = subprocess.run([sys.executable, '-I', '-S', '-B', '-v', '-c', prog], cwd=root, capture_output=True,
+                       text=True, env={'PATH': os.environ.get('PATH', '')})
+    rlib = os.path.realpath(lib)
+    fx = sorted({os.path.realpath(f) for f in re.findall(_TRACE, p.stderr)
+                 if os.path.realpath(f).startswith(rlib + os.sep)})
+    out['fixture package'] = {'exit': p.returncode, 'traced': len(fx),
+                              'admitted': [f for f in fx if ei6_allowed(f, set(), set(stdlib) | {rlib}, installed)]}
+    q = subprocess.run([sys.executable, '-I', '-B', '-v', '-c', 'import certifi'], cwd=root, capture_output=True,
+                       text=True, env={'PATH': os.environ.get('PATH', '')})
+    if q.returncode == 0:
+        cf_ = sorted({os.path.realpath(f) for f in re.findall(_TRACE, q.stderr)
+                      if os.sep + 'certifi' + os.sep in os.path.realpath(f)})
+        out['installed package certifi'] = {'present': True, 'traced': len(cf_),
+                                            'admitted': [f for f in cf_ if ei6_allowed(f, set(), stdlib, installed)]}
+    else:
+        out['installed package certifi'] = {'present': False}
+    d = e.fresh('EI6 self-test imports')
+    so = os.path.join(e.r.out_root, 'ei6-selftest-out')
+    t = subprocess.run([sys.executable, '-I', '-S', '-B', '-v', 'tools/ledger_coverage.py', 'self-test', '--out', so],
+                       cwd=d, capture_output=True, text=True, env={'PATH': os.environ.get('PATH', '')})
+    rd = os.path.realpath(d)
+    ext = sorted({os.path.realpath(f) for f in re.findall(_TRACE, t.stderr)
+                  if not os.path.realpath(f).startswith(rd + os.sep)})
+    out['self-test run'] = {'exit': t.returncode, 'out_of_tree_imports': len(ext),
+                            'refused': [f for f in ext if not ei6_allowed(f, set(), stdlib, installed)][:10]}
+    cert = out['installed package certifi']
+    out['holds'] = (not bad_dirs and p.returncode == 0 and len(fx) > 0 and not out['fixture package']['admitted'] and
+                    (not cert['present'] or (cert['traced'] > 0 and not cert['admitted'])) and
+                    t.returncode == 0 and len(ext) > 0 and not out['self-test run']['refused'])
+    return out
 
 
 def _interpreter_dirs(checkout):
-    """The real paths of the interpreter's own import path under the workflow's flags -I -S (its standard library
-    only: -S leaves the runner image's installed packages off sys.path; sec. 6.3 residual trust), none of which may lie
-    inside the checkout."""
+    """The real paths of the interpreter's own import path under the workflow's flags -I -S (-S leaves the runner
+    image's installed packages off sys.path; sec. 6.3 residual trust), none of which may lie inside the checkout.
+    Installed-package directories inside these are excluded by EI6's predicate (ei6_allowed)."""
     p = subprocess.run([sys.executable, '-I', '-S', '-c', 'import sys, json; print(json.dumps(sys.path))'], cwd='/',
                        capture_output=True, text=True)
     dirs = {os.path.realpath(x) for x in json.loads(p.stdout) if x}

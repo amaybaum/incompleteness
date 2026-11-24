@@ -14,8 +14,8 @@
    "pins": [
     {
      "path": ".github/workflows/ledger-coverage.yml",
-     "git_blob": "f17911941279d36a5b4f84c9f706cb17738322c2",
-     "blob_sha256": "4206b6b4d08ff43c3a0764dbb9f6aa803be2d9d9e871ff5eeefd975d92abbbe4"
+     "git_blob": "db4bc1fe95711aad63ef4f601db642e747f1d3d8",
+     "blob_sha256": "6014639279ad5725bedcb5573c1819be27b941265e617715f517ed9605b00052"
     },
     {
      "path": "tools/ledger_coverage.py",
@@ -59,8 +59,8 @@
     },
     {
      "path": "tools/ledger_coverage/adapters/conformance_controls.py",
-     "git_blob": "07efb49656f224e8dc4b4382a448f6b7adc3a1cc",
-     "blob_sha256": "0299f9f919005f85f9802019bf95a3e1cab5319ffacd07016c81959823a7ca1f"
+     "git_blob": "aebc46d6c18a490bf0f16eb2ff1452d0bbf96987",
+     "blob_sha256": "db1d6ade3704c988c2baf6e920116121b3d2c783009d940f853265db7169c151"
     },
     {
      "path": "tools/ledger_coverage/adapters/deleg_fingerprint_regen.py",
@@ -234,13 +234,13 @@
     },
     {
      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/README.md",
-     "git_blob": "7a02e57247d33c73a49a82ca25ab51196957445e",
-     "blob_sha256": "ed692a77ea4bbda55614610e205d0a5e7667cd90d56e090d02c58f0c23367744"
+     "git_blob": "9229ce1c656f7c07956636bf0885574a1b9b1a93",
+     "blob_sha256": "03f16ba6b49fe4d44cf322bc438e2c01495b943735b3069dd43d906c72eb8edf"
     },
     {
      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/controls.json",
-     "git_blob": "058179905ed7e2499a3de19381658496cea55b5e",
-     "blob_sha256": "0d6a6110ad944574f6a63b1c092d2893e7ca0ccae2d38414137749dc063d25b2"
+     "git_blob": "ddeb43c6e1ad3e6cb9095790779eb2218590faaf",
+     "blob_sha256": "96f3032097e817f33803d62e75b4055cb2f6111b29dc3a3ed58cb3e4115ce3d8"
     },
     {
      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json",

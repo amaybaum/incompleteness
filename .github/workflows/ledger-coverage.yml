@@ -41,6 +41,10 @@ on:
         description: the candidate X, a full 40-hex id
         required: false
         type: string
+      c:
+        description: the certified head C, a full 40-hex id
+        required: false
+        type: string
       e:
         description: the ledger pin E, a full 40-hex id
         required: false
@@ -80,24 +84,26 @@ jobs:
           CHECK: ${{ inputs.check }}
           H: ${{ inputs.h }}
           X: ${{ inputs.x }}
+          C: ${{ inputs.c }}
           E: ${{ inputs.e }}
           M: ${{ inputs.m }}
           L: ${{ inputs.l }}
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           D="${CFG%/*}"
+          A=verification/audits/foundations/ledger-coverage-tool-20261123
           set -- --freeze "$F" --config "$F:$CFG" --out "$RUNNER_TEMP/out"
           case "$CHECK" in
             item1-execution) exec python3 -I -S -B tools/ledger_coverage.py execution "$@" --scientific-base "$H" --candidate "$X" --ledger "$F:$D/ledger.json" --edits "$F:$D/edits.json" ;;
-            item1-terms) exec python3 -I -S -B tools/ledger_coverage.py terms "$@" --commit "$X" --profile ptr ;;
+            item1-terms) exec python3 -I -S -B tools/ledger_coverage.py terms "$@" --commit "$X" --profile ptr --classify "$F:$A/records/gr58-hit-classification-v1.json" ;;
             item2-record) exec python3 -I -S -B tools/ledger_coverage.py record "$@" --pin "$E" --record "$F" ;;
-            item2-coverage) exec python3 -I -S -B tools/ledger_coverage.py coverage "$@" --commit "$X" --segment "$E..$H" --segment "$H..$X=$F:$D/ledger.json" --hp "$F:$D/hp.json" ;;
-            item3|item4|item5|item6|item8|item9|item10|item12|item13) exec python3 -I -S -B tools/ledger_coverage.py execution "$@" --scientific-base "$H" --candidate "$X" --ledger "$F:$D/ledger.json" --edits "$F:$D/edits.json" --delegation "$F:$D/delegation.json" ;;
+            item2-coverage) exec python3 -I -S -B tools/ledger_coverage.py coverage "$@" --commit "$X" --segment "$E..$H" --segment "$H..$X=$F:$D/ledger.json" --hp "$F:$D/hp.json" --classify "$F:$A/records/gr58-hit-classification-v1.json" ;;
+            item3|item4|item5|item6|item8|item9|item10|item12|item13) exec python3 -I -S -B tools/ledger_coverage.py execution "$@" --scientific-base "$H" --candidate "$X" --ledger "$F:$D/ledger.json" --edits "$F:$D/edits.json" --delegation "$F:$A/delegation-draft.json" ;;
             item7) exec python3 -I -S -B tools/ledger_coverage.py terms "$@" --commit "$X" --profile item7-literal ;;
-            item7-amended) exec python3 -I -S -B tools/ledger_coverage.py terms "$@" --commit "$X" --base "$H" --ledger "$F:$D/ledger.json" --check item7 --final ;;
-            item11) exec python3 -I -S -B tools/ledger_coverage.py terms "$@" --commit "$X" --check item11 --scope "$F:$D/repo-scope.json" --rules "$F:$D/repo-rules.json" --final ;;
-            item14) exec python3 -I -S -B tools/ledger_coverage.py execution "$@" --scientific-base "$H" --main "$M" --candidate "$X" --ledger "$F:$D/ledger.json" --edits "$F:$D/edits.json" --delegation "$F:$D/delegation.json" ;;
-            item14-landing) exec python3 -I -S -B tools/ledger_coverage.py execution "$@" --scientific-base "$H" --main "$M" --landing "$L" --candidate "$X" --ledger "$F:$D/ledger.json" --edits "$F:$D/edits.json" --delegation "$F:$D/delegation.json" ;;
+            item7-amended) exec python3 -I -S -B tools/ledger_coverage.py terms "$@" --commit "$X" --base "$H" --ledger "$F:$D/ledger.json" --check item7 --final --classify "$F:$A/records/gr58-hit-classification-v1.json" ;;
+            item11) exec python3 -I -S -B tools/ledger_coverage.py terms "$@" --commit "$X" --check item11 --scope "$F:$A/records/repo-scope-v1.json" --final ;;
+            item14) exec python3 -I -S -B tools/ledger_coverage.py execution "$@" --scientific-base "$H" --main "$M" --candidate "$X" --ledger "$F:$D/ledger.json" --edits "$F:$D/edits.json" --delegation "$F:$A/delegation-draft.json" ;;
+            item14-landing) exec python3 -I -S -B tools/ledger_coverage.py execution "$@" --scientific-base "$H" --main "$M" --certified "$C" --landing "$L" --candidate "$X" --ledger "$F:$D/ledger.json" --edits "$F:$D/edits.json" --delegation "$F:$A/delegation-draft.json" ;;
           esac
           exit 64
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

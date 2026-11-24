@@ -1300,9 +1300,9 @@
    "id": "GV4",
    "operations": [],
    "direction": "adversarial",
-   "case": "a loose object whose stored content does not hash to its id, each case separately: the configuration's blob at `F`, the pin table's blob, a tree of `X`, a commit of E..H, a tool blob at `T`",
+   "case": "a loose object whose stored content does not hash to its id, each case separately: the configuration's blob at `F`, the pin table's blob, a tree of `X`, a commit of E..H, a tool blob at `T`, the HP merge",
    "expect": {
-    "text": "ERROR in each case (`CONFIG_UNREVIEWED` for an admission or identity read, the unresolvable-object error otherwise), although `git cat-file -p` prints the content"
+    "text": "ERROR in each case, exit 65 and no PASS (`CONFIG_UNREVIEWED` for an admission or identity read, the unresolvable-object error otherwise; the HP merge, which the HP chain check reads first, `CONFIG_INCONSISTENT` or the unresolvable-object error), although `git cat-file -p` prints the content"
    },
    "by": "object integrity",
    "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
@@ -1388,9 +1388,9 @@
    "id": "EI5",
    "operations": [],
    "direction": "adversarial",
-   "case": "before landing, `git ls-remote` failing; separately, returning no `refs/heads/main` line or more than one; separately, an id that is not a full 40-hex id, or that the verified reader cannot read; separately, an id other than `L`'s first parent",
+   "case": "before landing, `git ls-remote` failing; separately, returning no `refs/heads/main` line or more than one; separately, an id that is not a full 40-hex id, or that the verified reader cannot read, including one equal to `L`'s given first parent; separately, an id other than `L`'s first parent",
    "expect": {
-    "text": "the landing is refused in each case"
+    "text": "the landing is refused in each case; one `refs/heads/main` line equal to `L`'s first parent resolves to it (countercontrol)"
    },
    "by": "sec. 13.4 (review N-2)",
    "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
@@ -1399,9 +1399,9 @@
    "id": "EI6",
    "operations": [],
    "direction": "adversarial",
-   "case": "the checkout of a `T` holding, besides the pinned files, an unpinned `tools/hashlib.py` (separately `tools/re.py`, `tools/subprocess.py`) whose module body writes a marker, the probe `review-v6.0a/cx3/hashlib_probe.py`; separately, the entry point run without `-I`, or with a checkout directory on `sys.path`",
+   "case": "the checkout of a `T` holding, besides the pinned files, an unpinned `tools/hashlib.py` (separately `tools/re.py`, `tools/subprocess.py`, `tools/json.py`, `tools/importlib.py`) whose module body writes a marker, the probe `review-v6.0a/cx3/hashlib_probe.py`, the entry point run with the workflow's flags `-I -S -B`; separately, the entry point run without `-I`, or with a checkout directory on `sys.path`; separately, the predicate of the first case on a traced import of a fixture package from a `site-packages` directory (a symlink to `dist-packages`) inside a standard-library-like directory, on a traced import of an installed package of the interpreter (`certifi`, where present), and on every out-of-tree import of a real `-I -S -B` self-test run",
    "expect": {
-    "text": "the first: the marker is never written, every imported module's file lies in `tool.files` or the interpreter's standard library, and the run's items equal those of the same run without the file; at the consumer a `T` that is not on `main`'s first-parent chain is non-acceptance (TR29). The second: ERROR at the entry point, exit 65, before any import of a module not already loaded at interpreter start"
+    "text": "the first: the marker is never written, every imported module's file lies in `tool.files` or the interpreter's standard library, and the run's items equal those of the same run without the file; at the consumer a `T` that is not on `main`'s first-parent chain is non-acceptance (TR29). The standard library is the interpreter's `-I -S` import path less its installed-package directories (sysconfig `purelib` and `platlib`, `site-packages` and `dist-packages`, by real path), and no allowed directory is or lies under an installed-package directory. The second: ERROR at the entry point, exit 65, before any import of a module not already loaded at interpreter start. The third: the fixture's and the installed package's imported files are refused, and every import of the self-test run is accepted"
    },
    "by": "execution identity point 5 (R-1; N-g)",
    "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
@@ -1410,9 +1410,9 @@
    "id": "EI7",
    "operations": [],
    "direction": "adversarial",
-   "case": "a pinned workflow blob with `uses: ./.github/actions/x`; separately `uses: ./.github/workflows/w.yml`; separately `uses: owner/action@v4` (a tag); separately `uses: owner/action@main`; separately each of the forms the line rule refuses: a quoted key `\"uses\": owner/action@<40 hex>`, an escaped key `\"\\x75ses\": ./x`, a flow mapping `- {uses: ./x}` and a flow sequence `steps: [ {\"\\x75ses\": ./x} ]`, an anchor and alias (`x: &a ./x` with `uses: *a`), a block scalar (`uses: >` followed by `./x`), a complex key `? uses`; and the forms of review v6.0d B-1: an escaped key after a dash and two spaces (`-  \"\\x75ses\": ./x`), a flow mapping after a dash and two spaces (`-  {\"\\x75ses\": ./x}`), a tag after a dash and two spaces (`-  !!str \"\\x75ses\": ./x`), a nested dash (`- - \"\\x75ses\": ./x`), a whole-document flow mapping after `---` (`--- {\"jobs\": ...}` with `\"\\x75ses\"` in a step), a tab after the dash (`-<TAB>\"\\x75ses\": ./x`), and a tab after a colon before a flow collection (`steps:<TAB>[ ... ]`)",
+   "case": "a pinned workflow blob with `uses: ./.github/actions/x`; separately `uses: ./.github/workflows/w.yml`; separately `uses: owner/action@v4` (a tag); separately `uses: owner/action@main`; separately each of the forms the line rule refuses: a quoted key `\"uses\": owner/action@<40 hex>`, an escaped key `\"\\x75ses\": ./x`, a flow mapping `- {uses: ./x}` and a flow sequence `steps: [ {\"\\x75ses\": ./x} ]`, an anchor and alias (`x: &a ./x` with `uses: *a`), a block scalar (`uses: >` followed by `./x`), a complex key `? uses`; and the forms of review v6.0d B-1: an escaped key after a dash and two spaces (`-  \"\\x75ses\": ./x`), a flow mapping after a dash and two spaces (`-  {\"\\x75ses\": ./x}`), a tag after a dash and two spaces (`-  !!str \"\\x75ses\": ./x`), a nested dash (`- - \"\\x75ses\": ./x`), a whole-document flow mapping after `---` (`--- {\"jobs\": ...}` with `\"\\x75ses\"` in a step), a tab after the dash (`-<TAB>\"\\x75ses\": ./x`), a tab after a colon before a flow collection (`steps:<TAB>[ ... ]`), and the key in upper case (`USES: ./x`); separately a local or parent path with a 40-hex suffix: `uses: ./.github/actions/x@<40 hex>`, a job-level `uses: ./.github/workflows/w.yml@<40 hex>` and `uses: ../x/y@<40 hex>`; separately an owner name beginning with a hyphen, `uses: -foo/bar@<40 hex>`",
    "expect": {
-    "text": "ERROR at the tool; non-acceptance at the consumer, in each case"
+    "text": "ERROR at the tool (exit 65, `CONFIG_UNREVIEWED` naming the line rule); non-acceptance at the consumer, in each case; the conforming workflow, a `uses:` line naming an action by a 40-hex id, exits 0"
    },
    "by": "execution identity point 5 (R-1, N5, R-a, B-1)",
    "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
