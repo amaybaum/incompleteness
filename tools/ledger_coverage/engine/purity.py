@@ -70,7 +70,7 @@ enumerations = frozenset([
     'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M11', 'O1', 'O9',
 ])
 # The tool's own fixed data path (sec. 6.3, R-D4): the authority record. A fourth category, linted to lie under
-# the tool's directory; a class record that lists the tool's landed paths names it (deviation recorded).
+# the tool's directory; it lands after the tool, in its own merge (sec. 15 item 0a).
 tool_paths = frozenset(['tools/ledger_coverage/authority.json'])
 _hex = re.compile(r'(?<![0-9A-Za-z])[0-9a-fA-F]{7,}(?![0-9A-Za-z])')
 _field_rx = re.compile(r'^[A-Za-z_][A-Za-z0-9_-]*$')

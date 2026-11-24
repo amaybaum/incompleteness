@@ -1,5 +1,0 @@
-{
- "schema": "oi-freeze-ledger/1",
- "status": "UNREVIEWED DRAFT: the empty freeze ledger, to land on main with the authority record through the authority-change procedure (design sec. 6.3). It holds no events.",
- "events": []
-}
