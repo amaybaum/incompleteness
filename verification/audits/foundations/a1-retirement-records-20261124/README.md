@@ -11,8 +11,9 @@ reviews, the Q10 disposition, the SM.md:1394 reading, and the texts prepared for
   original evidence."
 - This branch is for preservation only. It is not a pull request, it establishes no claim, it accepts
   no implementation, and it is not to be merged without a separate owner decision.
-- The tool implementation itself is preserved on branch `tools/ledger-coverage-20261123` at
-  `3184c7f9075948d8474197eee03ba5b94ba85db5`, pending final independent acceptance.
+- The tool implementation itself is on branch `tools/ledger-coverage-20261123` at
+  `4f4a9d58fd0bf41289a4904c9b39c00c711c9093` (correction 2), accepted by the owner on 2026-11-24 within the
+  limits stated in the CI validation section below; it is not on `main`.
 
 ## What the copies are
 
@@ -51,3 +52,40 @@ records for correction 2 and the A1 plan reconciliation obligations, the texts o
 session handoffs, and the then-current `impl-v6.0e/MANIFEST.sha256` and `CORRECTION-1.md`. A file present in both
 batches is copied as it stood at each batch; `MANIFEST-2.json` gives the original hash at batch 2. Batch 1 is
 unchanged. These are preservation copies, not byte-identical original evidence.
+
+## CI validation evidence (2026-11-24): run 45465948636
+
+`ci-run-45465948636/artifact.zip` is the evidence artifact `ledger-coverage-suite-ci-evidence` (artifact id
+14963596973) of the disposable CI validation run 45465948636, copied byte for byte, not cleaned: its SHA-256,
+`08b0da5d620dfae04136fbc1db0deb5c829a185eec62ec3a5d1f18ba2ab3eb15`, equals the digest GitHub reports for the
+artifact. Before commit it was scanned for tokens, keys, signed URLs, e-mail and IP addresses and local paths, with
+no hit; nothing is redacted. Its `ci-results.json` (schema `ledger-coverage-suite-ci/1`) lists the SHA-256 of
+every other file in it, and all 99 match.
+
+- Run: workflow `.github/workflows/ledger-coverage-suite-ci.yml` (blob `0b26004f29852164301836f2e81be2abc43d077d`,
+  SHA-256 `13176a4d1ed91b1b2f6e2445380f57bf79006072ccbfb48d55dcd6d90b65f513`), push event, attempt 1, on branch
+  `ci/ledger-coverage-suite-4f4a9d58` at CI commit `52f7e56a1d2397a607a3a0126fb153062f9846fc`, whose single
+  parent is the tool commit `4f4a9d58fd0bf41289a4904c9b39c00c711c9093`; `main` was
+  `9deb69568d8231210c7f39cb65be943dea566371` throughout; staged configuration SHA-256
+  `5072a3b0e25e9283acecf4c3df87f820e34464d8d6e2e501ec672615114a96a0`, as expected. Runner ubuntu-24.04, Python
+  3.12.3, 4 CPUs, 16 GB.
+- Result: every job step succeeded and every step verdict passed under the decision rules fixed in the workflow
+  header. Self-test 86 of 86 controls passed, its result byte-identical to the local run's; synthetic 36 passed;
+  conformance all PASS except NOT RUN for TR5 and G-A1; A1 conformance all PASS; A1 controls all PASS except NOT
+  RUN for RT-T (exit 1, as its rule requires); the no-main check exited 2 (usage); Y8 PASS; mutation 82 killed,
+  7 survived, 1 not applied (U01), the survivors exactly the local run's seven; the Lean build exited 0 with the
+  worktree unchanged; the release gate exited 0.
+- Owner decision (amaybaum, 2026-11-24, coordinating session): "Accept the verification tool at exact commit
+  4f4a9d58, based on its independent implementation reviews and successful pre-landing CI validation, run
+  45465948636. Acceptance is limited to the capabilities actually verified. Preserve the deferred-check list, the
+  self-test mutation-testing limitation, the relative-mode release-gate qualification and the unpinned Lean
+  installer observation."
+- Limitations, which the acceptance does not cover:
+  - Deferred to post-landing validation: TR5, G-A1 and EI14 (EI14 reports PASS in the conformance step; its validation by a real dispatch of
+    the pinned workflow is deferred). Not runnable
+    before landing: RT-T, TR45 op-C, real REST reads from GitHub, the sec. 16.7 double run and EI15 real dispatch.
+    Y8 ran through the tool's built-in engine, not against the GitHub API. Real GitHub API reads are not validated.
+  - The self-test detects little on its own: of 90 mutants, one (cache:K05) failed any self-test control, and none
+    was killed by the self-test alone. The substantive detection is in the conformance, synthetic and A1 controls.
+  - The release gate ran in relative mode only (no `--label` given), so its baseline check was not absolute.
+  - The Lean toolchain installer was fetched from an unpinned source (elan master), as in `verify.yml`.
