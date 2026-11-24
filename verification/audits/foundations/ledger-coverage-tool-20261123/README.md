@@ -1,10 +1,13 @@
 # Ledger and terminology verification tool: records (unreviewed drafts)
 
-Status: implementation of design v5.5.8 (sha256
-f531948147b3638c5ad567f5ccf0eedfd04650a30be9fd0a9f2084aa13a77ad2), adopted by the owner on 2026-11-24 as an amendment of
-the frozen v5.5.3. **Every record in this directory is an
-unreviewed draft**, and so is the tool authority record `tools/ledger_coverage/authority.json`. None has an
-independent review record or an owner authorization record, and no freeze `F` exists. A configuration is admitted
+Status: implementation of design v5.5.9 (sha256
+cdfbe08cd9ec331ac94e9d57d66f0e0c919cc2ff17038a8475a1ff2d7a779df9), adopted by the owner on 2026-11-24 as an amendment of
+the adopted v5.5.8 and of the frozen v5.5.3. **Every record in this directory is an
+unreviewed draft.** None has an independent review record or an owner authorization record, and no freeze `F` exists.
+The tool authority record `A` (`tools/ledger_coverage/authority.json`), the empty freeze ledger at the path `A` names
+and the acceptance workflow whose content hash `A` pins are not part of this landing: each lands later, `A` first and
+the empty freeze ledger in its own merge after it, approved under "Owner at creation" (design sec. 6.3 and sec. 15
+item 0a). Until `A` is on `main`, every chain run refuses. A configuration is admitted
 only inside a host job of the pinned workflow, from `F`'s pin table and the owner's designation of `F` (design
 sec. 6.3); every other run is refused with ERROR `CONFIG_UNREVIEWED` (exit 65). The real-tree controls run
 through the control harness, which writes `control-result.json` with `"harness": true`; a harness result is
@@ -26,14 +29,34 @@ scientific question and no row disposition.
 | `records/repo-scope-v1.json` | `oi-scope/1` | the scope of the `repo` profile (item 11) |
 | `rules/register-infinity-params-v1.json` | `oi-term-rules/2` | the per-edit parameters of items 5 and 6 that are not extractable assignments of the plan's checker (kind `params`), linted against that checker |
 | `records/side-change-classes-v1.json` | `oi-side-change-classes/1` | the class `tool-landing` only: every path this tool's landing adds, each with its exact blob |
-| `freeze/freeze-ledger.json` | `oi-freeze-ledger/1` | the empty freeze ledger (it lands on `main` in its own merge after the authority record, approved by an owner comment created once that record is in force: design sec. 6.3, "Owner at creation") |
-| `workflow-draft/ledger-coverage.yml` | workflow | the one workflow whose runs may produce an acceptable result; its content hash is pinned in the authority record under `.github/workflows/ledger-coverage.yml`, where it must land unchanged |
 
 The A1 configuration `retirement-config.json` (`oi-retirement-config/1`) is not part of this landing. It
 belongs in the retirement plan's record directory, `verification/audits/foundations/a1exit-deletion-20261121/`,
 frozen with the plan at `F` with its review and authorization (design sec. 16.2), and it pins the class record
 above; the class record pins every other path of this landing. Until then it exists only as an unreviewed,
 unauthorized draft outside the repository, and the A1 controls read it with `--staged-config`.
+
+The empty freeze ledger carries the fields `schema` (`"oi-freeze-ledger/1"`) and `events` (`[]`) and no other: the
+ledger is append-only, and a change to any field other than `events` refuses (design sec. 6.3), so any further field
+would be fixed for every later version.
+
+## Host reads
+
+On the host, the history of `A` and of the freeze ledger is read from `main`'s first-parent chain: the chain is
+followed through the host's commit listing of `main` (which is not filtered by path), and each commit's blob of the
+path is compared with its first parent's, merge commits included. The host's path-filtered commit listing is not
+used: it omits a merge commit whose path equals its second parent's, which is how a pull-request merge lands a file.
+The reads are bounded; a listing that ends before the root commit, a truncated tree, a host error, a reached bound or
+bytes that differ from their tree entry refuse admission (ERROR `CONFIG_UNREVIEWED`).
+
+## Comments in governed threads
+
+No automated comment whose first line begins with `oi-` is posted in the authority thread or in a plan thread that `A`
+lists; every form comment (`oi-freeze/`, `oi-authority/`, `oi-freeze-ledger/`) is posted by the owner by hand (owner
+decision, `amaybaum`, 2026-11-24). The host attributes comments written through the owner's credentials to the
+owner's numeric id, so the tool cannot tell them from the owner's own, and one owner comment whose first line begins
+with such a prefix but does not match a form exactly, or that is ever edited, makes every admission in that thread
+refuse (design sec. 6.3, admission point 3).
 
 ## Limitations (stated, not closed)
 
@@ -68,4 +91,16 @@ path):
 
     python3 -I -B tools/ledger_coverage/adapters/staged_purity_lint.py --repo . --config $CFG --staged-config STAGED --out DIR
     python3 -I -B tools/ledger_coverage/adapters/a1_conformance.py --repo . --config $CFG --staged-config STAGED --out DIR
-    python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo . --config $CFG --staged-config STAGED --out DIR
+    python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo . --config $CFG --staged-config STAGED --main MAIN --out DIR
+
+`MAIN` is the `main` commit against which the sequencing safeguard (design sec. 13.4, control RT-L2) predicts `main`
+plus this landing; the runner exits with status 2 without it.
+
+## References to commits not on `main`
+
+The A1 controls (`a1_conformance.py`, `a1_controls.py`, `controls.json`) and the draft A1 records in `rules/` and
+`records/` read the frozen plan `P` (4c79be642ca631573f06b444903be75ec4f5e2b6) and the trial candidate `T1'`
+(14ac71b4b0a0c0aa2d7068d6799a73f474097060), neither of which is reachable from `main`. Every result of those controls,
+and every fingerprint or extraction those records take at `P` or `T1'`, is provenance only: no claim made from
+`main` rests on it until the content it reads is on `main`. The engine, the synthetic controls and the conformance
+controls (`self-test`, `synthetic_fixture.py`, `conformance_controls.py`) read no commit outside their own fixtures.
