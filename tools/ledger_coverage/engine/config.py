@@ -251,7 +251,8 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
                                             'their merge times)')
         L.store.timeline = tl
     # DI-2, two heads: among the records the run reads
-    L.store.heads_problems = rec.lineage_heads(list(cfg['rules']) + list(cfg['records']), L.store)
+    L.store.heads_problems = rec.lineage_heads(list(cfg['rules']) + list(cfg['records']) +
+                                               [{'path': path, 'blob_sha256': sha}], L.store)
     L.admitted = {r['blob_sha256'] for r in list(cfg['rules']) + list(cfg['records'])} | {sha}
     for p, d in entries:
         doc = L.store.by_sha[util.sha256(d)][1]

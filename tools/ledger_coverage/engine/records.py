@@ -423,9 +423,10 @@ def lint_chain(ref, store, owner, admitted_shas, predecessor=False):
 
 
 def lineage_heads(refs, store):
-    """DI-2, two heads: {blob sha: [problem]} for every record of a lineage that has two heads among the records the
-    run reads (the records the configuration references and every record their `supersedes` chains name), a head being
-    a record of the lineage that no other record the run reads supersedes."""
+    """DI-2, two heads and reused ids: {blob sha: [problem]} for every record of a lineage that has two heads among the
+    records the run reads (the records the configuration references and every record their `supersedes` chains name),
+    a head being a record of the lineage that no other record the run reads supersedes; and for every referenced
+    record whose lineage id another record of its kind carries off its supersedes chain."""
     read = {}
     for ref in refs:
         cur_ref, steps = ref, 0
@@ -456,6 +457,36 @@ def lineage_heads(refs, store):
         if lid is not None and len(groups.get((d.get('schema'), lid), [])) > 1 and ref.get('blob_sha256') not in out:
             out[ref.get('blob_sha256')] = ['record %s: lineage %s has two heads among the records the run reads'
                                            % (ref.get('path'), lid)]
+    # a reused id: a record carrying the lineage id of a record the configuration references, of the same kind and
+    # schema, in the audit directory, the plan's record directory or the records the run reads, while neither lies
+    # on the other's supersedes chain (sec. 6.3, DI-2: sharing an id within one lineage is not reuse)
+    if any(isinstance(d.get('supersedes'), dict) or lineage_id(d) is not None for _, d in read.values()):
+        pool = store.scanned()
+
+        def chain_of(sha, doc):
+            got, cur, steps = {sha}, doc, 0
+            while isinstance(cur, dict) and isinstance(cur.get('supersedes'), dict) and steps < 1000:
+                nxt = cur['supersedes'].get('blob_sha256')
+                if nxt in got:
+                    break
+                got.add(nxt)
+                cur = store.resolve(cur['supersedes'])
+                steps += 1
+            return got
+        for ref in refs:
+            d = store.resolve(ref)
+            lid = lineage_id(d)
+            if lid is None or d.get('schema') not in record_schemas:
+                continue
+            mine = chain_of(ref.get('blob_sha256'), d)
+            for s, (q, x) in sorted(pool.items(), key=lambda kv: kv[1][0]):
+                if s in mine or not isinstance(x, dict) or x.get('schema') != d.get('schema') or \
+                        lineage_id(x) != lid or ref.get('blob_sha256') in chain_of(s, x):
+                    continue
+                out.setdefault(ref.get('blob_sha256'), []).append(
+                    'record %s: id %s is reused by %s, which does not lie on its supersedes chain'
+                    % (ref.get('path'), lid, q))
+                break
     return out
 
 
