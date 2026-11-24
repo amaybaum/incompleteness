@@ -28,6 +28,9 @@ TEXT = ('# synthetic\n\nAxiom Z is the named premise of the synthetic world.\n\n
         'Closing words of the file.\n')
 WITNESS = 'syn/witness.md'
 OWNER, WRITER, REVIEWER, WIDENER = 4242, 'writer-a', 'reviewer-b', 'widener-d'  # the owner is a numeric id
+# the time of every owner authorization record: a host timestamp after the in-memory host world's first authority
+# record has merged (sec. 6.3, "Owner at creation"); a variant may give another time and owner
+AUTH_TIME = '2026-11-23T00:00:03Z'
 AD = 'tools/ledger_coverage/adapters/'
 
 
@@ -46,6 +49,8 @@ def module_bytes(name):
 
 class Syn:
     """Builds the synthetic world. variant: dict of configuration changes for the Z controls."""
+
+    auth_owner, auth_time = OWNER, AUTH_TIME
 
     def __init__(self, two_merges=False):
         self.repo = gitobj.Overlay(None)
@@ -99,6 +104,7 @@ class Syn:
         """Writes the configuration and its records into a commit derived from `at`; returns (commit, path, sha)."""
         v = variant or {}
         at = at or self.H
+        self.auth_owner, self.auth_time = v.get('auth_owner', OWNER), v.get('auth_time', AUTH_TIME)
         files = {}
         pats, allow = self.rule_files(v.get('allow_scope'))
         files['syn/rules-pat.json'] = jb(pats)
@@ -176,7 +182,7 @@ class Syn:
         lp = AD + 'line_patch.py'
         cfg = {'schema': 'oi-retirement-config/1', 'config_id': 'synthetic-retirement-config',
                'version': v.get('version', 1), 'supersedes': v.get('supersedes'),
-               'retirement': {'name': 'synthetic', 'issue': 'none', 'owner': OWNER},
+               'retirement': {'name': 'synthetic', 'issue': 'none', 'owner': v.get('owner', OWNER)},
                'roles': {'scientific_base': self.H, 'pin': self.pin, 'side_change_classes': None},
                'corpus': {'patterns': [r'^doc/[^/]+\.md$']},
                'adapters': {'ledger': {'adapter': 'line-patch', 'adapter_version': 1,
@@ -228,7 +234,8 @@ class Syn:
               'method': 'read every referenced object', 'verdicts': [{'item': 'synthetic-retirement-config',
                                                                      'verdict': 'accept'}]}
         files[path.rsplit('/', 1)[0] + '/review.json'] = jb(rv)
-        au = {'schema': 'oi-owner-authorization/1', 'owner': OWNER, 'time': 't0', 'comment_id': 'c-1',
+        au = {'schema': 'oi-owner-authorization/1', 'owner': v.get('cfg_auth_owner', self.auth_owner),
+              'time': v.get('cfg_auth_time', self.auth_time), 'comment_id': 'c-1',
               'authorizes': [{'record': cref, 'review': {'path': path.rsplit('/', 1)[0] + '/review.json',
                                                          'blob_sha256': sha(jb(rv))}}]}
         files[path.rsplit('/', 1)[0] + '/auth.json'] = jb(au)
@@ -239,7 +246,8 @@ class Syn:
         return commit, path, sha(cb), files
 
     def widening_auth(self, files, rec_path, wr_path):
-        au = {'schema': 'oi-owner-authorization/1', 'owner': OWNER, 'time': 't0', 'comment_id': 'c-3',
+        au = {'schema': 'oi-owner-authorization/1', 'owner': self.auth_owner, 'time': self.auth_time,
+              'comment_id': 'c-3',
               'authorizes': [{'record': {'path': rec_path, 'blob_sha256': sha(files[rec_path])},
                               'review': {'path': wr_path, 'blob_sha256': sha(files[wr_path])}}]}
         ap = wr_path[:-5] + '.auth.json'
@@ -254,7 +262,8 @@ class Syn:
               'verdicts': [{'item': i, 'verdict': 'accept'} for i in ids]}
         rp = path[:-5] + '.review.json'
         files[rp] = jb(rv)
-        au = {'schema': 'oi-owner-authorization/1', 'owner': OWNER, 'time': 't0', 'comment_id': 'c-2',
+        au = {'schema': 'oi-owner-authorization/1', 'owner': self.auth_owner, 'time': self.auth_time,
+              'comment_id': 'c-2',
               'authorizes': [{'record': ref, 'review': {'path': rp, 'blob_sha256': sha(files[rp])}}]}
         ap = path[:-5] + '.auth.json'
         files[ap] = jb(au)
@@ -448,7 +457,7 @@ def z_controls(r):
               'method': 'read the added merge and its chain',
               'verdicts': [{'item': 'synthetic-retirement-config:changed hp_obligations', 'verdict': 'accept'}]}
         wp = path.rsplit('/', 1)[0] + '/widening.json'
-        au = {'schema': 'oi-owner-authorization/1', 'owner': OWNER, 'time': 't0', 'comment_id': 'c-4',
+        au = {'schema': 'oi-owner-authorization/1', 'owner': OWNER, 'time': AUTH_TIME, 'comment_id': 'c-4',
               'authorizes': [{'record': {'path': path, 'blob_sha256': cfg_sha},
                               'review': {'path': wp, 'blob_sha256': sha(jb(wr))}}]}
         return {wp: jb(wr), path.rsplit('/', 1)[0] + '/widening-auth.json': jb(au)}

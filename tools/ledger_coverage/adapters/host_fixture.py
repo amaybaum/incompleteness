@@ -1,9 +1,10 @@
 """An in-memory host world for the admission controls (TR1-TR47) and the simulated-chain controls.
 
 It builds, on the engine's in-memory host, a repository with an authority record on `main` (approved, reviewed and
-merged by the owner), an empty freeze ledger (approved, reviewed and merged by the owner), a pinned workflow, a run
-record, and a plan thread holding the owner's designation of a freeze `F` that the caller builds in its own
-(in-memory) git repository with a pin table.
+merged by the owner), then, in a later merge, an empty freeze ledger (approved, reviewed and merged by the owner once
+the authority record is in force: sec. 6.3, "Owner at creation"), a pinned workflow, a run record, and a plan thread
+holding the owner's designation of a freeze `F` that the caller builds in its own (in-memory) git repository with a
+pin table.
 Every identity here is a synthetic fixture. Nothing is written to any host.
 """
 import hashlib
@@ -56,11 +57,36 @@ def authority(pin_table_path, owner_id=OWNER_ID, supersedes=None, extra=None):
     return a
 
 
+_ledger_versions = {}
+
+
+def added_event_items(new_bytes, old_sha):
+    """The item ids of a ledger change's review (sec. 6.3): the comment id of each event the change adds, or the one
+    item 'ledger' when it adds none (the first, empty ledger). The previous version is looked up by its sha256 among
+    the versions this fixture has reviewed; an unknown previous version counts every event as added."""
+    try:
+        new = json.loads(new_bytes.decode('utf-8')).get('events', [])
+    except (ValueError, UnicodeDecodeError, AttributeError):
+        return ['ledger']
+    old_b = _ledger_versions.get(old_sha)
+    old = json.loads(old_b.decode('utf-8')).get('events', []) if old_b is not None else []
+    added = new[len(old):] if isinstance(new, list) and new[:len(old)] == old else new
+    ids = []
+    for ev in added if isinstance(added, list) else []:
+        cid = ev.get('comment_id') if isinstance(ev, dict) else None
+        if cid is not None and str(cid) not in ids:
+            ids.append(str(cid))
+    return ids or ['ledger']
+
+
 def ledger_review(new_bytes, old_sha):
-    """An independent review record of a freeze-ledger change (sec. 6.3), naming both ledger blobs."""
+    """An independent review record of a freeze-ledger change (sec. 6.3), naming both ledger blobs, with one accept
+    verdict per event the change adds."""
+    _ledger_versions[sha(new_bytes)] = new_bytes
     return jb({'schema': 'oi-review-record/1', 'reviewer': 'reviewer-b',
                'reviewed': {'path': LEDGER_PATH, 'blob_sha256': sha(new_bytes)}, 'previous': old_sha,
-               'method': 'read both ledger versions', 'verdicts': [{'item': 'ledger', 'verdict': 'accept'}]})
+               'method': 'read both ledger versions',
+               'verdicts': [{'item': i, 'verdict': 'accept'} for i in added_event_items(new_bytes, old_sha)]})
 
 
 def ledger_review_file(a, new_bytes, old_sha):
@@ -91,22 +117,11 @@ class World:
         self.cid = 0
         self.comments = {(REPO_ID, PLAN_ISSUE): [], (REPO_ID, AUTH_ISSUE): []}
         self.h.threads = self.comments
-        self.approve(AUTH_ISSUE, 'oi-authority/1 approve from=none to=%s' % sha(self.a_bytes))
-        self.approve(AUTH_ISSUE, 'oi-authority/1 approve from=none to=%s' % sha(self.ledger_bytes))
-        files = {auth.authority_path: self.a_bytes, LEDGER_PATH: self.ledger_bytes, WF_PATH: WF,
-                 auth.review_path(self.a, sha(self.a_bytes)): self.review}
-        files.update(ledger_review_file(self.a, self.ledger_bytes, 'none'))
-        self.main = 'c1'
-        self.h.add_commit(REPO_ID, 'c0', [], {})
-        self.h.add_commit(REPO_ID, 'c1', ['c0'], files, merged_by=OWNER_ID, merged_at=self.tick())
-        self.h.repos[REPO_ID]['main'] = 'c1'
-        self.run_id = 501
-        self.h.runs[self.run_id] = {'repository_id': REPO_ID, 'fork': False, 'workflow_path': WF_PATH,
-                                    'head_sha': 'c1'}
+        bootstrap(self, OWNER_ID, {})
 
     def tick(self):
         self.t += 1
-        return '2026-11-23T00:00:%02dZ' % self.t
+        return '2026-11-23T%02d:%02d:%02dZ' % (self.t // 3600, self.t // 60 % 60, self.t % 60)
 
     def comment(self, issue, body, author_id=OWNER_ID, login=OWNER_LOGIN, edits=(), hidden=False, at=None):
         self.cid += 1
@@ -159,6 +174,24 @@ class World:
         self.main = cid
         self.h.repos[REPO_ID]['main'] = cid
         self.h.runs[self.run_id]['head_sha'] = cid
+
+
+def bootstrap(w, owner_id, extra_files):
+    """The first A, approved by the id it pins and merged (commit c1); then the first, empty freeze ledger, approved by
+    the owner once A is in force (an owner comment: sec. 6.3, "Owner at creation"), reviewed and merged (commit c1l).
+    A ledger approved before A's merge was by no owner, so the ledger lands in its own, later merge."""
+    w.approve(AUTH_ISSUE, 'oi-authority/1 approve from=none to=%s' % sha(w.a_bytes), author_id=owner_id)
+    files = {auth.authority_path: w.a_bytes, WF_PATH: WF, auth.review_path(w.a, sha(w.a_bytes)): w.review}
+    files.update(extra_files)
+    w.main = 'c1'
+    w.h.add_commit(REPO_ID, 'c0', [], {})
+    w.h.add_commit(REPO_ID, 'c1', ['c0'], files, merged_by=owner_id, merged_at=w.tick())
+    w.h.repos[REPO_ID]['main'] = 'c1'
+    w.run_id = 501
+    w.h.runs[w.run_id] = {'repository_id': REPO_ID, 'fork': False, 'workflow_path': WF_PATH, 'head_sha': 'c1'}
+    w.approve(AUTH_ISSUE, 'oi-authority/1 approve from=none to=%s' % sha(w.ledger_bytes), author_id=owner_id)
+    w.add_main('c1l', dict(ledger_review_file(w.a, w.ledger_bytes, 'none'), **{LEDGER_PATH: w.ledger_bytes}),
+               merged_by=owner_id)
 
 
 def freeze_files(world, cfg_path, cfg_bytes, review_path, review_bytes, auth_path, auth_bytes, extra_listed=()):

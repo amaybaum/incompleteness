@@ -1,6 +1,8 @@
-"""Controls added for the frozen design v5.5.2 (sec. 10.4, 13.2): admission TR1-TR47 on an in-memory host, the
-acceptance predicate X11 and the durable evidence TR45/TR46, native delegation G4-G9 on a small on-disk
-repository, commits after X R16/R17, widening A12r, purity Z9h, and the synthetic parts of S4a and Z11.
+"""Controls of the design (v5.5.8; sec. 10.4, 13.2): admission TR1-TR70 on an in-memory host (TR54-TR70: owner at
+creation, DI-1), the acceptance predicate X11 and the durable evidence TR45/TR46, native delegation G4-G9 on a small
+on-disk repository, commits after X R16/R17, widening A12r, purity Z9h, the synthetic parts of S4a and Z11, the
+lineage controls LN1-LN12 (DI-2), one review verdict per added ledger event (R6-EV), and the controls for the
+independent reviews' findings (R3-*, R4-*, R5-*).
 
 Every control is reported as {id, expected, predicate, actual, status} with status PASS, FAIL, SKIP or NOT RUN
 (sec. 10.4, B6). A control that needs the real host (a CI job with the host's API) is NOT RUN here, never PASS.
@@ -63,8 +65,8 @@ class TR:
         self.r = runner
         self.syn = sf.Syn()
         self.pd = sf.patch_doc(self.syn.H, [])
-        self.c, self.p, self.s, self.files = self.syn.build({'patch_sha': sha(self.pd),
-                                                              'files': {'syn/patch.json': self.pd}})
+        self.variant = {'patch_sha': sha(self.pd), 'files': {'syn/patch.json': self.pd}}
+        self.c, self.p, self.s, self.files = self.syn.build(self.variant)
         self.repo = self.syn.repo
 
     def world(self):
@@ -79,6 +81,23 @@ class TR:
                  auth.authority_path: a_bytes if a_bytes is not None else w.a_bytes}
         files.update(extra or {})
         return self.repo.derive(self.c, files, parents=self.repo.parents(self.c), subject='freeze')
+
+    def refreeze(self, w, owner=None, at=None, retirement_owner=None, a_bytes=None, extra=None, variant=None):
+        """F re-frozen after owner changes (sec. 6.3, "Owner at creation"): a configuration whose review chain carries
+        owner authorizations by `owner` (the owner in force by default) at time `at` (now by default), and whose
+        retirement.owner is `retirement_owner` (the same owner by default)."""
+        owner = owner if owner is not None else w.a['owner']['id']
+        v = dict(self.variant, auth_owner=owner, auth_time=at or w.tick(),
+                 owner=retirement_owner if retirement_owner is not None else owner)
+        v.update(variant or {})
+        c, p, _, _ = self.syn.build(v)
+        assert p == self.p
+        old = self.c
+        self.c = c
+        try:
+            return self.freeze(w, a_bytes=a_bytes, extra=extra)
+        finally:
+            self.c = old
 
     def run(self, w, F, args=None, control=None, harness=False, environ=None, op=None):
         argv = (op or ['terms']) + ['--config', '%s:%s' % (F, self.p), '--out', self.r.out()] + \
@@ -348,7 +367,8 @@ def tr_controls(r):
     w24.designate(F24)
     a24 = show(*t.run(w24, F24, environ={'OI_AUTHORITY_FILE': '/nonexistent/authority.json'}))
     w25 = t.world()
-    w25.h.repos[hf.REPO_ID]['commits']['c1']['files'].pop(auth.authority_path)
+    for cm in ('c1', w25.main):
+        w25.h.repos[hf.REPO_ID]['commits'][cm]['files'].pop(auth.authority_path, None)
     F25 = t.freeze(w25)
     w25.designate(F25)
     a25 = show(*t.run(w25, F25))
@@ -410,10 +430,10 @@ def tr_controls(r):
         F29 = t.freeze(w29)
         w29.designate(F29)
         if mut == 'branch':
-            w29.h.add_commit(hf.REPO_ID, 'b1', ['c1'], dict(w29.h.repos[hf.REPO_ID]['commits']['c1']['files']))
+            w29.h.add_commit(hf.REPO_ID, 'b1', [w29.main], dict(w29.h.repos[hf.REPO_ID]['commits'][w29.main]['files']))
             w29.h.runs[w29.run_id]['head_sha'] = 'b1'
         else:
-            w29.h.add_commit(hf.REPO_ID, 'xx', ['c1'], {'doc/s.md': b'x\n'})
+            w29.h.add_commit(hf.REPO_ID, 'xx', [w29.main], {'doc/s.md': b'x\n'})
             w29.add_main('c2', {})
             w29.h.repos[hf.REPO_ID]['commits']['c2']['parents'] = ['xx']
             w29.h.runs[w29.run_id]['head_sha'] = 'xx'
@@ -582,19 +602,7 @@ def world_with_authority(a, extra_files, owner_id=None):
     w.t, w.cid = 0, 0
     w.comments = {(hf.REPO_ID, hf.PLAN_ISSUE): [], (hf.REPO_ID, hf.AUTH_ISSUE): []}
     w.h.threads = w.comments
-    w.comment(hf.AUTH_ISSUE, 'oi-authority/1 approve from=none to=%s' % sha(w.a_bytes), author_id=owner_id)
-    w.comment(hf.AUTH_ISSUE, 'oi-authority/1 approve from=none to=%s' % sha(w.ledger_bytes), author_id=owner_id)
-    files = {auth.authority_path: w.a_bytes, hf.LEDGER_PATH: w.ledger_bytes, hf.WF_PATH: hf.WF,
-             auth.review_path(a, sha(w.a_bytes)): w.review}
-    files.update(hf.ledger_review_file(a, w.ledger_bytes, 'none'))
-    files.update(extra_files)
-    w.main = 'c1'
-    w.h.add_commit(hf.REPO_ID, 'c0', [], {})
-    w.h.add_commit(hf.REPO_ID, 'c1', ['c0'], files, merged_by=owner_id, merged_at=w.tick())
-    w.h.repos[hf.REPO_ID]['main'] = 'c1'
-    w.run_id = 501
-    w.h.runs[w.run_id] = {'repository_id': hf.REPO_ID, 'fork': False, 'workflow_path': hf.WF_PATH,
-                          'head_sha': 'c1'}
+    hf.bootstrap(w, owner_id, extra_files)
     return w
 
 
@@ -980,7 +988,9 @@ def _r4_run(t, steps):
     w = t.world()
     a1 = w.a_bytes
     steps(w)
-    F = t.freeze(w, a_bytes=a1)
+    # F is frozen after the steps, its configuration authorized by the owner in force then (sec. 6.3, "Owner at
+    # creation"); the configuration names owner 4242
+    F = t.refreeze(w, a_bytes=a1, retirement_owner=hf.OWNER_ID)
     w.designate(F, author_id=w.a['owner']['id'])
     code, res = t.run(w, F)
     msg = ((res or {}).get('stop') or {}).get('message', '')
@@ -1118,7 +1128,7 @@ def _r4_class_scenario(r, cls_mut=None, verdicts=None):
     rv = {'schema': 'oi-review-record/1', 'reviewer': sf.REVIEWER, 'reviewed': ref, 'method': 'read',
           'verdicts': vs}
     files['syn/classes.review.json'] = sf.jb(rv)
-    au = {'schema': 'oi-owner-authorization/1', 'owner': sf.OWNER, 'time': 't0', 'comment_id': 'c-2',
+    au = {'schema': 'oi-owner-authorization/1', 'owner': sf.OWNER, 'time': sf.AUTH_TIME, 'comment_id': 'c-2',
           'authorizes': [{'record': ref, 'review': {'path': 'syn/classes.review.json',
                                                     'blob_sha256': sha(files['syn/classes.review.json'])}}]}
     files['syn/classes.auth.json'] = sf.jb(au)
@@ -1514,6 +1524,874 @@ def r5_n6_controls(r):
           got.get('exit') == 20 and 'syn/classes.json' in got.get('record_invalid', []) and
           'notes/side.txt' in got.get('unclassified', []) and pos.get('exit') == 10 and
           not pos.get('record_invalid') and not pos.get('unclassified'))
+
+# ---- design v5.5.8: owner at creation (DI-1), TR54-TR70 ----------------------------------------------------------
+
+NEW_OWNER, THIRD_OWNER = 5555, 6666
+
+
+def _show(code, res):
+    return {'exit': code, 'stop': stop(res), 'message': ((res or {}).get('stop') or {}).get('message', '')[:200],
+            'record_invalid': sorted({str(i.get('subject')) for i in (res or {}).get('items', [])
+                                      if i['class'] == 'record-invalid'})}
+
+
+def _point5(t, w, F):
+    """The control harness of admission points 1-6 (sec. 6.3), on the in-memory host: whether `F` is the one
+    designated commit of the round at point 5 (the configuration's own chain, point 7, is not evaluated)."""
+    try:
+        _, snap, _, _ = auth.admit(w.h, t.repo, w.run_id, hf.PLAN, hf.ROUND, F, t.p)
+    except auth.Refused as exc:
+        return {'admitted': False, 'point': exc.point, 'message': exc.message[:200]}
+    return {'admitted': True, 'designation': snap.get('designation_comment_id')}
+
+
+def _full(t, w, F):
+    """The full chain on the in-memory host: points 1-7 and the run."""
+    return _show(*t.run(w, F))
+
+
+def _point7(o):
+    """A refusal at admission point 7: ERROR CONFIG_UNREVIEWED from the owner field or the configuration's own
+    authorization (its review chain), not from points 1-6."""
+    return o['exit'] == 65 and o['stop'] == 'CONFIG_UNREVIEWED' and \
+        ('retirement.owner' in o['message'] or 'configuration review chain' in o['message'])
+
+
+def _owner_change(w, owner):
+    """A verified authority change to `owner`, approved by the owner in force and (for an owner-id change) by `owner`,
+    both before the merge."""
+    _r4_owner_change(w, owner)
+
+
+def _designate(w, F, owner):
+    return w.designate(F, author_id=owner, login='login-%d' % owner)
+
+
+def _form(w, line, owner):
+    return w.comment(hf.PLAN_ISSUE, line, author_id=owner, login='login-%d' % owner)
+
+
+def _ledger_with(w, cid):
+    old = json.loads(w.ledger_bytes.decode('utf-8'))['events']
+    return hf.jb({'schema': auth.ledger_schema, 'events': old + [
+        {'plan': hf.PLAN, 'round': 'r0', 'kind': 'withdraw', 'commit': 'ab' * 20, 'comment_id': cid,
+         'author_id': w.a['owner']['id'], 'created_at': '2026-11-23T00:00:01Z', 'first_line': 'x'}]})
+
+
+def _ledger_comments(w, new, author):
+    old = w.ledger_bytes
+    w.comment(hf.AUTH_ISSUE, 'oi-authority/1 approve from=%s to=%s' % (sha(old), sha(new)), author_id=author)
+    w.comment(hf.PLAN_ISSUE, 'oi-freeze-ledger/1 append plan=%s round=%s from=%s to=%s'
+              % (hf.PLAN, hf.ROUND, sha(old), sha(new)), author_id=author)
+
+
+def _ledger_merge(w, new, merged_by):
+    old = w.ledger_bytes
+    w.add_main('c%d' % (len(w.h.repos[hf.REPO_ID]['commits']) + 1),
+               dict(hf.ledger_review_file(w.a, new, sha(old)), **{hf.LEDGER_PATH: new}), merged_by=merged_by)
+    w.ledger_bytes = new
+
+
+def _landing(w, new):
+    """The landing check of the acceptance landing carrying `new` (not merged): refused, or the approvals."""
+    old = w.ledger_bytes
+    try:
+        got = auth.check_ledger_landing(w.h, hf.REPO_ID, new, hf.ledger_review(new, sha(old)))
+    except auth.Refused as exc:
+        return {'merges': False, 'point': exc.point, 'message': exc.message[:220]}
+    except Exception as exc:  # an engine without the landing check: the control fails, it does not abort the group
+        return {'merges': None, 'error': '%s: %s' % (type(exc).__name__, exc)}
+    return {'merges': True, 'approvals': got}
+
+
+def _owner_at_creation_refusal(o):
+    return 'Owner at creation' in o.get('message', '')
+
+
+def tr54_tr61(t):
+    out = {}
+    # TR54 (D1)
+    w = t.world()
+    F = t.freeze(w)
+    _designate(w, F, hf.OWNER_ID)
+    _owner_change(w, NEW_OWNER)
+    first = {'point5': _point5(t, w, F), 'full': _full(t, w, F)}
+    _designate(w, F, NEW_OWNER)
+    second = {'point5': _point5(t, w, F), 'full': _full(t, w, F)}
+    out['TR54'] = {'former owner only': first, 'then 5555 designates F': second}
+    check('TR54', '(review probe D1) owner 4242 designates F; an owner change 4242 -> 5555 merges; no later '
+          'designation: ERROR (missing designation; the former owner\'s designation does not count). Separately, 5555 '
+          'then designates F: F is the one designated commit at point 5 (control harness); in a full chain, ERROR '
+          'CONFIG_UNREVIEWED at point 7, since F\'s configuration authorization predates the owner change and F must '
+          'be re-frozen',
+          "first: point 5 refuses (point 'state', F not the one designated commit) and the full chain exits 65 "
+          "CONFIG_UNREVIEWED; second: point 5 admits F by 5555's designation, and the full chain exits 65 "
+          "CONFIG_UNREVIEWED at point 7", out['TR54'],
+          not first['point5']['admitted'] and first['point5'].get('point') == 'state' and
+          'not the one designated' in first['point5'].get('message', '') and
+          first['full']['exit'] == 65 and first['full']['stop'] == 'CONFIG_UNREVIEWED' and
+          second['point5']['admitted'] and _point7(second['full']))
+    # TR55 (D2)
+    w = t.world()
+    F = t.freeze(w)
+    _designate(w, F, hf.OWNER_ID)
+    _form(w, 'oi-freeze/1 withdraw plan=%s round=%s commit=%s' % (hf.PLAN, hf.ROUND, F), hf.OWNER_ID)
+    _owner_change(w, NEW_OWNER)
+    _designate(w, F, NEW_OWNER)
+    o = {'point5': _point5(t, w, F), 'full': _full(t, w, F)}
+    check('TR55', '(D2) 4242 designates and then withdraws F, the withdrawal not in the freeze ledger; 4242 -> 5555; '
+          '5555 designates F: ERROR (designation of a withdrawn commit: the withdrawal, an owner comment at its '
+          'creation, binds after the owner change)',
+          "point 5 refuses with 'a revoked commit is designated again'; the full chain exits 65 CONFIG_UNREVIEWED", o,
+          not o['point5']['admitted'] and 'designated again' in o['point5'].get('message', '') and
+          o['full']['exit'] == 65 and o['full']['stop'] == 'CONFIG_UNREVIEWED')
+    # TR56 (D3)
+    w = t.world()
+    F = t.freeze(w)
+    _designate(w, F, NEW_OWNER)
+    _owner_change(w, NEW_OWNER)
+    o = {'point5': _point5(t, w, F), 'full': _full(t, w, F)}
+    check('TR56', '(D3) 5555 designates F while 4242 is the owner; then 4242 -> 5555; no later designation: ERROR '
+          '(missing designation: the comment is not an owner comment)',
+          "point 5 refuses (point 'state', F not the one designated commit); the full chain exits 65 "
+          "CONFIG_UNREVIEWED", o,
+          not o['point5']['admitted'] and o['point5'].get('point') == 'state' and
+          'not the one designated' in o['point5'].get('message', '') and o['full']['exit'] == 65 and
+          o['full']['stop'] == 'CONFIG_UNREVIEWED')
+
+    # TR57 (L5) and TR58 (L6): the ledger change, each ledger route separately
+    def ledger_case(approver, before):
+        """Both approval comments by `approver`, created before the owner changes `before` (a list of owners);
+        returns the landing route (an acceptance landing carrying the change, not merged) and the main route (the
+        change merged on main by the owner in force, then an admission)."""
+        res = {}
+        for route in ('landing', 'main'):
+            w = t.world()
+            a1 = w.a_bytes
+            new = _ledger_with(w, 880001)
+            _ledger_comments(w, new, approver)
+            for owner in before:
+                _owner_change(w, owner)
+            if route == 'landing':
+                res[route] = _landing(w, new)
+            else:
+                _ledger_merge(w, new, w.a['owner']['id'])
+                F = t.refreeze(w, a_bytes=a1)
+                _designate(w, F, w.a['owner']['id'])
+                res[route] = _full(t, w, F)
+        return res
+    o57 = ledger_case(hf.OWNER_ID, [NEW_OWNER, hf.OWNER_ID])
+    check('TR57', '(L5) a freeze-ledger change whose oi-authority/1 approve and oi-freeze-ledger/1 append comments '
+          '4242 created before 4242 -> 5555 -> 4242, merged after the change back; each ledger route separately: the '
+          'change is refused (an owner change merged between the approvals\' creation and the merge): an acceptance '
+          'landing carrying it does not merge, and a ledger on main carrying it makes every later admission refuse',
+          "landing route: check_ledger_landing refuses, naming Owner at creation; main route: the admission exits 65 "
+          "CONFIG_UNREVIEWED naming the freeze-ledger change and Owner at creation", o57,
+          o57['landing'].get('merges') is False and _owner_at_creation_refusal(o57['landing']) and
+          o57['main']['exit'] == 65 and o57['main']['stop'] == 'CONFIG_UNREVIEWED' and
+          'freeze-ledger change' in o57['main']['message'] and _owner_at_creation_refusal(o57['main']))
+    o58 = ledger_case(NEW_OWNER, [NEW_OWNER])
+    check('TR58', '(L6) 5555 creates both approval comments of a freeze-ledger change while 4242 is the owner; 4242 -> '
+          '5555; the change merged under 5555; each ledger route separately: refused as in TR57 (the approvals are not '
+          'owner comments)',
+          "landing route: check_ledger_landing refuses, naming Owner at creation; main route: the admission exits 65 "
+          "CONFIG_UNREVIEWED naming the freeze-ledger change and Owner at creation", o58,
+          o58['landing'].get('merges') is False and _owner_at_creation_refusal(o58['landing']) and
+          o58['main']['exit'] == 65 and o58['main']['stop'] == 'CONFIG_UNREVIEWED' and
+          'freeze-ledger change' in o58['main']['message'] and _owner_at_creation_refusal(o58['main']))
+    # TR59: A -> B -> A
+    w = t.world()
+    F = t.freeze(w)
+    _designate(w, F, hf.OWNER_ID)
+    _owner_change(w, NEW_OWNER)
+    _owner_change(w, hf.OWNER_ID)
+    o = {'point5': _point5(t, w, F), 'full': _full(t, w, F)}
+    check('TR59', '4242 designates F; 4242 -> 5555 -> 4242; no later designation: ERROR (missing designation: an owner '
+          'change merged between the designation\'s creation and the admission)',
+          "point 5 refuses (point 'state', F not the one designated commit); the full chain exits 65 "
+          "CONFIG_UNREVIEWED", o,
+          not o['point5']['admitted'] and o['point5'].get('point') == 'state' and
+          'not the one designated' in o['point5'].get('message', '') and o['full']['exit'] == 65 and
+          o['full']['stop'] == 'CONFIG_UNREVIEWED')
+    # TR60: completed actions (positive)
+    w = t.world()
+    a1 = w.a_bytes
+    w.land_ledger(_ledger_with(w, 880002))
+    _owner_change(w, NEW_OWNER)
+    F = t.refreeze(w, a_bytes=a1)
+    _designate(w, F, NEW_OWNER)
+    o = _full(t, w, F)
+    check('TR60', '(positive) a freeze-ledger append approved by 4242 and merged while 4242 is the owner; later an '
+          'owner change 4242 -> 5555 approved by both ids; 5555 designates an F whose configuration authorization 5555 '
+          'made after the change: the earlier append and the authority chain verify (completed actions); F admitted',
+          "the full chain exits 0", o, o['exit'] == 0)
+    # TR61: a former owner's supersession
+    res = {}
+    for second in (False, True):
+        w = t.world()
+        F = t.freeze(w)
+        F2 = t.freeze(w, extra={'syn/other.txt': b'2\n'})
+        _designate(w, F, hf.OWNER_ID)
+        _form(w, 'oi-freeze/1 supersede plan=%s round=%s commit=%s by=%s' % (hf.PLAN, hf.ROUND, F, F2), hf.OWNER_ID)
+        _owner_change(w, NEW_OWNER)
+        if second:
+            _designate(w, F2, NEW_OWNER)
+        res['5555 designates F2' if second else 'no later designation'] = {
+            'F point5': _point5(t, w, F), 'F full': _full(t, w, F), 'F2 point5': _point5(t, w, F2),
+            'F2 full': _full(t, w, F2)}
+    a, b = res['no later designation'], res['5555 designates F2']
+    check('TR61', '4242 designates F and then supersedes it by F2 in the thread, not in the ledger; 4242 -> 5555. '
+          'Separately, 5555 then designates F2: admission of F: ERROR (F withdrawn) in both; admission of F2: ERROR '
+          '(missing designation) in the first; in the second, F2 is the one designated commit at point 5 (control '
+          'harness), and in a full chain ERROR CONFIG_UNREVIEWED at point 7 as in TR54',
+          "F: point 5 refuses (point 'state') and the full chain exits 65 in both; F2, first: point 5 refuses (point "
+          "'state', not the one designated) and the full chain exits 65; F2, second: point 5 admits F2 and the full "
+          "chain exits 65 CONFIG_UNREVIEWED at point 7", res,
+          all(not x['F point5']['admitted'] and x['F point5'].get('point') == 'state' and x['F full']['exit'] == 65
+              for x in (a, b)) and
+          not a['F2 point5']['admitted'] and 'not the one designated' in a['F2 point5'].get('message', '') and
+          a['F2 full']['exit'] == 65 and b['F2 point5']['admitted'] and _point7(b['F2 full']))
+
+
+def tr62_tr64(t):
+    # TR62: an owner-id change, the new id's approval before and after the merge
+    res = {}
+    for after in (False, True):
+        w = t.world()
+        a1 = w.a_bytes
+        new_a = hf.authority('syn/PREREG.md', owner_id=NEW_OWNER,
+                             supersedes={'path': auth.authority_path, 'blob_sha256': sha(w.a_bytes)},
+                             extra={'status': 'owner-id change'})
+        old_sha = sha(w.a_bytes)
+        change_authority(w, new_a, extra_approver=None if after else NEW_OWNER)
+        if after:
+            w.comment(hf.AUTH_ISSUE, 'oi-authority/1 approve from=%s to=%s' % (old_sha, sha(hf.jb(new_a))),
+                      author_id=NEW_OWNER)
+        F = t.refreeze(w, a_bytes=a1)
+        _designate(w, F, NEW_OWNER)
+        res['after the merge' if after else 'both before the merge'] = _full(t, w, F)
+    a, b = res['both before the merge'], res['after the merge']
+    check('TR62', 'an owner-id change 4242 -> 5555 approved by 4242 and by 5555, both created before the merge; '
+          'separately, 5555\'s approval created after the merge: the first verifies (5555\'s approval is authenticated '
+          'as the id the new A pins); the second: ERROR',
+          "first: the full chain exits 0; second: exits 65 CONFIG_UNREVIEWED naming the authority change's new id",
+          res, a['exit'] == 0 and b['exit'] == 65 and b['stop'] == 'CONFIG_UNREVIEWED' and 'new id' in b['message'])
+    # TR63: A.supersedes
+    res = {}
+    for case in ('other blob', 'null'):
+        w = t.world()
+        a1 = w.a_bytes
+        sup = {'path': auth.authority_path, 'blob_sha256': '0' * 64} if case == 'other blob' else None
+        change_authority(w, hf.authority('syn/PREREG.md', supersedes=sup, extra={'status': 'second'}))
+        F = t.refreeze(w, a_bytes=a1)
+        _designate(w, F, hf.OWNER_ID)
+        res[case] = _full(t, w, F)
+    check('TR63', 'an A on main whose supersedes names a blob other than the version of A preceding it on main\'s '
+          'first-parent chain; separately, names null while a version precedes it: ERROR CONFIG_UNREVIEWED in both',
+          "both exit 65 CONFIG_UNREVIEWED naming the authority record's supersession", res,
+          all(o['exit'] == 65 and o['stop'] == 'CONFIG_UNREVIEWED' and 'supersede' in o['message']
+              for o in res.values()))
+    # TR64: approvals before a change of A that keeps the owner (positive)
+    w = t.world()
+    a1 = w.a_bytes
+    new = _ledger_with(w, 880003)
+    _ledger_comments(w, new, hf.OWNER_ID)
+    change_authority(w, hf.authority('syn/PREREG.md', supersedes={'path': auth.authority_path,
+                                                                  'blob_sha256': sha(w.a_bytes)},
+                                     extra={'status': 'a changed pin, same owner'}))
+    _ledger_merge(w, new, hf.OWNER_ID)
+    F = t.refreeze(w, a_bytes=a1)
+    _designate(w, F, hf.OWNER_ID)
+    o = _full(t, w, F)
+    check('TR64', '(positive) a freeze-ledger change whose approvals 4242 created before a merged change of A that '
+          'keeps owner.id 4242, merged after it: the approvals count (no owner change); the change verifies',
+          "the full chain exits 0", o, o['exit'] == 0)
+
+
+def tr65(t):
+    """Authorization records: the configuration's own, and those of the other records (the rule files)."""
+    res = {}
+
+    def run(case, which):
+        w = t.world()
+        a1 = w.a_bytes
+        if case == 'future owner':
+            at = w.tick()
+            _owner_change(w, NEW_OWNER)
+            owner, time = NEW_OWNER, at
+        elif case == 'away and back':
+            at = w.tick()
+            _owner_change(w, NEW_OWNER)
+            _owner_change(w, hf.OWNER_ID)
+            owner, time = hf.OWNER_ID, at
+        else:
+            _owner_change(w, NEW_OWNER)
+            owner, time = NEW_OWNER, w.tick()
+        final = w.a['owner']['id']
+        good = w.tick()
+        if which == 'configuration':
+            v = {'cfg_auth_owner': owner, 'cfg_auth_time': time, 'auth_owner': final, 'auth_time': good}
+        else:
+            v = {'cfg_auth_owner': final, 'cfg_auth_time': good, 'auth_owner': owner, 'auth_time': time}
+        F = t.refreeze(w, a_bytes=a1, retirement_owner=final, variant=v)
+        _designate(w, F, final)
+        return _show(*t.run(w, F))
+    for case in ('future owner', 'away and back', 'positive'):
+        for which in ('configuration', 'other records'):
+            res['%s / %s' % (case, which)] = run(case, which)
+    bad_cfg = [res['future owner / configuration'], res['away and back / configuration']]
+    bad_rec = [res['future owner / other records'], res['away and back / other records']]
+    good = [res['positive / configuration'], res['positive / other records']]
+    check('TR65', '(authorization analogue of D3 and L5) an authorization record whose time falls while 4242 is owner '
+          'and whose owner is 5555; 4242 -> 5555; 5555 designates F, whose configuration uses it. Separately, 4242\'s '
+          'authorization with time before 4242 -> 5555 -> 4242. Separately (positive), 5555\'s authorization with time '
+          'after 4242 -> 5555: the first two: ERROR CONFIG_UNREVIEWED for the configuration\'s authorization, FAIL '
+          'record-invalid for any other record\'s; the third: admitted',
+          "first two, the configuration's own: exit 65 CONFIG_UNREVIEWED naming Owner at creation; the other records' "
+          "(the rule files): exit 20 with record-invalid on both rule files; the positive: exit 0 in both forms", res,
+          all(o['exit'] == 65 and o['stop'] == 'CONFIG_UNREVIEWED' and 'Owner at creation' in o['message']
+              for o in bad_cfg) and
+          all(o['exit'] == 20 and {'syn/rules-pat.json', 'syn/rules-allow.json'} <= set(o['record_invalid'])
+              for o in bad_rec) and all(o['exit'] == 0 for o in good))
+
+
+def tr66_tr70(t):
+    # TR66
+    res = {}
+    for by in (NEW_OWNER, hf.OWNER_ID):
+        w = t.world()
+        F = t.freeze(w)
+        _designate(w, F, hf.OWNER_ID)
+        _form(w, 'oi-freeze/1 withdraw plan=%s round=%s commit=%s' % (hf.PLAN, hf.ROUND, F), by)
+        _owner_change(w, NEW_OWNER)
+        d = _designate(w, F, NEW_OWNER)
+        res['withdrawal by %d' % by] = dict(_point5(t, w, F), want=d['id'])
+    a, b = res['withdrawal by %d' % NEW_OWNER], res['withdrawal by %d' % hf.OWNER_ID]
+    check('TR66', '4242 designates F; 5555 posts oi-freeze/1 withdraw of F while 4242 is the owner; 4242 -> 5555; 5555 '
+          'designates F (control harness). Separately, the withdrawal posted by 4242 before the change: the first: F '
+          'is the one designated commit at point 5 (the withdrawal is not an owner comment and is not processed); the '
+          'second: ERROR (designation of a withdrawn commit)',
+          "first: point 5 admits F by 5555's designation; second: point 5 refuses with 'designated again'", res,
+          a['admitted'] and a.get('designation') == a['want'] and not b['admitted'] and
+          'designated again' in b.get('message', ''))
+    # TR67
+    res = {}
+    for edited in (True, False):
+        w = t.world()
+        F = t.freeze(w)
+        c = _form(w, 'a note without a form', hf.OWNER_ID)
+        _owner_change(w, NEW_OWNER)
+        if edited:
+            c['edits'] = [c['body']]
+            c['body'] = 'oi-freeze/1 withdraw plan=%s round=%s commit=%s' % (hf.PLAN, hf.ROUND, 'cd' * 20)
+        _designate(w, F, NEW_OWNER)
+        res['edited' if edited else 'unedited'] = _point5(t, w, F)
+    check('TR67', 'a comment without a form, created by 4242 while owner; 4242 -> 5555; the comment then edited by 4242 '
+          'into a first line beginning oi-freeze/. Separately, the same comment left unedited: the first: ERROR (point '
+          '3); the second: no refusal from point 3 or 4',
+          "edited: point 5's harness refuses at point 3 (point 'edits'); unedited: no refusal at point 'edits' or "
+          "'forms' (the admission holds)", res,
+          not res['edited']['admitted'] and res['edited'].get('point') == 'edits' and res['unedited']['admitted'])
+    # TR68: approvals of A changes created under an earlier owner
+    def av(owner, prev_bytes, status):
+        return hf.authority('syn/PREREG.md', owner_id=owner, supersedes={'path': auth.authority_path,
+                                                                         'blob_sha256': sha(prev_bytes)},
+                            extra={'status': status})
+    res = {}
+    for case in ('A', 'B', 'C'):
+        w = t.world()
+        a1 = w.a_bytes
+        v2 = av(NEW_OWNER, w.a_bytes, 'V2')
+        if case == 'A':
+            v3 = av(NEW_OWNER, hf.jb(v2), 'V3')
+            w.comment(hf.AUTH_ISSUE, 'oi-authority/1 approve from=%s to=%s' % (sha(hf.jb(v2)), sha(hf.jb(v3))),
+                      author_id=NEW_OWNER)
+            change_authority(w, v2, extra_approver=NEW_OWNER)
+            change_authority(w, v3, approve=False)
+        elif case == 'B':
+            v3 = av(hf.OWNER_ID, hf.jb(v2), 'V3')
+            v4 = av(hf.OWNER_ID, hf.jb(v3), 'V4')
+            w.comment(hf.AUTH_ISSUE, 'oi-authority/1 approve from=%s to=%s' % (sha(hf.jb(v3)), sha(hf.jb(v4))),
+                      author_id=hf.OWNER_ID)
+            change_authority(w, v2, extra_approver=NEW_OWNER)
+            change_authority(w, v3, extra_approver=hf.OWNER_ID)
+            change_authority(w, v4, approve=False)
+        else:
+            v3 = av(THIRD_OWNER, hf.jb(v2), 'V3')
+            w.comment(hf.AUTH_ISSUE, 'oi-authority/1 approve from=%s to=%s' % (sha(hf.jb(v2)), sha(hf.jb(v3))),
+                      author_id=THIRD_OWNER)
+            change_authority(w, v2, extra_approver=NEW_OWNER)
+            change_authority(w, v3)
+        F = t.refreeze(w, a_bytes=a1)
+        _designate(w, F, w.a['owner']['id'])
+        res[case] = _full(t, w, F)
+    check('TR68', 'V1 (owner 4242) -> V2 (owner 5555) is an owner change. Each case separately, with every other '
+          'approval and review in it valid: an A change V2 -> V3 keeping 5555, whose previous-id approval 5555 created '
+          'while V1 was in force; an A change V3 -> V4 after V2 -> V3 (5555 -> 4242), whose previous-id approval 4242 '
+          'created while V1 was in force; an owner-id change V2 -> V3 (5555 -> 6666), whose new-id approval 6666 '
+          'created before V1 -> V2 merged: ERROR in each case: the change does not take effect, and every later '
+          'admission refuses',
+          "each case: the admission exits 65 CONFIG_UNREVIEWED naming the authority change", res,
+          all(o['exit'] == 65 and o['stop'] == 'CONFIG_UNREVIEWED' and 'authority' in o['message']
+              for o in res.values()))
+    # TR69
+    w = t.world()
+    F = t.freeze(w)
+    F1 = t.freeze(w, extra={'syn/other.txt': b'1\n'})
+    _designate(w, F, NEW_OWNER)
+    _owner_change(w, NEW_OWNER)
+    _form(w, 'oi-freeze/1 withdraw plan=%s round=%s commit=%s' % (hf.PLAN, hf.ROUND, F), NEW_OWNER)
+    _designate(w, F1, NEW_OWNER)
+    res = {'F': _point5(t, w, F), "F'": _point5(t, w, F1)}
+    check('TR69', '5555 designates F while 4242 is the owner; 4242 -> 5555; 5555 withdraws F; 5555 then designates F\': '
+          'ERROR (a withdrawal naming a commit never designated: the designation was not an owner comment at its '
+          'creation); admission of F\': ERROR',
+          "the admissions of F and of F' both refuse at point 5 with 'never designated'", res,
+          all(not o['admitted'] and 'never designated' in o.get('message', '') for o in res.values()))
+    # TR70
+    w = t.world()
+    F = t.freeze(w)
+    F2 = t.freeze(w, extra={'syn/other.txt': b'2\n'})
+    _designate(w, F, hf.OWNER_ID)
+    _form(w, 'oi-freeze/1 supersede plan=%s round=%s commit=%s by=%s' % (hf.PLAN, hf.ROUND, F, F2), NEW_OWNER)
+    _owner_change(w, NEW_OWNER)
+    d = _designate(w, F, NEW_OWNER)
+    o = dict(_point5(t, w, F), want=d['id'])
+    check('TR70', '4242 designates F; 5555 posts oi-freeze/1 supersede of F by F2 while 4242 is the owner; 4242 -> '
+          '5555; 5555 designates F (control harness): F is the one designated commit at point 5 (the supersession is '
+          'not an owner comment; neither half is processed)',
+          "point 5 admits F by 5555's designation", o, o['admitted'] and o.get('designation') == o['want'])
+
+
+# ---- design v5.5.8: lineage (DI-2), LN1-LN12, and one verdict per added ledger event ------------------------------
+
+PAT, PAT_REV, PAT_AUTH = 'syn/rules-pat.json', 'syn/rules-pat.review.json', 'syn/rules-pat.auth.json'
+
+
+def _auth_doc(owner, time, rec_path, rec_bytes, rv_path, rv_bytes, cid='c-ln'):
+    return sf.jb({'schema': 'oi-owner-authorization/1', 'owner': owner, 'time': time, 'comment_id': cid,
+                  'authorizes': [{'record': {'path': rec_path, 'blob_sha256': sha(rec_bytes)},
+                                  'review': {'path': rv_path, 'blob_sha256': sha(rv_bytes)}}]})
+
+
+def _chain(files, path, owner, time, verdict='accept', review=True, authorize=True):
+    """The review record and owner authorization of the record at `path` (written into `files`); returns their
+    references for the configuration."""
+    from ledger_coverage.engine import records as rec
+    doc = json.loads(files[path])
+    ref = {'path': path, 'blob_sha256': sha(files[path])}
+    rp, ap = path[:-5] + '.review.json', path[:-5] + '.auth.json'
+    files.pop(rp, None)
+    files.pop(ap, None)
+    out = []
+    if review:
+        files[rp] = sf.jb({'schema': 'oi-review-record/1', 'reviewer': sf.REVIEWER, 'reviewed': ref, 'method': 'read',
+                           'verdicts': [{'item': i, 'verdict': verdict} for i in rec.item_ids(doc)]})
+        out.append({'kind': 'review', 'path': rp, 'blob_sha256': sha(files[rp])})
+        if authorize:
+            files[ap] = _auth_doc(owner, time, path, files[path], rp, files[rp])
+            out.append({'kind': 'authorization', 'path': ap, 'blob_sha256': sha(files[ap])})
+    return out
+
+
+def _variant_doc(files, src, dst, sup=None, **fields):
+    """A rule file at `dst`: the record at `src` with `supersedes` naming `sup` (a path in `files`) and the given
+    fields changed (None removes a field)."""
+    doc = json.loads(files[src])
+    if sup is not None:
+        doc['supersedes'] = {'path': sup, 'blob_sha256': sha(files[sup])}
+    for k, v in fields.items():
+        if v is None:
+            doc.pop(k, None)
+        else:
+            doc[k] = v
+    files[dst] = sf.jb(doc)
+    return dst
+
+
+class LN:
+    """A synthetic configuration whose rule files form `supersedes` chains, run in the full chain on an in-memory
+    host world (sec. 6.3, DI-2)."""
+
+    def __init__(self, r, owner=hf.OWNER_ID, time=sf.AUTH_TIME, variant=None):
+        self.r = r
+        self.syn = sf.Syn()
+        pd = sf.patch_doc(self.syn.H, [])
+        v = dict({'patch_sha': sha(pd), 'files': {'syn/patch.json': pd}, 'auth_owner': owner, 'auth_time': time,
+                  'owner': owner}, **(variant or {}))
+        _, self.p, _, files = self.syn.build(v)
+        self.files = dict(files)
+        self.cfg = json.loads(self.files[self.p])
+        self.owner, self.time = owner, time
+
+    def use_rules(self, replace, extra_records=()):
+        """The configuration uses the rule files `replace` maps to (old path -> new path, or None to drop), with
+        their chains in `extra_records`; the dropped files' own chains are no longer referenced."""
+        dropped = set(replace)
+        rules = []
+        for ref in self.cfg['rules']:
+            if ref['path'] in replace:
+                if replace[ref['path']] is not None:
+                    rules.append({'path': replace[ref['path']], 'blob_sha256': sha(self.files[replace[ref['path']]])})
+            else:
+                rules.append(ref)
+        self.cfg['rules'] = rules
+        stems = {q[:-5] for q in dropped}
+        self.cfg['records'] = [x for x in self.cfg['records'] if not any(x['path'].startswith(st + '.')
+                                                                         for st in stems)
+                               and x.get('kind') != 'superseded-rules'] + list(extra_records)
+
+    def add_rules(self, path, extra_records):
+        self.cfg['rules'].append({'path': path, 'blob_sha256': sha(self.files[path])})
+        self.cfg['records'] += list(extra_records)
+
+    def commit(self, cfg_owner=None, cfg_time=None, extra_cfg_files=None):
+        cb = sf.jb(self.cfg)
+        self.files[self.p] = cb
+        d = self.p.rsplit('/', 1)[0] + '/'
+        cref = {'path': self.p, 'blob_sha256': sha(cb)}
+        rv = sf.jb({'schema': 'oi-review-record/1', 'reviewer': sf.REVIEWER, 'reviewed': cref, 'method': 'read',
+                    'verdicts': [{'item': self.cfg['config_id'], 'verdict': 'accept'}]})
+        self.files[d + 'review.json'] = rv
+        self.files[d + 'auth.json'] = _auth_doc(cfg_owner or self.owner, cfg_time or self.time, self.p, cb,
+                                                d + 'review.json', rv, cid='c-1')
+        for q, b in (extra_cfg_files or {}).items():
+            self.files[q] = b(cref) if callable(b) else b
+        return self.syn.repo.derive(self.syn.H, self.files, parents=self.syn.repo.parents(self.syn.H),
+                                    subject=self.syn.repo.subject(self.syn.H)), sha(cb)
+
+    def run(self, w, **kw):
+        c, csha = self.commit(**kw)
+        repo = self.syn.repo
+        d = self.p.rsplit('/', 1)[0] + '/'
+        listed = {q: repo.read(c, q) for q in repo.paths(c) if q.startswith(d) and q.endswith('.json')}
+        F = repo.derive(c, {'syn/PREREG.md': hf.pin_table({q[len('syn/'):]: sha(b) for q, b in listed.items()}),
+                            auth.authority_path: w.a_bytes}, parents=repo.parents(c), subject='freeze')
+        w.designate(F, author_id=w.a['owner']['id'])
+        argv = ['terms', '--config', '%s:%s' % (F, self.p), '--out', self.r.out()] + w.args(F) + ['--commit',
+                                                                                                    self.syn.H]
+        code, res = cli.run(argv, repo=repo, stderr=io.StringIO(), control=w.control(), environ={})
+        o = _show(code, res)
+        o['rule_files'] = [x['path'] for x in (res or {}).get('rule_files', [])]
+        o['why'] = {str(i.get('subject')): ' | '.join(map(str, i.get('detail') or [i.get('evidence', {}).get('why')]))
+                    [:400] for i in (res or {}).get('items', []) if i['class'] == 'record-invalid'}
+        return o
+
+
+def _invalid(o, path, word=None):
+    return o['exit'] == 20 and path in o['record_invalid'] and (word is None or word in o['why'].get(path, ''))
+
+
+def _clean(o, path):
+    return o['exit'] == 0 and path in o['rule_files'] and not o['record_invalid']
+
+
+def _ln_pat_v2(r, sup=PAT, dst='syn/rules-pat-v2.json', w=None, chain_kw=None, setup=None, **fields):
+    """R2 at `dst`, superseding `sup`, used by the configuration in place of the pattern rule file."""
+    x = LN(r)
+    if setup is not None:
+        setup(x)
+    _variant_doc(x.files, PAT, dst, sup=sup, **fields)
+    refs = _chain(x.files, dst, x.owner, x.time, **(chain_kw or {}))
+    x.use_rules({PAT: dst}, refs)
+    return x.run(w or hf.World('syn/PREREG.md'))
+
+
+def ln1_ln8(r):
+    from ledger_coverage.engine import records as rec
+    # LN1: in memory, for each kind of S4a; and in a run, for a rule file
+    kinds = ['oi-hp-adjudication/1', 'oi-context-adjudication/1', 'oi-hit-classification/1', 'oi-term-rules/2',
+             'oi-scope/1', 'oi-side-change-classes/1', 'oi-reconciliation/1', 'oi-retirement-config/1']
+    out = {}
+    for k in kinds:
+        idf = 'config_id' if k == 'oi-retirement-config/1' else 'record_id'
+        entries = []
+
+        def chained(path, doc):
+            db = util.canonical(doc)
+            ref = {'path': path, 'blob_sha256': sha(db)}
+            rv = util.canonical({'schema': rec.review_schema, 'reviewer': 'rv', 'reviewed': ref, 'method': 'read',
+                                 'verdicts': [{'item': doc[idf], 'verdict': 'accept'}]})
+            au = util.canonical({'schema': rec.auth_schema, 'owner': 9001, 'time': 't0', 'comment_id': 'c-9',
+                                 'authorizes': [{'record': ref, 'review': {'path': path + '.review',
+                                                                           'blob_sha256': sha(rv)}}]})
+            entries.extend([(path, db), (path + '.review', rv), (path + '.auth', au)])
+            return ref
+        pref = chained('r/p.json', {'schema': k, idf: 'p', 'author': 'w', 'supersedes': None})
+        sref = chained('r/s.json', {'schema': k, idf: 's', 'author': 'w', 'supersedes': pref})
+        st = rec.Store(entries)
+        probs = rec.lint_chain(sref, st, 9001, {sha(b) for _, b in entries})
+        out[k] = probs[:1]
+    run = _ln_pat_v2(r, record_id='another-lineage')
+    check('LN1', '(review probe E6) a record superseding a record of the same kind and schema, present at F, with '
+          'another record_id; for each kind of S4a (config_id for the configuration): FAIL record-invalid for each kind',
+          "for each kind, lint_chain (whose problems are record-invalid) reports the superseding record, the "
+          "predecessor passing its own lint; and a terms run using such a rule file exits 20 with record-invalid on it",
+          {'lint': out, 'run': run}, all(out.values()) and _invalid(run, 'syn/rules-pat-v2.json'))
+    # LN2 (positive)
+    o = _ln_pat_v2(r)
+    check('LN2', '(positive) a record superseding a record of the same kind, schema and record_id that itself passes '
+          'the lint: no record-invalid; the run uses the superseding record',
+          "exit 0, no record-invalid, and the run's rule files include the superseding record", o,
+          _clean(o, 'syn/rules-pat-v2.json'))
+    # LN3
+    res = {'record_id missing': _ln_pat_v2(r, record_id=None), 'record_id empty': _ln_pat_v2(r, record_id=''),
+           'record_id not a string': _ln_pat_v2(r, record_id=7)}
+
+    def no_id_predecessor(x):
+        _variant_doc(x.files, PAT, 'syn/rules-pat-r1.json', record_id=None, author='writer-c')
+        _chain(x.files, 'syn/rules-pat-r1.json', x.owner, x.time)
+    res['predecessor without record_id'] = _ln_pat_v2(r, sup='syn/rules-pat-r1.json', setup=no_id_predecessor)
+    check('LN3', 'a superseding record whose record_id is missing, empty or not a string; separately, a valid '
+          'superseding record whose predecessor lacks a valid record_id: FAIL record-invalid in each case',
+          "each run exits 20 with record-invalid on the superseding record, naming the lineage id", res,
+          all(_invalid(o, 'syn/rules-pat-v2.json', 'lineage id') for o in res.values()))
+
+    # LN4
+    def predecessor(**kw):
+        def setup(x):
+            _variant_doc(x.files, PAT, 'syn/rules-pat-r1.json', author='writer-c')
+            _chain(x.files, 'syn/rules-pat-r1.json', x.owner, x.time, **kw)
+        return _ln_pat_v2(r, sup='syn/rules-pat-r1.json', setup=setup)
+    res = {'no review record': predecessor(review=False), 'a verdict not accept': predecessor(verdict='reject'),
+           'no authorization': predecessor(authorize=False)}
+    check('LN4', 'a predecessor of the same lineage that fails the lint itself (no review record; separately, a verdict '
+          'not accept; separately, no authorization): FAIL record-invalid for the superseding record in each case',
+          "each run exits 20 with record-invalid on the superseding record, naming its predecessor", res,
+          all(_invalid(o, 'syn/rules-pat-v2.json', 'predecessor') for o in res.values()))
+    # LN5: a synthetic in-memory store that resolves each named {path, blob_sha256} without rehashing
+    res = {}
+    for case in ('two-record cycle', 'self-supersession'):
+        fake = {'a': '1' * 64, 'b': '2' * 64, 's': '3' * 64}
+        docs = {}
+        if case == 'two-record cycle':
+            docs[('r/a.json', fake['a'])] = {'schema': 'oi-scope/1', 'record_id': 'x', 'author': 'w',
+                                             'supersedes': {'path': 'r/b.json', 'blob_sha256': fake['b']}}
+            docs[('r/b.json', fake['b'])] = {'schema': 'oi-scope/1', 'record_id': 'x', 'author': 'w',
+                                             'supersedes': {'path': 'r/a.json', 'blob_sha256': fake['a']}}
+            top = {'schema': 'oi-scope/1', 'record_id': 'x', 'author': 'w',
+                   'supersedes': {'path': 'r/a.json', 'blob_sha256': fake['a']}}
+        else:
+            top = {'schema': 'oi-scope/1', 'record_id': 'x', 'author': 'w',
+                   'supersedes': {'path': 'r/t.json', 'blob_sha256': fake['s']}}
+        tb = util.canonical(top)
+        tref = {'path': 'r/t.json', 'blob_sha256': sha(tb)}
+        if case == 'self-supersession':
+            docs[('r/t.json', fake['s'])] = top
+        entries = [('r/t.json', tb)]
+        for (q, h) in list(docs) + [('r/t.json', sha(tb))]:
+            rv = util.canonical({'schema': rec.review_schema, 'reviewer': 'rv', 'reviewed': {'path': q,
+                                                                                            'blob_sha256': h},
+                                 'method': 'read', 'verdicts': [{'item': 'x', 'verdict': 'accept'}]})
+            au = util.canonical({'schema': rec.auth_schema, 'owner': 9001, 'time': 't0', 'comment_id': 'c-9',
+                                 'authorizes': [{'record': {'path': q, 'blob_sha256': h},
+                                                 'review': {'path': q + '.review', 'blob_sha256': sha(rv)}}]})
+            entries += [(q + '.review', rv), (q + '.auth', au)]
+        st = rec.Store(entries)
+        st.resolver = lambda ref, docs=docs: docs.get((ref.get('path'), ref.get('blob_sha256')))
+        probs = rec.lint_chain(tref, st, 9001, {sha(b) for _, b in entries})
+        res[case] = probs[:2]
+    check('LN5', 'a supersedes cycle of two records, and a self-supersession, in a synthetic in-memory store that '
+          'resolves each named {path, blob_sha256} to the given record without rehashing: FAIL record-invalid in both; '
+          'the chain walk terminates',
+          "lint_chain returns, for both, a problem naming the loop", res,
+          all(any('loops' in p for p in v) for v in res.values()))
+
+    # LN6: a fork in the audit directory
+    def fork(x):
+        _variant_doc(x.files, PAT, 'syn/rules-pat-v2b.json', sup=PAT, author='writer-c')
+        _chain(x.files, 'syn/rules-pat-v2b.json', x.owner, x.time)
+    o = _ln_pat_v2(r, setup=fork)
+    check('LN6', 'two records of one lineage superseding the same predecessor, both in the audit directory at F, only '
+          'one referenced by the configuration: FAIL record-invalid (ambiguous ancestry)',
+          "exit 20 with record-invalid on the referenced record, naming the ambiguous ancestry", o,
+          _invalid(o, 'syn/rules-pat-v2.json', 'ambiguous ancestry'))
+    # LN7: two heads
+    res = {}
+    x = LN(r)
+    beta = [dict(rr, id='syn-beta-b') for rr in json.loads(x.files[PAT])['rules'] if rr['id'] == 'syn-beta']
+    _variant_doc(x.files, PAT, 'syn/rules-pat-b.json', rules=beta, author='writer-c')
+    x.add_rules('syn/rules-pat-b.json', _chain(x.files, 'syn/rules-pat-b.json', x.owner, x.time))
+    res['two first records'] = x.run(hf.World('syn/PREREG.md'))
+    x = LN(r)
+    _variant_doc(x.files, PAT, 'syn/rules-pat-v2.json', sup=PAT)
+    _variant_doc(x.files, PAT, 'syn/rules-pat-v2b.json', sup=PAT, author='writer-c')
+    refs = _chain(x.files, 'syn/rules-pat-v2.json', x.owner, x.time) + \
+        _chain(x.files, 'syn/rules-pat-v2b.json', x.owner, x.time)
+    x.use_rules({PAT: 'syn/rules-pat-v2.json'}, refs)
+    x.add_rules('syn/rules-pat-v2b.json', [])
+    res['two diverging chains'] = x.run(hf.World('syn/PREREG.md'))
+    check('LN7', 'two records with one record_id and kind, each with supersedes: null (separately, two chains from one '
+          'first record that diverge), both read in one run: FAIL record-invalid (two heads)',
+          "each run exits 20 with record-invalid on both records, naming two heads", res,
+          _invalid(res['two first records'], PAT, 'two heads') and
+          _invalid(res['two first records'], 'syn/rules-pat-b.json', 'two heads') and
+          _invalid(res['two diverging chains'], 'syn/rules-pat-v2.json', 'two heads') and
+          _invalid(res['two diverging chains'], 'syn/rules-pat-v2b.json', 'two heads'))
+
+    # LN8: an unrelated chain
+    def middle(**fields):
+        def setup(x):
+            _variant_doc(x.files, PAT, 'syn/rules-pat-m.json', sup=PAT, author='writer-c', **fields)
+        return setup
+    res = {'middle record with another record_id': _ln_pat_v2(r, sup='syn/rules-pat-m.json',
+                                                              setup=middle(record_id='other')),
+           'middle record with another schema': _ln_pat_v2(r, sup='syn/rules-pat-m.json',
+                                                           setup=middle(schema='oi-term-rules/3'))}
+    check('LN8', 'a three-record chain whose middle record has another record_id (separately, another schema of the '
+          'same kind): FAIL record-invalid (unrelated chain)',
+          "each run exits 20 with record-invalid on the head, naming another lineage or another kind, schema", res,
+          _invalid(res['middle record with another record_id'], 'syn/rules-pat-v2.json', 'another lineage') and
+          _invalid(res['middle record with another schema'], 'syn/rules-pat-v2.json', 'another kind'))
+
+
+def ln9_ln12(r):
+    # LN9: a predecessor authorized by a former owner
+    res = {}
+    for case in ('authorized by 4242 while owner', 'authorization time before 4242 was owner'):
+        w = hf.World('syn/PREREG.md')
+        t1 = w.tick() if case.startswith('authorized') else '2026-11-23T00:00:00Z'
+        _owner_change(w, NEW_OWNER)
+        t2 = w.tick()
+        x = LN(r, owner=NEW_OWNER, time=t2)
+        x.files[PAT_AUTH] = _auth_doc(hf.OWNER_ID, t1, PAT, x.files[PAT], PAT_REV, x.files[PAT_REV])
+        _variant_doc(x.files, PAT, 'syn/rules-pat-v2.json', sup=PAT)
+        x.use_rules({PAT: 'syn/rules-pat-v2.json'}, _chain(x.files, 'syn/rules-pat-v2.json', NEW_OWNER, t2))
+        res[case] = x.run(w)
+    check('LN9', 'a predecessor R1 authorized by 4242 while owner; 4242 -> 5555; R2 superseding R1, reviewed and '
+          'authorized by 5555, used by the run. Separately, R1\'s authorization time before 4242 was owner: the first: '
+          'no record-invalid, the run uses R2; the second: FAIL record-invalid',
+          "first: exit 0, no record-invalid, R2 among the run's rule files; second: exit 20 with record-invalid on R2",
+          res, _clean(res['authorized by 4242 while owner'], 'syn/rules-pat-v2.json') and
+          _invalid(res['authorization time before 4242 was owner'], 'syn/rules-pat-v2.json', 'predecessor'))
+
+    # LN11 and LN12: a widening predecessor
+    ALLOW, V2, V3 = 'syn/rules-allow.json', 'syn/rules-allow-v2.json', 'syn/rules-allow-v3.json'
+    WAUTH = 'syn/rules-allow-v2.widen.auth.json'
+
+    def allow_case(mutate=None):
+        w = hf.World('syn/PREREG.md')
+        t1 = w.tick()
+        old = LN(r, owner=hf.OWNER_ID, time=t1, variant={'allow_widened': True, 'widening_review': True})
+        _owner_change(w, NEW_OWNER)
+        t2 = w.tick()
+        x = LN(r, owner=NEW_OWNER, time=t2)
+        for q, b in old.files.items():
+            if q.startswith('syn/rules-allow') and not q.startswith('syn/cfg/'):
+                x.files[q] = b
+        if mutate is not None:
+            mutate(x.files, t1)
+        _variant_doc(x.files, V2, V3, sup=V2)
+        x.use_rules({ALLOW: V3}, _chain(x.files, V3, NEW_OWNER, t2))
+        return x.run(w)
+
+    def config_case():
+        w = hf.World('syn/PREREG.md')
+        t1 = w.tick()
+        _owner_change(w, NEW_OWNER)
+        t2 = w.tick()
+        x = LN(r, owner=NEW_OWNER, time=t2)
+        c0 = dict(x.cfg, retirement=dict(x.cfg['retirement'], owner=hf.OWNER_ID), supersedes=None, version=1)
+        c0b = sf.jb(c0)
+        c1 = dict(c0, corpus={'patterns': c0['corpus']['patterns'] + [r'^other/[^/]+\.md$']}, version=2,
+                  supersedes={'path': 'syn/cfgold/c0.json', 'blob_sha256': sha(c0b)})
+        c1b = sf.jb(c1)
+        x.files['syn/cfgold/c0.json'], x.files['syn/cfgold/c1.json'] = c0b, c1b
+        for q, b in (('syn/cfgold/c0.json', c0b), ('syn/cfgold/c1.json', c1b)):
+            rv = sf.jb({'schema': 'oi-review-record/1', 'reviewer': sf.REVIEWER,
+                        'reviewed': {'path': q, 'blob_sha256': sha(b)}, 'method': 'read',
+                        'verdicts': [{'item': x.cfg['config_id'], 'verdict': 'accept'}]})
+            x.files[q[:-5] + '.review.json'] = rv
+            x.files[q[:-5] + '.auth.json'] = _auth_doc(hf.OWNER_ID, t1, q, b, q[:-5] + '.review.json', rv)
+        wr = sf.jb({'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': sf.WIDENER,
+                    'reviewed': {'path': 'syn/cfgold/c1.json', 'blob_sha256': sha(c1b)},
+                    'replaces': {'path': 'syn/cfgold/c0.json', 'blob_sha256': sha(c0b)}, 'method': 'read',
+                    'verdicts': [{'item': '%s:changed corpus' % x.cfg['config_id'], 'verdict': 'accept'}]})
+        x.files['syn/cfgold/c1.widen.json'] = wr
+        x.files['syn/cfgold/c1.widen.auth.json'] = _auth_doc(hf.OWNER_ID, t1, 'syn/cfgold/c1.json', c1b,
+                                                             'syn/cfgold/c1.widen.json', wr, cid='c-w')
+        x.cfg.update(corpus=c1['corpus'], version=3, supersedes={'path': 'syn/cfgold/c1.json',
+                                                                  'blob_sha256': sha(c1b)})
+
+        def widen_review(cref):
+            return sf.jb({'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': sf.WIDENER,
+                          'reviewed': cref, 'replaces': {'path': 'syn/cfgold/c1.json', 'blob_sha256': sha(c1b)},
+                          'method': 'read', 'verdicts': [{'item': '%s:changed retirement' % x.cfg['config_id'],
+                                                          'verdict': 'accept'}]})
+
+        def widen_auth(cref):
+            return _auth_doc(NEW_OWNER, t2, cref['path'], x.files[cref['path']], 'syn/cfg/widen.json',
+                             widen_review(cref), cid='c-w2')
+        return x.run(w, extra_cfg_files={'syn/cfg/widen.json': widen_review, 'syn/cfg/widen-auth.json': widen_auth})
+    res = {'allow rule lineage': allow_case(), 'configuration lineage': config_case()}
+    check('LN11', 'an allow rule R1 widening R0, R1\'s widening review authorized by 4242 while owner in an '
+          'authorization record separate from R1\'s own; 4242 -> 5555; R2 superseding R1, reviewed and authorized by '
+          '5555, used by the run; separately, the same for a configuration lineage: no record-invalid; the run uses '
+          'R2, in both',
+          "allow rule: exit 0, no record-invalid, R2 among the run's rule files; configuration: exit 0 (the run "
+          "admits and uses the superseding configuration)", res,
+          _clean(res['allow rule lineage'], V3) and res['configuration lineage']['exit'] == 0 and
+          not res['configuration lineage']['record_invalid'])
+
+    def future_owner(files, t1):
+        d = json.loads(files[WAUTH])
+        d.update(owner=NEW_OWNER, time=t1)
+        files[WAUTH] = sf.jb(d)
+
+    def no_authorization(files, t1):
+        files.pop(WAUTH, None)
+    res = {'widening review authorized only by 5555 while 4242 is the owner': allow_case(future_owner),
+           'widening review listed by no authorization record': allow_case(no_authorization)}
+    check('LN12', 'as LN11 for an allow rule, each case separately: R1\'s widening review listed only by an '
+          'authorization record with owner 5555 whose time falls while 4242 is the owner; R1\'s widening review listed '
+          'by no authorization record: FAIL record-invalid for the superseding record R2 in each case',
+          "each run exits 20 with record-invalid on R2, naming its predecessor", res,
+          all(_invalid(o, V3, 'predecessor') for o in res.values()))
+    # LN10 (positive)
+    x = LN(r)
+    beta = [dict(rr, id='syn-beta-x') for rr in json.loads(x.files[PAT])['rules'] if rr['id'] == 'syn-beta']
+    _variant_doc(x.files, PAT, 'syn/rules-extra.json', rules=beta, record_id=None, author='writer-c')
+    x.add_rules('syn/rules-extra.json', _chain(x.files, 'syn/rules-extra.json', x.owner, x.time))
+    o = x.run(hf.World('syn/PREREG.md'))
+    check('LN10', '(positive) a record with supersedes: null and no record_id, named by no supersedes: no '
+          'record-invalid', "exit 0, no record-invalid, the record among the run's rule files", o,
+          _clean(o, 'syn/rules-extra.json'))
+
+
+def ledger_event_verdicts(t):
+    """Sec. 6.3: a review gives one verdict per item id of the reviewed record; the items of a freeze-ledger change's
+    review are the events the change adds."""
+    res = {}
+    cases = {'one accept verdict per added event (positive)': lambda a, b: [(a, 'accept'), (b, 'accept')],
+             'no verdict for one added event': lambda a, b: [(a, 'accept')],
+             'two verdicts for one added event': lambda a, b: [(a, 'accept'), (b, 'accept'), (b, 'accept')],
+             'a verdict not accept for one added event': lambda a, b: [(a, 'accept'), (b, 'reject')],
+             'one verdict for the whole ledger change': lambda a, b: [('ledger', 'accept')]}
+    for name, verdicts in cases.items():
+        w = t.world()
+        F = t.freeze(w)
+        w.designate(F)
+        old = w.ledger_bytes
+        ev = [{'plan': hf.PLAN, 'round': 'r0', 'kind': 'withdraw', 'commit': 'ab' * 20, 'comment_id': cid,
+               'author_id': hf.OWNER_ID, 'created_at': '2026-11-23T00:00:01Z', 'first_line': 'x'}
+              for cid in (990001, 990002)]
+        new = hf.jb({'schema': auth.ledger_schema, 'events': ev})
+        rv = hf.jb({'schema': 'oi-review-record/1', 'reviewer': 'reviewer-b',
+                    'reviewed': {'path': hf.LEDGER_PATH, 'blob_sha256': sha(new)}, 'previous': sha(old),
+                    'method': 'read both ledger versions',
+                    'verdicts': [{'item': i, 'verdict': v} for i, v in verdicts('990001', '990002')]})
+        w.land_ledger(new, review=rv)
+        res[name] = _show(*t.run(w, F))
+    good = res['one accept verdict per added event (positive)']
+    bad = [v for k, v in res.items() if '(positive)' not in k]
+    check('R6-EV', 'one review verdict per added ledger event (sec. 6.3: one verdict per item id of the reviewed record; '
+          'the ledger review\'s items are the events the change adds): a missing, duplicate or non-accept verdict for '
+          'an added event, or one verdict for the whole change, refuses; one accept verdict per added event admits',
+          "the positive case exits 0; every other case exits 65 CONFIG_UNREVIEWED naming the freeze-ledger change",
+          res, good['exit'] == 0 and all(o['exit'] == 65 and o['stop'] == 'CONFIG_UNREVIEWED' and
+                                         'freeze-ledger change' in o['message'] for o in bad))
+
 
 # ---- acceptance, durable evidence and replay ----------------------------------------------------------------------
 
@@ -1912,13 +2790,24 @@ def main(out_root):
                          ('R4-B2-PROV', lambda: r4_b2_provenance_controls(t)),
                          ('R4-B3-DUP', lambda: r4_b3_duplicate_controls(r)),
                          ('R4-N2', lambda: r4_n2_controls(t)), ('R5-K1', lambda: r5_k1_controls(t)),
-                         ('R5-K2', lambda: r5_k2_controls(t)), ('R5-N6', lambda: r5_n6_controls(r))):
+                         ('R5-K2', lambda: r5_k2_controls(t)), ('R5-N6', lambda: r5_n6_controls(r)),
+                         ('TR54-TR61', lambda: tr54_tr61(t)), ('TR62-TR64', lambda: tr62_tr64(t)),
+                         ('TR65', lambda: tr65(t)), ('TR66-TR70', lambda: tr66_tr70(t)),
+                         ('LN1-LN8', lambda: ln1_ln8(r)), ('LN9-LN12', lambda: ln9_ln12(r)),
+                         ('R6-EV', lambda: ledger_event_verdicts(t))):
             try:
                 fn()
             except Exception as exc:
                 import traceback
                 record(name, 'the control runs', None, '%s: %s %s' % (type(exc).__name__, exc,
                                                                         traceback.format_exc()[-1200:]), 'FAIL')
+        # every control of design v5.5.8 is reported: one whose group stopped before it ran is FAIL, never absent
+        for cid in ['TR%d' % i for i in range(54, 71)] + ['LN%d' % i for i in range(1, 13)] + ['R6-EV']:
+            if not any(x['id'] == cid for x in RESULTS):
+                group = [x for x in RESULTS if x['id'] in ('TR54-TR61', 'TR62-TR64', 'TR65', 'TR66-TR70', 'LN1-LN8',
+                                                           'LN9-LN12', 'R6-EV')]
+                record(cid, 'the control runs', None, 'its group stopped before it ran: %s'
+                       % '; '.join(str(x['actual'])[-300:] for x in group), 'FAIL')
         try:
             acceptance_controls(r, t)
         except Exception as exc:
