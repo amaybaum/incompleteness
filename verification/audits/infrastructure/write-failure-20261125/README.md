@@ -89,3 +89,15 @@ whether the text ends with the footer.
 2026-11-23T07:51:46Z). `issue-1548/comments-before-validation.json` holds its 11 comments (id, author,
 dates, body), including the owner decision recorded at comment 7165319386 that designates #1548 and
 grants the validation write.
+
+## Validation write on #1548
+
+One owner-granted REST Issue-body edit (`PATCH repos/amaybaum/incompleteness/issues/1548`, body
+field) was made on 2026-11-25 through the gate (`issue-1548/validation/run_gate.py`, the gate with a
+`gh api` transport; one local path in it replaced by `../../write-safety`). The expected stored text
+was fixed before the write: `validation/expected-body.md`, sent ending with the attribution footer
+(SHA-256 `7abe14a04e492e2c9730965c72c3cf63c990da0ccc9f051c7e99b5cb0882e6ab`). The gate read #1548
+before the write, made exactly one write (`validation/gate-log.json`), and read the full stored body
+back: it equals the expected text byte for byte (`validation/stored-body.md`), and the title is
+unchanged. An independent re-read gave the same result. This validates REST Issue-body edits sent
+in the footer form; it does not decide where the footer is appended for a body sent without it.
