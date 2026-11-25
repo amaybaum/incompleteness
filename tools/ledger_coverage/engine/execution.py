@@ -71,7 +71,7 @@ class Execution:
         self.pin_ok = list(pin_ok)
         self.records_after_freeze = list(records_after_freeze)
         self.freeze = None
-        # amendment r4 (O-9): {'F', 'cpath', 'authorized'}, set by an operation that evaluates M with F (A.4, A.7)
+        # amendment r4 (O-9): {'freeze', 'cpath', 'authorized'}, set by an operation that evaluates M with F (A.4, A.7)
         self.record_dir_args = None
         self.rd = None
 
@@ -348,7 +348,7 @@ class Execution:
             else:
                 cls, why = self._side_class(path)
                 entry['class'] = cls
-                if cls == rc.RECORD_DIRECTORY:
+                if cls == rc.record_directory_class:
                     entry['record_directory'] = dict(rd.equal[path])
                 if cls is None:
                     if rd is not None and rd.active:
@@ -363,11 +363,11 @@ class Execution:
         """Amendment r4, A.4 and A.7: the record-directory context, built once per M role when the operation
         evaluates M with F; None otherwise (the rule and A.5 are then not evaluated)."""
         a = self.record_dir_args
-        if not a or not a.get('F') or not a.get('cpath'):
+        if not a or not a.get('freeze') or not a.get('cpath'):
             return None
         in_corpus = getattr(self.ctx, 'in_corpus', None) or (lambda p: False)
         ledgered = set(self.ledger['files']) | set(ledgered_or_corpus)
-        return rc.RecordDirectory(self.repo, self.H, a['F'], self.M, a['cpath'], a['authorized'], ledgered, in_corpus,
+        return rc.RecordDirectory(self.repo, self.H, a['freeze'], self.M, a['cpath'], a['authorized'], ledgered, in_corpus,
                                   self.side_classes)
 
     def _side_class(self, path):

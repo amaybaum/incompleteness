@@ -1627,12 +1627,12 @@
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
+   "direction": "positive",
    "case": "a configuration in the root directory",
    "expect": {
-    "text": "ERROR `CONFIG_INCONSISTENT` (authority)"
+    "text": "the rule inactive, the run unchanged (items and side changes equal to the same run without this amendment), no `record-directory` classification"
    },
-   "by": "design amendment r4 (8de52148)",
+   "by": "design amendment r5 (99c51e6a)",
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {

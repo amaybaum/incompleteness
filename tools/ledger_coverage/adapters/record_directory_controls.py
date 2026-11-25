@@ -5,7 +5,7 @@ expectation, its predicate and what it found.
 Engine-level cases build their repositories in memory and call the M role (`Execution.main_role`), the R11 condition
 (`reconcile.evaluate`) or the context (`reconcile.RecordDirectory`) directly; the cases marked "full path" run the
 `execution` or `coverage` operation through `cli.run` on the synthetic host world, with the tool's own authority
-constant (`record_authority.AUTHORIZED_RECORD_DIRECTORIES`).
+constant (`record_authority.authorized_record_directories`).
 """
 import io
 import json
@@ -17,7 +17,7 @@ from ledger_coverage.engine import controls_engine as ce
 from ledger_coverage.engine.gitobj import Overlay
 from ledger_coverage.adapters import host_fixture as hf, synthetic_fixture as sf
 
-AUTH = record_authority.AUTHORIZED_RECORD_DIRECTORIES[0]
+AUTH = record_authority.authorized_record_directories[0]
 CFG = AUTH + '/retirement-config.json'
 PRE = AUTH + '/PREREG.md'
 
@@ -92,7 +92,7 @@ def run_main(repo, H, F, M, cpath=CFG, classes=(), authorized=(AUTH,), ledgered=
     ex = exmod.Execution(Ctx(repo, corpus), H, H, led, None, M, None, None, list(classes), ())
     ex.record_refs = {}
     if rule:
-        ex.record_dir_args = {'F': F, 'cpath': cpath, 'authorized': tuple(authorized)}
+        ex.record_dir_args = {'freeze': F, 'cpath': cpath, 'authorized': tuple(authorized)}
     try:
         ex.main_role(set(ledgered) | set(corpus))
     except oc.Stop as s:
@@ -281,9 +281,15 @@ def o9_controls(r, check):
     F = repo.derive(H, {'retirement-config.json': b'{}\n', 'PREREG.md': b'# p\n'}, parents=[H], subject='F')
     M = repo.derive(H, {'retirement-config.json': b'{}\n', 'PREREG.md': b'# p\n'}, parents=[H], subject='M')
     res = run_main(repo, H, F, M, cpath='retirement-config.json')
-    check('O9-10', 'a configuration in the root directory: ERROR CONFIG_INCONSISTENT (authority)',
-          'the run stops CONFIG_INCONSISTENT with condition authority', res,
-          res.get('stop') == 'CONFIG_INCONSISTENT' and res.get('condition') == 'authority')
+    res0 = run_main(repo, H, F, M, cpath='retirement-config.json', rule=False)
+    check('O9-10', 'a configuration in the root directory: the rule inactive, the run unchanged (items and side changes '
+          'equal to the same run without this amendment), no record-directory classification (amendment r5)',
+          'no stop and no exception; items and side changes equal to the run without the rule; no side change '
+          'classified record-directory; the context inactive', {'with': res, 'without': res0},
+          'stop' not in res and 'exception' not in res and res.get('items') == res0.get('items') and
+          res.get('side') == res0.get('side') and
+          not [x for x in res.get('side', []) if x[1] == rc.record_directory_class] and
+          (res.get('rd') or {}).get('state', '').startswith('inactive'))
 
     # O9-11
     repo, H, F, M = world(h_extra={AUTH + '/old.txt': b'old\n'})
@@ -367,11 +373,11 @@ def o9_controls(r, check):
 
     # O9-17, O9-24: the reserved class id; O9-24 through --classify (full path)
     repo, H, F, M = world()
-    res = run_main(repo, H, F, M, classes=[{'id': rc.RECORD_DIRECTORY, 'pins': []}])
+    res = run_main(repo, H, F, M, classes=[{'id': rc.record_directory_class, 'pins': []}])
     check('O9-17', 'a class record defining class id record-directory: ERROR CONFIG_INCONSISTENT (D5)',
           'stop CONFIG_INCONSISTENT, D5', res, res.get('stop') == 'CONFIG_INCONSISTENT' and res.get('condition') == 'D5')
     cls_doc = {'schema': 'oi-side-change-classes/1', 'record_id': 'reserved', 'author': sf.WRITER, 'supersedes': None,
-               'classes': [{'id': rc.RECORD_DIRECTORY, 'prefixes': ['notes/'], 'reason': 'synthetic', 'pins': []}]}
+               'classes': [{'id': rc.record_directory_class, 'prefixes': ['notes/'], 'reason': 'synthetic', 'pins': []}]}
     cp = 'syn/reserved-classes.json'
 
     def extra_cls(files):
@@ -410,7 +416,7 @@ def o9_controls(r, check):
         recon = [{'paths': [{'path': 'doc/a.md'}], '_ref': {'path': 'x', 'blob_sha256': '0' * 64}}]
         ex = exmod.Execution(Ctx(repo), H, H, led, None, M2, None, None, [], recon)
         ex.record_refs = {}
-        ex.record_dir_args = {'F': F, 'cpath': ud + '/retirement-config.json', 'authorized': (AUTH,)}
+        ex.record_dir_args = {'freeze': F, 'cpath': ud + '/retirement-config.json', 'authorized': (AUTH,)}
         try:
             ex.main_role({'doc/a.md'})
             got = {'stop': None}

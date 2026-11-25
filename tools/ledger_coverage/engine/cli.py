@@ -1245,8 +1245,8 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
         if a.freeze:
             # amendment r4, A.4 and A.7: the record-directory rule, evaluated only by an operation that evaluates M
             # with F
-            ex.record_dir_args = {'F': resolve(repo, a.freeze), 'cpath': split_ref(a.config)[1],
-                                  'authorized': record_authority.AUTHORIZED_RECORD_DIRECTORIES}
+            ex.record_dir_args = {'freeze': resolve(repo, a.freeze), 'cpath': split_ref(a.config)[1],
+                                  'authorized': record_authority.authorized_record_directories}
         corp = set(ctx.corpus(H)) | set(ctx.corpus(M))
         rp = cfg['adapters'].get('replay') or {}
         rdir = rp.get('module_path', '').rsplit('/', 1)[0] if rp else None
