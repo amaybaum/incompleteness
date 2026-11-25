@@ -1009,13 +1009,13 @@ def rt_o9(a, Mp, recon_arg):
     code, res, t = a.run(exec_args(a, extra=['--main', M9, '--freeze', F9] + recon_arg))
     got = {}
     for e in res.get('side_changes') or []:
-        if e.get('class') == rcm.RECORD_DIRECTORY:
+        if e.get('class') == rcm.record_directory_class:
             r9 = e.get('record_directory') or {}
             got[e['path']] = [r9.get('mode'), r9.get('m'), r9.get('m_sha256')]
     unc = sorted(i['subject'] for i in res.get('items', []) if i['class'] == 'side-change-unclassified')
     rdsum = res.get('record_directory') or {}
     out = {'exit': code, 'stop': res.get('stop'), 'directory': d,
-           'authorized': d in record_authority.AUTHORIZED_RECORD_DIRECTORIES, 'expected_paths': len(expected),
+           'authorized': d in record_authority.authorized_record_directories, 'expected_paths': len(expected),
            'record_directory': rdsum, 'missing': sorted(set(expected) - set(got)),
            'extra': sorted(set(got) - set(expected)),
            'differing': sorted(p for p in set(expected) & set(got) if expected[p] != got[p]),

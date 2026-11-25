@@ -5,4 +5,4 @@ tuple is part of the tool's files: no configuration, record or command-line argu
 tool revision. It lies outside the engine, which carries no retirement constant (design sec. 16.1).
 """
 
-AUTHORIZED_RECORD_DIRECTORIES = ('verification/audits/foundations/a1exit-deletion-20261121',)
+authorized_record_directories = ('verification/audits/foundations/a1exit-deletion-20261121',)

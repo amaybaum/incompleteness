@@ -74,7 +74,7 @@ with a 40-hex suffix.
 
 When an `execution` run evaluates `M` with `F`, a side change inside the configuration's directory that no class pin
 names is classified `record-directory` exactly when it is a regular file at both `F` and `M` with the same mode, blob
-and bytes. The directory must equal a member of `AUTHORIZED_RECORD_DIRECTORIES` in
+and bytes. The directory must equal a member of `authorized_record_directories` in
 `tools/ledger_coverage/record_authority.py` (outside the engine, which carries no retirement constant), must hold no
 entry at `H`, and must hold no ledgered, corpus, class-prefix or `.github/` path; every entry inside it is compared
 between `F` and `M`, so a file added, modified or deleted after `F` is `side-change-unclassified`, whatever any other

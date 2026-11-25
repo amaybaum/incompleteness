@@ -85,7 +85,7 @@ def classify_side_named(repo, M, path, classes, record_refs):
 
 # ---- the plan's record directory on M (design amendment r4, O-9) ------------------------------------------------
 
-RECORD_DIRECTORY = 'record-directory'
+record_directory_class = 'record-directory'
 
 
 def inside(d, path):
@@ -116,7 +116,7 @@ class RecordDirectory:
         self.equal = {}
         self.unequal = {}
         # D5: the reserved class id, over the admitted class set of both routes
-        if any(isinstance(c, dict) and c.get('id') == RECORD_DIRECTORY for c in classes):
+        if any(isinstance(c, dict) and c.get('id') == record_directory_class for c in classes):
             self._stop('D5', 'a side-change class uses the class id reserved for the record-directory rule')
         e_h = [p for p in repo.entries(H) if inside(self.d, p)]
         e_m = {p: e for p, e in repo.entries(M).items() if inside(self.d, p)}
@@ -140,7 +140,7 @@ class RecordDirectory:
                 self._stop('D3', 'a ledgered, corpus, class-prefix or workflow path lies in the record directory: %s'
                            % p)
         # D4: F holds the configuration and the file of record pins in the directory
-        prereg = self.d + '/PREREG.md'
+        prereg = self.d + '/' + 'PREREG.md'
         if (e_f.get(cpath) or (None,))[0] not in regular_modes or (e_f.get(prereg) or (None,))[0] not in regular_modes:
             self._stop('D4', 'F does not hold the configuration and its file of record pins in the record directory')
         self.active = True
@@ -204,7 +204,7 @@ def side_class(repo, M, path, classes, record_refs, rd=None):
     if not clean_path(path):
         return None, 'not a clean path'
     if path in rd.equal:
-        return RECORD_DIRECTORY, None
+        return record_directory_class, None
     return None, rd.unequal.get(path, 'differs from F')
 
 
