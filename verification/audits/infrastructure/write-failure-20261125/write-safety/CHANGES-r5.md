@@ -11,36 +11,59 @@ focused independent review." "Do not weaken the exact read-back requirement." An
 v2 before its validation write. Require targeted tests, countercontrols and a focused independent
 check."
 
-Prepared locally, with no GitHub write, network write or commit. `gate.py`, `mock.py`, `mock2.py`,
+r5 was prepared locally, with no GitHub write or network write, and committed on the evidence
+branch at `0a1b5675af31d1885a5e108d6b143bea74ea4aa1`. Its non-stopping revision, below, was
+prepared locally in the same way, for the coordinator to commit. `gate.py`, `mock.py`, `mock2.py`,
 `transport_rules.py`, `test_gate.py` and `countercontrol.py` are unchanged; `gate.py` stays in use.
+
+## Non-stopping revision
+
+Owner decision (amaybaum, 2026-11-25), verbatim: "I authorize the non-stopping refusal for this
+specific pre-check, provided the reviewer confirms compatibility with §A.51. Include a
+countercontrol demonstrating that no prohibited request is sent and that subsequent valid
+operations remain possible. Do not change the behavior of other pre-checks or containment rules."
+
+As committed at `0a1b5675`, the refusal latched like every other pre-check refusal (plan latch and
+global marker). It now refuses the operation without stopping the sequence, as the comment poster
+does: the poster and gate v2 behave alike for this refusal. The authorization is conditional on the
+reviewer confirming compatibility with AGENTS.md §A.51 (item 5 stops a package on a failed
+preflight); that confirmation is outstanding.
 
 | Item | Change | Tests |
 |---|---|---|
-| Refusal | `gate2.lt_bang_violations(text, field)` returns one explanation when the text contains the two-character sequence: it names the field, every position (0-based character offset, 1-based line and column), says that GitHub has stored such text with the exclamation mark removed, that the text is not sent and not altered, and asks the writer to reword it. `Gate2._write` adds it to the existing pre-check of every text field the write would send (every body and title, of every operation: `comment.create`, `issue.edit_body`, `issue.create`, `pr.create`, `pr.edit`), after the field set is checked and before the pre-write read, so no request is made. The text is never changed; no substitution or escaping. | `lt1` (every body and title of every text operation: refused, reason names field and offset, zero writes, zero reads, zero git runs, the caller's dict and the evidence text unchanged); `lt2` (at the start, at the end, just before the footer, two in code spans, in a fenced block, two adjacent, in a title at start and end; line and column on a later line); `lt4` (refused before reaching a transport that removes the exclamation mark) |
+| Refusal | `gate2.lt_bang_violations(text, field)` returns one explanation when the text contains the two-character sequence: it names the field, every position (0-based character offset, 1-based line and column), says that GitHub has stored such text with the exclamation mark removed, that the text is not sent and not altered, and asks the writer to reword it. It covers every text field the write would send (every body and title, of every operation: `comment.create`, `issue.edit_body`, `issue.create`, `pr.create`, `pr.edit`). The text is never changed; no substitution or escaping. | `lt1` (every body and title of every text operation: refused, reason names field and offset, zero writes, reads and git runs, the caller's dict unchanged); `lt2` (at the start, at the end, just before the footer, two in code spans, in a fenced block, two adjacent, in a title at start and end; line and column on a later line); `lt4` (refused before reaching a transport that removes the exclamation mark) |
+| Non-stopping outcome | `Gate2._write` checks the sequence in a second loop, after every other pre-check of every field has passed and before the pre-write read. On a hit, `Gate2._refuse` logs `("refused", op, target, field)` and raises `gate2.Refused` (attributes `op`, `target`, `field`, `reason`; not a subclass of `Halted`), and `_guarded` re-raises it untouched. No `_halt`, no `HALT`, no `HALT-PLAN.<plan_id>`, no in-process latch, no evidence file. | `lt1` (the same gate then sends a valid text exactly); `lt5` (after a refusal the same gate, a new gate of the same plan and a later sequence each send the reworded text once, read back exactly; zero requests for each refused attempt; only the plan record in the halt store) |
+| Other pre-checks unchanged | Every other pre-check still halts as before and takes precedence: a text that fails another pre-check and also contains the sequence halts on the other check. | `lt6` (a refused text followed by a carriage-return failure halts globally, latches the plan and stops every mechanism; texts with a carriage return, a zero-width character or the `oi-` form plus the sequence halt) |
+| Grant | A single-write grant taken by the refused attempt is given back, since nothing was sent; the reworded text is then the grant's one write. | `lt7` (refused, reworded write succeeds, a further write halts as before) |
 | Positive control | Separated or look-alike characters are not refused: `< !`, `<` newline `!`, `!<`, `x<y!`, `&lt;!`, `<?xml`, `a < b!`, `<` with U+FF01, U+FF1C with `!`, `(?<=x)` with a separate `!`. | `lt3` (each sent once in title and body, stored exactly, no marker) |
-| Latching | Handled as every other pre-check refusal in gate v2 (`_halt`): it latches the plan (`HALT-PLAN.<plan_id>` and the in-process store) and writes the global marker `HALT`; only a recorded owner decision clears them. | `lt5` (same gate, a new gate of the plan and a later sequence refuse the reworded text with zero requests; after the owner clears the markers by hand, the reworded text is sent and stored exactly) |
 | Read-back | Unchanged. | C4 below |
 
-**Choice on latching.** The refusal latches, as gate v2 treats every pre-check refusal (§A.49 rule 1
-checks, the `oi-` form, send forms): a refusal is a failed pre-check, and §A.51 item 5 stops the
-package's automated operations on a failed preflight. This does not conflict with the owner
-decision: the text is still refused before any request, explained, and left for the writer to
-reword, and the latch adds a stop, never a write. It differs from the comment poster, which refuses
-this text without writing a halt marker; a uniform rule in gate v2 keeps one containment mechanism,
-and the owner may choose the non-latching form instead.
+`gate.main` (the CLI shape re-exported by `gate2`) maps only `Halted` to its exit code; a
+`Refused` propagates to the caller as an exception.
 
-**Countercontrol C4** (`countercontrol2.py`): with no refusal, 4 tests fail (`lt1`, `lt2`, `lt4`,
-`lt5`); with titles not checked, 3 (`lt1`, `lt2`, `lt4`); with the text substituted and sent, 4
-(`lt1`, `lt2`, `lt4`, `lt5`); the positive control `lt3` passes under each. Under the gate without
-the refusal and a transport that removes the exclamation mark, each of the seven text fields is
-written once and the exact read-back halts globally, with the stored text equal to the sent text
-less the exclamation mark. The C3 latch mutants now also fail `lt1`, `lt2`, `lt4` and `lt5`
-(no sequence latch: 10; memory-only latch: 7; every halt confined to its operation: 33); C1, C2 and
-the other C3 entries are unchanged apart from the test count.
+**Countercontrol C4** (`countercontrol2.py`). Mutants, each failing the suite with its named tests
+among the failures, the positive control `lt3` passing under each: no refusal, 6 failures (`lt1`,
+`lt2`, `lt4`, `lt5` required); titles not checked, 3 (`lt1`, `lt2`, `lt4`); the text substituted
+and sent, 6 (`lt1`, `lt2`, `lt4`, `lt5` required); the refusal latching as committed at `0a1b5675`,
+6 (`lt1`, `lt5`, `lt7` required). With the gate as it is, for each of the seven text fields, a
+refused text makes no request (no write, no read, no sent text containing the sequence) and leaves
+only the plan record, and a valid write then succeeds exactly on the same gate and on a new gate of
+the same plan. Under the gate without the refusal and a transport that removes the exclamation
+mark, each field is written once and the exact read-back halts globally, the stored text equal to
+the sent text less the exclamation mark. C1, C2 and C3 are unchanged apart from the test count and
+the C3 latch counts (no sequence latch 7, memory-only latch 4, every halt confined to its operation
+31), each required test still among the failures.
+
+## Known limits (review of r5, nits 2–4, left as they are)
+
+- Label names (nit 2): not acted on.
+- Control characters (nit 3): not acted on; the refusal matches only the two characters adjacent.
+- Grant ordering (nit 4): not reordered; the sequence is checked after the single-write grant is
+  taken, and the non-stopping revision gives the grant back on a refusal (`lt7`).
 
 ## Results
 
-`test_gate2.py` 64 tests pass (the 59 earlier tests unchanged); `test_gate.py` 18 pass;
+`test_gate2.py` 66 tests pass (the 59 earlier tests unchanged); `test_gate.py` 18 pass;
 `countercontrol2.py` C1-C4 pass; `countercontrol.py` passes with output equal to
 `results-countercontrol.json`. Recorded in `results-tests2.txt` and `results-countercontrol2.json`.
-A focused independent check is required before the validation write.
+The reviewer's confirmation of compatibility with §A.51 is required before the validation write.

@@ -16,9 +16,12 @@ C3  mutations of gate2's outcome handling and containment: accept "rejected"; sk
     narrowing a stop (before r4 item 2). The control suite must fail under each, and under each
     latch mutant the run-level tests named for it must be among the failures.
 C4  mutations of the pre-write refusal of a less-than sign immediately followed by an exclamation
-    mark (r5): no refusal; titles not checked; the text substituted and sent instead of refused.
+    mark (r5): no refusal; titles not checked; the text substituted and sent instead of refused;
+    the refusal latching like other pre-checks (r5 before the owner's non-stopping decision).
     Under each the control suite must fail, with the refusal tests named for the mutant among the
-    failures and the positive control test_lt3 passing. Under the gate without the refusal, every
+    failures and the positive control test_lt3 passing. With the gate as it is, for every text
+    field, a refused text makes no request and leaves no marker, and a valid write then succeeds on
+    the same gate and on a new gate of the same plan. Under the gate without the refusal, every
     such text sent through a transport that removes the exclamation mark as GitHub did (comment
     7172299731) reaches it in one write and the exact read-back halts globally on the change.
 """
@@ -323,7 +326,8 @@ def c3():
 def c4():
     out = {}
     LB = "<" + "!"
-    saved_check, saved_write = G2.lt_bang_violations, G2.Gate2._write
+    saved_check, saved_write, saved_refuse = (G2.lt_bang_violations, G2.Gate2._write,
+                                              G2.Gate2._refuse)
 
     def no_refusal(t, field):
         return []
@@ -336,13 +340,17 @@ def c4():
                   for k, v in (fields or {}).items()}
         return saved_write(self, op, target, fields, labels, label)
 
-    mutants = {"no_lt_bang_refusal": (no_refusal, None),
-               "lt_bang_refusal_bodies_only": (body_only, None),
-               "lt_bang_substituted_and_sent": (no_refusal, substitute)}
+    def latching(self, op, target, field, reason):    # r5 as committed at 0a1b5675
+        self._halt("pre-check refused field %s: %s" % (field, reason))
+
+    mutants = {"no_lt_bang_refusal": (no_refusal, None, None),
+               "lt_bang_refusal_bodies_only": (body_only, None, None),
+               "lt_bang_substituted_and_sent": (no_refusal, substitute, None),
+               "lt_bang_refusal_latches": (saved_check, None, latching)}
     required = {"no_lt_bang_refusal": {"test_lt1_refused_in_every_body_and_title",
                                        "test_lt2_positions_start_end_code_span_and_block",
                                        "test_lt4_refusal_before_reaching_a_stripping_transport",
-                                       "test_lt5_refusal_latches_until_the_owner_clears_it"},
+                                       "test_lt5_refusal_does_not_stop_the_sequence"},
                 "lt_bang_refusal_bodies_only": {
                     "test_lt1_refused_in_every_body_and_title",
                     "test_lt2_positions_start_end_code_span_and_block",
@@ -351,24 +359,75 @@ def c4():
                     "test_lt1_refused_in_every_body_and_title",
                     "test_lt2_positions_start_end_code_span_and_block",
                     "test_lt4_refusal_before_reaching_a_stripping_transport",
-                    "test_lt5_refusal_latches_until_the_owner_clears_it"}}
-    for name, (check, write) in mutants.items():
+                    "test_lt5_refusal_does_not_stop_the_sequence"},
+                "lt_bang_refusal_latches": {
+                    "test_lt1_refused_in_every_body_and_title",
+                    "test_lt5_refusal_does_not_stop_the_sequence",
+                    "test_lt7_single_write_grant_survives_a_refusal"}}
+    for name, (check, write, refuse) in mutants.items():
         G2.lt_bang_violations = check
         if write:
             G2.Gate2._write = write
+        if refuse:
+            G2.Gate2._refuse = refuse
         try:
             out[name] = run_suite()
         finally:
             G2.lt_bang_violations, G2.Gate2._write = saved_check, saved_write
+            G2.Gate2._refuse = saved_refuse
             del G2._HALTED[:]
         out[name]["required_tests_failing"] = sorted(required[name] & set(out[name]["failing"]))
         out[name]["positive_control_test_lt3_failing"] = \
             "test_lt3_positive_separated_characters_are_sent" in out[name]["failing"]
-    # Read-back under the gate without the refusal and a transport that removes the '!'.
     strip = lambda t: t.replace(LB, "<")
     text = "lookbehind `(?" + LB + "[A-Za-z0-9])` plus"
     target = {"comment.create": 1, "issue.edit_body": 1, "issue.create": None, "pr.create": None,
               "pr.edit": 1}
+    # The gate as it is: no prohibited request, nothing latched, later valid writes go through.
+    demo, demo_ok = {}, True
+    for op, spec in sorted(G.OPERATIONS.items()):
+        for field in spec["text"]:
+            d = tempfile.mkdtemp(dir=os.path.join(HERE, "runs"))
+            plan = "c4d-%s-%s" % (op, field)
+            G2.record_plan(d, plan)
+            issues = {1: {"number": 1, "title": "t", "body": "b", "labels": [], "state": "open"}}
+            gh = MockGitHub2(issues, transforms={k: strip for k in ("patch", "comment", "create")},
+                             title_transform=strip)
+            reg_ = {o: {"validated": True, "send_form": None, "allowlist": True}
+                    for o in G.OPERATIONS}
+            g = G2.Gate2(gh, MockGit(), d, "o/r", reg_, plan_id=plan)
+            mk = lambda t: {k: (t if k == field else ("t" if k == "title" else "b"))
+                            for k in spec["text"]}
+            v = {}
+            try:
+                g.write(op, target[op], mk(text))
+                v["refused"] = False
+            except G2.Refused:
+                v["refused"] = True
+            except G.Halted:
+                v["refused"] = "halted"
+            v["requests_for_refused_text"] = len(gh.writes) + gh.gets
+            v["sent_texts_containing_sequence"] = sum(
+                1 for _, _, p in gh.writes for x in (p or {}).values()
+                if isinstance(x, str) and LB in x)
+            v["halt_store_after_refusal"] = sorted(os.listdir(d))
+            outcomes = []
+            for gg in (g, G2.Gate2(gh, MockGit(), d, "o/r", reg_, plan_id=plan)):
+                try:
+                    r = gg.write(op, target[op], mk("reworded `(?<-x)` plus"))
+                    outcomes.append(sorted(set(c for c, _ in r.outcomes.values())))
+                except (G.Halted, G2.Refused) as e:
+                    outcomes.append("failed: %s" % type(e).__name__)
+            v["later_valid_writes"] = outcomes
+            v["writes_total"] = len(gh.writes)
+            del G2._HALTED[:]
+            demo["%s.%s" % (op, field)] = v
+            demo_ok &= v == {"refused": True, "requests_for_refused_text": 0,
+                             "sent_texts_containing_sequence": 0,
+                             "halt_store_after_refusal": ["PLAN"],
+                             "later_valid_writes": [["exact"], ["exact"]], "writes_total": 2}
+    out["refusal_then_valid_writes"] = demo
+    # Read-back under the gate without the refusal and a transport that removes the '!'.
     readback, rb_ok = {}, True
     G2.lt_bang_violations = no_refusal
     try:
@@ -410,7 +469,7 @@ def c4():
         G2.lt_bang_violations = saved_check
     out["readback_without_refusal_stripping_transport"] = readback
     results["C4"] = out
-    return rb_ok and all(out[n]["failed"] > 0 and
+    return rb_ok and demo_ok and all(out[n]["failed"] > 0 and
                          out[n]["required_tests_failing"] == sorted(required[n]) and
                          not out[n]["positive_control_test_lt3_failing"] for n in mutants)
 

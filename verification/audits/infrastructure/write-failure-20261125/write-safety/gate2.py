@@ -36,9 +36,11 @@ refspec checks, push path, read-back paths, grants) and adds:
   * the pre-write check also refuses any text field the write would send (every body and title, of
     every operation) that contains a less-than sign immediately followed by an exclamation mark
     (lt_bang_violations; owner decisions of 2026-11-25). The reason names the field and every
-    position; the text is never altered, and the writer must reword it. The refusal is handled as
-    every other pre-check refusal: it halts before any request, latches the plan and writes the
-    global marker (section A.51 item 5: a failed pre-check stops the automated operations).
+    position; the text is never altered, and the writer must reword it. This one refusal does not
+    stop the sequence (owner decision, amaybaum, 2026-11-25, subject to the reviewer confirming
+    compatibility with section A.51): it raises Refused, which is not Halted, after every other
+    pre-check has passed and before any request, writes no marker and no latch, and gives back a
+    single-write grant the write had taken. Every other pre-check and containment rule is unchanged.
 The store is checked (_check_clear) for a write at its start, again once the operation is known
 (before the pre-write read) and again immediately before the write request, but not before the
 read-back request; for a push at its start only (by gate2 and again by gate.py's push, which calls
@@ -89,6 +91,16 @@ def lt_bang_violations(t, field):
             "with the '!' removed, so it is not sent and is not altered: reword the %s so that no "
             "'<' is immediately followed by '!' (no automatic substitution is made)"
             % (field, ", ".join(where(i) for i in pos), field)]
+
+
+class Refused(Exception):
+    """The write was refused before any request, for the less-than/exclamation sequence only. Not
+    a Halted: the sequence continues, and the writer may send a reworded text. Attributes: op,
+    target, field, reason."""
+
+    def __init__(self, op, target, field, reason):
+        super().__init__(reason)
+        self.op, self.target, self.field, self.reason = op, target, field, reason
 
 
 def sha256(s):
@@ -222,6 +234,8 @@ class Gate2(G.Gate):
     def _guarded(self, what, fn):
         try:
             return fn()
+        except Refused:              # nothing was sent and nothing is latched (lt_bang_violations)
+            raise
         except Halted as e:          # a refusal also ends the sequence (a halt has latched already)
             if not getattr(e, "latched", False):
                 self._latch({"reason": "refused: %s" % e, "pid": os.getpid(), "time": _now()})
@@ -329,6 +343,11 @@ class Gate2(G.Gate):
             want.pop(k, None)
         return want
 
+    def _refuse(self, op, target, field, reason):
+        """The non-stopping refusal: no request, no marker, no latch, no evidence file."""
+        self.log.append(("refused", op, str(target), field))
+        raise Refused(op, target, field, "refused before sending, nothing sent: " + reason)
+
     def _record(self, op, target, field, sent, stored, rule_id):
         rule = TR.rule_by_id(rule_id, self.rules)
         rec = {"kind": "permitted-transport-difference", "operation": op, "target": target,
@@ -352,7 +371,8 @@ class Gate2(G.Gate):
     # -- text writes ---------------------------------------------------------------------------
     def write(self, op, target=None, fields=None, labels=None, label=None):
         """Perform exactly one write. Returns Result(stored, outcomes, records); raises Halted.
-        After any Halted, this plan and every Gate2 in the process refuse further writes."""
+        After any Halted, this plan and every Gate2 in the process refuse further writes. Refused
+        (the less-than/exclamation sequence only) ends nothing: a reworded text may be sent."""
         return self._guarded("write %s" % (op,),
                              lambda: self._write(op, target, fields, labels, label))
 
@@ -366,20 +386,27 @@ class Gate2(G.Gate):
         self._check_clear()                       # this mechanism's marker, before any request
         fields = dict(fields or {})
         key = (op, str(target))
+        took_grant = False
         if not reg.get("validated"):
             if key not in self.grants:
                 self._halt("operation %s is not validated and has no single-write grant" % op)
             self.grants.discard(key)              # consumed before the write
+            took_grant = True
         if set(fields) != set(spec["text"]):
             self._halt("fields %s do not match operation %s" % (sorted(fields), op))
         for k, v in fields.items():
             bad = precheck_text(v)
             if isinstance(v, str):
                 bad += TR.send_form_violations(reg.get("send_form"), v, k)
-            bad += lt_bang_violations(v, k)
             if bad:
                 self._halt("pre-check refused field %s: %s" % (k, "; ".join(bad)),
                            sent=v if isinstance(v, str) else repr(v))
+        for k, v in fields.items():               # only after every other pre-check has passed
+            bad = lt_bang_violations(v, k)
+            if bad:
+                if took_grant:                    # nothing is sent: the grant is not used up
+                    self.grants.add(key)
+                self._refuse(op, target, k, bad[0])
         # Expected stored text: the text sent, frozen and hashed now. No normalization.
         expected = {k: v.encode("utf-8") for k, v in fields.items()}
         digests = {k: hashlib.sha256(b).hexdigest() for k, b in expected.items()}

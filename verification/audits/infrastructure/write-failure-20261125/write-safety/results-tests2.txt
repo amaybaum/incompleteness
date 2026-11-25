@@ -12,8 +12,12 @@ test_lt2_positions_start_end_code_span_and_block (__main__.LtBang.test_lt2_posit
 test_lt3_positive_separated_characters_are_sent (__main__.LtBang.test_lt3_positive_separated_characters_are_sent) ... ok
 test_lt4_refusal_before_reaching_a_stripping_transport (__main__.LtBang.test_lt4_refusal_before_reaching_a_stripping_transport)
 Under a transport that strips the '!' as GitHub did, the refused texts never reach it; ... ok
-test_lt5_refusal_latches_until_the_owner_clears_it (__main__.LtBang.test_lt5_refusal_latches_until_the_owner_clears_it)
-No rewording or retry continues the plan: the same gate, a new gate of the same plan ... ok
+test_lt5_refusal_does_not_stop_the_sequence (__main__.LtBang.test_lt5_refusal_does_not_stop_the_sequence)
+After a refusal the same gate, a new gate of the same plan and a later sequence each ... ok
+test_lt6_other_prechecks_still_halt_and_take_precedence (__main__.LtBang.test_lt6_other_prechecks_still_halt_and_take_precedence)
+A refused text followed by a different pre-check failure halts as before (global ... ok
+test_lt7_single_write_grant_survives_a_refusal (__main__.LtBang.test_lt7_single_write_grant_survives_a_refusal)
+A refused attempt sends nothing, so it does not use up a single-write grant: the ... ok
 test_neg_authorization_record (__main__.Negative.test_neg_authorization_record) ... ok
 test_neg_content_changes_stop_globally (__main__.Negative.test_neg_content_changes_stop_globally)
 Every content change before the tail stops every text write (rule 3), whichever ... ok
@@ -83,11 +87,11 @@ test_q18_at_most_one_footer_copy_narrows (__main__.Revision4.test_q18_at_most_on
 Item 2: one appended footer copy (plus newlines) narrows to the operation; two or more ... ok
 
 ----------------------------------------------------------------------
-Ran 64 tests in 5.391s
+Ran 66 tests in 7.114s
 
 OK
 
 # Unchanged v1 suite in the same directory, same run: python3 -I -B test_gate.py
-Ran 18 tests in 0.080s
+Ran 18 tests in 0.076s
 OK
 # Unchanged v1 countercontrols: python3 -I -B countercontrol.py -> pass {"C1": true, "C2": true, "C3": true}; output equal to results-countercontrol.json

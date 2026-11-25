@@ -1185,33 +1185,34 @@ def strip_bang(t):
 class LtBang(Base):
     """Owner decisions, 2026-11-25: text containing '<' immediately followed by '!' is refused
     before any request, with a reason naming the field and position; the text is never altered;
-    the writer rewords it. The refusal is a pre-check refusal: it latches the plan and writes the
-    global marker, as every pre-check refusal does (section A.51 item 5)."""
+    the writer rewords it. This refusal alone does not stop the sequence (owner decision, amaybaum,
+    2026-11-25): it raises Refused, writes no marker and no latch, and a reworded text may be sent.
+    Every other pre-check still halts as before, and takes precedence."""
 
     def fields_for(self, op, field, text):
         return {k: (text if k == field else ("t" if k == "title" else "b" + F))
                 for k in TEXT_OPS[op]}
 
-    def assertRefused(self, op, fields, field, offsets, gh=None):
-        gh = gh or MockGitHub2(issues()); git = MockGit(); g = self.gate(gh, git)
+    def assertRefused(self, op, fields, field, offsets, gh=None, g=None):
+        gh = gh or MockGitHub2(issues()); git = MockGit(); g = g or self.gate(gh, git)
         sent = dict(fields)
-        with self.assertRaises(Halted, msg=(op, field)) as cm:
+        w, n = len(gh.writes), gh.gets
+        with self.assertRaises(G2.Refused, msg=(op, field)) as cm:
             g.write(op, TARGET[op], fields)
-        self.assertEqual((gh.writes, gh.gets, git.runs), ([], 0, []), (op, field))
+        self.assertNotIsInstance(cm.exception, Halted)
+        self.assertEqual((len(gh.writes), gh.gets, git.runs), (w, n, []), (op, field))
         self.assertEqual(fields, sent, "the caller's text was changed")
-        reason = str(cm.exception)
-        rec = self.halt_record()
-        for r in (reason, rec["reason"]):
-            self.assertIn("pre-check refused field %s" % field, r)
+        e = cm.exception
+        self.assertEqual((e.op, e.target, e.field), (op, TARGET[op], field))
+        for r in (str(e), e.reason):
+            self.assertIn("refused before sending, nothing sent", r)
             self.assertIn("field %s contains '<' immediately followed by '!'" % field, r)
             self.assertIn("reword the %s" % field, r)
             for o in offsets:
                 self.assertIn("offset %d (" % o, r)
             self.assertEqual(r.count("offset "), len(offsets), r)
-        self.assertEqual(rec["scope"], "global")
-        self.assertEqual(rec["evidence"]["sent"]["text"], fields[field])
-        self.assertEqual(rec["evidence"]["sent"]["sha256"], G2.sha256(fields[field]))
-        self.assertTrue(os.path.exists(os.path.join(self.dir, G2.PLAN_PREFIX + self.plan)))
+        self.assertEqual(os.listdir(self.dir), [G2.PLAN_RECORD], "a marker or file was written")
+        self.assertEqual(G2._HALTED, [], "the in-process store was latched")
         return g, gh, git
 
     def test_lt1_refused_in_every_body_and_title(self):
@@ -1221,7 +1222,10 @@ class LtBang(Base):
                 text = "lookbehind `(?%s[A-Za-z0-9])` here" % LB
                 g, gh, git = self.assertRefused(op, self.fields_for(op, field, text), field,
                                                 [text.index(LB)])
-                self.assertNoFurtherWrites(g, gh, git, op if op in SAMPLE else "pr.edit")
+                ok = self.fields_for(op, field, "reworded `(?<-[A-Za-z0-9])` here")
+                res = g.write(op, TARGET[op], ok)       # the same gate sends a valid text
+                self.assertEqual(set(c for c, _ in res.outcomes.values()), {"exact"}, (op, field))
+                self.assertEqual(len(gh.writes), 1, (op, field))
 
     def test_lt2_positions_start_end_code_span_and_block(self):
         cases = [("body", LB + "-- start", [0]),
@@ -1240,7 +1244,7 @@ class LtBang(Base):
         self.setUp()                     # line and column of a position on a later line
         text = "a\nbb\nccc " + LB
         gh = MockGitHub2(issues()); g = self.gate(gh)
-        with self.assertRaises(Halted) as cm:
+        with self.assertRaises(G2.Refused) as cm:
             g.write("comment.create", 1, {"body": text})
         self.assertIn("offset 9 (line 3, column 5)", str(cm.exception))
         self.assertEqual((gh.writes, gh.gets), ([], 0))
@@ -1271,31 +1275,66 @@ class LtBang(Base):
                 self.assertRefused(op, self.fields_for(op, field, text), field,
                                    [text.index(LB)], gh=gh)
 
-    def test_lt5_refusal_latches_until_the_owner_clears_it(self):
-        """No rewording or retry continues the plan: the same gate, a new gate of the same plan
-        and a later sequence are refused; once the owner has cleared the halt (by hand), the
-        writer's reworded text is sent and stored exactly."""
+    def test_lt5_refusal_does_not_stop_the_sequence(self):
+        """After a refusal the same gate, a new gate of the same plan and a later sequence each
+        send the writer's reworded text once, read back exactly; every refused attempt makes zero
+        requests and writes nothing to the halt store."""
         gh = MockGitHub2(issues()); git = MockGit()
-        g, gh, git = self.assertRefused("comment.create", {"body": "x " + LB + " y" + F}, "body",
-                                        [2], gh=gh)
-        reworded = {"body": "x < ! y" + F}
-        for gg in (g, self.gate(gh, git)):
-            with self.assertRaises(Halted):
-                gg.write("comment.create", 1, dict(reworded))
-        self.new_sequence()
-        with self.assertRaises(Halted) as cm:
-            self.gate(gh, git).write("comment.create", 1, dict(reworded))
-        self.assertIn("halt marker present: HALT", str(cm.exception))
-        self.assertEqual((gh.writes, gh.gets), ([], 0))
-        for n in os.listdir(self.dir):   # the owner's decision, carried out by hand
-            if n == "HALT" or n.startswith(G2.PLAN_PREFIX):
-                os.remove(os.path.join(self.dir, n))
-        self.new_sequence()
-        res = self.gate(gh, git).write("comment.create", 1, dict(reworded))
-        self.assertEqual(res.outcomes["body"], ["exact", None])
-        self.assertEqual(res.stored["body"], reworded["body"])
-        self.assertEqual(len(gh.writes), 1)
+        refused, reworded = {"body": "x " + LB + " y" + F}, {"body": "x < ! y" + F}
+        g = self.gate(gh, git)
+        sent = 0
+        for make in (lambda: g, lambda: self.gate(gh, git), None):
+            if make is None:                         # a later sequence, a fresh process
+                self.new_sequence()
+                make = lambda: self.gate(gh, git)
+            gg = make()
+            self.assertRefused("comment.create", dict(refused), "body", [2], gh=gh, g=gg)
+            self.assertEqual(len(gh.writes), sent)
+            res = gg.write("comment.create", 1, dict(reworded))
+            sent += 1
+            self.assertEqual(res.outcomes["body"], ["exact", None])
+            self.assertEqual(res.stored["body"], reworded["body"])
+            self.assertEqual(len(gh.writes), sent)
+            self.assertEqual(gh.writes[-1][2], reworded)
+        self.assertEqual(sorted(os.listdir(self.dir)), [G2.PLAN_RECORD])
+        self.assertIn(("refused", "comment.create", "1", "body"), g.log)
 
+    def test_lt6_other_prechecks_still_halt_and_take_precedence(self):
+        """A refused text followed by a different pre-check failure halts as before (global
+        marker, plan latch, nothing further); a text failing both halts on the other check."""
+        gh = MockGitHub2(issues()); git = MockGit(); g = self.gate(gh, git)
+        self.assertRefused("comment.create", {"body": "a " + LB + F}, "body", [2], gh=gh, g=g)
+        with self.assertRaises(Halted) as cm:
+            g.write("comment.create", 1, {"body": "a\r\nb" + F})
+        self.assertNotIsInstance(cm.exception, G2.Refused)
+        self.assertEqual((gh.writes, gh.gets), ([], 0))
+        rec = self.halt_record()
+        self.assertIn("pre-check refused field body: carriage return", rec["reason"])
+        self.assertEqual(rec["scope"], "global")
+        self.assertTrue(os.path.exists(os.path.join(self.dir, G2.PLAN_PREFIX + self.plan)))
+        self.assertNoFurtherWrites(g, gh, git, "comment.create", "global")
+        for both in ("a\rb " + LB, "\u200b" + LB, "oi-form " + LB):
+            self.setUp()
+            gh = MockGitHub2(issues()); git = MockGit(); g = self.gate(gh, git)
+            with self.assertRaises(Halted, msg=repr(both)) as cm:
+                g.write("comment.create", 1, {"body": both + F})
+            self.assertNotIsInstance(cm.exception, G2.Refused)
+            self.assertIn("pre-check refused field body", self.halt_record()["reason"])
+            self.assertNoFurtherWrites(g, gh, git, "comment.create", "global")
+
+    def test_lt7_single_write_grant_survives_a_refusal(self):
+        """A refused attempt sends nothing, so it does not use up a single-write grant: the
+        reworded text is the grant's one write, and a further write halts as before."""
+        gh = MockGitHub2(issues()); git = MockGit(); g = self.gate(gh, git, registry(False))
+        g.grant_single_write("issue.edit_body", 2)
+        self.assertRefused("issue.edit_body", {"body": "v " + LB + F}, "body", [2], gh=gh, g=g)
+        res = g.write("issue.edit_body", 2, {"body": "v < !" + F})
+        self.assertEqual(res.outcomes["body"], ["exact", None])
+        self.assertEqual(len(gh.writes), 1)
+        with self.assertRaises(Halted):
+            g.write("issue.edit_body", 2, {"body": "again" + F})
+        self.assertEqual(len(gh.writes), 1)
+        self.assertNoFurtherWrites(g, gh, git, "issue.edit_body", "global")
 
 if __name__ == "__main__":
     os.makedirs(os.path.join(HERE, "runs"), exist_ok=True)

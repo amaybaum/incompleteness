@@ -51,12 +51,12 @@
   },
   "C2": {
    "baseline": {
-    "run": 64,
+    "run": 66,
     "failed": 0,
     "failing": []
    },
    "strip_all_whitespace": {
-    "run": 64,
+    "run": 66,
     "failed": 7,
     "failing": [
      "test_neg_content_changes_stop_globally",
@@ -75,7 +75,7 @@
     ]
    },
    "whole_text_strip": {
-    "run": 64,
+    "run": 66,
     "failed": 7,
     "failing": [
      "test_neg_content_changes_stop_globally",
@@ -94,7 +94,7 @@
     ]
    },
    "ignore_footer_text": {
-    "run": 64,
+    "run": 66,
     "failed": 5,
     "failing": [
      "test_neg_footer_variants",
@@ -109,7 +109,7 @@
     ]
    },
    "accept_doubled_footer": {
-    "run": 64,
+    "run": 66,
     "failed": 5,
     "failing": [
      "test_neg_footer_variants",
@@ -124,7 +124,7 @@
     ]
    },
    "ascii_whitespace_tail": {
-    "run": 64,
+    "run": 66,
     "failed": 5,
     "failing": [
      "test_neg_footer_variants",
@@ -139,7 +139,7 @@
     ]
    },
    "no_separator_check": {
-    "run": 64,
+    "run": 66,
     "failed": 4,
     "failing": [
      "test_neg_footer_variants",
@@ -154,7 +154,7 @@
   },
   "C3": {
    "accept_rejected": {
-    "run": 64,
+    "run": 66,
     "failed": 25,
     "failing": [
      "test_c1_run_level_latch_after_operation_level_halt",
@@ -197,7 +197,7 @@
     ]
    },
    "skip_discrepancy_record": {
-    "run": 64,
+    "run": 66,
     "failed": 2,
     "failing": [
      "test_p3_real_pairs_through_gate_with_records",
@@ -205,7 +205,7 @@
     ]
    },
    "single_global_marker": {
-    "run": 64,
+    "run": 66,
     "failed": 16,
     "failing": [
      "test_c1_run_level_latch_after_operation_level_halt",
@@ -227,15 +227,12 @@
     ]
    },
    "no_sequence_latch": {
-    "run": 64,
-    "failed": 10,
+    "run": 66,
+    "failed": 7,
     "failing": [
      "test_c1_run_level_latch_after_operation_level_halt",
      "test_c3_existing_op_marker_blocks_and_is_kept",
-     "test_lt1_refused_in_every_body_and_title",
-     "test_lt2_positions_start_end_code_span_and_block",
-     "test_lt4_refusal_before_reaching_a_stripping_transport",
-     "test_lt5_refusal_latches_until_the_owner_clears_it",
+     "test_lt6_other_prechecks_still_halt_and_take_precedence",
      "test_q10_plan_latch_survives_restart",
      "test_q15_store_rechecked_before_the_write_request",
      "test_q17_restart_after_halt_same_or_substituted_id",
@@ -248,13 +245,10 @@
     ]
    },
    "memory_only_latch": {
-    "run": 64,
-    "failed": 7,
+    "run": 66,
+    "failed": 4,
     "failing": [
-     "test_lt1_refused_in_every_body_and_title",
-     "test_lt2_positions_start_end_code_span_and_block",
-     "test_lt4_refusal_before_reaching_a_stripping_transport",
-     "test_lt5_refusal_latches_until_the_owner_clears_it",
+     "test_lt6_other_prechecks_still_halt_and_take_precedence",
      "test_q10_plan_latch_survives_restart",
      "test_q15_store_rechecked_before_the_write_request",
      "test_q17_restart_after_halt_same_or_substituted_id"
@@ -264,8 +258,8 @@
     ]
    },
    "operation_scope_always": {
-    "run": 64,
-    "failed": 33,
+    "run": 66,
+    "failed": 31,
     "failing": [
      "test_c6_second_halt_with_outstanding_marker_is_global",
      "test_g04_readback_failure_halts",
@@ -275,10 +269,8 @@
      "test_g10_unvalidated_needs_single_grant",
      "test_g11_fields_mismatch_halts",
      "test_g16_noncanonical_refused_before_write",
-     "test_lt1_refused_in_every_body_and_title",
-     "test_lt2_positions_start_end_code_span_and_block",
-     "test_lt4_refusal_before_reaching_a_stripping_transport",
-     "test_lt5_refusal_latches_until_the_owner_clears_it",
+     "test_lt6_other_prechecks_still_halt_and_take_precedence",
+     "test_lt7_single_write_grant_survives_a_refusal",
      "test_neg_authorization_record",
      "test_neg_content_changes_stop_globally",
      "test_neg_footer_variants",
@@ -303,7 +295,7 @@
     ]
    },
    "narrow_without_tail_check": {
-    "run": 64,
+    "run": 66,
     "failed": 16,
     "failing": [
      "test_neg_authorization_record",
@@ -325,7 +317,7 @@
     ]
    },
    "narrow_on_any_appended_text": {
-    "run": 64,
+    "run": 66,
     "failed": 7,
     "failing": [
      "test_neg_footer_variants",
@@ -341,7 +333,7 @@
     ]
    },
    "labels_state_only_on_their_ops": {
-    "run": 64,
+    "run": 66,
     "failed": 1,
     "failing": [
      "test_q13_labels_and_state_checked_on_every_write"
@@ -351,7 +343,7 @@
     ]
    },
    "ignore_stale_companion": {
-    "run": 64,
+    "run": 66,
     "failed": 1,
     "failing": [
      "test_q14_stale_or_existing_operation_marker_makes_it_global"
@@ -361,7 +353,7 @@
     ]
    },
    "allowlist_on_exact_validated_ops": {
-    "run": 64,
+    "run": 66,
     "failed": 1,
     "failing": [
      "test_q12_permitted_difference_and_validation"
@@ -371,7 +363,7 @@
     ]
    },
    "caller_substitutes_plan_id": {
-    "run": 64,
+    "run": 66,
     "failed": 2,
     "failing": [
      "test_q16_plan_id_only_from_the_plan_record",
@@ -383,7 +375,7 @@
     ]
    },
    "unlimited_footer_copies": {
-    "run": 64,
+    "run": 66,
     "failed": 4,
     "failing": [
      "test_neg_footer_variants",
@@ -398,24 +390,26 @@
   },
   "C4": {
    "no_lt_bang_refusal": {
-    "run": 64,
-    "failed": 4,
+    "run": 66,
+    "failed": 6,
     "failing": [
      "test_lt1_refused_in_every_body_and_title",
      "test_lt2_positions_start_end_code_span_and_block",
      "test_lt4_refusal_before_reaching_a_stripping_transport",
-     "test_lt5_refusal_latches_until_the_owner_clears_it"
+     "test_lt5_refusal_does_not_stop_the_sequence",
+     "test_lt6_other_prechecks_still_halt_and_take_precedence",
+     "test_lt7_single_write_grant_survives_a_refusal"
     ],
     "required_tests_failing": [
      "test_lt1_refused_in_every_body_and_title",
      "test_lt2_positions_start_end_code_span_and_block",
      "test_lt4_refusal_before_reaching_a_stripping_transport",
-     "test_lt5_refusal_latches_until_the_owner_clears_it"
+     "test_lt5_refusal_does_not_stop_the_sequence"
     ],
     "positive_control_test_lt3_failing": false
    },
    "lt_bang_refusal_bodies_only": {
-    "run": 64,
+    "run": 66,
     "failed": 3,
     "failing": [
      "test_lt1_refused_in_every_body_and_title",
@@ -430,21 +424,162 @@
     "positive_control_test_lt3_failing": false
    },
    "lt_bang_substituted_and_sent": {
-    "run": 64,
-    "failed": 4,
+    "run": 66,
+    "failed": 6,
     "failing": [
      "test_lt1_refused_in_every_body_and_title",
      "test_lt2_positions_start_end_code_span_and_block",
      "test_lt4_refusal_before_reaching_a_stripping_transport",
-     "test_lt5_refusal_latches_until_the_owner_clears_it"
+     "test_lt5_refusal_does_not_stop_the_sequence",
+     "test_lt6_other_prechecks_still_halt_and_take_precedence",
+     "test_lt7_single_write_grant_survives_a_refusal"
     ],
     "required_tests_failing": [
      "test_lt1_refused_in_every_body_and_title",
      "test_lt2_positions_start_end_code_span_and_block",
      "test_lt4_refusal_before_reaching_a_stripping_transport",
-     "test_lt5_refusal_latches_until_the_owner_clears_it"
+     "test_lt5_refusal_does_not_stop_the_sequence"
     ],
     "positive_control_test_lt3_failing": false
+   },
+   "lt_bang_refusal_latches": {
+    "run": 66,
+    "failed": 6,
+    "failing": [
+     "test_lt1_refused_in_every_body_and_title",
+     "test_lt2_positions_start_end_code_span_and_block",
+     "test_lt4_refusal_before_reaching_a_stripping_transport",
+     "test_lt5_refusal_does_not_stop_the_sequence",
+     "test_lt6_other_prechecks_still_halt_and_take_precedence",
+     "test_lt7_single_write_grant_survives_a_refusal"
+    ],
+    "required_tests_failing": [
+     "test_lt1_refused_in_every_body_and_title",
+     "test_lt5_refusal_does_not_stop_the_sequence",
+     "test_lt7_single_write_grant_survives_a_refusal"
+    ],
+    "positive_control_test_lt3_failing": false
+   },
+   "refusal_then_valid_writes": {
+    "comment.create.body": {
+     "refused": true,
+     "requests_for_refused_text": 0,
+     "sent_texts_containing_sequence": 0,
+     "halt_store_after_refusal": [
+      "PLAN"
+     ],
+     "later_valid_writes": [
+      [
+       "exact"
+      ],
+      [
+       "exact"
+      ]
+     ],
+     "writes_total": 2
+    },
+    "issue.create.title": {
+     "refused": true,
+     "requests_for_refused_text": 0,
+     "sent_texts_containing_sequence": 0,
+     "halt_store_after_refusal": [
+      "PLAN"
+     ],
+     "later_valid_writes": [
+      [
+       "exact"
+      ],
+      [
+       "exact"
+      ]
+     ],
+     "writes_total": 2
+    },
+    "issue.create.body": {
+     "refused": true,
+     "requests_for_refused_text": 0,
+     "sent_texts_containing_sequence": 0,
+     "halt_store_after_refusal": [
+      "PLAN"
+     ],
+     "later_valid_writes": [
+      [
+       "exact"
+      ],
+      [
+       "exact"
+      ]
+     ],
+     "writes_total": 2
+    },
+    "issue.edit_body.body": {
+     "refused": true,
+     "requests_for_refused_text": 0,
+     "sent_texts_containing_sequence": 0,
+     "halt_store_after_refusal": [
+      "PLAN"
+     ],
+     "later_valid_writes": [
+      [
+       "exact"
+      ],
+      [
+       "exact"
+      ]
+     ],
+     "writes_total": 2
+    },
+    "pr.create.title": {
+     "refused": true,
+     "requests_for_refused_text": 0,
+     "sent_texts_containing_sequence": 0,
+     "halt_store_after_refusal": [
+      "PLAN"
+     ],
+     "later_valid_writes": [
+      [
+       "exact"
+      ],
+      [
+       "exact"
+      ]
+     ],
+     "writes_total": 2
+    },
+    "pr.create.body": {
+     "refused": true,
+     "requests_for_refused_text": 0,
+     "sent_texts_containing_sequence": 0,
+     "halt_store_after_refusal": [
+      "PLAN"
+     ],
+     "later_valid_writes": [
+      [
+       "exact"
+      ],
+      [
+       "exact"
+      ]
+     ],
+     "writes_total": 2
+    },
+    "pr.edit.body": {
+     "refused": true,
+     "requests_for_refused_text": 0,
+     "sent_texts_containing_sequence": 0,
+     "halt_store_after_refusal": [
+      "PLAN"
+     ],
+     "later_valid_writes": [
+      [
+       "exact"
+      ],
+      [
+       "exact"
+      ]
+     ],
+     "writes_total": 2
+    }
    },
    "readback_without_refusal_stripping_transport": {
     "comment.create.body": {

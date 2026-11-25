@@ -201,11 +201,15 @@ GitHub stored comment 7172299731 with the exclamation mark of such a sequence re
 comment poster's pre-write refusal to gate v2 before its validation write. `gate2.py` refuses any
 body or title of any operation containing a less-than sign immediately followed by an exclamation
 mark before any request, naming the field and each position and asking the writer to reword; it
-never alters the text. Like every pre-check refusal it latches the plan and writes the global
-marker. The exact read-back is unchanged. `write-safety/CHANGES-r5.md` records the change, the
-latching choice and the controls. Prepared locally, not committed. Recorded results:
-`test_gate2.py` 64 of 64; `countercontrol2.py` C1-C4 pass (the gate without the refusal, checking
-bodies only, or substituting the text fails the new tests, and under a transport that removes the
-exclamation mark the read-back halts); the original suite is unchanged (18 of 18) and its
-countercontrols pass. A focused independent check is required; the existing gate stays in use
-until the owner approves v2.
+never alters the text. Committed on the evidence branch at
+`0a1b5675af31d1885a5e108d6b143bea74ea4aa1`, where the refusal latched like every pre-check. By owner
+decision (amaybaum, 2026-11-25), conditional on the reviewer confirming compatibility with §A.51,
+the refusal no longer stops the sequence: it raises `gate2.Refused`, writes no marker or latch, and
+a reworded text may be sent, as with the comment poster; every other pre-check and containment
+rule, and the exact read-back, are unchanged. This revision was prepared locally for the
+coordinator to commit. `write-safety/CHANGES-r5.md` records both steps and the controls. Recorded
+results: `test_gate2.py` 66 of 66; `countercontrol2.py` C1-C4 pass (no refusal, bodies only,
+substitution and a latching refusal each fail the new tests; a refused text makes no request and
+later valid writes succeed; under a transport that removes the exclamation mark the read-back
+halts); the original suite is unchanged (18 of 18) and its countercontrols pass. The existing gate
+stays in use until the owner approves v2.
