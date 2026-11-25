@@ -50,18 +50,19 @@
   },
   "C2": {
    "baseline": {
-    "run": 56,
+    "run": 59,
     "failed": 0,
     "failing": []
    },
    "strip_all_whitespace": {
-    "run": 56,
-    "failed": 6,
+    "run": 59,
+    "failed": 7,
     "failing": [
      "test_neg_content_changes_stop_globally",
      "test_neg_footer_variants",
      "test_neg_internal_whitespace",
      "test_neg_markdown_whitespace_boundary",
+     "test_q18_at_most_one_footer_copy_narrows",
      "test_q5_narrowing_conditions",
      "test_q9_appended_text_stops_globally"
     ],
@@ -73,13 +74,14 @@
     ]
    },
    "whole_text_strip": {
-    "run": 56,
-    "failed": 6,
+    "run": 59,
+    "failed": 7,
     "failing": [
      "test_neg_content_changes_stop_globally",
      "test_neg_footer_variants",
      "test_neg_internal_whitespace",
      "test_neg_markdown_whitespace_boundary",
+     "test_q18_at_most_one_footer_copy_narrows",
      "test_q5_narrowing_conditions",
      "test_q9_appended_text_stops_globally"
     ],
@@ -91,11 +93,12 @@
     ]
    },
    "ignore_footer_text": {
-    "run": 56,
-    "failed": 4,
+    "run": 59,
+    "failed": 5,
     "failing": [
      "test_neg_footer_variants",
      "test_neg_markdown_whitespace_boundary",
+     "test_q18_at_most_one_footer_copy_narrows",
      "test_q5_narrowing_conditions",
      "test_q9_appended_text_stops_globally"
     ],
@@ -105,19 +108,13 @@
     ]
    },
    "accept_doubled_footer": {
-    "run": 56,
-    "failed": 11,
+    "run": 59,
+    "failed": 5,
     "failing": [
-     "test_c1_run_level_latch_after_operation_level_halt",
-     "test_c1b_later_sequence_waits_for_notification",
-     "test_c6_second_halt_with_outstanding_marker_is_global",
      "test_neg_footer_variants",
      "test_neg_markdown_whitespace_boundary",
-     "test_q10_plan_latch_survives_restart",
-     "test_q14_stale_or_existing_operation_marker_makes_it_global",
-     "test_q3_caller_catching_halted_writes_nothing_further",
+     "test_q18_at_most_one_footer_copy_narrows",
      "test_q5_narrowing_conditions",
-     "test_q6_outstanding_marker_of_another_operation_makes_it_global",
      "test_q9_appended_text_stops_globally"
     ],
     "negative_controls_failing": [
@@ -126,11 +123,12 @@
     ]
    },
    "ascii_whitespace_tail": {
-    "run": 56,
-    "failed": 4,
+    "run": 59,
+    "failed": 5,
     "failing": [
      "test_neg_footer_variants",
      "test_neg_markdown_whitespace_boundary",
+     "test_q18_at_most_one_footer_copy_narrows",
      "test_q5_narrowing_conditions",
      "test_q9_appended_text_stops_globally"
     ],
@@ -140,10 +138,11 @@
     ]
    },
    "no_separator_check": {
-    "run": 56,
-    "failed": 3,
+    "run": 59,
+    "failed": 4,
     "failing": [
      "test_neg_footer_variants",
+     "test_q18_at_most_one_footer_copy_narrows",
      "test_q5_narrowing_conditions",
      "test_q9_appended_text_stops_globally"
     ],
@@ -154,8 +153,8 @@
   },
   "C3": {
    "accept_rejected": {
-    "run": 56,
-    "failed": 23,
+    "run": 59,
+    "failed": 25,
     "failing": [
      "test_c1_run_level_latch_after_operation_level_halt",
      "test_c1b_later_sequence_waits_for_notification",
@@ -172,6 +171,8 @@
      "test_neg_truncation_extension",
      "test_q10_plan_latch_survives_restart",
      "test_q14_stale_or_existing_operation_marker_makes_it_global",
+     "test_q17_restart_after_halt_same_or_substituted_id",
+     "test_q18_at_most_one_footer_copy_narrows",
      "test_q2_content_change_is_global",
      "test_q3_caller_catching_halted_writes_nothing_further",
      "test_q4_no_orphaned_record_when_a_later_field_fails",
@@ -195,7 +196,7 @@
     ]
    },
    "skip_discrepancy_record": {
-    "run": 56,
+    "run": 59,
     "failed": 2,
     "failing": [
      "test_p3_real_pairs_through_gate_with_records",
@@ -203,8 +204,8 @@
     ]
    },
    "single_global_marker": {
-    "run": 56,
-    "failed": 14,
+    "run": 59,
+    "failed": 16,
     "failing": [
      "test_c1_run_level_latch_after_operation_level_halt",
      "test_c1b_later_sequence_waits_for_notification",
@@ -216,6 +217,8 @@
      "test_q10_plan_latch_survives_restart",
      "test_q12_permitted_difference_and_validation",
      "test_q14_stale_or_existing_operation_marker_makes_it_global",
+     "test_q17_restart_after_halt_same_or_substituted_id",
+     "test_q18_at_most_one_footer_copy_narrows",
      "test_q4_no_orphaned_record_when_a_later_field_fails",
      "test_q5_narrowing_conditions",
      "test_q9_appended_text_stops_globally",
@@ -223,13 +226,14 @@
     ]
    },
    "no_sequence_latch": {
-    "run": 56,
-    "failed": 5,
+    "run": 59,
+    "failed": 6,
     "failing": [
      "test_c1_run_level_latch_after_operation_level_halt",
      "test_c3_existing_op_marker_blocks_and_is_kept",
      "test_q10_plan_latch_survives_restart",
      "test_q15_store_rechecked_before_the_write_request",
+     "test_q17_restart_after_halt_same_or_substituted_id",
      "test_q3_caller_catching_halted_writes_nothing_further"
     ],
     "required_tests_failing": [
@@ -239,19 +243,20 @@
     ]
    },
    "memory_only_latch": {
-    "run": 56,
-    "failed": 2,
+    "run": 59,
+    "failed": 3,
     "failing": [
      "test_q10_plan_latch_survives_restart",
-     "test_q15_store_rechecked_before_the_write_request"
+     "test_q15_store_rechecked_before_the_write_request",
+     "test_q17_restart_after_halt_same_or_substituted_id"
     ],
     "required_tests_failing": [
      "test_q10_plan_latch_survives_restart"
     ]
    },
    "operation_scope_always": {
-    "run": 56,
-    "failed": 28,
+    "run": 59,
+    "failed": 29,
     "failing": [
      "test_c6_second_halt_with_outstanding_marker_is_global",
      "test_g04_readback_failure_halts",
@@ -273,6 +278,7 @@
      "test_neg_unsent_field_gets_footer",
      "test_q13_labels_and_state_checked_on_every_write",
      "test_q14_stale_or_existing_operation_marker_makes_it_global",
+     "test_q18_at_most_one_footer_copy_narrows",
      "test_q1_timeout_is_global",
      "test_q2_content_change_is_global",
      "test_q4_no_orphaned_record_when_a_later_field_fails",
@@ -284,8 +290,8 @@
     ]
    },
    "narrow_without_tail_check": {
-    "run": 56,
-    "failed": 15,
+    "run": 59,
+    "failed": 16,
     "failing": [
      "test_neg_authorization_record",
      "test_neg_content_changes_stop_globally",
@@ -297,6 +303,7 @@
      "test_neg_scientific_content",
      "test_neg_truncation_extension",
      "test_q14_stale_or_existing_operation_marker_makes_it_global",
+     "test_q18_at_most_one_footer_copy_narrows",
      "test_q2_content_change_is_global",
      "test_q4_no_orphaned_record_when_a_later_field_fails",
      "test_q5_narrowing_conditions",
@@ -305,12 +312,13 @@
     ]
    },
    "narrow_on_any_appended_text": {
-    "run": 56,
-    "failed": 6,
+    "run": 59,
+    "failed": 7,
     "failing": [
      "test_neg_footer_variants",
      "test_neg_markdown_whitespace_boundary",
      "test_neg_truncation_extension",
+     "test_q18_at_most_one_footer_copy_narrows",
      "test_q4_no_orphaned_record_when_a_later_field_fails",
      "test_q5_narrowing_conditions",
      "test_q9_appended_text_stops_globally"
@@ -320,7 +328,7 @@
     ]
    },
    "labels_state_only_on_their_ops": {
-    "run": 56,
+    "run": 59,
     "failed": 1,
     "failing": [
      "test_q13_labels_and_state_checked_on_every_write"
@@ -330,7 +338,7 @@
     ]
    },
    "ignore_stale_companion": {
-    "run": 56,
+    "run": 59,
     "failed": 1,
     "failing": [
      "test_q14_stale_or_existing_operation_marker_makes_it_global"
@@ -340,13 +348,38 @@
     ]
    },
    "allowlist_on_exact_validated_ops": {
-    "run": 56,
+    "run": 59,
     "failed": 1,
     "failing": [
      "test_q12_permitted_difference_and_validation"
     ],
     "required_tests_failing": [
      "test_q12_permitted_difference_and_validation"
+    ]
+   },
+   "caller_substitutes_plan_id": {
+    "run": 59,
+    "failed": 2,
+    "failing": [
+     "test_q16_plan_id_only_from_the_plan_record",
+     "test_q17_restart_after_halt_same_or_substituted_id"
+    ],
+    "required_tests_failing": [
+     "test_q16_plan_id_only_from_the_plan_record",
+     "test_q17_restart_after_halt_same_or_substituted_id"
+    ]
+   },
+   "unlimited_footer_copies": {
+    "run": 59,
+    "failed": 4,
+    "failing": [
+     "test_neg_footer_variants",
+     "test_q18_at_most_one_footer_copy_narrows",
+     "test_q5_narrowing_conditions",
+     "test_q9_appended_text_stops_globally"
+    ],
+    "required_tests_failing": [
+     "test_q18_at_most_one_footer_copy_narrows"
     ]
    }
   }

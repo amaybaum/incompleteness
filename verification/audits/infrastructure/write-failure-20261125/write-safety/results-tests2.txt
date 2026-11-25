@@ -68,13 +68,19 @@ test_q15_store_rechecked_before_the_write_request (__main__.Revision3.test_q15_s
 G3: a halt recorded during the pre-write read stops the write request itself. ... ok
 test_q9_appended_text_stops_globally (__main__.Revision3.test_q9_appended_text_stops_globally)
 Q2: only newlines and exact footers appended may confine a stop to the operation; any ... ok
+test_q16_plan_id_only_from_the_plan_record (__main__.Revision4.test_q16_plan_id_only_from_the_plan_record)
+Item 1: the plan id is fixed in the plan record before the run; a caller cannot ... ok
+test_q17_restart_after_halt_same_or_substituted_id (__main__.Revision4.test_q17_restart_after_halt_same_or_substituted_id)
+Item 1: after an operation-level halt and the owner told, neither the same id nor a ... ok
+test_q18_at_most_one_footer_copy_narrows (__main__.Revision4.test_q18_at_most_one_footer_copy_narrows)
+Item 2: one appended footer copy (plus newlines) narrows to the operation; two or more ... ok
 
 ----------------------------------------------------------------------
-Ran 56 tests in 3.984s
+Ran 59 tests in 7.634s
 
 OK
 
 # Unchanged v1 suite in the same directory, same run: python3 -I -B test_gate.py
-Ran 18 tests in 0.087s
+Ran 18 tests in 0.233s
 OK
 # Unchanged v1 countercontrols: python3 -I -B countercontrol.py -> pass {"C1": true, "C2": true, "C3": true}; output equal to results-countercontrol.json

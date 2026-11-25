@@ -178,3 +178,18 @@ predicate for containment, separate from the allowlist. Recorded results: `test_
 56; `countercontrol2.py` C1-C3 pass (no sequence latch fails 5 tests; a latch in memory only fails
 the restart test; r2's appended-text narrowing fails 6); the original suite is unchanged (18 of 18)
 and its countercontrols pass. The existing gate stays in use until the owner approves v2.
+
+## Gate v2 revision r4: plan identity and footer count (for review, not adopted)
+
+Owner decision of 2026-11-25 (amaybaum, recorded at #1169 comment 7170157100) on the delta review
+of r3 (PR #1566 comment 7170013007): enforce plan identity across restarts, and cap the
+operation-level narrowing at one footer copy. `write-safety/CHANGES-r4.md` maps each change.
+`gate2.py` takes the plan id only from the plan record `PLAN` in the halt store, written once
+before the run by `record_plan` and never rewritten while it exists; a caller id that differs from
+it, or a missing record, is refused, also after a restart and in a separate process. A stored text
+with two or more footer copies after the content halts globally. The `gate2.py` docstring states
+exactly when the halt store is checked, and `CHANGES-r3.md` states that r3 was committed at
+`b71e45bd`. Recorded results: `test_gate2.py` 59 of 59; `countercontrol2.py` C1-C3 pass (taking
+the caller's plan id fails 2 tests; r3's unlimited footer copies fail 4); the original suite is
+unchanged (18 of 18) and its countercontrols pass. The existing gate stays in use until the owner
+approves v2.

@@ -15,9 +15,13 @@ refspec checks, push path, read-back paths, grants) and adds:
   * outcomes: "exact" -> accepted; "permitted" (where admitted) -> accepted, with a discrepancy
     record; anything else -> halt, with sent, stored and diff kept;
   * one containment mechanism, the halt store: files in the halt directory, mirrored in this
-    process by _HALTED. Every halt and every refusal ends the sequence: it is recorded in memory
-    and in the plan latch HALT-PLAN.<plan_id>, which every process of the plan checks before each
-    request, so neither catching the exception nor restarting a process continues the plan; only
+    process by _HALTED. The plan's identity is taken from the plan record PLAN in that store,
+    written once before the run (record_plan) and never rewritten while it exists; a gate is
+    refused when the record is missing or names another plan id than the caller's, at construction
+    and at every check of the store, so a process cannot substitute a new id on restart. Every
+    halt and every refusal ends the sequence: it is recorded in memory and in the plan latch
+    HALT-PLAN.<plan_id>, which every process of the plan reads at every check of the store (see
+    below), so neither catching the exception nor restarting a process continues the plan; only
     an owner decision removes the latch (by hand). Beyond the sequence, the global marker HALT
     (the name gate.py uses) is written for every failure except a read-back mismatch for which
     every condition of section A.49 rule 3 holds; then HALT.<operation> is written instead, and a
@@ -25,13 +29,17 @@ refspec checks, push path, read-back paths, grants) and adds:
     by hand once the owner has been told. A stale .notified companion, or an operation marker that
     already exists, makes the halt global;
   * the narrowing needs a footer-shaped tail (transport_rules.footer_shaped_tail): the stored
-    text is the sent content followed only by newlines and exact copies of the attribution footer.
-    That shape decides only the extent of a stop, never acceptance;
+    text is the sent content followed only by newlines and at most one exact copy of the
+    attribution footer. That shape decides only the extent of a stop, never acceptance;
   * discrepancy records are written only after every field and check of the write has passed; a
     halt marker embeds the complete evidence texts.
-Markers are checked before every request (also immediately before the write request), created
-exclusively, never overwritten and never removed by the gate. The check and the request that
-follows are not atomic across processes or threads; writers are single-threaded.
+The store is checked (_check_clear) for a write at its start, again once the operation is known
+(before the pre-write read) and again immediately before the write request, but not before the
+read-back request; for a push at its start only (by gate2 and again by gate.py's push, which calls
+the same check), before any git command, but not again before the remote-ref reads or git push
+itself. Markers are created exclusively, never overwritten and never removed by the gate. A check
+and the requests that follow it are not atomic across processes or threads; writers are
+single-threaded.
 """
 import difflib, hashlib, itertools, json, os, re, time
 
@@ -42,6 +50,7 @@ from gate import OPERATIONS, Halted, precheck_text, check_refspec, run_plan, mai
 GLOBAL_MARKER = "HALT"
 NOTIFIED_SUFFIX = ".notified"
 PLAN_PREFIX = "HALT-PLAN."
+PLAN_RECORD = "PLAN"
 PLAN_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,99}")
 _seq = itertools.count()
 # The halt store's in-process copy: one entry per halt or refusal in this process. Any entry stops
@@ -100,8 +109,12 @@ class Gate2(G.Gate):
         super().__init__(transport, git, os.path.join(halt_dir, GLOBAL_MARKER), repo, registry,
                          allowed_branches, evidence_dir or halt_dir, log)
         self.halt_dir = halt_dir
-        self.plan_id = plan_id
-        self.plan_path = os.path.join(halt_dir, PLAN_PREFIX + plan_id)
+        try:                                  # the plan id comes from the plan record only
+            self.plan_id = self._plan_record(plan_id)
+        except Halted as e:
+            _HALTED.append("refused: %s" % e)
+            raise
+        self.plan_path = os.path.join(halt_dir, PLAN_PREFIX + self.plan_id)
         self.rules = TR.REGISTRY if rules is None else rules
         self._mech = None
 
@@ -118,14 +131,32 @@ class Gate2(G.Gate):
         return sorted(n for n in os.listdir(self.halt_dir)
                       if n.startswith(GLOBAL_MARKER + ".") and not n.endswith(NOTIFIED_SUFFIX))
 
+    def _plan_record(self, supplied):
+        """The plan id recorded in the halt store's plan record, which must equal the id the
+        caller supplied. Raises Halted when the record is missing, unreadable or names another
+        id; the gate never writes the record and never takes the caller's id in its place."""
+        path = os.path.join(self.halt_dir, PLAN_RECORD)
+        try:
+            with open(path, encoding="utf-8") as f:
+                rid = json.load(f)["plan_id"]
+        except (OSError, ValueError, KeyError, TypeError) as e:
+            raise Halted("no readable plan record %s (written once before the run): %s: %s"
+                         % (PLAN_RECORD, type(e).__name__, e))
+        if not (isinstance(rid, str) and PLAN_ID.fullmatch(rid)):
+            raise Halted("plan record %s names no valid plan id" % PLAN_RECORD)
+        if supplied != rid:
+            raise Halted("plan id %r differs from the plan record's %r" % (supplied, rid))
+        return rid
+
     def _check_clear(self):
-        """The one halt check, made before every request: this process's copy of the store, then
-        the global marker, this plan's latch, this mechanism's marker and pending notifications."""
+        """The one halt check: this process's copy of the store, then the global marker, this
+        plan's latch, this mechanism's marker, the plan record and pending notifications."""
         if _HALTED:
             raise Halted("sequence stopped after an earlier halt in this process: %s" % _HALTED[0])
         for p in (self.halt_path, self.plan_path, self.marker_path(self._mech)):
             if os.path.lexists(p):
                 raise Halted("halt marker present: %s" % os.path.basename(p))
+        self._plan_record(self.plan_id)
         try:
             pending = [n for n in self._operation_markers()
                        if not os.path.lexists(os.path.join(self.halt_dir, n + NOTIFIED_SUFFIX))]
@@ -402,3 +433,19 @@ class Gate2(G.Gate):
         self._check_clear()
         self._mech = "push"                       # an existing HALT.push also blocks pushes
         return G.Gate.push(self, remote, sha, branch_ref)
+
+
+def record_plan(halt_dir, plan_id):
+    """Write the plan's persistent record, PLAN in the halt store, naming plan_id. Done once
+    before the run, as part of fixing the plan, never by the gate and never per process. Refuses
+    (FileExistsError) while a record exists: it is never rewritten, and is removed only by hand
+    when the plan has ended."""
+    if not (isinstance(plan_id, str) and PLAN_ID.fullmatch(plan_id)):
+        raise ValueError("plan_id must match %s" % PLAN_ID.pattern)
+    path = os.path.join(halt_dir, PLAN_RECORD)
+    r = Gate2._write_marker(path, {"plan_id": plan_id, "time": _now()})
+    if r == "exists":
+        raise FileExistsError("plan record already exists: %s" % path)
+    if r is not True:
+        raise OSError("plan record not written: %s" % r)
+    return path

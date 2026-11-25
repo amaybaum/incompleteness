@@ -10,7 +10,9 @@ by new_sequence(), which empties the process copy as a fresh process would start
 new plan id, meets the global marker unless the halt was a read-back mismatch with a footer-shaped
 tail meeting every condition of rule 3, in which case only that operation's marker exists, and it
 writes nothing until the marker's .notified companion exists. Tests q10 and q11 run the same plan
-id in a separate process (a restart) and find it refused."""
+id in a separate process (a restart) and find it refused. The plan id is fixed in the plan record
+(PLAN in the halt store) before the run; new_sequence() replaces that record by hand, as a person
+does when a plan has ended, and test q16 finds a caller-supplied id that differs from it refused."""
 import dataclasses, hashlib, json, os, subprocess, sys, tempfile, unittest
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -27,6 +29,12 @@ SHA, SHA2 = "a" * 40, "b" * 40
 ALLOWED = ("refs/heads/evidence/x",)
 CORE = TR.FOOTER_CORE
 F = TR.FOOTER_SEND_FORM          # "\n\n" + CORE
+
+
+def DROP(b):
+    """A rejected, footer-shaped transformation with at most one footer copy (operation level):
+    a footer at the end is removed; a body without one gets two newlines."""
+    return b[: -len(F)] if b.endswith(F) else b + "\n\n"
 
 
 def read(*p):
@@ -86,8 +94,8 @@ SAMPLE = {   # one further write per mechanism, for the no-further-write checks
 def expect_footer_shaped(sent, stored):
     """Independent restatement of rule 3's third condition, for the expected scope of a halt:
     the sent content (sent less trailing newlines and a footer recognised as rule 2 states it)
-    is not empty, the stored text starts with it, and what follows is only newlines and exact
-    copies of the footer core."""
+    is not empty, the stored text starts with it, and what follows is only newlines and at most
+    one exact copy of the footer core."""
     c = sent
     while c.endswith("\n"):
         c = c[:-1]
@@ -101,14 +109,16 @@ def expect_footer_shaped(sent, stored):
     if not (isinstance(stored, str) and c != "" and stored[: len(c)] == c):
         return False
     rest = stored[len(c):]
+    copies = 0
     while rest:
         if rest[0] == "\n":
             rest = rest[1:]
         elif rest[: len(CORE)] == CORE:
             rest = rest[len(CORE):]
+            copies += 1
         else:
             return False
-    return True
+    return copies <= 1
 
 
 class Base(unittest.TestCase):
@@ -124,6 +134,10 @@ class Base(unittest.TestCase):
         del G2._HALTED[:]
         Base.plans += 1
         self.plan = "plan-%d" % Base.plans
+        record = os.path.join(self.dir, G2.PLAN_RECORD)
+        if os.path.exists(record):                   # by hand: the previous plan has ended
+            os.remove(record)
+        G2.record_plan(self.dir, self.plan)
 
     def notify(self, mech):
         """By hand, after the evidence is kept and the owner told (rule 3)."""
@@ -535,10 +549,10 @@ class Containment(Base):
         """A footer-shaped mismatch halts the operation only; the same gate, and every other gate in
         the process, still refuse every mechanism, even after the owner has been told. A later
         sequence may write a comment only once the .notified file exists."""
-        gh = MockGitHub2(issues(), transforms={"patch": lambda b: b + F}); git = MockGit()
+        gh = MockGitHub2(issues(), transforms={"patch": DROP}); git = MockGit()
         g = self.gate(gh, git)
         with self.assertRaises(Halted):
-            g.write("issue.edit_body", 1, {"body": "x" + F})          # doubled footer: rejected
+            g.write("issue.edit_body", 1, {"body": "x" + F})          # footer removed: rejected
         self.assertEqual(self.halt_record("issue.edit_body")["scope"], "operation")
         self.assertFalse(os.path.exists(self.marker()))
         self.notify("issue.edit_body")
@@ -560,7 +574,7 @@ class Containment(Base):
         self.assertEqual(len(gh.writes), 3)
 
     def test_c1b_later_sequence_waits_for_notification(self):
-        gh = MockGitHub2(issues(), transforms={"patch": lambda b: b + F}); git = MockGit()
+        gh = MockGitHub2(issues(), transforms={"patch": DROP}); git = MockGit()
         with self.assertRaises(Halted):
             self.gate(gh, git).write("issue.edit_body", 1, {"body": "x" + F})
         self.new_sequence()
@@ -616,9 +630,9 @@ class Containment(Base):
                 "from gate2 import *; from mock2 import *; import transport_rules as TR\n"
                 "gh = MockGitHub2({1: {'number': 1, 'title': 't', 'body': 'b', 'labels': [], "
                 "'state': 'open'}}); g = Gate2(gh, MockGit(), %r, 'o/r', "
-                "{'comment.create': {'validated': True, 'send_form': None}}, plan_id='other')\n"
+                "{'comment.create': {'validated': True, 'send_form': None}}, plan_id=%r)\n"
                 "rc = main([lambda: g.write('comment.create', 1, {'body': 'x'})])\n"
-                "print(len(gh.writes), gh.gets); sys.exit(rc)\n") % (HERE, self.dir)
+                "print(len(gh.writes), gh.gets); sys.exit(rc)\n") % (HERE, self.dir, self.plan)
         p = subprocess.run([sys.executable, "-I", "-B", "-c", code], capture_output=True, text=True)
         self.assertEqual(p.returncode, 3, p.stderr)
         self.assertEqual(p.stdout.strip(), "0 0")
@@ -627,7 +641,7 @@ class Containment(Base):
     def test_c6_second_halt_with_outstanding_marker_is_global(self):
         """Two halts in one process (two sequences) keep separate evidence; the second, although
         footer-shaped, is global because another operation's mismatch is outstanding."""
-        gh = MockGitHub2(issues(), transforms={"patch": lambda b: b + F, "comment": lambda b: b + F})
+        gh = MockGitHub2(issues(), transforms={"patch": DROP, "comment": DROP})
         git = MockGit()
         with self.assertRaises(Halted):
             SAMPLE["issue.edit_body"](self.gate(gh, git))
@@ -677,7 +691,7 @@ class Probes(Base):
         """edit.py's shape: a loop that catches Halted per item. After the first halt, zero
         further writes, whether the halt was operation-level or global, whether the loop reuses
         the gate or builds a new one per item, and even if .notified appears meanwhile."""
-        transforms = {"footer-shaped": lambda b: b + F,
+        transforms = {"footer-shaped": DROP,
                       "content change": lambda b: b.replace("one", "One")}
         for tname, tf in transforms.items():
             for per_item in (False, True):
@@ -720,10 +734,10 @@ class Probes(Base):
     def test_q5_narrowing_conditions(self):
         x = "Some content."
         cases = [   # (sent, stored, expected scope)
-            (x + F, x + F + F, "operation"),               # doubled footer
+            (x + F, x + F + F, "global"),                  # doubled footer
             (x + F, x, "operation"),                       # footer removed
             (x, x + "\n" + CORE, "operation"),             # one newline before the footer
-            (x, x + F + F, "operation"),                   # doubled footer appended
+            (x, x + F + F, "global"),                      # doubled footer appended
             (x, x + "\n\n\n", "operation"),               # newlines only
             (x, x + F + "  ", "global"),                   # spaces after the footer
             (x, x + "\n\nSigned-off-by: someone", "global"),     # appended text
@@ -750,7 +764,7 @@ class Probes(Base):
         with open(self.marker("comment.create"), "w") as f:
             f.write("{}")
         self.notify("comment.create")
-        gh = MockGitHub2(issues(), transforms={"patch": lambda b: b + F}); git = MockGit()
+        gh = MockGitHub2(issues(), transforms={"patch": DROP}); git = MockGit()
         with self.assertRaises(Halted):
             self.gate(gh, git).write("issue.edit_body", 1, {"body": "x" + F})
         self.assertEqual(self.halt_record()["scope"], "global")
@@ -789,10 +803,10 @@ class Revision3(Base):
         code = ("import sys; sys.path.insert(0, %r)\n"
                 "from gate2 import *; from mock2 import *\n"
                 "gh = MockGitHub2({1: {'number': 1, 'title': 't', 'body': 'b', 'labels': [], "
-                "'state': 'open'}}); g = Gate2(gh, MockGit(), %r, 'o/r', "
+                "'state': 'open'}}); mk = lambda: Gate2(gh, MockGit(), %r, 'o/r', "
                 "{'comment.create': {'validated': True, 'send_form': None, 'allowlist': True}}, "
                 "plan_id=%r)\n"
-                "rc = main([lambda: g.write('comment.create', 1, {'body': 'x'})])\n"
+                "rc = main([lambda: mk().write('comment.create', 1, {'body': 'x'})])\n"
                 "print(len(gh.writes), gh.gets); sys.exit(rc)\n") % (HERE, self.dir, plan)
         p = subprocess.run([sys.executable, "-I", "-B", "-c", code], capture_output=True, text=True)
         return p.returncode, p.stdout.strip(), p.stderr
@@ -808,7 +822,7 @@ class Revision3(Base):
             "spaces after footer": (x, x + F + "  ", "global"),
             "look-alike footer": (x, x + F.replace("Generated", "G\u0435nerated"), "global"),
             "bot tag": (x, x + " [bot]", "global"),
-            "doubled footer": (x, x + F + F, "operation"),
+            "doubled footer": (x, x + F + F, "global"),
             "one newline before footer": (x, x + "\n" + CORE, "operation"),
             "footer removed": (x + F, x, "operation"),
         }
@@ -829,7 +843,7 @@ class Revision3(Base):
     def test_q10_plan_latch_survives_restart(self):
         """Q3: after an operation-level halt and the owner told, the same plan writes nothing in a
         restarted process or a new gate; a new plan writes another operation."""
-        gh = MockGitHub2(issues(), transforms={"patch": lambda b: b + F}); git = MockGit()
+        gh = MockGitHub2(issues(), transforms={"patch": DROP}); git = MockGit()
         with self.assertRaises(Halted):
             self.gate(gh, git).write("issue.edit_body", 1, {"body": "x" + F})
         self.assertEqual(self.halt_record("issue.edit_body")["scope"], "operation")
@@ -847,6 +861,8 @@ class Revision3(Base):
         rc, out, err = self.subprocess_write(self.plan)          # restart in another process
         self.assertEqual((rc, out), (3, "0 0"), err)
         self.assertIn(G2.PLAN_PREFIX, err)
+        os.remove(os.path.join(self.dir, G2.PLAN_RECORD))         # by hand: the plan has ended
+        G2.record_plan(self.dir, "later-plan")
         rc, out, err = self.subprocess_write("later-plan")       # a later sequence
         self.assertEqual((rc, out), (0, "1 1"), err)
 
@@ -895,7 +911,7 @@ class Revision3(Base):
         def retitle(iss, n): iss[n]["title"] = "changed"
         cases = [
             ("issue.edit_body", lambda g: g.write("issue.edit_body", 1, {"body": "x" + F}),
-             empty_labels, {"patch": lambda b: b + F}, "labels"),     # reviewer's probe
+             empty_labels, {"patch": DROP}, "labels"),     # reviewer's probe
             ("issue.edit_body", lambda g: g.write("issue.edit_body", 1, {"body": "x" + F}),
              empty_labels, {}, "labels"),
             ("issue.edit_body", lambda g: g.write("issue.edit_body", 1, {"body": "x" + F}),
@@ -923,7 +939,7 @@ class Revision3(Base):
         """G2: a .notified companion left from an earlier incident, or an operation marker that
         appears meanwhile, makes a footer-shaped halt global."""
         open(self.marker("issue.edit_body") + ".notified", "w").close()
-        gh = MockGitHub2(issues(), transforms={"patch": lambda b: b + F}); git = MockGit()
+        gh = MockGitHub2(issues(), transforms={"patch": DROP}); git = MockGit()
         with self.assertRaises(Halted):
             self.gate(gh, git).write("issue.edit_body", 1, {"body": "x" + F})
         self.assertEqual(self.halt_record()["scope"], "global")
@@ -937,7 +953,7 @@ class Revision3(Base):
             if len(gets) == 2:                      # during the read-back
                 with open(self.marker("issue.edit_body"), "w") as f:
                     f.write("{}")
-        gh = MockGitHub2(issues(), transforms={"patch": lambda b: b + F},
+        gh = MockGitHub2(issues(), transforms={"patch": DROP},
                          before_get=other_process_halts)
         with self.assertRaises(Halted) as cm:
             self.gate(gh, git).write("issue.edit_body", 1, {"body": "x" + F})
@@ -959,6 +975,73 @@ class Revision3(Base):
         self.assertTrue(os.path.exists(os.path.join(self.dir, G2.PLAN_PREFIX + self.plan)))
 
 
+class Revision4(Base):
+    """Revision r4: owner decision of 2026-11-25 (#1169 comment 7170157100), items 1 and 2."""
+    subprocess_write = Revision3.subprocess_write
+
+    def test_q16_plan_id_only_from_the_plan_record(self):
+        """Item 1: the plan id is fixed in the plan record before the run; a caller cannot
+        substitute another, in this process, after a restart or in a separate process."""
+        record = os.path.join(self.dir, G2.PLAN_RECORD)
+        gh = MockGitHub2(issues()); git = MockGit()
+        with self.assertRaises(FileExistsError):             # never rewritten while it exists
+            G2.record_plan(self.dir, "another-plan")
+        with open(record) as f:
+            self.assertEqual(json.load(f)["plan_id"], self.plan)
+        with self.assertRaises(Halted) as cm:                # substituted id, before any halt
+            Gate2(gh, git, self.dir, REPO, registry(), ALLOWED, plan_id="another-plan")
+        self.assertIn("differs from the plan record", str(cm.exception))
+        del G2._HALTED[:]
+        os.remove(record)                                    # no record: refused
+        with self.assertRaises(Halted) as cm:
+            self.gate(gh, git)
+        self.assertIn("no readable plan record", str(cm.exception))
+        del G2._HALTED[:]
+        G2.record_plan(self.dir, self.plan)
+        g = self.gate(gh, git)                               # the record swapped mid-run
+        os.remove(record); G2.record_plan(self.dir, "swapped-plan")
+        with self.assertRaises(Halted) as cm:
+            SAMPLE["comment.create"](g)
+        self.assertIn("differs from the plan record", str(cm.exception))
+        self.assertEqual((len(gh.writes), gh.gets, len(git.runs)), (0, 0, 0))
+        rc, out, err = self.subprocess_write("another-plan")  # separate process, substituted id
+        self.assertEqual((rc, out), (3, "0 0"), err)
+        self.assertIn("differs from the plan record", err)
+
+    def test_q17_restart_after_halt_same_or_substituted_id(self):
+        """Item 1: after an operation-level halt and the owner told, neither the same id nor a
+        substituted one continues the plan, in this process or in a separate one."""
+        gh = MockGitHub2(issues(), transforms={"patch": lambda b: b + "\n"}); git = MockGit()
+        with self.assertRaises(Halted):
+            self.gate(gh, git).write("issue.edit_body", 1, {"body": "x"})
+        self.assertEqual(self.halt_record("issue.edit_body")["scope"], "operation")
+        self.notify("issue.edit_body")
+        for plan in (self.plan, "substituted-%d" % os.getpid()):
+            del G2._HALTED[:]                                # restart in this process
+            with self.assertRaises(Halted, msg=plan):
+                Gate2(gh, git, self.dir, REPO, registry(), ALLOWED,
+                      plan_id=plan).write("comment.create", 1, {"body": "y"})
+            rc, out, err = self.subprocess_write(plan)       # restart in a separate process
+            self.assertEqual((rc, out), (3, "0 0"), (plan, err))
+        self.assertEqual((len(gh.writes), len(git.runs)), (1, 0))
+
+    def test_q18_at_most_one_footer_copy_narrows(self):
+        """Item 2: one appended footer copy (plus newlines) narrows to the operation; two or more
+        copies are global."""
+        x = "Some content."
+        cases = [(x, x + "\n" + CORE + "\n\n", "operation"),          # one copy, newlines
+                 (x + F, x + "\n", "operation"),                      # no copy, newlines
+                 (x, x + F + F, "global"),                            # two copies
+                 (x, x + F * 50, "global"),                           # fifty copies
+                 (x + F, x + F + "\n" + CORE, "global")]              # two, joined
+        for sent, stored, scope in cases:
+            self.assertEqual(TR.classify(sent, stored), ("rejected", None), (sent, stored))
+            self.assertEqual(TR.footer_shaped_tail(sent, stored), scope == "operation",
+                             (sent, stored))
+            self.assertEqual(self.check_rejected_through_gate(sent, stored, repr(stored[-40:])),
+                             scope)
+
+
 # --------------------------------------------------------------------------------------------
 class PortedGuarantees(Base):
     """gate.py's guarantees, under v2's containment: every failure but a footer-shaped read-back
@@ -970,7 +1053,7 @@ class PortedGuarantees(Base):
         r2 = g.write("comment.create", 1, {"body": "c" + F})
         self.assertEqual((r1.records, r2.records), ([], []))
         self.assertEqual(len(gh.writes), 2)
-        self.assertFalse([p for p in os.listdir(self.dir)])
+        self.assertEqual(os.listdir(self.dir), [G2.PLAN_RECORD])
 
     def test_g04_readback_failure_halts(self):
         for mode in ("readback_fail_after_write", "readback_404"):
@@ -1028,7 +1111,7 @@ class PortedGuarantees(Base):
         g.write("labels.remove", 1, {}, label="a")
         g.write("issue.close", 1, {})
         self.assertEqual([x["name"] for x in gh.issues[1]["labels"]], ["b"])
-        self.assertFalse(os.listdir(self.dir))
+        self.assertEqual(os.listdir(self.dir), [G2.PLAN_RECORD])
 
     def test_g15_canonical_footer_body_matches_gate(self):
         for raw in ("text\n\n\n\n" + CORE, "Parent: #1169\n" + F, "text   \n  ", "text  " + F,

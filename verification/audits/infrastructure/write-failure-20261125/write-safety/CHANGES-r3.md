@@ -14,9 +14,10 @@ with one bounded r3 and independent delta review. Keep the existing validated ga
 its replacement is approved." With the simplicity objective: "One write gate, one verification
 procedure, one containment mechanism."
 
-Local revision only: no GitHub write, network write, commit or push. `gate.py`, `mock.py`,
-`test_gate.py` and `countercontrol.py` are unchanged; `gate.py` stays in use. "AGENTS.md" below is
-the PR's amended copy.
+Prepared locally, with no GitHub write or network write, and committed on the evidence branch at
+`b71e45bdaabc9ae0b99daa6a24e4dad04a0978ec`. `gate.py`, `mock.py`, `test_gate.py` and
+`countercontrol.py` are unchanged; `gate.py` stays in use. "AGENTS.md" below is the PR's amended
+copy.
 
 | Item | Change |
 |---|---|

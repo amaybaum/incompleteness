@@ -11,8 +11,9 @@ C3  mutations of gate2's outcome handling and containment: accept "rejected"; sk
     containment of gate v2 before revision r2); narrowing without the tail condition; narrowing on
     any text appended after the content (r2's condition, before Q2); labels and state compared only
     on label and close operations (before G1); a stale .notified companion ignored (before G2); the
-    allowlist applied to operations validated by exact read-back only (before Q4). The control
-    suite must fail under each, and under each latch mutant the run-level tests named for it must
+    allowlist applied to operations validated by exact read-back only (before Q4); the caller's
+    plan id taken in place of the plan record's (before r4 item 1); any number of footer copies
+    narrowing a stop (before r4 item 2). The control suite must fail under each, and under each latch mutant the run-level tests named for it must
     be among the failures.
 """
 import dataclasses, io, json, os, re, sys, tempfile, unittest
@@ -52,6 +53,7 @@ def c1():
         except G.Halted as e:
             v1 = "halted: " + str(e)
         d2 = tempfile.mkdtemp(dir=os.path.join(HERE, "runs"))
+        G2.record_plan(d2, "c1-" + name)
         gh2 = MockGitHub2(issues, transforms={"patch": lambda b, s=stored: s})
         g2 = G2.Gate2(gh2, MockGit(), d2, "o/r", reg(), plan_id="c1-" + name)
         try:
@@ -84,6 +86,7 @@ def c1():
         pass
     m2 = MockGitHub2(before, mode="append_if_absent")
     d = tempfile.mkdtemp(dir=os.path.join(HERE, "runs"))
+    G2.record_plan(d, "c1-d1")
     g2 = G2.Gate2(m2, MockGit(), d, "o/r", reg(), plan_id="c1-d1")
     G2.run_plan(g2, steps)
     recs = sorted(p for p in os.listdir(d) if p.startswith("discrepancy"))
@@ -190,7 +193,7 @@ def c3():
     out = {}
     saved = {k: getattr(G2.Gate2, k) for k in
              ("_classify", "_record", "marker_path", "_latch", "_halt",
-              "_containment_scope", "_expected_state", "_allowlist_applies")}
+              "_containment_scope", "_expected_state", "_allowlist_applies", "_plan_record")}
     saved_shape = TR.footer_shaped_tail
 
     def accept_rejected(self, op, field, sent, stored):
@@ -251,6 +254,17 @@ def c3():
     def allowlist_everywhere(self, reg):
         return True
 
+    def caller_plan_id(self, supplied):         # the caller's id in place of the record's
+        return supplied
+
+    def unlimited_footer_copies(sent, stored):  # r3's footer_shaped_tail: any number of copies
+        if not (isinstance(sent, str) and isinstance(stored, str)):
+            return False
+        content, _ = TR.split_footer_tail(sent)
+        if content == "" or not stored.startswith(content):
+            return False
+        return set(stored[len(content):].replace(CORE, "")) <= {"\n"}
+
     mutants = {"accept_rejected": ("_classify", accept_rejected),
                "skip_discrepancy_record": ("_record", skip_record),
                "single_global_marker": ("marker_path", global_only),
@@ -262,7 +276,9 @@ def c3():
                "labels_state_only_on_their_ops": ("_expected_state",
                                                   labels_state_only_on_their_ops),
                "ignore_stale_companion": ("_containment_scope", ignore_stale_companion),
-               "allowlist_on_exact_validated_ops": ("_allowlist_applies", allowlist_everywhere)}
+               "allowlist_on_exact_validated_ops": ("_allowlist_applies", allowlist_everywhere),
+               "caller_substitutes_plan_id": ("_plan_record", caller_plan_id),
+               "unlimited_footer_copies": (None, unlimited_footer_copies)}
     for name, (attr, fn) in mutants.items():
         if attr is None:
             TR.footer_shaped_tail = fn
@@ -286,6 +302,9 @@ def c3():
         "labels_state_only_on_their_ops": {"test_q13_labels_and_state_checked_on_every_write"},
         "ignore_stale_companion": {"test_q14_stale_or_existing_operation_marker_makes_it_global"},
         "allowlist_on_exact_validated_ops": {"test_q12_permitted_difference_and_validation"},
+        "caller_substitutes_plan_id": {"test_q16_plan_id_only_from_the_plan_record",
+                                       "test_q17_restart_after_halt_same_or_substituted_id"},
+        "unlimited_footer_copies": {"test_q18_at_most_one_footer_copy_narrows"},
     }
     for name, tests in required.items():
         out[name]["required_tests_failing"] = sorted(tests & set(out[name]["failing"]))
