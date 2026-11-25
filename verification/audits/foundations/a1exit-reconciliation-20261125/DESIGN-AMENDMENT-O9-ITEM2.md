@@ -1,4 +1,4 @@
-# Ledger coverage tool: bounded design amendment for O-9 and the item-2 records (draft r2, unreviewed)
+# Ledger coverage tool: bounded design amendment for O-9 and the item-2 records (draft r3, unreviewed)
 
 Status: draft for independent review and owner adoption. It amends the adopted design v6.0e (sha256
 `4024a31cd2cde06763cb529eafeb023078c52dfa7a5d5fb377995373ab205131`), as implemented on `main` at
@@ -20,6 +20,11 @@ Basis: the Stage A findings, `verification/audits/foundations/a1exit-reconciliat
 B1-B6 and two item-2 controls). Its answers are adopted: an explicit class pin that names a path decides it; D1-D4 were
 not sufficient; misuse stops the run. Section G maps each finding to its change.
 
+**r3.** This revision answers the independent review of r2 (`717159e2de7fe05adb8fc1d6bbf6bb14f00ca781`, REJECT, narrow
+findings R2-B1 to R2-B4 and one clarification). Its answers to section F are adopted: the authority stays in the tool's
+pinned code, and an unequal entry is REVIEW_REQUIRED, which the acceptance predicate never accepts. Section H maps each
+finding to its change; nothing else changes.
+
 ## A. Change 1 (O-9): the plan's record directory on `M`
 
 ### A.1 Problem
@@ -35,8 +40,9 @@ V2). Without a further rule the landing check is REVIEW_REQUIRED `side-change-un
 `F` is the run's admitted plan commit (`--freeze`, admission sec. 6.3). `P` is the configuration's path in `F` (the
 path `--config F:P` names) and `D` the directory part of `P`. An entry is a non-tree entry of a commit's tree with its
 mode, as `GitRepo.entries` lists it: regular files (`100644`, `100755`), symbolic links (`120000`) and submodules
-(`160000`). `E_F` and `E_M` are the entries strictly inside `D` (paths beginning with `D` followed by `/`) at `F` and at
-`M`.
+(`160000`). A path is **inside `D`** when it begins with `D` followed by
+`/`; this one membership predicate is used by every part of the rule (A.5, A.6, A.7 and D3). `E_F` and `E_M` are the
+entries inside `D` at `F` and at `M`.
 
 ### A.3 Directory authority (replaces r1's D1)
 
@@ -51,19 +57,37 @@ pinned code carries one constant, the tuple of authorized record directories, wh
 review and landing and pinned by every configuration's `tool.files` (execution identity, sec. 6.3); no configuration,
 record or command-line argument can add to it. Changing it is a tool revision.
 
-### A.4 Further constraints on `D`
+### A.4 Further constraints on `D`, and when they are evaluated
 
-Evaluated once per run, from `H`, `F`, `M` and the configuration, before any side change is classified. If any
-condition of A.3 or A.4 fails, the run stops with ERROR `CONFIG_INCONSISTENT` naming the condition; no path is classified
-by the rule.
+**Scope of evaluation.** A.3 and A.4 are evaluated only by an operation that evaluates `M` with an admitted `F`: the `M`
+role of `execution` (`--main`, with `--freeze`; item 14's candidate and landing commands and the RT-L2 safeguard), and
+the R11 condition of the reconciliation records it evaluates. Every other operation (`record`, `coverage`, `terms`,
+`execution` without `--main`, and any operation without `--freeze`) keeps its present behaviour and evaluates none of
+A.3-A.5.
+
+**Within that scope**, from `H`, `F`, `M` and the configuration, before any side change is classified:
+
+- D5 is evaluated always.
+- If `D` is authorized (A.3), D2-D4 are evaluated, then A.5 and A.6 apply.
+- If `D` is not authorized and `M` holds no entry inside `D`, the rule is inactive and the run continues exactly as
+  today (no entry inside `D` exists on `M`, so the rule could classify nothing).
+- If `D` is not authorized and `M` holds an entry inside `D`, the run stops with ERROR `CONFIG_INCONSISTENT`
+  (authority). This restriction is deliberate: in this revision the `M` role admits the rule only for the A1 plan's
+  directory, and a configuration whose own directory appears on `M` under any other directory is refused rather than
+  left to an unclassifiable landing.
+
+If any of D2-D5 fails, the run stops with ERROR `CONFIG_INCONSISTENT` naming the condition; no path is classified by the
+rule.
 
 - **D2.** No entry inside `D` exists at `H`: the rule covers only a directory the plan itself introduces.
 - **D3.** No ledgered path, no corpus path (the configuration's `corpus.patterns`), no path under a prefix of any
   side-change class the configuration references, and no path under `.github/` lies inside `D`, at `F` or at `M`.
 - **D4.** `F`'s tree holds `P` and the file of record pins inside `D` (sec. 6.3 admission already requires this; it is
   restated so that the rule's directory is the admitted plan's directory).
-- **D5.** No side-change class the configuration references uses the class id `record-directory`, which is reserved for
-  this rule; a class record that defines it is ERROR `CONFIG_INCONSISTENT`.
+- **D5.** No side-change class in the run's admitted class set uses the class id `record-directory`, which is reserved
+  for this rule. The admitted class set is every class from the class records the configuration references and from the
+  class records admitted through `--classify` (`engine/cli.py`, the side-change class collection); a class record from
+  either route that defines the id is ERROR `CONFIG_INCONSISTENT`.
 
 r1's D1 (a minimum of three components) is dropped: A.3 supersedes it.
 
@@ -83,10 +107,19 @@ byte read and never raises. Each unequal path is an item REVIEW_REQUIRED `side-c
 its reason, whether or not the `H`-to-`M` scan lists it. Because `E_F` and `E_M` are enumerated directly, a file of `F`
 deleted on `M` is reported even though it exists at neither `H` nor `M`.
 
+**A.5 is an independent, mandatory invariant.** Its items are issued whatever any other route decides about the same
+path: no class pin, class record or reconciliation record waives an unequal path. A path that a matching class pin
+classifies at `M` but that differs between `F` and `M` keeps the class route's entry in the side-change list and also
+carries A.5's `side-change-unclassified` item, so the result is not accepting.
+
 ### A.6 Classification of side changes inside `D`
 
-For a side change `p` found by the existing `H`-to-`M` scan (sec. 13.1), the existing classifier is applied first, and
-its result is one of three outcomes:
+For a side change `p` inside `D` that is not a regular file at `M` (a symbolic link or submodule), the existing
+classifier is never called: its byte read (`engine/reconcile.py`, `classify_side`) refuses a non-regular entry. Such a
+`p` is `side-change-unclassified` (`not a regular file`), in the `M` role and in R11 alike, and A.5 reports it as well.
+
+For every other side change `p` found by the existing `H`-to-`M` scan (sec. 13.1), the existing classifier is applied
+first, and its result is one of three outcomes:
 
 | Existing classifier outcome | `record-directory` rule |
 |---|---|
@@ -132,11 +165,12 @@ directory of A.3 used as `D` unless the case says otherwise:
 | O9-5 | a path outside `D` whose blob at `M` equals its blob at `F` | `side-change-unclassified` (`outside the record directory`) |
 | O9-6 | a sibling path `D-x/f` sharing `D` as a string prefix, equal at `F` and `M` | `side-change-unclassified` |
 | O9-7 | the clean-path predicate applied to paths with a `.`, `..` or empty component | each refused (tested on the predicate, since git trees do not normally carry such names; the fixture builds one with a raw tree object if its reader admits it) |
-| O9-8 | in `D`: the same blob with a mode change (`100644` to `100755`); a symbolic link at `M` where `F` has a regular file of the same bytes; a submodule entry at `M` | each `side-change-unclassified` (`differs from F`, `not a regular file`, `not a regular file`); no exception |
+| O9-8 | in `D`: the same blob with a mode change (`100644` to `100755`); a symbolic link at `M` where `F` has a regular file of the same bytes; a submodule entry at `M`. Each case is run through the full `execution --main` path (the `M` role) and, separately, through a reconciliation record's R11 | each `side-change-unclassified` (`differs from F`, `not a regular file`, `not a regular file`); R11 fails in each case; no exception and no `*-group-error` in either path |
 | O9-9 | a ledgered path, and separately a corpus path, inside `D` | ERROR `CONFIG_INCONSISTENT` (D3) |
 | O9-10 | a configuration in the root directory | ERROR `CONFIG_INCONSISTENT` (authority) |
 | O9-11 | a path inside `D` that exists at `H` | ERROR `CONFIG_INCONSISTENT` (D2) |
-| O9-12 | `D` holding a path under a side-change class prefix, and separately a path under `.github/` | ERROR `CONFIG_INCONSISTENT` (D3) |
+| O9-12 | the authorized `D`, with a side-change class the configuration references whose prefix lies inside `D` | ERROR `CONFIG_INCONSISTENT` (D3) |
+| O9-12b | a configuration whose directory lies under `.github/`, with an entry inside it on `M` | ERROR `CONFIG_INCONSISTENT` (authority; not a D3 test) |
 | O9-13 | a path in `D`, equal at `F` and `M`, that a class names with a pin differing from `M` | `side-change-unclassified` naming the class (A.6 row 2); not `record-directory` |
 | O9-14 | no `--freeze` | the rule inactive; files in `D` `side-change-unclassified`; A.5 not evaluated |
 | O9-15 | a reconciliation record, `M` with `D` equal to `F` | R11 holds |
@@ -145,6 +179,10 @@ directory of A.3 used as `D` unless the case says otherwise:
 | O9-18 | a reconciliation record, `M` with one file of `D` modified after `F` | R11 fails |
 | O9-19 | a reconciliation record, `M` with one file of `F`'s `D` deleted | R11 fails (A.5) |
 | O9-20 | a reconciliation record, `M` with a file of `D` equal to `F`, but the run's `D` not authorized | ERROR `CONFIG_INCONSISTENT` (authority) before R11 is evaluated |
+| O9-21 | a file in `D` that differs between `F` and `M`, and a class pin naming it that matches `M` | the class route's entry stands in the side-change list and A.5 issues `side-change-unclassified` (`differs from F`); the result is not accepting |
+| O9-22 | an unauthorized `D` with no entry inside it on `M`, under `execution --main --freeze` | no ERROR; side changes classified exactly as without this amendment |
+| O9-23 | the authorized `D` and a configuration whose run is `coverage` (no `M`) | no evaluation of A.3-A.5; the result equal to the same run without this amendment |
+| O9-24 | a class record admitted through `--classify` that defines the class id `record-directory` | ERROR `CONFIG_INCONSISTENT` (D5) |
 
 Real-tree control (A1 control runner, beside RT-L2):
 
@@ -159,17 +197,20 @@ Each mutant is listed with the control that distinguishes it and both expected r
 | Mutant | Change | Distinguishing control | Correct implementation | Mutant |
 |---|---|---|---|---|
 | O9-m1 | A.5 omitted: only the `H`-to-`M` scan is used | O9-4 | `absent at M` reported | nothing reported; landing classified clean |
-| O9-m2 | the prefix test without the trailing `/` | O9-6 | `D-x/f` unclassified | `D-x/f` `record-directory` |
+| O9-m2 | the shared membership predicate (A.2) without the trailing `/` | O9-6 | `D-x/f` unclassified (outside `D`) | `D-x/f` enumerated by A.5 as inside `D`, equal at `F` and `M`, and classified `record-directory` |
 | O9-m3 | D2 removed | O9-11 | ERROR `CONFIG_INCONSISTENT` | the run proceeds |
 | O9-m4 | the authority check (A.3) removed | O9-16 | ERROR `CONFIG_INCONSISTENT` | the run proceeds, the unrelated directory's files `record-directory` |
 | O9-m5 | mode not compared | O9-8 (mode case) | `differs from F` | `record-directory` |
 | O9-m6 | the blob at `M` compared with `H` instead of `F` | O9-1 | `record-directory` | `side-change-unclassified` (`H` holds no such entry) |
-| O9-m7 | D3 removed | O9-12 | ERROR `CONFIG_INCONSISTENT` | the run proceeds |
+| O9-m7 | D3 removed | O9-12 (class-prefix case, authorized `D`) | ERROR `CONFIG_INCONSISTENT` | the run proceeds |
 | O9-m8 | the clean-path test removed | O9-7 | each path refused | each path accepted |
 | O9-m9 | A.6 row 2 bypassed: the rule applied when a class pin names `p` but differs | O9-13 | `side-change-unclassified` naming the class | `record-directory` |
-| O9-m10 | entry type not checked before reading bytes | O9-8 (symbolic link and submodule cases) | `not a regular file`, no exception | an exception (`*-group-error`) or a wrong class |
+| O9-m10 | A.5 reads bytes before checking the entry type | O9-8 (symbolic link and submodule cases) | `not a regular file`, no exception | an exception (`*-group-error`) or a wrong class |
 | O9-m11 | R11 uses the classifier without A.5 | O9-19 | R11 fails | R11 holds |
-| O9-m12 | D5 removed | O9-17 | ERROR `CONFIG_INCONSISTENT` | the class record's `record-directory` class accepted |
+| O9-m12 | D5 removed | O9-17, O9-24 | ERROR `CONFIG_INCONSISTENT` | the class record's `record-directory` class accepted |
+| O9-m13 | A.5's items suppressed for a path a matching class pin classifies | O9-21 | not accepting (A.5 item) | accepting for that path |
+| O9-m14 | a non-regular entry inside `D` passed to the existing classifier | O9-8 (full-path cases) | `not a regular file`, no exception | an exception from the byte read (`*-group-error` or ERROR) |
+| O9-m15 | the authority ERROR raised whenever `D` is unauthorized, whatever `M` holds | O9-22 | no ERROR | ERROR `CONFIG_INCONSISTENT` |
 
 r1's mutants "accept a path absent at both `F` and `M`" and "rule evaluated before the `base-drift` test" are withdrawn
 as equivalent under this design: a path absent at both is never enumerated by A.5 and, inside `D`, never by the
@@ -266,6 +307,10 @@ entries only; A.5 applies inside `D` alone.
 2. A.5's reasons, and the choice that every unequal path in `D` is REVIEW_REQUIRED `side-change-unclassified` (as for
    other side changes) rather than a FAIL.
 
+Observation, not a change: outside `D`, a symbolic link or submodule that is a side change still reaches the existing
+classifier's byte read, which refuses it, as in the landed tool. That behaviour is outside this amendment's scope and is
+left unchanged; it is recorded here so that the owner can decide whether to open it separately.
+
 ## G. Changes from r1, by review finding
 
 | Finding | Change |
@@ -279,3 +324,14 @@ entries only; A.5 applies inside `D` alone.
 | B6 | A.7: one function and context for both callers; O9-18 to O9-20 |
 | Item 2 | I2-6 states the empty record's `record_id` and review; I2-7 (hit classification) and I2-8 (indicator adjudication) added |
 | RT-O9 | the expected set computed independently from the stand-in `F`, compared exactly with modes and hashes |
+
+## H. Changes from r2, by review finding
+
+| Finding | Change |
+|---|---|
+| Section F | adopted: authority in pinned code; unequal entries REVIEW_REQUIRED, never accepted |
+| R2-B1 | A.5 stated as an independent, mandatory invariant that no class pin, class record or reconciliation record waives; O9-21; O9-m13 |
+| R2-B2 | A.6: a non-regular entry inside `D` never reaches the existing classifier, in the `M` role and in R11; O9-8 run through both full paths; O9-m14 |
+| R2-B3 | A.4: A.3-A.5 evaluated only by `M`-evaluating operations with an admitted `F` and their R11; an unauthorized `D` is an ERROR only when `M` holds an entry inside it, deliberately; O9-22, O9-23; O9-m15 |
+| R2-B4 | A.2: one shared membership predicate, so O9-m2 is distinguished by O9-6 through A.5; O9-12 is the class-prefix case under the authorized `D` and distinguishes O9-m7; the `.github/` case is O9-12b, an authority rejection |
+| Clarification | D5 covers the class records of both routes, the configuration's and `--classify`; O9-24 |
