@@ -1,7 +1,7 @@
 # #1062 OBS-EMERGE report r5: change map
 
 - **Base.** `REPORT-r4.md` at commit `18867ffc17ce7f06f8c89c38c0a0914f3e9164e6`. `REPORT-r5.md` is r4 with exactly the changes below. `REPORT-r3.md` and `REPORT-r4.md` each receive one prepended superseded notice; the notices on `REPORT.md` and `REPORT-r2.md` name r5 in place of r4. Those files are otherwise unchanged.
-- **Owner decision.** #1169 comment {{ID:c29}} (amaybaum, 2026-11-25T16:29:44Z), quoted: "#1062 — Observer emergence | Narrow the cycle-type result to what the hand argument establishes. Apply all four body corrections, correct the R10 labels, complete the reference trace, tighten the search-scope wording and add the superseded notice to REPORT-r3.md." "For #1062, correct the unsupported statements directly in the report. A later qualification does not repair an earlier false assertion." "Resolve the identified findings directly. Preserve the necessary supporting evidence and provenance." "Earlier revisions should carry a short superseded notice identifying the authoritative report. No elaborate historical annotation is needed."
+- **Owner decision.** #1169 comment 7169907126 (amaybaum, 2026-11-25T16:29:44Z), quoted: "#1062 — Observer emergence | Narrow the cycle-type result to what the hand argument establishes. Apply all four body corrections, correct the R10 labels, complete the reference trace, tighten the search-scope wording and add the superseded notice to REPORT-r3.md." "For #1062, correct the unsupported statements directly in the report. A later qualification does not repair an earlier false assertion." "Resolve the identified findings directly. Preserve the necessary supporting evidence and provenance." "Earlier revisions should carry a short superseded notice identifying the authoritative report. No elaborate historical annotation is needed."
 - **Trigger.** The independent delta review of r4 (REVISE), findings 1–5.
 - **Checks.** Each corrected statement was checked against `main` at `e2e2a623265187a28ebec604ab8bcc672742888f`: NP1 `RESULT.md`:359–362; `ObservabilityQuotient.lean`:53; `PhysicalC4Discharge.lean`:633; GR:40; #914 comment 6563412926 rows 1, 3 and 3′ and ordering item 3; #1169 comment 7166418469.
 
@@ -74,7 +74,7 @@ The deleted list's statements are all corrected in the body.
 
 ### 8. Finding 2: trace completed (§8)
 
-T10 adds the r5 decision, #1169 comment {{ID:c29}}. New rows, all provenance: T21, #1169 comment 7166418469; T22, the r1–r4 head commits, reachable from `main` only on a merge-commit landing of PR #1562; T23, the same commits as named in the superseded notices; T24, the delta review of r4.
+T10 adds the r5 decision, #1169 comment 7169907126. New rows, all provenance: T21, #1169 comment 7166418469; T22, the r1–r4 head commits, reachable from `main` only on a merge-commit landing of PR #1562; T23, the same commits as named in the superseded notices; T24, the delta review of r4.
 
 ### 9. Nit 5: T16
 
@@ -84,9 +84,9 @@ T10 adds the r5 decision, #1169 comment {{ID:c29}}. New rows, all provenance: T2
 ### 10. r3 delta-review record (§8 T13; §9.3)
 
 - Old: "PR #1562 comment [comment id of the r3 delta review]"
-- New: "PR #1562 comment {{ID:1562-r3}}"
+- New: "PR #1562 comment 7169920809"
 - Old: "[poster and time]"
-- New: "{{TIME:1562-r3}}"
+- New: "amaybaum, 2026-11-25T17:43:58Z"
 
 ### 11. Status line, §9.3 closing paragraph, §9.7 last bullet
 
