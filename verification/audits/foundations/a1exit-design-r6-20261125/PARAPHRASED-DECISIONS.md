@@ -1,6 +1,6 @@
 # r6: requirements resting on paraphrased or unrecorded owner decisions
 
-This list does not reconstruct any authorization. Each entry names an owner decision that r6's requirements rest on, the class of its record, what the record says, the rule by which the requirements were found, and the requirements found. Each listed requirement is marked in DESIGN-r6.md with "Pending owner confirmation (see PARAPHRASED-DECISIONS.md)." and carries the decision key in the field `pending_owner_confirmation` of REQUIREMENTS.json. The exact wording, purpose and consequences of each listed requirement are in FRESH-AUTHORIZATION.md; the evidence for each class is in AUTHORIZATIONS.md.
+This list does not reconstruct any authorization. Each entry names an owner decision that r6's requirements rest on, the class of its record, what the record says, the rule by which the requirements were found, and the requirements found with their status after the owner's decisions of 2026-11-25 (#1169 comment 7166844576, quoted in DESIGN-r6.md sec. 0.1). A requirement still pending is marked in DESIGN-r6.md with "Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3)." and carries its key in the field `pending_owner_confirmation` of REQUIREMENTS.json; the decision basis of a requirement the owner decided is kept in its field `owner_decision`. The exact wording, purpose and consequences of each listed requirement are in FRESH-AUTHORIZATION.md; the evidence for each class is in AUTHORIZATIONS.md.
 
 Classes of record (verified by reading the #1169 comments with GET requests):
 
@@ -12,9 +12,11 @@ Options for every entry:
 
 - (a) confirm in the owner's own words: the owner records the decision in a comment, which r6 quotes byte-exact with author and time (AGENTS.md sec. A.42 item 7);
 - (b) fresh authorization: the owner decides the question anew, in a recorded decision, and r6 cites that record;
-- (c) withdraw the requirement: the requirement, or the part of it that rests on the decision, is removed or narrowed, with its verification traced (R6.STAT.5).
+- (c) withdraw the requirement, only by an explicit owner choice: the requirement, or the part of it that rests on the decision, is removed or narrowed, with its verification traced (R6.STAT.5).
 
-Requirements marked: 44.
+Non-confirmation is none of these: a requirement the owner does not confirm stays pending, and r6 cannot be adopted while it is pending (R3; owner decision 5, quoted: "Non-confirmation must leave a requirement pending, not withdraw it.").
+
+Status after 2026-11-25: of the 44 requirements previously marked, 41 are confirmed by owner decision 1, 2 are scope statements and 1 is deferred; 50 requirements resting on S1-D3 are pending.
 
 ***
 
@@ -26,11 +28,21 @@ Requirements marked: 44.
   - #1169 comment 7099655517 (2026-11-23T11:26:50Z): "Recorded by the coordinating session. Every decision below was made by the owner (`amaybaum`) on 2026-11-23 in the coordinating session and is recorded on GitHub here for the first time"
   - #1169 comment 7099655517 (2026-11-23T11:26:50Z): "drop deny rules DR-1d and DR-2 from the active set, with their purpose and patterns kept in a rejected-candidate history; keep DR-3 with its real witness in AGENTS.md at the scientific base"
 - Where else stated: DESIGN-v5.5.9.md (records-branch copy, blob e5b97ef1), lines 116-119; lines 120-122 state that the writer held no comment id.
-- What it says: DR-1d and DR-2 are not in the active deny set; their patterns are kept as history; DR-3 is kept with the sentence of AGENTS.md at H, lines 37-39, as its witness. As a consequence the added texts of V4, V27 and V27-glossary PASS with no hit and V15 is REVIEW_REQUIRED only (the V4 reversal). The deferral of the V4 reversal rests on class (i) records: #1169 comments 7160980912 (Q10, RD-14), 7162098696 (RE-1), 7163402499 (item 6) and 7164340996.
+- What it says: DR-1d and DR-2 are not in the active deny set; their patterns are kept as history; DR-3 is kept with the sentence of AGENTS.md at H, lines 37-39, as its witness.
 - Rule used to find the requirements: requirements whose Sources cite an inventory item that names V5-D1 (E-014, E-033, E-034, E-055, E-1001, E-1011, E-1016, E-1113, E-1114, E-1126, E-1364, E-1365, E-1366), and the requirements that state the deferred V4 decision; less R6.DENY.1 and R6.DENY.2, whose content does not depend on the decision (F4).
-- Requirements affected: R6.PUR.8, R6.PUR.9, R6.DENY.5, R6.DENY.6, R6.CTRL.7, R6.CTRL.14, R6.CTRL.15, R6.A1CFG.7, OBL-3, OBL-6.
-- Note: The four expectation rows V4, V27, V27-glossary and V15 carry both candidate expectations, each "not authoritative; decided at r6 adoption" (RE-1). The row of sec. 33 that retires DR-1d and DR-2 ("obsolete: dropped deny candidates ...; never reused") also rests on V5-D1; it is a table row, not a requirement, and carries no mark.
-- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw the requirement.
+- Requirements affected, with their status:
+  - R6.PUR.8: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+  - R6.PUR.9: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+  - R6.DENY.5: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+  - R6.DENY.6: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+  - R6.CTRL.7: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+  - R6.CTRL.14: confirmed by owner decision 1 (necessary for reliable verification)
+  - R6.CTRL.15: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+  - R6.A1CFG.7: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+  - OBL-3: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+  - OBL-6: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+- Note: The four expectation rows V4, V27, V27-glossary and V15 carry the expectations of resolution (a) (owner decision 3). The row of sec. 33 that retires DR-1d and DR-2 ("obsolete: dropped deny candidates ...; never reused") also rests on V5-D1; it is a table row, not a requirement, and carries no mark. Consequence, from v6.0e's measurement and not stated in the record (N2): As a consequence the added texts of V4, V27 and V27-glossary PASS with no hit and V15 is REVIEW_REQUIRED only (the V4 reversal). The deferral of the V4 reversal rests on class (i) records: #1169 comments 7160980912 (Q10, RD-14), 7162098696 (RE-1), 7163402499 (item 6) and 7164340996. Owner decision 3 of 2026-11-25 (#1169 comment 7166844576) accepts the reversal in the owner's words.
+- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw, only by an explicit owner choice. Non-confirmation leaves the requirement pending.
 
 ***
 
@@ -44,8 +56,12 @@ Requirements marked: 44.
 - Where else stated: DESIGN-v5.5.9.md, lines 118-119: "V5-D2, widen `resid` as the v4 review's V8 proposes (sec. 6.6)"; the inventory item E-1024 (v6.0e sec. 6.6) records the widening.
 - What it says: `resid` is widened by the parts resid-b ("finite set"; a state-space noun followed by "is finite") and resid-c ("substratum", "universe" or "world" followed by "is finite"; "finite number" or "finite count"), as v6.0e sec. 6.6 states them. The W2 allow rules do not rest on V5-D2 or on any other owner decision: v6.0e sec. 6.5 presents them as seed rules "for review; not adopted".
 - Rule used to find the requirements: requirements whose Sources cite an inventory item that names V5-D2 (E-014, E-033, E-034, E-1024, E-1364), and R6.PUR.8, whose informative classes include resid-b and resid-c (F7).
-- Requirements affected: R6.PUR.8, R6.DENY.5, OBL-3.
-- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw the requirement.
+- Requirements affected, with their status:
+  - R6.PUR.8: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+  - R6.DENY.5: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+  - OBL-3: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+- Note: The same record holds a separate decision, quoted: #1169 comment 7099655517 (2026-11-23T11:26:50Z): "The documented uncaught rephrasings are accepted as a coverage limitation. The tool must not claim complete semantic detection; the known missed forms are kept as limitations and regression controls."; it is the more direct basis for R6.PUR.8 (N2).
+- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw, only by an explicit owner choice. Non-confirmation leaves the requirement pending.
 
 ***
 
@@ -59,8 +75,12 @@ Requirements marked: 44.
 - Where else stated: DESIGN-v5.5.9.md, lines 114-115; DESIGN-v3.md sec. 15 states the open points.
 - What it says: D1: the restatement of item 7 is a plan amendment, with the literal check kept as a countercontrol. D2: the context mapping as proposed, with `per unit` on the required side. D3 and D4: preregistered indicators, reproduced counts, and the writer, reviewer, owner, frozen configuration and verifier chain for records.
 - Rule used to find the requirements: requirements whose Sources cite an inventory item that names D1, D2, D3 or D4 in this sense (E-076, E-1283, E-1367), and R6.CTX.4 (`per unit` on the required side), whose content the paraphrase states (F7). Requirements citing D1-D8 of the Stage 1 review are keyed S1-D2 instead (F3).
-- Requirements affected: R6.CTX.1, R6.CTX.4, R6.CTX.12, R6.PLAN.8.
-- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw the requirement.
+- Requirements affected, with their status:
+  - R6.CTX.1: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+  - R6.CTX.4: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+  - R6.CTX.12: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+  - R6.PLAN.8: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw, only by an explicit owner choice. Non-confirmation leaves the requirement pending.
 
 ***
 
@@ -72,8 +92,21 @@ Requirements marked: 44.
 - Where else stated: DESIGN-v5.5.9.md, lines 94-98, and CHANGES-v5.2.md, lines 18-22 ("S1-D2: apply D1-D8."). D1 to D8 are findings of the Stage 1 review (`review-stage1/review-stage1.md`), not owner decisions; CHANGES-v5.2.md sec. 1 re-derives each. #1169 comment 7158801838, a result comment written by the coordinating session, mentions S1-D2 in passing and is not a record of the decision.
 - What it says: D1: W1-c's `negative_allowance` and the self-PASS lint; D2: SW2's expectation; D3: 7 HP structure REVIEWs; D4: the LF-inclusive site span (215 region lines); D5: RT-D's 45 `resid` lines; D6: per-splice `register` and `infinity` semantics with parity to P; D7: `rule-stale` scoping; D8: matching on source bytes.
 - Rule used to find the requirements: requirements whose Sources cite an inventory item that names D1 to D8 in the Stage 1 sense (E-039, E-046, E-090, E-111, E-115, E-133, E-134, E-163, E-1021, E-1062, E-1188, E-1234). R6.ANCH.14, R6.REC.14, R6.CTRL.19, R6.EVID.4, R6.EVID.5 and OBL-15 were keyed "D1-D4" (F3); R6.DENY.5 and OBL-3 were keyed "D1-D4" through E-1021, whose label "(S1-D1, D1)" is the Stage 1 D1 (F3); R6.RULE.7, R6.RULE.8, R6.RULE.9, R6.CTRL.24 and OBL-1 were unmarked (F7).
-- Requirements affected: R6.ANCH.14, R6.RULE.7, R6.RULE.8, R6.RULE.9, R6.REC.14, R6.DENY.5, R6.CTRL.19, R6.CTRL.24, R6.EVID.4, R6.EVID.5, OBL-1, OBL-3, OBL-15.
-- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw the requirement.
+- Requirements affected, with their status:
+  - R6.ANCH.14: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+  - R6.RULE.7: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+  - R6.RULE.8: confirmed by owner decision 1 (necessary for reliable verification)
+  - R6.RULE.9: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+  - R6.REC.14: confirmed by owner decision 1 (necessary for reliable verification)
+  - R6.DENY.5: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+  - R6.CTRL.19: confirmed by owner decision 1 (necessary for reliable verification)
+  - R6.CTRL.24: confirmed by owner decision 1 (necessary for reliable verification)
+  - R6.EVID.4: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+  - R6.EVID.5: scope statement without a check of its own (owner decision 1)
+  - OBL-1: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+  - OBL-3: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+  - OBL-15: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw, only by an explicit owner choice. Non-confirmation leaves the requirement pending.
 
 ***
 
@@ -85,8 +118,13 @@ Requirements marked: 44.
 - Where else stated: DESIGN-v5.5.9.md, lines 94-98; CHANGES-v5.2.md, lines 18-22 and the paragraph "W1 option B (D1 and S1-D1)".
 - What it says: S1-D1: the W1 self-match is resolved by option B (the full negative list kept; a fingerprint-bound `negative_allowance`). S1-D3: specify configuration admission, native delegated execution, the classification of `C`, widening reviews, engine purity over the adapter companions, and control reporting (B1-B6).
 - Rule used to find the requirements: requirements whose Sources cite an inventory item that names S1-D1, S1-D2 or S1-D3 (E-014, E-034, E-128, E-130, E-1021, E-1192, E-1364). S1-D3 underlies parts of secs. 11, 13 and 16, but no inventory item a requirement cites names it, so the rule marks none of those requirements (open item).
-- Requirements affected: R6.RULE.2, R6.RULE.4, R6.DENY.5, R6.CTRL.14, OBL-3.
-- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw the requirement.
+- Requirements affected, with their status:
+  - R6.RULE.2: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+  - R6.RULE.4: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+  - R6.DENY.5: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+  - R6.CTRL.14: confirmed by owner decision 1 (necessary for reliable verification)
+  - OBL-3: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw, only by an explicit owner choice. Non-confirmation leaves the requirement pending.
 
 ***
 
@@ -98,8 +136,16 @@ Requirements marked: 44.
 - Where else stated: DESIGN-v5.5.9.md, lines 58-64 ("stricter refusals, withdrawal integrity, execution identity, the authority configuration, durable evidence").
 - What it says: R-D1: the stricter refusals; R-D3: execution identity; R-D5: durable evidence. The labels C3 and C4 are findings of the v5.4 review addendum, applied under these decisions; R6.OUT.14 cites C3 with R-D5 and R6.PROF.9 cites C4 with R-D1.
 - Rule used to find the requirements: requirements whose Sources cite an inventory item that names R-D1, R-D3 or R-D5 (E-014, E-034, E-097, E-121, E-147), and the requirements whose Sources cite an item that names C3 or C4 (E-098, E-158, E-1218, E-1219, E-1243): R6.OUT.15, R6.REC.24, R6.CTRL.17, R6.CTRL.23 and R6.CTRL.24 (F7).
-- Requirements affected: R6.OUT.14, R6.OUT.15, R6.PROF.9, R6.REC.18, R6.REC.24, R6.CTRL.17, R6.CTRL.23, R6.CTRL.24.
-- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw the requirement.
+- Requirements affected, with their status:
+  - R6.OUT.14: confirmed by owner decision 1 (necessary for reliable verification)
+  - R6.OUT.15: deferred (owner decision 1)
+  - R6.PROF.9: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+  - R6.REC.18: confirmed by owner decision 1 (necessary for reliable verification)
+  - R6.REC.24: confirmed by owner decision 1 (necessary for reliable verification)
+  - R6.CTRL.17: confirmed by owner decision 1 (necessary for reliable verification)
+  - R6.CTRL.23: confirmed by owner decision 1 (necessary for reliable verification)
+  - R6.CTRL.24: confirmed by owner decision 1 (necessary for reliable verification)
+- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw, only by an explicit owner choice. Non-confirmation leaves the requirement pending.
 
 ***
 
@@ -111,8 +157,9 @@ Requirements marked: 44.
 - Where else stated: DESIGN-v5.5.9.md, lines 69-75.
 - What it says: A-D5: durable evidence.
 - Rule used to find the requirements: requirements whose Sources cite an inventory item that names A-D5 (E-014, E-034, E-097).
-- Requirements affected: R6.OUT.14.
-- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw the requirement.
+- Requirements affected, with their status:
+  - R6.OUT.14: confirmed by owner decision 1 (necessary for reliable verification)
+- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw, only by an explicit owner choice. Non-confirmation leaves the requirement pending.
 
 ***
 
@@ -124,8 +171,9 @@ Requirements marked: 44.
 - Where else stated: DESIGN-v5.5.9.md, lines 44-46: "The three stricter refusal classes of sec. 6.1 are accepted, with the evidence that valid frozen-plan operations are not rejected".
 - What it says: The tool refuses (i) a splice for the unselected variant, (ii) one splice covering two edits, (iii) chained edits. The final decisions D3 (the freeze ledger) and D4 (the authority record) of the same list are obsolete since v6.0 and no r6 requirement rests on them.
 - Rule used to find the requirements: the requirement that states the three refusal classes, R6.PROF.9 (F3).
-- Requirements affected: R6.PROF.9.
-- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw the requirement.
+- Requirements affected, with their status:
+  - R6.PROF.9: confirmed by owner decision 1 (necessary for scientifically valid retirement)
+- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw, only by an explicit owner choice. Non-confirmation leaves the requirement pending.
 
 ***
 
@@ -139,8 +187,11 @@ Requirements marked: 44.
 - Where else stated: DESIGN-v5.5.8.md and DESIGN-v5.5.9.md (adopted per the same comment).
 - What it says: A superseding record shares its predecessor's kind, schema and `record_id`; the chain is valid, acyclic and single-headed.
 - Rule used to find the requirements: requirements whose Sources cite an inventory item that names DI-2 (E-141, E-1332 to E-1340): R6.REC.6, R6.REC.7 and R6.CTRL.22 (F7).
-- Requirements affected: R6.REC.6, R6.REC.7, R6.CTRL.22.
-- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw the requirement.
+- Requirements affected, with their status:
+  - R6.REC.6: confirmed by owner decision 1 (necessary for reliable verification)
+  - R6.REC.7: confirmed by owner decision 1 (necessary for reliable verification)
+  - R6.CTRL.22: confirmed by owner decision 1 (necessary for reliable verification)
+- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw, only by an explicit owner choice. Non-confirmation leaves the requirement pending.
 
 ***
 
@@ -157,9 +208,10 @@ Requirements marked: 44.
 - Where else stated: the comment itself (2026-11-23T06:13:50Z); paraphrased by the v2 review (RV-002).
 - What it says: The tool lands first through its own reviewed pull request; PREREG.md is amended and re-frozen so that every mandatory check of sec. 11 passes as written; the four trees are distinguished; the execution-exception route of comment 7092885251 is superseded. The comment quotes no owner words, so R6.STAT.8 can be confirmed only by the owner restating it (RE-26 option (b)).
 - Rule used to find the requirements: requirements that cite RV-002 or quote the comment.
-- Requirements affected: R6.STAT.8.
+- Requirements affected, with their status:
+  - R6.STAT.8: confirmed by owner decision 1 (necessary for reliable verification)
 - Note: The landing order it states also fixes the gate order traced in sec. 32 of DESIGN-r6.md.
-- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw the requirement.
+- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw, only by an explicit owner choice. Non-confirmation leaves the requirement pending.
 
 ***
 
@@ -171,8 +223,8 @@ Requirements marked: 44.
 - Where else stated: quoted in DESIGN-v6.0e.md, lines 17-21, "no comment id held by this writer".
 - What it says: Approve the bounded v6.0d editorial correction (the O-4 fix and the nits) and a focused delta review.
 - Rule used to find the requirements: the mapping records the quote as history and locates no requirement that restates it.
-- Requirements affected: none found by the rule; nothing in r6 is marked for this entry, and it is listed so that the owner can confirm, re-authorize or withdraw it.
-- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw the requirement.
+- Requirements affected: none found by the rule; nothing in r6 is marked for this entry.
+- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw, only by an explicit owner choice. Non-confirmation leaves the requirement pending.
 
 ***
 
@@ -184,8 +236,10 @@ Requirements marked: 44.
 - Where else stated: quoted in DESIGN-v6.0e.md, lines 31-41, "no comment id held by this writer".
 - What it says: Restore the v5.5.9 pre-run pin check; verify executable dependencies before the tool runs; retain the consumer checks; do not reintroduce automated owner-authorization verification.
 - Rule used to find the requirements: requirements whose Sources cite the items that the mapping says restate the quote's substance (E-151).
-- Requirements affected: R6.REC.19.
-- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw the requirement.
+- Requirements affected, with their status:
+  - R6.REC.19: confirmed by owner decision 1 (necessary for reliable verification)
+- Note: #1169 comment 7130449822 quotes the owner's adoption, in the owner's words, of DESIGN-v6.0e.md at its exact SHA-256, whose text contains this quote; confirming the requirements keyed here re-confirms a settled decision (R1). The adoption of v6.0e is context and is not treated as authorizing any r6 requirement (F9 of the grouped presentation); r6's adoption, and for these requirements owner decision 1, is the authority.
+- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw, only by an explicit owner choice. Non-confirmation leaves the requirement pending.
 
 ***
 
@@ -197,8 +251,14 @@ Requirements marked: 44.
 - Where else stated: quoted in DESIGN-v6.0e.md, lines 54-67, "no comment id held by this writer".
 - What it says: The tool commit belongs to main's first-parent history; the workflow's executable dependencies and the import environment are covered by the integrity checks; the hashlib.py negative control.
 - Rule used to find the requirements: requirements whose Sources cite the items that the mapping says restate the quote's substance (E-147 to E-155).
-- Requirements affected: R6.REC.18, R6.REC.19, R6.REC.20, R6.REC.21, R6.REC.22.
-- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw the requirement.
+- Requirements affected, with their status:
+  - R6.REC.18: confirmed by owner decision 1 (necessary for reliable verification)
+  - R6.REC.19: confirmed by owner decision 1 (necessary for reliable verification)
+  - R6.REC.20: confirmed by owner decision 1 (necessary for reliable verification)
+  - R6.REC.21: confirmed by owner decision 1 (necessary for reliable verification)
+  - R6.REC.22: confirmed by owner decision 1 (necessary for reliable verification)
+- Note: #1169 comment 7130449822 quotes the owner's adoption, in the owner's words, of DESIGN-v6.0e.md at its exact SHA-256, whose text contains this quote; confirming the requirements keyed here re-confirms a settled decision (R1). The adoption of v6.0e is context and is not treated as authorizing any r6 requirement (F9 of the grouped presentation); r6's adoption, and for these requirements owner decision 1, is the authority.
+- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw, only by an explicit owner choice. Non-confirmation leaves the requirement pending.
 
 ***
 
@@ -210,8 +270,8 @@ Requirements marked: 44.
 - Where else stated: quoted in DESIGN-v6.0e.md, lines 75-87, "no comment id held by this writer".
 - What it says: B-1 to B-3; the fixed meaning table for B-4; ls-remote failure handling and mismatched-identity negative tests; a later A1 plan-amendment requirement.
 - Rule used to find the requirements: the mapping records the quote as history and locates no requirement that restates it.
-- Requirements affected: none found by the rule; nothing in r6 is marked for this entry, and it is listed so that the owner can confirm, re-authorize or withdraw it.
-- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw the requirement.
+- Requirements affected: none found by the rule; nothing in r6 is marked for this entry.
+- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw, only by an explicit owner choice. Non-confirmation leaves the requirement pending.
 
 ***
 
@@ -223,9 +283,11 @@ Requirements marked: 44.
 - Where else stated: quoted in DESIGN-v6.0e.md, lines 95-127, "this writer holds no comment id for them".
 - What it says: Remove automated owner-authorization verification; keep explicit owner authorization procedural; preserve every technical verification guarantee; "the tool verifies which exact plan was executed; the owner confirms that it was the approved plan."
 - Rule used to find the requirements: requirements whose Sources cite the items that the mapping says restate the quote's substance (E-010, E-012, E-057).
-- Requirements affected: R6.STAT.4, R6.PUR.11.
-- Note: #1169 comment 7130449822 quotes the owner's adoption of v6.0e, whose text contains this removal; its prose description of v6.0e is the session's. The adoption of v6.0e is context and is not treated as authorizing any r6 requirement (F9 of the grouped presentation).
-- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw the requirement.
+- Requirements affected, with their status:
+  - R6.STAT.4: scope statement without a check of its own (owner decision 1)
+  - R6.PUR.11: confirmed by owner decision 1 (necessary for reliable verification)
+- Note: #1169 comment 7130449822 quotes the owner's adoption of v6.0e, whose text contains this removal; its prose description of v6.0e is the session's. The adoption of v6.0e is context and is not treated as authorizing any r6 requirement (F9 of the grouped presentation). Confirming the requirements keyed here re-confirms a settled decision (R1).
+- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw, only by an explicit owner choice. Non-confirmation leaves the requirement pending.
 
 ***
 
@@ -237,12 +299,80 @@ Requirements marked: 44.
 - Where else stated: quoted in r5 (sha256 11a9077c...a653), line 7, with author and date and no comment id.
 - What it says: Authorize the Stage A review and the bounded tool design limited to O-9 and the item 2 record interfaces; no implementation or Stage B.
 - Rule used to find the requirements: the mapping records the quote as history; r6 takes its authority from its own adoption, and no requirement restates the quote.
-- Requirements affected: none found by the rule; nothing in r6 is marked for this entry, and it is listed so that the owner can confirm, re-authorize or withdraw it.
+- Requirements affected: none found by the rule; nothing in r6 is marked for this entry.
 - Note: The companion instruction quoted in r5, "Accept V1 on the existing evidence and start the design", is a class (i) record: #1169 comment 7153270569.
-- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw the requirement.
+- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw, only by an explicit owner choice. Non-confirmation leaves the requirement pending.
 
 ***
 
-## Requirements no longer marked
+## Owner decision S1-D3 (specify B1-B6: admission, native delegated execution, the classification of `C`, widening reviews, engine purity, control reporting)
 
-- R6.DENY.1 and R6.DENY.2 cited E-1001 only because that item mentions the retired DR-1d and DR-2. Their content (rule records are plan records; the controls run on pinned rule inputs) does not depend on V5-D1, so they are not marked. Like every requirement of r6 they take effect only by r6's adoption; they are listed in FRESH-AUTHORIZATION.md.
+- Key: `S1-D3`
+- Class: (iii) no GitHub record
+- Record on GitHub: none.
+- Where else stated: DESIGN-v5.5.9.md, lines 94-98; CHANGES-v5.2.md, line 22 ("S1-D3: specify the fixes for B1-B6.") and sec. 2; v6.0e sec. 0.2 (inventory item E-034) maps B1-B6 to the v6.0e passages and controls that answer them.
+- What it says: specify configuration admission, native delegated execution, the classification of `C`, widening reviews, engine purity over the adapter companions, and control reporting (B1-B6).
+- Rule used to find the requirements: FRESH-AUTHORIZATION.md, sec. 3 (rules A, B and C, stated before the marking).
+- Requirements affected, with their status:
+  - R6.OUT.12: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.REC.5: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.REC.7: confirmed by owner decision 1 (necessary for reliable verification)
+  - R6.REC.13: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.REC.16: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.REC.17: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.REC.24: confirmed by owner decision 1 (necessary for reliable verification)
+  - R6.DELEG.1: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.DELEG.2: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.DELEG.3: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.DELEG.4: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.DELEG.5: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.DELEG.6: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.DELEG.7: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.DELEG.10: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.DELEG.12: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.DELEG.13: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.DELEG.15: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.DELEG.16: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.DELEG.18: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.GATE.5: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.GATE.7: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.GATE.8: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.GATE.9: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.GATE.15: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.CTRL.4: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.CTRL.5: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.CTRL.14: confirmed by owner decision 1 (necessary for reliable verification)
+  - R6.CTRL.20: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.CTRL.23: confirmed by owner decision 1 (necessary for reliable verification)
+  - R6.CTRL.25: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.PLAN.2: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.PLAN.6: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.PLACE.2: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.PLACE.4: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.TREE.1: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.TREE.10: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.TREE.18: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.RDIR.13: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.CORE.1: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.CORE.2: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.CORE.3: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.CORE.4: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.CORE.5: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.CORE.6: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.CFG.1: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.CFG.2: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.CFG.3: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.CFG.8: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.ADAPT.2: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.A1CFG.1: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.A1CFG.2: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.VALID.3: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.REPRO.1: pending owner confirmation for the adoption decision (S1-D3)
+- Note: Identified under owner decision 5; marked "Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3)." except where decision 1 confirmed the requirement.
+- Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw, only by an explicit owner choice. Non-confirmation leaves the requirement pending.
+
+***
+
+## Requirements not marked
+
+- R6.DENY.1 and R6.DENY.2 cited E-1001 only because that item mentions the retired DR-1d and DR-2. Their content (rule records are plan records; the controls run on pinned rule inputs) does not depend on V5-D1, so they are not marked. Like every requirement of r6 they take effect only by r6's adoption; they are listed in FRESH-AUTHORIZATION.md. The review would class both as necessary for reliable verification.

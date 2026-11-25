@@ -1,6 +1,6 @@
 {
  "schema": "oi-control-expectations/1",
- "record_id": "r6-final3-1",
+ "record_id": "r6-final4-1",
  "rows": [
   {
    "id": "A10r",
@@ -12688,43 +12688,24 @@
     "terms"
    ],
    "expect": {
-    "outcome": "DEFERRED"
+    "outcome": "REVIEW_REQUIRED",
+    "classes_exact": [
+     "unclassified"
+    ],
+    "invariants": [
+     {
+      "all": "hits",
+      "have": {
+       "profiles": [
+        "resid"
+       ]
+      }
+     },
+     {
+      "resid_key": "resid-a"
+     }
+    ]
    },
-   "candidate_expectations": [
-    {
-     "label": "reversal adopted (REVIEW_REQUIRED unclassified through resid only)",
-     "status": "not authoritative; decided at r6 adoption",
-     "expect": {
-      "outcome": "REVIEW_REQUIRED",
-      "classes_exact": [
-       "unclassified"
-      ],
-      "invariants": [
-       {
-        "all": "hits",
-        "have": {
-         "profiles": [
-          "resid"
-         ]
-        }
-       },
-       {
-        "resid_key": "resid-a"
-       }
-      ]
-     }
-    },
-    {
-     "label": "reversal rejected (a plan rule record restored for this form, sec. 12)",
-     "status": "not authoritative; decided at r6 adoption",
-     "expect": {
-      "outcome": "FAIL",
-      "classes_include": [
-       "deny-match"
-      ]
-     }
-    }
-   ],
    "restored": {
     "outcome": "RESULT_EQUAL_CLEAN",
     "invariants": [
@@ -12736,8 +12717,8 @@
    "source": "D:2150",
    "flags": [
     "VD-RESTORE: no restored case executed",
-    "RE-1: both candidate expectations are recorded, each not authoritative; decided at r6 adoption; the gate reports deferred-expectation and never holds on this row until the owner decides",
-    "pending owner confirmation (see PARAPHRASED-DECISIONS.md): rests on V5-D1, recorded only in paraphrase"
+    "owner decision 3 of 2026-11-25 (#1169 comment 7166844576): resolution (a); `expect` is the candidate expectation recorded under RE-1 as \"reversal adopted (REVIEW_REQUIRED unclassified through resid only)\"; the candidate \"reversal rejected (a plan rule record of this form under a new identifier, sec. 12; DR-1d and DR-2 stay retired, sec. 33)\" is not selected (V4-COMPARISON.md)",
+    "rests on V5-D1, whose reversal owner decision 3 accepts in the owner's words; no deny rule is added"
    ]
   },
   {
@@ -13288,30 +13269,11 @@
     "why": "mutation: added text, alone and as the edited glossary line"
    },
    "expect": {
-    "outcome": "DEFERRED"
-   },
-   "candidate_expectations": [
-    {
-     "label": "reversal adopted (accepted residual: PASS, no hit)",
-     "status": "not authoritative; decided at r6 adoption",
-     "expect": {
-      "outcome": "PASS",
-      "counts": {
-       "hits": 0
-      }
-     }
-    },
-    {
-     "label": "reversal rejected (a plan rule record restored for this form, sec. 12)",
-     "status": "not authoritative; decided at r6 adoption",
-     "expect": {
-      "outcome": "FAIL",
-      "classes_include": [
-       "deny-match"
-      ]
-     }
+    "outcome": "PASS",
+    "counts": {
+     "hits": 0
     }
-   ],
+   },
    "restored": {
     "outcome": "RESULT_EQUAL_CLEAN",
     "invariants": [
@@ -13327,8 +13289,8 @@
    "flags": [
     "composed_of: the design id holds only if this row's own record and every component hold (RD-4)",
     "VD-RESTORE: no restored case executed",
-    "RE-1: both candidate expectations are recorded, each not authoritative; decided at r6 adoption; the gate reports deferred-expectation and never holds on this row until the owner decides",
-    "pending owner confirmation (see PARAPHRASED-DECISIONS.md): rests on V5-D1, recorded only in paraphrase",
+    "owner decision 3 of 2026-11-25 (#1169 comment 7166844576): resolution (a); `expect` is the candidate expectation recorded under RE-1 as \"reversal adopted (accepted residual: PASS, no hit)\"; the candidate \"reversal rejected (a plan rule record of this form under a new identifier, sec. 12; DR-1d and DR-2 stay retired, sec. 33)\" is not selected (V4-COMPARISON.md)",
+    "rests on V5-D1, whose reversal owner decision 3 accepts in the owner's words; no deny rule is added",
     "Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json"
    ]
   },
@@ -13350,30 +13312,11 @@
     "why": "mutation: added text as the edited glossary line"
    },
    "expect": {
-    "outcome": "DEFERRED"
-   },
-   "candidate_expectations": [
-    {
-     "label": "reversal adopted (accepted residual: PASS, no hit)",
-     "status": "not authoritative; decided at r6 adoption",
-     "expect": {
-      "outcome": "PASS",
-      "counts": {
-       "hits": 0
-      }
-     }
-    },
-    {
-     "label": "reversal rejected (a plan rule record restored for this form, sec. 12)",
-     "status": "not authoritative; decided at r6 adoption",
-     "expect": {
-      "outcome": "FAIL",
-      "classes_include": [
-       "deny-match"
-      ]
-     }
+    "outcome": "PASS",
+    "counts": {
+     "hits": 0
     }
-   ],
+   },
    "restored": {
     "outcome": "RESULT_EQUAL_CLEAN",
     "invariants": [
@@ -13385,8 +13328,8 @@
    "source": "D:2138 (as the edited glossary.md:13 line)",
    "flags": [
     "VD-RESTORE: no restored case executed",
-    "RE-1: both candidate expectations are recorded, each not authoritative; decided at r6 adoption; the gate reports deferred-expectation and never holds on this row until the owner decides",
-    "pending owner confirmation (see PARAPHRASED-DECISIONS.md): rests on V5-D1, recorded only in paraphrase"
+    "owner decision 3 of 2026-11-25 (#1169 comment 7166844576): resolution (a); `expect` is the candidate expectation recorded under RE-1 as \"reversal adopted (accepted residual: PASS, no hit)\"; the candidate \"reversal rejected (a plan rule record of this form under a new identifier, sec. 12; DR-1d and DR-2 stay retired, sec. 33)\" is not selected (V4-COMPARISON.md)",
+    "rests on V5-D1, whose reversal owner decision 3 accepts in the owner's words; no deny rule is added"
    ]
   },
   {
@@ -13484,48 +13427,20 @@
     "why": "mutation: added text (V controls are splices adding the stated text, R6.CTRL.6)"
    },
    "expect": {
-    "outcome": "DEFERRED"
+    "cases": [
+     {
+      "case": "review and deny profiles",
+      "outcome": "PASS",
+      "counts": {
+       "hits": 0
+      }
+     },
+     {
+      "case": "item7-literal",
+      "outcome": "PASS"
+     }
+    ]
    },
-   "candidate_expectations": [
-    {
-     "label": "reversal adopted (accepted residual: PASS, no hit)",
-     "status": "not authoritative; decided at r6 adoption",
-     "expect": {
-      "cases": [
-       {
-        "case": "review and deny profiles",
-        "outcome": "PASS",
-        "counts": {
-         "hits": 0
-        }
-       },
-       {
-        "case": "item7-literal",
-        "outcome": "PASS"
-       }
-      ]
-     }
-    },
-    {
-     "label": "reversal rejected (a plan rule record restored for this form, sec. 12)",
-     "status": "not authoritative; decided at r6 adoption",
-     "expect": {
-      "cases": [
-       {
-        "case": "review and deny profiles",
-        "outcome": "FAIL",
-        "classes_include": [
-         "deny-match"
-        ]
-       },
-       {
-        "case": "item7-literal",
-        "outcome": "PASS"
-       }
-      ]
-     }
-    }
-   ],
    "restored": {
     "outcome": "RESULT_EQUAL_CLEAN",
     "invariants": [
@@ -13537,8 +13452,8 @@
    "source": "D:2137",
    "flags": [
     "VD-RESTORE: no restored case executed",
-    "RE-1: both candidate expectations are recorded, each not authoritative; decided at r6 adoption; the gate reports deferred-expectation and never holds on this row until the owner decides",
-    "pending owner confirmation (see PARAPHRASED-DECISIONS.md): rests on V5-D1, recorded only in paraphrase"
+    "owner decision 3 of 2026-11-25 (#1169 comment 7166844576): resolution (a); `expect` is the candidate expectation recorded under RE-1 as \"reversal adopted (accepted residual: PASS, no hit)\"; the candidate \"reversal rejected (a plan rule record of this form under a new identifier, sec. 12; DR-1d and DR-2 stay retired, sec. 33)\" is not selected (V4-COMPARISON.md)",
+    "rests on V5-D1, whose reversal owner decision 3 accepts in the owner's words; no deny rule is added"
    ]
   },
   {

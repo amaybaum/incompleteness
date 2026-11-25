@@ -17,7 +17,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.STAT.2",
@@ -36,7 +37,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.STAT.3",
@@ -51,7 +53,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.STAT.4",
@@ -66,8 +69,16 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "v6.0e line 95"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "scope statement without a check of its own",
+    "decision_basis": [
+     "v6.0e line 95"
+    ]
+   }
   ]
  },
  {
@@ -83,7 +94,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.STAT.6",
@@ -101,7 +113,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.STAT.7",
@@ -116,7 +129,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.STAT.8",
@@ -131,8 +145,16 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "7093128173"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for reliable verification",
+    "decision_basis": [
+     "7093128173"
+    ]
+   }
   ]
  },
  {
@@ -148,7 +170,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.STAT.10",
@@ -165,7 +188,8 @@
   "open": [
    "off-main support of adoption"
   ],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.NOTE.1",
@@ -182,7 +206,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.NOTE.2",
@@ -199,7 +224,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.NOTE.3",
@@ -217,7 +243,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.NOTE.4",
@@ -234,7 +261,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.NOTE.5",
@@ -249,7 +277,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.NOTE.6",
@@ -265,7 +294,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.NOTE.7",
@@ -280,7 +310,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.NOTE.8",
@@ -296,7 +327,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.NOTE.9",
@@ -313,7 +345,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.NOTE.10",
@@ -332,7 +365,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.NOTE.11",
@@ -347,7 +381,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.NOTE.12",
@@ -363,7 +398,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.NOTE.13",
@@ -378,7 +414,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PUR.1",
@@ -393,7 +430,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PUR.2",
@@ -411,7 +449,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PUR.3",
@@ -429,7 +468,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PUR.4",
@@ -447,7 +487,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PUR.5",
@@ -462,7 +503,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PUR.6",
@@ -477,7 +519,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PUR.7",
@@ -493,7 +536,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PUR.8",
@@ -512,9 +556,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "V5-D1",
-   "V5-D2"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for scientifically valid retirement",
+    "decision_basis": [
+     "V5-D1",
+     "V5-D2"
+    ]
+   }
   ]
  },
  {
@@ -536,8 +588,24 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "V5-D1"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for scientifically valid retirement",
+    "decision_basis": [
+     "V5-D1"
+    ]
+   },
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 3,
+    "effect": "resolution (a) chosen",
+    "decision_basis": [
+     "V5-D1"
+    ]
+   }
   ]
  },
  {
@@ -554,7 +622,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PUR.11",
@@ -571,8 +640,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "v6.0e line 95"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for reliable verification",
+    "decision_basis": [
+     "v6.0e line 95"
+    ]
+   }
   ]
  },
  {
@@ -590,7 +667,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PIPE.1",
@@ -606,7 +684,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PIPE.2",
@@ -629,7 +708,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PIPE.3",
@@ -648,7 +728,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PIPE.4",
@@ -663,7 +744,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PIPE.5",
@@ -680,7 +762,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PIPE.6",
@@ -697,7 +780,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PIPE.7",
@@ -712,7 +796,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PIPE.8",
@@ -727,7 +812,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PIPE.9",
@@ -745,7 +831,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PIPE.10",
@@ -763,7 +850,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PIPE.11",
@@ -784,7 +872,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PIPE.12",
@@ -799,7 +888,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PIPE.13",
@@ -817,7 +907,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PIPE.14",
@@ -836,7 +927,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PIPE.15",
@@ -853,7 +945,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ANCH.1",
@@ -870,7 +963,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ANCH.2",
@@ -887,7 +981,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ANCH.3",
@@ -905,7 +1000,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ANCH.4",
@@ -924,7 +1020,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ANCH.5",
@@ -943,7 +1040,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ANCH.6",
@@ -960,7 +1058,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ANCH.7",
@@ -979,7 +1078,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ANCH.8",
@@ -994,7 +1094,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ANCH.9",
@@ -1013,7 +1114,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ANCH.10",
@@ -1031,7 +1133,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ANCH.11",
@@ -1050,7 +1153,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ANCH.12",
@@ -1070,7 +1174,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ANCH.13",
@@ -1090,7 +1195,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ANCH.14",
@@ -1112,8 +1218,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D2"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for scientifically valid retirement",
+    "decision_basis": [
+     "S1-D2"
+    ]
+   }
   ]
  },
  {
@@ -1131,7 +1245,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ANCH.16",
@@ -1150,7 +1265,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ANCH.17",
@@ -1182,7 +1298,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ANCH.18",
@@ -1202,7 +1319,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ANCH.19",
@@ -1221,7 +1339,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.HP.1",
@@ -1238,7 +1357,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.HP.2",
@@ -1259,7 +1379,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.HP.3",
@@ -1277,7 +1398,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.HP.4",
@@ -1296,7 +1418,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.HP.5",
@@ -1311,7 +1434,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.HP.6",
@@ -1336,7 +1460,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.HP.7",
@@ -1353,7 +1478,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.HP.8",
@@ -1372,7 +1498,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.HP.9",
@@ -1391,7 +1518,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.HP.10",
@@ -1408,7 +1536,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.HP.11",
@@ -1426,7 +1555,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.HP.12",
@@ -1443,7 +1573,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.HP.13",
@@ -1461,7 +1592,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.HP.14",
@@ -1476,7 +1608,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTX.1",
@@ -1491,8 +1624,16 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "v3 D1-D4"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for scientifically valid retirement",
+    "decision_basis": [
+     "v3 D1-D4"
+    ]
+   }
   ]
  },
  {
@@ -1512,7 +1653,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTX.3",
@@ -1530,7 +1672,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTX.4",
@@ -1551,8 +1694,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "v3 D1-D4"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for scientifically valid retirement",
+    "decision_basis": [
+     "v3 D1-D4"
+    ]
+   }
   ]
  },
  {
@@ -1570,7 +1721,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTX.6",
@@ -1596,7 +1748,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTX.7",
@@ -1614,7 +1767,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTX.8",
@@ -1629,7 +1783,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTX.9",
@@ -1650,7 +1805,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTX.10",
@@ -1671,7 +1827,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTX.11",
@@ -1690,7 +1847,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTX.12",
@@ -1707,8 +1865,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "v3 D1-D4"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for scientifically valid retirement",
+    "decision_basis": [
+     "v3 D1-D4"
+    ]
+   }
   ]
  },
  {
@@ -1735,7 +1901,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.2",
@@ -1757,7 +1924,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.3",
@@ -1776,7 +1944,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.4",
@@ -1795,7 +1964,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.5",
@@ -1828,7 +1998,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.6",
@@ -1849,7 +2020,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.7",
@@ -1870,7 +2042,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.8",
@@ -1887,7 +2060,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.9",
@@ -1905,7 +2079,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.10",
@@ -1923,7 +2098,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.11",
@@ -1940,7 +2116,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.12",
@@ -1962,7 +2139,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.13",
@@ -1983,7 +2163,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.14",
@@ -2000,9 +2181,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "R-D labels",
-   "A-D labels"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for reliable verification",
+    "decision_basis": [
+     "R-D labels",
+     "A-D labels"
+    ]
+   }
   ]
  },
  {
@@ -2020,8 +2209,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "R-D labels"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "deferred",
+    "decision_basis": [
+     "R-D labels"
+    ]
+   }
   ]
  },
  {
@@ -2037,7 +2234,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.17",
@@ -2059,7 +2257,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.18",
@@ -2087,7 +2286,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.19",
@@ -2107,7 +2307,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.20",
@@ -2125,7 +2326,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.21",
@@ -2142,7 +2344,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.22",
@@ -2158,7 +2361,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.23",
@@ -2178,7 +2382,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.24",
@@ -2198,7 +2403,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.25",
@@ -2213,7 +2419,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.26",
@@ -2231,7 +2438,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.27",
@@ -2250,7 +2458,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.OUT.28",
@@ -2265,7 +2474,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.SPLIT.1",
@@ -2284,7 +2494,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.SPLIT.2",
@@ -2300,7 +2511,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.SPLIT.3",
@@ -2316,7 +2528,8 @@
    "OBL-28"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PROF.1",
@@ -2337,7 +2550,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PROF.2",
@@ -2354,7 +2568,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PROF.3",
@@ -2378,7 +2593,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PROF.4",
@@ -2401,7 +2617,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PROF.5",
@@ -2421,7 +2638,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PROF.6",
@@ -2441,7 +2659,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PROF.7",
@@ -2460,7 +2679,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PROF.8",
@@ -2484,7 +2704,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PROF.9",
@@ -2504,9 +2725,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "R-D labels",
-   "v5.5.9 final D2"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for scientifically valid retirement",
+    "decision_basis": [
+     "R-D labels",
+     "v5.5.9 final D2"
+    ]
+   }
   ]
  },
  {
@@ -2525,7 +2754,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PROF.11",
@@ -2542,7 +2772,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PROF.12",
@@ -2558,7 +2789,8 @@
    "OBL-2"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RULE.1",
@@ -2579,7 +2811,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RULE.2",
@@ -2603,8 +2836,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D1 to S1-D3"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for scientifically valid retirement",
+    "decision_basis": [
+     "S1-D1 to S1-D3"
+    ]
+   }
   ]
  },
  {
@@ -2626,7 +2867,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RULE.4",
@@ -2661,8 +2903,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D1 to S1-D3"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for scientifically valid retirement",
+    "decision_basis": [
+     "S1-D1 to S1-D3"
+    ]
+   }
   ]
  },
  {
@@ -2683,7 +2933,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RULE.6",
@@ -2701,7 +2952,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RULE.7",
@@ -2720,8 +2972,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D2"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for scientifically valid retirement",
+    "decision_basis": [
+     "S1-D2"
+    ]
+   }
   ]
  },
  {
@@ -2743,8 +3003,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D2"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for reliable verification",
+    "decision_basis": [
+     "S1-D2"
+    ]
+   }
   ]
  },
  {
@@ -2766,8 +3034,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D2"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for scientifically valid retirement",
+    "decision_basis": [
+     "S1-D2"
+    ]
+   }
   ]
  },
  {
@@ -2795,7 +3071,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RULE.11",
@@ -2813,7 +3090,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RULE.12",
@@ -2830,7 +3108,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RULE.13",
@@ -2852,7 +3131,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.REC.1",
@@ -2874,7 +3154,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.REC.2",
@@ -2898,7 +3179,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.REC.3",
@@ -2916,7 +3198,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.REC.4",
@@ -2936,7 +3219,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.REC.5",
@@ -2971,7 +3255,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.REC.6",
@@ -2997,8 +3284,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "DI-2"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for reliable verification",
+    "decision_basis": [
+     "DI-2"
+    ]
+   }
   ]
  },
  {
@@ -3026,8 +3321,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "DI-2"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for reliable verification",
+    "decision_basis": [
+     "DI-2"
+    ]
+   }
   ]
  },
  {
@@ -3047,7 +3350,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.REC.9",
@@ -3068,7 +3372,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.REC.10",
@@ -3091,7 +3396,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.REC.11",
@@ -3108,7 +3414,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.REC.12",
@@ -3127,7 +3434,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.REC.13",
@@ -3155,7 +3463,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.REC.14",
@@ -3177,8 +3488,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D2"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for reliable verification",
+    "decision_basis": [
+     "S1-D2"
+    ]
+   }
   ]
  },
  {
@@ -3197,7 +3516,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.REC.16",
@@ -3227,7 +3547,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.REC.17",
@@ -3256,7 +3579,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.REC.18",
@@ -3294,9 +3620,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "R-D labels",
-   "v6.0e line 54"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for reliable verification",
+    "decision_basis": [
+     "R-D labels",
+     "v6.0e line 54"
+    ]
+   }
   ]
  },
  {
@@ -3320,9 +3654,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "v6.0e line 31",
-   "v6.0e line 54"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for reliable verification",
+    "decision_basis": [
+     "v6.0e line 31",
+     "v6.0e line 54"
+    ]
+   }
   ]
  },
  {
@@ -3340,8 +3682,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "v6.0e line 54"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for reliable verification",
+    "decision_basis": [
+     "v6.0e line 54"
+    ]
+   }
   ]
  },
  {
@@ -3360,8 +3710,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "v6.0e line 54"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for reliable verification",
+    "decision_basis": [
+     "v6.0e line 54"
+    ]
+   }
   ]
  },
  {
@@ -3381,8 +3739,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "v6.0e line 54"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for reliable verification",
+    "decision_basis": [
+     "v6.0e line 54"
+    ]
+   }
   ]
  },
  {
@@ -3403,7 +3769,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.REC.24",
@@ -3426,8 +3793,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "R-D labels"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for reliable verification",
+    "decision_basis": [
+     "R-D labels"
+    ]
+   }
   ]
  },
  {
@@ -3446,7 +3821,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.DENY.1",
@@ -3471,7 +3847,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.DENY.2",
@@ -3506,7 +3883,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.DENY.3",
@@ -3527,7 +3905,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.DENY.4",
@@ -3546,7 +3925,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.DENY.5",
@@ -3574,11 +3954,19 @@
    "OBL-3"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "V5-D1",
-   "S1-D2",
-   "V5-D2",
-   "S1-D1 to S1-D3"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for scientifically valid retirement",
+    "decision_basis": [
+     "V5-D1",
+     "S1-D2",
+     "V5-D2",
+     "S1-D1 to S1-D3"
+    ]
+   }
   ]
  },
  {
@@ -3601,8 +3989,24 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "V5-D1"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for scientifically valid retirement",
+    "decision_basis": [
+     "V5-D1"
+    ]
+   },
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 3,
+    "effect": "resolution (a) chosen",
+    "decision_basis": [
+     "V5-D1"
+    ]
+   }
   ]
  },
  {
@@ -3631,7 +4035,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.DELEG.2",
@@ -3651,7 +4058,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.DELEG.3",
@@ -3675,7 +4085,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.DELEG.4",
@@ -3693,7 +4106,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.DELEG.5",
@@ -3712,7 +4128,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.DELEG.6",
@@ -3732,7 +4151,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.DELEG.7",
@@ -3749,7 +4171,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.DELEG.8",
@@ -3767,7 +4192,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.DELEG.9",
@@ -3786,7 +4212,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.DELEG.10",
@@ -3811,7 +4238,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.DELEG.11",
@@ -3831,7 +4261,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.DELEG.12",
@@ -3850,7 +4281,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.DELEG.13",
@@ -3868,7 +4302,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.DELEG.14",
@@ -3888,7 +4325,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.DELEG.15",
@@ -3908,7 +4346,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.DELEG.16",
@@ -3928,7 +4369,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.DELEG.17",
@@ -3946,7 +4390,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.DELEG.18",
@@ -3961,7 +4406,10 @@
    "OBL-8"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.HIT.1",
@@ -3982,7 +4430,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.HIT.2",
@@ -4012,7 +4461,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.HIT.3",
@@ -4030,7 +4480,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.HIT.4",
@@ -4050,7 +4501,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.HIT.5",
@@ -4068,7 +4520,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.HIT.6",
@@ -4088,7 +4541,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CLASS.1",
@@ -4110,7 +4564,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CLASS.2",
@@ -4136,7 +4591,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CLASS.3",
@@ -4158,7 +4614,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CLASS.4",
@@ -4189,7 +4646,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CLASS.5",
@@ -4214,7 +4672,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CLASS.6",
@@ -4236,7 +4695,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CLASS.7",
@@ -4256,7 +4716,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CLASS.8",
@@ -4273,7 +4734,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CLASS.9",
@@ -4295,7 +4757,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CLASS.10",
@@ -4323,7 +4786,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CLASS.11",
@@ -4343,7 +4807,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CLASS.12",
@@ -4372,7 +4837,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.GATE.1",
@@ -4396,7 +4862,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.GATE.2",
@@ -4418,7 +4885,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.GATE.3",
@@ -4439,7 +4907,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.GATE.4",
@@ -4458,7 +4927,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.GATE.5",
@@ -4481,7 +4951,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.GATE.6",
@@ -4502,7 +4975,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.GATE.7",
@@ -4521,7 +4995,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.GATE.8",
@@ -4547,7 +5024,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.GATE.9",
@@ -4580,7 +5060,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.GATE.10",
@@ -4709,7 +5192,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.GATE.11",
@@ -4728,7 +5212,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.GATE.12",
@@ -4748,7 +5233,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.GATE.13",
@@ -4796,7 +5282,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.GATE.14",
@@ -4814,7 +5301,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.GATE.15",
@@ -4848,7 +5336,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.GATE.16",
@@ -4870,7 +5361,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTRL.1",
@@ -4893,7 +5385,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTRL.2",
@@ -4915,7 +5408,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTRL.3",
@@ -4942,7 +5436,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTRL.4",
@@ -4970,7 +5465,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.CTRL.5",
@@ -4997,7 +5495,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.CTRL.6",
@@ -5019,7 +5520,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTRL.7",
@@ -5040,8 +5542,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "V5-D1"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for scientifically valid retirement",
+    "decision_basis": [
+     "V5-D1"
+    ]
+   }
   ]
  },
  {
@@ -5065,7 +5575,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTRL.9",
@@ -5108,7 +5619,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTRL.10",
@@ -5147,7 +5659,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTRL.11",
@@ -5172,7 +5685,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTRL.12",
@@ -5192,7 +5706,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTRL.13",
@@ -5214,7 +5729,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTRL.14",
@@ -5382,9 +5898,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "V5-D1",
-   "S1-D1 to S1-D3"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for reliable verification",
+    "decision_basis": [
+     "V5-D1",
+     "S1-D1 to S1-D3"
+    ]
+   }
   ]
  },
  {
@@ -5406,8 +5930,24 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "V5-D1"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for scientifically valid retirement",
+    "decision_basis": [
+     "V5-D1"
+    ]
+   },
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 3,
+    "effect": "resolution (a) chosen",
+    "decision_basis": [
+     "V5-D1"
+    ]
+   }
   ]
  },
  {
@@ -5441,7 +5981,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTRL.17",
@@ -5469,8 +6010,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "R-D labels"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for reliable verification",
+    "decision_basis": [
+     "R-D labels"
+    ]
+   }
   ]
  },
  {
@@ -5517,7 +6066,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTRL.19",
@@ -5586,8 +6136,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D2"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for reliable verification",
+    "decision_basis": [
+     "S1-D2"
+    ]
+   }
   ]
  },
  {
@@ -5646,7 +6204,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.CTRL.21",
@@ -5701,7 +6262,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTRL.22",
@@ -5757,8 +6319,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "DI-2"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for reliable verification",
+    "decision_basis": [
+     "DI-2"
+    ]
+   }
   ]
  },
  {
@@ -5921,8 +6491,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "R-D labels"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for reliable verification",
+    "decision_basis": [
+     "R-D labels"
+    ]
+   }
   ]
  },
  {
@@ -5978,9 +6556,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D2",
-   "R-D labels"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for reliable verification",
+    "decision_basis": [
+     "S1-D2",
+     "R-D labels"
+    ]
+   }
   ]
  },
  {
@@ -6048,7 +6634,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.CTRL.26",
@@ -6132,7 +6721,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTRL.27",
@@ -6190,7 +6780,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTRL.28",
@@ -6238,7 +6829,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTRL.29",
@@ -6283,7 +6875,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CTRL.30",
@@ -6327,7 +6920,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLAN.1",
@@ -6358,7 +6952,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLAN.2",
@@ -6377,7 +6972,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.PLAN.3",
@@ -6394,7 +6992,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLAN.4",
@@ -6416,7 +7015,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLAN.5",
@@ -6433,7 +7033,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLAN.6",
@@ -6451,7 +7052,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.PLAN.7",
@@ -6475,7 +7079,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLAN.8",
@@ -6496,8 +7101,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "v3 D1-D4"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for scientifically valid retirement",
+    "decision_basis": [
+     "v3 D1-D4"
+    ]
+   }
   ]
  },
  {
@@ -6515,7 +7128,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLAN.10",
@@ -6532,7 +7146,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLAN.11",
@@ -6549,7 +7164,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLAN.12",
@@ -6569,7 +7185,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLAN.13",
@@ -6586,7 +7203,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLAN.14",
@@ -6603,7 +7221,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLAN.15",
@@ -6621,7 +7240,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLAN.16",
@@ -6646,7 +7266,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLAN.17",
@@ -6668,7 +7289,8 @@
    "OBL-8"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLAN.18",
@@ -6688,7 +7310,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLACE.1",
@@ -6707,7 +7330,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLACE.2",
@@ -6733,7 +7357,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.PLACE.3",
@@ -6753,7 +7380,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLACE.4",
@@ -6776,7 +7404,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.PLACE.5",
@@ -6793,7 +7424,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLACE.6",
@@ -6811,7 +7443,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLACE.7",
@@ -6829,7 +7462,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLACE.8",
@@ -6850,7 +7484,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLACE.9",
@@ -6865,7 +7500,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLACE.10",
@@ -6881,7 +7517,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLACE.11",
@@ -6898,7 +7535,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.PLACE.12",
@@ -6913,7 +7551,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.TREE.1",
@@ -6934,7 +7573,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.TREE.2",
@@ -6958,7 +7600,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.TREE.3",
@@ -6976,7 +7619,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.TREE.4",
@@ -6996,7 +7640,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.TREE.5",
@@ -7019,7 +7664,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.TREE.6",
@@ -7038,7 +7684,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.TREE.7",
@@ -7059,7 +7706,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.TREE.8",
@@ -7077,7 +7725,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.TREE.9",
@@ -7101,7 +7750,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.TREE.10",
@@ -7119,7 +7769,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.TREE.11",
@@ -7138,7 +7791,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.TREE.12",
@@ -7180,7 +7834,32 @@
   "open": [
    "derived-artifact landing blob"
   ],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
+ },
+ {
+  "id": "R6.TREE.19",
+  "section": "TREE",
+  "section_number": 20,
+  "kind": "definition",
+  "sources": [
+   "OC-4",
+   "RE-18"
+  ],
+  "controls": [],
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 4,
+    "effect": "procedure established for the delta review",
+    "decision_basis": []
+   }
+  ]
  },
  {
   "id": "R6.TREE.13",
@@ -7205,7 +7884,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.TREE.14",
@@ -7224,7 +7904,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.TREE.15",
@@ -7242,7 +7923,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.TREE.16",
@@ -7262,7 +7944,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.TREE.17",
@@ -7280,7 +7963,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.TREE.18",
@@ -7305,7 +7989,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.RDIR.1",
@@ -7327,7 +8014,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RDIR.2",
@@ -7349,7 +8037,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RDIR.3",
@@ -7367,7 +8056,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RDIR.4",
@@ -7398,7 +8088,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RDIR.5",
@@ -7426,7 +8117,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RDIR.6",
@@ -7453,7 +8145,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RDIR.7",
@@ -7474,7 +8167,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RDIR.8",
@@ -7494,7 +8188,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RDIR.9",
@@ -7512,7 +8207,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RDIR.10",
@@ -7538,7 +8234,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RDIR.11",
@@ -7563,7 +8260,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RDIR.12",
@@ -7582,7 +8280,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RDIR.13",
@@ -7602,7 +8301,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.RDIR.14",
@@ -7621,7 +8323,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ITEM2.1",
@@ -7640,7 +8343,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ITEM2.2",
@@ -7660,7 +8364,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ITEM2.3",
@@ -7681,7 +8386,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ITEM2.4",
@@ -7699,7 +8405,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RECON.1",
@@ -7717,7 +8424,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RECON.2",
@@ -7736,7 +8444,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RECON.3",
@@ -7757,7 +8466,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RECON.4",
@@ -7775,7 +8485,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RECON.5",
@@ -7792,7 +8503,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RECON.6",
@@ -7809,7 +8521,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RECON.7",
@@ -7826,7 +8539,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RECON.8",
@@ -7843,7 +8557,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RECON.9",
@@ -7860,7 +8575,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RECON.10",
@@ -7877,7 +8593,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RECON.11",
@@ -7894,7 +8611,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RECON.12",
@@ -7911,7 +8629,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RECON.13",
@@ -7928,7 +8647,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RECON.14",
@@ -7945,7 +8665,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RECON.15",
@@ -7963,7 +8684,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RECON.16",
@@ -7987,7 +8709,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RECON.17",
@@ -8005,7 +8728,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RECON.18",
@@ -8036,7 +8760,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RECON.19",
@@ -8056,7 +8781,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RECON.20",
@@ -8075,7 +8801,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.RECON.21",
@@ -8098,7 +8825,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CORE.1",
@@ -8117,7 +8845,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.CORE.2",
@@ -8139,7 +8870,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.CORE.3",
@@ -8165,7 +8899,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.CORE.4",
@@ -8185,7 +8922,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.CORE.5",
@@ -8206,7 +8946,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.CORE.6",
@@ -8233,7 +8976,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.CORE.7",
@@ -8253,7 +8999,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CORE.8",
@@ -8273,7 +9020,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CFG.1",
@@ -8292,7 +9040,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.CFG.2",
@@ -8313,7 +9064,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.CFG.3",
@@ -8331,7 +9085,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.CFG.4",
@@ -8386,7 +9143,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CFG.5",
@@ -8404,7 +9162,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CFG.6",
@@ -8432,7 +9191,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CFG.7",
@@ -8454,7 +9214,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.CFG.8",
@@ -8477,7 +9238,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.ADAPT.1",
@@ -8497,7 +9261,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ADAPT.2",
@@ -8519,7 +9284,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.ADAPT.3",
@@ -8543,7 +9311,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ADAPT.4",
@@ -8564,7 +9333,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ADAPT.5",
@@ -8586,7 +9356,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.ADAPT.6",
@@ -8604,7 +9375,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.A1CFG.1",
@@ -8630,7 +9402,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.A1CFG.2",
@@ -8657,7 +9432,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.A1CFG.3",
@@ -8677,7 +9455,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.A1CFG.4",
@@ -8696,7 +9475,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.A1CFG.5",
@@ -8715,7 +9495,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.A1CFG.6",
@@ -8736,7 +9517,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.A1CFG.7",
@@ -8770,8 +9552,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "V5-D1"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for scientifically valid retirement",
+    "decision_basis": [
+     "V5-D1"
+    ]
+   }
   ]
  },
  {
@@ -8799,7 +9589,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.SYN.2",
@@ -8818,7 +9609,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.SYN.3",
@@ -8838,7 +9630,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.VALID.1",
@@ -8865,7 +9658,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.VALID.2",
@@ -8892,7 +9686,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.VALID.3",
@@ -8925,7 +9720,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.VALID.4",
@@ -8956,7 +9754,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.REPRO.1",
@@ -8982,7 +9781,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D3"
+  ],
+  "owner_decision": []
  },
  {
   "id": "R6.REPRO.2",
@@ -9000,7 +9802,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.REPRO.3",
@@ -9020,7 +9823,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.REPRO.4",
@@ -9040,7 +9844,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.EVID.1",
@@ -9065,7 +9870,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.EVID.2",
@@ -9084,7 +9890,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.EVID.3",
@@ -9102,7 +9909,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.EVID.4",
@@ -9149,8 +9957,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D2"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for scientifically valid retirement",
+    "decision_basis": [
+     "S1-D2"
+    ]
+   }
   ]
  },
  {
@@ -9190,8 +10006,16 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D2"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "scope statement without a check of its own",
+    "decision_basis": [
+     "S1-D2"
+    ]
+   }
   ]
  },
  {
@@ -9214,7 +10038,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.EVID.7",
@@ -9233,7 +10058,8 @@
    "review"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "R6.EVID.8",
@@ -9262,7 +10088,8 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "OBL-1",
@@ -9279,8 +10106,16 @@
    "OBL-1"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D2"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for scientifically valid retirement",
+    "decision_basis": [
+     "S1-D2"
+    ]
+   }
   ]
  },
  {
@@ -9301,7 +10136,8 @@
    "OBL-2"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "OBL-3",
@@ -9329,11 +10165,19 @@
    "OBL-3"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "V5-D1",
-   "S1-D2",
-   "V5-D2",
-   "S1-D1 to S1-D3"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for scientifically valid retirement",
+    "decision_basis": [
+     "V5-D1",
+     "S1-D2",
+     "V5-D2",
+     "S1-D1 to S1-D3"
+    ]
+   }
   ]
  },
  {
@@ -9350,7 +10194,8 @@
    "OBL-4"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "OBL-5",
@@ -9367,7 +10212,8 @@
    "OBL-5"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "OBL-6",
@@ -9385,8 +10231,24 @@
    "OBL-6"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "V5-D1"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for scientifically valid retirement",
+    "decision_basis": [
+     "V5-D1"
+    ]
+   },
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 3,
+    "effect": "resolution (a) chosen",
+    "decision_basis": [
+     "V5-D1"
+    ]
+   }
   ]
  },
  {
@@ -9402,7 +10264,8 @@
    "OBL-7"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "OBL-8",
@@ -9426,7 +10289,8 @@
    "OBL-8"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "OBL-9",
@@ -9442,7 +10306,8 @@
    "OBL-9"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "OBL-10",
@@ -9457,7 +10322,8 @@
    "OBL-10"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "OBL-11",
@@ -9473,7 +10339,8 @@
    "OBL-11"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "OBL-12",
@@ -9490,7 +10357,8 @@
    "OBL-12"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "OBL-13",
@@ -9509,7 +10377,8 @@
    "OBL-13"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "OBL-14",
@@ -9527,7 +10396,8 @@
    "OBL-14"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "OBL-15",
@@ -9546,8 +10416,16 @@
    "OBL-15"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D2"
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 1,
+    "effect": "confirmed: necessary for scientifically valid retirement",
+    "decision_basis": [
+     "S1-D2"
+    ]
+   }
   ]
  },
  {
@@ -9565,7 +10443,8 @@
    "OBL-16"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "OBL-17",
@@ -9580,7 +10459,8 @@
    "OBL-17"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "OBL-18",
@@ -9595,7 +10475,8 @@
    "OBL-18"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "OBL-19",
@@ -9611,7 +10492,8 @@
    "OBL-19"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "OBL-20",
@@ -9630,7 +10512,8 @@
    "OBL-20"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "OBL-21",
@@ -9649,7 +10532,8 @@
    "OBL-21"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "OBL-22",
@@ -9667,7 +10551,8 @@
    "OBL-22"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "OBL-23",
@@ -9684,10 +10569,16 @@
   "verification": [
    "OBL-23"
   ],
-  "open": [
-   "T1'-bound evidence cannot qualify"
-  ],
-  "pending_owner_confirmation": []
+  "open": [],
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "#1169 comment 7166844576",
+    "decision": 4,
+    "effect": "item11-T1p's earlier T1' figure is candidate evidence only",
+    "decision_basis": []
+   }
+  ]
  },
  {
   "id": "OBL-24",
@@ -9704,7 +10595,8 @@
    "OBL-24"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "OBL-25",
@@ -9721,7 +10613,8 @@
    "OBL-25"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "OBL-26",
@@ -9740,7 +10633,8 @@
    "OBL-26"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "OBL-27",
@@ -9764,7 +10658,8 @@
    "OBL-27"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  },
  {
   "id": "OBL-28",
@@ -9793,6 +10688,7 @@
    "OBL-28"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [],
+  "owner_decision": []
  }
 ]
