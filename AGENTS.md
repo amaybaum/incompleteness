@@ -1584,12 +1584,13 @@ settings:
    or push is made in that sequence, whatever the writer does on the failure; catching or ignoring
    the error does not continue it. A sequence is the writes made by one run of a plan (every
    automated writer runs one), in one writer process unless the plan's record names several, and
-   then in all of them. The end of a sequence is recorded persistently for its plan; every process
-   of the plan checks that record before each request, restarting a process does not continue the
-   sequence, and only a recorded owner decision clears the record. Every automated GitHub text
-   write, for every agent and session, then stops as well, unless every one of the following
-   conditions holds, each decided mechanically from the write, its read-back and the local halt
-   record; a mismatch the writer cannot see there does not count:
+   then in all of them. The plan's identifier is fixed in the plan's record before the run and is
+   never generated per process. The end of a sequence is recorded persistently for its plan; every
+   process of the plan checks that record before each request, restarting a process does not
+   continue the sequence, and only a recorded owner decision clears the record. Every automated
+   GitHub text write, for every agent and session, then stops as well, unless every one of the
+   following conditions holds, each decided mechanically from the write, its read-back and the local
+   halt record; a mismatch the writer cannot see there does not count:
    - the outcome of the write is known: the request completed with an expected status and, for a
      created object, the response names its id;
    - the read-back succeeded, and no field the write did not send, no label and no state differs
@@ -1598,9 +1599,9 @@ settings:
    - every rejected difference lies wholly in a footer-shaped tail after the last character of the
      sent content: the text sent, less the newlines and any attribution footer at its very end
      (rule 2), is not empty and is stored unchanged as the start of the stored text, and what
-     follows it there consists only of newlines and exact copies of the attribution footer. Any
-     other appended text stops every automated text write. This shape decides only how far the
-     stop extends; a difference is accepted only as rule 2 provides;
+     follows it there consists only of newlines and at most one exact copy of the attribution
+     footer. Any other appended text stops every automated text write. This shape decides only how
+     far the stop extends; a difference is accepted only as rule 2 provides;
    - no other operation has a mismatch outstanding, that is, one that no recorded owner decision
      has yet resolved.
 
