@@ -1,0 +1,6 @@
+paragraphs: 6883
+injected sentences (every control, probe and batch-W item expected FAIL or REVIEW): 192
+checker: r4
+total verdicts: {'FAIL': 236318, 'REVIEW': 975539, 'PASS': 109679}
+silent PASS by batch: {'batch W (38)': 109679}
+sentences with any silent PASS: [('W-P-03', 6827), ('W-P-04', 6881), ('W-P-05', 6862), ('W-P-07', 6879), ('W-P-08', 6879), ('W-P-10', 6807), ('W-P-11', 6868), ('W-P-12', 6848), ('W-P-13', 6838), ('W-P-14', 6871), ('W-P-15', 6825), ('W-P-16', 6825), ('W-P-17', 6878), ('W-P-18', 6883), ('W-P-19', 6883), ('W-A-02', 6825)]

@@ -1,0 +1,89 @@
+{
+ "r3": {
+  "exit": 2,
+  "counts": {
+   "active/REVIEW": 256,
+   "record/REVIEW": 921
+  },
+  "active_FAIL": 0,
+  "active_REVIEW": 256,
+  "active_REVIEW_by_code": {
+   "A": 76,
+   "C": 172,
+   "P": 8
+  },
+  "active_REVIEW_by_rule": {
+   "W-BM-EUCLID": 14,
+   "W-GR-CONE": 3,
+   "W-GR-KMS": 26,
+   "W-GR-THERM-KIN": 16,
+   "W-GR-TQ-STATE": 31,
+   "W-KDEG": 38,
+   "W-OI-CONTRA": 5,
+   "W-OI-EXPLAINS": 43,
+   "W-OI-HIDDEN": 33,
+   "W-OI-NOEXIST": 14,
+   "W-OI-REQ": 33
+  },
+  "distinct_path_sentence": 219,
+  "distinct_sentence_texts": 160,
+  "files": 23,
+  "record_REVIEW": 921
+ },
+ "r4": {
+  "exit": 2,
+  "counts": {
+   "active/REVIEW": 234,
+   "record/REVIEW": 876
+  },
+  "active_FAIL": 0,
+  "active_REVIEW": 234,
+  "active_REVIEW_by_code": {
+   "A": 68,
+   "C": 158,
+   "P": 8
+  },
+  "active_REVIEW_by_rule": {
+   "W-BM-EUCLID": 5,
+   "W-GR-CONE": 3,
+   "W-GR-KMS": 26,
+   "W-GR-THERM-KIN": 2,
+   "W-GR-TQ-STATE": 31,
+   "W-KDEG": 39,
+   "W-OI-CONTRA": 5,
+   "W-OI-EXPLAINS": 43,
+   "W-OI-HIDDEN": 33,
+   "W-OI-NOEXIST": 14,
+   "W-OI-REQ": 33
+  },
+  "distinct_path_sentence": 198,
+  "distinct_sentence_texts": 145,
+  "files": 22,
+  "record_REVIEW": 876
+ }
+}
+findings only under r3: 23  only under r4: 1
+   - W-BM-EUCLID book/The-Incompleteness-of-Observation-FULL.md A
+   - W-BM-EUCLID book/The-Incompleteness-of-Observation-FULL.md C
+   - W-BM-EUCLID book/The-Incompleteness-of-Observation-FULL.md C
+   - W-BM-EUCLID book/The-Incompleteness-of-Observation-FULL.md C
+   - W-BM-EUCLID book/ch07-gravity.md A
+   - W-BM-EUCLID book/ch07-gravity.md C
+   - W-BM-EUCLID book/ch07-gravity.md C
+   - W-BM-EUCLID book/ch19-open-problems.md C
+   - W-BM-EUCLID papers/GR.md C
+   - W-GR-THERM-KIN book/The-Incompleteness-of-Observation-FULL.md A
+   - W-GR-THERM-KIN book/The-Incompleteness-of-Observation-FULL.md A
+   - W-GR-THERM-KIN book/ch02-substratum.md A
+   - W-GR-THERM-KIN book/ch19-open-problems.md A
+   - W-GR-THERM-KIN papers/GR.md C
+   - W-GR-THERM-KIN papers/GR.md C
+   - W-GR-THERM-KIN papers/Main.md C
+   - W-GR-THERM-KIN papers/Main.md A
+   - W-GR-THERM-KIN papers/Main.md C
+   - W-GR-THERM-KIN papers/Methodology.md A
+   - W-GR-THERM-KIN papers/Methodology.md C
+   - W-GR-THERM-KIN papers/Substratum.md C
+   - W-GR-THERM-KIN papers/Substratum.md C
+   - W-GR-THERM-KIN papers/Substratum.md C
+   + W-KDEG papers/SM.md C

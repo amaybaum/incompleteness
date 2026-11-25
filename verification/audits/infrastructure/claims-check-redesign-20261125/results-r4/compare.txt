@@ -1,0 +1,51 @@
+batch W SHA-256 6317946b6fae4d58c2c78be5e718b06fd002c1edc6d37280f6821c9876d6b9a9 matches published
+batch 1 (63)
+   r3  exact 24  blocked 12  load 27  MISS  0  FPFAIL  0   
+   r4  exact 24  blocked 12  load 27  MISS  0  FPFAIL  0   
+batch H (20)
+   r3  exact  4  blocked  8  load  8  MISS  0  FPFAIL  0   
+   r4  exact  4  blocked  8  load  8  MISS  0  FPFAIL  0   
+batch C (5)
+   r3  exact  2  blocked  0  load  3  MISS  0  FPFAIL  0   
+   r4  exact  2  blocked  0  load  3  MISS  0  FPFAIL  0   
+batch D (4)
+   r3  exact  1  blocked  1  load  2  MISS  0  FPFAIL  0   
+   r4  exact  1  blocked  1  load  2  MISS  0  FPFAIL  0   
+batch X (34)
+   r3  exact 15  blocked  8  load 11  MISS  0  FPFAIL  0   
+   r4  exact 15  blocked  8  load 11  MISS  0  FPFAIL  0   
+batch R2 (26)
+   r3  exact 15  blocked  4  load  7  MISS  0  FPFAIL  0   
+   r4  exact 15  blocked  4  load  7  MISS  0  FPFAIL  0   
+batch Y (43)
+   r3  exact  6  blocked 21  load 16  MISS  0  FPFAIL  0   
+   r4  exact  6  blocked 21  load 16  MISS  0  FPFAIL  0   
+probe (13)
+   r3  exact  0  blocked  8  load  5  MISS  0  FPFAIL  0   
+   r4  exact  0  blocked  8  load  5  MISS  0  FPFAIL  0   
+probe2 (9)
+   r3  exact  0  blocked  9  load  0  MISS  0  FPFAIL  0   
+   r4  exact  0  blocked  9  load  0  MISS  0  FPFAIL  0   
+probe3 (2)
+   r3  exact  2  blocked  0  load  0  MISS  0  FPFAIL  0   
+   r4  exact  2  blocked  0  load  0  MISS  0  FPFAIL  0   
+probe4 (6)
+   r3  exact  0  blocked  6  load  0  MISS  0  FPFAIL  0   
+   r4  exact  0  blocked  6  load  0  MISS  0  FPFAIL  0   
+Z post-hoc (10)
+   r3  exact  0  blocked 10  load  0  MISS  0  FPFAIL  0   
+   r4  exact  0  blocked 10  load  0  MISS  0  FPFAIL  0   
+M1 diag (8)
+   r3  exact  6  blocked  2  load  0  MISS  0  FPFAIL  0   
+   r4  exact  6  blocked  2  load  0  MISS  0  FPFAIL  0   
+batch W (38)
+   r3  exact  9  blocked  8  load  4  MISS 17  FPFAIL  0   any-rule silent PASS 16   W-P-03:MISS W-P-04:MISS W-P-05:MISS W-P-07:MISS W-P-08:MISS W-P-09:MISS W-P-10:MISS W-P-11:MISS W-P-12:MISS W-P-13:MISS W-P-14:MISS W-P-15:MISS W-P-16:MISS W-P-17:MISS W-P-18:MISS W-P-19:MISS W-A-02:MISS
+   r4  exact  9  blocked  9  load  4  MISS 16  FPFAIL  0   any-rule silent PASS 15   W-P-03:MISS W-P-04:MISS W-P-05:MISS W-P-07:MISS W-P-08:MISS W-P-10:MISS W-P-11:MISS W-P-12:MISS W-P-13:MISS W-P-14:MISS W-P-15:MISS W-P-16:MISS W-P-17:MISS W-P-18:MISS W-P-19:MISS W-A-02:MISS
+author diagnostics D (12)
+   r3  exact  0  blocked  5  load  0  MISS  7  FPFAIL  0   any-rule silent PASS 7   D-01:MISS D-02:MISS D-04:MISS D-05:MISS D-06:MISS D-09:MISS D-10:MISS
+   r4  exact  0  blocked  5  load  0  MISS  7  FPFAIL  0   any-rule silent PASS 7   D-01:MISS D-02:MISS D-04:MISS D-05:MISS D-06:MISS D-09:MISS D-10:MISS
+ALL CONTROL FILES (195)
+   r3  exact  67  blocked  54  load  74  MISS  0  FPFAIL  0
+   r4  exact  67  blocked  54  load  74  MISS  0  FPFAIL  0
+per-item changes r3 -> r4 (per-rule verdict):
+   W-P-09         W-KDEG         expect FAIL   r3 PASS   r4 REVIEW

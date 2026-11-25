@@ -1,0 +1,7 @@
+controls.json              63 {'blocked': 12, 'exact': 24, 'load': 27}
+heldout.json               20 {'blocked': 8, 'exact': 4, 'load': 8}
+controls_c.json            5 {'exact': 2, 'load': 3}
+controls_d.json            4 {'blocked': 1, 'exact': 1, 'load': 2}
+reviewer-heldout.json      34 {'blocked': 8, 'exact': 15, 'load': 11}
+controls_r2.json           26 {'blocked': 4, 'exact': 15, 'load': 7}
+reviewer-heldout-Y.json    43 {'blocked': 21, 'exact': 6, 'load': 16}
