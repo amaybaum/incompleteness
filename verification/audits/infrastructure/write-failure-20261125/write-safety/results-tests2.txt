@@ -1,0 +1,47 @@
+test_c1_per_operation_isolation (__main__.Containment.test_c1_per_operation_isolation) ... ok
+test_c2_global_marker_blocks_every_mechanism (__main__.Containment.test_c2_global_marker_blocks_every_mechanism) ... ok
+test_c3_existing_op_marker_blocks_and_is_kept (__main__.Containment.test_c3_existing_op_marker_blocks_and_is_kept) ... ok
+test_c4_unknown_operation_halts_globally (__main__.Containment.test_c4_unknown_operation_halts_globally) ... ok
+test_c5_marker_blocks_other_process (__main__.Containment.test_c5_marker_blocks_other_process) ... ok
+test_c6_two_halts_in_one_process_keep_separate_evidence (__main__.Containment.test_c6_two_halts_in_one_process_keep_separate_evidence) ... ok
+test_neg_authorization_record (__main__.Negative.test_neg_authorization_record) ... ok
+test_neg_footer_variants (__main__.Negative.test_neg_footer_variants) ... ok
+test_neg_internal_whitespace (__main__.Negative.test_neg_internal_whitespace) ... ok
+test_neg_links (__main__.Negative.test_neg_links) ... ok
+test_neg_markdown_structure (__main__.Negative.test_neg_markdown_structure) ... ok
+test_neg_markdown_whitespace_boundary (__main__.Negative.test_neg_markdown_whitespace_boundary)
+Owner clarification: meaningful Markdown whitespace at the end of the content is ... ok
+test_neg_scientific_content (__main__.Negative.test_neg_scientific_content) ... ok
+test_neg_title_never_permitted (__main__.Negative.test_neg_title_never_permitted) ... ok
+test_neg_truncation_extension (__main__.Negative.test_neg_truncation_extension) ... ok
+test_neg_unsent_field_gets_footer (__main__.Negative.test_neg_unsent_field_gets_footer)
+A footer appended to a body the write did not send is not permitted (no allowlist for ... ok
+test_g01_verbatim_success (__main__.PortedGuarantees.test_g01_verbatim_success) ... ok
+test_g04_readback_failure_halts (__main__.PortedGuarantees.test_g04_readback_failure_halts) ... ok
+test_g05_exception_unknown_outcome_halts (__main__.PortedGuarantees.test_g05_exception_unknown_outcome_halts) ... ok
+test_g06_bad_status_halts (__main__.PortedGuarantees.test_g06_bad_status_halts) ... ok
+test_g09_prechecks_refuse_before_write (__main__.PortedGuarantees.test_g09_prechecks_refuse_before_write) ... ok
+test_g10_unvalidated_needs_single_grant (__main__.PortedGuarantees.test_g10_unvalidated_needs_single_grant) ... ok
+test_g11_fields_mismatch_halts (__main__.PortedGuarantees.test_g11_fields_mismatch_halts) ... ok
+test_g12_labels_and_close_verbatim (__main__.PortedGuarantees.test_g12_labels_and_close_verbatim) ... ok
+test_g13_refused_refspecs (__main__.PortedGuarantees.test_g13_refused_refspecs) ... ok
+test_g14_push_paths (__main__.PortedGuarantees.test_g14_push_paths) ... ok
+test_g15_canonical_footer_body_matches_gate (__main__.PortedGuarantees.test_g15_canonical_footer_body_matches_gate) ... ok
+test_g16_noncanonical_refused_before_write (__main__.PortedGuarantees.test_g16_noncanonical_refused_before_write) ... ok
+test_g17_canonical_send_form_exact_under_separator_canonicalization (__main__.PortedGuarantees.test_g17_canonical_send_form_exact_under_separator_canonicalization) ... ok
+test_p1_classify_synthetic (__main__.Positive.test_p1_classify_synthetic) ... ok
+test_p2_classify_real_pairs (__main__.Positive.test_p2_classify_real_pairs) ... ok
+test_p3_real_pairs_through_gate_with_records (__main__.Positive.test_p3_real_pairs_through_gate_with_records) ... ok
+test_p4_d1_replay_all_accepted_with_records (__main__.Positive.test_p4_d1_replay_all_accepted_with_records)
+The five evidence bodies, in edit.py's order, under append-if-absent: all five accepted, ... ok
+test_p5_send_form_without_footer_then_appended (__main__.Positive.test_p5_send_form_without_footer_then_appended) ... ok
+test_r1_registry_closed (__main__.Registry.test_r1_registry_closed) ... ok
+test_r2_gate2_carries_no_footer_formatting (__main__.Registry.test_r2_gate2_carries_no_footer_formatting) ... ok
+test_r3_registry_validation (__main__.Registry.test_r3_registry_validation) ... ok
+test_r4_classification_failure_halts (__main__.Registry.test_r4_classification_failure_halts) ... ok
+test_r5_ambiguity_rejected (__main__.Registry.test_r5_ambiguity_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 39 tests in 2.584s
+
+OK

@@ -123,3 +123,21 @@ canonical form, fixed before the write (`expected-body.md`, SHA-256
 `c5c14c60634dfe4d8c13a8f9fd4006a2940fd825592170a2dc0795d6f4758780`); one owner-granted write through
 the gate; the stored body equals the expected text byte for byte (`stored-body.md`), confirmed by an
 independent re-read. General REST Issue-body edits resumed after it.
+
+## Revised gate v2: bounded transport-difference policy (for review, not adopted)
+
+Owner decision recorded at #1548 comment 7166079053, with clarifications at #1169 comment
+7166129327. `write-safety/PROTOCOL-v2.md` states the policy. `transport_rules.py` holds a closed,
+frozen registry of permitted transport transformations, with one entry, `footer-attribution-1`
+version 1: in a body only, the exact attribution footer at the very end of the stored text, with
+only the number of newlines before it (at least two) and after it differing; spaces, tabs and every
+other character, including Markdown hard line breaks and indentation, are compared exactly.
+`gate2.py` (built on `gate.py`, with no footer text of its own) accepts an exact match, accepts a
+difference permitted by exactly one listed rule with a record (both full texts, digests, the diff,
+the rule id and version), and otherwise halts the failed operation only. Controls: `test_gate2.py`
+(39 tests, including about 120 negative cases for scientific content, links, internal whitespace,
+Markdown structure and authorization records) and `countercontrol2.py` (C1-C3: the exact-only gate
+rejects the real #1505 and #1558 pairs that gate2 permits; loosened rules and a gate accepting
+rejected outcomes fail the controls). Recorded results: 39 of 39; C1-C3 pass; the original suite
+(18 of 18) is unchanged. The existing gate stays in use until the owner approves v2 after
+independent review and a controlled validation write.
