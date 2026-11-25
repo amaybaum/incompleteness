@@ -1,0 +1,5 @@
+paragraphs: 6883
+injected sentences (every control and probe expected FAIL or REVIEW): 162
+checker: r2 (r2 under the deployed empty licence file)
+total verdicts: {'FAIL': 577729, 'REVIEW': 454745, 'PASS': 82572}
+sentences with any silent PASS: [('P-CONE-2', 3), ('P-KDEG-4', 3), ('X-P-04', 6), ('Y-P-01', 6883), ('Y-P-07', 6883), ('Y-P-09', 6881), ('Y-P-10', 6883), ('Y-P-12', 6867), ('Y-P-13', 6867), ('Y-P-18', 6881), ('Y-P-19', 6883), ('Y-P-20', 6883), ('Z-08', 6883), ('Z-09', 6883), ('Z-10', 6883)]

@@ -1,0 +1,21 @@
+blocked  H-P-1          FAIL   REVIEW C
+blocked  H-P-2          FAIL   REVIEW C
+blocked  H-P-3          FAIL   REVIEW C
+blocked  H-P-4          FAIL   REVIEW C
+blocked  H-P-5          FAIL   REVIEW C
+blocked  H-P-6          FAIL   REVIEW C
+blocked  H-P-7          FAIL   REVIEW C
+blocked  H-P-8          FAIL   REVIEW C
+load     H-N-1          PASS   REVIEW C
+load     H-N-2          PASS   REVIEW C
+load     H-N-3          PASS   REVIEW C
+load     H-N-4          PASS   REVIEW C
+load     H-N-5          PASS   REVIEW C
+load     H-N-6          PASS   REVIEW C
+load     H-N-7          PASS   REVIEW C
+exact    H-N-8          PASS   PASS   
+exact    H-A-1          REVIEW REVIEW C
+exact    H-A-2          REVIEW REVIEW C
+exact    H-A-3          REVIEW REVIEW A
+exact    H-A-4          REVIEW REVIEW C
+outcomes: {'blocked': 8, 'load': 7, 'exact': 5} of 20

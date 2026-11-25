@@ -1,0 +1,35 @@
+blocked  X-P-01         FAIL   REVIEW C
+blocked  X-P-02         FAIL   REVIEW C
+exact    X-P-03         FAIL   FAIL   C,B
+blocked  X-P-04         FAIL   REVIEW C
+blocked  X-P-05         FAIL   REVIEW C
+exact    X-P-06         FAIL   FAIL   B
+exact    X-P-07         FAIL   FAIL   B
+blocked  X-P-08         FAIL   REVIEW C
+exact    X-P-09         FAIL   FAIL   B
+exact    X-P-10         FAIL   FAIL   B
+blocked  X-P-11         FAIL   REVIEW C
+blocked  X-P-12         FAIL   REVIEW C
+exact    X-P-13         FAIL   FAIL   B
+exact    X-P-14         FAIL   FAIL   B
+blocked  X-P-15         FAIL   REVIEW C
+exact    X-P-16         FAIL   FAIL   B
+load     X-N-01         PASS   REVIEW C
+exact    X-N-02         PASS   PASS   
+load     X-N-03         PASS   REVIEW C
+load     X-N-04         PASS   REVIEW C
+load     X-N-05         PASS   REVIEW C
+load     X-N-06         PASS   REVIEW C
+load     X-N-07         PASS   REVIEW C
+load     X-N-08         PASS   REVIEW C
+load     X-N-09         PASS   REVIEW C
+load     X-N-10         PASS   REVIEW C
+load     X-N-11         PASS   REVIEW C
+exact    X-A-01         REVIEW REVIEW C
+exact    X-A-02         REVIEW REVIEW C
+exact    X-A-03         REVIEW REVIEW C
+exact    X-A-04         REVIEW REVIEW C
+exact    X-A-05         REVIEW REVIEW C,A
+exact    X-A-06         REVIEW REVIEW C
+exact    X-A-07         REVIEW REVIEW C
+outcomes: {'blocked': 8, 'exact': 16, 'load': 10} of 34
