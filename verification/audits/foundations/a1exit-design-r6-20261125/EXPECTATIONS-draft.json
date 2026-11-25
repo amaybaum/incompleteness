@@ -1,0 +1,9257 @@
+{
+ "schema": "oi-control-expectations/1",
+ "record_id": "r6-draft",
+ "rows": [
+  {
+   "id": "A10r",
+   "requirements": [
+    "R6.RULE.lint"
+   ],
+   "runner": "a1_controls.py:653",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": {
+     "items[file=$rule_file]": [
+      "record-invalid"
+     ]
+    }
+   },
+   "source": "D:2172"
+  },
+  {
+   "id": "A11r",
+   "requirements": [
+    "R6.RULE.lint"
+   ],
+   "runner": "a1_controls.py:653",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": {
+     "items[file=$rule_file]": [
+      "record-invalid"
+     ]
+    }
+   },
+   "restored": {
+    "outcome": "NO_ITEM",
+    "classes_exact": {
+     "items[file=$rule_file]": []
+    }
+   },
+   "source": "D:2173",
+   "flags": [
+    "VD-7: restored (clean-lint) half unreachable in the runner today"
+   ]
+  },
+  {
+   "id": "A12r",
+   "requirements": [
+    "R6.RULE.lint"
+   ],
+   "runner": "conformance_controls.py:2494",
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "verdicts omit one changed item",
+       "names another superseded blob"
+      ],
+      "outcome": "FAIL",
+      "classes_exact": {
+       "items[file=$rule_file]": [
+        "record-invalid"
+       ]
+      }
+     },
+     {
+      "case": "complete review (positive)",
+      "outcome": "PASS"
+     }
+    ]
+   },
+   "source": "D:2290"
+  },
+  {
+   "id": "A1r",
+   "requirements": [
+    "R6.RULE.lint"
+   ],
+   "runner": "a1_controls.py:653",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": {
+     "items[file=$rule_file]": [
+      "record-invalid"
+     ]
+    }
+   },
+   "source": "D:2163"
+  },
+  {
+   "id": "A2r",
+   "requirements": [
+    "R6.RULE.lint"
+   ],
+   "runner": "a1_controls.py:653",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": {
+     "items[file=$rule_file]": [
+      "record-invalid"
+     ]
+    }
+   },
+   "source": "D:2164"
+  },
+  {
+   "id": "A3r",
+   "requirements": [
+    "R6.RULE.lint"
+   ],
+   "runner": "a1_controls.py:653",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": {
+     "items[file=$rule_file]": [
+      "record-invalid"
+     ]
+    }
+   },
+   "source": "D:2165"
+  },
+  {
+   "id": "A4r",
+   "requirements": [
+    "R6.RULE.lint"
+   ],
+   "runner": "a1_controls.py:668",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": {
+     "items[file=$rule_file]": [
+      "record-invalid"
+     ]
+    }
+   },
+   "source": "D:2166"
+  },
+  {
+   "id": "A5r",
+   "requirements": [
+    "R6.RULE.precedence"
+   ],
+   "runner": "a1_controls.py:753",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "deny-match"
+    ],
+    "sites": [
+     {
+      "subject": "$subject",
+      "classes_include": [
+       "deny-match"
+      ]
+     }
+    ]
+   },
+   "source": "D:2167"
+  },
+  {
+   "id": "A5r-generic",
+   "requirements": [
+    "R6.RULE.precedence"
+   ],
+   "runner": "controls_engine.py:634",
+   "expect": null,
+   "source": "none (runner-only: none)"
+  },
+  {
+   "id": "A6r",
+   "requirements": [
+    "R6.RULE.lint"
+   ],
+   "runner": "a1_controls.py:653",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": {
+     "items[file=$rule_file]": [
+      "record-invalid"
+     ]
+    }
+   },
+   "source": "D:2168"
+  },
+  {
+   "id": "A7r",
+   "requirements": [
+    "R6.RULE.lint"
+   ],
+   "runner": "a1_controls.py:679",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": {
+     "items[file=$rule_file]": [
+      "record-invalid"
+     ]
+    }
+   },
+   "source": "D:2169"
+  },
+  {
+   "id": "A8r",
+   "requirements": [
+    "R6.RULE.lint"
+   ],
+   "runner": "a1_controls.py:653",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": {
+     "items[file=$rule_file]": [
+      "record-invalid"
+     ]
+    }
+   },
+   "source": "D:2170"
+  },
+  {
+   "id": "A9r",
+   "requirements": [
+    "R6.RULE.lint"
+   ],
+   "runner": "a1_controls.py:653",
+   "operations": [
+    "terms"
+   ],
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": "pipeline",
+      "outcome": "FAIL",
+      "classes_exact": {
+       "items[file=$rule_file]": [
+        "record-invalid"
+       ]
+      }
+     },
+     {
+      "case": "own negative example",
+      "outcome": "LINT_FAIL",
+      "invariants": [
+       {
+        "negative_example_matches_widened_rule": true
+       }
+      ]
+     }
+    ]
+   },
+   "procedure": {
+    "name": "own-negative-example",
+    "lib": "ast",
+    "evidence": [
+     "mutated rule file",
+     "lint report"
+    ],
+    "note": "the gate compiles the widened matcher with the flags the rule declares and applies it to the rule's negative_examples"
+   },
+   "source": "D:2171",
+   "flags": [
+    "VD-7: the runner check of this half is unreachable today"
+   ]
+  },
+  {
+   "id": "ACCEPT-SCHEMA",
+   "requirements": [
+    "R6.OUT.acceptance"
+   ],
+   "runner": "conformance_controls.py:514",
+   "expect": null,
+   "source": "none (runner-only: none)"
+  },
+  {
+   "id": "ADM-CONFIG-AT-F",
+   "requirements": [
+    "R6.REC.admission"
+   ],
+   "runner": "conformance_controls.py:177",
+   "expect": null,
+   "source": "none (runner-only: none)"
+  },
+  {
+   "id": "B1",
+   "requirements": [
+    "R6.ANCH.boundary"
+   ],
+   "runner": "controls_engine.py:334",
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS",
+    "sites": [
+     {
+      "subject": "$subject",
+      "state": "authorized-removal"
+     }
+    ],
+    "invariants": [
+     {
+      "hit_at_offset_in_image": true
+     }
+    ]
+   },
+   "source": "D:2109"
+  },
+  {
+   "id": "B2",
+   "requirements": [
+    "R6.ANCH.boundary"
+   ],
+   "runner": "controls_engine.py:343",
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS",
+    "sites": [
+     {
+      "subject": "$subject",
+      "state": "authorized-replacement",
+      "line_range": true
+     }
+    ]
+   },
+   "source": "D:2110"
+  },
+  {
+   "id": "B3",
+   "requirements": [
+    "R6.ANCH.boundary"
+   ],
+   "runner": "controls_engine.py:353",
+   "direction": "positive",
+   "expect": {
+    "cases": [
+     {
+      "case": "insertion at a line boundary",
+      "outcome": "PASS",
+      "sites": [
+       {
+        "subject": "$subject",
+        "state": "moved"
+       }
+      ]
+     },
+     {
+      "case": "insertion inside the line",
+      "outcome": "PASS",
+      "sites": [
+       {
+        "subject": "$subject",
+        "state": "authorized-replacement"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2111",
+   "flags": [
+    "cases restated from the sec. 5 overlap rule (D:1003-1006), as the runner implements them"
+   ]
+  },
+  {
+   "id": "B4",
+   "requirements": [
+    "R6.ANCH.boundary"
+   ],
+   "runner": "controls_engine.py:357",
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS",
+    "sites": [
+     {
+      "subject": "$subject",
+      "located": true,
+      "span_end": "EOF"
+     }
+    ]
+   },
+   "source": "D:2112"
+  },
+  {
+   "id": "B4-MEANING",
+   "requirements": [
+    "R6.OUT.schema"
+   ],
+   "runner": "conformance_controls.py:1734",
+   "expect": null,
+   "source": "none (runner-only: none (implements D:969 class_meaning))"
+  },
+  {
+   "id": "B5",
+   "requirements": [
+    "R6.ANCH.boundary"
+   ],
+   "runner": "controls_engine.py:361",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "duplicated"
+    ]
+   },
+   "source": "D:2113"
+  },
+  {
+   "id": "B6",
+   "requirements": [
+    "R6.ANCH.boundary"
+   ],
+   "runner": "controls_engine.py:366",
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS",
+    "sites": [
+     {
+      "subject": "$subject",
+      "state": "unchanged"
+     }
+    ]
+   },
+   "source": "D:2114"
+  },
+  {
+   "id": "CHAIN-REFUSAL",
+   "requirements": [
+    "R6.REC.admission"
+   ],
+   "runner": "a1_controls.py:1150",
+   "expect": null,
+   "source": "none (runner-only: none)"
+  },
+  {
+   "id": "CONFIG-LINT",
+   "requirements": [
+    "R6.VALID.classes"
+   ],
+   "runner": "conformance_controls.py:1698",
+   "expect": null,
+   "source": "none (runner-only: none)"
+  },
+  {
+   "id": "E-A1r",
+   "requirements": [
+    "R6.RULE.lint"
+   ],
+   "runner": "controls_engine.py:642",
+   "expect": null,
+   "source": "none (runner-only: none (engine analog of A1r))"
+  },
+  {
+   "id": "E-A2r",
+   "requirements": [
+    "R6.RULE.lint"
+   ],
+   "runner": "controls_engine.py:643",
+   "expect": null,
+   "source": "none (runner-only: none (analog of A2r))"
+  },
+  {
+   "id": "E-A3r",
+   "requirements": [
+    "R6.RULE.lint"
+   ],
+   "runner": "controls_engine.py:645",
+   "expect": null,
+   "source": "none (runner-only: none (analog of A3r))"
+  },
+  {
+   "id": "E-A6r",
+   "requirements": [
+    "R6.RULE.lint"
+   ],
+   "runner": "controls_engine.py:639",
+   "expect": null,
+   "source": "none (runner-only: none (analog of A6r))"
+  },
+  {
+   "id": "E-A8r",
+   "requirements": [
+    "R6.RULE.lint"
+   ],
+   "runner": "controls_engine.py:641",
+   "expect": null,
+   "source": "none (runner-only: none (analog of A8r))"
+  },
+  {
+   "id": "E-L1",
+   "requirements": [
+    "R6.RULE.allow"
+   ],
+   "runner": "controls_engine.py:623",
+   "expect": null,
+   "source": "none (runner-only: none (analog of L1))"
+  },
+  {
+   "id": "E-L3",
+   "requirements": [
+    "R6.RULE.allow"
+   ],
+   "runner": "controls_engine.py:625",
+   "expect": null,
+   "source": "none (runner-only: none (analog of L3))"
+  },
+  {
+   "id": "E-S1r",
+   "requirements": [
+    "R6.RULE.allow"
+   ],
+   "runner": "controls_engine.py:628",
+   "expect": null,
+   "source": "none (runner-only: none (analog of S1r))"
+  },
+  {
+   "id": "E-S2r",
+   "requirements": [
+    "R6.RULE.allow"
+   ],
+   "runner": "controls_engine.py:630",
+   "expect": null,
+   "source": "none (runner-only: none (analog of S2r))"
+  },
+  {
+   "id": "EI1",
+   "requirements": [
+    "R6.REC.execution-identity"
+   ],
+   "runner": "conformance_controls.py:265",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "tool file differs from T, run directly",
+       "extra bytecode file, run directly"
+      ],
+      "outcome": "ERROR",
+      "stop_class": "CONFIG_UNREVIEWED"
+     },
+     {
+      "case": "equal checkout (positive)",
+      "outcome": "PASS"
+     }
+    ]
+   },
+   "source": "D:2311"
+  },
+  {
+   "id": "EI10",
+   "requirements": [
+    "R6.REC.execution-identity"
+   ],
+   "runner": "conformance_controls.py:1388",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "PRE_RUN_FAILED",
+    "invariants": [
+     {
+      "entry_point_ran": false
+     },
+     {
+      "module_init_ran": false
+     }
+    ]
+   },
+   "procedure": {
+    "lib": "prerun"
+   },
+   "source": "D:2320"
+  },
+  {
+   "id": "EI11",
+   "requirements": [
+    "R6.REC.execution-identity"
+   ],
+   "runner": "conformance_controls.py:1405",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "PRE_RUN_FAILED",
+    "invariants": [
+     {
+      "entry_point_ran": false
+     },
+     {
+      "payload_ran": false
+     },
+     {
+      "message_names": "non-regular entry"
+     }
+    ]
+   },
+   "procedure": {
+    "lib": "prerun"
+   },
+   "source": "D:2321"
+  },
+  {
+   "id": "EI12",
+   "requirements": [
+    "R6.REC.execution-identity"
+   ],
+   "runner": "conformance_controls.py:1421",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "PRE_RUN_FAILED",
+    "invariants": [
+     {
+      "entry_point_ran": false
+     },
+     {
+      "evil_ran": false
+     }
+    ]
+   },
+   "procedure": {
+    "lib": "prerun"
+   },
+   "source": "D:2322"
+  },
+  {
+   "id": "EI13",
+   "requirements": [
+    "R6.REC.execution-identity"
+   ],
+   "runner": "conformance_controls.py:1458",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "pinned file changed",
+       "pinned file missing",
+       "extra .py file",
+       "non-regular non-directory entry",
+       "tools symlink inside checkout",
+       "tools symlink outside checkout",
+       "F not fetched",
+       "configuration absent at F",
+       "configuration without tool.files"
+      ],
+      "invariants": [
+       {
+        "entry_point_ran": false
+       },
+       {
+        "marker_written": false
+       }
+      ],
+      "outcome": "PRE_RUN_FAILED"
+     }
+    ]
+   },
+   "procedure": {
+    "lib": "prerun"
+   },
+   "source": "D:2323"
+  },
+  {
+   "id": "EI14",
+   "requirements": [
+    "R6.REC.execution-identity"
+   ],
+   "runner": "conformance_controls.py:1475",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": "dispatched on the branch",
+      "outcome": "PRE_RUN_FAILED",
+      "invariants": [
+       {
+        "message_names": "GITHUB_REF"
+       }
+      ]
+     },
+     {
+      "case": "reaching the tool",
+      "outcome": "ERROR",
+      "invariants": [
+       {
+        "file_executed": false
+       },
+       {
+        "message_names": "head_branch"
+       }
+      ]
+     },
+     {
+      "case": "consumer",
+      "outcome": "NON_ACCEPTANCE"
+     },
+     {
+      "case": "same file at an on-main T",
+      "outcome": "PRE_RUN_PASSED",
+      "invariants": [
+       {
+        "file_executed": false
+       },
+       {
+        "result_equal_without_file": true
+       }
+      ]
+     }
+    ]
+   },
+   "procedure": {
+    "lib": "prerun"
+   },
+   "source": "D:2324",
+   "flags": [
+    "CI lists EI14 under deferred_post_landing while the runner records PASS; see (D)"
+   ]
+  },
+  {
+   "id": "EI15",
+   "requirements": [
+    "R6.REC.execution-identity"
+   ],
+   "runner": "conformance_controls.py:1500",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "workflow_dispatch on a branch with F prime",
+       "GITHUB_REF refs/tags/main",
+       "F as HEAD",
+       "F abbreviated",
+       "F upper case"
+      ],
+      "outcome": "PRE_RUN_FAILED"
+     },
+     {
+      "case": "plan F on refs/heads/main (countercontrol)",
+      "outcome": "PRE_RUN_PASSED"
+     }
+    ]
+   },
+   "procedure": {
+    "lib": "prerun"
+   },
+   "source": "D:2325"
+  },
+  {
+   "id": "EI2",
+   "requirements": [
+    "R6.REC.execution-identity"
+   ],
+   "runner": "conformance_controls.py:274",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "pull_request",
+       "schedule",
+       "workflow_run"
+      ],
+      "outcome": "ERROR",
+      "stop_class": "CONFIG_UNREVIEWED"
+     },
+     {
+      "case": "push (tool half, positive)",
+      "outcome": "NOT_REFUSED",
+      "exit": 0
+     }
+    ]
+   },
+   "source": "D:2312"
+  },
+  {
+   "id": "EI2-consumer",
+   "requirements": [
+    "R6.REC.execution-identity"
+   ],
+   "runner": "conformance_controls.py:600",
+   "direction": "both",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "pull_request",
+       "schedule",
+       "workflow_run"
+      ],
+      "outcome": "NON_ACCEPTANCE"
+     },
+     {
+      "case": "push (positive)",
+      "outcome": "ACCEPTED"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "acceptance",
+    "lib": "consumer",
+    "evidence": [
+     "per-case result.json",
+     "landing record"
+    ]
+   },
+   "source": "D:2312"
+  },
+  {
+   "id": "EI3",
+   "requirements": [
+    "R6.REC.execution-identity"
+   ],
+   "runner": "conformance_controls.py:610",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "F differs",
+       "pin table differs",
+       "configuration path differs"
+      ],
+      "outcome": "NON_ACCEPTANCE"
+     },
+     {
+      "case": "matching landing record (positive)",
+      "outcome": "ACCEPTED"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "acceptance",
+    "lib": "consumer",
+    "evidence": [
+     "per-case result.json",
+     "landing record"
+    ]
+   },
+   "source": "D:2313"
+  },
+  {
+   "id": "EI4",
+   "requirements": [
+    "R6.REC.execution-identity"
+   ],
+   "runner": "conformance_controls.py:321",
+   "expect": {
+    "cases": [
+     {
+      "case": "(a)",
+      "outcome": "ERROR",
+      "stop_class": "CONFIG_UNREVIEWED"
+     },
+     {
+      "case": "(b)",
+      "outcome": "USAGE",
+      "invariants": [
+       {
+        "no_result_written": true
+       }
+      ]
+     },
+     {
+      "case": [
+       "(c)",
+       "(d)",
+       "malformed Record pins row"
+      ],
+      "outcome": "ERROR",
+      "stop_class": "CONFIG_UNREVIEWED"
+     },
+     {
+      "case": "plan configuration (positive)",
+      "outcome": "PASS"
+     }
+    ]
+   },
+   "source": "D:2314"
+  },
+  {
+   "id": "EI5",
+   "requirements": [
+    "R6.REC.execution-identity"
+   ],
+   "runner": "conformance_controls.py:662",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "ls-remote fails",
+       "no refs/heads/main line",
+       "more than one line",
+       "not full 40-hex",
+       "unreadable id",
+       "id other than L's first parent"
+      ],
+      "outcome": "LANDING_REFUSED"
+     },
+     {
+      "case": "one main line equal to L's first parent (countercontrol)",
+      "outcome": "RESOLVED"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "landing-resolve",
+    "lib": "fixture",
+    "evidence": [
+     "per-case ls-remote output fixture",
+     "landing check exit status"
+    ]
+   },
+   "source": "D:2315",
+   "flags": [
+    "OD-22: countercontrol clause adopted"
+   ]
+  },
+  {
+   "id": "EI6",
+   "requirements": [
+    "R6.REC.execution-identity"
+   ],
+   "runner": "conformance_controls.py:1545",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": "unpinned shadow modules (tools/hashlib.py, re.py, subprocess.py, json.py, importlib.py) under -I -S -B",
+      "outcome": "PASS",
+      "invariants": [
+       {
+        "marker_written": false
+       },
+       {
+        "imported_files_within": "tool.files or stdlib (-I -S path less purelib, platlib, site-packages, dist-packages, by real path)"
+       },
+       {
+        "items_equal_run_without_file": true
+       }
+      ]
+     },
+     {
+      "case": "without -I, or checkout dir on sys.path",
+      "outcome": "ERROR",
+      "invariants": [
+       {
+        "before_unloaded_import": true
+       }
+      ]
+     },
+     {
+      "case": "fixture and installed-package files",
+      "outcome": "REFUSED",
+      "invariants": [
+       {
+        "self_test_imports_all_accepted": true
+       }
+      ]
+     }
+    ]
+   },
+   "procedure": {
+    "lib": "prerun",
+    "evidence": [
+     "step exit file",
+     "marker-path listing after the step",
+     "entry-point sentinel",
+     "import trace (EI6)"
+    ]
+   },
+   "source": "D:2316 (OD-22 extension, controls.json text)",
+   "flags": [
+    "OD-22: json.py/importlib.py, -I -S -B and the third case adopted"
+   ]
+  },
+  {
+   "id": "EI7",
+   "requirements": [
+    "R6.REC.execution-identity"
+   ],
+   "runner": null,
+   "expect": {
+    "outcome": "COMPOSITE"
+   },
+   "composed_of": [
+    "EI7-tool",
+    "EI7-consumer"
+   ],
+   "source": "D:2317 (OD-22)",
+   "flags": [
+    "the consumer half has no recorded id today: the gate reports EI7-consumer missing until it is implemented"
+   ]
+  },
+  {
+   "id": "EI7-tool",
+   "requirements": [
+    "R6.REC.execution-identity"
+   ],
+   "runner": "conformance_controls.py:441",
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "local action",
+       "local reusable workflow",
+       "tag",
+       "branch",
+       "quoted key",
+       "escaped key",
+       "flow mapping",
+       "flow sequence",
+       "anchor and alias",
+       "block scalar",
+       "complex key",
+       "escaped key after dash and two spaces",
+       "flow mapping after dash and two spaces",
+       "tag after dash and two spaces",
+       "nested dash",
+       "whole-document flow mapping",
+       "tab after dash",
+       "tab after colon before flow collection"
+      ],
+      "outcome": "ERROR",
+      "stop_class": "CONFIG_UNREVIEWED",
+      "invariants": [
+       {
+        "message_names": "line rule"
+       }
+      ]
+     },
+     {
+      "case": "conforming 40-hex uses line (positive)",
+      "outcome": "PASS"
+     }
+    ]
+   },
+   "source": "D:2317",
+   "flags": [
+    "OD-22: exit 65 naming the line rule and the conforming 40-hex countercontrol adopted"
+   ]
+  },
+  {
+   "id": "EI8",
+   "requirements": [
+    "R6.REC.execution-identity"
+   ],
+   "runner": "conformance_controls.py:1339",
+   "direction": "positive",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "PRE_RUN_PASSED",
+    "invariants": [
+     {
+      "entry_point_ran": true
+     },
+     {
+      "entry_exit": 0
+     },
+     {
+      "marker_written": false
+     }
+    ]
+   },
+   "procedure": {
+    "lib": "prerun"
+   },
+   "source": "D:2318"
+  },
+  {
+   "id": "EI9",
+   "requirements": [
+    "R6.REC.execution-identity"
+   ],
+   "runner": "conformance_controls.py:1360",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "PRE_RUN_FAILED",
+    "invariants": [
+     {
+      "entry_point_ran": false
+     },
+     {
+      "marker_written": false
+     }
+    ]
+   },
+   "procedure": {
+    "lib": "prerun"
+   },
+   "source": "D:2319"
+  },
+  {
+   "id": "G-A1",
+   "requirements": [
+    "R6.DELEG.native"
+   ],
+   "runner": "conformance_controls.py:2434",
+   "predicate_kind": "procedural",
+   "expect": null,
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "native delegated runs need an admitted configuration and clones at X and C after landing (deferred post landing)",
+    "release_condition": "TR5 released, with X and C fetchable",
+    "release_check": "TR5 status PASS"
+   },
+   "source": "none (runner-only: delegated classes native in clones at X and C; host-run classes from the API)"
+  },
+  {
+   "id": "G1",
+   "requirements": [
+    "R6.DELEG.rules"
+   ],
+   "runner": "a1_controls.py:815",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "delegated-evidence-invalid"
+    ],
+    "sites": [
+     {
+      "subject": "tex",
+      "classes_include": [
+       "delegated-evidence-invalid"
+      ]
+     }
+    ]
+   },
+   "source": "D:2186"
+  },
+  {
+   "id": "G2",
+   "requirements": [
+    "R6.DELEG.rules"
+   ],
+   "runner": "a1_controls.py:818",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes_include": [
+     "delegated-evidence-missing"
+    ]
+   },
+   "source": "D:2187"
+  },
+  {
+   "id": "G3",
+   "requirements": [
+    "R6.DELEG.rules"
+   ],
+   "runner": "a1_controls.py:823",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "delegated-evidence-invalid"
+    ],
+    "sites": [
+     {
+      "subject": "coverage-ledger",
+      "classes_include": [
+       "delegated-evidence-invalid"
+      ]
+     }
+    ]
+   },
+   "source": "D:2188 (class per MC-17)",
+   "flags": [
+    "design says FAIL without a class; MC-17 names delegated-evidence-invalid (controls.json agrees)"
+   ]
+  },
+  {
+   "id": "G4",
+   "requirements": [
+    "R6.DELEG.rules"
+   ],
+   "runner": "conformance_controls.py:2332",
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "positive",
+      "outcome": "NO_ITEM",
+      "sites": [
+       {
+        "subject": "sc42",
+        "classes_exact": []
+       }
+      ]
+     },
+     {
+      "case": "re-execution differs",
+      "outcome": "FAIL",
+      "sites": [
+       {
+        "subject": "sc42",
+        "classes_include": [
+         "delegated-evidence-invalid"
+        ]
+       }
+      ],
+      "invariants": [
+       {
+        "supplied_file_read_as_evidence": false
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2282"
+  },
+  {
+   "id": "G5",
+   "requirements": [
+    "R6.DELEG.rules"
+   ],
+   "runner": "conformance_controls.py:2380",
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "census equal",
+      "outcome": "NO_ITEM",
+      "sites": [
+       {
+        "subject": "coverage-ledger",
+        "classes_exact": []
+       }
+      ]
+     },
+     {
+      "case": "census differs",
+      "outcome": "FAIL",
+      "sites": [
+       {
+        "subject": "coverage-ledger",
+        "classes_include": [
+         "delegated-evidence-invalid"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2283 (class per MC-17)",
+   "flags": [
+    "design says FAIL without a class; MC-17 names delegated-evidence-invalid"
+   ]
+  },
+  {
+   "id": "G6",
+   "requirements": [
+    "R6.DELEG.rules"
+   ],
+   "runner": "conformance_controls.py:2402",
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "wrong stamp",
+      "outcome": "FAIL",
+      "sites": [
+       {
+        "subject": "tex",
+        "classes_include": [
+         "delegated-evidence-invalid"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "right stamp",
+      "outcome": "NO_ITEM",
+      "sites": [
+       {
+        "subject": "tex",
+        "classes_exact": []
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2284"
+  },
+  {
+   "id": "G7",
+   "requirements": [
+    "R6.DELEG.rules"
+   ],
+   "runner": "conformance_controls.py:2430",
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "good evidence",
+      "outcome": "NO_ITEM",
+      "sites": [
+       {
+        "subject": "pdf",
+        "classes_exact": []
+       }
+      ]
+     },
+     {
+      "case": [
+       "candidate_tree differs",
+       "artifact hash differs"
+      ],
+      "outcome": "FAIL",
+      "sites": [
+       {
+        "subject": "pdf",
+        "classes_include": [
+         "delegated-evidence-invalid"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2285"
+  },
+  {
+   "id": "G8",
+   "requirements": [
+    "R6.DELEG.rules"
+   ],
+   "runner": "conformance_controls.py:2355",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "delegated-evidence-invalid"
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "class": "delegated-evidence-missing",
+        "subject": "$class"
+       },
+       {
+        "class": "delegated-evidence-invalid",
+        "subject": "$field"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2287"
+  },
+  {
+   "id": "G9",
+   "requirements": [
+    "R6.DELEG.rules"
+   ],
+   "runner": "conformance_controls.py:2343",
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "class run at X",
+      "outcome": "NO_ITEM",
+      "sites": [
+       {
+        "subject": "sc42",
+        "classes_exact": []
+       }
+      ]
+     },
+     {
+      "case": "class run from the clone at C",
+      "outcome": "FAIL",
+      "sites": [
+       {
+        "subject": "sc42",
+        "classes_include": [
+         "delegated-evidence-invalid"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2286"
+  },
+  {
+   "id": "GV-CACHE",
+   "requirements": [
+    "R6.REC.object-integrity"
+   ],
+   "runner": "conformance_controls.py:1058",
+   "expect": null,
+   "source": "none (runner-only; object integrity, sec. 6.3)"
+  },
+  {
+   "id": "GV-CACHE-AFTER-READ",
+   "requirements": [
+    "R6.REC.object-integrity"
+   ],
+   "runner": "conformance_controls.py:1145",
+   "expect": null,
+   "source": "none (runner-only; object integrity, sec. 6.3)"
+  },
+  {
+   "id": "GV-CACHE-IMMUTABLE",
+   "requirements": [
+    "R6.REC.object-integrity"
+   ],
+   "runner": "conformance_controls.py:1154",
+   "expect": null,
+   "source": "none (runner-only; object integrity, sec. 6.3)"
+  },
+  {
+   "id": "GV-CACHE-KEY",
+   "requirements": [
+    "R6.REC.object-integrity"
+   ],
+   "runner": "conformance_controls.py:1122",
+   "expect": null,
+   "source": "none (runner-only; object integrity, sec. 6.3)"
+  },
+  {
+   "id": "GV1",
+   "requirements": [
+    "R6.REC.object-integrity"
+   ],
+   "runner": "conformance_controls.py:869",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "replace ref for an E..H commit",
+       "replace ref for the configuration blob"
+      ],
+      "outcome": "RESULT_EQUAL_CLEAN"
+     },
+     {
+      "case": "role commit as a ref name",
+      "outcome": "ERROR",
+      "stop_class": "UNRESOLVABLE"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "relational",
+    "lib": "rel-equal",
+    "evidence": [
+     "result with the planted object",
+     "result from the clean store",
+     "object-count snapshots"
+    ]
+   },
+   "source": "D:2304"
+  },
+  {
+   "id": "GV2",
+   "requirements": [
+    "R6.REC.object-integrity"
+   ],
+   "runner": "conformance_controls.py:882",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "git_honours_graft": true
+     }
+    ]
+   },
+   "procedure": {
+    "name": "relational",
+    "lib": "rel-equal",
+    "evidence": [
+     "result with the planted object",
+     "result from the clean store",
+     "object-count snapshots"
+    ]
+   },
+   "source": "D:2305"
+  },
+  {
+   "id": "GV3",
+   "requirements": [
+    "R6.REC.object-integrity"
+   ],
+   "runner": "conformance_controls.py:903",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "terms_and_execution_equal_clean": true
+     }
+    ]
+   },
+   "procedure": {
+    "name": "relational",
+    "lib": "rel-equal",
+    "evidence": [
+     "result with the planted object",
+     "result from the clean store",
+     "object-count snapshots"
+    ]
+   },
+   "source": "D:2306"
+  },
+  {
+   "id": "GV4",
+   "requirements": [
+    "R6.REC.object-integrity"
+   ],
+   "runner": "conformance_controls.py:943",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "configuration blob at F",
+       "pin table blob"
+      ],
+      "outcome": "ERROR",
+      "stop_class": "CONFIG_UNREVIEWED"
+     },
+     {
+      "case": [
+       "tree of X",
+       "commit of E..H"
+      ],
+      "outcome": "ERROR",
+      "stop_class": "UNRESOLVABLE"
+     },
+     {
+      "case": "tool blob at T",
+      "outcome": "ERROR",
+      "stop_class": "CONFIG_UNREVIEWED"
+     },
+     {
+      "case": "HP merge",
+      "outcome": "ERROR",
+      "invariants": [
+       {
+        "stop_class_in": [
+         "CONFIG_INCONSISTENT",
+         "UNRESOLVABLE"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2307 (OD-22 extension, controls.json text)",
+   "flags": [
+    "OD-22: HP-merge case adopted (6 cases)"
+   ]
+  },
+  {
+   "id": "GV5",
+   "requirements": [
+    "R6.REC.object-integrity"
+   ],
+   "runner": "conformance_controls.py:981",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "shallow boundary inside E..H",
+       "partial store lacking a blob"
+      ],
+      "outcome": "ERROR",
+      "invariants": [
+       {
+        "objects_fetched": 0
+       }
+      ]
+     },
+     {
+      "case": "shallow store holding every needed object",
+      "outcome": "RESULT_EQUAL_FULL_STORE"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "relational",
+    "lib": "rel-equal",
+    "evidence": [
+     "result with the planted object",
+     "result from the clean store",
+     "object-count snapshots"
+    ]
+   },
+   "source": "D:2308"
+  },
+  {
+   "id": "GV6",
+   "requirements": [
+    "R6.REC.object-integrity"
+   ],
+   "runner": "conformance_controls.py:343",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "symlink at configuration path",
+       "symlink at pin table path"
+      ],
+      "outcome": "ERROR",
+      "stop_class": "CONFIG_UNREVIEWED"
+     },
+     {
+      "case": "symlink at a record path",
+      "outcome": "FAIL",
+      "classes_exact": {
+       "items[file=$record]": [
+        "record-invalid"
+       ]
+      }
+     }
+    ]
+   },
+   "source": "D:2309"
+  },
+  {
+   "id": "GV6-disk",
+   "requirements": [
+    "R6.REC.object-integrity"
+   ],
+   "runner": "conformance_controls.py:1008",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "CONFIG_UNREVIEWED",
+    "invariants": [
+     {
+      "before_host_read": true
+     }
+    ]
+   },
+   "source": "D:2309"
+  },
+  {
+   "id": "GV7",
+   "requirements": [
+    "R6.REC.object-integrity"
+   ],
+   "runner": null,
+   "expect": {
+    "outcome": "COMPOSITE"
+   },
+   "composed_of": [
+    "GV7-tool",
+    "GV7-consumer"
+   ],
+   "source": "D:2310"
+  },
+  {
+   "id": "GV7-consumer",
+   "requirements": [
+    "R6.REC.object-integrity"
+   ],
+   "runner": "conformance_controls.py:624",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "artifact list fails",
+       "incomplete records"
+      ],
+      "outcome": "NON_ACCEPTANCE"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "acceptance",
+    "lib": "consumer",
+    "evidence": [
+     "per-case fixture",
+     "result"
+    ]
+   },
+   "source": "D:2310"
+  },
+  {
+   "id": "GV7-tool",
+   "requirements": [
+    "R6.REC.object-integrity"
+   ],
+   "runner": "conformance_controls.py:379",
+   "expect": {
+    "cases": [
+     {
+      "case": "run record read fails",
+      "outcome": "ERROR",
+      "stop_class": "CONFIG_UNREVIEWED"
+     },
+     {
+      "case": "host-run class records incomplete (4 cases)",
+      "outcome": "REVIEW_REQUIRED",
+      "classes_include": [
+       "delegated-evidence-missing"
+      ]
+     }
+    ]
+   },
+   "source": "D:2310"
+  },
+  {
+   "id": "H1",
+   "requirements": [
+    "R6.HP.adjudication"
+   ],
+   "runner": "controls_engine.py:379",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "provenance-mismatch"
+    ]
+   },
+   "source": "D:2115"
+  },
+  {
+   "id": "H2",
+   "requirements": [
+    "R6.HP.adjudication"
+   ],
+   "runner": "controls_engine.py:385",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "provenance-gap"
+    ]
+   },
+   "source": "D:2116"
+  },
+  {
+   "id": "H3",
+   "requirements": [
+    "R6.HP.adjudication"
+   ],
+   "runner": "controls_engine.py:388",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "provenance-foreign"
+    ]
+   },
+   "source": "D:2117"
+  },
+  {
+   "id": "H4",
+   "requirements": [
+    "R6.HP.adjudication"
+   ],
+   "runner": "controls_engine.py:393",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": {
+     "items[subject=$subject]": [
+      "unauthorized-change"
+     ]
+    },
+    "invariants": [
+     {
+      "all": "items[class=unauthorized-change,subject=$subject]",
+      "have": {
+       "obligation": "RET"
+      }
+     }
+    ]
+   },
+   "source": "D:2118"
+  },
+  {
+   "id": "H5",
+   "requirements": [
+    "R6.HP.adjudication"
+   ],
+   "runner": "controls_engine.py:400",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "untracked-hp-overlap"
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "obligation": "HP",
+        "class": "untracked-hp-overlap"
+       },
+       {
+        "obligation": "RET",
+        "class": "untracked-hp-overlap"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2119"
+  },
+  {
+   "id": "H6",
+   "requirements": [
+    "R6.HP.adjudication"
+   ],
+   "runner": "controls_engine.py:404",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "adjudication-row-changed"
+    ]
+   },
+   "source": "D:2120"
+  },
+  {
+   "id": "H7",
+   "requirements": [
+    "R6.HP.adjudication"
+   ],
+   "runner": "controls_engine.py:432",
+   "expect": {
+    "cases": [
+     {
+      "case": "fields",
+      "outcome": "ANY",
+      "sites": [
+       {
+        "subject": "$site1",
+        "obligation": "HP",
+        "region_shared_with": [
+         "$site2"
+        ],
+        "region_splices": [
+         "$splice"
+        ],
+        "line_splices": []
+       },
+       {
+        "subject": "$site2",
+        "obligation": "HP",
+        "region_shared_with": [
+         "$site1"
+        ],
+        "region_splices": [
+         "$splice"
+        ],
+        "line_splices": [
+         "$splice"
+        ]
+       }
+      ]
+     },
+     {
+      "case": [
+       "own_lines leaves a line unassigned",
+       "splice attributed to no site"
+      ],
+      "outcome": "FAIL",
+      "classes_exact": {
+       "items[file=$record]": [
+        "record-invalid"
+       ]
+      }
+     }
+    ]
+   },
+   "source": "D:2121"
+  },
+  {
+   "id": "I2-1",
+   "requirements": [
+    "R6.ITEM2.records"
+   ],
+   "runner": "record_directory_controls.py:646",
+   "direction": "positive",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "TEXT_EQUAL",
+    "invariants": [
+     {
+      "arm": "item2-coverage",
+      "equals": "existing arguments followed by the two --classify arguments of B.2, every expansion quoted"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "workflow-text",
+    "lib": "ast",
+    "evidence": [
+     "workflow blob",
+     "expected argument list"
+    ]
+   },
+   "source": "r5:294"
+  },
+  {
+   "id": "I2-2",
+   "requirements": [
+    "R6.ITEM2.records"
+   ],
+   "runner": "record_directory_controls.py:662",
+   "operations": [
+    "coverage"
+   ],
+   "direction": "positive",
+   "expect": {
+    "cases": [
+     {
+      "case": "with record",
+      "outcome": "NO_ITEM",
+      "sites": [
+       {
+        "subject": "$site",
+        "classes_exact": []
+       }
+      ]
+     },
+     {
+      "case": "without",
+      "outcome": "FAIL",
+      "sites": [
+       {
+        "subject": "$site",
+        "classes_exact": [
+         "context-meaning-unverified"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r5:295"
+  },
+  {
+   "id": "I2-3",
+   "requirements": [
+    "R6.ITEM2.records"
+   ],
+   "runner": "record_directory_controls.py:675",
+   "operations": [
+    "coverage"
+   ],
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "SOURCE_CHANGED"
+   },
+   "source": "r5:296"
+  },
+  {
+   "id": "I2-4",
+   "requirements": [
+    "R6.ITEM2.records"
+   ],
+   "runner": "record_directory_controls.py:697",
+   "operations": [
+    "coverage"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid"
+    ],
+    "sites": [
+     {
+      "subject": "$hit",
+      "decision": "REVIEW_REQUIRED"
+     }
+    ]
+   },
+   "source": "r5:297",
+   "flags": [
+    "runner adds a referenced-resolves case"
+   ]
+  },
+  {
+   "id": "I2-5",
+   "requirements": [
+    "R6.ITEM2.records"
+   ],
+   "runner": "record_directory_controls.py:709",
+   "operations": [
+    "coverage"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid"
+    ]
+   },
+   "source": "r5:298",
+   "flags": [
+    "runner: record-invalid names both files"
+   ]
+  },
+  {
+   "id": "I2-6",
+   "requirements": [
+    "R6.ITEM2.records"
+   ],
+   "runner": "record_directory_controls.py:724",
+   "operations": [
+    "coverage"
+   ],
+   "direction": "positive",
+   "expect": {
+    "cases": [
+     {
+      "case": "empty entries with record_id and review",
+      "outcome": "NO_ITEM",
+      "invariants": [
+       {
+        "record_admitted": true
+       },
+       {
+        "sites_resolved_by_it": 0
+       }
+      ]
+     },
+     {
+      "case": [
+       "without record_id",
+       "without review"
+      ],
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     }
+    ]
+   },
+   "source": "r5:299"
+  },
+  {
+   "id": "I2-7",
+   "requirements": [
+    "R6.ITEM2.records"
+   ],
+   "runner": "record_directory_controls.py:747",
+   "operations": [
+    "coverage"
+   ],
+   "direction": "positive",
+   "expect": {
+    "cases": [
+     {
+      "case": "with record",
+      "outcome": "ANY",
+      "sites": [
+       {
+        "subject": "$hit",
+        "state": "as classified"
+       }
+      ]
+     },
+     {
+      "case": "without",
+      "outcome": "REVIEW_REQUIRED",
+      "sites": [
+       {
+        "subject": "$hit",
+        "decision": "REVIEW_REQUIRED"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r5:300"
+  },
+  {
+   "id": "I2-8",
+   "requirements": [
+    "R6.ITEM2.records"
+   ],
+   "runner": "record_directory_controls.py:774",
+   "operations": [
+    "coverage"
+   ],
+   "direction": "positive",
+   "expect": {
+    "cases": [
+     {
+      "case": "with adjudication",
+      "outcome": "NO_ITEM",
+      "sites": [
+       {
+        "subject": "$site",
+        "classes_exact": []
+       }
+      ]
+     },
+     {
+      "case": "without",
+      "outcome": "REVIEW_REQUIRED",
+      "classes_exact": [
+       "context-structure-changed"
+      ]
+     }
+    ]
+   },
+   "source": "r5:301"
+  },
+  {
+   "id": "K1",
+   "requirements": [
+    "R6.CTX.rule"
+   ],
+   "runner": "controls_engine.py:272",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "context-meaning-unverified"
+    ]
+   },
+   "source": "D:2100"
+  },
+  {
+   "id": "K1-GRAPH",
+   "requirements": [
+    "R6.REC.object-integrity"
+   ],
+   "runner": "a1_controls.py:1139",
+   "expect": null,
+   "source": "none (runner-only: none (hash-cycle constraint r5 A.1))"
+  },
+  {
+   "id": "K10",
+   "requirements": [
+    "R6.CTX.rule"
+   ],
+   "runner": "controls_engine.py:281",
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS"
+   },
+   "source": "D:2303"
+  },
+  {
+   "id": "K2",
+   "requirements": [
+    "R6.CTX.rule"
+   ],
+   "runner": "controls_engine.py:282",
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS",
+    "sites": [
+     {
+      "subject": "$subject",
+      "context_changed": true
+     }
+    ]
+   },
+   "source": "D:2101"
+  },
+  {
+   "id": "K3",
+   "requirements": [
+    "R6.CTX.rule"
+   ],
+   "runner": "controls_engine.py:287",
+   "direction": "positive",
+   "expect": {
+    "cases": [
+     {
+      "case": "required site",
+      "outcome": "ITEM",
+      "sites": [
+       {
+        "subject": "$subject_required",
+        "classes_exact": [
+         "context-meaning-unverified"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "non-required site",
+      "outcome": "NO_ITEM",
+      "sites": [
+       {
+        "subject": "$subject_nonrequired",
+        "classes_exact": []
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2102"
+  },
+  {
+   "id": "K4",
+   "requirements": [
+    "R6.CTX.rule"
+   ],
+   "runner": "controls_engine.py:292",
+   "direction": "positive",
+   "expect": {
+    "cases": [
+     {
+      "case": "required site",
+      "outcome": "ITEM",
+      "sites": [
+       {
+        "subject": "$subject_required",
+        "classes_exact": [
+         "context-meaning-unverified"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "non-required site",
+      "outcome": "NO_ITEM",
+      "sites": [
+       {
+        "subject": "$subject_nonrequired",
+        "classes_exact": [],
+        "context_changed": true
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2103",
+   "flags": [
+    "runner checks the required-site half only"
+   ]
+  },
+  {
+   "id": "K5",
+   "requirements": [
+    "R6.CTX.rule"
+   ],
+   "runner": "controls_engine.py:297",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "context-meaning-unverified"
+    ]
+   },
+   "source": "D:2104"
+  },
+  {
+   "id": "K6",
+   "requirements": [
+    "R6.CTX.rule"
+   ],
+   "runner": "controls_engine.py:302",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes_exact": [
+     "context-structure-changed"
+    ]
+   },
+   "source": "D:2105"
+  },
+  {
+   "id": "K7",
+   "requirements": [
+    "R6.CTX.rule"
+   ],
+   "runner": "controls_engine.py:310",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "header row changed",
+       "neighbour row changed"
+      ],
+      "outcome": "REVIEW_REQUIRED",
+      "classes_exact": [
+       "context-structure-changed"
+      ]
+     }
+    ]
+   },
+   "source": "D:2106"
+  },
+  {
+   "id": "K8",
+   "requirements": [
+    "R6.CTX.rule"
+   ],
+   "runner": "controls_engine.py:313",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes_exact": [
+     "context-structure-changed"
+    ]
+   },
+   "source": "D:2107"
+  },
+  {
+   "id": "K9",
+   "requirements": [
+    "R6.CTX.indicators"
+   ],
+   "runner": "controls_engine.py:320",
+   "direction": "positive",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "PASS",
+    "sites": [
+     {
+      "subject": "$subject",
+      "partial_quote": true
+     }
+    ]
+   },
+   "procedure": {
+    "name": "toggle-invariant",
+    "lib": "rel-equal",
+    "evidence": [
+     "result as built",
+     "result with partial_quote toggled"
+    ]
+   },
+   "source": "D:2108"
+  },
+  {
+   "id": "L1",
+   "requirements": [
+    "R6.RULE.allow"
+   ],
+   "runner": "a1_controls.py:586",
+   "operations": [
+    "terms"
+   ],
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS"
+   },
+   "source": "D:2130"
+  },
+  {
+   "id": "L2",
+   "requirements": [
+    "R6.RULE.allow"
+   ],
+   "runner": "a1_controls.py:593",
+   "operations": [
+    "terms"
+   ],
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS"
+   },
+   "source": "D:2131"
+  },
+  {
+   "id": "L3",
+   "requirements": [
+    "R6.RULE.allow"
+   ],
+   "runner": "a1_controls.py:595",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "rule-overreach"
+    ]
+   },
+   "source": "D:2132"
+  },
+  {
+   "id": "L4",
+   "requirements": [
+    "R6.RULE.allow"
+   ],
+   "runner": "a1_controls.py:597",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes_exact": [
+     "unclassified"
+    ]
+   },
+   "source": "D:2133"
+  },
+  {
+   "id": "LN1",
+   "requirements": [
+    "R6.REC.lineage"
+   ],
+   "runner": "conformance_controls.py:2072",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "HP",
+       "context",
+       "hit classification",
+       "rule",
+       "scope",
+       "side-change class",
+       "reconciliation",
+       "configuration"
+      ],
+      "classes_exact": {
+       "items[file=$record]": [
+        "record-invalid"
+       ]
+      },
+      "outcome": "FAIL"
+     }
+    ]
+   },
+   "source": "D:2528",
+   "flags": [
+    "runner checks lint_chain reports each kind; the gate requires the emitted record-invalid per kind"
+   ]
+  },
+  {
+   "id": "LN10",
+   "requirements": [
+    "R6.REC.lineage"
+   ],
+   "runner": "conformance_controls.py:2223",
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS",
+    "invariants": [
+     {
+      "none": "items[class=record-invalid]"
+     }
+    ]
+   },
+   "source": "D:2536",
+   "flags": [
+    "row malformed in v6.0e (MC-10); read as \"no record-invalid\""
+   ]
+  },
+  {
+   "id": "LN2",
+   "requirements": [
+    "R6.REC.lineage"
+   ],
+   "runner": "conformance_controls.py:2079",
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS",
+    "invariants": [
+     {
+      "superseding_record_used": true
+     }
+    ]
+   },
+   "source": "D:2529"
+  },
+  {
+   "id": "LN3",
+   "requirements": [
+    "R6.REC.lineage"
+   ],
+   "runner": "conformance_controls.py:2091",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "record_id missing",
+       "record_id empty",
+       "record_id not a string",
+       "predecessor lacks record_id"
+      ],
+      "classes_exact": {
+       "items[file=$record]": [
+        "record-invalid"
+       ]
+      },
+      "outcome": "FAIL"
+     }
+    ]
+   },
+   "source": "D:2530"
+  },
+  {
+   "id": "LN4",
+   "requirements": [
+    "R6.REC.lineage"
+   ],
+   "runner": "conformance_controls.py:2127",
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "predecessor without review",
+       "predecessor verdict not accept",
+       "predecessor widens without review"
+      ],
+      "outcome": "FAIL",
+      "classes_exact": {
+       "items[file=$record]": [
+        "record-invalid"
+       ]
+      }
+     },
+     {
+      "case": "valid widening review (positive)",
+      "outcome": "NO_ITEM",
+      "classes_exact": {
+       "items[file=$record]": []
+      }
+     }
+    ]
+   },
+   "source": "D:2531"
+  },
+  {
+   "id": "LN5",
+   "requirements": [
+    "R6.REC.lineage"
+   ],
+   "runner": "conformance_controls.py:2164",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "two-record cycle",
+       "self-supersession"
+      ],
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ],
+      "invariants": [
+       {
+        "walk_terminates": true
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2532",
+   "flags": [
+    "runner checks lint_chain names the loop; the gate requires the emitted record-invalid"
+   ]
+  },
+  {
+   "id": "LN6",
+   "requirements": [
+    "R6.REC.lineage"
+   ],
+   "runner": "conformance_controls.py:2175",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": {
+     "items[file=$record]": [
+      "record-invalid"
+     ]
+    }
+   },
+   "source": "D:2533"
+  },
+  {
+   "id": "LN7",
+   "requirements": [
+    "R6.REC.lineage"
+   ],
+   "runner": "conformance_controls.py:2193",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "two heads, supersedes null",
+       "two diverging chains"
+      ],
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     }
+    ]
+   },
+   "source": "D:2534"
+  },
+  {
+   "id": "LN8",
+   "requirements": [
+    "R6.REC.lineage"
+   ],
+   "runner": "conformance_controls.py:2210",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "middle record other record_id",
+       "middle record other schema"
+      ],
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     }
+    ]
+   },
+   "source": "D:2535"
+  },
+  {
+   "id": "M1",
+   "requirements": [
+    "R6.ANCH.conformance"
+   ],
+   "runner": "controls_engine.py:233",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "unauthorized-edit"
+    ]
+   },
+   "restored": {
+    "outcome": "PASS"
+   },
+   "source": "v1:367 (OD-19); restored tree PASS (v1:363)"
+  },
+  {
+   "id": "M10",
+   "requirements": [
+    "R6.OUT.usage"
+   ],
+   "runner": "synthetic_fixture.py:543",
+   "expect": {
+    "outcome": "USAGE",
+    "invariants": [
+     {
+      "no_result_written": true
+     },
+     {
+      "out_dir_created": false
+     }
+    ]
+   },
+   "source": "v1:376 ERROR 2 -> USAGE 64 (OD-19; D:827)"
+  },
+  {
+   "id": "M11",
+   "requirements": [
+    "R6.OUT.integrity"
+   ],
+   "runner": "controls_engine.py:258",
+   "expect": {
+    "outcome": "ERROR"
+   },
+   "source": "v1:377 (OD-19d: exit 65, not the exception; D:900)"
+  },
+  {
+   "id": "M2",
+   "requirements": [
+    "R6.ANCH.conformance"
+   ],
+   "runner": "controls_engine.py:236",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "unauthorized-edit"
+    ]
+   },
+   "source": "v1:368 (OD-19)"
+  },
+  {
+   "id": "M3",
+   "requirements": [
+    "R6.OUT.integrity"
+   ],
+   "runner": "controls_engine.py:247",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "LEDGER_INTEGRITY"
+   },
+   "source": "v1:369 ERROR 3 -> ERROR 65 (OD-19; D:899)"
+  },
+  {
+   "id": "M4",
+   "requirements": [
+    "R6.OUT.integrity"
+   ],
+   "runner": "controls_engine.py:249",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "LEDGER_INTEGRITY"
+   },
+   "source": "v1:370 ERROR 3 -> ERROR 65 (OD-19; D:899)"
+  },
+  {
+   "id": "M5",
+   "requirements": [
+    "R6.OUT.integrity"
+   ],
+   "runner": "controls_engine.py:250",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "SCIENTIFIC_BASE_MISMATCH"
+   },
+   "source": "v1:371 ERROR 3 -> ERROR 65 (OD-19; D:897)"
+  },
+  {
+   "id": "M6",
+   "requirements": [
+    "R6.ANCH.search"
+   ],
+   "runner": "controls_engine.py:254",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "missing"
+    ]
+   },
+   "source": "v1:372 (OD-19)"
+  },
+  {
+   "id": "M7",
+   "requirements": [
+    "R6.ADAPT.replay"
+   ],
+   "runner": "a1_controls.py:206",
+   "expect": {
+    "outcome": "ERROR",
+    "invariants": [
+     {
+      "replay_equality": "build",
+      "value": false
+     }
+    ]
+   },
+   "source": "v1:373 (OD-19c)"
+  },
+  {
+   "id": "M8",
+   "requirements": [
+    "R6.ADAPT.replay"
+   ],
+   "runner": "a1_controls.py:209",
+   "expect": {
+    "outcome": "ERROR",
+    "invariants": [
+     {
+      "replay_equality": "render",
+      "value": false
+     }
+    ]
+   },
+   "source": "v1:374 (OD-19c)"
+  },
+  {
+   "id": "M9",
+   "requirements": [
+    "R6.OUT.integrity"
+   ],
+   "runner": "a1_controls.py:211",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "RECORD_TREE_MISMATCH"
+   },
+   "source": "v1:375 ERROR 3 -> ERROR 65 (OD-19; D:897)"
+  },
+  {
+   "id": "N-W",
+   "requirements": [
+    "R6.DENY.rules"
+   ],
+   "runner": "a1_controls.py:600",
+   "operations": [
+    "terms"
+   ],
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS",
+    "counts": {
+     "items[class=deny-match]": 0
+    }
+   },
+   "source": "D:2158"
+  },
+  {
+   "id": "N1",
+   "requirements": [
+    "R6.ANCH.pin"
+   ],
+   "runner": "controls_engine.py:574",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "pin-broken"
+    ]
+   },
+   "restored": {
+    "outcome": "NO_ITEM",
+    "classes_exact": {
+     "items[class=pin-broken]": []
+    }
+   },
+   "source": "D:2176"
+  },
+  {
+   "id": "N10",
+   "requirements": [
+    "R6.RECON.conditions"
+   ],
+   "runner": "a1_conformance.py:505",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "landing-conflict-unresolved"
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "class": "landing-conflict-unresolved",
+        "path": "AGENTS.md"
+       },
+       {
+        "class": "record-invalid"
+       }
+      ]
+     },
+     {
+      "composition_evaluated": true
+     },
+     {
+      "L_blob": "9f4fc3e830707c90ffc105842d26d5b51f01760b"
+     },
+     {
+      "composed_blob": "86d79863821f3f8cdad86771008b2df89fd1961a"
+     }
+    ]
+   },
+   "source": "D:2515"
+  },
+  {
+   "id": "N11",
+   "requirements": [
+    "R6.RECON.conditions"
+   ],
+   "runner": "a1_conformance.py:517",
+   "direction": "positive",
+   "expect": {
+    "outcome": "NO_ITEM",
+    "invariants": [
+     {
+      "none": "items[path=AGENTS.md]"
+     },
+     {
+      "L_blob": "86d79863821f3f8cdad86771008b2df89fd1961a"
+     }
+    ]
+   },
+   "source": "D:2516"
+  },
+  {
+   "id": "N12",
+   "requirements": [
+    "R6.RECON.conditions"
+   ],
+   "runner": "a1_conformance.py:477",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "base-drift"
+    ],
+    "invariants": [
+     {
+      "failed_conditions_include": "RC3"
+     }
+    ]
+   },
+   "source": "D:2518",
+   "flags": [
+    "record condition renamed per OD-31 (Rk -> RCk)"
+   ]
+  },
+  {
+   "id": "N13",
+   "requirements": [
+    "R6.RECON.conditions"
+   ],
+   "runner": "a1_conformance.py:480",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "base-drift"
+    ],
+    "invariants": [
+     {
+      "failed_conditions_include": "RC5"
+     }
+    ]
+   },
+   "source": "D:2519",
+   "flags": [
+    "record condition renamed per OD-31 (Rk -> RCk)"
+   ]
+  },
+  {
+   "id": "N14",
+   "requirements": [
+    "R6.RECON.conditions"
+   ],
+   "runner": "a1_conformance.py:482",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "base-drift"
+    ],
+    "invariants": [
+     {
+      "failed_conditions_include": "RC6"
+     }
+    ]
+   },
+   "source": "D:2520",
+   "flags": [
+    "record condition renamed per OD-31 (Rk -> RCk)"
+   ]
+  },
+  {
+   "id": "N15",
+   "requirements": [
+    "R6.RECON.conditions"
+   ],
+   "runner": "a1_conformance.py:484",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "base-drift"
+    ],
+    "invariants": [
+     {
+      "failed_conditions_include": "RC8"
+     }
+    ]
+   },
+   "source": "D:2521",
+   "flags": [
+    "record condition renamed per OD-31 (Rk -> RCk)"
+   ]
+  },
+  {
+   "id": "N16",
+   "requirements": [
+    "R6.RECON.conditions"
+   ],
+   "runner": "a1_conformance.py:488",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "base-drift"
+    ],
+    "invariants": [
+     {
+      "failed_conditions_include": "RC10"
+     }
+    ]
+   },
+   "source": "D:2522",
+   "flags": [
+    "record condition renamed per OD-31 (Rk -> RCk)"
+   ]
+  },
+  {
+   "id": "N16-file",
+   "requirements": [
+    "R6.RECON.conditions"
+   ],
+   "runner": "a1_conformance.py:490",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "base-drift"
+    ],
+    "sites": [
+     {
+      "subject": "$other_ledgered_file",
+      "classes_include": [
+       "base-drift"
+      ]
+     }
+    ]
+   },
+   "source": "D:2522"
+  },
+  {
+   "id": "N17",
+   "requirements": [
+    "R6.RECON.conditions"
+   ],
+   "runner": "a1_conformance.py:493",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "base-drift"
+    ],
+    "invariants": [
+     {
+      "failed_conditions_include": "RC11"
+     }
+    ]
+   },
+   "source": "D:2523",
+   "flags": [
+    "record condition renamed per OD-31 (Rk -> RCk)"
+   ]
+  },
+  {
+   "id": "N18",
+   "requirements": [
+    "R6.RECON.conditions"
+   ],
+   "runner": "a1_conformance.py:494",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "base-drift"
+    ],
+    "invariants": [
+     {
+      "failed_conditions_include": "RC12"
+     }
+    ]
+   },
+   "source": "D:2524",
+   "flags": [
+    "record condition renamed per OD-31 (Rk -> RCk)"
+   ]
+  },
+  {
+   "id": "N18-record",
+   "requirements": [
+    "R6.RECON.conditions"
+   ],
+   "runner": "a1_conformance.py:496",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid"
+    ]
+   },
+   "source": "D:2524"
+  },
+  {
+   "id": "N2",
+   "requirements": [
+    "R6.RECON.no-decision-change"
+   ],
+   "runner": "controls_engine.py:577",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid"
+    ]
+   },
+   "source": "D:2177"
+  },
+  {
+   "id": "N3",
+   "requirements": [
+    "R6.RECON.conditions"
+   ],
+   "runner": "a1_conformance.py:435",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "none": "items[path=AGENTS.md]"
+     },
+     {
+      "none": "items[class=record-invalid]"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "with-without-record",
+    "lib": "rel-equal",
+    "evidence": [
+     "op C result on X with the record",
+     "the same without it"
+    ]
+   },
+   "source": "D:2508"
+  },
+  {
+   "id": "N3-config-route",
+   "requirements": [
+    "R6.RECON.conditions"
+   ],
+   "runner": "a1_conformance.py:542",
+   "expect": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "none": "items[path=AGENTS.md]"
+     },
+     {
+      "composed_blob": "86d79863821f3f8cdad86771008b2df89fd1961a"
+     }
+    ]
+   },
+   "source": "D:2508"
+  },
+  {
+   "id": "N4",
+   "requirements": [
+    "R6.RECON.conditions"
+   ],
+   "runner": "a1_conformance.py:456",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "base-drift"
+    ],
+    "invariants": [
+     {
+      "failed_conditions_include": "RC13"
+     }
+    ]
+   },
+   "source": "D:2509",
+   "flags": [
+    "record condition renamed per OD-31 (Rk -> RCk)"
+   ]
+  },
+  {
+   "id": "N5",
+   "requirements": [
+    "R6.RECON.conditions"
+   ],
+   "runner": "a1_conformance.py:460",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "base-drift"
+    ],
+    "invariants": [
+     {
+      "failed_conditions_include": "RC1"
+     }
+    ]
+   },
+   "source": "D:2510",
+   "flags": [
+    "record condition renamed per OD-31 (Rk -> RCk)"
+   ]
+  },
+  {
+   "id": "N6",
+   "requirements": [
+    "R6.RECON.conditions"
+   ],
+   "runner": "a1_conformance.py:461",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "base-drift"
+    ],
+    "invariants": [
+     {
+      "failed_conditions_include": "RC9"
+     }
+    ]
+   },
+   "source": "D:2511",
+   "flags": [
+    "record condition renamed per OD-31 (Rk -> RCk)"
+   ]
+  },
+  {
+   "id": "N7",
+   "requirements": [
+    "R6.RECON.conditions"
+   ],
+   "runner": "a1_conformance.py:465",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "base-drift"
+    ],
+    "invariants": [
+     {
+      "failed_conditions_include": "RC2"
+     }
+    ]
+   },
+   "source": "D:2512",
+   "flags": [
+    "record condition renamed per OD-31 (Rk -> RCk)"
+   ]
+  },
+  {
+   "id": "N8",
+   "requirements": [
+    "R6.RECON.conditions"
+   ],
+   "runner": "a1_conformance.py:470",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "base-drift"
+    ],
+    "invariants": [
+     {
+      "failed_conditions_include": "RC4"
+     }
+    ]
+   },
+   "source": "D:2513",
+   "flags": [
+    "record condition renamed per OD-31 (Rk -> RCk)"
+   ]
+  },
+  {
+   "id": "N9",
+   "requirements": [
+    "R6.RECON.conditions"
+   ],
+   "runner": "a1_conformance.py:471",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "base-drift"
+    ],
+    "invariants": [
+     {
+      "failed_conditions_include": "RC7"
+     }
+    ]
+   },
+   "source": "D:2514",
+   "flags": [
+    "record condition renamed per OD-31 (Rk -> RCk)"
+   ]
+  },
+  {
+   "id": "O1",
+   "requirements": [
+    "R6.REC.lint"
+   ],
+   "runner": "controls_engine.py:462",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": {
+     "items[file=$record]": [
+      "record-invalid"
+     ]
+    }
+   },
+   "source": "D:2178",
+   "flags": [
+    "VD-10: runner checks lint problems only; the gate requires the emitted FAIL record-invalid"
+   ]
+  },
+  {
+   "id": "O2",
+   "requirements": [
+    "R6.REC.lint"
+   ],
+   "runner": "controls_engine.py:465",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": {
+     "items[file=$record]": [
+      "record-invalid"
+     ]
+    }
+   },
+   "source": "D:2179",
+   "flags": [
+    "VD-10: runner checks lint problems only; the gate requires the emitted FAIL record-invalid"
+   ]
+  },
+  {
+   "id": "O3",
+   "requirements": [
+    "R6.REC.lint"
+   ],
+   "runner": "controls_engine.py:469",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": {
+     "items[file=$record]": [
+      "record-invalid"
+     ]
+    }
+   },
+   "source": "D:2180",
+   "flags": [
+    "VD-10: runner checks lint problems only; the gate requires the emitted FAIL record-invalid"
+   ]
+  },
+  {
+   "id": "O3-FILTER",
+   "requirements": [
+    "R6.REC.object-integrity"
+   ],
+   "runner": "conformance_controls.py:719",
+   "expect": null,
+   "source": "none (runner-only: none)"
+  },
+  {
+   "id": "O5",
+   "requirements": [
+    "R6.REC.lint"
+   ],
+   "runner": "controls_engine.py:470",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": {
+     "items[file=$record]": [
+      "record-invalid"
+     ]
+    }
+   },
+   "source": "D:2181",
+   "flags": [
+    "VD-10: runner checks lint problems only; the gate requires the emitted FAIL record-invalid"
+   ]
+  },
+  {
+   "id": "O6",
+   "requirements": [
+    "R6.REC.object-integrity"
+   ],
+   "runner": "controls_engine.py:473",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "SOURCE_CHANGED"
+   },
+   "source": "D:2182",
+   "flags": [
+    "VD-10: runner asserts Store.get None only"
+   ]
+  },
+  {
+   "id": "O7",
+   "requirements": [
+    "R6.REC.lint"
+   ],
+   "runner": "controls_engine.py:475",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": {
+     "items[file=$record]": [
+      "record-invalid"
+     ]
+    }
+   },
+   "source": "D:2183",
+   "flags": [
+    "VD-10: runner checks lint problems only; the gate requires the emitted FAIL record-invalid"
+   ]
+  },
+  {
+   "id": "O8",
+   "requirements": [
+    "R6.REC.lint"
+   ],
+   "runner": "controls_engine.py:479",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": {
+     "items[file=$record]": [
+      "record-invalid"
+     ]
+    }
+   },
+   "source": "D:2184"
+  },
+  {
+   "id": "O9",
+   "requirements": [
+    "R6.REC.admission"
+   ],
+   "runner": "controls_engine.py:461",
+   "direction": "positive",
+   "expect": {
+    "outcome": "NO_ITEM",
+    "classes_exact": {
+     "items[file=$record]": []
+    },
+    "invariants": [
+     {
+      "record_admitted": "$record"
+     }
+    ]
+   },
+   "source": "D:2185"
+  },
+  {
+   "id": "RDIR-1",
+   "migrated_from": "O9-1",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:242",
+   "operations": [
+    "execution"
+   ],
+   "direction": "positive",
+   "expect": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "all": "paths_in_D",
+      "have": {
+       "class": "record-directory"
+      }
+     },
+     {
+      "a5_unequal_paths": 0
+     },
+     {
+      "none": "items[class=side-change-unclassified]"
+     }
+    ]
+   },
+   "source": "r5:189"
+  },
+  {
+   "id": "RDIR-10",
+   "migrated_from": "O9-10",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:337",
+   "operations": [
+    "execution"
+   ],
+   "direction": "positive",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "RESULT_EQUAL_WITHOUT_AMENDMENT",
+    "invariants": [
+     {
+      "rule_active": false
+     },
+     {
+      "none": "items[class=record-directory]"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "relational",
+    "lib": "rel-equal",
+    "evidence": [
+     "result with the amendment",
+     "result without it"
+    ]
+   },
+   "source": "r5:198"
+  },
+  {
+   "id": "RDIR-11",
+   "migrated_from": "O9-11",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:349",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "CONFIG_INCONSISTENT",
+    "invariants": [
+     {
+      "reason": "RD2"
+     }
+    ]
+   },
+   "source": "r5:199",
+   "flags": [
+    "directory condition renamed per OD-31 (Dk -> RDk)"
+   ]
+  },
+  {
+   "id": "RDIR-12",
+   "migrated_from": "O9-12",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:357",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "CONFIG_INCONSISTENT",
+    "invariants": [
+     {
+      "reason": "RD3"
+     }
+    ]
+   },
+   "source": "r5:200",
+   "flags": [
+    "directory condition renamed per OD-31 (Dk -> RDk)"
+   ]
+  },
+  {
+   "id": "RDIR-12b",
+   "migrated_from": "O9-12b",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:368",
+   "operations": [
+    "execution"
+   ],
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": "(a) directory present at H",
+      "outcome": "RESULT_EQUAL_WITHOUT_AMENDMENT",
+      "invariants": [
+       {
+        "rule_active": false
+       },
+       {
+        "none": "items[class=record-directory]"
+       }
+      ]
+     },
+     {
+      "case": "(b) directory absent at H",
+      "outcome": "ERROR",
+      "stop_class": "CONFIG_INCONSISTENT",
+      "invariants": [
+       {
+        "reason": "authority"
+       }
+      ]
+     }
+    ]
+   },
+   "procedure": {
+    "name": "relational",
+    "lib": "rel-equal",
+    "evidence": [
+     "result with the amendment",
+     "result without it"
+    ]
+   },
+   "source": "r5:201",
+   "flags": [
+    "reason string \"authority\" kept; renamed only if OD-6 is adopted (see D)"
+   ]
+  },
+  {
+   "id": "RDIR-13",
+   "migrated_from": "O9-13",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:382",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "sites": [
+     {
+      "subject": "$p",
+      "classes_exact": [
+       "side-change-unclassified"
+      ],
+      "names_class": true
+     }
+    ],
+    "invariants": [
+     {
+      "not_class": "record-directory"
+     }
+    ]
+   },
+   "source": "r5:202"
+  },
+  {
+   "id": "RDIR-14",
+   "migrated_from": "O9-14",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:397",
+   "operations": [
+    "execution"
+   ],
+   "direction": "positive",
+   "expect": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "rule_active": false
+     },
+     {
+      "all": "paths_in_D",
+      "have": {
+       "class": "side-change-unclassified"
+      }
+     },
+     {
+      "a5_evaluated": false
+     }
+    ]
+   },
+   "source": "r5:203"
+  },
+  {
+   "id": "RDIR-15",
+   "migrated_from": "O9-15",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:409",
+   "operations": [
+    "execution"
+   ],
+   "direction": "positive",
+   "expect": {
+    "outcome": "RC_HOLDS",
+    "invariants": [
+     {
+      "condition": "RC11",
+      "holds": true
+     }
+    ]
+   },
+   "source": "r5:204"
+  },
+  {
+   "id": "RDIR-16",
+   "migrated_from": "O9-16",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:420",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "CONFIG_INCONSISTENT",
+    "invariants": [
+     {
+      "reason": "authority"
+     }
+    ]
+   },
+   "source": "r5:205",
+   "flags": [
+    "reason string \"authority\" kept; renamed only if OD-6 is adopted (see D)"
+   ]
+  },
+  {
+   "id": "RDIR-17",
+   "migrated_from": "O9-17",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:429",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "CONFIG_INCONSISTENT",
+    "invariants": [
+     {
+      "reason": "RD5"
+     }
+    ]
+   },
+   "source": "r5:206",
+   "flags": [
+    "directory condition renamed per OD-31 (Dk -> RDk)"
+   ]
+  },
+  {
+   "id": "RDIR-18",
+   "migrated_from": "O9-18",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:410",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "RC_FAILS",
+    "invariants": [
+     {
+      "condition": "RC11",
+      "holds": false
+     }
+    ]
+   },
+   "source": "r5:207"
+  },
+  {
+   "id": "RDIR-19",
+   "migrated_from": "O9-19",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:412",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "RC_FAILS",
+    "invariants": [
+     {
+      "condition": "RC11",
+      "holds": false
+     }
+    ]
+   },
+   "source": "r5:208"
+  },
+  {
+   "id": "RDIR-2",
+   "migrated_from": "O9-2",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:252",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "sites": [
+     {
+      "subject": "$modified",
+      "classes_exact": [
+       "side-change-unclassified"
+      ],
+      "reason": "differs from F"
+     }
+    ],
+    "invariants": [
+     {
+      "others_class": "record-directory"
+     }
+    ]
+   },
+   "source": "r5:190"
+  },
+  {
+   "id": "RDIR-20",
+   "migrated_from": "O9-20",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:480",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "CONFIG_INCONSISTENT",
+    "invariants": [
+     {
+      "reason": "authority"
+     },
+     {
+      "rc11_evaluated": false
+     }
+    ]
+   },
+   "source": "r5:209",
+   "flags": [
+    "reason string \"authority\" kept; renamed only if OD-6 is adopted (see D)"
+   ]
+  },
+  {
+   "id": "RDIR-21",
+   "migrated_from": "O9-21",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:491",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "invariants": [
+     {
+      "class_route_entry_stands": true
+     },
+     {
+      "items_include": [
+       {
+        "class": "side-change-unclassified",
+        "reason": "differs from F"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r5:210"
+  },
+  {
+   "id": "RDIR-22",
+   "migrated_from": "O9-22",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:502",
+   "operations": [
+    "execution"
+   ],
+   "direction": "positive",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "RESULT_EQUAL_WITHOUT_AMENDMENT",
+    "invariants": [
+     {
+      "no_error": true
+     }
+    ]
+   },
+   "procedure": {
+    "name": "relational",
+    "lib": "rel-equal",
+    "evidence": [
+     "result with the amendment",
+     "result without it"
+    ]
+   },
+   "source": "r5:211"
+  },
+  {
+   "id": "RDIR-23",
+   "migrated_from": "O9-23",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:526",
+   "operations": [
+    "coverage"
+   ],
+   "direction": "positive",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "RESULT_EQUAL_WITHOUT_AMENDMENT",
+    "invariants": [
+     {
+      "a3_a5_evaluated": false
+     }
+    ]
+   },
+   "procedure": {
+    "name": "relational",
+    "lib": "rel-equal",
+    "evidence": [
+     "result with the amendment",
+     "result without it"
+    ]
+   },
+   "source": "r5:212"
+  },
+  {
+   "id": "RDIR-24",
+   "migrated_from": "O9-24",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:450",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "CONFIG_INCONSISTENT",
+    "invariants": [
+     {
+      "reason": "RD5"
+     }
+    ]
+   },
+   "source": "r5:213",
+   "flags": [
+    "directory condition renamed per OD-31 (Dk -> RDk)"
+   ]
+  },
+  {
+   "id": "RDIR-25",
+   "migrated_from": "O9-25",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:538",
+   "operations": [
+    "execution"
+   ],
+   "direction": "positive",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "RESULT_EQUAL_WITHOUT_AMENDMENT",
+    "invariants": [
+     {
+      "no_error": true
+     },
+     {
+      "rule_active": false
+     },
+     {
+      "existing_conformance_controls_unchanged": true
+     }
+    ]
+   },
+   "procedure": {
+    "name": "relational",
+    "lib": "rel-equal",
+    "evidence": [
+     "result with the amendment",
+     "result without it"
+    ]
+   },
+   "source": "r5:214"
+  },
+  {
+   "id": "RDIR-3",
+   "migrated_from": "O9-3",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:261",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "sites": [
+     {
+      "subject": "$added",
+      "classes_exact": [
+       "side-change-unclassified"
+      ],
+      "reason": "absent at F"
+     }
+    ]
+   },
+   "source": "r5:191"
+  },
+  {
+   "id": "RDIR-4",
+   "migrated_from": "O9-4",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:270",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "sites": [
+     {
+      "subject": "$deleted",
+      "classes_exact": [
+       "side-change-unclassified"
+      ],
+      "reason": "absent at M"
+     }
+    ],
+    "invariants": [
+     {
+      "not_in_H_to_M_scan": "$deleted"
+     }
+    ]
+   },
+   "source": "r5:192"
+  },
+  {
+   "id": "RDIR-5",
+   "migrated_from": "O9-5",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:279",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "sites": [
+     {
+      "subject": "$outside",
+      "classes_exact": [
+       "side-change-unclassified"
+      ],
+      "reason": "outside the record directory"
+     }
+    ]
+   },
+   "source": "r5:193"
+  },
+  {
+   "id": "RDIR-6",
+   "migrated_from": "O9-6",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:287",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "sites": [
+     {
+      "subject": "$sibling",
+      "classes_exact": [
+       "side-change-unclassified"
+      ]
+     }
+    ],
+    "invariants": [
+     {
+      "not_class": "record-directory"
+     }
+    ]
+   },
+   "source": "r5:194"
+  },
+  {
+   "id": "RDIR-7",
+   "migrated_from": "O9-7",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:296",
+   "operations": [
+    "execution"
+   ],
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "PREDICATE",
+    "invariants": [
+     {
+      "clean_path": {
+       ".": false,
+       "..": false,
+       "empty component": false,
+       "good path": true
+      }
+     }
+    ]
+   },
+   "procedure": {
+    "name": "predicate",
+    "lib": "ast",
+    "evidence": [
+     "path list",
+     "runner predicate values"
+    ],
+    "note": "the gate re-evaluates the clean-path predicate with its own implementation"
+   },
+   "source": "r5:195"
+  },
+  {
+   "id": "RDIR-8",
+   "migrated_from": "O9-8",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:313",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "cases": [
+     {
+      "case": "mode change, M role",
+      "outcome": "REVIEW_REQUIRED",
+      "sites": [
+       {
+        "subject": "$p",
+        "classes_exact": [
+         "side-change-unclassified"
+        ],
+        "reason": "differs from F"
+       }
+      ],
+      "invariants": [
+       {
+        "no_exception": true
+       }
+      ]
+     },
+     {
+      "case": [
+       "symlink, M role",
+       "submodule, M role"
+      ],
+      "outcome": "REVIEW_REQUIRED",
+      "sites": [
+       {
+        "subject": "$p",
+        "classes_exact": [
+         "side-change-unclassified"
+        ],
+        "reason": "not a regular file"
+       }
+      ]
+     },
+     {
+      "case": "each case through RC11",
+      "outcome": "RC_FAILS",
+      "invariants": [
+       {
+        "condition": "RC11",
+        "holds": false
+       },
+       {
+        "no_group_error": true
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r5:196"
+  },
+  {
+   "id": "RDIR-9",
+   "migrated_from": "O9-9",
+   "requirements": [
+    "R6.RDIR.rules"
+   ],
+   "runner": "record_directory_controls.py:326",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "ledgered path in D",
+       "corpus path in D"
+      ],
+      "outcome": "ERROR",
+      "stop_class": "CONFIG_INCONSISTENT",
+      "invariants": [
+       {
+        "reason": "RD3"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r5:197",
+   "flags": [
+    "directory condition renamed per OD-31 (Dk -> RDk)"
+   ]
+  },
+  {
+   "id": "TT1",
+   "migrated_from": "R1",
+   "requirements": [
+    "R6.TREE.roles"
+   ],
+   "runner": "controls_engine.py:511",
+   "expect": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "none": "items[obligation=RET]"
+     },
+     {
+      "side_changes_exact": [
+       {
+        "path": "$workflow",
+        "classified_by": "side-change class record"
+       }
+      ]
+     },
+     {
+      "side_change_obligation": "MAIN"
+     }
+    ]
+   },
+   "source": "v2:614 (OD-17: class-pin reading)"
+  },
+  {
+   "id": "TT10",
+   "migrated_from": "R10",
+   "requirements": [
+    "R6.TREE.roles"
+   ],
+   "runner": "controls_engine.py:552",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "landing-drops-main-change"
+    ]
+   },
+   "source": "v2:623"
+  },
+  {
+   "id": "TT11",
+   "migrated_from": "R11",
+   "requirements": [
+    "R6.TREE.roles"
+   ],
+   "runner": "controls_engine.py:554",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "landing-extra-change"
+    ]
+   },
+   "source": "v2:624"
+  },
+  {
+   "id": "TT12",
+   "migrated_from": "R12",
+   "requirements": [
+    "R6.TREE.roles"
+   ],
+   "runner": "controls_engine.py:556",
+   "expect": null,
+   "source": "v2:625",
+   "flags": [
+    "VD-10: runner asserts \"some class\"; v2 says FAIL with no class; see (D)"
+   ]
+  },
+  {
+   "id": "TT13",
+   "migrated_from": "R13",
+   "requirements": [
+    "R6.TREE.roles"
+   ],
+   "runner": "controls_engine.py:559",
+   "direction": "positive",
+   "expect": {
+    "outcome": "NO_ITEM",
+    "invariants": [
+     {
+      "side_changes_classified_by": "tool-landing class pin"
+     },
+     {
+      "candidate_and_landing_pass": true
+     }
+    ]
+   },
+   "source": "v2:626 (OD-17: class-pin reading)"
+  },
+  {
+   "id": "TT14",
+   "migrated_from": "R14",
+   "requirements": [
+    "R6.TREE.roles"
+   ],
+   "runner": "controls_engine.py:563",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "base-drift"
+    ],
+    "invariants": [
+     {
+      "evaluated_in": "tool-landing check of the tool pull request (OD-26)"
+     }
+    ]
+   },
+   "source": "v2:627 (OD-17, OD-26)"
+  },
+  {
+   "id": "R15",
+   "requirements": [
+    "R6.TREE.roles"
+   ],
+   "runner": "controls_engine.py:566",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "landing-first-parent-not-M"
+    ]
+   },
+   "source": "D:2502-2503"
+  },
+  {
+   "id": "R16",
+   "requirements": [
+    "R6.TREE.commits-of-C"
+   ],
+   "runner": "conformance_controls.py:2469",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "unauthorized-change"
+    ],
+    "counts": {
+     "items[class=unauthorized-change]": 1
+    },
+    "invariants": [
+     {
+      "names_commit": "$commit"
+     }
+    ]
+   },
+   "source": "D:2288"
+  },
+  {
+   "id": "R17",
+   "requirements": [
+    "R6.TREE.commits-of-C"
+   ],
+   "runner": "conformance_controls.py:2472",
+   "direction": "positive",
+   "expect": {
+    "outcome": "NO_ITEM",
+    "invariants": [
+     {
+      "commit_paths_classified": "record"
+     }
+    ]
+   },
+   "source": "D:2289"
+  },
+  {
+   "id": "R18",
+   "requirements": [
+    "R6.TREE.side-changes"
+   ],
+   "runner": "a1_conformance.py:552",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes_include": [
+     "side-change-unclassified"
+    ],
+    "sites": [
+     {
+      "subject": "$workflow_path",
+      "classes_include": [
+       "side-change-unclassified"
+      ]
+     }
+    ]
+   },
+   "source": "D:2517"
+  },
+  {
+   "id": "R18-engine",
+   "requirements": [
+    "R6.TREE.side-changes"
+   ],
+   "runner": "controls_engine.py:513",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes_include": [
+     "side-change-unclassified"
+    ]
+   },
+   "source": "D:2517 (engine form)"
+  },
+  {
+   "id": "R19",
+   "requirements": [
+    "R6.TREE.side-changes"
+   ],
+   "runner": "a1_conformance.py:563",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "unlisted path under the tool-landing prefix",
+       "listed path with a differing blob"
+      ],
+      "outcome": "REVIEW_REQUIRED",
+      "classes_include": [
+       "side-change-unclassified"
+      ]
+     }
+    ]
+   },
+   "source": "D:2525"
+  },
+  {
+   "id": "R19-engine",
+   "requirements": [
+    "R6.TREE.side-changes"
+   ],
+   "runner": "controls_engine.py:561",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes_include": [
+     "side-change-unclassified"
+    ]
+   },
+   "source": "D:2525 (engine form)"
+  },
+  {
+   "id": "TT2",
+   "migrated_from": "R2",
+   "requirements": [
+    "R6.TREE.roles"
+   ],
+   "runner": "controls_engine.py:517",
+   "expect": {
+    "outcome": "COUNTERCONTROL",
+    "invariants": [
+     {
+      "old_style_X_vs_M_comparison_reports": "$workflow"
+     }
+    ]
+   },
+   "source": "v2:615 (OD-17: v2 countercontrol)",
+   "flags": [
+    "VD-5: the old-style comparison is not run today; implement or retire (OD-17)"
+   ]
+  },
+  {
+   "id": "TT3",
+   "migrated_from": "R3",
+   "requirements": [
+    "R6.TREE.roles"
+   ],
+   "runner": "controls_engine.py:519",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "candidate-parent"
+    ]
+   },
+   "source": "v2:616"
+  },
+  {
+   "id": "R3-F2",
+   "requirements": [
+    "R6.REC.lint"
+   ],
+   "runner": "conformance_controls.py:1789",
+   "expect": null,
+   "source": "none (runner-only)"
+  },
+  {
+   "id": "TT4",
+   "migrated_from": "R4",
+   "requirements": [
+    "R6.TREE.roles"
+   ],
+   "runner": "controls_engine.py:521",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "candidate-parent"
+    ]
+   },
+   "source": "v2:617"
+  },
+  {
+   "id": "R4-B3",
+   "requirements": [
+    "R6.REC.lint"
+   ],
+   "runner": "conformance_controls.py:1864",
+   "expect": null,
+   "source": "none (runner-only)"
+  },
+  {
+   "id": "R4-B3-DUP",
+   "requirements": [
+    "R6.REC.lint"
+   ],
+   "runner": "conformance_controls.py:1903",
+   "expect": null,
+   "source": "none (runner-only)"
+  },
+  {
+   "id": "TT5",
+   "migrated_from": "R5",
+   "requirements": [
+    "R6.TREE.roles"
+   ],
+   "runner": "controls_engine.py:526",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "SCIENTIFIC_BASE_MISMATCH"
+   },
+   "source": "v2:618"
+  },
+  {
+   "id": "R5-N6",
+   "requirements": [
+    "R6.REC.lint"
+   ],
+   "runner": "conformance_controls.py:1924",
+   "expect": null,
+   "source": "none (runner-only)"
+  },
+  {
+   "id": "TT6",
+   "migrated_from": "R6",
+   "requirements": [
+    "R6.TREE.roles"
+   ],
+   "runner": "controls_engine.py:532",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "MAIN_NOT_DESCENDANT"
+   },
+   "source": "v2:619"
+  },
+  {
+   "id": "R6-G6",
+   "requirements": [
+    "R6.REC.lint"
+   ],
+   "runner": "conformance_controls.py:2235",
+   "expect": null,
+   "source": "none (runner-only)"
+  },
+  {
+   "id": "TT7",
+   "migrated_from": "R7",
+   "requirements": [
+    "R6.TREE.roles"
+   ],
+   "runner": "controls_engine.py:539",
+   "expect": {
+    "cases": [
+     {
+      "case": "candidate X",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "none": "items[obligation=RET]"
+       }
+      ]
+     },
+     {
+      "case": "M side",
+      "outcome": "FAIL",
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "class": "base-drift",
+          "obligation": "MAIN"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "case": "landing under the computed composition",
+      "outcome": "FAIL",
+      "classes_include": [
+       "landing-conflict-unresolved"
+      ]
+     }
+    ]
+   },
+   "source": "v2:620 (OD-17, OD-12)",
+   "flags": [
+    "VD-4: landing run e7l computed and not asserted today; see (D) for the landing class"
+   ]
+  },
+  {
+   "id": "TT8",
+   "migrated_from": "R8",
+   "requirements": [
+    "R6.TREE.roles"
+   ],
+   "runner": "controls_engine.py:542",
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS",
+    "invariants": [
+     {
+      "none": "items[class=base-drift]"
+     },
+     {
+      "none": "items[class=landing-conflict-unresolved]"
+     },
+     {
+      "none": "items[class=record-invalid]"
+     }
+    ]
+   },
+   "source": "v2:621 (OD-17: PASS asserted)",
+   "flags": [
+    "VD-10: PASS asserted, not only the absence of three classes"
+   ]
+  },
+  {
+   "id": "R8-S6",
+   "requirements": [
+    "R6.RECON.composition"
+   ],
+   "runner": "controls_engine.py:546",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid"
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "class": "base-drift"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2515 (engine analogue of N10)"
+  },
+  {
+   "id": "TT9",
+   "migrated_from": "R9",
+   "requirements": [
+    "R6.TREE.roles"
+   ],
+   "runner": "controls_engine.py:550",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "landing-parents"
+    ]
+   },
+   "source": "v2:622"
+  },
+  {
+   "id": "RL",
+   "requirements": [
+    "R6.TREE.landing"
+   ],
+   "runner": "controls_engine.py:548",
+   "expect": null,
+   "source": "none (runner-only)"
+  },
+  {
+   "id": "RT-A",
+   "requirements": [
+    "R6.ADAPT.replay"
+   ],
+   "runner": "a1_controls.py:171",
+   "operations": [
+    "record"
+   ],
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS"
+   },
+   "reference": {
+    "replay_errors": 0,
+    "anchors": 697
+   },
+   "source": "D:2206"
+  },
+  {
+   "id": "RT-C",
+   "requirements": [
+    "R6.DELEG.contract"
+   ],
+   "runner": "a1_controls.py:805",
+   "operations": [
+    "execution"
+   ],
+   "direction": "positive",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes_exact": [
+     "delegated-evidence-missing"
+    ],
+    "invariants": [
+     {
+      "all": "items",
+      "have": {
+       "obligation": "DELEGATED"
+      }
+     }
+    ]
+   },
+   "reference": {
+    "splices_verified_at_H": 399,
+    "corpus_files_conform": 23,
+    "other_ledgered_files_conform": 21,
+    "except": "verification/coverage/LEDGER.json (coverage-ledger class)"
+   },
+   "source": "D:2211 (OD-21)",
+   "flags": [
+    "OD-21: without contract evidence; the PASS-with-evidence direction is G-A1 (NOT RUN)"
+   ]
+  },
+  {
+   "id": "RT-D",
+   "requirements": [
+    "R6.DENY.real-tree"
+   ],
+   "runner": "a1_controls.py:374",
+   "operations": [
+    "terms"
+   ],
+   "direction": "positive",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes_exact": [
+     "unclassified"
+    ],
+    "counts": {
+     "items[class=deny-match]": 0,
+     "lines[state=PASS,rule=W1|W2]": 11,
+     "lines[profile=resid,decision=REVIEW_REQUIRED]": 45,
+     "lines[profile=resid,only_profile=true]": 17
+    },
+    "sites": [
+     {
+      "subject": "papers/GR.md:58",
+      "decision": "REVIEW_REQUIRED"
+     }
+    ]
+   },
+   "source": "D:2212",
+   "flags": [
+    "W1-c with its allowance; GR.md:58 without its record (RT-D-gr58 is the with-record half)"
+   ]
+  },
+  {
+   "id": "RT-D-gr58",
+   "requirements": [
+    "R6.DENY.real-tree"
+   ],
+   "runner": "a1_controls.py:389",
+   "direction": "positive",
+   "expect": {
+    "outcome": "ANY",
+    "sites": [
+     {
+      "subject": "papers/GR.md:58",
+      "state": "PASS"
+     }
+    ]
+   },
+   "source": "D:2212 (with its record)"
+  },
+  {
+   "id": "RT-DR",
+   "requirements": [
+    "R6.DENY.real-tree"
+   ],
+   "runner": "a1_controls.py:296",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "cases": [
+     {
+      "case": "at H",
+      "outcome": "FAIL",
+      "classes_include": [
+       "deny-match"
+      ],
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "rule_id": "DR-1",
+          "alternatives_include": "a",
+          "at": "book/The-Incompleteness-of-Observation-FULL.md:6504"
+         },
+         {
+          "rule_id": "DR-1",
+          "alternatives_include": "a",
+          "at": "book/glossary.md:13"
+         },
+         {
+          "rule_id": "DR-1",
+          "alternatives_include": "b",
+          "at": "ch09:104"
+         },
+         {
+          "rule_id": "DR-1",
+          "alternatives_include": "c",
+          "at": "book/The-Incompleteness-of-Observation-FULL.md:718"
+         },
+         {
+          "rule_id": "DR-4",
+          "at": "papers/Substratum.md:92"
+         },
+         {
+          "rule_id": "DR-5",
+          "at": "papers/Main.md:736"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "case": "at T1'",
+      "outcome": "ANY",
+      "counts": {
+       "lines[class=deny-match]": 0,
+       "sentences[class=deny-match]": 0
+      }
+     }
+    ]
+   },
+   "reference": {
+    "H:lines[rule=DR-1]": 61,
+    "H:DR-1 a/b/c": [
+     6,
+     2,
+     55
+    ],
+    "H:lines[rule=DR-3]": 0,
+    "H:lines[rule=DR-4]": 28,
+    "H:lines[rule=DR-5]": 1,
+    "H:distinct_lines": 86,
+    "E:distinct_lines": 95
+   },
+   "source": "D:2213",
+   "flags": [
+    "targets checked by rule id, not by the run outcome (O3); ch09 path abbreviated in the design, the evidence manifest gives the full path"
+   ]
+  },
+  {
+   "id": "RT-DR3W",
+   "requirements": [
+    "R6.DENY.real-tree"
+   ],
+   "runner": "a1_controls.py:317",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "cases": [
+     {
+      "case": "AGENTS.md at H (control input agents-md-at-H)",
+      "outcome": "ANY",
+      "counts": {
+       "sentences[rule=DR-3]": 1
+      },
+      "sites": [
+       {
+        "sentence_start_line": 37,
+        "lines": [
+         37,
+         38
+        ]
+       }
+      ]
+     },
+     {
+      "case": "AGENTS.md at T1' (agents-md-at-T1p)",
+      "outcome": "ANY",
+      "counts": {
+       "sentences[rule=DR-3]": 0
+      }
+     }
+    ]
+   },
+   "source": "D:2214"
+  },
+  {
+   "id": "RT-E",
+   "requirements": [
+    "R6.ANCH.search"
+   ],
+   "runner": "a1_controls.py:224",
+   "operations": [
+    "coverage"
+   ],
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS"
+   },
+   "reference": {
+    "site_counts:unchanged": 697
+   },
+   "source": "D:2207"
+  },
+  {
+   "id": "RT-H0",
+   "requirements": [
+    "R6.HP.obligation"
+   ],
+   "runner": "a1_controls.py:235",
+   "operations": [
+    "coverage"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "invariants": [
+     {
+      "all": "items[decision=FAIL]",
+      "have": {
+       "obligation": "HP"
+      }
+     },
+     {
+      "all": "items[class=context-structure-changed]",
+      "have": {
+       "obligation": "HP"
+      }
+     },
+     {
+      "all": "items[class=context-meaning-unverified]",
+      "have": {
+       "obligation": "HP"
+      }
+     }
+    ]
+   },
+   "reference": {
+    "finding_counts:HP/FAIL/hp-unadjudicated": 113,
+    "finding_counts:HP/FAIL/context-meaning-unverified": 7,
+    "items[obligation=HP,class=context-structure-changed]": 7,
+    "structure_sites": [
+     "book/The-Incompleteness-of-Observation-FULL.md:706",
+     "book/The-Incompleteness-of-Observation-FULL.md:708",
+     "book/ch02-substratum.md:76",
+     "book/ch02-substratum.md:78",
+     "papers/Substratum.md:94",
+     "papers/Substratum.md:253",
+     "papers/Main.md:741"
+    ]
+   },
+   "source": "D:2208 (MC-1, MC-3)",
+   "flags": [
+    "MC-1 applied (7 structure items, not 3); MC-3 removes the runner reference_difference",
+    "the runner asserts the reference counts; see (D)"
+   ]
+  },
+  {
+   "id": "RT-I7",
+   "requirements": [
+    "R6.PLAN.item7"
+   ],
+   "runner": "a1_controls.py:327",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "cases": [
+     {
+      "case": "at T1'",
+      "outcome": "FAIL",
+      "classes_exact": [
+       "item7-literal-match"
+      ],
+      "counts": {
+       "lines[literal=six structural]": 7,
+       "lines[literal=Fourteen]": 0,
+       "lines[literal=sixth of]": 0,
+       "lines[literal=A1]": 4
+      }
+     },
+     {
+      "case": "at H",
+      "outcome": "FAIL",
+      "classes_exact": [
+       "item7-literal-match"
+      ]
+     }
+    ]
+   },
+   "reference": {
+    "T1':six_structural_lines": [
+     "SM.md:1394",
+     "ch09:137",
+     "ch19:198",
+     "ch19:212",
+     "FULL:2554",
+     "FULL:5270",
+     "FULL:5284"
+    ],
+    "H:six structural/Fourteen/sixth of": [
+     11,
+     1,
+     2
+    ],
+    "H:lines[literal=A1]": 179
+   },
+   "source": "D:2215; D:2347 (sec. 11 row 7, Expected)",
+   "flags": [
+    "VD-10: the T1' split is in sec. 11 row 7's Expected column and is asserted; the H split stays reference"
+   ]
+  },
+  {
+   "id": "RT-I7A",
+   "requirements": [
+    "R6.PLAN.item7"
+   ],
+   "runner": "a1_controls.py:342",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "cases": [
+     {
+      "case": "at H",
+      "outcome": "FAIL",
+      "classes_include": [
+       "final-unclassified"
+      ],
+      "invariants": [
+       {
+        "each_listed_line": "the 95 retired lines of sec. 0.3",
+        "has": {
+         "decision": "FAIL",
+         "class": "final-unclassified"
+        }
+       }
+      ]
+     },
+     {
+      "case": "at T1'",
+      "outcome": "FAIL",
+      "classes_include": [
+       "final-unclassified"
+      ],
+      "counts": {
+       "lines[class=deny-match]": 0
+      }
+     }
+    ]
+   },
+   "reference": {
+    "H:lines[class=deny-match]": 86,
+    "H:lines[class=final-unclassified]": 123,
+    "H:fail_lines": 209,
+    "H:multi-line counting": [
+     93,
+     216
+    ],
+    "T1':lines[class=final-unclassified]": 12
+   },
+   "source": "D:2216"
+  },
+  {
+   "id": "RT-L",
+   "requirements": [
+    "R6.TREE.landing"
+   ],
+   "runner": "a1_controls.py:930",
+   "operations": [
+    "execution"
+   ],
+   "direction": "positive",
+   "expect": {
+    "cases": [
+     {
+      "case": "composed landing (W, T1prime)",
+      "outcome": null,
+      "invariants": [
+       {
+        "none": "items[obligation=MAIN]"
+       },
+       {
+        "blob_at_L": ".github/workflows/a1exit-trial-verify.yml",
+        "equals": "W"
+       }
+      ]
+     },
+     {
+      "case": "mutant: L carries H's workflow copy",
+      "outcome": "FAIL",
+      "classes_include": [
+       "landing-drops-main-change"
+      ]
+     }
+    ]
+   },
+   "source": "v2:629 (D:2502 stands; OD-17)",
+   "flags": [
+    "overall outcome open: controls.json and runner give REVIEW_REQUIRED exit 10, v2 says composition PASS; see (D)"
+   ]
+  },
+  {
+   "id": "RT-L2",
+   "requirements": [
+    "R6.RECON.sequencing"
+   ],
+   "runner": "a1_controls.py:976",
+   "operations": [
+    "execution"
+   ],
+   "direction": "positive",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "PASS",
+    "invariants": [
+     {
+      "all": "side_changes",
+      "have": {
+       "classified": true
+      }
+     },
+     {
+      "drift_state_in": [
+       "none",
+       "reconciled"
+      ]
+     }
+    ]
+   },
+   "procedure": {
+    "name": "rtl2-three-valued",
+    "lib": "rtl2",
+    "evidence": [
+     "predicted M commit id and tree listing",
+     "run result.json",
+     "each reconciliation record used and its review record",
+     "drifted path list from the run without records"
+    ]
+   },
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "no reviewed reconciliation record exists; the drafted AGENTS.md record is unreviewed",
+    "release_condition": "reviewed reconciliation record bound to exact H, M, C covering every drifted path",
+    "release_check": "a reconciliation record referenced at the commit under check whose review record passes record lint and whose H, M and C blob ids equal the predicted run roles"
+   },
+   "source": "D:2592-2594 (OD-18, Q2, MC-4)",
+   "flags": [
+    "CI run 45569710442 recorded PASS on a drafted record; that PASS does not establish the safeguard (OD-18)"
+   ]
+  },
+  {
+   "id": "RT-O9",
+   "requirements": [
+    "R6.RDIR.real-tree"
+   ],
+   "runner": "a1_controls.py:1025",
+   "operations": [
+    "execution"
+   ],
+   "direction": "positive",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "record_directory_entries_equal": "expected set computed from the stand-in F tree (path, mode, blob id, sha256)"
+     },
+     {
+      "a5_unequal_paths": 0
+     },
+     {
+      "none": "items[class=side-change-unclassified]"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "rdir-set-equality",
+    "lib": "set",
+    "evidence": [
+     "stand-in F tree listing with modes and blob ids",
+     "run result.json"
+    ]
+   },
+   "depends_on": [
+    "RT-L2"
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "its clause \"RT-L2 still PASS\" cannot hold while RT-L2 is NOT RUN",
+    "release_condition": "RT-L2 released",
+    "release_check": "RT-L2 status PASS"
+   },
+   "source": "r5:220 (MC-4, OD-18)",
+   "flags": [
+    "its own predicate is evaluated whenever it is recorded; dependency form, see (D)"
+   ]
+  },
+  {
+   "id": "RT-T",
+   "requirements": [
+    "R6.REC.review-load"
+   ],
+   "runner": "a1_controls.py:271",
+   "operations": [
+    "coverage"
+   ],
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS",
+    "invariants": [
+     {
+      "every_record_verifies": true
+     }
+    ]
+   },
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed records of sec. 8.2, none of which exists",
+    "release_condition": "every reviewed record of sec. 8.2 present at F and verifying under sec. 6.3",
+    "release_check": "a reviewed record of a sec. 8.2 kind referenced by the configuration at the commit under check"
+   },
+   "source": "D:2210"
+  },
+  {
+   "id": "RT-T0",
+   "requirements": [
+    "R6.HP.obligation"
+   ],
+   "runner": "a1_controls.py:262",
+   "operations": [
+    "coverage"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "counts": {
+     "finding_counts:HP/FAIL/hp-unadjudicated": 113,
+     "finding_counts:HP/FAIL/context-meaning-unverified": 7,
+     "items[obligation=HP,class=context-structure-changed]": 7,
+     "finding_counts:RET/FAIL/untracked-hp-overlap": 19,
+     "finding_counts:RET/FAIL/context-meaning-unverified": 5,
+     "finding_counts:RET/REVIEW_REQUIRED/context-structure-changed": 3,
+     "items[class=deny-match]": 0
+    }
+   },
+   "reference": {
+    "site_counts:unchanged": 383,
+    "moved_H_T": 168,
+    "site_counts:authorized-replacement": 197,
+    "site_counts:authorized-removal": 4,
+    "region_lines.count": 215,
+    "merger_groups": 9,
+    "shared_sites": 22,
+    "line_attributed_untracked_hp_overlap": 18,
+    "splice_overlapped_sites": [
+     "papers/Substratum.md:266",
+     "papers/Substratum.md:268"
+    ]
+   },
+   "source": "D:2209 (MC-2)",
+   "flags": [
+    "MC-2 applied: 113/7/7; the runner expected string (a1_controls.py:262) is corrected with it"
+   ]
+  },
+  {
+   "id": "RT-X",
+   "requirements": [
+    "R6.TREE.side-changes"
+   ],
+   "runner": "a1_controls.py:921",
+   "operations": [
+    "execution"
+   ],
+   "direction": "positive",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes_exact": [
+     "delegated-evidence-missing"
+    ],
+    "invariants": [
+     {
+      "side_changes_exact": [
+       {
+        "path": ".github/workflows/a1exit-trial-verify.yml",
+        "classified_by": "side-change class record"
+       }
+      ]
+     },
+     {
+      "none": "items[obligation=RET,path=.github/workflows/a1exit-trial-verify.yml]"
+     }
+    ]
+   },
+   "source": "v2:628 (D:2502 stands; OD-17 translation; OD-21)"
+  },
+  {
+   "id": "S11-1",
+   "requirements": [
+    "R6.PLAN.sec11"
+   ],
+   "runner": "a1_controls.py:832",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "unauthorized-edit"
+    ]
+   },
+   "source": "D:2341"
+  },
+  {
+   "id": "S11-10",
+   "requirements": [
+    "R6.PLAN.sec11"
+   ],
+   "runner": "a1_controls.py:860",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "lean-code-change"
+    ]
+   },
+   "source": "D:2350"
+  },
+  {
+   "id": "S11-11",
+   "requirements": [
+    "R6.PLAN.sec11"
+   ],
+   "runner": "a1_controls.py:869",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "final-unclassified"
+    ],
+    "sites": [
+     {
+      "subject": "$new_file_line",
+      "classes_include": [
+       "final-unclassified"
+      ]
+     }
+    ]
+   },
+   "source": "D:2351"
+  },
+  {
+   "id": "S11-12",
+   "requirements": [
+    "R6.PLAN.sec11"
+   ],
+   "runner": "a1_controls.py:864",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "pin-broken"
+    ]
+   },
+   "source": "D:2352",
+   "flags": [
+    "runner accepts pin-broken or pin-target-missing; the gate asserts pin-broken (D:2352)"
+   ]
+  },
+  {
+   "id": "S11-13",
+   "requirements": [
+    "R6.PLAN.sec11"
+   ],
+   "runner": "a1_controls.py:879",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "delegated-evidence-invalid"
+    ],
+    "sites": [
+     {
+      "subject": "sc42",
+      "classes_include": [
+       "delegated-evidence-invalid"
+      ]
+     }
+    ]
+   },
+   "source": "D:2353 (class per MC-17)"
+  },
+  {
+   "id": "S11-14",
+   "requirements": [
+    "R6.PLAN.sec11"
+   ],
+   "runner": "a1_controls.py:873",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "cases": [
+     {
+      "case": "extra word in an unledgered file of X",
+      "outcome": "FAIL",
+      "classes_include": [
+       "unauthorized-change"
+      ]
+     },
+     {
+      "case": "L dropping W's workflow",
+      "outcome": "FAIL",
+      "classes_include": [
+       "landing-drops-main-change"
+      ]
+     }
+    ]
+   },
+   "source": "D:2354",
+   "flags": [
+    "VD-10: landing half asserted (today only in RT-L)"
+   ]
+  },
+  {
+   "id": "S11-2",
+   "requirements": [
+    "R6.PLAN.sec11"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "COMPOSITE"
+   },
+   "composed_of": [
+    "S11-2a",
+    "S11-2b",
+    "S11-2c"
+   ],
+   "source": "D:2342"
+  },
+  {
+   "id": "S11-2a",
+   "requirements": [
+    "R6.PLAN.sec11"
+   ],
+   "runner": "a1_controls.py:902",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes_exact": [
+     "unclassified"
+    ],
+    "sites": [
+     {
+      "subject": "$new_line",
+      "classes_exact": [
+       "unclassified"
+      ]
+     }
+    ]
+   },
+   "source": "D:2342 (first countercontrol)"
+  },
+  {
+   "id": "S11-2b",
+   "requirements": [
+    "R6.PLAN.sec11"
+   ],
+   "runner": "a1_controls.py:913",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "missing"
+    ]
+   },
+   "source": "D:2342 (second countercontrol)"
+  },
+  {
+   "id": "S11-2c",
+   "requirements": [
+    "R6.PLAN.sec11"
+   ],
+   "runner": "a1_controls.py:218",
+   "expect": {
+    "outcome": "FAIL",
+    "invariants": [
+     {
+      "record_checks_failed_include": "CK5"
+     }
+    ]
+   },
+   "source": "D:2342 (third countercontrol; op A record_checks)"
+  },
+  {
+   "id": "S11-3",
+   "requirements": [
+    "R6.PLAN.sec11"
+   ],
+   "runner": "a1_controls.py:887",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "cases": [
+     {
+      "case": "other head_sha",
+      "outcome": "FAIL",
+      "classes_include": [
+       "delegated-evidence-invalid"
+      ],
+      "sites": [
+       {
+        "subject": "ci",
+        "classes_include": [
+         "delegated-evidence-invalid"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "build.rc nonzero",
+      "outcome": "FAIL",
+      "classes_include": [
+       "delegated-evidence-invalid"
+      ]
+     }
+    ]
+   },
+   "source": "D:2343"
+  },
+  {
+   "id": "S11-4",
+   "requirements": [
+    "R6.PLAN.sec11"
+   ],
+   "runner": "a1_controls.py:893",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "STALE value altered",
+       "id removed"
+      ],
+      "outcome": "FAIL",
+      "classes_include": [
+       "delegated-evidence-invalid"
+      ],
+      "sites": [
+       {
+        "subject": "coverage-ledger",
+        "classes_include": [
+         "delegated-evidence-invalid"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2344 (class per MC-17)"
+  },
+  {
+   "id": "S11-5",
+   "requirements": [
+    "R6.PLAN.sec11"
+   ],
+   "runner": "a1_controls.py:841",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "deny-match"
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "class": "deny-match",
+        "profile": "register"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2345"
+  },
+  {
+   "id": "S11-56",
+   "requirements": [
+    "R6.PROF.per-edit"
+   ],
+   "runner": "a1_conformance.py:278",
+   "direction": "positive",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "PASS",
+    "counts": {
+     "findings[profile=register]": 0,
+     "findings[profile=register-caps]": 0,
+     "findings[profile=infinity]": 0
+    }
+   },
+   "procedure": {
+    "name": "p-oracle",
+    "lib": "oracle",
+    "evidence": [
+     "tool result per case",
+     "P checker output per case, as frozen with the plan (ME-1)"
+    ],
+    "note": "per-edit counts equal P static_new (0); the row 5 and 6 mutants FAIL deny-match"
+   },
+   "source": "D:2292"
+  },
+  {
+   "id": "S11-57a",
+   "requirements": [
+    "R6.PROF.per-edit"
+   ],
+   "runner": "a1_conformance.py:299",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "deny-match"
+    ]
+   },
+   "procedure": {
+    "name": "p-oracle",
+    "lib": "oracle",
+    "evidence": [
+     "tool result per case",
+     "P checker output per case, as frozen with the plan (ME-1)"
+    ],
+    "note": "register 1 equal to P; the per-splice unit alone PASS"
+   },
+   "source": "D:2293"
+  },
+  {
+   "id": "S11-57b",
+   "requirements": [
+    "R6.PROF.per-edit"
+   ],
+   "runner": "a1_conformance.py:304",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "at H",
+       "at an H holding old_step2"
+      ],
+      "outcome": "FAIL",
+      "classes_include": [
+       "deny-match"
+      ]
+     }
+    ]
+   },
+   "procedure": {
+    "name": "p-oracle",
+    "lib": "oracle",
+    "evidence": [
+     "tool result per case",
+     "P checker output per case, as frozen with the plan (ME-1)"
+    ],
+    "note": "equal to P at both"
+   },
+   "source": "D:2294"
+  },
+  {
+   "id": "S11-57c",
+   "requirements": [
+    "R6.PROF.per-edit"
+   ],
+   "runner": "a1_conformance.py:318",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": "correspondence",
+      "outcome": "ERROR",
+      "stop_class": "SOURCE_CHANGED"
+     },
+     {
+      "case": "per edit",
+      "outcome": "FAIL",
+      "classes_include": [
+       "deny-match"
+      ]
+     }
+    ]
+   },
+   "procedure": {
+    "name": "p-oracle",
+    "lib": "oracle",
+    "evidence": [
+     "tool result per case",
+     "P checker output per case, as frozen with the plan (ME-1)"
+    ],
+    "note": "per-edit result equal to P (register)"
+   },
+   "source": "D:2295"
+  },
+  {
+   "id": "S11-57d",
+   "requirements": [
+    "R6.PROF.per-edit"
+   ],
+   "runner": "a1_conformance.py:326",
+   "direction": "positive",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "PASS",
+    "counts": {
+     "sentences": 2
+    }
+   },
+   "procedure": {
+    "name": "p-oracle",
+    "lib": "oracle",
+    "evidence": [
+     "tool result per case",
+     "P checker output per case, as frozen with the plan (ME-1)"
+    ],
+    "note": "split and result equal to P static_new"
+   },
+   "source": "D:2296"
+  },
+  {
+   "id": "S11-58a-f",
+   "requirements": [
+    "R6.PROF.per-edit"
+   ],
+   "runner": "a1_conformance.py:344",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "a",
+       "b"
+      ],
+      "outcome": "ORACLE"
+     },
+     {
+      "case": "c",
+      "outcome": "ERROR",
+      "stop_class": "SOURCE_CHANGED"
+     },
+     {
+      "case": [
+       "d",
+       "e"
+      ],
+      "outcome": "ORACLE"
+     },
+     {
+      "case": "f",
+      "outcome": "ERROR",
+      "stop_class": "SOURCE_CHANGED"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "p-oracle",
+    "lib": "oracle",
+    "evidence": [
+     "tool result per case",
+     "P checker output per case, as frozen with the plan (ME-1)"
+    ],
+    "note": "selection, refusal and items 5-6 equal to P in each case"
+   },
+   "source": "D:2297"
+  },
+  {
+   "id": "S11-58g",
+   "requirements": [
+    "R6.PROF.per-edit"
+   ],
+   "runner": "a1_conformance.py:352",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "SOURCE_CHANGED"
+   },
+   "procedure": {
+    "name": "p-oracle",
+    "lib": "oracle",
+    "evidence": [
+     "tool result per case",
+     "P checker output per case, as frozen with the plan (ME-1)"
+    ]
+   },
+   "source": "D:2298"
+  },
+  {
+   "id": "S11-58h",
+   "requirements": [
+    "R6.PROF.per-edit"
+   ],
+   "runner": "a1_conformance.py:358",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "SOURCE_CHANGED",
+    "invariants": [
+     {
+      "names_edit": 2,
+      "reason": "lost"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "p-oracle",
+    "lib": "oracle",
+    "evidence": [
+     "tool result per case",
+     "P checker output per case, as frozen with the plan (ME-1)"
+    ],
+    "note": "P reports the edit lost"
+   },
+   "source": "D:2299"
+  },
+  {
+   "id": "S11-58i",
+   "requirements": [
+    "R6.PROF.per-edit"
+   ],
+   "runner": "a1_conformance.py:365",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "selected_offset": 1
+     },
+     {
+      "refused": false
+     }
+    ]
+   },
+   "procedure": {
+    "name": "p-oracle",
+    "lib": "oracle",
+    "evidence": [
+     "tool result per case",
+     "P checker output per case, as frozen with the plan (ME-1)"
+    ],
+    "note": "P selects offset 1"
+   },
+   "source": "D:2300"
+  },
+  {
+   "id": "S11-58j",
+   "requirements": [
+    "R6.PROF.per-edit"
+   ],
+   "runner": "a1_conformance.py:373",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "SOURCE_CHANGED",
+    "invariants": [
+     {
+      "names_edit": 2,
+      "reason": "chained"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "p-oracle",
+    "lib": "oracle",
+    "evidence": [
+     "tool result per case",
+     "P checker output per case, as frozen with the plan (ME-1)"
+    ],
+    "note": "P items 5 and 6 recorded"
+   },
+   "source": "D:2301"
+  },
+  {
+   "id": "S11-58k",
+   "requirements": [
+    "R6.PROF.per-edit"
+   ],
+   "runner": "a1_conformance.py:386",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "SOURCE_CHANGED",
+    "invariants": [
+     {
+      "names_edit": 2,
+      "reason": "chained"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "p-oracle",
+    "lib": "oracle",
+    "evidence": [
+     "tool result per case",
+     "P checker output per case, as frozen with the plan (ME-1)"
+    ],
+    "note": "P result xQ recorded"
+   },
+   "source": "D:2302"
+  },
+  {
+   "id": "S11-6",
+   "requirements": [
+    "R6.PLAN.sec11"
+   ],
+   "runner": "a1_controls.py:841",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "deny-match"
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "class": "deny-match",
+        "profile": "infinity"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2346"
+  },
+  {
+   "id": "S11-7",
+   "requirements": [
+    "R6.PLAN.sec11"
+   ],
+   "runner": null,
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "cases": [
+     {
+      "case": "item7-literal profile",
+      "outcome": "FAIL",
+      "classes_exact": [
+       "item7-literal-match"
+      ]
+     },
+     {
+      "case": "deny profiles",
+      "outcome": "FAIL",
+      "classes_include": [
+       "deny-match"
+      ],
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "class": "deny-match",
+          "rule_id": "DR-5"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2347",
+   "flags": [
+    "VD-6: implemented by no runner; the gate fails on the missing result until it is implemented"
+   ]
+  },
+  {
+   "id": "S11-8",
+   "requirements": [
+    "R6.PLAN.sec11"
+   ],
+   "runner": "a1_controls.py:850",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "mirror-mismatch"
+    ]
+   },
+   "source": "D:2348"
+  },
+  {
+   "id": "S11-9",
+   "requirements": [
+    "R6.PLAN.sec11"
+   ],
+   "runner": "a1_controls.py:855",
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "unauthorized-edit"
+    ]
+   },
+   "source": "D:2349"
+  },
+  {
+   "id": "S1r",
+   "requirements": [
+    "R6.RULE.allow"
+   ],
+   "runner": "a1_controls.py:572",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes_exact": [
+     "rule-fingerprint-mismatch"
+    ]
+   },
+   "source": "D:2174",
+   "flags": [
+    "runner records the V7c run; no separate case"
+   ]
+  },
+  {
+   "id": "S2r",
+   "requirements": [
+    "R6.RULE.allow"
+   ],
+   "runner": "a1_controls.py:578",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes_exact": [
+     "rule-stale"
+    ]
+   },
+   "source": "D:2175"
+  },
+  {
+   "id": "S4a",
+   "requirements": [
+    "R6.REC.lineage"
+   ],
+   "runner": "conformance_controls.py:2543",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "HP",
+       "context",
+       "hit classification",
+       "rule",
+       "scope",
+       "side-change class",
+       "reconciliation",
+       "configuration"
+      ],
+      "classes_exact": {
+       "items[file=$record]": [
+        "record-invalid"
+       ]
+      },
+      "outcome": "FAIL"
+     }
+    ]
+   },
+   "source": "D:2527"
+  },
+  {
+   "id": "S7-schema-and-checker",
+   "requirements": [
+    "R6.OUT.schema"
+   ],
+   "runner": "synthetic_fixture.py:555",
+   "predicate_kind": "procedural",
+   "expect": null,
+   "source": "none (D:852, D:997 describe S7)"
+  },
+  {
+   "id": "SW1",
+   "requirements": [
+    "R6.ANCH.sweep"
+   ],
+   "runner": "a1_controls.py:1240",
+   "operations": [
+    "coverage"
+   ],
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "ANY",
+    "counts": {
+     "sites_swept": 697
+    },
+    "invariants": [
+     {
+      "per_site": "exactly one FAIL item names the site"
+     },
+     {
+      "per_site": "exactly one new FAIL against the unmutated tree"
+     }
+    ]
+   },
+   "procedure": {
+    "lib": "sweep",
+    "evidence": [
+     "unmutated result items",
+     "per-site mutant item tuples"
+    ]
+   },
+   "source": "D:2217",
+   "flags": [
+    "VD-8: second clause computed, not asserted, today"
+   ]
+  },
+  {
+   "id": "SW2",
+   "requirements": [
+    "R6.HP.sweep"
+   ],
+   "runner": "a1_controls.py:1238",
+   "operations": [
+    "coverage"
+   ],
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "ANY",
+    "counts": {
+     "sites_swept": 584,
+     "sites_holding": 584
+    },
+    "invariants": [
+     {
+      "per_site": "exactly one new FAIL naming it: obligation RET, class unauthorized-change, segment H..X"
+     },
+     {
+      "per_site": "items naming it at the unmutated H unchanged"
+     },
+     {
+      "compare_by": [
+       "obligation",
+       "class",
+       "segment",
+       "fingerprint"
+      ]
+     }
+    ]
+   },
+   "procedure": {
+    "lib": "sweep",
+    "evidence": [
+     "unmutated H result items",
+     "per-site mutant item tuples"
+    ]
+   },
+   "source": "D:2218 (MC-5)"
+  },
+  {
+   "id": "TR1",
+   "requirements": [
+    "R6.REC.admission"
+   ],
+   "runner": "conformance_controls.py:157",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "CONFIG_UNREVIEWED",
+    "invariants": [
+     {
+      "message_names": "--freeze"
+     }
+    ]
+   },
+   "source": "D:2266",
+   "flags": [
+    "OD-28: applies to chain admission"
+   ]
+  },
+  {
+   "id": "TR13",
+   "requirements": [
+    "R6.REC.admission"
+   ],
+   "runner": "conformance_controls.py:184",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": "local run, all inputs valid",
+      "outcome": "ERROR",
+      "stop_class": "CONFIG_UNREVIEWED"
+     },
+     {
+      "case": "acceptance",
+      "outcome": "NON_ACCEPTANCE"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "acceptance",
+    "lib": "consumer",
+    "evidence": [
+     "result.json per case",
+     "landing record",
+     "snapshot"
+    ]
+   },
+   "source": "D:2270"
+  },
+  {
+   "id": "TR14",
+   "requirements": [
+    "R6.REC.admission"
+   ],
+   "runner": "conformance_controls.py:541",
+   "direction": "both",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "fork",
+       "other repository",
+       "pull_request from a fork",
+       "consumer in a fork"
+      ],
+      "outcome": "NON_ACCEPTANCE"
+     },
+     {
+      "case": "canonical (positive)",
+      "outcome": "ACCEPTED"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "acceptance",
+    "lib": "consumer",
+    "evidence": [
+     "result.json per case",
+     "landing record",
+     "snapshot"
+    ]
+   },
+   "source": "D:2271"
+  },
+  {
+   "id": "TR14-tool",
+   "requirements": [
+    "R6.REC.admission"
+   ],
+   "runner": "conformance_controls.py:196",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "fork",
+       "other repository",
+       "pull_request from a fork"
+      ],
+      "outcome": "ERROR"
+     }
+    ]
+   },
+   "source": "D:2271"
+  },
+  {
+   "id": "TR15",
+   "requirements": [
+    "R6.REC.admission"
+   ],
+   "runner": "conformance_controls.py:211",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "workflow blob differs at T",
+       "same-named workflow at another path"
+      ],
+      "outcome": "ERROR"
+     }
+    ]
+   },
+   "source": "D:2272",
+   "flags": [
+    "runner has three cases; consumer half not separately recorded"
+   ]
+  },
+  {
+   "id": "TR2",
+   "requirements": [
+    "R6.REC.admission"
+   ],
+   "runner": "conformance_controls.py:164",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "CONFIG_UNREVIEWED"
+   },
+   "source": "D:2267"
+  },
+  {
+   "id": "TR28-consumer",
+   "requirements": [
+    "R6.REC.admission"
+   ],
+   "runner": "conformance_controls.py:578",
+   "direction": "both",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "tool blob differs",
+       "extra file"
+      ],
+      "outcome": "NON_ACCEPTANCE"
+     },
+     {
+      "case": "equal (positive)",
+      "outcome": "ACCEPTED"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "acceptance",
+    "lib": "consumer",
+    "evidence": [
+     "result.json per case",
+     "landing record",
+     "snapshot"
+    ]
+   },
+   "source": "D:2273"
+  },
+  {
+   "id": "TR28-tool",
+   "requirements": [
+    "R6.REC.admission"
+   ],
+   "runner": "conformance_controls.py:219",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "tool blob differs",
+       "extra file under tools/ledger_coverage/"
+      ],
+      "outcome": "ERROR"
+     }
+    ]
+   },
+   "source": "D:2273"
+  },
+  {
+   "id": "TR29",
+   "requirements": [
+    "R6.REC.admission"
+   ],
+   "runner": "conformance_controls.py:591",
+   "direction": "both",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "branch",
+       "head_sha is X",
+       "recorded T differs from head_sha"
+      ],
+      "outcome": "NON_ACCEPTANCE"
+     },
+     {
+      "case": "on chain (positive)",
+      "outcome": "ACCEPTED"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "acceptance",
+    "lib": "consumer",
+    "evidence": [
+     "result.json per case",
+     "landing record",
+     "snapshot"
+    ]
+   },
+   "source": "D:2274"
+  },
+  {
+   "id": "TR29-tool",
+   "requirements": [
+    "R6.REC.admission"
+   ],
+   "runner": "conformance_controls.py:254",
+   "expect": {
+    "cases": [
+     {
+      "case": "head_sha on a branch",
+      "outcome": "ERROR",
+      "invariants": [
+       {
+        "message_names": "head_branch"
+       }
+      ]
+     },
+     {
+      "case": "head_sha is X",
+      "outcome": "ERROR"
+     }
+    ]
+   },
+   "source": "D:2274"
+  },
+  {
+   "id": "TR3",
+   "requirements": [
+    "R6.REC.admission"
+   ],
+   "runner": "conformance_controls.py:170",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "CONFIG_UNREVIEWED"
+   },
+   "source": "D:2268"
+  },
+  {
+   "id": "TR30",
+   "requirements": [
+    "R6.REC.admission"
+   ],
+   "runner": "conformance_controls.py:521",
+   "direction": "both",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": "evaluated commits differ",
+      "outcome": "NON_ACCEPTANCE"
+     },
+     {
+      "case": "matching (positive)",
+      "outcome": "ACCEPTED"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "acceptance",
+    "lib": "consumer",
+    "evidence": [
+     "result.json per case",
+     "landing record",
+     "snapshot"
+    ]
+   },
+   "source": "D:2275"
+  },
+  {
+   "id": "TR45-opB",
+   "requirements": [
+    "R6.REC.admission"
+   ],
+   "runner": "conformance_controls.py:2263",
+   "direction": "both",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": "op-B replay",
+      "outcome": "REPLAY_EQUAL",
+      "invariants": [
+       {
+        "admission_mode": "replay"
+       },
+       {
+        "acceptable_as_new_run": false
+       }
+      ]
+     },
+     {
+      "case": "recorded result hash differs",
+      "outcome": "ERROR",
+      "stop_class": "REPLAY_REFUSED"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "landing-verify",
+    "lib": "replay",
+    "evidence": [
+     "result.json per case",
+     "landing record",
+     "snapshot"
+    ]
+   },
+   "source": "D:2276",
+   "flags": [
+    "op-C half has no row (see D)"
+   ]
+  },
+  {
+   "id": "TR46",
+   "requirements": [
+    "R6.REC.admission"
+   ],
+   "runner": "conformance_controls.py:526",
+   "direction": "both",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": "exact",
+      "outcome": "LANDING_VERIFIED"
+     },
+     {
+      "case": "uncompressed sha256 differs",
+      "outcome": "LANDING_REFUSED"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "landing-verify",
+    "lib": "replay",
+    "evidence": [
+     "result.json per case",
+     "landing record",
+     "snapshot"
+    ]
+   },
+   "source": "D:2277"
+  },
+  {
+   "id": "TR48",
+   "requirements": [
+    "R6.REC.admission"
+   ],
+   "runner": "conformance_controls.py:228",
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS",
+    "invariants": [
+     {
+      "snapshot_T_recorded": true
+     },
+     {
+      "tool_and_workflow_blobs_equal_pins": true
+     }
+    ]
+   },
+   "source": "D:2278"
+  },
+  {
+   "id": "TR5",
+   "requirements": [
+    "R6.REC.admission"
+   ],
+   "runner": "conformance_controls.py:151",
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS",
+    "invariants": [
+     {
+      "admission_mode": "chain"
+     },
+     {
+      "snapshot_fields_all_present": [
+       "F",
+       "pin_table",
+       "configuration",
+       "run",
+       "repository_id",
+       "head_repository_id",
+       "event",
+       "T",
+       "tool_blobs",
+       "workflow_blob",
+       "evaluated_commits"
+      ]
+     }
+    ]
+   },
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs a plan commit F on main with a reviewed configuration and its pin table, and a host workflow_dispatch run (CI only)",
+    "release_condition": "F on main whose PREREG.md Record pins list a reviewed configuration, and the pinned workflow dispatched there",
+    "release_check": "the configuration path at the commit under check is listed in the last Record pins subsection of the PREREG.md beside it"
+   },
+   "source": "D:2269"
+  },
+  {
+   "id": "TR5-sim",
+   "requirements": [
+    "R6.REC.admission"
+   ],
+   "runner": "conformance_controls.py:142",
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS",
+    "invariants": [
+     {
+      "admission_mode": "control-harness"
+     },
+     {
+      "snapshot_fields_all_present": true
+     }
+    ]
+   },
+   "source": "D:2269",
+   "flags": [
+    "in-memory analogue of TR5; no design row"
+   ]
+  },
+  {
+   "id": "TR50",
+   "requirements": [
+    "R6.REC.admission"
+   ],
+   "runner": "conformance_controls.py:239",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "CONFIG_UNREVIEWED"
+   },
+   "source": "D:2279",
+   "flags": [
+    "consumer non-acceptance not separately recorded"
+   ]
+  },
+  {
+   "id": "TR51",
+   "requirements": [
+    "R6.REC.admission"
+   ],
+   "runner": "conformance_controls.py:246",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "symlink under tools/ledger_coverage/",
+       "submodule entry"
+      ],
+      "outcome": "ERROR"
+     }
+    ]
+   },
+   "source": "D:2280",
+   "flags": [
+    "consumer non-acceptance not separately recorded"
+   ]
+  },
+  {
+   "id": "TR52",
+   "requirements": [
+    "R6.REC.admission"
+   ],
+   "runner": "conformance_controls.py:224",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "CONFIG_UNREVIEWED"
+   },
+   "source": "D:2281",
+   "flags": [
+    "consumer non-acceptance not separately recorded"
+   ]
+  },
+  {
+   "id": "U1",
+   "requirements": [
+    "R6.ANCH.search"
+   ],
+   "runner": "controls_engine.py:123",
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS",
+    "sites": [
+     {
+      "all": "sites",
+      "state": "unchanged"
+     }
+    ]
+   },
+   "source": "v1:347; v2:416 (OD-19)"
+  },
+  {
+   "id": "U10",
+   "requirements": [
+    "R6.ANCH.splices"
+   ],
+   "runner": "controls_engine.py:157",
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS",
+    "sites": [
+     {
+      "subject": "$subject",
+      "state": "authorized-replacement",
+      "splice_ids": "$splices",
+      "per_splice_hashes": "$splice_hashes"
+     }
+    ]
+   },
+   "source": "v1:356; v2:416 (OD-19, OD-19e)"
+  },
+  {
+   "id": "U11",
+   "requirements": [
+    "R6.ANCH.splices"
+   ],
+   "runner": "controls_engine.py:162",
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS",
+    "sites": [
+     {
+      "subject": "$subject",
+      "state": "authorized-removal"
+     }
+    ]
+   },
+   "source": "v1:357; v2:416 (OD-19)"
+  },
+  {
+   "id": "U12",
+   "requirements": [
+    "R6.HIT.classification"
+   ],
+   "runner": "controls_engine.py:166",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes_exact": [
+     "unclassified"
+    ]
+   },
+   "source": "v1:358; v2:416-417 (REVIEW_REQUIRED per v2 9.1; OD-19)"
+  },
+  {
+   "id": "U2",
+   "requirements": [
+    "R6.ANCH.search"
+   ],
+   "runner": "controls_engine.py:126",
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS",
+    "sites": [
+     {
+      "subject": "$subject",
+      "state": "moved",
+      "line_delta": 3
+     }
+    ]
+   },
+   "source": "v1:348; v2:416 (OD-19, OD-19e)"
+  },
+  {
+   "id": "U3",
+   "requirements": [
+    "R6.ANCH.translation"
+   ],
+   "runner": "controls_engine.py:130",
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS",
+    "sites": [
+     {
+      "subject": "$subject",
+      "state": "moved",
+      "via": "translation",
+      "search_agrees": true
+     }
+    ]
+   },
+   "source": "v1:349; v2:416 (OD-19)"
+  },
+  {
+   "id": "U4",
+   "requirements": [
+    "R6.ANCH.search"
+   ],
+   "runner": "controls_engine.py:133",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "unauthorized-change"
+    ]
+   },
+   "source": "v1:350; v2:416 (OD-19)"
+  },
+  {
+   "id": "U5",
+   "requirements": [
+    "R6.ANCH.duplicates"
+   ],
+   "runner": "controls_engine.py:136",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "duplicated"
+    ]
+   },
+   "source": "v1:351; v2:416 (OD-19)"
+  },
+  {
+   "id": "U6",
+   "requirements": [
+    "R6.ANCH.duplicates"
+   ],
+   "runner": "controls_engine.py:141",
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS"
+   },
+   "source": "v1:352; v2:416 (OD-19)"
+  },
+  {
+   "id": "U7",
+   "requirements": [
+    "R6.ANCH.duplicates"
+   ],
+   "runner": "controls_engine.py:145",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "ambiguous"
+    ]
+   },
+   "source": "v1:353; v2:416 (OD-19)"
+  },
+  {
+   "id": "U8",
+   "requirements": [
+    "R6.ANCH.search"
+   ],
+   "runner": "controls_engine.py:148",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "missing"
+    ]
+   },
+   "source": "v1:354; v2:416 (OD-19)"
+  },
+  {
+   "id": "U9",
+   "requirements": [
+    "R6.ANCH.search"
+   ],
+   "runner": "controls_engine.py:151",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "unauthorized-change"
+    ],
+    "sites": [
+     {
+      "subject": "$subject",
+      "whitespace_only": true
+     }
+    ]
+   },
+   "source": "v1:355; v2:416 (OD-19; whitespace_only per OD-25)"
+  },
+  {
+   "id": "V1",
+   "requirements": [
+    "R6.DENY.rules"
+   ],
+   "runner": "a1_controls.py:466",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "deny-match"
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "class": "deny-match",
+        "rule_id": "DR-1",
+        "alternatives_include": "b"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2134"
+  },
+  {
+   "id": "V10",
+   "requirements": [
+    "R6.DENY.rules"
+   ],
+   "runner": "a1_controls.py:466",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "deny-match"
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "class": "deny-match",
+        "rule_id": "DR-1",
+        "alternatives_include": "a"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2145"
+  },
+  {
+   "id": "V11",
+   "requirements": [
+    "R6.DENY.rules"
+   ],
+   "runner": "a1_controls.py:466",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "deny-match"
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "class": "deny-match",
+        "rule_id": "DR-1",
+        "alternatives_include": "a"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2146"
+  },
+  {
+   "id": "V12",
+   "requirements": [
+    "R6.DENY.rules"
+   ],
+   "runner": "a1_controls.py:466",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "deny-match"
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "class": "deny-match",
+        "rule_id": "DR-1",
+        "alternatives_include": "a"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2147"
+  },
+  {
+   "id": "V13",
+   "requirements": [
+    "R6.DENY.rules"
+   ],
+   "runner": "a1_controls.py:466",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "deny-match"
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "class": "deny-match",
+        "rule_id": "DR-1",
+        "alternatives_include": "c"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2148"
+  },
+  {
+   "id": "V14",
+   "requirements": [
+    "R6.DENY.rules"
+   ],
+   "runner": "a1_controls.py:474",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "A1--A6",
+       "A1 em-dash A6",
+       "(A1) en-dash (A6)",
+       "A1, ..., A6"
+      ],
+      "classes_include": [
+       "deny-match"
+      ],
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "alternatives_include": "c",
+          "class": "deny-match",
+          "rule_id": "DR-1"
+         }
+        ]
+       }
+      ],
+      "outcome": "FAIL"
+     }
+    ]
+   },
+   "source": "D:2149"
+  },
+  {
+   "id": "V15",
+   "requirements": [
+    "R6.DENY.resid"
+   ],
+   "runner": "a1_controls.py:499",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes_exact": [
+     "unclassified"
+    ],
+    "invariants": [
+     {
+      "all": "hits",
+      "have": {
+       "profiles": [
+        "resid"
+       ]
+      }
+     },
+     {
+      "resid_key": "resid-a"
+     }
+    ]
+   },
+   "source": "D:2150"
+  },
+  {
+   "id": "V16",
+   "requirements": [
+    "R6.DENY.rules"
+   ],
+   "runner": "a1_controls.py:466",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "deny-match"
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "class": "deny-match",
+        "rule_id": "DR-4",
+        "alternatives_include": "a"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2151",
+   "flags": [
+    "design By column names the rule; alternative a is the runner value, measured on the control text (D:2083-2085)"
+   ]
+  },
+  {
+   "id": "V17",
+   "requirements": [
+    "R6.DENY.rules"
+   ],
+   "runner": "a1_controls.py:466",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "deny-match"
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "class": "deny-match",
+        "rule_id": "DR-4",
+        "alternatives_include": "a"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2152",
+   "flags": [
+    "design By column names the rule; alternative a is the runner value, measured on the control text (D:2083-2085)"
+   ]
+  },
+  {
+   "id": "V18",
+   "requirements": [
+    "R6.DENY.rules"
+   ],
+   "runner": "a1_controls.py:466",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "deny-match"
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "class": "deny-match",
+        "rule_id": "DR-4",
+        "alternatives_include": "a"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2153",
+   "flags": [
+    "design By column names the rule; alternative a is the runner value, measured on the control text (D:2083-2085)"
+   ]
+  },
+  {
+   "id": "V19",
+   "requirements": [
+    "R6.DENY.rules"
+   ],
+   "runner": "a1_controls.py:466",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "deny-match"
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "class": "deny-match",
+        "rule_id": "DR-5",
+        "alternatives_include": "a"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2154",
+   "flags": [
+    "design By column names the rule; alternative a is the runner value, measured on the control text (D:2083-2085)"
+   ]
+  },
+  {
+   "id": "V2",
+   "requirements": [
+    "R6.DENY.rules"
+   ],
+   "runner": "a1_controls.py:555",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "deny-match"
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "class": "deny-match",
+        "rule_id": "DR-3"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2135"
+  },
+  {
+   "id": "V20",
+   "requirements": [
+    "R6.DENY.rules"
+   ],
+   "runner": "a1_controls.py:466",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "deny-match"
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "class": "deny-match",
+        "rule_id": "DR-3"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2155"
+  },
+  {
+   "id": "V21",
+   "requirements": [
+    "R6.DENY.resid"
+   ],
+   "runner": "a1_controls.py:499",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes_exact": [
+     "unclassified"
+    ],
+    "invariants": [
+     {
+      "all": "hits",
+      "have": {
+       "profiles": [
+        "resid"
+       ]
+      }
+     }
+    ]
+   },
+   "source": "D:2156"
+  },
+  {
+   "id": "V22",
+   "requirements": [
+    "R6.DENY.rules"
+   ],
+   "runner": "a1_controls.py:485",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "cases": [
+     {
+      "case": "deny profiles",
+      "outcome": "FAIL",
+      "classes_include": [
+       "deny-match"
+      ],
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "class": "deny-match",
+          "rule_id": "DR-5"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "case": "item7-literal profile",
+      "outcome": "FAIL",
+      "classes_exact": [
+       "item7-literal-match"
+      ]
+     }
+    ]
+   },
+   "source": "D:2157"
+  },
+  {
+   "id": "V23",
+   "requirements": [
+    "R6.OUT.final"
+   ],
+   "runner": "a1_controls.py:522",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "final-unclassified"
+    ],
+    "invariants": [
+     {
+      "none": "items[class=deny-match]"
+     },
+     {
+      "items_include": [
+       {
+        "class": "final-unclassified",
+        "profile": "ptr"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2159"
+  },
+  {
+   "id": "V24",
+   "requirements": [
+    "R6.OUT.final"
+   ],
+   "runner": "a1_controls.py:526",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "final-unclassified"
+    ],
+    "invariants": [
+     {
+      "none": "items[class=deny-match]"
+     },
+     {
+      "items_include": [
+       {
+        "class": "final-unclassified",
+        "profile": "count-grep"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2160"
+  },
+  {
+   "id": "V25",
+   "requirements": [
+    "R6.OUT.final"
+   ],
+   "runner": "a1_controls.py:535",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "V23 text without --final",
+       "V24 text without --final"
+      ],
+      "outcome": "REVIEW_REQUIRED",
+      "classes_exact": [
+       "unclassified"
+      ]
+     },
+     {
+      "case": "W2 line with its rule, item 7, --final",
+      "outcome": "PASS"
+     },
+     {
+      "case": "resid-only hit (V21), item 7, --final",
+      "outcome": "REVIEW_REQUIRED",
+      "classes_exact": [
+       "unclassified"
+      ]
+     }
+    ]
+   },
+   "source": "D:2161"
+  },
+  {
+   "id": "V26",
+   "requirements": [
+    "R6.DENY.resid"
+   ],
+   "runner": "a1_controls.py:518",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "a finite set with a deterministic bijection on it",
+       "the substratum is a finite set with a bijection on it",
+       "We take the substratum to be finite.",
+       "the universe is assumed finite"
+      ],
+      "outcome": "REVIEW_REQUIRED",
+      "classes_exact": [
+       "unclassified"
+      ],
+      "invariants": [
+       {
+        "resid_key": "resid-b"
+       }
+      ]
+     },
+     {
+      "case": "The substratum is assumed to have a finite number of states.",
+      "outcome": "REVIEW_REQUIRED",
+      "classes_exact": [
+       "unclassified"
+      ],
+      "invariants": [
+       {
+        "resid_key": "resid-c"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2162"
+  },
+  {
+   "id": "V27",
+   "requirements": [
+    "R6.DENY.residual"
+   ],
+   "runner": "a1_controls.py:493",
+   "operations": [
+    "terms"
+   ],
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS",
+    "counts": {
+     "hits": 0
+    }
+   },
+   "source": "D:2138 (added alone)"
+  },
+  {
+   "id": "V27-glossary",
+   "requirements": [
+    "R6.DENY.residual"
+   ],
+   "runner": "a1_controls.py:507",
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS",
+    "counts": {
+     "hits": 0
+    }
+   },
+   "source": "D:2138 (as the edited glossary.md:13 line)"
+  },
+  {
+   "id": "V3",
+   "requirements": [
+    "R6.DENY.rules"
+   ],
+   "runner": "a1_controls.py:466",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "deny-match"
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "class": "deny-match",
+        "rule_id": "DR-4",
+        "alternatives_include": "a"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2136",
+   "flags": [
+    "design By column names the rule; alternative a is the runner value, measured on the control text (D:2083-2085)"
+   ]
+  },
+  {
+   "id": "V3-countercontrol",
+   "requirements": [
+    "R6.OUT.final"
+   ],
+   "runner": "a1_controls.py:425",
+   "expect": null,
+   "source": "none (runner-only; cf. D:2161, D:2216)"
+  },
+  {
+   "id": "V4",
+   "requirements": [
+    "R6.DENY.residual"
+   ],
+   "runner": "a1_controls.py:493",
+   "operations": [
+    "terms"
+   ],
+   "direction": "positive",
+   "expect": {
+    "cases": [
+     {
+      "case": "review and deny profiles",
+      "outcome": "PASS",
+      "counts": {
+       "hits": 0
+      }
+     },
+     {
+      "case": "item7-literal",
+      "outcome": "PASS"
+     }
+    ]
+   },
+   "source": "D:2137"
+  },
+  {
+   "id": "V5",
+   "requirements": [
+    "R6.DENY.rules"
+   ],
+   "runner": "a1_controls.py:466",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "deny-match"
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "class": "deny-match",
+        "rule_id": "DR-4",
+        "alternatives_include": "a"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2139",
+   "flags": [
+    "design By column names the rule; alternative a is the runner value, measured on the control text (D:2083-2085)"
+   ]
+  },
+  {
+   "id": "V6",
+   "requirements": [
+    "R6.DENY.rules"
+   ],
+   "runner": "a1_controls.py:478",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "deny-match"
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "class": "deny-match",
+        "rule_id": "DR-1",
+        "alternatives_include": "b"
+       },
+       {
+        "class": "deny-match",
+        "rule_id": "DR-3"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2140"
+  },
+  {
+   "id": "V7a",
+   "requirements": [
+    "R6.RULE.allow"
+   ],
+   "runner": "a1_controls.py:560",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "rule-negative-match"
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "class": "rule-negative-match",
+        "rule_id": "W1-d"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2141"
+  },
+  {
+   "id": "V7b",
+   "requirements": [
+    "R6.RULE.allow"
+   ],
+   "runner": "a1_controls.py:565",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes_exact": [
+     "unclassified"
+    ],
+    "invariants": [
+     {
+      "hit_profiles_include": [
+       "p0-core",
+       "count-grep"
+      ]
+     }
+    ]
+   },
+   "source": "D:2142"
+  },
+  {
+   "id": "V7c",
+   "requirements": [
+    "R6.RULE.allow"
+   ],
+   "runner": "a1_controls.py:570",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes_exact": [
+     "rule-fingerprint-mismatch"
+    ]
+   },
+   "source": "D:2143"
+  },
+  {
+   "id": "V9",
+   "requirements": [
+    "R6.DENY.rules"
+   ],
+   "runner": "a1_controls.py:466",
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "deny-match"
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "class": "deny-match",
+        "rule_id": "DR-1",
+        "alternatives_include": "a"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2144"
+  },
+  {
+   "id": "WB1",
+   "requirements": [
+    "R6.RULE.allowance"
+   ],
+   "runner": "a1_conformance.py:94",
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS",
+    "sites": [
+     {
+      "subject": "ch19:198",
+      "state": "PASS"
+     },
+     {
+      "subject": "book/The-Incompleteness-of-Observation-FULL.md:5270",
+      "state": "PASS"
+     }
+    ]
+   },
+   "source": "D:2250"
+  },
+  {
+   "id": "WB10",
+   "requirements": [
+    "R6.RULE.allowance"
+   ],
+   "runner": "a1_conformance.py:165",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "allowance 2",
+       "allowance 0",
+       "names axiom"
+      ],
+      "classes_exact": [
+       "record-invalid"
+      ],
+      "outcome": "FAIL"
+     }
+    ]
+   },
+   "source": "D:2259"
+  },
+  {
+   "id": "WB11",
+   "requirements": [
+    "R6.RULE.allowance"
+   ],
+   "runner": "a1_conformance.py:173",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "record-invalid"
+    ]
+   },
+   "source": "D:2260"
+  },
+  {
+   "id": "WB12",
+   "requirements": [
+    "R6.RULE.allowance"
+   ],
+   "runner": "a1_conformance.py:184",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "rule-negative-match"
+    ],
+    "invariants": [
+     {
+      "none": "items[class=deny-match]"
+     }
+    ]
+   },
+   "source": "D:2261"
+  },
+  {
+   "id": "WB13",
+   "requirements": [
+    "R6.RULE.allowance"
+   ],
+   "runner": "a1_conformance.py:193",
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS",
+    "invariants": [
+     {
+      "none": "items[class=rule-stale]"
+     }
+    ]
+   },
+   "source": "D:2262"
+  },
+  {
+   "id": "WB14",
+   "requirements": [
+    "R6.RULE.allowance"
+   ],
+   "runner": "a1_conformance.py:205",
+   "direction": "both",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "FAIL",
+    "sites": [
+     {
+      "subject": "$smaller_offset_copy",
+      "state": "PASS"
+     },
+     {
+      "subject": "$later_copy",
+      "classes_include": [
+       "rule-negative-match"
+      ]
+     }
+    ]
+   },
+   "procedure": {
+    "name": "run-stability",
+    "lib": "rel-equal",
+    "evidence": [
+     "run 1 result",
+     "run 2 result"
+    ]
+   },
+   "source": "D:2263"
+  },
+  {
+   "id": "WB15",
+   "requirements": [
+    "R6.RULE.allowance"
+   ],
+   "runner": "a1_conformance.py:210",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "rule-negative-match"
+    ]
+   },
+   "source": "D:2264"
+  },
+  {
+   "id": "WB2",
+   "requirements": [
+    "R6.RULE.allowance"
+   ],
+   "runner": "a1_conformance.py:98",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "rule-negative-match"
+    ]
+   },
+   "source": "D:2251"
+  },
+  {
+   "id": "WB3",
+   "requirements": [
+    "R6.RULE.allowance"
+   ],
+   "runner": "a1_conformance.py:103",
+   "expect": {
+    "cases": [
+     {
+      "case": "copy",
+      "outcome": "FAIL",
+      "classes_include": [
+       "rule-negative-match"
+      ]
+     },
+     {
+      "case": "original",
+      "outcome": "ANY",
+      "sites": [
+       {
+        "subject": "$original",
+        "classes_exact": []
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2252"
+  },
+  {
+   "id": "WB4",
+   "requirements": [
+    "R6.RULE.allowance"
+   ],
+   "runner": "a1_conformance.py:112",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes_exact": [
+     "unclassified"
+    ]
+   },
+   "source": "D:2253"
+  },
+  {
+   "id": "WB5",
+   "requirements": [
+    "R6.RULE.allowance"
+   ],
+   "runner": "a1_conformance.py:120",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "rule-negative-match"
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "class": "rule-stale",
+        "rule_id": "W1-c"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:2254"
+  },
+  {
+   "id": "WB6",
+   "requirements": [
+    "R6.RULE.allowance"
+   ],
+   "runner": "a1_conformance.py:125",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "rule-negative-match"
+    ]
+   },
+   "source": "D:2255"
+  },
+  {
+   "id": "WB7",
+   "requirements": [
+    "R6.RULE.allowance"
+   ],
+   "runner": "a1_conformance.py:129",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes_exact": [
+     "rule-fingerprint-mismatch"
+    ]
+   },
+   "source": "D:2256"
+  },
+  {
+   "id": "WB8",
+   "requirements": [
+    "R6.RULE.allowance"
+   ],
+   "runner": "a1_conformance.py:133",
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS"
+   },
+   "source": "D:2257"
+  },
+  {
+   "id": "WB9",
+   "requirements": [
+    "R6.RULE.allowance"
+   ],
+   "runner": "a1_conformance.py:140",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "rule-negative-match"
+    ],
+    "sites": [
+     {
+      "subject": "$larger_offset_copy",
+      "classes_include": [
+       "rule-negative-match"
+      ]
+     },
+     {
+      "subject": "$smaller_offset_copy",
+      "classes_exact": []
+     }
+    ]
+   },
+   "source": "D:2258"
+  },
+  {
+   "id": "X1",
+   "requirements": [
+    "R6.OUT.exit-codes"
+   ],
+   "runner": "a1_controls.py:176",
+   "operations": [
+    "record"
+   ],
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "PIN_MISMATCH"
+   },
+   "source": "D:2189"
+  },
+  {
+   "id": "X10",
+   "requirements": [
+    "R6.OUT.acceptance"
+   ],
+   "runner": "synthetic_fixture.py:536",
+   "direction": "both",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "outcome edited to FAIL, exit 0",
+       "engine blob differs from tool pin"
+      ],
+      "outcome": "NON_ACCEPTANCE"
+     },
+     {
+      "case": "chain copy (positive)",
+      "outcome": "ACCEPTED"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "acceptance",
+    "lib": "consumer",
+    "evidence": [
+     "result.json per case",
+     "configuration",
+     "landing record"
+    ]
+   },
+   "source": "D:2198",
+   "flags": [
+    "runner adds harness, edited, tool-blob and freeze variants"
+   ]
+  },
+  {
+   "id": "X11",
+   "requirements": [
+    "R6.OUT.acceptance"
+   ],
+   "runner": "conformance_controls.py:472",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "NON_ACCEPTANCE",
+    "invariants": [
+     {
+      "admission_mode_not": "chain"
+     },
+     {
+      "harness_dir_files": [
+       "control-result.json"
+      ]
+     }
+    ]
+   },
+   "procedure": {
+    "name": "acceptance",
+    "lib": "consumer",
+    "evidence": [
+     "harness out-dir listing",
+     "control-result.json"
+    ]
+   },
+   "source": "D:2265"
+  },
+  {
+   "id": "X2",
+   "requirements": [
+    "R6.OUT.exit-codes"
+   ],
+   "runner": "synthetic_fixture.py:478",
+   "expect": {
+    "outcome": "INTERNAL"
+   },
+   "source": "D:2190"
+  },
+  {
+   "id": "X3",
+   "requirements": [
+    "R6.OUT.exit-codes"
+   ],
+   "runner": "synthetic_fixture.py:482",
+   "expect": {
+    "outcome": "USAGE",
+    "invariants": [
+     {
+      "stderr_json_outcome": "USAGE"
+     },
+     {
+      "no_result_written": true
+     },
+     {
+      "out_dir_created": false
+     }
+    ]
+   },
+   "source": "D:2191"
+  },
+  {
+   "id": "X4",
+   "requirements": [
+    "R6.OUT.exit-codes"
+   ],
+   "runner": "synthetic_fixture.py:485",
+   "expect": {
+    "outcome": "USAGE"
+   },
+   "source": "D:2192"
+  },
+  {
+   "id": "X5",
+   "requirements": [
+    "R6.OUT.exit-codes"
+   ],
+   "runner": "synthetic_fixture.py:487",
+   "expect": {
+    "outcome": "USAGE"
+   },
+   "source": "D:2193"
+  },
+  {
+   "id": "X6",
+   "requirements": [
+    "R6.OUT.exit-codes"
+   ],
+   "runner": "synthetic_fixture.py:490",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED"
+   },
+   "source": "D:2194"
+  },
+  {
+   "id": "X7",
+   "requirements": [
+    "R6.OUT.exit-codes"
+   ],
+   "runner": "synthetic_fixture.py:504",
+   "direction": "both",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "NON_ACCEPTANCE",
+    "invariants": [
+     {
+      "exit_not_in": [
+       0,
+       20
+      ]
+     },
+     {
+      "no_result_with_outcome": "PASS"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "broken-import",
+    "lib": "consumer",
+    "evidence": [
+     "exit",
+     "out-dir listing",
+     "result.json if any"
+    ]
+   },
+   "source": "D:2195"
+  },
+  {
+   "id": "X8",
+   "requirements": [
+    "R6.OUT.exit-codes"
+   ],
+   "runner": "synthetic_fixture.py:510",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "NON_ACCEPTANCE",
+    "exit": 2
+   },
+   "procedure": {
+    "name": "missing-script",
+    "lib": "consumer",
+    "evidence": [
+     "exit"
+    ]
+   },
+   "source": "D:2196"
+  },
+  {
+   "id": "X9",
+   "requirements": [
+    "R6.OUT.exit-codes"
+   ],
+   "runner": "synthetic_fixture.py:517",
+   "expect": {
+    "cases": [
+     {
+      "case": "without --final",
+      "outcome": "REVIEW_REQUIRED"
+     },
+     {
+      "case": "with --final",
+      "outcome": "FAIL",
+      "classes_exact": [
+       "final-unclassified"
+      ]
+     },
+     {
+      "case": "other-profile REVIEW item with --final",
+      "outcome": "ANY",
+      "sites": [
+       {
+        "subject": "$other_item",
+        "decision": "REVIEW_REQUIRED"
+       }
+      ]
+     },
+     {
+      "case": "--final without --check",
+      "outcome": "USAGE"
+     }
+    ]
+   },
+   "source": "D:2197"
+  },
+  {
+   "id": "Y1",
+   "requirements": [
+    "R6.SYN.controls"
+   ],
+   "runner": "synthetic_fixture.py:314",
+   "direction": "positive",
+   "expect": {
+    "outcome": "PASS",
+    "sites": [
+     {
+      "all": "sites",
+      "state": "moved"
+     }
+    ]
+   },
+   "source": "D:3062"
+  },
+  {
+   "id": "Y10",
+   "requirements": [
+    "R6.SYN.controls"
+   ],
+   "runner": "synthetic_fixture.py:362",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "SOURCE_CHANGED"
+   },
+   "source": "D:3071"
+  },
+  {
+   "id": "Y2",
+   "requirements": [
+    "R6.SYN.controls"
+   ],
+   "runner": "synthetic_fixture.py:321",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "unauthorized-edit"
+    ]
+   },
+   "source": "D:3063"
+  },
+  {
+   "id": "Y3",
+   "requirements": [
+    "R6.SYN.controls"
+   ],
+   "runner": "synthetic_fixture.py:326",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "deny-match"
+    ]
+   },
+   "source": "D:3064"
+  },
+  {
+   "id": "Y4",
+   "requirements": [
+    "R6.SYN.controls"
+   ],
+   "runner": "synthetic_fixture.py:334",
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "with its allow rule",
+      "outcome": "PASS"
+     },
+     {
+      "case": "rule widened without review",
+      "outcome": "FAIL",
+      "classes_exact": [
+       "record-invalid"
+      ]
+     }
+    ]
+   },
+   "source": "D:3065",
+   "flags": [
+    "runner adds a with-review case (0)"
+   ]
+  },
+  {
+   "id": "Y5",
+   "requirements": [
+    "R6.SYN.controls"
+   ],
+   "runner": "synthetic_fixture.py:340",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": {
+     "items[subject=$subject]": [
+      "context-meaning-unverified"
+     ]
+    }
+   },
+   "source": "D:3066"
+  },
+  {
+   "id": "Y6",
+   "requirements": [
+    "R6.SYN.controls"
+   ],
+   "runner": "synthetic_fixture.py:349",
+   "expect": {
+    "cases": [
+     {
+      "case": "hash wrong",
+      "outcome": "FAIL",
+      "classes_exact": [
+       "delegated-evidence-invalid"
+      ]
+     },
+     {
+      "case": "evidence absent",
+      "outcome": "REVIEW_REQUIRED",
+      "classes_exact": [
+       "delegated-evidence-missing"
+      ]
+     }
+    ]
+   },
+   "source": "D:3067",
+   "flags": [
+    "runner adds a good-evidence case (0)"
+   ]
+  },
+  {
+   "id": "Y7",
+   "requirements": [
+    "R6.SYN.controls"
+   ],
+   "runner": "synthetic_fixture.py:352",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "CONFIG_UNSUPPORTED"
+   },
+   "source": "D:3068"
+  },
+  {
+   "id": "Y8",
+   "requirements": [
+    "R6.SYN.controls"
+   ],
+   "runner": "a1_controls.py:1262",
+   "direction": "positive",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "HASH_EQUAL"
+   },
+   "procedure": {
+    "name": "engine-identity",
+    "lib": "hash",
+    "evidence": [
+     "A1 result.json",
+     "synthetic result.json"
+    ]
+   },
+   "source": "D:3069"
+  },
+  {
+   "id": "Y9",
+   "requirements": [
+    "R6.SYN.controls"
+   ],
+   "runner": "synthetic_fixture.py:358",
+   "expect": {
+    "outcome": "REVIEW_REQUIRED",
+    "classes_exact": [
+     "context-structure-changed"
+    ]
+   },
+   "source": "D:3070"
+  },
+  {
+   "id": "Z1",
+   "requirements": [
+    "R6.VALID.classes"
+   ],
+   "runner": "synthetic_fixture.py:385",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "CONFIG_INVALID"
+   },
+   "source": "D:3079, D:3088",
+   "flags": [
+    "defect-to-id assignment from the runner case"
+   ]
+  },
+  {
+   "id": "Z10",
+   "requirements": [
+    "R6.VALID.widening"
+   ],
+   "runner": "synthetic_fixture.py:449",
+   "expect": {
+    "cases": [
+     {
+      "case": "step before supersession",
+      "outcome": "FAIL",
+      "classes_include": [
+       "provenance-foreign"
+      ]
+     },
+     {
+      "case": "superseded without widening_review",
+      "outcome": "ERROR",
+      "stop_class": "CONFIG_UNREVIEWED"
+     },
+     {
+      "case": "valid widening review and matching adjudication",
+      "outcome": "ANY",
+      "sites": [
+       {
+        "subject": "$step",
+        "state": "provenance-adjudicated"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "D:3091-3094",
+   "flags": [
+    "runner adds an hp-only variant (65)"
+   ]
+  },
+  {
+   "id": "Z11",
+   "requirements": [
+    "R6.VALID.classes"
+   ],
+   "runner": "conformance_controls.py:2524",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "two records, one class id",
+       "one record, duplicate class id"
+      ],
+      "outcome": "ERROR",
+      "stop_class": "CONFIG_INCONSISTENT"
+     }
+    ]
+   },
+   "source": "D:2526"
+  },
+  {
+   "id": "Z2",
+   "requirements": [
+    "R6.VALID.classes"
+   ],
+   "runner": "synthetic_fixture.py:386",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "CONFIG_INVALID"
+   },
+   "source": "D:3080, D:3088",
+   "flags": [
+    "defect-to-id assignment from the runner case"
+   ]
+  },
+  {
+   "id": "Z3",
+   "requirements": [
+    "R6.VALID.classes"
+   ],
+   "runner": "synthetic_fixture.py:387",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "CONFIG_INVALID"
+   },
+   "source": "D:3080, D:3088",
+   "flags": [
+    "defect-to-id assignment from the runner case"
+   ]
+  },
+  {
+   "id": "Z4",
+   "requirements": [
+    "R6.VALID.classes"
+   ],
+   "runner": "synthetic_fixture.py:388",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "CONFIG_UNSUPPORTED"
+   },
+   "source": "D:3081, D:3088",
+   "flags": [
+    "defect-to-id assignment from the runner case"
+   ]
+  },
+  {
+   "id": "Z5",
+   "requirements": [
+    "R6.VALID.classes"
+   ],
+   "runner": "synthetic_fixture.py:389",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "CONFIG_UNREVIEWED"
+   },
+   "source": "D:3082, D:3088",
+   "flags": [
+    "defect-to-id assignment from the runner case"
+   ]
+  },
+  {
+   "id": "Z6",
+   "requirements": [
+    "R6.VALID.classes"
+   ],
+   "runner": "synthetic_fixture.py:390",
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "CONFIG_INVALID"
+   },
+   "source": "D:3079, D:3088",
+   "flags": [
+    "defect-to-id assignment from the runner case"
+   ]
+  },
+  {
+   "id": "Z6b",
+   "requirements": [
+    "R6.VALID.classes"
+   ],
+   "runner": "synthetic_fixture.py:394",
+   "expect": null,
+   "source": "none (runner-only)"
+  },
+  {
+   "id": "Z7",
+   "requirements": [
+    "R6.VALID.classes"
+   ],
+   "runner": "synthetic_fixture.py:395",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "defect 1",
+       "defect 2",
+       "defect 3"
+      ],
+      "outcome": "ERROR",
+      "stop_class": "CONFIG_INCONSISTENT"
+     }
+    ]
+   },
+   "source": "D:3084, D:3088",
+   "flags": [
+    "defect-to-id assignment from the runner case"
+   ]
+  },
+  {
+   "id": "Z8",
+   "requirements": [
+    "R6.VALID.classes"
+   ],
+   "runner": "synthetic_fixture.py:398",
+   "expect": {
+    "outcome": "VOID",
+    "stop_class": "CONFIG_NO_CONTROLS"
+   },
+   "source": "D:3085, D:3088"
+  },
+  {
+   "id": "Z9a",
+   "requirements": [
+    "R6.CORE.purity"
+   ],
+   "runner": "synthetic_fixture.py:570",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "LINT_FAIL"
+   },
+   "procedure": {
+    "name": "purity-lint",
+    "lib": "lint",
+    "evidence": [
+     "lint report",
+     "linted source map",
+     "value set"
+    ]
+   },
+   "source": "D:2879"
+  },
+  {
+   "id": "Z9b",
+   "requirements": [
+    "R6.CORE.purity"
+   ],
+   "runner": "synthetic_fixture.py:570",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "LINT_FAIL"
+   },
+   "procedure": {
+    "name": "purity-lint",
+    "lib": "lint",
+    "evidence": [
+     "lint report",
+     "linted source map",
+     "value set"
+    ]
+   },
+   "source": "D:2880"
+  },
+  {
+   "id": "Z9c",
+   "requirements": [
+    "R6.CORE.purity"
+   ],
+   "runner": "synthetic_fixture.py:571",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "LINT_FAIL"
+   },
+   "procedure": {
+    "name": "purity-lint",
+    "lib": "lint",
+    "evidence": [
+     "lint report",
+     "linted source map",
+     "value set"
+    ]
+   },
+   "source": "D:2881"
+  },
+  {
+   "id": "Z9d",
+   "requirements": [
+    "R6.CORE.purity"
+   ],
+   "runner": "synthetic_fixture.py:571",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "LINT_FAIL"
+   },
+   "procedure": {
+    "name": "purity-lint",
+    "lib": "lint",
+    "evidence": [
+     "lint report",
+     "linted source map",
+     "value set"
+    ]
+   },
+   "source": "D:2882"
+  },
+  {
+   "id": "Z9e",
+   "requirements": [
+    "R6.CORE.purity"
+   ],
+   "runner": "synthetic_fixture.py:572",
+   "direction": "positive",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "LINT_PASS"
+   },
+   "procedure": {
+    "name": "purity-lint",
+    "lib": "lint",
+    "evidence": [
+     "lint report",
+     "linted source map",
+     "value set"
+    ]
+   },
+   "source": "D:2883"
+  },
+  {
+   "id": "Z9f",
+   "requirements": [
+    "R6.CORE.purity"
+   ],
+   "runner": "synthetic_fixture.py:573",
+   "direction": "both",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": "adapter module containing the string",
+      "outcome": "LINT_PASS",
+      "invariants": [
+       {
+        "source_map_nonempty": true
+       },
+       {
+        "linted_paths_include": "adapters/"
+       }
+      ]
+     },
+     {
+      "case": "the string in the engine",
+      "outcome": "LINT_FAIL"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "purity-lint",
+    "lib": "lint",
+    "evidence": [
+     "lint report per half",
+     "linted source map per half"
+    ],
+    "note": "the adapter half lints a non-empty map of the real adapter sources"
+   },
+   "source": "D:2884",
+   "flags": [
+    "VD-9: adapter half lints an empty map today"
+   ]
+  },
+  {
+   "id": "Z9g",
+   "requirements": [
+    "R6.CORE.purity"
+   ],
+   "runner": "a1_controls.py:1169",
+   "direction": "positive",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "LINT_PASS"
+   },
+   "procedure": {
+    "name": "purity-lint",
+    "lib": "lint",
+    "evidence": [
+     "lint report",
+     "linted source map",
+     "value set"
+    ]
+   },
+   "source": "D:2885"
+  },
+  {
+   "id": "Z9h",
+   "requirements": [
+    "R6.CORE.purity"
+   ],
+   "runner": "a1_controls.py:1175",
+   "predicate_kind": "procedural",
+   "expect": {
+    "outcome": "LINT_FAIL",
+    "invariants": [
+     {
+      "finding_value": "guard-pin"
+     }
+    ]
+   },
+   "procedure": {
+    "name": "purity-lint",
+    "lib": "lint",
+    "evidence": [
+     "lint report",
+     "linted source map",
+     "value set with the edits.json values"
+    ]
+   },
+   "source": "D:2886 (MC-9; the D:2291 statement merged)",
+   "flags": [
+    "MC-9: one Z9h in the D:2886 form; D:2291 adds \"with the adapter companions in the value set\"; owner chooses the text"
+   ]
+  },
+  {
+   "id": "item11-T1p",
+   "requirements": [
+    "R6.PLAN.item11"
+   ],
+   "runner": "a1_controls.py:396",
+   "expect": {
+    "outcome": "FAIL",
+    "classes_exact": [
+     "final-unclassified"
+    ],
+    "counts": {
+     "lines[class=final-unclassified]": 176
+    }
+   },
+   "source": "D:2351",
+   "flags": [
+    "VD-10: 176-line count asserted"
+   ]
+  },
+  {
+   "id": "lint-ok",
+   "requirements": [
+    "R6.RULE.lint"
+   ],
+   "runner": "controls_engine.py:638",
+   "expect": null,
+   "source": "none (runner-only: none)"
+  },
+  {
+   "id": "rule-negative",
+   "requirements": [
+    "R6.RULE.allow"
+   ],
+   "runner": "controls_engine.py:632",
+   "expect": null,
+   "source": "none (runner-only: none)"
+  },
+  {
+   "id": "GATE-1",
+   "requirements": [
+    "R6.GATE.verdict"
+   ],
+   "runner": "gate self-test",
+   "case": "false actual value: a runner record with status PASS whose actual says exit 0 while the retained exit file and result.json say 20",
+   "expect": {
+    "outcome": "GATE_FAIL",
+    "exit": 20,
+    "gate_findings_include": [
+     "declarative-mismatch"
+    ]
+   },
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+  },
+  {
+   "id": "GATE-2",
+   "requirements": [
+    "R6.GATE.verdict"
+   ],
+   "runner": "gate self-test",
+   "case": "missing result: one id of the file has no record",
+   "expect": {
+    "outcome": "GATE_FAIL",
+    "exit": 20,
+    "gate_findings_include": [
+     "missing-id"
+    ]
+   },
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+  },
+  {
+   "id": "GATE-3",
+   "requirements": [
+    "R6.GATE.verdict"
+   ],
+   "runner": "gate self-test",
+   "case": "duplicate id: two records carry one id (in one job, and separately across jobs)",
+   "expect": {
+    "outcome": "GATE_FAIL",
+    "exit": 20,
+    "gate_findings_include": [
+     "duplicate-id"
+    ]
+   },
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+  },
+  {
+   "id": "GATE-4",
+   "requirements": [
+    "R6.GATE.verdict"
+   ],
+   "runner": "gate self-test",
+   "case": "unexpected id: a record whose id is not in the file",
+   "expect": {
+    "outcome": "GATE_FAIL",
+    "exit": 20,
+    "gate_findings_include": [
+     "unexpected-id"
+    ]
+   },
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+  },
+  {
+   "id": "GATE-5",
+   "requirements": [
+    "R6.GATE.not-run"
+   ],
+   "runner": "gate self-test",
+   "case": "unauthorized NOT RUN: a row allowing only PASS reported NOT RUN with a reason",
+   "expect": {
+    "outcome": "GATE_FAIL",
+    "exit": 20,
+    "gate_findings_include": [
+     "status-not-allowed"
+    ]
+   },
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+  },
+  {
+   "id": "GATE-6",
+   "requirements": [
+    "R6.GATE.verdict"
+   ],
+   "runner": "gate self-test",
+   "case": "weak runner predicate: A1r recorded PASS with a truthful actual (lint problems nonempty) while the retained result has no record-invalid item for the rule file",
+   "expect": {
+    "outcome": "GATE_FAIL",
+    "exit": 20,
+    "gate_findings_include": [
+     "declarative-mismatch"
+    ]
+   },
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+  },
+  {
+   "id": "GATE-7",
+   "requirements": [
+    "R6.GATE.correspondence"
+   ],
+   "runner": "gate self-test",
+   "case": "expectation row with no requirement: requirements empty, or naming an id absent from r6",
+   "expect": {
+    "outcome": "GATE_FAIL",
+    "exit": 20,
+    "gate_findings_include": [
+     "correspondence-orphan-row"
+    ]
+   },
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+  },
+  {
+   "id": "GATE-8",
+   "requirements": [
+    "R6.GATE.correspondence"
+   ],
+   "runner": "gate self-test",
+   "case": "requirement with no control: an r6 requirement whose control list is empty or names an id absent from the file",
+   "expect": {
+    "outcome": "GATE_FAIL",
+    "exit": 20,
+    "gate_findings_include": [
+     "correspondence-orphan-requirement"
+    ]
+   },
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+  },
+  {
+   "id": "GATE-9",
+   "requirements": [
+    "R6.GATE.verdict"
+   ],
+   "runner": "gate self-test",
+   "case": "raw evidence missing: a PASS record whose manifest names a result.json absent from the evidence set, or whose sha256 differs",
+   "expect": {
+    "outcome": "GATE_FAIL",
+    "exit": 20,
+    "gate_findings_include": [
+     "raw-evidence-missing"
+    ]
+   },
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+  },
+  {
+   "id": "GATE-10",
+   "requirements": [
+    "R6.GATE.verdict"
+   ],
+   "runner": "gate self-test",
+   "case": "procedural predicate failed: SW1 tuples with one site carrying two new FAIL items while the runner records PASS",
+   "expect": {
+    "outcome": "GATE_FAIL",
+    "exit": 20,
+    "gate_findings_include": [
+     "procedural-failed"
+    ]
+   },
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+  },
+  {
+   "id": "GATE-11",
+   "requirements": [
+    "R6.GATE.not-run"
+   ],
+   "runner": "gate self-test",
+   "case": "released NOT RUN: RT-L2 reported NOT RUN while its release check holds",
+   "expect": {
+    "outcome": "GATE_FAIL",
+    "exit": 20,
+    "gate_findings_include": [
+     "status-not-allowed"
+    ]
+   },
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+  },
+  {
+   "id": "GATE-12",
+   "requirements": [
+    "R6.GATE.verdict"
+   ],
+   "runner": "gate self-test",
+   "case": "composite incomplete: S11-2 with S11-2c missing",
+   "expect": {
+    "outcome": "GATE_FAIL",
+    "exit": 20,
+    "gate_findings_include": [
+     "missing-id"
+    ]
+   },
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+  },
+  {
+   "id": "GATE-13",
+   "requirements": [
+    "R6.RECON.sequencing",
+    "R6.GATE.verdict"
+   ],
+   "runner": "gate self-test",
+   "case": "RT-L2 drafted record: the run uses an unreviewed reconciliation record (drift state unresolved)",
+   "expect": {
+    "outcome": "GATE_FAIL",
+    "exit": 20,
+    "gate_findings_include": [
+     "procedural-failed"
+    ]
+   },
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+  },
+  {
+   "id": "GATE-14",
+   "requirements": [
+    "R6.RECON.sequencing",
+    "R6.GATE.verdict"
+   ],
+   "runner": "gate self-test",
+   "case": "RT-L2 record bound to another M: reviewed record whose M blob differs from the run M",
+   "expect": {
+    "outcome": "GATE_FAIL",
+    "exit": 20,
+    "gate_findings_include": [
+     "procedural-failed"
+    ]
+   },
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+  },
+  {
+   "id": "GATE-15",
+   "requirements": [
+    "R6.RECON.sequencing",
+    "R6.GATE.verdict"
+   ],
+   "runner": "gate self-test",
+   "case": "RT-L2 partial coverage: reviewed bound record covering one of two drifted paths",
+   "expect": {
+    "outcome": "GATE_FAIL",
+    "exit": 20,
+    "gate_findings_include": [
+     "procedural-failed"
+    ]
+   },
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+  },
+  {
+   "id": "GATE-16",
+   "requirements": [
+    "R6.GATE.verdict"
+   ],
+   "runner": "gate self-test",
+   "direction": "positive",
+   "case": "reference difference: RT-T0 with region_lines.count 214 against reference 215, every expect field met",
+   "expect": {
+    "outcome": "GATE_HOLDS",
+    "exit": 0,
+    "gate_findings_exact": [
+     "reference-difference"
+    ]
+   },
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+  },
+  {
+   "id": "GATE-17",
+   "requirements": [
+    "R6.GATE.verdict"
+   ],
+   "runner": "gate self-test",
+   "case": "malformed expectation file: unknown schema id, unknown field, or NOT RUN allowed without reason and release condition",
+   "expect": {
+    "outcome": "GATE_ERROR",
+    "exit": 65,
+    "gate_findings_include": [
+     "file-invalid"
+    ]
+   },
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+  },
+  {
+   "id": "GATE-18",
+   "requirements": [
+    "R6.GATE.verdict"
+   ],
+   "runner": "gate self-test",
+   "direction": "positive",
+   "case": "positive control: complete, correct records and evidence for a fixture with one row of each predicate kind and one allowed NOT RUN",
+   "expect": {
+    "outcome": "GATE_HOLDS",
+    "exit": 0,
+    "gate_findings_exact": []
+   },
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+  },
+  {
+   "id": "GATE-19",
+   "requirements": [
+    "R6.RECON.sequencing",
+    "R6.GATE.verdict"
+   ],
+   "runner": "gate self-test",
+   "direction": "positive",
+   "case": "RT-L2 reconciled: reviewed record bound to the exact H, M and C blobs covering every drifted path",
+   "expect": {
+    "outcome": "GATE_HOLDS",
+    "exit": 0,
+    "gate_findings_exact": []
+   },
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+  },
+  {
+   "id": "GATE-20",
+   "requirements": [
+    "R6.GATE.verdict"
+   ],
+   "runner": "gate self-test",
+   "case": "status/actual inconsistency: runner status FAIL with an actual that meets expect",
+   "expect": {
+    "outcome": "GATE_FAIL",
+    "exit": 20,
+    "gate_findings_include": [
+     "status-actual-inconsistent"
+    ]
+   },
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+  }
+ ],
+ "retired": [
+  {
+   "old_id": "U13",
+   "disposition": "retired (OD-19a, OD-16)",
+   "underlying": "obsolete: the read route of v1 4.2 and 4.7 is withdrawn; held means held by a tracked site, tested by U1-U11"
+  },
+  {
+   "old_id": "U14",
+   "disposition": "retired (OD-19b, OD-15)",
+   "underlying": "withdrawal-needs-decision: the earlier claim \"preserved-at Z10 and K10\" is withdrawn (K10 is a context adjudication, the H-series has only negative cases); see RESIDUAL.md RD-9"
+  },
+  {
+   "old_id": "U15",
+   "disposition": "retired with the class stale-adjudication (OD-19b, OD-15)",
+   "underlying": "preserved-at H1, H2 and H6 (an adjudication that disagrees with the walk, or changes a row, FAILs); partial: a wrong region hash still FAILs via unauthorized-change, an orphan record is unreported; see RESIDUAL.md RD-9"
+  },
+  {
+   "old_id": "C1",
+   "disposition": "retired (OD-20)",
+   "underlying": "preserved-at TT1 and TT13 (op C on a correctly executed candidate gives no RET item; uniqueness tested at the base)"
+  },
+  {
+   "old_id": "C2",
+   "disposition": "retired (OD-20); ERROR BASE_DRIFT replaced by FAIL base-drift (v6.0e 13.1)",
+   "underlying": "preserved-at TT3 (candidate-parent) and TT7, N16-file (base-drift)"
+  },
+  {
+   "old_id": "C3",
+   "disposition": "retired (OD-20); the decision label C3 is quoted, not an identifier",
+   "underlying": "preserved-at S11-12 and N1 (pin-broken)"
+  },
+  {
+   "old_id": "RT-H",
+   "disposition": "retired (OD-20)",
+   "underlying": "preserved-at RT-T (PASS only with every reviewed record, HP adjudications included; NOT RUN until they exist)"
+  },
+  {
+   "old_id": "Z9h (D:2291 statement)",
+   "disposition": "merged into the single Z9h row (MC-9)",
+   "underlying": "preserved-at Z9h"
+  },
+  {
+   "old_id": "O4, TR4, TR6-TR12, TR16-TR27, TR31-TR44, TR47, TR49, TR53-TR70, LN9, LN11, LN12",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused",
+   "underlying": "withdrawal-needs-decision: per-id coverage is in INVENTORY-v6.0e table 2, which r6 does not restate (see D)"
+  }
+ ]
+}
