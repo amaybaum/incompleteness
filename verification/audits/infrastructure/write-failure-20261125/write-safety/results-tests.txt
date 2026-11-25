@@ -1,0 +1,21 @@
+test_13_refused_refspecs (__main__.Pushes.test_13_refused_refspecs) ... ok
+test_14_push_paths (__main__.Pushes.test_14_push_paths) ... ok
+test_01_verbatim_success (__main__.Writes.test_01_verbatim_success) ... ok
+test_02_mismatch_halts (__main__.Writes.test_02_mismatch_halts) ... ok
+test_03_d1_replay_stops_after_first (__main__.Writes.test_03_d1_replay_stops_after_first)
+Replay the five sent bodies of the evidence in edit.py's order under D1 behaviour. ... ok
+test_04_readback_failure_halts (__main__.Writes.test_04_readback_failure_halts) ... ok
+test_05_exception_unknown_outcome_halts (__main__.Writes.test_05_exception_unknown_outcome_halts) ... ok
+test_06_bad_status_halts (__main__.Writes.test_06_bad_status_halts) ... ok
+test_07_existing_marker_blocks_everything (__main__.Writes.test_07_existing_marker_blocks_everything) ... ok
+test_08_marker_blocks_other_process (__main__.Writes.test_08_marker_blocks_other_process) ... ok
+test_09_prechecks_refuse_before_write (__main__.Writes.test_09_prechecks_refuse_before_write) ... ok
+test_10_unvalidated_needs_single_grant (__main__.Writes.test_10_unvalidated_needs_single_grant) ... ok
+test_11_unsent_field_changed_halts (__main__.Writes.test_11_unsent_field_changed_halts) ... ok
+test_12_labels_and_close_verbatim (__main__.Writes.test_12_labels_and_close_verbatim) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.074s
+
+OK
+exit=0

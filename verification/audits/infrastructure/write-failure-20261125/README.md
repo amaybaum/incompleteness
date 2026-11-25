@@ -55,3 +55,37 @@ leaving §A.49 and the affected Issue bodies unchanged; the proposed board place
 earlier #1211 placement decision, with exact workflow inputs presented before any write run; #1548's
 closure pending until the write mechanism is validated and the halt is lifted), the owner wrote:
 "I authorize the four actions as listed."
+
+## Investigation and write-safety protocol
+
+`write-safety/PROTOCOL.md` states the findings and the proposed correction. In brief:
+
+- **Text changed before storage.** The rule that fits all five writes is "append the footer when the
+  body does not already end with it". `gh` and the local Claude Code configuration are ruled out by
+  inspection; the egress proxy, which terminates TLS for `api.github.com` and adds the GitHub
+  credential, is the most likely locus; GitHub itself is unlikely. No write from this environment
+  can distinguish the proxy from GitHub.
+- **No stop on the first mismatch.** `edit.py` printed its verdict and continued; replayed against a
+  mock transport it makes 10 writes, 9 after the first mismatch. A related shell sequence the same
+  day pushed with an empty commit id, which is a ref-deletion request (the ref did not exist; nothing
+  changed). Both are write steps that are not fail-closed.
+- **Correction.** One gate (`gate.py`) for every automated text write, label or state change and
+  push: a persistent halt marker checked before any request, an expected stored text fixed before
+  the write and compared byte for byte, an immediate halt on any mismatch, failed read-back,
+  unexpected status or exception, and refusal of malformed commit ids and of ref deletions.
+
+**Controls** (mock transport only): run `python3 -I -B test_gate.py` and
+`python3 -I -B countercontrol.py` in `write-safety/` (`ev` is a link to this directory). Expected: 14
+of 14 tests pass; countercontrols C1, C2 and C3 pass (`edit.py` makes 9 writes after the mismatch and
+the gate 1; the deletion refspec is refused; mutated gates fail the tests). Recorded results:
+`results-tests.txt`, `results-countercontrol.json`. The survey files list, for comments and Issue or
+pull-request bodies written through the two GitHub Apps on the repository, the date, the App and
+whether the text ends with the footer.
+
+## #1548 before the validation write
+
+`issue-1548/body-before-validation.md` is #1548's body as stored before the validation write
+(SHA-256 `f1e9c22f684b575864bec5004a3776095c5b143b68078cc76a37c2b1602e1062`, 556 bytes, last updated
+2026-11-23T07:51:46Z). `issue-1548/comments-before-validation.json` holds its 11 comments (id, author,
+dates, body), including the owner decision recorded at comment 7165319386 that designates #1548 and
+grants the validation write.

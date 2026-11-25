@@ -1,0 +1,81 @@
+{
+ "pass": {
+  "C1": true,
+  "C2": true,
+  "C3": true
+ },
+ "detail": {
+  "C1": {
+   "edit_py_writes_total": 10,
+   "writes_after_first_mismatch": 9,
+   "printed": [
+    "1558 body match False",
+    "1558 labels ['label-x']"
+   ],
+   "predicate_reports_violation": true
+  },
+  "C1_gate": {
+   "writes": 1
+  },
+  "C2": {
+   "naive_argv": [
+    "push",
+    "origin",
+    ":refs/heads/evidence/x"
+   ],
+   "refspec_is_deletion": true,
+   "check_refspec": [
+    "empty source: this refspec deletes the remote ref"
+   ],
+   "gate_refused": true,
+   "gate_git_runs": []
+  },
+  "C3": {
+   "baseline": {
+    "run": 14,
+    "failed": 0,
+    "failing": []
+   },
+   "halt_prints_and_continues": {
+    "run": 14,
+    "failed": 10,
+    "failing": [
+     "test_02_mismatch_halts",
+     "test_03_d1_replay_stops_after_first",
+     "test_04_readback_failure_halts",
+     "test_05_exception_unknown_outcome_halts",
+     "test_06_bad_status_halts",
+     "test_09_prechecks_refuse_before_write",
+     "test_10_unvalidated_needs_single_grant",
+     "test_11_unsent_field_changed_halts",
+     "test_13_refused_refspecs",
+     "test_14_push_paths"
+    ]
+   },
+   "halt_check_removed": {
+    "run": 14,
+    "failed": 11,
+    "failing": [
+     "test_02_mismatch_halts",
+     "test_03_d1_replay_stops_after_first",
+     "test_04_readback_failure_halts",
+     "test_05_exception_unknown_outcome_halts",
+     "test_06_bad_status_halts",
+     "test_07_existing_marker_blocks_everything",
+     "test_09_prechecks_refuse_before_write",
+     "test_10_unvalidated_needs_single_grant",
+     "test_11_unsent_field_changed_halts",
+     "test_13_refused_refspecs",
+     "test_14_push_paths"
+    ]
+   },
+   "refspec_check_removed": {
+    "run": 14,
+    "failed": 1,
+    "failing": [
+     "test_13_refused_refspecs"
+    ]
+   }
+  }
+ }
+}
