@@ -1,3 +1,5 @@
+> **Superseded.** This revision of the #1245 H-BD report is superseded. The authoritative report is `REPORT-r5.md` in this directory; its change map is `CHANGES-r5.md`.
+
 # #1245 H-BD: origin and derivation of the deep-to-boundary influence bound (resumed paper-only round), revision r4
 
 ## Status, pin, sources
