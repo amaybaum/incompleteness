@@ -320,7 +320,44 @@ EXP = rj(R4['EXPECTATIONS.json'].decode('utf-8'))
 _hp = re.compile(r"T1'|a3799244|45569710442|14ac71b4")
 EXP_REF = [r['id'] for r in EXP['rows'] if _hp.search(json.dumps(r.get('reference')))]
 EXP_SRC = [r['id'] for r in EXP['rows'] if '45569710442' in json.dumps(r.get('source'))]
-EXP_FLAG = [r['id'] for r in EXP['rows'] if '45569710442' in json.dumps(r.get('flags'))]
+# flags and expect text: a flag is a historical statement when it says what the tool commit or its runners do (in the
+# present tense or "today"), or reports CI run 45569710442's results; every other flag or expect text the broad scan
+# finds is excluded below with a reason (round-5 focused review, blocking finding)
+FLAG_STMT = re.compile(r"\btoday\b|the tool commit (raises|marks)|at the tool commit|known survivor|not applied\)|"
+                       r"CI run 45569710442|T1''s delegated and record paths|\brunner (asserts|checks|accepts|adds|records|"
+                       r"evaluates|predicate weaker|expected string)|as the runner implements|the runner have it|is the runner "
+                       r"value|from the runner case|halves the runner executes|removes the runner|implemented by no runner|"
+                       r"unreachable in the runner|^runner: ")
+FLAG_BROAD = re.compile(r"today|tool commit|T1'|survivor|SURVIVED|45569710442|not applied|a3799244|runner|VD-\d|\bat T\b",
+                        re.I)
+FLAG_EXCL = collections.OrderedDict([
+    ('OC-3: runs at X_rep (R6.EVID.8)', 'states that `T1\'`\'s identity is not material to the verdict; no content of `T1\'`'),
+    ('the T1\' case: inputs off main', 'classifies a control input; no content of `T1\'`'),
+    ('inputs off main: acceptance reference only', 'classifies a control input; no content of `T1\'`'),
+    ('VD-RESTORE: the paired row is not executed (no runner, or NOT RUN)', 'a gate condition, not a statement of the tool commit'),
+    ('VD-10: PASS asserted', 'what the corrected control asserts (a requirement), not what the tool commit does'),
+    ('VD-10: 176-line count asserted', 'what the corrected control asserts (a requirement), not what the tool commit does'),
+    ('RE-10 (b): also a verification defect', 'the distinguishing control the tool revision adds (a requirement)'),
+])
+EXP_FLAG, FLAG_UNCLASSIFIED = [], []
+for r in EXP['rows']:
+    stmt = False
+    for f in r.get('flags') or []:
+        if FLAG_STMT.search(f):
+            stmt = True
+        elif FLAG_BROAD.search(f) and not any(f.startswith(x) for x in FLAG_EXCL):
+            FLAG_UNCLASSIFIED.append('%s: %s' % (r['id'], f[:60]))
+    if stmt:
+        EXP_FLAG.append(r['id'])
+EXPECT_STMT = collections.OrderedDict([('RT-DR3W', 'the case text "the bytes of T1\'\'s copy" (that `X_rep`\'s `AGENTS.md` equals `T1\'`\'s)')])
+EXPECT_EXCL = collections.OrderedDict([('RT-DR', 'the preregistered expectation of its `T1\'` case (a control input)')] + [
+    (i, 'cases "at T": the run variable `T` (R6.NOTE.7), not the tool commit a3799244') for i in ('GV4', 'TR15', 'TR15-consumer')])
+for r in EXP['rows']:
+    e = json.dumps(r.get('expect'))
+    if r['id'].startswith('MUT:') and re.search(r'SURVIVED', e) and not re.search(r"T1'|today|tool commit", e):
+        continue  # a preregistered SURVIVED status; the survivor statement is in the row's flags
+    if FLAG_BROAD.search(e) and r['id'] not in EXPECT_STMT and r['id'] not in EXPECT_EXCL:
+        FLAG_UNCLASSIFIED.append('%s: expect' % r['id'])
 
 
 def where(k):
@@ -336,7 +373,10 @@ HS_ROWS = [(where(k), v) for k, v in INCLUDE.items()] + [
      'measurements at `T1\'` or with the tool commit, and the mutants\' killers at CI run 45569710442: ' + ', '.join(EXP_REF)),
     ('EXPECTATIONS.json, `source` fields (%d rows)' % len(EXP_SRC),
      'the mutation results of CI run 45569710442: ' + ', '.join(EXP_SRC)),
-    ('EXPECTATIONS.json, `flags` (%d row)' % len(EXP_FLAG), 'the RT-L2 PASS of CI run 45569710442: ' + ', '.join(EXP_FLAG)),
+    ('EXPECTATIONS.json, `flags` (%d rows)' % len(EXP_FLAG), 'what the tool commit or its runners do (in the present tense or '
+     '"today"), or the results of CI run 45569710442 (the RT-L2 PASS, the known survivors and the unapplied mutant): '
+     + ', '.join(EXP_FLAG)),
+    ('EXPECTATIONS.json, `expect` case text (%d row)' % len(EXPECT_STMT), '; '.join('%s: %s' % kv for kv in EXPECT_STMT.items())),
     ('FRESH-AUTHORIZATION.md', 'its quotations and summaries of the requirements listed above (the same statements)'),
     ('V4-COMPARISON.md', 'v6.0e sec. 6.4.1\'s report that neither rule form matches any line at `T1\'`'),
 ]
@@ -604,7 +644,7 @@ for (kind, tok), files in sorted(FOUND5.items(), key=lambda x: (list(PAT).index(
     if c is None:
         PROBLEMS.append('manifest: unclassified reference %s %s in %s' % (kind, tok, sorted(files)))
         continue
-    REFROWS.append((tok, kind, c[0], c[1], ', '.join(sorted(files)), c[2]))
+    REFROWS.append((tok, 'digit run' if (kind == 'comment' and tok in FALSE_IDS) else kind, c[0], c[1], ', '.join(sorted(files)), c[2]))
 TABLE_TOKS = set(r[0] for r in REFROWS)
 GEN_EXTRA = collections.OrderedDict()
 for p in GENS:
@@ -677,8 +717,8 @@ MANIFEST = '\n'.join([
     'byte-exact as `%s` (git blob %s, sha256 %s; %s, item 2); it is support on `main` once the landing merge is on `main`, '
     'no later than the adoption record. The 12 requirements are unchanged.' % (', '.join(REQ12[:-1]) + ' and ' + REQ12[-1],
                                                                               EC_PATH, EC_BLOB, EC_SHA, OD5),
-    '- Unsupported on `main`, named here and in DESIGN-r6.md sec. 32 (historical statements), and landing by the %s, which '
-    'directs that they be identified (AGENTS.md sec. A.42 item 8). Each statement is narrowed there to a report of what the '
+    '- Unsupported on `main`, named here and in DESIGN-r6.md sec. 32 (historical statements), identified as the %s '
+    'directs; they land only under the owner\'s separate merge decision (AGENTS.md sec. A.42 item 8, sec. A.50 item 1). Each statement is narrowed there to a report of what the '
     'drafting read or measured in the tool commit %s, CI run 45569710442 or `T1\'` (%s); none of that content is on `main` '
     'or lands, and no requirement, control, expectation, gate or adoption step relies on the statement (R6.STAT.10). The '
     'statements:' % (OD5, TOOL, T1P), HS_LIST,
@@ -689,7 +729,7 @@ MANIFEST = '\n'.join([
     'this landing uses the last two.', ''])
 log('D1-D3', 'LANDING-MANIFEST.md', 'regenerated: %d landed files, %d left to history, %d references classified'
     % (len(LANDED5) + 1, len(DROPPED5), len(REFROWS)))
-log('NIT3', 'LANDING-MANIFEST.md', 'comment ids matched only outside longer hexadecimal strings; the four false rows dropped (the three the review names, and 7156468072, of the same kind)')
+log('NIT3', 'LANDING-MANIFEST.md', 'comment ids matched only outside longer hexadecimal strings; the four false rows dropped (the three the review names, and 7156468072, of the same kind); the three ids that the landed review text names are kind "digit run"')
 log('NIT4', 'LANDING-MANIFEST.md', 'note on the generator programs completed with the references not in the table')
 log('NIT5', 'LANDING-MANIFEST.md', '86d79863: not a reference')
 log('D2', 'LANDING-MANIFEST.md', 'generator-round4 and generator-round5 land; the caveat on generator-round4 replaced by the decision')
@@ -726,8 +766,9 @@ OWN5['D1: no reference is support off main relied on by adoption; the P rows are
 OWN5['D2: generator-round4 lands byte-identical to 2aec244e, generator-round5 lands, no merge caveat remains'] = (
     [p for p in G4FILES if gitblob(LANDED5[p]) != BLOB5[p]] + [p for p in GEN5 if p not in LANDED5] +
     (['caveat'] if 'Its landing is part of the owner\'s merge decision' in MANIFEST else []))
-OWN5['D3: every passage of the round-4 design found by the scan is listed or excluded with a reason; no stale entry'] = (
-    UNCLASSIFIED + ['stale:' + k for k in STALE])
+OWN5['D3: every passage of the round-4 design, and every flag and expect text of EXPECTATIONS.json, found by the scan is listed or excluded with a reason; no stale entry'] = (
+    UNCLASSIFIED + ['stale:' + k for k in STALE] + FLAG_UNCLASSIFIED +
+    ['stale-flag-excl:' + x for x in FLAG_EXCL if not any(f.startswith(x) for r in EXP['rows'] for f in (r.get('flags') or []))])
 OWN5['D3: the list of unsupported statements is the same in DESIGN-r6.md sec. 32 and LANDING-MANIFEST.md sec. 4'] = [
     w for w, s in HS_ROWS if ('| %s | %s |' % (w, s.replace('|', '/'))) not in T or ('  - %s: %s' % (w, s)) not in MANIFEST]
 OWN5['D3: every row of the manifest naming the tool commit, the run or `T1\'` as support off main names the list'] = [
@@ -735,9 +776,9 @@ OWN5['D3: every row of the manifest naming the tool commit, the run or `T1\'` as
     and 'certification' not in r[5]]
 _old_found = scan([p for p in NS4['SCAN']], collections.OrderedDict([('comment', r'(?<!\d)7\d{9}(?!\d)')]))
 _new_found = scan([p for p in NS4['SCAN']], collections.OrderedDict([('comment', PAT['comment'])]))
-OWN5['NIT3: the hardened comment pattern drops exactly the four false ids (three named by the review, and 7156468072), and no other; none is classified a comment'] = (
+OWN5['NIT3: the hardened comment pattern drops exactly the four false ids (three named by the review, and 7156468072), and no other; the three the review text names are kind "digit run", not "comment"'] = (
     [] if sorted(set(k[1] for k in _old_found) - set(k[1] for k in _new_found)) == FALSE_IDS else ['diff']) + [
-    r[0] for r in REFROWS if r[0] in FALSE_IDS and (r[4] != 'generator-round5/records-1169-round5.json' or not r[2].startswith('not a comment id'))]
+    r[0] for r in REFROWS if r[0] in FALSE_IDS and (r[1] != 'digit run' or r[4] != 'generator-round5/records-1169-round5.json' or not r[2].startswith('not a comment id'))]
 OWN5['NIT4: the references of correct4.py and correct5.py outside the table are listed in the note'] = [
     m for m in GEN_EXTRA if shown(m) not in MANIFEST or GEN_EXTRA[m][1] is None]
 OWN5['NIT5: 86d79863 is classified "not a reference"'] = [
@@ -805,6 +846,9 @@ def report():
              len(HS_ROWS), '; '.join(w for w, _ in HS_ROWS)), '',
          'Passages found by the scan and excluded, with the reason: %s; and every row of the obligation table and the adoption '
          'trace of sec. 32 (a classification, not a statement of content).' % '; '.join('%s (%s)' % kv for kv in EXCLUDE.items()), '',
+         'Flags and expect text of EXPECTATIONS.json found by the scan and excluded, with the reason: %s; and the preregistered '
+         'SURVIVED statuses of the MUT rows (the survivor statement is in their flags, which are listed).' % '; '.join(
+             ['flags beginning "%s" (%s)' % kv for kv in FLAG_EXCL.items()] + ['%s expect (%s)' % kv for kv in EXPECT_EXCL.items()]), '',
          '## 6. Outputs', '', md_table(['File', 'sha256'], list(hashes.items())), '',
          'EXPECTATIONS.json, REQUIREMENTS.json, PARAPHRASED-DECISIONS.md, REVIEW-r6-round3.md, MIGRATION.json, '
          'V4-COMPARISON.md and REVIEW-r6-round2.md are written unchanged; `%s` is written byte-exact. The generator re-runs '
