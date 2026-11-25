@@ -1,0 +1,3 @@
+{"NOT RUN": 2, "PASS": 113}
+NOT RUN G-A1 "needs F and a CI job (sec. A.40: a full clone of the repository per tree); CI plan in the report"
+NOT RUN TR5 "needs a run of the pinned workflow in the repository the configuration names, with the host API; CI plan in the report"

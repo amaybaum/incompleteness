@@ -1,0 +1,706 @@
+{
+ "class_meaning": {
+  "authorized-removal": "a site removed by a splice of the frozen ledger",
+  "authorized-replacement": "a site replaced by a splice of the frozen ledger",
+  "unauthorized-change": "a change that no splice of the frozen ledger and no declared class specifies",
+  "unauthorized-edit": "a ledgered file whose bytes differ from H with the frozen ledger's splices applied"
+ },
+ "controls": [
+  {
+   "id": "U1",
+   "passed": true
+  },
+  {
+   "id": "U10",
+   "passed": true
+  },
+  {
+   "id": "U11",
+   "passed": true
+  },
+  {
+   "id": "U12",
+   "passed": true
+  },
+  {
+   "id": "U13",
+   "passed": true
+  },
+  {
+   "id": "U14",
+   "passed": true
+  },
+  {
+   "id": "U15",
+   "passed": true
+  },
+  {
+   "id": "U2",
+   "passed": true
+  },
+  {
+   "id": "U3",
+   "passed": true
+  },
+  {
+   "id": "U4",
+   "passed": true
+  },
+  {
+   "id": "U5",
+   "passed": true
+  },
+  {
+   "id": "U6",
+   "passed": true
+  },
+  {
+   "id": "U7",
+   "passed": true
+  },
+  {
+   "id": "U8",
+   "passed": true
+  },
+  {
+   "id": "U9",
+   "passed": true
+  },
+  {
+   "id": "M1",
+   "passed": true
+  },
+  {
+   "id": "M11",
+   "passed": true
+  },
+  {
+   "id": "M2",
+   "passed": true
+  },
+  {
+   "id": "M3",
+   "passed": true
+  },
+  {
+   "id": "M4",
+   "passed": true
+  },
+  {
+   "id": "M5",
+   "passed": true
+  },
+  {
+   "id": "M6",
+   "passed": true
+  },
+  {
+   "id": "K1",
+   "passed": true
+  },
+  {
+   "id": "K10",
+   "passed": true
+  },
+  {
+   "id": "K2",
+   "passed": true
+  },
+  {
+   "id": "K3",
+   "passed": true
+  },
+  {
+   "id": "K4",
+   "passed": true
+  },
+  {
+   "id": "K5",
+   "passed": true
+  },
+  {
+   "id": "K6",
+   "passed": true
+  },
+  {
+   "id": "K7",
+   "passed": true
+  },
+  {
+   "id": "K8",
+   "passed": true
+  },
+  {
+   "id": "K9",
+   "passed": true
+  },
+  {
+   "id": "B1",
+   "passed": true
+  },
+  {
+   "id": "B2",
+   "passed": true
+  },
+  {
+   "id": "B3",
+   "passed": true
+  },
+  {
+   "id": "B4",
+   "passed": true
+  },
+  {
+   "id": "B5",
+   "passed": true
+  },
+  {
+   "id": "B6",
+   "passed": true
+  },
+  {
+   "id": "H1",
+   "passed": true
+  },
+  {
+   "id": "H2",
+   "passed": true
+  },
+  {
+   "id": "H3",
+   "passed": true
+  },
+  {
+   "id": "H4",
+   "passed": true
+  },
+  {
+   "id": "H5",
+   "passed": true
+  },
+  {
+   "id": "H6",
+   "passed": true
+  },
+  {
+   "id": "H7",
+   "passed": true
+  },
+  {
+   "id": "O1",
+   "passed": true
+  },
+  {
+   "id": "O2",
+   "passed": true
+  },
+  {
+   "id": "O3",
+   "passed": true
+  },
+  {
+   "id": "O5",
+   "passed": true
+  },
+  {
+   "id": "O6",
+   "passed": true
+  },
+  {
+   "id": "O7",
+   "passed": true
+  },
+  {
+   "id": "O8",
+   "passed": true
+  },
+  {
+   "id": "O9",
+   "passed": true
+  },
+  {
+   "id": "N1",
+   "passed": true
+  },
+  {
+   "id": "N2",
+   "passed": true
+  },
+  {
+   "id": "R1",
+   "passed": true
+  },
+  {
+   "id": "R10",
+   "passed": true
+  },
+  {
+   "id": "R11",
+   "passed": true
+  },
+  {
+   "id": "R12",
+   "passed": true
+  },
+  {
+   "id": "R13",
+   "passed": true
+  },
+  {
+   "id": "R14",
+   "passed": true
+  },
+  {
+   "id": "R15",
+   "passed": true
+  },
+  {
+   "id": "R18-engine",
+   "passed": true
+  },
+  {
+   "id": "R19-engine",
+   "passed": true
+  },
+  {
+   "id": "R2",
+   "passed": true
+  },
+  {
+   "id": "R3",
+   "passed": true
+  },
+  {
+   "id": "R4",
+   "passed": true
+  },
+  {
+   "id": "R5",
+   "passed": true
+  },
+  {
+   "id": "R6",
+   "passed": true
+  },
+  {
+   "id": "R7",
+   "passed": true
+  },
+  {
+   "id": "R8",
+   "passed": true
+  },
+  {
+   "id": "R8-S6",
+   "passed": true
+  },
+  {
+   "id": "R9",
+   "passed": true
+  },
+  {
+   "id": "RL",
+   "passed": true
+  },
+  {
+   "id": "A5r-generic",
+   "passed": true
+  },
+  {
+   "id": "E-A1r",
+   "passed": true
+  },
+  {
+   "id": "E-A2r",
+   "passed": true
+  },
+  {
+   "id": "E-A3r",
+   "passed": true
+  },
+  {
+   "id": "E-A6r",
+   "passed": true
+  },
+  {
+   "id": "E-A8r",
+   "passed": true
+  },
+  {
+   "id": "E-L1",
+   "passed": true
+  },
+  {
+   "id": "E-L3",
+   "passed": true
+  },
+  {
+   "id": "E-S1r",
+   "passed": true
+  },
+  {
+   "id": "E-S2r",
+   "passed": true
+  },
+  {
+   "id": "lint-ok",
+   "passed": true
+  },
+  {
+   "id": "rule-negative",
+   "passed": true
+  }
+ ],
+ "exit_status": 0,
+ "items": [],
+ "operation": "self-test",
+ "outcome": "PASS",
+ "preflight": [
+  {
+   "id": "U1",
+   "passed": true
+  },
+  {
+   "id": "U10",
+   "passed": true
+  },
+  {
+   "id": "U11",
+   "passed": true
+  },
+  {
+   "id": "U12",
+   "passed": true
+  },
+  {
+   "id": "U13",
+   "passed": true
+  },
+  {
+   "id": "U14",
+   "passed": true
+  },
+  {
+   "id": "U15",
+   "passed": true
+  },
+  {
+   "id": "U2",
+   "passed": true
+  },
+  {
+   "id": "U3",
+   "passed": true
+  },
+  {
+   "id": "U4",
+   "passed": true
+  },
+  {
+   "id": "U5",
+   "passed": true
+  },
+  {
+   "id": "U6",
+   "passed": true
+  },
+  {
+   "id": "U7",
+   "passed": true
+  },
+  {
+   "id": "U8",
+   "passed": true
+  },
+  {
+   "id": "U9",
+   "passed": true
+  },
+  {
+   "id": "M1",
+   "passed": true
+  },
+  {
+   "id": "M11",
+   "passed": true
+  },
+  {
+   "id": "M2",
+   "passed": true
+  },
+  {
+   "id": "M3",
+   "passed": true
+  },
+  {
+   "id": "M4",
+   "passed": true
+  },
+  {
+   "id": "M5",
+   "passed": true
+  },
+  {
+   "id": "M6",
+   "passed": true
+  },
+  {
+   "id": "K1",
+   "passed": true
+  },
+  {
+   "id": "K10",
+   "passed": true
+  },
+  {
+   "id": "K2",
+   "passed": true
+  },
+  {
+   "id": "K3",
+   "passed": true
+  },
+  {
+   "id": "K4",
+   "passed": true
+  },
+  {
+   "id": "K5",
+   "passed": true
+  },
+  {
+   "id": "K6",
+   "passed": true
+  },
+  {
+   "id": "K7",
+   "passed": true
+  },
+  {
+   "id": "K8",
+   "passed": true
+  },
+  {
+   "id": "K9",
+   "passed": true
+  },
+  {
+   "id": "B1",
+   "passed": true
+  },
+  {
+   "id": "B2",
+   "passed": true
+  },
+  {
+   "id": "B3",
+   "passed": true
+  },
+  {
+   "id": "B4",
+   "passed": true
+  },
+  {
+   "id": "B5",
+   "passed": true
+  },
+  {
+   "id": "B6",
+   "passed": true
+  },
+  {
+   "id": "H1",
+   "passed": true
+  },
+  {
+   "id": "H2",
+   "passed": true
+  },
+  {
+   "id": "H3",
+   "passed": true
+  },
+  {
+   "id": "H4",
+   "passed": true
+  },
+  {
+   "id": "H5",
+   "passed": true
+  },
+  {
+   "id": "H6",
+   "passed": true
+  },
+  {
+   "id": "H7",
+   "passed": true
+  },
+  {
+   "id": "O1",
+   "passed": true
+  },
+  {
+   "id": "O2",
+   "passed": true
+  },
+  {
+   "id": "O3",
+   "passed": true
+  },
+  {
+   "id": "O5",
+   "passed": true
+  },
+  {
+   "id": "O6",
+   "passed": true
+  },
+  {
+   "id": "O7",
+   "passed": true
+  },
+  {
+   "id": "O8",
+   "passed": true
+  },
+  {
+   "id": "O9",
+   "passed": true
+  },
+  {
+   "id": "N1",
+   "passed": true
+  },
+  {
+   "id": "N2",
+   "passed": true
+  },
+  {
+   "id": "R1",
+   "passed": true
+  },
+  {
+   "id": "R10",
+   "passed": true
+  },
+  {
+   "id": "R11",
+   "passed": true
+  },
+  {
+   "id": "R12",
+   "passed": true
+  },
+  {
+   "id": "R13",
+   "passed": true
+  },
+  {
+   "id": "R14",
+   "passed": true
+  },
+  {
+   "id": "R15",
+   "passed": true
+  },
+  {
+   "id": "R18-engine",
+   "passed": true
+  },
+  {
+   "id": "R19-engine",
+   "passed": true
+  },
+  {
+   "id": "R2",
+   "passed": true
+  },
+  {
+   "id": "R3",
+   "passed": true
+  },
+  {
+   "id": "R4",
+   "passed": true
+  },
+  {
+   "id": "R5",
+   "passed": true
+  },
+  {
+   "id": "R6",
+   "passed": true
+  },
+  {
+   "id": "R7",
+   "passed": true
+  },
+  {
+   "id": "R8",
+   "passed": true
+  },
+  {
+   "id": "R8-S6",
+   "passed": true
+  },
+  {
+   "id": "R9",
+   "passed": true
+  },
+  {
+   "id": "RL",
+   "passed": true
+  },
+  {
+   "id": "A5r-generic",
+   "passed": true
+  },
+  {
+   "id": "E-A1r",
+   "passed": true
+  },
+  {
+   "id": "E-A2r",
+   "passed": true
+  },
+  {
+   "id": "E-A3r",
+   "passed": true
+  },
+  {
+   "id": "E-A6r",
+   "passed": true
+  },
+  {
+   "id": "E-A8r",
+   "passed": true
+  },
+  {
+   "id": "E-L1",
+   "passed": true
+  },
+  {
+   "id": "E-L3",
+   "passed": true
+  },
+  {
+   "id": "E-S1r",
+   "passed": true
+  },
+  {
+   "id": "E-S2r",
+   "passed": true
+  },
+  {
+   "id": "lint-ok",
+   "passed": true
+  },
+  {
+   "id": "rule-negative",
+   "passed": true
+  }
+ ],
+ "record_checks": null,
+ "schema": "oi-ledger-coverage/5"
+}

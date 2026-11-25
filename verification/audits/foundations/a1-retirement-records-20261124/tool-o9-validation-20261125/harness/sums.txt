@@ -1,0 +1,7 @@
+sha256sum --strict -c - <<'LCS_SUMS_EOF'
+2d6cc731af4dfacbd4f7f6669ee7f990feee24bc45ff476dfa2fed3c7554ef95  mutate_c2.py
+01e2a58412750fe638e8eda771ddf134413f4dc52fd6453dd7e00cd049cf902f  mutants.py
+1288853aedfa2d630e44659c7ebf556517233f80c8e97d1b702b374a8ff79a54  mutants_c1.py
+7171c20d660f95f7def52922f9e3043c33f9e8f1ec53f7b4d014f8eda19689b5  mutants_c2.py
+49c051daa52b7e3bf3cae923af964de5c00f6713c00bff78320c99193271a757  mutants_cache.py
+LCS_SUMS_EOF

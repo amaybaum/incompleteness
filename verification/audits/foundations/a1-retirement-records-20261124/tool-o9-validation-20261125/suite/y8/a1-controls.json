@@ -1,0 +1,22 @@
+{
+ "controls": {
+  "Y8": {
+   "actual": {
+    "a1": "c095b0904d4b5e37bfd326b54a68d121a10458867c1cb3f307b26d52b7e53c11",
+    "synthetic": "b073ef6092c2b17a6b4f2154b12b08431035dbe46b6737ac847590d0fb014e16"
+   },
+   "expected": "identical engine hash recorded for the A1 and the synthetic configuration",
+   "id": "Y8",
+   "passed": false,
+   "predicate": "the boolean computed for this id in a1_controls.py",
+   "status": "FAIL"
+  }
+ },
+ "failed": [
+  "Y8"
+ ],
+ "passed": 0,
+ "timing_seconds": {
+  "y8": 3.9
+ }
+}

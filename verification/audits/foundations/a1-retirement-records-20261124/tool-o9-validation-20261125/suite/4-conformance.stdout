@@ -1,0 +1,4 @@
+{"FAIL": 1, "NOT RUN": 2, "PASS": 112}
+NOT RUN G-A1 "needs F and a CI job (sec. A.40: a full clone of the repository per tree); CI plan in the report"
+FAIL O9-10 {"items": [["side-change-unclassified", "PREREG.md", "no class lists the path"], ["side-change-unclassified", "retirement-config.json", "no class lists the path"]], "side": [["PREREG.md", null, null], ["retirement-config.json", null, null]], "rd": {"directory": "", "authorized": false, "state": "ina
+NOT RUN TR5 "needs a run of the pinned workflow in the repository the configuration names, with the host API; CI plan in the report"

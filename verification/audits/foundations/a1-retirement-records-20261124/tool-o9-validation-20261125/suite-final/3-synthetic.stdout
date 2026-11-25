@@ -1,0 +1,61 @@
+{
+ "M10": true,
+ "S7-schema-and-checker": true,
+ "X10": true,
+ "X2": true,
+ "X3": true,
+ "X4": true,
+ "X5": true,
+ "X6": true,
+ "X7": true,
+ "X8": true,
+ "X9": true,
+ "Y1": true,
+ "Y10": true,
+ "Y2": true,
+ "Y3": true,
+ "Y4": true,
+ "Y5": true,
+ "Y6": true,
+ "Y7": true,
+ "Y9": true,
+ "Z1": true,
+ "Z10": true,
+ "Z2": true,
+ "Z3": true,
+ "Z4": true,
+ "Z5": true,
+ "Z6": true,
+ "Z6b": true,
+ "Z7": true,
+ "Z8": true,
+ "Z9a": true,
+ "Z9b": true,
+ "Z9c": true,
+ "Z9d": true,
+ "Z9e": true,
+ "Z9f": true,
+ "_S7_bad": [],
+ "_X7_exit": 71,
+ "_Y8_engine": "c095b0904d4b5e37bfd326b54a68d121a10458867c1cb3f307b26d52b7e53c11",
+ "_Z10_detail": {
+  "v1": [
+   "context-meaning-unverified",
+   "provenance-foreign"
+  ],
+  "v2_hp_only": [
+   65,
+   "CONFIG_UNREVIEWED"
+  ],
+  "v2_no_widening_review": [
+   65,
+   "CONFIG_UNREVIEWED"
+  ],
+  "v2_with_widening_review": [
+   20,
+   [
+    "context-meaning-unverified"
+   ]
+  ]
+ }
+}

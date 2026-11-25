@@ -1,0 +1,108 @@
+c1:C01 KILLED  conformance/EI7-tool conformance/TR28-consumer | B-1: the owner is a GitHub account name (the rule before the fix)
+c1:C02 KILLED  conformance/EI7-tool conformance/TR28-consumer | B-1: the owner admits no dot
+c1:C03 KILLED  conformance/EI7-tool conformance/TR28-consumer | B-1: the owner admits no parent path
+c1:C04 KILLED  conformance/EI7-tool | B-1: the owner does not start with a hyphen (outside the B-1 counterexamples)
+c1:C05 KILLED  conformance/ACCEPT-SCHEMA | N-2: the /5 schema requires config.admission
+c1:C06 KILLED  conformance/EI5 | N-1: the re-resolved main must be readable by the verified reader
+c1:C07 KILLED  conformance/O3-FILTER | D-11 (O-3): the delegated clone ignores the global git configuration
+c1:C08 KILLED  conformance/O3-FILTER | D-11 (O-3): the delegated clone ignores the system git configuration (outside the local control)
+c1:C09 KILLED  conformance/GV4 conformance/GV5 | D-6: an unresolvable HP merge is an error (GV4 accepts either error class)
+c1:C10 KILLED  conformance/GV4 conformance/GV5 | D-6: an unresolvable HP merge ends the HP check with an error, not a pass
+c1:C11 KILLED  conformance/EI6 | D-7: EI6 admits only the standard library (the -I import path before the correction)
+c1:C12 KILLED  conformance/EI6 | D-7: the EI runs use the workflow's flags -I -S -B
+c2:D01 KILLED  conformance/EI6 | R-B1: EI6's predicate as at 3184c7f9 (a prefix test on the -I -S path)
+c2:D02 SURVIVED   | R-B1: the installed-package directories are excluded by real path (redundant with the name rule on this layout)
+c2:D03 KILLED  conformance/EI6 | R-B1: a site-packages or dist-packages directory inside a standard-library directory is refused
+v60e:V01 KILLED  conformance/GV-CACHE conformance/GV-CACHE-AFTER-READ conformance/GV4 | GV4: every object id recomputed from type, length and content
+v60e:V02 KILLED  conformance/GV1 | GV1: replace refs never applied
+v60e:V03 KILLED  conformance/GV1 | GV1: role commits are full ids only (no ref names)
+v60e:V04 KILLED  conformance/GV6-disk | GV6: records, configuration and pin table only from regular-file entries (on disk)
+v60e:V05 SURVIVED   | overlay ancestry shortcut (equivalent: the base walk also answers False, at the cost of a full walk)
+v60e:V06 KILLED  conformance/ACCEPT-SCHEMA conformance/EI2-consumer conformance/EI3 conformance/EI7-tool conformance/GV6 conformance/GV7-consumer | GV6: a non-regular in-memory entry is never read as a file
+v60e:V07 KILLED  conformance/GV3 | parents parsed from the verified commit: every parent line
+v60e:A01 KILLED  conformance/TR1 | TR1: no admission without --freeze
+v60e:A02 KILLED  conformance/ADM-CONFIG-AT-F | configuration read from F only
+v60e:A03 KILLED  conformance/TR2 | TR2/EI4: the configuration listed in the last Record pins subsection
+v60e:A04 KILLED  conformance/TR3 | TR3: the review record listed in the pin table
+v60e:A05 KILLED  conformance/ACCEPT-SCHEMA conformance/EI1 conformance/EI2 conformance/EI2-consumer conformance/EI3 conformance/EI4 | TR13: no chain outside a host job (crashes rather than refusing)
+v60e:A06 KILLED  conformance/EI4 | EI4 (c): the last Record pins subsection
+v60e:A07 KILLED  conformance/EI4 | EI4: a malformed row refuses
+v60e:A08 KILLED  conformance/EI4 | a file listed twice is malformed
+v60e:A09 KILLED  conformance/CONFIG-LINT | sec. 16.2 lint: tool.files only the entry point and package paths
+v60e:A10 KILLED  conformance/CONFIG-LINT | sec. 16.2 lint: the entry point named
+v60e:A11 KILLED  conformance/CONFIG-LINT | sec. 16.2 lint: repository_id a positive integer
+v60e:A12 KILLED  conformance/CONFIG-LINT | sec. 16.2: retirement holds name and issue only (an owner field is unknown)
+v60e:A13 KILLED  conformance/CONFIG-LINT | sec. 16.2: a record kind the design does not define is CONFIG_INVALID
+v60e:A14 KILLED  conformance/CONFIG-LINT | sec. 16.6: tool and repository_id lint at load
+v60e:I01 KILLED  conformance/TR14-tool | TR14: the head repository id
+v60e:I02 KILLED  conformance/TR14-tool | TR14: the repository id
+v60e:I03 KILLED  conformance/EI2 | EI2: event push or workflow_dispatch only
+v60e:I04 KILLED  conformance/TR29-tool | TR29: head branch main
+v60e:I05 KILLED  conformance/ACCEPT-SCHEMA conformance/EI1 conformance/EI2 conformance/EI2-consumer conformance/EI3 conformance/EI4 | TR28/TR52: no extra file under the package
+v60e:I06 SURVIVED   | TR51: regular files only at T
+v60e:I07 KILLED  conformance/TR28-tool | TR28: each tool blob equal to its pin
+v60e:I08 KILLED  conformance/TR15 | TR15: the run's workflow path is the pinned one
+v60e:I09 KILLED  conformance/TR15 conformance/TR50 | TR15/TR50: workflow blob equal to its pin
+v60e:I10 KILLED  conformance/EI7-tool | EI7: the uses: line rule at the tool
+v60e:I11 KILLED  conformance/EI1 | EI1: the checkout byte-identical to T
+v60e:I12 KILLED  conformance/EI1 | EI1: no extra file in the checkout
+v60e:I13 KILLED  conformance/ACCEPT-SCHEMA conformance/EI2-consumer conformance/EI3 conformance/EI7-tool conformance/GV7-consumer conformance/GV7-tool | GV7: an incomplete run record refuses
+v60e:I14 KILLED  conformance/GV7-tool | GV7: a failed run-record read refuses
+v60e:U01 NOT APPLIED old string occurs 0 times: "_uses = re.compile(r'^\\s*(- )?uses: [A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+(/[^@\\s]+)?@["  | EI7 clause 1: owner/repo@40-hex only
+v60e:U02 KILLED  conformance/EI7-tool | EI7 clause 2: any number of dash or document markers with any whitespace (review v6.0d B-1)
+v60e:U03 KILLED  conformance/EI7-tool | EI7 clause 2: quotes, complex keys, anchors, aliases, tags
+v60e:U04 KILLED  conformance/EI7-tool | EI7 clause 3: any whitespace after the colon (a tab)
+v60e:U05 KILLED  conformance/EI7-tool | EI7 clause 1: any letter case
+v60e:C01 KILLED  conformance/ACCEPT-SCHEMA | acceptance: schema /5 only
+v60e:C02 KILLED  conformance/X11 | X11: chain only
+v60e:C03 KILLED  conformance/EI3 synthetic/X10 | EI3: F equal to the landing record's
+v60e:C04 KILLED  conformance/EI3 | EI3: the pin table equal to the landing record's
+v60e:C05 KILLED  synthetic/X10 | X10: recorded tool blobs equal to the configuration's tool pins
+v60e:C06 KILLED  conformance/EI2-consumer conformance/TR14 | TR14/EI2 at the consumer
+v60e:C07 KILLED  conformance/TR29 | TR29: recorded T equal to head_sha
+v60e:C08 SURVIVED   | TR52 at the consumer
+v60e:C09 KILLED  conformance/TR28-consumer | TR28/TR51 at the consumer
+v60e:C10 KILLED  conformance/TR28-consumer | EI7 at the consumer
+v60e:C11 KILLED  conformance/TR29 | TR29: T on M's first-parent chain
+v60e:C12 KILLED  conformance/TR30 | TR30
+v60e:C13 KILLED  conformance/GV7-consumer | R4-N2: the result is the run's artifact
+v60e:C14 KILLED  conformance/EI5 | EI5: exactly one main line
+v60e:C15 KILLED  conformance/EI5 | EI5: M equal to L's first parent
+v60e:C16 KILLED  conformance/EI5 | EI5: M readable by the verified reader
+v60e:H01 KILLED  conformance/GV7-tool | sec. 7.2 / F-12: host-run evidence from push or dispatch runs in the repository
+v60e:H02 KILLED  conformance/GV7-tool | GV7: an incomplete run record is missing evidence
+v60e:H03 SURVIVED   | GV7: equivalent (an empty list is also no evidence)
+v60e:O01 KILLED  conformance/B4-MEANING | B-4: explanations quote the class meaning
+v60e:O02 KILLED  conformance/ACCEPT-SCHEMA conformance/B4-MEANING synthetic/S7-schema-and-checker | B-4: the fixed table in every result
+v60e:E01 KILLED  conformance/EI6 | EI6: isolated mode required
+v60e:E02 KILLED  conformance/EI6 | EI6: no sys.path entry inside the checkout
+v60e:P01 SURVIVED   | Z9: the allowlist exempts only its listed values
+v60e:R01 KILLED  conformance/LN4 | LN4/O3: every item accepted
+v60e:R02 KILLED  conformance/A12r conformance/LN4 | A12r: the widening review accepts every changed item
+v60e:R03 KILLED  conformance/A12r | A12r: the widening review names the superseded blob
+cache:K01 KILLED  conformance/GV-CACHE-AFTER-READ conformance/GV-CACHE-IMMUTABLE conformance/GV-CACHE-KEY conformance/GV-CACHE-group | GitRepo.paths returns a read-only view
+cache:K02 KILLED  conformance/GV-CACHE-AFTER-READ conformance/GV-CACHE-IMMUTABLE conformance/GV-CACHE-KEY conformance/GV-CACHE-group | GitRepo.entries returns a read-only view
+cache:K03 KILLED  conformance/G7 conformance/GV-CACHE-KEY | the path cache is keyed by the commit id
+cache:K04 KILLED  conformance/GV-CACHE | a refused tree caches nothing (the map is stored only after the whole walk)
+cache:K05 KILLED  conformance/A12r conformance/ACCEPT-SCHEMA conformance/B4-MEANING conformance/CONFIG-LINT conformance/EI1 conformance/EI2 | the overlay path cache is keyed by the commit id
+cache:K06 KILLED  conformance/GV-CACHE-AFTER-READ conformance/GV-CACHE-IMMUTABLE conformance/GV-CACHE-KEY conformance/GV-CACHE-group | the overlay entry map is a read-only copy, not the in-memory tree's own dict
+cache:K07 KILLED  conformance/GV-CACHE | an object listed in a cached path map is still verified on first read
+cache:K08 SURVIVED   | the path map lists blobs and symlinks, not submodules
+o9:O9-m1 KILLED  conformance/O9-19 conformance/O9-4 | A.5 omitted for paths of F absent at M: only the H-to-M scan finds the directory's files (O9-4)
+o9:O9-m2 KILLED  conformance/O9-6 | the shared membership predicate without the trailing / (O9-6)
+o9:O9-m3 KILLED  conformance/O9-11 | D2 removed (O9-11)
+o9:O9-m4 KILLED  conformance/O9-10 conformance/O9-12b conformance/O9-16 conformance/O9-20 conformance/O9-22 conformance/O9-25 | the authority check (A.3) removed (O9-16)
+o9:O9-m5 KILLED  conformance/O9-8 | mode not compared (O9-8, mode case)
+o9:O9-m6 KILLED  conformance/O9-1 conformance/O9-13 conformance/O9-15 conformance/O9-18 conformance/O9-19 conformance/O9-2 | the entries at M compared with H instead of F (O9-1)
+o9:O9-m7 KILLED  conformance/O9-12 conformance/O9-9 | D3 removed (O9-12)
+o9:O9-m8 KILLED  conformance/O9-7 | the clean-path test removed (O9-7)
+o9:O9-m9 KILLED  conformance/O9-13 | A.6 row 2 bypassed: the rule applied when a class pin names the path but differs (O9-13)
+o9:O9-m10 KILLED  conformance/O9-10 conformance/O9-11 conformance/O9-12 conformance/O9-12b conformance/O9-13 conformance/O9-14 | A.5 reads bytes before checking the entry type (O9-8, symbolic link and submodule cases)
+o9:O9-m11 KILLED  conformance/O9-19 | R11 uses the classifier without A.5 (O9-19)
+o9:O9-m12 KILLED  conformance/O9-17 conformance/O9-24 | D5 removed (O9-17, O9-24)
+o9:O9-m13 KILLED  conformance/O9-21 | A.5's items suppressed for a path a matching class pin classifies (O9-21)
+o9:O9-m14 KILLED  conformance/O9-8 | a non-regular entry inside D passed to the existing classifier (O9-8, full-path cases)
+o9:O9-m15 KILLED  conformance/O9-12b conformance/O9-25 | the authority ERROR raised for an unauthorized D that H holds (O9-25)
+o9:O9-m16 KILLED  conformance/O9-10 conformance/O9-12b conformance/O9-22 conformance/O9-25 conformance/R3-F2 conformance/R4-B3 | the authority ERROR raised whenever D is unauthorized, whatever M holds (O9-22)
+o9:O9-m17 KILLED  conformance/O9-12b conformance/O9-16 conformance/O9-20 | the authority ERROR removed for an unauthorized D absent at H and present on M (O9-16)
+{"KILLED": 99, "SURVIVED": 7, "NOT APPLIED": 1}

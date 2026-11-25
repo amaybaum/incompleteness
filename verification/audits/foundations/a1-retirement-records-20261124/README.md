@@ -116,3 +116,31 @@ is skipped by design except on `workflow_dispatch`).
 Open after landing: the staged configuration's pin of the class record must change from `81af5033...` to
 `4b28d3d2...` in the A1 plan reconciliation; ESC-1 to ESC-4 stay open under the landing exception until the A1 plan
 amendment resolves them; post-landing validation (TR5, G-A1, EI14, real REST reads) needs its own authorization.
+
+## Tool revision for O-9 and item 2: local validation (2026-11-25)
+
+`tool-o9-validation-20261125/` holds the local validation evidence of the implementation of the bounded design amendment
+for O-9 and item 2 (r4 at `8de52148a762876f9239eae785fb17175b6c1789`, with r5 at
+`99c51e6a0e4da35f117d95671d60f57e038477dc` correcting O9-10, both adopted by the owner on 2026-11-25), on branch
+`tools/ledger-coverage-o9-20261125`. `MANIFEST.json` there maps each local original's SHA-256 to its copy; the two
+conformance reports had the local scratch path replaced by `<scratch>`, every other file is byte-identical.
+
+- `suite/`: the local suite on the first implementation commit `0eac3ec25e7eff8869f2c70f2a3e0ad7f6da8a64`. Step 2
+  (the staged purity lint) FAILED with nine findings, corrected in the final commit; O9-10 FAILED as then
+  preregistered (corrected by r5); step 8 (Y8) is invalid, because it started after the working tree had changed and
+  ran mixed code. Kept as evidence, not counted toward acceptance.
+- `suite-final/`: the local suite on the final commit `e955660909563c7ed56bf79ea08360c9b96f4226` (tree
+  `051cd660f22fe9becc47c60ba344ec97a4f46458`), run in a clean worktree: self-test 86 PASS; purity PASS; synthetic 36
+  PASS; conformance 113 PASS, 2 NOT RUN (TR5, G-A1); A1 conformance 47 PASS; the no-main check exit 2; A1 controls 92
+  PASS, RT-T NOT RUN, RT-O9 and RT-L2 PASS; Y8 PASS.
+- `mutwork-final/`, `mut-final.out`: every mutant set (c1, c2, v60e, cache, o9) on the final commit: 99 killed, 7
+  survived (the same seven as at `4f4a9d58`), 1 not applied (U01); base 235 PASS, 2 NOT RUN. `mutwork-o9/`,
+  `mut-o9.out`: the o9 set on the first commit, 17 of 17 killed.
+- `harness/`: the five harness files of the CI validation run (`sums.txt`, all verified), `mutate_o9.py` (the driver
+  with the set o9 added) and `mutants_o9.py` (O9-m1 to O9-m17).
+- `cfg-local/`, `cfg-final/`: the throwaway copies of the staged configuration used only for these local runs, with
+  only the pins of this revision changed, and their differences from the authoritative staged configuration
+  (`5072a3b0e25e9283acecf4c3df87f820e34464d8d6e2e501ec672615114a96a0`, unchanged). Final copy sha256
+  `6bbb526267a860c0355a38a79a4e14096b9c5f501dc0d732982c2550f047751c`. Not an authoritative record.
+
+These are local results, not CI attestations, and are not independently reviewed.

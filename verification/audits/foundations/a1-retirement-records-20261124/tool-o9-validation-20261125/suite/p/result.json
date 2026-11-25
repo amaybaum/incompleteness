@@ -1,0 +1,25 @@
+{
+ "config": {
+  "blob_sha256": "1bc08e60a6b06e0872e09250656f0a197aa0a08d8d2b0d4e105d685f97e56379",
+  "path": "verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json",
+  "stand_in_for_F": "a99b7feec9f56078a0897edeaa3135e4d1308012"
+ },
+ "exit_status": 20,
+ "findings": [
+  "engine/cli.py:1248: string literal 'F' occurs in a configuration or record",
+  "engine/cli.py: identifier 'AUTHORIZED_RECORD_DIRECTORIES' matched by profile register-caps",
+  "engine/execution.py:370: string literal 'F' occurs in a configuration or record",
+  "engine/execution.py: identifier 'RECORD_DIRECTORY' matched by profile register-caps",
+  "engine/execution.py:366: string literal 'F' occurs in a configuration or record",
+  "engine/reconcile.py: identifier 'RECORD_DIRECTORY' matched by profile register-caps",
+  "engine/reconcile.py:143: string literal matched by profile register-caps",
+  "engine/reconcile.py: identifier 'RECORD_DIRECTORY' matched by profile register-caps",
+  "engine/reconcile.py: identifier 'RECORD_DIRECTORY' matched by profile register-caps"
+ ],
+ "items": [],
+ "operation": "purity-lint",
+ "outcome": "FAIL",
+ "preflight": [],
+ "record_checks": null,
+ "schema": "oi-ledger-coverage/5"
+}
