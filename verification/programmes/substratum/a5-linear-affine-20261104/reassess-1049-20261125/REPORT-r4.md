@@ -1,3 +1,5 @@
+**Superseded; kept as research history.** This file is revision r4 of the #1049 report and is superseded. The authoritative revision is REPORT-r5.md in this directory, and its correction record is CHANGES-r5.md; the earlier corrections are recorded in CHANGES-r2.md (r1 to r2), CHANGES-r3.md (r2 to r3) and CHANGES-r4.md (r3 to r4). Below this notice the text of r4 is unchanged. It is kept as the research history, and its conclusions are not current results.
+
 # #1049 research report: linear vs affine microscopic dynamics (paper-only, read-only)
 
 ## 0. Status, pin, sources
