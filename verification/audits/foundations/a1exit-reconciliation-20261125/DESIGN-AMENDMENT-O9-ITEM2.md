@@ -1,4 +1,4 @@
-# Ledger coverage tool: bounded design amendment for O-9 and the item-2 records (draft r3, unreviewed)
+# Ledger coverage tool: bounded design amendment for O-9 and the item-2 records (draft r4, unreviewed)
 
 Status: draft for independent review and owner adoption. It amends the adopted design v6.0e (sha256
 `4024a31cd2cde06763cb529eafeb023078c52dfa7a5d5fb377995373ab205131`), as implemented on `main` at
@@ -24,6 +24,15 @@ not sufficient; misuse stops the run. Section G maps each finding to its change.
 findings R2-B1 to R2-B4 and one clarification). Its answers to section F are adopted: the authority stays in the tool's
 pinned code, and an unequal entry is REVIEW_REQUIRED, which the acceptance predicate never accepts. Section H maps each
 finding to its change; nothing else changes.
+
+**r4.** Implementing r3 showed that its authority ERROR (A.4) would stop existing conformance controls that pass today:
+their synthetic configuration directory `syn/` exists at `H`, and their `execution --main` runs pass `--freeze`. The
+owner authorized a correction limited to that boundary (amaybaum, 2026-11-25, coordinating session): "Authorize design
+amendment r4, limited to the proposed authority-boundary correction and its corresponding controls and mutant.
+Preserve all existing controls, fixtures and expectations. Do not weaken any verification requirement." The same
+decision accepted the placement of the authority constant in `tools/ledger_coverage/record_authority.py`, outside the
+generic engine, subject to the existing purity and pinning requirements. Section I maps the change; nothing else
+changes.
 
 ## A. Change 1 (O-9): the plan's record directory on `M`
 
@@ -57,6 +66,11 @@ pinned code carries one constant, the tuple of authorized record directories, wh
 review and landing and pinned by every configuration's `tool.files` (execution identity, sec. 6.3); no configuration,
 record or command-line argument can add to it. Changing it is a tool revision.
 
+The constant lies in its own module, `tools/ledger_coverage/record_authority.py`, outside `tools/ledger_coverage/engine/`,
+so that the engine keeps containing no retirement constant (sec. 16.1; the purity control Z9 lints the engine). The
+module is a tool file like any other: listed in `tool.files`, pinned by the tool-landing class record and checked by the
+pre-run pin check.
+
 ### A.4 Further constraints on `D`, and when they are evaluated
 
 **Scope of evaluation.** A.3 and A.4 are evaluated only by an operation that evaluates `M` with an admitted `F`: the `M`
@@ -71,10 +85,16 @@ A.3-A.5.
 - If `D` is authorized (A.3), D2-D4 are evaluated, then A.5 and A.6 apply.
 - If `D` is not authorized and `M` holds no entry inside `D`, the rule is inactive and the run continues exactly as
   today (no entry inside `D` exists on `M`, so the rule could classify nothing).
-- If `D` is not authorized and `M` holds an entry inside `D`, the run stops with ERROR `CONFIG_INCONSISTENT`
-  (authority). This restriction is deliberate: in this revision the `M` role admits the rule only for the A1 plan's
-  directory, and a configuration whose own directory appears on `M` under any other directory is refused rather than
-  left to an unclassifiable landing.
+- If `D` is not authorized, `H` holds an entry inside `D`, and `M` holds an entry inside `D`, the rule is inactive and
+  the run continues exactly as today. `D` is then an existing directory, which D2 would exclude even if it were
+  authorized, so the rule could classify nothing; every path inside it keeps the classification the run gives it
+  without this amendment.
+- If `D` is not authorized, `H` holds no entry inside `D`, and `M` holds an entry inside `D`, the run stops with ERROR
+  `CONFIG_INCONSISTENT` (authority). `D` is then a directory introduced after `H` that appears on `M`, the shape of a
+  plan's record directory, and a configuration in any such directory other than the authorized one is refused rather
+  than left to an unclassifiable landing. This restriction is deliberate.
+
+In no case does an unauthorized `D` receive a `record-directory` classification.
 
 If any of D2-D5 fails, the run stops with ERROR `CONFIG_INCONSISTENT` naming the condition; no path is classified by the
 rule.
@@ -170,7 +190,7 @@ directory of A.3 used as `D` unless the case says otherwise:
 | O9-10 | a configuration in the root directory | ERROR `CONFIG_INCONSISTENT` (authority) |
 | O9-11 | a path inside `D` that exists at `H` | ERROR `CONFIG_INCONSISTENT` (D2) |
 | O9-12 | the authorized `D`, with a side-change class the configuration references whose prefix lies inside `D` | ERROR `CONFIG_INCONSISTENT` (D3) |
-| O9-12b | a configuration whose directory lies under `.github/`, with an entry inside it on `M` | ERROR `CONFIG_INCONSISTENT` (authority; not a D3 test) |
+| O9-12b | a configuration whose directory lies under `.github/`, with an entry inside it on `M`: (a) the directory present at `H`; (b) the directory absent at `H` | (a) the rule inactive, no `record-directory` classification, the result equal to the same run without this amendment; (b) ERROR `CONFIG_INCONSISTENT` (authority). Neither is a D3 test |
 | O9-13 | a path in `D`, equal at `F` and `M`, that a class names with a pin differing from `M` | `side-change-unclassified` naming the class (A.6 row 2); not `record-directory` |
 | O9-14 | no `--freeze` | the rule inactive; files in `D` `side-change-unclassified`; A.5 not evaluated |
 | O9-15 | a reconciliation record, `M` with `D` equal to `F` | R11 holds |
@@ -183,6 +203,7 @@ directory of A.3 used as `D` unless the case says otherwise:
 | O9-22 | an unauthorized `D` with no entry inside it on `M`, under `execution --main --freeze` | no ERROR; side changes classified exactly as without this amendment |
 | O9-23 | the authorized `D` and a configuration whose run is `coverage` (no `M`) | no evaluation of A.3-A.5; the result equal to the same run without this amendment |
 | O9-24 | a class record admitted through `--classify` that defines the class id `record-directory` | ERROR `CONFIG_INCONSISTENT` (D5) |
+| O9-25 | the synthetic world of the conformance controls: an unauthorized `D` (`syn`) present at `H`, with entries inside it on `M`, under `execution --main --freeze` | no ERROR; the rule inactive; side changes, items and outcome equal to the same run without this amendment; every existing conformance control that runs `execution --main --freeze` keeps its expected result unchanged |
 
 Real-tree control (A1 control runner, beside RT-L2):
 
@@ -210,7 +231,9 @@ Each mutant is listed with the control that distinguishes it and both expected r
 | O9-m12 | D5 removed | O9-17, O9-24 | ERROR `CONFIG_INCONSISTENT` | the class record's `record-directory` class accepted |
 | O9-m13 | A.5's items suppressed for a path a matching class pin classifies | O9-21 | not accepting (A.5 item) | accepting for that path |
 | O9-m14 | a non-regular entry inside `D` passed to the existing classifier | O9-8 (full-path cases) | `not a regular file`, no exception | an exception from the byte read (`*-group-error` or ERROR) |
-| O9-m15 | the authority ERROR raised whenever `D` is unauthorized, whatever `M` holds | O9-22 | no ERROR | ERROR `CONFIG_INCONSISTENT` |
+| O9-m15 | the authority ERROR raised for an unauthorized `D` that `H` holds (whenever `M` holds an entry inside it) | O9-25 | no ERROR; result unchanged | ERROR `CONFIG_INCONSISTENT` |
+| O9-m16 | the authority ERROR raised whenever `D` is unauthorized, whatever `M` holds | O9-22 | no ERROR | ERROR `CONFIG_INCONSISTENT` |
+| O9-m17 | the authority ERROR removed for an unauthorized `D` absent at `H` and present on `M` | O9-16 | ERROR `CONFIG_INCONSISTENT` | the run proceeds, the rule inactive |
 
 r1's mutants "accept a path absent at both `F` and `M`" and "rule evaluated before the `base-drift` test" are withdrawn
 as equivalent under this design: a path absent at both is never enumerated by A.5 and, inside `D`, never by the
@@ -335,3 +358,13 @@ left unchanged; it is recorded here so that the owner can decide whether to open
 | R2-B3 | A.4: A.3-A.5 evaluated only by `M`-evaluating operations with an admitted `F` and their R11; an unauthorized `D` is an ERROR only when `M` holds an entry inside it, deliberately; O9-22, O9-23; O9-m15 |
 | R2-B4 | A.2: one shared membership predicate, so O9-m2 is distinguished by O9-6 through A.5; O9-12 is the class-prefix case under the authorized `D` and distinguishes O9-m7; the `.github/` case is O9-12b, an authority rejection |
 | Clarification | D5 covers the class records of both routes, the configuration's and `--classify`; O9-24 |
+
+## I. Changes from r3
+
+| Change | Where |
+|---|---|
+| An unauthorized `D` that `H` holds leaves the rule inactive, with the run unchanged; the authority ERROR applies only to an unauthorized `D` absent at `H` and present on `M` | A.4 |
+| The authority constant in `tools/ledger_coverage/record_authority.py`, outside the engine, as the owner accepted | A.3 |
+| O9-12b split by presence at `H`; O9-25 added (the synthetic world); O9-m15 redefined against O9-25; r3's O9-m15 kept as O9-m16; O9-m17 added for the ERROR's removal | A.9, A.10 |
+
+O9-16 and O9-22 keep their r3 expectations. No other section changes.
