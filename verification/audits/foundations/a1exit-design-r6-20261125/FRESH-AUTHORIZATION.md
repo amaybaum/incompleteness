@@ -1120,7 +1120,7 @@ The wording of each requirement confirmed by owner decision A4, quoted mechanica
 
 ### R6.STAT.4
 
-Status: scope statement without a check of its own (owner decision 1).
+**R6.STAT.4.** Status: scope statement without a check of its own (owner decision 1).
 Decision basis: `v6.0e line 95`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -1144,7 +1144,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.STAT.8
 
-Status: confirmed by owner decision 1 (necessary for reliable verification).
+**R6.STAT.8.** Status: confirmed by owner decision 1 (necessary for reliable verification).
 Decision basis: `7093128173`, class (ii) session-written record on GitHub, no owner words.
 
 Current wording (DESIGN-r6.md):
@@ -1171,7 +1171,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.PUR.8
 
-Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
+**R6.PUR.8.** Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
 Decision basis: `V5-D1`, class (ii) session-written record on GitHub, no owner words; `V5-D2`, class (ii) session-written record on GitHub, no owner words.
 
 Current wording (DESIGN-r6.md):
@@ -1209,7 +1209,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.PUR.9
 
-Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
+**R6.PUR.9.** Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
 Decision basis: `V5-D1`, class (ii) session-written record on GitHub, no owner words.
 
 Current wording (DESIGN-r6.md):
@@ -1252,7 +1252,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.PUR.11
 
-Status: confirmed by owner decision 1 (necessary for reliable verification).
+**R6.PUR.11.** Status: confirmed by owner decision 1 (necessary for reliable verification).
 Decision basis: `v6.0e line 95`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -1276,7 +1276,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.ANCH.14
 
-Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
+**R6.ANCH.14.** Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
 Decision basis: `S1-D2`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -1304,7 +1304,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.CTX.1
 
-Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
+**R6.CTX.1.** Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
 Decision basis: `v3 D1-D4`, class (ii) session-written record on GitHub, no owner words.
 
 Current wording (DESIGN-r6.md):
@@ -1323,7 +1323,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.CTX.4
 
-Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
+**R6.CTX.4.** Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
 Decision basis: `v3 D1-D4`, class (ii) session-written record on GitHub, no owner words.
 
 Current wording (DESIGN-r6.md):
@@ -1361,7 +1361,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.CTX.12
 
-Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
+**R6.CTX.12.** Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
 Decision basis: `v3 D1-D4`, class (ii) session-written record on GitHub, no owner words.
 
 Current wording (DESIGN-r6.md):
@@ -1379,7 +1379,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.OUT.14
 
-Status: confirmed by owner decision 1 (necessary for reliable verification).
+**R6.OUT.14.** Status: confirmed by owner decision 1 (necessary for reliable verification).
 Decision basis: `R-D labels`, class (iii) no GitHub record; `A-D labels`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -1410,7 +1410,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.OUT.15
 
-Status: deferred (owner decision 1).
+**R6.OUT.15.** Status: deferred (owner decision 1).
 Decision basis: `R-D labels`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -1440,7 +1440,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.PROF.9
 
-Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
+**R6.PROF.9.** Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
 Decision basis: `R-D labels`, class (iii) no GitHub record; `v5.5.9 final D2`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -1466,7 +1466,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.RULE.2
 
-Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
+**R6.RULE.2.** Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
 Decision basis: `S1-D1 to S1-D3`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -1496,7 +1496,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.RULE.4
 
-Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
+**R6.RULE.4.** Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
 Decision basis: `S1-D1 to S1-D3`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -1537,7 +1537,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.RULE.7
 
-Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
+**R6.RULE.7.** Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
 Decision basis: `S1-D2`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -1559,7 +1559,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.RULE.8
 
-Status: confirmed by owner decision 1 (necessary for reliable verification).
+**R6.RULE.8.** Status: confirmed by owner decision 1 (necessary for reliable verification).
 Decision basis: `S1-D2`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -1583,7 +1583,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.RULE.9
 
-Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
+**R6.RULE.9.** Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
 Decision basis: `S1-D2`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -1603,7 +1603,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.REC.6
 
-Status: confirmed by owner decision 1 (necessary for reliable verification).
+**R6.REC.6.** Status: confirmed by owner decision 1 (necessary for reliable verification).
 Decision basis: `DI-2`, class (ii) session-written record on GitHub, no owner words.
 
 Current wording (DESIGN-r6.md):
@@ -1625,7 +1625,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.REC.7
 
-Status: confirmed by owner decision 1 (necessary for reliable verification).
+**R6.REC.7.** Status: confirmed by owner decision 1 (necessary for reliable verification).
 Decision basis: `DI-2`, class (ii) session-written record on GitHub, no owner words.
 
 Current wording (DESIGN-r6.md):
@@ -1663,7 +1663,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.REC.14
 
-Status: confirmed by owner decision 1 (necessary for reliable verification).
+**R6.REC.14.** Status: confirmed by owner decision 1 (necessary for reliable verification).
 Decision basis: `S1-D2`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -1686,7 +1686,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.REC.18
 
-Status: confirmed by owner decision 1 (necessary for reliable verification).
+**R6.REC.18.** Status: confirmed by owner decision 1 (necessary for reliable verification).
 Decision basis: `R-D labels`, class (iii) no GitHub record; `v6.0e line 54`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -1740,7 +1740,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.REC.19
 
-Status: confirmed by owner decision 1 (necessary for reliable verification).
+**R6.REC.19.** Status: confirmed by owner decision 1 (necessary for reliable verification).
 Decision basis: `v6.0e line 31`, class (iii) no GitHub record; `v6.0e line 54`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -1772,7 +1772,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.REC.20
 
-Status: confirmed by owner decision 1 (necessary for reliable verification).
+**R6.REC.20.** Status: confirmed by owner decision 1 (necessary for reliable verification).
 Decision basis: `v6.0e line 54`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -1798,7 +1798,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.REC.21
 
-Status: confirmed by owner decision 1 (necessary for reliable verification).
+**R6.REC.21.** Status: confirmed by owner decision 1 (necessary for reliable verification).
 Decision basis: `v6.0e line 54`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -1829,7 +1829,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.REC.22
 
-Status: confirmed by owner decision 1 (necessary for reliable verification).
+**R6.REC.22.** Status: confirmed by owner decision 1 (necessary for reliable verification).
 Decision basis: `v6.0e line 54`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -1857,7 +1857,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.REC.24
 
-Status: confirmed by owner decision 1 (necessary for reliable verification).
+**R6.REC.24.** Status: confirmed by owner decision 1 (necessary for reliable verification).
 Decision basis: `R-D labels`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -1894,7 +1894,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.DENY.5
 
-Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
+**R6.DENY.5.** Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
 Decision basis: `V5-D1`, class (ii) session-written record on GitHub, no owner words; `S1-D2`, class (iii) no GitHub record; `V5-D2`, class (ii) session-written record on GitHub, no owner words; `S1-D1 to S1-D3`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -1920,7 +1920,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.DENY.6
 
-Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
+**R6.DENY.6.** Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
 Decision basis: `V5-D1`, class (ii) session-written record on GitHub, no owner words.
 
 Current wording (DESIGN-r6.md):
@@ -1960,7 +1960,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.CTRL.7
 
-Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
+**R6.CTRL.7.** Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
 Decision basis: `V5-D1`, class (ii) session-written record on GitHub, no owner words.
 
 Current wording (DESIGN-r6.md):
@@ -1984,7 +1984,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.CTRL.14
 
-Status: confirmed by owner decision 1 (necessary for reliable verification).
+**R6.CTRL.14.** Status: confirmed by owner decision 1 (necessary for reliable verification).
 Decision basis: `V5-D1`, class (ii) session-written record on GitHub, no owner words; `S1-D1 to S1-D3`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -2007,7 +2007,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.CTRL.15
 
-Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
+**R6.CTRL.15.** Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
 Decision basis: `V5-D1`, class (ii) session-written record on GitHub, no owner words.
 
 Current wording (DESIGN-r6.md):
@@ -2040,7 +2040,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.CTRL.17
 
-Status: confirmed by owner decision 1 (necessary for reliable verification).
+**R6.CTRL.17.** Status: confirmed by owner decision 1 (necessary for reliable verification).
 Decision basis: `R-D labels`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -2067,7 +2067,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.CTRL.19
 
-Status: confirmed by owner decision 1 (necessary for reliable verification).
+**R6.CTRL.19.** Status: confirmed by owner decision 1 (necessary for reliable verification).
 Decision basis: `S1-D2`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -2096,7 +2096,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.CTRL.22
 
-Status: confirmed by owner decision 1 (necessary for reliable verification).
+**R6.CTRL.22.** Status: confirmed by owner decision 1 (necessary for reliable verification).
 Decision basis: `DI-2`, class (ii) session-written record on GitHub, no owner words.
 
 Current wording (DESIGN-r6.md):
@@ -2116,7 +2116,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.CTRL.23
 
-Status: confirmed by owner decision 1 (necessary for reliable verification).
+**R6.CTRL.23.** Status: confirmed by owner decision 1 (necessary for reliable verification).
 Decision basis: `R-D labels`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -2143,7 +2143,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.CTRL.24
 
-Status: confirmed by owner decision 1 (necessary for reliable verification).
+**R6.CTRL.24.** Status: confirmed by owner decision 1 (necessary for reliable verification).
 Decision basis: `S1-D2`, class (iii) no GitHub record; `R-D labels`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -2164,7 +2164,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.PLAN.8
 
-Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
+**R6.PLAN.8.** Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
 Decision basis: `v3 D1-D4`, class (ii) session-written record on GitHub, no owner words.
 
 Current wording (DESIGN-r6.md):
@@ -2191,7 +2191,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.A1CFG.7
 
-Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
+**R6.A1CFG.7.** Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
 Decision basis: `V5-D1`, class (ii) session-written record on GitHub, no owner words.
 
 Current wording (DESIGN-r6.md):
@@ -2216,7 +2216,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.EVID.4
 
-Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
+**R6.EVID.4.** Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
 Decision basis: `S1-D2`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -2259,7 +2259,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.EVID.5
 
-Status: scope statement without a check of its own (owner decision 1).
+**R6.EVID.5.** Status: scope statement without a check of its own (owner decision 1).
 Decision basis: `S1-D2`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -2297,7 +2297,7 @@ Current wording (DESIGN-r6.md):
 
 ### OBL-1
 
-Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
+**OBL-1.** Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
 Decision basis: `S1-D2`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -2318,7 +2318,7 @@ Current wording (DESIGN-r6.md):
 
 ### OBL-3
 
-Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
+**OBL-3.** Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
 Decision basis: `V5-D1`, class (ii) session-written record on GitHub, no owner words; `S1-D2`, class (iii) no GitHub record; `V5-D2`, class (ii) session-written record on GitHub, no owner words; `S1-D1 to S1-D3`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -2342,7 +2342,7 @@ Current wording (DESIGN-r6.md):
 
 ### OBL-6
 
-Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
+**OBL-6.** Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
 Decision basis: `V5-D1`, class (ii) session-written record on GitHub, no owner words.
 
 Current wording (DESIGN-r6.md):
@@ -2373,7 +2373,7 @@ Current wording (DESIGN-r6.md):
 
 ### OBL-15
 
-Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
+**OBL-15.** Status: confirmed by owner decision 1 (necessary for scientifically valid retirement).
 Decision basis: `S1-D2`, class (iii) no GitHub record.
 
 Current wording (DESIGN-r6.md):
@@ -2400,7 +2400,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.DENY.1
 
-Status: not marked; takes effect only by r6's adoption.
+**R6.DENY.1.** Status: not marked; takes effect only by r6's adoption.
 Decision basis: none cited (unmarked by F4); authorized only by r6's adoption.
 
 Current wording (DESIGN-r6.md):
@@ -2421,7 +2421,7 @@ Current wording (DESIGN-r6.md):
 
 ### R6.DENY.2
 
-Status: not marked; takes effect only by r6's adoption.
+**R6.DENY.2.** Status: not marked; takes effect only by r6's adoption.
 Decision basis: none cited (unmarked by F4); authorized only by r6's adoption.
 
 Current wording (DESIGN-r6.md):
