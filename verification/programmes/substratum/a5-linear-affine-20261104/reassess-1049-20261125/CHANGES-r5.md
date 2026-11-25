@@ -43,7 +43,7 @@
 
 - New:
 
-> - r4 (REPORT-r4.md, commit `46e82783ad2f33e3ce956e3189ad9c54ca541bab`): bounded delta review, as the owner's decision requires (§7.9); it is not yet recorded on GitHub, and its verdict is not stated here. Its nits 1–6 are applied in r5.
+> - r4 (REPORT-r4.md, commit `46e82783ad2f33e3ce956e3189ad9c54ca541bab`): bounded delta review, PR #1561 comment 7169925904, verdict ACCEPT WITH NITS, nits 1–7. Nits 1–6 are applied in r5; nit 7 is resolved by the notice on REPORT-r3.md.
 
 ## C5. §7.6, V-1 (nit 3)
 
@@ -83,7 +83,7 @@
 
 - New:
 
-> | PR #1561 comments 7166779576 and 7167108875, the r3 delta review (PR #1561 comment 7169919290) and the r4 delta review (not yet recorded on GitHub) | §0, §7.3 |
+> | PR #1561 comments 7166779576 and 7167108875, the r3 delta review (PR #1561 comment 7169919290) and the r4 delta review (PR #1561 comment 7169925904) | §0, §7.3 |
 
 ## C9. §7.8, owner-decision row (the r5 authority record)
 
