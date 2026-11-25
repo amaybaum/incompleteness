@@ -4,8 +4,12 @@ C1  gate.py (exact only) halts on the real #1505 and #1558 pairs; gate2 accepts 
     "permitted footer-attribution-1" with a discrepancy record. Same for the five-body D1 replay.
 C2  mutations of the rule (looser variants of footer-attribution-1): under each, the control suite
     must fail, and at least one negative control (test_neg_*) must be among the failures.
-C3  mutations of gate2's outcome handling (accept "rejected"; skip the discrepancy record; make a
-    halt global or not per mechanism): the control suite must fail under each.
+C3  mutations of gate2's outcome handling and containment: accept "rejected"; skip the
+    discrepancy record; a single global marker for every halt; no run-level latch (a caller that
+    catches Halted continues the sequence); every halt confined to its operation (the containment
+    of gate v2 before revision r2); narrowing without the tail-confinement condition. The control
+    suite must fail under each, and under the latch mutant the run-level tests must be among the
+    failures.
 """
 import dataclasses, io, json, os, re, sys, tempfile, unittest
 
@@ -180,10 +184,11 @@ def c2():
 
 def c3():
     out = {}
-    orig_decide, orig_record, orig_marker = (G2.Gate2._decide, G2.Gate2._record,
-                                             G2.Gate2.marker_path)
+    saved = {k: getattr(G2.Gate2, k) for k in
+             ("_classify", "_record", "marker_path", "_check_sequence", "_halt",
+              "_containment_scope")}
 
-    def accept_rejected(self, op, target, field, sent, stored):
+    def accept_rejected(self, op, field, sent, stored):
         cls, rid = TR.classify(sent, stored, self.rules, field)
         return ("exact", None) if cls == "rejected" else (cls, rid)
 
@@ -193,21 +198,43 @@ def c3():
     def global_only(self, mech):
         return self.halt_path
 
-    mutants = {"accept_rejected": ("_decide", accept_rejected),
+    def no_latch(self):
+        return None
+
+    def operation_scope_always(self, reason, scope=None, **ev):
+        mech = self._mech if self._mech in G2.OPERATIONS else scope
+        return saved["_halt"](self, reason, scope=mech, **ev)
+
+    def narrow_without_tail_check(self, op, expected, stored, failures, other):
+        if other or any(kind != "rejected" for _, kind in failures):
+            return None
+        outstanding = [n for n in self._operation_markers() if n != "HALT." + op]
+        return None if outstanding else op
+
+    mutants = {"accept_rejected": ("_classify", accept_rejected),
                "skip_discrepancy_record": ("_record", skip_record),
-               "single_global_marker": ("marker_path", global_only)}
+               "single_global_marker": ("marker_path", global_only),
+               "no_run_level_latch": ("_check_sequence", no_latch),
+               "operation_scope_always": ("_halt", operation_scope_always),
+               "narrow_without_tail_check": ("_containment_scope", narrow_without_tail_check)}
     for name, (attr, fn) in mutants.items():
         setattr(G2.Gate2, attr, fn)
         try:
             out[name] = run_suite()
         finally:
-            G2.Gate2._decide, G2.Gate2._record, G2.Gate2.marker_path = (orig_decide, orig_record,
-                                                                       orig_marker)
+            for k, v in saved.items():
+                setattr(G2.Gate2, k, v)
+            del G2._SEQUENCE_STOP[:]
     out["accept_rejected"]["negative_controls_failing"] = [
         t for t in out["accept_rejected"]["failing"] if t.startswith("test_neg_")]
+    latch_tests = {"test_c1_run_level_latch_after_operation_level_halt",
+                   "test_q3_caller_catching_halted_writes_nothing_further"}
+    out["no_run_level_latch"]["run_level_tests_failing"] = sorted(
+        latch_tests & set(out["no_run_level_latch"]["failing"]))
     results["C3"] = out
     return all(out[n]["failed"] > 0 for n in mutants) and \
-        out["accept_rejected"]["negative_controls_failing"]
+        out["accept_rejected"]["negative_controls_failing"] and \
+        out["no_run_level_latch"]["run_level_tests_failing"] == sorted(latch_tests)
 
 
 if __name__ == "__main__":

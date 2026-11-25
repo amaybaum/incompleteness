@@ -1,7 +1,14 @@
 """Controls for gate2 and transport_rules. Mock transport only. Run: python3 -I -B test_gate2.py
 
 Negative controls are the test methods named test_neg_*; countercontrol2.py requires that every
-mutation of the rule or of the gate's outcome handling makes at least one of them fail."""
+mutation of the rule or of the gate's outcome handling makes at least one of them fail.
+
+Containment (AGENTS.md section A.49 rule 3 as amended in PR #1566): after any halt, the gate
+instance and every Gate2 in the process refuse every write and push (run level); a later sequence,
+simulated here by new_sequence(), which empties the process latch as a fresh process would start,
+meets the global marker unless the halt was a tail-confined read-back mismatch meeting every
+condition of rule 3, in which case only that operation's marker exists, and it writes nothing until
+the marker's .notified companion exists."""
 import dataclasses, hashlib, json, os, subprocess, sys, tempfile, unittest
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -72,9 +79,35 @@ SAMPLE = {   # one further write per mechanism, for the no-further-write checks
 }
 
 
+def expect_tail_confined(sent, stored):
+    """Independent restatement of rule 3's third condition, for the expected scope of a halt:
+    the sent content (sent less trailing newlines and a footer recognised as rule 2 states it)
+    is not empty and the stored text starts with it."""
+    c = sent
+    while c.endswith("\n"):
+        c = c[:-1]
+    if c.endswith(CORE):
+        b = c[: len(c) - len(CORE)]
+        cc = b
+        while cc.endswith("\n"):
+            cc = cc[:-1]
+        if cc and len(b) - len(cc) >= 2 and not cc.endswith(CORE):
+            c = cc
+    return isinstance(stored, str) and c != "" and stored[: len(c)] == c
+
+
 class Base(unittest.TestCase):
     def setUp(self):
         self.dir = tempfile.mkdtemp(dir=os.path.join(HERE, "runs"))
+        self.new_sequence()
+
+    def new_sequence(self):
+        """A later sequence: a fresh writer process starts with an empty run-level latch."""
+        del G2._SEQUENCE_STOP[:]
+
+    def notify(self, mech):
+        """By hand, after the evidence is kept and the owner told (rule 3)."""
+        open(self.marker(mech) + ".notified", "w").close()
 
     def marker(self, mech=None):
         return os.path.join(self.dir, "HALT" if mech is None else "HALT." + mech)
@@ -86,26 +119,58 @@ class Base(unittest.TestCase):
         with open(self.marker(mech)) as f:
             return json.load(f)
 
-    def assertNoFurtherWrites(self, g, gh, git, mech):
-        """After a halt of mech: further attempts of mech, through this gate and a fresh gate
-        (a later process or session on this host), raise and reach no transport."""
+    def assertNoFurtherWrites(self, g, gh, git, mech, scope="global"):
+        """After a halt of mech: the marker of the expected scope exists (and only it); the same
+        gate and any other gate in the process refuse every mechanism (run level); in a later
+        sequence a fresh gate refuses mech. None of it reaches the transport."""
         w, r, n = len(gh.writes), len(git.runs), gh.gets
-        self.assertTrue(os.path.exists(self.marker(mech)), "halt marker not written for " + mech)
-        for gg in (g, self.gate(gh, git)):
-            with self.assertRaises(Halted):
-                SAMPLE[mech](gg)
+        if scope == "global":
+            self.assertTrue(os.path.exists(self.marker()), "global marker not written for " + mech)
+            self.assertFalse(os.path.exists(self.marker(mech)), "operation marker for " + mech)
+        else:
+            self.assertTrue(os.path.exists(self.marker(mech)), "halt marker not written for " + mech)
+            self.assertFalse(os.path.exists(self.marker()), "global marker written for " + mech)
+        for gg in (g, self.gate(gh, git)):           # same sequence: everything refused
+            for m, call in SAMPLE.items():
+                with self.assertRaises(Halted, msg="%s after halt of %s" % (m, mech)):
+                    call(gg)
+        self.new_sequence()
+        with self.assertRaises(Halted):
+            SAMPLE[mech](self.gate(gh, git))
         self.assertEqual((len(gh.writes), len(git.runs), gh.gets), (w, r, n),
                          "a request reached the transport after the halt of " + mech)
+        self.new_sequence()
 
     def assertOtherMechanismOpen(self, gh, git, mech):
-        """Containment is per mechanism: another one still writes, through a fresh gate."""
+        """Operation-level containment: a later sequence writes nothing until the owner has been
+        told (.notified), then another mechanism writes, through a fresh gate."""
         other = "issue.edit_body" if mech != "issue.edit_body" else "comment.create"
         w = len(gh.writes)
-        g = self.gate(MockGitHub2(issues()), git)    # same halt directory, new transport
-        res = SAMPLE[other](g)
+        gh2 = MockGitHub2(issues())                  # same halt directory, new transport
+        self.new_sequence()
+        with self.assertRaises(Halted) as cm:
+            SAMPLE[other](self.gate(gh2, git))
+        self.assertIn("owner not yet told", str(cm.exception))
+        self.assertEqual((len(gh2.writes), gh2.gets), (0, 0))
+        self.notify(mech)
+        self.new_sequence()
+        res = SAMPLE[other](self.gate(gh2, git))
         self.assertEqual(res.outcomes["body"][0], "exact")
         self.assertEqual(len(gh.writes), w)
         self.assertFalse(os.path.exists(self.marker(other)))
+
+    def assertGlobalStop(self, git, mech):
+        """A later sequence writes through no mechanism, even with every notification present."""
+        for n in os.listdir(self.dir):
+            if n.startswith("HALT.") and not n.endswith(".notified"):
+                open(os.path.join(self.dir, n + ".notified"), "w").close()
+        gh2 = MockGitHub2(issues())
+        for m, call in SAMPLE.items():
+            self.new_sequence()
+            with self.assertRaises(Halted, msg="%s after global halt of %s" % (m, mech)):
+                call(self.gate(gh2, git))
+        self.assertEqual((len(gh2.writes), gh2.gets), (0, 0))
+        self.new_sequence()
 
     def check_rejected_through_gate(self, sent, stored, name):
         """The negative-control pattern: rejected by classify; through the gate, one write, a halt
@@ -117,18 +182,24 @@ class Base(unittest.TestCase):
         with self.assertRaises(Halted, msg=name):
             g.write("issue.edit_body", 1, {"body": sent})
         self.assertEqual(len(gh.writes), 1, name)
-        rec = self.halt_record("issue.edit_body")
+        scope = "operation" if expect_tail_confined(sent, stored) else "global"
+        rec = self.halt_record("issue.edit_body" if scope == "operation" else None)
+        self.assertEqual(rec["scope"], scope, name)
         self.assertIn("rejected", rec["reason"], name)
-        self.assertEqual(set(rec["evidence"]), {"sent", "stored", "diff"}, name)
-        for k, v in (("sent", sent), ("stored", stored)):
+        self.assertEqual(set(rec["evidence"]), {"body.sent", "body.stored", "body.diff"}, name)
+        for k, v in (("body.sent", sent), ("body.stored", stored)):
             with open(os.path.join(self.dir, rec["evidence"][k]["file"]), encoding="utf-8",
                       newline="") as f:
                 self.assertEqual(f.read(), v, name)
+            self.assertEqual(rec["evidence"][k]["text"], v, name)
             self.assertEqual(rec["evidence"][k]["sha256"], G2.sha256(v), name)
-        self.assertEqual(os.listdir(self.dir).count("HALT"), 0, name + ": global marker written")
         self.assertFalse([p for p in os.listdir(self.dir) if p.startswith("discrepancy")], name)
-        self.assertNoFurtherWrites(g, gh, git, "issue.edit_body")
-        self.assertOtherMechanismOpen(gh, git, "issue.edit_body")
+        self.assertNoFurtherWrites(g, gh, git, "issue.edit_body", scope)
+        if scope == "operation":
+            self.assertOtherMechanismOpen(gh, git, "issue.edit_body")
+        else:
+            self.assertGlobalStop(git, "issue.edit_body")
+        return scope
 
 
 # --------------------------------------------------------------------------------------------
@@ -160,8 +231,8 @@ class Registry(Base):
         g = self.gate(gh, git, rules=[TR.FOOTER_ATTRIBUTION_1])       # a list: not a registry
         with self.assertRaises(Halted):
             g.write("issue.edit_body", 1, {"body": "x"})
-        self.assertIn("classification failed", self.halt_record("issue.edit_body")["reason"])
-        self.assertNoFurtherWrites(g, gh, git, "issue.edit_body")
+        self.assertIn("classification failed", self.halt_record()["reason"])
+        self.assertNoFurtherWrites(g, gh, git, "issue.edit_body", "global")
 
     def test_r5_ambiguity_rejected(self):
         twin = dataclasses.replace(TR.FOOTER_ATTRIBUTION_1, id="footer-attribution-twin")
@@ -173,7 +244,7 @@ class Registry(Base):
         with self.assertRaises(Halted):
             g.write("issue.edit_body", 1, {"body": "x"})
         self.assertIn("rejected", self.halt_record("issue.edit_body")["reason"])
-        self.assertNoFurtherWrites(g, gh, git, "issue.edit_body")
+        self.assertNoFurtherWrites(g, gh, git, "issue.edit_body", "operation")
 
 
 # --------------------------------------------------------------------------------------------
@@ -271,10 +342,21 @@ class Positive(Base):
 # --------------------------------------------------------------------------------------------
 class Negative(Base):
     def run_cases(self, cases):
+        scopes = []
         for name, mutated in cases:
             self.assertNotEqual(mutated, BASE, name)
             for i, (s, t) in enumerate(variants(mutated)):
-                self.check_rejected_through_gate(s, t, "%s/v%d" % (name, i))
+                scopes.append(self.check_rejected_through_gate(s, t, "%s/v%d" % (name, i)))
+        return scopes
+
+    def test_neg_content_changes_stop_globally(self):
+        """Every content change before the tail stops every text write (rule 3), whichever
+        footer handling surrounds it."""
+        for name, mutated in [("digit", rep(BASE, "3.2 GeV", "3.3 GeV")),
+                              ("link", rep(BASE, "#L10", "#L11")),
+                              ("leading space", " " + BASE),
+                              ("truncated", BASE[:-1])]:
+            self.assertEqual(set(self.run_cases([(name, mutated)])), {"global"}, name)
 
     def test_neg_scientific_content(self):
         self.run_cases([
@@ -412,8 +494,8 @@ class Negative(Base):
         self.assertEqual(TR.classify("t", "t" + F, field="title"), ("rejected", None))
         with self.assertRaises(Halted):
             g.write("issue.create", None, {"title": "t", "body": "b" + F})
-        self.assertIn("title", self.halt_record("issue.create")["reason"])
-        self.assertNoFurtherWrites(g, gh, git, "issue.create")
+        self.assertIn("title", self.halt_record("issue.create")["reason"])   # tail-confined
+        self.assertNoFurtherWrites(g, gh, git, "issue.create", "operation")
 
     def test_neg_unsent_field_gets_footer(self):
         """A footer appended to a body the write did not send is not permitted (no allowlist for
@@ -422,36 +504,59 @@ class Negative(Base):
         gh = MockGitHub2(bodies, mode="append_on_close"); git = MockGit(); g = self.gate(gh, git)
         with self.assertRaises(Halted):
             g.write("issue.close", 1, {})
-        self.assertIn("unsent field body changed", self.halt_record("issue.close")["reason"])
-        self.assertNoFurtherWrites(g, gh, git, "issue.close")
+        self.assertIn("unsent field body changed", self.halt_record()["reason"])
+        self.assertNoFurtherWrites(g, gh, git, "issue.close", "global")
 
 
 # --------------------------------------------------------------------------------------------
 class Containment(Base):
-    def test_c1_per_operation_isolation(self):
-        gh = MockGitHub2(issues(), transforms={"patch": lambda b: b + " tampered"}); git = MockGit()
+    def test_c1_run_level_latch_after_operation_level_halt(self):
+        """A tail-confined mismatch halts the operation only; the same gate, and every other gate in
+        the process, still refuse every mechanism, even after the owner has been told. A later
+        sequence may write a comment only once the .notified file exists."""
+        gh = MockGitHub2(issues(), transforms={"patch": lambda b: b + F}); git = MockGit()
         g = self.gate(gh, git)
         with self.assertRaises(Halted):
-            g.write("issue.edit_body", 1, {"body": "x" + F})
-        self.assertTrue(os.path.exists(self.marker("issue.edit_body")))
+            g.write("issue.edit_body", 1, {"body": "x" + F})          # doubled footer: rejected
+        self.assertEqual(self.halt_record("issue.edit_body")["scope"], "operation")
         self.assertFalse(os.path.exists(self.marker()))
-        self.assertNoFurtherWrites(g, gh, git, "issue.edit_body")
-        for gg in (g, self.gate(gh, git)):             # same gate and a fresh gate
-            self.assertEqual(gg.write("comment.create", 1, {"body": "c" + F}).outcomes["body"][0],
-                             "exact")
-            gg.write("labels.add", 2, {}, labels=["b"])
-        self.assertEqual(g.push("origin", SHA, ALLOWED[0]), SHA)
-        g3 = self.gate(gh, git)
+        self.notify("issue.edit_body")
+        for gg in (g, self.gate(gh, git)):
+            for mech, call in SAMPLE.items():
+                with self.assertRaises(Halted, msg=mech):
+                    call(gg)
+        self.assertEqual((len(gh.writes), len(git.runs)), (1, 0))
+        self.new_sequence()
+        g2 = self.gate(gh, git)
+        self.assertEqual(g2.write("comment.create", 1, {"body": "c" + F}).outcomes["body"][0],
+                         "exact")
+        g2.write("labels.add", 2, {}, labels=["b"])
+        self.assertEqual(g2.push("origin", SHA, ALLOWED[0]), SHA)
         with self.assertRaises(Halted):
-            g3.write("issue.edit_body", 3, {"body": "z" + F})
+            g2.write("issue.edit_body", 3, {"body": "z" + F})
+        with self.assertRaises(Halted):                               # and g2 is now latched
+            g2.write("comment.create", 1, {"body": "d" + F})
+        self.assertEqual(len(gh.writes), 3)
+
+    def test_c1b_later_sequence_waits_for_notification(self):
+        gh = MockGitHub2(issues(), transforms={"patch": lambda b: b + F}); git = MockGit()
+        with self.assertRaises(Halted):
+            self.gate(gh, git).write("issue.edit_body", 1, {"body": "x" + F})
+        self.new_sequence()
+        with self.assertRaises(Halted) as cm:
+            self.gate(gh, git).write("comment.create", 1, {"body": "c" + F})
+        self.assertIn("owner not yet told", str(cm.exception))
+        self.assertEqual(len(gh.writes), 1)
+        self.assertFalse(os.path.exists(self.marker()))               # a refusal writes no marker
 
     def test_c2_global_marker_blocks_every_mechanism(self):
         with open(self.marker(), "w") as f:
             f.write('{"reason": "set elsewhere"}')
-        gh = MockGitHub2(issues()); git = MockGit(); g = self.gate(gh, git)
+        gh = MockGitHub2(issues()); git = MockGit()
         for mech, call in SAMPLE.items():
+            self.new_sequence()
             with self.assertRaises(Halted, msg=mech):
-                call(g)
+                call(self.gate(gh, git))
         self.assertEqual((len(gh.writes), len(git.runs), gh.gets), (0, 0, 0))
         with open(self.marker()) as f:
             self.assertEqual(f.read(), '{"reason": "set elsewhere"}')
@@ -459,11 +564,16 @@ class Containment(Base):
     def test_c3_existing_op_marker_blocks_and_is_kept(self):
         with open(self.marker("comment.create"), "w") as f:
             f.write("{}")
+        self.notify("comment.create")
         gh = MockGitHub2(issues()); git = MockGit(); g = self.gate(gh, git)
         with self.assertRaises(Halted):
             SAMPLE["comment.create"](g)
         self.assertEqual((len(gh.writes), gh.gets), (0, 0))
-        SAMPLE["issue.edit_body"](g)
+        with self.assertRaises(Halted):                               # the sequence has ended
+            SAMPLE["issue.edit_body"](g)
+        self.new_sequence()
+        SAMPLE["issue.edit_body"](self.gate(gh, git))
+        self.assertEqual(len(gh.writes), 1)
         with open(self.marker("comment.create")) as f:
             self.assertEqual(f.read(), "{}")
 
@@ -473,6 +583,7 @@ class Containment(Base):
             g.write("issue.delete", 1, {})
         self.assertTrue(os.path.exists(self.marker()))
         for mech, call in SAMPLE.items():
+            self.new_sequence()
             with self.assertRaises(Halted, msg=mech):
                 call(self.gate(gh, git))
         self.assertEqual((len(gh.writes), len(git.runs)), (0, 0))
@@ -492,22 +603,161 @@ class Containment(Base):
         self.assertEqual(p.stdout.strip(), "0 0")
         self.assertIn("HALTED", p.stderr)
 
-    def test_c6_two_halts_in_one_process_keep_separate_evidence(self):
-        gh = MockGitHub2(issues(), transforms={"patch": lambda b: b + "!", "comment": lambda b: "?" + b})
+    def test_c6_second_halt_with_outstanding_marker_is_global(self):
+        """Two halts in one process (two sequences) keep separate evidence; the second, although
+        tail-confined, is global because another operation's mismatch is outstanding."""
+        gh = MockGitHub2(issues(), transforms={"patch": lambda b: b + "!", "comment": lambda b: b + "!"})
         git = MockGit()
-        for op in ("issue.edit_body", "comment.create"):
-            with self.assertRaises(Halted):
-                SAMPLE[op](self.gate(gh, git))
-        a, b = self.halt_record("issue.edit_body"), self.halt_record("comment.create")
-        self.assertNotEqual(a["evidence"]["sent"]["file"], b["evidence"]["sent"]["file"])
+        with self.assertRaises(Halted):
+            SAMPLE["issue.edit_body"](self.gate(gh, git))
+        self.notify("issue.edit_body")
+        self.new_sequence()
+        with self.assertRaises(Halted):
+            SAMPLE["comment.create"](self.gate(gh, git))
+        a, b = self.halt_record("issue.edit_body"), self.halt_record()
+        self.assertEqual((a["scope"], b["scope"]), ("operation", "global"))
+        self.assertFalse(os.path.exists(self.marker("comment.create")))
+        self.assertNotEqual(a["evidence"]["body.sent"]["file"], b["evidence"]["body.sent"]["file"])
         for rec in (a, b):
-            for k in ("sent", "stored", "diff"):
+            for k in ("body.sent", "body.stored", "body.diff"):
                 self.assertTrue(os.path.exists(os.path.join(self.dir, rec["evidence"][k]["file"])))
 
 
 # --------------------------------------------------------------------------------------------
+class Probes(Base):
+    """The independent review's probes of PR #1566 and gate v2 (R2, R3, R8) and rule 3's
+    conditions, each with a fixed expected scope."""
+
+    def test_q1_timeout_is_global(self):
+        gh = MockGitHub2(issues(), mode="raise_on_write"); git = MockGit(); g = self.gate(gh, git)
+        with self.assertRaises(Halted):
+            g.write("issue.edit_body", 1, {"body": "b" + F})
+        self.assertIn("unknown outcome: TimeoutError", self.halt_record()["reason"])
+        self.assertNoFurtherWrites(g, gh, git, "issue.edit_body", "global")
+        self.assertGlobalStop(git, "issue.edit_body")
+
+    def test_q2_content_change_is_global(self):
+        body = "The measured value is 0.3 at 95% CL." + F
+        gh = MockGitHub2(issues(), transforms={"patch": lambda b: b.replace("0.3", "0.4")})
+        git = MockGit(); g = self.gate(gh, git)
+        with self.assertRaises(Halted):
+            g.write("issue.edit_body", 1, {"body": body})
+        self.assertEqual(self.halt_record()["scope"], "global")
+        self.assertNoFurtherWrites(g, gh, git, "issue.edit_body", "global")
+        self.assertGlobalStop(git, "issue.edit_body")
+
+    def plan(self):
+        return [("issue.edit_body", 1, {"body": "edit one" + F}),
+                ("comment.create", 1, {"body": "comment one" + F}),
+                ("comment.create", 2, {"body": "comment two" + F}),
+                ("issue.edit_body", 2, {"body": "edit two" + F})]
+
+    def test_q3_caller_catching_halted_writes_nothing_further(self):
+        """edit.py's shape: a loop that catches Halted per item. After the first halt, zero
+        further writes, whether the halt was operation-level or global, whether the loop reuses
+        the gate or builds a new one per item, and even if .notified appears meanwhile."""
+        transforms = {"tail-confined": lambda b: b + F,
+                      "content change": lambda b: b.replace("one", "One")}
+        for tname, tf in transforms.items():
+            for per_item in (False, True):
+                self.setUp()
+                gh = MockGitHub2(issues(), transforms={"patch": tf}); git = MockGit()
+                g = self.gate(gh, git)
+                halts = 0
+                for i, (op, n, fields) in enumerate(self.plan()):
+                    if i == 1:
+                        for m in os.listdir(self.dir):
+                            if m.startswith("HALT."):
+                                self.notify(m[len("HALT."):])
+                    try:
+                        (self.gate(gh, git) if per_item else g).write(op, n, fields)
+                    except Halted:
+                        halts += 1
+                        continue
+                self.assertEqual(len(gh.writes), 1, (tname, per_item))
+                self.assertEqual(halts, 4, (tname, per_item))
+                with self.assertRaises(Halted):
+                    g.push("origin", SHA, ALLOWED[0])
+                self.assertEqual(git.runs, [])
+
+    def test_q4_no_orphaned_record_when_a_later_field_fails(self):
+        """R8: issue.create with the body footer appended (permitted) and the title altered:
+        no discrepancy record is written for the body."""
+        for title_tf, scope in ((lambda t: "X" + t, "global"), (lambda t: t + "!", "operation")):
+            self.setUp()
+            gh = MockGitHub2(issues(), mode="append_if_absent", title_transform=title_tf)
+            git = MockGit(); g = self.gate(gh, git)
+            with self.assertRaises(Halted):
+                g.write("issue.create", None, {"title": "t", "body": "b"})
+            self.assertFalse([p for p in os.listdir(self.dir) if p.startswith("discrepancy")])
+            rec = self.halt_record("issue.create" if scope == "operation" else None)
+            self.assertEqual(rec["scope"], scope)
+            self.assertEqual(set(rec["evidence"]), {"title.sent", "title.stored", "title.diff"})
+            self.assertNoFurtherWrites(g, gh, git, "issue.create", scope)
+
+    def test_q5_narrowing_conditions(self):
+        x = "Some content."
+        cases = [   # (sent, stored, expected scope)
+            (x + F, x + F + F, "operation"),               # doubled footer
+            (x + F, x, "operation"),                       # footer removed
+            (x, x + "\n" + CORE, "operation"),             # one newline before the footer
+            (x, x + F + "  ", "operation"),                # spaces after the footer
+            (x, x + "\n\nSigned-off-by: someone", "operation"),   # appended after the content
+            (x + "  ", x + F, "global"),                   # hard break removed: inside content
+            (x, x[:-1] + F, "global"),                     # last content character changed
+            (x, "Same content." + F, "global"),            # content change
+            ("", "anything", "global"),                    # empty sent content
+        ]
+        for sent, stored, scope in cases:
+            self.setUp()
+            self.assertEqual(expect_tail_confined(sent, stored), scope == "operation")
+            self.assertEqual(TR.tail_confined(sent, stored), scope == "operation", (sent, stored))
+            gh = MockGitHub2(issues(), transforms={"patch": lambda b, t=stored: t}); git = MockGit()
+            g = self.gate(gh, git)
+            with self.assertRaises(Halted):
+                g.write("issue.edit_body", 1, {"body": sent})
+            mech = "issue.edit_body" if scope == "operation" else None
+            self.assertEqual(self.halt_record(mech)["scope"], scope, (sent, stored))
+            self.assertNoFurtherWrites(g, gh, git, "issue.edit_body", scope)
+
+    def test_q6_outstanding_marker_of_another_operation_makes_it_global(self):
+        with open(self.marker("comment.create"), "w") as f:
+            f.write("{}")
+        self.notify("comment.create")
+        gh = MockGitHub2(issues(), transforms={"patch": lambda b: b + F}); git = MockGit()
+        with self.assertRaises(Halted):
+            self.gate(gh, git).write("issue.edit_body", 1, {"body": "x" + F})
+        self.assertEqual(self.halt_record()["scope"], "global")
+        self.assertFalse(os.path.exists(self.marker("issue.edit_body")))
+
+    def test_q7_internal_exception_latches_and_is_global(self):
+        gh = MockGitHub2(issues()); git = MockGit()
+        g = self.gate(gh, git, reg={"comment.create": "not a dict", "issue.edit_body":
+                                    {"validated": True, "send_form": None}})
+        with self.assertRaises(Halted):
+            g.write("comment.create", 1, {"body": "c"})
+        self.assertIn("exception during write", self.halt_record()["reason"])
+        with self.assertRaises(Halted):
+            g.write("issue.edit_body", 1, {"body": "e"})
+        self.assertEqual(len(gh.writes), 0)
+
+    def test_q8_marker_embeds_texts_when_evidence_files_fail(self):
+        gh = MockGitHub2(issues(), transforms={"patch": lambda b: "?" + b}); git = MockGit()
+        g = Gate2(gh, git, self.dir, REPO, registry(), ALLOWED,
+                  evidence_dir=os.path.join(self.dir, "missing", "dir"))
+        with self.assertRaises(Halted):
+            g.write("issue.edit_body", 1, {"body": "body text"})
+        ev = self.halt_record()["evidence"]
+        self.assertEqual(ev["body.sent"]["text"], "body text")
+        self.assertEqual(ev["body.stored"]["text"], "?body text")
+        self.assertIsNone(ev["body.sent"]["file"])
+        self.assertIn("error", ev["body.sent"])
+
+
+# --------------------------------------------------------------------------------------------
 class PortedGuarantees(Base):
-    """gate.py's guarantees, ported to per-mechanism containment."""
+    """gate.py's guarantees, under v2's containment: every failure but a tail-confined read-back
+    mismatch meeting rule 3's conditions is global."""
 
     def test_g01_verbatim_success(self):
         gh = MockGitHub2(issues()); g = self.gate(gh)
@@ -523,21 +773,21 @@ class PortedGuarantees(Base):
             gh = MockGitHub2(issues(), mode=mode); git = MockGit(); g = self.gate(gh, git)
             with self.assertRaises(Halted):
                 g.write("comment.create", 1, {"body": "c" + F})
-            self.assertIn("read-back failed", self.halt_record("comment.create")["reason"])
-            self.assertNoFurtherWrites(g, gh, git, "comment.create")
+            self.assertIn("read-back failed", self.halt_record()["reason"])
+            self.assertNoFurtherWrites(g, gh, git, "comment.create", "global")
 
     def test_g05_exception_unknown_outcome_halts(self):
         gh = MockGitHub2(issues(), mode="raise_on_write"); git = MockGit(); g = self.gate(gh, git)
         with self.assertRaises(Halted):
             g.write("issue.create", None, {"title": "t", "body": "b" + F})
-        self.assertIn("unknown outcome", self.halt_record("issue.create")["reason"])
-        self.assertNoFurtherWrites(g, gh, git, "issue.create")
+        self.assertIn("unknown outcome", self.halt_record()["reason"])
+        self.assertNoFurtherWrites(g, gh, git, "issue.create", "global")
 
     def test_g06_bad_status_halts(self):
         gh = MockGitHub2(issues(), mode="status_500"); git = MockGit(); g = self.gate(gh, git)
         with self.assertRaises(Halted):
             g.write("issue.edit_body", 1, {"body": "b" + F})
-        self.assertNoFurtherWrites(g, gh, git, "issue.edit_body")
+        self.assertNoFurtherWrites(g, gh, git, "issue.edit_body", "global")
 
     def test_g09_prechecks_refuse_before_write(self):
         long = "https://github.com/o/r/blob/" + "f" * 40 + "/" + "p" * 60
@@ -548,8 +798,8 @@ class PortedGuarantees(Base):
             with self.assertRaises(Halted, msg=repr(t)):
                 g.write("comment.create", 1, {"body": t + F})
             self.assertEqual(len(gh.writes), 0, repr(t))
-            self.assertIn("pre-check", self.halt_record("comment.create")["reason"])
-            self.assertNoFurtherWrites(g, gh, git, "comment.create")
+            self.assertIn("pre-check", self.halt_record()["reason"])
+            self.assertNoFurtherWrites(g, gh, git, "comment.create", "global")
 
     def test_g10_unvalidated_needs_single_grant(self):
         gh = MockGitHub2(issues()); git = MockGit(); g = self.gate(gh, git, registry(False))
@@ -558,14 +808,14 @@ class PortedGuarantees(Base):
         with self.assertRaises(Halted):
             g.write("issue.edit_body", 1, {"body": "two" + F})
         self.assertEqual(len(gh.writes), 1)
-        self.assertNoFurtherWrites(g, gh, git, "issue.edit_body")
+        self.assertNoFurtherWrites(g, gh, git, "issue.edit_body", "global")
 
     def test_g11_fields_mismatch_halts(self):
         gh = MockGitHub2(issues()); git = MockGit(); g = self.gate(gh, git)
         with self.assertRaises(Halted):
             g.write("issue.edit_body", 1, {"body": "b", "title": "t"})
         self.assertEqual(len(gh.writes), 0)
-        self.assertNoFurtherWrites(g, gh, git, "issue.edit_body")
+        self.assertNoFurtherWrites(g, gh, git, "issue.edit_body", "global")
 
     def test_g12_labels_and_close_verbatim(self):
         gh = MockGitHub2(issues()); g = self.gate(gh)
@@ -587,8 +837,8 @@ class PortedGuarantees(Base):
             with self.assertRaises(Halted):
                 g.write("issue.edit_body", 1, {"body": raw})
             self.assertEqual(len(gh.writes), 0)
-            self.assertIn("pre-check", self.halt_record("issue.edit_body")["reason"])
-            self.assertNoFurtherWrites(g, gh, git, "issue.edit_body")
+            self.assertIn("pre-check", self.halt_record()["reason"])
+            self.assertNoFurtherWrites(g, gh, git, "issue.edit_body", "global")
 
     def test_g17_canonical_send_form_exact_under_separator_canonicalization(self):
         for raw in ("text\n\n\n" + CORE, read("issue-1505", "sent.md"), "t  \n", "t" + F):
@@ -609,13 +859,13 @@ class PortedGuarantees(Base):
             with self.assertRaises(Halted, msg=(sha, ref)):
                 g.push("origin", sha, ref)
             self.assertEqual(git.runs, [], (sha, ref))
-            self.assertNoFurtherWrites(g, gh, git, "push")
-            self.assertOtherMechanismOpen(gh, git, "push")
+            self.assertNoFurtherWrites(g, gh, git, "push", "global")
+            self.assertGlobalStop(git, "push")
         self.setUp(); git = MockGit()
         with self.assertRaises(Halted):
             self.gate(MockGitHub2(), git).push("--force", SHA, ALLOWED[0])
         self.assertEqual(git.runs, [])
-        self.assertIn("plain remote name", self.halt_record("push")["reason"])
+        self.assertIn("plain remote name", self.halt_record()["reason"])
 
     def test_g14_push_paths(self):
         git = MockGit(); g = self.gate(MockGitHub2(issues()), git)
@@ -630,7 +880,7 @@ class PortedGuarantees(Base):
             gh = MockGitHub2(issues()); git = MockGit(refs=refs, **kw); g = self.gate(gh, git)
             with self.assertRaises(Halted, msg=kw):
                 g.push("origin", SHA, ALLOWED[0])
-            self.assertNoFurtherWrites(g, gh, git, "push")
+            self.assertNoFurtherWrites(g, gh, git, "push", "global")
 
 
 if __name__ == "__main__":

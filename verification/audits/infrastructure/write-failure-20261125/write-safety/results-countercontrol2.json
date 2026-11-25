@@ -50,44 +50,51 @@
   },
   "C2": {
    "baseline": {
-    "run": 39,
+    "run": 49,
     "failed": 0,
     "failing": []
    },
    "strip_all_whitespace": {
-    "run": 39,
-    "failed": 3,
+    "run": 49,
+    "failed": 5,
     "failing": [
+     "test_neg_content_changes_stop_globally",
      "test_neg_footer_variants",
      "test_neg_internal_whitespace",
-     "test_neg_markdown_whitespace_boundary"
+     "test_neg_markdown_whitespace_boundary",
+     "test_q5_narrowing_conditions"
     ],
     "negative_controls_failing": [
+     "test_neg_content_changes_stop_globally",
      "test_neg_footer_variants",
      "test_neg_internal_whitespace",
      "test_neg_markdown_whitespace_boundary"
     ]
    },
    "whole_text_strip": {
-    "run": 39,
-    "failed": 3,
+    "run": 49,
+    "failed": 5,
     "failing": [
+     "test_neg_content_changes_stop_globally",
      "test_neg_footer_variants",
      "test_neg_internal_whitespace",
-     "test_neg_markdown_whitespace_boundary"
+     "test_neg_markdown_whitespace_boundary",
+     "test_q5_narrowing_conditions"
     ],
     "negative_controls_failing": [
+     "test_neg_content_changes_stop_globally",
      "test_neg_footer_variants",
      "test_neg_internal_whitespace",
      "test_neg_markdown_whitespace_boundary"
     ]
    },
    "ignore_footer_text": {
-    "run": 39,
-    "failed": 2,
+    "run": 49,
+    "failed": 3,
     "failing": [
      "test_neg_footer_variants",
-     "test_neg_markdown_whitespace_boundary"
+     "test_neg_markdown_whitespace_boundary",
+     "test_q5_narrowing_conditions"
     ],
     "negative_controls_failing": [
      "test_neg_footer_variants",
@@ -95,11 +102,16 @@
     ]
    },
    "accept_doubled_footer": {
-    "run": 39,
-    "failed": 2,
+    "run": 49,
+    "failed": 7,
     "failing": [
+     "test_c1_run_level_latch_after_operation_level_halt",
+     "test_c1b_later_sequence_waits_for_notification",
      "test_neg_footer_variants",
-     "test_neg_markdown_whitespace_boundary"
+     "test_neg_markdown_whitespace_boundary",
+     "test_q3_caller_catching_halted_writes_nothing_further",
+     "test_q5_narrowing_conditions",
+     "test_q6_outstanding_marker_of_another_operation_makes_it_global"
     ],
     "negative_controls_failing": [
      "test_neg_footer_variants",
@@ -107,11 +119,12 @@
     ]
    },
    "ascii_whitespace_tail": {
-    "run": 39,
-    "failed": 2,
+    "run": 49,
+    "failed": 3,
     "failing": [
      "test_neg_footer_variants",
-     "test_neg_markdown_whitespace_boundary"
+     "test_neg_markdown_whitespace_boundary",
+     "test_q5_narrowing_conditions"
     ],
     "negative_controls_failing": [
      "test_neg_footer_variants",
@@ -119,10 +132,11 @@
     ]
    },
    "no_separator_check": {
-    "run": 39,
-    "failed": 1,
+    "run": 49,
+    "failed": 2,
     "failing": [
-     "test_neg_footer_variants"
+     "test_neg_footer_variants",
+     "test_q5_narrowing_conditions"
     ],
     "negative_controls_failing": [
      "test_neg_footer_variants"
@@ -131,12 +145,14 @@
   },
   "C3": {
    "accept_rejected": {
-    "run": 39,
-    "failed": 13,
+    "run": 49,
+    "failed": 20,
     "failing": [
-     "test_c1_per_operation_isolation",
-     "test_c6_two_halts_in_one_process_keep_separate_evidence",
+     "test_c1_run_level_latch_after_operation_level_halt",
+     "test_c1b_later_sequence_waits_for_notification",
+     "test_c6_second_halt_with_outstanding_marker_is_global",
      "test_neg_authorization_record",
+     "test_neg_content_changes_stop_globally",
      "test_neg_footer_variants",
      "test_neg_internal_whitespace",
      "test_neg_links",
@@ -145,11 +161,17 @@
      "test_neg_scientific_content",
      "test_neg_title_never_permitted",
      "test_neg_truncation_extension",
-     "test_r4_classification_failure_halts",
+     "test_q2_content_change_is_global",
+     "test_q3_caller_catching_halted_writes_nothing_further",
+     "test_q4_no_orphaned_record_when_a_later_field_fails",
+     "test_q5_narrowing_conditions",
+     "test_q6_outstanding_marker_of_another_operation_makes_it_global",
+     "test_q8_marker_embeds_texts_when_evidence_files_fail",
      "test_r5_ambiguity_rejected"
     ],
     "negative_controls_failing": [
      "test_neg_authorization_record",
+     "test_neg_content_changes_stop_globally",
      "test_neg_footer_variants",
      "test_neg_internal_whitespace",
      "test_neg_links",
@@ -161,40 +183,90 @@
     ]
    },
    "skip_discrepancy_record": {
-    "run": 39,
+    "run": 49,
     "failed": 1,
     "failing": [
      "test_p3_real_pairs_through_gate_with_records"
     ]
    },
    "single_global_marker": {
-    "run": 39,
-    "failed": 24,
+    "run": 49,
+    "failed": 11,
     "failing": [
-     "test_c1_per_operation_isolation",
+     "test_c1_run_level_latch_after_operation_level_halt",
+     "test_c1b_later_sequence_waits_for_notification",
      "test_c3_existing_op_marker_blocks_and_is_kept",
-     "test_c6_two_halts_in_one_process_keep_separate_evidence",
+     "test_c6_second_halt_with_outstanding_marker_is_global",
+     "test_neg_footer_variants",
+     "test_neg_markdown_whitespace_boundary",
+     "test_neg_title_never_permitted",
+     "test_neg_truncation_extension",
+     "test_q4_no_orphaned_record_when_a_later_field_fails",
+     "test_q5_narrowing_conditions",
+     "test_r5_ambiguity_rejected"
+    ]
+   },
+   "no_run_level_latch": {
+    "run": 49,
+    "failed": 3,
+    "failing": [
+     "test_c1_run_level_latch_after_operation_level_halt",
+     "test_c3_existing_op_marker_blocks_and_is_kept",
+     "test_q3_caller_catching_halted_writes_nothing_further"
+    ],
+    "run_level_tests_failing": [
+     "test_c1_run_level_latch_after_operation_level_halt",
+     "test_q3_caller_catching_halted_writes_nothing_further"
+    ]
+   },
+   "operation_scope_always": {
+    "run": 49,
+    "failed": 25,
+    "failing": [
+     "test_c6_second_halt_with_outstanding_marker_is_global",
      "test_g04_readback_failure_halts",
      "test_g05_exception_unknown_outcome_halts",
      "test_g06_bad_status_halts",
      "test_g09_prechecks_refuse_before_write",
      "test_g10_unvalidated_needs_single_grant",
      "test_g11_fields_mismatch_halts",
-     "test_g13_refused_refspecs",
-     "test_g14_push_paths",
      "test_g16_noncanonical_refused_before_write",
      "test_neg_authorization_record",
+     "test_neg_content_changes_stop_globally",
      "test_neg_footer_variants",
      "test_neg_internal_whitespace",
      "test_neg_links",
      "test_neg_markdown_structure",
      "test_neg_markdown_whitespace_boundary",
      "test_neg_scientific_content",
-     "test_neg_title_never_permitted",
      "test_neg_truncation_extension",
      "test_neg_unsent_field_gets_footer",
-     "test_r4_classification_failure_halts",
-     "test_r5_ambiguity_rejected"
+     "test_q1_timeout_is_global",
+     "test_q2_content_change_is_global",
+     "test_q4_no_orphaned_record_when_a_later_field_fails",
+     "test_q5_narrowing_conditions",
+     "test_q6_outstanding_marker_of_another_operation_makes_it_global",
+     "test_q8_marker_embeds_texts_when_evidence_files_fail",
+     "test_r4_classification_failure_halts"
+    ]
+   },
+   "narrow_without_tail_check": {
+    "run": 49,
+    "failed": 13,
+    "failing": [
+     "test_neg_authorization_record",
+     "test_neg_content_changes_stop_globally",
+     "test_neg_footer_variants",
+     "test_neg_internal_whitespace",
+     "test_neg_links",
+     "test_neg_markdown_structure",
+     "test_neg_markdown_whitespace_boundary",
+     "test_neg_scientific_content",
+     "test_neg_truncation_extension",
+     "test_q2_content_change_is_global",
+     "test_q4_no_orphaned_record_when_a_later_field_fails",
+     "test_q5_narrowing_conditions",
+     "test_q8_marker_embeds_texts_when_evidence_files_fail"
     ]
    }
   }

@@ -1,10 +1,15 @@
-test_c1_per_operation_isolation (__main__.Containment.test_c1_per_operation_isolation) ... ok
+test_c1_run_level_latch_after_operation_level_halt (__main__.Containment.test_c1_run_level_latch_after_operation_level_halt)
+A tail-confined mismatch halts the operation only; the same gate, and every other gate in ... ok
+test_c1b_later_sequence_waits_for_notification (__main__.Containment.test_c1b_later_sequence_waits_for_notification) ... ok
 test_c2_global_marker_blocks_every_mechanism (__main__.Containment.test_c2_global_marker_blocks_every_mechanism) ... ok
 test_c3_existing_op_marker_blocks_and_is_kept (__main__.Containment.test_c3_existing_op_marker_blocks_and_is_kept) ... ok
 test_c4_unknown_operation_halts_globally (__main__.Containment.test_c4_unknown_operation_halts_globally) ... ok
 test_c5_marker_blocks_other_process (__main__.Containment.test_c5_marker_blocks_other_process) ... ok
-test_c6_two_halts_in_one_process_keep_separate_evidence (__main__.Containment.test_c6_two_halts_in_one_process_keep_separate_evidence) ... ok
+test_c6_second_halt_with_outstanding_marker_is_global (__main__.Containment.test_c6_second_halt_with_outstanding_marker_is_global)
+Two halts in one process (two sequences) keep separate evidence; the second, although ... ok
 test_neg_authorization_record (__main__.Negative.test_neg_authorization_record) ... ok
+test_neg_content_changes_stop_globally (__main__.Negative.test_neg_content_changes_stop_globally)
+Every content change before the tail stops every text write (rule 3), whichever ... ok
 test_neg_footer_variants (__main__.Negative.test_neg_footer_variants) ... ok
 test_neg_internal_whitespace (__main__.Negative.test_neg_internal_whitespace) ... ok
 test_neg_links (__main__.Negative.test_neg_links) ... ok
@@ -35,6 +40,16 @@ test_p3_real_pairs_through_gate_with_records (__main__.Positive.test_p3_real_pai
 test_p4_d1_replay_all_accepted_with_records (__main__.Positive.test_p4_d1_replay_all_accepted_with_records)
 The five evidence bodies, in edit.py's order, under append-if-absent: all five accepted, ... ok
 test_p5_send_form_without_footer_then_appended (__main__.Positive.test_p5_send_form_without_footer_then_appended) ... ok
+test_q1_timeout_is_global (__main__.Probes.test_q1_timeout_is_global) ... ok
+test_q2_content_change_is_global (__main__.Probes.test_q2_content_change_is_global) ... ok
+test_q3_caller_catching_halted_writes_nothing_further (__main__.Probes.test_q3_caller_catching_halted_writes_nothing_further)
+edit.py's shape: a loop that catches Halted per item. After the first halt, zero ... ok
+test_q4_no_orphaned_record_when_a_later_field_fails (__main__.Probes.test_q4_no_orphaned_record_when_a_later_field_fails)
+R8: issue.create with the body footer appended (permitted) and the title altered: ... ok
+test_q5_narrowing_conditions (__main__.Probes.test_q5_narrowing_conditions) ... ok
+test_q6_outstanding_marker_of_another_operation_makes_it_global (__main__.Probes.test_q6_outstanding_marker_of_another_operation_makes_it_global) ... ok
+test_q7_internal_exception_latches_and_is_global (__main__.Probes.test_q7_internal_exception_latches_and_is_global) ... ok
+test_q8_marker_embeds_texts_when_evidence_files_fail (__main__.Probes.test_q8_marker_embeds_texts_when_evidence_files_fail) ... ok
 test_r1_registry_closed (__main__.Registry.test_r1_registry_closed) ... ok
 test_r2_gate2_carries_no_footer_formatting (__main__.Registry.test_r2_gate2_carries_no_footer_formatting) ... ok
 test_r3_registry_validation (__main__.Registry.test_r3_registry_validation) ... ok
@@ -42,6 +57,11 @@ test_r4_classification_failure_halts (__main__.Registry.test_r4_classification_f
 test_r5_ambiguity_rejected (__main__.Registry.test_r5_ambiguity_rejected) ... ok
 
 ----------------------------------------------------------------------
-Ran 39 tests in 2.584s
+Ran 49 tests in 2.745s
 
 OK
+
+# Unchanged v1 suite in the same directory, same run: python3 -I -B test_gate.py
+Ran 18 tests in 0.083s
+OK
+# Unchanged v1 countercontrols: python3 -I -B countercontrol.py -> pass {"C1": true, "C2": true, "C3": true}

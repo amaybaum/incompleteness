@@ -134,10 +134,28 @@ only the number of newlines before it (at least two) and after it differing; spa
 other character, including Markdown hard line breaks and indentation, are compared exactly.
 `gate2.py` (built on `gate.py`, with no footer text of its own) accepts an exact match, accepts a
 difference permitted by exactly one listed rule with a record (both full texts, digests, the diff,
-the rule id and version), and otherwise halts the failed operation only. Controls: `test_gate2.py`
+the rule id and version), and otherwise halts (revision r2 below sets the containment). Controls: `test_gate2.py`
 (39 tests, including about 120 negative cases for scientific content, links, internal whitespace,
 Markdown structure and authorization records) and `countercontrol2.py` (C1-C3: the exact-only gate
 rejects the real #1505 and #1558 pairs that gate2 permits; loosened rules and a gate accepting
 rejected outcomes fail the controls). Recorded results: 39 of 39; C1-C3 pass; the original suite
 (18 of 18) is unchanged. The existing gate stays in use until the owner approves v2 after
 independent review and a controlled validation write.
+
+## Gate v2 revision r2: run-level and operation-level containment (for review, not adopted)
+
+Owner decision recorded at #1169 comment 7166845267, with the owner's distinction between run-level
+containment (after a mismatch the current write sequence stops completely; catching the exception
+allows no further write) and operation-level containment (later independent operations may continue
+through validated mechanisms if the evidence supports isolating the defect). Revision r2 follows the
+independent review at PR #1566 comment 7166798215 (`write-safety/CHANGES-r2.md` maps each finding).
+`gate2.py` now latches: after any halt or exception during a write or push, every gate in the process
+refuses every further write and push. It writes the global halt marker for every failure unless all
+of four mechanically decided conditions hold (outcome known; read-back complete with no unsent-field,
+label or state failure; every rejected difference confined to the trailing tail after the sent
+content; no other operation's mismatch outstanding), in which case only the failed operation is
+halted, and a later sequence writes nothing until the owner has been told (`HALT.<op>.notified`).
+Discrepancy records are written only after a write passes in full; the halt marker embeds the
+evidence texts. Recorded results: `test_gate2.py` 49 of 49; `countercontrol2.py` C1-C3 pass (a gate
+without the run-level latch fails 3 tests; r1's operation-only containment fails 25); the original
+suite is unchanged (18 of 18). The existing gate stays in use until the owner approves v2.
