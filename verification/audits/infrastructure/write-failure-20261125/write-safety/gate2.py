@@ -438,8 +438,9 @@ class Gate2(G.Gate):
 def record_plan(halt_dir, plan_id):
     """Write the plan's persistent record, PLAN in the halt store, naming plan_id. Done once
     before the run, as part of fixing the plan, never by the gate and never per process. Refuses
-    (FileExistsError) while a record exists: it is never rewritten, and is removed only by hand
-    when the plan has ended."""
+    (FileExistsError) while a record exists. The record is not deleted, replaced or rewritten
+    while the plan is active, and a plan whose sequence a halt has ended stays active until a
+    recorded owner decision resolves that halt."""
     if not (isinstance(plan_id, str) and PLAN_ID.fullmatch(plan_id)):
         raise ValueError("plan_id must match %s" % PLAN_ID.pattern)
     path = os.path.join(halt_dir, PLAN_RECORD)

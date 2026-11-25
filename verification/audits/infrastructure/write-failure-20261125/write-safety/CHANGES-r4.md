@@ -10,8 +10,9 @@ execution and reused across restarts. Restarting a process must not permit bypas
 halt." "A duplicated footer is already an abnormal result. Anything beyond one permitted footer
 should trigger the more conservative containment response."
 
-Prepared locally: no GitHub write, network write, commit or push. `gate.py`, `mock.py`,
-`test_gate.py` and `countercontrol.py` are unchanged; `gate.py` stays in use.
+Prepared locally, with no GitHub write or network write, and committed on the evidence branch at
+`88352d9a75be0ada24b3107ffdab09a512890d31`. `gate.py`, `mock.py`, `test_gate.py` and
+`countercontrol.py` are unchanged; `gate.py` stays in use.
 
 | Item | Change | Why | Tests |
 |---|---|---|---|

@@ -23,8 +23,9 @@ and the two clarifications of the same day (amaybaum, 2026-11-25):
 > explicit approval, independent review and regression controls. Never learn new exceptions
 > automatically."
 
-**Status.** Nothing here is adopted. Revision r4 was prepared locally: no GitHub write, network
-write, commit or push. `gate.py`, `mock.py`, `test_gate.py` and `countercontrol.py` are unchanged,
+**Status.** Nothing here is adopted. Revision r4 was prepared locally, with no GitHub write or
+network write, and committed on the evidence branch at `88352d9a75be0ada24b3107ffdab09a512890d31`.
+`gate.py`, `mock.py`, `test_gate.py` and `countercontrol.py` are unchanged,
 and `gate.py` stays the operational mechanism until the owner approves a replacement. Adoption
 needs, in this order: an independent non-author review of this directory's v2 files; the controlled
 validation write of §7 under its own owner grant; the owner's approval of the replacement and of the
@@ -180,7 +181,9 @@ one function (`Gate2._halt`, with `_latch`) writes it.
 **Run level: the plan latch.** A sequence is one run of a plan. The plan id is fixed in the plan's
 record before the run and never generated per process: `gate2.record_plan(halt_dir, plan_id)` writes
 the plan record `PLAN` in the halt store once, exclusively, and refuses while a record exists; the
-gate never writes it, and it is removed by hand only when the plan has ended. Every `Gate2` is
+gate never writes it. The plan's record is not deleted, replaced or rewritten while the plan is
+active, and a plan whose sequence a halt has ended stays active until a recorded owner decision
+resolves that halt. Every `Gate2` is
 constructed with a `plan_id` (required; `[A-Za-z0-9][A-Za-z0-9._-]{0,99}`), which must equal the
 recorded one: the gate takes the id from the record, and refuses, with no request made, when the
 record is missing or unreadable or names another id, at construction and at every check of the
@@ -356,12 +359,15 @@ items 2 and 5). The adoption lines are dated and cite the owner's approval recor
 >    the error does not continue it. A sequence is the writes made by one run of a plan (every
 >    automated writer runs one), in one writer process unless the plan's record names several, and
 >    then in all of them. The plan's identifier is fixed in the plan's record before the run and is
->    never generated per process. The end of a sequence is recorded persistently for its plan; every
->    process of the plan checks that record before each request, restarting a process does not
->    continue the sequence, and only a recorded owner decision clears the record. Every automated
->    GitHub text write, for every agent and session, then stops as well, unless every one of the
->    following conditions holds, each decided mechanically from the write, its read-back and the local
->    halt record; a mismatch the writer cannot see there does not count:
+>    never generated per process. The plan's record is not deleted, replaced or rewritten while the
+>    plan is active, and a plan whose sequence a halt has ended stays active until a recorded owner
+>    decision resolves that halt. The end of a sequence is recorded persistently for its plan; every
+>    process of the plan checks that record at the start of each write and push and again immediately
+>    before the write request, restarting a process does not continue the sequence, and only a
+>    recorded owner decision clears the record. Every automated GitHub text write, for every agent and
+>    session, then stops as well, unless every one of the following conditions holds, each decided
+>    mechanically from the write, its read-back and the local halt record; a mismatch the writer
+>    cannot see there does not count:
 >    - the outcome of the write is known: the request completed with an expected status and, for a
 >      created object, the response names its id;
 >    - the read-back succeeded, and no field the write did not send, no label and no state differs

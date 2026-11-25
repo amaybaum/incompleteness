@@ -13,8 +13,8 @@ C3  mutations of gate2's outcome handling and containment: accept "rejected"; sk
     on label and close operations (before G1); a stale .notified companion ignored (before G2); the
     allowlist applied to operations validated by exact read-back only (before Q4); the caller's
     plan id taken in place of the plan record's (before r4 item 1); any number of footer copies
-    narrowing a stop (before r4 item 2). The control suite must fail under each, and under each latch mutant the run-level tests named for it must
-    be among the failures.
+    narrowing a stop (before r4 item 2). The control suite must fail under each, and under each
+    latch mutant the run-level tests named for it must be among the failures.
 """
 import dataclasses, io, json, os, re, sys, tempfile, unittest
 
