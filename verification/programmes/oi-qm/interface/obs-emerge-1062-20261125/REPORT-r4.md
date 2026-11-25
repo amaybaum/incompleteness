@@ -1,3 +1,5 @@
+**Superseded; kept as history.** This file is revision r4 of the #1062 OBS-EMERGE report, first recorded at commit `18867ffc17ce7f06f8c89c38c0a0914f3e9164e6`. It is superseded, and the text below this notice is kept unchanged as research history. Its conclusions are not current and are not to be cited as results: later revisions corrected parts of it. The authoritative revision is `REPORT-r5.md` in this directory, and its correction record is `CHANGES-r5.md`.
+
 # #1062 OBS-EMERGE: bare observer formation from native OI dynamics (paper-only assessment)
 
 ## Status, pin and sources
