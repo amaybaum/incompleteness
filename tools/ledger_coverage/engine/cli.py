@@ -21,6 +21,7 @@ from . import rules as rulemod
 from . import util
 from . import checker
 from . import host as hostmod
+from .. import record_authority
 from .gitobj import GitRepo, Overlay, Unresolvable, first_parent_chain, full_id, regular_modes
 
 here = os.path.dirname(os.path.abspath(__file__))
@@ -1241,12 +1242,19 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
         items.append(oc.make_item('DELEGATED', 'delegated-evidence-missing', 'delegation contract', None,
                                   {'why': 'no contract given'}))
     if M:
+        if a.freeze:
+            # amendment r4, A.4 and A.7: the record-directory rule, evaluated only by an operation that evaluates M
+            # with F
+            ex.record_dir_args = {'F': resolve(repo, a.freeze), 'cpath': split_ref(a.config)[1],
+                                  'authorized': record_authority.AUTHORIZED_RECORD_DIRECTORIES}
         corp = set(ctx.corpus(H)) | set(ctx.corpus(M))
         rp = cfg['adapters'].get('replay') or {}
         rdir = rp.get('module_path', '').rsplit('/', 1)[0] if rp else None
         ex.main_role(set(led['files']) | corp, rp.get('record_tree'), rdir)
         items += [i for i in ex.items if i['obligation'] == 'MAIN' and i not in items]
         result['side_changes'] = ex.side_changes
+        if ex.rd is not None:
+            result['record_directory'] = ex.rd.summary()
     if L:
         if not M:
             raise oc.Stop(oc.usage, 'USAGE', '--landing needs --main')
