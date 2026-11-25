@@ -327,23 +327,29 @@ FLAG_STMT = re.compile(r"\btoday\b|the tool commit (raises|marks)|at the tool co
                        r"CI run 45569710442|T1''s delegated and record paths|\brunner (asserts|checks|accepts|adds|records|"
                        r"evaluates|predicate weaker|expected string)|as the runner implements|the runner have it|is the runner "
                        r"value|from the runner case|halves the runner executes|removes the runner|implemented by no runner|"
-                       r"unreachable in the runner|^runner: ")
-FLAG_BROAD = re.compile(r"today|tool commit|T1'|survivor|SURVIVED|45569710442|not applied|a3799244|runner|VD-\d|\bat T\b",
+                       r"unreachable in the runner|^runner: |listed without a restored case by the conformance check")
+FLAG_BROAD = re.compile(r"today|tool commit|T1'|survivor|SURVIVED|45569710442|not applied|a3799244|runner|VD-\d|VD-RESTORE|\bat T\b",
                         re.I)
 FLAG_EXCL = collections.OrderedDict([
     ('OC-3: runs at X_rep (R6.EVID.8)', 'states that `T1\'`\'s identity is not material to the verdict; no content of `T1\'`'),
     ('the T1\' case: inputs off main', 'classifies a control input; no content of `T1\'`'),
     ('inputs off main: acceptance reference only', 'classifies a control input; no content of `T1\'`'),
     ('VD-RESTORE: the paired row is not executed (no runner, or NOT RUN)', 'a gate condition, not a statement of the tool commit'),
+    ('VD-RESTORE: no second direction recorded', 'describes the expectation row itself (no second direction is recorded); '
+     'OBL-20 requires an executed second direction in the tool revision regardless'),
     ('VD-10: PASS asserted', 'what the corrected control asserts (a requirement), not what the tool commit does'),
     ('VD-10: 176-line count asserted', 'what the corrected control asserts (a requirement), not what the tool commit does'),
     ('RE-10 (b): also a verification defect', 'the distinguishing control the tool revision adds (a requirement)'),
 ])
-EXP_FLAG, FLAG_UNCLASSIFIED = [], []
+EXP_FLAG, EXP_RESTORE, FLAG_UNCLASSIFIED = [], [], []
+RESTORE_FORM = 'VD-RESTORE: no restored case executed'
 for r in EXP['rows']:
     stmt = False
     for f in r.get('flags') or []:
-        if FLAG_STMT.search(f):
+        if f.startswith(RESTORE_FORM):
+            if r['id'] not in EXP_RESTORE:
+                EXP_RESTORE.append(r['id'])
+        elif FLAG_STMT.search(f):
             stmt = True
         elif FLAG_BROAD.search(f) and not any(f.startswith(x) for x in FLAG_EXCL):
             FLAG_UNCLASSIFIED.append('%s: %s' % (r['id'], f[:60]))
@@ -374,8 +380,13 @@ HS_ROWS = [(where(k), v) for k, v in INCLUDE.items()] + [
     ('EXPECTATIONS.json, `source` fields (%d rows)' % len(EXP_SRC),
      'the mutation results of CI run 45569710442: ' + ', '.join(EXP_SRC)),
     ('EXPECTATIONS.json, `flags` (%d rows)' % len(EXP_FLAG), 'what the tool commit or its runners do (in the present tense or '
-     '"today"), or the results of CI run 45569710442 (the RT-L2 PASS, the known survivors and the unapplied mutant): '
+     '"today"), what the conformance check of the tool commit found ("VD-RESTORE: listed without a restored case by the '
+     'conformance check (C-1)"), or the results of CI run 45569710442 (the RT-L2 PASS, the known survivors and the unapplied '
+     'mutant): '
      + ', '.join(EXP_FLAG)),
+    ('EXPECTATIONS.json, `flags` "%s" (%d rows: every row with a flag beginning with that text, including its variant '
+     '"the restored half is unreachable in the runner")' % (RESTORE_FORM, len(EXP_RESTORE)),
+     'that the runners of the tool commit execute no restored case for the row: ' + ', '.join(EXP_RESTORE)),
     ('EXPECTATIONS.json, `expect` case text (%d row)' % len(EXPECT_STMT), '; '.join('%s: %s' % kv for kv in EXPECT_STMT.items())),
     ('FRESH-AUTHORIZATION.md', 'its quotations and summaries of the requirements listed above (the same statements)'),
     ('V4-COMPARISON.md', 'v6.0e sec. 6.4.1\'s report that neither rule form matches any line at `T1\'`'),
