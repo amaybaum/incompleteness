@@ -73,7 +73,8 @@ trees are distinguished (sec. 20). It superseded the execution-exception route o
 The steps it held (implementation, push, pull request, merge and the plan edit) are each governed by
 their own owner record; r6 releases none of them. Before adoption the decision is quoted in r6 in the
 owner's own words, byte-exact from the comment if it holds them, or as the owner restates it (RE-26);
-since the comment holds no owner words, the owner restates it.
+since the comment holds no owner words, the owner restates it. The owner's restatement is owner decision A3
+of 2026-11-25, quoted byte-exact in sec. 0.1, which satisfies this condition.
 Confirmed by owner decision 1 of 2026-11-25 (#1169 comment 7166844576; sec. 0.1) as necessary for reliable verification.
 Sources: RV-002. Controls: none (governance record).
 
@@ -120,9 +121,11 @@ an implementation are separate steps.
   `main` as support is listed in the adoption trace of sec. 32. Each is an open governance conflict,
   closed only by landing the content the claim needs or by narrowing the claim, never by an exception.
 - The independent review of the second correction round is recorded at #1169 comment 7166666428 and in
-  REVIEW-r6-round2.md of this directory; the owner's decisions on it are quoted in sec. 0.1. Before
-  adoption, one bounded delta review covers the changes of this revision (owner decision 5); with the
-  documents, it is part of the adoption's support. Preparing the directory and the review records for
+  REVIEW-r6-round2.md of this directory; the owner's decisions on it are quoted in sec. 0.1. The
+  delta review of the round-3 revision is recorded in REVIEW-r6-round3.md, and the owner's decisions A1 to
+  A5 on it are quoted in sec. 0.1. Before adoption, one short independent delta review covers the changes
+  of the round-4 revision; with the documents and the earlier reviews, it is part of the adoption's
+  support. The files that land are listed in LANDING-MANIFEST.md (owner decision A5). Preparing the directory and the review records for
   landing approves no merge: the landing pull request's merge needs its own owner approval (AGENTS.md
   sec. A.50 item 1), separate from adoption.
 OPEN: off-main support of adoption.
@@ -164,12 +167,37 @@ Decision 5, quoted: "Include decisions 1–4 and address R1–R6 and N1–N6 wit
 
 How r6 applies them; each takes effect only with r6's adoption (R6.STAT.1):
 
-- Decision 1. The 22 requirements the review classes as necessary for scientifically valid retirement and the 19 it classes as necessary for reliable verification carry "Confirmed by owner decision 1". R6.STAT.4 and R6.EVID.5 are scope statements with no check of their own. R6.OUT.15 is deferred, with the `replay` mode of R6.REC.24 and control TR45-opB; its text is kept as the deferred specification and the accountable Issue is #1169. Every mention of the offline replay in this design refers to that deferred specification. The expectation file keeps the rows TR45-opB and TR45 (a composite of TR45-opB and TR45-opC) unchanged in this text-only revision; how the deferred row is carried in the expectation file is a matter for the delta review and a later owner-approved expectation change.
+- Decision 1. The 22 requirements the review classes as necessary for scientifically valid retirement and the 19 it classes as necessary for reliable verification carry "Confirmed by owner decision 1". R6.STAT.4 and R6.EVID.5 are scope statements with no check of their own. R6.OUT.15 is deferred, with the `replay` mode of R6.REC.24 and control TR45-opB; its text is kept as the deferred specification and the accountable Issue is #1169. Every mention of the offline replay in this design refers to that deferred specification. Owner decision A1 (below) defers TR45-opB, TR45-opC, TR45 and OBL-17 with it.
 - Decision 2. The classes of the 12 flagged requirements are recorded in FRESH-AUTHORIZATION.md, sec. 2.
 - Decision 3. V4, V27 and V27-glossary expect PASS and V15 REVIEW_REQUIRED through `resid`; no deny rule is added (R6.PUR.9, R6.DENY.6, R6.CTRL.15, OBL-6, R6.A1CFG.7). The owner's caveat, quoted: "This is a decision about the automated checker's scope, not permission to make scientifically unsupported claims about finiteness."
-- Decision 4. (i) The review record is REVIEW-r6-round2.md; preparing the directory for landing approves no merge (R6.STAT.10). (ii) The regeneration and byte-comparison procedure is R6.TREE.19, for the delta review; LC-7 stays REVIEW_REQUIRED until that review accepts it. (iii) The earlier `T1'` figure of item11-T1p is candidate evidence only, not acceptance support (OBL-23).
-- Decision 5. The 50 requirements found to rest on owner decision S1-D3 (B1-B6) and not confirmed by decision 1 are marked "Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3)." (FRESH-AUTHORIZATION.md, sec. 3); r6's adoption is not used as their authorization. A requirement left unconfirmed stays pending and is never withdrawn by that alone; withdrawal needs an explicit owner choice, with its verification traced (R6.STAT.5). R6.STAT.8 is confirmed as a requirement; the restatement of the landing-order decision in the owner's words, which it requires before adoption, is still owed.
-- One bounded delta review covers the changes of this revision before adoption (R6.STAT.10).
+- Decision 4. (i) The review record is REVIEW-r6-round2.md; preparing the directory for landing approves no merge (R6.STAT.10). (ii) The regeneration and byte-comparison procedure is R6.TREE.19, accepted by the round-3 delta review; LC-7 stays REVIEW_REQUIRED until its cases are restated by an owner-approved expectation change (R6.TREE.12). (iii) The earlier `T1'` figure of item11-T1p is candidate evidence only, not acceptance support (OBL-23).
+- Decision 5. The 50 requirements found to rest on owner decision S1-D3 (B1-B6) and not confirmed by decision 1 are identified in FRESH-AUTHORIZATION.md, sec. 3, and confirmed by owner decision A4; r6's adoption is not used as their authorization. A requirement left unconfirmed stays pending and is never withdrawn by that alone; withdrawal needs an explicit owner choice, with its verification traced (R6.STAT.5). R6.STAT.8 is confirmed as a requirement; the restatement of the landing-order decision in the owner's words, which it requires before adoption, is owner decision A3.
+
+
+The owner (amaybaum) decided on the round-3 delta review (REVIEW-r6-round3.md) in the coordinating session on 2026-11-25 (owner message of 2026-11-25T16:17:51Z), recorded at #1169 comment 7169906297 (2026-11-25T17:43:21Z); every sentence quoted below occurs verbatim in that record. Decisions A1 to A5 and the closing direction, byte-exact as relayed (each line prefixed by "> "):
+
+> A1 — Offline replay | Defer TR45-opB, TR45-opC, TR45 and OBL-17 together. A1 retirement must not depend on a deferred feature.
+>
+> A2 — T1′ evidence | Correct both flags to "candidate evidence only, not acceptance support". Preserve the existing expectations.
+>
+> A3 — Landing order | Adopt the explicit wording below.
+>
+> The verification tool must land before A1 retirement execution, through its own independently reviewed pull request and separate merge approval. After the tool lands and its operation on main is confirmed, amend the A1 retirement plan's PREREG.md to specify the adopted tool and its exact verification commands. Every mandatory check in section 11 must pass as written, without exceptions. The amended plan must be independently reviewed and frozen again. Maintain the distinction between the immutable scientific base H, the current integration base on main, the candidate execution tree and the landing tree, as specified in r6 section 20. The execution-exception route recorded in comment 7092885251 is superseded. Each applicable approval gate for implementation, push, pull request, merge, plan amendment, freezing, trials and retirement execution remains separate under the governing rules.
+>
+> A4 — Authorization | Confirm all 53 identified requirements, within the reviewed r6 scope and subject to previously approved deferrals. This confirmation does not extend to unidentified requirements.
+>
+> A5 — Landing scope | Land only the final r6 documents, both review records and the round-2/3 generators, including any committed inputs necessary for reproducibility. Preserve earlier drafts through Git history or the evidence branch. Classify every off-main reference individually.
+>
+> Proceed with the final bounded text-only revision, including the R6.TREE.12 correction, and obtain the short independent delta review. Do not reopen settled requirements or introduce further features.
+
+How r6 applies them; each takes effect only with r6's adoption (R6.STAT.1):
+
+- Decision A1. TR45-opB, TR45-opC, their composite TR45 and OBL-17 are deferred with R6.OUT.15. The expectation file carries each deferred row in the form R6.GATE.2 and R6.GATE.15 permit for a row that is not run: `status_allowed` admits NOT RUN and `not_run` records the deferral as its reason, with the release condition that a recorded owner decision takes up R6.OUT.15 and a release check that is false until an owner-approved expectation change replaces the entry; `expect` and `restored` are kept as the deferred specification. An admitted NOT RUN does not fail the gate (R6.GATE.9) and meets the acceptance list (R6.GATE.11), so neither the tool's acceptance nor the A1 retirement depends on the deferred rows. Outcome DEFERRED is not used: R6.GATE.9's `deferred-expectation` never holds, so the gate would depend on the deferral. Moving the ids to `retired` is not used: a retired id is never reused (sec. 34), while the specification is kept. OBL-17 gates no step while deferred.
+- Decision A2. The two flags of item11-T1p read "candidate evidence only, not acceptance support"; its expectation is unchanged (OBL-23).
+- Decision A3. The owner's restatement quoted above is the wording R6.STAT.8 requires before adoption; R6.STAT.8 is satisfied by it.
+- Decision A4. The 53 identified requirements, the 50 found to rest on S1-D3 by the rules of FRESH-AUTHORIZATION.md, sec. 3, and R6.OUT.5, R6.OUT.18 and R6.DELEG.8, which the round-3 delta review named (F3), carry "Confirmed by owner decision A4", within the reviewed r6 scope and subject to previously approved deferrals; the confirmation does not extend to requirements that were not identified.
+- Decision A5. LANDING-MANIFEST.md lists the files of this directory that land and those left to Git history, and classifies each reference of the landed files to content not on `main` (AGENTS.md sec. A.42 item 8).
+- The R6.TREE.12 correction: the derived-artifact case stays REVIEW_REQUIRED until LC-7's cases are restated by an owner-approved expectation change. One short independent delta review covers this revision before adoption (R6.STAT.10).
 
 ***
 
@@ -1018,6 +1046,7 @@ is FAIL `record-invalid` (sec. 11), and so is a schema-invalid adjudication and 
 `--classify` that the configuration does not reference. VOID carries `CONFIG_NO_CONTROLS` or
 `PREFLIGHT_FAILED`. The class each integrity failure raises is confirmed by the conformance checks of
 OD-4 and RD-18; a difference is a verification defect.
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-101, V1-081, V2-046. Controls: X1, M3, M4, M5, M9, M11, TT5, TT6, I2-3, I2-4, O6, Z1, Z5,
 Z7, Z8.
 
@@ -1074,7 +1103,7 @@ The schema makes `config.admission` required. A result with a mode other than `"
 top-level `"harness"` field, is never acceptable, whatever its outcome; a control harness writes
 `control-result.json` with `"harness": true`, never `result.json`. Only exit 0 is acceptance, and no
 flag converts REVIEW_REQUIRED to PASS.
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-095, E-099, V2-045. Controls: X10, X11, ACCEPT-SCHEMA, EI3.
 
 **R6.OUT.13** Host-run re-verification. The result was produced in a host CI run that the consumer
@@ -1123,7 +1152,7 @@ the admission field, the replay's output equals the committed result byte for by
 R6.OUT.19), for op B and op D results as well as for op C results. A replay is never acceptable as a new
 run. One thing remains host-attested and cannot be reproduced offline: that the snapshot was genuine
 when it was taken.
-Deferred by owner decision 1 of 2026-11-25 (#1169 comment 7166844576; sec. 0.1), together with the `replay` mode of R6.REC.24 and control TR45-opB. The text above is kept as the deferred specification; it binds no tool revision until a recorded owner decision takes it up. Accountable Issue: #1169. A committed result is re-established under AGENTS.md sec. A.42 item 1 by R6.OUT.14's recipe and a re-run on `main`.
+Deferred by owner decision 1 of 2026-11-25 (#1169 comment 7166844576; sec. 0.1), together with the `replay` mode of R6.REC.24; owner decision A1 of 2026-11-25 (sec. 0.1) defers with it the controls TR45-opB, TR45-opC and TR45 and the obligation OBL-17, and the A1 retirement does not depend on them. The text above is kept as the deferred specification; it binds no tool revision until a recorded owner decision takes it up. Accountable Issue: #1169. A committed result is re-established under AGENTS.md sec. A.42 item 1 by R6.OUT.14's recipe and a re-run on `main`.
 Sources: E-098. Controls: TR45-opB.
 
 **R6.OUT.16** Frozen code. Every call into frozen code in op A is wrapped. An exception becomes a
@@ -1201,6 +1230,7 @@ sites), `provenance` (record id or null), `region_shared_with`, `hp_overlap`, `r
 
 Hit fields: `file`, `line`, `line_sha256`, `profiles`, `tree`, `state`, `segment`, `held_by` (the
 tracked site that holds it, or null; sec. 14) and `pre_existing`.
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-106, V1-074, V1-078, V2-062, V2-063, V2-064, V2-065. Controls: ACCEPT-SCHEMA,
 S7-schema-and-checker, B4-MEANING, U2, U9, U10.
 
@@ -1718,7 +1748,7 @@ code raises precedes adoption; each difference found is a verification defect.
   record supplied to the run (for example by `--classify`) that the configuration at `F` does not
   reference: FAIL `record-invalid` (exit 20). An unreferenced record is never used.
 
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-139, E-140, A-116. Controls: TR2, TR3, CHAIN-REFUSAL, ADM-CONFIG-AT-F, EI2, TR29-tool, O6,
 I2-3, Y10, M3, M4, M5, Z1, Z11, I2-4, I2-5, GV6.
 
@@ -1810,7 +1840,7 @@ differs between the two (each changed field, added file, fingerprint or allowanc
 is `accept`. A widening review that covers only some items, or names other blobs, is invalid. Widening
 of a record without a valid widening review is FAIL `record-invalid`; widening of the configuration
 without one is ERROR `CONFIG_UNREVIEWED` (R6.REC.5).
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-162. Controls: A1r, A2r, A3r, A4r, A9r, A10r, A12r, E-A1r, E-A2r, E-A3r, Y4, Z10.
 
 **R6.REC.14** **Examples and fingerprints.** Each fingerprint must be reproduced by a sentence of its
@@ -1855,7 +1885,7 @@ records; the landing record names it with `F`. The tool also checks that directo
 admitted record directories of sec. 21, a constant outside the configuration (sec. 19). Whether `F`
 and the configuration path are the plan commit and record directory the owner designated is confirmed
 procedurally (sec. A.50 items 2 and 5), not by the tool.
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-143, E-144, E-145, E-146. Controls: TR1, TR2, TR3, TR13, EI4, ADM-CONFIG-AT-F,
 CHAIN-REFUSAL, TR45-opB, X11, RDIR-16, RDIR-20.
 
@@ -1879,7 +1909,7 @@ run, by the consumer and in the offline replay, goes through one reader over a l
 - **Caching.** A cache of verified objects or parsed trees serves only bytes the reader has verified,
   is keyed by exact object or commit id, and is read-only to its users.
 
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-156. Controls: GV1, GV2, GV3, GV4, GV5, GV6, GV6-disk, O6, GV-CACHE, GV-CACHE-AFTER-READ,
 GV-CACHE-IMMUTABLE, GV-CACHE-KEY, K1-GRAPH.
 
@@ -2120,7 +2150,7 @@ set must equal what the ledger implies: `tex_sources(ledger)` for TeX, and the f
 classes. A changed path at `X` outside the ledger and the contract is FAIL `unauthorized-change`.
 Evidence not named by the frozen contract is never accepted, however and whenever it is supplied; no
 caller-supplied result is evidence for a class.
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1033, E-1034, E-1035, E-1036, E-1037, RV-029, RV-025, RV-007, V2-019. Controls: RT-C, G4,
 S11-14, G-A1.
 
@@ -2128,7 +2158,7 @@ S11-14, G-A1.
 conformance (its bytes equal `H` with its splices applied), or by a native class that states its
 regeneration rule and verifies its rebuild at the evaluated tree (`coverage-ledger`, R6.DELEG.15). A
 delegation never absorbs a ledgered file.
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: RV-006. Controls: RT-C, G3, G5, S11-4.
 
 ### 13.2 Native execution and evidence
@@ -2159,14 +2189,14 @@ evaluated tree's blob, and the evaluated tree never decides its own acceptance:
   written is FAIL `regeneration-output-missing`, a run beyond the class time limit is FAIL
   `regeneration-timeout`, and a write to any other path is FAIL `regeneration-extra-write`
   (obligation `DELEGATED`); none of them is ever PASS.
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1038, RV-039, A-057. Controls: G9, G4, G5, O3-FILTER, G-A1, DELEG-REGEN.
 
 **R6.DELEG.4** **Recording.** The tool records, for each run, the checker's blob sha256, its exact
 command line, its working directory, its exit status, and the sha256 of each result file it wrote. It
 then reads the result file it produced itself; a result file supplied from outside the run is never
 evidence for a class that the tool can execute.
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1039. Controls: G4, G6.
 
 **R6.DELEG.5** **Independent verification of results.** The tool does not take a checker's verdict
@@ -2175,7 +2205,7 @@ output bytes with the committed file itself; `coverage-ledger` compares each of 
 the census output it produced; `tex` checks the `% source-sha256` stamps and the path set itself, in
 addition to reading preserve_check's result. A checker result that disagrees with the tool's own
 re-derivation is FAIL `delegated-evidence-invalid`.
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1040. Controls: G4, G5, G6.
 
 **R6.DELEG.6** **Host-run classes** (`pdf`, `ci`). The evidence is the host's run and job records,
@@ -2188,17 +2218,18 @@ configuration's `repository_id`. For `pdf` it also checks that the PDF compariso
 on PDFs built in the clone at `X`, and that the uploaded artifact's sha256 equals the result's. If any
 of these is absent, the class is REVIEW_REQUIRED `delegated-evidence-missing`; if any is inconsistent,
 it is FAIL `delegated-evidence-invalid`.
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1041, RV-043. Controls: G7, S11-3, GV7-tool.
 
 **R6.DELEG.7** **No freeze, no PASS.** Without `F`, every delegated class is REVIEW_REQUIRED
 `delegated-evidence-missing` and can never be PASS; a `plan` field that is null or absent is FAIL
 `delegated-evidence-invalid`. Such runs are not chain runs (R6.REC.16 point 3).
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1042. Controls: G8.
 
 **R6.DELEG.8** Where the environment cannot run the clone (a local run, sec. A.40), the class is
 REVIEW_REQUIRED `delegated-evidence-missing`. The code path and its controls run in CI.
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1043. Controls: G2, G-A1.
 
 **R6.DELEG.9** **Evidence absent** (a run not made, or no result file): REVIEW_REQUIRED
@@ -2214,7 +2245,7 @@ full 40-hex id; a nonzero exit; `verdict` other than `pass`; a required check mi
 with non-empty discrepancies; a checker blob that differs from `F`'s copy; a result file the tool did
 not produce in this run, for a class it executes; a disagreement between a checker's result and the
 tool's own re-derivation.
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1045, RV-041, RV-030. Controls: G1, G4, G6, G7, G8, Y6, S11-13.
 
 **R6.DELEG.11** A class PASSes only if every required item holds. Missing evidence is never PASS.
@@ -2228,7 +2259,7 @@ Computation, GR, Main, Methodology, SM, Structure, Substratum and FULL). Delegat
 base, ledger, regenerated artifacts and plan record" and "scope assertions of amendment sec. 31" both
 `pass`. Native as well: each file's last line is `% source-sha256: <sha256 of the tree's .md>`, and the
 path set equals `tex_sources`; a failure of either is FAIL `delegated-evidence-invalid`.
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1048, RV-042. Controls: G6, G1.
 
 **R6.DELEG.13** **`pdf`.** Paths: the PDFs of the same sources. Delegated: `preserve_check.py --tree
@@ -2237,7 +2268,7 @@ the check "committed PDFs against the CI build (pages, pdftotext)" `pass` and it
 Required: `candidate_commit` and `candidate_tree` equal to `X`; a host run record with `head_sha = X`,
 the named workflow and job, and conclusion success; the result hash equal to the uploaded artifact.
 Native as well: each PDF blob differs from `H`'s.
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1049, RV-043. Controls: G7.
 
 **R6.DELEG.14** **`record-dir`.** Paths: the plan's record directory. Native, not delegated: every
@@ -2253,7 +2284,7 @@ seven STALE ids; each STALE id occurs exactly once (a missing or duplicated id i
 value equals the fingerprint that `tools/proof_census.py --json` (the evaluated tree's blob, run in the
 clone, exit 0) reports for that id; any other byte difference is FAIL. Each FAIL is
 `delegated-evidence-invalid`.
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1052, RV-046. Controls: G3, G5, S11-4.
 
 **R6.DELEG.16** **`sc42`.** Path:
@@ -2263,7 +2294,7 @@ Native re-execution only, in the clone at the evaluated tree: the clone contains
 and with `-O`, exits 0 and its stdout is byte-identical to the result file; `--self-test`, plain and
 with `-O`, exits 0 and its stdout is byte-identical to the controls file, which equals `H`'s. No
 delegated evidence substitutes for the re-execution.
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1051, RV-045. Controls: G4, G9, S11-13.
 
 **R6.DELEG.17** **`ci`.** Paths: none. Delegated: the host run and job records for the exact-head run
@@ -2274,7 +2305,7 @@ Sources: E-1053. Controls: S11-3, GV7-tool.
 **R6.DELEG.18** **Outstanding.** The preserve_check gaps that the plan amendment must close, and the
 decision on its gap 6, are requirements of the plan amendment, not of this design; they are outstanding
 obligations, each a named blocker on the execution of the classes they affect (sec. 32).
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1038. Controls: none (OBL-8).
 ***
 
@@ -2576,7 +2607,7 @@ Sources: Q4, OD-31. Controls: GATE-8, GATE-17.
 
 A control-harness run writes `control-result.json` with `harness: true` and `config.admission.mode`
 `"control-harness"`, never `result.json`; a consumer rejects it as a result (X11).
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1189, E-1190, E-1191, RD-7. Controls: GATE-5, GATE-9, GATE-20, X11.
 
 **R6.GATE.6** The mutation run writes one mutation record per mutant, in the file
@@ -2613,7 +2644,7 @@ Where a runner keeps only a summary today, r6 requires the raw evidence named in
 
 The evidence set is a CI artifact. Its manifest digest is recorded with the run. Retention on `main`
 follows sec. A.42 when an enduring claim relies on it.
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1189, Q1. Controls: GATE-9, GATE-10.
 
 ### 16.4 Independent extraction
@@ -2657,7 +2688,7 @@ It imports nothing from `tools/ledger_coverage/`.
 
 Real-tree controls run in CI, and their decision rules are the declarative `expect` fields the gate
 re-evaluates; counts are informational unless `expect` states them.
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: V2-098, E-1190, Q1, RD-2. Controls: GATE-1, GATE-6, GATE-10, GATE-13, GATE-14, GATE-15,
 GATE-25.
 
@@ -2702,10 +2733,10 @@ lists each component's status and findings. Its aggregate status is the highest-
 its own record (where it has a runner) and its components, by the precedence ERROR > FAIL > NOT RUN
 > PASS, so that an ERROR or FAIL of any component is never concealed by a component that is NOT
 RUN. A composite whose aggregate is NOT RUN is NOT RUN with the release condition and release check
-of each NOT RUN component, and is admitted only while each such NOT RUN is admitted; TR45 (component
-TR45-opC) and EI14 (component EI14-dispatch) are such composites. A composite whose aggregate is FAIL
+of each NOT RUN component, and is admitted only while each such NOT RUN is admitted; TR45 (components
+TR45-opB and TR45-opC, both deferred) and EI14 (component EI14-dispatch) are such composites. A composite whose aggregate is FAIL
 or ERROR fails as `status-not-allowed` (RE-30, Q14; GATE-28).
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1190, Q1, VD-1, VD-10. Controls: GATE-1, GATE-2, GATE-3, GATE-4, GATE-9, GATE-10, GATE-12,
 GATE-16, GATE-17, GATE-20, GATE-26, GATE-27, GATE-28, GATE-29.
 
@@ -2815,14 +2846,17 @@ Sources: V2-098, Q1. Controls: GATE-18.
 
 **R6.GATE.15** `NOT RUN` is allowed only where the row lists it, with a reason and a release
 condition, and only while the row's `release_check` is false on the commit under check. The rows that
-admit NOT RUN are RT-T, TR5, G-A1, RT-L2, RT-O9-L2, TR45-opC and EI14-dispatch. RT-O9 is gated: its
+admit NOT RUN are RT-T, TR5, G-A1, RT-L2, RT-O9-L2, TR45-opB, TR45-opC and EI14-dispatch. RT-O9 is gated: its
 own record-directory checks run, and only its dependent clause, RT-O9-L2, is NOT RUN while RT-L2 is
 NOT RUN (Q6). RT-T is NOT RUN until the reviewed records it needs exist.
 The composites TR45 and EI14 are NOT RUN by inheritance while their component is (R6.GATE.9).
+TR45-opB and TR45-opC are deferred with R6.OUT.15 (owner decision A1 of 2026-11-25, sec. 0.1): the runner
+records them NOT RUN, their `not_run` reason is the deferral, their release check is false until an
+owner-approved expectation change takes up R6.OUT.15, and the A1 retirement does not depend on them.
 EI14-dispatch's release condition is a dispatch of the pinned workflow on a branch holding `T'`,
 after the tool lands, under a launch the owner approves (AGENTS.md sec. A.50, sec. A.51 item 4); it
 gates acceptance of a chain-admitted result in the A1 retirement execution (RE-21; OBL-18).
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: V1-121, E-1190, Q6, RD-6, RD-7, RD-25, RD-26. Controls: GATE-5, GATE-11, RT-T, TR5, G-A1,
 RT-L2, RT-O9, RT-O9-L2, TR45-opC, EI14-dispatch, TR45, EI14.
 
@@ -2936,16 +2970,16 @@ without a class is a defect of the expectation (G3, G5 and the countercontrols o
 and 13 name their class). Each expected deny FAIL names the deny rule and the rule alternative that
 produces it, as measured on the control's own text. Each countercontrol of a deny rule asserts the
 target rule id on the named line or sentence, not only the outcome of the run.
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1009, RV-052. Controls: RT-DR, RT-DR3W, A5r, V1, V2, V3, G3, G5, S11-4, S11-6, S11-13.
 
 **R6.CTRL.5** A runner records each control with status PASS, FAIL or NOT RUN. A status of SKIP does
 not exist: a control that is deliberately not run is NOT RUN. NOT RUN is admitted only for a row whose
 expectation lists it together with a reason and a release condition, and only while that release
 condition is false; a summary never counts NOT RUN as met. The rows that admit NOT RUN are RT-T, TR5,
-G-A1, RT-L2, RT-O9-L2, TR45-opC and EI14-dispatch, and, by inheritance from those components, the
+G-A1, RT-L2, RT-O9-L2, TR45-opB, TR45-opC and EI14-dispatch, and, by inheritance from those components, the
 composites TR45 and EI14 (R6.GATE.9).
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: V2-073. Controls: RT-T, TR5, G-A1, RT-L2, RT-O9-L2, TR45-opC, EI14-dispatch, GATE-5,
 GATE-11, TR45, EI14.
 
@@ -3057,8 +3091,8 @@ Sources: E-1098, E-1099, E-1100, E-1101, E-1102, E-1103, E-1104, Q12, RE-8. Cont
 entries computed independently from the stand-in `F` tree, compared exactly; no unequal path; no
 `side-change-unclassified`) run and are gated whenever RT-O9 runs, independently of RT-L2. Its clause
 that RT-L2 still holds is the separate row RT-O9-L2, which depends on RT-L2 and is NOT RUN with
-RT-L2's release condition. TR45's op-C half is the row TR45-opC, NOT RUN until delegated evidence is
-recorded by native runs at `X` and `C`. EI14's branch-dispatch half is the row EI14-dispatch, NOT RUN
+RT-L2's release condition. TR45's op-C half is the row TR45-opC; it and TR45-opB are
+deferred with R6.OUT.15 and recorded NOT RUN (owner decision A1 of 2026-11-25; R6.GATE.15). EI14's branch-dispatch half is the row EI14-dispatch, NOT RUN
 until a dispatch of the pinned workflow on a branch holding `T'` is made, after the tool lands, under
 a launch the owner approves; EI14's other cases stay in EI14. The consumer halves of EI7, TR15, TR50,
 TR51 and TR52 are rows of their own (EI7-consumer, TR15-consumer, TR50-consumer, TR51-consumer,
@@ -3096,7 +3130,7 @@ asserts PASS. TT12 names its class. TT14 is evaluated in the landing check of th
 request (sec. 19). The role tests of v2 addendum 2 map to TT1, TT13 (op C on a correctly executed
 candidate), TT3, TT4, TT7, TT8, TT9, R15 (a first parent other than the recorded `M`), R16 (an
 unclassified path in a commit of `C`) and R18, R19, RDIR-5 (an unclassified change on `M`).
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1230, E-1231, E-1321, E-1329, V2-149, V2-150, V2-151, V2-152, V2-153, V2-154, V2-155, V2-156, V2-157, V2-158, V2-159, V2-160, V2-161, V2-148, E-1311, RV-ADD2-259-269. Controls: R15, R16, R17, R18, R18-engine, R19, R19-engine, RL, SIDE-NONREG, TT1, TT2, TT3, TT4, TT5, TT6, TT7, TT8, TT9, TT10, TT11, TT12, TT13, TT14.
 
 **R6.CTRL.21** The reconciliation controls are N2-N18 with N3-config-route, N16-file, N18-record and
@@ -3142,7 +3176,7 @@ version, Z7 a configuration inconsistency (three cases), Z8 an absent controls f
 withdrawn argument `--config-sha256`. Z9h's case is the one in Table 17.1, which combines both of its
 earlier statements. Z9-STAGED is the record of the staged purity job (its record id is `outcome`
 today).
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1233, E-1330, E-1381, E-1382, E-1383, E-1384, E-1385, E-1386, E-1387, E-1388, E-1439, E-1440, E-1441, E-1442, E-1443, E-1444, E-1445, E-1446, E-1447, E-1448, E-1457, E-1458. Controls: Y1, Y2, Y3, Y4, Y5, Y6, Y7, Y8, Y9, Y10, Z1, Z2, Z3, Z4, Z5, Z6, Z6b, Z7, Z8, Z9-STAGED, Z9a, Z9b, Z9c, Z9d, Z9e, Z9f, Z9g, Z9h, Z10, Z11.
 
 **R6.CTRL.26** The record-directory controls are RDIR-1 to RDIR-25 and RDIR-12b (sec. 21), each a
@@ -3526,8 +3560,8 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | TR29 | R6.OUT.13, R6.REC.18, R6.CTRL.23, R6.RECON.20 | conformance_controls.py:591 | proc | both | a run whose `head_sha` is not on `main`'s first-parent chain (a branch); separately, a run whose `head_sha` is the evaluated commit `X`; separately, a result whose recorded `T` differs from the producing run's `head_sha` |
 | TR29-tool | R6.REC.5, R6.REC.18, R6.CTRL.23, R6.VALID.3 | conformance_controls.py:254 | decl | adv | the tool half of TR29: `head_sha` on a branch; `head_sha` equal to `X` |
 | TR30 | R6.OUT.13, R6.REC.18, R6.CTRL.23 | conformance_controls.py:521 | proc | both | a result whose evaluated commits differ from the landing record's |
-| TR45-opB | R6.OUT.15, R6.REC.16, R6.REC.24, R6.CTRL.17, R6.CTRL.23, R6.CFG.8 | conformance_controls.py:2263 | proc | both | the offline replay of an accepted op-B result from its committed snapshot; and the same with the recorded result hash altered |
-| TR45-opC | R6.GATE.15, R6.CTRL.5, R6.CTRL.17, R6.CTRL.23 | to be implemented (tool revision) | proc | both | the offline replay of an accepted op-C result whose delegated classes (`tex`, `pdf`, `record-dir`, `sc42`, `coverage-ledger`, `ci`) are taken from the snapshot's delegated evidence, with no host call, clone, PDF build or checker run |
+| TR45-opB | R6.OUT.15, R6.REC.16, R6.REC.24, R6.CTRL.17, R6.CTRL.23, R6.CFG.8 | conformance_controls.py:2263 | proc | both | the offline replay of an accepted op-B result from its committed snapshot; and the same with the recorded result hash altered; deferred with R6.OUT.15 (owner decision A1 of 2026-11-25), recorded NOT RUN |
+| TR45-opC | R6.GATE.15, R6.CTRL.5, R6.CTRL.17, R6.CTRL.23 | to be implemented (tool revision) | proc | both | the offline replay of an accepted op-C result whose delegated classes (`tex`, `pdf`, `record-dir`, `sc42`, `coverage-ledger`, `ci`) are taken from the snapshot's delegated evidence, with no host call, clone, PDF build or checker run; deferred with R6.OUT.15 (owner decision A1 of 2026-11-25), recorded NOT RUN |
 | TR46 | R6.OUT.14, R6.REC.24, R6.CTRL.23 | conformance_controls.py:526 | proc | both | a committed compressed result whose uncompressed sha256 differs from the recorded one |
 | TR48 | R6.OUT.26, R6.REC.18, R6.REC.25, R6.CTRL.23, R6.PLACE.3, R6.PLACE.4 | conformance_controls.py:228 | decl | pos | a valid `T` whose `tools/ledger_coverage/` and entry point hold exactly the configuration's `tool.files`, each a regular file with its pinned blob, and whose workflow blob equals the pin; the checkout equal to `T`'s tree |
 | TR50 | R6.REC.18, R6.REC.22, R6.CTRL.23 | conformance_controls.py:239 | decl | adv | the workflow at `tool.workflow.path` at `T` modified (one byte changed) |
@@ -3670,14 +3704,14 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | RULE-MINLIT | R6.RULE.11 | to be implemented (tool revision) | decl | adv | an allow rule whose `matcher.literal` is shorter than 8 characters, with and without the trigger |
 | RULE-ZEROFP | R6.RULE.12 | to be implemented (tool revision) | decl | both | an allow rule with zero fingerprints; and a deny rule |
 | TR28 | R6.REC.18, R6.CTRL.23 | composite (no runner of its own) | decl | both | composite of TR28-tool and TR28-consumer (RD-4) |
-| TR45 | R6.GATE.15, R6.CTRL.5 | composite (no runner of its own) | decl | both | composite of TR45-opB and TR45-opC (RD-4, RD-26) |
+| TR45 | R6.GATE.15, R6.CTRL.5 | composite (no runner of its own) | decl | both | composite of TR45-opB and TR45-opC (RD-4, RD-26); deferred with R6.OUT.15 (owner decision A1 of 2026-11-25), recorded NOT RUN |
 | LC-1 | R6.TREE.12, R6.TREE.13 | to be implemented (tool revision) | decl | both | composition case "neither side changed": fixture and byte-exact expected landing blob of `p.md` in the expectation file (Q15) |
 | LC-2 | R6.TREE.12, R6.TREE.13 | to be implemented (tool revision) | decl | both | composition case "only X/C changed": fixture and byte-exact expected landing blob of `p.md` in the expectation file (Q15) |
 | LC-3 | R6.TREE.12, R6.TREE.13 | to be implemented (tool revision) | decl | both | composition case "only M changed": fixture and byte-exact expected landing blob of `p.md` in the expectation file (Q15) |
 | LC-4 | R6.TREE.12, R6.TREE.13 | to be implemented (tool revision) | decl | both | composition case "both changed to equal blobs": fixture and byte-exact expected landing blob of `p.md` in the expectation file (Q15) |
 | LC-5 | R6.TREE.12, R6.TREE.13 | to be implemented (tool revision) | decl | both | composition case "both changed to different blobs, ledgered path (a line prepended on M)": fixture and byte-exact expected landing blob of `p.md` in the expectation file (Q15) |
 | LC-6 | R6.TREE.12, R6.TREE.13 | to be implemented (tool revision) | decl | both | composition case "both changed to different blobs, ledgered path (the spliced line moved on M)": fixture and byte-exact expected landing blob of `p.md` in the expectation file (Q15) |
-| LC-7 | R6.TREE.12 | to be implemented (tool revision) | decl | adv | composition case "derived artifact": a derived artifact changed on both sides; REVIEW_REQUIRED for every candidate `L` until a regeneration verification procedure is specified and independently reviewed (expected landing blob open, RE-18, OC-4) |
+| LC-7 | R6.TREE.12 | to be implemented (tool revision) | decl | adv | composition case "derived artifact": a derived artifact changed on both sides; REVIEW_REQUIRED for every candidate `L` until LC-7's cases are restated by an owner-approved expectation change (R6.TREE.19; expected landing blob open, RE-18, OC-4) |
 | DELEG-REGEN | R6.DELEG.3, R6.CLASS.9 | to be implemented (tool revision) | proc | both | a re-executed generator in its own clone under `--out`: equal output, one-byte difference, missing output, timeout, extra write, and an evaluated tree whose checker copy accepts anything (Q13) |
 | REP-BUILD | R6.EVID.8 | to be implemented (tool revision) | decl | both | the representative candidate `X_rep` built from `H`, the pinned ledger and edit list and the configuration's control instance, twice with equal ids; a ledger with one splice changed by one byte; a builder importing the engine (R6.EVID.8) |
 
@@ -3726,7 +3760,7 @@ S11-10, S11-11, S11-12, S11-13, S11-14.
 and `--out DIR`, and reads `F`'s records by object id. Profiles, rules, the delegation contract and
 the HP obligations come from the configuration record. A path written `F:...` is resolved through the
 configuration. `X` is the execution head.
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1268. Controls: S11-1, TR5, ADM-CONFIG-AT-F.
 
 **R6.PLAN.3** Item 1 (every `new` string present; residual pointer scan with zero unqualified hits)
@@ -3753,7 +3787,7 @@ Sources: E-1271. Controls: S11-3.
 **R6.PLAN.6** Item 4 (the coverage checker; STALE entries re-affirmed) maps to `execution` with the
 class `coverage-ledger` and the `ci` job `coverage_check`, which the `ci` class's job list includes.
 Countercontrol: one STALE value altered; separately, an id removed. The FAIL names its class.
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1272. Controls: S11-4, G5.
 
 **R6.PLAN.7** Items 5 and 6 (register and infinity scans of added lines with zero findings) map to
@@ -3879,7 +3913,7 @@ Sources: E-1291. Controls: EI8, EI12, X7.
 **R6.PLACE.2** `tools/ledger_coverage/engine/` holds the engine (sec. 24), its JSON Schemas, the
 outcome checker and the in-memory self-test fixtures; no fixture file is tracked. This directory is
 the purity scope of the purity lint.
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1292, V2-114. Controls: Z9a, Z9b, Z9c, Z9d, Z9e, Z9f, Z9g, Z9h, Z9-STAGED.
 
 **R6.PLACE.3** `tools/ledger_coverage/adapters/` holds the adapter modules: the A1 adapters, the
@@ -3899,7 +3933,7 @@ predates the term "admitted record directories"). The engine contains no retirem
 module is a tool file like any other: listed in `tool.files`, pinned by the tool-landing class record
 and checked by the pre-run pin check. No configuration, record or command-line argument adds to the
 tuple; changing it is a tool revision.
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: A-009, A-020, A-023, A-024. Controls: RDIR-16, MUT:o9:RDIR-m4, TR48, Z9g.
 
 **R6.PLACE.5** A new audit directory under `verification/audits/` holds the rule files, scope records,
@@ -3961,7 +3995,7 @@ recorded in the result's `roles`:
 - landing `L` (`--landing`, optional): the merge commit, or an in-memory merge for prediction.
 
 `C` is the certified execution head throughout; `E` is only the ledger pin.
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: V2-124, E-1300. Controls: TT1, TT5, TT6, R16.
 
 **R6.TREE.2** `H` equals the ledger's `base` and `roles.scientific_base` in the frozen configuration
@@ -4029,7 +4063,7 @@ bytes with the ledger's splices applied; a delegated path is checked by its clas
 path is one the plan's record directory admits after `F`. Any other changed path is FAIL
 `unauthorized-change`, naming the commit. A commit with more than one parent is FAIL
 `candidate-parent`. The tree of `C` is then checked as a whole, as `X` is.
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1305. Controls: R16, R17.
 
 **R6.TREE.11** `L` has exactly two parents, and the second is `C`; otherwise FAIL `landing-parents`
@@ -4052,9 +4086,8 @@ Sources: V2-138, E-1306. Controls: TT9, R15.
     is regenerated from `L`'s sources under the delegation contract; a reconciliation record is not an
     alternative to regeneration. The regeneration is verified by the procedure of R6.TREE.19, in which the
     trusted checker establishes the expected output itself and compares bytes; the evaluated tree's claim
-    of regeneration is never sufficient. Until that procedure has passed its independent review (the
-    delta review of owner decision 4) and r6 is adopted, the path is REVIEW_REQUIRED for every candidate
-    `L` (LC-7);
+    of regeneration is never sufficient. Until LC-7's cases are restated by an owner-approved expectation change, the path is
+    REVIEW_REQUIRED for every candidate `L` (LC-7);
   - any other conflict, including a ledgered path whose `L[p]` differs from the composition, is FAIL
     `landing-conflict-unresolved`.
 
@@ -4064,27 +4097,34 @@ Sources: V2-139, V2-140, V2-142, V2-144, E-1306, E-1307, E-1308, E-1309, RV-001,
 TT10, TT11, RL, RT-L, N10, N11, LC-1, LC-2, LC-3, LC-4, LC-5, LC-6, LC-7.
 
 **R6.TREE.19** Regeneration and byte comparison for a derived artifact (LC-7, OC-4; owner decision 4 of
-2026-11-25, sec. 0.1). For the delta review: this procedure is specified for the independent review that
-owner decision 4 requires. Until that review accepts it and r6 is adopted, R6.TREE.12 keeps the
-derived-artifact case REVIEW_REQUIRED, and LC-7's expectation is unchanged.
+2026-11-25, sec. 0.1). The round-3 delta review (REVIEW-r6-round3.md) accepted this procedure with three
+clarifications, stated below. Until LC-7's cases are restated by an owner-approved expectation change,
+R6.TREE.12 keeps the derived-artifact case REVIEW_REQUIRED.
 - Scope. Each path `p` of `L` that is a generated artifact of the configuration's derived set and is
   changed on both sides to different blobs (the conflict case of R6.TREE.12).
-- Regeneration. The checker is the one committed on `main` and pinned by the configuration at `F` for
-  `p`'s class under the delegation contract (sec. 13). The tool runs it itself in a disposable full
+- Regeneration. The program is a generator, not a verifier: the generator and command, committed on
+  `main`, that the delegation contract pinned at `F` names for `p`'s class (sec. 13); a class that names
+  none leaves `p` REVIEW_REQUIRED `delegated-evidence-missing`. The tool runs it itself in a disposable full
   clone at exact `L`, on the committed source paths of `L` for `p` only, read through the verified
   reader (R6.REC.17); this run alone establishes the expected bytes. No file, output, log or claim of
   regeneration supplied by the evaluated tree or by the caller is an input.
-- Comparison. The bytes the checker writes for `p` are compared with the blob `L[p]`, byte for byte over
+- Isolation. The run uses the execution isolation of R6.DELEG.3 (its own disposable clone, no network
+  access, a fixed environment, `python3 -I -B`, writes only to `p`). Its failure classes are this
+  requirement's, not R6.DELEG.3's: it decides the derived-artifact case of R6.TREE.12 at `L` (obligation
+  `MAIN`), whose undecided state is REVIEW_REQUIRED `delegated-evidence-missing` (LC-7).
+- Comparison. The bytes the generator writes for `p` are compared with the blob `L[p]`, byte for byte over
   the whole file, with no normalization of line endings, whitespace, timestamps or metadata. The run
-  records the checker blob sha256, the exact command line, the working directory, the exit status, and
+  records the generator blob sha256, the exact command line, the working directory, the exit status, and
   the sha256 and length of the regenerated bytes and of `L[p]`.
 - Failure. Equal bytes discharge the derived-artifact case for `p`; any difference is FAIL
-  `delegated-evidence-invalid` for `p`. A checker that cannot run, exits nonzero, writes no output for
+  `delegated-evidence-invalid` for `p`. A generator that cannot run, exits nonzero, writes no output for
   `p`, or needs an input that is missing or unpinned leaves `p` REVIEW_REQUIRED
   `delegated-evidence-missing` (obligation `MAIN`); none of these is PASS. A reconciliation record, a CI
-  log or a host attestation never stands in for the comparison.
-Sources: OC-4, RE-18. Controls: none (procedure for the delta review; once it is accepted, LC-7's cases
-are restated by an owner-approved expectation change).
+  log or a host attestation never stands in for the comparison. A generator whose output is not
+  byte-deterministic (for example a PDF build) yields FAIL for every such `p`; that FAIL is fail-closed,
+  and such a class is not discharged by this procedure.
+Sources: OC-4, RE-18. Controls: none (procedure; LC-7's cases are restated by an owner-approved expectation
+change).
 
 **R6.TREE.13** Translation. For a ledgered path, the `M`-translated offset of a splice is the offset of
 the unique occurrence at `M` of the splice's old bytes, after those old bytes, taken from `H` at the
@@ -4129,7 +4169,7 @@ Sources: RV-001. Controls: TT2, TT7.
 (R18, R19, RDIR-5); a first parent other than the recorded `M` fails (R15); an unclassified path in a
 commit of `C` fails (R16, with R17 for a record path admitted after `F`); R18-engine and R19-engine
 are the engine forms of R18 and R19 (B-7); op C on a correctly executed candidate gives PASS (TT13).
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: RV-ADD2-259-269. Controls: R18, R19, RDIR-5, R15, R16, TT13, R18-engine, R19-engine, R17.
 
 ***
@@ -4274,7 +4314,7 @@ The reserved class id
 strings pass the lint's occurrence rule and are not allowlisted. The reserved prefix `.github/` is a
 path literal that no enumeration admits; it moves to `record_authority.py`, which bounds what a
 configuration may claim (OD-5's exception class), in the tool revision (RE-19 (b); OBL-28).
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: A-035, A-037, A-041. Controls: Z9g, Z9-STAGED.
 
 **R6.RDIR.14** Real-tree control. RT-O9 runs `execution` on the predicted `M` (`main` plus the tool
@@ -4494,7 +4534,7 @@ contains exactly:
 - the configuration loader and validator (sec. 25, 29);
 - the purity lint Z9 (R6.CORE.3).
 
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: V2-012, E-1375. Controls: Y8, Z9g.
 
 **R6.CORE.2** The engine contains no commit or tree id, no path of a retirement record, no
@@ -4505,7 +4545,7 @@ example "a1exit deletion exact-edit ledger v2"), lie outside the engine, in
 name in the allowlist of R6.CORE.5: the reserved side-change class id `record-directory`, the reason
 strings of the record-directory rule (`absent at M`, `absent at F`, `differs from F`,
 `not a regular file`, and the reasons naming DIR2-DIR5 and `directory not admitted`), and the path
-prefix `.github/` used by condition DIR3. Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3). Sources: E-1376, RD-20. Controls: Z9a, Z9b, Z9c, Z9d, Z9g.
+prefix `.github/` used by condition DIR3. Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals. Sources: E-1376, RD-20. Controls: Z9a, Z9b, Z9c, Z9d, Z9g.
 
 **R6.CORE.3** Z9, the purity lint, runs over the source blobs of `tools/ledger_coverage/engine/` and
 the entry point `tools/ledger_coverage.py`, parsed by `ast`. Its scope is exactly those blobs; adapter
@@ -4519,7 +4559,7 @@ modules and `record_authority.py` are outside it. It fails on any of:
   `companion`), and in the synthetic configuration;
 - a string literal or identifier matched by any review or deny profile of the A1 configuration.
 
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1377, E-1378, RD-31. Controls: Z9a, Z9b, Z9c, Z9d, Z9e, Z9f, Z9g, Z9h.
 
 **R6.CORE.4** The engine reads nothing from a ledger but the fields of the ledger interface
@@ -4527,7 +4567,7 @@ Sources: E-1377, E-1378, RD-31. Controls: Z9a, Z9b, Z9c, Z9d, Z9e, Z9f, Z9g, Z9h
 values, a literal-piece filter, a read of a ledger field outside the interface) belong to the ledger
 adapter, which returns them through the interface field `guard_pins`. With the adapter companions in the
 value set, a planted `'guard-pin'` in an engine module is a lint FAIL (Z9h), and the real engine tree
-with the extended value set gives no finding (Z9g). Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3). Sources: E-1378, RD-31, MC-9. Controls: Z9g, Z9h.
+with the extended value set gives no finding (Z9g). Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals. Sources: E-1378, RD-31, MC-9. Controls: Z9g, Z9h.
 
 **R6.CORE.5** The allowlist is fixed in the engine and is itself linted to contain only:
 - the interface field names of sec. 26 and of the engine's record schemas (for example `id`, `file`,
@@ -4543,13 +4583,13 @@ with the extended value set gives no finding (Z9g). Pending owner confirmation f
   enumerations named in R6.CORE.2.
 
 Allowlisting a value that also occurs in a companion (for example a control id equal to a row code)
-requires that the value be an engine enumeration listed by name. Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3). Sources: E-1379, E-1378, RD-20,
+requires that the value be an engine enumeration listed by name. Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals. Sources: E-1379, E-1378, RD-20,
 OD-24. Controls: Z9e, Z9g.
 
 **R6.CORE.6** Z9's controls run the lint on an in-memory engine tree (Z9a-Z9f) and on the real engine
 tree (Z9g). Z9f's adapter half lints the real adapter sources: its linted source map is non-empty and
 includes the adapter modules. Z9 runs in CI and in `self-test`; a failure in `self-test` is VOID. The
-purity job records its result under the control id Z9-STAGED. Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3). Sources: E-1380, VD-9, RD-25. Controls:
+purity job records its result under the control id Z9-STAGED. Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals. Sources: E-1380, VD-9, RD-25. Controls:
 Z9a, Z9b, Z9c, Z9d, Z9e, Z9f, Z9g, Z9h, Z9-STAGED.
 
 **R6.CORE.7** Generality is accepted only if every A1 control of sec. 17 has, under the configured
@@ -4569,17 +4609,17 @@ OUT-CONFINED.
 **R6.CFG.1** A retirement is configured by one reviewed, versioned JSON record,
 `retirement-config.json`, in the retirement plan's record directory, frozen with the plan at `F` and
 held under the ownership chain of sec. 11. Its SHA-256 is listed in the pin table of `F`: the last
-`Record pins` subsection of the `PREREG.md` beside the configuration in `F`'s tree (sec. 11). Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3). Sources:
+`Record pins` subsection of the `PREREG.md` beside the configuration in `F`'s tree (sec. 11). Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals. Sources:
 E-1389, E-1390. Controls: TR2, ADM-CONFIG-AT-F.
 
 **R6.CFG.2** The tool reads the configuration only as `--config F:<path>` from the object store,
 never from a caller-supplied file or another commit. A configuration that is not admitted from `F`'s
 pin table (absent from it, or with a hash different from its listed SHA-256) is ERROR
 `CONFIG_UNREVIEWED`, exit 65. ERROR `SOURCE_CHANGED` is reserved for an input that the admitted
-configuration pins (R6.VALID.3). Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3). Sources: E-1391, OD-4. Controls: TR2, TR3, EI4, ADM-CONFIG-AT-F.
+configuration pins (R6.VALID.3). Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals. Sources: E-1391, OD-4. Controls: TR2, TR3, EI4, ADM-CONFIG-AT-F.
 
 **R6.CFG.3** A change to the configuration after `F` requires a new configuration version, with
-`supersedes` naming its predecessor, and a new freeze. Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3). Sources: E-1392. Controls: TR2, LN4.
+`supersedes` naming its predecessor, and a new freeze. Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals. Sources: E-1392. Controls: TR2, LN4.
 
 **R6.CFG.4** The configuration has schema `oi-retirement-config/1`. All fields below are required
 unless marked optional:
@@ -4681,7 +4721,7 @@ MC-20. Controls: Z10, Z5, LN4, Y4.
 `mode` and `snapshot`. `mode` is one of `chain`, `replay` and `control-harness`; only `chain` is
 acceptable (sec. 7, sec. 11). For `chain`, `snapshot` carries the fields sec. 11 lists: the producing
 run, `T` and its tool blobs, `F`, the pin table and the evaluated commits. The requirement that a run
-have `--freeze` (TR1) applies to chain admission only. Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3). Sources: OD-29, OD-28, E-1459. Controls: TR1,
+have `--freeze` (TR1) applies to chain admission only. Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals. Sources: OD-29, OD-28, E-1459. Controls: TR1,
 TR5, TR13, TR45-opB, X11.
 
 ***
@@ -4700,7 +4740,7 @@ engine holds no adapter names. Sources: E-1427, OD-4. Controls: Z1, Z6, Y10.
 new_sha256, new}]` (byte spans at `base`); `files {path: {base_sha256, expected_sha256}}`;
 `retained [{id, site_ref}]`; `mirrors [{id, mirror_of}]`; `guard_pins [{id, file, pieces, targets}]`
 (the updated pin literals the edit list requires, with the retirement's own selection rules applied
-inside the adapter); `ignored_fields`; and its validation errors (overlap, hash, schema). Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3). Sources:
+inside the adapter); `ignored_fields`; and its validation errors (overlap, hash, schema). Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals. Sources:
 E-1428. Controls: U10, U11, M3, M4, M5, Z9h.
 
 **R6.ADAPT.3** The sitemap interface returns: `pin`; `sites [{site_id, file, pin_line, carried: {row,
@@ -4743,7 +4783,7 @@ admitted record directories, held in `tools/ledger_coverage/record_authority.py`
 the engine, listed in `tool.files`, pinned by the tool-landing class record and checked by the pre-run
 pin check. No configuration, record or command-line argument can add to it; changing it is a tool
 revision. For this revision the tuple is exactly
-`('verification/audits/foundations/a1exit-deletion-20261121',)`. Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3). Sources: E-1433, A-019, A-020,
+`('verification/audits/foundations/a1exit-deletion-20261121',)`. Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals. Sources: E-1433, A-019, A-020,
 A-022, A-024, OD-5, OD-6. Controls: RDIR-16, RDIR-20, Z9g, EI1.
 
 **R6.A1CFG.2** The A1 constants have these destinations:
@@ -4772,7 +4812,7 @@ A-022, A-024, OD-5, OD-6. Controls: RDIR-16, RDIR-20, Z9g, EI1.
 | the admitted record-directory tuple | `record_authority.py` (the exception of R6.A1CFG.1) |
 | controls RT-*, SW*, the sec. 18 mapping and countercontrols | `controls` (operations, direction, control inputs); expected results in the expectation file |
 
-Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3).
+Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-1434, A-019, A-020, A-022, A-115, OD-5, OD-8. Controls: Z9a, Z9b, Z9c, Z9d, Z9g.
 
 **R6.A1CFG.3** The A1 adapters, each under `adapters/` and pinned by blob in the A1 configuration,
@@ -4898,7 +4938,7 @@ Sources: E-1450, E-1451, E-1452, E-1456. Controls: Z1, Z2, Z3, Z4, Z6, Z6b, Z8, 
 - a record whose blob matches its pin but whose content fails its lint or its review, or a record
   passed with `--classify` that the configuration does not reference: FAIL `record-invalid`.
 
-All ERROR outcomes here exit 65. Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3). Sources: E-1453, E-1454, A-116, OD-4, RD-18. Controls: TR2, Z5,
+All ERROR outcomes here exit 65. Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals. Sources: E-1453, E-1454, A-116, OD-4, RD-18. Controls: TR2, Z5,
 Y10, O6, I2-3, I2-4, Z1, TR29-tool, M3, M4, M5, TT5, O2.
 
 **R6.VALID.4** ERROR `CONFIG_INCONSISTENT`, exit 65, is raised for: a base that differs from the
@@ -4929,7 +4969,7 @@ RDIR-12, RDIR-16, RDIR-17, RDIR-20, RDIR-24.
   and the directory-completeness counts (paths equal, paths unequal by reason), with each classified
   side change listed as in sec. 21.
 
-The complete field list is the result schema of sec. 7. Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3). Sources: E-1459, A-058, A-059, OD-24, OD-29,
+The complete field list is the result schema of sec. 7. Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals. Sources: E-1459, A-058, A-059, OD-24, OD-29,
 OD-6. Controls: ACCEPT-SCHEMA, S7-schema-and-checker, TR5, X10, Y8.
 
 **R6.REPRO.2** Two runs with equal inputs produce byte-identical `result.json`. CI runs each A1
@@ -5145,7 +5185,7 @@ resolved by an exception:
 | OBL-14 | the tool's landing | as OBL-13, on the predicted `M` plus the record directory of a representative stand-in `F` (R6.EVID.8) | as OBL-13 |
 | OBL-15 | plan freeze `F`; the A1 retirement execution | records at `F` (4); RT-T: 1 on the candidate `F` before its designation, at `X_rep` built from `F`'s ledger, within the exact-candidate validation (OBL-16 (a)); 4 at the executed candidate; 2 once the round's landing is on `main` | no cycle |
 | OBL-16 | plan freeze `F` (TR5 (a), (b)); the round's landing (TR5 (c)); the A1 retirement execution (G-A1) | TR5 (a): 1, the exact-candidate validation of the candidate `F` before its designation; (b): the recorded designation compared with the candidate's full id (governance, by the record's reviewer); (c): 2 once the round's landing is on `main`; G-A1: 4 | no cycle: no evidence needs `F` on `main` before its designation (AGENTS.md sec. A.39) |
-| OBL-17 | the A1 retirement execution | 4 | no cycle |
+| OBL-17 | none while deferred (owner decision A1 of 2026-11-25) | 4 | no cycle |
 | OBL-18 | acceptance of a chain-admitted result in the A1 retirement execution | a dispatch after the tool lands (3-type, on a branch holding `T'`) | no cycle |
 | OBL-19 | the tool's landing | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm | no cycle |
 | OBL-20 | the tool's landing | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm | no cycle |
@@ -5164,13 +5204,13 @@ open governance conflicts (R6.STAT.10); none is resolved by an exception:
 
 | Where | Content not on `main` | Use | Classification |
 |---|---|---|---|
-| R6.STAT.10 (the adoption record) | the r6 documents and their independent exact-head review (the second-round review, #1169 comment 7166666428 and REVIEW-r6-round2.md; the delta review of this revision) | the adoption's support | support: must be on `main` no later than the adoption record lands; precondition, an ordinary merge the owner approves (AGENTS.md sec. A.50 item 1), not authorized by r6; open until then |
+| R6.STAT.10 (the adoption record) | the r6 documents and their independent exact-head review (the second-round review, #1169 comment 7166666428 and REVIEW-r6-round2.md; the round-3 delta review, REVIEW-r6-round3.md; the delta review of the round-4 revision) | the adoption's support | support: must be on `main` no later than the adoption record lands; precondition, an ordinary merge the owner approves (AGENTS.md sec. A.50 item 1), not authorized by r6; open until then |
 | OBL-26; the runner cites of Table 17.1 and the expectation file's `runner` fields | the tool commit a37992449b452021001277c06c524a30c92dfb87 and its conformance assessment | locates the implementation and motivates obligations; no requirement rests on it | provenance for the requirements (the claim does not use the content); implementation certification is OBL-26, against the landed revision |
 | the expected figures of the expectation file (R6.EVID.4) | runs of the tool commit at `H`, `E` and `T1'` | preregistered expectations, not established values (R6.EVID.1, R6.EVID.7) | provenance for adoption; the enduring figures are those of R6.EVID.8 and OBL-23 |
 | statements of what the tool commit does ("at the tool commit", "today"): R6.PUR.12, R6.PIPE.3, R6.ANCH.10, R6.ANCH.12, R6.HP.7, R6.OUT.18, R6.OUT.24, R6.SPLIT.3, R6.RULE.11, R6.RULE.12, R6.REC.20, R6.HIT.2, R6.CLASS.1, R6.CLASS.11, R6.GATE.7, R6.CTRL.19, R6.CTRL.25, R6.CTRL.29, R6.TREE.13, R6.RDIR.7, R6.RECON.11, OBL-21, OBL-28; R6.EVID.6 (CI run 45569710442); R6.NOTE.3 (the content of `T1'`) | the tool commit, its conformance assessment, the CI run, `T1'` | each statement asserts a fact about that content | support off `main`: open; closed by landing the content each statement uses, or by narrowing it to the requirement and control it motivates |
 | semantics defined by reference to `P`'s `edits_check.py` (blob sha256 2856e58c...d98c): R6.SPLIT.3, R6.PROF.3, R6.PROF.4, R6.PROF.5, R6.PROF.7, R6.PROF.8, R6.PROF.9, R6.PROF.10, R6.PROF.12, R6.DENY.5, R6.A1CFG.2, OBL-1 | the plan commit `P` (its record directory is on no commit reachable from `main`) | the normative meaning of these requirements | support off `main`: open; closed by landing that blob on `main` no later than the adoption record, or by r6 stating the semantics itself; the copy frozen at `F` reaches `main` only with the round's landing, after adoption |
 | the external oracle of R6.GATE.7 and R6.GATE.8 (`P`'s outputs as files) | outputs of `P`'s checker | evidence for implementation certification, not for adoption | provenance for adoption; for certification, support off `main` until those outputs land |
-| owner decisions recorded only in paraphrase or relayed in session (the requirements of PARAPHRASED-DECISIONS.md, R6.STAT.8), and the owner corrections OC-1 to OC-5 of 2026-11-25, quoted in the owner's words in #1169 comment 7163402499, and the owner decisions 1 to 5 of 2026-11-25, quoted in the owner's words in #1169 comment 7166844576 (sec. 0.1) | GitHub comments, and session instructions quoted in design documents | the authority of the requirements that state them | support off `main` until quoted with author and time in a record on `main` (AGENTS.md sec. A.42 item 7): open |
+| owner decisions recorded only in paraphrase or relayed in session (the requirements of PARAPHRASED-DECISIONS.md, R6.STAT.8), and the owner corrections OC-1 to OC-5 of 2026-11-25, quoted in the owner's words in #1169 comment 7163402499, and the owner decisions 1 to 5 of 2026-11-25, quoted in the owner's words in #1169 comment 7166844576, and A1 to A5 of 2026-11-25 (sec. 0.1; #1169 comment 7169906297) | GitHub comments, and session instructions quoted in design documents | the authority of the requirements that state them | support off `main` until quoted with author and time in a record on `main` (AGENTS.md sec. A.42 item 7): open |
 | inventory, review and decision labels in `Sources` (E-, V1-, V2-, A-, RD-, OD-, RE-, Q-, ME- and others) and the `source` fields citing v6.0e, r4 and r5 | the review and design records of the drafting | provenance: r6 states every rule itself (R6.STAT.2) and takes its authority from its own adoption | provenance |
 | item11-T1p (OBL-23) | `T1'` | candidate evidence only (owner decision 4 of 2026-11-25) | provenance: no acceptance and no enduring claim rests on it |
 | controls outside OC-3's list that read `T1'` or `P`: RT-C, the `T1'` case of RT-DR, RT-M, RT-D-gr58, RT-L, S11-56, RT-O9's stand-in `F` (`P`'s record directory), and every `execution` control whose ledger and edit list are read at `P` | `T1'`, `P` | inputs of acceptance references | support off `main`: open; not re-specified by OC-3 (R6.EVID.8 states the representative candidate and the pinned ledger and edit list they could use) |
@@ -5349,9 +5389,10 @@ the owner's approval (AGENTS.md sec. A.40, sec. A.50 item 5); r6 authorizes none
 Sources: RD-25, OD-1, OC-1.
 
 **OBL-17** TR45's op-C half. The offline replay of an op-C result whose delegated classes come from the
-snapshot's delegated evidence is a NOT RUN row, TR45-opC, with the release condition "delegated evidence
-recorded by native runs at `X` and `C`". Gates: the A1 retirement execution. Discharged by: TR45-opC
-run and PASS. Sources: RD-26.
+snapshot's delegated evidence is the row TR45-opC. Deferred by owner decision A1 of 2026-11-25
+(sec. 0.1), together with R6.OUT.15, TR45-opB and TR45: the row is recorded NOT RUN with the deferral as
+its reason (R6.GATE.15), and the A1 retirement does not depend on it. Gates: none while deferred.
+Discharged by: TR45-opC run and PASS, once a recorded owner decision takes up R6.OUT.15. Sources: RD-26.
 
 **OBL-18** EI14's branch-dispatch half. EI14 is split; its branch-dispatch half, EI14-dispatch, is NOT
 RUN until a dispatch of the pinned workflow on a branch holding `T'` is made after the tool lands,
@@ -5471,7 +5512,7 @@ change until its distinguishing control holds under the gate, or the check it na
 | C-1 | R6.CTRL.3, OBL-20 | a recorded and executed second direction for each VD-RESTORE row; the rows the conformance check lists with a restored case (A5r, GV7-tool, H4, H7, S11-56, S11-58a-f, TR46, X9) and G2, X6 and S11-58i settled by reading each predicate | the restored case or paired row |
 | C-2 | R6.CTRL.29, OBL-21 | VD-1 to VD-12 as OBL-21 states | as OBL-21 |
 | C-3 | R6.CTRL.28, OBL-25 | the weak runner predicates of E-A1r, E-A2r, E-A3r, E-A6r, E-A8r, E-S1r, E-S2r, rule-negative, A5r-generic, R4-B3-DUP, S7-schema-and-checker and V3-countercontrol | each runner emits the asserted quantity; the gate re-evaluates `expect` |
-| C-4 | R6.CTRL.17, OBL-19 | rows without a runner: EI14-dispatch, EI7-consumer, RECLINT-ORPHAN, REPRO-DOUBLE, RT-O9-L2, TR15-consumer, TR50-consumer, TR51-consumer, TR52-consumer, TR45-opC and S11-7 | each implemented; `missing-id` until then |
+| C-4 | R6.CTRL.17, OBL-19 | rows without a runner: EI14-dispatch, EI7-consumer, RECLINT-ORPHAN, REPRO-DOUBLE, RT-O9-L2, TR15-consumer, TR50-consumer, TR51-consumer, TR52-consumer and S11-7 | each implemented; `missing-id` until then; TR45-opC is deferred with R6.OUT.15 and recorded NOT RUN (owner decision A1 of 2026-11-25) |
 | C-5 | R6.EVID.4 | figures not asserted today: RT-T0's 383, 18 and the D029 overlap; RT-I7's split at `H`; RT-C's 399/23/21; item11-T1p's 176; RT-D's 45 | promoted `expect.counts` |
 | C-6 | R6.CTRL.4, R6.CTRL.18 | K4 asserts its K2 half; A5r names DR-3 and its alternative; V6 asserts DR-1b | the assertions named |
 | C-7 | R6.GATE.5 | group-error ids and diagnostic keys recorded as records; U13, U15 and `outcome` still recorded | one failed record per member; diagnostics dropped; `outcome` recorded as Z9-STAGED |

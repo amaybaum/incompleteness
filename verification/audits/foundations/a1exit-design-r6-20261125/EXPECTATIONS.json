@@ -1,6 +1,6 @@
 {
  "schema": "oi-control-expectations/1",
- "record_id": "r6-final4-1",
+ "record_id": "r6-final5-1",
  "rows": [
   {
    "id": "A10r",
@@ -10876,13 +10876,14 @@
     "NOT RUN"
    ],
    "not_run": {
-    "reason": "component TR45-opC is NOT RUN; a composite is NOT RUN while any component is an admitted NOT RUN and none is FAIL or ERROR (Q14)",
-    "release_condition": "delegated evidence recorded by native runs at X and C",
-    "release_check": "a committed op-C snapshot at the commit under check whose delegated evidence covers every class its result decided, recorded by native runs at X and C (G-A1 PASS)"
+    "reason": "components TR45-opB and TR45-opC are NOT RUN, deferred by owner decision A1 of 2026-11-25 (DESIGN-r6.md sec. 0.1); a composite is NOT RUN while any component is an admitted NOT RUN and none is FAIL or ERROR (Q14)",
+    "release_condition": "a recorded owner decision takes up R6.OUT.15",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
    },
    "source": "D:2276 (RD-4, RD-26)",
    "flags": [
-    "RE-30, Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json"
+    "RE-30, Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json",
+    "deferred by owner decision A1 of 2026-11-25: recorded NOT RUN; expect and restored kept as the deferred specification (R6.OUT.15, R6.GATE.15)"
    ]
   },
   {
@@ -10939,7 +10940,19 @@
      "snapshot"
     ]
    },
-   "source": "D:2276"
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "deferred by owner decision A1 of 2026-11-25 (DESIGN-r6.md sec. 0.1), with R6.OUT.15 and OBL-17; the A1 retirement does not depend on this row",
+    "release_condition": "a recorded owner decision takes up R6.OUT.15",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   },
+   "source": "D:2276",
+   "flags": [
+    "deferred by owner decision A1 of 2026-11-25: recorded NOT RUN; expect and restored kept as the deferred specification (R6.OUT.15, R6.GATE.15)"
+   ]
   },
   {
    "id": "TR45-opC",
@@ -11007,13 +11020,13 @@
     "NOT RUN"
    ],
    "not_run": {
-    "reason": "no op-C result with delegated evidence recorded by native runs exists before landing",
-    "release_condition": "delegated evidence recorded by native runs at X and C",
-    "release_check": "a committed op-C snapshot at the commit under check whose delegated evidence covers every class its result decided, recorded by native runs at X and C (G-A1 PASS)"
+    "reason": "deferred by owner decision A1 of 2026-11-25 (DESIGN-r6.md sec. 0.1), with R6.OUT.15 and OBL-17; the A1 retirement does not depend on this row",
+    "release_condition": "a recorded owner decision takes up R6.OUT.15",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
    },
    "source": "D:2276 (op-C half; RD-26)",
    "flags": [
-    "named blocker (Q10): unexecuted control half"
+    "deferred by owner decision A1 of 2026-11-25: recorded NOT RUN; expect and restored kept as the deferred specification (R6.OUT.15, R6.GATE.15)"
    ]
   },
   {
@@ -15622,8 +15635,8 @@
    "source": "D:2351",
    "flags": [
     "VD-10: 176-line count asserted",
-    "inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)",
-    "OC-3: the repo scan reads the content of T1''s delegated and record paths (two of the 176 lines lie in generated artifacts), which H and the ledger do not determine: the exact trial tree is material; the run on the exact tool candidate with X = T1' is candidate evidence for the landing decision only; the enduring claim is a named provenance gap (OBL-23)"
+    "inputs off main: candidate evidence only, not acceptance support (owner decision A2 of 2026-11-25; RD-23)",
+    "OC-3: the repo scan reads the content of T1''s delegated and record paths (two of the 176 lines lie in generated artifacts), which H and the ledger do not determine: the exact trial tree is material; the run on the exact tool candidate with X = T1' is candidate evidence only, not acceptance support; no enduring claim rests on it (owner decision A2 of 2026-11-25; OBL-23)"
    ]
   },
   {

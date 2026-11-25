@@ -154,6 +154,14 @@
     "decision_basis": [
      "7093128173"
     ]
+   },
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A3",
+    "effect": "landing-order decision restated in the owner's words (DESIGN-r6.md sec. 0.1)",
+    "decision_basis": [
+     "R6.STAT.8 (RE-26)"
+    ]
    }
   ]
  },
@@ -1999,7 +2007,16 @@
   ],
   "open": [],
   "pending_owner_confirmation": [],
-  "owner_decision": []
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "round-3 delta review, F3"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.OUT.6",
@@ -2139,10 +2156,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.OUT.13",
@@ -2218,6 +2242,14 @@
     "decision_basis": [
      "R-D labels"
     ]
+   },
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A1",
+    "effect": "deferral extended to TR45-opC, TR45 and OBL-17",
+    "decision_basis": [
+     "round-3 delta review, F1"
+    ]
    }
   ]
  },
@@ -2287,7 +2319,16 @@
   ],
   "open": [],
   "pending_owner_confirmation": [],
-  "owner_decision": []
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "round-3 delta review, F3"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.OUT.19",
@@ -3255,10 +3296,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.REC.6",
@@ -3463,10 +3511,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.REC.14",
@@ -3547,10 +3602,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.REC.17",
@@ -3579,10 +3641,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.REC.18",
@@ -4035,10 +4104,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.DELEG.2",
@@ -4058,10 +4134,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.DELEG.3",
@@ -4085,10 +4168,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.DELEG.4",
@@ -4106,10 +4196,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.DELEG.5",
@@ -4128,10 +4225,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.DELEG.6",
@@ -4151,10 +4255,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.DELEG.7",
@@ -4171,10 +4282,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.DELEG.8",
@@ -4193,7 +4311,16 @@
   ],
   "open": [],
   "pending_owner_confirmation": [],
-  "owner_decision": []
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "round-3 delta review, F3"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.DELEG.9",
@@ -4238,10 +4365,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.DELEG.11",
@@ -4281,10 +4415,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.DELEG.13",
@@ -4302,10 +4443,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.DELEG.14",
@@ -4346,10 +4494,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.DELEG.16",
@@ -4369,10 +4524,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.DELEG.17",
@@ -4406,10 +4568,17 @@
    "OBL-8"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.HIT.1",
@@ -4951,10 +5120,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.GATE.6",
@@ -4995,10 +5171,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.GATE.8",
@@ -5024,10 +5207,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.GATE.9",
@@ -5060,10 +5250,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.GATE.10",
@@ -5336,10 +5533,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.GATE.16",
@@ -5465,10 +5669,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.CTRL.5",
@@ -5495,10 +5706,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.CTRL.6",
@@ -6204,10 +6422,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.CTRL.21",
@@ -6634,10 +6859,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.CTRL.26",
@@ -6972,10 +7204,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.PLAN.3",
@@ -7052,10 +7291,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.PLAN.7",
@@ -7357,10 +7603,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.PLACE.3",
@@ -7404,10 +7657,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.PLACE.5",
@@ -7573,10 +7833,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.TREE.2",
@@ -7769,10 +8036,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.TREE.11",
@@ -7989,10 +8263,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.RDIR.1",
@@ -8301,10 +8582,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.RDIR.14",
@@ -8845,10 +9133,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.CORE.2",
@@ -8870,10 +9165,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.CORE.3",
@@ -8899,10 +9201,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.CORE.4",
@@ -8922,10 +9231,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.CORE.5",
@@ -8946,10 +9262,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.CORE.6",
@@ -8976,10 +9299,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.CORE.7",
@@ -9040,10 +9370,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.CFG.2",
@@ -9064,10 +9401,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.CFG.3",
@@ -9085,10 +9429,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.CFG.4",
@@ -9238,10 +9589,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.ADAPT.1",
@@ -9284,10 +9642,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.ADAPT.3",
@@ -9402,10 +9767,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.A1CFG.2",
@@ -9432,10 +9804,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.A1CFG.3",
@@ -9720,10 +10099,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.VALID.4",
@@ -9781,10 +10167,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "S1-D3"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A4",
+    "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
+    "decision_basis": [
+     "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.REPRO.2",
@@ -10460,7 +10853,16 @@
   ],
   "open": [],
   "pending_owner_confirmation": [],
-  "owner_decision": []
+  "owner_decision": [
+   {
+    "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
+    "decision": "A1",
+    "effect": "deferred",
+    "decision_basis": [
+     "round-3 delta review, F1"
+    ]
+   }
+  ]
  },
  {
   "id": "OBL-18",

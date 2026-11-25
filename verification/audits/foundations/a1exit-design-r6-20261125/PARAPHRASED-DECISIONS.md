@@ -16,7 +16,7 @@ Options for every entry:
 
 Non-confirmation is none of these: a requirement the owner does not confirm stays pending, and r6 cannot be adopted while it is pending (R3; owner decision 5, quoted: "Non-confirmation must leave a requirement pending, not withdraw it.").
 
-Status after 2026-11-25: of the 44 requirements previously marked, 41 are confirmed by owner decision 1, 2 are scope statements and 1 is deferred; 50 requirements resting on S1-D3 are pending.
+Status after 2026-11-25: of the 44 requirements previously marked, 41 are confirmed by owner decision 1, 2 are scope statements and 1 is deferred; the 50 requirements resting on S1-D3, with R6.OUT.5, R6.OUT.18 and R6.DELEG.8, are confirmed by owner decision A4 of 2026-11-25 (DESIGN-r6.md sec. 0.1); no requirement is pending.
 
 ***
 
@@ -314,61 +314,61 @@ Status after 2026-11-25: of the 44 requirements previously marked, 41 are confir
 - What it says: specify configuration admission, native delegated execution, the classification of `C`, widening reviews, engine purity over the adapter companions, and control reporting (B1-B6).
 - Rule used to find the requirements: FRESH-AUTHORIZATION.md, sec. 3 (rules A, B and C, stated before the marking).
 - Requirements affected, with their status:
-  - R6.OUT.12: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.REC.5: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.OUT.12: confirmed by owner decision A4 of 2026-11-25
+  - R6.REC.5: confirmed by owner decision A4 of 2026-11-25
   - R6.REC.7: confirmed by owner decision 1 (necessary for reliable verification)
-  - R6.REC.13: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.REC.16: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.REC.17: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.REC.13: confirmed by owner decision A4 of 2026-11-25
+  - R6.REC.16: confirmed by owner decision A4 of 2026-11-25
+  - R6.REC.17: confirmed by owner decision A4 of 2026-11-25
   - R6.REC.24: confirmed by owner decision 1 (necessary for reliable verification)
-  - R6.DELEG.1: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.DELEG.2: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.DELEG.3: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.DELEG.4: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.DELEG.5: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.DELEG.6: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.DELEG.7: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.DELEG.10: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.DELEG.12: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.DELEG.13: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.DELEG.15: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.DELEG.16: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.DELEG.18: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.GATE.5: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.GATE.7: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.GATE.8: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.GATE.9: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.GATE.15: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.CTRL.4: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.CTRL.5: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.DELEG.1: confirmed by owner decision A4 of 2026-11-25
+  - R6.DELEG.2: confirmed by owner decision A4 of 2026-11-25
+  - R6.DELEG.3: confirmed by owner decision A4 of 2026-11-25
+  - R6.DELEG.4: confirmed by owner decision A4 of 2026-11-25
+  - R6.DELEG.5: confirmed by owner decision A4 of 2026-11-25
+  - R6.DELEG.6: confirmed by owner decision A4 of 2026-11-25
+  - R6.DELEG.7: confirmed by owner decision A4 of 2026-11-25
+  - R6.DELEG.10: confirmed by owner decision A4 of 2026-11-25
+  - R6.DELEG.12: confirmed by owner decision A4 of 2026-11-25
+  - R6.DELEG.13: confirmed by owner decision A4 of 2026-11-25
+  - R6.DELEG.15: confirmed by owner decision A4 of 2026-11-25
+  - R6.DELEG.16: confirmed by owner decision A4 of 2026-11-25
+  - R6.DELEG.18: confirmed by owner decision A4 of 2026-11-25
+  - R6.GATE.5: confirmed by owner decision A4 of 2026-11-25
+  - R6.GATE.7: confirmed by owner decision A4 of 2026-11-25
+  - R6.GATE.8: confirmed by owner decision A4 of 2026-11-25
+  - R6.GATE.9: confirmed by owner decision A4 of 2026-11-25
+  - R6.GATE.15: confirmed by owner decision A4 of 2026-11-25
+  - R6.CTRL.4: confirmed by owner decision A4 of 2026-11-25
+  - R6.CTRL.5: confirmed by owner decision A4 of 2026-11-25
   - R6.CTRL.14: confirmed by owner decision 1 (necessary for reliable verification)
-  - R6.CTRL.20: pending owner confirmation for the adoption decision (S1-D3)
+  - R6.CTRL.20: confirmed by owner decision A4 of 2026-11-25
   - R6.CTRL.23: confirmed by owner decision 1 (necessary for reliable verification)
-  - R6.CTRL.25: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.PLAN.2: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.PLAN.6: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.PLACE.2: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.PLACE.4: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.TREE.1: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.TREE.10: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.TREE.18: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.RDIR.13: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.CORE.1: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.CORE.2: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.CORE.3: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.CORE.4: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.CORE.5: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.CORE.6: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.CFG.1: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.CFG.2: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.CFG.3: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.CFG.8: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.ADAPT.2: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.A1CFG.1: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.A1CFG.2: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.VALID.3: pending owner confirmation for the adoption decision (S1-D3)
-  - R6.REPRO.1: pending owner confirmation for the adoption decision (S1-D3)
-- Note: Identified under owner decision 5; marked "Pending owner confirmation for the adoption decision (S1-D3; see FRESH-AUTHORIZATION.md, sec. 3)." except where decision 1 confirmed the requirement.
+  - R6.CTRL.25: confirmed by owner decision A4 of 2026-11-25
+  - R6.PLAN.2: confirmed by owner decision A4 of 2026-11-25
+  - R6.PLAN.6: confirmed by owner decision A4 of 2026-11-25
+  - R6.PLACE.2: confirmed by owner decision A4 of 2026-11-25
+  - R6.PLACE.4: confirmed by owner decision A4 of 2026-11-25
+  - R6.TREE.1: confirmed by owner decision A4 of 2026-11-25
+  - R6.TREE.10: confirmed by owner decision A4 of 2026-11-25
+  - R6.TREE.18: confirmed by owner decision A4 of 2026-11-25
+  - R6.RDIR.13: confirmed by owner decision A4 of 2026-11-25
+  - R6.CORE.1: confirmed by owner decision A4 of 2026-11-25
+  - R6.CORE.2: confirmed by owner decision A4 of 2026-11-25
+  - R6.CORE.3: confirmed by owner decision A4 of 2026-11-25
+  - R6.CORE.4: confirmed by owner decision A4 of 2026-11-25
+  - R6.CORE.5: confirmed by owner decision A4 of 2026-11-25
+  - R6.CORE.6: confirmed by owner decision A4 of 2026-11-25
+  - R6.CFG.1: confirmed by owner decision A4 of 2026-11-25
+  - R6.CFG.2: confirmed by owner decision A4 of 2026-11-25
+  - R6.CFG.3: confirmed by owner decision A4 of 2026-11-25
+  - R6.CFG.8: confirmed by owner decision A4 of 2026-11-25
+  - R6.ADAPT.2: confirmed by owner decision A4 of 2026-11-25
+  - R6.A1CFG.1: confirmed by owner decision A4 of 2026-11-25
+  - R6.A1CFG.2: confirmed by owner decision A4 of 2026-11-25
+  - R6.VALID.3: confirmed by owner decision A4 of 2026-11-25
+  - R6.REPRO.1: confirmed by owner decision A4 of 2026-11-25
+- Note: Identified under owner decision 5; confirmed by owner decision 1 or, for the others, by owner decision A4 of 2026-11-25, together with R6.OUT.5, R6.OUT.18 and R6.DELEG.8 (round-3 delta review, F3).
 - Options: (a) confirm in the owner's own words; (b) fresh authorization; (c) withdraw, only by an explicit owner choice. Non-confirmation leaves the requirement pending.
 
 ***
