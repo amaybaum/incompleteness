@@ -1585,12 +1585,15 @@ settings:
    the error does not continue it. A sequence is the writes made by one run of a plan (every
    automated writer runs one), in one writer process unless the plan's record names several, and
    then in all of them. The plan's identifier is fixed in the plan's record before the run and is
-   never generated per process. The end of a sequence is recorded persistently for its plan; every
-   process of the plan checks that record before each request, restarting a process does not
-   continue the sequence, and only a recorded owner decision clears the record. Every automated
-   GitHub text write, for every agent and session, then stops as well, unless every one of the
-   following conditions holds, each decided mechanically from the write, its read-back and the local
-   halt record; a mismatch the writer cannot see there does not count:
+   never generated per process. The plan's record is not deleted, replaced or rewritten while the
+   plan is active, and a plan whose sequence a halt has ended stays active until a recorded owner
+   decision resolves that halt. The end of a sequence is recorded persistently for its plan; every
+   process of the plan checks that record at the start of each write and push and again immediately
+   before the write request, restarting a process does not continue the sequence, and only a
+   recorded owner decision clears the record. Every automated GitHub text write, for every agent and
+   session, then stops as well, unless every one of the following conditions holds, each decided
+   mechanically from the write, its read-back and the local halt record; a mismatch the writer
+   cannot see there does not count:
    - the outcome of the write is known: the request completed with an expected status and, for a
      created object, the response names its id;
    - the read-back succeeded, and no field the write did not send, no label and no state differs
