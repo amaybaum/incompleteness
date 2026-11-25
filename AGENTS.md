@@ -1565,7 +1565,10 @@ settings:
    their number can be visible, and the footer can fall inside the block or be hidden. For every
    accepted difference, the complete sent
    and stored texts, their SHA-256 digests, the exact diff, and the identifier and version of the
-   permitting transformation are kept as a record. A transformation enters, changes in or leaves
+   permitting transformation are kept as a record. The allowlist applies to an operation validated
+   under it and to the write that validates an operation (§A.51 item 2); an operation validated by
+   an exact match before the allowlist was adopted is held to an exact match until it is validated
+   again under the allowlist. A transformation enters, changes in or leaves
    the allowlist only by owner decision, with independent review and its own regression
    controls; none is added because it has been observed. The text sent is chosen from the footer
    handling observed for that operation. Observed with Claude Code on 2026-11-23: comments posted
@@ -1579,17 +1582,25 @@ settings:
    other difference, or a read-back that fails or cannot be completed, is a mismatch.
 3. **Stop on a mismatch.** A mismatch ends the sequence in which it occurs: no further GitHub write
    or push is made in that sequence, whatever the writer does on the failure; catching or ignoring
-   the error does not continue it. A sequence is the writes made by one run of a writer process or
-   of a plan. Every automated GitHub text write, for every agent and session, then stops as well,
-   unless every one of the following conditions holds, each decided mechanically from the write and
-   its read-back:
+   the error does not continue it. A sequence is the writes made by one run of a plan (every
+   automated writer runs one), in one writer process unless the plan's record names several, and
+   then in all of them. The end of a sequence is recorded persistently for its plan; every process
+   of the plan checks that record before each request, restarting a process does not continue the
+   sequence, and only a recorded owner decision clears the record. Every automated GitHub text
+   write, for every agent and session, then stops as well, unless every one of the following
+   conditions holds, each decided mechanically from the write, its read-back and the local halt
+   record; a mismatch the writer cannot see there does not count:
    - the outcome of the write is known: the request completed with an expected status and, for a
      created object, the response names its id;
    - the read-back succeeded, and no field the write did not send, no label and no state differs
-     from what is expected;
-   - every rejected difference lies wholly in the trailing tail after the last character of the
+     from what the write should leave, judged against the read made before the write or, for a
+     created object, the values a new object has;
+   - every rejected difference lies wholly in a footer-shaped tail after the last character of the
      sent content: the text sent, less the newlines and any attribution footer at its very end
-     (rule 2), is not empty and is stored unchanged as the start of the stored text;
+     (rule 2), is not empty and is stored unchanged as the start of the stored text, and what
+     follows it there consists only of newlines and exact copies of the attribution footer. Any
+     other appended text stops every automated text write. This shape decides only how far the
+     stop extends; a difference is accepted only as rule 2 provides;
    - no other operation has a mismatch outstanding, that is, one that no recorded owner decision
      has yet resolved.
 
@@ -1614,12 +1625,12 @@ An authorization to write, for one write or standing (§A.51 item 2), waives non
 Adopted 2026-11-23 by owner decision (`amaybaum`, coordinating session); rule 2 amended the same
 day; rule 4 and the closing sentence on authorizations added 2026-11-24 by owner decision
 (`amaybaum`, #1169 comment 7124456482); rule 3 amended [date of merge] by owner decision
-(`amaybaum`, [merge approval record]; drafted under #1169 comment 7165155374 and the owner's
-decision of 2026-11-25 on #1566), to end the sequence on every mismatch and to stop every automated
-text write unless stated conditions confine the mismatch to the failed operation; rule 2 amended
-[date of merge] by owner decision (`amaybaum`, [merge approval record]; drafted under #1548 comment
-7166079053), to accept a difference from the expected text only when it is a transformation listed
-in the allowlist the rule states, with a record of it.
+(`amaybaum`, [merge approval record]; drafted under #1169 comments 7165155374 and 7166845267), to
+end the sequence on every mismatch and to stop every automated text write unless stated conditions
+confine the mismatch to the failed operation; rule 2 amended [date of merge] by owner decision
+(`amaybaum`, [merge approval record]; drafted under #1548 comment 7166079053), to accept a
+difference from the expected text only when it is a transformation listed in the allowlist the
+rule states, with a record of it.
 
 ***
 
@@ -1676,7 +1687,8 @@ permission broader than the instruction grants.
    Work outside these boundaries is outside the package. A case the package does not clearly cover
    is put to the owner before it is done.
 2. **Standing write grants.** An operation is validated when one write of it, made through the same
-   tool and path under the owner's grant for that one write, passed §A.49's exact read-back. A
+   tool and path under the owner's grant for that one write, passed §A.49's read-back: an exact
+   match, or a difference that rule 2's allowlist permits, recorded as that rule requires. A
    package may grant its writers standing use of validated operations on its targets, without a
    grant for each write. An operation that is not validated needs a grant for each write. A
    standing grant to edit comments extends only to comments that the package's designated writers
@@ -1697,20 +1709,21 @@ permission broader than the instruction grants.
    a launch condition that the workflow itself states stands. It does not cover the exact-head
    `check-run` dispatches at a candidate `F` or `E` (§A.39) or any run §A.50 reserves.
 5. **Stop.** An unknown outcome of a write, push or launch, a step outside the package's scope, a
-   failed preflight or push read-back (item 3), a failed check the package names as a stop, or
-   evidence that conflicts with the package's records stops the package's automated operations at
-   once. A §A.49 mismatch, a failed text read-back included, stops them in the same way, and every
-   automated text write as §A.49 rule 3 provides, unless that rule confines it to the failed
-   operation; then the sequence in which it occurred still ends at once and the failed operation is
-   suspended, and the package's other operations may continue in a later sequence through validated
-   mechanisms. The evidence is kept under §A.26 and the owner is told. Only a recorded owner
-   decision resumes a stopped package or a suspended operation.
+   failed preflight or push read-back (item 3), a §A.49 rule 1 refusal, a failed check the package
+   names as a stop, or evidence that conflicts with the package's records stops the package's
+   automated operations at once. A §A.49 mismatch, a failed text read-back included, stops them in
+   the same way, and every automated text write as §A.49 rule 3 provides, unless that rule confines
+   it to the failed operation; then the sequence in which it occurred still ends at once and the
+   failed operation is suspended, and the package's other operations may continue in a later
+   sequence through validated mechanisms. The evidence is kept under §A.26 and the owner is told.
+   Only a recorded owner decision resumes a stopped package or a suspended operation.
 6. **What it does not do.** A package grants none of the actions of §A.50, waives no review, check
    or gate that this file, a frozen plan or a round requires, confers no scientific status (§A.45
    rule 1), changes no frozen record or its protocol (§A.39, §A.42 item 6) and authorizes no
    integration or publication (§A.45 rule 7). Planning-status maintenance (§A.45 rule 3) does not
    widen it.
 
-Adopted 2026-11-24 by owner decision (`amaybaum`, #1169 comment 7124456482); item 5 amended
-[date of merge] by owner decision (`amaybaum`, [merge approval record]), to confine a §A.49
+Adopted 2026-11-24 by owner decision (`amaybaum`, #1169 comment 7124456482); items 2 and 5
+amended [date of merge] by owner decision (`amaybaum`, [merge approval record]), to let a
+difference that §A.49 rule 2's allowlist permits pass a validation write, and to confine a §A.49
 mismatch to the failed operation where §A.49 rule 3 does.
