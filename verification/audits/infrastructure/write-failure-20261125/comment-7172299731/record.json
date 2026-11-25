@@ -11,7 +11,7 @@
   "sent_length": 8592,
   "stored_length": 8591,
   "first_difference_index": 4389,
-  "removed_character": "A",
+  "removed_character": "!",
   "sent_context": "ehind `(?<![A-Za-z0-9])` plus ",
   "stored_context": "ehind `(?<[A-Za-z0-9])` plus a",
   "only_difference": true
