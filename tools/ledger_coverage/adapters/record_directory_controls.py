@@ -182,6 +182,55 @@ def without_rule(fn):
         exmod.Execution._record_directory = orig
 
 
+def o98_run(r, case):
+    """O9-8, one case: the synthetic host world with the configuration in the authorized directory and a reconciliation
+    record for the corpus file (referenced by the configuration and reviewed); M = H plus the plan directory as F holds
+    it, with the case's change, plus a change of the corpus file, so that the M role evaluates the record's R11. Runs
+    `execution --main` through cli.run. case None: the baseline, D equal to F."""
+    path = AUTH + {'mode': '/mode.sh', 'symlink': '/link', 'submodule': '/sub', None: '/mode.sh'}[case]
+    syn = sf.Syn()
+    pd = sf.patch_doc(syn.H, [])
+    rec_doc = {'schema': 'oi-reconciliation/1', 'record_id': 'o98-recon', 'author': sf.WRITER, 'supersedes': None,
+               'ledger_binding': {}, 'changes_decisions_on_X': [],
+               'paths': [{'id': 'doc', 'path': sf.DOC, 'side_change_commits': [], 'splices': [], 'protected': []}]}
+    files = {'syn/patch.json': pd, path: b'#!/bin/sh\ntarget bytes\n'}
+    files['syn/o98-recon.json'] = sf.jb(rec_doc)
+    base = {'patch_sha': sha(pd), 'files': {'syn/patch.json': pd}, 'config_path': CFG}
+    c0, p0, s0, f0 = syn.build(base)
+    recs = json.loads(f0[p0])['records'] + \
+        [{'kind': 'reconciliation', 'path': 'syn/o98-recon.json', 'blob_sha256': sha(files['syn/o98-recon.json'])}] + \
+        syn.chain(files, 'syn/o98-recon.json', sf.REVIEWER)
+    c, p, s, f = syn.build(dict(base, files=files, extra={'records': recs}))
+    w = hf.World(syn.repo, syn.H)
+    F = hf.freeze(syn.repo, c, p)
+    d = p.rsplit('/', 1)[0]
+    plan = {q: syn.repo.read(F, q) for q in syn.repo.paths(F) if rc.inside(d, q)}
+    if case == 'symlink':
+        plan[path] = ('symlink', plan[path])
+    elif case == 'submodule':
+        plan[path] = ('submodule', '1' * 40)
+    plan[sf.DOC] = syn.repo.read(syn.H, sf.DOC) + b'\nA change on main.\n'
+    M = syn.repo.derive(syn.H, plan, parents=[syn.H], subject='M with the plan directory and a corpus change')
+    repo = ModeOverlay(syn.repo, [(M, path)] if case == 'mode' else [])
+    argv = ['execution', '--config', '%s:%s' % (F, p), '--out', r.out()] + w.args(F) + \
+        ['--scientific-base', syn.H, '--candidate', syn.H, '--ledger', '%s:syn/patch.json' % F, '--main', M]
+    try:
+        code, res = cli.run(argv, repo=repo, stderr=io.StringIO(), control=w.control(w.checkout()), environ={})
+    except Exception as exc:
+        return {'exception': '%s: %s' % (type(exc).__name__, exc)}
+    res = res or {}
+    if res.get('stop'):
+        return {'exit': code, 'stop': res.get('stop')}
+    doc_entry = [e for e in res.get('side_changes', []) if e['path'] == sf.DOC]
+    evs = (doc_entry[0].get('record_conditions') or []) if doc_entry else []
+    holds = evs[0].get('holds', {}) if evs else {}
+    return {'exit': code, 'path': path, 'record_directory': res.get('record_directory'),
+            'case_items': sorted((i['class'], i['subject'], i.get('why')) for i in res.get('items', [])
+                                 if i['subject'] == path),
+            'R11': holds.get('R11'), 'other_conditions': {k: v for k, v in sorted(holds.items()) if k != 'R11'},
+            'record_evaluated': bool(evs)}
+
+
 # ---- the O-9 controls -----------------------------------------------------------------------------------------
 
 def o9_controls(r, check):
@@ -248,23 +297,26 @@ def o9_controls(r, check):
           'predicate)', 'clean_path false for each bad path, true for each good path', got,
           not any(got[p] for p in bad) and all(got[p] for p in good))
 
-    # O9-8: mode change, symbolic link, submodule; through the M role and through R11
-    o8 = {}
-    m_p, l_p, s_p = AUTH + '/mode.sh', AUTH + '/link', AUTH + '/sub'
-    base_repo, H, F, M = world(f_extra={m_p: b'#!/bin/sh\n', l_p: b'target bytes\n', s_p: b'regular\n'},
-                               m_change={l_p: ('symlink', 'target bytes\n'), s_p: ('submodule', '1' * 40)},
-                               m_extra={m_p: b'#!/bin/sh\n'})
-    repo = ModeOverlay(base_repo, [(M, m_p)])
-    res = run_main(repo, H, F, M)
-    o8['M role'] = {k: res.get(k) for k in ('items', 'exception', 'stop')}
-    o8['R11'] = r11(repo, H, F, M)
-    want = {m_p: 'differs from F', l_p: 'not a regular file', s_p: 'not a regular file'}
-    check('O9-8', 'in D: a mode change; a symbolic link at M where F has a regular file of the same bytes; a submodule '
-          'at M; through the M role and through R11: each side-change-unclassified with its reason; R11 fails; no '
-          'exception', 'each path unclassified with its reason in the M role; R11 false; no exception, no stop', o8,
-          'exception' not in res and 'stop' not in res and
-          all(unclassified(res, p) == [('side-change-unclassified', p, w)] for p, w in want.items()) and
-          o8['R11'].get('R11') is False and 'exception' not in o8['R11'])
+    # O9-8: a mode change, a symbolic link and a submodule in D, each in its own world, each through the full
+    # `execution --main` path (the M role) and, in the same run, through the R11 of a reconciliation record the
+    # configuration references; compared with the same world with D equal to F, where R11 holds
+    cases = {'mode': 'differs from F', 'symlink': 'not a regular file', 'submodule': 'not a regular file'}
+    o8 = {'baseline': o98_run(r, None)}
+    ok = o8['baseline'].get('R11') is True and not o8['baseline'].get('stop') and \
+        not o8['baseline'].get('exception') and not o8['baseline'].get('case_items')
+    for case, why in cases.items():
+        got = o98_run(r, case)
+        o8[case] = got
+        ok = ok and not got.get('stop') and not got.get('exception') and \
+            got.get('case_items') == [('side-change-unclassified', got['path'], why)] and got.get('R11') is False and \
+            got.get('other_conditions') == o8['baseline'].get('other_conditions')
+    check('O9-8', 'in D: the same blob with a mode change (100644 to 100755); a symbolic link at M where F has a regular '
+          'file of the same bytes; a submodule entry at M; each case run through the full execution --main path (the M '
+          'role) and, separately, through a reconciliation record\'s R11: each side-change-unclassified (differs from '
+          'F, not a regular file, not a regular file); R11 fails in each case; no exception and no *-group-error in '
+          'either path', 'per case, in its own world and through cli.run: exactly one unclassified item on the case path '
+          'with its reason; the R11 of the referenced reconciliation record false, every other condition equal to the '
+          'baseline world, where R11 holds; no stop and no exception', o8, ok)
 
     # O9-9: a ledgered path, and separately a corpus path, inside D
     lp = AUTH + '/ledger.json'
@@ -515,9 +567,10 @@ def arm_classify(arm):
     return re.findall(r'--classify "([^"]+)"', arm or '')
 
 
-def i2_world(ctx_doc, hit_doc, reference=True, review=True, drop=()):
+def i2_world(ctx_doc, hit_doc, reference=True, review=True, drop=(), unref=()):
     """The synthetic world with the plan directory's two item-2 records, referenced by the configuration and
-    reviewed (each as the flags say); `drop` names records absent from F."""
+    reviewed (each as the flags say); `drop` names records absent from F; `unref` names records present at F but
+    neither referenced by the configuration nor reviewed."""
     d = 'syn/plan'
     cpath = d + '/retirement-config.json'
     names = {'context': d + '/context-adjudications.json', 'hits': d + '/hit-classifications.json'}
@@ -528,6 +581,8 @@ def i2_world(ctx_doc, hit_doc, reference=True, review=True, drop=()):
             if k in drop:
                 continue
             files[names[k]] = sf.jb(doc)
+            if k in unref:
+                continue
             if reference:
                 out.append({'kind': 'record', 'path': names[k], 'blob_sha256': sha(files[names[k]])})
             if review:
@@ -551,7 +606,7 @@ def i2_world(ctx_doc, hit_doc, reference=True, review=True, drop=()):
     return syn, w, F, p, d, names
 
 
-def coverage_via_arm(r, syn, w, F, p, d, arm):
+def coverage_via_arm(r, syn, w, F, p, d, arm, commit=None):
     """The coverage operation with the --classify operands of the workflow arm, $F and $D resolved; returns
     (exit, result, the context and hit records the pipeline received)."""
     got = {}
@@ -567,7 +622,7 @@ def coverage_via_arm(r, syn, w, F, p, d, arm):
         if '$A/' in op:
             continue
         ops += ['--classify', op.replace('$F', F).replace('$D', d)]
-    argv = ['coverage', '--config', '%s:%s' % (F, p), '--out', r.out()] + w.args(F) + ['--commit', syn.H] + ops
+    argv = ['coverage', '--config', '%s:%s' % (F, p), '--out', r.out()] + w.args(F) + ['--commit', commit or syn.H] + ops
     pl.Coverage = Cov
     try:
         code, res = cli.run(argv, repo=syn.repo, stderr=io.StringIO(), control=w.control(w.checkout()), environ={})
@@ -621,14 +676,31 @@ def i2_controls(r, check, workflow_path):
           {'exit': code, 'stop': res.get('stop')}, code == 65 and (res.get('stop') or {}).get('class') ==
           'SOURCE_CHANGED')
 
-    # I2-4: hit-classifications.json not referenced by the configuration
-    syn, sw, F, p, d, names = i2_world(ctx_doc_of([]), hit_doc_of([]), reference=False, review=False)
-    code, res, got = coverage_via_arm(r, syn, sw, F, p, d, arm)
-    inv = sorted(i['subject'] for i in res.get('items', []) if i['class'] == 'record-invalid')
+    # I2-4: a non-empty hit-classifications.json that resolves a concrete hit when referenced; not referenced, it is
+    # record-invalid and the hit stays REVIEW_REQUIRED
+    line = 'The beta value is reported here.'
+    hit4 = {'id': 'h4', 'file': sf.DOC, 'line_sha256': sha(line.encode()), 'segment': None,
+            'profiles': ['beta-word'], 'semantic_classification': 'an unrelated use of the word', 'author': sf.WRITER}
+
+    def i24(reference):
+        syn, sw, F, p, d, names = i2_world(ctx_doc_of([]), hit_doc_of([hit4]), unref=() if reference else ('hits',))
+        X = syn.repo.derive(syn.H, {sf.DOC: syn.repo.read(syn.H, sf.DOC) + ('\n%s\n' % line).encode()},
+                            parents=[syn.H], subject='a candidate with a beta-word hit')
+        code, res, got = coverage_via_arm(r, syn, sw, F, p, d, arm, commit=X)
+        ln = [i for i, l in enumerate(syn.repo.read(X, sf.DOC).decode().split('\n'), 1) if l == line]
+        on = sorted((i['class'], i.get('decision')) for i in res.get('items', [])
+                    if i.get('file') == sf.DOC and ln and i.get('line') == ln[0])
+        inv = sorted(i['subject'] for i in res.get('items', []) if i['class'] == 'record-invalid')
+        return {'exit': code, 'stop': res.get('stop'), 'items_on_hit': on, 'record_invalid': inv,
+                'hits_reaching_pipeline': len(got.get('hits') or []), 'file': names['hits']}
+    pos, neg = i24(True), i24(False)
     check('I2-4', 'hit-classifications.json present but not referenced by the configuration: record-invalid; the hit '
-          'stays REVIEW_REQUIRED', 'record-invalid names the file; no hit record reaches the pipeline',
-          {'exit': code, 'record_invalid': inv, 'hits': got.get('hits')},
-          names['hits'] in inv and not got.get('hits'))
+          'stays REVIEW_REQUIRED', 'referenced and reviewed, the record resolves the concrete beta-word hit (no item on '
+          'its line); not referenced, the file is record-invalid, no hit record reaches the pipeline and the same hit is '
+          'an item with decision REVIEW_REQUIRED', {'referenced': pos, 'not referenced': neg},
+          not pos['stop'] and not pos['items_on_hit'] and pos['hits_reaching_pipeline'] == 1 and
+          not neg['stop'] and neg['record_invalid'] == [neg['file']] and neg['hits_reaching_pipeline'] == 0 and
+          neg['items_on_hit'] and all(dec == oc.review for _, dec in neg['items_on_hit']))
 
     # I2-5: a referenced record without a valid review
     syn, sw, F, p, d, names = i2_world(ctx_doc_of([]), hit_doc_of([]), review=False)
