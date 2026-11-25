@@ -1628,11 +1628,11 @@ An authorization to write, for one write or standing (§A.51 item 2), waives non
 
 Adopted 2026-11-23 by owner decision (`amaybaum`, coordinating session); rule 2 amended the same
 day; rule 4 and the closing sentence on authorizations added 2026-11-24 by owner decision
-(`amaybaum`, #1169 comment 7124456482); rule 3 amended [date of merge] by owner decision
-(`amaybaum`, [merge approval record]; drafted under #1169 comments 7165155374 and 7166845267), to
+(`amaybaum`, #1169 comment 7124456482); rule 3 amended 2026-11-25 by owner decision
+(`amaybaum`, #1169 comment 7171625550; drafted under #1169 comments 7165155374 and 7166845267), to
 end the sequence on every mismatch and to stop every automated text write unless stated conditions
-confine the mismatch to the failed operation; rule 2 amended [date of merge] by owner decision
-(`amaybaum`, [merge approval record]; drafted under #1548 comment 7166079053), to accept a
+confine the mismatch to the failed operation; rule 2 amended 2026-11-25 by owner decision
+(`amaybaum`, #1169 comment 7171625550; drafted under #1548 comment 7166079053), to accept a
 difference from the expected text only when it is a transformation listed in the allowlist the
 rule states, with a record of it.
 
@@ -1728,6 +1728,6 @@ permission broader than the instruction grants.
    widen it.
 
 Adopted 2026-11-24 by owner decision (`amaybaum`, #1169 comment 7124456482); items 2 and 5
-amended [date of merge] by owner decision (`amaybaum`, [merge approval record]), to let a
+amended 2026-11-25 by owner decision (`amaybaum`, #1169 comment 7171625550), to let a
 difference that §A.49 rule 2's allowlist permits pass a validation write, and to confine a §A.49
 mismatch to the failed operation where §A.49 rule 3 does.
