@@ -986,6 +986,54 @@ def tree_controls(a, tool_files):
              finding='Predicted main = %s (--main) plus this tool\'s landing files (the configuration not among '
                      'them, design sec. 16.2), with the drafted reconciliation record for AGENTS.md and pinned classes '
                      'for the trial workflow and .claude/settings.json.' % a.main[:8])
+    if main is not None:
+        rt_o9(a, Mp, recon_arg)
+
+
+def rt_o9(a, Mp, recon_arg):
+    """RT-O9 (design amendment r4, A.9): the predicted main plus the plan's record directory as it stands at a
+    stand-in F that holds that directory (P's plan files and the staged configuration). The expected set is computed
+    from the stand-in F's tree, independently of the run, and compared exactly with the run's record-directory
+    entries."""
+    from ledger_coverage import record_authority
+    from ledger_coverage.engine import reconcile as rcm
+    d = PL.rstrip('/')
+    pfiles = {p: a.base.read(P, p) for p in a.base.paths(P) if rcm.inside(d, p)}
+    pfiles[a.cpath] = a.repo.read(a.crev, a.cpath)
+    F9 = a.repo.derive(a.crev, pfiles, parents=a.repo.parents(a.crev),
+                       subject='stand-in for F holding the plan record directory')
+    expected = {p: [mode, oid, sha(a.repo.read(F9, p))] for p, (mode, oid) in a.repo.entries(F9).items()
+                if rcm.inside(d, p)}
+    M9 = a.repo.derive(Mp, {p: a.repo.read(F9, p) for p in expected}, parents=[Mp],
+                       subject='predicted main with the tool landing and the plan record directory')
+    code, res, t = a.run(exec_args(a, extra=['--main', M9, '--freeze', F9] + recon_arg))
+    got = {}
+    for e in res.get('side_changes') or []:
+        if e.get('class') == rcm.RECORD_DIRECTORY:
+            r9 = e.get('record_directory') or {}
+            got[e['path']] = [r9.get('mode'), r9.get('m'), r9.get('m_sha256')]
+    unc = sorted(i['subject'] for i in res.get('items', []) if i['class'] == 'side-change-unclassified')
+    rdsum = res.get('record_directory') or {}
+    out = {'exit': code, 'stop': res.get('stop'), 'directory': d,
+           'authorized': d in record_authority.AUTHORIZED_RECORD_DIRECTORIES, 'expected_paths': len(expected),
+           'record_directory': rdsum, 'missing': sorted(set(expected) - set(got)),
+           'extra': sorted(set(got) - set(expected)),
+           'differing': sorted(p for p in set(expected) & set(got) if expected[p] != got[p]),
+           'side_change_unclassified': unc,
+           'base_drift': sorted(i['subject'] for i in res.get('items', []) if i['class'] == 'base-drift'),
+           'rt_l2': (a.results.get('RT-L2') or {}).get('status')}
+    a.record('RT-O9', not res.get('stop') and out['authorized'] and len(expected) > 0 and got == expected and
+             rdsum.get('state') == 'active' and rdsum.get('unequal') == {} and not unc and not out['base_drift'] and
+             out['rt_l2'] == 'PASS',
+             'the plan record directory at the predicted main classified record-directory exactly as the stand-in F '
+             'holds it; no side-change-unclassified; RT-L2 still PASS', out,
+             predicate='the expected set (every entry inside the directory at the stand-in F, with its mode, blob id '
+                       'and sha256, computed from that tree) equals the run\'s record-directory entries exactly (none '
+                       'missing, none extra, modes and hashes equal); A.5 finds no unequal path; no '
+                       'side-change-unclassified and no base-drift among the items; RT-L2 PASS',
+             finding='Predicted main = %s plus the tool landing plus the plan record directory of a stand-in F (P\'s '
+                     'plan files and the staged configuration), with the drafted AGENTS.md reconciliation record.'
+                     % a.main[:8])
 
 
 # ---- K1: the reference graph of the landing and the freeze ---------------------------------------------------

@@ -41,6 +41,7 @@ if 'ledger_coverage' not in sys.modules:
 from ledger_coverage.engine import checker, cli, delegation as delmod, execution as exmod  # noqa: E402
 from ledger_coverage.engine import gitobj, host as hostmod, purity, schema as schemamod, util  # noqa: E402
 from ledger_coverage.adapters import host_fixture as hf, synthetic_fixture as sf  # noqa: E402
+from ledger_coverage.adapters import record_directory_controls as rdc  # noqa: E402
 
 RESULTS = []
 WORKFLOW = os.path.join(os.path.dirname(tools), '.github', 'workflows', 'ledger-coverage.yml')
@@ -2554,7 +2555,7 @@ ALL_IDS = ['TR5-sim', 'TR5', 'TR1', 'TR2', 'TR3', 'TR13', 'TR14-tool', 'TR14', '
            'EI3', 'EI4', 'EI5', 'EI6', 'EI7-tool', 'EI8', 'EI9', 'EI10', 'EI11', 'EI12', 'EI13', 'EI14', 'EI15', 'GV1',
            'GV2', 'GV3', 'GV4', 'GV5', 'GV6', 'GV6-disk', 'GV7-tool', 'GV7-consumer', 'R16', 'R17', 'A12r', 'Z11',
            'S4a', 'G4', 'G5', 'G6', 'G7', 'G8', 'G9', 'G-A1', 'R3-F2', 'R4-B3', 'R4-B3-DUP', 'R5-N6', 'R6-G6',
-           'LN1', 'LN2', 'LN3', 'LN4', 'LN5', 'LN6', 'LN7', 'LN8', 'LN10', 'O3-FILTER']
+           'LN1', 'LN2', 'LN3', 'LN4', 'LN5', 'LN6', 'LN7', 'LN8', 'LN10', 'O3-FILTER'] + rdc.IDS
 
 
 def write(out_root):
@@ -2586,7 +2587,9 @@ def main(out_root):
               ('R3-F2', lambda: f2_controls(r)), ('R4-B3', lambda: r4_b3_controls(r)),
               ('R4-B3-DUP', lambda: r4_b3_duplicate_controls(r)), ('R5-N6', lambda: r5_n6_controls(r)),
               ('LN', lambda: ln1_ln8(r)), ('R6-G6', lambda: r6_g6(r)),
-              ('CONFIG-LINT', lambda: config_lint_controls(r)), ('B4-MEANING', lambda: meaning_controls(r))]
+              ('CONFIG-LINT', lambda: config_lint_controls(r)), ('B4-MEANING', lambda: meaning_controls(r)),
+              # design amendment r4: the record-directory rule (O-9) and the item-2 record interfaces
+              ('O9', lambda: rdc.o9_controls(r, check)), ('I2', lambda: rdc.i2_controls(r, check, WORKFLOW))]
     for name, fn in groups:
         try:
             got = fn()
