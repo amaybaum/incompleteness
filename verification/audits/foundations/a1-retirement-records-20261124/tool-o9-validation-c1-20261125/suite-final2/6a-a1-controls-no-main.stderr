@@ -1,0 +1,5 @@
+usage: a1_controls.py [-h] --repo REPO --config CONFIG --out OUT [--only ONLY]
+                      [--skip-sweeps] [--overlay-from-disk]
+                      [--syn-engine SYN_ENGINE]
+                      [--staged-config STAGED_CONFIG] [--main MAIN]
+a1_controls.py: error: --main is required: the main commit the sequencing safeguard is measured against

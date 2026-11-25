@@ -1,0 +1,19 @@
+{
+ "passed": 92,
+ "failed": [
+  "RT-T"
+ ],
+ "timing": {
+  "chain": 0.0,
+  "record": 70.2,
+  "coverage": 29.7,
+  "terms": 44.4,
+  "v": 155.9,
+  "rules": 36.9,
+  "exec": 207.4,
+  "trees": 90.1,
+  "k1": 0.1,
+  "z9g": 1.1,
+  "sweeps": 1057.7
+ }
+}

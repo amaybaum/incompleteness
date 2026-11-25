@@ -144,3 +144,22 @@ conformance reports had the local scratch path replaced by `<scratch>`, every ot
   `6bbb526267a860c0355a38a79a4e14096b9c5f501dc0d732982c2550f047751c`. Not an authoritative record.
 
 These are local results, not CI attestations, and are not independently reviewed.
+
+## Tool revision for O-9 and item 2: implementation-review corrections B1-B3 (2026-11-25)
+
+`tool-o9-validation-c1-20261125/` holds the local validation evidence of commit
+`a37992449b452021001277c06c524a30c92dfb87` (tree `6ede419eda0904c379388b34d2e6029fc242ecfb`), which corrects the
+findings B1-B3 of the independent implementation review of `e9556609`, by the same method as the section above
+(`MANIFEST.json`; one conformance report had the local scratch path replaced by `<scratch>`).
+
+- `suite-final2/`: self-test 86 PASS; purity PASS; synthetic 36 PASS; conformance 113 PASS, 2 NOT RUN (TR5, G-A1);
+  A1 conformance 47 PASS; the no-main check exit 2; A1 controls 92 PASS, RT-T NOT RUN, RT-O9 PASS with the authority
+  check and D2-D5 recorded as held, RT-L2 PASS; Y8 PASS.
+- `mutwork-final2/`, `mut-final2.out`: every mutant set: 99 killed, 7 survived (the same seven as at `4f4a9d58`), 1 not
+  applied (U01); base 235 PASS, 2 NOT RUN. O9-m5, O9-m10 and O9-m14 are each killed by O9-8.
+- `harness/`: as above, with `mutants_o9.py` naming the renamed identifier in O9-m12.
+- `cfg-final2/`: the throwaway staged-configuration copy for these runs (sha256
+  `d77c2f25e3c7c6a61e11ba99e268275bd10e59a889f583f44e412b7602a88993`) and its difference from the authoritative
+  staged configuration, which is unchanged. Not an authoritative record.
+
+These are local results, not CI attestations, and are not independently reviewed.

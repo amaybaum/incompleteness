@@ -1,0 +1,15 @@
+{
+ "config": {
+  "blob_sha256": "d77c2f25e3c7c6a61e11ba99e268275bd10e59a889f583f44e412b7602a88993",
+  "path": "verification/audits/foundations/a1exit-deletion-20261121/retirement-config.json",
+  "stand_in_for_F": "295c0eb6b80dae6b8c3ef3f1451419e6b0cf47b4"
+ },
+ "exit_status": 0,
+ "findings": [],
+ "items": [],
+ "operation": "purity-lint",
+ "outcome": "PASS",
+ "preflight": [],
+ "record_checks": null,
+ "schema": "oi-ledger-coverage/5"
+}

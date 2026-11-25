@@ -1,0 +1,30 @@
+"""Mutants of the reader-cache correction (engine/gitobj.py): (id, file under tools/, [(old, new), ...], rule)."""
+G = 'ledger_coverage/engine/gitobj.py'
+
+MUTANTS = [
+    ('K01', G, [("            self._paths[cid] = MappingProxyType({p: oid for p, (mode, oid) in self.entries(cid).items()\n                                                 if mode != '160000'})",
+                 "            self._paths[cid] = {p: oid for p, (mode, oid) in self.entries(cid).items()\n                                                 if mode != '160000'}")],
+     'GitRepo.paths returns a read-only view'),
+    ('K02', G, [("            self._entries[cid] = MappingProxyType(out)", "            self._entries[cid] = out")],
+     'GitRepo.entries returns a read-only view'),
+    ('K03', G, [("        if cid not in self._paths:\n            self._paths[cid] = MappingProxyType({p: oid for p, (mode, oid) in self.entries(cid).items()\n                                                 if mode != '160000'})\n        return self._paths[cid]",
+                 "        if 'k' not in self._paths:\n            self._paths['k'] = MappingProxyType({p: oid for p, (mode, oid) in self.entries(cid).items()\n                                                 if mode != '160000'})\n        return self._paths['k']")],
+     'the path cache is keyed by the commit id'),
+    ('K04', G, [("        if cid not in self._entries:\n            out = {}\n\n            def walk(tid, pre):",
+                 "        if cid not in self._entries:\n            out = {}\n            self._entries[cid] = MappingProxyType(out)\n\n            def walk(tid, pre):")],
+     'a refused tree caches nothing (the map is stored only after the whole walk)'),
+    ('K05', G, [("            if cid not in self._paths:\n                self._paths[cid] = MappingProxyType({p: oid for p, (mode, oid) in self.entries(cid).items()\n                                                     if mode != '160000'})\n            return self._paths[cid]",
+                 "            if 'k' not in self._paths:\n                self._paths['k'] = MappingProxyType({p: oid for p, (mode, oid) in self.entries(cid).items()\n                                                     if mode != '160000'})\n            return self._paths['k']")],
+     'the overlay path cache is keyed by the commit id'),
+    ('K06', G, [("                self._entries[cid] = MappingProxyType(dict(f.entries()) if isinstance(f, _LazyTree) else\n                                                      {p: _entry_of(d) for p, d in f.items()})",
+                 "                self._entries[cid] = (f.entries() if isinstance(f, _LazyTree) else\n                                      {p: _entry_of(d) for p, d in f.items()})")],
+     'the overlay entry map is a read-only copy, not the in-memory tree\'s own dict'),
+    ('K07', G, [("        if oid in self._objs:\n            return self._objs[oid]",
+                 "        if oid in self._objs or any(oid in m.values() for m in self._paths.values()):\n            return self._objs.get(oid) or self._unverified(oid)"),
+                ("    def resolve(self, rev):\n        \"\"\"A role commit",
+                 "    def _unverified(self, oid):\n        r = subprocess.run(['git', '-C', self.path, 'cat-file', '-t', oid], capture_output=True, text=True)\n        t = r.stdout.strip()\n        d = subprocess.run(['git', '-C', self.path, 'cat-file', t, oid], capture_output=True).stdout\n        self._objs[oid] = (t, d)\n        return t, d\n\n    def resolve(self, rev):\n        \"\"\"A role commit")],
+     'an object listed in a cached path map is still verified on first read'),
+    ('K08', G, [("            self._paths[cid] = MappingProxyType({p: oid for p, (mode, oid) in self.entries(cid).items()\n                                                 if mode != '160000'})",
+                 "            self._paths[cid] = MappingProxyType({p: oid for p, (mode, oid) in self.entries(cid).items()})")],
+     'the path map lists blobs and symlinks, not submodules'),
+]
