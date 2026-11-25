@@ -207,6 +207,34 @@ Owner's words and approved text (exact):
 - Does not permit: adoption, implementation, freezing, trials or merging, each of which keeps its own approval gate (AGENTS.md sec. A.50; A3); confirmation of requirements not identified (A4); reopening settled requirements or further features (closing direction); the execution-exception route of comment 7092885251 (A3).
 - Relied on by: R6.OUT.15, OBL-17, R6.GATE.15, R6.CTRL.5, R6.CTRL.17, R6.GATE.9 and the rows TR45-opB, TR45-opC and TR45 (A1); item11-T1p (A2); R6.STAT.8 (A3); the 53 confirmations (A4); LANDING-MANIFEST.md (A5); R6.TREE.12 and R6.TREE.19 (closing direction).
 
+### #1169 comment 7171541574 (2026-11-25T18:53:25Z): owner decision of 2026-11-25T18:50:53Z on the landing package of r6
+
+- Given by the owner (amaybaum) in the coordinating session and recorded at #1169 comment 7171541574, which quotes it in full with author and time; its opening line, item 2 and general constraints are quoted byte-exact in DESIGN-r6.md sec. 0.1 and below.
+
+> Authorized as described in items 2–4.
+>
+> ### 2\. A1 design r6
+>
+> * Include `edits_check.py` and the round-4 generator in the proposed landing package.
+>
+> * Preserve all 12 verification requirements without weakening them.
+>
+> * Narrow the historical statements to what the evidence on `main` establishes and explicitly identify unsupported statements.
+>
+> * Regenerate the documents and complete one focused independent review.
+>
+> Preparation is authorized. Design adoption and merging into `main` still require separate approval.
+>
+> ### General constraints
+>
+> Keep the parked research threads parked. Continue the previously authorized work without interruption. No additional confirmation is needed to begin items 2–4.
+>
+> These are explicit authorizations for the specified work, based on the reported findings, not independent verification of the underlying artifacts. No final adoption, merge into `main` or A1 retirement execution is authorized by this message.
+
+- Permits: landing `P`'s `edits_check.py` and generator-round4 in the proposed landing package; narrowing the historical statements and naming those that stay unsupported; regenerating the documents; one focused independent review. Preparation only.
+- Does not permit: design adoption or merging into `main`, each of which needs separate approval; weakening any of the 12 requirements that rest on `edits_check.py`.
+- Relied on by: the edits_check.py row of the adoption trace and the historical statements of DESIGN-r6.md sec. 32; LANDING-MANIFEST.md secs. 1 and 4.
+
 ***
 
 ## 2. Class (ii): session-written records without owner words
@@ -411,3 +439,4 @@ These decisions are stated only in design documents relayed in session, each wit
 
 - #1169 comment 7166666428 (2026-11-25T15:19:37Z) records the independent review of the second correction round, reviewer text verbatim (REVIEW-r6-round2.md). It is a review record, not an owner decision: "Independent review of A1 design r6 at `400e4b4fe5f3474b96ee4faa3c437e76e09db782`: reviewer text, verbatim."
 - REVIEW-r6-round3.md records the delta review of the round-3 revision (commit c33d5b71a3e4e15028d19ff153afcee8f5aa90a3), reviewer text verbatim; recorded at #1169 comment 7169923380 (2026-11-25T17:44:04Z). It is a review record, not an owner decision.
+- #1169 comment 7170390944 (2026-11-25T18:04:01Z) records the delta review of the round-4 revision (commit 2aec244e283fc49a85af04f2d9c3a72ec4122340), reviewer text verbatim; its body lands in generator-round5/records-1169-round5.json. It is a review record, not an owner decision.

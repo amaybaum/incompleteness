@@ -174,7 +174,7 @@ How r6 applies them; each takes effect only with r6's adoption (R6.STAT.1):
 - Decision 5. The 50 requirements found to rest on owner decision S1-D3 (B1-B6) and not confirmed by decision 1 are identified in FRESH-AUTHORIZATION.md, sec. 3, and confirmed by owner decision A4; r6's adoption is not used as their authorization. A requirement left unconfirmed stays pending and is never withdrawn by that alone; withdrawal needs an explicit owner choice, with its verification traced (R6.STAT.5). R6.STAT.8 is confirmed as a requirement; the restatement of the landing-order decision in the owner's words, which it requires before adoption, is owner decision A3.
 
 
-The owner (amaybaum) decided on the round-3 delta review (REVIEW-r6-round3.md) in the coordinating session on 2026-11-25 (owner message of 2026-11-25T16:17:51Z), recorded at #1169 comment 7169906297 (2026-11-25T17:43:21Z); every sentence quoted below occurs verbatim in that record. Decisions A1 to A5 and the closing direction, byte-exact as relayed (each line prefixed by "> "):
+The owner (amaybaum) decided on the round-3 delta review (REVIEW-r6-round3.md) in the coordinating session on 2026-11-25 (owner message of 2026-11-25T16:17:51Z), recorded at #1169 comment 7169906297 (2026-11-25T17:43:21Z); every sentence quoted below occurs verbatim in that record. Decisions A1 to A5 and the closing direction, as relayed (each line prefixed by "> "), verbatim sentence by sentence; the A3 paragraph joins five paragraphs of the record into one:
 
 > A1 — Offline replay | Defer TR45-opB, TR45-opC, TR45 and OBL-17 together. A1 retirement must not depend on a deferred feature.
 >
@@ -198,6 +198,35 @@ How r6 applies them; each takes effect only with r6's adoption (R6.STAT.1):
 - Decision A4. The 53 identified requirements, the 50 found to rest on S1-D3 by the rules of FRESH-AUTHORIZATION.md, sec. 3, and R6.OUT.5, R6.OUT.18 and R6.DELEG.8, which the round-3 delta review named (F3), carry "Confirmed by owner decision A4", within the reviewed r6 scope and subject to previously approved deferrals; the confirmation does not extend to requirements that were not identified.
 - Decision A5. LANDING-MANIFEST.md lists the files of this directory that land and those left to Git history, and classifies each reference of the landed files to content not on `main` (AGENTS.md sec. A.42 item 8).
 - The R6.TREE.12 correction: the derived-artifact case stays REVIEW_REQUIRED until LC-7's cases are restated by an owner-approved expectation change. One short independent delta review covers this revision before adoption (R6.STAT.10).
+
+The owner (amaybaum) decided on the round-4 delta review (#1169 comment 7170390944, 2026-11-25T18:04:01Z; ACCEPT WITH NITS) in the coordinating session on 2026-11-25; the decision is recorded at #1169 comment 7171541574 (2026-11-25T18:53:25Z), which introduces it as "Owner decision (amaybaum, 2026-11-25T18:50:53Z, coordinating session), quoted in full:". Its opening line, item 2 and its general constraints, byte-exact as recorded (items 3 and 4, which concern other work, are omitted):
+
+> Authorized as described in items 2–4.
+>
+> ### 2\. A1 design r6
+>
+> * Include `edits_check.py` and the round-4 generator in the proposed landing package.
+>
+> * Preserve all 12 verification requirements without weakening them.
+>
+> * Narrow the historical statements to what the evidence on `main` establishes and explicitly identify unsupported statements.
+>
+> * Regenerate the documents and complete one focused independent review.
+>
+> Preparation is authorized. Design adoption and merging into `main` still require separate approval.
+>
+> ### General constraints
+>
+> Keep the parked research threads parked. Continue the previously authorized work without interruption. No additional confirmation is needed to begin items 2–4.
+>
+> These are explicit authorizations for the specified work, based on the reported findings, not independent verification of the underlying artifacts. No final adoption, merge into `main` or A1 retirement execution is authorized by this message.
+
+How r6 applies it; it authorizes preparation only, and nothing is adopted, frozen or merged:
+
+- `P`'s `edits_check.py` lands byte-exact in this directory as `inputs/edits_check.py` (git blob 1153e039d7223742de56a54ed201e8358324c742, sha256 2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c; at `P` it is verification/audits/foundations/a1exit-deletion-20261121/edits_check.py). The 12 requirements whose semantics it defines (R6.SPLIT.3, R6.PROF.3, R6.PROF.4, R6.PROF.5, R6.PROF.7, R6.PROF.8, R6.PROF.9, R6.PROF.10, R6.PROF.12, R6.DENY.5, R6.A1CFG.2 and OBL-1) are unchanged; their support is on `main` once the landing merge is (sec. 32, adoption trace).
+- generator-round4 and generator-round5 land with the documents they produce (LANDING-MANIFEST.md sec. 1).
+- The statements of r6 about the tool commit a3799244, CI run 45569710442 and `T1'` are narrowed to what content on `main` establishes; each statement that stays unsupported is named in sec. 32 (historical statements) and in LANDING-MANIFEST.md sec. 4.
+- The round-4 delta review is recorded at #1169 comment 7170390944; its body lands in generator-round5/records-1169-round5.json. Its nits 2 to 5 are applied; nit 1 is left to the tool revision (OBL-28, C-4).
 
 ***
 
@@ -5207,13 +5236,71 @@ open governance conflicts (R6.STAT.10); none is resolved by an exception:
 | R6.STAT.10 (the adoption record) | the r6 documents and their independent exact-head review (the second-round review, #1169 comment 7166666428 and REVIEW-r6-round2.md; the round-3 delta review, REVIEW-r6-round3.md; the delta review of the round-4 revision) | the adoption's support | support: must be on `main` no later than the adoption record lands; precondition, an ordinary merge the owner approves (AGENTS.md sec. A.50 item 1), not authorized by r6; open until then |
 | OBL-26; the runner cites of Table 17.1 and the expectation file's `runner` fields | the tool commit a37992449b452021001277c06c524a30c92dfb87 and its conformance assessment | locates the implementation and motivates obligations; no requirement rests on it | provenance for the requirements (the claim does not use the content); implementation certification is OBL-26, against the landed revision |
 | the expected figures of the expectation file (R6.EVID.4) | runs of the tool commit at `H`, `E` and `T1'` | preregistered expectations, not established values (R6.EVID.1, R6.EVID.7) | provenance for adoption; the enduring figures are those of R6.EVID.8 and OBL-23 |
-| statements of what the tool commit does ("at the tool commit", "today"): R6.PUR.12, R6.PIPE.3, R6.ANCH.10, R6.ANCH.12, R6.HP.7, R6.OUT.18, R6.OUT.24, R6.SPLIT.3, R6.RULE.11, R6.RULE.12, R6.REC.20, R6.HIT.2, R6.CLASS.1, R6.CLASS.11, R6.GATE.7, R6.CTRL.19, R6.CTRL.25, R6.CTRL.29, R6.TREE.13, R6.RDIR.7, R6.RECON.11, OBL-21, OBL-28; R6.EVID.6 (CI run 45569710442); R6.NOTE.3 (the content of `T1'`) | the tool commit, its conformance assessment, the CI run, `T1'` | each statement asserts a fact about that content | support off `main`: open; closed by landing the content each statement uses, or by narrowing it to the requirement and control it motivates |
-| semantics defined by reference to `P`'s `edits_check.py` (blob sha256 2856e58c...d98c): R6.SPLIT.3, R6.PROF.3, R6.PROF.4, R6.PROF.5, R6.PROF.7, R6.PROF.8, R6.PROF.9, R6.PROF.10, R6.PROF.12, R6.DENY.5, R6.A1CFG.2, OBL-1 | the plan commit `P` (its record directory is on no commit reachable from `main`) | the normative meaning of these requirements | support off `main`: open; closed by landing that blob on `main` no later than the adoption record, or by r6 stating the semantics itself; the copy frozen at `F` reaches `main` only with the round's landing, after adoption |
+| the historical statements listed below: what the tool commit a3799244 does, what CI run 45569710442 recorded, what `T1'` contains or measured | the tool commit, its conformance assessment, the CI run, `T1'` and its objects | each reports what the drafting read or measured; no requirement, control, expectation, gate or adoption step uses it (R6.STAT.10) | unsupported on `main`; each is narrowed and named below (owner decision of 2026-11-25T18:50:53Z, sec. 0.1); none supports adoption |
+| semantics defined by reference to `P`'s `edits_check.py` (blob sha256 2856e58c...d98c): R6.SPLIT.3, R6.PROF.3, R6.PROF.4, R6.PROF.5, R6.PROF.7, R6.PROF.8, R6.PROF.9, R6.PROF.10, R6.PROF.12, R6.DENY.5, R6.A1CFG.2, OBL-1 | `P`'s `edits_check.py`, from the plan commit `P` (its record directory is on no commit reachable from `main`) | the normative meaning of these requirements | support on `main` once landed: the blob lands byte-exact in this directory as `inputs/edits_check.py` (git blob 1153e039d7223742de56a54ed201e8358324c742; owner decision of 2026-11-25T18:50:53Z, sec. 0.1) and these requirements read it there, unchanged; on `main` with the landing merge, no later than the adoption record; the copy frozen at `F` reaches `main` with the round's landing |
 | the external oracle of R6.GATE.7 and R6.GATE.8 (`P`'s outputs as files) | outputs of `P`'s checker | evidence for implementation certification, not for adoption | provenance for adoption; for certification, support off `main` until those outputs land |
 | owner decisions recorded only in paraphrase or relayed in session (the requirements of PARAPHRASED-DECISIONS.md, R6.STAT.8), and the owner corrections OC-1 to OC-5 of 2026-11-25, quoted in the owner's words in #1169 comment 7163402499, and the owner decisions 1 to 5 of 2026-11-25, quoted in the owner's words in #1169 comment 7166844576, and A1 to A5 of 2026-11-25 (sec. 0.1; #1169 comment 7169906297) | GitHub comments, and session instructions quoted in design documents | the authority of the requirements that state them | support off `main` until quoted with author and time in a record on `main` (AGENTS.md sec. A.42 item 7): open |
 | inventory, review and decision labels in `Sources` (E-, V1-, V2-, A-, RD-, OD-, RE-, Q-, ME- and others) and the `source` fields citing v6.0e, r4 and r5 | the review and design records of the drafting | provenance: r6 states every rule itself (R6.STAT.2) and takes its authority from its own adoption | provenance |
 | item11-T1p (OBL-23) | `T1'` | candidate evidence only (owner decision 4 of 2026-11-25) | provenance: no acceptance and no enduring claim rests on it |
-| controls outside OC-3's list that read `T1'` or `P`: RT-C, the `T1'` case of RT-DR, RT-M, RT-D-gr58, RT-L, S11-56, RT-O9's stand-in `F` (`P`'s record directory), and every `execution` control whose ledger and edit list are read at `P` | `T1'`, `P` | inputs of acceptance references | support off `main`: open; not re-specified by OC-3 (R6.EVID.8 states the representative candidate and the pinned ledger and edit list they could use) |
+| controls outside OC-3's list that read `T1'` or `P`: RT-C, the `T1'` case of RT-DR, RT-M, RT-D-gr58, RT-L, RT-X, WB1, N-W, S11-56, RT-O9's stand-in `F` (`P`'s record directory), and every `execution` control whose ledger and edit list are read at `P` | `T1'`, `P` | inputs of acceptance references | support off `main`: open; not re-specified by OC-3 (R6.EVID.8 states the representative candidate and the pinned ledger and edit list they could use) |
+
+Historical statements (owner decision of 2026-11-25T18:50:53Z, sec. 0.1; AGENTS.md sec. A.42 item 8). The statements below say what the tool commit a37992449b452021001277c06c524a30c92dfb87 does, what CI run 45569710442 recorded, or what `T1'` (14ac71b4b0a0c0aa2d7068d6799a73f474097060) contains or measured. None of that content is on `main` (4c3ad0796b578c6258d5aae58c9502d5155d74dc), and this directory does not land it. For these statements, content on `main` establishes only that the identifiers name objects that are not reachable from `main`. Each statement is narrowed to that: it reports what the drafting read or measured, establishes nothing about the content, and is unsupported on `main`. No requirement, control, expectation, gate or adoption step relies on it (R6.STAT.10): a requirement that contains one holds or fails by its own controls on the tool revision, and a verification defect it names is corrected and tested there (OBL-21, OBL-28), not established by the statement. The tool files on `main` are not read here in place of the tool commit's; the conformance checks against the landed tool revision are OBL-26. The list was made by scanning this document for "tool commit", "today", "the implementation", "CI run", "survivor", `T1'` and the identifiers of these objects and classifying each passage found (OBL-21 is listed without a match); the other files of this directory were read for the same statements.
+
+| Where | Statement, unsupported on `main` |
+|---|---|
+| R6.PUR.12 | a symbolic-link or submodule side change outside `D_rec` reaches the side-change classifier's byte read at the tool commit |
+| R6.PIPE.3 | the list of flags is the parser at the tool commit |
+| R6.ANCH.10 | at the tool commit, adjudicated HP sites in a non-conforming file of a ledgered segment are excluded from the search (VD-2) |
+| R6.ANCH.12 | at the tool commit the translation accepts any occurrence at the translated line (VD-3) |
+| R6.HP.7 | at the tool commit an adjudicated site is marked only by its `provenance` reference and counted under its last segment state |
+| R6.OUT.4 | at the tool commit the isolation refusal writes a message with no class |
+| R6.OUT.18 | the basis marks S and E (in the schema file at, or emitted at, the tool commit), the fields the schema file does not list today, the candidate members at the tool commit and the further top-level fields it emits |
+| R6.OUT.24 | the obligation definitions are the tool commit's obligation set |
+| R6.SPLIT.3 | that the conformance check found these readings of `sentences_of` at the tool commit (the readings are stated by r6 itself as part of the splitter and are checked against `P`'s checker, `inputs/edits_check.py`) |
+| R6.RULE.11 | the implementation does not enforce the 8-character minimum today |
+| R6.RULE.12 | the implementation does not enforce the zero-fingerprint check today |
+| R6.REC.20 | the implementation exits 65 with a message and no class today |
+| R6.HIT.2 | the tool commit emits a hit in an HP region as REVIEW_REQUIRED `unclassified` with obligation `HP` |
+| R6.CLASS.1 | at the tool commit the op A record checks, the replay equality, `ck_errors` and `extended_unmapped` FAIL without an item |
+| R6.CLASS.11 | the implementation today makes the outcome FAIL through `record_checks.holds` without an item |
+| R6.GATE.7 | which runners keep only a summary today |
+| R6.GATE.10 | which mutants survived, or were not applied, in the mutation run of the tool commit (CI run 45569710442) |
+| R6.CTRL.19 | the figures runners assert today; the two `not determined` `H..T1'` cases of sec. 6 |
+| R6.CTRL.25 | Z9-STAGED's record id is `outcome` today |
+| R6.CTRL.27 | the mutation sets at the tool commit, and which of their mutants survived or were not applied |
+| R6.CTRL.29 | the verification defects of controls at the tool commit, and the defects without a control today |
+| R6.CTRL.30 | Table 17.1: Z9-STAGED's record id `outcome` today; in rows N10 and RT-DR3W, that the `AGENTS.md` of `X_rep` (blob 9f4fc3e830707c90ffc105842d26d5b51f01760b) is the bytes of `T1'`'s copy |
+| R6.TREE.13 | what the landing check's composition and the landing builder at the tool commit do |
+| R6.RDIR.7 | outside `D_rec` the tool at the tool commit passes a non-regular side change to the classifier's byte read |
+| R6.RECON.11 | at the tool commit RC6 reads the candidate's bytes at the splice's `H` offset |
+| OBL-21 | that the tool commit has the defects VD-1 to VD-12, the side-change entry-type defect and those of RD-35 that it corrects |
+| OBL-24 | the seven known survivors and the one unapplied mutant of the mutation run of the tool commit |
+| OBL-28 | the behaviour that each row's Obligation column ascribes to the tool commit, and the figures not asserted today (C-5) |
+| sec. 34, migration table | the isolation refusal has no class at the tool commit |
+| R6.EVID.6 | the run's RT-L2 PASS, made on a drafted, unreviewed reconciliation record under harness admission |
+| R6.GATE.16 | the RT-L2 PASS recorded by the run, made on a drafted record |
+| R6.RECON.21 | the RT-L2 PASS recorded by the run, made on a drafted record |
+| OBL-13 | the run's RT-L2 PASS, at `X` = `T1'` on a drafted record |
+| R6.NOTE.3 | `T1'` is `H` plus the 399 ledgered splices |
+| R6.SPLIT.1 | version 2 changes no deny count at `H` or `T1'` (measured) |
+| R6.PLAN.8 | item 7 as frozen does not pass at `T1'` |
+| R6.EVID.4 | the 176 `final-unclassified` lines of item11-T1p at `T1'` |
+| R6.EVID.5 | the measurements at `T1'` it lists as historical |
+| R6.EVID.7 | that every figure of R6.EVID.4 was obtained at r6's drafting |
+| R6.EVID.8 | the expected figures of the `X_rep` rows are those measured with the tool commit at `T1'`, and the `T1'` measurements in their `reference` |
+| OBL-7 | `papers/GR.md:58` matches `ptr` at `T1'` |
+| OBL-23 | its figures were measured with the tool commit at `T1'`, among them item11-T1p's 176 lines |
+| Appendix H, HIST-11 | the frozen tool's error counts at `T1'` |
+| Appendix H, HIST-15 | no DR-1d or DR-2 match at `T1'` |
+| Appendix H, HIST-16 | the `resid` outcome at `T1'` |
+| Appendix H, HIST-20 | the hit lines and review load at `T1'` |
+| Appendix H, HIST-21 | no DR-1d, DR-2 or DR-3 match at `T1'` |
+| Appendix H, HIST-23 | 17 REVIEW lines added at `T1'` |
+| EXPECTATIONS.json, `reference` fields (106 rows) | measurements at `T1'` or with the tool commit, and the mutants' killers at CI run 45569710442: N10, N11, RT-D, RT-DR3W, RT-I7, RT-I7A, RT-T0, MUT:c1:C01, MUT:c1:C02, MUT:c1:C03, MUT:c1:C04, MUT:c1:C05, MUT:c1:C06, MUT:c1:C07, MUT:c1:C08, MUT:c1:C09, MUT:c1:C10, MUT:c1:C11, MUT:c1:C12, MUT:c2:D01, MUT:c2:D03, MUT:cache:K01, MUT:cache:K02, MUT:cache:K03, MUT:cache:K04, MUT:cache:K05, MUT:cache:K06, MUT:cache:K07, MUT:o9:RDIR-m1, MUT:o9:RDIR-m10, MUT:o9:RDIR-m11, MUT:o9:RDIR-m12, MUT:o9:RDIR-m13, MUT:o9:RDIR-m14, MUT:o9:RDIR-m15, MUT:o9:RDIR-m16, MUT:o9:RDIR-m17, MUT:o9:RDIR-m2, MUT:o9:RDIR-m3, MUT:o9:RDIR-m4, MUT:o9:RDIR-m5, MUT:o9:RDIR-m6, MUT:o9:RDIR-m7, MUT:o9:RDIR-m8, MUT:o9:RDIR-m9, MUT:v60e:A01, MUT:v60e:A02, MUT:v60e:A03, MUT:v60e:A04, MUT:v60e:A05, MUT:v60e:A06, MUT:v60e:A07, MUT:v60e:A08, MUT:v60e:A09, MUT:v60e:A10, MUT:v60e:A11, MUT:v60e:A12, MUT:v60e:A13, MUT:v60e:A14, MUT:v60e:C01, MUT:v60e:C02, MUT:v60e:C03, MUT:v60e:C04, MUT:v60e:C05, MUT:v60e:C06, MUT:v60e:C07, MUT:v60e:C09, MUT:v60e:C10, MUT:v60e:C11, MUT:v60e:C12, MUT:v60e:C13, MUT:v60e:C14, MUT:v60e:C15, MUT:v60e:C16, MUT:v60e:E01, MUT:v60e:E02, MUT:v60e:H01, MUT:v60e:H02, MUT:v60e:I01, MUT:v60e:I02, MUT:v60e:I03, MUT:v60e:I04, MUT:v60e:I05, MUT:v60e:I07, MUT:v60e:I08, MUT:v60e:I09, MUT:v60e:I10, MUT:v60e:I11, MUT:v60e:I12, MUT:v60e:I13, MUT:v60e:I14, MUT:v60e:O01, MUT:v60e:O02, MUT:v60e:R01, MUT:v60e:R02, MUT:v60e:R03, MUT:v60e:U02, MUT:v60e:U03, MUT:v60e:U04, MUT:v60e:U05, MUT:v60e:V01, MUT:v60e:V02, MUT:v60e:V03, MUT:v60e:V04, MUT:v60e:V06, MUT:v60e:V07 |
+| EXPECTATIONS.json, `source` fields (107 rows) | the mutation results of CI run 45569710442: MUT:c1:C01, MUT:c1:C02, MUT:c1:C03, MUT:c1:C04, MUT:c1:C05, MUT:c1:C06, MUT:c1:C07, MUT:c1:C08, MUT:c1:C09, MUT:c1:C10, MUT:c1:C11, MUT:c1:C12, MUT:c2:D01, MUT:c2:D02, MUT:c2:D03, MUT:cache:K01, MUT:cache:K02, MUT:cache:K03, MUT:cache:K04, MUT:cache:K05, MUT:cache:K06, MUT:cache:K07, MUT:cache:K08, MUT:o9:RDIR-m1, MUT:o9:RDIR-m10, MUT:o9:RDIR-m11, MUT:o9:RDIR-m12, MUT:o9:RDIR-m13, MUT:o9:RDIR-m14, MUT:o9:RDIR-m15, MUT:o9:RDIR-m16, MUT:o9:RDIR-m17, MUT:o9:RDIR-m2, MUT:o9:RDIR-m3, MUT:o9:RDIR-m4, MUT:o9:RDIR-m5, MUT:o9:RDIR-m6, MUT:o9:RDIR-m7, MUT:o9:RDIR-m8, MUT:o9:RDIR-m9, MUT:v60e:A01, MUT:v60e:A02, MUT:v60e:A03, MUT:v60e:A04, MUT:v60e:A05, MUT:v60e:A06, MUT:v60e:A07, MUT:v60e:A08, MUT:v60e:A09, MUT:v60e:A10, MUT:v60e:A11, MUT:v60e:A12, MUT:v60e:A13, MUT:v60e:A14, MUT:v60e:C01, MUT:v60e:C02, MUT:v60e:C03, MUT:v60e:C04, MUT:v60e:C05, MUT:v60e:C06, MUT:v60e:C07, MUT:v60e:C08, MUT:v60e:C09, MUT:v60e:C10, MUT:v60e:C11, MUT:v60e:C12, MUT:v60e:C13, MUT:v60e:C14, MUT:v60e:C15, MUT:v60e:C16, MUT:v60e:E01, MUT:v60e:E02, MUT:v60e:H01, MUT:v60e:H02, MUT:v60e:H03, MUT:v60e:I01, MUT:v60e:I02, MUT:v60e:I03, MUT:v60e:I04, MUT:v60e:I05, MUT:v60e:I06, MUT:v60e:I07, MUT:v60e:I08, MUT:v60e:I09, MUT:v60e:I10, MUT:v60e:I11, MUT:v60e:I12, MUT:v60e:I13, MUT:v60e:I14, MUT:v60e:O01, MUT:v60e:O02, MUT:v60e:P01, MUT:v60e:R01, MUT:v60e:R02, MUT:v60e:R03, MUT:v60e:U01, MUT:v60e:U02, MUT:v60e:U03, MUT:v60e:U04, MUT:v60e:U05, MUT:v60e:V01, MUT:v60e:V02, MUT:v60e:V03, MUT:v60e:V04, MUT:v60e:V05, MUT:v60e:V06, MUT:v60e:V07 |
+| EXPECTATIONS.json, `flags` (1 row) | the RT-L2 PASS of CI run 45569710442: RT-L2 |
+| FRESH-AUTHORIZATION.md | its quotations and summaries of the requirements listed above (the same statements) |
+| V4-COMPARISON.md | v6.0e sec. 6.4.1's report that neither rule form matches any line at `T1'` |
 
 **OBL-1** P-parity of `register` and `infinity`. The engine's `register` and `infinity` profiles
 implement items 5 and 6 of P's plan as P's frozen checker defines them: per edit and per step of the
@@ -5490,7 +5577,7 @@ decision. This is the implementation certification of the landed tool revision, 
 adoption (R6.STAT.10). The conformance assessment recorded against the tool commit
 a37992449b452021001277c06c524a30c92dfb87 motivates obligations of sec. 32; for the requirements and
 obligations of r6 it is provenance (AGENTS.md sec. A.42 item 8). The statements of r6 that describe the
-tool commit use it, and are listed in the adoption trace below as off-`main` support. Gates: the
+tool commit use it; they are unsupported on `main` and are named in the historical statements of sec. 32. Gates: the
 implementation certification of the landed tool revision (OC-2 replaces the adoption gate that RE-37
 confirmed). Discharged by: the recorded checks and their dispositions against the tool revision on
 `main` (evidence kinds 2 and 3). Evidence: see the sec. 32 trace.
@@ -5512,7 +5599,7 @@ change until its distinguishing control holds under the gate, or the check it na
 | C-1 | R6.CTRL.3, OBL-20 | a recorded and executed second direction for each VD-RESTORE row; the rows the conformance check lists with a restored case (A5r, GV7-tool, H4, H7, S11-56, S11-58a-f, TR46, X9) and G2, X6 and S11-58i settled by reading each predicate | the restored case or paired row |
 | C-2 | R6.CTRL.29, OBL-21 | VD-1 to VD-12 as OBL-21 states | as OBL-21 |
 | C-3 | R6.CTRL.28, OBL-25 | the weak runner predicates of E-A1r, E-A2r, E-A3r, E-A6r, E-A8r, E-S1r, E-S2r, rule-negative, A5r-generic, R4-B3-DUP, S7-schema-and-checker and V3-countercontrol | each runner emits the asserted quantity; the gate re-evaluates `expect` |
-| C-4 | R6.CTRL.17, OBL-19 | rows without a runner: EI14-dispatch, EI7-consumer, RECLINT-ORPHAN, REPRO-DOUBLE, RT-O9-L2, TR15-consumer, TR50-consumer, TR51-consumer, TR52-consumer and S11-7 | each implemented; `missing-id` until then; TR45-opC is deferred with R6.OUT.15 and recorded NOT RUN (owner decision A1 of 2026-11-25) |
+| C-4 | R6.CTRL.17, OBL-19 | rows without a runner: EI14-dispatch, EI7-consumer, RECLINT-ORPHAN, REPRO-DOUBLE, RT-O9-L2, TR15-consumer, TR50-consumer, TR51-consumer, TR52-consumer and S11-7 | each implemented; `missing-id` until then; TR45-opC is deferred with R6.OUT.15 and recorded NOT RUN (owner decision A1 of 2026-11-25); the runner that records TR45-opC NOT RUN with the deferral reason, and TR45-opB's runner recording NOT RUN in place of the replay, are left to the tool revision (round-4 delta review, nit 1) |
 | C-5 | R6.EVID.4 | figures not asserted today: RT-T0's 383, 18 and the D029 overlap; RT-I7's split at `H`; RT-C's 399/23/21; item11-T1p's 176; RT-D's 45 | promoted `expect.counts` |
 | C-6 | R6.CTRL.4, R6.CTRL.18 | K4 asserts its K2 half; A5r names DR-3 and its alternative; V6 asserts DR-1b | the assertions named |
 | C-7 | R6.GATE.5 | group-error ids and diagnostic keys recorded as records; U13, U15 and `outcome` still recorded | one failed record per member; diagnostics dropped; `outcome` recorded as Z9-STAGED |
