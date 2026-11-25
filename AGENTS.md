@@ -1554,9 +1554,15 @@ settings:
    through the connector had such a footer removed, and was stored unchanged when sent without one.
    These are observations, not rules of the tooling. No normalization is allowed. Any difference, or
    a read-back that fails or cannot be completed, is a mismatch.
-3. **Stop on a mismatch.** Automated GitHub text writes stop at once, for every agent and session.
-   The text sent and the text stored are kept as evidence under §A.26, and the owner is told. Only a
-   recorded owner decision resumes writing; a later correction does not make a failed write a pass.
+3. **Stop on a mismatch.** The writer stops at once: no further write follows the failed one, in
+   that run or in any batch it belongs to. The failed operation (its tool, path and kind of write,
+   such as Issue-body edits through the REST API) is suspended for every agent and session. Every
+   other automated GitHub text write stops as well when the evidence indicates a broader integrity
+   problem, such as a change not confined to the failed operation, a change to what the text says,
+   or an outcome that cannot be determined. The text sent and the text stored are kept as evidence
+   under §A.26, and the owner is told. Only a recorded owner decision resumes a suspended operation,
+   after it is corrected and validated (§A.51 item 2), or lifts a broader stop; a later correction
+   does not make a failed write a pass.
 4. **No automated form comments.** In a governed thread, an Issue or pull request in which a frozen
    plan, an authority record or an owner decision admits the owner's form comments, no automated
    text whose first line begins, after leading whitespace and in any letter case, with `oi-` is
@@ -1568,7 +1574,9 @@ An authorization to write, for one write or standing (§A.51 item 2), waives non
 
 Adopted 2026-11-23 by owner decision (`amaybaum`, coordinating session); rule 2 amended the same
 day; rule 4 and the closing sentence on authorizations added 2026-11-24 by owner decision
-(`amaybaum`, #1169 comment 7124456482).
+(`amaybaum`, #1169 comment 7124456482); rule 3 amended 2026-11-25 by owner decision (`amaybaum`;
+drafted under #1169 comment 7165155374), to suspend the failed operation rather than every
+automated text write unless the evidence indicates a broader integrity problem.
 
 ***
 
@@ -1648,8 +1656,9 @@ permission broader than the instruction grants.
 5. **Stop.** An unknown outcome of a write, push or launch, a step outside the package's scope, a
    failed preflight or read-back (item 3, §A.49), a failed check the package names as a stop, or
    evidence that conflicts with the package's records stops the package's automated operations at
-   once. The evidence is kept under §A.26 and the owner is told. A §A.49 mismatch also stops every
-   automated text write (§A.49 rule 3). Only a recorded owner decision resumes a stopped package.
+   once. The evidence is kept under §A.26 and the owner is told. A §A.49 mismatch also suspends the
+   failed operation, or every automated text write, as §A.49 rule 3 provides. Only a recorded owner
+   decision resumes a stopped package.
 6. **What it does not do.** A package grants none of the actions of §A.50, waives no review, check
    or gate that this file, a frozen plan or a round requires, confers no scientific status (§A.45
    rule 1), changes no frozen record or its protocol (§A.39, §A.42 item 6) and authorizes no
