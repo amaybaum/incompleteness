@@ -1,0 +1,24 @@
+{
+ "id": 7172299731,
+ "created_at": "2026-11-25T19:26:26Z",
+ "updated_at": "2026-11-25T19:26:26Z",
+ "author_association": "OWNER",
+ "html_url": "https://github.com/amaybaum/incompleteness/pull/1567#issuecomment-7172299731",
+ "issue_url": "https://api.github.com/repos/amaybaum/incompleteness/issues/1567",
+ "user_login": "amaybaum",
+ "performed_via_github_app": "claude",
+ "difference": {
+  "sent_length": 8592,
+  "stored_length": 8591,
+  "first_difference_index": 4389,
+  "removed_character": "A",
+  "sent_context": "ehind `(?<![A-Za-z0-9])` plus ",
+  "stored_context": "ehind `(?<[A-Za-z0-9])` plus a",
+  "only_difference": true
+ },
+ "sha256": {
+  "sent.md": "003361f1ca0f996e063ab729b0592949e0947b873867c43e793821f17842de89",
+  "stored.md": "dd2ec205b6335aab210bcae1f9c6beb442e66fe0f15139168f0cc2c2cf9bb69a"
+ },
+ "request": "POST repos/amaybaum/incompleteness/issues/1567/comments with JSON body {\"body\": <sent.md>} via gh api --input -, 2026-11-25T19:26Z; exit 0; read-back GET of the comment returned stored.md"
+}
