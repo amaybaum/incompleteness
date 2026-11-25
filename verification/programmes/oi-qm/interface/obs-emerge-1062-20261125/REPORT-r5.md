@@ -285,7 +285,7 @@ Each reference this report makes to content not on `main` is classified below by
 | T21 | #1169 comment 7166418469 (owner decision, amaybaum, 2026-11-25T15:10:24Z: independent reviews are performed by Claude reviewer agents, with the stated limitation) | §9.3 | The reviewers were launched by the coordinating session that wrote the work and belong to the same model family | provenance | A governance record stating the review arrangement and its limitation. No scientific claim uses it. |
 | T22 | Head commits of r1 `6e2caec0acccc4efd060d335dfd1ff3b3bc204af`, r2 `5fa09a08a54646575cdbf38435d46515a85cbb1e`, r3 `f89d6861f2dabe095e2d5a6836d7fd6a32188b28` and r4 `18867ffc17ce7f06f8c89c38c0a0914f3e9164e6` | §9.3 | Which revision each review examined; the base of r5 | provenance | No scientific claim uses them. They are on branch `research/i1062-obs-emerge-20261125` and not reachable from `main` at the pin; they become reachable from `main` only if PR #1562 lands as a merge commit, not by squash or rebase. |
 | T23 | The same four commits, named in the superseded notices of `REPORT.md`, `REPORT-r2.md`, `REPORT-r3.md` and `REPORT-r4.md` | Those notices | Where each superseded revision was first recorded | provenance | Same as T22. |
-| T24 | The independent delta review of r4 at `18867ffc17ce7f06f8c89c38c0a0914f3e9164e6` (REVISE) | Status (r5 line); §9.3 | The review record; the findings r5 applies | provenance | Same as T11 (c). |
+| T24 | The independent delta review of r4 at `18867ffc17ce7f06f8c89c38c0a0914f3e9164e6` (REVISE), PR #1562 comment 7169926718 | Status (r5 line); §9.3 | The review record; the findings r5 applies | provenance | Same as T11 (c). |
 
 The literature listed in §6 consists of external publications, not repository content. None is used as a premise.
 
@@ -320,6 +320,7 @@ Each review was by a Claude reviewer agent with a fresh context that wrote none 
 | r1 at `6e2caec0acccc4efd060d335dfd1ff3b3bc204af` | PR #1562 comment 7166647951 | amaybaum, 2026-11-25T15:18:58Z | REVISE: blocking R1–R5, non-blocking R6–R11, five nits |
 | r2 at `5fa09a08a54646575cdbf38435d46515a85cbb1e` (delta) | PR #1562 comment 7167101212 | amaybaum, 2026-11-25T15:36:23Z | ACCEPT-WITH-NITS: R1–R5 resolved; nits 1–5 |
 | r3 at `f89d6861f2dabe095e2d5a6836d7fd6a32188b28` (delta) | PR #1562 comment 7169920809 | amaybaum, 2026-11-25T17:43:58Z | ACCEPT |
+| r4 at `18867ffc17ce7f06f8c89c38c0a0914f3e9164e6` (delta) | PR #1562 comment 7169926718 | amaybaum, 2026-11-25T17:44:12Z | REVISE: findings 1–5 |
 
 The r4 changes were §8, this section, the r4 status line, the Pin line and the `InternalObserver.lean` source entry. The independent delta review of r4 at `18867ffc17ce7f06f8c89c38c0a0914f3e9164e6` returned REVISE. r5 applies its findings 1–3 and 5, and its finding 4 is met by the superseded notice on `REPORT-r3.md`, under the owner decision of #1169 comment 7169907126. The r5 changes go to a bounded independent review, and this section does not record its outcome. The §A.42 item 8 trace is §8.
 
