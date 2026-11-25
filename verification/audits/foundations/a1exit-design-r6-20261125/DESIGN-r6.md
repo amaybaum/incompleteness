@@ -65,13 +65,15 @@ Sources: E-020, V1-003, V2-002, A-003. Controls: none (planning link).
 **R6.STAT.7** Accountable Issue: #1169, where the defects of the earlier tool are recorded.
 Sources: V1-004. Controls: none (planning link).
 
-**R6.STAT.8** Landing order. Owner decision #1169 comment 7093128173 (`amaybaum`,
-2026-11-23T06:13:50Z) approved in principle that the tool lands first, that the plan's `PREREG.md` is
+**R6.STAT.8** Landing order. The owner decision recorded by the coordinating session in #1169 comment
+7093128173 (posted from the `amaybaum` account, 2026-11-23T06:13:50Z; a session-written record that
+quotes no owner words) approved in principle that the tool lands first, that the plan's `PREREG.md` is
 amended and re-frozen so that every mandatory check of its sec. 11 passes as written, and that the four
 trees are distinguished (sec. 20). It superseded the execution-exception route of comment 7092885251.
 The steps it held (implementation, push, pull request, merge and the plan edit) are each governed by
 their own owner record; r6 releases none of them. Before adoption the decision is quoted in r6 in the
-owner's own words, byte-exact from the comment if it holds them, or as the owner restates it (RE-26).
+owner's own words, byte-exact from the comment if it holds them, or as the owner restates it (RE-26);
+since the comment holds no owner words, the owner restates it.
 Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: RV-002. Controls: none (governance record).
 
@@ -191,6 +193,11 @@ field names are identifiers; none is reused with another meaning (sec. 34). Revi
 decision labels cited in parentheses (for example R1, R6, R9, O2, O6, B-4, A-D5, C3, R-D5, D2, V5-D1)
 are labels, not identifiers: where a label coincides with a control id, the label names no control.
 The heading of the verbatim splitter text of sec. 8 uses "O6" as such a finding label; it names no control (B-20).
+The label D1-D4 has three senses in the sources: the owner decisions on v3's open points 1-4 (cited as
+v3 D1-D4); the owner's final decisions D1-D4 of 2026-11-23 in v5.5.9, of which only D2 (the three
+stricter refusal classes of R6.PROF.9) bears on r6; and D1 to D4 among the Stage 1 review's design
+corrections D1-D8, which are review findings applied by owner decision S1-D2. PARAPHRASED-DECISIONS.md
+keys each requirement to the sense its sources use.
 Sources: E-028. Controls: none (definition).
 
 ***
@@ -279,20 +286,27 @@ DR-2. The two texts "the framework's sixth structural property, finiteness of th
 V4) and "The framework's sixth structural property is finiteness of the substratum" (control V27)
 match no deny rule once DR-2 is not in the active rule set, and PASS when added; the plan's original
 literal item 7 misses both. Whether the tool's expected outcome for these texts is PASS (an accepted
-residual) or FAIL (DR-2's expectation restored) is an owner decision at adoption (RD-14, Q10), with
+residual) or FAIL (the expectation of DR-2's form restored) is an owner decision at adoption (RD-14, Q10), with
 these options:
 
-- (a) confirm the accepted residual: V4 and V27 expect PASS, kept so that a change in their outcome
-  is visible;
-- (b) restore V4's FAIL expectation, which needs DR-2, or a successor rule, in the plan's active rule
-  set.
+- (a) confirm the accepted residual: V4, V27 and V27-glossary expect PASS and V15 REVIEW_REQUIRED,
+  kept so that a change in their outcome is visible;
+- (b1) restore the FAIL expectation of V4, V27 and V27-glossary, which needs a plan rule record of the
+  DR-2 form in the plan's active rule set under a new identifier (DR-2 is retired and never reused,
+  sec. 33), while V15 stays REVIEW_REQUIRED through `resid`;
+- (b2) as (b1), and restore V15's FAIL expectation as well, which needs a second plan rule record, of
+  the DR-1d form, under a second new identifier (DR-1d is retired, sec. 33); a rule of the DR-2 form
+  does not match V15's text.
 
 The decision covers V4, V27, V27-glossary and V15 together, which rest on the same decision V5-D1
-(RE-1). Until it is made, each of the four rows carries both candidate expectations, each marked
+(RE-1). For each row, (a) selects the candidate "reversal adopted" and (b2) the candidate "reversal
+rejected"; (b1) selects "reversal rejected" for V4, V27 and V27-glossary and "reversal adopted" for
+V15. Until it is made, each of the four rows carries both candidate expectations, each marked
 "not authoritative; decided at r6 adoption", and an `expect` of outcome DEFERRED; the gate reports
 `deferred-expectation` for each and never holds on it (R6.GATE.9). Outstanding evidence, a named
 blocker on adoption of this requirement: the owner decision V5-D1 that dropped DR-2 is recorded only
-in paraphrase (ME-6); its text is to be recorded by the owner.
+in paraphrase, in the session-written #1169 comment 7099655517 (ME-6); its text is to be recorded by
+the owner.
 Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-055, RE-1. Controls: V4, V27, V27-glossary, V15.
 
@@ -529,6 +543,7 @@ excluded from the search (the run fails closed); that is a verification defect (
 later tool revision, with a control in which an adjudicated HP site in a ledgered segment whose file
 does not conform yields its site-level item.
 Sources: V2-006, V1-049. Controls: VD2-HP-SEARCH.
+
 **R6.ANCH.11** No overlap: translation. If a site's span meets no splice span (R6.ANCH.14), the span
 is translated by the cumulative length change of the preceding splices. Cross-check: the bytes at the
 translated span equal the anchor bytes, and the content search of R6.ANCH.17 finds exactly that line;
@@ -545,6 +560,7 @@ line without these checks; that is a verification defect (VD-3), corrected in a 
 with two controls: a duplicated site whose count changes is `duplicated`, and one whose context does
 not match is `ambiguous`.
 Sources: V1-050, V1-057, V2-006. Controls: VD3-COUNT, VD3-CONTEXT.
+
 **R6.ANCH.13** Overlap: authorized replacement and removal. If splices overlap a site, the region is
 the union of the site line and every overlapping splice span, extended to whole lines. The expected new
 region is `FROM`'s region with those splices applied. Its image in `TO` is located by offset
@@ -573,6 +589,7 @@ Sources: E-110, E-111. Controls: B1, B2, B3, B4, B6.
 byte-identical between `FROM` and `TO`; a difference is FAIL `unledgered-file-change`, and that file's
 sites take the unledgered rules of R6.ANCH.17.
 Sources: V1-052. Controls: CLASS-UNLEDGERED.
+
 **R6.ANCH.16** Postconditions at the candidate. Every ledgered file conforms to its base plus its
 splices (R6.ANCH.9), and every splice's `new` lies at its translated span.
 Sources: V2-018. Controls: M1, M2, U10.
@@ -710,6 +727,7 @@ differs from the walk (U14's second case) gives FAIL `provenance-mismatch`, beca
 not match the walk, and FAIL `stale-adjudication`, because the entry then resolves no subject
 (R6.REC.10); any other class emitted for that case is a defect (Q12, RE-7).
 Sources: V1-062. Controls: U14.
+
 **R6.HP.8** Resumed tracking. An adjudicated site resumes tracking in `H..X` from its final region at
 `H`, through every later segment, under the ledgered rules of R6.ANCH.9 to R6.ANCH.16 and, where its
 file does not conform or has an unledgered change, under the search of R6.ANCH.17 (R6.ANCH.10). It
@@ -795,6 +813,7 @@ configuration (sec. 27):
 | per unit R1/R2 scoping | 8 | true |
 | per unit Q2 | 1 | true |
 
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-079, RV-012, V2-032. Controls: K1, K3, K4.
 
 **R6.CTX.5** The indicator ANAPH (R6.CTX.9) also sets `meaning_context` to true. A reviewed context
@@ -971,6 +990,7 @@ tool never writes a tracked file and never changes git state (sec. 24). This is 
 conformance check of OD-25; the property "no write outside `--out`, and the clone left clean" needs a
 control of its own (RD-11).
 Sources: V1-025, V1-026, V2-009. Controls: M10, X3, OUT-CONFINED.
+
 **R6.OUT.8** VOID. If a preflight or self-test control fails, the run exits 70 without evaluating; no
 verdict is given. The preflight set is stated in sec. 17.
 Sources: V1-083. Controls: Z8.
@@ -1054,6 +1074,7 @@ the admission field, the replay's output equals the committed result byte for by
 R6.OUT.19), for op B and op D results as well as for op C results. A replay is never acceptable as a new
 run. One thing remains host-attested and cannot be reproduced offline: that the snapshot was genuine
 when it was taken.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-098. Controls: TR45-opB.
 
 **R6.OUT.16** Frozen code. Every call into frozen code in op A is wrapped. An exception becomes a
@@ -1155,6 +1176,7 @@ Sources: E-107, V1-076, V1-077, V2-063. Controls: S7-schema-and-checker.
 execution identity that sec. 11 records, and every list is sorted. Two runs on the same inputs produce
 byte-identical results (sec. 30).
 Sources: V1-077, V2-067. Controls: REPRO-DOUBLE.
+
 **R6.OUT.21** Class meanings (B-4). The schema carries a fixed table `class_meaning`, identical in every
 result:
 
@@ -1530,6 +1552,7 @@ case-insensitive matches. **Matching on source bytes.** Every literal of an allo
 (trigger, context, negative, fingerprinted sentence) is matched against the source bytes of the file
 as committed, after the splitter's whitespace normalization (sec. 8), never against rendered text
 (for example a context literal `\mathrm{SU}(3)`, as the source line holds it, not "SU(3)").
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-133. Controls: WB15, L2, V7a.
 
 **R6.RULE.8** **`rule-stale` scoping.** REVIEW_REQUIRED `rule-stale` (a fingerprinted sentence no
@@ -1538,12 +1561,14 @@ longer present) is evaluated on every tree except those that are proper ancestor
 `recorded_at` itself, are always evaluated. `result.json` lists, per tree, the rules not evaluated for
 staleness and why. At `recorded_at` a missing fingerprint is a lint failure of the rule (R6.RULE.10),
 not a `rule-stale` item.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-134, V2-028. Controls: S2r, WB5, E-S2r, GV3.
 
 **R6.RULE.9** **Residual testing.** No rule ever deletes text from the line or sentence before
 testing. A classified hit's sentence is tested whole, with the classified literal in place: every
 deny profile (step 2) and the rule's negative matcher (step 3) are applied to the whole sentence, and
 every other profile's hits in it are decided on their own.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-134, V2-051. Controls: V7a, WB2, WB12, A5r.
 
 ### 10.3 Rule lint
@@ -1655,6 +1680,7 @@ blob; `reviewer` equal to `author`; a review whose `verdicts` do not cover every
 or any item not `accept`; a duplicated item id or verdict; a `reviewer` value that points to a tool
 run, a CI run, a check run or an Issue (a URL or run id rather than a person); a record entry at a
 path that is not a regular file (R6.REC.17); a record not read from the git object store.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-140, E-141. Controls: O1, O2, O3, O5, R3-F2, R4-B3, R4-B3-DUP, R5-N6, GV6.
 
 **R6.REC.7** **Supersession and lineage**, for every record kind that carries `supersedes`. Each
@@ -1679,6 +1705,7 @@ following is FAIL `record-invalid`:
   (the records the configuration references and every record their chains name) supersedes;
 - a reused `record_id`.
 
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-141. Controls: S4a, LN1, LN2, LN3, LN4, LN5, LN6, LN7, LN8, LN10, R6-G6.
 
 **R6.REC.8** **`record_id` outside lineage.** Beyond the lineage rule, `record_id` is required on the
@@ -1710,6 +1737,7 @@ disagrees with it is decided by the subject's own rule (for example `provenance-
 chain is reported as `out-of-scope` (sec. 7), which is not a finding. Resolution is only by exact
 match: a record entry resolves nothing it does not match exactly.
 Sources: V1-060, RE-8, Q12. Controls: RECLINT-ORPHAN (new row), H1, H2, H6, U14.
+
 **R6.REC.11** The tool never infers a role or a review from a passing tool result.
 Sources: E-142. Controls: O5.
 
@@ -1939,6 +1967,7 @@ Only `"chain"` is acceptable (sec. 7). The control harness (sec. 17) may admit a
 without its chain; its results carry `mode: "control-harness"` (with any simulated snapshot the control
 supplies, never mode `"chain"`), are written as `control-result.json` with `"harness": true`, and are
 never written as an acceptable result. The offline replay writes `mode: "replay"`.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-158, E-159, E-145. Controls: TR5, TR5-sim, X11, TR45-opB, TR46.
 
 **R6.REC.25** **Residual trust assumptions.** The tool and the consumer trust: the host's REST
@@ -1964,7 +1993,6 @@ the schemas of sec. 10. They are frozen and adopted with the amended plan at `F`
 review, and referenced by the configuration at `F`. The tool's requirement is the rule mechanism:
 sec. 9 (profiles), sec. 10 (schema, application, lint), sec. 11 (records) and sec. 14 (hit
 classification). r6 states no rule content.
-Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-1001, V2-059, V2-060, V2-061, RV-049. Controls: RT-DR, RT-D, RT-D-gr58, L1, L2.
 
 **R6.DENY.2** **Controls on pinned rule inputs.** The controls of the rule mechanism use the rule
@@ -1972,7 +2000,6 @@ files current at the commit under check as pinned control inputs, named with the
 expectation file (sec. 16). Acceptance of the mechanism (sec. 18) is its behaviour on those inputs. A
 changed rule file is a changed control input: the affected expectations are re-established in the
 expectation file before the gate can hold.
-Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-1001. Controls: V1, V2, V3, V5, V6, V9, V10, V11, V12, V13, V14, V16, V17, V18, V19, V20,
 V22, N-W, RT-DR3W.
 
@@ -1998,6 +2025,7 @@ parts resid-a, resid-b and resid-c.
 Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-1001, E-1002, E-1003, E-1004, E-1005, E-1006, E-1020, E-1021, E-1022, E-1024, E-1025,
 E-1026, E-1027, E-1032. Controls: none (OBL-3).
+
 **R6.DENY.6** **Accepted residual: V4 and V27 (for decision at adoption; not adopted by this
 draft).** The question: with the deny rules DR-1, DR-3, DR-4 and DR-5 and the review profiles of the
 A1 configuration, the added text of control V4 ("the framework's sixth structural property, finiteness
@@ -2005,14 +2033,17 @@ of the bijection") and of control V27 ("The framework's sixth structural propert
 substratum", added alone and as the edited glossary line) produce no hit of any review or deny profile.
 The expectation for both would then be PASS with zero hits, recorded as an accepted residual after the
 candidate rule DR-2, which caught V4, was not adopted. That decision (V5-D1) is recorded only in
-paraphrase. Consequences of confirming: an added sentence that asserts finiteness as an ordinal
+paraphrase, in the session-written #1169 comment 7099655517. Consequences of confirming: an added sentence that asserts finiteness as an ordinal
 structural property of the bijection or substratum, in the forms of V4 and V27, passes the tool
 undetected; the original item 7 check also misses it; its detection rests on review outside the tool;
 V4 and V27 are kept as controls so that a change in their outcome is visible. Consequence of
 restoring: V4 (and V27) expect FAIL `deny-match`, which requires a plan rule record that catches them
-(DR-2 or an equivalent, plan content under R6.DENY.1, reviewed with the deny set), and the
-reconciliation of that rule against the negative examples. The owner decides at adoption between (a)
-confirming the PASS expectation knowingly and (b) restoring the FAIL expectation. Until then the
+(a rule of the DR-2 form under a new identifier, since DR-2 is retired and never reused (sec. 33);
+plan content under R6.DENY.1, reviewed with the deny set), and the
+reconciliation of that rule against the negative examples. The owner decides at adoption among (a)
+confirming the PASS expectation knowingly, (b1) restoring the FAIL expectation of V4, V27 and
+V27-glossary, with V15 REVIEW_REQUIRED, and (b2) restoring it for V15 as well, which needs a second
+new rule, of the DR-1d form, since a rule of the DR-2 form does not match V15's text (R6.PUR.9). Until then the
 expectations are deferred. The decision covers V4, V27, V27-glossary and V15 together (RE-1). Until it is made, each of the four
 rows carries both candidate expectations, each marked "not authoritative; decided at r6 adoption",
 and the gate reports `deferred-expectation` for it and never holds (sec. 16.5).
@@ -2312,6 +2343,7 @@ An entry that names a subject and disagrees with it is reported by that subject'
 (R6.CLASS.4); an HP adjudication entry whose region hash differs from the walk gives both
 `provenance-mismatch` and `stale-adjudication` (R6.HP.7).
 Sources: E-1072, Q12, RE-8. Controls: RECLINT-ORPHAN (new row), U14 (row restored), H1, H2.
+
 **R6.CLASS.7** **Pins and mirrors** (FAIL; sec. 4):
 
 | Class | Condition |
@@ -2825,6 +2857,7 @@ expectation file, of 420 control rows 267 are in scope and 153 outside; 223 rows
 expectation, 41 declare direction `both`, 6 name `paired_with` and 3 are exempt as observations;
 42 rows in scope record no second direction (`direction-missing`), and 217 rows are flagged VD-RESTORE.
 Sources: V1-101, V2-073, V1-138, Q7, RE-2, RE-3, RE-4, Q11. Controls: A11r, M1, N1, GATE-27.
+
 **R6.CTRL.4** Each expected FAIL names the class of sec. 15 that produces it; a FAIL expectation
 without a class is a defect of the expectation (G3, G5 and the countercontrols of sec. 18 items 4, 6
 and 13 name their class). Each expected deny FAIL names the deny rule and the rule alternative that
@@ -2922,13 +2955,16 @@ PASS: this is the V4 reversal. What it permits: a reintroduction of the counted 
 "sixth structural property, finiteness of ..." passes the deny profiles and the residual profile
 unclassified by any FAIL, and the original item 7 misses it as well. Its consequence: the tool does
 not detect that form, and detection rests on review of the residual hits. The reversal rests on an
-owner decision recorded only in paraphrase. It is adopted or rejected by the owner at r6's adoption;
+owner decision recorded only in paraphrase (V5-D1, in the session-written #1169 comment 7099655517). It is adopted or rejected by the owner at r6's adoption;
 approving this draft does not adopt it. Until that decision, V4, V27, V27-glossary and V15 each
 carry both candidate expectations, marked "not authoritative; decided at r6 adoption", and the gate
 reports `deferred-expectation` for each (RE-1). If the reversal is rejected, V4's expectation is FAIL `deny-match` and the deny set
-needs a rule matching that form, which is a plan-record change (sec. 12). V27 tests a sentence of the
+needs a rule matching that form, under a new identifier (DR-2 is retired and never reused, sec. 33),
+which is a plan-record change (sec. 12). V27 tests a sentence of the
 same form and rests on the same decision, as do V27-glossary and V15, whose candidates are
-REVIEW_REQUIRED `unclassified` and FAIL `deny-match`.
+REVIEW_REQUIRED `unclassified` and FAIL `deny-match`; V15's FAIL candidate needs, in addition, a rule
+of the DR-1d form under a second new identifier, since a rule of the DR-2 form does not match V15's
+text (R6.PUR.9, resolutions (b1) and (b2)).
 Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: V2-080, RE-1. Controls: V4, V27, V27-glossary, V15.
 
@@ -2942,6 +2978,7 @@ or hit classification entry and a duplicate entry (FAIL `record-invalid`), and t
 tree or segment the record does not apply to (no finding) (R6.REC.10). An adjudication that disagrees
 with the walk, or changes a row, FAILs (H1, H2, H6).
 Sources: E-1098, E-1099, E-1100, E-1101, E-1102, E-1103, E-1104, Q12, RE-8. Controls: H1, H2, H3, H4, H5, H6, H7, U14, RECLINT-ORPHAN.
+
 **R6.CTRL.17** Split and dependent rows. RT-O9's own checks (the expected set of record-directory
 entries computed independently from the stand-in `F` tree, compared exactly; no unequal path; no
 `side-change-unclassified`) run and are gated whenever RT-O9 runs, independently of RT-L2. Its clause
@@ -2952,6 +2989,7 @@ until a dispatch of the pinned workflow on a branch holding `T'` is made, after 
 a launch the owner approves; EI14's other cases stay in EI14. The consumer halves of EI7, TR15, TR50,
 TR51 and TR52 are rows of their own (EI7-consumer, TR15-consumer, TR50-consumer, TR51-consumer,
 TR52-consumer), implemented in the tool revision; until then the gate reports them missing.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-1218. Controls: RT-O9, RT-O9-L2, TR45-opB, TR45-opC, EI14, EI14-dispatch, EI7,
 EI7-consumer, TR15-consumer, TR50-consumer, TR51-consumer, TR52-consumer.
 
@@ -2996,6 +3034,7 @@ Sources: E-1152, E-1153, E-1312, E-1313, E-1314, E-1315, E-1316, E-1317, E-1318,
 and the record-lint controls R3-F2, R4-B3, R4-B3-DUP, R5-N6 and R6-G6. O1, O2, O3, O5 and O7 assert
 an emitted FAIL `record-invalid`, not only a lint problem; O6 asserts the emitted outcome, not only the
 absence of an ERROR.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-1154, E-1155, E-1156, E-1157, E-1158, E-1159, E-1160, E-1161, E-1331, E-1332, E-1333, E-1334, E-1335, E-1336, E-1337, E-1338, E-1339, E-1340. Controls: LN1, LN2, LN3, LN4, LN5, LN6, LN7, LN8, LN10, O1, O2, O3, O5, O6, O7, O8, O9, R3-F2, R4-B3, R4-B3-DUP, R5-N6, R6-G6, S4a.
 
 **R6.CTRL.23** The delegation controls are G1-G9 and G-A1; the output controls are X1-X11,
@@ -3008,6 +3047,7 @@ CHAIN-REFUSAL, ADM-CONFIG-AT-F, CONFIG-LINT, O3-FILTER and K1-GRAPH. v1's RT-A' 
 is X1. GV4 includes the HP-merge case; EI6 includes its third case and the `json.py` and
 `importlib.py` shadow files; EI5 and EI7 include their countercontrols. TR1 applies to chain
 admission only.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-1162, E-1163, E-1164, E-1224, E-1225, E-1226, E-1227, E-1228, E-1229, E-1165, E-1166, E-1167, E-1168, E-1169, E-1170, E-1171, E-1172, E-1173, E-1174, E-1207, V2-096, V2-097, E-1208, E-1209, E-1210, E-1211, E-1212, E-1213, E-1214, E-1215, E-1216, E-1217, E-1219, E-1220, E-1221, E-1222, E-1223, E-1246, E-1247, E-1248, E-1249, E-1250, E-1251, E-1252, E-1253, E-1254, E-1255, E-1256, E-1257, E-1258, E-1259, E-1260, E-1261, E-1262, E-1263, E-1264, E-1265, E-1266, E-1267, V1-116. Controls: G1, G2, G3, G4, G5, G6, G7, G8, G9, G-A1, ACCEPT-SCHEMA, B4-MEANING, S7-schema-and-checker, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11,
 ADM-CONFIG-AT-F, CHAIN-REFUSAL, CONFIG-LINT, EI1, EI2, EI2-consumer, EI3, EI4, EI5, EI6, EI7, EI7-consumer, EI7-tool, EI8, EI9, EI10, EI11, EI12, EI13, EI14, EI14-dispatch, EI15, GV1, GV2, GV3, GV4, GV5, GV6, GV6-disk, GV7, GV7-consumer, GV7-tool, GV-CACHE, GV-CACHE-AFTER-READ, GV-CACHE-IMMUTABLE, GV-CACHE-KEY, K1-GRAPH, O3-FILTER, TR1, TR2, TR3, TR5, TR5-sim, TR13, TR14, TR14-tool, TR15, TR15-consumer, TR28-consumer, TR28-tool, TR29, TR29-tool, TR30, TR45-opB, TR45-opC, TR46, TR48, TR50, TR50-consumer, TR51, TR51-consumer, TR52, TR52-consumer.
 
@@ -3016,6 +3056,7 @@ S11-2c) and the per-edit controls S11-56, S11-57a-d, S11-58a-f and S11-58g-k. S1
 side only: the equality of its result with the plan's own checker is an outstanding obligation (sec.
 18). S11-7 is implemented in the tool revision; it plants a literal and a DR-5 match and requires both
 to FAIL.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-1234, E-1235, E-1236, E-1237, E-1238, E-1239, E-1240, E-1241, E-1242, E-1243, E-1244, E-125. Controls: S11-1, S11-2, S11-2a, S11-2b, S11-2c, S11-3, S11-4, S11-5, S11-6, S11-7, S11-8, S11-9, S11-10, S11-11, S11-12, S11-13, S11-14, S11-56, S11-57a, S11-57b, S11-57c, S11-57d, S11-58a-f, S11-58g, S11-58h, S11-58i, S11-58j, S11-58k.
 
 **R6.CTRL.25** The synthetic configuration controls are Y1-Y10, Z1-Z8, Z6b, Z9a-Z9h, Z9-STAGED, Z10
@@ -5018,7 +5059,7 @@ open governance conflicts (R6.STAT.10); none is resolved by an exception:
 | statements of what the tool commit does ("at the tool commit", "today"): R6.PUR.12, R6.PIPE.3, R6.ANCH.10, R6.ANCH.12, R6.HP.7, R6.OUT.18, R6.OUT.24, R6.SPLIT.3, R6.RULE.11, R6.RULE.12, R6.REC.20, R6.HIT.2, R6.CLASS.1, R6.CLASS.11, R6.GATE.7, R6.CTRL.19, R6.CTRL.25, R6.CTRL.29, R6.TREE.13, R6.RDIR.7, R6.RECON.11, OBL-21, OBL-28; R6.EVID.6 (CI run 45569710442); R6.NOTE.3 (the content of `T1'`) | the tool commit, its conformance assessment, the CI run, `T1'` | each statement asserts a fact about that content | support off `main`: open; closed by landing the content each statement uses, or by narrowing it to the requirement and control it motivates |
 | semantics defined by reference to `P`'s `edits_check.py` (blob sha256 2856e58c...d98c): R6.SPLIT.3, R6.PROF.3, R6.PROF.4, R6.PROF.5, R6.PROF.7, R6.PROF.8, R6.PROF.9, R6.PROF.10, R6.PROF.12, R6.DENY.5, R6.A1CFG.2, OBL-1 | the plan commit `P` (its record directory is on no commit reachable from `main`) | the normative meaning of these requirements | support off `main`: open; closed by landing that blob on `main` no later than the adoption record, or by r6 stating the semantics itself; the copy frozen at `F` reaches `main` only with the round's landing, after adoption |
 | the external oracle of R6.GATE.7 and R6.GATE.8 (`P`'s outputs as files) | outputs of `P`'s checker | evidence for implementation certification, not for adoption | provenance for adoption; for certification, support off `main` until those outputs land |
-| owner decisions recorded only in paraphrase or relayed in session: the requirements of PARAPHRASED-DECISIONS.md, R6.STAT.8, and the owner corrections OC-1 to OC-5 of 2026-11-25 | GitHub comments and session instructions | the authority of the requirements that state them | support off `main` until quoted with author and time in a record on `main` (AGENTS.md sec. A.42 item 7): open |
+| owner decisions recorded only in paraphrase or relayed in session (the requirements of PARAPHRASED-DECISIONS.md, R6.STAT.8), and the owner corrections OC-1 to OC-5 of 2026-11-25, quoted in the owner's words in #1169 comment 7163402499 | GitHub comments, and session instructions quoted in design documents | the authority of the requirements that state them | support off `main` until quoted with author and time in a record on `main` (AGENTS.md sec. A.42 item 7): open |
 | inventory, review and decision labels in `Sources` (E-, V1-, V2-, A-, RD-, OD-, RE-, Q-, ME- and others) and the `source` fields citing v6.0e, r4 and r5 | the review and design records of the drafting | provenance: r6 states every rule itself (R6.STAT.2) and takes its authority from its own adoption | provenance |
 | item11-T1p (OBL-23) | `T1'` | an acceptance reference that needs `T1'`'s exact tree | support off `main`: named provenance gap, open |
 | controls outside OC-3's list that read `T1'` or `P`: RT-C, the `T1'` case of RT-DR, RT-M, RT-D-gr58, RT-L, S11-56, RT-O9's stand-in `F` (`P`'s record directory), and every `execution` control whose ledger and edit list are read at `P` | `T1'`, `P` | inputs of acceptance references | support off `main`: open; not re-specified by OC-3 (R6.EVID.8 states the representative candidate and the pinned ledger and edit list they could use) |
@@ -5028,7 +5069,7 @@ implement items 5 and 6 of P's plan as P's frozen checker defines them: per edit
 edit list, not per splice, with P's selection, counting and sentence splitting (P's `edits_check.py`,
 blob sha256 2856e58c...d98c, functions `static_new`, `inf_key` and `sentences`). Gates: plan freeze `F`
 and any trial that claims items 5 or 6. Discharged by: a comparison, recorded at `F` by a script
-retained on `main`, of the engine's outputs against P's checker as frozen with the plan. Sources:
+retained on `main`, of the engine's outputs against P's checker as frozen with the plan. Pending owner confirmation (see PARAPHRASED-DECISIONS.md). Sources:
 E-115, E-1371, ME-1.
 
 **OBL-2** Parity measurements. The figures 2822 / 2822 accepted, 16905 / 16905 refused, 273 chained
@@ -5070,7 +5111,8 @@ substratum", "The posit ledger lists fourteen.", "the fourteen-item posit ledger
 Consequence of the reversal: an added sentence of V4's form reaches PASS without review. Gates: r6's
 adoption (the V4 reversal, adopted or rejected at that step); plan freeze `F` (acceptance of the residual
 forms or further rules, as rule records). Discharged by: the owner's recorded decision on the V4
-reversal at r6's adoption, and the reviewed rule records at `F`.
+reversal at r6's adoption, among the resolutions (a), (b1) and (b2) of R6.PUR.9, and the reviewed rule
+records at `F`, including any new rule identifier that (b1) or (b2) needs.
 The decision covers V4, V27, V27-glossary and V15 together (RE-1).
 Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-1365, E-1366, RD-14, Q10.
@@ -5218,6 +5260,7 @@ mechanically from the per-row decisions of R6.CTRL.3 (42 of them record no secon
 reported as `direction-missing`). Gates: the tool's landing. Discharged by: a recorded and executed
 second direction on every such row, holding under the gate.
 Sources: Q7, RD-8, RE-2, RE-3, Q11.
+
 **OBL-21** Implementation corrections. The tool revision makes these corrections, each with a
 distinguishing control that holds under the gate:
 - VD-1: the gate and the correspondence check (sec. 16); a planted wrong expectation fails the gate;
@@ -5536,10 +5579,11 @@ reference.
   under a quoted owner decision; "v5.5.9 authoritative until adoption", a status r6 does not carry) and
   v6.0e (review-v6.0d B-1, S-1 to S-3). The stated review-v6.0d hash differs from the records-branch
   copy; the mapping is recorded in r6's provenance file. Sources: E-002, E-003, E-004, E-005, E-006.
-- HIST-4. Quotes of owner decisions without a GitHub record (removal of automated authorization
-  verification; preservation of technical guarantees; the route authority of #1169 comment 7093128173,
-  paraphrased; D1-D4, V5-D1, V5-D2, S1-D1 to S1-D3 and the decisions of 2026-11-24). r6 relies on no
-  unrecorded decision; its authority is its own adoption. Sources: E-008, E-016, E-1364, ME-5, ME-6.
+- HIST-4. Quotes and records of owner decisions: without a GitHub record, the removal of automated
+  authorization verification, the preservation of technical guarantees, S1-D1 to S1-D3 and the
+  decisions of 2026-11-24; recorded on GitHub only by the coordinating session, without the owner's
+  words, the route authority of #1169 comment 7093128173 and v3 D1-D4, V5-D1 and V5-D2 (#1169 comment
+  7099655517). r6 relies on no unrecorded decision; its authority is its own adoption. Sources: E-008, E-016, E-1364, ME-5, ME-6.
 - HIST-5. v6.0e's statement that it kept every guarantee of v5.5.9, with section pointers; withdrawn
   as a claim, each guarantee restated as its own r6 requirement. Sources: E-011, ME-4.
 - HIST-6. r5's authorizations, basis and revision history: the authorization limited to O-9 and the

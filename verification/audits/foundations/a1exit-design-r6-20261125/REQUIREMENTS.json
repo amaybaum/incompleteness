@@ -513,7 +513,8 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "V5-D1"
+   "V5-D1",
+   "V5-D2"
   ]
  },
  {
@@ -1112,7 +1113,7 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "D1-D4"
+   "S1-D2"
   ]
  },
  {
@@ -1491,7 +1492,7 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "D1-D4"
+   "v3 D1-D4"
   ]
  },
  {
@@ -1550,7 +1551,9 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "v3 D1-D4"
+  ]
  },
  {
   "id": "R6.CTX.5",
@@ -1705,7 +1708,7 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "D1-D4"
+   "v3 D1-D4"
   ]
  },
  {
@@ -2017,7 +2020,9 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "R-D labels"
+  ]
  },
  {
   "id": "R6.OUT.16",
@@ -2500,7 +2505,8 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "R-D labels"
+   "R-D labels",
+   "v5.5.9 final D2"
   ]
  },
  {
@@ -2714,7 +2720,9 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D2"
+  ]
  },
  {
   "id": "R6.RULE.8",
@@ -2735,7 +2743,9 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D2"
+  ]
  },
  {
   "id": "R6.RULE.9",
@@ -2756,7 +2766,9 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D2"
+  ]
  },
  {
   "id": "R6.RULE.10",
@@ -2985,7 +2997,9 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "DI-2"
+  ]
  },
  {
   "id": "R6.REC.7",
@@ -3012,7 +3026,9 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "DI-2"
+  ]
  },
  {
   "id": "R6.REC.8",
@@ -3162,7 +3178,7 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "D1-D4"
+   "S1-D2"
   ]
  },
  {
@@ -3410,7 +3426,9 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "R-D labels"
+  ]
  },
  {
   "id": "R6.REC.25",
@@ -3453,9 +3471,7 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "V5-D1"
-  ]
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.DENY.2",
@@ -3490,9 +3506,7 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "V5-D1"
-  ]
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.DENY.3",
@@ -3562,7 +3576,7 @@
   "open": [],
   "pending_owner_confirmation": [
    "V5-D1",
-   "D1-D4",
+   "S1-D2",
    "V5-D2",
    "S1-D1 to S1-D3"
   ]
@@ -5455,7 +5469,9 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "R-D labels"
+  ]
  },
  {
   "id": "R6.CTRL.18",
@@ -5571,7 +5587,7 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "D1-D4"
+   "S1-D2"
   ]
  },
  {
@@ -5741,7 +5757,9 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "DI-2"
+  ]
  },
  {
   "id": "R6.CTRL.23",
@@ -5903,7 +5921,9 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "R-D labels"
+  ]
  },
  {
   "id": "R6.CTRL.24",
@@ -5958,7 +5978,10 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D2",
+   "R-D labels"
+  ]
  },
  {
   "id": "R6.CTRL.25",
@@ -6474,7 +6497,7 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "D1-D4"
+   "v3 D1-D4"
   ]
  },
  {
@@ -9127,7 +9150,7 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "D1-D4"
+   "S1-D2"
   ]
  },
  {
@@ -9168,7 +9191,7 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "D1-D4"
+   "S1-D2"
   ]
  },
  {
@@ -9256,7 +9279,9 @@
    "OBL-1"
   ],
   "open": [],
-  "pending_owner_confirmation": []
+  "pending_owner_confirmation": [
+   "S1-D2"
+  ]
  },
  {
   "id": "OBL-2",
@@ -9306,7 +9331,7 @@
   "open": [],
   "pending_owner_confirmation": [
    "V5-D1",
-   "D1-D4",
+   "S1-D2",
    "V5-D2",
    "S1-D1 to S1-D3"
   ]
@@ -9522,7 +9547,7 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "D1-D4"
+   "S1-D2"
   ]
  },
  {

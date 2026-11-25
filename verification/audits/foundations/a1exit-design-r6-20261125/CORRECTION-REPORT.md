@@ -1,14 +1,20 @@
-# r6 correction report (owner corrections of 2026-11-25)
+# r6 correction report, second round (F1 to F8, the unmarked requirements, OC attribution)
 
-Deterministic correction of the consolidated design r6 by `build/correct.py`, which reads `out-final/` (read only) and applies the explicit, logged edits below. Every edit carries the number of the owner correction it applies (OC-1 to OC-5) or `meta` for a mechanical consequence (two-way links, the Requirements column of Table 17.1, the invariant annex, the requirement index, record ids). No governance rule is amended and no exception is created. r6 stays a draft until the owner adopts it. No git or GitHub write was made and the tool was not run; the facts in sec. 4 were obtained by read-only inspection.
+Deterministic correction by `build/correct2.py`, which reads `out-final2/` (read only), MAPPING.json and the #1169 comments read with GET requests, and applies the logged edits below. Each edit carries the finding it applies (F1 to F8, F7-<requirement>, OCFIX) or `meta`. Authorization, quoted: #1169 comment 7164340996 (2026-11-25T13:49:23Z): "A1 design r6: Proceed with the second correction round, addressing F1–F8 and the additional unmarked requirements. Preserve all existing safeguards and keep the V4 group deferred. Prepare the corrected design for independent review. This does not authorize adoption, freezing or execution.". No governance rule is amended, no exception is created, no expectation of the V4 group changes, and r6 stays a draft. No git or GitHub write was made.
 
-The corrections, as authorized:
+Findings applied:
 
-- OC-1: OBL-16 / TR5: respecified consistently with AGENTS.md sec. A.39: (a) exact-candidate validation of the candidate F before designation, (b) designation identity verification, (c) durable evidence verification when the round lands; no requirement places F on main before its designation.
-- OC-2: OBL-26: r6 specification adoption distinguished from implementation certification; adoption support is the r6 text and its independent exact-head review on main no later than the adoption record (precondition, not authorized); the a3799244 conformance assessment classified as provenance only where the adoption claim does not use it; every remaining off-main support dependency traced and reported as an open governance conflict.
-- OC-3: OBL-13, OBL-14, OBL-15, OBL-23 (RT-L2, RT-O9-L2, RT-T, the T1' figures): ancestry determination per control; structural controls moved to a reproducible representative candidate X_rep; item11-T1p kept as candidate evidence with a named provenance gap.
-- OC-4: LC-7: REVIEW_REQUIRED kept pending an explicitly specified and independently reviewed regeneration verification procedure (trusted checker establishes the expected output and compares bytes); open, not resolved.
-- OC-5: V4, V27, V27-glossary, V15: kept deferred, unchanged (checked byte for byte).
+- F1: Classify every cited decision as (i) the owner's own words on GitHub, (ii) a session-written record on GitHub without owner words, or (iii) no GitHub record; verified by reading the comments with GET requests.
+- F2: Correct the description of V5-D2: it widens `resid`; the W2 allow rules rest on no owner decision.
+- F3: Disambiguate the labels D1-D4 (three senses) and D1-D8; re-key the requirements that cite the Stage 1 review's corrections to S1-D2.
+- F4: Unmark R6.DENY.1 and R6.DENY.2, whose content does not depend on V5-D1.
+- F5: Record that a rejection of the V4 reversal needs a new rule identifier, since DR-2 is retired and never reused.
+- F6: Record that V15's FAIL candidate needs a rule of the DR-1d form, so that three consistent resolutions exist; V4, V27, V27-glossary and V15 expectations unchanged.
+- F7: Mark the unmarked requirements with their actual decision basis.
+- F8: Formatting: a blank line before a requirement that directly follows the previous requirement's Sources line.
+- OCFIX: Correct the statement that OC-1 to OC-5 lack a comment id: they are quoted in the owner's words in #1169 comment 7163402499.
+
+Correction of the previous report (OCFIX). The previous report stated that the owner corrections OC-1 to OC-5 "were relayed in session without a comment id". That is incorrect: #1169 comment 7164065815 (2026-11-25T13:38:08Z): "The correction report lists the owner's decisions OC-1 to OC-5 as relayed without a comment id. That is incorrect: they are recorded verbatim in comment 7163402499." The owner's approval quoted there is "Authorize the bounded specification correction as proposed, including both refinements in your latest message.", and items 1 to 4 and 6 of the quoted proposal are OC-1 to OC-5 (AUTHORIZATIONS.md). The statement is corrected in the adoption trace of sec. 32 (edit OCFIX) and in this report; the previous report is a record of its round and is not edited.
 
 ***
 
@@ -16,300 +22,208 @@ The corrections, as authorized:
 
 | Input (read only) | sha256 |
 |---|---|
-| out-final/DESIGN-r6.md | 4a2faa036511418068e50b986e12eda678569412638ed67d0ebdceb0b54801de |
-| out-final/EXPECTATIONS.json | 41ad9875e5f0a036f917d309ad16e1ab264efbdb5767e7de95f294591404ec4f |
-| out-final/REQUIREMENTS.json | a2fe59d4542e6de90224f6d7eaad481f7ed8ecfb5957616ba640bf3734469355 |
-| out-final/MIGRATION.json | b24615f19b936983e6148c536717cde27c7430aaa0cb382e7da6ed10008582f7 |
-| out-final/PARAPHRASED-DECISIONS.md | 250be39bff7bff6bfce40713bd1473bf28b56009a654a27e556600bf50ad43e3 |
-| out-final/FINAL-REPORT.md | 1558491a63e3a5076aa1d290e367b03b25aa7cf603de8ee45fd1c0ff5a0649a2 |
-| out-final/build/final.py | e675eeeb77b778afa170c03b6de7ae3568ce9b527d4f5d86c3658f0cd20cdc00 |
+| out-final2/DESIGN-r6.md | a76bcf1c12b745b87586fff9e39cf9331302eae7ab1b352dd0e65466ff08dcec |
+| out-final2/EXPECTATIONS.json | c30d1f7a1cda41e442d592831cef5d156885961d9ae8d7c8788b52891fe26a17 |
+| out-final2/REQUIREMENTS.json | 159e564b033df76a3e83fea5de80a11c42da65f172a3014152b0fb89e07a982f |
+| out-final2/MIGRATION.json | 9188e876ffce703df20710b1285f4ff0ca9145ad656e3617e30feef56bcdaf08 |
+| out-final2/PARAPHRASED-DECISIONS.md | 250be39bff7bff6bfce40713bd1473bf28b56009a654a27e556600bf50ad43e3 |
+| out-final2/CORRECTION-REPORT.md | 954e984c393486f64f82541b12946e5f148715e668fc5cbce24e08fed462f8a7 |
+| out-final2/build/correct.py | 284d2d757dc83705ddf1b923a3b7a04d6d8e84e517fe31f18e32b0311ebaea02 |
+| out-final2/build/report_text.py | 41d9dfbfda94a4a29081a010e1dc582a36d79b9554890c48c9471afee1120b01 |
+| PENDING-33.md | b1a171a958999bdbb7d576ed835cc95f7789639e23e5ed052f5e40a4de782fe6 |
 | MAPPING.json | bd1a8657961fd659b29980178781a7f30fd6e5b53da9a734db28a20130c9ff85 |
+| gh7/sel.json | af740cc18fa630358aa618c585508439bde4b8fb7d426ecd6808faa5e95db1e6 |
+
+Comment bodies read (sha256 of the body as returned by the API): see AUTHORIZATIONS.md.
 
 | Output | sha256 |
 |---|---|
-| DESIGN-r6.md | a76bcf1c12b745b87586fff9e39cf9331302eae7ab1b352dd0e65466ff08dcec |
-| EXPECTATIONS.json | c30d1f7a1cda41e442d592831cef5d156885961d9ae8d7c8788b52891fe26a17 |
-| REQUIREMENTS.json | 159e564b033df76a3e83fea5de80a11c42da65f172a3014152b0fb89e07a982f |
+| DESIGN-r6.md | 5a17b3069bbfaac24b805293443645b0ac4145f6002d6450a3c9247b7682ad14 |
+| EXPECTATIONS.json | acd321bca3853d0a4d873d5171bda1b091acb9fce86d5c3e82da14b763db0e9a |
+| REQUIREMENTS.json | 6a0beaabec0dbba4e261837246d614ac9cf5fab2dfc5e42ffb07fd5516742ef9 |
 | MIGRATION.json | 9188e876ffce703df20710b1285f4ff0ca9145ad656e3617e30feef56bcdaf08 |
-| PARAPHRASED-DECISIONS.md | 250be39bff7bff6bfce40713bd1473bf28b56009a654a27e556600bf50ad43e3 |
-| CORRECTION-REPORT.md | this file (its own digest is reported by the generator run) |
-
-Counts: 558 expectation rows (one added: REP-BUILD), 427 requirements (two added: R6.STAT.10, R6.EVID.8), 153 invariant keys (two added: representative_candidate, scanned_paths_within). PARAPHRASED-DECISIONS.md is copied unchanged.
+| PARAPHRASED-DECISIONS.md | 00b4bb82afb40cbd92ff7ff0d6e68b338c96ec855c6d85f9f64c70783419774a |
+| AUTHORIZATIONS.md | afec2e717d359a3a949145ce448366b09c053525f148a08b259d1b3bb4923024 |
+| FRESH-AUTHORIZATION.md | 6ad128fcaf4fa7c722bb29427fae9db0097d44f52232d0c057655eef0ceb2cb7 |
+| V4-COMPARISON.md | 9ef12011b8613cc8e3133ee522ec61fc816e34bd7a17d85dd2e75031d29df405 |
+| CORRECTION-REPORT.md | this file (its digest is reported by the generator run) |
 
 ***
 
 ## 2. Edits applied
 
-| # | Item | Target | Edit |
+| # | Finding | Target | Edit | Safeguard |
+|---|---|---|---|---|
+| 1 | F1 | R6.STAT.8 | attribution classified (class (ii)) | none weakened (stricter or neutral; sec. 3) |
+| 2 | F1 | R6.STAT.8 | RE-26 alternative fixed by the record's class | none weakened (stricter or neutral; sec. 3) |
+| 3 | F1 | R6.PUR.9 | attribution classified (class (ii)) | none weakened (stricter or neutral; sec. 3) |
+| 4 | F1 | R6.DENY.6 | attribution classified (class (ii)) | none weakened (stricter or neutral; sec. 3) |
+| 5 | F1 | R6.CTRL.15 | attribution classified (class (ii)) | none weakened (stricter or neutral; sec. 3) |
+| 6 | F1 | Appendix H HIST-4 | text edit (1 occurrence(s)) | none weakened (stricter or neutral; sec. 3) |
+| 7 | OCFIX | sec. 32 adoption trace | text edit (1 occurrence(s)) | none weakened (neutral; sec. 3) |
+| 8 | F3 | R6.NOTE.13 | label senses stated | none weakened (neutral; sec. 3) |
+| 9 | F5 | R6.PUR.9 | no reuse of the retired id DR-2 | none weakened (stricter; sec. 3) |
+| 10 | F6 | R6.PUR.9 | options restated: (a), (b1), (b2), with new identifiers | none weakened (neutral to stricter; sec. 3) |
+| 11 | F6 | R6.PUR.9 | per-row selection of the existing candidates stated | none weakened (neutral to stricter; sec. 3) |
+| 12 | F5 | R6.DENY.6 | new identifier required | none weakened (stricter; sec. 3) |
+| 13 | F6 | R6.DENY.6 | three resolutions stated | none weakened (neutral to stricter; sec. 3) |
+| 14 | F5 | R6.CTRL.15 | new identifier required | none weakened (stricter; sec. 3) |
+| 15 | F6 | R6.CTRL.15 | V15 needs a DR-1d-type rule | none weakened (neutral to stricter; sec. 3) |
+| 16 | F6 | OBL-6 | discharge names the three resolutions | none weakened (neutral to stricter; sec. 3) |
+| 17 | F4 | R6.DENY.1 | pending mark removed | none weakened (neutral; sec. 3) |
+| 18 | F4 | R6.DENY.2 | pending mark removed | none weakened (neutral; sec. 3) |
+| 19 | F7-R6.CTX.4 | R6.CTX.4 | marked "Pending owner confirmation (see PARAPHRASED-DECISIONS.md)." | none weakened (stricter; sec. 3) |
+| 20 | F7-R6.OUT.15 | R6.OUT.15 | marked "Pending owner confirmation (see PARAPHRASED-DECISIONS.md)." | none weakened (stricter; sec. 3) |
+| 21 | F7-R6.REC.24 | R6.REC.24 | marked "Pending owner confirmation (see PARAPHRASED-DECISIONS.md)." | none weakened (stricter; sec. 3) |
+| 22 | F7-R6.CTRL.17 | R6.CTRL.17 | marked "Pending owner confirmation (see PARAPHRASED-DECISIONS.md)." | none weakened (stricter; sec. 3) |
+| 23 | F7-R6.CTRL.23 | R6.CTRL.23 | marked "Pending owner confirmation (see PARAPHRASED-DECISIONS.md)." | none weakened (stricter; sec. 3) |
+| 24 | F7-R6.RULE.7 | R6.RULE.7 | marked "Pending owner confirmation (see PARAPHRASED-DECISIONS.md)." | none weakened (stricter; sec. 3) |
+| 25 | F7-R6.RULE.8 | R6.RULE.8 | marked "Pending owner confirmation (see PARAPHRASED-DECISIONS.md)." | none weakened (stricter; sec. 3) |
+| 26 | F7-R6.RULE.9 | R6.RULE.9 | marked "Pending owner confirmation (see PARAPHRASED-DECISIONS.md)." | none weakened (stricter; sec. 3) |
+| 27 | F7-R6.CTRL.24 | R6.CTRL.24 | marked "Pending owner confirmation (see PARAPHRASED-DECISIONS.md)." | none weakened (stricter; sec. 3) |
+| 28 | F7-OBL-1 | OBL-1 | marked "Pending owner confirmation (see PARAPHRASED-DECISIONS.md)." | none weakened (stricter; sec. 3) |
+| 29 | F7-R6.REC.6 | R6.REC.6 | marked "Pending owner confirmation (see PARAPHRASED-DECISIONS.md)." | none weakened (stricter; sec. 3) |
+| 30 | F7-R6.REC.7 | R6.REC.7 | marked "Pending owner confirmation (see PARAPHRASED-DECISIONS.md)." | none weakened (stricter; sec. 3) |
+| 31 | F7-R6.CTRL.22 | R6.CTRL.22 | marked "Pending owner confirmation (see PARAPHRASED-DECISIONS.md)." | none weakened (stricter; sec. 3) |
+| 32 | F8 | R6.ANCH.11 | blank line inserted before the requirement | none weakened (neutral; sec. 3) |
+| 33 | F8 | R6.ANCH.13 | blank line inserted before the requirement | none weakened (neutral; sec. 3) |
+| 34 | F8 | R6.ANCH.16 | blank line inserted before the requirement | none weakened (neutral; sec. 3) |
+| 35 | F8 | R6.HP.8 | blank line inserted before the requirement | none weakened (neutral; sec. 3) |
+| 36 | F8 | R6.OUT.8 | blank line inserted before the requirement | none weakened (neutral; sec. 3) |
+| 37 | F8 | R6.OUT.21 | blank line inserted before the requirement | none weakened (neutral; sec. 3) |
+| 38 | F8 | R6.REC.11 | blank line inserted before the requirement | none weakened (neutral; sec. 3) |
+| 39 | F8 | R6.DENY.6 | blank line inserted before the requirement | none weakened (neutral; sec. 3) |
+| 40 | F8 | R6.CLASS.7 | blank line inserted before the requirement | none weakened (neutral; sec. 3) |
+| 41 | F8 | R6.CTRL.4 | blank line inserted before the requirement | none weakened (neutral; sec. 3) |
+| 42 | F8 | R6.CTRL.17 | blank line inserted before the requirement | none weakened (neutral; sec. 3) |
+| 43 | F8 | OBL-21 | blank line inserted before the requirement | none weakened (neutral; sec. 3) |
+| 44 | F3 | REQ:R6.PLAN.8 | pending key D1-D4 -> v3 D1-D4 | none weakened (neutral; sec. 3) |
+| 45 | F3 | REQ:R6.CTX.1 | pending key D1-D4 -> v3 D1-D4 | none weakened (neutral; sec. 3) |
+| 46 | F3 | REQ:R6.CTX.12 | pending key D1-D4 -> v3 D1-D4 | none weakened (neutral; sec. 3) |
+| 47 | F3 | REQ:R6.ANCH.14 | pending key D1-D4 -> S1-D2 | none weakened (neutral; sec. 3) |
+| 48 | F3 | REQ:R6.REC.14 | pending key D1-D4 -> S1-D2 | none weakened (neutral; sec. 3) |
+| 49 | F3 | REQ:R6.CTRL.19 | pending key D1-D4 -> S1-D2 | none weakened (neutral; sec. 3) |
+| 50 | F3 | REQ:R6.EVID.4 | pending key D1-D4 -> S1-D2 | none weakened (neutral; sec. 3) |
+| 51 | F3 | REQ:R6.EVID.5 | pending key D1-D4 -> S1-D2 | none weakened (neutral; sec. 3) |
+| 52 | F3 | REQ:OBL-15 | pending key D1-D4 -> S1-D2 | none weakened (neutral; sec. 3) |
+| 53 | F3 | REQ:R6.DENY.5 | pending key D1-D4 -> S1-D2 | none weakened (neutral; sec. 3) |
+| 54 | F3 | REQ:OBL-3 | pending key D1-D4 -> S1-D2 | none weakened (neutral; sec. 3) |
+| 55 | F4 | REQ:R6.DENY.1 | pending key V5-D1 removed | none weakened (neutral; sec. 3) |
+| 56 | F4 | REQ:R6.DENY.2 | pending key V5-D1 removed | none weakened (neutral; sec. 3) |
+| 57 | F7-R6.CTX.4 | REQ:R6.CTX.4 | pending keys v3 D1-D4 | none weakened (stricter; sec. 3) |
+| 58 | F7-R6.OUT.15 | REQ:R6.OUT.15 | pending keys R-D labels | none weakened (stricter; sec. 3) |
+| 59 | F7-R6.REC.24 | REQ:R6.REC.24 | pending keys R-D labels | none weakened (stricter; sec. 3) |
+| 60 | F7-R6.CTRL.17 | REQ:R6.CTRL.17 | pending keys R-D labels | none weakened (stricter; sec. 3) |
+| 61 | F7-R6.CTRL.23 | REQ:R6.CTRL.23 | pending keys R-D labels | none weakened (stricter; sec. 3) |
+| 62 | F7-R6.RULE.7 | REQ:R6.RULE.7 | pending keys S1-D2 | none weakened (stricter; sec. 3) |
+| 63 | F7-R6.RULE.8 | REQ:R6.RULE.8 | pending keys S1-D2 | none weakened (stricter; sec. 3) |
+| 64 | F7-R6.RULE.9 | REQ:R6.RULE.9 | pending keys S1-D2 | none weakened (stricter; sec. 3) |
+| 65 | F7-R6.CTRL.24 | REQ:R6.CTRL.24 | pending keys S1-D2, R-D labels | none weakened (stricter; sec. 3) |
+| 66 | F7-OBL-1 | REQ:OBL-1 | pending keys S1-D2 | none weakened (stricter; sec. 3) |
+| 67 | F7-R6.REC.6 | REQ:R6.REC.6 | pending keys DI-2 | none weakened (stricter; sec. 3) |
+| 68 | F7-R6.REC.7 | REQ:R6.REC.7 | pending keys DI-2 | none weakened (stricter; sec. 3) |
+| 69 | F7-R6.CTRL.22 | REQ:R6.CTRL.22 | pending keys DI-2 | none weakened (stricter; sec. 3) |
+| 70 | F7-R6.PUR.8 | REQ:R6.PUR.8 | pending key V5-D2 added | none weakened (stricter; sec. 3) |
+| 71 | F3 | REQ:R6.PROF.9 | pending key v5.5.9 final D2 added | none weakened (neutral; sec. 3) |
+| 72 | meta | EXPECTATIONS.json | record_id r6-final2-1 -> r6-final3-1 (no row changed) | none weakened (neutral; sec. 3) |
+| 73 | F1 | PARAPHRASED-DECISIONS.md | each entry carries its record class and, for class (ii), the exact text of the record | none weakened (stricter or neutral; sec. 3) |
+| 74 | F2 | PARAPHRASED-DECISIONS.md | V5-D2 described as the widening of `resid`; the W2 allow rules rest on no owner decision | none weakened (neutral; sec. 3) |
+| 75 | F3 | PARAPHRASED-DECISIONS.md | entries v3 D1-D4, S1-D2 and v5.5.9 final D2 replace the single entry "D1-D4" | none weakened (neutral; sec. 3) |
+| 76 | F4 | PARAPHRASED-DECISIONS.md | R6.DENY.1 and R6.DENY.2 removed from V5-D1 | none weakened (neutral; sec. 3) |
+| 77 | F7 | PARAPHRASED-DECISIONS.md | entry DI-2 added; the requirements marked by F7 listed under their keys | none weakened (stricter; sec. 3) |
+
+***
+
+## 3. Safeguards, per finding
+
+No edit weakens a safeguard. Per finding:
+
+- F1: stricter or neutral: the attributions now state the class of each record; R6.STAT.8 can be confirmed only by the owner restating the decision, the comment holding no owner words; no check, expectation or obligation changes.
+- OCFIX: neutral: the attribution of OC-1 to OC-5 is corrected; their classification as support off `main` until quoted in a record on `main` is unchanged.
+- F3: neutral: labels disambiguated and decision keys corrected; no requirement content changes.
+- F5: stricter: a rejection can no longer be implemented by reusing DR-2 (sec. 33, AGENTS.md sec. A.30); expectations of V4, V27, V27-glossary and V15 unchanged (checked byte for byte).
+- F6: neutral to stricter: the decision space is stated completely; no resolution is chosen; the four rows stay DEFERRED and their candidates unchanged (checked byte for byte).
+- F4: neutral: the requirements keep their content and controls and still take effect only by r6's adoption; only the claim that they rest on V5-D1 is removed. They are listed in FRESH-AUTHORIZATION.md so that their authorization stays explicit.
+- F7: stricter: requirements whose decision basis was not shown are now marked and listed for confirmation or fresh authorization; no content changes.
+- F8: neutral: Markdown rendering only; no text changes.
+- F2: neutral: the description of V5-D2 in PARAPHRASED-DECISIONS.md is corrected; the design's requirements and the rule obligations of R6.DENY.5 and OBL-3 are unchanged.
+
+Flagged for the owner (not weakened by this round, but listed in FRESH-AUTHORIZATION.md as permitting what an earlier design prohibited or narrowing a check): R6.STAT.4, R6.PUR.9, R6.PUR.11, R6.RULE.2, R6.RULE.4, R6.RULE.8, R6.DENY.5, R6.DENY.6, R6.CTRL.15, R6.PLAN.8, OBL-3, OBL-6.
+
+***
+
+## 4. Self-checks (before: out-final2; after: out-final3)
+
+| Check (correct.py, parameterized) | Before | After |
+|---|---|---|
+| completeness: MAPPING rows not cited in DESIGN-r6.md | 0 | 0 |
+| consistency: named controls without a row | 0 | 0 |
+| consistency: rows naming an unknown requirement | 0 | 0 |
+| consistency: rows named by no requirement | 0 | 0 |
+| consistency: one-way links | 0 | 0 |
+| consistency: rows with expect null | 0 | 0 |
+| consistency: retired ids live (row or named control) | 0 | 0 |
+| consistency: Table 17.1 ids without a row, rows missing from Table 17.1 | 0 | 0 |
+| consistency: cited requirement ids that do not exist | 0 | 0 |
+| consistency: cited OBL ids that do not exist | 0 | 0 |
+| consistency: GATE-1 to GATE-30 rows present | 0 | 0 |
+| consistency: rows with candidate expectations not DEFERRED | 0 | 0 |
+| consistency: superseded names remaining (ISOLATION_REFUSED, RD2-RD5, ...) | 0 | 0 |
+| consistency: paired_with naming an id that is not a row | 0 | 0 |
+| coverage: non-testable requirements without verification | 0 | 0 |
+| consistency: requirement ids in the text equal the requirement index | 0 | 0 |
+| consistency: marked requirements in the text equal those keyed in the index | 0 | 0 |
+| OC-1: OBL-16 carries no OPEN marker and no "F on main" condition | 0 | 0 |
+| OC-2: OBL-26 carries no circularity marker and is not gated on adoption | 0 | 0 |
+| OC-4: LC-7 expects REVIEW_REQUIRED in every case and keeps its OPEN flag | 0 | 0 |
+| OC-3: rows on X_rep carry both invariants; item11-T1p does not | 0 | 0 |
+
+| Value | Before | After | Why it changed |
 |---|---|---|---|
-| 1 | OC-1 | OBL-16 | requirement block restated |
-| 2 | OC-1 | sec. 32 trace:OBL-16 | trace row restated |
-| 3 | OC-1 | R6.EVID.7 | text edit |
-| 4 | OC-1 | R6.EVID.7 | Sources: added OC-1 |
-| 5 | OC-1 | Table 17.1:TR5 | case cell edited |
-| 6 | OC-1 | EXP:TR5 | not_run reason, release condition and release check restated (no F on main) |
-| 7 | OC-1 | EXP:TR5 | flags updated |
-| 8 | OC-2 | R6.STAT.10 | requirement block added after R6.STAT.9 |
-| 9 | OC-2 | OBL-26 | requirement block restated |
-| 10 | OC-2 | sec. 32 trace:OBL-26 | trace row restated |
-| 11 | OC-2 | sec. 32 intro | text edit (1 occurrence(s)) |
-| 12 | OC-2 | sec. 32 intro | text edit (1 occurrence(s)) |
-| 13 | OC-2 | sec. 32 | adoption trace table added before OBL-1 |
-| 14 | OC-3 | R6.EVID.8 | requirement block added after R6.EVID.7 |
-| 15 | OC-3 | R6.NOTE.3 | text edit |
-| 16 | OC-3 | R6.NOTE.3 | Sources: added OC-3 |
-| 17 | OC-3 | OBL-13 | requirement block restated |
-| 18 | OC-3 | sec. 32 trace:OBL-13 | trace row restated |
-| 19 | OC-3 | OBL-14 | requirement block restated |
-| 20 | OC-3 | sec. 32 trace:OBL-14 | trace row restated |
-| 21 | OC-3 | OBL-15 | requirement block restated |
-| 22 | OC-3 | sec. 32 trace:OBL-15 | trace row restated |
-| 23 | OC-3 | sec. 32 trace:OBL-7 | trace row restated |
-| 24 | OC-3 | OBL-23 | requirement block restated |
-| 25 | OC-3 | sec. 32 trace:OBL-23 | trace row restated |
-| 26 | OC-3 | R6.EVID.4 | text edit |
-| 27 | OC-3 | R6.EVID.4 | text edit |
-| 28 | OC-3 | R6.EVID.4 | text edit |
-| 29 | OC-3 | R6.EVID.4 | text edit |
-| 30 | OC-3 | R6.EVID.4 | text edit |
-| 31 | OC-3 | R6.EVID.4 | text edit |
-| 32 | OC-3 | R6.EVID.4 | text edit |
-| 33 | OC-3 | R6.EVID.4 | text edit |
-| 34 | OC-3 | R6.EVID.4 | text edit |
-| 35 | OC-3 | R6.EVID.4 | Sources: added OC-3 |
-| 36 | OC-3 | R6.CTRL.19 | text edit |
-| 37 | OC-3 | R6.CTRL.19 | Sources: added OC-3 |
-| 38 | OC-3 | R6.CTRL.7 | text edit |
-| 39 | OC-3 | R6.CTRL.7 | Sources: added OC-3 |
-| 40 | OC-3 | R6.PLAN.8 | text edit |
-| 41 | OC-3 | R6.PLAN.8 | text edit |
-| 42 | OC-3 | R6.PLAN.8 | Sources: added OC-3 |
-| 43 | OC-3 | R6.RECON.21 | text edit |
-| 44 | OC-3 | R6.RECON.21 | Sources: added OC-3 |
-| 45 | OC-3 | OBL-28 | text edit |
-| 46 | OC-3 | OBL-28 | Sources: added OC-3, OC-4 |
-| 47 | OC-3 | Table 17.1:RT-L2 | case cell edited |
-| 48 | OC-3 | Table 17.1:RT-O9-L2 | case cell edited |
-| 49 | OC-3 | Table 17.1:RT-T | case cell edited |
-| 50 | OC-3 | Table 17.1:RT-T0 | case cell edited |
-| 51 | OC-3 | Table 17.1:RT-D | case cell edited |
-| 52 | OC-3 | Table 17.1:RT-DR3W | case cell edited |
-| 53 | OC-3 | Table 17.1:RT-I7 | case cell edited |
-| 54 | OC-3 | Table 17.1:RT-I7A | case cell edited |
-| 55 | OC-3 | Table 17.1:item11-T1p | case cell edited |
-| 56 | OC-3 | Table 17.1:N10 | case cell edited |
-| 57 | OC-3 | EXP:RT-T0 | invariants representative_candidate and scanned_paths_within added |
-| 58 | OC-3 | EXP:RT-T0 | reference: T1' measurement recorded as provenance |
-| 59 | OC-3 | EXP:RT-T0 | flags updated |
-| 60 | OC-3 | EXP:RT-D | invariants representative_candidate and scanned_paths_within added |
-| 61 | OC-3 | EXP:RT-D | reference: T1' measurement recorded as provenance |
-| 62 | OC-3 | EXP:RT-D | flags updated |
-| 63 | OC-3 | EXP:N10 | invariants representative_candidate and scanned_paths_within added |
-| 64 | OC-3 | EXP:N10 | reference: T1' measurement recorded as provenance |
-| 65 | OC-3 | EXP:N10 | flags updated |
-| 66 | OC-3 | EXP:N11 | invariants representative_candidate and scanned_paths_within added |
-| 67 | OC-3 | EXP:N11 | reference: T1' measurement recorded as provenance |
-| 68 | OC-3 | EXP:N11 | flags updated |
-| 69 | OC-3 | EXP:RT-T0 | field direction/why edited |
-| 70 | OC-3 | EXP:RT-I7 | case relabelled to X_rep; invariants representative_candidate and scanned_paths_within added |
-| 71 | OC-3 | EXP:RT-I7 | reference: T1' measurement recorded as provenance |
-| 72 | OC-3 | EXP:RT-I7 | flags updated |
-| 73 | OC-3 | EXP:RT-I7A | case relabelled to X_rep; invariants representative_candidate and scanned_paths_within added |
-| 74 | OC-3 | EXP:RT-I7A | reference: T1' measurement recorded as provenance |
-| 75 | OC-3 | EXP:RT-I7A | flags updated |
-| 76 | OC-3 | EXP:RT-DR3W | case relabelled to X_rep; invariants representative_candidate and scanned_paths_within added |
-| 77 | OC-3 | EXP:RT-DR3W | reference: T1' measurement recorded as provenance |
-| 78 | OC-3 | EXP:RT-DR3W | flags updated |
-| 79 | OC-3 | EXP:RT-I7 | field direction/why edited |
-| 80 | OC-3 | EXP:RT-I7A | field direction/why edited |
-| 81 | OC-3 | EXP:RT-DR3W | field direction/why edited |
-| 82 | OC-3 | EXP:RT-DR3W | field direction/why edited |
-| 83 | OC-3 | EXP:RT-L2 | invariants added; release condition and release check restated (record outside the landing paths) |
-| 84 | OC-3 | EXP:RT-L2 | flags updated |
-| 85 | OC-3 | EXP:RT-O9-L2 | invariants added; release condition and release check restated (record outside the landing paths) |
-| 86 | OC-3 | EXP:RT-O9-L2 | flags updated |
-| 87 | OC-3 | EXP:RT-L2 | procedure evidence: X_rep and M0 added |
-| 88 | OC-3 | EXP:RT-T | field direction/why edited |
-| 89 | OC-3 | EXP:RT-T | flags updated |
-| 90 | OC-3 | EXP:RT-T | invariants added; release condition at X_rep |
-| 91 | OC-3 | EXP:item11-T1p | flags updated |
-| 92 | OC-3 | EXP:REP-BUILD | row added |
-| 93 | OC-3 | Table 17.1 | row REP-BUILD added |
-| 94 | OC-4 | R6.TREE.12 | text edit |
-| 95 | OC-4 | R6.TREE.12 | Sources: added OC-4 |
-| 96 | OC-4 | OBL-28 | text edit |
-| 97 | OC-4 | Table 17.1:LC-7 | case cell edited |
-| 98 | OC-4 | EXP:LC-7 | flags updated |
-| 99 | meta | EXP:N10 | requirements re-keyed to the requirements that name the row |
-| 100 | meta | EXP:N11 | requirements re-keyed to the requirements that name the row |
-| 101 | meta | EXP:RT-D | requirements re-keyed to the requirements that name the row |
-| 102 | meta | EXP:RT-DR3W | requirements re-keyed to the requirements that name the row |
-| 103 | meta | EXP:RT-I7 | requirements re-keyed to the requirements that name the row |
-| 104 | meta | EXP:RT-I7A | requirements re-keyed to the requirements that name the row |
-| 105 | meta | EXP:RT-L2 | requirements re-keyed to the requirements that name the row |
-| 106 | meta | EXP:RT-O9-L2 | requirements re-keyed to the requirements that name the row |
-| 107 | meta | EXP:RT-T | requirements re-keyed to the requirements that name the row |
-| 108 | meta | EXP:RT-T0 | requirements re-keyed to the requirements that name the row |
-| 109 | meta | Table 17.1:RT-D | Requirements column regenerated |
-| 110 | meta | Table 17.1:RT-DR3W | Requirements column regenerated |
-| 111 | meta | Table 17.1:RT-I7 | Requirements column regenerated |
-| 112 | meta | Table 17.1:RT-I7A | Requirements column regenerated |
-| 113 | meta | Table 17.1:RT-L2 | Requirements column regenerated |
-| 114 | meta | Table 17.1:RT-O9-L2 | Requirements column regenerated |
-| 115 | meta | Table 17.1:RT-T | Requirements column regenerated |
-| 116 | meta | Table 17.1:RT-T0 | Requirements column regenerated |
-| 117 | meta | Table 17.1:N10 | Requirements column regenerated |
-| 118 | meta | Table 17.1:N11 | Requirements column regenerated |
-| 119 | meta | annex 16.10 | invariant vocabulary regenerated (153 keys) |
-| 120 | meta | EXPECTATIONS.json | record_id r6-final-1 -> r6-final2-1 |
-| 121 | meta | MIGRATION.json | new identifiers recorded |
+| requirements | 427 | 427 |  |
+| expectation rows | 558 | 558 |  |
+| rows flagged VD-RESTORE | 217 | 217 |  |
+| requirements marked pending owner confirmation | 33 | 44 | F7 marks 13 requirements and F4 unmarks 2 (33 - 2 + 13) |
+| testable requirements without a control | 14 | 14 |  |
+| MAPPING rows placed | 1149 | 1149 |  |
+| OPEN markers in the requirement index | 3 | 3 |  |
 
-***
+Checks of this round:
 
-## 3. What each correction changed
-
-### OC-1 (OBL-16, TR5)
-
-- OBL-16 restated: TR5 is the exact-candidate validation of the plan freeze in three parts: (a) before the owner designates F, with the round's branch held at exactly the candidate, the sec. A.39 exact-head check-run on the candidate and TR5's chain-admitted run (pinned workflow dispatched on main at T, --freeze the same full id); (b) designation identity verification: the quoted owner designation names a full id equal to the check-run's head_sha and TR5's snapshot F, compared by the record's reviewer (not by the tool, R6.STAT.4, R6.REC.23); (c) once the round lands, F is an ancestor of the certified head on main and TR5's recipe and expected result qualify under sec. A.42 items 1 and 7, with the receipt recording the attestation.
-- TR5's expectation row: reason, release condition and release check restated; "F on main" removed; F need only be fetchable by full id. Release condition and release check of G-A1 unchanged ("TR5 released").
-- R6.EVID.7 item 1: the exact-candidate validation of a native round's candidate F before designation is kind 1 for the designation decision and kind 2 when the round lands.
-- Sec. 32 trace row of OBL-16 restated; the OPEN marker "circular evidence dependency" removed from OBL-16 (resolved: no evidence needs F on main before its designation). What remains is not a cycle: the two dispatches of (a) need the owner's approval, and the host attestations stay residual trust (R6.REC.25).
-
-### OC-2 (OBL-26, adoption)
-
-- New R6.STAT.10: adoption support = the r6 documents and their independent exact-head review, both on main no later than the adoption record (precondition: an ordinary owner-approved merge, sec. A.50 item 1; not authorized); adoption certifies no implementation; implementation certification after the tool lands (OBL-26, kinds 2 and 3); OPEN "off-main support of adoption".
-- OBL-26 restated: conformance certification of the landed tool revision; gate changed from r6's adoption to the implementation certification of the landed revision (OC-2 replaces the gate RE-37 confirmed). The a3799244 assessment is provenance for the requirements and obligations, which hold or fail by their own controls; it is not provenance for r6's statements that describe the tool commit, which use its content (adoption trace). OPEN "circular evidence dependency" removed from OBL-26.
-- Sec. 32: gated steps extended; the trace row of OBL-26 restated; an adoption trace table added that lists every place where adoption or an enduring claim uses off-main content, with its classification.
-
-### OC-3 (OBL-13, OBL-14, OBL-15, OBL-23)
-
-- New R6.EVID.8 (testable; controls REP-BUILD, RT-L2, RT-O9-L2, RT-T, RT-T0, RT-D, RT-I7, RT-I7A, RT-DR3W, N10, N11): construction of X_rep, its pinned inputs (byte copies of the ledger and edit list landed with the tool revision; a configuration template; H, E and a pinned main commit M0), why the safeguard is full, the scope guard (scanned_paths_within), the carrying of expected values (byte comparison as candidate evidence only, never as support), the reconciliation-record placement, and a per-control evidence table.
-- OBL-13, OBL-14, OBL-15, OBL-23 restated; OPEN "T1'-bound evidence cannot qualify" removed from OBL-13, OBL-14 and OBL-15 and kept on OBL-23 for item11-T1p only. Sec. 32 trace rows of OBL-7, OBL-13, OBL-14, OBL-15 and OBL-23 restated. R6.NOTE.3, R6.CTRL.7, R6.CTRL.19, R6.PLAN.8, R6.RECON.21 and R6.EVID.4 (text and Input column) follow; OBL-28 gains row OC-3; Table 17.1 case cells of the affected rows and a REP-BUILD row.
-- Expectation rows: X_rep cases and invariants for RT-L2, RT-O9-L2, RT-T, RT-T0, RT-D, RT-I7, RT-I7A, RT-DR3W, N10, N11; their T1' measurements recorded in `reference` as provenance; release conditions of RT-L2 and RT-O9-L2 (record outside the landing paths) and RT-T (X_rep from F's ledger); REP-BUILD added; item11-T1p flagged exact-tree material.
-
-### OC-4 (LC-7)
-
-- R6.TREE.12's generated-artifact case, OBL-28 row RE-18, the LC-7 row flag and its Table 17.1 case state that the path stays REVIEW_REQUIRED for every candidate L until a regeneration verification procedure is specified explicitly and reviewed independently, in which the trusted checker establishes the expected output itself and compares bytes; the evaluated tree's claim of regeneration is never sufficient. The OPEN markers ("derived-artifact landing blob" on R6.TREE.12 and on the LC-7 row) are kept: not resolved.
-
-### OC-5
-
-- V4, V27, V27-glossary and V15 are unchanged (byte-identical rows, expect DEFERRED).
-
-***
-
-## 4. Ancestry determinations (OC-3)
-
-Decision rule, fixed before the per-control reading: a control may take a representative candidate only if every input its verdict reads is a function of H, the ledger and inputs on main, and the only ancestry it reads is a relation that a commit built on H satisfies by construction; otherwise the exact trial tree or its ancestry is material, and the T1' run stays candidate evidence with the enduring claim a named provenance gap. Byte equality with T1' is never offered as a substitute for ancestry; it is used only to carry expected values, as candidate evidence.
-
-| Control | What it asserts | What its verdict reads | Determination | Replacement and why full | Candidate evidence (landing decision) | Reproducible evidence (enduring claim) |
-|---|---|---|---|---|---|---|
-| RT-L2 (OBL-13) | the sequencing safeguard (R6.RECON.21, R6.GATE.16): at a predicted M containing the tool's landing paths, every side change is classified and the drift state is none or validly reconciled by a reviewed record bound to the run's H, M and C blobs | H..M side changes; the ledgered and corpus path sets (base-drift, R6.TREE.7); class records; for a drifted path, the candidate blob, which RC8 (R6.RECON.13) fixes to the ledger's expected_sha256; the only ancestry read is X's single parent H (R6.TREE.9) | structure suffices; T1' ancestry not material | reproducible control at X = C = X_rep, predicted M = pinned main commit M0 plus the candidate's landing paths; full because every input the verdict reads is reproduced byte for byte by X_rep (a conforming candidate carries exactly X_rep's bytes on every ledgered and corpus path) and the parent relation is met by construction with H on main | kind 1: RT-L2 on the exact tool candidate commit (CI run 45569710442 at a3799244 with X = T1' and a drafted record stays provenance, R6.EVID.6) | kind 2 once the landing merge and the reviewed reconciliation record (landing after the tool's landing commit) are on main; kind 3 re-run on main |
-| RT-O9-L2 (OBL-14) | the dependent clause of RT-O9: no base-drift at the predicted M with the plan record directory added, and RT-L2 PASS | base-drift items (decided by path membership in the ledgered and corpus sets) and RT-L2's status; a record directory holds no ledgered or corpus path (DIR3), so the content of P's record directory does not enter the clause | structure suffices; neither T1' nor P's record directory is material | reproducible control at X_rep with a representative stand-in F holding the pinned ledger, edit list and configuration instance; full for the same reason as RT-L2 | kind 1 as RT-L2 | as RT-L2 |
-| RT-T (OBL-15) | with every reviewed record of the review load at F, coverage of the retirement candidate is PASS (R6.HIT.5, R6.HIT.6, R6.PLAN.4) | op B reads only the corpus and the segments E..H and H..X (R6.PUR.5); a ledgered segment is checked against the ledger (no history walk of X); records bind file and line_sha256 | structure suffices; T1' ancestry not material (and T1' is not even H plus F's ledger if the ledger changes at F) | RT-T at X_rep built from the ledger frozen at F; full because every conforming candidate under F's ledger has exactly X_rep's corpus bytes | kind 1 on the candidate F before its designation, within its exact-candidate validation (OBL-16 (a)); kind 4 at the executed candidate | kind 2 once the round's landing is on main (F and the execution reachable) |
-| RT-T0 (OBL-23) | coverage at the candidate without records: the HP and RET counts, site states, region lines, merger groups | corpus at X, E..H, H..X with the ledger (R6.PUR.5) | structure suffices | run at X_rep; expected figures carried from T1' (byte-identical corpus when T1' conforms); T1' measurement in reference | kind 1 at X_rep on the exact tool candidate | kind 2 and kind 3 |
-| RT-D (OBL-23) | item-7 terms at the candidate: no deny match, W1/W2 PASS, GR.md:58 REVIEW, 45 resid REVIEW lines, 17 hit by no other profile | resid hits are corpus lines; "other profile" membership is evaluated on those same lines (a1_controls.py at a3799244, rt_terms) | structure suffices | run at X_rep (scope guard scanned_paths_within) | kind 1 at X_rep | kind 2 and kind 3 |
-| RT-I7 T1' case (OBL-23) | item7-literal counts at the candidate | item 7's scope is papers/*.md and book/*.md (OBL-4) | structure suffices | case at X_rep; H case unchanged (H on main) | kind 1 at X_rep | kind 2 and kind 3 |
-| RT-I7A T1' case (OBL-23) | the proposed item-7 check at the candidate: 0 deny, 12 final-unclassified | corpus lines of the added text H..X under the ledger | structure suffices | case at X_rep | kind 1 at X_rep | kind 2 and kind 3 |
-| RT-DR3W T1' case (OBL-23) | DR-3 alone finds no sentence in the candidate's AGENTS.md | one text: AGENTS.md, a ledgered path, H's bytes plus the ledger's splices | structure suffices | control input agents-md-at-Xrep derived from H and the pinned ledger (sha256 59b68984..., the bytes of T1's copy) | kind 1 at X_rep | kind 2 and kind 3 |
-| N10, N11 (OBL-23) | landing composition of AGENTS.md: L with X's copy fails landing-conflict-unresolved and record-invalid; L with the composed blob passes | H, M = 8e9b8334 (on main), the ledger's splice D296, X's AGENTS.md (ledgered: fixed by the ledger) | structure suffices | X = X_rep; L_blob 9f4fc3e8 is X_rep's AGENTS.md when T1' conforms | kind 1 at X_rep | kind 2 and kind 3 |
-| item11-T1p (OBL-23) | item 11 with --final at the candidate: 176 final-unclassified lines of the repo profile | the repo profile over active files, including T1's delegated and record paths; two of the 176 lines lie in generated artifacts (R6.EVID.5) | the exact trial tree is material (delegated and record content that H and the ledger do not determine) | no structural replacement; the requirement's behaviour stays covered by S11-11 (synthetic new active file) | kind 1: the run on the exact tool candidate with X = T1', for the landing decision only | none: named provenance gap (AGENTS.md sec. A.42 item 8, support off main) while T1's objects are not on main; whether a kind-1-only figure suffices for the landing gate is an owner question |
-
-Evidence for the determinations (read-only inspection):
-
-- T1' (14ac71b4) has exactly one parent, H (53c6601a): `git log -1 --format=%P` on the full clone.
-- E (e837e3db), H (53c6601a), W (413b0bb8) and the N10/N11 M (8e9b8334) are ancestors of main e2e2a623; T1' (14ac71b4), P (4c79be64) and the tool commit a3799244 are not (`git merge-base --is-ancestor`).
-- P's and T1's `ledger.json` are the same blob ba37c1cd... (sha256 2055e68f...), and their `edits.json` the same blob ec384fdf... (sha256 528f146d...); T1's AGENTS.md is blob 9f4fc3e8... (sha256 59b68984...), H's is 12a9281f... (`git rev-parse`, `sha256sum`).
-- The record directory verification/audits/foundations/a1exit-deletion-20261121/ (P's plan files) is on no commit reachable from main (`git rev-list` on main for that path is empty); P's edits_check.py is blob 1153e039... with sha256 2856e58c...d98c.
-- H..T1' and H..main (e2e2a623) share exactly one path, AGENTS.md; T1' changes nine PDF/TeX pairs, the coverage ledger, the census, sc42-integration-result.json, Lean modules and the plan record directory in addition to manuscript files (`git diff --name-only`).
-- At a3799244: tools/ledger_coverage/adapters/a1_controls.py tree_controls (around lines 917-990) builds the predicted M by `derive(M, tool_files)` and runs RT-L2 with `--candidate T` (T1'), the ledger and edits at P, and a drafted reconciliation record placed at a derived commit, not in M; rt_o9 (around line 997) builds the stand-in F from P's record directory; rt_terms (around lines 280-400) shows the item-7, resid and item-11 scans; RT-L2's recorded predicate does not read the in-memory landing's MAIN items.
-- At a3799244: engine/cli.py segments (around line 800): a segment with a ledger is checked by `check_ledger` against its base, with no first-parent walk of the candidate; engine/gitobj.py derive (lines 236-251): an in-memory commit id is the sha1 of the subject, base, changes and parents, so X_rep and the predicted M are reproducible from their inputs.
-- R6.PUR.5: op B coverage is defined over the corpus (papers/*.md, book/*.md); R6.TREE.9 fixes every ledgered path of a conforming candidate to H plus its splices and every other path to H except delegated and record paths; R6.RECON.13 (RC8) fixes the candidate blob of a reconciled path to the ledger's expected_sha256.
-- R6.REC.18 point 6 and R6.REC.19: chain admission requires head_branch main and GITHUB_REF refs/heads/main; the workflow fetches F by its full id. Hence TR5's chain run is dispatched on main naming F and cannot itself be the sec. A.39 check-run, whose head_sha is the candidate.
-
-***
-
-## 5. Stage-by-stage evidence
-
-Evidence kinds as R6.EVID.7: 1 pre-merge candidate validation (including, for a native round's freeze, the exact-candidate validation of the candidate F before designation); 2 qualifying landing evidence; 3 post-merge confirmation on main; 4 A1 execution evidence gated at F.
-
-| Stage | Required evidence | Kind | Qualifies at that point |
-|---|---|---|---|
-| 1. Pre-merge candidate validation (tool PR) | the gate on the exact candidate commit of the tool's pull request: every row it runs, including RT-L2 and RT-O9-L2 at X_rep with the predicted M = M0 plus the candidate's landing paths and the reviewed reconciliation record named from outside those paths; REP-BUILD; RT-T0, RT-D, RT-I7, RT-I7A, RT-DR3W, N10, N11 at X_rep; item11-T1p at T1'; the obligations OBL-19 to OBL-22, OBL-24, OBL-25, OBL-28 with their controls; LC-1 to LC-7 (LC-7 REVIEW_REQUIRED) | kind 1 | qualifies as evidence for the landing decision; provenance (sec. A.42 item 2) for any enduring claim until the candidate is reachable from main |
-| 2. Tool landing decision | stage 1 evidence; r6 adopted by a recorded owner decision whose support (r6 text and its independent exact-head review) is on main (R6.STAT.10); OBL-22's advance approval and independent review of the identifier migration; the owner's approval of the merge (sec. A.50 item 1) | kind 1 plus governance records | qualifies for the decision; the reviewed reconciliation record is supplied from outside the landing paths; open: item11-T1p rests on kind 1 only (owner question), RT-O9's own checks read P's record directory, and the other T1'/P-input controls listed in the adoption trace |
-| 3. Post-merge confirmation | the stage 1 runs once the landing merge is on main (candidate reachable; inputs H, E, M0, the tool revision with the pinned ledger, edit list, configuration template and records) and the same recipes re-run on main; RT-L2 re-run with M the main that holds the tool and a reconciliation record bound to it, landed in a later commit; OBL-26 conformance certification against the landed revision | kinds 2 and 3 | qualifies for every X_rep control once the reviewed reconciliation record (RT-L2, RT-O9-L2) is on main; not for item11-T1p (named provenance gap) nor for controls still reading T1' or P |
-| 4. A1 plan freeze F | TR5 (a): the sec. A.39 exact-head check-run on the candidate F (head_sha F, every job green) and TR5's chain run on main at T naming the same F; RT-T at X_rep built from F's ledger with F's records; the records and comparisons of OBL-1 to OBL-11 and OBL-27 at F; TR5 (b): the owner's designation quoted with author and time and compared with the check-run's head_sha and TR5's snapshot F by the record's reviewer | kind 1 for the designation decision (R6.EVID.7 item 1, freeze clause); records frozen at F (kind 4); designation comparison (governance) | qualifies for the designation decision without F on main (no cycle); qualifies as kind 2 when the round lands (TR5 (c)); dispatches need owner approval (sec. A.40, sec. A.50 item 5) |
-| 5. A1 trials | runs of the pinned workflow on main naming F, under the frozen plan, for trials the owner approves (sec. A.50 item 2); OBL-1 and OBL-5 where a trial claims items 5, 6 or 7 | kind 4 | qualifies as A1 execution evidence gated at F; enduring once the round lands (F and the trial records reachable, sec. A.42 item 7) |
-| 6. A1 retirement execution | G-A1 (native delegated runs at X and C, after TR5 released), TR45-opC, EI14-dispatch (after the tool lands, owner-approved launch), RT-T at the executed candidate, OBL-12, OBL-17, OBL-18; the landing check (sec. 20, sec. 23) with the re-resolved M; the round's receipt with --verify-round printing VERDICT HOLDS | kind 4; receipt and host attestations (sec. A.39) | qualifies when the round lands (sec. A.42 item 7: the certified head on main re-establishes the computational claims); LC-7 keeps derived artifacts REVIEW_REQUIRED until the regeneration verification procedure exists |
-
-Circular dependencies remaining: none. The two cycles of out-final (OBL-16, OBL-26) are removed by OC-1 and OC-2. The reconciliation-record self-reference found while specifying RT-L2 is avoided by placement (sec. 7), not by an exception.
-
-Off-main support dependencies remaining: see sec. 6, first three items.
-
-***
-
-## 6. Remaining open items and governance conflicts
-
-- Off-main support of adoption (R6.STAT.10, sec. 32 adoption trace), each an open governance conflict, none resolved by exception: (i) the r6 documents and their independent exact-head review must be on main before the adoption record (precondition: an ordinary owner-approved merge, not authorized here); (ii) statements of fact about the tool commit, CI run 45569710442 and T1' (R6.PUR.12, R6.PIPE.3, R6.ANCH.10, R6.ANCH.12, R6.HP.7, R6.OUT.18, R6.OUT.24, R6.SPLIT.3, R6.RULE.11, R6.RULE.12, R6.REC.20, R6.HIT.2, R6.CLASS.1, R6.CLASS.11, R6.GATE.7, R6.CTRL.19, R6.CTRL.25, R6.CTRL.29, R6.TREE.13, R6.RDIR.7, R6.RECON.11, OBL-21, OBL-28, R6.EVID.6, R6.NOTE.3); (iii) semantics defined by reference to P's edits_check.py (R6.SPLIT.3, R6.PROF.3, R6.PROF.4, R6.PROF.5, R6.PROF.7, R6.PROF.8, R6.PROF.9, R6.PROF.10, R6.PROF.12, R6.DENY.5, R6.A1CFG.2, OBL-1): P's record directory is on no commit reachable from main; (iv) owner decisions held only in paraphrase or relayed in session (PARAPHRASED-DECISIONS.md, R6.STAT.8, and the owner corrections OC-1 to OC-5 themselves, which were relayed in session without a comment id; PARAPHRASED-DECISIONS.md is copied unchanged as instructed, so OC-1 to OC-5 are listed only in the design's adoption trace and here).
-- item11-T1p (OBL-23): exact trial tree material; candidate evidence only; enduring claim a named provenance gap; whether a kind-1-only figure suffices for the landing gate is an owner question.
-- Controls outside OC-3's list that still read T1' or P (not re-specified, reported only): RT-C, the T1' case of RT-DR, RT-M, RT-D-gr58, RT-L, S11-56, RT-O9's own record-directory checks (stand-in F from P's record directory), and every execution control whose ledger and edit list are read at P (exec_args at a3799244). R6.EVID.8 defines the pinned ledger and edit list and X_rep they could use; extending it to them needs its own authorization.
-- LC-7 / R6.TREE.12 (OC-4): REVIEW_REQUIRED for every candidate L until a regeneration verification procedure is specified explicitly and reviewed independently (trusted checker establishes the expected output itself and compares bytes; the evaluated tree's claim never suffices). Open, not resolved.
-- Deferred expectations V4, V27, V27-glossary, V15 (RE-1): unchanged, decided at r6 adoption.
-- Pending owner confirmation: the requirements of PARAPHRASED-DECISIONS.md (unchanged).
-- Implementation obligations added by OC-3 (OBL-28 row OC-3): the X_rep builder, the pinned ledger and edit list and the configuration template land with the tool revision; the runners record the paths each verdict read (scanned_paths_within); the gate supports the two new invariant keys. Until implemented, REP-BUILD is missing-id.
-- The TR5 chain run and the sec. A.39 check-run are two host runs bound by the candidate's full id (R6.REC.18 point 6 forbids chain admission off main); both dispatches need owner approval. This is not a cycle.
-
-OPEN markers in the requirement index after the correction:
-
-- `off-main support of adoption`: R6.STAT.10
-- `derived-artifact landing blob`: R6.TREE.12
-- `T1'-bound evidence cannot qualify`: OBL-23
-
-OPEN flags on expectation rows:
-
-- LC-7: OPEN: derived-artifact landing blob: REVIEW_REQUIRED for every candidate L (RE-18 (b), fail-closed) until a regeneration verification procedure is specified explicitly and reviewed independently, in which the trusted checker establishes the expected output itself and compares bytes; the evaluated tree's claim of regeneration is never sufficient (OC-4); not resolved
-
-***
-
-## 7. Findings made while correcting
-
-- Hash binding of the RT-L2 reconciliation record: a reconciliation record names the M of its run (R6.RECON.1), so it cannot be a path of that M. The out-final release check ("a reconciliation record referenced at the commit under check") could not be met by a record among the tool's landing paths, which the predicted M contains. OC-3 specifies the placement: named from a commit outside the landing paths, landed on main after the tool's landing commit. RT-L2's and RT-O9-L2's release condition and release check are restated accordingly.
-- Table 17.1's RT-L2 case in out-final put the plan record directory of the stand-in F into RT-L2's predicted M; R6.RECON.21 and the runner at a3799244 put only the tool's landing paths there, and the record directory into RT-O9's M. The case cell now follows R6.RECON.21; the record directory belongs to RT-O9 and RT-O9-L2.
-- The out-final OBL-16 cycle came from the condition "F on main" in TR5's text and release condition. The tool's execution identity never needed it: chain admission needs T on main and F fetchable by id (R6.REC.18, R6.REC.19). With OC-1 the cycle is gone.
-- The staged configuration cannot land with the tool as a byte copy without a reference cycle with the class record (K1-GRAPH countercontrol 1). R6.EVID.8 therefore uses a configuration template whose class-record pin the runner fills, which names no blob the class record pins.
-- The mechanical index rule of final.py (non-testable verification = the OBL ids the text names) is reused unchanged; it gives R6.STAT.10 the verification OBL-26. R6.EVID.7 names TR5 rather than OBL-16 so that its verification stays "review".
-
-***
-
-## 8. Self-checks
-
-The checks of out-final/build/final.py, re-run on the corrected outputs, and the correction's own checks:
-
-- completeness: MAPPING rows not cited in DESIGN-r6.md: 0
-- consistency: named controls without a row: 0
-- consistency: rows naming an unknown requirement: 0
-- consistency: rows named by no requirement: 0
-- consistency: one-way links: 0
-- consistency: rows with expect null: 0
-- consistency: retired ids live (row or named control): 0
-- consistency: Table 17.1 ids without a row, rows missing from Table 17.1: 0
-- consistency: cited requirement ids that do not exist: 0
-- consistency: cited OBL ids that do not exist: 0
-- consistency: GATE-1 to GATE-30 rows present: 0
-- consistency: rows with candidate expectations not DEFERRED: 0
-- consistency: superseded names remaining (ISOLATION_REFUSED, RD2-RD5, ...): 0
-- consistency: paired_with naming an id that is not a row: 0
-- coverage: non-testable requirements without verification: 0
-- replay: final.py's index rule reproduces out-final/REQUIREMENTS.json from out-final/DESIGN-r6.md: 0
-- OC-5: V4, V27, V27-glossary, V15 rows unchanged (deferred): 0
-- OC-1: OBL-16 carries no OPEN marker and no "F on main" condition: 0
-- OC-2: OBL-26 carries no circularity marker and is not gated on adoption: 0
-- OC-4: LC-7 expects REVIEW_REQUIRED in every case and keeps its OPEN flag: 0
-- OC-3: rows on X_rep carry both invariants; item11-T1p does not: 0
+- replay: correct.py's index rule reproduces out-final2/REQUIREMENTS.json from out-final2/DESIGN-r6.md: 0
+- F5/F6: V4, V27, V27-glossary, V15 rows byte-identical to out-final2 and DEFERRED: 0
+- preservation: every expectation row byte-identical to out-final2: 0
 - preservation: retired list unchanged: 0
-- preservation: no requirement id removed: 0
-- preservation: no expectation row removed: 0
-- preservation: sections 33, 34 and Appendix H unchanged: 0
-- coverage: testable requirements without a control: 14 (R6.PIPE.1, R6.PIPE.4, R6.PIPE.6, R6.PIPE.7, R6.PIPE.8, R6.ANCH.8, R6.HP.1, R6.HP.5, R6.HP.14, R6.CTX.8, R6.OUT.16, R6.OUT.22, R6.OUT.25, R6.OUT.28)
-- hygiene: no at sign, no temporary-directory path, no github URL, no carriage return, no non-ASCII space and no non-ASCII character not already in the corresponding input, in any output: checked
+- preservation: no requirement id removed or added: 0
+- preservation: sources and controls of every requirement unchanged: 0
+- preservation: sections 33 and 34 unchanged: 0
+- preservation: Appendix H changed only in HIST-4: 0
+- preservation: MIGRATION.json unchanged: 0
+- F8: design text unchanged apart from the logged edits (whitespace-normalized diff limited to edited blocks): 0
+- F7/F3/F4: pending keys equal the intended map: 0
+- quotes: every quotation of a comment occurs in its body: 0
+- V4-COMPARISON: rule-form matches as expected: 0
+- hygiene: no at sign, no temporary-directory path, no github URL, no carriage return, no invisible formatting character, no non-ASCII space, and no non-ASCII character outside those of the inputs and the quoted comments, in any output: checked
 - reproducibility: the generator re-ran itself in a separate process (`python3 -I -B`) and compared the sha256 of every output before writing; identical
 - generator problems: 0
+
+***
+
+## 5. Remaining open items
+
+- Requirements pending owner confirmation or fresh authorization: see FRESH-AUTHORIZATION.md (each listed with its exact wording, purpose and consequences). None is adopted by this round.
+- The V4 group (V4, V27, V27-glossary, V15): deferred; the three consistent resolutions are compared in V4-COMPARISON.md. Under resolution (b1) the per-row candidate labels ("reversal adopted" for V15) no longer describe the choice and are restated at the decision; the expectations themselves are unchanged.
+- S1-D3 (specify B1-B6: admission, native delegated execution, the classification of `C`, widening reviews, engine purity, control reporting) underlies parts of secs. 11, 13 and 16, but no inventory item cited by a requirement names it, so the attribution rule marks none. Identifying those requirements needs a mapping not made in this round.
+- The sec. 33 row retiring DR-1d and DR-2 rests on V5-D1 (class (ii)); it is a table row, not a requirement, and is unmarked. It is listed in FRESH-AUTHORIZATION.md.
+- Every class (i) authorization relied on authorizes drafting, correction or presentation and excludes adoption (AUTHORIZATIONS.md); every r6 requirement, marked or not, takes effect only by r6's adoption.
+- Off-main support of adoption (R6.STAT.10, sec. 32 adoption trace): unchanged by this round, except that the owner corrections OC-1 to OC-5 are now attributed to #1169 comment 7163402499; they, like the other owner records, remain support off `main` until quoted with author and time in a record on `main`.
+- item11-T1p, the controls that still read T1' or P, LC-7 (OC-4) and the implementation obligations of OC-3: unchanged and open, as stated in the previous correction report.
+
+## 6. Contradictions and departures found while correcting
+
+- The grouped presentation (group C) traced the "D1-D4" mark of R6.DENY.5 and OBL-3 to v3 D1. The attribution rule finds it through E-1021, whose label "(S1-D1, D1)" is the Stage 1 review's D1 (W1-c's allowance and the self-PASS lint, CHANGES-v5.2.md sec. 1). This round re-keys both to S1-D2 (F3). Their content still relates to v3 D1 (an item-7 restatement as a plan amendment needs a reviewed deny set); that link is not a source citation and is not marked.
+- The grouped presentation cites DESIGN-v5.5.9.md by line numbers (for example 45-54, 68-73, 108-111) that do not match the records-branch copy read here (blob e5b97ef1: 40-50, 58-64, 94-98). The content is the same; this round cites the copy's lines.
+- Appendix H, HIST-4 stated that the route authority of #1169 comment 7093128173 and the decisions D1-D4, V5-D1 and V5-D2 have no GitHub record. They have session-written records (class (ii)); HIST-4 is corrected (F1). This changes Appendix H, which the previous round kept unchanged; sections 33 and 34 stay unchanged.
+- v5.5.9 and the inventory use "D1-D4" for both v3's open points and the owner's final decisions, and "D1-D8" for the Stage 1 corrections; R6.NOTE.13 now states the three senses (F3).
+- Completeness scan of the attribution rule: after this round, 15 unmarked requirements cite inventory items containing label-like tokens. Two are R6.DENY.1 and R6.DENY.2 (F4). In the other 13 the tokens are not decision labels: "C3" in RV-056 (R6.CTRL.2) is the v2 control C3, and "D2" to "D5" in the A-items (R6.CTRL.26, R6.CTRL.27, R6.TREE.7, R6.RDIR.1, R6.RDIR.4, R6.RDIR.5, R6.RDIR.10, R6.RDIR.11, R6.RDIR.12, R6.RDIR.13, R6.VALID.4, R6.REPRO.1) are r5's directory conditions, renamed DIR2-DIR5 (sec. 34). None is marked.
+- The candidate label "reversal rejected (a plan rule record restored for this form, sec. 12)" on the four V4-group rows speaks of restoring a rule for the form; under F5 the rule takes a new identifier. The label is part of the rows, which this round keeps byte-identical; it is restated, with the V15 label under (b1), when the owner decides.
