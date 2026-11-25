@@ -1,6 +1,0 @@
-Mechanical completeness checks (coordinating session, 2026-11-25)
-
-MAPPING.json: rows 1149; inventory items 1148; every inventory id exactly once: True; extra rows: ['RV-ADD2-259-269']
-dispositions: {'historical': 82, 'superseded': 101, 'retained': 550, 'translated': 295, 'retired': 28, 'unresolved': 23, 'merged': 32, 'transferred': 38}
-superseded/retired rows without underlying: 0; translated without translation: 0; merged without partner: 0
-EXPECTATIONS-draft.json: rows 399 (gate rows 20); duplicate ids: 0; source control ids 382; not covered: []; expect null: 34
