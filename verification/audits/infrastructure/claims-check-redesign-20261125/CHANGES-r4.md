@@ -8,8 +8,12 @@ and `work/proto.r4.py`. Every earlier file in this directory is unchanged, byte 
 
 - The checker flags defined patterns and enforces the structure of review records. Independent
   scientific review is responsible for detecting reworded claims outside those patterns.
-- The record holes of review findings 2 and 3 are closed. Each of the review's four record probes
-  that gave exit 0 under r3 gives exit 3 under r4.
+- The record holes of review findings 2 and 3 are closed for the review's probes. Each of the
+  review's four record probes that gave exit 0 under r3 gives exit 3 under r4: the three on
+  H-slope sentences through correction 1, the `W-KDEG` probe through correction 3.
+- Correction 2 checks evidence that the record writer chooses, and a wider span can meet it. On
+  sentences without a hypothesis token, misleading-qualifier records remain the reviewer's judgment
+  (`DESIGN-r4.md` §5).
 - No vocabulary was added. The word lists now follow `DESIGN-r3.md` §3.2: inflections match, and
   bare generic heads are removed or replaced by the rule's own multi-word phrase.
 - Silent PASS does not increase on any batch. All 195 preserved controls are unchanged (0 MISS,
@@ -24,7 +28,7 @@ and `work/proto.r4.py`. Every earlier file in this directory is unchanged, byte 
 | Finding | Disposition | Where |
 |---|---|---|
 | 1 Criterion 6 fails at first run (paraphrase class) | Not repaired, as the owner directs. The argument-only widening and the `isotropic`/`quadratic`/`metric` additions add vocabulary and are not adopted. The class is stated as the responsibility of independent scientific review. W-P-09 is caught by the inflection fix of finding 4, not by new vocabulary. | `DESIGN-r4.md` §0, §1, §3 |
-| 2 `unrelated` records clear H-qualified claims | Corrected. (a) An `unrelated` record is refused when the sentence contains `H-…`. (b) `mention`, `supposition` and `question` evidence must contain the rule's own match (code C: arguments and cues; code A: cues, the present arguments and the anaphor; code P: the strong cue). The three probes give exit 3. | §1 items 1–2; `results-r4/exitcodes.txt` |
+| 2 `unrelated` records clear H-qualified claims | Corrected. (a) An `unrelated` record is refused when the sentence contains `H-…`. (b) `mention`, `supposition` and `question` evidence must contain the rule's own match (code C: arguments and cues; code A: cues, the present arguments and the anaphor; code P: the strong cue). The three probes give exit 3 because correction 1 refuses them. Correction 2 checks evidence the writer chooses and can be met by a wider span; misleading-qualifier records on sentences without a hypothesis token remain reviewer judgment. | §1 items 1–2, §5; `results-r4/exitcodes.txt` |
 | 3 Duplicate `W-KDEG` id | Corrected. The second rule is renamed `W-KDEG-ANSWER` (family `W-KDEG`, the same templates). `W-KDEG` keeps its meaning. Record checks use the rule that raised the finding. Rule ids are asserted unique. The probe gives exit 3. | §1 item 3 |
 | 4 Lexicon breaks its own criterion | Corrected, adding no term. Inflections: `couplings`, `horizons`, plural forms of `thermal ratio/spectrum/character`, of the `quantum …` heads, and of `quadratic symbol`, `propagation geometry` and `projected memory`; `single values`, `conditions for`, `led to`. Bare heads: `symmetr…` and `substratum` replaced by `substratum symmetry`; bare `horizon` removed from `W-GR-THERM-KIN`. | §1 item 4 |
 | 5 M1 cannot fail; injection mostly re-tests sentence-local controls | M1 is dropped from criterion 2. M2 is restated as a segmentation check. Injection is restated as a check on segmentation and the anaphora window, not as independent evidence. | §2 |

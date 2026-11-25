@@ -2,7 +2,7 @@
 """Throwaway prototype of the withdrawn-claim checker, revision r4 (paper-only, Issue #1565).
 
 Not for the repository. Implements DESIGN-r3.md as amended by DESIGN-r4.md, to measure the design.
-r4 changes against proto.r3.py, and nothing else (DESIGN-r4 section 2):
+r4 changes against proto.r3.py, and nothing else (DESIGN-r4 section 1):
   (1) an 'unrelated' record is refused for any sentence that contains a hypothesis token H-...;
   (2) the evidence of a 'mention', 'supposition' or 'question' record must contain the rule's own match;
   (3) the second W-KDEG rule has its own identifier, W-KDEG-ANSWER (family W-KDEG);

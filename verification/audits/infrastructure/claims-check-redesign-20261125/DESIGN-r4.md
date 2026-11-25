@@ -35,7 +35,7 @@ scientific review is responsible for detecting reworded claims outside those pat
   vocabulary beyond the stated corrections. Ordinary independent scientific review of manuscript
   changes carries it.
 - *Does not judge records.* The bounds limit what a record can claim; they do not make its claim
-  true. A reviewer who misreads a sentence can still write a record within the bounds (§4).
+  true. A reviewer who misreads a sentence can still write a record within the bounds (§5).
 
 ***
 
@@ -49,7 +49,7 @@ documentation. Nothing else changed in `work/proto.r4.py` (`diff work/proto.r3.p
    (H-slope, H-Hawking, H-χ, …). Such a sentence is cleared only by a `governed` record citing an
    owner-adopted licence (`DESIGN-r3.md` §3.6 R4; the deployed list is empty), or by rewording. The
    check reads the flagged sentence, as the correction states. It does not read a code-A finding's
-   anaphora window (§4).
+   anaphora window (§5).
 2. **The record's evidence carries the rule's own match (review finding 2).** For the `mention`,
    `supposition` and `question` bases, the quoted evidence, supposition clause or question must
    contain the match that raised the finding, in addition to the r3 checks:
@@ -76,6 +76,9 @@ documentation. Nothing else changed in `work/proto.r4.py` (`diff work/proto.r3.p
      and replaced by the multi-word phrase that already occurs in the rule's own bare template,
      `substratum symmetry` ("cubic symmetry" is covered by `cubic`); bare `horizon` removed from the
      `W-GR-THERM-KIN` argument set, whose horizon temperatures and thermality terms remain.
+   The bare-head sweep covered only these three terms, the ones the r3 review named. `cubic`,
+   `hidden`, `minim…` and `ignorance` remain single-word terms; keeping them costs review load,
+   not silent passes.
 5. **`--main` defaults to `origin/main`, not `HEAD` (review nit 7).** The gate passes the main ref
    explicitly after fetching it with full history. If the ref is absent, every record is refused
    (exit 3).
@@ -138,7 +141,9 @@ The exact SHA-256 of batch W is `6317946b6fae4d58c2c78be5e718b06fd002c1edc6d3728
   control with the full question as evidence gives 0.
 - **The review's record-loophole probes (9), each exit 3 under r4.** The `mention`, `supposition`
   and rhetorical-`question` records on H-slope sentences, and the `W-KDEG` `other-subject` record
-  citing "Coupling-degree minimization", gave exit 0 under r3 and give 3 under r4. The other five
+  citing "Coupling-degree minimization", gave exit 0 under r3 and give 3 under r4. Correction 1
+  refuses the first three, because their sentences contain H-slope; correction 3 refuses the
+  fourth. Correction 2 is not what refuses them (§5). The other five
   probes (`governed` with `licence: ""` and with no licence; record for another path; revision on a
   research branch; bogus `--repo`) were already 3.
 - **Correction 1 (7).** A clean `negated` record and an H-χ `other-subject` record on H-token
@@ -156,7 +161,7 @@ The exact SHA-256 of batch W is `6317946b6fae4d58c2c78be5e718b06fd002c1edc6d3728
 - **`--main` (2).** With no `--main`, a record at a revision on main is accepted, and one at a
   research-branch revision is refused. Under r3's `HEAD` default, the first case depended on the
   local checkout's branch: it gave 3 in the measuring clone, whose `main` is behind `origin/main`.
-- **Documented residual (1)**, §4.
+- **Documented residual (1)**, §5.
 
 **Injection note.** For the earlier 162 sentences both revisions give 0 PASS, as their standalone
 verdicts imply. For batch W, r4 removes all 6,846 PASS of W-P-09. Three items gain a few PASS:
@@ -200,12 +205,40 @@ r3's 248 in `DESIGN-r3.md` was measured at `e2e2a623`. At the current main, r3 g
 ## 5. Residuals, and guidance for reviewers who write records
 
 - **Rewording outside the defined patterns** (§0): carried by independent scientific review.
-- **Hypothesis token in the window only.** Correction 1 reads the flagged sentence. For a code-A
-  finding the hypothesis may sit in the preceding sentence, as in "Under H-slope, the calibration
-  fixes $T_Q$ on the de Sitter horizon. It is state-independent." An `other-subject` record on the
-  second sentence is accepted (exit 0, the documented-residual control). Closing this would extend
-  correction 1 to the window. That is not among the authorized corrections, so it is put to the
-  owner.
+- **Correction 2 checks evidence that the record writer chooses.** It requires the quoted evidence,
+  supposition clause or question to contain some match of each required set. It does not require
+  the evidence to be the qualifying phrase alone, or to cover every occurrence of the match in the
+  sentence, so a writer can meet it by choosing a wider span. On a sentence without a hypothesis
+  token, a `supposition` record whose evidence is "The Hawking temperature $T_Q$ is
+  state-independent, as one would" (for "…, as one would expect."), a `mention` record on a
+  quotation of the claim that the sentence also asserts outside the quotation, and a `question`
+  record on a rhetorical "Why else would … be state-independent?" with the full clause as evidence
+  are all accepted (exit 0; r4 review finding 1). The review's three record probes on H-slope sentences give exit 3
+  because correction 1 refuses them, not because of correction 2. On sentences without a hypothesis
+  token, whether a misleading-qualifier record (for example one citing "as one would expect") is
+  correct remains the reviewer's judgment.
+- **Hypothesis token outside the flagged sentence.** Correction 1 reads the flagged sentence only.
+  - *Code A.* The hypothesis may sit in the preceding sentence, as in "Under H-slope, the
+    calibration fixes $T_Q$ on the de Sitter horizon. It is state-independent." An
+    `other-subject` record on the second sentence is accepted (exit 0, the documented-residual
+    control).
+  - *Code C.* The same holds for a code-C finding whose hypothesis is in a preceding sentence:
+    "Assume H-slope. Then the Hawking temperature $T_Q$ is state-independent in this regime.", with
+    an `other-subject` record whose evidence is "Then", is accepted (exit 0; r4 review finding 3). A hypothesis assumed
+    for a whole paragraph or section is likewise not seen.
+  - *Size at tree M.* No code-A finding has a hypothesis token in its window. One code-C finding
+    has one in the preceding sentence: `papers/Substratum.md`, `W-KDEG`, "Coupling-degree
+    minimization leaves the single-copy clause open".
+  - Each case needs a false record, so it also lies within reviewer misjudgment. Extending
+    correction 1 to the code-A anaphora window would close only the anaphora part, not the code-C
+    case or a paragraph- or section-level hypothesis. No extension is among the authorized
+    corrections, so it is put to the owner.
+- **Typographic variants of the hypothesis token.** Correction 1 matches `H-` followed by a word
+  character, at a word boundary, case-insensitively; lower case, digits and H-χ are caught. These
+  forms are not caught: Markdown underscore italics (`_H-slope_`, where no word boundary precedes
+  `H`), a non-ASCII hyphen (U+2011 non-breaking hyphen, or an en dash), `$H$-slope`, and a
+  zero-width space after the hyphen (r4 review finding 2). None of these forms occurs in active material at tree M. The
+  pattern is not changed in r4.
 - **`negated` that asserts invariance (review nit 8).** The `negated` basis accepts "The Hawking
   temperature does not vary from one state to another", which asserts the withdrawn invariance
   through a negated predicate. A reviewer must not record a negated predicate as `negated` when the
@@ -241,7 +274,8 @@ From this directory, with a full clone of the repository as `<git dir>` and tree
 One focused independent review of r4, as the owner's decision requires, before the design is
 presented for adoption. Questions for the owner, after that review:
 
-1. Extend correction 1 to the anaphora window of code-A findings (§5)?
+1. Extend correction 1 to the anaphora window of code-A findings (§5)? That would close only the
+   anaphora part of the residual; code-C findings with a hypothesis in a preceding sentence remain.
 2. The 36 H-token findings at main: reword, or propose licences?
 3. `DESIGN-r3.md` §9 questions 1–5 stand. The landing cost is now 234 records, of which 36 can be
    cleared only by rewording or an adopted licence.
