@@ -1,0 +1,14 @@
+requirements 422 kinds {'status': 4, 'governance': 9, 'scope': 8, 'definition': 13, 'testable': 357, 'obligation': 31}
+COMPLETENESS: mapping rows 1149 not cited in requirements or design text: 0 []
+requirement ids in text not in list [] | in list not in text []
+CONSISTENCY: controls named but no row []
+retired named as live []
+rows with no requirement 0 []
+rows citing unknown requirement ids 0 []
+requirement->control without back-reference 0 []
+rows with expect null []
+OPEN flags in text 55
+COVERAGE: testable 357 with no control row: 14 ['R6.PIPE.1', 'R6.PIPE.4', 'R6.PIPE.6', 'R6.PIPE.7', 'R6.PIPE.8', 'R6.ANCH.8', 'R6.HP.1', 'R6.HP.5', 'R6.HP.14', 'R6.CTX.8', 'R6.OUT.16', 'R6.OUT.22', 'R6.OUT.25', 'R6.OUT.28']
+NOT RUN rows ['EI14-dispatch', 'G-A1', 'RT-L2', 'RT-O9-L2', 'RT-T', 'TR45-opC', 'TR5']
+VD-RESTORE flagged rows 192
+runner null rows 35

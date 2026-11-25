@@ -1,0 +1,7909 @@
+[
+ {
+  "id": "R6.STAT.1",
+  "section": "STAT",
+  "section_number": 0,
+  "kind": "status",
+  "sources": [
+   "E-001",
+   "A-001",
+   "A-136",
+   "A-144",
+   "A-146",
+   "V1-002"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.STAT.2",
+  "section": "STAT",
+  "section_number": 0,
+  "kind": "governance",
+  "sources": [
+   "E-007",
+   "A-001",
+   "A-136",
+   "A-144",
+   "A-146"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.STAT.3",
+  "section": "STAT",
+  "section_number": 0,
+  "kind": "scope",
+  "sources": [
+   "E-009"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.STAT.4",
+  "section": "STAT",
+  "section_number": 0,
+  "kind": "governance",
+  "sources": [
+   "E-012"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.STAT.5",
+  "section": "STAT",
+  "section_number": 0,
+  "kind": "governance",
+  "sources": [
+   "E-018"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.STAT.6",
+  "section": "STAT",
+  "section_number": 0,
+  "kind": "status",
+  "sources": [
+   "E-020",
+   "V1-003",
+   "V2-002",
+   "A-003"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.STAT.7",
+  "section": "STAT",
+  "section_number": 0,
+  "kind": "status",
+  "sources": [
+   "V1-004"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.STAT.8",
+  "section": "STAT",
+  "section_number": 0,
+  "kind": "governance",
+  "sources": [
+   "RV-002"
+  ],
+  "controls": [],
+  "open": [
+   "owner decision quote 7093128173"
+  ]
+ },
+ {
+  "id": "R6.STAT.9",
+  "section": "STAT",
+  "section_number": 0,
+  "kind": "status",
+  "sources": [
+   "E-032"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.NOTE.1",
+  "section": "NOTE",
+  "section_number": 1,
+  "kind": "definition",
+  "sources": [
+   "E-021",
+   "V1-005",
+   "V2-003"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.NOTE.2",
+  "section": "NOTE",
+  "section_number": 1,
+  "kind": "definition",
+  "sources": [
+   "E-022",
+   "V1-005",
+   "V2-003"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.NOTE.3",
+  "section": "NOTE",
+  "section_number": 1,
+  "kind": "definition",
+  "sources": [
+   "E-023",
+   "V1-005",
+   "V2-003"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.NOTE.4",
+  "section": "NOTE",
+  "section_number": 1,
+  "kind": "definition",
+  "sources": [
+   "E-024",
+   "V1-005",
+   "V2-003"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.NOTE.5",
+  "section": "NOTE",
+  "section_number": 1,
+  "kind": "definition",
+  "sources": [
+   "E-025"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.NOTE.6",
+  "section": "NOTE",
+  "section_number": 1,
+  "kind": "definition",
+  "sources": [
+   "E-026",
+   "A-013"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.NOTE.7",
+  "section": "NOTE",
+  "section_number": 1,
+  "kind": "definition",
+  "sources": [
+   "E-027"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.NOTE.8",
+  "section": "NOTE",
+  "section_number": 1,
+  "kind": "definition",
+  "sources": [
+   "E-028",
+   "V1-005"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.NOTE.9",
+  "section": "NOTE",
+  "section_number": 1,
+  "kind": "testable",
+  "sources": [
+   "E-029"
+  ],
+  "controls": [
+   "EI15"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.NOTE.10",
+  "section": "NOTE",
+  "section_number": 1,
+  "kind": "testable",
+  "sources": [
+   "E-030",
+   "V1-005",
+   "V2-003"
+  ],
+  "controls": [
+   "M9"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.NOTE.11",
+  "section": "NOTE",
+  "section_number": 1,
+  "kind": "definition",
+  "sources": [
+   "E-031"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.NOTE.12",
+  "section": "NOTE",
+  "section_number": 1,
+  "kind": "definition",
+  "sources": [
+   "A-014",
+   "A-013"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.NOTE.13",
+  "section": "NOTE",
+  "section_number": 1,
+  "kind": "definition",
+  "sources": [
+   "E-028"
+  ],
+  "controls": [],
+  "open": [
+   "finding-label collision O6"
+  ]
+ },
+ {
+  "id": "R6.PUR.1",
+  "section": "PUR",
+  "section_number": 2,
+  "kind": "scope",
+  "sources": [
+   "E-051"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.PUR.2",
+  "section": "PUR",
+  "section_number": 2,
+  "kind": "scope",
+  "sources": [
+   "E-052",
+   "V1-008",
+   "V2-120",
+   "V1-149"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.PUR.3",
+  "section": "PUR",
+  "section_number": 2,
+  "kind": "testable",
+  "sources": [
+   "E-053",
+   "V1-010"
+  ],
+  "controls": [
+   "H6"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PUR.4",
+  "section": "PUR",
+  "section_number": 2,
+  "kind": "testable",
+  "sources": [
+   "V1-011"
+  ],
+  "controls": [
+   "M9",
+   "RT-A"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PUR.5",
+  "section": "PUR",
+  "section_number": 2,
+  "kind": "scope",
+  "sources": [
+   "V1-009"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.PUR.6",
+  "section": "PUR",
+  "section_number": 2,
+  "kind": "scope",
+  "sources": [
+   "V1-012"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.PUR.7",
+  "section": "PUR",
+  "section_number": 2,
+  "kind": "scope",
+  "sources": [
+   "E-054",
+   "RV-021"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.PUR.8",
+  "section": "PUR",
+  "section_number": 2,
+  "kind": "testable",
+  "sources": [
+   "E-055"
+  ],
+  "controls": [
+   "V15",
+   "V21",
+   "V26"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PUR.9",
+  "section": "PUR",
+  "section_number": 2,
+  "kind": "testable",
+  "sources": [
+   "E-055"
+  ],
+  "controls": [
+   "V4",
+   "V27"
+  ],
+  "open": [
+   "V4 reversal scope"
+  ]
+ },
+ {
+  "id": "R6.PUR.10",
+  "section": "PUR",
+  "section_number": 2,
+  "kind": "scope",
+  "sources": [
+   "E-056",
+   "RV-021"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.PUR.11",
+  "section": "PUR",
+  "section_number": 2,
+  "kind": "testable",
+  "sources": [
+   "E-057"
+  ],
+  "controls": [
+   "B4-MEANING"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PUR.12",
+  "section": "PUR",
+  "section_number": 2,
+  "kind": "testable",
+  "sources": [
+   "A-140"
+  ],
+  "controls": [
+   "SIDE-NONREG"
+  ],
+  "open": [
+   "side-change entry type outcome"
+  ]
+ },
+ {
+  "id": "R6.PIPE.1",
+  "section": "PIPE",
+  "section_number": 3,
+  "kind": "testable",
+  "sources": [
+   "E-058",
+   "V1-035"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.PIPE.2",
+  "section": "PIPE",
+  "section_number": 3,
+  "kind": "testable",
+  "sources": [
+   "E-060",
+   "V2-013",
+   "V1-006",
+   "V1-007"
+  ],
+  "controls": [
+   "RT-A",
+   "RT-E",
+   "RT-C",
+   "RT-D"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PIPE.3",
+  "section": "PIPE",
+  "section_number": 3,
+  "kind": "testable",
+  "sources": [
+   "V1-068"
+  ],
+  "controls": [
+   "X3",
+   "X4",
+   "X5"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PIPE.4",
+  "section": "PIPE",
+  "section_number": 3,
+  "kind": "testable",
+  "sources": [
+   "V1-017"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.PIPE.5",
+  "section": "PIPE",
+  "section_number": 3,
+  "kind": "testable",
+  "sources": [
+   "V1-021"
+  ],
+  "controls": [
+   "EI15"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PIPE.6",
+  "section": "PIPE",
+  "section_number": 3,
+  "kind": "testable",
+  "sources": [
+   "V1-022",
+   "V1-036",
+   "V1-069"
+  ],
+  "controls": [],
+  "open": [
+   "default segment composition"
+  ]
+ },
+ {
+  "id": "R6.PIPE.7",
+  "section": "PIPE",
+  "section_number": 3,
+  "kind": "testable",
+  "sources": [
+   "V1-038"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.PIPE.8",
+  "section": "PIPE",
+  "section_number": 3,
+  "kind": "testable",
+  "sources": [
+   "V1-024"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.PIPE.9",
+  "section": "PIPE",
+  "section_number": 3,
+  "kind": "testable",
+  "sources": [
+   "V1-029"
+  ],
+  "controls": [
+   "X1",
+   "M9"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PIPE.10",
+  "section": "PIPE",
+  "section_number": 3,
+  "kind": "testable",
+  "sources": [
+   "V2-008"
+  ],
+  "controls": [
+   "RT-A",
+   "X1"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PIPE.11",
+  "section": "PIPE",
+  "section_number": 3,
+  "kind": "testable",
+  "sources": [
+   "V2-015",
+   "V2-016",
+   "V2-017"
+  ],
+  "controls": [
+   "S11-57c",
+   "S11-58h",
+   "S11-58j"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PIPE.12",
+  "section": "PIPE",
+  "section_number": 3,
+  "kind": "definition",
+  "sources": [
+   "E-059"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.PIPE.13",
+  "section": "PIPE",
+  "section_number": 3,
+  "kind": "testable",
+  "sources": [
+   "E-061"
+  ],
+  "controls": [
+   "RT-E",
+   "RT-DR"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PIPE.14",
+  "section": "PIPE",
+  "section_number": 3,
+  "kind": "testable",
+  "sources": [
+   "E-062"
+  ],
+  "controls": [
+   "RT-D",
+   "S11-5",
+   "S11-6"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PIPE.15",
+  "section": "PIPE",
+  "section_number": 3,
+  "kind": "testable",
+  "sources": [
+   "E-063"
+  ],
+  "controls": [
+   "CLASS-RETAINED"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ANCH.1",
+  "section": "ANCH",
+  "section_number": 4,
+  "kind": "testable",
+  "sources": [
+   "V1-018"
+  ],
+  "controls": [
+   "X1"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ANCH.2",
+  "section": "ANCH",
+  "section_number": 4,
+  "kind": "testable",
+  "sources": [
+   "V1-034"
+  ],
+  "controls": [
+   "X1"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ANCH.3",
+  "section": "ANCH",
+  "section_number": 4,
+  "kind": "testable",
+  "sources": [
+   "V1-019"
+  ],
+  "controls": [
+   "M9",
+   "RT-A"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ANCH.4",
+  "section": "ANCH",
+  "section_number": 4,
+  "kind": "testable",
+  "sources": [
+   "V1-037"
+  ],
+  "controls": [
+   "M3",
+   "M4",
+   "M5"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ANCH.5",
+  "section": "ANCH",
+  "section_number": 4,
+  "kind": "testable",
+  "sources": [
+   "V1-039",
+   "V1-040"
+  ],
+  "controls": [
+   "M11",
+   "U1"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ANCH.6",
+  "section": "ANCH",
+  "section_number": 4,
+  "kind": "testable",
+  "sources": [
+   "V1-041"
+  ],
+  "controls": [
+   "U9"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ANCH.7",
+  "section": "ANCH",
+  "section_number": 4,
+  "kind": "testable",
+  "sources": [
+   "V1-042",
+   "V1-043",
+   "V2-005"
+  ],
+  "controls": [
+   "RT-A"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ANCH.8",
+  "section": "ANCH",
+  "section_number": 4,
+  "kind": "testable",
+  "sources": [
+   "V1-046"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.ANCH.9",
+  "section": "ANCH",
+  "section_number": 4,
+  "kind": "testable",
+  "sources": [
+   "V1-049",
+   "V2-006"
+  ],
+  "controls": [
+   "M1",
+   "M2"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ANCH.10",
+  "section": "ANCH",
+  "section_number": 4,
+  "kind": "testable",
+  "sources": [
+   "V2-006",
+   "V1-049"
+  ],
+  "controls": [
+   "VD2-HP-SEARCH"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ANCH.11",
+  "section": "ANCH",
+  "section_number": 4,
+  "kind": "testable",
+  "sources": [
+   "V1-050",
+   "V2-006"
+  ],
+  "controls": [
+   "U3",
+   "U2"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ANCH.12",
+  "section": "ANCH",
+  "section_number": 4,
+  "kind": "testable",
+  "sources": [
+   "V1-050",
+   "V1-057",
+   "V2-006"
+  ],
+  "controls": [
+   "VD3-COUNT",
+   "VD3-CONTEXT"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ANCH.13",
+  "section": "ANCH",
+  "section_number": 4,
+  "kind": "testable",
+  "sources": [
+   "V1-051"
+  ],
+  "controls": [
+   "U10",
+   "U11",
+   "B1",
+   "B2"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ANCH.14",
+  "section": "ANCH",
+  "section_number": 4,
+  "kind": "testable",
+  "sources": [
+   "E-110",
+   "E-111"
+  ],
+  "controls": [
+   "B1",
+   "B2",
+   "B3",
+   "B4",
+   "B6"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ANCH.15",
+  "section": "ANCH",
+  "section_number": 4,
+  "kind": "testable",
+  "sources": [
+   "V1-052"
+  ],
+  "controls": [
+   "CLASS-UNLEDGERED"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ANCH.16",
+  "section": "ANCH",
+  "section_number": 4,
+  "kind": "testable",
+  "sources": [
+   "V2-018"
+  ],
+  "controls": [
+   "M1",
+   "M2",
+   "U10"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ANCH.17",
+  "section": "ANCH",
+  "section_number": 4,
+  "kind": "testable",
+  "sources": [
+   "V1-053",
+   "V1-054",
+   "V1-055",
+   "V1-056",
+   "V1-057",
+   "V2-007"
+  ],
+  "controls": [
+   "U1",
+   "U2",
+   "U4",
+   "U5",
+   "U6",
+   "U7",
+   "U8",
+   "M6",
+   "B5",
+   "RT-E",
+   "SW1"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ANCH.18",
+  "section": "ANCH",
+  "section_number": 4,
+  "kind": "testable",
+  "sources": [
+   "V1-058",
+   "V2-007"
+  ],
+  "controls": [
+   "U5",
+   "U6",
+   "U7"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ANCH.19",
+  "section": "ANCH",
+  "section_number": 4,
+  "kind": "testable",
+  "sources": [
+   "V2-020",
+   "RV-026"
+  ],
+  "controls": [
+   "N1",
+   "S11-12"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.HP.1",
+  "section": "HP",
+  "section_number": 5,
+  "kind": "testable",
+  "sources": [
+   "E-064",
+   "RV-020",
+   "V2-036"
+  ],
+  "controls": [],
+  "open": [
+   "HP merge cross-check"
+  ]
+ },
+ {
+  "id": "R6.HP.2",
+  "section": "HP",
+  "section_number": 5,
+  "kind": "testable",
+  "sources": [
+   "E-066",
+   "V2-037",
+   "RV-008"
+  ],
+  "controls": [
+   "H2",
+   "H3",
+   "RT-H0"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.HP.3",
+  "section": "HP",
+  "section_number": 5,
+  "kind": "testable",
+  "sources": [
+   "E-067"
+  ],
+  "controls": [
+   "H7",
+   "RT-T0"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.HP.4",
+  "section": "HP",
+  "section_number": 5,
+  "kind": "testable",
+  "sources": [
+   "E-068",
+   "V2-035"
+  ],
+  "controls": [
+   "H6",
+   "H7"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.HP.5",
+  "section": "HP",
+  "section_number": 5,
+  "kind": "testable",
+  "sources": [
+   "V2-041"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.HP.6",
+  "section": "HP",
+  "section_number": 5,
+  "kind": "testable",
+  "sources": [
+   "E-069",
+   "V2-038",
+   "V2-039",
+   "V2-040",
+   "RV-055"
+  ],
+  "controls": [
+   "H1",
+   "H2",
+   "H3",
+   "H7",
+   "RT-H0"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.HP.7",
+  "section": "HP",
+  "section_number": 5,
+  "kind": "testable",
+  "sources": [
+   "V1-062"
+  ],
+  "controls": [
+   "U14"
+  ],
+  "open": [
+   "U14 wrong-region-hash class"
+  ]
+ },
+ {
+  "id": "R6.HP.8",
+  "section": "HP",
+  "section_number": 5,
+  "kind": "testable",
+  "sources": [
+   "E-070",
+   "RV-009"
+  ],
+  "controls": [
+   "H4",
+   "SW2"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.HP.9",
+  "section": "HP",
+  "section_number": 5,
+  "kind": "testable",
+  "sources": [
+   "E-071"
+  ],
+  "controls": [
+   "H5",
+   "RT-T0",
+   "SW2"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.HP.10",
+  "section": "HP",
+  "section_number": 5,
+  "kind": "testable",
+  "sources": [
+   "RV-010"
+  ],
+  "controls": [
+   "RT-T0"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.HP.11",
+  "section": "HP",
+  "section_number": 5,
+  "kind": "testable",
+  "sources": [
+   "E-072"
+  ],
+  "controls": [
+   "H5",
+   "RT-T0"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.HP.12",
+  "section": "HP",
+  "section_number": 5,
+  "kind": "testable",
+  "sources": [
+   "E-073"
+  ],
+  "controls": [
+   "H7"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.HP.13",
+  "section": "HP",
+  "section_number": 5,
+  "kind": "testable",
+  "sources": [
+   "E-075",
+   "RV-011"
+  ],
+  "controls": [
+   "RT-H0"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.HP.14",
+  "section": "HP",
+  "section_number": 5,
+  "kind": "testable",
+  "sources": [
+   "V1-023"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.CTX.1",
+  "section": "CTX",
+  "section_number": 6,
+  "kind": "definition",
+  "sources": [
+   "E-076"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.CTX.2",
+  "section": "CTX",
+  "section_number": 6,
+  "kind": "testable",
+  "sources": [
+   "E-077",
+   "V1-044",
+   "V2-030"
+  ],
+  "controls": [
+   "K2"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTX.3",
+  "section": "CTX",
+  "section_number": 6,
+  "kind": "testable",
+  "sources": [
+   "E-078",
+   "V2-031"
+  ],
+  "controls": [
+   "U7"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTX.4",
+  "section": "CTX",
+  "section_number": 6,
+  "kind": "testable",
+  "sources": [
+   "E-079",
+   "RV-012",
+   "V2-032"
+  ],
+  "controls": [
+   "K1",
+   "K3",
+   "K4"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTX.5",
+  "section": "CTX",
+  "section_number": 6,
+  "kind": "testable",
+  "sources": [
+   "E-080"
+  ],
+  "controls": [
+   "K5"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTX.6",
+  "section": "CTX",
+  "section_number": 6,
+  "kind": "testable",
+  "sources": [
+   "E-081",
+   "V2-033",
+   "V1-059"
+  ],
+  "controls": [
+   "K1",
+   "K2",
+   "K3",
+   "K4",
+   "K6",
+   "K7",
+   "K8",
+   "K10"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTX.7",
+  "section": "CTX",
+  "section_number": 6,
+  "kind": "testable",
+  "sources": [
+   "E-082",
+   "RV-013"
+  ],
+  "controls": [
+   "K10"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTX.8",
+  "section": "CTX",
+  "section_number": 6,
+  "kind": "testable",
+  "sources": [
+   "E-083"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.CTX.9",
+  "section": "CTX",
+  "section_number": 6,
+  "kind": "testable",
+  "sources": [
+   "E-084"
+  ],
+  "controls": [
+   "K5",
+   "K6",
+   "K7",
+   "K8",
+   "K9"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTX.10",
+  "section": "CTX",
+  "section_number": 6,
+  "kind": "testable",
+  "sources": [
+   "E-085"
+  ],
+  "controls": [
+   "K5",
+   "K6",
+   "K7",
+   "K8",
+   "K9"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTX.11",
+  "section": "CTX",
+  "section_number": 6,
+  "kind": "testable",
+  "sources": [
+   "E-086"
+  ],
+  "controls": [
+   "K6",
+   "K7",
+   "K8"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTX.12",
+  "section": "CTX",
+  "section_number": 6,
+  "kind": "testable",
+  "sources": [
+   "E-1367"
+  ],
+  "controls": [
+   "K7"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.1",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "E-092",
+   "V1-071",
+   "V2-043",
+   "E-1079"
+  ],
+  "controls": [
+   "X1",
+   "X2",
+   "X3",
+   "X4",
+   "X5",
+   "X6",
+   "X9"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.2",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "E-093",
+   "RV-005"
+  ],
+  "controls": [
+   "X3",
+   "X4",
+   "X5",
+   "X7",
+   "X8"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.3",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "E-094"
+  ],
+  "controls": [
+   "X2",
+   "X7",
+   "EI6"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.4",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "E-104",
+   "E-101",
+   "E-094"
+  ],
+  "controls": [
+   "EI6"
+  ],
+  "open": [
+   "isolation class name"
+  ]
+ },
+ {
+  "id": "R6.OUT.5",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "E-101",
+   "V1-081",
+   "V2-046"
+  ],
+  "controls": [
+   "X1",
+   "M3",
+   "M4",
+   "M5",
+   "M9",
+   "M11",
+   "TT5",
+   "TT6",
+   "I2-3",
+   "I2-4",
+   "O6",
+   "Z1",
+   "Z5",
+   "Z7",
+   "Z8"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.6",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "E-104",
+   "V1-082"
+  ],
+  "controls": [
+   "X3",
+   "X4",
+   "X5",
+   "M10"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.7",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "V1-025",
+   "V1-026",
+   "V2-009"
+  ],
+  "controls": [
+   "M10",
+   "X3",
+   "OUT-CONFINED"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.8",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "V1-083"
+  ],
+  "controls": [
+   "Z8"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.9",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "E-102",
+   "V2-044"
+  ],
+  "controls": [
+   "X6"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.10",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "E-100"
+  ],
+  "controls": [
+   "X7",
+   "X8"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.11",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "V1-073"
+  ],
+  "controls": [
+   "X10"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.12",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "E-095",
+   "E-099",
+   "V2-045"
+  ],
+  "controls": [
+   "X10",
+   "X11",
+   "ACCEPT-SCHEMA",
+   "EI3"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.13",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "E-096"
+  ],
+  "controls": [
+   "TR14",
+   "TR28-consumer",
+   "TR29",
+   "TR30",
+   "EI2-consumer"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.14",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "E-097"
+  ],
+  "controls": [
+   "TR46"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.15",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "E-098"
+  ],
+  "controls": [
+   "TR45-opB"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.16",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "E-105"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.17",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "E-103",
+   "V1-084"
+  ],
+  "controls": [
+   "X9",
+   "V23",
+   "V24",
+   "V25",
+   "V3-countercontrol"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.18",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "E-106",
+   "V1-074",
+   "V1-078",
+   "V2-062",
+   "V2-063",
+   "V2-064",
+   "V2-065"
+  ],
+  "controls": [
+   "ACCEPT-SCHEMA",
+   "S7-schema-and-checker",
+   "B4-MEANING",
+   "U2",
+   "U9",
+   "U10"
+  ],
+  "open": [
+   "emitted result fields"
+  ]
+ },
+ {
+  "id": "R6.OUT.19",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "E-107",
+   "V1-076",
+   "V1-077",
+   "V2-063"
+  ],
+  "controls": [
+   "S7-schema-and-checker"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.20",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "V1-077",
+   "V2-067"
+  ],
+  "controls": [
+   "REPRO-DOUBLE"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.21",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "E-108"
+  ],
+  "controls": [
+   "B4-MEANING"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.22",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "E-109",
+   "V2-066"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.23",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "E-109",
+   "V1-075",
+   "V1-137",
+   "V2-067"
+  ],
+  "controls": [
+   "S7-schema-and-checker"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.24",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "V2-042"
+  ],
+  "controls": [
+   "RT-H0",
+   "RT-T0",
+   "H5",
+   "RT-C"
+  ],
+  "open": [
+   "obligation definitions"
+  ]
+ },
+ {
+  "id": "R6.OUT.25",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "V1-020"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.26",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "V1-143"
+  ],
+  "controls": [
+   "TR48",
+   "X10"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.27",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "V1-033"
+  ],
+  "controls": [
+   "S11-2c",
+   "M7",
+   "M8"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.OUT.28",
+  "section": "OUT",
+  "section_number": 7,
+  "kind": "testable",
+  "sources": [
+   "V1-067"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.SPLIT.1",
+  "section": "SPLIT",
+  "section_number": 8,
+  "kind": "testable",
+  "sources": [
+   "V2-049",
+   "RV-017"
+  ],
+  "controls": [
+   "S11-57d",
+   "RT-DR3W"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.SPLIT.2",
+  "section": "SPLIT",
+  "section_number": 8,
+  "kind": "scope",
+  "sources": [
+   "V2-049",
+   "RV-017"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.SPLIT.3",
+  "section": "SPLIT",
+  "section_number": 8,
+  "kind": "obligation",
+  "sources": [
+   "V2-049",
+   "RV-017"
+  ],
+  "controls": [],
+  "open": [
+   "splitter abbreviation match"
+  ]
+ },
+ {
+  "id": "R6.PROF.1",
+  "section": "PROF",
+  "section_number": 9,
+  "kind": "testable",
+  "sources": [
+   "E-112",
+   "V2-022",
+   "V1-064"
+  ],
+  "controls": [
+   "S11-56",
+   "RT-E",
+   "RT-DR"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PROF.2",
+  "section": "PROF",
+  "section_number": 9,
+  "kind": "testable",
+  "sources": [
+   "V2-025"
+  ],
+  "controls": [
+   "Y10"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PROF.3",
+  "section": "PROF",
+  "section_number": 9,
+  "kind": "testable",
+  "sources": [
+   "E-113",
+   "V2-023",
+   "V2-024"
+  ],
+  "controls": [
+   "U12",
+   "V7b",
+   "V15",
+   "V21",
+   "V26",
+   "RT-D"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PROF.4",
+  "section": "PROF",
+  "section_number": 9,
+  "kind": "testable",
+  "sources": [
+   "E-114",
+   "RV-048"
+  ],
+  "controls": [
+   "RT-E",
+   "RT-DR",
+   "V1",
+   "Y3",
+   "S11-5",
+   "S11-6"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PROF.5",
+  "section": "PROF",
+  "section_number": 9,
+  "kind": "testable",
+  "sources": [
+   "E-116"
+  ],
+  "controls": [
+   "S11-56",
+   "S11-57a",
+   "S11-57b",
+   "S11-58a-f"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PROF.6",
+  "section": "PROF",
+  "section_number": 9,
+  "kind": "testable",
+  "sources": [
+   "E-117"
+  ],
+  "controls": [
+   "S11-56",
+   "S11-57a",
+   "S11-57b",
+   "S11-5"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PROF.7",
+  "section": "PROF",
+  "section_number": 9,
+  "kind": "testable",
+  "sources": [
+   "E-118"
+  ],
+  "controls": [
+   "S11-57d",
+   "S11-6",
+   "S11-56"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PROF.8",
+  "section": "PROF",
+  "section_number": 9,
+  "kind": "testable",
+  "sources": [
+   "E-119",
+   "E-120"
+  ],
+  "controls": [
+   "S11-57c",
+   "S11-58a-f",
+   "S11-58g",
+   "S11-58h",
+   "S11-58i",
+   "S11-58j",
+   "S11-58k"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PROF.9",
+  "section": "PROF",
+  "section_number": 9,
+  "kind": "testable",
+  "sources": [
+   "E-121"
+  ],
+  "controls": [
+   "S11-58g",
+   "S11-57c",
+   "S11-58j",
+   "S11-58k"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PROF.10",
+  "section": "PROF",
+  "section_number": 9,
+  "kind": "testable",
+  "sources": [
+   "E-123"
+  ],
+  "controls": [
+   "S11-56",
+   "PROF-PARAMS-LINT"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PROF.11",
+  "section": "PROF",
+  "section_number": 9,
+  "kind": "testable",
+  "sources": [
+   "E-126"
+  ],
+  "controls": [
+   "PROF-LANDING-LIST"
+  ],
+  "open": [
+   "landing-list tree"
+  ]
+ },
+ {
+  "id": "R6.PROF.12",
+  "section": "PROF",
+  "section_number": 9,
+  "kind": "obligation",
+  "sources": [
+   "E-119"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.RULE.1",
+  "section": "RULE",
+  "section_number": 10,
+  "kind": "testable",
+  "sources": [
+   "E-127",
+   "V2-047"
+  ],
+  "controls": [
+   "A7r",
+   "LN1",
+   "LN2",
+   "O7"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RULE.2",
+  "section": "RULE",
+  "section_number": 10,
+  "kind": "testable",
+  "sources": [
+   "E-128",
+   "V2-048",
+   "RV-015"
+  ],
+  "controls": [
+   "A6r",
+   "A8r",
+   "A7r",
+   "E-A6r",
+   "E-A8r",
+   "lint-ok"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RULE.3",
+  "section": "RULE",
+  "section_number": 10,
+  "kind": "testable",
+  "sources": [
+   "E-129",
+   "RV-016"
+  ],
+  "controls": [
+   "A10r",
+   "A11r",
+   "RT-DR3W",
+   "RT-DR"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RULE.4",
+  "section": "RULE",
+  "section_number": 10,
+  "kind": "testable",
+  "sources": [
+   "E-130",
+   "V2-050",
+   "V2-052"
+  ],
+  "controls": [
+   "L1",
+   "L2",
+   "L3",
+   "L4",
+   "S1r",
+   "V7a",
+   "V7c",
+   "A5r",
+   "A5r-generic",
+   "E-L1",
+   "E-L3",
+   "E-S1r",
+   "rule-negative",
+   "WB1",
+   "WB4",
+   "WB6",
+   "WB7"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RULE.5",
+  "section": "RULE",
+  "section_number": 10,
+  "kind": "testable",
+  "sources": [
+   "E-131"
+  ],
+  "controls": [
+   "WB8",
+   "WB13",
+   "WB5",
+   "WB3"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RULE.6",
+  "section": "RULE",
+  "section_number": 10,
+  "kind": "testable",
+  "sources": [
+   "E-132"
+  ],
+  "controls": [
+   "WB14",
+   "WB9"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RULE.7",
+  "section": "RULE",
+  "section_number": 10,
+  "kind": "testable",
+  "sources": [
+   "E-133"
+  ],
+  "controls": [
+   "WB15",
+   "L2",
+   "V7a"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RULE.8",
+  "section": "RULE",
+  "section_number": 10,
+  "kind": "testable",
+  "sources": [
+   "E-134",
+   "V2-028"
+  ],
+  "controls": [
+   "S2r",
+   "WB5",
+   "E-S2r",
+   "GV3"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RULE.9",
+  "section": "RULE",
+  "section_number": 10,
+  "kind": "testable",
+  "sources": [
+   "E-134",
+   "V2-051"
+  ],
+  "controls": [
+   "V7a",
+   "WB2",
+   "WB12",
+   "A5r"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RULE.10",
+  "section": "RULE",
+  "section_number": 10,
+  "kind": "testable",
+  "sources": [
+   "V2-053",
+   "V2-057",
+   "RV-054",
+   "V2-028"
+  ],
+  "controls": [
+   "A1r",
+   "A6r",
+   "A7r",
+   "A3r",
+   "A11r",
+   "E-A6r",
+   "E-A1r",
+   "E-A3r"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RULE.11",
+  "section": "RULE",
+  "section_number": 10,
+  "kind": "testable",
+  "sources": [
+   "V2-054"
+  ],
+  "controls": [
+   "A2r",
+   "RULE-MINLIT"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RULE.12",
+  "section": "RULE",
+  "section_number": 10,
+  "kind": "testable",
+  "sources": [
+   "V2-055"
+  ],
+  "controls": [
+   "RULE-ZEROFP"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RULE.13",
+  "section": "RULE",
+  "section_number": 10,
+  "kind": "testable",
+  "sources": [
+   "E-1065",
+   "V2-058",
+   "RV-053"
+  ],
+  "controls": [
+   "A1r",
+   "A10r",
+   "A3r",
+   "Z10"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REC.1",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "E-135",
+   "V1-063",
+   "V1-016",
+   "RV-019"
+  ],
+  "controls": [
+   "LN1",
+   "S4a",
+   "O9"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REC.2",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "E-136",
+   "V2-056",
+   "RV-019"
+  ],
+  "controls": [
+   "O1",
+   "O2",
+   "O3",
+   "O5",
+   "O7",
+   "I2-5"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REC.3",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "E-137",
+   "V2-056"
+  ],
+  "controls": [
+   "O9"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REC.4",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "E-138",
+   "E-165"
+  ],
+  "controls": [
+   "O8",
+   "N2",
+   "O9"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REC.5",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "E-139",
+   "E-140",
+   "A-116"
+  ],
+  "controls": [
+   "TR2",
+   "TR3",
+   "CHAIN-REFUSAL",
+   "ADM-CONFIG-AT-F",
+   "EI2",
+   "TR29-tool",
+   "O6",
+   "I2-3",
+   "Y10",
+   "M3",
+   "M4",
+   "M5",
+   "Z1",
+   "Z11",
+   "I2-4",
+   "I2-5",
+   "GV6"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REC.6",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "E-140",
+   "E-141"
+  ],
+  "controls": [
+   "O1",
+   "O2",
+   "O3",
+   "O5",
+   "R3-F2",
+   "R4-B3",
+   "R4-B3-DUP",
+   "R5-N6",
+   "GV6"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REC.7",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "E-141"
+  ],
+  "controls": [
+   "S4a",
+   "LN1",
+   "LN2",
+   "LN3",
+   "LN4",
+   "LN5",
+   "LN6",
+   "LN7",
+   "LN8",
+   "LN10",
+   "R6-G6"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REC.8",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "A-118"
+  ],
+  "controls": [
+   "I2-6",
+   "LN3",
+   "LN10"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REC.9",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "A-115",
+   "A-116"
+  ],
+  "controls": [
+   "I2-3",
+   "I2-4",
+   "I2-5",
+   "I2-6"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REC.10",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "V1-060"
+  ],
+  "controls": [
+   "RECLINT-ORPHAN",
+   "H1",
+   "H2",
+   "H6"
+  ],
+  "open": [
+   "orphan-record trees"
+  ]
+ },
+ {
+  "id": "R6.REC.11",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "E-142"
+  ],
+  "controls": [
+   "O5"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REC.12",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "E-161"
+  ],
+  "controls": [
+   "O6",
+   "O7",
+   "A7r"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REC.13",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "E-162"
+  ],
+  "controls": [
+   "A1r",
+   "A2r",
+   "A3r",
+   "A4r",
+   "A9r",
+   "A10r",
+   "A12r",
+   "E-A1r",
+   "E-A2r",
+   "E-A3r",
+   "Y4",
+   "Z10"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REC.14",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "E-163"
+  ],
+  "controls": [
+   "A6r",
+   "A8r",
+   "A9r",
+   "A11r",
+   "WB10",
+   "WB11"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REC.15",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "E-164",
+   "RV-019"
+  ],
+  "controls": [
+   "N1"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REC.16",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "E-143",
+   "E-144",
+   "E-145",
+   "E-146"
+  ],
+  "controls": [
+   "TR1",
+   "TR2",
+   "TR3",
+   "TR13",
+   "EI4",
+   "ADM-CONFIG-AT-F",
+   "CHAIN-REFUSAL",
+   "TR45-opB",
+   "X11",
+   "RDIR-16",
+   "RDIR-20"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REC.17",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "E-156"
+  ],
+  "controls": [
+   "GV1",
+   "GV2",
+   "GV3",
+   "GV4",
+   "GV5",
+   "GV6",
+   "GV6-disk",
+   "O6",
+   "GV-CACHE",
+   "GV-CACHE-AFTER-READ",
+   "GV-CACHE-IMMUTABLE",
+   "GV-CACHE-KEY",
+   "K1-GRAPH"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REC.18",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "E-147",
+   "E-148",
+   "E-149",
+   "E-150",
+   "E-155"
+  ],
+  "controls": [
+   "TR14",
+   "TR14-tool",
+   "TR15",
+   "TR28-tool",
+   "TR28-consumer",
+   "TR29",
+   "TR29-tool",
+   "TR30",
+   "TR48",
+   "TR50",
+   "TR51",
+   "TR52",
+   "EI1",
+   "EI2",
+   "EI2-consumer",
+   "EI3",
+   "EI5",
+   "EI14"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REC.19",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "E-151"
+  ],
+  "controls": [
+   "EI8",
+   "EI9",
+   "EI10",
+   "EI11",
+   "EI12",
+   "EI13",
+   "EI15"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REC.20",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "E-152"
+  ],
+  "controls": [
+   "EI6"
+  ],
+  "open": [
+   "isolation class name"
+  ]
+ },
+ {
+  "id": "R6.REC.21",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "E-153"
+  ],
+  "controls": [
+   "EI7",
+   "EI7-tool"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REC.22",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "E-154"
+  ],
+  "controls": [
+   "TR15",
+   "TR50",
+   "EI7"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REC.23",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "E-157",
+   "E-013"
+  ],
+  "controls": [
+   "GV7",
+   "GV7-tool",
+   "GV7-consumer"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REC.24",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "E-158",
+   "E-159",
+   "E-145"
+  ],
+  "controls": [
+   "TR5",
+   "TR5-sim",
+   "X11",
+   "TR45-opB",
+   "TR46"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REC.25",
+  "section": "REC",
+  "section_number": 11,
+  "kind": "testable",
+  "sources": [
+   "E-160"
+  ],
+  "controls": [
+   "TR48",
+   "GV4"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.DENY.1",
+  "section": "DENY",
+  "section_number": 12,
+  "kind": "testable",
+  "sources": [
+   "E-1001",
+   "V2-059",
+   "V2-060",
+   "V2-061",
+   "RV-049"
+  ],
+  "controls": [
+   "RT-DR",
+   "RT-D",
+   "RT-D-gr58",
+   "L1",
+   "L2"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.DENY.2",
+  "section": "DENY",
+  "section_number": 12,
+  "kind": "testable",
+  "sources": [
+   "E-1001"
+  ],
+  "controls": [
+   "V1",
+   "V2",
+   "V3",
+   "V5",
+   "V6",
+   "V9",
+   "V10",
+   "V11",
+   "V12",
+   "V13",
+   "V14",
+   "V16",
+   "V17",
+   "V18",
+   "V19",
+   "V20",
+   "V22",
+   "N-W",
+   "RT-DR3W"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.DENY.3",
+  "section": "DENY",
+  "section_number": 12,
+  "kind": "testable",
+  "sources": [
+   "E-1007"
+  ],
+  "controls": [
+   "RT-DR",
+   "RT-DR3W",
+   "V2",
+   "V20",
+   "V14"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.DENY.4",
+  "section": "DENY",
+  "section_number": 12,
+  "kind": "testable",
+  "sources": [
+   "E-1032"
+  ],
+  "controls": [
+   "V15",
+   "V21",
+   "V26"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.DENY.5",
+  "section": "DENY",
+  "section_number": 12,
+  "kind": "obligation",
+  "sources": [
+   "E-1001",
+   "E-1002",
+   "E-1003",
+   "E-1004",
+   "E-1005",
+   "E-1006",
+   "E-1020",
+   "E-1021",
+   "E-1022",
+   "E-1024",
+   "E-1025",
+   "E-1026",
+   "E-1027",
+   "E-1032"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.DENY.6",
+  "section": "DENY",
+  "section_number": 12,
+  "kind": "testable",
+  "sources": [
+   "E-1001",
+   "V2-080"
+  ],
+  "controls": [
+   "V4",
+   "V27",
+   "V27-glossary"
+  ],
+  "open": [
+   "V4 reversal scope"
+  ]
+ },
+ {
+  "id": "R6.DELEG.1",
+  "section": "DELEG",
+  "section_number": 13,
+  "kind": "testable",
+  "sources": [
+   "E-1033",
+   "E-1034",
+   "E-1035",
+   "E-1036",
+   "E-1037",
+   "RV-029",
+   "RV-025",
+   "RV-007",
+   "V2-019"
+  ],
+  "controls": [
+   "RT-C",
+   "G4",
+   "S11-14",
+   "G-A1"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.DELEG.2",
+  "section": "DELEG",
+  "section_number": 13,
+  "kind": "testable",
+  "sources": [
+   "RV-006"
+  ],
+  "controls": [
+   "RT-C",
+   "G3",
+   "G5",
+   "S11-4"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.DELEG.3",
+  "section": "DELEG",
+  "section_number": 13,
+  "kind": "testable",
+  "sources": [
+   "E-1038",
+   "RV-039",
+   "A-057"
+  ],
+  "controls": [
+   "G9",
+   "G4",
+   "G5",
+   "O3-FILTER",
+   "G-A1"
+  ],
+  "open": [
+   "checker blob source"
+  ]
+ },
+ {
+  "id": "R6.DELEG.4",
+  "section": "DELEG",
+  "section_number": 13,
+  "kind": "testable",
+  "sources": [
+   "E-1039"
+  ],
+  "controls": [
+   "G4",
+   "G6"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.DELEG.5",
+  "section": "DELEG",
+  "section_number": 13,
+  "kind": "testable",
+  "sources": [
+   "E-1040"
+  ],
+  "controls": [
+   "G4",
+   "G5",
+   "G6"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.DELEG.6",
+  "section": "DELEG",
+  "section_number": 13,
+  "kind": "testable",
+  "sources": [
+   "E-1041",
+   "RV-043"
+  ],
+  "controls": [
+   "G7",
+   "S11-3",
+   "GV7-tool"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.DELEG.7",
+  "section": "DELEG",
+  "section_number": 13,
+  "kind": "testable",
+  "sources": [
+   "E-1042"
+  ],
+  "controls": [
+   "G8"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.DELEG.8",
+  "section": "DELEG",
+  "section_number": 13,
+  "kind": "testable",
+  "sources": [
+   "E-1043"
+  ],
+  "controls": [
+   "G2",
+   "G-A1"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.DELEG.9",
+  "section": "DELEG",
+  "section_number": 13,
+  "kind": "testable",
+  "sources": [
+   "E-1044",
+   "RV-040"
+  ],
+  "controls": [
+   "G2",
+   "Y6"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.DELEG.10",
+  "section": "DELEG",
+  "section_number": 13,
+  "kind": "testable",
+  "sources": [
+   "E-1045",
+   "RV-041",
+   "RV-030"
+  ],
+  "controls": [
+   "G1",
+   "G4",
+   "G6",
+   "G7",
+   "G8",
+   "Y6",
+   "S11-13"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.DELEG.11",
+  "section": "DELEG",
+  "section_number": 13,
+  "kind": "testable",
+  "sources": [
+   "E-1046",
+   "E-1054"
+  ],
+  "controls": [
+   "G2",
+   "RT-C",
+   "GV7-tool"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.DELEG.12",
+  "section": "DELEG",
+  "section_number": 13,
+  "kind": "testable",
+  "sources": [
+   "E-1048",
+   "RV-042"
+  ],
+  "controls": [
+   "G6",
+   "G1"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.DELEG.13",
+  "section": "DELEG",
+  "section_number": 13,
+  "kind": "testable",
+  "sources": [
+   "E-1049",
+   "RV-043"
+  ],
+  "controls": [
+   "G7"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.DELEG.14",
+  "section": "DELEG",
+  "section_number": 13,
+  "kind": "testable",
+  "sources": [
+   "E-1050",
+   "RV-044",
+   "A-057"
+  ],
+  "controls": [
+   "RT-C",
+   "DELEG-RECDIR"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.DELEG.15",
+  "section": "DELEG",
+  "section_number": 13,
+  "kind": "testable",
+  "sources": [
+   "E-1052",
+   "RV-046"
+  ],
+  "controls": [
+   "G3",
+   "G5",
+   "S11-4"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.DELEG.16",
+  "section": "DELEG",
+  "section_number": 13,
+  "kind": "testable",
+  "sources": [
+   "E-1051",
+   "RV-045"
+  ],
+  "controls": [
+   "G4",
+   "G9",
+   "S11-13"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.DELEG.17",
+  "section": "DELEG",
+  "section_number": 13,
+  "kind": "testable",
+  "sources": [
+   "E-1053"
+  ],
+  "controls": [
+   "S11-3",
+   "GV7-tool"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.DELEG.18",
+  "section": "DELEG",
+  "section_number": 13,
+  "kind": "obligation",
+  "sources": [
+   "E-1038"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.HIT.1",
+  "section": "HIT",
+  "section_number": 14,
+  "kind": "testable",
+  "sources": [
+   "V1-065",
+   "E-1056"
+  ],
+  "controls": [
+   "U1",
+   "U2",
+   "RT-E",
+   "L2"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.HIT.2",
+  "section": "HIT",
+  "section_number": 14,
+  "kind": "testable",
+  "sources": [
+   "V2-027",
+   "V2-021",
+   "V1-066",
+   "E-1055",
+   "E-1057",
+   "E-1058",
+   "E-1059"
+  ],
+  "controls": [
+   "U12",
+   "L4",
+   "V7b",
+   "WB4",
+   "A5r",
+   "I2-7",
+   "RT-D",
+   "HIT-REPLACEMENT"
+  ],
+  "open": [
+   "HP-region hit class"
+  ]
+ },
+ {
+  "id": "R6.HIT.3",
+  "section": "HIT",
+  "section_number": 14,
+  "kind": "testable",
+  "sources": [
+   "V1-066"
+  ],
+  "controls": [
+   "RT-D",
+   "RT-T0"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.HIT.4",
+  "section": "HIT",
+  "section_number": 14,
+  "kind": "testable",
+  "sources": [
+   "E-1060",
+   "E-1061"
+  ],
+  "controls": [
+   "I2-7",
+   "I2-4",
+   "I2-6"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.HIT.5",
+  "section": "HIT",
+  "section_number": 14,
+  "kind": "testable",
+  "sources": [
+   "E-1066"
+  ],
+  "controls": [
+   "I2-7",
+   "RT-T"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.HIT.6",
+  "section": "HIT",
+  "section_number": 14,
+  "kind": "testable",
+  "sources": [
+   "RV-014",
+   "E-1067"
+  ],
+  "controls": [
+   "RT-T",
+   "RT-D",
+   "RT-T0"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CLASS.1",
+  "section": "CLASS",
+  "section_number": 15,
+  "kind": "testable",
+  "sources": [
+   "E-1068",
+   "V2-068",
+   "V2-069",
+   "RV-057",
+   "V1-079"
+  ],
+  "controls": [
+   "B4-MEANING",
+   "S7-schema-and-checker"
+  ],
+  "open": [
+   "op A record-check item"
+  ]
+ },
+ {
+  "id": "R6.CLASS.2",
+  "section": "CLASS",
+  "section_number": 15,
+  "kind": "testable",
+  "sources": [
+   "E-1069",
+   "V2-026",
+   "V1-079"
+  ],
+  "controls": [
+   "U4",
+   "U5",
+   "U7",
+   "U8",
+   "H4",
+   "B5",
+   "K1",
+   "CLASS-RETAINED"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CLASS.3",
+  "section": "CLASS",
+  "section_number": 15,
+  "kind": "testable",
+  "sources": [
+   "E-1070",
+   "V1-079"
+  ],
+  "controls": [
+   "M1",
+   "M2",
+   "Y2",
+   "S11-9",
+   "CLASS-UNLEDGERED"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CLASS.4",
+  "section": "CLASS",
+  "section_number": 15,
+  "kind": "testable",
+  "sources": [
+   "E-1071",
+   "V2-026"
+  ],
+  "controls": [
+   "RT-H0",
+   "RT-T0",
+   "H1",
+   "H2",
+   "H3",
+   "H5",
+   "H6",
+   "Z10",
+   "CLASS-PROV-AMBIGUOUS"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CLASS.5",
+  "section": "CLASS",
+  "section_number": 15,
+  "kind": "testable",
+  "sources": [
+   "E-1072",
+   "V1-079"
+  ],
+  "controls": [
+   "V1",
+   "S11-5",
+   "RT-I7",
+   "WB2",
+   "L3",
+   "A1r",
+   "V23",
+   "X9"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CLASS.6",
+  "section": "CLASS",
+  "section_number": 15,
+  "kind": "testable",
+  "sources": [
+   "E-1072"
+  ],
+  "controls": [
+   "RECLINT-ORPHAN",
+   "U14",
+   "H1",
+   "H2"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CLASS.7",
+  "section": "CLASS",
+  "section_number": 15,
+  "kind": "testable",
+  "sources": [
+   "E-1073"
+  ],
+  "controls": [
+   "N1",
+   "S11-12",
+   "S11-8",
+   "CLASS-PIN-TARGET"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CLASS.8",
+  "section": "CLASS",
+  "section_number": 15,
+  "kind": "testable",
+  "sources": [
+   "E-1074"
+  ],
+  "controls": [
+   "S11-10"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CLASS.9",
+  "section": "CLASS",
+  "section_number": 15,
+  "kind": "testable",
+  "sources": [
+   "E-1075"
+  ],
+  "controls": [
+   "G1",
+   "G3",
+   "S11-13",
+   "S11-14"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CLASS.10",
+  "section": "CLASS",
+  "section_number": 15,
+  "kind": "testable",
+  "sources": [
+   "E-1076",
+   "RV-057"
+  ],
+  "controls": [
+   "TT3",
+   "TT4",
+   "TT9",
+   "R15",
+   "TT10",
+   "TT7",
+   "N10",
+   "TT11",
+   "N4",
+   "N5",
+   "N16-file"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CLASS.11",
+  "section": "CLASS",
+  "section_number": 15,
+  "kind": "testable",
+  "sources": [
+   "E-1077",
+   "V1-080",
+   "V1-079"
+  ],
+  "controls": [
+   "S11-2c",
+   "CLASS-RECORD-CHECKS"
+  ],
+  "open": [
+   "op A record-check item"
+  ]
+ },
+ {
+  "id": "R6.CLASS.12",
+  "section": "CLASS",
+  "section_number": 15,
+  "kind": "testable",
+  "sources": [
+   "E-1078",
+   "V2-069",
+   "V1-079"
+  ],
+  "controls": [
+   "U12",
+   "V7b",
+   "S1r",
+   "S2r",
+   "K6",
+   "G2",
+   "R18",
+   "R19",
+   "RDIR-2",
+   "RDIR-21",
+   "HIT-REPLACEMENT"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.1",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "E-1082",
+   "V1-085",
+   "V2-070",
+   "E-1311",
+   "E-125"
+  ],
+  "controls": [
+   "GATE-7",
+   "GATE-8",
+   "GATE-12"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.2",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "V2-090",
+   "V2-091",
+   "V2-092",
+   "RV-056"
+  ],
+  "controls": [
+   "GATE-3",
+   "GATE-4",
+   "GATE-12"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.3",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "V1-101",
+   "V2-073",
+   "V1-138"
+  ],
+  "controls": [
+   "A11r",
+   "M1",
+   "N1"
+  ],
+  "open": [
+   "restored case of no-mutation controls",
+   "both-directions scope",
+   "direction recording field"
+  ]
+ },
+ {
+  "id": "R6.CTRL.4",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "E-1009",
+   "RV-052"
+  ],
+  "controls": [
+   "RT-DR",
+   "RT-DR3W",
+   "A5r",
+   "V1",
+   "V2",
+   "V3",
+   "G3",
+   "G5",
+   "S11-4",
+   "S11-6",
+   "S11-13"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.5",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "V2-073"
+  ],
+  "controls": [
+   "RT-T",
+   "TR5",
+   "G-A1",
+   "RT-L2",
+   "RT-O9-L2",
+   "TR45-opC",
+   "EI14-dispatch",
+   "GATE-5",
+   "GATE-11"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.6",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "V1-085",
+   "V2-073",
+   "E-1105"
+  ],
+  "controls": [
+   "U1",
+   "M1",
+   "V1",
+   "RT-A"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.7",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "E-1011",
+   "E-1013",
+   "E-1014",
+   "E-1015"
+  ],
+  "controls": [
+   "RT-DR3W"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.8",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "V1-072"
+  ],
+  "controls": [
+   "U1",
+   "U4",
+   "U10",
+   "M1",
+   "K1",
+   "O9",
+   "O1"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.9",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "V1-086",
+   "V1-087",
+   "V1-088",
+   "V1-089",
+   "V1-090",
+   "V1-091",
+   "V1-092",
+   "V1-093",
+   "V1-094",
+   "V1-095",
+   "V1-096",
+   "V1-097",
+   "V2-070",
+   "V2-071",
+   "E-1082"
+  ],
+  "controls": [
+   "U1",
+   "U2",
+   "U3",
+   "U4",
+   "U5",
+   "U6",
+   "U7",
+   "U8",
+   "U9",
+   "U10",
+   "U11",
+   "U12",
+   "U14"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.10",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "V1-102",
+   "V1-103",
+   "V1-104",
+   "V1-105",
+   "V1-106",
+   "V1-107",
+   "V1-108",
+   "V1-109",
+   "V1-110",
+   "V1-111",
+   "V1-112",
+   "V1-132",
+   "V1-134"
+  ],
+  "controls": [
+   "M1",
+   "M2",
+   "M3",
+   "M4",
+   "M5",
+   "M6",
+   "M7",
+   "M8",
+   "M9",
+   "M10",
+   "M11"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.11",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "V1-120",
+   "V1-122",
+   "V1-123",
+   "V1-124",
+   "V1-125",
+   "V1-126"
+  ],
+  "controls": [
+   "RT-M",
+   "RT-SHIFT",
+   "RT-T0",
+   "SW1"
+  ],
+  "open": [
+   "expectation of RT-M and RT-SHIFT"
+  ]
+ },
+ {
+  "id": "R6.CTRL.12",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "V1-131"
+  ],
+  "controls": [
+   "REPRO-DOUBLE",
+   "REPRO-PYVER",
+   "OUT-CONFINED",
+   "M10"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.13",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "V1-135"
+  ],
+  "controls": [
+   "U5",
+   "U6",
+   "U7",
+   "VD2-HP-SEARCH",
+   "VD3-COUNT",
+   "VD3-CONTEXT"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.14",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "E-1106",
+   "E-1107",
+   "E-1108",
+   "E-1109",
+   "E-1110",
+   "E-1111",
+   "E-1112",
+   "E-1113",
+   "E-1114",
+   "E-1115",
+   "E-1116",
+   "E-1117",
+   "E-1118",
+   "E-1119",
+   "E-1120",
+   "E-1121",
+   "E-1122",
+   "E-1123",
+   "E-1124",
+   "E-1125",
+   "E-1126",
+   "E-1127",
+   "E-1128",
+   "E-1129",
+   "E-1130",
+   "E-1131",
+   "E-1132",
+   "E-1133",
+   "E-1135",
+   "E-1136",
+   "E-1137",
+   "E-1138",
+   "E-1139",
+   "E-1140",
+   "E-1141",
+   "E-1142",
+   "E-1143",
+   "E-1144",
+   "E-1145",
+   "E-1146",
+   "E-1147",
+   "E-1148",
+   "E-1149",
+   "E-1150",
+   "E-1151",
+   "E-1192",
+   "E-1193",
+   "E-1194",
+   "E-1195",
+   "E-1196",
+   "E-1197",
+   "E-1198",
+   "E-1199",
+   "E-1200",
+   "E-1201",
+   "E-1202",
+   "E-1203",
+   "E-1204",
+   "E-1205",
+   "E-1206",
+   "E-1232",
+   "V2-074",
+   "V2-075",
+   "V2-076",
+   "V2-077",
+   "V2-078",
+   "V2-079",
+   "V2-081",
+   "V2-082",
+   "V2-083",
+   "V2-084",
+   "V2-085",
+   "V2-086",
+   "V2-087",
+   "V2-088",
+   "V2-089",
+   "RV-050",
+   "RV-052"
+  ],
+  "controls": [
+   "A1r",
+   "A2r",
+   "A3r",
+   "A4r",
+   "A5r",
+   "A5r-generic",
+   "A6r",
+   "A7r",
+   "A8r",
+   "A9r",
+   "A10r",
+   "A11r",
+   "A12r",
+   "E-A1r",
+   "E-A2r",
+   "E-A3r",
+   "E-A6r",
+   "E-A8r",
+   "E-L1",
+   "E-L3",
+   "E-S1r",
+   "E-S2r",
+   "L1",
+   "L2",
+   "L3",
+   "L4",
+   "S1r",
+   "S2r",
+   "V1",
+   "V2",
+   "V3",
+   "V3-countercontrol",
+   "V4",
+   "V5",
+   "V6",
+   "V7a",
+   "V7b",
+   "V7c",
+   "V9",
+   "V10",
+   "V11",
+   "V12",
+   "V13",
+   "V14",
+   "V15",
+   "V16",
+   "V17",
+   "V18",
+   "V19",
+   "V20",
+   "V21",
+   "V22",
+   "V23",
+   "V24",
+   "V25",
+   "V26",
+   "V27",
+   "V27-glossary",
+   "WB1",
+   "WB2",
+   "WB3",
+   "WB4",
+   "WB5",
+   "WB6",
+   "WB7",
+   "WB8",
+   "WB9",
+   "WB10",
+   "WB11",
+   "WB12",
+   "WB13",
+   "WB14",
+   "WB15",
+   "lint-ok",
+   "rule-negative"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.15",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "V2-080"
+  ],
+  "controls": [
+   "V4",
+   "V27",
+   "V27-glossary"
+  ],
+  "open": [
+   "V4 reversal scope"
+  ]
+ },
+ {
+  "id": "R6.CTRL.16",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "E-1098",
+   "E-1099",
+   "E-1100",
+   "E-1101",
+   "E-1102",
+   "E-1103",
+   "E-1104"
+  ],
+  "controls": [
+   "H1",
+   "H2",
+   "H3",
+   "H4",
+   "H5",
+   "H6",
+   "H7",
+   "RECLINT-ORPHAN"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.17",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "E-1218"
+  ],
+  "controls": [
+   "RT-O9",
+   "RT-O9-L2",
+   "TR45-opB",
+   "TR45-opC",
+   "EI14",
+   "EI14-dispatch",
+   "EI7",
+   "EI7-consumer",
+   "TR15-consumer",
+   "TR50-consumer",
+   "TR51-consumer",
+   "TR52-consumer"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.18",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "E-1083",
+   "E-1084",
+   "E-1085",
+   "E-1087",
+   "E-1088",
+   "E-1089",
+   "E-1090",
+   "E-1091",
+   "E-1092",
+   "E-1093",
+   "E-1094",
+   "E-1095",
+   "E-1096",
+   "E-1097",
+   "E-1245"
+  ],
+  "controls": [
+   "B1",
+   "B2",
+   "B3",
+   "B4",
+   "B5",
+   "B6",
+   "K1",
+   "K2",
+   "K3",
+   "K4",
+   "K5",
+   "K6",
+   "K7",
+   "K8",
+   "K9",
+   "K10"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.19",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "E-1134",
+   "E-1176",
+   "E-1177",
+   "E-1178",
+   "E-1179",
+   "E-1180",
+   "E-1181",
+   "E-1182",
+   "E-1183",
+   "E-1184",
+   "E-1185",
+   "E-1186",
+   "E-1187",
+   "E-1188",
+   "V1-115",
+   "V1-117",
+   "V1-119",
+   "V2-099",
+   "V2-100",
+   "V2-101",
+   "V2-103",
+   "V2-104",
+   "V2-105",
+   "V2-162",
+   "V2-163",
+   "V2-164",
+   "RV-028",
+   "RV-051",
+   "E-091",
+   "E-1010",
+   "V1-132",
+   "V1-136"
+  ],
+  "controls": [
+   "N-W",
+   "RT-A",
+   "RT-C",
+   "RT-D",
+   "RT-D-gr58",
+   "RT-DR",
+   "RT-DR3W",
+   "RT-E",
+   "RT-H0",
+   "RT-I7",
+   "RT-I7A",
+   "RT-L",
+   "RT-L2",
+   "RT-O9",
+   "RT-O9-L2",
+   "RT-T",
+   "RT-T0",
+   "RT-X",
+   "SW1",
+   "SW2",
+   "item11-T1p"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.20",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "E-1230",
+   "E-1231",
+   "E-1321",
+   "E-1329",
+   "V2-149",
+   "V2-150",
+   "V2-151",
+   "V2-152",
+   "V2-153",
+   "V2-154",
+   "V2-155",
+   "V2-156",
+   "V2-157",
+   "V2-158",
+   "V2-159",
+   "V2-160",
+   "V2-161",
+   "V2-148",
+   "E-1311",
+   "RV-ADD2-259-269"
+  ],
+  "controls": [
+   "R15",
+   "R16",
+   "R17",
+   "R18",
+   "R18-engine",
+   "R19",
+   "R19-engine",
+   "RL",
+   "SIDE-NONREG",
+   "TT1",
+   "TT2",
+   "TT3",
+   "TT4",
+   "TT5",
+   "TT6",
+   "TT7",
+   "TT8",
+   "TT9",
+   "TT10",
+   "TT11",
+   "TT12",
+   "TT13",
+   "TT14"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.21",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "E-1152",
+   "E-1153",
+   "E-1312",
+   "E-1313",
+   "E-1314",
+   "E-1315",
+   "E-1316",
+   "E-1317",
+   "E-1318",
+   "E-1319",
+   "E-1320",
+   "E-1322",
+   "E-1323",
+   "E-1324",
+   "E-1325",
+   "E-1326",
+   "E-1327",
+   "E-1328"
+  ],
+  "controls": [
+   "N1",
+   "N2",
+   "N3",
+   "N3-config-route",
+   "N4",
+   "N5",
+   "N6",
+   "N7",
+   "N8",
+   "N9",
+   "N10",
+   "N11",
+   "N12",
+   "N13",
+   "N14",
+   "N15",
+   "N16",
+   "N16-file",
+   "N17",
+   "N18",
+   "N18-record",
+   "R8-S6"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.22",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "E-1154",
+   "E-1155",
+   "E-1156",
+   "E-1157",
+   "E-1158",
+   "E-1159",
+   "E-1160",
+   "E-1161",
+   "E-1331",
+   "E-1332",
+   "E-1333",
+   "E-1334",
+   "E-1335",
+   "E-1336",
+   "E-1337",
+   "E-1338",
+   "E-1339",
+   "E-1340"
+  ],
+  "controls": [
+   "LN1",
+   "LN2",
+   "LN3",
+   "LN4",
+   "LN5",
+   "LN6",
+   "LN7",
+   "LN8",
+   "LN10",
+   "O1",
+   "O2",
+   "O3",
+   "O5",
+   "O6",
+   "O7",
+   "O8",
+   "O9",
+   "R3-F2",
+   "R4-B3",
+   "R4-B3-DUP",
+   "R5-N6",
+   "R6-G6",
+   "S4a"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.23",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "E-1162",
+   "E-1163",
+   "E-1164",
+   "E-1224",
+   "E-1225",
+   "E-1226",
+   "E-1227",
+   "E-1228",
+   "E-1229",
+   "E-1165",
+   "E-1166",
+   "E-1167",
+   "E-1168",
+   "E-1169",
+   "E-1170",
+   "E-1171",
+   "E-1172",
+   "E-1173",
+   "E-1174",
+   "E-1207",
+   "V2-096",
+   "V2-097",
+   "E-1208",
+   "E-1209",
+   "E-1210",
+   "E-1211",
+   "E-1212",
+   "E-1213",
+   "E-1214",
+   "E-1215",
+   "E-1216",
+   "E-1217",
+   "E-1219",
+   "E-1220",
+   "E-1221",
+   "E-1222",
+   "E-1223",
+   "E-1246",
+   "E-1247",
+   "E-1248",
+   "E-1249",
+   "E-1250",
+   "E-1251",
+   "E-1252",
+   "E-1253",
+   "E-1254",
+   "E-1255",
+   "E-1256",
+   "E-1257",
+   "E-1258",
+   "E-1259",
+   "E-1260",
+   "E-1261",
+   "E-1262",
+   "E-1263",
+   "E-1264",
+   "E-1265",
+   "E-1266",
+   "E-1267",
+   "V1-116"
+  ],
+  "controls": [
+   "G1",
+   "G2",
+   "G3",
+   "G4",
+   "G5",
+   "G6",
+   "G7",
+   "G8",
+   "G9",
+   "G-A1",
+   "ACCEPT-SCHEMA",
+   "B4-MEANING",
+   "S7-schema-and-checker",
+   "X1",
+   "X2",
+   "X3",
+   "X4",
+   "X5",
+   "X6",
+   "X7",
+   "X8",
+   "X9",
+   "X10",
+   "X11",
+   "ADM-CONFIG-AT-F",
+   "CHAIN-REFUSAL",
+   "CONFIG-LINT",
+   "EI1",
+   "EI2",
+   "EI2-consumer",
+   "EI3",
+   "EI4",
+   "EI5",
+   "EI6",
+   "EI7",
+   "EI7-consumer",
+   "EI7-tool",
+   "EI8",
+   "EI9",
+   "EI10",
+   "EI11",
+   "EI12",
+   "EI13",
+   "EI14",
+   "EI14-dispatch",
+   "EI15",
+   "GV1",
+   "GV2",
+   "GV3",
+   "GV4",
+   "GV5",
+   "GV6",
+   "GV6-disk",
+   "GV7",
+   "GV7-consumer",
+   "GV7-tool",
+   "GV-CACHE",
+   "GV-CACHE-AFTER-READ",
+   "GV-CACHE-IMMUTABLE",
+   "GV-CACHE-KEY",
+   "K1-GRAPH",
+   "O3-FILTER",
+   "TR1",
+   "TR2",
+   "TR3",
+   "TR5",
+   "TR5-sim",
+   "TR13",
+   "TR14",
+   "TR14-tool",
+   "TR15",
+   "TR15-consumer",
+   "TR28-consumer",
+   "TR28-tool",
+   "TR29",
+   "TR29-tool",
+   "TR30",
+   "TR45-opB",
+   "TR45-opC",
+   "TR46",
+   "TR48",
+   "TR50",
+   "TR50-consumer",
+   "TR51",
+   "TR51-consumer",
+   "TR52",
+   "TR52-consumer"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.24",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "E-1234",
+   "E-1235",
+   "E-1236",
+   "E-1237",
+   "E-1238",
+   "E-1239",
+   "E-1240",
+   "E-1241",
+   "E-1242",
+   "E-1243",
+   "E-1244",
+   "E-125"
+  ],
+  "controls": [
+   "S11-1",
+   "S11-2",
+   "S11-2a",
+   "S11-2b",
+   "S11-2c",
+   "S11-3",
+   "S11-4",
+   "S11-5",
+   "S11-6",
+   "S11-7",
+   "S11-8",
+   "S11-9",
+   "S11-10",
+   "S11-11",
+   "S11-12",
+   "S11-13",
+   "S11-14",
+   "S11-56",
+   "S11-57a",
+   "S11-57b",
+   "S11-57c",
+   "S11-57d",
+   "S11-58a-f",
+   "S11-58g",
+   "S11-58h",
+   "S11-58i",
+   "S11-58j",
+   "S11-58k"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.25",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "E-1233",
+   "E-1330",
+   "E-1381",
+   "E-1382",
+   "E-1383",
+   "E-1384",
+   "E-1385",
+   "E-1386",
+   "E-1387",
+   "E-1388",
+   "E-1439",
+   "E-1440",
+   "E-1441",
+   "E-1442",
+   "E-1443",
+   "E-1444",
+   "E-1445",
+   "E-1446",
+   "E-1447",
+   "E-1448",
+   "E-1457",
+   "E-1458"
+  ],
+  "controls": [
+   "Y1",
+   "Y2",
+   "Y3",
+   "Y4",
+   "Y5",
+   "Y6",
+   "Y7",
+   "Y8",
+   "Y9",
+   "Y10",
+   "Z1",
+   "Z2",
+   "Z3",
+   "Z4",
+   "Z5",
+   "Z6",
+   "Z6b",
+   "Z7",
+   "Z8",
+   "Z9-STAGED",
+   "Z9a",
+   "Z9b",
+   "Z9c",
+   "Z9d",
+   "Z9e",
+   "Z9f",
+   "Z9g",
+   "Z9h",
+   "Z10",
+   "Z11"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.26",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "A-061",
+   "A-062",
+   "A-063",
+   "A-064",
+   "A-065",
+   "A-066",
+   "A-067",
+   "A-068",
+   "A-069",
+   "A-070",
+   "A-071",
+   "A-072",
+   "A-073",
+   "A-074",
+   "A-075",
+   "A-076",
+   "A-077",
+   "A-078",
+   "A-079",
+   "A-080",
+   "A-081",
+   "A-082",
+   "A-083",
+   "A-084",
+   "A-085",
+   "A-086",
+   "A-120",
+   "A-121",
+   "A-122",
+   "A-123",
+   "A-124",
+   "A-125",
+   "A-126",
+   "A-127",
+   "A-060"
+  ],
+  "controls": [
+   "I2-1",
+   "I2-2",
+   "I2-3",
+   "I2-4",
+   "I2-5",
+   "I2-6",
+   "I2-7",
+   "I2-8",
+   "RDIR-1",
+   "RDIR-2",
+   "RDIR-3",
+   "RDIR-4",
+   "RDIR-5",
+   "RDIR-6",
+   "RDIR-7",
+   "RDIR-8",
+   "RDIR-9",
+   "RDIR-10",
+   "RDIR-11",
+   "RDIR-12",
+   "RDIR-12b",
+   "RDIR-13",
+   "RDIR-14",
+   "RDIR-15",
+   "RDIR-16",
+   "RDIR-17",
+   "RDIR-18",
+   "RDIR-19",
+   "RDIR-20",
+   "RDIR-21",
+   "RDIR-22",
+   "RDIR-23",
+   "RDIR-24",
+   "RDIR-25"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.27",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "A-089",
+   "A-090",
+   "A-091",
+   "A-092",
+   "A-093",
+   "A-094",
+   "A-095",
+   "A-096",
+   "A-097",
+   "A-098",
+   "A-099",
+   "A-100",
+   "A-101",
+   "A-102",
+   "A-103",
+   "A-104",
+   "A-105",
+   "A-106"
+  ],
+  "controls": [
+   "MUT:o9:RDIR-m1",
+   "MUT:o9:RDIR-m2",
+   "MUT:o9:RDIR-m3",
+   "MUT:o9:RDIR-m4",
+   "MUT:o9:RDIR-m5",
+   "MUT:o9:RDIR-m6",
+   "MUT:o9:RDIR-m7",
+   "MUT:o9:RDIR-m8",
+   "MUT:o9:RDIR-m9",
+   "MUT:o9:RDIR-m10",
+   "MUT:o9:RDIR-m11",
+   "MUT:o9:RDIR-m12",
+   "MUT:o9:RDIR-m13",
+   "MUT:o9:RDIR-m14",
+   "MUT:o9:RDIR-m15",
+   "MUT:o9:RDIR-m16",
+   "MUT:o9:RDIR-m17",
+   "MUT:c2:D02",
+   "MUT:v60e:V05",
+   "MUT:v60e:I06",
+   "MUT:v60e:C08",
+   "MUT:v60e:H03",
+   "MUT:v60e:P01",
+   "MUT:cache:K08",
+   "MUT:v60e:U01"
+  ],
+  "open": [
+   "mutation harness location",
+   "survivors without an equivalence argument"
+  ]
+ },
+ {
+  "id": "R6.CTRL.28",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [],
+  "controls": [
+   "A5r-generic",
+   "ACCEPT-SCHEMA",
+   "ADM-CONFIG-AT-F",
+   "B4-MEANING",
+   "CHAIN-REFUSAL",
+   "CONFIG-LINT",
+   "E-A1r",
+   "E-A2r",
+   "E-A3r",
+   "E-A6r",
+   "E-A8r",
+   "E-L1",
+   "E-L3",
+   "E-S1r",
+   "E-S2r",
+   "GV-CACHE",
+   "GV-CACHE-AFTER-READ",
+   "GV-CACHE-IMMUTABLE",
+   "GV-CACHE-KEY",
+   "K1-GRAPH",
+   "O3-FILTER",
+   "R3-F2",
+   "R4-B3",
+   "R4-B3-DUP",
+   "R5-N6",
+   "R6-G6",
+   "RL",
+   "S7-schema-and-checker",
+   "V3-countercontrol",
+   "Z6b",
+   "lint-ok",
+   "rule-negative",
+   "G-A1",
+   "TT12"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.29",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [
+   "E-1086"
+  ],
+  "controls": [
+   "TT7",
+   "TT2",
+   "S11-7",
+   "A9r",
+   "A11r",
+   "SW1",
+   "Z9f",
+   "O1",
+   "O2",
+   "O3",
+   "O5",
+   "O6",
+   "O7",
+   "RT-I7",
+   "S11-14",
+   "item11-T1p",
+   "TT8",
+   "TT12",
+   "U2",
+   "U10",
+   "K4",
+   "A2r",
+   "A5r",
+   "RT-T0",
+   "EI7-consumer",
+   "VD2-HP-SEARCH",
+   "VD3-COUNT",
+   "VD3-CONTEXT",
+   "SIDE-NONREG"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CTRL.30",
+  "section": "CTRL",
+  "section_number": 17,
+  "kind": "testable",
+  "sources": [],
+  "controls": [
+   "GATE-1",
+   "GATE-2",
+   "GATE-3",
+   "GATE-4",
+   "GATE-5",
+   "GATE-6",
+   "GATE-7",
+   "GATE-8",
+   "GATE-9",
+   "GATE-10",
+   "GATE-11",
+   "GATE-12",
+   "GATE-13",
+   "GATE-14",
+   "GATE-15",
+   "GATE-16",
+   "GATE-17",
+   "GATE-18",
+   "GATE-19",
+   "GATE-20",
+   "GATE-21",
+   "GATE-22",
+   "GATE-23",
+   "GATE-24",
+   "GATE-25",
+   "GATE-26"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PLAN.1",
+  "section": "PLAN",
+  "section_number": 18,
+  "kind": "testable",
+  "sources": [
+   "RV-018",
+   "E-1268"
+  ],
+  "controls": [
+   "S11-1",
+   "S11-2",
+   "S11-3",
+   "S11-4",
+   "S11-5",
+   "S11-6",
+   "S11-7",
+   "S11-8",
+   "S11-9",
+   "S11-10",
+   "S11-11",
+   "S11-12",
+   "S11-13",
+   "S11-14"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PLAN.2",
+  "section": "PLAN",
+  "section_number": 18,
+  "kind": "testable",
+  "sources": [
+   "E-1268"
+  ],
+  "controls": [
+   "S11-1",
+   "TR5",
+   "ADM-CONFIG-AT-F"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PLAN.3",
+  "section": "PLAN",
+  "section_number": 18,
+  "kind": "testable",
+  "sources": [
+   "E-1269"
+  ],
+  "controls": [
+   "S11-1"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PLAN.4",
+  "section": "PLAN",
+  "section_number": 18,
+  "kind": "testable",
+  "sources": [
+   "E-1270"
+  ],
+  "controls": [
+   "S11-2",
+   "S11-2a",
+   "S11-2b",
+   "S11-2c",
+   "RT-T0",
+   "RT-T"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PLAN.5",
+  "section": "PLAN",
+  "section_number": 18,
+  "kind": "testable",
+  "sources": [
+   "E-1271"
+  ],
+  "controls": [
+   "S11-3"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PLAN.6",
+  "section": "PLAN",
+  "section_number": 18,
+  "kind": "testable",
+  "sources": [
+   "E-1272"
+  ],
+  "controls": [
+   "S11-4",
+   "G5"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PLAN.7",
+  "section": "PLAN",
+  "section_number": 18,
+  "kind": "testable",
+  "sources": [
+   "E-1273",
+   "E-1274"
+  ],
+  "controls": [
+   "S11-5",
+   "S11-6",
+   "S11-56",
+   "S11-57a",
+   "S11-57b",
+   "S11-57c",
+   "S11-57d"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PLAN.8",
+  "section": "PLAN",
+  "section_number": 18,
+  "kind": "testable",
+  "sources": [
+   "E-1275",
+   "E-1283"
+  ],
+  "controls": [
+   "S11-7",
+   "RT-I7",
+   "RT-I7A"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PLAN.9",
+  "section": "PLAN",
+  "section_number": 18,
+  "kind": "testable",
+  "sources": [
+   "E-1276"
+  ],
+  "controls": [
+   "S11-8"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PLAN.10",
+  "section": "PLAN",
+  "section_number": 18,
+  "kind": "testable",
+  "sources": [
+   "E-1277"
+  ],
+  "controls": [
+   "S11-9"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PLAN.11",
+  "section": "PLAN",
+  "section_number": 18,
+  "kind": "testable",
+  "sources": [
+   "E-1278"
+  ],
+  "controls": [
+   "S11-10"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PLAN.12",
+  "section": "PLAN",
+  "section_number": 18,
+  "kind": "testable",
+  "sources": [
+   "E-1279",
+   "E-1289"
+  ],
+  "controls": [
+   "S11-11",
+   "item11-T1p",
+   "X9"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PLAN.13",
+  "section": "PLAN",
+  "section_number": 18,
+  "kind": "testable",
+  "sources": [
+   "E-1280"
+  ],
+  "controls": [
+   "S11-12"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PLAN.14",
+  "section": "PLAN",
+  "section_number": 18,
+  "kind": "testable",
+  "sources": [
+   "E-1281"
+  ],
+  "controls": [
+   "S11-13"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PLAN.15",
+  "section": "PLAN",
+  "section_number": 18,
+  "kind": "testable",
+  "sources": [
+   "E-1282"
+  ],
+  "controls": [
+   "S11-14",
+   "RT-L"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PLAN.16",
+  "section": "PLAN",
+  "section_number": 18,
+  "kind": "testable",
+  "sources": [
+   "E-1268",
+   "E-1269",
+   "E-1271",
+   "E-1272",
+   "E-1273",
+   "E-1274",
+   "E-1276",
+   "E-1280",
+   "E-1282"
+  ],
+  "controls": [
+   "S11-56"
+  ],
+  "open": [
+   "PLAN"
+  ]
+ },
+ {
+  "id": "R6.PLAN.17",
+  "section": "PLAN",
+  "section_number": 18,
+  "kind": "obligation",
+  "sources": [
+   "RV-031",
+   "RV-032",
+   "RV-033",
+   "RV-034",
+   "RV-035",
+   "RV-036",
+   "RV-037",
+   "RV-038"
+  ],
+  "controls": [],
+  "open": [
+   "correspondence exemption for non-testable requirements"
+  ]
+ },
+ {
+  "id": "R6.PLAN.18",
+  "section": "PLAN",
+  "section_number": 18,
+  "kind": "testable",
+  "sources": [
+   "E-1284",
+   "E-1285",
+   "E-1287",
+   "E-1290"
+  ],
+  "controls": [
+   "RT-I7A"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PLACE.1",
+  "section": "PLACE",
+  "section_number": 19,
+  "kind": "testable",
+  "sources": [
+   "E-1291"
+  ],
+  "controls": [
+   "EI8",
+   "EI12",
+   "X7"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PLACE.2",
+  "section": "PLACE",
+  "section_number": 19,
+  "kind": "testable",
+  "sources": [
+   "E-1292",
+   "V2-114"
+  ],
+  "controls": [
+   "Z9a",
+   "Z9b",
+   "Z9c",
+   "Z9d",
+   "Z9e",
+   "Z9f",
+   "Z9g",
+   "Z9h",
+   "Z9-STAGED"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PLACE.3",
+  "section": "PLACE",
+  "section_number": 19,
+  "kind": "testable",
+  "sources": [
+   "E-1293",
+   "A-128"
+  ],
+  "controls": [
+   "Y10",
+   "TR48",
+   "TR52"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PLACE.4",
+  "section": "PLACE",
+  "section_number": 19,
+  "kind": "testable",
+  "sources": [
+   "A-009",
+   "A-020",
+   "A-023",
+   "A-024"
+  ],
+  "controls": [
+   "RDIR-16",
+   "MUT:o9:RDIR-m4",
+   "TR48",
+   "Z9g"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PLACE.5",
+  "section": "PLACE",
+  "section_number": 19,
+  "kind": "governance",
+  "sources": [
+   "E-1294",
+   "V1-148",
+   "V2-115"
+  ],
+  "controls": [],
+  "open": [
+   "correspondence exemption for non-testable requirements"
+  ]
+ },
+ {
+  "id": "R6.PLACE.6",
+  "section": "PLACE",
+  "section_number": 19,
+  "kind": "testable",
+  "sources": [
+   "E-1295"
+  ],
+  "controls": [
+   "RDIR-1",
+   "I2-3"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PLACE.7",
+  "section": "PLACE",
+  "section_number": 19,
+  "kind": "testable",
+  "sources": [
+   "E-1296"
+  ],
+  "controls": [
+   "O6",
+   "GV4"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.PLACE.8",
+  "section": "PLACE",
+  "section_number": 19,
+  "kind": "testable",
+  "sources": [
+   "V2-118",
+   "E-1298",
+   "A-129"
+  ],
+  "controls": [
+   "TT14",
+   "TT13",
+   "R19"
+  ],
+  "open": [
+   "tool landing check corpus paths"
+  ]
+ },
+ {
+  "id": "R6.PLACE.9",
+  "section": "PLACE",
+  "section_number": 19,
+  "kind": "governance",
+  "sources": [
+   "E-1299"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.PLACE.10",
+  "section": "PLACE",
+  "section_number": 19,
+  "kind": "governance",
+  "sources": [
+   "V2-116",
+   "V1-140"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.PLACE.11",
+  "section": "PLACE",
+  "section_number": 19,
+  "kind": "governance",
+  "sources": [
+   "A-133",
+   "A-134",
+   "A-135"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.PLACE.12",
+  "section": "PLACE",
+  "section_number": 19,
+  "kind": "governance",
+  "sources": [
+   "V1-144"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "R6.TREE.1",
+  "section": "TREE",
+  "section_number": 20,
+  "kind": "testable",
+  "sources": [
+   "V2-124",
+   "E-1300"
+  ],
+  "controls": [
+   "TT1",
+   "TT5",
+   "TT6",
+   "R16"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.TREE.2",
+  "section": "TREE",
+  "section_number": 20,
+  "kind": "testable",
+  "sources": [
+   "V2-125",
+   "V2-126",
+   "V2-127",
+   "V2-128",
+   "E-1301",
+   "V1-147"
+  ],
+  "controls": [
+   "TT5",
+   "M5",
+   "M9"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.TREE.3",
+  "section": "TREE",
+  "section_number": 20,
+  "kind": "testable",
+  "sources": [
+   "V2-014"
+  ],
+  "controls": [
+   "TT5",
+   "TT3"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.TREE.4",
+  "section": "TREE",
+  "section_number": 20,
+  "kind": "testable",
+  "sources": [
+   "V2-129",
+   "V2-130",
+   "E-1302"
+  ],
+  "controls": [
+   "TT6",
+   "RDIR-23"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.TREE.5",
+  "section": "TREE",
+  "section_number": 20,
+  "kind": "testable",
+  "sources": [
+   "E-1303"
+  ],
+  "controls": [
+   "R18",
+   "R18-engine",
+   "R19",
+   "R19-engine",
+   "Z11",
+   "TT13",
+   "RDIR-24"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.TREE.6",
+  "section": "TREE",
+  "section_number": 20,
+  "kind": "testable",
+  "sources": [
+   "V2-131"
+  ],
+  "controls": [
+   "TT1",
+   "RT-X",
+   "RDIR-5"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.TREE.7",
+  "section": "TREE",
+  "section_number": 20,
+  "kind": "testable",
+  "sources": [
+   "V2-132",
+   "V2-133",
+   "A-052"
+  ],
+  "controls": [
+   "TT7",
+   "TT14",
+   "N16-file"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.TREE.8",
+  "section": "TREE",
+  "section_number": 20,
+  "kind": "testable",
+  "sources": [
+   "A-137"
+  ],
+  "controls": [
+   "RDIR-5",
+   "SIDE-NONREG"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.TREE.9",
+  "section": "TREE",
+  "section_number": 20,
+  "kind": "testable",
+  "sources": [
+   "V2-134",
+   "V2-135",
+   "V2-136",
+   "V2-137",
+   "E-1304"
+  ],
+  "controls": [
+   "TT3",
+   "TT4",
+   "TT2",
+   "S11-14"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.TREE.10",
+  "section": "TREE",
+  "section_number": 20,
+  "kind": "testable",
+  "sources": [
+   "E-1305"
+  ],
+  "controls": [
+   "R16",
+   "R17"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.TREE.11",
+  "section": "TREE",
+  "section_number": 20,
+  "kind": "testable",
+  "sources": [
+   "V2-138",
+   "E-1306"
+  ],
+  "controls": [
+   "TT9",
+   "R15"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.TREE.12",
+  "section": "TREE",
+  "section_number": 20,
+  "kind": "testable",
+  "sources": [
+   "V2-139",
+   "V2-140",
+   "V2-142",
+   "V2-144",
+   "E-1306",
+   "E-1307",
+   "E-1308",
+   "E-1309",
+   "RV-001"
+  ],
+  "controls": [
+   "TT7",
+   "TT8",
+   "TT10",
+   "TT11",
+   "RL",
+   "RT-L",
+   "N10",
+   "N11"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.TREE.13",
+  "section": "TREE",
+  "section_number": 20,
+  "kind": "testable",
+  "sources": [
+   "E-1307"
+  ],
+  "controls": [
+   "N8",
+   "N13",
+   "TT8"
+  ],
+  "open": [
+   "translation implementation"
+  ]
+ },
+ {
+  "id": "R6.TREE.14",
+  "section": "TREE",
+  "section_number": 20,
+  "kind": "testable",
+  "sources": [
+   "V2-143",
+   "E-1310"
+  ],
+  "controls": [
+   "TT11",
+   "TT12"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.TREE.15",
+  "section": "TREE",
+  "section_number": 20,
+  "kind": "testable",
+  "sources": [
+   "V2-165"
+  ],
+  "controls": [
+   "RT-L",
+   "RT-L2"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.TREE.16",
+  "section": "TREE",
+  "section_number": 20,
+  "kind": "testable",
+  "sources": [],
+  "controls": [
+   "TT1",
+   "TT7",
+   "RT-H0",
+   "N2",
+   "RT-D",
+   "G2"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.TREE.17",
+  "section": "TREE",
+  "section_number": 20,
+  "kind": "testable",
+  "sources": [
+   "RV-001"
+  ],
+  "controls": [
+   "TT2",
+   "TT7"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.TREE.18",
+  "section": "TREE",
+  "section_number": 20,
+  "kind": "testable",
+  "sources": [
+   "RV-ADD2-259-269"
+  ],
+  "controls": [
+   "R18",
+   "R19",
+   "RDIR-5",
+   "R15",
+   "R16",
+   "TT13"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RDIR.1",
+  "section": "RDIR",
+  "section_number": 21,
+  "kind": "testable",
+  "sources": [
+   "A-015",
+   "A-016",
+   "A-017",
+   "A-018"
+  ],
+  "controls": [
+   "RDIR-6",
+   "RDIR-10",
+   "MUT:o9:RDIR-m2"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RDIR.2",
+  "section": "RDIR",
+  "section_number": 21,
+  "kind": "testable",
+  "sources": [
+   "A-019",
+   "A-021",
+   "A-022",
+   "A-138"
+  ],
+  "controls": [
+   "RDIR-16",
+   "RDIR-20",
+   "MUT:o9:RDIR-m4"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RDIR.3",
+  "section": "RDIR",
+  "section_number": 21,
+  "kind": "testable",
+  "sources": [
+   "A-025"
+  ],
+  "controls": [
+   "RDIR-23",
+   "RDIR-14"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RDIR.4",
+  "section": "RDIR",
+  "section_number": 21,
+  "kind": "testable",
+  "sources": [
+   "A-026",
+   "A-027",
+   "A-028",
+   "A-029",
+   "A-030",
+   "A-031",
+   "A-032"
+  ],
+  "controls": [
+   "RDIR-10",
+   "RDIR-12b",
+   "RDIR-16",
+   "RDIR-20",
+   "RDIR-22",
+   "RDIR-25",
+   "MUT:o9:RDIR-m15",
+   "MUT:o9:RDIR-m16",
+   "MUT:o9:RDIR-m17"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RDIR.5",
+  "section": "RDIR",
+  "section_number": 21,
+  "kind": "testable",
+  "sources": [
+   "A-033",
+   "A-034",
+   "A-035",
+   "A-036",
+   "A-037"
+  ],
+  "controls": [
+   "RDIR-9",
+   "RDIR-11",
+   "RDIR-12",
+   "RDIR-17",
+   "RDIR-24",
+   "MUT:o9:RDIR-m3",
+   "MUT:o9:RDIR-m7",
+   "MUT:o9:RDIR-m12"
+  ],
+  "open": [
+   "RD2-RD5 names"
+  ]
+ },
+ {
+  "id": "R6.RDIR.6",
+  "section": "RDIR",
+  "section_number": 21,
+  "kind": "testable",
+  "sources": [
+   "A-039",
+   "A-040",
+   "A-041",
+   "A-044"
+  ],
+  "controls": [
+   "RDIR-1",
+   "RDIR-2",
+   "RDIR-3",
+   "RDIR-4",
+   "RDIR-8",
+   "MUT:o9:RDIR-m1",
+   "MUT:o9:RDIR-m5",
+   "MUT:o9:RDIR-m6"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RDIR.7",
+  "section": "RDIR",
+  "section_number": 21,
+  "kind": "testable",
+  "sources": [
+   "A-042",
+   "A-046"
+  ],
+  "controls": [
+   "RDIR-8",
+   "SIDE-NONREG",
+   "MUT:o9:RDIR-m10",
+   "MUT:o9:RDIR-m14"
+  ],
+  "open": [
+   "side-change entry type outcome"
+  ]
+ },
+ {
+  "id": "R6.RDIR.8",
+  "section": "RDIR",
+  "section_number": 21,
+  "kind": "testable",
+  "sources": [
+   "A-043",
+   "A-139"
+  ],
+  "controls": [
+   "RDIR-2",
+   "RDIR-3",
+   "RDIR-4"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RDIR.9",
+  "section": "RDIR",
+  "section_number": 21,
+  "kind": "testable",
+  "sources": [
+   "A-045"
+  ],
+  "controls": [
+   "RDIR-21",
+   "MUT:o9:RDIR-m13"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RDIR.10",
+  "section": "RDIR",
+  "section_number": 21,
+  "kind": "testable",
+  "sources": [
+   "A-047",
+   "A-048",
+   "A-049",
+   "A-050",
+   "A-051"
+  ],
+  "controls": [
+   "RDIR-1",
+   "RDIR-5",
+   "RDIR-7",
+   "RDIR-13",
+   "MUT:o9:RDIR-m8",
+   "MUT:o9:RDIR-m9"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RDIR.11",
+  "section": "RDIR",
+  "section_number": 21,
+  "kind": "testable",
+  "sources": [
+   "A-053",
+   "A-054",
+   "A-056"
+  ],
+  "controls": [
+   "RDIR-8",
+   "RDIR-14",
+   "RDIR-15",
+   "RDIR-18",
+   "RDIR-19",
+   "RDIR-20",
+   "MUT:o9:RDIR-m11"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RDIR.12",
+  "section": "RDIR",
+  "section_number": 21,
+  "kind": "testable",
+  "sources": [
+   "A-058",
+   "A-059"
+  ],
+  "controls": [
+   "RDIR-1",
+   "RT-O9"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RDIR.13",
+  "section": "RDIR",
+  "section_number": 21,
+  "kind": "testable",
+  "sources": [
+   "A-035",
+   "A-037",
+   "A-041"
+  ],
+  "controls": [
+   "Z9g",
+   "Z9-STAGED"
+  ],
+  "open": [
+   "engine literals check"
+  ]
+ },
+ {
+  "id": "R6.RDIR.14",
+  "section": "RDIR",
+  "section_number": 21,
+  "kind": "testable",
+  "sources": [
+   "A-087",
+   "A-088"
+  ],
+  "controls": [
+   "RT-O9",
+   "RT-O9-L2"
+  ],
+  "open": [
+   "RT-O9 base-drift clause"
+  ]
+ },
+ {
+  "id": "R6.ITEM2.1",
+  "section": "ITEM2",
+  "section_number": 22,
+  "kind": "testable",
+  "sources": [
+   "A-109",
+   "A-110",
+   "A-111"
+  ],
+  "controls": [
+   "I2-1"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ITEM2.2",
+  "section": "ITEM2",
+  "section_number": 22,
+  "kind": "testable",
+  "sources": [
+   "A-112",
+   "A-119"
+  ],
+  "controls": [
+   "I2-2",
+   "I2-7",
+   "I2-8"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ITEM2.3",
+  "section": "ITEM2",
+  "section_number": 22,
+  "kind": "testable",
+  "sources": [
+   "A-113",
+   "A-114",
+   "A-117"
+  ],
+  "controls": [
+   "I2-3",
+   "I2-4",
+   "I2-5"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ITEM2.4",
+  "section": "ITEM2",
+  "section_number": 22,
+  "kind": "testable",
+  "sources": [
+   "A-117"
+  ],
+  "controls": [
+   "I2-6",
+   "LN10"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RECON.1",
+  "section": "RECON",
+  "section_number": 23,
+  "kind": "testable",
+  "sources": [
+   "V2-146"
+  ],
+  "controls": [
+   "N3",
+   "N4"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RECON.2",
+  "section": "RECON",
+  "section_number": 23,
+  "kind": "testable",
+  "sources": [
+   "E-1341",
+   "RV-027"
+  ],
+  "controls": [
+   "O8",
+   "N2"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RECON.3",
+  "section": "RECON",
+  "section_number": 23,
+  "kind": "testable",
+  "sources": [
+   "E-1342",
+   "V2-147",
+   "RV-027"
+  ],
+  "controls": [
+   "N2",
+   "N3",
+   "N3-config-route"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RECON.4",
+  "section": "RECON",
+  "section_number": 23,
+  "kind": "testable",
+  "sources": [
+   "E-1343"
+  ],
+  "controls": [
+   "N4",
+   "N5"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RECON.5",
+  "section": "RECON",
+  "section_number": 23,
+  "kind": "testable",
+  "sources": [
+   "E-1344"
+  ],
+  "controls": [
+   "N4"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RECON.6",
+  "section": "RECON",
+  "section_number": 23,
+  "kind": "testable",
+  "sources": [
+   "E-1345"
+  ],
+  "controls": [
+   "N5"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RECON.7",
+  "section": "RECON",
+  "section_number": 23,
+  "kind": "testable",
+  "sources": [
+   "E-1346"
+  ],
+  "controls": [
+   "N7"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RECON.8",
+  "section": "RECON",
+  "section_number": 23,
+  "kind": "testable",
+  "sources": [
+   "E-1347"
+  ],
+  "controls": [
+   "N12"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RECON.9",
+  "section": "RECON",
+  "section_number": 23,
+  "kind": "testable",
+  "sources": [
+   "E-1347"
+  ],
+  "controls": [
+   "N8"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RECON.10",
+  "section": "RECON",
+  "section_number": 23,
+  "kind": "testable",
+  "sources": [
+   "E-1347"
+  ],
+  "controls": [
+   "N13"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RECON.11",
+  "section": "RECON",
+  "section_number": 23,
+  "kind": "testable",
+  "sources": [
+   "E-1349"
+  ],
+  "controls": [
+   "N14"
+  ],
+  "open": [
+   "RC6 and RC9"
+  ]
+ },
+ {
+  "id": "R6.RECON.12",
+  "section": "RECON",
+  "section_number": 23,
+  "kind": "testable",
+  "sources": [
+   "E-1349"
+  ],
+  "controls": [
+   "N9"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RECON.13",
+  "section": "RECON",
+  "section_number": 23,
+  "kind": "testable",
+  "sources": [
+   "E-1349"
+  ],
+  "controls": [
+   "N15"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RECON.14",
+  "section": "RECON",
+  "section_number": 23,
+  "kind": "testable",
+  "sources": [
+   "E-1348"
+  ],
+  "controls": [
+   "N6"
+  ],
+  "open": [
+   "RC6 and RC9"
+  ]
+ },
+ {
+  "id": "R6.RECON.15",
+  "section": "RECON",
+  "section_number": 23,
+  "kind": "testable",
+  "sources": [
+   "E-1350"
+  ],
+  "controls": [
+   "N16",
+   "N16-file"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RECON.16",
+  "section": "RECON",
+  "section_number": 23,
+  "kind": "testable",
+  "sources": [
+   "E-1350",
+   "A-055"
+  ],
+  "controls": [
+   "N17",
+   "RDIR-8",
+   "RDIR-15",
+   "RDIR-18",
+   "RDIR-19",
+   "RDIR-20",
+   "MUT:o9:RDIR-m11"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RECON.17",
+  "section": "RECON",
+  "section_number": 23,
+  "kind": "testable",
+  "sources": [
+   "E-1351"
+  ],
+  "controls": [
+   "N18",
+   "N18-record"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RECON.18",
+  "section": "RECON",
+  "section_number": 23,
+  "kind": "testable",
+  "sources": [
+   "E-1352"
+  ],
+  "controls": [
+   "N3",
+   "N4",
+   "N5",
+   "N6",
+   "N7",
+   "N8",
+   "N9",
+   "N12",
+   "N13",
+   "N14",
+   "N15",
+   "N16",
+   "N17",
+   "N18",
+   "TT8"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RECON.19",
+  "section": "RECON",
+  "section_number": 23,
+  "kind": "testable",
+  "sources": [
+   "E-1353",
+   "V2-141"
+  ],
+  "controls": [
+   "N10",
+   "N11",
+   "R8-S6"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.RECON.20",
+  "section": "RECON",
+  "section_number": 23,
+  "kind": "testable",
+  "sources": [
+   "E-1354"
+  ],
+  "controls": [
+   "EI5",
+   "TR29"
+  ],
+  "open": [
+   "RT-L2 on the re-resolved M"
+  ]
+ },
+ {
+  "id": "R6.RECON.21",
+  "section": "RECON",
+  "section_number": 23,
+  "kind": "testable",
+  "sources": [
+   "E-1355"
+  ],
+  "controls": [
+   "RT-L2",
+   "RT-O9-L2",
+   "GATE-13",
+   "GATE-14",
+   "GATE-15",
+   "GATE-19"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.GATE.1",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "V1-114",
+   "V1-130",
+   "A-130",
+   "OD-1",
+   "OD-2"
+  ],
+  "controls": [
+   "GATE-1",
+   "GATE-6",
+   "GATE-16",
+   "GATE-20"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.GATE.2",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "A-130",
+   "E-1080",
+   "RD-4",
+   "RD-32"
+  ],
+  "controls": [
+   "GATE-12",
+   "GATE-17",
+   "GATE-26"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.GATE.3",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "E-1080",
+   "OD-1",
+   "Q1"
+  ],
+  "controls": [
+   "GATE-1",
+   "GATE-6",
+   "GATE-17"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.GATE.4",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "Q4",
+   "OD-31"
+  ],
+  "controls": [
+   "GATE-8",
+   "GATE-17"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.GATE.5",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "E-1189",
+   "E-1190",
+   "E-1191",
+   "RD-7"
+  ],
+  "controls": [
+   "GATE-5",
+   "GATE-9",
+   "GATE-20",
+   "X11"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.GATE.6",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "RD-1",
+   "Q8"
+  ],
+  "controls": [
+   "GATE-21",
+   "GATE-22",
+   "GATE-23",
+   "GATE-24"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.GATE.7",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "E-1189",
+   "Q1"
+  ],
+  "controls": [
+   "GATE-9",
+   "GATE-10"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.GATE.8",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "V2-098",
+   "E-1190",
+   "Q1",
+   "RD-2"
+  ],
+  "controls": [
+   "GATE-1",
+   "GATE-6",
+   "GATE-10",
+   "GATE-13",
+   "GATE-14",
+   "GATE-15",
+   "GATE-25"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.GATE.9",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "E-1190",
+   "Q1",
+   "VD-1",
+   "VD-10"
+  ],
+  "controls": [
+   "GATE-1",
+   "GATE-2",
+   "GATE-3",
+   "GATE-4",
+   "GATE-9",
+   "GATE-10",
+   "GATE-12",
+   "GATE-16",
+   "GATE-17",
+   "GATE-20",
+   "GATE-26"
+  ],
+  "open": [
+   "composite with a NOT RUN component"
+  ]
+ },
+ {
+  "id": "R6.GATE.10",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "RD-1",
+   "RD-5",
+   "Q8"
+  ],
+  "controls": [
+   "GATE-21",
+   "GATE-22",
+   "GATE-23",
+   "GATE-24",
+   "MUT:c1:C01",
+   "MUT:c1:C02",
+   "MUT:c1:C03",
+   "MUT:c1:C04",
+   "MUT:c1:C05",
+   "MUT:c1:C06",
+   "MUT:c1:C07",
+   "MUT:c1:C08",
+   "MUT:c1:C09",
+   "MUT:c1:C10",
+   "MUT:c1:C11",
+   "MUT:c1:C12",
+   "MUT:c2:D01",
+   "MUT:c2:D02",
+   "MUT:c2:D03",
+   "MUT:cache:K01",
+   "MUT:cache:K02",
+   "MUT:cache:K03",
+   "MUT:cache:K04",
+   "MUT:cache:K05",
+   "MUT:cache:K06",
+   "MUT:cache:K07",
+   "MUT:cache:K08",
+   "MUT:o9:RDIR-m1",
+   "MUT:o9:RDIR-m10",
+   "MUT:o9:RDIR-m11",
+   "MUT:o9:RDIR-m12",
+   "MUT:o9:RDIR-m13",
+   "MUT:o9:RDIR-m14",
+   "MUT:o9:RDIR-m15",
+   "MUT:o9:RDIR-m16",
+   "MUT:o9:RDIR-m17",
+   "MUT:o9:RDIR-m2",
+   "MUT:o9:RDIR-m3",
+   "MUT:o9:RDIR-m4",
+   "MUT:o9:RDIR-m5",
+   "MUT:o9:RDIR-m6",
+   "MUT:o9:RDIR-m7",
+   "MUT:o9:RDIR-m8",
+   "MUT:o9:RDIR-m9",
+   "MUT:v60e:A01",
+   "MUT:v60e:A02",
+   "MUT:v60e:A03",
+   "MUT:v60e:A04",
+   "MUT:v60e:A05",
+   "MUT:v60e:A06",
+   "MUT:v60e:A07",
+   "MUT:v60e:A08",
+   "MUT:v60e:A09",
+   "MUT:v60e:A10",
+   "MUT:v60e:A11",
+   "MUT:v60e:A12",
+   "MUT:v60e:A13",
+   "MUT:v60e:A14",
+   "MUT:v60e:C01",
+   "MUT:v60e:C02",
+   "MUT:v60e:C03",
+   "MUT:v60e:C04",
+   "MUT:v60e:C05",
+   "MUT:v60e:C06",
+   "MUT:v60e:C07",
+   "MUT:v60e:C08",
+   "MUT:v60e:C09",
+   "MUT:v60e:C10",
+   "MUT:v60e:C11",
+   "MUT:v60e:C12",
+   "MUT:v60e:C13",
+   "MUT:v60e:C14",
+   "MUT:v60e:C15",
+   "MUT:v60e:C16",
+   "MUT:v60e:E01",
+   "MUT:v60e:E02",
+   "MUT:v60e:H01",
+   "MUT:v60e:H02",
+   "MUT:v60e:H03",
+   "MUT:v60e:I01",
+   "MUT:v60e:I02",
+   "MUT:v60e:I03",
+   "MUT:v60e:I04",
+   "MUT:v60e:I05",
+   "MUT:v60e:I06",
+   "MUT:v60e:I07",
+   "MUT:v60e:I08",
+   "MUT:v60e:I09",
+   "MUT:v60e:I10",
+   "MUT:v60e:I11",
+   "MUT:v60e:I12",
+   "MUT:v60e:I13",
+   "MUT:v60e:I14",
+   "MUT:v60e:O01",
+   "MUT:v60e:O02",
+   "MUT:v60e:P01",
+   "MUT:v60e:R01",
+   "MUT:v60e:R02",
+   "MUT:v60e:R03",
+   "MUT:v60e:U01",
+   "MUT:v60e:U02",
+   "MUT:v60e:U03",
+   "MUT:v60e:U04",
+   "MUT:v60e:U05",
+   "MUT:v60e:V01",
+   "MUT:v60e:V02",
+   "MUT:v60e:V03",
+   "MUT:v60e:V04",
+   "MUT:v60e:V05",
+   "MUT:v60e:V06",
+   "MUT:v60e:V07"
+  ],
+  "open": [
+   "mutation harness location",
+   "survivors without an equivalence argument"
+  ]
+ },
+ {
+  "id": "R6.GATE.11",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "E-1461",
+   "MC-13",
+   "Q1"
+  ],
+  "controls": [
+   "GATE-18"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.GATE.12",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "OD-2",
+   "Q1"
+  ],
+  "controls": [
+   "GATE-7",
+   "GATE-8"
+  ],
+  "open": [
+   "correspondence exemption for non-testable requirements"
+  ]
+ },
+ {
+  "id": "R6.GATE.13",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "Q1",
+   "Q8",
+   "RD-2"
+  ],
+  "controls": [
+   "GATE-1",
+   "GATE-2",
+   "GATE-3",
+   "GATE-4",
+   "GATE-5",
+   "GATE-6",
+   "GATE-7",
+   "GATE-8",
+   "GATE-9",
+   "GATE-10",
+   "GATE-11",
+   "GATE-12",
+   "GATE-13",
+   "GATE-14",
+   "GATE-15",
+   "GATE-16",
+   "GATE-17",
+   "GATE-18",
+   "GATE-19",
+   "GATE-20",
+   "GATE-21",
+   "GATE-22",
+   "GATE-23",
+   "GATE-24",
+   "GATE-25",
+   "GATE-26"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.GATE.14",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "V2-098",
+   "Q1"
+  ],
+  "controls": [
+   "GATE-18"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.GATE.15",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "V1-121",
+   "E-1190",
+   "Q6",
+   "RD-6",
+   "RD-7",
+   "RD-25",
+   "RD-26"
+  ],
+  "controls": [
+   "GATE-5",
+   "GATE-11",
+   "RT-T",
+   "TR5",
+   "G-A1",
+   "RT-L2",
+   "RT-O9",
+   "RT-O9-L2",
+   "TR45-opC",
+   "EI14-dispatch"
+  ],
+  "open": [
+   "EI14-dispatch release condition"
+  ]
+ },
+ {
+  "id": "R6.GATE.16",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "OD-18",
+   "Q2"
+  ],
+  "controls": [
+   "RT-L2",
+   "GATE-13",
+   "GATE-14",
+   "GATE-15",
+   "GATE-19"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CORE.1",
+  "section": "CORE",
+  "section_number": 24,
+  "kind": "testable",
+  "sources": [
+   "V2-012",
+   "E-1375"
+  ],
+  "controls": [
+   "Y8",
+   "Z9g"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CORE.2",
+  "section": "CORE",
+  "section_number": 24,
+  "kind": "testable",
+  "sources": [
+   "E-1376",
+   "RD-20"
+  ],
+  "controls": [
+   "Z9a",
+   "Z9b",
+   "Z9c",
+   "Z9d",
+   "Z9g"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CORE.3",
+  "section": "CORE",
+  "section_number": 24,
+  "kind": "testable",
+  "sources": [
+   "E-1377",
+   "E-1378",
+   "RD-31"
+  ],
+  "controls": [
+   "Z9a",
+   "Z9b",
+   "Z9c",
+   "Z9d",
+   "Z9e",
+   "Z9f",
+   "Z9g",
+   "Z9h"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CORE.4",
+  "section": "CORE",
+  "section_number": 24,
+  "kind": "testable",
+  "sources": [
+   "E-1378",
+   "RD-31",
+   "MC-9"
+  ],
+  "controls": [
+   "Z9g",
+   "Z9h"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CORE.5",
+  "section": "CORE",
+  "section_number": 24,
+  "kind": "testable",
+  "sources": [
+   "E-1379",
+   "E-1378",
+   "RD-20",
+   "OD-24"
+  ],
+  "controls": [
+   "Z9e",
+   "Z9g"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CORE.6",
+  "section": "CORE",
+  "section_number": 24,
+  "kind": "testable",
+  "sources": [
+   "E-1380",
+   "VD-9",
+   "RD-25"
+  ],
+  "controls": [
+   "Z9a",
+   "Z9b",
+   "Z9c",
+   "Z9d",
+   "Z9e",
+   "Z9f",
+   "Z9g",
+   "Z9h",
+   "Z9-STAGED"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CORE.7",
+  "section": "CORE",
+  "section_number": 24,
+  "kind": "testable",
+  "sources": [
+   "E-1374",
+   "MC-13",
+   "OD-8"
+  ],
+  "controls": [
+   "GATE-18",
+   "Y8"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CORE.8",
+  "section": "CORE",
+  "section_number": 24,
+  "kind": "testable",
+  "sources": [
+   "V1-027",
+   "V1-028",
+   "RD-15",
+   "RD-11"
+  ],
+  "controls": [
+   "OUT-CONFINED"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CFG.1",
+  "section": "CFG",
+  "section_number": 25,
+  "kind": "testable",
+  "sources": [
+   "E-1389",
+   "E-1390"
+  ],
+  "controls": [
+   "TR2",
+   "ADM-CONFIG-AT-F"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CFG.2",
+  "section": "CFG",
+  "section_number": 25,
+  "kind": "testable",
+  "sources": [
+   "E-1391",
+   "OD-4"
+  ],
+  "controls": [
+   "TR2",
+   "TR3",
+   "EI4",
+   "ADM-CONFIG-AT-F"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CFG.3",
+  "section": "CFG",
+  "section_number": 25,
+  "kind": "testable",
+  "sources": [
+   "E-1392"
+  ],
+  "controls": [
+   "TR2",
+   "LN4"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CFG.4",
+  "section": "CFG",
+  "section_number": 25,
+  "kind": "testable",
+  "sources": [
+   "E-1393",
+   "E-1394",
+   "E-1395",
+   "E-1396",
+   "E-1397",
+   "E-1398",
+   "E-1399",
+   "E-1400",
+   "E-1401",
+   "E-1402",
+   "E-1403",
+   "E-1404",
+   "E-1405",
+   "E-1406",
+   "E-1407",
+   "E-1408",
+   "E-1409",
+   "E-1410",
+   "E-1411",
+   "E-1412",
+   "E-1413",
+   "E-1414",
+   "E-1415",
+   "A-115",
+   "A-116",
+   "A-117",
+   "A-024",
+   "A-129",
+   "OD-1",
+   "OD-2",
+   "OD-7",
+   "OD-23",
+   "RD-32"
+  ],
+  "controls": [
+   "Z1",
+   "Z2",
+   "Z3",
+   "Z6",
+   "Z6b",
+   "CONFIG-LINT",
+   "Z8"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CFG.5",
+  "section": "CFG",
+  "section_number": 25,
+  "kind": "testable",
+  "sources": [
+   "E-1416"
+  ],
+  "controls": [
+   "Z7",
+   "S11-58g"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CFG.6",
+  "section": "CFG",
+  "section_number": 25,
+  "kind": "testable",
+  "sources": [
+   "E-1417",
+   "E-1418",
+   "E-1419",
+   "E-1420",
+   "E-1421",
+   "E-1422",
+   "E-1423",
+   "E-1424",
+   "OD-1"
+  ],
+  "controls": [
+   "Z7",
+   "Z8",
+   "CONFIG-LINT",
+   "TR52"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CFG.7",
+  "section": "CFG",
+  "section_number": 25,
+  "kind": "testable",
+  "sources": [
+   "E-1425",
+   "E-1426",
+   "MC-20"
+  ],
+  "controls": [
+   "Z10",
+   "Z5",
+   "LN4",
+   "Y4"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.CFG.8",
+  "section": "CFG",
+  "section_number": 25,
+  "kind": "testable",
+  "sources": [
+   "OD-29",
+   "OD-28",
+   "E-1459"
+  ],
+  "controls": [
+   "TR1",
+   "TR5",
+   "TR13",
+   "TR45-opB",
+   "X11"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ADAPT.1",
+  "section": "ADAPT",
+  "section_number": 26,
+  "kind": "testable",
+  "sources": [
+   "E-1427",
+   "OD-4"
+  ],
+  "controls": [
+   "Z1",
+   "Z6",
+   "Y10"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ADAPT.2",
+  "section": "ADAPT",
+  "section_number": 26,
+  "kind": "testable",
+  "sources": [
+   "E-1428"
+  ],
+  "controls": [
+   "U10",
+   "U11",
+   "M3",
+   "M4",
+   "M5",
+   "Z9h"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ADAPT.3",
+  "section": "ADAPT",
+  "section_number": 26,
+  "kind": "testable",
+  "sources": [
+   "E-1429",
+   "V1-045",
+   "OD-16",
+   "VD-12",
+   "RD-11"
+  ],
+  "controls": [
+   "U1",
+   "U12",
+   "RT-E",
+   "M7"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ADAPT.4",
+  "section": "ADAPT",
+  "section_number": 26,
+  "kind": "testable",
+  "sources": [
+   "E-1430",
+   "V1-031",
+   "OD-19"
+  ],
+  "controls": [
+   "M7",
+   "M8",
+   "RT-A"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ADAPT.5",
+  "section": "ADAPT",
+  "section_number": 26,
+  "kind": "testable",
+  "sources": [
+   "V1-030",
+   "V1-028",
+   "OD-3"
+  ],
+  "controls": [
+   "RT-A",
+   "M7",
+   "M8",
+   "OUT-CONFINED"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.ADAPT.6",
+  "section": "ADAPT",
+  "section_number": 26,
+  "kind": "testable",
+  "sources": [
+   "E-1431"
+  ],
+  "controls": [
+   "Y6",
+   "RT-C"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.A1CFG.1",
+  "section": "A1CFG",
+  "section_number": 27,
+  "kind": "testable",
+  "sources": [
+   "E-1433",
+   "A-019",
+   "A-020",
+   "A-022",
+   "A-024",
+   "OD-5",
+   "OD-6"
+  ],
+  "controls": [
+   "RDIR-16",
+   "RDIR-20",
+   "Z9g",
+   "EI1"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.A1CFG.2",
+  "section": "A1CFG",
+  "section_number": 27,
+  "kind": "testable",
+  "sources": [
+   "E-1434",
+   "A-019",
+   "A-020",
+   "A-022",
+   "A-115",
+   "OD-5",
+   "OD-8"
+  ],
+  "controls": [
+   "Z9a",
+   "Z9b",
+   "Z9c",
+   "Z9d",
+   "Z9g"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.A1CFG.3",
+  "section": "A1CFG",
+  "section_number": 27,
+  "kind": "testable",
+  "sources": [
+   "E-1432",
+   "MC-12"
+  ],
+  "controls": [
+   "RT-A",
+   "Z9f",
+   "RDIR-1"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.A1CFG.4",
+  "section": "A1CFG",
+  "section_number": 27,
+  "kind": "testable",
+  "sources": [
+   "E-065"
+  ],
+  "controls": [
+   "RT-H0",
+   "RT-T0",
+   "H3"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.A1CFG.5",
+  "section": "A1CFG",
+  "section_number": 27,
+  "kind": "testable",
+  "sources": [
+   "E-1012",
+   "OD-8"
+  ],
+  "controls": [
+   "RT-DR",
+   "RT-DR3W"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.A1CFG.6",
+  "section": "A1CFG",
+  "section_number": 27,
+  "kind": "testable",
+  "sources": [
+   "E-1435",
+   "OD-1",
+   "OD-2",
+   "ME-3"
+  ],
+  "controls": [
+   "GATE-16",
+   "RT-T0"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.A1CFG.7",
+  "section": "A1CFG",
+  "section_number": 27,
+  "kind": "testable",
+  "sources": [
+   "E-1436",
+   "MC-13",
+   "OD-8",
+   "RD-14"
+  ],
+  "controls": [
+   "GATE-18",
+   "V5",
+   "V15",
+   "V27",
+   "V7a",
+   "V7b",
+   "V7c",
+   "V23",
+   "V24",
+   "V25",
+   "V26",
+   "RT-I7",
+   "RT-I7A",
+   "RT-DR",
+   "RT-DR3W"
+  ],
+  "open": [
+   "V4 reversal scope"
+  ]
+ },
+ {
+  "id": "R6.SYN.1",
+  "section": "SYN",
+  "section_number": 28,
+  "kind": "testable",
+  "sources": [
+   "E-1437",
+   "E-1438"
+  ],
+  "controls": [
+   "Y1",
+   "Y2",
+   "Y3",
+   "Y4",
+   "Y5",
+   "Y6",
+   "Y7",
+   "Y8",
+   "Y9",
+   "Y10"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.SYN.2",
+  "section": "SYN",
+  "section_number": 28,
+  "kind": "testable",
+  "sources": [
+   "V1-113",
+   "RD-15"
+  ],
+  "controls": [
+   "Y1",
+   "Y8"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.SYN.3",
+  "section": "SYN",
+  "section_number": 28,
+  "kind": "testable",
+  "sources": [
+   "E-1437",
+   "A-086",
+   "OD-31"
+  ],
+  "controls": [
+   "RDIR-25",
+   "RDIR-12b"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.VALID.1",
+  "section": "VALID",
+  "section_number": 29,
+  "kind": "testable",
+  "sources": [
+   "E-1449",
+   "OD-27"
+  ],
+  "controls": [
+   "Z1",
+   "Z2",
+   "Z3",
+   "Z4",
+   "Z5",
+   "Z6",
+   "Z7",
+   "Z8",
+   "RDIR-11",
+   "RDIR-16"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.VALID.2",
+  "section": "VALID",
+  "section_number": 29,
+  "kind": "testable",
+  "sources": [
+   "E-1450",
+   "E-1451",
+   "E-1452",
+   "E-1456"
+  ],
+  "controls": [
+   "Z1",
+   "Z2",
+   "Z3",
+   "Z4",
+   "Z6",
+   "Z6b",
+   "Z8",
+   "Y7"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.VALID.3",
+  "section": "VALID",
+  "section_number": 29,
+  "kind": "testable",
+  "sources": [
+   "E-1453",
+   "E-1454",
+   "A-116",
+   "OD-4",
+   "RD-18"
+  ],
+  "controls": [
+   "TR2",
+   "Z5",
+   "Y10",
+   "O6",
+   "I2-3",
+   "I2-4",
+   "Z1",
+   "TR29-tool",
+   "M3",
+   "M4",
+   "M5",
+   "TT5",
+   "O2"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.VALID.4",
+  "section": "VALID",
+  "section_number": 29,
+  "kind": "testable",
+  "sources": [
+   "E-1455",
+   "A-031",
+   "A-033",
+   "A-037",
+   "OD-6",
+   "OD-27",
+   "OD-31"
+  ],
+  "controls": [
+   "Z7",
+   "Z11",
+   "RDIR-9",
+   "RDIR-11",
+   "RDIR-12",
+   "RDIR-16",
+   "RDIR-17",
+   "RDIR-20",
+   "RDIR-24"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REPRO.1",
+  "section": "REPRO",
+  "section_number": 30,
+  "kind": "testable",
+  "sources": [
+   "E-1459",
+   "A-058",
+   "A-059",
+   "OD-24",
+   "OD-29",
+   "OD-6"
+  ],
+  "controls": [
+   "ACCEPT-SCHEMA",
+   "S7-schema-and-checker",
+   "TR5",
+   "X10",
+   "Y8"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REPRO.2",
+  "section": "REPRO",
+  "section_number": 30,
+  "kind": "testable",
+  "sources": [
+   "E-1460",
+   "RD-2"
+  ],
+  "controls": [
+   "REPRO-DOUBLE"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REPRO.3",
+  "section": "REPRO",
+  "section_number": 30,
+  "kind": "testable",
+  "sources": [
+   "V1-133",
+   "V1-032",
+   "RD-11"
+  ],
+  "controls": [
+   "REPRO-PYVER",
+   "RT-A"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.REPRO.4",
+  "section": "REPRO",
+  "section_number": 30,
+  "kind": "testable",
+  "sources": [
+   "V1-127",
+   "V1-131",
+   "V1-027",
+   "RD-11"
+  ],
+  "controls": [
+   "OUT-CONFINED"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.EVID.1",
+  "section": "EVID",
+  "section_number": 31,
+  "kind": "testable",
+  "sources": [
+   "E-035",
+   "E-036",
+   "E-019",
+   "E-1368",
+   "V2-106",
+   "ME-3",
+   "RD-3",
+   "OD-1"
+  ],
+  "controls": [
+   "GATE-1",
+   "GATE-6"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.EVID.2",
+  "section": "EVID",
+  "section_number": 31,
+  "kind": "testable",
+  "sources": [
+   "E-1175",
+   "E-035",
+   "OD-2"
+  ],
+  "controls": [
+   "GATE-16"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.EVID.3",
+  "section": "EVID",
+  "section_number": 31,
+  "kind": "testable",
+  "sources": [
+   "V1-139"
+  ],
+  "controls": [
+   "EI3",
+   "X10"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.EVID.4",
+  "section": "EVID",
+  "section_number": 31,
+  "kind": "testable",
+  "sources": [
+   "E-037",
+   "E-038",
+   "E-074",
+   "E-039",
+   "E-042",
+   "E-045",
+   "E-046",
+   "E-047",
+   "E-049",
+   "E-089",
+   "E-090",
+   "ME-3",
+   "RD-3",
+   "RD-23",
+   "MC-1",
+   "MC-2",
+   "VD-10",
+   "RD-11"
+  ],
+  "controls": [
+   "RT-A",
+   "RT-E",
+   "RT-H0",
+   "RT-T0",
+   "RT-D",
+   "RT-I7",
+   "RT-DR",
+   "RT-DR3W",
+   "RT-I7A",
+   "item11-T1p",
+   "SW1",
+   "SW2",
+   "RT-C"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.EVID.5",
+  "section": "EVID",
+  "section_number": 31,
+  "kind": "testable",
+  "sources": [
+   "E-037",
+   "E-038",
+   "E-039",
+   "E-042",
+   "E-045",
+   "E-046",
+   "E-047",
+   "E-089",
+   "E-040",
+   "E-041",
+   "E-043",
+   "E-044",
+   "E-048",
+   "E-088",
+   "E-1356",
+   "E-1357",
+   "E-1358",
+   "E-1359",
+   "E-1360",
+   "E-1361",
+   "E-1362",
+   "ME-2",
+   "ME-3"
+  ],
+  "controls": [
+   "GATE-16"
+  ],
+  "open": []
+ },
+ {
+  "id": "R6.EVID.6",
+  "section": "EVID",
+  "section_number": 31,
+  "kind": "testable",
+  "sources": [
+   "OD-18",
+   "Q2",
+   "MC-4",
+   "E-1363"
+  ],
+  "controls": [
+   "RT-L2",
+   "GATE-13",
+   "GATE-19"
+  ],
+  "open": []
+ },
+ {
+  "id": "OBL-1",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "E-115",
+   "E-1371",
+   "ME-1"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "OBL-2",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "E-122",
+   "E-124",
+   "E-1357",
+   "E-1358",
+   "E-1359",
+   "ME-2"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "OBL-3",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "E-1001",
+   "E-1002",
+   "E-1003",
+   "E-1004",
+   "E-1005",
+   "E-1006",
+   "E-1020",
+   "E-1021",
+   "E-1022",
+   "E-1024",
+   "E-1025",
+   "E-1026",
+   "E-1027",
+   "OD-8"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "OBL-4",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "E-1008",
+   "E-1287"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "OBL-5",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "E-1284",
+   "E-1285",
+   "E-1369"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "OBL-6",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "E-1365",
+   "E-1366",
+   "RD-14",
+   "Q10"
+  ],
+  "controls": [],
+  "open": [
+   "V4 reversal scope"
+  ]
+ },
+ {
+  "id": "OBL-7",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "E-1023"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "OBL-8",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "RV-031",
+   "RV-032",
+   "RV-033",
+   "RV-034",
+   "RV-035",
+   "RV-036",
+   "RV-037",
+   "RV-038",
+   "E-1047",
+   "OD-30"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "OBL-9",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "E-1290",
+   "RV-038"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "OBL-10",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "E-1372"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "OBL-11",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "A-131"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "OBL-12",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "E-017",
+   "E-1371",
+   "ME-8"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "OBL-13",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "E-1363",
+   "OD-18",
+   "Q2",
+   "MC-4"
+  ],
+  "controls": [],
+  "open": [
+   "gate assignments of obligations"
+  ]
+ },
+ {
+  "id": "OBL-14",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "RD-6",
+   "Q6",
+   "MC-4"
+  ],
+  "controls": [],
+  "open": [
+   "RT-O9 base-drift clause",
+   "gate assignments of obligations"
+  ]
+ },
+ {
+  "id": "OBL-15",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "E-1062",
+   "E-1063",
+   "RD-9",
+   "OD-20"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "OBL-16",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "RD-25",
+   "OD-1"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "OBL-17",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "RD-26"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "OBL-18",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "RD-26"
+  ],
+  "controls": [],
+  "open": [
+   "EI14-dispatch release condition",
+   "gate assignments of obligations"
+  ]
+ },
+ {
+  "id": "OBL-19",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "RD-26",
+   "RD-4"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "OBL-20",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "Q7",
+   "RD-8"
+  ],
+  "controls": [],
+  "open": [
+   "restored case of no-mutation controls"
+  ]
+ },
+ {
+  "id": "OBL-21",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "VD-1 to\nVD-12",
+   "RD-12",
+   "RD-35",
+   "E-1380",
+   "E-1429"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "OBL-22",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "OD-31",
+   "RD-5",
+   "RD-4",
+   "E-015"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "OBL-23",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "RD-23",
+   "ME-3",
+   "Q10"
+  ],
+  "controls": [],
+  "open": [
+   "T1' input list"
+  ]
+ },
+ {
+  "id": "OBL-24",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "RD-1",
+   "Q8",
+   "OD-1"
+  ],
+  "controls": [],
+  "open": [
+   "mutation harness location"
+  ]
+ },
+ {
+  "id": "OBL-25",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "RD-24",
+   "RD-25",
+   "Q9"
+  ],
+  "controls": [],
+  "open": []
+ },
+ {
+  "id": "OBL-26",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "OD-4",
+   "OD-27",
+   "RD-18",
+   "RD-20"
+  ],
+  "controls": [],
+  "open": [
+   "gate assignments of obligations"
+  ]
+ }
+]

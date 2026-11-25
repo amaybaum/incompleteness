@@ -1,0 +1,1323 @@
+{
+ "schema": "oi-r6-integration-migration/1",
+ "merged_control_ids": [
+  {
+   "old": "c2:D02",
+   "new": "MUT:c2:D02",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 2
+  },
+  {
+   "old": "cache:K08",
+   "new": "MUT:cache:K08",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 2
+  },
+  {
+   "old": "o9:RDIR-m1",
+   "new": "MUT:o9:RDIR-m1",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 3
+  },
+  {
+   "old": "o9:RDIR-m10",
+   "new": "MUT:o9:RDIR-m10",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 3
+  },
+  {
+   "old": "o9:RDIR-m11",
+   "new": "MUT:o9:RDIR-m11",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 4
+  },
+  {
+   "old": "o9:RDIR-m12",
+   "new": "MUT:o9:RDIR-m12",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 3
+  },
+  {
+   "old": "o9:RDIR-m13",
+   "new": "MUT:o9:RDIR-m13",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 3
+  },
+  {
+   "old": "o9:RDIR-m14",
+   "new": "MUT:o9:RDIR-m14",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 3
+  },
+  {
+   "old": "o9:RDIR-m15",
+   "new": "MUT:o9:RDIR-m15",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 3
+  },
+  {
+   "old": "o9:RDIR-m16",
+   "new": "MUT:o9:RDIR-m16",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 3
+  },
+  {
+   "old": "o9:RDIR-m17",
+   "new": "MUT:o9:RDIR-m17",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 3
+  },
+  {
+   "old": "o9:RDIR-m2",
+   "new": "MUT:o9:RDIR-m2",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 3
+  },
+  {
+   "old": "o9:RDIR-m3",
+   "new": "MUT:o9:RDIR-m3",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 3
+  },
+  {
+   "old": "o9:RDIR-m4",
+   "new": "MUT:o9:RDIR-m4",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 4
+  },
+  {
+   "old": "o9:RDIR-m5",
+   "new": "MUT:o9:RDIR-m5",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 3
+  },
+  {
+   "old": "o9:RDIR-m6",
+   "new": "MUT:o9:RDIR-m6",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 3
+  },
+  {
+   "old": "o9:RDIR-m7",
+   "new": "MUT:o9:RDIR-m7",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 3
+  },
+  {
+   "old": "o9:RDIR-m8",
+   "new": "MUT:o9:RDIR-m8",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 3
+  },
+  {
+   "old": "o9:RDIR-m9",
+   "new": "MUT:o9:RDIR-m9",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 3
+  },
+  {
+   "old": "v60e:C08",
+   "new": "MUT:v60e:C08",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 2
+  },
+  {
+   "old": "v60e:H03",
+   "new": "MUT:v60e:H03",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 2
+  },
+  {
+   "old": "v60e:I06",
+   "new": "MUT:v60e:I06",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 2
+  },
+  {
+   "old": "v60e:P01",
+   "new": "MUT:v60e:P01",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 2
+  },
+  {
+   "old": "v60e:U01",
+   "new": "MUT:v60e:U01",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 2
+  },
+  {
+   "old": "v60e:V05",
+   "new": "MUT:v60e:V05",
+   "basis": "the expectation file names each mutant MUT:<set>:<id> (RD-1, Q8); texts cited the bare harness id",
+   "occurrences_in_texts": 2
+  },
+  {
+   "old": "REC-ORPHAN",
+   "new": "RECLINT-ORPHAN",
+   "basis": "same control (orphan record entry gives FAIL record-invalid, RD-9); sec-B proposed REC-ORPHAN, the expectation file and sec-C carry RECLINT-ORPHAN"
+  },
+  {
+   "old": "REPRO-CLEAN",
+   "new": "OUT-CONFINED",
+   "basis": "same control (run from a clean clone writes only under --out and leaves the clone clean: R6.REPRO.4, R6.CORE.8, R6.ADAPT.5 against R6.CTRL.12); sec-D proposed REPRO-CLEAN, sec-C OUT-CONFINED, which Table 17.1 lists"
+  }
+ ],
+ "requirement_label_aliases": [
+  {
+   "label": "R6.ADAPT.replay",
+   "numbered": [
+    "R6.ADAPT.3",
+    "R6.ADAPT.4",
+    "R6.ADAPT.5"
+   ],
+   "basis": [
+    "sec-D index aliases_from_expectation_draft",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.ANCH.boundary",
+   "numbered": [
+    "R6.ANCH.13",
+    "R6.ANCH.14",
+    "R6.ANCH.17"
+   ],
+   "basis": [
+    "sec-A index expectation_keys",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.ANCH.conformance",
+   "numbered": [
+    "R6.ANCH.9",
+    "R6.ANCH.16"
+   ],
+   "basis": [
+    "sec-A index expectation_keys",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.ANCH.duplicates",
+   "numbered": [
+    "R6.ANCH.12",
+    "R6.ANCH.17",
+    "R6.ANCH.18"
+   ],
+   "basis": [
+    "sec-A index expectation_keys",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.ANCH.pin",
+   "numbered": [
+    "R6.ANCH.19"
+   ],
+   "basis": [
+    "sec-A index expectation_keys",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.ANCH.search",
+   "numbered": [
+    "R6.ANCH.5",
+    "R6.ANCH.6",
+    "R6.ANCH.10",
+    "R6.ANCH.11",
+    "R6.ANCH.17"
+   ],
+   "basis": [
+    "sec-A index expectation_keys",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.ANCH.splices",
+   "numbered": [
+    "R6.ANCH.13",
+    "R6.ANCH.16"
+   ],
+   "basis": [
+    "sec-A index expectation_keys",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.ANCH.sweep",
+   "numbered": [
+    "R6.ANCH.17"
+   ],
+   "basis": [
+    "sec-A index expectation_keys",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.ANCH.translation",
+   "numbered": [
+    "R6.ANCH.11"
+   ],
+   "basis": [
+    "sec-A index expectation_keys",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.CORE.purity",
+   "numbered": [
+    "R6.CORE.1",
+    "R6.CORE.2",
+    "R6.CORE.3",
+    "R6.CORE.4",
+    "R6.CORE.5",
+    "R6.CORE.6"
+   ],
+   "basis": [
+    "sec-D index aliases_from_expectation_draft",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.CTX.indicators",
+   "numbered": [
+    "R6.CTX.9",
+    "R6.CTX.10"
+   ],
+   "basis": [
+    "sec-A index expectation_keys",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.CTX.rule",
+   "numbered": [
+    "R6.CTX.2",
+    "R6.CTX.4",
+    "R6.CTX.5",
+    "R6.CTX.6",
+    "R6.CTX.7",
+    "R6.CTX.9",
+    "R6.CTX.10",
+    "R6.CTX.11",
+    "R6.CTX.12"
+   ],
+   "basis": [
+    "sec-A index expectation_keys",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.DELEG.contract",
+   "numbered": [
+    "R6.DELEG.1",
+    "R6.DELEG.2",
+    "R6.DELEG.11",
+    "R6.DELEG.14"
+   ],
+   "basis": [
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.DELEG.native",
+   "numbered": [
+    "R6.DELEG.1",
+    "R6.DELEG.3",
+    "R6.DELEG.8"
+   ],
+   "basis": [
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.DELEG.rules",
+   "numbered": [
+    "R6.DELEG.1",
+    "R6.DELEG.2",
+    "R6.DELEG.3",
+    "R6.DELEG.4",
+    "R6.DELEG.5",
+    "R6.DELEG.6",
+    "R6.DELEG.7",
+    "R6.DELEG.8",
+    "R6.DELEG.9",
+    "R6.DELEG.10",
+    "R6.DELEG.11",
+    "R6.DELEG.12",
+    "R6.DELEG.13",
+    "R6.DELEG.15",
+    "R6.DELEG.16"
+   ],
+   "basis": [
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.DENY.real-tree",
+   "numbered": [
+    "R6.DENY.1",
+    "R6.DENY.2",
+    "R6.DENY.3"
+   ],
+   "basis": [
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.DENY.resid",
+   "numbered": [
+    "R6.DENY.4"
+   ],
+   "basis": [
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.DENY.residual",
+   "numbered": [
+    "R6.DENY.6"
+   ],
+   "basis": [
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.DENY.rules",
+   "numbered": [
+    "R6.DENY.2",
+    "R6.DENY.3"
+   ],
+   "basis": [
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.GATE.correspondence",
+   "numbered": [
+    "R6.GATE.4",
+    "R6.GATE.12",
+    "R6.GATE.13"
+   ],
+   "basis": [
+    "integration: GATE numbering and REPORT sec. 7 requirement list",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.GATE.not-run",
+   "numbered": [
+    "R6.GATE.5",
+    "R6.GATE.13",
+    "R6.GATE.15"
+   ],
+   "basis": [
+    "integration: GATE numbering and REPORT sec. 7 requirement list",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.GATE.verdict",
+   "numbered": [
+    "R6.GATE.1",
+    "R6.GATE.2",
+    "R6.GATE.3",
+    "R6.GATE.4",
+    "R6.GATE.5",
+    "R6.GATE.6",
+    "R6.GATE.7",
+    "R6.GATE.8",
+    "R6.GATE.9",
+    "R6.GATE.10",
+    "R6.GATE.11",
+    "R6.GATE.13",
+    "R6.GATE.14",
+    "R6.GATE.16"
+   ],
+   "basis": [
+    "integration: GATE numbering and REPORT sec. 7 requirement list",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.HIT.classification",
+   "numbered": [
+    "R6.HIT.2"
+   ],
+   "basis": [
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.HP.adjudication",
+   "numbered": [
+    "R6.HP.2",
+    "R6.HP.3",
+    "R6.HP.4",
+    "R6.HP.6",
+    "R6.HP.7",
+    "R6.HP.8",
+    "R6.HP.9",
+    "R6.HP.11",
+    "R6.HP.12",
+    "R6.PUR.3"
+   ],
+   "basis": [
+    "sec-A index expectation_keys",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.HP.obligation",
+   "numbered": [
+    "R6.HP.2",
+    "R6.HP.3",
+    "R6.HP.6",
+    "R6.HP.9",
+    "R6.HP.10",
+    "R6.HP.11",
+    "R6.HP.13"
+   ],
+   "basis": [
+    "sec-A index expectation_keys",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.HP.sweep",
+   "numbered": [
+    "R6.HP.8",
+    "R6.HP.9"
+   ],
+   "basis": [
+    "sec-A index expectation_keys",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.ITEM2.records",
+   "numbered": [
+    "R6.ITEM2.1",
+    "R6.ITEM2.2",
+    "R6.ITEM2.3",
+    "R6.ITEM2.4"
+   ],
+   "basis": [
+    "sec-C drafting report label map",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.OUT.acceptance",
+   "numbered": [
+    "R6.OUT.11",
+    "R6.OUT.12",
+    "R6.OUT.18",
+    "R6.OUT.26"
+   ],
+   "basis": [
+    "sec-A index expectation_keys",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.OUT.exit-codes",
+   "numbered": [
+    "R6.OUT.1",
+    "R6.OUT.2",
+    "R6.OUT.3",
+    "R6.OUT.5",
+    "R6.OUT.6",
+    "R6.OUT.7",
+    "R6.OUT.9",
+    "R6.OUT.10",
+    "R6.OUT.17"
+   ],
+   "basis": [
+    "sec-A index expectation_keys",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.OUT.final",
+   "numbered": [
+    "R6.OUT.17"
+   ],
+   "basis": [
+    "sec-A index expectation_keys",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.OUT.integrity",
+   "numbered": [
+    "R6.OUT.5"
+   ],
+   "basis": [
+    "sec-A index expectation_keys",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.OUT.schema",
+   "numbered": [
+    "R6.OUT.18",
+    "R6.OUT.19",
+    "R6.OUT.21",
+    "R6.OUT.23"
+   ],
+   "basis": [
+    "sec-A index expectation_keys",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.OUT.usage",
+   "numbered": [
+    "R6.OUT.6",
+    "R6.OUT.7"
+   ],
+   "basis": [
+    "sec-A index expectation_keys",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.PLAN.item11",
+   "numbered": [
+    "R6.PLAN.12"
+   ],
+   "basis": [
+    "sec-C drafting report label map",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.PLAN.item7",
+   "numbered": [
+    "R6.PLAN.8",
+    "R6.PLAN.18"
+   ],
+   "basis": [
+    "sec-C drafting report label map",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.PLAN.sec11",
+   "numbered": [
+    "R6.PLAN.1",
+    "R6.PLAN.2",
+    "R6.PLAN.3",
+    "R6.PLAN.4",
+    "R6.PLAN.5",
+    "R6.PLAN.6",
+    "R6.PLAN.7",
+    "R6.PLAN.8",
+    "R6.PLAN.9",
+    "R6.PLAN.10",
+    "R6.PLAN.11",
+    "R6.PLAN.12",
+    "R6.PLAN.13",
+    "R6.PLAN.14",
+    "R6.PLAN.15"
+   ],
+   "basis": [
+    "sec-C drafting report label map",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.PROF.per-edit",
+   "numbered": [
+    "R6.PROF.1",
+    "R6.PROF.5",
+    "R6.PROF.6",
+    "R6.PROF.7",
+    "R6.PROF.8",
+    "R6.PROF.9",
+    "R6.PROF.10"
+   ],
+   "basis": [
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.RDIR.real-tree",
+   "numbered": [
+    "R6.RDIR.12",
+    "R6.RDIR.14"
+   ],
+   "basis": [
+    "sec-C drafting report label map",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.RDIR.rules",
+   "numbered": [
+    "R6.RDIR.1",
+    "R6.RDIR.2",
+    "R6.RDIR.3",
+    "R6.RDIR.4",
+    "R6.RDIR.5",
+    "R6.RDIR.6",
+    "R6.RDIR.7",
+    "R6.RDIR.8",
+    "R6.RDIR.9",
+    "R6.RDIR.10",
+    "R6.RDIR.11",
+    "R6.RDIR.12",
+    "R6.RDIR.13"
+   ],
+   "basis": [
+    "sec-C drafting report label map",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.REC.admission",
+   "numbered": [
+    "R6.REC.1",
+    "R6.REC.3",
+    "R6.REC.4",
+    "R6.REC.5",
+    "R6.REC.16",
+    "R6.REC.18",
+    "R6.REC.22",
+    "R6.REC.24",
+    "R6.REC.25"
+   ],
+   "basis": [
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.REC.execution-identity",
+   "numbered": [
+    "R6.REC.5",
+    "R6.REC.16",
+    "R6.REC.18",
+    "R6.REC.19",
+    "R6.REC.20",
+    "R6.REC.21",
+    "R6.REC.22"
+   ],
+   "basis": [
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.REC.lineage",
+   "numbered": [
+    "R6.REC.1",
+    "R6.REC.7",
+    "R6.REC.8"
+   ],
+   "basis": [
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.REC.lint",
+   "numbered": [
+    "R6.REC.2",
+    "R6.REC.4",
+    "R6.REC.6",
+    "R6.REC.7",
+    "R6.REC.10",
+    "R6.REC.11",
+    "R6.REC.12"
+   ],
+   "basis": [
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.REC.object-integrity",
+   "numbered": [
+    "R6.REC.5",
+    "R6.REC.6",
+    "R6.REC.12",
+    "R6.REC.17",
+    "R6.REC.23",
+    "R6.REC.25"
+   ],
+   "basis": [
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.REC.review-load",
+   "numbered": [],
+   "basis": []
+  },
+  {
+   "label": "R6.RECON.composition",
+   "numbered": [
+    "R6.RECON.19"
+   ],
+   "basis": [
+    "sec-C drafting report label map",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.RECON.conditions",
+   "numbered": [
+    "R6.RECON.1",
+    "R6.RECON.3",
+    "R6.RECON.4",
+    "R6.RECON.5",
+    "R6.RECON.6",
+    "R6.RECON.7",
+    "R6.RECON.8",
+    "R6.RECON.9",
+    "R6.RECON.10",
+    "R6.RECON.11",
+    "R6.RECON.12",
+    "R6.RECON.13",
+    "R6.RECON.14",
+    "R6.RECON.15",
+    "R6.RECON.16",
+    "R6.RECON.17",
+    "R6.RECON.18",
+    "R6.RECON.19"
+   ],
+   "basis": [
+    "sec-C drafting report label map",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.RECON.no-decision-change",
+   "numbered": [
+    "R6.RECON.2",
+    "R6.RECON.3"
+   ],
+   "basis": [
+    "sec-C drafting report label map",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.RECON.sequencing",
+   "numbered": [
+    "R6.RECON.21"
+   ],
+   "basis": [
+    "sec-C drafting report label map",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.REPRO.determinism",
+   "numbered": [
+    "R6.REPRO.3"
+   ],
+   "basis": [
+    "integration: GATE numbering and REPORT sec. 7 requirement list",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.REPRO.double-run",
+   "numbered": [
+    "R6.GATE.8",
+    "R6.REPRO.2"
+   ],
+   "basis": [
+    "integration: GATE numbering and REPORT sec. 7 requirement list",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.REPRO.mutation",
+   "numbered": [
+    "R6.GATE.10"
+   ],
+   "basis": [
+    "integration: GATE numbering and REPORT sec. 7 requirement list"
+   ]
+  },
+  {
+   "label": "R6.RULE.allow",
+   "numbered": [
+    "R6.RULE.4",
+    "R6.RULE.7",
+    "R6.RULE.8",
+    "R6.RULE.9"
+   ],
+   "basis": [
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.RULE.allowance",
+   "numbered": [
+    "R6.RULE.4",
+    "R6.RULE.5",
+    "R6.RULE.6",
+    "R6.RULE.7",
+    "R6.RULE.8",
+    "R6.RULE.9"
+   ],
+   "basis": [
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.RULE.lint",
+   "numbered": [
+    "R6.RULE.1",
+    "R6.RULE.2",
+    "R6.RULE.3",
+    "R6.RULE.10",
+    "R6.RULE.11",
+    "R6.RULE.13"
+   ],
+   "basis": [
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.RULE.precedence",
+   "numbered": [
+    "R6.RULE.4",
+    "R6.RULE.9"
+   ],
+   "basis": [
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.SYN.controls",
+   "numbered": [
+    "R6.SYN.1",
+    "R6.SYN.2"
+   ],
+   "basis": [
+    "sec-D index aliases_from_expectation_draft",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.TREE.commits-of-C",
+   "numbered": [
+    "R6.TREE.1",
+    "R6.TREE.10",
+    "R6.TREE.18"
+   ],
+   "basis": [
+    "sec-C drafting report label map",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.TREE.landing",
+   "numbered": [
+    "R6.TREE.12",
+    "R6.TREE.15"
+   ],
+   "basis": [
+    "sec-C drafting report label map",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.TREE.roles",
+   "numbered": [
+    "R6.TREE.1",
+    "R6.TREE.2",
+    "R6.TREE.3",
+    "R6.TREE.4",
+    "R6.TREE.5",
+    "R6.TREE.6",
+    "R6.TREE.7",
+    "R6.TREE.9",
+    "R6.TREE.11",
+    "R6.TREE.12",
+    "R6.TREE.13",
+    "R6.TREE.14",
+    "R6.TREE.16",
+    "R6.TREE.17",
+    "R6.TREE.18"
+   ],
+   "basis": [
+    "sec-C drafting report label map",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.TREE.side-changes",
+   "numbered": [
+    "R6.TREE.5",
+    "R6.TREE.6",
+    "R6.TREE.18"
+   ],
+   "basis": [
+    "sec-C drafting report label map",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.VALID.classes",
+   "numbered": [
+    "R6.VALID.1",
+    "R6.VALID.2",
+    "R6.VALID.3",
+    "R6.VALID.4"
+   ],
+   "basis": [
+    "sec-D index aliases_from_expectation_draft",
+    "numbered requirements of the section that name a control carrying the label"
+   ]
+  },
+  {
+   "label": "R6.VALID.widening",
+   "numbered": [
+    "R6.CFG.7"
+   ],
+   "basis": [
+    "sec-D index aliases_from_expectation_draft"
+   ]
+  }
+ ],
+ "obligation_reference_map": [
+  {
+   "old": "OBL-E-1001",
+   "new": "OBL-3",
+   "basis": "inventory item E-1001 is a source of OBL-3 (sec. 32)"
+  },
+  {
+   "old": "OBL-E-1002",
+   "new": "OBL-3",
+   "basis": "inventory item E-1002 is a source of OBL-3 (sec. 32)"
+  },
+  {
+   "old": "OBL-E-1003",
+   "new": "OBL-3",
+   "basis": "inventory item E-1003 is a source of OBL-3 (sec. 32)"
+  },
+  {
+   "old": "OBL-E-1004",
+   "new": "OBL-3",
+   "basis": "inventory item E-1004 is a source of OBL-3 (sec. 32)"
+  },
+  {
+   "old": "OBL-E-1005",
+   "new": "OBL-3",
+   "basis": "inventory item E-1005 is a source of OBL-3 (sec. 32)"
+  },
+  {
+   "old": "OBL-E-1006",
+   "new": "OBL-3",
+   "basis": "inventory item E-1006 is a source of OBL-3 (sec. 32)"
+  },
+  {
+   "old": "OBL-E-1020",
+   "new": "OBL-3",
+   "basis": "inventory item E-1020 is a source of OBL-3 (sec. 32)"
+  },
+  {
+   "old": "OBL-E-1021",
+   "new": "OBL-3",
+   "basis": "inventory item E-1021 is a source of OBL-3 (sec. 32)"
+  },
+  {
+   "old": "OBL-E-1022",
+   "new": "OBL-3",
+   "basis": "inventory item E-1022 is a source of OBL-3 (sec. 32)"
+  },
+  {
+   "old": "OBL-E-1024",
+   "new": "OBL-3",
+   "basis": "inventory item E-1024 is a source of OBL-3 (sec. 32)"
+  },
+  {
+   "old": "OBL-E-1025",
+   "new": "OBL-3",
+   "basis": "inventory item E-1025 is a source of OBL-3 (sec. 32)"
+  },
+  {
+   "old": "OBL-E-1026",
+   "new": "OBL-3",
+   "basis": "inventory item E-1026 is a source of OBL-3 (sec. 32)"
+  },
+  {
+   "old": "OBL-E-1027",
+   "new": "OBL-3",
+   "basis": "inventory item E-1027 is a source of OBL-3 (sec. 32)"
+  },
+  {
+   "old": "OBL-E-1032",
+   "new": "OBL-3",
+   "basis": "E-1032 (MAPPING: \"independent review of resid-b and resid-c is an outstanding plan obligation\") is carried by OBL-3, which requires the resid profile (resid-a, resid-b, resid-c) to be independently reviewed and adopted at F; E-1032 is not listed in OBL-3 Sources"
+  },
+  {
+   "old": "OBL-E-1047",
+   "new": "OBL-8",
+   "basis": "inventory item E-1047 is a source of OBL-8 (sec. 32)"
+  },
+  {
+   "old": "OBL-E-115",
+   "new": "OBL-1",
+   "basis": "inventory item E-115 is a source of OBL-1 (sec. 32)"
+  },
+  {
+   "old": "OBL-E-122",
+   "new": "OBL-2",
+   "basis": "inventory item E-122 is a source of OBL-2 (sec. 32)"
+  },
+  {
+   "old": "OBL-E-124",
+   "new": "OBL-2",
+   "basis": "inventory item E-124 is a source of OBL-2 (sec. 32)"
+  }
+ ],
+ "renamed_reason_strings": [
+  {
+   "old": "authority",
+   "new": "directory not admitted",
+   "rows": [
+    "RDIR-12b",
+    "RDIR-16",
+    "RDIR-20"
+   ],
+   "basis": "OD-6"
+  }
+ ],
+ "section_D_migration_index": [
+  {
+   "old": "R1-R14 (v2 four-tree controls)",
+   "new": "TT1-TT14 (TT1 for R1, and so on)",
+   "sources": [
+    "OD-31",
+    "E-015"
+   ]
+  },
+  {
+   "old": "R1-R13 (record conditions of reconciliation records)",
+   "new": "RC1-RC13 (RC1 for R1, and so on)",
+   "sources": [
+    "OD-31",
+    "RD-5"
+   ]
+  },
+  {
+   "old": "R15-R19 (four-tree controls)",
+   "new": "R15-R19, unchanged (no collision once the record conditions are RC1-RC13)",
+   "sources": [
+    "RD-5"
+   ]
+  },
+  {
+   "old": "O9-1 to O9-25 (r5 record-directory controls)",
+   "new": "RDIR-1 to RDIR-25",
+   "sources": [
+    "OD-31",
+    "MC-13"
+   ]
+  },
+  {
+   "old": "O9-12b",
+   "new": "RDIR-12b",
+   "sources": [
+    "OD-31"
+   ]
+  },
+  {
+   "old": "O9-m1 to O9-m17 (r5 mutants)",
+   "new": "RDIR-m1 to RDIR-m17",
+   "sources": [
+    "RD-5"
+   ]
+  },
+  {
+   "old": "RT-O9",
+   "new": "RT-O9, unchanged",
+   "sources": [
+    "RD-5"
+   ]
+  },
+  {
+   "old": "D2-D5 (r5 directory conditions)",
+   "new": "RD2-RD5",
+   "sources": [
+    "OD-31"
+   ]
+  },
+  {
+   "old": "RT-T (v1 meaning: no records, FAIL)",
+   "new": "RT-T0",
+   "sources": [
+    "RD-5"
+   ]
+  },
+  {
+   "old": "RT-T (v6.0e meaning: all records, NOT RUN until released)",
+   "new": "RT-T, unchanged",
+   "sources": [
+    "RD-5"
+   ]
+  },
+  {
+   "old": "runner sub-records GV7-tool, GV7-consumer, TR28-tool, TR28-consumer, TR29-tool, EI2-consumer, EI7-tool, GV6-disk, RT-D-gr58, V27-glossary, TR45-opB",
+   "new": "the same names as control ids in their own right; GV7 and EI7 kept as composed rows",
+   "sources": [
+    "RD-4"
+   ]
+  },
+  {
+   "old": "TR28 (one row)",
+   "new": "TR28-tool and TR28-consumer",
+   "sources": [
+    "RD-4"
+   ]
+  },
+  {
+   "old": "TR45 (one row)",
+   "new": "TR45-opB and TR45-opC",
+   "sources": [
+    "RD-4",
+    "RD-26"
+   ]
+  },
+  {
+   "old": "EI14 (one row)",
+   "new": "EI14 and EI14-dispatch",
+   "sources": [
+    "RD-26"
+   ]
+  },
+  {
+   "old": "EI7 consumer half",
+   "new": "EI7-consumer (component of EI7)",
+   "sources": [
+    "RD-26"
+   ]
+  },
+  {
+   "old": "S11-2",
+   "new": "S11-2 composed of S11-2a, S11-2b, S11-2c",
+   "sources": [
+    "RD-4"
+   ]
+  },
+  {
+   "old": "Z9h (D:2291 statement) and Z9h (D:2886 statement)",
+   "new": "one Z9h: the D:2886 statement with \"with the adapter companions in the value set\"",
+   "sources": [
+    "MC-9",
+    "RD-31"
+   ]
+  },
+  {
+   "old": "purity job record id `outcome`",
+   "new": "Z9-STAGED",
+   "sources": [
+    "RD-25"
+   ]
+  },
+  {
+   "old": "runner-only ids R3-F2, R4-B3, R4-B3-DUP, R5-N6, R6-G6",
+   "new": "unchanged, as control ids with adopted expectations",
+   "sources": [
+    "RD-5",
+    "RD-24"
+   ]
+  },
+  {
+   "old": "result field \"authority match\"",
+   "new": "\"admission match\"",
+   "sources": [
+    "OD-6"
+   ]
+  },
+  {
+   "old": "ERROR reason \"(authority)\"",
+   "new": "\"(directory not admitted)\"",
+   "sources": [
+    "OD-6"
+   ]
+  },
+  {
+   "old": "\"authorized record directories\"",
+   "new": "\"admitted record directories\"",
+   "sources": [
+    "OD-6"
+   ]
+  },
+  {
+   "old": "module `record_authority.py`",
+   "new": "unchanged (historical name kept)",
+   "sources": [
+    "RD-29"
+   ]
+  },
+  {
+   "old": "r5 notation `P` (configuration path)",
+   "new": "`P_cfg`",
+   "sources": [
+    "RD-28"
+   ]
+  },
+  {
+   "old": "r5 notation `D` (directory part of `P_cfg`)",
+   "new": "`D_rec`",
+   "sources": [
+    "RD-28"
+   ]
+  },
+  {
+   "old": "r5 notation `E_F`, `E_M`",
+   "new": "F-entries, M-entries",
+   "sources": [
+    "RD-28"
+   ]
+  },
+  {
+   "old": "v2 ERROR `BASE_DRIFT`",
+   "new": "retired (sec. 33, C2); FAIL `base-drift` keeps its meaning",
+   "sources": [
+    "OD-20"
+   ]
+  },
+  {
+   "old": "finding labels R5, R8, R9 and \"v3 R11\"; B1-B6, V5 and O9 as finding labels; N4 as the finding at D:2585",
+   "new": "not identifiers in r6; cited in prose (for example \"v3 review finding R11\"); the control ids B1-B6, V5, O9 and N4 keep their meaning",
+   "sources": [
+    "OD-31"
+   ]
+  },
+  {
+   "old": "decision labels D1-D8, V5-D1, V5-D2, S1-D1 to S1-D3, R-D1, R-D3, R-D5, A-D5, DI-2, C3, C4",
+   "new": "quoted, not identifiers; a rule citing one restates its content",
+   "sources": [
+    "OD-31",
+    "E-014"
+   ]
+  },
+  {
+   "old": "mutants",
+   "new": "each mutant id is unique in its own namespace of the expectation file and equals no control id",
+   "sources": [
+    "RD-1",
+    "RD-5"
+   ]
+  },
+  {
+   "old": "(identifier rule)",
+   "new": "retained ids keep meaning; removed ids never reused",
+   "sources": [
+    "E-014",
+    "E-015",
+    "OD-31",
+    "RD-5",
+    "RD-28"
+   ]
+  }
+ ]
+}
