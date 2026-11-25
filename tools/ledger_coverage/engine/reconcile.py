@@ -115,9 +115,14 @@ class RecordDirectory:
         self.state = None
         self.equal = {}
         self.unequal = {}
+        # A.8: the outcome of each guard. D2-D5: True held, False failed (the run then stops), None not evaluated;
+        # authority: whether the directory is authorized (False with the rule inactive, or with the authority ERROR)
+        self.conditions = {'authority': None, 'D2': None, 'D3': None, 'D4': None, 'D5': None}
         # D5: the reserved class id, over the admitted class set of both routes
         if any(isinstance(c, dict) and c.get('id') == record_directory_class for c in classes):
             self._stop('D5', 'a side-change class uses the class id reserved for the record-directory rule')
+        self.conditions['D5'] = True
+        self.conditions['authority'] = self.authorized
         e_h = [p for p in repo.entries(H) if inside(self.d, p)]
         e_m = {p: e for p, e in repo.entries(M).items() if inside(self.d, p)}
         if not self.authorized:
@@ -132,6 +137,7 @@ class RecordDirectory:
         # D2: the directory is introduced after H
         if e_h:
             self._stop('D2', 'the record directory holds entries at H: %s' % e_h[0])
+        self.conditions['D2'] = True
         e_f = {p: e for p, e in repo.entries(F).items() if inside(self.d, p)}
         # D3: no ledgered, corpus, class-prefix or workflow path inside the directory, at F or at M
         prefixes = [x for c in classes if isinstance(c, dict) for x in c.get('prefixes', []) if isinstance(x, str)]
@@ -139,17 +145,20 @@ class RecordDirectory:
             if p in ledgered or in_corpus(p) or any(p.startswith(x) for x in prefixes) or p.startswith('.github/'):
                 self._stop('D3', 'a ledgered, corpus, class-prefix or workflow path lies in the record directory: %s'
                            % p)
+        self.conditions['D3'] = True
         # D4: F holds the configuration and the file of record pins in the directory
         prereg = self.d + '/' + 'PREREG.md'
         if (e_f.get(cpath) or (None,))[0] not in regular_modes or (e_f.get(prereg) or (None,))[0] not in regular_modes:
             self._stop('D4', 'F does not hold the configuration and its file of record pins in the record directory')
+        self.conditions['D4'] = True
         self.active = True
         self.state = 'active'
         self._complete(e_f, e_m)
 
     def _stop(self, cond, msg):
+        self.conditions[cond] = False
         raise oc.Stop(oc.error, 'CONFIG_INCONSISTENT', 'record directory (%s): %s' % (cond, msg),
-                      {'directory': self.d, 'condition': cond})
+                      {'directory': self.d, 'condition': cond, 'conditions': dict(self.conditions)})
 
     def _complete(self, e_f, e_m):
         """A.5: the entries inside the directory at F and at M compared path by path over their union; entry types
@@ -184,7 +193,7 @@ class RecordDirectory:
         for why in self.unequal.values():
             reasons[why] = reasons.get(why, 0) + 1
         return {'directory': self.d, 'authorized': self.authorized, 'state': self.state,
-                'equal': len(self.equal), 'unequal': reasons}
+                'conditions': dict(self.conditions), 'equal': len(self.equal), 'unequal': reasons}
 
 
 def side_class(repo, M, path, classes, record_refs, rd=None):
