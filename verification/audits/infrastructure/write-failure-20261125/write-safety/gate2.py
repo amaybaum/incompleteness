@@ -32,7 +32,13 @@ refspec checks, push path, read-back paths, grants) and adds:
     text is the sent content followed only by newlines and at most one exact copy of the
     attribution footer. That shape decides only the extent of a stop, never acceptance;
   * discrepancy records are written only after every field and check of the write has passed; a
-    halt marker embeds the complete evidence texts.
+    halt marker embeds the complete evidence texts;
+  * the pre-write check also refuses any text field the write would send (every body and title, of
+    every operation) that contains a less-than sign immediately followed by an exclamation mark
+    (lt_bang_violations; owner decisions of 2026-11-25). The reason names the field and every
+    position; the text is never altered, and the writer must reword it. The refusal is handled as
+    every other pre-check refusal: it halts before any request, latches the plan and writes the
+    global marker (section A.51 item 5: a failed pre-check stops the automated operations).
 The store is checked (_check_clear) for a write at its start, again once the operation is known
 (before the pre-write read) and again immediately before the write request, but not before the
 read-back request; for a push at its start only (by gate2 and again by gate.py's push, which calls
@@ -56,6 +62,33 @@ _seq = itertools.count()
 # The halt store's in-process copy: one entry per halt or refusal in this process. Any entry stops
 # every Gate2 in the process, also when a marker file could not be written. Nothing clears it.
 _HALTED = []
+
+
+# A less-than sign immediately followed by an exclamation mark. GitHub stored comment 7172299731
+# with the exclamation mark of this sequence removed (inside a code span); text containing it is
+# refused before any request and never altered (owner decisions, amaybaum, 2026-11-25T19:31:10Z
+# and 2026-11-25T20:29:25Z).
+LT_BANG = "<" + "!"
+
+
+def lt_bang_violations(t, field):
+    """The pre-write refusal of LT_BANG in a text field the gate would send. Returns a list with
+    one explanation naming the field and every position (0-based character offset, 1-based line
+    and column), or an empty list. Never changes the text; a non-string is left to precheck_text."""
+    if not isinstance(t, str) or LT_BANG not in t:
+        return []
+    pos, i = [], t.find(LT_BANG)
+    while i != -1:
+        pos.append(i)
+        i = t.find(LT_BANG, i + 1)
+
+    def where(i):
+        line = t.count("\n", 0, i) + 1
+        return "offset %d (line %d, column %d)" % (i, line, i - (t.rfind("\n", 0, i) + 1) + 1)
+    return ["field %s contains '<' immediately followed by '!' at %s; GitHub has stored such text "
+            "with the '!' removed, so it is not sent and is not altered: reword the %s so that no "
+            "'<' is immediately followed by '!' (no automatic substitution is made)"
+            % (field, ", ".join(where(i) for i in pos), field)]
 
 
 def sha256(s):
@@ -343,6 +376,7 @@ class Gate2(G.Gate):
             bad = precheck_text(v)
             if isinstance(v, str):
                 bad += TR.send_form_violations(reg.get("send_form"), v, k)
+            bad += lt_bang_violations(v, k)
             if bad:
                 self._halt("pre-check refused field %s: %s" % (k, "; ".join(bad)),
                            sent=v if isinstance(v, str) else repr(v))

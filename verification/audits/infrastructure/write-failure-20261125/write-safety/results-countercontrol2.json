@@ -2,7 +2,8 @@
  "pass": {
   "C1": true,
   "C2": true,
-  "C3": true
+  "C3": true,
+  "C4": true
  },
  "detail": {
   "C1": {
@@ -50,12 +51,12 @@
   },
   "C2": {
    "baseline": {
-    "run": 59,
+    "run": 64,
     "failed": 0,
     "failing": []
    },
    "strip_all_whitespace": {
-    "run": 59,
+    "run": 64,
     "failed": 7,
     "failing": [
      "test_neg_content_changes_stop_globally",
@@ -74,7 +75,7 @@
     ]
    },
    "whole_text_strip": {
-    "run": 59,
+    "run": 64,
     "failed": 7,
     "failing": [
      "test_neg_content_changes_stop_globally",
@@ -93,7 +94,7 @@
     ]
    },
    "ignore_footer_text": {
-    "run": 59,
+    "run": 64,
     "failed": 5,
     "failing": [
      "test_neg_footer_variants",
@@ -108,7 +109,7 @@
     ]
    },
    "accept_doubled_footer": {
-    "run": 59,
+    "run": 64,
     "failed": 5,
     "failing": [
      "test_neg_footer_variants",
@@ -123,7 +124,7 @@
     ]
    },
    "ascii_whitespace_tail": {
-    "run": 59,
+    "run": 64,
     "failed": 5,
     "failing": [
      "test_neg_footer_variants",
@@ -138,7 +139,7 @@
     ]
    },
    "no_separator_check": {
-    "run": 59,
+    "run": 64,
     "failed": 4,
     "failing": [
      "test_neg_footer_variants",
@@ -153,7 +154,7 @@
   },
   "C3": {
    "accept_rejected": {
-    "run": 59,
+    "run": 64,
     "failed": 25,
     "failing": [
      "test_c1_run_level_latch_after_operation_level_halt",
@@ -196,7 +197,7 @@
     ]
    },
    "skip_discrepancy_record": {
-    "run": 59,
+    "run": 64,
     "failed": 2,
     "failing": [
      "test_p3_real_pairs_through_gate_with_records",
@@ -204,7 +205,7 @@
     ]
    },
    "single_global_marker": {
-    "run": 59,
+    "run": 64,
     "failed": 16,
     "failing": [
      "test_c1_run_level_latch_after_operation_level_halt",
@@ -226,11 +227,15 @@
     ]
    },
    "no_sequence_latch": {
-    "run": 59,
-    "failed": 6,
+    "run": 64,
+    "failed": 10,
     "failing": [
      "test_c1_run_level_latch_after_operation_level_halt",
      "test_c3_existing_op_marker_blocks_and_is_kept",
+     "test_lt1_refused_in_every_body_and_title",
+     "test_lt2_positions_start_end_code_span_and_block",
+     "test_lt4_refusal_before_reaching_a_stripping_transport",
+     "test_lt5_refusal_latches_until_the_owner_clears_it",
      "test_q10_plan_latch_survives_restart",
      "test_q15_store_rechecked_before_the_write_request",
      "test_q17_restart_after_halt_same_or_substituted_id",
@@ -243,9 +248,13 @@
     ]
    },
    "memory_only_latch": {
-    "run": 59,
-    "failed": 3,
+    "run": 64,
+    "failed": 7,
     "failing": [
+     "test_lt1_refused_in_every_body_and_title",
+     "test_lt2_positions_start_end_code_span_and_block",
+     "test_lt4_refusal_before_reaching_a_stripping_transport",
+     "test_lt5_refusal_latches_until_the_owner_clears_it",
      "test_q10_plan_latch_survives_restart",
      "test_q15_store_rechecked_before_the_write_request",
      "test_q17_restart_after_halt_same_or_substituted_id"
@@ -255,8 +264,8 @@
     ]
    },
    "operation_scope_always": {
-    "run": 59,
-    "failed": 29,
+    "run": 64,
+    "failed": 33,
     "failing": [
      "test_c6_second_halt_with_outstanding_marker_is_global",
      "test_g04_readback_failure_halts",
@@ -266,6 +275,10 @@
      "test_g10_unvalidated_needs_single_grant",
      "test_g11_fields_mismatch_halts",
      "test_g16_noncanonical_refused_before_write",
+     "test_lt1_refused_in_every_body_and_title",
+     "test_lt2_positions_start_end_code_span_and_block",
+     "test_lt4_refusal_before_reaching_a_stripping_transport",
+     "test_lt5_refusal_latches_until_the_owner_clears_it",
      "test_neg_authorization_record",
      "test_neg_content_changes_stop_globally",
      "test_neg_footer_variants",
@@ -290,7 +303,7 @@
     ]
    },
    "narrow_without_tail_check": {
-    "run": 59,
+    "run": 64,
     "failed": 16,
     "failing": [
      "test_neg_authorization_record",
@@ -312,7 +325,7 @@
     ]
    },
    "narrow_on_any_appended_text": {
-    "run": 59,
+    "run": 64,
     "failed": 7,
     "failing": [
      "test_neg_footer_variants",
@@ -328,7 +341,7 @@
     ]
    },
    "labels_state_only_on_their_ops": {
-    "run": 59,
+    "run": 64,
     "failed": 1,
     "failing": [
      "test_q13_labels_and_state_checked_on_every_write"
@@ -338,7 +351,7 @@
     ]
    },
    "ignore_stale_companion": {
-    "run": 59,
+    "run": 64,
     "failed": 1,
     "failing": [
      "test_q14_stale_or_existing_operation_marker_makes_it_global"
@@ -348,7 +361,7 @@
     ]
    },
    "allowlist_on_exact_validated_ops": {
-    "run": 59,
+    "run": 64,
     "failed": 1,
     "failing": [
      "test_q12_permitted_difference_and_validation"
@@ -358,7 +371,7 @@
     ]
    },
    "caller_substitutes_plan_id": {
-    "run": 59,
+    "run": 64,
     "failed": 2,
     "failing": [
      "test_q16_plan_id_only_from_the_plan_record",
@@ -370,7 +383,7 @@
     ]
    },
    "unlimited_footer_copies": {
-    "run": 59,
+    "run": 64,
     "failed": 4,
     "failing": [
      "test_neg_footer_variants",
@@ -381,6 +394,108 @@
     "required_tests_failing": [
      "test_q18_at_most_one_footer_copy_narrows"
     ]
+   }
+  },
+  "C4": {
+   "no_lt_bang_refusal": {
+    "run": 64,
+    "failed": 4,
+    "failing": [
+     "test_lt1_refused_in_every_body_and_title",
+     "test_lt2_positions_start_end_code_span_and_block",
+     "test_lt4_refusal_before_reaching_a_stripping_transport",
+     "test_lt5_refusal_latches_until_the_owner_clears_it"
+    ],
+    "required_tests_failing": [
+     "test_lt1_refused_in_every_body_and_title",
+     "test_lt2_positions_start_end_code_span_and_block",
+     "test_lt4_refusal_before_reaching_a_stripping_transport",
+     "test_lt5_refusal_latches_until_the_owner_clears_it"
+    ],
+    "positive_control_test_lt3_failing": false
+   },
+   "lt_bang_refusal_bodies_only": {
+    "run": 64,
+    "failed": 3,
+    "failing": [
+     "test_lt1_refused_in_every_body_and_title",
+     "test_lt2_positions_start_end_code_span_and_block",
+     "test_lt4_refusal_before_reaching_a_stripping_transport"
+    ],
+    "required_tests_failing": [
+     "test_lt1_refused_in_every_body_and_title",
+     "test_lt2_positions_start_end_code_span_and_block",
+     "test_lt4_refusal_before_reaching_a_stripping_transport"
+    ],
+    "positive_control_test_lt3_failing": false
+   },
+   "lt_bang_substituted_and_sent": {
+    "run": 64,
+    "failed": 4,
+    "failing": [
+     "test_lt1_refused_in_every_body_and_title",
+     "test_lt2_positions_start_end_code_span_and_block",
+     "test_lt4_refusal_before_reaching_a_stripping_transport",
+     "test_lt5_refusal_latches_until_the_owner_clears_it"
+    ],
+    "required_tests_failing": [
+     "test_lt1_refused_in_every_body_and_title",
+     "test_lt2_positions_start_end_code_span_and_block",
+     "test_lt4_refusal_before_reaching_a_stripping_transport",
+     "test_lt5_refusal_latches_until_the_owner_clears_it"
+    ],
+    "positive_control_test_lt3_failing": false
+   },
+   "readback_without_refusal_stripping_transport": {
+    "comment.create.body": {
+     "verdict": "halted",
+     "read_back_mismatch_in_field": true,
+     "scope": "global",
+     "stored_equals_sent_less_the_bang": true,
+     "writes": 1
+    },
+    "issue.create.title": {
+     "verdict": "halted",
+     "read_back_mismatch_in_field": true,
+     "scope": "global",
+     "stored_equals_sent_less_the_bang": true,
+     "writes": 1
+    },
+    "issue.create.body": {
+     "verdict": "halted",
+     "read_back_mismatch_in_field": true,
+     "scope": "global",
+     "stored_equals_sent_less_the_bang": true,
+     "writes": 1
+    },
+    "issue.edit_body.body": {
+     "verdict": "halted",
+     "read_back_mismatch_in_field": true,
+     "scope": "global",
+     "stored_equals_sent_less_the_bang": true,
+     "writes": 1
+    },
+    "pr.create.title": {
+     "verdict": "halted",
+     "read_back_mismatch_in_field": true,
+     "scope": "global",
+     "stored_equals_sent_less_the_bang": true,
+     "writes": 1
+    },
+    "pr.create.body": {
+     "verdict": "halted",
+     "read_back_mismatch_in_field": true,
+     "scope": "global",
+     "stored_equals_sent_less_the_bang": true,
+     "writes": 1
+    },
+    "pr.edit.body": {
+     "verdict": "halted",
+     "read_back_mismatch_in_field": true,
+     "scope": "global",
+     "stored_equals_sent_less_the_bang": true,
+     "writes": 1
+    }
    }
   }
  }

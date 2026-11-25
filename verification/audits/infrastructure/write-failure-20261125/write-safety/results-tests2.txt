@@ -7,6 +7,13 @@ test_c4_unknown_operation_halts_globally (__main__.Containment.test_c4_unknown_o
 test_c5_marker_blocks_other_process (__main__.Containment.test_c5_marker_blocks_other_process) ... ok
 test_c6_second_halt_with_outstanding_marker_is_global (__main__.Containment.test_c6_second_halt_with_outstanding_marker_is_global)
 Two halts in one process (two sequences) keep separate evidence; the second, although ... ok
+test_lt1_refused_in_every_body_and_title (__main__.LtBang.test_lt1_refused_in_every_body_and_title) ... ok
+test_lt2_positions_start_end_code_span_and_block (__main__.LtBang.test_lt2_positions_start_end_code_span_and_block) ... ok
+test_lt3_positive_separated_characters_are_sent (__main__.LtBang.test_lt3_positive_separated_characters_are_sent) ... ok
+test_lt4_refusal_before_reaching_a_stripping_transport (__main__.LtBang.test_lt4_refusal_before_reaching_a_stripping_transport)
+Under a transport that strips the '!' as GitHub did, the refused texts never reach it; ... ok
+test_lt5_refusal_latches_until_the_owner_clears_it (__main__.LtBang.test_lt5_refusal_latches_until_the_owner_clears_it)
+No rewording or retry continues the plan: the same gate, a new gate of the same plan ... ok
 test_neg_authorization_record (__main__.Negative.test_neg_authorization_record) ... ok
 test_neg_content_changes_stop_globally (__main__.Negative.test_neg_content_changes_stop_globally)
 Every content change before the tail stops every text write (rule 3), whichever ... ok
@@ -76,11 +83,11 @@ test_q18_at_most_one_footer_copy_narrows (__main__.Revision4.test_q18_at_most_on
 Item 2: one appended footer copy (plus newlines) narrows to the operation; two or more ... ok
 
 ----------------------------------------------------------------------
-Ran 59 tests in 7.634s
+Ran 64 tests in 5.391s
 
 OK
 
 # Unchanged v1 suite in the same directory, same run: python3 -I -B test_gate.py
-Ran 18 tests in 0.233s
+Ran 18 tests in 0.080s
 OK
 # Unchanged v1 countercontrols: python3 -I -B countercontrol.py -> pass {"C1": true, "C2": true, "C3": true}; output equal to results-countercontrol.json

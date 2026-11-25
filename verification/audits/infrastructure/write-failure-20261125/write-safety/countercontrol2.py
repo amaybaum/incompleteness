@@ -15,6 +15,12 @@ C3  mutations of gate2's outcome handling and containment: accept "rejected"; sk
     plan id taken in place of the plan record's (before r4 item 1); any number of footer copies
     narrowing a stop (before r4 item 2). The control suite must fail under each, and under each
     latch mutant the run-level tests named for it must be among the failures.
+C4  mutations of the pre-write refusal of a less-than sign immediately followed by an exclamation
+    mark (r5): no refusal; titles not checked; the text substituted and sent instead of refused.
+    Under each the control suite must fail, with the refusal tests named for the mutant among the
+    failures and the positive control test_lt3 passing. Under the gate without the refusal, every
+    such text sent through a transport that removes the exclamation mark as GitHub did (comment
+    7172299731) reaches it in one write and the exact read-back halts globally on the change.
 """
 import dataclasses, io, json, os, re, sys, tempfile, unittest
 
@@ -314,8 +320,103 @@ def c3():
         all(out[n]["required_tests_failing"] == sorted(t) for n, t in required.items())
 
 
+def c4():
+    out = {}
+    LB = "<" + "!"
+    saved_check, saved_write = G2.lt_bang_violations, G2.Gate2._write
+
+    def no_refusal(t, field):
+        return []
+
+    def body_only(t, field):
+        return [] if field == "title" else saved_check(t, field)
+
+    def substitute(self, op, target, fields, labels, label):
+        fields = {k: (v.replace(LB, "< !") if isinstance(v, str) else v)
+                  for k, v in (fields or {}).items()}
+        return saved_write(self, op, target, fields, labels, label)
+
+    mutants = {"no_lt_bang_refusal": (no_refusal, None),
+               "lt_bang_refusal_bodies_only": (body_only, None),
+               "lt_bang_substituted_and_sent": (no_refusal, substitute)}
+    required = {"no_lt_bang_refusal": {"test_lt1_refused_in_every_body_and_title",
+                                       "test_lt2_positions_start_end_code_span_and_block",
+                                       "test_lt4_refusal_before_reaching_a_stripping_transport",
+                                       "test_lt5_refusal_latches_until_the_owner_clears_it"},
+                "lt_bang_refusal_bodies_only": {
+                    "test_lt1_refused_in_every_body_and_title",
+                    "test_lt2_positions_start_end_code_span_and_block",
+                    "test_lt4_refusal_before_reaching_a_stripping_transport"},
+                "lt_bang_substituted_and_sent": {
+                    "test_lt1_refused_in_every_body_and_title",
+                    "test_lt2_positions_start_end_code_span_and_block",
+                    "test_lt4_refusal_before_reaching_a_stripping_transport",
+                    "test_lt5_refusal_latches_until_the_owner_clears_it"}}
+    for name, (check, write) in mutants.items():
+        G2.lt_bang_violations = check
+        if write:
+            G2.Gate2._write = write
+        try:
+            out[name] = run_suite()
+        finally:
+            G2.lt_bang_violations, G2.Gate2._write = saved_check, saved_write
+            del G2._HALTED[:]
+        out[name]["required_tests_failing"] = sorted(required[name] & set(out[name]["failing"]))
+        out[name]["positive_control_test_lt3_failing"] = \
+            "test_lt3_positive_separated_characters_are_sent" in out[name]["failing"]
+    # Read-back under the gate without the refusal and a transport that removes the '!'.
+    strip = lambda t: t.replace(LB, "<")
+    text = "lookbehind `(?" + LB + "[A-Za-z0-9])` plus"
+    target = {"comment.create": 1, "issue.edit_body": 1, "issue.create": None, "pr.create": None,
+              "pr.edit": 1}
+    readback, rb_ok = {}, True
+    G2.lt_bang_violations = no_refusal
+    try:
+        for op, spec in sorted(G.OPERATIONS.items()):
+            for field in spec["text"]:
+                d = tempfile.mkdtemp(dir=os.path.join(HERE, "runs"))
+                plan = "c4-%s-%s" % (op, field)
+                G2.record_plan(d, plan)
+                issues = {1: {"number": 1, "title": "t", "body": "b", "labels": [],
+                              "state": "open"}}
+                gh = MockGitHub2(issues, transforms={k: strip for k in
+                                                     ("patch", "comment", "create")},
+                                 title_transform=strip)
+                g = G2.Gate2(gh, MockGit(), d, "o/r",
+                             {o: {"validated": True, "send_form": None, "allowlist": True}
+                              for o in G.OPERATIONS}, plan_id=plan)
+                fields = {k: (text if k == field else ("t" if k == "title" else "b"))
+                          for k in spec["text"]}
+                try:
+                    g.write(op, target[op], fields)
+                    v = {"verdict": "accepted"}
+                except G.Halted as e:
+                    with open(os.path.join(d, "HALT"), encoding="utf-8") as f:
+                        rec = json.load(f)
+                    v = {"verdict": "halted",
+                         "read_back_mismatch_in_field": ("read-back mismatch in %s " % field)
+                         in str(e),
+                         "scope": rec["scope"],
+                         "stored_equals_sent_less_the_bang": rec["evidence"].get(
+                             field + ".stored", {}).get("text") == strip(text)}
+                finally:
+                    del G2._HALTED[:]
+                v["writes"] = len(gh.writes)
+                readback["%s.%s" % (op, field)] = v
+                rb_ok &= v == {"verdict": "halted", "read_back_mismatch_in_field": True,
+                               "scope": "global", "stored_equals_sent_less_the_bang": True,
+                               "writes": 1}
+    finally:
+        G2.lt_bang_violations = saved_check
+    out["readback_without_refusal_stripping_transport"] = readback
+    results["C4"] = out
+    return rb_ok and all(out[n]["failed"] > 0 and
+                         out[n]["required_tests_failing"] == sorted(required[n]) and
+                         not out[n]["positive_control_test_lt3_failing"] for n in mutants)
+
+
 if __name__ == "__main__":
     os.makedirs(os.path.join(HERE, "runs"), exist_ok=True)
-    ok = {"C1": bool(c1()), "C2": bool(c2()), "C3": bool(c3())}
+    ok = {"C1": bool(c1()), "C2": bool(c2()), "C3": bool(c3()), "C4": bool(c4())}
     print(json.dumps({"pass": ok, "detail": results}, indent=1, ensure_ascii=False))
     sys.exit(0 if all(ok.values()) else 1)

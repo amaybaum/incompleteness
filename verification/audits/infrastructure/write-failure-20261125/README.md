@@ -193,3 +193,19 @@ exactly when the halt store is checked, and `CHANGES-r3.md` states that r3 was c
 the caller's plan id fails 2 tests; r3's unlimited footer copies fail 4); the original suite is
 unchanged (18 of 18) and its countercontrols pass. The existing gate stays in use until the owner
 approves v2.
+
+## Gate v2 revision r5: pre-write refusal of a less-than sign followed by an exclamation mark (for review, not adopted)
+
+Owner decision of 2026-11-25 (amaybaum, 2026-11-25T20:29:25Z, #1169 comment 7173759648), after
+GitHub stored comment 7172299731 with the exclamation mark of such a sequence removed: add the
+comment poster's pre-write refusal to gate v2 before its validation write. `gate2.py` refuses any
+body or title of any operation containing a less-than sign immediately followed by an exclamation
+mark before any request, naming the field and each position and asking the writer to reword; it
+never alters the text. Like every pre-check refusal it latches the plan and writes the global
+marker. The exact read-back is unchanged. `write-safety/CHANGES-r5.md` records the change, the
+latching choice and the controls. Prepared locally, not committed. Recorded results:
+`test_gate2.py` 64 of 64; `countercontrol2.py` C1-C4 pass (the gate without the refusal, checking
+bodies only, or substituting the text fails the new tests, and under a transport that removes the
+exclamation mark the read-back halts); the original suite is unchanged (18 of 18) and its
+countercontrols pass. A focused independent check is required; the existing gate stays in use
+until the owner approves v2.

@@ -47,6 +47,16 @@ Cap at one permitted footer copy. Additional copies trigger conservative contain
 §5, §7, §8 and §9 after the delta review of r3 (PR #1566 comment 7170013007). `CHANGES-r4.md` maps
 each change.
 
+**Revision r5** (owner decision, amaybaum, 2026-11-25T20:29:25Z, #1169 comment 7173759648: "Add the
+same pre-write refusal to gate v2 before its validation write. Require targeted tests,
+countercontrols and a focused independent check.") adds one pre-check, prepared locally and not
+committed: any text field the write would send (every body and title, of every operation) that
+contains a less-than sign immediately followed by an exclamation mark is refused before any request
+(`gate2.lt_bang_violations`), because GitHub stored comment 7172299731 with that exclamation mark
+removed. The reason names the field and each position and asks the writer to reword; the text is
+never altered. Like every pre-check refusal it latches the plan and writes the global marker (§1,
+§5). The exact read-back is unchanged. Tests `lt1`–`lt5`, countercontrol C4; `CHANGES-r5.md`.
+
 ***
 
 ## 1. Policy
@@ -420,7 +430,7 @@ items 2 and 5). The adoption lines are dated and cite the owner's approval recor
 Run in this directory: `python3 -I -B test_gate2.py` and `python3 -I -B countercontrol2.py`.
 Recorded outputs: `results-tests2.txt`, `results-countercontrol2.json`.
 
-**`test_gate2.py`: 59 tests, all pass.** The unchanged v1 suite `test_gate.py` (18 tests) and v1
+**`test_gate2.py`: 64 tests, all pass.** The unchanged v1 suite `test_gate.py` (18 tests) and v1
 countercontrols pass in the same run (`results-tests2.txt`).
 
 - Registry (`r1`–`r5`): closed frozen tuple with one rule; no footer formatting in `gate2.py`;
@@ -469,25 +479,33 @@ countercontrols pass in the same run (`results-tests2.txt`).
   rejected (item 2). Tests that used a doubled footer as their operation-level case now use a
   removed footer.
 - Ported `gate.py` guarantees (`g01`–`g17`): as before, with every failure global.
+- Revision r5 (`lt1`–`lt5`): the less-than/exclamation sequence refused in every body and title of
+  every text operation, at the start, at the end, before the footer, in code spans and a fenced
+  block, with every position named and zero requests; separated characters and look-alikes sent and
+  stored exactly; the plan latched until the owner clears it, after which the reworded text is sent.
 
-**`countercontrol2.py`: C1, C2 and C3 pass.**
+**`countercontrol2.py`: C1, C2, C3 and C4 pass.**
 
 - C1: `gate.py` halts on the real #1505 and #1558 pairs; `gate2` accepts each as
   `permitted footer-attribution-1` with one complete record. D1 replay: `gate.py` 1 write then a
   halt; `gate2` 5 writes and 4 records.
-- C2, rule mutants; baseline 59 run, 0 failed: strip all whitespace: 7 tests fail; `.strip()` on
+- C2, rule mutants; baseline 64 run, 0 failed: strip all whitespace: 7 tests fail; `.strip()` on
   the whole text: 7; ignore the footer text: 5; accept a doubled footer: 5; let spaces and tabs in
   the tail differ: 5; no two-newline separator check: 4. Each has negative controls among its
   failures.
 - C3, gate mutants: passing a rejected difference off as permitted: 25; skipping the discrepancy
-  record: 2; a single global marker for every halt: 16; no sequence latch: 6 (among them `c1`, `q3`,
-  `q10`); a latch in memory only, without the plan latch file: 3 (`q10`, `q15`, `q17`); every halt
-  confined to its operation (before r2): 29; narrowing without the tail condition: 16; narrowing on
+  record: 2; a single global marker for every halt: 16; no sequence latch: 10 (among them `c1`,
+  `q3`, `q10`); a latch in memory only, without the plan latch file: 7 (`q10`, `q15`, `q17` and
+  `lt1`, `lt2`, `lt4`, `lt5`); every halt confined to its operation (before r2): 33; narrowing without the tail condition: 16; narrowing on
   any appended text (r2's condition): 7 (among them `q9`); labels and state compared only on their
   own operations (before G1): 1 (`q13`); a stale companion ignored (before G2): 1 (`q14`); the
   allowlist applied to operations validated by exact read-back only (before Q4): 1 (`q12`); the
   caller's plan id taken in place of the record's (before r4 item 1): 2 (`q16`, `q17`); any number
   of footer copies narrowing (r3's condition, before r4 item 2): 4 (among them `q18`).
+- C4, mutants of the r5 refusal: no refusal: 4 (`lt1`, `lt2`, `lt4`, `lt5`); titles not checked: 3
+  (`lt1`, `lt2`, `lt4`); the text substituted and sent: 4; the positive control `lt3` passes under
+  each. Without the refusal, under a transport that removes the exclamation mark, each of the seven
+  text fields is written once and the exact read-back halts globally on the change.
 
 **Limits.** These controls show the gate's control flow and the rule's exact behaviour on stated
 inputs, against a mock. They do not show the behaviour of the real GitHub path; §7 is the first
@@ -502,10 +520,11 @@ parts of `q16` and `q17` fail under the plan-id mutant.
 | `transport_rules.py` | Allowlist: `Rule`, `REGISTRY`, `classify`, `footer_shaped_tail`, send forms |
 | `gate2.py` | Gate v2 prototype (imports `gate.py`) |
 | `mock2.py` | Mock extensions (subclasses `mock.MockGitHub`) |
-| `test_gate2.py` | Control suite (59 tests) |
-| `countercontrol2.py` | C1–C3 |
+| `test_gate2.py` | Control suite (64 tests) |
+| `countercontrol2.py` | C1–C4 |
 | `results-tests2.txt`, `results-countercontrol2.json` | Recorded outputs |
 | `PROTOCOL-v2.md` | This document |
 | `CHANGES-r2.md` | Revision r2: each review finding and its change |
 | `CHANGES-r3.md` | Revision r3: each owner decision and finding, its change, and the consolidations |
 | `CHANGES-r4.md` | Revision r4: each change, its reason and its tests |
+| `CHANGES-r5.md` | Revision r5: the pre-write refusal, the latching choice, its tests and countercontrols |

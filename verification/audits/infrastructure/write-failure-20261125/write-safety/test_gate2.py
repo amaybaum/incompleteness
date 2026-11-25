@@ -1171,6 +1171,132 @@ class PortedGuarantees(Base):
             self.assertNoFurtherWrites(g, gh, git, "push", "global")
 
 
+LB = "<" + "!"                   # the refused sequence, built from its two characters
+TEXT_OPS = {op: spec["text"] for op, spec in G.OPERATIONS.items() if spec["text"]}
+TARGET = {"comment.create": 1, "issue.edit_body": 2, "issue.create": None, "pr.create": None,
+          "pr.edit": 5}
+
+
+def strip_bang(t):
+    """The alteration GitHub made to comment 7172299731: the '!' of each such sequence removed."""
+    return t.replace(LB, "<")
+
+
+class LtBang(Base):
+    """Owner decisions, 2026-11-25: text containing '<' immediately followed by '!' is refused
+    before any request, with a reason naming the field and position; the text is never altered;
+    the writer rewords it. The refusal is a pre-check refusal: it latches the plan and writes the
+    global marker, as every pre-check refusal does (section A.51 item 5)."""
+
+    def fields_for(self, op, field, text):
+        return {k: (text if k == field else ("t" if k == "title" else "b" + F))
+                for k in TEXT_OPS[op]}
+
+    def assertRefused(self, op, fields, field, offsets, gh=None):
+        gh = gh or MockGitHub2(issues()); git = MockGit(); g = self.gate(gh, git)
+        sent = dict(fields)
+        with self.assertRaises(Halted, msg=(op, field)) as cm:
+            g.write(op, TARGET[op], fields)
+        self.assertEqual((gh.writes, gh.gets, git.runs), ([], 0, []), (op, field))
+        self.assertEqual(fields, sent, "the caller's text was changed")
+        reason = str(cm.exception)
+        rec = self.halt_record()
+        for r in (reason, rec["reason"]):
+            self.assertIn("pre-check refused field %s" % field, r)
+            self.assertIn("field %s contains '<' immediately followed by '!'" % field, r)
+            self.assertIn("reword the %s" % field, r)
+            for o in offsets:
+                self.assertIn("offset %d (" % o, r)
+            self.assertEqual(r.count("offset "), len(offsets), r)
+        self.assertEqual(rec["scope"], "global")
+        self.assertEqual(rec["evidence"]["sent"]["text"], fields[field])
+        self.assertEqual(rec["evidence"]["sent"]["sha256"], G2.sha256(fields[field]))
+        self.assertTrue(os.path.exists(os.path.join(self.dir, G2.PLAN_PREFIX + self.plan)))
+        return g, gh, git
+
+    def test_lt1_refused_in_every_body_and_title(self):
+        for op, names in sorted(TEXT_OPS.items()):
+            for field in names:
+                self.setUp()
+                text = "lookbehind `(?%s[A-Za-z0-9])` here" % LB
+                g, gh, git = self.assertRefused(op, self.fields_for(op, field, text), field,
+                                                [text.index(LB)])
+                self.assertNoFurtherWrites(g, gh, git, op if op in SAMPLE else "pr.edit")
+
+    def test_lt2_positions_start_end_code_span_and_block(self):
+        cases = [("body", LB + "-- start", [0]),
+                 ("body", "ends with " + LB, [10]),
+                 ("body", "ends before footer " + LB + F, [19]),
+                 ("body", "span `x(?%s=y)` and `a%sb`" % (LB, LB), [9, 22]),
+                 ("body", "```\nline\n  " + LB + "DOCTYPE\n```\n", [11]),
+                 ("body", LB + LB, [0, 2]),
+                 ("title", LB + " at start", [0]),
+                 ("title", "at end " + LB, [7])]
+        for field, text, offs in cases:
+            self.setUp()
+            op = "issue.create"
+            self.assertRefused(op, self.fields_for(op, field, text), field, offs)
+            self.assertEqual([text[o:o + 2] for o in offs], [LB] * len(offs))
+        self.setUp()                     # line and column of a position on a later line
+        text = "a\nbb\nccc " + LB
+        gh = MockGitHub2(issues()); g = self.gate(gh)
+        with self.assertRaises(Halted) as cm:
+            g.write("comment.create", 1, {"body": text})
+        self.assertIn("offset 9 (line 3, column 5)", str(cm.exception))
+        self.assertEqual((gh.writes, gh.gets), ([], 0))
+        self.assertEqual(G2.lt_bang_violations(None, "body"), [])   # left to precheck_text
+
+    def test_lt3_positive_separated_characters_are_sent(self):
+        texts = ["< !", "<\n!", "!<", "x<y!", "&lt;!", "<?xml", "a < b!", "<\uff01", "\uff1c!",
+                 "`(?<=x)` and `!`"]
+        for t in texts:
+            self.setUp()
+            gh = MockGitHub2(issues()); g = self.gate(gh)
+            res = g.write("issue.create", None, {"title": "title " + t, "body": t + F})
+            self.assertEqual(res.outcomes, {"title": ["exact", None], "body": ["exact", None]}, t)
+            self.assertEqual(len(gh.writes), 1, t)
+            self.assertEqual(gh.writes[0][2], {"title": "title " + t, "body": t + F}, t)
+            self.assertEqual(os.listdir(self.dir), [G2.PLAN_RECORD], t)
+
+    def test_lt4_refusal_before_reaching_a_stripping_transport(self):
+        """Under a transport that strips the '!' as GitHub did, the refused texts never reach it;
+        countercontrol2 C4 shows that without the refusal the read-back halts on the change."""
+        text = "lookbehind `(?%s[A-Za-z0-9])`" % LB
+        for op, names in sorted(TEXT_OPS.items()):
+            for field in names:
+                self.setUp()
+                gh = MockGitHub2(issues(), transforms={k: strip_bang for k in
+                                                       ("patch", "comment", "create")},
+                                 title_transform=strip_bang)
+                self.assertRefused(op, self.fields_for(op, field, text), field,
+                                   [text.index(LB)], gh=gh)
+
+    def test_lt5_refusal_latches_until_the_owner_clears_it(self):
+        """No rewording or retry continues the plan: the same gate, a new gate of the same plan
+        and a later sequence are refused; once the owner has cleared the halt (by hand), the
+        writer's reworded text is sent and stored exactly."""
+        gh = MockGitHub2(issues()); git = MockGit()
+        g, gh, git = self.assertRefused("comment.create", {"body": "x " + LB + " y" + F}, "body",
+                                        [2], gh=gh)
+        reworded = {"body": "x < ! y" + F}
+        for gg in (g, self.gate(gh, git)):
+            with self.assertRaises(Halted):
+                gg.write("comment.create", 1, dict(reworded))
+        self.new_sequence()
+        with self.assertRaises(Halted) as cm:
+            self.gate(gh, git).write("comment.create", 1, dict(reworded))
+        self.assertIn("halt marker present: HALT", str(cm.exception))
+        self.assertEqual((gh.writes, gh.gets), ([], 0))
+        for n in os.listdir(self.dir):   # the owner's decision, carried out by hand
+            if n == "HALT" or n.startswith(G2.PLAN_PREFIX):
+                os.remove(os.path.join(self.dir, n))
+        self.new_sequence()
+        res = self.gate(gh, git).write("comment.create", 1, dict(reworded))
+        self.assertEqual(res.outcomes["body"], ["exact", None])
+        self.assertEqual(res.stored["body"], reworded["body"])
+        self.assertEqual(len(gh.writes), 1)
+
+
 if __name__ == "__main__":
     os.makedirs(os.path.join(HERE, "runs"), exist_ok=True)
     unittest.main(verbosity=2)
