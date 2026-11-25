@@ -10,7 +10,7 @@
 
 **Revision r4.** Revision r4 applies the owner decision "#1049 | Narrow the three passages to support available on main. Retain r5 as provenance only, not acceptance support." and "Both | Add the preservation rationale and remediation plan required by §A.46 item 8." (amaybaum, 2026-11-25, #1169 comment 7167657546). The edited passages are §0 (this line), §1.4 (the last Q-α bullet and the first two Q-β bullets), §3 (one row) and §6 (one limitation), and §7 is new. The narrowed passages rest only on records on `main` at the pin; r5 is provenance only. No other result changes. CHANGES-r4.md lists each change.
 
-**Revision r5.** Revision r5 applies the owner decision "#1049 — Linearity | Resolve nits 1–6. Add the superseded notice to REPORT-r3.md." (amaybaum, 2026-11-25T16:29:44Z, #1169 comment {{ID:c29}}), resolving nits 1–6 of the delta review of r4. The edited passages are §0 (this line), §1.4 (one clause of the second Q-β bullet), §7.3 (the r3 and r4 lines), §7.6 (V-1 and V-2), §7.7 and §7.8 (three rows, one of them new). No result changes. CHANGES-r5.md lists each change.
+**Revision r5.** Revision r5 applies the owner decision "#1049 — Linearity | Resolve nits 1–6. Add the superseded notice to REPORT-r3.md." (amaybaum, 2026-11-25T16:29:44Z, #1169 comment 7169907126), resolving nits 1–6 of the delta review of r4. The edited passages are §0 (this line), §1.4 (one clause of the second Q-β bullet), §7.3 (the r3 and r4 lines), §7.6 (V-1 and V-2), §7.7 and §7.8 (three rows, one of them new). No result changes. CHANGES-r5.md lists each change.
 
 **Pin.** `main` = `e2e2a623265187a28ebec604ab8bcc672742888f`. Manuscript line numbers below refer to that commit.
 
@@ -328,7 +328,7 @@ This report is a research record, not an established claim (§A.46 item 1). Its 
 Each review was made by a Claude reviewer agent started with a fresh context, which wrote none of the reviewed work (owner decision at #1169 comment 7166418469). A model's acceptance is evidence of review, not independent mathematical verification (§A.46 item 8), and it changes no evidence layer.
 - r1 (REPORT.md, commit `8aef91cf1b7876ea9d70d5ac474684e123d8c510`): PR #1561 comment 7166779576, verdict REVISE, with blocking findings R1–R4. Applied in r2.
 - r2 (REPORT-r2.md, commit `0c058645b1cb0a642f0de6afa7cab129f383dc2e`): delta review, PR #1561 comment 7167108875, verdict ACCEPT-WITH-NITS, with findings F1–F3 and nits. Applied in r3.
-- r3 (REPORT-r3.md, commit `389d6ea46a2bac11f257acd78536a982a5b2c15d`): delta review, PR #1561 comment {{ID:1561-r3}}, verdict ACCEPT.
+- r3 (REPORT-r3.md, commit `389d6ea46a2bac11f257acd78536a982a5b2c15d`): delta review, PR #1561 comment 7169919290, verdict ACCEPT.
 - r4 (REPORT-r4.md, commit `46e82783ad2f33e3ce956e3189ad9c54ca541bab`): bounded delta review, as the owner's decision requires (§7.9); it is not yet recorded on GitHub, and its verdict is not stated here. Its nits 1–6 are applied in r5.
 
 ### 7.4 Accountable Issue
@@ -382,8 +382,8 @@ Each reference was classified by reading the claim it is attached to. Commits ma
 | #1049 comment 6624263637 (owner decisions Q1, Q2; A5 stays a posit) | §0, §1.4, §2 | support on `main`: the decisions are quoted with author and time in A5-LA §6 (Q1) and in Q4 before §1 and at §5 (Q2; "Retain linearity as a posit") |
 | #1049 comments 6626401398 and 6718344623; #1083 comments 6622660127, 6718252075, 6718263472, 6718607630 and 6718644099 | §1.3 | provenance: review history; the reviewed commits `645bae17`, `f07f55d0`, `22ad8d69`, `0e7e412a` and the merge `9e0560d8` are on `main`, and no claim rests on the comments alone |
 | #1049 comment 7163815560 (owner's three-question framing) | §7.1 | provenance: defines the questions; no result uses it |
-| PR #1561 comments 7166779576 and 7167108875, the r3 delta review (PR #1561 comment {{ID:1561-r3}}) and the r4 delta review (not yet recorded on GitHub) | §0, §7.3 | provenance for every scientific claim; evidence of review for §A.46 item 8 |
-| #1169 comments 7166418469, 7166845267 (the owner decision applied in r2), 7167242160, 7167657546 and {{ID:c29}} | §0, §7.3, §7.9 | provenance: authority records for the revisions; no result uses them |
+| PR #1561 comments 7166779576 and 7167108875, the r3 delta review (PR #1561 comment 7169919290) and the r4 delta review (not yet recorded on GitHub) | §0, §7.3 | provenance for every scientific claim; evidence of review for §A.46 item 8 |
+| #1169 comments 7166418469, 7166845267 (the owner decision applied in r2), 7167242160, 7167657546 and 7169907126 | §0, §7.3, §7.9 | provenance: authority records for the revisions; no result uses them |
 | #1558 (the hypothesis assessed in §2.4) | §2.4, §3 | provenance: the object of assessment, not support |
 | #914, #1029, #1043, #1169 | §§1, 5, 6, 7.6 | provenance: routing and accountability |
 | commits `8aef91cf`, `0c058645`, `389d6ea4`, `46e82783` (reviewed revision heads, PR #1561 branch) | §7.3 | provenance |

@@ -1,6 +1,6 @@
 # #1049 report: changes from r4 to r5
 
-**Basis.** Owner decision (amaybaum, 2026-11-25T16:29:44Z, #1169 comment {{ID:c29}}): "Authorize the final bounded text-only revisions for all three packages, and add the superseded notices."; "#1049 — Linearity | Resolve nits 1–6. Add the superseded notice to REPORT-r3.md."; "Resolve the identified findings directly. Preserve the necessary supporting evidence and provenance."; "Earlier revisions should carry a short superseded notice identifying the authoritative report. No elaborate historical annotation is needed."; "Correct genuine errors and satisfy existing requirements, but do not turn minor editorial preferences into additional revision cycles."
+**Basis.** Owner decision (amaybaum, 2026-11-25T16:29:44Z, #1169 comment 7169907126): "Authorize the final bounded text-only revisions for all three packages, and add the superseded notices."; "#1049 — Linearity | Resolve nits 1–6. Add the superseded notice to REPORT-r3.md."; "Resolve the identified findings directly. Preserve the necessary supporting evidence and provenance."; "Earlier revisions should carry a short superseded notice identifying the authoritative report. No elaborate historical annotation is needed."; "Correct genuine errors and satisfy existing requirements, but do not turn minor editorial preferences into additional revision cycles."
 
 **Input.** REPORT-r4.md at `46e82783ad2f33e3ce956e3189ad9c54ca541bab`, and the bounded delta review of r4 (nits 1–6; nit 7 was put to the owner and is resolved by the notice on REPORT-r3.md). Manuscript and record pin unchanged: `main` = `e2e2a623265187a28ebec604ab8bcc672742888f`.
 
@@ -13,7 +13,7 @@
 - Old: (none)
 - New:
 
-> **Revision r5.** Revision r5 applies the owner decision "#1049 — Linearity | Resolve nits 1–6. Add the superseded notice to REPORT-r3.md." (amaybaum, 2026-11-25T16:29:44Z, #1169 comment {{ID:c29}}), resolving nits 1–6 of the delta review of r4. The edited passages are §0 (this line), §1.4 (one clause of the second Q-β bullet), §7.3 (the r3 and r4 lines), §7.6 (V-1 and V-2), §7.7 and §7.8 (three rows, one of them new). No result changes. CHANGES-r5.md lists each change.
+> **Revision r5.** Revision r5 applies the owner decision "#1049 — Linearity | Resolve nits 1–6. Add the superseded notice to REPORT-r3.md." (amaybaum, 2026-11-25T16:29:44Z, #1169 comment 7169907126), resolving nits 1–6 of the delta review of r4. The edited passages are §0 (this line), §1.4 (one clause of the second Q-β bullet), §7.3 (the r3 and r4 lines), §7.6 (V-1 and V-2), §7.7 and §7.8 (three rows, one of them new). No result changes. CHANGES-r5.md lists each change.
 
 ## C2. §1.4, second Q-β bullet, last clause (nit 5)
 
@@ -33,7 +33,7 @@
 
 - New:
 
-> - r3 (REPORT-r3.md, commit `389d6ea46a2bac11f257acd78536a982a5b2c15d`): delta review, PR #1561 comment {{ID:1561-r3}}, verdict ACCEPT.
+> - r3 (REPORT-r3.md, commit `389d6ea46a2bac11f257acd78536a982a5b2c15d`): delta review, PR #1561 comment 7169919290, verdict ACCEPT.
 
 ## C4. §7.3, r4 line (consequence of r5: the review it described as not yet made has been made)
 
@@ -83,7 +83,7 @@
 
 - New:
 
-> | PR #1561 comments 7166779576 and 7167108875, the r3 delta review (PR #1561 comment {{ID:1561-r3}}) and the r4 delta review (not yet recorded on GitHub) | §0, §7.3 |
+> | PR #1561 comments 7166779576 and 7167108875, the r3 delta review (PR #1561 comment 7169919290) and the r4 delta review (not yet recorded on GitHub) | §0, §7.3 |
 
 ## C9. §7.8, owner-decision row (the r5 authority record)
 
@@ -93,7 +93,7 @@
 
 - New:
 
-> | #1169 comments 7166418469, 7166845267 (the owner decision applied in r2), 7167242160, 7167657546 and {{ID:c29}} |
+> | #1169 comments 7166418469, 7166845267 (the owner decision applied in r2), 7167242160, 7167657546 and 7169907126 |
 
 ## C10. §7.8, new row before the last row (nit 2)
 
