@@ -1,4 +1,4 @@
-# Ledger coverage tool: bounded design amendment for O-9 and the item-2 records (draft r4, unreviewed)
+# Ledger coverage tool: bounded design amendment for O-9 and the item-2 records (draft r5, unreviewed)
 
 Status: draft for independent review and owner adoption. It amends the adopted design v6.0e (sha256
 `4024a31cd2cde06763cb529eafeb023078c52dfa7a5d5fb377995373ab205131`), as implemented on `main` at
@@ -33,6 +33,14 @@ Preserve all existing controls, fixtures and expectations. Do not weaken any ver
 decision accepted the placement of the authority constant in `tools/ledger_coverage/record_authority.py`, outside the
 generic engine, subject to the existing purity and pinning requirements. Section I maps the change; nothing else
 changes.
+
+**r5.** Implementing r4 showed that the preregistered expectation of O9-10 contradicts r4's A.4: a configuration in
+the repository root has no directory part, so no path is inside it, and an unauthorized directory with no entry
+inside it on `M` leaves the rule inactive and the run unchanged; O9-10 expected an authority ERROR. The owner authorized
+a correction limited to that expectation (amaybaum, 2026-11-25, coordinating session): "Authorize design amendment r5
+as proposed", the proposal being "limited to correcting O9-10's expected result to 'rule inactive, run unchanged, no
+record-directory classification'", preserving the implementation and every other control and mutant. Section J maps
+the change; nothing else changes.
 
 ## A. Change 1 (O-9): the plan's record directory on `M`
 
@@ -187,7 +195,7 @@ directory of A.3 used as `D` unless the case says otherwise:
 | O9-7 | the clean-path predicate applied to paths with a `.`, `..` or empty component | each refused (tested on the predicate, since git trees do not normally carry such names; the fixture builds one with a raw tree object if its reader admits it) |
 | O9-8 | in `D`: the same blob with a mode change (`100644` to `100755`); a symbolic link at `M` where `F` has a regular file of the same bytes; a submodule entry at `M`. Each case is run through the full `execution --main` path (the `M` role) and, separately, through a reconciliation record's R11 | each `side-change-unclassified` (`differs from F`, `not a regular file`, `not a regular file`); R11 fails in each case; no exception and no `*-group-error` in either path |
 | O9-9 | a ledgered path, and separately a corpus path, inside `D` | ERROR `CONFIG_INCONSISTENT` (D3) |
-| O9-10 | a configuration in the root directory | ERROR `CONFIG_INCONSISTENT` (authority) |
+| O9-10 | a configuration in the root directory | the rule inactive, the run unchanged (items and side changes equal to the same run without this amendment), no `record-directory` classification |
 | O9-11 | a path inside `D` that exists at `H` | ERROR `CONFIG_INCONSISTENT` (D2) |
 | O9-12 | the authorized `D`, with a side-change class the configuration references whose prefix lies inside `D` | ERROR `CONFIG_INCONSISTENT` (D3) |
 | O9-12b | a configuration whose directory lies under `.github/`, with an entry inside it on `M`: (a) the directory present at `H`; (b) the directory absent at `H` | (a) the rule inactive, no `record-directory` classification, the result equal to the same run without this amendment; (b) ERROR `CONFIG_INCONSISTENT` (authority). Neither is a D3 test |
@@ -368,3 +376,11 @@ left unchanged; it is recorded here so that the owner can decide whether to open
 | O9-12b split by presence at `H`; O9-25 added (the synthetic world); O9-m15 redefined against O9-25; r3's O9-m15 kept as O9-m16; O9-m17 added for the ERROR's removal | A.9, A.10 |
 
 O9-16 and O9-22 keep their r3 expectations. No other section changes.
+
+## J. Changes from r4
+
+| Change | Where |
+|---|---|
+| O9-10's expected result: the rule inactive, the run unchanged, no `record-directory` classification (was ERROR `CONFIG_INCONSISTENT`, authority), as A.4 already decides for a configuration in the root directory | A.9 |
+
+No other control, mutant or section changes.
