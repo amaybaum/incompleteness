@@ -6,7 +6,8 @@ from gate import FOOTER
 class MockGitHub:
     """modes: 'verbatim'; 'append_if_absent' (the D1 behaviour on text fields named body);
     'append_on_close' (injects the footer into body on a state-only PATCH); 'raise_on_write';
-    'status_500'; 'readback_fail_after_write'; 'readback_404'."""
+    'status_500'; 'readback_fail_after_write'; 'readback_404'; 'canonicalize_separator' (the
+    #1505 behaviour: whitespace before the footer reduced to its two-newline separator)."""
 
     def __init__(self, issues=None, mode="verbatim"):
         self.issues = copy.deepcopy(issues or {})
@@ -18,6 +19,12 @@ class MockGitHub:
     def _alter(self, body):
         if self.mode == "append_if_absent" and not body.endswith(FOOTER):
             return body + FOOTER
+        if self.mode == "canonicalize_separator":   # the behaviour observed at #1505
+            t = body.rstrip()
+            core = FOOTER[2:]
+            if t.endswith(core):
+                t = t[: -len(core)].rstrip()
+            return t + FOOTER
         return body
 
     def request(self, method, path, payload):

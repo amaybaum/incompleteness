@@ -1,21 +1,97 @@
-test_13_refused_refspecs (__main__.Pushes.test_13_refused_refspecs) ... ok
+test_13_refused_refspecs (__main__.Pushes.test_13_refused_refspecs) ... <evidence-dir>/write-safety/test_gate.py:247: ResourceWarning: unclosed file <_io.TextIOWrapper name='<evidence-dir>/write-safety/runs/tmpnk4qr53m/HALT' mode='r' encoding='utf-8'>
+  self.assertIn("plain remote name", json.load(open(self.marker))["reason"])
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
 test_14_push_paths (__main__.Pushes.test_14_push_paths) ... ok
 test_01_verbatim_success (__main__.Writes.test_01_verbatim_success) ... ok
-test_02_mismatch_halts (__main__.Writes.test_02_mismatch_halts) ... ok
+test_02_mismatch_halts (__main__.Writes.test_02_mismatch_halts) ... <evidence-dir>/write-safety/test_gate.py:66: ResourceWarning: unclosed file <_io.TextIOWrapper name='<evidence-dir>/write-safety/runs/tmp476xjdfn/HALT' mode='r' encoding='utf-8'>
+  rec = json.load(open(self.marker))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
 test_03_d1_replay_stops_after_first (__main__.Writes.test_03_d1_replay_stops_after_first)
-Replay the five sent bodies of the evidence in edit.py's order under D1 behaviour. ... ok
-test_04_readback_failure_halts (__main__.Writes.test_04_readback_failure_halts) ... ok
-test_05_exception_unknown_outcome_halts (__main__.Writes.test_05_exception_unknown_outcome_halts) ... ok
+Replay the five sent bodies of the evidence in edit.py's order under D1 behaviour. ... <evidence-dir>/write-safety/test_gate.py:74: ResourceWarning: unclosed file <_io.TextIOWrapper name='<evidence-dir>/write-safety/ev/bodies/1558.sent.md' mode='r' encoding='utf-8'>
+  sent = {n: open(os.path.join(EV, "%d.sent.md" % n), encoding="utf-8", newline="").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+<evidence-dir>/write-safety/test_gate.py:74: ResourceWarning: unclosed file <_io.TextIOWrapper name='<evidence-dir>/write-safety/ev/bodies/1565.sent.md' mode='r' encoding='utf-8'>
+  sent = {n: open(os.path.join(EV, "%d.sent.md" % n), encoding="utf-8", newline="").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+<evidence-dir>/write-safety/test_gate.py:74: ResourceWarning: unclosed file <_io.TextIOWrapper name='<evidence-dir>/write-safety/ev/bodies/1062.sent.md' mode='r' encoding='utf-8'>
+  sent = {n: open(os.path.join(EV, "%d.sent.md" % n), encoding="utf-8", newline="").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+<evidence-dir>/write-safety/test_gate.py:74: ResourceWarning: unclosed file <_io.TextIOWrapper name='<evidence-dir>/write-safety/ev/bodies/1245.sent.md' mode='r' encoding='utf-8'>
+  sent = {n: open(os.path.join(EV, "%d.sent.md" % n), encoding="utf-8", newline="").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+<evidence-dir>/write-safety/test_gate.py:74: ResourceWarning: unclosed file <_io.TextIOWrapper name='<evidence-dir>/write-safety/ev/bodies/1556.sent.md' mode='r' encoding='utf-8'>
+  sent = {n: open(os.path.join(EV, "%d.sent.md" % n), encoding="utf-8", newline="").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+<evidence-dir>/write-safety/test_gate.py:78: ResourceWarning: unclosed file <_io.TextIOWrapper name='<evidence-dir>/write-safety/ev/bodies/1558.before.md' mode='r' encoding='utf-8'>
+  newline="").read()} for n in order}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+<evidence-dir>/write-safety/test_gate.py:78: ResourceWarning: unclosed file <_io.TextIOWrapper name='<evidence-dir>/write-safety/ev/bodies/1565.before.md' mode='r' encoding='utf-8'>
+  newline="").read()} for n in order}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+<evidence-dir>/write-safety/test_gate.py:78: ResourceWarning: unclosed file <_io.TextIOWrapper name='<evidence-dir>/write-safety/ev/bodies/1062.before.md' mode='r' encoding='utf-8'>
+  newline="").read()} for n in order}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+<evidence-dir>/write-safety/test_gate.py:78: ResourceWarning: unclosed file <_io.TextIOWrapper name='<evidence-dir>/write-safety/ev/bodies/1245.before.md' mode='r' encoding='utf-8'>
+  newline="").read()} for n in order}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+<evidence-dir>/write-safety/test_gate.py:78: ResourceWarning: unclosed file <_io.TextIOWrapper name='<evidence-dir>/write-safety/ev/bodies/1556.before.md' mode='r' encoding='utf-8'>
+  newline="").read()} for n in order}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+<evidence-dir>/write-safety/test_gate.py:87: ResourceWarning: unclosed file <_io.TextIOWrapper name='<evidence-dir>/write-safety/ev/bodies/1558.stored.md' mode='r' encoding='utf-8'>
+  newline="").read(), "mock does not reproduce D1 bytes")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_04_readback_failure_halts (__main__.Writes.test_04_readback_failure_halts) ... <evidence-dir>/write-safety/test_gate.py:96: ResourceWarning: unclosed file <_io.TextIOWrapper name='<evidence-dir>/write-safety/runs/tmp8p2vnjhj/HALT' mode='r' encoding='utf-8'>
+  self.assertIn("read-back failed", json.load(open(self.marker))["reason"])
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+<evidence-dir>/write-safety/test_gate.py:96: ResourceWarning: unclosed file <_io.TextIOWrapper name='<evidence-dir>/write-safety/runs/tmpj_v0bcym/HALT' mode='r' encoding='utf-8'>
+  self.assertIn("read-back failed", json.load(open(self.marker))["reason"])
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_05_exception_unknown_outcome_halts (__main__.Writes.test_05_exception_unknown_outcome_halts) ... <evidence-dir>/write-safety/test_gate.py:103: ResourceWarning: unclosed file <_io.TextIOWrapper name='<evidence-dir>/write-safety/runs/tmp6a4ojuea/HALT' mode='r' encoding='utf-8'>
+  self.assertIn("unknown outcome", json.load(open(self.marker))["reason"])
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
 test_06_bad_status_halts (__main__.Writes.test_06_bad_status_halts) ... ok
-test_07_existing_marker_blocks_everything (__main__.Writes.test_07_existing_marker_blocks_everything) ... ok
-test_08_marker_blocks_other_process (__main__.Writes.test_08_marker_blocks_other_process) ... ok
+test_07_existing_marker_blocks_everything (__main__.Writes.test_07_existing_marker_blocks_everything) ... <evidence-dir>/write-safety/test_gate.py:113: ResourceWarning: unclosed file <_io.TextIOWrapper name='<evidence-dir>/write-safety/runs/tmpfvdmn70h/HALT' mode='w' encoding='utf-8'>
+  open(self.marker, "w").write('{"reason": "set elsewhere"}')
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+<evidence-dir>/write-safety/test_gate.py:121: ResourceWarning: unclosed file <_io.TextIOWrapper name='<evidence-dir>/write-safety/runs/tmpfvdmn70h/HALT' mode='r' encoding='utf-8'>
+  self.assertEqual(open(self.marker).read(), '{"reason": "set elsewhere"}',
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_08_marker_blocks_other_process (__main__.Writes.test_08_marker_blocks_other_process) ... <evidence-dir>/write-safety/test_gate.py:125: ResourceWarning: unclosed file <_io.TextIOWrapper name='<evidence-dir>/write-safety/runs/tmp9v239gkb/HALT' mode='w' encoding='utf-8'>
+  open(self.marker, "w").write("{}")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
 test_09_prechecks_refuse_before_write (__main__.Writes.test_09_prechecks_refuse_before_write) ... ok
 test_10_unvalidated_needs_single_grant (__main__.Writes.test_10_unvalidated_needs_single_grant) ... ok
-test_11_unsent_field_changed_halts (__main__.Writes.test_11_unsent_field_changed_halts) ... ok
+test_11_unsent_field_changed_halts (__main__.Writes.test_11_unsent_field_changed_halts) ... <evidence-dir>/write-safety/test_gate.py:167: ResourceWarning: unclosed file <_io.TextIOWrapper name='<evidence-dir>/write-safety/runs/tmptdo9eybp/HALT' mode='r' encoding='utf-8'>
+  self.assertIn("unsent field body changed", json.load(open(self.marker))["reason"])
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
 test_12_labels_and_close_verbatim (__main__.Writes.test_12_labels_and_close_verbatim) ... ok
+test_15_canonical_footer_body (__main__.Writes.test_15_canonical_footer_body) ... ok
+test_16_noncanonical_refused_before_write (__main__.Writes.test_16_noncanonical_refused_before_write) ... <evidence-dir>/write-safety/test_gate.py:202: ResourceWarning: unclosed file <_io.TextIOWrapper name='<evidence-dir>/write-safety/runs/tmpttlpjsm8/HALT' mode='r' encoding='utf-8'>
+  self.assertIn("pre-check", json.load(open(self.marker))["reason"])
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+<evidence-dir>/write-safety/test_gate.py:202: ResourceWarning: unclosed file <_io.TextIOWrapper name='<evidence-dir>/write-safety/runs/tmph1uv4sle/HALT' mode='r' encoding='utf-8'>
+  self.assertIn("pre-check", json.load(open(self.marker))["reason"])
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+<evidence-dir>/write-safety/test_gate.py:202: ResourceWarning: unclosed file <_io.TextIOWrapper name='<evidence-dir>/write-safety/runs/tmp7h43043s/HALT' mode='r' encoding='utf-8'>
+  self.assertIn("pre-check", json.load(open(self.marker))["reason"])
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_17_canonical_passes_separator_normalization (__main__.Writes.test_17_canonical_passes_separator_normalization) ... ok
+test_18_countercontrol_mock_reproduces_1505 (__main__.Writes.test_18_countercontrol_mock_reproduces_1505)
+Without canonicalization (no send form) the mock reproduces the #1505 mismatch. ... <evidence-dir>/write-safety/test_gate.py:222: ResourceWarning: unclosed file <_io.TextIOWrapper name='<evidence-dir>/write-safety/runs/tmp0e4xzr3u/HALT' mode='r' encoding='utf-8'>
+  self.assertIn("read-back mismatch", json.load(open(self.marker))["reason"])
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
 
 ----------------------------------------------------------------------
-Ran 14 tests in 0.074s
+Ran 18 tests in 0.086s
 
 OK
-exit=0

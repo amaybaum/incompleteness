@@ -101,3 +101,25 @@ before the write, made exactly one write (`validation/gate-log.json`), and read 
 back: it equals the expected text byte for byte (`validation/stored-body.md`), and the title is
 unchanged. An independent re-read gave the same result. This validates REST Issue-body edits sent
 in the footer form; it does not decide where the footer is appended for a body sent without it.
+
+## Footer-separator mismatch at #1505 and the gate correction
+
+During planning-block corrections the gate stopped at #1505 (`issue-1505/`): its existing body ended
+in the footer with three newlines before `---`; resent with only a new planning block added, it was
+stored with two (`sent.md` versus `stored.md`; `halt-record.json` is the gate's halt marker). Eight
+earlier edits, each with exactly two newlines before `---`, had passed. #1505 is left as stored.
+
+Correction (owner decision recorded at #1548 comment 7165907769): `gate.canonical_footer_body` builds
+the outgoing text as the content with trailing whitespace and any existing footer removed, plus one
+footer with exactly two newlines before `---`; the gate refuses any footer-form body that is not in
+that form before sending. Read-back still compares byte for byte. Tests 15-18 cover extra newlines,
+trailing spaces, an already canonical footer, a footer followed by a newline, refusal before any
+write, the #1505 body, and a countercontrol in which the mock reproduces the #1505 mismatch without
+canonicalization. Recorded results: 18 of 18 tests pass; countercontrols C1-C3 pass.
+
+Second validation write on #1548 (`issue-1548/validation-2/`): a draft ending with extra blank lines
+and trailing spaces before the footer (`draft-noncanonical.md`); the expected stored text, its
+canonical form, fixed before the write (`expected-body.md`, SHA-256
+`c5c14c60634dfe4d8c13a8f9fd4006a2940fd825592170a2dc0795d6f4758780`); one owner-granted write through
+the gate; the stored body equals the expected text byte for byte (`stored-body.md`), confirmed by an
+independent re-read. General REST Issue-body edits resumed after it.

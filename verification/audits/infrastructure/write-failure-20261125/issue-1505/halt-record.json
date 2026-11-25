@@ -1,0 +1,15 @@
+{
+ "evidence": {
+  "sent": {
+   "file": "halt-21932-sent.txt",
+   "sha256": "8ad3835477527679d3133bd264442637f29aa0b6f25faeb432df609e564ccb4c"
+  },
+  "stored": {
+   "file": "halt-21932-stored.txt",
+   "sha256": "4d3b7031e76edd06b8f69411ec8286253b24c82cc4d6f5ac45a2bde2915d1054"
+  }
+ },
+ "pid": 21932,
+ "reason": "read-back mismatch in body of issue.edit_body 1505",
+ "time": "2026-11-25T14:48:28Z"
+}
