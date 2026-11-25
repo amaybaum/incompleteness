@@ -4,34 +4,34 @@ Prototype only, mock transport only; not adopted. gate.py stays the operational 
 the owner approves a replacement. This module reuses gate.py by import (operations, pre-checks,
 refspec checks, push path, read-back paths, grants) and adds:
 
-  * content-integrity verification separated from transport-difference detection: the gate fixes
-    and hashes the expected text (the text sent) before the write and compares the stored text
-    byte for byte; only when they differ does it ask transport_rules.classify whether exactly one
-    owner-adopted rule permits the difference. The gate itself knows no transformation and carries
-    no footer formatting;
-  * outcomes: "exact" -> accepted; "permitted" -> accepted, with a discrepancy record (complete
-    sent and stored texts, SHA-256 of each, unified and character-level diff, rule id and version,
-    time) written to the evidence directory; "rejected" -> halt, with sent, stored and diff kept;
-  * two levels of containment (AGENTS.md section A.49 rule 3 as amended in PR #1566):
-      - run level: a sequence is one Gate2 instance and, beyond it, the whole writer process. After
-        any Halted, and after any exception during a write or push, the instance and every other
-        Gate2 instance in the process refuse every further write and push, whatever the caller
-        does with the exception. Nothing in this module clears that latch;
-      - beyond the run: the global marker HALT (the same name gate.py uses), which stops every
-        mechanism for every later process using the halt directory, is written for every failure
-        except a read-back mismatch for which every condition of rule 3 holds: the outcome is known,
-        read-back succeeded with no unsent-field, label or state failure, every rejected field
-        difference is tail-confined (transport_rules.tail_confined), and no other operation's
-        marker is outstanding. Only then is the marker HALT.<operation> written instead, which
-        blocks that operation alone;
-  * a later sequence writes nothing while any operation marker lacks its companion file
-    HALT.<operation>.notified, which a person creates by hand once the evidence is kept and the
-    owner has been told (rule 3); the gate never creates it;
-  * discrepancy records are written only after every field and check of the write has passed;
-  * a halt marker embeds the complete evidence texts, so a failed evidence-file write loses none.
-    Markers are checked before anything else, created exclusively, never overwritten and never
-    removed by the gate. The check of a marker and the write that follows are not atomic across
-    processes.
+  * one verification procedure for every operation: the gate fixes and hashes the expected text
+    (the text sent) before the write, compares the stored text byte for byte, and compares every
+    field the write did not send, the labels and the state with what the operation should leave
+    (the pre-write read, or the values a new object has). Only when a sent text differs does it ask
+    transport_rules.classify whether exactly one owner-adopted rule permits the difference; it
+    accepts that only on an operation validated under the allowlist (registry "allowlist": True)
+    or on a single-write (validation) grant, so a mechanism validated by exact read-back stays
+    exact until revalidated (section A.51 item 2). The gate knows no transformation;
+  * outcomes: "exact" -> accepted; "permitted" (where admitted) -> accepted, with a discrepancy
+    record; anything else -> halt, with sent, stored and diff kept;
+  * one containment mechanism, the halt store: files in the halt directory, mirrored in this
+    process by _HALTED. Every halt and every refusal ends the sequence: it is recorded in memory
+    and in the plan latch HALT-PLAN.<plan_id>, which every process of the plan checks before each
+    request, so neither catching the exception nor restarting a process continues the plan; only
+    an owner decision removes the latch (by hand). Beyond the sequence, the global marker HALT
+    (the name gate.py uses) is written for every failure except a read-back mismatch for which
+    every condition of section A.49 rule 3 holds; then HALT.<operation> is written instead, and a
+    later sequence writes nothing while it lacks HALT.<operation>.notified, which a person creates
+    by hand once the owner has been told. A stale .notified companion, or an operation marker that
+    already exists, makes the halt global;
+  * the narrowing needs a footer-shaped tail (transport_rules.footer_shaped_tail): the stored
+    text is the sent content followed only by newlines and exact copies of the attribution footer.
+    That shape decides only the extent of a stop, never acceptance;
+  * discrepancy records are written only after every field and check of the write has passed; a
+    halt marker embeds the complete evidence texts.
+Markers are checked before every request (also immediately before the write request), created
+exclusively, never overwritten and never removed by the gate. The check and the request that
+follows are not atomic across processes or threads; writers are single-threaded.
 """
 import difflib, hashlib, itertools, json, os, re, time
 
@@ -41,10 +41,12 @@ from gate import OPERATIONS, Halted, precheck_text, check_refspec, run_plan, mai
 
 GLOBAL_MARKER = "HALT"
 NOTIFIED_SUFFIX = ".notified"
+PLAN_PREFIX = "HALT-PLAN."
+PLAN_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,99}")
 _seq = itertools.count()
-# Run-level latch for this writer process: one entry per halt. Any entry stops every Gate2 instance
-# in the process. There is no function that clears it.
-_SEQUENCE_STOP = []
+# The halt store's in-process copy: one entry per halt or refusal in this process. Any entry stops
+# every Gate2 in the process, also when a marker file could not be written. Nothing clears it.
+_HALTED = []
 
 
 def sha256(s):
@@ -68,6 +70,17 @@ def char_opcodes(sent, stored):
             for tag, i1, i2, j1, j2 in sm.get_opcodes() if tag != "equal"]
 
 
+def _label_names(obj):
+    labels = obj.get("labels")
+    if not isinstance(labels, list):
+        return labels
+    return sorted(set(x["name"] for x in labels))
+
+
+def _now():
+    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+
+
 class Result(tuple):
     """(stored, outcomes, records): outcomes maps field -> [classification, rule_id]."""
     __slots__ = ()
@@ -81,39 +94,18 @@ class Result(tuple):
 
 class Gate2(G.Gate):
     def __init__(self, transport, git, halt_dir, repo, registry, allowed_branches=(),
-                 evidence_dir=None, log=None, rules=None):
+                 evidence_dir=None, log=None, rules=None, *, plan_id):
+        if not (isinstance(plan_id, str) and PLAN_ID.fullmatch(plan_id)):
+            raise ValueError("plan_id must match %s" % PLAN_ID.pattern)
         super().__init__(transport, git, os.path.join(halt_dir, GLOBAL_MARKER), repo, registry,
                          allowed_branches, evidence_dir or halt_dir, log)
         self.halt_dir = halt_dir
+        self.plan_id = plan_id
+        self.plan_path = os.path.join(halt_dir, PLAN_PREFIX + plan_id)
         self.rules = TR.REGISTRY if rules is None else rules
         self._mech = None
-        self._stopped = None
 
-    # -- run-level containment -------------------------------------------------------------------
-    def _check_sequence(self):
-        """Refuse every write and push once this sequence (instance or process) has halted."""
-        if self._stopped is not None or _SEQUENCE_STOP:
-            raise Halted("sequence stopped after an earlier halt: %s"
-                         % (self._stopped if self._stopped is not None else _SEQUENCE_STOP[0]))
-
-    def _latch(self, reason):
-        if self._stopped is None:
-            self._stopped = reason
-        _SEQUENCE_STOP.append(reason)
-
-    def _guarded(self, what, fn):
-        self._check_sequence()
-        try:
-            return fn()
-        except Halted as e:
-            self._latch(str(e))
-            raise
-        except BaseException as e:     # anything else during a write: outcome unknown
-            self._latch("%s: %s" % (type(e).__name__, e))
-            self._mech = None
-            self._halt("unknown outcome: exception during %s: %s: %s" % (what, type(e).__name__, e))
-
-    # -- markers ---------------------------------------------------------------------------------
+    # -- the halt store ----------------------------------------------------------------------------
     def marker_path(self, mech):
         if mech is None:
             return self.halt_path
@@ -127,7 +119,11 @@ class Gate2(G.Gate):
                       if n.startswith(GLOBAL_MARKER + ".") and not n.endswith(NOTIFIED_SUFFIX))
 
     def _check_clear(self):
-        for p in (self.halt_path, self.marker_path(self._mech)):
+        """The one halt check, made before every request: this process's copy of the store, then
+        the global marker, this plan's latch, this mechanism's marker and pending notifications."""
+        if _HALTED:
+            raise Halted("sequence stopped after an earlier halt in this process: %s" % _HALTED[0])
+        for p in (self.halt_path, self.plan_path, self.marker_path(self._mech)):
             if os.path.lexists(p):
                 raise Halted("halt marker present: %s" % os.path.basename(p))
         try:
@@ -139,16 +135,45 @@ class Gate2(G.Gate):
             raise Halted("owner not yet told of the halt recorded in %s (no %s file)"
                          % (pending[0], pending[0] + NOTIFIED_SUFFIX))
 
+    @staticmethod
+    def _write_marker(path, rec):
+        """Create a marker exclusively and fsync it. True, "exists" or an error text."""
+        try:
+            fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o644)
+            with os.fdopen(fd, "w", encoding="utf-8") as f:
+                json.dump(rec, f, indent=1, sort_keys=True, ensure_ascii=False)
+                f.flush()
+                os.fsync(f.fileno())
+            return True
+        except FileExistsError:
+            return "exists"
+        except OSError as e:
+            return str(e)
+
+    def _latch(self, rec):
+        """End the sequence: in this process and in the plan latch, which only the owner removes."""
+        _HALTED.append(rec["reason"])
+        return self._write_marker(self.plan_path, dict(rec, plan_id=self.plan_id))
+
+    def _guarded(self, what, fn):
+        try:
+            return fn()
+        except Halted as e:          # a refusal also ends the sequence (a halt has latched already)
+            if not getattr(e, "latched", False):
+                self._latch({"reason": "refused: %s" % e, "pid": os.getpid(), "time": _now()})
+            raise
+        except BaseException as e:   # anything else during a write: outcome unknown
+            self._mech = None
+            self._halt("unknown outcome: exception during %s: %s: %s" % (what, type(e).__name__, e))
+
     def _halt(self, reason, scope=None, **evidence):
-        """Latch the sequence, keep the evidence, write the marker, raise Halted.
+        """Keep the evidence, latch the sequence, write the marker, raise Halted.
         scope None: the global marker. scope <operation>: that operation's marker only; passed
         solely by _containment_scope's decision."""
-        self._latch(reason)
         mech = scope
         tag = "%s-%d-%d" % (mech or "global", os.getpid(), next(_seq))
         rec = {"reason": reason, "scope": "operation" if mech else "global",
-               "mechanism": mech or "global", "pid": os.getpid(),
-               "time": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
+               "mechanism": mech or "global", "pid": os.getpid(), "time": _now()}
         if mech:
             rec["resume"] = ("later sequences write nothing until %s exists, created by hand once "
                              "the evidence is kept and the owner told; this operation stays "
@@ -170,47 +195,80 @@ class Gate2(G.Gate):
             else:
                 ev[k] = v
         rec["evidence"] = ev
-        try:   # O_EXCL: never overwrite an earlier marker, which records the first failure
-            fd = os.open(self.marker_path(mech), os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o644)
-            with os.fdopen(fd, "w", encoding="utf-8") as f:
-                json.dump(rec, f, indent=1, sort_keys=True, ensure_ascii=False)
-                f.flush()
-                os.fsync(f.fileno())
-        except FileExistsError:
-            pass
-        except OSError as e:          # the sequence is latched whatever happens to the marker
-            reason = "%s (marker not written: %s)" % (reason, e)
-        raise Halted(reason)
+        notes = []
+        r = self._latch(rec)
+        if r is not True and r != "exists":
+            notes.append("plan latch not written: %s" % r)
+        if mech:
+            r = self._write_marker(self.marker_path(mech), rec)
+            if r is not True:            # an earlier marker or an unwritable one: stop everything
+                notes.append("operation marker %s: halt made global" % (
+                    "already present" if r == "exists" else "not written (%s)" % r))
+                rec = dict(rec, scope="global", escalated_from=mech)
+                mech = None
+        if mech is None:
+            r = self._write_marker(self.halt_path, rec)
+            if r is not True and r != "exists":
+                notes.append("global marker not written: %s" % r)
+        e = Halted(reason + ("" if not notes else " (%s)" % "; ".join(notes)))
+        e.latched = True
+        raise e
 
     # -- outcome decision (separate from transport-difference detection) -----------------------
     def _classify(self, op, field, sent, stored):
         return TR.classify(sent, stored, self.rules, field)
 
+    def _allowlist_applies(self, reg):
+        """Section A.51 item 2: a single-write (validation) write, or an operation validated under
+        the allowlist. An operation validated by exact read-back only stays exact."""
+        return not reg.get("validated") or reg.get("allowlist") is True
+
     def _containment_scope(self, op, expected, stored, failures, other):
-        """Rule 3's narrowing, decided mechanically. Returns op only when every condition holds,
-        else None (the global marker). Reached only after the write returned an expected status,
-        a created object's id was known and read-back succeeded: the outcome is known."""
+        """Rule 3's narrowing, decided from the write, its read-back and the halt store. Returns op
+        only when every condition holds, else None (the global marker). Reached only after the
+        write returned an expected status, a created object's id was known and read-back
+        succeeded: the outcome is known."""
         if other:                                   # unsent-field, label or state failure
             return None
         for field, kind in failures:
             if kind != "rejected":                  # e.g. classification failed
                 return None
-            got = stored.get(field)
-            if not TR.tail_confined(expected[field].decode("utf-8"), got):
+            if not TR.footer_shaped_tail(expected[field].decode("utf-8"), stored.get(field)):
                 return None
         try:
             outstanding = [n for n in self._operation_markers() if n != GLOBAL_MARKER + "." + op]
         except OSError:
             return None
-        if outstanding or os.path.lexists(self.halt_path):
-            return None
+        companion = self.marker_path(op) + NOTIFIED_SUFFIX
+        if outstanding or os.path.lexists(self.halt_path) or os.path.lexists(companion):
+            return None                             # a stale companion would hide this halt
         return op
+
+    def _expected_state(self, op, before, labels, label):
+        """What every field the write did not send must read back as, for every operation: title
+        and body as before, labels and state as before except as the operation changes them; a
+        new Issue or pull request has no labels and is open; a comment carries neither."""
+        if op == "comment.create":
+            return {}
+        if before is None:
+            want = {"labels": [], "state": "open"}
+        else:
+            want = {"title": before.get("title"), "body": before.get("body"),
+                    "labels": _label_names(before), "state": before.get("state")}
+        if op == "labels.add":
+            want["labels"] = sorted(set(want["labels"] or []) | set(labels or []))
+        elif op == "labels.remove":
+            want["labels"] = sorted(set(want["labels"] or []) - {label})
+        elif op == "issue.close":
+            want["state"] = "closed"
+        for k in OPERATIONS[op]["text"]:
+            want.pop(k, None)
+        return want
 
     def _record(self, op, target, field, sent, stored, rule_id):
         rule = TR.rule_by_id(rule_id, self.rules)
         rec = {"kind": "permitted-transport-difference", "operation": op, "target": target,
-               "field": field, "repo": self.repo,
-               "time": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+               "field": field, "repo": self.repo, "plan_id": self.plan_id, "time": _now(),
                "rule_id": rule.id, "rule_version": rule.version,
                "rule_description": rule.description,
                "sent": sent, "stored": stored,
@@ -230,13 +288,13 @@ class Gate2(G.Gate):
     # -- text writes ---------------------------------------------------------------------------
     def write(self, op, target=None, fields=None, labels=None, label=None):
         """Perform exactly one write. Returns Result(stored, outcomes, records); raises Halted.
-        After any Halted, this and every Gate2 instance in the process refuse further writes."""
+        After any Halted, this plan and every Gate2 in the process refuse further writes."""
         return self._guarded("write %s" % (op,),
                              lambda: self._write(op, target, fields, labels, label))
 
     def _write(self, op, target, fields, labels, label):
         self._mech = None
-        self._check_clear()                       # global marker and pending notifications first
+        self._check_clear()                       # the store first, before anything else
         spec, reg = OPERATIONS.get(op), self.registry.get(op)
         if spec is None or reg is None:
             self._halt("unknown operation %r" % (op,))
@@ -267,8 +325,9 @@ class Gate2(G.Gate):
         if op == "labels.add":
             payload = {"labels": list(labels or [])}
         before = None
-        if spec["method"] in ("PATCH", "DELETE") or op == "labels.add":
+        if "created" not in spec:
             before = self._get(self._readback_path(op, target))
+        self._check_clear()                       # again, immediately before the write request
         self.log.append(("write", op, str(target), digests))
         try:
             status, resp = self.t.request(spec["method"], path, payload)
@@ -283,6 +342,7 @@ class Gate2(G.Gate):
             self._halt("unknown outcome: no created object id in response")
         stored = self._get(self._readback_path(op, rb_target))
         # Every field and check is evaluated before anything is accepted or recorded.
+        allow = self._allowlist_applies(reg)
         outcomes, permitted, failures, other, reasons, evidence = {}, [], [], [], [], {}
         for k in sorted(expected):
             sent = expected[k].decode("utf-8")    # the frozen expected text, not the live dict
@@ -301,31 +361,25 @@ class Gate2(G.Gate):
                 evidence.update({k + ".sent": sent, k + ".stored": shown})
                 continue
             outcomes[k] = [cls, rule_id]
-            if cls == "permitted":
+            if cls == "permitted" and allow:
                 permitted.append((k, sent, got, rule_id))
-            elif cls != "exact":
-                failures.append((k, "rejected"))
-                reasons.append("read-back mismatch in %s of %s %s (rejected: no permitted "
-                               "transformation)" % (k, op, rb_target))
-                evidence.update({k + ".sent": sent, k + ".stored": shown,
-                                 k + ".diff": unified(sent, got) if isinstance(got, str) else ""})
-        if before is not None:          # fields not sent must be byte-identical: no allowlist
-            for k in ("title", "body"):
-                if k not in expected and before.get(k) != stored.get(k):
-                    other.append(k)
-                    reasons.append("unsent field %s changed by %s %s" % (k, op, rb_target))
-                    evidence.update({"unsent-%s.before" % k: str(before.get(k)),
-                                     "unsent-%s.stored" % k: str(stored.get(k))})
-        if op == "issue.close" and stored.get("state") != "closed":
-            other.append("state")
-            reasons.append("state read-back is not closed")
-        if op in ("labels.add", "labels.remove"):
-            names = sorted(x["name"] for x in stored.get("labels", []))
-            want = set(x["name"] for x in before.get("labels", []))
-            want = want | set(labels or []) if op == "labels.add" else want - {label}
-            if names != sorted(want):
-                other.append("labels")
-                reasons.append("label read-back mismatch: %s != %s" % (names, sorted(want)))
+                continue
+            failures.append((k, "rejected"))
+            reasons.append("read-back mismatch in %s of %s %s (%s)" % (
+                k, op, rb_target,
+                "rejected: permitted by %s, but %s is held to exact read-back until validated "
+                "under the allowlist" % (rule_id, op) if cls == "permitted"
+                else "rejected: no permitted transformation"))
+            evidence.update({k + ".sent": sent, k + ".stored": shown,
+                             k + ".diff": unified(sent, got) if isinstance(got, str) else ""})
+        for k, want in sorted(self._expected_state(op, before, labels, label).items()):
+            got = _label_names(stored) if k == "labels" else stored.get(k)
+            if got != want:                       # exact: no allowlist for what was not sent
+                other.append(k)
+                reasons.append("%s read-back differs from what %s %s should leave: %r != %r"
+                               % (k, op, rb_target, got, want))
+                evidence.update({"unsent-%s.expected" % k: json.dumps(want, ensure_ascii=False),
+                                 "unsent-%s.stored" % k: json.dumps(got, ensure_ascii=False)})
         if failures or other:
             scope = self._containment_scope(op, expected, stored, failures, other)
             self._halt("; ".join(reasons), scope=scope, **evidence)
@@ -339,7 +393,7 @@ class Gate2(G.Gate):
                            records_already_written=list(records))
         return Result(stored, outcomes, records)
 
-    # -- pushes: gate.py's path and guards, under the same run-level latch ---------------------
+    # -- pushes: gate.py's path and guards, under the same halt store --------------------------
     def push(self, remote, sha, branch_ref):
         return self._guarded("push", lambda: self._push(remote, sha, branch_ref))
 

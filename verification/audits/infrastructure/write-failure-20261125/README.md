@@ -159,3 +159,22 @@ Discrepancy records are written only after a write passes in full; the halt mark
 evidence texts. Recorded results: `test_gate2.py` 49 of 49; `countercontrol2.py` C1-C3 pass (a gate
 without the run-level latch fails 3 tests; r1's operation-only containment fails 25); the original
 suite is unchanged (18 of 18). The existing gate stays in use until the owner approves v2.
+
+## Gate v2 revision r3: plan latch, footer-shaped containment, validation (for review, not adopted)
+
+Owner decisions of 2026-11-25 (amaybaum) on the delta review of r2: restore the §A.49 rule 1
+refusal to the package stops of §A.51 item 5 (Q1); confine a stop to the failed operation only for
+a footer-shaped difference, so that any other appended text stops every text write, while
+acceptance still needs the exact allowlist rule (Q2); treat a multi-process plan as one sequence,
+with a persistent plan-level latch that a restart cannot bypass and single-process execution by
+default (Q3); let a permitted difference, with its record, pass a validation write, while
+operations validated by exact read-back stay exact until revalidated (Q4); and fix review findings
+G1 and G2. `write-safety/CHANGES-r3.md` maps each decision and finding to its change and lists the
+consolidations made under the owner's simplicity objective ("One write gate, one verification
+procedure, one containment mechanism"): `gate2.py` keeps one halt store (the halt directory, with
+the plan latch `HALT-PLAN.<plan_id>` beside the global and operation markers, and its in-process
+copy), one comparison of unsent fields, labels and state for every operation, and one footer-shape
+predicate for containment, separate from the allowlist. Recorded results: `test_gate2.py` 56 of
+56; `countercontrol2.py` C1-C3 pass (no sequence latch fails 5 tests; a latch in memory only fails
+the restart test; r2's appended-text narrowing fails 6); the original suite is unchanged (18 of 18)
+and its countercontrols pass. The existing gate stays in use until the owner approves v2.

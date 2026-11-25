@@ -23,17 +23,22 @@ and the two clarifications of the same day (amaybaum, 2026-11-25):
 > explicit approval, independent review and regression controls. Never learn new exceptions
 > automatically."
 
-**Status.** Nothing here is adopted. No GitHub write, network write, commit or push was made.
-`gate.py`, `mock.py`, `test_gate.py` and `countercontrol.py` are unchanged, and `gate.py` stays the
-operational mechanism until the owner approves a replacement. Adoption needs, in this order: an
-independent non-author review of this directory's v2 files; the controlled validation write of §7
-under its own owner grant; the owner's approval of the replacement and of the amended §A.49 text
-in §8 (§A.50: amending a rule is the owner's).
+**Status.** Nothing here is adopted. Revision r3 was prepared locally: no GitHub write, network
+write, commit or push. `gate.py`, `mock.py`, `test_gate.py` and `countercontrol.py` are unchanged,
+and `gate.py` stays the operational mechanism until the owner approves a replacement. Adoption
+needs, in this order: an independent non-author review of this directory's v2 files; the controlled
+validation write of §7 under its own owner grant; the owner's approval of the replacement and of the
+amended §A.49 text in §8 (§A.50: amending a rule is the owner's).
 
 **Revision r2** (owner decision, amaybaum, 2026-11-25: "Correct the containment policy and gate v2's
 missing run-level stop.", with the clarification distinguishing run-level and operation-level
 containment) revises §1, §4, §5, §8 and §9 after the independent review of PR #1566 comment
 7166798215. `CHANGES-r2.md` maps each review finding to its change.
+
+**Revision r3** (owner decisions Q1 to Q4 of 2026-11-25, amaybaum, with "Fix G1 and G2 as well" and
+the simplicity objective "One write gate, one verification procedure, one containment mechanism")
+revises §1, §2, §4, §5, §7, §8 and §9 after the delta review of r2. `CHANGES-r3.md` maps each
+decision and finding to its change and lists each consolidation.
 
 ***
 
@@ -45,11 +50,14 @@ byte for byte with the expected text, which is the text sent, fixed and hashed b
 | Outcome | Condition | Action |
 |---|---|---|
 | `exact` | stored equals the expected text byte for byte | accepted |
-| `permitted <rule-id>` | stored differs, and exactly one rule of the owner-adopted allowlist that applies to that field permits the difference | accepted; a discrepancy record is written (§4) |
-| `rejected` | any other difference; no rule, or more than one rule, permits it; a read-back that is not a string | the sequence ends at once, and every text write stops unless §5's conditions confine the halt to the operation; sent, stored and diff are kept as evidence |
+| `permitted <rule-id>` | stored differs, exactly one rule of the owner-adopted allowlist that applies to that field permits the difference, and the operation is validated under the allowlist or this is its single-write validation write | accepted; a discrepancy record is written (§4) |
+| `rejected` | any other difference; no rule, or more than one rule, permits it; a permitted difference on an operation validated by exact read-back only (registry entry without `"allowlist": True`), which stays exact until revalidated; a read-back that is not a string | the sequence ends at once, and every text write stops unless §5's conditions confine the halt to the operation; sent, stored and diff are kept as evidence |
 
-Fields the write did not send (for example the body on a close or label change) must stay
-byte-identical. No allowlist applies to them. Titles are compared exactly: the only rule applies to
+Fields the write did not send (for example the body on a close or label change), the labels and
+the state must read back as the write should leave them: as the read made before the write, changed
+only as the operation intends (labels added or removed, the state closed), or, for a new Issue or
+pull request, no labels and open. This one comparison runs for every operation. No allowlist applies
+to it. Titles are compared exactly: the only rule applies to
 bodies alone. Failed read-back, an unexpected status, an exception during the write (unknown
 outcome), a missing created-object id, a failed pre-check, a missing grant or a failure to write a
 discrepancy record end the sequence and write the global marker, as in `gate.py` (§5).
@@ -59,8 +67,9 @@ anywhere in the comparison.
 
 ## 2. Architecture: integrity verification separated from transport-difference detection
 
-- `gate2.py` verifies content integrity. It fixes the expected text, makes one write, reads back and
-  compares bytes. When they differ it asks `transport_rules.classify(sent, stored, rules, field)`
+- `gate2.py` verifies content integrity by one procedure for every operation. It fixes the expected
+  text, makes one write, reads back, compares bytes and compares the unsent fields, labels and state
+  (§1). When they differ it asks `transport_rules.classify(sent, stored, rules, field)`
   for a classification and acts on it. It contains no footer text and no knowledge of any
   transformation (test `r2` checks the source). Send forms are delegated to
   `transport_rules.send_form_violations`.
@@ -72,11 +81,13 @@ anywhere in the comparison.
   that both permit a difference make it `rejected` (ambiguity).
 - `gate2.Gate2` subclasses `gate.Gate` and imports its operations, pre-checks (§A.49 rules 1 and 4),
   refspec checks, push path, read-back paths and grants. It overrides only the halt mechanism
-  (run-level latch and two-level markers, §5), the write path (to add classification, the
-  containment decision and records) and `push` (to put pushes under the same latch).
-- `transport_rules.tail_confined(sent, stored)` decides rule 3's third condition: the sent content
-  (the text sent less its trailing tail as `split_footer_tail` delimits it) is not empty and the
-  stored text begins with it. It decides where a difference lies, never whether it is permitted.
+  (one halt store, §5), the write path (to add classification, the unified comparison, the
+  containment decision and records) and `push` (to put pushes under the same store).
+- `transport_rules.footer_shaped_tail(sent, stored)` decides rule 3's third condition: the sent
+  content (the text sent less its trailing tail as `split_footer_tail` delimits it) is not empty,
+  the stored text begins with it, and what follows is only newlines and exact copies of
+  `FOOTER_CORE`. It decides how far a stop extends, never whether a difference is accepted:
+  acceptance needs `classify` and the exact rule.
 
 ## 3. The rule `footer-attribution-1` (version 1)
 
@@ -134,7 +145,7 @@ states this limit (§8).
 
 **Permitted difference.** `discrepancy-<operation>-<target>-<field>-<pid>-<seq>.json` in the
 evidence directory, created exclusively and fsynced, with: `operation`, `target`, `field`, `repo`,
-`time`, `rule_id`, `rule_version`, `rule_description`, the complete `sent` and `stored` texts,
+`plan_id`, `time`, `rule_id`, `rule_version`, `rule_description`, the complete `sent` and `stored` texts,
 `sent_sha256`, `stored_sha256`, byte lengths, `unified_diff` (exact lines, with the diff(1) marker
 for a missing final newline) and `char_opcodes`, a character-level edit script that reproduces the
 stored text from the sent text exactly (test `p3` checks the reproduction). Records are written only
@@ -145,67 +156,91 @@ ends and the global marker is written, naming any record already written for tha
 The evidence directory must be durable (not RAM-backed scratch): records and halt evidence are
 copied to the evidence branch under §A.26 and §A.42 before the session ends.
 
-**Rejected difference.** The halt marker, `HALT` or `HALT.<operation>` as §5 decides (JSON: reason,
+**Rejected difference.** The plan latch `HALT-PLAN.<plan_id>` and the halt marker, `HALT` or
+`HALT.<operation>` as §5 decides (JSON: reason,
 scope, mechanism, pid, time, and for each evidence text its file name, SHA-256 and the complete text),
 with `halt-<scope>-<pid>-<seq>-<field>.sent.txt`, `.stored.txt` and `.diff.txt` beside it, each
 created exclusively so that two halts in one process do not overwrite each other's evidence (test
 `c6`). The texts are embedded in the marker, so an evidence file that cannot be written loses
 nothing (test `q8`).
 
-## 5. Containment: run level and operation level
+## 5. Containment: one halt store, run level and operation level
 
 Two levels, as the owner's clarification of 2026-11-25 distinguishes them and amended rule 3 (§8)
-states them.
+states them, kept in one halt store: the files of the halt directory, mirrored in the writer process
+by `gate2._HALTED`. One function (`Gate2._check_clear`) reads the store before every request, also
+immediately before the write request itself; one function (`Gate2._halt`, with `_latch`) writes it.
 
-**Run level.** A sequence is the writes of one run of a writer process or of a plan. `Gate2` latches
-on every `Halted` it raises and on every other exception during a write or push: from then on, that
-instance and every other `Gate2` instance in the process refuse every write and push, before any
-request, whatever the caller does with the exception (`_SEQUENCE_STOP`; nothing in the module clears
-it). A loop that catches `Halted` per item, the shape of `edit.py`, makes no further write (test
-`q3`, also with a new gate per item and with a `.notified` file appearing mid-loop); a pre-existing
-marker that refuses one operation also ends the sequence (test `c3`). A plan that runs across
-processes is held between processes by the markers below.
+**Run level: the plan latch.** A sequence is one run of a plan. Every `Gate2` is constructed with a
+`plan_id` (required; `[A-Za-z0-9][A-Za-z0-9._-]{0,99}`). Every halt, and every refusal of a write or
+push, ends the sequence: it is appended to `_HALTED`, which stops every `Gate2` in the process
+whatever the caller does with the exception, and written to `HALT-PLAN.<plan_id>`, which stops every
+process that runs the same plan, including a restarted one (test `q10`). Nothing in the module
+clears either; the file is removed by hand only on a recorded owner decision. A loop that catches
+`Halted` per item, the shape of `edit.py`, makes no further write (test `q3`, also with a new gate per
+item and with a `.notified` file appearing mid-loop). Plans run in one process by default
+(`run_plan`); a plan whose record names several processes passes the same `plan_id` to each. A
+process that uses another plan id is another sequence, which the gate cannot tell from a new plan;
+it then meets the markers below.
 
 **Beyond the run.** The global marker `HALT`, the same file name `gate.py` uses, stops every
 mechanism for every later process using the halt directory. `gate2` writes it for every failure
 except one: a read-back mismatch for which every condition of rule 3 holds, decided mechanically
-(`Gate2._containment_scope`):
+from the write, its read-back and the halt store (`Gate2._containment_scope`); a mismatch that the
+store does not show is not counted:
 
 1. the outcome is known: the request returned an expected status and, for a created object, its id
    (the decision is reached only past those checks);
-2. read-back succeeded, with no unsent-field, label or state failure;
-3. every rejected field difference is tail-confined (`transport_rules.tail_confined`); a
-   classification that raised is not a rejected difference;
+2. read-back succeeded, and no unsent field, label or state differs from what the write should leave
+   (§1), on every operation;
+3. every rejected field difference lies in a footer-shaped tail
+   (`transport_rules.footer_shaped_tail`): after the sent content, only newlines and exact copies of
+   the attribution footer; a classification that raised is not a rejected difference;
 4. no other operation's marker is outstanding (any `HALT.<x>` file other than `.notified`
-   companions), and no global marker.
+   companions), no global marker, and no `.notified` companion of this operation's marker left from
+   an earlier incident (it would let later sequences start without the owner being told).
 
-Then, and only then, `HALT.<operation>` is written instead and blocks that operation alone. So an
-unknown outcome (`TimeoutError`, test `q1`), a content change (`0.3` to `0.4`, test `q2`), a hard
-break removed at the end of the content, a failed read-back, a pre-check refusal, a missing grant, a
-push failure and an unknown operation are all global; a doubled, removed, altered or misplaced
-footer, or text appended after the content, is operation-level (tests `q5`, `q6`, and every
+Then, and only then, `HALT.<operation>` is written instead and blocks that operation alone. If that
+marker already exists when the halt is written (another process halted meanwhile) or cannot be
+written, the halt is made global (`escalated_from` in the record). So an unknown outcome
+(`TimeoutError`, test `q1`), a content change (`0.3` to `0.4`, test `q2`), a hard break removed at the
+end of the content, any appended text other than newlines and exact footers (an injected link, a
+forged "Owner decision" line, spaces after the footer, a look-alike footer, `[bot]` after a title:
+test `q9`), a label or state change on any write (test `q13`), a failed read-back, a pre-check
+refusal, a missing grant, a push failure and an unknown operation are all global; a doubled, removed
+or misplaced exact footer, or newlines alone, is operation-level (tests `q5`, `q9`, and every
 negative control, whose expected scope is computed by an independent restatement of condition 3).
+Recognizing that shape is not acceptance: `classify` still rejects each of those differences.
 
 **Owner told before a later sequence writes.** While any `HALT.<operation>` lacks its companion
 `HALT.<operation>.notified`, every later sequence refuses every write and push (test `c1b`). A person
 creates the companion by hand once the evidence is kept and the owner has been told through a
 channel other than an automated GitHub write; the gate never creates it. The operation stays
-suspended until a recorded owner decision removes its marker.
+suspended until a recorded owner decision removes its marker; the companion is removed with it
+(otherwise condition 4 makes the operation's next halt global, test `q14`).
 
 Markers are checked first, before any request including a read; they are created with
 `O_CREAT|O_EXCL` and fsync, never overwritten and never removed by the gate. Removal is by hand on a
 recorded owner decision. Placing both gates' markers in one directory makes a `gate.py` halt stop
 `gate2` as well.
 
-**Known limits.** The check of a marker and the write that follows are not atomic across processes
-(as in v1). Markers are local files: other hosts, containers and sessions are held only if they share
-the halt directory, and otherwise by telling the owner. Within those limits, residual exposure under
-operation-level containment is bounded to the tail-confined class: a shared layer that changes text
-before the end of the content stops everything on its first such write.
+**Strictness.** Pre-write refusals and push failures write the global marker, which is stricter than
+rule 3 requires: they show a defect in the writer or its environment rather than in one operation's
+transport, and the strictness is intended.
+
+**Known limits.** Writers are single-threaded: the check of the store and the request that follows
+are not atomic across processes or threads (as in v1), although the store is checked again
+immediately before the write request (test `q15`). Markers are local files: other hosts, containers
+and sessions are held only if they share the halt directory, and otherwise by telling the owner.
+`gate.py` checks only `HALT`, so a v1 gate in the same process is not stopped by a plan latch or an
+operation marker. Within those limits, residual exposure under operation-level containment is
+bounded to footer-shaped tails: a shared layer that changes text before the end of the content, or
+appends anything else, stops everything on its first such write.
 
 **Relation to §A.49 rule 3 and §A.51 item 5.** `gate2` implements amended rule 3 (§8) and the
-amended first sentences of §A.51 item 5: the package's operations stop on every failure the gate
-treats as global, and continue in a later sequence only after an operation-level halt.
+amended §A.51 item 5: the package's operations stop on every failure the gate treats as global,
+including a §A.49 rule 1 refusal, and continue in a later sequence only after an operation-level
+halt.
 
 ## 6. The allowlist is closed by default
 
@@ -231,8 +266,10 @@ independent review.
 
 - Operation: REST Issue-body edit, `PATCH repos/amaybaum/incompleteness/issues/1548`, `body` field,
   through `gate2` with the `gh api` transport of `issue-1548/validation-2/run_gate.py`, registry
-  `{"issue.edit_body": {"validated": False, "send_form": None}}` and a single-write grant for
-  (`issue.edit_body`, 1548).
+  `{"issue.edit_body": {"validated": False, "send_form": None}}`, a single-write grant for
+  (`issue.edit_body`, 1548) and `plan_id="validation-1548-v2"`. Under amended §A.51 item 2 an
+  outcome of `permitted footer-attribution-1`, with its record, validates the operation under the
+  allowlist; the registry then records `"allowlist": True` for it only on the owner's decision.
 - Sent text: the body below, sent **without** the footer, no trailing newline, 685 bytes, SHA-256
   `7da70f20dea6aeaf0a062b51b5a652d505028dcfcf5bff289234311e1072efce`:
 
@@ -256,10 +293,10 @@ The earlier validation bodies and the original body of this Issue are preserved 
   `issue-1548/validation-2/stored-body.md`:
   `c5c14c60634dfe4d8c13a8f9fd4006a2940fd825592170a2dc0795d6f4758780` if unchanged).
 
-## 8. Proposed amended text of AGENTS.md §A.49 rules 2 and 3 and §A.51 item 5
+## 8. Proposed amended text of AGENTS.md §A.49 rules 2 and 3 and §A.51 items 2 and 5
 
-Revision r2 of the amendment text on PR #1566, as it stands in the draft (rule 2, rule 3, §A.51
-item 5). The adoption lines are dated and cite the owner's approval record at merge.
+Revision r3 of the amendment text on PR #1566, as it stands in the draft (rule 2, rule 3, §A.51
+items 2 and 5). The adoption lines are dated and cite the owner's approval record at merge.
 
 > 2. **Exact read-back.** After every write, the stored text is read back and compared byte for
 >    byte with an expected text fixed before the write: the text sent, for every body, title,
@@ -281,7 +318,10 @@ item 5). The adoption lines are dated and cite the owner's approval record at me
 >    their number can be visible, and the footer can fall inside the block or be hidden. For every
 >    accepted difference, the complete sent
 >    and stored texts, their SHA-256 digests, the exact diff, and the identifier and version of the
->    permitting transformation are kept as a record. A transformation enters, changes in or leaves
+>    permitting transformation are kept as a record. The allowlist applies to an operation validated
+>    under it and to the write that validates an operation (§A.51 item 2); an operation validated by
+>    an exact match before the allowlist was adopted is held to an exact match until it is validated
+>    again under the allowlist. A transformation enters, changes in or leaves
 >    the allowlist only by owner decision, with independent review and its own regression
 >    controls; none is added because it has been observed. The text sent is chosen from the footer
 >    handling observed for that operation. Observed with Claude Code on 2026-11-23: comments posted
@@ -296,17 +336,25 @@ item 5). The adoption lines are dated and cite the owner's approval record at me
 
 > 3. **Stop on a mismatch.** A mismatch ends the sequence in which it occurs: no further GitHub write
 >    or push is made in that sequence, whatever the writer does on the failure; catching or ignoring
->    the error does not continue it. A sequence is the writes made by one run of a writer process or
->    of a plan. Every automated GitHub text write, for every agent and session, then stops as well,
->    unless every one of the following conditions holds, each decided mechanically from the write and
->    its read-back:
+>    the error does not continue it. A sequence is the writes made by one run of a plan (every
+>    automated writer runs one), in one writer process unless the plan's record names several, and
+>    then in all of them. The end of a sequence is recorded persistently for its plan; every process
+>    of the plan checks that record before each request, restarting a process does not continue the
+>    sequence, and only a recorded owner decision clears the record. Every automated GitHub text
+>    write, for every agent and session, then stops as well, unless every one of the following
+>    conditions holds, each decided mechanically from the write, its read-back and the local halt
+>    record; a mismatch the writer cannot see there does not count:
 >    - the outcome of the write is known: the request completed with an expected status and, for a
 >      created object, the response names its id;
 >    - the read-back succeeded, and no field the write did not send, no label and no state differs
->      from what is expected;
->    - every rejected difference lies wholly in the trailing tail after the last character of the
+>      from what the write should leave, judged against the read made before the write or, for a
+>      created object, the values a new object has;
+>    - every rejected difference lies wholly in a footer-shaped tail after the last character of the
 >      sent content: the text sent, less the newlines and any attribution footer at its very end
->      (rule 2), is not empty and is stored unchanged as the start of the stored text;
+>      (rule 2), is not empty and is stored unchanged as the start of the stored text, and what
+>      follows it there consists only of newlines and exact copies of the attribution footer. Any
+>      other appended text stops every automated text write. This shape decides only how far the
+>      stop extends; a difference is accepted only as rule 2 provides;
 >    - no other operation has a mismatch outstanding, that is, one that no recorded owner decision
 >      has yet resolved.
 >
@@ -320,56 +368,74 @@ item 5). The adoption lines are dated and cite the owner's approval record at me
 >    operation, after it is corrected and validated (§A.51 item 2), or lifts a stop of every automated
 >    text write; a later correction does not make a failed write a pass.
 
+§A.51 item 2:
+
+> 2. **Standing write grants.** An operation is validated when one write of it, made through the same
+>    tool and path under the owner's grant for that one write, passed §A.49's read-back: an exact
+>    match, or a difference that rule 2's allowlist permits, recorded as that rule requires. A
+>    package may grant its writers standing use of validated operations on its targets, without a
+>    grant for each write. An operation that is not validated needs a grant for each write. A
+>    standing grant to edit comments extends only to comments that the package's designated writers
+>    wrote under it; editing a comment written under another work package, or by the owner in person,
+>    needs a separate authorization. Every write remains subject to §A.49.
+
 §A.51 item 5:
 
 > 5. **Stop.** An unknown outcome of a write, push or launch, a step outside the package's scope, a
->    failed preflight or push read-back (item 3), a failed check the package names as a stop, or
->    evidence that conflicts with the package's records stops the package's automated operations at
->    once. A §A.49 mismatch, a failed text read-back included, stops them in the same way, and every
->    automated text write as §A.49 rule 3 provides, unless that rule confines it to the failed
->    operation; then the sequence in which it occurred still ends at once and the failed operation is
->    suspended, and the package's other operations may continue in a later sequence through validated
->    mechanisms. The evidence is kept under §A.26 and the owner is told. Only a recorded owner
->    decision resumes a stopped package or a suspended operation.
+>    failed preflight or push read-back (item 3), a §A.49 rule 1 refusal, a failed check the package
+>    names as a stop, or evidence that conflicts with the package's records stops the package's
+>    automated operations at once. A §A.49 mismatch, a failed text read-back included, stops them in
+>    the same way, and every automated text write as §A.49 rule 3 provides, unless that rule confines
+>    it to the failed operation; then the sequence in which it occurred still ends at once and the
+>    failed operation is suspended, and the package's other operations may continue in a later
+>    sequence through validated mechanisms. The evidence is kept under §A.26 and the owner is told.
+>    Only a recorded owner decision resumes a stopped package or a suspended operation.
 
 ## 9. Controls and results (mock transport only)
 
 Run in this directory: `python3 -I -B test_gate2.py` and `python3 -I -B countercontrol2.py`.
 Recorded outputs: `results-tests2.txt`, `results-countercontrol2.json`.
 
-**`test_gate2.py`: 49 tests, all pass.** The unchanged v1 suite `test_gate.py` (18 tests) and v1
+**`test_gate2.py`: 56 tests, all pass.** The unchanged v1 suite `test_gate.py` (18 tests) and v1
 countercontrols pass in the same run (`results-tests2.txt`).
 
 - Registry (`r1`–`r5`): closed frozen tuple with one rule; no footer formatting in `gate2.py`;
   malformed registries raise; a classification failure halts globally; two rules permitting the same
-  difference are `rejected` and halt (tail-confined, so operation-level).
-- Positive (`p1`–`p5`): as before: exact; footer appended; differing newlines before and after the
-  footer; hard breaks and indentation kept alongside an appended footer; the footer quoted earlier in
-  the content; the real #1558, #1062, #1245, #1556 and #1505 pairs permitted and #1565 and the #1548
+  difference are `rejected` and halt (footer-shaped, so operation-level).
+- Positive (`p1`–`p5`): exact; footer appended; differing newlines before and after the footer; hard
+  breaks and indentation kept alongside an appended footer; the footer quoted earlier in the
+  content; the real #1558, #1062, #1245, #1556 and #1505 pairs permitted and #1565 and the #1548
   validations exact; records checked field by field; the five-body D1 replay accepted with four
   records.
-- Negative (`test_neg_*`): the same cases as before, each rejected by `classify` and, through the
-  gate: one write; a halt whose scope (global or operation) equals that of an independent
-  restatement of rule 3's condition 3; sent, stored and diff kept, in files and in the marker, with
-  matching digests; no record; the same gate and any other gate in the process refuse every
-  mechanism; a later sequence refuses the operation; after an operation-level halt, a later sequence
-  writes nothing until `.notified` exists and then writes another operation; after a global halt, a
-  later sequence writes nothing through any mechanism even with every `.notified` present.
-  `test_neg_content_changes_stop_globally` fixes the global scope for content changes in every
-  footer variant.
-- Containment (`c1`–`c6`): run-level latch after an operation-level halt, in the same gate and
+- Negative (`test_neg_*`): each case rejected by `classify` and, through the gate: one write; a halt
+  whose scope (global or operation) equals that of an independent restatement of rule 3's
+  condition 3; sent, stored and diff kept, in files and in the marker, with matching digests; no
+  record; the same gate and any other gate in the process refuse every mechanism; a later sequence
+  refuses the operation; after an operation-level halt, a later sequence writes nothing until
+  `.notified` exists and then writes another operation; after a global halt, a later sequence writes
+  nothing through any mechanism even with every `.notified` present.
+- Containment (`c1`–`c6`): the sequence latch after an operation-level halt, in the same gate and
   another gate of the process, also after notification, and a later sequence writing a comment, a
   label and a push but not the operation; notification required before a later sequence writes;
   global marker blocks all with zero transport calls and is not overwritten; an existing operation
   marker refuses its operation and ends the sequence; an unknown operation halts globally; a marker
-  blocks a separate process; a second tail-confined halt with another operation's marker
+  blocks a separate process; a second footer-shaped halt with another operation's marker
   outstanding is global, with separate evidence files.
-- Probes (`q1`–`q8`), from the review: `TimeoutError` on PATCH is global; `0.3` to `0.4` is global; a
-  loop catching `Halted` makes zero further writes (gate reused or built per item; operation-level
-  or global; `.notified` appearing mid-loop); no orphaned record when a later field fails (R8); rule
-  3's conditions on a fixed table; an outstanding marker of another operation makes a tail-confined
-  halt global; an internal exception during a write latches and is global; the marker embeds the
-  texts when evidence files cannot be written.
+- Probes (`q1`–`q8`), from the review of r1: `TimeoutError` on PATCH is global; `0.3` to `0.4` is
+  global; a loop catching `Halted` makes zero further writes; no orphaned record when a later field
+  fails; rule 3's conditions on a fixed table; an outstanding marker of another operation makes a
+  halt global; an internal exception latches and is global; the marker embeds the texts when
+  evidence files cannot be written.
+- Revision r3 (`q9`–`q15`): appended text other than newlines and exact footers (link, forged
+  owner line, spaces, look-alike footer, `[bot]` in a body and a title) is global, footer-shaped
+  differences are operation-level and still rejected (Q2); the plan latch refuses the same plan in a
+  restarted gate and in a separate process after `.notified` exists, while a new plan writes (Q3);
+  `plan_id` is required and checked; a permitted difference passes a single-write validation write
+  and an operation validated under the allowlist, and halts an operation validated by exact
+  read-back only (Q4); labels and state are compared on body edits, creates, pull-request edits,
+  closes and label changes (G1); a stale `.notified` companion, or an operation marker appearing
+  during the write, makes the halt global (G2); a global halt recorded during the pre-write read
+  stops the write request (G3).
 - Ported `gate.py` guarantees (`g01`–`g17`): as before, with every failure global.
 
 **`countercontrol2.py`: C1, C2 and C3 pass.**
@@ -377,14 +443,17 @@ countercontrols pass in the same run (`results-tests2.txt`).
 - C1: `gate.py` halts on the real #1505 and #1558 pairs; `gate2` accepts each as
   `permitted footer-attribution-1` with one complete record. D1 replay: `gate.py` 1 write then a
   halt; `gate2` 5 writes and 4 records.
-- C2, rule mutants; baseline 49 run, 0 failed: strip all whitespace: 5 tests fail; `.strip()` on
-  the whole text: 5; ignore the footer text: 3; accept a doubled footer: 7; let spaces and tabs in
-  the tail differ: 3; no two-newline separator check: 2. Each has negative controls among its
+- C2, rule mutants; baseline 56 run, 0 failed: strip all whitespace: 6 tests fail; `.strip()` on
+  the whole text: 6; ignore the footer text: 4; accept a doubled footer: 11; let spaces and tabs in
+  the tail differ: 4; no two-newline separator check: 3. Each has negative controls among its
   failures.
-- C3, gate mutants: accepting `rejected`: 20; skipping the discrepancy record: 1 (`p3`); a single
-  global marker for every halt: 11; no run-level latch: 3 (`c1`, `c3`, `q3`); every halt confined to
-  its operation (gate v2's containment before r2): 25, among them `q1`, `q2`, `q4`; narrowing without
-  the tail condition: 13.
+- C3, gate mutants: passing a rejected difference off as permitted: 23; skipping the discrepancy
+  record: 2; a single global marker for every halt: 14; no sequence latch: 5 (among them `c1`, `q3`,
+  `q10`); a latch in memory only, without the plan latch file: 2 (`q10`, `q15`); every halt confined
+  to its operation (before r2): 28; narrowing without the tail condition: 15; narrowing on any
+  appended text (r2's condition): 6 (among them `q9`); labels and state compared only on their own
+  operations (before G1): 1 (`q13`); a stale companion ignored (before G2): 1 (`q14`); the allowlist
+  applied to operations validated by exact read-back only (before Q4): 1 (`q12`).
 
 **Limits.** These controls show the gate's control flow and the rule's exact behaviour on stated
 inputs, against a mock. They do not show the behaviour of the real GitHub path; §7 is the first
@@ -395,11 +464,12 @@ do not reach it.
 
 | File | Content |
 |---|---|
-| `transport_rules.py` | Allowlist: `Rule`, `REGISTRY`, `classify`, send forms |
+| `transport_rules.py` | Allowlist: `Rule`, `REGISTRY`, `classify`, `footer_shaped_tail`, send forms |
 | `gate2.py` | Gate v2 prototype (imports `gate.py`) |
 | `mock2.py` | Mock extensions (subclasses `mock.MockGitHub`) |
-| `test_gate2.py` | Control suite (49 tests) |
+| `test_gate2.py` | Control suite (56 tests) |
 | `countercontrol2.py` | C1–C3 |
 | `results-tests2.txt`, `results-countercontrol2.json` | Recorded outputs |
 | `PROTOCOL-v2.md` | This document |
 | `CHANGES-r2.md` | Revision r2: each review finding and its change |
+| `CHANGES-r3.md` | Revision r3: each owner decision and finding, its change, and the consolidations |

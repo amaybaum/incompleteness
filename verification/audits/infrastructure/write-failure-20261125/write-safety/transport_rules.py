@@ -122,18 +122,22 @@ def classify(sent, stored, rules=None, field="body"):
     return ("rejected", None)
 
 
-def tail_confined(sent, stored):
-    """True iff a difference between sent and stored lies wholly in the trailing tail after the
-    last character of the sent content (AGENTS.md section A.49 rule 3, third condition).
+def footer_shaped_tail(sent, stored):
+    """Containment only, never acceptance (AGENTS.md section A.49 rule 3, third condition).
 
-    The sent content is the text sent less its tail as split_footer_tail delimits it (the
-    newlines and any attribution footer at its very end). The condition holds iff that content is
-    not empty and the stored text begins with it, byte for byte. This decides only where a
-    difference lies, never whether it is permitted (classify decides that)."""
+    True iff the sent content (the text sent less its tail as split_footer_tail delimits it: the
+    newlines and any attribution footer at its very end) is not empty, the stored text begins with
+    it byte for byte, and everything after it in the stored text is made only of newline
+    characters U+000A and exact copies of FOOTER_CORE. Any other appended character (a space, a
+    link, a signature, an altered or look-alike footer) makes it false. A true result decides only
+    that a stop may be confined to the failed operation; whether a difference is accepted is
+    decided by classify and the exact rule alone."""
     if not (isinstance(sent, str) and isinstance(stored, str)):
         return False
     content, _ = split_footer_tail(sent)
-    return content != "" and stored.startswith(content)
+    if content == "" or not stored.startswith(content):
+        return False
+    return set(stored[len(content):].replace(FOOTER_CORE, "")) <= {NL}
 
 
 def rule_by_id(rule_id, rules=None):

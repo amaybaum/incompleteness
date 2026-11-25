@@ -5,11 +5,15 @@ C1  gate.py (exact only) halts on the real #1505 and #1558 pairs; gate2 accepts 
 C2  mutations of the rule (looser variants of footer-attribution-1): under each, the control suite
     must fail, and at least one negative control (test_neg_*) must be among the failures.
 C3  mutations of gate2's outcome handling and containment: accept "rejected"; skip the
-    discrepancy record; a single global marker for every halt; no run-level latch (a caller that
-    catches Halted continues the sequence); every halt confined to its operation (the containment
-    of gate v2 before revision r2); narrowing without the tail-confinement condition. The control
-    suite must fail under each, and under the latch mutant the run-level tests must be among the
-    failures.
+    discrepancy record; a single global marker for every halt; no sequence latch at all (a caller
+    that catches Halted continues the sequence); a latch kept in memory only (no persistent plan
+    latch: a restarted process continues the plan); every halt confined to its operation (the
+    containment of gate v2 before revision r2); narrowing without the tail condition; narrowing on
+    any text appended after the content (r2's condition, before Q2); labels and state compared only
+    on label and close operations (before G1); a stale .notified companion ignored (before G2); the
+    allowlist applied to operations validated by exact read-back only (before Q4). The control
+    suite must fail under each, and under each latch mutant the run-level tests named for it must
+    be among the failures.
 """
 import dataclasses, io, json, os, re, sys, tempfile, unittest
 
@@ -31,7 +35,7 @@ def read(*p):
 
 
 def reg():
-    return {"issue.edit_body": {"validated": True, "send_form": None}}
+    return {"issue.edit_body": {"validated": True, "send_form": None, "allowlist": True}}
 
 
 def c1():
@@ -49,7 +53,7 @@ def c1():
             v1 = "halted: " + str(e)
         d2 = tempfile.mkdtemp(dir=os.path.join(HERE, "runs"))
         gh2 = MockGitHub2(issues, transforms={"patch": lambda b, s=stored: s})
-        g2 = G2.Gate2(gh2, MockGit(), d2, "o/r", reg())
+        g2 = G2.Gate2(gh2, MockGit(), d2, "o/r", reg(), plan_id="c1-" + name)
         try:
             r = g2.write("issue.edit_body", 1, {"body": sent})
             with open(r.records[0], encoding="utf-8") as f:
@@ -80,7 +84,7 @@ def c1():
         pass
     m2 = MockGitHub2(before, mode="append_if_absent")
     d = tempfile.mkdtemp(dir=os.path.join(HERE, "runs"))
-    g2 = G2.Gate2(m2, MockGit(), d, "o/r", reg())
+    g2 = G2.Gate2(m2, MockGit(), d, "o/r", reg(), plan_id="c1-d1")
     G2.run_plan(g2, steps)
     recs = sorted(p for p in os.listdir(d) if p.startswith("discrepancy"))
     out["D1_replay"] = {"gate_v1_writes": len(m1.writes), "gate_v2_writes": len(m2.writes),
@@ -185,12 +189,15 @@ def c2():
 def c3():
     out = {}
     saved = {k: getattr(G2.Gate2, k) for k in
-             ("_classify", "_record", "marker_path", "_check_sequence", "_halt",
-              "_containment_scope")}
+             ("_classify", "_record", "marker_path", "_latch", "_halt",
+              "_containment_scope", "_expected_state", "_allowlist_applies")}
+    saved_shape = TR.footer_shaped_tail
 
     def accept_rejected(self, op, field, sent, stored):
+        # r3's gate treats an "exact" classification of differing bytes as rejected, so the
+        # mutant passes a rejected difference off as permitted by the one listed rule.
         cls, rid = TR.classify(sent, stored, self.rules, field)
-        return ("exact", None) if cls == "rejected" else (cls, rid)
+        return ("permitted", TR.REGISTRY[0].id) if cls == "rejected" else (cls, rid)
 
     def skip_record(self, *a):
         return None
@@ -198,8 +205,12 @@ def c3():
     def global_only(self, mech):
         return self.halt_path
 
-    def no_latch(self):
-        return None
+    def no_latch(self, rec):
+        return True
+
+    def memory_only_latch(self, rec):
+        G2._HALTED.append(rec["reason"])
+        return True
 
     def operation_scope_always(self, reason, scope=None, **ev):
         mech = self._mech if self._mech in G2.OPERATIONS else scope
@@ -211,30 +222,77 @@ def c3():
         outstanding = [n for n in self._operation_markers() if n != "HALT." + op]
         return None if outstanding else op
 
+    def any_appended_text(sent, stored):        # r2's tail_confined
+        if not (isinstance(sent, str) and isinstance(stored, str)):
+            return False
+        content, _ = TR.split_footer_tail(sent)
+        return content != "" and stored.startswith(content)
+
+    def labels_state_only_on_their_ops(self, op, before, labels, label):
+        want = saved["_expected_state"](self, op, before, labels, label)
+        if op not in ("labels.add", "labels.remove"):
+            want.pop("labels", None)
+        if op != "issue.close":
+            want.pop("state", None)
+        if before is None:
+            want = {}
+        return want
+
+    def ignore_stale_companion(self, op, expected, stored, failures, other):
+        if other:
+            return None
+        for field, kind in failures:
+            if kind != "rejected" or not TR.footer_shaped_tail(
+                    expected[field].decode("utf-8"), stored.get(field)):
+                return None
+        outstanding = [n for n in self._operation_markers() if n != "HALT." + op]
+        return None if outstanding or os.path.lexists(self.halt_path) else op
+
+    def allowlist_everywhere(self, reg):
+        return True
+
     mutants = {"accept_rejected": ("_classify", accept_rejected),
                "skip_discrepancy_record": ("_record", skip_record),
                "single_global_marker": ("marker_path", global_only),
-               "no_run_level_latch": ("_check_sequence", no_latch),
+               "no_sequence_latch": ("_latch", no_latch),
+               "memory_only_latch": ("_latch", memory_only_latch),
                "operation_scope_always": ("_halt", operation_scope_always),
-               "narrow_without_tail_check": ("_containment_scope", narrow_without_tail_check)}
+               "narrow_without_tail_check": ("_containment_scope", narrow_without_tail_check),
+               "narrow_on_any_appended_text": (None, any_appended_text),
+               "labels_state_only_on_their_ops": ("_expected_state",
+                                                  labels_state_only_on_their_ops),
+               "ignore_stale_companion": ("_containment_scope", ignore_stale_companion),
+               "allowlist_on_exact_validated_ops": ("_allowlist_applies", allowlist_everywhere)}
     for name, (attr, fn) in mutants.items():
-        setattr(G2.Gate2, attr, fn)
+        if attr is None:
+            TR.footer_shaped_tail = fn
+        else:
+            setattr(G2.Gate2, attr, fn)
         try:
             out[name] = run_suite()
         finally:
             for k, v in saved.items():
                 setattr(G2.Gate2, k, v)
-            del G2._SEQUENCE_STOP[:]
+            TR.footer_shaped_tail = saved_shape
+            del G2._HALTED[:]
     out["accept_rejected"]["negative_controls_failing"] = [
         t for t in out["accept_rejected"]["failing"] if t.startswith("test_neg_")]
-    latch_tests = {"test_c1_run_level_latch_after_operation_level_halt",
-                   "test_q3_caller_catching_halted_writes_nothing_further"}
-    out["no_run_level_latch"]["run_level_tests_failing"] = sorted(
-        latch_tests & set(out["no_run_level_latch"]["failing"]))
+    required = {   # mutant -> tests that must be among its failures
+        "no_sequence_latch": {"test_c1_run_level_latch_after_operation_level_halt",
+                              "test_q3_caller_catching_halted_writes_nothing_further",
+                              "test_q10_plan_latch_survives_restart"},
+        "memory_only_latch": {"test_q10_plan_latch_survives_restart"},
+        "narrow_on_any_appended_text": {"test_q9_appended_text_stops_globally"},
+        "labels_state_only_on_their_ops": {"test_q13_labels_and_state_checked_on_every_write"},
+        "ignore_stale_companion": {"test_q14_stale_or_existing_operation_marker_makes_it_global"},
+        "allowlist_on_exact_validated_ops": {"test_q12_permitted_difference_and_validation"},
+    }
+    for name, tests in required.items():
+        out[name]["required_tests_failing"] = sorted(tests & set(out[name]["failing"]))
     results["C3"] = out
     return all(out[n]["failed"] > 0 for n in mutants) and \
-        out["accept_rejected"]["negative_controls_failing"] and \
-        out["no_run_level_latch"]["run_level_tests_failing"] == sorted(latch_tests)
+        bool(out["accept_rejected"]["negative_controls_failing"]) and \
+        all(out[n]["required_tests_failing"] == sorted(t) for n, t in required.items())
 
 
 if __name__ == "__main__":
