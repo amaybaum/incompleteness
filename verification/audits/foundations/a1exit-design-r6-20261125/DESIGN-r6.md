@@ -1,4 +1,4 @@
-# Ledger coverage tool: design r6 (consolidated, self-contained; draft for independent review, not adopted)
+# Ledger coverage tool: design r6 (consolidated, self-contained; final draft for owner adoption, not adopted)
 
 ## 0. Status, authority, scope and goal link
 
@@ -42,6 +42,7 @@ and designating the plan, dispatching its trials, executing it, merging into `ma
 and sec. A.51 for work) are given by the owner and quoted with author and time in the record that
 relies on them (AGENTS.md sec. A.42 item 7). The tool neither reads nor checks them. No check of this
 design is waived by r6, and every later step keeps its own owner gate (sec. 19).
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-012. Controls: none (procedural boundary).
 
 **R6.STAT.5** Rules binding this design. The design and its control expectations follow requirements
@@ -70,8 +71,8 @@ amended and re-frozen so that every mandatory check of its sec. 11 passes as wri
 trees are distinguished (sec. 20). It superseded the execution-exception route of comment 7092885251.
 The steps it held (implementation, push, pull request, merge and the plan edit) are each governed by
 their own owner record; r6 releases none of them. Before adoption the decision is quoted in r6 in the
-owner's own words, taken from the comment.
-OPEN: owner decision quote 7093128173.
+owner's own words, byte-exact from the comment if it holds them, or as the owner restates it (RE-26).
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: RV-002. Controls: none (governance record).
 
 **R6.STAT.9** Owner acceptance conditions. Each condition the owner set for the design is answered by
@@ -132,8 +133,8 @@ the producing CI run (sec. 11).
 Sources: E-027. Controls: none (definition).
 
 **R6.NOTE.8** `X` is the candidate (execution) commit. `C` is the certified execution head. `M` is
-`main` at check time. `L` is the landing merge. The command-line flag that supplies `C` to op C is
-stated after the conformance check of RD-33 (the parser at the tool commit reads `--certified`).
+`main` at check time. `L` is the landing merge. Op C takes `C` from `--certified REV`, which defaults to
+`X` (RD-33; B-10).
 Sources: E-028, V1-005. Controls: none (definition).
 
 **R6.NOTE.9** Every commit a run reads or records is a full 40-hex id; no ref name stands for one
@@ -167,7 +168,7 @@ Sources: A-014, A-013. Controls: none (definition).
 field names are identifiers; none is reused with another meaning (sec. 34). Review-finding and
 decision labels cited in parentheses (for example R1, R6, R9, O2, O6, B-4, A-D5, C3, R-D5, D2, V5-D1)
 are labels, not identifiers: where a label coincides with a control id, the label names no control.
-OPEN: finding-label collision O6.
+The heading of the verbatim splitter text of sec. 8 uses "O6" as such a finding label; it names no control (B-20).
 Sources: E-028. Controls: none (definition).
 
 ***
@@ -248,6 +249,7 @@ which PASS when added: "the six posits of the substratum", "six assumptions abou
 "The posit ledger lists fourteen.", "the fourteen-item posit ledger" and "$A_1$–$A_6$". The plan's
 original literal item 7 misses each of these too. The two examples of R6.PUR.9 are not part of this
 requirement.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-055. Controls: V15, V21, V26.
 
 **R6.PUR.9** For decision at adoption (not adopted by this draft): the residual for the deny rule
@@ -263,10 +265,14 @@ these options:
 - (b) restore V4's FAIL expectation, which needs DR-2, or a successor rule, in the plan's active rule
   set.
 
-Outstanding evidence, a named blocker on adoption of this requirement: the owner decision V5-D1 that
-dropped DR-2 is recorded only in paraphrase (ME-6); its text is to be recorded by the owner.
-OPEN: V4 reversal scope.
-Sources: E-055. Controls: V4, V27.
+The decision covers V4, V27, V27-glossary and V15 together, which rest on the same decision V5-D1
+(RE-1). Until it is made, each of the four rows carries both candidate expectations, each marked
+"not authoritative; decided at r6 adoption", and an `expect` of outcome DEFERRED; the gate reports
+`deferred-expectation` for each and never holds on it (R6.GATE.9). Outstanding evidence, a named
+blocker on adoption of this requirement: the owner decision V5-D1 that dropped DR-2 is recorded only
+in paraphrase (ME-6); its text is to be recorded by the owner.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
+Sources: E-055, RE-1. Controls: V4, V27, V27-glossary, V15.
 
 **R6.PUR.10** Delegated checks stay outside the tool's semantics, even when their evidence is bound to
 `X` or `C`. The tool checks that role fields of a record differ; it cannot check who wrote a record
@@ -278,6 +284,7 @@ evaluated commits a run checked, and identifies them in its result. Whether that
 owner approved is confirmed by the owner, procedurally (R6.STAT.4). No output, outcome, field or
 control of the tool states or implies that a plan, a record, a run or a result was approved or
 authorized. Admitted record directories are named "admitted", never "authorized" (sec. 21).
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-057. Controls: B4-MEANING.
 
 **R6.PUR.12** Entry type of a side change. For every side change, inside or outside `D_rec`, the tool
@@ -285,9 +292,8 @@ reads the entry's mode (R6.NOTE.12) before any read of its bytes, and never read
 submodule as file content. At the tool commit, a symbolic-link or submodule side change outside
 `D_rec` reaches the side-change classifier's byte read, which refuses it; that is a verification
 defect, corrected in a later tool revision with a control that plants a symbolic-link and a submodule
-side change outside `D_rec`. The outcome and class reported for such an entry are a residual owner
-decision (sec. 32).
-OPEN: side-change entry type outcome.
+side change outside `D_rec`. Such an entry is REVIEW_REQUIRED `side-change-unclassified` with the
+reason `not a regular file`, as inside `D_rec` (R6.RDIR.7; RE-15).
 Sources: A-140. Controls: SIDE-NONREG.
 ***
 
@@ -320,7 +326,7 @@ stages:
 |---|---|---|---|
 | A | `record` | Is the frozen record `R` correct at its own pin? It replays the frozen tool at the pin only (R6.PIPE.10) and derives the site anchors in memory; the digest of the anchor list is recorded as `record_checks.anchors_sha256`. | `E`, plus the record commit |
 | B | `coverage` | Is every site of `R` accounted for at the named commit, unchanged and possibly moved, or rewritten by an identified splice of the frozen ledger, and is every hit classified? Op B never regenerates, rewrites or re-renders `R`. | `E`, `H`, `X` |
-| C | `execution` | Is candidate `X` exactly `H` plus the ledger, with its preconditions met at `H` and its pins intact? Does landing `L` compose current `main` with `X` exactly (sec. 20)? | `H`, `X`, `C`, `M`, `L` |
+| C | `execution` | Is candidate `X` exactly `H` plus the ledger, with its preconditions met at `H` and its pins intact? Does landing `L` compose current `main` with `C` exactly (sec. 20)? | `H`, `X`, `C`, `M`, `L` |
 | D | `terms` | Is every terminology hit at the named commit classified, with no deny-rule match? | one commit; with `--base B --ledger F:ledger.json`, also the added text of `B..commit` |
 
 A change on `M` to a corpus file is decided by op C as `base-drift` (sec. 23), not by op B. Whether
@@ -355,10 +361,9 @@ Sources: V1-021. Controls: EI15.
 ledger of the `ledger.json` form, whose schema id is configuration content (for A1,
 `a1exit deletion exact-edit ledger v2`), and unledgered otherwise. The chain starts at the pin and ends
 at the named commit, and consecutive endpoints are equal; a broken chain is an integrity ERROR
-(R6.OUT.5). With no `--segment`, op B uses one unledgered segment from the pin to the named commit. How
-that default composes with an HP segment declared by the configuration (as in RT-H0) is fixed by the
-conformance check of OD-25 and stated before r6 is final.
-OPEN: default segment composition.
+(R6.OUT.5). With no `--segment`, op B uses one segment from the pin to the named commit: it is of kind `hp`
+when an HP obligation of the configuration names it (as in RT-H0), and unledgered otherwise (OD-25;
+B-13).
 Sources: V1-022, V1-036, V1-069. Controls: none.
 
 **R6.PIPE.7** Site state across segments. A site's state is carried between segments: `resolved`
@@ -387,7 +392,7 @@ Sources: V2-008. Controls: RT-A, X1.
 
 - every splice's `old_sha256` matches its span;
 - every edit's `old` is selected exactly once, by the per-edit selection and in-order application of
-  sec. 9, and every applied edit is bound to its splice; any other relation is ERROR `SOURCE_CHANGED`,
+  sec. 9, and every applied edit is bound to its splice; any other relation is ERROR `LEDGER_INTEGRITY`,
   naming the edit and splice ids;
 - `edits_sha256` matches;
 - every edit id maps to exactly one splice, with equal hashes; the `retained_unchanged` edits map to
@@ -426,8 +431,8 @@ Sources: E-062. Controls: RT-D, S11-5, S11-6.
 - `retained_unchanged` (D032, D039): each id must exist in `edits.json`, must have no splice, and must
   have its site text byte-identical at `H` and at `X`; otherwise FAIL `retained-changed`;
 - every other unread ledger field is reported under `ignored_fields`;
-- an unknown ledger schema id is ERROR `SOURCE_CHANGED`, under the role "pinned input whose content
-  fails its integrity rules" (R6.OUT.5), pending the conformance check of OD-4.
+- an unknown ledger schema id is ERROR `LEDGER_INTEGRITY`, under the role "pinned input whose content
+  fails its integrity rules" (R6.OUT.5; RE-16).
 
 Sources: E-063. Controls: CLASS-RETAINED.
 ***
@@ -466,8 +471,8 @@ Sources: V1-039, V1-040. Controls: M11, U1.
 
 **R6.ANCH.6** `whitespace_only` is a diagnostic. It is computed only to label a failing site: the
 site's pin bytes and the replacing bytes are compared after every whitespace run is replaced by one
-space and leading and trailing whitespace is removed; Unicode normalization is not applied. It never
-makes a site pass. A whitespace change is not presumed meaning-free, since Markdown whitespace can
+space and leading and trailing whitespace is removed; Unicode normalization is not applied. It is computed only for a single-line site, in the unledgered search, on a
+replace operation; otherwise it is false (B-14). It never makes a site pass. A whitespace change is not presumed meaning-free, since Markdown whitespace can
 change rendering (line breaks, code blocks).
 Sources: V1-041. Controls: U9.
 
@@ -539,6 +544,7 @@ Sources: V1-051. Controls: U10, U11, B1, B2.
 - A site's span is its line's bytes plus its terminating LF. A splice that starts at the site line's LF
   therefore overlaps the site, and the replacement region includes the lines it inserts.
 
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-110, E-111. Controls: B1, B2, B3, B4, B6.
 
 **R6.ANCH.15** Files not in the ledger. A corpus file that the segment's ledger does not touch must be
@@ -586,8 +592,8 @@ Sources: V2-020, RV-026. Controls: N1, S11-12.
 
 **R6.HP.1** Merges. The configuration record pins the merges of the HP obligation by full commit id
 (for A1, sec. 27). The engine contains no merge ids. The tool cross-checks each pinned merge against
-the pull-request number in its subject, and never resolves a merge from subject text.
-OPEN: HP merge cross-check.
+the pull-request number in its subject, and never resolves a merge from subject text. A pinned merge whose subject names another pull-request
+number is ERROR `CONFIG_INVALID`, detected before any subject is evaluated (RE-31).
 Sources: E-064, RV-020, V2-036. Controls: none.
 
 **R6.HP.2** Region walk. For a site, the region is a block of whole lines. For each first-parent
@@ -675,8 +681,12 @@ Sources: E-069, V2-038, V2-039, V2-040, RV-055. Controls: H1, H2, H3, H7, RT-H0.
 **R6.HP.7** The status `provenance-adjudicated` is distinct from `moved` and `authorized-replacement`
 in every count, and is counted separately under `HP` and under `RET`. A matching adjudication resolves
 its site with that status; this positive case is tested by U14, restated as an HP adjudication case
-(RD-9 (a)).
-OPEN: U14 wrong-region-hash class.
+(RD-9 (a)). At the tool commit an adjudicated site is marked only by its `provenance`
+reference and is counted under its last segment state; the distinct status and its separate counts
+are an implementation obligation (OBL-28; Q12, RE-6). An adjudication entry whose region hash
+differs from the walk (U14's second case) gives FAIL `provenance-mismatch`, because the record does
+not match the walk, and FAIL `stale-adjudication`, because the entry then resolves no subject
+(R6.REC.10); any other class emitted for that case is a defect (Q12, RE-7).
 Sources: V1-062. Controls: U14.
 **R6.HP.8** Resumed tracking. An adjudicated site resumes tracking in `H..X` from its final region at
 `H`, through every later segment, under the ledgered rules of R6.ANCH.9 to R6.ANCH.16 and, where its
@@ -727,6 +737,7 @@ Sources: V1-023. Controls: none.
 **R6.CTX.1** Preregistration. The context rule was decided at S0, before any implementation output. It
 is stated per frozen s3 value and per indicator. Its authority is r6's adoption. Its counts at `T1'`
 are reported, never tuned.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-076. Controls: none (definition).
 
 **R6.CTX.2** Context definition. The context of a site is the ordered pair of the nearest non-blank
@@ -838,6 +849,7 @@ Sources: E-086. Controls: K6, K7, K8.
 
 **R6.CTX.12** For LIST and TABLE sites the neighbour context of R6.CTX.2 is kept in addition to the
 structure contexts of R6.CTX.11: a change of either gives the result of R6.CTX.6.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-1367. Controls: K7.
 
 ***
@@ -877,11 +889,11 @@ Sources: E-094. Controls: X2, X7, EI6.
 **R6.OUT.4** Isolation refusal. The entry point refuses to run unless the interpreter runs in isolated
 mode and no `sys.path` entry lies inside the checkout. The refusal happens before any import of a
 module not loaded at interpreter start. It exits 65 and writes no `result.json`; it writes one line to
-stderr that names the ERROR class `ISOLATION_REFUSED` and the reason. It is the second documented case
+stderr, which is one JSON object naming the ERROR class `NOT_ISOLATED` and the reason (R6.REC.20). It is the second documented case
 without a `result.json` (R6.OUT.6), and a run that ends this way is never acceptable. At the tool
 commit the refusal writes a message with no class; that is a verification defect, corrected in a later
-tool revision. The class name is proposed by this draft and is confirmed at adoption (RD-19).
-OPEN: isolation class name.
+tool revision. The class name `NOT_ISOLATED` takes the state form of `MAIN_NOT_DESCENDANT` (RE-14); it
+is a new identifier recorded in the migration index (sec. 34).
 Sources: E-104, E-101, E-094. Controls: EI6.
 
 **R6.OUT.5** Integrity errors and their classes. These produce ERROR, exit 65, with `stop.class`:
@@ -889,6 +901,8 @@ Sources: E-104, E-101, E-094. Controls: EI6.
 - `PIN_MISMATCH`, with the fields `expected_pin`, `record_digest`, `computed_digest` and `candidate`,
   produced before any frozen code runs;
 - `RECORD_TREE_MISMATCH`, `SCIENTIFIC_BASE_MISMATCH`, `MAIN_NOT_DESCENDANT`;
+- these classes, with `PIN_MISMATCH` and `EDITS_HASH_MISMATCH`, form the role "a pinned role or tree
+  identity differs": ERROR with the named class (RE-17 (i));
 - a ledger hash, span, overlap or base mismatch (`LEDGER_INTEGRITY`, or `SCIENTIFIC_BASE_MISMATCH` for a
   ledger base that is not `H`), an `edits_sha256` mismatch (`EDITS_HASH_MISMATCH`), and a broken
   segment chain;
@@ -902,8 +916,13 @@ Sources: E-104, E-101, E-094. Controls: EI6.
   - `CONFIG_INVALID`: the configuration is malformed or inconsistent; `CONFIG_UNSUPPORTED` and
     `CONFIG_INCONSISTENT` (including a record directory that is not admitted, reason
     "(directory not admitted)") as sec. 29 defines them;
-  - a pinned input whose blob matches its pin but whose content fails its integrity rules (an unknown
-    ledger schema id, R6.PIPE.15): ERROR with the named class, as raised.
+  - a pinned input whose blob matches its pin but whose content fails its integrity rules: ERROR
+    `LEDGER_INTEGRITY` for an unknown ledger schema id (R6.PIPE.15) and a failed edit-to-splice
+    correspondence or selection (R6.PROF.8), otherwise the named integrity class; `SOURCE_CHANGED` is
+    never raised for a blob that matches its pin (RE-16);
+  - precedence: a malformed configuration is refused at admission first, as `CONFIG_UNREVIEWED`, in a
+    chain-admitted run, and is `CONFIG_INVALID` in a control-harness run, where admission does not
+    refuse it (RE-17 (ii)).
 
 A record whose blob matches its pin but whose content fails its lint or its review is not an ERROR: it
 is FAIL `record-invalid` (sec. 11), and so is a schema-invalid adjudication and a record passed with
@@ -997,6 +1016,7 @@ quotation. The record commits:
 CI run ids, job ids and log references are recorded as provenance only (AGENTS.md sec. A.42 item 2).
 Committing a result preserves it; it never makes an invalid run acceptable. The predicate of
 R6.OUT.12 is re-checked from the committed data before the landing merges.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-097. Controls: TR46.
 
 **R6.OUT.15** Offline replay (C3, F2). `replay --snapshot <path> --out DIR` recomputes the result from
@@ -1068,12 +1088,12 @@ bound by another emitted field; the candidates at the tool commit are `operation
 found bound is stated as that field; any other member is emitted under its name here. No member is
 withdrawn before that check.
 
-Further top-level fields emitted at the tool commit, which no source design lists and which r6 does
-not adopt by default (R6.STAT.5): `invocation`, `rule_files`, `hp_merges`, `records_used`, `per_edit`,
-`evaluated`, `segments`, `merger_groups`, `region_lines`, `reports`, `added_text_lines`,
-`reconciliation_x_identity`, `delegation`, `side_changes`, `record_directory`, `checks`,
-`landing_compositions`, `roles`, and, in a control harness only, `harness` and `control`. Each is
-adopted, renamed into `inputs`, or removed by the RD-10 conformance check (sec. 32).
+Further top-level fields emitted at the tool commit, which no source design lists (RE-13). A field
+that a control's expectation or the gate's extraction (R6.GATE.5, R6.GATE.8) reads is adopted as a
+named field: `merger_groups`, `region_lines`, `side_changes` and `harness` (`harness` and `control` in a control harness only). The others are adopted as
+declared diagnostics: emitted, listed in the schema file, never read for a verdict: `invocation`, `rule_files`, `hp_merges`, `records_used`, `per_edit`, `evaluated`, `segments`, `reports`, `added_text_lines`, `reconciliation_x_identity`, `delegation`, `record_directory`, `checks`, `landing_compositions`, `roles` and `control`. No field
+is removed without a purpose trace (Q3). The members of `inputs` and `pins` that the conformance
+check found not emitted are emitted in the tool revision (OBL-28, C-24).
 
 Item fields: `obligation` (R6.OUT.24), `class`, `decision` (FAIL or REVIEW_REQUIRED), `subject`,
 `segment` (string or null), `fingerprint` (64 hex), `resolution_needed` (object or null), and, where
@@ -1089,7 +1109,6 @@ sites), `provenance` (record id or null), `region_shared_with`, `hp_overlap`, `r
 
 Hit fields: `file`, `line`, `line_sha256`, `profiles`, `tree`, `state`, `segment`, `held_by` (the
 tracked site that holds it, or null; sec. 14) and `pre_existing`.
-OPEN: emitted result fields.
 Sources: E-106, V1-074, V1-078, V2-062, V2-063, V2-064, V2-065. Controls: ACCEPT-SCHEMA,
 S7-schema-and-checker, B4-MEANING, U2, U9, U10.
 
@@ -1158,8 +1177,9 @@ Sources: E-109, V1-075, V1-137, V2-067. Controls: S7-schema-and-checker.
 - `TERMS`: terminology subjects: profile hits and deny, literal and rule items (sec. 9, 10, 12);
 - `DELEGATED`: delegated checks and their evidence (sec. 13).
 
-Results group items by obligation. No `HP` item is counted under `RET`.
-OPEN: obligation definitions.
+Results group items by obligation. No `HP` item is counted under `RET`. These definitions are the tool commit's obligation set,
+which OD-14 enumerates; each is adopted after a purpose trace (Q3) against its source, and a
+difference the trace finds is a verification defect (RE-27 (a)).
 Sources: V2-042. Controls: RT-H0, RT-T0, H5, RT-C.
 
 **R6.OUT.25** Adapter inputs. The blob hash of every input an adapter reads (for A1, the Phase-0 and
@@ -1218,7 +1238,13 @@ Sources: V2-049, RV-017. Controls: none (scope of R6.SPLIT.1).
 against the implementation at the tool commit (`tools/ledger_coverage/engine/util.py`,
 `sentences_of`, version 2) (OD-23). Each difference becomes an owner decision or a verification
 defect; the implementation is not adopted by default (R6.STAT.5).
-OPEN: splitter abbreviation match.
+The check found these readings of the tool commit, which r6 states as part of the splitter
+because splitting must equal P's checker (ME-1; RE-32 (a)): "uppercase" means ASCII uppercase only;
+an abbreviation matches when the text before the full stop ends with a listed abbreviation, with
+no word boundary (so "parsec." matches "sec."); `$$` display math is not masked; and a
+`splitter_version` other than 2 is refused, as ERROR `CONFIG_INVALID` once the configuration lint
+checks it (OBL-28, C-14; INTERNAL at the tool commit). Any change to these readings is verified
+against P's checker under ME-1.
 Sources: V2-049, RV-017. Controls: none (conformance check, OD-23).
 
 ***
@@ -1227,7 +1253,7 @@ Sources: V2-049, RV-017. Controls: none (conformance check, OD-23).
 
 Statements that no control can test (status, definitions, purpose, non-goals, scope, limits,
 traceability): R6.STAT.1 to R6.STAT.9, R6.NOTE.1 to R6.NOTE.8, R6.NOTE.11 to R6.NOTE.13, R6.PUR.1,
-R6.PUR.2, R6.PUR.5, R6.PUR.6, R6.PUR.7, R6.PUR.10, R6.PIPE.12, R6.CTX.1 and R6.SPLIT.2. The requirement list gives each its kind; whether the correspondence check of sec. 16 exempts them is not settled (R6.GATE.12). OPEN: correspondence exemption for non-testable requirements.
+R6.PUR.2, R6.PUR.5, R6.PUR.6, R6.PUR.7, R6.PUR.10, R6.PIPE.12, R6.CTX.1 and R6.SPLIT.2. The requirement list gives each its kind and its verification (review, or the OBL ids that carry it); the correspondence check exempts them from naming a control (R6.GATE.12; RE-11 (a)).
 
 Testable requirements with no control in the expectation file; each needs a control row before r6 is final, and each is a named blocker on the correspondence check (rows added by r6 for R6.PUR.12, R6.ANCH.10, R6.ANCH.12, R6.ANCH.15, R6.HP.7, R6.OUT.7 and R6.OUT.20 are named in those requirements):
 
@@ -1339,7 +1365,7 @@ selecting as P selects:
   occurs once in `"xaaay"` and is selected, as P selects it.
 - **Uniqueness at `H`.** P's selection is applied to the file's text at `H` for every edit, in
   edit-list order, retained edits included. It must select a pair. If neither `old` nor `old_step2`
-  occurs exactly once, the tool refuses with ERROR `SOURCE_CHANGED`, naming the edit and both counts.
+  occurs exactly once, the tool refuses with ERROR `LEDGER_INTEGRITY`, naming the edit and both counts.
 - **Application in order.** The edits are applied in edit-list order to a running copy of each file,
   as P's `check` and `apply_edits` do. Each edit selects its pair against the running copy by the same
   rule and replaces the first occurrence of the selected `old` (Python `str.replace` with count 1).
@@ -1355,7 +1381,7 @@ selecting as P selects:
   `end`; the splice's replaced bytes equal the selected `old`, and its image the selected `new`. A
   retained edit has `old` equal to `new` and no splice. Every splice belongs to exactly one applied
   edit.
-- Any other relation is ERROR `SOURCE_CHANGED`, with the edit and splice ids.
+- Any other relation is ERROR `LEDGER_INTEGRITY`, with the edit and splice ids (RE-16).
 
 Sources: E-119, E-120. Controls: S11-57c, S11-58a-f, S11-58g, S11-58h, S11-58i, S11-58j, S11-58k.
 
@@ -1369,6 +1395,7 @@ edits: a later edit's selected occurrence lies wholly or partly inside an image 
 inserted, or spans the point where an earlier edit's image, possibly empty, was inserted, so that in
 the segment model it crosses more than one segment. No set of disjoint splices at `H` can express such
 an application, and a frozen plan containing one is invalid.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-121. Controls: S11-58g, S11-57c, S11-58j, S11-58k.
 
 **R6.PROF.10** **Extraction of P's literals.** REG, CAPS, CAPS_OK, INF and NEUTRAL are extracted from
@@ -1382,7 +1409,8 @@ Sources: E-123. Controls: S11-56, PROF-PARAMS-LINT (new row).
 
 **R6.PROF.11** The landing record lists every line-level match of `register`, `register-caps` and
 `infinity` in the splice images of `X`, each with the `old` match that cancels it.
-OPEN: landing-list tree.
+The matches are taken from the splice images of the candidate `X`, never from `T1'`, which is
+not reachable from `main` (RE-35).
 Sources: E-126. Controls: PROF-LANDING-LIST (new row).
 
 **R6.PROF.12** The equality of these semantics with P's `static_new`, and of the tool's selection,
@@ -1415,6 +1443,7 @@ maps a negative literal to the number of its matches in that exact fingerprinted
 `negative_examples`, at least one of each, which become controls; `reason`, the semantic reason in one
 or two sentences; `author`. The reviewer and the review are a separate review record bound by blob
 (sec. 11). Owner approval is procedural and is not a rule field (R6.REC.3).
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-128, V2-048, RV-015. Controls: A6r, A8r, A7r, E-A6r, E-A8r, lint-ok.
 
 **R6.RULE.3** **Deny rule.** Its fields: `id`; `pattern`, a reviewed regex, or a two-part sentence
@@ -1451,6 +1480,7 @@ Sources: E-129, RV-016. Controls: A10r, A11r, RT-DR3W, RT-DR.
 A fingerprint with no `negative_allowance` grants none. A literal's matches are counted as
 non-overlapping matches of the literal (or regex) in the sentence's source bytes. The explanation of
 the hit records each step with its result (sec. 7).
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-130, V2-050, V2-052. Controls: L1, L2, L3, L4, S1r, V7a, V7c, A5r, A5r-generic, E-L1, E-L3,
 E-S1r, rule-negative, WB1, WB4, WB6, WB7.
 
@@ -1580,8 +1610,12 @@ code raises precedes adoption; each difference found is a verification defect.
   (adapter, record, rule file, profile source, delegation contract, `edits.json`, `ledger.json`),
   absent at `F` at its path or with a blob whose hash differs: ERROR `SOURCE_CHANGED`.
 - **A pinned input whose content fails its integrity rules**: ERROR with the class the integrity
-  stage names (for example `LEDGER_INTEGRITY` and `SCIENTIFIC_BASE_MISMATCH`, and `SOURCE_CHANGED`
-  for an unknown ledger schema id or a failed edit/splice correspondence, R6.PROF.8).
+  stage names (for example `LEDGER_INTEGRITY` and `SCIENTIFIC_BASE_MISMATCH`, and `LEDGER_INTEGRITY`
+  for an unknown ledger schema id or a failed edit/splice correspondence, R6.PROF.8; RE-16).
+- **A pinned role or tree identity that differs** (`PIN_MISMATCH`, `RECORD_TREE_MISMATCH`,
+  `SCIENTIFIC_BASE_MISMATCH`, `MAIN_NOT_DESCENDANT`, `EDITS_HASH_MISMATCH`): ERROR with the named class
+  (RE-17 (i)). A malformed configuration is refused at admission first (`CONFIG_UNREVIEWED`) in a
+  chain-admitted run and is `CONFIG_INVALID` in a control-harness run (RE-17 (ii)).
 - **The configuration malformed or inconsistent**: ERROR `CONFIG_INVALID`, or `CONFIG_INCONSISTENT`
   for the consistency checks of sec. 29.
 - **A record whose blob matches its pin but whose content fails its lint or its review**, and a
@@ -1639,18 +1673,21 @@ under this chain. A file absent at `F` stops the run with ERROR `SOURCE_CHANGED`
 referenced by the configuration is never used (`record-invalid`).
 Sources: A-115, A-116. Controls: I2-3, I2-4, I2-5, I2-6.
 
-**R6.REC.10** **Orphan records.** Record lint reports, as FAIL `record-invalid` naming the record and
-the entry, every entry of an HP adjudication, a context adjudication or a hit classification record
-that, on a tree and in a segment to which the record applies, names no subject of the run: a
-`site_id` that no tracked site carries, or a `{file, line_sha256}` (with its context hashes, for a
-context adjudication) that matches no line of that tree. An entry that names an existing subject but
+**R6.REC.10** **Orphan and duplicate records.** Record lint checks every entry of an HP adjudication, a context
+adjudication or a hit classification record on each tree and in each segment to which the record
+applies, and on no other tree or segment. An entry that, there, names no subject of the run (a
+`site_id` that no tracked site carries, or a `{file, line_sha256}`, with its context hashes for a
+context adjudication, that matches no line of that tree) resolves nothing and is itself reported:
+an HP adjudication entry as FAIL `stale-adjudication` (obligation `HP`), with v1's meaning of that
+class (v1 4.6; Q12), and an entry of a context adjudication or hit classification record as FAIL
+`record-invalid` (RD-9 (a)); each item names the record and the entry. Two entries that name the same
+subject, in one record or in two records of the same kind, are duplicates: FAIL `record-invalid`
+naming both, and neither entry is applied (RE-8). An entry that names an existing subject but
 disagrees with it is decided by the subject's own rule (for example `provenance-mismatch`,
 `provenance-gap`, `adjudication-row-changed`), not by this rule. An entry naming a segment outside the
 chain is reported as `out-of-scope` (sec. 7), which is not a finding. Resolution is only by exact
 match: a record entry resolves nothing it does not match exactly.
-OPEN: orphan-record trees.
-Sources: V1-060. Controls: RECLINT-ORPHAN (new row), H1, H2, H6.
-
+Sources: V1-060, RE-8, Q12. Controls: RECLINT-ORPHAN (new row), H1, H2, H6, U14.
 **R6.REC.11** The tool never infers a role or a review from a passing tool result.
 Sources: E-142. Controls: O5.
 
@@ -1682,6 +1719,7 @@ steps 1-6 of R6.RULE.4, with its own allowance. Every `negative_allowance` must 
 literal, the number of matches of that negative literal in its fingerprinted sentence, and may name
 only literals of the rule's negative matcher. A rule's positive examples include each fingerprinted
 sentence in full, not a fragment of it. Otherwise the record fails the lint (FAIL `record-invalid`).
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-163. Controls: A6r, A8r, A9r, A11r, WB10, WB11.
 
 **R6.REC.15** **PIN_OK.** A PIN_OK entry is valid only if listed in `F`'s pin table, or in a reviewed
@@ -1780,6 +1818,7 @@ the workflow that the configuration at `F` pins, in the repository it names:
 
 No command-line option, environment value or other configuration field sets `tool` or
 `repository_id`; they are read only from the configuration at `F`.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-147, E-148, E-149, E-150, E-155. Controls: TR14, TR14-tool, TR15, TR28-tool, TR28-consumer,
 TR29, TR29-tool, TR30, TR48, TR50, TR51, TR52, EI1, EI2, EI2-consumer, EI3, EI5, EI14.
 
@@ -1798,6 +1837,7 @@ missing `F` or configuration, or an unreadable `tool.files` fails the step, and 
 tool code runs. A workflow blob with no such step, more than one, or a `run:` value that is not one
 such line is refused by the review and fails the controls, whose runner extracts the program by this
 rule.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-151. Controls: EI8, EI9, EI10, EI11, EI12, EI13, EI15.
 
 **R6.REC.20** **The import path.** The workflow invokes `python3 -I -B tools/ledger_coverage.py`. The
@@ -1805,11 +1845,11 @@ entry point does not insert any directory of the checkout into `sys.path`; it lo
 `tools/ledger_coverage/` by its location. Before any import of a module not already loaded at
 interpreter start (only `sys` and `os` precede it), the entry point refuses unless the interpreter runs
 in isolated mode and no `sys.path` entry lies inside the checkout. The refusal is ERROR, exit 65, with
-the stop class `ISOLATION_REFUSED`, written to stderr as one JSON object with that class. Because it fires
+the stop class `NOT_ISOLATED`, written to stderr as one JSON object with that class and the reason (RE-14). Because it fires
 before any import, it writes no `result.json`; it is, with USAGE, one of the two documented cases that
 write no `result.json`. The implementation exits 65 with a message and no class today; that is a
 verification defect, corrected in the tool revision.
-OPEN: isolation class name.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-152. Controls: EI6.
 
 **R6.REC.21** **The workflow's executable dependencies.** The pinned workflow executes only the
@@ -1826,6 +1866,7 @@ The blob is refused if any line:
 
 The rule only refuses; a form it refuses that YAML would read harmlessly is written another way in the
 pinned workflow.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-153. Controls: EI7, EI7-tool.
 
 **R6.REC.22** **Workflow content review.** The rest of the workflow's content is checked against this
@@ -1839,6 +1880,7 @@ the exact run lines (the fetch of `F`, the pre-run check, and the entry point's 
 reach the shell only through `env:`, and the fetch of `F` is `git fetch --no-tags -- origin "$F"`, with
 no `run:` line interpolating `${{ inputs.* }}`; no `continue-on-error`, and no `if:` on the steps after
 the pre-run check; no reusable workflow.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-154. Controls: TR15, TR50, EI7.
 
 ### 11.6 Host reads, admission object, residual trust
@@ -1900,6 +1942,7 @@ the schemas of sec. 10. They are frozen and adopted with the amended plan at `F`
 review, and referenced by the configuration at `F`. The tool's requirement is the rule mechanism:
 sec. 9 (profiles), sec. 10 (schema, application, lint), sec. 11 (records) and sec. 14 (hit
 classification). r6 states no rule content.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-1001, V2-059, V2-060, V2-061, RV-049. Controls: RT-DR, RT-D, RT-D-gr58, L1, L2.
 
 **R6.DENY.2** **Controls on pinned rule inputs.** The controls of the rule mechanism use the rule
@@ -1907,6 +1950,7 @@ files current at the commit under check as pinned control inputs, named with the
 expectation file (sec. 16). Acceptance of the mechanism (sec. 18) is its behaviour on those inputs. A
 changed rule file is a changed control input: the affected expectations are re-established in the
 expectation file before the gate can hold.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-1001. Controls: V1, V2, V3, V5, V6, V9, V10, V11, V12, V13, V14, V16, V17, V18, V19, V20,
 V22, N-W, RT-DR3W.
 
@@ -1929,6 +1973,7 @@ DR-1d and DR-2 are retired, sec. 33, and never reused); the W1 allow rules, incl
 fingerprints and its `negative_allowance`; the W2 allow rules, replacing P's corresponding
 `RESIDUAL_ALLOW` and `EXPLAINED` entries and its blanket `(A1)` strip; and the `resid` pattern with its
 parts resid-a, resid-b and resid-c.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-1001, E-1002, E-1003, E-1004, E-1005, E-1006, E-1020, E-1021, E-1022, E-1024, E-1025,
 E-1026, E-1027, E-1032. Controls: none (OBL-3).
 **R6.DENY.6** **Accepted residual: V4 and V27 (for decision at adoption; not adopted by this
@@ -1946,9 +1991,11 @@ restoring: V4 (and V27) expect FAIL `deny-match`, which requires a plan rule rec
 (DR-2 or an equivalent, plan content under R6.DENY.1, reviewed with the deny set), and the
 reconciliation of that rule against the negative examples. The owner decides at adoption between (a)
 confirming the PASS expectation knowingly and (b) restoring the FAIL expectation. Until then the
-expectations of V4 and V27 are open and cannot hold (sec. 16.5, `expect-null`).
-OPEN: V4 reversal scope.
-Sources: E-1001, V2-080. Controls: V4, V27, V27-glossary.
+expectations are deferred. The decision covers V4, V27, V27-glossary and V15 together (RE-1). Until it is made, each of the four
+rows carries both candidate expectations, each marked "not authoritative; decided at r6 adoption",
+and the gate reports `deferred-expectation` for it and never holds (sec. 16.5).
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
+Sources: E-1001, V2-080, RE-1. Controls: V4, V27, V27-glossary, V15.
 
 ***
 
@@ -1989,8 +2036,20 @@ clone's own copy. A class whose rule is to re-execute the evaluated tree's own g
 own blob in its clone. Every such run uses `python3 -I -B`, runs inside a clone under `--out`, and
 never runs in the user's repository or a worktree of it; this contains preserve_check's
 `git worktree add`.
-OPEN: checker blob source.
-Sources: E-1038, RV-039, A-057. Controls: G9, G4, G5, O3-FILTER, G-A1.
+Execution isolation (RE-24 (a), Q13). The trusted checkers (preserve_check and every checker the
+contract names) run only from `F`'s pinned blobs. A generator that a class re-executes runs from the
+evaluated tree's blob, and the evaluated tree never decides its own acceptance:
+- isolation: the generator runs in its own disposable clone under `--out`, separate from the clone
+  the checker reads; the run has no write access to the user's checkout and no network access; the
+  interpreter is invoked with the fixed flags `-I -B` and a fixed environment;
+- permitted outputs: only the generated artifact paths the class names, inside the generator's clone;
+- trusted comparison: the checker run from `F`'s pinned blob compares each generated output with the
+  committed artifact byte for byte; the generator's own exit status or report is never the verdict;
+- failure handling: a byte difference is FAIL `regeneration-mismatch`, a generated artifact path not
+  written is FAIL `regeneration-output-missing`, a run beyond the class time limit is FAIL
+  `regeneration-timeout`, and a write to any other path is FAIL `regeneration-extra-write`
+  (obligation `DELEGATED`); none of them is ever PASS.
+Sources: E-1038, RV-039, A-057. Controls: G9, G4, G5, O3-FILTER, G-A1, DELEG-REGEN.
 
 **R6.DELEG.4** **Recording.** The tool records, for each run, the checker's blob sha256, its exact
 command line, its working directory, its exit status, and the sha256 of each result file it wrote. It
@@ -2123,7 +2182,9 @@ A hit that an allow rule addresses is decided by R6.RULE.4, which can give PASS,
 matched exactly by a verified hit classification record is decided as the record states. Op C runs op
 D restricted to the text of every replacement region, so that every hit in a replacement image is
 decided by this table.
-OPEN: HP-region hit class.
+A hit in an HP region is REVIEW_REQUIRED `unclassified` with obligation `HP`, as the tool commit
+emits it (RE-25 (a); confirmed by reading the HP-region attribution and the hit decision of the
+engine at the tool commit).
 Sources: V2-027, V2-021, V1-066, E-1055, E-1057, E-1058, E-1059. Controls: U12, L4, V7b, WB4, A5r, I2-7,
 RT-D, HIT-REPLACEMENT (new row).
 
@@ -2164,8 +2225,9 @@ carries exactly one class, one decision and one obligation. A FAIL item makes th
 20); a REVIEW_REQUIRED item, with no FAIL item, makes it REVIEW_REQUIRED (exit 10). The stop classes of
 ERROR, VOID, INTERNAL and USAGE are those of sec. 7. An emitted class not in this list is a defect.
 Where `class_meaning` (sec. 7) defines a class, every item of that class quotes its meaning. A failure
-reported without an item is not allowed: every FAIL condition below produces at least one item.
-OPEN: op A record-check item.
+reported without an item is not allowed: every FAIL condition below produces at least one item. At
+the tool commit the op A record checks, the replay equality, `ck_errors` and `extended_unmapped` FAIL
+without an item; each emits an item in the tool revision (RE-23 (a); OBL-28, C-23).
 Sources: E-1068, V2-068, V2-069, RV-057, V1-079. Controls: B4-MEANING, S7-schema-and-checker.
 
 **R6.CLASS.2** **Sites** (FAIL; sec. 4, sec. 6, sec. 3):
@@ -2203,9 +2265,10 @@ Sources: E-1070, V1-079. Controls: M1, M2, Y2, S11-9, CLASS-UNLEDGERED (new row)
 | `provenance-foreign` | a change at a commit outside the pinned chain |
 | `provenance-ambiguous` | a region not unique as a whole-line block at a parent, or anchors that do not keep their order |
 | `adjudication-row-changed` | an adjudication whose carried `row`, `code` or `owner` differs from the frozen values |
+| `stale-adjudication` | an HP adjudication entry that, on a tree and in a segment to which its record applies, resolves no subject (R6.REC.10; v1 4.6) |
 
-Sources: E-1071, V2-026. Controls: RT-H0, RT-T0, H1, H2, H3, H5, H6, Z10,
-CLASS-PROV-AMBIGUOUS (new row).
+Sources: E-1071, V2-026, V1-061, V2-029, Q12. Controls: RT-H0, RT-T0, H1, H2, H3, H5, H6, Z10,
+CLASS-PROV-AMBIGUOUS (new row), RECLINT-ORPHAN, U14.
 
 **R6.CLASS.5** **Hits and rules** (FAIL):
 
@@ -2215,17 +2278,18 @@ CLASS-PROV-AMBIGUOUS (new row).
 | `item7-literal-match` | a match of the countercontrol profile `item7-literal` (only that profile) |
 | `rule-negative-match` | an allow rule's negative matcher matches beyond the sentence's allowance (R6.RULE.4 step 3) |
 | `rule-overreach` | an allow rule applied more than `max_instances` times in the tree (R6.RULE.4 step 5) |
-| `record-invalid` | any failure of the record lint, rule lint or review chain (sec. 10, sec. 11), including an orphan record entry (R6.REC.10) and an op A record-check failure (R6.CLASS.11) |
+| `record-invalid` | any failure of the record lint, rule lint or review chain (sec. 10, sec. 11), including an orphan context adjudication or hit classification entry and a duplicate record entry (R6.REC.10) and an op A record-check failure (R6.CLASS.11) |
 | `final-unclassified` | under `--final`, a REVIEW item of a profile in the selected check's `final_profiles` (sec. 7) |
 
 Sources: E-1072, V1-079. Controls: V1, S11-5, RT-I7, WB2, L3, A1r, V23, X9.
 
-**R6.CLASS.6** **Records that match nothing.** An adjudication or classification entry that matches
-no subject is reported by record lint (R6.REC.10) as `record-invalid`; one that names a subject and
-disagrees with it is reported by that subject's own class (R6.CLASS.4). The identifier
-`stale-adjudication` is retired (sec. 33) and is never emitted.
-Sources: E-1072. Controls: RECLINT-ORPHAN (new row), U14 (row restored), H1, H2.
-
+**R6.CLASS.6** **Records that match nothing.** An HP adjudication entry that matches no subject on a tree and
+segment its record applies to is reported as `stale-adjudication`; a context adjudication or hit
+classification entry that matches no subject, and a duplicate entry, as `record-invalid` (R6.REC.10).
+An entry that names a subject and disagrees with it is reported by that subject's own class
+(R6.CLASS.4); an HP adjudication entry whose region hash differs from the walk gives both
+`provenance-mismatch` and `stale-adjudication` (R6.HP.7).
+Sources: E-1072, Q12, RE-8. Controls: RECLINT-ORPHAN (new row), U14 (row restored), H1, H2.
 **R6.CLASS.7** **Pins and mirrors** (FAIL; sec. 4):
 
 | Class | Condition |
@@ -2234,6 +2298,8 @@ Sources: E-1072. Controls: RECLINT-ORPHAN (new row), U14 (row restored), H1, H2.
 | `pin-target-missing` | an updated guard pin whose new literal is absent from its file, or does not occur in one of its targets (op C) |
 | `mirror-mismatch` | a mirror whose text differs from its source where the plan requires byte identity |
 
+These two pin classes are defined independently of the implementation; a difference from the tool
+commit is a verification defect (RE-27 (b), RD-21).
 Sources: E-1073. Controls: N1, S11-12, S11-8, CLASS-PIN-TARGET (new row).
 
 **R6.CLASS.8** **Lean** (FAIL): `lean-code-change`, a Lean file of the evaluated tree that differs from
@@ -2242,8 +2308,9 @@ Sources: E-1074. Controls: S11-10.
 
 **R6.CLASS.9** **Delegation** (FAIL): `delegated-evidence-invalid` (R6.DELEG.10 and the class rules of
 sec. 13); and `unauthorized-change` for a changed path outside the ledger and the contract
-(R6.DELEG.1).
-Sources: E-1075. Controls: G1, G3, S11-13, S11-14.
+(R6.DELEG.1); and, for a re-executed generator (R6.DELEG.3), `regeneration-mismatch`,
+`regeneration-output-missing`, `regeneration-timeout` and `regeneration-extra-write`.
+Sources: E-1075, Q13. Controls: G1, G3, S11-13, S11-14, DELEG-REGEN.
 
 **R6.CLASS.10** **Tree roles** (FAIL; sec. 20, sec. 23):
 
@@ -2266,7 +2333,6 @@ occur in its pin line. When the record checks do not hold, the run is FAIL with 
 `record-invalid` (obligation `RECORD`) naming each failed check. The implementation today makes the
 outcome FAIL through `record_checks.holds` without emitting an item; that is a verification defect,
 corrected in the tool revision.
-OPEN: op A record-check item.
 Sources: E-1077, V1-080, V1-079. Controls: S11-2c, CLASS-RECORD-CHECKS (new row).
 
 **R6.CLASS.12** **REVIEW_REQUIRED** (exit 10):
@@ -2313,10 +2379,12 @@ Sources: V1-114, V1-130, A-130, OD-1, OD-2. Controls: GATE-1, GATE-6, GATE-16, G
 | `requirements` | The r6 requirement ids (`R6.<CODE>.<n>`) of the requirements that name the control (at least one). |
 | `runner` | `file:line` of the runner predicate. The recorded id equals `id`. `null` when no runner implements the control (the gate then reports it missing). |
 | `operations` | The tool operations the control invokes; `[]` when it invokes none (mutation harness, gate, consumer predicate, pre-run step, lint library). |
-| `direction` | `positive`, `adversarial` (the default) or `both`. |
+| `direction` | `positive`, `adversarial` (the default) or `both`; or an object whose `of` is one of these and which records the both-directions decision of R6.CTRL.3: `exempt: "observation"`, `required: "opposite direction"` or `scope: "outside"`, each with its `why` (Q11). The engine reads the string or `of`. |
+| `paired_with` | The ids of the rows that run the same input, differing only in the mutation, and so record this row's opposite direction (RE-4). |
 | `predicate_kind` | `declarative` (the default) or `procedural`. |
 | `case` | The case a row constructs, where the row states one outside `expect` (the gate's own controls); informational. |
-| `expect` | The full declared expectation (below). A row whose `expect` is `null` cannot hold. |
+| `expect` | The full declared expectation (below). A row whose `expect` is `null` cannot hold; an `expect` of outcome DEFERRED marks an expectation deferred to an owner decision (RE-1). |
+| `candidate_expectations` | Deferred rows only: each candidate `{label, status, expect}`, with `status` "not authoritative; decided at r6 adoption"; no candidate is evaluated for the verdict. |
 | `restored` | The expectation for the restored tree, where one is stated. |
 | `procedure` | Procedural rows only: `{name, lib, evidence, note}`. `lib` names an entry of the procedure library (R6.GATE.8). `evidence` defaults to the library's evidence contract. |
 | `composed_of` | For a design id split into recorded halves. A row without its own runner holds only if every component holds. A row that also has its own runner holds only if its own record holds and every component holds (GATE-26). |
@@ -2343,6 +2411,7 @@ Sources: A-130, E-1080, RD-4, RD-32. Controls: GATE-12, GATE-17, GATE-26.
     NOT_REFUSED, COMPOSITE.
   - For the gate's own controls: GATE_HOLDS, GATE_FAIL, GATE_ERROR.
   - For mutant rows: KILLED, SURVIVED, NOT_APPLIED.
+  - For an expectation deferred to an owner decision: DEFERRED (R6.GATE.9, `deferred-expectation`).
 - **`exit`.** It defaults to the outcome's code in sec. 7: 0, 10, 20, 64, 65, 70 or 71; for the
   gate's own controls, GATE_HOLDS 0, GATE_FAIL 20 and GATE_ERROR 65. The gate always compares the
   actual exit against the stated or implied code.
@@ -2484,7 +2553,12 @@ GATE-25.
 - `status-actual-inconsistent`: the runner's status disagrees with the gate's verdict in either
   direction;
 - `correspondence-orphan-row` and `correspondence-orphan-requirement` (R6.GATE.12);
-- `expect-null`: a row whose `expect` is null.
+- `expect-null`: a row whose `expect` is null;
+- `direction-missing`: a control row in the both-directions scope of R6.CTRL.3 whose second direction
+  is not recorded (no `restored`, no direction `both`, no `paired_with` and no observation exemption),
+  or whose `paired_with` names an id that is not a row (RE-4);
+- `deferred-expectation`: a row whose `expect` outcome is DEFERRED; it never holds while deferred
+  (RE-1).
 
 An invalid expectation file, record file, mutation record file or manifest schema is the finding
 `file-invalid` and a gate ERROR (GATE_ERROR, exit 65). Otherwise the gate holds (GATE_HOLDS, exit 0).
@@ -2498,11 +2572,16 @@ The gate writes `gate-result.json` (schema `oi-control-gate/1`): one entry per r
 status, the extracted actual and its findings. The status counts are reported separately; NOT RUN is
 never counted as met.
 
-A composite row whose component is an admitted NOT RUN cannot hold under the rule above, and TR45 and
-EI14 have such a component (TR45-opC, EI14-dispatch).
-OPEN: composite with a NOT RUN component.
+A composite row (`composed_of`) preserves every component result: its entry in `gate-result.json`
+lists each component's status and findings. Its aggregate status is the highest-ranked status among
+its own record (where it has a runner) and its components, by the precedence ERROR > FAIL > NOT RUN
+> PASS, so that an ERROR or FAIL of any component is never concealed by a component that is NOT
+RUN. A composite whose aggregate is NOT RUN is NOT RUN with the release condition and release check
+of each NOT RUN component, and is admitted only while each such NOT RUN is admitted; TR45 (component
+TR45-opC) and EI14 (component EI14-dispatch) are such composites. A composite whose aggregate is FAIL
+or ERROR fails as `status-not-allowed` (RE-30, Q14; GATE-28).
 Sources: E-1190, Q1, VD-1, VD-10. Controls: GATE-1, GATE-2, GATE-3, GATE-4, GATE-9, GATE-10, GATE-12,
-GATE-16, GATE-17, GATE-20, GATE-26.
+GATE-16, GATE-17, GATE-20, GATE-26, GATE-27, GATE-28, GATE-29.
 
 **R6.GATE.10** Mutation evidence is gated. Each mutant of the mutation sets (`c1`, `c2`, `v60e`,
 `cache` and `o9`) is a row `MUT:<set>:<mutant id>` of the expectation file; the `o9` set's mutant ids
@@ -2516,7 +2595,12 @@ applied and missing (no record).
 - Any other survivor, any other mutant not applied, and any mutant whose status its row does not allow
   fails as `status-not-allowed`; a mutant with no record fails as `missing-id`.
 
-OPEN: mutation harness location. OPEN: survivors without an equivalence argument.
+The mutation harness and the list of mutant names land, pinned, with the tool revision; the MUT rows
+then rest on the landed harness, not on CI provenance (RE-9 (a); RD-1). The survivors
+`MUT:cache:K08`, `MUT:v60e:C08`, `MUT:v60e:I06` and `MUT:v60e:P01`, which have no equivalence argument,
+are limitations and also verification defects, each with a distinguishing control: TR52-consumer
+for C08, and one control each, added in the tool revision, for K08 (submodules in the path map), I06
+(TR51's regular-files check) and P01 (the purity allowlist) (RE-10 (b); OBL-24).
 Sources: RD-1, RD-5, Q8. Controls: GATE-21, GATE-22, GATE-23, GATE-24, MUT:c1:C01, MUT:c1:C02, MUT:c1:C03, MUT:c1:C04, MUT:c1:C05, MUT:c1:C06, MUT:c1:C07, MUT:c1:C08, MUT:c1:C09, MUT:c1:C10, MUT:c1:C11, MUT:c1:C12, MUT:c2:D01, MUT:c2:D02, MUT:c2:D03, MUT:cache:K01, MUT:cache:K02, MUT:cache:K03, MUT:cache:K04, MUT:cache:K05, MUT:cache:K06, MUT:cache:K07, MUT:cache:K08, MUT:o9:RDIR-m1, MUT:o9:RDIR-m10, MUT:o9:RDIR-m11, MUT:o9:RDIR-m12, MUT:o9:RDIR-m13, MUT:o9:RDIR-m14, MUT:o9:RDIR-m15, MUT:o9:RDIR-m16, MUT:o9:RDIR-m17, MUT:o9:RDIR-m2, MUT:o9:RDIR-m3, MUT:o9:RDIR-m4, MUT:o9:RDIR-m5, MUT:o9:RDIR-m6, MUT:o9:RDIR-m7, MUT:o9:RDIR-m8, MUT:o9:RDIR-m9, MUT:v60e:A01, MUT:v60e:A02, MUT:v60e:A03, MUT:v60e:A04, MUT:v60e:A05, MUT:v60e:A06, MUT:v60e:A07, MUT:v60e:A08, MUT:v60e:A09, MUT:v60e:A10, MUT:v60e:A11, MUT:v60e:A12, MUT:v60e:A13, MUT:v60e:A14, MUT:v60e:C01, MUT:v60e:C02, MUT:v60e:C03, MUT:v60e:C04, MUT:v60e:C05, MUT:v60e:C06, MUT:v60e:C07, MUT:v60e:C08, MUT:v60e:C09, MUT:v60e:C10, MUT:v60e:C11, MUT:v60e:C12, MUT:v60e:C13, MUT:v60e:C14, MUT:v60e:C15, MUT:v60e:C16, MUT:v60e:E01, MUT:v60e:E02, MUT:v60e:H01, MUT:v60e:H02, MUT:v60e:H03, MUT:v60e:I01, MUT:v60e:I02, MUT:v60e:I03, MUT:v60e:I04, MUT:v60e:I05, MUT:v60e:I06, MUT:v60e:I07, MUT:v60e:I08, MUT:v60e:I09, MUT:v60e:I10, MUT:v60e:I11, MUT:v60e:I12, MUT:v60e:I13, MUT:v60e:I14, MUT:v60e:O01, MUT:v60e:O02, MUT:v60e:P01, MUT:v60e:R01, MUT:v60e:R02, MUT:v60e:R03, MUT:v60e:U01, MUT:v60e:U02, MUT:v60e:U03, MUT:v60e:U04, MUT:v60e:U05, MUT:v60e:V01, MUT:v60e:V02, MUT:v60e:V03, MUT:v60e:V04, MUT:v60e:V05, MUT:v60e:V06, MUT:v60e:V07.
 
 **R6.GATE.11** The acceptance list of the implementation step is the expectation file: every row is
@@ -2538,13 +2622,15 @@ The requirement list is the machine form of r6's requirement ids and their contr
 from r6 and checked for drift. A row or requirement without a counterpart fails the check. A retired id
 named as a live control also fails it. Requirements of a kind that no control can test (status,
 definition, scope, governance and obligation statements) are listed with their kind in the requirement
-list; whether the check exempts them is not settled.
-OPEN: correspondence exemption for non-testable requirements.
-Sources: OD-2, Q1. Controls: GATE-7, GATE-8.
+list and are exempt from naming a control, provided each names its verification: `review`, or the
+OBL ids that carry it, in the requirement list's field `verification`. A requirement of such a kind
+that names no verification, and a testable requirement that names no control, fail the check
+(RE-11 (a); GATE-8, GATE-30).
+Sources: OD-2, Q1. Controls: GATE-7, GATE-8, GATE-30.
 
 ### 16.7 The gate's own controls
 
-**R6.GATE.13** The gate's own controls are GATE-1 to GATE-26. Their expected verdicts are in the
+**R6.GATE.13** The gate's own controls are GATE-1 to GATE-30. Their expected verdicts are in the
 expectation file; they are summarized here. The gate self-test runs them before the gate evaluates the
 real records. A self-test failure is VOID (70).
 
@@ -2576,8 +2662,12 @@ real records. A self-test failure is VOID (70).
 | GATE-24 | an unexpected not-applied mutant: a mutant whose row allows only KILLED recorded NOT APPLIED | `status-not-allowed` |
 | GATE-25 | a double run whose two result files differ by one byte | `procedural-failed` |
 | GATE-26 | a row with composed_of and its own runner record: the own record PASS, a component FAIL | `procedural-failed` |
+| GATE-27 | direction missing: (a) a control row in the both-directions scope with no restored expectation, no direction both, no paired_with and no observation exemption; (b) a paired_with naming an id that is not a row | `direction-missing` |
+| GATE-28 | composite precedence: (a) one component recorded FAIL and another an admitted NOT RUN; (b) the only non-PASS component an admitted NOT RUN | (a) `status-not-allowed`, the composite reported FAIL; (b) holds, the composite reported NOT RUN |
+| GATE-29 | deferred expectation: a row whose expect outcome is DEFERRED, every other row holding | `deferred-expectation` |
+| GATE-30 | correspondence exemption: (a) a status requirement with no control and no verification; (b) the same with verification review | (a) `correspondence-orphan-requirement`; (b) holds |
 
-Sources: Q1, Q8, RD-2. Controls: GATE-1, GATE-2, GATE-3, GATE-4, GATE-5, GATE-6, GATE-7, GATE-8, GATE-9, GATE-10, GATE-11, GATE-12, GATE-13, GATE-14, GATE-15, GATE-16, GATE-17, GATE-18, GATE-19, GATE-20, GATE-21, GATE-22, GATE-23, GATE-24, GATE-25, GATE-26.
+Sources: Q1, Q8, RD-2. Controls: GATE-1, GATE-2, GATE-3, GATE-4, GATE-5, GATE-6, GATE-7, GATE-8, GATE-9, GATE-10, GATE-11, GATE-12, GATE-13, GATE-14, GATE-15, GATE-16, GATE-17, GATE-18, GATE-19, GATE-20, GATE-21, GATE-22, GATE-23, GATE-24, GATE-25, GATE-26, GATE-27, GATE-28, GATE-29, GATE-30.
 
 ### 16.8 CI under sec. A.44
 
@@ -2602,9 +2692,12 @@ condition, and only while the row's `release_check` is false on the commit under
 admit NOT RUN are RT-T, TR5, G-A1, RT-L2, RT-O9-L2, TR45-opC and EI14-dispatch. RT-O9 is gated: its
 own record-directory checks run, and only its dependent clause, RT-O9-L2, is NOT RUN while RT-L2 is
 NOT RUN (Q6). RT-T is NOT RUN until the reviewed records it needs exist.
-OPEN: EI14-dispatch release condition.
+The composites TR45 and EI14 are NOT RUN by inheritance while their component is (R6.GATE.9).
+EI14-dispatch's release condition is a dispatch of the pinned workflow on a branch holding `T'`,
+after the tool lands, under a launch the owner approves (AGENTS.md sec. A.50, sec. A.51 item 4); it
+gates acceptance of a chain-admitted result in the A1 retirement execution (RE-21; OBL-18).
 Sources: V1-121, E-1190, Q6, RD-6, RD-7, RD-25, RD-26. Controls: GATE-5, GATE-11, RT-T, TR5, G-A1,
-RT-L2, RT-O9, RT-O9-L2, TR45-opC, EI14-dispatch.
+RT-L2, RT-O9, RT-O9-L2, TR45-opC, EI14-dispatch, TR45, EI14.
 
 **R6.GATE.16** RT-L2 is three-valued:
 
@@ -2620,7 +2713,7 @@ Sources: OD-18, Q2. Controls: RT-L2, GATE-13, GATE-14, GATE-15, GATE-19.
 
 ### 16.10 Annex: invariant vocabulary
 
-The closed vocabulary of `invariants` keys is the following list of the 147 keys the
+The closed vocabulary of `invariants` keys is the following list of the 151 keys the
 expectation file uses (R6.GATE.3). A key outside it makes the file invalid.
 
 `L_blob`, `X_and_M_views_differ`, `a3_a5_evaluated`, `a5_evaluated`, `a5_unequal_paths`, `acceptable_as_new_run`,
@@ -2628,26 +2721,27 @@ expectation file uses (R6.GATE.3). A key outside it makes the file invalid.
 `before_host_read`, `before_unloaded_import`, `blob_at_L`, `byte_identical`, `bytes_read_before_type_check`, `cached_map_equals_ls_tree_in_both_orders`,
 `cached_paths_name_the_blob`, `candidate_and_landing_pass`, `checkers_run_from`, `class_meaning_table_equal_in_every_result`, `class_route_entry_stands`, `classed_items_missing_meaning`,
 `classed_items_quoting_meaning_min`, `clean_path`, `clone_checked_out`, `clones`, `commit_paths_classified`, `compare_by`,
-`composed_blob`, `composition_evaluated`, `condition`, `config_in_landing`, `countercontrol_class_review_landed_cycle`, `countercontrol_config_landed_cycle`,
-`directory_admitted`, `distinct_maps_for_distinct_trees`, `drift_state_in`, `each_listed_line`, `each_with`, `entry_exit`,
-`entry_point_ran`, `equal_across`, `equal_field`, `equals`, `error_result_carries_table`, `evaluated_in`,
-`every_record_verifies`, `evil_ran`, `existing_conformance_controls_unchanged`, `exit_not_in`, `failed_conditions_include`, `file_executed`,
-`finding_value`, `findings`, `git_honours_graft`, `git_status_porcelain_empty`, `harness_dir_files`, `has`,
-`have`, `hit_at_offset_in_image`, `hit_profiles_include`, `holds`, `host_calls`, `imported_files_within`,
-`in_memory_commits_own_map`, `index_unchanged`, `inputs_equal`, `items_equal_run_without_file`, `items_include`, `killed_by`,
-`killed_by_nonempty`, `landing_record_lists`, `lint_problems`, `linted_paths_include`, `mappings_unchanged`, `marker_written`,
-`message_names`, `module_init_ran`, `mutated_literal`, `mutation_attempts_refused`, `names_commit`, `names_edit`,
-`negative_example_matches_widened_rule`, `new_reader_refused_with`, `no_error`, `no_exception`, `no_group_error`, `no_result_with_outcome`,
-`no_result_written`, `no_stop`, `none`, `not_class`, `not_in_H_to_M_scan`, `nothing_cached_by_a_refusal`,
-`objects_fetched`, `old_style_X_vs_M_comparison_reports`, `others_class`, `out_dir_created`, `payload_ran`, `per_failed_check`,
-`per_operation`, `per_site`, `rc11_evaluated`, `reader_cases_refused_with`, `reason`, `record_admitted`,
-`record_checks_failed_include`, `record_directory_entries_equal`, `record_directory_state`, `reference_graph_cycle`, `refs_unchanged`, `refused`,
-`replay_equality`, `resid_key`, `restored_of_each_component`, `result_equal_without_file`, `results_validated_min`, `retired_lines_count`,
-`rt_l2_status`, `rule_active`, `same_reader_path_map_unchanged`, `same_reader_serves_verified_bytes`, `same_view_returned`, `schema_errors`,
-`selected_offset`, `self_test_imports_all_accepted`, `side_change_obligation`, `side_changes_classified_by`, `side_changes_exact`, `sites_resolved_by_it`,
-`snapshot_T_recorded`, `snapshot_fields_all_present`, `source_map_nonempty`, `stderr_json_outcome`, `stop_class_in`, `superseding_record_used`,
-`supplied_file_read_as_evidence`, `terms_and_execution_equal_clean`, `tool_and_workflow_blobs_equal_pins`, `tool_run_exit`, `value`, `value_occurs_in`,
-`value_set_includes`, `walk_terminates`, `writes_only_under`.
+`component_results_preserved`, `composed_blob`, `composite_status`, `composition_evaluated`, `condition`, `config_in_landing`,
+`countercontrol_class_review_landed_cycle`, `countercontrol_config_landed_cycle`, `directory_admitted`, `distinct_maps_for_distinct_trees`, `drift_state_in`, `each_listed_line`,
+`each_with`, `entry_exit`, `entry_point_ran`, `equal_across`, `equal_field`, `equals`,
+`error_result_carries_table`, `evaluated_in`, `every_record_verifies`, `evil_ran`, `existing_conformance_controls_unchanged`, `exit_not_in`,
+`failed_conditions_include`, `file_executed`, `finding_value`, `findings`, `fixture`, `git_honours_graft`,
+`git_status_porcelain_empty`, `harness_dir_files`, `has`, `have`, `hit_at_offset_in_image`, `hit_profiles_include`,
+`holds`, `host_calls`, `imported_files_within`, `in_memory_commits_own_map`, `index_unchanged`, `inputs_equal`,
+`items_equal_run_without_file`, `items_include`, `killed_by`, `killed_by_nonempty`, `landing_record_lists`, `lint_problems`,
+`linted_paths_include`, `mappings_unchanged`, `marker_written`, `message_names`, `module_init_ran`, `mutated_literal`,
+`mutated_literal_rule`, `mutation_attempts_refused`, `names_commit`, `names_edit`, `negative_example_matches_widened_rule`, `new_reader_refused_with`,
+`no_error`, `no_exception`, `no_group_error`, `no_result_with_outcome`, `no_result_written`, `no_stop`,
+`none`, `not_class`, `not_in_H_to_M_scan`, `nothing_cached_by_a_refusal`, `objects_fetched`, `old_style_X_vs_M_comparison_reports`,
+`others_class`, `out_dir_created`, `payload_ran`, `per_failed_check`, `per_operation`, `per_site`,
+`rc11_evaluated`, `reader_cases_refused_with`, `reason`, `record_admitted`, `record_checks_failed_include`, `record_directory_entries_equal`,
+`record_directory_state`, `reference_graph_cycle`, `refs_unchanged`, `refused`, `replay_equality`, `resid_key`,
+`restored_of_each_component`, `result_equal_without_file`, `results_validated_min`, `retired_lines_count`, `rt_l2_status`, `rule_active`,
+`same_reader_path_map_unchanged`, `same_reader_serves_verified_bytes`, `same_view_returned`, `schema_errors`, `selected_offset`, `self_test_imports_all_accepted`,
+`side_change_obligation`, `side_changes_classified_by`, `side_changes_exact`, `sites_resolved_by_it`, `snapshot_T_recorded`, `snapshot_fields_all_present`,
+`source_map_nonempty`, `stderr_json_outcome`, `stop_class_in`, `superseding_record_used`, `supplied_file_read_as_evidence`, `terms_and_execution_equal_clean`,
+`tool_and_workflow_blobs_equal_pins`, `tool_run_exit`, `value`, `value_occurs_in`, `value_set_includes`, `walk_terminates`,
+`writes_only_under`.
 
 ***
 
@@ -2686,16 +2780,29 @@ appears only in the expectation file's `retired` array, with the disposition of 
 requirement (sec. 33); naming a retired id as a live control fails the correspondence check.
 Sources: V2-090, V2-091, V2-092, RV-056. Controls: GATE-3, GATE-4, GATE-12.
 
-**R6.CTRL.3** Every control runs in both directions. An adversarial control states its mutant and
-also a restored case, in which the unmutated input returns the control outcome; a positive control
-states a countercase on which its predicate must not hold. Mutation controls run the mutant and the
-restored tree. The expectation file records the second direction of each row by the row's direction
-`both`, by a `restored` expectation, or by naming the row that is its opposite direction. A row that
-records neither direction pair is a verification defect of that control, to be corrected in the tool
-revision that implements this design; it is never accepted as satisfying this requirement. At the integrated expectation file, 223 rows carry a `restored` expectation and 34 rows declare direction `both`; 192 rows are flagged as having no restored case executed or stated. Each row of Table 17.1 without its second direction is such a defect until that direction is recorded.
-OPEN: restored case of no-mutation controls. OPEN: both-directions scope. OPEN: direction recording field.
-Sources: V1-101, V2-073, V1-138. Controls: A11r, M1, N1.
-
+**R6.CTRL.3** Both directions. The rule that a control runs in both directions reaches the controls of
+v6.0e sec. 10, with v1's unit and mutation controls, which sec. 10 keeps, and every control a source
+places under it: the four-tree and reconciliation controls of v6.0e sec. 13.2 (TT1-TT14, R15-R19
+with R18-engine and R19-engine, N3-N18 with N3-config-route, N16-file and N18-record, RT-X, RT-L and
+RT-L2), the role tests of v2 addendum 2, and v1's mutation demonstrations RT-M and RT-SHIFT
+(RE-3 (c)). An adversarial control states its mutant and also a restored case, in which the unmutated
+input returns the control outcome; a positive control states a countercase on which its predicate
+must not hold. Mutation controls run the mutant and the restored tree. The expectation file records
+the second direction of each row in scope by direction `both`, by a `restored` expectation, or by
+`paired_with`, naming the row that runs the same input and differs only in the mutation (RE-2 (c),
+RE-4). A row in scope that applies no mutation and asserts no acceptance of a valid input, an
+observation of unmodified inputs, is exempt; its `direction` records `exempt: "observation"` with the
+reason checked for that row (RE-2 (b), Q11). Every positive control that asserts acceptance of a
+valid input keeps a required opposite direction. A row in scope that records no second direction is
+a verification defect that the gate reports as `direction-missing` (R6.GATE.9); a row whose stated
+restored case, or whose paired row, is not executed is a verification defect (VD-RESTORE); each is
+corrected in the tool revision (OBL-20) and neither is ever accepted as satisfying this requirement.
+A row outside the scope that has no second direction records `scope: "outside"` with its reason;
+mutant rows and the gate's own controls are outside the rule by their namespace. At the final
+expectation file, of 420 control rows 267 are in scope and 153 outside; 223 rows carry a `restored`
+expectation, 41 declare direction `both`, 6 name `paired_with` and 3 are exempt as observations;
+42 rows in scope record no second direction (`direction-missing`), and 217 rows are flagged VD-RESTORE.
+Sources: V1-101, V2-073, V1-138, Q7, RE-2, RE-3, RE-4, Q11. Controls: A11r, M1, N1, GATE-27.
 **R6.CTRL.4** Each expected FAIL names the class of sec. 15 that produces it; a FAIL expectation
 without a class is a defect of the expectation (G3, G5 and the countercontrols of sec. 18 items 4, 6
 and 13 name their class). Each expected deny FAIL names the deny rule and the rule alternative that
@@ -2707,9 +2814,10 @@ Sources: E-1009, RV-052. Controls: RT-DR, RT-DR3W, A5r, V1, V2, V3, G3, G5, S11-
 not exist: a control that is deliberately not run is NOT RUN. NOT RUN is admitted only for a row whose
 expectation lists it together with a reason and a release condition, and only while that release
 condition is false; a summary never counts NOT RUN as met. The rows that admit NOT RUN are RT-T, TR5,
-G-A1, RT-L2, RT-O9-L2, TR45-opC and EI14-dispatch.
+G-A1, RT-L2, RT-O9-L2, TR45-opC and EI14-dispatch, and, by inheritance from those components, the
+composites TR45 and EI14 (R6.GATE.9).
 Sources: V2-073. Controls: RT-T, TR5, G-A1, RT-L2, RT-O9-L2, TR45-opC, EI14-dispatch, GATE-5,
-GATE-11.
+GATE-11, TR45, EI14.
 
 **R6.CTRL.6** Unit, mutation and adversarial controls run on synthetic trees held in memory. The V
 controls are splices adding the stated text to the stated file (added text) unless the case says
@@ -2724,6 +2832,7 @@ with it. No historical text is constructed for this purpose. DR-3's witness is s
 sentence of `AGENTS.md` at `H`, lines 37-39 (blob 12a9281fb88c14395b6715a3bf4b4f6b030f433c, sha256
 d87acac54b5f6392af3323630236d98b14bb4d485d10c0ff56b20806b0883e27), which RT-DR3W scans at `H` and,
 as its countercontrol, at T1'.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-1011, E-1013, E-1014, E-1015. Controls: RT-DR3W.
 
 **R6.CTRL.8** The preflight set is U1, U4, U10, M1, K1, O9 and O1. Every run of an operation runs the
@@ -2736,7 +2845,7 @@ sec. 7 and sec. 15 as the runner implements them. v1's result HOLDS becomes PASS
 becomes FAIL (exit 20), and FAILS `unmapped-hit` becomes REVIEW_REQUIRED (exit 10) `unclassified`
 (U12). U2 asserts the site's `line_delta`; U10 asserts the splice ids and the per-splice `old_sha256`
 and `new_sha256`; U9 asserts `whitespace_only` as a diagnostic defined in sec. 7. U13 is retired with
-the `read` route, and U15 with the class `stale-adjudication` (sec. 33). U14 is restated as the
+the `read` route, and U15 is retired, its case kept as U14's wrong-region-hash case (sec. 33). U14 is restated as the
 positive HP adjudication case of R6.CTRL.16.
 Sources: V1-086, V1-087, V1-088, V1-089, V1-090, V1-091, V1-092, V1-093, V1-094, V1-095, V1-096, V1-097, V2-070, V2-071, E-1082. Controls: U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U14.
 
@@ -2755,7 +2864,8 @@ applied to the in-memory T1' `papers/Main.md` under RT-T0's run) and RT-SHIFT (a
 site lines that RT-T0 resolves as moved by authorized splices elsewhere in their files is an asserted
 quantity of RT-T0, not an informational figure. The per-site meaning mutant of `E` is generalized by
 SW1, which deletes one token from each site at `E`.
-OPEN: expectation of RT-M and RT-SHIFT.
+Their expected results are the expectation file's, taken from their cited sources V1-120 and V1-124
+(B-18).
 Sources: V1-120, V1-122, V1-123, V1-124, V1-125, V1-126. Controls: RT-M, RT-SHIFT, RT-T0, SW1.
 
 **R6.CTRL.12** Three controls test determinism and confinement. REPRO-DOUBLE runs one operation twice
@@ -2780,6 +2890,7 @@ residual-test basis for them is superseded, since no rule deletes text and overl
 10). V1 FAILs by DR-1, alternative b. The deny rules and the seed allow rules are plan records adopted
 with the amended plan; the controls use the current rule files as pinned control inputs and test the
 rule mechanism (sec. 12).
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-1106, E-1107, E-1108, E-1109, E-1110, E-1111, E-1112, E-1113, E-1114, E-1115, E-1116, E-1117, E-1118, E-1119, E-1120, E-1121, E-1122, E-1123, E-1124, E-1125, E-1126, E-1127, E-1128, E-1129, E-1130, E-1131, E-1132, E-1133, E-1135, E-1136, E-1137, E-1138, E-1139, E-1140, E-1141, E-1142, E-1143, E-1144, E-1145, E-1146, E-1147, E-1148, E-1149, E-1150, E-1151, E-1192, E-1193, E-1194, E-1195, E-1196, E-1197, E-1198, E-1199, E-1200, E-1201, E-1202, E-1203, E-1204, E-1205, E-1206, E-1232, V2-074, V2-075, V2-076, V2-077, V2-078, V2-079, V2-081, V2-082, V2-083, V2-084, V2-085, V2-086, V2-087, V2-088, V2-089, RV-050, RV-052. Controls: A1r, A2r, A3r, A4r, A5r, A5r-generic, A6r, A7r, A8r, A9r, A10r, A11r, A12r, E-A1r, E-A2r, E-A3r, E-A6r, E-A8r, E-L1, E-L3, E-S1r, E-S2r, L1, L2, L3, L4, S1r, S2r, V1, V2, V3, V3-countercontrol, V4, V5, V6, V7a, V7b, V7c, V9, V10, V11, V12, V13, V14, V15, V16, V17, V18, V19, V20, V21, V22, V23, V24, V25, V26, V27, V27-glossary, WB1, WB2, WB3, WB4, WB5, WB6, WB7, WB8, WB9, WB10, WB11, WB12, WB13, WB14, WB15, lint-ok, rule-negative.
 
 **R6.CTRL.15** V4 adds "the framework's sixth structural property, finiteness of the bijection" to
@@ -2789,22 +2900,25 @@ PASS: this is the V4 reversal. What it permits: a reintroduction of the counted 
 unclassified by any FAIL, and the original item 7 misses it as well. Its consequence: the tool does
 not detect that form, and detection rests on review of the residual hits. The reversal rests on an
 owner decision recorded only in paraphrase. It is adopted or rejected by the owner at r6's adoption;
-approving this draft does not adopt it. Until that decision, V4's expectation is unsettled and the
-row cannot hold. If the reversal is rejected, V4's expectation is FAIL `deny-match` and the deny set
+approving this draft does not adopt it. Until that decision, V4, V27, V27-glossary and V15 each
+carry both candidate expectations, marked "not authoritative; decided at r6 adoption", and the gate
+reports `deferred-expectation` for each (RE-1). If the reversal is rejected, V4's expectation is FAIL `deny-match` and the deny set
 needs a rule matching that form, which is a plan-record change (sec. 12). V27 tests a sentence of the
-same form and rests on the same decision.
-OPEN: V4 reversal scope.
-Sources: V2-080. Controls: V4, V27, V27-glossary.
+same form and rests on the same decision, as do V27-glossary and V15, whose candidates are
+REVIEW_REQUIRED `unclassified` and FAIL `deny-match`.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
+Sources: V2-080, RE-1. Controls: V4, V27, V27-glossary, V15.
 
 **R6.CTRL.16** The provenance controls are H1-H7 (H1-H3 restate v2's P1-P3), U14 and RECLINT-ORPHAN.
 U14 is a positive HP adjudication case: a synthetic HP site whose provenance walk a reviewed HP
-adjudication record matches. RECLINT-ORPHAN plants a referenced HP adjudication record that matches no
-subject of the run; record lint reports it as FAIL `record-invalid` (sec. 11). An adjudication that
-disagrees with the walk, or changes a row, FAILs (H1, H2, H6); a wrong region hash FAILs through
-`unauthorized-change`. The class name `stale-adjudication` is retired; no safeguard it stood for is
-lost.
-Sources: E-1098, E-1099, E-1100, E-1101, E-1102, E-1103, E-1104. Controls: H1, H2, H3, H4, H5, H6, H7, RECLINT-ORPHAN.
-
+adjudication record matches, counted as `provenance-adjudicated`; its second case gives the entry a
+wrong region hash and expects exactly FAIL `provenance-mismatch` and FAIL `stale-adjudication`
+(R6.HP.7). RECLINT-ORPHAN plants a referenced HP adjudication record entry that matches no subject on
+a tree and segment its record applies to (FAIL `stale-adjudication`), an orphan context adjudication
+or hit classification entry and a duplicate entry (FAIL `record-invalid`), and the same entries on a
+tree or segment the record does not apply to (no finding) (R6.REC.10). An adjudication that disagrees
+with the walk, or changes a row, FAILs (H1, H2, H6).
+Sources: E-1098, E-1099, E-1100, E-1101, E-1102, E-1103, E-1104, Q12, RE-8. Controls: H1, H2, H3, H4, H5, H6, H7, U14, RECLINT-ORPHAN.
 **R6.CTRL.17** Split and dependent rows. RT-O9's own checks (the expected set of record-directory
 entries computed independently from the stand-in `F` tree, compared exactly; no unequal path; no
 `side-change-unclassified`) run and are gated whenever RT-O9 runs, independently of RT-L2. Its clause
@@ -2834,6 +2948,7 @@ evidence; without it the expected result is the one the expectation file states 
 evidence. RT-T is NOT RUN until every reviewed record of sec. 14 exists. The two `not determined`
 H..T1' cases of sec. 6 are RET FAILs, and RT-T's expectation says so; it does not claim that no RET
 FAIL exists.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-1134, E-1176, E-1177, E-1178, E-1179, E-1180, E-1181, E-1182, E-1183, E-1184, E-1185, E-1186, E-1187, E-1188, V1-115, V1-117, V1-119, V2-099, V2-100, V2-101, V2-103, V2-104, V2-105, V2-162, V2-163, V2-164, RV-028, RV-051, E-091, E-1010, V1-132, V1-136. Controls: N-W, RT-A, RT-C, RT-D, RT-D-gr58, RT-DR, RT-DR3W, RT-E, RT-H0, RT-I7, RT-I7A, RT-L, RT-L2, RT-O9, RT-O9-L2, RT-T, RT-T0, RT-X, SW1, SW2, item11-T1p.
 
 **R6.CTRL.20** The tree-role controls are TT1-TT14, R15-R19 with their engine forms, RL and
@@ -2908,7 +3023,9 @@ applied and killed, are admitted. Any other survivor, any other mutant not appli
 missing, and any `o9` mutant not killed fails the gate. The base run of the mutation step has every
 control at its expected status. r1's mutants "accept a path absent at both `F` and `M`" and "rule
 evaluated before the `base-drift` test" are equivalent under sec. 21 and are not rows (sec. 33).
-OPEN: mutation harness location. OPEN: survivors without an equivalence argument.
+The harness and the mutant names land, pinned, with the tool revision (RE-9 (a)); the survivors without
+an equivalence argument are also verification defects with distinguishing controls (RE-10 (b);
+R6.GATE.10, OBL-24).
 Sources: A-089, A-090, A-091, A-092, A-093, A-094, A-095, A-096, A-097, A-098, A-099, A-100, A-101, A-102, A-103, A-104, A-105, A-106. Controls: MUT:o9:RDIR-m1, MUT:o9:RDIR-m2, MUT:o9:RDIR-m3, MUT:o9:RDIR-m4, MUT:o9:RDIR-m5, MUT:o9:RDIR-m6, MUT:o9:RDIR-m7, MUT:o9:RDIR-m8, MUT:o9:RDIR-m9, MUT:o9:RDIR-m10, MUT:o9:RDIR-m11, MUT:o9:RDIR-m12, MUT:o9:RDIR-m13, MUT:o9:RDIR-m14, MUT:o9:RDIR-m15, MUT:o9:RDIR-m16, MUT:o9:RDIR-m17, MUT:c2:D02, MUT:v60e:V05, MUT:v60e:I06, MUT:v60e:C08, MUT:v60e:H03, MUT:v60e:P01, MUT:cache:K08, MUT:v60e:U01.
 
 **R6.CTRL.28** The runner-only controls (A5r-generic, ACCEPT-SCHEMA, ADM-CONFIG-AT-F, B4-MEANING,
@@ -2922,8 +3039,8 @@ E-* is recorded as preserved at its v6.0e control unless the check finds the two
 case they are merged. Until a row is checked, its expectation is unsettled and the row cannot hold.
 The unsettled rows of the draft expectation file are these 32, G-A1 and TT12 (34 rows); G-A1's
 expectation is stated from the rules of sec. 13 and it remains NOT RUN, and TT12's class is
-`landing-extra-change`, so that after those two the unsettled rows are the 32 runner-only rows and
-V4 (R6.CTRL.15).
+`landing-extra-change`, so that after those two the unsettled rows are the 32 runner-only rows, adopted only after the
+check of OBL-25; V4, V27, V27-glossary and V15 are deferred to the owner's decision (R6.CTRL.15).
 Sources: none (approved decisions on runner-only controls and null expectations). Controls:
 A5r-generic, ACCEPT-SCHEMA, ADM-CONFIG-AT-F, B4-MEANING, CHAIN-REFUSAL, CONFIG-LINT, E-A1r, E-A2r,
 E-A3r, E-A6r, E-A8r, E-L1, E-L3, E-S1r, E-S2r, GV-CACHE, GV-CACHE-AFTER-READ, GV-CACHE-IMMUTABLE,
@@ -2946,8 +3063,9 @@ property named:
   landing half; item11-T1p does not assert its line count; TT8 does not assert PASS; TT12 asserts no
   named class; U2 does not assert `line_delta`; U10 does not assert the per-splice hashes; K4 checks
   only its K1 half. Each asserts the full property.
-- A2r's runner literal (`six structural`) differs from the stated case (`(A1)`); the runner uses the
-  stated case.
+- A2r's runner shortens W1-d to `six structural`, which does not distinguish a shortening from another
+  change; the case runs on W2-a, whose literal `(A1)` is a true shortening, and asserts that the
+  finding is a widening by shortening (RE-20 (b)).
 - A5r's expected deny FAIL names no rule alternative; it names it.
 - RT-T0's runner expectation string disagrees with its own predicate; the gate makes the predicate
   and the file's expectation the same statement.
@@ -2959,9 +3077,9 @@ Sources: E-1086. Controls: TT7, TT2, S11-7, A9r, A11r, SW1, Z9f, O1, O2, O3, O5,
 S11-14, item11-T1p, TT8, TT12, U2, U10, K4, A2r, A5r, RT-T0, EI7-consumer, VD2-HP-SEARCH, VD3-COUNT,
 VD3-CONTEXT, SIDE-NONREG.
 
-**R6.CTRL.30** The gate's own controls are GATE-1 to GATE-26 (sec. 16). They run in the gate's
+**R6.CTRL.30** The gate's own controls are GATE-1 to GATE-30 (sec. 16). They run in the gate's
 self-test before the gate evaluates the real records.
-Sources: none (gate architecture, sec. 16). Controls: GATE-1, GATE-2, GATE-3, GATE-4, GATE-5, GATE-6, GATE-7, GATE-8, GATE-9, GATE-10, GATE-11, GATE-12, GATE-13, GATE-14, GATE-15, GATE-16, GATE-17, GATE-18, GATE-19, GATE-20, GATE-21, GATE-22, GATE-23, GATE-24, GATE-25, GATE-26.
+Sources: none (gate architecture, sec. 16). Controls: GATE-1, GATE-2, GATE-3, GATE-4, GATE-5, GATE-6, GATE-7, GATE-8, GATE-9, GATE-10, GATE-11, GATE-12, GATE-13, GATE-14, GATE-15, GATE-16, GATE-17, GATE-18, GATE-19, GATE-20, GATE-21, GATE-22, GATE-23, GATE-24, GATE-25, GATE-26, GATE-27, GATE-28, GATE-29, GATE-30.
 
 **Table 17.1. Control catalogue** (no expected results; see the expectation file).
 
@@ -2982,7 +3100,7 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | U10 | R6.ANCH.13, R6.ANCH.16, R6.OUT.18, R6.CTRL.8, R6.CTRL.9, R6.CTRL.29, R6.ADAPT.2 | controls_engine.py:157 | decl | pos | ledgered splice rewriting a site line |
 | U11 | R6.ANCH.13, R6.CTRL.9, R6.ADAPT.2 | controls_engine.py:162 | decl | pos | ledgered splice deleting a site line |
 | U12 | R6.PROF.3, R6.HIT.2, R6.CLASS.12, R6.CTRL.9, R6.ADAPT.3 | controls_engine.py:166 | decl | adv | new pattern hit on a non-site line |
-| U14 | R6.HP.7, R6.CLASS.6, R6.CTRL.9 | controls_engine.py (to be implemented) | decl | pos | a synthetic HP site whose provenance walk is matched by a reviewed HP adjudication record (positive) |
+| U14 | R6.HP.7, R6.REC.10, R6.CLASS.4, R6.CLASS.6, R6.CTRL.9, R6.CTRL.16 | controls_engine.py (to be implemented) | decl | pos | a synthetic HP site whose provenance walk is matched by a reviewed HP adjudication record (positive) |
 | M1 | R6.ANCH.9, R6.ANCH.16, R6.CLASS.3, R6.CTRL.3, R6.CTRL.6, R6.CTRL.8, R6.CTRL.10 | controls_engine.py:233 | decl | adv +restored | word changed inside a ledgered file outside every splice, not on a site |
 | M2 | R6.ANCH.9, R6.ANCH.16, R6.CLASS.3, R6.CTRL.10 | controls_engine.py:236 | decl | adv | a splice applied with altered `new` text |
 | M3 | R6.ANCH.4, R6.OUT.5, R6.REC.5, R6.CTRL.10, R6.ADAPT.2, R6.VALID.3 | controls_engine.py:247 | decl | adv | ledger `old_sha256` altered |
@@ -3046,7 +3164,7 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | V12 | R6.DENY.2, R6.CTRL.14 | a1_controls.py:466 | decl | adv | "the six substratum posits" |
 | V13 | R6.DENY.2, R6.CTRL.14 | a1_controls.py:466 | decl | adv | "the structural assumptions A1 through A6" |
 | V14 | R6.DENY.2, R6.DENY.3, R6.CTRL.14 | a1_controls.py:474 | decl | adv | "A1--A6"; "A1—A6"; "(A1)–(A6)"; "A1, ..., A6" (four cases) |
-| V15 | R6.PUR.8, R6.PROF.3, R6.DENY.4, R6.CTRL.14, R6.A1CFG.7 | a1_controls.py:499 | decl | adv | "the substratum's sixth axiom, finiteness" |
+| V15 | R6.PUR.8, R6.PUR.9, R6.PROF.3, R6.DENY.4, R6.DENY.6, R6.CTRL.14, R6.CTRL.15, R6.A1CFG.7 | a1_controls.py:499 | decl | adv | "the substratum's sixth axiom, finiteness" |
 | V16 | R6.DENY.2, R6.CTRL.14 | a1_controls.py:466 | decl | adv | "posit A1 (finiteness) holds" |
 | V17 | R6.DENY.2, R6.CTRL.14 | a1_controls.py:466 | decl | adv | "A1 (Finiteness): the configuration space is finite" |
 | V18 | R6.DENY.2, R6.CTRL.14 | a1_controls.py:466 | decl | adv | "(A1) Finiteness. The configuration space S is finite." |
@@ -3059,7 +3177,7 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | V25 | R6.OUT.17, R6.CTRL.14, R6.A1CFG.7 | a1_controls.py:535 | decl | adv | the other direction of V21, V23 and V24: V23 and V24 run as item 7 without `--final`; a W2 line with its rule run as item 7 with `--final`; a `resid`-only hit (V21) run as item 7 with `--final` |
 | V26 | R6.PUR.8, R6.PROF.3, R6.DENY.4, R6.CTRL.14, R6.A1CFG.7 | a1_controls.py:518 | decl | adv | added, one at a time: "a finite set with a deterministic bijection on it"; "the substratum is a finite set with a bijection on it"; "We take the substratum to be finite."; "the universe is assumed finite"; "The substratum is assumed to have a finite number of states." |
 | V27 | R6.PUR.9, R6.DENY.6, R6.CTRL.14, R6.CTRL.15, R6.A1CFG.7 | a1_controls.py:493 | decl | pos | "The framework's sixth structural property is finiteness of the substratum" (the text of v4's former DR-2 countercontrol), added alone and as the edited glossary.md:13 line |
-| V27-glossary | R6.DENY.6, R6.CTRL.14, R6.CTRL.15 | a1_controls.py:507 | decl | pos | the second case of V27: the sentence as the edited glossary.md:13 line |
+| V27-glossary | R6.PUR.9, R6.DENY.6, R6.CTRL.14, R6.CTRL.15 | a1_controls.py:507 | decl | pos | the second case of V27: the sentence as the edited glossary.md:13 line |
 | WB1 | R6.RULE.4, R6.CTRL.14 | a1_conformance.py:94 | decl | pos | the W1-c sentence at T1' in ch19:198 and FULL:5270, with the W1-c fingerprints and `negative_allowance: {finit: 1}` |
 | WB2 | R6.RULE.9, R6.CLASS.5, R6.CTRL.14 | a1_conformance.py:98 | decl | adv | the same sentence at the same location with one more word containing `finit` (for example a second "finite" inserted elsewhere in the sentence) |
 | WB3 | R6.RULE.5, R6.CTRL.14 | a1_conformance.py:103 | decl | adv | the fingerprinted sentence copied, unchanged, to another paragraph of a file in W1-c's scope |
@@ -3084,7 +3202,7 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | H5 | R6.HP.9, R6.HP.11, R6.OUT.24, R6.CLASS.4, R6.CTRL.16 | controls_engine.py:400 | decl | adv | an HP site overlapped by a splice, with no adjudication |
 | H6 | R6.PUR.3, R6.HP.4, R6.REC.10, R6.CLASS.4, R6.CTRL.16 | controls_engine.py:404 | decl | adv | an adjudication changing a site's row |
 | H7 | R6.HP.3, R6.HP.4, R6.HP.6, R6.HP.12, R6.CTRL.16 | controls_engine.py:432 | decl | adv | two adjacent sites, separated by one blank line, both changed at one E..H step, and an H..X splice inside the second only |
-| RECLINT-ORPHAN | R6.REC.10, R6.CLASS.6, R6.CTRL.16 | to be implemented (tool revision) | decl | both | a referenced HP adjudication record that matches no subject of the run |
+| RECLINT-ORPHAN | R6.REC.10, R6.CLASS.4, R6.CLASS.6, R6.CTRL.16 | to be implemented (tool revision) | decl | both | a referenced HP adjudication record that matches no subject of the run |
 | B1 | R6.ANCH.13, R6.ANCH.14, R6.CTRL.18 | controls_engine.py:334 | decl | pos | an empty-image splice on a site line |
 | B2 | R6.ANCH.13, R6.ANCH.14, R6.CTRL.18 | controls_engine.py:343 | decl | pos | a multi-line splice (33 exist in P) |
 | B3 | R6.ANCH.14, R6.CTRL.18 | controls_engine.py:353 | decl | pos | a zero-length insertion at a line boundary |
@@ -3113,10 +3231,10 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | RT-I7 | R6.CLASS.5, R6.CTRL.19, R6.CTRL.29, R6.PLAN.8, R6.A1CFG.7, R6.EVID.4 | a1_controls.py:327 | decl | adv | `terms --commit T1' --profile item7-literal`; the same at H |
 | RT-I7A | R6.CTRL.19, R6.PLAN.8, R6.PLAN.18, R6.A1CFG.7, R6.EVID.4 | a1_controls.py:342 | decl | adv | the proposed item-7 amendment check (sec. 18, item 7) at H and at T1', no records |
 | RT-L | R6.CTRL.19, R6.PLAN.15, R6.TREE.12, R6.TREE.15 | a1_controls.py:930 | decl | pos | real objects: an in-memory landing with parents (W, `T1'`), built by the composition rule and never committed |
-| RT-L2 | R6.CTRL.5, R6.CTRL.19, R6.TREE.15, R6.RECON.21, R6.GATE.15, R6.GATE.16, R6.EVID.6 | a1_controls.py:976 | proc | pos | before the tool lands: as RT-L, with `--main` set to the predicted `M` (`main` plus the tool landing paths, and the plan record directory as it stands at the stand-in `F`) |
-| RT-O9 | R6.CTRL.17, R6.CTRL.19, R6.RDIR.12, R6.RDIR.14, R6.GATE.15 | a1_controls.py:1025 | proc | pos | the predicted `M`: `main` plus the tool landing plus the plan's record directory as it stands at the stand-in `F` |
-| RT-O9-L2 | R6.CTRL.5, R6.CTRL.17, R6.CTRL.19, R6.RDIR.14, R6.RECON.21, R6.GATE.15 | a1_controls.py (split from RT-O9) | proc | pos | the dependent clause of RT-O9: RT-L2 on the same predicted `M` |
-| RT-T | R6.HIT.5, R6.HIT.6, R6.CTRL.5, R6.CTRL.19, R6.PLAN.4, R6.GATE.15 | a1_controls.py:271 | decl | pos | RT-T0 with every reviewed record of sec. 14 |
+| RT-L2 | R6.GATE.15, R6.GATE.16, R6.CTRL.5, R6.CTRL.19, R6.TREE.15, R6.RECON.20, R6.RECON.21, R6.EVID.6 | a1_controls.py:976 | proc | pos | before the tool lands: as RT-L, with `--main` set to the predicted `M` (`main` plus the tool landing paths, and the plan record directory as it stands at the stand-in `F`) |
+| RT-O9 | R6.GATE.15, R6.CTRL.17, R6.CTRL.19, R6.RDIR.12, R6.RDIR.14 | a1_controls.py:1025 | proc | pos | the predicted `M`: `main` plus the tool landing plus the plan's record directory as it stands at the stand-in `F` |
+| RT-O9-L2 | R6.GATE.15, R6.CTRL.5, R6.CTRL.17, R6.CTRL.19, R6.RDIR.14, R6.RECON.21 | a1_controls.py (split from RT-O9) | proc | pos | the dependent clause of RT-O9: RT-L2 on the same predicted `M` |
+| RT-T | R6.HIT.5, R6.HIT.6, R6.GATE.15, R6.CTRL.5, R6.CTRL.19, R6.PLAN.4 | a1_controls.py:271 | decl | pos | RT-T0 with every reviewed record of sec. 14 |
 | RT-T0 | R6.HP.3, R6.HP.9, R6.HP.10, R6.HP.11, R6.OUT.24, R6.HIT.3, R6.HIT.6, R6.CLASS.4, R6.CTRL.11, R6.CTRL.19, R6.CTRL.29, R6.PLAN.4, R6.A1CFG.4, R6.A1CFG.6, R6.EVID.4 | a1_controls.py:262 | decl | adv | `coverage` at `X = T1'`, no records |
 | RT-X | R6.CTRL.19, R6.TREE.6 | a1_controls.py:921 | decl | pos | real objects: `--scientific-base H --main W --candidate T1'` |
 | SW1 | R6.ANCH.17, R6.CTRL.11, R6.CTRL.19, R6.CTRL.29, R6.EVID.4 | a1_controls.py:1240 | proc | adv | per-site sweep at E: each of the 697 sites, one token deleted |
@@ -3124,11 +3242,11 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | item11-T1p | R6.CTRL.19, R6.CTRL.29, R6.PLAN.12, R6.EVID.4 | a1_controls.py:396 | decl | adv | item 11 run with `--final` at T1', no records |
 | R15 | R6.CLASS.10, R6.CTRL.20, R6.TREE.11, R6.TREE.18 | controls_engine.py:566 | decl | adv | an `L` whose first parent is a `main` commit other than the recorded `M` |
 | R16 | R6.CTRL.20, R6.TREE.1, R6.TREE.10, R6.TREE.18 | conformance_controls.py:2469 | decl | adv | `C` = `X` plus one commit that changes an unledgered, undeclared path |
-| R17 | R6.CTRL.20, R6.TREE.10 | conformance_controls.py:2472 | decl | pos | `C` = `X` plus one commit that changes only a record path the plan admits after `F` |
+| R17 | R6.CTRL.20, R6.TREE.10, R6.TREE.18 | conformance_controls.py:2472 | decl | pos | `C` = `X` plus one commit that changes only a record path the plan admits after `F` |
 | R18 | R6.CLASS.12, R6.CTRL.20, R6.TREE.5, R6.TREE.18 | a1_conformance.py:552 | decl | adv | a classified side-change path whose blob at `M` differs from its class pin |
-| R18-engine | R6.CTRL.20, R6.TREE.5 | controls_engine.py:513 | decl | adv | the engine form of R18 in the synthetic world |
+| R18-engine | R6.CTRL.20, R6.TREE.5, R6.TREE.18 | controls_engine.py:513 | decl | adv | the engine form of R18 in the synthetic world |
 | R19 | R6.CLASS.12, R6.CTRL.20, R6.PLACE.8, R6.TREE.5, R6.TREE.18 | a1_conformance.py:563 | decl | adv | a path under the tool-landing prefix on `M` that the class does not list, and separately a listed path whose blob differs from its pin |
-| R19-engine | R6.CTRL.20, R6.TREE.5 | controls_engine.py:561 | decl | adv | the engine form of R19 in the synthetic world |
+| R19-engine | R6.CTRL.20, R6.TREE.5, R6.TREE.18 | controls_engine.py:561 | decl | adv | the engine form of R19 in the synthetic world |
 | RL | R6.CTRL.20, R6.CTRL.28, R6.TREE.12 | controls_engine.py:548 | decl | adv | a landing built by the composition rule in the synthetic world |
 | SIDE-NONREG | R6.PUR.12, R6.CTRL.20, R6.CTRL.29, R6.TREE.8, R6.RDIR.7 | to be implemented (tool revision) | decl | adv | a side change outside the plan record directory that is a symbolic link at `M`; separately, a submodule entry at `M` |
 | TT1 | R6.CTRL.20, R6.TREE.1, R6.TREE.6, R6.TREE.16 | controls_engine.py:511 | decl | adv | `M` = `H` plus a workflow change; `X` = `H` plus splices (was R1) |
@@ -3199,7 +3317,7 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | G7 | R6.DELEG.6, R6.DELEG.10, R6.DELEG.13, R6.CTRL.23 | conformance_controls.py:2430 | decl | both | `pdf` evidence whose `candidate_tree` differs from `X`'s, or whose artifact hash differs |
 | G8 | R6.DELEG.7, R6.DELEG.10, R6.CTRL.23 | conformance_controls.py:2355 | decl | adv | delegated evidence with `plan: null` and no `F` |
 | G9 | R6.DELEG.3, R6.DELEG.16, R6.CTRL.23 | conformance_controls.py:2343 | decl | both | `C` = `X` plus one commit that changes the SC-42 result file; the class run at `X` alone would PASS |
-| G-A1 | R6.DELEG.1, R6.DELEG.3, R6.DELEG.8, R6.CTRL.5, R6.CTRL.23, R6.CTRL.28, R6.GATE.15 | conformance_controls.py:2434 | proc | adv | delegated classes run natively in clones at `X` and `C`, and host-run classes read from the host API, after the tool lands |
+| G-A1 | R6.DELEG.1, R6.DELEG.3, R6.DELEG.8, R6.GATE.15, R6.CTRL.5, R6.CTRL.23, R6.CTRL.28 | conformance_controls.py:2434 | proc | adv | delegated classes run natively in clones at `X` and `C`, and host-run classes read from the host API, after the tool lands |
 | ACCEPT-SCHEMA | R6.OUT.12, R6.OUT.18, R6.CTRL.23, R6.CTRL.28, R6.REPRO.1 | conformance_controls.py:514 | decl | adv | the acceptance predicate applied to a result of schema `/5` with `config.admission` of mode `chain`, and to the same result declared as schema `/4` |
 | B4-MEANING | R6.PUR.11, R6.OUT.18, R6.OUT.21, R6.CLASS.1, R6.CTRL.23, R6.CTRL.28 | conformance_controls.py:1734 | decl | adv | every result: the `class_meaning` table and its quotation by each item that carries a class |
 | S7-schema-and-checker | R6.OUT.18, R6.OUT.19, R6.OUT.23, R6.CLASS.1, R6.CTRL.23, R6.CTRL.28, R6.REPRO.1 | synthetic_fixture.py:555 | proc | adv | every result of the self-test and synthetic runs, validated against the result schema, with the outcome recomputed by the outcome checker |
@@ -3213,7 +3331,7 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | X8 | R6.OUT.2, R6.OUT.10, R6.CTRL.23 | synthetic_fixture.py:510 | proc | adv | the interpreter pointed at a missing script path |
 | X9 | R6.OUT.1, R6.OUT.17, R6.CLASS.5, R6.CTRL.23, R6.PLAN.12 | synthetic_fixture.py:517 | decl | adv | an unexplained `repo` hit run as item 11: without `--final`; with `--final`; a REVIEW item of a profile outside item 11's `final_profiles` with `--final`; and `--final` without `--check` |
 | X10 | R6.OUT.11, R6.OUT.12, R6.OUT.26, R6.CTRL.23, R6.REPRO.1, R6.EVID.3 | synthetic_fixture.py:536 | proc | both | exit 0 with a `result.json` whose outcome was edited to FAIL; exit 0 with an engine blob hash differing from the configuration's `tool` pin |
-| X11 | R6.OUT.12, R6.REC.16, R6.REC.24, R6.CTRL.23, R6.GATE.5, R6.CFG.8 | conformance_controls.py:472 | proc | adv | a control-harness PASS result of RT-E, presented with the pinned engine and configuration hashes |
+| X11 | R6.OUT.12, R6.REC.16, R6.REC.24, R6.GATE.5, R6.CTRL.23, R6.CFG.8 | conformance_controls.py:472 | proc | adv | a control-harness PASS result of RT-E, presented with the pinned engine and configuration hashes |
 | ADM-CONFIG-AT-F | R6.REC.5, R6.REC.16, R6.CTRL.23, R6.CTRL.28, R6.PLAN.2, R6.CFG.1, R6.CFG.2 | conformance_controls.py:177 | decl | adv | `--config` naming a configuration at a commit other than the `--freeze` commit |
 | CHAIN-REFUSAL | R6.REC.5, R6.REC.16, R6.CTRL.23, R6.CTRL.28 | a1_controls.py:1150 | decl | adv | a run under chain admission whose configuration is an unreviewed draft |
 | CONFIG-LINT | R6.CTRL.23, R6.CTRL.28, R6.CFG.4, R6.CFG.6 | conformance_controls.py:1698 | decl | adv | configuration variants whose `tool`, `workflow` or `repository_id` fields are malformed; and the valid configuration |
@@ -3233,8 +3351,8 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | EI11 | R6.REC.19, R6.CTRL.23 | conformance_controls.py:1405 | proc | adv | the pre-run check on a checkout in which the pinned path `tools/ledger_coverage/engine/util.py` is a symlink to a payload outside the package (probe P9) |
 | EI12 | R6.REC.19, R6.CTRL.23, R6.PLACE.1 | conformance_controls.py:1421 | proc | adv | the pre-run check on a checkout in which the entry point `tools/ledger_coverage.py` is a symlink to `tools/evil.py` (probe P10) |
 | EI13 | R6.REC.19, R6.CTRL.23 | conformance_controls.py:1458 | proc | adv | the pre-run check, each case separately: a pinned file changed by one byte; a pinned file missing; an extra `.py` file under `tools/ledger_coverage/`; a directory entry that is neither a regular file nor a directory; `tools` a symlink to a real directory holding the pinned files, inside the checkout, and separately to an absolute path outside it (R-d); `F` not fetched; the configuration path absent at `F`; a configuration without `tool.files` |
-| EI14 | R6.REC.18, R6.CTRL.17, R6.CTRL.23 | conformance_controls.py:1475 | proc | adv | the review v6.0a CX-3 tree: a branch `T'` holding the pinned files and an unpinned `tools/hashlib.py` |
-| EI14-dispatch | R6.CTRL.5, R6.CTRL.17, R6.CTRL.23, R6.GATE.15 | conformance_controls.py (split from EI14) | proc | adv | the branch-dispatch half of EI14: the pinned workflow dispatched on the branch `T'` |
+| EI14 | R6.REC.18, R6.GATE.15, R6.CTRL.5, R6.CTRL.17, R6.CTRL.23 | conformance_controls.py:1475 | proc | adv | the review v6.0a CX-3 tree: a branch `T'` holding the pinned files and an unpinned `tools/hashlib.py` |
+| EI14-dispatch | R6.GATE.15, R6.CTRL.5, R6.CTRL.17, R6.CTRL.23 | conformance_controls.py (split from EI14) | proc | adv | the branch-dispatch half of EI14: the pinned workflow dispatched on the branch `T'` |
 | EI15 | R6.NOTE.9, R6.PIPE.5, R6.REC.19, R6.CTRL.23 | conformance_controls.py:1500 | proc | adv | the pre-run check, each case separately: a `workflow_dispatch` run on a branch, with `F'` a commit whose configuration pins the branch's changed tool code (review v6.0c case O-4); `GITHUB_REF` `refs/tags/main`; `F` given as `HEAD`, as an abbreviated id, or in upper case |
 | GV1 | R6.REC.17, R6.CTRL.23 | conformance_controls.py:869 | proc | adv | a replace ref (`refs/replace/`) that substitutes a commit of the E..H chain, and separately one that substitutes the configuration's blob at `F`; separately, a role commit given as a ref name (`main`, a tag) |
 | GV2 | R6.REC.17, R6.CTRL.23 | conformance_controls.py:882 | proc | adv | a graft file that makes a commit of the E..H chain parentless |
@@ -3255,7 +3373,7 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | TR1 | R6.REC.16, R6.CTRL.23, R6.CFG.8 | conformance_controls.py:157 | decl | adv | a run without `--freeze` |
 | TR2 | R6.REC.5, R6.REC.16, R6.CTRL.23, R6.CFG.1, R6.CFG.2, R6.CFG.3, R6.VALID.3 | conformance_controls.py:164 | decl | adv | a configuration whose sha256 is not in the pin table of the `PREREG.md` beside it |
 | TR3 | R6.REC.5, R6.REC.16, R6.CTRL.23, R6.CFG.2 | conformance_controls.py:170 | decl | adv | a review record placed beside the configuration, naming its blob, but not in `F`'s pin table |
-| TR5 | R6.REC.24, R6.CTRL.5, R6.CTRL.23, R6.PLAN.2, R6.GATE.15, R6.CFG.8, R6.REPRO.1 | conformance_controls.py:151 | decl | pos | a complete run: `--freeze F` and `--config F:<path>` given; the `PREREG.md` beside the configuration, whose last `Record pins` subsection lists the configuration and its review; the run record read in a host CI job, with event `workflow_dispatch` and repository and head repository ids equal to `repository_id`; `T`'s tool files and workflow equal to the configuration's `tool` pins and to the checkout |
+| TR5 | R6.REC.24, R6.GATE.15, R6.CTRL.5, R6.CTRL.23, R6.PLAN.2, R6.CFG.8, R6.REPRO.1 | conformance_controls.py:151 | decl | pos | a complete run: `--freeze F` and `--config F:<path>` given; the `PREREG.md` beside the configuration, whose last `Record pins` subsection lists the configuration and its review; the run record read in a host CI job, with event `workflow_dispatch` and repository and head repository ids equal to `repository_id`; `T`'s tool files and workflow equal to the configuration's `tool` pins and to the checkout |
 | TR5-sim | R6.REC.24, R6.CTRL.23 | conformance_controls.py:142 | decl | pos | TR5 simulated in memory: a complete control-harness run with every snapshot field |
 | TR13 | R6.REC.16, R6.CTRL.23, R6.CFG.8 | conformance_controls.py:184 | proc | adv | a local run, all inputs otherwise valid |
 | TR14 | R6.OUT.13, R6.REC.18, R6.CTRL.23 | conformance_controls.py:541 | proc | both | the same workflow and tool run in a fork, or in another repository; separately, a `pull_request` run from a fork, executed and listed in the canonical repository (its `head_repository.id` is the fork's); separately, the same results presented to a consumer that runs in a fork |
@@ -3268,7 +3386,7 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | TR29-tool | R6.REC.5, R6.REC.18, R6.CTRL.23, R6.VALID.3 | conformance_controls.py:254 | decl | adv | the tool half of TR29: `head_sha` on a branch; `head_sha` equal to `X` |
 | TR30 | R6.OUT.13, R6.REC.18, R6.CTRL.23 | conformance_controls.py:521 | proc | both | a result whose evaluated commits differ from the landing record's |
 | TR45-opB | R6.OUT.15, R6.REC.16, R6.REC.24, R6.CTRL.17, R6.CTRL.23, R6.CFG.8 | conformance_controls.py:2263 | proc | both | the offline replay of an accepted op-B result from its committed snapshot; and the same with the recorded result hash altered |
-| TR45-opC | R6.CTRL.5, R6.CTRL.17, R6.CTRL.23, R6.GATE.15 | to be implemented (tool revision) | proc | both | the offline replay of an accepted op-C result whose delegated classes (`tex`, `pdf`, `record-dir`, `sc42`, `coverage-ledger`, `ci`) are taken from the snapshot's delegated evidence, with no host call, clone, PDF build or checker run |
+| TR45-opC | R6.GATE.15, R6.CTRL.5, R6.CTRL.17, R6.CTRL.23 | to be implemented (tool revision) | proc | both | the offline replay of an accepted op-C result whose delegated classes (`tex`, `pdf`, `record-dir`, `sc42`, `coverage-ledger`, `ci`) are taken from the snapshot's delegated evidence, with no host call, clone, PDF build or checker run |
 | TR46 | R6.OUT.14, R6.REC.24, R6.CTRL.23 | conformance_controls.py:526 | proc | both | a committed compressed result whose uncompressed sha256 differs from the recorded one |
 | TR48 | R6.OUT.26, R6.REC.18, R6.REC.25, R6.CTRL.23, R6.PLACE.3, R6.PLACE.4 | conformance_controls.py:228 | decl | pos | a valid `T` whose `tools/ledger_coverage/` and entry point hold exactly the configuration's `tool.files`, each a regular file with its pinned blob, and whose workflow blob equals the pin; the checkout equal to `T`'s tree |
 | TR50 | R6.REC.18, R6.REC.22, R6.CTRL.23 | conformance_controls.py:239 | decl | adv | the workflow at `tool.workflow.path` at `T` modified (one byte changed) |
@@ -3369,32 +3487,36 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | RDIR-23 | R6.CTRL.26, R6.TREE.4, R6.RDIR.3 | record_directory_controls.py:526 | proc | pos | the admitted `D_rec` and a configuration whose run is `coverage` (no `M`) (was O9-23) |
 | RDIR-24 | R6.CTRL.26, R6.TREE.5, R6.RDIR.5, R6.VALID.4 | record_directory_controls.py:450 | decl | adv | a class record admitted through `--classify` that defines the class id `record-directory` (was O9-24) |
 | RDIR-25 | R6.CTRL.26, R6.RDIR.4, R6.SYN.3 | record_directory_controls.py:538 | proc | pos | the synthetic world of the conformance controls: an unadmitted `D_rec` (`syn`) present at `H`, with entries inside it on `M`, under `execution --main --freeze` (was O9-25) |
-| GATE-1 | R6.CTRL.30, R6.GATE.1, R6.GATE.3, R6.GATE.8, R6.GATE.9, R6.GATE.13, R6.EVID.1 | gate self-test | decl | adv | false actual value: a runner record with status PASS whose actual says exit 0 while the retained exit file and result.json say 20 |
-| GATE-2 | R6.CTRL.30, R6.GATE.9, R6.GATE.13 | gate self-test | decl | adv | missing result: one id of the file has no record |
-| GATE-3 | R6.CTRL.2, R6.CTRL.30, R6.GATE.9, R6.GATE.13 | gate self-test | decl | adv | duplicate id: two records carry one id (in one job, and separately across jobs) |
-| GATE-4 | R6.CTRL.2, R6.CTRL.30, R6.GATE.9, R6.GATE.13 | gate self-test | decl | adv | unexpected id: a record whose id is not in the file |
-| GATE-5 | R6.CTRL.5, R6.CTRL.30, R6.GATE.5, R6.GATE.13, R6.GATE.15 | gate self-test | decl | adv | unadmitted NOT RUN: a row allowing only PASS reported NOT RUN with a reason |
-| GATE-6 | R6.CTRL.30, R6.GATE.1, R6.GATE.3, R6.GATE.8, R6.GATE.13, R6.EVID.1 | gate self-test | decl | adv | weak runner predicate: A1r recorded PASS with a truthful actual (lint problems nonempty) while the retained result has no record-invalid item for the rule file |
-| GATE-7 | R6.CTRL.1, R6.CTRL.30, R6.GATE.12, R6.GATE.13 | gate self-test | decl | adv | expectation row with no requirement: requirements empty, or naming an id absent from r6 |
-| GATE-8 | R6.CTRL.1, R6.CTRL.30, R6.GATE.4, R6.GATE.12, R6.GATE.13 | gate self-test | decl | adv | requirement with no control: an r6 requirement whose control list is empty or names an id absent from the file |
-| GATE-9 | R6.CTRL.30, R6.GATE.5, R6.GATE.7, R6.GATE.9, R6.GATE.13 | gate self-test | decl | adv | raw evidence missing: a PASS record whose manifest names a result.json absent from the evidence set, or whose sha256 differs |
-| GATE-10 | R6.CTRL.30, R6.GATE.7, R6.GATE.8, R6.GATE.9, R6.GATE.13 | gate self-test | decl | adv | procedural predicate failed: SW1 tuples with one site carrying two new FAIL items while the runner records PASS |
-| GATE-11 | R6.CTRL.5, R6.CTRL.30, R6.GATE.13, R6.GATE.15 | gate self-test | decl | adv | released NOT RUN: RT-L2 reported NOT RUN while its release check holds |
-| GATE-12 | R6.CTRL.1, R6.CTRL.2, R6.CTRL.30, R6.GATE.2, R6.GATE.9, R6.GATE.13 | gate self-test | decl | adv | composite incomplete: S11-2 with S11-2c missing |
-| GATE-13 | R6.CTRL.30, R6.RECON.21, R6.GATE.8, R6.GATE.13, R6.GATE.16, R6.EVID.6 | gate self-test | decl | adv | RT-L2 drafted record: the run uses an unreviewed reconciliation record (drift state unresolved) |
-| GATE-14 | R6.CTRL.30, R6.RECON.21, R6.GATE.8, R6.GATE.13, R6.GATE.16 | gate self-test | decl | adv | RT-L2 record bound to another M: reviewed record whose M blob differs from the run M |
-| GATE-15 | R6.CTRL.30, R6.RECON.21, R6.GATE.8, R6.GATE.13, R6.GATE.16 | gate self-test | decl | adv | RT-L2 partial coverage: reviewed bound record covering one of two drifted paths |
-| GATE-16 | R6.CTRL.30, R6.GATE.1, R6.GATE.9, R6.GATE.13, R6.A1CFG.6, R6.EVID.2, R6.EVID.5 | gate self-test | decl | pos | reference difference: RT-T0 with region_lines.count 214 against reference 215, every expect field met |
-| GATE-17 | R6.CTRL.30, R6.GATE.2, R6.GATE.3, R6.GATE.4, R6.GATE.9, R6.GATE.13 | gate self-test | decl | adv | malformed expectation file: unknown schema id, unknown field, or NOT RUN allowed without reason and release condition |
-| GATE-18 | R6.CTRL.30, R6.GATE.11, R6.GATE.13, R6.GATE.14, R6.CORE.7, R6.A1CFG.7 | gate self-test | decl | pos | positive control: complete, correct records and evidence for a fixture with one row of each predicate kind and one allowed NOT RUN |
-| GATE-19 | R6.CTRL.30, R6.RECON.21, R6.GATE.13, R6.GATE.16, R6.EVID.6 | gate self-test | decl | pos | RT-L2 reconciled: reviewed record bound to the exact H, M and C blobs covering every drifted path |
-| GATE-20 | R6.CTRL.30, R6.GATE.1, R6.GATE.5, R6.GATE.9, R6.GATE.13 | gate self-test | decl | adv | status/actual inconsistency: runner status FAIL with an actual that meets expect |
-| GATE-21 | R6.CTRL.30, R6.GATE.6, R6.GATE.10, R6.GATE.13 | gate self-test | decl | adv | an unexpected survivor: a mutant whose row allows only KILLED recorded SURVIVED |
-| GATE-22 | R6.CTRL.30, R6.GATE.6, R6.GATE.10, R6.GATE.13 | gate self-test | decl | adv | a missing mutant: a MUT row with no mutation record |
-| GATE-23 | R6.CTRL.30, R6.GATE.6, R6.GATE.10, R6.GATE.13 | gate self-test | decl | pos | a known survivor recorded SURVIVED and the not-applied mutant recorded NOT APPLIED (positive) |
-| GATE-24 | R6.CTRL.30, R6.GATE.6, R6.GATE.10, R6.GATE.13 | gate self-test | decl | adv | an unexpected not-applied mutant: a mutant whose row allows only KILLED recorded NOT APPLIED |
-| GATE-25 | R6.CTRL.30, R6.GATE.8, R6.GATE.13 | gate self-test | decl | adv | a double run whose two result files differ by one byte |
-| GATE-26 | R6.CTRL.30, R6.GATE.2, R6.GATE.9, R6.GATE.13 | gate self-test | decl | adv | a row with composed_of and its own runner record: the own record PASS, a component FAIL |
+| GATE-1 | R6.GATE.1, R6.GATE.3, R6.GATE.8, R6.GATE.9, R6.GATE.13, R6.CTRL.30, R6.EVID.1 | gate self-test | decl | adv | false actual value: a runner record with status PASS whose actual says exit 0 while the retained exit file and result.json say 20 |
+| GATE-2 | R6.GATE.9, R6.GATE.13, R6.CTRL.30 | gate self-test | decl | adv | missing result: one id of the file has no record |
+| GATE-3 | R6.GATE.9, R6.GATE.13, R6.CTRL.2, R6.CTRL.30 | gate self-test | decl | adv | duplicate id: two records carry one id (in one job, and separately across jobs) |
+| GATE-4 | R6.GATE.9, R6.GATE.13, R6.CTRL.2, R6.CTRL.30 | gate self-test | decl | adv | unexpected id: a record whose id is not in the file |
+| GATE-5 | R6.GATE.5, R6.GATE.13, R6.GATE.15, R6.CTRL.5, R6.CTRL.30 | gate self-test | decl | adv | unadmitted NOT RUN: a row allowing only PASS reported NOT RUN with a reason |
+| GATE-6 | R6.GATE.1, R6.GATE.3, R6.GATE.8, R6.GATE.13, R6.CTRL.30, R6.EVID.1 | gate self-test | decl | adv | weak runner predicate: A1r recorded PASS with a truthful actual (lint problems nonempty) while the retained result has no record-invalid item for the rule file |
+| GATE-7 | R6.GATE.12, R6.GATE.13, R6.CTRL.1, R6.CTRL.30 | gate self-test | decl | adv | expectation row with no requirement: requirements empty, or naming an id absent from r6 |
+| GATE-8 | R6.GATE.4, R6.GATE.12, R6.GATE.13, R6.CTRL.1, R6.CTRL.30 | gate self-test | decl | adv | requirement with no control: an r6 requirement whose control list is empty or names an id absent from the file |
+| GATE-9 | R6.GATE.5, R6.GATE.7, R6.GATE.9, R6.GATE.13, R6.CTRL.30 | gate self-test | decl | adv | raw evidence missing: a PASS record whose manifest names a result.json absent from the evidence set, or whose sha256 differs |
+| GATE-10 | R6.GATE.7, R6.GATE.8, R6.GATE.9, R6.GATE.13, R6.CTRL.30 | gate self-test | decl | adv | procedural predicate failed: SW1 tuples with one site carrying two new FAIL items while the runner records PASS |
+| GATE-11 | R6.GATE.13, R6.GATE.15, R6.CTRL.5, R6.CTRL.30 | gate self-test | decl | adv | released NOT RUN: RT-L2 reported NOT RUN while its release check holds |
+| GATE-12 | R6.GATE.2, R6.GATE.9, R6.GATE.13, R6.CTRL.1, R6.CTRL.2, R6.CTRL.30 | gate self-test | decl | adv | composite incomplete: S11-2 with S11-2c missing |
+| GATE-13 | R6.GATE.8, R6.GATE.13, R6.GATE.16, R6.CTRL.30, R6.RECON.21, R6.EVID.6 | gate self-test | decl | adv | RT-L2 drafted record: the run uses an unreviewed reconciliation record (drift state unresolved) |
+| GATE-14 | R6.GATE.8, R6.GATE.13, R6.GATE.16, R6.CTRL.30, R6.RECON.21 | gate self-test | decl | adv | RT-L2 record bound to another M: reviewed record whose M blob differs from the run M |
+| GATE-15 | R6.GATE.8, R6.GATE.13, R6.GATE.16, R6.CTRL.30, R6.RECON.21 | gate self-test | decl | adv | RT-L2 partial coverage: reviewed bound record covering one of two drifted paths |
+| GATE-16 | R6.GATE.1, R6.GATE.9, R6.GATE.13, R6.CTRL.30, R6.A1CFG.6, R6.EVID.2, R6.EVID.5 | gate self-test | decl | pos | reference difference: RT-T0 with region_lines.count 214 against reference 215, every expect field met |
+| GATE-17 | R6.GATE.2, R6.GATE.3, R6.GATE.4, R6.GATE.9, R6.GATE.13, R6.CTRL.30 | gate self-test | decl | adv | malformed expectation file: unknown schema id, unknown field, or NOT RUN allowed without reason and release condition |
+| GATE-18 | R6.GATE.11, R6.GATE.13, R6.GATE.14, R6.CTRL.30, R6.CORE.7, R6.A1CFG.7 | gate self-test | decl | pos | positive control: complete, correct records and evidence for a fixture with one row of each predicate kind and one allowed NOT RUN |
+| GATE-19 | R6.GATE.13, R6.GATE.16, R6.CTRL.30, R6.RECON.21, R6.EVID.6 | gate self-test | decl | pos | RT-L2 reconciled: reviewed record bound to the exact H, M and C blobs covering every drifted path |
+| GATE-20 | R6.GATE.1, R6.GATE.5, R6.GATE.9, R6.GATE.13, R6.CTRL.30 | gate self-test | decl | adv | status/actual inconsistency: runner status FAIL with an actual that meets expect |
+| GATE-21 | R6.GATE.6, R6.GATE.10, R6.GATE.13, R6.CTRL.30 | gate self-test | decl | adv | an unexpected survivor: a mutant whose row allows only KILLED recorded SURVIVED |
+| GATE-22 | R6.GATE.6, R6.GATE.10, R6.GATE.13, R6.CTRL.30 | gate self-test | decl | adv | a missing mutant: a MUT row with no mutation record |
+| GATE-23 | R6.GATE.6, R6.GATE.10, R6.GATE.13, R6.CTRL.30 | gate self-test | decl | pos | a known survivor recorded SURVIVED and the not-applied mutant recorded NOT APPLIED (positive) |
+| GATE-24 | R6.GATE.6, R6.GATE.10, R6.GATE.13, R6.CTRL.30 | gate self-test | decl | adv | an unexpected not-applied mutant: a mutant whose row allows only KILLED recorded NOT APPLIED |
+| GATE-25 | R6.GATE.8, R6.GATE.13, R6.CTRL.30 | gate self-test | decl | adv | a double run whose two result files differ by one byte |
+| GATE-26 | R6.GATE.2, R6.GATE.9, R6.GATE.13, R6.CTRL.30 | gate self-test | decl | adv | a row with composed_of and its own runner record: the own record PASS, a component FAIL |
+| GATE-27 | R6.GATE.9, R6.GATE.13, R6.CTRL.3, R6.CTRL.30 | gate self-test | decl | adv | direction missing: (a) a control row in the both-directions scope with no restored expectation, no direction both, no paired_with and no observation exemption; (b) a row whose paired_with names an id that is not a row |
+| GATE-28 | R6.GATE.9, R6.GATE.13, R6.CTRL.30 | gate self-test | decl | both | composite precedence: (a) a composite row whose component A is recorded FAIL and whose component B is an admitted NOT RUN; (b) a composite whose only non-PASS component is an admitted NOT RUN |
+| GATE-29 | R6.GATE.9, R6.GATE.13, R6.CTRL.30 | gate self-test | decl | adv | deferred expectation: a row whose expect outcome is DEFERRED, carrying two candidate expectations, every other row holding |
+| GATE-30 | R6.GATE.12, R6.GATE.13, R6.CTRL.30 | gate self-test | decl | both | correspondence exemption: (a) a requirement of kind status with an empty control list and no verification; (b) the same requirement with verification review |
 | CLASS-RETAINED | R6.PIPE.15, R6.CLASS.2 | to be implemented (tool revision) | decl | adv | a retained ledger entry absent from `edits.json`, with a splice, or with site text differing between `H` and `X` |
 | CLASS-UNLEDGERED | R6.ANCH.15, R6.CLASS.3 | to be implemented (tool revision) | decl | adv | in a ledgered segment, a file not in the ledger whose bytes differ between FROM and TO |
 | CLASS-PROV-AMBIGUOUS | R6.CLASS.4 | to be implemented (tool revision) | decl | adv | an HP region not unique as a whole-line block at a parent; separately, anchors out of order |
@@ -3407,7 +3529,15 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | RULE-MINLIT | R6.RULE.11 | to be implemented (tool revision) | decl | adv | an allow rule whose `matcher.literal` is shorter than 8 characters, with and without the trigger |
 | RULE-ZEROFP | R6.RULE.12 | to be implemented (tool revision) | decl | both | an allow rule with zero fingerprints; and a deny rule |
 | TR28 | R6.REC.18, R6.CTRL.23 | composite (no runner of its own) | decl | both | composite of TR28-tool and TR28-consumer (RD-4) |
-| TR45 | R6.CTRL.17, R6.CTRL.23 | composite (no runner of its own) | decl | both | composite of TR45-opB and TR45-opC (RD-4, RD-26) |
+| TR45 | R6.GATE.15, R6.CTRL.5 | composite (no runner of its own) | decl | both | composite of TR45-opB and TR45-opC (RD-4, RD-26) |
+| LC-1 | R6.TREE.12, R6.TREE.13 | to be implemented (tool revision) | decl | both | composition case "neither side changed": fixture and byte-exact expected landing blob of `p.md` in the expectation file (Q15) |
+| LC-2 | R6.TREE.12, R6.TREE.13 | to be implemented (tool revision) | decl | both | composition case "only X/C changed": fixture and byte-exact expected landing blob of `p.md` in the expectation file (Q15) |
+| LC-3 | R6.TREE.12, R6.TREE.13 | to be implemented (tool revision) | decl | both | composition case "only M changed": fixture and byte-exact expected landing blob of `p.md` in the expectation file (Q15) |
+| LC-4 | R6.TREE.12, R6.TREE.13 | to be implemented (tool revision) | decl | both | composition case "both changed to equal blobs": fixture and byte-exact expected landing blob of `p.md` in the expectation file (Q15) |
+| LC-5 | R6.TREE.12, R6.TREE.13 | to be implemented (tool revision) | decl | both | composition case "both changed to different blobs, ledgered path (a line prepended on M)": fixture and byte-exact expected landing blob of `p.md` in the expectation file (Q15) |
+| LC-6 | R6.TREE.12, R6.TREE.13 | to be implemented (tool revision) | decl | both | composition case "both changed to different blobs, ledgered path (the spliced line moved on M)": fixture and byte-exact expected landing blob of `p.md` in the expectation file (Q15) |
+| LC-7 | R6.TREE.12 | to be implemented (tool revision) | decl | adv | composition case "derived artifact": a derived artifact changed on both sides; REVIEW_REQUIRED for every candidate `L` (expected landing blob open, RE-18) |
+| DELEG-REGEN | R6.DELEG.3, R6.CLASS.9 | to be implemented (tool revision) | proc | both | a re-executed generator in its own clone under `--out`: equal output, one-byte difference, missing output, timeout, extra write, and an evaluated tree whose checker copy accepts anything (Q13) |
 
 **Table 17.2. Record-directory mutants** (set `o9`; each row names the change and the controls
 that distinguish it; the results on the correct implementation and on the mutant are in the
@@ -3417,16 +3547,16 @@ expectation file).
 |---|---|---|
 | MUT:o9:RDIR-m1 | the completeness check omitted: only the `H`-to-`M` scan is used | RDIR-4 |
 | MUT:o9:RDIR-m2 | the shared membership predicate (R6.RDIR.1) without the trailing `/` | RDIR-6 |
-| MUT:o9:RDIR-m3 | RD2 removed | RDIR-11 |
+| MUT:o9:RDIR-m3 | DIR2 removed | RDIR-11 |
 | MUT:o9:RDIR-m4 | the admission check (R6.RDIR.2) removed | RDIR-16 |
 | MUT:o9:RDIR-m5 | mode not compared | RDIR-8 (mode case) |
 | MUT:o9:RDIR-m6 | the blob at `M` compared with `H` instead of `F` | RDIR-1 |
-| MUT:o9:RDIR-m7 | RD3 removed | RDIR-12 (class-prefix case, admitted `D_rec`) |
+| MUT:o9:RDIR-m7 | DIR3 removed | RDIR-12 (class-prefix case, admitted `D_rec`) |
 | MUT:o9:RDIR-m8 | the clean-path test removed | RDIR-7 |
 | MUT:o9:RDIR-m9 | R6.RDIR.10 row 2 bypassed: the rule applied when a class pin names `p` but differs | RDIR-13 |
 | MUT:o9:RDIR-m10 | the completeness check reads bytes before checking the entry type | RDIR-8 (symbolic link and submodule cases) |
 | MUT:o9:RDIR-m11 | RC11 uses the classifier without the completeness check | RDIR-19 |
-| MUT:o9:RDIR-m12 | RD5 removed | RDIR-17, RDIR-24 |
+| MUT:o9:RDIR-m12 | DIR5 removed | RDIR-17, RDIR-24 |
 | MUT:o9:RDIR-m13 | the completeness check's items suppressed for a path a matching class pin classifies | RDIR-21 |
 | MUT:o9:RDIR-m14 | a non-regular entry inside `D_rec` passed to the existing classifier | RDIR-8 (full-path cases) |
 | MUT:o9:RDIR-m15 | the admission ERROR raised for a non-admitted `D_rec` that `H` holds (whenever `M` holds an entry inside it) | RDIR-25 |
@@ -3499,6 +3629,7 @@ bijection's properties (W1); the T1' counts are historical measurements. Counter
 "Fourteen items" reinstated, which must FAIL in both the literal check and DR-5 (S11-7). DR-5 is a plan
 record. RT-I7A runs the proposed amendment check of R6.PLAN.18 at `H` and at T1' as a test of the
 mechanism.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-1275, E-1283. Controls: S11-7, RT-I7, RT-I7A.
 
 **R6.PLAN.9** Item 8 (mirrors byte-identical) maps to `execution` with the subject `mirror`.
@@ -3541,7 +3672,7 @@ an `L` dropping W's workflow. Both halves are asserted.
 Sources: E-1282. Controls: S11-14, RT-L.
 
 **R6.PLAN.16** The plan-dependent parts of R6.PLAN.1 to R6.PLAN.15 are not tool requirements. Each is
-an outstanding obligation of the plan amendment (sec. 32: OBL-1 and OBL-2; the exception parts, OBL-12), a named blocker on the execution it gates,
+an outstanding obligation of the plan amendment (sec. 32: OBL-27 for the countercontrol and plan-side behaviours, OBL-1 and OBL-2; the exception parts, OBL-12), a named blocker on the execution it gates,
 verified at `F` against the plan's checker as frozen with the plan:
 - that the plan's own check fails on each countercontrol mutant where R6.PLAN.1 says so, and the
   plan-side behaviours cited in items 1, 2, 3, 4, 8, 12 and 14;
@@ -3555,7 +3686,6 @@ verified at `F` against the plan's checker as frozen with the plan:
 An extension of the plan's recorded execution exceptions may cover only the parts identical to them:
 the parameter-equality clause (ESC-2), the fingerprinted W1 and W2 sentences (ESC-1) and the line
 content (ESC-4). Every other part falls under the obligations above.
-OPEN: PLAN.16 countercontrol obligation id.
 Sources: E-1268, E-1269, E-1271, E-1272, E-1273, E-1274, E-1276, E-1280, E-1282. Controls: S11-56.
 
 **R6.PLAN.17** The eight gaps of the plan's preservation checker are requirements of the plan
@@ -3572,7 +3702,6 @@ plan execution it gates; the tool discharges none of them:
 8. a stale docstring ("four coverage entries" against seven STALE entries).
 
 The tool's `pdf` class and its disposable clone are mitigations on the tool side, not discharges.
-OPEN: correspondence exemption for non-testable requirements.
 Sources: RV-031, RV-032, RV-033, RV-034, RV-035, RV-036, RV-037, RV-038. Controls: none (outstanding
 obligations of the plan amendment; verified at `F`, sec. 32).
 
@@ -3629,7 +3758,6 @@ Sources: A-009, A-020, A-023, A-024. Controls: RDIR-16, MUT:o9:RDIR-m4, TR48, Z9
 **R6.PLACE.5** A new audit directory under `verification/audits/` holds the rule files, scope records,
 HP, context and hit classification records, review records, reconciliation records, and the tool's
 landing record of the real-tree runs with their commits, commands, counts and results.
-OPEN: correspondence exemption for non-testable requirements.
 Sources: E-1294, V1-148, V2-115. Controls: none (placement; verified by review).
 
 **R6.PLACE.6** The plan's `delegation.json`, `hp.json`, `retirement-config.json`, rule files,
@@ -3646,7 +3774,8 @@ touches no ledgered path. The landing check of the tool's own pull request verif
 the tool-landing head against `H`: every path the landing changes relative to its first parent lies
 under those paths, none is a path the ledger based at `H` touches, and a landing that touches one is
 FAIL `base-drift`.
-OPEN: tool landing check corpus paths.
+Corpus paths that the ledger does not touch are not excluded by this check; it covers the ledgered
+paths, as stated (RE-34 (a)).
 Sources: V2-118, E-1298, A-129. Controls: TT14, TT13, R19.
 
 **R6.PLACE.9** Records strengthen no claim.
@@ -3702,7 +3831,7 @@ Sources: V2-014. Controls: TT5, TT3.
 **R6.TREE.4** `M` is resolved once and recorded. `H` is on `M`'s first-parent chain; otherwise ERROR
 `MAIN_NOT_DESCENDANT`. The tree of `R` at `M` is pinned. Every path that differs between `H` and `M`
 is a side change, listed with the first-parent commit on `M` that made it. Directory admission and the
-conditions RD2-RD5 of sec. 21 are evaluated in the `M` role with `--freeze`, as role-dependent
+conditions DIR2-DIR5 of sec. 21 are evaluated in the `M` role with `--freeze`, as role-dependent
 validation.
 Sources: V2-129, V2-130, E-1302. Controls: TT6, RDIR-23.
 
@@ -3777,8 +3906,9 @@ Sources: V2-138, E-1306. Controls: TT9, R15.
     `landing-conflict-unresolved`.
 
 Any other path content of `L` is FAIL `landing-extra-change`.
+OPEN: derived-artifact landing blob.
 Sources: V2-139, V2-140, V2-142, V2-144, E-1306, E-1307, E-1308, E-1309, RV-001. Controls: TT7, TT8,
-TT10, TT11, RL, RT-L, N10, N11.
+TT10, TT11, RL, RT-L, N10, N11, LC-1, LC-2, LC-3, LC-4, LC-5, LC-6, LC-7.
 
 **R6.TREE.13** Translation. For a ledgered path, the `M`-translated offset of a splice is the offset of
 the unique occurrence at `M` of the splice's old bytes, after those old bytes, taken from `H` at the
@@ -3786,8 +3916,14 @@ splice's span, are verified against `old_sha256`. A composition exists only if e
 occur exactly once at `M` and the translated splices do not overlap; each translated span's bytes are
 re-verified against `old_sha256`. "Translation" in sec. 20 and sec. 23 means the ledger's splices at
 their `M`-translated offsets.
-OPEN: translation implementation.
-Sources: E-1307. Controls: N8, N13, TT8.
+This is the one definition of translation (RE-33 (a)): the landing check, the reconciliation
+conditions and the landing builder that RT-L, RT-L2, TT7, TT8 and RL use all compose by it, as the
+landing check's composition at the tool commit does (unique occurrence of the old bytes at `M`,
+`old_sha256` re-verified). The builder at the tool commit maps lines by similarity and falls back to
+`C`'s bytes; that is a verification defect, corrected in the tool revision (OBL-28, C-18). The
+landing controls LC-1 to LC-7 state, for each composition case of R6.TREE.12, the fixture bytes and
+the byte-exact expected landing blob, worked independently from this definition (Q15).
+Sources: E-1307. Controls: N8, N13, TT8, LC-1, LC-2, LC-3, LC-4, LC-5, LC-6.
 
 **R6.TREE.14** The landing carries exactly the execution's own diff: the diff `M..L`, restricted to
 the paths `M` did not change, equals the diff `H..C`; and the diff `C..L` equals the side changes
@@ -3815,8 +3951,9 @@ Sources: RV-001. Controls: TT2, TT7.
 
 **R6.TREE.18** The role cases are each tested: an unclassified change on `M` gives REVIEW_REQUIRED
 (R18, R19, RDIR-5); a first parent other than the recorded `M` fails (R15); an unclassified path in a
-commit of `C` fails (R16); op C on a correctly executed candidate gives PASS (TT13).
-Sources: RV-ADD2-259-269. Controls: R18, R19, RDIR-5, R15, R16, TT13.
+commit of `C` fails (R16, with R17 for a record path admitted after `F`); R18-engine and R19-engine
+are the engine forms of R18 and R19 (B-7); op C on a correctly executed candidate gives PASS (TT13).
+Sources: RV-ADD2-259-269. Controls: R18, R19, RDIR-5, R15, R16, TT13, R18-engine, R19-engine, R17.
 
 ***
 
@@ -3833,7 +3970,7 @@ configuration's path in `F` (the path `--config F:P_cfg` names), and `D_rec` is 
 entry is a non-tree entry of a commit's tree with its mode, as the object reader lists entries:
 regular files (`100644`, `100755`), symbolic links (`120000`) and submodules (`160000`). A path is
 inside `D_rec` when it begins with `D_rec` followed by `/`; this one membership predicate is used by
-every part of the rule (completeness, classification, application and RD3). `F-entries` and
+every part of the rule (completeness, classification, application and DIR3). `F-entries` and
 `M-entries` are the entries inside `D_rec` at `F` and at `M`.
 Sources: A-015, A-016, A-017, A-018. Controls: RDIR-6, RDIR-10, MUT:o9:RDIR-m2.
 
@@ -3845,7 +3982,7 @@ add to it, and changing it is a tool revision. The constant guards every run of 
 check in the pinned workflow would guard only runs of that workflow.
 Sources: A-019, A-021, A-022, A-138. Controls: RDIR-16, RDIR-20, MUT:o9:RDIR-m4.
 
-**R6.RDIR.3** Scope of evaluation. Directory admission, the conditions RD2-RD5 and the completeness
+**R6.RDIR.3** Scope of evaluation. Directory admission, the conditions DIR2-DIR5 and the completeness
 check are evaluated only by an operation that evaluates `M` with an admitted `F`: the `M` role of
 `execution` (`--main` with `--freeze`; item 14's candidate and landing commands and the RT-L2
 safeguard), and condition RC11 of the reconciliation records it evaluates. Every other operation
@@ -3855,8 +3992,8 @@ Sources: A-025. Controls: RDIR-23, RDIR-14.
 
 **R6.RDIR.4** Within that scope, from `H`, `F`, `M` and the configuration, before any side change is
 classified:
-- RD5 is evaluated always;
-- if `D_rec` is admitted, RD2-RD4 are evaluated, then R6.RDIR.6 to R6.RDIR.10 apply;
+- DIR5 is evaluated always;
+- if `D_rec` is admitted, DIR2-DIR4 are evaluated, then R6.RDIR.6 to R6.RDIR.10 apply;
 - if `D_rec` is not admitted and `M` holds no entry inside `D_rec`, the rule is inactive and the run
   continues unchanged;
 - if `D_rec` is not admitted and both `H` and `M` hold an entry inside `D_rec`, the rule is inactive and
@@ -3871,18 +4008,19 @@ A `D_rec` that is not admitted never receives a `record-directory` classificatio
 Sources: A-026, A-027, A-028, A-029, A-030, A-031, A-032. Controls: RDIR-10, RDIR-12b, RDIR-16,
 RDIR-20, RDIR-22, RDIR-25, MUT:o9:RDIR-m15, MUT:o9:RDIR-m16, MUT:o9:RDIR-m17.
 
-**R6.RDIR.5** The conditions. If any of RD2-RD5 fails, the run stops with ERROR `CONFIG_INCONSISTENT`
+**R6.RDIR.5** The conditions. If any of DIR2-DIR5 fails, the run stops with ERROR `CONFIG_INCONSISTENT`
 naming the condition, and no path is classified by the rule.
-- RD2: no entry inside `D_rec` exists at `H`.
-- RD3: no ledgered path, no corpus path (the configuration's `corpus.patterns`), no path under a prefix
+- DIR2: no entry inside `D_rec` exists at `H`.
+- DIR3: no ledgered path, no corpus path (the configuration's `corpus.patterns`), no path under a prefix
   of any side-change class the configuration references, and no path under `.github/` lies inside
   `D_rec`, at `F` or at `M`.
-- RD4: `F`'s tree holds `P_cfg` and the file of record pins inside `D_rec`.
-- RD5: no side-change class in the run's admitted class set uses the class id `record-directory`, which
+- DIR4: `F`'s tree holds `P_cfg` and the file of record pins inside `D_rec`.
+- DIR5: no side-change class in the run's admitted class set uses the class id `record-directory`, which
   is reserved for this rule. The admitted class set is every class from the class records the
   configuration references and from the class records admitted through `--classify`; a class record
   from either route that defines the id is ERROR `CONFIG_INCONSISTENT`.
-OPEN: RD2-RD5 names.
+The names DIR2-DIR5 replace the r5 labels D2-D5 so that they cannot be read as the residual-decision
+labels RD-2 to RD-5 (RE-28; sec. 34).
 Sources: A-033, A-034, A-035, A-036, A-037. Controls: RDIR-9, RDIR-11, RDIR-12, RDIR-17, RDIR-24,
 MUT:o9:RDIR-m3, MUT:o9:RDIR-m7, MUT:o9:RDIR-m12.
 
@@ -3904,8 +4042,8 @@ link or submodule never reaches a byte read and never raises. Such a side change
 called for it, in the `M` role and in RC11 alike, and the completeness check reports it as well.
 Outside `D_rec` the tool at the tool commit passes a non-regular side change to the classifier's byte
 read, which refuses it; that is a verification defect, corrected in the tool revision and tested by
-SIDE-NONREG.
-OPEN: side-change entry type outcome.
+SIDE-NONREG; outside `D_rec` the outcome is the same REVIEW_REQUIRED `side-change-unclassified`
+(`not a regular file`) (RE-15).
 Sources: A-042, A-046. Controls: RDIR-8, SIDE-NONREG, MUT:o9:RDIR-m10, MUT:o9:RDIR-m14.
 
 **R6.RDIR.8** Each unequal path is an item REVIEW_REQUIRED `side-change-unclassified` naming the path
@@ -3932,12 +4070,12 @@ Where applied, `p` is classified `record-directory` exactly when the rule is act
 `D_rec`, no component of `p` is empty, `.` or `..`, and the completeness check finds `p` equal.
 Otherwise `p` stays `side-change-unclassified` with the completeness reason, or with the reason
 `outside the record directory`. A ledgered or corpus path is `base-drift` before any classification
-(R6.TREE.7); by RD3 none lies inside `D_rec`.
+(R6.TREE.7); by DIR3 none lies inside `D_rec`.
 Sources: A-047, A-048, A-049, A-050, A-051. Controls: RDIR-1, RDIR-5, RDIR-7, RDIR-13, MUT:o9:RDIR-m8,
 MUT:o9:RDIR-m9.
 
 **R6.RDIR.11** The rule and the completeness check are one function, called with the same context
-(`F`, `D_rec`, the admission check and RD2-RD5) by both places that classify side changes: the `M`
+(`F`, `D_rec`, the admission check and DIR2-DIR5) by both places that classify side changes: the `M`
 role of `execution` (item 14's candidate and landing commands and the RT-L2 safeguard), and condition
 RC11 of a reconciliation record, which enumerates side changes on its own (sec. 23). Without
 `--freeze` (control-harness runs without a stand-in `F`) the rule is inactive, the completeness check
@@ -3947,16 +4085,18 @@ MUT:o9:RDIR-m11.
 
 **R6.RDIR.12** Output. Each side change classified by the rule is listed with `class:
 "record-directory"`, its first-parent commit, and its mode, blob id and sha256 at `F` and at `M`. The
-result records `D_rec`, the admission match, the outcomes of RD2-RD5, and the completeness counts
+result records `D_rec`, the admission match, the outcomes of DIR2-DIR5, and the completeness counts
 (paths equal; paths unequal, by reason). The field list is part of the result schema (sec. 7).
 Sources: A-058, A-059. Controls: RDIR-1, RT-O9.
 
 **R6.RDIR.13** The literals the rule needs in the engine are engine enumerations: the reserved class id
 `record-directory`, the reason strings (`absent at M`, `absent at F`, `differs from F`, `not a regular
 file`, `outside the record directory`, `directory not admitted`) and the reserved prefix `.github/`.
-The purity lint admits them as such; whether its allowlist admits each one is checked against the lint
-at the tool commit, and a literal it does not admit is a verification defect.
-OPEN: engine literals check.
+The reserved class id
+`record-directory` is an enumeration that the purity lint's enumeration rule admits. The reason
+strings pass the lint's occurrence rule and are not allowlisted. The reserved prefix `.github/` is a
+path literal that no enumeration admits; it moves to `record_authority.py`, which bounds what a
+configuration may claim (OD-5's exception class), in the tool revision (RE-19 (b); OBL-28).
 Sources: A-035, A-037, A-041. Controls: Z9g, Z9-STAGED.
 
 **R6.RDIR.14** Real-tree control. RT-O9 runs `execution` on the predicted `M` (`main` plus the tool
@@ -3966,7 +4106,8 @@ sha256) and requires the run's `record-directory` entries to equal that set exac
 none extra, modes and hashes equal), no unequal path, and no `side-change-unclassified`. These checks
 run and are gated whenever RT-O9 runs. The further clause that RT-L2 holds on the same predicted `M` is
 the separate row RT-O9-L2, which depends on RT-L2 (sec. 23).
-OPEN: RT-O9 base-drift clause.
+The absence of `base-drift` on that `M`, which holds only through the drafted reconciliation record,
+belongs to RT-O9-L2 with the clause that RT-L2 holds (RE-5 (a)).
 Sources: A-087, A-088. Controls: RT-O9, RT-O9-L2.
 
 ***
@@ -4067,7 +4208,10 @@ Sources: E-1347. Controls: N13.
 **R6.RECON.11** RC6 (approved text): the composition exists, and at each translated splice it carries
 the splice's new bytes, which hash to the ledger's `new_sha256` and equal the record's `new_sha256`; the
 candidate carries the same new bytes at the splice.
-OPEN: RC6 and RC9.
+At the tool commit RC6 reads the candidate's bytes at the splice's `H` offset, which is wrong after
+an earlier length-changing splice in the same file; it fails closed and is a verification defect,
+corrected in the tool revision with a control of two splices in one file, the first changing length
+(OBL-28, C-19).
 Sources: E-1349. Controls: N14.
 
 **R6.RECON.12** RC7 (composed blob): the composition's git blob id and sha256 equal the record's `l` and
@@ -4080,8 +4224,9 @@ Sources: E-1349. Controls: N15.
 
 **R6.RECON.14** RC9 (protected bytes): the bytes of the composition after the last translated splice
 equal `M`'s bytes after it, and every protected range the record lists occurs exactly once at `M` and
-exactly once in the composition, with equal bytes and the recorded sha256.
-OPEN: RC6 and RC9.
+exactly once in the composition, with equal bytes and the recorded sha256; each protected range lies after the last translated splice
+and has integer offsets (RE-29 (a)). A purpose check that this stricter form rejects no valid record
+precedes adoption (OBL-28).
 Sources: E-1348. Controls: N6.
 
 **R6.RECON.15** RC10 (other ledgered files): for every ledgered file other than the record's path, the
@@ -4119,8 +4264,9 @@ record quotes the resolved id and the command. A failed `git ls-remote`, an outp
 `refs/heads/main` line, an id that is not a full 40-hex id or that the verified reader cannot read, or
 an id other than `L`'s first parent refuses the landing. The consumer then requires `T` on `M`'s
 first-parent chain.
-OPEN: RT-L2 on the re-resolved M.
-Sources: E-1354. Controls: EI5, TR29.
+When the re-resolved `M` differs from the predicted `M`, RT-L2 must hold on the re-resolved `M`
+before the landing (RE-22 (a)).
+Sources: E-1354. Controls: EI5, TR29, RT-L2.
 
 **R6.RECON.21** Sequencing safeguard. Before the tool lands, RT-L2 runs `execution` against a predicted
 `M` that contains the tool's landing paths, with an in-memory landing (R6.TREE.15). It requires every
@@ -4176,8 +4322,8 @@ example "a1exit deletion exact-edit ledger v2"), lie outside the engine, in
 `tools/ledger_coverage/adapters/`. The following literals are engine enumerations and are listed by
 name in the allowlist of R6.CORE.5: the reserved side-change class id `record-directory`, the reason
 strings of the record-directory rule (`absent at M`, `absent at F`, `differs from F`,
-`not a regular file`, and the reasons naming RD2-RD5 and `directory not admitted`), and the path
-prefix `.github/` used by condition RD3. Sources: E-1376, RD-20. Controls: Z9a, Z9b, Z9c, Z9d, Z9g.
+`not a regular file`, and the reasons naming DIR2-DIR5 and `directory not admitted`), and the path
+prefix `.github/` used by condition DIR3. Sources: E-1376, RD-20. Controls: Z9a, Z9b, Z9c, Z9d, Z9g.
 
 **R6.CORE.3** Z9, the purity lint, runs over the source blobs of `tools/ledger_coverage/engine/` and
 the entry point `tools/ledger_coverage.py`, parsed by `ast`. Its scope is exactly those blobs; adapter
@@ -4486,10 +4632,10 @@ sec. 31. Sources: E-1435, OD-1, OD-2, ME-3. Controls: GATE-16, RT-T0.
 control outcome of sec. 17 that the expectation file states, including the record-directory controls
 RDIR-1 to RDIR-25 and RDIR-12b, RT-O9 (with its dependent clause as in OBL-14) and the item-2 controls
 I2-1 to I2-8. Rule outcomes (deny, allow, `resid`) are measured with the plan's rule files as pinned
-control inputs; the rules themselves are plan records adopted at `F` (sec. 12, OBL-3). V4's expected
-outcome is the one the expectation file states after the owner's decision on the V4 reversal; this
-draft does not adopt that reversal (OBL-6).
-OPEN: V4 reversal scope.
+control inputs; the rules themselves are plan records adopted at `F` (sec. 12, OBL-3). The expected
+outcomes of V4, V27, V27-glossary and V15 are deferred until the owner's decision on the V4 reversal
+at r6's adoption (RE-1, OBL-6); until then they do not count toward S13.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-1436, MC-13, OD-8, RD-14. Controls: GATE-18,
 V5, V15, V27, V7a, V7b, V7c, V23, V24, V25, V26, RT-I7, RT-I7A, RT-DR, RT-DR3W.
 
@@ -4533,8 +4679,9 @@ A-086, OD-31. Controls: RDIR-25, RDIR-12b.
 ## 29. Fail-closed configuration validation
 
 **R6.VALID.1** Static validation of the configuration runs in the integrity stage (sec. 3), before
-any subject is evaluated. Role-dependent validation (directory admission and conditions RD2-RD5,
-sec. 21) runs only in an operation that evaluates `M` with an admitted `F`, before any side change is
+any subject is evaluated. Role-dependent validation (directory admission and conditions DIR2-DIR5,
+sec. 21; the delegation contract; duplicate class ids among `--classify` records; declared-site
+uniqueness; the HP segment chain) runs only in an operation that evaluates `M` with an admitted `F`, before any side change is
 classified. No configuration defect can lead to PASS. Sources: E-1449, OD-27. Controls: Z1, Z2, Z3,
 Z4, Z5, Z6, Z7, Z8, RDIR-11, RDIR-16.
 
@@ -4559,8 +4706,11 @@ Sources: E-1450, E-1451, E-1452, E-1456. Controls: Z1, Z2, Z3, Z4, Z6, Z6b, Z8, 
 - an execution-identity failure, such as a producing run whose head branch is not `main`: ERROR
   `CONFIG_UNREVIEWED`;
 - a pinned input whose blob matches its pin but whose content fails its integrity rules (an unknown
-  ledger schema id; the ledger integrity failures of M3-M5): ERROR with the named class the engine
-  raises (`LEDGER_INTEGRITY`, `SCIENTIFIC_BASE_MISMATCH`);
+  ledger schema id; the ledger integrity failures of M3-M5): ERROR `LEDGER_INTEGRITY`, or the
+  named integrity class (`SCIENTIFIC_BASE_MISMATCH`); never `SOURCE_CHANGED` (RE-16);
+- a pinned role or tree identity that differs: ERROR with the named class (RE-17 (i)); a malformed
+  configuration is refused at admission first in a chain-admitted run (`CONFIG_UNREVIEWED`) and is
+  `CONFIG_INVALID` in a control-harness run (RE-17 (ii));
 - a record whose blob matches its pin but whose content fails its lint or its review, or a record
   passed with `--classify` that the configuration does not reference: FAIL `record-invalid`.
 
@@ -4572,7 +4722,7 @@ ledger's; a merge off the chain; a context value missing; an extractor hash mism
 profile; a `final_profiles` entry that is not a review profile; a side-change class id defined more than
 once; and, in the role-dependent validation of R6.VALID.1, a record directory that is not admitted
 while `H` holds no entry inside it and `M` holds one (reason `directory not admitted`), or a failed
-condition RD2, RD3, RD4 or RD5 (reason naming the condition, with no path classified by the rule).
+condition DIR2, DIR3, DIR4 or DIR5 (reason naming the condition, with no path classified by the rule).
 Sources: E-1455, A-031, A-033, A-037, OD-6, OD-27, OD-31. Controls: Z7, Z11, RDIR-9, RDIR-11,
 RDIR-12, RDIR-16, RDIR-17, RDIR-20, RDIR-24.
 
@@ -4591,7 +4741,7 @@ RDIR-12, RDIR-16, RDIR-17, RDIR-20, RDIR-24.
 - the HP obligation's pinned merges;
 - the tool commit `T`, the run's repository, head repository and event, and the engine blob hash (the
   entry point and every engine module), each tool blob equal to its `tool` pin;
-- for the record-directory rule: the directory `D_rec`, the admission match, the outcomes of RD2-RD5,
+- for the record-directory rule: the directory `D_rec`, the admission match, the outcomes of DIR2-DIR5,
   and the directory-completeness counts (paths equal, paths unequal by reason), with each classified
   side change listed as in sec. 21.
 
@@ -4618,7 +4768,8 @@ unchanged. Sources: V1-127, V1-131, V1-027, RD-11. Controls: OUT-CONFINED.
 it (in `expect.counts`, `expect.sites` or an invariant) and the control's inputs are reachable from
 `main`. The gate compares it with the gate-extracted actual; a difference is `declarative-mismatch` and
 fails the gate (sec. 16). The counts are the implementation's to report; a deviation is investigated as
-a defect, never fitted. Sources: E-035, E-036, E-019, E-1368, V2-106, ME-3, RD-3, OD-1. Controls:
+a defect, never fitted. A figure qualifies for current acceptance only as evidence of kind 2 or 3
+(R6.EVID.7). Sources: E-035, E-036, E-019, E-1368, V2-106, ME-3, RD-3, OD-1. Controls:
 GATE-1, GATE-6.
 
 **R6.EVID.2** A figure in a row's `reference` field is informational. A difference between it and the
@@ -4653,6 +4804,7 @@ are historical measurements (OBL-23).
 | 697 sites swept, each with exactly one new FAIL | SW1 | `E` |
 | 399 splices verified at `H`; 23 corpus files and 21 other ledgered files conform | RT-C (after RD-3) | `H` |
 
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-037, E-038, E-074, E-039, E-042, E-045, E-046, E-047, E-049, E-089, E-090, ME-3, RD-3,
 RD-23, MC-1, MC-2, VD-10, RD-11. Controls: RT-A, RT-E, RT-H0, RT-T0, RT-D, RT-I7, RT-DR, RT-DR3W,
 RT-I7A, item11-T1p, SW1, SW2, RT-C.
@@ -4678,6 +4830,7 @@ the appendix:
 - the parity figures 2822 / 2822, 16905 / 16905, 273, 4000 cases and 401 / 399 (OBL-2);
 - every figure of v6.0e sec. 14 not listed in R6.EVID.4.
 
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-037, E-038, E-039, E-042, E-045, E-046, E-047, E-089, E-040, E-041, E-043, E-044, E-048,
 E-088, E-1356, E-1357, E-1358, E-1359, E-1360, E-1361, E-1362, ME-2, ME-3. Controls: GATE-16.
 
@@ -4688,6 +4841,26 @@ OBL-13 is discharged. Its step 6 exited 1 with verdict PASS because RT-T was NOT
 preregistered decision rule requires. Sources: OD-18, Q2, MC-4, E-1363. Controls: RT-L2, GATE-13,
 GATE-19.
 
+**R6.EVID.7** Evidence kinds (Q16). r6 distinguishes four kinds of evidence, and each obligation of
+sec. 32 names the kind that discharges it:
+1. pre-merge candidate validation: a run recorded on the exact candidate commit of a pull request
+   before its landing merge. It is evidence for the landing decision and is provenance (AGENTS.md
+   sec. A.42 item 2) until the candidate commit is reachable from `main`;
+2. qualifying landing evidence: once the landing merge is on `main`, the candidate commit is reachable
+   from `main`, and a run recorded on it qualifies under AGENTS.md sec. A.42 item 1 with its recipe and
+   its expected result, provided every other input the run read is reachable from `main` as well;
+3. post-merge confirmation: the recipe re-run on `main` after the landing merge;
+4. A1 execution evidence: runs of the A1 retirement execution, gated at `F` and made under the frozen
+   plan.
+Every figure carries two separate attributes: obtained (the run, its commit and what it showed,
+recorded as provenance) and qualifies for current acceptance (evidence of kind 2 or 3). At r6's
+drafting every figure of R6.EVID.4 is obtained and none qualifies: `T1'`, `P` and the tool commit
+a37992449b452021001277c06c524a30c92dfb87 are not reachable from `main` (RE-36). A figure qualifies only
+after the tool revision and its inputs are reachable from `main` and its run is recorded or repeated
+there. No obligation is discharged by evidence of a kind it does not name, and no gate is passed by
+an exception the obligation does not state.
+Sources: RE-36, Q16, ME-3, RD-23. Controls: none (definition of evidence kinds; verified by review).
+
 ***
 
 ## 32. Outstanding obligations
@@ -4696,6 +4869,42 @@ Each obligation below is a named blocker on the step it gates. It stays outstand
 evidence or decision discharges it; no tool requirement discharges it by implication (Q5). The gated
 steps are: the tool's landing (the tool revision that implements r6), the plan freeze `F`, the A1
 retirement execution, and r6's adoption.
+
+Evidence kinds (R6.EVID.7) and the trace of each gate (Q16; the gate assignments of OBL-13, OBL-14
+and OBL-26 are confirmed, RE-37). A cycle is evidence that must qualify before the merge that
+makes it qualify; each cycle and each evidence that cannot qualify is an open item, and none is
+resolved by an exception:
+
+| Obligation | Gates | Evidence kind that discharges it | Trace |
+|---|---|---|---|
+| OBL-1 | plan freeze `F`; trials claiming items 5 or 6 | 4 (the comparison recorded at `F`), by a script landed on `main` before `F` (2) | no cycle |
+| OBL-2 | plan freeze `F` | 2 (a retained script on `main` before `F`), or the narrowing | no cycle |
+| OBL-3 | plan freeze `F` | 4 (reviewed rule records frozen at `F`) | no cycle |
+| OBL-4 | plan freeze `F` | 4 | no cycle |
+| OBL-5 | plan freeze `F`; trials claiming item 7 | 4 | no cycle |
+| OBL-6 | r6's adoption; plan freeze `F` | the owner's recorded decision (none of the four kinds); 4 for the rule records | no cycle; rests on V5-D1, pending owner confirmation |
+| OBL-7 | plan freeze `F`; RT-T's release | 4 | no cycle; RT-T's run at `T1'` cannot qualify (OBL-15) |
+| OBL-8 | plan freeze `F`; acceptance of the affected delegated classes | 4 | no cycle |
+| OBL-9 | plan freeze `F` | 4 | no cycle |
+| OBL-10 | plan freeze `F` | 4 | no cycle |
+| OBL-11 | plan freeze `F` | 4 | no cycle |
+| OBL-12 | the A1 retirement execution | 4 | no cycle |
+| OBL-13 | the tool's landing | 1 only: RT-L2 runs before the tool lands, on the predicted `M`, with `X` = `T1'` and the stand-in `F` | no cycle; the evidence cannot become kind 2 or 3: `T1'` and the stand-in `F` are not reachable from `main` and the predicted `M` exists only before the landing (open) |
+| OBL-14 | the tool's landing | as OBL-13 | as OBL-13 (open) |
+| OBL-15 | plan freeze `F`; the A1 retirement execution | 4 (records at `F`); RT-T runs at `X` = `T1'` | no cycle; RT-T's run at `T1'` cannot qualify while `T1'` is not reachable from `main` (open) |
+| OBL-16 | plan freeze `F` (TR5); the A1 retirement execution (G-A1) | TR5: a host run that needs `F` on `main`; G-A1: 4 | cycle: the freeze of `F` waits for TR5, and TR5 needs `F` on `main`; under AGENTS.md sec. A.39 `F` reaches `main` only with the round's landing after `E` (open) |
+| OBL-17 | the A1 retirement execution | 4 | no cycle |
+| OBL-18 | acceptance of a chain-admitted result in the A1 retirement execution | a dispatch after the tool lands (3-type, on a branch holding `T'`) | no cycle |
+| OBL-19 | the tool's landing | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm | no cycle |
+| OBL-20 | the tool's landing | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm | no cycle |
+| OBL-21 | the tool's landing | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm | no cycle |
+| OBL-22 | the tool's landing | the owner's advance approval and an independent review (governance), with 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm | no cycle |
+| OBL-23 | the use of `T1'` figures as acceptance references for the tool's landing | 2 only when the objects of `T1'` are reachable from `main` | no cycle; blocked until those objects land; until then the figures stay historical (RE-36 (a)) (open) |
+| OBL-24 | the tool's landing | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm; the harness lands with the tool revision (RE-9 (a)) | no cycle |
+| OBL-25 | the tool's landing | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm | no cycle |
+| OBL-26 | r6's adoption | conformance records of the tool commit a3799244 (provenance) | cycle: r6's adoption is a governed decision whose support must be re-established from `main` (AGENTS.md sec. A.42), the checks read a3799244, which is not reachable from `main`, and a3799244 reaches `main` only through the tool's landing, which follows r6's adoption (open) |
+| OBL-27 | plan freeze `F` | 4 | no cycle |
+| OBL-28 | the tool's landing | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm | no cycle |
 
 **OBL-1** P-parity of `register` and `infinity`. The engine's `register` and `infinity` profiles
 implement items 5 and 6 of P's plan as P's frozen checker defines them: per edit and per step of the
@@ -4717,7 +4926,7 @@ DR-5; the review profile `resid` (resid-a, resid-b, resid-c); the W1 allow rules
 entries, their `EXPLAINED` substring entries and the blanket `(A1)` strip; and the converted
 `EXPLAINED` entries are plan records. Each is independently reviewed and adopted with the amended
 plan at `F`. Until then the controls use the current rule files as pinned control inputs. Gates: plan
-freeze `F`. Discharged by: the reviewed rule records frozen at `F`. Sources: E-1001, E-1002, E-1003,
+freeze `F`. Discharged by: the reviewed rule records frozen at `F`. Pending owner confirmation (see PARAPHRASED-DECISIONS.md). Sources: E-1001, E-1002, E-1003,
 E-1004, E-1005, E-1006, E-1020, E-1021, E-1022, E-1024, E-1025, E-1026, E-1027, OD-8.
 
 **OBL-4** Corpus terminology decision. DR-1's ordinal alternatives also match legitimate references
@@ -4745,7 +4954,8 @@ Consequence of the reversal: an added sentence of V4's form reaches PASS without
 adoption (the V4 reversal, adopted or rejected at that step); plan freeze `F` (acceptance of the residual
 forms or further rules, as rule records). Discharged by: the owner's recorded decision on the V4
 reversal at r6's adoption, and the reviewed rule records at `F`.
-OPEN: V4 reversal scope.
+The decision covers V4, V27, V27-glossary and V15 together (RE-1).
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-1365, E-1366, RD-14, Q10.
 
 **OBL-7** The fifth `ptr` hit. `papers/GR.md:58` ("For a finite total system, ...") matches `ptr` at
@@ -4787,7 +4997,7 @@ plan freeze `F`. Discharged by: the frozen amendment and configuration. Sources:
 **OBL-11** Staged A1 configuration. The A1 configuration staged for `F` pins `tool.files` (including
 `record_authority.py`), `tool.workflow`, the tool-landing class record, and the `records` entries
 `context-adjudications.json` and `hit-classifications.json`. Gates: plan freeze `F`. Discharged by: the
-reviewed configuration listed in `F`'s pin table. Sources: A-131.
+reviewed configuration listed in `F`'s pin table. Sources: A-131, RE-38.
 
 **OBL-12** A1 evidence gaps. ESC-1 to ESC-4 stay unresolved A1 evidence gaps; ESC-5 is
 administrative; ESC-6 (the correction of the S1 classifications and the landing README) stays open
@@ -4800,27 +5010,35 @@ unclassified side change. RT-L2 is NOT RUN until a reviewed reconciliation recor
 bound to the exact `H`, `M` and `C` blobs of the run and passing record lint, and side-change class
 records for the unclassified paths exist; it is then three-valued (sec. 23). Gates: the tool's landing.
 Discharged by: RT-L2 run and PASS (no drift, or validly reconciled).
-OPEN: gate assignments of obligations.
+Evidence: kind 1 only (sec. 32 trace; RE-37 confirms the gate).
+OPEN: T1'-bound evidence cannot qualify.
 Sources: E-1363, OD-18, Q2, MC-4.
 
 **OBL-14** RT-O9's dependent clause. RT-O9's own record-directory checks run and are gated. Only its
-clause "RT-L2 still PASS" is an outstanding dependent assertion, NOT RUN while RT-L2 is NOT RUN.
+clauses that RT-L2 still holds and that no `base-drift` occurs on the predicted `M` are an outstanding
+dependent assertion, RT-O9-L2, NOT RUN while RT-L2 is NOT RUN (RE-5 (a)).
 Gates: the tool's landing. Discharged by: RT-L2's release and PASS (OBL-13).
-OPEN: RT-O9 base-drift clause. OPEN: gate assignments of obligations.
+Evidence: as OBL-13 (RE-37 confirms the gate).
+OPEN: T1'-bound evidence cannot qualify.
 Sources: RD-6, Q6, MC-4.
 
 **OBL-15** Reviewed records for RT-T. RT-T is NOT RUN until every reviewed record of sec. 14's review
 load exists at `F` and verifies: HP adjudications for the 113 `E..H` site changes, context
 adjudications for the meaning-context sites, structure reviews, and hit classification records for the
 replacement-region and unheld hit lines (including `papers/GR.md:58`). Gates: plan freeze `F`; the A1
-retirement execution. Discharged by: RT-T run and PASS with every record. Sources: E-1062, E-1063,
+retirement execution. Discharged by: RT-T run and PASS with every record.
+OPEN: T1'-bound evidence cannot qualify.
+Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
+Sources: E-1062, E-1063,
 RD-9, OD-20.
 
 **OBL-16** Native runs for G-A1 and TR5. TR5 needs a plan commit `F` on `main` with a reviewed
 configuration and its pin table, and a host `workflow_dispatch` run of the pinned workflow. G-A1 needs
 an admitted configuration and native delegated runs in clones at `X` and `C`. Gates: plan freeze `F`
 (TR5); the A1 retirement execution (G-A1). Discharged by: each control run and PASS under its release
-condition. Sources: RD-25, OD-1.
+condition.
+OPEN: circular evidence dependency.
+Sources: RD-25, OD-1.
 
 **OBL-17** TR45's op-C half. The offline replay of an op-C result whose delegated classes come from the
 snapshot's delegated evidence is a NOT RUN row, TR45-opC, with the release condition "delegated evidence
@@ -4828,23 +5046,24 @@ recorded by native runs at `X` and `C`". Gates: the A1 retirement execution. Dis
 run and PASS. Sources: RD-26.
 
 **OBL-18** EI14's branch-dispatch half. EI14 is split; its branch-dispatch half, EI14-dispatch, is NOT
-RUN until a dispatch of the pinned workflow on a branch other than `main` is made with owner approval
-and recorded under sec. A.44. Gates: acceptance of a chain-admitted result in the A1 retirement
+RUN until a dispatch of the pinned workflow on a branch holding `T'` is made after the tool lands,
+under a launch the owner approves (sec. A.50, sec. A.51 item 4), and recorded under sec. A.44 (RE-21). Gates: acceptance of a chain-admitted result in the A1 retirement
 execution. Discharged by: EI14-dispatch run and PASS.
-OPEN: EI14-dispatch release condition. OPEN: gate assignments of obligations.
+Its composite EI14 is NOT RUN by inheritance until then (R6.GATE.9).
 Sources: RD-26.
 
 **OBL-19** Consumer halves. EI7-consumer and the consumer non-acceptance halves of TR15, TR50, TR51 and
 TR52 are rows of the expectation file, implemented in the tool revision. Gates: the tool's landing.
 Discharged by: each row recorded and holding under the gate. Sources: RD-26, RD-4.
 
-**OBL-20** Missing restored cases (VD-RESTORE). Every control of sec. 17 runs in both directions. Each
-control that has no restored case in the expectation file is a verification defect until its restored
-case is added and holds; the integrated expectation file carries a `restored` expectation on 223 rows, 192 of them flagged as having no restored case executed or stated. Gates: the
-tool's landing. Discharged by: a `restored` expectation on every such row, holding under the gate.
-OPEN: restored case of no-mutation controls.
-Sources: Q7, RD-8.
-
+**OBL-20** Missing second directions (VD-RESTORE). Every control in the both-directions scope of
+R6.CTRL.3 runs in both directions. Each such control whose second direction is not recorded, or
+whose stated restored case or paired row is not executed, is a verification defect until its second
+direction is recorded and holds. At the final expectation file 217 rows are flagged VD-RESTORE, derived
+mechanically from the per-row decisions of R6.CTRL.3 (42 of them record no second direction and are
+reported as `direction-missing`). Gates: the tool's landing. Discharged by: a recorded and executed
+second direction on every such row, holding under the gate.
+Sources: Q7, RD-8, RE-2, RE-3, Q11.
 **OBL-21** Implementation corrections. The tool revision makes these corrections, each with a
 distinguishing control that holds under the gate:
 - VD-1: the gate and the correspondence check (sec. 16); a planted wrong expectation fails the gate;
@@ -4864,10 +5083,11 @@ distinguishing control that holds under the gate:
 - VD-12: `read_entries` are removed from the sitemap adapter and loader;
 - the symlink or submodule side change outside the record directory: the entry type is checked before
   any byte read, for every side change (RD-12);
-- RD-35: A2r's runner literal agrees with the design's `(A1)`; A5r's expected deny FAIL names its rule
+- RD-35: A2r runs on W2-a with the literal shortened to `(A1)` and asserts a widening by shortening
+  (RE-20 (b)); A5r's expected deny FAIL names its rule
   alternative; K4 checks both halves; EI7's consumer half is implemented; RT-D's 45 count is asserted;
-  the expectation sources' Z1-Z8 line cites are corrected; E-060's "op B (and L)" is checked against
-  the retirement of op B on `L`.
+  the expectation sources' Z1-Z8 line cites are corrected; E-060's op B carries no `(and L)`, since op B
+  on `L` is retired (B-9).
 
 Gates: the tool's landing. Discharged by: each correction with its control holding. Sources: VD-1 to
 VD-12, RD-12, RD-35, E-1380, E-1429.
@@ -4883,7 +5103,10 @@ RT-I7 at `T1'`, RT-I7A at `T1'`, RT-DR3W at `T1'`, RT-T0, item11-T1p) are accept
 while the objects of `T1'` they need are reachable from `main`. Gates: their use as acceptance
 references for the tool's landing. Discharged by: those objects reachable from `main`; otherwise the
 figures stay historical measurements.
-OPEN: T1' input list.
+The list is confirmed with RT-D and the `T1'` cases of RT-I7A and RT-DR3W (RE-36 (a)); no figure is an
+acceptance reference reproduced on `main` until the tool revision lands and the run is repeated
+there (R6.EVID.7).
+OPEN: T1'-bound evidence cannot qualify.
 Sources: RD-23, ME-3, Q10.
 
 **OBL-24** Mutation evidence. Mutation evidence is re-established for the changed code. Each mutant has
@@ -4891,7 +5114,9 @@ a row in its own namespace of the expectation file, with its killing controls as
 distinguishes killed, survived, not applied and missing. The seven known survivors and the one
 unapplied mutant are explicit limitations tied to their named mutants; any other survivor fails. Gates:
 the tool's landing. Discharged by: the gate holding on every mutant row.
-OPEN: mutation harness location.
+The harness and the mutant names land, pinned, with the tool revision (RE-9 (a)). The survivors
+`MUT:cache:K08`, `MUT:v60e:C08`, `MUT:v60e:I06` and `MUT:v60e:P01` are also verification defects,
+each discharged by its distinguishing control (RE-10 (b)).
 Sources: RD-1, Q8, OD-1.
 
 **OBL-25** Runner-only predicates. Each of the 32 runner-only predicates that RD-24 enumerates is checked against
@@ -4904,8 +5129,62 @@ RD-24, RD-25, Q9.
 RD-10, RD-18, RD-20, RD-27 and RD-33 are completed against the tool commit; each difference becomes a
 verification defect or a residual owner decision. Gates: r6's adoption. Discharged by: the recorded
 checks and their dispositions.
-OPEN: gate assignments of obligations.
+RE-37 confirms the gate. Evidence: see the sec. 32 trace.
+OPEN: circular evidence dependency.
 Sources: OD-4, OD-27, RD-18, RD-20.
+
+**OBL-27** Plan-side countercontrols. The plan's own check fails on each countercontrol mutant where
+R6.PLAN.1 says so, and the plan-side behaviours cited in items 1, 2, 3, 4, 8, 12 and 14 of sec. 18
+hold, verified at `F` against the plan's checker as frozen with the plan. Gates: plan freeze `F`.
+Discharged by: the plan checker's results on each countercontrol mutant and plan-side case,
+recorded at `F`. Sources: E-1268, E-1269, E-1271, E-1272, E-1273, E-1274, E-1276, E-1280, E-1282,
+B-19.
+
+**OBL-28** Implementation obligations of the tool revision. Each row is an obligation of the tool
+revision that implements r6, made under its own authorization; it is a verification defect or a code
+change until its distinguishing control holds under the gate, or the check it names is recorded.
+
+| Label | Requirement | Obligation | Distinguishing control |
+|---|---|---|---|
+| C-1 | R6.CTRL.3, OBL-20 | a recorded and executed second direction for each VD-RESTORE row; the rows the conformance check lists with a restored case (A5r, GV7-tool, H4, H7, S11-56, S11-58a-f, TR46, X9) and G2, X6 and S11-58i settled by reading each predicate | the restored case or paired row |
+| C-2 | R6.CTRL.29, OBL-21 | VD-1 to VD-12 as OBL-21 states | as OBL-21 |
+| C-3 | R6.CTRL.28, OBL-25 | the weak runner predicates of E-A1r, E-A2r, E-A3r, E-A6r, E-A8r, E-S1r, E-S2r, rule-negative, A5r-generic, R4-B3-DUP, S7-schema-and-checker and V3-countercontrol | each runner emits the asserted quantity; the gate re-evaluates `expect` |
+| C-4 | R6.CTRL.17, OBL-19 | rows without a runner: EI14-dispatch, EI7-consumer, RECLINT-ORPHAN, REPRO-DOUBLE, RT-O9-L2, TR15-consumer, TR50-consumer, TR51-consumer, TR52-consumer, TR45-opC and S11-7 | each implemented; `missing-id` until then |
+| C-5 | R6.EVID.4 | figures not asserted today: RT-T0's 383, 18 and the D029 overlap; RT-I7's split at `H`; RT-C's 399/23/21; item11-T1p's 176; RT-D's 45 | promoted `expect.counts` |
+| C-6 | R6.CTRL.4, R6.CTRL.18 | K4 asserts its K2 half; A5r names DR-3 and its alternative; V6 asserts DR-1b | the assertions named |
+| C-7 | R6.GATE.5 | group-error ids and diagnostic keys recorded as records; U13, U15 and `outcome` still recorded | one failed record per member; diagnostics dropped; `outcome` recorded as Z9-STAGED |
+| C-8 | R6.RULE.11, R6.RULE.12 | rule lint without the 8-character minimum and the zero-fingerprint check | RULE-MINLIT, RULE-ZEROFP |
+| C-9 | R6.OUT.7 | the `--out` guard has no rev-parse check, fails open when the worktree listing fails or names another repository, and the INTERNAL handler writes without it | a planted worktree directory; a failing worktree listing |
+| C-10 | R6.REPRO.4 | no control for writes outside `--out`; X7 writes to the system temporary directory | OUT-CONFINED |
+| C-11 | R6.OUT.5 | `PIN_MISMATCH` without `record_digest` and `computed_digest` | the four fields asserted |
+| C-12 | R6.PIPE.6 | a broken segment chain gives USAGE 64 with no result | an ERROR class with `result.json` |
+| C-13 | R6.ANCH.19 | the pin check exempts removed checker literals for any splice, leaves literals new at `C` and literals away from a splice unchecked, and never feeds its freeze path | a non-guard splice removing a pinned literal FAILs |
+| C-14 | R6.OUT.5, R6.SPLIT.3 | nested configuration malformation and a `splitter_version` other than 2 give INTERNAL; pin-matching content failures give `SOURCE_CHANGED` (RE-16) | a malformed nested field gives `CONFIG_INVALID`; S11-57c, S11-58a-f and S11-58g to S11-58k give `LEDGER_INTEGRITY` |
+| C-15 | R6.REC.9 | a missing command-line record gives `SOURCE_CHANGED` before the admission check; a non-JSON record gives INTERNAL | both give `record-invalid` |
+| C-16 | R6.VALID.3 | a configuration-referenced class or reconciliation record that is absent, non-regular or of another schema is skipped in op C | each case gives `record-invalid` |
+| C-17 | R6.REC.10 | orphan HP and context records are not reported; duplicate HP entries are overwritten | RECLINT-ORPHAN |
+| C-18 | R6.TREE.13 | the landing builder maps lines by similarity and falls back to `C`'s bytes | LC-1 to LC-6 |
+| C-19 | R6.RECON.11 | RC6 reads the candidate at the `H` offset | two splices in one file, the first changing length |
+| C-20 | R6.TREE.12 | the derived-artifact set is an engine pattern | the derived set read from the configuration |
+| C-21 | R6.PUR.12, R6.RDIR.7 | the entry type is not checked before the read outside `D_rec` | SIDE-NONREG |
+| C-22 | R6.OUT.4, R6.REC.20 | the isolation refusal has no class | EI6 asserts `NOT_ISOLATED` in the stderr JSON |
+| C-23 | R6.CLASS.1, R6.CLASS.11 | FAILs without an item | CLASS-RECORD-CHECKS; an item per finding |
+| C-24 | R6.OUT.18 | not emitted: `inputs.pin`, `inputs.record` commit and tree, prior, repository head, ledger sha256, `pins`, per-splice old and new sha256; `anchors_sha256` for op B | U2 and U10 assert the per-splice hashes |
+| C-25 | R6.CLASS.2 to R6.CLASS.12, R6.PROF.2, R6.HIT.1 | no direct control for `retained-changed`, `unledgered-file-change`, `provenance-ambiguous`, `new-pattern-in-replacement`, `unclassified-in-replacement`; indirect coverage only of PROF.2, HIT.1, the delegation-hash refusal and the coverage job | the CLASS-, HIT-, PROF- and DELEG- rows |
+| C-26 | R6.GATE.12 | testable requirements with no control | one control each |
+| C-27 | R6.TREE.12, R6.CTRL.29 | TT7's landing not asserted; TT8's PASS not asserted; TT2 not implemented | as R6.CTRL.29 |
+| C-28 | R6.GATE.10, OBL-24 | mutation evidence re-established for the changed code, changes of the killed set included | the MUT rows |
+| Q12 | R6.HP.7, R6.REC.10 | adjudicated sites counted as `provenance-adjudicated`, distinct from `moved` and `authorized-replacement` and separately under `HP` and `RET`; `stale-adjudication` emitted | U14, RECLINT-ORPHAN |
+| RE-13 | R6.OUT.18 | the schema file lists the adopted named fields and the declared diagnostics | ACCEPT-SCHEMA |
+| RE-18 | R6.TREE.12 | a regeneration check of derived artifacts at `L` (a delegation class); REVIEW_REQUIRED until it passes | LC-7 (its expected landing blob is open) |
+| RE-19 | R6.RDIR.13 | `.github/` moved to `record_authority.py`; `record-directory` enumerated | Z9g, Z9-STAGED |
+| Q13 | R6.DELEG.3, R6.CLASS.9 | execution isolation of re-executed generators | DELEG-REGEN |
+| RE-27 | R6.OUT.24, R6.CLASS.7 | a purpose trace of the six obligation definitions; the pin classes defined independently | review |
+| RE-29 | R6.RECON.14 | a purpose check that the stricter RC9 rejects no valid record | review; N6 |
+
+Gates: the tool's landing. Discharged by: each row's control holding under the gate, or its check
+recorded. Sources: C-1 to C-28, Q12, RE-6, RE-13, RE-16, RE-18, RE-19, RE-23, RE-24, RE-27, RE-29,
+RE-32, RE-33.
 
 ***
 
@@ -4918,9 +5197,8 @@ longer exists as a requirement).
 | Identifier or mechanism | Disposition of the underlying requirement | Sources |
 |---|---|---|
 | U13 (hit on a line in a converted `read` entry, held by read) | obsolete: the `read` route is withdrawn; a hit is held only by a tracked site (preserved-at U1-U11), and an unheld hit is REVIEW_REQUIRED `unclassified` (preserved-at U12) | V1-098, OD-19, OD-16 |
-| U15 (adjudication with a wrong `to_region_sha256`) | preserved-at H1, H2, H6 (an adjudication that disagrees with the walk or changes a row FAILs) and the orphan-record control of sec. 11 (a record that matches no subject is FAIL `record-invalid`) | V1-100, V2-072, RD-9 |
-| class name `stale-adjudication` | obsolete as a class name; a non-matching adjudication is preserved-at H1 (`provenance-mismatch`), the orphan-record control of sec. 11 (`record-invalid`) and out-of-scope reporting (sec. 5) | V1-061, V2-029, E-1072, OD-15, RD-9 |
-| C1 (op C on the executed synthetic tree, PASS) | preserved-at TT1 and TT13 (op C on a correctly executed candidate gives no RET item; uniqueness tested at the base) and S11-56, S11-57a-d, S11-58a-k (application parity at the base, with OBL-1) | V2-093, OD-20, RD-17 |
+| U15 (adjudication with a wrong `to_region_sha256`) | preserved-at U14's wrong-region-hash case (FAIL `provenance-mismatch` and `stale-adjudication`), H1, H2, H6 (an adjudication that disagrees with the walk or changes a row FAILs) and RECLINT-ORPHAN (an HP adjudication entry that matches no subject is FAIL `stale-adjudication`) | V1-100, V2-072, RD-9, Q12 |
+| C1 (op C on the executed synthetic tree, PASS) | preserved-at TT1 and TT13 (op C on a correctly executed candidate gives no RET item; uniqueness tested at the base), Y6 and RL, and S11-56, S11-57a-d, S11-58a-k (application parity at the base, with OBL-1) | V2-093, OD-20, RD-17 |
 | C2 (op C with C's parent differing from the base in a ledgered file, ERROR `BASE_DRIFT`) | preserved-at TT3, TT4 (FAIL `candidate-parent`), TT5 (ERROR `SCIENTIFIC_BASE_MISMATCH`), TT7 and N16-file (FAIL `base-drift`); the class name `BASE_DRIFT` is obsolete | V2-094, OD-20 |
 | C3 (a pin literal removed without a guard-pin splice) | preserved-at S11-12 and N1 (FAIL `pin-broken`) | V2-095, OD-20 |
 | RT-H (v1: `check-coverage --commit H`, one unledgered segment) | preserved-at RT-H0 (113 `hp-unadjudicated`, HP context items) | V1-118, OD-20, MC-1 |
@@ -4944,7 +5222,7 @@ longer exists as a requirement).
 | the status SKIP | preserved-at sec. 16's NOT RUN rule (one non-run status, always with a release condition) | V1-070, RD-7 |
 | v2 "where HP is tracked" (its own Issue or row on #1169) | obsolete as tool text: sec. A.45 rule 6 governs accountable Issues | V2-119, RD-11 |
 | the inspection criterion "no code path uses line proximity or similarity to resolve" | obsolete as an inspection criterion only; the prohibition on resolving anchors by proximity or similarity is preserved-at sec. 4, tested by U5-U7 and VD-3's controls | V1-135, RD-11, Q10 |
-| r1's mutants "accept a path absent at F and M" and "rule evaluated before the `base-drift` test" | preserved-at RDIR-m1 and RDIR-m7, and conditions RD2 and RD3 (both mutants are equivalent) | A-107, Q3, Q4 |
+| r1's mutants "accept a path absent at F and M" and "rule evaluated before the `base-drift` test" | preserved-at RDIR-m1 and RDIR-m7, and conditions DIR2 and DIR3 (both mutants are equivalent) | A-107, Q3, Q4 |
 | automated authorization machinery: the tool authority record `A` (`oi-tool-authority/2`), the comment forms `oi-freeze/1`, `oi-authority/1`, `oi-freeze-ledger/1`, "Owner at creation", the freeze ledger, the owner-authorization record `oi-owner-authorization/1` and its lint, and every read of comment threads, edit history, the GraphQL API and the comment, Issue, pull-request, branch, repository-history and file-content APIs | obsolete: authorization is not a tool property; owner approval is procedural and quoted in the relying record (sec. A.42 item 7, sec. A.50); the record kind `oi-owner-authorization/1` is ERROR `CONFIG_INVALID` (R6.CFG.4) | E-010, E-1081, ME-5 |
 | DR-1d, DR-2 | obsolete: dropped deny candidates (rationale in the appendix); never reused | E-1001, E-1016 |
 | v6.0e sec. 15 item 10 (focused delta review of v6.0d against v6.0c) | obsolete: r6 supersedes v6.0c and v6.0d; the claim "every guarantee of v5.5.9 is kept" is withdrawn; r6 states its own requirements and has its own review | E-1370, OD-3, ME-4, MC-11 |
@@ -5015,7 +5293,8 @@ the automated authorization machinery. Each id is retired and never reused, with
 | LN12 | obsolete: authorization only (authorization of a predecessor's widening review); widening review of a predecessor preserved-at LN4 | E-1081; INVENTORY-v6.0e table 2, v5.5.9 line 2588 |
 
 U14 is not retired: it is restated as a positive HP adjudication case (a matching provenance
-adjudication holds, with status `adjudicated`) in sec. 5 (RD-9). Sources: V1-099, V2-072.
+adjudication holds, and the site is counted as `provenance-adjudicated`, R6.HP.7) in sec. 5 (RD-9;
+B-5). Sources: V1-099, V2-072.
 
 ***
 
@@ -5035,7 +5314,7 @@ migration is applied with the tool revision (OBL-22).
 | O9-12b | RDIR-12b | OD-31 |
 | O9-m1 to O9-m17 (r5 mutants) | RDIR-m1 to RDIR-m17 | RD-5 |
 | RT-O9 | RT-O9, unchanged | RD-5 |
-| D2-D5 (r5 directory conditions) | RD2-RD5 | OD-31 |
+| D2-D5 (r5 directory conditions) | DIR2-DIR5 | OD-31, RE-28 |
 | RT-T (v1 meaning: no records, FAIL) | RT-T0 | RD-5 |
 | RT-T (v6.0e meaning: all records, NOT RUN until released) | RT-T, unchanged | RD-5 |
 | runner sub-records GV7-tool, GV7-consumer, TR28-tool, TR28-consumer, TR29-tool, EI2-consumer, EI7-tool, GV6-disk, RT-D-gr58, V27-glossary, TR45-opB | the same names as control ids in their own right; GV7 and EI7 kept as composed rows | RD-4 |
@@ -5057,6 +5336,12 @@ migration is applied with the tool revision (OBL-22).
 | v2 ERROR `BASE_DRIFT` | retired (sec. 33, C2); FAIL `base-drift` keeps its meaning | OD-20 |
 | finding labels R5, R8, R9 and "v3 R11"; B1-B6, V5 and O9 as finding labels; N4 as the finding at D:2585 | not identifiers in r6; cited in prose (for example "v3 review finding R11"); the control ids B1-B6, V5, O9 and N4 keep their meaning | OD-31 |
 | decision labels D1-D8, V5-D1, V5-D2, S1-D1 to S1-D3, R-D1, R-D3, R-D5, A-D5, DI-2, C3, C4 | quoted, not identifiers; a rule citing one restates its content | OD-31, E-014 |
+| isolation refusal (no class at the tool commit) | ERROR class `NOT_ISOLATED` (new identifier) | RD-19, RE-14 |
+| class name `stale-adjudication` | live with v1 4.6's meaning (an HP adjudication entry that resolves no subject); not retired | Q12, RE-8 |
+| (new expectation-file fields and values) | `paired_with`, `candidate_expectations`, `direction` objects, outcome DEFERRED; gate findings `direction-missing` and `deferred-expectation` | RE-1, RE-4, Q11 |
+| (new control ids) | GATE-27 to GATE-30, LC-1 to LC-7, DELEG-REGEN | RE-4, Q14, RE-1, RE-11, Q15, Q13 |
+| (new item classes) | `regeneration-mismatch`, `regeneration-output-missing`, `regeneration-timeout`, `regeneration-extra-write` | Q13 |
+| (new obligations and requirement) | OBL-27, OBL-28, R6.EVID.7 | B-19, C-1 to C-28, Q16 |
 | mutants | each mutant id is unique in its own namespace of the expectation file and equals no control id | RD-1, RD-5 |
 
 Retained controls, sections and items keep their ids and meaning. Removed control ids, the removed

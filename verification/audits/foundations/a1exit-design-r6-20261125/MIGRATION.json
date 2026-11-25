@@ -1,5 +1,5 @@
 {
- "schema": "oi-r6-integration-migration/1",
+ "schema": "oi-r6-final-migration/1",
  "merged_control_ids": [
   {
    "old": "c2:D02",
@@ -1144,9 +1144,10 @@
   },
   {
    "old": "D2-D5 (r5 directory conditions)",
-   "new": "RD2-RD5",
+   "new": "DIR2-DIR5",
    "sources": [
-    "OD-31"
+    "OD-31",
+    "RE-28"
    ]
   },
   {
@@ -1318,6 +1319,134 @@
     "RD-5",
     "RD-28"
    ]
+  }
+ ],
+ "final_identifier_changes": [
+  {
+   "old": "ISOLATION_REFUSED (integration placeholder) / NOT_ISOLATED (sec-B)",
+   "new": "NOT_ISOLATED",
+   "basis": "RE-14 (new identifier; state form of MAIN_NOT_DESCENDANT)"
+  },
+  {
+   "old": "RD2-RD5 (directory conditions, integration)",
+   "new": "DIR2-DIR5",
+   "basis": "RE-28 (amends OD-31's table; independent review under sec. A.48 item 3 with the migration, OBL-22)"
+  },
+  {
+   "old": "stale-adjudication (retired by RD-9 in the integration)",
+   "new": "stale-adjudication, live with v1 4.6's meaning",
+   "basis": "Q12, RE-8 (revised, sec. E)"
+  },
+  {
+   "old": "(none)",
+   "new": "GATE-27, GATE-28, GATE-29, GATE-30, LC-1 to LC-7, DELEG-REGEN",
+   "basis": "RE-4, Q14, RE-1, RE-11, Q15, Q13; new ids recorded, not sec. A.48 migrations (RE-12)"
+  },
+  {
+   "old": "(none)",
+   "new": "regeneration-mismatch, regeneration-output-missing, regeneration-timeout, regeneration-extra-write",
+   "basis": "Q13"
+  },
+  {
+   "old": "(none)",
+   "new": "paired_with, candidate_expectations, direction objects, outcome DEFERRED, gate findings direction-missing and deferred-expectation",
+   "basis": "RE-1, RE-4, Q11"
+  },
+  {
+   "old": "(none)",
+   "new": "OBL-27, OBL-28, R6.EVID.7",
+   "basis": "B-19, C-1 to C-28, Q16"
+  },
+  {
+   "old": "SOURCE_CHANGED (content failures of a pin-matching ledger or edit list)",
+   "new": "LEDGER_INTEGRITY",
+   "basis": "RE-16 (a class reassignment, not a rename)"
+  }
+ ],
+ "record_corrections": [
+  {
+   "id": "D-1",
+   "wrong_statement": "\"The H-series has only negative cases; no Z10 row concerns adjudication\"; U14 is \"the only synthetic positive case\"",
+   "where": "RES Basis and RD-9; progress comment; B1(b)3; B2",
+   "evidence": "Z10 (synthetic_fixture.py:436-449) and H4 (controls_engine.py:390-394) assert a matching HP adjudication. The draft's \"preserved-at Z10 and K10\" was half right: Z10 is right, K10 is not (CONF 11)"
+  },
+  {
+   "id": "D-2",
+   "wrong_statement": "A matching adjudication holds \"with status `adjudicated`\"; U14 \"does not assert status adjudicated\"",
+   "where": "RES RD-9; REP sec. 5, sec. 6",
+   "evidence": "No such status in the code; only `site.provenance` is set (pipeline.py:244-248)"
+  },
+  {
+   "id": "D-3",
+   "wrong_statement": "A wrong region hash FAILs \"through unauthorized-change\"",
+   "where": "RES RD-9",
+   "evidence": "The runner asserts `provenance-mismatch` (REP R-3); a code check is pending (RE-7)"
+  },
+  {
+   "id": "D-4",
+   "wrong_statement": "r5's engine literals are \"against the purity rule\"",
+   "where": "RES RD-20",
+   "evidence": "They pass Z9's occurrence rule (purity.py:168-181). `.github/` cannot match `_enum_rx` and is a path literal (reconcile.py:145) (CONF 7)"
+  },
+  {
+   "id": "D-5",
+   "wrong_statement": "RD-8's recommendation (b)",
+   "where": "RES",
+   "evidence": "Superseded by Q7 (the Q6-Q10 comment): every sec. 10 control runs in both directions"
+  },
+  {
+   "id": "D-6",
+   "wrong_statement": "\"31 runner-only controls\"; \"34 null rows against 32 + 3\"",
+   "where": "RES RD-24 heading; Q6-Q10 comment; progress comment",
+   "evidence": "The list names 32. The 34 nulls are 32 + G-A1 + TT12; RT-L's null was case-level; Z9-STAGED was not a row; TT7 already had its class (REP sec. 3)"
+  },
+  {
+   "id": "D-7",
+   "wrong_statement": "The schema extension lists the emitted fields, including \"per-splice ids and hashes\"",
+   "where": "RES RD-10; DEC OD-19(e)",
+   "evidence": "26 more top-level fields are emitted. Per-splice old/new sha256 are not emitted, only `splice_ids` and `new_region_sha256` (CONF 6)"
+  },
+  {
+   "id": "D-8",
+   "wrong_statement": "Three role tests \"have no confirmed control\"; C1 needs a check",
+   "where": "RES RD-17",
+   "evidence": "Present: R18-engine and R19-engine, R15, R16 and R17, Y6, R1, RL, R13 (CONF 10)"
+  },
+  {
+   "id": "D-9",
+   "wrong_statement": "RD-23's list of T1' controls; the implicit assumption that CI evidence is reproducible from main",
+   "where": "RES RD-23; DEC sec. 0, ME-3",
+   "evidence": "RT-D, RT-I7A (T1') and RT-DR3W (T1') are missing. T1', P and a3799244 are not reachable from main (sec-D 5)"
+  },
+  {
+   "id": "D-10",
+   "wrong_statement": "\"OD-4 needs a conformance check (not yet done)\"; RD-27 \"needs a check\"; E-060 \"needs a check\"",
+   "where": "DEC OD-4; RES RD-27, RD-35",
+   "evidence": "Done. OD-4: the core roles hold, with the differences in RE-16 and RE-17. RD-27: no item is emitted. E-060: a specification defect (CONF 1, 8, 2)"
+  },
+  {
+   "id": "D-11",
+   "wrong_statement": "A2r applied with literal `(A1)`",
+   "where": "REP sec. 6",
+   "evidence": "`(A1)` is not a prefix of W1-d's literal (CONF 13); RE-20"
+  },
+  {
+   "id": "D-12",
+   "wrong_statement": "All 223 `restored` rows are sec. 10 controls with U and M",
+   "where": "REP sec. 2",
+   "evidence": "Z9h (D:2291) has none; 13 rows disagree with CONF (C-1)"
+  },
+  {
+   "id": "D-13",
+   "wrong_statement": "Rows still without an expectation: \"32 runner-only and V4\"; engine literals \"not checked\"",
+   "where": "sec-C",
+   "evidence": "REP has 0 nulls (RE-1); CONF 7 did the check"
+  },
+  {
+   "id": "D-14",
+   "wrong_statement": "TT12 \"agrees with execution.py:414\"; isolation cite 28-31",
+   "where": "REP sec. 6; RES RD-19",
+   "evidence": "420-423; 29-32 (CONF 2, 1)"
   }
  ]
 }

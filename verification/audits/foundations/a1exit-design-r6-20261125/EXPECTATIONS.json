@@ -1,6 +1,6 @@
 {
  "schema": "oi-control-expectations/1",
- "record_id": "r6-int-1",
+ "record_id": "r6-final-1",
  "rows": [
   {
    "id": "A10r",
@@ -166,6 +166,12 @@
     "invariants": [
      {
       "mutated_literal": "(A1)"
+     },
+     {
+      "mutated_literal_rule": "W2-a"
+     },
+     {
+      "finding_value": "widening by shortening"
      }
     ]
    },
@@ -179,8 +185,8 @@
    },
    "source": "D:2164",
    "flags": [
-    "RD-35: the design case shortens the literal to \"(A1)\"; the runner uses \"six structural\" today (verification defect)",
-    "VD-RESTORE: no restored case executed"
+    "VD-RESTORE: no restored case executed",
+    "RE-20 (b): the case runs on W2-a, whose literal \"(A1)\" is a true shortening, and asserts that the finding is a widening by shortening; the runner shortens W1-d to \"six structural\" today (verification defect, OBL-21)"
    ]
   },
   {
@@ -312,6 +318,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only: none)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -502,6 +513,11 @@
    ],
    "runner": "conformance_controls.py:514",
    "operations": [],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only: none)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "cases": [
@@ -561,6 +577,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only: none)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "ERROR",
     "stop_class": "CONFIG_UNREVIEWED",
@@ -583,7 +604,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "the mechanical scan found a mutation or needs a check (\"yes\"); Q11 keeps a required opposite direction"
+   },
    "expect": {
     "outcome": "PASS",
     "sites": [
@@ -622,7 +647,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "mutation: the case applies a multi-line splice to the synthetic tree"
+   },
    "expect": {
     "outcome": "PASS",
     "sites": [
@@ -656,7 +685,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "mutation: the case applies a zero-length insertion (two cases)"
+   },
    "expect": {
     "cases": [
      {
@@ -705,7 +738,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "mutation: a splice-boundary control (sec. 17 B1-B6) applying a splice at a last line without LF; also asserts acceptance (PASS)"
+   },
    "expect": {
     "outcome": "PASS",
     "sites": [
@@ -744,6 +781,11 @@
     "coverage",
     "record"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only: none (implements D:969 class_meaning))) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "PREDICATE",
@@ -812,7 +854,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "the mechanical scan found a mutation or needs a check (\"yes\"); Q11 keeps a required opposite direction"
+   },
    "expect": {
     "outcome": "PASS",
     "sites": [
@@ -847,6 +893,11 @@
    "operations": [
     "coverage"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only: none)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -873,6 +924,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only: none)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -909,6 +965,11 @@
    ],
    "runner": "controls_engine.py:642",
    "operations": [],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only: none (engine analog of A1r))) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_exact": {
@@ -932,6 +993,11 @@
    ],
    "runner": "controls_engine.py:643",
    "operations": [],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only: none (analog of A2r))) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_exact": {
@@ -956,6 +1022,11 @@
    ],
    "runner": "controls_engine.py:645",
    "operations": [],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only: none (analog of A3r))) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_exact": {
@@ -980,6 +1051,11 @@
    ],
    "runner": "controls_engine.py:639",
    "operations": [],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only: none (analog of A6r))) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_exact": {
@@ -1003,6 +1079,11 @@
    ],
    "runner": "controls_engine.py:641",
    "operations": [],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only: none (analog of A8r))) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_exact": {
@@ -1028,6 +1109,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only: none (analog of L1))) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "NO_ITEM"
    },
@@ -1047,6 +1133,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only: none (analog of L3))) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_exact": [
@@ -1069,6 +1160,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only: none (analog of S1r))) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "REVIEW_REQUIRED",
     "classes_include": [
@@ -1092,6 +1188,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only: none (analog of S2r))) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "REVIEW_REQUIRED",
     "classes_include": [
@@ -1308,6 +1409,8 @@
    "id": "EI14",
    "requirements": [
     "R6.REC.18",
+    "R6.GATE.15",
+    "R6.CTRL.5",
     "R6.CTRL.17",
     "R6.CTRL.23"
    ],
@@ -1371,18 +1474,28 @@
    "composed_of": [
     "EI14-dispatch"
    ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "component EI14-dispatch is NOT RUN; a composite is NOT RUN while any component is an admitted NOT RUN and none is FAIL or ERROR (Q14)",
+    "release_condition": "a dispatch of the pinned workflow on a branch holding T', after the tool lands, under a launch the owner approves",
+    "release_check": "a host run record of the pinned workflow with event workflow_dispatch on a ref other than refs/heads/main, whose head holds T', is retained in the evidence referenced at the commit under check"
+   },
    "source": "D:2324",
    "flags": [
-    "RD-26: the real workflow_dispatch on a branch is EI14-dispatch (NOT RUN); this row keeps the halves the runner executes; the design id holds only when both rows hold"
+    "RD-26: the real workflow_dispatch on a branch is EI14-dispatch (NOT RUN); this row keeps the halves the runner executes; the design id holds only when both rows hold",
+    "RE-30, Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json"
    ]
   },
   {
    "id": "EI14-dispatch",
    "requirements": [
+    "R6.GATE.15",
     "R6.CTRL.5",
     "R6.CTRL.17",
-    "R6.CTRL.23",
-    "R6.GATE.15"
+    "R6.CTRL.23"
    ],
    "runner": null,
    "operations": [],
@@ -1423,14 +1536,15 @@
     "NOT RUN"
    ],
    "not_run": {
-    "reason": "a workflow_dispatch of the pinned workflow on a branch holding the CX-3 tree needs F on main and an owner-approved dispatch (sec. A.50, A.51 item 4)",
-    "release_condition": "the pinned workflow dispatched on a branch holding the CX-3 tree after F",
-    "release_check": "a host run record of the pinned workflow with event workflow_dispatch on a ref other than refs/heads/main is retained in the evidence referenced at the commit under check"
+    "reason": "no dispatch of the pinned workflow on a branch holding T' has been made; it needs the tool landed and a launch the owner approves (sec. A.50, sec. A.51 item 4)",
+    "release_condition": "a dispatch of the pinned workflow on a branch holding T', after the tool lands, under a launch the owner approves",
+    "release_check": "a host run record of the pinned workflow with event workflow_dispatch on a ref other than refs/heads/main, whose head holds T', is retained in the evidence referenced at the commit under check"
    },
    "source": "D:2324 (branch-dispatch half; RD-26)",
    "flags": [
     "named blocker (Q10): unexecuted control half",
-    "VD-RESTORE: no restored case executed"
+    "VD-RESTORE: no restored case executed",
+    "RE-21: it gates acceptance of a chain-admitted result in the A1 retirement execution (OBL-18)"
    ]
   },
   {
@@ -1517,7 +1631,8 @@
    ],
    "source": "D:2312",
    "flags": [
-    "composed_of: the design id holds only if this row's own record and every component hold (RD-4)"
+    "composed_of: the design id holds only if this row's own record and every component hold (RD-4)",
+    "Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json"
    ]
   },
   {
@@ -1811,7 +1926,8 @@
    ],
    "source": "D:2317 (OD-22)",
    "flags": [
-    "EI7-consumer is a row (RD-26); the gate reports it missing until implemented"
+    "EI7-consumer is a row (RD-26); the gate reports it missing until implemented",
+    "Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json"
    ]
   },
   {
@@ -1857,7 +1973,8 @@
    },
    "source": "D:2317 (consumer half; RD-26)",
    "flags": [
-    "to implement in the tool revision: no runner records it today; the gate reports it missing until then (RD-26, Q10 named blocker)"
+    "to implement in the tool revision: no runner records it today; the gate reports it missing until then (RD-26, Q10 named blocker)",
+    "VD-RESTORE: listed without a restored case by the conformance check (C-1)"
    ]
   },
   {
@@ -1930,7 +2047,11 @@
    ],
    "runner": "conformance_controls.py:1339",
    "operations": [],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "no mutation, but a positive control asserting acceptance of a valid input (the pre-run check passes on a clean checkout of a valid T)"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "PRE_RUN_PASSED",
@@ -2004,15 +2125,20 @@
     "R6.DELEG.1",
     "R6.DELEG.3",
     "R6.DELEG.8",
+    "R6.GATE.15",
     "R6.CTRL.5",
     "R6.CTRL.23",
-    "R6.CTRL.28",
-    "R6.GATE.15"
+    "R6.CTRL.28"
    ],
    "runner": "conformance_controls.py:2434",
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:1859-1916 (sec. 7.2, RD-25)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "PASS",
@@ -2486,6 +2612,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only; object integrity, sec. 6.3)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "PREDICATE",
@@ -2523,6 +2654,11 @@
    ],
    "runner": "conformance_controls.py:1145",
    "operations": [],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only; object integrity, sec. 6.3)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "PREDICATE",
@@ -2557,6 +2693,11 @@
    ],
    "runner": "conformance_controls.py:1154",
    "operations": [],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only; object integrity, sec. 6.3)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "PREDICATE",
@@ -2597,6 +2738,11 @@
    ],
    "runner": "conformance_controls.py:1122",
    "operations": [],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only; object integrity, sec. 6.3)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "PREDICATE",
@@ -2908,7 +3054,8 @@
    "source": "D:2309",
    "flags": [
     "composed_of: the design id holds only if this row's own record and every component hold (RD-4)",
-    "VD-RESTORE: no restored case executed"
+    "VD-RESTORE: no restored case executed",
+    "Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json"
    ]
   },
   {
@@ -2966,7 +3113,10 @@
     "GV7-tool",
     "GV7-consumer"
    ],
-   "source": "D:2310"
+   "source": "D:2310",
+   "flags": [
+    "Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json"
+   ]
   },
   {
    "id": "GV7-consumer",
@@ -3346,7 +3496,11 @@
    ],
    "runner": "record_directory_controls.py:646",
    "operations": [],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:294) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "TEXT_EQUAL",
@@ -3377,7 +3531,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:295) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -3421,6 +3579,11 @@
    "operations": [
     "coverage"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:296) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "ERROR",
     "stop_class": "SOURCE_CHANGED"
@@ -3442,6 +3605,11 @@
    "operations": [
     "coverage"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:297) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -3472,6 +3640,11 @@
    "operations": [
     "coverage"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:298) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -3496,7 +3669,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:299) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -3538,7 +3715,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:300) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -3575,7 +3756,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:301) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -3640,6 +3825,11 @@
    ],
    "runner": "a1_controls.py:1139",
    "operations": [],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only: none (hash-cycle constraint r5 A.1))) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "PREDICATE",
@@ -3678,7 +3868,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "mutation: a context change on a meaning-context site; also asserts acceptance with a matching adjudication"
+   },
    "expect": {
     "outcome": "PASS"
    },
@@ -3706,7 +3900,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "the mechanical scan found a mutation or needs a check (\"yes\"); Q11 keeps a required opposite direction"
+   },
    "expect": {
     "outcome": "PASS",
     "sites": [
@@ -3775,7 +3973,10 @@
      }
     ]
    },
-   "source": "D:2102"
+   "source": "D:2102",
+   "flags": [
+    "VD-RESTORE: listed without a restored case by the conformance check (C-1)"
+   ]
   },
   {
    "id": "K4",
@@ -3827,7 +4028,8 @@
    },
    "source": "D:2103",
    "flags": [
-    "RD-35: both halves (as K1 and as K2) are required; the runner checks the K1 half only (verification defect)"
+    "RD-35: both halves (as K1 and as K2) are required; the runner checks the K1 half only (verification defect)",
+    "VD-RESTORE: listed without a restored case by the conformance check (C-1)"
    ]
   },
   {
@@ -3978,7 +4180,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "no further change, but a positive control asserting acceptance (PASS) of a PARTIAL site"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "PASS",
@@ -4021,7 +4227,11 @@
    "operations": [
     "terms"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "mutation: the W1 sentence shifted by 40 lines; also asserts acceptance (PASS)"
+   },
    "expect": {
     "outcome": "PASS"
    },
@@ -4051,7 +4261,11 @@
    "operations": [
     "terms"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "mutation: the W2 lines moved; also asserts acceptance (PASS)"
+   },
    "expect": {
     "outcome": "PASS"
    },
@@ -4140,6 +4354,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2528) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -4179,7 +4398,11 @@
    "operations": [
     "terms"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2536) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "PASS",
     "invariants": [
@@ -4204,7 +4427,11 @@
    "operations": [
     "terms"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2529) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "PASS",
     "invariants": [
@@ -4226,6 +4453,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2530) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -4295,6 +4527,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2532) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -4329,6 +4566,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2533) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_exact": {
@@ -4349,6 +4591,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2534) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -4375,6 +4622,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2535) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -4742,7 +4994,11 @@
    "operations": [
     "terms"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "no mutation, but a positive control asserting acceptance of valid lines (no deny match on the W1 and W2 lines)"
+   },
    "expect": {
     "outcome": "PASS",
     "counts": {
@@ -4801,6 +5057,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -4831,7 +5092,8 @@
    },
    "source": "D:2515",
    "flags": [
-    "inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)"
+    "inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)",
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
    ]
   },
   {
@@ -4845,7 +5107,11 @@
    "operations": [
     "execution"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "NO_ITEM",
     "invariants": [
@@ -4859,7 +5125,8 @@
    },
    "source": "D:2516",
    "flags": [
-    "inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)"
+    "inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)",
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
    ]
   },
   {
@@ -4873,6 +5140,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -4886,7 +5158,8 @@
    },
    "source": "D:2518",
    "flags": [
-    "record condition renamed per OD-31 (Rk -> RCk)"
+    "record condition renamed per OD-31 (Rk -> RCk)",
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
    ]
   },
   {
@@ -4901,6 +5174,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -4914,7 +5192,8 @@
    },
    "source": "D:2519",
    "flags": [
-    "record condition renamed per OD-31 (Rk -> RCk)"
+    "record condition renamed per OD-31 (Rk -> RCk)",
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
    ]
   },
   {
@@ -4928,6 +5207,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -4941,7 +5225,8 @@
    },
    "source": "D:2520",
    "flags": [
-    "record condition renamed per OD-31 (Rk -> RCk)"
+    "record condition renamed per OD-31 (Rk -> RCk)",
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
    ]
   },
   {
@@ -4955,6 +5240,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -4968,7 +5258,8 @@
    },
    "source": "D:2521",
    "flags": [
-    "record condition renamed per OD-31 (Rk -> RCk)"
+    "record condition renamed per OD-31 (Rk -> RCk)",
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
    ]
   },
   {
@@ -4982,6 +5273,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -4995,7 +5291,8 @@
    },
    "source": "D:2522",
    "flags": [
-    "record condition renamed per OD-31 (Rk -> RCk)"
+    "record condition renamed per OD-31 (Rk -> RCk)",
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
    ]
   },
   {
@@ -5010,6 +5307,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -5024,7 +5326,10 @@
      }
     ]
    },
-   "source": "D:2522"
+   "source": "D:2522",
+   "flags": [
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+   ]
   },
   {
    "id": "N17",
@@ -5037,6 +5342,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -5050,7 +5360,8 @@
    },
    "source": "D:2523",
    "flags": [
-    "record condition renamed per OD-31 (Rk -> RCk)"
+    "record condition renamed per OD-31 (Rk -> RCk)",
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
    ]
   },
   {
@@ -5064,6 +5375,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -5077,7 +5393,8 @@
    },
    "source": "D:2524",
    "flags": [
-    "record condition renamed per OD-31 (Rk -> RCk)"
+    "record condition renamed per OD-31 (Rk -> RCk)",
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
    ]
   },
   {
@@ -5090,13 +5407,21 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
      "record-invalid"
     ]
    },
-   "source": "D:2524"
+   "source": "D:2524",
+   "flags": [
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+   ]
   },
   {
    "id": "N2",
@@ -5139,6 +5464,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "ANY",
@@ -5159,7 +5489,10 @@
      "the same without it"
     ]
    },
-   "source": "D:2508"
+   "source": "D:2508",
+   "flags": [
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+   ]
   },
   {
    "id": "N3-config-route",
@@ -5171,6 +5504,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "ANY",
     "invariants": [
@@ -5182,7 +5520,10 @@
      }
     ]
    },
-   "source": "D:2508"
+   "source": "D:2508",
+   "flags": [
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+   ]
   },
   {
    "id": "N4",
@@ -5198,6 +5539,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -5211,7 +5557,8 @@
    },
    "source": "D:2509",
    "flags": [
-    "record condition renamed per OD-31 (Rk -> RCk)"
+    "record condition renamed per OD-31 (Rk -> RCk)",
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
    ]
   },
   {
@@ -5227,6 +5574,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -5240,7 +5592,8 @@
    },
    "source": "D:2510",
    "flags": [
-    "record condition renamed per OD-31 (Rk -> RCk)"
+    "record condition renamed per OD-31 (Rk -> RCk)",
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
    ]
   },
   {
@@ -5254,6 +5607,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -5267,7 +5625,8 @@
    },
    "source": "D:2511",
    "flags": [
-    "record condition renamed per OD-31 (Rk -> RCk)"
+    "record condition renamed per OD-31 (Rk -> RCk)",
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
    ]
   },
   {
@@ -5281,6 +5640,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -5294,7 +5658,8 @@
    },
    "source": "D:2512",
    "flags": [
-    "record condition renamed per OD-31 (Rk -> RCk)"
+    "record condition renamed per OD-31 (Rk -> RCk)",
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
    ]
   },
   {
@@ -5309,6 +5674,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -5322,7 +5692,8 @@
    },
    "source": "D:2513",
    "flags": [
-    "record condition renamed per OD-31 (Rk -> RCk)"
+    "record condition renamed per OD-31 (Rk -> RCk)",
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
    ]
   },
   {
@@ -5336,6 +5707,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -5349,7 +5725,8 @@
    },
    "source": "D:2514",
    "flags": [
-    "record condition renamed per OD-31 (Rk -> RCk)"
+    "record condition renamed per OD-31 (Rk -> RCk)",
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
    ]
   },
   {
@@ -5459,6 +5836,11 @@
    ],
    "runner": "conformance_controls.py:719",
    "operations": [],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only: none)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "cases": [
@@ -5636,7 +6018,11 @@
    ],
    "runner": "controls_engine.py:461",
    "operations": [],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "no mutation, but a positive control asserting acceptance of a valid input (a complete chain admitted)"
+   },
    "expect": {
     "outcome": "NO_ITEM",
     "classes_exact": {
@@ -5673,13 +6059,21 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
      "landing-first-parent-not-M"
     ]
    },
-   "source": "D:2502-2503"
+   "source": "D:2502-2503",
+   "flags": [
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+   ]
   },
   {
    "id": "R16",
@@ -5724,13 +6118,18 @@
    "id": "R17",
    "requirements": [
     "R6.CTRL.20",
-    "R6.TREE.10"
+    "R6.TREE.10",
+    "R6.TREE.18"
    ],
    "runner": "conformance_controls.py:2472",
    "operations": [
     "execution"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "mutation: one commit added after X; also asserts acceptance (NO_ITEM)"
+   },
    "expect": {
     "outcome": "NO_ITEM",
     "invariants": [
@@ -5764,6 +6163,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "REVIEW_REQUIRED",
     "classes_include": [
@@ -5778,25 +6182,37 @@
      }
     ]
    },
-   "source": "D:2517"
+   "source": "D:2517",
+   "flags": [
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+   ]
   },
   {
    "id": "R18-engine",
    "requirements": [
     "R6.CTRL.20",
-    "R6.TREE.5"
+    "R6.TREE.5",
+    "R6.TREE.18"
    ],
    "runner": "controls_engine.py:513",
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "REVIEW_REQUIRED",
     "classes_include": [
      "side-change-unclassified"
     ]
    },
-   "source": "D:2517 (engine form)"
+   "source": "D:2517 (engine form)",
+   "flags": [
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+   ]
   },
   {
    "id": "R19",
@@ -5811,6 +6227,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "cases": [
      {
@@ -5825,25 +6246,37 @@
      }
     ]
    },
-   "source": "D:2525"
+   "source": "D:2525",
+   "flags": [
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+   ]
   },
   {
    "id": "R19-engine",
    "requirements": [
     "R6.CTRL.20",
-    "R6.TREE.5"
+    "R6.TREE.5",
+    "R6.TREE.18"
    ],
    "runner": "controls_engine.py:561",
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "REVIEW_REQUIRED",
     "classes_include": [
      "side-change-unclassified"
     ]
    },
-   "source": "D:2525 (engine form)"
+   "source": "D:2525 (engine form)",
+   "flags": [
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+   ]
   },
   {
    "id": "R3-F2",
@@ -5856,6 +6289,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -5915,6 +6353,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -5968,6 +6411,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -6023,6 +6471,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -6077,6 +6530,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -6121,6 +6579,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2515 (engine analogue of N10)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -6153,7 +6616,11 @@
    "operations": [
     "execution"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:189) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "ANY",
     "invariants": [
@@ -6185,7 +6652,11 @@
    "operations": [
     "execution"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:198) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "RESULT_EQUAL_WITHOUT_AMENDMENT",
@@ -6221,18 +6692,23 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:199) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "ERROR",
     "stop_class": "CONFIG_INCONSISTENT",
     "invariants": [
      {
-      "reason": "RD2"
+      "reason": "DIR2"
      }
     ]
    },
    "source": "r5:199",
    "flags": [
-    "directory condition renamed per OD-31 (Dk -> RDk)"
+    "directory condition renamed per OD-31 (Dk -> DIRk; RE-28)"
    ]
   },
   {
@@ -6247,18 +6723,23 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:200) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "ERROR",
     "stop_class": "CONFIG_INCONSISTENT",
     "invariants": [
      {
-      "reason": "RD3"
+      "reason": "DIR3"
      }
     ]
    },
    "source": "r5:200",
    "flags": [
-    "directory condition renamed per OD-31 (Dk -> RDk)"
+    "directory condition renamed per OD-31 (Dk -> DIRk; RE-28)"
    ]
   },
   {
@@ -6273,6 +6754,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:201) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "cases": [
@@ -6324,6 +6810,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:202) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "REVIEW_REQUIRED",
     "sites": [
@@ -6355,7 +6846,11 @@
    "operations": [
     "execution"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:203) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "ANY",
     "invariants": [
@@ -6387,7 +6882,11 @@
    "operations": [
     "execution"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:204) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "RC_HOLDS",
     "invariants": [
@@ -6416,6 +6915,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:205) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "ERROR",
     "stop_class": "CONFIG_INCONSISTENT",
@@ -6442,18 +6946,23 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:206) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "ERROR",
     "stop_class": "CONFIG_INCONSISTENT",
     "invariants": [
      {
-      "reason": "RD5"
+      "reason": "DIR5"
      }
     ]
    },
    "source": "r5:206",
    "flags": [
-    "directory condition renamed per OD-31 (Dk -> RDk)"
+    "directory condition renamed per OD-31 (Dk -> DIRk; RE-28)"
    ]
   },
   {
@@ -6468,6 +6977,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:207) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "RC_FAILS",
     "invariants": [
@@ -6491,6 +7005,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:208) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "RC_FAILS",
     "invariants": [
@@ -6515,6 +7034,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:190) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "REVIEW_REQUIRED",
     "sites": [
@@ -6551,6 +7075,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:209) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "ERROR",
     "stop_class": "CONFIG_INCONSISTENT",
@@ -6580,6 +7109,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:210) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "REVIEW_REQUIRED",
     "invariants": [
@@ -6609,7 +7143,11 @@
    "operations": [
     "execution"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:211) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "RESULT_EQUAL_WITHOUT_AMENDMENT",
@@ -6641,7 +7179,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:212) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "RESULT_EQUAL_WITHOUT_AMENDMENT",
@@ -6674,18 +7216,23 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:213) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "ERROR",
     "stop_class": "CONFIG_INCONSISTENT",
     "invariants": [
      {
-      "reason": "RD5"
+      "reason": "DIR5"
      }
     ]
    },
    "source": "r5:213",
    "flags": [
-    "directory condition renamed per OD-31 (Dk -> RDk)"
+    "directory condition renamed per OD-31 (Dk -> DIRk; RE-28)"
    ]
   },
   {
@@ -6700,7 +7247,11 @@
    "operations": [
     "execution"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:214) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "RESULT_EQUAL_WITHOUT_AMENDMENT",
@@ -6738,6 +7289,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:191) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "REVIEW_REQUIRED",
     "sites": [
@@ -6764,6 +7320,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:192) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "REVIEW_REQUIRED",
     "sites": [
@@ -6797,6 +7358,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:193) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "REVIEW_REQUIRED",
     "sites": [
@@ -6822,6 +7388,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:194) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "REVIEW_REQUIRED",
     "sites": [
@@ -6851,6 +7422,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:195) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "PREDICATE",
@@ -6890,6 +7466,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:196) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -6955,6 +7536,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:197) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -6966,7 +7552,7 @@
       "stop_class": "CONFIG_INCONSISTENT",
       "invariants": [
        {
-        "reason": "RD3"
+        "reason": "DIR3"
        }
       ]
      }
@@ -6974,13 +7560,14 @@
    },
    "source": "r5:197",
    "flags": [
-    "directory condition renamed per OD-31 (Dk -> RDk)"
+    "directory condition renamed per OD-31 (Dk -> DIRk; RE-28)"
    ]
   },
   {
    "id": "RECLINT-ORPHAN",
    "requirements": [
     "R6.REC.10",
+    "R6.CLASS.4",
     "R6.CLASS.6",
     "R6.CTRL.16"
    ],
@@ -6992,7 +7579,36 @@
    "expect": {
     "cases": [
      {
-      "case": "an HP adjudication record entry matching no subject of the run (orphan)",
+      "case": "an HP adjudication record entry that, on a tree and in a segment to which the record applies, matches no subject (orphan)",
+      "outcome": "FAIL",
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "class": "stale-adjudication",
+          "obligation": "HP",
+          "subject": "$entry"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "case": "a context adjudication or hit classification entry matching no subject on a tree and segment its record applies to (orphan)",
+      "outcome": "FAIL",
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "class": "record-invalid",
+          "subject": "$entry"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "case": "two entries naming the same subject (duplicate)",
       "outcome": "FAIL",
       "invariants": [
        {
@@ -7006,9 +7622,24 @@
       ]
      },
      {
-      "case": "the record without the orphan entry (positive)",
+      "case": "the orphan entry naming a segment outside the chain, or a tree the record does not apply to",
       "outcome": "ANY",
       "invariants": [
+       {
+        "none": "items[class=stale-adjudication]"
+       },
+       {
+        "none": "items[class=record-invalid]"
+       }
+      ]
+     },
+     {
+      "case": "the record without the orphan and duplicate entries (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "none": "items[class=stale-adjudication]"
+       },
        {
         "none": "items[class=record-invalid]"
        }
@@ -7016,9 +7647,9 @@
      }
     ]
    },
-   "source": "v1 DESIGN.md:235 (a non-matching entry resolves nothing and is itself reported); RD-9",
+   "source": "v1 DESIGN.md:229-237 (v1 4.6: a non-matching entry resolves nothing and is itself reported, stale-adjudication); RD-9; RE-8; Q12",
    "flags": [
-    "to implement: record lint reports an orphan record entry as record-invalid (RD-9)"
+    "to implement: record lint reports an orphan HP adjudication entry as stale-adjudication, other orphan entries and duplicates as record-invalid (RE-8, Q12; OBL-28 C-17)"
    ]
   },
   {
@@ -7035,7 +7666,11 @@
     "terms",
     "execution"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:3112-3113 (sec. 16.7; RD-2)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "TEXT_EQUAL",
@@ -7083,6 +7718,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "NO_ITEM"
    },
@@ -7108,7 +7748,11 @@
    "operations": [
     "record"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "no mutation, but a positive control asserting acceptance of a valid record (replay without error, 697 anchors)"
+   },
    "expect": {
     "outcome": "PASS",
     "counts": {
@@ -7146,7 +7790,11 @@
    "operations": [
     "execution"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "no mutation, but a positive control asserting that 399 splices verify and 44 files conform (acceptance of valid splices)"
+   },
    "expect": {
     "outcome": "REVIEW_REQUIRED",
     "classes_exact": [
@@ -7206,7 +7854,11 @@
    "operations": [
     "terms"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "no mutation, but a positive control asserting acceptance of the 11 W1/W2 lines by their allow rules"
+   },
    "expect": {
     "outcome": "REVIEW_REQUIRED",
     "classes_exact": [
@@ -7242,7 +7894,8 @@
     "RD-35: the 45 resid count is stated here; controls.json omits it",
     "inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)",
     "composed_of: the design id holds only if this row's own record and every component hold (RD-4)",
-    "VD-RESTORE: no restored case executed"
+    "VD-RESTORE: no restored case executed",
+    "Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json"
    ]
   },
   {
@@ -7255,7 +7908,14 @@
    "operations": [
     "terms"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "no mutation, but a positive control asserting acceptance of papers/GR.md:58 by its hit classification record; paired with RT-D: RT-D is the same terms run at T1' without the hit classification record of papers/GR.md:58"
+   },
+   "paired_with": [
+    "RT-D"
+   ],
    "expect": {
     "outcome": "ANY",
     "sites": [
@@ -7273,10 +7933,7 @@
      }
     ]
    },
-   "source": "D:2212 (with its record)",
-   "flags": [
-    "VD-RESTORE: no restored case executed"
-   ]
+   "source": "D:2212 (with its record)"
   },
   {
    "id": "RT-DR",
@@ -7297,6 +7954,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "the mechanical scan found a mutation or needs a check (\"check\"); Q11 keeps a required opposite direction"
+   },
    "expect": {
     "cases": [
      {
@@ -7400,6 +8062,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "exempt": "observation",
+    "why": "runs DR-3 alone on two pinned control inputs (AGENTS.md at H and at T1') without constructing any change; asserts the DR-3 sentence count measured on each (one at H, none at T1'), outcome ANY; asserts no acceptance of a valid input"
+   },
    "expect": {
     "cases": [
      {
@@ -7437,8 +8104,7 @@
    },
    "source": "D:2214",
    "flags": [
-    "inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)",
-    "VD-RESTORE: no restored case executed"
+    "inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)"
    ]
   },
   {
@@ -7458,7 +8124,14 @@
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "the mechanical scan found a mutation or needs a check (\"yes\"); Q11 keeps a required opposite direction; paired with SW1: SW1 runs coverage on the same tree E with one token deleted from each site"
+   },
+   "paired_with": [
+    "SW1"
+   ],
    "expect": {
     "outcome": "PASS",
     "counts": {
@@ -7473,10 +8146,7 @@
      }
     ]
    },
-   "source": "D:2207",
-   "flags": [
-    "VD-RESTORE: no restored case executed"
-   ]
+   "source": "D:2207"
   },
   {
    "id": "RT-H0",
@@ -7495,6 +8165,11 @@
    "operations": [
     "coverage"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "the mechanical scan found a mutation or needs a check (\"check\"); Q11 keeps a required opposite direction"
+   },
    "expect": {
     "outcome": "FAIL",
     "invariants": [
@@ -7602,6 +8277,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "exempt": "observation",
+    "why": "runs the item7-literal countercontrol profile on the unmodified trees T1' and H; asserts the per-literal counts measured on them; constructs no change and asserts no acceptance of a valid input"
+   },
    "expect": {
     "cases": [
      {
@@ -7695,8 +8375,7 @@
    "source": "D:2215; D:2347 (sec. 11 row 7, Expected)",
    "flags": [
     "RD-3: the H split 11/1/2 is promoted from reference; the runner asserts only (14, 179) at H today (VD-10)",
-    "the T1' case: inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)",
-    "VD-RESTORE: no restored case executed"
+    "the T1' case: inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)"
    ]
   },
   {
@@ -7712,6 +8391,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "exempt": "observation",
+    "why": "runs the proposed item-7 check on the unmodified trees H and T1' with no records; asserts the FAIL counts measured on them; constructs no change and asserts no acceptance of a valid input"
+   },
    "expect": {
     "cases": [
      {
@@ -7769,8 +8453,7 @@
    },
    "source": "D:2216",
    "flags": [
-    "inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)",
-    "VD-RESTORE: no restored case executed"
+    "inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)"
    ]
   },
   {
@@ -7785,7 +8468,11 @@
    "operations": [
     "execution"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "cases": [
      {
@@ -7813,25 +8500,31 @@
    },
    "source": "v2:629 (D:2502 stands; OD-17)",
    "flags": [
-    "RD-25: composed landing REVIEW_REQUIRED exit 10 (delegated evidence missing), as controls.json and the runner have it"
+    "RD-25: composed landing REVIEW_REQUIRED exit 10 (delegated evidence missing), as controls.json and the runner have it",
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
    ]
   },
   {
    "id": "RT-L2",
    "requirements": [
+    "R6.GATE.15",
+    "R6.GATE.16",
     "R6.CTRL.5",
     "R6.CTRL.19",
     "R6.TREE.15",
+    "R6.RECON.20",
     "R6.RECON.21",
-    "R6.GATE.15",
-    "R6.GATE.16",
     "R6.EVID.6"
    ],
    "runner": "a1_controls.py:976",
    "operations": [
     "execution"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "PASS",
@@ -7871,23 +8564,28 @@
    },
    "source": "D:2592-2594 (OD-18, Q2, MC-4)",
    "flags": [
-    "CI run 45569710442 recorded PASS on a drafted record; that PASS does not establish the safeguard (OD-18)"
+    "CI run 45569710442 recorded PASS on a drafted record; that PASS does not establish the safeguard (OD-18)",
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
    ]
   },
   {
    "id": "RT-O9",
    "requirements": [
+    "R6.GATE.15",
     "R6.CTRL.17",
     "R6.CTRL.19",
     "R6.RDIR.12",
-    "R6.RDIR.14",
-    "R6.GATE.15"
+    "R6.RDIR.14"
    ],
    "runner": "a1_controls.py:1025",
    "operations": [
     "execution"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:220 (MC-4, OD-18; split per RD-6 and Q6)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "ANY",
@@ -7931,18 +8629,22 @@
   {
    "id": "RT-O9-L2",
    "requirements": [
+    "R6.GATE.15",
     "R6.CTRL.5",
     "R6.CTRL.17",
     "R6.CTRL.19",
     "R6.RDIR.14",
-    "R6.RECON.21",
-    "R6.GATE.15"
+    "R6.RECON.21"
    ],
    "runner": null,
    "operations": [
     "execution"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r5:220 (clause \"RT-L2 still PASS\"; RD-6, Q6)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "ANY",
     "invariants": [
@@ -7977,16 +8679,23 @@
    "requirements": [
     "R6.HIT.5",
     "R6.HIT.6",
+    "R6.GATE.15",
     "R6.CTRL.5",
     "R6.CTRL.19",
-    "R6.PLAN.4",
-    "R6.GATE.15"
+    "R6.PLAN.4"
    ],
    "runner": "a1_controls.py:271",
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "no mutation, but a positive control asserting acceptance with every reviewed record; paired with RT-T0: RT-T0 is the same coverage run at X = T1' without the reviewed records"
+   },
+   "paired_with": [
+    "RT-T0"
+   ],
    "expect": {
     "outcome": "PASS",
     "invariants": [
@@ -8012,10 +8721,7 @@
     "release_condition": "every reviewed record of sec. 8.2 present at F and verifying under sec. 6.3",
     "release_check": "a reviewed record of a sec. 8.2 kind referenced by the configuration at the commit under check"
    },
-   "source": "D:2210",
-   "flags": [
-    "VD-RESTORE: no restored case executed"
-   ]
+   "source": "D:2210"
   },
   {
    "id": "RT-T0",
@@ -8039,6 +8745,14 @@
    "runner": "a1_controls.py:262",
    "operations": [
     "coverage"
+   ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "the mechanical scan found a mutation or needs a check (\"check\"); Q11 keeps a required opposite direction; paired with RT-T: RT-T is the same coverage run at X = T1' with every reviewed record"
+   },
+   "paired_with": [
+    "RT-T"
    ],
    "expect": {
     "outcome": "FAIL",
@@ -8088,7 +8802,7 @@
     "MC-2 applied: 113/7/7; the runner expected string (a1_controls.py:262) is corrected with it",
     "inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)",
     "RD-3: region_splices_distinct 31 is asserted by the runner and kept; site_counts:unchanged 383, the 18 line-attributed overlaps and the D029-only overlap are design figures the runner does not assert today (verification defect)",
-    "VD-RESTORE: no restored case executed"
+    "VD-RESTORE: the paired row is not executed (no runner, or NOT RUN)"
    ]
   },
   {
@@ -8101,7 +8815,11 @@
    "operations": [
     "execution"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "REVIEW_REQUIRED",
     "classes_exact": [
@@ -8121,7 +8839,10 @@
      }
     ]
    },
-   "source": "v2:628 (D:2502 stands; OD-17 translation; OD-21)"
+   "source": "v2:628 (D:2502 stands; OD-17 translation; OD-21)",
+   "flags": [
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+   ]
   },
   {
    "id": "S11-1",
@@ -8135,6 +8856,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2341) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_exact": [
@@ -8155,6 +8881,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2350) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -8174,6 +8905,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2351) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -8203,6 +8939,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2352) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -8229,6 +8970,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2353 (class per MC-17)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -8260,6 +9006,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2354) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -8294,6 +9045,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2342) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "COMPOSITE"
    },
@@ -8302,7 +9058,10 @@
     "S11-2b",
     "S11-2c"
    ],
-   "source": "D:2342"
+   "source": "D:2342",
+   "flags": [
+    "Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json"
+   ]
   },
   {
    "id": "S11-2a",
@@ -8314,6 +9073,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2342 (first countercontrol)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "REVIEW_REQUIRED",
     "classes_exact": [
@@ -8340,6 +9104,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2342 (second countercontrol)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -8360,6 +9129,11 @@
    "operations": [
     "record"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2342 (third countercontrol; op A record_checks)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "invariants": [
@@ -8383,6 +9157,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2343) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -8425,6 +9204,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2344 (class per MC-17)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -8464,6 +9248,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2345) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -8498,7 +9287,11 @@
    "operations": [
     "terms"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "the mechanical scan found a mutation or needs a check (\"yes\"); Q11 keeps a required opposite direction"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "PASS",
@@ -8639,7 +9432,7 @@
      {
       "case": "correspondence",
       "outcome": "ERROR",
-      "stop_class": "SOURCE_CHANGED"
+      "stop_class": "LEDGER_INTEGRITY"
      },
      {
       "case": "per edit",
@@ -8669,7 +9462,8 @@
    },
    "source": "D:2295",
    "flags": [
-    "VD-RESTORE: no restored case executed"
+    "VD-RESTORE: no restored case executed",
+    "RE-16: a correspondence or selection failure of a ledger whose blob matches its pin is LEDGER_INTEGRITY; the tool commit raises SOURCE_CHANGED (OBL-28 C-14)"
    ]
   },
   {
@@ -8684,7 +9478,11 @@
    "operations": [
     "execution"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "mutation: an added sentence pair; also asserts acceptance (PASS)"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "PASS",
@@ -8738,7 +9536,7 @@
      {
       "case": "c",
       "outcome": "ERROR",
-      "stop_class": "SOURCE_CHANGED"
+      "stop_class": "LEDGER_INTEGRITY"
      },
      {
       "case": [
@@ -8750,7 +9548,7 @@
      {
       "case": "f",
       "outcome": "ERROR",
-      "stop_class": "SOURCE_CHANGED"
+      "stop_class": "LEDGER_INTEGRITY"
      }
     ]
    },
@@ -8773,7 +9571,8 @@
    },
    "source": "D:2297",
    "flags": [
-    "VD-RESTORE: no restored case executed"
+    "VD-RESTORE: no restored case executed",
+    "RE-16: a correspondence or selection failure of a ledger whose blob matches its pin is LEDGER_INTEGRITY; the tool commit raises SOURCE_CHANGED (OBL-28 C-14)"
    ]
   },
   {
@@ -8791,7 +9590,7 @@
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "ERROR",
-    "stop_class": "SOURCE_CHANGED"
+    "stop_class": "LEDGER_INTEGRITY"
    },
    "restored": {
     "outcome": "RESULT_EQUAL_CLEAN",
@@ -8811,7 +9610,8 @@
    },
    "source": "D:2298",
    "flags": [
-    "VD-RESTORE: no restored case executed"
+    "VD-RESTORE: no restored case executed",
+    "RE-16: a correspondence or selection failure of a ledger whose blob matches its pin is LEDGER_INTEGRITY; the tool commit raises SOURCE_CHANGED (OBL-28 C-14)"
    ]
   },
   {
@@ -8828,7 +9628,7 @@
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "ERROR",
-    "stop_class": "SOURCE_CHANGED",
+    "stop_class": "LEDGER_INTEGRITY",
     "invariants": [
      {
       "names_edit": 2,
@@ -8855,7 +9655,8 @@
    },
    "source": "D:2299",
    "flags": [
-    "VD-RESTORE: no restored case executed"
+    "VD-RESTORE: no restored case executed",
+    "RE-16: a correspondence or selection failure of a ledger whose blob matches its pin is LEDGER_INTEGRITY; the tool commit raises SOURCE_CHANGED (OBL-28 C-14)"
    ]
   },
   {
@@ -8917,7 +9718,7 @@
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "ERROR",
-    "stop_class": "SOURCE_CHANGED",
+    "stop_class": "LEDGER_INTEGRITY",
     "invariants": [
      {
       "names_edit": 2,
@@ -8944,7 +9745,8 @@
    },
    "source": "D:2301",
    "flags": [
-    "VD-RESTORE: no restored case executed"
+    "VD-RESTORE: no restored case executed",
+    "RE-16: a correspondence or selection failure of a ledger whose blob matches its pin is LEDGER_INTEGRITY; the tool commit raises SOURCE_CHANGED (OBL-28 C-14)"
    ]
   },
   {
@@ -8961,7 +9763,7 @@
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "ERROR",
-    "stop_class": "SOURCE_CHANGED",
+    "stop_class": "LEDGER_INTEGRITY",
     "invariants": [
      {
       "names_edit": 2,
@@ -8988,7 +9790,8 @@
    },
    "source": "D:2302",
    "flags": [
-    "VD-RESTORE: no restored case executed"
+    "VD-RESTORE: no restored case executed",
+    "RE-16: a correspondence or selection failure of a ledger whose blob matches its pin is LEDGER_INTEGRITY; the tool commit raises SOURCE_CHANGED (OBL-28 C-14)"
    ]
   },
   {
@@ -9006,6 +9809,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2346) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -9036,6 +9844,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2347) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -9081,6 +9894,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2348) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -9101,6 +9919,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2349) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -9181,6 +10004,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2527) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -9223,6 +10051,11 @@
     "terms",
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (D:852, D:997 describe S7)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "PREDICATE",
@@ -9289,7 +10122,8 @@
    },
    "source": "D:2217",
    "flags": [
-    "VD-8: second clause computed, not asserted, today"
+    "VD-8: second clause computed, not asserted, today",
+    "VD-RESTORE: listed without a restored case by the conformance check (C-1)"
    ]
   },
   {
@@ -9474,7 +10308,8 @@
    ],
    "source": "D:2271",
    "flags": [
-    "composed_of: the design id holds only if this row's own record and every component hold (RD-4)"
+    "composed_of: the design id holds only if this row's own record and every component hold (RD-4)",
+    "Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json"
    ]
   },
   {
@@ -9548,7 +10383,8 @@
    "source": "D:2272",
    "flags": [
     "composed_of: tool half recorded here; consumer half TR15-consumer (RD-26)",
-    "VD-RESTORE: no restored case executed"
+    "VD-RESTORE: no restored case executed",
+    "Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json"
    ]
   },
   {
@@ -9654,7 +10490,10 @@
     "TR28-tool",
     "TR28-consumer"
    ],
-   "source": "D:2273 (RD-4)"
+   "source": "D:2273 (RD-4)",
+   "flags": [
+    "Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json"
+   ]
   },
   {
    "id": "TR28-consumer",
@@ -9785,7 +10624,8 @@
    ],
    "source": "D:2274",
    "flags": [
-    "composed_of: the design id holds only if this row's own record and every component hold (RD-4)"
+    "composed_of: the design id holds only if this row's own record and every component hold (RD-4)",
+    "Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json"
    ]
   },
   {
@@ -9904,8 +10744,8 @@
   {
    "id": "TR45",
    "requirements": [
-    "R6.CTRL.17",
-    "R6.CTRL.23"
+    "R6.GATE.15",
+    "R6.CTRL.5"
    ],
    "runner": null,
    "operations": [],
@@ -9924,7 +10764,19 @@
     "TR45-opB",
     "TR45-opC"
    ],
-   "source": "D:2276 (RD-4, RD-26)"
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "component TR45-opC is NOT RUN; a composite is NOT RUN while any component is an admitted NOT RUN and none is FAIL or ERROR (Q14)",
+    "release_condition": "delegated evidence recorded by native runs at X and C",
+    "release_check": "a committed op-C snapshot at the commit under check whose delegated evidence covers every class its result decided, recorded by native runs at X and C (G-A1 PASS)"
+   },
+   "source": "D:2276 (RD-4, RD-26)",
+   "flags": [
+    "RE-30, Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json"
+   ]
   },
   {
    "id": "TR45-opB",
@@ -9985,10 +10837,10 @@
   {
    "id": "TR45-opC",
    "requirements": [
+    "R6.GATE.15",
     "R6.CTRL.5",
     "R6.CTRL.17",
-    "R6.CTRL.23",
-    "R6.GATE.15"
+    "R6.CTRL.23"
    ],
    "runner": null,
    "operations": [
@@ -10116,7 +10968,11 @@
    "operations": [
     "terms"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "no mutation, but a positive control asserting acceptance of a valid T"
+   },
    "expect": {
     "outcome": "PASS",
     "invariants": [
@@ -10145,10 +11001,10 @@
    "id": "TR5",
    "requirements": [
     "R6.REC.24",
+    "R6.GATE.15",
     "R6.CTRL.5",
     "R6.CTRL.23",
     "R6.PLAN.2",
-    "R6.GATE.15",
     "R6.CFG.8",
     "R6.REPRO.1"
    ],
@@ -10156,7 +11012,11 @@
    "operations": [
     "terms"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "no mutation, but a positive control asserting acceptance of a complete chain-admitted run"
+   },
    "expect": {
     "outcome": "PASS",
     "invariants": [
@@ -10212,7 +11072,11 @@
    "operations": [
     "terms"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "no mutation, but a positive control asserting acceptance of a complete control-harness run"
+   },
    "expect": {
     "outcome": "PASS",
     "invariants": [
@@ -10267,7 +11131,8 @@
    "source": "D:2279",
    "flags": [
     "composed_of: tool half recorded here; consumer half TR50-consumer (RD-26)",
-    "VD-RESTORE: no restored case executed"
+    "VD-RESTORE: no restored case executed",
+    "Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json"
    ]
   },
   {
@@ -10350,7 +11215,8 @@
    "source": "D:2280",
    "flags": [
     "composed_of: tool half recorded here; consumer half TR51-consumer (RD-26)",
-    "VD-RESTORE: no restored case executed"
+    "VD-RESTORE: no restored case executed",
+    "Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json"
    ]
   },
   {
@@ -10431,7 +11297,8 @@
    "source": "D:2281",
    "flags": [
     "composed_of: tool half recorded here; consumer half TR52-consumer (RD-26)",
-    "VD-RESTORE: no restored case executed"
+    "VD-RESTORE: no restored case executed",
+    "Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json"
    ]
   },
   {
@@ -10492,6 +11359,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "ANY",
     "invariants": [
@@ -10511,7 +11383,10 @@
      }
     ]
    },
-   "source": "v2:614 (OD-17: class-pin reading)"
+   "source": "v2:614 (OD-17: class-pin reading)",
+   "flags": [
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+   ]
   },
   {
    "id": "TT10",
@@ -10525,13 +11400,21 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
      "landing-drops-main-change"
     ]
    },
-   "source": "v2:623"
+   "source": "v2:623",
+   "flags": [
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+   ]
   },
   {
    "id": "TT11",
@@ -10546,13 +11429,21 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
      "landing-extra-change"
     ]
    },
-   "source": "v2:624"
+   "source": "v2:624",
+   "flags": [
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+   ]
   },
   {
    "id": "TT12",
@@ -10567,6 +11458,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -10575,7 +11471,8 @@
    },
    "source": "v2:625",
    "flags": [
-    "RD-25: class landing-extra-change (the landing does not carry the execution change); the runner asserts only \"some class\" today (VD-10)"
+    "RD-25: class landing-extra-change (the landing does not carry the execution change); the runner asserts only \"some class\" today (VD-10)",
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
    ]
   },
   {
@@ -10591,7 +11488,11 @@
    "operations": [
     "execution"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "NO_ITEM",
     "invariants": [
@@ -10603,7 +11504,10 @@
      }
     ]
    },
-   "source": "v2:626 (OD-17: class-pin reading)"
+   "source": "v2:626 (OD-17: class-pin reading)",
+   "flags": [
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+   ]
   },
   {
    "id": "TT14",
@@ -10617,6 +11521,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -10628,7 +11537,10 @@
      }
     ]
    },
-   "source": "v2:627 (OD-17, OD-26)"
+   "source": "v2:627 (OD-17, OD-26)",
+   "flags": [
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+   ]
   },
   {
    "id": "TT2",
@@ -10643,6 +11555,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "COUNTERCONTROL",
     "invariants": [
@@ -10653,7 +11570,8 @@
    },
    "source": "v2:615 (OD-17: v2 countercontrol)",
    "flags": [
-    "VD-5: the old-style comparison is not run today; implement or retire (OD-17)"
+    "VD-5: the old-style comparison is not run today; implement or retire (OD-17)",
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
    ]
   },
   {
@@ -10669,13 +11587,21 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
      "candidate-parent"
     ]
    },
-   "source": "v2:616"
+   "source": "v2:616",
+   "flags": [
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+   ]
   },
   {
    "id": "TT4",
@@ -10689,13 +11615,21 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
      "candidate-parent"
     ]
    },
-   "source": "v2:617"
+   "source": "v2:617",
+   "flags": [
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+   ]
   },
   {
    "id": "TT5",
@@ -10712,11 +11646,19 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "ERROR",
     "stop_class": "SCIENTIFIC_BASE_MISMATCH"
    },
-   "source": "v2:618"
+   "source": "v2:618",
+   "flags": [
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+   ]
   },
   {
    "id": "TT6",
@@ -10731,11 +11673,19 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "ERROR",
     "stop_class": "MAIN_NOT_DESCENDANT"
    },
-   "source": "v2:619"
+   "source": "v2:619",
+   "flags": [
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+   ]
   },
   {
    "id": "TT7",
@@ -10753,6 +11703,11 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "cases": [
      {
@@ -10789,7 +11744,8 @@
    },
    "source": "v2:620 (OD-17, OD-12)",
    "flags": [
-    "VD-4: landing run e7l computed and not asserted today; see (D) for the landing class"
+    "VD-4: landing run e7l computed and not asserted today; see (D) for the landing class",
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
    ]
   },
   {
@@ -10806,7 +11762,11 @@
    "operations": [
     "execution"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "PASS",
     "invariants": [
@@ -10823,7 +11783,8 @@
    },
    "source": "v2:621 (OD-17: PASS asserted)",
    "flags": [
-    "VD-10: PASS asserted, not only the absence of three classes"
+    "VD-10: PASS asserted, not only the absence of three classes",
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
    ]
   },
   {
@@ -10838,13 +11799,21 @@
    "operations": [
     "execution"
    ],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
      "landing-parents"
     ]
    },
-   "source": "v2:622"
+   "source": "v2:622",
+   "flags": [
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+   ]
   },
   {
    "id": "U1",
@@ -10861,7 +11830,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "the mechanical scan found a mutation or needs a check (\"check\"); Q11 keeps a required opposite direction"
+   },
    "expect": {
     "outcome": "PASS",
     "sites": [
@@ -10899,7 +11872,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "mutation: a ledgered splice rewriting a site line; also asserts acceptance (PASS)"
+   },
    "expect": {
     "outcome": "PASS",
     "sites": [
@@ -10935,7 +11912,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "the mechanical scan found a mutation or needs a check (\"check\"); Q11 keeps a required opposite direction"
+   },
    "expect": {
     "outcome": "PASS",
     "sites": [
@@ -10994,8 +11975,11 @@
    "id": "U14",
    "requirements": [
     "R6.HP.7",
+    "R6.REC.10",
+    "R6.CLASS.4",
     "R6.CLASS.6",
-    "R6.CTRL.9"
+    "R6.CTRL.9",
+    "R6.CTRL.16"
    ],
    "runner": "controls_engine.py:229",
    "operations": [
@@ -11010,10 +11994,13 @@
       "sites": [
        {
         "subject": "$site",
-        "state": "adjudicated",
+        "state": "provenance-adjudicated",
         "classes_exact": []
        }
-      ]
+      ],
+      "counts": {
+       "site_counts:provenance-adjudicated": 1
+      }
      },
      {
       "case": "the same adjudication with a wrong region hash (the v1 U15 case)",
@@ -11021,8 +12008,9 @@
       "sites": [
        {
         "subject": "$site",
-        "classes_include": [
-         "provenance-mismatch"
+        "classes_exact": [
+         "provenance-mismatch",
+         "stale-adjudication"
         ]
        }
       ]
@@ -11039,9 +12027,9 @@
    },
    "source": "v1:360 (U14) and v1:361 (U15), restated under provenance adjudications (v2 9.1; RD-9)",
    "flags": [
-    "Q9: runner predicate weaker/mismatched: the runner asserts \"no item naming the site\" for the positive case, not the status \"adjudicated\" (verification defect)",
     "the runner records the negative case under the id U15 today; the tool revision records it under U14",
-    "RD-9 states that a wrong region hash FAILs \"through unauthorized-change\"; the runner and v6.0e sec. 9 give provenance-mismatch; see REPORT residual R-3"
+    "Q12: the positive case asserts the distinct status provenance-adjudicated and its separate count (R6.HP.7); the tool commit marks the site only by its provenance reference, an implementation obligation (OBL-28)",
+    "Q12: the wrong-region-hash case expects provenance-mismatch (the record does not match the walk) and stale-adjudication (the entry then resolves no subject), exactly; any other class emitted is a defect"
    ]
   },
   {
@@ -11058,7 +12046,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "mutation: three lines inserted above a site; also asserts acceptance (PASS)"
+   },
    "expect": {
     "outcome": "PASS",
     "sites": [
@@ -11092,7 +12084,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "mutation: a shift produced by a ledgered splice; also asserts acceptance (PASS)"
+   },
    "expect": {
     "outcome": "PASS",
     "sites": [
@@ -11192,7 +12188,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "a synthetic candidate built with a pin-duplicated line; asserts acceptance (PASS)"
+   },
    "expect": {
     "outcome": "PASS"
    },
@@ -11567,9 +12567,12 @@
    "id": "V15",
    "requirements": [
     "R6.PUR.8",
+    "R6.PUR.9",
     "R6.PROF.3",
     "R6.DENY.4",
+    "R6.DENY.6",
     "R6.CTRL.14",
+    "R6.CTRL.15",
     "R6.A1CFG.7"
    ],
    "runner": "a1_controls.py:499",
@@ -11577,24 +12580,43 @@
     "terms"
    ],
    "expect": {
-    "outcome": "REVIEW_REQUIRED",
-    "classes_exact": [
-     "unclassified"
-    ],
-    "invariants": [
-     {
-      "all": "hits",
-      "have": {
-       "profiles": [
-        "resid"
-       ]
-      }
-     },
-     {
-      "resid_key": "resid-a"
-     }
-    ]
+    "outcome": "DEFERRED"
    },
+   "candidate_expectations": [
+    {
+     "label": "reversal adopted (REVIEW_REQUIRED unclassified through resid only)",
+     "status": "not authoritative; decided at r6 adoption",
+     "expect": {
+      "outcome": "REVIEW_REQUIRED",
+      "classes_exact": [
+       "unclassified"
+      ],
+      "invariants": [
+       {
+        "all": "hits",
+        "have": {
+         "profiles": [
+          "resid"
+         ]
+        }
+       },
+       {
+        "resid_key": "resid-a"
+       }
+      ]
+     }
+    },
+    {
+     "label": "reversal rejected (a plan rule record restored for this form, sec. 12)",
+     "status": "not authoritative; decided at r6 adoption",
+     "expect": {
+      "outcome": "FAIL",
+      "classes_include": [
+       "deny-match"
+      ]
+     }
+    }
+   ],
    "restored": {
     "outcome": "RESULT_EQUAL_CLEAN",
     "invariants": [
@@ -11605,8 +12627,9 @@
    },
    "source": "D:2150",
    "flags": [
-    "RD-14/Q10: rests on owner decision V5-D1 (dropping DR-2 / DR-1d), recorded only in paraphrase; adoption is decided at r6 adoption, not by this draft. If rejected, the expectation reverts to FAIL deny-match (REPORT R-1)",
-    "VD-RESTORE: no restored case executed"
+    "VD-RESTORE: no restored case executed",
+    "RE-1: both candidate expectations are recorded, each not authoritative; decided at r6 adoption; the gate reports deferred-expectation and never holds on this row until the owner decides",
+    "pending owner confirmation (see PARAPHRASED-DECISIONS.md): rests on V5-D1, recorded only in paraphrase"
    ]
   },
   {
@@ -12151,13 +13174,36 @@
    "operations": [
     "terms"
    ],
-   "direction": "positive",
-   "expect": {
-    "outcome": "PASS",
-    "counts": {
-     "hits": 0
-    }
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "mutation: added text, alone and as the edited glossary line"
    },
+   "expect": {
+    "outcome": "DEFERRED"
+   },
+   "candidate_expectations": [
+    {
+     "label": "reversal adopted (accepted residual: PASS, no hit)",
+     "status": "not authoritative; decided at r6 adoption",
+     "expect": {
+      "outcome": "PASS",
+      "counts": {
+       "hits": 0
+      }
+     }
+    },
+    {
+     "label": "reversal rejected (a plan rule record restored for this form, sec. 12)",
+     "status": "not authoritative; decided at r6 adoption",
+     "expect": {
+      "outcome": "FAIL",
+      "classes_include": [
+       "deny-match"
+      ]
+     }
+    }
+   ],
    "restored": {
     "outcome": "RESULT_EQUAL_CLEAN",
     "invariants": [
@@ -12172,13 +13218,16 @@
    "source": "D:2138 (added alone)",
    "flags": [
     "composed_of: the design id holds only if this row's own record and every component hold (RD-4)",
-    "RD-14/Q10: rests on owner decision V5-D1 (dropping DR-2 / DR-1d), recorded only in paraphrase; adoption is decided at r6 adoption, not by this draft. If rejected, the expectation reverts to FAIL deny-match (REPORT R-1)",
-    "VD-RESTORE: no restored case executed"
+    "VD-RESTORE: no restored case executed",
+    "RE-1: both candidate expectations are recorded, each not authoritative; decided at r6 adoption; the gate reports deferred-expectation and never holds on this row until the owner decides",
+    "pending owner confirmation (see PARAPHRASED-DECISIONS.md): rests on V5-D1, recorded only in paraphrase",
+    "Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json"
    ]
   },
   {
    "id": "V27-glossary",
    "requirements": [
+    "R6.PUR.9",
     "R6.DENY.6",
     "R6.CTRL.14",
     "R6.CTRL.15"
@@ -12187,13 +13236,36 @@
    "operations": [
     "terms"
    ],
-   "direction": "positive",
-   "expect": {
-    "outcome": "PASS",
-    "counts": {
-     "hits": 0
-    }
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "mutation: added text as the edited glossary line"
    },
+   "expect": {
+    "outcome": "DEFERRED"
+   },
+   "candidate_expectations": [
+    {
+     "label": "reversal adopted (accepted residual: PASS, no hit)",
+     "status": "not authoritative; decided at r6 adoption",
+     "expect": {
+      "outcome": "PASS",
+      "counts": {
+       "hits": 0
+      }
+     }
+    },
+    {
+     "label": "reversal rejected (a plan rule record restored for this form, sec. 12)",
+     "status": "not authoritative; decided at r6 adoption",
+     "expect": {
+      "outcome": "FAIL",
+      "classes_include": [
+       "deny-match"
+      ]
+     }
+    }
+   ],
    "restored": {
     "outcome": "RESULT_EQUAL_CLEAN",
     "invariants": [
@@ -12204,8 +13276,9 @@
    },
    "source": "D:2138 (as the edited glossary.md:13 line)",
    "flags": [
-    "RD-14/Q10: rests on owner decision V5-D1 (dropping DR-2 / DR-1d), recorded only in paraphrase; adoption is decided at r6 adoption, not by this draft. If rejected, the expectation reverts to FAIL deny-match (REPORT R-1)",
-    "VD-RESTORE: no restored case executed"
+    "VD-RESTORE: no restored case executed",
+    "RE-1: both candidate expectations are recorded, each not authoritative; decided at r6 adoption; the gate reports deferred-expectation and never holds on this row until the owner decides",
+    "pending owner confirmation (see PARAPHRASED-DECISIONS.md): rests on V5-D1, recorded only in paraphrase"
    ]
   },
   {
@@ -12261,6 +13334,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only; cf. D:2161, D:2216)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "invariants": [
@@ -12292,22 +13370,54 @@
    "operations": [
     "terms"
    ],
-   "direction": "positive",
-   "expect": {
-    "cases": [
-     {
-      "case": "review and deny profiles",
-      "outcome": "PASS",
-      "counts": {
-       "hits": 0
-      }
-     },
-     {
-      "case": "item7-literal",
-      "outcome": "PASS"
-     }
-    ]
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "mutation: added text (V controls are splices adding the stated text, R6.CTRL.6)"
    },
+   "expect": {
+    "outcome": "DEFERRED"
+   },
+   "candidate_expectations": [
+    {
+     "label": "reversal adopted (accepted residual: PASS, no hit)",
+     "status": "not authoritative; decided at r6 adoption",
+     "expect": {
+      "cases": [
+       {
+        "case": "review and deny profiles",
+        "outcome": "PASS",
+        "counts": {
+         "hits": 0
+        }
+       },
+       {
+        "case": "item7-literal",
+        "outcome": "PASS"
+       }
+      ]
+     }
+    },
+    {
+     "label": "reversal rejected (a plan rule record restored for this form, sec. 12)",
+     "status": "not authoritative; decided at r6 adoption",
+     "expect": {
+      "cases": [
+       {
+        "case": "review and deny profiles",
+        "outcome": "FAIL",
+        "classes_include": [
+         "deny-match"
+        ]
+       },
+       {
+        "case": "item7-literal",
+        "outcome": "PASS"
+       }
+      ]
+     }
+    }
+   ],
    "restored": {
     "outcome": "RESULT_EQUAL_CLEAN",
     "invariants": [
@@ -12318,8 +13428,9 @@
    },
    "source": "D:2137",
    "flags": [
-    "RD-14/Q10: rests on owner decision V5-D1 (dropping DR-2 / DR-1d), recorded only in paraphrase; adoption is decided at r6 adoption, not by this draft. If rejected, the expectation reverts to FAIL deny-match (REPORT R-1)",
-    "VD-RESTORE: no restored case executed"
+    "VD-RESTORE: no restored case executed",
+    "RE-1: both candidate expectations are recorded, each not authoritative; decided at r6 adoption; the gate reports deferred-expectation and never holds on this row until the owner decides",
+    "pending owner confirmation (see PARAPHRASED-DECISIONS.md): rests on V5-D1, recorded only in paraphrase"
    ]
   },
   {
@@ -12570,7 +13681,11 @@
    "operations": [
     "terms"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "no mutation, but a positive control asserting acceptance of the W1-c sentence by its allow rule"
+   },
    "expect": {
     "outcome": "PASS",
     "sites": [
@@ -12708,7 +13823,11 @@
    "operations": [
     "terms"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "mutation: the fingerprinted sentence moved with its neighbours; also asserts acceptance (PASS)"
+   },
    "expect": {
     "outcome": "PASS",
     "invariants": [
@@ -13019,7 +14138,11 @@
    "operations": [
     "terms"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "mutation: the fingerprinted sentence and neighbours shifted by 40 lines; also asserts acceptance (PASS)"
+   },
    "expect": {
     "outcome": "PASS"
    },
@@ -13168,8 +14291,8 @@
     "R6.OUT.12",
     "R6.REC.16",
     "R6.REC.24",
-    "R6.CTRL.23",
     "R6.GATE.5",
+    "R6.CTRL.23",
     "R6.CFG.8"
    ],
    "runner": "conformance_controls.py:472",
@@ -13515,7 +14638,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:3062) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "PASS",
     "sites": [
@@ -13542,6 +14669,11 @@
    "operations": [
     "coverage"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:3071) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "ERROR",
     "stop_class": "SOURCE_CHANGED"
@@ -13559,6 +14691,11 @@
    "operations": [
     "coverage"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:3063) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_exact": [
@@ -13578,6 +14715,11 @@
    "operations": [
     "coverage"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:3064) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_exact": [
@@ -13629,6 +14771,11 @@
    "operations": [
     "coverage"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:3066) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_exact": {
@@ -13652,6 +14799,11 @@
    "operations": [
     "coverage"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:3067) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -13686,6 +14838,11 @@
    "operations": [
     "coverage"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:3068) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "ERROR",
     "stop_class": "CONFIG_UNSUPPORTED"
@@ -13706,7 +14863,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:3069) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "HASH_EQUAL"
@@ -13731,6 +14892,11 @@
    "operations": [
     "coverage"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:3070) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "REVIEW_REQUIRED",
     "classes_exact": [
@@ -13755,6 +14921,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:3079, D:3088) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "ERROR",
     "stop_class": "CONFIG_INVALID"
@@ -13777,6 +14948,11 @@
    "operations": [
     "coverage"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:3091-3094) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -13820,6 +14996,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2526) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -13846,6 +15027,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:3080, D:3088) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "ERROR",
     "stop_class": "CONFIG_INVALID"
@@ -13867,6 +15053,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:3080, D:3088) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "ERROR",
     "stop_class": "CONFIG_INVALID"
@@ -13887,6 +15078,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:3081, D:3088) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "ERROR",
     "stop_class": "CONFIG_UNSUPPORTED"
@@ -13909,6 +15105,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:3082, D:3088) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "ERROR",
     "stop_class": "CONFIG_UNREVIEWED"
@@ -13931,6 +15132,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:3079, D:3088) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "ERROR",
     "stop_class": "CONFIG_INVALID"
@@ -13952,6 +15158,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "USAGE",
     "exit": 64,
@@ -13977,6 +15188,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:3084, D:3088) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -14010,6 +15226,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:3085, D:3088) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "VOID",
     "stop_class": "CONFIG_NO_CONTROLS"
@@ -14029,7 +15250,11 @@
    "operations": [
     "purity-lint"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2818-2887 (sec. 16.1, Z9 in CI; RD-25)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "PASS",
@@ -14066,6 +15291,11 @@
    ],
    "runner": "synthetic_fixture.py:570",
    "operations": [],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2879) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "LINT_FAIL"
@@ -14093,6 +15323,11 @@
    ],
    "runner": "synthetic_fixture.py:570",
    "operations": [],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2880) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "LINT_FAIL"
@@ -14120,6 +15355,11 @@
    ],
    "runner": "synthetic_fixture.py:571",
    "operations": [],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2881) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "LINT_FAIL"
@@ -14147,6 +15387,11 @@
    ],
    "runner": "synthetic_fixture.py:571",
    "operations": [],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2882) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "LINT_FAIL"
@@ -14173,7 +15418,11 @@
    ],
    "runner": "synthetic_fixture.py:572",
    "operations": [],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2883) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "LINT_PASS"
@@ -14255,7 +15504,11 @@
    ],
    "runner": "a1_controls.py:1169",
    "operations": [],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2885) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "LINT_PASS"
@@ -14283,6 +15536,11 @@
    ],
    "runner": "a1_controls.py:1175",
    "operations": [],
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "in scope: v6.0e sec. 10 (D:2291 statement merged into Z9h; C-1)"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "LINT_FAIL",
@@ -14307,7 +15565,10 @@
      "value set with the edits.json values"
     ]
    },
-   "source": "D:2886 with D:2291 (RD-31: \"'guard-pin' planted in an engine module, with the adapter companions in the value set: lint FAIL (the value occurs in edits.json)\")"
+   "source": "D:2886 with D:2291 (RD-31: \"'guard-pin' planted in an engine module, with the adapter companions in the value set: lint FAIL (the value occurs in edits.json)\")",
+   "flags": [
+    "VD-RESTORE: listed without a restored case by the conformance check (C-1)"
+   ]
   },
   {
    "id": "item11-T1p",
@@ -14321,6 +15582,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (D:2351) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_exact": [
@@ -14345,6 +15611,11 @@
    ],
    "runner": "controls_engine.py:638",
    "operations": [],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only: none)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "LINT_PASS",
     "invariants": [
@@ -14366,6 +15637,11 @@
    "operations": [
     "terms"
    ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (none (runner-only: none)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -14380,12 +15656,12 @@
   {
    "id": "GATE-1",
    "requirements": [
-    "R6.CTRL.30",
     "R6.GATE.1",
     "R6.GATE.3",
     "R6.GATE.8",
     "R6.GATE.9",
     "R6.GATE.13",
+    "R6.CTRL.30",
     "R6.EVID.1"
    ],
    "runner": "gate self-test",
@@ -14403,9 +15679,9 @@
   {
    "id": "GATE-2",
    "requirements": [
-    "R6.CTRL.30",
     "R6.GATE.9",
-    "R6.GATE.13"
+    "R6.GATE.13",
+    "R6.CTRL.30"
    ],
    "runner": "gate self-test",
    "operations": [],
@@ -14422,10 +15698,10 @@
   {
    "id": "GATE-3",
    "requirements": [
-    "R6.CTRL.2",
-    "R6.CTRL.30",
     "R6.GATE.9",
-    "R6.GATE.13"
+    "R6.GATE.13",
+    "R6.CTRL.2",
+    "R6.CTRL.30"
    ],
    "runner": "gate self-test",
    "operations": [],
@@ -14442,10 +15718,10 @@
   {
    "id": "GATE-4",
    "requirements": [
-    "R6.CTRL.2",
-    "R6.CTRL.30",
     "R6.GATE.9",
-    "R6.GATE.13"
+    "R6.GATE.13",
+    "R6.CTRL.2",
+    "R6.CTRL.30"
    ],
    "runner": "gate self-test",
    "operations": [],
@@ -14462,11 +15738,11 @@
   {
    "id": "GATE-5",
    "requirements": [
-    "R6.CTRL.5",
-    "R6.CTRL.30",
     "R6.GATE.5",
     "R6.GATE.13",
-    "R6.GATE.15"
+    "R6.GATE.15",
+    "R6.CTRL.5",
+    "R6.CTRL.30"
    ],
    "runner": "gate self-test",
    "operations": [],
@@ -14483,11 +15759,11 @@
   {
    "id": "GATE-6",
    "requirements": [
-    "R6.CTRL.30",
     "R6.GATE.1",
     "R6.GATE.3",
     "R6.GATE.8",
     "R6.GATE.13",
+    "R6.CTRL.30",
     "R6.EVID.1"
    ],
    "runner": "gate self-test",
@@ -14505,10 +15781,10 @@
   {
    "id": "GATE-7",
    "requirements": [
-    "R6.CTRL.1",
-    "R6.CTRL.30",
     "R6.GATE.12",
-    "R6.GATE.13"
+    "R6.GATE.13",
+    "R6.CTRL.1",
+    "R6.CTRL.30"
    ],
    "runner": "gate self-test",
    "operations": [],
@@ -14525,11 +15801,11 @@
   {
    "id": "GATE-8",
    "requirements": [
-    "R6.CTRL.1",
-    "R6.CTRL.30",
     "R6.GATE.4",
     "R6.GATE.12",
-    "R6.GATE.13"
+    "R6.GATE.13",
+    "R6.CTRL.1",
+    "R6.CTRL.30"
    ],
    "runner": "gate self-test",
    "operations": [],
@@ -14546,11 +15822,11 @@
   {
    "id": "GATE-9",
    "requirements": [
-    "R6.CTRL.30",
     "R6.GATE.5",
     "R6.GATE.7",
     "R6.GATE.9",
-    "R6.GATE.13"
+    "R6.GATE.13",
+    "R6.CTRL.30"
    ],
    "runner": "gate self-test",
    "operations": [],
@@ -14567,11 +15843,11 @@
   {
    "id": "GATE-10",
    "requirements": [
-    "R6.CTRL.30",
     "R6.GATE.7",
     "R6.GATE.8",
     "R6.GATE.9",
-    "R6.GATE.13"
+    "R6.GATE.13",
+    "R6.CTRL.30"
    ],
    "runner": "gate self-test",
    "operations": [],
@@ -14588,10 +15864,10 @@
   {
    "id": "GATE-11",
    "requirements": [
-    "R6.CTRL.5",
-    "R6.CTRL.30",
     "R6.GATE.13",
-    "R6.GATE.15"
+    "R6.GATE.15",
+    "R6.CTRL.5",
+    "R6.CTRL.30"
    ],
    "runner": "gate self-test",
    "operations": [],
@@ -14608,12 +15884,12 @@
   {
    "id": "GATE-12",
    "requirements": [
-    "R6.CTRL.1",
-    "R6.CTRL.2",
-    "R6.CTRL.30",
     "R6.GATE.2",
     "R6.GATE.9",
-    "R6.GATE.13"
+    "R6.GATE.13",
+    "R6.CTRL.1",
+    "R6.CTRL.2",
+    "R6.CTRL.30"
    ],
    "runner": "gate self-test",
    "operations": [],
@@ -14630,11 +15906,11 @@
   {
    "id": "GATE-13",
    "requirements": [
-    "R6.CTRL.30",
-    "R6.RECON.21",
     "R6.GATE.8",
     "R6.GATE.13",
     "R6.GATE.16",
+    "R6.CTRL.30",
+    "R6.RECON.21",
     "R6.EVID.6"
    ],
    "runner": "gate self-test",
@@ -14652,11 +15928,11 @@
   {
    "id": "GATE-14",
    "requirements": [
-    "R6.CTRL.30",
-    "R6.RECON.21",
     "R6.GATE.8",
     "R6.GATE.13",
-    "R6.GATE.16"
+    "R6.GATE.16",
+    "R6.CTRL.30",
+    "R6.RECON.21"
    ],
    "runner": "gate self-test",
    "operations": [],
@@ -14673,11 +15949,11 @@
   {
    "id": "GATE-15",
    "requirements": [
-    "R6.CTRL.30",
-    "R6.RECON.21",
     "R6.GATE.8",
     "R6.GATE.13",
-    "R6.GATE.16"
+    "R6.GATE.16",
+    "R6.CTRL.30",
+    "R6.RECON.21"
    ],
    "runner": "gate self-test",
    "operations": [],
@@ -14694,10 +15970,10 @@
   {
    "id": "GATE-16",
    "requirements": [
-    "R6.CTRL.30",
     "R6.GATE.1",
     "R6.GATE.9",
     "R6.GATE.13",
+    "R6.CTRL.30",
     "R6.A1CFG.6",
     "R6.EVID.2",
     "R6.EVID.5"
@@ -14718,12 +15994,12 @@
   {
    "id": "GATE-17",
    "requirements": [
-    "R6.CTRL.30",
     "R6.GATE.2",
     "R6.GATE.3",
     "R6.GATE.4",
     "R6.GATE.9",
-    "R6.GATE.13"
+    "R6.GATE.13",
+    "R6.CTRL.30"
    ],
    "runner": "gate self-test",
    "operations": [],
@@ -14740,10 +16016,10 @@
   {
    "id": "GATE-18",
    "requirements": [
-    "R6.CTRL.30",
     "R6.GATE.11",
     "R6.GATE.13",
     "R6.GATE.14",
+    "R6.CTRL.30",
     "R6.CORE.7",
     "R6.A1CFG.7"
    ],
@@ -14761,10 +16037,10 @@
   {
    "id": "GATE-19",
    "requirements": [
-    "R6.CTRL.30",
-    "R6.RECON.21",
     "R6.GATE.13",
     "R6.GATE.16",
+    "R6.CTRL.30",
+    "R6.RECON.21",
     "R6.EVID.6"
    ],
    "runner": "gate self-test",
@@ -14781,11 +16057,11 @@
   {
    "id": "GATE-20",
    "requirements": [
-    "R6.CTRL.30",
     "R6.GATE.1",
     "R6.GATE.5",
     "R6.GATE.9",
-    "R6.GATE.13"
+    "R6.GATE.13",
+    "R6.CTRL.30"
    ],
    "runner": "gate self-test",
    "operations": [],
@@ -14802,10 +16078,10 @@
   {
    "id": "GATE-21",
    "requirements": [
-    "R6.CTRL.30",
     "R6.GATE.6",
     "R6.GATE.10",
-    "R6.GATE.13"
+    "R6.GATE.13",
+    "R6.CTRL.30"
    ],
    "runner": "gate self-test",
    "operations": [],
@@ -14823,10 +16099,10 @@
   {
    "id": "GATE-22",
    "requirements": [
-    "R6.CTRL.30",
     "R6.GATE.6",
     "R6.GATE.10",
-    "R6.GATE.13"
+    "R6.GATE.13",
+    "R6.CTRL.30"
    ],
    "runner": "gate self-test",
    "operations": [],
@@ -14844,10 +16120,10 @@
   {
    "id": "GATE-23",
    "requirements": [
-    "R6.CTRL.30",
     "R6.GATE.6",
     "R6.GATE.10",
-    "R6.GATE.13"
+    "R6.GATE.13",
+    "R6.CTRL.30"
    ],
    "runner": "gate self-test",
    "operations": [],
@@ -14865,10 +16141,10 @@
   {
    "id": "GATE-24",
    "requirements": [
-    "R6.CTRL.30",
     "R6.GATE.6",
     "R6.GATE.10",
-    "R6.GATE.13"
+    "R6.GATE.13",
+    "R6.CTRL.30"
    ],
    "runner": "gate self-test",
    "operations": [],
@@ -14886,9 +16162,9 @@
   {
    "id": "GATE-25",
    "requirements": [
-    "R6.CTRL.30",
     "R6.GATE.8",
-    "R6.GATE.13"
+    "R6.GATE.13",
+    "R6.CTRL.30"
    ],
    "runner": "gate self-test",
    "operations": [],
@@ -14906,10 +16182,10 @@
   {
    "id": "GATE-26",
    "requirements": [
-    "R6.CTRL.30",
     "R6.GATE.2",
     "R6.GATE.9",
-    "R6.GATE.13"
+    "R6.GATE.13",
+    "R6.CTRL.30"
    ],
    "runner": "gate self-test",
    "operations": [],
@@ -15270,8 +16546,8 @@
   {
    "id": "MUT:c2:D02",
    "requirements": [
-    "R6.CTRL.27",
-    "R6.GATE.10"
+    "R6.GATE.10",
+    "R6.CTRL.27"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -15612,8 +16888,8 @@
   {
    "id": "MUT:cache:K08",
    "requirements": [
-    "R6.CTRL.27",
-    "R6.GATE.10"
+    "R6.GATE.10",
+    "R6.CTRL.27"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -15631,16 +16907,17 @@
    ],
    "source": "CI run 45569710442 9-mutation-results.json: cache:K08; mutated file ledger_coverage/engine/gitobj.py; rule: the path map lists blobs and symlinks, not submodules (RD-1, Q8)",
    "flags": [
-    "LIMITATION (Q8, known survivor): no control distinguishes a path map that omits submodules; no equivalence argument is recorded"
+    "LIMITATION (Q8, known survivor): no control distinguishes a path map that omits submodules; no equivalence argument is recorded",
+    "RE-10 (b): also a verification defect; distinguishing control: a control distinguishing a path map that omits submodules (OBL-24)"
    ]
   },
   {
    "id": "MUT:o9:RDIR-m1",
    "migrated_from": "o9:O9-m1",
    "requirements": [
+    "R6.GATE.10",
     "R6.CTRL.27",
-    "R6.RDIR.6",
-    "R6.GATE.10"
+    "R6.RDIR.6"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -15668,9 +16945,9 @@
    "id": "MUT:o9:RDIR-m10",
    "migrated_from": "o9:O9-m10",
    "requirements": [
+    "R6.GATE.10",
     "R6.CTRL.27",
-    "R6.RDIR.7",
-    "R6.GATE.10"
+    "R6.RDIR.7"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -15697,10 +16974,10 @@
    "id": "MUT:o9:RDIR-m11",
    "migrated_from": "o9:O9-m11",
    "requirements": [
+    "R6.GATE.10",
     "R6.CTRL.27",
     "R6.RDIR.11",
-    "R6.RECON.16",
-    "R6.GATE.10"
+    "R6.RECON.16"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -15728,9 +17005,9 @@
    "id": "MUT:o9:RDIR-m12",
    "migrated_from": "o9:O9-m12",
    "requirements": [
+    "R6.GATE.10",
     "R6.CTRL.27",
-    "R6.RDIR.5",
-    "R6.GATE.10"
+    "R6.RDIR.5"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -15758,9 +17035,9 @@
    "id": "MUT:o9:RDIR-m13",
    "migrated_from": "o9:O9-m13",
    "requirements": [
+    "R6.GATE.10",
     "R6.CTRL.27",
-    "R6.RDIR.9",
-    "R6.GATE.10"
+    "R6.RDIR.9"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -15787,9 +17064,9 @@
    "id": "MUT:o9:RDIR-m14",
    "migrated_from": "o9:O9-m14",
    "requirements": [
+    "R6.GATE.10",
     "R6.CTRL.27",
-    "R6.RDIR.7",
-    "R6.GATE.10"
+    "R6.RDIR.7"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -15816,9 +17093,9 @@
    "id": "MUT:o9:RDIR-m15",
    "migrated_from": "o9:O9-m15",
    "requirements": [
+    "R6.GATE.10",
     "R6.CTRL.27",
-    "R6.RDIR.4",
-    "R6.GATE.10"
+    "R6.RDIR.4"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -15846,9 +17123,9 @@
    "id": "MUT:o9:RDIR-m16",
    "migrated_from": "o9:O9-m16",
    "requirements": [
+    "R6.GATE.10",
     "R6.CTRL.27",
-    "R6.RDIR.4",
-    "R6.GATE.10"
+    "R6.RDIR.4"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -15882,9 +17159,9 @@
    "id": "MUT:o9:RDIR-m17",
    "migrated_from": "o9:O9-m17",
    "requirements": [
+    "R6.GATE.10",
     "R6.CTRL.27",
-    "R6.RDIR.4",
-    "R6.GATE.10"
+    "R6.RDIR.4"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -15913,9 +17190,9 @@
    "id": "MUT:o9:RDIR-m2",
    "migrated_from": "o9:O9-m2",
    "requirements": [
+    "R6.GATE.10",
     "R6.CTRL.27",
-    "R6.RDIR.1",
-    "R6.GATE.10"
+    "R6.RDIR.1"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -15942,9 +17219,9 @@
    "id": "MUT:o9:RDIR-m3",
    "migrated_from": "o9:O9-m3",
    "requirements": [
+    "R6.GATE.10",
     "R6.CTRL.27",
-    "R6.RDIR.5",
-    "R6.GATE.10"
+    "R6.RDIR.5"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -15971,10 +17248,10 @@
    "id": "MUT:o9:RDIR-m4",
    "migrated_from": "o9:O9-m4",
    "requirements": [
+    "R6.GATE.10",
     "R6.CTRL.27",
     "R6.PLACE.4",
-    "R6.RDIR.2",
-    "R6.GATE.10"
+    "R6.RDIR.2"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -16009,9 +17286,9 @@
    "id": "MUT:o9:RDIR-m5",
    "migrated_from": "o9:O9-m5",
    "requirements": [
+    "R6.GATE.10",
     "R6.CTRL.27",
-    "R6.RDIR.6",
-    "R6.GATE.10"
+    "R6.RDIR.6"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -16038,9 +17315,9 @@
    "id": "MUT:o9:RDIR-m6",
    "migrated_from": "o9:O9-m6",
    "requirements": [
+    "R6.GATE.10",
     "R6.CTRL.27",
-    "R6.RDIR.6",
-    "R6.GATE.10"
+    "R6.RDIR.6"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -16078,9 +17355,9 @@
    "id": "MUT:o9:RDIR-m7",
    "migrated_from": "o9:O9-m7",
    "requirements": [
+    "R6.GATE.10",
     "R6.CTRL.27",
-    "R6.RDIR.5",
-    "R6.GATE.10"
+    "R6.RDIR.5"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -16108,9 +17385,9 @@
    "id": "MUT:o9:RDIR-m8",
    "migrated_from": "o9:O9-m8",
    "requirements": [
+    "R6.GATE.10",
     "R6.CTRL.27",
-    "R6.RDIR.10",
-    "R6.GATE.10"
+    "R6.RDIR.10"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -16137,9 +17414,9 @@
    "id": "MUT:o9:RDIR-m9",
    "migrated_from": "o9:O9-m9",
    "requirements": [
+    "R6.GATE.10",
     "R6.CTRL.27",
-    "R6.RDIR.10",
-    "R6.GATE.10"
+    "R6.RDIR.10"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -16742,8 +18019,8 @@
   {
    "id": "MUT:v60e:C08",
    "requirements": [
-    "R6.CTRL.27",
-    "R6.GATE.10"
+    "R6.GATE.10",
+    "R6.CTRL.27"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -16761,7 +18038,8 @@
    ],
    "source": "CI run 45569710442 9-mutation-results.json: v60e:C08; mutated file ledger_coverage/engine/checker.py; rule: TR52 at the consumer (RD-1, Q8)",
    "flags": [
-    "LIMITATION (Q8, known survivor): the consumer half of TR52 is not implemented (TR52-consumer, RD-26); no equivalence argument"
+    "LIMITATION (Q8, known survivor): the consumer half of TR52 is not implemented (TR52-consumer, RD-26); no equivalence argument",
+    "RE-10 (b): also a verification defect; distinguishing control: TR52-consumer (OBL-24)"
    ]
   },
   {
@@ -17079,8 +18357,8 @@
   {
    "id": "MUT:v60e:H03",
    "requirements": [
-    "R6.CTRL.27",
-    "R6.GATE.10"
+    "R6.GATE.10",
+    "R6.CTRL.27"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -17260,8 +18538,8 @@
   {
    "id": "MUT:v60e:I06",
    "requirements": [
-    "R6.CTRL.27",
-    "R6.GATE.10"
+    "R6.GATE.10",
+    "R6.CTRL.27"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -17279,7 +18557,8 @@
    ],
    "source": "CI run 45569710442 9-mutation-results.json: v60e:I06; mutated file ledger_coverage/engine/cli.py; rule: TR51: regular files only at T (RD-1, Q8)",
    "flags": [
-    "LIMITATION (Q8, known survivor): no control detects removal of the regular-files-only check at T (TR51); no equivalence argument is recorded"
+    "LIMITATION (Q8, known survivor): no control detects removal of the regular-files-only check at T (TR51); no equivalence argument is recorded",
+    "RE-10 (b): also a verification defect; distinguishing control: a control detecting removal of TR51's regular-files-only check at T (OBL-24)"
    ]
   },
   {
@@ -17564,8 +18843,8 @@
   {
    "id": "MUT:v60e:P01",
    "requirements": [
-    "R6.CTRL.27",
-    "R6.GATE.10"
+    "R6.GATE.10",
+    "R6.CTRL.27"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -17583,7 +18862,8 @@
    ],
    "source": "CI run 45569710442 9-mutation-results.json: v60e:P01; mutated file ledger_coverage/engine/purity.py; rule: Z9: the allowlist exempts only its listed values (RD-1, Q8)",
    "flags": [
-    "LIMITATION (Q8, known survivor): no control detects an allowlist exempting values beyond its listed ones (Z9); no equivalence argument is recorded"
+    "LIMITATION (Q8, known survivor): no control detects an allowlist exempting values beyond its listed ones (Z9); no equivalence argument is recorded",
+    "RE-10 (b): also a verification defect; distinguishing control: a control detecting an allowlist that exempts values beyond its listed ones (Z9) (OBL-24)"
    ]
   },
   {
@@ -17668,8 +18948,8 @@
   {
    "id": "MUT:v60e:U01",
    "requirements": [
-    "R6.CTRL.27",
-    "R6.GATE.10"
+    "R6.GATE.10",
+    "R6.CTRL.27"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -17898,8 +19178,8 @@
   {
    "id": "MUT:v60e:V05",
    "requirements": [
-    "R6.CTRL.27",
-    "R6.GATE.10"
+    "R6.GATE.10",
+    "R6.CTRL.27"
    ],
    "runner": "ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)",
    "operations": [],
@@ -17999,7 +19279,11 @@
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r6 R6.CLASS.2 (retained-changed) and R6.PIPE.15) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -18017,8 +19301,7 @@
    },
    "source": "r6 R6.CLASS.2 (retained-changed) and R6.PIPE.15",
    "flags": [
-    "to implement (named obligation)",
-    "VD-RESTORE: no restored case stated in r6 for this new row (R6.CTRL.3)"
+    "to implement (named obligation)"
    ]
   },
   {
@@ -18031,7 +19314,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "adversarial",
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r6 R6.CLASS.3 (unledgered-file-change) and R6.ANCH.15) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -18045,8 +19332,7 @@
    },
    "source": "r6 R6.CLASS.3 (unledgered-file-change) and R6.ANCH.15",
    "flags": [
-    "to implement (named obligation)",
-    "VD-RESTORE: no restored case stated in r6 for this new row (R6.CTRL.3)"
+    "to implement (named obligation)"
    ]
   },
   {
@@ -18058,7 +19344,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "adversarial",
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r6 R6.CLASS.4 (provenance-ambiguous)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -18075,8 +19365,7 @@
    },
    "source": "r6 R6.CLASS.4 (provenance-ambiguous)",
    "flags": [
-    "to implement (named obligation)",
-    "VD-RESTORE: no restored case stated in r6 for this new row (R6.CTRL.3)"
+    "to implement (named obligation)"
    ]
   },
   {
@@ -18088,7 +19377,11 @@
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r6 R6.CLASS.7 (pin-target-missing, op C)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -18105,8 +19398,7 @@
    },
    "source": "r6 R6.CLASS.7 (pin-target-missing, op C)",
    "flags": [
-    "to implement (named obligation)",
-    "VD-RESTORE: no restored case stated in r6 for this new row (R6.CTRL.3)"
+    "to implement (named obligation)"
    ]
   },
   {
@@ -18118,7 +19410,11 @@
    "operations": [
     "record"
    ],
-   "direction": "adversarial",
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r6 R6.CLASS.11 (op A record checks not holding)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "invariants": [
@@ -18138,8 +19434,7 @@
    "source": "r6 R6.CLASS.11 (op A record checks not holding)",
    "flags": [
     "to implement (named obligation)",
-    "VD-RESTORE: no restored case stated in r6 for this new row (R6.CTRL.3)",
-    "OPEN: op A record-check item (sec-B RO-3); the requirement as drafted needs a code change"
+    "RE-23 (a): every FAIL has an item; code change OBL-28 C-23"
    ]
   },
   {
@@ -18152,7 +19447,11 @@
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r6 R6.HIT.2 and R6.CLASS.12) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -18173,8 +19472,7 @@
    },
    "source": "r6 R6.HIT.2 and R6.CLASS.12",
    "flags": [
-    "to implement (named obligation)",
-    "VD-RESTORE: no restored case stated in r6 for this new row (R6.CTRL.3)"
+    "to implement (named obligation)"
    ]
   },
   {
@@ -18260,7 +19558,11 @@
    "operations": [
     "execution"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r6 R6.PROF.11 (E-126)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "predicate_kind": "procedural",
    "expect": {
     "outcome": "PREDICATE",
@@ -18285,8 +19587,7 @@
    "source": "r6 R6.PROF.11 (E-126)",
    "flags": [
     "to implement (named obligation)",
-    "VD-RESTORE: no restored case stated in r6 for this new row (R6.CTRL.3)",
-    "OPEN: landing-list tree (sec-B RO-7): X substituted for T1's splice images"
+    "RE-35: the matches are taken from the splice images of the candidate X"
    ]
   },
   {
@@ -18298,7 +19599,11 @@
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r6 R6.RULE.11 (V2-054)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -18317,8 +19622,7 @@
    },
    "source": "r6 R6.RULE.11 (V2-054)",
    "flags": [
-    "to implement (named obligation)",
-    "VD-RESTORE: no restored case stated in r6 for this new row (R6.CTRL.3)"
+    "to implement (named obligation)"
    ]
   },
   {
@@ -18403,7 +19707,6 @@
    "source": "r6 R6.CTRL.12, R6.REPRO.4, R6.CORE.8 and R6.OUT.7 (V1-131, RD-11)",
    "flags": [
     "to implement (named obligation)",
-    "VD-RESTORE: no restored case stated in r6 for this new row (R6.CTRL.3)",
     "merged: REPRO-CLEAN (sec-D) names the same control"
    ]
   },
@@ -18443,8 +19746,7 @@
    },
    "source": "r6 R6.REPRO.3 and R6.CTRL.12 (V1-133, RD-11)",
    "flags": [
-    "to implement (named obligation)",
-    "VD-RESTORE: no restored case stated in r6 for this new row (R6.CTRL.3)"
+    "to implement (named obligation)"
    ]
   },
   {
@@ -18456,7 +19758,14 @@
    "operations": [
     "coverage"
    ],
-   "direction": "adversarial",
+   "direction": {
+    "of": "adversarial",
+    "required": "opposite direction",
+    "why": "paired with RT-T0: RT-T0 is the same run on the unmutated in-memory T1' (the restored tree of the mutant)"
+   },
+   "paired_with": [
+    "RT-T0"
+   ],
    "expect": {
     "outcome": "FAIL",
     "classes_include": [
@@ -18473,9 +19782,8 @@
    "source": "r6 R6.CTRL.11; expected result from its cited source V1-120 (\"FAILS with exactly one added unauthorized-edit\")",
    "flags": [
     "to implement (named obligation)",
-    "VD-RESTORE: no restored case stated in r6 for this new row (R6.CTRL.3)",
-    "OPEN: expectation of RT-M and RT-SHIFT (r6 text states no outcome)",
-    "inputs off main: acceptance reference only for runs with those pinned inputs (T1', RD-23)"
+    "inputs off main: acceptance reference only for runs with those pinned inputs (T1', RD-23)",
+    "B-18: expected result from the cited source V1-120"
    ]
   },
   {
@@ -18487,7 +19795,14 @@
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
+   "direction": {
+    "of": "positive",
+    "required": "opposite direction",
+    "why": "paired with RT-E: RT-E is the same coverage run on the unshifted tree E (the restored tree of the mutant)"
+   },
+   "paired_with": [
+    "RT-E"
+   ],
    "expect": {
     "outcome": "PASS",
     "sites": [
@@ -18501,8 +19816,7 @@
    "source": "r6 R6.CTRL.11; expected result from its cited source V1-124 (\"HOLDS, every site in those files moved by 1\")",
    "flags": [
     "to implement (named obligation)",
-    "VD-RESTORE: no restored case stated in r6 for this new row (R6.CTRL.3)",
-    "OPEN: expectation of RT-M and RT-SHIFT (r6 text states no outcome)"
+    "B-18: expected result from the cited source V1-124"
    ]
   },
   {
@@ -18518,7 +19832,11 @@
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r6 R6.RDIR.7, R6.TREE.8 and R6.PUR.12 (RD-12)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "cases": [
      {
@@ -18550,8 +19868,7 @@
    "source": "r6 R6.RDIR.7, R6.TREE.8 and R6.PUR.12 (RD-12)",
    "flags": [
     "to implement (named obligation)",
-    "VD-RESTORE: no restored case stated in r6 for this new row (R6.CTRL.3)",
-    "OPEN: side-change entry type outcome (REVIEW_REQUIRED drafted; RD-12 fixes only the type check before any read)"
+    "RE-15: REVIEW_REQUIRED side-change-unclassified (not a regular file), as inside the record directory"
    ]
   },
   {
@@ -18600,7 +19917,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "adversarial",
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r6 R6.ANCH.12 and R6.CTRL.13 (VD-3: a pin-duplicated site wh) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "sites": [
@@ -18614,8 +19935,7 @@
    },
    "source": "r6 R6.ANCH.12 and R6.CTRL.13 (VD-3: a pin-duplicated site whose count changes is duplicated)",
    "flags": [
-    "to implement (named obligation)",
-    "VD-RESTORE: no restored case stated in r6 for this new row (R6.CTRL.3)"
+    "to implement (named obligation)"
    ]
   },
   {
@@ -18629,7 +19949,11 @@
    "operations": [
     "coverage"
    ],
-   "direction": "adversarial",
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): its governing source (r6 R6.ANCH.12 and R6.CTRL.13 (VD-3: a pin-duplicated site wh) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+   },
    "expect": {
     "outcome": "FAIL",
     "sites": [
@@ -18643,8 +19967,706 @@
    },
    "source": "r6 R6.ANCH.12 and R6.CTRL.13 (VD-3: a pin-duplicated site whose context does not match is ambiguous)",
    "flags": [
+    "to implement (named obligation)"
+   ]
+  },
+  {
+   "id": "GATE-27",
+   "requirements": [
+    "R6.GATE.9",
+    "R6.GATE.13",
+    "R6.CTRL.3",
+    "R6.CTRL.30"
+   ],
+   "runner": "gate self-test",
+   "operations": [],
+   "direction": "adversarial",
+   "case": "direction missing: (a) a control row in the both-directions scope with no restored expectation, no direction both, no paired_with and no observation exemption; (b) a row whose paired_with names an id that is not a row",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "(a)",
+       "(b)"
+      ],
+      "outcome": "GATE_FAIL",
+      "exit": 20,
+      "gate_findings_include": [
+       "direction-missing"
+      ]
+     }
+    ]
+   },
+   "source": "r6 GATE (RE-4, Q11)"
+  },
+  {
+   "id": "GATE-28",
+   "requirements": [
+    "R6.GATE.9",
+    "R6.GATE.13",
+    "R6.CTRL.30"
+   ],
+   "runner": "gate self-test",
+   "operations": [],
+   "direction": "both",
+   "case": "composite precedence: (a) a composite row whose component A is recorded FAIL and whose component B is an admitted NOT RUN; (b) a composite whose only non-PASS component is an admitted NOT RUN",
+   "expect": {
+    "cases": [
+     {
+      "case": "(a)",
+      "outcome": "GATE_FAIL",
+      "exit": 20,
+      "gate_findings_include": [
+       "status-not-allowed"
+      ],
+      "invariants": [
+       {
+        "composite_status": "FAIL"
+       },
+       {
+        "component_results_preserved": true
+       }
+      ]
+     },
+     {
+      "case": "(b)",
+      "outcome": "GATE_HOLDS",
+      "exit": 0,
+      "invariants": [
+       {
+        "composite_status": "NOT RUN"
+       },
+       {
+        "component_results_preserved": true
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 GATE (RE-30, Q14)"
+  },
+  {
+   "id": "GATE-29",
+   "requirements": [
+    "R6.GATE.9",
+    "R6.GATE.13",
+    "R6.CTRL.30"
+   ],
+   "runner": "gate self-test",
+   "operations": [],
+   "direction": "adversarial",
+   "case": "deferred expectation: a row whose expect outcome is DEFERRED, carrying two candidate expectations, every other row holding",
+   "expect": {
+    "outcome": "GATE_FAIL",
+    "exit": 20,
+    "gate_findings_include": [
+     "deferred-expectation"
+    ]
+   },
+   "source": "r6 GATE (RE-1)"
+  },
+  {
+   "id": "GATE-30",
+   "requirements": [
+    "R6.GATE.12",
+    "R6.GATE.13",
+    "R6.CTRL.30"
+   ],
+   "runner": "gate self-test",
+   "operations": [],
+   "direction": "both",
+   "case": "correspondence exemption: (a) a requirement of kind status with an empty control list and no verification; (b) the same requirement with verification review",
+   "expect": {
+    "cases": [
+     {
+      "case": "(a)",
+      "outcome": "GATE_FAIL",
+      "exit": 20,
+      "gate_findings_include": [
+       "correspondence-orphan-requirement"
+      ]
+     },
+     {
+      "case": "(b)",
+      "outcome": "GATE_HOLDS",
+      "exit": 0
+     }
+    ]
+   },
+   "source": "r6 GATE (RE-11)"
+  },
+  {
+   "id": "LC-1",
+   "requirements": [
+    "R6.TREE.12",
+    "R6.TREE.13"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "predicate_kind": "declarative",
+   "expect": {
+    "cases": [
+     {
+      "case": "builder: the landing blob of p.md composed from the fixture (neither side changed)",
+      "outcome": "HASH_EQUAL",
+      "invariants": [
+       {
+        "fixture": {
+         "path": "p.md",
+         "H": "alpha\nbeta\ngamma\n",
+         "C": "alpha\nbeta\ngamma\n",
+         "M": "alpha\nbeta\ngamma\n",
+         "splices": [
+          {
+           "id": "S1",
+           "start": 6,
+           "end": 11,
+           "old_sha256": "f2c82decdd7181cf98945929a62598db7e6b477e11f6e0eb0ae97020eff151ad",
+           "new_sha256": "a0d89cbe67e84a23d7de399463e2e9a6fb702a6c8acaab0dcdf36b32c2656d82"
+          }
+         ]
+        }
+       },
+       {
+        "composed_blob": {
+         "path": "p.md",
+         "bytes": "alpha\nbeta\ngamma\n",
+         "sha256": "4fdbc441ea7b546100e086ac1e4fc5ae6749b7314311c99db05be450eca12996"
+        }
+       }
+      ]
+     },
+     {
+      "case": "landing check of L carrying exactly that blob",
+      "outcome": "LANDING_VERIFIED"
+     },
+     {
+      "case": "landing check of L carrying that blob with one byte changed (alpha\\nbeta\\ngamma!)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "landing-extra-change"
+      ],
+      "invariants": [
+       {
+        "composed_blob": {
+         "path": "p.md",
+         "sha256": "f7d7e0c3475b412fada634844d873c0f161d2e07998fedba4a9036567b3421bc"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 R6.TREE.12 and R6.TREE.13 (Q15, RE-33): composition case \"neither side changed\"",
+   "flags": [
+    "to implement (named obligation): the builder composes by the one definition of translation (OBL-28 C-18)",
+    "expected landing bytes worked by hand from R6.TREE.12 and R6.TREE.13; sha256 computed from those bytes"
+   ]
+  },
+  {
+   "id": "LC-2",
+   "requirements": [
+    "R6.TREE.12",
+    "R6.TREE.13"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "predicate_kind": "declarative",
+   "expect": {
+    "cases": [
+     {
+      "case": "builder: the landing blob of p.md composed from the fixture (only X/C changed)",
+      "outcome": "HASH_EQUAL",
+      "invariants": [
+       {
+        "fixture": {
+         "path": "p.md",
+         "H": "alpha\nbeta\ngamma\n",
+         "C": "alpha\nBETA\ngamma\n",
+         "M": "alpha\nbeta\ngamma\n",
+         "splices": [
+          {
+           "id": "S1",
+           "start": 6,
+           "end": 11,
+           "old_sha256": "f2c82decdd7181cf98945929a62598db7e6b477e11f6e0eb0ae97020eff151ad",
+           "new_sha256": "a0d89cbe67e84a23d7de399463e2e9a6fb702a6c8acaab0dcdf36b32c2656d82"
+          }
+         ]
+        }
+       },
+       {
+        "composed_blob": {
+         "path": "p.md",
+         "bytes": "alpha\nBETA\ngamma\n",
+         "sha256": "b0d5fcac7492427d0767380786c6d7843c342299a8a447ac2ccc8deaa78ca153"
+        }
+       }
+      ]
+     },
+     {
+      "case": "landing check of L carrying exactly that blob",
+      "outcome": "LANDING_VERIFIED"
+     },
+     {
+      "case": "landing check of L carrying that blob with one byte changed (alpha\\nBETA\\ngamma!)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "landing-extra-change"
+      ],
+      "invariants": [
+       {
+        "composed_blob": {
+         "path": "p.md",
+         "sha256": "29553227dcfbd6c502754f1ec7d1e5f3d8a0e0bb707b2e4e325d1e510e4eac88"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 R6.TREE.12 and R6.TREE.13 (Q15, RE-33): composition case \"only X/C changed\"",
+   "flags": [
+    "to implement (named obligation): the builder composes by the one definition of translation (OBL-28 C-18)",
+    "expected landing bytes worked by hand from R6.TREE.12 and R6.TREE.13; sha256 computed from those bytes"
+   ]
+  },
+  {
+   "id": "LC-3",
+   "requirements": [
+    "R6.TREE.12",
+    "R6.TREE.13"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "predicate_kind": "declarative",
+   "expect": {
+    "cases": [
+     {
+      "case": "builder: the landing blob of p.md composed from the fixture (only M changed)",
+      "outcome": "HASH_EQUAL",
+      "invariants": [
+       {
+        "fixture": {
+         "path": "p.md",
+         "H": "alpha\nbeta\ngamma\n",
+         "C": "alpha\nbeta\ngamma\n",
+         "M": "alpha\nbeta\ngamma\ndelta\n",
+         "splices": [
+          {
+           "id": "S1",
+           "start": 6,
+           "end": 11,
+           "old_sha256": "f2c82decdd7181cf98945929a62598db7e6b477e11f6e0eb0ae97020eff151ad",
+           "new_sha256": "a0d89cbe67e84a23d7de399463e2e9a6fb702a6c8acaab0dcdf36b32c2656d82"
+          }
+         ]
+        }
+       },
+       {
+        "composed_blob": {
+         "path": "p.md",
+         "bytes": "alpha\nbeta\ngamma\ndelta\n",
+         "sha256": "927c9bb49935d22cfef1df0fd954eb8011420a9b1ec2350d65647accf201bbe9"
+        }
+       }
+      ]
+     },
+     {
+      "case": "landing check of L carrying exactly that blob",
+      "outcome": "LANDING_VERIFIED"
+     },
+     {
+      "case": "landing check of L carrying that blob with one byte changed (alpha\\nbeta\\ngamma\\ndelta!)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "landing-drops-main-change"
+      ],
+      "invariants": [
+       {
+        "composed_blob": {
+         "path": "p.md",
+         "sha256": "6b53765d1e1193569c8c5f44ac30e53538a6e484d9efba188813596f1c9175f4"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 R6.TREE.12 and R6.TREE.13 (Q15, RE-33): composition case \"only M changed\"",
+   "flags": [
+    "to implement (named obligation): the builder composes by the one definition of translation (OBL-28 C-18)",
+    "expected landing bytes worked by hand from R6.TREE.12 and R6.TREE.13; sha256 computed from those bytes"
+   ]
+  },
+  {
+   "id": "LC-4",
+   "requirements": [
+    "R6.TREE.12",
+    "R6.TREE.13"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "predicate_kind": "declarative",
+   "expect": {
+    "cases": [
+     {
+      "case": "builder: the landing blob of p.md composed from the fixture (both changed to equal blobs)",
+      "outcome": "HASH_EQUAL",
+      "invariants": [
+       {
+        "fixture": {
+         "path": "p.md",
+         "H": "alpha\nbeta\ngamma\n",
+         "C": "alpha\nBETA\ngamma\n",
+         "M": "alpha\nBETA\ngamma\n",
+         "splices": [
+          {
+           "id": "S1",
+           "start": 6,
+           "end": 11,
+           "old_sha256": "f2c82decdd7181cf98945929a62598db7e6b477e11f6e0eb0ae97020eff151ad",
+           "new_sha256": "a0d89cbe67e84a23d7de399463e2e9a6fb702a6c8acaab0dcdf36b32c2656d82"
+          }
+         ]
+        }
+       },
+       {
+        "composed_blob": {
+         "path": "p.md",
+         "bytes": "alpha\nBETA\ngamma\n",
+         "sha256": "b0d5fcac7492427d0767380786c6d7843c342299a8a447ac2ccc8deaa78ca153"
+        }
+       }
+      ]
+     },
+     {
+      "case": "landing check of L carrying exactly that blob",
+      "outcome": "LANDING_VERIFIED"
+     },
+     {
+      "case": "landing check of L carrying that blob with one byte changed (alpha\\nBETA\\ngamma!)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "landing-extra-change"
+      ],
+      "invariants": [
+       {
+        "composed_blob": {
+         "path": "p.md",
+         "sha256": "29553227dcfbd6c502754f1ec7d1e5f3d8a0e0bb707b2e4e325d1e510e4eac88"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 R6.TREE.12 and R6.TREE.13 (Q15, RE-33): composition case \"both changed to equal blobs\"",
+   "flags": [
+    "to implement (named obligation): the builder composes by the one definition of translation (OBL-28 C-18)",
+    "expected landing bytes worked by hand from R6.TREE.12 and R6.TREE.13; sha256 computed from those bytes"
+   ]
+  },
+  {
+   "id": "LC-5",
+   "requirements": [
+    "R6.TREE.12",
+    "R6.TREE.13"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "predicate_kind": "declarative",
+   "expect": {
+    "cases": [
+     {
+      "case": "builder: the landing blob of p.md composed from the fixture (both changed to different blobs, ledgered path (a line prepended on M))",
+      "outcome": "HASH_EQUAL",
+      "invariants": [
+       {
+        "fixture": {
+         "path": "p.md",
+         "H": "alpha\nbeta\ngamma\n",
+         "C": "alpha\nBETA\ngamma\n",
+         "M": "zero\nalpha\nbeta\ngamma\n",
+         "splices": [
+          {
+           "id": "S1",
+           "start": 6,
+           "end": 11,
+           "old_sha256": "f2c82decdd7181cf98945929a62598db7e6b477e11f6e0eb0ae97020eff151ad",
+           "new_sha256": "a0d89cbe67e84a23d7de399463e2e9a6fb702a6c8acaab0dcdf36b32c2656d82"
+          }
+         ]
+        }
+       },
+       {
+        "composed_blob": {
+         "path": "p.md",
+         "bytes": "zero\nalpha\nBETA\ngamma\n",
+         "sha256": "ac5ae5f554dea217500d0b2a2564df8856a0be60e255e6f300d2b3bf7ead610d"
+        }
+       }
+      ]
+     },
+     {
+      "case": "landing check of L carrying exactly that blob",
+      "outcome": "LANDING_VERIFIED"
+     },
+     {
+      "case": "landing check of L carrying that blob with one byte changed (zero\\nalpha\\nBETB\\ngamma\\n)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "landing-conflict-unresolved"
+      ],
+      "invariants": [
+       {
+        "composed_blob": {
+         "path": "p.md",
+         "sha256": "5169708a4673800d1c5eacdfe0bf91c9abb39809abcf28628aa250269eefd489"
+        }
+       }
+      ]
+     },
+     {
+      "case": "M carrying the splice's old bytes twice (M[p.md] = \"beta\\nalpha\\nbeta\\ngamma\\n\"): no composition exists, any L",
+      "outcome": "FAIL",
+      "classes_include": [
+       "landing-conflict-unresolved"
+      ]
+     }
+    ]
+   },
+   "source": "r6 R6.TREE.12 and R6.TREE.13 (Q15, RE-33): composition case \"both changed to different blobs, ledgered path (a line prepended on M)\"",
+   "flags": [
+    "to implement (named obligation): the builder composes by the one definition of translation (OBL-28 C-18)",
+    "expected landing bytes worked by hand from R6.TREE.12 and R6.TREE.13; sha256 computed from those bytes"
+   ]
+  },
+  {
+   "id": "LC-6",
+   "requirements": [
+    "R6.TREE.12",
+    "R6.TREE.13"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "predicate_kind": "declarative",
+   "expect": {
+    "cases": [
+     {
+      "case": "builder: the landing blob of p.md composed from the fixture (both changed to different blobs, ledgered path (the spliced line moved on M))",
+      "outcome": "HASH_EQUAL",
+      "invariants": [
+       {
+        "fixture": {
+         "path": "p.md",
+         "H": "alpha\nbeta\ngamma\n",
+         "C": "alpha\nBETA\ngamma\n",
+         "M": "beta\nalpha\ngamma\n",
+         "splices": [
+          {
+           "id": "S1",
+           "start": 6,
+           "end": 11,
+           "old_sha256": "f2c82decdd7181cf98945929a62598db7e6b477e11f6e0eb0ae97020eff151ad",
+           "new_sha256": "a0d89cbe67e84a23d7de399463e2e9a6fb702a6c8acaab0dcdf36b32c2656d82"
+          }
+         ]
+        }
+       },
+       {
+        "composed_blob": {
+         "path": "p.md",
+         "bytes": "BETA\nalpha\ngamma\n",
+         "sha256": "a83344636c04cb3ccd3d83772bf62d21c59bae714c51ec8f7e8c7016b981d0ae"
+        }
+       }
+      ]
+     },
+     {
+      "case": "landing check of L carrying exactly that blob",
+      "outcome": "LANDING_VERIFIED"
+     },
+     {
+      "case": "landing check of L carrying that blob with one byte changed (BETB\\nalpha\\ngamma\\n)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "landing-conflict-unresolved"
+      ],
+      "invariants": [
+       {
+        "composed_blob": {
+         "path": "p.md",
+         "sha256": "e66a8c6330ab3ab5bffacd22e3950d90746ae44c363a0432099572f03c62a534"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 R6.TREE.12 and R6.TREE.13 (Q15, RE-33): composition case \"both changed to different blobs, ledgered path (the spliced line moved on M)\"",
+   "flags": [
+    "to implement (named obligation): the builder composes by the one definition of translation (OBL-28 C-18)",
+    "expected landing bytes worked by hand from R6.TREE.12 and R6.TREE.13; sha256 computed from those bytes"
+   ]
+  },
+  {
+   "id": "LC-7",
+   "requirements": [
+    "R6.TREE.12"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": {
+    "of": "adversarial",
+    "scope": "outside",
+    "why": "RE-3 (c): an r6 control whose governing source (R6.TREE.12) is outside v6.0e sec. 10; no source places it under the both-directions rule"
+   },
+   "predicate_kind": "declarative",
+   "expect": {
+    "cases": [
+     {
+      "case": "derived artifact gen.txt (in the configuration's derived set) changed on both sides: H \"v0\\n\", C \"v1\\n\", M \"v2\\n\"; L carrying C's bytes",
+      "outcome": "REVIEW_REQUIRED",
+      "classes_exact": [
+       "delegated-evidence-missing"
+      ],
+      "invariants": [
+       {
+        "all": "items",
+        "have": {
+         "obligation": "MAIN"
+        }
+       }
+      ]
+     },
+     {
+      "case": "the same with L carrying M's bytes",
+      "outcome": "REVIEW_REQUIRED",
+      "classes_exact": [
+       "delegated-evidence-missing"
+      ],
+      "invariants": [
+       {
+        "all": "items",
+        "have": {
+         "obligation": "MAIN"
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 R6.TREE.12 (Q15, RE-18): composition case \"derived artifact\"",
+   "flags": [
     "to implement (named obligation)",
-    "VD-RESTORE: no restored case stated in r6 for this new row (R6.CTRL.3)"
+    "OPEN: derived-artifact landing blob: the byte-exact expected landing blob follows from the regeneration check of RE-18 (a), which is not yet specified; until then the case asserts REVIEW_REQUIRED for every candidate L (RE-18 (b), fail-closed)"
+   ]
+  },
+  {
+   "id": "DELEG-REGEN",
+   "requirements": [
+    "R6.DELEG.3",
+    "R6.CLASS.9"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": "a re-executed generator run from the evaluated tree's blob in its own clone under --out; output equal to the committed artifact (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "checkers_run_from": "F's pinned blobs"
+       },
+       {
+        "writes_only_under": "the generated artifact paths of the class, in the generator's clone under --out"
+       },
+       {
+        "none": "items[class=regeneration-mismatch|regeneration-output-missing|regeneration-timeout|regeneration-extra-write]"
+       }
+      ]
+     },
+     {
+      "case": "generated output differs from the committed artifact by one byte",
+      "outcome": "FAIL",
+      "classes_include": [
+       "regeneration-mismatch"
+      ]
+     },
+     {
+      "case": "a generated artifact path is not written",
+      "outcome": "FAIL",
+      "classes_include": [
+       "regeneration-output-missing"
+      ]
+     },
+     {
+      "case": "the generator exceeds the class time limit",
+      "outcome": "FAIL",
+      "classes_include": [
+       "regeneration-timeout"
+      ]
+     },
+     {
+      "case": "the generator writes a path outside the generated artifact paths",
+      "outcome": "FAIL",
+      "classes_include": [
+       "regeneration-extra-write"
+      ]
+     },
+     {
+      "case": "the evaluated tree carries a checker copy that accepts any output, and the generated output differs",
+      "outcome": "FAIL",
+      "classes_include": [
+       "regeneration-mismatch"
+      ],
+      "invariants": [
+       {
+        "checkers_run_from": "F's pinned blobs"
+       }
+      ]
+     }
+    ]
+   },
+   "procedure": {
+    "name": "regeneration-isolation",
+    "lib": "fixture",
+    "evidence": [
+     "clone listing before and after the generator run",
+     "generator exit and timing file",
+     "generated outputs and the committed artifacts, by sha256",
+     "checker blob id and its F pin"
+    ]
+   },
+   "source": "r6 R6.DELEG.3 (Q13, RE-24)",
+   "flags": [
+    "to implement (named obligation): execution isolation of re-executed generators (OBL-28)"
    ]
   }
  ],
@@ -18656,8 +20678,8 @@
   },
   {
    "old_id": "U15",
-   "disposition": "retired with the class name stale-adjudication (OD-19b, OD-15, RD-9)",
-   "underlying": "preserved-at U14 (its wrong-region-hash case: FAIL), H1, H2 and H6 (an adjudication that disagrees with the walk, or changes a row, FAILs) and RECLINT-ORPHAN (an orphan record entry: FAIL record-invalid)"
+   "disposition": "retired (OD-19b, RD-9); the class name stale-adjudication stays live with v1 4.6's meaning (Q12)",
+   "underlying": "preserved-at U14 (its wrong-region-hash case: FAIL provenance-mismatch and stale-adjudication), H1, H2 and H6 (an adjudication that disagrees with the walk, or changes a row, FAILs) and RECLINT-ORPHAN (an HP adjudication entry matching no subject: FAIL stale-adjudication)"
   },
   {
    "old_id": "C1",
@@ -18685,19 +20707,299 @@
    "underlying": "preserved-at Z9h"
   },
   {
-   "old_id": "O4, TR4, TR6-TR12, TR16-TR27, TR31-TR44, TR47, TR49, TR53-TR70, LN9, LN11, LN12",
-   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused",
-   "underlying": "preserved-at, for each id, the controls or disposition r6 sec. 33 states, restated from INVENTORY-v6.0e table 2 (RD-13 a)"
-  },
-  {
-   "old_id": "stale-adjudication (class name)",
-   "disposition": "class name retired; no r6 rule produces it (OD-15, RD-9)",
-   "underlying": "preserved-at RECLINT-ORPHAN (an entry matching no subject: FAIL record-invalid) and U14 (a wrong region hash: FAIL)"
-  },
-  {
    "old_id": "RT-T (v1 sense: no records, FAIL)",
    "disposition": "succeeded by RT-T0 (RD-5, migration index); the id RT-T denotes the v6.0e control (all reviewed records, NOT RUN until they exist)",
    "underlying": "preserved-at RT-T0"
+  },
+  {
+   "old_id": "O4",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (hash binding of an owner-authorization record); the hash binding of records and reviews preserved-at O2, O6, S4a"
+  },
+  {
+   "old_id": "TR4",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (retirement.owner against A.owner.id)"
+  },
+  {
+   "old_id": "TR6",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (designation from the host, not from F)"
+  },
+  {
+   "old_id": "TR7",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (designation author id)"
+  },
+  {
+   "old_id": "TR8",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (designation names F); technical part (F mismatch) preserved-at EI3"
+  },
+  {
+   "old_id": "TR9",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "preserved-at Z1-Z8 (unknown configuration field) and EI4 (pin table derived, not caller-chosen) (technical part); the authorization part is obsolete: authorization values not overridable"
+  },
+  {
+   "old_id": "TR10",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (a caller-built F without designation); technical part (F mismatch with the landing record) preserved-at EI3; approval is procedural"
+  },
+  {
+   "old_id": "TR11",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (edited designation comment)"
+  },
+  {
+   "old_id": "TR12",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (supersession in the thread, pagination)"
+  },
+  {
+   "old_id": "TR16",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (authorized thread)"
+  },
+  {
+   "old_id": "TR17",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (comment forms)"
+  },
+  {
+   "old_id": "TR18",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (withdrawal)"
+  },
+  {
+   "old_id": "TR19",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (deleted or hidden designation)"
+  },
+  {
+   "old_id": "TR20",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (numeric author id)"
+  },
+  {
+   "old_id": "TR21",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "preserved-at GV7 (GV7-tool, GV7-consumer) (technical part, fail-closed handling of every host read); the authorization part is obsolete: comment-listing failure"
+  },
+  {
+   "old_id": "TR22",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (two live designations)"
+  },
+  {
+   "old_id": "TR23",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (copy of A in F; merge of A by another account)"
+  },
+  {
+   "old_id": "TR24",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (caller-supplied A)"
+  },
+  {
+   "old_id": "TR25",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (A from another ref); technical part (refs never consulted for role commits) preserved-at GV1"
+  },
+  {
+   "old_id": "TR26",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (change of A after F)"
+  },
+  {
+   "old_id": "TR27",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (bootstrap order of A)"
+  },
+  {
+   "old_id": "TR31",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (freeze ledger binds a withdrawal)"
+  },
+  {
+   "old_id": "TR32",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (snapshot binds a supersession)"
+  },
+  {
+   "old_id": "TR33",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (edit history of owner comments)"
+  },
+  {
+   "old_id": "TR34",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (edit history of owner comments)"
+  },
+  {
+   "old_id": "TR35",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (deletion residual)"
+  },
+  {
+   "old_id": "TR36",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (freeze ledger missing or conflicting)"
+  },
+  {
+   "old_id": "TR37",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (form first line (CRLF))"
+  },
+  {
+   "old_id": "TR38",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (malformed form)"
+  },
+  {
+   "old_id": "TR39",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (form version and key order)"
+  },
+  {
+   "old_id": "TR40",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (authority change without approval)"
+  },
+  {
+   "old_id": "TR41",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (approval hash or time)"
+  },
+  {
+   "old_id": "TR42",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (edited approval)"
+  },
+  {
+   "old_id": "TR43",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (approval by another id)"
+  },
+  {
+   "old_id": "TR44",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (owner-id change)"
+  },
+  {
+   "old_id": "TR47",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (freeze-ledger append approval (N3))"
+  },
+  {
+   "old_id": "TR49",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: the K7 allowance for a modified authority record at head_sha does not exist; technical part (any tool file off the pins) preserved-at TR28-tool, TR28-consumer, TR52"
+  },
+  {
+   "old_id": "TR53",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "preserved-at TR52 (technical part, extra tool file off the pins); the authorization part is obsolete: second copy of the authority record, K7"
+  },
+  {
+   "old_id": "TR54",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (\"Owner at creation\" (DI-1))"
+  },
+  {
+   "old_id": "TR55",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (\"Owner at creation\" (DI-1))"
+  },
+  {
+   "old_id": "TR56",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (\"Owner at creation\" (DI-1))"
+  },
+  {
+   "old_id": "TR57",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (\"Owner at creation\" (DI-1))"
+  },
+  {
+   "old_id": "TR58",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (\"Owner at creation\" (DI-1))"
+  },
+  {
+   "old_id": "TR59",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (\"Owner at creation\" (DI-1))"
+  },
+  {
+   "old_id": "TR60",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (\"Owner at creation\" (DI-1))"
+  },
+  {
+   "old_id": "TR61",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (\"Owner at creation\" (DI-1))"
+  },
+  {
+   "old_id": "TR62",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (\"Owner at creation\" (DI-1))"
+  },
+  {
+   "old_id": "TR63",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (\"Owner at creation\" (DI-1); A lineage (DI-2 for A))"
+  },
+  {
+   "old_id": "TR64",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (\"Owner at creation\" (DI-1))"
+  },
+  {
+   "old_id": "TR65",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (\"Owner at creation\" (DI-1))"
+  },
+  {
+   "old_id": "TR66",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (\"Owner at creation\" (DI-1))"
+  },
+  {
+   "old_id": "TR67",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (\"Owner at creation\" (DI-1))"
+  },
+  {
+   "old_id": "TR68",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (\"Owner at creation\" (DI-1))"
+  },
+  {
+   "old_id": "TR69",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (\"Owner at creation\" (DI-1))"
+  },
+  {
+   "old_id": "TR70",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (\"Owner at creation\" (DI-1))"
+  },
+  {
+   "old_id": "LN9",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (lineage across an owner change, DI-1); lineage preserved-at LN1-LN8, LN10"
+  },
+  {
+   "old_id": "LN11",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "preserved-at LN2 (positive lineage) and LN4 (widened predecessor) (technical part); the authorization part is obsolete: authorization across an owner change"
+  },
+  {
+   "old_id": "LN12",
+   "disposition": "retired by v6.0e sec. 10 (automated authorization machinery removed); never reused (RD-13 a)",
+   "underlying": "obsolete: authorization only (authorization of a predecessor's widening review); widening review of a predecessor preserved-at LN4"
   }
  ]
 }

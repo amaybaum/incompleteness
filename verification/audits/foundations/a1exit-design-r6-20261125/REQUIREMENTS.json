@@ -13,7 +13,11 @@
    "V1-002"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.STAT.2",
@@ -28,7 +32,11 @@
    "A-146"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.STAT.3",
@@ -39,7 +47,11 @@
    "E-009"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.STAT.4",
@@ -50,7 +62,13 @@
    "E-012"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "v6.0e line 95"
+  ]
  },
  {
   "id": "R6.STAT.5",
@@ -61,7 +79,11 @@
    "E-018"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.STAT.6",
@@ -75,7 +97,11 @@
    "A-003"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.STAT.7",
@@ -86,7 +112,11 @@
    "V1-004"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.STAT.8",
@@ -97,8 +127,12 @@
    "RV-002"
   ],
   "controls": [],
-  "open": [
-   "owner decision quote 7093128173"
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "7093128173"
   ]
  },
  {
@@ -110,7 +144,11 @@
    "E-032"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.NOTE.1",
@@ -123,7 +161,11 @@
    "V2-003"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.NOTE.2",
@@ -136,7 +178,11 @@
    "V2-003"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.NOTE.3",
@@ -149,7 +195,11 @@
    "V2-003"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.NOTE.4",
@@ -162,7 +212,11 @@
    "V2-003"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.NOTE.5",
@@ -173,7 +227,11 @@
    "E-025"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.NOTE.6",
@@ -185,7 +243,11 @@
    "A-013"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.NOTE.7",
@@ -196,7 +258,11 @@
    "E-027"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.NOTE.8",
@@ -208,7 +274,11 @@
    "V1-005"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.NOTE.9",
@@ -221,7 +291,11 @@
   "controls": [
    "EI15"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.NOTE.10",
@@ -236,7 +310,11 @@
   "controls": [
    "M9"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.NOTE.11",
@@ -247,7 +325,11 @@
    "E-031"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.NOTE.12",
@@ -259,7 +341,11 @@
    "A-013"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.NOTE.13",
@@ -270,9 +356,11 @@
    "E-028"
   ],
   "controls": [],
-  "open": [
-   "finding-label collision O6"
-  ]
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PUR.1",
@@ -283,7 +371,11 @@
    "E-051"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PUR.2",
@@ -297,7 +389,11 @@
    "V1-149"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PUR.3",
@@ -311,7 +407,11 @@
   "controls": [
    "H6"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PUR.4",
@@ -325,7 +425,11 @@
    "M9",
    "RT-A"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PUR.5",
@@ -336,7 +440,11 @@
    "V1-009"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PUR.6",
@@ -347,7 +455,11 @@
    "V1-012"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PUR.7",
@@ -359,7 +471,11 @@
    "RV-021"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PUR.8",
@@ -374,7 +490,13 @@
    "V21",
    "V26"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "V5-D1"
+  ]
  },
  {
   "id": "R6.PUR.9",
@@ -382,14 +504,21 @@
   "section_number": 2,
   "kind": "testable",
   "sources": [
-   "E-055"
+   "E-055",
+   "RE-1"
   ],
   "controls": [
    "V4",
-   "V27"
+   "V27",
+   "V27-glossary",
+   "V15"
   ],
-  "open": [
-   "V4 reversal scope"
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "V5-D1"
   ]
  },
  {
@@ -402,7 +531,11 @@
    "RV-021"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PUR.11",
@@ -415,7 +548,13 @@
   "controls": [
    "B4-MEANING"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "v6.0e line 95"
+  ]
  },
  {
   "id": "R6.PUR.12",
@@ -428,9 +567,11 @@
   "controls": [
    "SIDE-NONREG"
   ],
-  "open": [
-   "side-change entry type outcome"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PIPE.1",
@@ -442,7 +583,11 @@
    "V1-035"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PIPE.2",
@@ -461,7 +606,11 @@
    "RT-C",
    "RT-D"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PIPE.3",
@@ -476,7 +625,11 @@
    "X4",
    "X5"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PIPE.4",
@@ -487,7 +640,11 @@
    "V1-017"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PIPE.5",
@@ -500,7 +657,11 @@
   "controls": [
    "EI15"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PIPE.6",
@@ -513,9 +674,11 @@
    "V1-069"
   ],
   "controls": [],
-  "open": [
-   "default segment composition"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PIPE.7",
@@ -526,7 +689,11 @@
    "V1-038"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PIPE.8",
@@ -537,7 +704,11 @@
    "V1-024"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PIPE.9",
@@ -551,7 +722,11 @@
    "X1",
    "M9"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PIPE.10",
@@ -565,7 +740,11 @@
    "RT-A",
    "X1"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PIPE.11",
@@ -582,7 +761,11 @@
    "S11-58h",
    "S11-58j"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PIPE.12",
@@ -593,7 +776,11 @@
    "E-059"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PIPE.13",
@@ -607,7 +794,11 @@
    "RT-E",
    "RT-DR"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PIPE.14",
@@ -622,7 +813,11 @@
    "S11-5",
    "S11-6"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PIPE.15",
@@ -635,7 +830,11 @@
   "controls": [
    "CLASS-RETAINED"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ANCH.1",
@@ -648,7 +847,11 @@
   "controls": [
    "X1"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ANCH.2",
@@ -661,7 +864,11 @@
   "controls": [
    "X1"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ANCH.3",
@@ -675,7 +882,11 @@
    "M9",
    "RT-A"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ANCH.4",
@@ -690,7 +901,11 @@
    "M4",
    "M5"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ANCH.5",
@@ -705,7 +920,11 @@
    "M11",
    "U1"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ANCH.6",
@@ -718,7 +937,11 @@
   "controls": [
    "U9"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ANCH.7",
@@ -733,7 +956,11 @@
   "controls": [
    "RT-A"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ANCH.8",
@@ -744,7 +971,11 @@
    "V1-046"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ANCH.9",
@@ -759,7 +990,11 @@
    "M1",
    "M2"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ANCH.10",
@@ -773,7 +1008,11 @@
   "controls": [
    "VD2-HP-SEARCH"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ANCH.11",
@@ -788,7 +1027,11 @@
    "U3",
    "U2"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ANCH.12",
@@ -804,7 +1047,11 @@
    "VD3-COUNT",
    "VD3-CONTEXT"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ANCH.13",
@@ -820,7 +1067,11 @@
    "B1",
    "B2"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ANCH.14",
@@ -838,7 +1089,13 @@
    "B4",
    "B6"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "D1-D4"
+  ]
  },
  {
   "id": "R6.ANCH.15",
@@ -851,7 +1108,11 @@
   "controls": [
    "CLASS-UNLEDGERED"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ANCH.16",
@@ -866,7 +1127,11 @@
    "M2",
    "U10"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ANCH.17",
@@ -894,7 +1159,11 @@
    "RT-E",
    "SW1"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ANCH.18",
@@ -910,7 +1179,11 @@
    "U6",
    "U7"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ANCH.19",
@@ -925,7 +1198,11 @@
    "N1",
    "S11-12"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.HP.1",
@@ -938,9 +1215,11 @@
    "V2-036"
   ],
   "controls": [],
-  "open": [
-   "HP merge cross-check"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.HP.2",
@@ -957,7 +1236,11 @@
    "H3",
    "RT-H0"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.HP.3",
@@ -971,7 +1254,11 @@
    "H7",
    "RT-T0"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.HP.4",
@@ -986,7 +1273,11 @@
    "H6",
    "H7"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.HP.5",
@@ -997,7 +1288,11 @@
    "V2-041"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.HP.6",
@@ -1018,7 +1313,11 @@
    "H7",
    "RT-H0"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.HP.7",
@@ -1031,9 +1330,11 @@
   "controls": [
    "U14"
   ],
-  "open": [
-   "U14 wrong-region-hash class"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.HP.8",
@@ -1048,7 +1349,11 @@
    "H4",
    "SW2"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.HP.9",
@@ -1063,7 +1368,11 @@
    "RT-T0",
    "SW2"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.HP.10",
@@ -1076,7 +1385,11 @@
   "controls": [
    "RT-T0"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.HP.11",
@@ -1090,7 +1403,11 @@
    "H5",
    "RT-T0"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.HP.12",
@@ -1103,7 +1420,11 @@
   "controls": [
    "H7"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.HP.13",
@@ -1117,7 +1438,11 @@
   "controls": [
    "RT-H0"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.HP.14",
@@ -1128,7 +1453,11 @@
    "V1-023"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTX.1",
@@ -1139,7 +1468,13 @@
    "E-076"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "D1-D4"
+  ]
  },
  {
   "id": "R6.CTX.2",
@@ -1154,7 +1489,11 @@
   "controls": [
    "K2"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTX.3",
@@ -1168,7 +1507,11 @@
   "controls": [
    "U7"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTX.4",
@@ -1185,7 +1528,11 @@
    "K3",
    "K4"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTX.5",
@@ -1198,7 +1545,11 @@
   "controls": [
    "K5"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTX.6",
@@ -1220,7 +1571,11 @@
    "K8",
    "K10"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTX.7",
@@ -1234,7 +1589,11 @@
   "controls": [
    "K10"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTX.8",
@@ -1245,7 +1604,11 @@
    "E-083"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTX.9",
@@ -1262,7 +1625,11 @@
    "K8",
    "K9"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTX.10",
@@ -1279,7 +1646,11 @@
    "K8",
    "K9"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTX.11",
@@ -1294,7 +1665,11 @@
    "K7",
    "K8"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTX.12",
@@ -1307,7 +1682,13 @@
   "controls": [
    "K7"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "D1-D4"
+  ]
  },
  {
   "id": "R6.OUT.1",
@@ -1329,7 +1710,11 @@
    "X6",
    "X9"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.2",
@@ -1347,7 +1732,11 @@
    "X7",
    "X8"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.3",
@@ -1362,7 +1751,11 @@
    "X7",
    "EI6"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.4",
@@ -1377,9 +1770,11 @@
   "controls": [
    "EI6"
   ],
-  "open": [
-   "isolation class name"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.5",
@@ -1408,7 +1803,11 @@
    "Z7",
    "Z8"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.6",
@@ -1425,7 +1824,11 @@
    "X5",
    "M10"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.7",
@@ -1442,7 +1845,11 @@
    "X3",
    "OUT-CONFINED"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.8",
@@ -1455,7 +1862,11 @@
   "controls": [
    "Z8"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.9",
@@ -1469,7 +1880,11 @@
   "controls": [
    "X6"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.10",
@@ -1483,7 +1898,11 @@
    "X7",
    "X8"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.11",
@@ -1496,7 +1915,11 @@
   "controls": [
    "X10"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.12",
@@ -1514,7 +1937,11 @@
    "ACCEPT-SCHEMA",
    "EI3"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.13",
@@ -1531,7 +1958,11 @@
    "TR30",
    "EI2-consumer"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.14",
@@ -1544,7 +1975,14 @@
   "controls": [
    "TR46"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "R-D labels",
+   "A-D labels"
+  ]
  },
  {
   "id": "R6.OUT.15",
@@ -1557,7 +1995,11 @@
   "controls": [
    "TR45-opB"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.16",
@@ -1568,7 +2010,11 @@
    "E-105"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.17",
@@ -1586,7 +2032,11 @@
    "V25",
    "V3-countercontrol"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.18",
@@ -1610,9 +2060,11 @@
    "U9",
    "U10"
   ],
-  "open": [
-   "emitted result fields"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.19",
@@ -1628,7 +2080,11 @@
   "controls": [
    "S7-schema-and-checker"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.20",
@@ -1642,7 +2098,11 @@
   "controls": [
    "REPRO-DOUBLE"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.21",
@@ -1655,7 +2115,11 @@
   "controls": [
    "B4-MEANING"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.22",
@@ -1667,7 +2131,11 @@
    "V2-066"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.23",
@@ -1683,7 +2151,11 @@
   "controls": [
    "S7-schema-and-checker"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.24",
@@ -1699,9 +2171,11 @@
    "H5",
    "RT-C"
   ],
-  "open": [
-   "obligation definitions"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.25",
@@ -1712,7 +2186,11 @@
    "V1-020"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.26",
@@ -1726,7 +2204,11 @@
    "TR48",
    "X10"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.27",
@@ -1741,7 +2223,11 @@
    "M7",
    "M8"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.OUT.28",
@@ -1752,7 +2238,11 @@
    "V1-067"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.SPLIT.1",
@@ -1767,7 +2257,11 @@
    "S11-57d",
    "RT-DR3W"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.SPLIT.2",
@@ -1779,7 +2273,11 @@
    "RV-017"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.SPLIT.3",
@@ -1791,9 +2289,11 @@
    "RV-017"
   ],
   "controls": [],
-  "open": [
-   "splitter abbreviation match"
-  ]
+  "verification": [
+   "OBL-28"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PROF.1",
@@ -1810,7 +2310,11 @@
    "RT-E",
    "RT-DR"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PROF.2",
@@ -1823,7 +2327,11 @@
   "controls": [
    "Y10"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PROF.3",
@@ -1843,7 +2351,11 @@
    "V26",
    "RT-D"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PROF.4",
@@ -1862,7 +2374,11 @@
    "S11-5",
    "S11-6"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PROF.5",
@@ -1878,7 +2394,11 @@
    "S11-57b",
    "S11-58a-f"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PROF.6",
@@ -1894,7 +2414,11 @@
    "S11-57b",
    "S11-5"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PROF.7",
@@ -1909,7 +2433,11 @@
    "S11-6",
    "S11-56"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PROF.8",
@@ -1929,7 +2457,11 @@
    "S11-58j",
    "S11-58k"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PROF.9",
@@ -1945,7 +2477,13 @@
    "S11-58j",
    "S11-58k"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "R-D labels"
+  ]
  },
  {
   "id": "R6.PROF.10",
@@ -1959,7 +2497,11 @@
    "S11-56",
    "PROF-PARAMS-LINT"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PROF.11",
@@ -1972,9 +2514,11 @@
   "controls": [
    "PROF-LANDING-LIST"
   ],
-  "open": [
-   "landing-list tree"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PROF.12",
@@ -1985,7 +2529,12 @@
    "E-119"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "OBL-1",
+   "OBL-2"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RULE.1",
@@ -2002,7 +2551,11 @@
    "LN2",
    "O7"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RULE.2",
@@ -2022,7 +2575,13 @@
    "E-A8r",
    "lint-ok"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "S1-D1 to S1-D3"
+  ]
  },
  {
   "id": "R6.RULE.3",
@@ -2039,7 +2598,11 @@
    "RT-DR3W",
    "RT-DR"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RULE.4",
@@ -2070,7 +2633,13 @@
    "WB6",
    "WB7"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "S1-D1 to S1-D3"
+  ]
  },
  {
   "id": "R6.RULE.5",
@@ -2086,7 +2655,11 @@
    "WB5",
    "WB3"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RULE.6",
@@ -2100,7 +2673,11 @@
    "WB14",
    "WB9"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RULE.7",
@@ -2115,7 +2692,11 @@
    "L2",
    "V7a"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RULE.8",
@@ -2132,7 +2713,11 @@
    "E-S2r",
    "GV3"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RULE.9",
@@ -2149,7 +2734,11 @@
    "WB12",
    "A5r"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RULE.10",
@@ -2172,7 +2761,11 @@
    "E-A1r",
    "E-A3r"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RULE.11",
@@ -2186,7 +2779,11 @@
    "A2r",
    "RULE-MINLIT"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RULE.12",
@@ -2199,7 +2796,11 @@
   "controls": [
    "RULE-ZEROFP"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RULE.13",
@@ -2217,7 +2818,11 @@
    "A3r",
    "Z10"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.REC.1",
@@ -2235,7 +2840,11 @@
    "S4a",
    "O9"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.REC.2",
@@ -2255,7 +2864,11 @@
    "O7",
    "I2-5"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.REC.3",
@@ -2269,7 +2882,11 @@
   "controls": [
    "O9"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.REC.4",
@@ -2285,7 +2902,11 @@
    "N2",
    "O9"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.REC.5",
@@ -2316,7 +2937,11 @@
    "I2-5",
    "GV6"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.REC.6",
@@ -2338,7 +2963,11 @@
    "R5-N6",
    "GV6"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.REC.7",
@@ -2361,7 +2990,11 @@
    "LN10",
    "R6-G6"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.REC.8",
@@ -2376,7 +3009,11 @@
    "LN3",
    "LN10"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.REC.9",
@@ -2393,7 +3030,11 @@
    "I2-5",
    "I2-6"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.REC.10",
@@ -2401,17 +3042,22 @@
   "section_number": 11,
   "kind": "testable",
   "sources": [
-   "V1-060"
+   "V1-060",
+   "RE-8",
+   "Q12"
   ],
   "controls": [
    "RECLINT-ORPHAN",
    "H1",
    "H2",
-   "H6"
+   "H6",
+   "U14"
   ],
-  "open": [
-   "orphan-record trees"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.REC.11",
@@ -2424,7 +3070,11 @@
   "controls": [
    "O5"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.REC.12",
@@ -2439,7 +3089,11 @@
    "O7",
    "A7r"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.REC.13",
@@ -2463,7 +3117,11 @@
    "Y4",
    "Z10"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.REC.14",
@@ -2481,7 +3139,13 @@
    "WB10",
    "WB11"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "D1-D4"
+  ]
  },
  {
   "id": "R6.REC.15",
@@ -2495,7 +3159,11 @@
   "controls": [
    "N1"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.REC.16",
@@ -2521,7 +3189,11 @@
    "RDIR-16",
    "RDIR-20"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.REC.17",
@@ -2546,7 +3218,11 @@
    "GV-CACHE-KEY",
    "K1-GRAPH"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.REC.18",
@@ -2580,7 +3256,14 @@
    "EI5",
    "EI14"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "R-D labels",
+   "v6.0e line 54"
+  ]
  },
  {
   "id": "R6.REC.19",
@@ -2599,7 +3282,14 @@
    "EI13",
    "EI15"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "v6.0e line 31",
+   "v6.0e line 54"
+  ]
  },
  {
   "id": "R6.REC.20",
@@ -2612,8 +3302,12 @@
   "controls": [
    "EI6"
   ],
-  "open": [
-   "isolation class name"
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "v6.0e line 54"
   ]
  },
  {
@@ -2628,7 +3322,13 @@
    "EI7",
    "EI7-tool"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "v6.0e line 54"
+  ]
  },
  {
   "id": "R6.REC.22",
@@ -2643,7 +3343,13 @@
    "TR50",
    "EI7"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "v6.0e line 54"
+  ]
  },
  {
   "id": "R6.REC.23",
@@ -2659,7 +3365,11 @@
    "GV7-tool",
    "GV7-consumer"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.REC.24",
@@ -2678,7 +3388,11 @@
    "TR45-opB",
    "TR46"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.REC.25",
@@ -2692,7 +3406,11 @@
    "TR48",
    "GV4"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.DENY.1",
@@ -2713,7 +3431,13 @@
    "L1",
    "L2"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "V5-D1"
+  ]
  },
  {
   "id": "R6.DENY.2",
@@ -2744,7 +3468,13 @@
    "N-W",
    "RT-DR3W"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "V5-D1"
+  ]
  },
  {
   "id": "R6.DENY.3",
@@ -2761,7 +3491,11 @@
    "V20",
    "V14"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.DENY.4",
@@ -2776,7 +3510,11 @@
    "V21",
    "V26"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.DENY.5",
@@ -2800,7 +3538,16 @@
    "E-1032"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "OBL-3"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "V5-D1",
+   "D1-D4",
+   "V5-D2",
+   "S1-D1 to S1-D3"
+  ]
  },
  {
   "id": "R6.DENY.6",
@@ -2809,15 +3556,21 @@
   "kind": "testable",
   "sources": [
    "E-1001",
-   "V2-080"
+   "V2-080",
+   "RE-1"
   ],
   "controls": [
    "V4",
    "V27",
-   "V27-glossary"
+   "V27-glossary",
+   "V15"
   ],
-  "open": [
-   "V4 reversal scope"
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "V5-D1"
   ]
  },
  {
@@ -2842,7 +3595,11 @@
    "S11-14",
    "G-A1"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.DELEG.2",
@@ -2858,7 +3615,11 @@
    "G5",
    "S11-4"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.DELEG.3",
@@ -2875,11 +3636,14 @@
    "G4",
    "G5",
    "O3-FILTER",
-   "G-A1"
+   "G-A1",
+   "DELEG-REGEN"
   ],
-  "open": [
-   "checker blob source"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.DELEG.4",
@@ -2893,7 +3657,11 @@
    "G4",
    "G6"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.DELEG.5",
@@ -2908,7 +3676,11 @@
    "G5",
    "G6"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.DELEG.6",
@@ -2924,7 +3696,11 @@
    "S11-3",
    "GV7-tool"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.DELEG.7",
@@ -2937,7 +3713,11 @@
   "controls": [
    "G8"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.DELEG.8",
@@ -2951,7 +3731,11 @@
    "G2",
    "G-A1"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.DELEG.9",
@@ -2966,7 +3750,11 @@
    "G2",
    "Y6"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.DELEG.10",
@@ -2987,7 +3775,11 @@
    "Y6",
    "S11-13"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.DELEG.11",
@@ -3003,7 +3795,11 @@
    "RT-C",
    "GV7-tool"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.DELEG.12",
@@ -3018,7 +3814,11 @@
    "G6",
    "G1"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.DELEG.13",
@@ -3032,7 +3832,11 @@
   "controls": [
    "G7"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.DELEG.14",
@@ -3048,7 +3852,11 @@
    "RT-C",
    "DELEG-RECDIR"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.DELEG.15",
@@ -3064,7 +3872,11 @@
    "G5",
    "S11-4"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.DELEG.16",
@@ -3080,7 +3892,11 @@
    "G9",
    "S11-13"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.DELEG.17",
@@ -3094,7 +3910,11 @@
    "S11-3",
    "GV7-tool"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.DELEG.18",
@@ -3105,7 +3925,11 @@
    "E-1038"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "OBL-8"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.HIT.1",
@@ -3122,7 +3946,11 @@
    "RT-E",
    "L2"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.HIT.2",
@@ -3148,9 +3976,11 @@
    "RT-D",
    "HIT-REPLACEMENT"
   ],
-  "open": [
-   "HP-region hit class"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.HIT.3",
@@ -3164,7 +3994,11 @@
    "RT-D",
    "RT-T0"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.HIT.4",
@@ -3180,7 +4014,11 @@
    "I2-4",
    "I2-6"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.HIT.5",
@@ -3194,7 +4032,11 @@
    "I2-7",
    "RT-T"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.HIT.6",
@@ -3210,7 +4052,11 @@
    "RT-D",
    "RT-T0"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CLASS.1",
@@ -3228,9 +4074,11 @@
    "B4-MEANING",
    "S7-schema-and-checker"
   ],
-  "open": [
-   "op A record-check item"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CLASS.2",
@@ -3252,7 +4100,11 @@
    "K1",
    "CLASS-RETAINED"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CLASS.3",
@@ -3270,7 +4122,11 @@
    "S11-9",
    "CLASS-UNLEDGERED"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CLASS.4",
@@ -3279,7 +4135,10 @@
   "kind": "testable",
   "sources": [
    "E-1071",
-   "V2-026"
+   "V2-026",
+   "V1-061",
+   "V2-029",
+   "Q12"
   ],
   "controls": [
    "RT-H0",
@@ -3290,9 +4149,15 @@
    "H5",
    "H6",
    "Z10",
-   "CLASS-PROV-AMBIGUOUS"
+   "CLASS-PROV-AMBIGUOUS",
+   "RECLINT-ORPHAN",
+   "U14"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CLASS.5",
@@ -3313,7 +4178,11 @@
    "V23",
    "X9"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CLASS.6",
@@ -3321,7 +4190,9 @@
   "section_number": 15,
   "kind": "testable",
   "sources": [
-   "E-1072"
+   "E-1072",
+   "Q12",
+   "RE-8"
   ],
   "controls": [
    "RECLINT-ORPHAN",
@@ -3329,7 +4200,11 @@
    "H1",
    "H2"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CLASS.7",
@@ -3345,7 +4220,11 @@
    "S11-8",
    "CLASS-PIN-TARGET"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CLASS.8",
@@ -3358,7 +4237,11 @@
   "controls": [
    "S11-10"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CLASS.9",
@@ -3366,15 +4249,21 @@
   "section_number": 15,
   "kind": "testable",
   "sources": [
-   "E-1075"
+   "E-1075",
+   "Q13"
   ],
   "controls": [
    "G1",
    "G3",
    "S11-13",
-   "S11-14"
+   "S11-14",
+   "DELEG-REGEN"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CLASS.10",
@@ -3398,7 +4287,11 @@
    "N5",
    "N16-file"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CLASS.11",
@@ -3414,9 +4307,11 @@
    "S11-2c",
    "CLASS-RECORD-CHECKS"
   ],
-  "open": [
-   "op A record-check item"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CLASS.12",
@@ -3441,7 +4336,509 @@
    "RDIR-21",
    "HIT-REPLACEMENT"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
+ },
+ {
+  "id": "R6.GATE.1",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "V1-114",
+   "V1-130",
+   "A-130",
+   "OD-1",
+   "OD-2"
+  ],
+  "controls": [
+   "GATE-1",
+   "GATE-6",
+   "GATE-16",
+   "GATE-20"
+  ],
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
+ },
+ {
+  "id": "R6.GATE.2",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "A-130",
+   "E-1080",
+   "RD-4",
+   "RD-32"
+  ],
+  "controls": [
+   "GATE-12",
+   "GATE-17",
+   "GATE-26"
+  ],
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
+ },
+ {
+  "id": "R6.GATE.3",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "E-1080",
+   "OD-1",
+   "Q1"
+  ],
+  "controls": [
+   "GATE-1",
+   "GATE-6",
+   "GATE-17"
+  ],
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
+ },
+ {
+  "id": "R6.GATE.4",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "Q4",
+   "OD-31"
+  ],
+  "controls": [
+   "GATE-8",
+   "GATE-17"
+  ],
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
+ },
+ {
+  "id": "R6.GATE.5",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "E-1189",
+   "E-1190",
+   "E-1191",
+   "RD-7"
+  ],
+  "controls": [
+   "GATE-5",
+   "GATE-9",
+   "GATE-20",
+   "X11"
+  ],
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
+ },
+ {
+  "id": "R6.GATE.6",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "RD-1",
+   "Q8"
+  ],
+  "controls": [
+   "GATE-21",
+   "GATE-22",
+   "GATE-23",
+   "GATE-24"
+  ],
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
+ },
+ {
+  "id": "R6.GATE.7",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "E-1189",
+   "Q1"
+  ],
+  "controls": [
+   "GATE-9",
+   "GATE-10"
+  ],
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
+ },
+ {
+  "id": "R6.GATE.8",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "V2-098",
+   "E-1190",
+   "Q1",
+   "RD-2"
+  ],
+  "controls": [
+   "GATE-1",
+   "GATE-6",
+   "GATE-10",
+   "GATE-13",
+   "GATE-14",
+   "GATE-15",
+   "GATE-25"
+  ],
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
+ },
+ {
+  "id": "R6.GATE.9",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "E-1190",
+   "Q1",
+   "VD-1",
+   "VD-10"
+  ],
+  "controls": [
+   "GATE-1",
+   "GATE-2",
+   "GATE-3",
+   "GATE-4",
+   "GATE-9",
+   "GATE-10",
+   "GATE-12",
+   "GATE-16",
+   "GATE-17",
+   "GATE-20",
+   "GATE-26",
+   "GATE-27",
+   "GATE-28",
+   "GATE-29"
+  ],
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
+ },
+ {
+  "id": "R6.GATE.10",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "RD-1",
+   "RD-5",
+   "Q8"
+  ],
+  "controls": [
+   "GATE-21",
+   "GATE-22",
+   "GATE-23",
+   "GATE-24",
+   "MUT:c1:C01",
+   "MUT:c1:C02",
+   "MUT:c1:C03",
+   "MUT:c1:C04",
+   "MUT:c1:C05",
+   "MUT:c1:C06",
+   "MUT:c1:C07",
+   "MUT:c1:C08",
+   "MUT:c1:C09",
+   "MUT:c1:C10",
+   "MUT:c1:C11",
+   "MUT:c1:C12",
+   "MUT:c2:D01",
+   "MUT:c2:D02",
+   "MUT:c2:D03",
+   "MUT:cache:K01",
+   "MUT:cache:K02",
+   "MUT:cache:K03",
+   "MUT:cache:K04",
+   "MUT:cache:K05",
+   "MUT:cache:K06",
+   "MUT:cache:K07",
+   "MUT:cache:K08",
+   "MUT:o9:RDIR-m1",
+   "MUT:o9:RDIR-m10",
+   "MUT:o9:RDIR-m11",
+   "MUT:o9:RDIR-m12",
+   "MUT:o9:RDIR-m13",
+   "MUT:o9:RDIR-m14",
+   "MUT:o9:RDIR-m15",
+   "MUT:o9:RDIR-m16",
+   "MUT:o9:RDIR-m17",
+   "MUT:o9:RDIR-m2",
+   "MUT:o9:RDIR-m3",
+   "MUT:o9:RDIR-m4",
+   "MUT:o9:RDIR-m5",
+   "MUT:o9:RDIR-m6",
+   "MUT:o9:RDIR-m7",
+   "MUT:o9:RDIR-m8",
+   "MUT:o9:RDIR-m9",
+   "MUT:v60e:A01",
+   "MUT:v60e:A02",
+   "MUT:v60e:A03",
+   "MUT:v60e:A04",
+   "MUT:v60e:A05",
+   "MUT:v60e:A06",
+   "MUT:v60e:A07",
+   "MUT:v60e:A08",
+   "MUT:v60e:A09",
+   "MUT:v60e:A10",
+   "MUT:v60e:A11",
+   "MUT:v60e:A12",
+   "MUT:v60e:A13",
+   "MUT:v60e:A14",
+   "MUT:v60e:C01",
+   "MUT:v60e:C02",
+   "MUT:v60e:C03",
+   "MUT:v60e:C04",
+   "MUT:v60e:C05",
+   "MUT:v60e:C06",
+   "MUT:v60e:C07",
+   "MUT:v60e:C08",
+   "MUT:v60e:C09",
+   "MUT:v60e:C10",
+   "MUT:v60e:C11",
+   "MUT:v60e:C12",
+   "MUT:v60e:C13",
+   "MUT:v60e:C14",
+   "MUT:v60e:C15",
+   "MUT:v60e:C16",
+   "MUT:v60e:E01",
+   "MUT:v60e:E02",
+   "MUT:v60e:H01",
+   "MUT:v60e:H02",
+   "MUT:v60e:H03",
+   "MUT:v60e:I01",
+   "MUT:v60e:I02",
+   "MUT:v60e:I03",
+   "MUT:v60e:I04",
+   "MUT:v60e:I05",
+   "MUT:v60e:I06",
+   "MUT:v60e:I07",
+   "MUT:v60e:I08",
+   "MUT:v60e:I09",
+   "MUT:v60e:I10",
+   "MUT:v60e:I11",
+   "MUT:v60e:I12",
+   "MUT:v60e:I13",
+   "MUT:v60e:I14",
+   "MUT:v60e:O01",
+   "MUT:v60e:O02",
+   "MUT:v60e:P01",
+   "MUT:v60e:R01",
+   "MUT:v60e:R02",
+   "MUT:v60e:R03",
+   "MUT:v60e:U01",
+   "MUT:v60e:U02",
+   "MUT:v60e:U03",
+   "MUT:v60e:U04",
+   "MUT:v60e:U05",
+   "MUT:v60e:V01",
+   "MUT:v60e:V02",
+   "MUT:v60e:V03",
+   "MUT:v60e:V04",
+   "MUT:v60e:V05",
+   "MUT:v60e:V06",
+   "MUT:v60e:V07"
+  ],
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
+ },
+ {
+  "id": "R6.GATE.11",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "E-1461",
+   "MC-13",
+   "Q1"
+  ],
+  "controls": [
+   "GATE-18"
+  ],
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
+ },
+ {
+  "id": "R6.GATE.12",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "OD-2",
+   "Q1"
+  ],
+  "controls": [
+   "GATE-7",
+   "GATE-8",
+   "GATE-30"
+  ],
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
+ },
+ {
+  "id": "R6.GATE.13",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "Q1",
+   "Q8",
+   "RD-2"
+  ],
+  "controls": [
+   "GATE-1",
+   "GATE-2",
+   "GATE-3",
+   "GATE-4",
+   "GATE-5",
+   "GATE-6",
+   "GATE-7",
+   "GATE-8",
+   "GATE-9",
+   "GATE-10",
+   "GATE-11",
+   "GATE-12",
+   "GATE-13",
+   "GATE-14",
+   "GATE-15",
+   "GATE-16",
+   "GATE-17",
+   "GATE-18",
+   "GATE-19",
+   "GATE-20",
+   "GATE-21",
+   "GATE-22",
+   "GATE-23",
+   "GATE-24",
+   "GATE-25",
+   "GATE-26",
+   "GATE-27",
+   "GATE-28",
+   "GATE-29",
+   "GATE-30"
+  ],
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
+ },
+ {
+  "id": "R6.GATE.14",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "V2-098",
+   "Q1"
+  ],
+  "controls": [
+   "GATE-18"
+  ],
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
+ },
+ {
+  "id": "R6.GATE.15",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "V1-121",
+   "E-1190",
+   "Q6",
+   "RD-6",
+   "RD-7",
+   "RD-25",
+   "RD-26"
+  ],
+  "controls": [
+   "GATE-5",
+   "GATE-11",
+   "RT-T",
+   "TR5",
+   "G-A1",
+   "RT-L2",
+   "RT-O9",
+   "RT-O9-L2",
+   "TR45-opC",
+   "EI14-dispatch",
+   "TR45",
+   "EI14"
+  ],
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
+ },
+ {
+  "id": "R6.GATE.16",
+  "section": "GATE",
+  "section_number": 16,
+  "kind": "testable",
+  "sources": [
+   "OD-18",
+   "Q2"
+  ],
+  "controls": [
+   "RT-L2",
+   "GATE-13",
+   "GATE-14",
+   "GATE-15",
+   "GATE-19"
+  ],
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.1",
@@ -3460,7 +4857,11 @@
    "GATE-8",
    "GATE-12"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.2",
@@ -3478,7 +4879,11 @@
    "GATE-4",
    "GATE-12"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.3",
@@ -3488,18 +4893,24 @@
   "sources": [
    "V1-101",
    "V2-073",
-   "V1-138"
+   "V1-138",
+   "Q7",
+   "RE-2",
+   "RE-3",
+   "RE-4",
+   "Q11"
   ],
   "controls": [
    "A11r",
    "M1",
-   "N1"
+   "N1",
+   "GATE-27"
   ],
-  "open": [
-   "restored case of no-mutation controls",
-   "both-directions scope",
-   "direction recording field"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.4",
@@ -3523,7 +4934,11 @@
    "S11-6",
    "S11-13"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.5",
@@ -3542,9 +4957,15 @@
    "TR45-opC",
    "EI14-dispatch",
    "GATE-5",
-   "GATE-11"
+   "GATE-11",
+   "TR45",
+   "EI14"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.6",
@@ -3562,7 +4983,11 @@
    "V1",
    "RT-A"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.7",
@@ -3578,7 +5003,13 @@
   "controls": [
    "RT-DR3W"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "V5-D1"
+  ]
  },
  {
   "id": "R6.CTRL.8",
@@ -3597,7 +5028,11 @@
    "O9",
    "O1"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.9",
@@ -3636,7 +5071,11 @@
    "U12",
    "U14"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.10",
@@ -3671,7 +5110,11 @@
    "M10",
    "M11"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.11",
@@ -3692,9 +5135,11 @@
    "RT-T0",
    "SW1"
   ],
-  "open": [
-   "expectation of RT-M and RT-SHIFT"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.12",
@@ -3710,7 +5155,11 @@
    "OUT-CONFINED",
    "M10"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.13",
@@ -3728,7 +5177,11 @@
    "VD3-COUNT",
    "VD3-CONTEXT"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.14",
@@ -3892,7 +5345,14 @@
    "lint-ok",
    "rule-negative"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "V5-D1",
+   "S1-D1 to S1-D3"
+  ]
  },
  {
   "id": "R6.CTRL.15",
@@ -3900,15 +5360,21 @@
   "section_number": 17,
   "kind": "testable",
   "sources": [
-   "V2-080"
+   "V2-080",
+   "RE-1"
   ],
   "controls": [
    "V4",
    "V27",
-   "V27-glossary"
+   "V27-glossary",
+   "V15"
   ],
-  "open": [
-   "V4 reversal scope"
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "V5-D1"
   ]
  },
  {
@@ -3923,7 +5389,9 @@
    "E-1101",
    "E-1102",
    "E-1103",
-   "E-1104"
+   "E-1104",
+   "Q12",
+   "RE-8"
   ],
   "controls": [
    "H1",
@@ -3933,9 +5401,14 @@
    "H5",
    "H6",
    "H7",
+   "U14",
    "RECLINT-ORPHAN"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.17",
@@ -3959,7 +5432,11 @@
    "TR51-consumer",
    "TR52-consumer"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.18",
@@ -4001,7 +5478,11 @@
    "K9",
    "K10"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.19",
@@ -4065,7 +5546,13 @@
    "SW2",
    "item11-T1p"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "D1-D4"
+  ]
  },
  {
   "id": "R6.CTRL.20",
@@ -4119,7 +5606,11 @@
    "TT13",
    "TT14"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.21",
@@ -4170,7 +5661,11 @@
    "N18-record",
    "R8-S6"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.22",
@@ -4222,7 +5717,11 @@
    "R6-G6",
    "S4a"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.23",
@@ -4380,7 +5879,11 @@
    "TR52",
    "TR52-consumer"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.24",
@@ -4431,7 +5934,11 @@
    "S11-58j",
    "S11-58k"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.25",
@@ -4494,7 +6001,11 @@
    "Z10",
    "Z11"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.26",
@@ -4574,7 +6085,11 @@
    "RDIR-24",
    "RDIR-25"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.27",
@@ -4628,10 +6143,11 @@
    "MUT:cache:K08",
    "MUT:v60e:U01"
   ],
-  "open": [
-   "mutation harness location",
-   "survivors without an equivalence argument"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.28",
@@ -4675,7 +6191,11 @@
    "G-A1",
    "TT12"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.29",
@@ -4716,7 +6236,11 @@
    "VD3-CONTEXT",
    "SIDE-NONREG"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CTRL.30",
@@ -4750,9 +6274,17 @@
    "GATE-23",
    "GATE-24",
    "GATE-25",
-   "GATE-26"
+   "GATE-26",
+   "GATE-27",
+   "GATE-28",
+   "GATE-29",
+   "GATE-30"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLAN.1",
@@ -4779,7 +6311,11 @@
    "S11-13",
    "S11-14"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLAN.2",
@@ -4794,7 +6330,11 @@
    "TR5",
    "ADM-CONFIG-AT-F"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLAN.3",
@@ -4807,7 +6347,11 @@
   "controls": [
    "S11-1"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLAN.4",
@@ -4825,7 +6369,11 @@
    "RT-T0",
    "RT-T"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLAN.5",
@@ -4838,7 +6386,11 @@
   "controls": [
    "S11-3"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLAN.6",
@@ -4852,7 +6404,11 @@
    "S11-4",
    "G5"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLAN.7",
@@ -4872,7 +6428,11 @@
    "S11-57c",
    "S11-57d"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLAN.8",
@@ -4888,7 +6448,13 @@
    "RT-I7",
    "RT-I7A"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "D1-D4"
+  ]
  },
  {
   "id": "R6.PLAN.9",
@@ -4901,7 +6467,11 @@
   "controls": [
    "S11-8"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLAN.10",
@@ -4914,7 +6484,11 @@
   "controls": [
    "S11-9"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLAN.11",
@@ -4927,7 +6501,11 @@
   "controls": [
    "S11-10"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLAN.12",
@@ -4943,7 +6521,11 @@
    "item11-T1p",
    "X9"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLAN.13",
@@ -4956,7 +6538,11 @@
   "controls": [
    "S11-12"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLAN.14",
@@ -4969,7 +6555,11 @@
   "controls": [
    "S11-13"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLAN.15",
@@ -4983,7 +6573,11 @@
    "S11-14",
    "RT-L"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLAN.16",
@@ -5004,9 +6598,11 @@
   "controls": [
    "S11-56"
   ],
-  "open": [
-   "PLAN"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLAN.17",
@@ -5024,9 +6620,11 @@
    "RV-038"
   ],
   "controls": [],
-  "open": [
-   "correspondence exemption for non-testable requirements"
-  ]
+  "verification": [
+   "OBL-8"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLAN.18",
@@ -5042,7 +6640,11 @@
   "controls": [
    "RT-I7A"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLACE.1",
@@ -5057,7 +6659,11 @@
    "EI12",
    "X7"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLACE.2",
@@ -5079,7 +6685,11 @@
    "Z9h",
    "Z9-STAGED"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLACE.3",
@@ -5095,7 +6705,11 @@
    "TR48",
    "TR52"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLACE.4",
@@ -5114,7 +6728,11 @@
    "TR48",
    "Z9g"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLACE.5",
@@ -5127,9 +6745,11 @@
    "V2-115"
   ],
   "controls": [],
-  "open": [
-   "correspondence exemption for non-testable requirements"
-  ]
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLACE.6",
@@ -5143,7 +6763,11 @@
    "RDIR-1",
    "I2-3"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLACE.7",
@@ -5157,7 +6781,11 @@
    "O6",
    "GV4"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLACE.8",
@@ -5174,9 +6802,11 @@
    "TT13",
    "R19"
   ],
-  "open": [
-   "tool landing check corpus paths"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLACE.9",
@@ -5187,7 +6817,11 @@
    "E-1299"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLACE.10",
@@ -5199,7 +6833,11 @@
    "V1-140"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLACE.11",
@@ -5212,7 +6850,11 @@
    "A-135"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.PLACE.12",
@@ -5223,7 +6865,11 @@
    "V1-144"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.TREE.1",
@@ -5240,7 +6886,11 @@
    "TT6",
    "R16"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.TREE.2",
@@ -5260,7 +6910,11 @@
    "M5",
    "M9"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.TREE.3",
@@ -5274,7 +6928,11 @@
    "TT5",
    "TT3"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.TREE.4",
@@ -5290,7 +6948,11 @@
    "TT6",
    "RDIR-23"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.TREE.5",
@@ -5309,7 +6971,11 @@
    "TT13",
    "RDIR-24"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.TREE.6",
@@ -5324,7 +6990,11 @@
    "RT-X",
    "RDIR-5"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.TREE.7",
@@ -5341,7 +7011,11 @@
    "TT14",
    "N16-file"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.TREE.8",
@@ -5355,7 +7029,11 @@
    "RDIR-5",
    "SIDE-NONREG"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.TREE.9",
@@ -5375,7 +7053,11 @@
    "TT2",
    "S11-14"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.TREE.10",
@@ -5389,7 +7071,11 @@
    "R16",
    "R17"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.TREE.11",
@@ -5404,7 +7090,11 @@
    "TT9",
    "R15"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.TREE.12",
@@ -5430,9 +7120,22 @@
    "RL",
    "RT-L",
    "N10",
-   "N11"
+   "N11",
+   "LC-1",
+   "LC-2",
+   "LC-3",
+   "LC-4",
+   "LC-5",
+   "LC-6",
+   "LC-7"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [
+   "derived-artifact landing blob"
+  ],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.TREE.13",
@@ -5445,11 +7148,19 @@
   "controls": [
    "N8",
    "N13",
-   "TT8"
+   "TT8",
+   "LC-1",
+   "LC-2",
+   "LC-3",
+   "LC-4",
+   "LC-5",
+   "LC-6"
   ],
-  "open": [
-   "translation implementation"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.TREE.14",
@@ -5464,7 +7175,11 @@
    "TT11",
    "TT12"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.TREE.15",
@@ -5478,7 +7193,11 @@
    "RT-L",
    "RT-L2"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.TREE.16",
@@ -5494,7 +7213,11 @@
    "RT-D",
    "G2"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.TREE.17",
@@ -5508,7 +7231,11 @@
    "TT2",
    "TT7"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.TREE.18",
@@ -5524,9 +7251,16 @@
    "RDIR-5",
    "R15",
    "R16",
-   "TT13"
+   "TT13",
+   "R18-engine",
+   "R19-engine",
+   "R17"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RDIR.1",
@@ -5544,7 +7278,11 @@
    "RDIR-10",
    "MUT:o9:RDIR-m2"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RDIR.2",
@@ -5562,7 +7300,11 @@
    "RDIR-20",
    "MUT:o9:RDIR-m4"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RDIR.3",
@@ -5576,7 +7318,11 @@
    "RDIR-23",
    "RDIR-14"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RDIR.4",
@@ -5603,7 +7349,11 @@
    "MUT:o9:RDIR-m16",
    "MUT:o9:RDIR-m17"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RDIR.5",
@@ -5627,9 +7377,11 @@
    "MUT:o9:RDIR-m7",
    "MUT:o9:RDIR-m12"
   ],
-  "open": [
-   "RD2-RD5 names"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RDIR.6",
@@ -5652,7 +7404,11 @@
    "MUT:o9:RDIR-m5",
    "MUT:o9:RDIR-m6"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RDIR.7",
@@ -5669,9 +7425,11 @@
    "MUT:o9:RDIR-m10",
    "MUT:o9:RDIR-m14"
   ],
-  "open": [
-   "side-change entry type outcome"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RDIR.8",
@@ -5687,7 +7445,11 @@
    "RDIR-3",
    "RDIR-4"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RDIR.9",
@@ -5701,7 +7463,11 @@
    "RDIR-21",
    "MUT:o9:RDIR-m13"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RDIR.10",
@@ -5723,7 +7489,11 @@
    "MUT:o9:RDIR-m8",
    "MUT:o9:RDIR-m9"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RDIR.11",
@@ -5744,7 +7514,11 @@
    "RDIR-20",
    "MUT:o9:RDIR-m11"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RDIR.12",
@@ -5759,7 +7533,11 @@
    "RDIR-1",
    "RT-O9"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RDIR.13",
@@ -5775,9 +7553,11 @@
    "Z9g",
    "Z9-STAGED"
   ],
-  "open": [
-   "engine literals check"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RDIR.14",
@@ -5792,9 +7572,11 @@
    "RT-O9",
    "RT-O9-L2"
   ],
-  "open": [
-   "RT-O9 base-drift clause"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ITEM2.1",
@@ -5809,7 +7591,11 @@
   "controls": [
    "I2-1"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ITEM2.2",
@@ -5825,7 +7611,11 @@
    "I2-7",
    "I2-8"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ITEM2.3",
@@ -5842,7 +7632,11 @@
    "I2-4",
    "I2-5"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ITEM2.4",
@@ -5856,7 +7650,11 @@
    "I2-6",
    "LN10"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RECON.1",
@@ -5870,7 +7668,11 @@
    "N3",
    "N4"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RECON.2",
@@ -5885,7 +7687,11 @@
    "O8",
    "N2"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RECON.3",
@@ -5902,7 +7708,11 @@
    "N3",
    "N3-config-route"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RECON.4",
@@ -5916,7 +7726,11 @@
    "N4",
    "N5"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RECON.5",
@@ -5929,7 +7743,11 @@
   "controls": [
    "N4"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RECON.6",
@@ -5942,7 +7760,11 @@
   "controls": [
    "N5"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RECON.7",
@@ -5955,7 +7777,11 @@
   "controls": [
    "N7"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RECON.8",
@@ -5968,7 +7794,11 @@
   "controls": [
    "N12"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RECON.9",
@@ -5981,7 +7811,11 @@
   "controls": [
    "N8"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RECON.10",
@@ -5994,7 +7828,11 @@
   "controls": [
    "N13"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RECON.11",
@@ -6007,9 +7845,11 @@
   "controls": [
    "N14"
   ],
-  "open": [
-   "RC6 and RC9"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RECON.12",
@@ -6022,7 +7862,11 @@
   "controls": [
    "N9"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RECON.13",
@@ -6035,7 +7879,11 @@
   "controls": [
    "N15"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RECON.14",
@@ -6048,9 +7896,11 @@
   "controls": [
    "N6"
   ],
-  "open": [
-   "RC6 and RC9"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RECON.15",
@@ -6064,7 +7914,11 @@
    "N16",
    "N16-file"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RECON.16",
@@ -6084,7 +7938,11 @@
    "RDIR-20",
    "MUT:o9:RDIR-m11"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RECON.17",
@@ -6098,7 +7956,11 @@
    "N18",
    "N18-record"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RECON.18",
@@ -6125,7 +7987,11 @@
    "N18",
    "TT8"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RECON.19",
@@ -6141,7 +8007,11 @@
    "N11",
    "R8-S6"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RECON.20",
@@ -6153,11 +8023,14 @@
   ],
   "controls": [
    "EI5",
-   "TR29"
+   "TR29",
+   "RT-L2"
   ],
-  "open": [
-   "RT-L2 on the re-resolved M"
-  ]
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.RECON.21",
@@ -6175,440 +8048,11 @@
    "GATE-15",
    "GATE-19"
   ],
-  "open": []
- },
- {
-  "id": "R6.GATE.1",
-  "section": "GATE",
-  "section_number": 16,
-  "kind": "testable",
-  "sources": [
-   "V1-114",
-   "V1-130",
-   "A-130",
-   "OD-1",
-   "OD-2"
+  "verification": [
+   "controls"
   ],
-  "controls": [
-   "GATE-1",
-   "GATE-6",
-   "GATE-16",
-   "GATE-20"
-  ],
-  "open": []
- },
- {
-  "id": "R6.GATE.2",
-  "section": "GATE",
-  "section_number": 16,
-  "kind": "testable",
-  "sources": [
-   "A-130",
-   "E-1080",
-   "RD-4",
-   "RD-32"
-  ],
-  "controls": [
-   "GATE-12",
-   "GATE-17",
-   "GATE-26"
-  ],
-  "open": []
- },
- {
-  "id": "R6.GATE.3",
-  "section": "GATE",
-  "section_number": 16,
-  "kind": "testable",
-  "sources": [
-   "E-1080",
-   "OD-1",
-   "Q1"
-  ],
-  "controls": [
-   "GATE-1",
-   "GATE-6",
-   "GATE-17"
-  ],
-  "open": []
- },
- {
-  "id": "R6.GATE.4",
-  "section": "GATE",
-  "section_number": 16,
-  "kind": "testable",
-  "sources": [
-   "Q4",
-   "OD-31"
-  ],
-  "controls": [
-   "GATE-8",
-   "GATE-17"
-  ],
-  "open": []
- },
- {
-  "id": "R6.GATE.5",
-  "section": "GATE",
-  "section_number": 16,
-  "kind": "testable",
-  "sources": [
-   "E-1189",
-   "E-1190",
-   "E-1191",
-   "RD-7"
-  ],
-  "controls": [
-   "GATE-5",
-   "GATE-9",
-   "GATE-20",
-   "X11"
-  ],
-  "open": []
- },
- {
-  "id": "R6.GATE.6",
-  "section": "GATE",
-  "section_number": 16,
-  "kind": "testable",
-  "sources": [
-   "RD-1",
-   "Q8"
-  ],
-  "controls": [
-   "GATE-21",
-   "GATE-22",
-   "GATE-23",
-   "GATE-24"
-  ],
-  "open": []
- },
- {
-  "id": "R6.GATE.7",
-  "section": "GATE",
-  "section_number": 16,
-  "kind": "testable",
-  "sources": [
-   "E-1189",
-   "Q1"
-  ],
-  "controls": [
-   "GATE-9",
-   "GATE-10"
-  ],
-  "open": []
- },
- {
-  "id": "R6.GATE.8",
-  "section": "GATE",
-  "section_number": 16,
-  "kind": "testable",
-  "sources": [
-   "V2-098",
-   "E-1190",
-   "Q1",
-   "RD-2"
-  ],
-  "controls": [
-   "GATE-1",
-   "GATE-6",
-   "GATE-10",
-   "GATE-13",
-   "GATE-14",
-   "GATE-15",
-   "GATE-25"
-  ],
-  "open": []
- },
- {
-  "id": "R6.GATE.9",
-  "section": "GATE",
-  "section_number": 16,
-  "kind": "testable",
-  "sources": [
-   "E-1190",
-   "Q1",
-   "VD-1",
-   "VD-10"
-  ],
-  "controls": [
-   "GATE-1",
-   "GATE-2",
-   "GATE-3",
-   "GATE-4",
-   "GATE-9",
-   "GATE-10",
-   "GATE-12",
-   "GATE-16",
-   "GATE-17",
-   "GATE-20",
-   "GATE-26"
-  ],
-  "open": [
-   "composite with a NOT RUN component"
-  ]
- },
- {
-  "id": "R6.GATE.10",
-  "section": "GATE",
-  "section_number": 16,
-  "kind": "testable",
-  "sources": [
-   "RD-1",
-   "RD-5",
-   "Q8"
-  ],
-  "controls": [
-   "GATE-21",
-   "GATE-22",
-   "GATE-23",
-   "GATE-24",
-   "MUT:c1:C01",
-   "MUT:c1:C02",
-   "MUT:c1:C03",
-   "MUT:c1:C04",
-   "MUT:c1:C05",
-   "MUT:c1:C06",
-   "MUT:c1:C07",
-   "MUT:c1:C08",
-   "MUT:c1:C09",
-   "MUT:c1:C10",
-   "MUT:c1:C11",
-   "MUT:c1:C12",
-   "MUT:c2:D01",
-   "MUT:c2:D02",
-   "MUT:c2:D03",
-   "MUT:cache:K01",
-   "MUT:cache:K02",
-   "MUT:cache:K03",
-   "MUT:cache:K04",
-   "MUT:cache:K05",
-   "MUT:cache:K06",
-   "MUT:cache:K07",
-   "MUT:cache:K08",
-   "MUT:o9:RDIR-m1",
-   "MUT:o9:RDIR-m10",
-   "MUT:o9:RDIR-m11",
-   "MUT:o9:RDIR-m12",
-   "MUT:o9:RDIR-m13",
-   "MUT:o9:RDIR-m14",
-   "MUT:o9:RDIR-m15",
-   "MUT:o9:RDIR-m16",
-   "MUT:o9:RDIR-m17",
-   "MUT:o9:RDIR-m2",
-   "MUT:o9:RDIR-m3",
-   "MUT:o9:RDIR-m4",
-   "MUT:o9:RDIR-m5",
-   "MUT:o9:RDIR-m6",
-   "MUT:o9:RDIR-m7",
-   "MUT:o9:RDIR-m8",
-   "MUT:o9:RDIR-m9",
-   "MUT:v60e:A01",
-   "MUT:v60e:A02",
-   "MUT:v60e:A03",
-   "MUT:v60e:A04",
-   "MUT:v60e:A05",
-   "MUT:v60e:A06",
-   "MUT:v60e:A07",
-   "MUT:v60e:A08",
-   "MUT:v60e:A09",
-   "MUT:v60e:A10",
-   "MUT:v60e:A11",
-   "MUT:v60e:A12",
-   "MUT:v60e:A13",
-   "MUT:v60e:A14",
-   "MUT:v60e:C01",
-   "MUT:v60e:C02",
-   "MUT:v60e:C03",
-   "MUT:v60e:C04",
-   "MUT:v60e:C05",
-   "MUT:v60e:C06",
-   "MUT:v60e:C07",
-   "MUT:v60e:C08",
-   "MUT:v60e:C09",
-   "MUT:v60e:C10",
-   "MUT:v60e:C11",
-   "MUT:v60e:C12",
-   "MUT:v60e:C13",
-   "MUT:v60e:C14",
-   "MUT:v60e:C15",
-   "MUT:v60e:C16",
-   "MUT:v60e:E01",
-   "MUT:v60e:E02",
-   "MUT:v60e:H01",
-   "MUT:v60e:H02",
-   "MUT:v60e:H03",
-   "MUT:v60e:I01",
-   "MUT:v60e:I02",
-   "MUT:v60e:I03",
-   "MUT:v60e:I04",
-   "MUT:v60e:I05",
-   "MUT:v60e:I06",
-   "MUT:v60e:I07",
-   "MUT:v60e:I08",
-   "MUT:v60e:I09",
-   "MUT:v60e:I10",
-   "MUT:v60e:I11",
-   "MUT:v60e:I12",
-   "MUT:v60e:I13",
-   "MUT:v60e:I14",
-   "MUT:v60e:O01",
-   "MUT:v60e:O02",
-   "MUT:v60e:P01",
-   "MUT:v60e:R01",
-   "MUT:v60e:R02",
-   "MUT:v60e:R03",
-   "MUT:v60e:U01",
-   "MUT:v60e:U02",
-   "MUT:v60e:U03",
-   "MUT:v60e:U04",
-   "MUT:v60e:U05",
-   "MUT:v60e:V01",
-   "MUT:v60e:V02",
-   "MUT:v60e:V03",
-   "MUT:v60e:V04",
-   "MUT:v60e:V05",
-   "MUT:v60e:V06",
-   "MUT:v60e:V07"
-  ],
-  "open": [
-   "mutation harness location",
-   "survivors without an equivalence argument"
-  ]
- },
- {
-  "id": "R6.GATE.11",
-  "section": "GATE",
-  "section_number": 16,
-  "kind": "testable",
-  "sources": [
-   "E-1461",
-   "MC-13",
-   "Q1"
-  ],
-  "controls": [
-   "GATE-18"
-  ],
-  "open": []
- },
- {
-  "id": "R6.GATE.12",
-  "section": "GATE",
-  "section_number": 16,
-  "kind": "testable",
-  "sources": [
-   "OD-2",
-   "Q1"
-  ],
-  "controls": [
-   "GATE-7",
-   "GATE-8"
-  ],
-  "open": [
-   "correspondence exemption for non-testable requirements"
-  ]
- },
- {
-  "id": "R6.GATE.13",
-  "section": "GATE",
-  "section_number": 16,
-  "kind": "testable",
-  "sources": [
-   "Q1",
-   "Q8",
-   "RD-2"
-  ],
-  "controls": [
-   "GATE-1",
-   "GATE-2",
-   "GATE-3",
-   "GATE-4",
-   "GATE-5",
-   "GATE-6",
-   "GATE-7",
-   "GATE-8",
-   "GATE-9",
-   "GATE-10",
-   "GATE-11",
-   "GATE-12",
-   "GATE-13",
-   "GATE-14",
-   "GATE-15",
-   "GATE-16",
-   "GATE-17",
-   "GATE-18",
-   "GATE-19",
-   "GATE-20",
-   "GATE-21",
-   "GATE-22",
-   "GATE-23",
-   "GATE-24",
-   "GATE-25",
-   "GATE-26"
-  ],
-  "open": []
- },
- {
-  "id": "R6.GATE.14",
-  "section": "GATE",
-  "section_number": 16,
-  "kind": "testable",
-  "sources": [
-   "V2-098",
-   "Q1"
-  ],
-  "controls": [
-   "GATE-18"
-  ],
-  "open": []
- },
- {
-  "id": "R6.GATE.15",
-  "section": "GATE",
-  "section_number": 16,
-  "kind": "testable",
-  "sources": [
-   "V1-121",
-   "E-1190",
-   "Q6",
-   "RD-6",
-   "RD-7",
-   "RD-25",
-   "RD-26"
-  ],
-  "controls": [
-   "GATE-5",
-   "GATE-11",
-   "RT-T",
-   "TR5",
-   "G-A1",
-   "RT-L2",
-   "RT-O9",
-   "RT-O9-L2",
-   "TR45-opC",
-   "EI14-dispatch"
-  ],
-  "open": [
-   "EI14-dispatch release condition"
-  ]
- },
- {
-  "id": "R6.GATE.16",
-  "section": "GATE",
-  "section_number": 16,
-  "kind": "testable",
-  "sources": [
-   "OD-18",
-   "Q2"
-  ],
-  "controls": [
-   "RT-L2",
-   "GATE-13",
-   "GATE-14",
-   "GATE-15",
-   "GATE-19"
-  ],
-  "open": []
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CORE.1",
@@ -6623,7 +8067,11 @@
    "Y8",
    "Z9g"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CORE.2",
@@ -6641,7 +8089,11 @@
    "Z9d",
    "Z9g"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CORE.3",
@@ -6663,7 +8115,11 @@
    "Z9g",
    "Z9h"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CORE.4",
@@ -6679,7 +8135,11 @@
    "Z9g",
    "Z9h"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CORE.5",
@@ -6696,7 +8156,11 @@
    "Z9e",
    "Z9g"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CORE.6",
@@ -6719,7 +8183,11 @@
    "Z9h",
    "Z9-STAGED"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CORE.7",
@@ -6735,7 +8203,11 @@
    "GATE-18",
    "Y8"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CORE.8",
@@ -6751,7 +8223,11 @@
   "controls": [
    "OUT-CONFINED"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CFG.1",
@@ -6766,7 +8242,11 @@
    "TR2",
    "ADM-CONFIG-AT-F"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CFG.2",
@@ -6783,7 +8263,11 @@
    "EI4",
    "ADM-CONFIG-AT-F"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CFG.3",
@@ -6797,7 +8281,11 @@
    "TR2",
    "LN4"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CFG.4",
@@ -6848,7 +8336,11 @@
    "CONFIG-LINT",
    "Z8"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CFG.5",
@@ -6862,7 +8354,11 @@
    "Z7",
    "S11-58g"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CFG.6",
@@ -6886,7 +8382,11 @@
    "CONFIG-LINT",
    "TR52"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CFG.7",
@@ -6904,7 +8404,11 @@
    "LN4",
    "Y4"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.CFG.8",
@@ -6923,7 +8427,11 @@
    "TR45-opB",
    "X11"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ADAPT.1",
@@ -6939,7 +8447,11 @@
    "Z6",
    "Y10"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ADAPT.2",
@@ -6957,7 +8469,11 @@
    "M5",
    "Z9h"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ADAPT.3",
@@ -6977,7 +8493,11 @@
    "RT-E",
    "M7"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ADAPT.4",
@@ -6994,7 +8514,11 @@
    "M8",
    "RT-A"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ADAPT.5",
@@ -7012,7 +8536,11 @@
    "M8",
    "OUT-CONFINED"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.ADAPT.6",
@@ -7026,7 +8554,11 @@
    "Y6",
    "RT-C"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.A1CFG.1",
@@ -7048,7 +8580,11 @@
    "Z9g",
    "EI1"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.A1CFG.2",
@@ -7071,7 +8607,11 @@
    "Z9d",
    "Z9g"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.A1CFG.3",
@@ -7087,7 +8627,11 @@
    "Z9f",
    "RDIR-1"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.A1CFG.4",
@@ -7102,7 +8646,11 @@
    "RT-T0",
    "H3"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.A1CFG.5",
@@ -7117,7 +8665,11 @@
    "RT-DR",
    "RT-DR3W"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.A1CFG.6",
@@ -7134,7 +8686,11 @@
    "GATE-16",
    "RT-T0"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.A1CFG.7",
@@ -7164,8 +8720,12 @@
    "RT-DR",
    "RT-DR3W"
   ],
-  "open": [
-   "V4 reversal scope"
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "V5-D1"
   ]
  },
  {
@@ -7189,7 +8749,11 @@
    "Y9",
    "Y10"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.SYN.2",
@@ -7204,7 +8768,11 @@
    "Y1",
    "Y8"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.SYN.3",
@@ -7220,7 +8788,11 @@
    "RDIR-25",
    "RDIR-12b"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.VALID.1",
@@ -7243,7 +8815,11 @@
    "RDIR-11",
    "RDIR-16"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.VALID.2",
@@ -7266,7 +8842,11 @@
    "Z8",
    "Y7"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.VALID.3",
@@ -7295,7 +8875,11 @@
    "TT5",
    "O2"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.VALID.4",
@@ -7322,7 +8906,11 @@
    "RDIR-20",
    "RDIR-24"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.REPRO.1",
@@ -7344,7 +8932,11 @@
    "X10",
    "Y8"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.REPRO.2",
@@ -7358,7 +8950,11 @@
   "controls": [
    "REPRO-DOUBLE"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.REPRO.3",
@@ -7374,7 +8970,11 @@
    "REPRO-PYVER",
    "RT-A"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.REPRO.4",
@@ -7390,7 +8990,11 @@
   "controls": [
    "OUT-CONFINED"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.EVID.1",
@@ -7411,7 +9015,11 @@
    "GATE-1",
    "GATE-6"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.EVID.2",
@@ -7426,7 +9034,11 @@
   "controls": [
    "GATE-16"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.EVID.3",
@@ -7440,7 +9052,11 @@
    "EI3",
    "X10"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "R6.EVID.4",
@@ -7482,7 +9098,13 @@
    "SW2",
    "RT-C"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "D1-D4"
+  ]
  },
  {
   "id": "R6.EVID.5",
@@ -7517,7 +9139,13 @@
   "controls": [
    "GATE-16"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "D1-D4"
+  ]
  },
  {
   "id": "R6.EVID.6",
@@ -7535,7 +9163,29 @@
    "GATE-13",
    "GATE-19"
   ],
-  "open": []
+  "verification": [
+   "controls"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
+ },
+ {
+  "id": "R6.EVID.7",
+  "section": "EVID",
+  "section_number": 31,
+  "kind": "governance",
+  "sources": [
+   "RE-36",
+   "Q16",
+   "ME-3",
+   "RD-23"
+  ],
+  "controls": [],
+  "verification": [
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "OBL-1",
@@ -7548,7 +9198,11 @@
    "ME-1"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "OBL-1"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "OBL-2",
@@ -7564,7 +9218,11 @@
    "ME-2"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "OBL-2"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "OBL-3",
@@ -7588,7 +9246,16 @@
    "OD-8"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "OBL-3"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "V5-D1",
+   "D1-D4",
+   "V5-D2",
+   "S1-D1 to S1-D3"
+  ]
  },
  {
   "id": "OBL-4",
@@ -7600,7 +9267,11 @@
    "E-1287"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "OBL-4"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "OBL-5",
@@ -7613,7 +9284,11 @@
    "E-1369"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "OBL-5"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "OBL-6",
@@ -7627,8 +9302,12 @@
    "Q10"
   ],
   "controls": [],
-  "open": [
-   "V4 reversal scope"
+  "verification": [
+   "OBL-6"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "V5-D1"
   ]
  },
  {
@@ -7640,7 +9319,11 @@
    "E-1023"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "OBL-7"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "OBL-8",
@@ -7660,7 +9343,11 @@
    "OD-30"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "OBL-8"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "OBL-9",
@@ -7672,7 +9359,11 @@
    "RV-038"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "OBL-9"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "OBL-10",
@@ -7683,7 +9374,11 @@
    "E-1372"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "OBL-10"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "OBL-11",
@@ -7691,10 +9386,15 @@
   "section_number": 32,
   "kind": "obligation",
   "sources": [
-   "A-131"
+   "A-131",
+   "RE-38"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "OBL-11"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "OBL-12",
@@ -7707,7 +9407,11 @@
    "ME-8"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "OBL-12"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "OBL-13",
@@ -7721,9 +9425,13 @@
    "MC-4"
   ],
   "controls": [],
+  "verification": [
+   "OBL-13"
+  ],
   "open": [
-   "gate assignments of obligations"
-  ]
+   "T1'-bound evidence cannot qualify"
+  ],
+  "pending_owner_confirmation": []
  },
  {
   "id": "OBL-14",
@@ -7736,10 +9444,13 @@
    "MC-4"
   ],
   "controls": [],
+  "verification": [
+   "OBL-14"
+  ],
   "open": [
-   "RT-O9 base-drift clause",
-   "gate assignments of obligations"
-  ]
+   "T1'-bound evidence cannot qualify"
+  ],
+  "pending_owner_confirmation": []
  },
  {
   "id": "OBL-15",
@@ -7753,7 +9464,15 @@
    "OD-20"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "OBL-15"
+  ],
+  "open": [
+   "T1'-bound evidence cannot qualify"
+  ],
+  "pending_owner_confirmation": [
+   "D1-D4"
+  ]
  },
  {
   "id": "OBL-16",
@@ -7765,7 +9484,13 @@
    "OD-1"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "OBL-16"
+  ],
+  "open": [
+   "circular evidence dependency"
+  ],
+  "pending_owner_confirmation": []
  },
  {
   "id": "OBL-17",
@@ -7776,7 +9501,11 @@
    "RD-26"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "OBL-17"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "OBL-18",
@@ -7787,10 +9516,11 @@
    "RD-26"
   ],
   "controls": [],
-  "open": [
-   "EI14-dispatch release condition",
-   "gate assignments of obligations"
-  ]
+  "verification": [
+   "OBL-18"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "OBL-19",
@@ -7802,7 +9532,11 @@
    "RD-4"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "OBL-19"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "OBL-20",
@@ -7811,12 +9545,17 @@
   "kind": "obligation",
   "sources": [
    "Q7",
-   "RD-8"
+   "RD-8",
+   "RE-2",
+   "RE-3",
+   "Q11"
   ],
   "controls": [],
-  "open": [
-   "restored case of no-mutation controls"
-  ]
+  "verification": [
+   "OBL-20"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "OBL-21",
@@ -7831,7 +9570,11 @@
    "E-1429"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "OBL-21"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "OBL-22",
@@ -7845,7 +9588,11 @@
    "E-015"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "OBL-22"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "OBL-23",
@@ -7858,9 +9605,13 @@
    "Q10"
   ],
   "controls": [],
+  "verification": [
+   "OBL-23"
+  ],
   "open": [
-   "T1' input list"
-  ]
+   "T1'-bound evidence cannot qualify"
+  ],
+  "pending_owner_confirmation": []
  },
  {
   "id": "OBL-24",
@@ -7873,9 +9624,11 @@
    "OD-1"
   ],
   "controls": [],
-  "open": [
-   "mutation harness location"
-  ]
+  "verification": [
+   "OBL-24"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "OBL-25",
@@ -7888,7 +9641,11 @@
    "Q9"
   ],
   "controls": [],
-  "open": []
+  "verification": [
+   "OBL-25"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  },
  {
   "id": "OBL-26",
@@ -7902,8 +9659,63 @@
    "RD-20"
   ],
   "controls": [],
+  "verification": [
+   "OBL-26"
+  ],
   "open": [
-   "gate assignments of obligations"
-  ]
+   "circular evidence dependency"
+  ],
+  "pending_owner_confirmation": []
+ },
+ {
+  "id": "OBL-27",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "E-1268",
+   "E-1269",
+   "E-1271",
+   "E-1272",
+   "E-1273",
+   "E-1274",
+   "E-1276",
+   "E-1280",
+   "E-1282",
+   "B-19"
+  ],
+  "controls": [],
+  "verification": [
+   "OBL-27"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
+ },
+ {
+  "id": "OBL-28",
+  "section": "OBL",
+  "section_number": 32,
+  "kind": "obligation",
+  "sources": [
+   "C-1 to C-28",
+   "Q12",
+   "RE-6",
+   "RE-13",
+   "RE-16",
+   "RE-18",
+   "RE-19",
+   "RE-23",
+   "RE-24",
+   "RE-27",
+   "RE-29",
+   "RE-32",
+   "RE-33"
+  ],
+  "controls": [],
+  "verification": [
+   "OBL-28"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
  }
 ]
