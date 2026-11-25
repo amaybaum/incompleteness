@@ -75,10 +75,10 @@ verb, so `quantum theory requires observational incompleteness` and `quantum mec
 presupposes ... ` with an intervening adverb escape. Paraphrases of the assertion
 ("$T_Q$ does not depend on the state", "independent of the state") are not covered.
 
-**F6. The exemption.** The single entry exempts `unamended Q3 (state-independent gate records of
-the model 𝔔)` in the frozen record
-`verification/programmes/oi-qm/reconstruction/drafts/tune-1-20261111/TUNE-1-STEP2-AMENDMENT-1.md:286`
-from the $T_Q$ rule. The file and phrase exist on `main`. The use is a false positive of F1 (the
+**F6. The exemption.** The single entry exempts one phrase of the frozen record
+`verification/programmes/oi-qm/reconstruction/drafts/tune-1-20261111/TUNE-1-STEP2-AMENDMENT-1.md:286`,
+the statement of TUNE-1's unamended Q3 condition on the gate records of the model 𝔔, from the $T_Q$
+rule. The file and phrase exist on `main`. The use is a false positive of F1 (the
 adjective modifies "gate records"); the exemption treats the symptom for one file.
 
 **F7. The false-positive cost is paid in the text.** Records on `main` were reworded to avoid the
@@ -506,9 +506,9 @@ which the mutation exposed. M3: the current checker accepts 924 of 1,100 sentenc
 | Injected sentence | Expected | Prototype | Current checker |
 |---|---|---|---|
 | "The Hawking temperature $T_Q$ is state-independent." | FAIL | 6,825 FAIL, 3 REVIEW, 0 PASS | 2,532 PASS |
-| "Quantum mechanics requires observational incompleteness." | FAIL | 6,825 FAIL, 3 REVIEW, 0 PASS | 55 PASS |
+| positive sentence of control P-OI-1 (`work/controls.json`) | FAIL | 6,825 FAIL, 3 REVIEW, 0 PASS | 55 PASS |
 | "Under H-balance, the Hawking temperature $T_Q$ is state-independent." | PASS | 6,828 PASS | — |
-| "No theorem shows that quantum mechanics requires observational incompleteness." | PASS | 6,828 PASS | — |
+| governed sentence of control N-OI-3, injected with "OI" written out in full | PASS | 6,828 PASS | — |
 
 The three REVIEWs are paragraphs whose last line is an unfinished sentence leading into a display
 or list, so the injected text continues that sentence; REVIEW is the correct outcome there. At an
@@ -576,8 +576,8 @@ Tree M (26 matched paragraphs; current verdict: all PASS, one by exemption). Pro
 | `verification/programmes/oi-qm/reconstruction/intervene-substate-results-20261113/review/RESPONSE-CORR322.md:34` | GR-TQ-STATE | PASS (`H-balance`, `conditional`, `withdrawn`) | PASS | unrelated: predicate modifies 'graph'; unrelated: verb has another subject |
 | `verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/stopping-source-v2/REPORT.md:89` | GR-TQ-STATE | PASS (`conditional`, `cannot`) | PASS | unrelated: predicate modifies 'timing marginal into' |
 
-Tree A adds the eight `state-independent` paragraphs of PR #1560's first commit; the six current
-FAILs become PASS:
+Tree A adds the eight paragraphs of PR #1560's first commit that contain the phrase the GR-TQ-STATE
+rule matches; the six current FAILs become PASS:
 
 | Location | Current | Proposed | Reason |
 |---|---|---|---|
