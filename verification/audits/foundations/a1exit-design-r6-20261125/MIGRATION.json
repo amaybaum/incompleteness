@@ -1361,6 +1361,11 @@
    "old": "SOURCE_CHANGED (content failures of a pin-matching ledger or edit list)",
    "new": "LEDGER_INTEGRITY",
    "basis": "RE-16 (a class reassignment, not a rename)"
+  },
+  {
+   "old": "(none)",
+   "new": "R6.STAT.10, R6.EVID.8, REP-BUILD, invariant keys representative_candidate and scanned_paths_within, notation X_rep, OBL-28 row OC-3",
+   "basis": "OC-2, OC-3 (owner corrections of 2026-11-25); new ids recorded, not sec. A.48 migrations"
   }
  ],
  "record_corrections": [

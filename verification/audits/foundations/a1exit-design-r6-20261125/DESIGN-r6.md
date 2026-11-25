@@ -100,6 +100,26 @@ the expectation file.
 Sources: E-032. Controls: none (traceability table; each condition is tested by the controls of the
 requirements it names).
 
+**R6.STAT.10** Adoption and implementation certification (OC-2). r6's adoption and the certification of
+an implementation are separate steps.
+- Adoption is the owner's recorded decision on the specification. Its support is the r6 text (this
+  document, the expectation file, the requirement index, the migration index and the list of
+  paraphrased decisions) and its independent exact-head review, both on `main` no later than the
+  adoption record lands (AGENTS.md sec. A.42 items 1, 2 and 8). Precondition: the documents and the
+  review reach `main` by an ordinary merge that the owner approves (AGENTS.md sec. A.50 item 1); r6 does
+  not authorize it.
+- Adoption certifies no implementation. Each requirement and obligation of r6 holds or fails by its own
+  controls on the tool revision. None uses the tool commit a37992449b452021001277c06c524a30c92dfb87, its
+  conformance assessment or its CI runs as support; for the requirements and obligations these are
+  provenance (AGENTS.md sec. A.42 item 8).
+- Implementation certification is made against the tool revision after it lands on `main` (OBL-26), with
+  evidence of kinds 2 and 3 (R6.EVID.7); the tool's landing decision rests on kind 1 (sec. 32).
+- Every place where adoption, or an enduring claim stated in r6, still uses content that is not on
+  `main` as support is listed in the adoption trace of sec. 32. Each is an open governance conflict,
+  closed only by landing the content the claim needs or by narrowing the claim, never by an exception.
+OPEN: off-main support of adoption.
+Sources: OC-2. Controls: none (governance; verified by review and by the adoption trace of sec. 32).
+
 ***
 
 ## 1. Notation and symbols
@@ -114,8 +134,10 @@ Sources: E-022, V1-005, V2-003. Controls: none (definition).
 
 **R6.NOTE.3** `T1'` = 14ac71b4b0a0c0aa2d7068d6799a73f474097060, the executed trial tree: `H` plus the
 399 ledgered splices. `T1'` is not reachable from `main`. A figure measured only at `T1'` is a
-historical measurement unless a control whose inputs are on `main` reproduces it (sec. 31).
-Sources: E-023, V1-005, V2-003. Controls: none (definition).
+historical measurement unless a control whose inputs are on `main` reproduces it (sec. 31). `X_rep` is
+the representative retirement candidate of R6.EVID.8, built from `H` and a ledger; it is the input of
+every control whose verdict reads only what `H` and the ledger determine.
+Sources: E-023, V1-005, V2-003, OC-3. Controls: none (definition).
 
 **R6.NOTE.4** `P` = 4c79be642ca631573f06b444903be75ec4f5e2b6, the frozen plan: the plan commit holding
 `ledger.json` and `edits.json`. `P` has no other meaning in r6 (R6.NOTE.12).
@@ -2713,7 +2735,7 @@ Sources: OD-18, Q2. Controls: RT-L2, GATE-13, GATE-14, GATE-15, GATE-19.
 
 ### 16.10 Annex: invariant vocabulary
 
-The closed vocabulary of `invariants` keys is the following list of the 151 keys the
+The closed vocabulary of `invariants` keys is the following list of the 153 keys the
 expectation file uses (R6.GATE.3). A key outside it makes the file invalid.
 
 `L_blob`, `X_and_M_views_differ`, `a3_a5_evaluated`, `a5_evaluated`, `a5_unequal_paths`, `acceptable_as_new_run`,
@@ -2735,13 +2757,13 @@ expectation file uses (R6.GATE.3). A key outside it makes the file invalid.
 `none`, `not_class`, `not_in_H_to_M_scan`, `nothing_cached_by_a_refusal`, `objects_fetched`, `old_style_X_vs_M_comparison_reports`,
 `others_class`, `out_dir_created`, `payload_ran`, `per_failed_check`, `per_operation`, `per_site`,
 `rc11_evaluated`, `reader_cases_refused_with`, `reason`, `record_admitted`, `record_checks_failed_include`, `record_directory_entries_equal`,
-`record_directory_state`, `reference_graph_cycle`, `refs_unchanged`, `refused`, `replay_equality`, `resid_key`,
-`restored_of_each_component`, `result_equal_without_file`, `results_validated_min`, `retired_lines_count`, `rt_l2_status`, `rule_active`,
-`same_reader_path_map_unchanged`, `same_reader_serves_verified_bytes`, `same_view_returned`, `schema_errors`, `selected_offset`, `self_test_imports_all_accepted`,
-`side_change_obligation`, `side_changes_classified_by`, `side_changes_exact`, `sites_resolved_by_it`, `snapshot_T_recorded`, `snapshot_fields_all_present`,
-`source_map_nonempty`, `stderr_json_outcome`, `stop_class_in`, `superseding_record_used`, `supplied_file_read_as_evidence`, `terms_and_execution_equal_clean`,
-`tool_and_workflow_blobs_equal_pins`, `tool_run_exit`, `value`, `value_occurs_in`, `value_set_includes`, `walk_terminates`,
-`writes_only_under`.
+`record_directory_state`, `reference_graph_cycle`, `refs_unchanged`, `refused`, `replay_equality`, `representative_candidate`,
+`resid_key`, `restored_of_each_component`, `result_equal_without_file`, `results_validated_min`, `retired_lines_count`, `rt_l2_status`,
+`rule_active`, `same_reader_path_map_unchanged`, `same_reader_serves_verified_bytes`, `same_view_returned`, `scanned_paths_within`, `schema_errors`,
+`selected_offset`, `self_test_imports_all_accepted`, `side_change_obligation`, `side_changes_classified_by`, `side_changes_exact`, `sites_resolved_by_it`,
+`snapshot_T_recorded`, `snapshot_fields_all_present`, `source_map_nonempty`, `stderr_json_outcome`, `stop_class_in`, `superseding_record_used`,
+`supplied_file_read_as_evidence`, `terms_and_execution_equal_clean`, `tool_and_workflow_blobs_equal_pins`, `tool_run_exit`, `value`, `value_occurs_in`,
+`value_set_includes`, `walk_terminates`, `writes_only_under`.
 
 ***
 
@@ -2831,9 +2853,10 @@ scope and no production result, and adding or changing one changes the controls 
 with it. No historical text is constructed for this purpose. DR-3's witness is such an input: the
 sentence of `AGENTS.md` at `H`, lines 37-39 (blob 12a9281fb88c14395b6715a3bf4b4f6b030f433c, sha256
 d87acac54b5f6392af3323630236d98b14bb4d485d10c0ff56b20806b0883e27), which RT-DR3W scans at `H` and,
-as its countercontrol, at T1'.
+as its countercontrol, in `X_rep` (R6.EVID.8), whose `AGENTS.md` is `H`'s with the ledger's splices
+applied.
 Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
-Sources: E-1011, E-1013, E-1014, E-1015. Controls: RT-DR3W.
+Sources: E-1011, E-1013, E-1014, E-1015, OC-3. Controls: RT-DR3W.
 
 **R6.CTRL.8** The preflight set is U1, U4, U10, M1, K1, O9 and O1. Every run of an operation runs the
 preflight controls in memory in the controls stage, before any subject is evaluated; a preflight
@@ -2942,14 +2965,15 @@ RT-L2, RT-O9 and RT-O9-L2. v1's `verify-record` is `record` and `check-coverage`
 figure a runner asserts today that is reproducible from inputs on `main` (among them RT-H0's 113/7/7,
 RT-A's and RT-E's 697, the RT-DR counts at `H`, RT-T0's site and region counts, RT-I7's split at `H`,
 RT-I7A and RT-C, and RT-D's 45 `resid` lines) is an asserted count in the expectation file, not an
-informational figure. A figure measured on T1' is an acceptance reference only for a run that has
+informational figure. A control whose verdict reads only what `H` and the ledger determine runs on
+`X_rep` (R6.EVID.8); a figure that needs T1' itself is an acceptance reference only for a run that has
 T1' among its inputs; its standing as evidence follows sec. 31. RT-C is PASS only with contract
 evidence; without it the expected result is the one the expectation file states for missing
 evidence. RT-T is NOT RUN until every reviewed record of sec. 14 exists. The two `not determined`
 H..T1' cases of sec. 6 are RET FAILs, and RT-T's expectation says so; it does not claim that no RET
 FAIL exists.
 Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
-Sources: E-1134, E-1176, E-1177, E-1178, E-1179, E-1180, E-1181, E-1182, E-1183, E-1184, E-1185, E-1186, E-1187, E-1188, V1-115, V1-117, V1-119, V2-099, V2-100, V2-101, V2-103, V2-104, V2-105, V2-162, V2-163, V2-164, RV-028, RV-051, E-091, E-1010, V1-132, V1-136. Controls: N-W, RT-A, RT-C, RT-D, RT-D-gr58, RT-DR, RT-DR3W, RT-E, RT-H0, RT-I7, RT-I7A, RT-L, RT-L2, RT-O9, RT-O9-L2, RT-T, RT-T0, RT-X, SW1, SW2, item11-T1p.
+Sources: E-1134, E-1176, E-1177, E-1178, E-1179, E-1180, E-1181, E-1182, E-1183, E-1184, E-1185, E-1186, E-1187, E-1188, V1-115, V1-117, V1-119, V2-099, V2-100, V2-101, V2-103, V2-104, V2-105, V2-162, V2-163, V2-164, RV-028, RV-051, E-091, E-1010, V1-132, V1-136, OC-3. Controls: N-W, RT-A, RT-C, RT-D, RT-D-gr58, RT-DR, RT-DR3W, RT-E, RT-H0, RT-I7, RT-I7A, RT-L, RT-L2, RT-O9, RT-O9-L2, RT-T, RT-T0, RT-X, SW1, SW2, item11-T1p.
 
 **R6.CTRL.20** The tree-role controls are TT1-TT14, R15-R19 with their engine forms, RL and
 SIDE-NONREG, and the real-tree controls RT-X, RT-L and RT-L2, each read with `C` for the certified
@@ -3222,24 +3246,24 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | N-W | R6.DENY.2, R6.CTRL.19 | a1_controls.py:600 | decl | pos | every W1 and W2 line at T1', and papers/Main.md:738 ("Thirteen items") |
 | RT-A | R6.PUR.4, R6.PIPE.2, R6.PIPE.10, R6.ANCH.3, R6.ANCH.7, R6.CTRL.6, R6.CTRL.19, R6.ADAPT.4, R6.ADAPT.5, R6.A1CFG.3, R6.REPRO.3, R6.EVID.4 | a1_controls.py:171 | decl | pos | `record --pin E --record H` |
 | RT-C | R6.PIPE.2, R6.OUT.24, R6.DELEG.1, R6.DELEG.2, R6.DELEG.11, R6.DELEG.14, R6.CTRL.19, R6.ADAPT.6, R6.EVID.4 | a1_controls.py:805 | decl | pos | `execution` at `X = T1'` with `F` = the amended freeze |
-| RT-D | R6.PIPE.2, R6.PIPE.14, R6.PROF.3, R6.DENY.1, R6.HIT.2, R6.HIT.3, R6.HIT.6, R6.CTRL.19, R6.TREE.16, R6.EVID.4 | a1_controls.py:374 | decl | pos | `terms --commit T1' --base H --ledger F:ledger.json` |
+| RT-D | R6.PIPE.2, R6.PIPE.14, R6.PROF.3, R6.DENY.1, R6.HIT.2, R6.HIT.3, R6.HIT.6, R6.CTRL.19, R6.TREE.16, R6.EVID.4, R6.EVID.8 | a1_controls.py:374 | decl | pos | `terms --commit X_rep --base H --ledger F:ledger.json`, the ledger the pinned control input (R6.EVID.8) |
 | RT-D-gr58 | R6.DENY.1, R6.CTRL.19 | a1_controls.py:389 | decl | pos | RT-D, the papers/GR.md:58 hit with its hit classification record |
 | RT-DR | R6.PIPE.13, R6.PROF.1, R6.PROF.4, R6.RULE.3, R6.DENY.1, R6.DENY.3, R6.CTRL.4, R6.CTRL.19, R6.A1CFG.5, R6.A1CFG.7, R6.EVID.4 | a1_controls.py:296 | decl | adv | `terms --commit H --profile DR-1,DR-3,DR-4,DR-5` |
-| RT-DR3W | R6.SPLIT.1, R6.RULE.3, R6.DENY.2, R6.DENY.3, R6.CTRL.4, R6.CTRL.7, R6.CTRL.19, R6.A1CFG.5, R6.A1CFG.7, R6.EVID.4 | a1_controls.py:317 | decl | adv | control-only scan of `AGENTS.md` at H (blob 12a9281f..., sha256 d87acac5...) with DR-3 alone (sec. 12); countercontrol: `AGENTS.md` at T1' (sha256 59b68984...) |
+| RT-DR3W | R6.SPLIT.1, R6.RULE.3, R6.DENY.2, R6.DENY.3, R6.CTRL.4, R6.CTRL.7, R6.CTRL.19, R6.A1CFG.5, R6.A1CFG.7, R6.EVID.4, R6.EVID.8 | a1_controls.py:317 | decl | adv | control-only scan of `AGENTS.md` at H (blob 12a9281f..., sha256 d87acac5...) with DR-3 alone (sec. 12); countercontrol: `AGENTS.md` in `X_rep` (`H`'s with the ledger's splices; sha256 59b68984..., the bytes of `T1'`'s copy) |
 | RT-E | R6.PIPE.2, R6.PIPE.13, R6.ANCH.17, R6.PROF.1, R6.PROF.4, R6.HIT.1, R6.CTRL.19, R6.ADAPT.3, R6.EVID.4 | a1_controls.py:224 | decl | pos | `coverage --commit E` |
 | RT-H0 | R6.HP.2, R6.HP.6, R6.HP.13, R6.OUT.24, R6.CLASS.4, R6.CTRL.19, R6.TREE.16, R6.A1CFG.4, R6.EVID.4 | a1_controls.py:235 | decl | adv | `coverage --commit H`, no HP records |
-| RT-I7 | R6.CLASS.5, R6.CTRL.19, R6.CTRL.29, R6.PLAN.8, R6.A1CFG.7, R6.EVID.4 | a1_controls.py:327 | decl | adv | `terms --commit T1' --profile item7-literal`; the same at H |
-| RT-I7A | R6.CTRL.19, R6.PLAN.8, R6.PLAN.18, R6.A1CFG.7, R6.EVID.4 | a1_controls.py:342 | decl | adv | the proposed item-7 amendment check (sec. 18, item 7) at H and at T1', no records |
+| RT-I7 | R6.CLASS.5, R6.CTRL.19, R6.CTRL.29, R6.PLAN.8, R6.A1CFG.7, R6.EVID.4, R6.EVID.8 | a1_controls.py:327 | decl | adv | `terms --commit X_rep --profile item7-literal` (R6.EVID.8); the same at H |
+| RT-I7A | R6.CTRL.19, R6.PLAN.8, R6.PLAN.18, R6.A1CFG.7, R6.EVID.4, R6.EVID.8 | a1_controls.py:342 | decl | adv | the proposed item-7 amendment check (sec. 18, item 7) at H and at `X_rep` (R6.EVID.8), no records |
 | RT-L | R6.CTRL.19, R6.PLAN.15, R6.TREE.12, R6.TREE.15 | a1_controls.py:930 | decl | pos | real objects: an in-memory landing with parents (W, `T1'`), built by the composition rule and never committed |
-| RT-L2 | R6.GATE.15, R6.GATE.16, R6.CTRL.5, R6.CTRL.19, R6.TREE.15, R6.RECON.20, R6.RECON.21, R6.EVID.6 | a1_controls.py:976 | proc | pos | before the tool lands: as RT-L, with `--main` set to the predicted `M` (`main` plus the tool landing paths, and the plan record directory as it stands at the stand-in `F`) |
+| RT-L2 | R6.GATE.15, R6.GATE.16, R6.CTRL.5, R6.CTRL.19, R6.TREE.15, R6.RECON.20, R6.RECON.21, R6.EVID.6, R6.EVID.8 | a1_controls.py:976 | proc | pos | before the tool lands: as RT-L, at `X` = `C` = `X_rep` (R6.EVID.8), with `--main` set to the predicted `M` (a pinned `main` commit `M0` plus the tool's landing paths, R6.RECON.21) and the reviewed reconciliation record named from a commit outside those paths |
 | RT-O9 | R6.GATE.15, R6.CTRL.17, R6.CTRL.19, R6.RDIR.12, R6.RDIR.14 | a1_controls.py:1025 | proc | pos | the predicted `M`: `main` plus the tool landing plus the plan's record directory as it stands at the stand-in `F` |
-| RT-O9-L2 | R6.GATE.15, R6.CTRL.5, R6.CTRL.17, R6.CTRL.19, R6.RDIR.14, R6.RECON.21 | a1_controls.py (split from RT-O9) | proc | pos | the dependent clause of RT-O9: RT-L2 on the same predicted `M` |
-| RT-T | R6.HIT.5, R6.HIT.6, R6.GATE.15, R6.CTRL.5, R6.CTRL.19, R6.PLAN.4 | a1_controls.py:271 | decl | pos | RT-T0 with every reviewed record of sec. 14 |
-| RT-T0 | R6.HP.3, R6.HP.9, R6.HP.10, R6.HP.11, R6.OUT.24, R6.HIT.3, R6.HIT.6, R6.CLASS.4, R6.CTRL.11, R6.CTRL.19, R6.CTRL.29, R6.PLAN.4, R6.A1CFG.4, R6.A1CFG.6, R6.EVID.4 | a1_controls.py:262 | decl | adv | `coverage` at `X = T1'`, no records |
+| RT-O9-L2 | R6.GATE.15, R6.CTRL.5, R6.CTRL.17, R6.CTRL.19, R6.RDIR.14, R6.RECON.21, R6.EVID.8 | a1_controls.py (split from RT-O9) | proc | pos | the dependent clause of RT-O9: RT-L2 on the same predicted `M` plus the record directory of a representative stand-in `F` (the pinned ledger, edit list and configuration instance), at `X_rep` (R6.EVID.8) |
+| RT-T | R6.HIT.5, R6.HIT.6, R6.GATE.15, R6.CTRL.5, R6.CTRL.19, R6.PLAN.4, R6.EVID.8 | a1_controls.py:271 | decl | pos | RT-T0 with every reviewed record of sec. 14, at `X_rep` built from `F`'s ledger (R6.EVID.8) |
+| RT-T0 | R6.HP.3, R6.HP.9, R6.HP.10, R6.HP.11, R6.OUT.24, R6.HIT.3, R6.HIT.6, R6.CLASS.4, R6.CTRL.11, R6.CTRL.19, R6.CTRL.29, R6.PLAN.4, R6.A1CFG.4, R6.A1CFG.6, R6.EVID.4, R6.EVID.8 | a1_controls.py:262 | decl | adv | `coverage` at `X = X_rep` (R6.EVID.8), no records; the `T1'` measurement in `reference` |
 | RT-X | R6.CTRL.19, R6.TREE.6 | a1_controls.py:921 | decl | pos | real objects: `--scientific-base H --main W --candidate T1'` |
 | SW1 | R6.ANCH.17, R6.CTRL.11, R6.CTRL.19, R6.CTRL.29, R6.EVID.4 | a1_controls.py:1240 | proc | adv | per-site sweep at E: each of the 697 sites, one token deleted |
 | SW2 | R6.HP.8, R6.HP.9, R6.CTRL.19, R6.EVID.4 | a1_controls.py:1238 | proc | adv | per-site sweep at H: each of the 584 sites, one token deleted (segments E..H `hp`, H..X unledgered) |
-| item11-T1p | R6.CTRL.19, R6.CTRL.29, R6.PLAN.12, R6.EVID.4 | a1_controls.py:396 | decl | adv | item 11 run with `--final` at T1', no records |
+| item11-T1p | R6.CTRL.19, R6.CTRL.29, R6.PLAN.12, R6.EVID.4 | a1_controls.py:396 | decl | adv | item 11 run with `--final` at T1', no records; candidate evidence for the landing decision only (exact trial tree, OBL-23) |
 | R15 | R6.CLASS.10, R6.CTRL.20, R6.TREE.11, R6.TREE.18 | controls_engine.py:566 | decl | adv | an `L` whose first parent is a `main` commit other than the recorded `M` |
 | R16 | R6.CTRL.20, R6.TREE.1, R6.TREE.10, R6.TREE.18 | conformance_controls.py:2469 | decl | adv | `C` = `X` plus one commit that changes an unledgered, undeclared path |
 | R17 | R6.CTRL.20, R6.TREE.10, R6.TREE.18 | conformance_controls.py:2472 | decl | pos | `C` = `X` plus one commit that changes only a record path the plan admits after `F` |
@@ -3273,8 +3297,8 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | N7 | R6.CTRL.21, R6.RECON.7, R6.RECON.18 | a1_conformance.py:465 | decl | adv | the path's blob at `M` differs from the record's `m` |
 | N8 | R6.CTRL.21, R6.TREE.13, R6.RECON.9, R6.RECON.18 | a1_conformance.py:470 | decl | adv | a splice's `old` bytes occurring twice at `M` |
 | N9 | R6.CTRL.21, R6.RECON.12, R6.RECON.18 | a1_conformance.py:471 | decl | adv | the record's `l` differs from the composed blob |
-| N10 | R6.CLASS.10, R6.CTRL.21, R6.TREE.12, R6.RECON.19 | a1_conformance.py:505 | decl | adv | the composition probe, pinned: `M` = 8e9b83341cf5bc7fd9fb260892d0385fc9bfab4d, `X` = T1' (14ac71b4); a landing `L` whose `AGENTS.md` is `X`'s blob 9f4fc3e830707c90ffc105842d26d5b51f01760b (it keeps D296 and drops `M`'s inserted section, bytes 46677-47031); a reconciliation record whose `l` names that same blob. Reference: the composition of `M`'s `AGENTS.md` (6b1280fa) with D296 at offset 2332, blob 86d79863821f3f8cdad86771008b2df89fd1961a |
-| N11 | R6.CTRL.21, R6.TREE.12, R6.RECON.19 | a1_conformance.py:517 | decl | pos | the same `M`, `X` and reference, with `L`'s `AGENTS.md` equal to blob 86d79863 and the record's `l` equal to it |
+| N10 | R6.CLASS.10, R6.CTRL.21, R6.TREE.12, R6.RECON.19, R6.EVID.8 | a1_conformance.py:505 | decl | adv | the composition probe, pinned: `M` = 8e9b83341cf5bc7fd9fb260892d0385fc9bfab4d, `X` = `X_rep` (R6.EVID.8; its `AGENTS.md` is the blob of `T1'`'s copy); a landing `L` whose `AGENTS.md` is `X`'s blob 9f4fc3e830707c90ffc105842d26d5b51f01760b (it keeps D296 and drops `M`'s inserted section, bytes 46677-47031); a reconciliation record whose `l` names that same blob. Reference: the composition of `M`'s `AGENTS.md` (6b1280fa) with D296 at offset 2332, blob 86d79863821f3f8cdad86771008b2df89fd1961a |
+| N11 | R6.CTRL.21, R6.TREE.12, R6.RECON.19, R6.EVID.8 | a1_conformance.py:517 | decl | pos | the same `M`, `X` and reference, with `L`'s `AGENTS.md` equal to blob 86d79863 and the record's `l` equal to it |
 | N12 | R6.CTRL.21, R6.RECON.8, R6.RECON.18 | a1_conformance.py:477 | decl | adv | condition RC3: D296's `old` bytes made to occur twice at `H` in a synthetic copy |
 | N13 | R6.CTRL.21, R6.TREE.13, R6.RECON.10, R6.RECON.18 | a1_conformance.py:480 | decl | adv | condition RC5: an insertion on `M` before D296's offset while the record states the identity translation |
 | N14 | R6.CTRL.21, R6.RECON.11, R6.RECON.18 | a1_conformance.py:482 | decl | adv | condition RC6: the record's approved text differs from the ledger's `new`, or lines 36-39 of the composition differ from `X`'s |
@@ -3373,7 +3397,7 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | TR1 | R6.REC.16, R6.CTRL.23, R6.CFG.8 | conformance_controls.py:157 | decl | adv | a run without `--freeze` |
 | TR2 | R6.REC.5, R6.REC.16, R6.CTRL.23, R6.CFG.1, R6.CFG.2, R6.CFG.3, R6.VALID.3 | conformance_controls.py:164 | decl | adv | a configuration whose sha256 is not in the pin table of the `PREREG.md` beside it |
 | TR3 | R6.REC.5, R6.REC.16, R6.CTRL.23, R6.CFG.2 | conformance_controls.py:170 | decl | adv | a review record placed beside the configuration, naming its blob, but not in `F`'s pin table |
-| TR5 | R6.REC.24, R6.GATE.15, R6.CTRL.5, R6.CTRL.23, R6.PLAN.2, R6.CFG.8, R6.REPRO.1 | conformance_controls.py:151 | decl | pos | a complete run: `--freeze F` and `--config F:<path>` given; the `PREREG.md` beside the configuration, whose last `Record pins` subsection lists the configuration and its review; the run record read in a host CI job, with event `workflow_dispatch` and repository and head repository ids equal to `repository_id`; `T`'s tool files and workflow equal to the configuration's `tool` pins and to the checkout |
+| TR5 | R6.REC.24, R6.GATE.15, R6.CTRL.5, R6.CTRL.23, R6.PLAN.2, R6.CFG.8, R6.REPRO.1 | conformance_controls.py:151 | decl | pos | a complete run: `--freeze F` and `--config F:<path>` given; the `PREREG.md` beside the configuration, whose last `Record pins` subsection lists the configuration and its review; the run record read in a host CI job, with event `workflow_dispatch` and repository and head repository ids equal to `repository_id`; `T`'s tool files and workflow equal to the configuration's `tool` pins and to the checkout; `F` is the candidate named by `--freeze`, fetched by its full id and not required on `main`, and the run is dispatched on `main` at `T` (OBL-16 (a)) |
 | TR5-sim | R6.REC.24, R6.CTRL.23 | conformance_controls.py:142 | decl | pos | TR5 simulated in memory: a complete control-harness run with every snapshot field |
 | TR13 | R6.REC.16, R6.CTRL.23, R6.CFG.8 | conformance_controls.py:184 | proc | adv | a local run, all inputs otherwise valid |
 | TR14 | R6.OUT.13, R6.REC.18, R6.CTRL.23 | conformance_controls.py:541 | proc | both | the same workflow and tool run in a fork, or in another repository; separately, a `pull_request` run from a fork, executed and listed in the canonical repository (its `head_repository.id` is the fork's); separately, the same results presented to a consumer that runs in a fork |
@@ -3536,8 +3560,9 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | LC-4 | R6.TREE.12, R6.TREE.13 | to be implemented (tool revision) | decl | both | composition case "both changed to equal blobs": fixture and byte-exact expected landing blob of `p.md` in the expectation file (Q15) |
 | LC-5 | R6.TREE.12, R6.TREE.13 | to be implemented (tool revision) | decl | both | composition case "both changed to different blobs, ledgered path (a line prepended on M)": fixture and byte-exact expected landing blob of `p.md` in the expectation file (Q15) |
 | LC-6 | R6.TREE.12, R6.TREE.13 | to be implemented (tool revision) | decl | both | composition case "both changed to different blobs, ledgered path (the spliced line moved on M)": fixture and byte-exact expected landing blob of `p.md` in the expectation file (Q15) |
-| LC-7 | R6.TREE.12 | to be implemented (tool revision) | decl | adv | composition case "derived artifact": a derived artifact changed on both sides; REVIEW_REQUIRED for every candidate `L` (expected landing blob open, RE-18) |
+| LC-7 | R6.TREE.12 | to be implemented (tool revision) | decl | adv | composition case "derived artifact": a derived artifact changed on both sides; REVIEW_REQUIRED for every candidate `L` until a regeneration verification procedure is specified and independently reviewed (expected landing blob open, RE-18, OC-4) |
 | DELEG-REGEN | R6.DELEG.3, R6.CLASS.9 | to be implemented (tool revision) | proc | both | a re-executed generator in its own clone under `--out`: equal output, one-byte difference, missing output, timeout, extra write, and an evaluated tree whose checker copy accepts anything (Q13) |
+| REP-BUILD | R6.EVID.8 | to be implemented (tool revision) | decl | both | the representative candidate `X_rep` built from `H`, the pinned ledger and edit list and the configuration's control instance, twice with equal ids; a ledger with one splice changed by one byte; a builder importing the engine (R6.EVID.8) |
 
 **Table 17.2. Record-directory mutants** (set `o9`; each row names the change and the controls
 that distinguish it; the results on the correct implementation and on the mutant are in the
@@ -3624,13 +3649,14 @@ Sources: E-1273, E-1274. Controls: S11-5, S11-6, S11-56, S11-57a, S11-57b, S11-5
 **R6.PLAN.8** Item 7 (a corpus grep for `\bA1\b` and related terms with only ledger false positives,
 and zero posit counts "Fourteen", "six structural" and "sixth of") maps, as frozen, to `terms --commit
 X --profile item7-literal`. The literal check is kept as the named countercontrol `item7-literal`, with
-RT-I7. Item 7 as frozen does not pass at T1': seven lines contain the legitimate count of the
-bijection's properties (W1); the T1' counts are historical measurements. Countercontrol: the H-form
+RT-I7. Item 7 as frozen does not pass at T1' or at `X_rep`: seven lines contain the legitimate count of
+the bijection's properties (W1); RT-I7 asserts the counts at `X_rep` (R6.EVID.8), and the measurement
+at T1' is historical. Countercontrol: the H-form
 "Fourteen items" reinstated, which must FAIL in both the literal check and DR-5 (S11-7). DR-5 is a plan
-record. RT-I7A runs the proposed amendment check of R6.PLAN.18 at `H` and at T1' as a test of the
+record. RT-I7A runs the proposed amendment check of R6.PLAN.18 at `H` and at `X_rep` as a test of the
 mechanism.
 Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
-Sources: E-1275, E-1283. Controls: S11-7, RT-I7, RT-I7A.
+Sources: E-1275, E-1283, OC-3. Controls: S11-7, RT-I7, RT-I7A.
 
 **R6.PLAN.9** Item 8 (mirrors byte-identical) maps to `execution` with the subject `mirror`.
 Countercontrol: the FULL mirror text altered.
@@ -3901,13 +3927,16 @@ Sources: V2-138, E-1306. Controls: TT9, R15.
     record stands in for it (sec. 23);
   - a generated artifact is REVIEW_REQUIRED (`delegated-evidence-missing`, obligation `MAIN`) until it
     is regenerated from `L`'s sources under the delegation contract; a reconciliation record is not an
-    alternative to regeneration;
+    alternative to regeneration. The regeneration is verified by a procedure, to be specified explicitly
+    and reviewed independently, in which the trusted checker establishes the expected output itself and
+    compares bytes; the evaluated tree's claim of regeneration is never sufficient. Until that procedure
+    is specified and reviewed, the path is REVIEW_REQUIRED for every candidate `L` (LC-7);
   - any other conflict, including a ledgered path whose `L[p]` differs from the composition, is FAIL
     `landing-conflict-unresolved`.
 
 Any other path content of `L` is FAIL `landing-extra-change`.
 OPEN: derived-artifact landing blob.
-Sources: V2-139, V2-140, V2-142, V2-144, E-1306, E-1307, E-1308, E-1309, RV-001. Controls: TT7, TT8,
+Sources: V2-139, V2-140, V2-142, V2-144, E-1306, E-1307, E-1308, E-1309, RV-001, OC-4. Controls: TT7, TT8,
 TT10, TT11, RL, RT-L, N10, N11, LC-1, LC-2, LC-3, LC-4, LC-5, LC-6, LC-7.
 
 **R6.TREE.13** Translation. For a ledgered path, the `M`-translated offset of a splice is the offset of
@@ -4269,7 +4298,10 @@ before the landing (RE-22 (a)).
 Sources: E-1354. Controls: EI5, TR29, RT-L2.
 
 **R6.RECON.21** Sequencing safeguard. Before the tool lands, RT-L2 runs `execution` against a predicted
-`M` that contains the tool's landing paths, with an in-memory landing (R6.TREE.15). It requires every
+`M` that contains the tool's landing paths, with an in-memory landing (R6.TREE.15), at `X` = `C` =
+`X_rep` (R6.EVID.8). The reviewed reconciliation record names that `M` and so is not among its paths:
+the run names it from a commit outside the tool's landing paths, and it reaches `main` in a commit
+after the tool's landing commit. It requires every
 side change classified, and its drift state is one of three:
 - no drift: no `base-drift` at the predicted `M`; RT-L2 holds;
 - validly reconciled: every drifted path is covered by a reconciliation record whose review record
@@ -4284,7 +4316,7 @@ RUN, with that release condition; it is never PASS on a drafted record. The RT-L
 run 45569710442, made on a drafted record, does not establish the safeguard. The safeguard remains an
 outstanding obligation and a named blocker on the tool's landing (sec. 32, OBL-13) until RT-L2 is released and
 holds. RT-O9-L2 depends on it.
-Sources: E-1355. Controls: RT-L2, RT-O9-L2, GATE-13, GATE-14, GATE-15, GATE-19.
+Sources: E-1355, OC-3. Controls: RT-L2, RT-O9-L2, GATE-13, GATE-14, GATE-15, GATE-19.
 
 ***
 
@@ -4781,24 +4813,25 @@ expectations; reference figures are never the rule. Sources: E-1175, E-035, OD-2
 command that regenerates its result, and the counts it reports. Sources: V1-139. Controls: EI3, X10.
 
 **R6.EVID.4** Acceptance references. The following figures are acceptance references, each through
-the control named, on the condition of R6.EVID.1. Figures whose control runs on `T1'` are acceptance
-references only while the objects of `T1'` the control needs are reachable from `main`; otherwise they
-are historical measurements (OBL-23).
+the control named, on the condition of R6.EVID.1. Figures whose control runs on `X_rep` are acceptance
+references through runs whose inputs are all reachable from `main` (R6.EVID.8). The figure whose
+control needs `T1'` itself (item11-T1p) is an acceptance reference only while the objects of `T1'` it
+needs are reachable from `main`, and otherwise a historical measurement (OBL-23).
 
 | Figure | Control | Input |
 |---|---|---|
 | 697 sites; replay errors 0 | RT-A, RT-E | `E`, record commit |
 | 113 `E..H` site changes (`hp-unadjudicated`); 7 HP `context-meaning-unverified`; 7 HP `context-structure-changed` | RT-H0, RT-T0 | `H` |
-| 9 merger groups covering 22 sites | RT-T0 | `H`, `T1'` |
-| 19 region-attributed sites with untracked HP overlap (18 line-attributed); `papers/Substratum.md:266` with splice D029 | RT-T0 | `T1'` |
-| 383 unchanged, 197 replaced, 4 removed sites; 215 region lines; 168 sites moved by `H..T1'` splices | RT-T0 | `T1'` |
-| 5 RET `context-meaning-unverified`; 3 RET `context-structure-changed` | RT-T0 | `T1'` |
-| `resid`: 45 REVIEW lines, 17 hit by no other profile; 11 W1/W2 lines PASS | RT-D | `T1'` |
-| literal item-7 greps at `T1'`: "six structural" 7, "Fourteen" 0, "sixth of" 0, `\bA1\b` 4 | RT-I7 | `T1'` |
+| 9 merger groups covering 22 sites | RT-T0 | `H`, `X_rep` |
+| 19 region-attributed sites with untracked HP overlap (18 line-attributed); `papers/Substratum.md:266` with splice D029 | RT-T0 | `X_rep` |
+| 383 unchanged, 197 replaced, 4 removed sites; 215 region lines; 168 sites moved by `H..X_rep` splices | RT-T0 | `X_rep` |
+| 5 RET `context-meaning-unverified`; 3 RET `context-structure-changed` | RT-T0 | `X_rep` |
+| `resid`: 45 REVIEW lines, 17 hit by no other profile; 11 W1/W2 lines PASS | RT-D | `X_rep` |
+| literal item-7 greps at `X_rep`: "six structural" 7, "Fourteen" 0, "sixth of" 0, `\bA1\b` 4 | RT-I7 | `X_rep` |
 | literal item-7 greps at `H`: 11, 1, 2, 179 | RT-I7 (after RD-3) | `H` |
 | deny lines at `H`: DR-1 61 (a 6, b 2, c 55), DR-3 0, DR-4 28, DR-5 1, 86 distinct; at `E` 95 distinct | RT-DR (after RD-3) | `H`, `E` |
-| DR-3 on `AGENTS.md`: one sentence at `H` (lines 37-39), none at `T1'` | RT-DR3W | control inputs |
-| 95 retired lines, each FAIL `final-unclassified` at `H`; at `H` 86 deny, 123 `final-unclassified`, 209 FAIL lines (93 and 216 with multi-line counting); at `T1'` 0 deny, 12 `final-unclassified` | RT-I7A (after RD-3) | `H`, `T1'` |
+| DR-3 on `AGENTS.md`: one sentence at `H` (lines 37-39), none in `X_rep` | RT-DR3W | control inputs |
+| 95 retired lines, each FAIL `final-unclassified` at `H`; at `H` 86 deny, 123 `final-unclassified`, 209 FAIL lines (93 and 216 with multi-line counting); at `X_rep` 0 deny, 12 `final-unclassified` | RT-I7A (after RD-3) | `H`, `X_rep` |
 | 176 `final-unclassified` lines of the `repo` profile | item11-T1p | `T1'` |
 | 584 sites swept, each with exactly one new RET FAIL | SW2 | `H` |
 | 697 sites swept, each with exactly one new FAIL | SW1 | `E` |
@@ -4806,7 +4839,7 @@ are historical measurements (OBL-23).
 
 Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-037, E-038, E-074, E-039, E-042, E-045, E-046, E-047, E-049, E-089, E-090, ME-3, RD-3,
-RD-23, MC-1, MC-2, VD-10, RD-11. Controls: RT-A, RT-E, RT-H0, RT-T0, RT-D, RT-I7, RT-DR, RT-DR3W,
+RD-23, MC-1, MC-2, VD-10, RD-11, OC-3. Controls: RT-A, RT-E, RT-H0, RT-T0, RT-D, RT-I7, RT-DR, RT-DR3W,
 RT-I7A, item11-T1p, SW1, SW2, RT-C.
 
 **R6.EVID.5** Historical measurements. The following figures are not acceptance references. No
@@ -4845,7 +4878,10 @@ GATE-19.
 sec. 32 names the kind that discharges it:
 1. pre-merge candidate validation: a run recorded on the exact candidate commit of a pull request
    before its landing merge. It is evidence for the landing decision and is provenance (AGENTS.md
-   sec. A.42 item 2) until the candidate commit is reachable from `main`;
+   sec. A.42 item 2) until the candidate commit is reachable from `main`. For a native round's freeze,
+   the exact-candidate validation of the candidate `F` before its designation (AGENTS.md sec. A.39;
+   TR5) is evidence of this kind for the designation decision, and it qualifies as kind 2 when
+   the round's landing is on `main`;
 2. qualifying landing evidence: once the landing merge is on `main`, the candidate commit is reachable
    from `main`, and a run recorded on it qualifies under AGENTS.md sec. A.42 item 1 with its recipe and
    its expected result, provided every other input the run read is reachable from `main` as well;
@@ -4859,7 +4895,69 @@ a37992449b452021001277c06c524a30c92dfb87 are not reachable from `main` (RE-36). 
 after the tool revision and its inputs are reachable from `main` and its run is recorded or repeated
 there. No obligation is discharged by evidence of a kind it does not name, and no gate is passed by
 an exception the obligation does not state.
-Sources: RE-36, Q16, ME-3, RD-23. Controls: none (definition of evidence kinds; verified by review).
+Sources: RE-36, Q16, ME-3, RD-23, OC-1. Controls: none (definition of evidence kinds; verified by review).
+
+**R6.EVID.8** Representative retirement candidate (OC-3). A control whose verdict reads only the trees
+that `H` and a ledger determine runs on a representative candidate `X_rep`, never on `T1'`:
+- Construction. `X_rep` is a commit object held by the tool's reader (as R6.TREE.15), with exactly one
+  parent, `H`, and a fixed subject. Each ledgered path carries `H`'s bytes with the ledger's splices
+  applied, and its sha256 equals the ledger's `expected_sha256` for the path; the plan's record-directory
+  paths carry the pinned ledger and edit list; each path of the configuration's delegated classes
+  carries a fixed marker blob that differs from its blobs at `H` and at the run's `M`; every other path
+  equals `H`. Its commit and tree ids are a function of `H`, the ledger, the edit list and the
+  configuration alone, and the result records them. The builder imports nothing from the tool's
+  engine; REP-BUILD checks it in both directions.
+- Inputs. `H` and `E`, both on `main`; the ledger and edit list as pinned control inputs landed with the
+  tool revision: byte copies of the retirement ledger (git blob ba37c1cdb560cb5fceeeb2b46a3091c832b4a80e,
+  sha256 2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5) and edit list (git blob
+  ec384fdfbc12937b860e2f226355e8c5d94820a5, sha256
+  528f146d03b29cbc3d7dc29948e3dd1d4cd26f4d36e6e009f032e24f9462dec1); the controls use these pinned bytes,
+  and their origin in `P` is provenance. For RT-T, the ledger and edit list frozen at `F`. Further: the class, rule and scope records of the tool
+  revision; the configuration's control instance, a template landed with the tool revision whose pin of
+  the side-change class record is filled by the runner from the landed class record, so that the
+  template names no blob that the class record pins and K1-GRAPH's acyclicity is kept; and, for the
+  landing roles, a pinned `main` commit `M0`. No input is `T1'`, `P` or the tool commit
+  a37992449b452021001277c06c524a30c92dfb87.
+- Why the safeguard is full. A conforming candidate (R6.TREE.9: one parent, `H`; each ledgered file `H`
+  plus its splices; every other path `H`'s except delegated and record paths) carries, on every ledgered
+  and corpus path, exactly the bytes of `X_rep`. Op B reads only the corpus and the segments `E..H` and
+  `H..X` (R6.PUR.5), and a ledgered segment is checked by the ledger, not by a walk of `X`'s history; the
+  terminology scans of these controls read only ledgered and corpus paths; the drift and side-change
+  verdicts of op C read only `H..M`, the ledgered and corpus path sets, and the candidate's blobs on
+  drifted paths, which RC8 fixes to the ledger's `expected_sha256` (R6.TREE.7, R6.RECON.13,
+  R6.RECON.21). Each verdict is therefore the same at `X_rep`, at `T1'` where `T1'` conforms, and at the
+  candidate the A1 retirement executes under the same ledger. The only ancestry these controls read is
+  that `H` is the candidate's parent, which `X_rep` meets by construction with `H` on `main`. The marker
+  blobs make every delegated path changed by the candidate, a superset of what a conforming candidate
+  changes, so a path changed on both sides is never missed.
+- Scope guard. A control takes `X_rep` only where the paths its verdict reads lie in the ledgered and
+  corpus paths and in `H..M`. The runner records the paths its verdict read, and the invariant
+  `scanned_paths_within` fails the row otherwise. A control whose verdict reads the content of a
+  delegated or record path of a particular trial tree depends on that exact tree: it keeps `T1'` as
+  candidate evidence for the landing decision only, and its enduring claim stays a named provenance gap
+  (OBL-23: item11-T1p).
+- Expected values. The expected figures of these rows are those measured with the tool commit at `T1'`.
+  They are carried to `X_rep` because the paths the verdict reads are byte-identical when `T1'`
+  conforms; that comparison is recorded once as candidate evidence and supports no enduring claim. A
+  difference between a figure at `X_rep` and its expectation is investigated as a defect, never fitted
+  (R6.EVID.1). The `T1'` measurements stay in each row's `reference` as provenance.
+- Reconciliation record placement. A reconciliation record names the `M` of its run (R6.RECON.1), so it
+  cannot be among the paths of that `M`. For RT-L2 and RT-O9-L2 the reviewed record is therefore not a
+  landing path of the tool: for the landing decision the run names it from a commit outside the tool's
+  landing paths, and it reaches `main` in a commit after the tool's landing commit.
+- Evidence, per control:
+
+| Control | Candidate evidence for the landing decision | Reproducible evidence for the enduring claim |
+|---|---|---|
+| RT-L2 | kind 1: on the exact candidate commit of the tool's pull request, at `X` = `C` = `X_rep`, with the predicted `M` = `M0` plus the candidate's landing paths and the reviewed record named from outside those paths | kind 2 once the landing merge and the reviewed record are on `main`; kind 3 re-run with `M` the `main` that holds the tool and a record bound to it |
+| RT-O9-L2 | as RT-L2, on the predicted `M` plus the record directory of a representative stand-in `F` that holds the pinned ledger, edit list and configuration instance | as RT-L2 |
+| RT-T | kind 1: on the candidate `F` before its designation, at `X_rep` built from `F`'s ledger, with `F`'s records (OBL-16 (a)); kind 4: at the executed candidate | kind 2 once the round's landing is on `main` |
+| RT-T0, RT-D, RT-I7, RT-I7A, RT-DR3W, N10, N11 | kind 1: on the exact tool candidate at `X_rep`; the `T1'` measurement stays in `reference` as provenance | kind 2 once the landing merge is on `main`; kind 3 re-run on `main` |
+| REP-BUILD | kind 1: on the exact tool candidate | kind 2 and kind 3 |
+
+item11-T1p is not among them (OBL-23).
+Sources: OC-3, RD-23, RE-36. Controls: REP-BUILD, RT-L2, RT-O9-L2, RT-T, RT-T0, RT-D, RT-I7, RT-I7A, RT-DR3W,
+N10, N11.
 
 ***
 
@@ -4868,10 +4966,12 @@ Sources: RE-36, Q16, ME-3, RD-23. Controls: none (definition of evidence kinds; 
 Each obligation below is a named blocker on the step it gates. It stays outstanding until the stated
 evidence or decision discharges it; no tool requirement discharges it by implication (Q5). The gated
 steps are: the tool's landing (the tool revision that implements r6), the plan freeze `F`, the A1
-retirement execution, and r6's adoption.
+retirement execution, r6's adoption, and the implementation certification of the landed tool revision
+(OBL-26, R6.STAT.10).
 
-Evidence kinds (R6.EVID.7) and the trace of each gate (Q16; the gate assignments of OBL-13, OBL-14
-and OBL-26 are confirmed, RE-37). A cycle is evidence that must qualify before the merge that
+Evidence kinds (R6.EVID.7) and the trace of each gate (Q16; the gate assignments of OBL-13 and OBL-14
+are confirmed, RE-37; OBL-26's gate is the implementation certification of the landed tool
+revision, OC-2). A cycle is evidence that must qualify before the merge that
 makes it qualify; each cycle and each evidence that cannot qualify is an open item, and none is
 resolved by an exception:
 
@@ -4883,28 +4983,45 @@ resolved by an exception:
 | OBL-4 | plan freeze `F` | 4 | no cycle |
 | OBL-5 | plan freeze `F`; trials claiming item 7 | 4 | no cycle |
 | OBL-6 | r6's adoption; plan freeze `F` | the owner's recorded decision (none of the four kinds); 4 for the rule records | no cycle; rests on V5-D1, pending owner confirmation |
-| OBL-7 | plan freeze `F`; RT-T's release | 4 | no cycle; RT-T's run at `T1'` cannot qualify (OBL-15) |
+| OBL-7 | plan freeze `F`; RT-T's release | 4 | no cycle; RT-T runs at `X_rep` (OBL-15, R6.EVID.8) |
 | OBL-8 | plan freeze `F`; acceptance of the affected delegated classes | 4 | no cycle |
 | OBL-9 | plan freeze `F` | 4 | no cycle |
 | OBL-10 | plan freeze `F` | 4 | no cycle |
 | OBL-11 | plan freeze `F` | 4 | no cycle |
 | OBL-12 | the A1 retirement execution | 4 | no cycle |
-| OBL-13 | the tool's landing | 1 only: RT-L2 runs before the tool lands, on the predicted `M`, with `X` = `T1'` and the stand-in `F` | no cycle; the evidence cannot become kind 2 or 3: `T1'` and the stand-in `F` are not reachable from `main` and the predicted `M` exists only before the landing (open) |
-| OBL-14 | the tool's landing | as OBL-13 | as OBL-13 (open) |
-| OBL-15 | plan freeze `F`; the A1 retirement execution | 4 (records at `F`); RT-T runs at `X` = `T1'` | no cycle; RT-T's run at `T1'` cannot qualify while `T1'` is not reachable from `main` (open) |
-| OBL-16 | plan freeze `F` (TR5); the A1 retirement execution (G-A1) | TR5: a host run that needs `F` on `main`; G-A1: 4 | cycle: the freeze of `F` waits for TR5, and TR5 needs `F` on `main`; under AGENTS.md sec. A.39 `F` reaches `main` only with the round's landing after `E` (open) |
+| OBL-13 | the tool's landing | landing decision: 1 (RT-L2 on the exact candidate commit of the tool's pull request, at `X` = `C` = `X_rep`, the predicted `M` = a pinned `main` commit `M0` plus the candidate's landing paths, the reviewed record named from outside those paths); enduring claim: 2 once the landing merge and the reviewed record (in a later commit) are on `main`, and 3 re-run against `main` | no cycle; no input is `T1'`, `P` or the tool commit a3799244 (R6.EVID.8) |
+| OBL-14 | the tool's landing | as OBL-13, on the predicted `M` plus the record directory of a representative stand-in `F` (R6.EVID.8) | as OBL-13 |
+| OBL-15 | plan freeze `F`; the A1 retirement execution | records at `F` (4); RT-T: 1 on the candidate `F` before its designation, at `X_rep` built from `F`'s ledger, within the exact-candidate validation (OBL-16 (a)); 4 at the executed candidate; 2 once the round's landing is on `main` | no cycle |
+| OBL-16 | plan freeze `F` (TR5 (a), (b)); the round's landing (TR5 (c)); the A1 retirement execution (G-A1) | TR5 (a): 1, the exact-candidate validation of the candidate `F` before its designation; (b): the recorded designation compared with the candidate's full id (governance, by the record's reviewer); (c): 2 once the round's landing is on `main`; G-A1: 4 | no cycle: no evidence needs `F` on `main` before its designation (AGENTS.md sec. A.39) |
 | OBL-17 | the A1 retirement execution | 4 | no cycle |
 | OBL-18 | acceptance of a chain-admitted result in the A1 retirement execution | a dispatch after the tool lands (3-type, on a branch holding `T'`) | no cycle |
 | OBL-19 | the tool's landing | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm | no cycle |
 | OBL-20 | the tool's landing | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm | no cycle |
 | OBL-21 | the tool's landing | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm | no cycle |
 | OBL-22 | the tool's landing | the owner's advance approval and an independent review (governance), with 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm | no cycle |
-| OBL-23 | the use of `T1'` figures as acceptance references for the tool's landing | 2 only when the objects of `T1'` are reachable from `main` | no cycle; blocked until those objects land; until then the figures stay historical (RE-36 (a)) (open) |
+| OBL-23 | the use of the R6.EVID.4 figures as acceptance references for the tool's landing | N10, N11, RT-D, RT-I7, RT-I7A, RT-DR3W, RT-T0: 1 at `X_rep` on the exact tool candidate for the landing decision; 2 and 3 for the enduring claim (R6.EVID.8); item11-T1p: 1 at `T1'` on the exact tool candidate, for the landing decision only | no cycle; item11-T1p's enduring claim is a named provenance gap while `T1'` is not reachable from `main` (open); whether a kind-1-only figure suffices for the landing gate is an owner question |
 | OBL-24 | the tool's landing | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm; the harness lands with the tool revision (RE-9 (a)) | no cycle |
 | OBL-25 | the tool's landing | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm | no cycle |
-| OBL-26 | r6's adoption | conformance records of the tool commit a3799244 (provenance) | cycle: r6's adoption is a governed decision whose support must be re-established from `main` (AGENTS.md sec. A.42), the checks read a3799244, which is not reachable from `main`, and a3799244 reaches `main` only through the tool's landing, which follows r6's adoption (open) |
+| OBL-26 | the implementation certification of the landed tool revision | 2 and 3 (the checks recorded against the tool revision on `main`); the conformance assessment of a37992449b452021001277c06c524a30c92dfb87 is provenance for the requirements (AGENTS.md sec. A.42 item 8) | no cycle: r6's adoption does not rest on it (R6.STAT.10); the statements that describe the tool commit are in the adoption trace |
 | OBL-27 | plan freeze `F` | 4 | no cycle |
 | OBL-28 | the tool's landing | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm | no cycle |
+
+Adoption trace (OC-2; AGENTS.md sec. A.42 item 8). Each place where r6's adoption, or an enduring claim
+stated in r6, uses content that is not on `main`, with its classification. "Support off `main`" rows are
+open governance conflicts (R6.STAT.10); none is resolved by an exception:
+
+| Where | Content not on `main` | Use | Classification |
+|---|---|---|---|
+| R6.STAT.10 (the adoption record) | the r6 documents and their independent exact-head review | the adoption's support | support: must be on `main` no later than the adoption record lands; precondition, an ordinary merge the owner approves (AGENTS.md sec. A.50 item 1), not authorized by r6; open until then |
+| OBL-26; the runner cites of Table 17.1 and the expectation file's `runner` fields | the tool commit a37992449b452021001277c06c524a30c92dfb87 and its conformance assessment | locates the implementation and motivates obligations; no requirement rests on it | provenance for the requirements (the claim does not use the content); implementation certification is OBL-26, against the landed revision |
+| the expected figures of the expectation file (R6.EVID.4) | runs of the tool commit at `H`, `E` and `T1'` | preregistered expectations, not established values (R6.EVID.1, R6.EVID.7) | provenance for adoption; the enduring figures are those of R6.EVID.8 and OBL-23 |
+| statements of what the tool commit does ("at the tool commit", "today"): R6.PUR.12, R6.PIPE.3, R6.ANCH.10, R6.ANCH.12, R6.HP.7, R6.OUT.18, R6.OUT.24, R6.SPLIT.3, R6.RULE.11, R6.RULE.12, R6.REC.20, R6.HIT.2, R6.CLASS.1, R6.CLASS.11, R6.GATE.7, R6.CTRL.19, R6.CTRL.25, R6.CTRL.29, R6.TREE.13, R6.RDIR.7, R6.RECON.11, OBL-21, OBL-28; R6.EVID.6 (CI run 45569710442); R6.NOTE.3 (the content of `T1'`) | the tool commit, its conformance assessment, the CI run, `T1'` | each statement asserts a fact about that content | support off `main`: open; closed by landing the content each statement uses, or by narrowing it to the requirement and control it motivates |
+| semantics defined by reference to `P`'s `edits_check.py` (blob sha256 2856e58c...d98c): R6.SPLIT.3, R6.PROF.3, R6.PROF.4, R6.PROF.5, R6.PROF.7, R6.PROF.8, R6.PROF.9, R6.PROF.10, R6.PROF.12, R6.DENY.5, R6.A1CFG.2, OBL-1 | the plan commit `P` (its record directory is on no commit reachable from `main`) | the normative meaning of these requirements | support off `main`: open; closed by landing that blob on `main` no later than the adoption record, or by r6 stating the semantics itself; the copy frozen at `F` reaches `main` only with the round's landing, after adoption |
+| the external oracle of R6.GATE.7 and R6.GATE.8 (`P`'s outputs as files) | outputs of `P`'s checker | evidence for implementation certification, not for adoption | provenance for adoption; for certification, support off `main` until those outputs land |
+| owner decisions recorded only in paraphrase or relayed in session: the requirements of PARAPHRASED-DECISIONS.md, R6.STAT.8, and the owner corrections OC-1 to OC-5 of 2026-11-25 | GitHub comments and session instructions | the authority of the requirements that state them | support off `main` until quoted with author and time in a record on `main` (AGENTS.md sec. A.42 item 7): open |
+| inventory, review and decision labels in `Sources` (E-, V1-, V2-, A-, RD-, OD-, RE-, Q-, ME- and others) and the `source` fields citing v6.0e, r4 and r5 | the review and design records of the drafting | provenance: r6 states every rule itself (R6.STAT.2) and takes its authority from its own adoption | provenance |
+| item11-T1p (OBL-23) | `T1'` | an acceptance reference that needs `T1'`'s exact tree | support off `main`: named provenance gap, open |
+| controls outside OC-3's list that read `T1'` or `P`: RT-C, the `T1'` case of RT-DR, RT-M, RT-D-gr58, RT-L, S11-56, RT-O9's stand-in `F` (`P`'s record directory), and every `execution` control whose ledger and edit list are read at `P` | `T1'`, `P` | inputs of acceptance references | support off `main`: open; not re-specified by OC-3 (R6.EVID.8 states the representative candidate and the pinned ledger and edit list they could use) |
 
 **OBL-1** P-parity of `register` and `infinity`. The engine's `register` and `infinity` profiles
 implement items 5 and 6 of P's plan as P's frozen checker defines them: per edit and per step of the
@@ -5008,37 +5125,74 @@ E-017, E-1371, ME-8.
 **OBL-13** RT-L2 release. At `main`, `AGENTS.md` is `base-drift` and `.claude/settings.json` is an
 unclassified side change. RT-L2 is NOT RUN until a reviewed reconciliation record for `AGENTS.md`,
 bound to the exact `H`, `M` and `C` blobs of the run and passing record lint, and side-change class
-records for the unclassified paths exist; it is then three-valued (sec. 23). Gates: the tool's landing.
-Discharged by: RT-L2 run and PASS (no drift, or validly reconciled).
-Evidence: kind 1 only (sec. 32 trace; RE-37 confirms the gate).
-OPEN: T1'-bound evidence cannot qualify.
-Sources: E-1363, OD-18, Q2, MC-4.
+records for the unclassified paths exist; it is then three-valued (sec. 23). RT-L2 runs at `X` = `C` =
+`X_rep` (R6.EVID.8): its verdict reads `H..M`, the ledgered and corpus path sets and the candidate's
+blobs on drifted paths, none of which depends on the identity or ancestry of `T1'`. The reviewed record
+names the predicted `M` and so is not among its paths: the run names it from a commit outside the
+tool's landing paths, and it reaches `main` in a commit after the tool's landing commit. Gates: the
+tool's landing. Discharged by: RT-L2 run and PASS (no drift, or validly reconciled).
+Evidence: for the landing decision, kind 1 (RT-L2 on the exact candidate commit of the tool's pull
+request); for the enduring claim, kind 2 once the landing merge and the reviewed record are on
+`main`, and kind 3 re-run against `main`, every input reachable from `main` (sec. 32 trace; RE-37
+confirms the gate). The RT-L2 PASS of CI run 45569710442 (tool commit
+a37992449b452021001277c06c524a30c92dfb87, `X` = `T1'`, drafted record) stays provenance (R6.EVID.6).
+Sources: E-1363, OD-18, Q2, MC-4, OC-3.
 
 **OBL-14** RT-O9's dependent clause. RT-O9's own record-directory checks run and are gated. Only its
 clauses that RT-L2 still holds and that no `base-drift` occurs on the predicted `M` are an outstanding
-dependent assertion, RT-O9-L2, NOT RUN while RT-L2 is NOT RUN (RE-5 (a)).
+dependent assertion, RT-O9-L2, NOT RUN while RT-L2 is NOT RUN (RE-5 (a)). RT-O9-L2 runs at `X_rep`, on
+the predicted `M` plus the record directory of a representative stand-in `F` that holds the pinned
+ledger, edit list and configuration instance (R6.EVID.8): `base-drift` is decided by whether a side
+change touches a ledgered or corpus path (R6.TREE.7), and a record directory holds none (DIR3), so the
+clause does not depend on the content of `P`'s record directory.
 Gates: the tool's landing. Discharged by: RT-L2's release and PASS (OBL-13).
 Evidence: as OBL-13 (RE-37 confirms the gate).
-OPEN: T1'-bound evidence cannot qualify.
-Sources: RD-6, Q6, MC-4.
+Sources: RD-6, Q6, MC-4, OC-3.
 
 **OBL-15** Reviewed records for RT-T. RT-T is NOT RUN until every reviewed record of sec. 14's review
 load exists at `F` and verifies: HP adjudications for the 113 `E..H` site changes, context
 adjudications for the meaning-context sites, structure reviews, and hit classification records for the
-replacement-region and unheld hit lines (including `papers/GR.md:58`). Gates: plan freeze `F`; the A1
-retirement execution. Discharged by: RT-T run and PASS with every record.
-OPEN: T1'-bound evidence cannot qualify.
+replacement-region and unheld hit lines (including `papers/GR.md:58`). RT-T runs at `X_rep` built from
+`F`'s ledger (R6.EVID.8): op B reads only the corpus and the segments `E..H` and `H..X` (R6.PUR.5),
+whose bytes `H` and `F`'s ledger fix for every conforming candidate. Gates: plan freeze `F`; the A1
+retirement execution. Discharged by: RT-T run and PASS with every record: before the designation of
+`F`, on the candidate `F` within its exact-candidate validation (kind 1, OBL-16 (a)); in the
+retirement execution, at the executed candidate (kind 4); both qualify as kind 2 once the round's
+landing is on `main`.
 Pending owner confirmation (see PARAPHRASED-DECISIONS.md).
 Sources: E-1062, E-1063,
-RD-9, OD-20.
+RD-9, OD-20, OC-3.
 
-**OBL-16** Native runs for G-A1 and TR5. TR5 needs a plan commit `F` on `main` with a reviewed
-configuration and its pin table, and a host `workflow_dispatch` run of the pinned workflow. G-A1 needs
-an admitted configuration and native delegated runs in clones at `X` and `C`. Gates: plan freeze `F`
-(TR5); the A1 retirement execution (G-A1). Discharged by: each control run and PASS under its release
-condition.
-OPEN: circular evidence dependency.
-Sources: RD-25, OD-1.
+**OBL-16** Native runs for G-A1 and TR5. TR5 is the exact-candidate validation of the plan freeze, in three
+parts, none of which places `F` on `main` before its designation:
+- (a) exact-candidate validation, before the owner designates `F` (AGENTS.md sec. A.39), with the
+  round's branch held at exactly the candidate commit (AGENTS.md sec. A.43 item 3): the exact-head
+  check-run of sec. A.39 on the candidate (the workflow dispatched on it, the run whose `head_sha` is
+  that commit, every job green); and TR5's chain-admitted run, the pinned workflow dispatched on `main`
+  at the tool commit `T` (R6.REC.18 points 1 and 6, R6.REC.19) with `--freeze` the same full commit id
+  and `--config` a reviewed configuration listed in the last `Record pins` subsection of the
+  `PREREG.md` beside it, holding with `config.admission.mode` `"chain"` and every snapshot field
+  (R6.REC.24). The two runs are distinct because chain admission requires the `head_branch` `main`
+  (R6.REC.18 point 6); each records the candidate's full id, which binds them. The candidate is fetched
+  by its full id (R6.REC.19, R6.REC.22) and need not be reachable from `main`; a failed fetch fails the
+  run, and TR5 stays NOT RUN;
+- (b) designation identity verification: the owner's recorded designation, quoted with author and time
+  in the record that relies on it (AGENTS.md sec. A.42 item 7), names a full commit id equal to the
+  check-run's `head_sha` and to the `F` of TR5's snapshot; the reviewer of that record compares the
+  three ids and records the comparison. The tool neither reads nor checks the designation (R6.STAT.4,
+  R6.REC.23): this is a comparison of identifiers, not a check of authorization;
+- (c) durable evidence verification when the round lands: once the round's landing is on `main`, the
+  designated `F` is an ancestor of the certified head (sec. A.39's `E`, `C` here, R6.NOTE.1) and is
+  reachable from `main`; TR5's recipe (the pinned workflow at `T`, the inputs `F` and the configuration
+  path) and its expected result then qualify under AGENTS.md sec. A.42 items 1 and 7, with the round's
+  receipt recording the check-run attestation (sec. A.39). Run ids and host records are provenance
+  (sec. A.42 item 2), and the host attestations stay residual trust (R6.REC.25).
+G-A1 needs an admitted configuration and native delegated runs in clones at `X` and `C`. Gates: plan
+freeze `F` (TR5 (a) and (b)); the round's landing (TR5 (c)); the A1 retirement execution (G-A1).
+Discharged by: each control run and PASS under its release condition, the identity comparison
+recorded, and the round landed with its receipt holding. The dispatches of (a) are launches that need
+the owner's approval (AGENTS.md sec. A.40, sec. A.50 item 5); r6 authorizes none.
+Sources: RD-25, OD-1, OC-1.
 
 **OBL-17** TR45's op-C half. The offline replay of an op-C result whose delegated classes come from the
 snapshot's delegated evidence is a NOT RUN row, TR45-opC, with the release condition "delegated evidence
@@ -5098,16 +5252,26 @@ identifiers. It needs the owner's approval in advance and an independent non-aut
 item 3). Gates: the tool's landing. Discharged by: the approved and reviewed migration, verified by the
 build, the gate and the correspondence check. Sources: OD-31, RD-5, RD-4, E-015.
 
-**OBL-23** `T1'`-input evidence. The figures of R6.EVID.4 whose controls run on `T1'` (N10, N11, RT-D,
-RT-I7 at `T1'`, RT-I7A at `T1'`, RT-DR3W at `T1'`, RT-T0, item11-T1p) are acceptance references only
-while the objects of `T1'` they need are reachable from `main`. Gates: their use as acceptance
-references for the tool's landing. Discharged by: those objects reachable from `main`; otherwise the
-figures stay historical measurements.
+**OBL-23** `T1'`-input evidence. The figures of R6.EVID.4 whose controls ran on `T1'` (N10, N11, RT-D,
+RT-I7 at `T1'`, RT-I7A at `T1'`, RT-DR3W at `T1'`, RT-T0, item11-T1p) were measured with the tool commit
+at `T1'`; those measurements are historical and are kept in the rows' `reference`.
+- N10, N11, RT-D, RT-I7, RT-I7A, RT-DR3W and RT-T0 read only paths that `H` and the ledger determine,
+  and run at `X_rep` (R6.EVID.8); their figures are acceptance references through those runs once
+  every input is reachable from `main` (kinds 2 and 3).
+- item11-T1p's `repo` scan reads the content of `T1'`'s delegated and record paths (two of its 176
+  lines lie in generated artifacts, R6.EVID.5), which neither `H` nor the ledger determines: the figure
+  depends on the exact trial tree. Its run on the exact tool candidate with `X` = `T1'` is candidate
+  evidence for the landing decision only; its enduring claim is a named provenance gap (AGENTS.md
+  sec. A.42 item 8, support off `main`) while the objects of `T1'` it needs are not reachable from
+  `main`. Whether a kind-1-only figure suffices for the landing gate is an owner question.
+Gates: their use as acceptance references for the tool's landing. Discharged by: the `X_rep` runs of
+R6.EVID.8 recorded; for item11-T1p, the objects of `T1'` it needs reachable from `main`, or the owner's
+decision on a kind-1-only figure; otherwise the figure stays a historical measurement.
 The list is confirmed with RT-D and the `T1'` cases of RT-I7A and RT-DR3W (RE-36 (a)); no figure is an
 acceptance reference reproduced on `main` until the tool revision lands and the run is repeated
 there (R6.EVID.7).
 OPEN: T1'-bound evidence cannot qualify.
-Sources: RD-23, ME-3, Q10.
+Sources: RD-23, ME-3, Q10, OC-3.
 
 **OBL-24** Mutation evidence. Mutation evidence is re-established for the changed code. Each mutant has
 a row in its own namespace of the expectation file, with its killing controls as evidence, and the gate
@@ -5125,13 +5289,18 @@ verification defect. The null-expectation rows are reconciled mechanically with 
 Gates: the tool's landing. Discharged by: every row with a settled, verified expectation. Sources:
 RD-24, RD-25, Q9.
 
-**OBL-26** Conformance checks. The read-only conformance checks of OD-4, OD-9, OD-23, OD-25, OD-27,
-RD-10, RD-18, RD-20, RD-27 and RD-33 are completed against the tool commit; each difference becomes a
-verification defect or a residual owner decision. Gates: r6's adoption. Discharged by: the recorded
-checks and their dispositions.
-RE-37 confirms the gate. Evidence: see the sec. 32 trace.
-OPEN: circular evidence dependency.
-Sources: OD-4, OD-27, RD-18, RD-20.
+**OBL-26** Conformance certification of the tool revision. The read-only conformance checks of OD-4, OD-9,
+OD-23, OD-25, OD-27, RD-10, RD-18, RD-20, RD-27 and RD-33 are completed against the tool revision that
+implements r6, once it is on `main`; each difference becomes a verification defect or a residual owner
+decision. This is the implementation certification of the landed tool revision, separate from r6's
+adoption (R6.STAT.10). The conformance assessment recorded against the tool commit
+a37992449b452021001277c06c524a30c92dfb87 motivates obligations of sec. 32; for the requirements and
+obligations of r6 it is provenance (AGENTS.md sec. A.42 item 8). The statements of r6 that describe the
+tool commit use it, and are listed in the adoption trace below as off-`main` support. Gates: the
+implementation certification of the landed tool revision (OC-2 replaces the adoption gate that RE-37
+confirmed). Discharged by: the recorded checks and their dispositions against the tool revision on
+`main` (evidence kinds 2 and 3). Evidence: see the sec. 32 trace.
+Sources: OD-4, OD-27, RD-18, RD-20, OC-2.
 
 **OBL-27** Plan-side countercontrols. The plan's own check fails on each countercontrol mutant where
 R6.PLAN.1 says so, and the plan-side behaviours cited in items 1, 2, 3, 4, 8, 12 and 14 of sec. 18
@@ -5176,15 +5345,16 @@ change until its distinguishing control holds under the gate, or the check it na
 | C-28 | R6.GATE.10, OBL-24 | mutation evidence re-established for the changed code, changes of the killed set included | the MUT rows |
 | Q12 | R6.HP.7, R6.REC.10 | adjudicated sites counted as `provenance-adjudicated`, distinct from `moved` and `authorized-replacement` and separately under `HP` and `RET`; `stale-adjudication` emitted | U14, RECLINT-ORPHAN |
 | RE-13 | R6.OUT.18 | the schema file lists the adopted named fields and the declared diagnostics | ACCEPT-SCHEMA |
-| RE-18 | R6.TREE.12 | a regeneration check of derived artifacts at `L` (a delegation class); REVIEW_REQUIRED until it passes | LC-7 (its expected landing blob is open) |
+| RE-18 | R6.TREE.12 | a regeneration verification procedure for derived artifacts at `L` (a delegation class), specified explicitly and reviewed independently, in which the trusted checker establishes the expected output itself and compares bytes; the evaluated tree's claim of regeneration is never sufficient; REVIEW_REQUIRED until the procedure is specified, reviewed and passes (OC-4, open) | LC-7 (REVIEW_REQUIRED for every candidate `L`; its expected landing blob is open) |
 | RE-19 | R6.RDIR.13 | `.github/` moved to `record_authority.py`; `record-directory` enumerated | Z9g, Z9-STAGED |
 | Q13 | R6.DELEG.3, R6.CLASS.9 | execution isolation of re-executed generators | DELEG-REGEN |
 | RE-27 | R6.OUT.24, R6.CLASS.7 | a purpose trace of the six obligation definitions; the pin classes defined independently | review |
 | RE-29 | R6.RECON.14 | a purpose check that the stricter RC9 rejects no valid record | review; N6 |
+| OC-3 | R6.EVID.8 | the representative candidate builder, the pinned ledger and edit list and the configuration's control instance land with the tool revision; the rows of R6.EVID.8 run on `X_rep` and record the paths their verdict read | REP-BUILD; `scanned_paths_within` on each row |
 
 Gates: the tool's landing. Discharged by: each row's control holding under the gate, or its check
 recorded. Sources: C-1 to C-28, Q12, RE-6, RE-13, RE-16, RE-18, RE-19, RE-23, RE-24, RE-27, RE-29,
-RE-32, RE-33.
+RE-32, RE-33, OC-3, OC-4.
 
 ***
 

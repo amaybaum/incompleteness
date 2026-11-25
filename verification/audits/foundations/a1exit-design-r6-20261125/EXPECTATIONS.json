@@ -1,6 +1,6 @@
 {
  "schema": "oi-control-expectations/1",
- "record_id": "r6-final-1",
+ "record_id": "r6-final2-1",
  "rows": [
   {
    "id": "A10r",
@@ -5051,7 +5051,8 @@
     "R6.CLASS.10",
     "R6.CTRL.21",
     "R6.TREE.12",
-    "R6.RECON.19"
+    "R6.RECON.19",
+    "R6.EVID.8"
    ],
    "runner": "a1_conformance.py:505",
    "operations": [
@@ -5087,13 +5088,22 @@
      },
      {
       "composed_blob": "86d79863821f3f8cdad86771008b2df89fd1961a"
+     },
+     {
+      "representative_candidate": "X_rep (R6.EVID.8): single parent H; ledgered paths H plus the ledger's splices, sha256 equal to the ledger's expected_sha256; plan record-directory paths the pinned ledger and edit list; delegated paths a fixed marker blob; every other path H's"
+     },
+     {
+      "scanned_paths_within": "side changes H..M, the ledgered and corpus path sets, and the candidate blobs on drifted paths"
      }
     ]
    },
+   "reference": {
+    "measured_at_T1p_14ac71b4_with_tool_commit_a3799244": "the expected figures of this row were measured there; historical measurement and provenance (AGENTS.md sec. A.42 item 2); carried to X_rep as expectations because the paths the verdict reads are byte-identical when T1' conforms (R6.EVID.8); not the support of any enduring claim"
+   },
    "source": "D:2515",
    "flags": [
-    "inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)",
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))",
+    "OC-3: runs at X_rep (R6.EVID.8); the verdict reads only paths that H and the ledger determine, so T1''s identity and ancestry are not material; landing decision: kind 1 on the exact tool candidate; enduring claim: kind 2 once the landing merge is on main, kind 3 re-run on main, every input reachable from main"
    ]
   },
   {
@@ -5101,7 +5111,8 @@
    "requirements": [
     "R6.CTRL.21",
     "R6.TREE.12",
-    "R6.RECON.19"
+    "R6.RECON.19",
+    "R6.EVID.8"
    ],
    "runner": "a1_conformance.py:517",
    "operations": [
@@ -5120,13 +5131,22 @@
      },
      {
       "L_blob": "86d79863821f3f8cdad86771008b2df89fd1961a"
+     },
+     {
+      "representative_candidate": "X_rep (R6.EVID.8): single parent H; ledgered paths H plus the ledger's splices, sha256 equal to the ledger's expected_sha256; plan record-directory paths the pinned ledger and edit list; delegated paths a fixed marker blob; every other path H's"
+     },
+     {
+      "scanned_paths_within": "side changes H..M, the ledgered and corpus path sets, and the candidate blobs on drifted paths"
      }
     ]
    },
+   "reference": {
+    "measured_at_T1p_14ac71b4_with_tool_commit_a3799244": "the expected figures of this row were measured there; historical measurement and provenance (AGENTS.md sec. A.42 item 2); carried to X_rep as expectations because the paths the verdict reads are byte-identical when T1' conforms (R6.EVID.8); not the support of any enduring claim"
+   },
    "source": "D:2516",
    "flags": [
-    "inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)",
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))",
+    "OC-3: runs at X_rep (R6.EVID.8); the verdict reads only paths that H and the ledger determine, so T1''s identity and ancestry are not material; landing decision: kind 1 on the exact tool candidate; enduring claim: kind 2 once the landing merge is on main, kind 3 re-run on main, every input reachable from main"
    ]
   },
   {
@@ -7848,7 +7868,8 @@
     "R6.HIT.6",
     "R6.CTRL.19",
     "R6.TREE.16",
-    "R6.EVID.4"
+    "R6.EVID.4",
+    "R6.EVID.8"
    ],
    "runner": "a1_controls.py:374",
    "operations": [
@@ -7875,6 +7896,14 @@
       "subject": "papers/GR.md:58",
       "decision": "REVIEW_REQUIRED"
      }
+    ],
+    "invariants": [
+     {
+      "representative_candidate": "X_rep (R6.EVID.8): single parent H; ledgered paths H plus the ledger's splices, sha256 equal to the ledger's expected_sha256; plan record-directory paths the pinned ledger and edit list; delegated paths a fixed marker blob; every other path H's"
+     },
+     {
+      "scanned_paths_within": "ledgered and corpus paths of X_rep"
+     }
     ]
    },
    "restored": {
@@ -7888,14 +7917,17 @@
    "composed_of": [
     "RT-D-gr58"
    ],
+   "reference": {
+    "measured_at_T1p_14ac71b4_with_tool_commit_a3799244": "the expected figures of this row were measured there; historical measurement and provenance (AGENTS.md sec. A.42 item 2); carried to X_rep as expectations because the paths the verdict reads are byte-identical when T1' conforms (R6.EVID.8); not the support of any enduring claim"
+   },
    "source": "D:2212",
    "flags": [
     "W1-c with its allowance; GR.md:58 without its record (RT-D-gr58 is the with-record half)",
     "RD-35: the 45 resid count is stated here; controls.json omits it",
-    "inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)",
     "composed_of: the design id holds only if this row's own record and every component hold (RD-4)",
     "VD-RESTORE: no restored case executed",
-    "Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json"
+    "Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json",
+    "OC-3: runs at X_rep (R6.EVID.8); the verdict reads only paths that H and the ledger determine, so T1''s identity and ancestry are not material; landing decision: kind 1 on the exact tool candidate; enduring claim: kind 2 once the landing merge is on main, kind 3 re-run on main, every input reachable from main"
    ]
   },
   {
@@ -8056,7 +8088,8 @@
     "R6.CTRL.19",
     "R6.A1CFG.5",
     "R6.A1CFG.7",
-    "R6.EVID.4"
+    "R6.EVID.4",
+    "R6.EVID.8"
    ],
    "runner": "a1_controls.py:317",
    "operations": [
@@ -8065,7 +8098,7 @@
    "direction": {
     "of": "adversarial",
     "exempt": "observation",
-    "why": "runs DR-3 alone on two pinned control inputs (AGENTS.md at H and at T1') without constructing any change; asserts the DR-3 sentence count measured on each (one at H, none at T1'), outcome ANY; asserts no acceptance of a valid input"
+    "why": "runs DR-3 alone on two pinned control inputs (AGENTS.md at H and in X_rep) without constructing any change; asserts the DR-3 sentence count measured on each (one at H, none in X_rep), outcome ANY; asserts no acceptance of a valid input"
    },
    "expect": {
     "cases": [
@@ -8086,11 +8119,19 @@
       ]
      },
      {
-      "case": "AGENTS.md at T1' (agents-md-at-T1p)",
+      "case": "AGENTS.md in X_rep (control input agents-md-at-Xrep: H's AGENTS.md with the ledger's splices, sha256 59b68984e659ef808819e02d4653d80388f8bd2f4c009796b162fc2453882ce2, the bytes of T1''s copy)",
       "outcome": "ANY",
       "counts": {
        "sentences[rule=DR-3]": 0
-      }
+      },
+      "invariants": [
+       {
+        "representative_candidate": "X_rep (R6.EVID.8): single parent H; ledgered paths H plus the ledger's splices, sha256 equal to the ledger's expected_sha256; plan record-directory paths the pinned ledger and edit list; delegated paths a fixed marker blob; every other path H's"
+       },
+       {
+        "scanned_paths_within": "AGENTS.md (a ledgered path) of X_rep"
+       }
+      ]
      }
     ]
    },
@@ -8102,9 +8143,12 @@
      }
     ]
    },
+   "reference": {
+    "measured_at_T1p_14ac71b4_with_tool_commit_a3799244": "the expected figures of the X_rep case were measured at T1'; historical measurement and provenance (AGENTS.md sec. A.42 item 2); carried to X_rep as expectations, not as support (R6.EVID.8)"
+   },
    "source": "D:2214",
    "flags": [
-    "inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)"
+    "OC-3: runs at X_rep (R6.EVID.8); the verdict reads only paths that H and the ledger determine, so T1''s identity and ancestry are not material; landing decision: kind 1 on the exact tool candidate; enduring claim: kind 2 once the landing merge is on main, kind 3 re-run on main, every input reachable from main"
    ]
   },
   {
@@ -8271,7 +8315,8 @@
     "R6.CTRL.29",
     "R6.PLAN.8",
     "R6.A1CFG.7",
-    "R6.EVID.4"
+    "R6.EVID.4",
+    "R6.EVID.8"
    ],
    "runner": "a1_controls.py:327",
    "operations": [
@@ -8280,12 +8325,12 @@
    "direction": {
     "of": "adversarial",
     "exempt": "observation",
-    "why": "runs the item7-literal countercontrol profile on the unmodified trees T1' and H; asserts the per-literal counts measured on them; constructs no change and asserts no acceptance of a valid input"
+    "why": "runs the item7-literal countercontrol profile on the unmodified tree H and on X_rep; asserts the per-literal counts measured on them; constructs no change and asserts no acceptance of a valid input"
    },
    "expect": {
     "cases": [
      {
-      "case": "at T1'",
+      "case": "at X_rep (R6.EVID.8)",
       "outcome": "FAIL",
       "classes_exact": [
        "item7-literal-match"
@@ -8346,6 +8391,14 @@
         ],
         "literal": "six structural"
        }
+      ],
+      "invariants": [
+       {
+        "representative_candidate": "X_rep (R6.EVID.8): single parent H; ledgered paths H plus the ledger's splices, sha256 equal to the ledger's expected_sha256; plan record-directory paths the pinned ledger and edit list; delegated paths a fixed marker blob; every other path H's"
+       },
+       {
+        "scanned_paths_within": "ledgered and corpus paths of X_rep"
+       }
       ]
      },
      {
@@ -8372,10 +8425,13 @@
      }
     ]
    },
+   "reference": {
+    "measured_at_T1p_14ac71b4_with_tool_commit_a3799244": "the expected figures of the X_rep case were measured at T1'; historical measurement and provenance (AGENTS.md sec. A.42 item 2); carried to X_rep as expectations, not as support (R6.EVID.8)"
+   },
    "source": "D:2215; D:2347 (sec. 11 row 7, Expected)",
    "flags": [
     "RD-3: the H split 11/1/2 is promoted from reference; the runner asserts only (14, 179) at H today (VD-10)",
-    "the T1' case: inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)"
+    "OC-3: runs at X_rep (R6.EVID.8); the verdict reads only paths that H and the ledger determine, so T1''s identity and ancestry are not material; landing decision: kind 1 on the exact tool candidate; enduring claim: kind 2 once the landing merge is on main, kind 3 re-run on main, every input reachable from main"
    ]
   },
   {
@@ -8385,7 +8441,8 @@
     "R6.PLAN.8",
     "R6.PLAN.18",
     "R6.A1CFG.7",
-    "R6.EVID.4"
+    "R6.EVID.4",
+    "R6.EVID.8"
    ],
    "runner": "a1_controls.py:342",
    "operations": [
@@ -8394,7 +8451,7 @@
    "direction": {
     "of": "adversarial",
     "exempt": "observation",
-    "why": "runs the proposed item-7 check on the unmodified trees H and T1' with no records; asserts the FAIL counts measured on them; constructs no change and asserts no acceptance of a valid input"
+    "why": "runs the proposed item-7 check on the unmodified tree H and on X_rep with no records; asserts the FAIL counts measured on them; constructs no change and asserts no acceptance of a valid input"
    },
    "expect": {
     "cases": [
@@ -8423,7 +8480,7 @@
       }
      },
      {
-      "case": "at T1'",
+      "case": "at X_rep (R6.EVID.8)",
       "outcome": "FAIL",
       "classes_include": [
        "final-unclassified"
@@ -8439,6 +8496,14 @@
          "final-unclassified"
         ]
        }
+      ],
+      "invariants": [
+       {
+        "representative_candidate": "X_rep (R6.EVID.8): single parent H; ledgered paths H plus the ledger's splices, sha256 equal to the ledger's expected_sha256; plan record-directory paths the pinned ledger and edit list; delegated paths a fixed marker blob; every other path H's"
+       },
+       {
+        "scanned_paths_within": "ledgered and corpus paths of X_rep"
+       }
       ]
      }
     ]
@@ -8451,9 +8516,12 @@
      }
     ]
    },
+   "reference": {
+    "measured_at_T1p_14ac71b4_with_tool_commit_a3799244": "the expected figures of the X_rep case were measured at T1'; historical measurement and provenance (AGENTS.md sec. A.42 item 2); carried to X_rep as expectations, not as support (R6.EVID.8)"
+   },
    "source": "D:2216",
    "flags": [
-    "inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)"
+    "OC-3: runs at X_rep (R6.EVID.8); the verdict reads only paths that H and the ledger determine, so T1''s identity and ancestry are not material; landing decision: kind 1 on the exact tool candidate; enduring claim: kind 2 once the landing merge is on main, kind 3 re-run on main, every input reachable from main"
    ]
   },
   {
@@ -8514,7 +8582,8 @@
     "R6.TREE.15",
     "R6.RECON.20",
     "R6.RECON.21",
-    "R6.EVID.6"
+    "R6.EVID.6",
+    "R6.EVID.8"
    ],
    "runner": "a1_controls.py:976",
    "operations": [
@@ -8540,6 +8609,12 @@
        "none",
        "reconciled"
       ]
+     },
+     {
+      "representative_candidate": "X_rep (R6.EVID.8): single parent H; ledgered paths H plus the ledger's splices, sha256 equal to the ledger's expected_sha256; plan record-directory paths the pinned ledger and edit list; delegated paths a fixed marker blob; every other path H's"
+     },
+     {
+      "scanned_paths_within": "side changes H..M, the ledgered and corpus path sets, and the candidate blobs on drifted paths"
      }
     ]
    },
@@ -8550,7 +8625,8 @@
      "predicted M commit id and tree listing",
      "run result.json",
      "each reconciliation record used and its review record",
-     "drifted path list from the run without records"
+     "drifted path list from the run without records",
+     "X_rep commit id and tree listing, and the pinned main commit M0"
     ]
    },
    "status_allowed": [
@@ -8559,13 +8635,14 @@
    ],
    "not_run": {
     "reason": "no reviewed reconciliation record exists; the drafted AGENTS.md record is unreviewed",
-    "release_condition": "reviewed reconciliation record bound to exact H, M, C covering every drifted path",
-    "release_check": "a reconciliation record referenced at the commit under check whose review record passes record lint and whose H, M and C blob ids equal the predicted run roles"
+    "release_condition": "reviewed reconciliation record bound to exact H, M and C = X_rep covering every drifted path, named by the run from a commit outside the tool's landing paths (it names the predicted M and cannot be among its paths)",
+    "release_check": "a reconciliation record named by the run from a commit outside the tool's landing paths, whose review record passes record lint and whose H, M and C blob ids equal the predicted run roles"
    },
    "source": "D:2592-2594 (OD-18, Q2, MC-4)",
    "flags": [
     "CI run 45569710442 recorded PASS on a drafted record; that PASS does not establish the safeguard (OD-18)",
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))",
+    "OC-3: runs at X = C = X_rep (R6.EVID.8); its verdict reads H..M, the ledgered and corpus path sets and the candidate blobs on drifted paths, not T1s identity or ancestry; landing decision: kind 1 on the exact tool candidate with the predicted M = M0 plus the candidate's landing paths; enduring claim: kind 2 once the landing merge and the reviewed record (landed after the tool's landing commit) are on main, kind 3 re-run on main"
    ]
   },
   {
@@ -8634,7 +8711,8 @@
     "R6.CTRL.17",
     "R6.CTRL.19",
     "R6.RDIR.14",
-    "R6.RECON.21"
+    "R6.RECON.21",
+    "R6.EVID.8"
    ],
    "runner": null,
    "operations": [
@@ -8653,6 +8731,12 @@
      },
      {
       "rt_l2_status": "PASS"
+     },
+     {
+      "representative_candidate": "X_rep (R6.EVID.8): single parent H; ledgered paths H plus the ledger's splices, sha256 equal to the ledger's expected_sha256; plan record-directory paths the pinned ledger and edit list; delegated paths a fixed marker blob; every other path H's"
+     },
+     {
+      "scanned_paths_within": "side changes H..M, the ledgered and corpus path sets, and the candidate blobs on drifted paths"
      }
     ]
    },
@@ -8665,13 +8749,14 @@
    ],
    "not_run": {
     "reason": "no reviewed reconciliation record exists; the drafted AGENTS.md record is unreviewed",
-    "release_condition": "reviewed reconciliation record bound to exact H, M, C covering every drifted path",
-    "release_check": "a reconciliation record referenced at the commit under check whose review record passes record lint and whose H, M and C blob ids equal the predicted run roles"
+    "release_condition": "reviewed reconciliation record bound to exact H, M and C = X_rep covering every drifted path, named by the run from a commit outside the tool's landing paths (it names the predicted M and cannot be among its paths)",
+    "release_check": "a reconciliation record named by the run from a commit outside the tool's landing paths, whose review record passes record lint and whose H, M and C blob ids equal the predicted run roles"
    },
    "source": "r5:220 (clause \"RT-L2 still PASS\"; RD-6, Q6)",
    "flags": [
     "to implement: the runner evaluates this clause inside RT-O9 today (a1_controls.py:1126) and must record it as RT-O9-L2",
-    "NOT RUN with RT-L2's release condition while RT-L2 is NOT RUN"
+    "NOT RUN with RT-L2's release condition while RT-L2 is NOT RUN",
+    "OC-3: runs at X = C = X_rep (R6.EVID.8); its verdict reads H..M, the ledgered and corpus path sets and the candidate blobs on drifted paths, not T1s identity or ancestry; landing decision: kind 1 on the exact tool candidate with the predicted M = M0 plus the candidate's landing paths; enduring claim: kind 2 once the landing merge and the reviewed record (landed after the tool's landing commit) are on main, kind 3 re-run on main"
    ]
   },
   {
@@ -8682,7 +8767,8 @@
     "R6.GATE.15",
     "R6.CTRL.5",
     "R6.CTRL.19",
-    "R6.PLAN.4"
+    "R6.PLAN.4",
+    "R6.EVID.8"
    ],
    "runner": "a1_controls.py:271",
    "operations": [
@@ -8691,7 +8777,7 @@
    "direction": {
     "of": "positive",
     "required": "opposite direction",
-    "why": "no mutation, but a positive control asserting acceptance with every reviewed record; paired with RT-T0: RT-T0 is the same coverage run at X = T1' without the reviewed records"
+    "why": "no mutation, but a positive control asserting acceptance with every reviewed record; paired with RT-T0: RT-T0 is the same coverage run at X = X_rep without the reviewed records"
    },
    "paired_with": [
     "RT-T0"
@@ -8701,6 +8787,12 @@
     "invariants": [
      {
       "every_record_verifies": true
+     },
+     {
+      "representative_candidate": "X_rep (R6.EVID.8): single parent H; ledgered paths H plus the splices of the ledger frozen at F, sha256 equal to the ledger's expected_sha256; plan record-directory paths the pinned ledger and edit list; delegated paths a fixed marker blob; every other path H's"
+     },
+     {
+      "scanned_paths_within": "ledgered and corpus paths of X_rep, and the segments E..H and H..X"
      }
     ]
    },
@@ -8718,10 +8810,13 @@
    ],
    "not_run": {
     "reason": "needs the reviewed records of sec. 8.2, none of which exists",
-    "release_condition": "every reviewed record of sec. 8.2 present at F and verifying under sec. 6.3",
+    "release_condition": "every reviewed record of sec. 8.2 present at F and verifying under sec. 6.3, run at X_rep built from F's ledger (R6.EVID.8)",
     "release_check": "a reviewed record of a sec. 8.2 kind referenced by the configuration at the commit under check"
    },
-   "source": "D:2210"
+   "source": "D:2210",
+   "flags": [
+    "OC-3: runs at X_rep built from F's ledger (R6.EVID.8); plan freeze: kind 1 on the candidate F before its designation, within its exact-candidate validation (OBL-16 (a)); retirement execution: kind 4 at the executed candidate; both kind 2 once the round's landing is on main"
+   ]
   },
   {
    "id": "RT-T0",
@@ -8740,7 +8835,8 @@
     "R6.PLAN.4",
     "R6.A1CFG.4",
     "R6.A1CFG.6",
-    "R6.EVID.4"
+    "R6.EVID.4",
+    "R6.EVID.8"
    ],
    "runner": "a1_controls.py:262",
    "operations": [
@@ -8749,7 +8845,7 @@
    "direction": {
     "of": "adversarial",
     "required": "opposite direction",
-    "why": "the mechanical scan found a mutation or needs a check (\"check\"); Q11 keeps a required opposite direction; paired with RT-T: RT-T is the same coverage run at X = T1' with every reviewed record"
+    "why": "the mechanical scan found a mutation or needs a check (\"check\"); Q11 keeps a required opposite direction; paired with RT-T: RT-T is the same coverage run at X = X_rep with every reviewed record"
    },
    "paired_with": [
     "RT-T"
@@ -8787,6 +8883,14 @@
       "all": "other merger-group sites",
       "overlapped_by_splice": null
      }
+    ],
+    "invariants": [
+     {
+      "representative_candidate": "X_rep (R6.EVID.8): single parent H; ledgered paths H plus the ledger's splices, sha256 equal to the ledger's expected_sha256; plan record-directory paths the pinned ledger and edit list; delegated paths a fixed marker blob; every other path H's"
+     },
+     {
+      "scanned_paths_within": "ledgered and corpus paths of X_rep, and the segments E..H and H..X"
+     }
     ]
    },
    "restored": {
@@ -8797,12 +8901,15 @@
      }
     ]
    },
+   "reference": {
+    "measured_at_T1p_14ac71b4_with_tool_commit_a3799244": "the expected figures of this row were measured there; historical measurement and provenance (AGENTS.md sec. A.42 item 2); carried to X_rep as expectations because the paths the verdict reads are byte-identical when T1' conforms (R6.EVID.8); not the support of any enduring claim"
+   },
    "source": "D:2209 (MC-2)",
    "flags": [
     "MC-2 applied: 113/7/7; the runner expected string (a1_controls.py:262) is corrected with it",
-    "inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)",
     "RD-3: region_splices_distinct 31 is asserted by the runner and kept; site_counts:unchanged 383, the 18 line-attributed overlaps and the D029-only overlap are design figures the runner does not assert today (verification defect)",
-    "VD-RESTORE: the paired row is not executed (no runner, or NOT RUN)"
+    "VD-RESTORE: the paired row is not executed (no runner, or NOT RUN)",
+    "OC-3: runs at X_rep (R6.EVID.8); the verdict reads only paths that H and the ledger determine, so T1''s identity and ancestry are not material; landing decision: kind 1 on the exact tool candidate; enduring claim: kind 2 once the landing merge is on main, kind 3 re-run on main, every input reachable from main"
    ]
   },
   {
@@ -11053,13 +11160,14 @@
     "NOT RUN"
    ],
    "not_run": {
-    "reason": "needs a plan commit F on main with a reviewed configuration and its pin table, and a host workflow_dispatch run (CI only)",
-    "release_condition": "F on main whose PREREG.md Record pins list a reviewed configuration, and the pinned workflow dispatched there",
-    "release_check": "the configuration path at the commit under check is listed in the last Record pins subsection of the PREREG.md beside it"
+    "reason": "needs a candidate F whose PREREG.md Record pins list a reviewed configuration, and a host workflow_dispatch run of the pinned workflow on main naming that F (CI only)",
+    "release_condition": "a candidate F, held at exactly that commit for its exact-head check-run (AGENTS.md sec. A.39, sec. A.43 item 3), whose PREREG.md Record pins list a reviewed configuration, and the pinned workflow dispatched on main at T with --freeze that full commit id; F need not be on main",
+    "release_check": "the configuration path at the candidate F named by --freeze is listed in the last Record pins subsection of the PREREG.md beside it"
    },
    "source": "D:2269",
    "flags": [
-    "VD-RESTORE: no restored case executed"
+    "VD-RESTORE: no restored case executed",
+    "OC-1: TR5 is the exact-candidate validation of the plan freeze (OBL-16): (a) the sec. A.39 exact-head check-run on the candidate F and this chain run on main naming the same F, kind 1 before designation; (b) the designation identity comparison by the record's reviewer, not by the tool; (c) kind 2 when the round's landing is on main"
    ]
   },
   {
@@ -15599,7 +15707,8 @@
    "source": "D:2351",
    "flags": [
     "VD-10: 176-line count asserted",
-    "inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)"
+    "inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)",
+    "OC-3: the repo scan reads the content of T1''s delegated and record paths (two of the 176 lines lie in generated artifacts), which H and the ledger do not determine: the exact trial tree is material; the run on the exact tool candidate with X = T1' is candidate evidence for the landing decision only; the enduring claim is a named provenance gap (OBL-23)"
    ]
   },
   {
@@ -20580,7 +20689,7 @@
    "source": "r6 R6.TREE.12 (Q15, RE-18): composition case \"derived artifact\"",
    "flags": [
     "to implement (named obligation)",
-    "OPEN: derived-artifact landing blob: the byte-exact expected landing blob follows from the regeneration check of RE-18 (a), which is not yet specified; until then the case asserts REVIEW_REQUIRED for every candidate L (RE-18 (b), fail-closed)"
+    "OPEN: derived-artifact landing blob: REVIEW_REQUIRED for every candidate L (RE-18 (b), fail-closed) until a regeneration verification procedure is specified explicitly and reviewed independently, in which the trusted checker establishes the expected output itself and compares bytes; the evaluated tree's claim of regeneration is never sufficient (OC-4); not resolved"
    ]
   },
   {
@@ -20667,6 +20776,61 @@
    "source": "r6 R6.DELEG.3 (Q13, RE-24)",
    "flags": [
     "to implement (named obligation): execution isolation of re-executed generators (OBL-28)"
+   ]
+  },
+  {
+   "id": "REP-BUILD",
+   "requirements": [
+    "R6.EVID.8"
+   ],
+   "runner": null,
+   "operations": [],
+   "direction": {
+    "of": "both",
+    "scope": "outside",
+    "why": "OC-3: an r6 control whose governing source (R6.EVID.8) is outside v6.0e sec. 10; its positive and adversarial cases are recorded in the row"
+   },
+   "predicate_kind": "declarative",
+   "expect": {
+    "cases": [
+     {
+      "case": "build X_rep from H, the pinned ledger and edit list, and the configuration's control instance",
+      "outcome": "HASH_EQUAL",
+      "invariants": [
+       {
+        "representative_candidate": "X_rep (R6.EVID.8): single parent H; ledgered paths H plus the ledger's splices, sha256 equal to the ledger's expected_sha256; plan record-directory paths the pinned ledger and edit list; delegated paths a fixed marker blob; every other path H's"
+       },
+       {
+        "equal_across": "two builds: commit id and tree id"
+       },
+       {
+        "imported_files_within": "the builder and the standard library; no module under tools/ledger_coverage/engine/"
+       }
+      ]
+     },
+     {
+      "case": "the pinned ledger with one splice's new bytes changed by one byte",
+      "outcome": "REFUSED",
+      "invariants": [
+       {
+        "reason": "a ledgered path's sha256 differs from the ledger's expected_sha256"
+       }
+      ]
+     },
+     {
+      "case": "a builder that imports a module under tools/ledger_coverage/engine/",
+      "outcome": "REFUSED",
+      "invariants": [
+       {
+        "reason": "the builder imports from the engine under test"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 R6.EVID.8 (OC-3)",
+   "flags": [
+    "to implement (named obligation, OBL-28 row OC-3)"
    ]
   }
  ],

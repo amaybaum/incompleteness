@@ -151,6 +151,23 @@
   "pending_owner_confirmation": []
  },
  {
+  "id": "R6.STAT.10",
+  "section": "STAT",
+  "section_number": 0,
+  "kind": "governance",
+  "sources": [
+   "OC-2"
+  ],
+  "controls": [],
+  "verification": [
+   "OBL-26"
+  ],
+  "open": [
+   "off-main support of adoption"
+  ],
+  "pending_owner_confirmation": []
+ },
+ {
   "id": "R6.NOTE.1",
   "section": "NOTE",
   "section_number": 1,
@@ -192,7 +209,8 @@
   "sources": [
    "E-023",
    "V1-005",
-   "V2-003"
+   "V2-003",
+   "OC-3"
   ],
   "controls": [],
   "verification": [
@@ -4998,7 +5016,8 @@
    "E-1011",
    "E-1013",
    "E-1014",
-   "E-1015"
+   "E-1015",
+   "OC-3"
   ],
   "controls": [
    "RT-DR3W"
@@ -5521,7 +5540,8 @@
    "E-091",
    "E-1010",
    "V1-132",
-   "V1-136"
+   "V1-136",
+   "OC-3"
   ],
   "controls": [
    "N-W",
@@ -6441,7 +6461,8 @@
   "kind": "testable",
   "sources": [
    "E-1275",
-   "E-1283"
+   "E-1283",
+   "OC-3"
   ],
   "controls": [
    "S11-7",
@@ -7110,7 +7131,8 @@
    "E-1307",
    "E-1308",
    "E-1309",
-   "RV-001"
+   "RV-001",
+   "OC-4"
   ],
   "controls": [
    "TT7",
@@ -8038,7 +8060,8 @@
   "section_number": 23,
   "kind": "testable",
   "sources": [
-   "E-1355"
+   "E-1355",
+   "OC-3"
   ],
   "controls": [
    "RT-L2",
@@ -9081,7 +9104,8 @@
    "MC-1",
    "MC-2",
    "VD-10",
-   "RD-11"
+   "RD-11",
+   "OC-3"
   ],
   "controls": [
    "RT-A",
@@ -9178,11 +9202,41 @@
    "RE-36",
    "Q16",
    "ME-3",
-   "RD-23"
+   "RD-23",
+   "OC-1"
   ],
   "controls": [],
   "verification": [
    "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": []
+ },
+ {
+  "id": "R6.EVID.8",
+  "section": "EVID",
+  "section_number": 31,
+  "kind": "testable",
+  "sources": [
+   "OC-3",
+   "RD-23",
+   "RE-36"
+  ],
+  "controls": [
+   "REP-BUILD",
+   "RT-L2",
+   "RT-O9-L2",
+   "RT-T",
+   "RT-T0",
+   "RT-D",
+   "RT-I7",
+   "RT-I7A",
+   "RT-DR3W",
+   "N10",
+   "N11"
+  ],
+  "verification": [
+   "controls"
   ],
   "open": [],
   "pending_owner_confirmation": []
@@ -9422,15 +9476,14 @@
    "E-1363",
    "OD-18",
    "Q2",
-   "MC-4"
+   "MC-4",
+   "OC-3"
   ],
   "controls": [],
   "verification": [
    "OBL-13"
   ],
-  "open": [
-   "T1'-bound evidence cannot qualify"
-  ],
+  "open": [],
   "pending_owner_confirmation": []
  },
  {
@@ -9441,15 +9494,14 @@
   "sources": [
    "RD-6",
    "Q6",
-   "MC-4"
+   "MC-4",
+   "OC-3"
   ],
   "controls": [],
   "verification": [
    "OBL-14"
   ],
-  "open": [
-   "T1'-bound evidence cannot qualify"
-  ],
+  "open": [],
   "pending_owner_confirmation": []
  },
  {
@@ -9461,15 +9513,14 @@
    "E-1062",
    "E-1063",
    "RD-9",
-   "OD-20"
+   "OD-20",
+   "OC-3"
   ],
   "controls": [],
   "verification": [
    "OBL-15"
   ],
-  "open": [
-   "T1'-bound evidence cannot qualify"
-  ],
+  "open": [],
   "pending_owner_confirmation": [
    "D1-D4"
   ]
@@ -9481,15 +9532,14 @@
   "kind": "obligation",
   "sources": [
    "RD-25",
-   "OD-1"
+   "OD-1",
+   "OC-1"
   ],
   "controls": [],
   "verification": [
    "OBL-16"
   ],
-  "open": [
-   "circular evidence dependency"
-  ],
+  "open": [],
   "pending_owner_confirmation": []
  },
  {
@@ -9602,7 +9652,8 @@
   "sources": [
    "RD-23",
    "ME-3",
-   "Q10"
+   "Q10",
+   "OC-3"
   ],
   "controls": [],
   "verification": [
@@ -9656,15 +9707,14 @@
    "OD-4",
    "OD-27",
    "RD-18",
-   "RD-20"
+   "RD-20",
+   "OC-2"
   ],
   "controls": [],
   "verification": [
    "OBL-26"
   ],
-  "open": [
-   "circular evidence dependency"
-  ],
+  "open": [],
   "pending_owner_confirmation": []
  },
  {
@@ -9709,7 +9759,9 @@
    "RE-27",
    "RE-29",
    "RE-32",
-   "RE-33"
+   "RE-33",
+   "OC-3",
+   "OC-4"
   ],
   "controls": [],
   "verification": [
