@@ -24,16 +24,12 @@ Old:
 
 ```text
 revision r4
-
-## Status
 ```
 
 New:
 
 ```text
 revision r5
-
-## Status
 ```
 
 ### Change 2. Status: resumption decision quoted
