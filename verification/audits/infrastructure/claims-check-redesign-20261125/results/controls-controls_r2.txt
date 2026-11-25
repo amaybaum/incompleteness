@@ -1,0 +1,27 @@
+ok  R2-P-01        FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  R2-P-02        FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  R2-P-03        FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  R2-P-04        FAIL   FAIL   | empty: FAIL   FAIL   copular, relative pronoun bound to the rule subject; asserted; no governing qualifier
+ok  R2-P-05        FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  R2-P-06        FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  R2-P-07        FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier; asserted; no governing qualifier
+ok  R2-N-01        PASS   PASS   | empty: PASS   PASS   copular; G1 negation in the assertion's slot
+ok  R2-N-02        PASS   PASS   | empty: REVIEW REVIEW copular; G3 licensed qualifier heads a post-posed restrictor
+ok  R2-N-03        PASS   PASS   | empty: REVIEW REVIEW copular; G3 licensed qualifier heads the antecedent
+ok  R2-N-04        PASS   PASS   | empty: PASS   PASS   copular; G2 subject is the immediate complement of a negative frame
+ok  R2-N-05        PASS   PASS   | empty: PASS   PASS   G2 coordinated complement of a negative frame
+ok  R2-N-06        PASS   PASS   | empty: PASS   PASS   near-miss negated in the slot
+ok  R2-N-07        PASS   PASS   | empty: PASS   PASS   near-miss inside a negative frame
+ok  R2-A-01        REVIEW REVIEW | empty: REVIEW REVIEW copular; R6 negated or contrasted qualifier before A
+ok  R2-A-02        REVIEW REVIEW | empty: REVIEW REVIEW copular; R6 negated or contrasted qualifier before A
+ok  R2-A-03        REVIEW REVIEW | empty: REVIEW REVIEW copular; R3 condition naming no licensed qualifier
+ok  R2-A-04        REVIEW REVIEW | empty: REVIEW REVIEW copular; R7 unknown negative or non-factive frame governs the complement
+ok  R2-A-05        REVIEW REVIEW | empty: REVIEW REVIEW R7 unknown negative or non-factive frame governs the complement
+ok  R2-A-06        REVIEW REVIEW | empty: REVIEW REVIEW copular; R7 assertion is the complement of a claim noun without a negative predicate
+ok  R2-A-07        REVIEW REVIEW | empty: REVIEW REVIEW N1 near-miss: rule subject with a rule cue outside the equivalence set
+ok  R2-A-08        REVIEW REVIEW | empty: REVIEW REVIEW N1 near-miss: rule subject with a rule cue outside the equivalence set
+ok  R2-A-09        REVIEW REVIEW | empty: REVIEW REVIEW unrelated: verb has another subject; N1 near-miss: rule subject with a rule cue outside the equivalence set
+ok  R2-A-10        REVIEW REVIEW | empty: REVIEW REVIEW N1 near-miss: rule subject with a rule cue outside the equivalence set
+ok  R2-A-11        REVIEW REVIEW | empty: REVIEW REVIEW copular; R3 qualifier after A not in a governing position
+ok  R2-A-12        REVIEW REVIEW | empty: REVIEW REVIEW R6 negated or contrasted qualifier after A
+mismatches: 0 of 26

@@ -1,0 +1,9 @@
+{"schema": "claims-licences/1", "fixture": true,
+ "note": "Mechanism-test input for --self-test only. It licenses nothing in any scan (a scan refuses a file marked fixture). Its entries are the candidate qualifiers that the control authors assumed when writing expected verdicts; none has had the independent scientific review DESIGN-r2 section 3.6 requires, and H-slope is deliberately absent.",
+ "entries": [
+  {"rule": "W-GR-TQ-STATE", "qualifier": "H-balance|H-spectrum", "anchor": {"path": "papers/GR.md", "revision": "e2e2a623265187a28ebec604ab8bcc672742888f", "quote": "H-balance: the minimal load-bearing state condition."}, "review": null},
+  {"rule": "W-GR-THERM-KIN", "qualifier": "H-balance|H-spectrum", "anchor": {"path": "papers/GR.md", "revision": "e2e2a623265187a28ebec604ab8bcc672742888f", "quote": "H-balance is a selection condition, not a representation theorem."}, "review": null},
+  {"rule": "W-GR-KMS", "qualifier": "H-Hawking", "anchor": {"path": "papers/GR.md", "revision": "e2e2a623265187a28ebec604ab8bcc672742888f", "quote": "a preferred-frame dispersive lattice theory satisfies it only under the H-Hawking conditions of §8.5"}, "review": null},
+  {"rule": "W-OI-REQ", "qualifier": "core-containment sense|containment sense|qm_implies_oiCore", "anchor": {"path": "verification/README.md", "revision": "e2e2a623265187a28ebec604ab8bcc672742888f", "quote": "qm_implies_oiCore"}, "review": null},
+  {"rule": "W-BM-EUCLID", "qualifier": "b_m\\s*(?:\\\\neq|\\\\ne|≠)\\s*0|nondegenerate|non-degenerate", "anchor": {"path": "papers/SM.md", "revision": "e2e2a623265187a28ebec604ab8bcc672742888f", "quote": "b_m"}, "review": null}
+ ]}

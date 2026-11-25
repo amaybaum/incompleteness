@@ -1,0 +1,3 @@
+ok  s1             REVIEW REVIEW | empty: REVIEW REVIEW copular; R3 condition naming no licensed qualifier
+ok  s2             REVIEW REVIEW | empty: REVIEW REVIEW copular; R3 condition naming no licensed qualifier
+mismatches: 0 of 2

@@ -1,0 +1,14 @@
+ok  v1             PASS   PASS   | empty: PASS   PASS   copular; G2 the claim that A is withdrawn/false/unproved
+ok  v2             PASS   PASS   | empty: PASS   PASS   copular; G2 the claim that A is withdrawn/false/unproved
+ok  v3             PASS   PASS   | empty: PASS   PASS   copular; G2 the claim that A is withdrawn/false/unproved
+ok  v4             PASS   PASS   | empty: PASS   PASS   G2 the claim that A is withdrawn/false/unproved
+ok  v5             FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  v6             PASS   PASS   | empty: PASS   PASS   G2 subject is the immediate complement of a negative frame
+ok  v7             FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  v8             FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  v9             FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  v10            FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  v11            FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  v12            FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+BAD v13            FAIL   REVIEW | empty: FAIL   REVIEW copular; R6 negated or contrasted qualifier after A
+mismatches: 1 of 13

@@ -1,0 +1,331 @@
+{
+ "tree": "e2e2a623265187a28ebec604ab8bcc672742888f (every .md, 1,133 files)",
+ "licences": "deployed (empty)",
+ "exit_status": 2,
+ "counts": {
+  "active/PASS": 1312,
+  "active/REVIEW": 3,
+  "record/PASS": 7860,
+  "record/REVIEW": 27
+ },
+ "by_code": {
+  "record/PASS/G1": 182,
+  "record/PASS/G2": 10,
+  "record/PASS/near-miss": 2,
+  "record/PASS/unrelated:": 7666,
+  "record/REVIEW/N1": 16,
+  "record/REVIEW/R2": 4,
+  "record/REVIEW/R3": 4,
+  "record/REVIEW/R4": 3,
+  "active/PASS/G1": 67,
+  "active/PASS/G2": 2,
+  "active/PASS/copular;": 1,
+  "active/PASS/near-miss": 5,
+  "active/PASS/passive/nominal;": 3,
+  "active/PASS/unrelated:": 1234,
+  "active/REVIEW/N1": 1,
+  "active/REVIEW/R3": 2
+ },
+ "non_pass": [
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 5883,
+   "active": true,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "why": "R3 qualifier after A not in a governing position",
+   "sentence_sha256": "9fc1fed42b884c10a806df8c149726a6900bf11934e351444ac889df430a487f",
+   "r1": "PASS"
+  },
+  {
+   "path": "book/appendix-b-derivations.md",
+   "line": 206,
+   "active": true,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "why": "R3 qualifier after A not in a governing position",
+   "sentence_sha256": "9fc1fed42b884c10a806df8c149726a6900bf11934e351444ac889df430a487f",
+   "r1": "PASS"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 144,
+   "active": true,
+   "rule": "W-GR-THERM-KIN",
+   "verdict": "REVIEW",
+   "why": "N1 near-miss: rule subject with a rule cue outside the equivalence set",
+   "sentence_sha256": "700468125bf12c074edbd3353797dd4297ca9e4cad12d0752e1f68f952fb59c6",
+   "r1": "PASS"
+  },
+  {
+   "path": "verification/audits/foundations/oi-core-forward-redundancy.md",
+   "line": 33,
+   "active": false,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "why": "R4 assertion inside a quotation or code span (mention)",
+   "sentence_sha256": "13e6e6f1ae6f62cc0a94702793bd7fa82776b25f6eddce52eabd2240c5bd7814",
+   "r1": "PASS"
+  },
+  {
+   "path": "verification/audits/foundations/oi-core-forward-redundancy.md",
+   "line": 72,
+   "active": false,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "why": "N1 near-miss: rule subject with a rule cue outside the equivalence set",
+   "sentence_sha256": "a9ec5bc852c8ae581be5207da981f9e174f233f94936099f9af8aeada6ff568f",
+   "r1": "PASS"
+  },
+  {
+   "path": "verification/audits/foundations/oi-core-forward-redundancy.md",
+   "line": 74,
+   "active": false,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "why": "N1 near-miss: rule subject with a rule cue outside the equivalence set",
+   "sentence_sha256": "a9ec5bc852c8ae581be5207da981f9e174f233f94936099f9af8aeada6ff568f",
+   "r1": "PASS"
+  },
+  {
+   "path": "verification/audits/foundations/oi-core-forward-redundancy.md",
+   "line": 74,
+   "active": false,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "why": "N1 near-miss: rule subject with a rule cue outside the equivalence set",
+   "sentence_sha256": "a9ec5bc852c8ae581be5207da981f9e174f233f94936099f9af8aeada6ff568f",
+   "r1": "PASS"
+  },
+  {
+   "path": "verification/audits/foundations/a1-09-dependency-census/CENSUS.md",
+   "line": 85,
+   "active": false,
+   "rule": "W-BM-EUCLID",
+   "verdict": "REVIEW",
+   "why": "N1 near-miss: rule subject with a rule cue outside the equivalence set",
+   "sentence_sha256": "a1a9ac447dc4212bf07f7e039c57c5c031d982ea707ff302c26e246059adebde",
+   "r1": "PASS"
+  },
+  {
+   "path": "verification/audits/foundations/a1-ds-20261117/A1-DS.md",
+   "line": 84,
+   "active": false,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "why": "N1 near-miss: rule subject with a rule cue outside the equivalence set",
+   "sentence_sha256": "ed742ef7affad74bd08ed0778a9a7e4470790ab34a1d37331b98236833069d9a",
+   "r1": "PASS"
+  },
+  {
+   "path": "verification/audits/foundations/a1-recovery-matrix-20261116/RECOVERY-MATRIX.md",
+   "line": 49,
+   "active": false,
+   "rule": "W-BM-EUCLID",
+   "verdict": "REVIEW",
+   "why": "N1 near-miss: rule subject with a rule cue outside the equivalence set",
+   "sentence_sha256": "4a35e80ddacc5781a615cb8a644d8a48cd8380b7c128cefa105f44bb8454c898",
+   "r1": "PASS"
+  },
+  {
+   "path": "verification/audits/manuscript/hbar-theta0-20261026/AUDIT.md",
+   "line": 54,
+   "active": false,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "why": "R2 rule subject in the clause beyond the binding distance",
+   "sentence_sha256": "11ab667c10bbf364a46abe4c1a16073055aefb039b0d891d8445c261bae7b13f",
+   "r1": "PASS"
+  },
+  {
+   "path": "verification/audits/manuscript/hbar-theta0-20261026/AUDIT.md",
+   "line": 54,
+   "active": false,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "why": "R3 qualifier after A not in a governing position",
+   "sentence_sha256": "5c8142ec4e7a3bea4a955c06f9bdfbac2e0ee986bde8134cae47be7f1a19eb21",
+   "r1": "PASS"
+  },
+  {
+   "path": "verification/audits/manuscript/hbar-theta0-20261026/CHANGE-NOTE.md",
+   "line": 174,
+   "active": false,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "why": "R2 rule subject in the clause beyond the binding distance",
+   "sentence_sha256": "ac3533071906a1a3e906d2154563f5e14561c567717cbf11b4c7340fe28076f0",
+   "r1": "PASS"
+  },
+  {
+   "path": "verification/audits/manuscript/hbar-theta0-20261026/CHANGE-NOTE.md",
+   "line": 175,
+   "active": false,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "why": "R3 condition naming no licensed qualifier",
+   "sentence_sha256": "ac3533071906a1a3e906d2154563f5e14561c567717cbf11b4c7340fe28076f0",
+   "r1": "PASS"
+  },
+  {
+   "path": "verification/audits/manuscript/hbar-theta0-20261026/decisions/DECISIONS.md",
+   "line": 500,
+   "active": false,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "why": "R2 rule subject in the clause beyond the binding distance",
+   "sentence_sha256": "ac3533071906a1a3e906d2154563f5e14561c567717cbf11b4c7340fe28076f0",
+   "r1": "PASS"
+  },
+  {
+   "path": "verification/audits/manuscript/hbar-theta0-20261026/decisions/DECISIONS.md",
+   "line": 501,
+   "active": false,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "why": "R3 condition naming no licensed qualifier",
+   "sentence_sha256": "ac3533071906a1a3e906d2154563f5e14561c567717cbf11b4c7340fe28076f0",
+   "r1": "PASS"
+  },
+  {
+   "path": "verification/audits/manuscript/post982-minimum-diff-20261030/HUNKS-PAPERS-B.md",
+   "line": 145,
+   "active": false,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "why": "N1 near-miss: rule subject with a rule cue outside the equivalence set",
+   "sentence_sha256": "0f704fc1d3a28e0ce9a309e397c2d2d2af795fa4386bb9a91798f85e59e4a5fd",
+   "r1": "PASS"
+  },
+  {
+   "path": "verification/audits/manuscript/post982-minimum-diff-20261030/HUNKS-PAPERS-B.md",
+   "line": 145,
+   "active": false,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "why": "N1 near-miss: rule subject with a rule cue outside the equivalence set",
+   "sentence_sha256": "0f704fc1d3a28e0ce9a309e397c2d2d2af795fa4386bb9a91798f85e59e4a5fd",
+   "r1": "PASS"
+  },
+  {
+   "path": "verification/audits/manuscript/pr982-minimization-20261028/reports/book.md",
+   "line": 446,
+   "active": false,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "why": "R4 assertion inside a quotation or code span (mention)",
+   "sentence_sha256": "9f01e6072c0dfd068917725ee61c083eb9d92f103f00249b4bdbd1af3027cddc",
+   "r1": "REVIEW"
+  },
+  {
+   "path": "verification/audits/manuscript/pr982-minimization-20261028/reports/book.md",
+   "line": 455,
+   "active": false,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "why": "R2 rule subject in the clause beyond the binding distance",
+   "sentence_sha256": "9960478867ec6022daefceb11b6baa5d0c20fd7b1724a08fbe987ae58b2baf51",
+   "r1": "REVIEW"
+  },
+  {
+   "path": "verification/audits/manuscript/pr982-minimization-20261028/reports/book.md",
+   "line": 480,
+   "active": false,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "why": "R3 qualifier after A not in a governing position",
+   "sentence_sha256": "2a8f65cce94a3b75f4df8fa4f98ad49e094e2e6794a0d7c22d83af14e7e37abc",
+   "r1": "REVIEW"
+  },
+  {
+   "path": "verification/audits/manuscript/pr982-minimization-20261028/reports/book.md",
+   "line": 499,
+   "active": false,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "why": "R4 assertion inside a quotation or code span (mention)",
+   "sentence_sha256": "fd7972ac59fc5cc38b592134afbcb25a5dbfb715e205e20c2d419f6b83dcb9f4",
+   "r1": "REVIEW"
+  },
+  {
+   "path": "verification/audits/manuscript/round-cc-1-corpus-correction/preregistration.md",
+   "line": 890,
+   "active": false,
+   "rule": "W-BM-EUCLID",
+   "verdict": "REVIEW",
+   "why": "N1 near-miss: rule subject with a rule cue outside the equivalence set",
+   "sentence_sha256": "699ee3374100af66a9505c896ab722076beb18622460d4d0539cdaf19e77d737",
+   "r1": "PASS"
+  },
+  {
+   "path": "verification/audits/manuscript/round-cc-2-corpus-correction/preregistration.md",
+   "line": 1019,
+   "active": false,
+   "rule": "W-BM-EUCLID",
+   "verdict": "REVIEW",
+   "why": "N1 near-miss: rule subject with a rule cue outside the equivalence set",
+   "sentence_sha256": "699ee3374100af66a9505c896ab722076beb18622460d4d0539cdaf19e77d737",
+   "r1": "PASS"
+  },
+  {
+   "path": "verification/audits/operational/quasilocal-completion-audit.md",
+   "line": 23,
+   "active": false,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "why": "N1 near-miss: rule subject with a rule cue outside the equivalence set",
+   "sentence_sha256": "420b3c833166c1ad239fa0ee63870c51167eaa28f56517c80b555f7f6ed81bd9",
+   "r1": "PASS"
+  },
+  {
+   "path": "verification/lean/ROADMAP.md",
+   "line": 98,
+   "active": false,
+   "rule": "W-BM-EUCLID",
+   "verdict": "REVIEW",
+   "why": "N1 near-miss: rule subject with a rule cue outside the equivalence set",
+   "sentence_sha256": "f38825517827b84ab4e890ed611b950665fac8f29f1d3532aaad7a9f09148f0f",
+   "r1": "PASS"
+  },
+  {
+   "path": "verification/programmes/oi-qm/approximation/unit1/REVIEW-APPROX-UNIT1.r4.md",
+   "line": 9,
+   "active": false,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "why": "N1 near-miss: rule subject with a rule cue outside the equivalence set",
+   "sentence_sha256": "7675134319525f1a06ab9441e463c6b1f9710f09f54698b342d9b85953242d07",
+   "r1": "PASS"
+  },
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/intervene-substate-results-20261113/CHANGES.md",
+   "line": 49,
+   "active": false,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "why": "N1 near-miss: rule subject with a rule cue outside the equivalence set",
+   "sentence_sha256": "05568404be4439f21e75a3a53bd877bc64c243bfcd180023048417a084c1ae88",
+   "r1": "PASS"
+  },
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/intervene-substate-results-20261113/review/RESPONSE-CORR322.md",
+   "line": 34,
+   "active": false,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "why": "N1 near-miss: rule subject with a rule cue outside the equivalence set",
+   "sentence_sha256": "459489f923837f0747341a5426d15df3a5d82d3a40894614293388e3ee8e8962",
+   "r1": "PASS"
+  },
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/selection-discriminator-20261113/support/sel-access/SELECTION-ACCESS-1.md",
+   "line": 11,
+   "active": false,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "why": "N1 near-miss: rule subject with a rule cue outside the equivalence set",
+   "sentence_sha256": "9ea8631b5884a2ca7d42580ce683249d0a707413d028ece66db017e365fcf056",
+   "r1": "PASS"
+  }
+ ]
+}
