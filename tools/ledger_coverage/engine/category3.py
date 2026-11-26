@@ -767,9 +767,16 @@ def bind(f, b):
                             bound.append(r.get('id'))
                             break
         return sorted(set(x for x in bound if x)), False, form
-    # Form (iv) fallback: the entry's conclusions, or every edit of the entry's path
+    # Form (iv) fallback: the entry's conclusions, or every edit of the entry's path. Elements that carry an id but
+    # lack another key "block through the fallback of (iii)" (Form (ii)): the id match is then global, and those ids
+    # are bound as well
+    partial = [x.get('id') for x in (inv if isinstance(inv, list) else []) if isinstance(x, dict) and
+               isinstance(x.get('id'), str) and not fd.element_ok(x)]
+    if partial:
+        global_scope = True
+        bound += [eid for eid in partial if carry_id(eid, None)]
     if entry is None:
-        return [], True, form
+        return sorted(set(bound)), True, form
     se = entry.get('scientific_effect') if isinstance(entry.get('scientific_effect'), dict) else {}
     concl = se.get('conclusions')
     if isinstance(concl, list) and concl:
@@ -781,7 +788,7 @@ def bind(f, b):
     else:
         named = [(eid, e.get('file')) for eid, e in _edits(fled).items() if e.get('file') == entry.get('path')]
     if not named:
-        return [], (lineage or unresolved), form
+        return sorted(set(bound)), (lineage or unresolved), form
     for eid, path in named:
         if carry_id(eid, path):
             bound.append(eid)

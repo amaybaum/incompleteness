@@ -1054,6 +1054,84 @@ def milestone_controls(r):
          o1['stop'] == 'DESIGN_UNSETTLED' and not [f for f in o2['all'] if f.get('kind') == 2])
 
 
+def nits_0cafbdc0_controls(r):
+    """Review nits on 0cafbdc0: a resolved configuration outside the lineage where the global id scope decides; an
+    identity translation without prefix agreement; an explicit record at a source the caller did not supply; elements
+    with an id but a missing key binding through the fallback of (iii)."""
+    import copy
+    from ledger_coverage.adapters import read_domain as rdm
+
+    def other_cfg_world():
+        w = pfc.World(r)
+        pd = w.files['syn/patch.json']
+        oc_, op_, os_, ofiles = w.syn.build({'patch_sha': sf.sha(pd), 'files': {'syn/patch.json': pd},
+                                             'config_path': 'syn/other/config.json',
+                                             'extra': {'retirement': {'name': 'other', 'issue': 'other'},
+                                                       'config_id': 'other-retirement-config'}})
+        step(w, {q: b for q, b in ofiles.items() if isinstance(b, bytes)}, 'another retirement\'s configuration on main')
+        return w, {'path': op_, 'blob_sha256': os_}
+
+    def run_case(mutate, path=sf.DOC):
+        w, oref = other_cfg_world()
+        if path != sf.DOC:
+            step(w, {path: b'# other\n\nchanged on main\n'}, 'a corpus change')
+        doc = pfc.invalidating(w, path)
+        se = doc['paths'][0]['scientific_effect']
+        se['configuration'] = oref
+        mutate(se)
+        pfc.land(w, [(FP, doc)])
+        code, out = w.run([], harness=True)
+        out = out or {}
+        edits = [b_.get('edit') for b_ in (out.get('category3') or {}).get('blocked') or []]
+        inv = [d for i in out.get('items', []) if i['class'] == 'record-invalid' for d in (i.get('detail') or [])]
+        return {'exit': code, 'stop': (out.get('stop') or {}).get('class'), 'edits': edits, 'invalid': inv[:4]}
+
+    def element_missing_target(se):
+        # an element with id and sha256 but no target; conclusions none on a path without edits, so that only the
+        # element's id can bind, through the global id scope of (iii)
+        del se['invalidated'][0]['target']
+        se['conclusions'] = 'none'
+
+    def element_mismatch(se):
+        se['invalidated'][0]['target'] = dict(se['invalidated'][0]['target'], path='doc/other.md')
+    got = run_case(element_missing_target, path='doc/other.md')
+    case('GLOBAL-ID-SCOPE-OUTSIDE-LINEAGE-ELEMENT', 'a resolved configuration of another retirement (outside the '
+                                                    'lineage); the only element has an id but no target: it binds '
+                                                    'through the fallback of (iii) with the id match global, so E1 is '
+                                                    'bound', got, got['exit'] == 20 and 'E1' in got['edits'])
+    got = run_case(element_mismatch)
+    case('GLOBAL-ID-SCOPE-OUTSIDE-LINEAGE-MISMATCH', 'the same resolved configuration outside the lineage; the element\'s '
+                                                     'target names another path, a Form (ii) mismatch: the id match is '
+                                                     'global and E1 is bound', got,
+         got['exit'] == 20 and 'E1' in got['edits'] and
+         any('differs from the named configuration' in d for d in got['invalid']))
+    # an identity translation whose H and M prefixes disagree
+    w = pfc.World(r)
+    doc = pfc.invalidating(w, sf.DOC)
+    bad_m = w.repo.derive(w.M, {sf.DOC: b'# SYNTHETIC' + w.repo.read(w.M, sf.DOC)[11:]}, parents=[w.M],
+                          subject='a tree whose prefix differs')
+    doc['M'] = bad_m
+    pfc.land(w, [(FP, doc)])
+    o = outcome(w)
+    case('BESIDE-TABLES-IDENTITY-PREFIX', 'a finding record whose identity translation has H and M bytes that disagree '
+                                          'before the splice end: an R6.RECON.30 beside-table failure, so the run stops '
+                                          'with ERROR DESIGN_UNSETTLED', o,
+         o['exit'] == 65 and o['stop'] == 'DESIGN_UNSETTLED')
+    # an explicit record present at a source the caller did not supply
+    w, c1, fb = landed(r)
+    code, out = w.run([], harness=True)
+    out = out or {}
+    other = w.repo.derive(w.c, {'notes/x.txt': b'x\n'}, parents=[w.c], subject='another commit holding the record')
+    sub = copy.deepcopy(out)
+    exp = sub.get('category3_read_domain', {}).get('explicit') or []
+    if exp:
+        exp[0]['source'] = other
+    probs = rdm.problems(w.repo, sub, [w.M], [w.c])
+    case('READ-DOMAIN-UNSUPPLIED-SOURCE', 'an explicit record whose recorded source holds its blob but is not a source '
+                                          'the caller supplied (the configuration commit or an admitted REV): refused',
+         probs, bool(exp) and any('neither the configuration commit' in x for x in probs))
+
+
 def explicit_review_controls(r):
     """findings_of_records also extracts second-kind findings from review records the run reads explicitly."""
     from ledger_coverage.engine import category3 as c3m
@@ -1191,7 +1269,7 @@ SUITES = [('removal', removal_controls), ('topology', topology_controls), ('unre
           ('pairing-predecessor', pairing_predecessor_controls),
           ('pairing-review-order', pairing_review_order_control), ('r13-form', r13_form_controls),
           ('read-domain', read_domain_controls), ('milestone', milestone_controls),
-          ('explicit-review', explicit_review_controls)]
+          ('explicit-review', explicit_review_controls), ('nits-0cafbdc0', nits_0cafbdc0_controls)]
 
 
 def main(out):
