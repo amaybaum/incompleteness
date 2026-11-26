@@ -5624,13 +5624,16 @@
    "GATE-14",
    "GATE-15",
    "GATE-19",
-   "RTL2-BIND"
+   "RTL2-BIND",
+   "RECORD-BASE"
   ],
   "verification": [
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 4 (category-3 keying and the predicted-M record base): drafted under the owner's direction of 2026-11-26T07:31:59Z (#1169 comment 7185562871); needs independent review and the owner's acceptance before any tool revision implements it"
+  ],
   "owner_decision": [
    {
     "decision": "D",
@@ -8834,7 +8837,8 @@
    "POSTF-2",
    "POSTF-3",
    "POSTF-4",
-   "POSTF-5"
+   "POSTF-5",
+   "RECORD-BASE"
   ],
   "verification": [
    "controls"
@@ -8842,7 +8846,8 @@
   "open": [],
   "pending_owner_confirmation": [
    "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26T05:21:04Z, #1169 comment 7183745781), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it",
-   "amendment 3 (multi-path reconciliation): drafted under the owner's authorization of 2026-11-26T06:34:32Z (#1169 comment 7184569981); needs independent review and the owner's acceptance before any tool revision implements it"
+   "amendment 3 (multi-path reconciliation): drafted under the owner's authorization of 2026-11-26T06:34:32Z (#1169 comment 7184569981); needs independent review and the owner's acceptance before any tool revision implements it",
+   "amendment 4 (category-3 keying and the predicted-M record base): drafted under the owner's direction of 2026-11-26T07:31:59Z (#1169 comment 7185562871); needs independent review and the owner's acceptance before any tool revision implements it"
   ],
   "owner_decision": []
  },
@@ -9242,7 +9247,8 @@
    "GATE-15",
    "GATE-19",
    "RTL2-BIND",
-   "RECON-TRIAL"
+   "RECON-TRIAL",
+   "RECORD-BASE"
   ],
   "verification": [
    "controls"
@@ -9250,7 +9256,8 @@
   "open": [],
   "pending_owner_confirmation": [
    "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26T05:21:04Z, #1169 comment 7183745781), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it",
-   "amendment 3 (multi-path reconciliation): drafted under the owner's authorization of 2026-11-26T06:34:32Z (#1169 comment 7184569981); needs independent review and the owner's acceptance before any tool revision implements it"
+   "amendment 3 (multi-path reconciliation): drafted under the owner's authorization of 2026-11-26T06:34:32Z (#1169 comment 7184569981); needs independent review and the owner's acceptance before any tool revision implements it",
+   "amendment 4 (category-3 keying and the predicted-M record base): drafted under the owner's direction of 2026-11-26T07:31:59Z (#1169 comment 7185562871); needs independent review and the owner's acceptance before any tool revision implements it"
   ],
   "owner_decision": [
    {
@@ -9351,7 +9358,8 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "amendment 3 (multi-path reconciliation): drafted under the owner's authorization of 2026-11-26T06:34:32Z (#1169 comment 7184569981); needs independent review and the owner's acceptance before any tool revision implements it"
+   "amendment 3 (multi-path reconciliation): drafted under the owner's authorization of 2026-11-26T06:34:32Z (#1169 comment 7184569981); needs independent review and the owner's acceptance before any tool revision implements it",
+   "amendment 4 (category-3 keying and the predicted-M record base): drafted under the owner's direction of 2026-11-26T07:31:59Z (#1169 comment 7185562871); needs independent review and the owner's acceptance before any tool revision implements it"
   ],
   "owner_decision": []
  },
@@ -9367,7 +9375,8 @@
    "#1169 comment 7185092393"
   ],
   "controls": [
-   "RECON-BLOCK"
+   "RECON-BLOCK",
+   "BLOCK-KEY"
   ],
   "verification": [
    "controls",
@@ -9375,7 +9384,30 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "amendment 3 (multi-path reconciliation): drafted under the owner's authorization of 2026-11-26T06:34:32Z (#1169 comment 7184569981); needs independent review and the owner's acceptance before any tool revision implements it"
+   "amendment 3 (multi-path reconciliation): drafted under the owner's authorization of 2026-11-26T06:34:32Z (#1169 comment 7184569981); needs independent review and the owner's acceptance before any tool revision implements it",
+   "amendment 4 (category-3 keying and the predicted-M record base): drafted under the owner's direction of 2026-11-26T07:31:59Z (#1169 comment 7185562871); needs independent review and the owner's acceptance before any tool revision implements it"
+  ],
+  "owner_decision": []
+ },
+ {
+  "id": "R6.RECON.27",
+  "section": "RECON",
+  "section_number": 23,
+  "kind": "testable",
+  "sources": [
+   "#1169 comment 7185562871"
+  ],
+  "controls": [
+   "BLOCK-KEY",
+   "REASSESS-FORM"
+  ],
+  "verification": [
+   "controls",
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "amendment 4 (category-3 keying and the predicted-M record base): drafted under the owner's direction of 2026-11-26T07:31:59Z (#1169 comment 7185562871); needs independent review and the owner's acceptance before any tool revision implements it"
   ],
   "owner_decision": []
  },
@@ -9753,14 +9785,16 @@
    "Z6",
    "Z6b",
    "CONFIG-LINT",
-   "Z8"
+   "Z8",
+   "BLOCK-KEY"
   ],
   "verification": [
    "controls"
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26T05:21:04Z, #1169 comment 7183745781), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
+   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26T05:21:04Z, #1169 comment 7183745781), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it",
+   "amendment 4 (category-3 keying and the predicted-M record base): drafted under the owner's direction of 2026-11-26T07:31:59Z (#1169 comment 7185562871); needs independent review and the owner's acceptance before any tool revision implements it"
   ],
   "owner_decision": []
  },

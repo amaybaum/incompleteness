@@ -23026,6 +23026,300 @@
    "flags": [
     "added by amendment 3; no runner records it before the tool revision implements it"
    ]
+  },
+  {
+   "id": "BLOCK-KEY",
+   "requirements": [
+    "R6.RECON.26",
+    "R6.RECON.27",
+    "R6.CFG.4"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "the edit's wording changed in a revised configuration (new bytes or reason; the same id and target), no reassessment cited",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "the edit id renamed in a revised configuration, the rename recorded under AGENTS.md sec. A.48 item 3",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "the edit id renamed with no recorded migration (the target unchanged)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "a scientific repair landed on M, the original frozen configuration unchanged",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "an applying reassessment exists on M, the original frozen configuration (which does not cite it) unchanged",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "a revised configuration citing a reassessment whose edit_sha256 differs from the edit as now worded",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "a configuration of the same retirement in a new config_id lineage, carrying the edit, citing no reassessment",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "countercase: a revised configuration, frozen anew, citing an applying reassessment of the edit as now worded (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "retirement-blocked"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: a revised configuration that removes the edit (neither its id, a migrated id nor its target remains), citing no reassessment (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "retirement-blocked"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 4 (owner decision of 2026-11-26T07:31:59Z, #1169 comment 7185562871, items 2 and 3)",
+   "flags": [
+    "added by amendment 4; no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "REASSESS-FORM",
+   "requirements": [
+    "R6.RECON.27"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "cases": [
+     {
+      "case": "a reassessment with no non-author review, or whose reviewer equals its author",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "a reassessment naming no finding, or a path that holds no finding at M",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "a reassessment whose repair names no commit on M's first-parent chain",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "a reassessment with an empty re-derivation of the edit's justification",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "a reassessment whose verdict is not no-effect",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "a reassessment cited under kind reassessment but failing record lint (a schema error)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "retirement-blocked"
+      ]
+     }
+    ]
+   },
+   "restored": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "not_class": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "baseline": "the same revised configuration citing a valid reassessment"
+     }
+    ]
+   },
+   "source": "r6 amendment 4 (owner decision of 2026-11-26T07:31:59Z, #1169 comment 7185562871, items 2 and 3)",
+   "flags": [
+    "added by amendment 4; no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "RECORD-BASE",
+   "requirements": [
+    "R6.RECON.2",
+    "R6.RECON.21",
+    "R6.GATE.16"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "a run on a predicted M built from M0 by in-memory commits adding tool-landing paths whose blobs equal their pins, named with --record-base M0; REV's single parent is M0 (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "record_admitted": "$record"
+       },
+       {
+        "not_class": [
+         "record-invalid"
+        ]
+       },
+       {
+        "equals": "inputs.record_base is M0"
+       }
+      ]
+     },
+     {
+      "case": "countercase: REV's parent is the predicted M",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "countercase: REV's parent is an intermediate in-memory commit (RT-O9 shape)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "countercase: REV's parent is an ancestor of M0",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "countercase: a ledgered, corpus, unclassified or reconciliation-directory change lies between M0 and M",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "countercase: a merge lies between M0 and M",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "countercase: a change between M0 and M that a later step reverts (the aggregate diff is empty for it)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "countercase: a pin path of the tool-landing class with a different blob, or deleted",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "countercase: --record-base names an in-memory commit",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "countercase: the configuration lies in a directory that is not an authorized record directory",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "countercase: a reviewed class record named by --classify whose prefixes cover the offending change",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "countercase: --record-base given in a chain-admitted run",
+      "outcome": "USAGE",
+      "exit": 64
+     },
+     {
+      "case": "countercase: the result's inputs.record_base differs from the runner's pinned main commit",
+      "outcome": "FAIL",
+      "invariants": [
+       {
+        "rt_l2_status": "FAIL"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 4 (owner decision of 2026-11-26T07:31:59Z, #1169 comment 7185562871, items 2 and 3)",
+   "flags": [
+    "added by amendment 4; no runner records it before the tool revision implements it"
+   ]
   }
  ],
  "retired": [

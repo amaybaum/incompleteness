@@ -473,6 +473,68 @@ Category-3 lifecycle (owner decision at #1169 comment 7185092393, item 4): the b
 
 Design note for the owner: a configuration frozen at `F` that references a reconciliation record closes that record's paths to the post-freeze route (R6.RECON.2 (d) and (e)), so a record that fails at a later `M` can be replaced only by a new freeze. The recommendation is that the configuration at `F` reference no reconciliation records. Cross-file semantic consistency (two files that stay byte-compatible but disagree in meaning) is left to the independent review (R6.RECON.25).
 
+
+### 0.5 Amendment 4 of 2026-11-26
+
+The owner decided at #1169 comment 7185562871 (amaybaum, 2026-11-26T07:31:59Z, relayed by the coordinating session). Excerpt of items 2, 3 and 7, in the order of the source (table cells joined by " | ", table padding removed; headings left out; each line prefixed by "> "; "[...]" marks text left out):
+
+> [...]
+>
+> Prefer the reviewer's recommendation: key the block by the stable edit identifier, together with its plan lineage and independently reviewed reassessment.
+>
+> Exact bytes should remain recorded as evidence, but should not be the sole identity of the blocked edit.
+>
+> Otherwise, an incidental wording change could give the same scientifically invalidated edit a different identity.
+>
+> The following requirements must hold:
+>
+> Event | Outcome
+>
+> Edit wording changes | Block persists.
+>
+> Edit identifier is renamed | Block follows the recorded migration.
+>
+> Scientific repair lands | Block persists for the original frozen plan.
+>
+> Independent reassessment accepts the repair | Revised plan becomes eligible for review and freezing.
+>
+> Revised plan is frozen | New verification and trials may proceed.
+>
+> This is a proposed amendment to the accepted design, not permission to silently change its implementation.
+>
+> [...]
+>
+> Prefer `--record-base M0` over inferring the nearest real commit.
+>
+> Explicit inputs are easier to reproduce, audit and independently verify.
+>
+> The tool must still mechanically establish the admissibility of M0. Supplying its identifier must not itself establish validity.
+>
+> Prepare these two changes together as a narrowly scoped amendment 4, with independent review. Do not reopen amendment 3 unnecessarily.
+>
+> [...]
+>
+> With amendment 3 accepted scientifically, the focus should increasingly shift from designing verification machinery to completing, reviewing and executing it.
+>
+> Amendment 4 should remain strictly limited to the two identified questions. Avoid further design expansion unless a genuine correctness defect requires it.
+>
+> [...]
+
+Amendment 4 is limited to these two questions; it is pending independent review and the owner's acceptance, and it reopens nothing else of amendment 3.
+
+- Category-3 keying (R6.RECON.26, new R6.RECON.27, R6.RECON.25, R6.CFG.4; controls BLOCK-KEY, REASSESS-FORM). The block is keyed by the edit's stable id within the plan lineage of the retirement (the configurations naming the same `retirement`), not by its bytes. A finding records each invalidated edit's id, the sha256 of its edit-list entry (evidence) and its target at `H`. A configuration carries the blocked edit when its ledger holds that id, an id the edit was renamed to under a migration recorded under AGENTS.md sec. A.48 item 3, or an edit with the same target. The lifecycle:
+
+| Event | Outcome | How | Controls |
+|---|---|---|---|
+| Edit wording changes | Block persists. | the block is keyed by the edit id (and target), not by its bytes | BLOCK-KEY |
+| Edit identifier is renamed | Block follows the recorded migration. | the renamed edit is found by the recorded migration and, mechanically, by its unchanged target | BLOCK-KEY |
+| Scientific repair lands | Block persists for the original frozen plan. | a frozen configuration cannot cite a later reassessment | BLOCK-KEY |
+| Independent reassessment accepts the repair | Revised plan becomes eligible for review and freezing. | R6.RECON.27: a reviewed reassessment of the edit as now worded | BLOCK-KEY, REASSESS-FORM |
+| Revised plan is frozen | New verification and trials may proceed. | a configuration whose freeze cites the applying reassessment, or that removes the edit, is not blocked | BLOCK-KEY |
+
+  A plan that removes the edit needs no reassessment. The tool checks the reassessment's form, its review and its citation by the new freeze; it cannot check the soundness of the re-derivation.
+- The predicted-M record base (R6.RECON.2 (c), R6.RECON.21, R6.GATE.16; control RECORD-BASE). A run on a predicted `M` names its record base with `--record-base M0`; the tool establishes `M0`'s admissibility from git objects (that `M0` is a real commit, that `M` descends from it by single-parent in-memory commits whose changes are tool-landing or authorized plan-directory paths, and that no ledgered, corpus or scanned-set path changes), so naming it establishes nothing. The gate compares the recorded `M0` with the runner's pinned `main`.
+
 ***
 
 ## 1. Notation and symbols
@@ -3152,12 +3214,13 @@ RT-L2, RT-O9, RT-O9-L2, TR45-opC, EI14-dispatch, TR45, EI14.
 
 RT-L2 is NOT RUN until a reviewed record exists. The RT-L2 PASS recorded by CI run 45569710442, made on
 a drafted record, does not establish the safeguard (sec. 31).
-The gate's `rtl2` predicate compares the `H`, `M` and `C` each record names with the run's roles; in
+The gate's `rtl2` predicate compares the `H`, `M` and `C` each record names with the run's roles, and, for a
+run on a predicted `M`, the result's `inputs.record_base` with the runner's pinned `main` commit (amendment 4, sec. 0.5: pending independent review and the owner's acceptance); in
 RT-L2 `X` = `C` = `X_rep`, so the record's `X` is compared as `C`. The per-path comparison of `m` and
 `x` is the tool's (RC2, RC8), tested by RTL2-BIND. The runner derives `review_lint_passes` from the
 run's result (no `record-invalid` item names the record or its review), never from its own statement
 (OBL-28, C-29).
-Sources: OD-18, Q2. Controls: RT-L2, GATE-13, GATE-14, GATE-15, GATE-19, RTL2-BIND.
+Sources: OD-18, Q2. Controls: RT-L2, GATE-13, GATE-14, GATE-15, GATE-19, RTL2-BIND, RECORD-BASE.
 
 ### 16.10 Annex: invariant vocabulary
 
@@ -3251,9 +3314,9 @@ expectation file, of 420 control rows 267 are in scope and 153 outside; 223 rows
 expectation, 41 declare direction `both`, 6 name `paired_with` and 3 are exempt as observations;
 42 rows in scope recorded no second direction (`direction-missing`), and 217 rows are flagged VD-RESTORE
 (these figures are those of the adopted file, before amendment 1). Amendment 1 (sec. 0.2) records a second
-direction on each of those 42 rows and adds 14 rows (B1) and 6 rows (B4), each with one, and amendment 3
-adds 9 rows (sec. 0.4), each with one. Counted
-mechanically over the amended file's rows outside the MUT and GATE namespaces (450 rows, 137 of them recording `scope: "outside"`; 272 carry a `restored` expectation, 63 declare direction `both`, 10 name `paired_with`, 3 are exempt as observations): no row in scope
+direction on each of those 42 rows and adds 14 rows (B1) and 6 rows (B4), each with one, amendment 3
+adds 9 rows (sec. 0.4), and amendment 4 adds 3 rows (sec. 0.5), each with one. Counted
+mechanically over the amended file's rows outside the MUT and GATE namespaces (453 rows, 137 of them recording `scope: "outside"`; 273 carry a `restored` expectation, 65 declare direction `both`, 10 name `paired_with`, 3 are exempt as observations): no row in scope
 records no second direction.
 Sources: V1-101, V2-073, V1-138, Q7, RE-2, RE-3, RE-4, Q11. Controls: A11r, M1, N1, GATE-27.
 
@@ -4036,6 +4099,9 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | RECON-CATEGORY | R6.RECON.22, R6.RECON.24 | to be implemented (tool revision) | decl | both | the category of a drifted path is computed: category 1 when every condition RC1-RC14 holds with no conflict; category 2 when RC14 finds a conflict or a splice's old bytes do not occur once at M; category 2 is never reconciled by translation (amendment 3) |
 | RECON-OVERLAP | R6.RECON.24, R6.TREE.12 | to be implemented (tool revision) | decl | both | category 2 is resolved only explicitly: a reviewed resolution that keeps the planned edit's new bytes, with a renewed scientific review naming the splice; the landing then equals the resolved composition (amendment 3) |
 | RECON-BLOCK | R6.RECON.26, R6.RECON.25, R6.CLASS.10 | to be implemented (tool revision) | decl | both | category 3: a reviewed finding that a change invalidates the basis of a planned edit blocks the retirement (FAIL retirement-blocked); an entry with that verdict never applies; no reconciliation record clears the block; only a revised plan that changes or removes the invalidated edit does (amendment 3) |
+| BLOCK-KEY | R6.RECON.26, R6.RECON.27, R6.CFG.4 | to be implemented (tool revision) | decl | both | the block is keyed by the edit's stable id within the retirement's plan lineage, followed through recorded migrations and by its target; wording changes and repairs do not lift it; a revised plan proceeds only by removing the edit or by citing an applying reassessment (amendment 4) |
+| REASSESS-FORM | R6.RECON.27 | to be implemented (tool revision) | decl | adv | the reassessment's form, review and citation are checked; a failure keeps the block (amendment 4) |
+| RECORD-BASE | R6.RECON.2, R6.RECON.21, R6.GATE.16 | to be implemented (tool revision) | decl | both | the predicted-M record base is named explicitly and admitted only after the tool establishes it from git objects; naming it establishes nothing (amendment 4) |
 
 **Table 17.2. Record-directory mutants** (set `o9`; each row names the change and the controls
 that distinguish it; the results on the correct implementation and on the mutant are in the
@@ -4729,8 +4795,22 @@ every condition below holds, each checked by the tool from git objects; otherwis
   run names the same `REV`. `REV` is a full commit id (40 hexadecimal characters) read through the
   verified reader (R6.REC.17); it has exactly one parent, the run's record base, and its tree equals
   that parent's tree except for regular files added inside reconciliation directories (R6.RECON.1).
-  The record base is the run's `M`, or, for a run on a predicted `M` (R6.RECON.21), the pinned `main`
-  commit `M0` it is built from. A `REV` that is not a full commit id is FAIL `record-invalid`; an
+  The record base is the run's `M`. A run on a predicted `M` (R6.RECON.21) names its record base with
+  `--record-base M0`, `M0` being the pinned `main` commit from which the runner built the predicted `M`
+  (in RT-L2 and RT-O9-L2, the runner's `--main`); the tool admits `REV` only if its single parent is
+  exactly `M0`, and only if it verifies from git objects that: (1) `M0` is a full commit id read by the
+  verified reader from the repository object store, not an in-memory commit; (2) `M` descends from `M0`
+  by a chain of single-parent in-memory commits (R6.TREE.15); (3) for each step of that chain and for the
+  aggregate diff `M0..M`, every path whose mode or object id differs, deletions included, either lies
+  under a prefix of the class `tool-landing` in the side-change class record the configuration pins
+  (`roles.side_change_classes`) or is a pin of that class whose blob at `M` equals the pinned blob, or
+  lies inside the plan's record directory, which must be the directory of the configuration path and an
+  authorized record directory; and every path a step changes also differs in the aggregate diff; (4) no
+  changed path is a ledgered or corpus path, or a path of the scanned set of (d) at `M0` or at `M`. Class
+  records named by `--classify` never contribute to that domain, to placement (f) or to the scanned set
+  (d). Naming `M0` establishes nothing: any failed check is FAIL `record-invalid`. Without `--record-base`
+  the record base is `M`; in a chain-admitted run the option is a usage error (USAGE, exit 64). The result
+  records `M0` in `inputs.record_base` (amendment 4, sec. 0.5: pending independent review and the owner's acceptance). A `REV` that is not a full commit id is FAIL `record-invalid`; an
   object the verified reader cannot read or verify is ERROR as R6.REC.17 states.
 - (d) **Review and lineage at `REV`.** The tool scans a tree for reconciliation records as follows:
   every regular file under `verification/audits/`, outside every prefix of the tool-landing class and
@@ -4766,7 +4846,7 @@ parent of the merge commit that brings them, so that every commit the run read i
 `main` (R6.EVID.7). The result records `REV` and lists each record this route admits in
 `inputs.classify_records`, with its path and sha256 and the path and sha256 of its review record.
 Configuration admission (R6.REC.16) and execution identity (R6.REC.18) are unchanged.
-Sources: E-1341, RV-027. Controls: O8, N2, POSTF-1, POSTF-2, POSTF-3, POSTF-4, POSTF-5.
+Sources: E-1341, RV-027. Controls: O8, N2, POSTF-1, POSTF-2, POSTF-3, POSTF-4, POSTF-5, RECORD-BASE.
 
 **R6.RECON.3** A reconciliation record names a ledgered or corpus path that both `M` and the retirement
 change (the "both changed" case of R6.TREE.12); naming a path `X` changes is therefore valid and never
@@ -4888,8 +4968,8 @@ Sources: E-1354. Controls: EI5, TR29, RT-L2.
 the run names it from a commit outside the tool's landing paths, and it reaches `main` in a commit
 after the tool's landing commit. RT-L2 runs under control-harness admission and has no `F`. Its
 reconciliation record and review record reach the run only by `--classify REV:PATH` under conditions
-(a) and (c) to (g) of R6.RECON.2, with `M0` as the record base on a predicted `M` and the run's `M` on
-a re-run on `main` (R6.EVID.8); condition (b) reads: every path the record covers is a drifted path of
+(a) and (c) to (g) of R6.RECON.2, with `M0`, named by `--record-base` and admitted under R6.RECON.2 (c), as
+the record base on a predicted `M` (amendment 4, sec. 0.5: pending independent review and the owner's acceptance), and the run's `M` on a re-run on `main` (R6.EVID.8); condition (b) reads: every path the record covers is a drifted path of
 the run (part A of amendment 1, sec. 0.2: conditionally approved, pending independent review). The reference commit of record lint (R6.REC.7) is `REV` for these records, and for a record
 the control instance pins it is the commit the record is read from. Record lint (R6.REC.6, R6.REC.7)
 runs on these records in harness mode as in chain mode; the tool revision in development skips it in
@@ -4909,7 +4989,7 @@ run 45569710442, made on a drafted record, does not establish the safeguard. The
 outstanding obligation and a named blocker on the tool's landing (sec. 32, OBL-13) until RT-L2 is released and
 holds. RT-O9-L2 depends on it.
 Part D of amendment 1 (the binding names the run's `M` and `X`) is approved by the owner (sec. 0.2).
-Sources: E-1355, OC-3. Controls: RT-L2, RT-O9-L2, GATE-13, GATE-14, GATE-15, GATE-19, RTL2-BIND, RECON-TRIAL.
+Sources: E-1355, OC-3. Controls: RT-L2, RT-O9-L2, GATE-13, GATE-14, GATE-15, GATE-19, RTL2-BIND, RECON-TRIAL, RECORD-BASE.
 
 **R6.RECON.22** **Mechanical verification: drift assessment** (amendment 3, sec. 0.4: pending independent review and the owner's acceptance). The complete
 ledger-path check is mandatory: every op C run with `M` gives every path that differs between `H` and `M` and is
@@ -4988,7 +5068,7 @@ by the tool. Each path entry of a reconciliation record carries `scientific_effe
 of any path, whose justification the change could bear on (for example an executable change bearing on a manuscript
 claim), or `none`; `assessment`, the writer's statement of the effect; `method`, what was re-derived or re-run to
 establish it; and `verdict`, `no-effect` or `invalidates`, the latter with `invalidated`, each an edit id with the
-canonical sha256 of its edit-list entry. For an entry whose path is executed by a check (a script, a Lean file, a
+canonical sha256 of its edit-list entry and its target (the path, `start_H` and `old_sha256` of the edit at `H`) (amendment 4, sec. 0.5: pending independent review and the owner's acceptance). For an entry whose path is executed by a check (a script, a Lean file, a
 workflow), `method` names the check re-run at the entry's composed blob `l` and its result. The review record covers
 `scientific_effect` as an item of the entry, and the reviewer re-derives it under R6.REC.2; "accept" means the
 assessment and verdict are correct, whatever they conclude. An entry applies only if its reviewed verdict is
@@ -4998,13 +5078,13 @@ ledger, and each `invalidated` sha256 equals that edit-list entry's; the review'
 record lint holds (R6.REC.6). It does not and cannot check that the assessment is true, that the conclusions listed are
 complete, or that the files of the corpus stay consistent with one another in meaning; those rest on the review. A
 failure of form is FAIL `record-invalid`.
-Sources: amendment 3 (#1169 comments 7184569981 and 7184626125). Controls: RECON-SCI, RECON-BLOCK.
+Sources: amendment 3 (#1169 comments 7184569981 and 7184626125). Controls: RECON-SCI, RECON-BLOCK, BLOCK-KEY.
 
 **R6.RECON.26** **Category 3: the blocking state** (amendment 3, sec. 0.4: pending independent review and the owner's acceptance). An invalidating finding blocks the
 retirement. A finding is either a reconciliation record entry whose review accepts a `scientific_effect` with verdict
 `invalidates`, or a non-author review record (passing record lint) whose verdict on an entry's `scientific_effect` finds
 that the change invalidates the basis of a planned edit, whatever the writer's verdict; such a review verdict names
-`invalidated`, each an edit id with the canonical sha256 of its edit-list entry. A record or review record carrying a
+`invalidated`, each an edit id with the canonical sha256 of its edit-list entry and its target (the path, `start_H` and `old_sha256` of the edit at `H`). A record or review record carrying a
 finding is landed on `main` at once, by its own commit outside any run (under the owner's merge approval, AGENTS.md
 sec. A.50 item 1), before any further run of the retirement's landing; R6.RECON.20's re-resolution of `M` before the
 landing brings it into every later run's `M`. Every run scans `M`'s tree, and the records the run reads and the scanned
@@ -5012,19 +5092,39 @@ sets of `F`'s tree and, for a post-freeze run, of `REV`'s tree, for findings, by
 not any path differs between `H` and `M`, chain runs without `--classify` included. A finding found there blocks every
 run whose `M` contains one of the entry's `side_change_commits`, with an item FAIL `retirement-blocked` (obligation
 `RET`): the entry's path takes the disposition `retirement-blocked` when it differs between `H` and `M`; when it does not
-(for example after a revert to `H`'s bytes), the item is a run-level item naming the path. The block holds for as long as the configuration's ledger holds, for each
-invalidated edit id, an edit-list entry with the same canonical sha256. A finding counts whether or not a later record
+(for example after a revert to `H`'s bytes), the item is a run-level item naming the path. The block holds for every configuration that carries an invalidated edit (amendment 4, sec. 0.5: pending independent review and the owner's acceptance): one whose `retirement` names
+the same retirement as the configuration the finding was made under (its plan lineage), and whose ledger
+holds the edit's id, an id the edit was renamed to under a migration recorded under AGENTS.md sec. A.48
+item 3, or an edit with the same target. The sha256 recorded with each invalidated edit is evidence, not
+the edit's identity: a change of the edit's wording does not lift the block. A finding counts whether or not a later record
 supersedes the entry and whatever `REV` a run names; no reconciliation record, resolution, supersession, or later
-commit that reverts or repairs the change clears the block. The block is scoped to the frozen plan: it binds every
-configuration whose ledger carries an invalidated edit-list entry unchanged, and nothing else. A repair on `main` never
+commit that reverts or repairs the change clears the block. The block is scoped to the plan lineage: it binds every
+configuration that carries an invalidated edit, unless that configuration's freeze cites an applying
+reassessment of the edit (R6.RECON.27), and nothing else. A repair on `main` never
 lifts it; the finding and the repair stay on `main` as evidence, the repair recorded by a reconciliation record entry
 of the repairing change, with its own reviewed `scientific_effect`. A revised plan, a new configuration version with a
-new freeze (R6.CFG.3; AGENTS.md sec. A.50 item 5) whose ledger no longer carries an invalidated entry or carries a
-revised one, is not blocked by the old finding; its renewed verification and trials run under this design as any
+new freeze (R6.CFG.3; AGENTS.md sec. A.50 item 5) that no longer carries the invalidated edit, or whose freeze
+cites an applying reassessment of the edit as now worded (R6.RECON.27), is not blocked by the old finding; a plan
+that removes the edit needs no reassessment; its renewed verification and trials run under this design as any
 run's do, and the retirement becomes eligible for approval again only when they pass. A later repair can resolve the
 underlying scientific problem, but cannot validate the invalidated frozen plan. The tool cannot find a category-3 change by itself: it relies on the review, and it enforces mechanically that a
 recorded finding blocks.
-Sources: amendment 3 (#1169 comments 7184569981, 7184626125, 7184808247 and 7185092393). Controls: RECON-BLOCK.
+Sources: amendment 3 (#1169 comments 7184569981, 7184626125, 7184808247 and 7185092393); amendment 4 (#1169 comment 7185562871). Controls: RECON-BLOCK, BLOCK-KEY.
+
+**R6.RECON.27** **Reassessment of an invalidated edit** (amendment 4, sec. 0.5: pending independent review and the owner's acceptance). A reassessment record (schema
+`oi-reassessment/1`) is reviewed and immutable, under the ownership chain of sec. 11, and names: `finding`, the
+`{path, blob_sha256}` of the record or review record carrying the category-3 finding (R6.RECON.26); `repair`, the
+commits of the repairing change on `main` and the `{path, blob_sha256}` of the reconciliation record entry that records
+it; `edit`, the edit id and the canonical sha256 of its edit-list entry as worded in the configuration that cites the
+reassessment; `rederivation`, the edit's justification re-derived at the repaired state, with what was re-run; and
+`verdict`, which must be `no-effect` for the edit as now worded. A configuration's freeze cites it by listing it in
+`records` with kind `reassessment` (R6.CFG.4). It applies only if: a non-author review record names its blob and accepts
+every item, and record lint holds (R6.REC.6, R6.REC.7); the named finding is a finding the scan of R6.RECON.26 finds at
+the run's `M`; the repair's commits lie on `M`'s first-parent chain; `rederivation` is non-empty; the verdict is
+`no-effect`; and `edit` names an edit of the citing configuration's ledger whose canonical sha256 equals the recorded
+one. The tool checks this form, the review and the citation; it cannot check that the re-derivation is sound, which
+rests on the review. A cited reassessment that does not apply is FAIL `record-invalid`, and the block stands.
+Sources: amendment 4 (#1169 comment 7185562871). Controls: BLOCK-KEY, REASSESS-FORM.
 
 ***
 
@@ -5173,7 +5273,8 @@ unless marked optional:
   admitted by the post-freeze route of R6.RECON.2 and its review record (part A of amendment 1, sec. 0.2: conditionally approved, pending independent review),
   `[{kind, path, blob_sha256}]`, including
   the item-2 records `context-adjudications.json` and `hit-classifications.json` (sec. 22); a kind this
-  design does not define, such as `oi-owner-authorization/1`, is ERROR `CONFIG_INVALID`;
+  design does not define, such as `oi-owner-authorization/1`, is ERROR `CONFIG_INVALID`; a reassessment
+  record that the freeze cites (R6.RECON.27) is listed with kind `reassessment` (amendment 4, sec. 0.5: pending independent review and the owner's acceptance);
 - `tool`: `{files: [{path, blob_sha256}], workflow: {path, blob_sha256}}`: every file of the tool (the
   entry point, every file under `tools/ledger_coverage/`, including `record_authority.py`) and the
   pinned workflow whose runs may produce an acceptable result (sec. 11, execution identity; sec. 19);
@@ -5187,7 +5288,7 @@ unless marked optional:
 Sources: E-1393, E-1394, E-1395, E-1396, E-1397, E-1398, E-1399, E-1400, E-1401, E-1402, E-1403,
 E-1404, E-1405, E-1406, E-1407, E-1408, E-1409, E-1410, E-1411, E-1412, E-1413, E-1414, E-1415,
 A-115, A-116, A-117, A-024, A-129, OD-1, OD-2, OD-7, OD-23, RD-32. Controls: Z1, Z2, Z3, Z6, Z6b,
-CONFIG-LINT, Z8.
+CONFIG-LINT, Z8, BLOCK-KEY.
 
 **R6.CFG.5** The supported extractor kinds are `json-pointer`; `python-ast-assign` (a module-level
 name bound to a string, a tuple of strings, a dict of strings, or a compiled regex call with a literal
