@@ -1768,3 +1768,5 @@ resetting the work.
 
 A handover authorizes nothing new and changes no scientific status. No handover file is added to the
 repository.
+
+Adopted 2026-11-26 by owner decision (`amaybaum`, #1169 comment 7190776267).
