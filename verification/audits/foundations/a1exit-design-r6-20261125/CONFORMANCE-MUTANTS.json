@@ -246,7 +246,17 @@
   {
    "table": "class.pin",
    "key_path": "blob_sha256",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "class.pin",
+   "key_path": "blob_sha256",
    "violation": "sixty-three-characters"
+  },
+  {
+   "table": "class.pin",
+   "key_path": "blob_sha256",
+   "violation": "sixty-five-characters"
   },
   {
    "table": "class.pin",
@@ -506,7 +516,17 @@
   {
    "table": "invalidated",
    "key_path": "sha256",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "sha256",
    "violation": "sixty-three-characters"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "sha256",
+   "violation": "sixty-five-characters"
   },
   {
    "table": "invalidated",
@@ -641,6 +661,11 @@
   {
    "table": "invalidated.target",
    "key_path": "start_H",
+   "violation": "exponent-5e0"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "start_H",
    "violation": "negative"
   },
   {
@@ -681,7 +706,17 @@
   {
    "table": "invalidated.target",
    "key_path": "old_sha256",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "old_sha256",
    "violation": "sixty-three-characters"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "old_sha256",
+   "violation": "sixty-five-characters"
   },
   {
    "table": "invalidated.target",
@@ -1161,7 +1196,17 @@
   {
    "table": "reassess.edit",
    "key_path": "sha256",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "reassess.edit",
+   "key_path": "sha256",
    "violation": "sixty-three-characters"
+  },
+  {
+   "table": "reassess.edit",
+   "key_path": "sha256",
+   "violation": "sixty-five-characters"
   },
   {
    "table": "reassess.edit",
@@ -1266,7 +1311,17 @@
   {
    "table": "reassess.finding",
    "key_path": "blob_sha256",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "blob_sha256",
    "violation": "sixty-three-characters"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "blob_sha256",
+   "violation": "sixty-five-characters"
   },
   {
    "table": "reassess.finding",
@@ -1646,7 +1701,17 @@
   {
    "table": "reassess.repair",
    "key_path": "commits[0]",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "reassess.repair",
+   "key_path": "commits[0]",
    "violation": "thirty-nine-characters"
+  },
+  {
+   "table": "reassess.repair",
+   "key_path": "commits[0]",
+   "violation": "forty-one-characters"
   },
   {
    "table": "reassess.repair",
@@ -1781,7 +1846,17 @@
   {
    "table": "reassess.repair.entry",
    "key_path": "blob_sha256",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "blob_sha256",
    "violation": "sixty-three-characters"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "blob_sha256",
+   "violation": "sixty-five-characters"
   },
   {
    "table": "reassess.repair.entry",
@@ -1971,7 +2046,17 @@
   {
    "table": "recon.entry",
    "key_path": "side_change_commits[0]",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "side_change_commits[0]",
    "violation": "thirty-nine-characters"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "side_change_commits[0]",
+   "violation": "forty-one-characters"
   },
   {
    "table": "recon.entry",
@@ -2046,7 +2131,17 @@
   {
    "table": "recon.entry",
    "key_path": "m",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "m",
    "violation": "thirty-nine-characters"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "m",
+   "violation": "forty-one-characters"
   },
   {
    "table": "recon.entry",
@@ -2091,7 +2186,17 @@
   {
    "table": "recon.entry",
    "key_path": "m_sha256",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "m_sha256",
    "violation": "sixty-three-characters"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "m_sha256",
+   "violation": "sixty-five-characters"
   },
   {
    "table": "recon.entry",
@@ -2136,7 +2241,17 @@
   {
    "table": "recon.entry",
    "key_path": "l",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "l",
    "violation": "thirty-nine-characters"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "l",
+   "violation": "forty-one-characters"
   },
   {
    "table": "recon.entry",
@@ -2181,7 +2296,17 @@
   {
    "table": "recon.entry",
    "key_path": "l_sha256",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "l_sha256",
    "violation": "sixty-three-characters"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "l_sha256",
+   "violation": "sixty-five-characters"
   },
   {
    "table": "recon.entry",
@@ -2226,7 +2351,17 @@
   {
    "table": "recon.entry",
    "key_path": "x",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "x",
    "violation": "thirty-nine-characters"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "x",
+   "violation": "forty-one-characters"
   },
   {
    "table": "recon.entry",
@@ -2271,7 +2406,17 @@
   {
    "table": "recon.entry",
    "key_path": "x_sha256",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "x_sha256",
    "violation": "sixty-three-characters"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "x_sha256",
+   "violation": "sixty-five-characters"
   },
   {
    "table": "recon.entry",
@@ -2401,7 +2546,17 @@
   {
    "table": "recon.ledger_binding",
    "key_path": "files_entry_sha256",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "files_entry_sha256",
    "violation": "sixty-three-characters"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "files_entry_sha256",
+   "violation": "sixty-five-characters"
   },
   {
    "table": "recon.ledger_binding",
@@ -2441,7 +2596,17 @@
   {
    "table": "recon.ledger_binding",
    "key_path": "splices_sha256",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "splices_sha256",
    "violation": "sixty-three-characters"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "splices_sha256",
+   "violation": "sixty-five-characters"
   },
   {
    "table": "recon.ledger_binding",
@@ -2481,7 +2646,17 @@
   {
    "table": "recon.ledger_binding",
    "key_path": "edit_records_sha256",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "edit_records_sha256",
    "violation": "sixty-three-characters"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "edit_records_sha256",
+   "violation": "sixty-five-characters"
   },
   {
    "table": "recon.ledger_binding",
@@ -2531,6 +2706,11 @@
   {
    "table": "recon.protected",
    "key_path": "start_M",
+   "violation": "exponent-5e0"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "start_M",
    "violation": "negative"
   },
   {
@@ -2567,6 +2747,11 @@
    "table": "recon.protected",
    "key_path": "end_M",
    "violation": "fraction-5.0"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "end_M",
+   "violation": "exponent-5e0"
   },
   {
    "table": "recon.protected",
@@ -2611,7 +2796,17 @@
   {
    "table": "recon.protected",
    "key_path": "sha256",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "sha256",
    "violation": "sixty-three-characters"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "sha256",
+   "violation": "sixty-five-characters"
   },
   {
    "table": "recon.protected",
@@ -2796,7 +2991,17 @@
   {
    "table": "recon.record",
    "key_path": "M",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "M",
    "violation": "thirty-nine-characters"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "M",
+   "violation": "forty-one-characters"
   },
   {
    "table": "recon.record",
@@ -2841,7 +3046,17 @@
   {
    "table": "recon.record",
    "key_path": "X",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "X",
    "violation": "thirty-nine-characters"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "X",
+   "violation": "forty-one-characters"
   },
   {
    "table": "recon.record",
@@ -2886,7 +3101,17 @@
   {
    "table": "recon.record",
    "key_path": "ledger_base",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "ledger_base",
    "violation": "thirty-nine-characters"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "ledger_base",
+   "violation": "forty-one-characters"
   },
   {
    "table": "recon.record",
@@ -3036,6 +3261,11 @@
   {
    "table": "recon.resolution",
    "key_path": "start_M",
+   "violation": "exponent-5e0"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "start_M",
    "violation": "negative"
   },
   {
@@ -3072,6 +3302,11 @@
    "table": "recon.resolution",
    "key_path": "end_M",
    "violation": "fraction-5.0"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "end_M",
+   "violation": "exponent-5e0"
   },
   {
    "table": "recon.resolution",
@@ -3116,7 +3351,17 @@
   {
    "table": "recon.resolution",
    "key_path": "sha256",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "sha256",
    "violation": "sixty-three-characters"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "sha256",
+   "violation": "sixty-five-characters"
   },
   {
    "table": "recon.resolution",
@@ -3165,6 +3410,16 @@
   },
   {
    "table": "recon.resolution",
+   "key_path": "resolved",
+   "violation": "out-of-alphabet-character"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "resolved",
+   "violation": "non-zero-padding-bits"
+  },
+  {
+   "table": "recon.resolution",
    "key_path": "resolved_sha256",
    "violation": "required-key-removed"
   },
@@ -3201,7 +3456,17 @@
   {
    "table": "recon.resolution",
    "key_path": "resolved_sha256",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "resolved_sha256",
    "violation": "sixty-three-characters"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "resolved_sha256",
+   "violation": "sixty-five-characters"
   },
   {
    "table": "recon.resolution",
@@ -3501,6 +3766,11 @@
   {
    "table": "recon.splice",
    "key_path": "start_H",
+   "violation": "exponent-5e0"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "start_H",
    "violation": "negative"
   },
   {
@@ -3541,6 +3811,11 @@
   {
    "table": "recon.splice",
    "key_path": "end_H",
+   "violation": "exponent-5e0"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "end_H",
    "violation": "negative"
   },
   {
@@ -3581,6 +3856,11 @@
   {
    "table": "recon.splice",
    "key_path": "start_M",
+   "violation": "exponent-5e0"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "start_M",
    "violation": "negative"
   },
   {
@@ -3617,6 +3897,11 @@
    "table": "recon.splice",
    "key_path": "end_M",
    "violation": "fraction-5.0"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "end_M",
+   "violation": "exponent-5e0"
   },
   {
    "table": "recon.splice",
@@ -3661,7 +3946,17 @@
   {
    "table": "recon.splice",
    "key_path": "new_sha256",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "new_sha256",
    "violation": "sixty-three-characters"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "new_sha256",
+   "violation": "sixty-five-characters"
   },
   {
    "table": "recon.splice",
@@ -3806,7 +4101,17 @@
   {
    "table": "reference",
    "key_path": "blob_sha256",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "reference",
+   "key_path": "blob_sha256",
    "violation": "sixty-three-characters"
+  },
+  {
+   "table": "reference",
+   "key_path": "blob_sha256",
+   "violation": "sixty-five-characters"
   },
   {
    "table": "reference",
@@ -3856,6 +4161,11 @@
   {
    "table": "review.confirms",
    "key_path": "start_M",
+   "violation": "exponent-5e0"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "start_M",
    "violation": "negative"
   },
   {
@@ -3892,6 +4202,11 @@
    "table": "review.confirms",
    "key_path": "end_M",
    "violation": "fraction-5.0"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "end_M",
+   "violation": "exponent-5e0"
   },
   {
    "table": "review.confirms",
@@ -3936,7 +4251,17 @@
   {
    "table": "review.confirms",
    "key_path": "sha256",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "sha256",
    "violation": "sixty-three-characters"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "sha256",
+   "violation": "sixty-five-characters"
   },
   {
    "table": "review.confirms",
@@ -3981,7 +4306,17 @@
   {
    "table": "review.confirms",
    "key_path": "resolved_sha256",
+   "violation": "non-hex-character"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "resolved_sha256",
    "violation": "sixty-three-characters"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "resolved_sha256",
+   "violation": "sixty-five-characters"
   },
   {
    "table": "review.confirms",

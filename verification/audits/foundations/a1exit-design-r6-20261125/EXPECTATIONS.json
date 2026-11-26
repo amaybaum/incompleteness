@@ -22821,6 +22821,38 @@
         ]
        }
       ]
+     },
+     {
+      "case": "a finding resolved at X by a context adjudication, on a line that M's changes move with its relevant context unchanged: matched by its key, and the adjudication's condition holds on the landing content, so it keeps its resolution (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid",
+         "context-meaning-unverified"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: a hit resolved at X by a context adjudication, whose context M changes while the matched sentence stays the same: the adjudication's condition fails on the landing content and the resolution is not preserved",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "reconciled-state"
+       }
+      ]
+     },
+     {
+      "case": "countercase: a matched finding whose resolving record's condition cannot be established on the landing content (its context cannot be computed there): it fails closed",
+      "outcome": "FAIL",
+      "classes_include": [
+       "context-meaning-unverified"
+      ]
      }
     ]
    },
@@ -24969,7 +25001,7 @@
       ]
      },
      {
-      "case": "countercase (conformance mutants): each mutant of CONFORMANCE-MUTANTS.json (sha256 069de1b7bb4b2ca47a3ca58d4c20906698c2276752b74e313d605a27d6494ab5), applied (R6.RECON.29) to the positive record of its kind, run separately and recorded with its id (table, key path, violation); the recorded ids equal the list",
+      "case": "countercase (conformance mutants): each mutant of CONFORMANCE-MUTANTS.json (sha256 f26a777edcca5110b33a8b8f35ccaa8c93d776fa065e462e159bc27da24bf477), applied (R6.RECON.29) to the positive record of its kind, run separately and recorded with its id (table, key path, violation); the recorded ids equal the list",
       "outcome": "FAIL",
       "classes_include": [
        "record-invalid"

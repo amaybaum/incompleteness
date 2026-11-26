@@ -298,15 +298,16 @@ JSON_TYPES = ('null', 'boolean', 'number', 'string', 'array', 'object')
 STRINGISH = ('lit', 'enum', 'str', 'nstr', 'commit', 'blob', 'sha256', 'path', 'ident', 'time', 'b64')
 # the near-miss variants of each encoding, all of the correct JSON type (R6.RECON.29)
 NEAR = {
-    'commit': ['upper-case', 'thirty-nine-characters', 'trailing-newline'],
-    'blob': ['upper-case', 'thirty-nine-characters', 'trailing-newline'],
-    'sha256': ['upper-case', 'sixty-three-characters', 'trailing-newline'],
-    'offset': ['fraction-5.0', 'negative'],
+    'commit': ['upper-case', 'non-hex-character', 'thirty-nine-characters', 'forty-one-characters', 'trailing-newline'],
+    'blob': ['upper-case', 'non-hex-character', 'thirty-nine-characters', 'forty-one-characters', 'trailing-newline'],
+    'sha256': ['upper-case', 'non-hex-character', 'sixty-three-characters', 'sixty-five-characters',
+               'trailing-newline'],
+    'offset': ['fraction-5.0', 'exponent-5e0', 'negative'],
     'int': ['fraction-5.0'],
     'path': ['leading-slash', 'trailing-slash', 'empty-component', 'dot-component', 'dot-dot-component'],
     'ident': ['url'],
     'time': ['no-zone', 'space-separator'],
-    'b64': ['unpadded', 'line-break'],
+    'b64': ['unpadded', 'line-break', 'out-of-alphabet-character', 'non-zero-padding-bits'],
     'nstr': ['empty'],
     'lit': ['trailing-space', 'other-case'],
     'enum': ['unlisted-value'],
@@ -714,7 +715,7 @@ for _r, _ in ROWS:
 for _q, _ids in EXTRA_CONTROLS.items():
     REQ_CONTROLS.setdefault(_q, []).extend(_ids)
 NEW_REQS = ['R6.RECON.28', 'R6.RECON.29', 'R6.RECON.30', 'R6.RECON.31', 'R6.RECON.32', 'R6.RECON.33', 'R6.RECON.34',
-            'R6.RECON.35', 'R6.RECON.36', 'R6.GATE.17']
+            'R6.RECON.35', 'R6.RECON.36', 'R6.GATE.17', 'OBL-29']
 TOUCHED = ['R6.RECON.26', 'R6.RECON.25', 'R6.RECON.24', 'R6.RECON.27', 'R6.RECON.21', 'R6.RECON.2', 'R6.RECON.10',
            'R6.REC.2', 'R6.REC.6', 'R6.REC.7', 'R6.REC.17', 'R6.CFG.4', 'R6.ADAPT.2', 'R6.TREE.5', 'R6.OUT.18',
            'R6.CTX.7', 'R6.HIT.4', 'R6.RECON.23', 'R6.GATE.3']
@@ -959,15 +960,18 @@ and the path the record would cover stays `base-drift` (R6.TREE.7). A schema fai
 **Conformance mutants.** From the same single definition of the key tables, the generator of this design writes the
 list `CONFORMANCE-MUTANTS.json` by a fixed rule: for each table, each required key removed and one unlisted key added;
 for each key, one value of each JSON type the key does not admit; and for each encoding of the table above, its named
-near-miss variants with the correct JSON type (upper case, one character short and a trailing newline for the
-hexadecimal ids; `5.0` and a negative value for an offset; a leading or trailing `/`, an empty, `.` or `..`
-component for a path; a URL for an identity string; no zone or a space for a time; unpadded or broken base64; the empty
+near-miss variants with the correct JSON type (upper case, a non-hexadecimal character, one character short, one
+character too long and a trailing newline for the hexadecimal ids; `5.0`, `5e0` and a negative value for an offset; a leading or trailing `/`, an empty, `.` or `..`
+component for a path; a URL for an identity string; no zone or a space for a time; unpadded base64, a line break, a character outside the alphabet and non-zero padding bits for canonical base64; the empty
 string for a non-empty string; a trailing space or another case for a literal; an unlisted value for an enumeration;
 an empty array where one element is required). A nested table is mutated at one occurrence in its kind's positive
 record. Each mutant has the id `(table, key path, violation)`. For every mutant the tool's result carries a
-`record-invalid` item naming that key path and reports no condition RC1-RC14 for the mutant record; the gate checks
+`record-invalid` item naming that key path, whose subject is the mutated record itself (for a review record, the review
+record's path, not the record it reviews), and reports no condition RC1-RC14 for the mutant record; the gate checks
 that the mutant ids its records carry equal the list. The list is also the check that any machine schema the tool
-carries agrees with the tables: no other comparison is made.
+carries agrees with the tables: no other comparison is made. The rule omits the conditional-presence rules (`invalidated`
+only with `invalidates`, `replaces` only with kind `widening`, `confirms` only and always on a resolution item); named
+cases cover them: FINDING-FORM, REVIEW-SCHEMA and RESOLUTION-SCHEMA.
 Sources: PR #1593 comments 7189621405, 7190234470 and 7190609504. Controls: RECON-SCHEMA, CANON-JSON.
 
 **R6.RECON.30** **`oi-reconciliation/2`: fields, item ids and acceptance** %(mark)s. The fields that
@@ -1117,11 +1121,13 @@ class (a) outside the plan's record directory. *Identity.* Record identity is th
 byte-identical files at two paths are two records, for R6.RECON.2 (e) and for findings alike. *Review location.* The
 review records of a reconciliation record lie in its directory (R6.RECON.1, R6.RECON.2 (d)), and a review elsewhere is
 not its review for record lint; detection reads review records wherever they lie among the selected files, and one
-elsewhere that carries a finding counts, as a form failure. *Residuals.* Three changes to a landed finding record are
-not caught by detection: its deletion from `main`; leading bytes that do not begin a JSON value added to it (a stray
-character, a comment line, a NUL); and its storage under a prefix of the tool-landing class, where an unpinned file is
-REVIEW_REQUIRED `side-change-unclassified` at the run, visible but not blocking. Each needs a landed change to `main`
-under the owner's merge approval; they are tracked together in Issue #1598.
+elsewhere that carries a finding counts, as a form failure. *Removal after `F`.* A finding record that lands on
+`main` after `F`, and that no scanned `REV` holds, is seen only while it is present, unchanged, in `M`'s tree; any
+landed change made before `M` is taken that removes the finding from the current content escapes detection. This is
+the open correctness defect OBL-29, which blocks the A1 retirement execution; it is not an accepted residual.
+*Tool-landing prefixes.* A file under a prefix of the tool-landing class is outside detection; a file there that the
+tool-landing class does not pin is REVIEW_REQUIRED `side-change-unclassified` at the run (R6.TREE.5), visible but not
+blocking.
 Sources: PR #1593 comments 7189621405, 7190234470, 7190255132 (D1) and 7190609504 (B). Controls: SCAN-PARSE.
 
 **R6.RECON.36** **Result fields of the reconciliation route** %(mark)s. An op C result with `M` carries:
@@ -1154,14 +1160,25 @@ RECON_ENUM_COUNTER = {'case': 'countercase: the same result with a dispositions 
 
 RECON23_OLD = ('by fingerprint,\nthe tree field excluded, counting multiplicities: a fingerprint found k times at the landing and j times at '
                '`X` gives\nk - j new findings when k > j.')
-RECON23_NEW = ('by a matching key %s, not by\nfingerprint (an item\'s fingerprint includes its subject\'s line number, so a line '
-               'that `M`\'s changes move would\nappear new): for an item with a file and line, the key is its class, its file, its '
-               '`rule_id` or, without one, its\nprofiles, and the sha256 of the text it matched on (its line, or for a '
-               'sentence-level item its sentence),\nthe line number, the segment and the tree excluded; for an item without '
-               'a line, the key is its class, its\nsubject and its fingerprint. Keys are counted with multiplicity: a key '
-               'found k times at the landing and j\ntimes at `X` gives k - j new findings when k > j, so a line that `M` '
-               'moves gives none and a second copy of\na line gives one; when several new findings share a key, each is '
-               'reported, at the landing\'s positions of the\nlast k - j occurrences in file order.' % MARK)
+RECON23_NEW = ('by identity and validity, which are two separate questions %s. *Identity.* A finding is\n'
+               'identified by its content, not by its fingerprint (which includes its subject\'s line number): for an item '
+               'with a\nfile and line, the key is its class, its file, its `rule_id` or, without one, its profiles, and the '
+               'sha256 of\nthe text it matched on, that is, the line\'s bytes without its terminating LF (a CR before that LF '
+               'is part of\nthe line, and a last line without LF is hashed as it stands) or, for a sentence-level item, the '
+               'bytes of its\nsentence as splitter version 2 delimits it; the line number, the segment and the tree are '
+               'excluded. For an item\nwithout a line, the key is its class, its subject and its fingerprint. Keys are '
+               'counted with multiplicity: a\nkey found k times at the landing and j times at `X` gives k - j new findings '
+               'when k > j, so a line that `M`\nmoves is not new and a second copy of a line is; when several new findings '
+               'share a key, each is reported, at\nthe landing\'s positions of the last k - j occurrences in file order. '
+               '*Validity.* A finding matched by its key\nkeeps the resolution it had at `X` only if the resolving record\'s '
+               'own condition holds when evaluated on the\nlanding content: for a context adjudication, both its context '
+               'hashes (R6.CTX.7); for an HP adjudication or a hit\nclassification, its line sha256 and, where it binds '
+               'one, its context; for an allow rule, its fingerprint\nconditions (R6.RULE.4). A matched finding whose '
+               'resolving record\'s condition does not hold at the landing is\nresolved anew there, as a new finding is, '
+               'and counts as new unless records and rules at the landing resolve\nit. A matched finding whose resolving '
+               'record\'s condition cannot be established on the landing content (for\nexample a context that cannot be '
+               'computed there) is FAIL `context-meaning-unverified`, never a silent pass.\nMoving a finding does not by '
+               'itself make it new, and keeping its wording does not by itself keep its meaning.' % MARK)
 GATE3_OLD = ('  - `<unit>[k=v,...]` with unit `items`, `lines`, `sentences`, `hits` or `findings`, counted over the\n    '
              'result. Filter keys are item fields (`obligation`, `class`, `decision`, `rule_id`, `profile`,\n    `file`, '
              '`subject`, `segment`, `state`, `path`, `literal`, `only_profile`). `|` separates\n    alternatives.')
@@ -1194,6 +1211,37 @@ defect or a verification failure is never resolved by editing the expectation. A
 information: it confers no status, and the row keeps the status the gate computed (R6.GATE.9).
 Sources: owner decision of 2026-11-26 (#1169 comment 7190776267, item 3).
 """ % MARK
+
+OBL29_ROW = ('| OBL-29 | the A1 retirement execution | a reviewed and adopted design change under which no removal of a landed '
+             'finding record can let a blocked plan proceed, with its controls holding under the gate (Issue #1598) | '
+             'no cycle |')
+OBL29 = """
+**OBL-29** **Removal of a landed finding record** %s. A finding record (R6.RECON.26) that lands on `main`
+after `F`, and that no `REV` the run scans holds, is seen only while it is present, unchanged, in `M`'s tree
+(R6.RECON.35). Any landed change made before `M` is taken that removes the finding from the current content escapes
+detection: its deletion; a rewrite (the verdict changed to `accept`, `invalidated` removed, or the entry removed); a
+move out of `verification/audits/`; its replacement by a non-regular entry; or bytes prepended so that it no longer
+begins a JSON value. A finding still present in `F`'s tree or in a scanned `REV` tree is seen. Under the owner's
+criterion quoted in Issue #1598, "If deletion can allow an invalidated retirement plan to proceed, it is a genuine
+correctness defect that must be resolved before retirement.", this is an open correctness defect of this design, not an
+accepted residual. The procedural guards of AGENTS.md sec. A.50 item 3 and sec. A.46 item 6 are interim controls only.
+Gates: the A1 retirement execution. Discharged by: a reviewed and adopted design change under which no such removal
+can let a blocked plan proceed, with its controls holding under the gate. Sources: PR #1593 comment 7190966287 (D1);
+Issue #1598.
+""" % MARK
+RECON_TRIAL_R5 = [
+    {'case': 'a finding resolved at X by a context adjudication, on a line that M\'s changes move with its relevant context '
+             'unchanged: matched by its key, and the adjudication\'s condition holds on the landing content, so it keeps '
+             'its resolution (positive)', 'outcome': 'ANY',
+     'invariants': [{'not_class': ['base-drift', 'record-invalid', 'context-meaning-unverified']}]},
+    {'case': 'countercase: a hit resolved at X by a context adjudication, whose context M changes while the matched '
+             'sentence stays the same: the adjudication\'s condition fails on the landing content and the resolution is '
+             'not preserved', 'outcome': 'FAIL', 'classes_include': ['base-drift'],
+     'invariants': [{'failed_conditions_include': 'reconciled-state'}]},
+    {'case': 'countercase: a matched finding whose resolving record\'s condition cannot be established on the landing '
+             'content (its context cannot be computed there): it fails closed', 'outcome': 'FAIL',
+     'classes_include': ['context-meaning-unverified']},
+]
 RECON_TRIAL_CASE = {'case': 'a finding at X on a line that M\'s changes move (lines inserted above it): matched at the '
                             'landing by its key, the line number excluded; no new finding (positive)',
                     'outcome': 'ANY', 'invariants': [{'not_class': ['base-drift', 'record-invalid']}]}
@@ -1229,6 +1277,9 @@ DECLARED_DIFFS = [
     ('RECON-ENUM', ('expect', 'cases', 4), MISSING, RECON_ENUM_COUNTER),
     ('L2', ('expect', 'invariants', 0, 'all'), 'lines[rule=W2]', 'lines[rule_id=W2]'),
     ('RECON-TRIAL', ('expect', 'cases', 7), MISSING, RECON_TRIAL_CASE),
+    ('RECON-TRIAL', ('expect', 'cases', 8), MISSING, RECON_TRIAL_R5[0]),
+    ('RECON-TRIAL', ('expect', 'cases', 9), MISSING, RECON_TRIAL_R5[1]),
+    ('RECON-TRIAL', ('expect', 'cases', 10), MISSING, RECON_TRIAL_R5[2]),
     ('S11-2a', ('expect', 'sites', 0, 'added_relative_to_unmutated'), MISSING,
      {'items[class=unclassified,subject=$new_line]': 1}),
     ('RTL2-BIND', ('expect', 'cases', 6, 'case'), RTL2_OLD, RTL2_NEW),
@@ -1469,7 +1520,7 @@ AUDIT_MAP = [
     ('D.4', 'supersedes resolution at or before `F`', 'R6.RECON.33: the anchor per admission mode, the walk to the root stated in R6.REC.17, a revised plan on a new `H` in a new record directory; SUPERSEDES-RESOLVE'),
     ('D.5', 'direction of "reachable through `supersedes`"', 'R6.RECON.33 and R6.RECON.26 (iii): the finding\'s configuration lies on the run configuration\'s chain'),
     ('D.6', '`checks[].default_for`', 'R6.RECON.33: an unknown field (R6.VALID.2), no default check; CONFIG-REFS'),
-    ('E.1', 'class record keys', 'R6.RECON.34: `classes[{id, prefixes, pins[{path, git_blob, blob_sha256}]}]`, both hashes required, no `paths` form; CLASS-SCHEMA'),
+    ('E.1', 'class record keys', 'R6.RECON.34: `classes[{id, prefixes, pins[{path, blob_sha256}]}]` (owner choice 21: `git_blob` dropped), no `paths` form; CLASS-SCHEMA'),
     ('E.2', 'class record widening', 'R6.RECON.34: an added pin or prefix or changed blob needs a widening review (owner choice); CLASS-SCHEMA'),
     ('F.1', 'file selection', 'R6.RECON.35: no suffix filter; tool behaviour (`.json` filter) contradicts the design; SCAN-PARSE'),
     ('F.2', 'parse failure', 'R6.RECON.35: every JSON-shaped file, UTF-8 or UTF-16, escapes resolved, near-miss schemas; a malformed finding blocks at run level; SCAN-PARSE'),
@@ -1657,6 +1708,33 @@ R4_MAP = [
            'and RT-DR3W are corrected to `rule_id` and `alternatives` (declared, values unchanged).'),
 ]
 
+R5_MAP = [
+    ('focused 1 / audit C1', 'Owner decision (#1169 comment 7190979974, option (b)): R6.RECON.23 separates identity from '
+     'validity. Identity is the content key (line number excluded); a matched finding keeps its `X` resolution only if the '
+     'resolving record\'s own condition holds on the landing content, is resolved anew otherwise, and is FAIL '
+     '`context-meaning-unverified` when the condition cannot be established. RECON-TRIAL gains the owner\'s three '
+     'controls (moved line with unchanged context, positive; changed context with the same sentence, FAIL `base-drift` '
+     '`reconciled-state`; unverifiable condition, FAIL `context-meaning-unverified`); the moved-line positive case and '
+     'the second-copy countercase stay.'),
+    ('audit D1', 'R6.RECON.35 and new OBL-29 (sec. 32): the general case (any landed change after `F` that removes the '
+     'finding from the current content before `M`: deletion, rewriting, a move out of `verification/audits/`, a '
+     'non-regular entry, prepended bytes), limited to finding records landed after `F` and absent from every scanned '
+     '`REV`, stated as an open correctness defect blocking the A1 retirement execution under the owner\'s criterion '
+     'quoted in #1598; AGENTS.md sec. A.50 item 3 and sec. A.46 item 6 are interim controls only. The tool-landing-prefix '
+     'point is a separate statement.'),
+    ('C-n1', 'R6.RECON.23: the hashed line excludes its terminating LF; a CR before it is part of the line; a last line '
+             'without LF is hashed as it stands.'),
+    ('C-n2', 'AMENDMENT-6 sec. 4 row E.1 agrees with owner choice 21 (`git_blob` dropped).'),
+    ('A-n1', 'R6.RECON.29: the mutant rule omits the conditional-presence rules; FINDING-FORM, REVIEW-SCHEMA and '
+             'RESOLUTION-SCHEMA cover them.'),
+    ('A-n2', 'Near-miss variants added: a non-hexadecimal character and one character too long for hexadecimal ids; '
+             '`5e0` for offsets; an out-of-alphabet character and non-zero padding bits for canonical base64.'),
+    ('A-n3', 'R6.RECON.29: the subject of a mutant\'s `record-invalid` item is the mutated record (for a review record, '
+             'the review record\'s path).'),
+    ('focused 2', 'REQUIREMENTS: RECON-SCHEMA is appended to the controls of R6.RECON.31 and R6.RECON.34, the r3 order '
+                  'kept as a prefix.'),
+]
+
 
 def note(owner):
     out = ['', '### 0.7 Amendment 6 of 2026-11-26', '']
@@ -1676,7 +1754,9 @@ def note(owner):
             '#1593 comments 7190255132 and 7190234470), states each definition once, and removes cases and text that '
             'both reviewers found to add no protection; and it makes the corrections of the two final checks (PR #1593 '
             'comments 7190624085 and 7190609504), states the matching key of R6.RECON.23 and the count grammar of '
-            'R6.GATE.3, and adds R6.GATE.17, under which a failing row may stay unresolved. Each resolution is a proposal for the owner\'s decision at adoption '
+            'R6.GATE.3, and adds R6.GATE.17, under which a failing row may stay unresolved; and it separates the identity of a finding from '
+            'the validity of its resolution (R6.RECON.23) and states the removal of a landed finding record as the open '
+            'defect OBL-29. Each resolution is a proposal for the owner\'s decision at adoption '
             '(AMENDMENT-6.md gives the options and lists the owner choices). None lets a finding be lost or lifted by '
             'rewording: a finding is detected before lint, every form failure blocks rather than lapses, the '
             'path-and-old-bytes match binds every configuration, and a migration only adds edits. Where the tool '
@@ -1864,6 +1944,12 @@ def amend_design(t, owner):
     t = once(t, "Sources: OD-18, Q2. Controls: RT-L2, GATE-13, GATE-14, GATE-15, GATE-19, RTL2-BIND, RECORD-BASE.\n",
              "Sources: OD-18, Q2. Controls: RT-L2, GATE-13, GATE-14, GATE-15, GATE-19, RTL2-BIND, RECORD-BASE.\n"
              + GATE17, 'R6.GATE.17')
+    # OBL-29: removal of a landed finding record, an open correctness defect (sec. 32)
+    t = once(t, "| OBL-28 | the tool's landing | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to "
+                "confirm | no cycle |",
+             "| OBL-28 | the tool's landing | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to "
+             "confirm | no cycle |\n" + OBL29_ROW, 'OBL-29 row')
+    t = once(t, "RE-32, RE-33, OC-3, OC-4.\n\n***", "RE-32, RE-33, OC-3, OC-4.\n" + OBL29 + "\n***", 'OBL-29')
     # the new requirements
     t = once(t, "\n***\n\n## 24. Engine, purity scope (Z9), generality",
              NEW_REQ28 % {'mark': MARK}
@@ -1972,6 +2058,11 @@ def row_diffs(a, b):
 
 
 def amend_requirements(R):
+    for q in ('R6.RECON.31', 'R6.RECON.34'):
+        ids = REQ_CONTROLS[q]
+        if 'RECON-SCHEMA' in ids:
+            ids.remove('RECON-SCHEMA')
+            ids.append('RECON-SCHEMA')
     R = copy.deepcopy(R)
     by = {q['id']: q for q in R}
     for rid, ctl in sorted(REQ_CONTROLS.items()):
@@ -1987,7 +2078,7 @@ def amend_requirements(R):
     sources = {'R6.RECON.28': ['#1169 comment 7187418279', 'PR #1593 comment 7189446310']}
     new = []
     for rid in NEW_REQS:
-        if rid == 'R6.GATE.17':
+        if rid in ('R6.GATE.17', 'OBL-29'):
             continue
         new.append({'id': rid, 'section': 'RECON', 'section_number': 23, 'kind': 'testable',
                     'sources': sources.get(rid, ['#1169 comment 7189470338', 'PR #1593 comment 7189621405']),
@@ -1998,7 +2089,10 @@ def amend_requirements(R):
     g17 = {'id': 'R6.GATE.17', 'section': 'GATE', 'section_number': 16, 'kind': 'governance',
            'sources': ['#1169 comment 7190776267'], 'controls': [], 'verification': ['review'], 'open': [],
            'pending_owner_confirmation': [PENDING], 'owner_decision': []}
-    return R[:j + 1] + [g17] + R[j + 1:]
+    obl = {'id': 'OBL-29', 'section': 'OBL', 'section_number': 32, 'kind': 'obligation',
+           'sources': ['PR #1593 comment 7190966287', 'Issue #1598'], 'controls': [], 'verification': ['OBL-29'],
+           'open': [], 'pending_owner_confirmation': [PENDING], 'owner_decision': []}
+    return R[:j + 1] + [g17] + R[j + 1:] + [obl]
 
 
 def vocabulary(t):
@@ -2148,6 +2242,9 @@ def self_checks(E0, E, R0, R, t, base_texts):
         problems.append('audit map incomplete')
     if [x[0] for x in RANKED_MAP] != [str(i) for i in range(1, 12)]:
         problems.append('ranked map incomplete')
+    if [x[0] for x in R5_MAP] != ['focused 1 / audit C1', 'audit D1', 'C-n1', 'C-n2', 'A-n1', 'A-n2', 'A-n3',
+                                  'focused 2']:
+        problems.append('r5 map incomplete')
     if [x[0] for x in DELTA_MAP] != ['D%d' % i for i in range(1, 8)]:
         problems.append('delta review map incomplete')
     if [x[0] for x in FOLLOWUP_MAP] != ([str(i) for i in range(1, 14)] + ['S1.%d' % i for i in range(1, 8)] + ['S2']
@@ -2177,14 +2274,16 @@ def change_record(owner, outs, gen_sha, owner_sha, totals):
     lines = ['# r6 amendment 6: change record', '',
              'Owner directions, quoted in DESIGN-r6.md sec. 0.7: %s. Generated by generator-amendment6/amend6.py '
              '(sha256 %s) from the amendment-5 outputs (amendment 5 r2, e0706a4b, adopted) and '
-             'generator-amendment6/owner-decisions-amendment6.json (sha256 %s). This is r4. r3, the last general revision, '
+             'generator-amendment6/owner-decisions-amendment6.json (sha256 %s). This is r5, correctness corrections only. r3, the last general revision, '
              'it answers the delta review of r2 (PR #1593 comment 7190255132, D1 to D7) and the completeness-audit '
              'follow-up (PR #1593 comment 7190234470, findings 1 to 13 and section S), and removes complexity that '
              'both reviewers agree gives no protection. It keeps the answers of r2 to the first review (PR #1593 '
              'comment 7189446310), items B1 and B2, the completeness audit (PR #1593 comment 7189621405) and the '
              'amendment 5 nits. r4 makes only the corrections of the two final checks of r3 (PR #1593 comments 7190624085 '
              'and 7190609504), the owner choice on `git_blob`, and the tool writer\'s two defects (R6.RECON.23 '
-             'matching; R6.GATE.3 count grammar). Every resolution is a proposal; the choice is the owner\'s at adoption.'
+             'matching; R6.GATE.3 count grammar). r5 makes only the corrections of the final reviews of r4 (PR #1593 comments '
+             '7190950956 and 7190966287): R6.RECON.23 as the owner decided (#1169 comment 7190979974), OBL-29, and '
+             'their nits. Every resolution is a proposal; the choice is the owner\'s at adoption.'
              % ('; '.join('%s, %s (%s), %s' % (d['author'], d['time'], d['record'], d['item'])
                           for d in owner['decisions']), gen_sha, owner_sha), '',
              'Safety rule for every point: no reading may let a category-3 finding be lost or lifted by rewording, and '
@@ -2197,8 +2296,9 @@ def change_record(owner, outs, gen_sha, owner_sha, totals):
              '| amendment 5 r2 (base) | %d | | | %d | |' % (totals['base_rows'], totals['base_reqs']),
              '| amendment 6 r2 (319e9bbf) | 621 | 17 | 123 | 443 | 9 |',
              '| amendment 6 r3 (c6df73dd) | 619 | 15 | 134 | 443 | 9 |',
-             '| amendment 6 r4 | %d | %d | %d | %d | %d |' % (totals['rows'], nr, nc, totals['reqs'], len(NEW_REQS)), '',
-             'r4 generates %d conformance mutants into CONFORMANCE-MUTANTS.json, each an identifiable case of the '
+             '| amendment 6 r4 (d92673a5) | 619 | 15 | 142 | 444 | 10 |',
+             '| amendment 6 r5 | %d | %d | %d | %d | %d |' % (totals['rows'], nr, nc, totals['reqs'], len(NEW_REQS)), '',
+             'r5 generates %d conformance mutants into CONFORMANCE-MUTANTS.json, each an identifiable case of the '
              'RECON-SCHEMA mutant countercase.' % len(mutants()), '',
              'r3 merges RESULT-FIELDS into RECON-ENUM (two cases added there) and WIDENING-ITEMS into REVIEW-SCHEMA, '
              'collapses the individual schema violations of RECON-SCHEMA into one generic conformance case, removes '
@@ -2234,6 +2334,9 @@ def change_record(owner, outs, gen_sha, owner_sha, totals):
               'line once at the line where a match begins, and the 93 count every line a sentence spans; a runner whose '
               'items put a sentence-level match on its sentence\'s start line instead reports 87, which is a conformance '
               'difference of the items\' `line` field, not of the expectation.', '']
+    lines += ['## 2e. Final reviews of r4 (PR #1593 comments 7190950956 and 7190966287) and the owner\'s decision on '
+              'R6.RECON.23 (#1169 comment 7190979974)', '', '| Item | Disposition |', '|---|---|']
+    lines += ['| %s | %s |' % (k, v) for k, v in R5_MAP] + ['']
     lines += ['## 3. Items B (tool writer)', '']
     for k, title, opts, rec in B_MAP:
         lines += ['### %s. %s' % (k, title), '', 'Options:', ''] + ['- ' + o for o in opts] + ['', rec, '']

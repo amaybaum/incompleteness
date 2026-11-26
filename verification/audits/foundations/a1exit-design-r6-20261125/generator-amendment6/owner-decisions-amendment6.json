@@ -77,6 +77,23 @@
     "One small refinement: amendment 6 should allow an unresolved classification rather than forcing every failing row into one of the three proposed categories before sufficient evidence exists.",
     null
    ]
+  },
+  {
+   "author": "amaybaum",
+   "time": "2026-11-26T11:38Z (as received)",
+   "record": "#1169 comment 7190979974",
+   "relayed_by": "coordinating session",
+   "item": "item 1 and its closing principle",
+   "quotes": [
+    null,
+    "Prefer option (b): a matched finding retains its previous resolution only if the resolving record's condition is verified against the landing content. If that condition cannot be established, fail with `context-meaning-unverified`.",
+    "Include controls demonstrating that:\n- Moving an unchanged finding without changing its relevant context preserves its valid resolution.\n- Changing its relevant context while preserving its sentence does not silently preserve its resolution.\n- An unverifiable resolution condition fails closed.",
+    null,
+    "Preserve all previously corrected expectation values unless a specific correctness defect requires changing them.",
+    null,
+    "The central principle is that finding identity and resolution validity are two separate questions. Moving a finding does not necessarily make it new, and preserving its wording does not necessarily preserve its meaning.",
+    null
+   ]
   }
  ]
 }

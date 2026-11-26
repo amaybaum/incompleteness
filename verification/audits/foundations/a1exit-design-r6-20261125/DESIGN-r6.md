@@ -663,7 +663,28 @@ Owner direction at #1169 comment 7190776267 (amaybaum, 2026-11-26T11:28Z (as rec
 >
 > [...]
 
-Amendment 6 resolves the schema ambiguities of category 3 that the tool writer raised while implementing amendment 4 and one expectation conflict; answers the independent review of its first draft (PR #1593 comment 7189446310); resolves two further ambiguities, the retained-site line of RC14 (b) and the resolution schema of R6.RECON.24; and states the schema contract of the reconciliation record kinds that the owner's completeness audit (PR #1593 comment 7189621405) found stated by meaning only (sec. 23.1, R6.RECON.29 to R6.RECON.36, one key table per kind); it then answers the reviews of its second draft (PR #1593 comments 7190255132 and 7190234470), states each definition once, and removes cases and text that both reviewers found to add no protection; and it makes the corrections of the two final checks (PR #1593 comments 7190624085 and 7190609504), states the matching key of R6.RECON.23 and the count grammar of R6.GATE.3, and adds R6.GATE.17, under which a failing row may stay unresolved. Each resolution is a proposal for the owner's decision at adoption (AMENDMENT-6.md gives the options and lists the owner choices). None lets a finding be lost or lifted by rewording: a finding is detected before lint, every form failure blocks rather than lapses, the path-and-old-bytes match binds every configuration, and a migration only adds edits. Where the tool accepts input the design refuses (a missing `changes_decisions_on_X`, non-integer offsets, a suffix filter on the scanned set, skipped parse failures, ignored record kinds), the design rule is stated and a countercontrol row is added; no requirement is weakened to match the tool.
+Owner direction at #1169 comment 7190979974 (amaybaum, 2026-11-26T11:38Z (as received), relayed by the coordinating session); excerpt of item 1 and its closing principle (each line prefixed by "> "; "[...]" marks text left out):
+
+> [...]
+>
+> Prefer option (b): a matched finding retains its previous resolution only if the resolving record's condition is verified against the landing content. If that condition cannot be established, fail with `context-meaning-unverified`.
+>
+> Include controls demonstrating that:
+> - Moving an unchanged finding without changing its relevant context preserves its valid resolution.
+> - Changing its relevant context while preserving its sentence does not silently preserve its resolution.
+> - An unverifiable resolution condition fails closed.
+>
+> [...]
+>
+> Preserve all previously corrected expectation values unless a specific correctness defect requires changing them.
+>
+> [...]
+>
+> The central principle is that finding identity and resolution validity are two separate questions. Moving a finding does not necessarily make it new, and preserving its wording does not necessarily preserve its meaning.
+>
+> [...]
+
+Amendment 6 resolves the schema ambiguities of category 3 that the tool writer raised while implementing amendment 4 and one expectation conflict; answers the independent review of its first draft (PR #1593 comment 7189446310); resolves two further ambiguities, the retained-site line of RC14 (b) and the resolution schema of R6.RECON.24; and states the schema contract of the reconciliation record kinds that the owner's completeness audit (PR #1593 comment 7189621405) found stated by meaning only (sec. 23.1, R6.RECON.29 to R6.RECON.36, one key table per kind); it then answers the reviews of its second draft (PR #1593 comments 7190255132 and 7190234470), states each definition once, and removes cases and text that both reviewers found to add no protection; and it makes the corrections of the two final checks (PR #1593 comments 7190624085 and 7190609504), states the matching key of R6.RECON.23 and the count grammar of R6.GATE.3, and adds R6.GATE.17, under which a failing row may stay unresolved; and it separates the identity of a finding from the validity of its resolution (R6.RECON.23) and states the removal of a landed finding record as the open defect OBL-29. Each resolution is a proposal for the owner's decision at adoption (AMENDMENT-6.md gives the options and lists the owner choices). None lets a finding be lost or lifted by rewording: a finding is detected before lint, every form failure blocks rather than lapses, the path-and-old-bytes match binds every configuration, and a migration only adds edits. Where the tool accepts input the design refuses (a missing `changes_decisions_on_X`, non-integer offsets, a suffix filter on the scanned set, skipped parse failures, ignored record kinds), the design rule is stated and a countercontrol row is added; no requirement is weakened to match the tool.
 
 ***
 
@@ -5213,15 +5234,24 @@ corpus path differs between `H` and `M`, the run evaluates, besides `X` (or `C`)
 prediction the in-memory landing of R6.TREE.15 built from the run's `M` and `C`: (a) op D on it, with the A1
 configuration's deny profiles and its review profiles whose `applies_to` is `tree`, over the corpus; (b) the
 postconditions op C evaluates at `X` (R6.TREE.9), the pin postconditions and mirror identity among them, for the
-ledgered paths. Findings at the landing are matched with those of the same evaluation at `X` (or `C`) by a matching key (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision), not by
-fingerprint (an item's fingerprint includes its subject's line number, so a line that `M`'s changes move would
-appear new): for an item with a file and line, the key is its class, its file, its `rule_id` or, without one, its
-profiles, and the sha256 of the text it matched on (its line, or for a sentence-level item its sentence),
-the line number, the segment and the tree excluded; for an item without a line, the key is its class, its
-subject and its fingerprint. Keys are counted with multiplicity: a key found k times at the landing and j
-times at `X` gives k - j new findings when k > j, so a line that `M` moves gives none and a second copy of
-a line gives one; when several new findings share a key, each is reported, at the landing's positions of the
-last k - j occurrences in file order. A new finding that records and rules do not resolve there under their own rules (sec.
+ledgered paths. Findings at the landing are matched with those of the same evaluation at `X` (or `C`) by identity and validity, which are two separate questions (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision). *Identity.* A finding is
+identified by its content, not by its fingerprint (which includes its subject's line number): for an item with a
+file and line, the key is its class, its file, its `rule_id` or, without one, its profiles, and the sha256 of
+the text it matched on, that is, the line's bytes without its terminating LF (a CR before that LF is part of
+the line, and a last line without LF is hashed as it stands) or, for a sentence-level item, the bytes of its
+sentence as splitter version 2 delimits it; the line number, the segment and the tree are excluded. For an item
+without a line, the key is its class, its subject and its fingerprint. Keys are counted with multiplicity: a
+key found k times at the landing and j times at `X` gives k - j new findings when k > j, so a line that `M`
+moves is not new and a second copy of a line is; when several new findings share a key, each is reported, at
+the landing's positions of the last k - j occurrences in file order. *Validity.* A finding matched by its key
+keeps the resolution it had at `X` only if the resolving record's own condition holds when evaluated on the
+landing content: for a context adjudication, both its context hashes (R6.CTX.7); for an HP adjudication or a hit
+classification, its line sha256 and, where it binds one, its context; for an allow rule, its fingerprint
+conditions (R6.RULE.4). A matched finding whose resolving record's condition does not hold at the landing is
+resolved anew there, as a new finding is, and counts as new unless records and rules at the landing resolve
+it. A matched finding whose resolving record's condition cannot be established on the landing content (for
+example a context that cannot be computed there) is FAIL `context-meaning-unverified`, never a silent pass.
+Moving a finding does not by itself make it new, and keeping its wording does not by itself keep its meaning. A new finding that records and rules do not resolve there under their own rules (sec.
 14, R6.HIT.1), exactly as they would at `X`, is a FAIL `base-drift` naming the condition `reconciled-state`: it is the
 disposition of the drifted path it lies in; a new finding in a path that does not differ (for example a mirror or pin
 finding produced by a change to its counterpart) is a run-level item naming the drifted paths whose changes produced
@@ -5513,15 +5543,18 @@ and the path the record would cover stays `base-drift` (R6.TREE.7). A schema fai
 **Conformance mutants.** From the same single definition of the key tables, the generator of this design writes the
 list `CONFORMANCE-MUTANTS.json` by a fixed rule: for each table, each required key removed and one unlisted key added;
 for each key, one value of each JSON type the key does not admit; and for each encoding of the table above, its named
-near-miss variants with the correct JSON type (upper case, one character short and a trailing newline for the
-hexadecimal ids; `5.0` and a negative value for an offset; a leading or trailing `/`, an empty, `.` or `..`
-component for a path; a URL for an identity string; no zone or a space for a time; unpadded or broken base64; the empty
+near-miss variants with the correct JSON type (upper case, a non-hexadecimal character, one character short, one
+character too long and a trailing newline for the hexadecimal ids; `5.0`, `5e0` and a negative value for an offset; a leading or trailing `/`, an empty, `.` or `..`
+component for a path; a URL for an identity string; no zone or a space for a time; unpadded base64, a line break, a character outside the alphabet and non-zero padding bits for canonical base64; the empty
 string for a non-empty string; a trailing space or another case for a literal; an unlisted value for an enumeration;
 an empty array where one element is required). A nested table is mutated at one occurrence in its kind's positive
 record. Each mutant has the id `(table, key path, violation)`. For every mutant the tool's result carries a
-`record-invalid` item naming that key path and reports no condition RC1-RC14 for the mutant record; the gate checks
+`record-invalid` item naming that key path, whose subject is the mutated record itself (for a review record, the review
+record's path, not the record it reviews), and reports no condition RC1-RC14 for the mutant record; the gate checks
 that the mutant ids its records carry equal the list. The list is also the check that any machine schema the tool
-carries agrees with the tables: no other comparison is made.
+carries agrees with the tables: no other comparison is made. The rule omits the conditional-presence rules (`invalidated`
+only with `invalidates`, `replaces` only with kind `widening`, `confirms` only and always on a resolution item); named
+cases cover them: FINDING-FORM, REVIEW-SCHEMA and RESOLUTION-SCHEMA.
 Sources: PR #1593 comments 7189621405, 7190234470 and 7190609504. Controls: RECON-SCHEMA, CANON-JSON.
 
 **R6.RECON.30** **`oi-reconciliation/2`: fields, item ids and acceptance** (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision). The fields that
@@ -5896,11 +5929,13 @@ class (a) outside the plan's record directory. *Identity.* Record identity is th
 byte-identical files at two paths are two records, for R6.RECON.2 (e) and for findings alike. *Review location.* The
 review records of a reconciliation record lie in its directory (R6.RECON.1, R6.RECON.2 (d)), and a review elsewhere is
 not its review for record lint; detection reads review records wherever they lie among the selected files, and one
-elsewhere that carries a finding counts, as a form failure. *Residuals.* Three changes to a landed finding record are
-not caught by detection: its deletion from `main`; leading bytes that do not begin a JSON value added to it (a stray
-character, a comment line, a NUL); and its storage under a prefix of the tool-landing class, where an unpinned file is
-REVIEW_REQUIRED `side-change-unclassified` at the run, visible but not blocking. Each needs a landed change to `main`
-under the owner's merge approval; they are tracked together in Issue #1598.
+elsewhere that carries a finding counts, as a form failure. *Removal after `F`.* A finding record that lands on
+`main` after `F`, and that no scanned `REV` holds, is seen only while it is present, unchanged, in `M`'s tree; any
+landed change made before `M` is taken that removes the finding from the current content escapes detection. This is
+the open correctness defect OBL-29, which blocks the A1 retirement execution; it is not an accepted residual.
+*Tool-landing prefixes.* A file under a prefix of the tool-landing class is outside detection; a file there that the
+tool-landing class does not pin is REVIEW_REQUIRED `side-change-unclassified` at the run (R6.TREE.5), visible but not
+blocking.
 Sources: PR #1593 comments 7189621405, 7190234470, 7190255132 (D1) and 7190609504 (B). Controls: SCAN-PARSE.
 
 **R6.RECON.36** **Result fields of the reconciliation route** (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision). An op C result with `M` carries:
@@ -6627,6 +6662,7 @@ resolved by an exception:
 | OBL-26 | the implementation certification of the landed tool revision | 2 and 3 (the checks recorded against the tool revision on `main`); the conformance assessment of a37992449b452021001277c06c524a30c92dfb87 is provenance for the requirements (AGENTS.md sec. A.42 item 8) | no cycle: r6's adoption does not rest on it (R6.STAT.10); the statements that describe the tool commit are in the adoption trace |
 | OBL-27 | plan freeze `F` | 4 | no cycle |
 | OBL-28 | the tool's landing | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm | no cycle |
+| OBL-29 | the A1 retirement execution | a reviewed and adopted design change under which no removal of a landed finding record can let a blocked plan proceed, with its controls holding under the gate (Issue #1598) | no cycle |
 
 Adoption trace (OC-2; AGENTS.md sec. A.42 item 8). Each place where r6's adoption, or an enduring claim
 stated in r6, uses content that is not on `main`, with its classification. "Support off `main`" rows are
@@ -7042,6 +7078,19 @@ change until its distinguishing control holds under the gate, or the check it na
 Gates: the tool's landing. Discharged by: each row's control holding under the gate, or its check
 recorded. Sources: C-1 to C-28, Q12, RE-6, RE-13, RE-16, RE-18, RE-19, RE-23, RE-24, RE-27, RE-29,
 RE-32, RE-33, OC-3, OC-4.
+
+**OBL-29** **Removal of a landed finding record** (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision). A finding record (R6.RECON.26) that lands on `main`
+after `F`, and that no `REV` the run scans holds, is seen only while it is present, unchanged, in `M`'s tree
+(R6.RECON.35). Any landed change made before `M` is taken that removes the finding from the current content escapes
+detection: its deletion; a rewrite (the verdict changed to `accept`, `invalidated` removed, or the entry removed); a
+move out of `verification/audits/`; its replacement by a non-regular entry; or bytes prepended so that it no longer
+begins a JSON value. A finding still present in `F`'s tree or in a scanned `REV` tree is seen. Under the owner's
+criterion quoted in Issue #1598, "If deletion can allow an invalidated retirement plan to proceed, it is a genuine
+correctness defect that must be resolved before retirement.", this is an open correctness defect of this design, not an
+accepted residual. The procedural guards of AGENTS.md sec. A.50 item 3 and sec. A.46 item 6 are interim controls only.
+Gates: the A1 retirement execution. Discharged by: a reviewed and adopted design change under which no such removal
+can let a blocked plan proceed, with its controls holding under the gate. Sources: PR #1593 comment 7190966287 (D1);
+Issue #1598.
 
 ***
 
