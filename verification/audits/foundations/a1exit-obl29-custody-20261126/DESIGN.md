@@ -1,8 +1,8 @@
-# OBL-29 custody: format, bootstrap inventory and mapping to admitted inputs (paper design c5)
+# OBL-29 custody: format, bootstrap inventory and mapping to admitted inputs (paper design c6)
 
 ## 0. Status, authority, scope and goal link
 
-**Status.** Paper design c5, pending an owner decision on the context source (§4.2, decision D-1), independent review and adoption. The proposed
+**Status.** Paper design c6, pending an owner decision on the context source (§4.2, decision D-1), independent review and adoption. The proposed
 requirements (ids `R6.CUST.n`) have no force until adoption. Adoption of this design does not
 discharge OBL-29, does not authorize implementing custody-dependent discharge, and changes no
 schema, admission rule or release-gate step by itself (§7).
@@ -22,7 +22,8 @@ findings 2 to 6 of that re-review and drafts both variants of finding 1, which a
 decision (D-1); c3 at `ca82d23ef4b604b040660515e486fe6fdfdf1f9d` received a small REVISE (PR #1616
 comment 7202781537), which c4 answers, keeping both variants; c4 at
 `3658ed49f210f83f633a47cf2546ea5606b005b2` received a REVISE with two targeted fixes (PR #1616
-comment 7202860517), which c5 answers. §9 maps findings to changes and records each choice made where a finding offered one.
+comment 7202860517), which c5 answers; c5 at `9fe63de3402f444420ef3e6cc7c912fb28d31c82` received a
+confirmatory REVISE (PR #1616 comment 7202923040), which c6 answers. §9 maps findings to changes and records each choice made where a finding offered one.
 
 **Source requirements.** The adopted OBL-29 remedy r9: `DESIGN.md` and `CONTROLS.json` under
 `verification/audits/foundations/a1exit-obl29-remedy-20261126/` at
@@ -305,8 +306,10 @@ further `close`.
   `config.blob_sha256` equal to the configuration's SHA-256; `config.admission.mode` equal to
   `"chain"`; and no `harness` field. A result whose `outcome` is USAGE, ERROR, VOID or INTERNAL did
   not evaluate and is not a run; it is ignored by the equality below. The run's `REV` is the common
-  `rev` of the members of `inputs.classify_records` (R6.RECON.2 (c) requires one `REV` per run), or
-  null when that list is absent or empty. The run's `M` must come from a named result field that a
+  `rev` of the admitted classify records, the members of `inputs.classify_records` (R6.RECON.2 (c)
+  requires one `REV` per run; refused records become items, not members), or null when none was
+  admitted. A run whose named `REV` admitted no record made no check operative through it, so null is
+  its correct `REV` for r9. The run's `M` must come from a named result field that a
   verdict may read: `roles.M` is a declared diagnostic that R6.OUT forbids a verdict to read, so the
   check depends on either adopting `roles.M` as a named field or emitting `inputs.main` under OBL-28
   C-24. That is an r6 and tool change that the owner adopts with this design (OQ-19); until it is
@@ -331,14 +334,21 @@ further `close`.
   admits is not a failure: it only acknowledges, and the context then needs its own `close` (c2).
   **Pin rule.** A *pinning commit* of a discharge-bearing configuration is a commit reachable from
   `M` whose tree lists the configuration's SHA-256 in the last `Record pins` subsection of the
-  `PREREG.md` beside it, while the tree of at least one of its parents does not (the commit that
-  introduces the pin; a root commit that lists it is one). An `unfrozen` entry covers such a
+  `PREREG.md` beside it, while none of its parents' trees does (the commit that introduces the pin,
+  on a branch or in a merge resolution; a root commit that lists it is one). A later merge of a branch
+  forked before the pin has one parent that lists the pin, so it is not a pinning commit. An `unfrozen` entry covers such a
   configuration only when every commit reachable from `M` whose custody version contains that entry
   descends from every pinning commit; the pin remaining present at later commits, `M` included, does
-  not by itself defeat a cover written after the pin was introduced. Otherwise the configuration must be admitted by a context:
-  under variant (i) a receipt, under variant (ii) a `freeze` entry. An acknowledgement written before
+  not by itself defeat a cover written after the pin was introduced. Otherwise the configuration must
+  be admitted by a context: under variant (i) a receipt, under variant (ii) a `freeze` entry. An acknowledgement written before
   a configuration was pinned for a freeze therefore cannot stand in for that freeze, and a writer who
-  asserts `unfrozen` after the pin does so knowingly, under the R6.CUST.8 review.
+  asserts `unfrozen` after the pin does so knowingly, under the R6.CUST.8 review. An `unfrozen` entry
+  is `{config, type}`, so re-asserting it after a pin gives an entry equal to the existing one, which
+  (s3) keeps and (s5) forbids repeating, and the stale version stays in `Vers(M)`. A stale `unfrozen`
+  entry is therefore recovered only by a context (a receipt under variant (i), a `freeze` entry under
+  variant (ii)), where the configuration was in fact frozen. A configuration that was pinned but never
+  frozen, and whose `unfrozen` entry predates the pin, has no recovery: custody stays unestablished at
+  every later `M` (R-C4; OQ-20).
 - (c5) **Reachability.** Every commit an entry names (`base`, `f`, `landing`, `m`, `rev`) is
   reachable from `M` through any parent.
 
@@ -515,7 +525,9 @@ outcome and named items match its `expected`, over the r9 fixture as amended in 
   entry repairs it, and this design does not accept the squash and rebase gap.
 - **R-C4. Liveness.** An entry that fails a mechanical check and lands despite R6.CUST.10 keeps
   custody unestablished permanently (§4.1; OQ-15). Under variant (ii), a later foxtrot fast-forward
-  that moves a landing merge off the first-parent chain has the same effect.
+  that moves a landing merge off the first-parent chain has the same effect. So does a configuration
+  that was pinned but never frozen while its only `unfrozen` entry predates the pin (pin rule of (c4);
+  OQ-20).
 - **R-C5. Identity strings.** `author` and `reviewer` are not authenticated (r9 R-8).
 - **R-C6. Tool revisions.** A later tool revision that narrows the replayed predicates can forget a
   witness (r9 P-4, R6.STAT.5).
@@ -627,6 +639,15 @@ The table above records c2's changes; where c3 changes them again, the table bel
 | 2. Pinning commit undefined | (c4) defines a pinning commit as one that introduces the pin (listed in its tree, absent from at least one parent's). Control CU-P11: an `unfrozen` entry written after that commit passes while the pin is still present at `M` |
 | 3. Landing wording | "first parent is not a descendant-or-self of `f`" |
 
+**Confirmatory re-review of c5 (PR #1616 comment 7202923040):**
+
+| Finding | Change in c6 |
+|---|---|
+| 1. Ordinary merges count as pinning commits | (c4): a pinning commit lists the pin while none of its parents does. CU-P11 variant b: a later merge of a branch based before the pin still passes |
+| 2. CU-N32's re-assertion variant cannot pass | Option (a) taken: re-assertion variant dropped; (c4) states that a stale `unfrozen` entry is recovered only by a context, and the no-recovery case is stated in (c4) and R-C4. Option (b) recorded as OQ-20 |
+| 3. REV of admitted records | (c3): "the common `rev` of the admitted classify records, or null when none was admitted" |
+| Adoption list | new §12, from the reviewer's ten items |
+
 ***
 
 ## 10. Open questions for the owner
@@ -653,6 +674,7 @@ this design; their ids are not reused.
 | OQ-15 | Recovery when a mechanically invalid entry lands despite R6.CUST.10 | none: custody stays unestablished (fail closed) | an owner-authorized correction route, for example a tool revision listing the offending entries as excluded; a new mechanism needing its own design |
 | OQ-16 | Adopt R6.CUST.10 as a release-gate step? | yes (review finding 5) | no: run-time checks only, accepting that a malformed or invalid entry is found only at the next run and cannot then be removed |
 | OQ-17 | Must a discharge-bearing round land the `result.json` of each op C run under `<dir>/op-c-runs/` of its configuration's directory, so that (c3) checks `runs` mechanically and a missing result is a custody failure? | yes, at that location | no: the equality is checked only where results landed, and otherwise completeness and attribution rest on review (R-C2); or another location fixed by the same rule |
+| OQ-20 | May a stale `unfrozen` entry be re-asserted after a pin? | (a) no: a stale entry is recovered only by a context; a configuration pinned but never frozen whose `unfrozen` entry predates the pin has no recovery (R-C4) | (b) an exception to (s5) for re-asserted `unfrozen` entries, with the pin rule judged by the version that last adds the entry: recovers that case, at the cost of a small schema and rule change the owner must adopt |
 | OQ-19 | Which named result field carries a run's `M` for (c3)? A dependency: an r6 and tool change adopted with this design | adopt `roles.M` as a named field a verdict may read (R6.OUT) | emit `inputs.main` under OBL-28 C-24; until either is made, (c3) cannot read `M` from results and takes its review form |
 | OQ-18 | Under variant (i) of D-1, which plan layout reconciles the V3 record directory with R6.CFG.1 and R6.A1CFG.1? | the configuration and its `PREREG.md` under `R/amendments/` of the round, with the admitted record directory of R6.A1CFG.1 set to that round's record directory by a tool revision | the configuration landed under `R` on `main` before `D`; either needs an r6 amendment |
 
@@ -673,3 +695,37 @@ this design; their ids are not reused.
 | c3 at `ca82d23ef4b604b040660515e486fe6fdfdf1f9d` and its re-review, PR #1616 comment 7202781537 | the findings answered in §9; the reviewer's build of a variant (i) receipt with `tools/v3_receipt.py` | provenance |
 | `tools/v3_verifier.py` (control-plane pattern) and `verification/infrastructure/v3/architecture.md` (`K1`, `S2`) on `main` | variant (i) of (c1) and its realizability | support on `main` |
 | `origin/main` at `84e927b9b7c2bcc8cb9624cb036167dae233e408` | the drafting measurement of §1; receipts under `verification/receipts/`; `tools/v3_verifier.py` as an existing mechanism | support on `main`; the measurement is re-established at `B0` (§3 (b)) |
+
+***
+
+## 12. What the owner adopts with this design
+
+Adopting the design adopts nothing by itself (§0, §7). Taken from the confirmatory review of c5
+(PR #1616 comment 7202923040), the decisions and changes that must be adopted with it, for D-1 = (ii)
+with OQ-17, R6.CUST.8 and R6.CUST.10, are:
+
+1. **D-1.** The context source: variant (ii), the `freeze` entry type with its `landing` rule, or
+   variant (i) with OQ-18's plan layout and r6 amendment.
+2. **OQ-19 (r6 and tool).** A named result field for a run's `M`: `roles.M` moved from declared
+   diagnostics to named fields in R6.OUT, or `inputs.main` emitted under OBL-28 C-24.
+3. **OQ-17 (r6 and plan rule).** Every discharge-bearing round lands each op C run's `result.json`
+   under `<dir>/op-c-runs/` beside its configuration.
+4. **R6.CUST.8 (review-lint schema).** Item ids `entry:<i>` for `oi-review-record/1` reviews of
+   custody versions.
+5. **R6.CUST.10.** A new release-gate step.
+6. **The record schema `oi-obl29-custody/1`** at the fixed path, with the path and bootstrap blob-id
+   constants in `tools/ledger_coverage/record_authority.py` (a tool revision), and in
+   `engine/purity.py`'s schema list if that list must name every schema.
+7. **A tool revision implementing R6.CUST.1–10:** replacing `custody_unverified` in
+   `engine/category3.py`, adding the custody path (and, under variant (i), `verification/receipts/`)
+   to the R6.OBL29.7 walk's fixed selection, and adding the `custody-*` item names under the existing
+   `record-invalid` class.
+8. **OQ-12, if its default is kept.** A `category3.custody` result field, a change to the
+   `oi-ledger-coverage/5` schema file.
+9. **The procedural preconditions of OQ-7 and §5 item 4:** admitted `REV`s land by merges that keep
+   their ids, each `close` comes after its landing, and freezes are ordered as OQ-7 states.
+10. **OQ-20, if option (b) is chosen.** The (s5) exception for re-asserted `unfrozen` entries.
+
+The remaining open questions of §10 keep their recommended defaults unless the owner decides
+otherwise. None of these items authorizes implementation, a freeze, a trial, a dispatch or a merge
+(AGENTS.md §A.50).

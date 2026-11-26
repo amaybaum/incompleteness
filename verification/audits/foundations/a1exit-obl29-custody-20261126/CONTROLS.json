@@ -1,6 +1,6 @@
 {
  "schema": "oi-obl29-custody-controls/draft",
- "status": "paper design c5, pending independent review and adoption. Each control is a specification; on adoption each would become an expectation row with runner null. 'kills' names the implementation mutation the control must detect (mutation-tested in principle); a residual control documents a limit and kills nothing. A paired control is two runs whose outcomes are compared. 'variant' tags a control with the variant of decision D-1 it tests (i, ii, both, or a paired run of both); a control tagged with an unadopted variant is dropped on adoption.",
+ "status": "paper design c6, pending independent review and adoption. Each control is a specification; on adoption each would become an expectation row with runner null. 'kills' names the implementation mutation the control must detect (mutation-tested in principle); a residual control documents a limit and kills nothing. A paired control is two runs whose outcomes are compared. 'variant' tags a control with the variant of decision D-1 it tests (i, ii, both, or a paired run of both); a control tagged with an unadopted variant is dropped on adoption.",
  "authority": "Owner decision (amaybaum, received 2026-11-26T19:52Z, coordinating session; #1169 comment 7202075726), item 5.",
  "base": "OBL-29 remedy r9 at 77a73c022091f598cf807fcf89d66c3cf43208de (adopted, #1601 comment 7197486426); drafting snapshot origin/main 84e927b9b7c2bcc8cb9624cb036167dae233e408.",
  "fixture": "Fixture: the r9 fixture (a configuration K frozen at F citing reassessment A, repair Q superseding P, finding f) with custody constants PATH and BOOT in record_authority.py. V0 is the bootstrap version at BOOT with base B0. Unless stated, the run is op C execution at effective M with a cited discharge of A whose every other condition holds, K's freeze has not landed (K is not in R*(M), has no receipt and no freeze entry), every custody version that adds entries has an accepting non-author review of every added item, and every regular mode named is 100644 or 100755.",
@@ -811,9 +811,11 @@
    "requirements": [
     "R6.CUST.5 (c4) pin rule"
    ],
-   "setup": "Kx lands on main in a planning commit P0 and an unfrozen entry for Kx is written at U0. Later the PREREG.md beside Kx lists Kx's SHA-256 at a commit P1 that descends from U0, Kx is frozen and landed, and no context is recorded for it (variant (ii): no freeze entry; variant (i): the freeze is made outside V3, so no receipt). Variant: the unfrozen entry is re-asserted in a version introduced after P1.",
+   "setup": "Kx lands on main in a planning commit P0 and an unfrozen entry for Kx is written at U0. Later the PREREG.md beside Kx lists Kx's SHA-256 at a commit P1 that descends from U0 and introduces the pin, Kx is frozen and landed, and no context is recorded for it (variant (ii): no freeze entry; variant (i): the freeze is made outside V3, so no receipt).",
    "expected": {
-    "outcome": "FAIL custody-incomplete for the first case; the re-asserted variant passes the mechanical check and rests on its R6.CUST.8 review"
+    "outcome": "FAIL",
+    "item": "custody-incomplete",
+    "note": "recovery is only by a context for the freeze (OQ-20 default (a))"
    },
    "kills": "letting an unfrozen entry written before the pin cover the later freeze"
   },
@@ -870,7 +872,7 @@
    "requirements": [
     "R6.CUST.5 (c4) pin rule"
    ],
-   "setup": "Kx's PREREG.md pin is introduced at commit P1 (listed in P1's tree, absent from its parent's) and remains present at every later commit, M included. No freeze of Kx is designated. An unfrozen entry for Kx is introduced in a custody version at a commit descending from P1, with its R6.CUST.8 review.",
+   "setup": "Variant a: Kx's PREREG.md pin is introduced at commit P1 (listed in P1's tree and in none of its parents') and remains present at every later commit, M included; no freeze of Kx is designated; an unfrozen entry for Kx is introduced in a custody version at a commit descending from P1, with its R6.CUST.8 review. Variant b: as variant a, and afterwards a branch forked from main before P1 is merged into main by a merge commit whose first parent lists the pin and whose second parent does not.",
    "expected": {
     "outcome": "PASS",
     "custody": "established",
@@ -878,7 +880,7 @@
      "custody-incomplete"
     ]
    },
-   "kills": "treating every commit whose tree lists the pin as a pinning commit, so that a cover written after the pin's introduction fails while the pin stays present"
+   "kills": "treating a commit as pinning when any parent lacks the pin, so that a cover written after the pin's introduction fails after an ordinary merge of an older branch"
   }
  ]
 }
