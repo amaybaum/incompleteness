@@ -122,7 +122,11 @@ def wb_controls(a):
     wb_check('WB1', 'the W1-c sentence at T1\' in ch19:198 and FULL:5270, with negative_allowance {finit: 1}: PASS, both '
           'lines', "both hits PASS and no item on either line", wb1,
           wb1['ch19'] == ['PASS'] and wb1['full'] == ['PASS'] and not wb1['items'])
-    _, code, res = run({CH19: text.replace(s, s.replace('the notion of', 'the finite notion of', 1))})
+    x, code, res = run({CH19: text.replace(s, s.replace('the notion of', 'the finite notion of', 1))})
+    if REC is not None:
+        REC.name_last('', bindings={'planted': '%s:%d' % (CH19, ln)},
+                      mutation=[{'path': CH19, 'before': a.repo.blob_id(T, CH19),
+                                 'after': a.repo.blob_id(x, CH19)}])
     wb_check('WB2', 'one more word containing finit in the fingerprinted sentence: FAIL rule-negative-match',
           "the line has rule-negative-match", items_at(res, CH19, ln), 'rule-negative-match' in items_at(res, CH19, ln))
     t3 = text.rstrip('\n') + '\n\n' + s + '\n'
