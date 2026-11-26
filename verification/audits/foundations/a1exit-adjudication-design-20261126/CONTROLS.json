@@ -1,7 +1,7 @@
 {
  "schema": "oi-a1-adjudication-controls/draft",
- "status": "paper design r3, not adopted. Specifications only; no runner, fixture, expectation row, schema or rule is created or changed.",
- "authority": "Owner decision, amaybaum, received 2026-11-26T16:17Z, #1169 comment 7197443528, item 1 (formal adjudication design, paper only, with positive and negative controls and independent non-author review). r2 answers the independent review of r1, #1605 comment 7197900888; r3 answers the re-review of r2, #1605 comment 7198103680.",
+ "status": "paper design r4, not adopted. Specifications only; no runner, fixture, expectation row, schema or rule is created or changed.",
+ "authority": "Owner decision, amaybaum, received 2026-11-26T16:17Z, #1169 comment 7197443528, item 1 (formal adjudication design, paper only, with positive and negative controls and independent non-author review). r2 answers the independent review of r1, #1605 comment 7197900888; r3 answers the re-review of r2, #1605 comment 7198103680; r4 makes the three nits of the re-check of r3, #1605 comment 7198180593.",
  "base": "Amendment 6 r13 at 5ad8837521de0a26734266a64f91548fd3dcff1e (adopted, #1593 comment 7193277489); OBL-29 remedy r9 at 77a73c022091f598cf807fcf89d66c3cf43208de (conditionally adopted, same decision, item 3).",
  "recommended_option": "A (DESIGN.md sec. 4 and 5), with OD-2 refined (ii) and OD-3 (a) including the dedicated landing; alternative_outcomes, where given, record how other alternatives or options would decide the same case.",
  "fixture": "Base fixture. OWNER_IDENTITIES = [o]. Configuration K frozen at F carries edit e on path p. Finding f: a well-formed second-kind finding on e in a review record by reviewer fr (verdict invalidates on <p>:scientific_effect, configuration K), landed on main. Q: the reconciliation record (author w) whose entry for p repaired the change; accepting review of Q by qa. V: a review of Q by v with verdict reject on <p>:scientific_effect and a non-empty reason; V qualified under K as a review witness W (r9 sec. 2.2) against reassessment A0 citing Q. Re-freeze: K' (author ka) frozen at F', drafted from D' on main, cites reassessment A (author aa) of f whose repair.entry is replacement R (author ra, entry path p, its own reconciliation directory), which relies on W only through (r3); accepting review of R by n. v writes nothing further unless stated. J: oi-adjudication/1 by j in R's directory, authorization {quote, author o, time before cJ, source, adjudicator j, finding f's reference and item, witness_sources [V], replacement = A.repair.entry}, finding = A.finding, witness {class review, disputed Q, edge null, sources [V], adverse [{V, <p>:scientific_effect}], original_configuration K}, replacement = A.repair.entry, reassessment A, dissents_addressed [], disposition cleared, one ground g1 targeting the adverse item with reasoning and evidence [git blob ids of V, Q, R], method naming the git blob ids of f's record, V, Q, R, A, conflicts none. J's review by t accepts every item and names the git blob ids of J and V in method. J and its review are added, and nothing else changed, by the first-parent commit cJ on main (a dedicated landing), an ancestor of D'; L(J) = cJ. K' lists J (kind adjudication) and J's review (kind review). Unless stated, every other discharge condition of R6.RECON.27, r9 and R6.OBL29.4 holds and custody is complete.",
@@ -1228,6 +1228,40 @@
    },
    "requirements": [
     "R6.ADJ.9"
+   ]
+  },
+  {
+   "id": "ADJ-B-DISJOINT-WITNESSES",
+   "kind": "boundary",
+   "seven_requirements": [
+    "RQ3",
+    "RQ6"
+   ],
+   "setup": [
+    "two witnesses rely through the same R against the same Q: W1 (sources [V], reviewer v) and W2 (sources [V2], reviewer v2), with disjoint source blobs",
+    "J2 by j2 binds W1, upheld, valid for adverse use",
+    "J1 by j binds W2, cleared, cited by K'",
+    "run"
+   ],
+   "expected": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid",
+     "retirement-blocked"
+    ],
+    "invariants": {
+     "W2_cleared_by": "adjudication (J1 applies)",
+     "W1_cleared": false,
+     "J1_failures_exclude": [
+      "ADJ-CONTRA"
+     ],
+     "discharge": "does not apply, because W1 stands (R6.ADJ.12 stratum 4 precondition)"
+    },
+    "note": "J1 and J2 do not match (no shared source blob, R6.ADJ.9), so the contradiction rule does not over-match"
+   },
+   "requirements": [
+    "R6.ADJ.9",
+    "R6.ADJ.12"
    ]
   },
   {

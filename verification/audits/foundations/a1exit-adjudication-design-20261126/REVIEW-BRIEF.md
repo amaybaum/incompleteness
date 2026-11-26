@@ -1,4 +1,4 @@
-# Formal adjudication design r3: independent review brief
+# Formal adjudication design r4: independent review brief
 
 Review DESIGN.md and CONTROLS.json at the same revision. The design is a paper design and is not
 adopted. It changes no schema, admission rule, tool, configuration or record. The authority is the
@@ -14,10 +14,20 @@ The gap the design answers is #1601 comment 7197262397, finding 4. r1 at
 `2de8462946c65dcf0f004a559fd12b9c18c22ceb` received REVISE (#1605 comment 7197900888, findings F1
 to F12). r2 at `6a0afe052b30c6a14d32e03960df3c1df72c4101` received a narrow REVISE
 (#1605 comment 7198103680, findings N1 to N5). r3 makes only those textual fixes. A focused review of
-r3 should check the r2 → r3 map first, then the claims.
+r3 should check the r2 → r3 map first, then the claims. The re-check of r3 at
+`40740982a75194ed94f005cfa7ad34159ce1a24f` returned ACCEPT WITH NITS (#1605 comment 7198180593). r4
+makes only its three nits, under the owner's bounded authorization.
 
 Return a verdict (ACCEPT or REVISE) with a finding for each claim that fails, and state which claims
 you checked.
+
+## Nit map (r3 re-check → r4)
+
+| Nit | r4 change |
+|---|---|
+| 1 | §5 terms: `L(J)` is defined with `Parties_J(C)`, which depends only on `J`'s own bindings, instead of `Parties` at `C`. |
+| 2 | R-ADJ-4 and the OD-2 row state the deliberate trade-off: under the authorization veto, an answered reviewer can defeat each new adjudication by rejecting its `authorization` item, even when the quotation is genuine. |
+| 3 | New boundary control ADJ-B-DISJOINT-WITNESSES: two witnesses with disjoint sources against the same `Q` and `R`, one upheld and one cleared; no `ADJ-CONTRA` expected. |
 
 ## Finding map (r2 re-review → r3)
 
@@ -49,7 +59,7 @@ you checked.
 ## Claims to verify
 
 1. **Status and scope.** The files state that the design is not adopted and changes nothing. The
-   r3 commit changes only the three files of this directory.
+   r4 commit changes only the three files of this directory.
 2. **Claim I and its qualification (§2.1).** No alternative makes the owner's authorization
    mechanically verifiable under R6.REC.3. The web-flow statement and its caveat are accurate.
 3. **Mechanical properties (§2.2).** M1 to M7 are checkable from git objects. S6 and S7 are the only
@@ -88,7 +98,7 @@ you checked.
     from the party-identity exclusion of F5 (b).
 11. **Compatibility (§6).** The change list is complete, including the R6.REC.3 change, which is
     stated as deliberate.
-12. **Controls.** CONTROLS.json is valid JSON with 54 unique ids. Every R6.ADJ requirement has a
+12. **Controls.** CONTROLS.json is valid JSON with 55 unique ids. Every R6.ADJ requirement has a
     control, and every failure condition id used is defined in §5. Each control's expectation
     follows from the text.
 13. **Owner decisions (§8).** OD-1 to OD-7 show the design default and the reviewer's

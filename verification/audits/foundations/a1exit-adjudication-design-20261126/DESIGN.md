@@ -1,8 +1,8 @@
-# Formal adjudication of retained witnesses (paper design r3)
+# Formal adjudication of retained witnesses (paper design r4)
 
 ## 0. Status, authority, scope and goal link
 
-**Status.** Paper design r3. Not adopted. It changes no schema, admission rule, requirement,
+**Status.** Paper design r4. Not adopted. It changes no schema, admission rule, requirement,
 expectation, tool, configuration or record. The proposed requirements (ids `R6.ADJ.n`) have no
 force. They would take effect only through a separate owner decision, and then only through the
 amendments that §6 lists. Implementation, freeze, trial, dispatch and merge are not authorized
@@ -25,7 +25,9 @@ establish evidence identity, never adjudication authority."
 independent review posted verbatim at #1605 comment 7197900888 (findings F1 to F12). r2 at
 `6a0afe052b30c6a14d32e03960df3c1df72c4101` answered them and received a narrow REVISE in the
 re-review at #1605 comment 7198103680 (findings N1 to N5). r3 makes only the textual fixes N1 to N5,
-under the same authority. The finding maps are in REVIEW-BRIEF.md.
+under the same authority. The re-check of r3 at `40740982a75194ed94f005cfa7ad34159ce1a24f`
+(#1605 comment 7198180593) returned ACCEPT WITH NITS; r4 makes only its three nits, as the owner
+authorized. The finding maps are in REVIEW-BRIEF.md.
 
 The seven requirements, as the recording comment lists them:
 
@@ -267,7 +269,8 @@ Terms follow r13 R6.RECON.29 (reference, commit id, blob id, sha256, identity st
 run id (R6.REC.6). `R*(C)`, for a commit `C`, is `R*` computed with `C` in place of `M` and
 without `F` or `REV` (r9 R6.OBL29.1). For an adjudication `J`, `L(J)` is its *landing commit*: the
 earliest commit `C` on `M`'s first-parent chain whose tree holds `J` and a review of `J` that
-qualifies under R6.ADJ.7 when evaluated over `R*(C)`, with `Parties` at `C`; null when there is none.
+qualifies under R6.ADJ.7 when evaluated over `R*(C)`, with `Parties_J(C)` (R6.ADJ.4), which
+depends only on `J`'s own bindings; null when there is none.
 
 ### 5.1 Kind, location and keys
 
@@ -647,7 +650,11 @@ ADJ-P-ADDRESSED-REDISSENT, ADJ-P-MIXED-NR5, ADJ-P-LANDING-SEARCH-AT-F).
   does (R6.REC.2).
 - **R-ADJ-4. Termination.** Under refined (ii), a reviewer an adjudication has answered cannot
   defeat it by repeating the objection, but a new reviewer can, and a new category-3 finding binds as
-  in r13. Under option (i), the answered reviewer can also defeat it each round.
+  in r13. The authorization veto of R6.ADJ.12 stratum 2 is a deliberate exception: an answered
+  reviewer can defeat each new adjudication by rejecting its `authorization` item, even when the
+  quotation is genuine, so termination under refined (ii) holds only for objections on grounds,
+  disposition and dissents. This trades termination for a mechanical check on forged quotations
+  (R-ADJ-1). Under option (i), the answered reviewer can also defeat it each round on any item.
 - **R-ADJ-5. Availability of adjudicators.** Reachability needs one authorized adjudicator and one
   technical reviewer outside `Parties` and `OWNER_IDENTITIES`. Where no such person exists, the
   witness stands, which fails closed.
@@ -665,7 +672,7 @@ ADJ-P-ADDRESSED-REDISSENT, ADJ-P-MIXED-NR5, ADJ-P-LANDING-SEARCH-AT-F).
 | Id | Decision | Alternatives and consequences | Design default | Reviewer recommendation (#1605 comment 7197900888) |
 |---|---|---|---|---|
 | OD-1 | Mechanism | (A) as §5; (B1); (C3); none (route 2 stays unavailable, and RQ7 stays unmet) | (A) | (A), after the F1 to F5 revisions |
-| OD-2 | Termination against a persistent disputant | (ii) refined, R6.ADJ.12: a later dissent on `R`, or adverse verdict on `J`'s grounds, disposition or dissents, by a reviewer `J` has answered is preserved and does not defeat `J` (verdicts on its authorization, binding or conflicts still do); any other later dissent defeats it; new substance enters only as a category-3 finding (RQ7 terminates; RQ6 narrowed for repeated objections only). (i) per round: every later dissent defeats `J` until a further adjudication answers it (RQ6 in full; resolution can depend indefinitely on one reviewer's willingness, which conflicts with the owner's principle that adjudication remain available) | (ii) refined; not decided | (ii) refined; not (i) |
+| OD-2 | Termination against a persistent disputant | (ii) refined, R6.ADJ.12: a later dissent on `R`, or adverse verdict on `J`'s grounds, disposition or dissents, by a reviewer `J` has answered is preserved and does not defeat `J` (verdicts on its authorization, binding or conflicts still do); any other later dissent defeats it; new substance enters only as a category-3 finding (RQ7 terminates, except that the authorization veto, a deliberate trade-off, lets an answered reviewer defeat each new adjudication by rejecting its `authorization` item even when the quotation is genuine (R-ADJ-4); RQ6 narrowed for repeated objections only). (i) per round: every later dissent defeats `J` until a further adjudication answers it (RQ6 in full; resolution can depend indefinitely on one reviewer's willingness, which conflicts with the owner's principle that adjudication remain available) | (ii) refined; not decided | (ii) refined; not (i) |
 | OD-3 | Strengthening the authorization | (a) `OWNER_IDENTITIES` and the dedicated landing M5'; (b) a standing `ADJUDICATORS` tool-constant registry, with or without the pre-dispute variant; (b') a per-dispute registry entry in tool code; (c) a separate authorization record kind; (d) a quorum of k technical reviewers; (e) an authenticated channel: an owner signature with a pinned key, the web-flow variant (pinned host key and an owner-authored landing merge, with the API-commit caveat of §2.1), or a host read; each needs an R6.REC.3 decision | (a) | (a) plus the dedicated landing; (b') and the web-flow variant of (e) kept as later options |
 | OD-4 | May the owner be the adjudicator or the technical reviewer? | Allowed: removes the separation between authorizer and judge. Barred: the authorizer holds neither judging role; the owner's merge approval still covers the R-ADJ-1 self-check. | barred in both roles (R6.ADJ.4) | barred in both roles |
 | OD-5 | Scope | witness clearance only, or also adjudication of a mistaken independent finding (r9 §5.6), which would extend R6.RECON.27's `repair: null` route and needs its own design | witness only | witness only |
