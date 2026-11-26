@@ -9,7 +9,7 @@ from . import util
 review_schema = 'oi-review-record/1'
 record_schemas = ('oi-term-rules/2', 'oi-hp-adjudication/1', 'oi-context-adjudication/1', 'oi-hit-classification/1',
                   'oi-scope/1', 'oi-side-change-classes/1', 'oi-reconciliation/1', 'oi-reconciliation/2', 'oi-retirement-config/1',
-                  'oi-delegation/1')
+                  'oi-delegation/1', 'oi-reassessment/1')
 
 _url = re.compile(r'://|/runs/|/actions|check[-_ ]run|/issues/\d+$|^#\d+$|/pull/\d+$')
 

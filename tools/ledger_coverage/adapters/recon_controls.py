@@ -221,9 +221,8 @@ def recon_controls(cap):
     out['_RECON-SCI'] = {'built': sci, 'built_cases_hold': all('record-invalid' in v for v in sci.values()),
                          'not_built': [SCI[3], SCI[4], SCI[6]]}
 
-    # RECON-BLOCK, RECON-TRIAL and RECON-OVERLAP need the block scan, the reconciled-state trial and resolutions,
-    # which this tool revision does not implement yet: recorded FAIL with no evidence
-    out['RECON-BLOCK'] = False
+    # RECON-TRIAL and RECON-OVERLAP need the reconciled-state trial and resolutions, which this tool revision does
+    # not implement yet: recorded FAIL with no evidence. RECON-BLOCK runs as op C runs in postfreeze_controls.py.
     out['RECON-TRIAL'] = False
     out['RECON-OVERLAP'] = False
     return out

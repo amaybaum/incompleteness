@@ -206,8 +206,10 @@ def path_problems(repo, doc, scope):
     if not paths:
         return ['the record covers no path']
     if scope.harness:
-        # the control harness (R6.RECON.21): every covered path is a drifted path of the run
-        bad = [p for p in paths if p not in scope.ledgered or repo.blob_id(scope.H, p) == repo.blob_id(scope.M, p)]
+        # the control harness (R6.RECON.21): every covered path is a drifted path of the run, ledgered or, under
+        # amendment 3, a corpus path
+        bad = [p for p in paths if (p not in scope.ledgered and not scope.in_corpus(p)) or
+               repo.blob_id(scope.H, p) == repo.blob_id(scope.M, p)]
         return ['%s is not a drifted path of the run' % bad[0]] if bad else []
     if scope.F is None:
         return ['no freeze F: the route needs F outside the control harness']

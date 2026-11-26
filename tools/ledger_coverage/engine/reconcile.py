@@ -393,9 +393,10 @@ def scientific_problems(entry, led):
         if not (isinstance(inv, list) and inv):
             out.append('invalidates without an invalidated edit')
         else:
+            from .category3 import read_invalidated
             for x in inv:
-                if not isinstance(x, dict) or edit_key(led, x.get('id')) is None or \
-                        edit_key(led, x.get('id')) != x.get('sha256'):
+                eid, esha, _target = read_invalidated(x)
+                if not isinstance(x, dict) or edit_key(led, eid) is None or edit_key(led, eid) != esha:
                     out.append('an invalidated sha256 differs from the edit-list entry')
                     break
     path = entry.get('path') or ''

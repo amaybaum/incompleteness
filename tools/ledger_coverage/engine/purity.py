@@ -36,11 +36,14 @@ field_names = frozenset([
     'holds', 'obligation', 'class', 'decision', 'subject', 'fingerprint', 'm', 'l', 'h', 'c', 'x', 'list', 'check',
     'message', 'status', 'match', 'H', 'X', 'M', 'L', 'C', 'GITHUB_ACTIONS', 'GITHUB_RUN_ID', 'GITHUB_TOKEN',
     'GITHUB_API_URL', 'GITHUB_REPOSITORY_ID',
+    # design r6 amendment 4: the record base and the reassessment record (R6.RECON.2 (c), R6.RECON.27)
+    'record_base', 'finding', 'repair', 'edit', 'rederivation', 'commits', 'target', 'start_H',
+    'side_change_commits', 'category3', 'findings', 'blocked', 'reassessments', 'run_level',
 ])
 schema_ids = frozenset([
     'oi-ledger-coverage/5', 'oi-retirement-config/1', 'oi-term-rules/2', 'oi-delegation/1', 'oi-hp-adjudication/1',
     'oi-context-adjudication/1', 'oi-hit-classification/1', 'oi-scope/1', 'oi-side-change-classes/1',
-    'oi-reconciliation/1', 'oi-reconciliation/2', 'oi-review-record/1', 'oi-ledger-landing/1',
+    'oi-reconciliation/1', 'oi-reconciliation/2', 'oi-review-record/1', 'oi-ledger-landing/1', 'oi-reassessment/1',
 ])
 enumerations = frozenset([
     'PASS', 'REVIEW_REQUIRED', 'FAIL', 'USAGE', 'ERROR', 'VOID', 'INTERNAL',
@@ -65,7 +68,7 @@ enumerations = frozenset([
     'RECORD', 'MAIN', 'DELEGATED', 'BOF', 'EOF', 'hp', 'ledgered', 'unledgered', 'unchanged', 'moved',
     'authorized-replacement', 'authorized-removal', 'unresolved', 'carried', 'changed', 'removed', 'conforms',
     'pass', 'fail', 'missing', 'widening', 'edits', 'checker', 'identity', 'scope', 'classification',
-    'none', 'side-change-classes', 'REPLAY_REFUSED', 'REPLAY_MISMATCH',
+    'none', 'side-change-classes', 'REPLAY_REFUSED', 'REPLAY_MISMATCH', 'reassessment',
     'RC1', 'RC2', 'RC3', 'RC4', 'RC5', 'RC6', 'RC7', 'RC8', 'RC9', 'RC10', 'RC11', 'RC12', 'RC13',
     'U', 'M', 'K', 'B', 'H', 'O', 'R', 'S1', 'N2', 'B1', 'B2', 'B3', 'B4', 'B6', 'K1', 'K2', 'K3', 'K4', 'K5',
     'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M11', 'O1', 'O9',

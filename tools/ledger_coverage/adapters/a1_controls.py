@@ -1077,7 +1077,8 @@ def rtl2_inputs(a, res, recon_arg, h, m, c, m0=None):
         for e in doc.get('paths') or []:
             recs.append({'path': e.get('path'), 'record': path, 'reviewed': bool(review),
                          'review_lint_passes': path not in invalid and review.get('path') not in invalid,
-                         'H': (e.get('ledger_binding') or doc.get('ledger_binding') or {}).get('ledger_base'), 'M': doc.get('M'),
+                         'H': __import__('ledger_coverage.engine.reconcile', fromlist=['x']).entry_binding(
+                             doc, e).get('ledger_base'), 'M': doc.get('M'),
                          'C': doc.get('X')})
     drift = sorted(x.get('path') for x in res.get('side_changes') or [] if x.get('class') == 'base-drift')
     roles = {'H': h, 'M': m, 'C': c}

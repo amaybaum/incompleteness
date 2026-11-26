@@ -2632,7 +2632,9 @@ def main(out_root):
               # design amendment 1: the post-freeze route
               ('POSTF', lambda: pfc.postf_controls(r, check)),
               # design amendment 4: the record base of a predicted M
-              ('RECORD-BASE', lambda: pfc.rb_controls(r, check))]
+              ('RECORD-BASE', lambda: pfc.rb_controls(r, check)),
+              # design amendments 3 and 4: the category-3 block
+              ('RECON-BLOCK', lambda: pfc.block_controls(r, check))]
     for name, fn in groups:
         try:
             got = fn()

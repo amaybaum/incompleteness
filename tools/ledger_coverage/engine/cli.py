@@ -18,6 +18,7 @@ from . import profiles as prmod
 from . import pipeline as pl
 from . import reconcile as rcmod
 from . import recon_route
+from . import category3 as c3
 from . import records as rec
 from . import rules as rulemod
 from . import util
@@ -256,6 +257,41 @@ def rule_files(loaded, harness, ctx_lookup):
 
 
 # ---- the run -------------------------------------------------------------------------------------------
+
+def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, records):
+    # design r6 R6.RECON.26 (findings of the first kind) and R6.RECON.27
+    """Scan M's tree, the records the run reads and the scanned sets of F's tree and of each record commit the run
+    names; block the run where a finding applies and no reassessment the configuration cites lifts it."""
+    pinned = (cfg['roles'].get('side_change_classes') or {}) if isinstance(cfg.get('roles'), dict) else {}
+    pinned_doc = loaded.store.get(pinned) if pinned.get('path') else None
+    F = resolve(repo, a.freeze) if a.freeze else None
+    scope = recon_route.Scope(repo, H, M, None, F, records.harness, pinned_doc,
+                              posixpath.dirname(split_ref(a.config)[1]), led['files'], lambda p: False, [])
+    schemas = rcmod.reconciliation_schemas
+    m_scan = recon_route.scanned(repo, M, scope)
+    found = c3.findings_in(m_scan, schemas) + c3.findings_of_records(recon, schemas)
+    for tree in ([F] if F else []) + sorted({c[1] for c in route_cands}):
+        found += c3.findings_in(recon_route.scanned(repo, tree, scope), schemas)
+    found = c3.unique(found)
+    out = []
+    applying = []
+    for r in cfg['records']:
+        if r.get('kind') != 'reassessment':
+            continue
+        d = loaded.store.get(r)
+        probs = c3.reassessment_problems(repo, M, led, d, r, loaded.store, loaded.admitted, found, m_scan, schemas)
+        if probs:
+            out.append(oc.make_item('RECORD', 'record-invalid', r['path'], None,
+                                    {'sha': r.get('blob_sha256'), 'why': probs[0]}, detail=probs))
+        else:
+            applying.append((d, r))
+    blocked = c3.blocks(repo, M, led, found, c3.lifting(applying))
+    out += c3.blocked_items(repo, H, M, blocked, getattr(ex, 'dispositions', []))
+    result['category3'] = {'findings': [{'record': f['record'], 'path': f['path']} for f in found],
+                           'blocked': [{'record': f['record'], 'path': f['path'], 'edit': e} for f, e in blocked],
+                           'reassessments': [r for _d, r in applying]}
+    return out
+
 
 def run(argv, repo=None, harness=False, stderr=None, extra_records=(), preflight_fn=None, control=None,
         environ=None):
@@ -1335,6 +1371,7 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
         rdir = rp.get('module_path', '').rsplit('/', 1)[0] if rp else None
         ex.main_role(set(led['files']) | corp, rp.get('record_tree'), rdir)
         items += [i for i in ex.items if i['obligation'] == 'MAIN' and i not in items]
+        items += category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, records)
         result['side_changes'] = ex.side_changes
         result['dispositions'] = getattr(ex, 'dispositions', [])
         if ex.rd is not None:

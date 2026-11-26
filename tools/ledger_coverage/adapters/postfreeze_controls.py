@@ -33,17 +33,19 @@ class World:
     """One synthetic post-freeze world. pre_change: the ledgered file's change on M is made before F (F descends from
     it), so no commit on M after F changes it (POSTF-2)."""
 
-    def __init__(self, r, pre_change=False, side=False, config_records=None, variant=None):
+    def __init__(self, r, pre_change=False, side=False, config_records=None, variant=None, edits=None, first_id=1):
         self.r = r
         syn = self.syn = sf.Syn()
         repo = self.repo = syn.repo
-        pd = sf.patch_doc(syn.H, EDITS)
+        edits = edits or EDITS
+        self.edits = edits
+        pd = sf.patch_doc(syn.H, edits, first_id)
         base = {'patch_sha': sha(pd), 'files': {'syn/patch.json': pd}}
         h_doc = repo.read(syn.H, sf.DOC)
         changed = {sf.DOC: h_doc.replace(b'Closing words of the file.', b'Closing words, changed on main.')}
         if side:
             changed['notes/side.txt'] = b'a side change on main\n'
-        x_doc = sf.apply_text(h_doc.decode(), EDITS).encode()
+        x_doc = sf.apply_text(h_doc.decode(), edits).encode()
         # the delegated class artifact-hash/1 of the synthetic configuration: the digest of the candidate's document
         self.X = repo.derive(syn.H, {sf.DOC: x_doc, 'out/digest.txt': (sha(x_doc) + '\n').encode()},
                              parents=[syn.H], subject='X')
@@ -145,7 +147,7 @@ def rtl2_inputs(res, w, path, doc):
     used = [x for x in ((res or {}).get('inputs') or {}).get('classify_records') or [] if x.get('path') == path]
     drift = sorted(x.get('path') for x in (res or {}).get('side_changes') or [] if x.get('class') == 'base-drift')
     recs = [{'path': e.get('path'), 'reviewed': bool(used and used[0].get('review')), 'review_lint_passes': lint_ok,
-             'H': (e.get('ledger_binding') or doc.get('ledger_binding') or {}).get('ledger_base'), 'M': doc.get('M'), 'C': doc.get('X')}
+             'H': rcmod.entry_binding(doc, e).get('ledger_base'), 'M': doc.get('M'), 'C': doc.get('X')}
             for e in doc.get('paths') or []]
     return {'drift': drift, 'records': recs, 'roles': {'H': w.syn.H, 'M': w.M, 'C': w.X}}
 
@@ -658,3 +660,161 @@ def rb_controls(r, check):
           'positive admitted with inputs.record_base M0; every countercase record-invalid; USAGE in a chain-admitted '
           "run; the gate's rt_l2 FAIL for a different base and PASS for M0", res, ok,
           cases=names, attested=att)
+
+
+# RECON-BLOCK (design r6 as amended by amendments 3 and 4: R6.RECON.25, R6.RECON.26; first kind of finding only)
+BLOCK = ["a reviewed entry whose scientific_effect verdict is invalidates, naming an edit id of the path",
+         "a reviewed entry of an unledgered corpus path whose verdict invalidates an edit of a ledgered path",
+         "the same, with a later record superseding it whose verdict is no-effect",
+         "the same, with every other drifted path reconciled",
+         "the blocking record landed on main, and a later run naming a REV whose tree omits it in the reconciliation "
+         "directory it used, or a chain run without --classify",
+         "a writer's verdict no-effect with a non-author review whose verdict on the scientific_effect finds "
+         "invalidation, naming the invalidated edit id and its sha256",
+         "the same review finding, followed by a new record of the same path with verdict no-effect and an accepting "
+         "review",
+         "a later commit on M reverting the invalidating change, the plan unchanged",
+         "a revert of the path to exactly H's bytes with no other drifted path (a run-level item names the path)",
+         "a reviewed repair of the change landed on M and recorded by its own reconciliation record entry, the plan "
+         "unchanged",
+         "a new configuration version with a new freeze whose ledger still carries the invalidated edit-list entry "
+         "unchanged",
+         "countercase: the same entry with verdict no-effect (positive)",
+         "countercase: the run under a revised plan, a new configuration whose ledger changes the invalidated edit's "
+         "edit-list entry (positive)",
+         "countercase: the run under a revised plan whose ledger no longer carries the invalidated edit, the finding "
+         "and the repair still on M (positive)"]
+OTHER = 'doc/other.md'
+EDITS_REWORDED = [('# synthetic', ['# synthetic', '', 'Preface line one, reworded.'])]
+EDITS_OTHER = [('Remark two notes a side fact.', ['Remark two notes another fact.'])]
+
+
+def invalidating(w, path, M=None, edit='E1'):
+    """A finding of the first kind: the writer's entry for `path` with verdict invalidates, naming the edit of the
+    world's ledger as {id, sha256} (the amendment-3 reading of `invalidated`)."""
+    M = M or w.M
+    eff = dict(CONTROL_EFFECT, conclusions=[edit], verdict='invalidates',
+               invalidated=[{'id': edit, 'sha256': rcmod.edit_key(w.led, edit)}],
+               assessment='control fixture: the change on main invalidates the basis of the planned edit')
+    doc = rcmod.draft(w.repo, w.ctx, w.syn.H, M, w.X, w.led, path, scientific_effect=eff)
+    doc.update(record_id='syn-finding-' + path.replace('/', '-'), author=sf.WRITER, supersedes=None, M=M, X=w.X)
+    return doc
+
+
+def land(w, docs, subject='land records on main'):
+    """A commit on main adding each (path, doc) with its review record in its directory; it becomes w.M."""
+    files = {}
+    for path, doc in docs:
+        data = jb(doc)
+        files[path] = data
+        files[path[:-5] + '.review.json'] = w.review(path, data)
+    w.M = w.repo.derive(w.M, files, parents=[w.M], subject=subject)
+    return w.M
+
+
+def block_controls(r, check):
+    res, names = {}, []
+
+    def run(name, w, classify=(), harness=True, binding=None):
+        code, out = w.run(list(classify), harness=harness)
+        d = next((x for x in (out or {}).get('dispositions') or [] if x.get('path') == sf.DOC), None)
+        blocked = [i for i in (out or {}).get('items', []) if i['class'] == 'retirement-blocked']
+        res[name] = {'exit': code, 'classes': classes(out), 'doc_disposition': (d or {}).get('disposition'),
+                     'doc_reconciled': any(x.get('path') == sf.DOC and x.get('reconciled')
+                                           for x in (out or {}).get('side_changes') or []),
+                     'blocked': [(i.get('subject'), bool((i.get('fp') or i.get('fingerprint_data') or {}))) for i in
+                                 blocked],
+                     'run_level': [i.get('subject') for i in blocked if 'run-level' in str(i.get('detail'))],
+                     'category3': (out or {}).get('category3')}
+        names.append((name, binding or {}))
+        return out
+
+    # 1: the finding on the ledgered path, landed on main
+    w = World(r)
+    land(w, [(RD + 'finding.json', invalidating(w, sf.DOC))])
+    run(BLOCK[0], w)
+    # 2: a corpus path the ledger does not list, its entry invalidating the ledgered edit
+    w = World(r)
+    w.M = w.repo.derive(w.M, {OTHER: b'# other\n\nA corpus file changed on main.\n'}, parents=[w.M], subject='corpus')
+    fin = invalidating(w, OTHER)
+    land(w, [(RD + 'finding.json', fin)])
+    run(BLOCK[1], w)
+    # 3: a later record superseding it with verdict no-effect
+    later = rcmod.draft(w.repo, w.ctx, w.syn.H, w.M, w.X, w.led, OTHER, scientific_effect=dict(CONTROL_EFFECT))
+    fin_ref = {'path': RD + 'finding.json', 'blob_sha256': sha(jb(fin))}
+    later.update(record_id=fin['record_id'], author=sf.WRITER, supersedes=fin_ref, M=w.M, X=w.X)
+    land(w, [(RD2 + 'later.json', later)], 'a superseding record')
+    run(BLOCK[2], w)
+    # 4: every other drifted path reconciled: the finding and a reviewed no-effect record of the ledgered path, both
+    # added by the record commit REV the run names (no record landed on main, so no unclassified side change)
+    w = World(r)
+    w.M = w.repo.derive(w.M, {OTHER: b'# other\n\nA corpus file changed on main.\n'}, parents=[w.M], subject='corpus')
+    f4 = invalidating(w, OTHER)
+    f4b = jb(f4)
+    rv, pth, _ = w.standard(w.record(), path=RD2 + 'doc.json',
+                            extra={RD + 'finding.json': f4b, RD + 'finding.review.json': w.review(RD + 'finding.json',
+                                                                                                f4b)})
+    run(BLOCK[3], w, ['%s:%s' % (rv, pth), '%s:%s' % (rv, RD + 'finding.json')])
+    # 5: the finding on main; a chain run without --classify
+    w = World(r)
+    land(w, [(RD + 'finding.json', invalidating(w, sf.DOC))])
+    run(BLOCK[4], w, harness=False)
+    # 8: a later commit reverting the change, another path still drifted
+    w = World(r)
+    land(w, [(RD + 'finding.json', invalidating(w, sf.DOC))])
+    h_doc = w.repo.read(w.syn.H, sf.DOC)
+    w.M = w.repo.derive(w.M, {sf.DOC: h_doc, OTHER: b'# other\n\nstill drifted.\n'}, parents=[w.M], subject='revert')
+    run(BLOCK[7], w)
+    # 9: a revert to exactly H's bytes, no other drifted path
+    w = World(r)
+    land(w, [(RD + 'finding.json', invalidating(w, sf.DOC))])
+    w.M = w.repo.derive(w.M, {sf.DOC: w.repo.read(w.syn.H, sf.DOC)}, parents=[w.M], subject='revert to H')
+    run(BLOCK[8], w, binding={'path': sf.DOC})
+    # 10: a reviewed repair landed and recorded by its own no-effect entry
+    w = World(r)
+    land(w, [(RD + 'finding.json', invalidating(w, sf.DOC))])
+    w.M = w.repo.derive(w.M, {sf.DOC: w.repo.read(w.M, sf.DOC).replace(b'changed on main', b'repaired on main')},
+                        parents=[w.M], subject='repair')
+    rep = w.record(record_id='syn-repair')
+    land(w, [(RD2 + 'repair.json', rep)], 'the repair record')
+    run(BLOCK[9], w)
+    # 11: a new configuration version whose ledger still carries the edit unchanged
+    w = World(r, variant=lambda w_: {'extra': {'version': 2}})
+    land(w, [(RD + 'finding.json', invalidating(w, sf.DOC))])
+    run(BLOCK[10], w)
+    # 12: the same entry with verdict no-effect
+    w = World(r)
+    land(w, [(RD + 'finding.json', w.record(record_id='syn-no-effect'))])
+    run(BLOCK[11], w)
+    # 13: a revised plan whose ledger rewords the edit (same id, same old line); the finding names the edit as the
+    # original plan worded it. Amendment 4 keys the block by the edit id, so the block stays (the row's expectation
+    # predates amendment 4)
+    orig = rcmod.edit_key(World(r).led, 'E1')
+    w = World(r, edits=EDITS_REWORDED)
+    f13 = invalidating(w, sf.DOC)
+    f13['paths'][0]['scientific_effect']['invalidated'][0]['sha256'] = orig
+    land(w, [(RD + 'finding.json', f13)])
+    run(BLOCK[12], w)
+    # 14: a revised plan whose ledger no longer carries the edit (another edit, another id), finding and repair on M
+    w = World(r, edits=EDITS_OTHER, first_id=2)
+    eff = dict(CONTROL_EFFECT, conclusions='none', verdict='invalidates',
+               invalidated=[{'id': 'E1', 'sha256': rcmod.edit_key(World(r).led, 'E1')}])
+    f14 = rcmod.draft(w.repo, w.ctx, w.syn.H, w.M, w.X, w.led, sf.DOC, scientific_effect=eff)
+    f14.update(record_id='syn-finding-old-plan', author=sf.WRITER, supersedes=None, M=w.M, X=w.X)
+    land(w, [(RD + 'finding.json', f14)])
+    run(BLOCK[13], w)
+    not_built = [BLOCK[5], BLOCK[6]]
+    blocked_cases = [BLOCK[k] for k in (0, 1, 2, 3, 4, 7, 8, 9, 10)]
+    ok = all(res[k]['exit'] == 20 and 'retirement-blocked' in res[k]['classes'] for k in blocked_cases) and \
+        res[BLOCK[8]]['run_level'] == [sf.DOC] and res[BLOCK[0]]['doc_disposition'] == 'retirement-blocked' and \
+        res[BLOCK[3]]['doc_reconciled'] and \
+        'retirement-blocked' not in res[BLOCK[11]]['classes'] and \
+        'retirement-blocked' not in res[BLOCK[13]]['classes']
+    res['built_cases_hold'] = ok
+    res['case_13_blocked'] = 'retirement-blocked' in res[BLOCK[12]]['classes']
+    res['not_built'] = not_built
+    ok = ok and not not_built and not res['case_13_blocked']
+    check('RECON-BLOCK', 'a reviewed finding that a change invalidates a planned edit blocks the retirement (first '
+          'kind of finding; amendment 4 keying by edit id)', 'each blocking case FAIL retirement-blocked; the '
+          'countercases not blocked; the review-finding cases not built (a design decision is pending)', res, ok,
+          cases=names)

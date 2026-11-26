@@ -277,9 +277,9 @@ class Syn:
         return [{'kind': 'review', 'path': rp, 'blob_sha256': sha(files[rp])}]
 
 
-def patch_doc(base, edits):
+def patch_doc(base, edits, first_id=1):
     return jb({'schema': 'line patch v1', 'base': base, 'edits': [
-        {'id': 'E%d' % (i + 1), 'file': DOC, 'old_line_sha256': sha(old.encode()), 'new_lines': new}
+        {'id': 'E%d' % (i + first_id), 'file': DOC, 'old_line_sha256': sha(old.encode()), 'new_lines': new}
         for i, (old, new) in enumerate(edits)]})
 
 
