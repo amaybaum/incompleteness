@@ -53,6 +53,330 @@ def once(text, old, new, what):
 def dumpj(doc):
     return (json.dumps(doc, indent=1, ensure_ascii=False) + '\n').encode('utf-8')
 
+# ---- the record specifications: one definition per kind, rendered as its key tables (R6.RECON.29 to R6.RECON.34)
+# and expanded into the conformance mutants (CONFORMANCE-MUTANTS.json). Each part: (table id, title, rows); each row:
+# (key, type as written, required, source and binding, acceptance, machine type). Machine types: ('lit', v),
+# ('enum', (v, ...)), ('str',), ('nstr',), ('commit',), ('blob',), ('sha256',), ('offset',), ('int',), ('path',),
+# ('ident',), ('time',), ('b64',), ('null',), ('obj', table id), ('arr', element type, minimum length),
+# ('or', type, type, ...), ('any',).
+REF = 'reference'
+T_REF = ('obj', 'reference')
+T_REF_OR_NULL = ('or', T_REF, ('null',))
+S = ('nstr',)
+SPEC = {
+    'recon': [
+        ('reference', 'reference (R6.RECON.29)', [
+            ('path', 'path', 'yes', 'the record\'s path', '', ('path',)),
+            ('blob_sha256', 'sha256', 'yes', 'the sha256 of the blob\'s bytes', '', ('sha256',)),
+        ]),
+        ('recon.record', '`oi-reconciliation/2` record', [
+            ('schema', '`"oi-reconciliation/2"`', 'yes', '', 'a record of schema `oi-reconciliation/1` that a run '
+             'reads is FAIL `record-invalid` and never applies; detection (R6.RECON.35) reads `/1` files too',
+             ('lit', 'oi-reconciliation/2')),
+            ('record_id', 'non-empty string', 'yes', 'the record\'s lineage (R6.REC.7)', '', S),
+            ('supersedes', REF + ' or null', 'yes', 'R6.REC.7', '', T_REF_OR_NULL),
+            ('author', 'identity string', 'yes', 'the writer (R6.REC.2)', '', ('ident',)),
+            ('M', 'commit id', 'yes', 'the run\'s `M`', 'equal, as a string, to the run\'s full id', ('commit',)),
+            ('X', 'commit id', 'yes', 'the run\'s `X`', 'equal, as a string, to the run\'s full id', ('commit',)),
+            ('ledger_base', 'commit id', 'yes', '`roles.scientific_base`', 'equals `H` (RC13, R6.RECON.5)',
+             ('commit',)),
+            ('changes_decisions_on_X', 'array', 'yes', 'R6.RECON.3', 'RC12 holds only for `[]`',
+             ('arr', ('any',), 0)),
+            ('paths', 'non-empty array of entries', 'yes', 'the paths the record covers',
+             'each entry\'s `path` occurs once', ('arr', ('obj', 'recon.entry'), 1)),
+        ]),
+        ('recon.entry', 'entry (element of `paths`)', [
+            ('path', 'path', 'yes', 'a ledgered or corpus path that differs between `H` and `M`', '', ('path',)),
+            ('ledger_binding', 'object (below)', 'yes', 'read through the ledger interface (R6.ADAPT.2)',
+             'RC13 (R6.RECON.5)', ('obj', 'recon.ledger_binding')),
+            ('side_change_commits', 'array of commit ids', 'yes', 'the commits on `M`\'s first-parent chain after `H` '
+             'that change the path, oldest first', 'RC1', ('arr', ('commit',), 0)),
+            ('scientific_effect', 'object (below)', 'yes', 'R6.RECON.25', '', ('obj', 'recon.scientific_effect')),
+            ('m', 'blob id', 'yes', 'the path\'s blob at `M`', 'RC2', ('blob',)),
+            ('m_sha256', 'sha256', 'yes', 'the same blob', 'RC2', ('sha256',)),
+            ('l', 'blob id', 'yes', 'the composed blob (R6.TREE.12, R6.RECON.19)', 'RC7', ('blob',)),
+            ('l_sha256', 'sha256', 'yes', 'the same blob', 'RC7', ('sha256',)),
+            ('x', 'blob id', 'yes', 'the path\'s blob at `X`', 'RC8', ('blob',)),
+            ('x_sha256', 'sha256', 'yes', 'the same blob', 'RC8', ('sha256',)),
+            ('splices', 'array of splices (below)', 'yes', 'one element for each splice of the path in the ledger, '
+             'in ledger order', 'the list of `id` values equals the ledger\'s splice ids for the path, in order',
+             ('arr', ('obj', 'recon.splice'), 0)),
+            ('protected', 'array of protected ranges (below)', 'yes', 'the protected ranges at `M`', 'RC9',
+             ('arr', ('obj', 'recon.protected'), 0)),
+            ('resolutions', 'array of resolutions (below)', 'no; absent means `[]`', 'the explicit resolutions',
+             'R6.RECON.24', ('arr', ('obj', 'recon.resolution'), 0)),
+        ]),
+        ('recon.ledger_binding', '`ledger_binding`', [
+            ('files_entry_sha256', 'sha256 or null', 'yes', 'the canonical sha256 of the path\'s raw `files` entry',
+             'null for a corpus path the ledger does not list', ('or', ('sha256',), ('null',))),
+            ('splices_sha256', 'sha256 or null', 'yes', 'the canonical sha256 of the list of the path\'s raw splices, '
+             'in ledger order', 'likewise', ('or', ('sha256',), ('null',))),
+            ('edit_records_sha256', 'sha256 or null', 'yes', 'the canonical sha256 of the list of the raw edit-list '
+             'entries whose `file` is the path, in edit-list order', 'likewise', ('or', ('sha256',), ('null',))),
+        ]),
+        ('recon.scientific_effect', '`scientific_effect`', [
+            ('conclusions', '`"none"` or a non-empty array of distinct edit ids', 'yes', 'R6.RECON.25',
+             'edit ids of the edit list of the configuration `configuration` names, not the run\'s',
+             ('or', ('lit', 'none'), ('arr', S, 1))),
+            ('assessment', 'non-empty string', 'yes', 'R6.RECON.25', 'rests on the review', S),
+            ('method', 'non-empty string', 'yes', 'R6.RECON.25', 'the executed-path rule below', S),
+            ('verdict', '`"no-effect"` or `"invalidates"`', 'yes', 'R6.RECON.25', '',
+             ('enum', ('no-effect', 'invalidates'))),
+            ('configuration', REF, 'yes', 'the configuration under which the entry was assessed (R6.RECON.26, Form of '
+             'a finding (iii))', 'resolved as R6.RECON.33 states', T_REF),
+            ('invalidated', 'non-empty array of `invalidated` elements (below)',
+             'exactly when `verdict` is `"invalidates"`', 'R6.RECON.26', 'checked against the configuration '
+             '`configuration` names', ('arr', ('obj', 'invalidated'), 1)),
+        ]),
+        ('invalidated', '`invalidated` element (R6.RECON.26, Form of a finding (ii))', [
+            ('id', 'non-empty string', 'yes', 'an edit id of the named configuration\'s edit list', '', S),
+            ('sha256', 'sha256', 'yes', 'the canonical sha256 of that edit-list entry', '', ('sha256',)),
+            ('target', 'object (below)', 'yes', 'the edit at the named configuration\'s `H`', '',
+             ('obj', 'invalidated.target')),
+        ]),
+        ('invalidated.target', '`target`', [
+            ('path', 'path', 'yes', 'the edit\'s file', '', ('path',)),
+            ('start_H', 'offset', 'yes', 'the edit\'s start at that `H`', '', ('offset',)),
+            ('old_sha256', 'sha256', 'yes', 'the sha256 of the edit\'s old bytes (a retained edit\'s `text`)', '',
+             ('sha256',)),
+        ]),
+        ('recon.splice', 'splice (element of `splices`)', [
+            ('id', 'non-empty string', 'yes', 'the ledger\'s splice id', '', S),
+            ('start_H', 'offset', 'yes', 'the splice\'s start at `H`', 'equals the ledger\'s', ('offset',)),
+            ('end_H', 'offset', 'yes', 'the splice\'s end at `H`', 'equals the ledger\'s', ('offset',)),
+            ('start_M', 'offset', 'yes', 'the splice\'s translated start at `M`', 'RC4', ('offset',)),
+            ('end_M', 'offset', 'yes', '`start_M + end_H - start_H`', 'equal to that sum', ('offset',)),
+            ('new_sha256', 'sha256', 'yes', 'the sha256 of the splice\'s new bytes', 'RC6', ('sha256',)),
+            ('translation', '`"identity"` or an integer', 'yes', 'R6.RECON.10', 'RC5',
+             ('or', ('lit', 'identity'), ('int',))),
+        ]),
+        ('recon.protected', 'protected range (element of `protected`)', [
+            ('start_M', 'offset', 'yes', 'R6.RECON.1', 'RC9', ('offset',)),
+            ('end_M', 'offset', 'yes', 'R6.RECON.1', 'RC9', ('offset',)),
+            ('sha256', 'sha256', 'yes', 'the bytes `m[start_M:end_M]`', 'RC9', ('sha256',)),
+        ]),
+        ('recon.resolution', 'resolution (element of `resolutions`)', [
+            ('splice', 'non-empty string', 'yes', 'R6.RECON.24, resolution schema', '', S),
+            ('start_M', 'offset', 'yes', 'R6.RECON.24', '', ('offset',)),
+            ('end_M', 'offset', 'yes', 'R6.RECON.24', '', ('offset',)),
+            ('sha256', 'sha256', 'yes', 'R6.RECON.24', '', ('sha256',)),
+            ('resolved', 'canonical base64 string', 'yes', 'R6.RECON.24', '', ('b64',)),
+            ('resolved_sha256', 'sha256', 'yes', 'R6.RECON.24', '', ('sha256',)),
+        ]),
+    ],
+    'review': [
+        ('review.record', '`oi-review-record/1` record', [
+            ('schema', '`"oi-review-record/1"`', 'yes', '', '', ('lit', 'oi-review-record/1')),
+            ('kind', '`"review"` or `"widening"`', 'no; absent means `"review"`', '', '',
+             ('enum', ('review', 'widening'))),
+            ('reviewer', 'identity string', 'yes', 'the reviewer (R6.REC.2)', 'not equal to the reviewed record\'s '
+             '`author`; for a widening review, also not equal to the reviewer of the superseding record\'s own review '
+             '(R6.REC.13)', ('ident',)),
+            ('reviewed', REF, 'yes', 'the reviewed record', 'its `path` and `blob_sha256` both equal those of the '
+             'reviewed record, in record lint, in the post-freeze route and in detection alike', T_REF),
+            ('replaces', REF, 'exactly when `kind` is `"widening"`', 'the superseded record (R6.REC.13)', '', T_REF),
+            ('method', 'non-empty string', 'yes', 'how each item was re-derived (R6.REC.2)',
+             'contains at least one full 40-character object id that the reviewer read', S),
+            ('verdicts', 'array of verdict entries (below)', 'yes', 'R6.REC.2',
+             'one entry for each item id of the reviewed record (the item-id table below), no duplicate',
+             ('arr', ('obj', 'review.verdict'), 1)),
+            ('dissent', 'string', 'no', 'R6.REC.2', '', ('str',)),
+        ]),
+        ('review.verdict', 'verdict entry (element of `verdicts`)', [
+            ('item', 'non-empty string', 'yes', 'an item id of the reviewed record', '', S),
+            ('verdict', '`"accept"`, `"reject"`, `"dissent"` or `"invalidates"`', 'yes', 'R6.REC.2, R6.RECON.26',
+             '`invalidates` only on `<path>:scientific_effect`',
+             ('enum', ('accept', 'reject', 'dissent', 'invalidates'))),
+            ('reason', 'string', 'yes', 'R6.REC.2', 'non-empty for a verdict other than `accept`', ('str',)),
+            ('invalidated', 'non-empty array of `invalidated` elements (R6.RECON.30)', 'with `invalidates` only',
+             'R6.RECON.26', '', ('arr', ('obj', 'invalidated'), 1)),
+            ('configuration', REF, 'with `invalidates` only', 'R6.RECON.26 (iii)', '', T_REF),
+            ('confirms', 'object (below)', 'on a resolution item only, and there required', 'R6.RECON.24',
+             'equal to the resolution\'s values', ('obj', 'review.confirms')),
+        ]),
+        ('review.confirms', '`confirms`', [
+            ('start_M', 'offset', 'yes', 'the resolution\'s `start_M`', 'equal', ('offset',)),
+            ('end_M', 'offset', 'yes', 'the resolution\'s `end_M`', 'equal', ('offset',)),
+            ('sha256', 'sha256', 'yes', 'the resolution\'s `sha256`', 'equal', ('sha256',)),
+            ('resolved_sha256', 'sha256', 'yes', 'the resolution\'s `resolved_sha256`', 'equal', ('sha256',)),
+        ]),
+    ],
+    'reassess': [
+        ('reassess.record', '`oi-reassessment/1` record', [
+            ('schema', '`"oi-reassessment/1"`', 'yes', '', '', ('lit', 'oi-reassessment/1')),
+            ('record_id', 'non-empty string', 'yes', 'R6.REC.7', '', S),
+            ('supersedes', REF + ' or null', 'yes', 'R6.REC.7', '', T_REF_OR_NULL),
+            ('author', 'identity string', 'yes', 'R6.REC.2', '', ('ident',)),
+            ('finding', 'object (below)', 'yes', 'R6.RECON.27, Keys', '', ('obj', 'reassess.finding')),
+            ('repair', 'object (below), or null', 'yes', 'R6.RECON.27, Keys', 'null only where Keys admits it',
+             ('or', ('obj', 'reassess.repair'), ('null',))),
+            ('edit', 'object (below), or null', 'yes', 'R6.RECON.27, Keys',
+             'null exactly for a finding bound at run level', ('or', ('obj', 'reassess.edit'), ('null',))),
+            ('rederivation', 'non-empty string', 'yes', 'the edit\'s justification re-derived at the run\'s `M`, '
+             'stating what was re-run', 'that the re-run happened rests on the review', S),
+            ('verdict', '`"no-effect"`', 'yes', 'R6.RECON.27', '', ('lit', 'no-effect')),
+        ]),
+        ('reassess.finding', '`finding`', [
+            ('path', 'path', 'yes', 'the path of the file carrying the finding', '', ('path',)),
+            ('blob_sha256', 'sha256', 'yes', 'the sha256 of that file', '', ('sha256',)),
+            ('item', 'non-empty string, or null', 'yes', 'R6.RECON.27, Keys',
+             'null exactly for a finding read from a malformed file (R6.RECON.35 classes (b) and (c))',
+             ('or', S, ('null',))),
+        ]),
+        ('reassess.repair', '`repair`', [
+            ('commits', 'non-empty array of distinct commit ids', 'yes', 'the repairing change',
+             'each on `M`\'s first-parent chain', ('arr', ('commit',), 1)),
+            ('entry', 'object (below)', 'yes', 'the reconciliation record entry recording the repair', '',
+             ('obj', 'reassess.repair.entry')),
+        ]),
+        ('reassess.repair.entry', '`repair.entry`', [
+            ('path', 'path', 'yes', 'the reconciliation record\'s path', '', ('path',)),
+            ('blob_sha256', 'sha256', 'yes', 'its sha256', '', ('sha256',)),
+            ('entry_path', 'path', 'yes', 'the path of its entry for the repairing change', '', ('path',)),
+        ]),
+        ('reassess.edit', '`edit`', [
+            ('id', 'non-empty string', 'yes', 'an edit id of the citing configuration\'s edit list', '', S),
+            ('sha256', 'sha256', 'yes', 'the canonical sha256 of that edit-list entry', '', ('sha256',)),
+        ]),
+        ('migration.record', '`oi-edit-id-migration/1` record', [
+            ('schema', '`"oi-edit-id-migration/1"`', 'yes', '', '', ('lit', 'oi-edit-id-migration/1')),
+            ('record_id', 'non-empty string', 'yes', 'R6.REC.7', '', S),
+            ('supersedes', REF + ' or null', 'yes', 'R6.REC.7', '', T_REF_OR_NULL),
+            ('author', 'identity string', 'yes', 'R6.REC.2', '', ('ident',)),
+            ('migrations', 'non-empty array of migrations (below)', 'yes', 'R6.RECON.28', 'the lint of R6.RECON.28',
+             ('arr', ('obj', 'migration.element'), 1)),
+            ('approval', 'object (below)', 'yes', 'the owner\'s recorded approval (AGENTS.md sec. A.48 item 3)',
+             'form only (R6.REC.3)', ('obj', 'migration.approval')),
+        ]),
+        ('migration.element', 'migration (element of `migrations`)', [
+            ('old', 'non-empty string', 'yes', 'the renamed edit id', '', S),
+            ('new', 'non-empty string', 'yes', 'its successor', '', S),
+        ]),
+        ('migration.approval', '`approval`', [
+            ('quote', 'non-empty string', 'yes', 'the owner\'s words', '', S),
+            ('author', 'identity string', 'yes', 'the owner\'s login', '', ('ident',)),
+            ('time', 'time', 'yes', 'the time of the owner\'s record', '', ('time',)),
+        ]),
+    ],
+    'class': [
+        ('class.record', '`oi-side-change-classes/1` record', [
+            ('schema', '`"oi-side-change-classes/1"`', 'yes', '', '', ('lit', 'oi-side-change-classes/1')),
+            ('record_id', 'non-empty string', 'yes', 'R6.REC.7', '', S),
+            ('supersedes', REF + ' or null', 'yes', 'R6.REC.7', '', T_REF_OR_NULL),
+            ('author', 'identity string', 'yes', 'R6.REC.2', '', ('ident',)),
+            ('classes', 'non-empty array of classes (below)', 'yes', 'R6.TREE.5', 'each class id defined once',
+             ('arr', ('obj', 'class.class'), 1)),
+        ]),
+        ('class.class', 'class (element of `classes`)', [
+            ('id', 'non-empty string', 'yes', 'R6.TREE.5', '', S),
+            ('prefixes', 'array of paths', 'yes', 'where the class\'s paths may lie (R6.TREE.5)',
+             'a path lies under a prefix when it begins with the prefix followed by `/`', ('arr', ('path',), 0)),
+            ('pins', 'array of pins (below)', 'yes', 'the pinned blobs (R6.TREE.5)', '',
+             ('arr', ('obj', 'class.pin'), 0)),
+        ]),
+        ('class.pin', 'pin (element of `pins`)', [
+            ('path', 'path', 'yes', 'the pinned path', '', ('path',)),
+            ('blob_sha256', 'sha256', 'yes', 'the sha256 of its blob at `M`', 'the pin', ('sha256',)),
+        ]),
+    ],
+}
+PARTS = {pid: (kind, title, rows) for kind, parts in SPEC.items() for pid, title, rows in parts}
+
+
+def spec_tables(kind):
+    out = []
+    for pid, title, rows in SPEC[kind]:
+        out += ['*%s* (table `%s`)' % (title, pid), '',
+                '| Key | Type | Required | Source and binding | Acceptance |', '|---|---|---|---|---|']
+        for key, typ, req, src, acc, _m in rows:
+            out.append('| `%s` | %s | %s | %s | %s |' % (key, typ, req, src or '', acc or ''))
+        out.append('')
+    return '\n'.join(out).rstrip('\n')
+
+
+JSON_TYPES = ('null', 'boolean', 'number', 'string', 'array', 'object')
+STRINGISH = ('lit', 'enum', 'str', 'nstr', 'commit', 'blob', 'sha256', 'path', 'ident', 'time', 'b64')
+# the near-miss variants of each encoding, all of the correct JSON type (R6.RECON.29)
+NEAR = {
+    'commit': ['upper-case', 'thirty-nine-characters', 'trailing-newline'],
+    'blob': ['upper-case', 'thirty-nine-characters', 'trailing-newline'],
+    'sha256': ['upper-case', 'sixty-three-characters', 'trailing-newline'],
+    'offset': ['fraction-5.0', 'negative'],
+    'int': ['fraction-5.0'],
+    'path': ['leading-slash', 'trailing-slash', 'empty-component', 'dot-component', 'dot-dot-component'],
+    'ident': ['url'],
+    'time': ['no-zone', 'space-separator'],
+    'b64': ['unpadded', 'line-break'],
+    'nstr': ['empty'],
+    'lit': ['trailing-space', 'other-case'],
+    'enum': ['unlisted-value'],
+}
+
+
+def admitted(t):
+    k = t[0]
+    if k in STRINGISH:
+        return {'string'}
+    if k in ('offset', 'int'):
+        return {'number'}
+    if k == 'null':
+        return {'null'}
+    if k == 'obj':
+        return {'object'}
+    if k == 'arr':
+        return {'array'}
+    if k == 'any':
+        return set(JSON_TYPES)
+    if k == 'or':
+        out = set()
+        for x in t[1:]:
+            out |= admitted(x)
+        return out
+    raise SystemExit('machine type %r' % (t,))
+
+
+def near_misses(t, path):
+    k = t[0]
+    out = []
+    if k == 'or':
+        for x in t[1:]:
+            out += near_misses(x, path)
+    elif k == 'arr':
+        if t[2] >= 1:
+            out.append((path, 'empty-array'))
+        if t[1][0] not in ('obj', 'any'):
+            out += near_misses(t[1], path + '[0]')
+    elif k in NEAR:
+        out += [(path, v) for v in NEAR[k]]
+    return out
+
+
+def mutants():
+    """The conformance mutants, by the fixed rule of R6.RECON.29: (table, key path, violation)."""
+    out = []
+    for pid, (kind, title, rows) in sorted(PARTS.items()):
+        for key, typ, req, src, acc, m in rows:
+            if req == 'yes':
+                out.append((pid, key, 'required-key-removed'))
+            for jt in JSON_TYPES:
+                if jt not in admitted(m):
+                    out.append((pid, key, 'type-' + jt))
+            out += [(pid, p, v) for p, v in near_misses(m, key)]
+        out.append((pid, '+unlisted', 'unlisted-key-added'))
+    return out
+
+
+def mutants_doc():
+    ms = mutants()
+    return {'schema': 'oi-conformance-mutants/1',
+            'rule': 'R6.RECON.29: for each key table, each required key removed, one unlisted key added, one value of '
+                    'each other JSON type for each key, and each near-miss variant of each encoding with the correct '
+                    'JSON type; a nested table is mutated at one occurrence in its kind\'s positive record',
+            'tables': sorted(PARTS),
+            'mutants': [{'table': a, 'key_path': b, 'violation': c} for a, b, c in ms]}
+
+
+MUTANTS_SHA = sha(dumpj(mutants_doc()))
 
 SRC = ('r6 amendment 6 (owner directions of 2026-11-26, #1169 comments 7187418279, item 4, 7188752730, item 2, and '
        '7189470338, items 1, 3 and 4; reviews on PR #1593: 7189446310, 7189621405, 7190234470 and 7190255132)')
@@ -88,6 +412,10 @@ def row(rid, req, cases, summary, ops=('execution',)):
          'expect': {'cases': cases}, 'source': SRC, 'flags': [FLAG]}
     return r, summary
 
+
+GENERIC_CASE = ('countercase (conformance mutants): each mutant of CONFORMANCE-MUTANTS.json (sha256 %s), applied '
+                '(R6.RECON.29) to the positive record of its kind, run separately and recorded with its id (table, '
+                'key path, violation); the recorded ids equal the list' % MUTANTS_SHA)
 
 ROWS = [
     row('FINDING-FORM', ['R6.RECON.26', 'R6.REC.2', 'R6.REC.6'], [
@@ -185,8 +513,17 @@ ROWS = [
         c('a reassessment with edit null for a finding bound to an edit (not at run level)', BLOCKED_INV),
         c('a reassessment whose rederivation is not a string, or which carries a key outside its table', BLOCKED_INV),
         c('a reassessment with repair null for a well-formed finding of the second kind', BLOCKED_INV),
-        c('countercase: a reassessment with repair null for a finding that is a form failure, with a non-empty '
-          'rederivation at M, an accepting non-author review and a new freeze citing it (positive)', NOT_BLOCKED),
+        c('a reassessment with repair null for a second-kind finding by an independent reviewer that is malformed '
+          '(its review lacks method, or omits an unrelated verdict)', BLOCKED_INV),
+        c('a reassessment with repair null for a first-kind finding whose entry has no review', BLOCKED_INV),
+        c('a reassessment with item null for a finding read from a well-formed record (class (a) of R6.RECON.35)',
+          BLOCKED_INV),
+        c('countercase: a reassessment with repair null for a first-kind finding whose entry\'s non-author review '
+          'rejects <path>:scientific_effect, with a non-empty rederivation at M, an accepting non-author review and a '
+          'new freeze citing it (positive)', NOT_BLOCKED),
+        c('countercase: a reassessment with item null and repair null for a malformed file of class (c) of '
+          'R6.RECON.35, the finding being the whole file, with its rederivation, review and new freeze (positive)',
+          NOT_BLOCKED),
         c('countercase: two reassessments, one for each finding, each naming its record and item, with repair and edit '
           'as defined (positive)', NOT_BLOCKED)],
         'the reassessment keys; per-finding lifting; repair null only for a form failure or an unaccepted first-kind '
@@ -237,12 +574,16 @@ ROWS = [
         c('countercase (review): no verdict on <path>:resolution:<splice>', INVALID_DRIFT)],
         'the resolution schema (owner decision 7189470338, item 1), its mechanical checks, deletion splices and the '
         'bound review confirmation'),
-    row('RECON-SCHEMA', ['R6.RECON.29', 'R6.RECON.30', 'R6.RECON.10'], [
+    row('RECON-SCHEMA', ['R6.RECON.29', 'R6.RECON.30', 'R6.RECON.10', 'R6.RECON.31', 'R6.RECON.32', 'R6.RECON.34'], [
         c('a record that conforms to every key table of R6.RECON.30 and to the conditions stated beside them (positive)',
           CLEAN),
-        c('countercase (generic conformance): the same record mutated once for each violation the key tables define (a '
-          'required key removed, a value of another type or encoding, a key outside the table), each mutant run '
-          'separately', INVALID_DRIFT),
+        c('a review record, a reassessment, an edit-id migration record and a side-change class record, each '
+          'conforming to its key tables of R6.RECON.31, R6.RECON.32 and R6.RECON.34 (positive, one record per kind)',
+          {'outcome': 'ANY', 'invariants': [{'not_class': ['record-invalid']}]}),
+        c(GENERIC_CASE, {'outcome': 'FAIL', 'classes_include': ['record-invalid'],
+                         'invariants': [{'items_include': [{'class': 'record-invalid', 'subject': '$mutant_record',
+                                                            'key_path': '$key_path'}]},
+                                        {'none': 'items[subject=$mutant_record,failed_conditions_nonempty]'}]}),
         c('countercase: changes_decisions_on_X missing, null, {} or ""', INVALID_DRIFT),
         c('countercase: an offset written 5.0, or true, in a splice, a protected range or a resolution', INVALID_DRIFT),
         c('countercase: a splice translation "shift"', INVALID_DRIFT),
@@ -305,7 +646,9 @@ ROWS = [
     row('CONFIG-REFS', ['R6.RECON.33', 'R6.CFG.4'], [
         c('a configuration whose records entries each carry a kind of the enumeration with a record of the mapped '
           'schema, roles.side_change_classes also listed in records with the same blob, retirement {name, issue}, '
-          'executed_suffixes (positive)', CONFIG_OK),
+          'executed_suffixes holding the design floor and .js added (positive)', CONFIG_OK),
+        c('countercase: executed_suffixes lacking .py, or set to [".none"] (it must contain the design floor)',
+          CONFIG_ERR),
         c('countercase: a records entry of a kind outside the enumeration', CONFIG_ERR),
         c('countercase: a records entry whose record has a schema other than its kind\'s', CONFIG_ERR),
         c('countercase: roles.side_change_classes not listed in records, or listed with another blob', CONFIG_ERR),
@@ -330,8 +673,8 @@ ROWS = [
           INVALID)],
         'the resolution of a reference in each admission mode, the whole-chain walk, the lineage direction'),
     row('CLASS-SCHEMA', ['R6.RECON.34', 'R6.TREE.5'], [
-        c('a class record whose classes carry id, prefixes and pins [{path, git_blob, blob_sha256}] (positive)', CLEAN),
-        c('countercase: a pin without git_blob', INVALID),
+        c('a class record whose classes carry id, prefixes and pins [{path, blob_sha256}] (positive)', CLEAN),
+        c('countercase: a pin carrying git_blob (a key outside the table)', INVALID),
         c('countercase: a class carrying the class-level paths form', INVALID),
         c('countercase: a superseding class record that adds a pin without a widening review', INVALID)],
         'side-change class record keys and widening'),
@@ -345,6 +688,10 @@ ROWS = [
         c('a malformed file encoded in UTF-16 with a byte-order mark, or writing the schema id with \\u escapes, whose '
           'text contains oi-review-record/1 and invalidates', BLOCKED_INV),
         c('a review carrying a well-formed finding that lies in the plan\'s record directory', BLOCKED),
+        c('a file beginning with { that holds one invalid UTF-8 byte, whose lossy text contains oi-review-record/1 and '
+          'invalidates: selected by its leading bytes, a malformed finding, run level', BLOCKED_INV),
+        c('a parsed object with no schema key but a review\'s shape (a reviewed key and a verdicts entry carrying '
+          'invalidates)', BLOCKED_INV),
         c('a file that fails strict parsing and contains oi-reconciliation/2 but neither invalidates nor invalidated: a '
           'malformed record, not a finding', INVALID_NOT_BLOCKED),
         c('two byte-identical reconciliation records at different paths covering one path: two records',
@@ -367,10 +714,12 @@ for _r, _ in ROWS:
 for _q, _ids in EXTRA_CONTROLS.items():
     REQ_CONTROLS.setdefault(_q, []).extend(_ids)
 NEW_REQS = ['R6.RECON.28', 'R6.RECON.29', 'R6.RECON.30', 'R6.RECON.31', 'R6.RECON.32', 'R6.RECON.33', 'R6.RECON.34',
-            'R6.RECON.35', 'R6.RECON.36']
+            'R6.RECON.35', 'R6.RECON.36', 'R6.GATE.17']
 TOUCHED = ['R6.RECON.26', 'R6.RECON.25', 'R6.RECON.24', 'R6.RECON.27', 'R6.RECON.21', 'R6.RECON.2', 'R6.RECON.10',
            'R6.REC.2', 'R6.REC.6', 'R6.REC.7', 'R6.REC.17', 'R6.CFG.4', 'R6.ADAPT.2', 'R6.TREE.5', 'R6.OUT.18',
-           'R6.CTX.7', 'R6.HIT.4']
+           'R6.CTX.7', 'R6.HIT.4', 'R6.RECON.23', 'R6.GATE.3']
+# touched requirements whose existing rows control them (no new control is added to their Controls lines)
+EXISTING_CONTROLLED = {'R6.RECON.23': 'RECON-TRIAL', 'R6.GATE.3': 'L2, RT-D, RT-DR, RT-DR3W (the corrected count keys)'}
 CONTROLS_ANCHOR = {
     'R6.RECON.26': 'Controls: RECON-BLOCK, BLOCK-KEY.',
     'R6.RECON.25': 'Controls: RECON-SCI, RECON-BLOCK, BLOCK-KEY.',
@@ -397,162 +746,6 @@ RECON_BLOCK_NEW = ('countercase: the run under a revised plan, a new configurati
                    'edit\'s edit-list entry and whose freeze cites an applying reassessment naming the finding '
                    '(R6.RECON.27) (positive)')
 
-# ---- the record specifications: one definition per kind, rendered as its key table (R6.RECON.29 to R6.RECON.34)
-# each part: (title, [(key, type, required, source and binding, acceptance)])
-REF = 'reference'
-SPEC = {
-    'recon': [
-        ('`oi-reconciliation/2` record', [
-            ('schema', '`"oi-reconciliation/2"`', 'yes', '', 'a record of schema `oi-reconciliation/1` that a run '
-             'reads is FAIL `record-invalid` and never applies; detection (R6.RECON.35) reads `/1` files too'),
-            ('record_id', 'non-empty string', 'yes', 'the record\'s lineage (R6.REC.7)', ''),
-            ('supersedes', REF + ' or null', 'yes', 'R6.REC.7', ''),
-            ('author', 'identity string', 'yes', 'the writer (R6.REC.2)', ''),
-            ('M', 'commit id', 'yes', 'the run\'s `M`', 'equal, as a string, to the run\'s full id'),
-            ('X', 'commit id', 'yes', 'the run\'s `X`', 'equal, as a string, to the run\'s full id'),
-            ('ledger_base', 'commit id', 'yes', '`roles.scientific_base`', 'equals `H` (RC13, R6.RECON.5)'),
-            ('changes_decisions_on_X', 'array', 'yes', 'R6.RECON.3', 'RC12 holds only for `[]`'),
-            ('paths', 'non-empty array of entries', 'yes', 'the paths the record covers',
-             'each entry\'s `path` occurs once'),
-        ]),
-        ('entry (element of `paths`)', [
-            ('path', 'path', 'yes', 'a ledgered or corpus path that differs between `H` and `M`', ''),
-            ('ledger_binding', 'object `{files_entry_sha256, splices_sha256, edit_records_sha256}`, each a sha256 or '
-             'null', 'yes', 'the canonical sha256 of exactly one value each, read through the ledger interface '
-             '(R6.ADAPT.2): the path\'s raw `files` entry; the list of the path\'s raw splices, in ledger order; the list '
-             'of the raw edit-list entries whose `file` is the path, in edit-list order',
-             'RC13 (R6.RECON.5); all three null for a corpus path the ledger does not list'),
-            ('side_change_commits', 'array of commit ids', 'yes', 'the commits on `M`\'s first-parent chain after `H` '
-             'that change the path, oldest first', 'RC1'),
-            ('scientific_effect', 'object (below)', 'yes', 'R6.RECON.25', ''),
-            ('m', 'blob id', 'yes', 'the path\'s blob at `M`', 'RC2'),
-            ('m_sha256', 'sha256', 'yes', 'the same blob', 'RC2'),
-            ('l', 'blob id', 'yes', 'the composed blob (R6.TREE.12, R6.RECON.19)', 'RC7'),
-            ('l_sha256', 'sha256', 'yes', 'the same blob', 'RC7'),
-            ('x', 'blob id', 'yes', 'the path\'s blob at `X`', 'RC8'),
-            ('x_sha256', 'sha256', 'yes', 'the same blob', 'RC8'),
-            ('splices', 'array of splices (below)', 'yes', 'one element for each splice of the path in the ledger, '
-             'in ledger order', 'the list of `id` values equals the ledger\'s splice ids for the path, in order'),
-            ('protected', 'array of protected ranges (below)', 'yes', 'the protected ranges at `M`', 'RC9'),
-            ('resolutions', 'array of resolutions (below)', 'no; absent means `[]`', 'the explicit resolutions',
-             'R6.RECON.24'),
-        ]),
-        ('`scientific_effect`', [
-            ('conclusions', '`"none"` or a non-empty array of distinct edit ids', 'yes', 'R6.RECON.25',
-             'edit ids of the edit list of the configuration `configuration` names, not the run\'s'),
-            ('assessment', 'non-empty string', 'yes', 'R6.RECON.25', 'rests on the review'),
-            ('method', 'non-empty string', 'yes', 'R6.RECON.25', 'the executed-path rule below'),
-            ('verdict', '`"no-effect"` or `"invalidates"`', 'yes', 'R6.RECON.25', ''),
-            ('configuration', REF, 'yes', 'the configuration under which the entry was assessed (R6.RECON.26, Form of '
-             'a finding (iii))', 'resolved as R6.RECON.33 states'),
-            ('invalidated', 'non-empty array of elements of R6.RECON.26, Form of a finding (ii)',
-             'exactly when `verdict` is `"invalidates"`', 'R6.RECON.26', 'checked against the configuration '
-             '`configuration` names'),
-        ]),
-        ('splice (element of `splices`)', [
-            ('id', 'non-empty string', 'yes', 'the ledger\'s splice id', ''),
-            ('start_H', 'offset', 'yes', 'the splice\'s start at `H`', 'equals the ledger\'s'),
-            ('end_H', 'offset', 'yes', 'the splice\'s end at `H`', 'equals the ledger\'s'),
-            ('start_M', 'offset', 'yes', 'the splice\'s translated start at `M`', 'RC4'),
-            ('end_M', 'offset', 'yes', '`start_M + end_H - start_H`', 'equal to that sum'),
-            ('new_sha256', 'sha256', 'yes', 'the sha256 of the splice\'s new bytes', 'RC6'),
-            ('translation', '`"identity"` or an integer', 'yes', 'R6.RECON.10', 'RC5'),
-        ]),
-        ('protected range (element of `protected`)', [
-            ('start_M', 'offset', 'yes', 'R6.RECON.1', 'RC9'),
-            ('end_M', 'offset', 'yes', 'R6.RECON.1', 'RC9'),
-            ('sha256', 'sha256', 'yes', 'the bytes `m[start_M:end_M]`', 'RC9'),
-        ]),
-        ('resolution (element of `resolutions`)', [
-            ('splice', 'non-empty string', 'yes', 'R6.RECON.24, resolution schema', ''),
-            ('start_M', 'offset', 'yes', 'R6.RECON.24', ''),
-            ('end_M', 'offset', 'yes', 'R6.RECON.24', ''),
-            ('sha256', 'sha256', 'yes', 'R6.RECON.24', ''),
-            ('resolved', 'canonical base64 string', 'yes', 'R6.RECON.24', ''),
-            ('resolved_sha256', 'sha256', 'yes', 'R6.RECON.24', ''),
-        ]),
-    ],
-    'review': [
-        ('`oi-review-record/1` record', [
-            ('schema', '`"oi-review-record/1"`', 'yes', '', ''),
-            ('kind', '`"review"` or `"widening"`', 'no; absent means `"review"`', '', ''),
-            ('reviewer', 'identity string', 'yes', 'the reviewer (R6.REC.2)', 'not equal to the reviewed record\'s '
-             '`author`; for a widening review, also not equal to the reviewer of the superseding record\'s own review '
-             '(R6.REC.13)'),
-            ('reviewed', REF, 'yes', 'the reviewed record', 'its `path` and `blob_sha256` both equal those of the '
-             'reviewed record, in record lint, in the post-freeze route and in the scans of R6.RECON.26 alike'),
-            ('replaces', REF, 'exactly when `kind` is `"widening"`', 'the superseded record (R6.REC.13)', ''),
-            ('method', 'non-empty string', 'yes', 'how each item was re-derived (R6.REC.2)',
-             'contains at least one full 40-character object id that the reviewer read'),
-            ('verdicts', 'array of verdict entries (below)', 'yes', 'R6.REC.2',
-             'one entry for each item id of the reviewed record (the item-id table below), no duplicate'),
-            ('dissent', 'string', 'no', 'R6.REC.2', ''),
-        ]),
-        ('verdict entry (element of `verdicts`)', [
-            ('item', 'non-empty string', 'yes', 'an item id of the reviewed record', ''),
-            ('verdict', '`"accept"`, `"reject"`, `"dissent"` or `"invalidates"`', 'yes', 'R6.REC.2, R6.RECON.26',
-             '`invalidates` only on `<path>:scientific_effect`'),
-            ('reason', 'string', 'yes', 'R6.REC.2', 'non-empty for a verdict other than `accept`'),
-            ('invalidated', 'non-empty array of elements of R6.RECON.26 (ii)', 'with `invalidates` only',
-             'R6.RECON.26', ''),
-            ('configuration', REF, 'with `invalidates` only', 'R6.RECON.26 (iii)', ''),
-            ('confirms', 'object `{start_M, end_M, sha256, resolved_sha256}`', 'on a resolution item only, and there '
-             'required', 'R6.RECON.24', 'equal to the resolution\'s values'),
-        ]),
-    ],
-    'reassess': [
-        ('`oi-reassessment/1` record', [
-            ('schema', '`"oi-reassessment/1"`', 'yes', '', ''),
-            ('record_id', 'non-empty string', 'yes', 'R6.REC.7', ''),
-            ('supersedes', REF + ' or null', 'yes', 'R6.REC.7', ''),
-            ('author', 'identity string', 'yes', 'R6.REC.2', ''),
-            ('finding', 'object `{path, blob_sha256, item}`', 'yes', 'R6.RECON.27, Keys', ''),
-            ('repair', 'object `{commits, entry: {path, blob_sha256, entry_path}}`, or null', 'yes',
-             'R6.RECON.27, Keys', 'null only where Keys admits it'),
-            ('edit', 'object `{id, sha256}`, or null', 'yes', 'R6.RECON.27, Keys',
-             'null exactly for a finding bound at run level'),
-            ('rederivation', 'non-empty string', 'yes', 'the edit\'s justification re-derived at the run\'s `M`, '
-             'stating what was re-run', 'that the re-run happened rests on the review'),
-            ('verdict', '`"no-effect"`', 'yes', 'R6.RECON.27', ''),
-        ]),
-        ('`oi-edit-id-migration/1` record', [
-            ('schema', '`"oi-edit-id-migration/1"`', 'yes', '', ''),
-            ('record_id', 'non-empty string', 'yes', 'R6.REC.7', ''),
-            ('supersedes', REF + ' or null', 'yes', 'R6.REC.7', ''),
-            ('author', 'identity string', 'yes', 'R6.REC.2', ''),
-            ('migrations', 'non-empty array of `{old, new}`, each a non-empty edit-id string', 'yes', 'R6.RECON.28',
-             'the lint of R6.RECON.28'),
-            ('approval', 'object `{quote, author, time}`: non-empty string, identity string, time', 'yes',
-             'the owner\'s recorded approval (AGENTS.md sec. A.48 item 3)', 'form only (R6.REC.3)'),
-        ]),
-    ],
-    'class': [
-        ('`oi-side-change-classes/1` record', [
-            ('schema', '`"oi-side-change-classes/1"`', 'yes', '', ''),
-            ('record_id', 'non-empty string', 'yes', 'R6.REC.7', ''),
-            ('supersedes', REF + ' or null', 'yes', 'R6.REC.7', ''),
-            ('author', 'identity string', 'yes', 'R6.REC.2', ''),
-            ('classes', 'non-empty array of classes (below)', 'yes', 'R6.TREE.5', 'each class id defined once'),
-        ]),
-        ('class (element of `classes`)', [
-            ('id', 'non-empty string', 'yes', 'R6.TREE.5', ''),
-            ('prefixes', 'array of paths', 'yes', 'where the class\'s paths may lie (R6.TREE.5)',
-             'a path lies under a prefix when it begins with the prefix followed by `/`'),
-            ('pins', 'array of `{path, git_blob, blob_sha256}`: path, blob id, sha256', 'yes', 'the pinned blobs '
-             '(R6.TREE.5)', 'both hashes required'),
-        ]),
-    ],
-}
-
-
-def spec_tables(kind):
-    out = []
-    for title, rows in SPEC[kind]:
-        out += ['*%s*' % title, '', '| Key | Type | Required | Source and binding | Acceptance |', '|---|---|---|---|---|']
-        for key, typ, req, src, acc in rows:
-            out.append('| `%s` | %s | %s | %s | %s |' % (key, typ, req, src or '', acc or ''))
-        out.append('')
-    return '\n'.join(out).rstrip('\n')
 
 
 FORM = '''
@@ -615,14 +808,18 @@ KEYS27 = '''
 **Keys** %(mark)s. `finding` is `{path, blob_sha256, item}`: the reference of the record or review
 record carrying the finding, and `item`, which of its findings is meant: for a finding of the first kind, the entry's
 path; for one of the second kind, the item id of the verdict entry carrying it (for example
-`<path>:scientific_effect`). A reassessment lifts only the finding it names; a record or review that carries several
+`<path>:scientific_effect`); null exactly for a finding read from a malformed file of class (b) or (c) of R6.RECON.35,
+the finding then being the whole file. A reassessment lifts only the finding it names; a record or review that carries several
 findings needs one reassessment for each. Where duplicated verdict entries give two findings with one `item`, a
 reassessment naming that `item` lifts each of them for its `edit` only, and only where that finding binds the `edit`.
 `repair` is `{commits, entry}`: `commits`, a non-empty array of distinct commit ids (R6.RECON.29), each on `M`'s
 first-parent chain; `entry`, `{path, blob_sha256, entry_path}`, the reference of the reconciliation record that records
-the repair and the path of its entry for the repairing change. `repair` is null only when the named finding is a form
-failure (R6.RECON.26, Form of a finding (i)) or a finding of the first kind whose non-author review does not accept
-the entry's `scientific_effect`; every other condition of this requirement still holds (an applying review, the
+the repair and the path of its entry for the repairing change. `repair` is null only where no independent reviewer asserts the
+invalidation: (a) a finding of the first kind whose entry has a non-author review that rejects or dissents on
+`<path>:scientific_effect` (such a review must exist; an entry with no review does not qualify); (b) a review whose
+`reviewed` names no record the scan finds, so that its independence cannot be established; or (c) a malformed file of
+class (b) or (c) of R6.RECON.35. A finding of the second kind by an independent reviewer needs a repair however it is
+malformed. Where `repair` is null, every other condition of this requirement still holds (an applying review, the
 re-derivation at `M`, the verdict, and a new freeze that cites the reassessment), and only the conditions on the
 repair's commits and entry are not evaluated. `edit` is `{id, sha256}`: `id`, an edit id of the citing configuration's
 edit list; `sha256`, the canonical sha256 (R6.RECON.29) of that id's edit-list entry in the citing configuration, so
@@ -733,9 +930,8 @@ to R6.RECON.36 state, for the record kinds of the reconciliation route (reconcil
 migration and side-change class records), for the configuration's references to them and for the result fields of the
 route, the field names, types, encodings, data sources, identity bindings, item ids, review requirements and
 mechanical acceptance conditions that the requirements they cite state by meaning (owner decision of 2026-11-26, #1169
-comment 7189470338, item 4). Each kind is specified once, by its key table; the tables are normative, and any machine
-schema the tool carries is derived from them and covered by the correspondence check (sec. 16). Each definition below
-is stated once and cited elsewhere.
+comment 7189470338, item 4). Each kind is specified once, by its key tables, each with a table id; the tables are
+normative. Each definition below is stated once and cited elsewhere.
 
 | Term | Encoding |
 |---|---|
@@ -759,7 +955,20 @@ strict parsing. A schema failure of a record a run reads is FAIL `record-invalid
 RC1-RC14 is evaluated, and the record does not apply: a malformed field is never reported only as a failed condition,
 and the path the record would cover stays `base-drift` (R6.TREE.7). A schema failure never loses a finding
 (R6.RECON.26, Form of a finding (i)).
-Sources: PR #1593 comments 7189621405 and 7190234470. Controls: RECON-SCHEMA, CANON-JSON.
+
+**Conformance mutants.** From the same single definition of the key tables, the generator of this design writes the
+list `CONFORMANCE-MUTANTS.json` by a fixed rule: for each table, each required key removed and one unlisted key added;
+for each key, one value of each JSON type the key does not admit; and for each encoding of the table above, its named
+near-miss variants with the correct JSON type (upper case, one character short and a trailing newline for the
+hexadecimal ids; `5.0` and a negative value for an offset; a leading or trailing `/`, an empty, `.` or `..`
+component for a path; a URL for an identity string; no zone or a space for a time; unpadded or broken base64; the empty
+string for a non-empty string; a trailing space or another case for a literal; an unlisted value for an enumeration;
+an empty array where one element is required). A nested table is mutated at one occurrence in its kind's positive
+record. Each mutant has the id `(table, key path, violation)`. For every mutant the tool's result carries a
+`record-invalid` item naming that key path and reports no condition RC1-RC14 for the mutant record; the gate checks
+that the mutant ids its records carry equal the list. The list is also the check that any machine schema the tool
+carries agrees with the tables: no other comparison is made.
+Sources: PR #1593 comments 7189621405, 7190234470 and 7190609504. Controls: RECON-SCHEMA, CANON-JSON.
 
 **R6.RECON.30** **`oi-reconciliation/2`: fields, item ids and acceptance** %(mark)s. The fields that
 R6.RECON.1 names by meaning:
@@ -771,7 +980,8 @@ ledger's splices of the path, in ledger order (an extra, missing or reordered el
 `end_M`; the `translation` value (RC5, R6.RECON.10); the edit ids against the configuration `configuration` names, not
 the run's, so that a revised plan that removes an edit does not turn an earlier entry into a form failure; and the
 executed-path floor. **Executed paths.** A path is executed by a check, for the mechanical floor, when its name ends
-in one of the configuration's `executed_suffixes` (R6.CFG.4) or a delegation class of the configuration covers it (sec.
+in one of the configuration's `executed_suffixes` (R6.CFG.4), which contain at least `.py`, `.lean`, `.yml`,
+`.yaml` and `.sh`, or a delegation class of the configuration covers it (sec.
 13); for such an entry `method` contains the entry's `l` blob id in full, or the record fails its schema. Any other
 path that a check executes (an extensionless script, a file type outside the list) carries the same obligation under
 R6.RECON.25, and the review's `accept` on `<path>:scientific_effect` confirms that `method` names the check re-run at
@@ -820,7 +1030,7 @@ top-level key whose value differs, `supersedes`, `version` and the item list exc
 `field:<key>` for each top-level key whose value differs. The configuration's widening review is a review record of
 kind `"widening"` listed in `records` with kind `review` (R6.RECON.33); the configuration has no `widening_review` key,
 and one is an unknown field (R6.VALID.2).
-Sources: PR #1593 comments 7189621405 and 7190234470. Controls: REVIEW-SCHEMA.
+Sources: PR #1593 comments 7189621405 and 7190234470. Controls: REVIEW-SCHEMA, RECON-SCHEMA.
 
 **R6.RECON.32** **`oi-reassessment/1` and `oi-edit-id-migration/1`: fields and location** %(mark)s.
 
@@ -828,7 +1038,7 @@ Sources: PR #1593 comments 7189621405 and 7190234470. Controls: REVIEW-SCHEMA.
 
 Both kinds lie, with their review records, in the plan's record directory (`D_rec`, R6.RDIR.1) of the configuration
 that references them, and are read by their reference; a referenced record outside it is FAIL `record-invalid`.
-Sources: PR #1593 comment 7189621405 (C, G). Controls: REASSESS-KEYS, MIGRATION-RECORD.
+Sources: PR #1593 comment 7189621405 (C, G). Controls: REASSESS-KEYS, MIGRATION-RECORD, RECON-SCHEMA.
 
 **R6.RECON.33** **Configuration references, resolution and lineage** %(mark)s. The kinds of `records`
 (R6.CFG.4) and the schema each requires:
@@ -860,7 +1070,8 @@ tree holds the path with a blob of that sha256 (R6.REC.17 states this walk). The
 in a chain-admitted run it is `F`; a reconciliation record admitted by the post-freeze route, and its review, are read
 at their paths in `REV`'s tree (R6.RECON.2 (d)), and the references they carry are resolved from `F`; in a
 control-harness run, which has no `F` (RT-L2, R6.RECON.21), a reference equal to the control-supplied configuration's
-reference resolves to that configuration, and any other is resolved from `REV`. A reference that no commit on the
+reference resolves to that configuration, and any other is resolved from `REV`, or, when no `REV` is named, from the
+commit the record is read from (R6.RECON.21). A reference that no commit on the
 chain holds names no record: FAIL `record-invalid` for a record, ERROR `CONFIG_INVALID` for a configuration. The search
 resolves the configurations named by `supersedes` (R6.REC.7, R6.CFG.3) and by R6.RECON.26 (iii), and the migration
 records of R6.RECON.28; the finding and the repair entry of R6.RECON.27 are read from the scans at `M` instead.
@@ -880,31 +1091,38 @@ Sources: PR #1593 comments 7189621405 and 7190234470. Controls: CONFIG-REFS, SUP
 
 %(t_class)s
 
-A class-level `paths` list is not a form of this record. A superseding class record that adds a pin or a prefix, or
+A class-level `paths` list is not a form of this record, and a pin carries no `git_blob`: its integrity is its
+`blob_sha256`, which a git object id would only restate. A superseding class record that adds a pin or a prefix, or
 changes a pin's blob, widens the record it supersedes and needs a widening review (R6.REC.13), as a changed class widens
 the configuration (R6.CFG.7).
-Sources: PR #1593 comment 7189621405 (E). Controls: CLASS-SCHEMA.
+Sources: PR #1593 comment 7189621405 (E). Controls: CLASS-SCHEMA, RECON-SCHEMA.
 
 **R6.RECON.35** **Detection and the scanned set** %(mark)s. *Selection.* Detection (R6.RECON.26) reads every
 regular file under `verification/audits/`, outside every prefix of the tool-landing class, the plan's record
-directory included, whatever its name, whose text begins, after an optional byte-order mark and whitespace, with `{`
-or `[`; the text is the file decoded as UTF-8, or as UTF-16 when it begins with a UTF-16 byte-order mark. A file whose
-text does not begin a JSON object or array is not a record of any kind (R6.RECON.29), so prose that quotes a record is
-not read. *Classes of a selected file.* (a) A file that parses strictly as an object whose `schema` is exactly
+directory included, whatever its name, whose raw leading bytes are an optional byte-order mark (UTF-8 or UTF-16),
+then ASCII whitespace, then `{` or `[` (in UTF-16 after a UTF-16 byte-order mark). Its text is the file decoded as
+UTF-8, or as UTF-16 after a UTF-16 byte-order mark, invalid bytes replaced by U+FFFD (a lossy decode, so that an
+invalid byte does not take a file out of detection). A file that does not begin a JSON object or array is not a
+record of any kind (R6.RECON.29), so prose that quotes a record is not read. *Classes of a selected file.* (a) A file that parses strictly as an object whose `schema` is exactly
 `oi-reconciliation/1`, `oi-reconciliation/2` or `oi-review-record/1` is a record of that kind; its findings are read
 under R6.RECON.26, Form of a finding (i). (b) Any other selected file in which some object, at any depth, has a
-`schema` string that, after trimming and case folding, begins with `oi-review-record/` or `oi-reconciliation/`, the file
-parsed with duplicate keys and non-finite numbers admitted for this test only, is a malformed record: FAIL
-`record-invalid`. (c) A selected file that does not parse even so, and whose text, with JSON `\\uXXXX` escapes resolved
-and case folded, contains `oi-review-record/` or `oi-reconciliation/`, is a malformed record likewise. A malformed
+`schema` string that, after trimming and case folding, begins with `oi-review-record/` or `oi-reconciliation/`, or has
+no `schema` key but a review's shape (a `reviewed` key and a `verdicts` entry carrying `invalidates` or `invalidated`),
+the file parsed with duplicate keys and non-finite numbers admitted for this test only, is a malformed record: FAIL
+`record-invalid`. (c) A selected file that does not parse even so, and whose lossy text, with JSON `\\uXXXX` escapes
+resolved and case folded, contains `oi-review-record/` or `oi-reconciliation/`, is a malformed record likewise. A malformed
 record whose text, with escapes resolved, also contains `invalidates` or `invalidated` is a malformed finding, which
 binds at run level (R6.RECON.26, Form of a finding (iv)). *The scanned set* of R6.RECON.2 (d) and (e) is the records of
 class (a) outside the plan's record directory. *Identity.* Record identity is the reference (R6.RECON.29): two
 byte-identical files at two paths are two records, for R6.RECON.2 (e) and for findings alike. *Review location.* The
 review records of a reconciliation record lie in its directory (R6.RECON.1, R6.RECON.2 (d)), and a review elsewhere is
 not its review for record lint; detection reads review records wherever they lie among the selected files, and one
-elsewhere that carries a finding counts, as a form failure.
-Sources: PR #1593 comments 7189621405, 7190234470 and 7190255132 (D1). Controls: SCAN-PARSE.
+elsewhere that carries a finding counts, as a form failure. *Residuals.* Three changes to a landed finding record are
+not caught by detection: its deletion from `main`; leading bytes that do not begin a JSON value added to it (a stray
+character, a comment line, a NUL); and its storage under a prefix of the tool-landing class, where an unpinned file is
+REVIEW_REQUIRED `side-change-unclassified` at the run, visible but not blocking. Each needs a landed change to `main`
+under the owner's merge approval; they are tracked together in Issue #1598.
+Sources: PR #1593 comments 7189621405, 7190234470, 7190255132 (D1) and 7190609504 (B). Controls: SCAN-PARSE.
 
 **R6.RECON.36** **Result fields of the reconciliation route** %(mark)s. An op C result with `M` carries:
 - `dispositions`: one entry for each drifted ledgered or corpus path (R6.RECON.22), `{path, disposition, category,
@@ -934,6 +1152,53 @@ RECON_ENUM_COUNTER = {'case': 'countercase: the same result with a dispositions 
                       'outcome': 'PREDICATE', 'invariants': [{'schema_errors': ['dispositions entry not of the '
                                                                                 'R6.RECON.36 form']}]}
 
+RECON23_OLD = ('by fingerprint,\nthe tree field excluded, counting multiplicities: a fingerprint found k times at the landing and j times at '
+               '`X` gives\nk - j new findings when k > j.')
+RECON23_NEW = ('by a matching key %s, not by\nfingerprint (an item\'s fingerprint includes its subject\'s line number, so a line '
+               'that `M`\'s changes move would\nappear new): for an item with a file and line, the key is its class, its file, its '
+               '`rule_id` or, without one, its\nprofiles, and the sha256 of the text it matched on (its line, or for a '
+               'sentence-level item its sentence),\nthe line number, the segment and the tree excluded; for an item without '
+               'a line, the key is its class, its\nsubject and its fingerprint. Keys are counted with multiplicity: a key '
+               'found k times at the landing and j\ntimes at `X` gives k - j new findings when k > j, so a line that `M` '
+               'moves gives none and a second copy of\na line gives one; when several new findings share a key, each is '
+               'reported, at the landing\'s positions of the\nlast k - j occurrences in file order.' % MARK)
+GATE3_OLD = ('  - `<unit>[k=v,...]` with unit `items`, `lines`, `sentences`, `hits` or `findings`, counted over the\n    '
+             'result. Filter keys are item fields (`obligation`, `class`, `decision`, `rule_id`, `profile`,\n    `file`, '
+             '`subject`, `segment`, `state`, `path`, `literal`, `only_profile`). `|` separates\n    alternatives.')
+GATE3_NEW = ('  - `<unit>[k=v,...]` with unit `items`, `findings`, `hits`, `sites`, `lines`, `fail_lines` or `sentences`,\n'
+             '    counted over the result %s. A filter key is a field of the counted object: an item field for\n'
+             '    `items`, `findings`, `lines`, `fail_lines` and `sentences` (for example `obligation`, `class`, `decision`,\n'
+             '    `rule_id`, `alternatives`, `profile`, `file`, `line`, `subject`, `segment`, `state`, `path`, `literal`,\n'
+             '    `only_profile`, `attribution`, `key_path`), a hit field for `hits`, a site field for `sites` (for\n'
+             '    example `moved_in`). `k=v` holds when the field equals `v` or, for a list-valued field, contains `v`;\n'
+             '    `|` separates alternative values; `k_nonempty` holds when the field is present and non-empty.\n'
+             '    `items`, `findings`, `hits` and `sites` count objects. `lines` counts distinct `(file, line)` pairs,\n'
+             '    an item\'s `line` being the line on which its match begins: a sentence-level item (one whose sentence\n'
+             '    spans several lines) counts once, at that line, and several items on one line count once.\n'
+             '    `fail_lines` is `lines` over the items whose decision is FAIL. `sentences` counts distinct sentences,\n'
+             '    each identified by its file and its start line. The modifier `count_sentence_lines=true`, which is\n'
+             '    not a field, makes `lines` and `fail_lines` count every line that the sentence of each sentence-level\n'
+             '    item spans.' % MARK)
+
+GATE17 = """
+**R6.GATE.17** **Classifying a failing row** %s. When a gate run gives a row FAIL, or NOT RUN outside its
+allowance, its cause is classified, in the review of that run and never in the expectation file, with one of four
+statuses: `expectation-defect` (the expectation misstates what a governing requirement asks, for example a misnamed
+count key or a value contradicting it); `implementation-defect` (the tool, a runner or the evidence it retains does not
+do what the design requires); `verification-failure` (the tool correctly finds that the subject or its records do not
+meet the design); or `unresolved`. A row is `unresolved` whenever the retained evidence does not settle which of the
+other three applies, and its classification names the evidence that would settle it; no row is forced into one of
+the other three. No classification changes an expected value or weakens an intended check: an expectation defect is
+corrected only by an owner-approved expectation change that names the governing requirement, and an implementation
+defect or a verification failure is never resolved by editing the expectation. A classification is review
+information: it confers no status, and the row keeps the status the gate computed (R6.GATE.9).
+Sources: owner decision of 2026-11-26 (#1169 comment 7190776267, item 3).
+""" % MARK
+RECON_TRIAL_CASE = {'case': 'a finding at X on a line that M\'s changes move (lines inserted above it): matched at the '
+                            'landing by its key, the line number excluded; no new finding (positive)',
+                    'outcome': 'ANY', 'invariants': [{'not_class': ['base-drift', 'record-invalid']}]}
+
+
 MISSING = '(absent)'
 RT_DR_OLD = ('countercase: at H with the DR-1 alternative-a match at book/The-Incompleteness-of-Observation-FULL.md:6504 '
              'removed (one target missing): the target item is absent')
@@ -962,6 +1227,8 @@ DECLARED_DIFFS = [
     ('RECON-ENUM', ('requirements', 2), MISSING, 'R6.OUT.18'),
     ('RECON-ENUM', ('expect', 'cases', 3), MISSING, RECON_ENUM_CASE),
     ('RECON-ENUM', ('expect', 'cases', 4), MISSING, RECON_ENUM_COUNTER),
+    ('L2', ('expect', 'invariants', 0, 'all'), 'lines[rule=W2]', 'lines[rule_id=W2]'),
+    ('RECON-TRIAL', ('expect', 'cases', 7), MISSING, RECON_TRIAL_CASE),
     ('S11-2a', ('expect', 'sites', 0, 'added_relative_to_unmutated'), MISSING,
      {'items[class=unclassified,subject=$new_line]': 1}),
     ('RTL2-BIND', ('expect', 'cases', 6, 'case'), RTL2_OLD, RTL2_NEW),
@@ -970,15 +1237,30 @@ DECLARED_DIFFS = [
     ('RT-D', ('flags', 6), MISSING, RT_D_FLAG),
     ('RT-DR', ('expect', 'cases', 3, 'case'), RT_DR_OLD, RT_DR_NEW),
 ]
+# order-preserving renames of count keys to the grammar of R6.GATE.3 (tool writer, 2026-11-26): (row, path of the
+# dict, old key, new key); each is checked by the guard as a removed and an added leaf with the same value
+DECLARED_KEY_RENAMES = [
+    ('L2', ('expect', 'counts'), 'lines[rule=W2,state=PASS]', 'lines[rule_id=W2,state=PASS]'),
+    ('RT-D', ('expect', 'counts'), 'lines[state=PASS,rule=W1|W2]', 'lines[state=PASS,rule_id=W1|W2]'),
+    ('RT-DR', ('expect', 'cases', 0, 'counts'), 'lines[rule=DR-1]', 'lines[rule_id=DR-1]'),
+    ('RT-DR', ('expect', 'cases', 0, 'counts'), 'lines[rule=DR-1,alternative=a]', 'lines[rule_id=DR-1,alternatives=a]'),
+    ('RT-DR', ('expect', 'cases', 0, 'counts'), 'lines[rule=DR-1,alternative=b]', 'lines[rule_id=DR-1,alternatives=b]'),
+    ('RT-DR', ('expect', 'cases', 0, 'counts'), 'lines[rule=DR-1,alternative=c]', 'lines[rule_id=DR-1,alternatives=c]'),
+    ('RT-DR', ('expect', 'cases', 0, 'counts'), 'lines[rule=DR-3]', 'lines[rule_id=DR-3]'),
+    ('RT-DR', ('expect', 'cases', 0, 'counts'), 'lines[rule=DR-4]', 'lines[rule_id=DR-4]'),
+    ('RT-DR', ('expect', 'cases', 0, 'counts'), 'lines[rule=DR-5]', 'lines[rule_id=DR-5]'),
+    ('RT-DR3W', ('expect', 'cases', 0, 'counts'), 'sentences[rule=DR-3]', 'sentences[rule_id=DR-3]'),
+    ('RT-DR3W', ('expect', 'cases', 1, 'counts'), 'sentences[rule=DR-3]', 'sentences[rule_id=DR-3]'),
+]
 # amendment 5 r2's own strengthenings, pinned so that no later edit reverts them (delta review nit 4)
 PINS = [
-    ('L2', ('expect', 'counts', 'lines[rule=W2,state=PASS]'), 4),
-    ('L2', ('expect', 'invariants', 0, 'all'), 'lines[rule=W2]'),
+    ('L2', ('expect', 'counts', 'lines[rule_id=W2,state=PASS]'), 4),
+    ('L2', ('expect', 'invariants', 0, 'all'), 'lines[rule_id=W2]'),
     ('V7a', ('expect', 'invariants', 0, 'items_include', 0, 'subject'), '$planted'),
     ('V23', ('expect', 'invariants', 1, 'items_include', 0, 'subject'), '$planted'),
     ('V24', ('expect', 'invariants', 1, 'items_include', 0, 'subject'), '$planted'),
     ('R18', ('expect', 'sites', 0, 'decision'), 'REVIEW_REQUIRED'),
-    ('RT-D', ('expect', 'counts', 'lines[state=PASS,rule=W1|W2]'), 10),
+    ('RT-D', ('expect', 'counts', 'lines[state=PASS,rule_id=W1|W2]'), 10),
     ('RT-D', ('expect', 'classes_exact'), ['unclassified']),
     ('RT-D', ('expect', 'sites', 1, 'subject'), 'papers/SM.md:1394'),
     ('RT-DR', ('expect', 'cases', 0, 'invariants', 0, 'items_include', 2, 'file'), 'book/ch09-universality.md'),
@@ -1009,32 +1291,25 @@ REMOVED_R2 = [
      'table', 'REASSESS-FORM', 'a reassessment with an empty re-derivation of the edit\'s justification'),
     ('MIGRATION-RECORD', 'a migration record whose approval lacks quote, author or time, or whose time is not of the '
      'stated form; the renamed edit\'s old bytes unchanged', 'RECON-SCHEMA',
-     'countercase (generic conformance): the same record mutated once for each violation the key tables define (a '
-     'required key removed, a value of another type or encoding, a key outside the table), each mutant run separately'),
+     GENERIC_CASE),
     ('RESOLUTION-SCHEMA', 'countercase (window): a float (5.0), boolean or string offset', 'RECON-SCHEMA',
      'countercase: an offset written 5.0, or true, in a splice, a protected range or a resolution'),
     ('RESOLUTION-SCHEMA', 'countercase: a resolution carrying a key outside the six', 'RECON-SCHEMA',
-     'countercase (generic conformance): the same record mutated once for each violation the key tables define (a '
-     'required key removed, a value of another type or encoding, a key outside the table), each mutant run separately'),
+     GENERIC_CASE),
     ('RECON-SCHEMA', 'countercase: changes_decisions_on_X null, {} or ""', 'RECON-SCHEMA',
      'countercase: changes_decisions_on_X missing, null, {} or ""'),
     ('RECON-SCHEMA', 'countercase: a splice without start_M', 'RECON-SCHEMA',
-     'countercase (generic conformance): the same record mutated once for each violation the key tables define (a '
-     'required key removed, a value of another type or encoding, a key outside the table), each mutant run separately'),
+     GENERIC_CASE),
     ('RECON-SCHEMA', 'countercase: a protected range with a non-integer offset', 'RECON-SCHEMA',
      'countercase: an offset written 5.0, or true, in a splice, a protected range or a resolution'),
     ('RECON-SCHEMA', 'countercase: a key outside the table, at the top level or in an entry', 'RECON-SCHEMA',
-     'countercase (generic conformance): the same record mutated once for each violation the key tables define (a '
-     'required key removed, a value of another type or encoding, a key outside the table), each mutant run separately'),
+     GENERIC_CASE),
     ('RECON-SCHEMA', 'countercase: an entry path with a leading /, a . or .. component, or a trailing /', 'RECON-SCHEMA',
-     'countercase (generic conformance): the same record mutated once for each violation the key tables define (a '
-     'required key removed, a value of another type or encoding, a key outside the table), each mutant run separately'),
+     GENERIC_CASE),
     ('RECON-SCHEMA', 'countercase: M, X or ledger_base in upper case or abbreviated', 'RECON-SCHEMA',
-     'countercase (generic conformance): the same record mutated once for each violation the key tables define (a '
-     'required key removed, a value of another type or encoding, a key outside the table), each mutant run separately'),
+     GENERIC_CASE),
     ('RECON-SCHEMA', 'countercase: a record without record_id', 'RECON-SCHEMA',
-     'countercase (generic conformance): the same record mutated once for each violation the key tables define (a '
-     'required key removed, a value of another type or encoding, a key outside the table), each mutant run separately'),
+     GENERIC_CASE),
     ('RESULT-FIELDS', '(row merged)', 'RECON-ENUM', RECON_ENUM_CASE['case']),
     ('WIDENING-ITEMS', '(row merged)', 'REVIEW-SCHEMA',
      'a widening review of kind widening with replaces naming the superseded blob and one verdict for each item id of '
@@ -1299,8 +1574,9 @@ OWNER_CHOICES = [
     'A review\'s `method` names a full object id, and `reason` is required in every verdict entry (the reviewers '
     'disagree: the auditor would drop both, returning `method` to non-empty and `reason` to optional on `accept`; the '
     'delta reviewer recommends the `method` floor; implemented as required).',
-    'The executed-path floor carried by the configuration (`executed_suffixes`), with the meaning-based obligation for '
-    'other executed paths.',
+    'The executed-path floor carried by the configuration (`executed_suffixes`, which must contain the design floor '
+    '`.py`, `.lean`, `.yml`, `.yaml`, `.sh` and may only add to it), with the meaning-based obligation for other '
+    'executed paths.',
     '`x` read at `X`; R6.RECON.21 reads `X`, which is `C` in RT-L2.',
     '"Changes the path" by tree entry; a mode-only change drifts; a deletion stays `base-drift`.',
     '`oi-reconciliation/1` retired: `record-invalid` when read, still read by detection.',
@@ -1312,13 +1588,15 @@ OWNER_CHOICES = [
     '`retirement` as `{name, issue}` with an integer issue.',
     '`default_for`, `widening_review`, `notes` and `sites` treated as unknown fields; no default check (USAGE without '
     '`--check`).',
-    'Widening review for a class record that adds a pin or prefix or changes a blob; the `git_blob` countercase kept (the '
-    'reviewers disagree: the auditor says it adds no protection beyond `blob_sha256`; the delta reviewer lists it as '
-    'necessary).',
+    'Widening review for a class record that adds a pin or prefix or changes a blob; and `git_blob` dropped from class '
+    'pins, the pin being its `blob_sha256` (both reviewers now agree that `git_blob` adds no protection; the alternative '
+    'is both keys required and cross-checked; an optional `git_blob` is the form both reject).',
     'Detection selection: every JSON-shaped file (object or array), the plan\'s record directory included; prose files '
     'are not records.',
     'The `dispositions` (per-record `failed`) and `category3` keys; `category` null where R6.RECON.22 assigns none.',
-    'D3: `repair` null for a form failure or an unaccepted first-kind finding.',
+    'D3 as narrowed by the final review (F1): `repair` null only where no independent reviewer asserts the '
+    'invalidation: a first-kind finding whose entry\'s non-author review rejects or dissents; a review whose `reviewed` '
+    'names no record the scan finds; a malformed file of class (b) or (c); with `finding.item` null for the last (F2).',
     'A revised plan on a new `H` uses a new record directory admitted by a tool revision; Dir2 unchanged (the '
     'alternative, Dir2 relative to the superseded plan\'s files, is not taken because it would weaken Dir2).',
     'The verdict key set closed, accepted knowingly.',
@@ -1339,6 +1617,46 @@ NITS_MAP = [
           'renumbered.'),
 ]
 
+R4_MAP = [
+    ('F1', 'R6.RECON.27 Keys: `repair` null only for (a) a first-kind finding whose entry has a non-author review that '
+           'rejects or dissents on `scientific_effect` (the review must exist), (b) a review whose `reviewed` names no '
+           'record the scan finds, (c) a malformed file of class (b) or (c); an independent second-kind finding needs a '
+           'repair however malformed. REASSESS-KEYS: positive countercase now (a); blocked cases for the reviewer\'s '
+           'sequence and for an entry with no review.'),
+    ('F2', 'R6.RECON.27 Keys and the `reassess.finding` table: `item` null exactly for a finding read from a class (b) or '
+           '(c) file, the finding being the whole file. REASSESS-KEYS positive and blocked cases.'),
+    ('F3 / A1', 'R6.RECON.29 conformance mutants: generated by a fixed rule from the single table definition into '
+                'CONFORMANCE-MUTANTS.json (a generated output); ids `(table, key path, violation)`; per mutant a '
+                '`record-invalid` item naming the key path and no RC condition; the gate compares the recorded ids with '
+                'the list. RECON-SCHEMA: one positive record per kind, R6.RECON.31, R6.RECON.32 and R6.RECON.34 added to '
+                'its requirements. The removed approval case is now covered by the migration tables\' mutants.'),
+    ('F4', 'R6.CFG.4 and R6.RECON.30: `executed_suffixes` contains the design floor and may only add; CONFIG-REFS '
+           'countercase.'),
+    ('A2', 'R6.RECON.29: the sec. 16 claim is dropped; the mutant list is the check of any machine schema.'),
+    ('A3', 'Key tables for the `invalidated` element and `target`, `confirms`, `finding`, `repair`, `repair.entry`, '
+           '`edit`, `approval`, a migration, a pin, `ledger_binding` and the reference; all closed key sets.'),
+    ('A4', 'Every ERROR case names its class in `stop_class`: `CONFIG_INVALID` (CONFIG-REFS, REVIEW-SCHEMA, '
+           'SUPERSEDES-RESOLVE), `LEDGER_INTEGRITY` (CANON-JSON, missing raw edit-list entries included).'),
+    ('A5', 'R6.RECON.33: a harness run that names no `REV` resolves from the commit the record is read from '
+           '(R6.RECON.21).'),
+    ('B1', 'R6.RECON.35: selection on raw leading bytes; test (c) on a lossy decode. SCAN-PARSE invalid-byte case.'),
+    ('B2 / B3', 'R6.RECON.35 Residuals: leading non-JSON bytes on a corrupted record, and storage under a tool-landing '
+                'prefix (REVIEW_REQUIRED, not blocking), joined to the deletion residual and Issue #1598.'),
+    ('22', 'R6.RECON.35 class (b): a parsed object with no `schema` key but a review\'s shape. SCAN-PARSE case.'),
+    ('21', 'Owner choice: `git_blob` dropped from class pins (R6.TREE.5, R6.RECON.34); CLASS-SCHEMA countercase is a pin '
+           'carrying `git_blob`; the alternative (both required and cross-checked) recorded in sec. 5.'),
+    ('T1', 'Tool writer: R6.RECON.23 matches findings by an explicit key (class, file, `rule_id` or profiles, the sha256 '
+           'of the matched line or sentence; the line number, segment and tree excluded; for an item without a line, '
+           'class, subject and fingerprint), counted with multiplicity. RECON-TRIAL moved-line case (declared).'),
+    ('O', 'Owner (#1169 comment 7190776267, item 3): R6.GATE.17 (new) classifies a failing row\'s cause as '
+          '`expectation-defect`, `implementation-defect`, `verification-failure` or `unresolved`, with the evidence that '
+          'would settle an unresolved row; no classification changes an expected value or weakens a check.'),
+    ('T2', 'Tool writer: R6.GATE.3\'s count grammar is stated for the keys the adopted rows use (units `sites` and '
+           '`fail_lines`; any field of the counted object; list membership; `_nonempty`; the `count_sentence_lines` '
+           'modifier; how sentence-level items count), and the misnamed keys `rule` and `alternative` in L2, RT-D, RT-DR '
+           'and RT-DR3W are corrected to `rule_id` and `alternatives` (declared, values unchanged).'),
+]
+
 
 def note(owner):
     out = ['', '### 0.7 Amendment 6 of 2026-11-26', '']
@@ -1356,7 +1674,9 @@ def note(owner):
             'the owner\'s completeness audit (PR #1593 comment 7189621405) found stated by meaning only (sec. 23.1, '
             'R6.RECON.29 to R6.RECON.36, one key table per kind); it then answers the reviews of its second draft (PR '
             '#1593 comments 7190255132 and 7190234470), states each definition once, and removes cases and text that '
-            'both reviewers found to add no protection. Each resolution is a proposal for the owner\'s decision at adoption '
+            'both reviewers found to add no protection; and it makes the corrections of the two final checks (PR #1593 '
+            'comments 7190624085 and 7190609504), states the matching key of R6.RECON.23 and the count grammar of '
+            'R6.GATE.3, and adds R6.GATE.17, under which a failing row may stay unresolved. Each resolution is a proposal for the owner\'s decision at adoption '
             '(AMENDMENT-6.md gives the options and lists the owner choices). None lets a finding be lost or lifted by '
             'rewording: a finding is detected before lint, every form failure blocks rather than lapses, the '
             'path-and-old-bytes match binds every configuration, and a migration only adds edits. Where the tool '
@@ -1488,7 +1808,8 @@ def amend_design(t, owner):
     # R6.CFG.4: the executed-path floor
     t = once(t, "- `rules`: `[{path, blob_sha256}]`, rule files of schema `oi-term-rules/2`;",
              "- `executed_suffixes`: a non-empty array of file-name suffixes, the mechanical floor of the executed-path\n"
-             "  rule of R6.RECON.30 (for A1 `.py`, `.lean`, `.yml`, `.yaml` and `.sh`) %s;\n"
+             "  rule of R6.RECON.30; it contains `.py`, `.lean`, `.yml`, `.yaml` and `.sh`, the floor this design fixes,\n"
+             "  and may add suffixes, and a list lacking one of them is ERROR `CONFIG_INVALID` %s;\n"
              "- `rules`: `[{path, blob_sha256}]`, rule files of schema `oi-term-rules/2`;" % MARK, 'R6.CFG.4 suffixes')
     # R6.RECON.21: x read at X
     t = once(t, "blob ids for each path equal the path's blobs at the run's `M` and\n  `C`;",
@@ -1509,6 +1830,12 @@ def amend_design(t, owner):
              "- `retirement`: name and accountable Issue, `{name, issue}` (R6.RECON.33);", 'R6.CFG.4 retirement')
     # R6.ADAPT.2: raw entries, edits and the retained text
     t = once(t, ADAPT2_OLD, ADAPT2_NEW, 'R6.ADAPT.2')
+    # R6.TREE.5: the pin is the blob's sha256 (owner choice: git_blob dropped)
+    t = once(t, "pinned blob (`git_blob` and\n`blob_sha256`).", "pinned blob (its `blob_sha256`; R6.RECON.34).",
+             'R6.TREE.5 pin')
+    # R6.RECON.23: the matching key; R6.GATE.3: the count grammar
+    t = once(t, RECON23_OLD, RECON23_NEW, 'R6.RECON.23')
+    t = once(t, GATE3_OLD, GATE3_NEW, 'R6.GATE.3')
     # R6.TREE.5: class record keys
     t = once(t, "directory the rule of sec. 21 also applies.",
              "directory the rule of sec. 21 also applies. The keys of a class record are those of R6.RECON.34 %s."
@@ -1533,6 +1860,10 @@ def amend_design(t, owner):
         ids = [r for r in REQ_CONTROLS.get(req, [])]
         if ids:
             t = add_controls(t, req, ids)
+    # R6.GATE.17: four statuses for a failing row's cause, unresolved among them
+    t = once(t, "Sources: OD-18, Q2. Controls: RT-L2, GATE-13, GATE-14, GATE-15, GATE-19, RTL2-BIND, RECORD-BASE.\n",
+             "Sources: OD-18, Q2. Controls: RT-L2, GATE-13, GATE-14, GATE-15, GATE-19, RTL2-BIND, RECORD-BASE.\n"
+             + GATE17, 'R6.GATE.17')
     # the new requirements
     t = once(t, "\n***\n\n## 24. Engine, purity scope (Z9), generality",
              NEW_REQ28 % {'mark': MARK}
@@ -1605,6 +1936,13 @@ def set_path(x, path, value):
 def amend_expectations(E):
     E = copy.deepcopy(E)
     by = {r['id']: r for r in E['rows']}
+    for rid, path, old, new in DECLARED_KEY_RENAMES:
+        d = get_path(by[rid], path)
+        if old not in d or new in d:
+            raise SystemExit('declared rename %s %s' % (rid, old))
+        items = [(new if k == old else k, v) for k, v in d.items()]
+        d.clear()
+        d.update(items)
     for rid, path, old, new in DECLARED_DIFFS:
         if get_path(by[rid], path) != old:
             raise SystemExit('declared change %s %s: the base value differs' % (rid, path))
@@ -1649,11 +1987,18 @@ def amend_requirements(R):
     sources = {'R6.RECON.28': ['#1169 comment 7187418279', 'PR #1593 comment 7189446310']}
     new = []
     for rid in NEW_REQS:
+        if rid == 'R6.GATE.17':
+            continue
         new.append({'id': rid, 'section': 'RECON', 'section_number': 23, 'kind': 'testable',
                     'sources': sources.get(rid, ['#1169 comment 7189470338', 'PR #1593 comment 7189621405']),
                     'controls': list(REQ_CONTROLS[rid]), 'verification': ['controls', 'review'], 'open': [],
                     'pending_owner_confirmation': [PENDING], 'owner_decision': []})
-    return R[:i + 1] + new + R[i + 1:]
+    R = R[:i + 1] + new + R[i + 1:]
+    j = [k for k, q in enumerate(R) if q['id'] == 'R6.GATE.16'][0]
+    g17 = {'id': 'R6.GATE.17', 'section': 'GATE', 'section_number': 16, 'kind': 'governance',
+           'sources': ['#1169 comment 7190776267'], 'controls': [], 'verification': ['review'], 'open': [],
+           'pending_owner_confirmation': [PENDING], 'owner_decision': []}
+    return R[:j + 1] + [g17] + R[j + 1:]
 
 
 def vocabulary(t):
@@ -1676,6 +2021,10 @@ def self_checks(E0, E, R0, R, t, base_texts):
     declared = {}
     for rid, path, old, new in DECLARED_DIFFS:
         declared.setdefault(rid, []).append((path, old, new))
+    for rid, path, old, new in DECLARED_KEY_RENAMES:
+        v = get_path(r0[rid], path + (old,))
+        declared.setdefault(rid, []).append((path + (old,), v, MISSING))
+        declared.setdefault(rid, []).append((path + (new,), MISSING, v))
     for rid, r in r0.items():
         out = r1.get(rid)
         if out is None:
@@ -1736,7 +2085,7 @@ def self_checks(E0, E, R0, R, t, base_texts):
         if MARK not in block_of(t, rid):
             problems.append('%s does not carry the amendment-6 mark' % rid)
     for rid in TOUCHED:
-        if rid not in REQ_CONTROLS:
+        if rid not in REQ_CONTROLS and rid not in EXISTING_CONTROLLED:
             problems.append('%s touched but no row controls it' % rid)
     vocab = vocabulary(t)
     for r, _ in ROWS:
@@ -1758,11 +2107,11 @@ def self_checks(E0, E, R0, R, t, base_texts):
         if q1['pending_owner_confirmation'][:len(q['pending_owner_confirmation'])] != q['pending_owner_confirmation'] \
                 or added != ([PENDING] if rid in TOUCHED else []):
             problems.append('requirement %s: undeclared pending change' % rid)
-    if [q['id'] for q in R if q['id'] not in {x['id'] for x in R0}] != NEW_REQS:
+    if sorted(q['id'] for q in R if q['id'] not in {x['id'] for x in R0}) != sorted(NEW_REQS):
         problems.append('new requirements differ from NEW_REQS')
     # one definition per kind: unique keys per part, every table rendered in its requirement
     for kind, parts in SPEC.items():
-        for title, rows in parts:
+        for pid, title, rows in parts:
             keys = [x[0] for x in rows]
             if len(set(keys)) != len(keys):
                 problems.append('SPEC %s %s: repeated key' % (kind, title))
@@ -1770,7 +2119,7 @@ def self_checks(E0, E, R0, R, t, base_texts):
                       ('R6.RECON.34', 'class')):
         if spec_tables(kind) not in block_of(t, rid):
             problems.append('%s does not carry the key tables of %s' % (rid, kind))
-    res = [x[0] for x in dict(SPEC['recon'])['resolution (element of `resolutions`)']]
+    res = [x[0] for x in PARTS['recon.resolution'][2]]
     if res != ['splice', 'start_M', 'end_M', 'sha256', 'resolved', 'resolved_sha256']:
         problems.append('resolution keys')
     if 'json' + chr(10) + '{' in t[t.index('### 23.1'):]:
@@ -1804,6 +2153,13 @@ def self_checks(E0, E, R0, R, t, base_texts):
     if [x[0] for x in FOLLOWUP_MAP] != ([str(i) for i in range(1, 14)] + ['S1.%d' % i for i in range(1, 8)] + ['S2']
                                          + ['S3.%d' % i for i in range(1, 9)]):
         problems.append('audit follow-up map incomplete')
+    if [x[0] for x in R4_MAP] != ['F1', 'F2', 'F3 / A1', 'F4', 'A2', 'A3', 'A4', 'A5', 'B1', 'B2 / B3', '22', '21', 'T1',
+                                  'O', 'T2']:
+        problems.append('final-check map incomplete')
+    for r, _ in ROWS:
+        for x in r['expect']['cases']:
+            if x['outcome'] == 'ERROR' and not x.get('stop_class'):
+                problems.append('%s: an ERROR case without stop_class' % r['id'])
     if [x[0] for x in NITS_MAP] != ['1', '2', '3', '4', '5']:
         problems.append('amendment 5 nit map incomplete')
     if [x[0] for x in B_MAP] != ['B1', 'B2']:
@@ -1821,12 +2177,14 @@ def change_record(owner, outs, gen_sha, owner_sha, totals):
     lines = ['# r6 amendment 6: change record', '',
              'Owner directions, quoted in DESIGN-r6.md sec. 0.7: %s. Generated by generator-amendment6/amend6.py '
              '(sha256 %s) from the amendment-5 outputs (amendment 5 r2, e0706a4b, adopted) and '
-             'generator-amendment6/owner-decisions-amendment6.json (sha256 %s). This is r3, the last general revision: '
+             'generator-amendment6/owner-decisions-amendment6.json (sha256 %s). This is r4. r3, the last general revision, '
              'it answers the delta review of r2 (PR #1593 comment 7190255132, D1 to D7) and the completeness-audit '
              'follow-up (PR #1593 comment 7190234470, findings 1 to 13 and section S), and removes complexity that '
              'both reviewers agree gives no protection. It keeps the answers of r2 to the first review (PR #1593 '
              'comment 7189446310), items B1 and B2, the completeness audit (PR #1593 comment 7189621405) and the '
-             'amendment 5 nits. Every resolution is a proposal; the choice is the owner\'s at adoption.'
+             'amendment 5 nits. r4 makes only the corrections of the two final checks of r3 (PR #1593 comments 7190624085 '
+             'and 7190609504), the owner choice on `git_blob`, and the tool writer\'s two defects (R6.RECON.23 '
+             'matching; R6.GATE.3 count grammar). Every resolution is a proposal; the choice is the owner\'s at adoption.'
              % ('; '.join('%s, %s (%s), %s' % (d['author'], d['time'], d['record'], d['item'])
                           for d in owner['decisions']), gen_sha, owner_sha), '',
              'Safety rule for every point: no reading may let a category-3 finding be lost or lifted by rewording, and '
@@ -1838,7 +2196,10 @@ def change_record(owner, outs, gen_sha, owner_sha, totals):
              '|---|---|---|---|---|---|',
              '| amendment 5 r2 (base) | %d | | | %d | |' % (totals['base_rows'], totals['base_reqs']),
              '| amendment 6 r2 (319e9bbf) | 621 | 17 | 123 | 443 | 9 |',
-             '| amendment 6 r3 | %d | %d | %d | %d | %d |' % (totals['rows'], nr, nc, totals['reqs'], len(NEW_REQS)), '',
+             '| amendment 6 r3 (c6df73dd) | 619 | 15 | 134 | 443 | 9 |',
+             '| amendment 6 r4 | %d | %d | %d | %d | %d |' % (totals['rows'], nr, nc, totals['reqs'], len(NEW_REQS)), '',
+             'r4 generates %d conformance mutants into CONFORMANCE-MUTANTS.json, each an identifiable case of the '
+             'RECON-SCHEMA mutant countercase.' % len(mutants()), '',
              'r3 merges RESULT-FIELDS into RECON-ENUM (two cases added there) and WIDENING-ITEMS into REVIEW-SCHEMA, '
              'collapses the individual schema violations of RECON-SCHEMA into one generic conformance case, removes '
              'the hand-written JSON Schema (sec. 23.1 now renders one key table per kind from one definition), and '
@@ -1861,6 +2222,18 @@ def change_record(owner, outs, gen_sha, owner_sha, totals):
     lines += ['## 2c. Completeness-audit follow-up (PR #1593 comment 7190234470)', '', '| Item | Disposition |',
               '|---|---|']
     lines += ['| %s | %s |' % (k, v) for k, v in FOLLOWUP_MAP] + ['']
+    lines += ['## 2d. Final checks of r3 (PR #1593 comments 7190624085 and 7190609504) and the tool writer\'s two '
+              'defects', '', '| Item | Disposition |', '|---|---|']
+    lines += ['| %s | %s |' % (k, v) for k, v in R4_MAP] + ['']
+    lines += ['Grammar (T2), rows affected and keys corrected: L2 (`lines[rule=W2,state=PASS]`, `all: lines[rule=W2]`); '
+              'RT-D (`lines[state=PASS,rule=W1|W2]`); RT-DR (`lines[rule=DR-1]` and its `alternative=a|b|c` forms, '
+              '`lines[rule=DR-3]`, `DR-4`, `DR-5`); RT-DR3W (`sentences[rule=DR-3]`, two cases). Rows whose keys the '
+              'stated grammar now admits unchanged: RT-I7A (`fail_lines`, `count_sentence_lines=true`), RT-T0 '
+              '(`attribution`, `sites[moved_in=...]`, `sites[region_shared_with_nonempty]`), RT-DR (`line` in a `none` '
+              'filter). The expected values are unchanged: RT-DR\'s and RT-I7A\'s 86 deny-match lines at `H` count each '
+              'line once at the line where a match begins, and the 93 count every line a sentence spans; a runner whose '
+              'items put a sentence-level match on its sentence\'s start line instead reports 87, which is a conformance '
+              'difference of the items\' `line` field, not of the expectation.', '']
     lines += ['## 3. Items B (tool writer)', '']
     for k, title, opts, rec in B_MAP:
         lines += ['### %s. %s' % (k, title), '', 'Options:', ''] + ['- ' + o for o in opts] + ['', rec, '']
@@ -1927,7 +2300,7 @@ def change_record(owner, outs, gen_sha, owner_sha, totals):
               'keys and values where the engine holds them as literals.',
               '- Runners for %s, and for the RECON-ENUM cases added.' % ', '.join(NEW_IDS), '',
               '## 8. Outputs', '', '| File | sha256 |', '|---|---|']
-    for n in ('DESIGN-r6.md', 'EXPECTATIONS.json', 'REQUIREMENTS.json'):
+    for n in ('DESIGN-r6.md', 'EXPECTATIONS.json', 'REQUIREMENTS.json', 'CONFORMANCE-MUTANTS.json'):
         lines.append('| %s | %s |' % (n, sha(outs[n])))
     lines.append('')
     return '\n'.join(lines)
@@ -1941,7 +2314,9 @@ def manifest(m, outs, gen_sha, owner_sha):
         if len(mm) != 1:
             raise SystemExit('manifest row %s' % n)
         m = m[:mm[0].start()] + '| %s | %s | amendment-6 output | %s |' % (n, label, sha(outs[n])) + m[mm[0].end():]
-    rows = ('| AMENDMENT-6.md | change record of amendment 6 | amendment-6 output | %s |\n'
+    rows = ('| CONFORMANCE-MUTANTS.json | the conformance mutants of R6.RECON.29, generated from the key tables | '
+            'amendment-6 output | %s |\n' % sha(outs['CONFORMANCE-MUTANTS.json'])
+            + '| AMENDMENT-6.md | change record of amendment 6 | amendment-6 output | %s |\n'
             '| generator-amendment6/amend6.py | amendment-6 generator | amendment-6 generator | %s |\n'
             '| generator-amendment6/owner-decisions-amendment6.json | amendment-6 generator input (the owner directions '
             'quoted) | amendment-6 generator | %s |\n' % (sha(outs['AMENDMENT-6.md']), gen_sha, owner_sha))
@@ -1984,7 +2359,8 @@ def main():
     if problems:
         sys.stderr.write('self-check failures:\n' + '\n'.join(problems) + '\n')
         return 1
-    outs = {'DESIGN-r6.md': t.encode('utf-8'), 'EXPECTATIONS.json': dumpj(E), 'REQUIREMENTS.json': dumpj(R)}
+    outs = {'DESIGN-r6.md': t.encode('utf-8'), 'EXPECTATIONS.json': dumpj(E), 'REQUIREMENTS.json': dumpj(R),
+            'CONFORMANCE-MUTANTS.json': dumpj(mutants_doc())}
     with open(os.path.join(HERE, 'amend6.py'), 'rb') as f:
         gen_sha = sha(f.read())
     totals = {'base_rows': len(E0['rows']), 'base_reqs': len(R0), 'rows': len(E['rows']), 'reqs': len(R)}

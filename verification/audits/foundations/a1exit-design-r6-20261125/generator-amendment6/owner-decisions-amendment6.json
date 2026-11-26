@@ -63,6 +63,20 @@
     "Adopt amendment 5 r2 with reading A; route nits to amendment 6",
     null
    ]
+  },
+  {
+   "author": "amaybaum",
+   "time": "2026-11-26T11:28Z (as received)",
+   "record": "#1169 comment 7190776267",
+   "relayed_by": "coordinating session",
+   "item": "item 3",
+   "quotes": [
+    null,
+    "For the 456 failing rows, distinguish confirmed defects, genuine verification failures and unresolved classifications. Do not force a classification where the evidence is insufficient.",
+    null,
+    "One small refinement: amendment 6 should allow an unresolved classification rather than forcing every failing row into one of the three proposed categories before sufficient evidence exists.",
+    null
+   ]
   }
  ]
 }

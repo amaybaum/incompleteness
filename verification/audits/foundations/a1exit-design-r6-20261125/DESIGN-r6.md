@@ -651,7 +651,19 @@ Owner direction at #1169 comment 7189915409 (amaybaum, 2026-11-26T10:50Z (as rec
 >
 > [...]
 
-Amendment 6 resolves the schema ambiguities of category 3 that the tool writer raised while implementing amendment 4 and one expectation conflict; answers the independent review of its first draft (PR #1593 comment 7189446310); resolves two further ambiguities, the retained-site line of RC14 (b) and the resolution schema of R6.RECON.24; and states the schema contract of the reconciliation record kinds that the owner's completeness audit (PR #1593 comment 7189621405) found stated by meaning only (sec. 23.1, R6.RECON.29 to R6.RECON.36, one key table per kind); it then answers the reviews of its second draft (PR #1593 comments 7190255132 and 7190234470), states each definition once, and removes cases and text that both reviewers found to add no protection. Each resolution is a proposal for the owner's decision at adoption (AMENDMENT-6.md gives the options and lists the owner choices). None lets a finding be lost or lifted by rewording: a finding is detected before lint, every form failure blocks rather than lapses, the path-and-old-bytes match binds every configuration, and a migration only adds edits. Where the tool accepts input the design refuses (a missing `changes_decisions_on_X`, non-integer offsets, a suffix filter on the scanned set, skipped parse failures, ignored record kinds), the design rule is stated and a countercontrol row is added; no requirement is weakened to match the tool.
+Owner direction at #1169 comment 7190776267 (amaybaum, 2026-11-26T11:28Z (as received), relayed by the coordinating session); excerpt of item 3 (each line prefixed by "> "; "[...]" marks text left out):
+
+> [...]
+>
+> For the 456 failing rows, distinguish confirmed defects, genuine verification failures and unresolved classifications. Do not force a classification where the evidence is insufficient.
+>
+> [...]
+>
+> One small refinement: amendment 6 should allow an unresolved classification rather than forcing every failing row into one of the three proposed categories before sufficient evidence exists.
+>
+> [...]
+
+Amendment 6 resolves the schema ambiguities of category 3 that the tool writer raised while implementing amendment 4 and one expectation conflict; answers the independent review of its first draft (PR #1593 comment 7189446310); resolves two further ambiguities, the retained-site line of RC14 (b) and the resolution schema of R6.RECON.24; and states the schema contract of the reconciliation record kinds that the owner's completeness audit (PR #1593 comment 7189621405) found stated by meaning only (sec. 23.1, R6.RECON.29 to R6.RECON.36, one key table per kind); it then answers the reviews of its second draft (PR #1593 comments 7190255132 and 7190234470), states each definition once, and removes cases and text that both reviewers found to add no protection; and it makes the corrections of the two final checks (PR #1593 comments 7190624085 and 7190609504), states the matching key of R6.RECON.23 and the count grammar of R6.GATE.3, and adds R6.GATE.17, under which a failing row may stay unresolved. Each resolution is a proposal for the owner's decision at adoption (AMENDMENT-6.md gives the options and lists the owner choices). None lets a finding be lost or lifted by rewording: a finding is detected before lint, every form failure blocks rather than lapses, the path-and-old-bytes match binds every configuration, and a migration only adds edits. Where the tool accepts input the design refuses (a missing `changes_decisions_on_X`, non-integer offsets, a suffix filter on the scanned set, skipped parse failures, ignored record kinds), the design rule is stated and a countercontrol row is added; no requirement is weakened to match the tool.
 
 ***
 
@@ -3045,10 +3057,20 @@ Sources: A-130, E-1080, RD-4, RD-32. Controls: GATE-12, GATE-17, GATE-26.
 - **`counts`.** An object from a count key to an integer. Key grammar:
   - `finding_counts:<OBL>/<DECISION>/<class>` reads the result's `finding_counts`;
   - `site_counts:<state>`;
-  - `<unit>[k=v,...]` with unit `items`, `lines`, `sentences`, `hits` or `findings`, counted over the
-    result. Filter keys are item fields (`obligation`, `class`, `decision`, `rule_id`, `profile`,
-    `file`, `subject`, `segment`, `state`, `path`, `literal`, `only_profile`). `|` separates
-    alternatives.
+  - `<unit>[k=v,...]` with unit `items`, `findings`, `hits`, `sites`, `lines`, `fail_lines` or `sentences`,
+    counted over the result (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision). A filter key is a field of the counted object: an item field for
+    `items`, `findings`, `lines`, `fail_lines` and `sentences` (for example `obligation`, `class`, `decision`,
+    `rule_id`, `alternatives`, `profile`, `file`, `line`, `subject`, `segment`, `state`, `path`, `literal`,
+    `only_profile`, `attribution`, `key_path`), a hit field for `hits`, a site field for `sites` (for
+    example `moved_in`). `k=v` holds when the field equals `v` or, for a list-valued field, contains `v`;
+    `|` separates alternative values; `k_nonempty` holds when the field is present and non-empty.
+    `items`, `findings`, `hits` and `sites` count objects. `lines` counts distinct `(file, line)` pairs,
+    an item's `line` being the line on which its match begins: a sentence-level item (one whose sentence
+    spans several lines) counts once, at that line, and several items on one line count once.
+    `fail_lines` is `lines` over the items whose decision is FAIL. `sentences` counts distinct sentences,
+    each identified by its file and its start line. The modifier `count_sentence_lines=true`, which is
+    not a field, makes `lines` and `fail_lines` count every line that the sentence of each sentence-level
+    item spans.
 - **`sites`.** A list of `{subject, ...fields}` that must hold for the named site or subject.
 - **`invariants`.** A list of single-key objects from the closed vocabulary listed in the annex to this
   section (16.10). An unknown key makes the file invalid. An object may hold several keys when every
@@ -3353,6 +3375,19 @@ RT-L2 `X` = `C` = `X_rep`, so the record's `X` is compared as `C`. The per-path 
 run's result (no `record-invalid` item names the record or its review), never from its own statement
 (OBL-28, C-29).
 Sources: OD-18, Q2. Controls: RT-L2, GATE-13, GATE-14, GATE-15, GATE-19, RTL2-BIND, RECORD-BASE.
+
+**R6.GATE.17** **Classifying a failing row** (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision). When a gate run gives a row FAIL, or NOT RUN outside its
+allowance, its cause is classified, in the review of that run and never in the expectation file, with one of four
+statuses: `expectation-defect` (the expectation misstates what a governing requirement asks, for example a misnamed
+count key or a value contradicting it); `implementation-defect` (the tool, a runner or the evidence it retains does not
+do what the design requires); `verification-failure` (the tool correctly finds that the subject or its records do not
+meet the design); or `unresolved`. A row is `unresolved` whenever the retained evidence does not settle which of the
+other three applies, and its classification names the evidence that would settle it; no row is forced into one of
+the other three. No classification changes an expected value or weakens an intended check: an expectation defect is
+corrected only by an owner-approved expectation change that names the governing requirement, and an implementation
+defect or a verification failure is never resolved by editing the expectation. A classification is review
+information: it confers no status, and the row keeps the status the gate computed (R6.GATE.9).
+Sources: owner decision of 2026-11-26 (#1169 comment 7190776267, item 3).
 
 ### 16.10 Annex: invariant vocabulary
 
@@ -4255,7 +4290,7 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | REASSESS-KEYS | R6.RECON.27, R6.RECON.32 | to be implemented (tool revision) | decl | both | the reassessment keys; per-finding lifting; repair null only for a form failure or an unaccepted first-kind finding (amendment 6) |
 | RECON-RETAINED | R6.RECON.24, R6.ADAPT.2 | to be implemented (tool revision) | decl | both | RC14 (b) finds the retained site's line at H from the retained text (amendment 6) |
 | RESOLUTION-SCHEMA | R6.RECON.24, R6.REC.2 | to be implemented (tool revision) | decl | both | the resolution schema (owner decision 7189470338, item 1), its mechanical checks, deletion splices and the bound review confirmation (amendment 6) |
-| RECON-SCHEMA | R6.RECON.29, R6.RECON.30, R6.RECON.10 | to be implemented (tool revision) | decl | both | conformance to the key tables, a malformed field record-invalid before any condition, the named tool divergences, splice-list completeness and RC5 (amendment 6) |
+| RECON-SCHEMA | R6.RECON.29, R6.RECON.30, R6.RECON.10, R6.RECON.31, R6.RECON.32, R6.RECON.34 | to be implemented (tool revision) | decl | both | conformance to the key tables, a malformed field record-invalid before any condition, the named tool divergences, splice-list completeness and RC5 (amendment 6) |
 | RECON-FIELDS | R6.RECON.30, R6.RECON.21 | to be implemented (tool revision) | decl | both | mode-only drift, deletion, x at X, conclusions against the named configuration, the executed-path floor (amendment 6) |
 | CANON-JSON | R6.RECON.29, R6.ADAPT.2 | to be implemented (tool revision) | decl | both | the canonical JSON, strict parsing of the ledger and edit list, and the raw entries in the ledger interface (amendment 6) |
 | REVIEW-SCHEMA | R6.RECON.31, R6.REC.2, R6.CTX.7, R6.HIT.4 | to be implemented (tool revision) | decl | both | the review record's keys, identity, method, the item-id table and the widening items (amendment 6) |
@@ -4571,8 +4606,7 @@ validation.
 Sources: V2-129, V2-130, E-1302. Controls: TT6, RDIR-23.
 
 **R6.TREE.5** Side changes are classified by reviewed side-change class records (schema
-`oi-side-change-classes/1`). A class binds each path it covers to its pinned blob (`git_blob` and
-`blob_sha256`). A path matches a class only if its path matches and its blob at `M` equals the pin.
+`oi-side-change-classes/1`). A class binds each path it covers to its pinned blob (its `blob_sha256`; R6.RECON.34). A path matches a class only if its path matches and its blob at `M` equals the pin.
 The tool-landing class lists every path the tool's landing commit adds under its prefixes, each with
 its exact blob; a prefix only says where such paths may lie and never classifies a path by itself. The
 one path a class record cannot pin is the class record itself, whose `{path, blob_sha256}` the
@@ -5179,9 +5213,15 @@ corpus path differs between `H` and `M`, the run evaluates, besides `X` (or `C`)
 prediction the in-memory landing of R6.TREE.15 built from the run's `M` and `C`: (a) op D on it, with the A1
 configuration's deny profiles and its review profiles whose `applies_to` is `tree`, over the corpus; (b) the
 postconditions op C evaluates at `X` (R6.TREE.9), the pin postconditions and mirror identity among them, for the
-ledgered paths. Findings at the landing are matched with those of the same evaluation at `X` (or `C`) by fingerprint,
-the tree field excluded, counting multiplicities: a fingerprint found k times at the landing and j times at `X` gives
-k - j new findings when k > j. A new finding that records and rules do not resolve there under their own rules (sec.
+ledgered paths. Findings at the landing are matched with those of the same evaluation at `X` (or `C`) by a matching key (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision), not by
+fingerprint (an item's fingerprint includes its subject's line number, so a line that `M`'s changes move would
+appear new): for an item with a file and line, the key is its class, its file, its `rule_id` or, without one, its
+profiles, and the sha256 of the text it matched on (its line, or for a sentence-level item its sentence),
+the line number, the segment and the tree excluded; for an item without a line, the key is its class, its
+subject and its fingerprint. Keys are counted with multiplicity: a key found k times at the landing and j
+times at `X` gives k - j new findings when k > j, so a line that `M` moves gives none and a second copy of
+a line gives one; when several new findings share a key, each is reported, at the landing's positions of the
+last k - j occurrences in file order. A new finding that records and rules do not resolve there under their own rules (sec.
 14, R6.HIT.1), exactly as they would at `X`, is a FAIL `base-drift` naming the condition `reconciled-state`: it is the
 disposition of the drifted path it lies in; a new finding in a path that does not differ (for example a mirror or pin
 finding produced by a change to its counterpart) is a run-level item naming the drifted paths whose changes produced
@@ -5396,14 +5436,18 @@ rests on the review. A cited reassessment that does not apply is FAIL `record-in
 **Keys** (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision). `finding` is `{path, blob_sha256, item}`: the reference of the record or review
 record carrying the finding, and `item`, which of its findings is meant: for a finding of the first kind, the entry's
 path; for one of the second kind, the item id of the verdict entry carrying it (for example
-`<path>:scientific_effect`). A reassessment lifts only the finding it names; a record or review that carries several
+`<path>:scientific_effect`); null exactly for a finding read from a malformed file of class (b) or (c) of R6.RECON.35,
+the finding then being the whole file. A reassessment lifts only the finding it names; a record or review that carries several
 findings needs one reassessment for each. Where duplicated verdict entries give two findings with one `item`, a
 reassessment naming that `item` lifts each of them for its `edit` only, and only where that finding binds the `edit`.
 `repair` is `{commits, entry}`: `commits`, a non-empty array of distinct commit ids (R6.RECON.29), each on `M`'s
 first-parent chain; `entry`, `{path, blob_sha256, entry_path}`, the reference of the reconciliation record that records
-the repair and the path of its entry for the repairing change. `repair` is null only when the named finding is a form
-failure (R6.RECON.26, Form of a finding (i)) or a finding of the first kind whose non-author review does not accept
-the entry's `scientific_effect`; every other condition of this requirement still holds (an applying review, the
+the repair and the path of its entry for the repairing change. `repair` is null only where no independent reviewer asserts the
+invalidation: (a) a finding of the first kind whose entry has a non-author review that rejects or dissents on
+`<path>:scientific_effect` (such a review must exist; an entry with no review does not qualify); (b) a review whose
+`reviewed` names no record the scan finds, so that its independence cannot be established; or (c) a malformed file of
+class (b) or (c) of R6.RECON.35. A finding of the second kind by an independent reviewer needs a repair however it is
+malformed. Where `repair` is null, every other condition of this requirement still holds (an applying review, the
 re-derivation at `M`, the verdict, and a new freeze that cites the reassessment), and only the conditions on the
 repair's commits and entry are not evaluated. `edit` is `{id, sha256}`: `id`, an edit id of the citing configuration's
 edit list; `sha256`, the canonical sha256 (R6.RECON.29) of that id's edit-list entry in the citing configuration, so
@@ -5440,9 +5484,8 @@ to R6.RECON.36 state, for the record kinds of the reconciliation route (reconcil
 migration and side-change class records), for the configuration's references to them and for the result fields of the
 route, the field names, types, encodings, data sources, identity bindings, item ids, review requirements and
 mechanical acceptance conditions that the requirements they cite state by meaning (owner decision of 2026-11-26, #1169
-comment 7189470338, item 4). Each kind is specified once, by its key table; the tables are normative, and any machine
-schema the tool carries is derived from them and covered by the correspondence check (sec. 16). Each definition below
-is stated once and cited elsewhere.
+comment 7189470338, item 4). Each kind is specified once, by its key tables, each with a table id; the tables are
+normative. Each definition below is stated once and cited elsewhere.
 
 | Term | Encoding |
 |---|---|
@@ -5466,12 +5509,32 @@ strict parsing. A schema failure of a record a run reads is FAIL `record-invalid
 RC1-RC14 is evaluated, and the record does not apply: a malformed field is never reported only as a failed condition,
 and the path the record would cover stays `base-drift` (R6.TREE.7). A schema failure never loses a finding
 (R6.RECON.26, Form of a finding (i)).
-Sources: PR #1593 comments 7189621405 and 7190234470. Controls: RECON-SCHEMA, CANON-JSON.
+
+**Conformance mutants.** From the same single definition of the key tables, the generator of this design writes the
+list `CONFORMANCE-MUTANTS.json` by a fixed rule: for each table, each required key removed and one unlisted key added;
+for each key, one value of each JSON type the key does not admit; and for each encoding of the table above, its named
+near-miss variants with the correct JSON type (upper case, one character short and a trailing newline for the
+hexadecimal ids; `5.0` and a negative value for an offset; a leading or trailing `/`, an empty, `.` or `..`
+component for a path; a URL for an identity string; no zone or a space for a time; unpadded or broken base64; the empty
+string for a non-empty string; a trailing space or another case for a literal; an unlisted value for an enumeration;
+an empty array where one element is required). A nested table is mutated at one occurrence in its kind's positive
+record. Each mutant has the id `(table, key path, violation)`. For every mutant the tool's result carries a
+`record-invalid` item naming that key path and reports no condition RC1-RC14 for the mutant record; the gate checks
+that the mutant ids its records carry equal the list. The list is also the check that any machine schema the tool
+carries agrees with the tables: no other comparison is made.
+Sources: PR #1593 comments 7189621405, 7190234470 and 7190609504. Controls: RECON-SCHEMA, CANON-JSON.
 
 **R6.RECON.30** **`oi-reconciliation/2`: fields, item ids and acceptance** (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision). The fields that
 R6.RECON.1 names by meaning:
 
-*`oi-reconciliation/2` record*
+*reference (R6.RECON.29)* (table `reference`)
+
+| Key | Type | Required | Source and binding | Acceptance |
+|---|---|---|---|---|
+| `path` | path | yes | the record's path |  |
+| `blob_sha256` | sha256 | yes | the sha256 of the blob's bytes |  |
+
+*`oi-reconciliation/2` record* (table `recon.record`)
 
 | Key | Type | Required | Source and binding | Acceptance |
 |---|---|---|---|---|
@@ -5485,12 +5548,12 @@ R6.RECON.1 names by meaning:
 | `changes_decisions_on_X` | array | yes | R6.RECON.3 | RC12 holds only for `[]` |
 | `paths` | non-empty array of entries | yes | the paths the record covers | each entry's `path` occurs once |
 
-*entry (element of `paths`)*
+*entry (element of `paths`)* (table `recon.entry`)
 
 | Key | Type | Required | Source and binding | Acceptance |
 |---|---|---|---|---|
 | `path` | path | yes | a ledgered or corpus path that differs between `H` and `M` |  |
-| `ledger_binding` | object `{files_entry_sha256, splices_sha256, edit_records_sha256}`, each a sha256 or null | yes | the canonical sha256 of exactly one value each, read through the ledger interface (R6.ADAPT.2): the path's raw `files` entry; the list of the path's raw splices, in ledger order; the list of the raw edit-list entries whose `file` is the path, in edit-list order | RC13 (R6.RECON.5); all three null for a corpus path the ledger does not list |
+| `ledger_binding` | object (below) | yes | read through the ledger interface (R6.ADAPT.2) | RC13 (R6.RECON.5) |
 | `side_change_commits` | array of commit ids | yes | the commits on `M`'s first-parent chain after `H` that change the path, oldest first | RC1 |
 | `scientific_effect` | object (below) | yes | R6.RECON.25 |  |
 | `m` | blob id | yes | the path's blob at `M` | RC2 |
@@ -5503,7 +5566,15 @@ R6.RECON.1 names by meaning:
 | `protected` | array of protected ranges (below) | yes | the protected ranges at `M` | RC9 |
 | `resolutions` | array of resolutions (below) | no; absent means `[]` | the explicit resolutions | R6.RECON.24 |
 
-*`scientific_effect`*
+*`ledger_binding`* (table `recon.ledger_binding`)
+
+| Key | Type | Required | Source and binding | Acceptance |
+|---|---|---|---|---|
+| `files_entry_sha256` | sha256 or null | yes | the canonical sha256 of the path's raw `files` entry | null for a corpus path the ledger does not list |
+| `splices_sha256` | sha256 or null | yes | the canonical sha256 of the list of the path's raw splices, in ledger order | likewise |
+| `edit_records_sha256` | sha256 or null | yes | the canonical sha256 of the list of the raw edit-list entries whose `file` is the path, in edit-list order | likewise |
+
+*`scientific_effect`* (table `recon.scientific_effect`)
 
 | Key | Type | Required | Source and binding | Acceptance |
 |---|---|---|---|---|
@@ -5512,9 +5583,25 @@ R6.RECON.1 names by meaning:
 | `method` | non-empty string | yes | R6.RECON.25 | the executed-path rule below |
 | `verdict` | `"no-effect"` or `"invalidates"` | yes | R6.RECON.25 |  |
 | `configuration` | reference | yes | the configuration under which the entry was assessed (R6.RECON.26, Form of a finding (iii)) | resolved as R6.RECON.33 states |
-| `invalidated` | non-empty array of elements of R6.RECON.26, Form of a finding (ii) | exactly when `verdict` is `"invalidates"` | R6.RECON.26 | checked against the configuration `configuration` names |
+| `invalidated` | non-empty array of `invalidated` elements (below) | exactly when `verdict` is `"invalidates"` | R6.RECON.26 | checked against the configuration `configuration` names |
 
-*splice (element of `splices`)*
+*`invalidated` element (R6.RECON.26, Form of a finding (ii))* (table `invalidated`)
+
+| Key | Type | Required | Source and binding | Acceptance |
+|---|---|---|---|---|
+| `id` | non-empty string | yes | an edit id of the named configuration's edit list |  |
+| `sha256` | sha256 | yes | the canonical sha256 of that edit-list entry |  |
+| `target` | object (below) | yes | the edit at the named configuration's `H` |  |
+
+*`target`* (table `invalidated.target`)
+
+| Key | Type | Required | Source and binding | Acceptance |
+|---|---|---|---|---|
+| `path` | path | yes | the edit's file |  |
+| `start_H` | offset | yes | the edit's start at that `H` |  |
+| `old_sha256` | sha256 | yes | the sha256 of the edit's old bytes (a retained edit's `text`) |  |
+
+*splice (element of `splices`)* (table `recon.splice`)
 
 | Key | Type | Required | Source and binding | Acceptance |
 |---|---|---|---|---|
@@ -5526,7 +5613,7 @@ R6.RECON.1 names by meaning:
 | `new_sha256` | sha256 | yes | the sha256 of the splice's new bytes | RC6 |
 | `translation` | `"identity"` or an integer | yes | R6.RECON.10 | RC5 |
 
-*protected range (element of `protected`)*
+*protected range (element of `protected`)* (table `recon.protected`)
 
 | Key | Type | Required | Source and binding | Acceptance |
 |---|---|---|---|---|
@@ -5534,7 +5621,7 @@ R6.RECON.1 names by meaning:
 | `end_M` | offset | yes | R6.RECON.1 | RC9 |
 | `sha256` | sha256 | yes | the bytes `m[start_M:end_M]` | RC9 |
 
-*resolution (element of `resolutions`)*
+*resolution (element of `resolutions`)* (table `recon.resolution`)
 
 | Key | Type | Required | Source and binding | Acceptance |
 |---|---|---|---|---|
@@ -5550,7 +5637,8 @@ ledger's splices of the path, in ledger order (an extra, missing or reordered el
 `end_M`; the `translation` value (RC5, R6.RECON.10); the edit ids against the configuration `configuration` names, not
 the run's, so that a revised plan that removes an edit does not turn an earlier entry into a form failure; and the
 executed-path floor. **Executed paths.** A path is executed by a check, for the mechanical floor, when its name ends
-in one of the configuration's `executed_suffixes` (R6.CFG.4) or a delegation class of the configuration covers it (sec.
+in one of the configuration's `executed_suffixes` (R6.CFG.4), which contain at least `.py`, `.lean`, `.yml`,
+`.yaml` and `.sh`, or a delegation class of the configuration covers it (sec.
 13); for such an entry `method` contains the entry's `l` blob id in full, or the record fails its schema. Any other
 path that a check executes (an extensionless script, a file type outside the list) carries the same obligation under
 R6.RECON.25, and the review's `accept` on `<path>:scientific_effect` confirms that `method` names the check re-run at
@@ -5570,29 +5658,38 @@ Sources: PR #1593 comments 7189621405 and 7190234470. Controls: RECON-SCHEMA, RE
 
 **R6.RECON.31** **`oi-review-record/1`: fields, item ids and widening** (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision).
 
-*`oi-review-record/1` record*
+*`oi-review-record/1` record* (table `review.record`)
 
 | Key | Type | Required | Source and binding | Acceptance |
 |---|---|---|---|---|
 | `schema` | `"oi-review-record/1"` | yes |  |  |
 | `kind` | `"review"` or `"widening"` | no; absent means `"review"` |  |  |
 | `reviewer` | identity string | yes | the reviewer (R6.REC.2) | not equal to the reviewed record's `author`; for a widening review, also not equal to the reviewer of the superseding record's own review (R6.REC.13) |
-| `reviewed` | reference | yes | the reviewed record | its `path` and `blob_sha256` both equal those of the reviewed record, in record lint, in the post-freeze route and in the scans of R6.RECON.26 alike |
+| `reviewed` | reference | yes | the reviewed record | its `path` and `blob_sha256` both equal those of the reviewed record, in record lint, in the post-freeze route and in detection alike |
 | `replaces` | reference | exactly when `kind` is `"widening"` | the superseded record (R6.REC.13) |  |
 | `method` | non-empty string | yes | how each item was re-derived (R6.REC.2) | contains at least one full 40-character object id that the reviewer read |
 | `verdicts` | array of verdict entries (below) | yes | R6.REC.2 | one entry for each item id of the reviewed record (the item-id table below), no duplicate |
 | `dissent` | string | no | R6.REC.2 |  |
 
-*verdict entry (element of `verdicts`)*
+*verdict entry (element of `verdicts`)* (table `review.verdict`)
 
 | Key | Type | Required | Source and binding | Acceptance |
 |---|---|---|---|---|
 | `item` | non-empty string | yes | an item id of the reviewed record |  |
 | `verdict` | `"accept"`, `"reject"`, `"dissent"` or `"invalidates"` | yes | R6.REC.2, R6.RECON.26 | `invalidates` only on `<path>:scientific_effect` |
 | `reason` | string | yes | R6.REC.2 | non-empty for a verdict other than `accept` |
-| `invalidated` | non-empty array of elements of R6.RECON.26 (ii) | with `invalidates` only | R6.RECON.26 |  |
+| `invalidated` | non-empty array of `invalidated` elements (R6.RECON.30) | with `invalidates` only | R6.RECON.26 |  |
 | `configuration` | reference | with `invalidates` only | R6.RECON.26 (iii) |  |
-| `confirms` | object `{start_M, end_M, sha256, resolved_sha256}` | on a resolution item only, and there required | R6.RECON.24 | equal to the resolution's values |
+| `confirms` | object (below) | on a resolution item only, and there required | R6.RECON.24 | equal to the resolution's values |
+
+*`confirms`* (table `review.confirms`)
+
+| Key | Type | Required | Source and binding | Acceptance |
+|---|---|---|---|---|
+| `start_M` | offset | yes | the resolution's `start_M` | equal |
+| `end_M` | offset | yes | the resolution's `end_M` | equal |
+| `sha256` | sha256 | yes | the resolution's `sha256` | equal |
+| `resolved_sha256` | sha256 | yes | the resolution's `resolved_sha256` | equal |
 
 The key set of a verdict entry is closed: a future verdict datum needs a change of this design, which is accepted
 knowingly. A reserved prefix for unread keys is not provided, because an unreviewed key could carry meaning; moving to
@@ -5621,11 +5718,11 @@ top-level key whose value differs, `supersedes`, `version` and the item list exc
 `field:<key>` for each top-level key whose value differs. The configuration's widening review is a review record of
 kind `"widening"` listed in `records` with kind `review` (R6.RECON.33); the configuration has no `widening_review` key,
 and one is an unknown field (R6.VALID.2).
-Sources: PR #1593 comments 7189621405 and 7190234470. Controls: REVIEW-SCHEMA.
+Sources: PR #1593 comments 7189621405 and 7190234470. Controls: REVIEW-SCHEMA, RECON-SCHEMA.
 
 **R6.RECON.32** **`oi-reassessment/1` and `oi-edit-id-migration/1`: fields and location** (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision).
 
-*`oi-reassessment/1` record*
+*`oi-reassessment/1` record* (table `reassess.record`)
 
 | Key | Type | Required | Source and binding | Acceptance |
 |---|---|---|---|---|
@@ -5633,13 +5730,43 @@ Sources: PR #1593 comments 7189621405 and 7190234470. Controls: REVIEW-SCHEMA.
 | `record_id` | non-empty string | yes | R6.REC.7 |  |
 | `supersedes` | reference or null | yes | R6.REC.7 |  |
 | `author` | identity string | yes | R6.REC.2 |  |
-| `finding` | object `{path, blob_sha256, item}` | yes | R6.RECON.27, Keys |  |
-| `repair` | object `{commits, entry: {path, blob_sha256, entry_path}}`, or null | yes | R6.RECON.27, Keys | null only where Keys admits it |
-| `edit` | object `{id, sha256}`, or null | yes | R6.RECON.27, Keys | null exactly for a finding bound at run level |
+| `finding` | object (below) | yes | R6.RECON.27, Keys |  |
+| `repair` | object (below), or null | yes | R6.RECON.27, Keys | null only where Keys admits it |
+| `edit` | object (below), or null | yes | R6.RECON.27, Keys | null exactly for a finding bound at run level |
 | `rederivation` | non-empty string | yes | the edit's justification re-derived at the run's `M`, stating what was re-run | that the re-run happened rests on the review |
 | `verdict` | `"no-effect"` | yes | R6.RECON.27 |  |
 
-*`oi-edit-id-migration/1` record*
+*`finding`* (table `reassess.finding`)
+
+| Key | Type | Required | Source and binding | Acceptance |
+|---|---|---|---|---|
+| `path` | path | yes | the path of the file carrying the finding |  |
+| `blob_sha256` | sha256 | yes | the sha256 of that file |  |
+| `item` | non-empty string, or null | yes | R6.RECON.27, Keys | null exactly for a finding read from a malformed file (R6.RECON.35 classes (b) and (c)) |
+
+*`repair`* (table `reassess.repair`)
+
+| Key | Type | Required | Source and binding | Acceptance |
+|---|---|---|---|---|
+| `commits` | non-empty array of distinct commit ids | yes | the repairing change | each on `M`'s first-parent chain |
+| `entry` | object (below) | yes | the reconciliation record entry recording the repair |  |
+
+*`repair.entry`* (table `reassess.repair.entry`)
+
+| Key | Type | Required | Source and binding | Acceptance |
+|---|---|---|---|---|
+| `path` | path | yes | the reconciliation record's path |  |
+| `blob_sha256` | sha256 | yes | its sha256 |  |
+| `entry_path` | path | yes | the path of its entry for the repairing change |  |
+
+*`edit`* (table `reassess.edit`)
+
+| Key | Type | Required | Source and binding | Acceptance |
+|---|---|---|---|---|
+| `id` | non-empty string | yes | an edit id of the citing configuration's edit list |  |
+| `sha256` | sha256 | yes | the canonical sha256 of that edit-list entry |  |
+
+*`oi-edit-id-migration/1` record* (table `migration.record`)
 
 | Key | Type | Required | Source and binding | Acceptance |
 |---|---|---|---|---|
@@ -5647,12 +5774,27 @@ Sources: PR #1593 comments 7189621405 and 7190234470. Controls: REVIEW-SCHEMA.
 | `record_id` | non-empty string | yes | R6.REC.7 |  |
 | `supersedes` | reference or null | yes | R6.REC.7 |  |
 | `author` | identity string | yes | R6.REC.2 |  |
-| `migrations` | non-empty array of `{old, new}`, each a non-empty edit-id string | yes | R6.RECON.28 | the lint of R6.RECON.28 |
-| `approval` | object `{quote, author, time}`: non-empty string, identity string, time | yes | the owner's recorded approval (AGENTS.md sec. A.48 item 3) | form only (R6.REC.3) |
+| `migrations` | non-empty array of migrations (below) | yes | R6.RECON.28 | the lint of R6.RECON.28 |
+| `approval` | object (below) | yes | the owner's recorded approval (AGENTS.md sec. A.48 item 3) | form only (R6.REC.3) |
+
+*migration (element of `migrations`)* (table `migration.element`)
+
+| Key | Type | Required | Source and binding | Acceptance |
+|---|---|---|---|---|
+| `old` | non-empty string | yes | the renamed edit id |  |
+| `new` | non-empty string | yes | its successor |  |
+
+*`approval`* (table `migration.approval`)
+
+| Key | Type | Required | Source and binding | Acceptance |
+|---|---|---|---|---|
+| `quote` | non-empty string | yes | the owner's words |  |
+| `author` | identity string | yes | the owner's login |  |
+| `time` | time | yes | the time of the owner's record |  |
 
 Both kinds lie, with their review records, in the plan's record directory (`D_rec`, R6.RDIR.1) of the configuration
 that references them, and are read by their reference; a referenced record outside it is FAIL `record-invalid`.
-Sources: PR #1593 comment 7189621405 (C, G). Controls: REASSESS-KEYS, MIGRATION-RECORD.
+Sources: PR #1593 comment 7189621405 (C, G). Controls: REASSESS-KEYS, MIGRATION-RECORD, RECON-SCHEMA.
 
 **R6.RECON.33** **Configuration references, resolution and lineage** (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision). The kinds of `records`
 (R6.CFG.4) and the schema each requires:
@@ -5684,7 +5826,8 @@ tree holds the path with a blob of that sha256 (R6.REC.17 states this walk). The
 in a chain-admitted run it is `F`; a reconciliation record admitted by the post-freeze route, and its review, are read
 at their paths in `REV`'s tree (R6.RECON.2 (d)), and the references they carry are resolved from `F`; in a
 control-harness run, which has no `F` (RT-L2, R6.RECON.21), a reference equal to the control-supplied configuration's
-reference resolves to that configuration, and any other is resolved from `REV`. A reference that no commit on the
+reference resolves to that configuration, and any other is resolved from `REV`, or, when no `REV` is named, from the
+commit the record is read from (R6.RECON.21). A reference that no commit on the
 chain holds names no record: FAIL `record-invalid` for a record, ERROR `CONFIG_INVALID` for a configuration. The search
 resolves the configurations named by `supersedes` (R6.REC.7, R6.CFG.3) and by R6.RECON.26 (iii), and the migration
 records of R6.RECON.28; the finding and the repair entry of R6.RECON.27 are read from the scans at `M` instead.
@@ -5702,7 +5845,7 @@ Sources: PR #1593 comments 7189621405 and 7190234470. Controls: CONFIG-REFS, SUP
 
 **R6.RECON.34** **Side-change class records** (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision).
 
-*`oi-side-change-classes/1` record*
+*`oi-side-change-classes/1` record* (table `class.record`)
 
 | Key | Type | Required | Source and binding | Acceptance |
 |---|---|---|---|---|
@@ -5712,39 +5855,53 @@ Sources: PR #1593 comments 7189621405 and 7190234470. Controls: CONFIG-REFS, SUP
 | `author` | identity string | yes | R6.REC.2 |  |
 | `classes` | non-empty array of classes (below) | yes | R6.TREE.5 | each class id defined once |
 
-*class (element of `classes`)*
+*class (element of `classes`)* (table `class.class`)
 
 | Key | Type | Required | Source and binding | Acceptance |
 |---|---|---|---|---|
 | `id` | non-empty string | yes | R6.TREE.5 |  |
 | `prefixes` | array of paths | yes | where the class's paths may lie (R6.TREE.5) | a path lies under a prefix when it begins with the prefix followed by `/` |
-| `pins` | array of `{path, git_blob, blob_sha256}`: path, blob id, sha256 | yes | the pinned blobs (R6.TREE.5) | both hashes required |
+| `pins` | array of pins (below) | yes | the pinned blobs (R6.TREE.5) |  |
 
-A class-level `paths` list is not a form of this record. A superseding class record that adds a pin or a prefix, or
+*pin (element of `pins`)* (table `class.pin`)
+
+| Key | Type | Required | Source and binding | Acceptance |
+|---|---|---|---|---|
+| `path` | path | yes | the pinned path |  |
+| `blob_sha256` | sha256 | yes | the sha256 of its blob at `M` | the pin |
+
+A class-level `paths` list is not a form of this record, and a pin carries no `git_blob`: its integrity is its
+`blob_sha256`, which a git object id would only restate. A superseding class record that adds a pin or a prefix, or
 changes a pin's blob, widens the record it supersedes and needs a widening review (R6.REC.13), as a changed class widens
 the configuration (R6.CFG.7).
-Sources: PR #1593 comment 7189621405 (E). Controls: CLASS-SCHEMA.
+Sources: PR #1593 comment 7189621405 (E). Controls: CLASS-SCHEMA, RECON-SCHEMA.
 
 **R6.RECON.35** **Detection and the scanned set** (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision). *Selection.* Detection (R6.RECON.26) reads every
 regular file under `verification/audits/`, outside every prefix of the tool-landing class, the plan's record
-directory included, whatever its name, whose text begins, after an optional byte-order mark and whitespace, with `{`
-or `[`; the text is the file decoded as UTF-8, or as UTF-16 when it begins with a UTF-16 byte-order mark. A file whose
-text does not begin a JSON object or array is not a record of any kind (R6.RECON.29), so prose that quotes a record is
-not read. *Classes of a selected file.* (a) A file that parses strictly as an object whose `schema` is exactly
+directory included, whatever its name, whose raw leading bytes are an optional byte-order mark (UTF-8 or UTF-16),
+then ASCII whitespace, then `{` or `[` (in UTF-16 after a UTF-16 byte-order mark). Its text is the file decoded as
+UTF-8, or as UTF-16 after a UTF-16 byte-order mark, invalid bytes replaced by U+FFFD (a lossy decode, so that an
+invalid byte does not take a file out of detection). A file that does not begin a JSON object or array is not a
+record of any kind (R6.RECON.29), so prose that quotes a record is not read. *Classes of a selected file.* (a) A file that parses strictly as an object whose `schema` is exactly
 `oi-reconciliation/1`, `oi-reconciliation/2` or `oi-review-record/1` is a record of that kind; its findings are read
 under R6.RECON.26, Form of a finding (i). (b) Any other selected file in which some object, at any depth, has a
-`schema` string that, after trimming and case folding, begins with `oi-review-record/` or `oi-reconciliation/`, the file
-parsed with duplicate keys and non-finite numbers admitted for this test only, is a malformed record: FAIL
-`record-invalid`. (c) A selected file that does not parse even so, and whose text, with JSON `\uXXXX` escapes resolved
-and case folded, contains `oi-review-record/` or `oi-reconciliation/`, is a malformed record likewise. A malformed
+`schema` string that, after trimming and case folding, begins with `oi-review-record/` or `oi-reconciliation/`, or has
+no `schema` key but a review's shape (a `reviewed` key and a `verdicts` entry carrying `invalidates` or `invalidated`),
+the file parsed with duplicate keys and non-finite numbers admitted for this test only, is a malformed record: FAIL
+`record-invalid`. (c) A selected file that does not parse even so, and whose lossy text, with JSON `\uXXXX` escapes
+resolved and case folded, contains `oi-review-record/` or `oi-reconciliation/`, is a malformed record likewise. A malformed
 record whose text, with escapes resolved, also contains `invalidates` or `invalidated` is a malformed finding, which
 binds at run level (R6.RECON.26, Form of a finding (iv)). *The scanned set* of R6.RECON.2 (d) and (e) is the records of
 class (a) outside the plan's record directory. *Identity.* Record identity is the reference (R6.RECON.29): two
 byte-identical files at two paths are two records, for R6.RECON.2 (e) and for findings alike. *Review location.* The
 review records of a reconciliation record lie in its directory (R6.RECON.1, R6.RECON.2 (d)), and a review elsewhere is
 not its review for record lint; detection reads review records wherever they lie among the selected files, and one
-elsewhere that carries a finding counts, as a form failure.
-Sources: PR #1593 comments 7189621405, 7190234470 and 7190255132 (D1). Controls: SCAN-PARSE.
+elsewhere that carries a finding counts, as a form failure. *Residuals.* Three changes to a landed finding record are
+not caught by detection: its deletion from `main`; leading bytes that do not begin a JSON value added to it (a stray
+character, a comment line, a NUL); and its storage under a prefix of the tool-landing class, where an unpinned file is
+REVIEW_REQUIRED `side-change-unclassified` at the run, visible but not blocking. Each needs a landed change to `main`
+under the owner's merge approval; they are tracked together in Issue #1598.
+Sources: PR #1593 comments 7189621405, 7190234470, 7190255132 (D1) and 7190609504 (B). Controls: SCAN-PARSE.
 
 **R6.RECON.36** **Result fields of the reconciliation route** (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision). An op C result with `M` carries:
 - `dispositions`: one entry for each drifted ledgered or corpus path (R6.RECON.22), `{path, disposition, category,
@@ -5897,7 +6054,8 @@ unless marked optional:
   `final_profiles` lists the review profiles whose REVIEW items `--final` converts for that check
   (sec. 7);
 - `executed_suffixes`: a non-empty array of file-name suffixes, the mechanical floor of the executed-path
-  rule of R6.RECON.30 (for A1 `.py`, `.lean`, `.yml`, `.yaml` and `.sh`) (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision);
+  rule of R6.RECON.30; it contains `.py`, `.lean`, `.yml`, `.yaml` and `.sh`, the floor this design fixes,
+  and may add suffixes, and a list lacking one of them is ERROR `CONFIG_INVALID` (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision);
 - `rules`: `[{path, blob_sha256}]`, rule files of schema `oi-term-rules/2`;
 - `context_mapping`: `{source_field, values: {value: bool}, default: "invalid"}`; a value outside the
   table is a configuration error;

@@ -4269,11 +4269,11 @@
    "expect": {
     "outcome": "ANY",
     "counts": {
-     "lines[rule=W2,state=PASS]": 4
+     "lines[rule_id=W2,state=PASS]": 4
     },
     "invariants": [
      {
-      "all": "lines[rule=W2]",
+      "all": "lines[rule_id=W2]",
       "have": {
        "state": "PASS"
       }
@@ -8091,7 +8091,7 @@
     ],
     "counts": {
      "items[class=deny-match]": 0,
-     "lines[state=PASS,rule=W1|W2]": 10,
+     "lines[state=PASS,rule_id=W1|W2]": 10,
      "lines[profile=resid,decision=REVIEW_REQUIRED]": 45,
      "lines[profile=resid,only_profile=true]": 17
     },
@@ -8252,13 +8252,13 @@
        }
       ],
       "counts": {
-       "lines[rule=DR-1]": 61,
-       "lines[rule=DR-1,alternative=a]": 6,
-       "lines[rule=DR-1,alternative=b]": 2,
-       "lines[rule=DR-1,alternative=c]": 55,
-       "lines[rule=DR-3]": 0,
-       "lines[rule=DR-4]": 28,
-       "lines[rule=DR-5]": 1,
+       "lines[rule_id=DR-1]": 61,
+       "lines[rule_id=DR-1,alternatives=a]": 6,
+       "lines[rule_id=DR-1,alternatives=b]": 2,
+       "lines[rule_id=DR-1,alternatives=c]": 55,
+       "lines[rule_id=DR-3]": 0,
+       "lines[rule_id=DR-4]": 28,
+       "lines[rule_id=DR-5]": 1,
        "lines[class=deny-match]": 86
       }
      },
@@ -8336,7 +8336,7 @@
       "case": "AGENTS.md at H (control input agents-md-at-H)",
       "outcome": "ANY",
       "counts": {
-       "sentences[rule=DR-3]": 1
+       "sentences[rule_id=DR-3]": 1
       },
       "sites": [
        {
@@ -8352,7 +8352,7 @@
       "case": "AGENTS.md in X_rep (control input agents-md-at-Xrep: H's AGENTS.md with the ledger's splices, sha256 59b68984e659ef808819e02d4653d80388f8bd2f4c009796b162fc2453882ce2, the bytes of T1''s copy)",
       "outcome": "ANY",
       "counts": {
-       "sentences[rule=DR-3]": 0
+       "sentences[rule_id=DR-3]": 0
       },
       "invariants": [
        {
@@ -22809,6 +22809,18 @@
         ]
        }
       ]
+     },
+     {
+      "case": "a finding at X on a line that M's changes move (lines inserted above it): matched at the landing by its key, the line number excluded; no new finding (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -24563,7 +24575,42 @@
       ]
      },
      {
-      "case": "countercase: a reassessment with repair null for a finding that is a form failure, with a non-empty rederivation at M, an accepting non-author review and a new freeze citing it (positive)",
+      "case": "a reassessment with repair null for a second-kind finding by an independent reviewer that is malformed (its review lacks method, or omits an unrelated verdict)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a reassessment with repair null for a first-kind finding whose entry has no review",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a reassessment with item null for a finding read from a well-formed record (class (a) of R6.RECON.35)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "countercase: a reassessment with repair null for a first-kind finding whose entry's non-author review rejects <path>:scientific_effect, with a non-empty rederivation at M, an accepting non-author review and a new freeze citing it (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "retirement-blocked"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: a reassessment with item null and repair null for a malformed file of class (c) of R6.RECON.35, the finding being the whole file, with its rederivation, review and new freeze (positive)",
       "outcome": "ANY",
       "invariants": [
        {
@@ -24886,7 +24933,10 @@
    "requirements": [
     "R6.RECON.29",
     "R6.RECON.30",
-    "R6.RECON.10"
+    "R6.RECON.10",
+    "R6.RECON.31",
+    "R6.RECON.32",
+    "R6.RECON.34"
    ],
    "runner": null,
    "operations": [
@@ -24908,11 +24958,35 @@
       ]
      },
      {
-      "case": "countercase (generic conformance): the same record mutated once for each violation the key tables define (a required key removed, a value of another type or encoding, a key outside the table), each mutant run separately",
+      "case": "a review record, a reassessment, an edit-id migration record and a side-change class record, each conforming to its key tables of R6.RECON.31, R6.RECON.32 and R6.RECON.34 (positive, one record per kind)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "record-invalid"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase (conformance mutants): each mutant of CONFORMANCE-MUTANTS.json (sha256 069de1b7bb4b2ca47a3ca58d4c20906698c2276752b74e313d605a27d6494ab5), applied (R6.RECON.29) to the positive record of its kind, run separately and recorded with its id (table, key path, violation); the recorded ids equal the list",
       "outcome": "FAIL",
       "classes_include": [
-       "record-invalid",
-       "base-drift"
+       "record-invalid"
+      ],
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "class": "record-invalid",
+          "subject": "$mutant_record",
+          "key_path": "$key_path"
+         }
+        ]
+       },
+       {
+        "none": "items[subject=$mutant_record,failed_conditions_nonempty]"
+       }
       ]
      },
      {
@@ -25314,13 +25388,18 @@
    "expect": {
     "cases": [
      {
-      "case": "a configuration whose records entries each carry a kind of the enumeration with a record of the mapped schema, roles.side_change_classes also listed in records with the same blob, retirement {name, issue}, executed_suffixes (positive)",
+      "case": "a configuration whose records entries each carry a kind of the enumeration with a record of the mapped schema, roles.side_change_classes also listed in records with the same blob, retirement {name, issue}, executed_suffixes holding the design floor and .js added (positive)",
       "outcome": "ANY",
       "invariants": [
        {
         "no_stop": true
        }
       ]
+     },
+     {
+      "case": "countercase: executed_suffixes lacking .py, or set to [\".none\"] (it must contain the design floor)",
+      "outcome": "ERROR",
+      "stop_class": "CONFIG_INVALID"
      },
      {
       "case": "countercase: a records entry of a kind outside the enumeration",
@@ -25446,7 +25525,7 @@
    "expect": {
     "cases": [
      {
-      "case": "a class record whose classes carry id, prefixes and pins [{path, git_blob, blob_sha256}] (positive)",
+      "case": "a class record whose classes carry id, prefixes and pins [{path, blob_sha256}] (positive)",
       "outcome": "ANY",
       "invariants": [
        {
@@ -25458,7 +25537,7 @@
       ]
      },
      {
-      "case": "countercase: a pin without git_blob",
+      "case": "countercase: a pin carrying git_blob (a key outside the table)",
       "outcome": "FAIL",
       "classes_include": [
        "record-invalid"
@@ -25542,6 +25621,22 @@
       "outcome": "FAIL",
       "classes_include": [
        "retirement-blocked"
+      ]
+     },
+     {
+      "case": "a file beginning with { that holds one invalid UTF-8 byte, whose lossy text contains oi-review-record/1 and invalidates: selected by its leading bytes, a malformed finding, run level",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a parsed object with no schema key but a review's shape (a reviewed key and a verdicts entry carrying invalidates)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
       ]
      },
      {

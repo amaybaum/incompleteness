@@ -1,0 +1,4442 @@
+{
+ "schema": "oi-conformance-mutants/1",
+ "rule": "R6.RECON.29: for each key table, each required key removed, one unlisted key added, one value of each other JSON type for each key, and each near-miss variant of each encoding with the correct JSON type; a nested table is mutated at one occurrence in its kind's positive record",
+ "tables": [
+  "class.class",
+  "class.pin",
+  "class.record",
+  "invalidated",
+  "invalidated.target",
+  "migration.approval",
+  "migration.element",
+  "migration.record",
+  "reassess.edit",
+  "reassess.finding",
+  "reassess.record",
+  "reassess.repair",
+  "reassess.repair.entry",
+  "recon.entry",
+  "recon.ledger_binding",
+  "recon.protected",
+  "recon.record",
+  "recon.resolution",
+  "recon.scientific_effect",
+  "recon.splice",
+  "reference",
+  "review.confirms",
+  "review.record",
+  "review.verdict"
+ ],
+ "mutants": [
+  {
+   "table": "class.class",
+   "key_path": "id",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "class.class",
+   "key_path": "id",
+   "violation": "type-null"
+  },
+  {
+   "table": "class.class",
+   "key_path": "id",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "class.class",
+   "key_path": "id",
+   "violation": "type-number"
+  },
+  {
+   "table": "class.class",
+   "key_path": "id",
+   "violation": "type-array"
+  },
+  {
+   "table": "class.class",
+   "key_path": "id",
+   "violation": "type-object"
+  },
+  {
+   "table": "class.class",
+   "key_path": "id",
+   "violation": "empty"
+  },
+  {
+   "table": "class.class",
+   "key_path": "prefixes",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "class.class",
+   "key_path": "prefixes",
+   "violation": "type-null"
+  },
+  {
+   "table": "class.class",
+   "key_path": "prefixes",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "class.class",
+   "key_path": "prefixes",
+   "violation": "type-number"
+  },
+  {
+   "table": "class.class",
+   "key_path": "prefixes",
+   "violation": "type-string"
+  },
+  {
+   "table": "class.class",
+   "key_path": "prefixes",
+   "violation": "type-object"
+  },
+  {
+   "table": "class.class",
+   "key_path": "prefixes[0]",
+   "violation": "leading-slash"
+  },
+  {
+   "table": "class.class",
+   "key_path": "prefixes[0]",
+   "violation": "trailing-slash"
+  },
+  {
+   "table": "class.class",
+   "key_path": "prefixes[0]",
+   "violation": "empty-component"
+  },
+  {
+   "table": "class.class",
+   "key_path": "prefixes[0]",
+   "violation": "dot-component"
+  },
+  {
+   "table": "class.class",
+   "key_path": "prefixes[0]",
+   "violation": "dot-dot-component"
+  },
+  {
+   "table": "class.class",
+   "key_path": "pins",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "class.class",
+   "key_path": "pins",
+   "violation": "type-null"
+  },
+  {
+   "table": "class.class",
+   "key_path": "pins",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "class.class",
+   "key_path": "pins",
+   "violation": "type-number"
+  },
+  {
+   "table": "class.class",
+   "key_path": "pins",
+   "violation": "type-string"
+  },
+  {
+   "table": "class.class",
+   "key_path": "pins",
+   "violation": "type-object"
+  },
+  {
+   "table": "class.class",
+   "key_path": "+unlisted",
+   "violation": "unlisted-key-added"
+  },
+  {
+   "table": "class.pin",
+   "key_path": "path",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "class.pin",
+   "key_path": "path",
+   "violation": "type-null"
+  },
+  {
+   "table": "class.pin",
+   "key_path": "path",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "class.pin",
+   "key_path": "path",
+   "violation": "type-number"
+  },
+  {
+   "table": "class.pin",
+   "key_path": "path",
+   "violation": "type-array"
+  },
+  {
+   "table": "class.pin",
+   "key_path": "path",
+   "violation": "type-object"
+  },
+  {
+   "table": "class.pin",
+   "key_path": "path",
+   "violation": "leading-slash"
+  },
+  {
+   "table": "class.pin",
+   "key_path": "path",
+   "violation": "trailing-slash"
+  },
+  {
+   "table": "class.pin",
+   "key_path": "path",
+   "violation": "empty-component"
+  },
+  {
+   "table": "class.pin",
+   "key_path": "path",
+   "violation": "dot-component"
+  },
+  {
+   "table": "class.pin",
+   "key_path": "path",
+   "violation": "dot-dot-component"
+  },
+  {
+   "table": "class.pin",
+   "key_path": "blob_sha256",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "class.pin",
+   "key_path": "blob_sha256",
+   "violation": "type-null"
+  },
+  {
+   "table": "class.pin",
+   "key_path": "blob_sha256",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "class.pin",
+   "key_path": "blob_sha256",
+   "violation": "type-number"
+  },
+  {
+   "table": "class.pin",
+   "key_path": "blob_sha256",
+   "violation": "type-array"
+  },
+  {
+   "table": "class.pin",
+   "key_path": "blob_sha256",
+   "violation": "type-object"
+  },
+  {
+   "table": "class.pin",
+   "key_path": "blob_sha256",
+   "violation": "upper-case"
+  },
+  {
+   "table": "class.pin",
+   "key_path": "blob_sha256",
+   "violation": "sixty-three-characters"
+  },
+  {
+   "table": "class.pin",
+   "key_path": "blob_sha256",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "class.pin",
+   "key_path": "+unlisted",
+   "violation": "unlisted-key-added"
+  },
+  {
+   "table": "class.record",
+   "key_path": "schema",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "class.record",
+   "key_path": "schema",
+   "violation": "type-null"
+  },
+  {
+   "table": "class.record",
+   "key_path": "schema",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "class.record",
+   "key_path": "schema",
+   "violation": "type-number"
+  },
+  {
+   "table": "class.record",
+   "key_path": "schema",
+   "violation": "type-array"
+  },
+  {
+   "table": "class.record",
+   "key_path": "schema",
+   "violation": "type-object"
+  },
+  {
+   "table": "class.record",
+   "key_path": "schema",
+   "violation": "trailing-space"
+  },
+  {
+   "table": "class.record",
+   "key_path": "schema",
+   "violation": "other-case"
+  },
+  {
+   "table": "class.record",
+   "key_path": "record_id",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "class.record",
+   "key_path": "record_id",
+   "violation": "type-null"
+  },
+  {
+   "table": "class.record",
+   "key_path": "record_id",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "class.record",
+   "key_path": "record_id",
+   "violation": "type-number"
+  },
+  {
+   "table": "class.record",
+   "key_path": "record_id",
+   "violation": "type-array"
+  },
+  {
+   "table": "class.record",
+   "key_path": "record_id",
+   "violation": "type-object"
+  },
+  {
+   "table": "class.record",
+   "key_path": "record_id",
+   "violation": "empty"
+  },
+  {
+   "table": "class.record",
+   "key_path": "supersedes",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "class.record",
+   "key_path": "supersedes",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "class.record",
+   "key_path": "supersedes",
+   "violation": "type-number"
+  },
+  {
+   "table": "class.record",
+   "key_path": "supersedes",
+   "violation": "type-string"
+  },
+  {
+   "table": "class.record",
+   "key_path": "supersedes",
+   "violation": "type-array"
+  },
+  {
+   "table": "class.record",
+   "key_path": "author",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "class.record",
+   "key_path": "author",
+   "violation": "type-null"
+  },
+  {
+   "table": "class.record",
+   "key_path": "author",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "class.record",
+   "key_path": "author",
+   "violation": "type-number"
+  },
+  {
+   "table": "class.record",
+   "key_path": "author",
+   "violation": "type-array"
+  },
+  {
+   "table": "class.record",
+   "key_path": "author",
+   "violation": "type-object"
+  },
+  {
+   "table": "class.record",
+   "key_path": "author",
+   "violation": "url"
+  },
+  {
+   "table": "class.record",
+   "key_path": "classes",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "class.record",
+   "key_path": "classes",
+   "violation": "type-null"
+  },
+  {
+   "table": "class.record",
+   "key_path": "classes",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "class.record",
+   "key_path": "classes",
+   "violation": "type-number"
+  },
+  {
+   "table": "class.record",
+   "key_path": "classes",
+   "violation": "type-string"
+  },
+  {
+   "table": "class.record",
+   "key_path": "classes",
+   "violation": "type-object"
+  },
+  {
+   "table": "class.record",
+   "key_path": "classes",
+   "violation": "empty-array"
+  },
+  {
+   "table": "class.record",
+   "key_path": "+unlisted",
+   "violation": "unlisted-key-added"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "id",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "id",
+   "violation": "type-null"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "id",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "id",
+   "violation": "type-number"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "id",
+   "violation": "type-array"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "id",
+   "violation": "type-object"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "id",
+   "violation": "empty"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "sha256",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "sha256",
+   "violation": "type-null"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "sha256",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "sha256",
+   "violation": "type-number"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "sha256",
+   "violation": "type-array"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "sha256",
+   "violation": "type-object"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "sha256",
+   "violation": "upper-case"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "sha256",
+   "violation": "sixty-three-characters"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "sha256",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "target",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "target",
+   "violation": "type-null"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "target",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "target",
+   "violation": "type-number"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "target",
+   "violation": "type-string"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "target",
+   "violation": "type-array"
+  },
+  {
+   "table": "invalidated",
+   "key_path": "+unlisted",
+   "violation": "unlisted-key-added"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "path",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "path",
+   "violation": "type-null"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "path",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "path",
+   "violation": "type-number"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "path",
+   "violation": "type-array"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "path",
+   "violation": "type-object"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "path",
+   "violation": "leading-slash"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "path",
+   "violation": "trailing-slash"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "path",
+   "violation": "empty-component"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "path",
+   "violation": "dot-component"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "path",
+   "violation": "dot-dot-component"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "start_H",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "start_H",
+   "violation": "type-null"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "start_H",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "start_H",
+   "violation": "type-string"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "start_H",
+   "violation": "type-array"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "start_H",
+   "violation": "type-object"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "start_H",
+   "violation": "fraction-5.0"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "start_H",
+   "violation": "negative"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "old_sha256",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "old_sha256",
+   "violation": "type-null"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "old_sha256",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "old_sha256",
+   "violation": "type-number"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "old_sha256",
+   "violation": "type-array"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "old_sha256",
+   "violation": "type-object"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "old_sha256",
+   "violation": "upper-case"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "old_sha256",
+   "violation": "sixty-three-characters"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "old_sha256",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "invalidated.target",
+   "key_path": "+unlisted",
+   "violation": "unlisted-key-added"
+  },
+  {
+   "table": "migration.approval",
+   "key_path": "quote",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "migration.approval",
+   "key_path": "quote",
+   "violation": "type-null"
+  },
+  {
+   "table": "migration.approval",
+   "key_path": "quote",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "migration.approval",
+   "key_path": "quote",
+   "violation": "type-number"
+  },
+  {
+   "table": "migration.approval",
+   "key_path": "quote",
+   "violation": "type-array"
+  },
+  {
+   "table": "migration.approval",
+   "key_path": "quote",
+   "violation": "type-object"
+  },
+  {
+   "table": "migration.approval",
+   "key_path": "quote",
+   "violation": "empty"
+  },
+  {
+   "table": "migration.approval",
+   "key_path": "author",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "migration.approval",
+   "key_path": "author",
+   "violation": "type-null"
+  },
+  {
+   "table": "migration.approval",
+   "key_path": "author",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "migration.approval",
+   "key_path": "author",
+   "violation": "type-number"
+  },
+  {
+   "table": "migration.approval",
+   "key_path": "author",
+   "violation": "type-array"
+  },
+  {
+   "table": "migration.approval",
+   "key_path": "author",
+   "violation": "type-object"
+  },
+  {
+   "table": "migration.approval",
+   "key_path": "author",
+   "violation": "url"
+  },
+  {
+   "table": "migration.approval",
+   "key_path": "time",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "migration.approval",
+   "key_path": "time",
+   "violation": "type-null"
+  },
+  {
+   "table": "migration.approval",
+   "key_path": "time",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "migration.approval",
+   "key_path": "time",
+   "violation": "type-number"
+  },
+  {
+   "table": "migration.approval",
+   "key_path": "time",
+   "violation": "type-array"
+  },
+  {
+   "table": "migration.approval",
+   "key_path": "time",
+   "violation": "type-object"
+  },
+  {
+   "table": "migration.approval",
+   "key_path": "time",
+   "violation": "no-zone"
+  },
+  {
+   "table": "migration.approval",
+   "key_path": "time",
+   "violation": "space-separator"
+  },
+  {
+   "table": "migration.approval",
+   "key_path": "+unlisted",
+   "violation": "unlisted-key-added"
+  },
+  {
+   "table": "migration.element",
+   "key_path": "old",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "migration.element",
+   "key_path": "old",
+   "violation": "type-null"
+  },
+  {
+   "table": "migration.element",
+   "key_path": "old",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "migration.element",
+   "key_path": "old",
+   "violation": "type-number"
+  },
+  {
+   "table": "migration.element",
+   "key_path": "old",
+   "violation": "type-array"
+  },
+  {
+   "table": "migration.element",
+   "key_path": "old",
+   "violation": "type-object"
+  },
+  {
+   "table": "migration.element",
+   "key_path": "old",
+   "violation": "empty"
+  },
+  {
+   "table": "migration.element",
+   "key_path": "new",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "migration.element",
+   "key_path": "new",
+   "violation": "type-null"
+  },
+  {
+   "table": "migration.element",
+   "key_path": "new",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "migration.element",
+   "key_path": "new",
+   "violation": "type-number"
+  },
+  {
+   "table": "migration.element",
+   "key_path": "new",
+   "violation": "type-array"
+  },
+  {
+   "table": "migration.element",
+   "key_path": "new",
+   "violation": "type-object"
+  },
+  {
+   "table": "migration.element",
+   "key_path": "new",
+   "violation": "empty"
+  },
+  {
+   "table": "migration.element",
+   "key_path": "+unlisted",
+   "violation": "unlisted-key-added"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "schema",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "schema",
+   "violation": "type-null"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "schema",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "schema",
+   "violation": "type-number"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "schema",
+   "violation": "type-array"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "schema",
+   "violation": "type-object"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "schema",
+   "violation": "trailing-space"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "schema",
+   "violation": "other-case"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "record_id",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "record_id",
+   "violation": "type-null"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "record_id",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "record_id",
+   "violation": "type-number"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "record_id",
+   "violation": "type-array"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "record_id",
+   "violation": "type-object"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "record_id",
+   "violation": "empty"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "supersedes",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "supersedes",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "supersedes",
+   "violation": "type-number"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "supersedes",
+   "violation": "type-string"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "supersedes",
+   "violation": "type-array"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "author",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "author",
+   "violation": "type-null"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "author",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "author",
+   "violation": "type-number"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "author",
+   "violation": "type-array"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "author",
+   "violation": "type-object"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "author",
+   "violation": "url"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "migrations",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "migrations",
+   "violation": "type-null"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "migrations",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "migrations",
+   "violation": "type-number"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "migrations",
+   "violation": "type-string"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "migrations",
+   "violation": "type-object"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "migrations",
+   "violation": "empty-array"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "approval",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "approval",
+   "violation": "type-null"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "approval",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "approval",
+   "violation": "type-number"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "approval",
+   "violation": "type-string"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "approval",
+   "violation": "type-array"
+  },
+  {
+   "table": "migration.record",
+   "key_path": "+unlisted",
+   "violation": "unlisted-key-added"
+  },
+  {
+   "table": "reassess.edit",
+   "key_path": "id",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "reassess.edit",
+   "key_path": "id",
+   "violation": "type-null"
+  },
+  {
+   "table": "reassess.edit",
+   "key_path": "id",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "reassess.edit",
+   "key_path": "id",
+   "violation": "type-number"
+  },
+  {
+   "table": "reassess.edit",
+   "key_path": "id",
+   "violation": "type-array"
+  },
+  {
+   "table": "reassess.edit",
+   "key_path": "id",
+   "violation": "type-object"
+  },
+  {
+   "table": "reassess.edit",
+   "key_path": "id",
+   "violation": "empty"
+  },
+  {
+   "table": "reassess.edit",
+   "key_path": "sha256",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "reassess.edit",
+   "key_path": "sha256",
+   "violation": "type-null"
+  },
+  {
+   "table": "reassess.edit",
+   "key_path": "sha256",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "reassess.edit",
+   "key_path": "sha256",
+   "violation": "type-number"
+  },
+  {
+   "table": "reassess.edit",
+   "key_path": "sha256",
+   "violation": "type-array"
+  },
+  {
+   "table": "reassess.edit",
+   "key_path": "sha256",
+   "violation": "type-object"
+  },
+  {
+   "table": "reassess.edit",
+   "key_path": "sha256",
+   "violation": "upper-case"
+  },
+  {
+   "table": "reassess.edit",
+   "key_path": "sha256",
+   "violation": "sixty-three-characters"
+  },
+  {
+   "table": "reassess.edit",
+   "key_path": "sha256",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "reassess.edit",
+   "key_path": "+unlisted",
+   "violation": "unlisted-key-added"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "path",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "path",
+   "violation": "type-null"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "path",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "path",
+   "violation": "type-number"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "path",
+   "violation": "type-array"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "path",
+   "violation": "type-object"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "path",
+   "violation": "leading-slash"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "path",
+   "violation": "trailing-slash"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "path",
+   "violation": "empty-component"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "path",
+   "violation": "dot-component"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "path",
+   "violation": "dot-dot-component"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "blob_sha256",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "blob_sha256",
+   "violation": "type-null"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "blob_sha256",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "blob_sha256",
+   "violation": "type-number"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "blob_sha256",
+   "violation": "type-array"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "blob_sha256",
+   "violation": "type-object"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "blob_sha256",
+   "violation": "upper-case"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "blob_sha256",
+   "violation": "sixty-three-characters"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "blob_sha256",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "item",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "item",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "item",
+   "violation": "type-number"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "item",
+   "violation": "type-array"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "item",
+   "violation": "type-object"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "item",
+   "violation": "empty"
+  },
+  {
+   "table": "reassess.finding",
+   "key_path": "+unlisted",
+   "violation": "unlisted-key-added"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "schema",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "schema",
+   "violation": "type-null"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "schema",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "schema",
+   "violation": "type-number"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "schema",
+   "violation": "type-array"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "schema",
+   "violation": "type-object"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "schema",
+   "violation": "trailing-space"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "schema",
+   "violation": "other-case"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "record_id",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "record_id",
+   "violation": "type-null"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "record_id",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "record_id",
+   "violation": "type-number"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "record_id",
+   "violation": "type-array"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "record_id",
+   "violation": "type-object"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "record_id",
+   "violation": "empty"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "supersedes",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "supersedes",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "supersedes",
+   "violation": "type-number"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "supersedes",
+   "violation": "type-string"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "supersedes",
+   "violation": "type-array"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "author",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "author",
+   "violation": "type-null"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "author",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "author",
+   "violation": "type-number"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "author",
+   "violation": "type-array"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "author",
+   "violation": "type-object"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "author",
+   "violation": "url"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "finding",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "finding",
+   "violation": "type-null"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "finding",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "finding",
+   "violation": "type-number"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "finding",
+   "violation": "type-string"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "finding",
+   "violation": "type-array"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "repair",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "repair",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "repair",
+   "violation": "type-number"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "repair",
+   "violation": "type-string"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "repair",
+   "violation": "type-array"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "edit",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "edit",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "edit",
+   "violation": "type-number"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "edit",
+   "violation": "type-string"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "edit",
+   "violation": "type-array"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "rederivation",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "rederivation",
+   "violation": "type-null"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "rederivation",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "rederivation",
+   "violation": "type-number"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "rederivation",
+   "violation": "type-array"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "rederivation",
+   "violation": "type-object"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "rederivation",
+   "violation": "empty"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "verdict",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "verdict",
+   "violation": "type-null"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "verdict",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "verdict",
+   "violation": "type-number"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "verdict",
+   "violation": "type-array"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "verdict",
+   "violation": "type-object"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "verdict",
+   "violation": "trailing-space"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "verdict",
+   "violation": "other-case"
+  },
+  {
+   "table": "reassess.record",
+   "key_path": "+unlisted",
+   "violation": "unlisted-key-added"
+  },
+  {
+   "table": "reassess.repair",
+   "key_path": "commits",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "reassess.repair",
+   "key_path": "commits",
+   "violation": "type-null"
+  },
+  {
+   "table": "reassess.repair",
+   "key_path": "commits",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "reassess.repair",
+   "key_path": "commits",
+   "violation": "type-number"
+  },
+  {
+   "table": "reassess.repair",
+   "key_path": "commits",
+   "violation": "type-string"
+  },
+  {
+   "table": "reassess.repair",
+   "key_path": "commits",
+   "violation": "type-object"
+  },
+  {
+   "table": "reassess.repair",
+   "key_path": "commits",
+   "violation": "empty-array"
+  },
+  {
+   "table": "reassess.repair",
+   "key_path": "commits[0]",
+   "violation": "upper-case"
+  },
+  {
+   "table": "reassess.repair",
+   "key_path": "commits[0]",
+   "violation": "thirty-nine-characters"
+  },
+  {
+   "table": "reassess.repair",
+   "key_path": "commits[0]",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "reassess.repair",
+   "key_path": "entry",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "reassess.repair",
+   "key_path": "entry",
+   "violation": "type-null"
+  },
+  {
+   "table": "reassess.repair",
+   "key_path": "entry",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "reassess.repair",
+   "key_path": "entry",
+   "violation": "type-number"
+  },
+  {
+   "table": "reassess.repair",
+   "key_path": "entry",
+   "violation": "type-string"
+  },
+  {
+   "table": "reassess.repair",
+   "key_path": "entry",
+   "violation": "type-array"
+  },
+  {
+   "table": "reassess.repair",
+   "key_path": "+unlisted",
+   "violation": "unlisted-key-added"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "path",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "path",
+   "violation": "type-null"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "path",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "path",
+   "violation": "type-number"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "path",
+   "violation": "type-array"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "path",
+   "violation": "type-object"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "path",
+   "violation": "leading-slash"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "path",
+   "violation": "trailing-slash"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "path",
+   "violation": "empty-component"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "path",
+   "violation": "dot-component"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "path",
+   "violation": "dot-dot-component"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "blob_sha256",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "blob_sha256",
+   "violation": "type-null"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "blob_sha256",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "blob_sha256",
+   "violation": "type-number"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "blob_sha256",
+   "violation": "type-array"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "blob_sha256",
+   "violation": "type-object"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "blob_sha256",
+   "violation": "upper-case"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "blob_sha256",
+   "violation": "sixty-three-characters"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "blob_sha256",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "entry_path",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "entry_path",
+   "violation": "type-null"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "entry_path",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "entry_path",
+   "violation": "type-number"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "entry_path",
+   "violation": "type-array"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "entry_path",
+   "violation": "type-object"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "entry_path",
+   "violation": "leading-slash"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "entry_path",
+   "violation": "trailing-slash"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "entry_path",
+   "violation": "empty-component"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "entry_path",
+   "violation": "dot-component"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "entry_path",
+   "violation": "dot-dot-component"
+  },
+  {
+   "table": "reassess.repair.entry",
+   "key_path": "+unlisted",
+   "violation": "unlisted-key-added"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "path",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "path",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "path",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "path",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "path",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "path",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "path",
+   "violation": "leading-slash"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "path",
+   "violation": "trailing-slash"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "path",
+   "violation": "empty-component"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "path",
+   "violation": "dot-component"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "path",
+   "violation": "dot-dot-component"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "ledger_binding",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "ledger_binding",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "ledger_binding",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "ledger_binding",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "ledger_binding",
+   "violation": "type-string"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "ledger_binding",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "side_change_commits",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "side_change_commits",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "side_change_commits",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "side_change_commits",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "side_change_commits",
+   "violation": "type-string"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "side_change_commits",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "side_change_commits[0]",
+   "violation": "upper-case"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "side_change_commits[0]",
+   "violation": "thirty-nine-characters"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "side_change_commits[0]",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "scientific_effect",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "scientific_effect",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "scientific_effect",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "scientific_effect",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "scientific_effect",
+   "violation": "type-string"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "scientific_effect",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "m",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "m",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "m",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "m",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "m",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "m",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "m",
+   "violation": "upper-case"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "m",
+   "violation": "thirty-nine-characters"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "m",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "m_sha256",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "m_sha256",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "m_sha256",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "m_sha256",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "m_sha256",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "m_sha256",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "m_sha256",
+   "violation": "upper-case"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "m_sha256",
+   "violation": "sixty-three-characters"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "m_sha256",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "l",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "l",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "l",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "l",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "l",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "l",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "l",
+   "violation": "upper-case"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "l",
+   "violation": "thirty-nine-characters"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "l",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "l_sha256",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "l_sha256",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "l_sha256",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "l_sha256",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "l_sha256",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "l_sha256",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "l_sha256",
+   "violation": "upper-case"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "l_sha256",
+   "violation": "sixty-three-characters"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "l_sha256",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "x",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "x",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "x",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "x",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "x",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "x",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "x",
+   "violation": "upper-case"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "x",
+   "violation": "thirty-nine-characters"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "x",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "x_sha256",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "x_sha256",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "x_sha256",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "x_sha256",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "x_sha256",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "x_sha256",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "x_sha256",
+   "violation": "upper-case"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "x_sha256",
+   "violation": "sixty-three-characters"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "x_sha256",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "splices",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "splices",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "splices",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "splices",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "splices",
+   "violation": "type-string"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "splices",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "protected",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "protected",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "protected",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "protected",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "protected",
+   "violation": "type-string"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "protected",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "resolutions",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "resolutions",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "resolutions",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "resolutions",
+   "violation": "type-string"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "resolutions",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.entry",
+   "key_path": "+unlisted",
+   "violation": "unlisted-key-added"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "files_entry_sha256",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "files_entry_sha256",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "files_entry_sha256",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "files_entry_sha256",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "files_entry_sha256",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "files_entry_sha256",
+   "violation": "upper-case"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "files_entry_sha256",
+   "violation": "sixty-three-characters"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "files_entry_sha256",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "splices_sha256",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "splices_sha256",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "splices_sha256",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "splices_sha256",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "splices_sha256",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "splices_sha256",
+   "violation": "upper-case"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "splices_sha256",
+   "violation": "sixty-three-characters"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "splices_sha256",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "edit_records_sha256",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "edit_records_sha256",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "edit_records_sha256",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "edit_records_sha256",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "edit_records_sha256",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "edit_records_sha256",
+   "violation": "upper-case"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "edit_records_sha256",
+   "violation": "sixty-three-characters"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "edit_records_sha256",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "recon.ledger_binding",
+   "key_path": "+unlisted",
+   "violation": "unlisted-key-added"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "start_M",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "start_M",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "start_M",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "start_M",
+   "violation": "type-string"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "start_M",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "start_M",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "start_M",
+   "violation": "fraction-5.0"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "start_M",
+   "violation": "negative"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "end_M",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "end_M",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "end_M",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "end_M",
+   "violation": "type-string"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "end_M",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "end_M",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "end_M",
+   "violation": "fraction-5.0"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "end_M",
+   "violation": "negative"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "sha256",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "sha256",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "sha256",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "sha256",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "sha256",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "sha256",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "sha256",
+   "violation": "upper-case"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "sha256",
+   "violation": "sixty-three-characters"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "sha256",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "recon.protected",
+   "key_path": "+unlisted",
+   "violation": "unlisted-key-added"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "schema",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "schema",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "schema",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "schema",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "schema",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "schema",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "schema",
+   "violation": "trailing-space"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "schema",
+   "violation": "other-case"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "record_id",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "record_id",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "record_id",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "record_id",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "record_id",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "record_id",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "record_id",
+   "violation": "empty"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "supersedes",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "supersedes",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "supersedes",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "supersedes",
+   "violation": "type-string"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "supersedes",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "author",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "author",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "author",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "author",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "author",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "author",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "author",
+   "violation": "url"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "M",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "M",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "M",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "M",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "M",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "M",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "M",
+   "violation": "upper-case"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "M",
+   "violation": "thirty-nine-characters"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "M",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "X",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "X",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "X",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "X",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "X",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "X",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "X",
+   "violation": "upper-case"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "X",
+   "violation": "thirty-nine-characters"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "X",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "ledger_base",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "ledger_base",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "ledger_base",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "ledger_base",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "ledger_base",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "ledger_base",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "ledger_base",
+   "violation": "upper-case"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "ledger_base",
+   "violation": "thirty-nine-characters"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "ledger_base",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "changes_decisions_on_X",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "changes_decisions_on_X",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "changes_decisions_on_X",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "changes_decisions_on_X",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "changes_decisions_on_X",
+   "violation": "type-string"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "changes_decisions_on_X",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "paths",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "paths",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "paths",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "paths",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "paths",
+   "violation": "type-string"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "paths",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "paths",
+   "violation": "empty-array"
+  },
+  {
+   "table": "recon.record",
+   "key_path": "+unlisted",
+   "violation": "unlisted-key-added"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "splice",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "splice",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "splice",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "splice",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "splice",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "splice",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "splice",
+   "violation": "empty"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "start_M",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "start_M",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "start_M",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "start_M",
+   "violation": "type-string"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "start_M",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "start_M",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "start_M",
+   "violation": "fraction-5.0"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "start_M",
+   "violation": "negative"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "end_M",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "end_M",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "end_M",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "end_M",
+   "violation": "type-string"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "end_M",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "end_M",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "end_M",
+   "violation": "fraction-5.0"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "end_M",
+   "violation": "negative"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "sha256",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "sha256",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "sha256",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "sha256",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "sha256",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "sha256",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "sha256",
+   "violation": "upper-case"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "sha256",
+   "violation": "sixty-three-characters"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "sha256",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "resolved",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "resolved",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "resolved",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "resolved",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "resolved",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "resolved",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "resolved",
+   "violation": "unpadded"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "resolved",
+   "violation": "line-break"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "resolved_sha256",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "resolved_sha256",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "resolved_sha256",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "resolved_sha256",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "resolved_sha256",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "resolved_sha256",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "resolved_sha256",
+   "violation": "upper-case"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "resolved_sha256",
+   "violation": "sixty-three-characters"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "resolved_sha256",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "recon.resolution",
+   "key_path": "+unlisted",
+   "violation": "unlisted-key-added"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "conclusions",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "conclusions",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "conclusions",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "conclusions",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "conclusions",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "conclusions",
+   "violation": "trailing-space"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "conclusions",
+   "violation": "other-case"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "conclusions",
+   "violation": "empty-array"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "conclusions[0]",
+   "violation": "empty"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "assessment",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "assessment",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "assessment",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "assessment",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "assessment",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "assessment",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "assessment",
+   "violation": "empty"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "method",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "method",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "method",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "method",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "method",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "method",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "method",
+   "violation": "empty"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "verdict",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "verdict",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "verdict",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "verdict",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "verdict",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "verdict",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "verdict",
+   "violation": "unlisted-value"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "configuration",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "configuration",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "configuration",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "configuration",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "configuration",
+   "violation": "type-string"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "configuration",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "invalidated",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "invalidated",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "invalidated",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "invalidated",
+   "violation": "type-string"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "invalidated",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "invalidated",
+   "violation": "empty-array"
+  },
+  {
+   "table": "recon.scientific_effect",
+   "key_path": "+unlisted",
+   "violation": "unlisted-key-added"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "id",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "id",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "id",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "id",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "id",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "id",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "id",
+   "violation": "empty"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "start_H",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "start_H",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "start_H",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "start_H",
+   "violation": "type-string"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "start_H",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "start_H",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "start_H",
+   "violation": "fraction-5.0"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "start_H",
+   "violation": "negative"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "end_H",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "end_H",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "end_H",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "end_H",
+   "violation": "type-string"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "end_H",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "end_H",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "end_H",
+   "violation": "fraction-5.0"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "end_H",
+   "violation": "negative"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "start_M",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "start_M",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "start_M",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "start_M",
+   "violation": "type-string"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "start_M",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "start_M",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "start_M",
+   "violation": "fraction-5.0"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "start_M",
+   "violation": "negative"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "end_M",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "end_M",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "end_M",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "end_M",
+   "violation": "type-string"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "end_M",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "end_M",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "end_M",
+   "violation": "fraction-5.0"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "end_M",
+   "violation": "negative"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "new_sha256",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "new_sha256",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "new_sha256",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "new_sha256",
+   "violation": "type-number"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "new_sha256",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "new_sha256",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "new_sha256",
+   "violation": "upper-case"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "new_sha256",
+   "violation": "sixty-three-characters"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "new_sha256",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "translation",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "translation",
+   "violation": "type-null"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "translation",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "translation",
+   "violation": "type-array"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "translation",
+   "violation": "type-object"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "translation",
+   "violation": "trailing-space"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "translation",
+   "violation": "other-case"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "translation",
+   "violation": "fraction-5.0"
+  },
+  {
+   "table": "recon.splice",
+   "key_path": "+unlisted",
+   "violation": "unlisted-key-added"
+  },
+  {
+   "table": "reference",
+   "key_path": "path",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "reference",
+   "key_path": "path",
+   "violation": "type-null"
+  },
+  {
+   "table": "reference",
+   "key_path": "path",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "reference",
+   "key_path": "path",
+   "violation": "type-number"
+  },
+  {
+   "table": "reference",
+   "key_path": "path",
+   "violation": "type-array"
+  },
+  {
+   "table": "reference",
+   "key_path": "path",
+   "violation": "type-object"
+  },
+  {
+   "table": "reference",
+   "key_path": "path",
+   "violation": "leading-slash"
+  },
+  {
+   "table": "reference",
+   "key_path": "path",
+   "violation": "trailing-slash"
+  },
+  {
+   "table": "reference",
+   "key_path": "path",
+   "violation": "empty-component"
+  },
+  {
+   "table": "reference",
+   "key_path": "path",
+   "violation": "dot-component"
+  },
+  {
+   "table": "reference",
+   "key_path": "path",
+   "violation": "dot-dot-component"
+  },
+  {
+   "table": "reference",
+   "key_path": "blob_sha256",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "reference",
+   "key_path": "blob_sha256",
+   "violation": "type-null"
+  },
+  {
+   "table": "reference",
+   "key_path": "blob_sha256",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "reference",
+   "key_path": "blob_sha256",
+   "violation": "type-number"
+  },
+  {
+   "table": "reference",
+   "key_path": "blob_sha256",
+   "violation": "type-array"
+  },
+  {
+   "table": "reference",
+   "key_path": "blob_sha256",
+   "violation": "type-object"
+  },
+  {
+   "table": "reference",
+   "key_path": "blob_sha256",
+   "violation": "upper-case"
+  },
+  {
+   "table": "reference",
+   "key_path": "blob_sha256",
+   "violation": "sixty-three-characters"
+  },
+  {
+   "table": "reference",
+   "key_path": "blob_sha256",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "reference",
+   "key_path": "+unlisted",
+   "violation": "unlisted-key-added"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "start_M",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "start_M",
+   "violation": "type-null"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "start_M",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "start_M",
+   "violation": "type-string"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "start_M",
+   "violation": "type-array"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "start_M",
+   "violation": "type-object"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "start_M",
+   "violation": "fraction-5.0"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "start_M",
+   "violation": "negative"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "end_M",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "end_M",
+   "violation": "type-null"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "end_M",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "end_M",
+   "violation": "type-string"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "end_M",
+   "violation": "type-array"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "end_M",
+   "violation": "type-object"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "end_M",
+   "violation": "fraction-5.0"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "end_M",
+   "violation": "negative"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "sha256",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "sha256",
+   "violation": "type-null"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "sha256",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "sha256",
+   "violation": "type-number"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "sha256",
+   "violation": "type-array"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "sha256",
+   "violation": "type-object"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "sha256",
+   "violation": "upper-case"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "sha256",
+   "violation": "sixty-three-characters"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "sha256",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "resolved_sha256",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "resolved_sha256",
+   "violation": "type-null"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "resolved_sha256",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "resolved_sha256",
+   "violation": "type-number"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "resolved_sha256",
+   "violation": "type-array"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "resolved_sha256",
+   "violation": "type-object"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "resolved_sha256",
+   "violation": "upper-case"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "resolved_sha256",
+   "violation": "sixty-three-characters"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "resolved_sha256",
+   "violation": "trailing-newline"
+  },
+  {
+   "table": "review.confirms",
+   "key_path": "+unlisted",
+   "violation": "unlisted-key-added"
+  },
+  {
+   "table": "review.record",
+   "key_path": "schema",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "review.record",
+   "key_path": "schema",
+   "violation": "type-null"
+  },
+  {
+   "table": "review.record",
+   "key_path": "schema",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "review.record",
+   "key_path": "schema",
+   "violation": "type-number"
+  },
+  {
+   "table": "review.record",
+   "key_path": "schema",
+   "violation": "type-array"
+  },
+  {
+   "table": "review.record",
+   "key_path": "schema",
+   "violation": "type-object"
+  },
+  {
+   "table": "review.record",
+   "key_path": "schema",
+   "violation": "trailing-space"
+  },
+  {
+   "table": "review.record",
+   "key_path": "schema",
+   "violation": "other-case"
+  },
+  {
+   "table": "review.record",
+   "key_path": "kind",
+   "violation": "type-null"
+  },
+  {
+   "table": "review.record",
+   "key_path": "kind",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "review.record",
+   "key_path": "kind",
+   "violation": "type-number"
+  },
+  {
+   "table": "review.record",
+   "key_path": "kind",
+   "violation": "type-array"
+  },
+  {
+   "table": "review.record",
+   "key_path": "kind",
+   "violation": "type-object"
+  },
+  {
+   "table": "review.record",
+   "key_path": "kind",
+   "violation": "unlisted-value"
+  },
+  {
+   "table": "review.record",
+   "key_path": "reviewer",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "review.record",
+   "key_path": "reviewer",
+   "violation": "type-null"
+  },
+  {
+   "table": "review.record",
+   "key_path": "reviewer",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "review.record",
+   "key_path": "reviewer",
+   "violation": "type-number"
+  },
+  {
+   "table": "review.record",
+   "key_path": "reviewer",
+   "violation": "type-array"
+  },
+  {
+   "table": "review.record",
+   "key_path": "reviewer",
+   "violation": "type-object"
+  },
+  {
+   "table": "review.record",
+   "key_path": "reviewer",
+   "violation": "url"
+  },
+  {
+   "table": "review.record",
+   "key_path": "reviewed",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "review.record",
+   "key_path": "reviewed",
+   "violation": "type-null"
+  },
+  {
+   "table": "review.record",
+   "key_path": "reviewed",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "review.record",
+   "key_path": "reviewed",
+   "violation": "type-number"
+  },
+  {
+   "table": "review.record",
+   "key_path": "reviewed",
+   "violation": "type-string"
+  },
+  {
+   "table": "review.record",
+   "key_path": "reviewed",
+   "violation": "type-array"
+  },
+  {
+   "table": "review.record",
+   "key_path": "replaces",
+   "violation": "type-null"
+  },
+  {
+   "table": "review.record",
+   "key_path": "replaces",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "review.record",
+   "key_path": "replaces",
+   "violation": "type-number"
+  },
+  {
+   "table": "review.record",
+   "key_path": "replaces",
+   "violation": "type-string"
+  },
+  {
+   "table": "review.record",
+   "key_path": "replaces",
+   "violation": "type-array"
+  },
+  {
+   "table": "review.record",
+   "key_path": "method",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "review.record",
+   "key_path": "method",
+   "violation": "type-null"
+  },
+  {
+   "table": "review.record",
+   "key_path": "method",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "review.record",
+   "key_path": "method",
+   "violation": "type-number"
+  },
+  {
+   "table": "review.record",
+   "key_path": "method",
+   "violation": "type-array"
+  },
+  {
+   "table": "review.record",
+   "key_path": "method",
+   "violation": "type-object"
+  },
+  {
+   "table": "review.record",
+   "key_path": "method",
+   "violation": "empty"
+  },
+  {
+   "table": "review.record",
+   "key_path": "verdicts",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "review.record",
+   "key_path": "verdicts",
+   "violation": "type-null"
+  },
+  {
+   "table": "review.record",
+   "key_path": "verdicts",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "review.record",
+   "key_path": "verdicts",
+   "violation": "type-number"
+  },
+  {
+   "table": "review.record",
+   "key_path": "verdicts",
+   "violation": "type-string"
+  },
+  {
+   "table": "review.record",
+   "key_path": "verdicts",
+   "violation": "type-object"
+  },
+  {
+   "table": "review.record",
+   "key_path": "verdicts",
+   "violation": "empty-array"
+  },
+  {
+   "table": "review.record",
+   "key_path": "dissent",
+   "violation": "type-null"
+  },
+  {
+   "table": "review.record",
+   "key_path": "dissent",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "review.record",
+   "key_path": "dissent",
+   "violation": "type-number"
+  },
+  {
+   "table": "review.record",
+   "key_path": "dissent",
+   "violation": "type-array"
+  },
+  {
+   "table": "review.record",
+   "key_path": "dissent",
+   "violation": "type-object"
+  },
+  {
+   "table": "review.record",
+   "key_path": "+unlisted",
+   "violation": "unlisted-key-added"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "item",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "item",
+   "violation": "type-null"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "item",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "item",
+   "violation": "type-number"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "item",
+   "violation": "type-array"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "item",
+   "violation": "type-object"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "item",
+   "violation": "empty"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "verdict",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "verdict",
+   "violation": "type-null"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "verdict",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "verdict",
+   "violation": "type-number"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "verdict",
+   "violation": "type-array"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "verdict",
+   "violation": "type-object"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "verdict",
+   "violation": "unlisted-value"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "reason",
+   "violation": "required-key-removed"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "reason",
+   "violation": "type-null"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "reason",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "reason",
+   "violation": "type-number"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "reason",
+   "violation": "type-array"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "reason",
+   "violation": "type-object"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "invalidated",
+   "violation": "type-null"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "invalidated",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "invalidated",
+   "violation": "type-number"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "invalidated",
+   "violation": "type-string"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "invalidated",
+   "violation": "type-object"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "invalidated",
+   "violation": "empty-array"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "configuration",
+   "violation": "type-null"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "configuration",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "configuration",
+   "violation": "type-number"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "configuration",
+   "violation": "type-string"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "configuration",
+   "violation": "type-array"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "confirms",
+   "violation": "type-null"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "confirms",
+   "violation": "type-boolean"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "confirms",
+   "violation": "type-number"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "confirms",
+   "violation": "type-string"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "confirms",
+   "violation": "type-array"
+  },
+  {
+   "table": "review.verdict",
+   "key_path": "+unlisted",
+   "violation": "unlisted-key-added"
+  }
+ ]
+}
