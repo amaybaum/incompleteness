@@ -25,8 +25,9 @@ and the two clarifications of the same day (amaybaum, 2026-11-25):
 
 **Status.** Nothing here is adopted. Revision r4 was committed on the evidence branch at
 `88352d9a75be0ada24b3107ffdab09a512890d31` and revision r5 at
-`0a1b5675af31d1885a5e108d6b143bea74ea4aa1`; r5's non-stopping revision was prepared locally, with
-no GitHub write or network write, for the coordinator to commit. `gate.py`, `mock.py`,
+`0a1b5675af31d1885a5e108d6b143bea74ea4aa1`, and r5's non-stopping revision at
+`456bdb25e7ea85aeaae6721207e38684df3f8413`. The owner accepted its grant rule, one grant for one
+sent write (amaybaum, 2026-11-26T03:43:11Z, #1169 comment 7181966825): "A refusal before transmission must not consume the grant. Refused input: no request sent, grant remains available. Valid input: grant consumed when the write is attempted. Unexpected write discrepancy or uncertain transmission: grant remains consumed, and containment rules apply." `gate.py`, `mock.py`,
 `test_gate.py` and `countercontrol.py` are unchanged,
 and `gate.py` stays the operational mechanism until the owner approves a replacement. Adoption
 needs, in this order: an independent non-author review of this directory's v2 files; the controlled

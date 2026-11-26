@@ -206,8 +206,9 @@ never alters the text. Committed on the evidence branch at
 decision (amaybaum, 2026-11-25), conditional on the reviewer confirming compatibility with §A.51,
 the refusal no longer stops the sequence: it raises `gate2.Refused`, writes no marker or latch, and
 a reworded text may be sent, as with the comment poster; every other pre-check and containment
-rule, and the exact read-back, are unchanged. This revision was prepared locally for the
-coordinator to commit. `write-safety/CHANGES-r5.md` records both steps and the controls. Recorded
+rule, and the exact read-back, are unchanged. This revision is committed at
+`456bdb25e7ea85aeaae6721207e38684df3f8413`; the owner accepted its grant rule, one grant for one
+sent write (amaybaum, 2026-11-26T03:43:11Z, #1169 comment 7181966825). `write-safety/CHANGES-r5.md` records both steps and the controls. Recorded
 results: `test_gate2.py` 66 of 66; `countercontrol2.py` C1-C4 pass (no refusal, bodies only,
 substitution and a latching refusal each fail the new tests; a refused text makes no request and
 later valid writes succeed; under a transport that removes the exclamation mark the read-back

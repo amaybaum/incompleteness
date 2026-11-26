@@ -13,7 +13,8 @@ check."
 
 r5 was prepared locally, with no GitHub write or network write, and committed on the evidence
 branch at `0a1b5675af31d1885a5e108d6b143bea74ea4aa1`. Its non-stopping revision, below, was
-prepared locally in the same way, for the coordinator to commit. `gate.py`, `mock.py`, `mock2.py`,
+prepared locally in the same way and committed at `456bdb25e7ea85aeaae6721207e38684df3f8413`.
+`gate.py`, `mock.py`, `mock2.py`,
 `transport_rules.py`, `test_gate.py` and `countercontrol.py` are unchanged; `gate.py` stays in use.
 
 ## Non-stopping revision
@@ -34,7 +35,7 @@ preflight); that confirmation is outstanding.
 | Refusal | `gate2.lt_bang_violations(text, field)` returns one explanation when the text contains the two-character sequence: it names the field, every position (0-based character offset, 1-based line and column), says that GitHub has stored such text with the exclamation mark removed, that the text is not sent and not altered, and asks the writer to reword it. It covers every text field the write would send (every body and title, of every operation: `comment.create`, `issue.edit_body`, `issue.create`, `pr.create`, `pr.edit`). The text is never changed; no substitution or escaping. | `lt1` (every body and title of every text operation: refused, reason names field and offset, zero writes, reads and git runs, the caller's dict unchanged); `lt2` (at the start, at the end, just before the footer, two in code spans, in a fenced block, two adjacent, in a title at start and end; line and column on a later line); `lt4` (refused before reaching a transport that removes the exclamation mark) |
 | Non-stopping outcome | `Gate2._write` checks the sequence in a second loop, after every other pre-check of every field has passed and before the pre-write read. On a hit, `Gate2._refuse` logs `("refused", op, target, field)` and raises `gate2.Refused` (attributes `op`, `target`, `field`, `reason`; not a subclass of `Halted`), and `_guarded` re-raises it untouched. No `_halt`, no `HALT`, no `HALT-PLAN.<plan_id>`, no in-process latch, no evidence file. | `lt1` (the same gate then sends a valid text exactly); `lt5` (after a refusal the same gate, a new gate of the same plan and a later sequence each send the reworded text once, read back exactly; zero requests for each refused attempt; only the plan record in the halt store) |
 | Other pre-checks unchanged | Every other pre-check still halts as before and takes precedence: a text that fails another pre-check and also contains the sequence halts on the other check. | `lt6` (a refused text followed by a carriage-return failure halts globally, latches the plan and stops every mechanism; texts with a carriage return, a zero-width character or the `oi-` form plus the sequence halt) |
-| Grant | A single-write grant taken by the refused attempt is given back, since nothing was sent; the reworded text is then the grant's one write. | `lt7` (refused, reworded write succeeds, a further write halts as before) |
+| Grant | A single-write grant taken by the refused attempt is given back, since nothing was sent; the reworded text is then the grant's one write. The owner accepted this rule (amaybaum, 2026-11-26T03:43:11Z, #1169 comment 7181966825): "A refusal before transmission must not consume the grant. Refused input: no request sent, grant remains available. Valid input: grant consumed when the write is attempted. Unexpected write discrepancy or uncertain transmission: grant remains consumed, and containment rules apply." | `lt7` (refused, reworded write succeeds, a further write halts as before) |
 | Positive control | Separated or look-alike characters are not refused: `< !`, `<` newline `!`, `!<`, `x<y!`, `&lt;!`, `<?xml`, `a < b!`, `<` with U+FF01, U+FF1C with `!`, `(?<=x)` with a separate `!`. | `lt3` (each sent once in title and body, stored exactly, no marker) |
 | Read-back | Unchanged. | C4 below |
 
@@ -54,12 +55,15 @@ the sent text less the exclamation mark. C1, C2 and C3 are unchanged apart from 
 the C3 latch counts (no sequence latch 7, memory-only latch 4, every halt confined to its operation
 31), each required test still among the failures.
 
-## Known limits (review of r5, nits 2–4, left as they are)
+## Known limits (left as they are)
 
-- Label names (nit 2): not acted on.
-- Control characters (nit 3): not acted on; the refusal matches only the two characters adjacent.
-- Grant ordering (nit 4): not reordered; the sequence is checked after the single-write grant is
-  taken, and the non-stopping revision gives the grant back on a refusal (`lt7`).
+- Label names: sent in the `labels.add` payload and the `labels.remove` path, they get neither this
+  refusal nor `precheck_text`, and `labels.add` can create a label; the exact label read-back is
+  the backstop.
+- Control characters other than format characters (category Cc, for example NUL) between the two
+  characters pass both pre-checks; the exact read-back is the backstop.
+- Grant ordering: the checks are not reordered; the sequence is checked after the single-write
+  grant is taken, and a refusal gives the grant back (`lt7`).
 
 ## Results
 
