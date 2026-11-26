@@ -1,6 +1,6 @@
-# OBL-29 remedy r8 independent review brief
+# OBL-29 remedy r9 independent review brief
 
-Review DESIGN.md and CONTROLS.json at the same r8 revision. Use amendment 6 r5 at
+Review DESIGN.md and CONTROLS.json at the same r9 revision. Use amendment 6 r5 at
 `1f5764572a98b7ae2f306e121e2e410f79c29daf` to reconstruct the defect. Verify
 compatibility with the adopted Amendment 6 r13 contract at
 `5ad8837521de0a26734266a64f91548fd3dcff1e` (#1593 comment 7193277489).
@@ -20,7 +20,9 @@ could be missed through another path entry of the same multi-path record (#1601 
 15:48 UTC (#1169 comment 7196789498, item 1). The r7 review at
 `66916ba1cdf050273eac276b00233e46441ee888` returned REVISE (#1601 comment 7197055212).
 Owner amaybaum supported the r8 corrections and added refinements, received 2026-11-26
-at 16:02 UTC (#1169 comment 7197099380). No schema amendment is authorized. OBL-29
+at 16:02 UTC (#1169 comment 7197099380). The r8 review at
+`cd2af5f4b97163a55823f1f9ce52f286fe892e0c` returned REVISE (#1601 comment 7197262397).
+No schema amendment is authorized. OBL-29
 remains an explicit retirement blocker until its remedy is implemented and
 independently verified. Adoption, implementation and trial execution require separate
 authorization.
@@ -107,7 +109,7 @@ authorization.
     (b) or (c) entries at `4bb48cddec206e567639fa863ecce852ddd8350e`. Independently
     assess P-ACTUAL-MAIN on full history at `942bd5ea1fd09f4223012b0755bce2d6da07c44a`
     and P-TL-CLEAN on the complete predicted `R*`, including inherited history, when
-    independently evaluated. Those exact-history checks remain unverified. The r8 revision
+    independently evaluated. Those exact-history checks remain unverified. The r9 revision
     adds no history scan or trial execution.
 12. **Owner decisions (§5.6).** Check the proposed implementation of the recorded
     retention and clearance policy. Review the evidence needed to verify a complete
@@ -132,10 +134,17 @@ authorization.
     exact adverse items, the exact replacement, the reasons and the discharged finding.
     Check NR-1 along the whole lineage of the replacement, the compared commit sets of
     (r3) and the burden on unrelated findings that share a commit. Check the stated gap
-    for route 2: authorization has no place in the closed key tables. Demonstrate
-    safety: superficial modification, reviewer substitution, a general accept and
-    replacement chains do not clear (N-REFREEZE-OTHER-ENTRY-SAME-Q,
-    N-REFREEZE-NONRELIANCE-UNSUPPORTED, N-REFREEZE-REVIEW-WITNESS-COPY). Demonstrate
+    for route 2 and its consequence, recorded as an owner decision in §5.6: authorization
+    has no place in the closed key tables. Check that `Inapplicable(W)` is mechanical
+    and that NR-5's resolver excludes the authors of `R`, the disputed record and the
+    reassessment. Demonstrate safety: superficial modification, a general accept,
+    replacement chains, an asserted inapplicability, a self-review witness and an
+    unusable identity do not clear, and reviewer substitution does not clear as far as
+    the records' identity strings establish the reviewer, which they do not
+    authenticate (R-8) (N-REFREEZE-OTHER-ENTRY-SAME-Q,
+    N-REFREEZE-NONRELIANCE-UNSUPPORTED, N-REFREEZE-REVIEW-WITNESS-COPY,
+    N-REFREEZE-INAPPLICABILITY-ASSERTED, N-REFREEZE-REVIEW-WITNESS-SELF,
+    N-REFREEZE-REVIEW-WITNESS-NO-IDENTITY). Demonstrate
     reachability: a legitimate independent replacement and a substantively resolved
     adverse finding each clear (P-REFREEZE-INDEPENDENT-REPLACEMENT,
     P-REFREEZE-REVIEW-WITNESS-RESOLVED, P-REFREEZE-CORRECTED-REPAIR), and unrelated

@@ -1,8 +1,8 @@
-# OBL-29 remedy for removal of finding evidence (paper design r8)
+# OBL-29 remedy for removal of finding evidence (paper design r9)
 
 ## 0. Status, authority, scope and goal link
 
-**Status.** Paper design r8, pending independent review of this revision and an owner decision.
+**Status.** Paper design r9, pending independent review of this revision and an owner decision.
 The proposed requirements (ids `R6.OBL29.n`) have no force until adoption. OBL-29 remains an explicit
 A1 retirement blocker until a remedy is implemented and independently verified. The interim
 procedural guards (AGENTS.md §A.50 item 3 and §A.46 item 6) and adoption alone do not discharge it.
@@ -78,6 +78,12 @@ remain available if the original reviewer is unavailable", and that "No schema a
 or broader governance revision is authorized." R8 therefore states a deterministic token
 rule for `method` and `reason`, maps each element of an explicit resolution to existing
 fields, and names the part of adjudication that existing records cannot carry.
+
+**R9.** The independent review of r8 at `cd2af5f4b97163a55823f1f9ce52f286fe892e0c`
+(#1601 comment 7197262397) returned REVISE. Under the same authority and without a schema
+change, r9 defines `Inapplicable(W)` mechanically, closes the self-review and unusable
+identity cases of a review witness, states that reviewer identity is not authenticated,
+and records the absence of a route 2 admission as an owner decision in §5.6.
 
 **Base text.** Amendment 6 r5 at `1f5764572a98b7ae2f306e121e2e410f79c29daf`
 establishes the original defect analysis. The operative comparison is Amendment 6
@@ -420,8 +426,7 @@ The rule does not attach a dispute to a record that meets none of (r1)–(r3) on
 strength of a matching schema, lineage label or shared path alone.
 
 *Non-reliance evidence.* Reliance through (r1) or (r2) is conclusive. Only the first
-case of route 1 below (the witness was objectively inapplicable in its original
-context) or route 2 clears it. Reliance only through (r3) can be rebutted by a
+case of route 1 below (`Inapplicable(W)`) or route 2 clears it. Reliance only through (r3) can be rebutted by a
 replacement reconciliation record `R`. For a lineage witness `R` must meet NR-1 to NR-4.
 For a review witness the structure of `R` is no resolution: `R` must meet NR-1, NR-2,
 NR-4 and NR-5.
@@ -447,8 +452,10 @@ NR-4 and NR-5.
 - NR-5. For each adverse or failed review `V` forming a review witness, a review `Z` of
   `R` explicitly resolves `V`. All of the following are checked mechanically.
   - *Resolver.* `Z`'s `reviewer` equals `V`'s `reviewer` as identity strings
-    (R6.RECON.29). `Z` meets R6.REC.6, lies in `R`'s reconciliation directory, and no
-    eligible review of `R` in `R*` dissents.
+    (R6.RECON.29) and differs, as identity strings, from the `author` of `R`, of the
+    disputed record and of the cited reassessment. `Z` meets R6.REC.6, lies in `R`'s
+    reconciliation directory, and no eligible review of `R` in `R*` dissents, `Z`
+    included.
   - *Exact replacement.* `Z`'s `reviewed` equals `R`'s `{path, blob_sha256}`, and that
     reference equals the candidate reassessment's `repair.entry` `path` and
     `blob_sha256`.
@@ -459,7 +466,9 @@ NR-4 and NR-5.
   - *Why the objection no longer applies.* On each of `Z`'s verdict entries for the
     items `<entry_path>` and `<entry_path>:scientific_effect` of the cited entry,
     `verdict` is `accept` and `reason` is non-empty and contains every token the
-    previous condition requires.
+    previous condition requires. Only the presence of the tokens and a non-empty
+    `reason` are checked. Whether the reason substantiates the resolution rests on the
+    review's content (R6.REC.2).
   - *That finding specifically.* `Z`'s `method` also contains the token `<f>#<item>`
     for the finding the candidate reassessment discharges, where `<f>` is the git blob
     id of the file named by the reassessment's `finding` and `<item>` is its `item`, or
@@ -469,7 +478,14 @@ NR-4 and NR-5.
   An accepting review of `R` by anyone else, however independent, does not resolve a
   review witness, and neither does a general `accept` from `V`'s reviewer that lacks
   any of these tokens or reasons. Without `Z` only route 2 clears that witness, and
-  route 2 is unavailable through existing records (route 2 below).
+  route 2 is unavailable through existing records (route 2 below). Where `V`'s
+  `reviewer` is missing, malformed or not an identity string, or an adverse item id
+  contains a splitting character of the token rule, no `Z` can meet NR-5 and the
+  witness clears only through route 2. NR-3 does not substitute for NR-5 for a review
+  witness.
+
+A review whose `dissent` field is non-empty counts as dissenting for NR-3 and NR-5,
+including an accepting review.
 
 *Token rule.* A field holds a token when splitting its string value at every run of the
 characters space, tab, line feed and carriage return yields an element equal to the token
@@ -517,10 +533,13 @@ routes.
 1. **Independently verified corrected evidence.** Preserve the witness and identify
    the exact defect and previous and replacement evidence, stated in the `method`
    field of the review that NR-3 or NR-5 requires, with the tokens NR-4 requires.
-   Verify under the applicable existing record route either that the original
-   witness was objectively inapplicable in its original context, or that a
-   replacement repair relying only through (r3) meets the non-reliance conditions
-   for its witness class, with a new freeze where required.
+   Verify under the applicable existing record route either `Inapplicable(W)`, that
+   `W`'s original qualification fails to reproduce from retained custody under
+   R6.OBL29.3, or that a replacement repair relying only through (r3) meets the
+   non-reliance conditions for its witness class, with a new freeze where required.
+   For a review witness, a judgment that the objection was mistaken counts only
+   through NR-5's resolver or route 2. A review by anyone else asserting that the
+   witness was mistaken or inapplicable is no evidence.
    A deletion, new selector, missing pin or assertion that the conflict was fixed
    supplies no correction.
 2. **Properly authorized and independently reviewed adjudication.** Retain both
@@ -542,7 +561,7 @@ routes.
    Without that, such a review by anyone other than `V`'s reviewer cannot be told
    apart from reviewer substitution, so it does not clear. Route 2 is therefore
    unavailable through existing records, including when `V`'s reviewer is
-   unavailable, until an owner-authorized admission route exists.
+   unavailable, until an owner-authorized admission route exists (§5.6).
 
 A clearance addresses only the exact lineage objection within its verified scope.
 Other live lineage conflicts and independent admission checks continue to apply.
@@ -567,7 +586,9 @@ R6.RECON.26 route.
                     or (only (r3) holds, W is a review witness
                         and NR-1, NR-2, NR-4 and NR-5 hold for D's replacement R)
 
-`Inapplicable(W)` and `Adjudicated(W)` are false unless verified records establish them.
+`Inapplicable(W)` holds exactly when `W`'s original qualification fails to reproduce from
+retained custody under R6.OBL29.3. `Inapplicable(W)` and `Adjudicated(W)` are false unless
+verified records establish them.
 
 Every term is evaluated over the trees of `M`, the candidate `F` and any admitted `REV`,
 the records in `R*`, the records the freeze cites and the custody records reachable
@@ -633,7 +654,7 @@ both under the weaker P-1 (§5.6).
 | deletion of a qualifying sibling successor visible through a post-freeze scan | the durable witness still conflicts on the same already-operative discharge edge, including on a run that omits optional `REV` |
 | re-freeze covering the old sibling path with a tool-landing exclusion or dropping the operative repair pin | the original qualification is reproduced from verified custody for the same disputed repair (§2.2) |
 | re-freeze citing another entry or a byte-identical copy of the same multi-path reconciliation record | a record-wide witness binds every entry and copy of the disputed record (§2.2 (r1)) |
-| re-freeze through an altered copy of the disputed record with a new reviewer | (r3) holds; a review witness clears only by its adverse reviewer's explicit resolution (§2.2 NR-5) |
+| re-freeze through an altered copy of the disputed record with a new reviewer | (r3) holds; a review witness clears only by its adverse reviewer's explicit resolution (§2.2 NR-5), as far as the records' identity strings establish that reviewer (R-8) |
 | owner-approved evidence removal (AGENTS.md §A.46 item 6 and §A.50 item 3) | R6.OBL29.6 retains the obligation and §A.46 item 6 requires continued reachability of the evidence |
 | history rewrite of `main` | R-2 limits the guarantee to P-1 |
 | a finding seen only outside the protected history or selector | R-1 and R-7 bound what the scan can recover |
@@ -824,6 +845,7 @@ no runners.
 | R6.REC.6 outside discharge checks | Use historical review evidence for discharge and its existing predecessor dependencies, or extend it to unrelated records under R6.OBL29.10. The latter prevents analogous deletion bypasses and changes unrelated admission outcomes. | The reviewer treated the discharge case as a correctness defect and the broader case as a scope choice. |
 | R6.REC.7 scope | Qualify competition under the original approved configuration and retain it for the same disputed repair across later runs or freezes. Preserve existing lineage routes, anchors and positive authority. | The owner requires durable eligibility for a qualified witness against the same repair. Full lineage admission for a repair selected solely from `M` and general historical ambiguity checks remain separate choices. |
 | Resolving a retained lineage conflict | The proposed clearance routes require independently verified corrected evidence or properly authorized and independently reviewed substantive adjudication. Both preserve the original witness and full decision history. | The owner set the clearance policy. Approval of the exact design and of any new adjudication admission mechanism is separate. |
+| Route 2 adjudication | No existing route. No key in the closed tables records an adjudicator's authorization, and R6.RECON.33's record-kind table admits no authorization record (R6.REC.3). While the original adverse reviewer is unavailable, refuses or has an unusable identity, a review witness cannot be cleared, every discharge of the finding with a non-null repair is blocked through (r3), and retirement proceeds only by dropping the bound edit under R6.RECON.26. | Owner decision required. A separate adjudication design is for the owner to decide; this paper does not design the route. |
 | Renamed findings | Keep exact reference plus `item` and reassess every reference, or add a tightly checked multi-reference reassessment for byte-identical copies and the same `item`. The latter reduces repeated work and requires checking each path's independence and review location. A blob-and-item identity would change R6.RECON.35 and needs the same review-location analysis. | The reviewer saw a sound route in principle with those interactions accounted for. The draft retains exact identity pending a decision. |
 
 A correction for a mistaken independent finding would need to preserve the original record,
@@ -905,7 +927,11 @@ remain open.
   reachable in-scope record out of the prefix still leaves its historical witness.
 - **R-8. Authorship.** The reviewer exclusions of NR-3 and the reviewer identity of NR-5
   compare the single `author` login each record carries. Co-authorship or delegation
-  beyond that login cannot be represented in the records and is not checked.
+  beyond that login cannot be represented in the records and is not checked. Reviewer and
+  author identity strings are self-declared and not authenticated by the records. A record
+  can name any login, and impersonation is guarded only procedurally (R6.REC.3). NR-5
+  therefore stops reviewer substitution as far as the records' identity strings establish
+  the reviewer, not cryptographically.
 
 ***
 
