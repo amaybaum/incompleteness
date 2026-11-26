@@ -1,7 +1,9 @@
 # Ledger and terminology verification tool: records (unreviewed drafts)
 
 Status: implementation of design v6.0e (sha256
-4024a31cd2cde06763cb529eafeb023078c52dfa7a5d5fb377995373ab205131), adopted by the owner on 2026-11-24. **Every record
+4024a31cd2cde06763cb529eafeb023078c52dfa7a5d5fb377995373ab205131), adopted by the owner on 2026-11-24, as amended by
+the bounded design amendment r4 for O-9 and the item-2 records (sha256
+a63a4b0d0137a869bfb7fe624ff20af2b77a72ae3c179f2f75b34788800fdab1), adopted by the owner on 2026-11-25. **Every record
 in this directory is an unreviewed draft.** None has an independent review record, and no plan commit `F` exists.
 
 The tool verifies which exact plan was executed and what actually ran: the plan commit `F`, the pin table and the
@@ -28,7 +30,7 @@ scientific question and no row disposition.
 
 | Path | Kind | What it holds |
 |---|---|---|
-| `controls.json` | A1 control set | the preregistered A1 controls with the design's expected outcomes, the tool-level controls GV1-GV7 and EI1-EI15, and the control-only inputs (DR-3's witness `AGENTS.md` at `H`) |
+| `controls.json` | A1 control set | the preregistered A1 controls with the design's expected outcomes, the tool-level controls GV1-GV7 and EI1-EI15, the controls of amendment r4 (O9-1 to O9-25 and O9-12b, RT-O9, I2-1 to I2-8), and the control-only inputs (DR-3's witness `AGENTS.md` at `H`) |
 | `delegation-draft.json` | `oi-delegation/1` | a draft of the delegation contract; the contract itself belongs in the amended plan's record directory at `F` |
 | `rules/dr-deny-v1.json` | `oi-term-rules/2` | deny rules DR-1 (a, b, c), DR-3, DR-4, DR-5 with examples and real-tree countercontrols |
 | `rules/resid-v1.json` | `oi-term-rules/2` | the review pattern `resid` (resid-a, resid-b, resid-c) |
@@ -56,9 +58,9 @@ The workflow is the text of design sec. 6.3 point 5. It is dispatched with `F`, 
 check and the role commits that check needs, as inputs that reach the shell only through `env:`. The check is a
 choice among fixed values, and each value selects one fixed command in a `case` block, with every expansion quoted;
 a value with no arm exits 64. The arms are the commands of design sec. 11 as the amended plan's sec. 32.4 states
-them, one per plan check, each record read at `F` from the path the configuration names (the ledger, the edit list
-and the HP record in the configuration's directory; the delegation contract, the scope record and the hit
-classification record in this directory); the amended plan states the commands of record, and a changed arm is a new
+them, one per plan check, each record read at `F` from the path the configuration names (the ledger, the edit list,
+the HP record, and for item 2 the context adjudications and the further hit classifications, in the configuration's
+directory; the delegation contract, the scope record and the hit classification record in this directory); the amended plan states the commands of record, and a changed arm is a new
 workflow blob, pinned again by the configuration frozen at `F`. The workflow fetches `F` with
 `git fetch --no-tags -- origin "$F"`. Its step `pre-run pin check` runs one inline program with
 `python3 -I -S -B -c`, which refuses unless `GITHUB_REF` is `refs/heads/main` and `F` a full lowercase 40-hex id, and
@@ -67,6 +69,17 @@ before any file of the checkout runs; the tool then runs with `python3 -I -S -B`
 image's installed packages load (the tool uses the standard library only). Every `uses:` line names an action of a
 GitHub account, `<owner>/<repo>[/<path>]`, by a full commit id; a local or parent path (`./`, `../`) is refused even
 with a 40-hex suffix.
+
+## The plan's record directory on `M` (amendment r4)
+
+When an `execution` run evaluates `M` with `F`, a side change inside the configuration's directory that no class pin
+names is classified `record-directory` exactly when it is a regular file at both `F` and `M` with the same mode, blob
+and bytes. The directory must equal a member of `authorized_record_directories` in
+`tools/ledger_coverage/record_authority.py` (outside the engine, which carries no retirement constant), must hold no
+entry at `H`, and must hold no ledgered, corpus, class-prefix or `.github/` path; every entry inside it is compared
+between `F` and `M`, so a file added, modified or deleted after `F` is `side-change-unclassified`, whatever any other
+route decides. A configuration directory that is not authorized never benefits from the rule: it is refused with ERROR
+`CONFIG_INCONSISTENT` when it is absent at `H` and present on `M`, and otherwise leaves the run unchanged.
 
 ## Host reads
 

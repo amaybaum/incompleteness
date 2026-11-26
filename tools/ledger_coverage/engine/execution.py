@@ -71,6 +71,9 @@ class Execution:
         self.pin_ok = list(pin_ok)
         self.records_after_freeze = list(records_after_freeze)
         self.freeze = None
+        # amendment r4 (O-9): {'freeze', 'cpath', 'authorized'}, set by an operation that evaluates M with F (A.4, A.7)
+        self.record_dir_args = None
+        self.rd = None
 
     def item(self, obligation, cls, subject, fp=None, **kw):
         self.items.append(oc.make_item(obligation, cls, subject, kw.pop('segment', None), fp, **kw))
@@ -313,6 +316,13 @@ class Execution:
             chain.append(c)
             c = self.repo.parents(c)[0]
         chain.reverse()
+        self.rd = rd = self._record_directory(ledgered_or_corpus)
+        if rd is not None and rd.active:
+            # A.5: an independent, mandatory invariant, issued whatever any other route decides about the path
+            for path, why in sorted(rd.unequal.items()):
+                self.item('MAIN', 'side-change-unclassified', path,
+                          {'f': rd.entry(path, rd.F), 'm': rd.entry(path, M)}, file=path, why=why,
+                          rule='record-directory completeness')
         for path in sorted(set(hp) | set(mp)):
             if hp.get(path) == mp.get(path):
                 continue
@@ -338,14 +348,31 @@ class Execution:
             else:
                 cls, why = self._side_class(path)
                 entry['class'] = cls
+                if cls == rc.record_directory_class:
+                    entry['record_directory'] = dict(rd.equal[path])
                 if cls is None:
-                    self.item('MAIN', 'side-change-unclassified', path, {'h': hp.get(path), 'm': mp.get(path)},
-                              file=path, commit=made, why=why)
+                    if rd is not None and rd.active:
+                        entry['why'] = why
+                    # an unequal path of the record directory already carries A.5's item
+                    if not (rd is not None and rd.active and path in rd.unequal):
+                        self.item('MAIN', 'side-change-unclassified', path, {'h': hp.get(path), 'm': mp.get(path)},
+                                  file=path, commit=made, why=why)
             self.side_changes.append(entry)
 
+    def _record_directory(self, ledgered_or_corpus):
+        """Amendment r4, A.4 and A.7: the record-directory context, built once per M role when the operation
+        evaluates M with F; None otherwise (the rule and A.5 are then not evaluated)."""
+        a = self.record_dir_args
+        if not a or not a.get('freeze') or not a.get('cpath'):
+            return None
+        in_corpus = getattr(self.ctx, 'in_corpus', None) or (lambda p: False)
+        ledgered = set(self.ledger['files']) | set(ledgered_or_corpus)
+        return rc.RecordDirectory(self.repo, self.H, a['freeze'], self.M, a['cpath'], a['authorized'], ledgered, in_corpus,
+                                  self.side_classes)
+
     def _side_class(self, path):
-        """S3: a path matches a class only if its blob at M equals the class pin."""
-        return rc.classify_side(self.repo, self.M, path, self.side_classes, getattr(self, 'record_refs', {}))
+        """S3: a path matches a class only if its blob at M equals the class pin; amendment r4, A.6."""
+        return rc.side_class(self.repo, self.M, path, self.side_classes, getattr(self, 'record_refs', {}), self.rd)
 
     def _reconciled(self, path):
         """(entry, evaluations): the record entry that applies (every condition holds, S5), or None."""
@@ -355,7 +382,7 @@ class Execution:
                 if e.get('path') != path:
                     continue
                 ev = rc.evaluate(self.repo, self.ctx, self.H, self.M, self.X, self.ledger, r, e, self.side_classes,
-                                 getattr(self, 'record_refs', {}))
+                                 getattr(self, 'record_refs', {}), self.rd)
                 ev['record'] = r.get('_ref')
                 evs.append(ev)
                 if not ev['failed']:

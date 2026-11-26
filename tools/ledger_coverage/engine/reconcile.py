@@ -6,9 +6,10 @@ composed blob and the candidate blob (R6-R8), the protected bytes (R9), the othe
 classified side changes (R11) and an empty `changes_decisions_on_X` (R12). The composition itself is computed
 independently of any record (S6).
 """
+from . import outcome as oc
 from . import segments as sg
 from . import util
-from .gitobj import Unresolvable, blob_id_of, on_first_parent_chain
+from .gitobj import Unresolvable, blob_id_of, on_first_parent_chain, regular_modes
 
 condition_order = ['R13', 'R1', 'R2', 'R3', 'R4', 'R5', 'R6', 'R7', 'R8', 'R9', 'R10', 'R11', 'R12']
 
@@ -54,22 +55,166 @@ def class_pins(cls):
 def classify_side(repo, M, path, classes, record_refs):
     """(class id, None) when the path's blob at M equals a class pin for it; (None, why) otherwise. A class record
     itself is classified by the configuration's pin of it (record_refs: {path: blob_sha256})."""
+    cid, why, _ = classify_side_named(repo, M, path, classes, record_refs)
+    return cid, why
+
+
+def classify_side_named(repo, M, path, classes, record_refs):
+    """classify_side with a third value, `named`: true when a class pin names the path or the path is a class record
+    the configuration pins, whether or not it matches (amendment r4, A.6 rows 1 and 2); false otherwise (row 3)."""
     data = repo.read(M, path)
     bid = repo.blob_id(M, path)
     sha = util.sha256(data) if data is not None else None
     if path in record_refs:
-        return ('class-record', None) if record_refs[path] == sha else (None, 'the class record differs from its pin')
+        return (('class-record', None, True) if record_refs[path] == sha else
+                (None, 'the class record differs from its pin', True))
     why = 'no class lists the path'
+    named = False
     for c in classes:
         for p, gb, bs in class_pins(c):
             if p != path:
                 continue
+            named = True
             if (gb is None or gb == bid) and bs == sha and bs is not None:
-                return c['id'], None
+                return c['id'], None, True
             why = 'the blob at M differs from the pin of class %s' % c['id']
         if why == 'no class lists the path' and any(path.startswith(x) for x in c.get('prefixes', [])):
             why = 'under a prefix of class %s but not listed with its blob' % c['id']
-    return None, why
+    return None, why, named
+
+
+# ---- the plan's record directory on M (design amendment r4, O-9) ------------------------------------------------
+
+record_directory_class = 'record-directory'
+
+
+def inside(d, path):
+    """A.2: the one membership predicate of the record-directory rule; `path` is inside `d` when it begins with `d`
+    followed by `/`."""
+    return path.startswith(d + '/')
+
+
+def clean_path(path):
+    """A.6: no component of the path is empty, `.` or `..`."""
+    return all(c not in ('', '.', '..') for c in path.split('/'))
+
+
+class RecordDirectory:
+    """The context of the record-directory rule for one run (A.2-A.5): built once by an operation that evaluates M
+    with F, and shared by the M role and the R11 condition of every reconciliation record it evaluates (A.7).
+
+    `authorized` is the tool's tuple of authorized record directories (A.3); `ledgered` the ledgered paths;
+    `in_corpus` the configuration's corpus predicate; `classes` the run's admitted side-change classes from both routes
+    (the configuration's class records and those admitted through --classify)."""
+
+    def __init__(self, repo, H, F, M, cpath, authorized, ledgered, in_corpus, classes):
+        self.repo, self.H, self.F, self.M = repo, H, F, M
+        self.d = cpath.rsplit('/', 1)[0] if '/' in cpath else ''
+        self.authorized = self.d in tuple(authorized)
+        self.active = False
+        self.state = None
+        self.equal = {}
+        self.unequal = {}
+        # A.8: the outcome of each guard. D2-D5: True held, False failed (the run then stops), None not evaluated;
+        # authority: whether the directory is authorized (False with the rule inactive, or with the authority ERROR)
+        self.conditions = {'authority': None, 'D2': None, 'D3': None, 'D4': None, 'D5': None}
+        # D5: the reserved class id, over the admitted class set of both routes
+        if any(isinstance(c, dict) and c.get('id') == record_directory_class for c in classes):
+            self._stop('D5', 'a side-change class uses the class id reserved for the record-directory rule')
+        self.conditions['D5'] = True
+        self.conditions['authority'] = self.authorized
+        e_h = [p for p in repo.entries(H) if inside(self.d, p)]
+        e_m = {p: e for p, e in repo.entries(M).items() if inside(self.d, p)}
+        if not self.authorized:
+            if not e_m:
+                self.state = 'inactive: unauthorized, absent on M'
+                return
+            if e_h:
+                self.state = 'inactive: unauthorized, present at H'
+                return
+            self._stop('authority', 'the configuration\'s directory is not an authorized record directory, is absent '
+                                    'at H and appears on M')
+        # D2: the directory is introduced after H
+        if e_h:
+            self._stop('D2', 'the record directory holds entries at H: %s' % e_h[0])
+        self.conditions['D2'] = True
+        e_f = {p: e for p, e in repo.entries(F).items() if inside(self.d, p)}
+        # D3: no ledgered, corpus, class-prefix or workflow path inside the directory, at F or at M
+        prefixes = [x for c in classes if isinstance(c, dict) for x in c.get('prefixes', []) if isinstance(x, str)]
+        for p in sorted(set(e_f) | set(e_m)):
+            if p in ledgered or in_corpus(p) or any(p.startswith(x) for x in prefixes) or p.startswith('.github/'):
+                self._stop('D3', 'a ledgered, corpus, class-prefix or workflow path lies in the record directory: %s'
+                           % p)
+        self.conditions['D3'] = True
+        # D4: F holds the configuration and the file of record pins in the directory
+        prereg = self.d + '/' + 'PREREG.md'
+        if (e_f.get(cpath) or (None,))[0] not in regular_modes or (e_f.get(prereg) or (None,))[0] not in regular_modes:
+            self._stop('D4', 'F does not hold the configuration and its file of record pins in the record directory')
+        self.conditions['D4'] = True
+        self.active = True
+        self.state = 'active'
+        self._complete(e_f, e_m)
+
+    def _stop(self, cond, msg):
+        self.conditions[cond] = False
+        raise oc.Stop(oc.error, 'CONFIG_INCONSISTENT', 'record directory (%s): %s' % (cond, msg),
+                      {'directory': self.d, 'condition': cond, 'conditions': dict(self.conditions)})
+
+    def _complete(self, e_f, e_m):
+        """A.5: the entries inside the directory at F and at M compared path by path over their union; entry types
+        are checked before any bytes are read."""
+        for p in sorted(set(e_f) | set(e_m)):
+            if p not in e_m:
+                self.unequal[p] = 'absent at M'
+                continue
+            if p not in e_f:
+                self.unequal[p] = 'absent at F'
+                continue
+            (mf, of), (mm, om) = e_f[p], e_m[p]
+            if mf not in regular_modes or mm not in regular_modes:
+                self.unequal[p] = 'not a regular file'
+                continue
+            if mf != mm or of != om:
+                self.unequal[p] = 'differs from F'
+                continue
+            # both entries are regular files (checked above), so the byte reads cannot meet a non-regular entry
+            sf, sm = util.sha256(self.repo.read(self.F, p) or b''), util.sha256(self.repo.read(self.M, p) or b'')
+            if sf != sm:
+                self.unequal[p] = 'differs from F'
+                continue
+            self.equal[p] = {'mode': mm, 'f': of, 'm': om, 'f_sha256': sf, 'm_sha256': sm}
+
+    def entry(self, path, which):
+        e = self.repo.entries(which).get(path)
+        return {'mode': e[0], 'id': e[1]} if e else None
+
+    def summary(self):
+        reasons = {}
+        for why in self.unequal.values():
+            reasons[why] = reasons.get(why, 0) + 1
+        return {'directory': self.d, 'authorized': self.authorized, 'state': self.state,
+                'conditions': dict(self.conditions), 'equal': len(self.equal), 'unequal': reasons}
+
+
+def side_class(repo, M, path, classes, record_refs, rd=None):
+    """(class id, why): the one side-change classification of the M role and of R11 (amendment r4, A.6). Without an
+    active record-directory context it is classify_side."""
+    active = rd is not None and rd.active
+    if active and inside(rd.d, path):
+        e = repo.entries(M).get(path)
+        if e is not None and e[0] not in regular_modes:
+            # a non-regular entry in the directory never reaches the classifier's byte read
+            return None, 'not a regular file'
+    cid, why, named = classify_side_named(repo, M, path, classes, record_refs)
+    if cid is not None or named or not active:
+        return cid, why
+    if not inside(rd.d, path):
+        return None, 'outside the record directory'
+    if not clean_path(path):
+        return None, 'not a clean path'
+    if path in rd.equal:
+        return record_directory_class, None
+    return None, rd.unequal.get(path, 'differs from F')
 
 
 def duplicate_class_ids(class_docs):
@@ -109,9 +254,10 @@ def compose(repo, H, M, path, splices):
     return b''.join(out), placed
 
 
-def evaluate(repo, ctx, H, M, X, led, rdoc, entry, classes, record_refs):
+def evaluate(repo, ctx, H, M, X, led, rdoc, entry, classes, record_refs, rd=None):
     """Each condition of one path entry of a reconciliation record, evaluated from git objects. Returns
-    {'holds': {R: bool}, 'failed': [R...], 'composed_blob', 'composed_sha256'}."""
+    {'holds': {R: bool}, 'failed': [R...], 'composed_blob', 'composed_sha256'}. `rd` is the run's record-directory
+    context (amendment r4, A.7), shared with the M role; None outside its scope."""
     path = entry.get('path')
     res = {}
     # R13 first
@@ -208,9 +354,12 @@ def evaluate(repo, ctx, H, M, X, led, rdoc, entry, classes, record_refs):
         if ctx is not None and ctx.in_corpus(p):
             r11 = False
             continue
-        cid, _ = classify_side(repo, M, p, classes, record_refs)
+        cid, _ = side_class(repo, M, p, classes, record_refs, rd)
         if cid is None:
             r11 = False
+    # A.5 is a mandatory invariant: an unequal entry of the record directory fails R11 whatever classifies it
+    if rd is not None and rd.active and rd.unequal:
+        r11 = False
     res['R11'] = r11
     res['R12'] = not rdoc.get('changes_decisions_on_X')
     failed = [k for k in condition_order if not res.get(k)]
