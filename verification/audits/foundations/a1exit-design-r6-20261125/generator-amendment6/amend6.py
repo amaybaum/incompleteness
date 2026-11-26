@@ -1,4 +1,4 @@
-"""Generator of amendment 6 (r11) to design r6: the category-3 schema ambiguities raised by the tool writer (points 1 to
+"""Generator of amendment 6 (r12) to design r6: the category-3 schema ambiguities raised by the tool writer (points 1 to
 5); the answers to the reviews of its drafts (PR #1593 comments 7189446310, 7190255132 and 7190234470); two further
 ambiguities found by the tool writer (RC14 (b) and the R6.RECON.24 resolution schema); the schema contract of the
 reconciliation record kinds from the owner's completeness audit (PR #1593 comment 7189621405); and the amendment 5
@@ -1142,9 +1142,8 @@ Sources: PR #1593 comments 7189621405, 7190234470, 7190255132 (D1) and 719060950
 - on an item of the reconciled-state trial at the landing, `resolution_validity`, `"does-not-hold"` or
   `"not-established"` (R6.RECON.23): present exactly on the item of a matched finding whose resolution at `X` was not
   kept and on the item of a site whose carried verdict or hold is not kept, and absent on every other item; its
-  presence is decided against the run's matched findings and carried sites. For the RECON-ENUM placement checks,
-  the independent gate reads `resolution_validity` from the retained result's items (R6.GATE.8) and compares the
-  tagged items with the fixture's known subjects. The JSON Schema checks the field's enum form;
+  presence is decided against the run's matched findings and carried sites. The JSON Schema checks the field's
+  enum form.
 - `category3`: `{findings, blocked, reassessments}`: `findings` `[{record, item}]`, with `record` a reference and
   `item` as R6.RECON.27's `finding.item`; `blocked` `[{record, item, edit}]`, `edit` null for a run-level binding;
   `reassessments` the references of the applying reassessments;
@@ -1152,6 +1151,21 @@ Sources: PR #1593 comments 7189621405, 7190234470, 7190255132 (D1) and 719060950
   null (R6.RECON.2 (c)).
 
 R6.OUT.18 lists these fields, and the result's JSON Schema file carries them.
+
+*RECON-ENUM evidence for field placement (cases 7 and 8).* The gate independently derives every `counts`
+value for these cases from `items[]` in the unmodified landing `control-result.json` retained under R6.GATE.7
+and read under R6.GATE.8. The presence count reads object members directly, including when a member's value is
+null, false, zero or empty. The runner retains the synthetic configuration and the fixture Git objects needed to
+read the changed paths, the configuration and the site's pinned blob. The gate checks the hashes in the evidence
+manifest and reads the configuration from the commit and path named by the invocation and the result. The blob's
+sha256 must equal the result's configuration hash. The gate checks that the configuration declares a single site on
+the case's tracked path. It reads that path at the configuration's `roles.pin` commit and verifies that line 2 is
+the unique line with the declared `line_sha256`, hashing the UTF-8 bytes without LF (R6.SYN.1, R6.ANCH.5).
+It checks the site and deny paths against the retained fixture mutation. The gate substitutes
+`$resolution_site` in the count filters with `<file>:<1-based pin line>@<first 8 hex of pin commit>` (R6.ANCH.7).
+Missing or mismatched input evidence fails under R6.GATE.9. Case 6's JSON Schema enum rejection is a separate
+requirement of the same control. The placement cases derive their counts independently of that check.
+
 Sources: PR #1593 comments 7189621405 (A, H) and 7190234470 (S3). Controls: RECON-ENUM.
 '''
 
@@ -1226,6 +1240,9 @@ GATE3_NEW = ('  - `<unit>[k=v,...]` with unit `items`, `findings`, `hits`, `site
              '    `only_profile`, `attribution`, `key_path`), a hit field for `hits`, a site field for `sites` (for\n'
              '    example `moved_in`). `k=v` holds when the field equals `v` or, for a list-valued field, contains `v`;\n'
              '    `|` separates alternative values; `k_nonempty` holds when the field is present and non-empty.\n'
+             '    In RECON-ENUM cases 7 and 8, `items[resolution_validity_present]` counts each item with that\n'
+             '    member, regardless of its JSON value. The `k=v` filters in those cases require exact equality\n'
+             '    to the specified JSON strings (R6.RECON.36).\n'
              '    `items`, `findings`, `hits` and `sites` count objects. `lines` counts distinct `(file, line)` pairs,\n'
              '    an item\'s `line` being the line on which its match begins: a sentence-level item (one whose sentence\n'
              '    spans several lines) counts once, at that line, and several items on one line count once.\n'
@@ -1316,18 +1333,22 @@ RECON_ENUM_VALIDITY = {'case': 'countercase: the JSON Schema checks a copy of th
                                                                                 'does-not-hold or not-established']}]}
 
 
-def recon_enum_placement(trial_case, site, validity):
-    # The synthetic sitemap fixes the subject before the runner sees the result.
+def recon_enum_placement(change, validity):
     return {
-        'case': 'placement: construct the RECON-TRIAL case %d fixture with one affected carried site whose '
-                'synthetic sitemap id is %s, and an unrelated deny hit on a separate path. Retain the sitemap '
-                'and the unmodified landing control-result.json in the evidence manifest' % (trial_case, site),
+        'case': 'placement (R6.SYN.1, R6.SYN.3): the sole tracked site is a kind=definition on line 2 of '
+                'papers/recon-enum-site.md, with pin and X holding the same three consecutive nonblank lines. '
+                'The site is outside the edit list and every splice window, and its path has no term hits, '
+                'context adjudication or HP record. M %s. On the separate untracked corpus path '
+                'papers/recon-enum-deny.md, M replaces a neutral line 1 with "Axiom Z is assumed." under the '
+                'tree-scan line-level Z-premise deny profile. Retain the unmodified landing control-result.json '
+                'and the fixture inputs specified in R6.RECON.36' % change,
         'outcome': 'FAIL',
-        'counts': {'items[subject=%s,class=context-meaning-unverified]' % site: 1,
-                   'items[resolution_validity_nonempty]': 1},
-        'invariants': [{'items_include': [{'subject': site, 'class': 'context-meaning-unverified',
-                                           'resolution_validity': validity}]},
-                       {'schema_errors': []}],
+        'counts': {
+            'items[subject=$resolution_site,class=context-meaning-unverified]': 1,
+            'items[subject=$resolution_site,class=context-meaning-unverified,resolution_validity=%s]' % validity: 1,
+            'items[subject=papers/recon-enum-deny.md:1,class=deny-match,rule_id=Z-premise]': 1,
+            'items[resolution_validity_present]': 1,
+        },
     }
 
 
@@ -1452,9 +1473,11 @@ DECLARED_DIFFS = [
     ('RECON-ENUM', ('expect', 'cases', 4), MISSING, RECON_ENUM_COUNTER),
     ('RECON-ENUM', ('expect', 'cases', 5), MISSING, RECON_ENUM_VALIDITY),
     ('RECON-ENUM', ('expect', 'cases', 6), MISSING,
-     recon_enum_placement(30, 'recon-enum-context-site', 'does-not-hold')),
+     recon_enum_placement('changes only the first line of the site path, leaving the site line unique and unchanged',
+                          'does-not-hold')),
     ('RECON-ENUM', ('expect', 'cases', 7), MISSING,
-     recon_enum_placement(23, 'recon-enum-count-site', 'not-established')),
+     recon_enum_placement('appends a blank line and an exact copy of the three-line block on the site path',
+                          'not-established')),
     ('L2', ('expect', 'invariants', 0, 'all'), 'lines[rule=W2]', 'lines[rule_id=W2]'),
     ('RECON-TRIAL', ('expect', 'cases', 7), MISSING, RECON_TRIAL_CASE),
     ('RECON-TRIAL', ('expect', 'cases', 8), MISSING, RECON_TRIAL_R5[0]),
@@ -2586,8 +2609,8 @@ def change_record(owner, outs, gen_sha, owner_sha, totals):
     lines = ['# r6 amendment 6: change record', '',
              'Owner directions, quoted in DESIGN-r6.md sec. 0.7: %s. Generated by generator-amendment6/amend6.py '
              '(sha256 %s) from the amendment-5 outputs (amendment 5 r2, e0706a4b, adopted) and '
-             'generator-amendment6/owner-decisions-amendment6.json (sha256 %s). This is r11, the independent gate '
-             'correction for RECON-ENUM. r3, the last general revision, '
+             'generator-amendment6/owner-decisions-amendment6.json (sha256 %s). This is r12, the independent gate '
+             'correction for RECON-ENUM field presence and fixture identity. r3, the last general revision, '
              'answers the delta review of r2 (PR #1593 comment 7190255132, D1 to D7) and the completeness-audit '
              'follow-up (PR #1593 comment 7190234470, findings 1 to 13 and section S), and removes complexity that '
              'both reviewers agree gives no protection. It keeps the answers of r2 to the first review (PR #1593 '
@@ -2619,7 +2642,7 @@ def change_record(owner, outs, gen_sha, owner_sha, totals):
              '| amendment 6 r6 (9ca54e76) | 619 | 15 | 142 | 445 | 11 |',
              '| amendment 6 r7 (8788763f) | 619 | 15 | 142 | 445 | 11 |',
              '| amendment 6 r8 (e20b02b5) | 619 | 15 | 142 | 445 | 11 |',
-             '| amendment 6 r11 | %d | %d | %d | %d | %d |' % (totals['rows'], nr, nc, totals['reqs'], len(NEW_REQS)), '',
+             '| amendment 6 r12 | %d | %d | %d | %d | %d |' % (totals['rows'], nr, nc, totals['reqs'], len(NEW_REQS)), '',
              'The generator writes %d conformance mutants into CONFORMANCE-MUTANTS.json, each an identifiable case of the '
              'RECON-SCHEMA mutant countercase.' % len(mutants()), '',
              'r3 merges RESULT-FIELDS into RECON-ENUM (two cases added there) and WIDENING-ITEMS into REVIEW-SCHEMA, '
@@ -2670,11 +2693,14 @@ def change_record(owner, outs, gen_sha, owner_sha, totals):
     lines += ['## 2i. Reviews of r8 (PR #1593)', '', '| Item | Disposition |', '|---|---|']
     lines += ['| %s | %s |' % (k, v) for k, v in R9_MAP] + ['']
     lines += ['## 2j. Focused review of r10 (PR #1593 comment 7191940350)', '',
-              'RECON-ENUM case 6 retains the JSON Schema rejection of an invalid enum value. Cases 7 and 8 '
-              'check an unmodified retained result for each permitted value. Each fixture fixes the carried '
-              'site\'s subject and includes an unrelated item. The gate requires the sole matching site item '
-              'to carry the expected value and counts the field across all items. An omitted field, an extra '
-              'field or a field put on the unrelated item fails the expectation.', '']
+              'r11 kept RECON-ENUM case 6\'s JSON Schema rejection of an invalid enum value and added '
+              'placement cases 7 and 8.', '',
+              '## 2k. Independent checks of r11 (PR #1593 at 0af890ac)', '',
+              'The gate derives the affected site\'s canonical subject from retained fixture inputs and '
+              'requires both the site item and the separate deny item. The site path has no term hits, so the '
+              'fixture isolates the carried verdict. The gate reads every placement count from the unmodified '
+              'result, including a field-presence count that covers null, false, zero and empty values. Case 6 '
+              'remains a separate required schema case.', '']
     lines += ['## 3. Items B (tool writer)', '']
     for k, title, opts, rec in B_MAP:
         lines += ['### %s. %s' % (k, title), '', 'Options:', ''] + ['- ' + o for o in opts] + ['', rec, '']

@@ -22548,48 +22548,24 @@
       ]
      },
      {
-      "case": "placement: construct the RECON-TRIAL case 30 fixture with one affected carried site whose synthetic sitemap id is recon-enum-context-site, and an unrelated deny hit on a separate path. Retain the sitemap and the unmodified landing control-result.json in the evidence manifest",
+      "case": "placement (R6.SYN.1, R6.SYN.3): the sole tracked site is a kind=definition on line 2 of papers/recon-enum-site.md, with pin and X holding the same three consecutive nonblank lines. The site is outside the edit list and every splice window, and its path has no term hits, context adjudication or HP record. M changes only the first line of the site path, leaving the site line unique and unchanged. On the separate untracked corpus path papers/recon-enum-deny.md, M replaces a neutral line 1 with \"Axiom Z is assumed.\" under the tree-scan line-level Z-premise deny profile. Retain the unmodified landing control-result.json and the fixture inputs specified in R6.RECON.36",
       "outcome": "FAIL",
       "counts": {
-       "items[subject=recon-enum-context-site,class=context-meaning-unverified]": 1,
-       "items[resolution_validity_nonempty]": 1
-      },
-      "invariants": [
-       {
-        "items_include": [
-         {
-          "subject": "recon-enum-context-site",
-          "class": "context-meaning-unverified",
-          "resolution_validity": "does-not-hold"
-         }
-        ]
-       },
-       {
-        "schema_errors": []
-       }
-      ]
+       "items[subject=$resolution_site,class=context-meaning-unverified]": 1,
+       "items[subject=$resolution_site,class=context-meaning-unverified,resolution_validity=does-not-hold]": 1,
+       "items[subject=papers/recon-enum-deny.md:1,class=deny-match,rule_id=Z-premise]": 1,
+       "items[resolution_validity_present]": 1
+      }
      },
      {
-      "case": "placement: construct the RECON-TRIAL case 23 fixture with one affected carried site whose synthetic sitemap id is recon-enum-count-site, and an unrelated deny hit on a separate path. Retain the sitemap and the unmodified landing control-result.json in the evidence manifest",
+      "case": "placement (R6.SYN.1, R6.SYN.3): the sole tracked site is a kind=definition on line 2 of papers/recon-enum-site.md, with pin and X holding the same three consecutive nonblank lines. The site is outside the edit list and every splice window, and its path has no term hits, context adjudication or HP record. M appends a blank line and an exact copy of the three-line block on the site path. On the separate untracked corpus path papers/recon-enum-deny.md, M replaces a neutral line 1 with \"Axiom Z is assumed.\" under the tree-scan line-level Z-premise deny profile. Retain the unmodified landing control-result.json and the fixture inputs specified in R6.RECON.36",
       "outcome": "FAIL",
       "counts": {
-       "items[subject=recon-enum-count-site,class=context-meaning-unverified]": 1,
-       "items[resolution_validity_nonempty]": 1
-      },
-      "invariants": [
-       {
-        "items_include": [
-         {
-          "subject": "recon-enum-count-site",
-          "class": "context-meaning-unverified",
-          "resolution_validity": "not-established"
-         }
-        ]
-       },
-       {
-        "schema_errors": []
-       }
-      ]
+       "items[subject=$resolution_site,class=context-meaning-unverified]": 1,
+       "items[subject=$resolution_site,class=context-meaning-unverified,resolution_validity=not-established]": 1,
+       "items[subject=papers/recon-enum-deny.md:1,class=deny-match,rule_id=Z-premise]": 1,
+       "items[resolution_validity_present]": 1
+      }
      }
     ]
    },
