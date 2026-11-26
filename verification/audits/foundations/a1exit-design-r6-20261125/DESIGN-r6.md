@@ -326,6 +326,29 @@ The owner decided on parts A to D below; the decision is recorded at #1169 comme
 
 Amendment 1 is a design change under its own independent review; it adopts nothing beyond the quoted decisions and authorizes no merge, dispatch, freeze or trial.
 
+
+### 0.3 Amendment 2 of 2026-11-26
+
+The owner decided on F1 and RT-T in the coordinating session; the decision is recorded at #1169 comment 7183914927 (amaybaum, 2026-11-26T05:53:39Z). Excerpt: the two table rows (table cells joined by " | ", table padding removed; each line prefixed by "> "):
+
+> F1 — Identifier conflict | Retain the lint rule. Choose compliant replacement identifiers instead of weakening or bypassing the lint. Independently review the revised mapping and return for approval under §A.48.
+>
+> RT-T — Record kinds | Approve the proposed interpretation: HP, context-adjudication and hit-classification records. Correct the undefined §8.2 reference in the design.
+
+- F1. The approved migration (sec. 34, MIGRATION.json) named the directory conditions of sec. 21 DIR2-DIR5. The engine holds these names as string literals (the reasons of the record-directory rule, R6.CORE.2), and the purity lint Z9 checks every string literal of the engine against every review and deny profile of the A1 configuration (R6.CORE.3). The deny profile `register-caps` (P's `CAPS`, a run of three or more capitals not preceded by a letter or backslash and not followed by a letter, less `CAPS_OK`) matches "DIR", so Z9g and Z9-STAGED fail on them. The lint is kept. The conditions are named Dir2-Dir5, which contain no run of three capitals:
+
+| r5 label | Superseded name (approved migration) | Name | Condition (R6.RDIR.5) |
+|---|---|---|---|
+| D2 | DIR2 | Dir2 | no entry inside `D_rec` exists at `H` |
+| D3 | DIR3 | Dir3 | no ledgered, corpus, class-prefix or workflow path inside `D_rec`, at `F` or at `M` |
+| D4 | DIR4 | Dir4 | `F`'s tree holds `P_cfg` and the file of record pins inside `D_rec` |
+| D5 | DIR5 | Dir5 | no side-change class of the admitted class set uses the reserved class id `record-directory` |
+
+  The names Dir2-Dir5 occur in no file of this directory before amendment 2, and no record has given them a meaning; DIR2-DIR5 keep the meaning the approved migration gave them and are not reused. Checked with the tool's own lint (engine/purity.py and engine/profiles.py of the tool revision in development, adb8fc43, provenance) over the engine sources, with `register-caps` built from P's `edits_check.py` and the patterns of `register`, `infinity`, `ptr`, `repo`, `ledger-ext`, `p0-core`, `p0-para`, `count-grep` and the deny and `resid` rule files: the twelve findings at engine/reconcile.py with DIR2-DIR5 are gone with Dir2-Dir5, and no finding is added. The other migrated families: TT1-TT14 and RC1-RC13 contain at most two consecutive capitals and match no profile (RC1-RC13 are also engine enumerations, R6.CORE.5); RDIR-1 to RDIR-25, RDIR-12b and RDIR-m1 to RDIR-m17 match `register-caps` ("RDIR"), but they occur only in adapter modules and the expectation file, outside Z9's scope (R6.CORE.3), so the lint does not see them.
+- RT-T. RT-T's NOT RUN entry named the records it needs as the records "of sec. 8.2", a section r6 does not have. Its reason and release condition name them: the reviewed HP adjudication, context-adjudication and hit-classification records (R6.HP.4, R6.CTX.7, R6.HIT.4). Its release check is a fixed key that the gate maps to its evaluator, so it keeps its text, and R6.GATE.15 states the kinds it means; the gate's key changes only with the tool revision.
+
+Amendment 2 changes nothing else. Its identifier change is a sec. A.48 item 3 migration that needs the owner's approval and an independent review; the tool revision applies it (OBL-22). AMENDMENT-2.md maps each change to its decision and lists what the tool must change; amendment 2 authorizes no merge, dispatch, freeze or trial.
+
 ***
 
 ## 1. Notation and symbols
@@ -2982,7 +3005,7 @@ Sources: V2-098, Q1. Controls: GATE-18.
 condition, and only while the row's `release_check` is false on the commit under check. The rows that
 admit NOT RUN are RT-T, TR5, G-A1, RT-L2, RT-O9-L2, TR45-opB, TR45-opC and EI14-dispatch. RT-O9 is gated: its
 own record-directory checks run, and only its dependent clause, RT-O9-L2, is NOT RUN while RT-L2 is
-NOT RUN (Q6). RT-T is NOT RUN until the reviewed records it needs exist.
+NOT RUN (Q6). RT-T is NOT RUN until the reviewed records it needs exist: the reviewed HP adjudication, context-adjudication and hit-classification records (R6.HP.4, R6.CTX.7, R6.HIT.4). The release check of its expectation row, a fixed key of the gate, names them as the records of "a sec. 8.2 kind"; it means these three kinds.
 The composites TR45 and EI14 are NOT RUN by inheritance while their component is (R6.GATE.9).
 TR45-opB and TR45-opC are deferred with R6.OUT.15 (owner decision A1 of 2026-11-25, sec. 0.1): the runner
 records them NOT RUN, their `not_run` reason is the deferral, their release check is false until an
@@ -3886,16 +3909,16 @@ expectation file).
 |---|---|---|
 | MUT:o9:RDIR-m1 | the completeness check omitted: only the `H`-to-`M` scan is used | RDIR-4 |
 | MUT:o9:RDIR-m2 | the shared membership predicate (R6.RDIR.1) without the trailing `/` | RDIR-6 |
-| MUT:o9:RDIR-m3 | DIR2 removed | RDIR-11 |
+| MUT:o9:RDIR-m3 | Dir2 removed | RDIR-11 |
 | MUT:o9:RDIR-m4 | the admission check (R6.RDIR.2) removed | RDIR-16 |
 | MUT:o9:RDIR-m5 | mode not compared | RDIR-8 (mode case) |
 | MUT:o9:RDIR-m6 | the blob at `M` compared with `H` instead of `F` | RDIR-1 |
-| MUT:o9:RDIR-m7 | DIR3 removed | RDIR-12 (class-prefix case, admitted `D_rec`) |
+| MUT:o9:RDIR-m7 | Dir3 removed | RDIR-12 (class-prefix case, admitted `D_rec`) |
 | MUT:o9:RDIR-m8 | the clean-path test removed | RDIR-7 |
 | MUT:o9:RDIR-m9 | R6.RDIR.10 row 2 bypassed: the rule applied when a class pin names `p` but differs | RDIR-13 |
 | MUT:o9:RDIR-m10 | the completeness check reads bytes before checking the entry type | RDIR-8 (symbolic link and submodule cases) |
 | MUT:o9:RDIR-m11 | RC11 uses the classifier without the completeness check | RDIR-19 |
-| MUT:o9:RDIR-m12 | DIR5 removed | RDIR-17, RDIR-24 |
+| MUT:o9:RDIR-m12 | Dir5 removed | RDIR-17, RDIR-24 |
 | MUT:o9:RDIR-m13 | the completeness check's items suppressed for a path a matching class pin classifies | RDIR-21 |
 | MUT:o9:RDIR-m14 | a non-regular entry inside `D_rec` passed to the existing classifier | RDIR-8 (full-path cases) |
 | MUT:o9:RDIR-m15 | the admission ERROR raised for a non-admitted `D_rec` that `H` holds (whenever `M` holds an entry inside it) | RDIR-25 |
@@ -4177,7 +4200,7 @@ Sources: V2-014. Controls: TT5, TT3.
 **R6.TREE.4** `M` is resolved once and recorded. `H` is on `M`'s first-parent chain; otherwise ERROR
 `MAIN_NOT_DESCENDANT`. The tree of `R` at `M` is pinned. Every path that differs between `H` and `M`
 is a side change, listed with the first-parent commit on `M` that made it. Directory admission and the
-conditions DIR2-DIR5 of sec. 21 are evaluated in the `M` role with `--freeze`, as role-dependent
+conditions Dir2-Dir5 of sec. 21 are evaluated in the `M` role with `--freeze`, as role-dependent
 validation.
 Sources: V2-129, V2-130, E-1302. Controls: TT6, RDIR-23.
 
@@ -4351,7 +4374,7 @@ configuration's path in `F` (the path `--config F:P_cfg` names), and `D_rec` is 
 entry is a non-tree entry of a commit's tree with its mode, as the object reader lists entries:
 regular files (`100644`, `100755`), symbolic links (`120000`) and submodules (`160000`). A path is
 inside `D_rec` when it begins with `D_rec` followed by `/`; this one membership predicate is used by
-every part of the rule (completeness, classification, application and DIR3). `F-entries` and
+every part of the rule (completeness, classification, application and Dir3). `F-entries` and
 `M-entries` are the entries inside `D_rec` at `F` and at `M`.
 Sources: A-015, A-016, A-017, A-018. Controls: RDIR-6, RDIR-10, MUT:o9:RDIR-m2.
 
@@ -4363,7 +4386,7 @@ add to it, and changing it is a tool revision. The constant guards every run of 
 check in the pinned workflow would guard only runs of that workflow.
 Sources: A-019, A-021, A-022, A-138. Controls: RDIR-16, RDIR-20, MUT:o9:RDIR-m4.
 
-**R6.RDIR.3** Scope of evaluation. Directory admission, the conditions DIR2-DIR5 and the completeness
+**R6.RDIR.3** Scope of evaluation. Directory admission, the conditions Dir2-Dir5 and the completeness
 check are evaluated only by an operation that evaluates `M` with an admitted `F`: the `M` role of
 `execution` (`--main` with `--freeze`; item 14's candidate and landing commands and the RT-L2
 safeguard), and condition RC11 of the reconciliation records it evaluates. Every other operation
@@ -4373,8 +4396,8 @@ Sources: A-025. Controls: RDIR-23, RDIR-14.
 
 **R6.RDIR.4** Within that scope, from `H`, `F`, `M` and the configuration, before any side change is
 classified:
-- DIR5 is evaluated always;
-- if `D_rec` is admitted, DIR2-DIR4 are evaluated, then R6.RDIR.6 to R6.RDIR.10 apply;
+- Dir5 is evaluated always;
+- if `D_rec` is admitted, Dir2-Dir4 are evaluated, then R6.RDIR.6 to R6.RDIR.10 apply;
 - if `D_rec` is not admitted and `M` holds no entry inside `D_rec`, the rule is inactive and the run
   continues unchanged;
 - if `D_rec` is not admitted and both `H` and `M` hold an entry inside `D_rec`, the rule is inactive and
@@ -4389,19 +4412,20 @@ A `D_rec` that is not admitted never receives a `record-directory` classificatio
 Sources: A-026, A-027, A-028, A-029, A-030, A-031, A-032. Controls: RDIR-10, RDIR-12b, RDIR-16,
 RDIR-20, RDIR-22, RDIR-25, MUT:o9:RDIR-m15, MUT:o9:RDIR-m16, MUT:o9:RDIR-m17.
 
-**R6.RDIR.5** The conditions. If any of DIR2-DIR5 fails, the run stops with ERROR `CONFIG_INCONSISTENT`
+**R6.RDIR.5** The conditions. If any of Dir2-Dir5 fails, the run stops with ERROR `CONFIG_INCONSISTENT`
 naming the condition, and no path is classified by the rule.
-- DIR2: no entry inside `D_rec` exists at `H`.
-- DIR3: no ledgered path, no corpus path (the configuration's `corpus.patterns`), no path under a prefix
+- Dir2: no entry inside `D_rec` exists at `H`.
+- Dir3: no ledgered path, no corpus path (the configuration's `corpus.patterns`), no path under a prefix
   of any side-change class the configuration references, and no path under `.github/` lies inside
   `D_rec`, at `F` or at `M`.
-- DIR4: `F`'s tree holds `P_cfg` and the file of record pins inside `D_rec`.
-- DIR5: no side-change class in the run's admitted class set uses the class id `record-directory`, which
+- Dir4: `F`'s tree holds `P_cfg` and the file of record pins inside `D_rec`.
+- Dir5: no side-change class in the run's admitted class set uses the class id `record-directory`, which
   is reserved for this rule. The admitted class set is every class from the class records the
   configuration references and from the class records admitted through `--classify`; a class record
   from either route that defines the id is ERROR `CONFIG_INCONSISTENT`.
-The names DIR2-DIR5 replace the r5 labels D2-D5 so that they cannot be read as the residual-decision
-labels RD-2 to RD-5 (RE-28; sec. 34).
+The names Dir2-Dir5 replace the r5 labels D2-D5 so that they cannot be read as the residual-decision
+labels RD-2 to RD-5 (RE-28; sec. 34), and they contain no run of three capitals, which the A1 profile
+`register-caps` matches in the engine's string literals (R6.CORE.3; amendment 2, sec. 0.3).
 Sources: A-033, A-034, A-035, A-036, A-037. Controls: RDIR-9, RDIR-11, RDIR-12, RDIR-17, RDIR-24,
 MUT:o9:RDIR-m3, MUT:o9:RDIR-m7, MUT:o9:RDIR-m12.
 
@@ -4451,12 +4475,12 @@ Where applied, `p` is classified `record-directory` exactly when the rule is act
 `D_rec`, no component of `p` is empty, `.` or `..`, and the completeness check finds `p` equal.
 Otherwise `p` stays `side-change-unclassified` with the completeness reason, or with the reason
 `outside the record directory`. A ledgered or corpus path is `base-drift` before any classification
-(R6.TREE.7); by DIR3 none lies inside `D_rec`.
+(R6.TREE.7); by Dir3 none lies inside `D_rec`.
 Sources: A-047, A-048, A-049, A-050, A-051. Controls: RDIR-1, RDIR-5, RDIR-7, RDIR-13, MUT:o9:RDIR-m8,
 MUT:o9:RDIR-m9.
 
 **R6.RDIR.11** The rule and the completeness check are one function, called with the same context
-(`F`, `D_rec`, the admission check and DIR2-DIR5) by both places that classify side changes: the `M`
+(`F`, `D_rec`, the admission check and Dir2-Dir5) by both places that classify side changes: the `M`
 role of `execution` (item 14's candidate and landing commands and the RT-L2 safeguard), and condition
 RC11 of a reconciliation record, which enumerates side changes on its own (sec. 23). Without
 `--freeze` (control-harness runs without a stand-in `F`) the rule is inactive, the completeness check
@@ -4466,7 +4490,7 @@ MUT:o9:RDIR-m11.
 
 **R6.RDIR.12** Output. Each side change classified by the rule is listed with `class:
 "record-directory"`, its first-parent commit, and its mode, blob id and sha256 at `F` and at `M`. The
-result records `D_rec`, the admission match, the outcomes of DIR2-DIR5, and the completeness counts
+result records `D_rec`, the admission match, the outcomes of Dir2-Dir5, and the completeness counts
 (paths equal; paths unequal, by reason). The field list is part of the result schema (sec. 7).
 Sources: A-058, A-059. Controls: RDIR-1, RT-O9.
 
@@ -4771,8 +4795,8 @@ example "a1exit deletion exact-edit ledger v2"), lie outside the engine, in
 `tools/ledger_coverage/adapters/`. The following literals are engine enumerations and are listed by
 name in the allowlist of R6.CORE.5: the reserved side-change class id `record-directory`, the reason
 strings of the record-directory rule (`absent at M`, `absent at F`, `differs from F`,
-`not a regular file`, and the reasons naming DIR2-DIR5 and `directory not admitted`), and the path
-prefix `.github/` used by condition DIR3. Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals. Sources: E-1376, RD-20. Controls: Z9a, Z9b, Z9c, Z9d, Z9g.
+`not a regular file`, and the reasons naming Dir2-Dir5 and `directory not admitted`), and the path
+prefix `.github/` used by condition Dir3. Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals. Sources: E-1376, RD-20. Controls: Z9a, Z9b, Z9c, Z9d, Z9g.
 
 **R6.CORE.3** Z9, the purity lint, runs over the source blobs of `tools/ledger_coverage/engine/` and
 the entry point `tools/ledger_coverage.py`, parsed by `ast`. Its scope is exactly those blobs; adapter
@@ -5132,7 +5156,7 @@ A-086, OD-31. Controls: RDIR-25, RDIR-12b.
 ## 29. Fail-closed configuration validation
 
 **R6.VALID.1** Static validation of the configuration runs in the integrity stage (sec. 3), before
-any subject is evaluated. Role-dependent validation (directory admission and conditions DIR2-DIR5,
+any subject is evaluated. Role-dependent validation (directory admission and conditions Dir2-Dir5,
 sec. 21; the delegation contract; duplicate class ids among `--classify` records; declared-site
 uniqueness; the HP segment chain) runs only in an operation that evaluates `M` with an admitted `F`, before any side change is
 classified. No configuration defect can lead to PASS. Sources: E-1449, OD-27. Controls: Z1, Z2, Z3,
@@ -5177,7 +5201,7 @@ ledger's; a merge off the chain; a context value missing; an extractor hash mism
 profile; a `final_profiles` entry that is not a review profile; a side-change class id defined more than
 once; and, in the role-dependent validation of R6.VALID.1, a record directory that is not admitted
 while `H` holds no entry inside it and `M` holds one (reason `directory not admitted`), or a failed
-condition DIR2, DIR3, DIR4 or DIR5 (reason naming the condition, with no path classified by the rule).
+condition Dir2, Dir3, Dir4 or Dir5 (reason naming the condition, with no path classified by the rule).
 Sources: E-1455, A-031, A-033, A-037, OD-6, OD-27, OD-31. Controls: Z7, Z11, RDIR-9, RDIR-11,
 RDIR-12, RDIR-16, RDIR-17, RDIR-20, RDIR-24.
 
@@ -5196,7 +5220,7 @@ RDIR-12, RDIR-16, RDIR-17, RDIR-20, RDIR-24.
 - the HP obligation's pinned merges;
 - the tool commit `T`, the run's repository, head repository and event, and the engine blob hash (the
   entry point and every engine module), each tool blob equal to its `tool` pin;
-- for the record-directory rule: the directory `D_rec`, the admission match, the outcomes of DIR2-DIR5,
+- for the record-directory rule: the directory `D_rec`, the admission match, the outcomes of Dir2-Dir5,
   and the directory-completeness counts (paths equal, paths unequal by reason), with each classified
   side change listed as in sec. 21.
 
@@ -5637,7 +5661,7 @@ clauses that RT-L2 still holds and that no `base-drift` occurs on the predicted 
 dependent assertion, RT-O9-L2, NOT RUN while RT-L2 is NOT RUN (RE-5 (a)). RT-O9-L2 runs at `X_rep`, on
 the predicted `M` plus the record directory of a representative stand-in `F` that holds the pinned
 ledger, edit list and configuration instance (R6.EVID.8): `base-drift` is decided by whether a side
-change touches a ledgered or corpus path (R6.TREE.7), and a record directory holds none (DIR3), so the
+change touches a ledgered or corpus path (R6.TREE.7), and a record directory holds none (Dir3), so the
 clause does not depend on the content of `P`'s record directory.
 Gates: the tool's landing. Discharged by: RT-L2's release and PASS (OBL-13).
 Evidence: as OBL-13 (RE-37 confirms the gate).
@@ -5888,7 +5912,7 @@ longer exists as a requirement).
 | the status SKIP | preserved-at sec. 16's NOT RUN rule (one non-run status, always with a release condition) | V1-070, RD-7 |
 | v2 "where HP is tracked" (its own Issue or row on #1169) | obsolete as tool text: sec. A.45 rule 6 governs accountable Issues | V2-119, RD-11 |
 | the inspection criterion "no code path uses line proximity or similarity to resolve" | obsolete as an inspection criterion only; the prohibition on resolving anchors by proximity or similarity is preserved-at sec. 4, tested by U5-U7 and VD-3's controls | V1-135, RD-11, Q10 |
-| r1's mutants "accept a path absent at F and M" and "rule evaluated before the `base-drift` test" | preserved-at RDIR-m1 and RDIR-m7, and conditions DIR2 and DIR3 (both mutants are equivalent) | A-107, Q3, Q4 |
+| r1's mutants "accept a path absent at F and M" and "rule evaluated before the `base-drift` test" | preserved-at RDIR-m1 and RDIR-m7, and conditions Dir2 and Dir3 (both mutants are equivalent) | A-107, Q3, Q4 |
 | automated authorization machinery: the tool authority record `A` (`oi-tool-authority/2`), the comment forms `oi-freeze/1`, `oi-authority/1`, `oi-freeze-ledger/1`, "Owner at creation", the freeze ledger, the owner-authorization record `oi-owner-authorization/1` and its lint, and every read of comment threads, edit history, the GraphQL API and the comment, Issue, pull-request, branch, repository-history and file-content APIs | obsolete: authorization is not a tool property; owner approval is procedural and quoted in the relying record (sec. A.42 item 7, sec. A.50); the record kind `oi-owner-authorization/1` is ERROR `CONFIG_INVALID` (R6.CFG.4) | E-010, E-1081, ME-5 |
 | DR-1d, DR-2 | obsolete: dropped deny candidates (rationale in the appendix); never reused | E-1001, E-1016 |
 | v6.0e sec. 15 item 10 (focused delta review of v6.0d against v6.0c) | obsolete: r6 supersedes v6.0c and v6.0d; the claim "every guarantee of v5.5.9 is kept" is withdrawn; r6 states its own requirements and has its own review | E-1370, OD-3, ME-4, MC-11 |
@@ -5980,7 +6004,7 @@ migration is applied with the tool revision (OBL-22).
 | O9-12b | RDIR-12b | OD-31 |
 | O9-m1 to O9-m17 (r5 mutants) | RDIR-m1 to RDIR-m17 | RD-5 |
 | RT-O9 | RT-O9, unchanged | RD-5 |
-| D2-D5 (r5 directory conditions) | DIR2-DIR5 | OD-31, RE-28 |
+| D2-D5 (r5 directory conditions) | Dir2-Dir5 (DIR2-DIR5 of the approved migration, superseded by amendment 2, sec. 0.3) | OD-31, RE-28, amendment 2 |
 | RT-T (v1 meaning: no records, FAIL) | RT-T0 | RD-5 |
 | RT-T (v6.0e meaning: all records, NOT RUN until released) | RT-T, unchanged | RD-5 |
 | runner sub-records GV7-tool, GV7-consumer, TR28-tool, TR28-consumer, TR29-tool, EI2-consumer, EI7-tool, GV6-disk, RT-D-gr58, V27-glossary, TR45-opB | the same names as control ids in their own right; GV7 and EI7 kept as composed rows | RD-4 |

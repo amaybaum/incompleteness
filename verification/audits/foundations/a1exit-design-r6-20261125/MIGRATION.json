@@ -1144,11 +1144,12 @@
   },
   {
    "old": "D2-D5 (r5 directory conditions)",
-   "new": "DIR2-DIR5",
+   "new": "Dir2-Dir5",
    "sources": [
     "OD-31",
     "RE-28"
-   ]
+   ],
+   "superseded": "DIR2-DIR5, renamed by amendment 2 (owner decision of 2026-11-26T05:53:39Z, #1169 comment 7183914927): the A1 profile register-caps matches \"DIR\" in the engine's string literals (R6.CORE.3)"
   },
   {
    "old": "RT-T (v1 meaning: no records, FAIL)",
@@ -1329,8 +1330,9 @@
   },
   {
    "old": "RD2-RD5 (directory conditions, integration)",
-   "new": "DIR2-DIR5",
-   "basis": "RE-28 (amends OD-31's table; independent review under sec. A.48 item 3 with the migration, OBL-22)"
+   "new": "Dir2-Dir5",
+   "basis": "RE-28 (amends OD-31's table; independent review under sec. A.48 item 3 with the migration, OBL-22)",
+   "superseded": "DIR2-DIR5, renamed by amendment 2 (owner decision of 2026-11-26T05:53:39Z, #1169 comment 7183914927): the A1 profile register-caps matches \"DIR\" in the engine's string literals (R6.CORE.3)"
   },
   {
    "old": "stale-adjudication (retired by RD-9 in the integration)",

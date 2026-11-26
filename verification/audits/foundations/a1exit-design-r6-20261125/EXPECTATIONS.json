@@ -6911,7 +6911,7 @@
     "stop_class": "CONFIG_INCONSISTENT",
     "invariants": [
      {
-      "reason": "DIR2"
+      "reason": "Dir2"
      }
     ]
    },
@@ -6942,7 +6942,7 @@
     "stop_class": "CONFIG_INCONSISTENT",
     "invariants": [
      {
-      "reason": "DIR3"
+      "reason": "Dir3"
      }
     ]
    },
@@ -7165,7 +7165,7 @@
     "stop_class": "CONFIG_INCONSISTENT",
     "invariants": [
      {
-      "reason": "DIR5"
+      "reason": "Dir5"
      }
     ]
    },
@@ -7435,7 +7435,7 @@
     "stop_class": "CONFIG_INCONSISTENT",
     "invariants": [
      {
-      "reason": "DIR5"
+      "reason": "Dir5"
      }
     ]
    },
@@ -7761,7 +7761,7 @@
       "stop_class": "CONFIG_INCONSISTENT",
       "invariants": [
        {
-        "reason": "DIR3"
+        "reason": "Dir3"
        }
       ]
      }
@@ -9014,8 +9014,8 @@
     "NOT RUN"
    ],
    "not_run": {
-    "reason": "needs the reviewed records of sec. 8.2, none of which exists",
-    "release_condition": "every reviewed record of sec. 8.2 present at F and verifying under sec. 6.3, run at X_rep built from F's ledger (R6.EVID.8)",
+    "reason": "needs the reviewed HP adjudication, context-adjudication and hit-classification records (R6.HP.4, R6.CTX.7, R6.HIT.4), none of which exists",
+    "release_condition": "every one of the reviewed HP adjudication, context-adjudication and hit-classification records (R6.HP.4, R6.CTX.7, R6.HIT.4) present at F and verifying under sec. 6.3, run at X_rep built from F's ledger (R6.EVID.8)",
     "release_check": "a reviewed record of a sec. 8.2 kind referenced by the configuration at the commit under check"
    },
    "source": "D:2210",
