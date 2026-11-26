@@ -2028,7 +2028,7 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "amendment 1, B4 part A (post-freeze route of R6.RECON.2): needs the owner's specific approval; the alternative is a new configuration version and a new freeze (R6.CFG.3)"
+   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
   ],
   "owner_decision": [
    {
@@ -3228,7 +3228,16 @@
   ],
   "open": [],
   "pending_owner_confirmation": [],
-  "owner_decision": []
+  "owner_decision": [
+   {
+    "decision": "B",
+    "decision_basis": [
+     "amendment 1, B4 part B (record location)"
+    ],
+    "effect": "approved: records kept outside the tool's landing paths and ledgered corpus",
+    "record": "owner decision on B4 parts A to D of 2026-11-26 (amaybaum, coordinating session)"
+   }
+  ]
  },
  {
   "id": "R6.REC.2",
@@ -3271,7 +3280,9 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
+  ],
   "owner_decision": []
  },
  {
@@ -3294,7 +3305,7 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "amendment 1, B4 part A (post-freeze route of R6.RECON.2): needs the owner's specific approval; the alternative is a new configuration version and a new freeze (R6.CFG.3)"
+   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
   ],
   "owner_decision": []
  },
@@ -3333,7 +3344,7 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "amendment 1, B4 part A (post-freeze route of R6.RECON.2): needs the owner's specific approval; the alternative is a new configuration version and a new freeze (R6.CFG.3)"
+   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
   ],
   "owner_decision": [
    {
@@ -3417,6 +3428,14 @@
     "decision_basis": [
      "DI-2"
     ]
+   },
+   {
+    "decision": "B",
+    "decision_basis": [
+     "amendment 1, B4 part B (record location)"
+    ],
+    "effect": "approved: records kept outside the tool's landing paths and ledgered corpus",
+    "record": "owner decision on B4 parts A to D of 2026-11-26 (amaybaum, coordinating session)"
    }
   ]
  },
@@ -5599,14 +5618,24 @@
    "GATE-13",
    "GATE-14",
    "GATE-15",
-   "GATE-19"
+   "GATE-19",
+   "RTL2-BIND"
   ],
   "verification": [
    "controls"
   ],
   "open": [],
   "pending_owner_confirmation": [],
-  "owner_decision": []
+  "owner_decision": [
+   {
+    "decision": "D",
+    "decision_basis": [
+     "amendment 1, B4 part D (M and X binding)"
+    ],
+    "effect": "approved: both identifiers and the RTL2-BIND control required",
+    "record": "owner decision on B4 parts A to D of 2026-11-26 (amaybaum, coordinating session)"
+   }
+  ]
  },
  {
   "id": "R6.CTRL.1",
@@ -7726,7 +7755,16 @@
   ],
   "open": [],
   "pending_owner_confirmation": [],
-  "owner_decision": []
+  "owner_decision": [
+   {
+    "decision": "B",
+    "decision_basis": [
+     "amendment 1, B4 part B (record location)"
+    ],
+    "effect": "approved: records kept outside the tool's landing paths and ledgered corpus",
+    "record": "owner decision on B4 parts A to D of 2026-11-26 (amaybaum, coordinating session)"
+   }
+  ]
  },
  {
   "id": "R6.PLACE.6",
@@ -8755,7 +8793,16 @@
   ],
   "open": [],
   "pending_owner_confirmation": [],
-  "owner_decision": []
+  "owner_decision": [
+   {
+    "decision": "B",
+    "decision_basis": [
+     "amendment 1, B4 part B (record location)"
+    ],
+    "effect": "approved: records kept outside the tool's landing paths and ledgered corpus",
+    "record": "owner decision on B4 parts A to D of 2026-11-26 (amaybaum, coordinating session)"
+   }
+  ]
  },
  {
   "id": "R6.RECON.2",
@@ -8780,7 +8827,7 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "amendment 1, B4 part A (post-freeze route of R6.RECON.2): needs the owner's specific approval; the alternative is a new configuration version and a new freeze (R6.CFG.3)"
+   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
   ],
   "owner_decision": []
  },
@@ -9163,10 +9210,17 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [
-   "amendment 1, B4 part D (the binding names the run's M and X): needs the owner's specific approval"
-  ],
-  "owner_decision": []
+  "pending_owner_confirmation": [],
+  "owner_decision": [
+   {
+    "decision": "D",
+    "decision_basis": [
+     "amendment 1, B4 part D (M and X binding)"
+    ],
+    "effect": "approved: both identifiers and the RTL2-BIND control required",
+    "record": "owner decision on B4 parts A to D of 2026-11-26 (amaybaum, coordinating session)"
+   }
+  ]
  },
  {
   "id": "R6.CORE.1",
@@ -9547,7 +9601,7 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "amendment 1, B4 part A (post-freeze route of R6.RECON.2): needs the owner's specific approval; the alternative is a new configuration version and a new freeze (R6.CFG.3)"
+   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
   ],
   "owner_decision": []
  },
@@ -10154,7 +10208,7 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "amendment 1, B4 part A (post-freeze route of R6.RECON.2): needs the owner's specific approval; the alternative is a new configuration version and a new freeze (R6.CFG.3)"
+   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
   ],
   "owner_decision": [
    {

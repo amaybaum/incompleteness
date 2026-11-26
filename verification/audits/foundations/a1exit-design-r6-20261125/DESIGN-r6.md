@@ -262,21 +262,37 @@ Amendment 1 applies the decisions on B1, B2, B3 and B5, which weaken no requirem
 - The identifier migration of sec. 34 (OBL-22) is not applied by this amendment: OBL-22 places it in the tool revision that implements the gate. The owner's approval of it is quoted above ("Identifier rename"). The `runner` fields keep their cites; they are refreshed from the tool revision's final lines when it lands, and the gate never reads them (R6.GATE.9).
 - B4. The records themselves are drafted and reviewed on a separate branch; the design corrections that drafting them showed to be needed are stated after this list.
 
-B4 design corrections. The owner's directions on the questions raised by the B4 records are recorded at #1169 comment 7182986451 (amaybaum, 2026-11-26T04:52:48Z). Quoted (table cells joined by " | ", table padding removed; each line prefixed by "> "):
+B4 design corrections. The owner's directions on the questions raised by the B4 records are recorded at #1169 comment 7182986451 (amaybaum, 2026-11-26T04:52:48Z). Excerpt, in the order of the source (table cells joined by " | ", table padding removed; each line prefixed by "> "; "[...]" marks text left out, among it the rows on in-place record edits and on the four unpinned tool files):
 
+> Do not introduce multi-path reconciliation merely to accommodate #1560. We should avoid further expansion of the verification tool when a simpler solution exists.
+>
+> [...]
+>
 > Record location | Keep reconciliation records outside the tool's landing paths. Resolve the contradictory design wording through independent review.
 >
 > M and X commit identifiers | Complete them when the actual commits exist, using independently reviewed superseding records.
 >
 > Records created after freezing | Investigate the conflict now. Do not bypass chain-mode validation or silently introduce an exception.
 >
-> Include any necessary design corrections in the consolidated amendment where practical, rather than creating another series of amendments.
+> [...]
 >
-> Do not introduce multi-path reconciliation merely to accommodate #1560. We should avoid further expansion of the verification tool when a simpler solution exists.
+> Include any necessary design corrections in the consolidated amendment where practical, rather than creating another series of amendments.
 
-- Part A, records written after `F` (needs the owner's specific approval). R6.REC.4 and R6.RECON.2 admit a record written after `F`, while R6.REC.4, R6.REC.5, R6.CFG.4 (`records`), R6.OUT.5 and R6.VALID.3 require the configuration at `F` to reference every record a run uses and make any other record `record-invalid`, and R6.CFG.3 requires a new configuration version and a new freeze for any change to the configuration. Chain-mode admission implements the second set, so the admission R6.RECON.2 states is unreachable. Part A makes it reachable by the post-freeze route of R6.RECON.2, conditions (a) to (e), each checked by the tool from git objects: only reconciliation and side-change class records with their review records, only for paths changed on `M` after `F`, and only in the `M` role. Configuration admission, execution identity and chain-mode validation are otherwise unchanged, and every other unreferenced record stays `record-invalid`. Controls POSTF-1 to POSTF-5. The alternative, which adds no route, narrows R6.RECON.2 and R6.REC.4 to a new configuration version and a new freeze (R6.CFG.3) for every record written after `F`; it needs a freeze (AGENTS.md sec. A.50 item 5) whenever `M` gains a side change after `F` before the landing. The owner chooses between them; until then part A is proposed text that no tool revision implements, and the requirements it touches carry it in `pending_owner_confirmation`.
-- Part B, record location (owner direction; independent review). R6.RECON.1, R6.REC.1 and R6.PLACE.5 placed reconciliation records in the tool's audit directory, a prefix of the tool's landing paths (R6.PLACE.8), while R6.RECON.21 and R6.EVID.8 require them outside those paths. They lie in a reconciliation directory (R6.RECON.1), and R6.REC.7's ambiguous-ancestry scope includes those directories.
-- Part D, binding (needs the owner's specific approval). R6.RECON.21's binding clause requires the record to name the run's `M` and also its `X`, so that `M` and `X` completed by a superseding record are checked against the run; control RTL2-BIND. It strengthens the clause and adds no requirement identifier.
+The owner decided on parts A to D below (amaybaum, 2026-11-26, relayed by the coordinating session). Excerpt: the four passages relayed, in the order relayed, each line prefixed by "> ":
+
+> A — Post-freeze record admission: Conditional approval, subject to independent review confirming that it preserves the frozen verification contract. B — Record location: Approved. Keep records outside the tool's landing paths and ledgered corpus. C — Reserved class: Agree with rejection. No unnecessary expansion. D — M and X binding: Approved. Require both identifiers and the RTL2-BIND control.
+>
+> The freeze should prevent changing the rules of verification, not prevent recording legitimate evidence produced afterward. Post-freeze evidence admission is acceptable if: The admission rules themselves are established before freezing. The frozen requirements and acceptance criteria remain unchanged. Evidence identity, provenance and independent review are enforced. No unauthorized replacement or supersession is permitted. All five new controls pass in both directions. If the independent reviewer finds that the proposed mechanism permits changing the verification contract after freezing, return for a revised decision.
+>
+> RT-L2 — The harness-mode record-lint omission and undefined F/REV semantics must be resolved before final acceptance. Do not treat them as harmless implementation details without establishing their effect on verification soundness.
+>
+> The consolidated amendment should resolve genuine contradictions without introducing further unnecessary verification machinery.
+
+- Part A, records written after `F` (conditionally approved; pending the independent review the owner requires). R6.REC.4 and R6.RECON.2 admitted a record written after `F`, while R6.REC.4, R6.REC.5, R6.CFG.4 (`records`), R6.OUT.5 and R6.VALID.3 require the configuration at `F` to reference every record a run uses and make any other record `record-invalid`, and R6.CFG.3 requires a new configuration version and a new freeze for any change to the configuration; chain-mode admission implements the second set, so the admission R6.RECON.2 stated was unreachable. Part A resolves this by the post-freeze route of R6.RECON.2, conditions (a) to (g), each checked by the tool from git objects. For a record the route admits, the anchor of the ownership chain at `F` (the configuration's reference, R6.REC.3, R6.REC.4) is replaced by those conditions, and `REV` takes the place of `F` as the reference commit of record lint. Each requirement part A touches (R6.REC.3, R6.REC.4, R6.REC.5, R6.CFG.4, R6.OUT.5, R6.RECON.2, R6.VALID.3) carries the pending status in its own text and in `pending_owner_confirmation`; marking the bodies was chosen over keeping the normative text unchanged because the unchanged text contradicts itself. The route admits reconciliation records only. Whether a reconciliation record applies is decided by RC1-RC13, which the tool evaluates itself from git objects (R6.RECON.4), with RC12 requiring `changes_decisions_on_X` empty, R6.RECON.3 requiring the same items on `X` with and without the record, and R6.RECON.19 keeping the composition authoritative; its only statements the tool does not recompute, the protected ranges, can only add failures (RC9). A side-change class record instead decides, by its reviewer's judgment, which side changes are acceptable; admitting one after `F` would decide acceptance after `F`, so it is not admitted, and a side change on `M` after `F` that no class record frozen at `F` covers needs a new configuration version and a new freeze (R6.CFG.3). Against the owner's five conditions: (1) the admission rules are part of the tool files the configuration at `F` pins (R6.REC.18), so they are fixed before `F`; (2) no requirement or expectation changes after `F`, and a record the route admits makes nothing pass that RC1-RC13, evaluated by the tool pinned at `F` from git objects, do not establish; (3) identity and provenance: the record is read by full id through the verified reader from a record commit `REV` tied to the run (single parent the run's `M`, or `M0` for a predicted `M`; only reconciliation-directory files added), the result records `REV`, the record and its review with their sha256, and `REV` reaches `main` as a parent of a later merge; independent review: exactly one review record, and record lint, in harness mode too (OBL-28, C-29); (4) supersession and ambiguous ancestry are evaluated over every reconciliation directory of `REV`'s tree, and at most one unsuperseded record naming the run's `M` covers a path; the remaining freedom, a choice between two record commits each a child of `M`, chooses only between records whose effect RC1-RC13 fix; (5) POSTF-1 to POSTF-5 and RTL2-BIND each record both directions; none is implemented yet, so this condition is a precondition of acceptance of the tool revision, not met by the design. Controls POSTF-1 to POSTF-5.
+- Part B, record location (approved). R6.RECON.1, R6.REC.1 and R6.PLACE.5 placed reconciliation records in the tool's audit directory, a prefix of the tool's landing paths (R6.PLACE.8), while R6.RECON.21 and R6.EVID.8 require them outside those paths. They lie with their review records in a reconciliation directory (R6.RECON.1), and R6.REC.7's ambiguous-ancestry scope includes those directories.
+- Part C, a reserved side-change class for records in reconciliation directories (not adopted; the owner agrees with the rejection). A record the post-freeze route admits names the run's `M` and is read from `REV`, never from `M`, so it is not a side change of the run (R6.TREE.5 and R6.RDIR.10 are unchanged). Records that earlier runs used and that reached `main` are side changes of a later run; they are classified by a class record landed after them, which pins them by blob. For RT-L2 kind 3 (R6.EVID.8) that is a class record landed on `main` that supersedes the one landed with the tool, and the control instance's class-record pin is filled from the class record heading that lineage in `M`'s tree.
+- Part D, binding (approved). R6.RECON.21's binding clause requires the record to name the run's `M` and also its `X`; control RTL2-BIND. R6.GATE.16 states the same binding, and the descriptions of GATE-14 and GATE-19 state what the gate's `rtl2` predicate compares: the `H`, `M` and `C` each record names, where `C` = `X` = `X_rep` in RT-L2. It strengthens the clause and adds no requirement identifier.
+- RT-L2 record lint and reference commit. RT-L2 runs under control-harness admission and has no `F`. Its reconciliation record reaches the run by `--classify REV:PATH` under R6.RECON.2 (a) and (c) to (g), with (b) read as "every covered path is a drifted path of the run" (R6.RECON.21); the reference commit of record lint is `REV`, and R6.REC.7's "at or before" reads "present at its path in `REV`'s tree". In the tool revision in development (6a6e200f, provenance), harness mode admits a `--classify` record without review or lint and skips the chain lint of configuration-pinned reconciliation and class records, and no runner computes the `review_lint_passes` value the gate's `rtl2` predicate reads. Effect on soundness: an RT-L2 PASS from that revision would not establish that the record's review passes record lint, so it would not establish the safeguard; no verdict rests on it, since RT-L2 is NOT RUN. The correction is OBL-28 C-29, with RTL2-BIND's countercase of a reviewed record whose lint fails; RT-L2 is not released before C-29 holds (OBL-13).
 
 Amendment 1 is a design change under its own independent review; it adopts nothing beyond the quoted decisions and authorizes no merge, dispatch, freeze or trial.
 
@@ -1123,8 +1139,8 @@ Sources: E-104, E-101, E-094. Controls: EI6.
 
 A record whose blob matches its pin but whose content fails its lint or its review is not an ERROR: it
 is FAIL `record-invalid` (sec. 11), and so is a schema-invalid adjudication and a record passed with
-`--classify` that the configuration does not reference, other than a record admitted by the
-post-freeze route of R6.RECON.2. VOID carries `CONFIG_NO_CONTROLS` or
+`--classify` that the configuration does not reference, other than a reconciliation record admitted
+by the post-freeze route of R6.RECON.2 (part A of amendment 1, sec. 0.2: conditionally approved, pending independent review). VOID carries `CONFIG_NO_CONTROLS` or
 `PREFLIGHT_FAILED`. The class each integrity failure raises is confirmed by the conformance checks of
 OD-4 and RD-18; a difference is a verification defect.
 Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
@@ -1766,8 +1782,7 @@ adjudications, hit classifications, allow and deny rule files, scope records, si
 records, reconciliation records, PIN_OK entries outside `F`'s pin table, and the configuration itself.
 One record is one immutable file in the audit directory of sec. 19; in the amended plan's record
 directory (sec. 21), for records frozen with the plan; or in a reconciliation directory
-(R6.RECON.1), for reconciliation records and the side-change class records and review records that
-accompany them. Every record is read from the git object store
+(R6.RECON.1), for reconciliation records and their review records. Every record is read from the git object store
 by its full verified object id (R6.REC.17); the working tree is never read. The tool never writes a
 record.
 Sources: E-135, V1-063, V1-016, RV-019. Controls: LN1, S4a, O9.
@@ -1788,17 +1803,19 @@ review that cites only a passing tool run is invalid.
 Sources: E-136, V2-056, RV-019. Controls: O1, O2, O3, O5, O7, I2-5.
 
 **R6.REC.3** **Owner approval (procedural).** The ownership chain the tool checks is the writer, the
-independent reviewer and the frozen configuration's reference at `F`. The owner's approval of a
+independent reviewer and the frozen configuration's reference at `F`; for a reconciliation record
+admitted by the post-freeze route of R6.RECON.2, the conditions of that route take the place of the
+reference at `F` (part A of amendment 1, sec. 0.2: conditionally approved, pending independent review). The owner's approval of a
 record, of the configuration, of `F` and of a landing is given under AGENTS.md (sec. A.45 rule 3,
 A.50, A.51) and quoted with author and time in the record that relies on it (sec. A.42 item 7). The
 tool neither reads nor checks it, and no record kind, field, comment or host read represents it.
 Sources: E-137, V2-056. Controls: O9.
 
 **R6.REC.4** **Frozen configuration.** The configuration at `F` references by `{path, blob_sha256}`
-(sec. 25) every record and review record a run uses, other than a record admitted by the post-freeze
-route of R6.RECON.2 and its review record. That route admits only a reconciliation record or a
-side-change class record written after `F`; such a record is valid only for a side change on `M`, and
-it never changes a decision of op C on `X`.
+(sec. 25) every record and review record a run uses, other than a reconciliation record admitted by
+the post-freeze route of R6.RECON.2 and its review record (part A of amendment 1, sec. 0.2: conditionally approved, pending independent review). That route
+admits no other record kind; a record it admits is valid only for a side change on `M`, and it never
+changes a decision of op C on `X`.
 Sources: E-138, E-165. Controls: O8, N2, O9, POSTF-1.
 
 ### 11.2 Error classes by role
@@ -1824,8 +1841,9 @@ code raises precedes adoption; each difference found is a verification defect.
   for the consistency checks of sec. 29.
 - **A record whose blob matches its pin but whose content fails its lint or its review**, and a
   record supplied to the run (for example by `--classify`) that the configuration at `F` does not
-  reference, other than a record admitted by the post-freeze route of R6.RECON.2: FAIL
-  `record-invalid` (exit 20). An unreferenced record that this route does not admit is never used.
+  reference, other than a reconciliation record admitted by the post-freeze route of R6.RECON.2
+  (part A of amendment 1, sec. 0.2: conditionally approved, pending independent review): FAIL `record-invalid` (exit 20). An unreferenced
+  record that this route does not admit is never used.
 
 Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
 Sources: E-139, E-140, A-116. Controls: TR2, TR3, CHAIN-REFUSAL, ADM-CONFIG-AT-F, EI2, TR29-tool, O6,
@@ -1859,8 +1877,9 @@ following is FAIL `record-invalid`:
   widens the record it supersedes, its widening review);
 - a cycle in a `supersedes` chain;
 - ambiguous ancestry: two records superseding the same predecessor, among the records in the audit
-  directory and the plan's record directory at `F`, the records in the reconciliation directories
-  (R6.RECON.1) at the commits that supply the records the run reads, and the records the run reads; or a lineage with
+  directory and the plan's record directory at `F`, the records in every reconciliation directory
+  (R6.RECON.1) of `F`'s tree and, for a run that admits a record by the post-freeze route, of
+  `REV`'s tree (R6.RECON.2), and the records the run reads; or a lineage with
   two heads used in one run, a head being a record of the lineage that no other record the run reads
   (the records the configuration references and every record their chains name) supersedes;
 - a reused `record_id`.
@@ -2891,12 +2910,12 @@ real records. A self-test failure is VOID (70).
 | GATE-11 | released NOT RUN: RT-L2 reported NOT RUN while its release check holds | `status-not-allowed` |
 | GATE-12 | composite incomplete: S11-2 with S11-2c missing | `missing-id` |
 | GATE-13 | RT-L2 drafted record: the run uses an unreviewed reconciliation record (drift state unresolved) | `procedural-failed` |
-| GATE-14 | RT-L2 record bound to another M: reviewed record whose M blob differs from the run M | `procedural-failed` |
+| GATE-14 | RT-L2 record bound to another M: reviewed record naming an M other than the run's M | `procedural-failed` |
 | GATE-15 | RT-L2 partial coverage: reviewed bound record covering one of two drifted paths | `procedural-failed` |
 | GATE-16 | reference difference: RT-T0 with region_lines.count 214 against reference 215, every expect field met | holds, with `reference-difference` reported |
 | GATE-17 | malformed expectation file: unknown schema id, unknown field, or NOT RUN allowed without reason and release condition | ERROR 65 (`file-invalid`) |
 | GATE-18 | positive control: complete, correct records and evidence for a fixture with one row of each predicate kind and one allowed NOT RUN | holds |
-| GATE-19 | RT-L2 reconciled: reviewed record bound to the exact H, M and C blobs covering every drifted path | holds |
+| GATE-19 | RT-L2 reconciled: reviewed record naming the run's H, M and C (C = X = X_rep in RT-L2) covering every drifted path | holds |
 | GATE-20 | status/actual inconsistency: runner status FAIL with an actual that meets expect | `status-actual-inconsistent` |
 | GATE-21 | an unexpected survivor: a mutant whose row allows only KILLED recorded SURVIVED | `status-not-allowed` |
 | GATE-22 | a missing mutant: a MUT row with no mutation record | `missing-id` |
@@ -2950,12 +2969,17 @@ RT-L2, RT-O9, RT-O9-L2, TR45-opC, EI14-dispatch, TR45, EI14.
 | Result | Condition | Verdict |
 |---|---|---|
 | no drift | no `base-drift` at the predicted `M` | PASS |
-| validly reconciled | every drifted path is covered by a reviewed reconciliation record whose review passes record lint and which is bound to the exact `H`, `M` and `C` blobs of the run | PASS |
+| validly reconciled | every drifted path is covered by a reviewed reconciliation record whose review passes record lint and which is bound to the run as R6.RECON.21 states (its `ledger_base` the run's `H`; it names the run's `M` and `X`; its `m` and `x` the path's blobs at `M` and `C`) | PASS |
 | unresolved | anything else, including a drafted or unreviewed record | FAIL |
 
 RT-L2 is NOT RUN until a reviewed record exists. The RT-L2 PASS recorded by CI run 45569710442, made on
 a drafted record, does not establish the safeguard (sec. 31).
-Sources: OD-18, Q2. Controls: RT-L2, GATE-13, GATE-14, GATE-15, GATE-19.
+The gate's `rtl2` predicate compares the `H`, `M` and `C` each record names with the run's roles; in
+RT-L2 `X` = `C` = `X_rep`, so the record's `X` is compared as `C`. The per-path comparison of `m` and
+`x` is the tool's (RC2, RC8), tested by RTL2-BIND. The runner derives `review_lint_passes` from the
+run's result (no `record-invalid` item names the record or its review), never from its own statement
+(OBL-28, C-29).
+Sources: OD-18, Q2. Controls: RT-L2, GATE-13, GATE-14, GATE-15, GATE-19, RTL2-BIND.
 
 ### 16.10 Annex: invariant vocabulary
 
@@ -3764,12 +3788,12 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | GATE-11 | R6.GATE.13, R6.GATE.15, R6.CTRL.5, R6.CTRL.30 | gate self-test | decl | adv | released NOT RUN: RT-L2 reported NOT RUN while its release check holds |
 | GATE-12 | R6.GATE.2, R6.GATE.9, R6.GATE.13, R6.CTRL.1, R6.CTRL.2, R6.CTRL.30 | gate self-test | decl | adv | composite incomplete: S11-2 with S11-2c missing |
 | GATE-13 | R6.GATE.8, R6.GATE.13, R6.GATE.16, R6.CTRL.30, R6.RECON.21, R6.EVID.6 | gate self-test | decl | adv | RT-L2 drafted record: the run uses an unreviewed reconciliation record (drift state unresolved) |
-| GATE-14 | R6.GATE.8, R6.GATE.13, R6.GATE.16, R6.CTRL.30, R6.RECON.21 | gate self-test | decl | adv | RT-L2 record bound to another M: reviewed record whose M blob differs from the run M |
+| GATE-14 | R6.GATE.8, R6.GATE.13, R6.GATE.16, R6.CTRL.30, R6.RECON.21 | gate self-test | decl | adv | RT-L2 record bound to another M: reviewed record naming an M other than the run's M |
 | GATE-15 | R6.GATE.8, R6.GATE.13, R6.GATE.16, R6.CTRL.30, R6.RECON.21 | gate self-test | decl | adv | RT-L2 partial coverage: reviewed bound record covering one of two drifted paths |
 | GATE-16 | R6.GATE.1, R6.GATE.9, R6.GATE.13, R6.CTRL.30, R6.A1CFG.6, R6.EVID.2, R6.EVID.5 | gate self-test | decl | pos | reference difference: RT-T0 with region_lines.count 214 against reference 215, every expect field met |
 | GATE-17 | R6.GATE.2, R6.GATE.3, R6.GATE.4, R6.GATE.9, R6.GATE.13, R6.CTRL.30 | gate self-test | decl | adv | malformed expectation file: unknown schema id, unknown field, or NOT RUN allowed without reason and release condition |
 | GATE-18 | R6.GATE.11, R6.GATE.13, R6.GATE.14, R6.CTRL.30, R6.CORE.7, R6.A1CFG.7 | gate self-test | decl | pos | positive control: complete, correct records and evidence for a fixture with one row of each predicate kind and one allowed NOT RUN |
-| GATE-19 | R6.GATE.13, R6.GATE.16, R6.CTRL.30, R6.RECON.21, R6.EVID.6 | gate self-test | decl | pos | RT-L2 reconciled: reviewed record bound to the exact H, M and C blobs covering every drifted path |
+| GATE-19 | R6.GATE.13, R6.GATE.16, R6.CTRL.30, R6.RECON.21, R6.EVID.6 | gate self-test | decl | pos | RT-L2 reconciled: reviewed record naming the run's H, M and C (C = X = X_rep in RT-L2) covering every drifted path |
 | GATE-20 | R6.GATE.1, R6.GATE.5, R6.GATE.9, R6.GATE.13, R6.CTRL.30 | gate self-test | decl | adv | status/actual inconsistency: runner status FAIL with an actual that meets expect |
 | GATE-21 | R6.GATE.6, R6.GATE.10, R6.GATE.13, R6.CTRL.30 | gate self-test | decl | adv | an unexpected survivor: a mutant whose row allows only KILLED recorded SURVIVED |
 | GATE-22 | R6.GATE.6, R6.GATE.10, R6.GATE.13, R6.CTRL.30 | gate self-test | decl | adv | a missing mutant: a MUT row with no mutation record |
@@ -3817,12 +3841,12 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | OUT-EXPLAIN | R6.OUT.22 | to be implemented (tool revision) | proc | both | every subject carries an explanation with the fields of R6.OUT.22, its values checked against the run's inputs; a result missing one fails schema validation (the schema part is also tested by S7-schema-and-checker) (amendment 1, B1) |
 | OUT-ADAPTERS | R6.OUT.25 | to be implemented (tool revision) | decl | both | the blob hash of every input an adapter reads is listed in `adapters`; changing one input changes exactly its entry (amendment 1, B1) |
 | OUT-NOTRUNC | R6.OUT.28 | to be implemented (tool revision) | decl | both | every hit is listed: 5000 hit lines give 5000 items; one fewer gives 4999 (amendment 1, B1) |
-| POSTF-1 | R6.RECON.2, R6.REC.4 | to be implemented (tool revision) | decl | both | post-freeze route (R6.RECON.2): a reviewed reconciliation or side-change class record written after `F` for a path changed on `M` after `F`, named by `--classify REV:PATH`, is admitted in the `M` role and listed in `inputs.classify_records` with its review; without it the path is `base-drift` (amendment 1, B4) |
+| POSTF-1 | R6.RECON.2, R6.REC.4 | to be implemented (tool revision) | decl | both | post-freeze route (R6.RECON.2): a reviewed reconciliation record written after `F` for a path changed on `M` after `F`, read from a record commit `REV` whose single parent is `M` and named by `--classify REV:PATH`, is admitted and listed in `inputs.classify_records` with its review; without it the path is `base-drift` (amendment 1, B4) |
 | POSTF-2 | R6.RECON.2 | to be implemented (tool revision) | decl | adv | a post-freeze record covering a path that no commit on `M` after `F` changed: FAIL `record-invalid`; the restored case is the POSTF-1 input (amendment 1, B4) |
-| POSTF-3 | R6.RECON.2, R6.REC.5 | to be implemented (tool revision) | decl | adv | a record of another kind written after `F` and not referenced by the configuration: FAIL `record-invalid`, never used (amendment 1, B4) |
-| POSTF-4 | R6.RECON.2, R6.REC.7 | to be implemented (tool revision) | decl | adv | post-freeze review and lineage: no review, two reviews, a superseded record and ambiguous ancestry in the reconciliation directory at `REV` are each FAIL `record-invalid`; the restored case is the POSTF-1 input (amendment 1, B4) |
-| POSTF-5 | R6.RECON.2, R6.RECON.1 | to be implemented (tool revision) | decl | adv | a post-freeze record outside a reconciliation directory (under a tool-landing prefix, inside the plan's record directory) or with its review elsewhere: FAIL `record-invalid`; the restored case is the POSTF-1 input (amendment 1, B4) |
-| RTL2-BIND | R6.RECON.21 | to be implemented (tool revision) | proc | both | the binding clause of R6.RECON.21: a reviewed record that does not name the run's `M` and `X` leaves the drift state unresolved (synthetic configuration) (amendment 1, B4) |
+| POSTF-3 | R6.RECON.2, R6.REC.5 | to be implemented (tool revision) | decl | adv | a record of another kind written after `F` (hit classification, HP adjudication, side-change class record) or a review record named as the primary record, not referenced by the configuration: FAIL `record-invalid`, never used (amendment 1, B4) |
+| POSTF-4 | R6.RECON.2, R6.REC.7 | to be implemented (tool revision) | decl | adv | the record commit `REV` and lineage: `REV` tied to the run (single parent the record base, only reconciliation-directory files added, one `REV` per run, a full id); one review; record lint; supersession and ambiguous ancestry over every reconciliation directory of `REV`'s tree; at most one record naming the run's `M` per path. Each violation is FAIL `record-invalid` (an unverifiable object ERROR); the restored case is the POSTF-1 input (amendment 1, B4) |
+| POSTF-5 | R6.RECON.2, R6.RECON.1 | to be implemented (tool revision) | decl | adv | a post-freeze record outside a reconciliation directory (under a tool-landing prefix, inside the plan's record directory, at a ledgered or corpus path) or with its review elsewhere: FAIL `record-invalid`; the restored case is the POSTF-1 input (amendment 1, B4) |
+| RTL2-BIND | R6.RECON.21, R6.GATE.16 | to be implemented (tool revision) | proc | both | the binding clause of R6.RECON.21 and RT-L2's route: a reviewed record that does not name the run's `M` and `X`, fails record lint in harness mode, or is read from a `REV` not tied to the run leaves the drift state unresolved (synthetic configuration) (amendment 1, B4) |
 
 **Table 17.2. Record-directory mutants** (set `o9`; each row names the change and the controls
 that distinguish it; the results on the correct implementation and on the mutant are in the
@@ -4047,9 +4071,8 @@ Sources: A-009, A-020, A-023, A-024. Controls: RDIR-16, MUT:o9:RDIR-m4, TR48, Z9
 
 **R6.PLACE.5** A new audit directory under `verification/audits/` holds the rule files, scope records,
 HP, context and hit classification records, review records, and the tool's landing record of the
-real-tree runs with their commits, commands, counts and results. Reconciliation records, with the
-side-change class records and review records that accompany them, lie in a reconciliation directory
-(R6.RECON.1).
+real-tree runs with their commits, commands, counts and results. Reconciliation records and their
+review records lie in a reconciliation directory (R6.RECON.1).
 Sources: E-1294, V1-148, V2-115. Controls: none (placement; verified by review).
 
 **R6.PLACE.6** The plan's `delegation.json`, `hp.json`, `retirement-config.json`, rule files,
@@ -4491,29 +4514,47 @@ translation (`identity` or an offset); and the protected ranges at `M`, each wit
 and `sha256`. Its review record names the reviewer, under the ownership chain of sec. 11.
 Sources: V2-146. Controls: N3, N4, POSTF-5.
 
-**R6.RECON.2** **Post-freeze route.** A record written after `F` is allowed only for side changes on
-`M` that the freeze could not foresee. It is under the ownership chain of sec. 11, and it is admitted
-only if every condition below holds, each checked by the tool from git objects; otherwise it is FAIL
+**R6.RECON.2** **Post-freeze route** (part A of amendment 1, sec. 0.2: conditionally approved, pending independent review). A record written after `F`
+is allowed only for side changes on `M` that the freeze could not foresee. It is under the ownership
+chain of sec. 11, with the conditions below in place of the configuration's reference at `F`
+(R6.REC.3, R6.REC.4): for a record this route admits, the anchor at `F` is replaced, and `REV` takes
+the place of `F` as the reference commit of record lint. The route is part of the tool files that the
+configuration at `F` pins (R6.REC.18), so its rules are fixed at `F`. A record is admitted only if
+every condition below holds, each checked by the tool from git objects; otherwise it is FAIL
 `record-invalid` and is not used:
-- (a) its schema is `oi-reconciliation/1` or `oi-side-change-classes/1`; no other record kind is
-  admitted after `F`, except the review record of such a record;
-- (b) every path it covers (each path of a reconciliation record, each path a class of a side-change
-  class record pins) is changed by at least one commit on `M`'s first-parent chain that is not an
-  ancestor of `F`;
-- (c) it is named by `--classify REV:PATH`, with `REV` a full commit id read through the verified
-  reader (R6.REC.17); exactly one review record in the same directory of `REV`'s tree names its
-  blob, and that review is admitted for this record alone; no record in that directory of `REV`'s
-  tree supersedes it; and record lint (R6.REC.6, R6.REC.7) holds over the record and its review, with
-  `REV` in place of `F` in R6.REC.7's "at or before `F`";
-- (d) `PATH` and the path of its review record lie outside every prefix of the tool-landing class
-  and outside the plan's record directory, and neither is a ledgered or corpus path (R6.RECON.1);
-  that the directory lies under `verification/audits/` is placement, verified by review;
-- (e) it is used only in the `M` role (side-change classification, the reconciliation of
-  `base-drift`, RC11), and the comparison of R6.RECON.3 applies to it.
+- (a) **Kind.** Its schema is `oi-reconciliation/1`. No other record kind, a side-change class record
+  included, is admitted after `F`. Its review record is admitted for this record alone; a review
+  record named as the primary record is not admitted.
+- (b) **Paths.** Every path it covers is changed by at least one commit on `M`'s first-parent chain
+  that is not an ancestor of `F`.
+- (c) **The record commit `REV`.** It is named by `--classify REV:PATH`, and every `--classify` of the
+  run names the same `REV`. `REV` is a full commit id (40 hexadecimal characters) read through the
+  verified reader (R6.REC.17); it has exactly one parent, the run's record base, and its tree equals
+  that parent's tree except for regular files added inside reconciliation directories (R6.RECON.1).
+  The record base is the run's `M`, or, for a run on a predicted `M` (R6.RECON.21), the pinned `main`
+  commit `M0` it is built from. A `REV` that is not a full commit id is FAIL `record-invalid`; an
+  object the verified reader cannot read or verify is ERROR as R6.REC.17 states.
+- (d) **Review and lineage at `REV`.** Exactly one review record in the same directory of `REV`'s tree
+  names the record's blob. Record lint (R6.REC.6, R6.REC.7) holds over the record and its review,
+  with R6.REC.7's "at or before `F`" read as "present at its path in `REV`'s tree", and with
+  supersession and ambiguous ancestry evaluated over every record in every reconciliation directory
+  of `REV`'s tree; no record there supersedes it.
+- (e) **One record per path.** Among the reconciliation records in the reconciliation directories of
+  `REV`'s tree that name the run's `M`, at most one that no record there supersedes covers each path;
+  where two do, each is FAIL `record-invalid`, and the path stays `base-drift`.
+- (f) **Placement.** `PATH` and the path of its review record lie outside every prefix of the
+  tool-landing class and outside the plan's record directory, and neither is a ledgered or corpus
+  path (R6.RECON.1); that the directory lies under `verification/audits/` is placement, verified by
+  review.
+- (g) **Use.** It is used only to reconcile `base-drift` on `M` under RC1-RC13, and the comparison of
+  R6.RECON.3 applies to it.
 
-The result lists each record this route admits in `inputs.classify_records`, with its `rev`, path and
-sha256 and the path and sha256 of its review record. Configuration admission (R6.REC.16) and
-execution identity (R6.REC.18) are unchanged.
+A record this route admits names `M` (R6.RECON.1), so it is read from `REV` and is never a side change
+of the run. It and its review record reach `main` only after the landing they support, with `REV` a
+parent of the merge commit that brings them, so that every commit the run read is reachable from
+`main` (R6.EVID.7). The result records `REV` and lists each record this route admits in
+`inputs.classify_records`, with its path and sha256 and the path and sha256 of its review record.
+Configuration admission (R6.REC.16) and execution identity (R6.REC.18) are unchanged.
 Sources: E-1341, RV-027. Controls: O8, N2, POSTF-1, POSTF-2, POSTF-3, POSTF-4, POSTF-5.
 
 **R6.RECON.3** A reconciliation record names a ledgered or corpus path that both `M` and the retirement
@@ -4625,7 +4666,14 @@ Sources: E-1354. Controls: EI5, TR29, RT-L2.
 `M` that contains the tool's landing paths, with an in-memory landing (R6.TREE.15), at `X` = `C` =
 `X_rep` (R6.EVID.8). The reviewed reconciliation record names that `M` and so is not among its paths:
 the run names it from a commit outside the tool's landing paths, and it reaches `main` in a commit
-after the tool's landing commit. It requires every
+after the tool's landing commit. RT-L2 runs under control-harness admission and has no `F`. Its
+reconciliation record and review record reach the run only by `--classify REV:PATH` under conditions
+(a) and (c) to (g) of R6.RECON.2, with `M0` as the record base on a predicted `M` and the run's `M` on
+a re-run on `main` (R6.EVID.8); condition (b) reads: every path the record covers is a drifted path of
+the run. The reference commit of record lint (R6.REC.7) is `REV` for these records, and for a record
+the control instance pins it is the commit the record is read from. Record lint (R6.REC.6, R6.REC.7)
+runs on these records in harness mode as in chain mode; the tool revision in development skips it in
+harness mode (OBL-28, C-29), and RT-L2 is not released before C-29 holds. It requires every
 side change classified, and its drift state is one of three:
 - no drift: no `base-drift` at the predicted `M`; RT-L2 holds;
 - validly reconciled: every drifted path is covered by a reconciliation record whose review record
@@ -4640,6 +4688,7 @@ RUN, with that release condition; it is never PASS on a drafted record. The RT-L
 run 45569710442, made on a drafted record, does not establish the safeguard. The safeguard remains an
 outstanding obligation and a named blocker on the tool's landing (sec. 32, OBL-13) until RT-L2 is released and
 holds. RT-O9-L2 depends on it.
+Part D of amendment 1 (the binding names the run's `M` and `X`) is approved by the owner (sec. 0.2).
 Sources: E-1355, OC-3. Controls: RT-L2, RT-O9-L2, GATE-13, GATE-14, GATE-15, GATE-19, RTL2-BIND.
 
 ***
@@ -4785,8 +4834,9 @@ unless marked optional:
 - `hp_obligations`: `[{segment: [from, to], merges: [{pr, commit, first_parent}]}]`;
 - `delegation`: `{path, blob_sha256}` (`oi-delegation/1`) with `class_adapters: [{adapter,
   adapter_version, module: {path, blob_sha256}}]`, or null;
-- `records`: every record and review record the run may use, other than a record admitted by the
-  post-freeze route of R6.RECON.2 and its review record, `[{kind, path, blob_sha256}]`, including
+- `records`: every record and review record the run may use, other than a reconciliation record
+  admitted by the post-freeze route of R6.RECON.2 and its review record (part A of amendment 1, sec. 0.2: conditionally approved, pending independent review),
+  `[{kind, path, blob_sha256}]`, including
   the item-2 records `context-adjudications.json` and `hit-classifications.json` (sec. 22); a kind this
   design does not define, such as `oi-owner-authorization/1`, is ERROR `CONFIG_INVALID`;
 - `tool`: `{files: [{path, blob_sha256}], workflow: {path, blob_sha256}}`: every file of the tool (the
@@ -5072,8 +5122,9 @@ Sources: E-1450, E-1451, E-1452, E-1456. Controls: Z1, Z2, Z3, Z4, Z6, Z6b, Z8, 
   configuration is refused at admission first in a chain-admitted run (`CONFIG_UNREVIEWED`) and is
   `CONFIG_INVALID` in a control-harness run (RE-17 (ii));
 - a record whose blob matches its pin but whose content fails its lint or its review, or a record
-  passed with `--classify` that the configuration does not reference, other than a record admitted
-  by the post-freeze route of R6.RECON.2: FAIL `record-invalid`.
+  passed with `--classify` that the configuration does not reference, other than a reconciliation
+  record admitted by the post-freeze route of R6.RECON.2 (part A of amendment 1, sec. 0.2: conditionally approved, pending independent review): FAIL
+  `record-invalid`.
 
 All ERROR outcomes here exit 65. Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals. Sources: E-1453, E-1454, A-116, OD-4, RD-18. Controls: TR2, Z5,
 Y10, O6, I2-3, I2-4, Z1, TR29-tool, M3, M4, M5, TT5, O2.
@@ -5243,7 +5294,7 @@ that `H` and a ledger determine runs on a representative candidate `X_rep`, neve
   528f146d03b29cbc3d7dc29948e3dd1d4cd26f4d36e6e009f032e24f9462dec1); the controls use these pinned bytes,
   and their origin in `P` is provenance. For RT-T, the ledger and edit list frozen at `F`. Further: the class, rule and scope records of the tool
   revision; the configuration's control instance, a template landed with the tool revision whose pin of
-  the side-change class record is filled by the runner from the landed class record, so that the
+  the side-change class record is filled by the runner from the landed class record that heads its lineage in the tree of the run's `M`, so that the
   template names no blob that the class record pins and K1-GRAPH's acyclicity is kept; and, for the
   landing roles, a pinned `main` commit `M0`. No input is `T1'`, `P` or the tool commit
   a37992449b452021001277c06c524a30c92dfb87.
@@ -5273,7 +5324,14 @@ that `H` and a ledger determine runs on a representative candidate `X_rep`, neve
 - Reconciliation record placement. A reconciliation record names the `M` of its run (R6.RECON.1), so it
   cannot be among the paths of that `M`. For RT-L2 and RT-O9-L2 the reviewed record is therefore not a
   landing path of the tool: for the landing decision the run names it from a commit outside the tool's
-  landing paths, and it reaches `main` in a commit after the tool's landing commit.
+  landing paths, and it reaches `main` in a commit after the tool's landing commit. On a re-run with
+  `M` the `main` that holds the tool (kind 3), the records earlier runs used are on `M` and are side
+  changes of the run. They are classified by a side-change class record landed on `main` after them,
+  which pins each of them by blob, together with the class record it supersedes; the control
+  instance's class-record pin is filled from the class record that heads that lineage in `M`'s tree
+  (R6.TREE.5, R6.REC.7). The re-run's own reconciliation record names that `M` and is read from a
+  record commit `REV` whose single parent is `M` (R6.RECON.2, R6.RECON.21), so it is not a side change
+  of the re-run.
 - Evidence, per control:
 
 | Control | Candidate evidence for the landing decision | Reproducible evidence for the enduring claim |
@@ -5515,7 +5573,8 @@ E-017, E-1371, ME-8.
 
 **OBL-13** RT-L2 release. At `main`, `AGENTS.md` is `base-drift` and `.claude/settings.json` is an
 unclassified side change. RT-L2 is NOT RUN until a reviewed reconciliation record for `AGENTS.md`,
-bound to the exact `H`, `M` and `C` blobs of the run and passing record lint, and side-change class
+bound to the run as R6.RECON.21 states and passing record lint in harness mode (OBL-28, C-29), and
+side-change class
 records for the unclassified paths exist; it is then three-valued (sec. 23). RT-L2 runs at `X` = `C` =
 `X_rep` (R6.EVID.8): its verdict reads `H..M`, the ledgered and corpus path sets and the candidate's
 blobs on drifted paths, none of which depends on the identity or ancestry of `T1'`. The reviewed record
@@ -5735,6 +5794,7 @@ change until its distinguishing control holds under the gate, or the check it na
 | C-26 | R6.GATE.12 | testable requirements with no control | one control each |
 | C-27 | R6.TREE.12, R6.CTRL.29 | TT7's landing not asserted; TT8's PASS not asserted; TT2 not implemented | as R6.CTRL.29 |
 | C-28 | R6.GATE.10, OBL-24 | mutation evidence re-established for the changed code, changes of the killed set included | the MUT rows |
+| C-29 | R6.RECON.2, R6.RECON.21, R6.GATE.16, R6.REC.6, R6.REC.7 | in harness mode the tool revision in development (branch tools/a1-ledger-coverage-r6 at 6a6e200f, provenance) admits a record named by `--classify` without its review or lint and skips the chain lint of configuration-pinned reconciliation and class records; no runner computes the `review_lint_passes` that the gate's `rtl2` predicate reads | record lint run in harness mode on these records; RTL2-BIND's countercase of a reviewed record whose lint fails; `review_lint_passes` derived from the run's result |
 | Q12 | R6.HP.7, R6.REC.10 | adjudicated sites counted as `provenance-adjudicated`, distinct from `moved` and `authorized-replacement` and separately under `HP` and `RET`; `stale-adjudication` emitted | U14, RECLINT-ORPHAN |
 | RE-13 | R6.OUT.18 | the schema file lists the adopted named fields and the declared diagnostics | ACCEPT-SCHEMA |
 | RE-18 | R6.TREE.12 | a regeneration verification procedure for derived artifacts at `L` (a delegation class), specified explicitly and reviewed independently, in which the trusted checker establishes the expected output itself and compares bytes; the evaluated tree's claim of regeneration is never sufficient; REVIEW_REQUIRED until the procedure is specified, reviewed and passes (OC-4, open) | LC-7 (REVIEW_REQUIRED for every candidate `L`; its expected landing blob is open) |

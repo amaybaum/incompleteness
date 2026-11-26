@@ -16319,7 +16319,7 @@
    ],
    "runner": "gate self-test",
    "operations": [],
-   "case": "RT-L2 record bound to another M: reviewed record whose M blob differs from the run M",
+   "case": "RT-L2 record bound to another M: reviewed record naming an M other than the run's M",
    "expect": {
     "outcome": "GATE_FAIL",
     "exit": 20,
@@ -16429,7 +16429,7 @@
    "runner": "gate self-test",
    "operations": [],
    "direction": "positive",
-   "case": "RT-L2 reconciled: reviewed record bound to the exact H, M and C blobs covering every drifted path",
+   "case": "RT-L2 reconciled: reviewed record naming the run's H, M and C (C = X = X_rep in RT-L2) covering every drifted path",
    "expect": {
     "outcome": "GATE_HOLDS",
     "exit": 0,
@@ -21710,11 +21710,16 @@
    "expect": {
     "cases": [
      {
-      "case": "a reviewed reconciliation record and its review record in one reconciliation directory at REV, named by --classify REV:PATH, covering a ledgered path changed on M by a commit that is not an ancestor of F, every condition RC1-RC13 holding (positive)",
+      "case": "a reviewed reconciliation record naming the run's M and X and its review record, in one reconciliation directory of a record commit REV whose single parent is M and which adds only those two files, named by --classify REV:PATH, covering a ledgered path changed on M by a commit that is not an ancestor of F, every condition RC1-RC13 holding (positive)",
       "outcome": "ANY",
       "invariants": [
        {
         "record_admitted": "$record"
+       },
+       {
+        "not_class": [
+         "record-invalid"
+        ]
        },
        {
         "none": "items[class=record-invalid]"
@@ -21724,18 +21729,6 @@
        },
        {
         "equals": "inputs.classify_records lists the record with its rev, path and sha256 and the path and sha256 of its review record"
-       }
-      ]
-     },
-     {
-      "case": "a reviewed side-change class record and its review record at REV, pinning a path changed on M by a commit that is not an ancestor of F (positive)",
-      "outcome": "ANY",
-      "invariants": [
-       {
-        "record_admitted": "$record"
-       },
-       {
-        "none": "items[class=side-change-unclassified]"
        }
       ]
      },
@@ -21771,13 +21764,6 @@
        "record-invalid",
        "base-drift"
       ]
-     },
-     {
-      "case": "a reviewed side-change class record named by --classify REV:PATH one of whose pinned paths is changed on M only by commits that are ancestors of F",
-      "outcome": "FAIL",
-      "classes_include": [
-       "record-invalid"
-      ]
      }
     ]
    },
@@ -21786,6 +21772,11 @@
     "invariants": [
      {
       "record_admitted": "$record"
+     },
+     {
+      "not_class": [
+       "record-invalid"
+      ]
      }
     ]
    },
@@ -21815,6 +21806,21 @@
      },
      {
       "case": "a reviewed HP adjudication written after F, named the same way",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a reviewed side-change class record written after F, named the same way, pinning a path changed on M by a commit that is not an ancestor of F",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "side-change-unclassified"
+      ]
+     },
+     {
+      "case": "the review record of a reviewed reconciliation record named as the primary record by --classify REV:PATH",
       "outcome": "FAIL",
       "classes_include": [
        "record-invalid"
@@ -21862,18 +21868,80 @@
       ]
      },
      {
-      "case": "another record in that directory of REV's tree supersedes the record",
+      "case": "a review record whose reviewer equals the record's author",
       "outcome": "FAIL",
       "classes_include": [
        "record-invalid"
       ]
      },
      {
-      "case": "two records in the reconciliation directory at REV supersede the same predecessor",
+      "case": "a record in another reconciliation directory of REV's tree supersedes the record",
       "outcome": "FAIL",
       "classes_include": [
        "record-invalid"
       ]
+     },
+     {
+      "case": "two records in two different reconciliation directories of REV's tree supersede the same predecessor",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "the record's supersedes names a predecessor that is not present at its path in REV's tree",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a REV whose single parent is an earlier main commit than M, the superseding record being absent there",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a REV with two parents",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a REV whose tree differs from its parent's at a path outside every reconciliation directory",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "two --classify arguments naming different REVs",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "two reviewed records added by REV in two reconciliation directories, with different record_id values, both naming the run's M and covering one path, neither superseding the other",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "a REV that is an abbreviated commit id",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a REV naming a commit object whose content does not hash to its id",
+      "outcome": "ERROR",
+      "stop_class": "UNRESOLVABLE"
      }
     ]
    },
@@ -21882,6 +21950,11 @@
     "invariants": [
      {
       "record_admitted": "$record"
+     },
+     {
+      "not_class": [
+       "record-invalid"
+      ]
      }
     ]
    },
@@ -21917,6 +21990,20 @@
       ]
      },
      {
+      "case": "PATH a ledgered path",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "PATH a corpus path",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
       "case": "the review record in a directory other than the record's",
       "outcome": "FAIL",
       "classes_include": [
@@ -21930,6 +22017,11 @@
     "invariants": [
      {
       "record_admitted": "$record"
+     },
+     {
+      "not_class": [
+       "record-invalid"
+      ]
      }
     ]
    },
@@ -21941,7 +22033,8 @@
   {
    "id": "RTL2-BIND",
    "requirements": [
-    "R6.RECON.21"
+    "R6.RECON.21",
+    "R6.GATE.16"
    ],
    "runner": null,
    "operations": [
@@ -21994,6 +22087,34 @@
         ]
        }
       ]
+     },
+     {
+      "case": "countercase: the same record, in harness mode, with a review record whose reviewer equals the record's author (record lint fails)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ],
+      "invariants": [
+       {
+        "drift_state_in": [
+         "unresolved"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: the same record read from a REV whose single parent is neither M0 nor the run's M",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ],
+      "invariants": [
+       {
+        "drift_state_in": [
+         "unresolved"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -22007,7 +22128,8 @@
     "evidence": [
      "run result.json",
      "each reconciliation record used and its review record",
-     "the run's H, M, X and C"
+     "the run's H, M, X and C",
+     "the record commit REV and its parent"
     ]
    }
   }

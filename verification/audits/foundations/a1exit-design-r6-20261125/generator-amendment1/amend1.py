@@ -198,24 +198,48 @@ NEW_REQ_CONTROLS = dict((k, [v]) for k, v in NEW_REQ.items())
 NEW_REQ_CONTROLS['R6.OUT.22'] = ['S7-schema-and-checker', 'OUT-EXPLAIN']
 NEW_REQ_CONTROLS['R6.HP.5'] = ['HP-SEMCLASS', 'HP-RECORDS']
 
-# B4: design corrections for the B4 records (owner directions of 2026-11-26T04:52:48Z, #1169 comment 7182986451).
-# The text edits are the anchored entries of b4-design-edits.json; these are the control rows they name. Parts A
-# (post-freeze route) and D (binding to the run's M and X) need the owner's specific approval (sec. 0.2).
+# B4: design corrections for the B4 records (owner directions of 2026-11-26T04:52:48Z, #1169 comment 7182986451,
+# and the owner's decision on parts A to D of 2026-11-26). The text edits are the anchored entries of
+# b4-design-edits.json; these are the control rows they name. Part A (post-freeze route) is conditionally approved,
+# pending the independent review the owner requires; parts B and D are approved; part C is not adopted (sec. 0.2).
 B4 = 'B4; owner directions of 2026-11-26T04:52:48Z, #1169 comment 7182986451'
 B4_DIRECTIONS = {
     'record': '#1169 comment 7182986451', 'author': 'amaybaum', 'time': '2026-11-26T04:52:48Z',
+    # in the order of the source; None marks text left out
     'quotes': [
+        'Do not introduce multi-path reconciliation merely to accommodate #1560. We should avoid further expansion '
+        'of the verification tool when a simpler solution exists.',
+        None,
         "Record location | Keep reconciliation records outside the tool's landing paths. Resolve the contradictory "
         "design wording through independent review.",
         'M and X commit identifiers | Complete them when the actual commits exist, using independently reviewed '
         'superseding records.',
         'Records created after freezing | Investigate the conflict now. Do not bypass chain-mode validation or '
         'silently introduce an exception.',
+        None,
         'Include any necessary design corrections in the consolidated amendment where practical, rather than '
-        'creating another series of amendments.',
-        'Do not introduce multi-path reconciliation merely to accommodate #1560. We should avoid further expansion '
-        'of the verification tool when a simpler solution exists.']}
-POSTF_POS = {'outcome': 'ANY', 'invariants': [{'record_admitted': '$record'}]}
+        'creating another series of amendments.']}
+B4_PARTS_DECISION = {
+    'author': 'amaybaum', 'date': '2026-11-26', 'relayed_by': 'coordinating session',
+    'quotes': [
+        "A — Post-freeze record admission: Conditional approval, subject to independent review confirming that it "
+        "preserves the frozen verification contract. B — Record location: Approved. Keep records outside the "
+        "tool's landing paths and ledgered corpus. C — Reserved class: Agree with rejection. No unnecessary "
+        "expansion. D — M and X binding: Approved. Require both identifiers and the RTL2-BIND control.",
+        "The freeze should prevent changing the rules of verification, not prevent recording legitimate evidence "
+        "produced afterward. Post-freeze evidence admission is acceptable if: The admission rules themselves are "
+        "established before freezing. The frozen requirements and acceptance criteria remain unchanged. Evidence "
+        "identity, provenance and independent review are enforced. No unauthorized replacement or supersession is "
+        "permitted. All five new controls pass in both directions. If the independent reviewer finds that the "
+        "proposed mechanism permits changing the verification contract after freezing, return for a revised "
+        "decision.",
+        "RT-L2 — The harness-mode record-lint omission and undefined F/REV semantics must be resolved before final "
+        "acceptance. Do not treat them as harmless implementation details without establishing their effect on "
+        "verification soundness.",
+        "The consolidated amendment should resolve genuine contradictions without introducing further unnecessary "
+        "verification machinery."]}
+REC_ADMITTED = [{'record_admitted': '$record'}, {'not_class': ['record-invalid']}]
+POSTF_POS = {'outcome': 'ANY', 'invariants': REC_ADMITTED}
 REC_INVALID = {'outcome': 'FAIL', 'classes_include': ['record-invalid']}
 
 
@@ -228,57 +252,76 @@ def fcase(text, extra=None):
 
 B4_ROWS = [
     row('POSTF-1', ['R6.RECON.2', 'R6.REC.4'], ['execution'], 'declarative', 'both', {'cases': [
-        {'case': 'a reviewed reconciliation record and its review record in one reconciliation directory at REV, '
-                 'named by --classify REV:PATH, covering a ledgered path changed on M by a commit that is not an '
-                 'ancestor of F, every condition RC1-RC13 holding (positive)',
+        {'case': 'a reviewed reconciliation record naming the run\'s M and X and its review record, in one '
+                 'reconciliation directory of a record commit REV whose single parent is M and which adds only '
+                 'those two files, named by --classify REV:PATH, covering a ledgered path changed on M by a commit '
+                 'that is not an ancestor of F, every condition RC1-RC13 holding (positive)',
          'outcome': 'ANY',
-         'invariants': [{'record_admitted': '$record'}, {'none': 'items[class=record-invalid]'},
-                        {'none': 'items[class=base-drift]'},
-                        {'equals': 'inputs.classify_records lists the record with its rev, path and sha256 and the '
-                                   'path and sha256 of its review record'}]},
-        {'case': 'a reviewed side-change class record and its review record at REV, pinning a path changed on M by '
-                 'a commit that is not an ancestor of F (positive)',
-         'outcome': 'ANY',
-         'invariants': [{'record_admitted': '$record'}, {'none': 'items[class=side-change-unclassified]'}]},
+         'invariants': REC_ADMITTED + [{'none': 'items[class=record-invalid]'},
+                                       {'none': 'items[class=base-drift]'},
+                                       {'equals': 'inputs.classify_records lists the record with its rev, path and '
+                                                  'sha256 and the path and sha256 of its review record'}]},
         {'case': 'countercase: the same run without the reconciliation record',
          'outcome': 'FAIL', 'classes_include': ['base-drift']}]},
         None,
-        'post-freeze route (R6.RECON.2): a reviewed reconciliation or side-change class record written after `F` '
-        'for a path changed on `M` after `F`, named by `--classify REV:PATH`, is admitted in the `M` role and listed '
-        'in `inputs.classify_records` with its review; without it the path is `base-drift`', B4),
+        'post-freeze route (R6.RECON.2): a reviewed reconciliation record written after `F` for a path changed on '
+        '`M` after `F`, read from a record commit `REV` whose single parent is `M` and named by `--classify '
+        'REV:PATH`, is admitted and listed in `inputs.classify_records` with its review; without it the path is '
+        '`base-drift`', B4),
     row('POSTF-2', ['R6.RECON.2'], ['execution'], 'declarative', 'adversarial', {'cases': [
         fcase('a reviewed reconciliation record named by --classify REV:PATH whose covered path is changed on M only '
-              'by commits that are ancestors of F', ['base-drift']),
-        fcase('a reviewed side-change class record named by --classify REV:PATH one of whose pinned paths is '
-              'changed on M only by commits that are ancestors of F')]},
+              'by commits that are ancestors of F', ['base-drift'])]},
         POSTF_POS,
         'a post-freeze record covering a path that no commit on `M` after `F` changed: FAIL `record-invalid`; the '
         'restored case is the POSTF-1 input', B4),
     row('POSTF-3', ['R6.RECON.2', 'R6.REC.5'], ['execution'], 'declarative', 'adversarial', {'cases': [
         fcase('a reviewed hit-classification record written after F, named by --classify REV:PATH from a '
               'reconciliation directory'),
-        fcase('a reviewed HP adjudication written after F, named the same way')]},
+        fcase('a reviewed HP adjudication written after F, named the same way'),
+        fcase('a reviewed side-change class record written after F, named the same way, pinning a path changed on '
+              'M by a commit that is not an ancestor of F', ['side-change-unclassified']),
+        fcase('the review record of a reviewed reconciliation record named as the primary record by --classify '
+              'REV:PATH')]},
         {'outcome': 'RESULT_EQUAL_CLEAN', 'invariants': [{'baseline': 'the same run without the record'}]},
-        'a record of another kind written after `F` and not referenced by the configuration: FAIL `record-invalid`, '
-        'never used', B4),
+        'a record of another kind written after `F` (hit classification, HP adjudication, side-change class record) '
+        'or a review record named as the primary record, not referenced by the configuration: FAIL '
+        '`record-invalid`, never used', B4),
     row('POSTF-4', ['R6.RECON.2', 'R6.REC.7'], ['execution'], 'declarative', 'adversarial', {'cases': [
         fcase("no review record naming the record's blob in the same directory of REV's tree"),
         fcase("two review records naming the record's blob in that directory"),
-        fcase("another record in that directory of REV's tree supersedes the record"),
-        fcase('two records in the reconciliation directory at REV supersede the same predecessor')]},
+        fcase("a review record whose reviewer equals the record's author"),
+        fcase("a record in another reconciliation directory of REV's tree supersedes the record"),
+        fcase("two records in two different reconciliation directories of REV's tree supersede the same "
+              "predecessor"),
+        fcase("the record's supersedes names a predecessor that is not present at its path in REV's tree"),
+        fcase('a REV whose single parent is an earlier main commit than M, the superseding record being absent '
+              'there'),
+        fcase('a REV with two parents'),
+        fcase('a REV whose tree differs from its parent\'s at a path outside every reconciliation directory'),
+        fcase('two --classify arguments naming different REVs'),
+        fcase('two reviewed records added by REV in two reconciliation directories, with different record_id '
+              'values, both naming the run\'s M and covering one path, neither superseding the other',
+              ['base-drift']),
+        fcase('a REV that is an abbreviated commit id'),
+        {'case': 'a REV naming a commit object whose content does not hash to its id',
+         'outcome': 'ERROR', 'stop_class': 'UNRESOLVABLE'}]},
         POSTF_POS,
-        'post-freeze review and lineage: no review, two reviews, a superseded record and ambiguous ancestry in the '
-        'reconciliation directory at `REV` are each FAIL `record-invalid`; the restored case is the POSTF-1 input',
-        B4),
+        'the record commit `REV` and lineage: `REV` tied to the run (single parent the record base, only '
+        'reconciliation-directory files added, one `REV` per run, a full id); one review; record lint; supersession '
+        'and ambiguous ancestry over every reconciliation directory of `REV`\'s tree; at most one record naming the '
+        'run\'s `M` per path. Each violation is FAIL `record-invalid` (an unverifiable object ERROR); the restored '
+        'case is the POSTF-1 input', B4),
     row('POSTF-5', ['R6.RECON.2', 'R6.RECON.1'], ['execution'], 'declarative', 'adversarial', {'cases': [
         fcase('PATH under a prefix of the tool-landing class'),
         fcase("PATH inside the plan's record directory"),
+        fcase('PATH a ledgered path'),
+        fcase('PATH a corpus path'),
         fcase('the review record in a directory other than the record\'s')]},
         POSTF_POS,
         'a post-freeze record outside a reconciliation directory (under a tool-landing prefix, inside the plan\'s '
-        'record directory) or with its review elsewhere: FAIL `record-invalid`; the restored case is the POSTF-1 '
-        'input', B4),
-    row('RTL2-BIND', ['R6.RECON.21'], ['execution'], 'procedural', 'both', {'cases': [
+        'record directory, at a ledgered or corpus path) or with its review elsewhere: FAIL `record-invalid`; the '
+        'restored case is the POSTF-1 input', B4),
+    row('RTL2-BIND', ['R6.RECON.21', 'R6.GATE.16'], ['execution'], 'procedural', 'both', {'cases': [
         {'case': "a reviewed reconciliation record bound to the run: ledger_base the run's H, naming the run's M and "
                  "X, its m and x the path's blobs at the run's M and C (positive)",
          'outcome': 'PASS', 'invariants': [{'drift_state_in': ['reconciled']}]},
@@ -287,23 +330,52 @@ B4_ROWS = [
         {'case': "countercase: the same record naming a commit other than the run's X",
          'outcome': 'FAIL', 'invariants': [{'drift_state_in': ['unresolved']}]},
         {'case': 'countercase: the same record with M and X null',
-         'outcome': 'FAIL', 'invariants': [{'drift_state_in': ['unresolved']}]}]},
+         'outcome': 'FAIL', 'invariants': [{'drift_state_in': ['unresolved']}]},
+        {'case': "countercase: the same record, in harness mode, with a review record whose reviewer equals the "
+                 "record's author (record lint fails)",
+         'outcome': 'FAIL', 'classes_include': ['record-invalid'],
+         'invariants': [{'drift_state_in': ['unresolved']}]},
+        {'case': 'countercase: the same record read from a REV whose single parent is neither M0 nor the run\'s M',
+         'outcome': 'FAIL', 'classes_include': ['record-invalid'],
+         'invariants': [{'drift_state_in': ['unresolved']}]}]},
         None,
-        'the binding clause of R6.RECON.21: a reviewed record that does not name the run\'s `M` and `X` leaves the '
-        'drift state unresolved (synthetic configuration)', B4),
+        'the binding clause of R6.RECON.21 and RT-L2\'s route: a reviewed record that does not name the run\'s `M` '
+        'and `X`, fails record lint in harness mode, or is read from a `REV` not tied to the run leaves the drift '
+        'state unresolved (synthetic configuration)', B4),
 ]
 B4_ROWS[5][0]['procedure'] = {'name': 'rtl2-binding', 'lib': 'rtl2',
                               'evidence': ['run result.json', 'each reconciliation record used and its review record',
-                                           "the run's H, M, X and C"]}
+                                           "the run's H, M, X and C", 'the record commit REV and its parent']}
 B4_REQ_CONTROLS = {}
 for _r, _ in B4_ROWS:
     for _q in _r['requirements']:
         B4_REQ_CONTROLS.setdefault(_q, []).append(_r['id'])
-PENDING_A = ("amendment 1, B4 part A (post-freeze route of R6.RECON.2): needs the owner's specific approval; the "
-             "alternative is a new configuration version and a new freeze (R6.CFG.3)")
-PENDING_D = ("amendment 1, B4 part D (the binding names the run's M and X): needs the owner's specific approval")
-B4_PENDING = {'R6.REC.4': PENDING_A, 'R6.RECON.2': PENDING_A, 'R6.REC.5': PENDING_A, 'R6.CFG.4': PENDING_A,
-              'R6.OUT.5': PENDING_A, 'R6.VALID.3': PENDING_A, 'R6.RECON.21': PENDING_D}
+PENDING_A = ("amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally "
+             "approved by the owner (amaybaum, 2026-11-26), subject to an independent review confirming that it "
+             "preserves the frozen verification contract; if that review finds that it permits changing the "
+             "verification contract after F, it returns to the owner; no tool revision implements it before that "
+             "review accepts it")
+B4_PENDING = {'R6.REC.3': PENDING_A, 'R6.REC.4': PENDING_A, 'R6.RECON.2': PENDING_A, 'R6.REC.5': PENDING_A,
+              'R6.CFG.4': PENDING_A, 'R6.OUT.5': PENDING_A, 'R6.VALID.3': PENDING_A}
+_PARTS_RECORD = 'owner decision on B4 parts A to D of 2026-11-26 (amaybaum, coordinating session)'
+B4_OWNER_DECISION = {}
+for _q in ('R6.RECON.1', 'R6.REC.1', 'R6.PLACE.5', 'R6.REC.7'):
+    B4_OWNER_DECISION[_q] = {'decision': 'B', 'decision_basis': ['amendment 1, B4 part B (record location)'],
+                             'effect': "approved: records kept outside the tool's landing paths and ledgered corpus",
+                             'record': _PARTS_RECORD}
+for _q in ('R6.RECON.21', 'R6.GATE.16'):
+    B4_OWNER_DECISION[_q] = {'decision': 'D', 'decision_basis': ['amendment 1, B4 part D (M and X binding)'],
+                             'effect': 'approved: both identifiers and the RTL2-BIND control required',
+                             'record': _PARTS_RECORD}
+# GATE-14 and GATE-19 describe what the gate's self-test fixtures check: the H, M and C each record names against
+# the run's roles (in RT-L2, C = X = X_rep).
+GATE_CASE_TEXT = {
+    'GATE-14': ('RT-L2 record bound to another M: reviewed record whose M blob differs from the run M',
+                "RT-L2 record bound to another M: reviewed record naming an M other than the run's M"),
+    'GATE-19': ('RT-L2 reconciled: reviewed record bound to the exact H, M and C blobs covering every drifted path',
+                "RT-L2 reconciled: reviewed record naming the run's H, M and C (C = X = X_rep in RT-L2) covering "
+                "every drifted path"),
+}
 
 # B2: the 42 rows. Positive rows take a countercase (direction `both`), N10 and N11 pair, the rest a restored case.
 COUNTERCASES = {
@@ -396,6 +468,11 @@ def amend_expectations(E):
             raise SystemExit('new id %s already a row' % r['id'])
         rows.append(r)
         changes.append((r['id'], 'B4', 'new row for %s' % ', '.join(r['requirements'])))
+    for rid, (was, now) in sorted(GATE_CASE_TEXT.items()):
+        if by[rid].get('case') != was:
+            raise SystemExit('%s: case text differs from the base' % rid)
+        by[rid]['case'] = now
+        changes.append((rid, 'B4', 'case text: "%s" (part D; what the gate self-test checks)' % now))
     return E, changes
 
 
@@ -421,6 +498,8 @@ def amend_requirements(R):
         if by[rid]['pending_owner_confirmation']:
             raise SystemExit('%s: pending_owner_confirmation not empty' % rid)
         by[rid]['pending_owner_confirmation'] = [note]
+    for rid, dec in sorted(B4_OWNER_DECISION.items()):
+        by[rid]['owner_decision'] = by[rid]['owner_decision'] + [dec]
     return R
 
 
@@ -465,32 +544,75 @@ def apply_b4(t):
 
 def b4_note():
     d = B4_DIRECTIONS
+    pd = B4_PARTS_DECISION
     return (
         'B4 design corrections. The owner\'s directions on the questions raised by the B4 records are recorded at %s '
-        '(%s, %s). Quoted (table cells joined by " | ", table padding removed; each line prefixed by "> "):\n\n'
+        '(%s, %s). Excerpt, in the order of the source (table cells joined by " | ", table padding removed; each line '
+        'prefixed by "> "; "[...]" marks text left out, among it the rows on in-place record edits and on the four '
+        'unpinned tool files):\n\n'
         % (d['record'], d['author'], d['time'])
-        + '\n>\n'.join('> ' + x for x in d['quotes']) + '\n\n'
-        '- Part A, records written after `F` (needs the owner\'s specific approval). R6.REC.4 and R6.RECON.2 admit a '
-        'record written after `F`, while R6.REC.4, R6.REC.5, R6.CFG.4 (`records`), R6.OUT.5 and R6.VALID.3 require '
-        'the configuration at `F` to reference every record a run uses and make any other record `record-invalid`, '
-        'and R6.CFG.3 requires a new configuration version and a new freeze for any change to the configuration. '
-        'Chain-mode admission implements the second set, so the admission R6.RECON.2 states is unreachable. Part A '
-        'makes it reachable by the post-freeze route of R6.RECON.2, conditions (a) to (e), each checked by the tool '
-        'from git objects: only reconciliation and side-change class records with their review records, only for '
-        'paths changed on `M` after `F`, and only in the `M` role. Configuration admission, execution identity and '
-        'chain-mode validation are otherwise unchanged, and every other unreferenced record stays `record-invalid`. '
-        'Controls POSTF-1 to POSTF-5. The alternative, which adds no route, narrows R6.RECON.2 and R6.REC.4 to a new '
-        'configuration version and a new freeze (R6.CFG.3) for every record written after `F`; it needs a freeze '
-        '(AGENTS.md sec. A.50 item 5) whenever `M` gains a side change after `F` before the landing. The owner '
-        'chooses between them; until then part A is proposed text that no tool revision implements, and the '
-        'requirements it touches carry it in `pending_owner_confirmation`.\n'
-        '- Part B, record location (owner direction; independent review). R6.RECON.1, R6.REC.1 and R6.PLACE.5 placed '
-        'reconciliation records in the tool\'s audit directory, a prefix of the tool\'s landing paths (R6.PLACE.8), '
-        'while R6.RECON.21 and R6.EVID.8 require them outside those paths. They lie in a reconciliation directory '
-        '(R6.RECON.1), and R6.REC.7\'s ambiguous-ancestry scope includes those directories.\n'
-        '- Part D, binding (needs the owner\'s specific approval). R6.RECON.21\'s binding clause requires the record '
-        'to name the run\'s `M` and also its `X`, so that `M` and `X` completed by a superseding record are checked '
-        'against the run; control RTL2-BIND. It strengthens the clause and adds no requirement identifier.\n\n')
+        + '\n>\n'.join('> ' + (x if x is not None else '[...]') for x in d['quotes']) + '\n\n'
+        'The owner decided on parts A to D below (%s, %s, relayed by the %s). Excerpt: the four passages relayed, '
+        'in the order relayed, each line prefixed by "> ":\n\n' % (pd['author'], pd['date'], pd['relayed_by'])
+        + '\n>\n'.join('> ' + x for x in pd['quotes']) + '\n\n'
+        '- Part A, records written after `F` (conditionally approved; pending the independent review the owner '
+        'requires). R6.REC.4 and R6.RECON.2 admitted a record written after `F`, while R6.REC.4, R6.REC.5, R6.CFG.4 '
+        '(`records`), R6.OUT.5 and R6.VALID.3 require the configuration at `F` to reference every record a run uses '
+        'and make any other record `record-invalid`, and R6.CFG.3 requires a new configuration version and a new '
+        'freeze for any change to the configuration; chain-mode admission implements the second set, so the '
+        'admission R6.RECON.2 stated was unreachable. Part A resolves this by the post-freeze route of R6.RECON.2, '
+        'conditions (a) to (g), each checked by the tool from git objects. For a record the route admits, the '
+        'anchor of the ownership chain at `F` (the configuration\'s reference, R6.REC.3, R6.REC.4) is replaced by '
+        'those conditions, and `REV` takes the place of `F` as the reference commit of record lint. Each '
+        'requirement part A touches (R6.REC.3, R6.REC.4, R6.REC.5, R6.CFG.4, R6.OUT.5, R6.RECON.2, R6.VALID.3) '
+        'carries the pending status in its own text and in `pending_owner_confirmation`; marking the bodies was '
+        'chosen over keeping the normative text unchanged because the unchanged text contradicts itself. The route '
+        'admits reconciliation records only. Whether a reconciliation record applies is decided by RC1-RC13, which '
+        'the tool evaluates itself from git objects (R6.RECON.4), with RC12 requiring `changes_decisions_on_X` '
+        'empty, R6.RECON.3 requiring the same items on `X` with and without the record, and R6.RECON.19 keeping '
+        'the composition authoritative; its only statements the tool does not recompute, the protected ranges, can '
+        'only add failures (RC9). A side-change class record instead decides, by its reviewer\'s judgment, which '
+        'side changes are acceptable; admitting one after `F` would decide acceptance after `F`, so it is not '
+        'admitted, and a side change on `M` after `F` that no class record frozen at `F` covers needs a new '
+        'configuration version and a new freeze (R6.CFG.3). Against the owner\'s five conditions: (1) the admission '
+        'rules are part of the tool files the configuration at `F` pins (R6.REC.18), so they are fixed before `F`; '
+        '(2) no requirement or expectation changes after `F`, and a record the route admits makes nothing pass that '
+        'RC1-RC13, evaluated by the tool pinned at `F` from git objects, do not establish; (3) identity and provenance: the record is read by full id through the '
+        'verified reader from a record commit `REV` tied to the run (single parent the run\'s `M`, or `M0` for a '
+        'predicted `M`; only reconciliation-directory files added), the result records `REV`, the record and its '
+        'review with their sha256, and `REV` reaches `main` as a parent of a later merge; independent review: '
+        'exactly one review record, and record lint, in harness mode too (OBL-28, C-29); (4) supersession and '
+        'ambiguous ancestry are evaluated over every reconciliation directory of `REV`\'s tree, and at most one '
+        'unsuperseded record naming the run\'s `M` covers a path; the remaining freedom, a choice between two record '
+        'commits each a child of `M`, chooses only between records whose effect RC1-RC13 fix; (5) POSTF-1 to '
+        'POSTF-5 and RTL2-BIND each record both directions; none is implemented yet, so this condition is a '
+        'precondition of acceptance of the tool revision, not met by the design. Controls POSTF-1 to POSTF-5.\n'
+        '- Part B, record location (approved). R6.RECON.1, R6.REC.1 and R6.PLACE.5 placed reconciliation records in '
+        'the tool\'s audit directory, a prefix of the tool\'s landing paths (R6.PLACE.8), while R6.RECON.21 and '
+        'R6.EVID.8 require them outside those paths. They lie with their review records in a reconciliation '
+        'directory (R6.RECON.1), and R6.REC.7\'s ambiguous-ancestry scope includes those directories.\n'
+        '- Part C, a reserved side-change class for records in reconciliation directories (not adopted; the owner '
+        'agrees with the rejection). A record the post-freeze route admits names the run\'s `M` and is read from '
+        '`REV`, never from `M`, so it is not a side change of the run (R6.TREE.5 and R6.RDIR.10 are unchanged). '
+        'Records that earlier runs used and that reached `main` are side changes of a later run; they are classified '
+        'by a class record landed after them, which pins them by blob. For RT-L2 kind 3 (R6.EVID.8) that is a class '
+        'record landed on `main` that supersedes the one landed with the tool, and the control instance\'s '
+        'class-record pin is filled from the class record heading that lineage in `M`\'s tree.\n'
+        '- Part D, binding (approved). R6.RECON.21\'s binding clause requires the record to name the run\'s `M` and '
+        'also its `X`; control RTL2-BIND. R6.GATE.16 states the same binding, and the descriptions of GATE-14 and '
+        'GATE-19 state what the gate\'s `rtl2` predicate compares: the `H`, `M` and `C` each record names, where '
+        '`C` = `X` = `X_rep` in RT-L2. It strengthens the clause and adds no requirement identifier.\n'
+        '- RT-L2 record lint and reference commit. RT-L2 runs under control-harness admission and has no `F`. Its '
+        'reconciliation record reaches the run by `--classify REV:PATH` under R6.RECON.2 (a) and (c) to (g), with (b) '
+        'read as "every covered path is a drifted path of the run" (R6.RECON.21); the reference commit of record '
+        'lint is `REV`, and R6.REC.7\'s "at or before" reads "present at its path in `REV`\'s tree". In the tool '
+        'revision in development (6a6e200f, provenance), harness mode admits a `--classify` record without review or '
+        'lint and skips the chain lint of configuration-pinned reconciliation and class records, and no runner '
+        'computes the `review_lint_passes` value the gate\'s `rtl2` predicate reads. Effect on soundness: an RT-L2 '
+        'PASS from that revision would not establish that the record\'s review passes record lint, so it would not '
+        'establish the safeguard; no verdict rests on it, since RT-L2 is NOT RUN. The correction is OBL-28 C-29, '
+        'with RTL2-BIND\'s countercase of a reviewed record whose lint fails; RT-L2 is not released before C-29 '
+        'holds (OBL-13).\n\n')
 
 
 def amend_design(t, owner):
@@ -762,6 +884,8 @@ def change_record(changes, owner, outs, gen_sha, owner_sha):
         lines.append('| %s | B4 | controls: %s appended |' % (rid, ', '.join(ctl)))
     for rid, note in sorted(B4_PENDING.items()):
         lines.append('| %s | B4 | pending_owner_confirmation: "%s" |' % (rid, note))
+    for rid, dec in sorted(B4_OWNER_DECISION.items()):
+        lines.append('| %s | B4 | owner_decision: part %s, "%s" |' % (rid, dec['decision'], dec['effect']))
     lines += ['']
     lines += [
         '## 2. DESIGN-r6.md',
@@ -780,8 +904,9 @@ def change_record(changes, owner, outs, gen_sha, owner_sha):
         '| Table 17.1 | B1, B2 | 14 rows added after REP-BUILD; RT-L, RT-L2, RT-X, TT8 and TT13 direction `both`; '
         'S7-schema-and-checker names R6.OUT.22 |',
     ] + ['| %s | B4 | anchored design correction (b4-design-edits.json) |' % e['label'] for e in B4_EDITS] + [
-        '| sec. 0.2, R6.CTRL.3, Table 17.1 | B4 | the B4 directions quoted and parts A, B and D stated; the six B4 rows '
-        'counted and added to Table 17.1 after the B1 rows |'] * bool(B4_EDITS) + [
+        '| sec. 0.2, R6.CTRL.3, Table 17.1 | B4 | the B4 directions and the owner\'s decision on parts A to D quoted as '
+        'excerpts; parts A to D and the RT-L2 route stated; the six B4 rows counted and added to Table 17.1 after the '
+        'B1 rows |'] * bool(B4_EDITS) + [
         '',
         '## 3. Not changed by amendment 1',
         '',
@@ -794,17 +919,21 @@ def change_record(changes, owner, outs, gen_sha, owner_sha):
         '- The invariant vocabulary (153 keys): unchanged; every new invariant uses a listed key.',
         '- B4: the records themselves (reconciliation record and side-change class records) are drafted and '
         'reviewed on a separate branch; only the design text is corrected here.',
-        '- B4 parts A and D need the owner\'s specific approval before any tool revision implements them; their '
-        'requirements carry this in `pending_owner_confirmation`. Part A qualifies the rule that the configuration '
-        'at `F` references every record a run uses (R6.REC.4, R6.REC.5, R6.CFG.4, R6.OUT.5, R6.VALID.3) by the '
-        'checked post-freeze route of R6.RECON.2; the alternative that adds no route is a new configuration version '
-        'and a new freeze (R6.CFG.3) for every record written after `F`. Part B follows the owner\'s direction on '
-        'record location and needs independent review. Part D strengthens R6.RECON.21.',
-        '- Not adopted from the proposed B4 text: a reserved side-change class `admitted-record` classifying records '
-        'and review records in a reconciliation directory on `M`. A class record that is not itself on that `M` (one '
-        'frozen with the plan, or one the post-freeze route admits) already pins such files by blob without a hash '
-        'cycle (R6.TREE.5), so the class would widen the tool without need (owner direction: "We should avoid '
-        'further expansion of the verification tool when a simpler solution exists.").',
+        '- B4 part A is conditionally approved by the owner, subject to an independent review confirming that it '
+        'preserves the frozen verification contract; no tool revision implements it before that review accepts it, '
+        'and the requirements it touches carry this in their text and in `pending_owner_confirmation`. Part A '
+        'qualifies the rule that the configuration at `F` references every record a run uses (R6.REC.3, R6.REC.4, '
+        'R6.REC.5, R6.CFG.4, R6.OUT.5, R6.VALID.3) by the checked post-freeze route of R6.RECON.2, for '
+        'reconciliation records only; a side-change class record written after `F` needs a new configuration '
+        'version and a new freeze (R6.CFG.3). Parts B and D are approved by the owner and recorded in '
+        '`owner_decision`; part D strengthens R6.RECON.21 and R6.GATE.16.',
+        '- Not adopted from the proposed B4 text (part C; the owner agrees with the rejection): a reserved side-change '
+        'class `admitted-record` classifying records and review records in a reconciliation directory on `M`. A '
+        'record the post-freeze route admits names the run\'s `M` and is read from a record commit `REV` whose single '
+        'parent is the record base, never from `M`; records earlier runs used are classified on a later `M` by a class '
+        'record landed after them, which pins them by blob without a hash cycle (R6.TREE.5, R6.EVID.8). The class '
+        'would widen the tool without need (owner direction: "We should avoid further expansion of the verification '
+        'tool when a simpler solution exists.").',
         '',
         '## 4. Outputs',
         '',
