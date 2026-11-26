@@ -66,7 +66,7 @@ verification.
   WITH NITS,** findings 1–8 (seven nits and one minor finding, on the labelling of Corollary Pα).
   It re-derived Theorem P line by line, Lemma G with identity (★), the three witnesses and the
   claim about unit A's Proposition B, found no mathematical error, and reproduced the controls
-  byte for byte.
+  byte for byte (39 PASS lines at that commit, before N1–N5 were added).
 - **Comment 7201224484, confirmation review at `6dd8de26`: ACCEPT WITH NITS,** four minor nits.
   It confirmed the eight nits applied, reran `python3 -I controls.py` (exit status 0, output
   byte-identical, 56 PASS lines, no FAIL) and recomputed each negative control's target predicate.
@@ -156,11 +156,11 @@ The remediation plan below authorizes no work (§A.45 rule 3).
 | Claim class | Where | Status | Missing verification | Accountable Issue | What would resolve it |
 |---|---|---|---|---|---|
 | Theorem P; Lemmas C, S, M, G, K; Corollary P3 | report §2–§3 | partially verified: paper proof, model-reviewed | independent non-model review, in particular of Lemma S(b) (the pushforward Riemann–Lebesgue step and the analytic non-degeneracy of Θ) | #1217 | a recorded independent review; optionally a Lean formalization of Lemmas C and S |
-| Corollary P3′ | report §3 | conditional on [I-Stein], recalled and not re-checked against its source; the first review matched it to the reviewer's recollection only | a check of [I-Stein] against Ross 2011, Theorem 3.5 | #1217 | a recorded source check |
-| Corollary Pα | report §3 | conditional on the stated hypothesis H-αCLT; no source theorem pinned | a specific source theorem with its indexing of α, or a proof of H-αCLT | #1217 | a pinned theorem or a written proof |
+| Corollary P3′ (open node N3) | report §3, §11 | conditional on [I-Stein], recalled and not re-checked against its source; the first review matched it to the reviewer's recollection only | a check of [I-Stein] against Ross 2011, Theorem 3.5 | #1217 | a recorded source check |
+| Corollary Pα (open node N3) | report §3, §11 | conditional on the stated hypothesis H-αCLT; no source theorem pinned | a specific source theorem with its indexing of α, or a proof of H-αCLT | #1217 | a pinned theorem or a written proof |
 | Identity (★) and the witnesses ρ_0, ρ_D, ρ_K, including identifiability of finite Gaussian mixtures | report §4 | partially verified: paper proofs, model-reviewed; the identities spot-checked exactly on small tori | independent review of the general symbol-calculus proofs and of the identifiability step | #1217 | a recorded independent review |
-| Exact controls E1–E18, N1–N5 | `controls.py`, `controls-output.txt` | reproduced: exit status 0, 56 PASS lines, output byte-identical, by the reviews at `fed502cd`, `6dd8de26` and `81d55c71` and by the writer of this record at `0a7d653e` | none for what they check; they certify the identities only on the tori and parameters listed in report §4 | #1217 | none; they do not stand in for the general proofs |
-| K1 and K0 | report §5 | open | a proof, or a non-Gaussian F-invariant translation-mixing law with finite moments violating SMD | #1217 | either |
+| Exact controls E1–E18, N1–N5 | `controls.py`, `controls-output.txt` | reproduced, exit status 0 and output byte-identical: 39 PASS lines by the review at `fed502cd`, before N1–N5 were added; 56 PASS lines by the reviews at `6dd8de26` and `81d55c71`, and by the writer of this record at `0a7d653e`, where `controls.py` and `controls-output.txt` are unchanged from `81d55c71` | none for what they check; they certify the identities only on the tori and parameters listed in report §4 | #1217 | none; they do not stand in for the general proofs |
+| K1 and K0 (open node N1) | report §5, §11 | open | a proof, or a non-Gaussian F-invariant translation-mixing law with finite moments violating SMD | #1217 | either |
 | Premise audit | report §6 | partially verified: model-reviewed | independent review | #1217 | a recorded independent review |
 | Unstated state conditions L-SDS, K2, moment bounds; source of K2 and L-SDS (N5) | report §6, §8, §11 | not stated in SM; not adopted | a derivation from stated premises, or an owner decision on a premise | #1217; #1049 for the offset-free branch | a written derivation, or an owner decision |
 | Open nodes N2 (μ = 1), N4 (offset), N6 (torus) | report §11 | open | derivation | N2, N6: #1217; N4: #1049 | a written derivation or counterexample |
@@ -205,9 +205,10 @@ commits reachable from `main`:
 
 That `PLAN.md`'s commit precedes every report commit is part of the record's provenance.
 
-The owner decision of 2026-11-26T19:52Z, item 3, makes preservation subject to the record's
-remaining verification and landing requirements, and keeps every existing gate in force. Merging
-needs the owner's approval (§A.50 item 1).
+The owner decision of 2026-11-26T19:52Z, item 3 ("Preserve #1612, #1614 and #1611 at their
+reviewed landing heads, subject to their remaining verification and landing requirements"), is the
+owner's approval of this merge (§A.50 item 1), subject to the review of this file and green CI. The
+same decision keeps every existing gate in force.
 
 ## 6. Preservation rationale
 
@@ -226,9 +227,9 @@ It establishes, on Z^d with 0 < abs(μ) < 1 on the linear offset-free branch:
 
 It does not source SMD from SM's stated premises: it trades SMD for named unstated state
 conditions with an explicit failure mode. It is substantive and nonredundant with units A and C
-and lane 2, it is independently reviewed, its exact controls reproduce, and its open gaps carry the
-remediation plans of §3. Its findings for routing (report §12) are listed there and edit no other
-record.
+and lane 2, it is independently reviewed by the model reviews of §1, its exact controls
+reproduce, and its open gaps carry the remediation plans of §3. Its findings for routing (report
+§12) are listed there and edit no other record.
 
 ## 7. Standing of this record
 
