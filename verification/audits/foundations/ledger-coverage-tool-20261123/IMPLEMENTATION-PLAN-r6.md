@@ -1017,3 +1017,23 @@ carries items of lines the row does not touch.
   expectation rows yet).
 - The synthetic configuration's line-patch adapter states each patched file's `expected_sha256` and its raw entries
   (owner approval of option 1 with its safeguards), so that a reconciliation record can bind to the synthetic ledger.
+
+## 17. Amendment 3 (WIP / UNVERIFIED)
+
+Adopted at 38c6ef53 (#1169 comment 7185562871, item 1). Implemented: schema `oi-reconciliation/2` with per-entry
+`ledger_binding`; entries without splices for unledgered corpus paths; RC14 (a) with line windows, widened for a corpus
+path to the lines of the splitter-v2 sentences over the splice's lines (an implementation reading: sentence windows
+rounded to whole lines, at least as strict as byte-exact sentence windows); RC10 and RC11 over the locally valid
+entries; the form of `scientific_effect` and its `no-effect` verdict as a condition of applying; one disposition per
+drifted ledgered or corpus path with its category (1, or 2 from RC14 computed from git objects alone), checked by the
+schema check; the class `retirement-blocked`; the allowlist additions. The key of a category-3 finding is one function
+(`edit_key`), and the record base one method (`Scope.record_bases`), so that amendment 4 can change them alone.
+
+Not yet implemented: RC14 (b), retained sites through the site map; resolutions (category 2 reconciled-resolved,
+RECON-OVERLAP); the reconciled-state trial (RECON-TRIAL, the RT-L2 part included); the category-3 scan of `M`'s tree and
+the read records for findings with the run-level `retirement-blocked` item (RECON-BLOCK); the review-dependent
+RECON-SCI cases; the B4 records in schema `oi-reconciliation/2` (outside this branch).
+
+For the owner: RECON-ENUM's first case states two reconciled paths and one base-drift path among three drifted
+ledgered paths with two covered; RC10 as amended fails for every entry when a drifted ledgered file is covered by no
+locally valid entry, so the tool gives three base-drift dispositions.
