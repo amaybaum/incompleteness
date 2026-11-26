@@ -53,6 +53,7 @@ RESULTS = []
 REC = control_records.Recorder('conformance', None)
 RUNS = {}
 ATTESTED = {}
+PROCEDURES = {}
 WORKFLOW = os.path.join(os.path.dirname(tools), '.github', 'workflows', 'ledger-coverage.yml')
 
 
@@ -73,8 +74,12 @@ def record(cid, expected, predicate, actual, status, cases=None, attested=None, 
     RUNS.setdefault(cid, []).extend(runs)
 
 
-def check(cid, expected, predicate, actual, holds, cases=None, attested=None, baseline_of=None):
+def check(cid, expected, predicate, actual, holds, cases=None, attested=None, baseline_of=None, files=None,
+          procedure=None):
+    """`files` and `procedure`: evidence files and the procedure inputs naming them (R6.GATE.8)."""
     record(cid, expected, predicate, actual, 'PASS' if holds else 'FAIL', cases, attested, baseline_of)
+    if files is not None or procedure is not None:
+        PROCEDURES[cid] = (files, procedure)
 
 
 def not_run(cid, expected, why):
@@ -2601,8 +2606,9 @@ def write(out_root):
             continue
         done.add(rrec['id'])
         REC.pending = RUNS.get(rrec['id'], [])
+        files, proc = PROCEDURES.get(rrec['id'], (None, None))
         REC.record(rrec['id'], rrec['status'], rrec['actual'], rrec['predicate'] or rrec['expected'],
-                   attested=ATTESTED.get(rrec['id']))
+                   attested=ATTESTED.get(rrec['id']), files=files, procedure=proc)
     REC.write()
     return doc
 

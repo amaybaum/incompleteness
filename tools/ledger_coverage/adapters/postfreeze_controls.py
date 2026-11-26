@@ -128,6 +128,21 @@ def listing_ok(res, path):
         bool((rows[0].get('review') or {}).get('path')) and bool((rows[0].get('review') or {}).get('sha256'))
 
 
+def rtl2_inputs(res, w, path, doc):
+    """The rtl2 procedure's inputs, derived from the run's result: the drifted paths (side changes of class
+    base-drift), each reconciliation record the run used with `reviewed` and `review_lint_passes` (no record-invalid
+    item names the record or its review) and the H, M and C it names, and the run's roles (C = X)."""
+    items = (res or {}).get('items') or []
+    names = {i.get('subject') for i in items if i.get('class') == 'record-invalid'}
+    lint_ok = path not in names and (path[:-5] + '.review.json') not in names
+    used = [x for x in ((res or {}).get('inputs') or {}).get('classify_records') or [] if x.get('path') == path]
+    drift = sorted(x.get('path') for x in (res or {}).get('side_changes') or [] if x.get('class') == 'base-drift')
+    recs = [{'path': e.get('path'), 'reviewed': bool(used and used[0].get('review')), 'review_lint_passes': lint_ok,
+             'H': (doc.get('ledger_binding') or {}).get('ledger_base'), 'M': doc.get('M'), 'C': doc.get('X')}
+            for e in doc.get('paths') or []]
+    return {'drift': drift, 'records': recs, 'roles': {'H': w.syn.H, 'M': w.M, 'C': w.X}}
+
+
 def postf_controls(r, check):
     out = {}
     # POSTF-1 (both directions)
@@ -354,9 +369,13 @@ def postf_controls(r, check):
     resb, namesb = {}, []
     wb = World(r)
 
+    proc_in = {}
+
     def bind_case(name, doc=None, reviewer=sf.REVIEWER, parent=None):
         rv, pth, data = wb.standard(doc, reviewer=reviewer, parent=parent)
         code, res = wb.run(['%s:%s' % (rv, pth)], harness=True)
+        if name == BIND[0]:
+            proc_in.update(rtl2_inputs(res, wb, pth, json.loads(data)))
         sc = [x for x in (res or {}).get('side_changes') or [] if x.get('path') == sf.DOC]
         state = 'reconciled' if sc and sc[0].get('reconciled') else ('none' if not sc else 'unresolved')
         resb[name] = {'exit': code, 'classes': classes(res), 'drift_state': state, 'invalid': invalid(res, pth),
@@ -374,7 +393,11 @@ def postf_controls(r, check):
     check('RTL2-BIND', "the binding of R6.RECON.21 in the control harness: only a reviewed record naming the run's M "
           "and X, passing record lint and read from a REV tied to the run, reconciles", 'positive reconciled and PASS; '
           'every countercase unresolved', resb, okb, cases=namesb,
-          attested={n: {'drift_state_in': [v['drift_state']]} for n, v in resb.items()})
+          attested={n: {'drift_state_in': [v['drift_state']]} for n, v in resb.items()},
+          files={'rtl2-drift.json': proc_in['drift'], 'rtl2-records.json': proc_in['records'],
+                 'rtl2-roles.json': proc_in['roles']},
+          procedure={'name': 'rtl2-binding', 'lib': 'rtl2', 'drift': 'rtl2-drift.json',
+                     'records': 'rtl2-records.json', 'roles': 'rtl2-roles.json'})
     return out
 
 
