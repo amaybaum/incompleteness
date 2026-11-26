@@ -1680,7 +1680,8 @@ Other work follows this file: work packages under §A.51, GitHub writes under §
 
 Adopted 2026-11-23 by owner decision (`amaybaum`, coordinating session); item 2 amended, items 5
 and 6 added and the closing line reworded 2026-11-24 by owner decision (`amaybaum`, #1169 comment
-7124456482).
+7124456482); item 3's exception for fully merged branch references added 2026-11-26 by owner
+decision (`amaybaum`, #1169 comment 7202467295), drafted under #1169 comment 7202329986, item 3.
 
 ***
 
@@ -1751,7 +1752,9 @@ permission broader than the instruction grants.
 Adopted 2026-11-24 by owner decision (`amaybaum`, #1169 comment 7124456482); items 2 and 5
 amended 2026-11-25 by owner decision (`amaybaum`, #1169 comment 7171625550), to let a
 difference that §A.49 rule 2's allowlist permits pass a validation write, and to confine a §A.49
-mismatch to the failed operation where §A.49 rule 3 does.
+mismatch to the failed operation where §A.49 rule 3 does; item 3 amended 2026-11-26 by owner
+decision (`amaybaum`, #1169 comment 7202467295), to admit a leased deletion of a branch reference
+under §A.50 item 3's exception.
 
 ***
 
