@@ -448,7 +448,10 @@ class Cumulative:
         """Positive evidence for one predecessor hop of the set-wide pairing, from anywhere in R*: the predecessor at
         its exact reference, one accepting ordinary review in its directory naming that reference, a widening review
         of it where one is required, and the same for its own predecessors. Returns the entries, or None when R*
-        holds no such evidence. Reviews are tried one at a time, so an adverse review is never read with it."""
+        holds no such evidence. Reviews are tried one at a time, so an adverse review is never read with it. The
+        widening reviewer's independence from the record's own reviewers is judged against the chosen ordinary
+        review only, not against every ordinary review of the predecessor in R*; this leans toward detecting a
+        finding (over-detection, the fail-closed direction)."""
         key = (pref.get('path'), pref.get('blob_sha256'))
         if key in seen:
             return None
@@ -485,16 +488,22 @@ class Cumulative:
         return None
 
     def _bytes_of(self, ref):
-        for ents in self.subtrees.values():
-            for p, _m, o in ents:
-                if p == ref.get('path') and self.info[o][0] in ('candidate', 'record') and \
-                        self.info[o][1] == ref.get('blob_sha256'):
-                    b = self.repo.read_blob_uncached(o)
-                    try:
-                        return b, json.loads(b.decode('utf-8'))
-                    except (ValueError, UnicodeDecodeError):
-                        return None
-        return None
+        """(bytes, doc) of the reconciliation record of R* at exactly {path, blob_sha256}, from an index of R*'s
+        records by reference built once."""
+        if getattr(self, '_by_ref', None) is None:
+            self._by_ref = {}
+            for ents in self.subtrees.values():
+                for p, _m, o in ents:
+                    if self.info[o][0] in ('candidate', 'record'):
+                        self._by_ref.setdefault((p, self.info[o][1]), o)
+        o = self._by_ref.get((ref.get('path'), ref.get('blob_sha256')))
+        if o is None:
+            return None
+        b = self.repo.read_blob_uncached(o)
+        try:
+            return b, json.loads(b.decode('utf-8'))
+        except (ValueError, UnicodeDecodeError):
+            return None
 
     def reviews_naming(self, ref, directory=None):
         """[(path, doc)] of every review record in R* whose `reviewed` names `ref` exactly (path and blob), only in

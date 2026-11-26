@@ -385,7 +385,7 @@ class ChainWorld:
             ra.transition_roles, ra.authorized_record_directories = saved
         res = res or {}
         return code, (res.get('stop') or {}).get('class'), (res.get('stop') or {}).get('message', ''), \
-            res.get('transition'), F
+            res.get('transition'), F, res
 
 
 def role_chain(root):
@@ -739,6 +739,46 @@ def first_allow(root):
          got, got == [])
 
 
+def first_allow_admission(root):
+    """The designated allow root on the ordinary admission path: the configuration's rule file is the designated root
+    (transition in play), with its ordinary review and its widening review (replaces: null) as records; the rule-file
+    lint refuses a widening review that lists an item twice (record-invalid)."""
+    from ledger_coverage.engine import rules as rulemod
+    W = ChainWorld(root)
+    pats, allow = W.syn.rule_files()
+    doc = dict(allow, record_id='a1-staging-w1-w2', supersedes=None)
+    ab = sf.jb(doc)
+    pb = sf.jb(pats)
+    B, tip = W.chain(b_extra={ALLOW_ROOT: ab})
+    changed = rulemod.file_widening(None, doc)
+    ordinary = sf.jb(review_doc(ALLOW_ROOT, ab))
+
+    def run(dup):
+        verdicts = [{'item': i, 'verdict': 'accept'} for i in changed]
+        wide = sf.jb({'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': sf.WIDENER,
+                      'reviewed': {'path': ALLOW_ROOT, 'blob_sha256': sf.sha(ab)}, 'replaces': None,
+                      'method': 'read the initial allow rules', 'verdicts': verdicts + (verdicts[:1] if dup else [])})
+        files = {'syn/cfg/allow-root.review.json': ordinary, 'syn/cfg/allow-root.widening.json': wide}
+        recs = [{'kind': 'review', 'path': q, 'blob_sha256': sf.sha(b)} for q, b in sorted(files.items())]
+        c, p, s_, _ = W.config(tip, None, B, extra_files=files, records_extra=recs,
+                               variant={'extra': {'rules': [{'path': 'syn/rules-pat.json', 'blob_sha256': sf.sha(pb)},
+                                                            {'path': ALLOW_ROOT, 'blob_sha256': sf.sha(ab)}]}})
+        got = W.run(c, p)
+        res = got[5]
+        inv = [d for i in res.get('items', []) if i['class'] == 'record-invalid' and i.get('subject') == ALLOW_ROOT
+               for d in (i.get('detail') or [])]
+        return got[:3], inv, (res.get('transition') or {}).get('tips', {}).get('allow')
+    ok_run, ok_inv, ok_tip = run(False)
+    bad_run, bad_inv, _ = run(True)
+    case('STAGING-FIRST-ALLOW/16', 'on the ordinary admission path, the designated allow root pinned as a rule file with '
+                                   'its ordinary review and a widening review (replaces: null) covering each initial '
+                                   'allow rule once: admitted, the root not record-invalid; the same widening review '
+                                   'listing an item twice: the root is record-invalid (more than one verdict)',
+         {'ok': [ok_run, ok_inv, ok_tip], 'dup': [bad_run, bad_inv]},
+         ok_run[1] is None and not ok_inv and ok_tip == {'path': ALLOW_ROOT, 'blob_sha256': sf.sha(ab)} and
+         bad_run[1] is None and any('more than one verdict' in d for d in bad_inv))
+
+
 # ---- K1-GRAPH: acyclic layout and the two cycle countercases -----------------------------------------------------
 
 def k1_layout(root):
@@ -781,7 +821,8 @@ def k1_layout(root):
 
 
 SUITES = [('item2-engine', item2_engine), ('item2-gate', item2_gate), ('role-chain', role_chain),
-          ('config-reviews', config_reviews), ('config-widening', config_widening), ('first-allow', first_allow), ('k1-layout', k1_layout)]
+          ('config-reviews', config_reviews), ('config-widening', config_widening), ('first-allow', first_allow),
+          ('first-allow-admission', first_allow_admission), ('k1-layout', k1_layout)]
 
 
 def main(out):

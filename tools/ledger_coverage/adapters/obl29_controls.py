@@ -701,6 +701,32 @@ def pairing_predecessor_controls(r):
          blocked(o_norm, False, c1) and not blocked(o_mut, False, c1))
 
 
+def pairing_review_order_control(r):
+    """Half (b): the predecessor P has an adverse review that sorts first and a later accepting review in the same
+    directory; the hop tries each review alone, so P is accepted on the accepting one and f is detected."""
+    w = pfc.World(r)
+    doc = pfc.invalidating(w, sf.DOC)
+    P = w.record(record_id=doc['record_id'])
+    pb = pfc.jb(P)
+    PP = pfc.RD + 'predecessor.json'
+    ids = rec.item_ids(P)
+    adverse = pfc.jb({'schema': rec.review_schema, 'reviewer': 'reviewer-z',
+                      'reviewed': {'path': PP, 'blob_sha256': sf.sha(pb)}, 'method': 'read',
+                      'verdicts': [{'item': i, 'verdict': 'reject' if k == 0 else 'accept'}
+                                   for k, i in enumerate(ids)]})
+    step(w, {PP: pb, pfc.RD + 'a-adverse.review.json': adverse,
+             pfc.RD + 'b-accept.review.json': w.review(PP, pb)}, 'P with an adverse and an accepting review')
+    doc['supersedes'] = {'path': PP, 'blob_sha256': sf.sha(pb)}
+    b = pfc.jb(doc)
+    c1 = step(w, {FP: b}, 'f supersedes P, lands unreviewed')
+    step(w, {FP: None}, 'f is deleted')
+    step(w, {FP[:-5] + '.review.json': w.review(FP, b)}, "f's accepting review lands")
+    o = outcome(w)
+    case('SET-PAIRING-PREDECESSOR-REVIEW-ORDER', 'P\'s adverse review sorts before its accepting review in the same '
+                                                 'directory: P is accepted on the accepting review alone and f is '
+                                                 'detected and blocks', o, blocked(o, False, c1))
+
+
 def predecessor_widening_unit(r):
     """R6.OBL29.3 predecessor reviews, the widening review where the lineage requires one (review finding 9): a
     rejecting widening review of the exact predecessor in R*, since removed from the tree, keeps the discharge
@@ -856,7 +882,8 @@ SUITES = [('removal', removal_controls), ('topology', topology_controls), ('unre
           ('clearance-predicates', clearance_predicates), ('identity-and-set', identity_and_set_controls),
           ('more-negative', more_negative_controls), ('monotone', monotone_controls),
           ('predecessor-widening', predecessor_widening_unit),
-          ('pairing-predecessor', pairing_predecessor_controls)]
+          ('pairing-predecessor', pairing_predecessor_controls),
+          ('pairing-review-order', pairing_review_order_control)]
 
 
 def main(out):
