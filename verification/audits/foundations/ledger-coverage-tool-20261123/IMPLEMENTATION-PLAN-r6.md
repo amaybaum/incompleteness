@@ -962,3 +962,36 @@ Remaining: restored cases for the other rows (a1_controls beyond the rule rows, 
 conformance rows with named positive cases, S11); runners for the other 12 B1 rows and the rows without a runner;
 named cases and bindings for multi-case rows; evaluators for attested invariants (L1); the mutation harness and its
 step (OBL-24); the A1 controls run without `--main`, Y8 and REPRO-DOUBLE in the suite job.
+
+## 15. Second stage: expectations checked as stated (WIP / UNVERIFIED)
+
+Owner rulings of 2026-11-26T05:53:39Z (#1169 comment 7183914927): F1 is resolved by compliant replacement
+identifiers under a separately reviewed mapping (DIR2 to DIR5 stay until it is approved, and Z9-STAGED and Z9g keep
+failing); F2 by complete B4 side-change classification records, built separately; RT-T's record kinds are `hp`,
+`context-adjudication` and `hit-classification`; the suite-job dispatch waits for a complete candidate.
+
+Done in this stage:
+
+- The gate reads from the result what it can: item patterns (`<field>_include`, `profile` against `profiles`),
+  delegated-class sites, `<file>:<line>` site subjects, site fields from the site's items, flat `finding_counts`
+  keys, list counts, the USAGE stderr object, the purity lint's findings, `none`, `{all, have}` over literal
+  fields, `{condition, holds}`, `composed_blob`, `a5_unequal_paths`, `rule_active`, all-sites conditions and
+  `out_dir_created` (from the manifest). Every other invariant stays attested (L1).
+- Tool: every result site carries `state` (unresolved, provenance-adjudicated or its last segment status), counted
+  in `site_counts`; an HP adjudication entry naming no tracked site is FAIL `stale-adjudication` (R6.REC.10); a
+  merge whose subject names another pull request is ERROR `CONFIG_INVALID` (R6.HP.1).
+- Runners: restored cases for the U, B, K, M and TT engine controls, R15, R18-engine and R19-engine, the synthetic X
+  rows and M10; stopped stages retained with their stop; named cases and bindings for I2-4, Y4, Y6, X9, Z7, Z10,
+  B3 and the U, B and K rows; new runners RECLINT-ORPHAN (the HP orphan and positive cases only) and
+  PIPE-UNRESOLVED.
+
+Rows whose expectation conflicts with the design or the real tree, listed for the owner with both left unchanged:
+M1 and M2 (classes_exact `[unauthorized-edit]`, while R6.ANCH.9 adds `unauthorized-change` for the file's changed
+sites); B5 (`ambiguous` beside `duplicated`); H5 (`untracked-hp-overlap` with obligation HP, which the tool and
+RT-T0 count under RET); U14's second case (R6.HP.7 expects `stale-adjudication` for an entry that names an existing
+site, R6.REC.10 decides such an entry by the site's own rule); Y4 (`unclassified` follows from the rejected allow
+rule); R18 (RC11 fails with the class, so AGENTS.md is `base-drift` and the run FAILs); S11-1 (delegated-evidence
+items in harness admission); S11-2a (deny-match on the mutant of E, as the runner notes); S11-5 and S11-6 (items
+carry `rule_id`, not `profile`); and the whole-result expectations on the real tree (WB1, WB2, WB6 to WB8, WB11 to
+WB13, WB15, V7a, V7c, V15, V21, V23, V24, V27, V27-glossary, L2, RT-D, RT-D-gr58, item11-T1p), where the result
+carries items of lines the row does not touch.
