@@ -84,43 +84,7 @@
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "targets": [
-    {
-     "rule": "DR-1",
-     "alternative": "a",
-     "file": "book/The-Incompleteness-of-Observation-FULL.md",
-     "line": 6504
-    },
-    {
-     "rule": "DR-1",
-     "alternative": "a",
-     "file": "book/glossary.md",
-     "line": 13
-    },
-    {
-     "rule": "DR-1",
-     "alternative": "b",
-     "file": "book/ch09-universality.md",
-     "line": 104
-    },
-    {
-     "rule": "DR-1",
-     "alternative": "c",
-     "file": "book/The-Incompleteness-of-Observation-FULL.md",
-     "line": 718
-    },
-    {
-     "rule": "DR-4",
-     "file": "papers/Substratum.md",
-     "line": 92
-    },
-    {
-     "rule": "DR-5",
-     "file": "papers/Main.md",
-     "line": 736
-    }
-   ]
+   "direction": "adversarial"
   },
   {
    "id": "RT-DR3W",

@@ -31,7 +31,7 @@ GET on 2026-11-26) where the path is on `main`.
 | `records/gr58-hit-classification-v1.json` (predecessor of v2) | hit classification (`--classify`) | 8177b0923a7eddf09c473ce541e4c23de53067429a31d52260aa35f0bafa8410 | yes | the same rows, through the lineage lint of v2 |
 | `records/repo-scope-v1.json` | scope record (`--scope`) | 32afecca8e371a1f51217a70058676144e874b24526ca0becddea04e2c12df42 | yes | item11-T1p, S11-11, RT-D (read through `--scope`; not chain-linted by op C at this commit) |
 | `delegation-draft.json` | delegation contract (draft) | 015826146fd01b9f5ebc5ae8b1966f700e2f964b8989203d66b75e36e032f65c | yes | every op C run (RT-C, RT-X, RT-L, RT-L2, RT-O9, S11, G1-G3); read by its pin, not chain-linted |
-| `controls.json` (keeps only `control_inputs`, `operations` and `direction`, R6.GATE.1, and one unread `targets` field on RT-DR) | controls file | bd0457363d6115b3084ebde9e37157eadd9877fd75c35231b1412d79127774c2 | yes (older blob, sha256 96f3032097e817f33803d62e75b4055cb2f6111b29dc3a3ed58cb3e4115ce3d8) | every run (preflight controls of the configuration); read by its pin, not chain-linted |
+| `controls.json` (keeps only `control_inputs`, `operations` and `direction`, R6.GATE.1) | controls file | bd0457363d6115b3084ebde9e37157eadd9877fd75c35231b1412d79127774c2 | yes (older blob, sha256 96f3032097e817f33803d62e75b4055cb2f6111b29dc3a3ed58cb3e4115ce3d8) | every run (preflight controls of the configuration); read by its pin, not chain-linted |
 
 The A1 configuration itself (`retirement-config.json`, the staged draft at the plan directory's path) is admitted only
 by the control harness; its review chain is outside C-29 and outside this inventory.
