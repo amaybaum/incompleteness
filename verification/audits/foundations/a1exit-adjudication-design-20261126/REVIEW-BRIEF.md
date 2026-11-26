@@ -1,4 +1,4 @@
-# Formal adjudication design r2: independent review brief
+# Formal adjudication design r3: independent review brief
 
 Review DESIGN.md and CONTROLS.json at the same revision. The design is a paper design and is not
 adopted. It changes no schema, admission rule, tool, configuration or record. The authority is the
@@ -12,10 +12,22 @@ modification, implementation, freeze, trial, dispatch or merge. Compare against:
 
 The gap the design answers is #1601 comment 7197262397, finding 4. r1 at
 `2de8462946c65dcf0f004a559fd12b9c18c22ceb` received REVISE (#1605 comment 7197900888, findings F1
-to F12). A focused review of r2 should check the finding map first, then the claims.
+to F12). r2 at `6a0afe052b30c6a14d32e03960df3c1df72c4101` received a narrow REVISE
+(#1605 comment 7198103680, findings N1 to N5). r3 makes only those textual fixes. A focused review of
+r3 should check the r2 → r3 map first, then the claims.
 
 Return a verdict (ACCEPT or REVISE) with a finding for each claim that fails, and state which claims
 you checked.
+
+## Finding map (r2 re-review → r3)
+
+| Finding | r3 change |
+|---|---|
+| N1 | R6.ADJ.8 defines *pre-admitted* (R6.ADJ.2–6 at `M`, a qualifying review, citation, location, landing, dedicated landing). Admission adds "no non-exempt adverse review of `J`". R6.ADJ.12 is evaluated in four strata: pre-admission, then exemption and `Answered(J)` over pre-admitted adjudications, then admission, then the effect on `R` and the precondition. Dissent items on `R` are exempt in stratum 2 and disregarded in stratum 4 only through an admitted adjudication. The non-circularity claim is restated per stratum. ADJ-P-ADDRESSED-REDISSENT now states how it is determined. The result field `valid_clearing` becomes `pre_admitted`. |
+| N2 | R6.ADJ.4 adds `Parties_J(L(J))`, computed from `J`'s own bindings (finding, `Q`, `R`, `A`, witness sources, predecessor) with reviews from `R*(L(J))` and no citing configuration. R6.ADJ.8 uses it for adverse validity. R-ADJ-2 is corrected. New countercase ADJ-N-UPHELD-A-AUTHOR-J2. |
+| N3 | R6.ADJ.9 defines *match* by finding reference and item, replacement `blob_sha256` and `entry_path`, disputed `blob_sha256` and a shared source `blob_sha256`. Reversal needs a replacement with another blob. New countercase ADJ-N-RENAMED-REPLACEMENT. |
+| N4 | The exemption of an adverse review of `J` covers only verdicts on `ground:<id>`, `disposition` and `dissents`. Verdicts on `authorization`, `binding` or `conflicts` are never exempt (R6.ADJ.12 stratum 2, R-ADJ-1, OD-2). New control ADJ-N-ANSWERED-AUTH-VETO. |
+| N5 | R6.ADJ.3 and `adj.authorization` state that `ADJ-AUTH-TIME` is a form check only (committer times are self-declared). |
 
 ## Finding map (r1 review → r2)
 
@@ -37,7 +49,7 @@ you checked.
 ## Claims to verify
 
 1. **Status and scope.** The files state that the design is not adopted and changes nothing. The
-   r2 commit changes only the three files of this directory.
+   r3 commit changes only the three files of this directory.
 2. **Claim I and its qualification (§2.1).** No alternative makes the owner's authorization
    mechanically verifiable under R6.REC.3. The web-flow statement and its caveat are accurate.
 3. **Mechanical properties (§2.2).** M1 to M7 are checkable from git objects. S6 and S7 are the only
@@ -45,8 +57,9 @@ you checked.
 4. **Comparison (§3).** Each cell is correct, and the (C3) rejection rests on the four stated
    grounds. (A) is the smallest sound option.
 5. **Validity versus admission (R6.ADJ.7, R6.ADJ.8, R6.ADJ.9).** An upheld adjudication valid for
-   adverse use takes effect whether or not any freeze cites it. Neither a later review of it nor
-   later growth of `Parties` cancels it. Check `L(J)` for well-definedness, including the case of a
+   adverse use takes effect whether or not any freeze cites it. Nothing cancels it: not a later
+   review, not later growth of `Parties`, not a reassessment or configuration it does not bind, and
+   not a byte-identical copy of `R` at another path. Check `L(J)` for well-definedness, including the case of a
    qualifying review that never coexists with `J` on `M`'s first-parent chain.
 6. **Safety: no bypass (§6).** Every discharge that r9 blocks stays blocked unless R6.ADJ.9 holds.
    Try each r1 attack again, and these new ones:
@@ -63,7 +76,9 @@ you checked.
    - ADJ-P-MIXED-NR5 and ADJ-P-REVERSAL-NEW-REPLACEMENT.
 
    Walk each through R6.ADJ.3 to R6.ADJ.12, r9's decision and R6.RECON.27.
-8. **Refined (ii) (R6.ADJ.12).** Exemption is limited to later reviews by `Answered(J)`. Any other
+8. **Refined (ii) (R6.ADJ.12).** Exemption is limited to later reviews by `Answered(J)`, and for
+   reviews of `J` to verdicts on grounds, disposition and dissents. Check that the four strata are
+   well-founded, so that every input has exactly one result. Any other
    later dissent defeats the adjudication. New substance enters as a category-3 finding. Check the
    claim that this adds no path to non-termination beyond what r13 already allows, and that the
    definitions are not circular.
@@ -73,7 +88,7 @@ you checked.
     from the party-identity exclusion of F5 (b).
 11. **Compatibility (§6).** The change list is complete, including the R6.REC.3 change, which is
     stated as deliberate.
-12. **Controls.** CONTROLS.json is valid JSON with 51 unique ids. Every R6.ADJ requirement has a
+12. **Controls.** CONTROLS.json is valid JSON with 54 unique ids. Every R6.ADJ requirement has a
     control, and every failure condition id used is defined in §5. Each control's expectation
     follows from the text.
 13. **Owner decisions (§8).** OD-1 to OD-7 show the design default and the reviewer's
