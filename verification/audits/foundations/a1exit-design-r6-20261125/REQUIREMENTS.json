@@ -1790,13 +1790,16 @@
    "RV-013"
   ],
   "controls": [
-   "K10"
+   "K10",
+   "REVIEW-SCHEMA"
   ],
   "verification": [
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 6 (category-3 schema resolutions and the reconciliation schema contract): a proposal under the owner's directions of 2026-11-26 (#1169 comments 7187418279, item 4; 7188752730, item 2; 7189470338, items 1, 3 and 4); needs independent review and the owner's decision at adoption"
+  ],
   "owner_decision": []
  },
  {
@@ -2340,7 +2343,7 @@
    "U2",
    "U9",
    "U10",
-   "RESULT-FIELDS"
+   "RECON-ENUM"
   ],
   "verification": [
    "controls"
@@ -3710,13 +3713,16 @@
    "GV-CACHE-AFTER-READ",
    "GV-CACHE-IMMUTABLE",
    "GV-CACHE-KEY",
-   "K1-GRAPH"
+   "K1-GRAPH",
+   "SUPERSEDES-RESOLVE"
   ],
   "verification": [
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 6 (category-3 schema resolutions and the reconciliation schema contract): a proposal under the owner's directions of 2026-11-26 (#1169 comments 7187418279, item 4; 7188752730, item 2; 7189470338, items 1, 3 and 4); needs independent review and the owner's decision at adoption"
+  ],
   "owner_decision": [
    {
     "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
@@ -4740,13 +4746,16 @@
   "controls": [
    "I2-7",
    "I2-4",
-   "I2-6"
+   "I2-6",
+   "REVIEW-SCHEMA"
   ],
   "verification": [
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 6 (category-3 schema resolutions and the reconciliation schema contract): a proposal under the owner's directions of 2026-11-26 (#1169 comments 7187418279, item 4; 7188752730, item 2; 7189470338, items 1, 3 and 4); needs independent review and the owner's decision at adoption"
+  ],
   "owner_decision": []
  },
  {
@@ -9047,13 +9056,16 @@
    "E-1347"
   ],
   "controls": [
-   "N13"
+   "N13",
+   "RECON-SCHEMA"
   ],
   "verification": [
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 6 (category-3 schema resolutions and the reconciliation schema contract): a proposal under the owner's directions of 2026-11-26 (#1169 comments 7187418279, item 4; 7188752730, item 2; 7189470338, items 1, 3 and 4); needs independent review and the owner's decision at adoption"
+  ],
   "owner_decision": []
  },
  {
@@ -9550,8 +9562,7 @@
    "PR #1593 comment 7189621405"
   ],
   "controls": [
-   "REVIEW-SCHEMA",
-   "WIDENING-ITEMS"
+   "REVIEW-SCHEMA"
   ],
   "verification": [
    "controls",
@@ -9596,6 +9607,7 @@
    "PR #1593 comment 7189621405"
   ],
   "controls": [
+   "FINDING-LINEAGE",
    "CONFIG-REFS",
    "SUPERSEDES-RESOLVE"
   ],
@@ -9663,7 +9675,7 @@
    "PR #1593 comment 7189621405"
   ],
   "controls": [
-   "RESULT-FIELDS"
+   "RECON-ENUM"
   ],
   "verification": [
    "controls",
