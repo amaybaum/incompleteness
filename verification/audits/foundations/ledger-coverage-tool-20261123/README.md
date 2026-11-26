@@ -49,6 +49,7 @@ scientific question and no row disposition.
 | `records/side-change-classes-v9.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v8.json` (same lineage; the earlier records stay unchanged): the class `tool-landing`, pinning the earlier class records v1 to v8 by path and blob, its pins refreshed after the post-freeze route and the C-29 lint |
 | `records/side-change-classes-v10.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v9.json` (same lineage; the earlier records stay unchanged): the class `tool-landing`, pinning the earlier class records v1 to v9 by path and blob, its pins refreshed at the third stage |
 | `records/side-change-classes-v11.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v10.json` (same lineage; the earlier records stay unchanged): the class `tool-landing`, pinning the earlier class records v1 to v10 by path and blob, its pins refreshed after the strict record base and the route controls |
+| `records/side-change-classes-v12.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v11.json` (same lineage; the earlier records stay unchanged): the class `tool-landing`, pinning the earlier class records v1 to v11 by path and blob, its pins refreshed after control LINE-PATCH-RC8 |
 
 The A1 configuration `retirement-config.json` (`oi-retirement-config/1`) is not part of this landing. It belongs in
 the retirement plan's record directory, `verification/audits/foundations/a1exit-deletion-20261121/`, frozen with the
