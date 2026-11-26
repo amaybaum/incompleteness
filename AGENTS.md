@@ -1719,13 +1719,15 @@ permission broader than the instruction grants.
 3. **Pushes.** A package's writers push only to the branches it designates. None of them is `main`,
    a protected branch, a branch held at a candidate `F` or `E` (§A.43 item 3), or a trigger branch
    whose push starts a launch the package does not name. Before each push the writer confirms that
-   no stop is in force (item 5); that the push creates a ref or fast-forwards one; that the commits
-   meet §A.43 items 1 and 5, the applicable checks of §A.40 have been run on them and any that fail
-   are stated as §A.43 item 2 requires; and that the push starts no launch the package does not name
-   (§A.43 item 4). After the push the remote ref is read back and must equal the commit pushed. No
-   force-push or history rewrite is made under a package, and no ref deletion except the deletion,
-   under §A.50 item 3's exception, of a branch the package designates and names for deletion in its
-   scope. An agent's push under another authorization meets the same conditions, with that authorization in place of the package.
+   no stop is in force (item 5); that the push creates a ref, fast-forwards one or, as this item
+   permits, deletes one with a lease on the head commit checked; that the commits meet §A.43 items 1
+   and 5, the applicable checks of §A.40 have been run on them and any that fail are stated as §A.43
+   item 2 requires; and that the push starts no launch the package does not name (§A.43 item 4).
+   After the push the remote ref is read back and must equal the commit pushed, or, after a
+   deletion, be absent. No force-push or history rewrite is made under a package, and no ref
+   deletion except the deletion, under §A.50 item 3's exception, of a branch the package designates
+   and names for deletion in its scope. An agent's push under another authorization meets the same
+   conditions, with that authorization in place of the package.
 4. **CI.** The workflows that run automatically on the package's pushes and pull requests run under
    it, within its resource limits. The package may name further workflows that its writers may
    dispatch or launch, each with its branch, its inputs or the rule that fixes them, and its limit;
