@@ -16,6 +16,7 @@ import importlib.util
 import json
 import os
 import shutil
+import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -89,6 +90,7 @@ class Fixture(object):
         self.records = {}
         self.muts = []
         self.release = None
+        self.release_fact = None
         self.raw_exp = None
 
     def req(self, rid, controls, kind='testable', verification=None):
@@ -161,13 +163,41 @@ class Fixture(object):
             dump(mp, {'schema': G.SCHEMA_MUT, 'records': self.muts})
         exp = self.raw_exp if self.raw_exp is not None else {'schema': G.SCHEMA_EXP, 'record_id': 'self-test',
                                                              'rows': self.rows, 'retired': []}
-        rel_dir = None
+        ctx = G.Ctx()
         if self.release:
-            rel_dir = os.path.join(self.root, 'release')
-            for k, v in self.release.items():
-                dump(os.path.join(rel_dir, k + '.json'), v)
-        return G.run_gate(None, None, paths, mp, G.Ctx(rel_dir), exp_doc=copy.deepcopy(exp),
+            # a fixture repository: one commit holding the files, then the commit under check adding the release
+            # fact that names that commit's objects
+            repo = os.path.join(self.root, 'repo')
+            c1 = git_commit(repo, self.release)
+            name, fact = self.release_fact
+            c2 = git_commit(repo, {'%s/%s.json' % (G.FACTS_DIR, name): (json.dumps(fact(c1)) + '\n').encode()})
+            ctx = G.Ctx(repo, c2)
+        return G.run_gate(None, None, paths, mp, ctx, exp_doc=copy.deepcopy(exp),
                           req_doc=copy.deepcopy(self.reqs))
+
+
+def blob_id(data):
+    return hashlib.sha1(b'blob %d\0' % len(data) + data).hexdigest()
+
+
+def git_commit(repo, files):
+    """Writes `files` into the fixture repository's work tree and commits them; returns the commit id."""
+    env = dict(os.environ, GIT_AUTHOR_NAME='fixture', GIT_AUTHOR_EMAIL='fixture@example.invalid',
+               GIT_COMMITTER_NAME='fixture', GIT_COMMITTER_EMAIL='fixture@example.invalid',
+               GIT_AUTHOR_DATE='2026-01-01T00:00:00Z', GIT_COMMITTER_DATE='2026-01-01T00:00:00Z')
+    if not os.path.isdir(os.path.join(repo, '.git')):
+        os.makedirs(repo, exist_ok=True)
+        subprocess.run(['git', 'init', '-q', repo], check=True, env=env)
+    for p, data in files.items():
+        full = os.path.join(repo, p)
+        os.makedirs(os.path.dirname(full), exist_ok=True)
+        with open(full, 'wb') as f:
+            f.write(data)
+    subprocess.run(['git', '-C', repo, 'add', '-A'], check=True, env=env)
+    subprocess.run(['git', '-C', repo, '-c', 'commit.gpgsign=false', 'commit', '-q', '-m', 'fixture'], check=True,
+                   env=env)
+    return subprocess.run(['git', '-C', repo, 'rev-parse', 'HEAD'], check=True, env=env,
+                          stdout=subprocess.PIPE).stdout.decode().strip()
 
 
 FAIL_EXP = {'outcome': 'FAIL', 'classes_exact': ['deny-match']}
@@ -260,7 +290,20 @@ def case_11(fx):
     fx.row('RT-L2', {'outcome': 'PASS'}, status_allowed=['PASS', 'NOT RUN'],
            not_run={'reason': 'r', 'release_condition': 'c', 'release_check': G.RC_RTL2})
     fx.record('RT-L2', 'NOT RUN', None)
-    fx.release = {'RT-L2': {'record_outside_landing_paths': True, 'review_lint_passes': True, 'roles_equal': True}}
+    # the release fact and the objects it names, in the tree of the commit under check (a fixture repository)
+    agents = b'reconciled text\n'
+    rec = {'schema': 'oi-reconciliation/1', 'record_id': 'r', 'author': 'writer-x', 'ledger_binding': {},
+           'paths': [{'path': 'AGENTS.md', 'm': blob_id(agents), 'x': blob_id(agents)}],
+           'changes_decisions_on_X': []}
+    rb = (json.dumps(rec, indent=1) + '\n').encode()
+    rev = {'schema': 'oi-review-record/1', 'reviewer': 'reviewer-y', 'method': 'read',
+           'reviewed': {'path': 'plan/rec.json', 'blob_sha256': hashlib.sha256(rb).hexdigest()},
+           'verdicts': [{'item': 'AGENTS.md', 'verdict': 'accept'}]}
+    fx.release = {'AGENTS.md': agents, 'plan/rec.json': rb,
+                  'plan/rec.review.json': (json.dumps(rev, indent=1) + '\n').encode()}
+    fx.release_fact = ('RT-L2', lambda c: {'record': {'commit': c, 'path': 'plan/rec.json'},
+                                           'review': {'commit': c, 'path': 'plan/rec.review.json'},
+                                           'roles': {'H': c, 'M': c, 'C': c}})
 
 
 def case_12(fx):

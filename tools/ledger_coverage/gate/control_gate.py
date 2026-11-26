@@ -154,15 +154,140 @@ RC_TR5 = ('the configuration path at the candidate F named by --freeze is listed
 RELEASE_CHECKS = frozenset([RC_FALSE, RC_TR5_PASS, RC_EI14, RC_RTL2, RC_RTT, RC_TR5])
 
 
+# Release facts are read from git objects at the commit under check (--commit), never from a local directory: the
+# file `<facts_dir>/<row id>.json` in that commit's tree names the objects the fact rests on, and each evaluator
+# checks those objects itself. An absent file is a fact not established (the check is false).
+FACTS_DIR = 'verification/audits/foundations/ledger-coverage-tool-20261123/release'
+AUDIT_DIR = 'verification/audits/foundations/ledger-coverage-tool-20261123/'
+WORKFLOW_PATH = '.github/workflows/ledger-coverage.yml'
+T_PRIME = '14ac71b4b0a0c0aa2d7068d6799a73f474097060'
+HEX40 = re.compile('[0-9a-f]{40}\\Z')
+# the record kinds of the reviewed records RT-T needs (the source design's sec. 8.2)
+SEC82_KINDS = frozenset(['hp', 'context-adjudication', 'hit-classification'])
+
+
 def _release_fact(ctx, name):
-    """A release fact retained in the evidence referenced at the commit under check (`--release-evidence DIR`),
-    as `<name>.json`; absent means the fact is not established."""
-    if not ctx.release_dir:
+    """The release fact `<facts_dir>/<name>.json` in the tree of the commit under check, or None."""
+    if not (ctx.repo and ctx.commit):
         return None
-    p = os.path.join(ctx.release_dir, name + '.json')
-    if not os.path.isfile(p):
+    data = git_show(ctx.repo, '%s:%s/%s.json' % (ctx.commit, ctx.facts_dir, name))
+    if data is None:
         return None
-    return load_json(p, 'release fact %s' % name)
+    try:
+        doc = json.loads(data.decode('utf-8'))
+    except ValueError as exc:
+        raise FileInvalid('release fact %s at %s: %s' % (name, ctx.commit, exc))
+    if not isinstance(doc, dict):
+        raise FileInvalid('release fact %s at %s is not an object' % (name, ctx.commit))
+    return doc
+
+
+def git_blob_id(repo, rev_path):
+    r = subprocess.run(['git', '--no-replace-objects', '-C', repo, 'rev-parse', '--verify', '--quiet',
+                        rev_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    return r.stdout.decode().strip() if r.returncode == 0 else None
+
+
+def git_is_ancestor(repo, a, b):
+    r = subprocess.run(['git', '--no-replace-objects', '-C', repo, 'merge-base', '--is-ancestor', a, b],
+                       stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    return r.returncode == 0
+
+
+def _json_blob(repo, ref):
+    if not (isinstance(ref, dict) and isinstance(ref.get('commit'), str) and HEX40.match(ref['commit'])
+            and isinstance(ref.get('path'), str)):
+        return None, None
+    data = git_show(repo, '%s:%s' % (ref['commit'], ref['path']))
+    if data is None:
+        return None, None
+    try:
+        return data, json.loads(data.decode('utf-8'))
+    except ValueError:
+        return data, None
+
+
+def ei14_release(ctx):
+    """A host run record of the pinned workflow, event workflow_dispatch, on a ref other than refs/heads/main,
+    whose head holds T' (T' is the head or its ancestor), retained at the commit under check."""
+    f = _release_fact(ctx, 'EI14-dispatch')
+    if not f:
+        return False
+    head = f.get('head_sha')
+    return bool(f.get('event') == 'workflow_dispatch' and isinstance(f.get('ref'), str) and f['ref']
+                and f['ref'] != 'refs/heads/main' and f.get('workflow_path') == WORKFLOW_PATH
+                and isinstance(head, str) and HEX40.match(head) and git_is_ancestor(ctx.repo, T_PRIME, head))
+
+
+def rtl2_release(ctx, name='RT-L2'):
+    """A reconciliation record named by the run from a commit outside the tool's landing paths, whose review record
+    passes the gate's structural lint (schema, reviewed path and sha256, a reviewer other than the author, every
+    verdict accept) and whose per-path blob ids at H, M and C equal those of the predicted run roles."""
+    f = _release_fact(ctx, name)
+    if not f:
+        return False
+    roles = f.get('roles') or {}
+    if not all(isinstance(roles.get(k), str) and HEX40.match(roles[k]) for k in ('H', 'M', 'C')):
+        return False
+    ref = f.get('record') or {}
+    path = ref.get('path') if isinstance(ref, dict) else None
+    if not isinstance(path, str) or path.startswith(('tools/', AUDIT_DIR)) or path == WORKFLOW_PATH:
+        return False
+    rb, rec = _json_blob(ctx.repo, ref)
+    _, rev = _json_blob(ctx.repo, f.get('review'))
+    if not (isinstance(rec, dict) and rec.get('schema') == 'oi-reconciliation/1' and isinstance(rev, dict)):
+        return False
+    reviewed = rev.get('reviewed') or {}
+    verdicts = rev.get('verdicts') or []
+    if not (rev.get('schema') == 'oi-review-record/1' and reviewed.get('path') == path
+            and reviewed.get('blob_sha256') == hashlib.sha256(rb).hexdigest()
+            and isinstance(rev.get('reviewer'), str) and rev['reviewer'] and rev['reviewer'] != rec.get('author')
+            and verdicts and all(isinstance(v, dict) and v.get('verdict') == 'accept' for v in verdicts)):
+        return False
+    entries = rec.get('paths') or []
+    if not entries:
+        return False
+    for e in entries:
+        if not isinstance(e, dict) or not isinstance(e.get('path'), str):
+            return False
+        for field, role in (('h', 'H'), ('m', 'M'), ('x', 'C')):
+            if field == 'h' and field not in e:
+                continue
+            if git_blob_id(ctx.repo, '%s:%s' % (roles[role], e['path'])) != e.get(field):
+                return False
+    return True
+
+
+def rtt_release(ctx):
+    """A reviewed record of a sec. 8.2 kind referenced by the configuration (--config) at the commit under check:
+    the configuration's `records` list it with its blob sha256, and a review record listed beside it reviews
+    exactly that blob."""
+    if not (ctx.repo and ctx.commit and ctx.config_path):
+        return False
+    data = git_show(ctx.repo, '%s:%s' % (ctx.commit, ctx.config_path))
+    try:
+        cfg = json.loads(data.decode('utf-8')) if data is not None else None
+    except ValueError:
+        cfg = None
+    refs = [r for r in ((cfg or {}).get('records') or []) if isinstance(r, dict)] if isinstance(cfg, dict) else []
+    reviews = []
+    for r in refs:
+        if r.get('kind') == 'review':
+            _, rv = _json_blob(ctx.repo, {'commit': ctx.commit, 'path': r.get('path')})
+            if isinstance(rv, dict) and rv.get('schema') == 'oi-review-record/1':
+                reviews.append(rv)
+    for r in refs:
+        if r.get('kind') in SEC82_KINDS:
+            b = git_show(ctx.repo, '%s:%s' % (ctx.commit, r.get('path')))
+            if b is None or hashlib.sha256(b).hexdigest() != r.get('blob_sha256'):
+                continue
+            for rv in reviews:
+                rd = rv.get('reviewed') or {}
+                vs = rv.get('verdicts') or []
+                if rd.get('path') == r.get('path') and rd.get('blob_sha256') == r.get('blob_sha256') and vs and \
+                        all(isinstance(v, dict) and v.get('verdict') == 'accept' for v in vs):
+                    return True
+    return False
 
 
 def git_show(repo, rev_path):
@@ -204,16 +329,11 @@ def evaluate_release(ctx, text, statuses):
     if text == RC_TR5_PASS:
         return statuses.get('TR5') == 'PASS'
     if text == RC_EI14:
-        f = _release_fact(ctx, 'EI14-dispatch')
-        return bool(f and f.get('event') == 'workflow_dispatch' and f.get('ref') not in (None, 'refs/heads/main')
-                    and f.get('head_holds_T_prime') is True)
+        return ei14_release(ctx)
     if text == RC_RTL2:
-        f = _release_fact(ctx, 'RT-L2')
-        return bool(f and f.get('record_outside_landing_paths') is True and f.get('review_lint_passes') is True
-                    and f.get('roles_equal') is True)
+        return rtl2_release(ctx)
     if text == RC_RTT:
-        f = _release_fact(ctx, 'RT-T')
-        return bool(f and f.get('reviewed_record_referenced') is True)
+        return rtt_release(ctx)
     if text == RC_TR5:
         return tr5_release(ctx)
     raise FileInvalid('unknown release check %r' % text)
@@ -950,11 +1070,15 @@ RANK = {'PASS': 0, 'NOT RUN': 1, 'FAIL': 2, 'ERROR': 3}
 
 
 class Ctx(object):
-    def __init__(self, release_dir=None, repo=None, freeze=None, config_path=None):
-        self.release_dir = release_dir
+    """The release-check context: the repository, the commit under check (whose tree holds the release facts), the
+    facts directory in that tree, the candidate F and the configuration path."""
+
+    def __init__(self, repo=None, commit=None, freeze=None, config_path=None, facts_dir=FACTS_DIR):
         self.repo = repo
+        self.commit = commit
         self.freeze = freeze
         self.config_path = config_path
+        self.facts_dir = facts_dir
 
 
 def reference_differences(row, actuals):
@@ -1200,8 +1324,10 @@ def main(argv=None):
     ap.add_argument('--requirements')
     ap.add_argument('--records', action='append', default=[], help='a control-records.json (repeatable)')
     ap.add_argument('--mutation-records')
-    ap.add_argument('--release-evidence', help='directory of retained release facts')
-    ap.add_argument('--repo', help='repository for release checks read from git objects')
+    ap.add_argument('--repo', help='repository whose git objects the release checks read')
+    ap.add_argument('--commit', help='the commit under check (default: the repository HEAD); its tree holds the '
+                    'release facts')
+    ap.add_argument('--facts-dir', default=FACTS_DIR, help='the release facts directory in that tree')
     ap.add_argument('--freeze', help='candidate F, a full commit id (TR5 release check)')
     ap.add_argument('--config', help='configuration path in F (TR5 release check)')
     ap.add_argument('--out', required=True)
@@ -1229,8 +1355,16 @@ def main(argv=None):
         sys.stderr.write(json.dumps({'outcome': 'USAGE', 'reason': '--expectations and --requirements required'}) + '\n')
         return USAGE_EXIT
     recs = list(a.records) + [os.path.join(st_dir, 'control-records.json')]
+    commit = None
+    if a.repo:
+        commit = git_blob_id(a.repo, (a.commit or 'HEAD') + '^{commit}')
+        if commit is None:
+            sys.stderr.write(json.dumps({'outcome': 'USAGE', 'reason': 'the commit under check does not resolve'})
+                             + '\n')
+            return USAGE_EXIT
     code, res = run_gate(a.expectations, a.requirements, recs, a.mutation_records,
-                         Ctx(a.release_evidence, a.repo, a.freeze, a.config))
+                         Ctx(a.repo, commit, a.freeze, a.config, a.facts_dir))
+    res['commit_under_check'] = commit
     write_json(os.path.join(a.out, 'gate-result.json'), res)
     return code
 
