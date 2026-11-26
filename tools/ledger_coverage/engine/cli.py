@@ -19,6 +19,7 @@ from . import pipeline as pl
 from . import reconcile as rcmod
 from . import recon_route
 from . import category3 as c3
+from . import findings as fd
 from . import records as rec
 from . import rules as rulemod
 from . import util
@@ -280,29 +281,103 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
     except Unresolvable as exc:
         raise oc.Stop(oc.error, 'UNRESOLVABLE', 'the cumulative record set cannot be read: %s' % exc)
     out = []
+    # the ordinary malformed-nonfinding lint of the current snapshot at M (R6.OBL29.2, R6.RECON.35): a class (b) or
+    # (c) file without an invalidation signal, with the existing selector (tool-landing prefixes and the plan's record
+    # directory excluded unless the run reads the file)
+    read_paths = {(r.get('_ref') or {}).get('path') for r in recon}
+    for path in cum.malformed_at(M, lambda q: q not in read_paths and (
+            any(q.startswith(x) for x in scope.prefixes) or (scope.plan_dir and q.startswith(scope.plan_dir)))):
+        out.append(oc.make_item('RECORD', 'record-invalid', path, None, {'why': 'malformed record'},
+                                detail=['a malformed record (R6.RECON.35 class (b) or (c)) at M']))
+    anchors = [F] if F else (revs or [M])
+    rcache = {}
+
+    def resolve_cfg(ref):
+        """R6.RECON.33: a configuration reference resolves at the newest commit on the anchor's first-parent chain
+        whose tree holds the path with a blob of that sha256."""
+        key = (ref.get('path'), ref.get('blob_sha256'))
+        if key not in rcache:
+            rcache[key] = None
+            for anchor in anchors:
+                c = anchor
+                while c and rcache[key] is None:
+                    try:
+                        b = repo.read(c, ref['path'])
+                    except Unresolvable:
+                        b = None
+                    if b is not None and util.sha256(b) == ref['blob_sha256']:
+                        try:
+                            rcache[key] = (json.loads(b.decode('utf-8')), c)
+                        except (ValueError, UnicodeDecodeError):
+                            pass
+                        break
+                    ps = repo.parents(c)
+                    c = ps[0] if ps else None
+        return rcache[key]
+
+    def ledger_of(ref, commit):
+        try:
+            other = cfgmod.load(repo, commit, ref['path'], ref['blob_sha256'], None, 'harness')
+            return load_adapter_input(repo, other, 'ledger')
+        except Exception as exc:  # any failure to read the named configuration's ledger
+            raise fd.Unsettled('Form (ii): the ledger of a named configuration other than the run\'s cannot be read '
+                               '(%s); the design does not say what follows' % exc)
+    findings = []
+    blocked = []
+    bound = {}
+
+    def fkey(f):
+        return ((f['record'] or {}).get('path'), (f['record'] or {}).get('blob_sha256'), f['kind'], f.get('item'),
+                f['path'])
+    try:
+        bview = c3.Binding(repo, M, cfg, {'path': loaded.ref['path'], 'blob_sha256': loaded.ref['blob_sha256']}, led,
+                           resolve_cfg, ledger_of)
+        for f in found:
+            present, wit = cum.witness(f['record'] or {}, M, revs, F)
+            entry = f.get('entry')
+            if not isinstance(entry, dict) or not isinstance(entry.get('side_change_commits'), list):
+                raise fd.Unsettled('R6.RECON.26: "A finding found there blocks every run whose M contains one of the '
+                                   'entry\'s side_change_commits" does not say whether a finding with no readable entry '
+                                   '(%s, item %r) applies' % ((f['record'] or {}).get('path'), f.get('item')))
+            applies = c3.in_m(repo, M, entry['side_change_commits'])
+            edits, run_level, form = c3.bind(f, bview) if applies else ([], False, list(f.get('form') or []))
+            bound[fkey(f)] = (edits, run_level, form, present)
+            findings.append({'record': f['record'], 'item': f.get('item'), 'kind': f['kind'], 'path': f['path'],
+                             'present_at_M': present, 'witness': wit})
+    except fd.Unsettled as exc:
+        raise oc.Stop(oc.error, 'DESIGN_UNSETTLED', str(exc))
+    except Unresolvable as exc:
+        raise oc.Stop(oc.error, 'UNRESOLVABLE', 'a category-3 input cannot be read: %s' % exc)
     applying = []
     for r in cfg['records']:
         if r.get('kind') != 'reassessment':
             continue
         d = loaded.store.get(r)
         probs = c3.reassessment_problems(repo, M, led, d, r, loaded.store, loaded.admitted, found, m_scan, schemas,
-                                         cum)
+                                         cum, run_level=lambda f: bound.get(fkey(f), ([], False))[1])
         if probs:
             out.append(oc.make_item('RECORD', 'record-invalid', r['path'], None,
                                     {'sha': r.get('blob_sha256'), 'why': probs[0]}, detail=probs))
         else:
             applying.append((d, r))
-    blocked = c3.blocks(repo, M, led, found, c3.lifting(applying))
-    out += c3.blocked_items(repo, H, M, blocked, getattr(ex, 'dispositions', []))
-    findings = []
+    lifted = c3.lifting(applying)
     for f in found:
-        try:
-            present, wit = cum.witness(f['record'] or {}, M, revs, F)
-        except Unresolvable as exc:
-            raise oc.Stop(oc.error, 'UNRESOLVABLE', 'a witness cannot be read: %s' % exc)
-        findings.append({'record': f['record'], 'path': f['path'], 'present_at_M': present, 'witness': wit})
+        edits, run_level, form, present = bound[fkey(f)]
+        hits = [e for e in edits if not lifted(f, e)]
+        if run_level and not lifted(f, None):
+            hits.append(None)
+        for e in hits:
+            blocked.append((f, e))
+        # a form failure: FAIL record-invalid for a finding present at M, and for a historical-only finding while it
+        # binds and lacks an applying discharge (R6.OBL29.2)
+        if form and (present or hits):
+            out.append(oc.make_item('RECORD', 'record-invalid', (f['record'] or {}).get('path'), None,
+                                    {'finding': f['record'], 'item': f.get('item'), 'why': form[0]},
+                                    detail=['a form failure of a category-3 finding: %s' % x for x in form]))
+    out += c3.blocked_items(repo, H, M, blocked, getattr(ex, 'dispositions', []))
     result['category3'] = {'findings': findings,
-                           'blocked': [{'record': f['record'], 'path': f['path'], 'edit': e} for f, e in blocked],
+                           'blocked': [{'record': f['record'], 'item': f.get('item'), 'path': f['path'], 'edit': e}
+                                       for f, e in blocked],
                            'reassessments': [r for _d, r in applying]}
     return out
 

@@ -815,8 +815,15 @@ def invalidating(w, path, M=None, edit='E1'):
     """A finding of the first kind: the writer's entry for `path` with verdict invalidates, naming the edit of the
     world's ledger as {id, sha256} (the amendment-3 reading of `invalidated`)."""
     M = M or w.M
-    eff = dict(CONTROL_EFFECT, conclusions=[edit], verdict='invalidates',
-               invalidated=[{'id': edit, 'sha256': rcmod.edit_key(w.led, edit)}],
+    # the r13 form of a first-kind finding (R6.RECON.26 Form (ii) and (iii)): each invalidated element carries its
+    # target at H, and the effect names the configuration it was assessed under
+    sps = [x for x in w.led.get('splices') or [] if x.get('id') == edit]
+    target = {'path': sps[0]['file'], 'start_H': sps[0]['start'], 'old_sha256': sps[0]['old_sha256']} if sps else None
+    elem = {'id': edit, 'sha256': rcmod.edit_key(w.led, edit)}
+    if target is not None:
+        elem['target'] = target
+    eff = dict(CONTROL_EFFECT, conclusions=[edit], verdict='invalidates', invalidated=[elem],
+               configuration={'path': w.p, 'blob_sha256': sha(w.files[w.p])},
                assessment='control fixture: the change on main invalidates the basis of the planned edit')
     doc = rcmod.draft(w.repo, w.ctx, w.syn.H, M, w.X, w.led, path, scientific_effect=eff)
     doc.update(record_id='syn-finding-' + path.replace('/', '-'), author=sf.WRITER, supersedes=None, M=M, X=w.X)
@@ -979,6 +986,13 @@ def finding_world(r, variant=None, edits=None, two=False, first_id=1):
     orig = rcmod.edit_key(World(r).led, 'E1')
     f = invalidating(w, sf.DOC, edit='E1') if first_id == 1 else invalidating(World(r), sf.DOC)
     f['paths'][0]['scientific_effect']['invalidated'][0]['sha256'] = orig
+    # the finding names the base world's configuration and target, so that the main commits are the same whatever
+    # configuration variant cites a reassessment of it (the two-pass constructions below rely on this)
+    base = invalidating(World(r), sf.DOC)
+    f['paths'][0]['scientific_effect']['configuration'] = base['paths'][0]['scientific_effect']['configuration']
+    if 'target' in base['paths'][0]['scientific_effect']['invalidated'][0]:
+        f['paths'][0]['scientific_effect']['invalidated'][0]['target'] = \
+            base['paths'][0]['scientific_effect']['invalidated'][0]['target']
     docs = [(RD + 'finding.json', f)]
     if two:
         f2 = dict(f, record_id='syn-finding-two')
@@ -997,7 +1011,8 @@ def finding_world(r, variant=None, edits=None, two=False, first_id=1):
 
 def reassessment(w, edit_sha=None, **upd):
     doc = {'schema': 'oi-reassessment/1', 'record_id': 'syn-reassessment', 'author': sf.WRITER, 'supersedes': None,
-           'finding': w.findings[0], 'repair': {'commits': [w.repair_commit], 'entry': w.repair_entry},
+           'finding': dict(w.findings[0], item=sf.DOC),
+           'repair': {'commits': [w.repair_commit], 'entry': dict(w.repair_entry, entry_path=sf.DOC)},
            'edit': {'id': 'E1', 'sha256': edit_sha or rcmod.edit_key(w.led, 'E1')},
            'rederivation': 'control fixture: the planned edit re-derived at the repaired state; the check re-run',
            'verdict': 'no-effect'}

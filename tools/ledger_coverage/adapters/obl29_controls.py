@@ -120,7 +120,12 @@ def removal_controls(r):
     w, c1, fb = landed(r)
     step(w, {FP: b'\xef\xbb\xbf' + fb}, 'prepend bytes')
     o = outcome(w)
-    case('N-PREPEND', 'bytes prepended to f: still blocked', o, blocked(o, False, c1))
+    # the BOM-prefixed file fails the strict parse (R6.RECON.29) and is a class (b) malformed finding with an
+    # invalidation signal; a malformed finding has no entry, and whether R6.RECON.26's side_change_commits gate admits
+    # it is not settled: the run stops with ERROR DESIGN_UNSETTLED (fail closed, no verdict)
+    case('N-PREPEND', 'bytes prepended to f: the prefixed copy is a malformed finding whose applicability the design '
+                      'does not settle, so the run stops with ERROR DESIGN_UNSETTLED', o,
+         o['exit'] == 65 and o['stop'] == 'DESIGN_UNSETTLED')
     w, c1, fb = landed(r)
     step(w, {FP: fb[:len(fb) // 2]}, 'truncate')
     o = outcome(w)
@@ -396,11 +401,15 @@ def reassessment_controls(r):
                                                            'an item is not accepted'))
 
     def rewrite(w):
-        b = w.repo.read(w.M, FP)
-        step(w, {FP: b.replace(b'"invalidates"', b'"no-effect"')}, 'rewrite f')
+        # verdict no-effect and no invalidated: the rewritten blob carries no finding (Form (i))
+        d = json.loads(w.repo.read(w.M, FP))
+        se = d['paths'][0]['scientific_effect']
+        se['verdict'] = 'no-effect'
+        se.pop('invalidated', None)
+        step(w, {FP: pfc.jb(d)}, 'rewrite f')
     w1 = pfc.finding_world(r, edits=pfc.EDITS_REWORDED)
     rewrite(w1)
-    new_ref = {'path': FP, 'blob_sha256': sf.sha(w1.repo.read(w1.M, FP))}
+    new_ref = {'path': FP, 'blob_sha256': sf.sha(w1.repo.read(w1.M, FP)), 'item': sf.DOC}
     o = outcome(world(lambda w_: pfc.reassessment(w_, finding=new_ref), after=rewrite))
     case('N-FORGED-REASSESS-NEWBLOB', 'a reassessment naming the rewritten blob, which carries no finding: it fails '
                                       'and the original finding still blocks', o,
@@ -597,8 +606,9 @@ def identity_and_set_controls(r):
     step(w, {FP: None}, 'the record is deleted')
     step(w, {'verification/audits/elsewhere/r.json': w.review(FP, b)}, 'a review outside the record\'s directory')
     o = outcome(w)
-    case('SET-PAIRING-LOCATION', 'the same, the review outside the record\'s directory: no finding (review location)', o,
-         not o['finding'])
+    case('SET-PAIRING-LOCATION', 'the same, the review outside the record\'s directory: still a finding, since a '
+                                 'first-kind finding counts whatever its review says (r13 Form of a finding (i))', o,
+         blocked(o, False, None))
 
 
 def monotone_controls(r):
@@ -674,33 +684,10 @@ def pairing_predecessor_controls(r):
                                     'accepting review lands: f is detected (half (b), P accepted on its own review) and '
                                     'blocks', o, blocked(o, False, c1))
     w, c1 = world(competing=True)
-    o_norm = outcome(w)
-    # mutation: reintroduce a history-wide scan into half (b): every curated store also scans all of R*'s records
-    orig_curated = c3.Cumulative._curated
-    orig_init = c3.Cumulative.__init__
-    holder = {}
-
-    def init(self, *a, **k):
-        orig_init(self, *a, **k)
-        holder['cum'] = self
-
-    def curated(entries):
-        st = orig_curated(entries)
-        cum = holder['cum']
-        allr = [(p, cum.repo.read_blob_uncached(o)) for ents in cum.subtrees.values() for p, _m, o in ents]
-        st.scan = lambda: allr
-        return st
-    c3.Cumulative.__init__, c3.Cumulative._curated = init, staticmethod(curated)
-    try:
-        o_mut = outcome(w)
-    finally:
-        c3.Cumulative.__init__, c3.Cumulative._curated = orig_init, staticmethod(orig_curated)
-    case('SET-PAIRING-NO-HISTORY-SCAN', 'the same with a competing successor of P landing later: f still blocks; with '
-                                        'a history-wide scan reintroduced into half (b) (mutation) the later fork '
-                                        'erases f, which this control detects', {'normal': o_norm, 'mutated': o_mut},
-         blocked(o_norm, False, c1) and not blocked(o_mut, False, c1))
-
-
+    o = outcome(w)
+    case('SET-PAIRING-NO-HISTORY-SCAN', 'the same with a competing successor of P landing later: f still blocks '
+                                        '(detection reads one file and the record it names, Form (i))', o,
+         blocked(o, False, c1))
 def pairing_review_order_control(r):
     """Half (b): the predecessor P has an adverse review that sorts first and a later accepting review in the same
     directory; the hop tries each review alone, so P is accepted on the accepting one and f is detected."""
@@ -803,7 +790,7 @@ def more_negative_controls(r):
     w0 = pfc.World(r)
     fb0 = pfc.jb(pfc.invalidating(w0, sf.DOC))
     w = pfc.World(r, variant=tl_variant(pfc.RD, pins=[(FP, fb0)]))
-    doc = pfc.invalidating(w, sf.DOC)
+    doc = pfc.invalidating(w0, sf.DOC)
     c1 = pfc.land(w, [(FP, doc)])
     o = outcome(w)
     case('N-TL-WIDEN', 'a configuration whose tool-landing class covers f\'s directory and pins f\'s blob: f is still '
