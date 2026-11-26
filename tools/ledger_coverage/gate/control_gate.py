@@ -1148,17 +1148,22 @@ def eval_procedure(row, ev, findings_out, repo=None):
         # that names a record base records the pinned main as inputs.record_base, and at least one run names it
         base_wrong = []
 
+        def held(rev):
+            return bool(repo) and isinstance(rev, str) and HEX40.match(rev) is not None and \
+                git_blob_id(repo, rev + '^{commit}') is not None
+
+        def arg(argv, name):
+            return argv[argv.index(name) + 1] if name in argv and argv.index(name) + 1 < len(argv) else None
+
         def predicted(c):
-            # a run that names --record-base, or names --main with a commit the repository does not hold (an
-            # in-memory predicted M), is a run on a predicted M
+            # a run that names --record-base, or names --main with a commit the repository does not hold while its
+            # scientific base is a commit the repository holds (an in-memory M built on the real history), is a run
+            # on a predicted M; a wholly synthetic world (its H not held either) is not
             argv = c.get('argv') or []
             if '--record-base' in argv:
                 return True
-            if '--main' in argv and argv.index('--main') + 1 < len(argv):
-                m = argv[argv.index('--main') + 1]
-                return bool(repo) and isinstance(m, str) and HEX40.match(m) is not None and \
-                    git_blob_id(repo, m + '^{commit}') is None
-            return False
+            m, h = arg(argv, '--main'), arg(argv, '--scientific-base')
+            return m is not None and isinstance(m, str) and HEX40.match(m) is not None and not held(m) and held(h)
         if roles.get('M0') is None and any(predicted(c) for c in (ev.man or {}).get('cases', [])):
             base_wrong.append('(the roles name no M0, and a retained run is on a predicted M)')
         if roles.get('M0') is not None:
