@@ -96,7 +96,7 @@ Controls X1–X6 and C1–C2 (§9 of the report) are listed and have not been ru
 |---|---|---|
 | #1169 comments 7184425769, 7186638587, 7187418279 (owner decisions) | report header; §1 here | provenance: authority records quoted with author and time; no result uses them |
 | PR #1585 comments 7184957447, 7187069631 (reviews of r1 and r2) | report header; §1 here | provenance: evidence of review; no result uses them |
-| commit `77881879` (r1, superseded) | report header | provenance: cited only to identify the r1 text |
+| commit `77881879` (r1, superseded) | report header | provenance for every result: cited only to identify the r1 text; also support, on `main` once the merge of §5 lands, for the preregistration-order row (§3), through its commit time |
 | commits `143f3599` (PLAN.md), `e814d541` (REPORT-r2.md, CHANGES-r2.md) and the commit adding this file | report header; §1 here | support on `main` once the merge of §5 lands: the record's own content; not before |
 | commit `b6c6b80b` [P] and the SM line citations | report header, throughout | support on `main`: `b6c6b80b` is an ancestor of `main` at `13f5c66a`. `papers/SM.md` differs between them only at lines 1394 and 1472, which the report does not cite. `papers/Main.md` (lines 692, 716, 720, 724) and `papers/Substratum.md` (line 463) also differ; no changed hunk concerns zero modes, shift symmetry or uniform shifts, so Proposition 5's search of papers/ at [P] is unaffected |
 | U1: #1211 unit 1, BRIDGE-UNIT1.md r5 at `820519cf` (not on `main`) | report header, §2–§4 | provenance: every statement used is re-derived in the report |
