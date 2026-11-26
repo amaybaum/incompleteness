@@ -8,8 +8,9 @@ layer of every result: mathematical derivation on paper. No computation was run.
 - **Authoritative report:** `REPORT-r2.md` (revision r2, commit
   `e814d5417616e798ff98115795e9cf46d9fdbb40`). It supersedes `REPORT.md` (r1, commit
   `77881879bc1b4df9156fe537e5ee9bd261345cf1`), which is kept unchanged; `CHANGES-r2.md` maps each
-  r1 to r2 change to its review finding. `PLAN.md` (commit `143f359928698125f854b86e756ba827dc518064`)
-  fixes the questions, productivity test and stopping rule before the work and is not superseded.
+  r1 to r2 change to its review finding. `PLAN.md` (commit
+  `143f359928698125f854b86e756ba827dc518064`) fixes the questions, productivity test and stopping
+  rule before the work and is not superseded.
   The header of `REPORT-r2.md` records its status before the delta review; review and acceptance
   are recorded here.
 - **Accountable Issue:** #1217 (parent #1211, programme #1169). Guiding pull request: #1585.
@@ -28,7 +29,8 @@ layer of every result: mathematical derivation on paper. No computation was run.
   - PR #1585 comment 7184957447, review of r1 at `77881879`: REVISE (minor), findings 1–10.
   - PR #1585 comment 7187069631, focused delta review of r2 at `e814d541`: ACCEPT WITH NITS. It
     confirms findings 1–10 fixed and the writer's three narrowings sound; it did not recheck r1
-    passages that r2 leaves unchanged.
+    passages that r2 leaves unchanged. It was written by the reviewer agent that wrote the r1
+    review, resumed, so all review evidence for this record comes from a single model reviewer.
 
 ## 2. Substantive result and its precise scope
 
@@ -55,10 +57,12 @@ fundamental Z/q level or for the bijection-level carrier of SM:505.
   bounded on K, which is not l², and that choice is named H-top.
 - **(iii) Σ.** Proposition 7: F-stationary moments are J-Hermitian on V_rest (T) and between
   spectral subspaces of A for compact sub-intervals of (−2, 2) (Z). Proposition 8: on-site Σ is real
-  block-scalar under cubic invariance. Counterexample 9 holds on T for abs(αμ) < 1/d or on V_rest,
-  and on Z for abs(αμ) < 1/d; αμ = 1/d on Z is not claimed. Counterexample 10: block-dependent
-  dressing. Proposition 11: a zero-mode condensate at α = 1/d does not produce
-  U(6) → U(3)×U(2)×U(1); on Z its relation to K is not examined.
+  block-scalar for an F-stationary, cubic-invariant state. Counterexample 9 holds on T for
+  abs(αμ) < 1/d or on V_rest, and on Z for abs(αμ) < 1/d; αμ = 1/d on Z is not claimed. The Z case
+  also needs a condition the report does not state (delta-review nit 1): the support of the bump
+  Π_{k_0} must be small enough that its 24 rotated copies around g k_0, and their negatives, do not
+  overlap. Counterexample 10: block-dependent dressing. Proposition 11: a zero-mode condensate at
+  α = 1/d does not produce U(6) → U(3)×U(2)×U(1); on Z its relation to K is not examined.
 - **T-only results:** §2.6, the b-remark of §4.1 and Proposition 4.
 - **Conclusion (§6).** J is sourced by the real lift conditional on LIN and LIFT. Its use in SM
   Theorem 5 needs the named bridge premise H-PF (not adopted), stationarity under the same
@@ -78,8 +82,10 @@ authorizes no work (§A.45 rule 3).
 | Canonicity on Z (Theorem 1Z) | §2.4 | partially verified, as above | independent non-model review | #1217 | a recorded independent review |
 | Locality (Proposition 2) | §2.5 | partially verified; decay rates (O5) a sketch, not checked by the reviews | independent review; controls X6 and C1; a written decay proof | #1217 | review; X6 and C1 run under authorization; a written derivation for O5 |
 | Null sector (Propositions 3–5, §2.6) | §2.6, §3.1 | partially verified | independent review; controls X2, X3, C2 | #1217 | review; X2, X3, C2 run under authorization |
+| "H-ZM not supplied on `main`" (Proposition 5) | §3.1 | the corpus search for zero-mode premises was keyword-based over papers/ at `b6c6b80b`, not exhaustive (r1 review limitation) | an exhaustive search of the corpus for a premise making uniform static shifts unobservable | #1217 | a recorded exhaustive search, or a premise found or ruled out |
 | Carrier Z domain and topology (Proposition 6) | §3.2 | partially verified | independent review | #1217 | a recorded independent review |
-| Σ results (Propositions 7, 8, 11; Counterexamples 9, 10) | §4 | partially verified; delta-review nits 1 (support of the bump on Z in Counterexample 9) and 2 (V_rest in the §4 isomorphism sentence) recorded, not applied; neither changes a result | independent review; controls X4, X5, C2 | #1217 | review; X4, X5, C2 run under authorization |
+| Σ results (Propositions 7, 8, 11; Counterexamples 9, 10) | §4 | partially verified; delta-review nits recorded, not applied. Nit 1: without the support condition of §2, the lower bound min κ_b − ε on each subspace and the step "on the k_0 subspace it equals Σ_b κ_b P_b + εQ" can fail in the Z case of Counterexample 9. Nit 2: "on T" should read "on V_rest" in the §4 isomorphism sentence; only the direction "C_− = 0 implies S_n = 0" is used, so no result changes | independent review; the support condition for the Z case of Counterexample 9; controls X4, X5, C2 | #1217 | review; a revision stating the support condition; X4, X5, C2 run under authorization |
+| Preregistration order (PLAN.md before the report) | §5 below | established only from commit timestamps: `143f3599` at 06:29:10Z, `77881879` at 06:47:51Z (r1 review limitation) | none available from commit order alone | #1217 | none; the limitation stands as stated |
 | Named hypotheses H-ZM, H-top, H-PF, H-PF-int; open nodes O1–O8 | §5, §8 | open; not adopted; O1–O8 not audited by the reviews | derivation or refutation of each | #1217; #1049 for LIN | a written derivation, a counterexample, or an owner decision on a premise |
 
 Controls X1–X6 and C1–C2 (§9 of the report) are listed and have not been run.
@@ -88,18 +94,21 @@ Controls X1–X6 and C1–C2 (§9 of the report) are listed and have not been ru
 
 | Reference | Where | Classification |
 |---|---|---|
-| #1169 comments 7184425769, 7186638587 (owner decisions) | header | provenance: authority records quoted with author and time; no result uses them |
-| PR #1585 comment 7184957447 (review of r1) | header | provenance; evidence of review |
-| commit `77881879` (r1) | header | on this record's branch; reachable from `main` only through a merge commit (§5) |
-| commit `b6c6b80b` [P] and the SM line citations | header, throughout | support on `main`: `b6c6b80b` is an ancestor of `main` at `13f5c66a`; `papers/SM.md` differs between them only at lines 1394 and 1472, which the report does not cite |
-| U1: #1211 unit 1, BRIDGE-UNIT1.md r5 at `820519cf` (not on `main`) | header, §2–§4 | provenance: every statement used is re-derived in the report |
-| checks script at `820519cf` for C1, C2 | §9 | provenance: controls listed, not run; no result rests on them |
-| C5 audit candidate 2, cited in U1 | §8 O7 | provenance: open node, not addressed |
-| #1049 (Q-β; LIN row) and POSIT-MIN D1(b), D1(c) | §3.1, §4.6, §5 | provenance: LIN is a named conditional input, not supported by these |
-| NQ-1059 | §5, §8 | provenance: named as not started |
-| #1217, #1211, #1169 | header | provenance: accountability |
+| #1169 comments 7184425769, 7186638587, 7187418279 (owner decisions) | report header; §1 here | provenance: authority records quoted with author and time; no result uses them |
+| PR #1585 comments 7184957447, 7187069631 (reviews of r1 and r2) | report header; §1 here | provenance: evidence of review; no result uses them |
+| commit `77881879` (r1, superseded) | report header | provenance: cited only to identify the r1 text |
+| commits `143f3599` (PLAN.md), `e814d541` (REPORT-r2.md, CHANGES-r2.md) and the commit adding this file | report header; §1 here | support on `main` once the merge of §5 lands: the record's own content; not before |
+| commit `b6c6b80b` [P] and the SM line citations | report header, throughout | support on `main`: `b6c6b80b` is an ancestor of `main` at `13f5c66a`. `papers/SM.md` differs between them only at lines 1394 and 1472, which the report does not cite. `papers/Main.md` (lines 692, 716, 720, 724) and `papers/Substratum.md` (line 463) also differ; no changed hunk concerns zero modes, shift symmetry or uniform shifts, so Proposition 5's search of papers/ at [P] is unaffected |
+| U1: #1211 unit 1, BRIDGE-UNIT1.md r5 at `820519cf` (not on `main`) | report header, §2–§4 | provenance: every statement used is re-derived in the report |
+| checks script at `820519cf` for C1, C2 | report §9 | provenance: controls listed, not run; no result rests on them |
+| #1049 (Q-β; LIN row) | report §3.1, §4.6, §5 | provenance: LIN is a named conditional input, not supported by #1049 |
+| NQ-1059 | report §5, §8 | provenance: named as not started |
+| #1217, #1211, #1169 | report header | provenance: accountability |
 
-Support off `main`: none.
+Support off `main`: none. POSIT-MIN D1(b), D1(c)
+(`verification/audits/foundations/posit-min-20261120/`) and C5 audit candidate 2
+(`verification/audits/foundations/c5-discovery-audit.md`) are on `main`; LIN remains a named
+conditional input and O7 an open node.
 
 ## 5. Landing condition
 
