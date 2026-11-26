@@ -204,7 +204,7 @@
     },
     {
       "id": "STAGING-ROLE-CHAIN",
-      "positive": "Exactly the two designated roots are preserved at B. Verify an append-only linear successor path to the exact permitted tips independently of config.records.",
+      "positive": "Exactly the two designated roots are preserved at B. Verify an append-only linear successor path to the exact permitted tips independently of config.records. A later F extends the separately approved immediately preceding F on the verified first-parent path.",
       "negative": [
         "invalid predecessor or archived role still active",
         "missing archive, variants or W1-a review provenance",
@@ -212,7 +212,12 @@
         "delete, rename or rewrite a node committed in a scanned namespace",
         "same bytes at a different path",
         "namespace member is non-regular, malformed or unavailable",
-        "activation anchor or descriptor substitution or incomplete first-parent path"
+        "activation anchor or descriptor substitution or incomplete first-parent path",
+        "sibling freeze descends from B and preserves the descriptor but omits an accepted successor of the preceding owner-designated F",
+        "stale or missing approved predecessor pin, or a null predecessor after the initial designation",
+        "preceding F names a different activation descriptor, or changed configuration does not supersede the exact predecessor there",
+        "representative S resolves a class tip with a path or digest different from the landed tip in relevant M",
+        "the invocation or configuration tries to choose the namespaces, or activation omits the required first allow widening review"
       ]
     },
     {
@@ -235,7 +240,8 @@
         "duplicate or alternate review, mismatched old or new config bytes or path",
         "self-reference from configuration records to its widening review",
         "indirect hash cycle through class pin, review or descriptor",
-        "file discovered outside the exact frozen pin table"
+        "file discovered outside the exact frozen pin table",
+        "use frozen control metadata as admission authority for an ordinary record or review"
       ]
     }
   ]
