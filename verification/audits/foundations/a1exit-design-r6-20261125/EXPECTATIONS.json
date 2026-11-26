@@ -23195,7 +23195,7 @@
       ]
      },
      {
-      "case": "countercase: the run under a revised plan, a new configuration whose ledger changes the invalidated edit's edit-list entry (positive)",
+      "case": "countercase: the run under a revised plan, a new configuration whose ledger changes the invalidated edit's edit-list entry and whose freeze cites an applying reassessment naming the finding (R6.RECON.27) (positive)",
       "outcome": "ANY",
       "invariants": [
        {
@@ -23214,6 +23214,13 @@
          "retirement-blocked"
         ]
        }
+      ]
+     },
+     {
+      "case": "a revised plan whose ledger changes the invalidated edit's edit-list entry (a wording change, the same id and target) and cites no reassessment",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
       ]
      }
     ]
@@ -24063,6 +24070,228 @@
    "source": "r6 amendment 5 (owner decision of 2026-11-26T08:28:18Z, #1169 comment 7186638587, item 9)",
    "flags": [
     "added by amendment 5; the tool records this id; the expectation follows from the design text"
+   ]
+  },
+  {
+   "id": "FINDING-FORM",
+   "requirements": [
+    "R6.RECON.26",
+    "R6.REC.2"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "a writer's verdict no-effect and a non-author review whose verdict on the item <path>:scientific_effect is invalidates with a well-formed invalidated list, the review passing review-record lint",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "the same review: the reviewed entry fails its own chain lint and does not apply, and the review stays valid",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "none": "items[class=record-invalid,subject=$review]"
+       }
+      ]
+     },
+     {
+      "case": "a review verdict invalidates with an empty invalidated list (blocks every edit the entry's conclusions name, or every edit of the path)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a review verdict accept carrying an invalidated list",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "countercase: a review verdict reject without invalidated on the scientific_effect item (the path is not reconciled and is not blocked)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "not_class": [
+         "retirement-blocked"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 6 (owner direction of 2026-11-26, #1169 comment 7187418279, item 4; tool writer's points 1 to 5)",
+   "flags": [
+    "added by amendment 6 (a proposal); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "FINDING-LINEAGE",
+   "requirements": [
+    "R6.RECON.26"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "a finding naming its configuration; a later configuration on that configuration's supersedes chain carries the edit",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "countercase: a configuration of another retirement, outside the lineage, whose ledger reuses the edit id (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "retirement-blocked"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "a finding naming no configuration, or one that cannot be read: it binds every configuration whose ledger carries the edit, the other retirement's included",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 6 (owner direction of 2026-11-26, #1169 comment 7187418279, item 4; tool writer's points 1 to 5)",
+   "flags": [
+    "added by amendment 6 (a proposal); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "FINDING-KEYS",
+   "requirements": [
+    "R6.RECON.26",
+    "R6.RECON.25"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "an invalidated element {id, sha256, target: {path, start_H, old_sha256}} matching the ledger splice of that id at H",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "an element whose target differs from the ledger splice of its id (form failure; the id still blocks)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "an element {id, sha256} without target (form failure; the id still blocks)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "countercase: a revised configuration keeping only an edit of the same path that no finding names, without a reassessment (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "retirement-blocked"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 6 (owner direction of 2026-11-26, #1169 comment 7187418279, item 4; tool writer's points 1 to 5)",
+   "flags": [
+    "added by amendment 6 (a proposal); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "MIGRATION-RECORD",
+   "requirements": [
+    "R6.RECON.28",
+    "R6.CFG.4"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "an edit renamed, its old bytes also rewritten, under a reviewed edit-id migration record that the configuration references with kind edit-id-migration",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "the same migration record referenced only by an earlier configuration on the supersedes chain",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "a migration record that fails record lint, the renamed edit's old bytes unchanged (the path-and-old-bytes match still applies)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "countercase: a configuration that removes the renamed edit (neither its old id, its new id nor its old bytes remain) (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "retirement-blocked"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 6 (owner direction of 2026-11-26, #1169 comment 7187418279, item 4; tool writer's points 1 to 5)",
+   "flags": [
+    "added by amendment 6 (a proposal); no runner records it before the tool revision implements it"
    ]
   }
  ],

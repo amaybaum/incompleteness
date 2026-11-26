@@ -1,0 +1,16 @@
+{
+ "schema": "oi-owner-decision-quote/1",
+ "decisions": [
+  {
+   "author": "amaybaum",
+   "time": "2026-11-26T09:05Z (as received)",
+   "record": "#1169 comment 7187418279",
+   "relayed_by": "coordinating session",
+   "quotes": [
+    null,
+    "Include any necessary schema correction in the consolidated amendment rather than silently diverging from the adopted design.",
+    null
+   ]
+  }
+ ]
+}

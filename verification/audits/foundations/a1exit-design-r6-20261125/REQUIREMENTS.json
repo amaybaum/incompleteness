@@ -3257,13 +3257,16 @@
    "O3",
    "O5",
    "O7",
-   "I2-5"
+   "I2-5",
+   "FINDING-FORM"
   ],
   "verification": [
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 6 (category-3 schema resolutions): a proposal under the owner's direction of 2026-11-26 (#1169 comment 7187418279, item 4); needs independent review and the owner's decision at adoption"
+  ],
   "owner_decision": []
  },
  {
@@ -9380,7 +9383,8 @@
   ],
   "controls": [
    "RECON-SCI",
-   "RECON-BLOCK"
+   "RECON-BLOCK",
+   "FINDING-KEYS"
   ],
   "verification": [
    "controls",
@@ -9389,7 +9393,8 @@
   "open": [],
   "pending_owner_confirmation": [
    "amendment 3 (multi-path reconciliation): drafted under the owner's authorization of 2026-11-26T06:34:32Z (#1169 comment 7184569981); needs independent review and the owner's acceptance before any tool revision implements it",
-   "amendment 4 (category-3 keying and the predicted-M record base): drafted under the owner's direction of 2026-11-26T07:31:59Z (#1169 comment 7185562871); needs independent review and the owner's acceptance before any tool revision implements it"
+   "amendment 4 (category-3 keying and the predicted-M record base): drafted under the owner's direction of 2026-11-26T07:31:59Z (#1169 comment 7185562871); needs independent review and the owner's acceptance before any tool revision implements it",
+   "amendment 6 (category-3 schema resolutions): a proposal under the owner's direction of 2026-11-26 (#1169 comment 7187418279, item 4); needs independent review and the owner's decision at adoption"
   ],
   "owner_decision": []
  },
@@ -9406,7 +9411,10 @@
   ],
   "controls": [
    "RECON-BLOCK",
-   "BLOCK-KEY"
+   "BLOCK-KEY",
+   "FINDING-FORM",
+   "FINDING-LINEAGE",
+   "FINDING-KEYS"
   ],
   "verification": [
    "controls",
@@ -9415,7 +9423,8 @@
   "open": [],
   "pending_owner_confirmation": [
    "amendment 3 (multi-path reconciliation): drafted under the owner's authorization of 2026-11-26T06:34:32Z (#1169 comment 7184569981); needs independent review and the owner's acceptance before any tool revision implements it",
-   "amendment 4 (category-3 keying and the predicted-M record base): drafted under the owner's direction of 2026-11-26T07:31:59Z (#1169 comment 7185562871); needs independent review and the owner's acceptance before any tool revision implements it"
+   "amendment 4 (category-3 keying and the predicted-M record base): drafted under the owner's direction of 2026-11-26T07:31:59Z (#1169 comment 7185562871); needs independent review and the owner's acceptance before any tool revision implements it",
+   "amendment 6 (category-3 schema resolutions): a proposal under the owner's direction of 2026-11-26 (#1169 comment 7187418279, item 4); needs independent review and the owner's decision at adoption"
   ],
   "owner_decision": []
  },
@@ -9438,6 +9447,27 @@
   "open": [],
   "pending_owner_confirmation": [
    "amendment 4 (category-3 keying and the predicted-M record base): drafted under the owner's direction of 2026-11-26T07:31:59Z (#1169 comment 7185562871); needs independent review and the owner's acceptance before any tool revision implements it"
+  ],
+  "owner_decision": []
+ },
+ {
+  "id": "R6.RECON.28",
+  "section": "RECON",
+  "section_number": 23,
+  "kind": "testable",
+  "sources": [
+   "#1169 comment 7187418279"
+  ],
+  "controls": [
+   "MIGRATION-RECORD"
+  ],
+  "verification": [
+   "controls",
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "amendment 6 (category-3 schema resolutions): a proposal under the owner's direction of 2026-11-26 (#1169 comment 7187418279, item 4); needs independent review and the owner's decision at adoption"
   ],
   "owner_decision": []
  },
@@ -9816,7 +9846,8 @@
    "Z6b",
    "CONFIG-LINT",
    "Z8",
-   "BLOCK-KEY"
+   "BLOCK-KEY",
+   "MIGRATION-RECORD"
   ],
   "verification": [
    "controls"
@@ -9824,7 +9855,8 @@
   "open": [],
   "pending_owner_confirmation": [
    "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26T05:21:04Z, #1169 comment 7183745781), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it",
-   "amendment 4 (category-3 keying and the predicted-M record base): drafted under the owner's direction of 2026-11-26T07:31:59Z (#1169 comment 7185562871); needs independent review and the owner's acceptance before any tool revision implements it"
+   "amendment 4 (category-3 keying and the predicted-M record base): drafted under the owner's direction of 2026-11-26T07:31:59Z (#1169 comment 7185562871); needs independent review and the owner's acceptance before any tool revision implements it",
+   "amendment 6 (category-3 schema resolutions): a proposal under the owner's direction of 2026-11-26 (#1169 comment 7187418279, item 4); needs independent review and the owner's decision at adoption"
   ],
   "owner_decision": []
  },

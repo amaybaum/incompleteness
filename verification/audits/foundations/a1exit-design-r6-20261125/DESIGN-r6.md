@@ -580,6 +580,19 @@ The owner decided at #1169 comment 7186638587 (amaybaum, 2026-11-26T08:28:18Z, r
 
 Amendment 5 corrects expectations only where the design requires it, each correction citing its governing requirement (AMENDMENT-5.md sec. 2), adds the 14 rows the tool records (RB-P1, RB-C4 to RB-C11, LINE-PATCH-RC8), and resolves one contradiction in the design: R6.HP.7 required `stale-adjudication` for an adjudication entry that names an existing HP site but disagrees with its walk, while R6.REC.10 decides such an entry by the site's own rule. R6.HP.7 is corrected to agree with R6.REC.10, and U14's second case follows, as do its consequences in R6.CLASS.6, R6.CTRL.16, U14's flag, the U15 line of the migration table and the retired U15 entry. R6.PLAN.4 states the role in which S11-2a is evaluated. The whole-result rows on `T1'` that plant a subject are scoped to it, their obligation there kept exactly; RT-D and item11-T1p keep their whole-result class sets, which the design derives (AMENDMENT-5.md sec. 3). No requirement is weakened and no row loses an obligation; amendment 5 is pending independent review and the owner's acceptance.
 
+
+### 0.7 Amendment 6 of 2026-11-26
+
+Owner direction at #1169 comment 7187418279 (amaybaum, 2026-11-26T09:05Z (as received), relayed by the coordinating session); excerpt of item 4 (each line prefixed by "> "; "[...]" marks text left out):
+
+> [...]
+>
+> Include any necessary schema correction in the consolidated amendment rather than silently diverging from the adopted design.
+>
+> [...]
+
+Amendment 6 resolves four schema ambiguities of category 3 and one expectation conflict that the tool writer raised while implementing amendment 4. Each resolution is a proposal for the owner's decision at adoption (AMENDMENT-6.md gives the options). None lets a finding be lost or lifted by rewording: every form failure blocks rather than lapses, and a migration only adds edits. Proposed: a review-record finding is the verdict `invalidates` with `invalidated` (R6.REC.2, R6.RECON.26); a finding names its configuration, with the fail-closed fallback of binding every configuration carrying the edit; migrations live in a reviewed `oi-edit-id-migration/1` record the configuration references (R6.RECON.28, R6.CFG.4); an `invalidated` element is `{id, sha256, target: {path, start_H, old_sha256}}`; RECON-BLOCK agrees with amendment 4.
+
 ***
 
 ## 1. Notation and symbols
@@ -2083,9 +2096,11 @@ a classification or context record, reading the sentence and its context at the 
 judging the semantic statement. The reviewer writes a separate immutable review record, schema
 `oi-review-record/1`, with `reviewer`; `reviewed`, the `{path, blob_sha256}` of exactly one record;
 `method`, how each item was re-derived, naming the object ids read; `verdicts`, one entry per item id
-of the reviewed record (`accept`, `reject` or `dissent`, with the reason); and `dissent`, if any. A
+of the reviewed record (`accept`, `reject` or `dissent`, with the reason, and, on the item
+`<path>:scientific_effect` of a reconciliation record entry only, `invalidates` with `invalidated`,
+R6.RECON.26 (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision)); and `dissent`, if any. A
 review that cites only a passing tool run is invalid.
-Sources: E-136, V2-056, RV-019. Controls: O1, O2, O3, O5, O7, I2-5.
+Sources: E-136, V2-056, RV-019. Controls: O1, O2, O3, O5, O7, I2-5, FINDING-FORM.
 
 **R6.REC.3** **Owner approval (procedural).** The ownership chain the tool checks is the writer, the
 independent reviewer and the frozen configuration's reference at `F`; for a reconciliation record
@@ -3361,9 +3376,9 @@ expectation, 41 declare direction `both`, 6 name `paired_with` and 3 are exempt 
 42 rows in scope recorded no second direction (`direction-missing`), and 217 rows are flagged VD-RESTORE
 (these figures are those of the adopted file, before amendment 1). Amendment 1 (sec. 0.2) records a second
 direction on each of those 42 rows and adds 14 rows (B1) and 6 rows (B4), each with one, amendment 3
-adds 9 rows (sec. 0.4), amendment 4 adds 3 rows (sec. 0.5), and amendment 5 adds 14 rows (sec. 0.6),
-each with one. Counted
-mechanically over the amended file's rows outside the MUT and GATE namespaces (467 rows, 137 of them recording `scope: "outside"`; 285 carry a `restored` expectation, 67 declare direction `both`, 10 name `paired_with`, 3 are exempt as observations): no row in scope
+adds 9 rows (sec. 0.4), amendment 4 adds 3 rows (sec. 0.5), amendment 5 adds 14 rows (sec. 0.6), and
+amendment 6 adds 4 rows (sec. 0.7), each with one. Counted
+mechanically over the amended file's rows outside the MUT and GATE namespaces (471 rows, 137 of them recording `scope: "outside"`; 285 carry a `restored` expectation, 71 declare direction `both`, 10 name `paired_with`, 3 are exempt as observations): no row in scope
 records no second direction.
 Sources: V1-101, V2-073, V1-138, Q7, RE-2, RE-3, RE-4, Q11. Controls: A11r, M1, N1, GATE-27.
 
@@ -4162,6 +4177,10 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | RB-C10 | R6.RECON.2 | to be implemented (tool revision) | decl | adv +restored | a chain-admitted run whose record commit's parent is a commit below the run's M (amendment 5) |
 | RB-C11 | R6.RECON.2 | to be implemented (tool revision) | decl | adv +restored | a record commit that also changes a path its parent holds (amendment 5) |
 | LINE-PATCH-RC8 | R6.RECON.13 | to be implemented (tool revision) | proc | both | RC8 reads the ledger's `expected_sha256` (R6.RECON.13): with the value equal to the sha256 of the candidate's bytes RC8 holds; with another value it fails (amendment 5) |
+| FINDING-FORM | R6.RECON.26, R6.REC.2 | to be implemented (tool revision) | decl | both | point 1: a review-record finding is the verdict invalidates with invalidated on the scientific_effect item; review-record lint is separate from the reviewed record's chain lint; a malformed finding blocks (amendment 6) |
+| FINDING-LINEAGE | R6.RECON.26 | to be implemented (tool revision) | decl | both | point 2: the finding names its configuration; the lineage is computed from it; a finding without one binds every configuration carrying the edit (amendment 6) |
+| FINDING-KEYS | R6.RECON.26, R6.RECON.25 | to be implemented (tool revision) | decl | both | point 4: the key names of an invalidated element; a malformed element still blocks its id (amendment 6) |
+| MIGRATION-RECORD | R6.RECON.28, R6.CFG.4 | to be implemented (tool revision) | decl | both | point 3: where a recorded migration lives; a migration never lifts a block (amendment 6) |
 
 **Table 17.2. Record-directory mutants** (set `o9`; each row names the change and the controls
 that distinguish it; the results on the correct implementation and on the mutant are in the
@@ -5131,7 +5150,7 @@ by the tool. Each path entry of a reconciliation record carries `scientific_effe
 of any path, whose justification the change could bear on (for example an executable change bearing on a manuscript
 claim), or `none`; `assessment`, the writer's statement of the effect; `method`, what was re-derived or re-run to
 establish it; and `verdict`, `no-effect` or `invalidates`, the latter with `invalidated`, each an edit id with the
-canonical sha256 of its edit-list entry and its target (the path, `start_H` and `old_sha256` of the edit at `H`) (amendment 4, sec. 0.5: pending independent review and the owner's acceptance). For an entry whose path is executed by a check (a script, a Lean file, a
+canonical sha256 of its edit-list entry and its target (the path, `start_H` and `old_sha256` of the edit at `H`), in the form and with the `configuration` of R6.RECON.26 (iii) (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision) (amendment 4, sec. 0.5: pending independent review and the owner's acceptance). For an entry whose path is executed by a check (a script, a Lean file, a
 workflow), `method` names the check re-run at the entry's composed blob `l` and its result. The review record covers
 `scientific_effect` as an item of the entry, and the reviewer re-derives it under R6.REC.2; "accept" means the
 assessment and verdict are correct, whatever they conclude. An entry applies only if its reviewed verdict is
@@ -5141,7 +5160,7 @@ ledger, and each `invalidated` sha256 equals that edit-list entry's; the review'
 record lint holds (R6.REC.6). It does not and cannot check that the assessment is true, that the conclusions listed are
 complete, or that the files of the corpus stay consistent with one another in meaning; those rest on the review. A
 failure of form is FAIL `record-invalid`.
-Sources: amendment 3 (#1169 comments 7184569981 and 7184626125). Controls: RECON-SCI, RECON-BLOCK, BLOCK-KEY.
+Sources: amendment 3 (#1169 comments 7184569981 and 7184626125). Controls: RECON-SCI, RECON-BLOCK, BLOCK-KEY, FINDING-KEYS.
 
 **R6.RECON.26** **Category 3: the blocking state** (amendment 3, sec. 0.4: pending independent review and the owner's acceptance). An invalidating finding blocks the
 retirement. A finding is either a reconciliation record entry whose review accepts a `scientific_effect` with verdict
@@ -5177,7 +5196,28 @@ that removes the edit needs no reassessment; its renewed verification and trials
 run's do, and the retirement becomes eligible for approval again only when they pass. A later repair can resolve the
 underlying scientific problem, but cannot validate the invalidated frozen plan. The tool cannot find a category-3 change by itself: it relies on the review, and it enforces mechanically that a
 recorded finding blocks.
-Sources: amendment 3 (#1169 comments 7184569981, 7184626125, 7184808247 and 7185092393); amendment 4 (#1169 comment 7185562871). Controls: RECON-BLOCK, BLOCK-KEY.
+
+**Form of a finding** (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision). (i) A finding of the second kind is a verdict entry, in a review
+record, on the item `<path>:scientific_effect` whose verdict value is `invalidates` (a value that `oi-review-record/1`
+permits on that item only, R6.REC.2) and which carries a non-empty `invalidated`. The review record that carries it must
+pass review-record lint: the checks of R6.REC.6 that concern the review as a record (schema and fields; a `reviewer`
+other than the reviewed record's `author`, and not a run, check or Issue; `reviewed` naming exactly one record blob,
+present where the scan of this requirement finds the review; verdicts covering every item id of the reviewed record,
+without duplicates). Its verdict `invalidates` makes the reviewed record fail its own chain lint (R6.REC.6) and not
+apply; it does not make the review invalid. A verdict entry on a `scientific_effect` item that carries `invalidated`
+with any other verdict value, or the verdict `invalidates` with an empty or malformed `invalidated`, is a form failure,
+FAIL `record-invalid`, and counts as a finding over every edit the entry's `conclusions` name, or, if they name none,
+over every edit of the path: a malformed finding blocks rather than lapses. (ii) Each element of `invalidated`, in an
+entry's `scientific_effect` or in a review verdict, is `{id, sha256, target: {path, start_H, old_sha256}}`: `id` names a
+splice of the ledger of the configuration named in (iii); `sha256` is the canonical sha256 of that edit's edit-list
+entry; `target` copies that splice's file, start and `old_sha256` at `H`. An element that differs from the ledger, or
+lacks a key, is a form failure, FAIL `record-invalid`, and still blocks the id it names. (iii) Every finding names
+`configuration`, the `{path, blob_sha256}` of the configuration under which it was made: the entry's
+`scientific_effect` carries it for the first kind, the review verdict entry for the second. The plan lineage of the
+block is computed from it. A finding whose `configuration` is absent or cannot be read is a form failure, FAIL
+`record-invalid`, and binds every configuration whose ledger carries one of its edits, whatever its retirement. (iv)
+The migrations the edit-id match follows are those of R6.RECON.28.
+Sources: amendment 3 (#1169 comments 7184569981, 7184626125, 7184808247 and 7185092393); amendment 4 (#1169 comment 7185562871); amendment 6 (#1169 comment 7187418279). Controls: RECON-BLOCK, BLOCK-KEY, FINDING-FORM, FINDING-LINEAGE, FINDING-KEYS.
 
 **R6.RECON.27** **Reassessment of an invalidated edit** (amendment 4, sec. 0.5: pending independent review and the owner's acceptance). A reassessment record (schema
 `oi-reassessment/1`) is reviewed and immutable, under the ownership chain of sec. 11, and names: `finding`, the
@@ -5195,6 +5235,16 @@ scanned set of `M`'s tree) with a non-author review that accepts it; `rederivati
 one. The tool checks this form, the review and the citation; it cannot check that the re-derivation is sound, which
 rests on the review. A cited reassessment that does not apply is FAIL `record-invalid`, and the block stands.
 Sources: amendment 4 (#1169 comment 7185562871). Controls: BLOCK-KEY, REASSESS-FORM.
+
+**R6.RECON.28** **Edit-id migration record** (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision). A rename of a ledger edit id under AGENTS.md
+sec. A.48 item 3 is recorded for the tool in a reviewed, immutable record of schema `oi-edit-id-migration/1`, under the
+ownership chain of sec. 11: `migrations`, a list of `{old, new}` edit ids, and `approval`, the owner's recorded approval
+quoted with its author and time. A configuration that carries a renamed edit references the record in `records` with
+kind `edit-id-migration` (R6.CFG.4). For R6.RECON.26 the tool maps a finding's edit id through every such record that
+the configuration, or a configuration on its `supersedes` chain, references, transitively. A record that fails record
+lint is FAIL `record-invalid` and maps nothing. A migration record never lifts a block: the path-and-old-bytes match of
+R6.RECON.26 applies whether or not a migration is recorded, and a mapping only adds edits the block binds.
+Sources: amendment 6 (#1169 comment 7187418279). Controls: MIGRATION-RECORD.
 
 ***
 
@@ -5344,7 +5394,8 @@ unless marked optional:
   `[{kind, path, blob_sha256}]`, including
   the item-2 records `context-adjudications.json` and `hit-classifications.json` (sec. 22); a kind this
   design does not define, such as `oi-owner-authorization/1`, is ERROR `CONFIG_INVALID`; a reassessment
-  record that the freeze cites (R6.RECON.27) is listed with kind `reassessment` (amendment 4, sec. 0.5: pending independent review and the owner's acceptance);
+  record that the freeze cites (R6.RECON.27) is listed with kind `reassessment`, and an edit-id migration
+  record (R6.RECON.28) with kind `edit-id-migration` (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision), (amendment 4, sec. 0.5: pending independent review and the owner's acceptance);
 - `tool`: `{files: [{path, blob_sha256}], workflow: {path, blob_sha256}}`: every file of the tool (the
   entry point, every file under `tools/ledger_coverage/`, including `record_authority.py`) and the
   pinned workflow whose runs may produce an acceptable result (sec. 11, execution identity; sec. 19);
@@ -5358,7 +5409,7 @@ unless marked optional:
 Sources: E-1393, E-1394, E-1395, E-1396, E-1397, E-1398, E-1399, E-1400, E-1401, E-1402, E-1403,
 E-1404, E-1405, E-1406, E-1407, E-1408, E-1409, E-1410, E-1411, E-1412, E-1413, E-1414, E-1415,
 A-115, A-116, A-117, A-024, A-129, OD-1, OD-2, OD-7, OD-23, RD-32. Controls: Z1, Z2, Z3, Z6, Z6b,
-CONFIG-LINT, Z8, BLOCK-KEY.
+CONFIG-LINT, Z8, BLOCK-KEY, MIGRATION-RECORD.
 
 **R6.CFG.5** The supported extractor kinds are `json-pointer`; `python-ast-assign` (a module-level
 name bound to a string, a tuple of strings, a dict of strings, or a compiled regex call with a literal
