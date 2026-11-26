@@ -347,26 +347,76 @@ def postf_controls(r, check):
         rv, pth, _ = w_.standard(w_.record(X=w_.syn.H))
         return w_.run(['%s:%s' % (rv, pth)]) + (pth,)
 
+    def bad_object():
+        # an on-disk object store holding a loose object whose content does not hash to its id; the verified reader
+        # refuses it (ERROR UNRESOLVABLE)
+        import os
+        import subprocess
+        import tempfile
+        import zlib
+        from ledger_coverage.engine import gitobj
+        w_ = World(r)
+        d = tempfile.mkdtemp(prefix='postf4-store-', dir=r.out_root)
+        subprocess.run(['git', 'init', '-q', d], check=True)
+        body = b'tree 4b825dc642cb6eb9a060e54bf8d69288fbee4904\n\nsynthetic commit\n'
+        real = b'commit %d\x00' % len(body) + body
+        fake = gitobj.object_id('commit', body.replace(b'synthetic', b'another'))
+        od = os.path.join(d, '.git', 'objects', fake[:2])
+        os.makedirs(od, exist_ok=True)
+        with open(os.path.join(od, fake[2:]), 'wb') as f:
+            f.write(zlib.compress(real))
+        w_.repo.base = gitobj.GitRepo(d)
+        return w_.run(['%s:%s' % (fake, RD + 'rec.json')]) + (None,)
+
+    def config_recon_variant(doc_of):
+        # a configuration referencing a reconciliation record (with its review); doc_of(World) drafts it from the
+        # main and candidate commits, which do not depend on the configuration
+        w0 = World(r)
+        cdoc = doc_of(w0)
+        b = jb(cdoc)
+        ref = {'path': 'syn/cfg/recon.json', 'blob_sha256': sha(b)}
+        files = {ref['path']: b}
+        review = sf.Syn.chain(None, files, ref['path'], sf.REVIEWER)
+
+        def variant(w_):
+            return {'files': files, 'add_records': [dict(ref, kind='reconciliation')] + review}
+        return variant, ref
+
+    def supersedes_config():
+        variant, ref = config_recon_variant(lambda w0: w0.record(record_id='syn-cfg-recon'))
+        w_ = World(r, variant=variant)
+        rv, pth, _ = w_.standard(w_.record(record_id='syn-cfg-recon', supersedes=ref))
+        return w_.run(['%s:%s' % (rv, pth)]) + (pth,)
+
+    def config_and_admitted():
+        variant, ref = config_recon_variant(lambda w0: w0.record(record_id='syn-cfg-recon', M=w0.syn.H))
+        w_ = World(r, variant=variant)
+        rv, pth, _ = w_.standard()
+        code, res = w_.run(['%s:%s' % (rv, pth)])
+        res4['_config_record_invalid'] = invalid(res, ref['path'])
+        return code, res, pth
+
+    for name, fn in ((POSTF4[12], bad_object), (POSTF4[15], supersedes_config), (POSTF4[16], config_and_admitted)):
+        case4(name, fn)
     for name, fn in ((POSTF4[0], no_review), (POSTF4[1], two_reviews), (POSTF4[2], self_review),
                      (POSTF4[3], superseded_elsewhere), (POSTF4[4], fork), (POSTF4[5], absent_predecessor),
                      (POSTF4[6], earlier_parent), (POSTF4[7], two_parents), (POSTF4[8], outside_change),
                      (POSTF4[9], two_revs), (POSTF4[10], two_records), (POSTF4[11], abbreviated),
                      (POSTF4[13], other_m), (POSTF4[14], other_x)):
         case4(name, fn)
-    # not built here, so the gate records missing evidence for them: the commit object that does not hash to its id
-    # (the in-memory store does not verify ids; it needs an on-disk object store) and the two cases over
-    # configuration-referenced records (the synthetic configuration references no reconciliation record)
     rp4 = restored()
     names4.append(('restored', {'record': rp4}))
-    want_drift = {POSTF4[10], POSTF4[13], POSTF4[14]}
+    want_drift = {POSTF4[10], POSTF4[13], POSTF4[14], POSTF4[16]}
+    cases4 = {k: v for k, v in res4.items() if not k.startswith('_')}
     ok4 = all('error' not in v and v['exit'] == 20 and v['invalid'] and (k not in want_drift or 'base-drift' in
                                                                        v['classes'])
-              for k, v in res4.items())
+              for k, v in cases4.items() if k != POSTF4[12]) and \
+        cases4.get(POSTF4[12], {}).get('stop') == 'UNRESOLVABLE' and res4.get('_config_record_invalid') is True
     check('POSTF-4', 'the record commit and lineage conditions of the post-freeze route: each violation FAIL '
-          'record-invalid (an unverifiable object ERROR UNRESOLVABLE)', 'every built case as its expectation states; '
-          'the unverifiable-object case and the two configuration-referenced cases are not built', {'cases': res4, 'built_cases_hold': ok4},
-          # two listed cases are not built here, so the row cannot hold whatever the built cases give
-          False, cases=names4)
+          'record-invalid (an unverifiable object ERROR UNRESOLVABLE)', 'every case as its expectation states; the '
+          'configuration-referenced record of the last case is record-invalid as well', {'cases': res4,
+                                                                                         'built_cases_hold': ok4},
+          ok4, cases=names4)
 
     # POSTF-5
     res5, names5 = {}, []
@@ -481,6 +531,8 @@ POSTF4 = [
     'a REV naming a commit object whose content does not hash to its id',
     "an admitted record naming a commit other than the run's M, its blobs satisfying RC1-RC13 at the run's M",
     "an admitted record naming a commit other than the run's X, its blobs satisfying RC1-RC13",
+    'an admitted record whose supersedes names a reconciliation record the configuration references',
+    'a reconciliation record the configuration references and an admitted record, naming different commits M, covering one path (each record-invalid; neither applies)',
 ]
 POSTF5 = ['PATH under a prefix of the tool-landing class', "PATH inside the plan's record directory",
           'PATH a ledgered path', 'PATH a corpus path', 'PATH outside verification/audits/',
