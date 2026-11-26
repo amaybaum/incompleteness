@@ -1791,8 +1791,8 @@ resetting the work.
    - treats work that is not on GitHub as unavailable, not recovered, and reconstructs it where
      needed from the latest checkpoint and the preserved records;
    - posts a recovery checkpoint (item 1) on each workstream thread, linking the record of the
-     designation (item 2), and on the coordination Issue a summary of the discrepancies, unavailable work and
-     decisions that need the owner;
+     designation (item 2), and on the coordination Issue a summary of the discrepancies,
+     unavailable work and decisions that need the owner;
    - continues under the recorded authorizations, which a change of session does not renew or
      withdraw (§A.45 rule 3, §A.51); a recommendation, review or writer proposal is not one.
 
