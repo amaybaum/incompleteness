@@ -22836,7 +22836,7 @@
       ]
      },
      {
-      "case": "countercase: a hit resolved at X by a context adjudication, whose context M changes while the matched sentence stays the same: the adjudication's condition fails on the landing content and the resolution is not preserved",
+      "case": "countercase: a hit resolved at X by a context adjudication, whose line M moves and whose context M changes while the matched sentence stays the same: the adjudication's condition fails on the landing content and the resolution is not preserved",
       "outcome": "FAIL",
       "classes_include": [
        "base-drift"
@@ -22848,10 +22848,88 @@
       ]
      },
      {
-      "case": "countercase: a matched finding whose resolving record's condition cannot be established on the landing content (its context cannot be computed there): it fails closed",
+      "case": "countercase: a hit on a TABLE site resolved at X by a context adjudication, where M turns the neighbouring table rows into plain paragraphs (every delimiter removed from them) and leaves the site's own line byte-identical, so the structure context that the procedure computed at X cannot be computed at the landing: it fails closed",
       "outcome": "FAIL",
       "classes_include": [
        "context-meaning-unverified"
+      ]
+     },
+     {
+      "case": "countercase: a hit resolved at X by an allow rule, moved unchanged into a context where the rule's context matcher fails: the resolution is not kept",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "reconciled-state"
+       }
+      ]
+     },
+     {
+      "case": "countercase: a hit resolved at X by a hit classification whose line M duplicates: the record's uniqueness condition fails at the landing, so the original's resolution is not kept",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "reconciled-state"
+       },
+       {
+        "items_include": [
+         {
+          "class": "unclassified",
+          "subject": "$original_line"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: a site resolved at X by an HP adjudication, lying off every line RC14 keeps intact, whose segment condition is therefore not established at the landing",
+      "outcome": "FAIL",
+      "classes_include": [
+       "context-meaning-unverified"
+      ]
+     },
+     {
+      "case": "a hit resolved at X by an allow rule, unchanged at the landing: its sentence and context, the rule's scope, literal, context matcher and deny precedence all hold there and the fingerprint is used once, so it keeps its resolution (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid",
+         "context-meaning-unverified"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "a hit resolved at X by a hit classification whose line M moves unchanged, the line still unique in the landing tree and hit by the same profiles: it keeps its resolution (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid",
+         "context-meaning-unverified"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "a site resolved at X by an HP adjudication whose line RC14 keeps intact and whose bound context hashes hold at the landing: it keeps its resolution (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid",
+         "context-meaning-unverified"
+        ]
+       }
       ]
      }
     ]
@@ -25001,7 +25079,7 @@
       ]
      },
      {
-      "case": "countercase (conformance mutants): each mutant of CONFORMANCE-MUTANTS.json (sha256 f26a777edcca5110b33a8b8f35ccaa8c93d776fa065e462e159bc27da24bf477), applied (R6.RECON.29) to the positive record of its kind, run separately and recorded with its id (table, key path, violation); the recorded ids equal the list",
+      "case": "countercase (conformance mutants): each mutant of CONFORMANCE-MUTANTS.json (sha256 2420f2042525b99fcc615d174257d6395535dc6712893991787738f014f4a486), applied (R6.RECON.29) to the positive record of its kind, run separately and recorded with its id (table, key path, violation); the recorded ids equal the list",
       "outcome": "FAIL",
       "classes_include": [
        "record-invalid"

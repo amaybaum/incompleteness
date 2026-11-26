@@ -303,7 +303,7 @@ NEAR = {
     'sha256': ['upper-case', 'non-hex-character', 'sixty-three-characters', 'sixty-five-characters',
                'trailing-newline'],
     'offset': ['fraction-5.0', 'exponent-5e0', 'negative'],
-    'int': ['fraction-5.0'],
+    'int': ['fraction-5.0', 'exponent-5e0'],
     'path': ['leading-slash', 'trailing-slash', 'empty-component', 'dot-component', 'dot-dot-component'],
     'ident': ['url'],
     'time': ['no-zone', 'space-separator'],
@@ -1170,15 +1170,23 @@ RECON23_NEW = ('by identity and validity, which are two separate questions %s. *
                'counted with multiplicity: a\nkey found k times at the landing and j times at `X` gives k - j new findings '
                'when k > j, so a line that `M`\nmoves is not new and a second copy of a line is; when several new findings '
                'share a key, each is reported, at\nthe landing\'s positions of the last k - j occurrences in file order. '
-               '*Validity.* A finding matched by its key\nkeeps the resolution it had at `X` only if the resolving record\'s '
-               'own condition holds when evaluated on the\nlanding content: for a context adjudication, both its context '
-               'hashes (R6.CTX.7); for an HP adjudication or a hit\nclassification, its line sha256 and, where it binds '
-               'one, its context; for an allow rule, its fingerprint\nconditions (R6.RULE.4). A matched finding whose '
-               'resolving record\'s condition does not hold at the landing is\nresolved anew there, as a new finding is, '
-               'and counts as new unless records and rules at the landing resolve\nit. A matched finding whose resolving '
-               'record\'s condition cannot be established on the landing content (for\nexample a context that cannot be '
-               'computed there) is FAIL `context-meaning-unverified`, never a silent pass.\nMoving a finding does not by '
-               'itself make it new, and keeping its wording does not by itself keep its meaning.' % MARK)
+               '*Validity.* A previous resolution is never\ninherited merely because the finding remains identifiable: its full validity is established again on the\nlanding tree. A matched finding keeps the resolution it had at `X` only if the resolving record resolves it under '
+               'that record\'s own requirement, evaluated\nin full on the landing tree; the parts named here are included, '
+               'not exhaustive: for a context adjudication,\nboth context hashes (R6.CTX.7); for an allow rule, steps 1 to 4 '
+               'of R6.RULE.4 (scope, literal, context matcher,\ndeny precedence, negative matcher and allowance, each '
+               'fingerprint\'s single use in the tree, and its sentence\nand, where required, context); for a hit '
+               'classification, `file`, `line_sha256` and its uniqueness in the\nlanding tree, and the profiles hitting the '
+               'line (R6.HIT.4); for an HP adjudication, its line sha256 at the\nsite\'s position and, where it binds a '
+               'context, both context hashes. A segment or walk-step condition of an HP\nadjudication or a hit '
+               'classification is read at `X`, and carries over only for a site whose line RC14 keeps\nintact '
+               '(R6.RECON.24); otherwise it is not established. A record resolves at the landing at most as many\nmatched '
+               'instances as it resolved at `X`. The condition cannot be established when an input it reads (the\n'
+               'sentence, the context window, the site\'s line, a segment or step, the tree\'s set of lines) cannot be\n'
+               'computed on the landing by the procedure that computed it at `X`, or when the record\'s requirement gives no\n'
+               'evaluation on a landing; the finding is then FAIL `context-meaning-unverified`. A record of any other kind\n'
+               'keeps no resolution at the landing: the matched finding is resolved anew. A matched finding whose\n'
+               'resolution is not kept counts as new unless records and rules at the landing resolve it. Moving a finding '
+               'does\nnot by itself make it new, and keeping its wording does not by itself keep its meaning.' % MARK)
 GATE3_OLD = ('  - `<unit>[k=v,...]` with unit `items`, `lines`, `sentences`, `hits` or `findings`, counted over the\n    '
              'result. Filter keys are item fields (`obligation`, `class`, `decision`, `rule_id`, `profile`,\n    `file`, '
              '`subject`, `segment`, `state`, `path`, `literal`, `only_profile`). `|` separates\n    alternatives.')
@@ -1212,9 +1220,8 @@ information: it confers no status, and the row keeps the status the gate compute
 Sources: owner decision of 2026-11-26 (#1169 comment 7190776267, item 3).
 """ % MARK
 
-OBL29_ROW = ('| OBL-29 | the A1 retirement execution | a reviewed and adopted design change under which no removal of a landed '
-             'finding record can let a blocked plan proceed, with its controls holding under the gate (Issue #1598) | '
-             'no cycle |')
+OBL29_ROW = ('| OBL-29 | the A1 retirement execution | its remedy, implemented and independently verified (Issue #1598); the '
+             'interim procedural guards do not discharge it | no cycle |')
 OBL29 = """
 **OBL-29** **Removal of a landed finding record** %s. A finding record (R6.RECON.26) that lands on `main`
 after `F`, and that no `REV` the run scans holds, is seen only while it is present, unchanged, in `M`'s tree
@@ -1225,8 +1232,10 @@ begins a JSON value. A finding still present in `F`'s tree or in a scanned `REV`
 criterion quoted in Issue #1598, "If deletion can allow an invalidated retirement plan to proceed, it is a genuine
 correctness defect that must be resolved before retirement.", this is an open correctness defect of this design, not an
 accepted residual. The procedural guards of AGENTS.md sec. A.50 item 3 and sec. A.46 item 6 are interim controls only.
-Gates: the A1 retirement execution. Discharged by: a reviewed and adopted design change under which no such removal
-can let a blocked plan proceed, with its controls holding under the gate. Sources: PR #1593 comment 7190966287 (D1);
+It remains an explicit retirement blocker until its remedy is implemented and independently verified; the interim
+procedural guards do not discharge it (owner decisions of 2026-11-26, #1169 comments 7190996241 and 7191104852, quoted
+in sec. 0.7). Gates: the A1 retirement execution. Discharged by: its remedy, implemented and independently verified.
+Sources: PR #1593 comment 7190966287 (D1);
 Issue #1598.
 """ % MARK
 RECON_TRIAL_R5 = [
@@ -1234,13 +1243,32 @@ RECON_TRIAL_R5 = [
              'unchanged: matched by its key, and the adjudication\'s condition holds on the landing content, so it keeps '
              'its resolution (positive)', 'outcome': 'ANY',
      'invariants': [{'not_class': ['base-drift', 'record-invalid', 'context-meaning-unverified']}]},
-    {'case': 'countercase: a hit resolved at X by a context adjudication, whose context M changes while the matched '
-             'sentence stays the same: the adjudication\'s condition fails on the landing content and the resolution is '
-             'not preserved', 'outcome': 'FAIL', 'classes_include': ['base-drift'],
+    {'case': 'countercase: a hit resolved at X by a context adjudication, whose line M moves and whose context M changes '
+             'while the matched sentence stays the same: the adjudication\'s condition fails on the landing content and '
+             'the resolution is not preserved', 'outcome': 'FAIL', 'classes_include': ['base-drift'],
      'invariants': [{'failed_conditions_include': 'reconciled-state'}]},
-    {'case': 'countercase: a matched finding whose resolving record\'s condition cannot be established on the landing '
-             'content (its context cannot be computed there): it fails closed', 'outcome': 'FAIL',
+    {'case': 'countercase: a hit on a TABLE site resolved at X by a context adjudication, where M turns the neighbouring '
+             'table rows into plain paragraphs (every delimiter removed from them) and leaves the site\'s own line '
+             'byte-identical, so the structure context that the procedure computed at X cannot be computed at the '
+             'landing: it fails closed', 'outcome': 'FAIL', 'classes_include': ['context-meaning-unverified']},
+    {'case': 'countercase: a hit resolved at X by an allow rule, moved unchanged into a context where the rule\'s context '
+             'matcher fails: the resolution is not kept', 'outcome': 'FAIL', 'classes_include': ['base-drift'],
+     'invariants': [{'failed_conditions_include': 'reconciled-state'}]},
+    {'case': 'countercase: a hit resolved at X by a hit classification whose line M duplicates: the record\'s uniqueness '
+             'condition fails at the landing, so the original\'s resolution is not kept', 'outcome': 'FAIL',
+     'classes_include': ['base-drift'],
+     'invariants': [{'failed_conditions_include': 'reconciled-state'},
+                    {'items_include': [{'class': 'unclassified', 'subject': '$original_line'}]}]},
+    {'case': 'countercase: a site resolved at X by an HP adjudication, lying off every line RC14 keeps intact, whose '
+             'segment condition is therefore not established at the landing', 'outcome': 'FAIL',
      'classes_include': ['context-meaning-unverified']},
+    dict(case='a hit resolved at X by an allow rule, unchanged at the landing: its sentence and context, the rule\'s '
+              'scope, literal, context matcher and deny precedence all hold there and the fingerprint is used once, so '
+              'it keeps its resolution (positive)', **{'outcome': 'ANY', 'invariants': [{'not_class': ['base-drift', 'record-invalid', 'context-meaning-unverified']}]}),
+    dict(case='a hit resolved at X by a hit classification whose line M moves unchanged, the line still unique in the '
+              'landing tree and hit by the same profiles: it keeps its resolution (positive)', **{'outcome': 'ANY', 'invariants': [{'not_class': ['base-drift', 'record-invalid', 'context-meaning-unverified']}]}),
+    dict(case='a site resolved at X by an HP adjudication whose line RC14 keeps intact and whose bound context hashes hold '
+              'at the landing: it keeps its resolution (positive)', **{'outcome': 'ANY', 'invariants': [{'not_class': ['base-drift', 'record-invalid', 'context-meaning-unverified']}]}),
 ]
 RECON_TRIAL_CASE = {'case': 'a finding at X on a line that M\'s changes move (lines inserted above it): matched at the '
                             'landing by its key, the line number excluded; no new finding (positive)',
@@ -1280,6 +1308,12 @@ DECLARED_DIFFS = [
     ('RECON-TRIAL', ('expect', 'cases', 8), MISSING, RECON_TRIAL_R5[0]),
     ('RECON-TRIAL', ('expect', 'cases', 9), MISSING, RECON_TRIAL_R5[1]),
     ('RECON-TRIAL', ('expect', 'cases', 10), MISSING, RECON_TRIAL_R5[2]),
+    ('RECON-TRIAL', ('expect', 'cases', 11), MISSING, RECON_TRIAL_R5[3]),
+    ('RECON-TRIAL', ('expect', 'cases', 12), MISSING, RECON_TRIAL_R5[4]),
+    ('RECON-TRIAL', ('expect', 'cases', 13), MISSING, RECON_TRIAL_R5[5]),
+    ('RECON-TRIAL', ('expect', 'cases', 14), MISSING, RECON_TRIAL_R5[6]),
+    ('RECON-TRIAL', ('expect', 'cases', 15), MISSING, RECON_TRIAL_R5[7]),
+    ('RECON-TRIAL', ('expect', 'cases', 16), MISSING, RECON_TRIAL_R5[8]),
     ('S11-2a', ('expect', 'sites', 0, 'added_relative_to_unmutated'), MISSING,
      {'items[class=unclassified,subject=$new_line]': 1}),
     ('RTL2-BIND', ('expect', 'cases', 6, 'case'), RTL2_OLD, RTL2_NEW),
@@ -1733,6 +1767,31 @@ R5_MAP = [
              'the review record\'s path).'),
     ('focused 2', 'REQUIREMENTS: RECON-SCHEMA is appended to the controls of R6.RECON.31 and R6.RECON.34, the r3 order '
                   'kept as a prefix.'),
+]
+
+R6_MAP = [
+    ('focused 1', 'R6.RECON.23 Validity: the focused reviewer\'s minimal text (the resolving record\'s own requirement '
+                  'evaluated in full on the landing tree; allow rules by R6.RULE.4 steps 1 to 4; hit classifications by '
+                  'file, line_sha256 and its uniqueness, and the profiles; HP adjudications by line sha256 and bound '
+                  'context hashes; segment and walk-step conditions carried only for RC14-kept lines; at most as many '
+                  'instances as at X; "cannot be established" defined by its inputs or by no landing evaluation, giving '
+                  'FAIL `context-meaning-unverified`; any other kind resolved anew). Identity and validity stay separate.'),
+    ('focused 2', 'RECON-TRIAL countercases: (i) allow rule, context matcher failing after a move, FAIL `base-drift`; (ii) '
+                  'a duplicated hit-classification line, the original\'s resolution not kept; (iii) an HP-resolved site '
+                  'off every RC14-kept line, FAIL `context-meaning-unverified`.'),
+    ('a1', 'The changed-context control states that the line is also moved.'),
+    ('a2', 'The unverifiable control has one deterministic construction: a TABLE site whose neighbouring rows M turns into '
+           'plain paragraphs, its own line unchanged, so the structure context cannot be computed.'),
+    ('a3', 'Covered by countercase (i).'),
+    ('b1', 'OBL-29 remains an explicit retirement blocker until its remedy is implemented and independently verified; the '
+           'interim guards do not discharge it, quoting the owner (#1169 comments 7190996241 and 7191104852) in sec. 0.7. '
+           'No remedy is designed here.'),
+    ('c1', 'The exponent variant `5e0` is added to the integer encoding of `recon.splice.translation`.'),
+    ('owner', 'Owner direction (#1169 comment 7191164794): R6.RECON.23 states the general rule first (a previous resolution '
+              'is never inherited merely because the finding remains identifiable; its full validity is established '
+              'again), with the per-kind parts as an illustrative, non-exhaustive list; RECON-TRIAL gains a positive '
+              'control for each supported kind (allow rule, hit classification, HP adjudication) besides the context '
+              'adjudication cases, so legitimate unchanged resolutions stay valid.'),
 ]
 
 
@@ -2242,6 +2301,8 @@ def self_checks(E0, E, R0, R, t, base_texts):
         problems.append('audit map incomplete')
     if [x[0] for x in RANKED_MAP] != [str(i) for i in range(1, 12)]:
         problems.append('ranked map incomplete')
+    if [x[0] for x in R6_MAP] != ['focused 1', 'focused 2', 'a1', 'a2', 'a3', 'b1', 'c1', 'owner']:
+        problems.append('r6 map incomplete')
     if [x[0] for x in R5_MAP] != ['focused 1 / audit C1', 'audit D1', 'C-n1', 'C-n2', 'A-n1', 'A-n2', 'A-n3',
                                   'focused 2']:
         problems.append('r5 map incomplete')
@@ -2274,7 +2335,7 @@ def change_record(owner, outs, gen_sha, owner_sha, totals):
     lines = ['# r6 amendment 6: change record', '',
              'Owner directions, quoted in DESIGN-r6.md sec. 0.7: %s. Generated by generator-amendment6/amend6.py '
              '(sha256 %s) from the amendment-5 outputs (amendment 5 r2, e0706a4b, adopted) and '
-             'generator-amendment6/owner-decisions-amendment6.json (sha256 %s). This is r5, correctness corrections only. r3, the last general revision, '
+             'generator-amendment6/owner-decisions-amendment6.json (sha256 %s). This is r6, correctness corrections only. r3, the last general revision, '
              'it answers the delta review of r2 (PR #1593 comment 7190255132, D1 to D7) and the completeness-audit '
              'follow-up (PR #1593 comment 7190234470, findings 1 to 13 and section S), and removes complexity that '
              'both reviewers agree gives no protection. It keeps the answers of r2 to the first review (PR #1593 '
@@ -2283,7 +2344,8 @@ def change_record(owner, outs, gen_sha, owner_sha, totals):
              'and 7190609504), the owner choice on `git_blob`, and the tool writer\'s two defects (R6.RECON.23 '
              'matching; R6.GATE.3 count grammar). r5 makes only the corrections of the final reviews of r4 (PR #1593 comments '
              '7190950956 and 7190966287): R6.RECON.23 as the owner decided (#1169 comment 7190979974), OBL-29, and '
-             'their nits. Every resolution is a proposal; the choice is the owner\'s at adoption.'
+             'their nits. r6 defines the validity of a kept resolution for every resolution-record kind and states '
+             'OBL-29\'s discharge in the owner\'s words (#1169 comments 7190996241 and 7191104852). Every resolution is a proposal; the choice is the owner\'s at adoption.'
              % ('; '.join('%s, %s (%s), %s' % (d['author'], d['time'], d['record'], d['item'])
                           for d in owner['decisions']), gen_sha, owner_sha), '',
              'Safety rule for every point: no reading may let a category-3 finding be lost or lifted by rewording, and '
@@ -2297,8 +2359,9 @@ def change_record(owner, outs, gen_sha, owner_sha, totals):
              '| amendment 6 r2 (319e9bbf) | 621 | 17 | 123 | 443 | 9 |',
              '| amendment 6 r3 (c6df73dd) | 619 | 15 | 134 | 443 | 9 |',
              '| amendment 6 r4 (d92673a5) | 619 | 15 | 142 | 444 | 10 |',
-             '| amendment 6 r5 | %d | %d | %d | %d | %d |' % (totals['rows'], nr, nc, totals['reqs'], len(NEW_REQS)), '',
-             'r5 generates %d conformance mutants into CONFORMANCE-MUTANTS.json, each an identifiable case of the '
+             '| amendment 6 r5 (1f576457) | 619 | 15 | 142 | 445 | 11 |',
+             '| amendment 6 r6 | %d | %d | %d | %d | %d |' % (totals['rows'], nr, nc, totals['reqs'], len(NEW_REQS)), '',
+             'r6 generates %d conformance mutants into CONFORMANCE-MUTANTS.json, each an identifiable case of the '
              'RECON-SCHEMA mutant countercase.' % len(mutants()), '',
              'r3 merges RESULT-FIELDS into RECON-ENUM (two cases added there) and WIDENING-ITEMS into REVIEW-SCHEMA, '
              'collapses the individual schema violations of RECON-SCHEMA into one generic conformance case, removes '
@@ -2337,6 +2400,9 @@ def change_record(owner, outs, gen_sha, owner_sha, totals):
     lines += ['## 2e. Final reviews of r4 (PR #1593 comments 7190950956 and 7190966287) and the owner\'s decision on '
               'R6.RECON.23 (#1169 comment 7190979974)', '', '| Item | Disposition |', '|---|---|']
     lines += ['| %s | %s |' % (k, v) for k, v in R5_MAP] + ['']
+    lines += ['## 2f. Reviews of r5 (PR #1593 comments 7191130298 and 7191119951) under the owner\'s standard (#1169 '
+              'comment 7191104852)', '', '| Item | Disposition |', '|---|---|']
+    lines += ['| %s | %s |' % (k, v) for k, v in R6_MAP] + ['']
     lines += ['## 3. Items B (tool writer)', '']
     for k, title, opts, rec in B_MAP:
         lines += ['### %s. %s' % (k, title), '', 'Options:', ''] + ['- ' + o for o in opts] + ['', rec, '']

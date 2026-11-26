@@ -4005,6 +4005,11 @@
   },
   {
    "table": "recon.splice",
+   "key_path": "translation",
+   "violation": "exponent-5e0"
+  },
+  {
+   "table": "recon.splice",
    "key_path": "+unlisted",
    "violation": "unlisted-key-added"
   },

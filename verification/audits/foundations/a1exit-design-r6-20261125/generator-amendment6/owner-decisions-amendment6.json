@@ -94,6 +94,49 @@
     "The central principle is that finding identity and resolution validity are two separate questions. Moving a finding does not necessarily make it new, and preserving its wording does not necessarily preserve its meaning.",
     null
    ]
+  },
+  {
+   "author": "amaybaum",
+   "time": "2026-11-26T11:39Z (as received)",
+   "record": "#1169 comment 7190996241",
+   "relayed_by": "coordinating session",
+   "item": "the passages quoted",
+   "quotes": [
+    null,
+    "The #1598 defect must remain an explicit retirement blocker until resolved and independently verified.",
+    null
+   ]
+  },
+  {
+   "author": "amaybaum",
+   "time": "2026-11-26T11:44Z (as received)",
+   "record": "#1169 comment 7191104852",
+   "relayed_by": "coordinating session",
+   "item": "the passages quoted",
+   "quotes": [
+    null,
+    "The meaning of \"cannot be established\" must be sufficiently defined for every applicable resolution-record kind. If an implementation could preserve an invalid resolution because of ambiguity in the design, treat that as a correctness defect rather than a nit.",
+    null,
+    "OBL-29 remains an explicit retirement blocker until its remedy is implemented and independently verified. Interim procedural guards do not discharge it.",
+    null
+   ]
+  },
+  {
+   "author": "amaybaum",
+   "time": "2026-11-26T11:47Z (as received)",
+   "record": "#1169 comment 7191164794",
+   "relayed_by": "coordinating session",
+   "item": "its opening and item 2",
+   "quotes": [
+    null,
+    "The r6 correction is justified. The general rule should be that a previous resolution is never inherited merely because the finding remains identifiable. Its full validity must be established again.",
+    "This is preferable to maintaining separate, potentially incomplete exceptions for different record kinds.",
+    null,
+    "The governing principles are:\n- Finding identity and resolution validity are separate.\n- Every retained resolution must satisfy the resolving record's full requirements on the landing tree.\n- A previous resolution cannot be extended to additional instances without valid authorization.\n- Unverifiable conditions fail closed.\n- Unsupported record kinds cannot inherit resolutions.",
+    "Ensure that legitimate unchanged resolutions remain valid, so the correction does not introduce unnecessary failures.",
+    "Adoption and trial execution remain unauthorized.",
+    null
+   ]
   }
  ]
 }

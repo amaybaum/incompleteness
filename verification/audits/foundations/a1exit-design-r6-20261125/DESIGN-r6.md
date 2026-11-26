@@ -684,6 +684,49 @@ Owner direction at #1169 comment 7190979974 (amaybaum, 2026-11-26T11:38Z (as rec
 >
 > [...]
 
+Owner direction at #1169 comment 7190996241 (amaybaum, 2026-11-26T11:39Z (as received), relayed by the coordinating session); excerpt of the passages quoted (each line prefixed by "> "; "[...]" marks text left out):
+
+> [...]
+>
+> The #1598 defect must remain an explicit retirement blocker until resolved and independently verified.
+>
+> [...]
+
+Owner direction at #1169 comment 7191104852 (amaybaum, 2026-11-26T11:44Z (as received), relayed by the coordinating session); excerpt of the passages quoted (each line prefixed by "> "; "[...]" marks text left out):
+
+> [...]
+>
+> The meaning of "cannot be established" must be sufficiently defined for every applicable resolution-record kind. If an implementation could preserve an invalid resolution because of ambiguity in the design, treat that as a correctness defect rather than a nit.
+>
+> [...]
+>
+> OBL-29 remains an explicit retirement blocker until its remedy is implemented and independently verified. Interim procedural guards do not discharge it.
+>
+> [...]
+
+Owner direction at #1169 comment 7191164794 (amaybaum, 2026-11-26T11:47Z (as received), relayed by the coordinating session); excerpt of its opening and item 2 (each line prefixed by "> "; "[...]" marks text left out):
+
+> [...]
+>
+> The r6 correction is justified. The general rule should be that a previous resolution is never inherited merely because the finding remains identifiable. Its full validity must be established again.
+>
+> This is preferable to maintaining separate, potentially incomplete exceptions for different record kinds.
+>
+> [...]
+>
+> The governing principles are:
+> - Finding identity and resolution validity are separate.
+> - Every retained resolution must satisfy the resolving record's full requirements on the landing tree.
+> - A previous resolution cannot be extended to additional instances without valid authorization.
+> - Unverifiable conditions fail closed.
+> - Unsupported record kinds cannot inherit resolutions.
+>
+> Ensure that legitimate unchanged resolutions remain valid, so the correction does not introduce unnecessary failures.
+>
+> Adoption and trial execution remain unauthorized.
+>
+> [...]
+
 Amendment 6 resolves the schema ambiguities of category 3 that the tool writer raised while implementing amendment 4 and one expectation conflict; answers the independent review of its first draft (PR #1593 comment 7189446310); resolves two further ambiguities, the retained-site line of RC14 (b) and the resolution schema of R6.RECON.24; and states the schema contract of the reconciliation record kinds that the owner's completeness audit (PR #1593 comment 7189621405) found stated by meaning only (sec. 23.1, R6.RECON.29 to R6.RECON.36, one key table per kind); it then answers the reviews of its second draft (PR #1593 comments 7190255132 and 7190234470), states each definition once, and removes cases and text that both reviewers found to add no protection; and it makes the corrections of the two final checks (PR #1593 comments 7190624085 and 7190609504), states the matching key of R6.RECON.23 and the count grammar of R6.GATE.3, and adds R6.GATE.17, under which a failing row may stay unresolved; and it separates the identity of a finding from the validity of its resolution (R6.RECON.23) and states the removal of a landed finding record as the open defect OBL-29. Each resolution is a proposal for the owner's decision at adoption (AMENDMENT-6.md gives the options and lists the owner choices). None lets a finding be lost or lifted by rewording: a finding is detected before lint, every form failure blocks rather than lapses, the path-and-old-bytes match binds every configuration, and a migration only adds edits. Where the tool accepts input the design refuses (a missing `changes_decisions_on_X`, non-integer offsets, a suffix filter on the scanned set, skipped parse failures, ignored record kinds), the design rule is stated and a countercontrol row is added; no requirement is weakened to match the tool.
 
 ***
@@ -5243,15 +5286,24 @@ sentence as splitter version 2 delimits it; the line number, the segment and the
 without a line, the key is its class, its subject and its fingerprint. Keys are counted with multiplicity: a
 key found k times at the landing and j times at `X` gives k - j new findings when k > j, so a line that `M`
 moves is not new and a second copy of a line is; when several new findings share a key, each is reported, at
-the landing's positions of the last k - j occurrences in file order. *Validity.* A finding matched by its key
-keeps the resolution it had at `X` only if the resolving record's own condition holds when evaluated on the
-landing content: for a context adjudication, both its context hashes (R6.CTX.7); for an HP adjudication or a hit
-classification, its line sha256 and, where it binds one, its context; for an allow rule, its fingerprint
-conditions (R6.RULE.4). A matched finding whose resolving record's condition does not hold at the landing is
-resolved anew there, as a new finding is, and counts as new unless records and rules at the landing resolve
-it. A matched finding whose resolving record's condition cannot be established on the landing content (for
-example a context that cannot be computed there) is FAIL `context-meaning-unverified`, never a silent pass.
-Moving a finding does not by itself make it new, and keeping its wording does not by itself keep its meaning. A new finding that records and rules do not resolve there under their own rules (sec.
+the landing's positions of the last k - j occurrences in file order. *Validity.* A previous resolution is never
+inherited merely because the finding remains identifiable: its full validity is established again on the
+landing tree. A matched finding keeps the resolution it had at `X` only if the resolving record resolves it under that record's own requirement, evaluated
+in full on the landing tree; the parts named here are included, not exhaustive: for a context adjudication,
+both context hashes (R6.CTX.7); for an allow rule, steps 1 to 4 of R6.RULE.4 (scope, literal, context matcher,
+deny precedence, negative matcher and allowance, each fingerprint's single use in the tree, and its sentence
+and, where required, context); for a hit classification, `file`, `line_sha256` and its uniqueness in the
+landing tree, and the profiles hitting the line (R6.HIT.4); for an HP adjudication, its line sha256 at the
+site's position and, where it binds a context, both context hashes. A segment or walk-step condition of an HP
+adjudication or a hit classification is read at `X`, and carries over only for a site whose line RC14 keeps
+intact (R6.RECON.24); otherwise it is not established. A record resolves at the landing at most as many
+matched instances as it resolved at `X`. The condition cannot be established when an input it reads (the
+sentence, the context window, the site's line, a segment or step, the tree's set of lines) cannot be
+computed on the landing by the procedure that computed it at `X`, or when the record's requirement gives no
+evaluation on a landing; the finding is then FAIL `context-meaning-unverified`. A record of any other kind
+keeps no resolution at the landing: the matched finding is resolved anew. A matched finding whose
+resolution is not kept counts as new unless records and rules at the landing resolve it. Moving a finding does
+not by itself make it new, and keeping its wording does not by itself keep its meaning. A new finding that records and rules do not resolve there under their own rules (sec.
 14, R6.HIT.1), exactly as they would at `X`, is a FAIL `base-drift` naming the condition `reconciled-state`: it is the
 disposition of the drifted path it lies in; a new finding in a path that does not differ (for example a mirror or pin
 finding produced by a change to its counterpart) is a run-level item naming the drifted paths whose changes produced
@@ -6662,7 +6714,7 @@ resolved by an exception:
 | OBL-26 | the implementation certification of the landed tool revision | 2 and 3 (the checks recorded against the tool revision on `main`); the conformance assessment of a37992449b452021001277c06c524a30c92dfb87 is provenance for the requirements (AGENTS.md sec. A.42 item 8) | no cycle: r6's adoption does not rest on it (R6.STAT.10); the statements that describe the tool commit are in the adoption trace |
 | OBL-27 | plan freeze `F` | 4 | no cycle |
 | OBL-28 | the tool's landing | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm | no cycle |
-| OBL-29 | the A1 retirement execution | a reviewed and adopted design change under which no removal of a landed finding record can let a blocked plan proceed, with its controls holding under the gate (Issue #1598) | no cycle |
+| OBL-29 | the A1 retirement execution | its remedy, implemented and independently verified (Issue #1598); the interim procedural guards do not discharge it | no cycle |
 
 Adoption trace (OC-2; AGENTS.md sec. A.42 item 8). Each place where r6's adoption, or an enduring claim
 stated in r6, uses content that is not on `main`, with its classification. "Support off `main`" rows are
@@ -7088,8 +7140,10 @@ begins a JSON value. A finding still present in `F`'s tree or in a scanned `REV`
 criterion quoted in Issue #1598, "If deletion can allow an invalidated retirement plan to proceed, it is a genuine
 correctness defect that must be resolved before retirement.", this is an open correctness defect of this design, not an
 accepted residual. The procedural guards of AGENTS.md sec. A.50 item 3 and sec. A.46 item 6 are interim controls only.
-Gates: the A1 retirement execution. Discharged by: a reviewed and adopted design change under which no such removal
-can let a blocked plan proceed, with its controls holding under the gate. Sources: PR #1593 comment 7190966287 (D1);
+It remains an explicit retirement blocker until its remedy is implemented and independently verified; the interim
+procedural guards do not discharge it (owner decisions of 2026-11-26, #1169 comments 7190996241 and 7191104852, quoted
+in sec. 0.7). Gates: the A1 retirement execution. Discharged by: its remedy, implemented and independently verified.
+Sources: PR #1593 comment 7190966287 (D1);
 Issue #1598.
 
 ***
