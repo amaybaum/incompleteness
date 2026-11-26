@@ -22,7 +22,9 @@ this file).
 - `REPORT-r4.md` (r4, commit `21ba94c3ac19139885b7de4891e7234c7d4c84d1`).
 
 **Change maps.** `CHANGES-r2.md` to `CHANGES-r5.md` map each change to its review finding. r4 and
-r5 change text only: no derivation, witness, classification or outcome changes after r3.
+r5 change text only. r4 adds the N-1 qualifier to the R2 condition, the uncentred-reading case to
+R3, and the rotation-group assumption to ρ_T; r5 corrects the O_h example in §3.4. No derivation,
+witness, classification or outcome changes after r3.
 
 **Plan.** `PLAN.md` (commit `7e85350126158ae7c2f95bf6312cf8f735f18a01`, committed alone before r1)
 fixes the questions, the classes, the decision rule, the controls and the stopping conditions. It
@@ -97,8 +99,8 @@ SMD remain carried and unsourced.
   every even L, and k = (2π/L, 0) in d = 2 for even L ≥ 4.
 - **§3.4, the stabilizer reads the joint law.** Stab(ρ) ⊆ Stab(P_rest∗ρ) ⊆ Stab(C_rest). P2a's
   inclusion holds without step (c); P2d consumes step (c). Witness ρ_S: the two stabilizers can
-  differ. Witness ρ_T (L ≥ 7, O the cubic rotation group of order 24): SMD read on the full ρ is
-  strictly stronger than SMD on P_rest∗ρ.
+  differ. Witness ρ_T (μ = 1, L ≥ 7, generic k_0 as in unit A's Proposition A, O the cubic
+  rotation group of order 24): SMD read on the full ρ is strictly stronger than SMD on P_rest∗ρ.
 - **Lemma L.** Any continuous action of U(6) on the static labels commuting with the translations
   is trivial on SU(6); the internal action on the link index cannot extend to the static labels.
 - **§4.2.** Given Lemma L, real-linearity and H-PF on V_rest, covariance of φ on the labels is
@@ -164,7 +166,7 @@ provenance, support on `main`, and support off `main` (gap).
 |---|---|---|
 | #1169 comments 7199704501, 7200549806 (owner decisions) | `PLAN.md`, report header; §1 here | provenance: authority records quoted with author and time; no result uses them |
 | #1169 comment 7202075726, item 3 | §1 here | provenance: authority record quoted with author and time |
-| #1169 comment 7202075726, item 4 | §1, §2, §3 here | the status of N-1, N-2, N-8 and N-9 and of the outcome in §2 rests on it. Its content is quoted in full in this record with author and time (§A.42 item 7), so it is support on `main` once this file lands. No scientific result uses it |
+| #1169 comment 7202075726, item 4 | §1, §2, §3 here | support off `main` (gap): the status of N-1, N-2, N-8 and N-9 and of the outcome in §2 rests on it. The gap is closed by the landing condition of §5, through the quotation of its content in full in this record with author and time (§A.42 item 7). No scientific result uses it |
 | #1169 comment 7191949320 (successor assessment) | `PLAN.md`, report §12 | provenance: question source |
 | #1169 comment 7190274734, item 4 (the owner's successor question for unit C) | §6 here | provenance: question source, also quoted on `main` in unit C's `PRESERVATION.md` §6 |
 | PR #1611 comments 7201020516, 7201250359, 7201639742, 7201689426, 7201724532 (reviews) | report header; §1 here | provenance: evidence of review; no result uses them |
@@ -174,7 +176,7 @@ provenance, support on `main`, and support off `main` (gap).
 | commits `82b8ff3f` (r2), `89c496b9` (r3), `21ba94c3` (r4) | report header; §1 here | provenance: cited to identify the earlier texts |
 | commit `4ab5de24` (r5) | §1 here | support off `main` (gap), closed by the landing condition of §5: the authoritative report |
 | the commit adding this file | — | support off `main` (gap), closed by the landing condition of §5: this record's own content |
-| pin `a8d4ab96` and the SM line citations | report header, throughout | support on `main`: `a8d4ab96` is an ancestor of `main` at `84e927b9`. `papers/SM.md` differs between them only at line 14, which the report does not cite; `papers/Main.md` (lines 360, 544, 686, 718, 732) and `papers/Substratum.md` (lines 60, 201) also differ, by one-line replacements that leave line numbers unchanged and concern none of the passages the report reads |
+| pin `a8d4ab96` and the SM line citations | report header, throughout | support on `main`: `a8d4ab96` is an ancestor of `main` at `84e927b9`. `papers/SM.md` differs between them only at line 14, which the report does not cite; `papers/Main.md` (lines 360, 544, 686, 718, 732) and `papers/Substratum.md` (lines 60, 201) also differ, by one-line replacements that leave line numbers unchanged and concern none of the passages the report reads. The other files that W-1 searched and that differ are `papers/Computation.md`, `papers/Methodology.md`, `papers/Structure.md`, `book/The-Incompleteness-of-Observation-FULL.md`, `book/ch02-substratum.md`, `book/ch04-methodology.md` and `book/ch14-quantum-computing.md`. No changed line in any of these files, or in SM, Main or Substratum, contains a W-1 term or a W-1 pairing of "condensate" with a centring term; the changed SM:14 mentions the condensate-stabilizer construction on both sides of the change, with no such term. So no change bears on W-1 |
 | lane 2 (`complex-carrier-20261126`), unit A (`theorem5-premise-ledger-20261126`) and unit C (`hzm-energy-sourcing-20261126`) records | throughout | support on `main`: at the pin and unchanged at `84e927b9`; model-reviewed inputs, carried as named conditions (lane 2's Theorem 1 among them) |
 | #1217, #1049, #1169 | headers | provenance: accountability and routing |
 
@@ -184,7 +186,8 @@ branch does not close it.
 - `7e853501`: `PLAN.md` and the preregistration order.
 - `5073afda`: its commit time, for the preregistration-order row.
 - `4ab5de24`: the authoritative report.
-- The commit that adds this file: this record, including the quoted owner decision.
+- #1169 comment 7202075726, item 4: closed through its quotation in this file (§A.42 item 7).
+- The commit that adds this file: this record, including that quotation.
 
 ## 5. Landing condition
 
@@ -196,9 +199,10 @@ commits reachable from `main`:
 
 That `PLAN.md`'s commit precedes every report commit is part of the record's provenance.
 
-The owner decision of 2026-11-26T19:52Z, item 3, makes preservation subject to the record's
-remaining verification and landing requirements, and keeps every existing gate in force. Merging
-needs the owner's approval (§A.50 item 1).
+The owner decision of 2026-11-26T19:52Z, item 3 ("Preserve #1612, #1614 and #1611 at their
+reviewed landing heads, subject to their remaining verification and landing requirements"), is the
+owner's approval of this merge (§A.50 item 1), subject to the review of this file and green CI. The
+same decision keeps every existing gate in force.
 
 ## 6. Preservation rationale
 
@@ -211,15 +215,16 @@ It establishes:
 - **that the F-slice's J is lane 2's Proposition 5's J**, and that J and Σ do not consume unit C's
   step (c);
 - **that a slice-dependent J is possible unless LI is imposed** (Proposition P);
-- **that no translation-commuting internal action on the static labels exists** (Lemma L);
+- **that the internal action has no translation-commuting U(6) extension to the static labels**,
+  because any such action is trivial on SU(6) (Lemma L);
 - **that Theorem 5's null-sector treatment on T reduces to four named readings**, one of which,
   SMD on ρ, is strictly stronger on the F-slice than on the H-ZM route (ρ_T);
 - **the R3 obstructions** under the internal and uncentred readings.
 
 Under the owner's status of §2 it preserves R2 as a conditional route under named candidate
 premises, not a removal of H-ZM. It is substantive and nonredundant with lane 2 and units A and C,
-it is independently reviewed, and its open gaps carry the remediation plans of §3. Its findings
-for routing (report §11) are listed there and edit no other record.
+it is independently reviewed by the model reviews of §1, and its open gaps carry the remediation
+plans of §3. Its findings for routing (report §11) are listed there and edit no other record.
 
 ## 7. Standing of this record
 
