@@ -522,17 +522,17 @@ The owner decided at #1169 comment 7185562871 (amaybaum, 2026-11-26T07:31:59Z, r
 
 Amendment 4 is limited to these two questions; it is pending independent review and the owner's acceptance, and it reopens nothing else of amendment 3.
 
-- Category-3 keying (R6.RECON.26, new R6.RECON.27, R6.RECON.25, R6.CFG.4; controls BLOCK-KEY, REASSESS-FORM). The block is keyed by the edit's stable id within the plan lineage of the retirement (the configurations naming the same `retirement`), not by its bytes. A finding records each invalidated edit's id, the sha256 of its edit-list entry (evidence) and its target at `H`. A configuration carries the blocked edit when its ledger holds that id, an id the edit was renamed to under a migration recorded under AGENTS.md sec. A.48 item 3, or an edit with the same target. The lifecycle:
+- Category-3 keying (R6.RECON.26, new R6.RECON.27, R6.RECON.25, R6.CFG.4; controls BLOCK-KEY, REASSESS-FORM). The block is keyed by the edit's stable id within the plan lineage (the configurations reachable through `supersedes` from the configuration the finding was made under, and those naming the same retirement by name or accountable Issue), not by its bytes. A finding records each invalidated edit's id, the sha256 of its edit-list entry and its target at `H` (evidence). A configuration carries the blocked edit when its ledger holds that id, an id the edit was renamed to under a migration recorded under AGENTS.md sec. A.48 item 3, or an edit of the same path whose old bytes match, whatever its offset. Each finding needs its own reassessment. The lifecycle:
 
 | Event | Outcome | How | Controls |
 |---|---|---|---|
 | Edit wording changes | Block persists. | the block is keyed by the edit id (and target), not by its bytes | BLOCK-KEY |
-| Edit identifier is renamed | Block follows the recorded migration. | the renamed edit is found by the recorded migration and, mechanically, by its unchanged target | BLOCK-KEY |
+| Edit identifier is renamed | Block follows the recorded migration. | the renamed edit is found by the recorded migration and, mechanically, by its path and unchanged old bytes | BLOCK-KEY |
 | Scientific repair lands | Block persists for the original frozen plan. | a frozen configuration cannot cite a later reassessment | BLOCK-KEY |
 | Independent reassessment accepts the repair | Revised plan becomes eligible for review and freezing. | R6.RECON.27: a reviewed reassessment of the edit as now worded | BLOCK-KEY, REASSESS-FORM |
 | Revised plan is frozen | New verification and trials may proceed. | a configuration whose freeze cites the applying reassessment, or that removes the edit, is not blocked | BLOCK-KEY |
 
-  A plan that removes the edit needs no reassessment. The tool checks the reassessment's form, its review and its citation by the new freeze; it cannot check the soundness of the re-derivation.
+  A plan that removes the edit needs no reassessment. The tool checks the reassessment's form, its review and its citation by the new freeze; it cannot check the soundness of the re-derivation. R6.RECON.26 as amended governs over the frozen Table 17.1 description of RECON-BLOCK: a revised plan proceeds when it removes the edit or cites an applying reassessment.
 - The predicted-M record base (R6.RECON.2 (c), R6.RECON.21, R6.GATE.16; control RECORD-BASE). A run on a predicted `M` names its record base with `--record-base M0`; the tool establishes `M0`'s admissibility from git objects (that `M0` is a real commit, that `M` descends from it by single-parent in-memory commits whose changes are tool-landing or authorized plan-directory paths, and that no ledgered, corpus or scanned-set path changes), so naming it establishes nothing. The gate compares the recorded `M0` with the runner's pinned `main`.
 
 ***
@@ -4099,7 +4099,7 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | RECON-CATEGORY | R6.RECON.22, R6.RECON.24 | to be implemented (tool revision) | decl | both | the category of a drifted path is computed: category 1 when every condition RC1-RC14 holds with no conflict; category 2 when RC14 finds a conflict or a splice's old bytes do not occur once at M; category 2 is never reconciled by translation (amendment 3) |
 | RECON-OVERLAP | R6.RECON.24, R6.TREE.12 | to be implemented (tool revision) | decl | both | category 2 is resolved only explicitly: a reviewed resolution that keeps the planned edit's new bytes, with a renewed scientific review naming the splice; the landing then equals the resolved composition (amendment 3) |
 | RECON-BLOCK | R6.RECON.26, R6.RECON.25, R6.CLASS.10 | to be implemented (tool revision) | decl | both | category 3: a reviewed finding that a change invalidates the basis of a planned edit blocks the retirement (FAIL retirement-blocked); an entry with that verdict never applies; no reconciliation record clears the block; only a revised plan that changes or removes the invalidated edit does (amendment 3) |
-| BLOCK-KEY | R6.RECON.26, R6.RECON.27, R6.CFG.4 | to be implemented (tool revision) | decl | both | the block is keyed by the edit's stable id within the retirement's plan lineage, followed through recorded migrations and by its target; wording changes and repairs do not lift it; a revised plan proceeds only by removing the edit or by citing an applying reassessment (amendment 4) |
+| BLOCK-KEY | R6.RECON.26, R6.RECON.27, R6.CFG.4 | to be implemented (tool revision) | decl | both | the block is keyed by the edit's stable id within the retirement's plan lineage, followed through recorded migrations and by its path and old bytes; wording changes and repairs do not lift it; a revised plan proceeds only by removing the edit or by citing an applying reassessment (amendment 4) |
 | REASSESS-FORM | R6.RECON.27 | to be implemented (tool revision) | decl | adv | the reassessment's form, review and citation are checked; a failure keeps the block (amendment 4) |
 | RECORD-BASE | R6.RECON.2, R6.RECON.21, R6.GATE.16 | to be implemented (tool revision) | decl | both | the predicted-M record base is named explicitly and admitted only after the tool establishes it from git objects; naming it establishes nothing (amendment 4) |
 
@@ -5092,19 +5092,24 @@ sets of `F`'s tree and, for a post-freeze run, of `REV`'s tree, for findings, by
 not any path differs between `H` and `M`, chain runs without `--classify` included. A finding found there blocks every
 run whose `M` contains one of the entry's `side_change_commits`, with an item FAIL `retirement-blocked` (obligation
 `RET`): the entry's path takes the disposition `retirement-blocked` when it differs between `H` and `M`; when it does not
-(for example after a revert to `H`'s bytes), the item is a run-level item naming the path. The block holds for every configuration that carries an invalidated edit (amendment 4, sec. 0.5: pending independent review and the owner's acceptance): one whose `retirement` names
-the same retirement as the configuration the finding was made under (its plan lineage), and whose ledger
-holds the edit's id, an id the edit was renamed to under a migration recorded under AGENTS.md sec. A.48
-item 3, or an edit with the same target. The sha256 recorded with each invalidated edit is evidence, not
-the edit's identity: a change of the edit's wording does not lift the block. A finding counts whether or not a later record
+(for example after a revert to `H`'s bytes), the item is a run-level item naming the path. The block holds for every configuration that carries an invalidated edit (amendment 4, sec. 0.5: pending independent review and the owner's acceptance): one in the plan lineage of
+the configuration the finding was made under (every configuration reachable from it through `supersedes`,
+and every configuration whose `retirement` names the same retirement, by name or by accountable Issue),
+whose ledger holds the edit's id, an id the edit was renamed to under a migration recorded under AGENTS.md
+sec. A.48 item 3, or an edit of the same path whose old bytes hash to the recorded `old_sha256`, whatever its
+offset (so a renumbering on a new `H` is still matched). The sha256 of the edit-list entry and `start_H` are
+evidence, not the edit's identity: a change of the edit's wording does not lift the block. A rename that
+also rewrites the edit's old bytes and records no migration is not matched mechanically; it rests on the
+review of the new freeze. A finding counts whether or not a later record
 supersedes the entry and whatever `REV` a run names; no reconciliation record, resolution, supersession, or later
 commit that reverts or repairs the change clears the block. The block is scoped to the plan lineage: it binds every
-configuration that carries an invalidated edit, unless that configuration's freeze cites an applying
-reassessment of the edit (R6.RECON.27), and nothing else. A repair on `main` never
+configuration that carries an invalidated edit, unless that configuration's freeze cites, for each finding
+on the edit, an applying reassessment that names that finding (R6.RECON.27), and nothing else. A repair on `main` never
 lifts it; the finding and the repair stay on `main` as evidence, the repair recorded by a reconciliation record entry
 of the repairing change, with its own reviewed `scientific_effect`. A revised plan, a new configuration version with a
 new freeze (R6.CFG.3; AGENTS.md sec. A.50 item 5) that no longer carries the invalidated edit, or whose freeze
-cites an applying reassessment of the edit as now worded (R6.RECON.27), is not blocked by the old finding; a plan
+cites, for each finding on the edit, an applying reassessment of the edit as now worded that names the
+finding (R6.RECON.27), is not blocked by the old findings; a plan
 that removes the edit needs no reassessment; its renewed verification and trials run under this design as any
 run's do, and the retirement becomes eligible for approval again only when they pass. A later repair can resolve the
 underlying scientific problem, but cannot validate the invalidated frozen plan. The tool cannot find a category-3 change by itself: it relies on the review, and it enforces mechanically that a
@@ -5119,8 +5124,10 @@ it; `edit`, the edit id and the canonical sha256 of its edit-list entry as worde
 reassessment; `rederivation`, the edit's justification re-derived at the repaired state, with what was re-run; and
 `verdict`, which must be `no-effect` for the edit as now worded. A configuration's freeze cites it by listing it in
 `records` with kind `reassessment` (R6.CFG.4). It applies only if: a non-author review record names its blob and accepts
-every item, and record lint holds (R6.REC.6, R6.REC.7); the named finding is a finding the scan of R6.RECON.26 finds at
-the run's `M`; the repair's commits lie on `M`'s first-parent chain; `rederivation` is non-empty; the verdict is
+every item, and record lint holds (R6.REC.6, R6.REC.7); its reviewer differs from its author and from the author of the
+repair's reconciliation record entry; the named finding is a finding the scan of R6.RECON.26 finds at the run's `M`; the
+repair's commits lie on `M`'s first-parent chain; the repair's reconciliation record entry is present at `M` (in the
+scanned set of `M`'s tree) with a non-author review that accepts it; `rederivation` is non-empty; the verdict is
 `no-effect`; and `edit` names an edit of the citing configuration's ledger whose canonical sha256 equals the recorded
 one. The tool checks this form, the review and the citation; it cannot check that the re-derivation is sound, which
 rests on the review. A cited reassessment that does not apply is FAIL `record-invalid`, and the block stands.

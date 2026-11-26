@@ -23091,6 +23091,27 @@
       ]
      },
      {
+      "case": "an unrecorded rename on a new H: the edit renumbered, start_H moved, its old bytes unchanged",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "a retirement renamed (new name and Issue) in a configuration that supersedes the blocked plan",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "two findings on one edit, the revised configuration citing an applying reassessment that names only one of them",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
       "case": "countercase: a revised configuration, frozen anew, citing an applying reassessment of the edit as now worded (positive)",
       "outcome": "ANY",
       "invariants": [
@@ -23172,6 +23193,22 @@
      },
      {
       "case": "a reassessment cited under kind reassessment but failing record lint (a schema error)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "a reassessment whose repair entry is absent from M, or has no accepting non-author review",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "a reassessment whose reviewer is the author of the repair's reconciliation record entry",
       "outcome": "FAIL",
       "classes_include": [
        "record-invalid",

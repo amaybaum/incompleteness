@@ -85,13 +85,17 @@ ROWS = [
           BLOCKED),
         c('a configuration of the same retirement in a new config_id lineage, carrying the edit, citing no '
           'reassessment', BLOCKED),
+        c('an unrecorded rename on a new H: the edit renumbered, start_H moved, its old bytes unchanged', BLOCKED),
+        c('a retirement renamed (new name and Issue) in a configuration that supersedes the blocked plan', BLOCKED),
+        c('two findings on one edit, the revised configuration citing an applying reassessment that names only one of '
+          'them', BLOCKED),
         c('countercase: a revised configuration, frozen anew, citing an applying reassessment of the edit as now '
           'worded (positive)', NOT_BLOCKED),
         c('countercase: a revised configuration that removes the edit (neither its id, a migrated id nor its target '
           'remains), citing no reassessment (positive)', NOT_BLOCKED)]},
         None,
         'the block is keyed by the edit\'s stable id within the retirement\'s plan lineage, followed through recorded '
-        'migrations and by its target; wording changes and repairs do not lift it; a revised plan proceeds only by '
+        'migrations and by its path and old bytes; wording changes and repairs do not lift it; a revised plan proceeds only by '
         'removing the edit or by citing an applying reassessment'),
     row('REASSESS-FORM', ['R6.RECON.27'], 'adversarial', {'cases': [
         rinv('a reassessment with no non-author review, or whose reviewer equals its author', ['retirement-blocked']),
@@ -100,6 +104,10 @@ ROWS = [
         rinv('a reassessment with an empty re-derivation of the edit\'s justification', ['retirement-blocked']),
         rinv('a reassessment whose verdict is not no-effect', ['retirement-blocked']),
         rinv('a reassessment cited under kind reassessment but failing record lint (a schema error)',
+             ['retirement-blocked']),
+        rinv('a reassessment whose repair entry is absent from M, or has no accepting non-author review',
+             ['retirement-blocked']),
+        rinv('a reassessment whose reviewer is the author of the repair\'s reconciliation record entry',
              ['retirement-blocked'])]},
         {'outcome': 'ANY', 'invariants': [{'not_class': ['retirement-blocked', 'record-invalid']},
                                           {'baseline': 'the same revised configuration citing a valid reassessment'}]},
@@ -138,7 +146,7 @@ LIFECYCLE = [
     ('Edit wording changes', 'Block persists.', 'the block is keyed by the edit id (and target), not by its bytes',
      'BLOCK-KEY'),
     ('Edit identifier is renamed', 'Block follows the recorded migration.', 'the renamed edit is found by the recorded '
-     'migration and, mechanically, by its unchanged target', 'BLOCK-KEY'),
+     'migration and, mechanically, by its path and unchanged old bytes', 'BLOCK-KEY'),
     ('Scientific repair lands', 'Block persists for the original frozen plan.', 'a frozen configuration cannot cite a '
      'later reassessment', 'BLOCK-KEY'),
     ('Independent reassessment accepts the repair', 'Revised plan becomes eligible for review and freezing.',
@@ -156,8 +164,10 @@ it; `edit`, the edit id and the canonical sha256 of its edit-list entry as worde
 reassessment; `rederivation`, the edit's justification re-derived at the repaired state, with what was re-run; and
 `verdict`, which must be `no-effect` for the edit as now worded. A configuration's freeze cites it by listing it in
 `records` with kind `reassessment` (R6.CFG.4). It applies only if: a non-author review record names its blob and accepts
-every item, and record lint holds (R6.REC.6, R6.REC.7); the named finding is a finding the scan of R6.RECON.26 finds at
-the run's `M`; the repair's commits lie on `M`'s first-parent chain; `rederivation` is non-empty; the verdict is
+every item, and record lint holds (R6.REC.6, R6.REC.7); its reviewer differs from its author and from the author of the
+repair's reconciliation record entry; the named finding is a finding the scan of R6.RECON.26 finds at the run's `M`; the
+repair's commits lie on `M`'s first-parent chain; the repair's reconciliation record entry is present at `M` (in the
+scanned set of `M`'s tree) with a non-author review that accepts it; `rederivation` is non-empty; the verdict is
 `no-effect`; and `edit` names an edit of the citing configuration's ledger whose canonical sha256 equals the recorded
 one. The tool checks this form, the review and the citation; it cannot check that the re-derivation is sound, which
 rests on the review. A cited reassessment that does not apply is FAIL `record-invalid`, and the block stands.
@@ -178,18 +188,22 @@ def note(owner):
         'and it reopens nothing else of amendment 3.',
         '',
         '- Category-3 keying (R6.RECON.26, new R6.RECON.27, R6.RECON.25, R6.CFG.4; controls BLOCK-KEY, REASSESS-FORM). '
-        'The block is keyed by the edit\'s stable id within the plan lineage of the retirement (the configurations '
-        'naming the same `retirement`), not by its bytes. A finding records each invalidated edit\'s id, the sha256 of '
-        'its edit-list entry (evidence) and its target at `H`. A configuration carries the blocked edit when its ledger '
+        'The block is keyed by the edit\'s stable id within the plan lineage (the configurations reachable through '
+        '`supersedes` from the configuration the finding was made under, and those naming the same retirement by name '
+        'or accountable Issue), not by its bytes. A finding records each invalidated edit\'s id, the sha256 of its '
+        'edit-list entry and its target at `H` (evidence). A configuration carries the blocked edit when its ledger '
         'holds that id, an id the edit was renamed to under a migration recorded under AGENTS.md sec. A.48 item 3, or '
-        'an edit with the same target. The lifecycle:',
+        'an edit of the same path whose old bytes match, whatever its offset. Each finding needs its own reassessment. '
+        'The lifecycle:',
         '',
         '| Event | Outcome | How | Controls |',
         '|---|---|---|---|',
     ] + ['| %s | %s | %s | %s |' % r for r in LIFECYCLE] + [
         '',
         '  A plan that removes the edit needs no reassessment. The tool checks the reassessment\'s form, its review and '
-        'its citation by the new freeze; it cannot check the soundness of the re-derivation.',
+        'its citation by the new freeze; it cannot check the soundness of the re-derivation. R6.RECON.26 as amended '
+        'governs over the frozen Table 17.1 description of RECON-BLOCK: a revised plan proceeds when it removes the edit '
+        'or cites an applying reassessment.',
         '- The predicted-M record base (R6.RECON.2 (c), R6.RECON.21, R6.GATE.16; control RECORD-BASE). A run on a '
         'predicted `M` names its record base with `--record-base M0`; the tool establishes `M0`\'s admissibility from '
         'git objects (that `M0` is a real commit, that `M` descends from it by single-parent in-memory commits whose '
@@ -212,21 +226,27 @@ def amend_design(t, owner):
              "record carrying a" % TARGET, 'R6.RECON.26 invalidated')
     t = once(t, "The block holds for as long as the configuration's ledger holds, for each\n"
                 "invalidated edit id, an edit-list entry with the same canonical sha256.",
-             "The block holds for every configuration that carries an invalidated edit %s: one whose `retirement` names\n"
-             "the same retirement as the configuration the finding was made under (its plan lineage), and whose ledger\n"
-             "holds the edit's id, an id the edit was renamed to under a migration recorded under AGENTS.md sec. A.48\n"
-             "item 3, or an edit with the same target. The sha256 recorded with each invalidated edit is evidence, not\n"
-             "the edit's identity: a change of the edit's wording does not lift the block." % MARK,
+             "The block holds for every configuration that carries an invalidated edit %s: one in the plan lineage of\n"
+             "the configuration the finding was made under (every configuration reachable from it through `supersedes`,\n"
+             "and every configuration whose `retirement` names the same retirement, by name or by accountable Issue),\n"
+             "whose ledger holds the edit's id, an id the edit was renamed to under a migration recorded under AGENTS.md\n"
+             "sec. A.48 item 3, or an edit of the same path whose old bytes hash to the recorded `old_sha256`, whatever its\n"
+             "offset (so a renumbering on a new `H` is still matched). The sha256 of the edit-list entry and `start_H` are\n"
+             "evidence, not the edit's identity: a change of the edit's wording does not lift the block. A rename that\n"
+             "also rewrites the edit's old bytes and records no migration is not matched mechanically; it rests on the\n"
+             "review of the new freeze." % MARK,
              'R6.RECON.26 keying')
     t = once(t, "The block is scoped to the frozen plan: it binds every\n"
                 "configuration whose ledger carries an invalidated edit-list entry unchanged, and nothing else.",
              "The block is scoped to the plan lineage: it binds every\n"
-             "configuration that carries an invalidated edit, unless that configuration's freeze cites an applying\n"
-             "reassessment of the edit (R6.RECON.27), and nothing else.", 'R6.RECON.26 scope')
+             "configuration that carries an invalidated edit, unless that configuration's freeze cites, for each finding\n"
+             "on the edit, an applying reassessment that names that finding (R6.RECON.27), and nothing else.",
+             'R6.RECON.26 scope')
     t = once(t, "new freeze (R6.CFG.3; AGENTS.md sec. A.50 item 5) whose ledger no longer carries an invalidated entry or "
                 "carries a\nrevised one, is not blocked by the old finding;",
              "new freeze (R6.CFG.3; AGENTS.md sec. A.50 item 5) that no longer carries the invalidated edit, or whose freeze\n"
-             "cites an applying reassessment of the edit as now worded (R6.RECON.27), is not blocked by the old finding; a "
+             "cites, for each finding on the edit, an applying reassessment of the edit as now worded that names the\n"
+             "finding (R6.RECON.27), is not blocked by the old findings; a "
              "plan\nthat removes the edit needs no reassessment;", 'R6.RECON.26 revised plan')
     t = once(t, "Sources: amendment 3 (#1169 comments 7184569981, 7184626125, 7184808247 and 7185092393). Controls: RECON-BLOCK.",
              "Sources: amendment 3 (#1169 comments 7184569981, 7184626125, 7184808247 and 7185092393); amendment 4 "
@@ -447,27 +467,30 @@ def change_record(owner, outs, gen_sha, owner_sha):
              '(both directions, one case or more per row of the owner\'s table), REASSESS-FORM.', '',
              '## 2. Question 2: the predicted-M record base', '',
              'Source: the independent review on PR #1577 (#1577, the comment of 2026-11-26T07:12:10Z), proposed text '
-             '(c′), adopted with the explicit input the owner chose. The review found that the tool admits a set of '
+             '(c\'), adopted with the explicit input the owner chose. The review found that the tool admits a set of '
              'bases wider than the design\'s single `M0`, which can narrow the scanned set (R6.RECON.2 (d), (e)). '
-             'Amendment 4 states (c′) in R6.RECON.2 (c), and adds one clause the review\'s countercase "a change that a '
+             'Amendment 4 states (c\') in R6.RECON.2 (c), and adds one clause the review\'s countercase "a change that a '
              'later step reverts" needs: every path a step changes also differs in the aggregate diff.', '',
              'Changed: R6.RECON.2 (c), R6.RECON.21 (RT-L2\'s route names `--record-base`), R6.GATE.16 (the gate\'s `rtl2` '
              'predicate compares the recorded `M0` with the runner\'s pinned `main`). Control: RECORD-BASE (the '
              'review\'s restored case and countercases, the chain-mode usage error, the gate comparison).', '',
              '## 3. What the tool can and cannot check', '',
-             '- Can: whether a configuration carries a blocked edit (by id, recorded migration or target); a '
-             'reassessment\'s form, review, finding, repair commits, verdict and its citation by the configuration; the '
+             '- Can: whether a configuration carries a blocked edit (by id within the lineage, recorded migration, or '
+             'path and old bytes at any offset); whether each finding has its own applying reassessment; a '
+             'reassessment\'s form, review, reviewer independence, finding, repair commits and repair entry, verdict and '
+             'its citation by the configuration; the '
              'admissibility of `M0` and of every step between `M0` and `M`; the gate\'s comparison of `M0`.',
              '- Cannot: whether a reassessment\'s re-derivation is sound; whether a recorded migration maps the edit '
-             'correctly beyond its target; both rest on review. A rename that also moves the edit\'s target and records '
-             'no migration escapes the mechanical match; the review of the new freeze must catch it.', '',
+             'correctly; both rest on review. A rename that also rewrites the edit\'s old bytes and records no '
+             'migration is not matched mechanically; it rests on the review of the new freeze.', '',
              '## 4. Preserved', '',
              '- Every rule of amendments 1 to 3 other than the sentences named above; every existing control row and '
              'expectation, none of which changes; no requirement loses a control (checked by the generator).',
              '- The category-3 lifecycle of the owner\'s decision of 2026-11-26T07:05:39Z: the original frozen plan stays '
              'blocked after a repair; a revised plan proceeds; the finding and the repair stay on `main`.', '',
              '## 5. Tool changes implied (not made here)', '',
-             '- R6.RECON.26: match blocked edits by id within the plan lineage, by recorded migration and by target; read '
+             '- R6.RECON.26: match blocked edits by id within the plan lineage (supersedes chain and retirement name or '
+             'Issue), by recorded migration and by path and old bytes; one reassessment per finding; read '
              'reassessments cited with kind `reassessment`; record lint for `oi-reassessment/1`.',
              '- R6.RECON.2 (c): the `--record-base` option and checks (1) to (4); a single admitted base; usage error in '
              'chain mode; `inputs.record_base` in the result schema.',

@@ -12,8 +12,8 @@ Directory: `verification/audits/foundations/a1exit-design-r6-20261125/`. The lan
 
 | Path | Role | Source | sha256 |
 |---|---|---|---|
-| DESIGN-r6.md | final r6 document (the design) | amendment-4 output | 4fe8f1c8a2419686496ac343e3fb3fd7b6e79877b9aec68f45f42a1ce4cba699 |
-| EXPECTATIONS.json | final r6 document (expectation file) | amendment-4 output | f4cf1d9b99bbc3276acad7f3eef19ae00e7246719da5789812a803a1580a6f6b |
+| DESIGN-r6.md | final r6 document (the design) | amendment-4 output | 96cec7155e87bd8da46d24441285f4ce062b3f3bfe0dde91894965444ad96861 |
+| EXPECTATIONS.json | final r6 document (expectation file) | amendment-4 output | bcf6857656443b4d99248ad97f50a1ac6ab06f9d7081486b6390b52c40a21ea3 |
 | REQUIREMENTS.json | final r6 document (requirement index) | amendment-4 output | 6ceeb80394b0b8c1f128332cb962bce98fe0dfcc1927fa06de47a691312eba09 |
 | MIGRATION.json | final r6 document (migration index) | amendment-2 output | d1471fa3914b0e062aeae7ac544c34f076707c59e6f4d1b2260fd3b30b2ba7b2 |
 | PARAPHRASED-DECISIONS.md | final r6 document (list of paraphrased decisions) | unchanged from 2aec244e (blob c37ba6f98243) | 05602f3ec2f971ad860bc864a2ad8fce2d115948b0d3ac369ef17874746b65ce |
@@ -55,8 +55,8 @@ Directory: `verification/audits/foundations/a1exit-design-r6-20261125/`. The lan
 | AMENDMENT-3.md | change record of amendment 3 | amendment-3 output | db8aa63eab4fd40ccfa277a96c306669b03cad3ff649396a48f3b40dfd32c1fb |
 | generator-amendment3/amend3.py | amendment-3 generator | amendment-3 generator | c02fa3927fbf7f4d669ebb219a9c61fe08cb899a0e1c156b1c3a08c46e4a58f4 |
 | generator-amendment3/owner-decisions-amendment3.json | amendment-3 generator input (the owner decisions quoted) | amendment-3 generator | 87a041cf924182723e7db33943ee515d202fd1a3d594b72b46d6772d856ea1f0 |
-| AMENDMENT-4.md | change record of amendment 4 | amendment-4 output | 483a45be21cc26f7b177147a3f07219509a7852873d1a567dd625319cc2bf3b2 |
-| generator-amendment4/amend4.py | amendment-4 generator | amendment-4 generator | 2c2b29087502f1a3acaf44ce07dd35233d7918574594792318029dedf5ebb3a7 |
+| AMENDMENT-4.md | change record of amendment 4 | amendment-4 output | 9862dff236489b3fbef8918e8c2aba71bb3eaa1e2221197a90adff39711653ea |
+| generator-amendment4/amend4.py | amendment-4 generator | amendment-4 generator | a48e31767afde4b9f934501d286f8984ecd6c1cf568e034b1d3e60b257790520 |
 | generator-amendment4/owner-decisions-amendment4.json | amendment-4 generator input (the owner decision quoted) | amendment-4 generator | 5044b4c1aa52fc917f210a5acdd228ee9c8d169a025eea2363fa33e98c6e4f2f |
 | LANDING-MANIFEST.md | this manifest (A5) | amendment-4 output | (this file) |
 
