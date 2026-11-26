@@ -1,0 +1,1994 @@
+{
+ "schema": "claims-findings-summary/3",
+ "tree": "every .md blob of e2e2a623 (tree M)",
+ "counts": {
+  "active/REVIEW": 248,
+  "record/REVIEW": 921
+ },
+ "active_findings": [
+  {
+   "path": "AGENTS.md",
+   "line": 46,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "ab84acb1755cc0d215fb6932786fbe652a1d299435b4e3b5e3ee8270a5cf2822"
+  },
+  {
+   "path": "AGENTS.md",
+   "line": 46,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "ab84acb1755cc0d215fb6932786fbe652a1d299435b4e3b5e3ee8270a5cf2822"
+  },
+  {
+   "path": "AGENTS.md",
+   "line": 1334,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "16718589ed5ca5e7a00acd180787c64542c58278fff928145ec7c0e993b2f503"
+  },
+  {
+   "path": "AGENTS.md",
+   "line": 1334,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "16718589ed5ca5e7a00acd180787c64542c58278fff928145ec7c0e993b2f503"
+  },
+  {
+   "path": "README.md",
+   "line": 117,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "d086b0b1aaf6d7c1368c9662fa8008f36ff41cdde7787ac88af046851eb415e4"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 496,
+   "rule": "W-OI-CONTRA",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "685772fbe658258fa5a4402d5640734ba26ec5e6cbf78df5b9e14508b7ec3623"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 496,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "c4a4a6eee315a4580bfe6c6882699c5d234084c8a9d1fd4b693d36417b136568"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 496,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "0756788b73156d1764710693a788a8ab7421b0a3ee5068e9649c11d355a7abf5"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 496,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "685772fbe658258fa5a4402d5640734ba26ec5e6cbf78df5b9e14508b7ec3623"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 496,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "7820e721569dd1c8d22b27daa0a1e73c02b15fa30f0c1f1feb9745e446cf83bf"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 496,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "685772fbe658258fa5a4402d5640734ba26ec5e6cbf78df5b9e14508b7ec3623"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 524,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "cb3344ba0f36a72c1b00519c01fb9af87f90bb01152dd54d78520b0906133ca7"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 524,
+   "rule": "W-OI-NOEXIST",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "4b2860ad539772ee77e9a27ca30d19e83efbb654b99e66780ae3e67e5555afc1"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 558,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "5b757f8b3c16accaf15f050101304a280b459693ad007669f709ed12a6a7d258"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 824,
+   "rule": "W-GR-THERM-KIN",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "d78c1a36ac1ef1c3d01184b90aec6f5e70b5e283860256dcefe590bd307937ca"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 981,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "a59daeb34c02d08effea0918e3838fd6b140824a77940ccfd33893895fb17ae4"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 1027,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "c5f7d439568adcd9fb4ef547abb64750ff0542fcb2515255e91b0158383a72d0"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 1029,
+   "rule": "W-OI-NOEXIST",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "d6bdfa030d2d4e71b8a20ff5e523a535ad6f3f787d14bccb48df2fe092bf8e6d"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 1148,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "3c1386dcea7a670f401dbfa86ad7ebcb23a03b198f4f0350586f0949e9ec4d94"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 1328,
+   "rule": "W-BM-EUCLID",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "a1abbc1a604b1796172a25164db94299fc7b555147fbc317d1aa359d8f927327"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 1330,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "65ecffe081dd1bff2096a94655c623c1e33f62c043e7023c880fadf516e8a9c3"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 1344,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "aeeaca4547549a0d905ee8197980fb9c3b20bb94cdecbec080f248544ac99dd8"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 1346,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "43ea70d87f135c7897f20897428203f325e8ad1ad238c20ebdf859e58e98f623"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 1922,
+   "rule": "W-BM-EUCLID",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "7cb66ee7b19860b70cfdc8a28a885d8867a720140ca4191b769af29c0d916942"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 1961,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "8bb2c29e3af7117f39636951938c0b2e38dc0fa2a1936b2665b7803715f45b56"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 1969,
+   "rule": "W-BM-EUCLID",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "9a072d104ba13591f75a2b3a249b4d6ef9cb044cf401e6d4458ed491ec7a32b6"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 1971,
+   "rule": "W-BM-EUCLID",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "2865864a9aba1bed7696257f9ca8adc5eae3096e40d4294ed512b0b9ddaba640"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 2008,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "e1a389bcfb7811bfeaa458230b5dfd17876881c50462681f75c79a6171b1d02d"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 2429,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "be9264869df06a61699177eb7e4419614d733675eecba5c483fef05d97ad3c24"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 2463,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "17482936071af868ec5ee71f3aafcbd59660b095f77db51e7ff90acf89a7abc9"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 2611,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "27243da15c6be0b9714af28083d0d1c7d892fb50d3f1b16be4d81eb8bcfeb49b"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 2653,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "1cb8556b9a59562fdb57a201ff8c5a309ff6e43c515c18d7427451689dd1f4d7"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 4789,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "e89d3cb0552ba68dba9a4f53de42b2943cc9cd50348077716f6d9cada61012f9"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 5196,
+   "rule": "W-OI-CONTRA",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "685772fbe658258fa5a4402d5640734ba26ec5e6cbf78df5b9e14508b7ec3623"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 5196,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "685772fbe658258fa5a4402d5640734ba26ec5e6cbf78df5b9e14508b7ec3623"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 5196,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "1a82a0c9143a350309a775b76b2e051383ed68f17fe2120713bc5709f043137a"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 5196,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "685772fbe658258fa5a4402d5640734ba26ec5e6cbf78df5b9e14508b7ec3623"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 5252,
+   "rule": "W-BM-EUCLID",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "5df4f4be3d8772f136edaf7a3edaf3213ec029dbd74402537edb2d87a34430b0"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 5266,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "094d872b2d58b5fe82af66d8808aa89603b915cce958081c4235a149d3ddd75f"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 5266,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "c2cf6d3a1bd2cc3f313f885b2c04c734c22b46e3fb297bb7f3362c168e86c238"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 5292,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "97226bf737c7d15040dfb3ce8ce293219198db498b404c5b97ef2b9a4008fd4c"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 5322,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "60787a519b479d87859bab17157efb4394b9ec895d9341347c3baf5d96003dec"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 5333,
+   "rule": "W-GR-THERM-KIN",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "896ac1831c3cf837b45b5b5aebfc7f3d8945ac2d5a7003fae5f972a987bf590b"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 5373,
+   "rule": "W-OI-NOEXIST",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "564c5cc657185fdd1551570a4280ff16fb70a696c19d880ae24b8750ee81b218"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 5693,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "867dafbdc74ed3a4557561813deafd4c8ae75c47344c05dd1b66838ab1b732c4"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 5767,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "0808e417cfa724b5242ac59d887b6945504e8774e12da36d9052ff5c0beff252"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 5846,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "2d7acfbb0d8257da7968222f5248a63753ca56c35ccc37ccc3b0301dc783aa2e"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 5869,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "bac04be855f448dca3599c5b52b16e2d42e2ae5ebe4fd367c9b0f4c3e7d122c3"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 5883,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "9fc1fed42b884c10a806df8c149726a6900bf11934e351444ac889df430a487f"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 5885,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "84ed174fee15346c2f50e0aebe9e344d2966ca5b609f45118ef2609a54a12eed"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 5887,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "58c30a08840ceca3c95fced0e484dccaa48493ed80ae167d6593470a7bdab1ec"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 5897,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "cffd795924536560c32fadc82cd3507f43deaba4eef7eb5788e0c61a75dbd29c"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 5897,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "097d5796d73292c951f1a14dcb73e1db97c9912776829bbf5adcaeca891be0d9"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 5966,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "f9b061a69f1d6cfecf6ccdf6cd35fdc85b08a219f96c5d54ac9b8c4cb6f903c6"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 5966,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "6f106c12b90821bfa6f2f7b97bab7b84fd241a0303d4d78814531845375a334b"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 5968,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "7460b108634db5379ee21ce1f5aac63313116dacf06ec14a3ba5a80f8bf39226"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 6175,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "baf9ac94550a97e8fcf5b6c0c96b38522405fc689a41d6586730c389892c8e91"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 6355,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "3270ab245f6c6ddb485340d7cb4ff8ac61a5f4dd05d4e2a4205afdfcdaa3243c"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 6365,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "78b71563e0c03c01ff45955e49d07006b344ee2973b6030d7bdfa49df85955a5"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 6387,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "a5c647fbe27d5afc99be39ce4a3a73c825af9fb5961327bf639e74de4b87d5ea"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 6389,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "647c0dd47719bd1b42510dc8548612daf133423c70cfc6fc63dc318465b329f6"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 6393,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "37a3a7c1bc738e6f16aff143174f6e8a3286ce73b3824c7918425392b59e12d9"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "line": 6564,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "716e9eef5f5cf0393eac54e8cc2f82535fa8599146d8cf43c6909a805d814baf"
+  },
+  {
+   "path": "book/appendix-b-derivations.md",
+   "line": 16,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "867dafbdc74ed3a4557561813deafd4c8ae75c47344c05dd1b66838ab1b732c4"
+  },
+  {
+   "path": "book/appendix-b-derivations.md",
+   "line": 90,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "0808e417cfa724b5242ac59d887b6945504e8774e12da36d9052ff5c0beff252"
+  },
+  {
+   "path": "book/appendix-b-derivations.md",
+   "line": 169,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "2d7acfbb0d8257da7968222f5248a63753ca56c35ccc37ccc3b0301dc783aa2e"
+  },
+  {
+   "path": "book/appendix-b-derivations.md",
+   "line": 192,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "bac04be855f448dca3599c5b52b16e2d42e2ae5ebe4fd367c9b0f4c3e7d122c3"
+  },
+  {
+   "path": "book/appendix-b-derivations.md",
+   "line": 206,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "9fc1fed42b884c10a806df8c149726a6900bf11934e351444ac889df430a487f"
+  },
+  {
+   "path": "book/appendix-b-derivations.md",
+   "line": 208,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "84ed174fee15346c2f50e0aebe9e344d2966ca5b609f45118ef2609a54a12eed"
+  },
+  {
+   "path": "book/appendix-b-derivations.md",
+   "line": 210,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "58c30a08840ceca3c95fced0e484dccaa48493ed80ae167d6593470a7bdab1ec"
+  },
+  {
+   "path": "book/appendix-b-derivations.md",
+   "line": 220,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "cffd795924536560c32fadc82cd3507f43deaba4eef7eb5788e0c61a75dbd29c"
+  },
+  {
+   "path": "book/appendix-b-derivations.md",
+   "line": 220,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "097d5796d73292c951f1a14dcb73e1db97c9912776829bbf5adcaeca891be0d9"
+  },
+  {
+   "path": "book/appendix-b-derivations.md",
+   "line": 289,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "f9b061a69f1d6cfecf6ccdf6cd35fdc85b08a219f96c5d54ac9b8c4cb6f903c6"
+  },
+  {
+   "path": "book/appendix-b-derivations.md",
+   "line": 289,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "6f106c12b90821bfa6f2f7b97bab7b84fd241a0303d4d78814531845375a334b"
+  },
+  {
+   "path": "book/appendix-b-derivations.md",
+   "line": 291,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "7460b108634db5379ee21ce1f5aac63313116dacf06ec14a3ba5a80f8bf39226"
+  },
+  {
+   "path": "book/appendix-c-objections.md",
+   "line": 20,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "baf9ac94550a97e8fcf5b6c0c96b38522405fc689a41d6586730c389892c8e91"
+  },
+  {
+   "path": "book/appendix-c-objections.md",
+   "line": 200,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "3270ab245f6c6ddb485340d7cb4ff8ac61a5f4dd05d4e2a4205afdfcdaa3243c"
+  },
+  {
+   "path": "book/appendix-c-objections.md",
+   "line": 210,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "78b71563e0c03c01ff45955e49d07006b344ee2973b6030d7bdfa49df85955a5"
+  },
+  {
+   "path": "book/appendix-c-objections.md",
+   "line": 232,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "a5c647fbe27d5afc99be39ce4a3a73c825af9fb5961327bf639e74de4b87d5ea"
+  },
+  {
+   "path": "book/appendix-c-objections.md",
+   "line": 234,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "647c0dd47719bd1b42510dc8548612daf133423c70cfc6fc63dc318465b329f6"
+  },
+  {
+   "path": "book/appendix-c-objections.md",
+   "line": 238,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "37a3a7c1bc738e6f16aff143174f6e8a3286ce73b3824c7918425392b59e12d9"
+  },
+  {
+   "path": "book/ch01-observation.md",
+   "line": 163,
+   "rule": "W-OI-CONTRA",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "685772fbe658258fa5a4402d5640734ba26ec5e6cbf78df5b9e14508b7ec3623"
+  },
+  {
+   "path": "book/ch01-observation.md",
+   "line": 163,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "c4a4a6eee315a4580bfe6c6882699c5d234084c8a9d1fd4b693d36417b136568"
+  },
+  {
+   "path": "book/ch01-observation.md",
+   "line": 163,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "0756788b73156d1764710693a788a8ab7421b0a3ee5068e9649c11d355a7abf5"
+  },
+  {
+   "path": "book/ch01-observation.md",
+   "line": 163,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "685772fbe658258fa5a4402d5640734ba26ec5e6cbf78df5b9e14508b7ec3623"
+  },
+  {
+   "path": "book/ch01-observation.md",
+   "line": 163,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "7820e721569dd1c8d22b27daa0a1e73c02b15fa30f0c1f1feb9745e446cf83bf"
+  },
+  {
+   "path": "book/ch01-observation.md",
+   "line": 163,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "685772fbe658258fa5a4402d5640734ba26ec5e6cbf78df5b9e14508b7ec3623"
+  },
+  {
+   "path": "book/ch01-observation.md",
+   "line": 191,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "cb3344ba0f36a72c1b00519c01fb9af87f90bb01152dd54d78520b0906133ca7"
+  },
+  {
+   "path": "book/ch01-observation.md",
+   "line": 191,
+   "rule": "W-OI-NOEXIST",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "4b2860ad539772ee77e9a27ca30d19e83efbb654b99e66780ae3e67e5555afc1"
+  },
+  {
+   "path": "book/ch01-observation.md",
+   "line": 225,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "5b757f8b3c16accaf15f050101304a280b459693ad007669f709ed12a6a7d258"
+  },
+  {
+   "path": "book/ch02-substratum.md",
+   "line": 194,
+   "rule": "W-GR-THERM-KIN",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "d78c1a36ac1ef1c3d01184b90aec6f5e70b5e283860256dcefe590bd307937ca"
+  },
+  {
+   "path": "book/ch03-structural-realism.md",
+   "line": 120,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "a59daeb34c02d08effea0918e3838fd6b140824a77940ccfd33893895fb17ae4"
+  },
+  {
+   "path": "book/ch03-structural-realism.md",
+   "line": 166,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "c5f7d439568adcd9fb4ef547abb64750ff0542fcb2515255e91b0158383a72d0"
+  },
+  {
+   "path": "book/ch03-structural-realism.md",
+   "line": 168,
+   "rule": "W-OI-NOEXIST",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "d6bdfa030d2d4e71b8a20ff5e523a535ad6f3f787d14bccb48df2fe092bf8e6d"
+  },
+  {
+   "path": "book/ch04-methodology.md",
+   "line": 44,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "3c1386dcea7a670f401dbfa86ad7ebcb23a03b198f4f0350586f0949e9ec4d94"
+  },
+  {
+   "path": "book/ch05-gauge-structure.md",
+   "line": 13,
+   "rule": "W-BM-EUCLID",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "a1abbc1a604b1796172a25164db94299fc7b555147fbc317d1aa359d8f927327"
+  },
+  {
+   "path": "book/ch05-gauge-structure.md",
+   "line": 15,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "65ecffe081dd1bff2096a94655c623c1e33f62c043e7023c880fadf516e8a9c3"
+  },
+  {
+   "path": "book/ch05-gauge-structure.md",
+   "line": 29,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "aeeaca4547549a0d905ee8197980fb9c3b20bb94cdecbec080f248544ac99dd8"
+  },
+  {
+   "path": "book/ch05-gauge-structure.md",
+   "line": 31,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "43ea70d87f135c7897f20897428203f325e8ad1ad238c20ebdf859e58e98f623"
+  },
+  {
+   "path": "book/ch07-gravity.md",
+   "line": 57,
+   "rule": "W-BM-EUCLID",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "7cb66ee7b19860b70cfdc8a28a885d8867a720140ca4191b769af29c0d916942"
+  },
+  {
+   "path": "book/ch07-gravity.md",
+   "line": 96,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "8bb2c29e3af7117f39636951938c0b2e38dc0fa2a1936b2665b7803715f45b56"
+  },
+  {
+   "path": "book/ch07-gravity.md",
+   "line": 104,
+   "rule": "W-BM-EUCLID",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "9a072d104ba13591f75a2b3a249b4d6ef9cb044cf401e6d4458ed491ec7a32b6"
+  },
+  {
+   "path": "book/ch07-gravity.md",
+   "line": 106,
+   "rule": "W-BM-EUCLID",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "2865864a9aba1bed7696257f9ca8adc5eae3096e40d4294ed512b0b9ddaba640"
+  },
+  {
+   "path": "book/ch07-gravity.md",
+   "line": 143,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "e1a389bcfb7811bfeaa458230b5dfd17876881c50462681f75c79a6171b1d02d"
+  },
+  {
+   "path": "book/ch09-universality.md",
+   "line": 14,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "be9264869df06a61699177eb7e4419614d733675eecba5c483fef05d97ad3c24"
+  },
+  {
+   "path": "book/ch09-universality.md",
+   "line": 48,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "17482936071af868ec5ee71f3aafcbd59660b095f77db51e7ff90acf89a7abc9"
+  },
+  {
+   "path": "book/ch09-universality.md",
+   "line": 196,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "27243da15c6be0b9714af28083d0d1c7d892fb50d3f1b16be4d81eb8bcfeb49b"
+  },
+  {
+   "path": "book/ch09-universality.md",
+   "line": 238,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "1cb8556b9a59562fdb57a201ff8c5a309ff6e43c515c18d7427451689dd1f4d7"
+  },
+  {
+   "path": "book/ch18-beyond.md",
+   "line": 58,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "e89d3cb0552ba68dba9a4f53de42b2943cc9cd50348077716f6d9cada61012f9"
+  },
+  {
+   "path": "book/ch19-open-problems.md",
+   "line": 126,
+   "rule": "W-OI-CONTRA",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "685772fbe658258fa5a4402d5640734ba26ec5e6cbf78df5b9e14508b7ec3623"
+  },
+  {
+   "path": "book/ch19-open-problems.md",
+   "line": 126,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "685772fbe658258fa5a4402d5640734ba26ec5e6cbf78df5b9e14508b7ec3623"
+  },
+  {
+   "path": "book/ch19-open-problems.md",
+   "line": 126,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "1a82a0c9143a350309a775b76b2e051383ed68f17fe2120713bc5709f043137a"
+  },
+  {
+   "path": "book/ch19-open-problems.md",
+   "line": 126,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "685772fbe658258fa5a4402d5640734ba26ec5e6cbf78df5b9e14508b7ec3623"
+  },
+  {
+   "path": "book/ch19-open-problems.md",
+   "line": 182,
+   "rule": "W-BM-EUCLID",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "5df4f4be3d8772f136edaf7a3edaf3213ec029dbd74402537edb2d87a34430b0"
+  },
+  {
+   "path": "book/ch19-open-problems.md",
+   "line": 196,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "094d872b2d58b5fe82af66d8808aa89603b915cce958081c4235a149d3ddd75f"
+  },
+  {
+   "path": "book/ch19-open-problems.md",
+   "line": 196,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "c2cf6d3a1bd2cc3f313f885b2c04c734c22b46e3fb297bb7f3362c168e86c238"
+  },
+  {
+   "path": "book/ch19-open-problems.md",
+   "line": 222,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "97226bf737c7d15040dfb3ce8ce293219198db498b404c5b97ef2b9a4008fd4c"
+  },
+  {
+   "path": "book/ch19-open-problems.md",
+   "line": 252,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "60787a519b479d87859bab17157efb4394b9ec895d9341347c3baf5d96003dec"
+  },
+  {
+   "path": "book/ch19-open-problems.md",
+   "line": 263,
+   "rule": "W-GR-THERM-KIN",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "896ac1831c3cf837b45b5b5aebfc7f3d8945ac2d5a7003fae5f972a987bf590b"
+  },
+  {
+   "path": "book/ch19-open-problems.md",
+   "line": 303,
+   "rule": "W-OI-NOEXIST",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "564c5cc657185fdd1551570a4280ff16fb70a696c19d880ae24b8750ee81b218"
+  },
+  {
+   "path": "book/glossary.md",
+   "line": 73,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "716e9eef5f5cf0393eac54e8cc2f82535fa8599146d8cf43c6909a805d814baf"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 12,
+   "rule": "W-GR-THERM-KIN",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "ddc320e3fdf6ca7da15abf526959f16dd738a407aa8e20f1807d4fdbf79a1dfa"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 20,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "7467e6b02073b40d33f4efff2d9d04f8764e7426cf6e2121f4d054fb31ee6940"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 28,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "3b2b19cab62f83057cbc56f10b6fa740296d985331c1f63cf96e199854b068fa"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 28,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "09eb9f86264a4429bcf3329cab5d894c1a42a04d30c96193f9939a453b491bd0"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 30,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "71e59a164c85076020687f68014c406bd2aaa9faaac753c0f586e2b661f1df1e"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 58,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "1b85b3e86a18b11721e893ffa5ccd4fb71cb413d8a2aa959ce82018ba2fe100e"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 130,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "8c05a4c349ff8fa304d98b682ec4d27bcc243bb6fb05a388988d2f69a9f7f034"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 144,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "578907a405d01f7524092761bde5599bf88841ce6e8de396a636d1f2f8d6b69b"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 144,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "700468125bf12c074edbd3353797dd4297ca9e4cad12d0752e1f68f952fb59c6"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 144,
+   "rule": "W-GR-THERM-KIN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "700468125bf12c074edbd3353797dd4297ca9e4cad12d0752e1f68f952fb59c6"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 144,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "eb79a83e7f764676c425f6eb6d649a0f6248ad2d43e3a632e7429e4ae9673e10"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 144,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "700468125bf12c074edbd3353797dd4297ca9e4cad12d0752e1f68f952fb59c6"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 144,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "46f6ed368402ac8ae7a6e990b2555380ef05280647136259594a4f864ed3d465"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 160,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "be756faea01beb3c21d4b1aa06467e88807a858615a6f57cfaba571099a20f4e"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 211,
+   "rule": "W-OI-NOEXIST",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "0a0e573e4c63bf19838ca31ecd49104883a881f331597ac4b94768e826c3770c"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 213,
+   "rule": "W-OI-NOEXIST",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "1cdfbbeb57d337ef78421e38a91eee7302acd788eb16eab01a03a9c8656c3469"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 225,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "addca108002cac1479db9be2fcf6e560b4a2d5c48809ccbd6747e602bfebb848"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 261,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "a66700854019e8a744a14e9d41a229c2bf4f89f7a9a84bb83ce008b004f5c0be"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 261,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "a613c1d7e5fb06e28439423c95611119600c980a58e36388ee8381f7f5318789"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 318,
+   "rule": "W-GR-KMS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "ecb9f92814b1454e026653a2de16389859bbd1165a71c7f1bcec9dd69368c99c"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 318,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "efedc6b22085df1cc1d0ce305dd7c1694e47759f98a868e71568725e2efd9cc1"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 320,
+   "rule": "W-BM-EUCLID",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "7f0a66088d434b6cd1a046b4ae28f5104cc495abd8f49435dace394dc4efb876"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 320,
+   "rule": "W-GR-THERM-KIN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "d33487287f80499037b999529e3b03d1e699ca40b40a6e6a7e65db80a05bfc15"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 328,
+   "rule": "W-GR-THERM-KIN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "9272d306d4a5dbea746a751c0134f7d12daf9cc1e6a165e95c3150eed5b86aa0"
+  },
+  {
+   "path": "papers/GR.md",
+   "line": 643,
+   "rule": "W-GR-CONE",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "2fb9cbbd52396dfedd392ddf474177d9a1b71ee06ae37d572d53757a202dfe9b"
+  },
+  {
+   "path": "papers/Introduction.md",
+   "line": 18,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "530848864e84de55dddfedb90f644f0fe2d21dc6bd4f0f95d455ca8b409d1268"
+  },
+  {
+   "path": "papers/Introduction.md",
+   "line": 111,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "f3144877d973dd48c10c0243c9afd2c08e1bdc023c8084299607fe5a2e23b297"
+  },
+  {
+   "path": "papers/Introduction.md",
+   "line": 127,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "131daf8c615fbe87c98a3f900062b2cde5ea49aa171f98ccf7472b1049aec1ed"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 26,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "d4bea239821cb456838784e77f1cabf6e43af5a93cbbd9de24cd2a65e424a2f0"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 66,
+   "rule": "W-GR-THERM-KIN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "139451d28c5e5fed223664ce4b5fa32d77fe705c3f5fb08a19f4ed376682e62d"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 326,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "0808e417cfa724b5242ac59d887b6945504e8774e12da36d9052ff5c0beff252"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 441,
+   "rule": "W-OI-NOEXIST",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "338d165361c3095f83a0377ab4bde127b9b6efc1add02ee5e29ed954e8dac376"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 534,
+   "rule": "W-OI-NOEXIST",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "6406bda2afcda7a2cd93e7ac858b564f2e946bff43cfa3e462618eb23329c703"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 592,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "eefdeec37d2053417747202bd89b0649f7fff8936b395fc7988a795ebc80fd0a"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 592,
+   "rule": "W-OI-NOEXIST",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "eefdeec37d2053417747202bd89b0649f7fff8936b395fc7988a795ebc80fd0a"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 592,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "eefdeec37d2053417747202bd89b0649f7fff8936b395fc7988a795ebc80fd0a"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 598,
+   "rule": "W-OI-CONTRA",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "c8e8acb2cc5ae26e11454e99a47c5874b31a9d2a08909c64335ddb69f8c0586d"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 598,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "0756788b73156d1764710693a788a8ab7421b0a3ee5068e9649c11d355a7abf5"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 598,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "c8e8acb2cc5ae26e11454e99a47c5874b31a9d2a08909c64335ddb69f8c0586d"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 598,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "c8e8acb2cc5ae26e11454e99a47c5874b31a9d2a08909c64335ddb69f8c0586d"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 600,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "52880574be8ac4157d8714bfba58e6bf65448bbfd5e904f6d338d07e6cfbc8c2"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 600,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "52880574be8ac4157d8714bfba58e6bf65448bbfd5e904f6d338d07e6cfbc8c2"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 600,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "52880574be8ac4157d8714bfba58e6bf65448bbfd5e904f6d338d07e6cfbc8c2"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 610,
+   "rule": "W-GR-THERM-KIN",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "17813c1472fde7336c7fb3b99c01148506e42e70692bf74d61233a08717e64ac"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 654,
+   "rule": "W-GR-THERM-KIN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "3915459e12e58629bd7da931fb0ec361840fa023b775cb0657d4f0d968c69deb"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 664,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "64681bf676fed37a28dc19eb694d96e022838cd0c29f8855762c21865293763f"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 718,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "b293909a119e3084a071c79bd596283c7d7195281915f8f15085c1d7842f6d88"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 736,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "64265fd5672d6d664be120996fb4f4b9e791cdf8678a6547156bd2ce1c9d5d20"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 736,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "46cadca04af3cf8a6dd4f85b5d3f60e0b34014f41cb0dc10e85e984054a4585d"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 736,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "46cadca04af3cf8a6dd4f85b5d3f60e0b34014f41cb0dc10e85e984054a4585d"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 736,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "64265fd5672d6d664be120996fb4f4b9e791cdf8678a6547156bd2ce1c9d5d20"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 736,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "46cadca04af3cf8a6dd4f85b5d3f60e0b34014f41cb0dc10e85e984054a4585d"
+  },
+  {
+   "path": "papers/Main.md",
+   "line": 736,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "46cadca04af3cf8a6dd4f85b5d3f60e0b34014f41cb0dc10e85e984054a4585d"
+  },
+  {
+   "path": "papers/Methodology.md",
+   "line": 45,
+   "rule": "W-GR-THERM-KIN",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "10aebd87866845a62bc253006f9a4bca7451d427cb7d4baddb4320ec8f500eb7"
+  },
+  {
+   "path": "papers/Methodology.md",
+   "line": 45,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "10aebd87866845a62bc253006f9a4bca7451d427cb7d4baddb4320ec8f500eb7"
+  },
+  {
+   "path": "papers/Methodology.md",
+   "line": 45,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "1a8e3112f1b89f8a84f9b1a1cc3a7df8f89093a0223e950e8397b48ce3d29ba9"
+  },
+  {
+   "path": "papers/Methodology.md",
+   "line": 184,
+   "rule": "W-GR-THERM-KIN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "ff355ebf937214abd7434e5869d00064880c16af21e597111dc8086b877c1d7a"
+  },
+  {
+   "path": "papers/SM.md",
+   "line": 26,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "976704b09689b8ea9752acbc2fd606e1540245ec973ef2e23ce73e338aacda60"
+  },
+  {
+   "path": "papers/SM.md",
+   "line": 28,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "155acde3f04c831e59743d8d05c6eaac781ce10cc6fcb8563036705ef1a4373d"
+  },
+  {
+   "path": "papers/SM.md",
+   "line": 68,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "c81a315a711df9026a0655c6abc5ec4b0829b5c4e28e811a6acaf9ccede0fdb9"
+  },
+  {
+   "path": "papers/SM.md",
+   "line": 68,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "cfd865872a956fe3b9804fd709d22c89a2ced03fc1bb589f51d4291250cdb7fe"
+  },
+  {
+   "path": "papers/SM.md",
+   "line": 72,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "ba921302d9a4948d7e721922277447610c56747e3161dc6012f215a349345493"
+  },
+  {
+   "path": "papers/SM.md",
+   "line": 150,
+   "rule": "W-BM-EUCLID",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "601c38e0a6176684954724003c338587705d8ba0676d383f9d8100e62f804e30"
+  },
+  {
+   "path": "papers/SM.md",
+   "line": 150,
+   "rule": "W-BM-EUCLID",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "9eba92216fdb060d43d85f3cdd9e4b1aa92e13fb70fbc94f0463cfa44e34e4b1"
+  },
+  {
+   "path": "papers/SM.md",
+   "line": 160,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "8710c126d1932484567d6eaaf1be7b7c392ad5e18a4644a08a54479365b43498"
+  },
+  {
+   "path": "papers/SM.md",
+   "line": 264,
+   "rule": "W-BM-EUCLID",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "906c92a13a4036e3444f1cfb458d3d5f63fe75d8a39e6a43717515d8dfe568a7"
+  },
+  {
+   "path": "papers/SM.md",
+   "line": 364,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "d3002723fe62a4e764a88d4ec2b6887bd2733330a35c043b57d1aeb651fce804"
+  },
+  {
+   "path": "papers/SM.md",
+   "line": 479,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "ff3eab98852b5a5a8dde23ca5b673fef3364bad2c6931cb8b81714f49bee11f0"
+  },
+  {
+   "path": "papers/SM.md",
+   "line": 867,
+   "rule": "W-GR-CONE",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "b15f95fbdb1d67ee8f4afc9d6b68d28d5805e483cf6950e1610904fe962ed1ff"
+  },
+  {
+   "path": "papers/SM.md",
+   "line": 944,
+   "rule": "W-GR-CONE",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "98e0f375afaa6612ae76827c45af74bc9fd58eed1cca1f401cd8e0437f0a46ef"
+  },
+  {
+   "path": "papers/SM.md",
+   "line": 1100,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "a3059d29ceebb27ddd776357b46e21019c58b50dc9f2c1c209eaba531b9a1237"
+  },
+  {
+   "path": "papers/SM.md",
+   "line": 1100,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "63388a3c6e2c5548f8cbc4b7d3d94d8404557503abaa667f5a7f24b443d01793"
+  },
+  {
+   "path": "papers/SM.md",
+   "line": 1100,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "bce67643650d83848b740f4d89ac42444d825abbad783b7b3a4568032e452e74"
+  },
+  {
+   "path": "papers/SM.md",
+   "line": 1400,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "6232f3064c2d2fd955db273622629ef82e09e873e1f6f2e2215baba97f752783"
+  },
+  {
+   "path": "papers/SM.md",
+   "line": 1426,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "b61e3b420ce4ae61e923259e3c816a86350d5a7de23df34053f5e71de59c020d"
+  },
+  {
+   "path": "papers/SM.md",
+   "line": 1428,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "45d7e9b76d33bf7445d2f92acd3c69e17aa6a04cf88867b0d50a8a67517a9ea5"
+  },
+  {
+   "path": "papers/Structure.md",
+   "line": 184,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "5194ec449bf4a8ae51545277b3df1358bac5721170f1499ebcc80d024c815879"
+  },
+  {
+   "path": "papers/Structure.md",
+   "line": 282,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "14bcbb6622d7b5449a92c72083fadddc5c93a1c66fd78d3ea34df9aba6c4df5d"
+  },
+  {
+   "path": "papers/Structure.md",
+   "line": 1098,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "9fa2fe20a5b10d759b90e6fe3dfb2f7d95dc5c576d23ed8c10b564e76e86ff9c"
+  },
+  {
+   "path": "papers/Structure.md",
+   "line": 1098,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "536751e3caed1d633e1d53b8b882e4b2472104dbdba2e30241017ca7595a3754"
+  },
+  {
+   "path": "papers/Structure.md",
+   "line": 1148,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "3ab0e7c3b411a2095b06f2ffb00eaa23e563337b09c54a8eca23f493abf4782c"
+  },
+  {
+   "path": "papers/Structure.md",
+   "line": 1237,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "9960ba271ec100db260440e570f9ebcab7005a04820ff7bdb001343787f816e9"
+  },
+  {
+   "path": "papers/Substratum.md",
+   "line": 14,
+   "rule": "W-GR-THERM-KIN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "8c695620ad07e6cb4704292314fecc0a33de178e8e88e540d0511d7c1d56dc31"
+  },
+  {
+   "path": "papers/Substratum.md",
+   "line": 26,
+   "rule": "W-GR-THERM-KIN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "7112feb19cd5df90774cd2bd2747a2ff04fabe67d5492c18073dcd58af938178"
+  },
+  {
+   "path": "papers/Substratum.md",
+   "line": 161,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "4a4f539577a22ef82afef8a8cde7e5c9ed29c5583bdbf6838fb2a6e2b50992c5"
+  },
+  {
+   "path": "papers/Substratum.md",
+   "line": 371,
+   "rule": "W-GR-THERM-KIN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "a46d4fe4d41c7c437546b04c190a9a2fe888f3872c973b6d3849290c387c3d09"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 80,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "f92dfb059fef6b384173886fc75463a0decaec699f7eaf6848da355b09e122d0"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 283,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "58ef6bd5df4a4fd4dc51a615cf127f5d4da51e36a1871ad3b699dc4957051df5"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 283,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "58ef6bd5df4a4fd4dc51a615cf127f5d4da51e36a1871ad3b699dc4957051df5"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 340,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "b9951d4717333e884c0540016d14f5e601c1d0810f3d0248fd3fbaa433a8b84e"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 449,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "70da8999e68a804def7979263c6f604453ccecaf8be8cf8d6d41b3d22fd4d5bb"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 486,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "2a48eea2869f0b139c251ccda7e84bbaceede8dda7bdd89436b9128f859f76db"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 633,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "6807dcf8b562170b1861359ccf01c2d257d5cc82f4e93340425fc201114b8593"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 633,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "6807dcf8b562170b1861359ccf01c2d257d5cc82f4e93340425fc201114b8593"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 635,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "4b5f81ce4669f5086e0c4809a18426e95233066f772e5fe6e02e12d8243b2586"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 635,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "4b5f81ce4669f5086e0c4809a18426e95233066f772e5fe6e02e12d8243b2586"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 635,
+   "rule": "W-OI-NOEXIST",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "4b5f81ce4669f5086e0c4809a18426e95233066f772e5fe6e02e12d8243b2586"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 635,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "4b5f81ce4669f5086e0c4809a18426e95233066f772e5fe6e02e12d8243b2586"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 644,
+   "rule": "W-KDEG",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "66f7f893f9037c8fdcd74e5783e7cf99e77b8b64f0436f2150b8f141a897f627"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 790,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "a974a069567b2070556c273f58e9f51b1de97bd1e59addde6d54d9d1163c677d"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 790,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "a974a069567b2070556c273f58e9f51b1de97bd1e59addde6d54d9d1163c677d"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 895,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "58b416589342bd175a6c0689c99091ec80283031b2f9b3b8d59e670a6e77cb25"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 904,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "63390b302f275205b937dcf9ff1005c288d53d1acbdd3f57a06fdb35a52d91e4"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 911,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "bbbf3b6601d6816788479fdd95fe09c3874139ac23708f102e7ac3c73ea42ecb"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 939,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "77e595ae8f3a82d7510db1d5a2206bdfe7a16ed4c516553edc9d410a75e1fc49"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 950,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "fdbade86b6590f314c331c711c8ad3c1c0a9430b7acc5e70dc87ff81c34f1af8"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 1018,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "28cb876745daedb2c753af8c8650a454089f36b4b0e8c0831950e4606068141c"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 1029,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "d9b27722afff578845a07f8d232dcb003c4bf17f9e2dfc51f8bbd1c3dd3c90ec"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 1132,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "501c2ff60f0c8595e3dbb6ce6b67105d6e746383db83255d0bb1cbc14f335ca1"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 1166,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "ebdd2532ef6b5d6cec178fc3f212ad8d6416b6742ef21c89524ca6cc420db882"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 1166,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "ebdd2532ef6b5d6cec178fc3f212ad8d6416b6742ef21c89524ca6cc420db882"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 1171,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "2bb095629db04a043efabae3e6db9df592efa7bf17e7a4a6ea59b101975222a0"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 1171,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "2bb095629db04a043efabae3e6db9df592efa7bf17e7a4a6ea59b101975222a0"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 1353,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "fb1fb076408cfd0b57a2596295582397b2015924ae75a5cba4ea4ee4745a484b"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 1407,
+   "rule": "W-GR-TQ-STATE",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "958f8b676c6e43a9580ff372636f1c6c1189e6577817ce308faf63c5817a5d11"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 1535,
+   "rule": "W-OI-NOEXIST",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "46746e52d8ba66d44b998b3f21ed482a208efa9dfe1eaf213d658295ec2f1215"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 1960,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "4664cdbb473f5f361bb87bcc621c03687e96a8141d51fe39376d07142c1c99cf"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 1960,
+   "rule": "W-OI-HIDDEN",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "4664cdbb473f5f361bb87bcc621c03687e96a8141d51fe39376d07142c1c99cf"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 1960,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "4664cdbb473f5f361bb87bcc621c03687e96a8141d51fe39376d07142c1c99cf"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 2025,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "48030110a394a8850c4d55c3e1286ce03683cf20839735e4105b98038aee79e8"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 2025,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "48030110a394a8850c4d55c3e1286ce03683cf20839735e4105b98038aee79e8"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 2114,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "17e24c1219f016c3638b5ca7c61da217abc5eb05764652eb299f72b16b129e20"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 2116,
+   "rule": "W-OI-EXPLAINS",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "6ec6258b2647a59e4a5032f1c995f48836d12ae08c9d180b75b8be3bfba67731"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 2116,
+   "rule": "W-OI-NOEXIST",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "6ec6258b2647a59e4a5032f1c995f48836d12ae08c9d180b75b8be3bfba67731"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 2116,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "A",
+   "sentence_sha256": "6ec6258b2647a59e4a5032f1c995f48836d12ae08c9d180b75b8be3bfba67731"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 2203,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "5773383290d6dec4a38552b304bc3834489af1954f782e574a873865d7afb268"
+  },
+  {
+   "path": "verification/README.md",
+   "line": 2238,
+   "rule": "W-OI-REQ",
+   "verdict": "REVIEW",
+   "code": "C",
+   "sentence_sha256": "e091b000e6ad7f1d6c1321c4c2042eb492ee7f52145638863eeff636c111474c"
+  }
+ ]
+}

@@ -1,0 +1,10 @@
+BAD g1             FAIL   REVIEW | empty: FAIL   REVIEW copular; R6 negated or contrasted qualifier before A
+BAD g2             FAIL   REVIEW | empty: FAIL   REVIEW copular; R6 negated or contrasted qualifier before A
+BAD g3             FAIL   REVIEW | empty: FAIL   REVIEW copular; R6 negated or contrasted qualifier after A
+BAD g4             FAIL   REVIEW | empty: FAIL   REVIEW R6 negated or contrasted qualifier after A
+BAD g5             FAIL   REVIEW | empty: FAIL   REVIEW R6 negated or contrasted qualifier after A
+BAD g6             FAIL   REVIEW | empty: FAIL   REVIEW R6 negated or contrasted qualifier after A
+ok  g7             FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  g8             FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  g9             FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+mismatches: 6 of 9

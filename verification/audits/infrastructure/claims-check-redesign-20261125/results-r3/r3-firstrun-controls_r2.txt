@@ -1,0 +1,27 @@
+blocked  R2-P-01        FAIL   REVIEW C
+blocked  R2-P-02        FAIL   REVIEW C
+blocked  R2-P-03        FAIL   REVIEW C
+blocked  R2-P-04        FAIL   REVIEW C
+exact    R2-P-05        FAIL   FAIL   B
+exact    R2-P-06        FAIL   FAIL   B
+exact    R2-P-07        FAIL   FAIL   B
+load     R2-N-01        PASS   REVIEW C
+load     R2-N-02        PASS   REVIEW C
+load     R2-N-03        PASS   REVIEW C
+load     R2-N-04        PASS   REVIEW C
+load     R2-N-05        PASS   REVIEW C
+load     R2-N-06        PASS   REVIEW C
+load     R2-N-07        PASS   REVIEW C
+exact    R2-A-01        REVIEW REVIEW C
+exact    R2-A-02        REVIEW REVIEW C
+exact    R2-A-03        REVIEW REVIEW C
+exact    R2-A-04        REVIEW REVIEW C
+exact    R2-A-05        REVIEW REVIEW C
+exact    R2-A-06        REVIEW REVIEW C
+exact    R2-A-07        REVIEW REVIEW C
+exact    R2-A-08        REVIEW REVIEW C
+exact    R2-A-09        REVIEW REVIEW C
+exact    R2-A-10        REVIEW REVIEW C
+exact    R2-A-11        REVIEW REVIEW C
+exact    R2-A-12        REVIEW REVIEW C
+outcomes: {'blocked': 4, 'exact': 15, 'load': 7} of 26

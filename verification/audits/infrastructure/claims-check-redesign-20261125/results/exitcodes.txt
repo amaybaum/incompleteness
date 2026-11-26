@@ -1,0 +1,24 @@
+ok  clean active tree                                    expect 0 got 0
+ok  FAIL in papers/                                      expect 1 got 1
+ok  REVIEW only in papers/                               expect 2 got 2
+ok  FAIL and REVIEW in papers/ (FAIL wins)               expect 1 got 1
+ok  FAIL in a verification record (reported, exit 0)     expect 0 got 0
+ok  FAIL in verification/README.md (active)              expect 1 got 1
+ok  FAIL in a README under verification/a/ (record)      expect 0 got 0
+ok  FAIL in tools/README.md (active)                     expect 1 got 1
+ok  FAIL in AGENTS.md record section                     expect 0 got 0
+ok  FAIL in AGENTS.md ordinary section                   expect 1 got 1
+ok  REVIEW resolved by a valid record                    expect 0 got 0
+ok  record revision not on main                          expect 3 got 3
+ok  record revision abbreviated                          expect 3 got 3
+ok  record missing reviewer                              expect 3 got 3
+ok  stale record (sentence edited)                       expect 3 got 3
+ok  stale record (window changed for N1)                 expect 3 got 3
+ok  record cannot resolve a FAIL                         expect 3 got 3
+ok  unreadable review file                               expect 3 got 3
+ok  unreviewed licence entry (H-slope)                   expect 3 got 3
+ok  licence reviewed by its proposer                     expect 3 got 3
+ok  licence anchor quotation absent at its revision      expect 3 got 3
+ok  fixture licence file refused for a scan              expect 3 got 3
+ok  usage error                                          expect 4 got 4
+exit-code controls: 23 mismatches: 0

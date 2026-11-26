@@ -1,0 +1,35 @@
+ok  X-P-01         FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  X-P-02         FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  X-P-03         FAIL   FAIL   | empty: FAIL   FAIL   copular; G3 licensed qualifier heads the antecedent; copular; asserted; no governing qualifier
+ok  X-P-04         FAIL   FAIL   | empty: FAIL   FAIL   attributive; asserted; no governing qualifier
+ok  X-P-05         FAIL   FAIL   | empty: FAIL   FAIL   copular, relative pronoun bound to the rule subject; asserted; no governing qualifier
+ok  X-P-06         FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier; asserted; no governing qualifier
+ok  X-P-07         FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  X-P-08         FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  X-P-09         FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  X-P-10         FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  X-P-11         FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  X-P-12         FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  X-P-13         FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  X-P-14         FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  X-P-15         FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  X-P-16         FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  X-N-01         PASS   PASS   | empty: PASS   PASS   copular; G2 subject is the immediate complement of a negative frame
+ok  X-N-02         PASS   PASS   | empty: PASS   PASS   unrelated: predicate modifies 'normalization of the'
+ok  X-N-03         PASS   PASS   | empty: PASS   PASS   copular; G1 negation in the assertion's slot
+ok  X-N-04         PASS   PASS   | empty: PASS   PASS   copular; G2 the claim that A is withdrawn/false/unproved
+ok  X-N-05         PASS   PASS   | empty: PASS   PASS   G2 subject is the immediate complement of a negative frame
+ok  X-N-06         PASS   PASS   | empty: PASS   PASS   G1 negation in the assertion's slot
+ok  X-N-07         PASS   PASS   | empty: PASS   PASS   G2 subject is the immediate complement of whether
+ok  X-N-08         PASS   PASS   | empty: PASS   PASS   G2 subject is the immediate complement of a negative frame
+ok  X-N-09         PASS   PASS   | empty: PASS   PASS   G1 negation in the assertion's slot
+ok  X-N-10         PASS   PASS   | empty: PASS   PASS   copular; G2 subject is the immediate complement of a negative frame
+ok  X-N-11         PASS   PASS   | empty: REVIEW REVIEW G3 licensed qualifier heads a post-posed restrictor
+ok  X-A-01         REVIEW REVIEW | empty: REVIEW REVIEW R4 assertion inside a quotation or code span (mention)
+ok  X-A-02         REVIEW REVIEW | empty: REVIEW REVIEW R4 assertion inside a quotation or code span (mention)
+ok  X-A-03         REVIEW REVIEW | empty: REVIEW REVIEW copular; R3 condition naming no licensed qualifier
+ok  X-A-04         REVIEW REVIEW | empty: REVIEW REVIEW copular; R3 condition naming no licensed qualifier
+ok  X-A-05         REVIEW REVIEW | empty: REVIEW REVIEW copular; G3 licensed qualifier heads the antecedent; R1 pronoun/elided subject; rule subject in window
+ok  X-A-06         REVIEW REVIEW | empty: REVIEW REVIEW R3 qualifier after A not in a governing position
+ok  X-A-07         REVIEW REVIEW | empty: REVIEW REVIEW R3 qualifier after A not in a governing position
+mismatches: 0 of 34

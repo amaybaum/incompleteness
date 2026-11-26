@@ -1,0 +1,21 @@
+ok  H-P-1          FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  H-P-2          FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  H-P-3          FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  H-P-4          FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  H-P-5          FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  H-P-6          FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  H-P-7          FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  H-P-8          FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  H-N-1          PASS   PASS   | empty: PASS   PASS   unrelated: copular subject 'The Bekenstein bound'
+ok  H-N-2          PASS   PASS   | empty: PASS   PASS   causative; G1 negation in the assertion's slot
+ok  H-N-3          PASS   PASS   | empty: REVIEW REVIEW copular; G3 licensed qualifier heads the antecedent
+ok  H-N-4          PASS   PASS   | empty: PASS   PASS   G2 subject is the immediate complement of a negative frame
+ok  H-N-5          PASS   PASS   | empty: PASS   PASS   G1 negation in the assertion's slot
+ok  H-N-6          PASS   PASS   | empty: PASS   PASS   G1 negation in the assertion's slot
+ok  H-N-7          PASS   PASS   | empty: REVIEW REVIEW G3 licensed qualifier heads the antecedent
+ok  H-N-8          PASS   PASS   | empty: PASS   PASS   unrelated: copular subject 'The redshift factor'
+ok  H-A-1          REVIEW REVIEW | empty: REVIEW REVIEW R1 demonstrative noun phrase of the subject class
+ok  H-A-2          REVIEW REVIEW | empty: REVIEW REVIEW R3 condition naming no licensed qualifier
+ok  H-A-3          REVIEW REVIEW | empty: REVIEW REVIEW R2 subject not bound to the verb
+ok  H-A-4          REVIEW REVIEW | empty: REVIEW REVIEW copular; R3 condition naming no licensed qualifier
+mismatches: 0 of 20

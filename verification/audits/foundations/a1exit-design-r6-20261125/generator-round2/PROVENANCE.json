@@ -1,0 +1,84 @@
+{
+ "schema": "oi-r6-round2-provenance/1",
+ "comments_snapshot": {
+  "file": "comments-1169.json",
+  "sha256": "af740cc18fa630358aa618c585508439bde4b8fb7d426ecd6808faa5e95db1e6",
+  "source": "GET repos/amaybaum/incompleteness/issues/comments/{id}, fields body, user.login, created_at",
+  "retrieved": "2026-11-25, between 13:51 and 14:02 UTC",
+  "issue": 1169,
+  "comments": {
+   "7093128173": {
+    "author": "amaybaum",
+    "created_at": "2026-11-23T06:13:50Z",
+    "body_sha256": "8f0c5ad57037e5c42b6a4e92c47c51c721a597e970370fd2d5b9d016194c7818"
+   },
+   "7099655517": {
+    "author": "amaybaum",
+    "created_at": "2026-11-23T11:26:50Z",
+    "body_sha256": "2bc6fb0b2ba132d1aa7eddb4ac970ead347694dee9eb7de60f133158f074806c"
+   },
+   "7121574479": {
+    "author": "amaybaum",
+    "created_at": "2026-11-24T03:57:23Z",
+    "body_sha256": "834a1ce28ed40ad7428102037fdcfa08347fb9d69abfd270c6a33d1e8158b834"
+   },
+   "7130449822": {
+    "author": "amaybaum",
+    "created_at": "2026-11-24T11:42:47Z",
+    "body_sha256": "7b50a77025c9ba151608c518cb50bb5c0bb88978b921ff9eabae99a95faab553"
+   },
+   "7153270569": {
+    "author": "amaybaum",
+    "created_at": "2026-11-25T04:54:22Z",
+    "body_sha256": "e258195f4f27007bd19646dea9cdf557c6b4a67257af309662153dd6a1734060"
+   },
+   "7158516152": {
+    "author": "amaybaum",
+    "created_at": "2026-11-25T09:34:34Z",
+    "body_sha256": "66abea92375b03793e7ce785f7678906f0c1c951088777cd26d48863330c591c"
+   },
+   "7158801838": {
+    "author": "amaybaum",
+    "created_at": "2026-11-25T09:47:20Z",
+    "body_sha256": "4d357fa241d36103d4fac38b841aa34c31cd6367e4ef6fc0378338b502adda3b"
+   },
+   "7159270333": {
+    "author": "amaybaum",
+    "created_at": "2026-11-25T10:08:02Z",
+    "body_sha256": "69895328db345b3df0992043f93c1b006fd50a62443be5ea16c20f3abc673996"
+   },
+   "7160281751": {
+    "author": "amaybaum",
+    "created_at": "2026-11-25T10:52:11Z",
+    "body_sha256": "e4451b76f631efe1c3ce2c079137f5184190c3738f59e31aea5df1d48042c8c1"
+   },
+   "7160980912": {
+    "author": "amaybaum",
+    "created_at": "2026-11-25T11:23:22Z",
+    "body_sha256": "a14e02bf45792f86c396cf3c2eabfa5355f776bfd2fe7149d98c28f03b0d4659"
+   },
+   "7162098696": {
+    "author": "amaybaum",
+    "created_at": "2026-11-25T12:14:08Z",
+    "body_sha256": "6b5195836312e9a1ca44005ea4e1bfe0cdee0fadbf568252845bd2a54835d226"
+   },
+   "7163402499": {
+    "author": "amaybaum",
+    "created_at": "2026-11-25T13:10:44Z",
+    "body_sha256": "d5a1e5e01cc8d80ff80affffd0c9c88360b6e207ef35765fa4f7ff90ae6d95d5"
+   },
+   "7164065815": {
+    "author": "amaybaum",
+    "created_at": "2026-11-25T13:38:08Z",
+    "body_sha256": "da785f9d2d6bae25ca6fc7863633d0ffb069d2bd568ea7549097e5849f27dd8c"
+   },
+   "7164340996": {
+    "author": "amaybaum",
+    "created_at": "2026-11-25T13:49:23Z",
+    "body_sha256": "ac62be9373cdf8e2895cae88460a6e4d1b08cd5c02661ac092dc41ddd28f4ff2"
+   }
+  }
+ },
+ "generator": "correct2.py (with text2.py); it reads the round-1 outputs, which are this directory's parent files at commit ad035ff513d61d94668b8fde86b7426fec6ef58f, and imports the self-checks of the round-1 generator correct.py (with report_text.py). The generator expects the layout out-final2/ (round-1 outputs plus build/correct.py and build/report_text.py), PENDING-33.md, MAPPING.json and gh7/sel.json (this snapshot) under one root, and writes out-final3/.",
+ "not_included": "the inputs of the round-1 generator (its out-final/ directory)"
+}

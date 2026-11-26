@@ -1,0 +1,42 @@
+tree M = main 4c3ad0796b578c6258d5aae58c9502d5155d74dc; checker proto.r4.py
+active REVIEW findings: 234
+of which the sentence contains a hypothesis token (correction 1: no 'unrelated' record; adopted licence or rewording only): 36
+distinct (path, sentence): 34 ; distinct sentence texts: 23
+by rule: {'W-BM-EUCLID': 2, 'W-GR-KMS': 8, 'W-GR-THERM-KIN': 1, 'W-GR-TQ-STATE': 9, 'W-KDEG': 7, 'W-OI-HIDDEN': 8, 'W-OI-REQ': 1}
+tokens: {'H-slope': 8, 'H-count': 8, 'H-link': 6, 'H-BD': 6, 'H-Hawking': 6, 'H-spectrum': 5, 'H-χ': 4, 'H-cust': 3, 'H-BG': 1, 'H-state': 1}
+book/The-Incompleteness-of-Observation-FULL.md:981 W-GR-TQ-STATE C
+book/The-Incompleteness-of-Observation-FULL.md:1328 W-BM-EUCLID C
+book/The-Incompleteness-of-Observation-FULL.md:2429 W-GR-TQ-STATE C
+book/The-Incompleteness-of-Observation-FULL.md:2463 W-GR-TQ-STATE C
+book/The-Incompleteness-of-Observation-FULL.md:5292 W-KDEG C
+book/The-Incompleteness-of-Observation-FULL.md:5322 W-KDEG C
+book/The-Incompleteness-of-Observation-FULL.md:5846 W-GR-KMS C
+book/The-Incompleteness-of-Observation-FULL.md:5869 W-OI-HIDDEN C
+book/The-Incompleteness-of-Observation-FULL.md:5883 W-GR-KMS C
+book/The-Incompleteness-of-Observation-FULL.md:5885 W-GR-KMS C
+book/The-Incompleteness-of-Observation-FULL.md:5887 W-OI-HIDDEN A
+book/appendix-b-derivations.md:169 W-GR-KMS C
+book/appendix-b-derivations.md:192 W-OI-HIDDEN C
+book/appendix-b-derivations.md:206 W-GR-KMS C
+book/appendix-b-derivations.md:208 W-GR-KMS C
+book/appendix-b-derivations.md:210 W-OI-HIDDEN A
+book/ch03-structural-realism.md:120 W-GR-TQ-STATE C
+book/ch05-gauge-structure.md:13 W-BM-EUCLID C
+book/ch09-universality.md:14 W-GR-TQ-STATE C
+book/ch09-universality.md:48 W-GR-TQ-STATE C
+book/ch19-open-problems.md:222 W-KDEG C
+book/ch19-open-problems.md:252 W-KDEG C
+papers/GR.md:20 W-OI-HIDDEN C
+papers/GR.md:28 W-GR-TQ-STATE A
+papers/GR.md:58 W-OI-HIDDEN C
+papers/GR.md:130 W-OI-HIDDEN C
+papers/GR.md:144 W-GR-KMS C
+papers/GR.md:144 W-GR-KMS A
+papers/GR.md:144 W-GR-THERM-KIN C
+papers/GR.md:144 W-GR-TQ-STATE C
+papers/GR.md:144 W-OI-HIDDEN A
+papers/SM.md:160 W-GR-TQ-STATE C
+papers/SM.md:479 W-KDEG C
+papers/SM.md:527 W-KDEG C
+papers/SM.md:1400 W-KDEG C
+verification/README.md:486 W-OI-REQ C

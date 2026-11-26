@@ -1,0 +1,5 @@
+ok  D-P-1          FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  D-N-1          PASS   PASS   | empty: PASS   PASS   G2 subject is the immediate complement of a negative frame
+ok  D-N-2          PASS   PASS   | empty: PASS   PASS   G2 subject is the immediate complement of a negative say/claim frame
+ok  D-A-1          REVIEW REVIEW | empty: REVIEW REVIEW R5 that-fragment without a visible matrix frame
+mismatches: 0 of 4

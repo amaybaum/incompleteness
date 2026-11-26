@@ -1,0 +1,5 @@
+paragraphs: 6883
+injected sentences (every control and probe expected FAIL or REVIEW): 162
+checker: r3 
+total verdicts: {'FAIL': 216086, 'REVIEW': 898960}
+sentences with any silent PASS: none

@@ -1,0 +1,12 @@
+[
+{"id":"Z-01","rule":"W-GR-KMS","expect":"FAIL","text":"Under H-Hawking violations, any QFT on this background must be KMS."},
+{"id":"Z-02","rule":"W-GR-KMS","expect":"FAIL","text":"Under the H-Hawking conditions or without them, any QFT on this background must be KMS."},
+{"id":"Z-03","rule":"W-GR-KMS","expect":"FAIL","text":"Any QFT on this background must be KMS under H-Hawking violations."},
+{"id":"Z-04","rule":"W-GR-KMS","expect":"FAIL","text":"Given the H-Hawking conditions' failure, any QFT on this background must be KMS."},
+{"id":"Z-05","rule":"W-GR-KMS","expect":"FAIL","text":"Any QFT on this background must be KMS when the H-Hawking conditions hold and when they do not."},
+{"id":"Z-06","rule":"W-GR-TQ-STATE","expect":"FAIL","text":"In H-balance's absence, the Hawking temperature $T_Q$ is state-independent."},
+{"id":"Z-07","rule":"W-GR-TQ-STATE","expect":"FAIL","text":"The Hawking temperature $T_Q$ is state-independent for the H-balance analysis to go through."},
+{"id":"Z-08","rule":"W-GR-TQ-STATE","expect":"FAIL","text":"The Hawking temperature does not change from state to state."},
+{"id":"Z-09","rule":"W-OI-REQ","expect":"FAIL","text":"Observational incompleteness is presupposed by quantum mechanics."},
+{"id":"Z-10","rule":"W-OI-REQ","expect":"FAIL","text":"There is no quantum mechanics without observational incompleteness."}
+]

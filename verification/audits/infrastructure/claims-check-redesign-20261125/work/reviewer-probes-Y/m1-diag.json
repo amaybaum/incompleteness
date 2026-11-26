@@ -1,0 +1,10 @@
+[
+{"id":"M1-a","rule":"W-GR-TQ-STATE","expect":"FAIL","text":"The Hawking temperature $T_Q$ is state-independent, since the alpha-vacua violate H-balance."},
+{"id":"M1-b","rule":"W-GR-TQ-STATE","expect":"FAIL","text":"The Hawking temperature and the Unruh temperature are state-independent."},
+{"id":"M1-c","rule":"W-GR-KMS","expect":"FAIL","text":"Every QFT on this background must be KMS."},
+{"id":"M1-d","rule":"W-KDEG","expect":"FAIL","text":"Coupling-degree minimization singles out $K=2d$."},
+{"id":"M1-e","rule":"W-OI-REQ","expect":"FAIL","text":"Quantum mechanics needs hidden variables and quantum mechanics requires observational incompleteness."},
+{"id":"M1-f","rule":"W-GR-KMS","expect":"FAIL","text":"Any QFT on this background must be KMS."},
+{"id":"M1-g","rule":"W-OI-REQ","expect":"FAIL","text":"Quantum mechanics requires observational incompleteness."},
+{"id":"M1-h","rule":"W-GR-THERM-KIN","expect":"FAIL","text":"Horizon thermality is purely kinematic: it rests on H-balance."}
+]
