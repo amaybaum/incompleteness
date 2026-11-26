@@ -55,13 +55,19 @@ ATTESTED = {}
 WORKFLOW = os.path.join(os.path.dirname(tools), '.github', 'workflows', 'ledger-coverage.yml')
 
 
-def record(cid, expected, predicate, actual, status):
+def record(cid, expected, predicate, actual, status, cases=None):
+    """`cases`: per captured run of this control, in order, None or (case name, bindings) naming it as an
+    expectation case (R6.GATE.7)."""
     RESULTS.append({'id': cid, 'expected': expected, 'predicate': predicate, 'actual': actual, 'status': status})
-    RUNS.setdefault(cid, []).extend(REC.take())
+    runs = REC.take()
+    for run, c in zip(runs, cases or []):
+        if c is not None:
+            run['case'], run['bindings'] = c[0], dict(c[1] or {})
+    RUNS.setdefault(cid, []).extend(runs)
 
 
-def check(cid, expected, predicate, actual, holds):
-    record(cid, expected, predicate, actual, 'PASS' if holds else 'FAIL')
+def check(cid, expected, predicate, actual, holds, cases=None):
+    record(cid, expected, predicate, actual, 'PASS' if holds else 'FAIL', cases)
 
 
 def not_run(cid, expected, why):

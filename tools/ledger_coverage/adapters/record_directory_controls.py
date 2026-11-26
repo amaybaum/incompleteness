@@ -691,16 +691,22 @@ def i2_controls(r, check, workflow_path):
         on = sorted((i['class'], i.get('decision')) for i in res.get('items', [])
                     if i.get('file') == sf.DOC and ln and i.get('line') == ln[0])
         inv = sorted(i['subject'] for i in res.get('items', []) if i['class'] == 'record-invalid')
+        subj = [i['subject'] for i in res.get('items', []) if i.get('file') == sf.DOC and ln and
+                i.get('line') == ln[0]]
         return {'exit': code, 'stop': res.get('stop'), 'items_on_hit': on, 'record_invalid': inv,
+                'hit_subject': subj[0] if subj else '%s:%d' % (sf.DOC, ln[0] if ln else 0),
                 'hits_reaching_pipeline': len(got.get('hits') or []), 'file': names['hits']}
-    pos, neg = i24(True), i24(False)
+    # the case the row states (not referenced) first, so that it is the row's case; the referenced run follows
+    neg = i24(False)
+    pos = i24(True)
     check('I2-4', 'hit-classifications.json present but not referenced by the configuration: record-invalid; the hit '
           'stays REVIEW_REQUIRED', 'referenced and reviewed, the record resolves the concrete beta-word hit (no item on '
           'its line); not referenced, the file is record-invalid, no hit record reaches the pipeline and the same hit is '
           'an item with decision REVIEW_REQUIRED', {'referenced': pos, 'not referenced': neg},
           not pos['stop'] and not pos['items_on_hit'] and pos['hits_reaching_pipeline'] == 1 and
           not neg['stop'] and neg['record_invalid'] == [neg['file']] and neg['hits_reaching_pipeline'] == 0 and
-          neg['items_on_hit'] and all(dec == oc.review for _, dec in neg['items_on_hit']))
+          neg['items_on_hit'] and all(dec == oc.review for _, dec in neg['items_on_hit']),
+          cases=[('', {'hit': neg['hit_subject']}), ('referenced (positive)', {'hit': neg['hit_subject']})])
 
     # I2-5: a referenced record without a valid review
     syn, sw, F, p, d, names = i2_world(ctx_doc_of([]), hit_doc_of([]), review=False)

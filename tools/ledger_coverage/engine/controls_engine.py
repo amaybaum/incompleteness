@@ -117,6 +117,17 @@ def _restore(w, hits=True):
     _case('restored', baseline='baseline')
 
 
+def _restore_ledgered(w, clean, led):
+    """The restored case of a mutation of a ledgered tree: the same coverage run on the tree that carries exactly
+    the ledger's splices, compared with the clean run on that tree."""
+    if capture_hook is None:
+        return
+    w.coverage(clean, [seg(w.pin, clean, 'ledgered', ledger=led)])
+    _case('baseline')
+    w.coverage(clean, [seg(w.pin, clean, 'ledgered', ledger=led)])
+    _case('restored', baseline='baseline')
+
+
 def seg(f, t, kind='unledgered', **kw):
     d = {'from': f, 'to': t, 'kind': kind}
     d.update(kw)
@@ -279,9 +290,11 @@ def m_controls():
     cv, it = w.coverage(x, [seg(w.pin, x, 'ledgered', ledger=led)])
     x0 = w.child(w.pin, good)
     cv0, it0 = w.coverage(x0, [seg(w.pin, x0, 'ledgered', ledger=led)])
+    _case('restored')
     out['M1'] = 'unauthorized-edit' in classes(it) and decision(it0) == oc.pass_
     x = w.child(w.pin, base_text.replace('beta line two', 'betay line two', 1))
     cv, it = w.coverage(x, [seg(w.pin, x, 'ledgered', ledger=led)])
+    _restore_ledgered(w, x0, led)
     out['M2'] = 'unauthorized-edit' in classes(it)
 
     def integ(mut):
