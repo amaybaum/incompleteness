@@ -133,7 +133,15 @@ class Syn:
         v = variant or {}
         at = at or self.H
         files = {}
-        pats, allow = self.rule_files(v.get('allow_scope'))
+        # the allow lineage starts at a reviewed rule file without the allow rule (R6.RECON.31: a widening review
+        # names the record it replaces; only the designated transition root may carry replaces: null), so that the
+        # file adding syn-allow-1 supersedes it and its widening review names it by path and blob
+        allow_v0 = {'schema': 'oi-term-rules/2', 'record_id': 'syn-allow', 'supersedes': None, 'author': WRITER,
+                    'recorded_at': self.pin, 'rules': []}
+        files['syn/rules-allow-v0.json'] = jb(allow_v0)
+        v0_ref = {'path': 'syn/rules-allow-v0.json', 'blob_sha256': sha(files['syn/rules-allow-v0.json'])}
+        self.chain(files, 'syn/rules-allow-v0.json', REVIEWER)
+        pats, allow = self.rule_files(v.get('allow_scope'), v0_ref)
         files['syn/rules-pat.json'] = jb(pats)
         files['syn/rules-allow.json'] = jb(allow)
         recs = []
@@ -142,7 +150,7 @@ class Syn:
             recs += self.chain(files, p, v.get('reviewer', REVIEWER) if p.endswith('allow.json') else REVIEWER)
         wr0 = {'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': WIDENER,
                'reviewed': {'path': 'syn/rules-allow.json', 'blob_sha256': sha(files['syn/rules-allow.json'])},
-               'method': 'read the new allow rule',
+               'replaces': v0_ref, 'method': 'read the new allow rule',
                'verdicts': [{'item': 'syn-allow-1:new allow rule without supersedes', 'verdict': 'accept'}]}
         files['syn/rules-allow.widen.json'] = jb(wr0)
         recs.append({'kind': 'review', 'path': 'syn/rules-allow.widen.json',

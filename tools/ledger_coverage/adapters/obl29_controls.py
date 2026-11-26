@@ -601,6 +601,84 @@ def identity_and_set_controls(r):
          not o['finding'])
 
 
+def monotone_controls(r):
+    """Detection is monotone in history (R6.OBL29.2, sec. 2.3): evidence that lands later never removes a finding."""
+    def superseding_world():
+        w = pfc.World(r)
+        doc = pfc.invalidating(w, sf.DOC)
+        P = w.record(record_id=doc['record_id'])
+        pb = pfc.jb(P)
+        PP = pfc.RD + 'predecessor.json'
+        pfc.land(w, [(PP, P)], 'the predecessor P')
+        doc['supersedes'] = {'path': PP, 'blob_sha256': sf.sha(pb)}
+        c1 = pfc.land(w, [(FP, doc)], 'f supersedes P')
+        return w, c1, P, PP, pb, doc
+    w, c1, P, PP, pb, doc = superseding_world()
+    o0 = outcome(w)
+    S = dict(P, assessment_note='a competing successor')
+    S['supersedes'] = {'path': PP, 'blob_sha256': sf.sha(pb)}
+    pfc.land(w, [(pfc.RD2 + 'competing.json', S)], 'a competing successor of P lands later')
+    o = outcome(w)
+    case('COMPETING-SUCCESSOR-LATER', 'f supersedes a reviewed P and blocks; a competing successor of P lands later: f '
+                                      'still blocks (a later fork never removes a finding)', {'before': o0, 'after': o},
+         blocked(o0, True, None) and blocked(o, True, None))
+    w, c1, P, PP, pb, doc = superseding_world()
+    o0 = outcome(w)
+    ids = rec.item_ids(P)
+    adverse = pfc.jb({'schema': rec.review_schema, 'reviewer': 'reviewer-z',
+                      'reviewed': {'path': PP, 'blob_sha256': sf.sha(pb)}, 'method': 'read',
+                      'verdicts': [{'item': i, 'verdict': 'reject' if k == 0 else 'accept'}
+                                   for k, i in enumerate(ids)]})
+    step(w, {pfc.RD + 'predecessor.second-review.json': adverse}, 'an adverse review of P lands later')
+    o = outcome(w)
+    case('ADVERSE-PREDECESSOR-REVIEW-LATER', 'f supersedes a reviewed P and blocks; a rejecting review of P lands '
+                                             'later: f still blocks', {'before': o0, 'after': o},
+         blocked(o0, True, None) and blocked(o, True, None))
+    # the first review fails lint, a later one passes; record and reviews never share a tree
+    w = pfc.World(r)
+    doc = pfc.invalidating(w, sf.DOC)
+    b = pfc.jb(doc)
+    c1 = step(w, {FP: b}, 'the record lands without a review')
+    step(w, {FP: None}, 'the record is deleted')
+    step(w, {pfc.RD + 'a-self.review.json': w.review(FP, b, reviewer=sf.WRITER),
+             pfc.RD + 'b-good.review.json': w.review(FP, b)}, 'two reviews: the first by the author')
+    o = outcome(w)
+    case('SET-PAIRING-LATER-REVIEW', 'two reviews of the exact reference, never with the record: the first (by the '
+                                     'author) fails lint, the later one passes; the finding is detected', o,
+         blocked(o, False, c1))
+
+
+def predecessor_widening_unit(r):
+    """R6.OBL29.3 predecessor reviews, the widening review where the lineage requires one (review finding 9): a
+    rejecting widening review of the exact predecessor in R*, since removed from the tree, keeps the discharge
+    inapplicable. Unit level: reassessments require no widening, so the lineage's widening is supplied."""
+    pred = {'schema': 'oi-reassessment/1', 'record_id': 'ra', 'author': sf.WRITER, 'supersedes': None, 'x': 1}
+    pb = pfc.jb(pred)
+    pref = {'path': 'syn/cfg/ra-p.json', 'blob_sha256': sf.sha(pb)}
+    doc = dict(pred, x=2, supersedes=pref)
+    st = rec.Store([(pref['path'], pb)])
+    st.widening = lambda old, new: ['ra:widened'] if new is not None and new.get('x') == 1 else []
+
+    class Cum:
+        def __init__(self, verdict):
+            self.verdict = verdict
+
+        def reviews_naming(self, ref, directory=None):
+            if ref == pref:
+                return [('verification/audits/gone/ra-p.widening.json',
+                         {'schema': rec.review_schema, 'kind': 'widening', 'reviewer': 'widener-z', 'reviewed': ref,
+                          'method': 'read', 'verdicts': [{'item': 'ra:widened', 'verdict': self.verdict}]})]
+            return []
+
+    def problems(verdict):
+        return c3.predecessor_review_problems(doc, {'path': 'syn/cfg/ra.json', 'blob_sha256': '0' * 64}, st,
+                                              Cum(verdict))
+    rej, acc = problems('reject'), problems('accept')
+    case('PREDECESSOR-WIDENING-REJECT-DELETED', 'the operative predecessor\'s widening review in R* rejects (and has left '
+                                                'the tree): the discharge is inapplicable; an accepting one: no problem',
+         {'reject': rej, 'accept': acc}, bool(rej) and acc == [])
+
+
 def tl_variant(prefix, pins=()):
     """The synthetic configuration with a tool-landing class whose prefix is `prefix` (and pins for `pins`)."""
     from ledger_coverage import record_authority as ra
@@ -711,7 +789,8 @@ def more_negative_controls(r):
 SUITES = [('removal', removal_controls), ('topology', topology_controls), ('unreadable', unreadable_controls),
           ('positive', positive_controls), ('reassessment', reassessment_controls),
           ('clearance-predicates', clearance_predicates), ('identity-and-set', identity_and_set_controls),
-          ('more-negative', more_negative_controls)]
+          ('more-negative', more_negative_controls), ('monotone', monotone_controls),
+          ('predecessor-widening', predecessor_widening_unit)]
 
 
 def main(out):

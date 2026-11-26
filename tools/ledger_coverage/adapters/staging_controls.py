@@ -729,6 +729,10 @@ def first_allow(root):
     ]
     for n, what, got in negs:
         case('STAGING-FIRST-ALLOW/' + n, what + ': refused', got, bool(got))
+    got = problems(wide(replaces='__drop__'), designated=False)
+    case('STAGING-FIRST-ALLOW/15', 'a root that is not the designated root, its widening review omitting replaces: '
+                                   'refused (R6.RECON.31; no predecessor can be named)', got,
+         any('without a predecessor outside the designated root' in x for x in got))
     got = problems(wide(replaces={'path': 'syn/cfg/old.json', 'blob_sha256': '2' * 64}), designated=False,
                    old_ref={'path': 'syn/cfg/old.json', 'blob_sha256': '2' * 64})
     case('STAGING-FIRST-ALLOW/14', 'an ordinary successor\'s widening review naming the exact predecessor: no problem',

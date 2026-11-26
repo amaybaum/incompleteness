@@ -45,8 +45,9 @@ def read_invalidated(x):
 
 
 def _reviewed(store, ref, sha):
-    """Problems of the record's review: exactly one review record in its directory naming its blob, and the chain
-    lint with that review admitted."""
+    """Problems of the record's review: exactly one review record in its directory naming its exact reference (path
+    and blob; a review naming the same bytes at another path is not its review, which narrows the current-review
+    check of R6.OBL29.4 in the fail-closed direction), and the chain lint with that review admitted."""
     d = posixpath.dirname(ref['path'])
     reviews = [s for s, (p, rv) in store.by_sha.items()
                if isinstance(rv, dict) and rv.get('schema') == rec.review_schema and posixpath.dirname(p) == d
@@ -66,7 +67,8 @@ def _entry_findings(ref, doc):
 
 
 def findings_in(entries, schemas):
-    """entries: [(path, bytes)] of one scanned set. The findings of the first kind among its records, one per record
+    """The per-tree half of the monotone detection over R* (Cumulative.findings, (a)). entries: [(path, bytes)] of one
+    scanned set. The findings of the first kind among its records, one per record
     reference (path and blob: a byte-identical copy at another path is another record, R6.RECON.35 Identity) and entry:
     [{'record': ref, 'path': entry path, 'invalidated': [...], 'side_change_commits': [...]}]."""
     store = rec.Store(entries)
@@ -206,6 +208,38 @@ def _first_parent_chain(repo, M):
     return out
 
 
+def predecessor_review_problems(doc, ref, store, cum):
+    """R6.OBL29.3 predecessor reviews: every required supersedes hop of the reassessment's existing lineage check
+    (resolved by that check's own inputs); each exact predecessor's eligible ordinary reviews in R* accept every item,
+    and, where the lineage requires a widening review, every widening review in R* of it accepts each verdict."""
+    out = []
+    # predecessor reviews: every required supersedes hop of the reassessment's existing lineage check (resolved
+    # by that check's own inputs), each exact predecessor's eligible reviews in R*
+    cur, seen = doc, {ref.get('blob_sha256')}
+    while isinstance(cur, dict) and isinstance(cur.get('supersedes'), dict):
+        pref = cur['supersedes']
+        if pref.get('blob_sha256') in seen:
+            break
+        seen.add(pref.get('blob_sha256'))
+        prev = store.resolve(pref)
+        if not isinstance(prev, dict):
+            break  # an unresolvable predecessor is the lineage check's own failure (record lint, above)
+        out += ['predecessor %s: %s' % (pref.get('path'), x)
+                for x in eligible_review_problems(cum.reviews_naming(pref), prev)]
+        # include a widening review where the original check requires one: every widening review in R* of the
+        # exact predecessor accepts each of its verdicts
+        older = store.resolve(prev['supersedes']) if isinstance(prev.get('supersedes'), dict) else None
+        if store.widening is not None and store.widening(older, prev):
+            for wp, wv in cum.reviews_naming(pref):
+                if isinstance(wv, dict) and wv.get('kind') == 'widening' and \
+                        any(not isinstance(v, dict) or v.get('verdict') != 'accept'
+                            for v in wv.get('verdicts') or [None]):
+                    out.append('predecessor %s: the widening review %s in the cumulative record set does not '
+                               'accept every item' % (pref.get('path'), wp))
+        cur = prev
+    return out
+
+
 def reassessment_problems(repo, M, led, doc, ref, store, admitted, found, m_scan, schemas, cum=None):
     """Why a cited reassessment does not apply (empty if it applies). m_scan: [(path, bytes)], the scanned set of M's
     tree; `found`: the findings of the cumulative record set; `cum`: that set, whose eligible reviews of the
@@ -243,30 +277,7 @@ def reassessment_problems(repo, M, led, doc, ref, store, admitted, found, m_scan
         # record's exact reference within its own directory, accepts every item; historical review evidence never
         # supplies the current accepting review (R6.OBL29.4, above)
         out += eligible_review_problems(cum.reviews_naming(ref), doc)
-        # predecessor reviews: every required supersedes hop of the reassessment's existing lineage check (resolved
-        # by that check's own inputs), each exact predecessor's eligible reviews in R*
-        cur, seen = doc, {ref.get('blob_sha256')}
-        while isinstance(cur, dict) and isinstance(cur.get('supersedes'), dict):
-            pref = cur['supersedes']
-            if pref.get('blob_sha256') in seen:
-                break
-            seen.add(pref.get('blob_sha256'))
-            prev = store.resolve(pref)
-            if not isinstance(prev, dict):
-                break  # an unresolvable predecessor is the lineage check's own failure (record lint, above)
-            out += ['predecessor %s: %s' % (pref.get('path'), x)
-                    for x in eligible_review_problems(cum.reviews_naming(pref), prev)]
-            # include a widening review where the original check requires one: every widening review in R* of the
-            # exact predecessor accepts each of its verdicts
-            older = store.resolve(prev['supersedes']) if isinstance(prev.get('supersedes'), dict) else None
-            if store.widening is not None and store.widening(older, prev):
-                for wp, wv in cum.reviews_naming(pref):
-                    if isinstance(wv, dict) and wv.get('kind') == 'widening' and \
-                            any(not isinstance(v, dict) or v.get('verdict') != 'accept'
-                                for v in wv.get('verdicts') or [None]):
-                        out.append('predecessor %s: the widening review %s in the cumulative record set does not '
-                                   'accept every item' % (pref.get('path'), wp))
-            cur = prev
+        out += predecessor_review_problems(doc, ref, store, cum)
         if isinstance(entry, dict) and isinstance(edoc, dict):
             out += eligible_review_problems(cum.reviews_naming(entry, posixpath.dirname(entry.get('path') or '')),
                                             edoc)
@@ -366,23 +377,31 @@ class Cumulative:
         return None
 
     def findings(self):
-        """The first-kind findings of R* taken as a set (R6.OBL29.2, .3): a candidate record reference is a finding
-        when R* holds a review record in its own directory naming its exact path and blob under which the record
-        passes record lint (the tool's first-kind condition), wherever in history the record and the review each
-        appear; predecessors and ambiguity are resolved over R* as well. One finding per record reference and entry
-        (a copy at another path is another record)."""
+        """The first-kind findings of R* (R6.OBL29.2, .3), detected monotonically: the union of
+        (a) the findings of each distinct reachable subtree that holds a candidate, judged as in that tree
+            (`findings_in`), and
+        (b) the set-wide pairings: a candidate record reference and an accepting review of its exact reference in its
+            own directory, wherever in history each appears, under which the record passes record lint read from
+            those two records and the predecessors they resolve (positive evidence only).
+        No negative evidence read across R* (a competing successor, an adverse predecessor review) can remove a
+        finding: (b) reads no ambiguity scan and no other review, and (a) is fixed per tree, so adding history only
+        adds findings. One finding per record reference and entry (a copy at another path is another record)."""
         cands, reviews = {}, {}
-        for ents in self.subtrees.values():
+        out = []
+        for key, ents in sorted(self.subtrees.items(), key=lambda kv: repr(kv[0])):
+            here = False
             for p, _m, o in ents:
                 inf = self.info[o]
                 if inf[0] == 'candidate':
                     cands[(p, inf[1])] = o
+                    here = True
                 elif inf[0] == 'review' and inf[1] is not None:
                     reviews.setdefault((inf[1], inf[2]), set()).add((p, o))
+            if here:
+                out += findings_in([(p, self.repo.read_blob_uncached(o)) for p, _m, o in ents], self.schemas)
         if not cands:
             return []
         pool = self.pool()
-        out = []
         for (p, sha), o in sorted(cands.items()):
             data = self.repo.read_blob_uncached(o)
             try:
@@ -397,16 +416,17 @@ class Cumulative:
                     continue
                 rb = self.repo.read_blob_uncached(ro)
                 st = rec.Store([(p, data), (rp, rb)])
+                # predecessors resolve from R* (positive evidence); no scan is set, so the ambiguity check and the
+                # predecessor review lint read only these two records and cannot be defeated by later history
                 st.resolver = pool.resolve
-                st.scan = pool.entries
                 if not rec.lint_chain(ref, st, {sha, util.sha256(rb)}):
                     out += found
                     break
-        return out
+        return unique(out)
 
     def pool(self):
-        """R*'s reconciliation and review records by exact reference, read on demand: resolve({path, blob_sha256})
-        and entries() (every such record, for the lineage scan)."""
+        """R*'s reconciliation records by exact reference, read on demand: resolve({path, blob_sha256}) (positive
+        evidence for the set-wide pairing's predecessors)."""
         if getattr(self, '_pool', None) is None:
             refs = {}
             for ents in self.subtrees.values():
@@ -428,8 +448,6 @@ class Cumulative:
                                     return None
                     return None
 
-                def entries(_s):
-                    return [(p, repo.read_blob_uncached(o)) for (p, o) in sorted(refs)]
             self._pool = Pool()
         return self._pool
 
