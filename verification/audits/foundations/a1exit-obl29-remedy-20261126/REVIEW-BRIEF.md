@@ -1,6 +1,6 @@
-# OBL-29 remedy r7 independent review brief
+# OBL-29 remedy r8 independent review brief
 
-Review DESIGN.md and CONTROLS.json at the same r7 revision. Use amendment 6 r5 at
+Review DESIGN.md and CONTROLS.json at the same r8 revision. Use amendment 6 r5 at
 `1f5764572a98b7ae2f306e121e2e410f79c29daf` to reconstruct the defect. Verify
 compatibility with the adopted Amendment 6 r13 contract at
 `5ad8837521de0a26734266a64f91548fd3dcff1e` (#1593 comment 7193277489).
@@ -17,8 +17,11 @@ and identified re-freeze bypasses (#1601 comment 7192888727). The r6 review at
 `af8ede8203a86532c8a7126be4be0e7fdb64735d` found that a record-wide lineage witness
 could be missed through another path entry of the same multi-path record (#1601 comment
 7195199735). The focused r7 correction is authorized by amaybaum, received 2026-11-26 at
-15:48 UTC (#1169 comment 7196789498, item 1). OBL-29 remains an explicit retirement
-blocker until its remedy is implemented and
+15:48 UTC (#1169 comment 7196789498, item 1). The r7 review at
+`66916ba1cdf050273eac276b00233e46441ee888` returned REVISE (#1601 comment 7197055212).
+Owner amaybaum supported the r8 corrections and added refinements, received 2026-11-26
+at 16:02 UTC (#1169 comment 7197099380). No schema amendment is authorized. OBL-29
+remains an explicit retirement blocker until its remedy is implemented and
 independently verified. Adoption, implementation and trial execution require separate
 authorization.
 
@@ -104,7 +107,7 @@ authorization.
     (b) or (c) entries at `4bb48cddec206e567639fa863ecce852ddd8350e`. Independently
     assess P-ACTUAL-MAIN on full history at `942bd5ea1fd09f4223012b0755bce2d6da07c44a`
     and P-TL-CLEAN on the complete predicted `R*`, including inherited history, when
-    independently evaluated. Those exact-history checks remain unverified. The r7 revision
+    independently evaluated. Those exact-history checks remain unverified. The r8 revision
     adds no history scan or trial execution.
 12. **Owner decisions (§5.6).** Check the proposed implementation of the recorded
     retention and clearance policy. Review the evidence needed to verify a complete
@@ -112,9 +115,8 @@ authorization.
     on broader lint, lineage admission for M-only repairs, mistaken-finding correction
     and rename granularity remain separate. OBL-29 adoption and any new adjudication
     admission mechanism require separate authority.
-13. **Record-wide reliance (§2.2, r7).** Check that a witness qualified by R6.REC.7 or
-    R6.REC.6 binds the whole disputed record unless custody shows an entry-level check,
-    and that (r1)–(r3) decide reliance from records and trees alone, with an undecidable
+13. **Record-wide reliance (§2.2).** Check that every witness qualified by R6.REC.7 or
+    R6.REC.6 binds the whole disputed record, and that (r1)–(r3) decide reliance from records and trees alone, with an undecidable
     case counting as reliance. Verify that another entry or a byte-identical copy of the
     same multi-path record stays blocked whatever its entry path or repair commits
     (N-REFREEZE-OTHER-ENTRY-SAME-Q). Check that NR-1 to NR-4 rebut only (r3), that a
@@ -122,5 +124,20 @@ authorization.
     (P-REFREEZE-INDEPENDENT-REPLACEMENT), that each missing, forged or self-reviewed
     element fails closed (N-REFREEZE-NONRELIANCE-UNSUPPORTED) and that a freeze meeting
     none of (r1)–(r3) is not burdened (P-UNRELATED-FREEZE-NOT-BURDENED). Check whether
-    the existing record route can carry NR-4's audit references; if it cannot, NR-4
-    cannot be met and only the other clearance routes remain.
+    the token rule decides NR-4 and NR-5 deterministically from the existing `method`,
+    `reviewed` and `reason` fields, with failure leaving the witness standing.
+14. **Witness classes and explicit resolution (§2.2, r8).** Check that NR-1 to NR-4 clear
+    only a lineage witness and that a review witness clears only through NR-5. NR-5
+    requires an explicit resolution by the original adverse reviewer that names the
+    exact adverse items, the exact replacement, the reasons and the discharged finding.
+    Check NR-1 along the whole lineage of the replacement, the compared commit sets of
+    (r3) and the burden on unrelated findings that share a commit. Check the stated gap
+    for route 2: authorization has no place in the closed key tables. Demonstrate
+    safety: superficial modification, reviewer substitution, a general accept and
+    replacement chains do not clear (N-REFREEZE-OTHER-ENTRY-SAME-Q,
+    N-REFREEZE-NONRELIANCE-UNSUPPORTED, N-REFREEZE-REVIEW-WITNESS-COPY). Demonstrate
+    reachability: a legitimate independent replacement and a substantively resolved
+    adverse finding each clear (P-REFREEZE-INDEPENDENT-REPLACEMENT,
+    P-REFREEZE-REVIEW-WITNESS-RESOLVED, P-REFREEZE-CORRECTED-REPAIR), and unrelated
+    discharges carry no burden (P-UNRELATED-FREEZE-NOT-BURDENED,
+    P-UNRELATED-FINDING-SAME-CONFIGURATION).
