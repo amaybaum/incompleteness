@@ -62,7 +62,7 @@ def findings_of_records(records, schemas):
     for r in records:
         if r.get('schema') not in schemas:
             continue
-        doc = {k: v for k, v in r.items() if k != '_ref'}
+        doc = {k: v for k, v in r.items() if k not in ('_ref', '_source')}
         form = fd.record_schema_problems(doc)
         for e in fd.first_kind_entries(doc):
             se = e.get('scientific_effect') or {}
@@ -338,6 +338,8 @@ class Cumulative:
         self.visited = []
         self.holders = {}
         self.subtrees = {}
+        self.first_seen = {}
+        self.roots = [r for r in roots if r]
         cache = repo.__dict__.setdefault('_c3_keep', {})
         ckey = (id(repo), tuple(schemas))
         keep = cache.get(ckey)
@@ -365,6 +367,7 @@ class Cumulative:
             if key is not None and key not in self.subtrees:
                 self.subtrees[key] = ents
             for p, _m, o in ents:
+                self.first_seen.setdefault((p, o), c)
                 if self.info[o][3]:
                     self.holders.setdefault((p, o), set()).add(c)
             stack.extend(ps)
@@ -467,6 +470,15 @@ class Cumulative:
         key, ents = self.repo.prefix_entries(commit, self.prefix, self.keep)
         return sorted(p for p, _m, o in ents if self.info[o][0] in ('b', 'c') and not self.info[o][3]
                       and not excluded(p))
+
+    def read_domain(self, explicit=()):
+        """The category-3 read domain (OBL-29 r9 sec. 5.3): the roots of the walk, and for each record the scan read
+        from a tree, the commit it was first read from (a root or a commit of its verified history), its path and its
+        blob; and each explicitly read record with its admitted source."""
+        return {'prefix': self.prefix, 'roots': list(self.roots),
+                'reads': [{'commit': c, 'path': p, 'blob_sha256': self.info[o][2]}
+                          for (p, o), c in sorted(self.first_seen.items())],
+                'explicit': [dict(x) for x in explicit]}
 
     def witness(self, ref, M, rev, F):
         """(present_at_M, witness) of a finding's record reference (R6.OBL29.8): present_at_M when M's tree holds

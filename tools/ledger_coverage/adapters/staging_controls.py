@@ -579,6 +579,50 @@ def role_chain(root):
     return F_ok
 
 
+def representative_snapshot(root):
+    """Staging r2 sec. 2 / R6.EVID.8: the representative-control role binding at a verified snapshot S."""
+    from ledger_coverage.engine import transition as tr
+    from ledger_coverage import record_authority as ra
+    W = ChainWorld(root)
+    c0 = sf.jb(cls_doc(0, None))
+    p1, b1, f1 = W.successor(1, CLS_ROOT, c0)
+    p2, b2, f2 = W.successor(2, p1, b1)
+    B, S = W.chain(steps=[f1])
+    desc = {'schema': 'oi-a1-staging-transition/1', 'base': B,
+            'custody': {'path': CUSTODY, 'blob_sha256': sf.sha(W.repo.read(B, CUSTODY))},
+            'class_root': {'path': CLS_ROOT, 'blob_sha256': sf.sha(c0)},
+            'allow_root': {'path': ALLOW_ROOT, 'blob_sha256': sf.sha(W.repo.read(B, ALLOW_ROOT))}}
+    roles = (dict(ra.transition_roles[0], directory='syn/cls/'), dict(ra.transition_roles[1], directory='syn/cfg/'))
+    M_same = W.repo.derive(S, {'notes/m.txt': b'm\n'}, parents=[S], subject='M landing the same tip')
+    M_ahead = W.repo.derive(S, f2, parents=[S], subject='M with a newer class tip')
+    off = W.repo.derive(W.syn.H, {'notes/o.txt': b'o\n'}, parents=[W.syn.H], subject='M off B')
+
+    def run(M):
+        try:
+            got = tr.representative_binding(W.repo, B, S, M, roles, desc)
+            return 'ok', got['class_tip_at_M']
+        except tr.Refused as exc:
+            return 'refused', str(exc)
+    got = run(M_same)
+    case('STAGING-ROLE-CHAIN/28', 'R6.EVID.8 snapshot S on the verified path B..S; the class tip resolved at S equals '
+                                  'the landed class tip in M (path and digest): the role binding holds', got,
+         got == ('ok', {'path': p1, 'blob_sha256': sf.sha(b1)}))
+    got = run(M_ahead)
+    case('STAGING-ROLE-CHAIN/29', 'M\'s landed class tip is newer than the tip at S: refused (the affected controls stay '
+                                  'open)', got, got[0] == 'refused' and 'not the landed class tip in M' in got[1])
+    got = run(off)
+    case('STAGING-ROLE-CHAIN/30', 'B is not on M\'s first-parent chain: the role binding cannot be verified (refused)',
+         got, got[0] == 'refused' and 'not on the first-parent chain' in got[1])
+    bad = W.repo.derive(S, {'syn/cls/a1-staging-class-x.json': sf.jb(cls_doc(7, None))}, parents=[S], subject='S2')
+    try:
+        tr.representative_binding(W.repo, B, bad, bad, roles, desc)
+        got = 'ok'
+    except tr.Refused as exc:
+        got = str(exc)
+    case('STAGING-ROLE-CHAIN/31', 'the snapshot S holds a second root in the class namespace: the bounded namespace '
+                                  'check refuses it', got, 'second root' in got)
+
+
 def config_reviews(root):
     W = ChainWorld(root)
     B, tip = W.chain()
@@ -820,7 +864,7 @@ def k1_layout(root):
          got[0] is None and all(bool(x) for x in got[1:]))
 
 
-SUITES = [('item2-engine', item2_engine), ('item2-gate', item2_gate), ('role-chain', role_chain),
+SUITES = [('representative-snapshot', representative_snapshot), ('item2-engine', item2_engine), ('item2-gate', item2_gate), ('role-chain', role_chain),
           ('config-reviews', config_reviews), ('config-widening', config_widening), ('first-allow', first_allow),
           ('first-allow-admission', first_allow_admission), ('k1-layout', k1_layout)]
 

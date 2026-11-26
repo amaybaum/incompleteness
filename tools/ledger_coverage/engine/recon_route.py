@@ -291,7 +291,7 @@ def admit(repo, cands, scope, items):
             items.append(oc.make_item('RECORD', 'record-invalid', path, None, {'sha': sha, 'why': probs[0]},
                                       detail=probs))
             continue
-        admitted.append(dict(doc, _ref={'path': path, 'blob_sha256': sha}))
+        admitted.append(dict(doc, _ref={'path': path, 'blob_sha256': sha}, _source=rev))
         listing.append({'rev': rev, 'path': path, 'sha256': sha, 'review': review})
     # (e) one record per path, over the records the run reads and the unsuperseded records of the scanned sets
     # that name the run's M

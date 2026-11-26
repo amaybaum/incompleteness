@@ -924,6 +924,36 @@ def r13_form_controls(r):
          refused_for(o, '$.finding.item: missing'))
 
 
+def read_domain_controls(r):
+    """OBL-29 r9 sec. 5.3: the category-3 read domain is recorded and checked independently (adapters/read_domain)."""
+    from ledger_coverage.adapters import read_domain as rdm
+    w, c1, fb = landed(r)
+    step(w, {FP: None}, 'delete f')
+    code, out = w.run([], harness=True)
+    out = out or {}
+    good = rdm.problems(w.repo, out, [w.M])
+    rd = out.get('category3_read_domain') or {}
+    import copy
+    forged = copy.deepcopy(out)
+    unrelated = w.repo.derive(pfc.World(r).syn.H, {pfc.RD + 'x.json': fb}, parents=[], subject='unrelated root')
+    forged['category3_read_domain']['reads'].append({'commit': unrelated, 'path': pfc.RD + 'x.json',
+                                                    'blob_sha256': sf.sha(fb)})
+    outside = copy.deepcopy(out)
+    outside['category3_read_domain']['reads'].append({'commit': c1, 'path': 'doc/s.md',
+                                                     'blob_sha256': sf.sha(w.repo.read(c1, 'doc/s.md'))})
+    wrong = copy.deepcopy(out)
+    wrong['category3_read_domain']['reads'][0]['blob_sha256'] = '0' * 64
+    case('P-REPRESENTATIVE-READ-DOMAINS', 'the category-3 reads recorded with their source commit, path and blob all '
+                                          'come from the named root or its verified history under the prefix; a read '
+                                          'from an unrelated commit, outside the prefix, or with another blob is '
+                                          'refused', {'good': good, 'reads': len(rd.get('reads') or []),
+                                                      'forged': rdm.problems(w.repo, forged, [w.M]),
+                                                      'outside': rdm.problems(w.repo, outside, [w.M]),
+                                                      'wrong': rdm.problems(w.repo, wrong, [w.M])},
+         good == [] and bool(rd.get('reads')) and rdm.problems(w.repo, forged, [w.M]) and
+         rdm.problems(w.repo, outside, [w.M]) and rdm.problems(w.repo, wrong, [w.M]))
+
+
 def tl_variant(prefix, pins=()):
     """The synthetic configuration with a tool-landing class whose prefix is `prefix` (and pins for `pins`)."""
     from ledger_coverage import record_authority as ra
@@ -1037,7 +1067,8 @@ SUITES = [('removal', removal_controls), ('topology', topology_controls), ('unre
           ('more-negative', more_negative_controls), ('monotone', monotone_controls),
           ('predecessor-widening', predecessor_widening_unit),
           ('pairing-predecessor', pairing_predecessor_controls),
-          ('pairing-review-order', pairing_review_order_control), ('r13-form', r13_form_controls)]
+          ('pairing-review-order', pairing_review_order_control), ('r13-form', r13_form_controls),
+          ('read-domain', read_domain_controls)]
 
 
 def main(out):

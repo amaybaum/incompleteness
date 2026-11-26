@@ -375,6 +375,9 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
                                     {'finding': f['record'], 'item': f.get('item'), 'why': form[0]},
                                     detail=['a form failure of a category-3 finding: %s' % x for x in form]))
     out += c3.blocked_items(repo, H, M, blocked, getattr(ex, 'dispositions', []))
+    explicit = [{'path': (r.get('_ref') or {}).get('path'), 'blob_sha256': (r.get('_ref') or {}).get('blob_sha256'),
+                 'source': r.get('_source')} for r in recon]
+    result['category3_read_domain'] = cum.read_domain(explicit)
     result['category3'] = {'findings': findings,
                            'blocked': [{'record': f['record'], 'item': f.get('item'), 'path': f['path'], 'edit': e}
                                        for f, e in blocked],
@@ -1336,7 +1339,8 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
             side += d.get('classes', [])
             record_refs[r['path']] = r['blob_sha256']
         else:
-            recon.append(dict(d, _ref={'path': r['path'], 'blob_sha256': r['blob_sha256']}))
+            recon.append(dict(d, _ref={'path': r['path'], 'blob_sha256': r['blob_sha256']},
+                              _source=loaded.ref['commit']))
     # the --classify records (sec. 22): a reconciliation record reaches the run only by the post-freeze route of
     # R6.RECON.2; a review record is never a primary record; in the control harness every other record kind is
     # linted at its record commit (OBL-28 C-29)
