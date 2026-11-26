@@ -36,6 +36,7 @@ scientific question and no row disposition.
 | `rules/resid-v1.json` | `oi-term-rules/2` | the review pattern `resid` (resid-a, resid-b, resid-c) |
 | `rules/w1-w2-allow-v1.json` | `oi-term-rules/2` | the seed allow rules W1 (four sentences) and W2 (two sentences), each fingerprinted at the commit its `recorded_at` names |
 | `rules/w1-w2-allow-v2.json` | `oi-term-rules/2` | supersedes `rules/w1-w2-allow-v1.json` (same `record_id`; the earlier file stays unchanged): the same rules, with W1-a's reason citing the book's Level G2 definition of the six structural properties (`book/ch09-universality.md`) and stating that SM does not define the term |
+| `rules/w1-w2-allow-v3.json` | `oi-term-rules/2` | supersedes `rules/w1-w2-allow-v2.json` (same `record_id`; the earlier files stay unchanged): the same rules without W1-a, for which no valid justification exists; SM:1394 at `T1'` stays REVIEW_REQUIRED |
 | `records/gr58-hit-classification-v1.json` | `oi-hit-classification/1` | the classification of the line papers/GR.md:58 of the retirement candidate |
 | `records/gr58-hit-classification-v2.json` | `oi-hit-classification/1` | supersedes `records/gr58-hit-classification-v1.json` (same `record_id`; the earlier record stays unchanged): the same line, with every profile hit on it named and given a reason (p0-core and ptr on "finite total system", p0-para twice on "uniform counting") |
 | `records/repo-scope-v1.json` | `oi-scope/1` | the scope of the `repo` profile (item 11) |
@@ -169,8 +170,8 @@ scope record's agreement with `P`'s classification (ESC-3) and the classified li
 
 | Reference | Where | What reads it | Classification |
 |---|---|---|---|
-| `T1'` in each allow rule's `recorded_at` | `rules/w1-w2-allow-v1.json`, `rules/w1-w2-allow-v2.json` | the rule-file lint reproduces every fingerprint (sentence and context) at that commit, and the `rule-stale` scoping decides ancestry against it | gap: admitting the rule file needs `T1'`'s objects (ESC-1) |
-| `T1'` in the file's top-level `recorded_at` | `rules/w1-w2-allow-v1.json`, `rules/w1-w2-allow-v2.json` | nothing | provenance |
+| `T1'` in each allow rule's `recorded_at` | `rules/w1-w2-allow-v1.json` to `rules/w1-w2-allow-v3.json` | the rule-file lint reproduces every fingerprint (sentence and context) at that commit, and the `rule-stale` scoping decides ancestry against it | gap: admitting the rule file needs `T1'`'s objects (ESC-1) |
+| `T1'` in the file's top-level `recorded_at` | `rules/w1-w2-allow-v1.json` to `rules/w1-w2-allow-v3.json` | nothing | provenance |
 | `T1'` in the file's top-level `recorded_at` | `rules/dr-deny-v1.json` | nothing; the deny rules' countercontrols read `H` and the control input at `H`, both on `main` | provenance (ESC-5, administrative) |
 | `T1'` in the file's top-level `recorded_at` | `rules/resid-v1.json` | nothing; a review pattern is linted on its patterns and examples only | provenance (ESC-5, administrative) |
 | `P` in `recorded_at` and in `lint.checker.commit` | `rules/register-infinity-params-v1.json` | neither field is read; the lint compares the parameters with the checker that the configuration pins as its ledger adapter's `checker` companion, which the staged configuration pins to `P`'s `edits_check.py` | provenance for the two fields; gap for the parameters' stated equality to `P`'s checker, which needs `P`'s `edits_check.py` (ESC-2) |
