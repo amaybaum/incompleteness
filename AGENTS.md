@@ -1810,10 +1810,11 @@ resetting the work.
    rule 3) and writes nothing to them.
 6. **Entry point and missing records.** Recovery needs only the repository's identity and the
    owner's instruction. It starts from this file on `main`, which names the coordination Issue,
-   #1169, and, in §A.45 "Where things live", the Project and the planning record in open Issues. No
+   the operations Issue #OPS (§A.53), and, in §A.45 "Where things live", the Project and the
+   planning record in open Issues. No
    one of these is indispensable: where one is missing or cannot be read, the replacement discovers
    the workstreams from the others, from open pull requests and their branches, and from the records
-   on `main`; where #1169 is missing or cannot be read, the coordination Issue of item 5 is the one
+   on `main`; where #OPS is missing or cannot be read, the coordination Issue of item 5 is the one
    the owner names. A record that something references, or that the host reports as deleted or
    inaccessible, is unavailable rather than nonexistent; where recovery depends on it, it is put to
    the owner. An authorization, review verdict or owner decision lifting a stop that cannot be read
@@ -1830,3 +1831,26 @@ repository.
 Adopted 2026-11-26 by owner decision (`amaybaum`, #1169 comment 7190776267); items 5 and 6 added
 the same day by owner decision (`amaybaum`, #1169 comments 7191506837 and
 7191552531).
+
+***
+
+## §A.53 Workstreams and the operations Issue
+
+Work falls in three permanent workstreams: **framework integrity**, which maintains and improves the
+existing framework; **scientific research**, which produces new mathematical and physical results;
+and **verification and operations**, which maintains verification tools, infrastructure and
+governance. The writer assigns work to a workstream dynamically, as the active packages provide; no
+label records the assignment and no allocation of resources between workstreams is fixed. Priorities
+and status stay in the planning record and the Project, and §A.45's rules and every gate of this file
+apply unchanged. The active work packages (§A.51) are WP-1, WP-2 and WP-3, one for each workstream in
+that order, whose records are #1169 comments 7199703288, 7199704501 and 7199705637.
+
+The operations Issue, #OPS, holds only writer designations, takeovers and handovers; write stops,
+suspensions and resumptions; project-wide owner decisions, including changes to the shared agent cap;
+and recovery records and cross-workstream operational incidents. It records events, not rules;
+scientific summaries, routine progress reports and task-specific coordination go to the Issue or
+pull request they concern. Where an active package's record names #1169 as the place its writer is
+recorded or as a target for records of owner decisions and checkpoints, that place is #OPS for these
+events and otherwise the Issue or pull request concerned; the package is otherwise unchanged. #1169
+is the accountable Issue of OI-QM-EXT-1, and the records, owner decisions and authorizations it holds
+stay in force where they are cited.
