@@ -42,6 +42,32 @@ class; the B4 class records' pins at 13eeca70 predate these changes.
 The A1 configuration itself (`retirement-config.json`, the staged draft at the plan directory's path) is admitted only
 by the control harness; its review chain is outside C-29 and outside this inventory.
 
+## R18 and S11-2a evidence and class-record migration
+
+The R18 runner binds the workflow path to the changed class pin and checks both the workflow's
+`side-change-unclassified` review item and the ledgered `base-drift` failure. At tool checkpoint `9184f7ad`,
+`tools/ledger_coverage/adapters/a1_conformance.py` has Git blob `2f1e97133c8ec7910f393257590cf84f53faea16`.
+The R18 draft has Git blob `182807d7aff4d6b4c810d63dff45a953d501a412` and SHA-256
+`c1291121174a4295ebf62b8b1aad633d2f92b45667ff177fc901397fc5f0cab3`.
+
+S11-2a retains the coverage result on the unmutated pin and the result on its mutated child.
+The runner binds the appended line and both mutation blob IDs. The gate computes the adopted
+site count delta from the two retained results. Synthetic evaluator controls reject a missing
+baseline, an item already present, an item at the wrong line, a duplicate addition and a missing
+deny item. The real-tree control remains unverified.
+
+| Changed path | Git blob | SHA-256 |
+|---|---|---|
+| `tools/ledger_coverage/adapters/a1_controls.py` | `0fe36b50ff5a426a9ef5e50cdf36e9d33a77a7c7` | `39e1bd2844eaeafc40bebc1e2d230f856f6cd5abd19439c18473a866593b27e2` |
+| `tools/ledger_coverage/gate/control_gate.py` | `90404dcac1c444ef7ef35cf795d662238495fac8` | `71b26784dac2f12478ab90182df8ca650ab9faa238691794a26bd0114aefe9cf` |
+
+The v1 through v21 records preserve the historical pin inventory. Amendment 6 r13 requires SHA-256-only
+pin entries, the exact listed class-record keys, and GitHub login identities (R6.RECON.29 and R6.RECON.34).
+The historical records carry the earlier fields, including `git_blob`. R6.REC.7 requires predecessors to
+pass record lint independently and R6.REC.12 requires a correction to supersede its predecessor. An
+admissible class record therefore needs a lineage decision and the required independent review before
+any configuration uses it. A changed pin also requires widening review under R6.RECON.34.
+
 ## Reconciliation and class records of B4 (branch `records/a1-b4-rebuild-20261126` at 13eeca70)
 
 | Path (`verification/audits/foundations/a1exit-reconciliation-b4-20261126/records/`) | Kind | sha256 | A1 rows |

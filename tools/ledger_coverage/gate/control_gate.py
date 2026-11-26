@@ -1033,6 +1033,25 @@ def eval_case(exp, case_name, ev, row, record, findings_out):
                 if k in ('classes_exact', 'classes_include'):
                     got = sorted({i.get('class') for i in sitems})
                     ok = ok and (set(v) == set(got) if k == 'classes_exact' else set(v) <= set(got))
+                elif k == 'added_relative_to_unmutated':
+                    baseline = ev.json(c.get('baseline_file'))
+                    if not (isinstance(baseline, dict) and isinstance(baseline.get('items'), list)
+                            and isinstance(v, dict) and v):
+                        findings_out.append(('raw-evidence-missing', 'case %r: site %s has no countable baseline'
+                                             % (case_name, subj)))
+                        continue
+                    additions = {}
+                    for query in sorted(v):
+                        before, before_source = extract_count(query, baseline, bindings, {})
+                        after, after_source = extract_count(query, result or {}, bindings, {})
+                        if (before_source != 'result' or after_source != 'result'
+                                or type(before) is not int or type(after) is not int):
+                            findings_out.append(('raw-evidence-missing', 'case %r: site %s count %s unavailable'
+                                                 % (case_name, subj, query)))
+                            continue
+                        additions[query] = after - before
+                    actual.setdefault(k, {})[subj] = additions
+                    ok = ok and additions == v
                 else:
                     ok = ok and any(x.get(k) == v for x in sites + sitems)
             if not ok:

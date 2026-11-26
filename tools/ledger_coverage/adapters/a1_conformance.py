@@ -609,14 +609,21 @@ def n_controls(a):
           not on and any(x.get('composed_blob') == '86d79863821f3f8cdad86771008b2df89fd1961a'
                          for x in res.get('landing_compositions') or []))
     # R18, R19
-    bad = [dict(rcn.classes[0], pins=[dict(rcn.classes[0]['pins'][0], blob_sha256='0' * 64)]), rcn.classes[1]]
+    workflow, configuration = rcn.classes
+    pin = workflow['pins'][0]
+    workflow_path = pin['path']
+    bad = [dict(workflow, pins=[dict(pin, blob_sha256='0' * 64)]), configuration]
     e18c = rcn.run(rec, classes=bad)
+    if REC is not None:
+        REC.name_last('', bindings={'workflow_path': workflow_path})
     restored()
-    check('R18', 'a classified side-change path whose blob at M differs from its class pin: REVIEW_REQUIRED '
-          'side-change-unclassified', "side-change-unclassified for the workflow path",
-          [i['class'] for i in e18c.items], any(i['class'] == 'side-change-unclassified' and
-                                                 i.get('file') == '.github/workflows/a1exit-trial-verify.yml'
-                                                 for i in e18c.items))
+    workflow_review = any(i['class'] == 'side-change-unclassified' and i['decision'] == 'REVIEW_REQUIRED' and
+                          i.get('file') == workflow_path for i in e18c.items)
+    drift_fail = any(i['class'] == 'base-drift' and i['decision'] == 'FAIL' for i in e18c.items)
+    check('R18', 'a workflow pin mismatch on M with ledgered drift: the workflow needs review and drift fails',
+          'REVIEW_REQUIRED side-change-unclassified at the workflow and FAIL base-drift',
+          {'workflow': workflow_path, 'workflow_review': workflow_review, 'drift_fail': drift_fail},
+          workflow_review and drift_fail)
     M19 = repo.derive(M, {'tools/ledger_coverage/extra.py': b'x = 1\n', 'tools/ledger_coverage/listed.py': b'y\n'},
                       parents=[M], subject='tool landing on M')
     tool = {'id': 'tool-landing', 'prefixes': ['tools/ledger_coverage/'],

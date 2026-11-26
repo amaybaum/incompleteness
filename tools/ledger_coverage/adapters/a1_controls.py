@@ -983,14 +983,20 @@ def ex_controls(a):
     # sec. 11 row 2 countercontrols at E
     f = 'book/ch18-beyond.md'
     el = a.lines(E, f)
+    _, unmutated, _ = a.run(['coverage', '--commit', E], case='unmutated')
+    baseline = a.rec.name_last('unmutated')
     x = a.repo.derive(E, {f: ('\n'.join(el) + '\nA new line on total finiteness.\n').encode()}, parents=[E])
-    code, res, t = a.run(['coverage', '--commit', x])
-    nl = len(a.lines(E, f)) + 1  # the appended line
+    nl = len(el) + 1
+    code, res, _ = a.run(['coverage', '--commit', x], case='', baseline=baseline,
+                         bindings={'new_line': '%s:%d' % (f, nl)},
+                         mutation=[{'path': f, 'before': a.repo.blob_id(E, f), 'after': a.repo.blob_id(x, f)}])
+    before = [i['class'] for i in items_on(unmutated, f, nl)]
     on = [i['class'] for i in items_on(res, f, nl)]
-    a.record('S11-2a', on == ['unclassified'], 'unclassified new site gives REVIEW_REQUIRED',
-             {'items_on_new_line': on, 'run_outcome': res.get('outcome'),
-              'note': 'the mutant of E is not E, so the deny profiles run on it (sec. 2.3) and its retired forms '
-                      'give deny-match FAILs as well'})
+    added = on.count('unclassified') - before.count('unclassified')
+    a.record('S11-2a', code == 20 and 'deny-match' in classes(res) and added == 1 and 'unclassified' in on,
+             'FAIL with deny-match and one added unclassified item at the new line',
+             {'items_on_new_line': on, 'unmutated_items_on_line': before, 'added_unclassified': added,
+              'run_outcome': res.get('outcome'), 'exit': code})
     p3 = [s for s in json.loads(a.base.read(H, 'verification/audits/foundations/a1exit-ledger-20261120/sitemap.json'))['sites']
           if s['owner'] == 'Q3 propagation'][0]
     el = a.lines(E, p3['file'])
