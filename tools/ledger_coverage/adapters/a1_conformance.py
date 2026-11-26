@@ -52,7 +52,7 @@ def check(cid, expected, predicate, actual, holds):
 def exec_doc(e, label):
     """Captures an in-process Execution's items, side changes and compositions as a stage result."""
     if REC is not None:
-        REC.capture_doc(label, control_records.stage_doc(
+        e.captured = REC.capture_doc(label, control_records.stage_doc(
             e.items, operation='execution', side_changes=getattr(e, 'side_changes', None),
             landing_compositions=getattr(e, 'compositions', None)))
     return e
@@ -102,20 +102,30 @@ def wb_controls(a):
         sel = ['--profile', profile] if profile else ['--check', 'item7']
         code, res, _ = a.run(['terms', '--commit', x] + sel + list(extra), control=control)
         return x, code, res
+    # the clean baseline of the restored cases (OBL-20): the unmutated tree, the same command and flags
+    run({})
+    clean = REC.name_last('baseline') if REC is not None else None
+
+    def wb_check(cid, *args):
+        # the restored case of every WB row: the same run on the unmutated tree, compared with the clean baseline
+        run({})
+        if REC is not None:
+            REC.name_last('restored', baseline=clean)
+        return check(cid, *args)
     _, code, res = run({})
     l_full = line_of(full, s)
     wb1 = {'ch19': hit_state(res, CH19, ln), 'full': hit_state(res, FULL, l_full),
            'items': items_at(res, CH19, ln) + items_at(res, FULL, l_full)}
-    check('WB1', 'the W1-c sentence at T1\' in ch19:198 and FULL:5270, with negative_allowance {finit: 1}: PASS, both '
+    wb_check('WB1', 'the W1-c sentence at T1\' in ch19:198 and FULL:5270, with negative_allowance {finit: 1}: PASS, both '
           'lines', "both hits PASS and no item on either line", wb1,
           wb1['ch19'] == ['PASS'] and wb1['full'] == ['PASS'] and not wb1['items'])
     _, code, res = run({CH19: text.replace(s, s.replace('the notion of', 'the finite notion of', 1))})
-    check('WB2', 'one more word containing finit in the fingerprinted sentence: FAIL rule-negative-match',
+    wb_check('WB2', 'one more word containing finit in the fingerprinted sentence: FAIL rule-negative-match',
           "the line has rule-negative-match", items_at(res, CH19, ln), 'rule-negative-match' in items_at(res, CH19, ln))
     t3 = text.rstrip('\n') + '\n\n' + s + '\n'
     _, code, res = run({CH19: t3})
     end = len(t3.rstrip('\n').split('\n'))
-    check('WB3', 'the fingerprinted sentence copied unchanged to another paragraph of a file in W1-c\'s scope: FAIL '
+    wb_check('WB3', 'the fingerprinted sentence copied unchanged to another paragraph of a file in W1-c\'s scope: FAIL '
           'rule-negative-match at the copy; the original still PASS', "copy line rule-negative-match; original line "
           "no item", {'copy': items_at(res, CH19, end), 'original': items_at(res, CH19, ln)},
           'rule-negative-match' in items_at(res, CH19, end) and not items_at(res, CH19, ln))
@@ -124,7 +134,7 @@ def wb_controls(a):
     ot = a.repo.read(T, other).decode().rstrip('\n') + '\n\n' + s + '\n'
     _, code, res = run({other: ot})
     end4 = len(ot.rstrip('\n').split('\n'))
-    check('WB4', 'the fingerprinted sentence copied to a file outside every W1 rule\'s scope: REVIEW_REQUIRED '
+    wb_check('WB4', 'the fingerprinted sentence copied to a file outside every W1 rule\'s scope: REVIEW_REQUIRED '
           'unclassified', "the copy's line has unclassified and no FAIL class", {'file': other,
                                                                                  'items': items_at(res, other, end4)},
           items_at(res, other, end4) == ['unclassified'])
@@ -132,27 +142,27 @@ def wb_controls(a):
     _, code, res = run({CH19: t5})
     end5 = len(t5.rstrip('\n').split('\n'))
     stale = [i for i in res.get('items', []) if i['class'] == 'rule-stale' and i.get('rule_id') == 'W1-c']
-    check('WB5', 'the fingerprinted sentence moved to another paragraph of the same file: FAIL rule-negative-match at the '
+    wb_check('WB5', 'the fingerprinted sentence moved to another paragraph of the same file: FAIL rule-negative-match at the '
           'new location; REVIEW_REQUIRED rule-stale for the fingerprint', "new line rule-negative-match and a W1-c "
           "rule-stale item", {'new': items_at(res, CH19, end5), 'stale': len(stale)},
           'rule-negative-match' in items_at(res, CH19, end5) and len(stale) >= 1)
     _, code, res = run({CH19: text.replace(s, s.replace('periodic', 'cyclic', 1))})
-    check('WB6', 'a near-copy at the fingerprinted location, one other word changed, one finit word kept: FAIL '
+    wb_check('WB6', 'a near-copy at the fingerprinted location, one other word changed, one finit word kept: FAIL '
           'rule-negative-match', "the line has rule-negative-match", items_at(res, CH19, ln),
           'rule-negative-match' in items_at(res, CH19, ln))
     _, code, res = run({CH19: text.replace(s, s.replace('a finite periodic', 'a periodic', 1))})
-    check('WB7', 'the fingerprinted sentence with its one finit word removed: REVIEW_REQUIRED rule-fingerprint-mismatch',
+    wb_check('WB7', 'the fingerprinted sentence with its one finit word removed: REVIEW_REQUIRED rule-fingerprint-mismatch',
           "the line has rule-fingerprint-mismatch and no FAIL class", items_at(res, CH19, ln),
           items_at(res, CH19, ln) == ['rule-fingerprint-mismatch'])
     _, code, res = run({CH19: '\n' * 40 + text})
-    check('WB8', 'the fingerprinted sentence and its neighbours shifted by 40 lines: PASS', "no item on the shifted line "
+    wb_check('WB8', 'the fingerprinted sentence and its neighbours shifted by 40 lines: PASS', "no item on the shifted line "
           "and its hit PASS", {'items': items_at(res, CH19, ln + 40), 'hit': hit_state(res, CH19, ln + 40)},
           not items_at(res, CH19, ln + 40) and hit_state(res, CH19, ln + 40) == ['PASS'])
     trio = '%s %s %s' % (prev, s, nxt)
     f9 = full.rstrip('\n') + '\n\n' + trio + '\n'
     _, code, res = run({FULL: f9})
     end9 = len(f9.rstrip('\n').split('\n'))
-    check('WB9', 'two sentences matching one fingerprint in one file, so that one allowance is claimed twice: the '
+    wb_check('WB9', 'two sentences matching one fingerprint in one file, so that one allowance is claimed twice: the '
           'claim at the larger byte offset gets no allowance (FAIL rule-negative-match)', "the later copy has "
           "rule-negative-match; the fingerprinted line has none", {'later': items_at(res, FULL, end9),
                                                                'fingerprinted': items_at(res, FULL, l_full)},
@@ -177,7 +187,7 @@ def wb_controls(a):
             for f in r['fingerprints']:
                 f['negative_allowance'] = dict(al)
         wb10[name] = with_w1c(m)
-    check('WB10', 'lint: a W1-c allowance of 2, of 0, or naming axiom: FAIL record-invalid', "each mutant gives exit "
+    wb_check('WB10', 'lint: a W1-c allowance of 2, of 0, or naming axiom: FAIL record-invalid', "each mutant gives exit "
           "20 with record-invalid for the rule file", wb10,
           all(v[0] == 20 and v[1] == ['record-invalid'] for v in wb10.values()))
 
@@ -185,7 +195,7 @@ def wb_controls(a):
         for f in r['fingerprints']:
             f.pop('negative_allowance', None)
     wb11 = with_w1c(drop)
-    check('WB11', 'lint: a rule whose fingerprinted sentence fails its own rule (W1-c with no allowance): FAIL '
+    wb_check('WB11', 'lint: a rule whose fingerprinted sentence fails its own rule (W1-c with no allowance): FAIL '
           'record-invalid', "exit 20 with record-invalid for the rule file", wb11,
           wb11[0] == 20 and wb11[1] == ['record-invalid'])
     # WB12 is V7a (sec. 10.2: V2 with DR-3 removed from the profile set) on the W1-c sentence: item 7's profile set
@@ -196,7 +206,7 @@ def wb_controls(a):
     _, code, res = run({CH19: text.replace(s, s12)}, profile=','.join(v7a))
     its = [(i['class'], str(i.get('rule_id'))) for i in res.get('items', [])
            if i.get('file') == CH19 and i.get('line') == ln]
-    check('WB12', 'V7a on the W1-c sentence (", one of which is total finiteness,"): FAIL rule-negative-match',
+    wb_check('WB12', 'V7a on the W1-c sentence (", one of which is total finiteness,"): FAIL rule-negative-match',
           "profile set = item7 less DR-3 (%s); exit 20; the line has rule-negative-match of W1-c and no deny-match"
           % ','.join(v7a), {'exit': code, 'items': its},
           code == 20 and ('rule-negative-match', 'W1-c') in its and not [x for x in its if x[0] == 'deny-match'])
@@ -205,7 +215,7 @@ def wb_controls(a):
     t13 = '\n'.join(lines[:ln - 1] + lines[ln:]).rstrip('\n') + '\n\n' + para + '\n'
     _, code, res = run({CH19: t13})
     end13 = len(t13.rstrip('\n').split('\n'))
-    check('WB13', 'the fingerprinted sentence moved with both of its neighbours to another section of the same file: PASS',
+    wb_check('WB13', 'the fingerprinted sentence moved with both of its neighbours to another section of the same file: PASS',
           "the moved line has no item and its hit PASS; no W1-c rule-stale",
           {'items': items_at(res, CH19, end13), 'hit': hit_state(res, CH19, end13),
            'stale': [i['subject'] for i in res.get('items', []) if i['class'] == 'rule-stale']},
@@ -217,12 +227,12 @@ def wb_controls(a):
     for _ in range(2):
         _, code, res = run({CH19: t14})
         runs.append({'fingerprinted': items_at(res, CH19, ln), 'later': items_at(res, CH19, end14)})
-    check('WB14', 'the fingerprinted sentence with both neighbours duplicated in the same file: the copy at the smaller '
+    wb_check('WB14', 'the fingerprinted sentence with both neighbours duplicated in the same file: the copy at the smaller '
           'byte offset PASSes, the later copy FAILs rule-negative-match, on every run',
           "in two runs: fingerprinted line no item, later copy rule-negative-match, identical", runs,
           runs[0] == runs[1] and not runs[0]['fingerprinted'] and 'rule-negative-match' in runs[0]['later'])
     _, code, res = run({CH19: text.replace(s, s.replace('the notion of', 'the Finiteness notion of', 1))})
-    check('WB15', '"Finiteness" (capitalized) added to a W1 sentence at its fingerprinted location: FAIL '
+    wb_check('WB15', '"Finiteness" (capitalized) added to a W1 sentence at its fingerprinted location: FAIL '
           'rule-negative-match (case-insensitive negatives)', "the line has rule-negative-match",
           items_at(res, CH19, ln), 'rule-negative-match' in items_at(res, CH19, ln))
 
@@ -444,6 +454,14 @@ def n_controls(a):
     repo, path, rec = rcn.repo, rcn.path, rcn.rec
     comp = repo.read(M, path)
     e = rcn.run(rec)
+    clean = getattr(e, 'captured', None)
+
+    def restored():
+        """The restored case (OBL-20): the same evaluation with the valid record on the unmutated M, X and
+        classes, compared with the clean run."""
+        rcn.run(rec)
+        if REC is not None:
+            REC.name_last('restored', baseline=clean)
     base = [i for i in e.items if i.get('file') == path]
     # N3 with the full candidate comparison
     ex = cli.candidate_with_and_without(rcn.ctx, H, T, rcn.led, None, M, None, T, rcn.classes, [rec])
@@ -460,6 +478,7 @@ def n_controls(a):
     def named(cid, expected, cond, mut_rec=None, **kw):
         r = mut_rec(copy.deepcopy(rec)) if mut_rec else rec
         e_ = rcn.run(r, **kw)
+        restored()
         f = rcn.failed(e_)
         drift = [i for i in e_.items if i['class'] == 'base-drift' and i.get('file') == path]
         check(cid, expected, "the record does not apply: base-drift for AGENTS.md, and the failed conditions include "
@@ -489,6 +508,7 @@ def n_controls(a):
     H12 = repo.derive(H, {path: repo.read(H, path) + b'\n' + old + b'\n'}, parents=repo.parents(H),
                       subject='old bytes twice at H (synthetic copy)')
     e12 = exmod.Execution(rcn.ctx, H12, T, rcn.led, None, M, None, T, rcn.classes, [rec])
+    restored()
     ev12 = rc.evaluate(repo, rcn.ctx, H12, M, T, rcn.led, rec, rec['paths'][0], rcn.classes, {})
     check('N12', 'the record\'s RC3: D296\'s old bytes made to occur twice at H in a synthetic copy: does not apply, '
           'naming RC3', "the evaluated failed conditions include RC3", ev12['failed'], 'RC3' in ev12['failed'])
@@ -503,12 +523,16 @@ def n_controls(a):
     M16 = repo.derive(M, {other: repo.read(M, other) + b'\n'}, parents=[M], subject='another ledgered file')
     e16 = named('N16', 'another ledgered file changed on M: does not apply, naming RC10; that file is base-drift',
                 'RC10', m=M16)
+    exec_doc(e16, 'execution main role, N16 (the other ledgered file)')
+    restored()
     check('N16-file', 'the other ledgered file is base-drift', "base-drift for that file",
           other, any(i['class'] == 'base-drift' and i.get('file') == other for i in e16.items))
     M17 = repo.derive(M, {'x/unclassified.txt': b'x\n'}, parents=[M], subject='unclassified path')
     named('N17', 'a changed path on M not covered by a pinned class: does not apply, naming RC11', 'RC11', m=M17)
     e18 = named('N18', 'the record\'s changes_decisions_on_X non-empty: does not apply, naming RC12; the record is '
                 'record-invalid', 'RC12', lambda r: dict(r, changes_decisions_on_X=['a decision']))
+    exec_doc(e18, 'execution main role, N18 (the record)')
+    restored()
     check('N18-record', 'the record is record-invalid', "a record-invalid item", [i['class'] for i in e18.items],
           'record-invalid' in [i['class'] for i in e18.items])
     # N10 and N11: the S6 probe, pinned
@@ -565,6 +589,7 @@ def n_controls(a):
     # R18, R19
     bad = [dict(rcn.classes[0], pins=[dict(rcn.classes[0]['pins'][0], blob_sha256='0' * 64)]), rcn.classes[1]]
     e18c = rcn.run(rec, classes=bad)
+    restored()
     check('R18', 'a classified side-change path whose blob at M differs from its class pin: REVIEW_REQUIRED '
           'side-change-unclassified', "side-change-unclassified for the workflow path",
           [i['class'] for i in e18c.items], any(i['class'] == 'side-change-unclassified' and

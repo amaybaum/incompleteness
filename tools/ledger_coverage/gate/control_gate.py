@@ -642,6 +642,12 @@ def eval_invariant(k, v, result, case, attested, bindings):
             miss = [w for w in v if not any(all(_field(i, kk) == _bind(vv, bindings) for kk, vv in w.items())
                                             for i in items)]
             return not miss, {'missing': miss}, 'result'
+        if k == 'failed_conditions_include' and isinstance(result.get('side_changes'), list):
+            # the record conditions each side change's evaluation failed (RC1-RC13), read from the result
+            a = sorted({str(x) for sc in result['side_changes'] if isinstance(sc, dict)
+                        for ev in sc.get('record_conditions') or [] if isinstance(ev, dict)
+                        for x in ev.get('failed') or []})
+            return v in a, a, 'result'
         if k == 'tool_run_exit':
             return case.get('_exit') == v, case.get('_exit'), 'exit file'
         if k == 'stderr_json_outcome':

@@ -65,6 +65,7 @@ class World:
 
     def __init__(self, text=base_text, sites=None, extra=None, mapping=None):
         self.repo = Overlay(None)
+        self.text = text
         files = {doc_path: text.encode()}
         files.update(extra or {})
         self.pin = self.repo.add_commit(files, [], 'pin')
@@ -101,6 +102,18 @@ class World:
         _stage('coverage', items, sites=[dict(site_id=k, state=(v.get('statuses') or [{}])[-1].get('status'))
                                          for k, v in sorted(cv.site_out.items())])
         return cv, items
+
+
+def _restore(w, hits=True):
+    """The restored case of an unledgered mutation (OBL-20), captured only by a control runner: the same coverage
+    run over an identity segment from the pin to the unmutated tree, compared with the clean run on the pin."""
+    if CAPTURE is None:
+        return
+    w.coverage(w.pin, [], hits=hits)
+    _case('baseline')
+    r = w.child(w.pin, w.text, subject='restored')
+    w.coverage(r, [seg(w.pin, r)], hits=hits)
+    _case('restored', baseline='baseline')
 
 
 def seg(f, t, kind='unledgered', **kw):
@@ -147,6 +160,7 @@ def u_controls():
     out['U1'] = decision(it) == oc.pass_ and all(not s['statuses'] for s in cv.site_out.values())
     x = w.child(w.pin, 'new one\nnew two\nnew three\n' + base_text)
     cv, it = w.coverage(x, [seg(w.pin, x)])
+    _restore(w)
     out['U2'] = decision(it) == oc.pass_ and all(s['statuses'][-1]['status'] == 'moved' for s in cv.site_out.values())
     led = ledger(w.pin, [(doc_path, 0, 0, 'new one\nnew two\nnew three\n')], w.repo)
     x = w.child(w.pin, 'new one\nnew two\nnew three\n' + base_text)
@@ -154,24 +168,30 @@ def u_controls():
     out['U3'] = decision(it) == oc.pass_ and all(s['statuses'][-1]['status'] == 'moved' for s in cv.site_out.values())
     x = w.child(w.pin, base_text.replace('beta line two', 'beta line deux'))
     cv, it = w.coverage(x, [seg(w.pin, x)])
+    _restore(w)
     out['U4'] = classes(it) == ['unauthorized-change']
     x = w.child(w.pin, base_text + '\nbeta line two stands here.\n')
     cv, it = w.coverage(x, [seg(w.pin, x)])
+    _restore(w)
     out['U5'] = classes(it) == ['duplicated']
     dup = '# h\n\nfirst ctx\nsame line here\nend one\n\nsecond ctx\nsame line here\nend two\n'
     w6 = World(dup, sites=[(4, 'sr'), (8, 'sr')])
     x = w6.child(w6.pin, 'top\n' + dup)
     cv, it = w6.coverage(x, [seg(w6.pin, x)], hits=False)
+    _restore(w6, hits=False)
     out['U6'] = decision(it) == oc.pass_
     swapped = '# h\n\nsecond ctx\nsame line here\nend two\n\nfirst ctx\nsame line here\nend one\n'
     x = w6.child(w6.pin, swapped)
     cv, it = w6.coverage(x, [seg(w6.pin, x)], hits=False)
+    _restore(w6, hits=False)
     out['U7'] = 'ambiguous' in classes(it)
     x = w.child(w.pin, base_text.replace('beta line two stands here.\n', ''))
     cv, it = w.coverage(x, [seg(w.pin, x)])
+    _restore(w)
     out['U8'] = classes(it) == ['missing']
     x = w.child(w.pin, base_text.replace('beta line two', 'beta  line two'))
     cv, it = w.coverage(x, [seg(w.pin, x)])
+    _restore(w)
     out['U9'] = classes(it) == ['unauthorized-change'] and it[0]['detail'].get('whitespace_only') is True
     a = off(base_text, 'beta line two')
     led = ledger(w.pin, [(doc_path, a, a + len('beta line two'), 'beta line second')], w.repo)
@@ -187,6 +207,7 @@ def u_controls():
                                                   for s in cv.site_out.values())
     x = w.child(w.pin, base_text + '\nzeta appears on a new line.\n')
     cv, it = w.coverage(x, [seg(w.pin, x)])
+    _restore(w)
     out['U12'] = decision(it) == oc.review and classes(it) == ['unclassified']
     # U13 is retired with the `read` route (DESIGN-r6.md sec. 33); U15 is U14's wrong-region-hash case
     u14, u15 = hp_adjudication_pair()
@@ -296,6 +317,7 @@ def k_controls():
     cv, it = w.coverage(x, [seg(w.pin, x)], hits=False)
     sd = '%s:3@%s' % (doc_path, w.pin[:8])
     sr = '%s:7@%s' % (doc_path, w.pin[:8])
+    _restore(w, hits=False)
     out['K1'] = [i['class'] for i in it if i['subject'] == sd] == ['context-meaning-unverified']
     # K10: the positive direction of K1, with a matching context adjudication (sec. 4.1 row 2)
     sg0 = cv.segments[0]
@@ -321,11 +343,13 @@ def k_controls():
     w5 = World(at, sites=[(4, 'sr')])
     x = w5.child(w5.pin, at.replace('lead sentence here.', 'lead sentence changed.'))
     cv, it = w5.coverage(x, [seg(w5.pin, x)], hits=False)
+    _restore(w5, hits=False)
     out['K5'] = classes(it) == ['context-meaning-unverified']
     lt = '# h\n\nlead-in sentence:\n\n- item one here\n- item two here\n\ntrailer paragraph.\n'
     w6 = World(lt, sites=[(5, 'sr')])
     x = w6.child(w6.pin, lt.replace('lead-in sentence:', 'lead-in changed:'))
     cv, it = w6.coverage(x, [seg(w6.pin, x)], hits=False)
+    _restore(w6, hits=False)
     out['K6'] = classes(it) == ['context-structure-changed'] and decision(it) == oc.review
     tt = '# h\n\n| head a | head b |\n|---|---|\n| row one | v |\n| row two | v |\n\nafter.\n'
     w7 = World(tt, sites=[(6, 'sr')])
@@ -337,6 +361,7 @@ def k_controls():
     out['K7'] = k7a and classes(it) == ['context-structure-changed']
     x = w6.child(w6.pin, lt.replace('trailer paragraph.', 'trailer changed.'))
     cv, it = w6.coverage(x, [seg(w6.pin, x)], hits=False)
+    _restore(w6, hits=False)
     out['K8'] = classes(it) == ['context-structure-changed']
     w9 = World()
     w9.sitemap['sites'][0]['quote'] = 'alpha line one'
