@@ -170,6 +170,7 @@ def postf_controls(r, check):
           'base-drift' not in pos['classes'] and code0 == 20 and 'base-drift' in neg['classes'],
           cases=[(POSTF1_POS, {'record': path}), (POSTF1_NEG, {})], attested={POSTF1_POS: att})
     out['restored'] = (REV, path)
+    rb_p1_control(r, check)
 
     def restored():
         """The POSTF-1 input, run again, as the restored case of POSTF-2 to POSTF-5."""
@@ -625,6 +626,30 @@ def rb_world(r):
     loaded = cfgmod.load(w.repo, w.c, w.p, None, 'execution', 'harness')
     w.ctx = pl.RunContext(w.repo, loaded.config, loaded.profiles, [], {}, None)
     return w
+
+
+def rb_p1_control(r, check):
+    """R6.RECON.2 (c): the default record base is the run's M."""
+    positive_case = ("a record commit whose single parent is the run's M and which adds the record and its review "
+                     'record in one reconciliation directory (positive; the same input as POSTF-1)')
+    negative_case = ("countercase: without --record-base, a record commit whose parent lies below the run's M across "
+                     'only permitted tool-landing additions (pinned paths with matching blobs); the route of '
+                     '--record-base M0 would admit such a base, the default route, whose base is M, does not')
+    w = World(r)
+    rev, path, _ = w.standard()
+    pos_code, pos = w.run(['%s:%s' % (rev, path)])
+
+    predicted = rb_world(r)
+    older_rev, older_path, _ = predicted.standard(parent=predicted.M0)
+    neg_code, neg = predicted.run(['%s:%s' % (older_rev, older_path)], harness=True)
+
+    check('RB-P1', 'the default record base is M',
+          'the record on M is admitted without record-invalid, and the record below M is refused with exit 20',
+          {'cases': {positive_case: {'exit': pos_code, 'classes': classes(pos)},
+                     negative_case: {'exit': neg_code, 'classes': classes(neg)}}},
+          admitted(pos, path) and 'record-invalid' not in classes(pos) and
+          neg_code == 20 and invalid(neg, older_path),
+          cases=[(positive_case, {'record': path}), (negative_case, {'record': older_path})])
 
 
 def res_base(res):
