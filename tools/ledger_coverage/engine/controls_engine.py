@@ -817,8 +817,83 @@ def rule_controls():
     return out
 
 
+def route_controls():
+    """The record commit of the post-freeze route (recon_route.rev_problems, placement and the scanned set) on a
+    neutral in-memory repository, each countercase beside the admitted control input: only a record commit whose
+    single parent is the run's M, adding regular files in a reconciliation directory, is admitted."""
+    from . import recon_route as rr
+    from .. import record_authority as ra
+    out = _out()
+    repo = Overlay(None)
+    root = ra.reconciliation_root
+    plan = ra.authorized_record_directories[0] + '/'
+    tool_dir = root + 'neutral-tool/'
+    pin_path = 'tools/neutral/entry.py'
+    files = {'notes/a.md': b'ledgered text\n', 'corpus/b.md': b'corpus text\n', 'misc/readme.txt': b'readme\n',
+             pin_path: b'x = 1\n', plan + 'cfg.json': b'{}\n'}
+    m0 = repo.add_commit(files, [], 'm0')
+    landing = {pin_path: b'x = 2\n', tool_dir + 'note.md': b'tool note\n'}
+    mp = repo.derive(m0, landing, parents=[m0], subject='predicted main: m0 plus the tool landing')
+    cls_doc = {'classes': [{'id': ra.tool_landing_class_id, 'prefixes': [tool_dir],
+                            'pins': [{'path': pin_path, 'git_blob': repo.blob_id(mp, pin_path)}]}]}
+
+    def scope(M, harness=True, pinned=cls_doc, plan_dir=plan.rstrip('/')):
+        return rr.Scope(repo, m0, M, M, None, harness, pinned, plan_dir, ['notes/a.md'],
+                        lambda p: p.startswith('corpus/'), [])
+
+    rec_dir = root + 'neutral-recon/'
+
+    def rev(parent, extra=None, parents=None):
+        ch = {rec_dir + 'r.json': b'{"schema": "oi-reconciliation/1"}\n'}
+        ch.update(extra or {})
+        return repo.derive(parent, ch, parents=parents or [parent], subject='record commit')
+
+    def probs(r, sc):
+        return rr.rev_problems(repo, r, r, sc)
+    good = probs(rev(mp), scope(mp))
+    ok = good == []
+
+    def child(base, ch, subject):
+        return repo.derive(base, ch, parents=[base], subject=subject)
+    # C4 to C4e: a base below M across a ledgered, corpus or other change, a record added, or a merge
+    for cid, ch in (('ROUTE-C4', {'notes/a.md': b'changed on main\n'}), ('ROUTE-C4b', {'corpus/b.md': b'changed\n'}),
+                    ('ROUTE-C4c', {'misc/readme.txt': b'changed\n'}),
+                    ('ROUTE-C4d', {rec_dir + 'other.json': b'{"schema": "oi-reconciliation/1"}\n'})):
+        top = child(mp, ch, cid)
+        out[cid] = ok and probs(rev(mp), scope(top)) != [] and probs(rev(top), scope(top)) == []
+    side = repo.derive(m0, {'misc/side.txt': b'side\n'}, parents=[m0])
+    merged = repo.derive(mp, {'misc/side.txt': b'side\n'}, parents=[mp, side], subject='merge')
+    out['ROUTE-C4e'] = ok and probs(rev(mp), scope(merged)) != [] and probs(rev(merged), scope(merged)) == []
+    # C5, C5b: a tool-landing pin changed or deleted between the base and M
+    top = child(mp, {pin_path: b'arbitrary\n'}, 'pin changed')
+    out['ROUTE-C5'] = ok and probs(rev(mp), scope(top)) != [] and probs(rev(top), scope(top)) == []
+    top = repo.derive(mp, {pin_path: None}, parents=[mp], subject='pin deleted')
+    out['ROUTE-C5b'] = ok and probs(rev(mp), scope(top)) != [] and probs(rev(top), scope(top)) == []
+    # C7, C7b: a class record that the configuration does not pin, with prefixes over ledgered and corpus paths,
+    # neither widens the domain nor admits a base across those changes
+    extra = {'classes': [{'id': 'extra', 'prefixes': ['notes/', 'corpus/']}]}
+    top = child(mp, {'notes/a.md': b'changed on main\n'}, 'ledgered change')
+    sc7 = scope(top, pinned=cls_doc)
+    out['ROUTE-C7'] = ok and probs(rev(mp), sc7) != [] and \
+        rr.Scope(repo, m0, top, top, None, True, extra, plan, ['notes/a.md'], lambda p: p.startswith('corpus/'),
+                 []).prefixes == []
+    top = child(mp, {'corpus/b.md': b'changed\n'}, 'corpus change')
+    out['ROUTE-C7b'] = ok and probs(rev(mp), scope(top)) != [] and probs(rev(top), scope(top)) == []
+    # C8: a plan directory that is not an authorized record directory counts for nothing
+    top = child(mp, {'corpus/b.md': b'changed again\n'}, 'corpus change')
+    sc8 = scope(top, plan_dir='corpus')
+    out['ROUTE-C8'] = ok and sc8.plan_dir is None and probs(rev(mp), sc8) != []
+    # C10: chain mode, base m0 under the predicted main
+    out['ROUTE-C10'] = ok and probs(rev(m0), scope(mp, harness=False)) != [] and \
+        probs(rev(mp), scope(mp, harness=False)) == []
+    # C11: the record commit also changes a path its parent holds
+    out['ROUTE-C11'] = ok and probs(rev(mp, {'notes/a.md': b'edited by the record commit\n'}), scope(mp)) != []
+    out['ROUTE-P1'] = ok
+    return out
+
+
 groups = [('U', u_controls), ('M', m_controls), ('K', k_controls), ('B', b_controls), ('H', h_controls),
-          ('O', o_controls), ('R', r_controls), ('rules', rule_controls)]
+          ('O', o_controls), ('R', r_controls), ('rules', rule_controls), ('ROUTE', route_controls)]
 preflight_ids = ['U1', 'U4', 'U10', 'M1', 'K1', 'O9', 'O1']
 
 

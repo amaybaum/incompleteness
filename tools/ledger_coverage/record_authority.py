@@ -10,3 +10,7 @@ authorized_record_directories = ('verification/audits/foundations/a1exit-deletio
 # The root under which reconciliation directories lie (design r6 as amended, R6.RECON.1 and the post-freeze route of
 # R6.RECON.2): a repository placement fact (AGENTS.md sec. A.36), kept outside the engine for the same reason.
 reconciliation_root = 'verification/audits/'
+
+# The id of the side-change class that describes this tool's landing (design r6 R6.TREE.5): the domain the post-freeze
+# route keeps reconciliation records out of is that class of the side-change class record the configuration pins.
+tool_landing_class_id = 'tool-landing'

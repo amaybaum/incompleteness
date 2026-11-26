@@ -1007,10 +1007,13 @@ carries items of lines the row does not touch.
   evidence are listed in `REVIEW-INVENTORY-C29.md`.
 - The post-freeze route of R6.RECON.2 (a) to (g) is implemented in `engine/recon_route.py`; rule (e) is a separate
   step over the admitted records.
-- Record base of a predicted `M` (implementation reading, harness mode only, for the owner's independent review):
-  R6.RECON.21 names `M0`, "the pinned main commit it is built from", and gives the tool no input naming it. In the
-  control harness the tool accepts as the record base the run's `M` or a first-parent ancestor of `M` from which `M`
-  differs only at paths of the tool-landing domain (class prefixes and pins) or in the plan's record directory. In
-  chain mode the record base is the run's `M` only.
+- Record base of a predicted `M`: the record base is the run's `M` in every admission mode (the strict reading of
+  R6.RECON.2 (c)). An implementation reading that accepted first-parent ancestors of `M` in the control harness was
+  reviewed independently (PR #1577, verdict "NOT SUPPORTED, AMENDMENT NEEDED") and removed; the reviewer's proposed
+  amendment (an explicit `--record-base M0` input with its checks) is before the owner. On a predicted `M` the route
+  admits no record until that amendment is decided, and RT-L2 stays NOT RUN. The route's domain is the tool-landing
+  class of the configuration-pinned class record only, and the plan's record directory counts only when authorized;
+  self-test controls ROUTE-P1 and ROUTE-C4 to ROUTE-C11 exercise the record commit in both directions (they have no
+  expectation rows yet).
 - The synthetic configuration's line-patch adapter states each patched file's `expected_sha256` and its raw entries
   (owner approval of option 1 with its safeguards), so that a reconciliation record can bind to the synthetic ledger.

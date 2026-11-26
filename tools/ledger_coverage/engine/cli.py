@@ -1257,8 +1257,10 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
                 records.items.append(oc.make_item('RECORD', 'record-invalid', c[2], None,
                                                   {'sha': util.sha256(c[3]), 'why': 'no --main: nothing to reconcile'}))
         else:
+            pinned = (cfg['roles'].get('side_change_classes') or {}) if isinstance(cfg.get('roles'), dict) else {}
+            pinned_doc = loaded.store.get(pinned) if pinned.get('path') else None
             scope = recon_route.Scope(repo, H, M, X, resolve(repo, a.freeze) if a.freeze else None, records.harness,
-                                      class_docs, posixpath.dirname(split_ref(a.config)[1]), led['files'],
+                                      pinned_doc, posixpath.dirname(split_ref(a.config)[1]), led['files'],
                                       ctx.in_corpus, recon)
             got, listing, clash = recon_route.admit(repo, route_cands, scope, records.items)
             if clash:

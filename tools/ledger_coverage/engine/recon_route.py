@@ -28,17 +28,21 @@ regular_modes = ('100644', '100755')
 
 class Scope:
     """What the route needs to know about the run: the roles, the paths it must keep records away from, and the
-    records the configuration references."""
+    records the configuration references.
 
-    def __init__(self, repo, H, M, X, F, harness, class_docs, plan_dir, ledgered, in_corpus, config_recon):
+    The tool-landing domain is the class with the tool-landing id in the side-change class record the configuration
+    pins (`pinned_class_doc`); a class record named by --classify never contributes to it. The plan's record directory
+    counts only when it is an authorized record directory."""
+
+    def __init__(self, repo, H, M, X, F, harness, pinned_class_doc, plan_dir, ledgered, in_corpus, config_recon):
         self.repo = repo
         self.H, self.M, self.X, self.F = H, M, X, F
         self.harness = harness
-        self.prefixes = sorted({p for d in class_docs for c in (d.get('classes') or []) if isinstance(c, dict)
-                                for p in (c.get('prefixes') or []) if isinstance(p, str)})
-        self.class_pins = {p.get('path') for d in class_docs for c in (d.get('classes') or []) if isinstance(c, dict)
-                           for p in (c.get('pins') or []) if isinstance(p, dict)}
-        self.plan_dir = plan_dir.rstrip('/') + '/' if plan_dir else None
+        cls = [c for c in ((pinned_class_doc or {}).get('classes') or [])
+               if isinstance(c, dict) and c.get('id') == record_authority.tool_landing_class_id]
+        self.prefixes = sorted({p for c in cls for p in (c.get('prefixes') or []) if isinstance(p, str)})
+        d = plan_dir.rstrip('/') if plan_dir else None
+        self.plan_dir = d + '/' if d and d in record_authority.authorized_record_directories else None
         self.ledgered = set(ledgered)
         self.in_corpus = in_corpus
         self.config_recon = list(config_recon)
@@ -48,35 +52,17 @@ class Scope:
         if not path.startswith(audits_root):
             return 'not under %s' % audits_root
         if any(path.startswith(p) for p in self.prefixes):
-            return 'under a prefix of a side-change class (the tool-landing domain)'
+            return 'under a prefix of the tool-landing class'
         if self.plan_dir and path.startswith(self.plan_dir):
             return "inside the plan's record directory"
         if path in self.ledgered or self.in_corpus(path):
             return 'a ledgered or corpus path'
         return None
 
-    # R6.RECON.21: the record base of a predicted M
     def record_bases(self):
-        """The run's M; in the control harness also the main commit a predicted M is built from: a first-parent
-        ancestor of M from which M differs only at paths of the tool-landing domain (class prefixes and pins) or
-        in the plan's record directory."""
-        out = [self.M]
-        if not self.harness:
-            return out
-        cur = self.M
-        while True:
-            ps = self.repo.parents(cur)
-            if len(ps) != 1:
-                return out
-            parent = ps[0]
-            if not all(self.landing_path(p) for p in changed_paths(self.repo, parent, cur)):
-                return out
-            out.append(parent)
-            cur = parent
-
-    def landing_path(self, path):
-        return any(path.startswith(p) for p in self.prefixes) or path in self.class_pins or \
-            bool(self.plan_dir and path.startswith(self.plan_dir))
+        """The record base: the run's M, in every admission mode. The record base of a predicted M (the main commit
+        M0 it is built from) needs an input the adopted design does not give; it awaits a design amendment."""
+        return [self.M]
 
 
 def changed_paths(repo, a, b):
@@ -128,10 +114,12 @@ def path_problems(repo, doc, scope):
     paths = [e.get('path') for e in (doc.get('paths') or []) if isinstance(e, dict)]
     if not paths:
         return ['the record covers no path']
-    if scope.F is None:
+    if scope.harness:
         # the control harness (R6.RECON.21): every covered path is a drifted path of the run
         bad = [p for p in paths if p not in scope.ledgered or repo.blob_id(scope.H, p) == repo.blob_id(scope.M, p)]
         return ['%s is not a drifted path of the run' % bad[0]] if bad else []
+    if scope.F is None:
+        return ['no freeze F: the route needs F outside the control harness']
     changed = set()
     cur = scope.M
     while cur and not repo.is_ancestor(cur, scope.F):
