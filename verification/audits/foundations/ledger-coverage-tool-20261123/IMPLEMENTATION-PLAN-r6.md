@@ -995,3 +995,22 @@ items in harness admission); S11-2a (deny-match on the mutant of E, as the runne
 carry `rule_id`, not `profile`); and the whole-result expectations on the real tree (WB1, WB2, WB6 to WB8, WB11 to
 WB13, WB15, V7a, V7c, V15, V21, V23, V24, V27, V27-glossary, L2, RT-D, RT-D-gr58, item11-T1p), where the result
 carries items of lines the row does not touch.
+
+## 16. Third stage: amendment 1 (WIP / UNVERIFIED)
+
+- RT-O9's earlier PASS in harness mode, with the B4 records supplied by `--classify` (reported at the second
+  checkpoint), is invalidated: harness mode then admitted unreviewed records without record lint (the C-29 omission).
+  Under C-29 those records are `record-invalid` until reviewed, and RT-O9 reports the paths they classified as
+  `side-change-unclassified`.
+- C-29 is implemented in full (rule files, configuration-pinned reconciliation and class records, `--classify`
+  records), as adopted (#1169 comments 7184387224 and 7185092393). The A1 rule files and records without review
+  evidence are listed in `REVIEW-INVENTORY-C29.md`.
+- The post-freeze route of R6.RECON.2 (a) to (g) is implemented in `engine/recon_route.py`; rule (e) is a separate
+  step over the admitted records.
+- Record base of a predicted `M` (implementation reading, harness mode only, for the owner's independent review):
+  R6.RECON.21 names `M0`, "the pinned main commit it is built from", and gives the tool no input naming it. In the
+  control harness the tool accepts as the record base the run's `M` or a first-parent ancestor of `M` from which `M`
+  differs only at paths of the tool-landing domain (class prefixes and pins) or in the plan's record directory. In
+  chain mode the record base is the run's `M` only.
+- The synthetic configuration's line-patch adapter states each patched file's `expected_sha256` and its raw entries
+  (owner approval of option 1 with its safeguards), so that a reconciliation record can bind to the synthetic ledger.
